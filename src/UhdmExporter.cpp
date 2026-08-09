@@ -4018,6 +4018,11 @@ UHDM::design* UhdmExporter::exportDesign() {
     // LAW S: a package SCALAR typedef is BARE at every variable-like binding.
     // Dead last — after every deferred typespec rebind above, so no later pass
     // can put a qualified object back.
+    // § modPkgTypedefTopTs15 — a module listing's package-typedef bindings name
+    // the ELABORATED package's typespecs.  Immediately BEFORE LAW S, so LAW S
+    // then makes its bare/re-qualified copies out of the top objects (their
+    // Typedef_alias targets follow automatically).
+    modPkgTypedefTopTs15();
     bareScalarTypedefVarTs();
     // § importCloneBareTdAlias16: inside a wildcard-import CLONE body the
     // alias target of that bare copy is bare too.  Right after LAW S, whose

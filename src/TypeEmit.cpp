@@ -5642,6 +5642,72 @@ void UhdmExporter::clearAnonClassTsInstance() {
     }
 }
 
+// § modPkgTypedefTopTs15 (r10earl15).  See the header for the law; this is the
+// whole implementation.  The def->top pairing goes through the AST TypeAlias
+// symbol the two package views share (typedefTs is the def-view registry,
+// pkgTopTypedefTs the elaborated one), and the owner test is a plain parent
+// walk: a binding that reaches a package or a class before it reaches a
+// module keeps the def object (r7's measurement, which was made inside a
+// package).
+static bool modOwnedTs15(const UHDM::any* o) {
+    for (int i = 0; i < 16 && o; ++i) {
+        switch (o->UhdmType()) {
+            case UHDM::uhdmmodule_inst:
+            case UHDM::uhdminterface_inst:
+            case UHDM::uhdmprogram:
+                return true;
+            case UHDM::uhdmpackage:
+            case UHDM::uhdmclass_defn:
+                return false;
+            default:
+                break;
+        }
+        o = o->VpiParent();
+    }
+    return false;
+}
+
+void UhdmExporter::modPkgTypedefTopTs15() {
+    if (pkgTopTypedefTs.empty() || typedefTs.empty())
+        return;
+    std::map<const UHDM::typespec*, UHDM::typespec*> d2t15;
+    for (auto& [sym15, dts15] : typedefTs) {
+        if (!dts15)
+            continue;
+        auto it15 = pkgTopTypedefTs.find((const void*)sym15);
+        if (it15 != pkgTopTypedefTs.end() && it15->second &&
+            it15->second != dts15 &&
+            it15->second->UhdmType() == dts15->UhdmType())
+            d2t15[dts15] = it15->second;
+    }
+    if (d2t15.empty())
+        return;
+    for (auto& kv15 : s.AllObjects()) {
+        auto* rt15 = dynamic_cast<UHDM::ref_typespec*>((UHDM::any*)kv15.first);
+        if (!rt15)
+            continue;
+        auto* at15 = rt15->Actual_typespec();
+        if (!at15)
+            continue;
+        auto d15 = d2t15.find(at15);
+        if (d15 == d2t15.end() || !modOwnedTs15(rt15))
+            continue;
+        rt15->Actual_typespec(d15->second);
+    }
+}
+
+// MEASURED ZERO (r10earl15, built and gated, reverted): extending the pass
+// above with a DESCENT from every listing's ports / nets / variables /
+// parameters into each wrapper typespec's Elem_typespec — the refs the parent
+// walk provably cannot reach, because a port's array/packed_array wrapper is
+// UNPARENTED (work@hmac's `alert_rx_i` wrapper sits at :0:0 and its element is
+// `prim_alert_pkg::alert_rx_t`, still def-instanced on our side).  The descent
+// ran and changed NOTHING, which is a measurement about the MAP, not the
+// traversal: `prim_alert_pkg::alert_rx_t` has no pkgTopTypedefTs entry keyed by
+// the TypeAlias symbol typedefTs used, so d2t15 never contains it.  Pass 16
+// starts by asking why the two registries disagree for a STRUCT typedef, not
+// by re-walking the tree.
+
 void UhdmExporter::bareScalarTypedefVarTs() {
     // The rebind targets ONLY registered package-typedef listing objects: a
     // class-nested typedef also prints a `C::t` name, and no golden says it
@@ -5699,12 +5765,60 @@ void UhdmExporter::bareScalarTypedefVarTs() {
     pkgScalarTd16 = pkgScalarTd;
     if (pkgScalarTd.empty())
         return;
+    // § modScalarTdTopInstance (r10earl15) — WHICH package copy a bare LAW-S
+    // typespec names.  bareScalarTdCopyOfFresh16 copies vpiInstance verbatim
+    // from the listing object it is made of, so a DEF-view binding lands on
+    // the DEFINITION package (r7 measured that inside a PACKAGE).  Inside a
+    // MODULE listing golden goes the other way: work@hmac's `sha_word_t`
+    // bindings — the InitHash/CubicRootPrime array ELEMENT typespec and every
+    // `sha_word_t` net — all carry vpiInstance = the ELABORATED hmac_pkg,
+    // where ours carried the def one.  uhdm-cmp recurses Instance(), so the
+    // whole package is then compared in the wrong view and the head surfaces
+    // deep inside it (`AlertAsyncOn`'s range bound: a constant in the top copy
+    // where the def copy still holds the operation).  r10earl15b proves both
+    // databases' own def/top package copies differ IDENTICALLY, so this is a
+    // POINTER question, never a content one.
+    // Def listing object -> its TOP-view twin, keyed through the AST symbol
+    // the two views share.
+    std::map<const UHDM::typespec*, UHDM::typespec*> defTdToTop9;
+    for (auto& [sym9, dts9] : typedefTs) {
+        if (!dts9 || !pkgScalarTd.count(dts9))
+            continue;
+        auto tit9 = pkgTopTypedefTs.find((const void*)sym9);
+        if (tit9 != pkgTopTypedefTs.end() && tit9->second &&
+            tit9->second != dts9 && pkgScalarTd.count(tit9->second)) {
+            defTdToTop9[dts9] = tit9->second;
+        }
+    }
+    // Does this object live inside a MODULE/INTERFACE listing (either view) as
+    // opposed to a package one?  A package-owned binding keeps the def object
+    // r7 measured.
+    auto modOwned9 = [](const UHDM::any* o) {
+        for (int i = 0; i < 8 && o; ++i) {
+            switch (o->UhdmType()) {
+                case UHDM::uhdmmodule_inst:
+                case UHDM::uhdminterface_inst:
+                case UHDM::uhdmprogram:
+                    return true;
+                case UHDM::uhdmpackage:
+                case UHDM::uhdmclass_defn:
+                    return false;
+                default:
+                    break;
+            }
+            o = o->VpiParent();
+        }
+        return false;
+    };
     auto rebind = [&](UHDM::ref_typespec* rt, bool withAlias) {
         if (!rt)
             return;
         auto* at = rt->Actual_typespec();
         if (!at || !pkgScalarTd.count(at))
             return;
+        if (modOwned9(rt))
+            if (auto d9 = defTdToTop9.find(at); d9 != defTdToTop9.end())
+                at = d9->second;
         if (auto* cp = bareScalarTdCopyOf(at, withAlias))
             rt->Actual_typespec(cp);
     };
@@ -5768,6 +5882,45 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         else if (auto* n = dynamic_cast<UHDM::nets*>(o))
             netObjs.push_back(n);
     }
+    // § modScalarTdTopInstance, the ELEMENT-TYPESPEC half.  An unpacked-array
+    // parameter's element ref (§ unpackedElemVecTypedef, ParamEmit's
+    // makeUnpackedArrayParamTs) already holds LAW S's bare copy, minted there
+    // rather than here — so `rebind` above cannot see it (its Actual is the
+    // COPY, not a listing object).  Re-point the module-owned ones at the copy
+    // of the TOP listing object.  Witness: work@hmac's `InitHash` /
+    // `CubicRootPrime`, whose element `sha_word_t` is the ONLY object in the
+    // whole listing that differs from golden (r10earl15c prints the tree:
+    // every field identical, `inst=` top=1 vs top=0).
+    if (!defTdToTop9.empty()) {
+        std::map<const UHDM::typespec*, const UHDM::typespec*> copyToSrc9;
+        for (auto& [src9, cp9] : bareScalarTdCopy)
+            if (cp9)
+                copyToSrc9[cp9] = src9;
+        auto elemFix9 = [&](UHDM::ref_typespec* er9, const UHDM::any* owner9) {
+            if (!er9 || !owner9 || !modOwned9(owner9))
+                return;
+            auto* at9 = er9->Actual_typespec();
+            if (!at9)
+                return;
+            auto c9 = copyToSrc9.find(at9);
+            if (c9 == copyToSrc9.end())
+                return;
+            auto d9 = defTdToTop9.find(c9->second);
+            if (d9 == defTdToTop9.end())
+                return;
+            if (auto* nc9 = bareScalarTdCopyOf(d9->second, true))
+                er9->Actual_typespec(nc9);
+        };
+        for (auto& kv : s.AllObjects()) {
+            auto* o = (UHDM::any*)kv.first;
+            if (!o)
+                continue;
+            if (o->UhdmType() == UHDM::uhdmarray_typespec)
+                elemFix9(((UHDM::array_typespec*)o)->Elem_typespec(), o);
+            else if (o->UhdmType() == UHDM::uhdmpacked_array_typespec)
+                elemFix9(((UHDM::packed_array_typespec*)o)->Elem_typespec(), o);
+        }
+    }
     // The mirror half: a NET keeps the QUALIFIED name.  Our def-view module
     // net binds a per-declaration clone that already carries the right shape
     // (Typedef_alias -> the qualified listing object) but the BARE name — the
@@ -5799,6 +5952,19 @@ void UhdmExporter::bareScalarTypedefVarTs() {
             cp->VpiName(qn);
             if (auto* cal = cp->Typedef_alias()) {
                 cal->VpiFullName(qn);
+                // § modScalarTdTopInstance, the NET half.  The alias target is
+                // the LISTING object, and there are two of them: the def
+                // package's and the elaborated package's.  Inside a MODULE
+                // listing golden names the ELABORATED one — that alias is the
+                // LAST pointer into the def package from work@hmac's
+                // `sha_word_t` nets (r10earl15c: the net's own typespec is
+                // already top-instanced on both sides, only `ALIAS ->` splits
+                // top=1 from top=0).  A package-owned net keeps the def
+                // target r7 measured.
+                if (modOwned9(n))
+                    if (auto d9 = defTdToTop9.find(tgt);
+                        d9 != defTdToTop9.end())
+                        tgt = d9->second;
                 cal->Actual_typespec(tgt);
             }
             // Drop it from the BARE memo — it is no longer bare.
@@ -8597,6 +8763,32 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             rt9->VpiFullName(syntaxRefPrefix);
                         setLoc(c9, syn.sourceRange());
                         return c9;
+                    }
+            // § genCondComputedPkgParamFold (r10earl15) — the THIRD gen-
+            // condition arm, and the one the two above structurally cannot
+            // serve: a package parameter whose own initializer is an
+            // EXPRESSION rather than a literal.  § genCondImportFold9 keys on
+            // defModImportParam and § genCondBarePkgParamFold on
+            // pkgParamConst — the package's verbatim value CONSTANT — so
+            // `parameter int WM = DW / BW` matches neither and the reference
+            // survived where golden folds it.  The substituted object is
+            // exactly § pkgBoundValueConst9's: the value at the parameter's
+            // DECLARED width, INT/ct7 or UINT/ct9 per § defNetBoundPkgIntEnc
+            // (the init operator decides), ts ref -> the package parameter's
+            // own typespec, named after the module.  Witness we.sv row G1
+            // (`if (WM == 1)`, WM = DW/BW -> INT:2 ct7 sz32) against row G4
+            // (`if (LIT == 1)`, a literal init, which the arm above already
+            // served identically) and row G2 (a module-local localparam,
+            // the negative control that stays a ref_obj).  Corpus:
+            // flash_phy_rd.sv:181 `if (WidthMultiple == 1)`.
+            if (genCondImportFold9 && currentScope)
+                if (const ParameterSymbol* wo9 =
+                        wildcardPkgParamNamed9(currentScope, name))
+                    if (auto* c8 = pkgBoundValueConst9(*wo9, parent)) {
+                        if (auto* rt8 = c8->Typespec())
+                            rt8->VpiFullName(syntaxRefPrefix);
+                        setLoc(c8, syn.sourceRange());
+                        return c8;
                     }
             // § pkgTypeRangeParamActual — resolve a PACKAGE-homed TYPE range
             // bound (`logic [P-1:0] m;` in a packed-struct typedef,

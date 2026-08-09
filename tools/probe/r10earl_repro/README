@@ -1057,6 +1057,243 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
+LANDED — PASS 15 (r10earl15; FOUR laws in FOUR gate rounds, each round gated at
+goldens 23/23 + u2r testflags 0 change vs results/gate_uhdm2rtlil.csv + Surelog
+BOTH MODES 0 change vs results/golden_surelog.csv, incl. the dump column).
+Pass-15 copies of the harness: run15.sh dmp15.sh dd15.sh rp15.sh cen15.sh
+sweep15.sh slsweep15.sh gate15.sh gold15.sh cmprc15.sh hdiff15.sh vrk15.sh,
+plus NEW sldiff15.sh (the Surelog both-modes baseline diff as one command),
+sub15.sh / suball15.sh / d2t15.sh / pts15.sh / pins15.sh / tsdiff15.sh, and
+THREE new probes:
+
+  tools/probe/r10earl15a.cpp   EVERY typespec in a database with its
+        Instance() back-edge, bucketed (kind, name, file:line:col) ->
+        (instance kind/name/def, vpiTop) with an xN count.  UhdmListener never
+        follows a back-edge; the serializer's object table does.
+  tools/probe/r10earl15b.cpp   THE SUB-CENSUS.  r10earl4h names the FIRST
+        failing pair of a whole listing; this Compares one listing CHILD
+        VECTOR BY CHILD VECTOR (Parameters / Param_assigns / Typespecs /
+        Variables / Nets / Task_funcs / Ports / Cont_assigns / Process /
+        Ref_modules / Gen_scope_arrays / ...), index by index, each with a
+        FRESH CompareContext.  ONE head becomes a ranked list of owning
+        objects — this is the tool the last three passes were missing.
+        Mode `def2top` compares a database's OWN AllPackages entry against its
+        OWN TopPackages entry (pass the same file twice).
+  tools/probe/r10earl15c.cpp   The FULL TYPESPEC TREE behind one
+        parameter / net / variable / port of one listing, both sides, with
+        every node's Instance(), Typedef_alias and Elem_typespec.
+Witnesses: we.sv (NEW, the gen-condition law), wf.sv / wg.sv / wh.sv (NEW,
+all three MEASURED NEGATIVE — see below).  Earlgrey_0_1 stays CMP_NOTEQUAL
+(groundwork); census 35 -> 33 heads.  0 movers on either corpus.
+
+  wd.sv R4  § refModConnOpFoldTs (ExprEmit ~3697).  THE ANSWER TO PASS 14'S
+        MEASURED NEGATIVE, and it was the wrong QUESTION, not a bad gate: a
+        def-listing child instance's High_conn actual is emitted by
+        ModuleEmit's ref_module loop (~2634), which already sets the context
+        flag § defRefModConn around its emitExpr call and hands the PORT as
+        `parent` ONLY at the top level — an operation actual (`{PD{1'b1}}`)
+        descends with the OPERATION as parent, and that operation is minted
+        unparented until the loop stores it, so no parent walk can ever see
+        the port.  Gate on the FLAG.  wd.sv row R4 goes from `<null>` to
+        golden's ref_typespec(work@wdnp) -> the package int_typespec.  Corpus:
+        rstmgr.sv:139:21 `.rst_parent_ni({PowerDomains{1'b1}})` — head CLOSED,
+        35 -> 34.
+
+  we.sv  § genCondComputedPkgParamFold (TypeEmit ~8601).  A GENERATE CONDITION
+        had two package-parameter fold arms and both are keyed on an object
+        that a COMPUTED parameter does not have: § genCondImportFold9 on
+        defModImportParam (the materialized import copy) and
+        § genCondBarePkgParamFold on pkgParamConst (the package's verbatim
+        value CONSTANT, which only exists for a literal init).  `parameter int
+        WM = DW / BW` matches neither, so the reference survived.  The third
+        arm is § pkgBoundValueConst9 — the same object every def-view net
+        bound already substitutes, INT/ct7 or UINT/ct9 per
+        § defNetBoundPkgIntEnc.  we.sv rows, read in the DEF listing of
+        work@wenp:
+            G1 `if (WM == 1)`        WM = DW/BW  -> INT:2  ct7 sz32 + ts  HEAD
+            G4 `if (LIT == 1)`       literal init-> UINT:3 ct9 sz32 + ts  (the
+                                                    arm above already served
+                                                    this one identically)
+            G2 `if (ML == 1)`        module localparam — stays a ref_obj
+            G3 `if (wep::WM == 1)`   the QUALIFIED spelling — golden folds it
+                                     too, anchored at the `wep::` qualifier;
+                                     NOT implemented (no corpus head, and the
+                                     qualified arm is a separate object)
+            G5 `for (... i < WM)`    a gen-FOR bound: golden INT:2 ct7, ours
+                                     still UINT:2 ct9 — UNLISTED RESIDUE
+            G6 `assign f = WM + 8'h1` a def cont-assign fold of the same
+                                     parameter: golden INT:2 ct7, ours UINT:2
+                                     ct9 — UNLISTED RESIDUE, and the pair
+                                     G5/G6 says the INT encoding of a
+                                     COMPUTED-init imported parameter is
+                                     missing everywhere except the two arms
+                                     that go through pkgBoundValueConst9.
+        Corpus: flash_phy_rd.sv:181 `if (WidthMultiple == 1)` — head CLOSED
+        (not advanced), 34 -> 33.
+
+  corpus § modScalarTdTopInstance (TypeEmit, bareScalarTypedefVarTs).  WHICH
+        PACKAGE COPY a LAW-S typespec names.  bareScalarTdCopyOfFresh16 copies
+        vpiInstance verbatim from the listing object it is made of, and r7
+        measured "the copy stays in the SAME view as the object it replaces" —
+        INSIDE A PACKAGE.  Inside a MODULE listing golden goes the other way
+        and names the ELABORATED package at every position.  Three sites:
+          * `rebind` (variables / io_decls / struct members): when the owner
+            chain reaches a module_inst / interface_inst / program before it
+            reaches a package or a class, take the copy of the TOP listing
+            object.
+          * the array-parameter ELEMENT ref (§ unpackedElemVecTypedef mints it
+            in ParamEmit's makeUnpackedArrayParamTs, so the design-final
+            rebind cannot see it): same swap, done design-final.
+          * the NET half's re-qualified copy: its own fields were already
+            right — the LAST pointer into the def package was its
+            Typedef_alias TARGET.
+        0 heads, but 6 of work@hmac's failing children disappeared
+        (Parameters CubicRootPrime + InitHash, their two Param_assigns,
+        Nets reg_fifo_wdata + reg_fifo_wmask, Ref_modules u_packer).
+
+  corpus § modPkgTypedefTopTs15 (TypeEmit + UhdmExporter ~4021).  The general
+        form of the law above, for EVERY package typedef kind and every
+        binding site: a design-final pass that re-points any ref_typespec
+        owned by a module / interface / program listing from the DEFINITION
+        package's typedef listing object to the ELABORATED package's twin
+        (paired through the AST TypeAlias symbol typedefTs and pkgTopTypedefTs
+        share).  Runs immediately BEFORE LAW S so LAW S then makes its copies
+        out of the top objects.  1 head ADVANCED (rv_dm: the dm_pkg:29
+        constant-vs-operation pair is gone, the head is now the shared
+        dm_csrs:309 hier_path), and the sub-census collapses:
+        spi_device 11 failing children -> 2, prim_prince 5 -> 0, plus
+        reductions in dm_mem, rv_dm and sha2.  33 -> 33.
+
+THE DECODE THAT MATTERS — § pkgTypespecInstanceIsTop IS A POINTER QUESTION AND
+THE CLASS IS BIGGER THAN THE HEAD LIST SAID.  Pass 13 named the linking object
+and pass 14 built the probe that prints it, and both stalled because the head
+line only ever shows the END of the walk (`package 'dm' {top=1}` vs
+`{top=0}`, or `package 'top_pkg' {top=1}` vs `<null>`).  Three measurements
+settle it:
+
+  1. r10earl15b's `def2top` mode, run on the GOLDEN ALONE and then on OURS
+     ALONE, shows both databases' own AllPackages/TopPackages copies of
+     hmac_pkg differing IDENTICALLY (`AlertAsyncOn`'s logic_typespec range
+     bound: a folded constant in the top copy, the operation in the def one).
+     So nothing is wrong with either package copy — only with WHICH ONE a
+     module's typespec points at.
+  2. The 2 `constant dm_pkg.sv:29:43 {ct=9 sz=64 dec=2052}` vs operation heads
+     (dm_mem, rv_dm), ranked for four passes as a same-package localparam FOLD
+     bug, are NOT a fold bug: r10earl15b prints the parent chain
+     `^ param_assign ^ package 'dm' {top=1 uid=16} ^ design` against
+     `{top=0 uid=5892}`.  dm_mem contains NO import at all — every reference
+     is `dm::` — which is exactly why no fold rule ever fitted.  wf.sv, built
+     to reproduce the "package localparam reads a same-package localparam"
+     shape, came back with EVERY param_assign identical in all four listings
+     (only topModules SPANS differ, and paspan14 already proved spans are not
+     cmp-relevant): the witness is a MEASURED NEGATIVE and the head belongs to
+     this class.  The class is 8 heads, not 6.
+  3. r10earl15c names the objects.  work@hmac's `InitHash` differs from golden
+     in ONE field of ONE node — the array_typespec's ELEMENT
+     `logic_typespec 'sha_word_t'`, `inst=` top=1 vs top=0, every other field
+     byte-identical.  Its nets differ only in their typespec's Typedef_alias
+     TARGET.  Its port `alert_rx_i` differs only in the Instance of
+     `prim_alert_pkg::alert_rx_t` and of all four of its members.
+
+  wg.sv / wh.sv are the two MEASURED NEGATIVES from trying to reproduce this
+  in a witness: wh.sv (a three-package chain — module port of `whp::t_t`,
+  whose members are ranged by `whq::W` — the tlul_pkg/top_pkg shape hmac
+  reaches) and wg.sv (dm_mem's shape: NO import, qualified `wgp::` reads, a
+  package struct and enum as port/var types, a package function call) are
+  BOTH cmp-EQUAL on the typespec Instances.  Do not spend another pass on a
+  synthetic witness for this class; work the corpus with r10earl15b/15c.
+
+MEASURED ZERO — PASS 15 (built, gated, reverted; the note is in the code).
+Extending § modPkgTypedefTopTs15 with a DESCENT from every listing's ports /
+nets / variables / parameters into each wrapper typespec's Elem_typespec — the
+refs the parent walk provably cannot reach, because a port's array wrapper is
+UNPARENTED — changed NOTHING.  That is a measurement about the MAP, not the
+traversal: `prim_alert_pkg::alert_rx_t` has no pkgTopTypedefTs entry keyed by
+the TypeAlias symbol typedefTs used for it, so the def->top pairing never
+contains a STRUCT typedef at all.  PASS 16 STARTS THERE: ask why the two
+typedef registries disagree for the aggregate kinds.
+
+EARLGREY_0_1 HEAD CENSUS after pass 15 (r10earl4h; 20 + 8 + 5 + 0 = 33 heads,
+from 35 at entry):
+
+  AllModules  SIZE 190 vs 190,  20 heads   (was 22)
+  TopModules  SIZE  10 vs  10,   8 heads   (unchanged, TWELVE passes)
+  AllPackages SIZE  40 vs  40,   5 heads   (unchanged)
+  TopPackages SIZE  40 vs  40,   0 heads   (still CLOSED)
+
+READ THE COUNT HONESTLY.  35 -> 33 is two heads and 0 movers.  The real
+content of this pass is the SUB-CENSUS: r10earl15b turns each of the 33 heads
+into a list of owning children, and the eleven listings it was run on now
+carry 100 failing children where the same run at entry carried far more
+(spi_device 11 -> 2, prim_prince 5 -> 0, hmac 13 -> 7).  Those counts are the
+metric to drive next; the head line hides them.
+
+RANKED RESIDUE (measured after PASS 15 — next agent starts HERE).  AllModules
+unless stated.  Run `bash tools/probe/r10earl_repro/suball15.sh` FIRST: it
+prints the owning child of every head in this class in ~10 seconds.
+
+  (1) § pkgTypespecInstanceIsTop, still the largest class and now UNDERSTOOD
+      (see above).  The remaining half is the AGGREGATE typedefs: build the
+      def->top pairing for struct / enum / union listing objects.  The
+      blocking fact is measured and written in the code — pkgTopTypedefTs has
+      no entry for `prim_alert_pkg::alert_rx_t` under the symbol typedefTs
+      keys it by.  Owning children: hmac Ports[7]/[8] + Nets[62]/[78] +
+      Cont_assigns[43]; tlul_adapter_sram Typespecs[1] + 7 nets/CAs;
+      dm_mem Typespecs[0] `state_e` + 3 ports + 3 nets; tlul_adapter_host
+      4 ports + 2 nets + 2 CAs.
+  (2) usbdev — 13 children, ALL `r=25` on nets around usbdev.sv:234-240.
+      r=25 is a DIFFERENT return code from the whole class above (-32/1) and
+      nobody has looked at one yet.  Cheapest untouched block on the board.
+  (3) THE INT-ENCODING RESIDUE the we.sv witness exposed: rows G5 (gen-FOR
+      bound) and G6 (def cont-assign) fold a COMPUTED-init imported package
+      parameter to UINT/ct9 where golden writes INT/ct7.  Two witness rows
+      that DISAGREE, already built, no head yet — but § defNetBoundPkgIntEnc
+      is the encoding and pkgBoundValueConst9 the only place that applies it,
+      so the fix is "route these two folds through the same encoder".
+  (4) we.sv row G3 — the QUALIFIED gen-condition spelling (`wep::WM == 1`)
+      folds in golden (anchored at the `wep::` qualifier, like
+      § genCondQualPkgParamFold's constant) and stays a ref_obj for us.  One
+      arm next to § genCondQualPkgParamFold, witness ready.
+  (5) The wc.sv PACKAGE-scope taken-branch ternary (pass-14's verifier find,
+      still unlisted): law § impCondBranchFold is gated `!inPackage`, and
+      golden folds the package's OWN T5 listing constant INT ct7 @26:36 where
+      we keep UINT ct9 spanning 26:22-26:42.  Extend to package scope, gate
+      separately.
+  (6) 1 `enum_const 'PhyOps'` vs `<null>` (flash_phy_core) — unchanged:
+      flash_phy_pkg.sv:75 is the LAST member of a 5-member enum and we emit
+      four.  A vector SHORTFALL (r=1), i.e. an off-by-one in a clone loop.
+  (7) THE HIER_PATH NAME RESIDUES, 3 heads, unchanged (flash_ctrl:315
+      `region_cfgs[8]` vs `[MpRegions]`; dm_csrs:309 concat-index truncation,
+      which is now ALSO rv_dm's head; flash_phy:129 hier_path-vs-ref_obj).
+  (8) TopModules 8 — TWELVE PASSES UNMOVED.  sram2tlul / jtag_mux (the
+      inverted empty-constant pair) still have no witness.  NOTE: r10earl15b
+      accepts `top` as its vector argument — the sub-census has never been run
+      on them.
+  (9) AllPackages 5, all `<null>` on OUR side, unchanged.
+ (10) Singletons, unchanged: padring `named_begin 'gen_mio_input'` (+10
+      Ports r=12), prim_generic_pad_wrapper:40, prim_keccak:24, prim_present:61,
+      rv_core_ibex int-vs-logic_typespec, flash_mp:21:87, top_earlgrey
+      tl_main_pkg:13:59, tlul_adapter_host top_pkg:8 sz32/64.
+
+PASS-15 OPS NOTES
+  * BUILD THE SUB-CENSUS BEFORE THE WITNESS.  Three passes chased
+    § pkgTypespecInstanceIsTop with synthetic witnesses (vq/vi/wg/wh) and all
+    of them came back cmp-EQUAL, because the shape needs a three-package
+    chain plus two package views to appear at all.  r10earl15b found the
+    owning object in ONE run and r10earl15c named the single differing field
+    in the next.  When a head's parent chain ends in `^ design`, the chain is
+    telling you the walk arrived by a BACK-EDGE; stop reading the chain and
+    drill the listing.
+  * A CONTEXT FLAG BEATS A PARENT WALK.  Pass 14's port-connection negative
+    was a tree question asked of an emitter that never builds that tree.
+    `grep -n 'defRefModConn'` would have answered it in one command: the flag
+    was already there, set by the exact loop that emits the actual.
+  * THREE WITNESSES, THREE NEGATIVES, ONE LAW.  we.sv reproduced its head
+    immediately; wf.sv, wg.sv and wh.sv did not reproduce theirs at all — and
+    wf.sv's failure is what RE-CLASSIFIED the dm_pkg heads out of the fold
+    family.  A witness that comes back EQUAL is evidence about the class, not
+    a wasted run; all three are committed with their rows intact.
+
 LANDED — PASS 14 (r10earl14; FOUR laws in FOUR gate rounds, each round gated at
 goldens 23/23 + u2r testflags 0 change vs results/gate_uhdm2rtlil.csv + Surelog
 BOTH MODES 0 change vs results/golden_surelog.csv, incl. the dump column).

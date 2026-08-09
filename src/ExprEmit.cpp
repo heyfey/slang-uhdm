@@ -3719,6 +3719,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         caOpFold9 =
                             up9 && up9->UhdmType() == UHDM::uhdmcont_assign;
                     }
+                    // § refModConnOpFoldTs (r10earl15) — THE PORT-CONNECTION
+                    // HALF of § caOpFoldTs, and the answer to pass 14's
+                    // MEASURED NEGATIVE above.  The parent walk was the wrong
+                    // question: a def-listing child instance's High_conn
+                    // actual is emitted from ModuleEmit's ref_module loop,
+                    // which sets § defRefModConn around its emitExpr call and
+                    // hands the PORT as `parent` only at the top level — an
+                    // operation actual (`{PD{1'b1}}`) descends with the
+                    // OPERATION as parent and the port never appears above it
+                    // (the operation is minted unparented until the loop
+                    // stores it).  So gate on the CONTEXT FLAG, not the tree.
+                    // Witness wd.sv row R4
+                    // (`wdsub #(.W(PD)) u_sub (.par_ni({PD{1'b1}}))`), whose
+                    // golden ref_typespec(work@wdnp) -> the package int_typespec
+                    // is byte-identical to the R1/R6 cont-assign stamps.
+                    // Corpus: rstmgr.sv:139:21
+                    // `.rst_parent_ni({PowerDomains{1'b1}})`.
+                    bool rmConnOpFold9 =
+                        !inParamInit && !inProcessEmit && !currentTf &&
+                        !ndaRhsEmit && defRefModConn && parent &&
+                        parent->UhdmType() == UHDM::uhdmoperation;
                     if ((procOpFold9 || defParamInitOpFold9) && !typedPkgParam &&
                         psym.getType().getCanonicalType().isIntegral() &&
                         importedParamDefTs.count(&nv.symbol) &&
@@ -3735,7 +3756,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          parent->UhdmType() == UHDM::uhdmoperation) ||
                         procOpFold9 || tfOpFold9 || sysFuncArgFold ||
                         procSelFold9 || procPsFold9 || selFold9 || ndaOpFold9 ||
-                        ipsWidFold9 || caPsOpFold9 || caOpFold9)
+                        ipsWidFold9 || caPsOpFold9 || caOpFold9 ||
+                        rmConnOpFold9)
                         // Only a param MATERIALIZED into this module (read
                         // through an import, i.e. UNQUALIFIED) carries the ts
                         // ref; a QUALIFIED pkg::P read folds bare (the def ts

@@ -422,6 +422,20 @@ private:
     // take the bare form), and the AGGREGATE kinds (enum/struct/union/array/
     // class) are the exception — they share the qualified object everywhere.
     void bareScalarTypedefVarTs();
+    // § modPkgTypedefTopTs15 — inside a MODULE / interface / program listing,
+    // a package TYPEDEF binding names the ELABORATED package's copy of that
+    // typespec, never the definition package's.  uhdm-cmp recurses a
+    // typespec's Instance(), so binding the def copy drags the whole
+    // DEFINITION package into the comparison and the head surfaces deep
+    // inside it, on whatever the two package views legitimately disagree
+    // about (work@hmac: `AlertAsyncOn`'s range bound, a constant in the top
+    // copy and an operation in the def one).  r10earl15b proves BOTH
+    // databases' own def/top package copies differ identically, so this is a
+    // pointer question and never a content one; r10earl15c names the exact
+    // objects (`sha_word_t`, `prim_alert_pkg::alert_rx_t` and its members).
+    // Design-final, because the binding sites are spread over the whole
+    // emitter and only the write phase knows both package views exist.
+    void modPkgTypedefTopTs15();
     // An ANONYMOUS class_typespec never carries vpiInstance (measured: 0 of
     // them in 116 goldens).  A property of the object, so it runs design-final
     // over every mint site rather than being repeated at each.
