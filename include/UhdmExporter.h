@@ -2824,6 +2824,33 @@ private:
         UHDM::variables* var;
     };
     std::vector<PendingClassPropTs> pendingClassPropTs;
+    // § classPropCallInit29 — a class-property DECLARATION INITIALIZER whose
+    // shape needs the class's own methods to exist (a call binds vpiFunction).
+    // Collected while the property list is built and drained immediately
+    // after `emitTaskFuncs` compiled the class body, so a `= get()` naming a
+    // static method of the SAME class binds instead of falling through to the
+    // no-link arm.
+    struct PendingPropInit29 {
+        UHDM::variables* var;
+        const slang::ast::Symbol* cp;  // a ClassPropertySymbol
+        std::string pfn;
+    };
+    // One property initializer, in the shape Surelog gives it (see the use
+    // site for the four laws).  Returns nothing; sets `var->Expr()` when the
+    // shape is one this emitter models.
+    void emitClassPropInit29(const PendingPropInit29& pi);
+    // Set while that runs: a class-property initializer's call arguments carry
+    // NO formal-typespec ref (t39a `int b_call = pkgf39(2)` — golden's actual
+    // constant is bare), the same carve-out `propDeclScope` makes for a
+    // property-decl body.
+    bool classPropInitCtx29 = false;
+    // The `::`-qualified NAME Surelog gives a scoped call reached from a
+    // class-property initializer: leftmost segment identifier + "::" +
+    // rightmost segment text, with every `#(...)` parameterisation dropped.
+    // Null when the call is not written through a `::` scope.  (Returned as a
+    // plain SyntaxNode — ScopedNameSyntax is not forward-declarable here.)
+    const slang::syntax::SyntaxNode* scopedCallName29(
+        const slang::ast::Expression& call) const;
     // Set around ELAB net-ts creation: the owning net/var's fullname (bare
     // param-ref bounds clone a ts ref scoped by it).
     std::string boundOwnerFullName;

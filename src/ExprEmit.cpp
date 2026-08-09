@@ -8257,6 +8257,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // A PROPERTY-DECL body's call args carry no
                             // formal-ts stamp (mriscv s2qed reg_map(inp1)).
                             !propDeclScope &&
+                            // § classPropInit29 — nor do a CLASS-PROPERTY
+                            // INITIALIZER's (t39a `int b_call = pkgf39(2)`:
+                            // golden's actual is a bare constant).  Surelog
+                            // compiles a class body with Reduce::No and never
+                            // binds actual to formal there.
+                            !classPropInitCtx29 &&
                             // § defOnlyNoArgTs — a module DEFINITION that is
                             // never elaborated (unreferenced, or instantiated
                             // only inside a non-taken generate branch) gets its

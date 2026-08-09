@@ -477,6 +477,182 @@ void UhdmExporter::emitIncludeFileInfos() {
     d->Include_file_infos(infos);
 }
 
+// § classPropScopedCallIsRefObj29 — the ScopedName a class-property
+// initializer's CALL is written through, or null when it is written bare.
+// `base39::mk()`, `cls39#(int)::sf()` and `q39b::kb39#(2)::sf(1,"s")` all
+// answer their outermost ScopedName; `f()` and `this.f()` answer null (a DOT
+// separator is a member select, not a scope).
+const slang::syntax::SyntaxNode* UhdmExporter::scopedCallName29(
+    const Expression& call) const {
+    if (!call.syntax)
+        return nullptr;
+    const syntax::SyntaxNode* n = call.syntax;
+    if (n->kind == syntax::SyntaxKind::InvocationExpression)
+        n = &*n->as<syntax::InvocationExpressionSyntax>().left;
+    if (!n || n->kind != syntax::SyntaxKind::ScopedName)
+        return nullptr;
+    auto& sn = n->as<syntax::ScopedNameSyntax>();
+    if (sn.separator.kind != slang::parsing::TokenKind::DoubleColon)
+        return nullptr;
+    return n;
+}
+
+// § classPropInit29 — the class-property DECLARATION INITIALIZER shapes the
+// inline whitelist in emitClassDefn does not build.  Surelog compiles a class
+// body with Reduce::No, so nothing here folds; the four laws below were each
+// pinned on the purpose-built pair tools/probe/r10uvm29repro/t39{a,b} (every
+// cell read BOTH directions off the r10uvm29v census):
+//
+//   § classPropNewInit29 — `T p = new;` / `= new()` / `= new(args)` keeps the
+//     constructor call as vpiExpr: the SAME loc-less `method_func_call 'new'`
+//     emitExpr's NewClass arm already builds, arguments and all, and with NO
+//     vpiArgument vector at all when the call is argument-less (bare `new`
+//     and `new()` are identical).  11 uvm_pkg properties in Scoreboard
+//     (uvm_status_container::scope, uvm_printer::knobs, uvm_transaction::
+//     events, ...), the pass-28 ranked #1 head at 240+28+26 elements.
+//
+//   § classPropScopedCallIsRefObj29 — a call written through a CLASS `::`
+//     scope is NOT a call in the model: it degrades to a bare `ref_obj`
+//     naming `<leftmost segment>::<rightmost segment>` — every intermediate
+//     segment and every `#(...)` parameterisation DROPPED, the ARGUMENTS
+//     dropped with them — unbound (no vpiActual), fullname
+//     `<property fullname>::<that name>`, spanned from the head of the scoped
+//     name through the LAST `::` separator (Surelog's class_scope span, the
+//     same one makeClassScopeTs uses).  t39a: `base39::mk()` -> `base39::mk`,
+//     `cls39#(int)::sf()` -> `cls39::sf`; t39b: `q39b::kb39#(2)::sf(1,"s")`
+//     -> `q39b::sf`.  This is the pass-28 ranked #2 residue
+//     (`uvm_callbacks::m_register_pair` over the 9 `m_register_cb_*` bits the
+//     `uvm_register_cb` macro plants, plus uvm_heartbeat_callback's
+//     `uvm_coreservice_t::get`), 166 elements — and it is NOT a binding
+//     question: golden leaves vpiActual null too, we simply had no vpiExpr.
+//
+//   § classPropCallInit29 — any OTHER call (bare `f()`, or one qualified by a
+//     PACKAGE rather than a class) stays a `func_call` with vpiFunction bound
+//     and its written arguments — which is exactly what emitExpr builds, once
+//     the class's own methods exist (hence the deferred drain).  t39b's
+//     `q39b::qf39(4)` keeps the QUALIFIER in vpiName (`q39b::qf39`), the
+//     spelling ExprEmit's § staticScopedCall12 note says golden carries in
+//     package-scope initializers and nowhere else.
+//
+//   § classPropUnbasedUnsizedInit29 — `'0`/`'1`/`'x`/`'z` fills the PROPERTY's
+//     width and prints as one unsigned decimal (uvm_spell_chkr's
+//     `static const int unsigned max = '1` -> 4294967295 at size 32).
+//
+//   § classPropPatternInit29 (t39c) — a CONCATENATION and an ASSIGNMENT
+//     PATTERN ride the variable as the operation emitExpr already builds
+//     (operation#33 over raw string constants; operation#75 over a
+//     tagged_pattern for `'{default:0}`).  The assoc/queue/dynamic arm of
+//     emitClassDefn `continue`s past the scalar initializer block, so it
+//     enqueues its property here explicitly (uvm_sequence_library's
+//     `int seqs_distrib[string] = '{default:0}`).
+//
+// NOT modelled (measured, left for a later pass — see the pass-29 residue
+// ranking): a BASED literal keeps its source spelling and base constType
+// (`8'hff` -> `HEX:ff`, decompile `8'hff`) where the inline IntegerLiteral arm
+// prints decimal, and its SIZE follows a rule t39b did NOT settle (`int
+// k_wide = 8'hff` sizes 32 but `int k_bin = 4'b1010` sizes 4); a TIME literal
+// (`9200s` -> UINT:9200000000000000, size 64, NO decompile) scales by a factor
+// t39c did not settle either (`5ns` -> 5000000, `7ps` -> 7 under one
+// `timescale 1ns/1ps`); and a SIMPLE assignment pattern's element constants
+// size at the ELEMENT width where emitExpr gives them 64 (t39c a_dyn — no UVM
+// property reaches it).
+void UhdmExporter::emitClassPropInit29(const PendingPropInit29& pi) {
+    auto& cp = pi.cp->as<ClassPropertySymbol>();
+    auto* pinit = cp.getInitializer();
+    if (!pinit)
+        return;
+    auto& ic = stripImplicitConv(*pinit);
+    NetMap nm29;
+    struct Ctx29 {
+        bool& f;
+        explicit Ctx29(bool& b) : f(b) { f = true; }
+        ~Ctx29() { f = false; }
+    } ctx29(classPropInitCtx29);
+    if (ic.kind == ExpressionKind::NewClass) {
+        if (auto* e29 = emitExpr(ic, pi.var, pi.pfn, nm29))
+            pi.var->Expr((UHDM::expr*)e29);
+        return;
+    }
+    if (ic.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+        // The fill spans the PROPERTY's width; `'x`/`'z` has no decimal form
+        // and is left off, as the IntegerLiteral arm leaves an unknown off.
+        auto lv29 = ic.as<UnbasedUnsizedIntegerLiteral>().getLiteralValue();
+        uint32_t w29 = (uint32_t)cp.getType().getBitWidth();
+        if (w29 && !lv29.isUnknown()) {
+            slang::SVInt u29 = lv29.value ? ~slang::SVInt(w29, 0, false)
+                                          : slang::SVInt(w29, 0, false);
+            u29.setSigned(false);
+            std::string d29 = u29.toString(LiteralBase::Decimal, false);
+            auto* c29 = s.MakeConstant();
+            c29->VpiDecompile(d29);
+            c29->VpiSize((int32_t)cp.getType().getBitWidth());
+            c29->VpiValue("UINT:" + d29);
+            c29->VpiConstType(vpiUIntConst);
+            c29->VpiParent(pi.var);
+            setLoc(c29, ic.sourceRange);
+            pi.var->Expr(c29);
+        }
+        return;
+    }
+    // § classPropPatternInit29 — a CONCATENATION and an ASSIGNMENT PATTERN
+    // ride the variable as the operation emitExpr already builds
+    // (t39c: `{"ab","cd"}` -> operation#33 over raw string constants,
+    // `'{default:0}` -> operation#75 over a tagged_pattern).  Only an
+    // operation is accepted, so a shape that folds elsewhere stays off.
+    if (ic.kind == ExpressionKind::Concatenation ||
+        ic.kind == ExpressionKind::SimpleAssignmentPattern ||
+        ic.kind == ExpressionKind::StructuredAssignmentPattern ||
+        ic.kind == ExpressionKind::ReplicatedAssignmentPattern) {
+        if (auto* e27 = emitExpr(ic, pi.var, pi.pfn, nm29))
+            if (e27->UhdmType() == UHDM::uhdmoperation)
+                pi.var->Expr((UHDM::expr*)e27);
+        return;
+    }
+    if (ic.kind != ExpressionKind::Call || ic.as<CallExpression>().isSystemCall())
+        return;
+    if (auto* snn29 = scopedCallName29(ic)) {
+        auto* sn29 = &snn29->as<syntax::ScopedNameSyntax>();
+        // Only a CLASS scope degrades; a package qualifier keeps the call
+        // (t39b `q39b::qf39(4)` vs `q39b::kb39#(2)::sf(1,"s")`).
+        auto* sub29 = std::get<const SubroutineSymbol*>(
+            ic.as<CallExpression>().subroutine);
+        auto* psc29 = sub29 ? sub29->getParentScope() : nullptr;
+        if (psc29 && psc29->asSymbol().kind == SymbolKind::ClassType) {
+            // Leftmost identifier of the (left-associative) chain and the
+            // rightmost segment's written text.
+            const syntax::SyntaxNode* lhead29 = &*sn29->left;
+            const slang::syntax::ScopedNameSyntax* deepest29 = sn29;
+            while (lhead29->kind == syntax::SyntaxKind::ScopedName) {
+                deepest29 = &lhead29->as<syntax::ScopedNameSyntax>();
+                lhead29 = &*deepest29->left;
+            }
+            std::string head29;
+            if (auto* cn29 = lhead29->as_if<syntax::ClassNameSyntax>())
+                head29 = std::string(cn29->identifier.valueText());
+            else if (auto* in29 = lhead29->as_if<syntax::IdentifierNameSyntax>())
+                head29 = std::string(in29->identifier.valueText());
+            else
+                head29 = std::string(rawText(lhead29->sourceRange()));
+            std::string tail29;
+            if (auto* cn28 = sn29->right->as_if<syntax::ClassNameSyntax>())
+                tail29 = std::string(cn28->identifier.valueText());
+            else
+                tail29 = std::string(rawText(sn29->right->sourceRange()));
+            auto* ro29 = s.MakeRef_obj();
+            ro29->VpiName(head29 + "::" + tail29);
+            ro29->VpiFullName(pi.pfn + "::" + head29 + "::" + tail29);
+            ro29->VpiParent(pi.var);
+            setLoc(ro29, SourceRange(deepest29->left->sourceRange().start(),
+                                     sn29->separator.range().end()));
+            pi.var->Expr(ro29);
+            return;
+        }
+    }
+    if (auto* e28 = emitExpr(ic, pi.var, pi.pfn, nm29))
+        if (e28->UhdmType() == UHDM::uhdmfunc_call)
+            pi.var->Expr((UHDM::expr*)e28);
+}
+
 // A class definition (file-level or module-local): properties as ::-scoped
 // automatic vars (typespecs deferred to the write phase), methods via
 // emitTaskFuncs in class scope. File-level classes display their work@ name;
@@ -503,6 +679,7 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
     }
     auto* vars = s.MakeVariablesVec();
     auto* nevs = s.MakeNamed_eventVec();
+    std::vector<PendingPropInit29> lateInit29;
     for (auto& pm : cls.members()) {
         if (pm.kind != SymbolKind::ClassProperty)
             continue;
@@ -628,6 +805,11 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             auto* rvars = s.MakeVariablesVec();
             rvars->push_back(reg);
             av->Variables(rvars);
+            // § classPropInit29 — a dynamic/queue/assoc property carries its
+            // declaration initializer too (uvm_sequence_library's
+            // `int seqs_distrib[string] = '{default:0}`).
+            if (cp.getInitializer())
+                lateInit29.push_back({av, &cp, pfn});
             vars->push_back(av);
             continue;
         }
@@ -742,7 +924,28 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             else if (ic0.kind == ExpressionKind::UnaryOp &&
                      ic0.as<UnaryExpression>().op == UnaryOperator::Minus) {
                 auto& ub0 = stripImplicitConv(ic0.as<UnaryExpression>().operand());
-                if (ub0.kind == ExpressionKind::IntegerLiteral) {
+                // § classPropRealInitRawValue29, the negated form: `real r =
+                // -2.5` is the same bare vpiMinusOp over a source-text real
+                // constant (t39c r_neg).
+                if (ub0.kind == ExpressionKind::RealLiteral) {
+                    std::string rtx4 = rawText(ub0.sourceRange);
+                    auto* c4 = s.MakeConstant();
+                    c4->VpiDecompile(rtx4);
+                    c4->VpiSize(64);
+                    c4->VpiValue(std::string("REAL:") + rtx4);
+                    c4->VpiConstType(vpiRealConst);
+                    setLoc(c4, ub0.sourceRange);
+                    auto* op4 = s.MakeOperation();
+                    op4->VpiOpType(vpiMinusOp);
+                    op4->VpiParent(v);
+                    setLoc(op4, ic0.sourceRange);
+                    c4->VpiParent(op4);
+                    auto* ops4 = s.MakeAnyVec();
+                    ops4->push_back(c4);
+                    op4->Operands(ops4);
+                    v->Expr(op4);
+                }
+                else if (ub0.kind == ExpressionKind::IntegerLiteral) {
                     auto iv1 = ub0.as<IntegerLiteral>().getValue();
                     if (!iv1.hasUnknown()) {
                         slang::SVInt u1 = iv1;
@@ -792,18 +995,28 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                 v->Expr(c2);
             }
             else if (ic0.kind == ExpressionKind::RealLiteral) {
+                // § classPropRealInitRawValue29 — a class-property REAL
+                // initializer's vpiValue is the SOURCE TEXT, not a `%f`
+                // rendering of the double.  Surelog compiles a class body
+                // with Reduce::No, so the literal is never evaluated: t39c
+                // reads REAL:1.5 / REAL:1.0e-12 / REAL:3.0 / REAL:1e6 for
+                // the four spellings, all of them equal to the decompile.
+                // `%f` had made uvm_tlm_time's `real Tp = 1.0e-12` print
+                // REAL:0.000000 — a real pair, not a missing object.
+                std::string rtx3 = rawText(ic0.sourceRange);
                 auto* c3 = s.MakeConstant();
-                c3->VpiDecompile(rawText(ic0.sourceRange));
+                c3->VpiDecompile(rtx3);
                 c3->VpiSize(64);
-                char rbuf3[64];
-                snprintf(rbuf3, sizeof(rbuf3), "%f",
-                         ic0.as<RealLiteral>().getValue());
-                c3->VpiValue(std::string("REAL:") + rbuf3);
+                c3->VpiValue(std::string("REAL:") + rtx3);
                 c3->VpiConstType(vpiRealConst);
                 c3->VpiParent(v);
                 setLoc(c3, ic0.sourceRange);
                 v->Expr(c3);
             }
+            // Everything else is a § classPropInit29 shape: deferred to just
+            // after emitTaskFuncs so a call can bind the class's own methods.
+            else
+                lateInit29.push_back({v, &cp, pfn0});
         }
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(fullName + "::" + std::string(cp.name));
@@ -832,6 +1045,13 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
     currentClassDefn = cd;
     emitTaskFuncs(cls, cd, fullName + "::", nullptr, false);
     currentClassDefn = nullptr;
+    // § classPropInit29 — the property initializers whose shape the inline
+    // whitelist above does not build.  Drained HERE, not inline: the shapes
+    // that matter are CALLS, and a call to a static method of the class's own
+    // body (`static this_type me = get();`, uvm_component_registry) can only
+    // bind vpiFunction once emitTaskFuncs has put that method in `subMap`.
+    for (auto& pi29 : lateInit29)
+        emitClassPropInit29(pi29);
     // NESTED classes are their own class_defns parented at the enclosing one
     // and listed in its vpiInternalScope (Surelog's
     // CompileClass::compile_class_declaration_ pushes them onto Scopes()).
