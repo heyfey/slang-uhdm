@@ -1042,6 +1042,49 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
     auto isOutOfBody = [&](const Symbol* sy) {
         return std::find(oobDefs.begin(), oobDefs.end(), sy) != oobDefs.end();
     };
+    // § oobParamClassTypeParamFormalUnsupported31 — ...and because it is
+    // compiled in the PACKAGE's scope, the class's own TYPE PARAMETERS are
+    // not in scope there: a formal written as a bare `REQ` falls through
+    // Surelog's CompileType catch-all to an `unsupported_typespec` NAMED AS
+    // WRITTEN (the same catch-all the covergroup-handle and cover-cross arms
+    // of TypeEmit already model), where we resolve it to the specialization's
+    // actual type.  Returns the written parameter name, or empty.
+    //
+    // Measured on t41b, every cell BOTH directions, and the discriminator is
+    // exactly out-of-body-ness — golden lists `uvm_sequencer::item_done`
+    // TWICE in the elaborated uvm_pkg and gives the PROTOTYPE listing
+    // `class_typespec 'uvm_sequence_item'` and the DEFINITION listing
+    // `unsupported_typespec 'RSP'@uvm_pkg`, and we already agree on the first:
+    //   e_mixed(input lit_t a, input REQ t) -> `lit_t` RESOLVED, `REQ` not
+    //   in-body i_req(input REQ t)          -> RESOLVED  (not out-of-body)
+    //   plainx31::e_plain (oob, class NOT parameterised) -> RESOLVED
+    //   vparam31 #(int W) ... (input logic [W-1:0] a)    -> RESOLVED
+    //     (a VALUE parameter is not a type parameter; the range folds)
+    //   e_deflt(input REQ t = null) -> unsupported AND keeps its default
+    //   pure virtual pv_cls(PT s) (in-class) -> RESOLVED
+    // NOT modelled (measured, left): a typedef OF a type parameter
+    // (`typedef REQ this_r_t;` used as a formal) is unsupported only in the
+    // IMPORT COPIES of the definition and resolved in the declaring package's
+    // own listing — an asymmetry no single predicate here can express; and
+    // `uvm_resource_types::rsrc_q_t`, a SCOPED name into another class (21
+    // rows), which is a different catch-all.
+    auto oobClassTypeParamName31 =
+        [&](const syntax::DataTypeSyntax* tsyn) -> std::string_view {
+        if (!classScope || !tsyn ||
+            tsyn->kind != syntax::SyntaxKind::NamedType)
+            return {};
+        auto& nt31 = tsyn->as<syntax::NamedTypeSyntax>();
+        if (nt31.name->kind != syntax::SyntaxKind::IdentifierName)
+            return {};
+        auto id31 =
+            nt31.name->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        if (id31.empty())
+            return {};
+        const Symbol* f31 = body.find(id31);
+        if (f31 && f31->kind == SymbolKind::TypeParameter)
+            return id31;
+        return {};
+    };
     // An out-of-body definition is compiled in the HOME PACKAGE's scope, not
     // the class header's: its own object, and every typespec its return type,
     // formals and body locals mint, carry vpiInstance = that package. An
@@ -1053,6 +1096,17 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         if (hp0 && hp0->UhdmType() == UHDM::uhdmpackage)
             oobHomePkg = (UHDM::instance*)hp0;
     }
+    // ...and the § oobParamClassTypeParamFormalUnsupported31 typespec takes
+    // the package the class is DECLARED in even in a package CLONE pass,
+    // where `oobHomePkg` deliberately names the clone target: golden reads
+    // `DEFPKG adpcm_pkg::::uvm_sequencer::put` as `unsupported_typespec
+    // 'REQ'@uvm_pkg`, and t41b reads the same shape as `@p31v` in both
+    // importers' copies.  20 of the law's 210 rows are these copies.
+    UHDM::instance* oobDeclPkg31 = nullptr;
+    if (classScope && !oobDefs.empty())
+        if (auto* hp31 = ((UHDM::class_defn*)m)->VpiParent();
+            hp31 && hp31->UhdmType() == UHDM::uhdmpackage)
+            oobDeclPkg31 = (UHDM::instance*)hp31;
     auto* baseScopeInst = pkgScopeInst;
     for (auto* memberPtr : items) {
         auto& member = *memberPtr;
@@ -2282,7 +2336,27 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                       .as<FixedSizeUnpackedArrayType>()
                                       .elementType;
             }
-            if (redeclSym) {
+            // § oobParamClassTypeParamFormalUnsupported31 — the OUT-OF-BODY
+            // definition's formal written as one of the class's own TYPE
+            // PARAMETERS.  Only the KIND and the NAME move: the instance is
+            // the package the CLASS is declared in (`oobDeclPkg31`; `tsInst`
+            // is the fallback outside a package, and is the clone target, not
+            // the declaring package, in a clone pass).  Reach: 210 rows on the
+            // UVM-4, all four tests (`uvm_sequencer`'s REQ/RSP methods, every
+            // view).  See the lambda for the matrix and the two open cells.
+            std::string_view oobTp31 =
+                oob ? oobClassTypeParamName31(argTsyn) : std::string_view{};
+            if (!oobTp31.empty()) {
+                auto* uts31 = s.MakeUnsupported_typespec();
+                uts31->VpiName(oobTp31);
+                if (argTsyn)
+                    setLoc(uts31, argTsyn->sourceRange());
+                if (auto* ui31 = oobDeclPkg31 ? oobDeclPkg31 : tsInst)
+                    uts31->Instance(ui31);
+                ts = uts31;
+                rt->Actual_typespec(ts);
+            }
+            else if (redeclSym) {
                 ts = makeTypespec(*redeclSym);
                 rt->Actual_typespec(ts);
             }
