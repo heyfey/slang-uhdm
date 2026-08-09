@@ -1156,6 +1156,88 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 }
                 ((UHDM::function*)pt)->Return(prv);
             }
+            // § pureVirtIoDecls30 — a PURE VIRTUAL prototype carries its
+            // FORMALS too.  § pureVirtRet10's aside ("only the body and the
+            // io_decls are absent") was never measured: t40a reads golden's
+            // `pure virtual function void pv_defint(int k = 3)` with a full
+            // io_decl — name, vpiDirection, a ref_typespec to the same
+            // typespec object an in-class method's formal takes (int_typespec
+            // with NO vpiInstance; a named typedef's is the shared, stamped
+            // one) and the default value under the very same
+            // § noDirNamedTypeDefaultDropped30 rule (`pv_defenum(e40_t e=E1)`
+            // drops it, `pv_definput(input e40_t e=E1)` keeps it).  Reach: the
+            // whole 107-row io_decl population deficit on every UVM-4 test —
+            // uvm_factory (39 rows), uvm_recorder (19), uvm_report_server
+            // (18), uvm_coreservice_t, uvm_link_base, uvm_subscriber, ... —
+            // every one of them an abstract UVM base class.
+            // The prototype takes no funcMap/subMap registration: nothing
+            // binds to a pure virtual's formals, there being no body.
+            if (!mp.getArguments().empty()) {
+                auto* pios = s.MakeIo_declVec();
+                for (auto* parg : mp.getArguments()) {
+                    auto* pio = s.MakeIo_decl();
+                    pio->VpiName(parg->name);
+                    pio->VpiParent(pt);
+                    switch (parg->direction) {
+                        case ArgumentDirection::In:
+                            pio->VpiDirection(vpiInput);
+                            break;
+                        case ArgumentDirection::Out:
+                            pio->VpiDirection(vpiOutput);
+                            break;
+                        case ArgumentDirection::InOut:
+                            pio->VpiDirection(vpiInout);
+                            break;
+                        case ArgumentDirection::Ref:
+                            pio->VpiDirection(vpiRef);
+                            break;
+                        default:
+                            break;
+                    }
+                    setLoc(pio, nameSpan(parg->location, parg->name));
+                    const syntax::DataTypeSyntax* ptsyn =
+                        parg->getDeclaredType()->getTypeSyntax();
+                    if (auto* dv0 = parg->getDefaultValue()) {
+                        bool wroteDir0 = true;
+                        for (auto q0 = parg->getSyntax(); q0; q0 = q0->parent)
+                            if (q0->kind == syntax::SyntaxKind::FunctionPort) {
+                                wroteDir0 = q0->as<syntax::FunctionPortSyntax>()
+                                                .direction.valid();
+                                break;
+                            }
+                        bool bareTy0 = false;
+                        if (ptsyn &&
+                            ptsyn->kind == syntax::SyntaxKind::NamedType) {
+                            auto nk0 = ptsyn->as<syntax::NamedTypeSyntax>()
+                                           .name->kind;
+                            bareTy0 =
+                                nk0 == syntax::SyntaxKind::IdentifierName ||
+                                nk0 == syntax::SyntaxKind::ClassName;
+                        }
+                        if (wroteDir0 || !bareTy0) {
+                            NetMap pmap;
+                            auto* pde =
+                                emitExpr(*dv0, nullptr,
+                                         std::string(pt->VpiFullName()), pmap);
+                            if (pde)
+                                pio->Expr((UHDM::expr*)pde);
+                        }
+                    }
+                    tfContext = true;
+                    auto* pts0 = makeTypespec(*parg, ptsyn);
+                    tfContext = false;
+                    if (pts0) {
+                        auto* prt0 = s.MakeRef_typespec();
+                        prt0->VpiFullName(std::string(pt->VpiFullName()) + sep +
+                                          std::string(parg->name));
+                        prt0->VpiParent(pio);
+                        prt0->Actual_typespec(pts0);
+                        pio->Typespec(prt0);
+                    }
+                    pios->push_back(pio);
+                }
+                pt->Io_decls(pios);
+            }
             tfs->push_back(pt);
             continue;
         }
@@ -1994,21 +2076,39 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             setLoc(io, nameSpan(arg->location, arg->name));
             // A DEFAULT VALUE becomes the io_decl's vpiExpr (unparented, at the
             // default expression's own span).
-            // ...except `= null` on a formal written with NO DIRECTION
-            // KEYWORD, which Surelog leaves off entirely: the io_decl of
-            // `function void uvm_object::print(uvm_printer printer=null)`
-            // carries no vpiExpr, while the `= ""` one right beside it does.
-            // Writing the direction puts it back — `extern function int pack
-            // (ref bit bitstream[], input uvm_packer packer=null)` DOES carry
-            // the vpiNullConst.  Both spellings measured side by side in one
-            // golden (r10uvm7/c5: `f1(input K k=null)` has the expr, `f2(K
-            // k=null)` does not, `f3(K k=null, string s="")` drops only the
-            // null one) — so the drop is keyed on the KEYWORD, not on the
-            // null-ness alone, and 222 UVM io_decls were missing it.  A
-            // `null` in a RETURN always keeps its vpiNullConst.
+            // § noDirNamedTypeDefaultDropped30 — ...except on a formal written
+            // with NO tf_port_direction KEYWORD whose DATA TYPE is a plain type
+            // IDENTIFIER, where Surelog drops the default value entirely.  The
+            // rule this replaces read the drop off `= null` alone (r10uvm7/c5:
+            // `f1(input K k=null)` keeps the vpiNullConst, `f2(K k=null)` does
+            // not) and generalised it to every no-direction null; the 2x2 says
+            // the null was incidental and the TYPE SPELLING is the whole key.
+            // Measured both directions on t40a/t40b/t40c, every cell:
+            //   DROPPED   `e40_t e = E1`, `i40_t k = 3` (typedef of int),
+            //             `s40_t s = "x"` (typedef of string), `s40_t v='{..}`,
+            //             `h40 h = null`, `pc40#(int) h = null`,
+            //             `e40_t e = e40_t'(1)` — any bare type identifier,
+            //             parameterised or not, whatever the default's shape.
+            //   KEPT      every BUILT-IN keyword type (`int`, `int unsigned`,
+            //             `bit[3:0]`, `logic`, `logic[7:0]`, `byte`, `real`,
+            //             `time`, `string`, and — the cells that refute the
+            //             old rule — `chandle h = null` and `event e = null`);
+            //             an INLINE anonymous `enum`/packed `struct`; a SCOPED
+            //             type name (`q40b::f40_t v = q40b::F1`, `q40b::g40 h
+            //             = null`); a `virtual if40c vi = null`; and anything
+            //             at all once the formal carries its OWN direction
+            //             keyword.  An INHERITED direction does not count
+            //             (`f(input string s, e40_t e=E1)` drops `e`).
+            // It is a SUBROUTINE rule, not a class-method rule: the same cells
+            // drop in a package function, a module function, a module task and
+            // at $unit scope, in extern prototypes and out-of-body definitions
+            // alike.  Reach: 89 io_decl keys on Scoreboard alone — every
+            // `uvm_radix_enum radix=UVM_NORADIX`, `uvm_predict_e kind=
+            // UVM_PREDICT_DIRECT`, `uvm_hier_e hier=UVM_HIER` and
+            // `uvm_reg_addr_t offset=0` written without a direction, while the
+            // 152 `input uvm_path_e path=UVM_DEFAULT_PATH`-shaped ones stay.
+            // A `null` in a RETURN always keeps its vpiNullConst.
             if (auto* dv = arg->getDefaultValue()) {
-                NetMap emptyMap;
-                auto* de = emitExpr(*dv, nullptr, fullName, emptyMap);
                 bool wroteDir9 = true;
                 for (auto q9 = arg->getSyntax(); q9; q9 = q9->parent)
                     if (q9->kind == syntax::SyntaxKind::FunctionPort) {
@@ -2017,13 +2117,52 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                 .direction.valid();
                         break;
                     }
-                // (the literal arrives wrapped in slang's implicit conversion
-                // to the handle type, so the emitted object is what to test)
-                if (de && !wroteDir9 && de->UhdmType() == UHDM::uhdmconstant &&
-                    ((UHDM::constant*)de)->VpiConstType() == vpiNullConst)
-                    de = nullptr;
-                if (de)
-                    io->Expr((UHDM::expr*)de);
+                // A bare type IDENTIFIER: `NamedType` over an IdentifierName
+                // or a ClassName (`cls#(int)`).  A ScopedName is not one, and
+                // neither is a builtin keyword type, an inline enum/struct or
+                // a `virtual` interface — those are other DataTypeSyntax kinds.
+                bool bareTyId30 = false;
+                {
+                    const syntax::DataTypeSyntax* tsyn30 =
+                        arg->getDeclaredType()->getTypeSyntax();
+                    if (tsyn30 &&
+                        tsyn30->kind == syntax::SyntaxKind::NamedType) {
+                        auto nk30 =
+                            tsyn30->as<syntax::NamedTypeSyntax>().name->kind;
+                        bareTyId30 =
+                            nk30 == syntax::SyntaxKind::IdentifierName ||
+                            nk30 == syntax::SyntaxKind::ClassName;
+                    }
+                }
+                if (!wroteDir9 && bareTyId30) {
+                    // nothing to emit at all
+                } else {
+                    NetMap emptyMap;
+                    auto* de = emitExpr(*dv, nullptr, fullName, emptyMap);
+                    // § formalRealDefaultRawValue30 — the io_decl half of
+                    // § classPropRealInitRawValue29: a REAL formal default's
+                    // vpiValue is the SOURCE TEXT, not a `%f` rendering of the
+                    // double.  t40c reads golden REAL:1.5 / REAL:1.0e-9 /
+                    // REAL:3.0 for `real`, `realtime` and `shortreal` alike,
+                    // with and without an `input` keyword, always equal to the
+                    // decompile — where the shared RealLiteral arm printed
+                    // REAL:1.500000 and, for `1.0e-9`, REAL:0.000000.  Two UVM
+                    // formals reach it and the r10uvm29iom projection (kind +
+                    // name only) could not see either.  The negated spelling
+                    // (`real r = -2.5`) is an operation whose operand golden
+                    // and we already agree on, so only the bare literal moves.
+                    if (de && de->UhdmType() == UHDM::uhdmconstant &&
+                        ((UHDM::constant*)de)->VpiConstType() == vpiRealConst &&
+                        stripImplicitConv(*dv).kind ==
+                            ExpressionKind::RealLiteral) {
+                        std::string rtx30 =
+                            rawText(stripImplicitConv(*dv).sourceRange);
+                        if (!rtx30.empty())
+                            ((UHDM::constant*)de)->VpiValue("REAL:" + rtx30);
+                    }
+                    if (de)
+                        io->Expr((UHDM::expr*)de);
+                }
             }
             // Bare implicit arg types ("input x;") get an unlocated typespec
             // created at the very end of the write phase.
