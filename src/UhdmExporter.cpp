@@ -4243,11 +4243,19 @@ UHDM::design* UhdmExporter::exportDesign() {
     // then makes its bare/re-qualified copies out of the top objects (their
     // Typedef_alias targets follow automatically).
     modPkgTypedefTopTs15();
+    // § pkgParamTsTopInstance16 — the same question for a SUBSTITUTED package
+    // parameter's constant typespec.  After the typedef pass so a typedef
+    // object it also moved is not moved twice.
+    pkgParamTsTopInstance16(d);
     bareScalarTypedefVarTs();
     // § importCloneBareTdAlias16: inside a wildcard-import CLONE body the
     // alias target of that bare copy is bare too.  Right after LAW S, whose
     // memo it re-points.
     importCloneBareTdAlias16();
+    // § modTdClonePkgTopInstance16 — LAW S and its alias fix-ups are the last
+    // writers of a module listing's typespec clones, so the clone-instance
+    // stamp runs after them.
+    modTdClonePkgTopInstance16(d);
     // ...and an anonymous class_typespec never carries vpiInstance.
     clearAnonClassTsInstance();
     // § pkgCloneHierBind9 — bind the BASE of every dotted reference inside a

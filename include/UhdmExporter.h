@@ -436,6 +436,25 @@ private:
     // Design-final, because the binding sites are spread over the whole
     // emitter and only the write phase knows both package views exist.
     void modPkgTypedefTopTs15();
+    // § modPkgTdTopDescend16 — the same def->top re-point for the bindings the
+    // parent walk provably cannot reach: a listing member's UNPARENTED wrapper
+    // typespec (a port's packed_array_typespec) and its Elem_typespec chain.
+    void modPkgTdTopDescend16(
+        const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t);
+    // The arena walk + descent both def->top laws share.
+    void repointModOwnedTs16(
+        const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t);
+    // § pkgParamTsTopInstance16 — a module expression's SUBSTITUTED package
+    // parameter constant names the ELABORATED package's parameter typespec.
+    void pkgParamTsTopInstance16(UHDM::design* d);
+    // § modTdClonePkgTopInstance16 — a module listing's PER-DECLARATION clone
+    // of a package typedef carries the ELABORATED package's vpiInstance.
+    void modTdClonePkgTopInstance16(UHDM::design* d);
+    // § pkgRefActualTopParam16 — a module-listing ref_obj that reads a package
+    // parameter names the ELABORATED package's parameter object.  Filled by
+    // pkgParamTsTopInstance16 (same package pairing) and consumed by the
+    // descent, which is the only walk that reaches an unparented range bound.
+    std::map<const UHDM::any*, UHDM::any*> pkgRefActualD2T16;
     // An ANONYMOUS class_typespec never carries vpiInstance (measured: 0 of
     // them in 116 goldens).  A property of the object, so it runs design-final
     // over every mint site rather than being repeated at each.

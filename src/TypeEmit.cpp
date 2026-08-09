@@ -5649,6 +5649,11 @@ void UhdmExporter::clearAnonClassTsInstance() {
 // walk: a binding that reaches a package or a class before it reaches a
 // module keeps the def object (r7's measurement, which was made inside a
 // package).
+// OPEN (r10earl15 verifier note, still unresolved at r10earl16): this walks 16
+// parents where bareScalarTypedefVarTs's modOwned9 walks 8, so an owner chain
+// deeper than 8 classifies differently in the two laws.  Unifying the caps is a
+// behaviour change and needs its own gate round; no corpus case is known to
+// depend on it.
 static bool modOwnedTs15(const UHDM::any* o) {
     for (int i = 0; i < 16 && o; ++i) {
         switch (o->UhdmType()) {
@@ -5682,6 +5687,18 @@ void UhdmExporter::modPkgTypedefTopTs15() {
     }
     if (d2t15.empty())
         return;
+    repointModOwnedTs16(d2t15);
+}
+
+// The re-point half the two def->top laws share: every ref_typespec in the
+// arena whose actual is a DEF-view package object, reached from a module /
+// interface / program listing, names the ELABORATED twin instead.
+void UhdmExporter::repointModOwnedTs16(
+    const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t) {
+    if (d2t.empty() && pkgRefActualD2T16.empty())
+        return;
+    // Serializer::AllObjects() returns the IdMap BY VALUE, so mutating the
+    // objects it names (never the arena itself) inside this loop is safe.
     for (auto& kv15 : s.AllObjects()) {
         auto* rt15 = dynamic_cast<UHDM::ref_typespec*>((UHDM::any*)kv15.first);
         if (!rt15)
@@ -5689,24 +5706,383 @@ void UhdmExporter::modPkgTypedefTopTs15() {
         auto* at15 = rt15->Actual_typespec();
         if (!at15)
             continue;
-        auto d15 = d2t15.find(at15);
-        if (d15 == d2t15.end() || !modOwnedTs15(rt15))
+        auto d15 = d2t.find(at15);
+        if (d15 == d2t.end() || !modOwnedTs15(rt15))
             continue;
         rt15->Actual_typespec(d15->second);
     }
+    modPkgTdTopDescend16(d2t);
 }
 
-// MEASURED ZERO (r10earl15, built and gated, reverted): extending the pass
-// above with a DESCENT from every listing's ports / nets / variables /
-// parameters into each wrapper typespec's Elem_typespec — the refs the parent
-// walk provably cannot reach, because a port's array/packed_array wrapper is
-// UNPARENTED (work@hmac's `alert_rx_i` wrapper sits at :0:0 and its element is
-// `prim_alert_pkg::alert_rx_t`, still def-instanced on our side).  The descent
-// ran and changed NOTHING, which is a measurement about the MAP, not the
-// traversal: `prim_alert_pkg::alert_rx_t` has no pkgTopTypedefTs entry keyed by
-// the TypeAlias symbol typedefTs used, so d2t15 never contains it.  Pass 16
-// starts by asking why the two registries disagree for a STRUCT typedef, not
-// by re-walking the tree.
+// § modPkgTdTopDescend16 (r10earl16).  The parent walk in the pass above can
+// never reach a binding whose ref_typespec hangs under an UNPARENTED WRAPPER:
+// a module port declared `prim_alert_pkg::alert_rx_t [N-1:0] alert_rx_i` gets
+// a packed_array_typespec minted at :0:0 with no vpiParent, and the package
+// typedef is that wrapper's Elem_typespec.  So descend from every module /
+// interface / program listing MEMBER (ports, nets, variables, parameters and
+// the listing's own Typespecs) through the wrapper chain and apply the same
+// def -> top re-point there.
+//
+// NOTE: pass 15 recorded this descent as a MEASURED ZERO and blamed the MAP
+// ("pkgTopTypedefTs has no entry for prim_alert_pkg::alert_rx_t").  That
+// explanation is REFUTED by measurement: the registry loop tail in ParamEmit
+// registers EVERY typedef kind, and an instrumented run prints
+// `TDMAP name='prim_alert_pkg::alert_rx_t' defuid=4152 topuid=21622`, i.e. the
+// pairing is present and d2t15 does contain the struct.
+void UhdmExporter::modPkgTdTopDescend16(
+    const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t) {
+    if (d2t.empty() && pkgRefActualD2T16.empty())
+        return;
+    std::set<const UHDM::any*> seen;
+    std::function<void(UHDM::ref_typespec*, int)> walkRef;
+    std::function<void(UHDM::any*, int)> walkExpr;
+    // A binding ref: re-point it, or descend the wrapper's element and the
+    // range bounds that hang off it.
+    walkRef = [&](UHDM::ref_typespec* rt, int depth) {
+        if (!rt || depth > 8)
+            return;
+        auto* at = rt->Actual_typespec();
+        if (!at)
+            return;
+        if (auto it = d2t.find(at); it != d2t.end()) {
+            rt->Actual_typespec(it->second);
+            return;
+        }
+        if (!seen.insert(at).second)
+            return;
+        UHDM::VectorOfrange* rgs = nullptr;
+        switch (at->UhdmType()) {
+            case UHDM::uhdmarray_typespec:
+                walkRef(((UHDM::array_typespec*)at)->Elem_typespec(),
+                        depth + 1);
+                rgs = ((UHDM::array_typespec*)at)->Ranges();
+                break;
+            case UHDM::uhdmpacked_array_typespec:
+                walkRef(((UHDM::packed_array_typespec*)at)->Elem_typespec(),
+                        depth + 1);
+                rgs = ((UHDM::packed_array_typespec*)at)->Ranges();
+                break;
+            case UHDM::uhdmlogic_typespec:
+                // NOTE (measured, r10earl16): descending a logic_typespec's
+                // Elem_typespec here changes NOTHING.  A packed vector OF a
+                // package typedef (`sha_word_t [7:0] digest`) does hang its
+                // typedef off Elem_typespec, but by this point the element
+                // already holds a LAW-S COPY, not the def LISTING object, so
+                // d2t can never match it — that binding belongs to
+                // § modScalarTdTopInstance's element half, which runs inside
+                // bareScalarTypedefVarTs after this pass.
+                rgs = ((UHDM::logic_typespec*)at)->Ranges();
+                break;
+            case UHDM::uhdmbit_typespec:
+                rgs = ((UHDM::bit_typespec*)at)->Ranges();
+                break;
+            default:
+                break;
+        }
+        if (rgs)
+            for (auto* r : *rgs) {
+                walkExpr(r->Left_expr(), depth + 1);
+                walkExpr(r->Right_expr(), depth + 1);
+            }
+    };
+    // An expression: EVERY expr carries a Typespec, and expr::Compare walks
+    // it, so a substituted package-parameter constant reaches the package
+    // through its own typespec.
+    walkExpr = [&](UHDM::any* e, int depth) {
+        if (!e || depth > 8 || !seen.insert(e).second)
+            return;
+        if (auto* ex = any_cast<UHDM::expr*>(e))
+            walkRef(ex->Typespec(), depth + 1);
+        // § pkgRefActualTopParam16 — an UNFOLDED package-parameter read
+        // (`logic [top_pkg::TL_AIW-1:0]`) keeps a ref_obj, and
+        // ref_obj::Compare walks Actual_group; golden's actual is the
+        // ELABORATED package's parameter.
+        if (e->UhdmType() == UHDM::uhdmref_obj && !pkgRefActualD2T16.empty()) {
+            auto* r = (UHDM::ref_obj*)e;
+            if (auto* ag = r->Actual_group())
+                if (auto it = pkgRefActualD2T16.find(ag);
+                    it != pkgRefActualD2T16.end())
+                    r->Actual_group(it->second);
+        }
+        if (e->UhdmType() == UHDM::uhdmoperation)
+            if (auto* ops = ((UHDM::operation*)e)->Operands())
+                for (auto* op : *ops)
+                    walkExpr(op, depth + 1);
+    };
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::any*)kv.first;
+        if (!o)
+            continue;
+        auto k = o->UhdmType();
+        if (k != UHDM::uhdmmodule_inst && k != UHDM::uhdminterface_inst &&
+            k != UHDM::uhdmprogram)
+            continue;
+        auto* sc = (UHDM::instance*)o;
+        if (auto* ns = sc->Nets())
+            for (auto* n : *ns)
+                walkRef(n->Typespec(), 0);
+        if (auto* vs = sc->Variables())
+            for (auto* v : *vs)
+                walkRef(v->Typespec(), 0);
+        if (auto* ps = sc->Parameters())
+            for (auto* p : *ps)
+                if (p->UhdmType() == UHDM::uhdmparameter)
+                    walkRef(((UHDM::parameter*)p)->Typespec(), 0);
+        if (auto* tss = sc->Typespecs())
+            for (auto* t : *tss) {
+                if (auto it = d2t.find(t); it != d2t.end())
+                    continue;  // a listing entry is never re-pointed in place
+                if (t->UhdmType() == UHDM::uhdmlogic_typespec)
+                    if (auto* rgs = ((UHDM::logic_typespec*)t)->Ranges())
+                        for (auto* r : *rgs) {
+                            walkExpr(r->Left_expr(), 1);
+                            walkExpr(r->Right_expr(), 1);
+                        }
+            }
+        if (k == UHDM::uhdmmodule_inst) {
+            auto* m = (UHDM::module_inst*)o;
+            if (auto* pts = m->Ports())
+                for (auto* p : *pts)
+                    walkRef(p->Typespec(), 0);
+            if (auto* cas = m->Cont_assigns())
+                for (auto* ca : *cas) {
+                    walkExpr(ca->Lhs(), 0);
+                    walkExpr(ca->Rhs(), 0);
+                }
+        }
+        if (k == UHDM::uhdminterface_inst)
+            if (auto* pts = ((UHDM::interface_inst*)o)->Ports())
+                for (auto* p : *pts)
+                    walkRef(p->Typespec(), 0);
+    }
+}
+
+// § pkgParamTsTopInstance16 (r10earl16) — the OTHER half of
+// § pkgTypespecInstanceIsTop, and the one that owns the -32 heads.  A module
+// expression that SUBSTITUTES a package parameter's value (every
+// `logic [NumAlerts-1:0]` bound, every folded cross-package read) emits a
+// CONSTANT, and expr::Compare walks that constant's Typespec, whose
+// typespec::Compare then recurses Instance().  Ours pointed the constant at
+// the DEFINITION package's parameter typespec object; golden mints a fresh one
+// per site but instances it at the ELABORATED package, so the walk enters the
+// two packages' different copies and reports the first content difference deep
+// inside them (work@hmac / hmac_pkg AlertAsyncOn's range bound: the top copy
+// holds the folded constant, the def copy still holds the operation — measured
+// with r10earl16a, which prints each range operand's Typespec and its
+// Instance).
+//
+// Only the INSTANCE is cmp-relevant, so re-pointing at the elaborated
+// package's own parameter typespec is equivalent to golden's fresh object and
+// costs no new arena entries.  The pairing is by parameter NAME inside a
+// same-named package pair (AllPackages holds the def copies, TopPackages the
+// elaborated ones).
+void UhdmExporter::pkgParamTsTopInstance16(UHDM::design* d) {
+    if (!d || !d->AllPackages() || !d->TopPackages())
+        return;
+    std::map<std::string_view, UHDM::package*> topByName;
+    for (auto* p : *d->TopPackages())
+        if (p && p->VpiTop())
+            topByName[p->VpiName()] = p;
+    if (topByName.empty())
+        return;
+    std::map<const UHDM::typespec*, UHDM::typespec*> d2t;
+    for (auto* dp : *d->AllPackages()) {
+        if (!dp || dp->VpiTop())
+            continue;
+        auto tit = topByName.find(dp->VpiName());
+        if (tit == topByName.end() || tit->second == dp)
+            continue;
+        auto* tp = tit->second;
+        if (!dp->Parameters() || !tp->Parameters())
+            continue;
+        std::map<std::string_view, UHDM::parameter*> topPar;
+        for (auto* p : *tp->Parameters())
+            if (p && p->UhdmType() == UHDM::uhdmparameter)
+                topPar[p->VpiName()] = (UHDM::parameter*)p;
+        for (auto* p : *dp->Parameters()) {
+            if (!p || p->UhdmType() != UHDM::uhdmparameter)
+                continue;
+            auto tp2 = topPar.find(p->VpiName());
+            if (tp2 == topPar.end())
+                continue;
+            if (tp2->second != p)
+                pkgRefActualD2T16[p] = tp2->second;
+            auto* drt = ((UHDM::parameter*)p)->Typespec();
+            auto* trt = tp2->second->Typespec();
+            if (!drt || !trt)
+                continue;
+            auto* da = drt->Actual_typespec();
+            auto* ta = trt->Actual_typespec();
+            if (!da || !ta || da == ta || da->UhdmType() != ta->UhdmType())
+                continue;
+            // Only an object that really belongs to the DEF package copy
+            // moves; a typedef listing object shared by both views is
+            // § modPkgTypedefTopTs15's business, not this pass's.
+            if (da->VpiName() != ta->VpiName())
+                continue;
+            d2t[da] = ta;
+        }
+    }
+    repointModOwnedTs16(d2t);
+}
+
+// § modTdClonePkgTopInstance16 (r10earl16) — the residue the two re-point laws
+// above cannot express.  A module net declared as a PACKED VECTOR OF a package
+// typedef (`sha_word_t [7:0] digest`) does not bind the package's listing
+// object at all: the emitter mints a PER-DECLARATION CLONE of it (same
+// qualified name, same span, its own range objects) and hangs it off the outer
+// logic_typespec's Elem_typespec.  The clone copies vpiInstance from the
+// object it was made of, so it names the DEFINITION package; golden's
+// equivalent per-site object names the ELABORATED one (work@hmac `digest`,
+// work@sha2 `w` / `hash`).  There is no def->top PAIR to re-point here — the
+// clone is nobody's listing entry — so the fix is to re-stamp the clone's own
+// vpiInstance.
+//
+// The guard is ownership: a typespec that IS a listing object (any package's
+// Typespecs entry, any package parameter's typespec, or a registered typedef
+// object in either view) is shared and never stamped; only clones reached from
+// a module / interface / program listing move.
+void UhdmExporter::modTdClonePkgTopInstance16(UHDM::design* d) {
+    if (!d || !d->AllPackages() || !d->TopPackages())
+        return;
+    std::map<std::string_view, UHDM::package*> topByName;
+    for (auto* p : *d->TopPackages())
+        if (p && p->VpiTop())
+            topByName[p->VpiName()] = p;
+    if (topByName.empty())
+        return;
+    // def package copy -> its elaborated twin
+    std::map<const UHDM::instance*, UHDM::instance*> pkgD2T;
+    std::set<const UHDM::typespec*> listingTs;
+    // def LISTING object -> its elaborated twin, paired by name inside a
+    // package pair.  A clone's Typedef_alias TARGET is a listing object, and
+    // typespec::Compare walks Typedef_alias before Instance.
+    std::map<const UHDM::typespec*, UHDM::typespec*> tsD2T;
+    auto noteListing = [&](UHDM::package* p) {
+        if (!p)
+            return;
+        if (auto* tss = p->Typespecs())
+            for (auto* t : *tss)
+                listingTs.insert(t);
+        if (auto* ps = p->Parameters())
+            for (auto* pp : *ps)
+                if (pp && pp->UhdmType() == UHDM::uhdmparameter)
+                    if (auto* rt = ((UHDM::parameter*)pp)->Typespec())
+                        if (auto* a = rt->Actual_typespec())
+                            listingTs.insert(a);
+    };
+    for (auto* dp : *d->AllPackages()) {
+        if (!dp)
+            continue;
+        noteListing(dp);
+        if (dp->VpiTop())
+            continue;
+        auto tit = topByName.find(dp->VpiName());
+        if (tit == topByName.end() || tit->second == dp)
+            continue;
+        pkgD2T[dp] = tit->second;
+        if (!dp->Typespecs() || !tit->second->Typespecs())
+            continue;
+        std::map<std::pair<std::string_view, UHDM::UHDM_OBJECT_TYPE>,
+                 UHDM::typespec*>
+            topTs;
+        for (auto* t : *tit->second->Typespecs())
+            if (t && !t->VpiName().empty())
+                topTs[{t->VpiName(), t->UhdmType()}] = t;
+        for (auto* t : *dp->Typespecs()) {
+            if (!t || t->VpiName().empty())
+                continue;
+            auto h = topTs.find({t->VpiName(), t->UhdmType()});
+            if (h != topTs.end() && h->second != t)
+                tsD2T[t] = h->second;
+        }
+    }
+    for (auto& [nm, tp] : topByName)
+        noteListing(tp);
+    for (auto& [sym, ts] : typedefTs)
+        if (ts)
+            listingTs.insert(ts);
+    for (auto& [key, ts] : pkgTopTypedefTs)
+        if (ts)
+            listingTs.insert(ts);
+    if (pkgD2T.empty())
+        return;
+    std::set<const UHDM::typespec*> seen;
+    std::function<void(UHDM::typespec*, int)> walk = [&](UHDM::typespec* t,
+                                                         int depth) {
+        if (!t || depth > 8 || !seen.insert(t).second)
+            return;
+        if (!listingTs.count(t)) {
+            if (auto* in = t->Instance())
+                if (auto pit = pkgD2T.find(in); pit != pkgD2T.end())
+                    t->Instance(pit->second);
+            if (auto* al = t->Typedef_alias())
+                if (auto* aa = al->Actual_typespec())
+                    if (auto ait = tsD2T.find(aa); ait != tsD2T.end())
+                        al->Actual_typespec(ait->second);
+        }
+        UHDM::ref_typespec* elem = nullptr;
+        switch (t->UhdmType()) {
+            case UHDM::uhdmarray_typespec:
+                elem = ((UHDM::array_typespec*)t)->Elem_typespec();
+                break;
+            case UHDM::uhdmpacked_array_typespec:
+                elem = ((UHDM::packed_array_typespec*)t)->Elem_typespec();
+                break;
+            case UHDM::uhdmlogic_typespec:
+                elem = ((UHDM::logic_typespec*)t)->Elem_typespec();
+                break;
+            default:
+                break;
+        }
+        if (elem)
+            walk(elem->Actual_typespec(), depth + 1);
+    };
+    auto root = [&](UHDM::ref_typespec* rt) {
+        if (rt)
+            walk(rt->Actual_typespec(), 0);
+    };
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::any*)kv.first;
+        if (!o)
+            continue;
+        auto k = o->UhdmType();
+        if (k != UHDM::uhdmmodule_inst && k != UHDM::uhdminterface_inst &&
+            k != UHDM::uhdmprogram)
+            continue;
+        auto* sc = (UHDM::instance*)o;
+        if (auto* ns = sc->Nets())
+            for (auto* n : *ns)
+                root(n->Typespec());
+        if (auto* vs = sc->Variables())
+            for (auto* v : *vs)
+                root(v->Typespec());
+        if (k == UHDM::uhdmmodule_inst)
+            if (auto* pts = ((UHDM::module_inst*)o)->Ports())
+                for (auto* p : *pts)
+                    root(p->Typespec());
+        if (k == UHDM::uhdminterface_inst)
+            if (auto* pts = ((UHDM::interface_inst*)o)->Ports())
+                for (auto* p : *pts)
+                    root(p->Typespec());
+    }
+}
+
+// PASS-15's "MEASURED ZERO" NOTE, CORRECTED (r10earl16).  Pass 15 tried the
+// Elem_typespec descent, measured no change, and concluded the def->top MAP
+// had no entry for a STRUCT typedef.  That conclusion is REFUTED: an
+// instrumented run prints
+//   TDMAP name='prim_alert_pkg::alert_rx_t' defuid=4152 topuid=21622
+// so d2t15 does contain the struct (the registry loop tail in ParamEmit
+// registers every typedef kind through `pkgTopTypedefTs[&ta] = ts`).  The
+// descent was RIGHT and its yield was simply small on its own — work@hmac's
+// `alert_rx_i` port element did move, and the port kept failing only because a
+// SECOND pointer in the same tree (the substituted `NumAlerts` constant's
+// int_typespec) still named the def package.  With
+// § pkgParamTsTopInstance16 beside it the pair closes hmac's ports, usbdev's
+// 13 r=25 nets, padring's 10 r=12 ports and flash_phy_core's 8 r=-601
+// children.  LESSON: a re-point law that fixes one of two pointers into the
+// same wrong package measures as ZERO.
 
 void UhdmExporter::bareScalarTypedefVarTs() {
     // The rebind targets ONLY registered package-typedef listing objects: a

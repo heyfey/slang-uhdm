@@ -1057,6 +1057,192 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
+LANDED — PASS 16 (r10earl16; FOUR laws in THREE gate rounds plus a final
+re-gate — laws 1 and 2 were gated TOGETHER because law 1 alone is a
+one-child measurement and law 2 needs it, laws 3 and 4 each got their own
+round.  Every round gated at goldens 23/23 + u2r testflags 0 change vs
+results/gate_uhdm2rtlil.csv + Surelog BOTH MODES 0 change, whole-row,
+vs results/golden_surelog.csv).  Pass-16 copies
+of the harness: run16.sh dmp16.sh dd16.sh rp16.sh cen16.sh sweep16.sh
+slsweep16.sh gate16.sh gold16.sh cmprc16.sh hdiff16.sh vrk16.sh sldiff16.sh
+sub16.sh suball16.sh d2t16.sh pts16.sh pins16.sh tsdiff16.sh, plus ONE new
+probe:
+
+  tools/probe/r10earl16a.cpp   THE POINTER PROBE.  r10earl15c stops at a
+        member's typespec and its range OPERANDS; this prints, for one
+        listing member (or `ts:<substr>` for the listing's own Typespecs),
+        the whole tree WITH the three pointers uhdm-cmp actually follows:
+        every node's Instance(), every typespec's Typedef_alias target, every
+        EXPRESSION's own Typespec (expr::Compare walks it), and every
+        ref_obj's Actual_group with the package that owns it.  Every law in
+        this pass was found by reading one of its lines.
+
+§ pkgTypespecInstanceIsTop IS NOW MOSTLY CLOSED, and it was never ONE pointer.
+Pass 15 left it as "which package copy does a module typespec name"; the
+answer is that a module listing reaches the same package through FOUR
+independent pointers, and fixing fewer than all of them measures as ZERO —
+which is exactly why pass 15's Elem_typespec descent looked like a dead end.
+Failing CHILDREN across the eleven sub-censused listings: 100 (pass-15 exit)
+-> 64 -> 62 -> 45.  Heads stay 33; the head line hides all of it.
+
+  1. § modPkgTdTopDescend16 (TypeEmit, beside modPkgTypedefTopTs15).  The
+     parent walk modPkgTypedefTopTs15 uses can never reach a binding whose
+     ref_typespec hangs under an UNPARENTED WRAPPER — a port declared
+     `prim_alert_pkg::alert_rx_t [NumAlerts-1:0] alert_rx_i` gets a
+     packed_array_typespec minted at :0:0 with no vpiParent.  So descend from
+     every module / interface / program listing MEMBER (nets, variables,
+     parameters, ports, the listing's own Typespecs, cont_assigns) through the
+     wrapper's Elem_typespec chain, the range bounds hanging off it and the
+     EXPRESSION trees inside those bounds.  PASS 15's MEASURED ZERO IS
+     REFUTED, and the refutation is a measurement: an instrumented
+     modPkgTypedefTopTs15 prints
+     `TDMAP name='prim_alert_pkg::alert_rx_t' defuid=4152 topuid=21622`, so
+     the def->top pairing DID contain the struct all along (the ParamEmit
+     listing-loop tail registers every typedef kind).  Alone the descent moves
+     ONE child (rv_dm Nets[17] `hartinfo`) — see law 2 for why.
+  2. § pkgParamTsTopInstance16 (TypeEmit; called from UhdmExporter right after
+     modPkgTypedefTopTs15).  THE LAW THAT OWNED THE -32 HEADS.  A module
+     expression that SUBSTITUTES a package parameter's value — every
+     `logic [NumAlerts-1:0]` bound, every folded cross-package read — emits a
+     CONSTANT, and expr::Compare walks that constant's Typespec, whose
+     typespec::Compare then recurses Instance().  We pointed the constant at
+     the DEFINITION package's parameter typespec; golden mints a fresh
+     int_typespec per site and instances it at the ELABORATED package
+     (r10earl16a on work@hmac `alerts`: `TS int_typespec hmac_pkg.sv:10:14
+     inst=package hmac_pkg {top=1}` vs ours `{top=0}`).  Only the INSTANCE is
+     cmp-relevant, so re-pointing at the elaborated package's own parameter
+     typespec is equivalent to golden's fresh object.  Pairing: same-named
+     package in AllPackages (def) / TopPackages (elab), parameters by name.
+     With law 1: 100 -> 64 children.  hmac Ports[7]/[8] + Nets[78] +
+     Cont_assigns[43], ALL 13 of usbdev's r=25 nets (residue item 2 CLOSED),
+     all 10 padring r=12 ports, all 8 flash_phy_core r=-601 children,
+     dm_mem's 3 Param_assigns; dm_mem's head advanced -32 -> -2.
+  3. § modTdClonePkgTopInstance16 (TypeEmit; after LAW S and
+     importCloneBareTdAlias16, which are the last writers of a module
+     listing's typespec clones).  A net declared as a PACKED VECTOR OF a
+     package typedef (`sha_word_t [7:0] digest`) binds NO listing object at
+     all: the emitter mints a PER-DECLARATION CLONE of the typedef and hangs
+     it off the outer logic_typespec's Elem_typespec.  Two of the clone's
+     fields point into the def package — its own vpiInstance (copied from the
+     object it was made of) and its Typedef_alias TARGET — and
+     typespec::Compare walks BOTH.  There is no def->top pair to re-point for
+     the clone itself, so its Instance is re-STAMPED and its alias target is
+     re-pointed at the elaborated package's listing twin (paired by name +
+     UhdmType inside a package pair).  Guard: a typespec that IS a listing
+     object (any package's Typespecs entry, any package parameter's typespec,
+     any typedefTs / pkgTopTypedefTs value) is shared and never touched.
+     64 -> 62: hmac `digest`, sha2 `w` / `hash` / `wipe_v` / Process[1],
+     Process[0] -32 -> 1.
+  4. § pkgRefActualTopParam16 (TypeEmit; the map is built by law 2's package
+     pairing, the re-point lives in the descent's walkExpr).  The FOURTH
+     pointer: an UNFOLDED package-parameter read (`logic [top_pkg::TL_AIW-1:0]
+     tl_source`) keeps a ref_obj, and ref_obj::Compare walks Actual_group —
+     ours named the DEF package's parameter, golden the elaborated one
+     (r10earl16a prints `ACTUAL parameter 'TL_AIW' / OWNER package 'top_pkg'
+     {top=1}` against `{top=0}`).  62 -> 45, the single biggest step:
+     work@tlul_adapter_host's ENTIRE child list (8) empties and its head goes
+     -32 -> -12; tlul_adapter_sram's four -32 nets, `rmask`, two cont_assigns
+     and Typespecs[1] all clear; dm_mem loses 5 more (3 ports, `progbuf`,
+     Cont_assigns[13]); rv_dm loses its 3 -32 nets.
+
+MEASURED ZERO — PASS 16 (built, run, reverted; both notes are in the code).
+  * Descending a logic_typespec's Elem_typespec inside § modPkgTdTopDescend16
+    changes nothing: by that point the element already holds a LAW-S COPY, not
+    the def LISTING object, so the d2t map can never match it.
+  * Adding a `uhdmlogic_typespec` arm to § modScalarTdTopInstance's
+    ELEMENT-half loop (beside its array / packed_array arms) also changes
+    nothing once law 3 is in — the two were measured against each other and
+    the sub-census is byte-identical with and without it.  The packed-vector
+    element is a CLONE, not a bareScalarTdCopy, so copyToSrc9 never finds it.
+
+EARLGREY_0_1 HEAD CENSUS after pass 16 (r10earl4h; 20 + 8 + 5 + 0 = 33 heads,
+unchanged in COUNT from pass 15 — read the child counts instead):
+
+  AllModules  SIZE 190 vs 190,  20 heads   (2 ADVANCED: dm_mem -32 -> -2,
+                                            tlul_adapter_host -32 -> -12)
+  TopModules  SIZE  10 vs  10,   8 heads   (unchanged, THIRTEEN passes)
+  AllPackages SIZE  40 vs  40,   5 heads   (unchanged)
+  TopPackages SIZE  40 vs  40,   0 heads   (still CLOSED)
+
+RANKED RESIDUE (measured after PASS 16 — next agent starts HERE).  AllModules
+unless stated.  Run `bash tools/probe/r10earl_repro/suball16.sh` FIRST.
+
+  (1) THE MISSING-INSTANCE CLASS — `failLhs package 'top_pkg' {top=1}` vs
+      `failRhs <null>`.  This is now the dominant shape and it is the MIRROR
+      of everything pass 16 fixed: golden instances a module-listing typespec
+      at a package where OURS carries NO vpiInstance at all.  It is the head
+      of def:work@tlul_adapter_sram (r=1) and of all 5 AllPackages heads (the
+      long-standing "all `<null>` on OUR side" line), and it is why every
+      remaining tlul_adapter_sram / sha2 / flash_phy_core child reports r=1:
+      those children fail through a typespec whose Instance() is the
+      module_inst, so Compare re-enters the WHOLE module and reports the first
+      difference anywhere in it.  METHOD NOTE: do not attribute an r=1 child
+      to its own subtree until you have checked whether its typespec's
+      Instance is the module — the sub-census owner column is diluted for this
+      shape.  Find the object with r10earl16a (it prints inst= on every node);
+      the pass to write is the inverse stamp of § modTdClonePkgTopInstance16.
+  (2) work@tlul_adapter_host WHOLE r=-12 with NO failing child — `failLhs
+      int_typespec '' :0:0` vs `failRhs logic_typespec '' :77:24`.  A KIND
+      difference (int vs logic typespec) on an object golden anchors at :0:0
+      and we anchor at the source; the whole listing's children are clean, so
+      this is one vector the sub-census does not enumerate.  Cheapest single
+      head on the board.
+  (3) work@dm_mem r=-2 — `constant dm_mem.sv:134:24 {ct=7 sz=3 dec=0}` vs
+      `{ct=9 sz=3 dec=0}`, i.e. § defNetBoundPkgIntEnc's INT/ct7-vs-UINT/ct9
+      encoding again, now the ONLY thing left in the listing besides
+      Process[2] r=-601.  Same family as the we.sv G5/G6 residue below, so a
+      single encoder fix may take all three.
+  (4) THE INT-ENCODING RESIDUE (unchanged from pass 15): we.sv rows G5 (gen-FOR
+      bound) and G6 (def cont-assign) fold a COMPUTED-init imported package
+      parameter to UINT/ct9 where golden writes INT/ct7.  Witness built and
+      committed, no head — but see (3), which IS a head.
+  (5) work@rv_dm Ref_modules[0] r=93 — the dm_csrs.sv:309 hier_path
+      (`abstractauto_q.autoexecprogbuf[{1'b1,}]` vs
+      `[{1'b1, dmi_req_i.addr[3:0]}]`, a DROPPED index operand), shared with
+      the def:work@dm_csrs head.  Read the emitter's unsupported-construct
+      stderr summary first (unsup.sh).
+  (6) tlul_adapter_sram Typespecs[1] / its nets: `indexed_part_select 'a_data'
+      tlul_adapter_sram.sv:163:57` r=1 on both sides with identical names and
+      spans — an expr field (VpiSize or VpiDecompile) inside a
+      `tl_i.a_data[8 * i+:8]` hier_path.  May well be a symptom of (1); check
+      that first.
+  (7) we.sv row G3 — the QUALIFIED gen-condition spelling (`wep::WM == 1`),
+      witness ready, one arm next to § genCondQualPkgParamFold.
+  (8) The wc.sv PACKAGE-scope taken-branch ternary (§ impCondBranchFold gated
+      `!inPackage`), unchanged.
+  (9) 1 `enum_const 'PhyOps'` vs `<null>` (flash_phy_core) — flash_phy_pkg.sv:75
+      is the LAST member of a 5-member enum and we emit four (r=1 vector
+      SHORTFALL, an off-by-one in a clone loop).  Unchanged.
+ (10) THE HIER_PATH NAME RESIDUES, 3 heads, unchanged (flash_ctrl:315
+      `region_cfgs[8]` vs `[MpRegions]`; dm_csrs:309; flash_phy:129).
+ (11) TopModules 8 — THIRTEEN PASSES UNMOVED.  sram2tlul / jtag_mux (the
+      inverted empty-constant pair) still have no witness.  r10earl15b accepts
+      `top` as its vector argument and the sub-census has STILL never been run
+      on them — that is a ten-second experiment nobody has done.
+ (12) Singletons, unchanged: padring `named_begin 'gen_mio_input'`,
+      prim_generic_pad_wrapper:40, prim_keccak:24, prim_present:61,
+      rv_core_ibex int-vs-logic_typespec, flash_mp:21:87, top_earlgrey
+      tl_main_pkg:13:59, tlul_adapter_host top_pkg:8 sz32/64.
+
+PASS-16 OPS NOTES
+  * A RE-POINT LAW THAT FIXES ONE OF TWO POINTERS MEASURES AS ZERO.  Pass 15
+    reverted a correct traversal because the object it fixed was still reached
+    through a second pointer into the same wrong package.  Before believing a
+    "measured zero", re-run the probe on the object the law touched and check
+    whether it MOVED — hmac's port element did move in pass 15 and the head
+    did not.  A law's yield and a law's correctness are different questions.
+  * ASK WHAT Compare ACTUALLY WALKS.  Every law in this pass came from reading
+    UHDM's generated `*::Compare` in ~/git-repos/UHDM/build/generated/src/:
+    expr::Compare walks Typespec (so EVERY constant reaches a package),
+    ref_obj::Compare walks Actual_group, typespec::Compare walks Typedef_alias
+    AND Instance, logic_typespec::Compare walks Elem_typespec.  Four reads,
+    four laws.  Guessing which field carried the difference cost pass 15 a
+    whole cycle.
+  * AN INSTRUMENTED EMITTER BEATS A THEORY ABOUT A MAP.  Twelve lines of
+    getenv-gated fprintf inside modPkgTypedefTopTs15 refuted pass 15's central
+    claim in one build.  When a law's premise is "the map does not contain
+    X", print the map.
+
 LANDED — PASS 15 (r10earl15; FOUR laws in FOUR gate rounds, each round gated at
 goldens 23/23 + u2r testflags 0 change vs results/gate_uhdm2rtlil.csv + Surelog
 BOTH MODES 0 change vs results/golden_surelog.csv, incl. the dump column).
