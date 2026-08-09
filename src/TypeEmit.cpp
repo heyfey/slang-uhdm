@@ -6027,6 +6027,116 @@ void UhdmExporter::pkgBoundMintTsTopInstance17(UHDM::design* d) {
 // Typespecs entry, any package parameter's typespec, or a registered typedef
 // object in either view) is shared and never stamped; only clones reached from
 // a module / interface / program listing move.
+// § pkgImportAggCloneLastWriter32 — WHO owns a package typedef's IMPORT-CLONE
+// listing object.
+//
+// An imported package typedef is listed by every importer, and all of them
+// share ONE second-generation object (the home package's own def listing keeps
+// a separate first-generation one).  Surelog stamps that shared object's
+// vpiInstance as it writes each package's data-type table, so the LAST package
+// to list it owns it for the whole design — in every view, including the home
+// package's own ELABORATED listing and every module listing.
+//
+// t42a (`tools/probe/r10uvm32repro/t42a`) reads all the cells off one golden:
+// `pa42`'s enum / packed-struct / vector typedefs are imported by pb42, pc42
+// (which uses none of them), pd42 and pe42, and all three shared clones come
+// out `inst=pe42`.  pe42 is the decisive cell: its import is EXPLICIT and
+// type-only, so it has no wildcard subroutine clone and never mentions the
+// types — the package LISTING is what stamps, not any use.
+//
+// We already followed this for VECTOR/scalar/class-alias clones (ParamEmit's
+// `otherTds` arm re-stamps on every importer).  The AGGREGATE arm stamped only
+// the FIRST importer, at creation, and the wildcard subroutine-clone pass then
+// moved it again: an aggregate formal binds the SHARED clone (LAW S gives a
+// per-declaration bare copy only to scalars), and that path stamps
+// `importCopyTsInst` = the clone's HOME package.  So the aggregate clones came
+// out owned by the typedef's own package.  Reach: SeqDriver's whole
+// `INST enum_typespec` family — 1148 io_decl rows, golden `@adpcm_pkg` where we
+// said `@uvm_pkg` — plus the struct ones.
+//
+// Applied design-final, from a record taken during the def pass, precisely
+// because those later passes would overwrite an in-place stamp.  The vector
+// arm records too, where it is a no-op: if this pass ever MOVED a vector clone
+// the record and the existing law would have disagreed.
+void UhdmExporter::pkgImportCloneLastWriter32() {
+    for (auto& [ts, inst] : pkgImportCloneOwner32)
+        if (ts && inst)
+            ts->Instance(inst);
+}
+
+// § importCopyAggFormalOwnCopy32 — the OTHER half of the last-writer law.
+//
+// A WILDCARD-IMPORT SUBROUTINE CLONE's formals keep vpiInstance = the HOME
+// package (the long-standing `importCopyTsInst` law), while the shared listing
+// clone they used to be bound to now follows the LAST importer
+// (§ pkgImportAggCloneLastWriter32).  One object cannot carry both, and golden
+// does not ask it to: `t42a`'s `r10uvm32io --objects` shows Surelog minting a
+// FRESH typespec per clone formal (`uses=1`) beside the shared listing object
+// (`uses=7`) —
+//
+//   DEFPKG pb42::a_use io[0] 'e'  enum_typespec 'pa42::aen_t' @pa42!top  ts#3
+//   DEFPKG pb42::b_use io[0] 'e'  enum_typespec 'pa42::aen_t' @pe42      ts#6
+//
+// where `a_use` is pb42's CLONE of pa42's function and `b_use` is pb42's own.
+// Note the view marker: the clone's copy names the ELABORATED home package,
+// which is why this returns a copy for the existing stamp to write rather than
+// binding the home package's own def listing object.
+//
+// The copy is shallow on purpose — it SHARES the enum-constant / member
+// vectors and the Typedef_alias with the original, so every field uhdm-cmp
+// reads through it is the same object it was before; only vpiInstance splits.
+UHDM::typespec* UhdmExporter::aggImportCloneCopy32(UHDM::typespec* src) {
+    if (!src)
+        return nullptr;
+    if (auto it = aggImportCloneCopy32Map.find(src);
+        it != aggImportCloneCopy32Map.end())
+        return it->second;
+    UHDM::typespec* cp = nullptr;
+    switch (src->UhdmType()) {
+        case UHDM::uhdmenum_typespec: {
+            auto* se = (UHDM::enum_typespec*)src;
+            auto* ce = s.MakeEnum_typespec();
+            ce->Base_typespec(se->Base_typespec());
+            ce->Enum_consts(se->Enum_consts());
+            cp = ce;
+            break;
+        }
+        case UHDM::uhdmstruct_typespec: {
+            auto* ss = (UHDM::struct_typespec*)src;
+            auto* cs = s.MakeStruct_typespec();
+            cs->VpiPacked(ss->VpiPacked());
+            cs->Members(ss->Members());
+            cp = cs;
+            break;
+        }
+        case UHDM::uhdmunion_typespec: {
+            auto* su = (UHDM::union_typespec*)src;
+            auto* cu = s.MakeUnion_typespec();
+            cu->VpiPacked(su->VpiPacked());
+            cu->Members(su->Members());
+            cp = cu;
+            break;
+        }
+        default:
+            break;
+    }
+    if (!cp) {
+        aggImportCloneCopy32Map[src] = nullptr;
+        return nullptr;
+    }
+    cp->VpiName(src->VpiName());
+    cp->VpiParent(src->VpiParent());
+    cp->VpiFile(src->VpiFile());
+    cp->VpiLineNo(src->VpiLineNo());
+    cp->VpiColumnNo(src->VpiColumnNo());
+    cp->VpiEndLineNo(src->VpiEndLineNo());
+    cp->VpiEndColumnNo(src->VpiEndColumnNo());
+    cp->Typedef_alias(src->Typedef_alias());
+    cp->Instance(src->Instance());
+    aggImportCloneCopy32Map[src] = cp;
+    return cp;
+}
+
 void UhdmExporter::modTdClonePkgTopInstance16(UHDM::design* d) {
     if (!d || !d->AllPackages() || !d->TopPackages())
         return;
@@ -6332,6 +6442,17 @@ void UhdmExporter::bareScalarTypedefVarTs() {
             if (!inst || rangedTd(v->Typespec()))
                 rebind(v->Typespec(), !inst);
         }
+        // NOT § dpiImportFormalKeepsListingTd32.  Golden names a DPI IMPORT's
+        // formal `uvm_pkg::uvm_hdl_data_t` — the qualified LISTING object —
+        // where the identical formal of a plain package function is bare
+        // (t41b §(e): `d_lit` vs `p_lit`, 76 rows on all four UVM-4 tests, the
+        // largest NAME family left).  Guarding this rebind on DPI-ness was
+        // MEASURED and is a strict NO-OP: the io_decl never held the listing
+        // object to begin with — TaskFuncEmit's per-formal typedef-CLONE arms
+        // run first and hand LAW S an object that is not in `pkgScalarTd`, so
+        // there is nothing here to skip.  The law has to be applied at the
+        // io_decl emission site instead (bind the shared object rather than
+        // mint the clone).  Recorded so pass 33 does not re-derive it.
         else if (auto* io = dynamic_cast<UHDM::io_decl*>(o))
             rebind(io->Typespec(), true);
         // A struct/union MEMBER takes the same aliased bare copy as a

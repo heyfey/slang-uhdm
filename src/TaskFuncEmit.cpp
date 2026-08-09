@@ -2648,6 +2648,21 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // Surelog keeps one object at its def-view instance. Fresh
                 // top-built formal typespecs are absent from the marker and
                 // still take the elaborated instance.
+                // § importCopyAggFormalOwnCopy32 — a wildcard-import CLONE's
+                // AGGREGATE formal must not re-stamp the SHARED listing clone
+                // it is bound to: that object is owned by the last importer
+                // (§ pkgImportAggCloneLastWriter32) while the clone's own
+                // formals name the HOME package.  Golden splits them into two
+                // objects (t42a: `uses=7` shared vs `uses=1` per clone
+                // formal); take a private copy and let the stamp below write
+                // that.  Aggregates only — a scalar/vector formal already
+                // holds a per-declaration LAW-S copy and never touches the
+                // shared object.
+                if (importCopyTsInst && ts &&
+                    pkgImportCloneOwner32.count((UHDM::typespec*)ts))
+                    if (auto* acp32 =
+                            aggImportCloneCopy32((UHDM::typespec*)ts))
+                        ts = acp32;
                 if (tsInst &&
                     !foreignSharedTs(*arg, (const UHDM::typespec*)ts) &&
                     !(pkgTopEmit &&

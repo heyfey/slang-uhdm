@@ -4260,6 +4260,12 @@ UHDM::design* UhdmExporter::exportDesign() {
     // typespec the folded-bound path MINTED has no vpiInstance at all.  Runs
     // beside the pass-16 stamps and never overwrites one they set.
     pkgBoundMintTsTopInstance17(d);
+    // § pkgImportAggCloneLastWriter32 — a shared package-typedef IMPORT CLONE
+    // is owned by the LAST package that listed it.  Dead last among the
+    // instance passes: the wildcard subroutine-clone stamp and the two
+    // top-instance passes above all write the same field (incl. pass 17's
+    // mint stamp immediately above).
+    pkgImportCloneLastWriter32();
     // ...and an anonymous class_typespec never carries vpiInstance.
     clearAnonClassTsInstance();
     // § pkgCloneHierBind9 — bind the BASE of every dotted reference inside a

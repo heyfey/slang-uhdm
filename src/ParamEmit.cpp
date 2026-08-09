@@ -16924,6 +16924,21 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                             defPassOwnedTs.insert(ecl);
                         cl2 = ecl;
                     }
+                    // § pkgImportAggCloneLastWriter32 — the shared clone's
+                    // vpiInstance follows the LAST package to LIST it, exactly
+                    // as the vector/scalar branch below already does; the
+                    // enum/struct branch only ever stamped the FIRST importer
+                    // (creation) and the wildcard subroutine-clone pass then
+                    // dragged it back to the typedef's HOME package.  t42a
+                    // reads all three kinds off one golden: `pa42::aen_t` /
+                    // `ast_t` / `avec_t` are ALL owned by `pe42`, the last
+                    // importer — and pe42's is an EXPLICIT type-only import
+                    // with no subroutine clone at all, so it is the LISTING
+                    // that stamps, not any use of the type.  Recorded, not
+                    // applied, because later passes overwrite (see the header).
+                    if (!topView && cl2)
+                        pkgImportCloneOwner32[(UHDM::typespec*)cl2] =
+                            (UHDM::instance*)up;
                     pkgTdByName.emplace_back(std::string(ta2.name),
                                              (UHDM::typespec*)cl2);
                 }
@@ -17018,6 +17033,13 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         cl8->VpiParent(up);
                         cl8->Instance((UHDM::instance*)up);
                     }
+                    // ...and the same record the aggregate branch above keeps,
+                    // so § pkgImportAggCloneLastWriter32's design-final pass
+                    // covers every kind uniformly (a no-op here today — this
+                    // branch already lands on the last importer — and the
+                    // control that proves the pass does not move a vector).
+                    if (!topView)
+                        pkgImportCloneOwner32[cl8] = (UHDM::instance*)up;
                     pkgTdByName.emplace_back(std::string(ta8.name), cl8);
                 }
             }

@@ -458,6 +458,8 @@ private:
     // and this design-final pass does the stamp.
     std::map<UHDM::typespec*, std::string> pkgBoundMintTs17;
     void pkgBoundMintTsTopInstance17(UHDM::design* d);
+    void pkgImportCloneLastWriter32();
+    UHDM::typespec* aggImportCloneCopy32(UHDM::typespec* src);
     // § pkgRefActualTopParam16 — a module-listing ref_obj that reads a package
     // parameter names the ELABORATED package's parameter object.  Filled by
     // pkgParamTsTopInstance16 (same package pairing) and consumed by the
@@ -3476,6 +3478,20 @@ private:
     // the home package's def object; module import listings share it too
     // (last-writer scoping). Filled by drainPkgImportLists.
     std::map<const slang::ast::Symbol*, UHDM::typespec*> pkgImportCloneTs;
+    // § pkgImportAggCloneLastWriter32 — the LAST def-pass package whose typedef
+    // listing contained each of those clones.  Surelog re-stamps the shared
+    // object's vpiInstance every time it writes another package's data-type
+    // table, so the last importer owns it for the whole design; the elaborated
+    // pass re-lists the same object and leaves the owner alone.  Recorded here
+    // rather than stamped in place because the wildcard subroutine-clone pass
+    // (importCopyTsInst) runs later and would otherwise drag an AGGREGATE
+    // clone back to the typedef's HOME package.  Applied design-final by
+    // pkgImportCloneLastWriter32.
+    std::map<UHDM::typespec*, UHDM::instance*> pkgImportCloneOwner32;
+    // § importCopyAggFormalOwnCopy32 — one private copy of each shared
+    // aggregate import clone for the wildcard subroutine-CLONE formals, which
+    // name the HOME package where the listing names the last importer.
+    std::map<UHDM::typespec*, UHDM::typespec*> aggImportCloneCopy32Map;
     // Creation-pass marker. A package member typespec the DEF pass created
     // (and instanced at the def-view package) keeps that instance forever:
     // Surelog emits ONE shared object whose vpiInstance is the def view, and
