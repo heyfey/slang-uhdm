@@ -4256,6 +4256,10 @@ UHDM::design* UhdmExporter::exportDesign() {
     // writers of a module listing's typespec clones, so the clone-instance
     // stamp runs after them.
     modTdClonePkgTopInstance16(d);
+    // § pkgBoundMintTsTopInstance17 — the MISSING-INSTANCE mirror: a per-site
+    // typespec the folded-bound path MINTED has no vpiInstance at all.  Runs
+    // beside the pass-16 stamps and never overwrites one they set.
+    pkgBoundMintTsTopInstance17(d);
     // ...and an anonymous class_typespec never carries vpiInstance.
     clearAnonClassTsInstance();
     // § pkgCloneHierBind9 — bind the BASE of every dotted reference inside a

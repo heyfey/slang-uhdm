@@ -40,6 +40,61 @@ mark.py --on|--off <files...>
                    VpiName — they are keyed on vpiDefName.
 ../r10earl2build.sh <probe-name>   builds a probe against libuhdm.
 
+THE PASS-17 PROBES — READ THIS BEFORE WRITING ANOTHER HAND-ROLLED DESCENT.
+Every r10earl probe before pass 17 hand-writes a walk for the node kinds its
+author expected, so a difference one level below that imagination is invisible
+(that is what left work@tlul_adapter_host "no failing child" for two passes).
+These three are GENERIC — they enumerate children through the VPI relation ids
+(vpi_handle / vpi_iterate over [1,3000)), so they need no per-type code and
+cannot miss a vector:
+
+../r10earl17a.cpp  THE COMPLETE SUB-CENSUS.  r10earl15b enumerates 21 child
+        vectors chosen by hand; module_inst::Compare walks FORTY-ONE plus five
+        single-object pointers.  17a walks all of them IN COMPARE ORDER, so the
+        first non-clean line is the pair uhdm-cmp trips on.  It found
+        tlul_adapter_host's failure (Gen_stmts — a vector 15b never looked at)
+        in one run.  Driver: sub17.sh <vec> <Listing> [-v].
+../r10earl17c.cpp  THE GENERIC BISECTOR — the workhorse of this pass; every
+        pass-17 law came out of one of its runs.  CompareContext names the
+        failing LEAF; this walks DOWN from a listing child and prints the FIELD
+        CHAIN uhdm-cmp follows to reach it, ending either at a NULLNESS report
+        ("*** THE MISSING POINTER ***", with both owners' parent chains) or at a
+        scalar difference with the full child table.  Driver: bis17.sh <vec>
+        <Listing> <selector> — selector = whole | net:/port:/var:/param:/tf: by
+        name, ts:/pa:/ca:/proc:/genstmt: by index, refmod:/gsa: by name.
+        THREE things it must do, all learned the hard way in this pass:
+          * SKIP vpiParent.  It is a pure back-edge; following it walks out of
+            the subtree into the design and bisects an unrelated module.
+          * SEED each child's CompareContext with the ANCESTOR PATH.  A fresh
+            context makes a typespec's Instance() back-edge re-compare the whole
+            module and "fail", which is a PHANTOM — the real Compare's m_visited
+            makes that edge a no-op.  Children that fail only unseeded are
+            printed as CYCLE lines.
+          * Key the seen-set on the PAIR, not on the golden node.  One golden
+            object pairs with DIFFERENT objects of ours along different paths
+            (a shared typespec against per-declaration clones), and a
+            golden-only key reports "no child reproduces it" for the very child
+            that carries the difference.
+../r10earl17d.cpp  THE NULLNESS WALK.  Same generic enumeration with NO Compare
+        at all: lockstep both subtrees and report every pointer one side has and
+        the other lacks, plus every vector whose sizes differ.  Linear where 17c
+        is quadratic; use it when the shape is known to be a missing pointer.
+        Driver: nul17.sh.  (It prunes at instance/design boundaries; -deep
+        descends anyway.)
+../r10earl17b.cpp  subtree dumper over UHDM's own visit_object.  KEPT AS A
+        WARNING: visit_object follows Instance() into the whole design, so one
+        module_inst produced a 256 MB text file.  Use 17c/17d instead.
+bisall17.sh   runs 17c over every head and collects the field chains — the way
+        the pass-17 ranked residue below was produced.  ~1 min per head.
+hdiff17.sh    head diff of two r10earl4h censuses.  METRIC HYGIENE: it compares
+        the failLhs/failRhs lines too, because head-line-only comparison HIDES
+        AN ADVANCE — § pkgBoundMintTsTopInstance17 moved four heads onto a new
+        object with every r still 1 and the head-only diff printed nothing.
+gate17.sh <tag>   the whole gate in one command (goldens + u2r testflags +
+        Surelog both modes, whole-row diffs against the committed baselines).
+sweep17.sh / sub17.sh / bis17.sh / nul17.sh / dd17.sh / r10earl17build.sh —
+        pass-17 harness copies, all pointing at THIS worktree.
+
 LANDED — PASS 1 (both gated at goldens 23/23 + u2r testflags 0 change +
 Surelog both modes 0 change):
 
@@ -1056,6 +1111,208 @@ already reports:
                              AllModules head (the wildcard-import bound fold).
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
+
+LANDED — PASS 17 (r10earl17; FIVE laws in FIVE gate rounds — one per law, each
+round gated at goldens 23/23 + u2r testflags 732 lines 0 change vs
+results/gate_uhdm2rtlil.csv + Surelog BOTH MODES 1589 lines 0 change,
+WHOLE-ROW incl. the dump column, vs results/golden_surelog.csv).
+
+  THE METHOD CHANGE IS THE HEADLINE.  Pass 16 closed with "ask what Compare
+  actually walks" and a hand-written probe per shape.  Pass 17 replaced the
+  hand-written descents with a GENERIC bisector (r10earl17c, see the tool block
+  at the top of this file): enumerate children through the VPI relation ids,
+  re-Compare each pair with the ancestor path seeded into m_visited, follow the
+  first real failure, print the field chain.  Every law below is one run of it,
+  and the two residues that had defeated thirteen passes (TopModules 8) are now
+  decoded objects rather than guesses.  ALL FIVE AllPackages heads turned out
+  to be ONE shape; the MISSING-INSTANCE class turned out to be TWO mint sites
+  and a typed/untyped split.
+
+  1. § castScopedPkgParamIntTs17 (TypeEmit, emitSyntaxExpr's CastExpression
+     ScopedName arm — it was carrying a "RANKED residue, not reconstructible"
+     comment).  A PACKAGE-PARAMETER cast target (`top_pkg::TL_AIW'(source_q)`)
+     IS reconstructible: § crossPkgRangeBoundFold's own crossPkgBoundParam9
+     tokenizes the `::` the way Surelog's getValue does.  Golden's object is a
+     BARE int_typespec — NO location, no name, no ranges, UNSIGNED — carrying
+     the folded value (`|UINT:8`); ours was a logic_typespec at the cast-target
+     span.  The setLoc after the switch has to be skipped for this one arm.
+     Closed TWO heads outright: work@tlul_adapter_host (r=-12, the pass-16
+     residue (2), found in Gen_stmts[0] — the vector the old sub-census never
+     enumerated) and work@rv_core_ibex, which reaches the same object through
+     two ref_modules.  A TYPEDEF cast target still keeps the logic_typespec.
+  2. § pkgOwnParamRefActualIsRhs17 (TypeEmit ~9281 + a new def-only map in
+     ParamEmit).  pkgParamConst is registered ONLY when a package parameter's
+     Rhs came out a CONSTANT, so a localparam with a COMPUTED initializer
+     (`AddrW = BankW + PageW + WordW`) or a plain cross-package read
+     (`DataWidth = flash_ctrl_pkg::DataWidth`) left its struct-member range
+     bound's ref_obj DANGLING, and ref_obj::Compare walks Actual_group.
+     Surelog's value-ref chaining does not care what the Rhs became: it binds
+     the param_assign's Rhs NODE.  All five AllPackages heads were this one
+     shape, decoded head-for-head with the bisect, always a struct typespec
+     MEMBER bound in the package's own def view:
+       flash_ctrl_pkg  addr -> AddrW           -> operation 18:36
+       flash_phy_pkg   data -> DataWidth       -> ref_obj  17:32
+       rstmgr_pkg      ...  -> ExtResetReasons -> ref_obj   8:36
+       alert_pkg       ...  -> NAlerts         -> ref_obj   9:44
+       hmac_pkg        ...  -> WordByte        -> operation 18:29
+     A CORRECTION FOUND BY MEASURING: binding through pkgParamDefRhs was
+     WRONG — the top-view pass overwrites that map in place, and a package
+     struct's member typespecs are re-minted LATE (their uids land beside the
+     ELABORATED package's), so the def-view bound chained into the TOP copy's
+     folded constant.  The four heads went `failRhs <null>` ->
+     `failRhs constant {top=1}`, i.e. the law was right and the VIEW was wrong.
+     pkgParamDefRhsDefView17 is the same registration restricted to !topView.
+     AllPackages 5 -> 1.
+  3. § pkgOwnParamNameWinsBind17 (TypeEmit, the bindPkgParam lambda ~1169).
+     That lambda scans pkgParamConst / pkgParamDefRhs BY NAME across every
+     package, first map iteration wins.  alert_pkg re-exports its dependency
+     verbatim (`localparam int unsigned N_CLASSES =
+     alert_handler_reg_pkg::N_CLASSES;`), so its own struct member
+     `logic [N_CLASSES-1:0]` bound alert_handler_reg_pkg's constant.  The
+     DECLARING package wins — the same package-member-WINS shadowing law pass
+     13 recorded, in a second place.  AllPackages 1 -> 0: THE WHOLE
+     AllPackages LINE IS CLOSED, first time in seventeen passes, and both
+     package vectors are now zero.
+  4. § pkgBoundMintTsTopInstance17 (TypeEmit, two mint sites + a design-final
+     pass called from UhdmExporter beside the pass-16 stamps).  THE
+     MISSING-INSTANCE CLASS — pass 16's ranked residue (1) and the exact mirror
+     of its four re-point laws: they all asked WHICH package copy a pointer
+     names, this one asks why there is NO pointer.  A def-view range bound that
+     folds a package parameter shares the parameter's own typespec when the
+     package parameter object is around and MINTS a per-site int_typespec when
+     it is not; a mint carries no vpiInstance, golden's twin carries the
+     ELABORATED package, and typespec::Compare walks Instance.  The elaborated
+     package does not exist at mint time, so the mint records the home package
+     NAME and the design-final pass resolves it against TopPackages.
+     TWO CORRECTIONS, BOTH MEASURED:
+       * the stamp follows the TYPED/UNTYPED split § defNetBoundUntypedPkgTs
+         already measured on the same mint.  Stamping both flavours REGRESSED
+         three heads (work@pwrmgr, work@pwrmgr_fsm, work@pwrmgr_wake_info, all
+         `logic [TotalWakeWidth-1:0]` off pwrmgr_pkg's UNTYPED localparam):
+         golden reports `failLhs <null>` there — its own synthesized
+         whole-declaration int_typespec is instance-less too.
+       * the site that mattered was NOT the one the first cut instrumented.
+         The struct-member flavour has its own mint inside
+         modStructMemberPkgSubst9, and stamping only the net/var one measured a
+         BYTE-IDENTICAL census (a genuine zero, not a masked win — the pass-16
+         two-pointer law in a new guise: enumerate the MINT SITES too).
+     work@tlul_adapter_sram's whole head is one object: struct `req_t`'s member
+     `logic [top_pkg::TL_SZW-1:0] size`.  hmac / spi_device / usbdev all
+     re-enter tlul_adapter_sram through a ref_module, so four heads ADVANCED
+     together — onto pass-16's residue (6), which the head-LINE diff could not
+     see because every r stayed 1 (see hdiff17.sh).
+  5. § hierSelConstWidthSuffices17 (ExprEmit ~9899).  For an INDEXED part
+     select the base may be a variable and the select is still
+     vpiConstantSelect — "constant width suffices", the rule the plain indexed
+     emitter and the two var_select emitters in the same file already use
+     (widthConst9 / widthConst).  The hier_path member-select site was the only
+     one demanding BOTH ends, so `tl_i.a_data[8*i+:8]` inside a for-loop
+     (tlul_adapter_sram.sv:163) read false where golden reads true.  The SIMPLE
+     arm keeps the both-ends rule: an `[a:b]` select has no width to be
+     constant.  Closed work@spi_device, work@tlul_adapter_sram and
+     work@usbdev; work@hmac advanced to the sha2 shape (residue (1) below).
+
+EARLGREY_0_1 HEAD CENSUS after pass 17 (r10earl4h; 15 + 8 + 0 + 0 = 23 heads,
+from 20 + 8 + 5 + 0 = 33 at entry):
+
+  AllModules  SIZE 190 vs 190,  15 heads   (rv_core_ibex, tlul_adapter_host,
+                                            spi_device, tlul_adapter_sram,
+                                            usbdev CLOSED)
+  TopModules  SIZE  10 vs  10,   8 heads   (unchanged in COUNT — but every one
+                                            is now a NAMED OBJECT, below)
+  AllPackages SIZE  40 vs  40,   0 heads   (CLOSED)
+  TopPackages SIZE  40 vs  40,   0 heads   (CLOSED)
+
+Conversions: NONE — Earlgrey_0_1 is still CMP_NOTEQUAL, 0 movers, and the whole
+Surelog sweep is byte-for-byte the committed baseline.
+
+RANKED RESIDUE (measured after PASS 17 — next agent starts HERE).  EVERY entry
+below is a bisected FIELD CHAIN, not a guess: re-run
+`EARL_OURS=<slang.uhdm> bash tools/probe/r10earl_repro/bisall17.sh` to
+reproduce the whole table in ~15 min.
+
+  (1) THE PER-DECLARATION CLONE WE DO NOT MAKE — 2 heads (work@sha2,
+      work@hmac), and the inverse of § modTdClonePkgTopInstance16.  sha2's port
+      `output sha_word_t [7:0] digest`: golden's Elem_typespec (rel 704) is a
+      per-declaration CLONE of `hmac_pkg::sha_word_t` carrying a
+      Typedef_alias ref back at the package's typedef; OURS IS THE PACKAGE'S
+      LISTING OBJECT ITSELF (its parent is `package hmac_pkg {top=0}`), which
+      has no Typedef_alias at all — `rel=701 NULLNESS`.  Pass 16 law 3 already
+      builds exactly this clone for the NET flavour (`sha_word_t [7:0] digest`
+      as a net); this is the PORT flavour, which never reached the clone path.
+      Start from modTdClonePkgTopInstance16 and the LAW-S copy machinery.
+  (2) THE prim_pkg::impl_e INSTANCE — 2 TopModules heads (work@padring,
+      work@top_earlgrey) SHARING ONE OBJECT, and a pure pass-16-style
+      def-vs-top re-point: a child instance's `parameter Impl` (i_clk_pad in
+      padring, core_clock_gate_i under u_rv_core_ibex/u_core in top_earlgrey)
+      has an enum_typespec `prim_pkg::impl_e` whose vpiInstance is
+      `prim_pkg {top=0}` where golden's is `{top=1}`.  The pass-16 laws walk
+      the AllModules/AllPackages LISTINGS; this object hangs off a NESTED
+      module_inst in the ELABORATED tree, which none of them reach.  Cheapest
+      two heads on the board and the first TopModules movement in fourteen
+      passes.
+  (3) WE FOLD, GOLDEN KEEPS THE OPERATION — 3 TopModules heads, one family,
+      each with `rel=97 VECTOR SIZE n vs 0` (our constant has no operands):
+        work@sram2tlul  cont_assign sram2tlul.sv:42:10 — golden's Rhs is the
+                        CAST operation at 42:27 {op=67}; ours is a folded
+                        constant {ct=9 sz=2 dec=2} with no ref_typespec.
+                        (This is the long-standing "sram2tlul / jtag_mux
+                        mirror-image constant-vs-operation" pair, now named.)
+        work@jtag_mux   the MIRROR: param_assign jtag_mux.sv:11:32's typespec
+                        range — golden keeps operation 11:20 {op=11}, we write
+                        an EMPTY constant at :0:0 (and the logic_typespec and
+                        range are at :0:0 too, so the whole elaborated
+                        `logic [TieOffValues-1:0]` bound is synthesized rather
+                        than emitted).
+        work@prim_keccak an io_decl's `box_t` range (prim_keccak.sv:24:27,
+                        reached through function `theta`): golden operation
+                        {op=11}, ours constant {ct=7 sz=64 dec=63}.
+      A shared "when does the ELABORATED view keep the bound symbolic" rule is
+      worth one experiment for three heads.
+  (4) work@prim_gate_gen (Top) r=1 — a gen_scope logic_var's range constant
+      (prim_gate_gen.sv:86:12, `inner_data`) has NO ref_typespec where golden
+      has one (`rel=605 NULLNESS`).  Same shape as the def-view folded-bound
+      ts stamp; a one-line arm if the mint site is found.
+  (5) work@prim_prince (Top) r=1 — `rel=700 NULLNESS`: a gen_scope cont_assign's
+      ref_obj `data_state_round` (prim_prince.sv:105:29) has no Actual_group;
+      golden binds the gen_scope's own logic_var at 86:27.  The gen-scope twin
+      of § pkgOwnParamRefActualIsRhs17.
+  (6) work@flash_phy_core r=1 — `rel=700 NULLNESS` on ref_obj `PhyOps`
+      (flash_phy_core.sv:45:10): golden binds the enum_const `PhyOps`
+      (flash_phy_pkg.sv:75:5), we bind nothing.  NOTE: this REPLACES pass-16's
+      residue (9), which read it as a 4-of-5 enum-member vector shortfall — the
+      bisect says the enum is fine and the BINDING is missing.
+  (7) work@prim_present (Top) r=-1 — a gen_scope's child vectors disagree
+      wholesale: `rel=8 (Cont_assigns) VECTOR SIZE 2 vs 0` and
+      `rel=133 (Gen_scope_arrays) VECTOR SIZE 0 vs 2` inside
+      gen_round[0].gen_dec — golden flattens the inner `gen_d64` into
+      cont_assigns where we keep a nested gen_scope_array `gen_enc`.  A
+      TAKEN-BRANCH selection difference, not a naming one.
+  (8) The unchanged, already-characterised smalls: dm_csrs:309 hier_path
+      DROPPED index operand (2 heads, rv_dm + dm_csrs — read unsup.sh first);
+      dm_mem r=-2 ct7-vs-ct9 INT encoding (we.sv G5/G6 family, bisected to the
+      always-block operation at [4], scalar difference);
+      flash_ctrl:315 / flash_phy:129 hier_path NAME residues; flash_mp:21:87
+      logic_net; prim_generic_pad_wrapper:40 cont_assign; top_earlgrey
+      tl_main_pkg:13:59 operation {op=33} (AllModules and TopModules, same
+      object); wc.sv package-scope taken-branch ternary; we.sv row G3.
+
+PASS-17 OPS NOTES
+  * A HEAD-LINE DIFF IS NOT A METRIC.  Law 4 moved four heads onto a different
+    object and every `HEAD <name> r=1` line stayed byte-identical.  hdiff17.sh
+    now diffs the failLhs/failRhs lines too.  (Pass 16's own note about the
+    head-14 cap in suball16.sh is superseded: r10earl17a has no cap and
+    enumerates every vector, so use sub17.sh instead of suball16.sh.)
+  * ENUMERATE THE MINT SITES, NOT JUST THE POINTERS.  Pass 16's law was "a
+    re-point that fixes one of two POINTERS measures zero".  Pass 17 hit the
+    same wall one level over: a stamp applied at one of two MINT SITES for the
+    same object shape also measures zero.  Both times the fix was to grep for
+    every place the object can be born before believing a null result.
+  * A REGRESSION IS THE CHEAPEST DISTINGUISHER ON THE BOARD.  The three pwrmgr
+    heads law 4 briefly created named the typed/untyped split in one run —
+    faster than any positive experiment would have.
+  * r10earl16a DID NOT COMPILE against this UHDM (`enum_const` has no
+    `Typespec` accessor; it derives straight from BaseClass).  Fixed in place.
 
 LANDED — PASS 16 (r10earl16; FOUR laws in THREE gate rounds plus a final
 re-gate — laws 1 and 2 were gated TOGETHER because law 1 alone is a

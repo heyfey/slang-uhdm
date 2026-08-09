@@ -434,6 +434,21 @@ UHDM::constant* UhdmExporter::modStructMemberPkgSubst9(
                     setLoc(its8, tsy8->sourceRange());
                     if (mp8.getType().getCanonicalType().isSigned())
                         its8->VpiSigned(true);
+                    // § pkgBoundMintTsTopInstance17 — the TYPED mint carries
+                    // vpiInstance = the ELABORATED package in golden (the
+                    // untyped one above genuinely is instance-less; stamping
+                    // both regressed the three pwrmgr heads).  The elaborated
+                    // package object does not exist yet, so record the name and
+                    // stamp design-final.  This one object is
+                    // work@tlul_adapter_sram's whole head: struct `req_t`'s
+                    // member `logic [top_pkg::TL_SZW-1:0] size`, whose folded
+                    // bound constant points here — and hmac / spi_device /
+                    // usbdev all re-enter tlul_adapter_sram through a
+                    // ref_module, so the four heads share it.
+                    if (auto* hp17 = mp8.getParentScope())
+                        if (hp17->asSymbol().kind == SymbolKind::Package)
+                            pkgBoundMintTs17[its8] =
+                                std::string(hp17->asSymbol().name);
                 }
             }
         }
@@ -1166,22 +1181,59 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             // and this ts is built in the TOP pass then
                             // cross-wired into the DEF struct — so prefer the
                             // def-only pkgParamConst record.
+                            // § pkgOwnParamNameWinsBind17 (r10earl17).  The
+                            // scan below is BY NAME across every package, so
+                            // when two packages declare the same parameter
+                            // name it bound whichever the map iterated first.
+                            // alert_pkg re-exports its dependency verbatim
+                            // (`localparam int unsigned N_CLASSES =
+                            // alert_handler_reg_pkg::N_CLASSES;`) and its own
+                            // struct member `logic [N_CLASSES-1:0]` bound
+                            // alert_handler_reg_pkg's constant instead of
+                            // alert_pkg's own ref_obj Rhs — the LAST
+                            // AllPackages head (r10earl17c bisect on
+                            // alert_pkg::alert_crashdump_t.class_esc_state).
+                            // The declaring package always wins, which is what
+                            // the name resolution that produced the bound did.
+                            auto scan17 = [&](const auto& m,
+                                              const std::string& nm,
+                                              const Scope* only) -> UHDM::any* {
+                                for (auto& [ps9, v9] : m)
+                                    if (ps9->name == nm &&
+                                        ps9->getParentScope() &&
+                                        ps9->getParentScope()->asSymbol().kind ==
+                                            SymbolKind::Package &&
+                                        (!only || ps9->getParentScope() == only))
+                                        return (UHDM::any*)v9;
+                                return nullptr;
+                            };
                             auto bindPkgParam = [&](UHDM::ref_obj* ro,
                                                     const std::string& nm) {
-                                for (auto& [ps9, c9] : pkgParamConst)
-                                    if (ps9->name == nm && ps9->getParentScope() &&
-                                        ps9->getParentScope()->asSymbol().kind ==
-                                            SymbolKind::Package) {
-                                        ro->Actual_group(c9);
+                                if (structPkgScope) {
+                                    if (auto* a17 = scan17(pkgParamConst, nm,
+                                                           structPkgScope)) {
+                                        ro->Actual_group(a17);
                                         return;
                                     }
-                                for (auto& [ps9, rhs9] : pkgParamDefRhs)
-                                    if (ps9->name == nm && ps9->getParentScope() &&
-                                        ps9->getParentScope()->asSymbol().kind ==
-                                            SymbolKind::Package) {
-                                        ro->Actual_group(rhs9);
+                                    // ...and the def-view Rhs when the own
+                                    // package's Rhs is not a constant at all
+                                    // (§ pkgOwnParamRefActualIsRhs17's map,
+                                    // which the top pass cannot overwrite).
+                                    if (auto* a17 =
+                                            scan17(pkgParamDefRhsDefView17, nm,
+                                                   structPkgScope)) {
+                                        ro->Actual_group(a17);
                                         return;
                                     }
+                                }
+                                if (auto* a17 = scan17(pkgParamConst, nm,
+                                                       nullptr)) {
+                                    ro->Actual_group(a17);
+                                    return;
+                                }
+                                if (auto* a17 = scan17(pkgParamDefRhs, nm,
+                                                       nullptr))
+                                    ro->Actual_group(a17);
                             };
                             if (ident && !foreignPkgBound) {
                                 auto* ro = s.MakeRef_obj();
@@ -5926,6 +5978,39 @@ void UhdmExporter::pkgParamTsTopInstance16(UHDM::design* d) {
     repointModOwnedTs16(d2t);
 }
 
+// § pkgBoundMintTsTopInstance17 (r10earl17) — the MISSING-INSTANCE class, the
+// exact mirror of the four pass-16 re-point laws.  Those laws all answered
+// "WHICH package copy does this pointer name"; this one answers "why is there
+// no pointer at all".  A def-view range bound that folds a package parameter
+// binds the parameter's OWN typespec when the package parameter object is
+// around, and MINTS a per-site int_typespec when it is not
+// (§ defNetBoundUntypedPkgTs's fallback).  A minted object carries no
+// vpiInstance, golden's twin carries the ELABORATED package, and
+// typespec::Compare walks Instance — so one struct member's bound made the
+// whole module unequal, and three more modules re-entered it through their
+// ref_modules.
+//
+// The stamp cannot happen at the mint (the elaborated package object is built
+// later), so the mint records the home package NAME and this pass resolves it
+// against TopPackages, exactly the pairing pkgParamTsTopInstance16 uses.
+void UhdmExporter::pkgBoundMintTsTopInstance17(UHDM::design* d) {
+    if (!d || pkgBoundMintTs17.empty() || !d->TopPackages())
+        return;
+    std::map<std::string_view, UHDM::package*> topByName;
+    for (auto* p : *d->TopPackages())
+        if (p && p->VpiTop())
+            topByName[p->VpiName()] = p;
+    if (topByName.empty())
+        return;
+    for (auto& [ts17, pkgNm17] : pkgBoundMintTs17) {
+        if (!ts17 || ts17->Instance())
+            continue;
+        auto it17 = topByName.find(pkgNm17);
+        if (it17 != topByName.end())
+            ts17->Instance(it17->second);
+    }
+}
+
 // § modTdClonePkgTopInstance16 (r10earl16) — the residue the two re-point laws
 // above cannot express.  A module net declared as a PACKED VECTOR OF a package
 // typedef (`sha_word_t [7:0] digest`) does not bind the package's listing
@@ -9065,6 +9150,39 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                             setLoc(its0, tsy->sourceRange());
                                         }
                                     }
+                                // § pkgBoundMintTsTopInstance17 (r10earl17).
+                                // This mint is the MIRROR of pass 16's
+                                // re-point laws: golden's twin of this
+                                // per-site object carries vpiInstance = the
+                                // ELABORATED package that owns the parameter,
+                                // and typespec::Compare walks Instance, so
+                                // ours reading `<null>` is a whole-module
+                                // difference.  The elaborated package object
+                                // does not exist yet here, so record the home
+                                // package NAME and stamp at design-final time.
+                                // Decoded with the r10earl17c bisect on
+                                // work@tlul_adapter_sram: struct `req_t`
+                                // member `size` -> `logic [top_pkg::TL_SZW-1:0]`
+                                // -> the folded bound constant -> this
+                                // typespec, `failLhs package 'top_pkg'
+                                // {top=1}` vs `failRhs <null>`.
+                                // ...and the stamp follows the SAME typed /
+                                // untyped split § defNetBoundUntypedPkgTs
+                                // already measured on this very mint.  Stamping
+                                // both flavours REGRESSED three heads
+                                // (work@pwrmgr, work@pwrmgr_fsm,
+                                // work@pwrmgr_wake_info, all
+                                // `logic [TotalWakeWidth-1:0]` off pwrmgr_pkg's
+                                // UNTYPED `localparam TotalWakeWidth = ...`):
+                                // golden reports `failLhs <null>` there, i.e.
+                                // its own synthesized whole-declaration
+                                // int_typespec carries NO instance either.
+                                // Typed `localparam int TL_SZW` -> stamped;
+                                // untyped -> left null.
+                                if (!dImplicit9)
+                                    if (auto* hp17 = dsy.getParentScope())
+                                        pkgBoundMintTs17[its0] =
+                                            std::string(hp17->asSymbol().name);
                                 its = its0;
                             }
                             auto* rt = s.MakeRef_typespec();
@@ -9279,10 +9397,37 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             ref->VpiParent(parent);
             setLoc(ref, syn.sourceRange());
             if (pkgTsParam9 && !pkgTsForeign9 && !suppressRefActual &&
-                !tdCloneRefNoBind18)
+                !tdCloneRefNoBind18) {
                 if (auto ci9 = pkgParamConst.find(pkgTsParam9);
                     ci9 != pkgParamConst.end())
                     ref->Actual_group(ci9->second);
+                // § pkgOwnParamRefActualIsRhs17 (r10earl17).  pkgParamConst is
+                // registered ONLY for a param whose Rhs came out a CONSTANT,
+                // so a localparam with a COMPUTED initializer
+                // (`AddrW = BankW + PageW + WordW`) or one that is a plain
+                // cross-package read (`DataWidth = flash_ctrl_pkg::DataWidth`)
+                // left the bound ref dangling.  Surelog's value-ref chaining
+                // does not care what the Rhs turned into: it binds the ref to
+                // the param_assign's Rhs NODE whatever its kind, which is what
+                // pkgParamDefRhs already records per view.
+                //
+                // This one fallback is ALL FIVE remaining AllPackages heads,
+                // decoded head-for-head with the r10earl17c bisect — every one
+                // is a struct typespec MEMBER's range bound in the package's
+                // own def view, and every one reports
+                // `failLhs <the param's Rhs> / failRhs <null>`:
+                //   flash_ctrl_pkg  addr : AddrW           -> operation 18:36
+                //   flash_phy_pkg   data : DataWidth       -> ref_obj 17:32
+                //   rstmgr_pkg      ...  : ExtResetReasons -> ref_obj 8:36
+                //   alert_pkg       ...  : NAlerts         -> ref_obj 9:44
+                //   hmac_pkg        ...  : WordByte        -> operation 18:29
+                // The constant arm keeps priority so every currently-equal
+                // binding is untouched.
+                if (!ref->Actual_group())
+                    if (auto ri9 = pkgParamDefRhsDefView17.find(pkgTsParam9);
+                        ri9 != pkgParamDefRhsDefView17.end() && ri9->second)
+                        ref->Actual_group(ri9->second);
+            }
             // Inside a package function's return/arg TYPE range (logic
             // [PARAM-1:0]), a reference to a package parameter binds to that
             // param's def-init constant (Surelog value-ref chaining), not left
@@ -10296,6 +10441,10 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             op->VpiParent(parent);
             setLoc(op, syn.sourceRange());
             UHDM::typespec* cts = nullptr;
+            // § castScopedPkgParamIntTs17 — golden's package-parameter cast
+            // typespec carries NO location at all, so that one arm has to opt
+            // out of the setLoc below.
+            bool castScopedPkgParamTs17 = false;
             // The cast target's typespec CLASS follows the WRITTEN target, in
             // the def (syntax) view exactly as in the bound one: a type
             // keyword takes that keyword's typespec class, and anything else
@@ -10368,12 +10517,50 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 // name to Surelog, not a size: it resolves through the
                 // package (a param width -> that param's bare int_typespec
                 // with the folded value; a typedef -> the shared named
-                // typespec object).  Neither is reconstructible from syntax
-                // alone here, so keep the historical unnamed logic_typespec
-                // — RANKED residue, measured against golden in r10c5's t6.sv.
-                case syntax::SyntaxKind::ScopedName:
+                // typespec object).
+                //
+                // § castScopedPkgParamIntTs17 (r10earl17).  The PARAMETER half
+                // IS reconstructible: § crossPkgRangeBoundFold's own
+                // crossPkgBoundParam9 already tokenizes the `::` and finds the
+                // package parameter exactly the way Surelog's getValue does,
+                // and the object golden emits is a BARE int_typespec — no
+                // location, no name, no ranges, UNSIGNED — carrying the folded
+                // value.  Measured with the r10earl17c bisect on
+                // work@tlul_adapter_host Gen_stmts[0] (`assign tl_source =
+                // top_pkg::TL_AIW'(source_q);`, tlul_adapter_host.sv:77):
+                // golden `int_typespec :0:0 |UINT:8` against our
+                // `logic_typespec :77:24`, and that ONE object is the whole
+                // r=-12 of two heads (work@tlul_adapter_host and
+                // work@rv_core_ibex, which reaches it through two ref_modules).
+                // vpiValue is not cmp-relevant but golden's is UINT at the
+                // parameter's own declared width, so write it for the dump.
+                // A TYPEDEF target still keeps the historical logic_typespec
+                // (RANKED residue, r10c5's t6.sv) — it needs the package's
+                // shared listing object, not a mint.
+                case syntax::SyntaxKind::ScopedName: {
+                    const ParameterSymbol* cp17 = nullptr;
+                    {
+                        std::string qn17;
+                        for (char ch17 : rawText(ce.left->sourceRange()))
+                            if (!std::isspace((unsigned char)ch17))
+                                qn17.push_back(ch17);
+                        cp17 = crossPkgBoundParam9(qn17);
+                    }
+                    if (cp17) {
+                        auto& cv17 = cp17->getValue();
+                        if (cv17.isInteger() && !cv17.integer().hasUnknown()) {
+                            auto* t17 = s.MakeInt_typespec();
+                            t17->VpiValue(
+                                "UINT:" + cv17.integer().toString(
+                                              LiteralBase::Decimal, false));
+                            castScopedPkgParamTs17 = true;
+                            cts = t17;
+                            break;
+                        }
+                    }
                     cts = s.MakeLogic_typespec();
                     break;
+                }
                 default:
                     break;
             }
@@ -10406,7 +10593,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 }
                 cts = its;
             }
-            setLoc((UHDM::BaseClass*)cts, ctsRange);
+            if (!castScopedPkgParamTs17)
+                setLoc((UHDM::BaseClass*)cts, ctsRange);
             auto* rt = s.MakeRef_typespec();
             if (!syntaxRefPrefix.empty())
                 rt->VpiFullName(syntaxRefPrefix);

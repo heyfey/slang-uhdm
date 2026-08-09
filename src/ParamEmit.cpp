@@ -12073,6 +12073,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // elab Rhs so view-local refs chain within their own view.
                 if (inPackage)
                     pkgParamDefRhs[&member] = rhs;
+                // § pkgOwnParamRefActualIsRhs17 — and the SAME node kept in a
+                // map the top-view pass never overwrites.  A package struct
+                // typespec's MEMBER typespecs are re-minted late (their uids
+                // land beside the ELABORATED package's, long after the def
+                // package listing was built), so a def-view member bound
+                // through pkgParamDefRhs chains into the TOP copy's folded
+                // constant — measured: the four AllPackages heads went from
+                // `failRhs <null>` to `failRhs constant {top=1}`.  Golden's
+                // def-view bound names the DEF Rhs.
+                if (inPackage && !topView)
+                    pkgParamDefRhsDefView17[&member] = rhs;
                 // ELAB pkg typed-param whose init chain (through same-pkg
                 // param refs) lands on an ENUM VALUE folds in the enum
                 // literal's source HEX form (8'hCC / HEX:CC) — Surelog.

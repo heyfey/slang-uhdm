@@ -450,6 +450,14 @@ private:
     // § modTdClonePkgTopInstance16 — a module listing's PER-DECLARATION clone
     // of a package typedef carries the ELABORATED package's vpiInstance.
     void modTdClonePkgTopInstance16(UHDM::design* d);
+    // § pkgBoundMintTsTopInstance17 — the MISSING-INSTANCE mirror of the pass-16
+    // re-point laws.  When a folded package-parameter bound cannot share the
+    // package parameter's own typespec, the emitter MINTS one per site; golden's
+    // twin of that object carries vpiInstance = the ELABORATED package.  The
+    // mint records the home package NAME (the package objects do not exist yet)
+    // and this design-final pass does the stamp.
+    std::map<UHDM::typespec*, std::string> pkgBoundMintTs17;
+    void pkgBoundMintTsTopInstance17(UHDM::design* d);
     // § pkgRefActualTopParam16 — a module-listing ref_obj that reads a package
     // parameter names the ELABORATED package's parameter object.  Filled by
     // pkgParamTsTopInstance16 (same package pairing) and consumed by the
@@ -3445,6 +3453,12 @@ private:
     // DEF-view Rhs node of each package param (any kind) — a later same-pkg
     // param ref chains its vpiActual to this node (Surelog).
     std::map<const slang::ast::Symbol*, UHDM::any*> pkgParamDefRhs;
+    // § pkgOwnParamRefActualIsRhs17 — the same registration RESTRICTED to the
+    // def view (the top-view pass overwrites pkgParamDefRhs in place).  A
+    // package struct typespec's member typespecs are re-minted after the top
+    // pass has run, so a def-view range bound needs a map that still holds the
+    // DEF Rhs at that point.
+    std::map<const slang::ast::Symbol*, UHDM::any*> pkgParamDefRhsDefView17;
     // Substitution of a package struct-pattern member VALUE written as a
     // MEMBER SELECT of another struct-pattern parameter (see the call site in
     // ExprEmit's tagged_pattern arm). Answers the value OBJECT the referenced

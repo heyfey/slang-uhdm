@@ -162,14 +162,11 @@ static void tsWalk(const typespec* t, const std::string& ind, int depth) {
         }
         if (auto* ecs = en->Enum_consts())
             for (auto* ec : *ecs) {
+                // NOTE (pass 17): enum_const derives straight from BaseClass
+                // in this UHDM — it has no Typespec accessor at all, so the
+                // pass-16 source did not compile here.  enum_const::Compare
+                // reads only the scalars, so there is nothing to descend.
                 std::cout << ind << "  EC " << at(ec) << "\n";
-                if (auto* rt = ec->Typespec())
-                    std::cout << ind << "     TS " << at(rt->Actual_typespec())
-                              << " inst="
-                              << at(rt->Actual_typespec()
-                                        ? tsInstOf(rt->Actual_typespec())
-                                        : nullptr)
-                              << "\n";
             }
     }
     if (auto* st = any_cast<const struct_typespec*>((const any*)t))

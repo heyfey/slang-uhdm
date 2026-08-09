@@ -9897,12 +9897,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             (*it2)->sourceRange.end() - ma.member.name.size(),
                             rs.right().sourceRange.end());
                         bool constSel = false;
+                        // § hierSelConstWidthSuffices17 (r10earl17).  For the
+                        // INDEXED form the base may be a variable and the
+                        // select is still vpiConstantSelect — "constant width
+                        // suffices", the rule the plain (non-hier) indexed
+                        // emitter below and the two var_select emitters above
+                        // already use (widthConst9 / widthConst).  THIS site
+                        // was the only one demanding both ends, and that made
+                        // `tl_i.a_data[8*i+:8]` inside a for-loop
+                        // (tlul_adapter_sram.sv:163) read false where golden
+                        // reads true — the head of FOUR AllModules entries
+                        // (tlul_adapter_sram plus hmac / spi_device / usbdev,
+                        // which re-enter it through a ref_module) once
+                        // § pkgBoundMintTsTopInstance17 cleared the pointer
+                        // ahead of it.  The SIMPLE arm keeps the both-ends
+                        // rule: a `[a:b]` select has no width to be constant.
+                        bool constSelIdx17 = false;
                         {
                             ASTContext cctx(comp.getRoot(), LookupLocation::max);
-                            constSel = (rs.left().kind == ExpressionKind::IntegerLiteral ||
-                                        cctx.tryEval(rs.left())) &&
-                                       (rs.right().kind == ExpressionKind::IntegerLiteral ||
-                                        cctx.tryEval(rs.right()));
+                            bool lc17 = rs.left().kind ==
+                                            ExpressionKind::IntegerLiteral ||
+                                        (bool)cctx.tryEval(rs.left());
+                            constSelIdx17 = rs.right().kind ==
+                                                ExpressionKind::IntegerLiteral ||
+                                            (bool)cctx.tryEval(rs.right());
+                            constSel = lc17 && constSelIdx17;
                         }
                         if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
                             auto* ps = s.MakePart_select();
@@ -9942,7 +9961,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             ips->VpiIndexedPartSelectType(
                                 rs.getSelectionKind() == RangeSelectionKind::IndexedUp ? 1
                                                                                        : 2);
-                            if (constSel)
+                            if (constSelIdx17)  // § hierSelConstWidthSuffices17
                                 ips->VpiConstantSelect(true);
                             bool sup = suppressConstParent;
                             suppressConstParent = isLiteralExpr(rs.left());
