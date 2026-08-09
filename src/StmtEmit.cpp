@@ -12,6 +12,17 @@
 
 namespace slang_uhdm {
 
+// § controlBodyNoBind28 — the BODY of a conditional or loop statement.  See
+// UhdmExporter.h's ctrlBodyDepth28: a class method's reference-binding
+// windows are top-level only, and a plain begin/end block is transparent, so
+// the counter is raised exactly where a control statement takes a substatement
+// and nowhere else.
+struct CtrlBody28 {
+    int* p;
+    explicit CtrlBody28(int& d) : p(&d) { ++*p; }
+    ~CtrlBody28() { --*p; }
+};
+
 // The variable class a typespec implies — UHDM's own
 // CompileHelper::getSimpleVarFromTypespec mapping, which is what Surelog uses
 // to materialize an IMPLICITLY declared variable (a foreach loop variable)
@@ -1198,8 +1209,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             if (auto* c = emitExpr(rl.count, r, prefix, netMap))
                 r->VpiCondition((UHDM::expr*)c);
             suppressConstParent = false;
-            if (auto* b = emitStmt(rl.body, r, prefix, netMap))
-                r->VpiStmt(b);
+            {
+                CtrlBody28 cb28(ctrlBodyDepth28);
+                if (auto* b = emitStmt(rl.body, r, prefix, netMap))
+                    r->VpiStmt(b);
+            }
             return r;
         }
         case StatementKind::WhileLoop: {
@@ -1210,8 +1224,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             setLoc(w, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 5));
             if (auto* c = emitExpr(wl.cond, w, prefix, netMap))
                 w->VpiCondition((UHDM::expr*)c);
-            if (auto* b = emitStmt(wl.body, w, prefix, netMap))
-                w->VpiStmt(b);
+            {
+                CtrlBody28 cb28(ctrlBodyDepth28);
+                if (auto* b = emitStmt(wl.body, w, prefix, netMap))
+                    w->VpiStmt(b);
+            }
             return w;
         }
         case StatementKind::DoWhileLoop: {
@@ -1221,8 +1238,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             setLoc(w, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 2));
             if (auto* c = emitExpr(dw.cond, w, prefix, netMap))
                 w->VpiCondition((UHDM::expr*)c);
-            if (auto* b = emitStmt(dw.body, w, prefix, netMap))
-                w->VpiStmt(b);
+            {
+                CtrlBody28 cb28(ctrlBodyDepth28);
+                if (auto* b = emitStmt(dw.body, w, prefix, netMap))
+                    w->VpiStmt(b);
+            }
             return w;
         }
         case StatementKind::ForeverLoop: {
@@ -1230,8 +1250,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto* f = s.MakeForever_stmt();
             f->VpiParent(parent);
             setLoc(f, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 7));
-            if (auto* b = emitStmt(fl.body, f, prefix, netMap))
-                f->VpiStmt(b);
+            {
+                CtrlBody28 cb28(ctrlBodyDepth28);
+                if (auto* b = emitStmt(fl.body, f, prefix, netMap))
+                    f->VpiStmt(b);
+            }
             return f;
         }
         case StatementKind::ForeachLoop: {
@@ -1909,8 +1932,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             }
             fs->VpiLoopVars(lvars);
 
-            if (auto* b = emitStmt(fe.body, fs, prefix, netMap))
-                fs->VpiStmt(b);
+            {
+                CtrlBody28 cb28(ctrlBodyDepth28);
+                if (auto* b = emitStmt(fe.body, fs, prefix, netMap))
+                    fs->VpiStmt(b);
+            }
             for (auto& n : declaredHere)
                 openForeachVars.erase(n);
             for (auto& [sy9, prev9] : lvSaved9) {
@@ -1943,6 +1969,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 classMethodNoBind = sCM9;
                 if (c)
                     ie->VpiCondition((UHDM::expr*)c);
+                CtrlBody28 cb28(ctrlBodyDepth28);
                 if (auto* t = emitStmt(cs.ifTrue, ie, prefix, netMap))
                     ie->VpiStmt(t);
                 if (auto* f = emitStmt(*cs.ifFalse, ie, prefix, netMap))
@@ -1962,8 +1989,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             classMethodNoBind = sCM8;
             if (c8)
                 is->VpiCondition((UHDM::expr*)c8);
-            if (auto* t = emitStmt(cs.ifTrue, is, prefix, netMap))
-                is->VpiStmt(t);
+            {
+                CtrlBody28 cb28(ctrlBodyDepth28);
+                if (auto* t = emitStmt(cs.ifTrue, is, prefix, netMap))
+                    is->VpiStmt(t);
+            }
             return is;
         }
         case StatementKind::ForLoop: {
@@ -2162,8 +2192,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 fs->VpiForIncStmts(incs);
             }
             procForDepth++;
-            if (auto* b = emitStmt(fl.body, fs, prefix, netMap))
-                fs->VpiStmt(b);
+            {
+                CtrlBody28 cb28(ctrlBodyDepth28);
+                if (auto* b = emitStmt(fl.body, fs, prefix, netMap))
+                    fs->VpiStmt(b);
+            }
             procForDepth--;
             for (auto* cs2 : ctrlSyms)
                 activeForVars.erase(cs2);
@@ -2263,6 +2296,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 auto* it = s.MakeCase_item();
                 it->VpiParent(uc);
                 itemLoc(*cs.defaultCase, it);
+                CtrlBody28 cb28(ctrlBodyDepth28);
                 if (auto* st = emitStmt(*cs.defaultCase, it, prefix, netMap))
                     it->Stmt(st);
                 items->push_back(it);
@@ -2328,8 +2362,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     }
                 }
                 it->VpiExprs(exprs);
-                if (auto* st = emitStmt(*g.stmt, it, prefix, netMap))
-                    it->Stmt(st);
+                {
+                    CtrlBody28 cb28(ctrlBodyDepth28);
+                    if (auto* st = emitStmt(*g.stmt, it, prefix, netMap))
+                        it->Stmt(st);
+                }
                 items->push_back(it);
             }
             emitDefault9();

@@ -374,6 +374,18 @@ struct ClassArgBind12 {
     explicit ClassArgBind12(int& d) : p(&d), saved(d) { d = d + 1; }
     ~ClassArgBind12() { *p = saved; }
 };
+// § superNewFormalBinds28 — the `super.new(...)` argument window.  Kept as a
+// separate counter from ClassArgBind12 because the two admit DIFFERENT symbol
+// classes: an ordinary call binds formals and body locals, `super.new` binds
+// formals alone (t38b `super.new(lb)` / `super.new(p)` stay bare in golden).
+struct SuperNewArg28 {
+    int* p;
+    int saved;
+    SuperNewArg28(int& d, bool on) : p(&d), saved(d) {
+        if (on) d = d + 1;
+    }
+    ~SuperNewArg28() { *p = saved; }
+};
 struct ClassArgBindOff12 {
     int* p;
     int saved;
@@ -4639,8 +4651,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // outside defGenProcessEmit, keep their scoped fullname.)
                 if (!defGenProcessEmit)
                     ref->VpiFullName(joinRef(prefix, nv.symbol.name));
-                if ((classMethodNoBind && classArgBindDepth12 == 0) ||
-                    unitSubNoBind9) {
+                // § superNewFormalBinds28 — inside a `super.new` argument list
+                // a reference to one of the CONSTRUCTOR'S OWN FORMALS binds;
+                // everything else there (body locals, class properties) keeps
+                // the classMethodNoBind silence, so the carve-out is written
+                // as a symbol-kind test rather than as another arg-bind depth.
+                bool superNewFormal28 =
+                    superNewArgDepth28 > 0 &&
+                    nv.symbol.kind == SymbolKind::FormalArgument;
+                // § controlBodyNoBind28 — both binding windows are TOP-LEVEL
+                // only.  curSubClassScope9 is used rather than
+                // classMethodNoBind because an if/case CONDITION clears the
+                // latter mid-body, which is exactly the case this must still
+                // silence when the `if` itself sits inside a loop or arm.
+                // ...and only for an IN-BODY class method: an out-of-body
+                // definition is compiled in the home package's scope and binds
+                // everywhere already (curSubOob9), which is why
+                // uvm_component::lookup's `comp = top;` inside an `if` body —
+                // an out-of-body definition — binds in golden while t38d's
+                // in-body twin binds nothing at any depth.
+                bool ctrlBodyNoBind28 =
+                    curSubClassScope9 && !curSubOob9 && ctrlBodyDepth28 > 0;
+                if (((classMethodNoBind && classArgBindDepth12 == 0) ||
+                     unitSubNoBind9 || ctrlBodyNoBind28) &&
+                    !superNewFormal28) {
                     // Class-method body outside an if/case condition, or a
                     // `$unit`-scope subroutine body: no actual of any kind
                     // (see classMethodNoBind / unitSubNoBind9).
@@ -8429,6 +8463,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         mfc->Prefix(pr);
                         if (!deep0) {
                             auto* margs = s.MakeAnyVec();
+                            // § builtinMethodArgBinds28 — a BUILT-IN method's
+                            // arguments are an ordinary § classArgBind12
+                            // window: `m_stack.push_back(s)` binds `s` to the
+                            // method's io_decl (and a body local to its var)
+                            // while the RECEIVER and a class PROPERTY stay
+                            // bare and `$display`'s arguments never bind.
+                            // t38e measures all five cells; the missing window
+                            // was the head of the Scoreboard/SimpleUVM
+                            // package-listing residue after the first two laws
+                            // (269 elements, uvm_scope_stack::set).
+                            ClassArgBind12 cab28(classArgBindDepth12);
                             for (size_t ai = 1; ai < call.arguments().size(); ai++) {
                                 bool fs2 = forceConstParent;
                                 if (isLiteralExpr(*call.arguments()[ai]))
@@ -12898,6 +12943,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (auto* cc9 = nce.constructorCall();
                 cc9 && cc9->kind == ExpressionKind::Call) {
                 auto* nargs9 = s.MakeAnyVec();
+                // § superNewFormalBinds28 — a `super.new` argument list is a
+                // binding window for the constructor's own FORMALS only.
+                SuperNewArg28 sna28(superNewArgDepth28, nce.isSuperClass);
                 // § writtenCallArgs16, the constructor arm.  A `new(...)`
                 // carries its actual list on the NewClassExpression's own
                 // syntax, not on an InvocationExpressionSyntax, so the shared

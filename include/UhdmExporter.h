@@ -1793,6 +1793,29 @@ private:
     // arguments never enter (`$display("%0d", f)` binds nothing) and a
     // CONCATENATION operand leaves it (`sink({f, loc})` binds neither).
     int classArgBindDepth12 = 0;
+    // § superNewFormalBinds28 — depth of `super.new(...)` ARGUMENT nesting.
+    // The chain-up call is NOT an ordinary call for binding purposes: inside
+    // its argument list a reference to one of the constructor's own FORMALS
+    // binds to that io_decl, while a reference to a body LOCAL or to a class
+    // PROPERTY stays bare — the reverse of § classArgBind12, which binds
+    // formals and locals alike.  Measured both directions on t38a/t38b
+    // (`super.new(a)` formal binds; `super.new(lb)` bare local and
+    // `super.new(p)` class property do not; `super.new(a + 1)` binds through
+    // the operation; out-of-body and port-less constructors behave the same),
+    // and it is why 399 of the UVM-4's reference bindings were missing.
+    int superNewArgDepth28 = 0;
+    // § controlBodyNoBind28 — nesting depth inside the BODY of a conditional
+    // or loop statement (if/else arms, for/foreach/while/do-while/repeat/
+    // forever bodies, case-item statements).  A class method's binding
+    // windows — the if/case CONDITION carve-out and § classArgBind12's call
+    // arguments — are TOP-LEVEL only: `if (lb == 0)` and `mm(lb)` written
+    // directly in the body bind, the identical statements written inside a
+    // loop or a conditional arm bind nothing.  A plain `begin`/`end` block is
+    // transparent and does NOT count (t38c: `in_begin` binds, `in_for`,
+    // `in_while`, `in_if` and `in_foreach` do not) — which is why
+    // uvm_scope_stack::get's `if (v != "" && ...)`, the head of the whole
+    // Scoreboard/SimpleUVM package-listing residue, must stay bare.
+    int ctrlBodyDepth28 = 0;
     // LAW C (call binding), decoded on purpose-built goldens r10uvm7/c1+c2:
     // Surelog resolves a BARE subroutine call against the enclosing package/
     // module's subroutines and — only for a method written INSIDE its class
