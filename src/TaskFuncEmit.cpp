@@ -1187,6 +1187,26 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // PROTOTYPE is virtual — the definition carries the body instead.
         bool oob = isOutOfBody(&member);
         bool oobCtor = oob && sub.name == "new";
+        // § qualifiedCtorLosesPortListAndBody27 — CompileClass.cpp walks
+        // `func_decl` past the class-item qualifiers to CLASSIFY the method
+        // (:455), but then hands compileClassConstructorDeclaration the
+        // UNADVANCED `fC->Child(id)` (:585) — which, when the constructor is
+        // written `local`/`protected`/`static`, is the QUALIFIER node.
+        // compileFunction re-runs setFuncTaskQualifiers internally
+        // (CompileStmt.cpp:2304) and so is immune; the constructor routine is
+        // not, and every node it derives from `Tf_port_list =
+        // fC->Child(nodeId)` comes out invalid.  Measured (t37f, three arms
+        // and two controls): the constructor keeps its name, vpiMethod and
+        // return class_var and loses its io_decls, its whole body and the
+        // return var's span.  This is all 21 `uvm_*_phase::new`
+        // (`protected function new(string name="build"); super.new(name);`).
+        bool qualCtor27 = false;
+        if ((sub.flags & MethodFlags::Constructor) != MethodFlags::None)
+            if (auto* csyn27 = sub.getSyntax())
+                if (const syntax::SyntaxNode* p27 = csyn27->parent)
+                    if (auto* cm27 =
+                            p27->as_if<syntax::ClassMethodDeclarationSyntax>())
+                        qualCtor27 = !cm27->qualifiers.empty();
         // The CLASS's own copy of an out-of-body body is where Surelog's
         // module hoist re-binds unresolvable property names (the package
         // clone's stay unbound) — see classPropRefs.
@@ -1379,7 +1399,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             rv->VpiFullName(fullName);
             rv->VpiParent(tf);
             auto args0 = sub.getArguments();
-            if (!args0.empty())
+            // ...unless a class-item qualifier displaced the anchor, in which
+            // case the `varId` that span comes from is invalid too
+            // (§ qualifiedCtorLosesPortListAndBody27, t37f).
+            if (!args0.empty() && !qualCtor27)
                 setLoc(rv, nameSpan(args0[0]->location, args0[0]->name));
             auto* cts = s.MakeClass_typespec();
             // ...but only in the CLASS's own listing. The def-view package
@@ -2672,7 +2695,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             funcMap[arg] = io;
             si.argTs.push_back({ts, bareImplicit ? (const void*)argTsyn : nullptr});
         }
-        if (!ios->empty())
+        if (!ios->empty() && !qualCtor27)
             tf->Io_decls(ios);
 
         // The prototype listing ends here: no body, no locals, no params, and
@@ -3497,7 +3520,33 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         tfBodyPaAnchor9 = taskBodyPaAnchor9;
         bool savedPaUsed9 = tfBodyPaUsed9;
         tfBodyPaUsed9 = false;
-        auto* body = emitStmt(sub.getBody(), tf, fullName, funcMap);
+        // § constructorBodyElementShift27 — a CLASS CONSTRUCTOR's body is
+        // compiled by compileClassConstructorDeclaration, not by
+        // compileFunction, and the two laws that separates out live in
+        // StmtEmit's statement-list arm.  `NoPorts` is the load-bearing half:
+        // with no tf_port_list the routine's `fC->Child(nodeId)` is the first
+        // BODY element, and the statement walk starts one element late.
+        bool savedCtor27 = tfBodyCtor27;
+        bool savedCtorNP27 = tfBodyCtorNoPorts27;
+        tfBodyCtor27 =
+            (sub.flags & MethodFlags::Constructor) != MethodFlags::None;
+        tfBodyCtorNoPorts27 = tfBodyCtor27 && sub.getArguments().empty();
+        // § qualifiedCtorLosesPortListAndBody27: the routine never reaches a
+        // statement at all when a qualifier displaced its anchor.
+        auto* body = qualCtor27
+                         ? nullptr
+                         : emitStmt(sub.getBody(), tf, fullName, funcMap);
+        // A constructor body that is one bare `super.new(...)` never reaches
+        // the statement-list arm.  Golden emits NOTHING for it: with no
+        // tf_port_list the super.new IS the mistaken port list, so the
+        // statement walk starts past it and counts zero (t37b c_np_s_0,
+        // uvm_table_printer::new / every empty uvm_*_phase::new).
+        if (tfBodyCtorNoPorts27 && body &&
+            sub.getBody().kind != StatementKind::List &&
+            isSuperNewStmt27(sub.getBody()))
+            body = nullptr;
+        tfBodyCtor27 = savedCtor27;
+        tfBodyCtorNoPorts27 = savedCtorNP27;
         // § pkgCloneHierBind9 — record this body's own locals+formals by NAME
         // when it is a WILDCARD-IMPORT package CLONE.  Surelog re-resolves a
         // clone's dotted references against the importing package's symbol

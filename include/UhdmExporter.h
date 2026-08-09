@@ -857,6 +857,15 @@ private:
                                     NetMap& netMap);
     UHDM::any* emitStmt(const slang::ast::Statement& stmt, UHDM::BaseClass* parent,
                         const std::string& prefix, NetMap& netMap);
+    /// § constructorBodyElementShift27 / § ctorDeclIsRhslessAssignment27 — the
+    /// statement list of a CLASS CONSTRUCTOR body.  See the decode at the
+    /// definition (StmtEmit.cpp): the reference tool compiles constructors
+    /// with a routine of its own whose statement walk is anchored one element
+    /// late whenever the constructor declares no port list, and which turns
+    /// every block-item declaration into a statement.
+    UHDM::any* emitCtorBody27(const slang::ast::Statement& slStmt,
+                              UHDM::BaseClass* parent,
+                              const std::string& prefix, NetMap& netMap);
     /// § droppedCall14 — a statement slang REJECTED (`StatementKind::Invalid`),
     /// re-emitted from its SYNTAX.  See the model at the definition
     /// (StmtEmit.cpp): the reference tool has no type checking at this level,
@@ -1830,6 +1839,22 @@ private:
     // the body statement(s).
     const void* tfBodyStmt9 = nullptr;
     bool tfBodyTfItems9 = false;
+    // § constructorBodyElementShift27 / § ctorDeclIsRhslessAssignment27 — a
+    // CLASS CONSTRUCTOR body is compiled by a function of its own
+    // (CompileHelper::compileClassConstructorDeclaration, CompileStmt.cpp:2165)
+    // that shares nothing with compileFunction/compileTask, and it differs
+    // from them in two measurable ways.  See the decode at StmtEmit's
+    // statement-list arm.  `tfBodyCtorNoPorts27` is the constructor's
+    // `fC->Child(nodeId)` ambiguity: with no tf_port_list the element the
+    // routine mistakes for one is the FIRST BODY ELEMENT.
+    bool tfBodyCtor27 = false;
+    bool tfBodyCtorNoPorts27 = false;
+    // Is this body statement a constructor's `super.new` element?  `parens`
+    // reports whether the source wrote an argument list: Surelog's grammar
+    // makes `list_of_arguments` a SEPARATE sibling element, and whether it is
+    // there decides where the shifted statement walk lands.
+    static bool isSuperNewStmt27(const slang::ast::Statement& st,
+                                 bool* parens = nullptr);
     // A TASK-scope `parameter`/`localparam` is a body STATEMENT in Surelog:
     // its param_assign moves into the body `begin` (synthesized for the
     // purpose when the body has none) and is parented there, while the

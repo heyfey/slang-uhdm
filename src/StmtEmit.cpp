@@ -437,6 +437,165 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
     }
 }
 
+bool UhdmExporter::isSuperNewStmt27(const Statement& st, bool* parens) {
+    if (st.kind != StatementKind::ExpressionStatement)
+        return false;
+    auto& ex = st.as<ExpressionStatement>().expr;
+    if (ex.kind != ExpressionKind::NewClass ||
+        !ex.as<NewClassExpression>().isSuperClass)
+        return false;
+    if (parens) {
+        // Surelog's `class_constructor_declaration` production spells the
+        // argument list as a SIBLING `list_of_arguments` element of the
+        // `super.new` element — present whenever the source wrote the
+        // parentheses, EMPTY ones included.  `super.new;` has no such
+        // sibling, and that one node decides where the shifted walk lands
+        // (t37b c_np_s_1 vs t37c d_supernoparen_1).
+        *parens = false;
+        if (auto* syn = ex.syntax)
+            *parens = syn->getLastToken().kind ==
+                      slang::parsing::TokenKind::CloseParenthesis;
+    }
+    return true;
+}
+
+// § constructorBodyElementShift27 — a class CONSTRUCTOR body is compiled by
+// `CompileHelper::compileClassConstructorDeclaration` (CompileStmt.cpp:2165),
+// a routine that shares no code with compileFunction/compileTask, and it
+// differs from them in two measured ways.
+//
+// (1) THE ELEMENT SHIFT.  The routine reads `Tf_port_list = fC->Child(nodeId)`
+// (after stepping over a `class_scope` for an out-of-body definition) and only
+// afterwards works out where the statements begin.  When the constructor
+// declares NO port list there is no `tf_port_list` node, so what it grabs is
+// the FIRST BODY ELEMENT — and the walk it then runs
+// (`Stmt = fC->Sibling(Tf_port_list)`) starts one element LATE.  Concretely,
+// over the raw grammar element sequence
+//     { block_item_declaration } [ super.new [ list_of_arguments ] ]
+//     { function_statement_or_null }
+// (the argument list is its OWN element):
+//     firstCounted = portList ? 0 : (elem[0] is a plain statement ? 0 : 1)
+//     nb           = number of NON-argument-list elements from firstCounted
+//     nb == 0  -> the constructor gets NO body statement
+//     nb == 1  -> the ONE element at firstCounted, emitted BARE (no begin)
+//     nb >  1  -> a `begin` (carrying no span at all, only vpiFullName) over
+//                 every element from index `portList ? 0 : 1`
+// so a port-less constructor loses its first element whatever that element is:
+// `super.new()` when it leads (uvm_tree_printer::new, uvm_root::new), the
+// first ASSIGNMENT when there is no super.new at all (t37b c_np_ns_3), the
+// first declaration otherwise (t37d e_2bid_1).
+//
+// (2) THE DECLARATION STATEMENTS (§ ctorDeclIsRhslessAssignment27).  Every
+// surviving block-item declaration is compiled as a body STATEMENT: an
+// `assignment` whose Lhs is the declared variable and whose Rhs is present
+// only when the declaration has an initializer.  compileFunction/compileTask
+// filter exactly that Rhs-less assignment back out (CompileStmt.cpp ~2130);
+// the constructor routine has no such filter.  Measured on t37e for int,
+// string and unpacked-array locals, with the ordinary function/task controls
+// keeping the filtered shape, and it is what uvm_component::new (3 leading
+// Rhs-less assignments), uvm_port_base::new (2) and uvm_cmdline_processor::new
+// (2) are missing on our side.
+//
+// 21 purpose-built cells across t37a..t37e agree with this model in both
+// package views, port-list and port-less, in-body and out-of-body.
+UHDM::any* UhdmExporter::emitCtorBody27(const Statement& slStmt,
+                                        UHDM::BaseClass* parent,
+                                        const std::string& prefix,
+                                        NetMap& netMap) {
+    auto& sl = slStmt.as<StatementList>();
+    enum EK { EK_BID, EK_SUPER, EK_ARGS, EK_FSN };
+    struct El {
+        EK k;
+        const Statement* st;
+    };
+    std::vector<El> el;
+    for (auto st : sl.list) {
+        if (st->kind == StatementKind::VariableDeclaration) {
+            el.push_back({EK_BID, st});
+            continue;
+        }
+        bool parens = false;
+        if (isSuperNewStmt27(*st, &parens)) {
+            el.push_back({EK_SUPER, st});
+            if (parens)
+                el.push_back({EK_ARGS, st});
+            continue;
+        }
+        el.push_back({EK_FSN, st});
+    }
+    size_t firstCounted =
+        tfBodyCtorNoPorts27 ? (el.empty() || el[0].k == EK_FSN ? 0u : 1u) : 0u;
+    size_t walkFrom = tfBodyCtorNoPorts27 ? 1u : 0u;
+    size_t nb = 0;
+    for (size_t i = firstCounted; i < el.size(); ++i)
+        if (el[i].k != EK_ARGS)
+            nb++;
+    if (nb == 0)
+        return nullptr;
+    // The wrapper: golden never calls populateCoreMembers on it, so it carries
+    // vpiFullName and NO span (unlike every other synthesized body begin).
+    UHDM::begin* ub = nullptr;
+    if (nb > 1) {
+        ub = s.MakeBegin();
+        ub->VpiFullName(prefix);
+        ub->VpiParent(parent);
+    }
+    UHDM::BaseClass* sparent = ub ? (UHDM::BaseClass*)ub : parent;
+    auto* stmts = s.MakeAnyVec();
+    auto* bvars = s.MakeVariablesVec();
+    size_t from = nb > 1 ? walkFrom : firstCounted;
+    size_t to = nb > 1 ? el.size() : firstCounted + 1;
+    for (size_t i = from; i < to && i < el.size(); ++i) {
+        switch (el[i].k) {
+            case EK_ARGS:
+                // An orphaned `list_of_arguments` (the walk started ON it, its
+                // `super.new` having been shifted past) compiles to nothing:
+                // compileStmt is handed the argument EXPRESSION, which matches
+                // no statement production (t37b c_np_s_1, t37d e_supera_2).
+                break;
+            case EK_BID: {
+                auto& vs = el[i].st->as<VariableDeclStatement>().symbol;
+                auto it = netMap.find(&vs);
+                if (it == netMap.end())
+                    break;
+                auto* v = (UHDM::variables*)it->second;
+                auto* as = s.MakeAssignment();
+                as->VpiParent(sparent);
+                as->VpiOpType(vpiAssignmentOp);
+                as->VpiBlocking(true);
+                if (auto syn = vs.getSyntax())
+                    setLoc(as, syn->sourceRange());
+                v->VpiParent(as);
+                as->Lhs((UHDM::expr*)v);
+                if (auto* init = vs.getDeclaredType()->getInitializer())
+                    if (auto* r = emitExpr(*init, as, prefix, netMap))
+                        as->Rhs((UHDM::expr*)r);
+                stmts->push_back(as);
+                // An unpacked-array local ALSO lists its element reg before
+                // the array_var, exactly as the ordinary block wrapper does.
+                if (v->UhdmType() == UHDM::uhdmarray_var) {
+                    auto* av = (UHDM::array_var*)v;
+                    if (av->Variables() && !av->Variables()->empty())
+                        bvars->push_back((*av->Variables())[0]);
+                }
+                bvars->push_back(v);
+                break;
+            }
+            case EK_SUPER:
+            case EK_FSN:
+                if (auto* u = emitStmt(*el[i].st, sparent, prefix, netMap))
+                    stmts->push_back(u);
+                break;
+        }
+    }
+    if (!ub)
+        return stmts->empty() ? nullptr : (*stmts)[0];
+    if (!bvars->empty())
+        ub->Variables(bvars);
+    ub->Stmts(stmts);
+    return ub;
+}
+
 UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
@@ -2397,6 +2556,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // initializers become leading assignment stmts; two or more
             // effective stmts get an unnamed begin wrapper.
             auto& sl = stmt.as<StatementList>();
+            // A CLASS CONSTRUCTOR body is not compiled by this arm's model at
+            // all — see emitCtorBody27.
+            if (tfBodyCtor27 && tfBodyStmt9 == (const void*)&stmt)
+                return emitCtorBody27(stmt, parent, prefix, netMap);
             std::vector<const VariableSymbol*> declVars;
             std::vector<const Statement*> real;
             size_t initCount = 0;

@@ -674,6 +674,19 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         // field, so the two spellings are not interchangeable.
         if (cp.lifetime != VariableLifetime::Static)
             v->VpiAutomatic(true);
+        // § constClassPropIsConstantVariable27 — a `const` class PROPERTY
+        // carries vpiConstantVariable exactly as a package / module /
+        // interface `const` variable does; we stamped it everywhere except
+        // here.  Orthogonal to `static` and to the visibility qualifiers
+        // (t37g: both qualifier orders, with and without an initializer,
+        // local/protected, int and string all read 1).  Reach is one shared
+        // object per macro expansion but a wide one: `const static string
+        // type_name` (uvm_object_defines.svh:428) alone is 161 of the
+        // Scoreboard package-listing localizer's failing elements, because
+        // variables::Compare reads the field and every method whose body
+        // mentions the class drags it in.
+        if (cp.flags.has(VariableFlags::Const))
+            v->VpiConstantVariable(true);
         if (randTy) {
             v->VpiIsRandomized(true);
             v->VpiRandType(randTy);
