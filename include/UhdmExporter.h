@@ -3212,6 +3212,13 @@ private:
         return c;
     }
     int callArgDepth = 0;
+    // § genProcParamFoldQualCallArg20 — true while emitting the ARGUMENTS of a
+    // call whose callee is written with an explicit `pkg::` qualifier.  The
+    // innermost enclosing call wins (saved/restored around the arg loop), and
+    // it is what re-opens § genProcParamFold inside call actuals: Surelog's
+    // reduce descends into a QUALIFIED call's arguments and not into an
+    // unqualified one's (pu20.sv).
+    bool qualCallArg20 = false;
     // Task/function typespecs keep unfolded range expressions; module-level
     // typespecs fold them to INT constants.
     bool tfContext = false;

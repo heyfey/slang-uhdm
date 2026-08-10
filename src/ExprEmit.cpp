@@ -3589,6 +3589,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // the process fold, which shares the def object.
                     bool selFold9 = !inProcessEmit && !inParamInit && parent &&
                                     parent->UhdmType() == UHDM::uhdmbit_select;
+                    // RESIDUE, DECODED, NOT IMPLEMENTED (r10earl20) —
+                    // § elabConnSelFoldNoTs20.  qa20.sv is the 2x2 (written
+                    // `pkg::P` vs wildcard-imported x def listing vs
+                    // ELABORATED view) of one child instantiated twice as
+                    // `.e(v[PI])` / `.e(v[qa20_pkg::PI])`: golden stamps the
+                    // ref_typespec on exactly ONE of the four — the DEF
+                    // listing's UNQUALIFIED row — and leaves the ELABORATED
+                    // one bare, where § selFold9 stamps it.  That is BOTH
+                    // top_earlgrey heads (def: and top:, r=-1, one object:
+                    // u_rv_core_ibex > u_core > if_stage_i's
+                    // `.instr_pmp_err_i ( pmp_req_err[PMP_I] )`,
+                    // ibex_core.sv:394:47).  The carve-out written as
+                    // `selFold9 && !moduleDefEmit && parent->VpiParent() is a
+                    // port` KILLS THE DEF ROW TOO: the def listing's port
+                    // High_conn is minted AFTER emitModuleDef has popped its
+                    // DefEmitGuard, so moduleDefEmit reads FALSE there — the
+                    // same deferred-mint trap ModuleEmit's DefNetViewGuard
+                    // exists to patch.  Pass 21 wants a def-view marker that
+                    // survives to the connection mint (or a High_conn guard
+                    // of its own), not another parent test.
                     if ((parent && parent->UhdmType() == UHDM::uhdmoperation) ||
                         procSelFold9 || selFold9)
                         c->VpiParent(parent);
@@ -4531,9 +4551,51 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // ref_obj(W).  Scr1SvTests scr1_memory_tb_axi:229
                     // `mem_read(araddr[gi], 2**arsize[gi], W_DATA/8)` inside
                     // the `rw_if` generate loop is the corpus shape.
+                    // § genProcParamFoldQualCallArg20 (r10earl20) — the
+                    // call-actual exception is the UNQUALIFIED-call exception.
+                    // r10scr14repro/t6.sv measured `fn(W)` / `tk(W)` keeping
+                    // ref_obj(W) and concluded "Surelog's reduce does not
+                    // descend into call actuals"; every callee in that file is
+                    // module-local.  pu20.sv puts the same parameter under
+                    // four calls in one elab gen-scope process and golden
+                    // folds it under the three written `pu20_pkg::pf(...)` /
+                    // `pu20_pkg::pi(...)` and keeps the ref under the
+                    // WILDCARD-IMPORTED, unqualified `pf(...)` — the callee's
+                    // home is not the discriminator, THE WRITTEN QUALIFIER IS
+                    // (pass 18 § defGenQualPkgCallBinds18, pass 19 laws 3-4,
+                    // now a fourth container).  Corpus: work@prim_prince
+                    // :116:67, `prim_cipher_pkg::sbox4_64bit(
+                    // data_state[NumRoundsHalf], ...)`.
+                    // § genProcParamFoldTopGenOnly20 (r10earl20) — the fold is
+                    // a TOP-LEVEL gen scope's privilege.  pv20.sv puts the
+                    // same module parameter in an always_comb of a flat
+                    // if-generate, a flat for-generate, an if-generate NESTED
+                    // in a for-generate and an if-generate NESTED in an
+                    // if-generate: golden folds the two flat ones and keeps
+                    // `ref_obj IDX` in both nested ones, loop or no loop, so
+                    // the discriminator is the GENERATE NESTING DEPTH and not
+                    // the loop.  (A named_begin inside the process is a
+                    // STATEMENT block and does not count — `p_if` folds.)
+                    // Corpus: work@prim_prince folds :116:67 in the flat
+                    // `gen_middle_d64` and keeps :150:20 in `gen_bwd_d64`,
+                    // which is nested inside `gen_bwd_pass`.
+                    bool nestedGenBlk20 = false;
+                    if (currentGenBlkScope)
+                        for (auto sc20 =
+                                 currentGenBlkScope->asSymbol().getParentScope();
+                             sc20; sc20 = sc20->asSymbol().getParentScope()) {
+                            auto sk20 = sc20->asSymbol().kind;
+                            if (sk20 == SymbolKind::GenerateBlock) {
+                                nestedGenBlk20 = true;
+                                break;
+                            }
+                            if (sk20 != SymbolKind::GenerateBlockArray)
+                                break;
+                        }
                     if (inGenScopeProc && !currentSubSym &&
                         (varSelIdxDepth > 0 || procForAllDepth9 > 0 ||
-                         callArgDepth > 0 || inAssertEmit9))
+                         (callArgDepth > 0 && !qualCallArg20) ||
+                         nestedGenBlk20 || inAssertEmit9))
                         inGenFn = false;
                     if (inGenScopeProc && !currentSubSym) {
                         bool moduleParam = false;
@@ -7805,6 +7867,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 namedArgs9 = true;
                 }
                 callArgDepth++;
+                // § genProcParamFoldQualCallArg20 — see UhdmExporter.h.  The
+                // qualifier is read off the WRITTEN syntax (the same test
+                // qualCall9 uses above), not off the callee's home scope: a
+                // WILDCARD-imported package function called unqualified keeps
+                // its arguments symbolic (pu20.sv row Q2) exactly like a
+                // module-local one.
+                bool savedQCA20 = qualCallArg20;
+                {
+                    auto* qsyn20 = expr.syntax;
+                    if (qsyn20)
+                        if (auto* iv20 = qsyn20->as_if<
+                                syntax::InvocationExpressionSyntax>())
+                            qsyn20 = iv20->left;
+                    qualCallArg20 =
+                        qsyn20 &&
+                        qsyn20->kind == syntax::SyntaxKind::ScopedName;
+                }
                 ClassArgBind12 cab12(classArgBindDepth12);
                 for (auto arg : call.arguments()) {
                     if (argIdx >= nWritten9)
@@ -8438,6 +8517,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     argIdx++;
                 }
                 callArgDepth--;
+                qualCallArg20 = savedQCA20;
                 if (!args->empty())
                     fc->Tf_call_args(args);
                 return fc;

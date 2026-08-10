@@ -2536,7 +2536,22 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             targetSyn =
                                 asyn->as<syntax::TypedefDeclarationSyntax>().type;
                     bypassTypedefShare = true;
+                    // § modTdRetCloneSymbolic20 (r10earl20) — the return
+                    // clone of a MODULE-LOCAL scalar typedef keeps the
+                    // typedef's range SYMBOLIC, the same way the package
+                    // branch above does for its own def view.  Without
+                    // tfContext the clone is built under the module rule and
+                    // folds the bound, so `typedef logic [4:0][4:0][W-1:0]
+                    // box_t;` reads back `[63:0]` where golden keeps the
+                    // `W-1` operation.  pz20.sv is the two-line witness and
+                    // bisects to the same field chain as the corpus head:
+                    // cont_assign > func_call > function > Return logic_var >
+                    // ref_typespec > logic_typespec 'box_t' > Ranges[2] >
+                    // Left_expr.  Corpus: def:work@prim_keccak :24:28.
+                    bool savedTf20 = tfContext;
+                    tfContext = true;
                     ts = makeTypespec(*sub.returnValVar, targetSyn);
+                    tfContext = savedTf20;
                     bypassTypedefShare = false;
                     // Pkg typedefs qualify the clone name (P::S).
                     std::string qn9(rdt.name);
@@ -3356,6 +3371,17 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     tfContext = pkgTdOwnDefView(*hta18);
                     tdCloneRefNoBind18 = true;  // § pkgTdCloneRefNoBind18
                 }
+                // § modTdRetCloneSymbolic20 — the FORMAL half.  § tfFormalTs
+                // records that "a task/function FORMAL's own typespec has its
+                // range bound folded like a module one (the return type and
+                // body locals do not)"; that law was measured on a formal
+                // that WRITES its own range.  A formal typed by a MODULE-LOCAL
+                // typedef inherits the TYPEDEF's clone rule instead and keeps
+                // the bound SYMBOLIC — pz20.sv holds both spellings side by
+                // side (`theta(box_t st)` vs `phi(logic [W-1:0] v)`).
+                // Corpus: def:work@prim_keccak, `theta(box_t state)` :120:40.
+                else if (at.kind == SymbolKind::TypeAlias)
+                    tfContext = true;
                 ts = makeTypespec(*arg, targetSyn);
                 tdCloneRefNoBind18 = savedNb18;
                 tfContext = savedTf18;

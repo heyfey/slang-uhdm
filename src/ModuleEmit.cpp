@@ -12584,6 +12584,106 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 bindGenLocal9((UHDM::any*)ca->Lhs(), ae.left(), true);
                 bindGenLocal9((UHDM::any*)ca->Rhs(), ae.right(), false);
             }
+            // § genCaOpDeepBindGenLocal20 (r10earl20).  The REACH of
+            // § genCaDirectRefBindsGenLocal.  That law says a gen-scope
+            // cont_assign binds a gen-LOCAL variable ref only when the ref IS
+            // the WHOLE Rhs, "and the same name read from INSIDE an operation
+            // or a select does NOT" — but the tk.sv row that clause came from
+            // (`assign vb_sbox = ~vb_xor;` in a NESTED gen block) reads an
+            // ANCESTOR scope's local, which tk row D2 separately proved is
+            // unbound whole-ref or not.  The operation clause was never
+            // isolated.  ps20.sv isolates it in three rows of one gen block:
+            //   assign s1 = v1 ^ 4'h5;   Lhs GEN-LOCAL,  Rhs operation -> BOUND
+            //   assign y1 = v1 ^ 4'h5;   Lhs MODULE net, Rhs operation -> unbound
+            //   assign y2 = v1;          Lhs MODULE net, Rhs whole ref -> BOUND
+            // so the discriminator is the LHS: when the assignment's target is
+            // itself a local of THIS gen scope, every same-scope gen-local
+            // read anywhere in the Rhs binds.  pq20.sv adds the negatives that
+            // survive it (a MODULE-level signal and an ANCESTOR-scope local
+            // read from inside the operation both stay unbound) and pr20.sv
+            // rules out the two confounds — operand DEPTH and whether the
+            // operand is process- or cont_assign-driven are both irrelevant.
+            // Corpus: work@prim_prince (Top), whose whole head is
+            //   assign data_state_xor = data_state_round ^ ...    (:105:29)
+            // in `gen_fwd_pass`, where `data_state_round` is written inside a
+            // NESTED if-generate and so never enters blkWrites — the Rhs is
+            // suppressed wholesale and this is the only pointer missing in the
+            // entire 426-node-pair subtree.
+            {
+                auto& lc20 = stripImplicitConv(ae.left());
+                bool lhsGenLocal20 = false;
+                if (lc20.kind == ExpressionKind::NamedValue) {
+                    auto& ls20 = lc20.as<NamedValueExpression>().symbol;
+                    lhsGenLocal20 =
+                        ls20.kind == SymbolKind::Variable &&
+                        ls20.getParentScope() ==
+                            static_cast<const Scope*>(&blk);
+                    // ...unless the name is SHADOWED.  Found as a regression:
+                    // u2r genvar_loop_decl_3 declares `integer x, y;` inside
+                    // `begin : gen` of a module whose PORTS are also x and y,
+                    // and Surelog resolves the gen-scope `assign y = x + 1;`
+                    // LHS to the MODULE net work@gate.y — not to the gen-local
+                    // integer_var — so by ps20's rule the assignment does not
+                    // target this gen scope and the Rhs stays symbolic.
+                    // px20.sv is the three-way bisect: the test's own module
+                    // verbatim (unbound), the SAME module with the two gen
+                    // locals renamed so nothing shadows (BOUND — this law's
+                    // reach is real), and the shadowing kept but the
+                    // module-level hierarchical reads removed (unbound), so
+                    // the shadowing is the whole discriminator.
+                    if (lhsGenLocal20)
+                        for (auto& bm20 : body.members())
+                            if (bm20.name == ls20.name) {
+                                lhsGenLocal20 = false;
+                                break;
+                            }
+                }
+                if (lhsGenLocal20 && ca->Rhs()) {
+                    std::function<void(UHDM::any*)> deep20 =
+                        [&](UHDM::any* n20) {
+                            if (!n20)
+                                return;
+                            if (n20->UhdmType() == UHDM::uhdmoperation) {
+                                if (auto* ops20 =
+                                        ((UHDM::operation*)n20)->Operands())
+                                    for (auto* o20 : *ops20)
+                                        deep20(o20);
+                                return;
+                            }
+                            if (n20->UhdmType() != UHDM::uhdmref_obj)
+                                return;
+                            auto* r20 = (UHDM::ref_obj*)n20;
+                            if (r20->Actual_group())
+                                return;
+                            const Symbol* sy20 = nullptr;
+                            for (auto& mm20 : blk.members())
+                                if (mm20.name == r20->VpiName()) {
+                                    sy20 = &mm20;
+                                    break;
+                                }
+                            if (!sy20 || sy20->kind != SymbolKind::Variable)
+                                return;
+                            auto it20 = netMap.find(sy20);
+                            if (it20 == netMap.end())
+                                return;
+                            // NET-kind locals (driven regs -> nets) keep the
+                            // § genCaDirectRefBindsGenLocal silence.
+                            switch (it20->second->UhdmType()) {
+                                case UHDM::uhdmlogic_net:
+                                case UHDM::uhdmarray_net:
+                                case UHDM::uhdmstruct_net:
+                                case UHDM::uhdmenum_net:
+                                case UHDM::uhdmpacked_array_net:
+                                case UHDM::uhdmnet_bit:
+                                    return;
+                                default:
+                                    break;
+                            }
+                            r20->Actual_group(it20->second);
+                        };
+                    deep20((UHDM::any*)ca->Rhs());
+                }
+            }
             cas->push_back(ca);
         }
         if (!cas->empty())

@@ -1174,6 +1174,190 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
+LANDED — PASS 20 (r10earl20; FIVE laws in FOUR gate rounds, each round gated at
+goldens 23/23 + u2r testflags 732 lines 0 change vs results/gate_uhdm2rtlil.csv
++ Surelog BOTH MODES 1589 lines 0 change, WHOLE-ROW incl. the dump column, vs
+results/golden_surelog.csv).
+
+  HEADLINE: 16 -> 14 heads (AllModules 10 -> 9, TopModules 6 -> 5; both package
+  vectors still 0).  CLOSED: work@prim_prince (Top) and def:work@prim_keccak.
+  Conversions: NONE (Earlgrey_0_1 is still CMP_NOTEQUAL, 0 movers).
+
+  THE METHOD HEADLINE: **A LAW THAT ONLY EVER SAW ONE SPELLING IS A LAW WITH AN
+  UNMEASURED HALF.**  Every one of this pass's five laws is a REACH correction
+  to an existing § law whose original witness confounded two features:
+    * § genCaDirectRefBindsGenLocal said a gen-scope cont_assign binds a
+      gen-local ref only as the WHOLE Rhs, "not inside an operation" — but the
+      tk.sv row that clause came from read an ANCESTOR scope's local, which the
+      same file separately proved is unbound whole-ref or not.
+    * § genProcParamFold said "Surelog's reduce does not descend into call
+      actuals" — every callee in r10scr14repro/t6.sv is module-local.
+    * § tfFormalTs said a formal's range bound folds like a module one — its
+      witness writes the range inline; a formal typed by a TYPEDEF does not.
+  Write the 2x2 (or 2x3) that separates the features BEFORE writing the code:
+  three of the five laws below came out of a single purpose-built file each.
+
+  1. § genCaOpDeepBindGenLocal20 (ModuleEmit, after the bindGenLocal9 pair;
+     round 1).  Pass-19 residue (1), a ONE-POINTER head.  In an ELABORATED gen
+     scope, a cont_assign whose LHS is a variable declared in THIS gen block
+     binds EVERY same-scope gen-local variable ref anywhere in its Rhs, at any
+     operand depth.  ps20.sv is the isolation, three rows of one gen block:
+       assign s1 = v1 ^ 4'h5;   Lhs GEN-LOCAL,  Rhs operation -> BOUND
+       assign y1 = v1 ^ 4'h5;   Lhs MODULE net, Rhs operation -> unbound
+       assign y2 = v1;          Lhs MODULE net, Rhs whole ref -> BOUND
+     THE LHS IS THE DISCRIMINATOR.  pq20.sv adds the negatives that survive
+     (a module-level signal and an ancestor-scope local read from inside the
+     operation both stay unbound) and pr20.sv kills the two confounds — operand
+     DEPTH and process- vs cont_assign-driven are both irrelevant.  Corpus:
+     work@prim_prince's `assign data_state_xor = data_state_round ^ ...`
+     (:105:29), whose Rhs ref was the ONLY nullness in 426 node pairs.
+     REGRESSION-DERIVED CARVE-OUT (gate round 1, u2r genvar_loop_decl_3
+     CMP_EQUAL -> CMP_NOTEQUAL): the LHS does not count as gen-local when its
+     NAME is also declared at MODULE level.  px20.sv is the three-way bisect —
+     the test's own module verbatim (unbound), the same module with the two gen
+     locals RENAMED so nothing shadows (BOUND), and the shadowing kept but the
+     module-level hierarchical reads removed (unbound).  The proof is in
+     golden's own pointer: the shadowed Lhs `y` binds `logic_net work@gate.y`,
+     the MODULE net — Surelog never resolved it to the gen-local at all, so by
+     law 1's own rule the assignment does not target that gen scope.
+  2. § genProcParamFoldQualCallArg20 (ExprEmit ~4534 + a new qualCallArg20
+     flag saved/restored around the func_call arg loop; round 2).  The
+     call-actual exception is the UNQUALIFIED-CALL exception.  pu20.sv puts one
+     module parameter under four calls in one elab gen-scope process: golden
+     folds it under the three written `pu20_pkg::pf(...)` / `pu20_pkg::pi(...)`
+     and keeps `ref_obj IDX` under the WILDCARD-IMPORTED, unqualified `pf(...)`.
+     THE WRITTEN QUALIFIER IS THE DISCRIMINATOR — pass 18 § defGenQualPkgCall-
+     Binds18 and pass 19 laws 3-4 in a fourth container.  pt20.sv is the
+     6-row companion (unpacked port vs packed 2-D var x bare / local call /
+     package call).  Corpus: work@prim_prince :116:67,
+     `prim_cipher_pkg::sbox4_64bit(data_state[NumRoundsHalf], ...)`.
+  3. § genProcParamFoldTopGenOnly20 (ExprEmit, same exception list; round 2).
+     The fold is a TOP-LEVEL gen scope's privilege.  pv20.sv puts the same
+     parameter in an always_comb of a flat if-generate, a flat for-generate, an
+     if-generate NESTED in a for-generate and an if-generate NESTED in an
+     if-generate: golden folds the two FLAT ones and keeps the ref in both
+     nested ones, LOOP OR NO LOOP, so the discriminator is GENERATE NESTING
+     DEPTH.  (A named_begin inside the process is a STATEMENT block and does
+     not count.)  Corpus: prim_prince folds :116:67 in the flat
+     `gen_middle_d64` and keeps :150:20 in `gen_bwd_d64`, nested inside
+     `gen_bwd_pass`.  Laws 2+3 together CLOSED work@prim_prince (Top).
+  4+5. § modTdRetCloneSymbolic20, both halves (TaskFuncEmit ~1819 for the
+     RETURN clone and ~2472 for the FORMAL clone; round 3).  A function's
+     return typed by a MODULE-LOCAL scalar typedef, and a FORMAL typed by one,
+     each get a fresh clone — built without tfContext, so the clone folds the
+     typedef's range where golden keeps it symbolic.  The PACKAGE branch right
+     above already does this (§ pkgTdRangeViewFold18 sets
+     `tfContext = pkgTdOwnDefView(...)`); the module-local branch never did.
+     pz20.sv is the witness and bisects to the corpus head's exact field chain
+     (cont_assign > func_call > function > Return logic_var / io_decl >
+     ref_typespec > logic_typespec 'box_t' > Ranges[2] > Left_expr, golden
+     `operation {op=11}` = `W-1`, ours `constant 63`).  THE RETURN HALF ALONE
+     MEASURED A BYTE-IDENTICAL CENSUS — and was not a zero: re-running the
+     bisector showed the head had moved from `bitarray_to_box`'s return to
+     `theta`'s io_decl, the SAME law one object over (pass 19's method note,
+     third occurrence).  def:work@prim_keccak CLOSED.
+
+PASS-20 OPS NOTES
+  * THE REGRESSION IS THE CHEAPEST DISTINGUISHER, again, and this time it
+    supplied the missing CONDITION rather than a new law: genvar_loop_decl_3's
+    shadowed `x`/`y` are the only place in either corpus where Surelog's own
+    resolution of the cont_assign LHS is visible, and reading WHAT GOLDEN BOUND
+    THE LHS TO (a module net, not the gen-local) settled it in one grep.
+  * A HEAD THAT DOES NOT MOVE IS NOT A LAW THAT DID NOT LAND.  Laws 4 and 5 are
+    one law in two mint sites; landing only the first left the census
+    BYTE-IDENTICAL.  RE-RUN THE BISECTOR (pass 19's note) — it named site two.
+  * REPRODUCE IN A SMALL FILE BEFORE READING THE EMITTER.  Every law here was
+    decoded from a purpose-built .sv against real Surelog, and two candidate
+    laws (work@jtag_mux, and the tl_main_pkg pair's naive fix) DID NOT survive
+    that step — which is itself the finding.
+
+RANKED RESIDUE (measured after PASS 20 — next agent starts HERE; 9 AllModules +
+5 TopModules = 14 heads).
+
+  (1) THE top_earlgrey PAIR — 2 heads, ONE object, FULLY DECODED, with the
+      2x2 already written (qa20.sv) and the naive fix already REFUTED.
+      def:work@top_earlgrey and work@top_earlgrey are both r=-1 at
+      tl_main_pkg.sv:13:59 at the head line, but the bisect walks
+        work@top_earlgrey > u_rv_core_ibex > u_core > if_stage_i
+          > port 'instr_pmp_err_i' > bit_select 'pmp_req_err'
+            > vpiIndex constant {ct=9 sz=32 dec=0} > vpiTypespec
+      where golden has NO ref_typespec and § selFold9 stamps one
+      (ibex_core.sv:394:47, `.instr_pmp_err_i ( pmp_req_err[PMP_I] )`, PMP_I an
+      `int unsigned` ibex_pkg parameter read through a wildcard import).
+      qa20.sv instantiates one child twice — `.e(v[PI])` and
+      `.e(v[qa20_pkg::PI])` — and golden stamps exactly ONE of the four rows,
+      the DEF listing's UNQUALIFIED one.  MEASURED NEGATIVE, recorded in the
+      code at the § selFold9 site: gating on `!moduleDefEmit` kills the DEF row
+      too, because the def listing's port High_conn is minted AFTER
+      emitModuleDef pops its DefEmitGuard.  Pass 21 needs a def-view marker
+      that survives to the connection mint (ModuleEmit's DefNetViewGuard is the
+      pattern), not another parent test.
+  (2) The three hier_path families, unchanged and each worth 2 heads:
+      dm_csrs.sv:309:27 DROPPED INDEX OPERAND (def:work@dm_csrs +
+      def:work@rv_dm, both r=93 — read unsup.sh FIRST); flash_ctrl.sv:315:10
+      `region_cfgs[8]` vs `region_cfgs[MpRegions]` (a shadowed NAME in a name
+      builder — shadowedImportFoldLeaves9 exists, wire the name path);
+      flash_phy.sv:129:13 hier_path vs ref_obj (r=4392, the largest r left).
+  (3) The pass-19 mirror pair, both DID NOT REPRODUCE from their decoded shape:
+      work@jtag_mux r=32 — param_assign[1] (`parameter logic [NumIOs-1:0]
+        TieOffValues = '0`) > Rhs constant > vpiTypespec > logic_typespec
+        (golden AT 11:13 with the symbolic `NumIOs-1`, ours LOC-LESS with an
+        EMPTY constant bound, uids ~738k = minted very LATE).  py20.sv
+        reproduces the source shape TWICE (bare parameter list; then with the
+        `TieOffValues[k]` for-generate read jtag_mux actually has) and is
+        CMP_EQUAL both times, and jtag_mux is instantiated NOWHERE in Earlgrey,
+        so the trigger is neither the declaration nor an override.  The empty
+        constant + late uid says a DESIGN-FINAL pass mints it; find the minter
+        (grep the clone/re-point passes for a MakeConstant with no value set)
+        rather than re-deriving the shape.
+      work@sram2tlul r=-32 — golden KEEPS the `top_pkg::TL_SZW'(SRAM_DWB)` cast
+        operation at sram2tlul.sv:42:10 where we fold it to
+        `constant {ct=9 sz=2 dec=2}`; the mirror of pass-17 law 1.  Untouched
+        this pass.
+  (4) work@prim_keccak (Top) r=32 at prim_keccak.sv:52:5 — the def half CLOSED
+      this pass and the top half did NOT move, so it is a DIFFERENT object
+      (`localparam int Offset = RhoOffset[x][y]%W;` in the gen_rho_x/gen_rho_y
+      nest), not the same typedef clone.  Bisect it fresh.
+  (5) def:work@prim_prince r=-1 — an EXTRA ref_typespec of ours,
+      `failLhs <null>`, and BOTH generic tools go blind on it: the bisector
+      prints NO CHILD REPRODUCES IT over a 222-pair child table and nul20.sh
+      reports ZERO nullnesses (with and without -deep).  So the extra pointer
+      hangs off a relation the generic walk prunes (it prunes at instances) or
+      inside a Task_func the walk enters but the Compare orders differently.
+      Extend the walk before extending the theory.
+  (6) The unchanged smalls: dm_mem r=-2 ct7-vs-ct9 INT encoding (the we.sv
+      G5/G6 witness family); flash_mp.sv:21:87 logic_net; def:work@padring's
+      `named_begin 'gen_mio_input'` :0:0 (both sides identical at the head line
+      — read gen_scope::Compare the way pass 19's law 4 was found);
+      work@prim_present (Top) r=-1 gen_scope_array selection (`gen_d64` vs
+      `gen_enc`).
+  (7) WITNESS-ONLY residues this pass measured and deliberately did NOT
+      implement (no corpus head):
+        * ps20.sv row S2 / pq20.sv line 56 — the INVERSE of law 1.  When the
+          cont_assign LHS is NOT a gen-local, golden leaves the Rhs's
+          same-scope gen-local refs UNBOUND and we bind them (our suppress
+          machinery turns itself off as soon as any Rhs name is in blkWrites).
+          The measurement is in the tables above; landing it means teaching
+          `hasBindableRef` the LHS test law 1 already carries.
+        * pu20.sv round 1 — a module parameter inside a CAST inside a
+          QUALIFIED call argument (`W'(pu20_pkg::pi(IDX))`) folds in golden and
+          not in ours; drop the cast and the row passes.  Law 2 reaches the
+          call, not the cast.
+        * pz20.sv — a call ARGUMENT ref_obj whose formal is typed by a module
+          typedef carries a ref_typespec in ours and none in golden
+          (`theta(state_in)`); exposed only after laws 4+5 cleared the range.
+        * The three pass-19 witness-only residues (the SIZE half of
+          overriddenBoundParamNoFoldTs19, the def-view gen CONT_ASSIGN
+          qualified fold, the elab whole-RHS replication fold) are UNTOUCHED
+          and still have no corpus head.
+
+PASS-20 TOOLS.  {run,bis,nul,hdiff,cen,ins,sub,dmp,dbg,gate,sweep}20.sh are the
+pass-19 scripts with W= re-pointed at this worktree and the /tmp tags bumped;
+they reuse the r10e19_* probe binaries under /tmp/r10e20_*.  Witnesses added:
+pn20 pq20 pr20 ps20 (law 1), px20 pw20 (the law-1 regression bisect), pt20 pu20
+(law 2), pv20 (law 3), pz20 (laws 4+5), py20 (jtag_mux, NEGATIVE), qa20
+(top_earlgrey, decoded and ranked (1)).
+
 LANDED — PASS 19 (r10earl19; SEVEN laws in FIVE gate rounds, each round gated
 at goldens 23/23 + u2r testflags 732 lines 0 change vs
 results/gate_uhdm2rtlil.csv + Surelog BOTH MODES 1589 lines 0 change,
