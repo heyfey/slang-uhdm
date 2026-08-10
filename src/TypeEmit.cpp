@@ -556,6 +556,89 @@ void UhdmExporter::crossPkgFoldBoundLeaves9(UHDM::any* node,
     }
 }
 
+// § arrayElemTdClone42 — the PER-DECLARATION NAMED CLONE of a VECTOR typedef
+// that stands in every position where the typedef's type is reached THROUGH a
+// container: an unpacked array's ELEMENT typespec and an associative array's
+// INDEX typespec.  Golden never lets such a position point at a LISTING object
+// directly.
+//
+// Measured with `tools/probe/r10uvm42tw` on SimpleUVM, which prints for every
+// named typespec object whether it is a member of some scope's typespec
+// LISTING plus the multiset of its referring ref_typespecs' PARENT kinds — the
+// identity question no KIND:NAME census and no fan-in count can answer:
+//
+//   golden  73:10 bit_typespec 'uvm_pkg::uvm_reg_addr_t' LISTED fanin=154
+//                                       | 154 x bit_typespec'uvm_reg_addr_t'
+//   golden  73:10 bit_typespec 'uvm_pkg::uvm_reg_addr_t' LISTED fanin=88
+//                                       |  88 x bit_typespec'uvm_reg_addr_t'
+//
+// i.e. ALL 242 references to the two listing objects come from a clone's
+// Typedef_alias and NONE from a declaration, while HEAD had 29 `array_typespec`
+// Elem_typespec refs and 3 Index_typespec refs straight to them — spelling the
+// element/index `uvm_pkg::uvm_reg_addr_t` where golden spells it
+// `uvm_reg_addr_t`, and VpiName is a COMPARED field.  Golden's clones are one
+// per DECLARATION, at the TYPEDEF's own span, instanced at the listing
+// object's scope, and SHARED between an array_typespec's Elem_typespec and the
+// array_var's element `reg` variable (27 of SimpleUVM's clones read exactly
+// `1xarray_typespec | 1xbit_var`).
+//
+// This is not a new shape: the io_decl arm (§ unpackedTdElem9, TaskFuncEmit)
+// has always built this clone for a FORMAL.  § arrayElemTypedefTs15 chose the
+// SHARED LISTING OBJECT over an UNNAMED fresh one and never measured a NAMED
+// one — the LOCAL / CLASS-PROPERTY half of a law that had only ever seen the
+// formal spelling.
+//
+// `base` must be the listing object of the view being emitted (the caller owns
+// that choice, § pkgTdRangeViewFold18); vector typedefs only, exactly the
+// kinds `unpackedTdElem9` accepts, because an enum or struct typedef's
+// element/index is `<pkg>::<alias>` in golden too.  Returns null when the law
+// does not apply, so a caller can fall back to what it did before.
+UHDM::typespec* UhdmExporter::tdVecNamedClone42(const Type& al,
+                                                const void* declKey,
+                                                UHDM::typespec* base) {
+    if (!base || al.kind != SymbolKind::TypeAlias)
+        return nullptr;
+    if (base->UhdmType() != UHDM::uhdmbit_typespec &&
+        base->UhdmType() != UHDM::uhdmlogic_typespec)
+        return nullptr;
+    auto& alias = al.as<TypeAliasType>();
+    auto key = std::make_pair(declKey, (const UHDM::typespec*)base);
+    if (auto c = arrayElemTdClone42.find(key); c != arrayElemTdClone42.end())
+        return c->second;
+    const syntax::SyntaxNode* tgtSyn = nullptr;
+    if (auto asyn = alias.getSyntax())
+        if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+            tgtSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+    bool svBy = bypassTypedefShare, svTf = tfContext,
+         svNb = tdCloneRefNoBind18;
+    bypassTypedefShare = true;
+    // § pkgTdRangeViewFold18: the clone's packed range follows the LISTING it
+    // aliases — symbolic only in the typedef's home package DEF view.
+    if (auto* hta = pkgHomedTdAlias18(al)) {
+        tfContext = pkgTdOwnDefView(*hta);
+        tdCloneRefNoBind18 = true;  // § pkgTdCloneRefNoBind18
+    }
+    auto* cl = makeTypespec(alias, tgtSyn);
+    bypassTypedefShare = svBy;
+    tfContext = svTf;
+    tdCloneRefNoBind18 = svNb;
+    if (!cl || cl->UhdmType() != base->UhdmType())
+        return nullptr;
+    cl->VpiName(alias.name);
+    // The clone takes the LISTING object's instance; the listing object itself
+    // is SHARED and is never touched here (§ sharedAliasNoStamp41).
+    if (base->Instance() && !cl->Instance())
+        cl->Instance(base->Instance());
+    auto* art = s.MakeRef_typespec();
+    art->VpiFullName(std::string(alias.name));
+    art->VpiParent(cl);
+    art->Actual_typespec(base);
+    cl->Typedef_alias(art);
+    arrayElemTdClone42[key] = cl;
+    tdVecClone42.insert(cl);
+    return cl;
+}
+
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {
@@ -731,13 +814,23 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     // uvm_mem::get_addresses' io_decl and uvm_reg_map's body
                     // locals alike.)  The pass-15 note above is about the
                     // element's NAME, which both objects now spell the same.
+                    UHDM::typespec* base9 = it9->second;
                     if (el9->kind == SymbolKind::TypeAlias &&
                         !pkgTdOwnDefView(el9->as<TypeAliasType>()))
                         if (auto e9 = pkgTopTypedefTs.find((const void*)el9);
                             e9 != pkgTopTypedefTs.end() && e9->second &&
                             e9->second->UhdmType() == it9->second->UhdmType())
-                            return e9->second;
-                    return it9->second;
+                            base9 = e9->second;
+                    // § arrayElemTdClone42 — and WHICH of the two listing
+                    // objects this arm hands back was never the whole
+                    // question: golden hands back neither, it hands back a
+                    // PER-DECLARATION NAMED CLONE that aliases the view's
+                    // listing object.  See tdVecNamedClone42.
+                    if (auto* cl42 =
+                            tdVecNamedClone42(*el9, (const void*)&declSymbol,
+                                              base9))
+                        return cl42;
+                    return base9;
                 }
             }
         }

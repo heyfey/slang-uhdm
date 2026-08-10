@@ -2501,6 +2501,17 @@ private:
     std::set<const void*> modulePrefixedStructs;
     // Vector typedefs: the write-side clone referenced via TypedefAlias.
     std::map<const slang::ast::Symbol*, UHDM::typespec*> typedefClone;
+    // § arrayElemTdClone42 — the PER-DECLARATION named element clone an
+    // UNPACKED array over a vector typedef takes, keyed by {declaration
+    // symbol, the listing object of the view it belongs to}.  One clone per
+    // declaration per view, because makeTypespec is re-entered for the same
+    // declaration (the array_typespec's Elem_typespec and the array_var's
+    // element `reg` variable must SHARE one object — golden pairs them
+    // 1xarray_typespec + 1xbit_var on every one of the 27 clones SimpleUVM
+    // has) and because a package's DEF and ELABORATED listings each need
+    // their own.
+    std::map<std::pair<const void*, const UHDM::typespec*>, UHDM::typespec*>
+        arrayElemTdClone42;
     // Instance-view refs to vector typedefs, patched with the late wrapper.
     std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>> pendingAliasRefs;
     // Re-emitted size-cast typespecs are created at the end of the write
@@ -2986,6 +2997,28 @@ private:
     // Guard on THIS, never on the index type's canonical kind: `typedef int
     // myint` is a PredefinedIntegerType canonically and walks any such guard.
     bool isSharedAliasTs(const slang::ast::Type& t, const UHDM::typespec* ts);
+    // § arrayElemTdClone42 — the PER-DECLARATION named clone of a VECTOR
+    // typedef that golden puts in every position reached THROUGH a container
+    // (an unpacked array's ELEMENT typespec, an associative array's INDEX
+    // typespec): bare name, the typedef's own span, Typedef_alias -> `base`,
+    // which the CALLER chooses (§ pkgTdRangeViewFold18 decides which of the
+    // two listing objects the view aliases).  Null when the law does not
+    // apply, so a caller keeps its old fallback.  Full derivation at the
+    // definition in TypeEmit.cpp.
+    UHDM::typespec* tdVecNamedClone42(const slang::ast::Type& al,
+                                      const void* declKey,
+                                      UHDM::typespec* base);
+    // Every object tdVecNamedClone42 has minted.  A clone is NOT shared, so
+    // § sharedAliasNoStamp41's registry test cannot see it — but golden does
+    // not re-span it either (all of SimpleUVM's `uvm_reg_addr_t` clones sit at
+    // the TYPEDEF's 73:10, none at an index bracket), and one clone IS shared
+    // between an array_typespec's Elem_typespec and the array_var's element
+    // `reg`.  So the index-bracket stamp sites must skip it for the same
+    // reason, one predicate wider.
+    std::set<const UHDM::typespec*> tdVecClone42;
+    bool isTdVecClone42(const UHDM::typespec* ts) const {
+        return ts && tdVecClone42.count(ts) != 0;
+    }
     // The class_defn currently being filled (a `new` constructor's synthesized
     // return class_var points its class_typespec at it).
     UHDM::class_defn* currentClassDefn = nullptr;

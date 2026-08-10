@@ -1188,18 +1188,22 @@ UHDM::typespec* UhdmExporter::assocIndexTs(const Type& idx, const Symbol& sym) {
         pendingClassTsLink.push_back({cts, &ic});
         return cts;
     }
-    // MEASURED RESIDUE, mechanism OPEN (r10uvm41 §4(1)): golden's index object
-    // for a PACKED-VECTOR typedef index is the BARE-named twin
-    // (`uvm_reg_addr_t`), ours the package-qualified one — 3 rows in SimpleUVM
-    // (uvm_reg_map::m_regs_by_offset / _wo, uvm_reg_map_info::addr) and a
-    // cmp-COMPARED field.  Every other spelling already agrees to the row
-    // (enum and struct indices are `<pkg>::<alias>` in golden too).  The
-    // obvious fix is REFUTED: preferring `typedefTs` over `pkgTopTypedefTs`
-    // here changes NOTHING, because both registries hold the SAME
-    // package-qualified object for these typedefs — the bare twin that 135
-    // references bind is minted somewhere else and has to be found first.
-    if (auto* sh = sharedAliasTs(idx))
+    if (auto* sh = sharedAliasTs(idx)) {
+        // § arrayElemTdClone42, the INDEX half — pass 41's open residue, and
+        // its answer was never "the other registry".  Golden's index object
+        // for a PACKED-VECTOR typedef index is a bare-named PER-DECLARATION
+        // CLONE (`uvm_reg_addr_t`), not either listing object: preferring
+        // `typedefTs` over `pkgTopTypedefTs` here was implemented and measured
+        // to change NOTHING (pass 41), because both registries hold the SAME
+        // package-qualified object.  The bare twin that golden's 3 rows bind
+        // is a clone of exactly the kind the ELEMENT position needs — one law,
+        // both halves.  Enum and struct typedef indices keep the listing
+        // object: golden spells those `<pkg>::<alias>` too, which is why
+        // tdVecNamedClone42 is restricted to bit/logic bases.
+        if (auto* cl = tdVecNamedClone42(idx, (const void*)&sym, sh))
+            return cl;
         return sh;
+    }
     if (ic.kind == SymbolKind::PredefinedIntegerType)
         return predefIntTypespec(ic, sym);
     if (ic.isIntegral())
@@ -1256,7 +1260,12 @@ void UhdmExporter::emitAssocDims(const Symbol& cp,
             // @31:11`, the typedef's own span.  MEASURED, not inferred — LAW A
             // alone left 10 `b8` + 13 `pkb::b8` + 6 `myint` occurrences
             // re-spanned to 41:14 / 42:15 by this very site.
-            if (auto* d = dimAt(0); d && !isSharedAliasTs(*idx[0], its)) {
+            // ...and § arrayElemTdClone42's clone is skipped for the same
+            // reason one predicate wider: it is not registry-shared, but golden
+            // keeps it at the TYPEDEF's span and it is shared with the
+            // array_var's element `reg`.
+            if (auto* d = dimAt(0); d && !isSharedAliasTs(*idx[0], its) &&
+                                    !isTdVecClone42(its)) {
                 auto dr = d->sourceRange();
                 if (auto* rd = d->specifier
                                    ? d->specifier
@@ -1295,7 +1304,8 @@ void UhdmExporter::emitAssocDims(const Symbol& cp,
         if (idx[i]) {
             if (auto* its = assocIndexTs(*idx[i], cp)) {
                 // § sharedAliasNoStamp41 — same invariant, INNER dimension.
-                if (auto* d = dimAt(i); d && !isSharedAliasTs(*idx[i], its))
+                if (auto* d = dimAt(i); d && !isSharedAliasTs(*idx[i], its) &&
+                                        !isTdVecClone42(its))
                     if (auto* rd = d->specifier
                                        ? d->specifier->as_if<
                                              syntax::RangeDimensionSpecifierSyntax>()

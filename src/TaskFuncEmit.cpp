@@ -1103,7 +1103,12 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
                 // canonically a PredefinedIntegerType and sailed through the
                 // kind guard this replaces (measured: 6 `myint` occurrences
                 // re-spanned to 60:12).
-                const bool shared0 = isSharedAliasTs(*aidx[i0], its0);
+                // § arrayElemTdClone42 widens the same guard by one predicate:
+                // a per-declaration named clone is not registry-shared, yet
+                // golden keeps it at the TYPEDEF's span and shares it with the
+                // array_var's element `reg`.
+                const bool shared0 = isSharedAliasTs(*aidx[i0], its0) ||
+                                     isTdVecClone42(its0);
                 if (!shared0) {
                     if (sx0)
                         setLoc(its0, sx0->sourceRange());
@@ -2041,7 +2046,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             // so the invariant holds by GREP at every
                             // assocIndexTs stamp site rather than by
                             // re-deriving the grammar split.
-                            const bool sh9 = isSharedAliasTs(*aidx[i9], its9);
+                            const bool sh9 = isSharedAliasTs(*aidx[i9], its9) ||
+                                             isTdVecClone42(its9);
                             if (sx9 && !sh9)
                                 setLoc(its9, sx9->sourceRange());
                             // The index typespec is a package-scope
