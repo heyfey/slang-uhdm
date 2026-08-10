@@ -6572,19 +6572,18 @@ void UhdmExporter::bareScalarTypedefVarTs() {
             if (!inst || rangedTd(v->Typespec()))
                 rebind(v->Typespec(), !inst);
         }
-        // NOT § dpiImportFormalKeepsListingTd32.  Golden names a DPI IMPORT's
-        // formal `uvm_pkg::uvm_hdl_data_t` — the qualified LISTING object —
-        // where the identical formal of a plain package function is bare
-        // (t41b §(e): `d_lit` vs `p_lit`, 76 rows on all four UVM-4 tests, the
-        // largest NAME family left).  Guarding this rebind on DPI-ness was
-        // MEASURED and is a strict NO-OP: the io_decl never held the listing
-        // object to begin with — TaskFuncEmit's per-formal typedef-CLONE arms
-        // run first and hand LAW S an object that is not in `pkgScalarTd`, so
-        // there is nothing here to skip.  The law has to be applied at the
-        // io_decl emission site instead (bind the shared object rather than
-        // mint the clone).  Recorded so pass 33 does not re-derive it.
-        else if (auto* io = dynamic_cast<UHDM::io_decl*>(o))
-            rebind(io->Typespec(), true);
+        // § dpiImportFormalListingTd33 (pass 33) — a DPI IMPORT's formal was
+        // bound STRAIGHT to the qualified listing object at the io_decl
+        // emission site (TaskFuncEmit), which is the only place the law can
+        // live: pass 32 measured a DPI guard HERE as a strict no-op, because
+        // the per-formal typedef-CLONE arms run first and hand LAW S an object
+        // that is not in `pkgScalarTd` at all.  Now that the emission site
+        // hands over the listing object itself, this rebind WOULD undo it, so
+        // the marker set is the skip.
+        else if (auto* io = dynamic_cast<UHDM::io_decl*>(o)) {
+            if (!dpiListingIoRt33.count(io->Typespec()))
+                rebind(io->Typespec(), true);
+        }
         // A struct/union MEMBER takes the same aliased bare copy as a
         // variable, in every view (r9: `p1::st.a -> bt alias='p1::bt'`, two
         // copies for two members of one struct) — a typespec_member is not a

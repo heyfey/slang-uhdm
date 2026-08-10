@@ -2189,6 +2189,12 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::any*> foreachLoopVarObjs9;
     // Package scope currently emitting task_funcs (ts vpiInstance owner).
     UHDM::instance* pkgScopeInst = nullptr;
+    // § dpiImportFormalListingTd33 — the io_decl ref_typespecs that were bound
+    // straight to a package typedef LISTING object because their subroutine is
+    // a DPI import.  LAW S (bareScalarTypedefVarTs) rebinds every io_decl that
+    // holds a registered listing object to a bare per-declaration copy, which
+    // is precisely what this law must not get; the marker is the skip.
+    std::set<const UHDM::ref_typespec*> dpiListingIoRt33;
     // During an explicit-import subroutine COPY re-emission, the typespecs of
     // the clone keep vpiInstance = the HOME package (where the function is
     // defined), not the importing package. Non-null only inside that clone.

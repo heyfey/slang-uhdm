@@ -16851,6 +16851,26 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                             pkgImportCloneTs[&pm] = scl;
                             if (!topView)
                                 defPassOwnedTs.insert(scl);
+                            // § pkgImportAggCloneLastWriter32, the CREATION
+                            // cell (pass 33).  The record below is reached
+                            // only when the clone ALREADY exists, so a struct
+                            // whose typedef has exactly ONE importer was never
+                            // recorded at all — and without the record neither
+                            // half of pass 32 fires: the design-final stamp
+                            // never runs, and the wildcard subroutine-clone
+                            // pass drags the shared object home instead of
+                            // taking § importCopyAggFormalOwnCopy32's private
+                            // copy.  t42a/t43a both have THREE importers, so
+                            // the second one masked it; UVM has exactly one
+                            // (adpcm_pkg imports uvm_pkg) and reads golden
+                            // `uvm_hdl_path_slice`/`uvm_printer_row_info`
+                            // @adpcm_pkg where we said @uvm_pkg — 29 rows on
+                            // SeqDriver, the #1 family after the DPI law.  The
+                            // ENUM arm below falls THROUGH to the record and
+                            // so never had the hole.
+                            if (!topView)
+                                pkgImportCloneOwner32[(UHDM::typespec*)scl] =
+                                    (UHDM::instance*)up;
                             pkgTdByName.emplace_back(std::string(ta2.name),
                                                      (UHDM::typespec*)scl);
                             continue;

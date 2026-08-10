@@ -1085,6 +1085,187 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             return id31;
         return {};
     };
+    // § tdListingFormalAsWritten33 — the package TYPEDEF a formal is WRITTEN
+    // as, recovered from the syntax rather than from the resolved type.
+    //
+    // Surelog compiles the written name against the scope's data-type table,
+    // so a formal keeps the TYPEDEF it names; we resolve the slang Type, which
+    // canonicalises two spellings away and loses the listing object with them:
+    //
+    //   (a) a formal written as one of the class's own TYPE PARAMETERS whose
+    //       argument (here always the DEFAULT) is a package typedef —
+    //       `uvm_tlm_if #(type P=uvm_tlm_phase_e)::nb_transport_fw(…, ref P p,
+    //       …)`.  t44a pins it: golden's `f_pe(PE p)` binds the very SAME
+    //       object as the directly-written control `g_pe(e44_t p)` — a type
+    //       parameter is emitted exactly as if its argument had been written.
+    //   (b) a formal written as a package CLASS-ALIAS typedef
+    //       (`typedef uvm_time uvm_tlm_time;` used as `b_transport(…,
+    //       uvm_tlm_time delay)`), where we name the CLASS (`uvm_time`).
+    //
+    // The lookup walks OUT of the class scope on purpose: `h_alias(alias44_t
+    // d)` in a class writes a name its enclosing PACKAGE declares.
+    auto writtenPkgTdAlias33 =
+        [&](const syntax::DataTypeSyntax* tsyn,
+            bool& viaTypeParam) -> const TypeAliasType* {
+        viaTypeParam = false;
+        if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+            return nullptr;
+        auto& nt33 = tsyn->as<syntax::NamedTypeSyntax>();
+        if (nt33.name->kind != syntax::SyntaxKind::IdentifierName)
+            return nullptr;
+        auto id33 =
+            nt33.name->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        if (id33.empty())
+            return nullptr;
+        const Symbol* f33 = nullptr;
+        for (const Scope* sc33 = &body; sc33 && !f33;
+             sc33 = sc33->asSymbol().getParentScope())
+            f33 = sc33->find(id33);
+        if (!f33)
+            return nullptr;
+        const Type* t33 = nullptr;
+        if (f33->kind == SymbolKind::TypeParameter) {
+            viaTypeParam = true;
+            t33 = &f33->as<TypeParameterSymbol>().targetType.getType();
+        }
+        else if (f33->kind == SymbolKind::TypeAlias)
+            t33 = &f33->as<TypeAliasType>();
+        return t33 ? pkgHomedTdAlias18(*t33) : nullptr;
+    };
+    // § classTypeParamTdGroupLastWins33c — the class-scope TYPE-PARAMETER
+    // typespec GROUP.
+    //
+    // > A class holds ONE typespec per DISTINCT RESOLVED TYPE among its own
+    // > TYPE PARAMETERS.  Every formal written as one of those parameters, or
+    // > as a typedef of one of them, binds that single object, and its NAME is
+    // > the typedef of the LAST such parameter IN PARAMETER-DECLARATION ORDER
+    // > that has one.  A typedef that is NOT of a type parameter, and a formal
+    // > written as the bare builtin, each keep their own object.
+    //
+    // t41b §(c) saw the shape on one cell and read the winner as "the last
+    // typedef declared"; `t45a` refutes that and replaces it.  `ord45
+    // #(type A=int, B=A, C=A)` declares `typedef C c_t; typedef A a_t;
+    // typedef B b_t;` — LAST TYPEDEF is `b_t`, and golden names all six
+    // formals `c_t`, the typedef of the LAST PARAMETER.  Every other cell
+    // agrees, and UVM's `uvm_master_imp #(REQ=int, RSP=int, IMP=int,
+    // REQ_IMP=IMP, RSP_IMP=IMP)` is the same reading: `REQ`/`RSP` have no
+    // typedef and do not re-stamp, so the winner is `RSP_IMP`'s
+    // `this_rsp_type` — which is exactly what golden writes on all four
+    // UVM-4 tests.
+    //
+    // The rest of `t45a`, all read off one golden, both directions:
+    //   * `one45 #(type A=int)`, a group of ONE: `g_par(A x)` binds the SAME
+    //     object as `g_td(a1_t x)` and is named `a1_t` — the parameter
+    //     spelling is bound even when the group has a single member.
+    //   * `g_raw(int x)` and `mix45::h_raw(int x)` are NOT in the group
+    //     (`int_typespec ''`, their own objects), and `mix45`'s
+    //     `typedef int m_plain_t` — declared BETWEEN two parameter typedefs —
+    //     keeps its own object and its own name.  Membership is
+    //     type-parameter-ness, not the resolved type.
+    //   * `kind45`: a `shortint` group of two (`t_t` wins) and a CLASS group
+    //     of two (`v_t` wins) — the law is not about `int`.
+    //   * `two45 #(type A=int, B=integer, C=A)`: `x_t`/`z_t` share one
+    //     `int_typespec` named `z_t` while `y_t` keeps its own
+    //     `integer_typespec` — the group key is the RESOLVED type.
+    //   * `spec45`: the group re-forms per SPECIALIZATION.
+    //
+    // A parameter whose type is a package TYPEDEF is deliberately OUT: t41b's
+    // `seqx31 #(type REQ = ven_t); typedef REQ this_r_t;` makes golden rename
+    // the PACKAGE's shared `ven_t` listing object to `p31v::this_r_t` for the
+    // whole compile (`p31a::a_ven` reads it too) — a whole-corpus re-point
+    // with a different blast radius, and § tdListingFormalAsWritten33 already
+    // owns that spelling.  Nothing here may touch a package listing object.
+    std::map<const Type*, const TypeAliasType*> tpGroupWinner33c;
+    std::map<const Symbol*, const Type*> tpGroupKeyOf33c;
+    if (classScope) {
+        // Which class typedef NAMES which type parameter — read off the
+        // written syntax, because the slang type has already canonicalised
+        // `typedef A a_t;` and `typedef int a_t;` to the same thing.
+        std::map<const Symbol*, const TypeAliasType*> tdOfTp33c;
+        for (auto& mem33c : body.members()) {
+            if (mem33c.kind != SymbolKind::TypeAlias)
+                continue;
+            auto& al33c = mem33c.as<TypeAliasType>();
+            auto* syn33c = al33c.getSyntax();
+            if (!syn33c ||
+                syn33c->kind != syntax::SyntaxKind::TypedefDeclaration)
+                continue;
+            const syntax::DataTypeSyntax* dt33c =
+                syn33c->as<syntax::TypedefDeclarationSyntax>().type;
+            if (!dt33c || dt33c->kind != syntax::SyntaxKind::NamedType)
+                continue;
+            auto& nt33c = dt33c->as<syntax::NamedTypeSyntax>();
+            if (nt33c.name->kind != syntax::SyntaxKind::IdentifierName)
+                continue;
+            auto id33c = nt33c.name->as<syntax::IdentifierNameSyntax>()
+                             .identifier.valueText();
+            if (id33c.empty())
+                continue;
+            if (const Symbol* f33c = body.find(id33c);
+                f33c && f33c->kind == SymbolKind::TypeParameter)
+                tdOfTp33c[f33c] = &al33c;
+        }
+        // ...then walk the parameters IN DECLARATION ORDER so the last one
+        // with a typedef owns the group's name.
+        for (auto& mem33c : body.members()) {
+            if (mem33c.kind != SymbolKind::TypeParameter)
+                continue;
+            auto& pty33c =
+                mem33c.as<TypeParameterSymbol>().targetType.getType();
+            // `type B = A` hands back A's own type-parameter alias, so the
+            // group key has to be the CANONICAL type — that is what makes
+            // `#(type A=int, B=A, C=A)` one group of three.
+            if (pkgHomedTdAlias18(pty33c))
+                continue;  // a package typedef — not this law (see above)
+            auto& cty33c = pty33c.getCanonicalType();
+            // Aggregates are the SHARED package-listing kinds that
+            // § pkgImportAggCloneLastWriter32 and
+            // § tdListingFormalAsWritten33 own; t45a has no aggregate cell and
+            // this law must not reach into that graph.
+            if (cty33c.kind == SymbolKind::EnumType ||
+                cty33c.kind == SymbolKind::PackedStructType ||
+                cty33c.kind == SymbolKind::UnpackedStructType ||
+                cty33c.kind == SymbolKind::PackedUnionType ||
+                cty33c.kind == SymbolKind::UnpackedUnionType)
+                continue;
+            const Type* key33c = &cty33c;
+            // ONLY a parameter that HAS a typedef is in the group.  UVM is the
+            // cell that pins this: `uvm_master_imp #(REQ=int, RSP=int, IMP=int,
+            // REQ_IMP=IMP, RSP_IMP=IMP)` gives `get(output REQ t)` its own
+            // ANONYMOUS `int_typespec` in golden while `new`'s three
+            // typedef-aliased parameters share the named one.  Binding every
+            // same-typed parameter measured +24 rows on BuildUVMPkg alone.
+            auto t33c = tdOfTp33c.find(&mem33c);
+            if (t33c == tdOfTp33c.end())
+                continue;
+            tpGroupKeyOf33c[&mem33c] = key33c;
+            tpGroupWinner33c[key33c] = t33c->second;
+            tpGroupKeyOf33c[t33c->second] = key33c;
+        }
+    }
+    // The ONE object per group, for the duration of THIS listing.
+    std::map<const Type*, UHDM::typespec*> tpGroupTs33c;
+    auto tpGroupKey33c =
+        [&](const syntax::DataTypeSyntax* tsyn) -> const Type* {
+        if (tpGroupWinner33c.empty() || !tsyn ||
+            tsyn->kind != syntax::SyntaxKind::NamedType)
+            return nullptr;
+        auto& nt33c = tsyn->as<syntax::NamedTypeSyntax>();
+        if (nt33c.name->kind != syntax::SyntaxKind::IdentifierName)
+            return nullptr;
+        auto id33c =
+            nt33c.name->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        if (id33c.empty())
+            return nullptr;
+        const Symbol* f33c = body.find(id33c);
+        if (!f33c)
+            return nullptr;
+        auto k33c = tpGroupKeyOf33c.find(f33c);
+        if (k33c == tpGroupKeyOf33c.end() ||
+            !tpGroupWinner33c.count(k33c->second))
+            return nullptr;
+        return k33c->second;
+    };
     // An out-of-body definition is compiled in the HOME PACKAGE's scope, not
     // the class header's: its own object, and every typespec its return type,
     // formals and body locals mint, carry vpiInstance = that package. An
@@ -2346,7 +2527,128 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // view).  See the lambda for the matrix and the two open cells.
             std::string_view oobTp31 =
                 oob ? oobClassTypeParamName31(argTsyn) : std::string_view{};
-            if (!oobTp31.empty()) {
+            // § classTypeParamTdGroupLastWins33c — see the lambda for the law.
+            // IN-BODY only: every measured cell is, and an out-of-body formal
+            // written as a type parameter is already owned by
+            // § oobParamClassTypeParamFormalUnsupported31 above.
+            const Type* grpKey33c = oob ? nullptr : tpGroupKey33c(argTsyn);
+            // § dpiImportFormalListingTd33 / § dpiImportCopyFormalUnsupported33
+            //
+            // A **DPI IMPORT**'s formal typed by a typedef declared in the
+            // SAME package binds the package's ELABORATED typedef LISTING
+            // object — the qualified `p::t` one — where the identical formal
+            // of a plain SV subroutine takes a fresh per-declaration BARE
+            // clone.  Pass 32 decoded the shape and proved the fix cannot be
+            // a LAW-S guard (the io_decl never holds the listing object by
+            // the time LAW S runs, because the clone arms below run first);
+            // this is the emission site the note there points at.
+            //
+            // `t43a` reads every cell off one golden, both directions:
+            //   FIRES   `import "DPI-C" context function int dv_lit(string,
+            //           v_t)` in p43v -> `logic_typespec 'p43v::v_t'`, and
+            //           the same for a `bit` typedef, an UNRANGED `int`
+            //           typedef and an ALIAS-OF-ALIAS; `context` is
+            //           irrelevant (`dv_np`) and so is function-vs-task
+            //           (`import "DPI-C" context task dv_task`) — UVM's own
+            //           counter-example `uvm_hdl_force_time` is a plain SV
+            //           TASK, not a DPI import, and golden leaves its
+            //           identical formal bare, which is what pins the
+            //           predicate on DPI-ness alone.
+            //   OBJECT  the ELABORATED listing, in EVERY view (the home
+            //           package's own DEF listing included).  With importers
+            //           that object is the shared second-generation clone
+            //           whose vpiInstance the last importer owns
+            //           (§ pkgImportAggCloneLastWriter32 / the `otherTds`
+            //           arm) — golden's `@p43b`, and UVM's `@adpcm_pkg`
+            //           where we said `@uvm_pkg`.  p43n, which NOBODY
+            //           imports, is the cell that says the pointer is
+            //           `pkgTopTypedefTs` and not "the last importer's
+            //           copy": golden binds `p43n::n_t`@p43n!top there.
+            //   NOT     a typedef imported from ANOTHER package (`dx_lit` in
+            //           p43x over p43v's `v_t` -> a bare clone, exactly like
+            //           its plain-function control), a DPI import inside a
+            //           MODULE (`dm_lit`), and an ENUM/STRUCT typedef, which
+            //           degrades to `unsupported_typespec` named as written
+            //           in the DEF view of its own package but binds the
+            //           shared listing object in the ELAB view — a
+            //           view-asymmetry with ZERO reach in UVM, left unmodelled
+            //           (pass 32 recorded the same cell off t41b).
+            //
+            // The IMPORT COPY is the other half: a wildcard/explicit import
+            // clone of a DPI import degrades EVERY typedef formal to an
+            // `unsupported_typespec` named as written, instanced at the home
+            // package (the ordinary `importCopyTsInst`), while the copies of
+            // plain subroutines keep their clones and their shared aggregate
+            // listings.  A builtin-typed formal (`string path`) is untouched
+            // on both halves.
+            const slang::ast::TypeAliasType* dpiTd33 = nullptr;
+            UHDM::typespec* dpiListingTs33 = nullptr;
+            bool dpiCopyUnsup33 = false;
+            if (sub.flags.has(MethodFlags::DPIImport) && arg->getDeclaredType())
+                if ((dpiTd33 =
+                         pkgHomedTdAlias18(arg->getDeclaredType()->getType()))) {
+                    if (importCopyTsInst)
+                        dpiCopyUnsup33 = true;
+                    else if (pkgScope && !classScope &&
+                             dpiTd33->getParentScope() == sub.getParentScope()) {
+                        // The ELABORATED listing does not exist yet in the DEF
+                        // pass (packages are emitted def-view first), so bind
+                        // the def object now and re-point at the drain — the
+                        // same two-step `pkgForeignTsTopFixups` already runs
+                        // for a foreign package typedef.
+                        auto t33 = pkgTopTypedefTs.find((const void*)dpiTd33);
+                        UHDM::typespec* cand33 =
+                            t33 != pkgTopTypedefTs.end() ? t33->second
+                                                         : nullptr;
+                        if (!cand33)
+                            if (auto d33 = typedefTs.find(
+                                    (const slang::ast::Type*)dpiTd33);
+                                d33 != typedefTs.end())
+                                cand33 = d33->second;
+                        if (cand33)
+                            switch (cand33->UhdmType()) {
+                                // The LAW-S scalar/vector kind set: the
+                                // aggregate ones take the DEF-view
+                                // degradation above and are not modelled.
+                                case UHDM::uhdmlogic_typespec:
+                                case UHDM::uhdmbit_typespec:
+                                case UHDM::uhdmint_typespec:
+                                case UHDM::uhdminteger_typespec:
+                                case UHDM::uhdmbyte_typespec:
+                                case UHDM::uhdmshort_int_typespec:
+                                case UHDM::uhdmlong_int_typespec:
+                                    dpiListingTs33 = cand33;
+                                    break;
+                                default:
+                                    break;
+                            }
+                    }
+                }
+            if (dpiCopyUnsup33) {
+                auto* uts33 = s.MakeUnsupported_typespec();
+                uts33->VpiName(dpiTd33->name);
+                if (argTsyn)
+                    setLoc(uts33, argTsyn->sourceRange());
+                ts = uts33;
+                stampPkgFormalTs(ts);
+                // ...and, like every other clone typespec, it re-points at the
+                // ELABORATED home package once both views exist.
+                if (importCopyTsCollect)
+                    importCopyTsCollect->push_back((UHDM::typespec*)ts);
+                rt->Actual_typespec(ts);
+            }
+            else if (dpiListingTs33) {
+                // NO stamp: this object's vpiInstance belongs to the listing
+                // law, and re-stamping it here is exactly the inversion
+                // § importCopyAggFormalOwnCopy32 had to undo.  LAW S must
+                // leave it alone too — hence the marker.
+                ts = dpiListingTs33;
+                rt->Actual_typespec(ts);
+                dpiListingIoRt33.insert(rt);
+                if (!pkgTopEmit)
+                    pkgForeignTsTopFixups.emplace_back(rt, dpiTd33);
+            }
+            else if (!oobTp31.empty()) {
                 auto* uts31 = s.MakeUnsupported_typespec();
                 uts31->VpiName(oobTp31);
                 if (argTsyn)
@@ -2362,6 +2664,73 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             }
             else if (bareImplicit) {
                 pendingIoTs.push_back({rt, argTsyn});
+            }
+            // § tdListingFormalAsWritten33 — see the lambda for the law.  Only
+            // the AGGREGATE/CLASS listing kinds are bound here: those are the
+            // ones golden SHARES, so binding the listing object is the whole
+            // fix.  A vector/scalar typedef takes a per-declaration CLONE
+            // instead (t44a's `f_pv`: golden mints a fresh `'v44_t'` for the
+            // type-parameter formal, a different object from the control's) —
+            // rebuilding that clone from a type the syntax does not name is a
+            // different job and has no measured UVM reach, so it is left.
+            else if ([&]() -> bool {
+                         bool viaTp33 = false;
+                         auto* al33 = writtenPkgTdAlias33(argTsyn, viaTp33);
+                         if (!al33)
+                             return false;
+                         // Decide from the SLANG type, not from the UHDM
+                         // object: a package CLASS-ALIAS typedef has NO def
+                         // listing at all (t44a: `p44::alias44_t` is listed by
+                         // `ELABPKG:p44` only), so in the def pass there is
+                         // nothing yet to inspect — and that is exactly the
+                         // case that must still be deferred.
+                         auto& ct33 =
+                             al33->targetType.getType().getCanonicalType();
+                         if (ct33.isClass()) {
+                             // (a) and (b): a class ALIAS is the one spelling
+                             // the shared-typespec path resolves through.
+                         }
+                         else if (viaTp33 &&
+                                  (ct33.kind == SymbolKind::EnumType ||
+                                   ct33.kind == SymbolKind::PackedStructType ||
+                                   ct33.kind ==
+                                       SymbolKind::UnpackedStructType ||
+                                   ct33.kind == SymbolKind::PackedUnionType ||
+                                   ct33.kind ==
+                                       SymbolKind::UnpackedUnionType)) {
+                             // (a) only: a DIRECTLY written aggregate already
+                             // binds this object through the shared path.
+                         }
+                         else
+                             return false;
+                         UHDM::typespec* cand33 = nullptr;
+                         if (auto t33 =
+                                 pkgTopTypedefTs.find((const void*)al33);
+                             t33 != pkgTopTypedefTs.end())
+                             cand33 = t33->second;
+                         if (!pkgTopEmit)
+                             pkgForeignTsTopFixups.emplace_back(rt, al33);
+                         if (!cand33 && !pkgTopEmit)
+                             if (auto d33 =
+                                     typedefTs.find((const Type*)al33);
+                                 d33 != typedefTs.end())
+                                 cand33 = d33->second;
+                         if (!cand33)
+                             return false;  // the deferred re-point still runs
+                         ts = cand33;
+                         rt->Actual_typespec(ts);
+                         return true;
+                     }()) {
+                // bound in the predicate
+            }
+            // § classTypeParamTdGroupLastWins33c, the SHARE half: every formal
+            // after the first in a group binds the object the first one built.
+            // (The NAME half is applied once the object exists, just before
+            // `io->Typespec` below — the group's first formal may be written
+            // as any member, not necessarily as the winning typedef.)
+            else if (grpKey33c && tpGroupTs33c.count(grpKey33c)) {
+                ts = tpGroupTs33c[grpKey33c];
+                rt->Actual_typespec(ts);
             }
             else if (formalPkTy &&
                      formalPkTy->getCanonicalType().kind ==
@@ -2677,6 +3046,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 }
                 rt->Actual_typespec(ts);
             }
+            // § classTypeParamTdGroupLastWins33c, the NAME half.  The group's
+            // first formal built the object through its own ordinary arm — so
+            // its KIND is already the resolved type's — and this renames it to
+            // the winning typedef and publishes it for the rest of the group.
+            if (grpKey33c && ts)
+                if (auto& slot33c = tpGroupTs33c[grpKey33c]; !slot33c) {
+                    ((UHDM::typespec*)ts)
+                        ->VpiName(tpGroupWinner33c[grpKey33c]->name);
+                    slot33c = (UHDM::typespec*)ts;
+                }
             io->Typespec(rt);
             deferForeignTopTs(*arg, rt, (const UHDM::typespec*)ts);
             // Unpacked-array formals carry one range per unpacked dimension;
