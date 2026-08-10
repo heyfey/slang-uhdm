@@ -9817,6 +9817,48 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             typedefClone[&ta] = nullptr;
             ts = lts;
         }
+        // § atomTdListing44 (module half) — a MODULE-scope typedef of a
+        // non-aggregate KEYWORD type is listed exactly like a package one: one
+        // bare typespec of the keyword's own kind, named with the typedef's
+        // BARE name, spanning the TYPE tokens, parented and Instanced at the
+        // module.  Every one of these spellings canonicalises away from
+        // ScalarType/PackedArrayType, so none of the arms above accepted them
+        // and the typedef emitted NOTHING — `noteUnsupported("typedef target:
+        // PredefinedIntegerType")` was the emitter naming this deficit
+        // outright.  A missing listing object is not just a missing listing
+        // entry: `sharedAliasTs` and every other typedef-registry lookup for
+        // that typedef must fail too, so the whole downstream chain falls back
+        // to a fresh unnamed object (pass 43 §5(2) measured that at the
+        // associative-INDEX bracket).
+        //
+        // MEASURED on arm t61a (module `dut62`, one typedef per kind, both
+        // views): golden lists 31 entries, HEAD listed 12.  The 19 missing are
+        // the 14 module typedefs (int, int unsigned, byte, shortint, longint,
+        // integer, time, string, real, shortreal, chandle, event, a CHAINED
+        // atom typedef, and one with NO USER AT ALL — golden lists an unused
+        // typedef too) plus the 5 package ones the import listing republishes.
+        // Both halves of the kind gate are witnessed here rather than inferred:
+        // there is one golden row per spelling, and the CHAIN row shows the
+        // chain takes the TARGET ATOM'S KIND under its own bare name
+        // (`typedef m_int m_chain` -> `int_typespec:m_chain`), which is what
+        // the shared `makeTypespec` already produces for it.
+        else if (ct.kind == SymbolKind::PredefinedIntegerType ||
+                 ct.kind == SymbolKind::StringType ||
+                 ct.kind == SymbolKind::FloatingType ||
+                 ct.kind == SymbolKind::CHandleType ||
+                 ct.kind == SymbolKind::EventType) {
+            bool savedBTS4 = bypassTypedefShare;
+            bypassTypedefShare = true;
+            auto* ats4 = makeTypespec(ta, typeSyn);
+            bypassTypedefShare = savedBTS4;
+            if (!ats4)
+                continue;
+            // These kinds cannot type a net, so the net_types exception the
+            // vector arm above carries has no counterpart here.
+            ats4->VpiParent(m);
+            typedefClone[&ta] = nullptr;
+            ts = ats4;
+        }
         else {
             noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
             continue;

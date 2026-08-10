@@ -18605,7 +18605,26 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         // PredefinedIntegerType, which neither the ScalarType nor the
         // PackedArrayType arm above accepts, so the typedef emitted NOTHING
         // (BuildUVMPkg: golden 48 package Typespecs, ours 46).
-        else if (ct.kind == SymbolKind::PredefinedIntegerType) {
+        //
+        // § atomTdListing44 — the SAME arm serves every NON-AGGREGATE keyword
+        // spelling, not just the integer atoms.  `string`, `real`,
+        // `shortreal`, `chandle` and `event` canonicalise to StringType /
+        // FloatingType / CHandleType / EventType, which no arm above accepts
+        // either, so those typedefs were also emitting NOTHING and were also
+        // absent from the listing.  Measured on arm t61a, package `pk62`:
+        // golden lists 14 (def) / 15 (top) entries covering all of
+        // int/int unsigned/byte/shortint/longint/integer/time/string/real/
+        // shortreal/chandle/event, ours listed 10 — the five missing names are
+        // exactly `q_str`, `q_real`, `q_sreal`, `q_chandle`, `q_event`, one per
+        // unhandled kind, in the DEF view, the TOP view and (via the module's
+        // import listing) in both module views.  The listing vector's SIZE is
+        // the first thing uhdm-cmp reads, so a missing entry is a bigger cmp
+        // difference than a mis-named one.
+        else if (ct.kind == SymbolKind::PredefinedIntegerType ||
+                 ct.kind == SymbolKind::StringType ||
+                 ct.kind == SymbolKind::FloatingType ||
+                 ct.kind == SymbolKind::CHandleType ||
+                 ct.kind == SymbolKind::EventType) {
             bool savedBTS7 = bypassTypedefShare;
             bypassTypedefShare = true;
             auto* its7 = makeTypespec(ta, typeSyn);
@@ -19781,9 +19800,46 @@ bool UhdmExporter::emitPkgArrayVar(const Symbol& vs, UHDM::instance* up,
         // (`[string]` -> `string`); take it off the declarator's last
         // dimension rather than re-deriving it from the type.
         UHDM::typespec* its = nullptr;
+        // § assocIdxSiteFive44 — THE FIFTH AND LAST COPY of the
+        // associative-INDEX rule, and the last one that never consulted the
+        // typedef registries.  Pass 43 found and fixed the fourth
+        // (§ assocIdxSiteFour43, the module/interface instance-level array_var)
+        // and RECORDED this one as unmeasured rather than changing it.  It is
+        // measured now: arm t60a's package pk60 declares one `int
+        // i_<k>[t_<k>];` per base kind at PACKAGE scope, which is exactly this
+        // function's index block, and r10uvm43cp reads golden against HEAD as
+        //
+        //   [t_int]     golden int_typespec 't_int'/CLONE@28:11    HEAD int_typespec       '<unnamed>'@78:13
+        //   [t_byte]    golden byte_typespec 't_byte'/CLONE        HEAD byte_typespec      '<unnamed>'@79:14
+        //   [t_sint]    golden short_int_typespec 't_sint'/CLONE   HEAD short_int_typespec '<unnamed>'@80:14
+        //   [t_lint]    golden long_int_typespec 't_lint'/CLONE    HEAD long_int_typespec  '<unnamed>'@81:14
+        //   [t_integer] golden integer_typespec 't_integer'/CLONE  HEAD integer_typespec   '<unnamed>'@82:17
+        //   [t_uint]    golden int_typespec 't_uint'/CLONE         HEAD int_typespec       '<unnamed>'@83:14
+        //   [t_time]    golden time_typespec 't_time'/CLONE        HEAD time_typespec      '<unnamed>'@84:14
+        //   [t_str]     golden string_typespec 't_str'/CLONE       HEAD string_typespec    '<unnamed>'@88:13
+        //   [t_log1]    golden logic_typespec 't_log1'/CLONE       HEAD logic_typespec     '<unnamed>'@86:14
+        //   [t_reg4]    golden logic_typespec 't_reg4'/CLONE       HEAD logic_typespec     '<unnamed>'@87:14
+        //   [t_bit8]    golden bit_typespec 't_bit8'/CLONE         HEAD logic_typespec     '<unnamed>'@85:14
+        //   [t_enum]    golden enum_typespec 'pk60::t_enum'/LISTED HEAD logic_typespec     '<unnamed>'@89:14
+        //   [t_pstr]    golden struct_typespec 'pk60::t_pstr'/LISTED HEAD logic_typespec   '<unnamed>'@90:14
+        //   [t_ustr]    golden struct_typespec 'pk60::t_ustr'/LISTED HEAD logic_typespec   '<unnamed>'@91:14
+        //   [t_chain]   golden bit_typespec 'pk60::t_chain'/LISTED HEAD logic_typespec     '<unnamed>'@92:15
+        //
+        // — the same table as site four, so this is one rule with five copies
+        // and not five rules.  VpiType and VpiName are both COMPARED, and the
+        // bottom four rows are WRONG KIND as well as unnamed.  With this the
+        // invariant "every copy of the index rule asks the typedef registry
+        // first" holds at all five sites; `grep -n 'sharedAliasTs' src/` names
+        // them.
         {
             auto& ick = idx->getCanonicalType();
-            if (ick.kind == SymbolKind::StringType)
+            if (auto* sh44 = sharedAliasTs(*idx)) {
+                its = sh44;
+                if (auto* cl44 = tdVecNamedClone42(*idx, (const void*)&vs, sh44,
+                                                   /*posKey=*/1))
+                    its = cl44;
+            }
+            else if (ick.kind == SymbolKind::StringType)
                 its = s.MakeString_typespec();
             else if (ick.kind == SymbolKind::PredefinedIntegerType)
                 its = predefIntTypespec(ick, vs);
@@ -19791,16 +19847,26 @@ bool UhdmExporter::emitPkgArrayVar(const Symbol& vs, UHDM::instance* up,
                 its = s.MakeLogic_typespec();
         }
         if (its) {
+            // § sharedAliasNoStamp41 / § arrayElemTdClone42 — the no-stamp
+            // guard is INHERITED the moment the arm above can return a SHARED
+            // object, and here it covers TWO stamps, not one: re-spanning the
+            // listing object at this declarator's index bracket AND
+            // re-Instancing it at this package would both mutate an object
+            // every other user of the typedef shares.  POINTER IDENTITY
+            // against both registries plus the clone set, never a canonical
+            // kind.
+            bool fresh44 = !isSharedAliasTs(*idx, its) && !isTdVecClone42(its);
             const syntax::VariableDimensionSyntax* adim = nullptr;
             if (auto dsyn = vs.getSyntax();
                 dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
                 for (auto d : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
                     adim = d;
-            if (adim) {
+            if (adim && fresh44) {
                 auto dr = adim->sourceRange();
                 setLoc(its, SourceRange(dr.start() + 1, dr.end() - 1));
             }
-            its->Instance(up);
+            if (fresh44)
+                its->Instance(up);
             auto* irt = s.MakeRef_typespec();
             irt->VpiParent(ats);
             irt->Actual_typespec(its);
