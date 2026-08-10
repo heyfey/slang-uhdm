@@ -2540,6 +2540,11 @@ private:
     std::vector<std::pair<UHDM::task_func*, std::vector<UHDM::ref_obj*>>>
         classRetNameRefs37;
     void classRetNameDefViewNoBind37(UHDM::design* d);
+    // § thisImplicitNetBoth38 — a bare `this` inside a class method that BOTH
+    // package views list binds ONE implicit `logic_net` named `this` in the
+    // DEF-view listing of the top module.  Design-final for the same reason
+    // pass 37's law is: the predicate is which package views hold the routine.
+    void thisImplicitNetBoth38(UHDM::design* d);
     // A pkg ALIAS-of-vector-typedef's bare clone aliases the TARGET's
     // TOP/module listing object (jeras_union imm_l_t); the top listing does
     // not exist at def-pkg time, so the binding resolves after the top walk.

@@ -4627,6 +4627,11 @@ UHDM::design* UhdmExporter::exportDesign() {
     // listings are the very objects its container's imports already
     // materialized, so every package view has to be complete first.
     classInheritsContainerImports23();
+    // § thisImplicitNetBoth38 — DEAD LAST: its predicate is which package
+    // views list the routine, so every listing rewrite above (the two import
+    // passes included) has to have run.  It only ever fills a null
+    // Actual_group on a reference named `this` and appends one net.
+    thisImplicitNetBoth38(d);
     return d;
 }
 

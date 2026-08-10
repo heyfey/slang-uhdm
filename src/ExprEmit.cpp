@@ -386,6 +386,34 @@ struct SuperNewArg28 {
     }
     ~SuperNewArg28() { *p = saved; }
 };
+// § thisRecvCallArgBind38 — the same window, opened only when a predicate says
+// so.  The `this.`-rooted call arm (§ thisRecvCall11) never opened one, so the
+// arguments of `this.m(f)` stayed bare where every other call form binds them:
+// 54 rows of SeqDriver, all of them an INLINE class method whose whole body is
+// one such call (uvm_sequence_item / uvm_report_catcher's `uvm_report_*`
+// wrappers).  t54a reads all five cells off one golden:
+//     this.inner54(y, t);            STATEMENT   -> io_decl:y / io_decl:t
+//     return this.inner55(y3);       EXPRESSION  -> BARE (both sides)
+//     this.mem54.inner54(y4, t4);    DEEP stmt   -> BARE (both sides)
+//     inner54(y2, t2);               control     -> bound (both sides)
+//     super.new(nm2);                control     -> bound (both sides)
+// so the window needs BOTH gates: STATEMENT position and a DIRECT receiver.
+// THE DEEP HALF WAS UNMEASURED BY THE FIRST CUT and it cost more than the law
+// won — run on the corpus with the statement gate alone it removed 55 misses
+// and added 95 extras (SeqDriver), every one of them a deep call: UVM's TLM
+// forwarding macros (`UVM_BLOCKING_GET_IMP(this.m_if, ...)` -> `imp.get(arg)`)
+// and uvm_report_catcher's `this.m_modified_report_message.set_id(id)`.  The
+// task/function split those extras first suggested was a coincidence of which
+// routines happen to be written deep.
+struct ClassArgBindIf38 {
+    int* p;
+    int saved;
+    ClassArgBindIf38(int& d, bool on) : p(&d), saved(d) {
+        if (on)
+            d = d + 1;
+    }
+    ~ClassArgBindIf38() { *p = saved; }
+};
 struct ClassArgBindOff12 {
     int* p;
     int saved;
@@ -7289,17 +7317,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         mfc11->VpiParent(parent);
                         mfc11->Prefix(thisConst11());
                         auto* ma11 = s.MakeAnyVec();
-                        // § writtenCallArgs16 — only the actuals WRITTEN at
-                        // the call site; a defaulted formal is slang's, not
-                        // Surelog's.
-                        for (auto arg : writtenArgs16(call)) {
-                            bool fs11 = forceConstParent;
-                            if (isLiteralExpr(*arg))
-                                forceConstParent = true;
-                            if (auto* a11 =
-                                    emitExpr(*arg, mfc11, prefix, netMap))
-                                ma11->push_back(a11);
-                            forceConstParent = fs11;
+                        {
+                            // § thisRecvCallArgBind38 — a STATEMENT-position
+                            // DIRECT `this.m(f)` binds its arguments like any
+                            // other call; the expression form and every DEEP
+                            // `this.<member>.m(f)` leave them bare.
+                            ClassArgBindIf38 cab38(
+                                classArgBindDepth12,
+                                callStmtCtx0 && segs11.size() == 1);
+                            // § writtenCallArgs16 — only the actuals WRITTEN at
+                            // the call site; a defaulted formal is slang's, not
+                            // Surelog's.
+                            for (auto arg : writtenArgs16(call)) {
+                                bool fs11 = forceConstParent;
+                                if (isLiteralExpr(*arg))
+                                    forceConstParent = true;
+                                if (auto* a11 =
+                                        emitExpr(*arg, mfc11, prefix, netMap))
+                                    ma11->push_back(a11);
+                                forceConstParent = fs11;
+                            }
                         }
                         if (!ma11->empty())
                             mfc11->Tf_call_args(ma11);

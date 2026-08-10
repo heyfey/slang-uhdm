@@ -5842,6 +5842,176 @@ void UhdmExporter::classRetNameDefViewNoBind37(UHDM::design* d) {
     }
 }
 
+// § thisImplicitNetBoth38 — a bare `this` reference inside a CLASS METHOD that
+// a MODULE listing carries (on top of its package one) binds ONE implicit
+// `logic_net` named `this`, minted in the DEF-VIEW listing of the top module,
+// exactly like any other name Surelog's module-level late binding fails to
+// resolve (§ implicitNetMap: a block-scoped localparam, a foreach loop
+// variable, a task-scope parameter).  `this` reaches that late binding because
+// an out-of-body method body is compiled in the home PACKAGE's scope, where the
+// class's implicit `this` property (Surelog's CompileClass inserts one per
+// class) is not visible; a module-scope wildcard import materializes those same
+// task_func objects into the MODULE, and that is the listing whose late binding
+// mints module nets.
+//
+// The 2x2 that fixes the predicate, over the r10uvm28g census of all four UVM
+// tests (key = view + owner routine + ref kind/name/line:col, predicate
+// evaluated on OUR OWN rows, truth = what golden binds):
+//
+//     BOTH   + parent is NOT a hier_path   177 golden-bound, 177 to
+//                                          logic_net:this, 0 bound to
+//                                          anything else, 0 left bare
+//     BOTH   + parent IS a hier_path       285 bare, 0 bound
+//     DEFPKG + parent is NOT a hier_path    28 bound, 326 bare, and NONE of
+//                                          the 28 to a logic_net (they are
+//                                          the § ranked io_decl:map family)
+//     ELABPKG same shape                    28 bound, 383 bare, same
+//     DEFPKG/ELABPKG + parent IS hier_path 875 bare, 0 bound
+//
+// so the law has two halves and both are needed: the LISTING (a routine only
+// package views list never binds `this`) and the POSITION (a `this` that is a
+// hier_path PATH ELEMENT — `this.m_kids` — is never bound, in any listing).
+// BuildUVMPkg and Scoreboard are the negative controls: neither has a single
+// task_func a module lists, and neither golden holds a `logic_net` named `this`
+// at all.
+//
+// The r10uvm28g "BOTH" label is *not* "both package views" — measured on
+// SeqDriver, `AllPackages` and `TopPackages` share ZERO task_func objects
+// (1788 / 4822, intersection 0).  The label means "reached under two DIFFERENT
+// scope tags", and for every one of the 195 candidates here that pair is a TOP
+// PACKAGE plus BOTH MODULE listings (894 module-listed routines, def and top
+// sharing the object).  Reading the label as the obvious thing measured a flat
+// ZERO on the corpus; the debug counters are what found it, which is the same
+// lesson pass 37 recorded about kind:name censuses.
+//
+// There is exactly ONE such net per design (golden SeqDriver: `logic_net#75
+// work@top_tb.this`, vpiNetType=1, no typespec, 177 binders), so it is minted
+// lazily at the first reference that qualifies and shared by all of them.
+void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
+    if (!d)
+        return;
+    // The census's own view labelling: a routine listed by a package in
+    // AllPackages is DEF, one listed by a package in TopPackages is ELAB, and
+    // one object in both listings is what "BOTH" means.
+    std::set<const UHDM::task_func*> defTfs, topTfs, defModTfs, topModTfs;
+    auto scanTfs38 = [](auto* scopes, std::set<const UHDM::task_func*>& into) {
+        if (!scopes)
+            return;
+        for (auto* p : *scopes) {
+            if (!p)
+                continue;
+            if (p->Task_funcs())
+                for (auto* f : *p->Task_funcs())
+                    if (f)
+                        into.insert(f);
+            if (p->Class_defns())
+                for (auto* c : *p->Class_defns())
+                    if (c && c->Task_funcs())
+                        for (auto* f : *c->Task_funcs())
+                            if (f)
+                                into.insert(f);
+        }
+    };
+    scanTfs38(d->AllPackages(), defTfs);
+    scanTfs38(d->TopPackages(), topTfs);
+    scanTfs38(d->AllModules(), defModTfs);
+    scanTfs38(d->TopModules(), topModTfs);
+    const bool dbg38 = getenv("SLANG_UHDM_DBG38") != nullptr;
+    if (dbg38)
+        fprintf(stderr, "DBG38 defTfs=%zu topTfs=%zu defMod=%zu topMod=%zu\n",
+                defTfs.size(), topTfs.size(), defModTfs.size(),
+                topModTfs.size());
+    if (defModTfs.empty() && topModTfs.empty())
+        return;
+    // Every implicit net lives in the DEF-view listing of the top module (the
+    // AllModules shell, whose vpiName is empty and whose vpiDefName names the
+    // top); the elaborated TOP listing carries variables, never these nets.
+    UHDM::module_inst* home38 = nullptr;
+    if (d->AllModules() && d->TopModules())
+        for (auto* m : *d->AllModules()) {
+            if (!m)
+                continue;
+            for (auto* t : *d->TopModules())
+                if (t && t->VpiDefName() == m->VpiDefName()) {
+                    home38 = m;
+                    break;
+                }
+            if (home38)
+                break;
+        }
+    if (dbg38)
+        fprintf(stderr, "DBG38 home=%p\n", (void*)home38);
+    if (!home38)
+        return;
+    // Collected first: minting into the serializer while walking its own
+    // object table is not allowed.
+    std::vector<UHDM::ref_obj*> hits38;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::any*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmref_obj)
+            continue;
+        auto* r = (UHDM::ref_obj*)o;
+        if (r->VpiName() != "this" || r->Actual_group())
+            continue;
+        const UHDM::BaseClass* par = r->VpiParent();
+        if (!par || par->UhdmType() == UHDM::uhdmhier_path)
+            continue;
+        const UHDM::task_func* tf = nullptr;
+        for (const UHDM::BaseClass* q = par; q && !tf; q = q->VpiParent())
+            if (q->UhdmType() == UHDM::uhdmfunction ||
+                q->UhdmType() == UHDM::uhdmtask)
+                tf = (const UHDM::task_func*)q;
+        if (!tf)
+            continue;
+        bool inMod38 = defModTfs.count(tf) != 0 || topModTfs.count(tf) != 0;
+        bool inPkg38 = defTfs.count(tf) != 0 || topTfs.count(tf) != 0;
+        if (dbg38)
+            fprintf(stderr,
+                    "DBG38 ref %d:%d tf=%s def=%d top=%d dmod=%d tmod=%d\n",
+                    (int)r->VpiLineNo(), (int)r->VpiColumnNo(),
+                    std::string(tf->VpiFullName()).c_str(),
+                    (int)defTfs.count(tf), (int)topTfs.count(tf),
+                    (int)defModTfs.count(tf), (int)topModTfs.count(tf));
+        if (!inMod38 || !inPkg38)
+            continue;
+        hits38.push_back(r);
+    }
+    if (hits38.empty())
+        return;
+    // `Serializer::AllObjects` is keyed by POINTER, so its order is allocation-
+    // dependent: the net's own span has to be picked by a total order on the
+    // SOURCE, not by "the first hit", or the dump is nondeterministic run to
+    // run (§ the emitter-nondeterminism lesson).  Not cmp-relevant either way.
+    UHDM::ref_obj* anchor38 = hits38.front();
+    for (auto* r : hits38) {
+        auto key = [](const UHDM::ref_obj* x) {
+            return std::make_tuple(std::string(x->VpiFile()),
+                                   (uint32_t)x->VpiLineNo(),
+                                   (uint16_t)x->VpiColumnNo());
+        };
+        if (key(r) < key(anchor38))
+            anchor38 = r;
+    }
+    auto* inet38 = s.MakeLogic_net();
+    inet38->VpiName("this");
+    inet38->VpiFullName(std::string(home38->VpiDefName()) + ".this");
+    inet38->VpiParent(home38);
+    inet38->VpiNetType(1);
+    inet38->VpiFile(anchor38->VpiFile());
+    inet38->VpiLineNo(anchor38->VpiLineNo());
+    inet38->VpiColumnNo(anchor38->VpiColumnNo());
+    inet38->VpiEndLineNo(anchor38->VpiEndLineNo());
+    inet38->VpiEndColumnNo(anchor38->VpiEndColumnNo());
+    auto* nets38 = home38->Nets();
+    if (!nets38) {
+        nets38 = s.MakeNetVec();
+        home38->Nets(nets38);
+    }
+    nets38->push_back(inet38);
+    for (auto* r : hits38)
+        r->Actual_group(inet38);
+}
+
 // An ANONYMOUS class_typespec NEVER carries vpiInstance.  Surelog's
 // CompileType mints one for every class-HANDLE declaration (a variable, a
 // formal, a property, a return) and leaves it uninstanced; only a NAMED class
