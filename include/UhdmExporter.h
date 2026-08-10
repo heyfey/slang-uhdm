@@ -515,6 +515,29 @@ private:
     // The registered package SCALAR typedef listing objects, published by
     // bareScalarTypedefVarTs so the clone pass tests the same membership.
     std::set<const UHDM::typespec*> pkgScalarTd16;
+    // § lawSCopyHomeInstance36 — the same set keyed to each object's HOME
+    // package symbol, plus the wildcard-import CLONE listing objects (which
+    // carry the importer, not the home).  A LAW-S bare COPY finds its home by
+    // following its Typedef_alias chain into this map; membership also marks
+    // "this object IS a listing object", which the pass never re-stamps.
+    std::map<const UHDM::typespec*, const void*> pkgScalarTdHome36;
+    // The COPIES, recorded as bareScalarTdCopyOfFresh16 mints them (a copy of
+    // a copy inherits the home).  A CLONE-body copy's alias target is a BARE
+    // copy carrying no alias of its own (§ importCloneBareTdAlias16), so the
+    // chain walk alone cannot reach the listing object from it.
+    std::map<const UHDM::typespec*, const void*> lawSCopyHome36;
+    // § enumAliasHomeDefFollowsImporter36 — the home package's own DEF-view
+    // object for an enum-ALIAS typedef, which golden does not have at all
+    // (one object, owned by the last importer).  Stamped design-final beside
+    // § pkgImportAggCloneLastWriter32 and deliberately kept out of that
+    // pass's own map, which gates the private-copy rule as well.
+    std::map<UHDM::typespec*, UHDM::instance*> enumAliasHomeOwner36;
+    // § lawSCopyHomeInstance36 — a LAW-S bare per-declaration copy of a
+    // package scalar typedef is instanced at the typedef's HOME package: the
+    // DEF view inside the home package's own DEF listing, the ELABORATED
+    // (top) view in every other view.  Design-final, after every other
+    // instance pass, and it touches only io_decl-reachable COPIES.
+    void lawSCopyHomeInstance36(UHDM::design* d);
     // Every task_func emitted as a wildcard-import CLONE (both halves: free
     // package subroutines and package class methods).
     std::set<const UHDM::task_func*> pkgImportCloneTfs16;

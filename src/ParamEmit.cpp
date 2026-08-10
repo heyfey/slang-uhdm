@@ -16959,6 +16959,35 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     if (!topView && cl2)
                         pkgImportCloneOwner32[(UHDM::typespec*)cl2] =
                             (UHDM::instance*)up;
+                    // § enumAliasHomeDefFollowsImporter36 — the SAME last-
+                    // writer stamp for the home package's own DEF-view object
+                    // of an enum-ALIAS typedef.  The clone branch above
+                    // already records why: an enum alias is never LISTED by
+                    // its home package (writeDataTypes skips a datatype whose
+                    // definition is another typedef), so golden holds exactly
+                    // ONE object for it and the importers' listings own it.
+                    // That branch re-points the home package's AGGREGATE
+                    // MEMBERS onto the import copy; its FORMALS were left
+                    // bound to our separate def-view object, which then kept
+                    // the home package as its instance.  t48b:
+                    //   golden DEFPKG home49::use_ae48 io0
+                    //     enum_typespec 'home49::ae48_t' @aa49   (last importer)
+                    //   ours (before)                    @home49
+                    // while the DIRECT enum `de48_t` beside it — which the
+                    // home DOES list — keeps @home49!def on both sides.
+                    // Recorded rather than re-pointed: the two objects agree
+                    // in kind and name already, so the owner is the whole
+                    // difference, and ~40 binding sites would need the swap.
+                    // Kept out of pkgImportCloneOwner32 on purpose — that set
+                    // also gates § importCopyAggFormalOwnCopy32's private
+                    // copy, which this object must not start taking.
+                    if (!topView && ct2.kind == SymbolKind::EnumType &&
+                        ta2.targetType.getType().kind == SymbolKind::TypeAlias)
+                        if (auto hIt3 = typedefTs.find(&pm);
+                            hIt3 != typedefTs.end() && hIt3->second &&
+                            hIt3->second != cl2)
+                            enumAliasHomeOwner36[hIt3->second] =
+                                (UHDM::instance*)up;
                     pkgTdByName.emplace_back(std::string(ta2.name),
                                              (UHDM::typespec*)cl2);
                 }

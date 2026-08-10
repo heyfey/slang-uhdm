@@ -5433,6 +5433,14 @@ UHDM::typespec* UhdmExporter::bareScalarTdCopyOfFresh16(
     // package (r7: the bare copies' vpiInstance tracks their view's listing
     // object exactly).
     cp->Instance(((UHDM::typespec*)src)->Instance());
+    // § lawSCopyHomeInstance36 — remember which package DECLARED the typedef
+    // this copy is of.  Recorded here because this is the one funnel every
+    // LAW-S mint path goes through, and because a clone-body copy's alias
+    // target carries no alias back to the listing object.
+    if (auto h36 = pkgScalarTdHome36.find(src); h36 != pkgScalarTdHome36.end())
+        lawSCopyHome36[cp] = h36->second;
+    else if (auto c36 = lawSCopyHome36.find(src); c36 != lawSCopyHome36.end())
+        lawSCopyHome36[cp] = c36->second;
     return cp;
 }
 
@@ -6138,6 +6146,153 @@ void UhdmExporter::pkgImportCloneLastWriter32() {
     for (auto& [ts, inst] : pkgImportCloneOwner32)
         if (ts && inst)
             ts->Instance(inst);
+    // § enumAliasHomeDefFollowsImporter36 — the same stamp for the def-view
+    // twin an enum ALIAS should never have had (see ParamEmit).
+    for (auto& [ts, inst] : enumAliasHomeOwner36)
+        if (ts && inst)
+            ts->Instance(inst);
+}
+
+// § lawSCopyHomeInstance36 — WHICH package owns a LAW-S bare per-declaration
+// COPY of a package scalar typedef.
+//
+// The listing OBJECT and the COPY answer this question differently, and until
+// this pass we let the copy inherit whatever the object it was made of
+// carried.  That is right in exactly one view and wrong everywhere else,
+// because the object it is made of is often the wildcard-import CLONE — one
+// shared second-generation object per typedef, owned by the LAST package that
+// listed it (§ pkgImportAggCloneLastWriter32) — or an object a later
+// def->top pass moved.  Golden never asks the copy about the importer:
+//
+//   > A LAW-S bare copy is instanced at the typedef's HOME package: the DEF
+//   > view inside the home package's own DEF listing, the ELABORATED (top)
+//   > view in EVERY other view — the home's own elaborated listing, every
+//   > importer's def AND elab listings, and every module listing.
+//
+// `tools/probe/r10uvm36repro/t48a` reads all four cells off one golden.
+// `home48` declares `w48_t`/`u48_t` plus two free functions taking them, and
+// two wildcard importers ANTI-SORTED against declaration order (`zz48` first,
+// `aa48` second) so "home" is separated from "first importer" and "last
+// importer" at once.  Golden:
+//
+//   DEFPKG home48::w48_to_string  io0  w48_t  @home48!def   <- the one DEF cell
+//   DEFPKG zz48::w48_to_string    io0  w48_t  @home48!TOP   (clone body)
+//   DEFPKG aa48::w48_to_string    io0  w48_t  @home48!TOP   (clone body)
+//   DEFPKG zz48::z48              io0  w48_t  @home48!TOP   (zz48's OWN body)
+//   ELABPKG {home48,zz48,aa48}::* io0  w48_t  @home48!TOP
+//   DEF/TOPMOD work@mm48::*       io0  w48_t  @home48!TOP
+//
+// and we wrote @home48!def / @aa48!def / @zz48!def / @zz48!TOP / @aa48!TOP for
+// those — five different wrong answers from five mint and re-stamp paths, all
+// of which this one pass replaces.  It is the § importCopyAggFormalOwnCopy32
+// law ("the clone's copy names the ELABORATED home package") for the SCALAR
+// family, which LAW S had never been given.
+//
+// Applied design-final and object-wise for the same reason pass 32 is: five
+// creation paths mint these copies and three later passes re-point them, so an
+// in-place stamp at any one mint site measures as a fraction (pass 17's
+// "enumerate the MINT SITES" trap).  Scope is deliberately the io_decl-
+// reachable copies — the family the census measures and the one every cell
+// above is drawn from; a copy no io_decl reaches keeps today's owner.
+//
+// A copy finds its home by following its Typedef_alias chain into
+// pkgScalarTdHome36; membership in that map also means "this IS a listing
+// object", which the pass never touches.
+void UhdmExporter::lawSCopyHomeInstance36(UHDM::design* d) {
+    if (!d || pkgScalarTdHome36.empty())
+        return;
+    auto homeOf36 = [&](const UHDM::typespec* t) -> const void* {
+        if (!t || pkgScalarTdHome36.count(t))
+            return nullptr;  // absent, or a listing object: never a copy
+        if (auto r36 = lawSCopyHome36.find(t); r36 != lawSCopyHome36.end())
+            return r36->second;
+        const UHDM::typespec* c = t;
+        for (int i = 0; i < 4 && c; i++) {
+            auto* al = c->Typedef_alias();
+            if (!al)
+                break;
+            auto* nx = al->Actual_typespec();
+            if (!nx)
+                break;
+            if (auto it = pkgScalarTdHome36.find(nx);
+                it != pkgScalarTdHome36.end())
+                return it->second;
+            c = nx;
+        }
+        return nullptr;
+    };
+    // Per copy: its home, and whether every io_decl that reaches it sits in
+    // the home package's own DEF listing.
+    struct Reach36 {
+        const void* home = nullptr;
+        bool homeDef = false;
+        bool other = false;
+    };
+    std::map<UHDM::typespec*, Reach36> reach36;
+    auto noteIo36 = [&](const UHDM::io_decl* io, const UHDM::package* defPkg) {
+        if (!io || !io->Typespec())
+            return;
+        auto* at = io->Typespec()->Actual_typespec();
+        const void* h = homeOf36(at);
+        if (!h)
+            return;
+        auto& r = reach36[(UHDM::typespec*)at];
+        r.home = h;
+        auto dit = pkgDefMap.find(h);
+        if (defPkg && dit != pkgDefMap.end() && dit->second == defPkg)
+            r.homeDef = true;
+        else
+            r.other = true;
+    };
+    auto doTfs36 = [&](const UHDM::VectorOftask_func* tfs,
+                       const UHDM::package* defPkg) {
+        if (!tfs)
+            return;
+        for (auto* tf : *tfs)
+            if (tf && tf->Io_decls())
+                for (auto* io : *tf->Io_decls())
+                    noteIo36(io, defPkg);
+    };
+    std::set<const UHDM::class_defn*> seen36;
+    std::function<void(const UHDM::class_defn*, const UHDM::package*)> doCls36 =
+        [&](const UHDM::class_defn* c, const UHDM::package* defPkg) {
+            if (!c || !seen36.insert(c).second)
+                return;
+            doTfs36(c->Task_funcs(), defPkg);
+        };
+    auto doPkgs36 = [&](const UHDM::VectorOfpackage* ps, bool defView) {
+        if (!ps)
+            return;
+        for (auto* p : *ps) {
+            const UHDM::package* dp = defView ? p : nullptr;
+            doTfs36(p->Task_funcs(), dp);
+            if (p->Class_defns())
+                for (auto* cd : *p->Class_defns())
+                    doCls36(cd, dp);
+        }
+    };
+    doPkgs36(d->AllPackages(), /*defView=*/true);
+    doPkgs36(d->TopPackages(), /*defView=*/false);
+    auto doMods36 = [&](const auto* ms) {
+        if (!ms)
+            return;
+        for (auto* m : *ms) {
+            doTfs36(m->Task_funcs(), nullptr);
+            if (m->Class_defns())
+                for (auto* cd : *m->Class_defns())
+                    doCls36(cd, nullptr);
+        }
+    };
+    doMods36(d->AllModules());
+    doMods36(d->TopModules());
+    if (d->AllClasses())
+        for (auto* c : *d->AllClasses())
+            doCls36(c, nullptr);
+    for (auto& [ts, r] : reach36) {
+        const auto& src = (!r.other && r.homeDef) ? pkgDefMap : pkgTopMap;
+        if (auto it = src.find(r.home); it != src.end() && it->second)
+            ts->Instance(it->second);
+    }
 }
 
 // § importCopyAggFormalOwnCopy32 — the OTHER half of the last-writer law.
@@ -6419,6 +6574,10 @@ void UhdmExporter::bareScalarTypedefVarTs() {
             case UHDM::uhdmshort_int_typespec:
             case UHDM::uhdmlong_int_typespec:
                 pkgScalarTd.insert(ts);
+                // § lawSCopyHomeInstance36 — record the HOME package beside
+                // the object, so a bare copy made out of it (or out of the
+                // importer-owned import clone below) can be instanced there.
+                pkgScalarTdHome36[ts] = (const void*)&sc->asSymbol();
                 break;
             default:
                 break;
@@ -6428,6 +6587,35 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         note(sym, ts);
     for (auto& [key, ts] : pkgTopTypedefTs)
         note((const slang::ast::Symbol*)key, ts);
+    // The wildcard-import CLONE listing objects are the SECOND generation of
+    // the same typedefs (§ otherTds, ParamEmit): a clone body's bare copy is
+    // made out of THEM, and their own vpiInstance is the last importer to list
+    // them (§ pkgImportAggCloneLastWriter32), never the home.  They are not
+    // registered typedef objects, so `note` above cannot see them.
+    for (auto& [sym36, cl36] : pkgImportCloneTs) {
+        if (!sym36 || !cl36 || sym36->kind != SymbolKind::TypeAlias)
+            continue;
+        // An ALIAS OF AN ALIAS takes no LAW-S copy at all (see above).
+        if (sym36->as<TypeAliasType>().targetType.getType().kind ==
+            SymbolKind::TypeAlias)
+            continue;
+        auto* sc36 = sym36->as<TypeAliasType>().getParentScope();
+        if (!sc36 || sc36->asSymbol().kind != SymbolKind::Package)
+            continue;
+        switch (cl36->UhdmType()) {
+            case UHDM::uhdmlogic_typespec:
+            case UHDM::uhdmbit_typespec:
+            case UHDM::uhdmint_typespec:
+            case UHDM::uhdminteger_typespec:
+            case UHDM::uhdmbyte_typespec:
+            case UHDM::uhdmshort_int_typespec:
+            case UHDM::uhdmlong_int_typespec:
+                pkgScalarTdHome36[cl36] = (const void*)&sc36->asSymbol();
+                break;
+            default:
+                break;
+        }
+    }
     pkgScalarTd16 = pkgScalarTd;
     if (pkgScalarTd.empty())
         return;

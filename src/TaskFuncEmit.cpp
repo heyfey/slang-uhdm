@@ -3134,6 +3134,40 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // plain subroutines keep their clones and their shared aggregate
             // listings.  A builtin-typed formal (`string path`) is untouched
             // on both halves.
+            // § classScopedTdImportCopyUnsupported36 — the same degradation
+            // for a formal typed by the class's OWN class-scope typedef,
+            // inside a wildcard-import CLONE.
+            //
+            // The row only exists because a class method DEFINED OUT OF BODY
+            // is a PACKAGE-scope item, so an importer clones it as a package
+            // subroutine — and in that copy `this_type` has no class scope to
+            // resolve against.  `t48c` reads the cell and its control off one
+            // golden: `c50::m50(k50_t key, this_type lib)` declared `extern
+            // static` and defined out of body, wildcard-imported by `aa50`,
+            //   DEFPKG  aa50::::c50::m50 io1  unsupported_typespec 'this_type'
+            //                                 @home50!TOP
+            //   ELABPKG aa50::::c50::m50 io1  the same, a second object
+            //   DEFPKG  aa50::::c50::m50 io0  int_typespec 'k50_t'@home50!TOP
+            //                                 (the CONTROL: an ordinary
+            //                                 package typedef does NOT
+            //                                 degrade in the same body)
+            // while every non-clone view — the home's own out-of-body copy,
+            // the class views, the module views — keeps the class_typespec
+            // § classKeyTsScopeOwner35 gives it.  SeqDriver's
+            // `uvm_sequence_library::m_check(uvm_object_wrapper, this_type)`
+            // is the identical shape, and its 2 rows are the last of the
+            // io_decl typespec residue.
+            const slang::ast::TypeAliasType* clsTdCopyUnsup36 = nullptr;
+            if (importCopyTsInst && arg->getDeclaredType()) {
+                const auto& fty36 = arg->getDeclaredType()->getType();
+                if (fty36.kind == SymbolKind::TypeAlias)
+                    if (auto* ps36 =
+                            fty36.as<TypeAliasType>().getParentScope();
+                        ps36 &&
+                        (ps36->asSymbol().kind == SymbolKind::ClassType ||
+                         ps36->asSymbol().kind == SymbolKind::GenericClassDef))
+                        clsTdCopyUnsup36 = &fty36.as<TypeAliasType>();
+            }
             const slang::ast::TypeAliasType* dpiTd33 = nullptr;
             UHDM::typespec* dpiListingTs33 = nullptr;
             bool dpiCopyUnsup33 = false;
@@ -3177,9 +3211,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             }
                     }
                 }
-            if (dpiCopyUnsup33) {
+            if (dpiCopyUnsup33 || clsTdCopyUnsup36) {
                 auto* uts33 = s.MakeUnsupported_typespec();
-                uts33->VpiName(dpiTd33->name);
+                uts33->VpiName(dpiCopyUnsup33 ? dpiTd33->name
+                                              : clsTdCopyUnsup36->name);
                 if (argTsyn)
                     setLoc(uts33, argTsyn->sourceRange());
                 ts = uts33;
@@ -3570,8 +3605,38 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 if (importCopyTsInst && ts &&
                     pkgImportCloneOwner32.count((UHDM::typespec*)ts))
                     if (auto* acp32 =
-                            aggImportCloneCopy32((UHDM::typespec*)ts))
+                            aggImportCloneCopy32((UHDM::typespec*)ts)) {
                         ts = acp32;
+                        // § importCloneAliasEnumBareName36 — inside a clone
+                        // body that private copy is BARE-named when the
+                        // typedef is an ALIAS OF AN ALIAS, and only then.
+                        // § importCloneBareTdAlias16's reason ("the clone's
+                        // chain is re-minted against the IMPORTING package,
+                        // so nothing in it is the object writeDataTypes
+                        // prefixed") reaches one typespec kind further than
+                        // LAW S ever did, because LAW S deliberately excludes
+                        // an alias-of-alias from taking a copy at all.
+                        // t48b holds the control in the same golden:
+                        //   DEFPKG aa49::use_ae48 io0 'ae48_t'@home49!TOP
+                        //     (alias of an alias -> BARE)
+                        //   DEFPKG aa49::use_de48 io0
+                        //     'home49::de48_t'@home49!TOP  (direct enum ->
+                        //     QUALIFIED, and we already matched it)
+                        // SeqDriver's `UVM_SEQ_ARB_TYPE` is the alias arm:
+                        // `typedef uvm_sequencer_arb_mode UVM_SEQ_ARB_TYPE`.
+                        if (auto adt36 = arg->getDeclaredType();
+                            adt36 &&
+                            adt36->getType().kind == SymbolKind::TypeAlias &&
+                            adt36->getType()
+                                    .as<TypeAliasType>()
+                                    .targetType.getType()
+                                    .kind == SymbolKind::TypeAlias) {
+                            std::string qn36(acp32->VpiName());
+                            if (auto p36 = qn36.rfind("::");
+                                p36 != std::string::npos)
+                                acp32->VpiName(qn36.substr(p36 + 2));
+                        }
+                    }
                 if (tsInst &&
                     !foreignSharedTs(*arg, (const UHDM::typespec*)ts) &&
                     !(pkgTopEmit &&

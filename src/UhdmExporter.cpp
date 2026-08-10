@@ -4271,6 +4271,11 @@ UHDM::design* UhdmExporter::exportDesign() {
     // top-instance passes above all write the same field (incl. pass 17's
     // mint stamp immediately above).
     pkgImportCloneLastWriter32();
+    // § lawSCopyHomeInstance36 — the same question for the LAW-S bare COPIES
+    // those clones are made into.  Strictly after pass 32 and after all three
+    // def->top stamps above: it is the last writer of a COPY's vpiInstance,
+    // and it never touches a listing object (pass 32's own objects included).
+    lawSCopyHomeInstance36(d);
     // ...and an anonymous class_typespec never carries vpiInstance.
     clearAnonClassTsInstance();
     // § pkgCloneHierBind9 — bind the BASE of every dotted reference inside a
