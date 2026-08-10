@@ -1085,6 +1085,162 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             return id31;
         return {};
     };
+    // § baseClassTypeParamFormalUnsupported34 — the SAME catch-all,
+    // one scope over.
+    //
+    // > A formal written as a TYPE PARAMETER the class does not itself
+    // > declare — one it only INHERITS from a parameterised base — falls
+    // > through Surelog's CompileType to an `unsupported_typespec` NAMED AS
+    // > WRITTEN, with NO vpiInstance and its own object per declaration.
+    //
+    // § oobParamClassTypeParamFormalUnsupported31 found the same degradation
+    // for an OUT-OF-BODY definition (compiled in the package's scope, where
+    // the class's own parameters are not visible); this is an IN-BODY formal
+    // whose name is simply not in the derived class's data-type table.
+    // t46a pins the predicate on the SPELLING, not on the resolved type:
+    // `deri46 extends basei46 #(int)` writing `di_node(IP46 n)` gets
+    // `unsupported_typespec 'IP46'` where the identical `di_ctl(int n)` gets
+    // `int_typespec ''`, and a name INHERITED as an ordinary typedef
+    // (`ns46use46::e_scq(nsq46_t q)`) resolves normally — it is
+    // type-parameter-ness plus not-declared-here.  Reach: 12 rows, three on
+    // every UVM-4 test — `uvm_component_proxy::get_immediate_children`'s two
+    // `STRUCTURE` formals and `uvm_component_name_check_visitor::visit`'s
+    // `NODE`, both parameters of `uvm_structure_proxy` / `uvm_visitor`.
+    auto baseTypeParamName34 =
+        [&](const syntax::DataTypeSyntax* tsyn) -> std::string_view {
+        if (!classScope || !tsyn ||
+            tsyn->kind != syntax::SyntaxKind::NamedType)
+            return {};
+        auto& nt34 = tsyn->as<syntax::NamedTypeSyntax>();
+        if (nt34.name->kind != syntax::SyntaxKind::IdentifierName)
+            return {};
+        auto id34 =
+            nt34.name->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        if (id34.empty())
+            return {};
+        // slang re-publishes every inherited member into the derived class's
+        // own scope as a TRANSPARENT wrapper, so `find` alone cannot tell
+        // "declared here" from "inherited" — the wrapper IS the distinction.
+        // slang's derived-class scope answers `find` with the BASE's own
+        // parameter symbol, so the discriminator is not whether the name
+        // resolves but WHERE it was declared.
+        const Symbol* f34 = body.find(id34);
+        if (!f34 || f34->kind != SymbolKind::TypeParameter ||
+            f34->getParentScope() == &body)
+            return {};
+        return id34;
+    };
+    // § classScopedTdFormalUnsupported34 — the catch-all's THIRD spelling.
+    //
+    // > A formal written as a typedef reached through a CLASS SCOPE
+    // > (`uvm_resource_types::rsrc_q_t`) keeps its written text and degrades
+    // > to an `unsupported_typespec` — exactly when that typedef's WRITTEN
+    // > TARGET is itself a NAME.  A typedef of a type declared IN PLACE
+    // > resolves, named by its own simple name, array dimensions included.
+    //
+    // t46a reads twelve cells off ONE golden, all in one class, and the
+    // FIRST reading of them was wrong: "class / struct / container degrade"
+    // fitted every synthetic cell and then inverted a real UVM row
+    // (`uvm_resource_base::init_access_record`, whose
+    // `uvm_resource_types::access_t` is an unpacked STRUCT that golden
+    // resolves).  The written target is the discriminator:
+    //   `typedef el46 nsq46_t;`            -> unsupported 'ns46::nsq46_t'
+    //   `typedef st46_t nss46_t;`          -> unsupported 'nsx46::nss46_t'
+    //   `typedef el46 nsc46_t[string];`    -> unsupported 'nsx46::nsc46_t'
+    //   `typedef el46 nsl46_t[$];`         -> unsupported 'nsx46::nsl46_t'
+    //   `typedef int nsi46_t;`             -> int_typespec    'nsi46_t'
+    //   `typedef enum int {…} nse46_t;`    -> enum_typespec   'nse46_t'
+    //   `typedef logic [7:0] nsv46_t;`     -> logic_typespec  'nsv46_t'
+    //   `typedef string nst46_t;`          -> string_typespec 'nst46_t'
+    //   `typedef struct packed {…} nsp46_t;` -> struct_typespec 'nsp46_t'
+    //   `typedef struct {…} nsu46_t;`      -> struct_typespec 'nsu46_t'
+    //   `typedef int nsm46_t[string];`     -> array_typespec  'nsm46_t'
+    //   `typedef int nsn46_t[4];`          -> array_typespec  'nsn46_t'
+    // and the PACKAGE-scoped control says the `::` alone is not the trigger:
+    // `q46use::qc_pkg(p46::acls46_t)` binds the ordinary shared listing
+    // object.  Each degraded formal gets its OWN object (`q46use::qb_scq`
+    // does not share `use46::b_scq`'s).  Reach: 21 rows,
+    // `uvm_resource_types::rsrc_q_t` (`typedef uvm_queue#(uvm_resource_base)
+    // rsrc_q_t;`) on all four UVM-4 tests.
+    auto classScopedUnsupName34 =
+        [&](const syntax::DataTypeSyntax* tsyn) -> std::string {
+        if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+            return {};
+        auto& nt34 = tsyn->as<syntax::NamedTypeSyntax>();
+        if (nt34.name->kind != syntax::SyntaxKind::ScopedName)
+            return {};
+        // The chain of simple identifiers, left to right.
+        std::vector<std::string_view> segs34;
+        std::function<bool(const syntax::NameSyntax*)> walk34 =
+            [&](const syntax::NameSyntax* n34) -> bool {
+            if (!n34)
+                return false;
+            if (n34->kind == syntax::SyntaxKind::ScopedName) {
+                auto& sn34 = n34->as<syntax::ScopedNameSyntax>();
+                return walk34(sn34.left) && walk34(sn34.right);
+            }
+            if (n34->kind == syntax::SyntaxKind::IdentifierName) {
+                segs34.push_back(n34->as<syntax::IdentifierNameSyntax>()
+                                     .identifier.valueText());
+                return true;
+            }
+            return false;
+        };
+        if (!walk34(nt34.name) || segs34.size() < 2)
+            return {};
+        // The ROOT must be a CLASS in scope — a package root is the control
+        // that resolves.
+        const Symbol* root34 = nullptr;
+        for (const Scope* sc34 = &body; sc34 && !root34;
+             sc34 = sc34->asSymbol().getParentScope())
+            root34 = sc34->find(segs34.front());
+        if (!root34)
+            return {};
+        const Scope* cur34 = nullptr;
+        if (root34->kind == SymbolKind::ClassType)
+            cur34 = &root34->as<ClassType>();
+        else if (root34->kind == SymbolKind::GenericClassDef)
+            if (auto* ds34 = root34->as<GenericClassDefSymbol>()
+                                 .getDefaultSpecialization(body);
+                ds34 && ds34->kind == SymbolKind::ClassType)
+                cur34 = &ds34->as<ClassType>();
+        if (!cur34)
+            return {};
+        const Symbol* leaf34 = nullptr;
+        for (size_t i34 = 1; i34 < segs34.size(); i34++) {
+            leaf34 = cur34->find(segs34[i34]);
+            if (!leaf34)
+                return {};
+            if (i34 + 1 < segs34.size()) {
+                if (leaf34->kind != SymbolKind::ClassType)
+                    return {};
+                cur34 = &leaf34->as<ClassType>();
+            }
+        }
+        if (!leaf34 || leaf34->kind != SymbolKind::TypeAlias)
+            return {};
+        // The predicate is on the typedef's WRITTEN TARGET, not on the
+        // resolved type: a class-scope typedef of ANOTHER NAME cannot be
+        // re-resolved from outside the class, while one whose target is
+        // declared IN PLACE can.  Array dimensions on the declarator make no
+        // difference either way — `typedef int nsm46_t[string]` resolves and
+        // `typedef el46 nsc46_t[string]` does not.
+        auto* tdsyn34 = leaf34->as<TypeAliasType>().getSyntax();
+        if (!tdsyn34 ||
+            tdsyn34->kind != syntax::SyntaxKind::TypedefDeclaration)
+            return {};
+        const syntax::DataTypeSyntax* tdt34 =
+            tdsyn34->as<syntax::TypedefDeclarationSyntax>().type;
+        if (!tdt34 || tdt34->kind != syntax::SyntaxKind::NamedType)
+            return {};
+        std::string out34;
+        for (auto& sg34 : segs34) {
+            if (!out34.empty())
+                out34 += "::";
+            out34 += std::string(sg34);
+        }
+        return out34;
+    };
     // § tdListingFormalAsWritten33 — the package TYPEDEF a formal is WRITTEN
     // as, recovered from the syntax rather than from the resolved type.
     //
@@ -1131,6 +1287,85 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         else if (f33->kind == SymbolKind::TypeAlias)
             t33 = &f33->as<TypeAliasType>();
         return t33 ? pkgHomedTdAlias18(*t33) : nullptr;
+    };
+    // § tdListingFormalAsWritten33 / § pkgContainerTdFormalListing34 —
+    // bind a formal to the PACKAGE TYPEDEF LISTING object its written name
+    // selects, or return null.  Named (rather than inlined in the io_decl
+    // if-chain) because the § pureVirtIoDecls30 PURE VIRTUAL prototype arm
+    // needs the same law: `uvm_port_component_base::get_connected_to(ref
+    // uvm_port_list list)` is a pure virtual, and it is 4 of the family's
+    // 20 rows.
+    auto writtenPkgTdListingTs34 =
+        [&](const syntax::DataTypeSyntax* argTsyn,
+            UHDM::ref_typespec* rt) -> UHDM::typespec* {
+        bool viaTp33 = false;
+        auto* al33 = writtenPkgTdAlias33(argTsyn, viaTp33);
+        if (!al33)
+            return nullptr;
+        // Decide from the SLANG type, not from the UHDM object: a package
+        // CLASS-ALIAS typedef has NO def listing at all (t44a:
+        // `p44::alias44_t` is listed by `ELABPKG:p44` only), so in the def
+        // pass there is nothing yet to inspect — and that is exactly the case
+        // that must still be deferred.
+        auto& ct33 = al33->targetType.getType().getCanonicalType();
+        // (c) § pkgContainerTdFormalListing34 — a package typedef whose
+        // target is a CONTAINER of a class (`typedef uvm_port_component_base
+        // uvm_port_list[string];` used as `get_connected_to(ref uvm_port_list
+        // list)`) binds the same package listing object a class ALIAS does;
+        // we resolve through the alias and name the ELEMENT class instead.
+        // t46a reads all four container kinds off one golden — associative,
+        // queue, dynamic and fixed unpacked, each `class_typespec
+        // \'p46::a*46_t\'@q46`, the very object the directly-scoped spelling
+        // (`q46use::qd_pkg(ref p46::amap46_t)`) binds too.  A container over
+        // a STRUCT or an INT is a DIFFERENT object kind in golden
+        // (`array_typespec`) and is deliberately left.  Reach: 20 rows,
+        // `uvm_pkg::uvm_port_list` on all four UVM-4 tests.
+        auto contOfClass34 = [&]() {
+            const Type* e34 = &ct33;
+            bool cont34 = false;
+            for (;;) {
+                auto& c34 = e34->getCanonicalType();
+                if (c34.kind != SymbolKind::AssociativeArrayType &&
+                    c34.kind != SymbolKind::QueueType &&
+                    c34.kind != SymbolKind::DynamicArrayType &&
+                    c34.kind != SymbolKind::FixedSizeUnpackedArrayType)
+                    break;
+                const Type* n34 = c34.getArrayElementType();
+                if (!n34)
+                    return false;
+                e34 = n34;
+                cont34 = true;
+            }
+            return cont34 && e34->getCanonicalType().isClass();
+        };
+        if (ct33.isClass()) {
+            // (a) and (b): a class ALIAS is the one spelling the
+            // shared-typespec path resolves through.
+        }
+        else if (contOfClass34()) {
+            // (c)
+        }
+        else if (viaTp33 && (ct33.kind == SymbolKind::EnumType ||
+                             ct33.kind == SymbolKind::PackedStructType ||
+                             ct33.kind == SymbolKind::UnpackedStructType ||
+                             ct33.kind == SymbolKind::PackedUnionType ||
+                             ct33.kind == SymbolKind::UnpackedUnionType)) {
+            // (a) only: a DIRECTLY written aggregate already binds this
+            // object through the shared path.
+        }
+        else
+            return nullptr;
+        UHDM::typespec* cand33 = nullptr;
+        if (auto t33 = pkgTopTypedefTs.find((const void*)al33);
+            t33 != pkgTopTypedefTs.end())
+            cand33 = t33->second;
+        if (!pkgTopEmit)
+            pkgForeignTsTopFixups.emplace_back(rt, al33);
+        if (!cand33 && !pkgTopEmit)
+            if (auto d33 = typedefTs.find((const Type*)al33);
+                d33 != typedefTs.end())
+                cand33 = d33->second;
+        return cand33;  // null: the deferred re-point still runs
     };
     // § classTypeParamTdGroupLastWins33c — the class-scope TYPE-PARAMETER
     // typespec GROUP.
@@ -1288,6 +1523,262 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         if (auto* hp31 = ((UHDM::class_defn*)m)->VpiParent();
             hp31 && hp31->UhdmType() == UHDM::uhdmpackage)
             oobDeclPkg31 = (UHDM::instance*)hp31;
+    // § pureVirtIoRanges34 — a formal's io_decl RANGES: the unpacked, the
+    // DYNAMIC-array, the QUEUE and the § assocIoRange9 associative arms, in
+    // one place because a PURE VIRTUAL prototype carries exactly the same
+    // ones.  § pureVirtIoDecls30 gave the prototype its io_decls but never
+    // their Ranges, and t46a reads every cell off one golden: golden gives
+    // `pure virtual function void p_str(output string q[$])` the same
+    // `[0:$]` its DEFINED control `n_str` gets, and the same for a fixed
+    // unpacked dim, a dynamic dim, an associative dim and `[$][$]`.  Reach:
+    // 16 rows, 4 on every UVM-4 test — `uvm_report_server::get_id_set` /
+    // `get_severity_set`, `uvm_reg_transaction_order_policy::order` and
+    // `uvm_structure_proxy::get_immediate_children`, every one of them a
+    // `pure virtual` with a queue formal.
+    auto emitIoRanges34 = [&](const slang::ast::FormalArgumentSymbol& arg0,
+                              UHDM::io_decl* io0, const std::string& ioFull,
+                              UHDM::instance* tsInst0) {
+        const slang::ast::FormalArgumentSymbol* arg = &arg0;
+        UHDM::io_decl* io = io0;
+        // Unpacked-array formals carry one range per unpacked dimension;
+        // a PARAM-sized dim ([CNT]) stays symbolic, scoped at the formal
+        // (work@top.F.SRC.CNT) — Surelog (ArrayExprFuncArg).
+        if (arg->getDeclaredType() &&
+            arg->getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::FixedSizeUnpackedArrayType)
+            if (auto* ranges = buildUnpackedRanges(
+                    *arg, io, ioFull))
+                io->Ranges(ranges);
+        // A DYNAMIC-array formal (`input real driver []`) gets the
+        // unsized range Surelog mints for an unsized_dimension:
+        // [0 : "unsized"] (CompileExpression.cpp paUnsized_dimension).
+        if (arg->getDeclaredType() &&
+            arg->getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::DynamicArrayType) {
+            const syntax::VariableDimensionSyntax* undim = nullptr;
+            if (auto* dsyn = arg->getSyntax())
+                if (dsyn->kind == syntax::SyntaxKind::Declarator)
+                    for (auto dim : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+                        if (!dim->specifier) {
+                            undim = dim;
+                            break;
+                        }
+            if (undim) {
+                auto* r = s.MakeRange();
+                r->VpiParent(io);
+                setLoc(r, undim->sourceRange());
+                auto* lc = s.MakeConstant();
+                lc->VpiParent(r);
+                lc->VpiDecompile("0");
+                lc->VpiSize(64);
+                lc->VpiValue("UINT:0");
+                lc->VpiConstType(vpiUIntConst);
+                setLoc(lc, undim->sourceRange());
+                lc->VpiEndColumnNo(lc->VpiColumnNo() + 1);
+                r->Left_expr(lc);
+                auto* rc = s.MakeConstant();
+                rc->VpiParent(r);
+                rc->VpiDecompile("unsized");
+                rc->VpiSize(0);
+                rc->VpiValue("STRING:unsized");
+                rc->VpiConstType(vpiStringConst);
+                setLoc(rc, undim->sourceRange());
+                rc->VpiEndColumnNo(rc->VpiColumnNo() + 1);
+                r->Right_expr(rc);
+                auto* rv = s.MakeRangeVec();
+                rv->push_back(r);
+                io->Ranges(rv);
+            }
+        }
+        // A QUEUE formal (`ref string i[$]`) carries the range Surelog
+        // mints for a `$` dimension: [0 : $].  Surelog has no queue arm —
+        // it compiles the dimension as an ORDINARY expression, where `$`
+        // becomes a vpiUnboundedConst (CompileExpression.cpp:3516), and
+        // then SKIPS the `-1` decrement it applies to a sized dimension
+        // because that const type marks the dimension associative
+        // (:4094), so the bound is the `$` constant itself.  The left
+        // bound is the same UINT:0 as the other unpacked arms and (unlike
+        // the unsized arm) carries no location of its own; the range and
+        // the right bound sit at the `$` token.  Measured on the UVM
+        // corpus: 225 io_decls, every one of them a queue formal.
+        if (arg->getDeclaredType() &&
+            arg->getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::QueueType) {
+            std::vector<const syntax::QueueDimensionSpecifierSyntax*>
+                qspecs;
+            if (auto* dsyn = arg->getSyntax())
+                if (dsyn->kind == syntax::SyntaxKind::Declarator)
+                    for (auto dim :
+                         dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+                        if (dim->specifier &&
+                            dim->specifier->kind ==
+                                syntax::SyntaxKind::QueueDimensionSpecifier)
+                            qspecs.push_back(&dim->specifier->as<
+                                syntax::QueueDimensionSpecifierSyntax>());
+            UHDM::VectorOfrange* qrv = nullptr;
+            // One range per `$` dimension: `ref int f[$][$]` carries two.
+            for (auto* qspec : qspecs) {
+                auto* r = s.MakeRange();
+                r->VpiParent(io);
+                setLoc(r, qspec->dollar.range());
+                auto* lc = s.MakeConstant();
+                lc->VpiParent(r);
+                lc->VpiDecompile("0");
+                lc->VpiSize(64);
+                lc->VpiValue("UINT:0");
+                lc->VpiConstType(vpiUIntConst);
+                r->Left_expr(lc);
+                auto* rc = s.MakeConstant();
+                rc->VpiParent(r);
+                rc->VpiDecompile("$");
+                rc->VpiSize(1);
+                rc->VpiValue("STRING:$");
+                rc->VpiConstType(vpiUnboundedConst);
+                setLoc(rc, qspec->dollar.range());
+                r->Right_expr(rc);
+                if (!qrv)
+                    qrv = s.MakeRangeVec();
+                qrv->push_back(r);
+            }
+            if (qrv)
+                io->Ranges(qrv);
+        }
+        // § assocIoRange9 — an ASSOCIATIVE formal (`ref int c[string]`,
+        // `ref int e[p1idx]`) carries one io_decl range per written
+        // dimension, and Surelog's range compiler takes a DIFFERENT arm
+        // per spelling because its GRAMMAR does:
+        //   `[<type keyword>]`, `[*]` parse as paAssociative_dimension
+        //      (CompileExpression.cpp:4187) -> [UINT:0 : STRING:
+        //      "associative"], the index typespec riding the right
+        //      constant as a ref_typespec; only the RANGE is spanned
+        //      (at the brackets), neither constant is;
+        //   `[<identifier>]` parses as a paConstant_expression -- a SIZE
+        //      (:4037) -- so the right bound is the ordinary
+        //      `<expr> - 1` decrement (:4137): an operation vpiSubOp
+        //      over a ref_obj naming the index type and an INT:1
+        //      constant, range/operation/ref_obj all at the identifier
+        //      span, the left UINT:0 and the `1` unspanned (and the `1`
+        //      unparented -- Surelog never sets its parent).
+        // slang draws the same line: parsePrimaryExpression sends a type
+        // KEYWORD to parseDataType and an identifier to parseName, so the
+        // dimension's selector expression kind is the discriminator
+        // (the same test emitAssocDims already makes for class props).
+        if (arg->getDeclaredType() &&
+            arg->getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::AssociativeArrayType) {
+            // `ioFull` arrives as a parameter.
+            std::vector<const Type*> aidx;
+            for (const Type* cur9 =
+                     &arg->getDeclaredType()->getType();;) {
+                auto& cc9 = cur9->getCanonicalType();
+                if (cc9.kind != SymbolKind::AssociativeArrayType)
+                    break;
+                aidx.push_back(cc9.as<AssociativeArrayType>().indexType);
+                cur9 = &cc9.as<AssociativeArrayType>().elementType;
+            }
+            std::vector<const syntax::VariableDimensionSyntax*> adims;
+            if (auto* dsyn = arg->getSyntax())
+                if (dsyn->kind == syntax::SyntaxKind::Declarator)
+                    for (auto dim :
+                         dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+                        adims.push_back(dim);
+            UHDM::VectorOfrange* arv = nullptr;
+            for (size_t i9 = 0; i9 < aidx.size() && i9 < adims.size();
+                 i9++) {
+                auto* d9 = adims[i9];
+                // The selector expression, when the dimension was written
+                // as one (`[*]` has no selector at all).
+                const syntax::ExpressionSyntax* sx9 = nullptr;
+                if (d9->specifier)
+                    if (auto* rd9 = d9->specifier->as_if<
+                            syntax::RangeDimensionSpecifierSyntax>())
+                        if (rd9->selector->kind ==
+                            syntax::SyntaxKind::BitSelect)
+                            sx9 = rd9->selector
+                                      ->as<syntax::BitSelectSyntax>()
+                                      .expr.get();
+                bool named9 =
+                    sx9 && (sx9->kind == syntax::SyntaxKind::IdentifierName ||
+                            sx9->kind == syntax::SyntaxKind::ScopedName);
+                auto* r9 = s.MakeRange();
+                r9->VpiParent(io);
+                auto* lc9 = s.MakeConstant();
+                lc9->VpiParent(r9);
+                lc9->VpiDecompile("0");
+                lc9->VpiSize(64);
+                lc9->VpiValue("UINT:0");
+                lc9->VpiConstType(vpiUIntConst);
+                r9->Left_expr(lc9);
+                if (named9) {
+                    setLoc(r9, sx9->sourceRange());
+                    auto* op9 = s.MakeOperation();
+                    op9->VpiParent(r9);
+                    op9->VpiOpType(vpiSubOp);
+                    setLoc(op9, sx9->sourceRange());
+                    auto* ops9 = s.MakeAnyVec();
+                    auto* ro9 = s.MakeRef_obj();
+                    ro9->VpiParent(op9);
+                    std::string in9;
+                    if (sx9->kind == syntax::SyntaxKind::IdentifierName)
+                        in9 = std::string(
+                            sx9->as<syntax::IdentifierNameSyntax>()
+                                .identifier.valueText());
+                    else {
+                        in9 = sx9->toString();
+                        while (!in9.empty() &&
+                               std::isspace((unsigned char)in9.front()))
+                            in9.erase(in9.begin());
+                        while (!in9.empty() &&
+                               std::isspace((unsigned char)in9.back()))
+                            in9.pop_back();
+                    }
+                    ro9->VpiName(in9);
+                    ro9->VpiFullName(ioFull + "::" + in9);
+                    setLoc(ro9, sx9->sourceRange());
+                    ops9->push_back(ro9);
+                    auto* one9 = s.MakeConstant();
+                    one9->VpiValue("INT:1");
+                    one9->VpiConstType(vpiIntConst);
+                    one9->VpiSize(64);
+                    ops9->push_back(one9);
+                    op9->Operands(ops9);
+                    r9->Right_expr(op9);
+                }
+                else {
+                    setLoc(r9, d9->sourceRange());
+                    auto* rc9 = s.MakeConstant();
+                    rc9->VpiParent(r9);
+                    rc9->VpiDecompile("associative");
+                    rc9->VpiSize(0);
+                    rc9->VpiValue("STRING:associative");
+                    rc9->VpiConstType(vpiStringConst);
+                    if (aidx[i9])
+                        if (auto* its9 = assocIndexTs(*aidx[i9], *arg)) {
+                            if (sx9)
+                                setLoc(its9, sx9->sourceRange());
+                            // The index typespec is a package-scope
+                            // object like the formal's own (uhdm-cmp
+                            // recurses a typespec's Instance).
+                            if (tsInst0 && !its9->Instance())
+                                its9->Instance(importCopyTsInst
+                                                   ? importCopyTsInst
+                                                   : tsInst0);
+                            auto* irt9 = s.MakeRef_typespec();
+                            irt9->VpiParent(rc9);
+                            irt9->VpiFullName(ioFull);
+                            irt9->Actual_typespec(its9);
+                            rc9->Typespec(irt9);
+                        }
+                    r9->Right_expr(rc9);
+                }
+                if (!arv)
+                    arv = s.MakeRangeVec();
+                arv->push_back(r9);
+            }
+            if (arv)
+                io->Ranges(arv);
+        }
+    };
     auto* baseScopeInst = pkgScopeInst;
     for (auto* memberPtr : items) {
         auto& member = *memberPtr;
@@ -1458,17 +1949,64 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                 pio->Expr((UHDM::expr*)pde);
                         }
                     }
-                    tfContext = true;
-                    auto* pts0 = makeTypespec(*parg, ptsyn);
-                    tfContext = false;
+                    // A pure virtual's formal takes the SAME written-name
+                    // laws a defined method's does — the prototype is not a
+                    // different compile, it is the same declaration without a
+                    // body.  `uvm_port_component_base::get_connected_to(ref
+                    // uvm_port_list list)` is 4 of
+                    // § pkgContainerTdFormalListing34's 20 rows and is a pure
+                    // virtual, which is how the arm found this path at all.
+                    UHDM::ref_typespec* prt0 = nullptr;
+                    auto mkPrt34 = [&]() {
+                        if (!prt0) {
+                            prt0 = s.MakeRef_typespec();
+                            prt0->VpiFullName(std::string(pt->VpiFullName()) +
+                                              sep + std::string(parg->name));
+                            prt0->VpiParent(pio);
+                        }
+                        return prt0;
+                    };
+                    UHDM::typespec* pts0 = nullptr;
+                    if (auto pbtp34 = baseTypeParamName34(ptsyn);
+                        !pbtp34.empty()) {
+                        auto* pu34 = s.MakeUnsupported_typespec();
+                        pu34->VpiName(pbtp34);
+                        if (ptsyn)
+                            setLoc(pu34, ptsyn->sourceRange());
+                        pts0 = pu34;
+                    }
+                    else if (auto pcsn34 = classScopedUnsupName34(ptsyn);
+                             !pcsn34.empty()) {
+                        auto* pu34 = s.MakeUnsupported_typespec();
+                        pu34->VpiName(pcsn34);
+                        if (ptsyn)
+                            setLoc(pu34, ptsyn->sourceRange());
+                        pts0 = pu34;
+                    }
+                    else {
+                        // Only mint the ref when the listing law can fire:
+                        // it registers the deferred re-point against it.
+                        bool pvia34 = false;
+                        if (writtenPkgTdAlias33(ptsyn, pvia34))
+                            pts0 = writtenPkgTdListingTs34(ptsyn, mkPrt34());
+                    }
+                    if (!pts0) {
+                        tfContext = true;
+                        pts0 = makeTypespec(*parg, ptsyn);
+                        tfContext = false;
+                    }
                     if (pts0) {
-                        auto* prt0 = s.MakeRef_typespec();
-                        prt0->VpiFullName(std::string(pt->VpiFullName()) + sep +
-                                          std::string(parg->name));
-                        prt0->VpiParent(pio);
-                        prt0->Actual_typespec(pts0);
+                        mkPrt34()->Actual_typespec(pts0);
                         pio->Typespec(prt0);
                     }
+                    // § pureVirtIoRanges34 — the prototype's formal carries
+                    // the SAME io_decl ranges a defined method's does; the
+                    // instance a class method's typespecs take is null, which
+                    // is exactly what the ordinary path computes here.
+                    emitIoRanges34(*parg, pio,
+                                   std::string(pt->VpiFullName()) + sep +
+                                       std::string(parg->name),
+                                   nullptr);
                     pios->push_back(pio);
                 }
                 pt->Io_decls(pios);
@@ -2658,6 +3196,28 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 ts = uts31;
                 rt->Actual_typespec(ts);
             }
+            // § baseClassTypeParamFormalUnsupported34 /
+            // § classScopedTdFormalUnsupported34 — the same catch-all for a
+            // written name the class's own data-type table cannot answer.
+            // NO vpiInstance on either (t46a, every cell), and a fresh
+            // object per declaration.
+            else if (auto btp34 = baseTypeParamName34(argTsyn); !btp34.empty()) {
+                auto* uts34 = s.MakeUnsupported_typespec();
+                uts34->VpiName(btp34);
+                if (argTsyn)
+                    setLoc(uts34, argTsyn->sourceRange());
+                ts = uts34;
+                rt->Actual_typespec(ts);
+            }
+            else if (auto csn34 = classScopedUnsupName34(argTsyn);
+                     !csn34.empty()) {
+                auto* uts34 = s.MakeUnsupported_typespec();
+                uts34->VpiName(csn34);
+                if (argTsyn)
+                    setLoc(uts34, argTsyn->sourceRange());
+                ts = uts34;
+                rt->Actual_typespec(ts);
+            }
             else if (redeclSym) {
                 ts = makeTypespec(*redeclSym);
                 rt->Actual_typespec(ts);
@@ -2673,55 +3233,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // type-parameter formal, a different object from the control's) —
             // rebuilding that clone from a type the syntax does not name is a
             // different job and has no measured UVM reach, so it is left.
-            else if ([&]() -> bool {
-                         bool viaTp33 = false;
-                         auto* al33 = writtenPkgTdAlias33(argTsyn, viaTp33);
-                         if (!al33)
-                             return false;
-                         // Decide from the SLANG type, not from the UHDM
-                         // object: a package CLASS-ALIAS typedef has NO def
-                         // listing at all (t44a: `p44::alias44_t` is listed by
-                         // `ELABPKG:p44` only), so in the def pass there is
-                         // nothing yet to inspect — and that is exactly the
-                         // case that must still be deferred.
-                         auto& ct33 =
-                             al33->targetType.getType().getCanonicalType();
-                         if (ct33.isClass()) {
-                             // (a) and (b): a class ALIAS is the one spelling
-                             // the shared-typespec path resolves through.
-                         }
-                         else if (viaTp33 &&
-                                  (ct33.kind == SymbolKind::EnumType ||
-                                   ct33.kind == SymbolKind::PackedStructType ||
-                                   ct33.kind ==
-                                       SymbolKind::UnpackedStructType ||
-                                   ct33.kind == SymbolKind::PackedUnionType ||
-                                   ct33.kind ==
-                                       SymbolKind::UnpackedUnionType)) {
-                             // (a) only: a DIRECTLY written aggregate already
-                             // binds this object through the shared path.
-                         }
-                         else
-                             return false;
-                         UHDM::typespec* cand33 = nullptr;
-                         if (auto t33 =
-                                 pkgTopTypedefTs.find((const void*)al33);
-                             t33 != pkgTopTypedefTs.end())
-                             cand33 = t33->second;
-                         if (!pkgTopEmit)
-                             pkgForeignTsTopFixups.emplace_back(rt, al33);
-                         if (!cand33 && !pkgTopEmit)
-                             if (auto d33 =
-                                     typedefTs.find((const Type*)al33);
-                                 d33 != typedefTs.end())
-                                 cand33 = d33->second;
-                         if (!cand33)
-                             return false;  // the deferred re-point still runs
-                         ts = cand33;
-                         rt->Actual_typespec(ts);
-                         return true;
-                     }()) {
-                // bound in the predicate
+            else if (auto* tdl34 = writtenPkgTdListingTs34(argTsyn, rt)) {
+                ts = tdl34;
+                rt->Actual_typespec(ts);
             }
             // § classTypeParamTdGroupLastWins33c, the SHARE half: every formal
             // after the first in a group binds the object the first one built.
@@ -3058,244 +3572,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 }
             io->Typespec(rt);
             deferForeignTopTs(*arg, rt, (const UHDM::typespec*)ts);
-            // Unpacked-array formals carry one range per unpacked dimension;
-            // a PARAM-sized dim ([CNT]) stays symbolic, scoped at the formal
-            // (work@top.F.SRC.CNT) — Surelog (ArrayExprFuncArg).
-            if (arg->getDeclaredType() &&
-                arg->getDeclaredType()->getType().getCanonicalType().kind ==
-                    SymbolKind::FixedSizeUnpackedArrayType)
-                if (auto* ranges = buildUnpackedRanges(
-                        *arg, io, fullName + sep + std::string(arg->name)))
-                    io->Ranges(ranges);
-            // A DYNAMIC-array formal (`input real driver []`) gets the
-            // unsized range Surelog mints for an unsized_dimension:
-            // [0 : "unsized"] (CompileExpression.cpp paUnsized_dimension).
-            if (arg->getDeclaredType() &&
-                arg->getDeclaredType()->getType().getCanonicalType().kind ==
-                    SymbolKind::DynamicArrayType) {
-                const syntax::VariableDimensionSyntax* undim = nullptr;
-                if (auto* dsyn = arg->getSyntax())
-                    if (dsyn->kind == syntax::SyntaxKind::Declarator)
-                        for (auto dim : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
-                            if (!dim->specifier) {
-                                undim = dim;
-                                break;
-                            }
-                if (undim) {
-                    auto* r = s.MakeRange();
-                    r->VpiParent(io);
-                    setLoc(r, undim->sourceRange());
-                    auto* lc = s.MakeConstant();
-                    lc->VpiParent(r);
-                    lc->VpiDecompile("0");
-                    lc->VpiSize(64);
-                    lc->VpiValue("UINT:0");
-                    lc->VpiConstType(vpiUIntConst);
-                    setLoc(lc, undim->sourceRange());
-                    lc->VpiEndColumnNo(lc->VpiColumnNo() + 1);
-                    r->Left_expr(lc);
-                    auto* rc = s.MakeConstant();
-                    rc->VpiParent(r);
-                    rc->VpiDecompile("unsized");
-                    rc->VpiSize(0);
-                    rc->VpiValue("STRING:unsized");
-                    rc->VpiConstType(vpiStringConst);
-                    setLoc(rc, undim->sourceRange());
-                    rc->VpiEndColumnNo(rc->VpiColumnNo() + 1);
-                    r->Right_expr(rc);
-                    auto* rv = s.MakeRangeVec();
-                    rv->push_back(r);
-                    io->Ranges(rv);
-                }
-            }
-            // A QUEUE formal (`ref string i[$]`) carries the range Surelog
-            // mints for a `$` dimension: [0 : $].  Surelog has no queue arm —
-            // it compiles the dimension as an ORDINARY expression, where `$`
-            // becomes a vpiUnboundedConst (CompileExpression.cpp:3516), and
-            // then SKIPS the `-1` decrement it applies to a sized dimension
-            // because that const type marks the dimension associative
-            // (:4094), so the bound is the `$` constant itself.  The left
-            // bound is the same UINT:0 as the other unpacked arms and (unlike
-            // the unsized arm) carries no location of its own; the range and
-            // the right bound sit at the `$` token.  Measured on the UVM
-            // corpus: 225 io_decls, every one of them a queue formal.
-            if (arg->getDeclaredType() &&
-                arg->getDeclaredType()->getType().getCanonicalType().kind ==
-                    SymbolKind::QueueType) {
-                std::vector<const syntax::QueueDimensionSpecifierSyntax*>
-                    qspecs;
-                if (auto* dsyn = arg->getSyntax())
-                    if (dsyn->kind == syntax::SyntaxKind::Declarator)
-                        for (auto dim :
-                             dsyn->as<syntax::DeclaratorSyntax>().dimensions)
-                            if (dim->specifier &&
-                                dim->specifier->kind ==
-                                    syntax::SyntaxKind::QueueDimensionSpecifier)
-                                qspecs.push_back(&dim->specifier->as<
-                                    syntax::QueueDimensionSpecifierSyntax>());
-                UHDM::VectorOfrange* qrv = nullptr;
-                // One range per `$` dimension: `ref int f[$][$]` carries two.
-                for (auto* qspec : qspecs) {
-                    auto* r = s.MakeRange();
-                    r->VpiParent(io);
-                    setLoc(r, qspec->dollar.range());
-                    auto* lc = s.MakeConstant();
-                    lc->VpiParent(r);
-                    lc->VpiDecompile("0");
-                    lc->VpiSize(64);
-                    lc->VpiValue("UINT:0");
-                    lc->VpiConstType(vpiUIntConst);
-                    r->Left_expr(lc);
-                    auto* rc = s.MakeConstant();
-                    rc->VpiParent(r);
-                    rc->VpiDecompile("$");
-                    rc->VpiSize(1);
-                    rc->VpiValue("STRING:$");
-                    rc->VpiConstType(vpiUnboundedConst);
-                    setLoc(rc, qspec->dollar.range());
-                    r->Right_expr(rc);
-                    if (!qrv)
-                        qrv = s.MakeRangeVec();
-                    qrv->push_back(r);
-                }
-                if (qrv)
-                    io->Ranges(qrv);
-            }
-            // § assocIoRange9 — an ASSOCIATIVE formal (`ref int c[string]`,
-            // `ref int e[p1idx]`) carries one io_decl range per written
-            // dimension, and Surelog's range compiler takes a DIFFERENT arm
-            // per spelling because its GRAMMAR does:
-            //   `[<type keyword>]`, `[*]` parse as paAssociative_dimension
-            //      (CompileExpression.cpp:4187) -> [UINT:0 : STRING:
-            //      "associative"], the index typespec riding the right
-            //      constant as a ref_typespec; only the RANGE is spanned
-            //      (at the brackets), neither constant is;
-            //   `[<identifier>]` parses as a paConstant_expression -- a SIZE
-            //      (:4037) -- so the right bound is the ordinary
-            //      `<expr> - 1` decrement (:4137): an operation vpiSubOp
-            //      over a ref_obj naming the index type and an INT:1
-            //      constant, range/operation/ref_obj all at the identifier
-            //      span, the left UINT:0 and the `1` unspanned (and the `1`
-            //      unparented -- Surelog never sets its parent).
-            // slang draws the same line: parsePrimaryExpression sends a type
-            // KEYWORD to parseDataType and an identifier to parseName, so the
-            // dimension's selector expression kind is the discriminator
-            // (the same test emitAssocDims already makes for class props).
-            if (arg->getDeclaredType() &&
-                arg->getDeclaredType()->getType().getCanonicalType().kind ==
-                    SymbolKind::AssociativeArrayType) {
-                std::string ioFull = fullName + sep + std::string(arg->name);
-                std::vector<const Type*> aidx;
-                for (const Type* cur9 =
-                         &arg->getDeclaredType()->getType();;) {
-                    auto& cc9 = cur9->getCanonicalType();
-                    if (cc9.kind != SymbolKind::AssociativeArrayType)
-                        break;
-                    aidx.push_back(cc9.as<AssociativeArrayType>().indexType);
-                    cur9 = &cc9.as<AssociativeArrayType>().elementType;
-                }
-                std::vector<const syntax::VariableDimensionSyntax*> adims;
-                if (auto* dsyn = arg->getSyntax())
-                    if (dsyn->kind == syntax::SyntaxKind::Declarator)
-                        for (auto dim :
-                             dsyn->as<syntax::DeclaratorSyntax>().dimensions)
-                            adims.push_back(dim);
-                UHDM::VectorOfrange* arv = nullptr;
-                for (size_t i9 = 0; i9 < aidx.size() && i9 < adims.size();
-                     i9++) {
-                    auto* d9 = adims[i9];
-                    // The selector expression, when the dimension was written
-                    // as one (`[*]` has no selector at all).
-                    const syntax::ExpressionSyntax* sx9 = nullptr;
-                    if (d9->specifier)
-                        if (auto* rd9 = d9->specifier->as_if<
-                                syntax::RangeDimensionSpecifierSyntax>())
-                            if (rd9->selector->kind ==
-                                syntax::SyntaxKind::BitSelect)
-                                sx9 = rd9->selector
-                                          ->as<syntax::BitSelectSyntax>()
-                                          .expr.get();
-                    bool named9 =
-                        sx9 && (sx9->kind == syntax::SyntaxKind::IdentifierName ||
-                                sx9->kind == syntax::SyntaxKind::ScopedName);
-                    auto* r9 = s.MakeRange();
-                    r9->VpiParent(io);
-                    auto* lc9 = s.MakeConstant();
-                    lc9->VpiParent(r9);
-                    lc9->VpiDecompile("0");
-                    lc9->VpiSize(64);
-                    lc9->VpiValue("UINT:0");
-                    lc9->VpiConstType(vpiUIntConst);
-                    r9->Left_expr(lc9);
-                    if (named9) {
-                        setLoc(r9, sx9->sourceRange());
-                        auto* op9 = s.MakeOperation();
-                        op9->VpiParent(r9);
-                        op9->VpiOpType(vpiSubOp);
-                        setLoc(op9, sx9->sourceRange());
-                        auto* ops9 = s.MakeAnyVec();
-                        auto* ro9 = s.MakeRef_obj();
-                        ro9->VpiParent(op9);
-                        std::string in9;
-                        if (sx9->kind == syntax::SyntaxKind::IdentifierName)
-                            in9 = std::string(
-                                sx9->as<syntax::IdentifierNameSyntax>()
-                                    .identifier.valueText());
-                        else {
-                            in9 = sx9->toString();
-                            while (!in9.empty() &&
-                                   std::isspace((unsigned char)in9.front()))
-                                in9.erase(in9.begin());
-                            while (!in9.empty() &&
-                                   std::isspace((unsigned char)in9.back()))
-                                in9.pop_back();
-                        }
-                        ro9->VpiName(in9);
-                        ro9->VpiFullName(ioFull + "::" + in9);
-                        setLoc(ro9, sx9->sourceRange());
-                        ops9->push_back(ro9);
-                        auto* one9 = s.MakeConstant();
-                        one9->VpiValue("INT:1");
-                        one9->VpiConstType(vpiIntConst);
-                        one9->VpiSize(64);
-                        ops9->push_back(one9);
-                        op9->Operands(ops9);
-                        r9->Right_expr(op9);
-                    }
-                    else {
-                        setLoc(r9, d9->sourceRange());
-                        auto* rc9 = s.MakeConstant();
-                        rc9->VpiParent(r9);
-                        rc9->VpiDecompile("associative");
-                        rc9->VpiSize(0);
-                        rc9->VpiValue("STRING:associative");
-                        rc9->VpiConstType(vpiStringConst);
-                        if (aidx[i9])
-                            if (auto* its9 = assocIndexTs(*aidx[i9], *arg)) {
-                                if (sx9)
-                                    setLoc(its9, sx9->sourceRange());
-                                // The index typespec is a package-scope
-                                // object like the formal's own (uhdm-cmp
-                                // recurses a typespec's Instance).
-                                if (tsInst && !its9->Instance())
-                                    its9->Instance(importCopyTsInst
-                                                       ? importCopyTsInst
-                                                       : tsInst);
-                                auto* irt9 = s.MakeRef_typespec();
-                                irt9->VpiParent(rc9);
-                                irt9->VpiFullName(ioFull);
-                                irt9->Actual_typespec(its9);
-                                rc9->Typespec(irt9);
-                            }
-                        r9->Right_expr(rc9);
-                    }
-                    if (!arv)
-                        arv = s.MakeRangeVec();
-                    arv->push_back(r9);
-                }
-                if (arv)
-                    io->Ranges(arv);
-            }
+            emitIoRanges34(*arg, io, fullName + sep + std::string(arg->name),
+                           tsInst);
             ios->push_back(io);
             // A class-method formal IS reachable from the body, but only an
             // if/case CONDITION ref actually binds it (classMethodNoBind).
