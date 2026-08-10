@@ -2346,6 +2346,14 @@ private:
     // their enum-const binds while the Earlgrey head loses its (see the law
     // at the ExprEmit site).
     bool genCaLhsSelect22 = false;
+    // § genCaEnumLhsGenLocalBinds23 — set with inGenScopeCaRhs when that
+    // cont_assign's LHS is a signal DECLARED IN THIS GEN SCOPE (or an
+    // ancestor generate scope of it).  This is the quarter of pass 22's
+    // enum-bind 2x2 that qa22 never measured: every one of its rows assigns a
+    // module OUTPUT PORT.  qb23 crosses the two and the LHS is the whole
+    // discriminator — inside ONE gen scope, `assign l_cmp = (s == K_B)` binds
+    // while `assign o3 = (l_tern == K_A)` two lines down does not.
+    bool genCaLhsGenLocal23 = false;
     // True while emitting a FOR-generate gen-scope cont_assign RHS: module
     // params in select bounds fold to typed constants (outside call args).
     bool genCaLoopParamFold = false;

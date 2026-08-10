@@ -12640,6 +12640,32 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                     // shape (DefaultPatternModule `localparam int unsigned CNT
                     // = 2`).
                     bool reducedP0 = false;
+                    // § dimFoldOverriddenParam23 — an OVERRIDDEN module
+                    // parameter is its own case, and neither of the two shapes
+                    // above: the dim folds to UINT at SIXTY-FOUR bits with no
+                    // typespec ref, which is Surelog substituting the
+                    // elaborated override as a fresh unsized unsigned
+                    // constant.  pt23 measures all five spellings side by side
+                    // in one child instance (golden, right-bound operand):
+                    //   parameter int unsigned, OVERRIDDEN   UINT:16 / 64
+                    //   parameter int (signed), OVERRIDDEN   UINT:16 / 64
+                    //   parameter (untyped),    OVERRIDDEN   UINT:16 / 64
+                    //   parameter int unsigned, default      UINT:8  / 32
+                    //   localparam = literal / = a bare ref  UINT:8  / 32
+                    //   localparam = ND * 2                  INT:16  / 32
+                    // so the discriminator is the OVERRIDE, not the declared
+                    // signedness and not parameter-vs-localparam: the
+                    // un-overridden `parameter` row measures identically to
+                    // the localparam one.  Corpus: ibex_core.sv:254
+                    // `pmp_cfg_t csr_pmp_cfg [PMPNumRegions]` with
+                    // `parameter int unsigned PMPNumRegions = 4` overridden to
+                    // 16 through TWO levels (top_earlgrey passes the literal
+                    // to rv_core_ibex, which passes its own parameter down),
+                    // where we emitted INT:16/64 — the top_earlgrey head after
+                    // this pass's first three laws.  A one-level LITERAL
+                    // override lands here too and used to take the
+                    // declared-width path (32).
+                    bool overriddenP0 = false;
                     if (!be0.bad()) {
                         auto& nv0 = stripImplicitConv(be0);
                         if (nv0.kind == ExpressionKind::NamedValue &&
@@ -12647,11 +12673,81 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                                 SymbolKind::Parameter) {
                             auto& pp0 = nv0.as<NamedValueExpression>()
                                             .symbol.as<ParameterSymbol>();
+                            overriddenP0 =
+                                !pp0.isLocalParam() && pp0.isOverridden();
                             if (auto* ie0 = pp0.getInitializer())
                                 reducedP0 =
                                     stripImplicitConv(*ie0).kind !=
                                     ExpressionKind::IntegerLiteral;
                         }
+                    }
+                    // ...and the bind can FAIL outright on a GEN-SCOPE local
+                    // (`R10E23_DIMDBG` says ibex_cs_registers.sv:740's
+                    // `pmp_cfg [PMPNumRegions]` inside `g_pmp_registers`
+                    // reaches here with be0.bad()), which used to fall through
+                    // to the declared-width default and emit 32.  Resolve the
+                    // name the same way § defDimPkgParamFold does, through the
+                    // declaring scope, so the override is still seen.  ONLY the
+                    // override flag is recovered: every other field keeps the
+                    // bad-bind defaults it had before.
+                    if (!overriddenP0 && be0.bad() &&
+                        sizeSyn->kind == syntax::SyntaxKind::IdentifierName) {
+                        std::string nm1(
+                            sizeSyn->as<syntax::IdentifierNameSyntax>()
+                                .identifier.valueText());
+                        if (auto sc1 = sym.getParentScope())
+                            if (auto* sy1 = Lookup::unqualified(*sc1, nm1);
+                                sy1 && sy1->kind == SymbolKind::Parameter) {
+                                auto& pp1 = sy1->as<ParameterSymbol>();
+                                overriddenP0 = !pp1.isLocalParam() &&
+                                               pp1.isOverridden();
+                            }
+                    }
+                    // R10E23_DIMDBG=1 prints one line per unpacked dim fold
+                    // (symbol, size-expression span, the resolved parameter,
+                    // and the three flags that pick the branch).  This is what
+                    // found the be0.bad() half of the law above: the corpus
+                    // gen-scope row reaches here with NO bound expression at
+                    // all, so every hypothesis about signedness and widths was
+                    // reasoning about a default.
+                    static const bool dimDbg23 = getenv("R10E23_DIMDBG");
+                    if (dimDbg23) {
+                        std::string nm9;
+                        if (!be0.bad()) {
+                            auto& nv9 = stripImplicitConv(be0);
+                            if (nv9.kind == ExpressionKind::NamedValue)
+                                nm9 = std::string(
+                                    nv9.as<NamedValueExpression>().symbol.name);
+                        }
+                        fprintf(stderr,
+                                "DIMDBG %s:%u:%u name=%s ovr=%d red=%d w0=%d "
+                                "dig=%s bad=%d\n",
+                                std::string(sym.name).c_str(),
+                                (unsigned)sm->getLineNumber(
+                                    sizeSyn->sourceRange().start()),
+                                (unsigned)sm->getColumnNumber(
+                                    sizeSyn->sourceRange().start()),
+                                nm9.c_str(), (int)overriddenP0, (int)reducedP0,
+                                (int)w0, digits.c_str(), (int)be0.bad());
+                    }
+                    if (overriddenP0) {
+                        sc->VpiSize(64);
+                        sc->VpiValue("UINT:" + digits);
+                        sc->VpiConstType(vpiUIntConst);
+                        ops->push_back(sc);
+                        auto* one1 = s.MakeConstant();
+                        one1->VpiSize(64);
+                        one1->VpiValue("INT:1");
+                        one1->VpiConstType(vpiIntConst);
+                        if (elabParamDim)
+                            one1->VpiParent(op);
+                        ops->push_back(one1);
+                        op->Operands(ops);
+                        r->Right_expr(op);
+                        setLoc(sc, sizeSyn->sourceRange());
+                        ranges->push_back(r);
+                        dt = &ua.elementType;
+                        continue;
                     }
                     if (reducedP0) {
                         sc->VpiSize(64);

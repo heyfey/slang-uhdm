@@ -5058,7 +5058,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         !defGenProcessEmit &&
                         !(inGenScopeCaRhs &&
                           (unitEnumSym9 ||
-                           !(caEnumSelPos22 || genCaLhsSelect22)))) {
+                           !(caEnumSelPos22 || genCaLhsSelect22 ||
+                             genCaLhsGenLocal23)))) {
                         if (auto eit = enumConstMap.find(&nv.symbol);
                             eit != enumConstMap.end() &&
                             eit->second->UhdmType() == UHDM::uhdmenum_const) {

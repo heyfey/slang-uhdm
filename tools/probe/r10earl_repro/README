@@ -108,6 +108,24 @@ cannot miss a vector:
         Build: bash tools/probe/r10earl22build.sh r10earl22a 22a.  NOTE the
         selector is a FULLNAME substring, never a file suffix: our ELABORATED
         objects carry an empty VpiFile.
+        RUN IT OVER THE WHOLE ARENA (pass 23): `"" 0 999999` prints all ~139k
+        ref_objs and `grep '^DIFF' | grep -v absent` is then the COMPLETE bind
+        residue table for the design, groupable by the G=/O= pair and by
+        signal@line — that table is what ranked pass 23 and is also its
+        regression check (it shows whether anything NEW started binding).  The
+        `<absent>` rows are fullname-PARENT differences, not cmp-relevant.
+../r10earl23a.cpp  THE ARENA OBJECT-EXISTENCE CENSUS (pass 23).  22a answers
+        "is this ref bound?"; this answers "does this OBJECT EXIST AT ALL, and
+        with what type?", which is the question a bisector note like `rel=100
+        VECTOR SIZE 20 vs 18` actually asks.  Every object whose VpiFullName
+        contains <substr> (and, optionally, whose type name contains
+        <typeSubstr>) prints as `G=xN O=xM <type> <fullname> @line:col`.  With
+        `"" enum_var` it read pass 23's law-1 family — seven missing enum_var
+        DECLARATIONS in the whole design — in one run, after the bisector had
+        reported them as a missing POINTER.  CHECK THE OBJECT EXISTS BEFORE
+        WRITING A BIND LAW.
+        Usage: /tmp/r10e23_23a <a.uhdm> <b.uhdm> <substr> [typeSubstr] [lo] [hi]
+        Build: bash tools/probe/r10earl23build.sh r10earl23a 23a.
 fcproj18.py <dump...>   projects a uhdm-dump onto its func_call / task_call
         objects — span, vpiName, and whether a vpiFunction / vpiTask binding
         follows — in file order, so the def view and the elab view of the same
@@ -1186,6 +1204,239 @@ already reports:
                              AllModules head (the wildcard-import bound fold).
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
+
+RANKED RESIDUE (measured after PASS 23 — next agent starts HERE; still 9
+AllModules + 5 TopModules = 14 heads and the census is BYTE-IDENTICAL for a
+FOURTH consecutive pass, which is again not a zero: bis23.sh peeled FIVE more
+layers off the top_earlgrey pair and the whole-arena BIND residue went
+1213 -> 346 rows.  READ THE PASS-23 BISECT STACK BELOW FIRST.)
+
+  (1) THE top_earlgrey PAIR, 2 heads, now at ibex_cs_registers.sv:795:44
+      inside `g_pmp_registers > g_pmp_csrs[0]` (r=601, the largest r on the
+      stack so far):
+        assign pmp_cfg_we[i] = csr_we_int &
+                               (csr_addr == (CSR_OFF_PMP_CFG + i[11:2]));
+      golden keeps a ref_obj 'CSR_OFF_PMP_CFG' BOUND to its enum_const where we
+      FOLD the whole read to `constant {ct=5 sz=12 dec=12'h3A0}`.  So this is a
+      FOLD-vs-KEEP law, not a bind law: the gen-scope CA RHS enum read must
+      survive as a ref in a FOR-GENERATE body nested inside an IF-GENERATE one.
+      Note pass 22's § genCaEnumBindsSelectOnly22 and this pass's law 2 are
+      about whether such a ref BINDS; here we do not even emit the ref.
+      Suspect § genCaLoopParamFold / § genCaChildLoopFold21.
+  (2) The 40 remaining `G=enum_const O=-` bind rows, all MODULE level, all one
+      family: tlul_adapter_sram's MODULE-LOCAL `typedef enum {OpWrite, OpRead,
+      OpUnknown} req_op_e` read from a module cont_assign at :131:50, :136:68,
+      :202:38, :202:48 and :219:48, times the EIGHT instances (u_tl_adapter_rom,
+      u_tl_adapter_eflash, u_tl_adapter_ram_main, u_hmac.u_tlul_adapter,
+      u_spi_device.u_tlul2sram, u_usbdev.u_tlul2sram,
+      u_flash_ctrl.u_to_{prog,rd}_fifo).  Golden binds all five; we bind none.
+      MEASURED NEGATIVE: qb23's M1/M2 controls (`assign m1 = (mop == OpR) ?
+      1'b1 : 1'b0;` / `assign m2 = (mop != OpW);` over a module-local typedef
+      enum) BIND on both sides, so the module-local typedef is NOT the feature.
+      What the corpus rows have that qb23 lacks: :131/:136/:202 sit inside a
+      `'{ ... }` ASSIGNMENT PATTERN RHS, and :219's comparison reads a STRUCT
+      MEMBER (`reqfifo_rdata.op == OpRead`) rather than a plain signal.  Start
+      by adding those two features to qb23.  In the same module AccessAck,
+      AccessAckData and Get (all PACKAGE enum consts) bind on both sides.
+  (3) The other bind residues in the whole-arena census (r10earl23_bind_after):
+      129 rows `G=logic_net O=-` and 165 rows `G=- O=logic_var` (we OVER-bind).
+      Neither moved this pass and neither is decoded; the over-bind half is the
+      cheaper one to attack because a targeted suppression shows up in the
+      census immediately.  Keyed by `signal @line:col` the whole 346-row table
+      is only NINE scopes:
+        127  rdata     @145:14  G=logic_net O=-   (rv_plic_target/prim_fifo?)
+         32  data_mux  @160:12  G=- O=logic_var   pinmux gen_mio_out
+         32  data_mux  @174:12  G=- O=logic_var   pinmux gen_mio_out
+         32  oe_mux    @175:12  G=- O=logic_var   pinmux gen_mio_out
+         32  sleep_mux @176:12  G=- O=logic_var   pinmux gen_mio_out
+         29  reqid_sub @95:12   G=- O=logic_var
+          8  x5 OpRead/OpWrite  G=enum_const O=-  residue (2) above
+          4  fifo_wptr/fifo_rptr @111                    G=- O=logic_var
+          2  entropy_i @315:38  G=logic_net O=-
+      The five pinmux rows are ONE statement family (`assign data_mux =
+      $bits(data_mux)'({periph_to_mio_i, 1'b0, 1'b1, 1'b0});` and its three
+      siblings, gen-local LHS + a SIZE CAST over a sys call) so one law should
+      take 128 of the 165 over-binds; note pass 22's § genCaSysCallArgBinds22
+      is the law that made those bind and the cast is the feature it did not
+      see.
+  (4) pt23's two LOCALPARAM rows — the SIZE half of § dimFoldReducedParam:
+        localparam int unsigned LR = ND;    golden UINT:8/32   ours INT:8/64
+        localparam int unsigned LM = ND*2;  golden INT:16/32   ours INT:16/64
+      That law's own witness (Scr1SvTests `localparam SCR1_IFU_Q_SIZE_HALF =
+      SCR1_IFU_Q_SIZE_WORD * 2`, golden INT:4/64) is UNTYPED, so the 64 is
+      probably the untyped localparam's own width and the law needs a
+      typed/untyped split.  pt23 already holds both rows; no corpus head yet.
+  (5) qb23's remaining head — the WHOLE-RHS CONSTANT FOLD of a gen-scope CA,
+      now in its FOURTH spelling (pass 21's qg21 R6, pass 22's qa22 R7/R8 and
+      qb22 L40 are the others):
+        assign l_bare = K_C;        golden ONE loc-less constant INT:2  ct=7
+        assign l_op   = K_A | K_B;  golden ONE loc-less constant UINT:1 ct=9
+      where we keep the refs/operation.  qb23 is the cleanest witness yet: it
+      is qb23's ONLY remaining difference, so the fold can be developed against
+      a 3-line uhdm-cmp.
+  (6) Unchanged from pass 22, re-read that block: the three hier_path families
+      (dm_csrs.sv:309 dropped index operand; flash_ctrl.sv:315 region_cfgs[8]
+      vs [MpRegions]; flash_phy.sv:129 hier_path vs ref_obj, r=4392),
+      work@jtag_mux (find the DESIGN-FINAL minter), work@sram2tlul (golden
+      KEEPS the top_pkg::TL_SZW cast), work@prim_keccak, def:work@prim_prince,
+      the smalls, and tl_main_pkg.sv:13:59 which is STILL both top_earlgrey
+      census heads (the census Compares each listing entry with a fresh context
+      and that param_assign comes first in Compare order, which is exactly why
+      the census has not moved for four passes while the bisector has).
+
+LANDED — PASS 23 (r10earl23; FOUR laws in THREE gate rounds, EVERY ROUND CLEAN
+— goldens 23/23 + u2r testflags 732 lines 0 change vs results/gate_uhdm2rtlil.csv
++ Surelog BOTH MODES 1589 lines 0 change, WHOLE-ROW incl. the dump column, vs
+results/golden_surelog.csv.  results/*.csv untouched: 0 movers, nothing improved
+that a baseline could be promoted to.)
+
+  HEADLINE: the head census is BYTE-IDENTICAL at 14 for the FOURTH consecutive
+  pass, and bis23.sh on work@top_earlgrey peeled FIVE layers:
+    pass-22 exit    ex_block_i > gen_multdiv > multdiv_i > gen_multiv >
+                    ibex_multdiv_fast.sv:192:7 mult_state_d   r=1
+    after law 1     wb_stage_i > g_writeback_stage >
+                    ibex_wb_stage.sv:77:42 WB_INSTR_OTHER     r=1
+    after law 2     wb_stage_i > g_writeback_stage >
+                    ibex_wb_stage.sv:99:36 rf_we_wb_q         r=1
+    after law 3     cs_registers_i > port csr_pmp_cfg_o >
+                    ibex_core.sv:254:30 array dim constant    r=2
+    after law 4a    cs_registers_i > g_pmp_registers >
+                    ibex_cs_registers.sv:740:51 dim constant  r=32
+    after law 4b    g_pmp_registers > g_pmp_csrs[0] >
+                    ibex_cs_registers.sv:795:44 CSR_OFF_PMP_CFG  r=601
+  and the WHOLE-ARENA BIND RESIDUE (r10earl22a over the entire design, DIFF
+  rows whose key exists on both sides) went 1213 -> 346:
+    G=logic_var O=-    864 -> 0     (laws 2+3)
+    G=enum_const O=-    43 -> 40    (law 2; the 40 are residue (2) above)
+    G=- O=logic_var    165 -> 165   (no new OVER-binding introduced)
+    G=logic_net O=-    129 -> 129
+  Conversions: NONE — 0 movers, Earlgrey_0_1 still CMP_NOTEQUAL.
+
+  METHOD HEADLINE: **CENSUS THE WHOLE ARENA, NOT THE SCOPE.**  Pass 22 ran
+  r10earl22a over one file's line range; run with an EMPTY substring and
+  `0 999999` it prints all 139k ref_objs, and one `grep -v absent` (the absent
+  rows are fullname-PARENT differences, which are not cmp-relevant) leaves 1213
+  real bind diffs that group into FOUR shapes by `G=/O=` pair and then into
+  FOUR SCOPES by name+line.  Every law below was written from that table, and
+  the table is also the regression check: it shows at a glance that nothing new
+  started binding.
+
+  1. § genScopeEnumTypedef23 + § genScopeEnumVar23 (ModuleEmit ~11334 and
+     ~11662).  AN ENUM-TYPED GEN-BLOCK LOCAL IS AN enum_var IN THE ELAB
+     gen_scope, and a gen-block-local `typedef enum` LISTS in that gen_scope's
+     vpiTypedef.  genLocalVarClass only ever knew the scalar/integer forms and
+     the gen-block typedef loop only knew PackedStructType, so BOTH objects
+     were dropped: the pass-22 exit frontier's own note was `rel=100 VECTOR
+     SIZE 20 vs 18` plus `rel=725 1 vs 0` — CHECK WHETHER THE OBJECT EXISTS
+     BEFORE WRITING A BIND LAW, a bind cannot point at an object that was never
+     minted.  The new probe r10earl23a (whole-arena census keyed by
+     VpiFullName + UhdmName substring) says the family is exactly SEVEN
+     enum_vars in the whole design and covers both spellings — a GEN-LOCAL
+     typedef enum (ibex_multdiv_fast `mult_fsm_e`, prim_diff_decode `state_e`)
+     and a PACKAGE one (ibex_wb_stage `wb_instr_type_e`).  qa23.sv reproduces
+     both plus module-level controls and converts to fully CMP_EQUAL.  The DEF
+     view keeps dropping them (golden's named_begin stmt-ifies only the plain
+     logic locals), so this is elab-only.
+  2. § genCaEnumLhsGenLocalBinds23 (UhdmExporter.h genCaLhsGenLocal23,
+     ModuleEmit ~12580, ExprEmit ~5033).  THE UNMEASURED QUARTER of pass 22's
+     § genCaEnumBindsSelectOnly22: in a gen-scope cont_assign RHS an enum const
+     ALSO binds when the CA's LHS is a signal declared in THIS gen scope or in
+     an ANCESTOR generate scope.  Every qa22 row assigned a module OUTPUT PORT,
+     which is why the quarter was invisible.  qb23.sv puts both LHS shapes in
+     ONE gen scope and the LHS is the whole discriminator — `assign l_cmp =
+     (s == K_B)` binds while `assign o3 = (l_tern == K_A)` four lines down does
+     not — and its gen_outer/gen_inner row says ANCESTOR scopes count.  Corpus:
+     ibex_wb_stage.sv:77 `assign wb_done = (wb_instr_type_q == WB_INSTR_OTHER)
+     | lsu_resp_valid_i;` and ibex_cs_registers.sv:993/994 `assign
+     tmatch_control_we = csr_we_int & debug_mode_i & (csr_addr_i ==
+     CSR_TDATA1);`.  Ternary BRANCHES bind here too, so pass 22's no-bind rows
+     were all port-LHS rows.
+  3. § genCaSelLhsDeepBindGenLocal23 (ModuleEmit ~13110).  THE SELECT-LHS
+     QUARTER of § genCaOpDeepBindGenLocal20 — the single largest bind residue
+     in the design, 864 rows.  A SELECT LHS turns the deep gen-local walk on
+     just as a gen-local LHS does; ps20 only ever measured a gen-local LHS
+     against a WHOLE module net.  ps23.sv measures all three select spellings
+     as BOUND (element, part, member, plus a ternary under an element select)
+     while its module-net-LHS operation row stays unbound and its
+     ANCESTOR-scope row stays unbound too — deep20's own `blk.members()` scan
+     already limits the reach to THIS block.  Corpus: rv_plic_target.sv:101-103
+     (`assign is_tree[Pa] = (sel & is_tree[C1]) | ((~sel) & is_tree[C0])`, 127
+     gen-scope instances x 6 refs), prim_arbiter_tree.sv:146-152,
+     pinmux.sv:181-182 and ibex_wb_stage.sv:99.
+     CHILD-INSTANCE TRAP, AGAIN: a TOP-MODULE ps23 measures the OPPOSITE way
+     round — golden leaves the module-net-LHS row unbound and OURS binds it —
+     so the first cut of this witness read like a refutation.  Wrap the gen
+     scope in a child instance before believing anything about gen-scope binds.
+  4. § dimFoldOverriddenParam23 (TypeEmit ~12356, in buildUnpackedRanges).  An
+     OVERRIDDEN module parameter sizing an unpacked dim folds to UINT at
+     SIXTY-FOUR bits with NO typespec ref — a third shape next to the law's
+     existing "declared width + ts ref" and § dimFoldReducedParam's "INT at
+     64, bare".  pt23.sv measures five spellings side by side in one child
+     instance (golden's right-bound operand):
+       parameter int unsigned, OVERRIDDEN   UINT:16 / 64
+       parameter int (signed),  OVERRIDDEN  UINT:16 / 64
+       parameter (untyped),     OVERRIDDEN  UINT:16 / 64
+       parameter int unsigned, DEFAULT      UINT:8  / 32
+       localparam = literal / = a bare ref  UINT:8  / 32
+       localparam = ND * 2                  INT:16  / 32
+     so the discriminator is the OVERRIDE, not the declared signedness and not
+     parameter-vs-localparam: the un-overridden `parameter` row measures
+     IDENTICALLY to the localparam one.  Corpus: ibex_core.sv:254 `pmp_cfg_t
+     csr_pmp_cfg [PMPNumRegions]` where `parameter int unsigned PMPNumRegions =
+     4` is overridden to 16 through TWO levels (top_earlgrey hands the literal
+     to rv_core_ibex, which hands its own parameter to ibex_core).  A ONE-level
+     literal override reproduces nothing — it used to take the declared-width
+     path and golden still wants 64 — so BUILD THE OVERRIDE CHAIN THE CORPUS
+     HAS, not the shortest one that compiles.
+     4b. THE SAME LAW HAS A SECOND ENTRY POINT.  ibex_cs_registers.sv:740's
+     `pmp_cfg [PMPNumRegions]` inside `g_pmp_registers` reaches the fold with
+     `Expression::bind` FAILING (be0.bad()), so it silently took the
+     declared-width default no matter what the parameter said.  The new
+     R10E23_DIMDBG=1 trace (one line per dim fold: symbol, size-expression
+     span, resolved parameter, ovr/red/w0/bad) is what found it — every
+     hypothesis before that trace was reasoning about a default.  The fix
+     recovers ONLY the override flag, through Lookup::unqualified on the
+     declaring scope, the same way § defDimPkgParamFold resolves its name.
+     pt23's gen-scope rows do NOT reproduce the bad bind (they bind fine), so
+     this half is proved by the corpus bisect + the gate, not by a witness.
+
+PASS-23 OPS NOTES
+  * THE WHOLE-ARENA CENSUS IS THE RANKING TOOL.  `r10e23_22a <g> <o> "" 0
+    999999 | grep '^DIFF' | grep -v absent` is a 346-row table of every bind
+    difference left in Earlgrey; group it by the `G=/O=` pair, then by
+    `signal @line:col`, and the four scopes that own 96% of the rows fall out.
+    IGNORE the `<absent>` rows: our elaborated fullnames spell a gen path
+    differently (`ex_block_i.multdiv_i...` vs
+    `ex_block_i.gen_multdiv_single_cycle.multdiv_i...`) and fullname is not
+    cmp-relevant.
+  * CHECK THE OBJECT EXISTS BEFORE WRITING A BIND LAW.  Law 1's whole family
+    looked like seven missing pointers and was seven missing DECLARATIONS.
+    The bisector says so itself when it prints a `VECTOR SIZE n vs m` note next
+    to the scope — read those notes.
+  * A LAW WHOSE WITNESS ROWS ALL SHARE ONE LHS HAS AN UNMEASURED QUARTER.  Two
+    of this pass's four laws are quarters that pass 20 and pass 22 could not
+    see because every row in qa22/ps20 assigned a module port or a plain net.
+    When writing the witness, vary the LHS as deliberately as the RHS.
+  * BUILD THE PARAMETER CHAIN THE CORPUS HAS.  Law 4's one-level version of
+    pt23 measured a DIFFERENT difference (size 32 vs 64) from the corpus's
+    (ct=7 vs ct=9) and would have sent the pass after the wrong field.
+  * AN ENV-GATED TRACE AT THE BRANCH POINT BEATS A HYPOTHESIS.  R10E23_DIMDBG
+    took one build and immediately said `bad=1`, which no amount of reading the
+    surrounding law comments would have.
+
+PASS-23 TOOLS.  {run,bis,nul,hdiff,cen,ins,sub,dmp,dbg,gate,sweep}23.sh are the
+pass-22 scripts with W= re-pointed and the /tmp tags bumped to r10earl23 (probe
+binaries under /tmp/r10e23_*); r10earl23build.sh builds a probe into
+/tmp/r10e23_<tag>.  NEW PROBE — ../r10earl23a.cpp: a WHOLE-ARENA OBJECT census
+keyed by a VpiFullName substring plus an optional UhdmName substring, printing
+`G=xN O=xM  <type>  <fullname> @line:col`.  Where r10earl22a answers "is this
+ref bound?", this answers "does this OBJECT EXIST AT ALL, and with what type?",
+which is the question a `VECTOR SIZE 20 vs 18` note asks; it read law 1's whole
+family (`""` + `enum_var` = seven rows in the entire design) in one run.
+Usage: /tmp/r10e23_23a <a.uhdm> <b.uhdm> <fullnameSubstr> [typeSubstr] [lo] [hi].
+Witnesses: qa23 (law 1), qb23 (law 2 + residue (5)), ps23 (law 3), pt23 (law 4
++ residue (4)).  qa23 and ps23 are fully CMP_EQUAL; qb23 and pt23 are down to
+their residue rows only.
 
 RANKED RESIDUE (measured after PASS 22 — next agent starts HERE; still 9
 AllModules + 5 TopModules = 14 heads, head LINES unchanged for a THIRD pass.

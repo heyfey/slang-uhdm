@@ -11332,13 +11332,32 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     continue;
                 }
                 auto& ct = ta.targetType.getType().getCanonicalType();
-                if (ct.kind != SymbolKind::PackedStructType)
+                if (ct.kind != SymbolKind::PackedStructType &&
+                    ct.kind != SymbolKind::EnumType)
                     continue;
                 const syntax::SyntaxNode* tsyn = nullptr;
                 if (auto syn = ta.getSyntax();
                     syn && syn->kind == syntax::SyntaxKind::TypedefDeclaration)
                     tsyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
                 std::string tfull = fullName + "." + std::string(ta.name);
+                // § genScopeEnumTypedef23 — a gen-block-local `typedef enum`
+                // lists in the ELAB gen_scope's vpiTypedef exactly the way a
+                // packed struct does, and its object is what the block's
+                // enum_vars point at.  The whole span (typedef..;) is the
+                // object's location, unlike the struct's TYPE-only span:
+                // qa23's `gen_fsm_e` is 30:5..32:17 where the type syntax
+                // alone ends at 32:5.
+                if (ct.kind == SymbolKind::EnumType) {
+                    auto* ets = buildEnumTs(ct.as<EnumType>(), tsyn, tfull);
+                    ets->VpiName(ta.name);
+                    ets->VpiParent(gs);
+                    ets->Instance((UHDM::instance*)(UHDM::BaseClass*)gs);
+                    if (auto syn = ta.getSyntax())
+                        setLoc(ets, syn->sourceRange());
+                    typedefTs[&ta] = ets;
+                    gtds.emplace_back(std::string(ta.name), ets);
+                    continue;
+                }
                 auto* sts = buildStructTs(ct.as<PackedStructType>(), true,
                                           tfull);
                 sts->VpiName(ta.name);
@@ -11641,6 +11660,39 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (caDrivenVar(gm))
                 continue; // emitted as a logic_net above
             auto& vct = gm.as<VariableSymbol>().getType().getCanonicalType();
+            // § genScopeEnumVar23 — an ENUM-TYPED gen-block local is an
+            // enum_var in the ELAB gen_scope, sharing the typedef's typespec
+            // object, exactly as a module-level one does (makeVar).
+            // genLocalVarClass only ever knew the scalar/integer forms, so
+            // every one of these declarations was DROPPED: the whole-arena
+            // enum_var census over Earlgrey says the family is 7 objects in
+            // three scopes and both spellings appear — a GEN-LOCAL typedef
+            // enum (ibex_multdiv_fast's mult_fsm_e, prim_diff_decode's
+            // state_e) and a PACKAGE one (ibex_wb_stage's wb_instr_type_e).
+            // The DEF view keeps dropping them: golden's named_begin
+            // stmt-ifies only the plain logic locals (qa23).
+            if (vct.kind == SymbolKind::EnumType) {
+                UHDM::typespec* eets = nullptr;
+                if (auto* dtE = gm.getDeclaredType())
+                    eets = sharedAliasTs(dtE->getType());
+                if (eets && eets->UhdmType() == UHDM::uhdmenum_typespec) {
+                    std::string vfullE = fullName + "." + std::string(gm.name);
+                    auto* ev = s.MakeEnum_var();
+                    ev->VpiName(gm.name);
+                    ev->VpiFullName(vfullE);
+                    ev->VpiParent(gs);
+                    ev->VpiVisibility(1);
+                    setLoc(ev, nameSpan(gm.location, gm.name));
+                    auto* ert = s.MakeRef_typespec();
+                    ert->VpiFullName(vfullE);
+                    ert->VpiParent(ev);
+                    ert->Actual_typespec(eets);
+                    ev->Typespec(ert);
+                    netMap[&gm] = ev;
+                    gvars->push_back(ev);
+                    continue;
+                }
+            }
             // A PACKED array over a struct/enum typedef (`td1 [3:0] pipe;`)
             // elaborates exactly as at module level: packed_array_var with
             // one range per packed dim and a struct/enum_var element bound to
@@ -12534,6 +12586,35 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         lk22 == ExpressionKind::RangeSelect ||
                         lk22 == ExpressionKind::MemberAccess;
                 }
+                // § genCaEnumLhsGenLocalBinds23 — the OTHER LHS shape the
+                // enum-bind law turns on: a signal declared in THIS gen scope
+                // or in an ancestor GENERATE scope of it (the same reach
+                // § genCaLiteralRhsLhsNoBind22's bindGenLocal9 gives its Lhs).
+                // qb23's gen_outer/gen_inner row is the ancestor half and
+                // golden binds it.
+                genCaLhsGenLocal23 = false;
+                {
+                    auto& lc23 = stripImplicitConv(ae.left());
+                    if (lc23.kind == ExpressionKind::NamedValue) {
+                        auto& sy23 = lc23.as<NamedValueExpression>().symbol;
+                        auto* sp23 = sy23.getParentScope();
+                        if (sp23 && sp23->asSymbol().kind ==
+                                        SymbolKind::GenerateBlock) {
+                            const Scope* w23 = static_cast<const Scope*>(&blk);
+                            for (int g23 = 0; w23 && g23 < 16; g23++) {
+                                if (w23 == sp23) {
+                                    genCaLhsGenLocal23 = true;
+                                    break;
+                                }
+                                auto wk23 = w23->asSymbol().kind;
+                                if (wk23 != SymbolKind::GenerateBlock &&
+                                    wk23 != SymbolKind::GenerateBlockArray)
+                                    break;
+                                w23 = w23->asSymbol().getParentScope();
+                            }
+                        }
+                    }
+                }
                 // A STRUCT-typed pattern RHS flattens in the elab view:
                 // UhdmWriter runs ExprEval::flattenPatternAssignments, whose
                 // struct branch replaces the op's tagged_pattern operands
@@ -12582,6 +12663,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 }
                 inGenScopeCaRhs = false;
                 genCaLhsSelect22 = false;
+                genCaLhsGenLocal23 = false;
                 genCaLoopParamFold = false;
                 genCaChildLoopFold21 = false;
                 genCaLhsParamFold = false;
@@ -13022,6 +13104,27 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                 break;
                             }
                 }
+                // § genCaSelLhsDeepBindGenLocal23 — a SELECT LHS turns the
+                // deep walk on as well.  ps20 only ever measured a gen-local
+                // LHS against a WHOLE module net, and the select quarter is
+                // the single largest bind residue in Earlgrey (864
+                // `G=logic_var O=-` rows over rv_plic_target :101-103,
+                // prim_arbiter_tree :146-152, pinmux :181-182 and
+                // ibex_wb_stage :99, every one of them `assign <sig>[i] =
+                // <expr over a gen-local>`).  ps23's eight rows in ONE gen
+                // scope of a CHILD instance measure all three select spellings
+                // as BOUND (element :36, part :39, member :40, and a ternary
+                // under an element select :38) while its module-net-LHS
+                // operation row stays unbound and its ANCESTOR-scope row (N1)
+                // stays unbound too — deep20's own member scan already
+                // restricts the reach to THIS block, which is exactly right.
+                // A TOP-MODULE version of ps23 measures the opposite way round
+                // (we over-bind there): pass 22's child-instance trap again.
+                if (!lhsGenLocal20 &&
+                    (lc20.kind == ExpressionKind::ElementSelect ||
+                     lc20.kind == ExpressionKind::RangeSelect ||
+                     lc20.kind == ExpressionKind::MemberAccess))
+                    lhsGenLocal20 = true;
                 if (lhsGenLocal20 && ca->Rhs()) {
                     std::function<void(UHDM::any*)> deep20 =
                         [&](UHDM::any* n20) {
