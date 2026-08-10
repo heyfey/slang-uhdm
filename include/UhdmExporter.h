@@ -1418,7 +1418,19 @@ private:
     // See the decode at the definition (TaskFuncEmit.cpp).
     UHDM::array_var* makeQueueDynArrayVar(const slang::ast::Symbol& vs,
                                           const std::string& afull,
-                                          UHDM::any* parent);
+                                          UHDM::any* parent,
+                                          UHDM::instance* tsInst);
+    // § assocLocalArrayVar40 — the same array_var shape for a BODY-LOCAL
+    // ASSOCIATIVE array; null for any other type.  `tsInst` is the vpiInstance
+    // the element / index typespecs take (the flat-local rule), `promoteNamed`
+    // says whether an index written as a NAME compiles as an associative
+    // dimension here (only the ELABORATED package listing does).  See the
+    // decode at the definition (TaskFuncEmit.cpp).
+    UHDM::array_var* makeAssocArrayVar(const slang::ast::Symbol& vs,
+                                       const std::string& afull,
+                                       UHDM::any* parent,
+                                       UHDM::instance* tsInst,
+                                       bool promoteNamed);
     // One uhdm range per unpacked dimension (bounds from ConstantRange, loc
     // from the declarator dimension syntax), each parented at `parent`.
     // `defDimRefPrefix` (def-view port array_typespec only): a PARAM-sized

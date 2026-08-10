@@ -852,12 +852,27 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // element var (listed FIRST, parented at the array) and
                     // the array_var itself. ApbSlave's
                     // `svunit_testcase match[$]`.
-                    if (auto* qav = makeQueueDynArrayVar(bm, bfull, b)) {
+                    if (auto* qav =
+                            makeQueueDynArrayVar(bm, bfull, b, pkgScopeInst)) {
                         if (auto* qregs = qav->Variables())
                             for (auto* qr : *qregs)
                                 vars->push_back(qr);
                         vars->push_back(qav);
                         blockMap[&bm] = qav;
+                        continue;
+                    }
+                    // § assocLocalArrayVar40 — and so is an ASSOCIATIVE one.
+                    // NEVER promoted here: Surelog's elaboration pass reaches
+                    // a package task_func's own vpiVariables and no deeper, so
+                    // a NESTED-`begin` local keeps the SIZE model in both
+                    // views (t57a `fBlkAssoc57::bacls`).
+                    if (auto* aav = makeAssocArrayVar(bm, bfull, b,
+                                                      pkgScopeInst, false)) {
+                        if (auto* aregs = aav->Variables())
+                            for (auto* ar : *aregs)
+                                vars->push_back(ar);
+                        vars->push_back(aav);
+                        blockMap[&bm] = aav;
                         continue;
                     }
                     // Block-local var typespecs keep their range bounds

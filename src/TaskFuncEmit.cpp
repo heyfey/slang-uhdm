@@ -838,7 +838,8 @@ static void stampElemTsInstance(UHDM::typespec* t0, UHDM::instance* inst) {
 // queue or dynamic array.
 UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
                                                     const std::string& afull,
-                                                    UHDM::any* parent) {
+                                                    UHDM::any* parent,
+                                                    UHDM::instance* tsInst) {
     auto* dt0 = vs.getDeclaredType();
     if (!dt0)
         return nullptr;
@@ -853,8 +854,17 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     tfContext = true;
     UHDM::typespec* elemTs = makeTypespec(vs);
     tfContext = savedTfCtx0;
-    // NOTE: no vpiInstance on the element ts — Surelog leaves a class-method
-    // local's typespec unscoped (measured).
+    // § queueLocalElemTsInstance40 — the element typespec carries the same
+    // vpiInstance the FIXED-array arm and the flat local already take: the
+    // home PACKAGE for a package free function or an OUT-OF-BODY class method,
+    // nothing for an IN-BODY one.  The earlier note here ("Surelog leaves a
+    // class-method local's typespec unscoped") had only ever seen the in-body
+    // spelling, where `tsInst` is null anyway; t57a measures BOTH halves in one
+    // golden — `oob57::mQueue57`/`mDyn57` are `int_typespec@pk57` and
+    // `inb57::iQueue57` is unscoped — and uhdm-cmp RECURSES a typespec's
+    // Instance, so the missing stamp was a compared field.
+    if (elemTs && tsInst && !elemTs->Instance())
+        elemTs->Instance(tsInst);
     auto* av = s.MakeArray_var();
     av->VpiName(vs.name);
     av->VpiFullName(afull);
@@ -934,6 +944,257 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     // A foreach over this queue / dynamic array binds THIS array_typespec
     // (its loop variables still take the ELEMENT type — probe r10c4_p6).
     arrayVarArrayTs[&vs] = ats;
+    return av;
+}
+
+// § assocLocalArrayVar40 — a BODY-LOCAL ASSOCIATIVE array is an `array_var`
+// with its ELEMENT variable under vpiReg and an array_typespec carrying one
+// range per written dimension, exactly like the queue / dynamic / fixed forms
+// above.  We were emitting the ELEMENT type as a flat variable instead, which
+// is 91 of the 383 right-NAME/wrong-UHDM-TYPE rows on all four UVM-4 tests —
+// `bit pred_of_succ[uvm_phase]`, `int visited[uvm_phase]`,
+// `uvm_port_component_base provided_to_port_list[string]`, every one of them a
+// body local of an OUT-OF-BODY class method, every one of them `array_var` in
+// golden and `logic_var` in ours.  Decoded on tools/probe/r10uvm40repro/t57a,
+// which carries all five declaration forms and both negatives in ONE golden:
+//
+//   * REACH is every BLOCK-ITEM body — out-of-body class method, in-body class
+//     method, package free function, task, nested `begin`, module subroutine.
+//     The § blockItems9 TF-ITEM production is the negative: t57a's paren-less
+//     `function void iNoParen57;` keeps a flat ELEMENT variable (`int npa` ->
+//     int_var), so the caller applies the same gate the queue arm already has.
+//   * The RANGE FORM follows Surelog's GRAMMAR, the same split
+//     § assocIoRange9 decoded for an associative FORMAL: an index written as a
+//     type KEYWORD (`[string]`, `[int]`) is paAssociative_dimension — a
+//     `UINT:0 : STRING:associative` marker whose right constant carries the
+//     index typespec — while an index written as a NAME (`[uvm_phase]`,
+//     `[key57]`) parses as a constant_expression, i.e. a SIZE, and becomes the
+//     ordinary `<name> - 1` decrement (an operation vpiSubOp over a ref_obj
+//     and an INT:1) with NO vpiIndexTypespec at all.
+//   * ...and only the ELABORATED package listing promotes the NAME spelling
+//     back to the associative form (vpiArrayType 3 + vpiIndexTypespec).  t57a
+//     measures BOTH halves of that: `oob57::mAssocCls57::acls`,
+//     `tAssoc57::taq` and `fAssocCls57::facls` are size-model in the DEF
+//     listing and assoc-model in the ELAB one, while a NESTED-`begin` local
+//     (`fBlkAssoc57::bacls`) and an IN-BODY class method's local
+//     (`inb57::iAssocCls57::iacls`) stay size-model in every view — Surelog's
+//     ElaborationStep array_var pass reaches a package task_func's own
+//     vpiVariables and nothing deeper.  `promoteNamed` IS that gate.
+//   * the ELEMENT and INDEX typespecs carry the same vpiInstance the flat
+//     local already took (the package for an out-of-body method, nothing for
+//     an in-body one) — a compared field, since uhdm-cmp recurses Instance().
+//
+// Returns null for anything that is not an all-associative declaration; a
+// MIXED shape (`int a[string][2]`) is deliberately left to the old path
+// because no golden measures it.
+UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
+                                                 const std::string& afull,
+                                                 UHDM::any* parent,
+                                                 UHDM::instance* tsInst,
+                                                 bool promoteNamed) {
+    auto* dt0 = vs.getDeclaredType();
+    if (!dt0)
+        return nullptr;
+    if (dt0->getType().getCanonicalType().kind !=
+        SymbolKind::AssociativeArrayType)
+        return nullptr;
+    // Every associative dimension, outermost first, and the innermost element.
+    std::vector<const Type*> aidx;
+    const Type* elem0 = &dt0->getType();
+    for (;;) {
+        auto& cc0 = elem0->getCanonicalType();
+        if (cc0.kind != SymbolKind::AssociativeArrayType)
+            break;
+        aidx.push_back(cc0.as<AssociativeArrayType>().indexType);
+        elem0 = &cc0.as<AssociativeArrayType>().elementType;
+    }
+    if (aidx.empty())
+        return nullptr;
+    switch (elem0->getCanonicalType().kind) {
+        case SymbolKind::FixedSizeUnpackedArrayType:
+        case SymbolKind::DynamicArrayType:
+        case SymbolKind::QueueType:
+            return nullptr;
+        default:
+            break;
+    }
+    // The declarator's written dimensions, so each range and index typespec is
+    // spanned at the `[...]` it came from and the KEYWORD/NAME split can be
+    // read off the selector's syntax kind (the same test emitAssocDims makes).
+    std::vector<const syntax::VariableDimensionSyntax*> dims;
+    if (auto dsyn0 = vs.getSyntax();
+        dsyn0 && dsyn0->kind == syntax::SyntaxKind::Declarator)
+        for (auto d0 : dsyn0->as<syntax::DeclaratorSyntax>().dimensions)
+            dims.push_back(d0);
+    auto selOf = [&](size_t i) -> const syntax::ExpressionSyntax* {
+        if (i >= dims.size())
+            return nullptr;
+        auto* d0 = dims[i];
+        if (!d0->specifier)
+            return nullptr;
+        auto* rd0 =
+            d0->specifier->as_if<syntax::RangeDimensionSpecifierSyntax>();
+        if (!rd0 || rd0->selector->kind != syntax::SyntaxKind::BitSelect)
+            return nullptr;
+        return rd0->selector->as<syntax::BitSelectSyntax>().expr.get();
+    };
+    auto namedIdx0 = [&](size_t i) {
+        auto* e0 = selOf(i);
+        return e0 && (e0->kind == syntax::SyntaxKind::IdentifierName ||
+                      e0->kind == syntax::SyntaxKind::ScopedName);
+    };
+    // Is dimension i compiled as an ASSOCIATIVE dimension here?  A keyword
+    // always is; a NAME only in the promoted (elaborated-listing) view.
+    auto assocDim0 = [&](size_t i) { return !namedIdx0(i) || promoteNamed; };
+    bool savedTfCtx0 = tfContext;
+    tfContext = true;
+    UHDM::typespec* elemTs = makeTypespec(vs);
+    tfContext = savedTfCtx0;
+    if (elemTs && tsInst && !elemTs->Instance())
+        elemTs->Instance(tsInst);
+    auto* av = s.MakeArray_var();
+    av->VpiName(vs.name);
+    av->VpiFullName(afull);
+    av->VpiParent(parent);
+    av->VpiArrayType(assocDim0(0) ? vpiAssocArray : vpiStaticArray);
+    setLoc(av, nameSpan(vs.location, vs.name));
+    auto* ats = s.MakeArray_typespec();
+    {
+        // Through the CLOSING bracket of the last written dimension — one
+        // short of it while the leading dimension is still the un-promoted
+        // SIZE form, which is where Surelog's two compiles differ.
+        SourceLocation aEnd0 = vs.location + vs.name.size();
+        if (!dims.empty())
+            aEnd0 = dims.back()->sourceRange().end() -
+                    (assocDim0(0) ? 0 : 1);
+        setLoc(ats, SourceRange(vs.location, aEnd0));
+    }
+    auto* rs0 = s.MakeRangeVec();
+    for (size_t i0 = 0; i0 < aidx.size(); i0++) {
+        auto* d0 = i0 < dims.size() ? dims[i0] : nullptr;
+        auto* sx0 = selOf(i0);
+        auto* r0 = s.MakeRange();
+        r0->VpiParent(ats);
+        if (d0)
+            setLoc(r0, d0->sourceRange());
+        auto* lc0 = s.MakeConstant();
+        lc0->VpiParent(r0);
+        lc0->VpiDecompile("0");
+        lc0->VpiSize(64);
+        lc0->VpiValue("UINT:0");
+        lc0->VpiConstType(vpiUIntConst);
+        r0->Left_expr(lc0);
+        // The index typespec of this dimension, spanned at its selector.
+        UHDM::typespec* its0 = nullptr;
+        if (assocDim0(i0) && aidx[i0])
+            if ((its0 = assocIndexTs(*aidx[i0], vs))) {
+                if (sx0)
+                    setLoc(its0, sx0->sourceRange());
+                else if (d0)
+                    setLoc(its0, SourceRange(d0->sourceRange().start() + 1,
+                                             d0->sourceRange().end() - 1));
+                if (tsInst && !its0->Instance())
+                    its0->Instance(tsInst);
+                // An `[int]`-style index keeps its SIGN.  predefIntTypespec
+                // deliberately drops vpiSigned because the io_decl / local
+                // copy Surelog hands back is the unsigned-looking one
+                // (PreprocFunc), but the INDEX typespec of an associative
+                // dimension carries it — t57a `mAssocInt57::aint`, where it
+                // was the last cmp difference left in the arm.  Only the
+                // freshly-minted predefined-integer arm is touched; a typedef
+                // index resolves to a SHARED object that must not be mutated.
+                if (aidx[i0]->getCanonicalType().kind ==
+                        SymbolKind::PredefinedIntegerType &&
+                    aidx[i0]->isSigned() &&
+                    its0->UhdmType() == UHDM::uhdmint_typespec)
+                    ((UHDM::int_typespec*)its0)->VpiSigned(true);
+            }
+        if (!assocDim0(i0)) {
+            // The SIZE model: `<name> - 1`, exactly as § assocIoRange9 builds
+            // it for an associative formal written the same way.
+            if (sx0)
+                setLoc(r0, sx0->sourceRange());
+            auto* op0 = s.MakeOperation();
+            op0->VpiParent(r0);
+            op0->VpiOpType(vpiSubOp);
+            auto* ops0 = s.MakeAnyVec();
+            auto* ro0 = s.MakeRef_obj();
+            ro0->VpiParent(op0);
+            std::string in0;
+            if (sx0) {
+                setLoc(op0, sx0->sourceRange());
+                setLoc(ro0, sx0->sourceRange());
+                if (sx0->kind == syntax::SyntaxKind::IdentifierName)
+                    in0 = std::string(sx0->as<syntax::IdentifierNameSyntax>()
+                                          .identifier.valueText());
+                else {
+                    in0 = sx0->toString();
+                    while (!in0.empty() &&
+                           std::isspace((unsigned char)in0.front()))
+                        in0.erase(in0.begin());
+                    while (!in0.empty() &&
+                           std::isspace((unsigned char)in0.back()))
+                        in0.pop_back();
+                }
+            }
+            ro0->VpiName(in0);
+            ops0->push_back(ro0);
+            auto* one0 = s.MakeConstant();
+            one0->VpiValue("INT:1");
+            one0->VpiConstType(vpiIntConst);
+            one0->VpiSize(64);
+            ops0->push_back(one0);
+            op0->Operands(ops0);
+            r0->Right_expr(op0);
+        }
+        else {
+            auto* rc0 = s.MakeConstant();
+            rc0->VpiParent(r0);
+            rc0->VpiDecompile("associative");
+            rc0->VpiSize(0);
+            rc0->VpiValue("STRING:associative");
+            rc0->VpiConstType(vpiStringConst);
+            if (its0) {
+                auto* irt0 = s.MakeRef_typespec();
+                irt0->VpiParent(rc0);
+                irt0->Actual_typespec(its0);
+                rc0->Typespec(irt0);
+            }
+            r0->Right_expr(rc0);
+        }
+        // vpiIndexTypespec is the OUTERMOST dimension's index type only.
+        if (i0 == 0 && its0) {
+            auto* xrt0 = s.MakeRef_typespec();
+            xrt0->VpiParent(ats);
+            xrt0->Actual_typespec(its0);
+            ats->Index_typespec(xrt0);
+        }
+        rs0->push_back(r0);
+    }
+    ats->Ranges(rs0);
+    auto* ert0 = s.MakeRef_typespec();
+    ert0->VpiParent(ats);
+    ert0->Actual_typespec(elemTs);
+    ats->Elem_typespec(ert0);
+    auto* art0 = s.MakeRef_typespec();
+    art0->VpiFullName(afull);
+    art0->VpiParent(av);
+    art0->Actual_typespec(ats);
+    av->Typespec(art0);
+    auto* reg0 = makeReturnVar(s, *elem0);
+    reg0->VpiParent(av);
+    reg0->VpiFullName(afull);
+    setLoc(reg0, nameSpan(vs.location, vs.name));
+    auto* rrt0 = s.MakeRef_typespec();
+    rrt0->VpiFullName(afull);
+    rrt0->VpiParent(reg0);
+    rrt0->Actual_typespec(elemTs);
+    reg0->Typespec(rrt0);
+    if (elem0->isSigned())
+        reg0->VpiSigned(true);
+    auto* rv0 = s.MakeVariablesVec();
+    rv0->push_back(reg0);
+    av->Variables(rv0);
     return av;
 }
 
@@ -3824,9 +4085,39 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                    : makeQueueDynArrayVar(
                                          fmv,
                                          fullName + sep + std::string(fmv.name),
-                                         tf)) {
+                                         tf,
+                                         importCopyTsInst ? importCopyTsInst
+                                                          : tsInst)) {
                     funcMap[&fmv] = av;
                     fvars->push_back(av);
+                    continue;
+                }
+                // § assocLocalArrayVar40 — the ASSOCIATIVE half of the same
+                // rule, under the same BLOCK-ITEM gate.  `promoteNamed` names
+                // the ELABORATED listing, and it is spelled per LISTING rather
+                // than per view flag because the three listings that carry a
+                // package task_func are built at three different times:
+                //   * an OUT-OF-BODY definition's own listing (`oob`) is
+                //     emitted once, from emitPackageClasses, in the top view —
+                //     promoted; its DEF-view twin comes from
+                //     emitPackageClassMethodClones, which is exactly
+                //     `cloneMode` — not promoted;
+                //   * a package FREE function is emitted once per view with
+                //     `pkgTopEmit` set accordingly;
+                //   * an IN-BODY class method is never promoted at all
+                //     (t57a `inb57::iAssocCls57::iacls` keeps the SIZE model).
+                if (auto* aav = !blockItems9
+                                    ? nullptr
+                                    : makeAssocArrayVar(
+                                          fmv,
+                                          fullName + sep + std::string(fmv.name),
+                                          tf,
+                                          importCopyTsInst ? importCopyTsInst
+                                                           : tsInst,
+                                          oob ? !cloneMode
+                                              : (pkgTopEmit && !classScope))) {
+                    funcMap[&fmv] = aav;
+                    fvars->push_back(aav);
                     continue;
                 }
                 // An UNPACKED-array local (int a [2]) is an array_var whose
@@ -4234,6 +4525,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             lt9 = &ct9.as<QueueType>().elementType;
                         else if (ct9.kind == SymbolKind::DynamicArrayType)
                             lt9 = &ct9.as<DynamicArrayType>().elementType;
+                        // § assocLocalArrayVar40's TF-ITEM negative: the
+                        // ASSOCIATIVE spelling is modelled by its element too
+                        // (t57a's paren-less `function void iNoParen57; int
+                        // npa[key57];` is an int_var in golden, and was a
+                        // logic_var here because this drill stopped short of
+                        // the assoc arm while makeTypespec did not).
+                        else if (ct9.kind == SymbolKind::AssociativeArrayType)
+                            lt9 = &ct9.as<AssociativeArrayType>().elementType;
                         else
                             break;
                     }
