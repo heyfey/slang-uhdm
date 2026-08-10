@@ -1256,7 +1256,121 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
-RANKED RESIDUE (measured after PASS 25 — NEXT AGENT STARTS HERE.  Still 9
+RANKED RESIDUE (measured after PASS 26 — NEXT AGENT STARTS HERE.  Still 9
+AllModules + 5 TopModules = 14 heads, BYTE-IDENTICAL for a SEVENTH consecutive
+pass — and for the seventh time that is not a zero: bis26.sh peeled the
+top_earlgrey pair OFF ibex_core's `g_pmp` ENTIRELY, through ibex_pmp and into a
+DIFFERENT FILE AND FAMILY.  Read LANDED — PASS 26 below first.  EVERY DIRECTION
+BELOW IS STATED AS LHS(golden) / RHS(ours).)
+
+  (1) THE NEW FRONTIER, a family this campaign has carried as a "small" for ten
+      passes and which is now the head: tlul_adapter_host.sv:90:16
+          assign tl_o = '{
+            a_size:    top_pkg::TL_SZW'(WordSize),
+            a_mask:    tl_be, ...
+      depth 7, r=-6.  DIRECTION: LHS(golden) = a LOC-LESS `int_typespec
+      {signed=0 val=UINT:2}` reached through a ref_typespec whose fullname is
+      THE ENCLOSING MODULE / RHS(ours) = an `integer_typespec` AT THE WRITTEN
+      SPAN (:90:16).  So the fix REPLACES THE TYPESPEC KIND and gives the new
+      one the cast width AS A VpiValue; it neither adds nor removes a pointer.
+      SAME FAMILY as the long-standing work@sram2tlul residue ("its kept
+      top_pkg::TL_SZW cast") — that entry can be read as this one's DEF-view
+      half.
+      WITNESS ALREADY IN THE TREE AND ALREADY MEASURED: qf26.sv, five rows.
+      Rows A–D (the SAME cast on a plain cont_assign — written QUALIFIED,
+      written UNQUALIFIED under a wildcard import, sized by a MODULE localparam,
+      and a literal cast width) are ALL cmp-EQUAL, so the cast alone is not the
+      trigger.  ROW E IS THE CORPUS SHAPE and it reproduces the family: with the
+      cast as a MEMBER VALUE of a STRUCT ASSIGNMENT PATTERN, GOLDEN KEEPS THE
+      WHOLE MEMBER EXPRESSION UNFOLDED — the cast stays `operation op=67` with
+      `vpiSize` = the cast width and a ref_typespec (fullname `work@qf26`, i.e.
+      the MODULE) onto a LOC-LESS int_typespec carrying `UINT:2` — and WE FOLD
+      IT TO A CONSTANT.  The sibling member `a_mask: {TL_DBW{1'b1}}` measures
+      the same way (golden keeps op=34 with its operands, we fold to UINT:15),
+      so the rule to test first is NOT about casts at all: GOLDEN DOES NOT
+      CONSTANT-FOLD ANY MEMBER VALUE OF A STRUCT ASSIGNMENT PATTERN.  Note the
+      corpus and qf26 sit at DIFFERENT STAGES of the same defect — in the corpus
+      we already keep the operation and only the typespec kind is wrong, in
+      qf26 we fold it away — so find what stops our fold in tlul_adapter_host
+      before writing the typespec half.  THIS ALSO EXPLAINS the five pinmux
+      `$bits(x)'({...})` SIZE-CAST rows, 128 of the 136 remaining OVER-binds in
+      the bind table: same container, same non-folding.
+  (2) § litBoundOwnPar9 IN THE PACKED-RANGE BUILDER ASKS ONLY ONE LEVEL of the
+      question pass 26 answered recursively for the UNPACKED one.  It tests "is
+      the override ACTUAL's own initializer a literal"; the measured rule is
+      "FOLLOW THE OVERRIDE CHAIN and ask whether it BOTTOMS OUT IN A LITERAL"
+      (§ dimFoldOverrideChainWidth26).  The two disagree on exactly pt23's
+      shape — a two-level chain whose root actual IS a literal — where the
+      one-level test says 32 and golden says 64.  DO NOT change it blind: its
+      two witnesses (u2r genscope_cells, BasicOh) have SINGLE-HOP chains where
+      both rules agree, so the refactor has no positive witness yet.  Write the
+      packed-range twin of qe26's five-instance chain grid first; if golden
+      agrees, the two builders can share one helper.
+  (3) PRE-EXISTING AND IMPROVED — NOT fresh (corrected by the pass-26
+      verifier): `work@tlul_assert_multiple.d2h` and `.h2d`, where LHS(golden)
+      = 5 ref_typespecs with that fullname / RHS(ours) = 6.  BASELINE READS
+      `G=x5 O=x7`, PATCHED READS `G=x5 O=x6` — this pass HALVED a pre-existing
+      over-count.  The rows appear on exid26's ADDED side only because the row
+      TEXT changed, so the honest added-row count for pass 26 is ONE (the
+      aggregate loc-less int_typespec row), not three.  Do not chase this as a
+      new defect.  Both
+      are DEF-VIEW names (no instance path), from
+        module M #(parameter int unsigned N = 2, parameter EndpointType = "Device")
+                 (input pkg::struct_t h2d [N], input pkg::struct_t d2h [N]);
+          for (genvar ii = 0; ii < N; ii++) ... .h2d (h2d[ii])
+      It is INVISIBLE to uhdm-cmp today (two clean whole-row gates over both
+      corpora with it present), so it is a hygiene item, not a head.
+      NEGATIVE WITNESS, WRITTEN AND VERIFIED RATHER THAN ASSUMED: qg26.sv
+      transcribes that module feature by feature — package STRUCT element type,
+      dim sized by the module's own un-overridden `int unsigned` parameter, a
+      second string-typed parameter passed down, a for-generate that
+      element-selects the port, and BOTH chain roots (a literal `#(.N(3))` and
+      a localparam `#(.N(NL))`) — and it does NOT reproduce the over-count.
+      What qg26 DOES deliver is a different PRE-EXISTING family worth its own
+      entry: for a MODULE-LEVEL unpacked array of a package struct, golden emits
+      `struct_net (work@qg26.h3.h3)` where we emit `array_net (work@qg26.h3)` —
+      a VpiType difference uhdm-cmp DOES read — and golden stamps `vpiNetType:1`
+      on a dozen struct nets we leave unset.
+  (4) UNCHANGED from pass 25 — the gen-scope cont-assign OPERATION FOLD (qa25
+      :63/:75/:99, golden folds `E_B | E_H` where we keep the operation; NOTE
+      THE SIZE SPLIT, 64 for a gen-local and a select LHS, the LHS type width
+      for a port; ternary/comparison/process negatives measured beside them).
+      This is what unblocks qa25 :75 for § genCaConstRhsLhsNoBind25.
+  (5) UNCHANGED from pass 25 — the NESTED-gen port-LHS bind: qa25 :107, qb25
+      :103/:110.  LHS(golden) = logic_net / RHS(ours) = <null>, so the fix
+      ADDS; the non-nested siblings bind on both sides, so NESTING is the whole
+      discriminator.
+  (5b) UNCHANGED — qb25 :97's OPERAND over-bind, its own 2x2 still unwritten.
+  (6) UNCHANGED — the OCT-vs-UINT enum_const value defect (ours OCT:3, Surelog
+      UINT:3 for a based-octal member).  Invisible to uhdm-cmp; measure the
+      reach before touching the builder.
+  (7) FRESH, and it is a MEASURER-vs-METRIC note rather than a defect: the
+      whole-arena EXISTENCE census (exi26.sh) keys ALL loc-less int_typespecs
+      onto ONE aggregate row `int_typespec @0:0`, currently G=x2395 O=x2217.
+      Pass 26's suppression half moved it 2243 -> 2217, which the census scores
+      as +26 GOLDEN-ONLY objects even though every one of the suppressions is
+      confirmed correct by the projection AND by two clean whole-row gates.
+      Treat that row as an aggregate, not as a count of missing objects — the
+      honest per-object metric is the row-set delta (exid26.sh), which this pass
+      reports as 38 REMOVED / 3 ADDED (and the 3 are that aggregate row plus
+      residue (3)'s two).
+  (8) LONGER-STANDING, unchanged: the three hier_path families (dm_csrs.sv:309:27's
+      DROPPED INDEX OPERAND, also the design-wide uhdm-cmp head's masker;
+      flash_ctrl.sv:315:10's region_cfgs[8]-vs-[MpRegions] shadowed NAME —
+      shadowedImportFoldLeaves9 exists, wire the NAME path); work@jtag_mux
+      (SHAPE REFUTED — find the DESIGN-FINAL minter of the loc-less typespec
+      with the EMPTY constant, ~738k uid); work@prim_keccak (Top);
+      def:work@prim_prince's blind extra pointer; prim_gate_gen; padring;
+      tl_main_pkg.sv:13:59 (2 heads, ONE object, and STILL both top_earlgrey
+      census heads for the SEVENTH pass — THE CENSUS IS NOT THE FRONTIER);
+      wc.sv's package-scope taken-branch ternary; flash_phy_core PhyOps
+      4-of-5 clone-loop off-by-one; the 40 module-level enum_const binds (the
+      tlul_adapter_sram req_op_e family, which still wants the `'{...}`
+      ASSIGNMENT-PATTERN RHS and the STRUCT-MEMBER COMPARISON OPERAND added to
+      qb23 — and residue (1) above is probably the same container).
+
+RANKED RESIDUE (measured after PASS 25 — SUPERSEDED by the PASS-26 block above;
+kept for its bisect stack and its per-family measurements.  Still 9
 AllModules + 5 TopModules = 14 heads, BYTE-IDENTICAL for a SIXTH consecutive
 pass — and for the sixth time that is not a zero: bis25.sh peeled the
 top_earlgrey pair off ibex_core.sv:926:34 and DOWN INTO THE SAME GEN SCOPE's
@@ -1462,6 +1576,268 @@ BISECT STACK BELOW FIRST, then the pass-23 one.)
       census has not moved for five passes while the bisector has moved ten
       times).  THE CENSUS IS NOT THE FRONTIER: bis24.sh top 'work@top_earlgrey'
       whole is.
+
+LANDED — PASS 26 (r10earl26; THREE laws — one of them in two halves — plus one
+arena-hygiene fix, in FIVE gate rounds.  FINAL ROUND COMPLETELY CLEAN: goldens
+23/23 + u2r testflags 732 lines diff EMPTY vs results/gate_uhdm2rtlil.csv +
+Surelog BOTH MODES 1589 lines diff EMPTY, WHOLE-ROW incl. the dump column, vs
+results/golden_surelog.csv.  results/*.csv untouched: 0 movers.
+THE SAME Google,testflags FLAKE passes 24 and 25 both recorded — SURELOG_FAIL
+where the baseline says TIMEOUT, both non-comparable — appeared in rounds 1 and
+4 and was ABSENT from rounds 2, 3 and 5, on binaries that differ in ways that
+cannot touch a Surelog timeout.  FOURTH pass running: environment, named rather
+than filtered.)
+
+  HEADLINE: the bisector left `g_pmp` — and left ibex_core, and left the whole
+  "golden folds / we stamp" family — in ONE pass, two layers:
+    pass-25 exit  ibex_core.sv:923:32   ref_typespec we stamp   r=-1  depth 12
+    after law 1   ibex_pmp.sv:22:53     folded bound 64 vs 32   r=-32 depth 11
+    after law 2   tlul_adapter_host.sv:90:16  int_typespec vs
+                  integer_typespec on a SIZE CAST               r=-6  depth 7
+    (laws 1b and 3 leave the frontier there — 3 closes pt23 outright and 1b
+     fixes rows far below it — so the exit frontier is law 2's.)
+  and the head census is byte-identical at 14 for the SEVENTH consecutive pass.
+  THE FRONTIER WAS FOUND BY THE TRACE, NOT BY A WITNESS, exactly as pass 25's
+  handoff instructed ("do not write a fourth source witness before trying the
+  arena route"): R10E23_DIMDBG printed
+      DIMDBG pmp_priv_lvl:923:32 name= ovr=0 red=0 w0=32 dig=2 bad=1
+  i.e. the corpus row reaches the unpacked-dimension fold with NO BOUND
+  EXPRESSION AT ALL, so `sgn0` — which is the BOUND EXPRESSION's signedness —
+  was answering with its `true` default and we stamped a signed int_typespec on
+  a row golden leaves bare.  Three passes of source witnesses could not see that
+  because qc25's module had NO PARAMETERS and every one of its rows bound
+  cleanly; the FOURTH witness (qe26) reproduced bad=1 on the first try simply by
+  giving the child module two parameters.
+
+  EXIT METRICS, all measured before AND after on the same binary pair:
+    head census        9 + 5 + 0 + 0 = 14, hdiff26 EMPTY (seventh pass)
+    bisect frontier    ibex_core.sv:923:32 (depth 12, r=-1)
+                    -> tlul_adapter_host.sv:90:16 (depth 7, r=-6)
+    bind residue       317 -> 317 rows, ALL NINE SHAPES UNCHANGED and the
+                       ROW-SET DELTA EMPTY in both directions (bndd26.sh) — the
+                       laws touch typespecs and widths, not binds, and
+                       introduced no over-binding
+    existence census   379309 keys unchanged; DIFF rows 33754 -> 33719,
+                       ours-only objects 25127 -> 25092, golden-only 42408 ->
+                       42432 (that last one is the AGGREGATE int_typespec row —
+                       see ranked residue (7); it is the CORRECT suppressions
+                       being scored as absences).  ROW-SET DELTA: 38 REMOVED /
+                       3 ADDED, and the 3 are that aggregate plus residue (3)
+    Earlgrey slang.uhdm 49937430 -> 49934917 bytes
+    witnesses          pt23 FULLY CMP_EQUAL (uhdm-cmp exit 0) where it entered
+                       the pass with 2 unequal dimension rows; qc25 ALL 23
+                       unpacked-dim rows cmp-EQUAL (was 5 unequal); qe26 ALL 41
+                       rows cmp-EQUAL (was 23 unequal — the pass reported 21,
+                       corrected by its verifier's own A/B against a
+                       purpose-built pre-patch binary); pt23's 14 rows likewise
+                       (read them with `tsd26.sh pt23 qc25 qe26`, which prints
+                       ONLY the unequal ones and should print NOTHING)
+
+  1. § dimFoldTsQualifiedOrSignedModPar26 (TypeEmit ~12880, the UNPACKED-array
+     dimension fold — the `sc->VpiSize(w0)` arm and its `else if (sgn0)`
+     typespec test).  THE ref_typespec ON A FOLDED UNPACKED-DIMENSION BOUND IS
+     NOT A FUNCTION OF THE BOUND EXPRESSION'S SIGNEDNESS.  It is a function of
+     THE DIMENSION PARAMETER: golden stamps iff the reference is WRITTEN
+     QUALIFIED (`pkg::P`), or the parameter is a NON-PACKAGE one whose DECLARED
+     TYPE IS EXPLICIT AND SIGNED.
+     THE GRID — qe26.sv, seventeen declaration rows in ONE if-generate of a
+     child instance plus the explicit-import module,
+     varying ONLY the dimension parameter's home, its written qualification and
+     its declared type; qc25.sv's twelve rows agree with every line:
+       pkg localparam int unsigned, UNQUAL          golden NO ts
+       pkg localparam int (signed),  UNQUAL         golden NO ts
+       pkg localparam untyped,       UNQUAL         golden NO ts, size 64
+       pkg parameter  int unsigned,  UNQUAL         golden NO ts
+       pkg parameter  untyped,       UNQUAL         golden NO ts, size 64
+       the same three behind an EXPLICIT single-name import
+                                                    golden NO ts (so the
+                                                    WILDCARD is NOT the
+                                                    discriminator — package
+                                                    scope is)
+       pkg::P QUALIFIED, int unsigned               golden TS
+       pkg::P QUALIFIED, int (signed)               golden TS
+       pkg::P QUALIFIED, untyped                    golden TS, size 32
+       pkg::P QUALIFIED parameter, typed + untyped  golden TS
+       module localparam int (signed)               golden TS
+       module localparam int unsigned               golden NO ts
+       module localparam untyped                    golden NO ts
+       module parameter int unsigned / untyped      golden NO ts
+     THE TWO SHAPES `sgn0` GOT WRONG, and both matter: an UNTYPED parameter
+     (whose slang expression type is plain `int`, i.e. signed) and A BIND THAT
+     FAILED OUTRIGHT (where sgn0 keeps its default).  The second is the corpus
+     frontier.
+     AND THE WIDTH HALF: an UNQUALIFIED reference to an UNTYPED PACKAGE
+     parameter folds at SIXTY-FOUR — the same no-declared-width rule
+     § pkgParamFoldWidthAlways and pass-24 law 1's encoding note carry — while
+     the QUALIFIED spelling of the very same parameter keeps 32 and an untyped
+     MODULE parameter keeps 32.
+     PRESERVED BY CONSTRUCTION AND CONFIRMED BY THE GATE: issue326_packed_mem's
+     `int DEPTH` (module, explicit, signed) still stamps and still DUMP=match;
+     DefaultPatternModule's `int unsigned CNT` stays bare.
+     Corpus: ibex_core.sv:923:32 `priv_lvl_e pmp_priv_lvl [PMP_NUM_CHAN]` inside
+     `g_pmp` — pass 25's exit head, LHS(golden) = <null> / RHS(ours) =
+     ref_typespec, closed.
+     1b. AND AN OVERRIDDEN PARAMETER NEVER GETS THE ts, however it is declared —
+     the half the first cut missed, FOUND BY THE EXISTENCE CENSUS RATHER THAN BY
+     THE BISECTOR.  § overriddenBoundParamNoFoldTs19 says this for the PACKED
+     builder and pass-23's pt23 table says it for this one ("parameter int
+     (signed), OVERRIDDEN -> UINT:16 / 64, no typespec ref"), but until pass 26
+     the overridden rows never REACHED the ts test: they left through the
+     64-wide arm.  Law 2 routes the NARROW-chain ones through here, and the
+     corpus has exactly three signed-typed overridden dims — rv_timer
+     `mtimecmp [N]`, rv_plic `prio [N_SOURCE]`, prim_ram_1p `mem [Depth]` —
+     which picked up a ts golden lacks.  Those rows sit FAR BELOW the frontier,
+     so nothing in the bisect stack or the gate could see them; exid26.sh's
+     row-set delta showed them as five ADDED `G=x2 O=x3 ref_typespec` rows.
+     qe26's u_sn/u_sl pair (a `parameter int SCH` overridden once narrowly, once
+     with a literal) now pins both halves: golden NO ts on either.  THE LESSON:
+     A LAW THAT ONLY EVER SAW ONE SPELLING HAS AN UNMEASURED HALF — every
+     override row in the first qe26 was sized by an `int unsigned` parameter, so
+     the signed arm was never exercised on an overridden one.
+  2. § dimFoldOverrideChainWidth26 (same arm, the `if (overriddenP0)` and
+     `if (reducedP0)` branches).  AN OVERRIDDEN DIMENSION PARAMETER FOLDS AT 64
+     ONLY WHEN ITS OVERRIDE CHAIN BOTTOMS OUT IN A LITERAL.
+     § dimFoldOverriddenParam23 read "overridden -> 64" off pt23, whose chain is
+     `pt23 #(.NU(16)) -> pt23_mid #(.NU(NU)) -> pt23_child`: the ROOT actual
+     there IS the bare literal 16, and an unsized literal is what makes
+     Surelog's substituted constant 64 wide.  When the chain instead ends at a
+     parameter that is NOT overridden — a localparam, or a module parameter left
+     at its default — that parameter's Value is already narrow and the bound
+     keeps its DECLARED width.
+     THE CHAIN GRID (qe26, five instantiations of one sink module plus the
+     module-level controls; LHS(golden) first):
+       .NCHAN(3)                    bare literal actual        golden 64
+       .NCHAN(MU)                   localparam, init literal   golden 32
+       .NCHAN(RU)                   module parameter, DEFAULT   golden 32
+       .MCH(MV) then .NCHAN(MCH)    TWO levels, both ending at
+                                    the localparam             golden 32
+       the same .NCHAN(MW) at MODULE level                      golden 32
+     and pt23's own rows still measure 64 (a_nu/a_ns/a_np, literal-rooted) with
+     its non-overridden rows at 32, so ONE recursion covers both files.
+     CORPUS, BOTH DIRECTIONS IN ONE INSTANTIATION: ibex_core.sv:934 hands
+     ibex_pmp `.PMPNumChan(PMP_NUM_CHAN)`, a `localparam int unsigned = 2` —
+     chain root NOT overridden, golden 32, and that was the frontier after law
+     1.  The line BELOW it, `.PMPNumRegions(PMPNumRegions)`, chains through
+     rv_core_ibex to top_earlgrey.sv:266's literal 16 — chain root IS a literal,
+     golden 64, and every one of the corpus's ~40 other ovr=1 rows keeps its 64.
+     BOTH BRANCHES HAVE TO BE SKIPPED for a narrow chain, not just the first:
+     the corpus's `[PMPNumChan]` row reports ovr=1 AND red=1, so gating only the
+     overridden arm would land it in the reduced arm's INT-at-64.
+     TWO TRAPS PAID FOR, ONE BUILD EACH, BOTH RECORDED ON THE CODE:
+       * THE PREDICATE.  § isOverriddenParam compares the bound initializer's
+         span against the declaration default's and MISSES CLONED/CANONICAL
+         BODIES (the note at TypeEmit ~2431 already said so).  Inside the
+         sink's instance body it answers FALSE for a plain `#(.NCHAN(3))`
+         literal override, so the chain returned the declared width and every
+         literal-rooted row wrongly narrowed to 32.  The chain now uses the
+         SAME predicate `overriddenP0` uses (`!isLocalParam() && isOverridden()`).
+       * THE PER-INSTANCE TRAP, pass-24's § parHere24 all over again, in the
+         UNPACKED builder this time.  `be0` binds the bound syntax in
+         `currentScope`, which for the SECOND instance of a definition is the
+         FIRST instance's body: the trace read `red=1` for the LITERAL row
+         because the symbol it resolved belonged to the `.NCHAN(MU)` instance.
+         The dimension parameter is now resolved from THE DECLARING SYMBOL'S OWN
+         PARENT SCOPE with Lookup::unqualified FIRST, with `be0` kept only as
+         the fallback for the QUALIFIED spelling (whose sizeSyn is a ScopedName).
+         That single change also supplies law 1's bad-bind rows.
+  3. § dimFoldReducedTypedWidth26 (same arm, the `if (reducedP0)` branch) — TWO
+     CORRECTIONS TO § dimFoldReducedParam THAT PASS 23 ALREADY MEASURED AND
+     WROTE INTO ITS OWN COMMENT WITHOUT IMPLEMENTING.  That comment's pt23 table
+     reads `localparam = literal / = a BARE REF -> UINT:8 / 32` and
+     `localparam = ND * 2 -> INT:16 / 32`, and the arm emitted INT at 64 for
+     both.  Re-measured today with tsd26.sh, LHS(golden) first:
+       a_lu  `localparam int unsigned LU = 8`      both  ct=9 sz=32 UINT:8
+       a_lr  `localparam int unsigned LR = ND`     golden ct=9 sz=32 UINT:8
+             (ND a module parameter at its DEFAULT) ours  ct=7 sz=64 INT:8
+       a_lm  `localparam int unsigned LM = ND * 2` golden ct=7 sz=32 INT:16
+                                                   ours  ct=7 sz=64 INT:16
+     so (a) A BARE REF IS NOT A REDUCTION — Surelog copies the referenced
+     parameter's already-evaluated narrow Value, the same rule
+     § litBoundOwnPar9 names for an override ACTUAL — and (b) when the
+     initializer really IS an expression, the reduced constant carries INT at
+     THE PARAMETER'S DECLARED WIDTH, not 64.  The 64 belongs to the UNTYPED
+     spelling, which is the one the law's own witness had: Scr1SvTests
+     `localparam SCR1_IFU_Q_SIZE_HALF = SCR1_IFU_Q_SIZE_WORD * 2` folds INT:4 at
+     64 and still does (CMP_EQUAL both modes in the final gate).  Both
+     corrections key on § implicit26 and both are skipped when no per-instance
+     parameter was resolved.  RESULT: pt23 goes FULLY CMP_EQUAL — the first
+     pass-23 witness to close completely.
+     A PASS-23 COMMENT WITH A MEASURED TABLE IN IT AND A BRANCH THAT DISAGREES
+     WITH THE TABLE IS A FREE LAW.  Grep the campaign's comments for others.
+  4. ARENA HYGIENE, not a law but a measured metric fix: the fold arm used to
+     `MakeRef_typespec()` UNCONDITIONALLY and leave it UNREFERENCED whenever the
+     ts was not wanted.  uhdm-cmp never reaches such an object (no owner points
+     at it; VpiParent is a pure back-edge), but the whole-arena EXISTENCE census
+     counts it, and laws 1+2 route many more declarations down that path: exi26
+     ours-only went 25127 -> 25142 with the orphan, the 16 added rows being
+     exactly the narrow-chain arrays (pmp_i.priv_mode_i, u_mem...mem, storage,
+     prio, mtimecmp, ...).  Minting it only when something will attach it takes
+     the metric BELOW baseline and shrinks the Earlgrey database with the gate
+     still completely empty.  The goldens are id-free (`grep -c id:
+     tests/golden/*.dump` = 0), so dropping arena objects cannot perturb them.
+
+  METHOD NOTES FOR PASS 27
+  * AN ENV-GATED TRACE AT THE BRANCH POINT BEAT THREE PASSES OF WITNESSES.
+    R10E23_DIMDBG was ALREADY THERE from pass 23; pass 26 only added four fields
+    to it (par/qual/pkg/imp/sgnD/ts/wide/chainW) and it named the frontier in one
+    run.  Run the trace on the CORPUS before writing the fourth witness.
+  * A WITNESS THAT BINDS CLEANLY CANNOT REPRODUCE A BAD-BIND BUG.  qc25 was
+    declared a "negative witness" for three passes; its module simply had no
+    parameters.  When a witness refuses to reproduce a corpus row, DIFF THE
+    TRACE, not the source.
+  * DISTINCT PARAMETER VALUES, OR NO PER-INSTANCE MEASUREMENT.  slang shares ONE
+    instance body between instantiations whose parameter VALUES agree, so four
+    sinks all sized 2 collapse to one ParameterSymbol and the literal-vs-name
+    split is invisible.  qe26 now says so in a comment beside the values.
+  * THE PROJECTION IS THE MEASUREMENT.  ts26.py/tsd26.sh print ONE LINE PER
+    unpacked-dimension declaration with golden's size+ts beside ours and a
+    verdict column; every row of all three laws was read off that table, and the
+    two build-costing mistakes above were caught by it within seconds because the
+    witness carries POSITIVE controls (the literal-override row, the module
+    signed row) and not only the rows the law is supposed to change.
+  * THE EXISTENCE CENSUS IS A REGRESSION DETECTOR FOR ROWS BELOW THE FRONTIER,
+    and pass 26 is the first pass to use it that way.  Law 1's missing
+    override half (item 1b) is invisible to the bisector, invisible to the head
+    census, and invisible to BOTH whole-row gates; it showed up only as five
+    ADDED rows in exid26.sh's row-set delta.  RUN exid26.sh ON EVERY LAW, read
+    the ADDED side, and chase every added row to a named object — three of pass
+    26's four items came out of that one diff.
+  * A PASS-23-STYLE COMMENT CARRYING A MEASURED TABLE WHOSE BRANCH DISAGREES
+    WITH IT IS A FREE LAW (item 3).  The campaign's comments are a decoded
+    corpus; grep them.
+
+  TOOLS ADDED (tools/probe/r10earl_repro/, all pointing at this worktree)
+    mk26.sh      derives the whole pass-26 driver set from the pass-25 one,
+                 re-pointing W= and the /tmp namespaces.  Idempotent — run this
+                 FIRST in a new worktree instead of editing fifteen scripts.
+    pb26.sh      builds the four generic probes under the /tmp/r10e26_* names
+                 the drivers expect (17c bisector, 22a bind census, 23a
+                 existence census, 4h head census).
+    ts26.py      ONE LINE PER unpacked-dimension declaration: golden's folded
+    tsd26.sh     bound SIZE and ref_typespec presence beside ours, plus a
+                 verdict column (SUPPRESS / ADD / SIZE a->b).  tsd26.sh runs
+                 the witness, dumps both sides and prints only the UNEQUAL rows.
+    rd26.sh      RAW dump diff with uids and paths stripped — for when the
+                 projections say equal and uhdm-cmp still trips (a VECTOR SIZE
+                 head is invisible to any per-object projection).
+    exid26.sh    ROW-SET DELTA of two existence censuses, with added/removed
+                 tallied by type.  The totals alone hide direction; this is what
+                 exposed the orphan ref_typespecs of item 3.
+    dbg26.sh     replays the Earlgrey command line with an arbitrary env-gated
+                 trace enabled and greps the stderr (`dbg26.sh R10E23_DIMDBG`).
+  WITNESSES ADDED
+    qe26.sv      the twenty-row TS grid + the seven-row override-chain grid
+                 (including the SIGNED overridden pair item 1b needed) + the
+                 explicit-import control.  Laws 1, 1b and 2's whole evidence,
+                 all 31 rows cmp-EQUAL after the pass.
+    qf26.sv      the PASS-27 FRONTIER, reproduced and decoded before any code
+                 was written for it (ranked residue (1)).
+    qg26.sv      a NEGATIVE witness, written and verified rather than assumed:
+                 tlul_assert_multiple transcribed feature by feature, which does
+                 NOT reproduce residue (3)'s ref_typespec over-count but does
+                 expose the struct_net-vs-array_net family recorded there.
+  AND pt23.sv, from pass 23, is now FULLY CMP_EQUAL — worth keeping as a
+  regression witness for laws 2 and 3 together.
 
 LANDED — PASS 25 (r10earl25; TWO laws in TWO gate rounds, BOTH CLEAN.  Final
 round (laws 1+2 together): goldens 23/23 + u2r testflags 732 lines 0 change vs
@@ -5396,3 +5772,25 @@ tests-per-fix is the head count.
   param with an unsized based default (`parameter PU = 'h3`) carries NO
   typespec in golden and size -1 in the module top view; we give it an
   int_typespec and size 32.
+
+PASS-26 VERIFIER NOTES (applied/appended at integration)
+  * TWO FIGURES CORRECTED ABOVE: qe26's baseline unequal-row count is 23, not
+    21; and ranked residue (3) is PRE-EXISTING AND IMPROVED (G=x5 O=x7 ->
+    G=x5 O=x6), not FRESH — the honest added-row count for this pass is ONE.
+  * CENSUS HEAD IS NOT THE DESIGN-WIDE CMP HEAD, and the pass-26 summary
+    conflated them. `uhdm-cmp golden ours` on the whole Earlgrey design reports
+    its first divergence at dm_csrs.sv:309:27 — the hier_path DROPPED-INDEX
+    family this README itself names as THE MASKER. tl_main_pkg.sv:13:59 is the
+    top_earlgrey CENSUS head (r10earl2h), which the verifier did confirm
+    unchanged for a seventh pass. Say which one you mean, every time.
+  * LATENT INCONSISTENCY IN THE LANDED CODE, hardening rather than a fix (all
+    169 corpus DIMDBG rows and all 78 witness rows agree today, which is why it
+    is not a defect): `chainW26` is computed only under
+    `overriddenP0 && dimPar26`, but `overriddenP0` derives from `be0` (or the
+    `pp1` bad-bind fallback) — which this pass's OWN comment says can be the
+    FIRST instance's symbol — while `dimPar26` derives from the declaring
+    symbol's parent scope. When the two disagree about override-ness the
+    chain-width law silently does not apply, or applies with a root from the
+    wrong instance. Law 1's `ovrHere26` already uses `dimPar26` correctly;
+    re-deriving `overriddenP0` from `dimPar26` when it resolves would close the
+    gap. Do this if pass 27 touches the unpacked builder.

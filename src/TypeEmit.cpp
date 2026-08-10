@@ -12938,13 +12938,268 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                                                pp1.isOverridden();
                             }
                     }
+                    // § dimFoldTsQualifiedOrSignedModPar26 (r10earl26) — THE
+                    // DIMENSION PARAMETER ITSELF, resolved whether or not the
+                    // bind succeeded, and the three questions Surelog actually
+                    // asks of it.  `sgn0` above is the BOUND EXPRESSION's
+                    // signedness and it answers "signed" for two shapes it
+                    // should not: an UNTYPED parameter (whose slang type is
+                    // plain `int`) and a bind that FAILED OUTRIGHT (where
+                    // sgn0 keeps its `true` default).  The corpus frontier is
+                    // the second of those: R10E23_DIMDBG says
+                    // ibex_core.sv:923:32 `priv_lvl_e pmp_priv_lvl
+                    // [PMP_NUM_CHAN]` inside `g_pmp` reaches here with bad=1,
+                    // so we stamped a signed int_typespec that golden has
+                    // none of (bis25/bis26 depth 12, LHS(golden) = <null> /
+                    // RHS(ours) = ref_typespec).
+                    // THE GRID (qe26.sv, one gen scope of a child instance,
+                    // 20 rows varying ONLY the dimension parameter's home,
+                    // its written qualification and its declared type;
+                    // qc25.sv's twelve rows agree with every line of it):
+                    //   pkg localparam int unsigned, UNQUAL   golden NO ts
+                    //   pkg localparam int (signed),  UNQUAL   golden NO ts
+                    //   pkg localparam untyped,       UNQUAL   golden NO ts, 64
+                    //   pkg parameter  int unsigned,  UNQUAL   golden NO ts
+                    //   pkg parameter  untyped,       UNQUAL   golden NO ts, 64
+                    //   the same three behind an EXPLICIT single-name import
+                    //                                          golden NO ts
+                    //   pkg::P  QUALIFIED, int unsigned         golden TS
+                    //   pkg::P  QUALIFIED, int (signed)         golden TS
+                    //   pkg::P  QUALIFIED, untyped              golden TS, 32
+                    //   pkg::P  QUALIFIED parameter, both       golden TS
+                    //   module localparam int (signed)          golden TS
+                    //   module localparam int unsigned          golden NO ts
+                    //   module localparam untyped               golden NO ts
+                    //   module parameter  int unsigned/untyped  golden NO ts
+                    // so the rule is: STAMP iff the reference is WRITTEN
+                    // QUALIFIED, or the parameter is a NON-PACKAGE one whose
+                    // DECLARED TYPE IS EXPLICIT AND SIGNED.  Package scope
+                    // never stamps unqualified — not for `int`, not for
+                    // `int unsigned`, not untyped, and the wildcard import is
+                    // not the discriminator (the explicit-import rows measure
+                    // identically).  This keeps issue326_packed_mem's
+                    // `int DEPTH` (module, explicit, signed) stamping and
+                    // DefaultPatternModule's `int unsigned CNT` bare, exactly
+                    // as § the old `sgn0` test did for those two.
+                    // AND THE WIDTH: an UNQUALIFIED reference to an UNTYPED
+                    // PACKAGE parameter folds at SIXTY-FOUR, the same
+                    // no-declared-width rule § pkgParamFoldWidthAlways and
+                    // pass-24 law 1's encoding note already carry; the
+                    // QUALIFIED spelling of the very same parameter keeps 32.
+                    // THE DECLARING SYMBOL'S OWN SCOPE FIRST — pass-24's
+                    // § parHere24 trap, in the UNPACKED builder this time.
+                    // `be0` binds the bound syntax in `currentScope`, which for
+                    // the SECOND instance of a definition is the FIRST
+                    // instance's body: on qe26's four `qe26_sink` instances the
+                    // trace read `red=1` for the `#(.NCHAN(3))` LITERAL row,
+                    // because the symbol it resolved was the `#(.NCHAN(MU))`
+                    // instance's.  It also FAILS OUTRIGHT on a gen-scope local
+                    // (bad=1, which is the corpus frontier).  The declaring
+                    // symbol's parent scope is per-instance by construction, so
+                    // it answers both.  `be0` stays the fallback for the
+                    // QUALIFIED spelling, whose sizeSyn is a ScopedName.
+                    const ParameterSymbol* dimPar26 = nullptr;
+                    if (sizeSyn->kind == syntax::SyntaxKind::IdentifierName) {
+                        std::string nm26(
+                            sizeSyn->as<syntax::IdentifierNameSyntax>()
+                                .identifier.valueText());
+                        if (auto sc26 = sym.getParentScope())
+                            if (auto* sy26 = Lookup::unqualified(*sc26, nm26);
+                                sy26 && sy26->kind == SymbolKind::Parameter)
+                                dimPar26 = &sy26->as<ParameterSymbol>();
+                    }
+                    if (!dimPar26 && !be0.bad()) {
+                        auto& nv26 = stripImplicitConv(be0);
+                        if (nv26.kind == ExpressionKind::NamedValue &&
+                            nv26.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter)
+                            dimPar26 = &nv26.as<NamedValueExpression>()
+                                            .symbol.as<ParameterSymbol>();
+                    }
+                    bool qual26 =
+                        sizeSyn->kind == syntax::SyntaxKind::ScopedName;
+                    bool pkgPar26 = false;
+                    bool implicit26 = false;
+                    bool sgnDecl26 = sgn0;
+                    if (dimPar26) {
+                        for (auto sp26 = dimPar26->getParentScope(); sp26;
+                             sp26 = sp26->asSymbol().getParentScope())
+                            if (sp26->asSymbol().kind == SymbolKind::Package) {
+                                pkgPar26 = true;
+                                break;
+                            }
+                        if (auto dd26 = dimPar26->getDeclaredType()) {
+                            if (auto* ty26 = dd26->getTypeSyntax())
+                                implicit26 =
+                                    ty26->kind ==
+                                    syntax::SyntaxKind::ImplicitType;
+                            else
+                                implicit26 = true;
+                        }
+                        else
+                            implicit26 = true;
+                        sgnDecl26 = dimPar26->getType().isSigned();
+                    }
+                    // ...AND AN OVERRIDDEN PARAMETER NEVER GETS THE ts, however
+                    // it is declared.  § overriddenBoundParamNoFoldTs19 says so
+                    // for the PACKED builder and pass-23's pt23 table says it
+                    // for this one ("parameter int (signed), OVERRIDDEN ->
+                    // UINT:16 / 64, no typespec ref"), but until pass 26 the
+                    // overridden rows never REACHED the ts test — they left
+                    // through the 64-wide arm above.  § dimFoldOverrideChainWidth26
+                    // routes the NARROW-chain ones through here, and the corpus
+                    // has exactly three signed-typed overridden dims
+                    // (rv_timer mtimecmp [N], rv_plic prio [N_SOURCE],
+                    // prim_ram_1p mem [Depth]) that would have picked up a ts
+                    // golden lacks.  THE EXISTENCE CENSUS FOUND THAT, not the
+                    // bisector — those rows sit far below the frontier — and
+                    // qe26's u_sn/u_sl pair (a `parameter int SCH` overridden
+                    // once narrowly and once with a literal) now pins both
+                    // halves: golden NO ts on either.
+                    bool ovrHere26 = dimPar26 && !dimPar26->isLocalParam() &&
+                                     dimPar26->isOverridden();
+                    bool tsStamp26 =
+                        qual26 || (dimPar26 && !pkgPar26 && !implicit26 &&
+                                   sgnDecl26 && !ovrHere26);
+                    bool wide26 = pkgPar26 && implicit26 && !qual26;
+                    // § dimFoldOverrideChainWidth26 (r10earl26) — AN OVERRIDDEN
+                    // DIMENSION PARAMETER IS 64 ONLY WHEN ITS OVERRIDE CHAIN
+                    // BOTTOMS OUT IN A LITERAL.  § dimFoldOverriddenParam23
+                    // read "overridden -> 64" off pt23, whose chain is
+                    // `pt23 #(.NU(16)) -> pt23_mid #(.NU(NU)) -> pt23_child`:
+                    // the ROOT actual there is the bare literal 16, and an
+                    // unsized literal is what makes Surelog's substituted
+                    // constant 64 wide.  When the chain instead ends at a
+                    // parameter that is NOT overridden — a localparam, or a
+                    // module parameter left at its default — that parameter's
+                    // Value is already narrow and every bound folding it stays
+                    // at its DECLARED width.
+                    // THE CHAIN GRID (qe26.sv, five instantiations of one sink
+                    // module plus the module-level controls; LHS(golden) first):
+                    //   .NCHAN(2)      bare literal actual        golden 64
+                    //   .NCHAN(MU)     localparam, init literal   golden 32
+                    //   .NCHAN(RU)     module parameter, DEFAULT  golden 32
+                    //   .MCH(MU) then .NCHAN(MCH)  two levels, both
+                    //                  ending at the localparam   golden 32
+                    //   the same .NCHAN(MU) at MODULE level       golden 32
+                    // and pt23's own rows still measure 64 (a_nu/a_ns/a_np,
+                    // whose chain root IS a literal) while its non-overridden
+                    // rows measure 32 — so ONE recursion covers both files.
+                    // CORPUS, both directions in one design: ibex_pmp's
+                    // `priv_lvl_e priv_mode_i [PMPNumChan]` is overridden from
+                    // ibex_core:934 with `PMP_NUM_CHAN`, a `localparam int
+                    // unsigned = 2` — chain root NOT overridden, golden 32,
+                    // and this is the pass-26 bisect frontier.  Its sibling
+                    // `[PMPNumRegions]` in the SAME instantiation (:935) is
+                    // overridden with ibex_core's own PMPNumRegions, which
+                    // rv_core_ibex overrides with ITS PMPNumRegions, which
+                    // top_earlgrey:266 overrides with the literal 16 — chain
+                    // root IS a literal, golden 64, unchanged.
+                    // NOTE the PACKED-range builder's § litBoundOwnPar9 asks
+                    // only ONE level of this question (is the actual's own
+                    // initializer a literal), which answers pt23 the WRONG way
+                    // round; it is left alone because its two witnesses
+                    // (genscope_cells, BasicOh) have single-hop chains where
+                    // the two rules agree.  Ranked as a residue, not fixed
+                    // blind.
+                    int32_t chainW26 = 0;
+                    if (overriddenP0 && dimPar26) {
+                        // THE PREDICATE MUST BE THE ONE `overriddenP0` USES.
+                        // § isOverriddenParam compares the bound initializer's
+                        // span against the declaration default's and MISSES
+                        // CLONED/CANONICAL BODIES (the note at TypeEmit ~2431
+                        // says so): inside qe26_sink's instance body it answers
+                        // FALSE for a plain `#(.NCHAN(3))` literal override, so
+                        // the chain returned the declared width and every
+                        // literal-rooted row narrowed to 32.  Cost one build,
+                        // and the projection caught it because the witness
+                        // carries the LITERAL row as a positive control.
+                        const ParameterSymbol* cp26 = dimPar26;
+                        for (int hop26 = 0; cp26 && hop26 < 16; ++hop26) {
+                            if (cp26->isLocalParam() || !cp26->isOverridden()) {
+                                chainW26 =
+                                    (int32_t)cp26->getType().getBitWidth();
+                                break;
+                            }
+                            auto* ci26 = cp26->getInitializer();
+                            if (!ci26)
+                                break;
+                            auto& cs26 = stripImplicitConv(*ci26);
+                            if (cs26.kind == ExpressionKind::NamedValue &&
+                                cs26.as<NamedValueExpression>().symbol.kind ==
+                                    SymbolKind::Parameter) {
+                                cp26 = &cs26.as<NamedValueExpression>()
+                                            .symbol.as<ParameterSymbol>();
+                                continue;
+                            }
+                            break;  // a literal (or an expression) root: 64
+                        }
+                    }
+                    // 0 = chain root is a literal / unresolvable: keep the
+                    // pass-23 behaviour.  Anything else is the root's own
+                    // declared width and REPLACES both the overridden and the
+                    // reduced arm.
+                    bool ovrNarrow26 = chainW26 > 0 && chainW26 != 64;
+                    // § dimFoldReducedTypedWidth26 (r10earl26) — TWO
+                    // CORRECTIONS TO § dimFoldReducedParam, BOTH OF WHICH
+                    // PASS 23 ALREADY MEASURED AND WROTE INTO THE COMMENT
+                    // BELOW WITHOUT IMPLEMENTING.  Its own pt23 table reads
+                    //   localparam = literal / = a BARE REF   UINT:8  / 32
+                    //   localparam = ND * 2                   INT:16  / 32
+                    // and the arm emits INT at 64 for both.  Re-measured
+                    // today with tsd26.sh pt23, LHS(golden) first:
+                    //   a_lu  `localparam int unsigned LU = 8`   both ct=9
+                    //                                            sz=32 UINT:8
+                    //   a_lr  `localparam int unsigned LR = ND`  golden ct=9
+                    //         (ND is a module parameter at its  sz=32 UINT:8
+                    //          DEFAULT)                          ours  ct=7
+                    //                                            sz=64 INT:8
+                    //   a_lm  `localparam int unsigned LM =      golden ct=7
+                    //          ND * 2`                           sz=32 INT:16
+                    //                                            ours  sz=64
+                    // so (a) A BARE REF IS NOT A REDUCTION — Surelog copies
+                    // the referenced parameter's already-evaluated narrow
+                    // Value, the same rule § litBoundOwnPar9 names for an
+                    // override actual — and (b) when the initializer really IS
+                    // an expression, the reduced constant carries INT at THE
+                    // PARAMETER'S DECLARED WIDTH, not 64.  The 64 belongs to
+                    // the UNTYPED spelling, which is the one the law's own
+                    // witness had: Scr1SvTests `localparam
+                    // SCR1_IFU_Q_SIZE_HALF = SCR1_IFU_Q_SIZE_WORD * 2` folds
+                    // INT:4 at 64 and must keep doing so.  Both corrections
+                    // therefore key on § implicit26, and both are skipped when
+                    // no per-instance parameter was resolved.
+                    bool bareRefInit26 = false;
+                    if (dimPar26)
+                        if (auto* in26 = dimPar26->getInitializer()) {
+                            auto& si26 = stripImplicitConv(*in26);
+                            bareRefInit26 =
+                                si26.kind == ExpressionKind::NamedValue &&
+                                si26.as<NamedValueExpression>().symbol.kind ==
+                                    SymbolKind::Parameter;
+                        }
+                    bool reducedTyped26 =
+                        dimPar26 && !implicit26 && !bareRefInit26;
+                    int32_t reducedW26 =
+                        reducedTyped26 ? (int32_t)dimPar26->getType()
+                                             .getBitWidth()
+                                       : 64;
+                    // A bare-ref initializer leaves the reduced arm entirely
+                    // and folds through the generic one, which already emits
+                    // UINT at the declared width with law 1's ts test.
+                    bool reducedHere26 =
+                        reducedP0 && !ovrNarrow26 &&
+                        !(dimPar26 && !implicit26 && bareRefInit26);
                     // R10E23_DIMDBG=1 prints one line per unpacked dim fold
                     // (symbol, size-expression span, the resolved parameter,
                     // and the three flags that pick the branch).  This is what
                     // found the be0.bad() half of the law above: the corpus
                     // gen-scope row reaches here with NO bound expression at
                     // all, so every hypothesis about signedness and widths was
-                    // reasoning about a default.
+                    // reasoning about a default.  Pass 26 added the four
+                    // § dimFoldTsQualifiedOrSignedModPar26 fields, and it is
+                    // the trace — not a source witness — that identified the
+                    // frontier: `pmp_priv_lvl:923:32 ... bad=1`.
                     static const bool dimDbg23 = getenv("R10E23_DIMDBG");
                     if (dimDbg23) {
                         std::string nm9;
@@ -12956,16 +13211,29 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                         }
                         fprintf(stderr,
                                 "DIMDBG %s:%u:%u name=%s ovr=%d red=%d w0=%d "
-                                "dig=%s bad=%d\n",
+                                "dig=%s bad=%d par=%s qual=%d pkg=%d imp=%d "
+                                "sgnD=%d ts=%d wide=%d chainW=%d\n",
                                 std::string(sym.name).c_str(),
                                 (unsigned)sm->getLineNumber(
                                     sizeSyn->sourceRange().start()),
                                 (unsigned)sm->getColumnNumber(
                                     sizeSyn->sourceRange().start()),
                                 nm9.c_str(), (int)overriddenP0, (int)reducedP0,
-                                (int)w0, digits.c_str(), (int)be0.bad());
+                                (int)w0, digits.c_str(), (int)be0.bad(),
+                                dimPar26 ? std::string(dimPar26->name).c_str()
+                                         : "-",
+                                (int)qual26, (int)pkgPar26, (int)implicit26,
+                                (int)sgnDecl26, (int)tsStamp26, (int)wide26,
+                                (int)chainW26);
                     }
-                    if (overriddenP0) {
+                    // § dimFoldOverrideChainWidth26: a NARROW chain leaves both
+                    // the overridden and the reduced arm and folds through the
+                    // generic one, which is where the declared width and the
+                    // UINT encoding golden wants already live.  Both arms have
+                    // to be skipped: the corpus's `[PMPNumChan]` row reports
+                    // ovr=1 AND red=1, so gating only the first one would land
+                    // it in the reduced arm's INT-at-64.
+                    if (overriddenP0 && !ovrNarrow26) {
                         sc->VpiSize(64);
                         sc->VpiValue("UINT:" + digits);
                         sc->VpiConstType(vpiUIntConst);
@@ -12984,8 +13252,8 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                         dt = &ua.elementType;
                         continue;
                     }
-                    if (reducedP0) {
-                        sc->VpiSize(64);
+                    if (reducedHere26) {
+                        sc->VpiSize(reducedW26);
                         sc->VpiValue("INT:" + digits);
                         sc->VpiConstType(vpiIntConst);
                         ops->push_back(sc);
@@ -13003,14 +13271,38 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                         dt = &ua.elementType;
                         continue;
                     }
-                    sc->VpiSize(w0);
+                    // § dimFoldTsQualifiedOrSignedModPar26's width half: an
+                    // UNQUALIFIED untyped PACKAGE parameter has no declared
+                    // width to lend, so the fold lands at 64 (qe26 a_pn / a_qn
+                    // / e_pn and qc25 g_u; the QUALIFIED spelling b_qpn keeps
+                    // 32, as does an untyped MODULE parameter).
+                    sc->VpiSize(ovrNarrow26 ? chainW26 : (wide26 ? 64 : w0));
                     sc->VpiValue("UINT:" + digits);
-                    auto* rt0 = s.MakeRef_typespec();
-                    rt0->VpiFullName(std::string(
+                    // Mint the ts ref ONLY when something will attach it.  This
+                    // arm used to build one unconditionally and leave it
+                    // UNREFERENCED whenever the ts was not wanted — an object
+                    // uhdm-cmp never reaches (no owner points at it; the
+                    // VpiParent is a pure back-edge) but the whole-arena
+                    // EXISTENCE census does count, and pass 26's suppression
+                    // half plus § dimFoldOverrideChainWidth26 route many more
+                    // declarations down this path.  Measured on the corpus:
+                    // exi26 ours-only objects 25127 -> 25142 with the orphan,
+                    // and the fifteen added rows are exactly the narrow-chain
+                    // array declarations (pmp_i.priv_mode_i, u_mem...mem,
+                    // storage, prio, mtimecmp, ...).
+                    std::string ownFull26(
                         parent->UhdmType() == UHDM::uhdmarray_var
                             ? ((UHDM::array_var*)parent)->VpiFullName()
-                            : ((UHDM::array_net*)parent)->VpiFullName()));
-                    rt0->VpiParent(sc);
+                            : ((UHDM::array_net*)parent)->VpiFullName());
+                    bool maybeStructDim26 =
+                        !be0.bad() && stripImplicitConv(be0).kind ==
+                                          ExpressionKind::MemberAccess;
+                    UHDM::ref_typespec* rt0 = nullptr;
+                    if (tsStamp26 || maybeStructDim26) {
+                        rt0 = s.MakeRef_typespec();
+                        rt0->VpiFullName(ownFull26);
+                        rt0->VpiParent(sc);
+                    }
                     // A STRUCT-PARAM MEMBER dim (mem[pt.t]) anchors the fold
                     // at the param's DEFAULT literal (its raw decompile) and
                     // binds the SHARED struct typedef ts (Surelog).
@@ -13044,8 +13336,8 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                                         // ref) — NOT the shared $unit object.
                                         UHDM::typespec* sh0 = tIt0->second;
                                         std::string alias0 =
-                                            std::string(rt0->VpiFullName()) +
-                                            "." + std::string(ta0b.name);
+                                            ownFull26 + "." +
+                                            std::string(ta0b.name);
                                         structCloneMemberRefParent = true;
                                         auto* scl0 = buildStructTs(
                                             ctb0.as<PackedStructType>(), true,
@@ -13080,11 +13372,18 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                     // issue326_packed_mem). An `int unsigned` sizing param
                     // (`int unsigned PMPNumChan` — hier_path) folds to a bare
                     // UINT constant with no typespec.
-                    if (structTs0) {
+                    // § dimFoldTsQualifiedOrSignedModPar26 replaces the raw
+                    // `sgn0` test with the parameter's OWN three questions
+                    // (written qualification / package-vs-module home /
+                    // explicitly-typed-and-signed).  See the grid at the
+                    // flag's definition above; the two shapes `sgn0` got wrong
+                    // are an UNTYPED parameter and a bind that FAILED, and the
+                    // second of those is the corpus frontier.
+                    if (structTs0 && rt0) {
                         rt0->Actual_typespec(structTs0);
                         sc->Typespec(rt0);
                     }
-                    else if (sgn0) {
+                    else if (tsStamp26 && rt0) {
                         auto* its0 = s.MakeInt_typespec();
                         its0->VpiSigned(true);
                         rt0->Actual_typespec(its0);
