@@ -336,6 +336,13 @@ private:
         // curPkgEmitSym/pkgEmitTopView/pkgClassTfClone are only live then —
         // drainFuncRet runs after every package is emitted.
         bool tdOwnDefView19 = true;
+        // § classRetNameDefViewNoBind37 — the emitted routine, plus the two
+        // facts about the body that only the PUSH site knows: whether it is a
+        // CLASS method, and whether it is a wildcard-import CLONE.  The law
+        // itself is applied design-final and object-wise (see the pass).
+        UHDM::task_func* tf37 = nullptr;
+        bool classMethod37 = false;
+        bool clone37 = false;
     };
 
     struct PendingParamTs {
@@ -2260,6 +2267,21 @@ private:
     // package's identical body leaves it null.  Drained in exportDesign.
     std::map<const UHDM::task_func*, std::map<std::string, UHDM::any*>>
         pkgCloneBodyLocals9;
+    // § cloneLoopVarShared37 — the ONE object every wildcard-import clone
+    // binds a foreach LOOP VARIABLE to, keyed by the loop variable's
+    // declaration site ("name@line:col", the § cloneStmtHomeVarRef17 key: the
+    // home body and each of its clones share it exactly).
+    //
+    // Golden's object is the ELABORATED HOME body's PRE-ELABORATION loop
+    // variable: t51b's home elab foreach lists `array_var i` in vpiLoopVars
+    // and keeps the unresolved `ref_var i` it started from parented to the
+    // same foreach but out of the vector, and BOTH clone views bind THAT —
+    // the clone's own listing `ref_var i` included.  We never build that
+    // intermediate, so the shared object is minted here at the first clone
+    // that lists the variable and reused by every later view.  It is
+    // deliberately reachable ONLY through those bindings, exactly as golden's
+    // is.
+    std::map<std::string, UHDM::ref_var*> cloneLoopVarShared37;
     // ...and its body's return-value references bind THIS variable (the home
     // function's own vpiReturn object) rather than a fresh per-ref local.
     UHDM::variables* pkgImportCloneRetVar = nullptr;
@@ -2511,6 +2533,13 @@ private:
                                    const slang::ast::InstanceBodySymbol& body);
     std::vector<PendingFuncRet> pendingFuncRet;
     void drainFuncRet(bool pkgOnly = false);
+    // § classRetNameDefViewNoBind37 — every reference to a CLASS method's
+    // IMPLICIT RETURN VARIABLE that drainFuncRet bound, with the routine that
+    // owns it, recorded because `pendingFuncRet` is cleared as it drains.
+    // Read by the design-final pass of the same name.
+    std::vector<std::pair<UHDM::task_func*, std::vector<UHDM::ref_obj*>>>
+        classRetNameRefs37;
+    void classRetNameDefViewNoBind37(UHDM::design* d);
     // A pkg ALIAS-of-vector-typedef's bare clone aliases the TARGET's
     // TOP/module listing object (jeras_union imm_l_t); the top listing does
     // not exist at def-pkg time, so the binding resolves after the top walk.

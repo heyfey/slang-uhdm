@@ -5707,23 +5707,139 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
     if (remap.empty())
         return;
     size_t nhit17 = 0;
+    // § pkgCloneLocalRefBind37 widened § pkgCloneHierBind9 from hier_path
+    // bases to every reference kind golden binds in a clone body, so the
+    // "bind the ELABORATED HOME body's object, not the clone's own listing
+    // entry" half has to widen with it: t51b's clone reads
+    // `bit_select 'loc' -> array_var:loc` and `ref_var 'loc' -> array_var:loc`
+    // with the HOME's array_var on the right of both.  The § cloneLoopVarShared37
+    // object is deliberately untouched — it is in no Variables() listing, so
+    // it is not in `remap` at all.
     for (auto& kv : s.AllObjects()) {
         auto* o = (UHDM::any*)kv.first;
-        if (!o || o->UhdmType() != UHDM::uhdmref_obj)
+        if (!o)
             continue;
-        auto* r = (UHDM::ref_obj*)o;
-        auto* act = r->Actual_group();
+        const UHDM::any* act = nullptr;
+        switch (o->UhdmType()) {
+            case UHDM::uhdmref_obj:
+                act = ((UHDM::ref_obj*)o)->Actual_group();
+                break;
+            case UHDM::uhdmref_var:
+                act = ((UHDM::ref_var*)o)->Actual_group();
+                break;
+            case UHDM::uhdmbit_select:
+                act = ((UHDM::bit_select*)o)->Actual_group();
+                break;
+            default:
+                continue;
+        }
         if (!act)
             continue;
         auto it = remap.find(act);
-        if (it != remap.end()) {
-            r->Actual_group(it->second);
-            if (dbg17)
-                nhit17++;
+        if (it == remap.end())
+            continue;
+        switch (o->UhdmType()) {
+            case UHDM::uhdmref_obj:
+                ((UHDM::ref_obj*)o)->Actual_group(it->second);
+                break;
+            case UHDM::uhdmref_var:
+                ((UHDM::ref_var*)o)->Actual_group(it->second);
+                break;
+            case UHDM::uhdmbit_select:
+                ((UHDM::bit_select*)o)->Actual_group(it->second);
+                break;
+            default:
+                break;
         }
+        if (dbg17)
+            nhit17++;
     }
     if (dbg17)
         fprintf(stderr, "DBG17 remap=%zu hits=%zu\n", remap.size(), nhit17);
+}
+
+// § classRetNameDefViewNoBind37 — a CLASS METHOD's reference to its own
+// IMPLICIT RETURN VARIABLE (`count = acc;` inside `function int c52::count`)
+// binds ONLY in the ELABORATED listing of the method's class.  The home
+// package's DEF-view listing of the same class, and every wildcard-import
+// CLONE of the method, leave it null.  A FREE function is the control and is
+// untouched: t51a's `f51 = acc2` binds in BOTH home views and in the clone
+// (there, the clone's own unnamed return var).
+//
+// The four cells, read off the r10uvm28g census of all four UVM tests as
+// golden-bound / we-bind (`GO` = agreed, `gO` = ours is an EXTRA):
+//
+//     ELABPKG uvm_pkg   (home, elaborated)   343 GO    27 gO
+//     BOTH    uvm_pkg   (one shared object)  344 GO     4 gO
+//     DEFPKG  uvm_pkg   (home, def listing)    2 GO   693 gO
+//     DEFPKG  adpcm_pkg (clone, def)           0 GO   174 gO
+//     ELABPKG adpcm_pkg (clone, elab)          0 GO   174 gO
+//
+// so the predicate is the VIEW that holds the class, not the view that holds
+// the reference — which is why this is applied design-final and object-wise
+// rather than at the drain: whether a class_defn is DEF-only or shared with a
+// top package is not decidable while the def views are still being emitted.
+// A class_defn that no package lists at all (a module-scope class) is out of
+// scope and never touched.
+void UhdmExporter::classRetNameDefViewNoBind37(UHDM::design* d) {
+    if (classRetNameRefs37.empty() || !d)
+        return;
+    std::set<const UHDM::class_defn*> topCds, defCds;
+    std::set<const UHDM::package*> topPkgs;
+    auto scan = [&](const UHDM::VectorOfpackage* ps,
+                    std::set<const UHDM::class_defn*>& into) {
+        if (!ps)
+            return;
+        for (auto* p : *ps)
+            if (p && p->Class_defns())
+                for (auto* c : *p->Class_defns())
+                    if (c)
+                        into.insert(c);
+    };
+    scan(d->TopPackages(), topCds);
+    scan(d->AllPackages(), defCds);
+    if (d->TopPackages())
+        for (auto* p : *d->TopPackages())
+            topPkgs.insert(p);
+    const bool dbg37 = getenv("SLANG_UHDM_DBG37") != nullptr;
+    for (auto& [tf, refs] : classRetNameRefs37) {
+        if (!tf)
+            continue;
+        // An OUT-OF-BODY method is a PACKAGE item, so both the home package's
+        // DEF listing and every importer's clone carry it as a package
+        // subroutine with no class_defn above it; only a listing reached
+        // THROUGH a class_defn is the class's own.
+        const UHDM::class_defn* cd = nullptr;
+        const UHDM::package* pk = nullptr;
+        for (const UHDM::BaseClass* p = tf->VpiParent(); p && !cd && !pk;
+             p = p->VpiParent()) {
+            if (p->UhdmType() == UHDM::uhdmclass_defn)
+                cd = (const UHDM::class_defn*)p;
+            else if (p->UhdmType() == UHDM::uhdmpackage)
+                pk = (const UHDM::package*)p;
+        }
+        bool unbind37;
+        if (cd)
+            unbind37 = defCds.count(cd) != 0 && topCds.count(cd) == 0;
+        else
+            unbind37 = pkgImportCloneTfs16.count(tf) != 0 ||
+                       (pk != nullptr && topPkgs.count(pk) == 0);
+        // The law has five cells and got one of them wrong on the first cut;
+        // SLANG_UHDM_DBG37 prints the classification for every routine it
+        // considers, which is how the missing "the home DEF listing is a
+        // PACKAGE item too" arm was found.
+        if (dbg37)
+            fprintf(stderr, "DBG37 %s cd=%p def=%d top=%d clone=%d -> %d\n",
+                    std::string(tf->VpiFullName()).c_str(), (const void*)cd,
+                    cd ? (int)defCds.count(cd) : -1,
+                    cd ? (int)topCds.count(cd) : -1,
+                    (int)pkgImportCloneTfs16.count(tf), (int)unbind37);
+        if (!unbind37)
+            continue;
+        for (auto* r : refs)
+            if (r)
+                r->Actual_group(nullptr);
+    }
 }
 
 // An ANONYMOUS class_typespec NEVER carries vpiInstance.  Surelog's

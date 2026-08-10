@@ -19356,6 +19356,13 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
             continue;
         if (pf.refs.empty() || !sub.returnValVar || sub.getReturnType().isVoid())
             continue;
+        // § classRetNameDefViewNoBind37 — hand the CLASS-method entries to the
+        // design-final pass before the drain binds and clears them: whether
+        // this particular listing of the method keeps the binding depends on
+        // which package VIEW holds its class_defn, which is not decidable
+        // until every view exists.
+        if (pf.classMethod37 && pf.tf37)
+            classRetNameRefs37.push_back({pf.tf37, pf.refs});
         // $UNIT functions with TYPEDEF'd returns get no return-var artifact
         // (body refs stay unbound; the Return uses the Typedef_alias clone).
         if (sub.getReturnType().kind == SymbolKind::TypeAlias) {

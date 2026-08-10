@@ -1622,7 +1622,16 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // Class-method foreach: the loop variable is unresolved the
                 // same way the array reference is — a ref_var over a
                 // freshly minted unsupported_typespec named for the index.
-                if (classMethodNoBind || pkgDefViewBody9) {
+                // § cloneForeachLoopVarUnresolved37 — and so is a WILDCARD-
+                // IMPORT CLONE's, in BOTH package views.  `pkgDefViewBody9`
+                // covers a CLASS-METHOD clone in either view (cloneMode) and a
+                // free function in the DEF view, but the importer's ELABORATED
+                // listing of a cloned FREE function fell through to the
+                // resolved arm and listed an array_var where golden lists a
+                // ref_var (t51a, `ELABPKG imp51::f51`): the clone re-uses the
+                // home's UN-elaborated body whichever listing it lands in.
+                if (classMethodNoBind || pkgDefViewBody9 ||
+                    pkgImportCloneEmit) {
                     auto* lv0 = s.MakeRef_var();
                     lv0->VpiName(name);
                     lv0->VpiFullName(joinRef(prefix, lvn));
@@ -1637,6 +1646,39 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     lrt0->VpiParent(lv0);
                     lrt0->Actual_typespec(uts0);
                     lv0->Typespec(lrt0);
+                    // § pkgCloneLoopVarBind37 — inside a WILDCARD-IMPORT CLONE
+                    // this listing object is not the end of the chain: golden
+                    // binds it, and every body reference to the name, to ONE
+                    // further unresolved ref_var shared by both clone views
+                    // (see § cloneLoopVarShared37 for what that object is in
+                    // Surelog).  Minted here, at the one site that builds a
+                    // clone's loop variable, and keyed by the DECLARATION site
+                    // so the def and elab views of the same clone — and every
+                    // importer's copy — reach the same object.
+                    if (pkgImportCloneEmit) {
+                        std::string k37 =
+                            std::string(name) + "@" +
+                            std::to_string(lv0->VpiLineNo()) + ":" +
+                            std::to_string(lv0->VpiColumnNo());
+                        auto& sh37 = cloneLoopVarShared37[k37];
+                        if (!sh37) {
+                            sh37 = s.MakeRef_var();
+                            sh37->VpiName(name);
+                            sh37->VpiFullName(joinRef(prefix, lvn));
+                            sh37->VpiParent(fs);
+                            setLoc(sh37, span);
+                            auto* uts37 = s.MakeUnsupported_typespec();
+                            uts37->VpiName(name);
+                            uts37->VpiParent(sh37);
+                            setLoc(uts37, span);
+                            auto* lrt37 = s.MakeRef_typespec();
+                            lrt37->VpiFullName(joinRef(prefix, lvn));
+                            lrt37->VpiParent(sh37);
+                            lrt37->Actual_typespec(uts37);
+                            sh37->Typespec(lrt37);
+                        }
+                        lv0->Actual_group(sh37);
+                    }
                     lvars->push_back(lv0);
                     openForeachVars[lvn] = lv0;
                     declaredHere.push_back(lvn);

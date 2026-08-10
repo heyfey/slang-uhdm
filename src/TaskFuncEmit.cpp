@@ -4434,7 +4434,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         pendingFuncRet.push_back(
             {&sub, fullName, {}, pkgScope ? (UHDM::instance*)m : nullptr,
              pkgImportCloneEmit ? pkgImportCloneRetVar : nullptr,
-             pkgImportCloneEmit ? pkgImportCloneHomePkg : nullptr, tdOwnDef19});
+             pkgImportCloneEmit ? pkgImportCloneHomePkg : nullptr, tdOwnDef19,
+             tf, classScope, pkgImportCloneEmit});
         size_t pfIdx = pendingFuncRet.size() - 1;
         auto* savedSym = funcRetSym;
         auto* savedRefs = funcRetRefs;

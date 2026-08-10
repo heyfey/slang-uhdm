@@ -4318,11 +4318,69 @@ UHDM::design* UhdmExporter::exportDesign() {
                     return (UHDM::any*)v9;
             return nullptr;
         };
+        // § pkgCloneLoopVarBind37 — a foreach LOOP VARIABLE is the one clone
+        // body binding target that is NOT a declared variable: the loop lists
+        // an unresolved ref_var (§ StmtEmit's classMethodNoBind arm) and both
+        // the listing entry and every body reference to the name bind the
+        // shared § cloneLoopVarShared37 object hanging off it.  Consulted in
+        // the SAME innermost-out climb as blockVar9, which is what makes
+        // shadowing come out right when a body reuses `i` in two loops.
+        auto loopVar37 = [](const UHDM::BaseClass* b37,
+                            std::string_view nm37) -> UHDM::any* {
+            if (b37->UhdmType() != UHDM::uhdmforeach_stmt)
+                return nullptr;
+            auto* lvs37 = ((const UHDM::foreach_stmt*)b37)->VpiLoopVars();
+            if (!lvs37)
+                return nullptr;
+            for (auto* v37 : *lvs37)
+                if (v37 && v37->UhdmType() == UHDM::uhdmref_var &&
+                    v37->VpiName() == nm37)
+                    return (UHDM::any*)((const UHDM::ref_var*)v37)
+                        ->Actual_group();
+            return nullptr;
+        };
+        // Reading and writing vpiActual across the three reference kinds
+        // golden binds in a clone body.  Pass 9 wrote only the ref_obj half
+        // because it only ever looked at hier_path elements and method-call
+        // prefixes; § pkgCloneLocalRefBind37 widens the SWEEP, and a widened
+        // sweep necessarily reaches a foreach's own `ref_var` (its array
+        // reference and its loop variable) and an array `bit_select`'s base.
+        auto actOf37 = [](const UHDM::any* e37) -> const UHDM::any* {
+            switch (e37->UhdmType()) {
+                case UHDM::uhdmref_obj:
+                    return ((const UHDM::ref_obj*)e37)->Actual_group();
+                case UHDM::uhdmref_var:
+                    return ((const UHDM::ref_var*)e37)->Actual_group();
+                case UHDM::uhdmbit_select:
+                    return ((const UHDM::bit_select*)e37)->Actual_group();
+                default:
+                    return nullptr;
+            }
+        };
+        auto setAct37 = [](UHDM::any* e37, UHDM::any* a37) {
+            switch (e37->UhdmType()) {
+                case UHDM::uhdmref_obj:
+                    ((UHDM::ref_obj*)e37)->Actual_group(a37);
+                    break;
+                case UHDM::uhdmref_var:
+                    ((UHDM::ref_var*)e37)->Actual_group(a37);
+                    break;
+                case UHDM::uhdmbit_select:
+                    ((UHDM::bit_select*)e37)->Actual_group(a37);
+                    break;
+                default:
+                    break;
+            }
+        };
+        auto bindable37 = [](const UHDM::any* e37) {
+            auto t37 = e37->UhdmType();
+            return t37 == UHDM::uhdmref_obj || t37 == UHDM::uhdmref_var ||
+                   t37 == UHDM::uhdmbit_select;
+        };
         auto bind9 = [&](UHDM::any* e9, const UHDM::BaseClass* anchor9) {
-            if (!e9 || e9->UhdmType() != UHDM::uhdmref_obj)
+            if (!e9 || !bindable37(e9))
                 return;
-            auto* r9 = (UHDM::ref_obj*)e9;
-            if (r9->Actual_group() || r9->VpiName().empty())
+            if (actOf37(e9) || e9->VpiName().empty())
                 return;
             auto* tf9 = ownerTf9(anchor9);
             if (!tf9)
@@ -4330,17 +4388,23 @@ UHDM::design* UhdmExporter::exportDesign() {
             auto bit9 = pkgCloneBodyLocals9.find(tf9);
             if (bit9 == pkgCloneBodyLocals9.end())
                 return;
-            std::string nm9(r9->VpiName());
+            std::string nm9(e9->VpiName());
             for (const UHDM::BaseClass* a9 = anchor9;
                  a9 && (const UHDM::BaseClass*)a9 != (const UHDM::BaseClass*)tf9;
-                 a9 = a9->VpiParent())
-                if (auto* bv9 = blockVar9(a9, nm9)) {
-                    r9->Actual_group(bv9);
+                 a9 = a9->VpiParent()) {
+                if (auto* lv37 = loopVar37(a9, nm9)) {
+                    if (lv37 != e9)
+                        setAct37(e9, lv37);
                     return;
                 }
+                if (auto* bv9 = blockVar9(a9, nm9)) {
+                    setAct37(e9, bv9);
+                    return;
+                }
+            }
             auto nit9 = bit9->second.find(nm9);
             if (nit9 != bit9->second.end())
-                r9->Actual_group(nit9->second);
+                setAct37(e9, nit9->second);
         };
         // § pkgCloneMember10 — a NON-BASE element resolves against the
         // preceding element's TYPE first, and a struct member wins over a
@@ -4465,6 +4529,31 @@ UHDM::design* UhdmExporter::exportDesign() {
             else if (o9->UhdmType() == UHDM::uhdmmethod_func_call)
                 bind9((UHDM::any*)((UHDM::method_func_call*)o9)->Prefix(), o9);
         }
+        // § pkgCloneLocalRefBind37 — and then the SAME name lookup for every
+        // OTHER reference in a clone body.  Pass 9 read the law off hier_path
+        // bases alone and wrote it that narrowly; the r10uvm28g census says
+        // golden applies it to ordinary refs too, and that is where 88% of
+        // SeqDriver's 3171 binding misses live (t51a/t51b):
+        //
+        //   DEFPKG imp51::f51 | bit_select 'arr2' -> array_var:arr2  (base of
+        //       a body-local array)
+        //   DEFPKG imp52::c52::count | ref_var 'loc' -> array_var:loc  (a
+        //       foreach's ARRAY reference, when the array is a body local)
+        //   DEFPKG imp52::c52::count | ref_obj 'i'  -> ref_var:i       (a
+        //       foreach LOOP VARIABLE, § pkgCloneLoopVarBind37)
+        //
+        // with the NEGATIVES in the same goldens and satisfied by the
+        // "body's own locals" restriction alone: a CLASS PROPERTY reached
+        // bare (`bit_select 'm_kids'`, `ref_var 'm_kids'` as the foreach
+        // array) and `this` stay null in golden's clone, and so do they here
+        // because neither is in pkgCloneBodyLocals9.  This runs SECOND so the
+        // § pkgCloneMember10 rule still owns the non-base hier_path elements;
+        // bind9 only ever fills a null, so nothing above can be overwritten.
+        for (auto& kv37 : s.AllObjects()) {
+            auto* o37 = (UHDM::any*)kv37.first;
+            if (o37 && bindable37(o37))
+                bind9(o37, o37);
+        }
     }
     pkgCloneBodyLocals9.clear();
     // § cloneStmtHomeVarRef17 — a clone body's STATEMENT reference to a body
@@ -4475,6 +4564,13 @@ UHDM::design* UhdmExporter::exportDesign() {
     // only inside a clone, and it necessarily binds the clone's own object —
     // so this rewrite has to see those bindings, not race them.
     cloneStmtHomeVarRef17();
+    // § classRetNameDefViewNoBind37 — the EXTRA-side mirror of
+    // § pkgCloneLocalRefBind37: a class method's own-name (implicit return
+    // variable) reference binds only in the ELABORATED listing of its class.
+    // After the two clone-binding passes above, which never touch a
+    // return-name ref (drainFuncRet owns those), and design-final because the
+    // predicate is which package VIEW lists the class_defn.
+    classRetNameDefViewNoBind37(d);
     // § castSizeParamRefBindFinal — a `P'(x)` size cast whose target P is a
     // module-BODY localparam leaves its int_typespec's Cast_to_expr ref_obj
     // UNBOUND: § stampCastSizeParamTs binds `up` only on the call that first
