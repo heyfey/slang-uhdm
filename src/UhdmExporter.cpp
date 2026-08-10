@@ -1199,8 +1199,11 @@ UHDM::typespec* UhdmExporter::assocIndexTs(const Type& idx, const Symbol& sym) {
         // is a clone of exactly the kind the ELEMENT position needs — one law,
         // both halves.  Enum and struct typedef indices keep the listing
         // object: golden spells those `<pkg>::<alias>` too, which is why
-        // tdVecNamedClone42 is restricted to bit/logic bases.
-        if (auto* cl = tdVecNamedClone42(idx, (const void*)&sym, sh))
+        // tdVecNamedClone42's kind gate excludes them (§ tdAtomKindGate43
+        // measures that gate per KIND: every ATOM clones, the aggregates and a
+        // CHAINED typedef bind the listing object).
+        if (auto* cl = tdVecNamedClone42(idx, (const void*)&sym, sh,
+                                        /*posKey=*/1))
             return cl;
         return sh;
     }

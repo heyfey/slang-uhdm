@@ -589,39 +589,105 @@ void UhdmExporter::crossPkgFoldBoundLeaves9(UHDM::any* node,
 // formal spelling.
 //
 // `base` must be the listing object of the view being emitted (the caller owns
-// that choice, § pkgTdRangeViewFold18); vector typedefs only, exactly the
-// kinds `unpackedTdElem9` accepts, because an enum or struct typedef's
-// element/index is `<pkg>::<alias>` in golden too.  Returns null when the law
-// does not apply, so a caller can fall back to what it did before.
+// that choice, § pkgTdRangeViewFold18).  Returns null when the law does not
+// apply, so a caller can fall back to what it did before.
+//
+// § tdAtomKindGate43 — WHICH BASE KINDS.  Pass 42 accepted bit/logic only and
+// justified the restriction with enum/struct/class, i.e. it never measured the
+// INTEGER ATOMS at all (its own verifier's finding (b)).  Arm t60a carries one
+// typedef per base kind through both container positions and golden states the
+// gate per KIND — every atom takes the bare per-declaration clone, and only the
+// AGGREGATES bind the listing object directly:
+//
+//   golden t60a, INDEX position (r10uvm43cp)
+//     idx=int_typespec't_int'/CLONE@28:11        idx=enum_typespec  'pk60::t_enum' /LISTED
+//     idx=byte_typespec't_byte'/CLONE@29:11      idx=struct_typespec'pk60::t_pstr' /LISTED
+//     idx=short_int_typespec't_sint'/CLONE       idx=struct_typespec'pk60::t_ustr' /LISTED
+//     idx=long_int_typespec't_lint'/CLONE        idx=bit_typespec   'pk60::t_chain'/LISTED
+//     idx=integer_typespec't_integer'/CLONE
+//     idx=time_typespec't_time'/CLONE            (and the same on a MODULE-scope
+//     idx=string_typespec't_str'/CLONE            typedef: m_int -> CLONE)
+//     idx=logic_typespec't_log1'/CLONE
+//
+// so the gate is the ATOM kinds, not the vector kinds.  `real`/`shortreal`,
+// `union` and a class handle stay OUT because they are UNMEASURED, not because
+// they were shown to bind directly: Surelog emits no container typespec at all
+// for those in t60a, so the arm cannot see them (A LAW THAT ONLY EVER SAW ONE
+// SPELLING HAS AN UNMEASURED HALF — this one has three, and they are named
+// here rather than assumed away).
+//
+// § tdChainNoClone43 — A TYPEDEF OF A TYPEDEF IS NOT CLONED.  Golden binds a
+// chained typedef's LISTING object directly and keeps its QUALIFIED name
+// (`bit_typespec 'pk60::t_chain'/LISTED`, and `'m_chain'/LISTED` for the
+// module-scope twin), which is consistent with what that listing object
+// already is: Surelog gives it a Typedef_alias of its own, i.e. the chain's
+// listing object IS the named alias object and cloning it would mint a second
+// one.  Measured on both homes in t60a and t60b.
 UHDM::typespec* UhdmExporter::tdVecNamedClone42(const Type& al,
                                                 const void* declKey,
-                                                UHDM::typespec* base) {
+                                                UHDM::typespec* base,
+                                                int posKey) {
     if (!base || al.kind != SymbolKind::TypeAlias)
         return nullptr;
-    if (base->UhdmType() != UHDM::uhdmbit_typespec &&
-        base->UhdmType() != UHDM::uhdmlogic_typespec)
-        return nullptr;
+    switch (base->UhdmType()) {
+        case UHDM::uhdmbit_typespec:
+        case UHDM::uhdmlogic_typespec:
+        case UHDM::uhdmint_typespec:
+        case UHDM::uhdmbyte_typespec:
+        case UHDM::uhdmshort_int_typespec:
+        case UHDM::uhdmlong_int_typespec:
+        case UHDM::uhdminteger_typespec:
+        case UHDM::uhdmtime_typespec:
+        case UHDM::uhdmstring_typespec:
+            break;
+        default:
+            return nullptr;  // enum / struct / union / class / array: § above
+    }
     auto& alias = al.as<TypeAliasType>();
-    auto key = std::make_pair(declKey, (const UHDM::typespec*)base);
+    // § tdChainNoClone43.
+    if (alias.targetType.getType().kind == SymbolKind::TypeAlias)
+        return nullptr;
+    // § tdClonePosKey43 — the key carries the container POSITION.  It used to
+    // be {declKey, base} while makeTypespec passes `&declSymbol` and
+    // assocIndexTs passes `&sym` — THE SAME POINTER for one declaration — so a
+    // declaration whose ELEMENT and INDEX are the same typedef (`v8 both[v8];`)
+    // shared ONE clone across two distinct positions where golden mints two.
+    // Not cmp-visible (the clone's compared fields are identical from either
+    // position) and absent from the corpus, so this is hygiene; a FINER
+    // declaration key would not have fixed it, only the position does.
+    auto key = std::make_tuple(declKey, posKey, (const UHDM::typespec*)base);
     if (auto c = arrayElemTdClone42.find(key); c != arrayElemTdClone42.end())
         return c->second;
     const syntax::SyntaxNode* tgtSyn = nullptr;
     if (auto asyn = alias.getSyntax())
         if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
             tgtSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
-    bool svBy = bypassTypedefShare, svTf = tfContext,
-         svNb = tdCloneRefNoBind18;
-    bypassTypedefShare = true;
-    // § pkgTdRangeViewFold18: the clone's packed range follows the LISTING it
-    // aliases — symbolic only in the typedef's home package DEF view.
-    if (auto* hta = pkgHomedTdAlias18(al)) {
-        tfContext = pkgTdOwnDefView(*hta);
-        tdCloneRefNoBind18 = true;  // § pkgTdCloneRefNoBind18
+    UHDM::typespec* cl = nullptr;
+    {
+        // § tdCloneFlagGuard43 — the three emitter flags this window moves were
+        // hand-saved and hand-restored around a RE-ENTRANT makeTypespec call,
+        // so any early return added inside the window would leak them.
+        struct FlagSave43 {
+            UhdmExporter& e;
+            bool by, tf, nb;
+            FlagSave43(UhdmExporter& x)
+                : e(x), by(x.bypassTypedefShare), tf(x.tfContext),
+                  nb(x.tdCloneRefNoBind18) {}
+            ~FlagSave43() {
+                e.bypassTypedefShare = by;
+                e.tfContext = tf;
+                e.tdCloneRefNoBind18 = nb;
+            }
+        } fs43(*this);
+        bypassTypedefShare = true;
+        // § pkgTdRangeViewFold18: the clone's packed range follows the LISTING
+        // it aliases — symbolic only in the typedef's home package DEF view.
+        if (auto* hta = pkgHomedTdAlias18(al)) {
+            tfContext = pkgTdOwnDefView(*hta);
+            tdCloneRefNoBind18 = true;  // § pkgTdCloneRefNoBind18
+        }
+        cl = makeTypespec(alias, tgtSyn);
     }
-    auto* cl = makeTypespec(alias, tgtSyn);
-    bypassTypedefShare = svBy;
-    tfContext = svTf;
-    tdCloneRefNoBind18 = svNb;
     if (!cl || cl->UhdmType() != base->UhdmType())
         return nullptr;
     cl->VpiName(alias.name);
@@ -828,7 +894,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     // listing object.  See tdVecNamedClone42.
                     if (auto* cl42 =
                             tdVecNamedClone42(*el9, (const void*)&declSymbol,
-                                              base9))
+                                              base9, /*posKey=*/0))
                         return cl42;
                     return base9;
                 }
@@ -14259,7 +14325,44 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
     if (leadingUnsized && dims[0].indexType) {
         UHDM::typespec* its = nullptr;
         auto& ick = dims[0].indexType->getCanonicalType();
-        if (ick.kind == SymbolKind::StringType)
+        // § assocIdxSiteFour43 — THE FOURTH COPY OF THE ASSOCIATIVE-INDEX RULE,
+        // and the only one that never consulted the typedef registries.  The
+        // other three (emitAssocDims' outer and inner dimension, the
+        // subroutine-local shape in TaskFuncEmit) all call assocIndexTs, whose
+        // FIRST arm is `sharedAliasTs`; this one — the MODULE / PACKAGE /
+        // interface instance-level array_var, reached only from ModuleEmit —
+        // open-codes the tail of that function and starts at the CANONICAL
+        // kind, so a TYPEDEF-NAME index fell through to the keyword arms and
+        // came out as an UNNAMED typespec spanned at the index BRACKET, with
+        // the wrong KIND whenever the canonical type is not a predefined
+        // integer: `bit [7:0]` and an ENUM and a packed STRUCT index all
+        // reached `MakeLogic_typespec()`.
+        //
+        // Measured (arm t60b, module scope, r10uvm43cp — golden vs HEAD):
+        //   [m_bit8]  golden bit_typespec 'm_bit8'/CLONE@36:11   HEAD logic_typespec '<unnamed>'@47:19
+        //   [p_bit8]  golden bit_typespec 'p_bit8'/CLONE@24:11   HEAD logic_typespec '<unnamed>'@66:20
+        //   [p_enum]  golden enum_typespec 'pk61::p_enum'/LISTED HEAD logic_typespec '<unnamed>'@71:20
+        //   [p_chain] golden bit_typespec 'pk61::p_chain'/LISTED HEAD logic_typespec '<unnamed>'@69:20
+        //   [p_int]   golden int_typespec 'p_int'/CLONE@16:11    HEAD int_typespec  '<unnamed>'@53:20
+        //   [p_str]   golden string_typespec 'p_str'/CLONE@23:11 HEAD string_typespec'<unnamed>'@64:22
+        // VpiType and VpiName are both COMPARED fields, so every row of that
+        // table is a cmp difference.  A WITNESS FINDS SITES CODE-READING
+        // MISSES: pass 42's verifier enumerated the sharedAliasTs CONSUMERS and
+        // this site is not one — it is a place the registry was never asked.
+        //
+        // The keyword arms below stay as the FALLBACK rather than delegating to
+        // assocIndexTs wholesale: this site sets VpiSigned on a signed
+        // predefined-integer index and assocIndexTs does not, so routing
+        // everything through it would silently drop a compared flag here (or
+        // add one at the other three sites).  Only the registry arm is shared.
+        if (auto* sh43 = sharedAliasTs(*dims[0].indexType)) {
+            its = sh43;
+            if (auto* cl43 = tdVecNamedClone42(*dims[0].indexType,
+                                               (const void*)&sym, sh43,
+                                               /*posKey=*/1))
+                its = cl43;
+        }
+        else if (ick.kind == SymbolKind::StringType)
             its = s.MakeString_typespec();
         else if (ick.kind == SymbolKind::PredefinedIntegerType) {
             its = predefIntTypespec(ick, sym);
@@ -14289,7 +14392,17 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
         else if (ick.isIntegral())
             its = s.MakeLogic_typespec();
         if (its) {
-            if (!dimSyns.empty()) {
+            // § sharedAliasNoStamp41 / § arrayElemTdClone42 — the stamp is the
+            // pass-40 hazard and it is INHERITED here the moment the registry
+            // arm above can return a SHARED object: re-spanning the listing
+            // object at THIS declaration's index bracket drags every unrelated
+            // user of the typedef with it, and golden keeps both the listing
+            // object and the clone at the TYPEDEF's own span.  Same two
+            // predicates as the other three sites, POINTER IDENTITY against
+            // both registries plus the clone set.
+            if (!dimSyns.empty() &&
+                !isSharedAliasTs(*dims[0].indexType, its) &&
+                !isTdVecClone42(its)) {
                 auto dr = dimSyns[0]->sourceRange();
                 setLoc(its, SourceRange(dr.start() + 1, dr.end() - 1));
             }

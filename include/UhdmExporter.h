@@ -2510,7 +2510,12 @@ private:
     // 1xarray_typespec + 1xbit_var on every one of the 27 clones SimpleUVM
     // has) and because a package's DEF and ELABORATED listings each need
     // their own.
-    std::map<std::pair<const void*, const UHDM::typespec*>, UHDM::typespec*>
+    // § tdClonePosKey43 widened the key by the container POSITION (0 element,
+    // 1 index): both call sites pass the DECLARATION's symbol pointer, so a
+    // declaration whose element and index are the same typedef used to share
+    // one clone across two positions where golden mints two.
+    std::map<std::tuple<const void*, int, const UHDM::typespec*>,
+             UHDM::typespec*>
         arrayElemTdClone42;
     // Instance-view refs to vector typedefs, patched with the late wrapper.
     std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>> pendingAliasRefs;
@@ -2997,17 +3002,21 @@ private:
     // Guard on THIS, never on the index type's canonical kind: `typedef int
     // myint` is a PredefinedIntegerType canonically and walks any such guard.
     bool isSharedAliasTs(const slang::ast::Type& t, const UHDM::typespec* ts);
-    // § arrayElemTdClone42 — the PER-DECLARATION named clone of a VECTOR
+    // § arrayElemTdClone42 — the PER-DECLARATION named clone of an ATOM-based
     // typedef that golden puts in every position reached THROUGH a container
     // (an unpacked array's ELEMENT typespec, an associative array's INDEX
     // typespec): bare name, the typedef's own span, Typedef_alias -> `base`,
     // which the CALLER chooses (§ pkgTdRangeViewFold18 decides which of the
     // two listing objects the view aliases).  Null when the law does not
-    // apply, so a caller keeps its old fallback.  Full derivation at the
-    // definition in TypeEmit.cpp.
+    // apply, so a caller keeps its old fallback.  `posKey` is the container
+    // POSITION (0 element, 1 index) and is part of the clone cache key
+    // (§ tdClonePosKey43) — both callers pass the same declaration pointer.
+    // The kind gate (§ tdAtomKindGate43) and the chained-typedef exclusion
+    // (§ tdChainNoClone43) are derived, per kind, at the definition in
+    // TypeEmit.cpp.
     UHDM::typespec* tdVecNamedClone42(const slang::ast::Type& al,
                                       const void* declKey,
-                                      UHDM::typespec* base);
+                                      UHDM::typespec* base, int posKey);
     // Every object tdVecNamedClone42 has minted.  A clone is NOT shared, so
     // § sharedAliasNoStamp41's registry test cannot see it — but golden does
     // not re-span it either (all of SimpleUVM's `uvm_reg_addr_t` clones sit at
