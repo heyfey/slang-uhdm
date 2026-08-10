@@ -12577,6 +12577,9 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                        parentFull == prefix &&
                                        genBlkIsLoopBody(blk);
                 inGenScopeCaRhs = true;
+                // § genNestedScopePkgParamNoFold24 — the NESTING test, read
+                // here and consumed at the pkg-param fold site in ExprEmit.
+                genNestedScopeEmit24 = parentFull != prefix;
                 // § genCaEnumBindsSelectOnly22 — the LHS SHAPE, read here and
                 // consumed at the enum-bind site in ExprEmit.
                 {
@@ -12662,6 +12665,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                          sm->getColumnNumber(sr9.end()), lts9});
                 }
                 inGenScopeCaRhs = false;
+                genNestedScopeEmit24 = false;
                 genCaLhsSelect22 = false;
                 genCaLhsGenLocal23 = false;
                 genCaLoopParamFold = false;
@@ -13195,6 +13199,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         suppressRefActual = true;
         inGenScopeProc = true;
         currentGenBlkScope = &blk;
+        // § genNestedScopePkgParamNoFold24 — the same nesting test the
+        // cont-assign arm above sets; a nested gen scope's PROCESS keeps the
+        // unqualified pkg-param read too (wb24 R3, `always_comb r_proc[i] =
+        // we & (addr == Q_B);`).
+        genNestedScopeEmit24 = parentFull != prefix;
         genScopeProcInLoop = false;
         for (auto q = blk.getSyntax(); q; q = q->parent)
             if (q->kind == syntax::SyntaxKind::LoopGenerate) {
@@ -13226,6 +13235,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         }
         inGenScopeProc = false;
         currentGenBlkScope = nullptr;
+        genNestedScopeEmit24 = false;
         suppressRefActual = false;
         if (!genAsserts->empty())
             gs->Assertions(genAsserts);

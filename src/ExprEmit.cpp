@@ -3479,6 +3479,127 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(ref, expr.sourceRange);
                     return ref;
                 }
+                // § genNestedScopePkgParamNoFold24 (r10earl24) — the SECOND
+                // no-fold container of the same family, and the pass-23 exit
+                // frontier: in an ELABORATED gen scope that is NESTED inside
+                // another generate scope, an UNQUALIFIED (wildcard-imported)
+                // package-parameter read is NOT substituted either.  Golden
+                // keeps the gen-scoped ref_obj and binds it to a FRESH
+                // loc-less enum_const carrying the parameter's own value — the
+                // same per-ref clone shape § genCaEnumBindsSelectOnly22 mints
+                // for an enum constant, because one shared package object
+                // cannot serve every elaborated gen instance.
+                // Measured (wa24 / wb24, one child instance, both views):
+                //   for-gen NESTED in if-gen, cont_assign   -> ref + enum_const
+                //   the same read in an always_comb          -> ref + enum_const
+                //   if-gen nested in if-gen                  -> ref + enum_const
+                //   for-gen nested in for-gen                -> ref + enum_const
+                //   the same nested shape in the TOP module  -> ref + enum_const
+                //   TOP-LEVEL for-gen body / TOP-LEVEL if-gen-> FOLDS (both)
+                //   a QUALIFIED `pkg::P` read, same scope    -> FOLDS (both)
+                //   a MODULE localparam, same scope          -> ref, UNBOUND
+                // so the discriminators are the NESTING and the missing
+                // qualifier, not the generate KIND, not the container and not
+                // the child-vs-top instance (the pass-23 trap does not bite
+                // here — wb24's t_outer/t_in row measures the same way round).
+                // wc24 measures what the clone carries over five spellings:
+                // the parameter's own encoding and width (12'h5A0/12,
+                // 8'b10100001/8, 7/32, an EXPRESSION init as plain decimal at
+                // the declared width) — with ONE difference from the fold
+                // below: an UNTYPED pkg param is SIXTY-FOUR bits here
+                // (`parameter R_UNT = 12` -> UINT:12 size 64) where
+                // § pkgParamFoldWidthAlways lands at 32.
+                // Corpus: ibex_cs_registers.sv:795:44 `assign pmp_cfg_we[i] =
+                // csr_we_int & ~pmp_cfg[i].lock & (csr_addr ==
+                // (CSR_OFF_PMP_CFG + (i[11:0] >> 2)));` inside
+                // g_pmp_registers > g_pmp_csrs[i] — both top_earlgrey heads'
+                // bisect frontier at pass-23 exit (r=601).
+                // SELECT POSITIONS ARE IN, and that is measured, not assumed:
+                // the law's first cut excluded them all — on the theory that
+                // § selFold9 / § procSelFold9 / § genCaLoopSelIdxFold21 own
+                // those positions — and the corpus bisector advanced by
+                // exactly ONE cont_assign, to :798:59
+                // `csr_wdata_int[(i%4)*PMP_CFG_W+7]`, where golden keeps the
+                // ref too.  wd24 then measured all five spellings in one
+                // nested gen scope and golden KEEPS + BINDS every one: a
+                // bit-select index OPERATION, a BARE bit-select index, both
+                // PART-select bounds, an INDEXED-part-select base, and the
+                // plain-operand control.  (wb24's `dat[Q_C[3:0]]` row is not a
+                // counterexample: a part-select OF the parameter is a
+                // different shape entirely — golden emits a part_select NAMED
+                // after it, no fold and no ref.)
+                if (genNestedScopeEmit24 && !defGenProcessEmit &&
+                    (inGenScopeCaRhs || inGenScopeProc) && !inLhs &&
+                    !inParamInit && !currentTf &&
+                    rawText(expr.sourceRange).find("::") ==
+                        std::string::npos) {
+                    auto& cvK = psym.getValue();
+                    if (cvK.isInteger() && !cvK.integer().hasUnknown()) {
+                        std::string dgK =
+                            cvK.integer().toString(LiteralBase::Decimal, false);
+                        std::string decK = dgK, valK = "UINT:" + dgK;
+                        // A BASED-literal init keeps its base encoding, exactly
+                        // as the fold below does (wc24 R_HEX / R_BIN).
+                        if (auto* piK = psym.getInitializer()) {
+                            auto& litK = stripImplicitConv(*piK);
+                            if (litK.kind == ExpressionKind::IntegerLiteral) {
+                                std::string rawK(rawText(litK.sourceRange));
+                                if (auto tK = rawK.find('\'');
+                                    tK != std::string::npos) {
+                                    size_t bpK = tK + 1;
+                                    if (bpK < rawK.size() &&
+                                        (rawK[bpK] == 's' || rawK[bpK] == 'S'))
+                                        bpK++;
+                                    char bK = bpK < rawK.size()
+                                                  ? (char)tolower(rawK[bpK])
+                                                  : 'd';
+                                    std::string dg2K =
+                                        stripSep(rawK.substr(bpK + 1));
+                                    const char* pfxK = nullptr;
+                                    switch (bK) {
+                                        case 'b': pfxK = "BIN:"; break;
+                                        case 'h': pfxK = "HEX:"; break;
+                                        case 'o': pfxK = "OCT:"; break;
+                                        case 'd': pfxK = "DEC:"; break;
+                                        default: break;
+                                    }
+                                    if (pfxK) {
+                                        valK = std::string(pfxK) + dg2K;
+                                        decK = stripSep(rawK);
+                                    }
+                                }
+                            }
+                        }
+                        bool typedK = false;
+                        if (auto dK = psym.getDeclaredType())
+                            if (auto tsK = dK->getTypeSyntax())
+                                typedK = tsK->kind !=
+                                         syntax::SyntaxKind::ImplicitType;
+                        auto* ecK = s.MakeEnum_const();
+                        ecK->VpiName(std::string(nv.symbol.name));
+                        ecK->VpiDecompile(decK);
+                        ecK->VpiValue(valK);
+                        ecK->VpiSize(typedK
+                                         ? (int32_t)psym.getType().getBitWidth()
+                                         : 64);
+                        ecK->VpiParent(ref);
+                        ref->Actual_group(ecK);
+                    }
+                    // FULLNAME NOTE (measured, deliberately NOT chased): in a
+                    // PART-SELECT BOUND golden scopes the read under the select
+                    // BASE (`...g_i[0].dat.S_HI`) while the ordinary bound path
+                    // keeps a direct name module-scoped, and in an
+                    // INDEXED-part-select BASE it is the other way round
+                    // (`...g_i[0].S_P`).  A cut that rescoped on inPsBound
+                    // fixed the first pair and broke the second; fullname is
+                    // not a uhdm-cmp field, so the plain prefix stands and the
+                    // two wd24 rows show up as `<absent>` pairs in the
+                    // r10earl22a census (the class its own doc says to ignore).
+                    ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                    ref->VpiParent(parent);
+                    setLoc(ref, expr.sourceRange);
+                    return ref;
+                }
                 auto& cv = psym.getValue();
                 if (cv.isInteger() && !cv.integer().hasUnknown()) {
                     auto* c = s.MakeConstant();
@@ -4142,7 +4263,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 rt2->VpiFullName(ipfx);
                                 rt2->VpiParent(c2);
                                 auto* it2 = s.MakeInt_typespec();
-                                it2->VpiSigned(true);
+                                // § genCaFoldTsSignedFromParam24 (r10earl24) —
+                                // the clone's ts carries the PARAMETER'S OWN
+                                // signedness, not an unconditional signed int.
+                                // The neighbouring § itsR arm four hundred
+                                // lines down already keys on
+                                // `psF.getType().isSigned()` and its comment
+                                // says so ("keeps the signedness flag ... the
+                                // same rule the parameter's own typespec
+                                // follows"); this arm predates that measurement
+                                // and disagreed with it.  Corpus: the
+                                // top_earlgrey bisect frontier after this
+                                // pass's laws 1-2, ibex_cs_registers.sv:965:56
+                                // `mhpmcounter_we[31:MHPMCounterNum+3]` inside
+                                // g_mcountinhibit_reduced — golden's
+                                // int_typespec at the `int unsigned` type
+                                // syntax has vpiSigned 0, ours had 1.
+                                if (nv.symbol.as<ParameterSymbol>()
+                                        .getType()
+                                        .isSigned())
+                                    it2->VpiSigned(true);
                                 if (auto dtF =
                                         nv.symbol.as<ParameterSymbol>()
                                             .getDeclaredType())

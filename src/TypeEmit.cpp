@@ -3482,6 +3482,39 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             // Is the module param a LITERAL-initialized param of
                             // the very body this declaration lives in? (see the
                             // elab-clone width fold below)
+                            // § boundOverriddenParamWidth24 (r10earl24) — THE
+                            // PARAMETER THIS BOUND FOLDS, RESOLVED IN THE
+                            // INSTANCE THAT DECLARES THE SIGNAL.  `elabModPar`
+                            // comes from binding `bsyn` in `currentScope`, and
+                            // R10E24_BNDDBG shows that for a SECOND instance of
+                            // the same definition currentScope is the FIRST
+                            // instance's body: we24's DEFAULT instance folds
+                            // `dig=32` while the parameter it resolved reports
+                            // `pval=40`.  Everything downstream that asks a
+                            // per-instance question of that symbol — is it
+                            // OVERRIDDEN, does it live in THIS body — was
+                            // therefore answering about the wrong instance.
+                            // The declaring symbol's own scope is per-instance
+                            // by construction; this is the same
+                            // Lookup::unqualified recovery
+                            // § dimFoldOverriddenParam23's 4b half uses for a
+                            // bind that fails outright.
+                            const ParameterSymbol* parHere24 = elabModPar;
+                            if (elabModPar &&
+                                bsyn->kind == syntax::SyntaxKind::IdentifierName)
+                                if (auto sc24 = declSymbol.getParentScope()) {
+                                    std::string nm24(
+                                        bsyn->as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText());
+                                    if (auto* sy24 =
+                                            Lookup::unqualified(*sc24, nm24);
+                                        sy24 &&
+                                        sy24->kind == SymbolKind::Parameter)
+                                        parHere24 = &sy24->as<ParameterSymbol>();
+                                }
+                            auto ovrHere24 = [&]() -> bool {
+                                return parHere24 && isOverriddenParam(*parHere24);
+                            };
                             auto litBoundOwnPar9 = [&]() -> bool {
                                 // An OVERRIDDEN untyped param has no narrow
                                 // width to lend: Surelog's instance Value for
@@ -3505,8 +3538,8 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 // #(.SYNCPIPE(SYNCPIPE))` over `parameter
                                 // SYNCPIPE = 2` -> `reg [SYNCPIPE:0]` bound
                                 // UINT:2 size 32).
-                                if (isOverriddenParam(*elabModPar)) {
-                                    auto* ov9 = elabModPar->getInitializer();
+                                if (isOverriddenParam(*parHere24)) {
+                                    auto* ov9 = parHere24->getInitializer();
                                     if (!ov9)
                                         return false;
                                     auto& so9 = stripImplicitConv(*ov9);
@@ -3517,20 +3550,48 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                     if (asym9.kind != SymbolKind::Parameter)
                                         return false;
                                     auto& ap9 = asym9.as<ParameterSymbol>();
-                                    bool untypedA9 = true;
-                                    if (auto ad9 = ap9.getDeclaredType())
-                                        if (auto at9 = ad9->getTypeSyntax())
-                                            untypedA9 =
-                                                at9->kind ==
-                                                syntax::SyntaxKind::ImplicitType;
+                                    // § boundOverriddenParamWidth24 — the
+                                    // carve-out does NOT depend on the ACTUAL
+                                    // param's typed-ness, only on its
+                                    // initializer being a plain LITERAL.  The
+                                    // u2r canary genscope_cells is the witness
+                                    // and it measured as a REGRESSION the
+                                    // moment the size half of this law landed:
+                                    // `ibex_counter #(.CounterWidth(
+                                    // MODULE_PARAM))` over a `$unit`-scope
+                                    // `parameter int MODULE_PARAM = 10` (TYPED)
+                                    // keeps golden's `logic [63:CounterWidth]`
+                                    // bound at size 32, exactly as BasicOh's
+                                    // UNTYPED `SYNCPIPE` does — so the old
+                                    // `!untypedA9` gate was reading the one
+                                    // spelling its witness happened to have.
+                                    // The Earlgrey row that wants 64 is
+                                    // distinguished by the OTHER half of the
+                                    // test: ibex_cs_registers is handed
+                                    // `.CounterWidth(MHPMCounterWidth)` and its
+                                    // own MHPMCounterWidth is overridden in
+                                    // turn by ibex_core (:821), so THAT
+                                    // parameter's initializer is a REF, not a
+                                    // literal, and no narrow width is lent.
                                     auto* ai9 = ap9.getInitializer();
-                                    if (!untypedA9 || !ai9 ||
+                                    if (!ai9 ||
                                         stripImplicitConv(*ai9).kind !=
                                             ExpressionKind::IntegerLiteral)
                                         return false;
                                     return true;
                                 }
-                                auto* in9 = elabModPar->getInitializer();
+                                // § boundOverriddenParamWidth24: the
+                                // literal-init test and the same-body test both
+                                // ask about THIS instance, so they read
+                                // parHere24, not the bind's symbol.  With
+                                // elabModPar the default instance of a
+                                // definition whose sibling is overridden read
+                                // the SIBLING's initializer (the override) and
+                                // then failed its own body test, which is why
+                                // an UNTYPED un-overridden bound folded at 64
+                                // instead of the parameter's 32 (we24 rows
+                                // 28:11 / 43:9).
+                                auto* in9 = parHere24->getInitializer();
                                 if (!in9 ||
                                     stripImplicitConv(*in9).kind !=
                                         ExpressionKind::IntegerLiteral)
@@ -3543,7 +3604,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                             return sc9;
                                     return nullptr;
                                 };
-                                return body9(*elabModPar) == body9(declSymbol);
+                                return body9(*parHere24) == body9(declSymbol);
                             };
                             if (unitBoundParam) {
                                 c->VpiSize((int32_t)unitBoundParam->getType()
@@ -3581,8 +3642,17 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             // the moment § genScopeDeclBoundOwner19 gave the
                             // gen-scope loops the owner name the module-body
                             // loop always had.
+                            // § boundOverriddenParamWidth24 reads the override
+                            // flag PER INSTANCE here too (ovrHere24): with
+                            // isOverriddenParam(*boundParam) the DEFAULT
+                            // instance of a definition whose OTHER instance is
+                            // overridden lost its ts ref, because the bound's
+                            // bind resolved the other body's parameter.  we24's
+                            // first uhdm-cmp failure after the size half of
+                            // this law was exactly that stamp (golden has the
+                            // ref_typespec on m_t's 42:13 bound; we had null).
                             else if (boundParam && !boundOwnerFullName.empty() &&
-                                !intEnc && !isOverriddenParam(*boundParam)) {
+                                !intEnc && !ovrHere24()) {
                                 c->VpiSize(
                                     (int32_t)boundParam->getType().getBitWidth());
                                 c->VpiConstType(vpiUIntConst);
@@ -3616,8 +3686,42 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             // which never dedups, folds those at 64 (multiplier:
                             // RippleCarryAdder#(M+i) instantiated from two
                             // different top modules that both declare N).
+                            // § boundOverriddenParamWidth24 (r10earl24) — ...but
+                            // NOT when that module param is OVERRIDDEN.  The
+                            // § overriddenBoundParamNoFoldTs19 arm above already
+                            // says an overridden param's bound is bare at 64 and
+                            // drops the ts ref for exactly that reason, and then
+                            // this arm silently re-narrowed the SIZE back to the
+                            // declaration's width whenever the param happened to
+                            // be TYPED (`boundParam` non-null), so only the ts
+                            // ref ever went away.  we24 measures the 2x2 (one
+                            // child instantiated `#(.W_T(40), .W_U(40))` and once
+                            // at its defaults, `logic [63:W_T]` in a gen scope, a
+                            // nested gen scope and the module body):
+                            //   typed param, OVERRIDDEN  golden 64   we had 32
+                            //   typed param, default     golden 32   ok
+                            //   untyped param, OVERRIDDEN golden 64  ok
+                            // so the rule is the OVERRIDE, exactly as pass 23's
+                            // § dimFoldOverriddenParam23 found for an UNPACKED
+                            // dim — the same Surelog behaviour (the override's
+                            // value object is a fresh unsized constant) reaching
+                            // the PACKED range builder.  litBoundOwnPar9 keeps
+                            // its own override carve-out (§ BasicOh: an override
+                            // ACTUAL that is a bare ref to a literal-initialised
+                            // UNTYPED param does lend its narrow width), which is
+                            // why the test is written as an exception to
+                            // `boundParam` and not as an extra `&&` on the arm.
+                            // Corpus: ibex_counter.sv:68 `logic
+                            // [63:CounterWidth] unused_counter_load;` inside
+                            // `if (CounterWidth < 64) begin : g_counter_narrow`,
+                            // reached through ibex_cs_registers'
+                            // `ibex_counter #(.CounterWidth(MHPMCounterWidth))`
+                            // (a bare ref to a TYPED literal param, so the
+                            // carve-out does not fire) — the top_earlgrey
+                            // bisect frontier after this pass's law 1.
                             else if (elabModPar && !intEnc &&
-                                     (boundParam || litBoundOwnPar9())) {
+                                     ((boundParam && !ovrHere24()) ||
+                                      litBoundOwnPar9())) {
                                 c->VpiSize(
                                     (int32_t)elabModPar->getType().getBitWidth());
                                 c->VpiConstType(vpiUIntConst);
@@ -3626,6 +3730,44 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             else {
                                 c->VpiConstType(intEnc ? vpiIntConst : vpiUIntConst);
                                 c->VpiValue((intEnc ? "INT:" : "UINT:") + digits);
+                            }
+                            // R10E24_BNDDBG=1 prints one line per PACKED range
+                            // bound fold: the declaring symbol, the bound text,
+                            // the resolved module parameter and its owning
+                            // body, and the three flags that pick the branch.
+                            // The pass-23 lesson (AN ENV-GATED TRACE AT THE
+                            // BRANCH POINT BEATS A HYPOTHESIS) applied to this
+                            // builder.
+                            static const bool bndDbg24 = getenv("R10E24_BNDDBG");
+                            if (bndDbg24) {
+                                std::string ob9;
+                                if (elabModPar)
+                                    if (auto* bsy9 = elabModPar->getParentScope())
+                                        ob9 = std::string(
+                                            bsy9->asSymbol().name);
+                                std::string pv9 = "-";
+                                if (elabModPar) {
+                                    auto& cvd9 = elabModPar->getValue();
+                                    if (cvd9.isInteger())
+                                        pv9 = cvd9.integer().toString(
+                                            LiteralBase::Decimal, false);
+                                }
+                                fprintf(stderr,
+                                        "R10E24BND dig=%s pval=%s sym=%s "
+                                        "bound=%s par=%s "
+                                        "body=%s ovr=%d bp=%d lit=%d sz=%d\n",
+                                        digits.c_str(), pv9.c_str(),
+                                        std::string(declSymbol.name).c_str(),
+                                        std::string(rawText(bsyn->sourceRange()))
+                                            .c_str(),
+                                        elabModPar
+                                            ? std::string(elabModPar->name).c_str()
+                                            : "-",
+                                        ob9.c_str(),
+                                        elabModPar ? (int)ovrHere24() : -1,
+                                        (int)(boundParam != nullptr),
+                                        elabModPar ? (int)litBoundOwnPar9() : -1,
+                                        (int)c->VpiSize());
                             }
                             setLoc(c, bsyn->getFirstToken().range());
                         }

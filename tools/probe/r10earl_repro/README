@@ -146,6 +146,57 @@ pp18.sv       the § genScopePkgParamRefTop18 shape, kept as a NEGATIVE witness:
         copy a pointer names.  A def-vs-top law can only be reproduced in a
         small file if the two copies DIFFER — which is why this family has
         always been decoded on the corpus with the bisector.
+THE PASS-24 WITNESSES AND HARNESS (r10earl24).
+{bis,cen,dbg,dmp,gate,hdiff,ins,nul,run,sub,sweep}24.sh + ../r10earl24build.sh
+        — the pass-23 copies with W= re-pointed at this worktree, probe
+        binaries /tmp/r10e24_*, workdirs /tmp/r10earl24_*.  ALWAYS re-point W=
+        before running anything: every one of these hardcodes a worktree path
+        and a stale one silently measures ANOTHER AGENT'S BINARY.
+wa24.sv § genNestedScopePkgParamNoFold24's first 2x2: for-gen NESTED in an
+        if-gen vs a FLAT module-level for-gen, x package param vs module
+        localparam, all inside a CHILD instance.  Nested+pkg-param is the
+        corpus shape (golden keeps a ref bound to a fresh enum_const, we
+        folded); nested+localparam and flat+pkg-param already agreed.  Its
+        REMAINING difference is residue (5) — we stamp a ref_typespec on the
+        TOP-LEVEL gen scope's fold and golden does not.
+wb24.sv the same law's other six variables in one file: the QUALIFIER
+        (`q24::Q_A` folds on both sides), a PROCESS (always_comb) instead of a
+        cont_assign, if-in-if, for-in-for, the TOP-LEVEL if-gen's own
+        cont_assign, and THE TRAP ROW — the same nested shape in the TOP
+        module, which for once measures the SAME way round as the child.
+wc24.sv the ENCODING half: five package-parameter spellings (based hex, based
+        binary, typed decimal, UNTYPED decimal, expression init) read from one
+        nested gen scope.  The clone carries the parameter's own encoding and
+        width — except that an UNTYPED param is 64 here where the ordinary fold
+        gives 32.  Converts to fully CMP_EQUAL.
+wd24.sv the SELECT-POSITION half, written after the corpus refuted the law's
+        cautious first cut: a bit-select index OPERATION, a bare bit-select
+        index, both part-select bounds, an indexed-part-select base and a plain
+        operand, all in one nested gen scope.  Golden keeps and binds ALL of
+        them.  Converts to fully CMP_EQUAL.
+we24.sv § boundOverriddenParamWidth24's matrix: one child instantiated
+        `#(.W_T(40), .W_U(40))` AND at its defaults, with `logic [63:W]` in a
+        gen scope, a NESTED gen scope and the module body, over typed /
+        untyped / default / localparam bounds.  Also the file that exposed the
+        PER-INSTANCE trap (R10E24_BNDDBG `dig=32 pval=40`) and holds two
+        FRESH residues: the untyped-un-overridden bound at 64-vs-32 and a
+        part-select bound in the DEFAULT instance folding the OTHER instance's
+        VALUE.
+wf24.sv POSITIVE WITNESS for § genCaFoldTsSignedFromParam24 — three declared
+        types (`int unsigned` / `int` / untyped) in a gen-scope CA part-select
+        bound.  CORRECTED BY THE PASS-24 VERIFIER: this witness DOES reproduce
+        the law.  Unpatched it is CMP_NOTEQUAL with exactly the targeted bug
+        (ours `int_typespec ... |vpiSigned:1` at wf24.sv:13:13 where golden has
+        0) and patched it is fully CMP_EQUAL, so pass 24 converts THREE
+        witnesses (wc24, wd24, wf24), not two.  The earlier "different arm / ts
+        fullname = the SELECT BASE" reading was wrong.
+R10E24_BNDDBG=1
+        env-gated trace at the PACKED range-bound fold (TypeEmit): one line per
+        bound with the declaring symbol, the bound text, the resolved parameter
+        AND ITS VALUE, and the ovr/bp/lit flags plus the chosen size.  Inert
+        otherwise (a getenv-guarded fprintf, no other branch).  This is what
+        proved the resolved parameter can belong to a DIFFERENT INSTANCE.
+
 THE PASS-19 HARNESS AND THE COMPARATOR SOURCE.
 sweep19.sh / cen19.sh / hdiff19.sh / ins19.sh / bis19.sh / sub19.sh /
         nul19.sh / gate19.sh / run19.sh / dmp19.sh — the pass-18 copies with
@@ -1205,7 +1256,250 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
-RANKED RESIDUE (measured after PASS 23 — next agent starts HERE; still 9
+RANKED RESIDUE (measured after PASS 24 — NEXT AGENT STARTS HERE.  Still 9
+AllModules + 5 TopModules = 14 heads, BYTE-IDENTICAL for a FIFTH consecutive
+pass — and for the fifth time that is not a zero: bis24.sh peeled FIVE more
+layers off the top_earlgrey pair, in FOUR different files.  READ THE PASS-24
+BISECT STACK BELOW FIRST, then the pass-23 one.)
+
+  (1) THE top_earlgrey PAIR, 2 heads, now at ibex_core.sv:926:34 inside
+      `g_pmp` (r=-601 — the sign flipped, which is the news):
+          if (PMPEnable) begin : g_pmp
+            pmp_req_e pmp_req_type [PMP_NUM_CHAN];
+            assign pmp_req_type[PMP_I] = PMP_ACC_EXEC;
+      GOLDEN FOLDS THE WHOLE RHS to ONE LOC-LESS constant
+      `{ct=3 sz=2 dec=2'b00}` where WE keep a ref_obj 'PMP_ACC_EXEC' BOUND to a
+      fresh enum_const.  This is pass-23 residue (5) — the gen-scope WHOLE-RHS
+      constant fold, now in its FIFTH spelling — promoted to the frontier, and
+      it is the FIRST time this family sits on a corpus head with a 3-line
+      witness already in the tree: qb23.sv's ONLY remaining uhdm-cmp difference
+      is `assign l_bare = K_C;` (golden ONE loc-less constant INT:2 ct=7 sz=2,
+      we keep ref+enum_const), and `assign l_op = K_A | K_B;` is the operation
+      spelling of the same fold.
+      MEASURE THE ENCODING FIRST — the two known rows DISAGREE: qb23's
+      `K_C = 2'd2` (based DECIMAL) folds to ct=7 (vpiIntConst) decompile "2",
+      the plain value rendering, while the corpus's `PMP_ACC_EXEC = 2'b00`
+      (based BINARY) folds to ct=3 decompile "2'b00", the literal's own text.
+      That is the same BIN/HEX/OCT-keep vs DEC-plain asymmetry
+      § pkgParamFoldWidthAlways and § genCaSelEnumPlainDecompile22 already
+      encode, so build the encoding matrix (bin / hex / oct / based-dec / bare
+      dec) before the fold itself.
+      NOTE THE INTERACTION: the LHS here is a SELECT, so pass 22's
+      § genCaEnumBindsSelectOnly22 says the ref BINDS — and it does, on both
+      sides, in every other spelling.  The fold has to win only when the enum
+      read IS THE WHOLE RHS.  Pass 21's blanket attempt at this family demoted
+      TEN u2r tests; the whole-RHS restriction is what pass 21 lacked.
+  (2) The int_typespec SIGNEDNESS family, one arm past this pass's law 3.  Law 3
+      fixed § genCaOwnSymFirst's clone; the r10earl24 trace notes say the stamp
+      that produced the wrong flag was NOT reachable by instrumenting every
+      single-line `->VpiSigned(...)` call and reading the object's location,
+      because most sites stamp BEFORE setLoc — instrument setLoc, or print the
+      flag at the END of the arm, if this family reappears.
+  (3) The residual 346-row bind table, UNCHANGED from pass 23 in every one of
+      its nine scopes (this pass added no new binds and removed none):
+        127  rdata     @145:14  G=logic_net O=-
+         32  data_mux  @160:12  G=- O=logic_var   pinmux gen_mio_out
+         32  data_mux  @174:12  G=- O=logic_var   pinmux gen_mio_out
+         32  oe_mux    @175:12  G=- O=logic_var   pinmux gen_mio_out
+         32  sleep_mux @176:12  G=- O=logic_var   pinmux gen_mio_out
+         29  reqid_sub @95:12   G=- O=logic_var
+         40  x5 OpRead/OpWrite  G=enum_const O=-  the tlul_adapter_sram family
+          4  fifo_wptr/fifo_rptr @111                    G=- O=logic_var
+          2  entropy_i @315:38  G=logic_net O=-
+      The five pinmux `$bits(x)'({...})` SIZE-CAST rows are still ONE statement
+      family worth 128 of the 165 OVER-binds, and the 40 enum_const rows still
+      want the `'{...}` ASSIGNMENT-PATTERN RHS and the STRUCT-MEMBER COMPARISON
+      OPERAND added to qb23 (pass-23 residue (2), untouched).
+  (4) FRESH, from we24: the PACKED-RANGE bound of an UNTYPED, UN-OVERRIDDEN
+      module param folds at 64 where golden wants the param's own 32.  we24
+      rows 28:11 / 43:9 hold it; this pass's law 2 made the per-instance
+      parameter available (parHere24) but the untyped default row still lands
+      in the bare-64 else-arm, so the remaining question is which of
+      litBoundOwnPar9's two tests it fails.  ALSO from we24: a part-select
+      bound in a CA of the DEFAULT instance folds the OTHER instance's VALUE
+      (dec=40 where golden says 32) — the same wrong-instance trap as law 2,
+      now in the ExprEmit param_assign-COPY path (the paSrc9 arm), and a WRONG
+      VALUE is worse than a wrong width.  we24's `u_c` / `u_dflt` pair is the
+      witness for both.
+  (5) FRESH, from wa24/wb24: GOLDEN stamps a ref_typespec on the pkg-param fold
+      of a TOP-LEVEL gen scope (wa24 :56 flat for-gen, wb24 :56 top-level
+      if-gen) and WE LACK IT — the only remaining difference in either witness.
+      DIRECTION CORRECTED BY THE PASS-24 VERIFIER: the first write-up had this
+      inverted ("we stamp ... where golden has none").  Measured head is
+      LHS(golden) = `ref_typespec (work@wa24.u_c.g_flat[0])` / RHS = <null>,
+      likewise wb24 at `work@wb24.u_c.g_outer`.  The residue is real and
+      PRE-EXISTING (identical hunks in the unpatched before-vs-golden diff);
+      only the sign was wrong.  This is the DIRECTION DISCIPLINE trap of
+      PLAYBOOK.md §3 — the fix is to ADD the ref, not to suppress one.
+      One arm away from this pass's law 1 and measurable on a 3-line file.
+  (6) Unchanged and re-ranked below: pass-23 residue (4) (pt23's localparam
+      SIZE rows / the typed-untyped split of § dimFoldReducedParam), the three
+      hier_path families, work@jtag_mux (find the DESIGN-FINAL minter of the
+      loc-less typespec with the EMPTY constant), work@sram2tlul's kept
+      top_pkg::TL_SZW cast, work@prim_keccak, def:work@prim_prince, the smalls,
+      and tl_main_pkg.sv:13:59, which is STILL both top_earlgrey CENSUS heads
+      (the census Compares each listing entry with a fresh context and that
+      param_assign comes FIRST in Compare order — which is exactly why the
+      census has not moved for five passes while the bisector has moved ten
+      times).  THE CENSUS IS NOT THE FRONTIER: bis24.sh top 'work@top_earlgrey'
+      whole is.
+
+LANDED — PASS 24 (r10earl24; THREE laws in FOUR gate rounds — round 2 caught a
+CANARY REGRESSION and the refinement is now part of law 2.  Final round:
+goldens 23/23 + u2r testflags 732 lines 0 change vs results/gate_uhdm2rtlil.csv
++ Surelog BOTH MODES 1589 lines 0 change, WHOLE-ROW incl. the dump column, vs
+results/golden_surelog.csv.  results/*.csv untouched: 0 movers.)
+
+  HEADLINE: the head census is byte-identical at 14 for the FIFTH consecutive
+  pass while bis24.sh peeled FIVE layers off the top_earlgrey pair, ending in a
+  DIFFERENT FAMILY (a fold golden does and we do not, r=-601, sign flipped):
+    pass-23 exit   g_pmp_registers > g_pmp_csrs[0] >
+                   ibex_cs_registers.sv:795:44 CSR_OFF_PMP_CFG   r=601
+    after law 1a   g_pmp_csrs[0] > :798:59 PMP_CFG_W             r=601
+    after law 1b   mcounters_variable_i > g_counter_narrow >
+                   ibex_counter.sv:68:15 range bound 64 vs 32    r=32
+    after law 2    g_mcountinhibit_reduced > :965:56 int_typespec
+                   vpiSigned 0 vs 1                              r=-1
+    after law 3    g_pmp > ibex_core.sv:926:34 PMP_ACC_EXEC
+                   golden FOLDS the whole RHS                    r=-601
+  and the whole-arena BIND residue held at 346 rows with EVERY ONE of its nine
+  scopes unchanged — law 1 adds hundreds of ref+enum_const pairs and introduced
+  NO new over-binding.
+
+  1. § genNestedScopePkgParamNoFold24 (ExprEmit ~3482, armed in ModuleEmit's
+     emitBlock at the cont-assign site ~12580 and the process site ~13196,
+     flag genNestedScopeEmit24 in UhdmExporter.h).  IN AN ELABORATED GEN SCOPE
+     THAT IS NESTED INSIDE ANOTHER GENERATE SCOPE, AN UNQUALIFIED
+     (WILDCARD-IMPORTED) PACKAGE-PARAMETER READ IS NOT FOLDED: golden keeps the
+     gen-scoped ref_obj and binds it to a FRESH LOC-LESS enum_const carrying
+     the parameter's own value — the same per-ref clone shape
+     § genCaEnumBindsSelectOnly22 mints for an enum constant, because one
+     shared package object cannot serve every elaborated gen instance.  This is
+     the SECOND no-fold container of § defGenProcWildcardPkgParamNoFold19's
+     family and it was the pass-23 exit frontier.
+     THE 2x2 (wa24 + wb24, one child instance, both views):
+       for-gen NESTED in if-gen, cont_assign   -> ref + enum_const (we FOLDED)
+       the same read in an always_comb          -> ref + enum_const (we FOLDED)
+       if-gen nested in if-gen                  -> ref + enum_const (we FOLDED)
+       for-gen nested in for-gen                -> ref + enum_const (we FOLDED)
+       the same nested shape in the TOP module  -> ref + enum_const (we FOLDED)
+       TOP-LEVEL for-gen body / TOP-LEVEL if-gen-> FOLDS on both sides
+       a QUALIFIED `pkg::P` read, same scope    -> FOLDS on both sides
+       a MODULE localparam, same scope          -> ref, UNBOUND, both sides
+     so the discriminators are the NESTING and the MISSING QUALIFIER — not the
+     generate KIND, not the container, and NOT child-vs-top: wb24's t_outer /
+     t_in row measures the SAME way round, which is the first time in three
+     passes that the child-instance trap did NOT bite.  The nesting test is
+     `parentFull != prefix`, the one § genCaChildLoopSelFold21 settled on.
+     1b. SELECT POSITIONS ARE IN, AND THAT IS MEASURED.  The first cut excluded
+     every select position (inPsBound / selIdxScopeDepth / a select parent) on
+     the theory that § selFold9 and friends own them; the corpus bisector then
+     advanced by exactly ONE cont_assign, to :798:59
+     `csr_wdata_int[(i%4)*PMP_CFG_W+7]`, where golden keeps the ref too.  wd24
+     measures all five spellings in one nested gen scope and golden KEEPS AND
+     BINDS every one: a bit-select index OPERATION, a BARE bit-select index,
+     both PART-select bounds, an INDEXED-part-select base, and the plain
+     operand.  A LAW WHOSE FIRST CUT IS THE CAUTIOUS ONE COSTS ONE BISECT
+     LAYER, WHICH IS THE CHEAPEST POSSIBLE REFUTATION — take it.
+     ENCODING (wc24, five spellings): the clone carries the parameter's own
+     encoding and width — 12'h5A0/12, 8'b10100001/8, 7/32, an EXPRESSION init
+     as plain decimal at the declared width — with ONE difference from the fold
+     it replaces: an UNTYPED pkg param is SIXTY-FOUR bits here
+     (`parameter R_UNT = 12` -> UINT:12 size 64) where
+     § pkgParamFoldWidthAlways lands at 32.  wc24 and wd24 both convert to
+     fully CMP_EQUAL.
+     FULLNAME NOTE, measured and deliberately not chased: in a PART-SELECT
+     BOUND golden scopes the kept read under the select BASE
+     (`...g_i[0].dat.S_HI`) and in an INDEXED-part-select BASE it does not
+     (`...g_i[0].S_P`); a cut that rescoped on inPsBound fixed the first and
+     broke the second, and fullname is not a uhdm-cmp field.  Those two wd24
+     rows therefore show as `<absent>` pairs in the r10earl22a census — the
+     class that census's own doc says to ignore.
+  2. § boundOverriddenParamWidth24 (TypeEmit ~3485-3660, the PACKED range
+     builder).  A PACKED RANGE BOUND FOLDING AN OVERRIDDEN MODULE PARAMETER
+     STAYS AT 64.  § overriddenBoundParamNoFoldTs19 already said so and
+     dropped the ts ref for exactly that reason, but the arm below it silently
+     re-narrowed the SIZE back to the declaration's width whenever the
+     parameter happened to be TYPED, so only the ts ref ever went away.  Same
+     Surelog behaviour as pass 23's § dimFoldOverriddenParam23 (the override's
+     value object is a fresh unsized constant) reaching the packed builder.
+     Corpus: ibex_counter.sv:68 `logic [63:CounterWidth] unused_counter_load;`
+     inside `if (CounterWidth < 64) begin : g_counter_narrow`.
+     2b. THE PER-INSTANCE TRAP, and the reason this law needed a trace.  The
+     bound's parameter is resolved by binding the bound syntax in
+     `currentScope`, which for a SECOND instance of the same definition is the
+     FIRST instance's body: the new R10E24_BNDDBG=1 trace prints
+     `dig=32 pval=40` on we24's DEFAULT instance, i.e. isOverriddenParam was
+     answering about the OTHER instance.  Every per-instance question at this
+     site now goes through `parHere24`, resolved with Lookup::unqualified from
+     the DECLARING symbol's own scope (pass 23's 4b recovery).  Without it the
+     first cut moved the default instance to 64 as well and cost we24 its ts
+     ref; with it we24's typed rows (gen scope, nested gen scope, module body)
+     all match.
+     2c. THE CANARY REGRESSION that finished the law.  Gate round 2 demoted u2r
+     genscope_cells (CMP_EQUAL -> CMP_NOTEQUAL) — the very test named in
+     § overriddenBoundParamNoFoldTs19's comment.  Its
+     `ibex_counter #(.CounterWidth(MODULE_PARAM))` over a `$unit`-scope
+     `parameter int MODULE_PARAM = 10` keeps golden's bound at 32, so an
+     OVERRIDE whose ACTUAL is a bare ref to a LITERAL-INITIALISED parameter
+     still lends its narrow width — and litBoundOwnPar9's carve-out required
+     that actual to be UNTYPED, which was just the one spelling BasicOh
+     happened to have.  Dropping the typed-ness test restores the canary AND
+     keeps Earlgrey at 64, because ibex_cs_registers is handed
+     `.CounterWidth(MHPMCounterWidth)` and its own MHPMCounterWidth is
+     overridden in turn by ibex_core:821 — so THAT parameter's initializer is a
+     REF, not a literal, and no narrow width is lent.  A REGRESSION IS THE
+     CHEAPEST DISTINGUISHER: it supplied the missing condition, exactly as in
+     passes 19 and 21.
+  3. § genCaFoldTsSignedFromParam24 (ExprEmit ~4266, § genCaOwnSymFirst's
+     clone).  The ts of a gen-scope CA param fold carries THE PARAMETER'S OWN
+     SIGNEDNESS, not an unconditional signed int.  The neighbouring § itsR arm
+     four hundred lines down already keys on `psF.getType().isSigned()` and its
+     comment says so; this arm predates that measurement and disagreed with it.
+     Corpus: ibex_cs_registers.sv:965:56
+     `mhpmcounter_we[31:MHPMCounterNum+3]` inside g_mcountinhibit_reduced —
+     `parameter int unsigned MHPMCounterNum`, golden vpiSigned 0, ours 1.
+     The law is proved by the corpus bisect, the gate, AND by wf24, which the
+     pass-24 VERIFIER measured as a POSITIVE witness: unpatched it carries
+     exactly this bug (ours vpiSigned 1 at wf24.sv:13:13, golden 0) and patched
+     it is fully CMP_EQUAL.  The original write-up's claim that wf24 "failed to
+     reproduce it / takes a different arm (ts fullname = the SELECT BASE)" was
+     WRONG and understated the pass.
+
+PASS-24 OPS NOTES
+  * THE BISECTOR IS THE FRONTIER, THE CENSUS IS NOT.  Five passes of a
+    byte-identical 14-head census and ten bisect layers of real progress.
+    `bis24.sh top 'work@top_earlgrey' whole` is the ONE command that measures
+    this cluster; the AllModules entry stops at tl_main_pkg.sv:13:59 every time
+    because that param_assign is first in Compare order.
+  * AN ENV-GATED TRACE AT THE BRANCH POINT BEATS A HYPOTHESIS, AGAIN.
+    R10E24_BNDDBG=1 (one line per packed-range bound fold: symbol, bound text,
+    resolved parameter, its VALUE, and ovr/bp/lit/size) found in one run that
+    the parameter a bound resolves to can belong to a DIFFERENT INSTANCE.  Two
+    hypotheses about signedness and one about typed-ness died to it.
+  * A CAUTIOUS FIRST CUT IS A MEASUREMENT TOO.  Law 1's select-position
+    exclusion was pure caution; the corpus answered in one bisect layer and
+    wd24 then settled all five spellings.  Cost: one build.
+  * TRACE THE STAMP, NOT THE OBJECT.  Instrumenting every single-line
+    `->VpiSigned(...)` call to print the object's location found NOTHING for
+    law 3's corpus object, because nearly every site stamps the flag BEFORE
+    setLoc.  If a scalar-field law needs its mint site, print at the END of the
+    arm or instrument setLoc.
+  * VERIFY A "DOES NOT REPRODUCE" CLAIM BEFORE RANKING ON IT.  This pass filed
+    wf24 as a negative witness and the verifier showed it converts — the
+    hypothesis about which arm its fold takes was never measured against the
+    patched binary.  A witness declared negative costs a law its cheapest
+    proof.  wa24's leftover ts-ref row does still rank: it is residue (5), with
+    a 3-line repro already written and its DIRECTION now corrected.
+  * EXIT METRICS, for the next pass to diff against: head census 9+5+0+0 = 14;
+    whole-arena bind residue 346 rows (nine scopes, unchanged); r10earl23a
+    whole-arena ref_obj existence census 137528 keys, 16816 DIFF (6903
+    golden-only, 9750 ours-only) — that last pair INCLUDES the elaborated
+    fullname-spelling differences and is therefore an upper bound, not a count
+    of missing objects.
+
+RANKED RESIDUE (measured after PASS 23 — SUPERSEDED by the pass-24 block above,
+kept because its decodes and negative results still hold; still 9
 AllModules + 5 TopModules = 14 heads and the census is BYTE-IDENTICAL for a
 FOURTH consecutive pass, which is again not a zero: bis23.sh peeled FIVE more
 layers off the top_earlgrey pair and the whole-arena BIND residue went

@@ -2386,6 +2386,17 @@ private:
     // instead (R6, a different law).  So this flag arms the child-instance
     // half and the ExprEmit site restricts it to select positions.
     bool genCaChildLoopFold21 = false;
+    // § genNestedScopePkgParamNoFold24 — set with inGenScopeCaRhs /
+    // inGenScopeProc when the ELABORATED gen scope being emitted is NESTED in
+    // another generate scope (`parentFull != prefix`, the same nesting test
+    // § genCaChildLoopSelFold21 settled on).  In that scope an UNQUALIFIED
+    // (wildcard-imported) PACKAGE-PARAMETER read is NOT folded: golden keeps
+    // the ref_obj and binds it to a FRESH loc-less enum_const carrying the
+    // parameter's own value.  A TOP-LEVEL gen scope (for OR if) folds in the
+    // elaborated view, so the flag is off there.  wa24/wb24/wc24 measure the
+    // whole matrix; the corpus head is ibex_cs_registers.sv:795:44's
+    // CSR_OFF_PMP_CFG inside g_pmp_registers > g_pmp_csrs[i].
+    bool genNestedScopeEmit24 = false;
     // Root prefix of the top instance currently being emitted (bind
     // instances DISPLAY directly under it while contents keep real paths).
     std::string currentTopPrefix;
