@@ -1088,26 +1088,44 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
         UHDM::typespec* its0 = nullptr;
         if (assocDim0(i0) && aidx[i0])
             if ((its0 = assocIndexTs(*aidx[i0], vs))) {
-                if (sx0)
-                    setLoc(its0, sx0->sourceRange());
-                else if (d0)
-                    setLoc(its0, SourceRange(d0->sourceRange().start() + 1,
-                                             d0->sourceRange().end() - 1));
-                if (tsInst && !its0->Instance())
-                    its0->Instance(tsInst);
-                // An `[int]`-style index keeps its SIGN.  predefIntTypespec
-                // deliberately drops vpiSigned because the io_decl / local
-                // copy Surelog hands back is the unsigned-looking one
-                // (PreprocFunc), but the INDEX typespec of an associative
-                // dimension carries it — t57a `mAssocInt57::aint`, where it
-                // was the last cmp difference left in the arm.  Only the
-                // freshly-minted predefined-integer arm is touched; a typedef
-                // index resolves to a SHARED object that must not be mutated.
-                if (aidx[i0]->getCanonicalType().kind ==
-                        SymbolKind::PredefinedIntegerType &&
-                    aidx[i0]->isSigned() &&
-                    its0->UhdmType() == UHDM::uhdmint_typespec)
-                    ((UHDM::int_typespec*)its0)->VpiSigned(true);
+                // § sharedAliasNoStamp41 — a TYPEDEF-NAME index resolves to
+                // the ONE shared typespec object every user of that typedef
+                // points at, and golden USES IT AS IT STANDS: t58a's promoted
+                // `int ab[b8]` index is `bit_typespec (b8) @31:11` — the
+                // typedef's own span, name and vpiInstance — while pass 40
+                // re-spanned it to the `[b8]` bracket and thereby moved a
+                // module-level `pkb::b8 t` and every other user with it.  So
+                // NONE of the three stamps below may touch a shared alias, and
+                // the test is POINTER IDENTITY against the typedef registries
+                // (EITHER view), not the index type's canonical kind — a
+                // KIND:NAME test cannot answer an IDENTITY question.
+                // `typedef int myint` is
+                // canonically a PredefinedIntegerType and sailed through the
+                // kind guard this replaces (measured: 6 `myint` occurrences
+                // re-spanned to 60:12).
+                const bool shared0 = isSharedAliasTs(*aidx[i0], its0);
+                if (!shared0) {
+                    if (sx0)
+                        setLoc(its0, sx0->sourceRange());
+                    else if (d0)
+                        setLoc(its0,
+                               SourceRange(d0->sourceRange().start() + 1,
+                                           d0->sourceRange().end() - 1));
+                    if (tsInst && !its0->Instance())
+                        its0->Instance(tsInst);
+                    // An `[int]`-style index keeps its SIGN.
+                    // predefIntTypespec deliberately drops vpiSigned because
+                    // the io_decl / local copy Surelog hands back is the
+                    // unsigned-looking one (PreprocFunc), but the INDEX
+                    // typespec of an associative dimension carries it — t57a
+                    // `mAssocInt57::aint`, where it was the last cmp
+                    // difference left in the arm.
+                    if (aidx[i0]->getCanonicalType().kind ==
+                            SymbolKind::PredefinedIntegerType &&
+                        aidx[i0]->isSigned() &&
+                        its0->UhdmType() == UHDM::uhdmint_typespec)
+                        ((UHDM::int_typespec*)its0)->VpiSigned(true);
+                }
             }
         if (!assocDim0(i0)) {
             // The SIZE model: `<name> - 1`, exactly as § assocIoRange9 builds
@@ -2015,12 +2033,21 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     rc9->VpiConstType(vpiStringConst);
                     if (aidx[i9])
                         if (auto* its9 = assocIndexTs(*aidx[i9], *arg)) {
-                            if (sx9)
+                            // § sharedAliasNoStamp41, same invariant as the
+                            // body-local arm.  INERT here today and recorded
+                            // as such: this branch is the !named9 half, so the
+                            // index was written as a type KEYWORD and can
+                            // never resolve to a TypeAlias — the guard exists
+                            // so the invariant holds by GREP at every
+                            // assocIndexTs stamp site rather than by
+                            // re-deriving the grammar split.
+                            const bool sh9 = isSharedAliasTs(*aidx[i9], its9);
+                            if (sx9 && !sh9)
                                 setLoc(its9, sx9->sourceRange());
                             // The index typespec is a package-scope
                             // object like the formal's own (uhdm-cmp
                             // recurses a typespec's Instance).
-                            if (tsInst0 && !its9->Instance())
+                            if (tsInst0 && !its9->Instance() && !sh9)
                                 its9->Instance(importCopyTsInst
                                                    ? importCopyTsInst
                                                    : tsInst0);

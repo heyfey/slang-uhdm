@@ -2975,6 +2975,17 @@ private:
     // The already-emitted typespec object for a package/module/class TYPEDEF
     // (the elaborated copy wins, as in makeTypespec); null when unregistered.
     UHDM::typespec* sharedAliasTs(const slang::ast::Type& t);
+    // § sharedAliasNoStamp41 — true when `ts` is one of the typespec objects
+    // that EVERY user of typedef `t` points at, i.e. is registered in EITHER
+    // typedef registry (a typedef has up to two: the DEF-view object and the
+    // package listing's TOP-view twin, and t58a measures both being stamped).
+    // A single USE of a type must never setLoc / Instance / VpiSigned such an
+    // object: the stamp lands on every unrelated declaration that shares it
+    // (measured — t58a, where a body-local `int ab[b8]` re-spanned two thirds
+    // of the design's `b8` typespec occurrences to its own index bracket).
+    // Guard on THIS, never on the index type's canonical kind: `typedef int
+    // myint` is a PredefinedIntegerType canonically and walks any such guard.
+    bool isSharedAliasTs(const slang::ast::Type& t, const UHDM::typespec* ts);
     // The class_defn currently being filled (a `new` constructor's synthesized
     // return class_var points its class_typespec at it).
     UHDM::class_defn* currentClassDefn = nullptr;

@@ -1091,6 +1091,23 @@ UHDM::typespec* UhdmExporter::sharedAliasTs(const Type& t) {
     return nullptr;
 }
 
+bool UhdmExporter::isSharedAliasTs(const Type& t, const UHDM::typespec* ts) {
+    if (!ts || t.kind != SymbolKind::TypeAlias)
+        return false;
+    // BOTH registries, not just the one sharedAliasTs prefers: a typedef has up
+    // to two shared objects (the DEF-view one and the TOP-view one), the two
+    // listings each hand back a different one, and NEITHER may be stamped by a
+    // single use.  Testing only sharedAliasTs's winner would leave the other
+    // object mutable — t58a measures both halves, `b8` (the bare twin) and
+    // `pkb::b8` (the package listing's), and HEAD re-spans BOTH.
+    if (auto it = pkgTopTypedefTs.find((const void*)&t);
+        it != pkgTopTypedefTs.end() && it->second == ts)
+        return true;
+    if (auto it2 = typedefTs.find(&t); it2 != typedefTs.end() && it2->second == ts)
+        return true;
+    return false;
+}
+
 UHDM::variables* UhdmExporter::classElemVar(const Type& elemType) {
     auto& ec = elemType.getCanonicalType();
     UHDM::variables* v = nullptr;
@@ -1171,6 +1188,16 @@ UHDM::typespec* UhdmExporter::assocIndexTs(const Type& idx, const Symbol& sym) {
         pendingClassTsLink.push_back({cts, &ic});
         return cts;
     }
+    // MEASURED RESIDUE, mechanism OPEN (r10uvm41 §4(1)): golden's index object
+    // for a PACKED-VECTOR typedef index is the BARE-named twin
+    // (`uvm_reg_addr_t`), ours the package-qualified one — 3 rows in SimpleUVM
+    // (uvm_reg_map::m_regs_by_offset / _wo, uvm_reg_map_info::addr) and a
+    // cmp-COMPARED field.  Every other spelling already agrees to the row
+    // (enum and struct indices are `<pkg>::<alias>` in golden too).  The
+    // obvious fix is REFUTED: preferring `typedefTs` over `pkgTopTypedefTs`
+    // here changes NOTHING, because both registries hold the SAME
+    // package-qualified object for these typedefs — the bare twin that 135
+    // references bind is minted somewhere else and has to be found first.
     if (auto* sh = sharedAliasTs(idx))
         return sh;
     if (ic.kind == SymbolKind::PredefinedIntegerType)
@@ -1219,7 +1246,17 @@ void UhdmExporter::emitAssocDims(const Symbol& cp,
     };
     if (idx[0]) {
         if (auto* its = assocIndexTs(*idx[0], cp)) {
-            if (auto* d = dimAt(0)) {
+            // § sharedAliasNoStamp41 — the pass-40 hazard is INHERITED from
+            // here: a TYPEDEF-NAME index (`uvm_reg_addr_t`, t58a's `[b8]`)
+            // resolves to the ONE shared typespec object every user of that
+            // typedef points at, and re-spanning it at THIS property's index
+            // bracket drags every unrelated declaration of the typedef's type
+            // along.  Golden uses the shared object as it stands: t58a
+            // `pkb::oobb::pmapb`'s vpiIndexTypespec is `bit_typespec (b8)
+            // @31:11`, the typedef's own span.  MEASURED, not inferred — LAW A
+            // alone left 10 `b8` + 13 `pkb::b8` + 6 `myint` occurrences
+            // re-spanned to 41:14 / 42:15 by this very site.
+            if (auto* d = dimAt(0); d && !isSharedAliasTs(*idx[0], its)) {
                 auto dr = d->sourceRange();
                 if (auto* rd = d->specifier
                                    ? d->specifier
@@ -1257,7 +1294,8 @@ void UhdmExporter::emitAssocDims(const Symbol& cp,
         r->Right_expr(rc);
         if (idx[i]) {
             if (auto* its = assocIndexTs(*idx[i], cp)) {
-                if (auto* d = dimAt(i))
+                // § sharedAliasNoStamp41 — same invariant, INNER dimension.
+                if (auto* d = dimAt(i); d && !isSharedAliasTs(*idx[i], its))
                     if (auto* rd = d->specifier
                                        ? d->specifier->as_if<
                                              syntax::RangeDimensionSpecifierSyntax>()
