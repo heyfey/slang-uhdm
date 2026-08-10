@@ -1256,7 +1256,294 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
-RANKED RESIDUE (measured after PASS 26 — NEXT AGENT STARTS HERE.  Still 9
+RANKED RESIDUE (measured after PASS 27 — NEXT AGENT STARTS HERE.  Still 9
+AllModules + 5 TopModules = 14 heads, BYTE-IDENTICAL for an EIGHTH consecutive
+pass — and for the eighth time that is not a zero: bis27.sh walked the
+top_earlgrey pair through THREE successive operands of ONE cont_assign and then
+OUT of tlul_adapter_host altogether, into a SIBLING instance and a different
+family.  Read LANDED — PASS 27 below first.  EVERY DIRECTION BELOW IS STATED AS
+LHS(golden) / RHS(ours).)
+
+  (1) THE NEW FRONTIER, and it is the SHALLOWEST this campaign has had (depth 5,
+      down from 7) and in a family the README has tracked since pass 2 — THE
+      BASED-DECIMAL / BASED-LITERAL FOLD DIRECTION:
+          prim_fifo_sync.sv:11:40   `parameter bit Pass = 1'b1,`
+      reached top_earlgrey -> u_rv_core_ibex -> fifo_i (work@tlul_fifo_sync,
+      rv_core_ibex.sv:224) -> reqfifo (work@prim_fifo_sync,
+      tlul_fifo_sync.sv:32) -> param_assign[1] -> its Rhs.
+          LHS(golden) constant {ct=3 sz=1 dec=1'b1}   (BIN, the written form)
+          RHS(ours)   constant {ct=9 sz=1 dec=1}      (UINT, re-encoded)
+      The size agrees; the ENCODING and the DECOMPILE do not, and
+      constant::Compare reads both.  The parameter is `bit`-typed (one bit) with
+      a BASED default, in a DEEP ELABORATED CHILD — all three of those are
+      candidate discriminators and NONE of them is measured yet, so BUILD THE
+      2x2x2 BEFORE TOUCHING THE EMITTER.  Note the README's pass-2/pass-3 entry
+      for this family: `2'd1` and `4'd3` fold in OPPOSITE directions at two
+      different sites (ParamEmit's elab param rewrite vs ExprEmit's ~3251
+      pkg-param body fold), so THE TWO SITES MUST BE DECODED TOGETHER and a
+      one-sided fix will regress the other.  `bit`+`1'b1` is a THIRD spelling
+      neither of those measured.
+
+  (2) THE SIZE-CAST FOLD's SIGN AND TYPESPEC — PRE-EXISTING, WITNESSED
+      PRE-PATCH, and now the head of BOTH pass-27 cast witnesses.  When the
+      whole size cast folds to a constant (a literal-initialised operand), the
+      elaborated cont_assign Rhs reads
+          LHS(golden) constant {UINT:2, size 2, decompile "2"}, BARE
+          RHS(ours)   constant {INT:-2, size 2}, carrying a ref_typespec ->
+                      logic_typespec
+      i.e. we sign-extend the cast (2 cast to 2 signed bits IS -2) where Surelog
+      keeps the UNSIGNED value, and we attach a typespec golden has none of.
+      qh27.sv row A and qi27.sv row A are both this, and qh27 was measured
+      BEFORE any pass-27 code, so it is NOT collateral.  Two independent
+      defects in one object (the sign and the ts ref) — split them before
+      fixing.
+
+  (3) § patFlatDefaultFillMemberWidth27's UNMEASURED HALF: an UNSIZED literal
+      written as a NAMED member value (`'{m_a: '0, ...}`) rather than as the
+      `default:`.  Law 3 deliberately does not touch it because no witness row
+      varies it.  ONE ROW IN qm27.sv CLOSES THIS — add it before assuming
+      either answer.
+
+  (4) WHERE THE NON-NESTED `'{default:'0}` ELAB EXPANSION IS BUILT.
+      R10E27_PATDBG=1 proves it is NOT emitExpr's StructuredAssignmentPattern
+      case: qm27's row E (`assign u_o = '{default: '0}`, a struct-typed
+      cont_assign at :63) prints exactly ONE PATDBG line, `reemit=0`, yet the
+      elaborated instance carries a THREE-OPERAND op75 with UINT 0 at 7 / 1 / 8
+      — already byte-correct.  Some other site builds and encodes that one.
+      FINDING IT WOULD LET LAW 2b AND LAW 3 DELETE THEMSELVES and share the one
+      implementation, and it would answer whether that site or the flatten owns
+      the rule.  Use mark.py (the decompile-site marker) — this is exactly the
+      "who wrote this text" question it was built for, and two readings of the
+      emitter failed to answer it.
+
+  (5) THE PACKED-RANGE TWIN of qe26's five-instance chain grid — CARRIED OVER
+      FROM PASS 26 AND STILL NOT WRITTEN.  Pass 26 landed
+      § dimFoldOverrideChainWidth26 in the UNPACKED builder only; the PACKED
+      builder's § litBoundOwnPar9 asks only ONE level of the same question and
+      answers pt23 the wrong way round.  Its two witnesses (u2r genscope_cells,
+      BasicOh) are SINGLE-HOP chains where both rules agree, so the refactor
+      still has NO POSITIVE WITNESS.  Pass 27 did not touch it.
+
+  (6) § chainW26's LATENT INCONSISTENCY — CARRIED OVER, AND STILL CORRECTLY
+      OPEN: pass 26 said to close it "if pass 27 touches the unpacked builder",
+      and pass 27 did NOT (every law this pass is in ExprEmit's pattern/cast
+      arms plus one ModuleEmit guard).  `chainW26` is computed under
+      `overriddenP0 && dimPar26` while `overriddenP0` derives from `be0` (which
+      can be the FIRST instance's symbol) and `dimPar26` from the declaring
+      symbol's parent scope.  All 169 corpus DIMDBG rows still agree, so it is
+      hardening; gate it separately.
+
+  (7) qj27's LAST ROW, a fresh find of this pass and CHEAP-LOOKING BUT SHARED:
+      the int_typespec our cast arm REUSES from a module localparam's own
+      declaration (`localparam int MSZW = $clog2(...)` used as `MSZW'(x)`)
+      carries NO vpiSigned, where LHS(golden) has vpiSigned:1 — and
+      int_typespec::Compare READS VpiSigned (verified in UHDM's generated
+      int_typespec.cpp: Cast_to_expr, then VpiSigned).  `int` is signed, so the
+      value is not in doubt; the DANGER is that this object is the PARAMETER'S
+      OWN declaration typespec, shared with its listing.  MEASURE THE
+      PARAMETER'S OWN ROWS BEFORE STAMPING — never mutate a shared object
+      blind (isSharedAliasTs).
+
+  (8) unchanged from pass 26 and still ranked in its order below: the gen-scope
+      OPERATION fold (unblocks qa25 :75), the nested-gen port-LHS bind (qa25
+      :107 / qb25 :103,:110 — the fix ADDS, discriminator is NESTING alone),
+      qb25 :97's OPERAND over-bind, the OCT-vs-UINT enum_const value defect
+      (MEASURE THE REACH FIRST), and the three hier_path families — with
+      dm_csrs.sv:309:27's DROPPED INDEX OPERAND still THE DESIGN-WIDE uhdm-cmp
+      head that masks every ibex head.  SAY WHICH HEAD YOU MEAN: `uhdm-cmp
+      golden ours` on the whole design still reports dm_csrs.sv:309:27;
+      tl_main_pkg.sv:13:59 is the top_earlgrey CENSUS head, confirmed unchanged
+      for an EIGHTH pass.
+
+LANDED — PASS 27 (r10earl27; FOUR laws, all four in the STRUCT-ASSIGNMENT-
+PATTERN / SIZE-CAST family the pass-26 bisector walked into, plus one guard that
+a regression forced).  EVERY DIRECTION BELOW IS LHS(golden) / RHS(ours).
+
+  THE METHOD RESULT OF THIS PASS: THE FRONTIER MOVED FOUR TIMES, THREE OF THEM
+  INSIDE ONE CONT_ASSIGN, and every move was found by re-running bis27.sh on the
+  head and building a witness for what it named — not by ranking.  The three
+  inner heads are Operands[3], Operands[4] and Operands[8] of
+  tlul_adapter_host.sv:84's `assign tl_o = '{...}`, i.e. THE SAME OBJECT three
+  times.  WHEN THE BISECTOR LANDS INSIDE A VECTOR, EXPECT THE NEXT ELEMENT TO BE
+  THE NEXT HEAD and keep the witness file open; the fourth move left the module
+  entirely.
+  THE SECOND METHOD RESULT: qh27 IS A VERIFIED NEGATIVE WITNESS and it is what
+  unlocked the pass.  It puts all seven cast spellings in a TOP module and every
+  DEF-view row is byte-identical to golden — the measurement that said "the def
+  view is already right, go and look at the elaborated instance".  qf26 (pass
+  26's hand-off witness) had that blind spot AND a second one: its cast operand
+  was a LITERAL-initialised localparam, so our emitter folded the whole cast
+  away and its head became a FOLD difference instead of the typespec-KIND
+  difference the corpus has.  A WITNESS THAT REPRODUCES A DIFFERENT DEFECT AT
+  THE RIGHT LINE IS NOT A REPRODUCTION.
+
+  1. § castQualPkgWidthElabBareTs27 (ExprEmit, the CastExpression arm) — A CAST
+     WIDTH WRITTEN QUALIFIED (`pkg::P'(x)`) MINTS THE SAME BARE int_typespec IN
+     THE ELABORATED VIEW AS IN THE DEF VIEW.  The def arm ("A PACKAGE-scoped
+     parameter width mints a BARE int_typespec: no name, no loc, just the folded
+     UINT value") was simply unreachable from a re-emitted context: the
+     `pendingCastTs` fallback returns first and defers an integer_typespec AT
+     THE WRITTEN SPAN.  That was the pass-26 exit frontier — bis27 depth 7,
+     tlul_adapter_host.sv:90:16 `a_size: top_pkg::TL_SZW'(WordSize)`,
+     LHS(golden) a LOC-LESS int_typespec {UINT:2} / RHS(ours) an
+     integer_typespec at :90:16 carrying the SAME UINT:2, so the KIND was the
+     whole difference and typespec::Compare reads VpiType.
+     THE GRID (qj27.sv — a child instance so both views exist, every cast
+     operand a PORT so no cast folds away; LHS(golden) first, BOTH views of
+     each row, read with cast27.py):
+       pkg::TL_SZW'  (int, computed init)      int_ts LOC-LESS
+       pkg::USZW'    (int unsigned, literal)   int_ts LOC-LESS
+       TL_SZW'       (same param, UNQUAL)      int_ts @ the pkg DECLARATION
+       MSZW'         (module localparam)       int_ts @ its declaration
+       PSZW'         (module parameter)        int_ts @ its declaration
+       2'            (literal width)           integer_ts @ the WRITTEN SPAN
+     and ours already agreed on every row but the two QUALIFIED ones, in the
+     ELAB view only.  So the discriminator is the WRITTEN QUALIFICATION — not
+     the parameter's declared signedness, not its initializer's literalness,
+     and not the struct-pattern context (a plain cont_assign measures the
+     same).  qi27.sv is the single-row reproduction of the corpus frontier.
+
+  2. § patFlatMemberOnly27 (ExprEmit, the § PatternOrder / AssignRhsFlat gate)
+     — ...AND A PATTERN WITH ONLY MEMBER SETTERS IS FLATTENED THE SAME WAY.
+     The flatten that rebuilds a re-emitted struct pattern "one operand per
+     struct MEMBER, in member-declaration order" required a TYPE key or a
+     DEFAULT setter, so a plain `'{m_a: x, m_b: y}` fell through to the generic
+     loop — which emits slang's `memberSetters` in WRITTEN order and never
+     recurses `patFlatTs` into a member's own pattern.  BOTH omissions were the
+     frontier in turn.  THE FIX IS THE GATE, NOT NEW CODE: everything golden
+     wants was already written, one condition away.
+     2a. ORDER (qk27.sv, child instance, LHS(golden) first): a SHUFFLED
+         `'{m_a, m_d, m_c, m_b}` reduces to [a@38, b@41, c@40, d@39] in golden
+         and reduced to [a@38, d@39, c@40, b@41] for us.  The TAGGED (def) form
+         keeps the WRITTEN order on BOTH sides; a pattern written in
+         declaration order, or POSITIONALLY, measures equal either way — which
+         is why twenty-six passes of struct-pattern work never met this.
+         Corpus: tlul_adapter_host writes a_mask before a_source where
+         tlul_pkg::tl_h2d_t declares a_source, a_address, a_mask, so bis27 read
+         Operands[4] as LHS(golden) ref_obj 'tl_source' @92:16 / RHS(ours)
+         ref_obj 'tl_be' @91:16 WITH THE VECTORS THE SAME SIZE.
+     2b. NESTING (qm27.sv): a member value that is itself `'{default:'0}`
+         expands to ONE OPERAND PER MEMBER of that member's struct.  Corpus:
+         `a_user: '{default:'0}` at :95, where bis27 read
+         `rel=97 VECTOR SIZE 3 vs 1`.
+     2c. THE GUARD A REGRESSION FORCED — § patFlatDidOrder27.  Enabling 2a
+         turned u2r `assignment-pattern` from CMP_EQUAL to CMP_NOTEQUAL, and
+         the A/B (an env gate on the one clause, then a rebuild) pinned it
+         exactly.  emitInstance's structuredPkgPat block ALREADY carries a
+         member-declaration-order permute for the DECLARATION-INITIALIZER site
+         ("Operands in MEMBER-DECL order (Surelog), not setter source order"),
+         written against slang's WRITTEN-order `memberSetters`: it maps
+         operand[i] to memberSetters[i].  Run that map over the flatten's
+         already-declaration-ordered vector and it scrambles it straight back
+         to written order.  `p::C l = '{th:170, r:1}` is the whole story —
+         golden's elab operands are [r's 1, th's 170].  The flatten now reports
+         that it ordered the OUTERMOST vector and the permute stands down.
+         THE LESSON: BEFORE WIDENING A GATE, GREP FOR THE LAW THE NEW PATH
+         WOULD NOW APPLY TWICE.  A second implementation of the same rule at a
+         different site CANCELS the first, and the symptom looks exactly like
+         the law being wrong.
+
+  3. § patFlatDefaultFillMemberWidth27 (ExprEmit, inside the flatten's operand
+     loop) — AN UNSIZED `default:` FILL IS RE-ENCODED UINT AT THE MEMBER'S OWN
+     WIDTH.  The fill has no width of its own (emitExpr gives BIN `'0` at size
+     -1); the member lends it one and Surelog's reduce writes the DECIMAL value.
+     THE GRID (qm27.sv, on tl_a_user_t-shaped {7,1,8} members; LHS(golden)):
+       `'{default: '0}`             UINT:0 at 7 / 1 / 8, decompile "0"
+       `'{default: '1}`             UINT:127 / UINT:1 / UINT:255
+       `'{default: 1'b0}`           BIN 1'b0 size 1 on ALL THREE — a SIZED
+                                    default keeps its own encoding
+       `'{u_en: 1'b1, default:'0}`  interleaves in declaration order:
+                                    UINT:0/7, BIN 1'b1, UINT:0/8
+     which is the same split ParamEmit ~5240 already implements for a struct
+     PARAMETER's pattern ("a BASED/SIZED literal setter keeps its own source
+     encoding; anything else folds to UINT at the member width") — the rule was
+     decoded long ago at another site.  Corpus: :95's `a_user: '{default:'0}`
+     reported LHS(golden) constant {ct=9 sz=7 dec=0} / RHS(ours) {ct=3 sz=1
+     dec='0} once 2b had made the vectors the same size.
+     SCOPE, deliberately narrow: the DEFAULT setter only — see ranked (3).
+
+  4. § patFlatAdjustStopsAtUnvaluable27 (same loop, the size-stamp walk) — "THE
+     ONE OPERAND THAT STOPPED THE WALK" IS THE FIRST ONE SURELOG'S REDUCE
+     CANNOT *VALUE*, WHICH IS NOT THE FIRST NON-CONSTANT.  The arm's own comment
+     already said "every leading constant plus the one operand that stopped the
+     walk"; the implementation tested `UhdmType() != uhdmconstant`, and a member
+     value that is a constant-FOLDABLE OPERATION is valued fine and the walk
+     carries on past it.  THE PAIR THAT MEASURES IT (LHS(golden) first):
+       qi27 `'{a_size: pkg::TL_SZW'(WordSize), a_mask: be_i, a_data: wdata_i}`
+         [0] the op67 CAST (foldable)   size 2 both sides
+         [1] ref_obj be_i              size 4  /  NONE
+         [2] ref_obj wdata_i           none both sides
+       qk27 `'{m_a: a_i, m_b: b_i, m_c: c_i, m_d: d_i}` (all ref_objs)
+         [0] ref_obj a_i               size 2 both sides
+         [1..3]                        none both sides
+     so golden stamps ONE operand PAST the foldable cast and stops, and stamps
+     nothing past a bare ref — qk27 is the NEGATIVE control that keeps the fix
+     honest (it must not start stamping there).  The test is now tryEval on the
+     slot expression.
+
+  THE PROBES (all derived by mk27.sh from the pass-26 set; RUN IT FIRST in a new
+  worktree rather than hand-editing W=):
+    cast27.py <dump> [opType]
+                 ONE LINE PER CAST OPERATION: `<line>:<col> xN op67
+                 ts=<actual typespec kind>@<loc>{fields}`, plus CONSTANT rows
+                 for the same spans (a cast whose operand folds leaves a
+                 constant where the other side left an operation — exactly what
+                 made qf26 fail to reproduce the corpus).  Every row of law 1's
+                 grid was read off this.
+    ord27.py <dump> [opType]
+                 ONE LINE PER OPERATION of a given opType with its OPERAND
+                 VECTOR IN ORDER, each operand as `<kind>:<name>@<line>:<col>`.
+                 THE projection for an ORDER law: a positional mismatch that
+                 uhdm-cmp reports as `ref_obj 'x' vs ref_obj 'y'` reads off two
+                 of these lines side by side.  Laws 2a/2b/3 are all in it.
+                 (Both scripts collapse duplicate (span, projection) tuples with
+                 an xN, so the DEF and the ELAB view of one declaration are ONE
+                 row when they agree — which is what makes a VIEW-ONLY defect
+                 visible as an extra row instead of a diff.  NOTE both parse the
+                 dump's 2-space indentation with the rule "a field at indent N
+                 belongs to the node at indent N-2"; get that off by one and
+                 every projection silently comes back empty.)
+    wit27.sh <basename>...   one line per witness: EQUAL, or its cmp head.
+    gld27.sh     the 23 goldens with SLANG_UHDM pinned; `SLANG_UHDM=/bin/false
+                 bash gld27.sh` is the negative control and must print PASS=0
+                 (it does).
+    R10E27_PATDBG=1
+                 (in the tree, inert when unset) one PATORD + one PATDBG line
+                 per STRUCTURED assignment pattern reaching emitExpr:
+                 `setters=[...] fields=[...]` — slang's memberSetters order
+                 BESIDE the struct's own field-scope order — then
+                 `reemit= flat= adj= mem= dflt= type=`.  PRINTING BOTH ORDERS is
+                 what settled law 2 (`setters=[th,r] fields=[r,th]` on the
+                 regressing u2r row), and the reemit/flat/adj triple is what
+                 showed the nested pattern reaching the flatten with adj=0 where
+                 the top-level one reads adj=1.  It also produced ranked (4).
+    qh27.sv      NEGATIVE witness: seven cast spellings in a TOP module, all
+                 DEF-view rows byte-identical.  DO NOT RE-DERIVE IT.
+    qi27.sv      the corpus frontier, one row (now down to ranked (2)).
+    qj27.sv      law 1's six-spelling grid with non-folding (PORT) operands.
+    qk27.sv      law 2a's order grid + law 4's negative control.
+    qm27.sv      laws 2b + 3: nested `'{default:'0}` / `'1` / `1'b0` /
+                 `'{named, default}` / a NON-nested control.  FULLY CMP_EQUAL.
+
+  RESULTS: qk27 and qm27 are FULLY CMP_EQUAL (uhdm-cmp exit 0).  Head census
+  BYTE-IDENTICAL AT 14 FOR AN EIGHTH PASS (9 AllModules + 5 TopModules, 0
+  packages both ways; `diff` of the two census files is empty).  Existence
+  census DIFF rows 33719 -> 33716, golden-only 42432 -> 42423, ours-only
+  25092 -> 25083 — MINUS NINE ON BOTH SIDES with NO honestly-added row: the
+  row-set delta is 5 removed / 2 added, and the two "added" rows are the same
+  KEYS with changed counts (ours-only ref_obj x3082 -> x3079, int_typespec
+  x2217 -> x2220 against golden's x2395, i.e. moving TOWARD golden).  The three
+  rows that vanished outright are `O=x3 integer_typespec @90:16` (law 1),
+  `G=x32 O=x26 constant @95:26` (laws 2b+3 — our count reached golden's 32) and
+  `G=x3 O=x6 constant @90:16`.  Whole-arena bind census 121990 rows both ways,
+  residue 317 -> 317 with the ROW-SET DELTA EMPTY BOTH WAYS (no new
+  over-binding).  Gates: goldens 23/23 (negative control 0/23); u2r testflags
+  diff EMPTY against the promoted baseline with paramod_genscope_child AND
+  issue326_packed_mem both individually confirmed DUMP=match; Surelog both modes
+  diff EMPTY whole-row (1589 rows).
+RANKED RESIDUE (measured after PASS 26 — SUPERSEDED by the PASS-27 list above;
+kept for the distinguishers it records.  Its items (1) and (2) are CLOSED by
+pass 27's laws 1 and 2a; its (4)/(5) carry forward as pass 27's (5)/(6).  Still 9
 AllModules + 5 TopModules = 14 heads, BYTE-IDENTICAL for a SEVENTH consecutive
 pass — and for the seventh time that is not a zero: bis26.sh peeled the
 top_earlgrey pair OFF ibex_core's `g_pmp` ENTIRELY, through ibex_pmp and into a

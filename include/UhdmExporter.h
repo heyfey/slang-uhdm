@@ -1810,6 +1810,16 @@ private:
     // adjustOpSize on the flattened operands, which stamps the member width
     // onto them.  A declaration initializer flattens WITHOUT that pass.
     bool patFlatAdjust = false;
+    // § patFlatMemberOnly27 — set by the flatten when it REBUILDS an
+    // OUTERMOST pattern's operand vector, so a caller that has its own
+    // member-declaration-order permute does not apply it a SECOND time.  The
+    // struct-declaration-initializer site (emitInstance's structuredPkgPat
+    // block) carries such a permute, written against slang's WRITTEN-order
+    // `memberSetters`; re-permuting the flatten's already-declaration-ordered
+    // vector by that map scrambles it straight back to written order, which is
+    // how u2r assignment-pattern (`p::C l = '{th:170, r:1}`) regressed the
+    // moment the flatten started accepting member-only patterns.
+    bool patFlatDidOrder27 = false;
     // True while a module's DEF (allModules) view is being built — the
     // elaborated view of the same declaration folds bounds the def listing
     // keeps written (InterfArrayBind).  Set by emitModuleDef for the inline

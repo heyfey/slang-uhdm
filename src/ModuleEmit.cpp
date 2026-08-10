@@ -6956,6 +6956,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     rt->Actual_typespec()->UhdmType() ==
                         UHDM::uhdmstruct_typespec)
                     patFlatTs = rt->Actual_typespec();
+                patFlatDidOrder27 = false;
                 auto* initE8 =
                     emitExpr(*it.sym->getDeclaredType()->getInitializer(), sv,
                              fullName, topNets);
@@ -6981,11 +6982,21 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                 }
                         // Operands in MEMBER-DECL order (Surelog), not
                         // setter source order.
+                        // § patFlatDidOrder27 — ...unless the flatten already
+                        // built the vector that way.  This permute maps
+                        // operand[i] to memberSetters[i], i.e. it ASSUMES
+                        // written order; run it over the flatten's
+                        // declaration-ordered vector and it scrambles it back
+                        // to written order.  u2r assignment-pattern
+                        // (`p::C l = '{th:170, r:1}` — golden's elab operands
+                        // are [r's 1, th's 170]) is the A/B: EQUAL with the
+                        // flatten disabled, unequal with it enabled and this
+                        // permute unguarded.
                         auto& apo8 =
                             stripImplicitConv(*it.sym->getDeclaredType()
                                                    ->getInitializer())
                                 .as<StructuredAssignmentPatternExpression>();
-                        if (op8->Operands() &&
+                        if (!patFlatDidOrder27 && op8->Operands() &&
                             op8->Operands()->size() ==
                                 apo8.memberSetters.size()) {
                             auto* no8 = s.MakeAnyVec();

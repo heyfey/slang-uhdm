@@ -6612,6 +6612,70 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             cts = its0;
                         }
                     }
+                    // § castQualPkgWidthElabBareTs27 (r10earl27) — A CAST WIDTH
+                    // WRITTEN QUALIFIED (`pkg::P'(x)`) MINTS THE SAME BARE
+                    // int_typespec IN THE ELABORATED VIEW AS IN THE DEF VIEW.
+                    // The def arm two blocks below ("A PACKAGE-scoped parameter
+                    // width mints a BARE int_typespec: no name, no loc, just
+                    // the folded UINT value") was never reachable from a
+                    // re-emitted context, because the `pendingCastTs` fallback
+                    // right below returns first and defers an
+                    // integer_typespec AT THE WRITTEN SPAN.  That was the
+                    // PASS-26 EXIT FRONTIER: bis27 depth 7,
+                    // tlul_adapter_host.sv:90:16 `a_size: top_pkg::TL_SZW'(
+                    // WordSize)` inside `assign tl_o = '{...}` of the
+                    // elaborated tl_adapter_host_i_ibex, LHS(golden) = a
+                    // LOC-LESS int_typespec {UINT:2} / RHS(ours) = an
+                    // integer_typespec at :90:16 (same UINT:2 value — the KIND
+                    // is the whole difference, and typespec::Compare reads
+                    // VpiType).
+                    // THE GRID (qj27.sv — a child instance so both views
+                    // exist, every cast operand a PORT so no cast folds away;
+                    // LHS(golden) first, both views of each row):
+                    //   pkg::TL_SZW' (int, computed init)   int_ts LOC-LESS
+                    //   pkg::USZW'   (int unsigned, literal) int_ts LOC-LESS
+                    //   TL_SZW'      (same param, UNQUAL)   int_ts @ the pkg
+                    //                                       DECLARATION
+                    //   MSZW'        (module localparam)    int_ts @ its decl
+                    //   PSZW'        (module parameter)     int_ts @ its decl
+                    //   2'           (literal width)        integer_ts @ the
+                    //                                       WRITTEN SPAN
+                    // and ours already agreed on every row but the two
+                    // QUALIFIED ones, in the ELAB view only — the def view was
+                    // byte-identical on all six.  So the discriminator is the
+                    // WRITTEN QUALIFICATION, not the parameter's declared
+                    // signedness and not its initializer's literalness; the
+                    // struct-assignment-pattern context (the corpus shape) and
+                    // a plain cont_assign measure identically.
+                    // qi27.sv is the single-row reproduction of the corpus
+                    // frontier; qh27.sv is the NEGATIVE witness that sent this
+                    // pass to the elab view — it puts the same seven spellings
+                    // in a TOP module, where the def view is all there is and
+                    // every row already agreed.
+                    if (!cts && !defGenProcessEmit && reemitting &&
+                        cesyn.left->kind == syntax::SyntaxKind::ScopedName) {
+                        auto& seQ27 = stripImplicitConv(sizeExpr);
+                        if (seQ27.kind == ExpressionKind::NamedValue &&
+                            seQ27.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter) {
+                            auto& pq27 =
+                                seQ27.as<NamedValueExpression>().symbol;
+                            if (auto pc27 = pq27.getParentScope();
+                                pc27 && pc27->asSymbol().kind ==
+                                            SymbolKind::Package) {
+                                auto* itq27 = s.MakeInt_typespec();
+                                auto& pvq27 =
+                                    pq27.as<ParameterSymbol>().getValue();
+                                if (pvq27.isInteger() &&
+                                    !pvq27.integer().hasUnknown())
+                                    itq27->VpiValue(
+                                        "UINT:" +
+                                        pvq27.integer().toString(
+                                            LiteralBase::Decimal, false));
+                                cts = itq27;
+                            }
+                        }
+                    }
                     if (!cts && !defGenProcessEmit && reemitting) {
                         auto* rt0 = s.MakeRef_typespec();
                         rt0->VpiFullName(prefix);
@@ -11644,6 +11708,43 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             const bool patFlatAdjust = this->patFlatAdjust;
             this->patFlatTs = nullptr;
             this->patFlatAdjust = false;
+            // R10E27_PATDBG=1 prints one line per STRUCTURED assignment
+            // pattern reaching this case, with the four inputs that pick the
+            // branch (view, flatten target, adjust flag, setter counts).  The
+            // pass-27 nested-default law was found here: the corpus row and
+            // qm27's rows show flat=1 adj=0 for a NESTED pattern where the
+            // top-level one reads flat=1 adj=1, so the member-width sizing
+            // pass was simply never propagated into the recursion.
+            static const bool patDbg27 = getenv("R10E27_PATDBG");
+            if (patDbg27) {
+                // ...and the two ORDERS the two paths use: slang's
+                // `memberSetters` (what the generic loop below emits) beside
+                // the struct's own field scope (what the flatten indexes).
+                // Printing both is what settled the pass-27 order question:
+                // they are NOT always the same list in a different order.
+                std::string ms27, fl27;
+                for (auto& m27 : ap.memberSetters)
+                    ms27 += std::string(m27.member->name) + ",";
+                if (expr.type && expr.type->getCanonicalType().isStruct())
+                    for (auto& f27 :
+                         expr.type->getCanonicalType().as<Scope>().members())
+                        if (f27.kind == SymbolKind::Field)
+                            fl27 += std::string(f27.name) + ",";
+                fprintf(stderr, "PATORD %u:%u setters=[%s] fields=[%s]\n",
+                        (unsigned)sm->getLineNumber(expr.sourceRange.start()),
+                        (unsigned)sm->getColumnNumber(expr.sourceRange.start()),
+                        ms27.c_str(), fl27.c_str());
+            }
+            if (patDbg27)
+                fprintf(stderr,
+                        "PATDBG %u:%u reemit=%d flat=%d adj=%d mem=%d dflt=%d "
+                        "type=%d\n",
+                        (unsigned)sm->getLineNumber(expr.sourceRange.start()),
+                        (unsigned)sm->getColumnNumber(expr.sourceRange.start()),
+                        (int)reemitting, (int)(patFlatTs != nullptr),
+                        (int)patFlatAdjust, (int)ap.memberSetters.size(),
+                        (int)(ap.defaultSetter != nullptr),
+                        (int)ap.typeSetters.size());
             auto* op = s.MakeOperation();
             op->VpiOpType(vpiAssignmentPatternOp);
             op->VpiParent(parent);
@@ -11698,9 +11799,40 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // the cont_assign RHS and the unpacked-struct declaration
             // initializer, the two sites that call the flatten in Surelog.
             // PatternOrder / AssignRhsFlat.
+            // § patFlatMemberOnly27 (r10earl27) — ...AND A PATTERN WITH ONLY
+            // MEMBER SETTERS IS FLATTENED THE SAME WAY.  The gate used to
+            // require a TYPE key or a DEFAULT setter, so a plain
+            // `'{m_a: x, m_b: y}` fell through to the generic loop below,
+            // which emits slang's `memberSetters` in WRITTEN order and never
+            // recurses `patFlatTs` into a member's own pattern.  Both of those
+            // are visible, and both were the pass-27 frontier in turn:
+            //   ORDER (qk27.sv, a child instance, LHS(golden) first) — a
+            //   SHUFFLED `'{m_a, m_d, m_c, m_b}` reduces to
+            //   [a@38, b@41, c@40, d@39] in golden and reduced to
+            //   [a@38, d@39, c@40, b@41] for us; the tagged (def) form keeps
+            //   the WRITTEN order on BOTH sides, and a pattern written in
+            //   declaration order, or POSITIONALLY, measures equal either way.
+            //   Corpus: tlul_adapter_host.sv:84 writes a_mask before a_source
+            //   where tlul_pkg::tl_h2d_t declares a_source, a_address, a_mask,
+            //   so bis27 read Operands[4] as LHS(golden) ref_obj 'tl_source'
+            //   @92:16 / RHS(ours) ref_obj 'tl_be' @91:16, vectors the SAME
+            //   SIZE.
+            //   NESTING (qm27.sv) — a MEMBER VALUE that is itself
+            //   `'{default:'0}` expands to ONE OPERAND PER MEMBER of that
+            //   member's struct, each default folded at the member's own width:
+            //   golden `[UINT 0/7, UINT 0/1, UINT 0/8]` where we emitted the
+            //   single written `'0` (BIN, size 1).  A SIZED default (`1'b0`)
+            //   stays BIN 1'b0 on all three, `'1` becomes UINT 127/1/255, and
+            //   `'{u_en: 1'b1, default: '0}` interleaves correctly in
+            //   declaration order — every one of those is what this flatten
+            //   already does, which is why the fix is the GATE and not new
+            //   code.  The NON-nested `'{default:'0}` was already right (it
+            //   satisfied the old gate) and is the control that proves the
+            //   two paths only differed in reachability.
             if (reemitting && patFlatTs &&
                 patFlatTs->UhdmType() == UHDM::uhdmstruct_typespec &&
-                (!ap.typeSetters.empty() || ap.defaultSetter) &&
+                (!ap.typeSetters.empty() || ap.defaultSetter ||
+                 !ap.memberSetters.empty()) &&
                 ap.indexSetters.empty() && expr.type &&
                 expr.type->getCanonicalType().isStruct()) {
                 auto* sts9 = (const UHDM::struct_typespec*)patFlatTs;
@@ -11776,8 +11908,69 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             this->patFlatTs =
                                 mrt9 ? mrt9->Actual_typespec() : nullptr;
                             if (auto* e9 =
-                                    emitExpr(*slots9[i9], op, prefix, netMap))
+                                    emitExpr(*slots9[i9], op, prefix, netMap)) {
+                                // § patFlatDefaultFillMemberWidth27 (r10earl27)
+                                // — AN UNSIZED `default:` FILL IS RE-ENCODED
+                                // UINT AT THE MEMBER'S OWN WIDTH.  The fill has
+                                // no width of its own (emitExpr gives BIN
+                                // `'0` at size -1); the member lends it one,
+                                // and Surelog's reduce then writes the DECIMAL
+                                // value.  qm27.sv, LHS(golden) first, on
+                                // tl_a_user_t-shaped {7,1,8} members:
+                                //   `'{default: '0}`    UINT:0   at 7 / 1 / 8
+                                //                       decompile "0"
+                                //   `'{default: '1}`    UINT:127 / 1 / 255
+                                //   `'{default: 1'b0}`  BIN 1'b0 size 1 on ALL
+                                //                       THREE — a SIZED default
+                                //                       keeps its own encoding
+                                //   `'{u_en: 1'b1, default: '0}` interleaves:
+                                //                       UINT:0/7, BIN 1'b1,
+                                //                       UINT:0/8
+                                // which is the same split ParamEmit ~5240
+                                // already implements for a struct PARAMETER's
+                                // pattern ("a BASED/SIZED literal setter keeps
+                                // its own source encoding; anything else folds
+                                // to UINT at the member width").
+                                // CORPUS: tlul_adapter_host.sv:95
+                                // `a_user: '{default:'0}` — bis27 read
+                                // `rel=97 VECTOR SIZE 3 vs 1` there, then
+                                // LHS(golden) constant {ct=9 sz=7 dec=0} /
+                                // RHS(ours) {ct=3 sz=1 dec='0}.
+                                // SCOPE — deliberately the DEFAULT setter only.
+                                // An unsized literal written as a NAMED member
+                                // value is the UNMEASURED HALF (no witness row
+                                // varies it), so it keeps the old shape until
+                                // one does.
+                                if (ap.defaultSetter &&
+                                    slots9[i9] == ap.defaultSetter &&
+                                    e9->UhdmType() == UHDM::uhdmconstant &&
+                                    stripImplicitConv(*slots9[i9]).kind ==
+                                        ExpressionKind::
+                                            UnbasedUnsizedIntegerLiteral) {
+                                    logic_t fb9 =
+                                        stripImplicitConv(*slots9[i9])
+                                            .as<UnbasedUnsizedIntegerLiteral>()
+                                            .getLiteralValue();
+                                    int64_t fw9 = surelogTsBits(
+                                        fields9[i9]->getDeclaredType()
+                                            ->getType());
+                                    if (!fb9.isUnknown() && fw9 > 0 &&
+                                        fw9 <= 4096) {
+                                        slang::SVInt fv9(
+                                            (slang::bitwidth_t)fw9, 0, false);
+                                        if (fb9.value)
+                                            fv9.setAllOnes();
+                                        std::string fd9 = fv9.toString(
+                                            LiteralBase::Decimal, false);
+                                        auto* fc9 = (UHDM::constant*)e9;
+                                        fc9->VpiSize((int32_t)fw9);
+                                        fc9->VpiValue("UINT:" + fd9);
+                                        fc9->VpiConstType(vpiUIntConst);
+                                        fc9->VpiDecompile(fd9);
+                                    }
+                                }
                                 fops9->push_back(e9);
+                            }
                             this->patFlatTs = nullptr;
                         }
                         // expandPatternAssignment's untagged arm walks the
@@ -11794,11 +11987,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 if (bw9 >= 0)
                                     ((UHDM::expr*)(*fops9)[i9])
                                         ->VpiSize((int32_t)bw9);
-                                if ((*fops9)[i9]->UhdmType() !=
-                                    UHDM::uhdmconstant)
+                                // § patFlatAdjustStopsAtUnvaluable27
+                                // (r10earl27) — "the one operand that stopped
+                                // the walk" is the first one Surelog's REDUCE
+                                // CANNOT VALUE, which is NOT the same as the
+                                // first non-constant: a member value that is a
+                                // constant-FOLDABLE OPERATION is valued fine
+                                // and the walk carries on past it.  The pair
+                                // that measures it, LHS(golden) first:
+                                //   qi27 `'{a_size: pkg::TL_SZW'(WordSize),
+                                //          a_mask: be_i, a_data: wdata_i}`
+                                //     [0] the op67 CAST (foldable)  size 2 both
+                                //     [1] ref_obj be_i             size 4 /
+                                //                                  NONE
+                                //     [2] ref_obj wdata_i          none both
+                                //   qk27 `'{m_a: a_i, ...}` (all ref_objs)
+                                //     [0] ref_obj a_i              size 2 both
+                                //     [1..3]                       none both
+                                // so golden stamps ONE operand past the cast
+                                // and stops, and stamps nothing past a bare
+                                // ref — exactly "every leading VALUABLE operand
+                                // plus the one that stopped the walk".  The old
+                                // is-a-constant test broke at the cast and left
+                                // be_i unsized, which was the qi27 head after
+                                // laws 1-3.
+                                ASTContext vctx9(comp.getRoot(),
+                                                 LookupLocation::max);
+                                auto vv9 = vctx9.tryEval(*slots9[i9]);
+                                if (!vv9 || !vv9.isInteger() ||
+                                    vv9.integer().hasUnknown())
                                     break;
                             }
                         op->Operands(fops9);
+                        // Tell the caller this vector is ALREADY in
+                        // member-declaration order (§ patFlatDidOrder27).  Only
+                        // the OUTERMOST pattern reports — a nested flatten's
+                        // vector is not the one the caller holds.
+                        if (!nestedPat)
+                            patFlatDidOrder27 = true;
                         return op;
                     }
                 }
