@@ -1256,7 +1256,126 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
-RANKED RESIDUE (measured after PASS 24 — NEXT AGENT STARTS HERE.  Still 9
+RANKED RESIDUE (measured after PASS 25 — NEXT AGENT STARTS HERE.  Still 9
+AllModules + 5 TopModules = 14 heads, BYTE-IDENTICAL for a SIXTH consecutive
+pass — and for the sixth time that is not a zero: bis25.sh peeled the
+top_earlgrey pair off ibex_core.sv:926:34 and DOWN INTO THE SAME GEN SCOPE's
+declarations, and the whole-arena BIND residue fell 346 -> 317 with one of its
+NINE SCOPES CLOSED OUTRIGHT.  Read LANDED — PASS 25 below first.)
+
+  (1) THE FRONTIER, one layer past pass 25's law 1 and STILL INSIDE `g_pmp`:
+      ibex_core.sv:923:32, the UNPACKED DIMENSION of
+          if (PMPEnable) begin : g_pmp
+            priv_lvl_e pmp_priv_lvl [PMP_NUM_CHAN];    // :108 localparam
+                                                       //   int unsigned = 2
+      folded to `op(11)[const{ct=9 sz=32 dec=2}, const INT:1]`, where the
+      OPERAND CONSTANT carries a ref_typespec in OURS and NONE in GOLDEN.
+      DIRECTION: LHS(golden) = <null> / RHS(ours) = ref_typespec — WE STAMP,
+      GOLDEN LACKS, so the fix SUPPRESSES.  r=-1, bisect depth 12.
+      MEASURED NEGATIVE, TWICE, AND THAT IS THE VALUE HERE — qc25.sv puts
+      TWELVE spellings of that declaration in one gen scope of a child
+      instance and the corpus's OWN spelling (G8 `g_mu [MNCH]`, a module
+      `localparam int unsigned`) comes out cmp-EQUAL.  Features added one at a
+      time and each REFUTED as the trigger: a MODULE-LEVEL declaration using
+      the same localparam (mm_err, ibex_core.sv:255's shape); a CHILD INSTANCE
+      inside the gen scope taking the whole array as a port actual
+      (ibex_core.sv:930's `.priv_mode_i (pmp_priv_lvl)`); and qd25.sv, which
+      adds the OTHER child-instance features — a gen-scope condition that is an
+      OVERRIDDEN module parameter (`if (EN)`) inside a TWO-LEVEL instantiation
+      with a parameterised middle module — and is FULLY CMP-EQUAL.  So the
+      trigger is NOT the written declaration, NOT the module-level co-use, NOT
+      the port actual and NOT the override depth.  NEXT EXPERIMENTS, in order:
+      (a) the enum element type coming from a package whose typespec is ALSO
+      used by a module-level object of the SAME instance (priv_lvl_e is
+      ibex_core's csr_priv_lvl etc.), i.e. a SHARED typespec object reached
+      twice; (b) `-DSYNTHESIS`-style macro context — read the emitter's
+      unsupported-constructs stderr summary for ibex_core first; (c) the
+      r10earl22a/r10earl23a route instead of a witness: ask the ARENA which
+      other ref_typespec-on-a-range-bound objects differ and look for what the
+      differing ones share.  DO NOT write a fourth source witness before (c).
+  (2) FRESH AND FULLY MEASURED — qc25.sv's FOUR unequal rows, a THREE-WAY
+      SPLIT of the same ref_typespec-on-a-folded-dimension question, all in
+      ONE gen scope of a child instance, all with the fix direction stated:
+        g_q  [qc25_pkg::NCH]  QUALIFIED pkg localparam
+                              LHS(golden)=int_typespec / RHS(ours)=<null>
+                              -> ADD.  This is pass-24 residue (5) again, and
+                              its direction is confirmed a second time.
+        g_s  [SCH]            pkg `localparam int` (TYPED, SIGNED)
+                              golden=<null> / ours=int_typespec -> SUPPRESS
+        g_u  [UCH]            pkg `localparam` (UNTYPED)
+                              golden=<null> sz=64 / ours=int_typespec sz=32
+                              -> SUPPRESS **and** widen 32->64
+        g_mn [MUCH]           module `localparam` (UNTYPED)
+                              golden=<null> / ours=int_typespec -> SUPPRESS
+      and the EQUAL controls that bound the law: `int unsigned` at package
+      scope (g_pl/g_lv/g_pp) AND at module scope (g_mu/g_ml/g_ms) all agree,
+      as do the PACKED range (g_pk) and the explicit `[0:N-1]` spelling
+      (g_ex).  So the discriminators are the WRITTEN QUALIFICATION and the
+      TYPEDNESS/SIGNEDNESS of the parameter — the same pair
+      § dimFoldReducedParam's typed/untyped split (pass-23 residue (4)) is
+      about.  FOUR ROWS, ONE FILE, ONE BUILD: this is the cheapest law left.
+  (3) FRESH, from qc25's G12 row: a CHILD INSTANCE inside a gen scope whose
+      PORT's unpacked dimension is the instance's OWN parameter, OVERRIDDEN
+      from that gen scope with a literal-initialised module localparam
+      (`qc25_sink #(.NCHAN (MNCH)) u_sink (.priv_i (g_mu))`) — golden sizes
+      the folded bound 32, we size it 64.  This is pass-24 law 2's
+      § boundOverriddenParamWidth24 question in the UNPACKED-dimension
+      builder, which that law never touched (it lives in the PACKED range
+      builder), and litBoundOwnPar9's carve-out ought to apply because MNCH's
+      initializer IS a literal.  One row, and the witness is already in the
+      tree.
+  (4) FRESH, from qa25: the gen-scope CONT-ASSIGN OPERATION FOLD.  Golden
+      constant-folds an operation whose operands are ALL enum constants where
+      we keep the operation — `assign t_op = E_B | E_H;` (gen-local LHS,
+      golden const{ct=9 sz=64 dec=3}), `assign s_arr[2] = E_B | E_H;` (SELECT
+      LHS, same 64) and `assign po_q = E_B | E_H;` (module PORT LHS, and the
+      size is FOUR there, not 64).  qa25 :63/:75/:99 are the three rows and
+      :63 is qa25's FIRST uhdm-cmp difference after this pass.  NOTE THE SIZE
+      SPLIT before writing it: 64 for a gen-local and a select LHS, the LHS
+      type width for a port.  The NEGATIVE controls are in the same file and
+      hold on both sides: a TERNARY is NOT folded (:74 `c ? E_B : E_H` stays
+      an operation), nor is a comparison (:76), nor a PROCESS Lhs (:91).
+  (5) FRESH, from qa25/qb25: a module OUTPUT-PORT cont_assign LHS inside a
+      NESTED gen scope, or inside a for-generate's implicit `genblk1`, does
+      not bind its logic_net in ours where golden binds it — qa25 :107
+      (g_outer.g_inner), qb25 :103 (t_for[0].genblk1) and :110 (t_out.t_in).
+      LHS(golden)=logic_net / RHS(ours)=<null>, so the fix ADDS.  Three rows,
+      two files, and the sibling non-nested rows (qa25 :92/:115, qb25 :47)
+      bind on both sides, so the discriminator is the NESTING alone.
+      SCOPE CORRECTED BY THE PASS-25 VERIFIER: this residue is ONLY the two
+      port-LHS rows qb25 :103/:110 plus qa25 :107.  qb25 :97 (t_top) is NOT a
+      port-LHS row and does NOT belong here — it is an OPERAND over-bind of a
+      different shape, pre-existing and unchanged by this pass.  See (5b).
+  (5b) FRESH, split out of (5): qb25 :97 (t_top) is an OPERAND over-bind — we
+      bind a reference inside the RHS operation where golden leaves it bare.
+      Pre-existing (byte-identically different before and after pass 25) and a
+      DIFFERENT shape from the port-LHS nesting rows, so it needs its own
+      2x2 rather than being folded into (5).
+  (6) FRESH but LOW VALUE — our enum_const for a based-OCTAL member carries
+      `OCT:3` where SURELOG'S carries `UINT:3` (qa25 E_O = 4'o3; g.dump:48 vs
+      o.dump:48, decompile `4'o3` on both sides).  uhdm-cmp does not read an
+      enum_const's value, so it is invisible today; pass 25's law 1 had to
+      normalise OCT locally because the FOLD does surface it as a constant's
+      vpiConstType.  Fixing the enum_const builder would move every golden
+      dump holding an octal enum member — measure the reach before touching
+      it.
+  (7) UNCHANGED from pass 24 and re-ranked below: the residual 317-row bind
+      table (see LANDED below for the new shape list), pass-24 residue (4)
+      (we24's untyped un-overridden packed bound 64-vs-32 and the DEFAULT
+      instance's part-select bound folding the OTHER instance's VALUE — a
+      wrong VALUE, still the worst thing on this list), the 40 module-level
+      enum_const binds (the tlul_adapter_sram req_op_e family; qb23 still
+      wants the `'{...}` ASSIGNMENT-PATTERN RHS and the STRUCT-MEMBER
+      COMPARISON OPERAND), the five pinmux `$bits(x)'({...})` SIZE-CAST rows
+      (128 of the 136 remaining OVER-binds — the largest single shape left and
+      still on the EXTRA side), the three hier_path families, work@jtag_mux
+      (find the DESIGN-FINAL minter, not the shape), work@sram2tlul's kept
+      top_pkg::TL_SZW cast, work@prim_keccak, def:work@prim_prince, the
+      smalls, and tl_main_pkg.sv:13:59 — STILL both top_earlgrey CENSUS heads,
+      which is why THE CENSUS IS NOT THE FRONTIER for the sixth pass running.
+
+RANKED RESIDUE (measured after PASS 24 — SUPERSEDED by the PASS-25 block
+above; kept for its bisect stack and its per-family measurements.  Still 9
 AllModules + 5 TopModules = 14 heads, BYTE-IDENTICAL for a FIFTH consecutive
 pass — and for the fifth time that is not a zero: bis24.sh peeled FIVE more
 layers off the top_earlgrey pair, in FOUR different files.  READ THE PASS-24
@@ -1343,6 +1462,172 @@ BISECT STACK BELOW FIRST, then the pass-23 one.)
       census has not moved for five passes while the bisector has moved ten
       times).  THE CENSUS IS NOT THE FRONTIER: bis24.sh top 'work@top_earlgrey'
       whole is.
+
+LANDED — PASS 25 (r10earl25; TWO laws in TWO gate rounds, BOTH CLEAN.  Final
+round (laws 1+2 together): goldens 23/23 + u2r testflags 732 lines 0 change vs
+results/gate_uhdm2rtlil.csv + Surelog BOTH MODES 1589 lines 0 change,
+WHOLE-ROW incl. the dump column, vs results/golden_surelog.csv — a completely
+EMPTY diff.  results/*.csv untouched: 0 movers.
+ONE GOLDEN-SIDE FLAKE NAMED RATHER THAN FILTERED, and it is the SAME ONE PASS
+24 RECORDED: round 1 (law 1 alone) read Google,testflags SURELOG_FAIL where the
+baseline says TIMEOUT — both non-comparable — and it was ABSENT from round 2.
+Third pass in a row that row has flipped in one round and not the next; treat it
+as environment, not as a result.)
+
+  HEADLINE: the head census is byte-identical at 14 for the SIXTH consecutive
+  pass, and for the sixth time that is not a zero.  bis25.sh moved the
+  top_earlgrey pair OFF the pass-24 exit head and DOWN INTO THE SAME GEN
+  SCOPE — ibex_core.sv:926:34 (a fold golden does and we did not, r=-601,
+  bisect depth 7) -> ibex_core.sv:923:32 (a ref_typespec WE stamp and golden
+  lacks, r=-1, bisect depth 12).  The other metric moved for the first time in
+  three passes: the WHOLE-ARENA BIND RESIDUE fell 346 -> 317 rows and ONE OF
+  ITS NINE SCOPES CLOSED OUTRIGHT (`reqid_sub @95:12`, all 29 rows, from
+  `G=- O=logic_var` to nothing), with ZERO rows added in either direction —
+  every removed row was an OVER-bind.  Earlgrey slang.uhdm 49938280 ->
+  49937430 bytes.
+
+  EXIT METRICS, all four measured before AND after on the same binary pair:
+    head census        9 + 5 + 0 + 0 = 14, hdiff25 EMPTY (sixth pass)
+    bisect frontier    ibex_core.sv:926:34 (depth 7, r=-601)
+                    -> ibex_core.sv:923:32 (depth 12, r=-1)
+    bind residue       346 -> 317 rows; shapes 165->136 `G=- O=logic_var`,
+                       129 `G=logic_net O=-` and 40 `G=enum_const O=-`
+                       unchanged, all nine other shapes unchanged
+    existence census   379310 -> 379309 keys, 33755 -> 33754 DIFF rows,
+                       42409 -> 42408 golden-only and 25129 -> 25127 ours-only
+                       OBJECT counts (exi25.sh, `r10e24_23a G O ''`)
+  A CORRECTION FOR THE HANDOFF: the pass-24 exit line "137528 keys / 16816 DIFF
+  (6903 golden-only, 9750 ours-only)" does NOT reproduce with
+  `r10earl23a G O ''` — that invocation yields the numbers above.  The old
+  figures must have come from a filtered call (a typeSubstr or a line range);
+  whoever quotes them next should re-derive them rather than diff against them.
+  exi25.sh pins the invocation and the reduction so this cannot drift again,
+  and note its per-row shape is `G=xN O=xM` — a COUNT delta, not a presence
+  flag, so the two "only" numbers are sums of |N-M|, not row counts.
+
+  1. § genCaEnumWholeRhsFold25 (ModuleEmit, the ELAB gen-scope cont_assign RHS
+     chain, just before the streaming/emitExpr fallback).  IN AN ELABORATED GEN
+     SCOPE A CONT_ASSIGN WHOSE **WHOLE** RHS IS AN UNQUALIFIED ENUM-CONSTANT
+     READ FOLDS TO ONE LOC-LESS CONSTANT, where we kept a ref_obj bound to a
+     fresh enum_const.
+     WHY IT LANDS NOW, AFTER § caBareEnumFold (ExprEmit ~4130) MEASURED THE
+     SAME RULE ON r10rggen9/ta.sv AND COULD NOT: the rule is VIEW-SPLIT —
+     golden keeps the ref in the DEF listing and folds in the ELAB one — and a
+     MODULE-LEVEL cont_assign is ONE object shared by both views.  A GEN-SCOPE
+     cont_assign is not: the def view builds its own from SYNTAX
+     (emitSyntaxExpr) and the elab view builds this one from the AST.  The def
+     view was already byte-equal on every witness row and stayed that way.
+     THE GRID (qa25.sv + qb25.sv, one gen_scope per row, both views).  GOLDEN
+     FOLDS ALL OF THESE and we folded NONE:
+       gen-local PLAIN-NAME LHS / SELECT LHS over a gen-local unpacked array
+       (the corpus shape) / module OUTPUT-PORT LHS / MODULE-level signal LHS /
+       an ANCESTOR gen scope's local as LHS / if-gen / for-gen / NESTED
+       if-in-if / a TOP-MODULE gen scope as well as a CHILD instance's / an
+       INTERFACE gen scope — and, for the enum's HOME, a PACKAGE enum, a
+       MODULE-LOCAL typedef enum, a $unit-scope enum and an IMPLICIT-base enum
+       alike.  The $unit row is the one to notice: the $unit carve-out that
+       blocks BINDING (§ unitEnumSym9, Scr1SvTests) does NOT block FOLDING.
+     THE NEGATIVES, all in the same files and equal on both sides: a ternary
+     BRANCH, a comparison operand, an operand one operation deeper, a PROCESS
+     Lhs (`always_comb a_p = E_H;` keeps ref+enum_const), and a QUALIFIED
+     `pkg::E` read — which ExprEmit already folds, and to a constant AT THE
+     WRITTEN SPAN rather than loc-less, so the arm is gated on the absence of
+     "::" and qa25 :84 keeps matching.
+     ENCODING — MEASURED FIRST, ONE BASE PER ROW (qa25 g_enc), and the answer
+     is that the fold COPIES THE ENUM_CONST's own VpiValue and VpiSize, takes
+     vpiConstType from the VALUE PREFIX, and decompiles the enum's own literal
+     text for BIN/HEX but the PLAIN DIGITS for INT/UINT — i.e. exactly
+     § enumSubstDecBare, which is why the arm reuses enumMemberSubstConst
+     instead of re-deriving:
+       E_B = 4'b0001 -> ct=3 BIN:0001 dec 4'b0001 sz 4
+       E_H = 4'h2    -> ct=5 HEX:2    dec 4'h2    sz 4
+       E_D = 4'd4    -> ct=7 INT:4    dec 4       sz 4
+       E_N = 5       -> ct=9 UINT:5   dec 5       sz 64
+       E_Z = 4'b0000 -> ct=3 BIN:0000 dec 4'b0000 sz 4
+       I_B (implicit base) -> ct=7 INT:1 dec 1 sz 64
+     THE TWO KNOWN ROWS THAT "DISAGREED" ARE ONE RULE: qb23's K_C = 2'd2 ->
+     ct=7 dec "2" and the corpus's PMP_ACC_EXEC = 2'b00 -> ct=3 dec "2'b00"
+     are the INT and BIN lines of that table.  ONE spelling needed a local
+     correction: a based-OCTAL member folds to ct=9 / UINT:3 / dec "3" in
+     golden because SURELOG'S OWN enum_const carries UINT:3 there while ours
+     carries OCT:3 (ranked residue (6)); the arm normalises OCT locally.
+     Corpus head closed: top_earlgrey / ibex_core.sv:926:34
+     `assign pmp_req_type[PMP_I] = PMP_ACC_EXEC;` inside `g_pmp`, golden
+     {ct=3 sz=2 dec=2'b00} vs our bound ref — pass-24's exit frontier and the
+     first head of the "golden folds where we keep" family.
+  2. § genCaConstRhsLhsNoBind25 (ModuleEmit, the lhsSuppress block AND the
+     bindGenLocal9 fallback).  § genCaLiteralRhsLhsNoBind22 was not about the
+     RHS being WRITTEN as a literal, it was about THE EMITTED RHS BEING A
+     CONSTANT.  On qa25+qb25 the ONLY gen-local-LHS rows golden leaves unbound
+     are exactly the rows whose Rhs is a constant, whatever made it one: law
+     1's fold, the QUALIFIED pkg fold ExprEmit already did (qa25 :84 — this
+     half is measurable with law 1 reverted), and an OPERATION golden folds
+     (:75).  Rows: qa25 :45-:50/:84/:106/:114 and qb25 :28/:46/:52/:58/
+     :96/:102/:109 — twelve spellings including a for-gen instance, a nested
+     if-gen, a TOP-module gen scope and an INTERFACE gen scope.
+     CORRECTED BY THE PASS-25 VERIFIER: qa25 :75 is NOT among the converted
+     rows — `assign t_op = E_B | E_H;` still binds its LHS in ours where golden
+     leaves it unbound, because our Rhs is an UNFOLDED OPERATION so the flag
+     cannot fire.  That is law 2 behaving correctly; the row is blocked by
+     residue (4) (the gen-scope OPERATION fold) and converts only once that
+     lands.  Do not read :75 as evidence for or against law 2.
+     THE FLAG IS DELIBERATELY NARROWER THAN lhsSuppress: golden BINDS an
+     ANCESTOR gen scope's local even with a constant Rhs (qb25 a_x, bound on
+     both sides), which is the half bindGenLocal9's allowAnc9 exists for, so
+     `constRhsOwnLocal25` keeps § genCaLiteralRhs's own-scope test and is read
+     in BOTH writers.  A MODULE-level signal LHS (qb25 mod_sig/mod_u) and a
+     module PORT LHS (qa25 po_b/po_q) keep binding, as measured.
+     TWO WRITERS, AND THE FIRST CUT PROVED IT AGAIN: gating only the
+     lhsSuppress arm changed NOTHING on qa25 — byte-identical LHS pointers —
+     because § genCaDirectRefBindsGenLocal's bindGenLocal9 FALLBACK writes the
+     same pointer a second time.  That is the third pass in a row this
+     MINT-SITE trap has cost a build; the note now lives on the flag itself.
+     § genCaLhsReelab is deliberately LEFT on the literal test — it re-emits
+     the LHS, a different claim, and nothing measured asks for it.
+     Corpus: the 29 `reqid_sub @95:12 G=- O=logic_var` rows, one of the nine
+     scopes of the pass-22..24 bind table, ALL of them.
+
+  MEASUREMENT HYGIENE — ONE FALSE ALARM, AND IT WAS THE MEASURER.  After law
+  2, qb25 grew a row (:97 `assign t1 = (t_x == P_A);`) that read like a
+  regression.  It was not: ca25.py had been keying operands off `vpiOperands`
+  where uhdm-dump writes `vpiOperand` (SINGULAR), so every operation printed
+  as `operation@line` with an EMPTY operand list and every operand difference
+  in the whole corpus of witnesses was invisible.  Fixing the key REVEALED
+  three pre-existing rows (ranked residue (5)) and created none.  MEASURE THE
+  MEASURER — and when a projection tool says "equal", check that it is
+  actually reading the field.
+
+  NEGATIVE WITNESSES, kept deliberately, both about the NEW frontier:
+    qc25.sv  TWELVE spellings of `pl_t X [P];` in one gen scope of a child
+             instance.  The corpus's own spelling (G8, a module `localparam
+             int unsigned`) is cmp-EQUAL, so qc25 does NOT reproduce
+             ibex_core.sv:923:32 — and neither the module-level co-use of the
+             same localparam (mm_err) nor a child instance taking the whole
+             array as a port actual (u_sink) changes that.  What qc25 DOES
+             deliver is ranked residue (2)'s four-row three-way split and
+             residue (3).
+    qd25.sv  the other half of the child-instance hypothesis — gen-scope
+             condition = an OVERRIDDEN module parameter, two-level
+             instantiation, parameterised middle module, localparam declared in
+             the body next to parameter-derived ones — FULLY CMP-EQUAL.  So the
+             override depth is not the trigger either.
+
+  TOOLS ADDED (all under tools/probe/r10earl_repro/, W= pointing at this
+  worktree): run25/dmp25/sweep25/gate25/bis25/cen25/sub25/nul25/ins25/hdiff25
+  (the pass-24 set re-pointed), plus four new ones that did the actual work —
+    ca25.py / cad25.sh   ONE LINE PER cont_assign, projecting Lhs and Rhs onto
+                         the four fields uhdm-cmp reads (a constant's ct/size/
+                         decompile/value, a ref's actual).  This is what made
+                         the encoding matrix a five-minute measurement instead
+                         of a dump-reading exercise.
+    dv25.py / dvd25.sh   ONE LINE PER DECLARED var/net, projecting its RANGES
+                         and an explicit TS[...]/TS- marker for the
+                         ref_typespec presence question the new frontier is.
+    bnd25.sh/bndd25.sh   the whole-arena bind census (r10earl22a, empty
+                         selector, `0 999999`) plus a RESIDUE DIFF that tallies
+                         G!=O rows by shape and prints the row-set delta — this
+                         is what proved law 2 removed 29 over-binds and added
+                         nothing.
 
 LANDED — PASS 24 (r10earl24; THREE laws in FOUR gate rounds — round 2 caught a
 CANARY REGRESSION and the refinement is now part of law 2.  Final round:

@@ -12466,6 +12466,80 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             ->VpiSize((int32_t)ae.left().type->getBitWidth());
                 }
             }
+            // § genCaEnumWholeRhsFold25 (r10earl25) — IN AN ELABORATED GEN
+            // SCOPE A CONT_ASSIGN WHOSE **WHOLE** RHS IS AN UNQUALIFIED
+            // ENUM-CONSTANT READ FOLDS TO ONE LOC-LESS CONSTANT.  This is the
+            // rule § caBareEnumFold (ExprEmit ~4130) measured on
+            // r10rggen9/ta.sv and could NOT land: it is VIEW-SPLIT — golden
+            // keeps the ref_obj in the DEF listing and folds in the ELAB one —
+            // and a MODULE-level cont_assign is ONE object shared by both
+            // views.  A GEN-SCOPE cont_assign is not: the def view builds its
+            // own from SYNTAX (emitSyntaxExpr, ~24818/~24976) and the elab
+            // view builds this one from the AST, so the split is free here.
+            // qa25.sv + qb25.sv measure the whole grid, one gen_scope per row,
+            // both views, and GOLDEN FOLDS EVERY ONE while its def view keeps
+            // every ref (our def view was already byte-equal):
+            //   gen-local plain-name LHS / SELECT LHS over a gen-local
+            //   unpacked array (the corpus shape) / module OUTPUT-PORT LHS /
+            //   MODULE-level signal LHS / an ANCESTOR gen scope's local as LHS
+            //   / if-gen / for-gen / NESTED if-in-if / a TOP-MODULE gen scope
+            //   as well as a CHILD instance's / an INTERFACE gen scope
+            //   / a PACKAGE enum, a MODULE-LOCAL typedef enum, a $unit-scope
+            //     enum and an IMPLICIT-base enum alike.
+            // The NON-whole spellings in the same scopes keep the ref and are
+            // untouched here: a ternary BRANCH (`c ? E_B : E_H`), a comparison
+            // operand, an operand one operation deeper, and a PROCESS Lhs
+            // (`always_comb a_p = E_H;` keeps ref+enum_const on both sides).
+            // A QUALIFIED `pkg::E` read is excluded by the "::" test because
+            // ExprEmit's pkg arm already folds it — and to a constant AT THE
+            // WRITTEN SPAN, not loc-less (qa25 :84 matches golden today).
+            // ENCODING, measured member by member (qa25 g_enc, one base per
+            // row): the constant copies the ENUM_CONST's own VpiValue and
+            // VpiSize; vpiConstType follows the VALUE PREFIX; and the
+            // decompile is the enum's own literal text for BIN/HEX but the
+            // PLAIN DIGITS for INT/UINT — which is exactly the
+            // § enumSubstDecBare rule enumMemberSubstConst already encodes, so
+            // this arm reuses it rather than re-deriving:
+            //   E_B = 4'b0001 -> ct=3 BIN:0001 dec 4'b0001 sz 4
+            //   E_H = 4'h2    -> ct=5 HEX:2    dec 4'h2    sz 4
+            //   E_D = 4'd4    -> ct=7 INT:4    dec 4       sz 4
+            //   E_N = 5       -> ct=9 UINT:5   dec 5       sz 64
+            //   E_Z = 4'b0000 -> ct=3 BIN:0000 dec 4'b0000 sz 4
+            //   I_B (implicit base) -> ct=7 INT:1 dec 1 sz 64
+            // ONE spelling needs a local correction: a based-OCTAL member
+            // (`E_O = 4'o3`) folds to ct=9 / UINT:3 / decompile "3" in golden,
+            // because SURELOG'S OWN enum_const carries UINT:3 there while
+            // OURS carries OCT:3 (measured, qa25 g.dump:48 vs o.dump:48).  The
+            // real defect is in our enum_const builder; correcting it globally
+            // would move every dump that holds an octal enum member, so this
+            // arm normalises OCT locally and the enum_const difference is
+            // filed as residue.  It is not a regression either way — that row
+            // is unequal today too (we emit a ref where golden folds).
+            // Corpus head this closes: top_earlgrey / ibex_core.sv:926:34
+            // `assign pmp_req_type[PMP_I] = PMP_ACC_EXEC;` inside `g_pmp`,
+            // golden {ct=3 sz=2 dec=2'b00} vs our bound ref — the pass-24 exit
+            // frontier, and the first head of the "golden folds where we keep"
+            // family (r=-601, the sign that flipped in pass 24).
+            if (!rhs) {
+                auto& re25 = stripImplicitConv(ae.right());
+                if (re25.kind == ExpressionKind::NamedValue &&
+                    re25.as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::EnumValue &&
+                    rawText(re25.sourceRange).find("::") ==
+                        std::string::npos) {
+                    if (auto* c25 = enumMemberSubstConst(
+                            re25.as<NamedValueExpression>().symbol)) {
+                        std::string v25(c25->VpiValue());
+                        if (v25.rfind("OCT:", 0) == 0) {
+                            c25->VpiValue("UINT:" + v25.substr(4));
+                            c25->VpiDecompile(v25.substr(4));
+                            c25->VpiConstType(vpiUIntConst);
+                        }
+                        c25->VpiParent(ca);
+                        rhs = c25;
+                    }
+                }
+            }
             if (!rhs) {
                 // Gen-scope STREAMING operand refs stay unbound (Surelog).
                 const Expression* rc0 = &stripImplicitConv(ae.right());
@@ -12884,8 +12958,42 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             // bindGenLocal9(Lhs) on the literal changed nothing, because the
             // pointer is written by the ORDINARY emitExpr path below, not by
             // that fallback.  Suppressing the LHS emit is where it has to go.
-            if (!lhsSuppress &&
-                isLiteralExpr(stripImplicitConv(ae.right())) &&
+            // § genCaConstRhsLhsNoBind25 (r10earl25) — the law above is not
+            // about the RHS being written as a LITERAL, it is about the
+            // EMITTED RHS BEING A CONSTANT.  Measured on qa25 + qb25, where
+            // the ONLY gen-local-LHS rows golden leaves unbound are exactly
+            // the rows whose Rhs is a constant, whatever made it one:
+            //   assign e_b   = E_B;            whole-RHS enum FOLD (law 1)
+            //   assign r_q   = qa25_pkg::E_B;  the QUALIFIED pkg fold, which
+            //                                  ExprEmit already folded before
+            //                                  this pass — so this half is
+            //                                  measurable with law 1 reverted
+            //   assign t_op  = E_B | E_H;      an OPERATION golden folds
+            //   assign u_x/l_x/i_x = ...       $unit / module-local / implicit
+            //   assign t_x/t_f/t_n = P_A       TOP-module if-gen, for-gen and
+            //                                  nested if-gen
+            //   assign v_l   = P_A;            an INTERFACE gen scope
+            // while every row whose Rhs is NOT a constant keeps its binding
+            // (`c ? E_B : E_H`, a comparison, an operand one op deeper), and
+            // so do the three LHS shapes that are not an own-scope gen local:
+            // an ANCESTOR gen scope's local (qb25 a_x, BOUND on both sides), a
+            // MODULE-level signal (qb25 mod_sig/mod_u) and a module PORT
+            // (qa25 po_b/po_q).  The own-scope test is § genCaLiteralRhs's own
+            // and is unchanged.
+            // § genCaLhsReelab below is deliberately LEFT on the literal test:
+            // it re-emits the LHS, which is a different claim, and nothing
+            // measured here asks for it.
+            // TWO WRITERS, exactly as the note at § genCaDirectRefBindsGenLocal
+            // records: silencing the ordinary emitExpr path alone leaves the
+            // pointer in place because the bindGenLocal9 FALLBACK writes it
+            // again.  `constRhsOwnLocal25` is therefore read in BOTH places,
+            // and it is deliberately NARROWER than lhsSuppress: golden BINDS an
+            // ANCESTOR gen scope's local even with a constant Rhs (qb25 a_x),
+            // which is precisely the half bindGenLocal9's allowAnc9 exists for,
+            // so this flag must not reach it.
+            bool constRhsOwnLocal25 = false;
+            if ((isLiteralExpr(stripImplicitConv(ae.right())) ||
+                 (rhs && rhs->UhdmType() == UHDM::uhdmconstant)) &&
                 stripImplicitConv(ae.left()).kind ==
                     ExpressionKind::NamedValue) {
                 auto& ls22 = stripImplicitConv(ae.left())
@@ -12893,8 +13001,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                  .symbol;
                 if (ls22.kind == SymbolKind::Variable &&
                     ls22.getParentScope() == static_cast<const Scope*>(&blk))
-                    lhsSuppress = true;
+                    constRhsOwnLocal25 = true;
             }
+            if (!lhsSuppress && constRhsOwnLocal25)
+                lhsSuppress = true;
             if (lhsSuppress)
                 suppressRefActual = true;
             bool blkInLoop2 = false;
@@ -13050,7 +13160,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // that order: gating only the fallback changed nothing, then
                 // gating only the emit changed nothing either — qf22's :23/:24
                 // stayed bound both times.  MINT-SITE trap, one more time.
-                if (!isLiteralExpr(stripImplicitConv(ae.right())))
+                // § genCaConstRhsLhsNoBind25 — the SECOND writer of the same
+                // pointer (see the flag's own note at the lhsSuppress site).
+                if (!isLiteralExpr(stripImplicitConv(ae.right())) &&
+                    !constRhsOwnLocal25)
                     bindGenLocal9((UHDM::any*)ca->Lhs(), ae.left(), true);
                 bindGenLocal9((UHDM::any*)ca->Rhs(), ae.right(), false);
             }
