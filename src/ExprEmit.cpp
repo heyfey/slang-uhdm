@@ -3589,8 +3589,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // the process fold, which shares the def object.
                     bool selFold9 = !inProcessEmit && !inParamInit && parent &&
                                     parent->UhdmType() == UHDM::uhdmbit_select;
-                    // RESIDUE, DECODED, NOT IMPLEMENTED (r10earl20) —
-                    // § elabConnSelFoldNoTs20.  qa20.sv is the 2x2 (written
+                    // § elabConnSelFoldNoTs21 (LANDED r10earl21; the note
+                    // below is pass 20's decode, kept because it names the
+                    // trap).  qa20.sv is the 2x2 (written
                     // `pkg::P` vs wildcard-imported x def listing vs
                     // ELABORATED view) of one child instantiated twice as
                     // `.e(v[PI])` / `.e(v[qa20_pkg::PI])`: golden stamps the
@@ -3609,6 +3610,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // exists to patch.  Pass 21 wants a def-view marker that
                     // survives to the connection mint (or a High_conn guard
                     // of its own), not another parent test.
+                    // THE MARKER IS § elabConnEmit21, set by emitInstance
+                    // around the elaborated child port's HighConn actual —
+                    // the twin of the def listing's § defRefModConn.  Only
+                    // the ts STAMP is suppressed: golden's elab constant
+                    // still parents at the bit_select, so § selFold9 itself
+                    // stays true and only this derived flag is gated.
+                    bool selFoldTs21 = selFold9 && !elabConnEmit21;
                     if ((parent && parent->UhdmType() == UHDM::uhdmoperation) ||
                         procSelFold9 || selFold9)
                         c->VpiParent(parent);
@@ -3803,7 +3811,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          parent &&
                          parent->UhdmType() == UHDM::uhdmoperation) ||
                         procOpFold9 || tfOpFold9 || sysFuncArgFold ||
-                        procSelFold9 || procPsFold9 || selFold9 || ndaOpFold9 ||
+                        procSelFold9 || procPsFold9 || selFoldTs21 ||
+                        ndaOpFold9 ||
                         ipsWidFold9 || caPsOpFold9 || caOpFold9 ||
                         rmConnOpFold9)
                         // Only a param MATERIALIZED into this module (read
@@ -4375,8 +4384,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // Surelog re-emits symbolically (read_remux's two i[OFF-1:0]
                 // part-selects: the plain one folds, the call arg keeps the
                 // ref).
-                if (genCaLoopParamFold && (!inLhs || inPsBound) &&
-                    callArgDepth == 0 &&
+                // § genCaLoopSelIdxFold21 / § genCaChildLoopSelFold21: a
+                // SELECT operand position — a part-select bound, a bit-select
+                // index written as an operation (which rescopes the prefix at
+                // the select base, hence selIdxScopeDepth), or a bare
+                // bit-select index (parent IS the select).
+                bool caLoopSelPos21 =
+                    inPsBound || selIdxScopeDepth > 0 ||
+                    (parent && parent->UhdmType() == UHDM::uhdmbit_select);
+                if ((genCaLoopParamFold ||
+                     (genCaChildLoopFold21 && caLoopSelPos21)) &&
+                    (!inLhs || inPsBound) && callArgDepth == 0 &&
                     nv.symbol.kind == SymbolKind::Parameter) {
                     bool outerParam9 = false;
                     for (auto sc9 = nv.symbol.getParentScope(); sc9;
@@ -4417,7 +4435,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     break;
                                 }
                     }
-                    if (outerParam9 && (inPsBound || pa9) &&
+                    // § genCaLoopSelIdxFold21 — the SELECT-INDEX half of the
+                    // law above, and the reason the fold went missing in a
+                    // NON-TOP instance.  qd21.sv (`assign r[i] =
+                    // q[NUM_REQS-1-i];` in a for-generate of a CHILD module)
+                    // is golden's use-site form — constant {sz=32 dec=2}
+                    // parented at the index operation with a ref_typespec
+                    // named after the SELECT BASE — while we emitted a bare
+                    // `ref_obj NUM_REQS`, because the shared-constant branch
+                    // found no param_assign to re-parent at and the whole
+                    // fold was then skipped.  qe21.sv measures the same five
+                    // operand positions in a TOP module, where the walk DOES
+                    // find the param_assign: golden uses the USE-SITE form in
+                    // every select row there too, so the shared form is at
+                    // most a vpiParent/fullname detail (neither is a uhdm-cmp
+                    // field) and this stays purely ADDITIVE — it only folds
+                    // where we used to leave a ref.  Corpus: the surviving
+                    // top_earlgrey pair at ibex_prefetch_buffer.sv:89:59,
+                    // `rdata_outstanding_q[NUM_REQS-1-i]` in gen_rd_rev.
+                    if (outerParam9 && (inPsBound || pa9 || caLoopSelPos21) &&
                         cvL9.isInteger() && !cvL9.integer().hasUnknown()) {
                         auto* c9 = s.MakeConstant();
                         std::string dL9 = cvL9.integer().toString(
@@ -4898,6 +4934,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 k9 == SymbolKind::Subroutine)
                                 break;
                         }
+                    // RESIDUE, DECODED, NOT LANDED (r10earl21) —
+                    // § genCaEnumConstNoBind21.  qh21.sv measures FOUR rows of
+                    // `c ? E_A : E_B` over one wildcard-imported PACKAGE enum:
+                    // the MODULE-LEVEL cont_assign binds its enum_const in
+                    // both views, and the IF-generate, FOR-generate and
+                    // TOP-module generate rows all stay UNBOUND in golden
+                    // where we bind.  That is the top_earlgrey head at
+                    // ibex_id_stage.sv:911:45 (`assign instr_type_wb_o =
+                    // ~lsu_req_dec ? WB_INSTR_OTHER : ...` inside
+                    // gen_stall_mem).  Widening the `inGenScopeCaRhs &&
+                    // unitEnumSym9` carve-out below to plain `inGenScopeCaRhs`
+                    // fixes qh21 AND REGRESSES TWO u2r tests that golden
+                    // BINDS: hier_path (`(csr_pmp_cfg_i[r].mode ==
+                    // PMP_MODE_TOR) ? ...`, a package enum in a for-generate)
+                    // and MultirangesStartNotFromZero
+                    // (`io_fwd_mesh_li[i][e_e:w_e]`, a module-scope enum as a
+                    // PART-SELECT BOUND).  Gating the far enum arm instead
+                    // (below § qualPkgParamFoldTs) does NOT restore them, so
+                    // both counter-witnesses come through THIS site and the
+                    // real discriminator separates a ternary-BRANCH value read
+                    // from an operand of a comparison / a select bound — the
+                    // 2x2 pass 22 has to write is qh21 plus those two shapes.
                     if (nv.symbol.kind == SymbolKind::EnumValue &&
                         !defGenProcessEmit &&
                         !(inGenScopeCaRhs && unitEnumSym9)) {
@@ -5184,6 +5242,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                           pkgImportCloneEmit)) {
                     // no actual of any kind
                 }
+                // § genCaEnumConstNoBind21 MEASURED NEGATIVE — gating THIS
+                // arm on `inGenScopeCaRhs` too was built and REVERTED in gate
+                // round 1: u2r hier_path (`(csr_pmp_cfg_i[r].mode ==
+                // PMP_MODE_TOR) ? ...` in g_addr_exp1) and
+                // MultirangesStartNotFromZero both went CMP_EQUAL ->
+                // CMP_NOTEQUAL, and golden BINDS the enum_const in both.  The
+                // law lives in the § suppressRefActual arm alone: a gen-scope
+                // CA RHS silences its enum read only when the whole RHS is
+                // already in suppress mode (no bindable ref), which is
+                // exactly what separates qh21.sv's rows from these two.
                 else if (auto eit = enumConstMap.find(&nv.symbol); eit != enumConstMap.end())
                     ref->Actual_group(eit->second);
                 else if (auto uit = unitParamMap.find(&nv.symbol);

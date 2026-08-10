@@ -5165,6 +5165,27 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     // Gen-scope children scope their conn names at the GEN SCOPE.
     if (genvarConnFold && !genConnPrefix.empty())
         parentPrefix = genConnPrefix;
+    // § genConnIdxFoldConnOnly21 — a REACH correction.  emitGenScopes sets
+    // § genvarConnFold around the WHOLE emitInstance call of a gen-scope
+    // child, but every law it drives is a CONNECTION law (the index fold at
+    // the ElementSelect arm of emitExpr, the conn-name prefixes below).  Left
+    // armed, it also folded the CHILD'S OWN body: qc21.sv instantiates one
+    // definition four ways and golden keeps `q[NUM_REQS-1]`'s index as an
+    // `operation {op=11}` in ALL of them (def listing, first plain child,
+    // SECOND plain child — so instance ORDER is not the feature — if-generate
+    // child and for-generate child), while we folded it to a constant in the
+    // two GEN-SCOPE ones only.  Corpus: the whole surviving top_earlgrey pair
+    // walks to ibex_prefetch_buffer.sv:128:47
+    // `~rdata_outstanding_q[NUM_REQS-1]` inside if_stage_i's
+    // `gen_prefetch_buffer` else-branch.  Disarm for the body and re-arm only
+    // around the connection actuals.
+    bool genConnFoldOuter21 = genvarConnFold;
+    struct GcfBodyGuard21 {
+        bool& f;
+        bool saved;
+        explicit GcfBodyGuard21(bool& fl) : f(fl), saved(fl) { f = false; }
+        ~GcfBodyGuard21() { f = saved; }
+    } gcfBodyGuard21(genvarConnFold);
 
     // A `program` block elaborates into a UHDM program (parent->Programs),
     // not a module_inst. A program can never be a design top here (see the
@@ -8120,6 +8141,32 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     // instance-view references (drives typespec reparenting
                     // in the parent).
                     refCollector = parentRefs;
+                    // § elabConnSelFoldNoTs21 — mark the ELABORATED
+                    // connection mint for the whole actual (see
+                    // UhdmExporter.h).  This is the marker the def-listing
+                    // ref_module loop's § defRefModConn is the twin of; it
+                    // has to live HERE, not as a `!moduleDefEmit` test at the
+                    // fold, because the DEF listing's High_conn is minted
+                    // after emitModuleDef pops its DefEmitGuard.
+                    struct ElabConnGuard21 {
+                        bool& f;
+                        bool saved;
+                        explicit ElabConnGuard21(bool& fl) : f(fl), saved(fl) {
+                            f = true;
+                        }
+                        ~ElabConnGuard21() { f = saved; }
+                    } elabConnGuard21(elabConnEmit21);
+                    // § genConnIdxFoldConnOnly21 — re-arm the gen-scope conn
+                    // fold for the ACTUAL only (see the disarm at the top of
+                    // emitInstance).
+                    struct GcfConnGuard21 {
+                        bool& f;
+                        bool saved;
+                        GcfConnGuard21(bool& fl, bool v) : f(fl), saved(fl) {
+                            f = v;
+                        }
+                        ~GcfConnGuard21() { f = saved; }
+                    } gcfConnGuard21(genvarConnFold, genConnFoldOuter21);
                     // Bound instances: TOP-scoped high-conn names, parent
                     // binding.
                     const std::string& hcPrefix =
@@ -12466,6 +12513,17 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // outer params; nested / child-instance gen scopes re-emit
                 // them symbolically (hier_path's g_regions).
                 genCaLoopParamFold = !childGen && genBlkIsLoopBody(blk);
+                // § genCaChildLoopSelFold21 — the CHILD-INSTANCE half that
+                // `childGen` swallowed (see UhdmExporter.h).  Only the NESTED
+                // half of the comment above survived measurement.
+                // `parentFull == prefix` is the real NESTING test: for a
+                // TOP-LEVEL gen scope emitBlock is entered with the module's
+                // own prefix, and every nested level appends to it.  The
+                // dot test cannot say that in a child instance, where the
+                // module prefix already carries one.
+                genCaChildLoopFold21 = !genCaLoopParamFold &&
+                                       parentFull == prefix &&
+                                       genBlkIsLoopBody(blk);
                 inGenScopeCaRhs = true;
                 // A STRUCT-typed pattern RHS flattens in the elab view:
                 // UhdmWriter runs ExprEval::flattenPatternAssignments, whose
@@ -12515,6 +12573,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 }
                 inGenScopeCaRhs = false;
                 genCaLoopParamFold = false;
+                genCaChildLoopFold21 = false;
                 genCaLhsParamFold = false;
                 if (suppress)
                     suppressRefActual = false;

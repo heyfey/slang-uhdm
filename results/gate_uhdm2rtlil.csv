@@ -490,7 +490,7 @@ ParameterUnsignedInt,testflags,CMP_EQUAL,,,match
 ParameterWithUnderscoreValue,testflags,CMP_EQUAL,,,match
 ParameterWithUnderscoreValueDivided,testflags,CMP_EQUAL,,,match
 ParameterWithUnderscoreValueDividedPassedFromCommandLine,testflags,CMP_EQUAL,,,match
-paramod_genscope_child,testflags,CMP_EQUAL,,,differ
+paramod_genscope_child,testflags,CMP_EQUAL,,,match
 paramod_struct_param,testflags,CMP_EQUAL,,,differ
 partsel_simple,testflags,CMP_EQUAL,,,differ
 PartSelect,testflags,CMP_EQUAL,,,match

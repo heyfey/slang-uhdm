@@ -2040,6 +2040,13 @@ private:
     // re-parented (Surelog parents pattern values only under a param_assign Rhs
     // or an ELABORATED cont_assign Rhs).
     bool defRefModConn = false;
+    // § elabConnSelFoldNoTs21 — the ELABORATED twin of § defRefModConn, and
+    // the "def-view marker that survives to the connection mint" pass 20
+    // asked for.  Set while emitInstance builds an ELABORATED child port's
+    // HighConn actual.  The two connection views are the only place where the
+    // same source expression is emitted as TWO objects, so a view-split fold
+    // rule is expressible here and nowhere else.
+    bool elabConnEmit21 = false;
     // Parameter-init contexts keep name-token-only sys call spans.
     bool inParamInit = false;
     // § castDefaultPatternConcat — the constant ExprEmit's `T'{default:X}`
@@ -2287,6 +2294,17 @@ private:
     // True while emitting a FOR-generate gen-scope cont_assign RHS: module
     // params in select bounds fold to typed constants (outside call args).
     bool genCaLoopParamFold = false;
+    // § genCaChildLoopSelFold21 — the CHILD-INSTANCE half of the flag above.
+    // genCaLoopParamFold is armed as `!childGen && genBlkIsLoopBody(blk)`, and
+    // `childGen` confounds TWO features: "this module is a child instance"
+    // (prefix has a dot) and "this gen scope is nested in another" (parentFull
+    // has a dot).  qf21.sv / qg21.sv measure them apart: golden folds an outer
+    // param in EVERY select operand of a child instance's top-level
+    // for-generate CA RHS (R1-R4), keeps the ref in a NESTED gen scope (R7),
+    // and reduces a NON-SELECT operand's whole RHS to one loc-less constant
+    // instead (R6, a different law).  So this flag arms the child-instance
+    // half and the ExprEmit site restricts it to select positions.
+    bool genCaChildLoopFold21 = false;
     // Root prefix of the top instance currently being emitted (bind
     // instances DISPLAY directly under it while contents keep real paths).
     std::string currentTopPrefix;

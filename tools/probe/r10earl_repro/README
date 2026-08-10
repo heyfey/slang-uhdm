@@ -1174,6 +1174,165 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
+RANKED RESIDUE (measured after PASS 21 — next agent starts HERE; still 9
+AllModules + 5 TopModules = 14 heads, and the head LINES are unchanged from
+pass 20, so read the bisect stack in the PASS 21 headline before re-deriving
+anything).
+
+  (1) THE top_earlgrey PAIR, still 2 heads, and now THREE LAYERS SHALLOWER
+      with the top layer FULLY DECODED and its naive fix already refuted:
+      § genCaEnumConstNoBind21 (see the REFUTED block below).  qh21.sv is
+      three quarters of the 2x2; the missing quarter is hier_path's
+      comparison-operand row and MultirangesStartNotFromZero's part-select-
+      bound row written into the SAME file so the discriminator is visible.
+      Behind it, one more layer is already named: ex_block_i > alu_i >
+      ibex_alu.sv:244:10 `assign bfp_op = RV32B ? (operator_i == ALU_BFP) :
+      1'b0;` — the ternary folds and golden keeps the written literal's
+      BINARY const type (ct=7 sz=1 dec=0) where we emit ct=9.  THAT IS THE
+      dm_mem ct7-vs-ct9 FAMILY (residue (6) of pass 20, the we.sv G5/G6
+      witness family) — it now owns a share of a TopModules head as well as
+      def:work@dm_mem, so it has moved up the ranking on its own.
+  (2) The three hier_path families, unchanged and each worth 2 heads:
+      dm_csrs.sv:309:27 DROPPED INDEX OPERAND (def:work@dm_csrs +
+      def:work@rv_dm, both r=93 — read unsup.sh FIRST); flash_ctrl.sv:315:10
+      `region_cfgs[8]` vs `region_cfgs[MpRegions]` (a shadowed NAME in a name
+      builder — shadowedImportFoldLeaves9 exists, wire the name path);
+      flash_phy.sv:129:13 hier_path vs ref_obj (r=4392, the largest r left).
+  (3) The pass-19 mirror pair, both still NOT REPRODUCED from their decoded
+      shape: work@jtag_mux r=32 (find the DESIGN-FINAL MINTER of the loc-less
+      typespec with the EMPTY constant bound, uid ~738k — py20.sv proved the
+      source shape is CMP_EQUAL and jtag_mux is instantiated nowhere);
+      work@sram2tlul r=-32 (golden KEEPS the `top_pkg::TL_SZW'(SRAM_DWB)` cast
+      where we fold it).
+  (4) work@prim_keccak (Top) r=32 at prim_keccak.sv:52:5 — bisect it fresh
+      (the def half closed in pass 20 and this did not move, so it is a
+      different object: `localparam int Offset = RhoOffset[x][y]%W;`).
+  (5) def:work@prim_prince r=-1, an EXTRA ref_typespec of ours where BOTH
+      generic tools go blind (bisector says NO CHILD REPRODUCES IT over 222
+      pairs, nul21 reports zero nullnesses) — extend the walk before extending
+      the theory.
+  (6) The unchanged smalls: flash_mp.sv:21:87 logic_net; def:work@padring's
+      `named_begin 'gen_mio_input'` :0:0; work@prim_present (Top) r=-1
+      gen_scope_array selection.
+  (7) WITNESS-ONLY residues added this pass (no corpus head): qg21 R6, qh21 R3
+      and qh21's `o2` LHS bind — all three listed under PASS-21 TOOLS.
+
+LANDED — PASS 21 (r10earl21; THREE laws landed and a FOURTH refuted by gate
+round 1 and reverted; TWO gate rounds — all four laws entered round 1 together,
+round 2 is the clean re-run after the revert.  Final gate: goldens 23/23 + u2r
+testflags 732 lines with ONE change, an IMPROVEMENT (paramod_genscope_child
+dump differ -> match, status unchanged, zero regressions of any kind) +
+Surelog BOTH MODES 1589 lines 0 change, WHOLE-ROW incl. the dump column, vs
+results/golden_surelog.csv).
+
+  HEADLINE: heads UNCHANGED at 14 (9 AllModules / 5 TopModules, both package
+  vectors still 0), census BYTE-IDENTICAL — and that is NOT a zero.  The
+  top_earlgrey pair is a STACK, and this pass peeled four layers off it:
+      pass 20 frontier  if_stage_i > port instr_pmp_err_i > folded index ts
+      after law 1       gen_prefetch_buffer > prefetch_buffer_i
+                          > cont_assign :127 > q[NUM_REQS-1] index      r=601
+      after law 2       prefetch_buffer_i > gen_rd_rev[0]
+                          > q[NUM_REQS-1-i] index leaf                  r=-601
+      after law 3       id_stage_i > gen_stall_mem > WB_INSTR_OTHER     r=-1
+      behind that       ex_block_i > alu_i > ibex_alu.sv:244 ct7-vs-ct9 r=-2
+  Read this with pass 19's method note: THE ONLY HONEST CHECK IS THE BISECTOR.
+  Four bis21.sh runs is the whole measurement of this pass; hdiff21.sh printed
+  nothing every single time.
+
+  1. § elabConnSelFoldNoTs21 (ExprEmit ~3610 `selFoldTs21` + a new
+     § elabConnEmit21 guard in ModuleEmit's emitInstance connection block).
+     Pass-20's ranked (1), and the answer to its open question was
+     ALREADY IN THE TREE: the def listing's ref_module loop sets
+     § defRefModConn around its High_conn emitExpr, so the marker pass 20
+     wanted is that flag's ELABORATED TWIN, set at the other connection mint.
+     The two connection views are the only place one source expression becomes
+     two objects, so a view-split fold rule is expressible there and nowhere
+     else.  qa20.sv's 2x2 goes CMP_EQUAL: golden stamps the folded bit-select
+     index's ref_typespec on the DEF listing's UNQUALIFIED row only.  Only the
+     ts STAMP is gated — golden's elab constant still parents at the
+     bit_select, so § selFold9 itself stays true and the derived flag alone is
+     tested.
+  2. § genConnIdxFoldConnOnly21 (ModuleEmit, a disarm at the top of
+     emitInstance + a re-arm inside the connection block).  A REACH
+     bug of the same family: emitGenScopes sets § genvarConnFold around the
+     WHOLE emitInstance call of a gen-scope child, but every law it drives is
+     a CONNECTION law — and left armed it also folded the CHILD'S OWN body.
+     qc21.sv is the 4-row isolation on ONE definition (`q[NUM_REQS-1]` with
+     NUM_REQS a module localparam): golden keeps the index `operation {op=11}`
+     in the def listing, in the FIRST plain child, in the SECOND plain child
+     (so instance ORDER is not the feature), in the if-generate child and in
+     the for-generate child, while we folded the two GEN-SCOPE ones.  qb21.sv
+     is the first cut (def + plain + for-gen, three index spellings).
+  3. § genCaChildLoopSelFold21 + § genCaLoopSelIdxFold21 (UhdmExporter.h flag,
+     ModuleEmit ~12257, ExprEmit ~4387/~4429).  § genCaLoopParamFold
+     is armed as `!childGen && genBlkIsLoopBody(blk)`, and `childGen` CONFOUNDS
+     TWO FEATURES — "this module is a child instance" (prefix has a dot) and
+     "this gen scope is nested in another" (parentFull has a dot) — with an
+     in-code comment that cites only the nested one.  qf21.sv puts five operand
+     positions in a CHILD's top-level for-generate CA RHS: golden folds the
+     outer param in ALL FOUR select rows (operation index, bare index,
+     part-select bound, index op without the genvar) in the USE-SITE form
+     (constant parented at the operand's own parent, ref_typespec named after
+     the SELECT BASE).  qg21.sv adds the two negatives that keep the law
+     honest: a NESTED gen scope inside that child still keeps the ref (R7, so
+     the nesting half of `childGen` is real and survives), and a NON-SELECT
+     operand is a DIFFERENT law — golden reduces `NUM_REQS + i`'s WHOLE RHS to
+     one LOC-LESS constant (R6), which is why the child extension is
+     restricted to select positions.  qe21.sv is the TOP-module control: the
+     same five rows there already fold, in the SHARED form (constant
+     re-parented at the module's param_assign) — golden uses use-site there
+     too, but vpiParent and ref_typespec fullname are not uhdm-cmp fields, so
+     that half stays a recorded difference and the change is purely ADDITIVE.
+     THE `parentFull == prefix` TEST, not a dot test, is what says "top-level
+     gen scope": in a child the module prefix already carries a dot.
+     qd21.sv is the one-row bisect that started it.
+
+  REFUTED IN GATE ROUND 1, REVERTED, recorded in-code at the site —
+  § genCaEnumConstNoBind21.  qh21.sv is a clean FOUR-row measurement over one
+  wildcard-imported PACKAGE enum (`c ? E_A : E_B`): the MODULE-LEVEL
+  cont_assign binds its enum_const in BOTH views, and the IF-generate,
+  FOR-generate and TOP-module-generate rows all stay UNBOUND in golden where
+  we bind.  That IS the current top_earlgrey frontier (ibex_id_stage.sv:911:45,
+  `assign instr_type_wb_o = ~lsu_req_dec ? WB_INSTR_OTHER : ...` in
+  gen_stall_mem).  Widening the existing `inGenScopeCaRhs && unitEnumSym9`
+  carve-out (ExprEmit ~4937) to plain `inGenScopeCaRhs` fixes qh21 and
+  REGRESSES TWO u2r tests where golden BINDS: hier_path
+  (`(csr_pmp_cfg_i[r].mode == PMP_MODE_TOR) ? ...`, a PACKAGE enum in a
+  for-generate) and MultirangesStartNotFromZero (`io_fwd_mesh_li[i][e_e:w_e]`,
+  a MODULE-scope enum as a PART-SELECT BOUND).  Gating the OTHER enum arm
+  (ExprEmit ~5223, below § qualPkgParamFoldTs) instead does NOT restore them —
+  MEASURED, both sites tried separately — so both counter-witnesses come
+  through the suppressRefActual site and the real discriminator separates a
+  ternary-BRANCH VALUE read from an operand of a COMPARISON or a SELECT BOUND.
+  The 2x2 pass 22 owes is qh21's rows plus those two shapes in one file.
+
+PASS-21 OPS NOTES
+  * THE MARKER YOU NEED MAY ALREADY EXIST UNDER THE OTHER VIEW'S NAME.  Pass
+    20 asked for "a def-view marker that survives to the connection mint" and
+    the answer was to stop looking for a def marker: § defRefModConn already
+    marks the def connection, so what was missing was its elab twin at the
+    other mint site.  When a rule splits two VIEWS, mark BOTH, not one.
+  * A CONTEXT FLAG ARMED AROUND A WHOLE emitInstance CALL LEAKS INTO THE
+    CHILD'S BODY.  § genvarConnFold is the second such leak found (after the
+    § moduleDefEmit trap of pass 20's note).  When a flag's name says CONN,
+    check where it is cleared.
+  * COUNT THE DOTS IN THE RIGHT STRING.  `prefix.find('.')` cannot express
+    "top-level gen scope" inside a child instance; `parentFull == prefix` can.
+    Two of this pass's three laws are one confound each in a dot test.
+  * A REFUTED LAW STILL PAYS if you write down BOTH counter-witnesses and the
+    site you proved they come through — that is three quarters of pass 22's
+    2x2 already measured.
+
+PASS-21 TOOLS.  {run,bis,nul,hdiff,cen,ins,sub,dmp,dbg,gate,sweep}21.sh are the
+pass-20 scripts with W= re-pointed and the /tmp tags bumped (probe binaries
+under /tmp/r10e21_*).  Witnesses added: qb21 qc21 (law 2), qd21 qe21 qf21 qg21
+(law 3), qh21 (the refuted enum law).  qa20 (law 1) is pass 20's file, now
+CMP_EQUAL.  Still-open rows inside the new witnesses, all WITNESS-ONLY (no
+corpus head yet): qg21 R6 (whole-RHS reduce of a non-select gen-loop CA RHS to
+a loc-less constant); qh21 R3 (a folded IMPORTED pkg param in a gen-scope CA
+RHS carries a ref_typespec named after the gen scope; we emit none) and qh21's
+`o2` LHS ref, which golden binds to the enum_var.
+
 LANDED — PASS 20 (r10earl20; FIVE laws in FOUR gate rounds, each round gated at
 goldens 23/23 + u2r testflags 732 lines 0 change vs results/gate_uhdm2rtlil.csv
 + Surelog BOTH MODES 1589 lines 0 change, WHOLE-ROW incl. the dump column, vs
