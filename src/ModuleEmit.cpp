@@ -204,6 +204,48 @@ sortedModports(const InstanceBodySymbol& body) {
     return mps;
 }
 
+// § contAssignDriveStrength19 (r10earl19) — cont_assign::Compare compares
+// vpiStrength0 and vpiStrength1 (UHDM cont_assign.cpp:112/117) and the
+// emitter never wrote either, so every strength-qualified continuous assign
+// read `r = 64 - 0` against golden.  TWO Earlgrey heads share ONE object —
+// def:work@prim_generic_pad_wrapper and work@padring, both r=64 at
+// prim_generic_pad_wrapper.sv:40:29
+// (`assign (strong0, strong1) inout_io = ...`).
+//
+// The codes are the vpi_user.h DRIVE constants (vpiStrongDrive 0x40,
+// vpiPullDrive 0x20, vpiWeakDrive 0x08, vpiHiZ 0x01) — EXCEPT supply, where
+// Surelog writes the NET-TYPE constants vpiSupply0 (11) / vpiSupply1 (10)
+// instead of vpiSupplyDrive (0x80).  That is a Surelog quirk, not a reading
+// of the LRM, and it is reproduced verbatim; ds19.sv measures all five
+// keywords in BOTH written orders (the pair is normalised by SIDE, not by
+// position, in both tools).
+static int32_t caStrengthCode19(slang::ast::DriveStrength d, bool oneSide) {
+    switch (d) {
+        case slang::ast::DriveStrength::Supply:
+            return oneSide ? vpiSupply1 : vpiSupply0;
+        case slang::ast::DriveStrength::Strong:
+            return vpiStrongDrive;
+        case slang::ast::DriveStrength::Pull:
+            return vpiPullDrive;
+        case slang::ast::DriveStrength::Weak:
+            return vpiWeakDrive;
+        case slang::ast::DriveStrength::HighZ:
+            return vpiHiZ;
+    }
+    return 0;
+}
+
+static void applyCaStrength19(UHDM::cont_assign* ca,
+                              const ContinuousAssignSymbol& casym) {
+    if (!ca)
+        return;
+    auto [s0, s1] = casym.getDriveStrength();
+    if (s0)
+        ca->VpiStrength0(caStrengthCode19(*s0, false));
+    if (s1)
+        ca->VpiStrength1(caStrengthCode19(*s1, true));
+}
+
 // True when a declared type is a PACKAGE-scoped typedef'd struct.
 // True when the declaration EXPLICITLY package-qualifies the type
 // (p::req_t x). A wildcard-imported bare name (import p::*; req_t x)
@@ -11179,7 +11221,20 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 if (genLpDim9)
                     currentScope = gm.getParentScope();
             }
+            // § genScopeDeclBoundOwner19 (r10earl19) — the module-body net/var
+            // loop sets boundOwnerFullName around its sharedTypespec call so a
+            // folded BARE module-parameter range bound carries the ts ref
+            // Surelog names after the DECLARATION; the gen-scope loops never
+            // did, so the same bound came out with NO vpiTypespec at all.  A
+            // REACH bug, not a rule bug: `logic [NumInner:0][DataW-1:0] v;`
+            // measured object-for-object at module level and inside a
+            // `for (genvar ...)` block (gg19.sv) gives golden the identical
+            // `ref_typespec(<decl fullname>) -> bare int_typespec` in BOTH
+            // positions.  work@prim_gate_gen (Top) r=1 is exactly this one
+            // missing pointer (prim_gate_gen.sv:86:12, `inner_data`).
+            boundOwnerFullName = nfull;
             auto* ats = makeTypespec(gm);
+            boundOwnerFullName.clear();
             currentScope = savedCS9;
             // A net-decl-assign net's list typespec loses its net parent (the
             // fresh Lhs net carries the parented one); a plain net keeps it.
@@ -11349,12 +11404,19 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             else
                 setLoc(iv, nameSpan(gm.location, gm.name));
             UHDM::typespec* ivt = clsTs2;
-            if (isRanged2)
-                if (auto* rt2 = makeTypespec(gm, gm.getDeclaredType()
-                                                     ? gm.getDeclaredType()
-                                                           ->getTypeSyntax()
-                                                     : nullptr))
+            if (isRanged2) {
+                // § genScopeDeclBoundOwner19 — the VARIABLE half of the same
+                // reach (the head's own shape: a gen-scope `logic [P:0][Q-1:0]`
+                // local).
+                boundOwnerFullName = vfull;
+                auto* rt2 = makeTypespec(gm, gm.getDeclaredType()
+                                                 ? gm.getDeclaredType()
+                                                       ->getTypeSyntax()
+                                                 : nullptr);
+                boundOwnerFullName.clear();
+                if (rt2)
                     ivt = rt2;
+            }
             if (auto* dt2 = gm.getDeclaredType())
                 if (auto* tsn2 = dt2->getTypeSyntax())
                     setLoc(ivt,
@@ -11637,6 +11699,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         break;
                     }
             setLoc(ca, caLoc);
+            // § contAssignDriveStrength19 — the GEN-SCOPE flavour.
+            applyCaStrength19(ca, casym);
             {
                 auto& lc0 = stripImplicitConv(ae.left());
                 if (lc0.kind == ExpressionKind::NamedValue)
@@ -16883,6 +16947,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     break;
                 }
         setLoc(ca, caLoc);
+        // § contAssignDriveStrength19 — `assign (strong0, strong1) x = y;`.
+        applyCaStrength19(ca, casym);
         // `assign #0.1 a = b;` — the statement's delay rides the cont_assign
         // (DelayAssign).
         if (caSyn9)
@@ -24712,6 +24778,19 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 // typespec (BitSelectOfParameterPassedToSubmoduleInGenFor).
                 auto pkgLoopParam =
                     [&](std::string_view nm) -> const ParameterSymbol* {
+                    // § genForCondQualPkgParamFold19 (r10earl19) — the
+                    // QUALIFIED spelling of the same read.  This whole fold
+                    // resolves through Lookup::unqualified, so
+                    // `j < hmac_pkg::NumAlerts` (hmac.sv:506, the head
+                    // work@sha2's closure exposed) never matched a symbol and
+                    // stayed a ref_obj where golden prints the value — while
+                    // the BARE `j < NumAlerts` next to a wildcard import
+                    // folded.  Golden folds BOTH spellings in a gen-for
+                    // condition (pf19.sv rows 26:26 and 30:26, measured
+                    // object-for-object against real Surelog); the qualifier
+                    // is not the discriminator HERE, only the resolver was.
+                    if (nm.find("::") != std::string_view::npos)
+                        return crossPkgBoundParam9(nm);
                     auto* sy = Lookup::unqualified(body, nm);
                     if (sy && sy->kind == SymbolKind::Parameter &&
                         sy->getParentScope() &&
@@ -24756,6 +24835,21 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     c0->VpiColumnNo(r0->VpiColumnNo());
                     c0->VpiEndLineNo(r0->VpiEndLineNo());
                     c0->VpiEndColumnNo(r0->VpiEndColumnNo());
+                    // § genForCondQualPkgParamFold19 — a QUALIFIED read's
+                    // substituted constant is anchored at the SCOPE QUALIFIER
+                    // (`pkg::`), never at the whole reference: the same anchor
+                    // § genCondQualPkgParamFold and the enum-member
+                    // substitution beside it already use.  pf19.sv 26:26 reads
+                    // `line:26:26, endln:26:31` for `p19::QA` in golden.
+                    {
+                        std::string_view rn19 = r0->VpiName();
+                        auto q19 = rn19.find("::");
+                        if (q19 != std::string_view::npos) {
+                            c0->VpiEndLineNo(r0->VpiLineNo());
+                            c0->VpiEndColumnNo(r0->VpiColumnNo() +
+                                               (uint32_t)q19 + 2);
+                        }
+                    }
                     auto* its0 = s.MakeInt_typespec();
                     if (auto dt0 = psp.getDeclaredType())
                         if (auto* tsyn0 = dt0->getTypeSyntax())

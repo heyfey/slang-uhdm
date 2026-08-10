@@ -4252,6 +4252,11 @@ UHDM::design* UhdmExporter::exportDesign() {
     // alias target of that bare copy is bare too.  Right after LAW S, whose
     // memo it re-points.
     importCloneBareTdAlias16();
+    // § cloneAliasTopTarget19 — the def->top question for the ALIAS TARGET of
+    // a clone no parent walk can classify (the clone is unparented, so
+    // ownership has to be read off the BINDING ref).  After both alias passes
+    // above, whose deliberate targets it must not disturb.
+    cloneAliasTopTarget19();
     // § modTdClonePkgTopInstance16 — LAW S and its alias fix-ups are the last
     // writers of a module listing's typespec clones, so the clone-instance
     // stamp runs after them.

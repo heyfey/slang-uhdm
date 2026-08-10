@@ -3564,8 +3564,25 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 rtu->Actual_typespec(itsu);
                                 c->Typespec(rtu);
                             }
+                            // § overriddenBoundParamNoFoldTs19 (r10earl19) —
+                            // an OVERRIDDEN parameter's folded bound carries
+                            // NO ts ref and keeps the bare 64-bit fold.
+                            // Surelog's substituteAssignedValue answers the
+                            // read from the OVERRIDE's value object, which
+                            // (unlike the declaration's) carries no typespec.
+                            // Measured as a 2x2 in gg19.sv: the same child
+                            // module instantiated `#(.CW(3))` and at its
+                            // DEFAULT — the default instance's gen-scope
+                            // `logic [7:CW2]` bound is stamped at size 32,
+                            // the overridden one is bare at 64.  Found as a
+                            // REGRESSION (u2r genscope_cells, whose
+                            // `logic [63:CounterWidth]` sits inside
+                            // `ibex_counter #(.CounterWidth(MODULE_PARAM))`)
+                            // the moment § genScopeDeclBoundOwner19 gave the
+                            // gen-scope loops the owner name the module-body
+                            // loop always had.
                             else if (boundParam && !boundOwnerFullName.empty() &&
-                                !intEnc) {
+                                !intEnc && !isOverriddenParam(*boundParam)) {
                                 c->VpiSize(
                                     (int32_t)boundParam->getType().getBitWidth());
                                 c->VpiConstType(vpiUIntConst);
@@ -6689,6 +6706,80 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         }
         if (qit->second)
             rt->Actual_typespec(qit->second);
+    }
+}
+
+// § cloneAliasTopTarget19 (r10earl19) — § modScalarTdTopInstance's ALIAS half,
+// at a position the parent walk provably cannot classify.
+//
+// repointModOwnedTs16 asks "is this ref_typespec inside a module listing?" by
+// walking vpiParent, and § modScalarTdTopInstance answers the def-vs-top
+// question for everything it reaches.  A LAW-S-shaped per-declaration CLONE
+// breaks that walk: the clone typespec is UNPARENTED (the alias ref's parent
+// IS the clone, and the clone hangs off nothing), so modOwnedTs15 falls off
+// the end and returns false, and the clone's Typedef_alias keeps naming the
+// DEFINITION package's listing object.  The reach fix is to read OWNERSHIP OFF
+// THE BINDING REF — the ref_typespec that names the clone — which is parented
+// into the statement tree exactly like every other binding.
+//
+// Witness (work@sha2 / work@hmac, the last two AllModules heads sharing one
+// shape): a MODULE-scope cast to a package scalar typedef,
+// `w[i] = sha_word_t'(...)` at sha2.sv:82:13, mints its own clone in
+// ExprEmit's CastExpression arm and aliases it to typedefTs[type] — the def
+// listing object.  Golden's alias names the ELABORATED hmac_pkg's twin, and
+// typespec::Compare walks Typedef_alias, so uhdm-cmp then compares the whole
+// package in the wrong view and trips on hmac_pkg's own `10:18` param constant
+// (sz=32 in the top copy, sz=64 in the def one).
+//
+// Restricted to the LAW-S SCALAR set (pkgScalarTd16) and run AFTER
+// bareScalarTypedefVarTs / importCloneBareTdAlias16, so every alias those two
+// place deliberately (LAW S's module-owned copies already target the top
+// object; a wildcard-import clone's target is a bare copy, never a listing
+// object) is outside this pass's match by construction.
+void UhdmExporter::cloneAliasTopTarget19() {
+    if (pkgTopTypedefTs.empty() || typedefTs.empty() || pkgScalarTd16.empty())
+        return;
+    std::map<const UHDM::typespec*, UHDM::typespec*> d2t19;
+    for (auto& [sym19, dts19] : typedefTs) {
+        if (!dts19 || !pkgScalarTd16.count(dts19))
+            continue;
+        auto it19 = pkgTopTypedefTs.find((const void*)sym19);
+        if (it19 != pkgTopTypedefTs.end() && it19->second &&
+            it19->second != dts19 &&
+            it19->second->UhdmType() == dts19->UhdmType())
+            d2t19[dts19] = it19->second;
+    }
+    if (d2t19.empty())
+        return;
+    for (auto& kv19 : s.AllObjects()) {
+        auto* rt19 = dynamic_cast<UHDM::ref_typespec*>((UHDM::any*)kv19.first);
+        if (!rt19)
+            continue;
+        auto* at19 = rt19->Actual_typespec();
+        // A ref that names the LISTING OBJECT itself is repointModOwnedTs16's
+        // business; this pass is only about the clone one level down.
+        if (!at19 || pkgScalarTd16.count(at19))
+            continue;
+        auto* al19 = at19->Typedef_alias();
+        auto* tg19 = al19 ? al19->Actual_typespec() : nullptr;
+        if (!tg19)
+            continue;
+        auto d19 = d2t19.find(tg19);
+        if (d19 == d2t19.end() || !modOwnedTs15(rt19))
+            continue;
+        al19->Actual_typespec(d19->second);
+        // § castCloneTopInstance19 — the SECOND pointer in the same object,
+        // and the pass-16 lesson that a law fixing one of two measures ZERO.
+        // A clone minted at an expression site carries NO vpiInstance at all
+        // (bareScalarTdCopyOfFresh16 copies one; ExprEmit's cast clone comes
+        // out of makeTypespec, which has no package to copy from), where
+        // golden's twin names the ELABORATED package — the same
+        // MISSING-INSTANCE shape § pkgBoundMintTsTopInstance17 decoded for a
+        // folded range bound.  Only ever FILLS a null: an instance another
+        // pass already resolved is that pass's answer.
+        if (!at19->Instance())
+            if (auto* ti19 = d19->second->Instance())
+                at19->Instance(ti19);
     }
 }
 

@@ -3423,6 +3423,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         return ref;
                     }
                 }
+                // § defGenProcWildcardPkgParamNoFold19 (r10earl19) — the
+                // EXACT INVERSE of the fold laws, and the pass-18
+                // discriminator in a fifth container: inside a DEF-view
+                // GENERATE-BLOCK PROCESS, a package parameter read written
+                // UNQUALIFIED (reached only through a wildcard import) is NOT
+                // substituted — Surelog compiles the generate body with no
+                // instance context, so the bare name resolves to nothing and
+                // stays a symbolic, UNBOUND ref_obj carrying the gen-scope
+                // fullname.  A QUALIFIED `pkg::P` read in the SAME process
+                // still folds: THE WRITTEN QUALIFIER IS THE DISCRIMINATOR,
+                // the same rule § defGenQualPkgCallBinds18 measured for a
+                // call and § genCondQualPkgParamFold for a condition.
+                // Witness pf19.sv rows 50 (qualified `{p19::QA{1'b1}}`, a
+                // folded constant in BOTH views) and 51 (wildcard
+                // `{QB{1'b1}}`, `ref_obj QB` in the def view and the constant
+                // only in the elab one), measured object-for-object against
+                // real Surelog.  Corpus: work@flash_phy_core's whole head —
+                // `prog_data_packed = {DataWidth{1'b1}};`
+                // (flash_phy_core.sv:190:27) inside an `always_comb` in a
+                // `generate else` block, `ref_obj 'DataWidth'` in golden and
+                // `constant {ct=9 sz=32 dec=64}` in ours.
+                if (defGenProcessEmit &&
+                    rawText(expr.sourceRange).find("::") == std::string::npos) {
+                    ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                    ref->VpiParent(parent);
+                    setLoc(ref, expr.sourceRange);
+                    return ref;
+                }
                 auto& cv = psym.getValue();
                 if (cv.isInteger() && !cv.integer().hasUnknown()) {
                     auto* c = s.MakeConstant();

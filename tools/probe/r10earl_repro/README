@@ -115,6 +115,37 @@ pp18.sv       the § genScopePkgParamRefTop18 shape, kept as a NEGATIVE witness:
         copy a pointer names.  A def-vs-top law can only be reproduced in a
         small file if the two copies DIFFER — which is why this family has
         always been decoded on the corpus with the bisector.
+THE PASS-19 HARNESS AND THE COMPARATOR SOURCE.
+sweep19.sh / cen19.sh / hdiff19.sh / ins19.sh / bis19.sh / sub19.sh /
+        nul19.sh / gate19.sh / run19.sh / dmp19.sh — the pass-18 copies with
+        W= re-pointed and the probe binaries renamed /tmp/r10e19_* (built by
+        ../r10earl19build.sh <probe> [outname], so a sibling agent's /tmp
+        cannot clobber them).  cen19/ins19 read
+        /tmp/r10earl19_e0w/default/Earlgrey_0_1-*/slang.uhdm.
+dbg19.sh      replays the Earlgrey slang command line with whatever env you
+        put in front of it (`R10E19_DBG=1 dbg19.sh`), stdout/stderr split into
+        /tmp/r10earl19_dbg.{out,err}.  The generic version of unsup.sh — this
+        is how § cloneAliasTopTarget19's reach was decided (one env-gated
+        fprintf, one run, one aggregate `sort | uniq -c`, then the print was
+        deleted).
+~/git-repos/UHDM/build/generated/src/<type>.cpp
+        THE AUTHORITY on what uhdm-cmp compares for a node and IN WHAT ORDER,
+        and the first thing to read when the bisector says NO CHILD REPRODUCES
+        IT.  cont_assign.cpp:107-125 is why § contAssignDriveStrength19 exists:
+        VpiNetDeclAssign, VpiStrength0, VpiStrength1 are compared BEFORE Rhs
+        and Lhs, and the bisector's r IS the scalar subtraction (r=64 =
+        vpiStrongDrive).
+pf19.sv       § genForCondQualPkgParamFold19 / § defGenProcWildcardPkgParamNoFold19's
+        matrix: QUALIFIED vs WILDCARD-IMPORTED package-parameter reads x five
+        containers (gen-for condition, gen-if condition, gen-block cont_assign,
+        gen-block always_comb, module body).
+ds19.sv       § contAssignDriveStrength19's matrix: all five drive-strength
+        keywords in both written orders, plus the net-decl-assign flavour
+        (a recorded NEGATIVE — Surelog drops that cont_assign entirely).
+gg19.sv       § genScopeDeclBoundOwner19 / § overriddenBoundParamNoFoldTs19:
+        a bare-param range bound at module level, in a for-generate, in an
+        if-generate, and — the 2x2 that named the regression's condition — in
+        a child instance with its parameter OVERRIDDEN and at its DEFAULT.
 bisall17.sh   runs 17c over every head and collects the field chains — the way
         the pass-17 ranked residue below was produced.  ~1 min per head.
 hdiff17.sh    head diff of two r10earl4h censuses.  METRIC HYGIENE: it compares
@@ -1142,6 +1173,178 @@ already reports:
                              AllModules head (the wildcard-import bound fold).
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
+
+LANDED — PASS 19 (r10earl19; SEVEN laws in FIVE gate rounds, each round gated
+at goldens 23/23 + u2r testflags 732 lines 0 change vs
+results/gate_uhdm2rtlil.csv + Surelog BOTH MODES 1589 lines 0 change,
+WHOLE-ROW incl. the dump column, vs results/golden_surelog.csv).
+
+  HEADLINE: 22 -> 16 heads, SIX CLOSED — the biggest single-pass drop of the
+  block — and TopModules 8 -> 6 after fifteen passes of standing still.
+  AllModules 14 -> 10, TopModules 8 -> 6, both package vectors still 0.
+  Conversions: NONE (Earlgrey_0_1 is still CMP_NOTEQUAL, 0 movers).
+
+  THE METHOD HEADLINE: **cont_assign::Compare compares vpiStrength0 and
+  vpiStrength1, and nothing in the emitter had ever written them.**  Two heads
+  that had survived nineteen passes were one *unread field of the comparator*,
+  not a model law at all.  When a bisect prints `NO CHILD REPRODUCES IT` on a
+  node whose children all compare clean, READ THE GENERATED
+  `<type>::Compare` — the failure is in a SCALAR of the node itself, and the
+  r value is that scalar's difference (here r=64 = vpiStrongDrive - 0).
+
+  1. § cloneAliasTopTarget19 + § castCloneTopInstance19 (TypeEmit, one new
+     design-final pass called from UhdmExporter after importCloneBareTdAlias16;
+     round 1).  Pass-18 residue (4), the LAW-S ALIAS TARGET.  A module-scope
+     CAST to a package scalar typedef (`w[i] = sha_word_t'(...)`,
+     sha2.sv:82:13) mints its own clone in ExprEmit's CastExpression arm; the
+     clone is UNPARENTED, so modOwnedTs15's vpiParent walk dies on it and
+     repointModOwnedTs16 leaves its Typedef_alias naming the DEF package.
+     READ OWNERSHIP OFF THE BINDING REF, not off the clone.  The alias fix
+     alone measured a byte-identical head census — and was NOT a zero: the
+     bisect had advanced from `rel=701 r=-32` to `rel=745 NULLNESS`, i.e. the
+     SECOND pointer in the same object (the clone's own vpiInstance, which
+     makeTypespec never sets).  Filling that null too closed work@sha2 and
+     advanced work@hmac.  THE PASS-16 TWO-POINTER LESSON IN A THIRD GUISE, and
+     a metric lesson: hdiff19's failLhs/failRhs was IDENTICAL across the
+     advance, because the head's first failing pair was already the same
+     `package hmac_pkg {top=1}` / `<null>` one level up.  When a law is
+     believed and measures zero, RE-RUN THE BISECTOR, not the census.
+     Counted proof of no over-fire: ins19's count diff moved exactly ONE row,
+     `logic_typespec 'sha_word_t' :17:11 x16 -> x17 top=1`, toward golden.
+  2. § genForCondQualPkgParamFold19 (ModuleEmit, the gen_for pkgLoopParam
+     lambda; round 2).  The whole gen-for bound fold resolves through
+     Lookup::unqualified, so `j < hmac_pkg::NumAlerts` (hmac.sv:506) never
+     matched a symbol and stayed a ref_obj where the BARE `j < NumAlerts` next
+     to a wildcard import folded.  pf19.sv rows 26:26 / 30:26 measure BOTH
+     spellings folding in golden: the qualifier is not the discriminator here,
+     only the RESOLVER was.  The substituted constant is anchored at the SCOPE
+     QUALIFIER (`p19::`, cols 26..31), the same anchor
+     § genCondQualPkgParamFold uses.  work@hmac CLOSED.
+  3. § defGenProcWildcardPkgParamNoFold19 (ExprEmit ~3426; round 3).  THE EXACT
+     INVERSE, and pass-18's discriminator in a fifth container: inside a
+     DEF-view generate-block PROCESS a package parameter written UNQUALIFIED
+     is NOT substituted — Surelog compiles the generate body with no instance
+     context, so the bare name stays an UNBOUND ref_obj with the gen-scope
+     fullname — while a QUALIFIED `pkg::P` in the SAME process still folds.
+     THE WRITTEN QUALIFIER IS THE DISCRIMINATOR (pf19.sv rows 50 and 51).
+     work@flash_phy_core's whole head (`prog_data_packed = {DataWidth{1'b1}};`,
+     flash_phy_core.sv:190:27) CLOSED.
+  4. § contAssignDriveStrength19 (ModuleEmit, a new static helper + two call
+     sites; round 3).  See the headline.  Codes are the vpi_user.h DRIVE
+     constants (strong 0x40, pull 0x20, weak 0x08, hiZ 0x01) EXCEPT supply,
+     where Surelog writes the NET-TYPE constants vpiSupply0 (11) / vpiSupply1
+     (10) instead of vpiSupplyDrive (0x80) — a Surelog quirk, reproduced
+     verbatim.  ds19.sv measures all five keywords in BOTH written orders (the
+     pair normalises by SIDE, not by position, in both tools).  Recorded
+     NEGATIVE: Surelog emits NO cont_assign at all for a strength-qualified
+     net-declaration assignment (`wire (pull0, strong1) nd0 = a;`), so that
+     flavour is deliberately not stamped.  def:work@prim_generic_pad_wrapper
+     AND work@padring (Top) CLOSED — two heads, one object, one field.
+  5. § genScopeDeclBoundOwner19 (ModuleEmit, the gen-scope net and var loops;
+     rounds 4-5).  The module-body net/var loop sets boundOwnerFullName around
+     its sharedTypespec call so a folded BARE module-parameter range bound
+     carries the ts ref Surelog names after the DECLARATION; the gen-scope
+     loops never did.  A REACH bug, not a rule bug — gg19.sv measures the
+     identical `ref_typespec(<decl fullname>) -> bare int_typespec` at module
+     level, in a for-generate and in an if-generate.  work@prim_gate_gen (Top)
+     CLOSED (prim_gate_gen.sv:86:12, `inner_data`).
+  6. § overriddenBoundParamNoFoldTs19 (TypeEmit ~3567; round 5).  FOUND AS A
+     REGRESSION — the cheapest distinguisher in the block.  Law 5 alone flipped
+     u2r `genscope_cells` CMP_EQUAL -> CMP_NOTEQUAL, and uhdm-cmp named the
+     extra object precisely: our new ref_typespec on
+     `logic [63:CounterWidth] unused_counter_load` inside
+     `ibex_counter #(.CounterWidth(MODULE_PARAM))`.  The 2x2 that settles it is
+     in gg19.sv — the SAME child module instantiated `#(.CW(3))` and at its
+     DEFAULT: the default instance's gen-scope bound is stamped at size 32, the
+     OVERRIDDEN one is bare at 64.  Surelog's substituteAssignedValue answers
+     the read from the OVERRIDE's value object, which carries no typespec.
+     Round 5 (laws 5+6 together) is clean everywhere.
+
+PASS-19 OPS NOTES
+  * READ THE GENERATED Compare BEFORE THEORIZING.  `NO CHILD REPRODUCES IT`
+    with a clean child table means a SCALAR of the node itself:
+    ~/git-repos/UHDM/build/generated/src/<type>.cpp is the authority on which
+    scalars are compared and in what order, and the bisector's r value is
+    literally that scalar subtraction.  Two heads fell out of one grep.
+  * A HEAD-LINE DIFF *AND* A failLhs/failRhs DIFF CAN BOTH BE BLIND.  Pass 17
+    added failLhs/failRhs to hdiff because head lines alone hid an advance;
+    pass 19 hit the next layer — a law that moved the failure one field DEEPER
+    inside the same first-failing pair prints nothing in either.  The only
+    honest check for "did my law land" is to RE-RUN THE BISECTOR on the head.
+  * A REGRESSION IS THE CHEAPEST DISTINGUISHER, and per-law gate rounds are
+    what make it cheap.  Law 5 was gated alone precisely so its one regression
+    named its own missing condition; a combined round would have cost a bisect.
+  * TWO HEADS ON ONE OBJECT REMAIN THE BEST ARITHMETIC ON THE BOARD.  Three of
+    this pass's six closures came from two such pairs (sha2/hmac shared the
+    LAW-S alias question; prim_generic_pad_wrapper/padring share the
+    cont_assign object itself).
+
+RANKED RESIDUE (measured after PASS 19 — next agent starts HERE; 10 AllModules
++ 6 TopModules = 16 heads).
+
+  (1) work@prim_prince (Top) r=1 — A ONE-POINTER HEAD, FULLY DECODED, and the
+      cheapest thing on the board.  nul19.sh reports exactly ONE nullness in
+      the whole `gen_fwd_pass[1]` subtree (426 node pairs walked): the gen-scope
+      cont_assign `assign data_state_xor = data_state_round ^ ...`
+      (prim_prince.sv:105:29) leaves its RHS ref_obj's vpiActual NULL where
+      golden binds the gen-scope's own `logic_var 'data_state_round'`
+      (prim_prince.sv:86:27).  The gen_scope DOES carry the variable (no size
+      report), so this is a BINDING miss, not an emission miss.  The gen-CA
+      emitter's SYNTAX arm (ModuleEmit ~11670) binds only the LHS through
+      `blk.lookupName` + netMap; the AST arm hands the RHS to emitExpr with
+      netMap and something upstream of the netMap bind returns first.  Find the
+      arm; do not re-derive the shape.
+  (2) work@prim_keccak — TWO heads (def r=32 at prim_keccak.sv:24:28, Top r=32
+      at 52:5) plus work@sram2tlul r=-32 and work@jtag_mux r=32: the
+      "when does the ELABORATED view keep the bound symbolic" family, FOUR
+      heads.  Two of them are now decoded objects:
+        work@jtag_mux — bisected to param_assign[1] (`parameter logic
+          [NumIOs-1:0] TieOffValues = '0`) > Rhs constant `32'b0` >
+          vpiTypespec > logic_typespec (golden AT 11:13, ours LOC-LESS) >
+          Ranges[0] > Left_expr: golden `operation {op=11}` (the symbolic
+          `NumIOs-1`) against our EMPTY `constant {ct=0 sz=0 dec=}`.  We
+          SYNTHESIZE a degenerate typespec for the elab param_assign Rhs where
+          golden reuses the declaration's own symbolic one.
+        work@sram2tlul — the bisector's first failing child is a DIFFERENT
+          object from the head line: cont_assign sram2tlul.sv:42:10 > Rhs,
+          where golden keeps `operation {op=67}` (the cast
+          `top_pkg::TL_SZW'(SRAM_DWB)`) with a ref_typespec and we fold the
+          whole cast to `constant {ct=9 sz=2 dec=2}`.  An ELAB-view cast to a
+          PACKAGE PARAMETER is not folded by Surelog — the mirror of pass-17
+          law 1, which decoded the same cast's TARGET typespec.
+  (3) The three hier_path families, unchanged and each worth 2 heads:
+      dm_csrs.sv:309:27 DROPPED INDEX OPERAND (def:work@dm_csrs +
+      def:work@rv_dm, both r=93 — read unsup.sh FIRST); flash_ctrl.sv:315:10
+      `region_cfgs[8]` vs `region_cfgs[MpRegions]` (a shadowed NAME in a name
+      builder — shadowedImportFoldLeaves9 exists, wire the name path);
+      flash_phy.sv:129:13 hier_path vs ref_obj (r=4392, the largest r left).
+  (4) tl_main_pkg.sv:13:59 operation (def:work@top_earlgrey + work@top_earlgrey,
+      both r=-1) — 2 heads, one object, unchanged since pass 16.
+  (5) The unchanged smalls: dm_mem r=-2 ct7-vs-ct9 INT encoding (the we.sv
+      G5/G6 witness family); flash_mp.sv:21:87 logic_net; def:work@padring's
+      `named_begin 'gen_mio_input'` :0:0 (both sides identical at the head
+      line — a vector-size or scalar difference, so read gen_scope::Compare
+      the way law 4 was found); def:work@prim_prince r=-1 (an EXTRA
+      ref_typespec of ours, `failLhs <null>`); work@prim_present (Top) r=-1
+      gen_scope_array selection (`gen_d64` vs `gen_enc`).
+  (6) WITNESS-ONLY residues this pass measured but did NOT implement (no
+      corpus head, so they were left rather than risked):
+        * gg19.sv line 49 — an OVERRIDDEN parameter's folded bound keeps
+          golden's bare 64-bit size where we give it the parameter's 32.  Law
+          6 removed the ts ref half; the SIZE half needs `boundParam` to drop
+          out of the width arm at TypeEmit ~3603 as well, and that arm carries
+          a measured BasicOh carve-out (an override written as an untyped
+          literal-init PARAM REF *does* keep the narrow width), so it wants
+          its own 2x2.
+        * pf19.sv line 48 — a def-view gen-block CONT_ASSIGN's QUALIFIED
+          package-parameter read folds in golden (constant UINT:3, anchored at
+          the WHOLE reference, not at the qualifier — unlike the gen-for
+          condition) and stays a ref_obj in ours.  Same law family as 2 and 3,
+          third container.
+        * pf19.sv line 49 — the ELAB view of a gen-block cont_assign whose RHS
+          is `{WILDCARD_PARAM{1'b1}}` folds the WHOLE RHS to one constant in
+          golden (`1111`, 4 bits, at the cont_assign span); ours keeps the
+          replication tree.
 
 LANDED — PASS 18 (r10earl18; FIVE laws in FIVE gate rounds — one per law, each
 round gated at goldens 23/23 + u2r testflags 732 lines 0 change vs

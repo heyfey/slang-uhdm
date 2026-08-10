@@ -501,6 +501,14 @@ private:
     // io0 -> `bt` -> `bt` against the home copy's io0 -> `bt` -> `p_decl::bt`,
     // in the def AND elab package views alike.
     void importCloneBareTdAlias16();
+    // § cloneAliasTopTarget19 (r10earl19) — § modScalarTdTopInstance's ALIAS
+    // half, at the one position no parent walk can classify.  A LAW-S-shaped
+    // per-declaration CLONE is UNPARENTED, so modOwnedTs15 dies on it and
+    // repointModOwnedTs16 leaves its Typedef_alias naming the DEFINITION
+    // package's listing object; golden names the ELABORATED one wherever the
+    // BINDING ref sits in a module / interface / program listing.  Ownership
+    // therefore has to be read off the binding ref, not off the clone.
+    void cloneAliasTopTarget19();
     // The clone-flavoured copy of one qualified listing object: bare name,
     // aliased to the UNALIASED bare copy.  Memoized like the others.
     std::map<const UHDM::typespec*, UHDM::typespec*> cloneBareScalarTdCopy16;
