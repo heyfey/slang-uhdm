@@ -2497,6 +2497,19 @@ private:
     /// package.  This runs on the PACKAGE listings; the class arm of
     /// § classInheritsContainerImports23 reads the same keys.
     void importPublishesPackageClasses24();
+    /// § classKeyTsScopeOwner35 — the OWNER of a class-scope TYPEDEF's
+    /// typespec (`this_type` / `type_id` / …), which no scope but a
+    /// `class_defn` lists until an import publishes it.  `writePackage`
+    /// (:1189-1192) re-stamps a package's WHOLE listing unconditionally after
+    /// `writeDataTypes`, so the vpiInstance follows the LAST package to list
+    /// the object (DEF view; packages are written elaborated-first) while the
+    /// NAME keeps the FIRST one's qualification; with no package importer the
+    /// DESIGN's `$unit` pass owns it, and with no importer at all it stays
+    /// null.  Runs at the tail of § importPublishesPackageClasses24, whose
+    /// publication decides which listings exist.  See the definition
+    /// (ModuleEmit) for the cells and for the unlisted-duplicate arm.
+    void classKeyTsScopeOwner35(
+        const std::set<const UHDM::typespec*>& preListed35);
     /// The class-name-keyed DataTypeMap entries package @a pv publishes to a
     /// scope that imports it: `<class bare name> -> <that class's typespec>`,
     /// where the typespec is the FIRST class_typespec whose Class_defn is that

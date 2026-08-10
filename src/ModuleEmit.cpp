@@ -3299,6 +3299,30 @@ void UhdmExporter::importPublishesPackageClasses24() {
     };
     claim24(d24->TopPackages());
     claim24(d24->AllPackages());
+    // § classKeyTsScopeOwner35 needs the listings as they stand BEFORE this
+    // pass publishes anything: an object some scope ALREADY lists under its
+    // own key was stamped by that scope in golden too, and is none of the new
+    // law's business (`uvm_pkg::uvm_tlm_time` and `uvm_pkg::uvm_port_list` are
+    // class representatives AND ordinary package listing entries — nulling
+    // them out cost 25 rows on BuildUVMPkg the first time this ran).
+    std::set<const UHDM::typespec*> preListed35;
+    auto pre35 = [&](const UHDM::VectorOftypespec* v35) {
+        if (v35)
+            for (auto* t35 : *v35)
+                if (t35)
+                    preListed35.insert(t35);
+    };
+    auto preScope35 = [&](auto* v35) {
+        if (v35)
+            for (auto* p35 : *v35)
+                if (p35)
+                    pre35(p35->Typespecs());
+    };
+    pre35(d24->Typespecs());
+    preScope35(d24->AllPackages());
+    preScope35(d24->TopPackages());
+    preScope35(d24->AllModules());
+    preScope35(d24->TopModules());
     buildClassRep25();
     auto run24 = [&](UHDM::VectorOfpackage* pkgs) {
         if (!pkgs)
@@ -3371,6 +3395,240 @@ void UhdmExporter::importPublishesPackageClasses24() {
     };
     run24(d24->AllPackages());
     run24(d24->TopPackages());
+    classKeyTsScopeOwner35(preListed35);
+}
+
+// § classKeyTsScopeOwner35 — WHO owns a CLASS-SCOPE TYPEDEF's typespec, and
+// why `this_type` was 85% of the UVM-4 io_decl residue.
+//
+// `UhdmWriter::writeDataTypes` (:775) is only half the stamp.  It sets
+// `vpiInstance` FIRST-writer-wins and only for a non-`class_defn` parent
+// (`if (!tps->Instance()) if (parent->UhdmType() != uhdmclass_defn) …`), and it
+// qualifies a still-unqualified name with the scope's name only when that
+// scope is a PACKAGE.  But `writePackage` (:1189-1192) then runs
+//
+//     for (auto tp : *typespecs) tp->Instance(p);
+//
+// over the package's WHOLE listing, unconditionally — the same last-writer
+// mechanism § pkgImportAggCloneLastWriter32 found for aggregate import clones,
+// one object family over — and packages are written ELABORATED FIRST, DEF
+// SECOND (:4944 then :4979), after the design's FileContent pass (:4871) and
+// before the module passes.  So, for an object whose only other lister is a
+// `class_defn` (which never stamps):
+//
+//   * the NAME comes from the FIRST package that lists it,
+//   * the vpiInstance from the DEF view of the LAST package that lists it,
+//   * with NO package importer, from the DESIGN if a `$unit` import published
+//     it, else from the first MODULE that did,
+//   * and with no importer at all it stays NULL and the name stays BARE.
+//
+// `t47a`/`t47b`/`t47c` read all four cells off three goldens, and t47a's two
+// importers are deliberately ANTI-SORTED (`zz47` declared first, `aa47`
+// second): golden names the object `zz47::this_type` and instances it
+// `aa47` DEF — first-writer name, last-writer instance, source order, not the
+// std::map name order the DataTypeMap itself uses.  t47b adds a `$unit` import
+// and the packages still win; t47c drops the packages and the DEF MODULE takes
+// it; BuildUVMPkg, where nobody imports uvm_pkg, is the null cell on the real
+// corpus.
+//
+// The four UVM-4 tests are one law with three answers: SeqDriver's importer is
+// the package `adpcm_pkg` (golden `class_typespec 'adpcm_pkg::this_type'`
+// @adpcm_pkg), Scoreboard's and SimpleUVM's are `$unit` imports (bare
+// `'this_type'` @design), BuildUVMPkg has none (bare, null) — and we wrote
+// `@uvm_pkg` or null in all three.  Reach: 32 rows of the 58.
+//
+// SCOPE: only a representative whose SIMPLE NAME is not its class's own name,
+// i.e. a class-scope TYPEDEF object (`this_type` / `type_id` / `super_type`).
+// A representative named after its class is what an ordinary `C c` formal
+// resolves to, and t47a's `u_no(nocls47 n)` / `u_cl(base47 b)` controls say
+// golden mints a FRESH, unlisted, null-instance object for those, in the
+// importing package too — so they must not follow this law.
+//
+// NOT IMPLEMENTED (measured, t47c): the MODULE arm.  Zero rows on the UVM-4
+// (SeqDriver's `top_tb` imports uvm_pkg but adpcm_pkg's package listing beats
+// it), whole-corpus blast radius, and our module listings carry no class keys
+// to read the order off.
+void UhdmExporter::classKeyTsScopeOwner35(
+    const std::set<const UHDM::typespec*>& preListed35) {
+    if (!d || classRep25.empty())
+        return;
+    auto simple35 = [](std::string_view n) {
+        if (auto p = n.rfind("::"); p != std::string_view::npos)
+            return n.substr(p + 2);
+        return n;
+    };
+    // (1) the class-scope TYPEDEF representatives.
+    std::vector<UHDM::typespec*> tgt35;
+    std::map<const UHDM::typespec*, const UHDM::class_defn*> defnOf35;
+    for (auto& [cd35, ts35] : classRep25) {
+        if (!cd35 || !ts35)
+            continue;
+        std::string_view sn35 = simple35(ts35->VpiName());
+        if (sn35.empty() || sn35 == cd35->VpiName())
+            continue;
+        // ...and only one that NO non-class scope listed before the
+        // publication above: those are the objects `writeDataTypes` sees with
+        // a null Instance, and the only ones this law governs.
+        if (preListed35.count(ts35))
+            continue;
+        tgt35.push_back(ts35);
+        defnOf35[ts35] = cd35;
+    }
+    if (tgt35.empty())
+        return;
+    std::set<const UHDM::typespec*> tgtSet35(tgt35.begin(), tgt35.end());
+    // (2) the LAST package (source order, DEF view) that lists each object.
+    std::map<const UHDM::typespec*, UHDM::package*> lastPkg35;
+    if (auto* ap35 = d->AllPackages())
+        for (auto* p35 : *ap35) {
+            if (!p35 || !p35->Typespecs())
+                continue;
+            for (auto* t35 : *p35->Typespecs())
+                if (t35)
+                    lastPkg35[t35] = p35;
+        }
+    // (3) the packages a `$unit` import publishes from, by NAME (the UHDM side
+    // is all we have here; § classPropUnitImport21 keys on the slang symbol).
+    std::set<std::string, std::less<>> unitImp35;
+    for (auto* cu35 : comp.getCompilationUnits())
+        for (auto& m35 : cu35->members()) {
+            const Symbol* ip35 = nullptr;
+            if (m35.kind == SymbolKind::WildcardImport)
+                ip35 = (const Symbol*)m35.as<WildcardImportSymbol>().getPackage();
+            else if (m35.kind == SymbolKind::ExplicitImport)
+                ip35 = (const Symbol*)m35.as<ExplicitImportSymbol>().package();
+            if (ip35)
+                unitImp35.insert(std::string(ip35->name));
+        }
+    for (auto* ts35 : tgt35) {
+        UHDM::instance* own35 = nullptr;
+        if (auto it35 = lastPkg35.find(ts35); it35 != lastPkg35.end())
+            own35 = it35->second;
+        else {
+            // The class's HOME package, read off the class_defn's full name.
+            const UHDM::class_defn* cd35 = defnOf35[ts35];
+            std::string_view fn35 = cd35 ? cd35->VpiFullName() : std::string_view{};
+            auto p35 = fn35.rfind("::");
+            if (p35 != std::string_view::npos &&
+                unitImp35.count(fn35.substr(0, p35)))
+                own35 = (UHDM::instance*)d;
+        }
+        ts35->Instance(own35);
+    }
+    // (4) § classRepDupFormalFollowsRep35 — an UNLISTED per-specialization
+    // duplicate of one of those objects.
+    //
+    // `uvm_tlm_b_initiator_socket #(T) extends uvm_port_base #(uvm_tlm_if #(T))`
+    // makes slang specialise the base once per socket, so each socket's
+    // `connect(this_type provider)` reaches its OWN `this_type` alias and we
+    // mint a fresh, unlisted, bare, null-instance class_typespec — 8 rows on
+    // every UVM test.  Golden has no such object: Surelog resolves the written
+    // `this_type` against a table where all of them collapse onto the ONE
+    // published entry, so those formals carry the representative's NAME and
+    // OWNER.  t47a's `sock47`/`sockb47` cells reproduce the duplicate exactly
+    // (same vpiClassDefn as the representative, `listed=0`) and golden binds
+    // the shared object there too.
+    //
+    // We keep our per-specialization object and give it the representative's
+    // name and instance rather than re-pointing the ref_typespec: those are
+    // every field uhdm-cmp reads through it, and the object may carry
+    // specialization-specific links the representative does not.  The SHARING
+    // itself (golden: one object, ours: one per specialization) is a residue
+    // the io_decl census cannot see.
+    std::set<const UHDM::typespec*> listed35;
+    auto claim35 = [&](const UHDM::VectorOftypespec* v35) {
+        if (v35)
+            for (auto* t35 : *v35)
+                if (t35)
+                    listed35.insert(t35);
+    };
+    std::set<const UHDM::class_defn*> lseen35;
+    std::function<void(const UHDM::class_defn*)> claimCls35 =
+        [&](const UHDM::class_defn* c35) {
+            if (!c35 || !lseen35.insert(c35).second)
+                return;
+            claim35(c35->Typespecs());
+        };
+    claim35(d->Typespecs());
+    auto claimScope35 = [&](auto* v35) {
+        if (!v35)
+            return;
+        for (auto* p35 : *v35) {
+            if (!p35)
+                continue;
+            claim35(p35->Typespecs());
+            if (p35->Class_defns())
+                for (auto* c35 : *p35->Class_defns())
+                    claimCls35(c35);
+        }
+    };
+    claimScope35(d->AllPackages());
+    claimScope35(d->TopPackages());
+    claimScope35(d->AllModules());
+    claimScope35(d->TopModules());
+    if (d->AllClasses())
+        for (auto* c35 : *d->AllClasses())
+            claimCls35(c35);
+
+    std::set<const UHDM::typespec*> done35;
+    auto fixIo35 = [&](const UHDM::task_func* tf35) {
+        if (!tf35 || !tf35->Io_decls())
+            return;
+        for (auto* io35 : *tf35->Io_decls()) {
+            auto* rt35 = io35 ? io35->Typespec() : nullptr;
+            auto* a35 = rt35 ? rt35->Actual_typespec() : nullptr;
+            if (!a35 || a35->UhdmType() != UHDM::uhdmclass_typespec)
+                continue;
+            if (listed35.count(a35) || !done35.insert(a35).second)
+                continue;
+            auto* cd35 = ((UHDM::class_typespec*)a35)->Class_defn();
+            if (!cd35)
+                continue;
+            auto it35 = classRep25.find(cd35);
+            if (it35 == classRep25.end() || !it35->second || it35->second == a35)
+                continue;
+            auto* rep35 = it35->second;
+            if (!tgtSet35.count(rep35))
+                continue;
+            std::string_view rn35 = simple35(rep35->VpiName());
+            // The two controls: never a representative named after its class,
+            // and never a formal WRITTEN as something else.
+            if (rn35.empty() || rn35 == cd35->VpiName() || a35->VpiName() != rn35)
+                continue;
+            a35->VpiName(rep35->VpiName());
+            a35->Instance(rep35->Instance());
+        }
+    };
+    std::set<const UHDM::class_defn*> fseen35;
+    std::function<void(const UHDM::class_defn*)> fixCls35 =
+        [&](const UHDM::class_defn* c35) {
+            if (!c35 || !fseen35.insert(c35).second)
+                return;
+            if (c35->Task_funcs())
+                for (auto* tf35 : *c35->Task_funcs())
+                    fixIo35(tf35);
+        };
+    auto fixScope35 = [&](auto* v35) {
+        if (!v35)
+            return;
+        for (auto* p35 : *v35) {
+            if (!p35)
+                continue;
+            if (p35->Task_funcs())
+                for (auto* tf35 : *p35->Task_funcs())
+                    fixIo35(tf35);
+            if (p35->Class_defns())
+                for (auto* c35 : *p35->Class_defns())
+                    fixCls35(c35);
+        }
+    };
+    fixScope35(d->AllPackages());
+    fixScope35(d->TopPackages());
+    fixScope35(d->AllModules());
+    fixScope35(d->TopModules());
+    if (d->AllClasses())
+        for (auto* c35 : *d->AllClasses())
+            fixCls35(c35);
 }
 
 // § classInheritsContainerImports23 — see the header.  A CLASS inherits the
