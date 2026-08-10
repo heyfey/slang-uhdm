@@ -12525,6 +12525,15 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                        parentFull == prefix &&
                                        genBlkIsLoopBody(blk);
                 inGenScopeCaRhs = true;
+                // § genCaEnumBindsSelectOnly22 — the LHS SHAPE, read here and
+                // consumed at the enum-bind site in ExprEmit.
+                {
+                    auto lk22 = stripImplicitConv(ae.left()).kind;
+                    genCaLhsSelect22 =
+                        lk22 == ExpressionKind::ElementSelect ||
+                        lk22 == ExpressionKind::RangeSelect ||
+                        lk22 == ExpressionKind::MemberAccess;
+                }
                 // A STRUCT-typed pattern RHS flattens in the elab view:
                 // UhdmWriter runs ExprEval::flattenPatternAssignments, whose
                 // struct branch replaces the op's tagged_pattern operands
@@ -12572,6 +12581,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                          sm->getColumnNumber(sr9.end()), lts9});
                 }
                 inGenScopeCaRhs = false;
+                genCaLhsSelect22 = false;
                 genCaLoopParamFold = false;
                 genCaChildLoopFold21 = false;
                 genCaLhsParamFold = false;
@@ -12670,12 +12680,31 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         if (le3.kind == ExpressionKind::NamedValue) {
                             auto nit3 = netMap.find(
                                 &le3.as<NamedValueExpression>().symbol);
-                            if (nit3 != netMap.end() &&
-                                nit3->second->UhdmType() ==
-                                    UHDM::uhdmlogic_net) {
-                                auto* srcTs =
-                                    ((UHDM::logic_net*)nit3->second)
-                                        ->Typespec();
+                            // § genCaSysCallTsVarLhs22 (r10earl22) — a
+                            // logic_VAR LHS carries the same stamp.  The
+                            // original clause only accepted logic_net, so a
+                            // MODULE-level `logic` signal that no module-level
+                            // cont_assign drives (slang keeps it a Variable,
+                            // and so does Surelog) silently lost the typespec
+                            // whenever the only driver was inside a gen scope.
+                            // qg22.sv G6 `assign me = $unsigned(ms);` is the
+                            // isolation — its four sibling rows, all with a
+                            // PORT (logic_net) LHS, already stamped — and the
+                            // corpus row is ibex_multdiv_fast.sv:153
+                            // `assign mac_res_ext = $unsigned(mac_res_signed)`
+                            // with `logic [34:0] mac_res_ext;` at module level
+                            // (:52), which was the top_earlgrey frontier once
+                            // § genCaSysCallArgBinds22 landed.
+                            if (nit3 != netMap.end()) {
+                                UHDM::ref_typespec* srcTs = nullptr;
+                                if (nit3->second->UhdmType() ==
+                                    UHDM::uhdmlogic_net)
+                                    srcTs = ((UHDM::logic_net*)nit3->second)
+                                                ->Typespec();
+                                else if (nit3->second->UhdmType() ==
+                                         UHDM::uhdmlogic_var)
+                                    srcTs = ((UHDM::logic_var*)nit3->second)
+                                                ->Typespec();
                                 if (srcTs)
                                     act3 = srcTs->Actual_typespec();
                             }
@@ -12749,6 +12778,36 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         (pk0 == SymbolKind::GenerateBlockArray && mapsToVar0))
                         lhsSuppress = true;
                 }
+            }
+            // § genCaLiteralRhsLhsNoBind22 (r10earl22) — a gen-scope
+            // cont_assign whose RHS is a bare LITERAL leaves its OWN-SCOPE
+            // gen-local LHS ref UNBOUND.  qf22.sv, three rows of one gen block,
+            // every LHS a gen-local of that block:
+            //   assign mult1_sign_a = 1'b0;          LHS UNBOUND in golden
+            //   assign mult1_op_a  = op_a_i[15:0];   LHS bound
+            //   assign mult1_res   = $signed(..)*..; LHS bound
+            // and the corpus agrees object for object: ibex_multdiv_fast's
+            // three `= 1'b0` assignments (:161/:162/:167) are the ONLY
+            // gen-local LHS refs golden leaves unbound in that whole gen scope
+            // while :163/:164/:168/:169/:170 all bind.  It is the same
+            // re-compile the sibling § genCaLhsReelab flag already keys on
+            // (a literal RHS makes Surelog's netlist elaboration rebuild the
+            // assignment from the literal alone) — that flag re-emits the LHS,
+            // this one says the re-emitted ref carries no actual.
+            // MEASURED NEGATIVE first: gating § genCaOpDeepBindGenLocal20's
+            // bindGenLocal9(Lhs) on the literal changed nothing, because the
+            // pointer is written by the ORDINARY emitExpr path below, not by
+            // that fallback.  Suppressing the LHS emit is where it has to go.
+            if (!lhsSuppress &&
+                isLiteralExpr(stripImplicitConv(ae.right())) &&
+                stripImplicitConv(ae.left()).kind ==
+                    ExpressionKind::NamedValue) {
+                auto& ls22 = stripImplicitConv(ae.left())
+                                 .as<NamedValueExpression>()
+                                 .symbol;
+                if (ls22.kind == SymbolKind::Variable &&
+                    ls22.getParentScope() == static_cast<const Scope*>(&blk))
+                    lhsSuppress = true;
             }
             if (lhsSuppress)
                 suppressRefActual = true;
@@ -12898,7 +12957,15 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     }
                     r9->Actual_group(it9->second);
                 };
-                bindGenLocal9((UHDM::any*)ca->Lhs(), ae.left(), true);
+                // § genCaLiteralRhsLhsNoBind22 — TWO WRITERS, and suppressing
+                // either one alone leaves the pointer in place.  The ordinary
+                // emitExpr path writes it first (silenced by the lhsSuppress
+                // arm above) and THIS fallback writes it again.  Measured in
+                // that order: gating only the fallback changed nothing, then
+                // gating only the emit changed nothing either — qf22's :23/:24
+                // stayed bound both times.  MINT-SITE trap, one more time.
+                if (!isLiteralExpr(stripImplicitConv(ae.right())))
+                    bindGenLocal9((UHDM::any*)ca->Lhs(), ae.left(), true);
                 bindGenLocal9((UHDM::any*)ca->Rhs(), ae.right(), false);
             }
             // § genCaOpDeepBindGenLocal20 (r10earl20).  The REACH of
@@ -12965,6 +13032,21 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                         ((UHDM::operation*)n20)->Operands())
                                     for (auto* o20 : *ops20)
                                         deep20(o20);
+                                return;
+                            }
+                            // § genCaSysCallArgBinds22 — the walk also
+                            // descends through a SYSTEM CALL's arguments.
+                            // ibex_multdiv_fast.sv:147's `$signed({a,b})` is
+                            // the corpus witness and qe22's `assign r1 =
+                            // $signed(v1)` the BARE-argument one; the walk is
+                            // what carries the gen-local-LHS rule through a
+                            // call it previously stopped at.
+                            if (n20->UhdmType() == UHDM::uhdmsys_func_call) {
+                                if (auto* as20 =
+                                        ((UHDM::sys_func_call*)n20)
+                                            ->Tf_call_args())
+                                    for (auto* a20 : *as20)
+                                        deep20(a20);
                                 return;
                             }
                             if (n20->UhdmType() != UHDM::uhdmref_obj)
@@ -18263,6 +18345,55 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // unary-MINUS / binary-SUBTRACT over params fold to a loc-less
         // signed INT at the UNCONVERTED value, sized to the LHS width.
         bool skipGeneralFold = false;
+        // § elabCaTernaryNoFoldSigRefBranch22 (r10earl22) — a CONSTANT-
+        // CONDITION ternary cont-assign RHS reduces in the elab view ONLY
+        // WHEN NEITHER BRANCH IS A BARE SIGNAL REFERENCE.  qc22.sv crosses the
+        // two features qb22 confounded (result WIDTH vs the shape of the
+        // branch that is NOT taken) over a `parameter bit P = 1'b0`:
+        //     P ? (a & 4'h3) : 4'd5      FOLDS  INT:5 ct=7  (4-bit result)
+        //     P ? a[0]       : 1'b0      FOLDS  INT:0 ct=7  (bit-select arm)
+        //     P ? 1'b1       : 1'b0      FOLDS  INT:0 ct=7
+        //     P ? (4'h3&4'h1): 4'h9      FOLDS  INT:9 ct=7
+        //     P ? b          : 1'b0      KEEPS the operation (1-bit result)
+        //     P ? a          : 1'b1      KEEPS the operation (4-bit result)
+        //     P ? a          : (4'h3|4'h8)  KEEPS — so it is not the TAKEN
+        //                                   branch's shape either
+        // WIDTH IS NOT THE FEATURE; a bare `ref_obj` operand is.  It is the
+        // one thing Surelog's reduce treats as a HARD failure (an operation it
+        // cannot fold is simply handed back un-reduced), and one anywhere in
+        // the conditional abandons the whole reduce — a BIT-SELECT of the very
+        // same signal does not.  Parameter / enum-constant names have values
+        // and are not signals, hence the SYMBOL-KIND test.
+        // Both fold paths have to honour it: tryFoldConst below (which catches
+        // the sized-literal arms) and the dedicated ternary reduce further
+        // down (which catches the `'0` arm).
+        bool ternSigBranch22 = false;
+        {
+            auto bareSig22 = [&](const Expression& e22) {
+                auto& b22 = stripImplicitConv(e22);
+                if (b22.kind != ExpressionKind::NamedValue)
+                    return false;
+                auto k22 = b22.as<NamedValueExpression>().symbol.kind;
+                return k22 == SymbolKind::Net || k22 == SymbolKind::Variable;
+            };
+            const Expression* w22 = &stripImplicitConv(ae.right());
+            for (int g22 = 0;
+                 g22 < 32 && w22->kind == ExpressionKind::ConditionalOp; ++g22) {
+                auto& co22 = w22->as<ConditionalExpression>();
+                if (co22.conditions.size() != 1 || co22.conditions[0].pattern)
+                    break;
+                ASTContext cx22(comp.getRoot(), LookupLocation::max);
+                ConstantValue pv22 = cx22.tryEval(*co22.conditions[0].expr);
+                if (!pv22 || !pv22.isInteger() || pv22.integer().hasUnknown())
+                    break;
+                if (bareSig22(co22.left()) || bareSig22(co22.right()))
+                    ternSigBranch22 = true;
+                w22 = &stripImplicitConv(pv22.isTrue() ? co22.left()
+                                                       : co22.right());
+            }
+        }
+        if (ternSigBranch22)
+            skipGeneralFold = true;
         // A CAST over a MEMBER READ of a struct-typed PARAMETER keeps the
         // operation in the elab view too (32'(A.Prefix)): Surelog does not
         // reduce struct-param member reads, only whole-param reads
@@ -18448,7 +18579,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // real/width conversion, keeping the integer's signedness (INT:-1)
         // sized at the LHS width, rather than converting -1 through the real
         // result type (which slang wraps to a large UINT).
-        if (!rhs && topView) {
+        if (!rhs && topView && !ternSigBranch22) {
             const Expression* sel = &stripImplicitConv(ae.right());
             bool sawTernary = false;
             for (int guard = 0; guard < 32 &&
@@ -18478,14 +18609,25 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     if (sel->kind == ExpressionKind::UnaryOp &&
                         sel->as<UnaryExpression>().op == UnaryOperator::Minus)
                         iv.setSigned(true);
-                    bool neg = iv.isSigned() && iv.isNegative();
                     std::string digits =
                         iv.toString(LiteralBase::Decimal, false);
+                    // § elabCaTernaryFoldIntConst22 — the reduce's result is
+                    // ALWAYS vpiIntConst (INT:), not just for a negative
+                    // value: qc22's five folding rows are INT:5 / INT:0 /
+                    // INT:0 / INT:5 / INT:9, all non-negative, all ct=7, and
+                    // so is the corpus head (ibex_alu.sv:244
+                    // `RV32B ? (operator_i == ALU_BFP) : 1'b0` with
+                    // `parameter bit RV32B = 1'b0`, golden {ct=7 sz=1 dec=0}
+                    // where we emitted ct=9).  A CONSTANT OPERATION RHS with
+                    // no ternary above it keeps vpiUIntConst in golden
+                    // (qb22 `assign t7 = 4'h7 | 4'h8` -> UINT:15 ct=9), so
+                    // this is the conditional reduce's own encoding and not a
+                    // whole-cont-assign rule.
                     auto* c = s.MakeConstant();
                     c->VpiDecompile(digits);
                     c->VpiSize(w);
-                    c->VpiValue((neg ? "INT:" : "UINT:") + digits);
-                    c->VpiConstType(neg ? vpiIntConst : vpiUIntConst);
+                    c->VpiValue("INT:" + digits);
+                    c->VpiConstType(vpiIntConst);
                     rhs = c;
                 }
             }

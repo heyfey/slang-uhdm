@@ -95,6 +95,19 @@ cannot miss a vector:
         NOT THE SET DIFF: a mis-point keeps both shapes present and only swaps
         the population, so the set diff is silent where the count diff prints
         `prim_pkg::impl_e x1 top=0 / x70 top=1` against our exact inverse.
+../r10earl22a.cpp  THE ARENA BIND CENSUS (pass 22).  Every ref_obj whose
+        VpiFullName contains <substr> and whose line is in [lo,hi], keyed by
+        fullname + line:col, with its Actual_group's TYPE (or `-`) on both
+        sides and an ok/DIFF flag.  Where bis22.sh names ONE missing pointer,
+        this names ALL of them in a scope at once — which is how pass 22 found
+        that ibex_multdiv_fast's `$signed` bind (:147) and its counter-witness
+        (:151, same gen block, six lines down, UNBOUND) are the same law, after
+        five hand-written witnesses had reproduced neither.  ON A DECODED
+        CORPUS HEAD, CENSUS THE CORPUS SCOPE BEFORE BUILDING THE WITNESS.
+        Usage: /tmp/r10e22_22a <a.uhdm> <b.uhdm> <fullname-substr> <lo> <hi>.
+        Build: bash tools/probe/r10earl22build.sh r10earl22a 22a.  NOTE the
+        selector is a FULLNAME substring, never a file suffix: our ELABORATED
+        objects carry an empty VpiFile.
 fcproj18.py <dump...>   projects a uhdm-dump onto its func_call / task_call
         objects — span, vpiName, and whether a vpiFunction / vpiTask binding
         follows — in file order, so the def view and the elab view of the same
@@ -1173,6 +1186,212 @@ already reports:
                              AllModules head (the wildcard-import bound fold).
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
+
+RANKED RESIDUE (measured after PASS 22 — next agent starts HERE; still 9
+AllModules + 5 TopModules = 14 heads, head LINES unchanged for a THIRD pass.
+READ THE PASS-22 BISECT STACK BELOW BEFORE RE-DERIVING ANYTHING: five laws
+landed this pass and the top_earlgrey pair peeled FIVE more layers without the
+census moving a single character.)
+
+  (1) THE top_earlgrey PAIR, 2 heads, now FIVE LAYERS deeper than pass 21 left
+      it and sitting on ONE COHERENT OBJECT: the gen-block-local TYPEDEF ENUM
+      of ibex_multdiv_fast's `gen_multiv_single_cycle`.
+        typedef enum logic { MULL, MULH } mult_fsm_e;
+        mult_fsm_e mult_state_q, mult_state_d;
+      In the ELABORATED gen scope golden binds all seven reads and we bind none
+      (r10earl22a, the arena census, over lines 130-210):
+        mult_state_d @192:7  @202:13   G=enum_var   O=-
+        mult_state_q @196:20            G=enum_var   O=-
+        MULL         @192:22 @198:9     G=enum_const O=-
+        MULH         @202:28 @208:9     G=enum_const O=-
+      and the bisector's own note at that gen_scope is the other half of the
+      story: `rel=100 VECTOR SIZE 20 vs 18` — OUR GEN SCOPE IS SHORT TWO
+      VARIABLES, almost certainly those two enum_vars, plus `rel=725 1 vs 0`.
+      CHECK WHETHER WE EMIT THE VARIABLES AT ALL BEFORE WRITING A BIND LAW;
+      a bind cannot point at an object that was never minted.  Everything else
+      in that gen scope now matches object for object.
+  (2) The three hier_path families, unchanged and each worth 2 heads:
+      dm_csrs.sv:309:27 DROPPED INDEX OPERAND (def:work@dm_csrs +
+      def:work@rv_dm, both r=93 — read unsup.sh FIRST); flash_ctrl.sv:315:10
+      `region_cfgs[8]` vs `region_cfgs[MpRegions]` (a shadowed NAME in a name
+      builder — shadowedImportFoldLeaves9 exists, wire the name path);
+      flash_phy.sv:129:13 hier_path vs ref_obj (r=4392, the largest r left).
+  (3) The pass-19 mirror pair, both still NOT REPRODUCED from their decoded
+      shape: work@jtag_mux r=32 (find the DESIGN-FINAL MINTER of the loc-less
+      typespec with the EMPTY constant bound, uid ~738k — py20.sv proved the
+      source shape is CMP_EQUAL and jtag_mux is instantiated nowhere);
+      work@sram2tlul r=-32 (golden KEEPS the `top_pkg::TL_SZW'(SRAM_DWB)` cast
+      where we fold it).
+  (4) work@prim_keccak (Top) r=32 at prim_keccak.sv:52:5.
+  (5) def:work@prim_prince r=-1, an EXTRA ref_typespec of ours where BOTH
+      generic tools go blind.
+  (6) The unchanged smalls: flash_mp.sv:21:87 logic_net; def:work@padring's
+      `named_begin 'gen_mio_input'` :0:0; work@prim_present (Top) r=-1.
+  (7) WITNESS-ONLY residues, no corpus head yet, all measured this pass:
+      * qa22 R7/R8 (`assign r7 = E_A;` / `assign r8 = E_A | E_B;` inside a gen
+        scope): golden REDUCES the whole RHS to one LOC-LESS constant
+        (ct=7 sz=2 INT:0 / ct=9 sz=2 UINT:1) where we keep the refs.  This is
+        pass 21's qg21 R6 in a second spelling, and qb22 L40 is a THIRD
+        (`assign g2 = 4'h7 | 4'h8;` in a gen scope -> loc-less UINT:15 ct=9
+        while the identical MODULE-level row already folds for us).  A gen-scope
+        CA RHS that is entirely constant folds exactly like a module-level one;
+        we only fold the module-level case.
+      * qg22 (after § genCaSysCallTsVarLhs22): a gen-scope-local logic_var's
+        own ref_typespec still differs — a declaration-side object, not a use.
+      * qh21 R3 (folded IMPORTED pkg param in a gen-scope CA RHS carries a
+        ref_typespec named after the gen scope) and qh21 o2 (LHS enum_var bind).
+
+LANDED — PASS 22 (r10earl22; FIVE laws in FOUR gate rounds, EVERY ROUND CLEAN
+— goldens 23/23 + u2r testflags 732 lines 0 change vs results/gate_uhdm2rtlil.csv
++ Surelog BOTH MODES 1589 lines 0 change, WHOLE-ROW incl. the dump column, vs
+results/golden_surelog.csv.  results/*.csv untouched: nothing improved that a
+baseline could be promoted to.)
+
+  HEADLINE: heads BYTE-IDENTICAL at 14 for the THIRD consecutive pass — and
+  again that is not a zero.  bis22.sh on work@top_earlgrey peeled FIVE layers:
+    pass-21 frontier  id_stage_i > gen_stall_mem > WB_INSTR_OTHER enum bind
+    after laws 1-2    ex_block_i > alu_i > ibex_alu.sv:244 ct7-vs-ct9   r=-2
+    after laws 3-4    multdiv_i > gen_multiv > :147:33 mult1_sign_a     r=-1
+    after law 5       multdiv_i > gen_multiv > :153:29 $unsigned ts     r=-1
+    after law 7       multdiv_i > gen_multiv > :161:12 mult1_sign_a LHS r=-1
+    after law 8       multdiv_i > gen_multiv > :192:7  mult_state_d     r=1
+  Conversions: NONE — 0 movers, Earlgrey_0_1 still CMP_NOTEQUAL.
+
+  METHOD HEADLINE, and it cost this pass two wrong turns: **MEASURE THE
+  MEASURER.**  The census script written to read bind-ness out of a uhdm-dump
+  stopped its forward scan at the next `operation:` line — but a ref_obj's own
+  `|vpiParent: \_operation:` is printed BEFORE `|vpiActual:`, so EVERY ref with
+  an operation parent read as unbound.  On that evidence this pass first
+  "refuted" pass 21's hier_path counter-witness and wrote it up as a mis-read;
+  uhdm-cmp then printed the enum_const golden binds at dut.sv:91:59 in one
+  line.  The fixed script is INDENTATION-BASED (attributes are the lines at
+  exactly refIndent+2) and it is what every measurement below rests on.  When a
+  census contradicts uhdm-cmp, the census is wrong.
+
+  1. § genCaEnumBindsSelectOnly22 (ExprEmit ~4990, + genCaLhsSelect22 in
+     UhdmExporter.h / ModuleEmit ~12527).  Pass 21's refuted
+     § genCaEnumConstNoBind21, landed once the missing quarter of its 2x2 was
+     measured.  IN A GEN-SCOPE CONT-ASSIGN RHS AN ENUM-CONST REF BINDS ONLY
+     WHEN (a) the ref is in a SELECT POSITION — part-select bound, bit-select
+     index, or inside an index OPERATION — OR (b) THE CONT-ASSIGN'S LHS IS
+     ITSELF A SELECT.  qa22.sv is one design of nine gen-scope rows over a
+     wildcard-imported package enum plus three module-level controls: golden
+     leaves the ternary BRANCHES (:61:30/:36), the ternary's own COMPARISON
+     CONDITION (:61:23), a bare comparison (:62:23), a branch one operation
+     deeper (:68:22/:28/:35) and the same comparison in a FOR-generate
+     (:72:23) all UNBOUND, and binds the part-select bounds (:63/:64), the
+     bit-select index (:65) and all three MODULE-level rows.
+     (b) IS WHAT PASS 21 WAS MISSING and it is why its blanket widening
+     regressed exactly two u2r rows: hier_path assigns
+     `region_start_addr[r]` / `region_addr_mask[r][b]` and
+     MultirangesStartNotFromZero assigns `io_fwd_link_li[i][e_e:w_e]` — SELECT
+     LHS, every one — while the Earlgrey head and every qa22 no-bind row
+     assign a PLAIN NAME (ibex_id_stage.sv:911, `assign instr_type_wb_o =
+     ~lsu_req_dec ? WB_INSTR_OTHER : ...`).  The $unit carve-out is untouched.
+     THE PARENT TEST HAS TO NAME part_select / indexed_part_select /
+     var_select as well as bit_select: the FLATTENED select path (an element
+     select THEN a range, `x[i][e_e:w_e]`) sets neither inPsBound nor
+     selIdxScopeDepth — found as the Multiranges regression in gate round 0.
+  2. § genCaSelEnumPlainDecompile22 (ExprEmit, at the clone mint).  The fresh
+     enum_const clone minted for a SELECT-POSITION survivor of law 1 carries
+     the PLAIN DECIMAL decompile: qa22 :63/:64/:65 are `2`/`2`/`1` where the
+     shared consts read `2'd2`/`3'd2`/`2'd1`, and Multiranges' `e_e` bound is
+     INT:2 decompile `2` at size 3.  THE SELECT-POSITION GATE IS LOAD-BEARING,
+     not plain inGenScopeCaRhs: hier_path's LHS-select survivor at :91:59 is a
+     comparison operand and golden keeps the sized `2'b01` there.
+  3. § elabCaTernaryFoldIntConst22 (ModuleEmit ~18490).  A CONSTANT-CONDITION
+     ternary cont-assign RHS reduces to vpiIntConst (INT:), ALWAYS — not only
+     when the value is negative, which is all the previous code encoded.
+     qc22.sv's five folding rows are INT:5/INT:0/INT:0/INT:5/INT:9, all
+     non-negative, all ct=7.  Corpus: ibex_alu.sv:244 `assign bfp_op = RV32B ?
+     (operator_i == ALU_BFP) : 1'b0;` with `parameter bit RV32B = 1'b0`,
+     golden {ct=7 sz=1 dec=0} where we emitted ct=9 — pass 20's residue (6),
+     the dm_mem "ct7-vs-ct9 family".  A constant OPERATION RHS with no ternary
+     above it keeps vpiUIntConst (qb22 `assign t7 = 4'h7 | 4'h8` -> UINT:15
+     ct=9), so this is the conditional reduce's own encoding.
+  4. § elabCaTernaryNoFoldSigRefBranch22 (ModuleEmit ~18265 + ~18490).  That
+     reduce happens ONLY WHEN NEITHER BRANCH IS A BARE SIGNAL REFERENCE.
+     qb22.sv confounded result WIDTH with the shape of the not-taken branch;
+     qc22.sv crosses them and WIDTH IS NOT THE FEATURE:
+       P ? (a & 4'h3) : 4'd5        FOLDS (4-bit)   P ? b : 1'b0   KEEPS (1-bit)
+       P ? a[0]       : 1'b0        FOLDS (1-bit)   P ? a : 1'b1   KEEPS (4-bit)
+       P ? (4'h3&4'h1): 4'h9        FOLDS           P ? a : (4'h3|4'h8) KEEPS
+     A bare ref_obj operand is the one thing Surelog's reduce treats as a HARD
+     failure (an operation it cannot fold is handed back un-reduced), and one
+     anywhere in the conditional abandons the whole reduce; a BIT-SELECT of the
+     same signal does not.  BOTH FOLD PATHS have to honour it — tryFoldConst
+     catches the sized-literal arms, the dedicated ternary reduce catches the
+     `'0` arm, and gating only the second left three of five rows still folded.
+  5. § genCaSysCallArgBinds22 (ExprEmit ~4840 + sysCallArgDepth22 around the
+     sys-call arg loop; + the deep20 walk in ModuleEmit now descends through
+     sys_func_call).  A ref NESTED INSIDE a SYSTEM function call's argument in
+     an elab gen-scope cont_assign RHS BINDS, regardless of the LHS.  qf22.sv
+     writes ibex_multdiv_fast.sv:147 verbatim into a child instance and
+     reproduces the corpus row for row (`$signed({mult1_sign_a, mult1_op_a}) *
+     $signed({...})` — all four concat operands bound in golden, none in ours).
+     qe22.sv separates the features: the module-LHS row `assign my =
+     $signed({s1,v1})` binds too (so it is not the gen-local-LHS rule reaching
+     further) while `assign oy = mult1_res ^ pv_res` stays unbound (so it is
+     not a blanket module-LHS bind); qd22.sv is the TOP-module control where
+     all of them already bind through the unsuppressed path — THE LAW IS A
+     CHILD-INSTANCE GAP, which is why five passes of top-module witnesses never
+     saw it.  THE `parent != sys_func_call` TEST IS THE COUNTER-WITNESS'S: four
+     lines below the head golden leaves `assign mac_res_signed =
+     $signed(summand1) + $signed(summand2) + $signed(summand3);` (:151) and
+     `assign mac_res_ext = $unsigned(mac_res_signed);` (:153) COMPLETELY
+     unbound — same gen scope, same `$signed`, but a BARE-REF argument under a
+     MODULE-level LHS.  A bare argument under a GEN-LOCAL LHS does bind
+     (qe22 `assign r1 = $signed(v1)`), and that half is the deep20 extension.
+  7. § genCaSysCallTsVarLhs22 (ModuleEmit ~12690).  The gen-scope sys-call RHS
+     typespec stamp accepted only a logic_NET LHS, so a MODULE-level `logic`
+     signal that no module-level cont_assign drives (slang and Surelog both
+     keep it a Variable) silently lost the stamp when its only driver sat in a
+     gen scope.  qg22.sv G6 `assign me = $unsigned(ms);` is the isolation — its
+     four sibling rows, all PORT (logic_net) LHS, already stamped.  Corpus:
+     ibex_multdiv_fast.sv:153 with `logic [34:0] mac_res_ext;` at :52.
+  8. § genCaLiteralRhsLhsNoBind22 (ModuleEmit ~12758 lhsSuppress arm AND the
+     bindGenLocal9(Lhs) call ~12960).  A gen-scope cont_assign whose RHS is a
+     bare LITERAL leaves its OWN-SCOPE gen-local LHS ref UNBOUND.  qf22 rows:
+       assign mult1_sign_a = 1'b0;          LHS UNBOUND in golden
+       assign mult1_op_a  = op_a_i[15:0];   LHS bound
+       assign mult1_res   = $signed(..)*..; LHS bound
+     and the corpus agrees object for object — ibex_multdiv_fast's three
+     `= 1'b0` assignments (:161/:162/:167) are the ONLY gen-local LHS refs
+     golden leaves unbound in that whole gen scope.  TWO WRITERS: gating only
+     the bindGenLocal9 fallback changed nothing, then gating only the emit
+     changed nothing either, because each re-wrote what the other dropped.
+     (Numbering keeps the in-code § names; there is no law 6.)
+
+PASS-22 OPS NOTES
+  * MEASURE THE MEASURER.  See the method headline.  A homemade census that
+    disagrees with uhdm-cmp is a bug in the census, and this one cost a whole
+    wrong law write-up before uhdm-cmp settled it in one line.
+  * A LAW WITH TWO WRITERS NEEDS BOTH GATES AT ONCE.  Law 8's pointer is
+    written by the ordinary emitExpr path and then again by
+    § genCaOpDeepBindGenLocal20's fallback; suppressing either alone measures
+    as "no effect" and reads exactly like a refutation.  When a targeted
+    suppression measures NO CHANGE, look for a SECOND writer before concluding
+    the law is wrong.
+  * THE COUNTER-WITNESS IS USUALLY FOUR LINES AWAY.  Law 5's `$signed` bind and
+    its exception live in the same gen block, six lines apart; the arena census
+    over one file's line range (r10earl22a) found it in one run where five
+    purpose-built .sv files had not.  On a decoded corpus head, CENSUS THE
+    CORPUS SCOPE FIRST, then build the witness to match what the census says.
+  * WIDTH IS ALMOST NEVER THE FEATURE.  Both of this pass's ternary laws had a
+    width-shaped first hypothesis and both died to a 1-bit row that folds and a
+    4-bit row that does not.
+
+PASS-22 TOOLS.  {run,bis,nul,hdiff,cen,ins,sub,dmp,dbg,gate,sweep}22.sh are the
+pass-21 scripts with W= re-pointed and the /tmp tags bumped (probe binaries
+under /tmp/r10e22_*); r10earl22build.sh builds a probe into /tmp/r10e22_<tag>.
+NEW PROBE — ../r10earl22a.cpp: a WHOLE-ARENA ref_obj BIND census keyed by
+VpiFullName substring and a line range, printing each ref's Actual_group TYPE on
+both sides.  It reads the answer straight out of the two big databases and is
+the tool that cracked laws 5/7/8 after five hand-built witnesses had missed
+them.  NOTE our ELABORATED objects carry an EMPTY VpiFile, so the selector is a
+fullname substring, never a file suffix.
+Witnesses: qa22 (law 1/2), qb22+qc22 (laws 3/4), qd22+qe22+qf22 (laws 5/8),
+qg22 (law 7).
 
 RANKED RESIDUE (measured after PASS 21 — next agent starts HERE; still 9
 AllModules + 5 TopModules = 14 heads, and the head LINES are unchanged from

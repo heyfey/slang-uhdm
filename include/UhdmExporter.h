@@ -2314,6 +2314,16 @@ private:
     int selIdxScopeDepth = 0;
     // True while emitting an elaborated gen-scope cont_assign RHS.
     bool inGenScopeCaRhs = false;
+    // § genCaSysCallArgBinds22 — nesting depth inside a SYSTEM function
+    // call's argument list ($signed/$unsigned/...).  callArgDepth counts user
+    // calls too and this law is measured only for system ones.
+    int sysCallArgDepth22 = 0;
+    // § genCaEnumBindsSelectOnly22 — set with inGenScopeCaRhs when that
+    // cont_assign's LHS is a SELECT (element / range / member), which is the
+    // discriminator that lets hier_path and MultirangesStartNotFromZero keep
+    // their enum-const binds while the Earlgrey head loses its (see the law
+    // at the ExprEmit site).
+    bool genCaLhsSelect22 = false;
     // True while emitting a FOR-generate gen-scope cont_assign RHS: module
     // params in select bounds fold to typed constants (outside call args).
     bool genCaLoopParamFold = false;

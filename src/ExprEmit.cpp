@@ -4828,6 +4828,46 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // (see classMethodNoBind / unitSubNoBind9).
                 }
                 else if (suppressRefActual) {
+                    // § genCaSysCallArgBinds22 (r10earl22) — a ref NESTED
+                    // INSIDE a SYSTEM FUNCTION CALL's argument (i.e. the
+                    // argument is an expression, not the ref itself) in an ELAB
+                    // gen-scope cont_assign RHS BINDS, regardless of the LHS.
+                    // Surelog re-elaborates the call's actuals, the same reason
+                    // the size-cast carve-out below exists for processes, so
+                    // the suppression that governs the rest of the RHS does not
+                    // reach into a compound argument.
+                    // qf22.sv writes ibex_multdiv_fast.sv:147 verbatim in a
+                    // child instance and reproduces the corpus row for row:
+                    //   assign mult1_res = $signed({mult1_sign_a,mult1_op_a})*
+                    //                      $signed({mult1_sign_b,mult1_op_b});
+                    // all four concat operands BOUND in golden, none in ours.
+                    // qe22.sv separates the candidate features: the module-LHS
+                    // row `assign my = $signed({s1,v1})` binds in golden too
+                    // (so it is NOT § genCaOpDeepBindGenLocal20's gen-local-LHS
+                    // rule reaching further), while the plain operation rows
+                    // `assign oy = mult1_res ^ pv_res` and `assign my2 =
+                    // v1 ^ 4'h5` stay unbound (so it is not a blanket module-
+                    // LHS bind either).  qd22.sv is the TOP-module control,
+                    // where all of these already bind through the unsuppressed
+                    // path — THE LAW IS A CHILD-INSTANCE GAP, which is why five
+                    // passes of top-module witnesses never saw it.
+                    // THE `parent != sys_func_call` TEST IS THE COUNTER-
+                    // WITNESS'S: three lines below the head, golden leaves
+                    // `assign mac_res_signed = $signed(summand1) +
+                    // $signed(summand2) + $signed(summand3);` (:151) and
+                    // `assign mac_res_ext = $unsigned(mac_res_signed);` (:153)
+                    // COMPLETELY UNBOUND — same gen scope, same `$signed`, but
+                    // the argument is a BARE REF and the LHS is a MODULE-level
+                    // signal.  A bare argument under a GEN-LOCAL LHS does bind
+                    // (qe22 `assign r1 = $signed(v1)`), and that half is
+                    // § genCaOpDeepBindGenLocal20's walk descending through the
+                    // call — see the deep20 extension in ModuleEmit.
+                    if (!defGenProcessEmit && inGenScopeCaRhs &&
+                        sysCallArgDepth22 > 0 && !ref->Actual_group() &&
+                        parent && parent->UhdmType() != UHDM::uhdmsys_func_call)
+                        if (auto sit22 = netMap.find(&nv.symbol);
+                            sit22 != netMap.end())
+                            ref->Actual_group(sit22->second);
                     // ELAB gen-scope process refs to gen-block / stmt-block
                     // LOCALS still bind (module-level signals stay unbound);
                     // the DEF view binds nothing, and CA-suppress contexts
@@ -4934,31 +4974,63 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 k9 == SymbolKind::Subroutine)
                                 break;
                         }
-                    // RESIDUE, DECODED, NOT LANDED (r10earl21) —
-                    // § genCaEnumConstNoBind21.  qh21.sv measures FOUR rows of
-                    // `c ? E_A : E_B` over one wildcard-imported PACKAGE enum:
-                    // the MODULE-LEVEL cont_assign binds its enum_const in
-                    // both views, and the IF-generate, FOR-generate and
-                    // TOP-module generate rows all stay UNBOUND in golden
-                    // where we bind.  That is the top_earlgrey head at
-                    // ibex_id_stage.sv:911:45 (`assign instr_type_wb_o =
-                    // ~lsu_req_dec ? WB_INSTR_OTHER : ...` inside
-                    // gen_stall_mem).  Widening the `inGenScopeCaRhs &&
-                    // unitEnumSym9` carve-out below to plain `inGenScopeCaRhs`
-                    // fixes qh21 AND REGRESSES TWO u2r tests that golden
-                    // BINDS: hier_path (`(csr_pmp_cfg_i[r].mode ==
-                    // PMP_MODE_TOR) ? ...`, a package enum in a for-generate)
-                    // and MultirangesStartNotFromZero
-                    // (`io_fwd_mesh_li[i][e_e:w_e]`, a module-scope enum as a
-                    // PART-SELECT BOUND).  Gating the far enum arm instead
-                    // (below § qualPkgParamFoldTs) does NOT restore them, so
-                    // both counter-witnesses come through THIS site and the
-                    // real discriminator separates a ternary-BRANCH value read
-                    // from an operand of a comparison / a select bound — the
-                    // 2x2 pass 22 has to write is qh21 plus those two shapes.
+                    // § genCaEnumBindsSelectOnly22 (r10earl22) — the law pass
+                    // 21 decoded as § genCaEnumConstNoBind21 and could not
+                    // land, now with the missing quarter of its 2x2 measured
+                    // (qa22.sv: one design, nine gen-scope rows over a
+                    // wildcard-imported package enum plus three module-level
+                    // controls).  IN A GEN-SCOPE CONT-ASSIGN RHS AN ENUM-CONST
+                    // REF BINDS ONLY WHEN (a) THE REF IS IN A SELECT POSITION —
+                    // part-select bound, bit-select index, or inside an index
+                    // OPERATION — OR (b) THE CONT-ASSIGN'S LHS IS ITSELF A
+                    // SELECT.  Everything else stays UNBOUND in golden, and
+                    // qa22's plain-LHS rows say so in every spelling: a ternary
+                    // BRANCH value (`c ? E_A : E_B`, :61:30/:61:36), the
+                    // ternary's own COMPARISON CONDITION (:61:23), a bare
+                    // comparison with no ternary (:62:23), a branch one
+                    // operation deeper (:68:22/:28/:35) and the same comparison
+                    // in a FOR-generate (:72:23) — while the part-select bounds
+                    // (:63/:64), the bit-select index (:65) and all three
+                    // MODULE-level controls (:55/:56/:57) bind.
+                    //
+                    // (b) IS WHAT PASS 21 WAS MISSING, and both of its
+                    // counter-witnesses have a SELECT LHS:
+                    //   hier_path                  region_start_addr[r] = ..
+                    //                              region_addr_mask[r][b] = ..
+                    //   MultirangesStartNotFromZero io_fwd_link_li[i][e_e:w_e]
+                    // where the Earlgrey head and every qa22 no-bind row assign
+                    // a PLAIN NAME.  Pass 21's blanket widening removed the
+                    // binds from both of those and that is exactly the two u2r
+                    // rows it regressed.  (A first cut of this pass claimed
+                    // hier_path leaves :91:59 unbound; that came from a census
+                    // script that stopped scanning at the ref's own
+                    // `|vpiParent: \_operation:` line — uhdm-cmp says golden
+                    // binds it.  MEASURE THE MEASURER.)
+                    //
+                    // Corpus head: top_earlgrey at ibex_id_stage.sv:911:45,
+                    // `assign instr_type_wb_o = ~lsu_req_dec ? WB_INSTR_OTHER
+                    // : ...` inside gen_stall_mem — plain-name LHS.
+                    // The $unit carve-out below survives untouched: a $unit
+                    // enum never binds in a gen-scope CA RHS, select position
+                    // or not (Scr1SvTests).
+                    // The flattened var_select path (an element select THEN a
+                    // range, `x[i][e_e:w_e]`) sets neither inPsBound nor
+                    // selIdxScopeDepth — it emits the bounds with the
+                    // part_select itself as parent — so the parent test has to
+                    // name those three types as well.
+                    bool caEnumSelPos22 =
+                        inPsBound || selIdxScopeDepth > 0 ||
+                        (parent &&
+                         (parent->UhdmType() == UHDM::uhdmbit_select ||
+                          parent->UhdmType() == UHDM::uhdmpart_select ||
+                          parent->UhdmType() ==
+                              UHDM::uhdmindexed_part_select ||
+                          parent->UhdmType() == UHDM::uhdmvar_select));
                     if (nv.symbol.kind == SymbolKind::EnumValue &&
                         !defGenProcessEmit &&
-                        !(inGenScopeCaRhs && unitEnumSym9)) {
+                        !(inGenScopeCaRhs &&
+                          (unitEnumSym9 ||
+                           !(caEnumSelPos22 || genCaLhsSelect22)))) {
                         if (auto eit = enumConstMap.find(&nv.symbol);
                             eit != enumConstMap.end() &&
                             eit->second->UhdmType() == UHDM::uhdmenum_const) {
@@ -4966,7 +5038,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             auto* ec = s.MakeEnum_const();
                             ec->VpiName(shared->VpiName());
                             ec->VpiValue(std::string(shared->VpiValue()));
-                            ec->VpiDecompile(shared->VpiDecompile());
+                            // § genCaSelEnumPlainDecompile22 — the fresh clone
+                            // minted for the SELECT-POSITION survivor of
+                            // § genCaEnumBindsSelectOnly22 carries the PLAIN
+                            // DECIMAL decompile, not the declaration's sized
+                            // literal: qa22 :63/:64/:65 are `2`/`2`/`1` in
+                            // golden where the shared consts they clone read
+                            // `2'd2`/`3'd2`/`2'd1`, and u2r
+                            // MultirangesStartNotFromZero's `e_e` part-select
+                            // bound is INT:2 decompile `2` at size 3.  The
+                            // SELECT-POSITION test is load-bearing, not just
+                            // inGenScopeCaRhs: hier_path's LHS-select survivor
+                            // at dut.sv:91:59 is a plain comparison operand and
+                            // golden keeps the sized `2'b01` there.  The
+                            // gen-scope PROCESS clones this site also mints are
+                            // untouched either way.
+                            std::string dec22(shared->VpiDecompile());
+                            if (inGenScopeCaRhs && caEnumSelPos22) {
+                                std::string_view vv22 = shared->VpiValue();
+                                auto cp22 = vv22.find(':');
+                                if (cp22 != std::string_view::npos)
+                                    dec22 = std::string(vv22.substr(cp22 + 1));
+                            }
+                            ec->VpiDecompile(dec22);
                             ec->VpiSize(shared->VpiSize());
                             ec->VpiParent(ref);
                             ref->Actual_group(ec);
@@ -8965,6 +9059,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                        expr.sourceRange.start() + name.size()));
             auto* args = s.MakeAnyVec();
             callArgDepth++;
+            sysCallArgDepth22++;  // § genCaSysCallArgBinds22
             for (auto arg : call.arguments()) {
                 // An output arg ($readmemh(f, mem)) binds as an Assignment;
                 // golden lists just the target ref (an assignment object would
@@ -9072,6 +9167,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 forceConstParent = forceSaved;
             }
             callArgDepth--;
+            sysCallArgDepth22--;  // § genCaSysCallArgBinds22
             if (!args->empty())
                 sc->Tf_call_args(args);
             return sc;
