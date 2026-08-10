@@ -2267,6 +2267,24 @@ private:
     // package's identical body leaves it null.  Drained in exportDesign.
     std::map<const UHDM::task_func*, std::map<std::string, UHDM::any*>>
         pkgCloneBodyLocals9;
+    // § hierCallArgTakesBase39 — every EXPRESSION-position CLASS-METHOD call
+    // written `recv.m(args)` with a ONE-NAME receiver, i.e. exactly the
+    // two-element `hier_path{ref_obj recv, method_func_call m}` the
+    // `!callStmtCtx0 && recv0.kind == NamedValue` arm of ExprEmit builds.
+    //
+    // Inside a wildcard-import CLONE body — the one place § pkgCloneHierBind9
+    // binds that base — Surelog gives EVERY DIRECT reference argument of the
+    // call the BASE's OWN vpiActual instead of the argument's declaration:
+    //     factory.create_component(requested_type_name, get_full_name(),
+    //                              name, this)
+    // binds `requested_type_name`, `name` AND `this` to `class_var:factory`.
+    // The marker exists because the predicate is NOT expressible on the
+    // emitted tree: a BUILT-IN associative-array method with a bound base
+    // (`visited.exists(succ)`) has the identical two-element shape and keeps
+    // SELF, and our own base for it is emitted as a `logic_var`, so no test on
+    // the target's KIND separates the two.  Recording the class-method arm's
+    // own hier_paths does, exactly.
+    std::set<const UHDM::hier_path*> classRecvCallHp39;
     // § cloneLoopVarShared37 — the ONE object every wildcard-import clone
     // binds a foreach LOOP VARIABLE to, keyed by the loop variable's
     // declaration site ("name@line:col", the § cloneStmtHomeVarRef17 key: the

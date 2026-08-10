@@ -4564,6 +4564,112 @@ UHDM::design* UhdmExporter::exportDesign() {
     // only inside a clone, and it necessarily binds the clone's own object —
     // so this rewrite has to see those bindings, not race them.
     cloneStmtHomeVarRef17();
+    // § hierCallArgTakesBase39 — a CLASS-METHOD call written `recv.m(args)` in
+    // EXPRESSION position, whose receiver is ONE bare name, hands EVERY DIRECT
+    // reference ARGUMENT the RECEIVER's own vpiActual — not the argument's
+    // declaration, and not null:
+    //
+    //   DEFPKG adpcm_pkg::uvm_component::create_component
+    //     ref_obj 'factory'             -> class_var:factory   (the base)
+    //     ref_obj 'requested_type_name'  -> class_var:factory   (golden)
+    //     ref_obj 'name'                 -> class_var:factory   (golden)
+    //     ref_obj 'this'                 -> class_var:factory   (golden)
+    //
+    // where we bound each argument to its own io_decl (a WRONG target, which
+    // only BINDWRONG can see) or left it null.  Surelog's `compileTfCall`
+    // reaches the argument list through the dotted-name path and resolves it
+    // against the object it has just bound the ROOT name to; nothing else in
+    // the emitted tree records that, so this reads as a per-reference law.
+    //
+    // THE GATE IS THE WHOLE LAW (r10uvm39h over the UVM-4: 4761 rows in this
+    // position, every cell read off ONE golden in tools/probe/r10uvm39repro):
+    //   * the BASE must be BOUND — and the ONLY place golden binds it is a
+    //     wildcard-import CLONE body (§ pkgCloneHierBind9).  All 272 corpus
+    //     rows are `adpcm_pkg` clones; the home package's own listing (uvm_pkg,
+    //     1922 rows) and a MODULE body (t55a's `mq = mh.take55(mf, ms)`) leave
+    //     base AND arguments alone, in golden and in ours.  So no extra
+    //     view/scope test is needed: "base bound" IS the clone test.
+    //   * the path must be EXACTLY TWO elements.  t55b cell C
+    //     (`m3.deep.take56(f3, s3)`, base BOUND) keeps SELF, and so do all 32
+    //     corpus rows at length 3 — the length gate is measured, not assumed.
+    //   * the base must be a plain ref_obj: an INDEXED receiver
+    //     (`parr[i4].one56(f4)`, t55b cell D) keeps SELF.
+    //   * only the DIRECT arguments: t55b cell H (`recv8.take56(f8 + 1, s8)`)
+    //     binds `s8` to the base and leaves `f8`, one level down inside the
+    //     operation, on its own io_decl.
+    //   * STATEMENT position never has a hier_path at all (cell F), so it is
+    //     out of reach by construction.
+    // and classRecvCallHp39 carries the one condition the tree cannot express:
+    // a BUILT-IN associative-array method with a bound base
+    // (`visited.exists(succ)`, t55b cell E) has the identical two-element shape
+    // and keeps SELF.  Testing the base's target kind would work on golden
+    // (array_var) and FAIL on ours, which emits that same declaration as a
+    // logic_var — so the arm that built the hier_path is the predicate.
+    //
+    // Runs AFTER § cloneStmtHomeVarRef17 deliberately: that pass re-points a
+    // clone's body-local bindings, so the base's FINAL actual is only knowable
+    // here, and reading it earlier would propagate a stale target.  It is the
+    // only writer of these argument actuals and it OVERWRITES (the 180 rows we
+    // bound to the wrong object are the bigger half; 82 were null).
+    if (!classRecvCallHp39.empty()) {
+        auto actOf39 = [](const UHDM::any* e) -> UHDM::any* {
+            if (!e)
+                return nullptr;
+            switch (e->UhdmType()) {
+                case UHDM::uhdmref_obj:
+                    return (UHDM::any*)((const UHDM::ref_obj*)e)->Actual_group();
+                case UHDM::uhdmref_var:
+                    return (UHDM::any*)((const UHDM::ref_var*)e)->Actual_group();
+                case UHDM::uhdmbit_select:
+                    return (UHDM::any*)((const UHDM::bit_select*)e)
+                        ->Actual_group();
+                default:
+                    return nullptr;
+            }
+        };
+        auto setAct39 = [](UHDM::any* e, UHDM::any* a) {
+            switch (e->UhdmType()) {
+                case UHDM::uhdmref_obj:
+                    ((UHDM::ref_obj*)e)->Actual_group(a);
+                    break;
+                case UHDM::uhdmref_var:
+                    ((UHDM::ref_var*)e)->Actual_group(a);
+                    break;
+                case UHDM::uhdmbit_select:
+                    ((UHDM::bit_select*)e)->Actual_group(a);
+                    break;
+                default:
+                    break;
+            }
+        };
+        for (auto* hp39 : classRecvCallHp39) {
+            auto* es39 = hp39 ? ((UHDM::hier_path*)hp39)->Path_elems() : nullptr;
+            if (!es39 || es39->size() != 2)
+                continue;
+            auto* b39 = (*es39)[0];
+            if (!b39 || b39->UhdmType() != UHDM::uhdmref_obj)
+                continue;
+            UHDM::any* bact39 = actOf39(b39);
+            if (!bact39)
+                continue;
+            auto* mfc39 = (*es39)[1];
+            if (!mfc39 || mfc39->UhdmType() != UHDM::uhdmmethod_func_call)
+                continue;
+            auto* as39 = ((UHDM::method_func_call*)mfc39)->Tf_call_args();
+            if (!as39)
+                continue;
+            for (auto* a39 : *as39) {
+                if (!a39 || a39 == b39)
+                    continue;
+                auto t39 = a39->UhdmType();
+                if (t39 != UHDM::uhdmref_obj && t39 != UHDM::uhdmref_var &&
+                    t39 != UHDM::uhdmbit_select)
+                    continue;
+                setAct39(a39, bact39);
+            }
+        }
+    }
+    classRecvCallHp39.clear();
     // § classRetNameDefViewNoBind37 — the EXTRA-side mirror of
     // § pkgCloneLocalRefBind37: a class method's own-name (implicit return
     // variable) reference binds only in the ELABORATED listing of its class.

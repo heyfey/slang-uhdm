@@ -7478,6 +7478,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             mfc0->Tf_call_args(margs0);
                         elems0->push_back(mfc0);
                         hp0->Path_elems(elems0);
+                        // § hierCallArgTakesBase39 — remember that THIS
+                        // two-element hier_path is a CLASS-method call, so the
+                        // design-final pass can hand its arguments the base's
+                        // own actual without also catching a built-in
+                        // associative-array method of the identical shape (see
+                        // classRecvCallHp39 in UhdmExporter.h).
+                        classRecvCallHp39.insert(hp0);
                         return hp0;
                     }
                     auto* mfc = s.MakeMethod_func_call();
