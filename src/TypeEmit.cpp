@@ -14399,7 +14399,20 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
     av->Typespec(art);
     // An ASSOCIATIVE array's index type lands on the array_typespec, spanning
     // the token INSIDE the brackets of its own dimension.
-    if (leadingUnsized && dims[0].indexType) {
+    // NOTE § assocIdxTypeParamNoIndexTs51 — SITE 2 of 3 (the MODULE / PACKAGE /
+    // interface instance-level array_var, reached from ModuleEmit).  Direction:
+    // SUPPRESS.  Gate: assocIdxIsTypeParam51(*dims[0].indexType).  Predicate and
+    // refutations in src/EmitHelpers.h (`grep -n assocIdxIsTypeParam51`).
+    // Witness — arm a3, `module sub51 #(parameter type MK = int); int p_tp[MK];`
+    // instantiated once with `.MK(string)` and once defaulted (LHS golden /
+    // RHS ours at 01967cb): golden emits NO index typespec in EITHER view,
+    // ours emitted `string_typespec 13:12-13:14` (the elab, OVERRIDDEN view) and
+    // `int_typespec 13:12-13:14` (the default view) — the a3 head.  Arm a2
+    // `module a2_top; parameter type MKEY = int; int mk_pool[MKEY];` is the same
+    // cell at 35:15; its `int mk_ctl[string]` control at 36:14 must NOT move and
+    // does not.
+    if (leadingUnsized && dims[0].indexType &&
+        !assocIdxIsTypeParam51(*dims[0].indexType)) {
         UHDM::typespec* its = nullptr;
         auto& ick = dims[0].indexType->getCanonicalType();
         // § assocIdxSiteFour43 — THE FOURTH COPY OF THE ASSOCIATIVE-INDEX RULE,

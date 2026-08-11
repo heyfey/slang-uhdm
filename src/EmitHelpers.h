@@ -522,6 +522,36 @@ inline const TypeParameterSymbol* typeParamOfAlias(const TypeAliasType& ta) {
     return nullptr;
 }
 
+// NOTE § assocIdxTypeParamNoIndexTs51 — the PREDICATE of the pass-51 law.
+// An ASSOCIATIVE dimension whose index type was written as a TYPE PARAMETER
+// gets NO `vpiIndexTypespec` in golden, at ANY site and in EITHER view.
+//
+// Direction: SUPPRESS.  Gate: the index type is a `TypeAlias` whose syntax node
+// is a `TypeAssignment` — i.e. it is a type PARAMETER's alias, never a
+// `typedef` (see typeParamOfAlias above; `TypeAssignment` is the discriminator
+// and the only syntax kind that spells a type-parameter assignment).
+//
+// WHY THE GATE IS THIS AND NOT "written as a NAME" (proved, arm a1/a2/a3, LHS
+// golden / RHS ours): a TYPEDEF-name index is associative in golden and DOES
+// carry an index typespec — a1 `int pt_pool[myint51]` -> golden
+// `int_typespec (myint51) @13:11`.  Only a type PARAMETER is suppressed.
+// Surelog's dimension compiler resolves the bracket name in the parameter map
+// first, so a type parameter comes out as the SIZE expression `<name>-1` on a
+// vpiStaticArray and never as an index type (the same shape
+// § assocIoRange9 already models at the subroutine site).
+//
+// NOT VIEW-SCOPED — arm a3 is the decider: `sub51 #(.MK(string))` gives MK a
+// REAL type in the ELABORATED view and golden STILL emits no index typespec
+// there (golden's only two index typespecs in a3 are the `[string]` control,
+// one per view).  So the suppression is unconditional on the view and on
+// whether the parameter was overridden.
+inline bool assocIdxIsTypeParam51(const Type& idx) {
+    if (idx.kind != SymbolKind::TypeAlias)
+        return false;
+    auto* syn = idx.getSyntax();
+    return syn && syn->kind == syntax::SyntaxKind::TypeAssignment;
+}
+
 // A declaration whose type is named through an explicit `other_pkg::T`
 // qualification: the shared typespec belongs to THAT package and every
 // vpiInstance / span stamp made while emitting the USING package must leave it

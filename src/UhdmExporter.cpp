@@ -1251,7 +1251,123 @@ void UhdmExporter::emitAssocDims(const Symbol& cp,
         return e && (e->kind == syntax::SyntaxKind::IdentifierName ||
                      e->kind == syntax::SyntaxKind::ScopedName);
     };
-    if (idx[0]) {
+    // The `[0 : <name>-1]` SIZE range Surelog compiles for a dimension whose
+    // bracket names a PARAMETER — § assocTypeParamDimIsStaticSize51 below.  The
+    // shape is § assocIoRange9's (src/TaskFuncEmit.cpp, `grep -n assocIoRange9`)
+    // with one addition golden requires here and not there: the ref_obj carries
+    // a vpiFullName of `<array fullname>::<name>`.
+    auto tpSizeRange51 = [&](size_t i) -> UHDM::range* {
+        const syntax::ExpressionSyntax* sx = nullptr;
+        if (auto* d = dimAt(i); d && d->specifier)
+            if (auto* rd =
+                    d->specifier->as_if<syntax::RangeDimensionSpecifierSyntax>())
+                if (rd->selector->kind == syntax::SyntaxKind::BitSelect)
+                    sx = rd->selector->as<syntax::BitSelectSyntax>().expr.get();
+        auto* r = s.MakeRange();
+        r->VpiParent(av);
+        if (sx)
+            setLoc(r, sx->sourceRange());
+        auto* lc = s.MakeConstant();
+        lc->VpiParent(r);
+        lc->VpiDecompile("0");
+        lc->VpiSize(64);
+        lc->VpiValue("UINT:0");
+        lc->VpiConstType(vpiUIntConst);
+        r->Left_expr(lc);
+        auto* op = s.MakeOperation();
+        op->VpiParent(r);
+        op->VpiOpType(vpiSubOp);
+        auto* ops = s.MakeAnyVec();
+        auto* ro = s.MakeRef_obj();
+        ro->VpiParent(op);
+        std::string nm;
+        if (sx) {
+            setLoc(op, sx->sourceRange());
+            setLoc(ro, sx->sourceRange());
+            if (sx->kind == syntax::SyntaxKind::IdentifierName)
+                nm = std::string(
+                    sx->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+            else {
+                nm = sx->toString();
+                while (!nm.empty() && std::isspace((unsigned char)nm.front()))
+                    nm.erase(nm.begin());
+                while (!nm.empty() && std::isspace((unsigned char)nm.back()))
+                    nm.pop_back();
+            }
+        }
+        ro->VpiName(nm);
+        if (!nm.empty() && !av->VpiFullName().empty())
+            ro->VpiFullName(std::string(av->VpiFullName()) + "::" + nm);
+        ops->push_back(ro);
+        auto* one = s.MakeConstant();
+        one->VpiValue("INT:1");
+        one->VpiConstType(vpiIntConst);
+        one->VpiSize(64);
+        ops->push_back(one);
+        op->Operands(ops);
+        r->Right_expr(op);
+        return r;
+    };
+    // NOTE § assocTypeParamDimIsStaticSize51 — LAW 2, and the law that actually
+    // CONVERTS the four UVM tests.  Direction: RESHAPE (assoc -> static).
+    //
+    // Gate: the declaration has EXACTLY ONE written associative dimension and
+    // its index type is a type parameter (assocIdxIsTypeParam51).  Then golden's
+    // array_var is a vpiStaticArray (1) carrying ONE vpiRange `[0 : <name>-1]`
+    // and a BARE array_typespec — Surelog never saw an associative array at all,
+    // because its dimension compiler resolved the bracket name in the PARAMETER
+    // map and compiled `[KEY]` as a SIZE EXPRESSION.
+    //
+    // WHY THE ONE-DIMENSION HALF OF THE GATE IS NECESSARY, measured (arm a2,
+    // LHS golden / RHS ours): a MIXED multi-dimension declaration is a THIRD
+    // shape, not this one.  `T ii_pool[string][KEY]` -> golden array_var
+    // vpiArrayType 3 (from dim 0) with the `[0:KEY-1]` range beside it;
+    // `T oo_pool[KEY][string]` -> golden array_var vpiArrayType 3 with NO range
+    // and a NESTED array_typespec pair (outer arrayType 3 + vpiElemTypespec ->
+    // inner holding the range).  Widening this law to those would be wider than
+    // the evidence; they stay residue R2.  The corpus witness
+    // (uvm_pool.svh:42 `protected T pool[KEY];`) is single-dimension.
+    //
+    // WITNESS, SimpleUVM `default`, uvm_pkg::uvm_pool::pool — the uhdm-cmp head
+    // of all seven comparable UVM rows once LAW 1 removed the index typespec:
+    //   field          LHS golden            RHS ours before      RHS ours after
+    //   vpiArrayType   1 (static)            3 (assoc)            1
+    //   vpiRange       range 42:20-42:23     ABSENT               present, equal
+    //                  [0 : KEY-1]
+    // Both fields are read by `array_var::Compare`
+    // (UHDM generated/src/array_var.cpp, `VpiArrayType()` then `Ranges()`),
+    // which is exactly why LAW 1 alone moved the head here instead of clearing
+    // it.
+    if (idx[0] && assocIdxIsTypeParam51(*idx[0]) && idx.size() == 1) {
+        av->VpiArrayType(vpiStaticArray);
+        auto* rs51 = s.MakeRangeVec();
+        rs51->push_back(tpSizeRange51(0));
+        av->Ranges(rs51);
+        return;
+    }
+    // NOTE § assocIdxTypeParamNoIndexTs51 — SITE 1 of 3 (the CLASS-PROPERTY
+    // site, and the one the corpus head lives on).  Direction: SUPPRESS.  Gate:
+    // assocIdxIsTypeParam51(*idx[0]) — the OUTERMOST index type was written as
+    // a TYPE PARAMETER.  Predicate and its refutations: src/EmitHelpers.h,
+    // `grep -n assocIdxIsTypeParam51`.
+    //
+    // Witness (uvm-1.2 base/uvm_pool.svh:42 `protected T pool[KEY];` in
+    // `class uvm_pool #(type KEY=int, T=uvm_void)`; LHS golden(Surelog) /
+    // RHS ours, SimpleUVM default):
+    //   golden `array_typespec` for uvm_pkg::uvm_pool::pool is BARE
+    //   ours had `vpiIndexTypespec -> ref_typespec -> int_typespec 42:20-42:23`
+    //     (the `KEY` TOKEN — KEY resolved to its `int` default)
+    // That extra ref_typespec WAS the single uhdm-cmp head of all seven
+    // comparable UVM rows.  The typespec is not merely unlinked here, it is
+    // never MINTED: an orphan would still join the design's typespec arena and
+    // `design::Compare` walks `Typespecs()` as a size-checked vector.
+    //
+    // The INNER dimensions below are deliberately NOT gated: golden does not
+    // suppress a typespec there, it emits a WHOLE DIFFERENT SHAPE (a static
+    // `[0:<name>-1]` range instead of an associative marker constant — arm a2
+    // `T ii_pool[string][KEY]`), so a suppression there would be wider than the
+    // evidence.  Residue R2.
+    if (idx[0] && !assocIdxIsTypeParam51(*idx[0])) {
         if (auto* its = assocIndexTs(*idx[0], cp)) {
             // § sharedAliasNoStamp41 — the pass-40 hazard is INHERITED from
             // here: a TYPEDEF-NAME index (`uvm_reg_addr_t`, t58a's `[b8]`)

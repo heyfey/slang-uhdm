@@ -20467,7 +20467,16 @@ bool UhdmExporter::emitPkgArrayVar(const Symbol& vs, UHDM::instance* up,
         rv->push_back(reg);
         av->Variables(rv);
     }
-    if (idx) {
+    // NOTE § assocIdxTypeParamNoIndexTs51 — SITE 3 of 3 (the PACKAGE-scope data
+    // declaration).  Direction: SUPPRESS.  Gate: assocIdxIsTypeParam51(*idx).
+    // Predicate and refutations in src/EmitHelpers.h
+    // (`grep -n assocIdxIsTypeParam51`).  Witness — arm a2,
+    // `package p51b; parameter type PKEY = int; int pk_pool[PKEY];` (LHS golden /
+    // RHS ours at 01967cb): golden emits NO index typespec, ours emitted
+    // `int_typespec 15:15-15:19` (the `PKEY` token) TWICE — one per package view,
+    // and it was the a2 head.  The `int pk_ctl[string]` control two lines down
+    // (16:14) keeps its typespec on both sides.
+    if (idx && !assocIdxIsTypeParam51(*idx)) {
         // The index typespec spans the token INSIDE the brackets
         // (`[string]` -> `string`); take it off the declarator's last
         // dimension rather than re-deriving it from the type.
