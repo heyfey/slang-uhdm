@@ -3024,6 +3024,29 @@ bool srlgLitEnc(const std::string& raw0, SrlgOvEnc& out) {
     }
 }
 
+// A/B GATES for the two pass-28 override-encoding laws.  Both default to the
+// LAW BEING ON (unset env == new behaviour); setting either to 1 restores the
+// pre-pass-28 path for exactly one clause, which is how pass 27 pinned the
+// u2r `assignment-pattern` regression to a single condition without bisecting
+// a patch.  Read once — getenv in a per-parameter loop is not free.
+const bool scalarSkipOff28 = [] {
+    const char* v = getenv("R10E28_NOSCALARSKIP");
+    return v && *v && *v != '0';
+}();
+const bool ternArmOff28 = [] {
+    const char* v = getenv("R10E28_NOTERNARM");
+    return v && *v && *v != '0';
+}();
+// R10E28_OVDBG=1 — one line per firing of either pass-28 law, at the branch
+// point.  A POPULATION COUNT NEEDS A MEASURER TOO, and a census reporting zero
+// is indistinguishable from a census that cannot see anything: the witnesses
+// qb28/qc28 are this trace's POSITIVE CONTROL (they must print TERN and SCAL
+// lines).  Inert when unset.
+const bool ovDbg28 = [] {
+    const char* v = getenv("R10E28_OVDBG");
+    return v && *v && *v != '0';
+}();
+
 // The CONSUMER stage: CompileHelper::adjustSize against a target of kind `k`,
 // signedness `sg` and width `w`.  `w == 0` means the target carries no
 // typespec at all, which makes adjustSize a no-op.
@@ -6101,6 +6124,56 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                       : -1;
                         return true;
                     }
+                    // § ovEncTernaryTakenBranch28 — A CONSTANT-CONDITION
+                    // TERNARY OVERRIDE ACTUAL BEHAVES EXACTLY AS IF THE TAKEN
+                    // BRANCH HAD BEEN WRITTEN IN ITS PLACE: it contributes NO
+                    // hop of its own (no adjustSize, no Value round-trip).
+                    // Without this arm ovEnc8 returned false and the whole
+                    // override fell through to the decimal UINT fold, which is
+                    // the pass-27 exit frontier:
+                    //   prim_fifo_sync.sv:11:40 `parameter bit Pass = 1'b1`
+                    //   reached top_earlgrey -> u_rv_core_ibex -> fifo_i
+                    //   (tlul_fifo_sync `int unsigned ReqPass = 1'b1`) ->
+                    //   reqfifo, with rv_core_ibex.sv:67
+                    //   `localparam int FifoPass = PipeLine ? 1'b0 : 1'b1`
+                    //   feeding `.ReqPass(FifoPass)`.
+                    //   LHS(golden) {ct=3 BIN sz=1 dec=1'b1} /
+                    //   RHS(ours)   {ct=9 UINT sz=1 dec=1}
+                    // THE PROOF IS A PAIR GRID (qc28.sv): every golden row of
+                    // a ternary-sourced chain is BYTE-IDENTICAL to the row of
+                    // the same chain written with the branch literal in place —
+                    // `localparam int TerBit = C ? 1'b0 : 1'b1` reads exactly
+                    // as `localparam int DirBit = 1'b1` in all 7 override
+                    // targets, and `C ? 8'hcd : 8'hab` exactly as `8'hab` in
+                    // all 7.  A COMPARISON condition (`(C == 1'b1) ? ...`), a
+                    // NESTED ternary, and a ternary written DIRECTLY as the
+                    // actual with no localparam at all all measure the same,
+                    // so neither the condition's shape nor the nesting nor the
+                    // localparam hop is a discriminator.
+                    if (!ternArmOff28 &&
+                        x8.kind == ExpressionKind::ConditionalOp) {
+                        auto& co8 = x8.as<ConditionalExpression>();
+                        if (co8.conditions.size() != 1 ||
+                            co8.conditions[0].pattern)
+                            return false;
+                        ASTContext pctx8(comp.getRoot(), LookupLocation::max);
+                        ConstantValue pv8 =
+                            pctx8.tryEval(*co8.conditions[0].expr);
+                        if (!pv8 || !pv8.isInteger() ||
+                            pv8.integer().hasUnknown())
+                            return false;
+                        if (ovDbg28)
+                            std::cerr << "R10E28 TERN d=" << d8 << " taken="
+                                      << (pv8.isTrue() ? "then" : "else")
+                                      << " @" << sm->getLineNumber(
+                                             x8.sourceRange.start())
+                                      << ":"
+                                      << sm->getColumnNumber(
+                                             x8.sourceRange.start())
+                                      << "\n";
+                        return ovEnc8(pv8.isTrue() ? co8.left() : co8.right(),
+                                      d8 + 1, o8);
+                    }
                     if (x8.kind == ExpressionKind::NamedValue) {
                         auto& sy8 = x8.as<NamedValueExpression>().symbol;
                         if (sy8.kind != SymbolKind::Parameter)
@@ -6109,6 +6182,42 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         auto* in8 = pp8.getInitializer();
                         if (!in8 || !ovEnc8(*in8, d8 + 1, o8))
                             return false;
+                        // § ovEncScalarSourceSkipsHops28 — A ONE-BIT BASED
+                        // LITERAL IS SELF-DETERMINED: no parameter hop on the
+                        // override path adjusts or re-renders it, only the
+                        // FINAL TARGET's adjustSize (run by the caller) does.
+                        // The 238-cell matrix that built this pipeline never
+                        // varied the source WIDTH below 8, so every hop ran.
+                        // qc28's `localparam int DirBit = 1'b1` grid is the
+                        // measurement (LHS(golden) / RHS(ours) pre-patch):
+                        //   -> int          INT:-1 size 32  / INT:-1 size 32
+                        //   -> int unsigned BIN:1  size 1   / INT:-1 size 32
+                        //   -> bit          BIN:1  size 1   / INT:-1 size 1
+                        //   -> logic [7:0]  BIN:1  size 1   / INT:-1 size 8
+                        // i.e. golden reaches EVERY target from the literal
+                        // itself; only the `int` target's own signed arm ever
+                        // fires.  Two instance hops down (`.TL(HI)` inside a
+                        // module reached by `.HI(DirBit)`) golden STILL reads
+                        // BIN:1 size 1, which is what rules out "the origin
+                        // hop only" and gives the rule its `o8.size == 1`
+                        // form.  The 8-BIT twin is the NEGATIVE CONTROL and
+                        // must keep running every hop: `8'hab` through the
+                        // same chain is HEX 32'hab on BOTH sides today, and a
+                        // size-blind skip would drop it to 8'hab.
+                        // KNOWN OPEN, MEASURED, NOT FIXED HERE: one extra
+                        // SAME-SCOPE localparam hop (`localparam int ViaLp =
+                        // TerBit;`) makes golden read INT:-1 size 32 again in
+                        // all 7 targets, so golden does run SOME size-1 hop.
+                        // qc28's u_vl rows are that residue; they are wrong
+                        // before this patch (UINT) and wrong after (BIN), so
+                        // it is ranked, not regressed.
+                        if (!scalarSkipOff28 && o8.size == 1) {
+                            if (ovDbg28)
+                                std::cerr << "R10E28 SCAL d=" << d8 << " hop='"
+                                          << pp8.name << "' ct=" << o8.ct
+                                          << " dec=" << o8.dec << "\n";
+                            return true;
+                        }
                         SrlgTsK sk8;
                         bool ss8;
                         int32_t sw8;

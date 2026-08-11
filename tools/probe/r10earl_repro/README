@@ -1256,9 +1256,262 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
-RANKED RESIDUE (measured after PASS 27 — NEXT AGENT STARTS HERE.  Still 9
-AllModules + 5 TopModules = 14 heads, BYTE-IDENTICAL for an EIGHTH consecutive
-pass — and for the eighth time that is not a zero: bis27.sh walked the
+RANKED RESIDUE (measured after PASS 28 — NEXT AGENT STARTS HERE.  Still 9
+AllModules + 5 TopModules = 14 heads, BYTE-IDENTICAL for a NINTH consecutive
+pass — and for the ninth time that is not a zero: bis28.sh took the
+top_earlgrey pair OUT of the param_assign vector altogether, into the PORT
+LIST of the same instance.  Read LANDED — PASS 28 below first.  EVERY
+DIRECTION BELOW IS STATED AS LHS(golden) / RHS(ours).)
+
+  (1) THE NEW FRONTIER, depth 7 (up from 5, because the whole depth-5
+      param_assign family is CLOSED at this location) — A HIER_PATH IN AN
+      ELABORATED CHILD'S PORT HIGH-CONN HAS NO BASE OBJECT ON OUR SIDE.
+      Chain: top_earlgrey -> u_rv_core_ibex -> fifo_i (work@tlul_fifo_sync,
+      rv_core_ibex.sv:224) -> reqfifo (work@prim_fifo_sync,
+      tlul_fifo_sync.sv:32) -> Ports[5] `wdata` prim_fifo_sync.sv:25:27 ->
+      its High_conn, the concat at tlul_fifo_sync.sv:38:21 (op=33) ->
+      Operands[0] hier_path 'tl_h_i.a_opcode' tlul_fifo_sync.sv:38:22 -> rel
+      102, and there:
+          LHS(golden) struct_var 'tl_h_i' tlul_fifo_sync.sv:19:29
+          RHS(ours)   <null>
+      THE FIX ADDS a pointer, which is the safe direction (over-stamping
+      invents objects, under-stamping only drops them).  The base is the
+      module's own PORT `tl_h_i` (`input tlul_pkg::tl_h2d_t tl_h_i`), so the
+      question is why the elaborated view resolves the hier_path's root to
+      nothing when the DEF view of the same module presumably does — build the
+      2x2 (def vs elab) x (port-highconn vs body) before touching the name
+      builder, and note the pass-27 lesson that the DEF view being right is
+      what points at the ELABORATED instance.
+
+  (2) THE PARAMETER'S OWN ELABORATED VALUE for a based literal — the twin site
+      of pass 28's two laws, PRE-EXISTING and now measured for the first time.
+      pass-28's laws fixed the OVERRIDE path (ovEnc8); a localparam's OWN
+      param_assign in the ELABORATED module view still disagrees.  qc28 rows
+      (LHS(golden) / RHS(ours), all in the ELAB view of work@qc28):
+          localparam int DirWide = 8'hab
+                          HEX sz32 dec 32'hab / HEX sz32 dec 8'hab
+          localparam int TerWide = C ? 8'hcd : 8'hab      same pair
+          localparam int DirBit  = 1'b1
+                          INT sz32 dec -1     / BIN sz32 dec 1'b1
+          localparam int TerBit/CmpBit/NestBit/ViaLp      same pair
+      and qb28's `work@qb28.FifoPass/TakeThen/FifoDepth` are the same three
+      shapes.  So the OWN-VALUE site needs the very srlgAdjustSize round trip
+      the override path has: golden renders the decompile at the DECLARED
+      width and fires the signed-`int` arm.  SEVEN qc28 rows + THREE qb28
+      rows, and it is the same producer/consumer model — the cheapest
+      structural win left, and unlike (1) the model is already decoded.
+
+  (3) qa28's THREE ROWS: an `int unsigned` parameter with a BASED default that
+      is NOT overridden keeps the LITERAL's own size in golden's ELABORATED
+      instance and takes the DECLARED width for us.
+          work@qa28.u_chain.u_def.LI  (`parameter int unsigned LI = 1'b1`)
+              LHS(golden) BIN sz1 dec 1'b1 / RHS(ours) BIN sz32 dec 1'b1
+          work@qa28.u_middef.MPass    (`parameter int unsigned MPass = 1'b1`)
+              same pair
+          work@qa28.u_middef.u_def.LI same pair
+      NEGATIVE CONTROLS measured beside them and EQUAL on both sides:
+      `int unsigned LJ = 1` DOES resize to 32 in the elab instance (an UNSIZED
+      decimal takes the declared width), `bit LDD = 1'd1` respells DEC->INT,
+      `bit LH = 1'h1` keeps HEX, `bit LB = 1'b1` keeps BIN.  So the rule is
+      "a SIZED/BASED literal keeps its own size where an unsized decimal takes
+      the declared one" — the same split ParamEmit ~5240 already implements for
+      a struct parameter's pattern and pass 27's law 3 for a default fill.
+
+  (4) § ovEncScalarSourceSkipsHops28's KNOWN OPEN HALF, measured and NOT
+      fixed: ONE EXTRA SAME-SCOPE localparam hop makes golden run a size-1
+      hop's adjust after all.  qc28's `localparam int ViaLp = TerBit;` feeding
+      the same chain reads INT:-1 in all seven targets for golden where the
+      shipped law leaves BIN 1'b1 (7 rows: u_vl.{HI,HU,HB} and
+      u_vl.u_t.{TI,TU,TB,TL} — HI/TI agree, the other five do not).  Those
+      rows were WRONG BEFORE THIS PASS TOO (decimal UINT), so this is a
+      RANKED RESIDUE, NOT A REGRESSION — the ab28.sh A/B prints zero regressed
+      rows.  THE DISCRIMINATOR IS THE EXTRA SAME-SCOPE HOP AND NOTHING ELSE:
+      `.HI(DirBit)` (an override hop) does NOT adjust a size-1 value even two
+      instances down, while `ViaLp = TerBit` (a localparam reading a localparam
+      in ONE scope) does.  A 2x2 of (override hop | same-scope hop) x (size 1 |
+      size 8) closes it; the size-8 halves are already EQUAL on both sides.
+
+  (5) THE PACKAGE-PARAMETER ORIGIN of an override chain — qb28's u_e rows.
+      `parameter int QA = CondP ? 1'b0 : 1'b1` in a PACKAGE, read as
+      `.MB(pq28::QA)`, gives LHS(golden) INT sz32 dec -1 / RHS(ours) BIN sz1
+      dec 1'b1 (pre-patch: UINT sz32 dec 1 — wrong before and wrong after, so
+      ranked, not regressed).  The size-8 package twins ALREADY MATCH after
+      pass 28 (`int QB = CondP ? 1 : 4'h2` -> HEX sz32 32'h2 on both sides in
+      two targets), so the discriminator is again SIZE 1 — i.e. this is (4)
+      with a package-scope hop, and the k.sv law ("a package parameter's value
+      object is SHARED and adjustSize mutates it IN PLACE") is the likely
+      mechanism: for a package origin the hop's adjust has ALREADY happened.
+      ONE REMAINING NON-SIZE-1 ROW: u_e.u_s.SL golden HEX sz4 dec 4'h0 / ours
+      HEX sz4 dec 32'h0 — a hop RE-RENDERED the decompile where golden did
+      not.
+  (6) qc28's TWO `u_{dw,tw}.u_t.TB` ROWS, PRE-EXISTING and unchanged by this
+      pass: an 8-bit HEX reaching a `bit` target two instances down reads
+      LHS(golden) HEX sz1 dec 32'hab / RHS(ours) HEX sz1 dec 1'hab.  Golden
+      clamps the SIZE to the target without RE-RENDERING the decompile; our
+      srlgOvRender re-renders at the clamped size.  One condition in
+      srlgAdjustSize/srlgOvRender, but MEASURE WHICH ARM: the size-32 rows of
+      the same chain need the render.
+
+  (7..) UNCHANGED FROM PASS 27 and still ranked in its order: the size-cast
+      fold's sign and typespec (pass-27 ranked (2)); the NAMED-MEMBER half of
+      pass 27's default-fill law (its (3)); where the non-nested
+      `'{default:'0}` elab expansion is built (its (4), the mark.py question);
+      the PACKED-RANGE TWIN of qe26's chain grid, STILL NOT WRITTEN for a
+      THIRD pass (its (5)); § chainW26's latent inconsistency, STILL correctly
+      open because pass 28 did not touch the unpacked builder either (its
+      (6)); qj27's last row, the int_typespec vpiSigned our cast arm reuses
+      from a module localparam's declaration (its (7)); then the gen-scope
+      OPERATION fold (unblocks qa25 :75), the nested-gen port-LHS bind (qa25
+      :107 / qb25 :103,:110 — the fix ADDS, discriminator is NESTING alone),
+      qb25 :97's OPERAND over-bind, the OCT-vs-UINT enum_const value defect
+      (MEASURE THE REACH FIRST), and the three hier_path families.  NOTE that
+      pass 28's frontier (1) IS A HIER_PATH, so the dm_csrs.sv:309:27 family
+      may now be reachable from the bisector rather than only from the census.
+      SAY WHICH HEAD YOU MEAN: `uhdm-cmp golden ours` on the whole design
+      still reports dm_csrs.sv:309:27; tl_main_pkg.sv:13:59 is the
+      top_earlgrey CENSUS head, confirmed unchanged for a NINTH pass.
+
+LANDED — PASS 28 (r10earl28; TWO laws, both in ParamEmit's OVERRIDE-ACTUAL
+ENCODING pipeline — the `srlgLitEnc` producer / `srlgAdjustSize` consumer
+two-stage model — and the frontier left the param_assign vector entirely).
+EVERY DIRECTION BELOW IS LHS(golden) / RHS(ours).
+
+  THE METHOD RESULT OF THIS PASS: THE ASSIGNMENT SAID "BUILD THE 2x2x2 BEFORE
+  TOUCHING THE EMITTER" AND THE GRID REFUTED THE FRAMING.  The frontier was
+  filed as "the based-literal fold-direction family, and `bit` + `1'b1` is a
+  THIRD spelling neither known site measured".  qa28 varied declared type x
+  literal base x scope over 55 param_assign rows and the corpus shape DID NOT
+  REPRODUCE: an OVERRIDDEN `bit LD = 1` reads BIN 1'b1 on BOTH sides, because
+  the override spelling propagates from the SOURCE and not from the default.
+  Reading the corpus source instead of the corpus dump is what found the real
+  key: rv_core_ibex.sv:67 `localparam int FifoPass = PipeLine ? 1'b0 : 1'b1`.
+  THE FAMILY IS NOT THE DECLARED TYPE, IT IS A CONSTANT-CONDITION TERNARY.
+  THE SECOND METHOD RESULT: THE PROBE WAS BROKEN TWICE AND BOTH BREAKS READ AS
+  PERFECTION.  pav28.py first treated uhdm-dump's one-line vpiParent
+  BACK-POINTERS as real nodes, so every projection came back with no ct/sz/dec
+  at all and golden and ours diffed EMPTY on a database pair that uhdm-cmp
+  says is unequal.  Then it absorbed a trailing cont_assign's vpiLhs/vpiRhs
+  into each instance's LAST param_assign, which DELETED that row from the grid
+  — a MISSING row, not a wrong one, and the two rows it hid (`logic [3:0]`
+  targets) turned out to carry a law of their own.  pav28.py now takes `-c`
+  and prints ROWS/withct as its own POSITIVE CONTROL; use it.
+
+  1. § ovEncTernaryTakenBranch28 (ParamEmit, ovEnc8's arm list) — A
+     CONSTANT-CONDITION TERNARY OVERRIDE ACTUAL BEHAVES EXACTLY AS IF THE
+     TAKEN BRANCH HAD BEEN WRITTEN IN ITS PLACE, contributing NO hop of its
+     own.  ovEnc8 recursed through NamedValue / UnbasedUnsized / Concatenation
+     / Replication and had NO ConditionalExpression arm, so it returned false
+     and the whole override fell through to the decimal UINT fold.  That was
+     the pass-27 exit frontier: prim_fifo_sync.sv:11:40 `parameter bit Pass =
+     1'b1` reached via `.ReqPass(FifoPass)` / `.Pass(ReqPass)`,
+         LHS(golden) constant {ct=3 BIN sz=1 dec=1'b1}
+         RHS(ours)   constant {ct=9 UINT sz=1 dec=1}
+     THE PROOF IS A PAIR GRID (qc28.sv), and it is a pair grid on purpose:
+     every golden row of a ternary-sourced chain is BYTE-IDENTICAL to the row
+     of the same chain written with the branch literal in place.
+       `localparam int TerBit = C ? 1'b0 : 1'b1` == `localparam int DirBit =
+           1'b1` in all 7 override targets
+       `C ? 8'hcd : 8'hab` == `8'hab` in all 7
+     and a COMPARISON condition, a NESTED ternary, and a ternary written
+     DIRECTLY as the actual with no localparam at all all measure the same —
+     so neither the condition's shape nor the nesting nor the localparam hop
+     is a discriminator.  GREPPED FIRST, per pass 27's lesson: a taken-branch
+     walker ALREADY EXISTS at ParamEmit ~7478 (`tbLeaf9`) but is gated
+     `!overridden`, i.e. it owns the parameter's own DEF/TOP value and never
+     the override path, so the law is not applied twice.
+  2. § ovEncScalarSourceSkipsHops28 (same arm, the NamedValue hop) — A ONE-BIT
+     BASED LITERAL IS SELF-DETERMINED: no parameter hop on the override path
+     adjusts or re-renders it, only the FINAL TARGET's adjustSize does.  The
+     238-cell matrix that built this pipeline never varied the source WIDTH
+     below 8, so every hop ran.  THE GRID (qc28, `localparam int DirBit =
+     1'b1`; LHS(golden) / RHS(ours) PRE-PATCH):
+       -> int           INT:-1 size 32  /  INT:-1 size 32   (agreed already)
+       -> int unsigned  BIN:1  size 1   /  INT:-1 size 32
+       -> bit           BIN:1  size 1   /  INT:-1 size 1
+       -> logic [7:0]   BIN:1  size 1   /  INT:-1 size 8
+     i.e. golden reaches EVERY target from the literal itself and only the
+     `int` target's own signed arm ever fires.  TWO instance hops down
+     (`.TL(HI)` inside a module reached by `.HI(DirBit)`) golden STILL reads
+     BIN:1 size 1 — that is what rules out "the ORIGIN hop only" and gives the
+     rule its `o8.size == 1` form.  THE 8-BIT TWIN IS THE NEGATIVE CONTROL and
+     must keep running every hop: `8'hab` through the same chain is HEX
+     32'hab on BOTH sides today and a size-blind skip would drop it to 8'hab.
+     KNOWN OPEN HALF, MEASURED, RANKED AS (4) ABOVE, NOT FIXED: one extra
+     SAME-SCOPE localparam hop makes golden run a size-1 hop after all.
+
+  THE PROBES (mk28.sh derives the whole driver set from the pass-27 one by
+  re-pointing W= — RUN IT FIRST in a new worktree; it also picks the OLD paths
+  out of the *27.sh files itself instead of carrying a hand-written list):
+    pav28.py <dump> [-c]
+                 ONE LINE PER param_assign, projected onto exactly the four
+                 fields uhdm-cmp reads for its Rhs constant:
+                 `<PARAM-fullname> @<l>:<c> rhs=constant @<l>:<c>
+                 ct=<n>(<name>) sz=<n> dec=<...>`.  THE PARAMETER'S FULLNAME
+                 IS THE KEY, because the same declaration reads differently in
+                 the def view and in EVERY elaborated instance and the
+                 fullname is the only thing that separates them.  `-c` is its
+                 POSITIVE CONTROL (ROWS / withct); a withct of 0 is a BROKEN
+                 PROBE, not a clean database.  Both parse failures that cost
+                 this pass an hour are written up in its docstring.
+    pavd28.sh <basename>...
+                 run + dump + pav28 delta + uhdm-cmp head for a witness set,
+                 one screen, with the positive control on every line.
+    ab28.sh <basename>
+                 THE A/B THE ENV GATES EXIST FOR.  Runs FOUR configurations of
+                 the ONE binary (BOTH / TERN / SCAL / NONE) and prints, by
+                 row-set comm, "ROWS THIS PASS REGRESSED" and "ROWS THIS PASS
+                 FIXED".  This is what proved qc28's seven own-value rows and
+                 qb28's three are PRE-EXISTING rather than collateral — a
+                 question the pre-patch diff could not answer because it had
+                 been filtered to the override rows.  qc28: 55 -> 14 rows,
+                 ZERO regressed, 41 fixed.  qb28: 30 -> 9, ZERO regressed, 21
+                 fixed.  qa28: 3 -> 3, untouched.
+    reach28.sh [witness]
+                 THE POPULATION COUNT, read off the trace at the branch point
+                 rather than guessed, with the witnesses as its POSITIVE
+                 CONTROL (`bash reach28.sh qc28` prints 66 SCAL / 49 TERN).
+                 On the corpus: 208 firings, 186 SCAL / 22 TERN, FOUR distinct
+                 ternary sites, and the SCAL hops name the whole ibex
+                 parameter family (RV32B/RV32M/RV32E/SecureIbex/ICache/
+                 PMPEnable/BranchTargetALU/WritebackStage/...) plus the tlul
+                 fifo chains (DReqPass/DRspPass/HReqPass/HRspPass/ReqPass/
+                 RspPass/FifoPass).
+    R10E28_NOSCALARSKIP=1 / R10E28_NOTERNARM=1
+                 per-law A/B gates, in the tree, DEFAULT OFF meaning the law
+                 is ON.  R10E28_OVDBG=1 is the trace, inert when unset.
+    qa28.sv      the assignment's 2x2x2 (declared type x literal base x scope)
+                 — a REFUTATION witness: the corpus shape does not reproduce
+                 from those axes, and its residue is ranked (3).
+    qb28.sv      the corpus chain rebuilt from the SOURCE (ternary localparam
+                 -> `int unsigned` hop -> `bit` target), the reproduction.
+    qc28.sv      THE PAIR GRID both laws are read off, and the file that
+                 carries every negative control: DirWide/TerWide (size 8),
+                 CmpBit/NestBit (condition shape), ViaLp (the extra hop),
+                 u_dt (no localparam at all).
+
+  RESULTS: Head census BYTE-IDENTICAL AT 14 FOR A NINTH PASS (9 AllModules + 5
+  TopModules, 0 packages both ways; `diff` of the two census files is empty) —
+  and the frontier moved anyway, OUT of param_assign[1]'s Rhs and out of the
+  param_assign vector entirely, into Ports[5]'s High_conn.  Whole-arena
+  EXISTENCE census UNCHANGED (379308 keys, 33716 DIFF rows, golden-only 42423,
+  ours-only 25083) — as it must be, because both laws rewrite VALUE FIELDS on
+  constants that already exist and neither adds nor removes an object; that
+  identity is itself the check that they did not.  Whole-arena BIND census
+  121990 rows both ways, residue 317 -> 317 with the ROW-SET DELTA EMPTY BOTH
+  WAYS.  Gates: goldens 23/23 (negative control `SLANG_UHDM=/bin/false` 0/23);
+  u2r testflags 732 rows, diff EMPTY against the promoted baseline, with
+  paramod_genscope_child AND issue326_packed_mem individually DUMP=match and
+  `assignment-pattern` CMP_EQUAL; Surelog both modes 1589 rows, diff EMPTY
+  except the ONE known Google,testflags row (baseline TIMEOUT vs this round's
+  SURELOG_FAIL — both mean "no golden DB", the golden-side non-comparable
+  environment flake now seen in some rounds and not others across SIX passes;
+  NAMED, NOT FILTERED, no baseline promotion).
+
+RANKED RESIDUE (measured after PASS 27 — SUPERSEDED by the PASS-28 list above;
+kept for the distinguishers it records.  Its item (1) is CLOSED by pass 28's
+two laws; its (2)/(3)/(4)/(5)/(6)/(7) carry forward inside pass 28's (7).
+Still 9 AllModules + 5 TopModules = 14 heads, BYTE-IDENTICAL for an EIGHTH
+consecutive pass — and for the eighth time that is not a zero: bis27.sh walked the
 top_earlgrey pair through THREE successive operands of ONE cont_assign and then
 OUT of tlul_adapter_host altogether, into a SIBLING instance and a different
 family.  Read LANDED — PASS 27 below first.  EVERY DIRECTION BELOW IS STATED AS
