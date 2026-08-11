@@ -414,20 +414,29 @@ and said so; a master who prefers a minimal patch can drop the two
 > write-up filled that empty cell in with a guess. **AN ARM ROW ASSERTED FROM ONE
 > SIDE.** An instrument that cannot see a side must make the write-up say
 > UNMEASURED, not let it infer.
-Arm `r1_repl.v` cells `d1_paramref`, `d2_paramref_repl`, `c3_param`:
-```
-    parameter [19:0] Q = 20'h5;  wire [19:0] t;  assign t = Q;
-    LHS(golden):  cont_assign vpiRhs = ref_obj (…Q)      <- NOT folded
-    RHS(ours):    cont_assign vpiRhs = constant UINT:5   <- folded
-```
-This is a KIND difference and therefore cmp-visible. The `paramConcat` guard at
-`src/ModuleEmit.cpp:19416` only fires when the RHS is a *Concatenation*, so a
-BARE `NamedValue` parameter reference reaches `tryFoldConst` and folds. It is 3 of
-the 3 remaining differing cells in that arm. **Why it is ranked first and still
-not done: it is a bail, so it is cheap to write and expensive to be wrong about**
-— `assign x = SOME_PARAM;` is everywhere, and our corpus is 97% equal, so some
-other guard must already be suppressing the fold in most real rows; find that
-guard before widening this one. Measure with `rarm.sh r1_repl.v` + `rtab.sh`.
+Arm `r1_repl.v` cells `d1_paramref`, `d2_paramref_repl`, `c3_param`. Measure with
+`rarm.sh r1_repl.v` + `rtab.sh` — but see the blockquote ABOVE for what to
+measure, not the struck text below.
+
+> ~~**THE ORIGINAL BODY OF THIS RESIDUE IS STRUCK AND KEPT ONLY AS A WARNING.**
+> It said: golden's cont_assign vpiRhs is a `ref_obj` NOT folded against our
+> folded `constant UINT:5`; that this is a KIND difference; that the fix "is a
+> bail"; and that "some other guard must already be suppressing the fold in most
+> real rows — find that guard before widening this one".~~
+>
+> **EVERY ONE OF THOSE CLAIMS IS WRONG, and the direction is INVERTED.** The
+> `ref_obj` is the **DEF** row, where both sides are ALREADY EQUAL. In the ELAB
+> view golden's Rhs IS a constant — the parameter's own value-constant, reached
+> BY REFERENCE — and the fix is to REUSE that object, not to stop folding. THERE
+> IS NO SUPPRESSING GUARD TO FIND. This was confirmed independently THREE times
+> (the pass-51-era verifier, the r10oth5 implementer, and the r10oth5 verifier,
+> each off the dumps in both views).
+>
+> **The struck text was left standing below the correction at the previous
+> integration — MY error.** A reader who skipped the blockquote got exactly the
+> direction that had already been wrong twice. Deleting a superseded claim is
+> part of applying a correction; appending the right answer above the wrong one
+> is not enough.
 
 ### R2. `h5_condpos` — a parameter read in the CONDITION POSITION of a cont-assign ternary takes the bare setRange rewrite even when NOTHING folds. DIRECTION: ADD a read spelling. Depth: shallow. NEWLY MEASURED, honestly NOT DONE.
 Arm `r3_setrange.v` cell `h5_condpos`, `assign w = A ? nn : 1'b0;` with `nn` a

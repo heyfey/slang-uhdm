@@ -6558,7 +6558,19 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     bool enumRef = ic.kind == ExpressionKind::NamedValue &&
                                    ic.as<NamedValueExpression>().symbol.kind ==
                                        SymbolKind::EnumValue;
-                    bool concatInit = ic.kind == ExpressionKind::Concatenation;
+                    // § varInitReplKeepsOperation (r10oth5) — DIRECTION: ADD a
+                    // MISSING SUBTREE.  A REPLICATION variable initializer
+                    // (`logic [19:0] v = {21{1'b1}};`) keeps its UNFOLDED
+                    // operation as the var's vpiExpr in golden's ELAB view
+                    // exactly as a plain concatenation does; we emitted the
+                    // logic_var with NO vpiExpr AT ALL (cell e4_varinit_repl).
+                    // CORRECTION to the brief that ordered this fix: it also
+                    // claimed we emit "an extra vpiVisibility:1" there.  That
+                    // half is REFUTED — BOTH sides carry vpiVisibility=1 on the
+                    // logic_var in e1/e3/e4 alike; the whole difference is the
+                    // missing vpiExpr.
+                    bool concatInit = ic.kind == ExpressionKind::Concatenation ||
+                                      ic.kind == ExpressionKind::Replication;
                     // Unbased-unsized inits ('0/'1/'x/'z) each encode
                     // distinctly (Surelog quirk):
                     //   '0 -> BIN:0, sized to the var width, decompile '0
@@ -6916,6 +6928,114 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         if (!enumRef && !concatInit)
                             forceConstParent = true;
                         if (auto* e = emitExpr(ic, v, fullName, topNets)) {
+                            // § varInitConcatOperandAdjustSize (r10oth5) —
+                            // DIRECTION: REPLACE.  Surelog runs
+                            // CompileHelper::adjustSize over each TOP-LEVEL
+                            // OPERAND of a concat/replication VARIABLE
+                            // initializer, against the VARIABLE's own type.
+                            // The brief reported this as "golden's operands are
+                            // vpiSize:4, ours 8" on one cell; one cell cannot
+                            // tell `size = target` from `size = min(own,
+                            // target)`, and cells e5-e10 REFUTE the `min`
+                            // reading outright — `int v = {8'hF5, 8'h0F};`
+                            // gives BOTH operands vpiSize 32, i.e. WIDER than
+                            // the operands.  The real rule is adjustSize's
+                            // encoding split, the same one § elabCaReuses-
+                            // ParamValueConst transcribes:
+                            //   HEX/OCT/INT/... -> the final `else`: size :=
+                            //       target        (e3 8->4, e6 8->6, e9 8->32,
+                            //                      e5/e10 unchanged)
+                            //   BINARY          -> the logic arm: TRUNCATE ONLY
+                            //       when orig > target (e1/e2/e7/e8 all keep
+                            //       their own 2 bits against targets 20/32/4/4)
+                            //   UINT            -> mask + size (e4's repeat
+                            //       count 21 -> size 20, value unchanged)
+                            //   DEC             -> untouched (outer guard)
+                            // 14 of 14 measured operand cells agree, and cell
+                            // e8_varinit_mixed is what proves the split is per
+                            // ENCODING and not per operand width: in ONE concat
+                            // its 8'hF5 becomes 4 and its 2'b01 stays 2.
+                            // NESTED operands are left alone (e10's inner
+                            // concat keeps its own 2-bit operands); the HEX
+                            // spelling of a nested operand is UNMEASURED.
+                            // GATE, and it is a REFUTATION by the u2r row gate:
+                            // the law over-fired on `2DFunctionArg`
+                            // (`logic [1:0][3:0] x = {4'hF, 4'hF};`), where
+                            // golden leaves the operands at their OWN 4 bits and
+                            // we resized them to the array's total 8 — the row
+                            // went CMP_EQUAL + `match` -> CMP_NOTEQUAL
+                            // `decompile:`.  Surelog's `Bits(ts)` does not
+                            // return the whole width for a MULTI-DIMENSIONAL
+                            // packed target, so the law is restricted to the
+                            // shapes actually measured: a PREDEFINED INTEGER
+                            // (e9, 32) or a SIMPLE VECTOR, i.e. a packed array
+                            // whose element is not itself packed (e1/e3/e5-e8/
+                            // e10, all `logic [N:0]`).  Everything else keeps
+                            // the pre-patch answer.  The multi-dimensional
+                            // width rule is UNMEASURED beyond this one cell.
+                            const Type& tcV9 = dt->getType().getCanonicalType();
+                            const bool simpleTargetV9 =
+                                tcV9.kind == SymbolKind::PredefinedIntegerType ||
+                                (tcV9.isPackedArray() &&
+                                 tcV9.getArrayElementType() &&
+                                 !tcV9.getArrayElementType()
+                                      ->getCanonicalType()
+                                      .isPackedArray());
+                            if (concatInit && e->UhdmType() == UHDM::uhdmoperation &&
+                                dt->getType().isIntegral() && simpleTargetV9) {
+                                const int32_t twV9 =
+                                    (int32_t)dt->getType().getBitWidth();
+                                if (auto* opsV9 =
+                                        ((UHDM::operation*)e)->Operands();
+                                    opsV9 && twV9 > 0)
+                                    for (auto* oV9 : *opsV9) {
+                                        if (oV9->UhdmType() != UHDM::uhdmconstant)
+                                            continue;
+                                        auto* cV9 = (UHDM::constant*)oV9;
+                                        const int32_t ctV9 = cV9->VpiConstType();
+                                        const int32_t osV9 = cV9->VpiSize();
+                                        if (ctV9 == vpiDecConst || osV9 <= 0)
+                                            continue;
+                                        if (ctV9 == vpiBinaryConst) {
+                                            if (osV9 > twV9) {
+                                                std::string bvV9(cV9->VpiValue());
+                                                if (bvV9.size() > 4)
+                                                    bvV9.erase(0, 4);
+                                                if ((int32_t)bvV9.size() >
+                                                    osV9 - twV9)
+                                                    bvV9.erase(
+                                                        0, (size_t)(osV9 - twV9));
+                                                cV9->VpiValue("BIN:" + bvV9);
+                                                cV9->VpiDecompile(bvV9);
+                                                cV9->VpiSize(twV9);
+                                            }
+                                        }
+                                        else if (ctV9 == vpiUIntConst) {
+                                            // adjustSize's UINT arm masks the
+                                            // value to the target width and
+                                            // re-renders it in decimal.
+                                            std::string_view uvV9 = cV9->VpiValue();
+                                            if (uvV9.rfind("UINT:", 0) == 0 &&
+                                                twV9 < 64) {
+                                                uint64_t nV9 = strtoull(
+                                                    std::string(uvV9.substr(5))
+                                                        .c_str(),
+                                                    nullptr, 10);
+                                                nV9 &= (twV9 >= 64)
+                                                           ? ~0ULL
+                                                           : ((1ULL << twV9) - 1);
+                                                cV9->VpiValue(
+                                                    "UINT:" + std::to_string(nV9));
+                                                cV9->VpiDecompile(
+                                                    std::to_string(nV9));
+                                            }
+                                            cV9->VpiSize(twV9);
+                                        }
+                                        else {
+                                            cV9->VpiSize(twV9);
+                                        }
+                                    }
+                            }
                             // Bare-decimal inits size at the var type width
                             // (string literals keep their 8*len size).
                             if (e->UhdmType() == UHDM::uhdmconstant &&
@@ -18007,9 +18127,20 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // with, so the cont_assign keeps the reference (ClogParam:
         // `localparam int Aw = $clog2(Depth)` whose Depth override is an
         // unreducible `Info.x`, read by `assign a = Aw`).
-        if (topView && ((noParamSubst && exprValueUnavailable(ae.right())) ||
+        // § elabCaReusesParamValueConst (r10oth5) reads this SAME condition:
+        // "there is no value to fold with, so the elab cont_assign keeps the
+        // reference" applies to the REUSE exactly as it applies to the mint
+        // arms below.  REFUTATION that made it necessary: without it the reuse
+        // over-fired on the surelog corpus row `TypespecExpr`
+        // (`parameter logic [31:0] PARAM = '0` overridden by a packed-STRUCT
+        // param, read by `assign x = PARAM`), where golden keeps the plain
+        // `ref_obj (work@Mod2.mod1.PARAM)` — the row went
+        // CMP_EQUAL -> CMP_NOTEQUAL `decompile:` and dump match -> differ.
+        bool elabReadNoValue9 =
+            topView && ((noParamSubst && exprValueUnavailable(ae.right())) ||
                         exprPatNoFold(ae.right()) ||
-                        exprElabParamUnreduced(ae.right()))) {
+                        exprElabParamUnreduced(ae.right()));
+        if (elabReadNoValue9) {
             ovParamRhs = nullptr;
             typedParamRhs = nullptr;
             noDefOvRhs = nullptr;
@@ -18132,8 +18263,78 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 unbasedShareRhs = unbasedSharedPaConst.count(
                                       &rcS.as<NamedValueExpression>().symbol) != 0;
         }
+        // § elabCaReusesParamValueConst (r10oth5) — DIRECTION: REPLACE (REUSE
+        // an existing object, NOT a bail and NOT a fresh mint).
+        //
+        // THE LAW.  The ELAB cont_assign whose whole RHS is a BARE PARAMETER
+        // REFERENCE does not get a constant of its own: Surelog's
+        // `substituteAssignedValue` hands back the PARAMETER'S OWN value
+        // constant object and `CompileHelper::adjustSize`
+        // (Surelog/src/DesignCompile/CompileHelper.cpp:3949) then MUTATES IT IN
+        // PLACE against the assignment target, so ONE object serves BOTH the
+        // param_assign's vpiRhs and the cont_assign's vpiRhs, with vpiParent
+        // claimed by the LAST cont_assign that read it.
+        //
+        // THE GATE, and it is adjustSize's `uniquify` clone set, transcribed:
+        // adjustSize calls `clone_tree(c)` under `uniquify` in exactly its
+        // `vpiUIntConst` arm, its `orig_size == -1` arm and its signed-binary
+        // arm; EVERY OTHER encoding is mutated in place.  A clone is a FRESH
+        // object, which is what we already emit — so the reuse fires only for
+        // a NON-UINT, sized constant.  Cells p4_untyped_unsized / p8_opvalue /
+        // p15_int / q5_unbased are the controls that prove the exclusion
+        // necessary: all four are UINT-encoded, golden mints a FRESH constant
+        // for all four, and we already match all four.
+        //
+        // The `!caReuseParamConst9` term added to the def-CA share test below
+        // is what makes the reuse reachable for the rows whose value has
+        // UNKNOWN bits (p22), whose type is string/real (q6/q7), that live in
+        // an interface (q12) or that have a SELECT Lhs (q13): those five keep
+        // `typedParamRhs` null and would otherwise share the def cont_assign
+        // whole, where golden emits a fresh one with a by-reference Rhs.
+        // Measured NECESSARY: without the term those five cells stay
+        // UNMEASURED-on-our-side (no elab Rhs row at all).
+        UHDM::constant* caReuseParamConst9 = nullptr;
+        if (topView) {
+            auto& rcR9 = stripImplicitConv(ae.right());
+            if (rcR9.kind == ExpressionKind::NamedValue &&
+                rcR9.as<NamedValueExpression>().symbol.kind ==
+                    SymbolKind::Parameter) {
+                auto& psR9 = rcR9.as<NamedValueExpression>().symbol;
+                // A PACKAGE parameter is a DIFFERENT mechanism and is excluded
+                // (residue R2): golden's DEF view already folds that read to a
+                // HEX constant carrying the REFERENCE's span, and the ELAB view
+                // shares THAT object — not the package param_assign's.  We
+                // already match the def half (q8_pkgref / q9_import).
+                bool inPkgR9 = false;
+                for (auto* sc9 = psR9.getParentScope(); sc9;
+                     sc9 = sc9->asSymbol().getParentScope()) {
+                    auto k9 = sc9->asSymbol().kind;
+                    if (k9 == SymbolKind::Package ||
+                        k9 == SymbolKind::CompilationUnit) {
+                        inPkgR9 = true;
+                        break;
+                    }
+                    if (k9 == SymbolKind::InstanceBody || k9 == SymbolKind::Root)
+                        break;
+                }
+                // § srlgAggActualNoFold — an AGGREGATE override actual leaves
+                // the read unfolded in EVERY arm; the reuse is an arm too.
+                // This is the TypespecExpr guard (see elabReadNoValue9 above).
+                if (!inPkgR9 && !unbasedShareRhs && !elabReadNoValue9 &&
+                    !aggActualParamRef(psR9))
+                    if (auto pit9 = elabParamPa.find(&psR9);
+                        pit9 != elabParamPa.end() && pit9->second)
+                        if (auto* prR9 = pit9->second->Rhs();
+                            prR9 && prR9->UhdmType() == UHDM::uhdmconstant) {
+                            auto* pcR9 = (UHDM::constant*)prR9;
+                            if (pcR9->VpiConstType() != vpiUIntConst &&
+                                pcR9->VpiSize() != -1)
+                                caReuseParamConst9 = pcR9;
+                        }
+            }
+        }
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
-            !unbasedShareRhs && !sysFold &&
+            !unbasedShareRhs && !caReuseParamConst9 && !sysFold &&
             ((!plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs && !selLitLhs &&
               !callFold) ||
              (plainLhs &&
@@ -18390,6 +18591,118 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     ((UHDM::constant*)rhs)->VpiParent(ca);
                 }
             }
+        }
+        // § elabCaReusesParamValueConst (r10oth5) — the reuse itself.  The gate
+        // is computed above (search the same § name); this is the GENERAL
+        // spelling of the `unbasedSharedPaConst` block immediately above, which
+        // only ever covered the '0/'x/'z fill.  It must sit HERE, ahead of the
+        // ovParamRhs / typedParamRhs mint arms, because golden reuses for the
+        // OVERRIDDEN param too (cells p14_child / p16_child / q18_child).
+        //
+        // NEVER-MUTATE-A-SHARED-OBJECT NOTE: this law deliberately makes the
+        // object SHARED BY MORE CONSUMERS, and golden's own producer mutates it
+        // — vpiParent is claimed by the reading cont_assign (LAST writer wins:
+        // cell p2_twice, where golden's parent is the SECOND cont_assign) and
+        // adjustSize rewrites vpiSize (and, for a binary constant it must
+        // truncate, also vpiValue/vpiDecompile).  Both mutations are therefore
+        // REQUIRED, not incidental, and both are visible on the param_assign
+        // row as well: cells p6_narrow (target 4 < param 20 -> golden's
+        // param_assign Rhs is sz 4), p7_wide (target 32 -> sz 32) and
+        // q1_bin_narrow (BIN digits truncated 20 -> 4 IN PLACE).
+        if (!rhs && caReuseParamConst9) {
+            auto* pcR9 = caReuseParamConst9;
+            pcR9->VpiParent(ca);
+            // adjustSize is called with the TARGET's typespec, which for a
+            // SELECT Lhs is still the whole net's (cell q13_sel_lhs: target
+            // select is 4 bits and golden leaves the constant at 20), so strip
+            // the selects before taking the width.
+            const Expression* lbR9 = &stripImplicitConv(ae.left());
+            for (int g9 = 0; g9 < 32; ++g9) {
+                if (lbR9->kind == ExpressionKind::ElementSelect)
+                    lbR9 = &stripImplicitConv(
+                        lbR9->as<ElementSelectExpression>().value());
+                else if (lbR9->kind == ExpressionKind::RangeSelect)
+                    lbR9 = &stripImplicitConv(
+                        lbR9->as<RangeSelectExpression>().value());
+                else
+                    break;
+            }
+            const int32_t ctR9 = pcR9->VpiConstType();
+            // adjustSize's outer guard is `if (VpiConstType() != vpiDecConst)`,
+            // and a non-integral target makes its `Bits(ts)` invalid, so
+            // neither a dec-const nor a string/real target resizes at all —
+            // cells q6_string (24) and q7_real (64) keep their own sizes.
+            if (lbR9->type && lbR9->type->isIntegral() && ctR9 != vpiDecConst) {
+                const int32_t wR9 = (int32_t)lbR9->type->getBitWidth();
+                // adjustSize's `orig_size` is the constant's size AS THE
+                // PARAMETER LEFT IT, i.e. the parameter's own declared width.
+                // REFUTATION, measured: reading it off `pcR9->VpiSize()`
+                // instead is WRONG in our pipeline, because a
+                // REPLICATION-valued parameter's constant is still carrying
+                // its NATURAL width at this point (cell p9_replvalue:
+                // `parameter [19:0] R = {21{1'b1}}` reads 21 here and is
+                // clamped to 20 only later).  The first cut of this law did
+                // read VpiSize and TRUNCATED p9 from golden's 21-digit
+                // `20'b1…1` to a bare 20-digit string — a REGRESSION on a cell
+                // that was already equal.  Taking the width from the parameter
+                // symbol makes p9 a no-op (20 vs target 20) and leaves
+                // q1_bin_narrow truncating (20 vs target 4) as golden does.
+                int32_t oR9 = pcR9->VpiSize();
+                if (auto& rcW9 = stripImplicitConv(ae.right());
+                    rcW9.kind == ExpressionKind::NamedValue)
+                    if (auto& pty9 =
+                            rcW9.as<NamedValueExpression>().symbol.getType();
+                        pty9.isIntegral())
+                        oR9 = (int32_t)pty9.getBitWidth();
+                if (ctR9 == vpiBinaryConst) {
+                    // § replParamConstClampsToDeclWidth (r10oth5) — DIRECTION:
+                    // REPLACE.  A REPLICATION-valued parameter's constant still
+                    // carries its NATURAL width here (21 for
+                    // `parameter [19:0] R = {21{1'b1}}`); Surelog's param-side
+                    // adjustSize already clamped it to the DECLARED width via
+                    // the int_typespec arm's `VpiSize(min(orig, size))`, which
+                    // never touches the digits — golden is size 20 with 21
+                    // digits and `vpiDecompile:20'b1…1`.  Before this pass that
+                    // clamp reached p9_replvalue only as a SIDE EFFECT of the
+                    // fold path this law replaces (PROVEN: on the PRISTINE
+                    // binary `md5 4a5ef68f…` the same parameter with NO reading
+                    // cont_assign is size 21 / `21'b…`, i.e. wrong, and only
+                    // the read made it right).  So the clamp is restored here
+                    // explicitly.  The residual defect for an UNREAD
+                    // replication param is PRE-EXISTING, unchanged by this
+                    // patch, and filed as residue R7.  (CORRECTED AT INTEGRATION:
+                    // this said R4, the README section 1.2 said R8, and the pass
+                    // report said R7 -- THREE different numbers for one residue.
+                    // R7 is correct: "an UNREAD replication parameter is size-21
+                    // not size-20", pre-existing and proved on the pristine
+                    // binary.)
+                    if (pcR9->VpiSize() > oR9) {
+                        pcR9->VpiSize(oR9);
+                        std::string_view bvR9 = pcR9->VpiValue();
+                        if (bvR9.rfind("BIN:", 0) == 0)
+                            pcR9->VpiDecompile(std::to_string(oR9) + "'b" +
+                                               std::string(bvR9.substr(4)));
+                    }
+                    // adjustSize's uhdmlogic_typespec arm TRUNCATES ONLY
+                    // (`if (orig_size > size)`) and the vpiDecompile it writes
+                    // is BARE — no `<w>'b` prefix.  q2_bin_wide is the control:
+                    // a WIDER target leaves size at the constant's own 20.
+                    if (oR9 > wR9) {
+                        std::string vR9(pcR9->VpiValue());
+                        if (vR9.size() > 4)
+                            vR9.erase(0, 4);
+                        if ((int32_t)vR9.size() > oR9 - wR9)
+                            vR9.erase(0, (size_t)(oR9 - wR9));
+                        pcR9->VpiValue("BIN:" + vR9);
+                        pcR9->VpiDecompile(vR9);
+                        pcR9->VpiSize(wR9);
+                    }
+                }
+                else {
+                    pcR9->VpiSize(wR9);
+                }
+            }
+            rhs = pcR9;
         }
         if (!rhs && topView && ovParamRhs) {
             auto& ps2 = ovParamRhs->as<ParameterSymbol>();
