@@ -2657,6 +2657,31 @@ private:
     /// package.  This runs on the PACKAGE listings; the class arm of
     /// § classInheritsContainerImports23 reads the same keys.
     void importPublishesPackageClasses24();
+    /// § modulePublishesPackageClasses45 — the MODULE and INTERFACE arm of the
+    /// same rule.  `importPackage` does not care what kind of scope it is
+    /// importing INTO, so a module or interface that imports a package gains
+    /// that package's class-name DataTypeMap keys exactly as an importing
+    /// package (§ 24) and an importing class
+    /// (§ classInheritsContainerImports23) do.  Both module views carry it.
+    /// Measured, not inferred: on SimpleUVM golden's module listing is the SAME
+    /// ordered (kind,name) sequence as golden's `$unit` class listing, which we
+    /// already reproduce entry-for-entry, and arm t62a witnesses the interface
+    /// half and the key-COLLISION cell separately.  Unlike § 24 this arm never
+    /// REQUALIFIES a name — `writeDataTypes` qualifies only for a PACKAGE
+    /// parent, and golden's SimpleUVM entries are bare (`class_typespec
+    /// 'this_type'`) precisely because no package imported uvm_pkg there.
+    /// Runs design-final, AFTER § 24 (whose requalification the module then
+    /// inherits: SeqDriver reads `adpcm_pkg::this_type`).
+    void modulePublishesPackageClasses45();
+    /// The packages each MODULE / INTERFACE view imported, in listing order,
+    /// recorded at emission because the design-final pass cannot recover the
+    /// import set from the listing the way § 24 does: a FILE-SCOPE import
+    /// appends NO import_typespec (SimpleUVM's `top` has none at all), so
+    /// scanning for import_typespec markers would find nothing and the pass
+    /// would silently publish nothing — the failure mode that reports
+    /// perfection.
+    std::vector<std::pair<UHDM::instance*, std::vector<std::string>>>
+        modImportPkgs45;
     /// § classKeyTsScopeOwner35 — the OWNER of a class-scope TYPEDEF's
     /// typespec (`this_type` / `type_id` / …), which no scope but a
     /// `class_defn` lists until an import publishes it.  `writePackage`

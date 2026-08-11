@@ -4784,6 +4784,13 @@ UHDM::design* UhdmExporter::exportDesign() {
     // listings are the very objects its container's imports already
     // materialized, so every package view has to be complete first.
     classInheritsContainerImports23();
+    // § modulePublishesPackageClasses45 — the MODULE arm of § 24, AFTER both of
+    // the passes above.  After § 24 because it inherits the names § 24
+    // requalifies (SeqDriver's module reads `adpcm_pkg::this_type`), and after
+    // the class arm so it cannot influence it: the class arm reads package
+    // listings and a class's own, never a module's, and running last makes that
+    // independence structural instead of argued.
+    modulePublishesPackageClasses45();
     // § thisImplicitNetBoth38 — DEAD LAST: its predicate is which package
     // views list the routine, so every listing rewrite above (the two import
     // passes included) has to have run.  It only ever fills a null

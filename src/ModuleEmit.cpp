@@ -3398,6 +3398,177 @@ void UhdmExporter::importPublishesPackageClasses24() {
     classKeyTsScopeOwner35(preListed35);
 }
 
+// § modulePublishesPackageClasses45 — the MODULE arm of § 24.
+//
+// WHAT WAS MEASURED, AND WHY IT WENT UNSEEN FOR 44 PASSES.  `r10uvm44ls`
+// projects a scope's vpiTypedef vector onto the ordered (uhdm kind, VpiName)
+// sequence uhdm-cmp actually reads, and on SimpleUVM it says:
+//
+//   golden  module_inst ''/def  n=123   module_inst 'work@top'/top  n=123
+//   golden  class_defn 'work@env'  n=123
+//   ours    module_inst ''/def  n=89    module_inst 'work@top'/top  n=89
+//   ours    class_defn 'work@env'  n=123
+//
+// and the three golden sequences are BYTE-IDENTICAL to each other while OUR
+// class sequence already equals golden's, entry for entry, in order.  So this
+// was never a table we build wrongly — it is a RE-PUBLICATION we were not
+// doing.  A referrer census (LISTDIRECT) and a container-position census
+// (CPTOTAL) are both blind to it: the objects exist and are referred to, they
+// are just absent from one vector.
+//
+// THE RULE.  `CompileHelper::importPackage` does not care what kind of scope it
+// imports INTO, so a MODULE that imports a package gains that package's
+// class-name DataTypeMap keys on exactly the terms a package (§ 24) and a class
+// (§ classInheritsContainerImports23) do: keys inserted BEFORE the package's
+// own DataTypeMap entries, `writeDataTypes` then walking the merged std::map in
+// KEY order and pushing each value DEDUPED BY OBJECT IDENTITY.  On SimpleUVM
+// that is 34 entries we never published (`this_type` x26, `this_subtype` x5,
+// `type_id` x2, `super_type` x1 — the class-scope typedefs the `uvm_*_utils`
+// macros expand into) plus 3 of ours MOVED to the class key that reaches them
+// first and dropped at their own name (`uvm_heartbeat_cbs_t` at key
+// `uvm_callbacks`, `uvm_mem_cb_iter` at `uvm_callback_iter`,
+// `uvm_table_printer_knobs` at `uvm_printer_knobs`).  37 of the 123 positions,
+// and the order is compared.
+//
+// TWO THINGS THIS ARM DELIBERATELY DOES NOT DO.
+//   * It never REQUALIFIES a name.  `writeDataTypes` qualifies a still-bare
+//     name only when the scope being written is a PACKAGE, and golden proves
+//     the module is not one: SimpleUVM's entries read `class_typespec
+//     'this_type'` BARE (no package imports uvm_pkg there), while SeqDriver's
+//     read `'adpcm_pkg::this_type'` — the same objects, already requalified by
+//     § 24 for `adpcm_pkg`, which is why this pass must run AFTER it.
+//   * It never touches vpiInstance, vpiParent or any field of a typespec —
+//     only the module's own vector.  `writeModule` has no counterpart to
+//     `writePackage`'s unconditional `tp->Instance(p)` re-stamp, and golden
+//     agrees: SimpleUVM's `this_type` stays `@design` (§ classKeyTsScopeOwner35
+//     reads the same cell), so re-stamping here would move a compared field on
+//     objects shared with every other listing.
+//
+// SHAPE OF THE MERGE.  The class keys are prepended to the module's EXISTING
+// head-of-listing (everything before the first import_typespec), each existing
+// entry keyed by the unqualified tail of its name, the whole thing stable-sorted
+// by key and identity-deduped, and the import_typespec tail re-appended
+// untouched.  With no class key to publish the transformation is the IDENTITY
+// (stable_sort by base name is the sort emitImportArtifacts already applied and
+// the dedup cannot fire), which is what confines the blast radius to modules
+// that import a class-carrying package.
+//
+// THE THREE HALVES THE UVM-4 COULD NOT MEASURE, and what arm t62a says.  The
+// corpus witnesses this rule for a MODULE only, under a `$unit` import
+// (SimpleUVM) and a BODY import (SeqDriver).  t62a asks the rest with one golden
+// row each:
+//
+//   * KEY COLLISION — MEASURED, and it REFUTED this pass's first attempt.  The
+//     first merge kept BOTH a class key and a same-named typedef, on the
+//     argument that an extra is safer than a drop.  t62a's `m63` wildcard-
+//     imports a package declaring a CLASS `kname` and a package declaring a
+//     TYPEDEF `kname`; golden lists SIX entries and `pb63::kname` IS NOT ONE OF
+//     THEM.  It is one std::map, so the class key wins and the typedef is gone.
+//     The merge below is that map.
+//   * THE INTERFACE ARM — MEASURED, present, and it was missing: golden's
+//     `i63` (an interface with a body import of the class-carrying package)
+//     lists `pa63::a_plain`, `this_type`, `this_type`, `import_typespec:pa63`
+//     — 4 entries where we had 2.  So this pass covers interface_inst too.
+//   * THE PROGRAM ARM — STILL UNMEASURED.  `r10uvm44ls` has no `program` case,
+//     so t62a's `p63` produced no row to read; do not assume either answer.
+//   * THE INTERFACE'S FILE-SCOPE IMPORT — likewise unmeasured, and deliberately
+//     not implemented (see the recording site in emitImportArtifacts).
+void UhdmExporter::modulePublishesPackageClasses45() {
+    if (!d || modImportPkgs45.empty())
+        return;
+    // The view of each package that HAS the class listings.  TRAP (r10uvm29):
+    // AllPackages is the DEF view and carries NO Class_defns at all
+    // (`DEFPKG[uvm_pkg] classes=0` vs `ELABPKG[uvm_pkg] classes=323`, in golden
+    // and in ours), TopPackages is the elaborated one — same source § 24 uses.
+    std::map<std::string, UHDM::package*> clsSrc45;
+    auto claim45 = [&](UHDM::VectorOfpackage* pkgs) {
+        if (!pkgs)
+            return;
+        for (auto* p : *pkgs)
+            if (p && p->Class_defns() && !p->Class_defns()->empty())
+                clsSrc45.emplace(std::string(p->VpiName()), p);
+    };
+    claim45(d->TopPackages());
+    claim45(d->AllPackages());
+    if (clsSrc45.empty())
+        return;
+    auto base45 = [](std::string_view n) {
+        auto p = n.rfind("::");
+        return std::string(p == std::string_view::npos ? n : n.substr(p + 2));
+    };
+    for (auto& [mv45, pkgs45] : modImportPkgs45) {
+        auto* cur45 = mv45 ? mv45->Typespecs() : nullptr;
+        if (!cur45)
+            continue;
+        // Class keys FIRST and in import order — importPackage inserts them
+        // before it copies the DataTypeMap and std::map::emplace keeps the
+        // first insertion.
+        std::map<std::string, UHDM::typespec*> keys45;
+        for (auto& pn45 : pkgs45) {
+            auto cs45 = clsSrc45.find(pn45);
+            if (cs45 == clsSrc45.end())
+                continue;
+            for (auto& [k45, t45] : pkgClassKeys24(cs45->second))
+                if (t45)
+                    keys45.emplace(k45, t45);
+        }
+        if (keys45.empty())
+            continue;
+        // The import_typespec tail (and anything writeImportedSymbols put past
+        // it — the enum-constant clones) keeps its position verbatim.
+        size_t cut45 = cur45->size();
+        for (size_t i45 = 0; i45 < cur45->size(); i45++)
+            if ((*cur45)[i45] &&
+                (*cur45)[i45]->UhdmType() == UHDM::uhdmimport_typespec) {
+                cut45 = i45;
+                break;
+            }
+        // ONE std::map, exactly as `writeDataTypes` reads it: the class keys are
+        // already in `keys45`, so an existing entry whose own key COLLIDES with
+        // a class key does not survive at all.  t62a witnesses that cell
+        // directly and it REFUTED this pass's first, conservative merge (which
+        // kept both): `pa63` declares a CLASS `kname`, `pb63` a TYPEDEF `kname`,
+        // `m63` wildcard-imports both, and golden's `m63` listing is SIX entries
+        // — `pa63::a_plain`, `pb63::b_plain`, `this_type`(base63),
+        // `this_type`(kname), then the two import_typespecs.  `pb63::kname` is
+        // GONE.  Keeping both gave seven and one extra entry.
+        std::map<std::string, UHDM::typespec*> map45 = keys45;
+        // An UNNAMED listing entry has no DataTypeMap key at all, so it cannot
+        // join the map (every unnamed entry would collide at "" and all but one
+        // would vanish).  They keep their relative order and stay at the FRONT,
+        // which is where the base-name sort emitImportArtifacts already applied
+        // put them — this pass does not move them and has no golden that would
+        // say where they belong.
+        std::vector<UHDM::typespec*> unnamed45;
+        for (size_t i45 = 0; i45 < cut45; i45++) {
+            auto* t45 = (*cur45)[i45];
+            if (!t45)
+                continue;
+            if (t45->VpiName().empty())
+                unnamed45.push_back(t45);
+            else
+                map45.emplace(base45(t45->VpiName()), t45);
+        }
+        auto* nv45 = s.MakeTypespecVec();
+        std::set<const UHDM::typespec*> seen45;
+        for (auto* t45 : unnamed45)
+            if (seen45.insert(t45).second)
+                nv45->push_back(t45);
+        // ...then the map in KEY order, deduped by OBJECT IDENTITY: an object
+        // reachable under an earlier key is dropped at every later one, which is
+        // what MOVES `uvm_heartbeat_cbs_t` to key `uvm_callbacks`.
+        for (auto& [k45, t45] : map45) {
+            (void)k45;
+            if (seen45.insert(t45).second)
+                nv45->push_back(t45);
+        }
+        for (size_t i45 = cut45; i45 < cur45->size(); i45++)
+            if (auto* t45 = (*cur45)[i45])
+                nv45->push_back(t45);
+        mv45->Typespecs(nv45);
+    }
+}
+
 // § classKeyTsScopeOwner35 — WHO owns a CLASS-SCOPE TYPEDEF's typespec, and
 // why `this_type` was 85% of the UVM-4 io_decl residue.
 //
@@ -3875,6 +4046,80 @@ void UhdmExporter::classInheritsContainerImports23() {
 
 void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::instance* m) {
     auto* tds = m->Typespecs();
+    // § modulePublishesPackageClasses45 — record this view's DIRECT import set
+    // for the design-final class-key publication.
+    //
+    // DIRECT only: `importPackage` publishes the class-name keys of the package
+    // the ITEM names, and § classInheritsContainerImports23's scopeItems — the
+    // CLASS arm of the very same rule, the one that already reproduces golden's
+    // table entry-for-entry — is direct-only too.  (The typedef collection
+    // below is transitive; that is a different mechanism, the DataTypeMap copy.)
+    //
+    // Collected from the AST, not from `importedTds` below: a package with no
+    // typedef of its own contributes nothing there (SeqDriver's `adpcm_pkg`
+    // contributes exactly zero) and would silently drop out of the class-key
+    // source list.
+    if (m->UhdmType() == UHDM::uhdmmodule_inst ||
+        m->UhdmType() == UHDM::uhdminterface_inst) {
+        std::vector<std::string> pkgs45;
+        auto add45 = [&](std::string_view pn45) {
+            if (pn45.empty())
+                return;
+            std::string n45(pn45);
+            if (std::find(pkgs45.begin(), pkgs45.end(), n45) == pkgs45.end())
+                pkgs45.push_back(n45);
+        };
+        for (auto& mem45 : body.members()) {
+            if (mem45.kind == SymbolKind::WildcardImport)
+                add45(mem45.as<WildcardImportSymbol>().packageName);
+            else if (mem45.kind == SymbolKind::ExplicitImport)
+                add45(mem45.as<ExplicitImportSymbol>().packageName);
+        }
+        // ...plus, FOR A MODULE, the `$unit` imports of its own file, on the
+        // same root-file rule fileScopeImportTypedefs uses below.  This is the
+        // half that CANNOT be recovered later: a file-scope import appends NO
+        // import_typespec, so SimpleUVM's `top` carries no marker at all and a
+        // design-final scan of the listing would find nothing.
+        //
+        // NOT done for an INTERFACE, deliberately and as an UNMEASURED cell:
+        // the interface typedef listing above walks BODY imports only and lists
+        // no file-scope-imported typedef either, so adding class keys from a
+        // file-scope import would publish keys for a package whose typedefs are
+        // absent — a shape no golden here exercises.  t62a witnesses the
+        // interface's BODY-import half only.
+        if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+            std::string mf45 = rootFilePath(body.getDefinition().location);
+            if (!mf45.empty())
+                for (auto* unit45 : comp.getCompilationUnits())
+                    for (auto& mem45 : unit45->members()) {
+                        if (mem45.kind != SymbolKind::WildcardImport &&
+                            mem45.kind != SymbolKind::ExplicitImport)
+                            continue;
+                        if (rootFilePath(mem45.location) != mf45)
+                            continue;
+                        add45(mem45.kind == SymbolKind::WildcardImport
+                                  ? mem45.as<WildcardImportSymbol>().packageName
+                                  : mem45.as<ExplicitImportSymbol>()
+                                        .packageName);
+                    }
+        }
+        // ONE record per view.  The merge below is NOT idempotent — a second
+        // pass would re-add each class-key object at its CLASS key while the
+        // object is also already listed under its OWN name, and identity dedup
+        // would then keep whichever key sorts first, moving entries.  The count
+        // would be unchanged, so this would not show up as a size mismatch;
+        // refuse the duplicate at the source instead.
+        bool have45 = false;
+        for (auto& [mv45, p45] : modImportPkgs45) {
+            (void)p45;
+            if (mv45 == m) {
+                have45 = true;
+                break;
+            }
+        }
+        if (!pkgs45.empty() && !have45)
+            modImportPkgs45.emplace_back(m, pkgs45);
+    }
     // An interface (def view) lists each imported package typedef in its own
     // Typespecs before the import_typespec, SHARING the top-view package
     // object: it re-parents it to the interface and re-scopes its base ref
@@ -22530,8 +22775,27 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         auto* tds2 = s.MakeTypespecVec();
         for (auto* t : *dIt->second->Typespecs())
             tds2->push_back(t);
-        if (!tds2->empty())
+        if (!tds2->empty()) {
             iface->Typespecs(tds2);
+            // § modulePublishesPackageClasses45 — this elab view is a COPY of
+            // the def view's vector, taken at EMISSION time, so the DESIGN-FINAL
+            // class-key publication that rewrites the def view cannot reach it
+            // and the two views would disagree.  Register the elab view under
+            // the def view's own recorded import set.  t62a measured exactly
+            // this: golden's `i63` def AND its `u_i` instance both list 4
+            // entries; with the publication on the def view alone ours read
+            // 4 and 2.
+            std::vector<std::string> pk45;
+            bool have45 = false;
+            for (auto& [mv45, p45] : modImportPkgs45) {
+                if (mv45 == (UHDM::instance*)dIt->second)
+                    pk45 = p45;
+                else if (mv45 == (UHDM::instance*)iface)
+                    have45 = true;   // one record per view (see the merge note)
+            }
+            if (!pk45.empty() && !have45)
+                modImportPkgs45.emplace_back(iface, pk45);
+        }
     }
 
     // Fresh logic_nets created for interface-HEADER-port modport members
