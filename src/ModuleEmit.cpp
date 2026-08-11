@@ -7550,6 +7550,16 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             }
             mvars9->push_back(lv9);
         }
+        // NOTE § pkgInitRefBindsOwnListing47 — the module's HOISTED listing is a
+        // listing in its own right and golden resolves its initialisers inside
+        // it: arm t65a's `work@t65a.i_back` binds `work@t65a.i_first`, the
+        // module's own hoisted copy, not p1's package object.  Same gate as the
+        // package call site (this vector, unqualified name, first wins,
+        // variables only) — run here, before the merge, so the module's OWN
+        // variables are not in scope of the lookup: golden's hoisted group is
+        // resolved against itself and this pass has no golden for a hoisted
+        // initialiser that names a module-local variable.
+        bindListingInitRefs47(mvars9);
         if (!mvars9->empty())
             vars->insert(vars->begin(), mvars9->begin(), mvars9->end());
     }

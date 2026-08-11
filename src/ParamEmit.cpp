@@ -19196,6 +19196,13 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             emitOne9(vs, true);
         }
         flushHoist9(SourceLocation(), true);
+        // NOTE § pkgInitRefBindsOwnListing47 — the listing is complete here, and
+        // that is the earliest point at which the law CAN run: golden binds a
+        // FORWARD reference (arm t65b's `int f_fwd = f_late;` -> `q1::f_late`),
+        // so the rule is "resolve against the FINISHED listing", not "against
+        // what has been emitted so far".  Gate: this listing's own vector, an
+        // UNQUALIFIED name, FIRST entry wins, VARIABLES only.
+        bindListingInitRefs47(pvars);
         if (!pnets->empty())
             up->Nets(pnets);
         if (!pvars->empty())
@@ -19667,6 +19674,156 @@ void UhdmExporter::emitImportedPkgClassMethodClones(const PackageSymbol& pkg,
                                  const UHDM::BaseClass* b) {
                                  return pkgTfListingLess(a, b);
                              });
+    }
+}
+
+// § pkgInitRefBindsOwnListing47 — a data declaration's INITIALISER binds its
+// refs to THIS LISTING's own objects.
+//
+// The head this closes, on SeqDriver / SimpleUVM / Scoreboard (LHS is golden
+// (Surelog), RHS is ours, on every uhdm-cmp invocation in this campaign):
+// golden's `uvm_pkg::uvm_default_printer` — uvm_object_globals.svh:637,
+// `uvm_printer uvm_default_printer = uvm_default_table_printer;` — carries
+// vpiExpr = ref_obj'uvm_default_table_printer' whose **vpiActual** is the
+// package's own `class_var uvm_default_table_printer`; we emitted the identical
+// ref_obj with vpiActual NULL.  `SafeCompare(lhs, rhs)` with rhs null
+// (BaseClass.h:191) records the CHILD as m_failedLhs and leaves m_failedRhs
+// unset, which is why uhdm-cmp printed the class_var against `<null>` and why
+// the head reads as a MISSING OBJECT.  It is not one: r10uvm47pv shows all
+// twelve package class_vars present on both sides with matching kind, name,
+// fullname, BOTH spans, vpiAutomatic, vpiVisibility, typespec kind/name/span and
+// ref_typespec fullname.  ONE scalar pointer was the whole difference.
+//
+// Every gate below was named by an arm cell, not assumed
+// (tools/probe/r10uvm47repro, cells listed in its README):
+//
+//   * AFTER the listing is complete, never incrementally — golden binds FORWARD
+//     references (t65b, golden-only because slang enforces the LRM: `int f_fwd =
+//     f_late;` binds `q1::f_late`).  So "resolve against the finished listing".
+//   * WITHIN THIS LISTING, by NAME — t65a's `p3` reads p1's `i_first` through a
+//     wildcard import and golden binds `p3::i_first`, the IMPORTING listing's
+//     own clone, NOT p1's object.  Binding the home package's symbol object
+//     would have been the natural implementation and it is wrong.
+//   * UNQUALIFIED names only — an explicitly written `p1::i_first` binds the
+//     HOME package's object even from inside p1 itself and from every clone
+//     (t65a `q_qual`, `p3_qual`), which is § the pkgVarObjsAll9 arm's job at the
+//     ref_obj mint site.  Widening this law to `::` names would apply that law
+//     TWICE and the second writer would win with the wrong object.
+//   * VARIABLES only, never NETS — t65c's `int x_from_net = n_first;` reads a
+//     package declaration that took the NET arm, and golden binds NOTHING.  We
+//     bound the logic_net (the net arm registers into pkgViewVarObjs9 eagerly
+//     while the variable arm registers only after the loop, so our two arms were
+//     wrong in opposite directions).  This law clears that.
+//   * FIRST entry of the name WINS — t65d is the discriminator: an out-of-body
+//     constructor local that Surelog hoists into the package listing (line 21)
+//     and a package MEMBER of the same name (line 25).  Golden binds the
+//     HOISTED one at 21:9, so the rule is listing order, NOT "the real package
+//     member".  t65c alone could not separate the two (its member came first).
+//   * At EVERY DEPTH — golden binds the ref inside `int i_expr = i_first + 1;`
+//     (t65a, depth 1 under the operation), so a top-level-only walk would have
+//     measured that half as absent.
+//
+// The ref_obj objects walked here are minted fresh per initialiser by emitExpr
+// (each package view and each module hoist runs its own emitPackageVar), so
+// nothing shared is mutated; the guard is nonetheless written as "only touch a
+// ref whose actual is null or is a net", which is idempotent.
+void UhdmExporter::bindListingInitRefs47(UHDM::VectorOfvariables* vars) {
+    if (!vars || vars->empty())
+        return;
+    std::map<std::string, UHDM::variables*, std::less<>> byName47;
+    for (auto* v : *vars)
+        if (!v->VpiName().empty())
+            byName47.emplace(std::string(v->VpiName()), v);
+    for (auto* v : *vars)
+        bindInitRefsIn47(v->Expr(), byName47, 0);
+}
+
+void UhdmExporter::bindInitRefsIn47(
+    UHDM::any* e,
+    const std::map<std::string, UHDM::variables*, std::less<>>& byName47,
+    int depth) {
+    if (!e || depth > 12)
+        return;
+    switch (e->UhdmType()) {
+        case UHDM::uhdmref_obj:
+        case UHDM::uhdmref_var: {
+            // TYPE-PUNNING FIX, found by the pass-47 verifier and applied by the
+            // master before landing.  This arm used to do `(UHDM::ref_obj*)e` for
+            // BOTH cases, but `ref_var` is `final : public variables` while
+            // `ref_obj` is `: public simple_expr` — UNRELATED hierarchies — so
+            // that C-style cast was a reinterpret_cast: `VpiName()` read
+            // ref_obj's name slot from inside a ref_var, and `Actual_group(...)`
+            // WROTE at ref_obj's offset inside it.  Arbitrary field corruption.
+            // It was latent (all 8 MakeRef_var sites are statement contexts and a
+            // listing initialiser comes from emitExpr, which mints none), which
+            // is exactly why every gate stayed green — no measurement could have
+            // caught it.  Both kinds really do carry VpiName and Actual_group, so
+            // the law legitimately covers both; it just has to reach them through
+            // their own static type.  Same discipline as this pass's own probe
+            // (r10uvm47ro.cpp::actualOf) and src/UhdmExporter.cpp:4403/4416.
+            std::string nm;
+            const UHDM::any* cur = nullptr;
+            UHDM::ref_obj* ro47 = any_cast<UHDM::ref_obj*>(e);
+            UHDM::ref_var* rv47 = ro47 ? nullptr : any_cast<UHDM::ref_var*>(e);
+            if (ro47) {
+                nm = ro47->VpiName();
+                cur = ro47->Actual_group();
+            } else if (rv47) {
+                nm = rv47->VpiName();
+                cur = rv47->Actual_group();
+            } else {
+                return;
+            }
+            // A `::`-qualified spelling belongs to the mint-site arm.
+            if (nm.find("::") != std::string::npos)
+                return;
+            // Already bound to a real object of another kind (an enum_const, a
+            // class_defn, a parameter): golden agrees with those and this law
+            // has no measurement that would justify overwriting them.
+            if (cur && !any_cast<const UHDM::net*>(cur))
+                return;
+            auto it = byName47.find(nm);
+            if (it == byName47.end()) {
+                // Nothing of that name in this listing: golden leaves the ref
+                // unbound, so a stale NET binding must go (t65c).
+                if (cur) {
+                    if (ro47)
+                        ro47->Actual_group(nullptr);
+                    else
+                        rv47->Actual_group(nullptr);
+                }
+                return;
+            }
+            if (ro47)
+                ro47->Actual_group(it->second);
+            else
+                rv47->Actual_group(it->second);
+            return;
+        }
+        case UHDM::uhdmoperation:
+            if (auto* ops = ((UHDM::operation*)e)->Operands())
+                for (auto* o : *ops)
+                    bindInitRefsIn47(o, byName47, depth + 1);
+            return;
+        case UHDM::uhdmbit_select:
+            bindInitRefsIn47((UHDM::any*)((UHDM::bit_select*)e)->VpiIndex(),
+                             byName47, depth + 1);
+            return;
+        case UHDM::uhdmpart_select:
+            bindInitRefsIn47((UHDM::any*)((UHDM::part_select*)e)->Left_range(),
+                             byName47, depth + 1);
+            bindInitRefsIn47((UHDM::any*)((UHDM::part_select*)e)->Right_range(),
+                             byName47, depth + 1);
+            return;
+        default:
+            break;
+    }
+    // Calls: `C c = f(other_var)`.  Reached through the tf_call group so the
+    // func_call / method_func_call / sys_func_call spellings share one arm.
+    if (auto* tc = any_cast<UHDM::tf_call*>(e)) {
+        if (auto* args = tc->Tf_call_args())
+            for (auto* a : *args)
+                bindInitRefsIn47(a, byName47, depth + 1);
     }
 }
 

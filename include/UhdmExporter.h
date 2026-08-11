@@ -2971,6 +2971,24 @@ private:
                         const std::string& prefix,
                         UHDM::VectorOfvariables* out,
                         bool stampTsInstance = true);
+    // § pkgInitRefBindsOwnListing47 — resolve the vpiActual of every UNQUALIFIED
+    // ref inside the INITIALISERS of a finished VARIABLE LISTING against that
+    // SAME listing, FIRST entry of the name winning, and drop a binding that
+    // landed on a NET.  Run once per listing (a package's own vpiVariables
+    // vector, and the copy an importing MODULE hoists), AFTER the vector is
+    // complete: golden binds FORWARD references too (arm t65b), so the rule is
+    // "resolve against the finished listing", not "against what is emitted so
+    // far", and no incremental registration can express it.  Gates, each named
+    // by an arm cell rather than assumed — see tools/probe/r10uvm47repro.
+    void bindListingInitRefs47(UHDM::VectorOfvariables* vars);
+    // The recursive half of § pkgInitRefBindsOwnListing47: every ref_obj/ref_var
+    // inside one initialiser expression, at every depth (golden binds the ref
+    // nested inside `int i_expr = i_first + 1`'s operation, so a top-level-only
+    // walk measures the shape as absent).
+    void bindInitRefsIn47(
+        UHDM::any* e,
+        const std::map<std::string, UHDM::variables*, std::less<>>& byName,
+        int depth);
     // One PACKAGE-scope DYNAMIC-container declaration (`C q[$];`,
     // `C t[string];`, `int d[];`): an array_var carrying vpiSize 1,
     // vpiArrayType, a BARE array_typespec (no name, no span, no ranges, no

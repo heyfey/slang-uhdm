@@ -3060,6 +3060,74 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             if (scope && scope->asSymbol().kind == SymbolKind::Package &&
                 nv.symbol.kind == SymbolKind::Parameter) {
+                // § pkgParamInClassMethodStaysRef47 — an IN-BODY CLASS METHOD
+                // reading a parameter of the class's OWN ENCLOSING PACKAGE keeps
+                // an UNFOLDED, UNBOUND ref_obj.  We folded it to a constant.
+                //
+                // This is the head § pkgInitRefBindsOwnListing47 exposed, and it
+                // is the SAME head on SeqDriver, SimpleUVM and Scoreboard
+                // (uhdm-cmp, LHS golden(Surelog) / RHS ours):
+                //   LHS ref_obj (uvm_pkg::uvm_comparer::compare_field::
+                //       UVM_STREAMBITS) 154:15-154:29, parent operation
+                //       154:15-154:34, vpiName + vpiFullName and NOTHING else —
+                //       no vpiActual, no typespec
+                //   RHS constant 4096, size 32, vpiConstType 9
+                // Source: `parameter UVM_STREAMBITS = `UVM_MAX_STREAMBITS;` at
+                // base/uvm_object_globals.svh:39, read at
+                // base/uvm_comparer.svh:154 as `mask >>= (UVM_STREAMBITS-size);`
+                //
+                // THE ANCESTOR TEST IS THE GATE, and arm t66b is what named it:
+                // the SAME class method in package u2 keeps the ref for u2's own
+                // `U2_P` (t66b:33) and FOLDS u1's `U1_P` read unqualified after
+                // a wildcard import (t66b:28).  Without the ancestor test this
+                // law would have moved t66b:28, :44 and :58 — three cells where
+                // we already agree with golden — and the regression would have
+                // been read as a refutation of the whole law.
+                //
+                // The cells that must NOT move, every one already equal at HEAD
+                // and re-checked after: a class method in a MODULE reading that
+                // module's parameter (t66b:68) or its own class localparam
+                // (:73) already keeps a ref because `scope` is not a Package and
+                // this block is never entered; a class method reading ANOTHER
+                // package's parameter, bare (t66b:28/:58) or `::`-qualified
+                // (:63), or from a $unit class (:44), folds on both sides; a
+                // package FUNCTION body keeps a BOUND ref through the
+                // pkgScopeInst arm below (t66a:75); a MODULE body folds
+                // (t66a:87); a class PROPERTY initialiser (t66a:36) and a
+                // typedef RANGE bound (t66a:33) already keep unbound refs
+                // through other paths.
+                //
+                // Neither `parameter` vs `localparam` nor implicit vs explicit
+                // typing is a discriminator — t66a's `L_IMPL` and `P_TYPED`
+                // cells keep the ref exactly like the implicit `parameter`, and
+                // the position (bare assignment Rhs :48 vs binary operand :42
+                // vs shift-assign operand :67) is not one either.  Those were
+                // the four candidate keys the uvm site suggested; all four are
+                // REFUTED, and only the reader/ancestor pair survives.
+                //
+                // OUT-OF-BODY methods are excluded (`!curSubOob9`): they are
+                // compiled in the home package's scope by a different Surelog
+                // entry point and no golden was read for them.
+                bool ownPkgClassMethod47 = false;
+                if (currentTf && curSubClassScope9 && !curSubOob9 &&
+                    currentSubSym)
+                    for (auto sc47 = currentSubSym->getParentScope(); sc47;
+                         sc47 = sc47->asSymbol().getParentScope()) {
+                        if (&sc47->asSymbol() == &scope->asSymbol()) {
+                            ownPkgClassMethod47 = true;
+                            break;
+                        }
+                        auto k47 = sc47->asSymbol().kind;
+                        if (k47 == SymbolKind::InstanceBody ||
+                            k47 == SymbolKind::CompilationUnit)
+                            break;
+                    }
+                if (ownPkgClassMethod47) {
+                    ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                    ref->VpiParent(parent);
+                    setLoc(ref, expr.sourceRange);
+                    return ref;
+                }
                 // Package-function bodies keep a ref bound to the param's
                 // def-view constant.
                 if (currentTf && pkgScopeInst) {
