@@ -3979,6 +3979,21 @@ UHDM::design* UhdmExporter::exportDesign() {
             dst->Actual_typespec(src->Actual_typespec());
     netTsAlias.clear();
 
+    // § ifaceDupSharesHomePorts — the col-0 tail dup SHARES the home view's
+    // fully-connected port objects (see makeIfaceRefDup for the measurement
+    // and for why the dump made them look bare). Replayed here because the
+    // home's ports come from the deferred emitTopPorts drain.
+    for (auto& [dup9, home9] : pendingIfaceDupPorts) {
+        if (!dup9 || !home9 || dup9->Ports() || !home9->Ports())
+            continue;
+        auto* dports9 = s.MakePortVec();
+        for (auto* hp9 : *home9->Ports())
+            dports9->push_back(hp9);
+        if (!dports9->empty())
+            dup9->Ports(dports9);
+    }
+    pendingIfaceDupPorts.clear();
+
     // Bind enum-value refs whose enum_const was only materialized in the
     // deferred typespec pass (anonymous enums).
     for (auto& [ref, sym] : pendingEnumRefs)

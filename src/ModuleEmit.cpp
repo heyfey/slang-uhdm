@@ -20640,6 +20640,49 @@ static int32_t mapAssertUnaryOp(slang::ast::UnaryAssertionOperator op) {
     }
 }
 
+// § clockingSkewDelayControl — a WRITTEN clocking skew is a delay_control.
+//
+// Transcribed from Surelog CompileHelper.cpp:4671 (the paDefaultSkew_* /
+// paClockingDir_* arms) + compileDelayControl (CompileHelper.cpp:3085):
+//   * the object spans the `#<delay>` text INCLUDING the '#'
+//     (`#st` -> 6:21-6:24, `#1step` -> 14:21-14:27);
+//   * its vpiParent is the CLOCKING BLOCK in both positions — a per-signal
+//     skew hangs off the clocking_io_decl but still parents at the block;
+//   * it carries NO Delay expression and NO Stmt at all: Surelog never
+//     compiles the skew expression, it only records vpiDelay, and vpiDelay is
+//     `#` + the LEADING DIGITS of the delay text — `#1`->"#1", `#4`->"#4",
+//     `#1step`->"#1" — while `#st` (a PARAMETER REFERENCE) gets NOTHING,
+//     because Surelog stores SymName of the delay's number node and an
+//     identifier node has no number.  vpiDelay is not a Compare field; it is
+//     transcribed so the DUMP matches too.
+//   * an edge (`posedge #1`) goes on the clocking_block (default skew) or on
+//     the clocking_io_decl (per-signal skew) as vpiInputEdge/vpiOutputEdge.
+// Measured on purpose-built golden probe p3/t3.v: cb1 param-ref default skew
+// (the InterfaceModPort shape), cb2 literal default skew, cb3 `#1step`,
+// cb4 per-signal `input #3 d`, cb5 a module `default clocking` block.
+UHDM::delay_control* UhdmExporter::emitClockingSkew(const ClockingSkew& sk,
+                                                    UHDM::BaseClass* cb,
+                                                    int32_t& edge) {
+    edge = sk.edge == EdgeKind::PosEdge      ? vpiPosedge
+           : sk.edge == EdgeKind::NegEdge    ? vpiNegedge
+           : sk.edge == EdgeKind::BothEdges  ? vpiAnyEdge
+                                             : 0;
+    if (!sk.delay || !sk.delay->syntax)
+        return nullptr;
+    auto* dc = s.MakeDelay_control();
+    dc->VpiParent(cb);
+    setLoc(dc, sk.delay->syntax->sourceRange());
+    std::string raw(rawText(sk.delay->syntax->sourceRange()));
+    if (raw.size() > 1 && raw[0] == '#') {
+        size_t n = 1;
+        while (n < raw.size() && raw[n] >= '0' && raw[n] <= '9')
+            n++;
+        if (n > 1)
+            dc->VpiDelay(raw.substr(0, n));
+    }
+    return dc;
+}
+
 UHDM::clocking_block* UhdmExporter::emitScopeClocking(const InstanceBodySymbol& body,
                                                       UHDM::module_inst* m,
                                                       const std::string& prefix,
@@ -20662,6 +20705,20 @@ UHDM::clocking_block* UhdmExporter::emitScopeClocking(const InstanceBodySymbol& 
         cb->VpiFullName(cbFull);
         cb->VpiParent(m);
         setLoc(cb, csyn->sourceRange());
+        // § clockingSkewDelayControl, default-skew arm (`default input #a
+        // output #b;`): the skew delay_controls come BEFORE the clocking event
+        // on the block, exactly as Surelog builds them.
+        {
+            int32_t iEdge9 = 0, oEdge9 = 0;
+            if (auto* dcI9 = emitClockingSkew(cbs.getDefaultInputSkew(), cb, iEdge9))
+                cb->Input_skew(dcI9);
+            if (iEdge9)
+                cb->VpiInputEdge(iEdge9);
+            if (auto* dcO9 = emitClockingSkew(cbs.getDefaultOutputSkew(), cb, oEdge9))
+                cb->Output_skew(dcO9);
+            if (oEdge9)
+                cb->VpiOutputEdge(oEdge9);
+        }
         auto* ec = s.MakeEvent_control();
         ec->VpiParent(cb);
         setLoc(ec, SourceRange(cdecl.at.range().start(), cdecl.event->sourceRange().end()));
@@ -20724,6 +20781,22 @@ void UhdmExporter::emitNamedClockingBlocks(const InstanceBodySymbol& body,
         cb->VpiFullName(cbFull);
         cb->VpiParent(m);
         setLoc(cb, csyn->sourceRange());
+        // § clockingSkewDelayControl, default-skew arm on a NAMED block.
+        // InterfaceModPort's `clocking cb@(posedge clock); default input
+        // #setup_time output #hold_time;` is exactly this row: golden carries
+        // two EMPTY delay_controls at `#setup_time` / `#hold_time` and we
+        // carried none, which was the head after § timeLitParamIntTs closed.
+        {
+            int32_t iEdge9 = 0, oEdge9 = 0;
+            if (auto* dcI9 = emitClockingSkew(cbs.getDefaultInputSkew(), cb, iEdge9))
+                cb->Input_skew(dcI9);
+            if (iEdge9)
+                cb->VpiInputEdge(iEdge9);
+            if (auto* dcO9 = emitClockingSkew(cbs.getDefaultOutputSkew(), cb, oEdge9))
+                cb->Output_skew(dcO9);
+            if (oEdge9)
+                cb->VpiOutputEdge(oEdge9);
+        }
         auto* ec = s.MakeEvent_control();
         ec->VpiParent(cb);
         setLoc(ec, SourceRange(cdecl.at.range().start(),
@@ -20770,6 +20843,21 @@ void UhdmExporter::emitNamedClockingBlocks(const InstanceBodySymbol& body,
                                                                      : 0;
             if (dir)
                 io->VpiDirection(dir);
+            // § clockingSkewDelayControl, per-signal arm (`input #3 d;`): the
+            // skew hangs off the io_decl but PARENTS AT THE BLOCK, and the
+            // edge lands on the io_decl instead of the block (Surelog
+            // CompileHelper.cpp:4757, probe cb4).
+            {
+                int32_t iEdge9 = 0, oEdge9 = 0;
+                if (auto* dcI9 = emitClockingSkew(cv.inputSkew, cb, iEdge9))
+                    io->Input_skew(dcI9);
+                if (iEdge9)
+                    io->VpiInputEdge(iEdge9);
+                if (auto* dcO9 = emitClockingSkew(cv.outputSkew, cb, oEdge9))
+                    io->Output_skew(dcO9);
+                if (oEdge9)
+                    io->VpiOutputEdge(oEdge9);
+            }
             ios->push_back(io);
         }
         if (!ios->empty())
@@ -21864,9 +21952,36 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
     }
     if (!vars->empty())
         dup->Variables(vars);
-    // The dup lists the iface's HEADER PORTS as BARE ports (name + decl
-    // name span only) — Surelog.
-    {
+    // § ifaceDupSharesHomePorts — the col-0 tail dup SHARES the HOME view's
+    // port objects; it does not mint bare ones.
+    //
+    // The dup was built with fresh name-only ports since session 19 ("dup bare
+    // ports"), read off the DUMP: golden prints the dup's `|vpiPort: \_port:
+    // (clk), line:4:29, endln:4:32` with NO body, which reads like a bare port
+    // — but uhdm-dump SUPPRESSES the body of an ALREADY-VISITED object
+    // (vpi_visitor.cpp:5003 alreadyVisited), and the dup is in the
+    // weaklyReferenced tail, i.e. always printed AFTER the home view.  The
+    // empty body is a REVISIT of the home view's fully-connected port
+    // (direction + HighConn + LowConn + Typedef), not a bare object.
+    // Same reading in uhdm-cmp: BaseClass::Compare short-circuits on
+    // `m_visited.insert(this).second`, so whether the difference is even
+    // OBSERVED depends on which of the two paths reaches golden's port first.
+    // iface_internal_assign reaches the home first and the stub was invisible
+    // (that test is CMP_EQUAL with a DUMP_DIFF at exactly these lines);
+    // InterfaceModPort reaches the DUP first, and there our stub was the head
+    // after § clockingSkewDelayControl closed:
+    //   LHS(golden) port (clk) vpiDirection:1 + HighConn + LowConn + Typedef
+    //   RHS(ours)   port (clk) vpiName only.
+    // Sharing is therefore the model on BOTH tests, and it FIXES the dump on
+    // the one where it was visible.  `home` is the elaborated home view (the
+    // only caller passes it); with no home there is nothing to share and the
+    // dup keeps the bare form.
+    // The home view's ports are built in a DEFERRED drain (emitTopPorts /
+    // instSetPorts), long after this dup exists, so the share is queued and
+    // replayed in the late fixup pass; only a home-less dup mints its own.
+    if (home)
+        pendingIfaceDupPorts.push_back({dup, home});
+    else {
         auto* dports = s.MakePortVec();
         for (auto portBase : body.getPortList()) {
             if (portBase->kind != SymbolKind::Port)
@@ -23110,7 +23225,24 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         ln->VpiName(mname);
                         ln->VpiFullName(dfull);
                         ln->VpiParent(io);
-                        ln->VpiNetType(vpiNet); // 36 — SL's quirk for these
+                        // § modportHdrPortNetKeyword — this clone's net type is
+                        // the header port's OWN, not a constant 36: `input wire
+                        // clk` gives vpiWire(1) and `input logic clk` gives
+                        // vpiNet(36) — the same split netTypeFor already
+                        // implements for every other net.  The hard-coded 36
+                        // was read off tests whose header ports are all `input
+                        // logic` (iface_internal_assign's clk/rst -> 36 in
+                        // golden, unchanged by this), while InterfaceModPort
+                        // writes `interface mem_if (input wire clk)` and golden
+                        // says 1 in both modport clones (.system.clk.clk and
+                        // .memory.clk.clk) — the head after
+                        // § ifaceDupSharesHomePorts closed.  0 (a kind that
+                        // prints no net type at all) keeps the old constant, so
+                        // no net silently loses its tag.
+                        if (int32_t nt9 = netTypeFor(msym))
+                            ln->VpiNetType(nt9);
+                        else
+                            ln->VpiNetType(vpiNet);
                         setLoc(ln, nameSpan(msym.location, msym.name));
                         if (auto* mts = makeTypespec(msym)) {
                             auto* mrt = s.MakeRef_typespec();

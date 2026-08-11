@@ -2370,6 +2370,66 @@ inline bool isLiteralExpr(const Expression& e) {
            c.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral;
 }
 
+// § srlgTimeLitVal — Surelog's TIME-literal reduction, transcribed field for
+// field from CompileExpression.cpp:699 (`case VObjectType::paTime_literal`).
+//
+// It is NOT a physical unit conversion and it does NOT consult the timescale:
+// Surelog parses the numeric prefix with NumUtils::parseUint64 (std::from_chars
+// on an integer, so `1.5ns` yields 1 — the fraction is dropped, not rounded)
+// and multiplies by a FIXED per-unit factor:
+//     s 1e12   ms 1e9   us 1e3   ns 1e6   ps 1   fs 1e-3
+// The table is not monotone (`us` < `ns`) and `fs` truncates toward zero
+// (7fs -> 0), because the factors are doubles assigned back into a uint64_t.
+// Measured against Surelog on a 7-row purpose-built golden (probe p2/t2.v,
+// one parameter per unit plus `1.5ns`): 7fs->0, 7ps->7, 7ns->7000000,
+// 7us->7000, 7ms->7000000000, 7s->7000000000000, 1.5ns->1000000 — exactly
+// what this transcription computes.  An unrecognised unit is Picosecond
+// (TimeInfo::unitFromString's fallthrough).
+inline uint64_t srlgTimeLitVal(std::string_view raw) {
+    uint64_t v = 0;
+    size_t i = 0;
+    for (; i < raw.size() && raw[i] >= '0' && raw[i] <= '9'; i++)
+        v = v * 10 + (uint64_t)(raw[i] - '0');
+    // The unit is the trailing run of letters (`5ns` -> "ns", `1.5ns` -> "ns").
+    size_t u = raw.size();
+    while (u > 0 && isalpha((unsigned char)raw[u - 1]))
+        u--;
+    std::string_view unit = raw.substr(u);
+    double f = 1.0; // Picosecond, and the unrecognised-unit fallthrough
+    if (unit == "s")
+        f = 1e12;
+    else if (unit == "ms")
+        f = 1e9;
+    else if (unit == "us")
+        f = 1e3;
+    else if (unit == "ns")
+        f = 1e6;
+    else if (unit == "ps")
+        f = 1.0;
+    else if (unit == "fs")
+        f = 1e-3;
+    // Surelog does this multiply in double and assigns back to uint64_t; keep
+    // the double so the (harmless in practice) mantissa rounding matches, but
+    // never invoke UB on an out-of-range conversion.
+    double d = f * (double)v;
+    if (!(d >= 0.0) || d >= 18446744073709551616.0)
+        return 0;
+    return (uint64_t)d;
+}
+
+// Is this parameter's own DECLARED default a TIME literal (parameter P = 5ns)?
+// Read from the declarator syntax, not getInitializer(), so an instance
+// override cannot flip the answer (same reasoning as
+// declaredStringLiteralParam).
+inline bool declaredTimeLiteralParam(const slang::ast::ParameterSymbol& ps) {
+    if (auto* dsyn = ps.getSyntax())
+        if (auto* decl = dsyn->as_if<syntax::DeclaratorSyntax>())
+            return decl->initializer && decl->initializer->expr &&
+                   decl->initializer->expr->kind ==
+                       syntax::SyntaxKind::TimeLiteralExpression;
+    return false;
+}
+
 // § writtenCallArgs16 — how many arguments a call actually WROTE.
 //
 // slang materialises a DEFAULTED formal as a full argument expression, located

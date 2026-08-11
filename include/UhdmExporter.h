@@ -34,6 +34,7 @@ class ParameterSymbol;
 class PackageSymbol;
 class Scope;
 class TimingControl;
+class ClockingSkew;
 class SubroutineSymbol;
 class FormalArgumentSymbol;
 class EnumType;
@@ -307,6 +308,13 @@ private:
     void emitNamedClockingBlocks(const slang::ast::InstanceBodySymbol& body,
                                  UHDM::instance* m, const std::string& prefix,
                                  NetMap& nm, bool defView);
+    // § clockingSkewDelayControl — one written clocking SKEW (`#st`, `#1`,
+    // `posedge #2`) as a delay_control; returns null when only an edge was
+    // written.  `edge` receives the vpiPosedge/vpiNegedge/vpiAnyEdge code (0
+    // when none).  The delay_control ALWAYS parents at the clocking BLOCK,
+    // even for a per-signal skew that hangs off a clocking_io_decl (Surelog).
+    UHDM::delay_control* emitClockingSkew(const slang::ast::ClockingSkew& sk,
+                                          UHDM::BaseClass* cb, int32_t& edge);
     std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>>
         pendingCbRefs;
 
@@ -864,6 +872,11 @@ private:
     static const slang::syntax::BindDirectiveSyntax* plainModuleTargetBind(
         const slang::ast::InstanceSymbol& child);
     UHDM::interface_inst* makeBindIfaceTwin(UHDM::interface_inst* src, UHDM::instance* holder);
+
+    // § ifaceDupSharesHomePorts: {tail dup, home view}. The home's ports are
+    // built by the DEFERRED emitTopPorts drain, so the share is replayed late.
+    std::vector<std::pair<UHDM::interface_inst*, UHDM::interface_inst*>>
+        pendingIfaceDupPorts;
     UHDM::interface_inst* emitInterfaceDef(const slang::ast::InstanceSymbol& inst);
     UHDM::interface_inst* emitInterfaceInstance(const slang::ast::InstanceSymbol& inst,
                                                 const std::string& path,

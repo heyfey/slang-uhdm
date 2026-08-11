@@ -5952,6 +5952,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 c->VpiParent(parent);
             return c;
         }
+        // § timeLitUintConst — a TIME literal (`5ns`) is an UNSIGNED constant,
+        // never a real one: Surelog reduces it with the fixed unit table in
+        // § srlgTimeLitVal and stores UINT / vpiUIntConst / vpiSize 64 with NO
+        // vpiDecompile at all (CompileExpression.cpp paTime_literal sets only
+        // those three).  Location is the literal's own span.  Before this the
+        // kind was noteUnsupported'd, so every time literal in the corpus
+        // emitted NOTHING (InterfaceModPort's `parameter setup_time = 5ns`:
+        // golden had a valued param_assign Rhs constant, we had no Rhs).
+        // The GATE is the expression kind alone — there is no narrower one to
+        // find here, because the previous behaviour was "emit nothing", not
+        // "emit something else".
+        case ExpressionKind::TimeLiteral: {
+            auto* c = s.MakeConstant();
+            c->VpiSize(64);
+            c->VpiValue("UINT:" + std::to_string(
+                                      srlgTimeLitVal(rawText(expr.sourceRange))));
+            c->VpiConstType(vpiUIntConst);
+            setLoc(c, expr.sourceRange);
+            if (forceConstParent ||
+                (!suppressConstParent && parent &&
+                 (parent->UhdmType() == UHDM::uhdmoperation ||
+                  parent->UhdmType() == UHDM::uhdmbit_select)))
+                c->VpiParent(parent);
+            return c;
+        }
         // `null` (a class/chandle handle literal): Surelog's vpiNullConst,
         // carrying the same UINT:0 / vpiSize 64 / vpiDecompile "0" payload
         // every unsized integral constant of its does — the CONST TYPE is the

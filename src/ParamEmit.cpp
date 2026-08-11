@@ -3718,6 +3718,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             bool literalInit = false;
             if (defaultInit)
                 literalInit = isLiteralExpr(*defaultInit);
+            // § timeLitParamUint / § timeLitParamIntTs (see both sites below):
+            // a TIME-literal default is a LITERAL to Surelog, but not one
+            // isLiteralExpr recognises, and its reduced kind is UNSIGNED INT
+            // rather than the real slang infers.
+            bool timeLitInit9 =
+                defaultInit && stripImplicitConv(*defaultInit).kind ==
+                                   ExpressionKind::TimeLiteral;
             ConstantValue dcv;
             if (overridden && defaultInit) {
                 ASTContext actx(body, LookupLocation::max);
@@ -4019,6 +4026,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 snprintf(buf, sizeof(buf), "%f", (double)cv.real());
                 up->VpiValue(std::string("REAL:") + buf);
             }
+            // § timeLitParamUint — ...but a TIME-literal default is UNSIGNED,
+            // not real.  slang types `parameter setup_time = 5ns` realtime (so
+            // the cv.isReal() arm above fires and writes REAL:5.000000);
+            // Surelog reduces the literal to its fixed-table integer
+            // (§ srlgTimeLitVal) and stores UINT:5000000 — measured on
+            // InterfaceModPort work@mem_interface.setup_time/hold_time and on
+            // the 7-unit probe.  Written AFTER the real arm so it overrides it.
+            if (timeLitInit9)
+                up->VpiValue("UINT:" +
+                             std::to_string(srlgTimeLitVal(rawText(
+                                 stripImplicitConv(*defaultInit).sourceRange))));
             // String params carry a STRING:<text> value.
             if (defaultInit && literalInit && cv.isString())
                 up->VpiValue("STRING:" + cv.str());
@@ -4098,6 +4116,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                       signedImplicitTs || pkgElabComputed || unkCastFold9 ||
                       impCastFold9 || importedComputed9 || bitsFoldInit ||
                       modPkgRefIntTs9 ||
+                      // § timeLitParamIntTs — a TIME-literal default is a
+                      // literal like any other for typespec purposes, so the
+                      // parameter DOES carry one (golden InterfaceModPort:
+                      // ref_typespec -> int_typespec on setup_time and
+                      // hold_time; we carried none because neither literalInit
+                      // nor realLit sees a TimeLiteral).
+                      timeLitInit9 ||
                       ((literalInit || realLit) && !unbasedInit &&
                        (!unknownDefault || sizedBasedInit) && !decBasedInit));
             // ...and an UNBASED-UNSIZED default ('0/'1/'x/'z) on an UNTYPED
@@ -12304,6 +12329,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     (sik.kind == ExpressionKind::IntegerLiteral ||
                      sik.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral ||
                      sik.kind == ExpressionKind::RealLiteral ||
+                     // § timeLitParamIntTs, Rhs arm: the param_assign Rhs
+                     // constant of a TIME-literal default carries the ts ref
+                     // too, named at the enclosing scope (golden
+                     // InterfaceModPort: ref_typespec (work@mem_interface) ->
+                     // the declaration's int_typespec).
+                     sik.kind == ExpressionKind::TimeLiteral ||
                      sik.kind == ExpressionKind::StringLiteral ||
                      // A TYPED param folded from a PKG-param ref carries the
                      // ts too (Surelog).
@@ -14307,9 +14338,32 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             }
         }
     }
+    // § timeLitParamIntTs — an UNTYPED parameter whose default is a TIME
+    // literal keeps the untyped DEFAULT (int_typespec at the whole
+    // declaration), even though slang types it realtime.  Surelog derives the
+    // implicit type from the DECLARATION, not from what the initialiser
+    // evaluates to, and its time-literal reduction is an UNSIGNED INT
+    // (§ srlgTimeLitVal) — so `parameter setup_time = 5ns` is int, while
+    // `parameter p = 123.45` (a REAL literal) really is real.
+    // THE GATE IS `!typedParam`: a WRITTEN real/realtime/time type still owns
+    // its declared typespec (`parameter time T = 5ns` -> time_typespec above),
+    // and only the implicit form defaults to int.
+    //
+    // DO NOT READ THE `realtime` CASE OUT OF THIS COMMENT — an earlier revision
+    // asserted `parameter realtime R = 5ns` -> real_typespec as though that were
+    // golden's answer, and the pass-47-era verifier MEASURED that it is not:
+    // golden emits a `time_typespec` there and we emit `real_typespec`.  That is
+    // a PRE-EXISTING defect (the base binary reproduces it), it is NOT what this
+    // gate is for, and it is filed as residue R7.1 in
+    // tools/probe/r10oth1repro/README.md.  Left unfixed deliberately: no corpus
+    // row exercises it and widening this gate to cover it would need its own
+    // arm and its own reach census.
+    // Witness: InterfaceModPort setup_time/hold_time
+    // (golden int_typespec 3:4-3:30 / 4:4-4:29, we emitted nothing).
+    bool timeLitUntyped9 = !typedParam && declaredTimeLiteralParam(ps);
     // A real (real/shortreal) param is a real_typespec — typed OR an untyped
     // param inferred real from its literal (localparam p = 123.45).
-    if (!its && ps.getType().getCanonicalType().isFloating())
+    if (!its && !timeLitUntyped9 && ps.getType().getCanonicalType().isFloating())
         its = s.MakeReal_typespec();
     // A TYPED string param (parameter string N) is a LOCATED string_typespec.
     if (typedParam && !its && ps.getType().getCanonicalType().isString())
@@ -14755,8 +14809,11 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     }
     // An UNTYPED param inferred REAL keeps its real_typespec LOC-LESS
     // (realexpr p4); typed real params locate at the type token.
-    bool untypedReal9 =
-        !typedParam && ps.getType().getCanonicalType().isFloating();
+    // (§ timeLitParamIntTs: a TIME-literal untyped param is NOT one of these —
+    // it took the int_typespec default above and its typespec IS located, at
+    // the whole declaration like every other untyped int one.)
+    bool untypedReal9 = !typedParam && !timeLitUntyped9 &&
+                        ps.getType().getCanonicalType().isFloating();
     if (!stringParam && !sharedAggTs && !untypedReal9)
         setLoc(its, tr);
     // A ranged untyped param (parameter [0:0] X) carries the packed range on
