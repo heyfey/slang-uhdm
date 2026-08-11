@@ -3166,6 +3166,22 @@ private:
     // vpiParameter + vpiParamAssign on the class_defn.
     void emitClassParameters(const slang::ast::ClassType& cls, UHDM::class_defn* cd,
                              const std::string& fullName);
+    // § arrayVarSignedWritten8 — whether an `array_var` (fixed, dynamic,
+    // queue or associative; class property, module variable or package
+    // variable) carries `vpiSigned:1`.  Golden puts signedness on the ARRAY,
+    // never on the `vpiReg` element var, and it keys on the element type AS
+    // WRITTEN AT THE DECLARATION, not on the resolved type: a typedef NAME
+    // gets NOTHING even when it names `byte`.  So the predicate is
+    //   (a) the declaration's own type is not itself a typedef NAME, AND
+    //   (b) the element type as written is an integer ATOM
+    //       (byte/shortint/int/longint/integer/time) or a bit/logic/reg
+    //       SCALAR or packed VECTOR — never an enum, struct, union, class
+    //       handle, string, real or typedef name, AND
+    //   (c) that written type is SIGNED.
+    // Measured on 122 arm cells with BOTH sides listed at OWN CHILD DEPTH; see
+    // tools/probe/r10oth8repro/README.md.  Three call sites share it.
+    static bool arraySignedWritten8(const slang::ast::Type& declaredWhole,
+                                    const slang::ast::Type& writtenElem);
     // The vpiReg element variable of a class-scope dynamic-array / queue /
     // assoc property, typed by the shared element typespec. Null when the
     // element type has no variable form here.

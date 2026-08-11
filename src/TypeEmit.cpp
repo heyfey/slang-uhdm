@@ -14141,7 +14141,15 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     const Type* leaf = &declared->getType().getCanonicalType();
     while (leaf->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
         leaf = &leaf->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
-    bool leafSigned = leaf->isSigned();
+    // NOTE § arrayVarSignedWritten8, the ADD half at the MODULE-SCOPE
+    // FIXED-SIZE site — the THIRD and widest-reach call site.  GATE: the shared
+    // `arraySignedWritten8` predicate (defined in UhdmExporter.cpp).  This too
+    // used to read `leaf->isSigned()` and over-fired on a typedef'd element:
+    // arm a7 cells h02 (`typedef byte b_t; b_t x[4];`) and h03, plus arm a8
+    // cell m06 (`tp::pb_t x[4];`), all golden `-` against our `1`.  The
+    // `h01`/`h05` written-keyword cells were and stay `1` on both sides, which
+    // is the POSITIVE control for this tightening.
+    bool leafSigned = arraySignedWritten8(declared->getType(), *leaf);
     auto* av = s.MakeArray_var();
     av->VpiName(name);
     av->VpiFullName(fullName);
@@ -14450,7 +14458,17 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
     av->VpiFullName(fullName);
     av->VpiParent(m);
     setLoc(av, nameSpan(sym.location, sym.name));
-    if (leaf->isSigned())
+    // NOTE § arrayVarSignedWritten8, the ADD half at the MODULE-SCOPE
+    // DYNAMIC / QUEUE / ASSOC site.  GATE: the shared `arraySignedWritten8`
+    // predicate (defined in UhdmExporter.cpp).  THIS LINE USED TO READ
+    // `leaf->isSigned()`, which resolves THROUGH a typedef and therefore
+    // OVER-FIRED: golden gives `typedef byte b_t; b_t x[];` no `vpiSigned` at
+    // all.  Measured refutation — arm a4 cells c01/c03/c04/c05/c06, arm a5
+    // cells e01/e03/e04/e05/e09, arm a8 cells m01/m02/m03 — all of which had
+    // golden `-` against our `1` before this change.  This was a SECOND LATENT
+    // DEFECT at the site the r10oth8 brief cited as the already-correct
+    // sibling; the brief's own arm (`byte x[]` only) could not see it.
+    if (arraySignedWritten8(declared->getType(), *leaf))
         av->VpiSigned(true);
     av->VpiRandType(1);
     av->VpiVisibility(1);
@@ -14514,7 +14532,12 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
             reg->VpiParent(av);
             reg->VpiFullName(fullName);
             setLoc(reg, nameSpan(sym.location, sym.name));
-            // Signedness rides the ARRAY here, not the element (measured).
+            // NOTE § arrayVarSignedWritten8, the SUPPRESS half.  GATE: NONE —
+            // unconditional, and golden's vpiReg element carries `vpiSigned` in
+            // ZERO of the 118 class-property / module-variable arm cells of
+            // tools/probe/r10oth8repro (it is the OPPOSITE at subroutine-local
+            // scope; see arm a9's n* negative control).  Signedness rides the
+            // ARRAY here, not the element (measured).
             reg->VpiSigned(false);
             if (elemTs) {
                 auto* rrt = s.MakeRef_typespec();

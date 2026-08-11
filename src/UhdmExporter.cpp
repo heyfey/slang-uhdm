@@ -808,6 +808,19 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                 av->VpiRandType(1);
             av->VpiVisibility(vis);
             av->VpiArrayType(akind);
+            // NOTE § arrayVarSignedWritten8, the ADD half.  GATE: the shared
+            // `arraySignedWritten8` predicate (declared above) — the element
+            // type AS WRITTEN must be a signed integer atom or a signed
+            // bit/logic/reg scalar/vector, and the property's own type must not
+            // itself be a typedef name.  Golden puts this on the ARRAY_VAR;
+            // ours used to put it only on the vpiReg element (see the SUPPRESS
+            // half a few lines below), which is a MOVE, not an add.
+            // WITNESS: SVSwitch Packet.sv:23 `rand byte data[];` — the head at
+            // base 8d4d6ed was `array_var (work@packet::data)` with golden
+            // carrying `|vpiSigned:1` and ours not.  `variables::Compare` reads
+            // VpiSigned, so it gates.
+            if (arraySignedWritten8(cp.getType(), *et))
+                av->VpiSigned(true);
             auto* ats = s.MakeArray_typespec();
             auto* art = s.MakeRef_typespec();
             art->VpiParent(av);
@@ -817,6 +830,22 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             reg->VpiParent(av);
             reg->VpiFullName(pfn);
             setLoc(reg, nameSpan(cp.location, cp.name));
+            // NOTE § arrayVarSignedWritten8, the SUPPRESS half.  GATE: NONE —
+            // it is UNCONDITIONAL, and that is a measurement, not a shortcut:
+            // across the 118 CLASS-PROPERTY and MODULE/PACKAGE-VARIABLE cells
+            // of tools/probe/r10oth8repro (every element kind, all four array
+            // kinds) golden's vpiReg element var carries `vpiSigned` in ZERO of
+            // them.  IT IS THE OPPOSITE AT SUBROUTINE/BLOCK-LOCAL SCOPE — arm
+            // a9 cells n01/n02/n03 show golden putting `vpiSigned:1` on the
+            // ELEMENT and nothing on the array_var there — which is why this
+            // law is scope-bound and TaskFuncEmit.cpp's `reg0->VpiSigned(true)`
+            // sites are deliberately left alone.  The value
+            // arrives here from `makeReturnVar`, which stamps
+            // `VpiSigned(pit.isSigned)` on an integer-atom var; for an UNSIGNED
+            // atom that is already false, so clearing changes nothing there.
+            // The module-scope twin does exactly this (TypeEmit.cpp, grep
+            // `Signedness rides the ARRAY here`).
+            reg->VpiSigned(false);
             // A PREDEFINED-INTEGER element takes the matching integer
             // typespec here rather than the write-phase mint, which would
             // read the property's own declared type and produce the vector
@@ -1214,6 +1243,64 @@ bool UhdmExporter::isSharedAliasTs(const Type& t, const UHDM::typespec* ts) {
     if (auto it2 = typedefTs.find(&t); it2 != typedefTs.end() && it2->second == ts)
         return true;
     return false;
+}
+
+// § arrayVarSignedWritten8 — the ONE predicate behind every `array_var`
+// `vpiSigned`, shared by the three sites that mint an array_var: this file's
+// class-property dynamic/queue/assoc arm (`emitClassDefn`), and TypeEmit.cpp's
+// `emitDynArrayVar` and `emitArrayVar`.
+//
+// GOLDEN'S RULE, transcribed from measurement and not guessed: signedness rides
+// the ARRAY_VAR and NEVER the `vpiReg` element var, and it keys on the element
+// type AS WRITTEN AT THE DECLARATION.  Surelog's compileVariable reaches a
+// written keyword type through its own datatype path and computes signedness
+// there; a type NAME resolves to a typespec instead and no signedness is ever
+// computed, so `typedef byte b_t; b_t x[];` gets NO `vpiSigned` while
+// `byte x[];` gets `vpiSigned:1`.  That is not an accident of $unit scope: a
+// PACKAGE typedef behaves identically whether it is reached by wildcard import
+// or written `pkg::name` (arm a8, cells k01/k02/k03 and m01/m02/m03/m06).
+//
+// THE KIND LIST IS NECESSARY, not decorative: an inline
+// `struct packed signed { byte a; }` element IS signed and golden still gives
+// the array_var nothing (arm a5 cells d09/e09), and an inline anonymous `enum`
+// likewise (a5 d01/e01).  A predicate of "written and signed" without the kind
+// list therefore over-fires on both.
+//
+// GATE (a) exists because `typedef byte barr_t[]; barr_t x;` — the whole ARRAY
+// through a typedef — gets no `vpiSigned` either, and golden gives that shape
+// no `vpiArrayType` at all (arm a5 cells d04/d05/e04/e05, an open residue of
+// its own).
+bool UhdmExporter::arraySignedWritten8(const Type& declaredWhole,
+                                       const Type& writtenElem) {
+    // (a) the array must be written at the declarator, not behind a typedef.
+    if (declaredWhole.kind == SymbolKind::TypeAlias)
+        return false;
+    // (b) the element type must be written as a builtin integral keyword.  A
+    // packed VECTOR qualifies only if the thing it packs is ALSO written as one,
+    // so the alias rejection of clause (a) RECURSES through the packed wrapper.
+    // Whitelisting PackedArrayType flatly would defeat clause (a): a written
+    // `b_t [3:0]` is a PackedArrayType whose own `elementType` is the TypeAlias,
+    // and `isSigned()` resolves STRAIGHT THROUGH it -- so the predicate would
+    // pierce exactly the typedef this law exists to exclude.  Measured on the
+    // v1_pkarrtd arm: `b_t [3:0] x[]` (v01/w01, `typedef byte b_t`) and
+    // `se_t [1:0] x[]` (v03/w03, a signed-enum typedef) are golden `-`, while
+    // `bit signed [7:0][3:0] x[]` (v02/w02) is golden `1` and is the POSITIVE
+    // control that the descent must not break.  Do NOT canonicalise while
+    // walking: canonicalising is what loses the alias.
+    const Type* wk = &writtenElem;
+    while (wk->kind == SymbolKind::PackedArrayType)
+        wk = &wk->as<PackedArrayType>().elementType;
+    switch (wk->kind) {
+        case SymbolKind::PredefinedIntegerType:  // byte/shortint/int/longint/integer/time
+        case SymbolKind::ScalarType:             // bit / logic / reg
+            break;
+        default:
+            return false;
+    }
+    // (c) and it must be SIGNED — by default for the integer atoms (LRM 6.11,
+    // which is why a census grepping for the literal `signed` keyword returns
+    // ~zero and proves nothing), by the keyword for the vectors.
+    return writtenElem.isSigned();
 }
 
 UHDM::variables* UhdmExporter::classElemVar(const Type& elemType) {
