@@ -2486,6 +2486,13 @@ private:
         const slang::ast::Symbol* sym;
         UHDM::ref_typespec* rt;
         DefInfo* di;
+        // § mergedPortDefRangeSymbolic — set ONLY for a split (Verilog-95)
+        // port/variable declaration, where `sym` is the BODY re-declaration
+        // (`reg [31:0] spr_dat_o`) but the def-view port typespec must be built
+        // from the PORT declaration (`output [dw-1:0] spr_dat_o`).  Passing it
+        // as makeTypespec's portCtx is what turns on that function's mergedPort
+        // branch in the deferred write-phase drain.
+        const slang::ast::PortSymbol* port = nullptr;
     };
     std::vector<PendingNetTs> pendingNetTs;
     // (target, source) ref_typespec pairs that must end up sharing ONE
@@ -2517,8 +2524,21 @@ private:
     bool defPortTsInterchangeable(const slang::ast::DefinitionSymbol& def);
     // anyParam widens the trigger to ANY parameter reference (a NON-TOP def
     // view keeps every param-ref dim symbolic, localparams included).
+    // synOverride replaces the symbol's own declared-type syntax as the source
+    // of the packed dims — § mergedPortDefRangeSymbolic passes the PORT
+    // DECLARATION's dataType for a split (Verilog-95) port/variable pair, where
+    // the two declarations carry DIFFERENT ranges and only the port's one is
+    // what the def-view port typespec shows.
     bool rangeRefsOverriddenParam(const slang::ast::Symbol& sym,
-                                  bool anyParam = false);
+                                  bool anyParam = false,
+                                  const slang::syntax::SyntaxNode* synOverride = nullptr);
+    // § mergedPortDefRangeSymbolic — the dataType syntax of the PORT
+    // DECLARATION (`output [dw-1:0] spr_dat_o;`) of a port whose net/variable
+    // is re-declared in the module body (`reg [31:0] spr_dat_o;`).  Null when
+    // the port is not such a split declaration or the declaration cannot be
+    // found.  Same search makeTypespec's mergedPort branch does.
+    const slang::syntax::SyntaxNode* mergedPortDeclTypeSyn9(
+        const slang::ast::PortSymbol& ps, const slang::ast::Symbol& internal);
     // True when the definition is instantiated as an ARRAY (arr[N] ())
     // anywhere in the design; cached per definition.
     bool defInstantiatedAsArray(const slang::ast::DefinitionSymbol& def);

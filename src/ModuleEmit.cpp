@@ -14069,11 +14069,50 @@ bool UhdmExporter::ifacePortParamHopRead(const Expression& e,
     return found;
 }
 
-bool UhdmExporter::rangeRefsOverriddenParam(const Symbol& sym, bool anyParam) {
+// § mergedPortDefRangeSymbolic (r10oth3) — find the PORT DECLARATION's dataType
+// syntax for a SPLIT (Verilog-95) port/variable pair.  A module may declare the
+// same name twice:
+//     output [dw-1:0]  spr_dat_o;      <- the port declaration, range reads dw
+//     reg    [31:0]    spr_dat_o;      <- the body variable, literal range
+// slang's PortSymbol::internalSymbol then points at the BODY declaration, so
+// every predicate that reads `internal->getDeclaredType()->getTypeSyntax()` sees
+// `[31:0]` and never learns that the port's own range is parameter-dependent.
+// This returns the port declaration's dataType so such a predicate can be asked
+// the right question; it is the same search makeTypespec's `mergedPort` branch
+// performs for the span.
+const syntax::SyntaxNode* UhdmExporter::mergedPortDeclTypeSyn9(
+    const PortSymbol& ps, const Symbol& internal) {
+    if (!hasBodyDecl(internal))
+        return nullptr;
+    auto* scope0 = internal.getParentScope();
+    const syntax::SyntaxNode* msyn0 = scope0 ? scope0->asSymbol().getSyntax() : nullptr;
+    if (!msyn0 || msyn0->kind != syntax::SyntaxKind::ModuleDeclaration)
+        return nullptr;
+    for (auto member : msyn0->as<syntax::ModuleDeclarationSyntax>().members) {
+        if (member->kind != syntax::SyntaxKind::PortDeclaration)
+            continue;
+        auto& pd = member->as<syntax::PortDeclarationSyntax>();
+        bool found = false;
+        for (auto dcl : pd.declarators)
+            if (dcl->name.valueText() == ps.name)
+                found = true;
+        if (!found)
+            continue;
+        if (pd.header->kind == syntax::SyntaxKind::VariablePortHeader)
+            return pd.header->as<syntax::VariablePortHeaderSyntax>().dataType;
+        if (pd.header->kind == syntax::SyntaxKind::NetPortHeader)
+            return pd.header->as<syntax::NetPortHeaderSyntax>().dataType;
+        return nullptr;
+    }
+    return nullptr;
+}
+
+bool UhdmExporter::rangeRefsOverriddenParam(const Symbol& sym, bool anyParam,
+                                           const syntax::SyntaxNode* synOverride) {
     auto dt0 = sym.getDeclaredType();
     if (!dt0)
         return false;
-    auto tsyn0 = dt0->getTypeSyntax();
+    auto tsyn0 = synOverride ? synOverride : dt0->getTypeSyntax();
     if (!tsyn0)
         return false;
     std::span<syntax::VariableDimensionSyntax* const> dims0;
@@ -14081,6 +14120,17 @@ bool UhdmExporter::rangeRefsOverriddenParam(const Symbol& sym, bool anyParam) {
         dims0 = its0->dimensions;
     else if (auto* imt0 = tsyn0->as_if<syntax::ImplicitTypeSyntax>())
         dims0 = imt0->dimensions;
+    else if (synOverride) {
+        // § mergedPortDefRangeSymbolic — the text-scanning fallback below reads
+        // `dt0->getType()` and `sym.location`, which describe the BODY
+        // re-declaration, not the overriding PORT declaration; mixing the two
+        // would scan the wrong text span.  A Verilog-95 port declaration is
+        // always an ImplicitType (`output [dw-1:0] x;`) or an IntegerType
+        // (`output reg [dw-1:0] x;`), both handled above, so refusing here
+        // costs nothing that has been witnessed.  NAMED-type split port
+        // declarations are residue, not a measured case.
+        return false;
+    }
     else {
         // Packed dims written after a NAMED type (`st_t [P-1:0] a`) live in
         // NEITHER syntax node (see scanDimSpans), so slang exposes no
@@ -14553,7 +14603,17 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 break;
             }
         bool savedTf0 = tfContext;
-        if (rangeRefsOverriddenParam(*pn.sym, nonTopDef0))
+        // § mergedPortDefRangeSymbolic (r10oth3) — for a SPLIT port/variable
+        // declaration the parameter-dependent range lives on the PORT
+        // declaration, which `pn.sym` (the body re-declaration) cannot see; ask
+        // the question against the port's own dataType instead.  pn.port is set
+        // ONLY by that law's site in emitPorts, so every other pending net keeps
+        // the pre-existing answer exactly.
+        const syntax::SyntaxNode* mpSynD9 =
+            pn.port ? mergedPortDeclTypeSyn9(*pn.port, *pn.sym) : nullptr;
+        if (rangeRefsOverriddenParam(*pn.sym, nonTopDef0) ||
+            (mpSynD9 &&
+             rangeRefsOverriddenParam(*pn.sym, nonTopDef0, mpSynD9)))
             tfContext = true;
         // A packed array over a VECTOR TYPEDEF (logic4 [1:0] v) needs the
         // anonymous-logic-ts branch of makeTypespec (Elem ref -> typedef, array
@@ -14578,7 +14638,12 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         }
         if (vectorTypedefArray)
             tfContext = false;
-        ts = makeTypespec(*pn.sym);
+        // § mergedPortDefRangeSymbolic — passing pn.port turns on makeTypespec's
+        // mergedPort branch, so the typespec is built from the PORT declaration
+        // (span 113:8-113:16, bound `dw-1`) instead of the body re-declaration's
+        // `[31:0]`.  pn.port is null for every pre-existing pending net, so this
+        // is a no-op outside the law's gate.
+        ts = makeTypespec(*pn.sym, nullptr, pn.port);
         tfContext = savedTf0;
         // The anonymous logic ts's Elem ref binds the BARE shared typedef;
         // Surelog instead points it at a fresh NAMED alias-clone (name, ranges,
@@ -16068,13 +16133,54 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                 for (auto ti0 : comp.getRoot().topInstances)
                     if (&ti0->getDefinition() == &body.getDefinition())
                         nonTopDefP = false;
+            // § mergedPortDefRangeSymbolic (r10oth3) — DIRECTION: ADD a case to
+            // this deferral.  GATE: a non-topView module def whose port is a
+            // SPLIT (Verilog-95) declaration — `output [dw-1:0] spr_dat_o;`
+            // plus a body `reg [31:0] spr_dat_o;` — and whose PORT
+            // DECLARATION's range (not the body re-declaration's) refs a
+            // parameter.  slang's internalSymbol is the BODY declaration, so
+            // rangeRefsOverriddenParam above sees the literal `[31:0]`, answers
+            // false, and the def-view port typespec gets FOLDED to `31` where
+            // golden(Surelog) keeps the written `dw-1` operation.
+            // WHY THE GATE IS NECESSARY (arm d2_splitdecl.v, one module per
+            // row, golden vs ours both read): row r6, the same port with NO
+            // body re-declaration, is ALREADY equal on both sides via the
+            // existing predicate, and row r2, the same split declaration in an
+            // UNINSTANTIATED (top) def, is equal too — so widening past
+            // "merged AND non-top" would change rows that already match.
+            // WITNESS: YosysOldOr or1200_du.v:113 `output [dw-1:0] spr_dat_o;`
+            // with `reg [31:0] spr_dat_o;` at :450 — LHS(golden) `operation`
+            // opType 11 over `ref_obj(dw)` + `constant UINT:1`, RHS(ours)
+            // `constant INT:31`.  Minimal triggering file set, found by
+            // b5_addfiles.sh: or1200_defines.v + or1200_du.v + or1200_top.v.
+            // NARROWED AT INTEGRATION (pass-49-era verifier's code-hygiene note,
+            // applied by the master).  These two were computed UNCONDITIONALLY,
+            // before the `!topView && module_inst` test below.  In the TOP view
+            // nonTopDefP is false, so rangeRefsOverriddenParam's anyParam
+            // early-out does NOT fire, and the patched binary performed an
+            // Expression::bind on a split port declaration's range bounds that
+            // the pre-patch binary never performed — plus an O(module-members)
+            // scan per merged port.  Empirically harmless (0 row changes, 0
+            // unexplained byte movers, no new diagnostics) but there is no
+            // reason to run it outside the gate, and guarding on the same
+            // condition strictly narrows the code that executes.
+            const syntax::SyntaxNode* mpSyn9 = nullptr;
+            bool mergedPortDim9 = false;
+            if (!topView && m->UhdmType() == UHDM::uhdmmodule_inst) {
+                mpSyn9 = mergedPortDeclTypeSyn9(ps, *internal);
+                mergedPortDim9 =
+                    mpSyn9 &&
+                    rangeRefsOverriddenParam(*internal, nonTopDefP, mpSyn9);
+            }
             if (!topView && m->UhdmType() == UHDM::uhdmmodule_inst &&
-                rangeRefsOverriddenParam(*internal, nonTopDefP)) {
+                (rangeRefsOverriddenParam(*internal, nonTopDefP) ||
+                 mergedPortDim9)) {
                 auto* rt = s.MakeRef_typespec();
                 rt->VpiFullName(prefix + "." + std::string(ps.name));
                 rt->VpiParent(p);
                 p->Typespec(rt);
-                pendingNetTs.push_back({internal, rt, &defMap[&body.getDefinition()]});
+                pendingNetTs.push_back({internal, rt, &defMap[&body.getDefinition()],
+                                        mergedPortDim9 ? &ps : nullptr});
             }
             else {
                 UHDM::typespec* ts = nullptr;
