@@ -8933,9 +8933,56 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // heads + 2 TopPackages — the biggest remaining class —
                 // are aes_sbox_canright_pkg's aes_mul_gf2p4, called only
                 // from always_comb bodies.
-                if (!currentSubSym && contAssignView != 1 && parent &&
-                    parent->UhdmType() == UHDM::uhdmcont_assign)
-                    liveCalledSubs.insert(&sub);
+                // § parensLessFuncRefIsRefObj — SITE 2 of 2 of this pass's
+                // parentheses law, and the SVSwitch head § parensLessCallIsPathRefObj
+                // uncovered.  A RECEIVER-LESS reference to a FUNCTION written
+                // WITHOUT an argument list (`cal_fcs`, SVSwitch Packet.sv:65 /
+                // :77 / :91) is not a call to Surelog either: it is a plain
+                // scope-scoped `ref_obj` spanning the NAME TOKEN, with no
+                // vpiFunction bind.  The identical call WITH parens — even
+                // EMPTY parens, `zero()` — stays a func_call, and a TASK in
+                // statement position (`void_t;`) stays a task_call whether or
+                // not the parens are written.  All seven cells measured side by
+                // side on ONE golden in arm s7_recvless.sv; `realIsFunc18` is
+                // the gate that keeps tasks out (`isFunc` is coerced to true
+                // above for the def-gen / no-bind paths and would mis-classify
+                // a task_call here).
+                // The liveCalledSubs bookkeeping above is deliberately LEFT
+                // RUNNING before this early return: reachability is a property
+                // of the call site, not of the object class we emit for it.
+                // THE TEST IS ON THE SOURCE TEXT, NOT ON expr.syntax — see
+                // § parensLessSyntaxKindRefuted at the site-1 comment: inside a
+                // CAST the syntax pointer is not the invocation, and this exact
+                // site is where that cost four u2r rows.  The gate is the
+                // TIGHTEST form of the observation: the call's whole source text
+                // is EXACTLY the subroutine name, so `zero()` (empty parens),
+                // `one(4)` and `pkg::f` are all excluded.
+                // STATEMENT-POSITION GATE, ADDED AT INTEGRATION (the verifier's
+                // F1, and it was a REGRESSION from a cell that already matched
+                // golden).  `realIsFunc18` keeps TASKS out but nothing kept
+                // STATEMENTS out, and the law is about EXPRESSION position: a
+                // parens-less FUNCTION called as a whole statement (`zero;`) is
+                // a `func_call` in golden, exactly as `zero();` is.  Arm
+                // v1_stmtfunc.sv cell 1 is the witness (golden and pristine both
+                // `func_call: (zero) 15:5-15:9`; without this clause we emitted
+                // `ref_obj: (work@sf::g::zero)`).  s7_recvless measured a
+                // parens-less TASK in statement position and a parens-less
+                // FUNCTION in expression position — the product cell was the
+                // empty square of the grid, and it was the only one with no
+                // guard.  `callStmtCtx0` and NOT `callStmtContext`: the flag is
+                // saved and CLEARED at the top of this `case` (grep
+                // `callStmtCtx0 = callStmtContext`), so by here the member is
+                // always false and reading it would be a guard that cannot fire.
+                if (realIsFunc18 && !callStmtCtx0 &&
+                    rawText(expr.sourceRange) == sub.name) {
+                    auto* rf9 = s.MakeRef_obj();
+                    rf9->VpiName(sub.name);
+                    rf9->VpiFullName(joinRef(prefix, std::string(sub.name)));
+                    rf9->VpiParent(parent);
+                    setLoc(rf9,
+                           nameSpan(expr.sourceRange.start(), sub.name));
+                    return rf9;
+                }
                 fc->VpiName(sub.name);
                 fc->VpiParent(parent);
                 // Param-init calls and LHS bit-select INDEX calls
@@ -9870,6 +9917,50 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     call.subroutine)
                                     .getIteratorInfo()
                                     .first;
+                        // § parensLessCallIsPathRefObj — SITE 1 of 1.  THE
+                        // PARENTHESES ARE THE WHOLE DISCRIMINATOR.  A built-in
+                        // method written WITHOUT an argument list (`data.size`,
+                        // `s.len`, `e.name`, `q.pop_front`) is NOT a call to
+                        // Surelog at all: the last path element of the enclosing
+                        // hier_path is a REF_OBJ named for the method, carrying
+                        // the ordinary § prefix-scoped fullname, and the
+                        // hier_path SPAN runs to the END OF THE METHOD NAME.
+                        // The identical method WITH parens (`data.size()`) keeps
+                        // the method_func_call element and the span slang gives.
+                        // slang's own range for the parens-less form covers only
+                        // the RECEIVER (`data`, 48:17-48:21 where golden spans
+                        // 48:17-48:26), so the span must be rebuilt from the
+                        // method token, not taken from expr.sourceRange.
+                        // Arms s1/s2/s3/s4/s6 in tools/probe/r10svs2repro;
+                        // s1 pairs the witness with its parens-ful positive
+                        // control on one golden.
+                        // THE TEST IS ON THE SOURCE TEXT, NOT ON expr.syntax.
+                        // § parensLessSyntaxKindRefuted — a syntax-kind test
+                        // (`expr.syntax->kind != InvocationExpression`) READS
+                        // FALSE-POSITIVE INSIDE A CAST and cost this pass four
+                        // u2r rows: `int'(mubi4_hi_value())` (FunctionReturnEnum),
+                        // `int'(iota('1))` (BitSelectPartSelectInFunction),
+                        // `int'(get_1s())` (FunctionWithOverriddenParameter) and
+                        // `int'(get_BA())` (ReturnEnumArray) all carry WRITTEN
+                        // parens — `iota('1)` even carries an ARGUMENT — yet
+                        // their CallExpression's syntax pointer is NOT the
+                        // InvocationExpressionSyntax, so all four were
+                        // mis-classified parens-less and all four went
+                        // CMP_EQUAL -> CMP_NOTEQUAL.  This is the same
+                        // unreliability Expression.cpp:872-881 documents for
+                        // let-decl expansion.  expr.sourceRange, by contrast, is
+                        // exact in both regimes and IS the anomaly that
+                        // identifies the parens-less form: for `data.size()` it
+                        // spans the whole call (25:21-25:32) while for the
+                        // parens-less `data.size` it collapses onto the RECEIVER
+                        // ALONE (16:21-16:25 == recvText).  That equality is the
+                        // gate, and it is deliberately the TIGHT direction: a
+                        // receiver whose own text contains a `(` reads
+                        // parens-ful and keeps the pre-existing behaviour.
+                        bool parensLess9 =
+                            !withExpr9 &&
+                            rawText(expr.sourceRange) == recvText;
+                        auto mStart9 = recv->sourceRange.end() + 1;
                         auto* hp = s.MakeHier_path();
                         std::string dotted =
                             withExpr9 ? recvText : recvText + "." + name;
@@ -9878,10 +9969,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         hp->VpiParent(parent);
                         // slang's call range stops at the `)` of the method;
                         // Surelog's runs through the with-clause's own `)`.
-                        setLoc(hp, withExpr9
-                                       ? SourceRange(expr.sourceRange.start(),
-                                                     withExpr9->sourceRange.end() + 1)
-                                       : expr.sourceRange);
+                        setLoc(hp,
+                               withExpr9
+                                   ? SourceRange(expr.sourceRange.start(),
+                                                 withExpr9->sourceRange.end() + 1)
+                               : parensLess9
+                                   ? SourceRange(expr.sourceRange.start(),
+                                                 mStart9 + name.size())
+                                   : expr.sourceRange);
                         auto* elems = s.MakeAnyVec();
                         // ONE ref_obj per dotted name (o.cn.constraint_mode ->
                         // ref_obj o, ref_obj cn, method_func_call
@@ -9898,6 +9993,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             setLoc(r0, SourceRange(nmStart0, nmStart0 + dn0.size()));
                             elems->push_back(r0);
                             nmStart0 = nmStart0 + dn0.size() + 1;
+                        }
+                        // § parensLessCallIsPathRefObj — the class swap.  A
+                        // parens-less built-in has NO arguments by construction,
+                        // so nothing below this point (args, iterator, `with`)
+                        // can apply; the element is emitted and the path closed
+                        // here.  The fullname is the ORDINARY § prefix join, and
+                        // that is what makes golden's three different fullname
+                        // regimes fall out with no extra rule: scope-scoped in a
+                        // for-condition / rvalue / $display argument
+                        // (work@cx::f::size), ARRAY-scoped inside an index of
+                        // that array (work@cx::f::bytes::size), and NAME-ONLY
+                        // inside a `new[...]` size (golden `ref_obj: (size)`).
+                        // Measured cell by cell in arm s4.
+                        if (parensLess9) {
+                            auto* rq9 = s.MakeRef_obj();
+                            rq9->VpiName(name);
+                            rq9->VpiFullName(joinRef(prefix, name));
+                            rq9->VpiParent(hp);
+                            setLoc(rq9,
+                                   SourceRange(mStart9, mStart9 + name.size()));
+                            elems->push_back(rq9);
+                            hp->Path_elems(elems);
+                            return hp;
                         }
                         auto* mfc = s.MakeMethod_func_call();
                         mfc->VpiName(name);
