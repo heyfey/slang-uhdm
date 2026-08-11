@@ -147,8 +147,8 @@ BlackConst,default,CMP_EQUAL,,,differ
 BlackConst,testflags,CMP_EQUAL,,,differ
 BlackParrot,default,SURELOG_FAIL,[   NOTE] : 0,,
 BlackParrot,testflags,SURELOG_FAIL,[   NOTE] : 0,,
-BlackParrotComplex,default,CMP_NOTEQUAL,decompile:,,
-BlackParrotComplex,testflags,CMP_NOTEQUAL,decompile:,,
+BlackParrotComplex,default,CMP_EQUAL,,,differ
+BlackParrotComplex,testflags,CMP_EQUAL,,,differ
 BlackParrotConf,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BlackParrotConf/dut.sv:5500:5: error: use of undeclared identifier 'bp_bedrock_cmd_type_e'; did you mea,,
 BlackParrotConf,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BlackParrotConf/dut.sv:5500:5: error: use of undeclared identifier 'bp_bedrock_cmd_type_e'; did you mea,,
 BlackParrotMuteErrors,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BlackParrotMuteErrors/dut.sv:575:5: error: unknown class or package 'lc_ctrl_pkg',,

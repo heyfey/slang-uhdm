@@ -8080,9 +8080,118 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // 64), and a fold that READS one inherits that size.
                     // Literal-arithmetic folds keep 64 — only reads of an
                     // already-elaborated constant carry the narrower size.
+                    //
+                    // NOTE (§ unpElemSelKeeps64, r10oth2) — ...EXCEPT off an
+                    // UNPACKED-ARRAY parameter whose element literals are
+                    // UNSIZED.  Surelog's reduce hands back the ELEMENT
+                    // CONSTANT OBJECT itself, and that object is still the
+                    // unsized `1`/`2`/`3` it was built from — size 64.
+                    // DIRECTION: REMOVE this case from elabRefFold9 (the
+                    // fall-through `: 64` is then already right).
+                    // GATE, and why each half is NECESSARY — measured on
+                    // tools/probe/r10oth2repro/a4_selfold_width.v, ELAB view,
+                    // one localparam per row, nothing else varied:
+                    //   parameter int UA[0:2]={1,2,3};  UA[2] -> UINT:3  sz 64
+                    //   parameter logic[7:0] PV=8'hAB;  PV[3] -> BIN:1   sz 1
+                    //   parameter      [7:0] PU=8'hAB;  PU[3] -> BIN:1   sz 1
+                    //   parameter bit[1:0][2:0] PA;     PA[0] -> BIN:1   sz 1
+                    //   PV[3:0]                               -> BIN:1011 sz 4
+                    //   NB / NC / PV bare                     -> sz 32/32/8
+                    // so the PACKED select rows all keep elabRefFold9's answer
+                    // (the reading param's own width coincides with the select
+                    // width there) and only the UNPACKED-ARRAY element differs
+                    // — hence the FixedSizeUnpackedArrayType half.
+                    // The UNSIZED-ELEMENT half is necessary because the same
+                    // arm measured the other spelling and golden DEGENERATES on
+                    // it rather than following the object-identity model:
+                    //   parameter logic[7:0] UC[0:2]={8'h1,8'h2,8'h3};
+                    //                                   UC[2] -> BIN:0 sz 1 (!)
+                    //   parameter int UD[0:2]={32'd1,32'd2,32'd3};
+                    //                                   UD[2] -> BIN:0 sz 1 (!)
+                    // Golden's own VALUE there is 0, i.e. Surelog fails to
+                    // reduce a SIZED-element unpacked select at all, so no rule
+                    // can match those two cells; the gate deliberately leaves
+                    // them at the pre-r10oth2 answer instead of trading one
+                    // wrong width for another.
+                    // ...and the THIRD half, which BlackParrotComplex hands over
+                    // ready-made: THE BRACE DECIDES.  The test writes both
+                    // spellings six lines apart —
+                    //   dut.sv:69 module middle  parameter int A3[0:2]='{1,2,3};
+                    //             :70            parameter A = A3[0];
+                    //   dut.sv:81 module bottom  parameter int A3[0:2]= {1,2,3};
+                    //             :82            parameter A = A3[2];
+                    // — and golden's two elab folds DISAGREE: line 70 is
+                    // UINT:1 size 32, line 82 is UINT:3 size 64.  Reproduced in
+                    // the arm as rows s_up (`'{`) -> 32 and s_ua (`{`) -> 64.
+                    // A CONCATENATION keeps the raw unsized element constants;
+                    // an assignment PATTERN goes through Surelog's
+                    // reorderAssignmentPattern and is re-typed to the ELEMENT
+                    // type.  My first implementation accepted both braces and
+                    // REGRESSED line 70 from right to wrong — that regression is
+                    // what named this half of the gate.
+                    // Witness for the whole law: BlackParrotComplex dut.sv:82
+                    // `parameter A = A3[2];` off `parameter int A3[0:2] =
+                    // {1, 2, 3}` — golden UINT:3 size 64, we emitted size 32.
+                    bool unpElemSel9 = false;
+                    {
+                        const Expression* r8 = &scv;
+                        bool sawElemSel8 = false;
+                        for (;;) {
+                            if (r8->kind == ExpressionKind::Conversion) {
+                                r8 = &stripImplicitConv(
+                                    r8->as<ConversionExpression>().operand());
+                                continue;
+                            }
+                            if (r8->kind == ExpressionKind::ElementSelect) {
+                                sawElemSel8 = true;
+                                r8 = &stripImplicitConv(
+                                    r8->as<ElementSelectExpression>().value());
+                                continue;
+                            }
+                            if (r8->kind == ExpressionKind::RangeSelect) {
+                                r8 = &stripImplicitConv(
+                                    r8->as<RangeSelectExpression>().value());
+                                continue;
+                            }
+                            break;
+                        }
+                        if (sawElemSel8 &&
+                            r8->kind == ExpressionKind::NamedValue) {
+                            auto& bs8 = r8->as<NamedValueExpression>().symbol;
+                            if (bs8.kind == SymbolKind::Parameter &&
+                                bs8.getType().getCanonicalType().kind ==
+                                    SymbolKind::FixedSizeUnpackedArrayType)
+                                if (auto* bi8 = bs8.as<ParameterSymbol>()
+                                                    .getInitializer()) {
+                                    auto& sb8 = stripImplicitConv(*bi8);
+                                    // THE BRACE IS THE WHOLE RULE — see the
+                                    // `'{` / `{` measurement in the note above.
+                                    // A SimpleAssignmentPattern must NOT be
+                                    // accepted here.
+                                    std::span<const Expression* const> els8;
+                                    if (sb8.kind ==
+                                        ExpressionKind::Concatenation)
+                                        els8 = sb8.as<ConcatenationExpression>()
+                                                   .operands();
+                                    bool allUnsized8 = !els8.empty();
+                                    for (auto* el8 : els8) {
+                                        auto& se8 = stripImplicitConv(*el8);
+                                        if (se8.kind !=
+                                                ExpressionKind::IntegerLiteral ||
+                                            rawTextLit(se8).find('\'') !=
+                                                std::string::npos) {
+                                            allUnsized8 = false;
+                                            break;
+                                        }
+                                    }
+                                    unpElemSel9 = allUnsized8;
+                                }
+                        }
+                    }
                     bool elabRefFold9 =
                         topView && !typedParam && !defUntypedImport &&
                         !rangedFold && !sizeCastVal && !concatFold &&
+                        !unpElemSel9 &&
                         ps.getType().getCanonicalType().isIntegral() && [&] {
                             const Expression* r9 = &scv;
                             for (;;) {

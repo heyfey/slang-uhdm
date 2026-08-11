@@ -1085,6 +1085,164 @@ const Expression* UhdmExporter::unpackedParamPatternLeaf(const Expression& sel) 
     return pat;
 }
 
+// § srlgUnbasedReduceBail (r10oth2, DIRECTION A = golden FOLDS, we did not).
+//
+// Models WHEN Surelog's reducer actually gives up on an expression containing an
+// unbased-unsized literal ('0 / '1 / 'x / 'z).  Such a literal becomes, in
+// Surelog, a `constant` with **VpiSize() == -1** and VpiValue "BIN:0"/"BIN:1"/
+// "BIN:X"/"BIN:Z", and only TWO things in UHDM's ExprEval then fail.  Both are
+// transcribed from Surelog/third_party/UHDM/templates/ExprEval.cpp:
+//
+//   (1) THE SHIFTS, and only the shifts, reject an unsized LEFT operand.
+//       `case vpiArithLShiftOp: case vpiLShiftOp:` (:3137) and
+//       `case vpiArithRShiftOp: case vpiRShiftOp:` (:3050) both open with
+//           expr* arg0 = reduceExpr(operands[0], ...);
+//           if (arg0 && arg0->UhdmType() == uhdmconstant)
+//               if (((constant*)arg0)->VpiSize() == -1) invalidValue = true;
+//       The shift AMOUNT (operands[1]) is NOT checked, so `8 << '0` folds while
+//       `'0 << 8` does not — measured, arm A2 rows s5 vs r1/s3/s4/s6.
+//
+//   (2) An UNKNOWN unbased literal poisons any operator that reads its VALUE.
+//       `get_value` (:1946) / `get_uvalue` (:2057) parse a vpiBinaryConst with
+//       NumUtils::parseBinary and, with `strict` defaulted to TRUE
+//       (ExprEval.h:97/99), set invalidValue when the parse fails — which it
+//       does for any X or Z digit.  '0 and '1 parse fine and fold.  Measured:
+//       `'0 + 1` -> UINT:1, `'X + 1` -> operation (A1 r6 vs r5).
+//
+// NEITHER failure is syntactic, which is the whole point of the law:
+//   * `case vpiConditionOp:` (:3763) reduces the CONDITION, then reduces ONLY
+//     THE SELECTED ARM.  An 'X (or an unfoldable shift) in the UNTAKEN arm is
+//     never read, so the ternary folds — arm A1 r2/r4, arm A3 n2.  This is
+//     exactly why BlackParrotComplex's localparam folds in golden.
+//   * `case vpiConcatOp:` (:3882) walks BITS instead of calling get_value, so a
+//     concat over 'X folds to a BIN constant with X bits — arm A2 u5.
+//
+// The walk therefore mirrors the reducer instead of scanning the syntax.  Every
+// expression kind NOT modelled here keeps the PRE-r10oth2 answer (bail), so the
+// change is a strict NARROWING: it can only ever ADD folds, never remove one.
+namespace {
+struct SrlgUnbasedRed {
+    bool bails = false;    // Surelog's reduce would set invalidValue
+    bool unsized = false;  // reduces to a constant with VpiSize() == -1
+    bool unknown = false;  // reduces to a value carrying X/Z bits
+};
+}  // namespace
+
+// True when an unbased-unsized literal is WRITTEN anywhere inside `e`.  Used
+// both as the law's precondition and as the conservative default for a shape
+// the reduce model does not cover.
+static bool srlgHasUnbasedLit(const Expression& e) {
+    bool hit = false;
+    e.visit(makeVisitor([&](auto& v, const UnbasedUnsizedIntegerLiteral& u) {
+        hit = true;
+        v.visitDefault(u);
+    }));
+    return hit;
+}
+
+static SrlgUnbasedRed srlgUnbasedReduce(Compilation& comp, const Expression& e0,
+                                        int depth) {
+    SrlgUnbasedRed r;
+    const Expression& e = stripImplicitConv(e0);
+    // No unbased literal in this subtree: nothing here can trip either rule,
+    // and the whole predicate is only ever consulted on a tree that has one.
+    if (!srlgHasUnbasedLit(e))
+        return r;
+    if (depth > 24) {
+        r.bails = true;
+        return r;
+    }
+    auto rec = [&](const Expression& sub) {
+        return srlgUnbasedReduce(comp, sub, depth + 1);
+    };
+    switch (e.kind) {
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral: {
+            r.unsized = true;
+            r.unknown = e.as<UnbasedUnsizedIntegerLiteral>()
+                            .getLiteralValue()
+                            .isUnknown();
+            return r;
+        }
+        case ExpressionKind::ConditionalOp: {
+            auto& co = e.as<ConditionalExpression>();
+            // Only the plain single-predicate form is modelled; a pattern
+            // condition keeps the pre-r10oth2 answer.
+            if (co.conditions.size() != 1 || co.conditions[0].pattern) {
+                r.bails = true;
+                return r;
+            }
+            auto& pred = *co.conditions[0].expr;
+            // `get_value(invalidValue, cond); if (invalidValue) break;` — an
+            // unresolvable condition is itself a bail, and so is one poisoned
+            // by rule (2).
+            auto pi = rec(pred);
+            if (pi.bails || pi.unknown) {
+                r.bails = true;
+                return r;
+            }
+            ASTContext cx(comp.getRoot(), LookupLocation::max);
+            ConstantValue pv = cx.tryEval(pred);
+            if (!pv || !pv.isInteger() || pv.integer().hasUnknown()) {
+                r.bails = true;
+                return r;
+            }
+            // ...and then ONLY the selected arm is reduced.  Its shape passes
+            // through unchanged — arm A3 c1 proves a size(-1) arm is NOT
+            // re-encoded (`((a<b) ? '0 : '1) << 1` still refuses to fold).
+            return rec(pv.isTrue() ? co.left() : co.right());
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& be = e.as<BinaryExpression>();
+            auto li = rec(be.left());
+            auto ri = rec(be.right());
+            bool shift = be.op == BinaryOperator::LogicalShiftLeft ||
+                         be.op == BinaryOperator::LogicalShiftRight ||
+                         be.op == BinaryOperator::ArithmeticShiftLeft ||
+                         be.op == BinaryOperator::ArithmeticShiftRight;
+            if (shift)
+                // Rule (1): the size(-1) test is on operands[0] ONLY.  The
+                // amount still goes through get_value, hence ri.unknown.
+                r.bails = li.bails || ri.bails || li.unsized || li.unknown ||
+                          ri.unknown;
+            else
+                // Every other binary operator reads both operands' VALUES.
+                r.bails = li.bails || ri.bails || li.unknown || ri.unknown;
+            return r;  // the result constant is sized and known
+        }
+        case ExpressionKind::UnaryOp: {
+            auto oi = rec(e.as<UnaryExpression>().operand());
+            r.bails = oi.bails || oi.unknown;
+            return r;
+        }
+        case ExpressionKind::Concatenation: {
+            // Rule (2) does NOT apply here: vpiConcatOp assembles BITS, so X/Z
+            // survive into a BIN constant instead of failing a parse.  The
+            // unknownness therefore PROPAGATES to the result rather than
+            // bailing — arm A2 u5 `{'X, 1'b1}` -> BIN:X1 size 2.
+            for (auto* op : e.as<ConcatenationExpression>().operands()) {
+                auto oi = rec(*op);
+                r.bails = r.bails || oi.bails;
+                r.unknown = r.unknown || oi.unknown;
+            }
+            return r;
+        }
+        case ExpressionKind::Replication: {
+            // vpiMultiConcatOp (:3797) DOES run the repeat COUNT through
+            // get_value, so an unknown count bails; the replicated value is
+            // assembled bitwise like a concat.
+            auto ci = rec(e.as<ReplicationExpression>().count());
+            auto vi = rec(e.as<ReplicationExpression>().concat());
+            r.bails = ci.bails || ci.unknown || vi.bails;
+            r.unknown = vi.unknown;
+            return r;
+        }
+        default:
+            // Not modelled — keep the pre-r10oth2 refusal.
+            r.bails = true;
+            return r;
+    }
+}
+
 UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* typedConv,
                                       bool paramCtx) {
     // Surelog's netlist elaboration re-compiles top-view cont_assign
@@ -1161,21 +1319,32 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
             }
         }
     }
-    // Expressions CONTAINING unbased-unsized literals ('0 << 8) never fold:
-    // Surelog's folded model re-emits the operation.
+    // NOTE (§ srlgUnbasedReduceBail, r10oth2) — this used to refuse EVERY
+    // operation containing an unbased-unsized literal, on the strength of the
+    // one witness `'0 << 8`.  Golden REFUTES the generalisation: on a
+    // purpose-built 12-row golden (tools/probe/r10oth2repro/a1_unbased_fold.v)
+    // Surelog's ELABORATED view folds 10 of the 12 and refuses exactly two, and
+    // the 21-row a2 / 14-row a3 arms pin the reason to two ExprEval bails —
+    // an unsized LEFT shift operand, and get_value on an X/Z binary constant.
+    // See srlgUnbasedReduce above for the transcription.
+    //
+    // GATE, and why every clause is NECESSARY: the precondition (an unbased
+    // literal written in the tree, top level one of the four operation kinds)
+    // is UNCHANGED, so this is a pure NARROWING — it can only add folds.  The
+    // added clause is the reduce model.  Witness for the ADD:
+    // BlackParrotComplex's `output_dirs_sparse_lp`, a BinaryOp whose ternary
+    // holds `'X` in the UNTAKEN arm; golden's elab view folds it to
+    // `UINT:5 size 64 vpiUIntConst` and its DEF view keeps the whole operation
+    // — which we ALREADY matched, so the defect was elab-only.
     {
-        bool hasUnbased = false;
-        expr.visit(makeVisitor([&](auto& v, const UnbasedUnsizedIntegerLiteral& u) {
-            hasUnbased = true;
-            v.visitDefault(u);
-        }));
-        // Only OPERATIONS over unbased literals stay unfolded (casts and
+        // Only OPERATIONS over unbased literals can stay unfolded (casts and
         // direct literals still fold — param defaults/size casts re-encode).
         auto k0 = stripImplicitConv(expr).kind;
-        if (hasUnbased &&
-            (k0 == ExpressionKind::BinaryOp || k0 == ExpressionKind::UnaryOp ||
+        if ((k0 == ExpressionKind::BinaryOp || k0 == ExpressionKind::UnaryOp ||
              k0 == ExpressionKind::ConditionalOp ||
-             k0 == ExpressionKind::Concatenation))
+             k0 == ExpressionKind::Concatenation) &&
+            srlgHasUnbasedLit(expr) &&
+            srlgUnbasedReduce(comp, expr, 0).bails)
             return nullptr;
     }
     ASTContext ctx(comp.getRoot(), LookupLocation::max);
