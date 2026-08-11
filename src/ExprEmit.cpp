@@ -355,6 +355,222 @@ static bool inClassScope12(const slang::ast::Symbol& sym) {
     return false;
 }
 
+// § staticScopedChainDrops48 — the `::` SCOPE NAME at the root of a chain's
+// SYNTAX, or null.  It has to come from the syntax of the WHOLE chain, not from
+// the base sub-expression: slang leaves a chained base's `syntax` NULL (measured
+// — every `steps>=1` base in t67a printed `syn=-1`), so § scopedNameSyntax12 on
+// the base cannot see the `::` at all and the first cut of this law reached
+// NOTHING.  `a::b.c.d(x)` parses as InvocationExpression(ScopedName(Dot, ...,
+// ScopedName(::, a, b)...)) and `a::b[i]` as ElementSelectExpression over the
+// same `::` node, so the walk descends `left` through invocations, selects and
+// DOT-separated scoped names and stops at the first DOUBLE-COLON one.
+static const slang::syntax::NameSyntax* scopedChainRootName48(
+    const slang::syntax::SyntaxNode* n) {
+    using SK = slang::syntax::SyntaxKind;
+    for (int g = 0; g < 32 && n; g++) {
+        switch (n->kind) {
+            case SK::ParenthesizedExpression:
+                n = n->as<slang::syntax::ParenthesizedExpressionSyntax>()
+                        .expression;
+                continue;
+            case SK::InvocationExpression:
+                n = n->as<slang::syntax::InvocationExpressionSyntax>().left;
+                continue;
+            case SK::ElementSelectExpression:
+                n = n->as<slang::syntax::ElementSelectExpressionSyntax>().left;
+                continue;
+            case SK::ScopedName: {
+                auto& sn48 = n->as<slang::syntax::ScopedNameSyntax>();
+                if (sn48.separator.kind ==
+                    slang::parsing::TokenKind::DoubleColon)
+                    return &n->as<slang::syntax::NameSyntax>();
+                if (sn48.separator.kind != slang::parsing::TokenKind::Dot)
+                    return nullptr;
+                n = sn48.left;
+                continue;
+            }
+            default:
+                return nullptr;
+        }
+    }
+    return nullptr;
+}
+
+// § staticScopedLvalueBad48 — whether this emission really IS an assignment
+// TARGET and not merely something emitted while `inLhs` is set.  `inLhs` stays
+// true for the whole lvalue subtree, INDEX EXPRESSIONS INCLUDED, and t67e I4
+// (`arr[base67::stat.hval] = 3;`) proves the placeholder does NOT reach that
+// far: golden puts the READ form there — `ref_obj base67::stat`@46:11-19 as the
+// bit_select's vpiIndex — while the lvalue ROOT of the same statement is the
+// bit_select itself.  So the gate is the PARENT: only the object the assignment
+// hangs its Lhs on becomes `@@BAD_SYMBOL@@`.  A concatenation lvalue
+// (`{a, base67::x} = y`) has no golden yet and takes the READ form, which is
+// I4's answer rather than a guess.
+static bool assignTargetParent48(const UHDM::BaseClass* p) {
+    if (!p)
+        return false;
+    switch (p->UhdmType()) {
+        case UHDM::uhdmassignment:
+        case UHDM::uhdmassign_stmt:
+        case UHDM::uhdmcont_assign:
+            return true;
+        default:
+            return false;
+    }
+}
+
+// § staticScopedChainDrops48 — the BASE of a `::`-rooted `.member` / select /
+// `.method(...)` CHAIN, or null when there is no such chain.  Surelog's
+// expression compiler never resolves THROUGH a `::` scope, so everything hung
+// off such a reference — members, element selects, the call and its whole
+// argument list — is DISCARDED and the base reference alone survives, in EVERY
+// position (t67a/t67b/t67c/t67d, both sides of every cell).  This is the
+// CLASS-SCOPE half of the collapse `isPkgQualifiedVarRef` already documents for
+// a package-qualified variable; the two share this walk.
+//
+// THREE gates, each one named by an arm cell that fails without it:
+//   * the reference must be WRITTEN with `::` and split by
+//     § splitScopedName12 — t67c G9 writes the IDENTICAL chain unqualified
+//     (`stat.scope.set_arg(nm)`) from inside the declaring class and golden
+//     keeps the full method_func_call/prefix shape there;
+//   * the referent must be one the BARE arms already spell `first::last`:
+//     declared in a CLASS (§ staticScopedRef12) or a package VARIABLE written
+//     with its own package as the first segment (see the second half of this
+//     function, and why it is NOT `isPkgQualifiedVarRef`).  t67c G1
+//     (`p67::PCFG.a`, a package PARAMETER
+//     struct member) keeps a RESOLVED hier_path bound to the parameter and
+//     t67b E2 (`p67::PARR[1]`) keeps its bit_select, so a package PARAMETER
+//     must not collapse; t67c G10 (`p67::E1.name()`, a package ENUM CONSTANT)
+//     is FOLDED to a constant by golden, not collapsed, so it must not either;
+//   * there must be at least ONE step — a bare `base67::sint` is
+//     § staticScopedRef12's own arm and is already correct.
+// A call with a NULL thisClass (`p67::pf67(nm)`, `base67::sfunc()`) is not a
+// chain at all: t67b D1..D4 keep their func_call / staticScopedCall12 ref on
+// BOTH sides and this walk never reaches them.
+const slang::ast::Expression* UhdmExporter::scopedChainDropBase48(
+    const slang::ast::Expression& e) {
+    using slang::ast::ExpressionKind;
+    const slang::ast::Expression* cur = &stripImplicitConv(e);
+    int steps48 = 0;
+    for (int g = 0; g < 16; g++) {
+        if (cur->kind == ExpressionKind::MemberAccess) {
+            cur = &stripImplicitConv(
+                cur->as<slang::ast::MemberAccessExpression>().value());
+            steps48++;
+            continue;
+        }
+        if (cur->kind == ExpressionKind::ElementSelect) {
+            cur = &stripImplicitConv(
+                cur->as<slang::ast::ElementSelectExpression>().value());
+            steps48++;
+            continue;
+        }
+        if (cur->kind == ExpressionKind::RangeSelect) {
+            cur = &stripImplicitConv(
+                cur->as<slang::ast::RangeSelectExpression>().value());
+            steps48++;
+            continue;
+        }
+        if (cur->kind == ExpressionKind::Call) {
+            auto& ce48 = cur->as<slang::ast::CallExpression>();
+            if (!ce48.thisClass())
+                return nullptr;
+            cur = &stripImplicitConv(*ce48.thisClass());
+            steps48++;
+            continue;
+        }
+        break;
+    }
+    if (steps48 == 0 || cur->kind != ExpressionKind::NamedValue)
+        return nullptr;
+    // The chain must be a `::` scope THIS EMITTER can split, because the object
+    // the collapse returns is built from that split.
+    auto* ns48 = scopedChainRootName48(e.syntax);
+    if (!ns48)
+        return nullptr;
+    std::string f48, l48;
+    slang::SourceLocation end48;
+    if (!splitScopedName12(*ns48, f48, l48, end48))
+        return nullptr;
+    auto& nv48 = cur->as<slang::ast::NamedValueExpression>();
+    if (inClassScope12(nv48.symbol))
+        return cur;
+    // The PACKAGE-VARIABLE half, keyed on the FIRST WRITTEN SEGMENT being the
+    // declaring package rather than on `isPkgQualifiedVarRef`, whose extra
+    // `pkgViewVarObjs9` gate ("inside the declaring package the name is written
+    // bare and resolves") is REFUTED for a chain: t67a C12/C13/C14 and t67b
+    // E4/E5 write `p67::pkgh...` / `p67::pstruct.a` INSIDE p67 and golden
+    // collapses them to `ref_obj p67::pkgh` / `p67::pstruct` exactly as it does
+    // from outside (t67c G4).  Reading the qualified name of a package variable
+    // through that gate is a SEPARATE residue (t67c G6, § 5 of the README) and
+    // is deliberately left alone here — only the CHAIN case moves.
+    if (nv48.symbol.kind == slang::ast::SymbolKind::Variable) {
+        auto* psc48 = nv48.symbol.getParentScope();
+        if (psc48 && psc48->asSymbol().kind == slang::ast::SymbolKind::Package &&
+            f48 == std::string(psc48->asSymbol().name))
+            return cur;
+    }
+    return nullptr;
+}
+
+// § staticScopedChainDrops48 — the object the collapse returns for a
+// CLASS-SCOPED root: § staticScopedRef12's own ref_obj, rebuilt here because
+// that arm reads the base sub-expression's syntax and a chained base has none.
+// Name = FIRST written segment `::` FINAL `::` identifier (every intermediate
+// segment dropped — t67b D5 `p67::base67::stat.scope.set_arg(nm)` -> `p67::stat`),
+// span = the scoped name's start up to (NOT including) that final identifier
+// (t67a's corpus-shaped C1: `base67::`, 73:7-73:15), UNBOUND (t67d H7 keeps it
+// unbound even inside § classArgBind12's window).
+UHDM::any* UhdmExporter::scopedChainDropRef48(const slang::ast::Expression& e,
+                                              UHDM::BaseClass* parent,
+                                              const std::string& prefix) {
+    auto* ns48 = scopedChainRootName48(e.syntax);
+    if (!ns48)
+        return nullptr;
+    std::string f48, l48;
+    slang::SourceLocation end48;
+    if (!splitScopedName12(*ns48, f48, l48, end48))
+        return nullptr;
+    std::string nm48 = f48 + "::" + l48;
+    auto* r48 = s.MakeRef_obj();
+    r48->VpiName(nm48);
+    r48->VpiFullName(joinRef(prefix, nm48));
+    r48->VpiParent(parent);
+    setLoc(r48, SourceRange(ns48->sourceRange().start(), end48));
+    return r48;
+}
+
+// § staticScopedLvalueBad48 — the ASSIGNMENT-TARGET form of a `::`-written
+// reference: Surelog's lvalue resolution fails outright and it writes the
+// literal placeholder FIRST-SEGMENT `::@@BAD_SYMBOL@@`, spanning the WHOLE
+// written lvalue — not the qualifier-only span the READ form takes.  Measured
+// on t67d H1 (`base67::sint = 3;` BARE, no chain: golden
+// `base67::@@BAD_SYMBOL@@`@54:7-54:19 where the read form is
+// `base67::sint`@54:7-54:15), H3 (`base67::sbits[1] = 1'b1;` a select),
+// t67a C9 / t67b D7 / t67b E5 (chains, one to three levels, class-static and
+// package-variable alike) and t67d H2/H4 (the package half, whose NAME the
+// pre-existing `isPkgQualifiedVarRef` arm already got right).  So the
+// placeholder is a property of LVALUE-NESS, not of the chain — which is why
+// § staticScopedRef12's own bare arm needed this half too.
+UHDM::any* UhdmExporter::scopedLvalueBadRef48(const slang::ast::Expression& whole,
+                                              UHDM::BaseClass* parent,
+                                              const std::string& prefix) {
+    auto* ns48 = scopedChainRootName48(whole.syntax);
+    if (!ns48)
+        return nullptr;
+    std::string f48, l48;
+    slang::SourceLocation e48;
+    if (!splitScopedName12(*ns48, f48, l48, e48))
+        return nullptr;
+    std::string nm48 = f48 + "::@@BAD_SYMBOL@@";
+    auto* r48 = s.MakeRef_obj();
+    r48->VpiName(nm48);
+    r48->VpiFullName(joinRef(prefix, nm48));
+    r48->VpiParent(parent);
+    setLoc(r48, whole.sourceRange);
+    return r48;
+}
+
 // § classArgBind12 — while a USER subroutine call's ARGUMENTS are emitted,
 // a class-method body's refs DO bind their actual.  § classMethodNoBind was
 // decoded as "only an if/case CONDITION binds"; t10/t11 show call arguments
@@ -2615,6 +2831,40 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         op9->Operands(ov9);
         return op9;
     }
+    // § staticScopedChainDrops48 — a `::`-rooted chain collapses to its BASE
+    // REFERENCE, wherever it stands.  The arm that decided this is t67a C5/C6/
+    // C10/C13 against C1..C4: the corpus site
+    // (uvm_comparer.svh:156 `uvm_object::__m_uvm_status_container.scope.set_arg
+    // (name);`) is a STATEMENT, and a statement rule and an expression rule are
+    // indistinguishable there.  Golden collapses the SAME chain as an operand of
+    // `+ 1`, as a whole assignment Rhs, as a `$display` argument, as a user
+    // call's argument (t67d H7), inside an `if` condition (t67b D8) and in a
+    // continuous assign (t67c G7) — so it is an EXPRESSION rule and this hook
+    // sits ahead of the whole dispatch rather than in the statement emitter.
+    // Reader context is irrelevant: a class method, a package function
+    // (t67a C15), a module initial block (t67a C16) and a module function
+    // (t67d H8) all collapse, and a TASK call collapses like a function call
+    // (t67d H10).
+    // The PACKAGE-VARIABLE root re-emits the BASE EXPRESSION so it keeps the
+    // object the pre-existing isPkgQualifiedVarRef arm already builds (name,
+    // and the vpiActual golden binds in a module — t67c G7's cont_assign) —
+    // that half of the collapse is landed law and this pass does not respell
+    // it.  A CLASS-SCOPED root cannot go that way: § staticScopedRef12 reads
+    // the base sub-expression's syntax and a CHAINED base has NONE, so its
+    // object is rebuilt by § scopedChainDropRef48 from the chain's own syntax.
+    // The LVALUE form is § staticScopedLvalueBad48 in both cases.
+    if (auto* cb48 = scopedChainDropBase48(expr)) {
+        if (inLhs && assignTargetParent48(parent)) {
+            if (auto* bad48 = scopedLvalueBadRef48(expr, parent, prefix))
+                return bad48;
+        }
+        else if (isPkgQualifiedVarRef(*cb48)) {
+            if (auto* base48 = emitExpr(*cb48, parent, prefix, netMap))
+                return base48;
+        }
+        else if (auto* cr48 = scopedChainDropRef48(expr, parent, prefix))
+            return cr48;
+    }
     switch (expr.kind) {
         case ExpressionKind::Assignment: {
             auto& ae = expr.as<AssignmentExpression>();
@@ -3088,6 +3338,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 std::string f12, l12;
                 slang::SourceLocation e12;
                 if (splitScopedName12(*ns12, f12, l12, e12)) {
+                    // § staticScopedLvalueBad48 — the UNMEASURED LVALUE HALF of
+                    // this law.  As an assignment TARGET golden writes
+                    // `first::@@BAD_SYMBOL@@` over the WHOLE written name where
+                    // the read form is `first::last` over the qualifier alone;
+                    // t67d H1 reads both sides of the same declaration
+                    // (`base67::sint = 3;` -> `base67::@@BAD_SYMBOL@@`@54:7-19,
+                    // `y = base67::sint;` -> `base67::sint`@103:11-19), and the
+                    // name — not the span — is what BaseClass::Compare reads.
+                    // The package half of the same rule is the pre-existing
+                    // `isPkgQualifiedVarRef` arm above (t67d H2), which is why
+                    // this one is a class-scope-only addition.
+                    if (inLhs && assignTargetParent48(parent))
+                        if (auto* bad48 =
+                                scopedLvalueBadRef48(expr, parent, prefix))
+                            return bad48;
                     std::string nm12 = f12 + "::" + l12;
                     auto* r12 = s.MakeRef_obj();
                     r12->VpiName(nm12);

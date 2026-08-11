@@ -1666,6 +1666,21 @@ private:
     // See the decode at the definition (ExprEmit.cpp): a package-QUALIFIED
     // reference to a package variable, which Surelog resolves only whole.
     bool isPkgQualifiedVarRef(const slang::ast::Expression& e);
+    // § staticScopedChainDrops48 — see the decode at the definition
+    // (ExprEmit.cpp): the base of a `::`-rooted member/select/call CHAIN whose
+    // whole tail Surelog discards, or null when this expression is not one.
+    const slang::ast::Expression* scopedChainDropBase48(
+        const slang::ast::Expression& e);
+    // § staticScopedLvalueBad48 — the `first::@@BAD_SYMBOL@@` placeholder ref a
+    // `::`-written ASSIGNMENT TARGET becomes, spanned over the whole lvalue.
+    UHDM::any* scopedLvalueBadRef48(const slang::ast::Expression& whole,
+                                    UHDM::BaseClass* parent,
+                                    const std::string& prefix);
+    // § staticScopedChainDrops48 — § staticScopedRef12's ref_obj rebuilt from a
+    // CHAIN's own syntax (a chained base sub-expression carries none).
+    UHDM::any* scopedChainDropRef48(const slang::ast::Expression& e,
+                                    UHDM::BaseClass* parent,
+                                    const std::string& prefix);
     /// The literal's source spelling, rebuilt from its tokens when the span
     /// crosses a macro boundary (a macro-sized based literal).
     std::string rawTextLit(const slang::ast::Expression& expr);
