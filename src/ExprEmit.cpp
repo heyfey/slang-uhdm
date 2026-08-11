@@ -8289,17 +8289,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(mfc11, nameSpan(recvE11.sourceRange.end() + 1,
                                                sub.name));
                         auto* margs11 = s.MakeAnyVec();
-                        // § writtenCallArgs16 — only the actuals WRITTEN at
-                        // the call site; a defaulted formal is slang's, not
-                        // Surelog's.
-                        for (auto arg : writtenArgs16(call)) {
-                            bool fs11 = forceConstParent;
-                            if (isLiteralExpr(*arg))
-                                forceConstParent = true;
-                            if (auto* a11 =
-                                    emitExpr(*arg, mfc11, prefix, netMap))
-                                margs11->push_back(a11);
-                            forceConstParent = fs11;
+                        {
+                            // NOTE § classInBodyRecvCallArgNoBind52 — SITE 4,
+                            // the DEEP-RECEIVER arm (`bool deepRecv11` just
+                            // above).  THE MISS pass 52's own integration
+                            // recorded: `grep -n MakeHier_path src/ExprEmit.cpp`
+                            // inside the Call case returns FIVE mints, FOUR
+                            // under `!callStmtCtx0`, and pass 52 windowed
+                            // THREE.  This one mints a hier_path AND emits call
+                            // arguments, so a two-segment receiver never reached
+                            // the law.  SAME GATE, unchanged:
+                            //   curSubClassScope9 && !curSubOob9 &&
+                            //   recvCallArgDepth52 > 0
+                            // Arm a4, BOTH SIDES: `if (mid.leaf.m53(f) == 0)`
+                            // IN BODY is golden NONE / ours io_decl, while the
+                            // OUT-OF-BODY twin `f1_ob_cond_deep` and the PACKAGE
+                            // twin `f1_pk_cond_deep` are io_decl in golden and
+                            // are left untouched by `!curSubOob9` /
+                            // `curSubClassScope9`.
+                            RecvCallArg52 rca52D(recvCallArgDepth52);
+                            // § writtenCallArgs16 — only the actuals WRITTEN at
+                            // the call site; a defaulted formal is slang's, not
+                            // Surelog's.
+                            for (auto arg : writtenArgs16(call)) {
+                                bool fs11 = forceConstParent;
+                                if (isLiteralExpr(*arg))
+                                    forceConstParent = true;
+                                if (auto* a11 =
+                                        emitExpr(*arg, mfc11, prefix, netMap))
+                                    margs11->push_back(a11);
+                                forceConstParent = fs11;
+                            }
                         }
                         if (!margs11->empty())
                             mfc11->Tf_call_args(margs11);
@@ -8996,7 +9016,35 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         qsyn20 &&
                         qsyn20->kind == syntax::SyntaxKind::ScopedName;
                 }
-                ClassArgBind12 cab12(classArgBindDepth12);
+                // NOTE § classInBodyBareCallArgStmtOnly53 — GATE: inside an
+                // IN-BODY class method (curSubClassScope9 && !curSubOob9) the
+                // § classArgBind12 window opens for a BARE (receiver-less) call
+                // in STATEMENT POSITION ONLY (callStmtCtx0).  DIRECTION:
+                // SUPPRESS (the window simply is not opened; nothing else
+                // changes, and classArgBindDepth12 has exactly one reader).
+                //
+                // § classArgBind12 was decoded from `sink(f);` and
+                // `if (sink(f))` and had an UNMEASURED HALF: every other
+                // EXPRESSION spelling.  Arm a4's ib53 reads nine cells off ONE
+                // golden — line numbers are a4/dut.sv:
+                //   51 `self53(f);`             STATEMENT      golden io_decl
+                //   52 `if (self53(f) == 0)`    if-CONDITION   golden io_decl
+                //   54 `loc = self53(f);`       r-value        golden NONE
+                //   55 `loc = self53(f) + 1;`   operand        golden NONE
+                //   56 `loc = self53(self53(f))` nested        golden NONE
+                //   57 `while (self53(f) == 99)` while-COND    golden NONE
+                //   63 `return self53(f) + loc` return         golden NONE
+                // The if-CONDITION cell still binds with the window CLOSED,
+                // because StmtEmit's if/if_else/case arms clear
+                // `classMethodNoBind` outright ("condition refs DO bind") —
+                // and the WHILE condition, which does not clear it, is exactly
+                // the cell that shows this is the right mechanism rather than a
+                // second condition carve-out.
+                // The OUT-OF-BODY twins (a4 ob53, all seven) and the PACKAGE
+                // twins (a4 pk_all) are golden io_decl and keep the window.
+                ClassArgBindIf38 cab12(
+                    classArgBindDepth12,
+                    callStmtCtx0 || !(curSubClassScope9 && !curSubOob9));
                 for (auto arg : call.arguments()) {
                     if (argIdx >= nWritten9)
                         break;

@@ -1126,6 +1126,57 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // parameterized and slang hands us its default specialization
             // (ArrayMethodIterator: golden's typespec is Name + ClassDefn
             // only, ours carried two type_parameters and their param_assigns).
+            // NOTE § classPkgGenericSpecListing53 — a `#(...)`-spelled class
+            // handle whose GENERIC CLASS is declared in a PACKAGE takes the
+            // LISTING shape: NO vpiParameter / vpiParamAssign at all, and (at a
+            // class-property or package-variable declaration site) a span
+            // narrowed to the generic class's NAME TOKEN.  Gate:
+            //     pkgGeneric53 && !declInInstance53      (parameters)
+            //   + declaration is a direct member of a ClassType or a Package
+            //                                            (span)
+            //
+            // Surelog's reason, transcribed from
+            // src/DesignCompile/CompileType.cpp `compileTypespec`: BEFORE it
+            // reaches `compileDatastructureTypespec` (the only site that ever
+            // fills `ref->Parameters(params)`, at the `datatype_cast<const
+            // ClassDefinition*>` arm) it tries
+            // `design->getClassDefinition(typeName)`, then
+            // `<component>::<typeName>`, then
+            // `<component's parent scope>::<typeName>` — and on a hit it mints
+            // a bare `class_typespec` with Name + Class_defn and
+            // `populateCoreMembers(type, type, tps)`, i.e. the NAME TOKEN span
+            // and no parameters.  A class that lives in a package is registered
+            // under `<pkg>::<name>`, so that lookup HITS for it and MISSES for a
+            // $unit class — which is exactly the axis a3 measured.
+            //
+            // WHY `!declInInstance53`: a MODULE-scope variable is compiled by a
+            // different path and golden splits there on the INITIALIZER, not on
+            // the generic's home — a2 `d6_pkg_modvar_new` (package generic,
+            // `= new`) KEEPS its parameters and takes the WHOLE-declaration
+            // span, while a2 `d7_pkg_modvar` (same generic, no initializer)
+            // has neither.  Both are left exactly as they were.
+            bool pkgGeneric53 = false;
+            {
+                auto& cls53 = ct0.as<ClassType>();
+                const Symbol* gsym53 =
+                    cls53.genericClass ? static_cast<const Symbol*>(cls53.genericClass)
+                                       : static_cast<const Symbol*>(&cls53);
+                if (auto* gsc53 = gsym53->getParentScope())
+                    pkgGeneric53 =
+                        gsc53->asSymbol().kind == SymbolKind::Package;
+            }
+            SymbolKind siteKind53 = SymbolKind::Unknown;
+            if (auto* dsc53 = declSymbol.getParentScope())
+                siteKind53 = dsc53->asSymbol().kind;
+            const bool declInInstance53 =
+                siteKind53 == SymbolKind::InstanceBody;
+            const bool pkgGenericListing53 = pkgGeneric53 && !declInInstance53;
+            // The span half is narrower than the parameter half: a class-METHOD
+            // local of a package generic loses its parameters in golden too, but
+            // KEEPS the whole-declaration span (arm a1 `c4_local_spec`).
+            const bool listingSite53 =
+                pkgGenericListing53 && (siteKind53 == SymbolKind::ClassType ||
+                                        siteKind53 == SymbolKind::Package);
             {
                 bool writtenSpec0 = true;
                 if (auto tsynS0 = declared->getTypeSyntax())
@@ -1138,12 +1189,30 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             nmS0 &&
                             nmS0->kind == syntax::SyntaxKind::ClassName;
                     }
-                if (writtenSpec0)
+                // NOTE § classPkgGenericSpecListing53 — the SUPPRESS half.
+                if (writtenSpec0 && !pkgGenericListing53)
                     emitClassTsParams(cts, ct0.as<ClassType>(),
                                       std::string(ct0.name));
             }
             if (auto tsyn0 = declared->getTypeSyntax()) {
                 setLoc(cts, tsyn0->sourceRange());
+                // NOTE § classPkgGenericSpecListing53 — the RESHAPE half: narrow
+                // the span from the whole `gc#(T)` text to the generic class's
+                // NAME TOKEN.  A SCOPED spelling is overridden again just below
+                // (Surelog locates those at the `pkg::` prefix), which is why
+                // this runs FIRST and unconditionally of the scoped test.
+                if (listingSite53)
+                    if (auto* ntN53 = tsyn0->as_if<syntax::NamedTypeSyntax>()) {
+                        const syntax::NameSyntax* nmN53 = &*ntN53->name;
+                        while (nmN53 &&
+                               nmN53->kind == syntax::SyntaxKind::ScopedName)
+                            nmN53 =
+                                &*nmN53->as<syntax::ScopedNameSyntax>().right;
+                        if (nmN53 &&
+                            nmN53->kind == syntax::SyntaxKind::ClassName)
+                            setLoc(cts, nmN53->as<syntax::ClassNameSyntax>()
+                                            .identifier.range());
+                    }
                 // A SCOPED class reference (pack::doorOpen) is named by the
                 // WRITTEN text and located at the class_scope prefix Surelog
                 // collects the node from (`pack::`).
