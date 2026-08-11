@@ -13750,6 +13750,43 @@ bool UhdmExporter::isRangedUntypedParam(const ParameterSymbol& ps) {
     return false;
 }
 
+// NOTE (§ readFoldUntypedSizedLitParam, r10oth4) — the THIRD spelling that
+// reaches Surelog's getObject/setRange value-typespec rewrite, alongside a TYPED
+// param and `isRangedUntypedParam`'s ranged-untyped one.
+//
+// THE GATE, transcribed from Surelog: `CompileHelper::setRange`
+// (CompileHelper.cpp:5417) rewrites the constant's typespec only
+// `if (lr || rr)`, and `lr/rr` come from the parameter's DECLARATION typespec's
+// first packed range (CompileHelper.cpp:5410 `val->setRange(lvv, rvv)`).  An
+// untyped parameter with NO declared dimensions STILL has such a range when it
+// was written with a SIZED literal: `parameter INF = 31'h7f800000` gets
+// `int_typespec [30:0]`.  `isRangedUntypedParam` insists on non-empty
+// ImplicitType dimensions and therefore refused exactly that shape.
+//
+// WHY IT IS NARROWED TO A SIZED INTEGER LITERAL rather than "any packed-array
+// untyped param": arm r3_setrange.v rows g9_op (`31'h1 + 1`), g10_cat
+// (`{2'b10,2'b01}`) and g12_sizeddec (`31'd5`) put NO typespec on the elab
+// constant on EITHER side, so widening past the literal form would be an
+// unmeasured guess with nothing to gain.  The read requirement itself is
+// `readFold9` at the call site, proved necessary by g2_noref / g5_proc / g6_top.
+static bool srlgUntypedSizedLitParam(const ParameterSymbol& ps) {
+    auto declared = ps.getDeclaredType();
+    if (!declared)
+        return false;
+    auto* tsyn = declared->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::ImplicitType ||
+        !tsyn->as<syntax::ImplicitTypeSyntax>().dimensions.empty())
+        return false;
+    if (!ps.getType().getCanonicalType().isPackedArray())
+        return false;
+    auto* init = ps.getInitializer();
+    if (!init)
+        return false;
+    auto& si = stripImplicitConv(*init);
+    return si.kind == ExpressionKind::IntegerLiteral &&
+           !si.as<IntegerLiteral>().isDeclaredUnsized;
+}
+
 // § elabUnitMisevalNoFold — true when an ELAB param_assign Rhs must NOT be
 // folded because its value depends on a $unit parameter Surelog could not
 // value: either one it never valued at all (unitParamNoValue) or one declared
@@ -15969,6 +16006,14 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                              ps->getParentScope()->asSymbol().kind !=
                                  SymbolKind::Package &&
                              (paramNameIsRead(*ps) || paramCaFoldRead(*ps));
+            // § readFoldUntypedSizedLitParam (r10oth4) takes the CONT-ASSIGN
+            // read ONLY, never paramNameIsRead's select rule — see the note on
+            // the gate below for the PartSelect4 over-fire that proved it.
+            bool caReadFold9 = rc0 && rc0->UhdmType() == UHDM::uhdmconstant &&
+                               ps->getParentScope() &&
+                               ps->getParentScope()->asSymbol().kind !=
+                                   SymbolKind::Package &&
+                               paramCaFoldRead(*ps);
             if (signedBinFoldParams.count(ps) && rc0 &&
                 rc0->UhdmType() == UHDM::uhdmconstant) {
                 auto* sb9 = s.MakeInt_typespec();
@@ -16024,8 +16069,53 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             // go through implicit-net cont-assigns is never rewritten at all:
             // it keeps the SHARED def object (UnsizedParam Y). See
             // caReadThroughRealLhs for the ablation that isolates this.
+            // NOTE (§ readFoldUntypedSizedLitParam, r10oth4) — DIRECTION: ADD a
+            // third spelling to this gate.  It is the TYPE half of YosysOldOr's
+            // HEAD 2 and it does NOT on its own reach that head: the corpus read
+            // (`assign out_fixed = (…) ? QNAN : INF;`) satisfies no read
+            // predicate we have, and arm cells h1-h4 REFUTE the obvious
+            // candidate.  See tools/probe/r10oth4repro/README.md §2/§3 — this
+            // law is correct on its own 17-cell arm and buys that target NOTHING.
+            // The Surelog gate for the setRange rewrite is the VALUE's range
+            // (`if (lr || rr)` in CompileHelper::setRange, CompileHelper.cpp:5417),
+            // and the Value's range is copied off the parameter's DECLARATION
+            // typespec's first packed range (CompileHelper.cpp:5410
+            // `val->setRange(lvv, rvv)`).  An UNTYPED parameter with NO declared
+            // dimensions still HAS such a range when its value is a BASED SIZED
+            // literal — `parameter INF = 31'h7f800000` gets int_typespec [30:0] —
+            // so it takes the rewrite too, and `isRangedUntypedParam` (which
+            // requires non-empty ImplicitType dimensions,
+            // src/ParamEmit.cpp:13744) refused it.
+            // HOW THE GATE WAS PROVED NECESSARY, arm r3_setrange.v, golden side:
+            //   g1_ref   `parameter A=31'h1` + `assign w=A`      -> BARE (was ours: located)
+            //   g2_noref the same, read NOWHERE                  -> LOCATED  (the read is required)
+            //   g3_mixed A,B read / C not, ONE declaration       -> BARE,BARE,LOCATED (the corpus shape)
+            //   g5_proc  read from an always block only          -> LOCATED  (cont-assign only)
+            //   g6_top   read only as an instance param override -> LOCATED
+            //   g7_twice read twice                              -> BARE
+            //   g8_typed `parameter [30:0] A`, read              -> BARE (already handled)
+            //   g4_unsized / g9_op / g10_cat / g12_sizeddec      -> the constant
+            //       carries NO typespec at all on EITHER side, so the new arm
+            //       cannot over-fire there; g11's unread A stays LOCATED.
+            // Corpus witness or1200_fpu_intfloat_conv.v:86-88 — INF and QNAN are
+            // read at line 284 (`… ? QNAN : INF`), SNAN is read nowhere, and
+            // golden splits them exactly that way.
+            // ...and the new spelling takes the CONT-ASSIGN read ONLY
+            // (paramCaFoldRead), never paramNameIsRead's select rule.  The byte
+            // verifier caught the wider version over-firing on
+            // `Surelog/tests/PartSelect4/dut.sv`:
+            //     parameter A = 68'h200000000000000;
+            //     parameter B = A[8*4+:4];
+            // golden keeps A's constant LOCATED there even though A IS read —
+            // and arm r4_width.v shows the distinguisher is the READ SHAPE, not
+            // the width: `i2_w68_ca` (68 bits, `assign w = A`) IS rewritten
+            // while `i6_w31_sel` (31 bits, read by a select in another
+            // parameter's initializer) is NOT.  My width hypothesis was
+            // REFUTED by its own arm.
             else if ((unbasedSharedActive || readFold9) &&
-                (typedParam || (readFold9 && isRangedUntypedParam(*ps))) &&
+                (typedParam ||
+                 (readFold9 && isRangedUntypedParam(*ps)) ||
+                 (caReadFold9 && srlgUntypedSizedLitParam(*ps))) &&
                 !isOverriddenParam(*ps) &&
                 [&] {
                     auto* d9 = defParamTs();

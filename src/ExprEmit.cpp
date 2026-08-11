@@ -1459,6 +1459,67 @@ static SrlgUnbasedRed srlgUnbasedReduce(Compilation& comp, const Expression& e0,
     }
 }
 
+// NOTE (§ srlgFoldNaturalWidth, r10oth4) — the width a NON-PARAMETER concat /
+// replication fold lands on.
+//
+// Surelog's reduce builds the constant at the expression's NATURAL
+// (self-determined) width — `case vpiMultiConcatOp` sets
+// `c->VpiSize(n * width)` and `case vpiConcatOp` sums its operands, both in
+// UHDM/templates/ExprEval.cpp — and only THEN clamps it against the assignment
+// target in `CompileHelper::adjustSize`
+// (Surelog/src/DesignCompile/CompileHelper.cpp:3949).  THE GATE is
+// `natural != target`, and the width it lands on is
+//
+//     w = (natural > 64) ? natural : min(natural, target)
+//
+//   * the `> 64` arm is UHDM's `ExprEval::get_value`
+//     (UHDM/templates/ExprEval.cpp:1967 `if (expr->VpiSize() > 64)
+//     invalidValue = true;` in the vpiBinaryConst case).  adjustSize's entire
+//     `if (!invalidValue) { … }` body is then skipped — the trailing
+//     `else { c->VpiSize(size); }` belongs to the
+//     `vpiUIntConst / else if vpiBinaryConst` chain, NOT to that test — so the
+//     producer's natural constant survives completely untouched;
+//   * the `min` arm is `c->VpiSize((orig_size < size) ? orig_size : size)` in
+//     the int_typespec branch, and `if (orig_size > size)` (which does nothing
+//     at all when natural <= target) in the logic_typespec branch.
+//
+// DIRECTION: REPLACE — we used the TARGET width for both the digit string and
+// vpiSize.  A constant's VALUE STRING and vpiDecompile are both Compare fields,
+// which is why this gates YosysOldOr's verdict.
+// Both sides of 22 cells are tabulated in tools/probe/r10oth4repro/README.md
+// (arm `r1_repl.v`, driver `rarm.sh` + `replform.py` + `rtab.sh`).
+namespace {
+struct SrlgNatFold {
+    int32_t width;       // width to emit
+    int32_t natural;     // the self-determined width
+    slang::SVInt value;  // the value at `natural` bits
+    bool valid;          // false => keep the pre-existing target-width path
+};
+}  // namespace
+
+static SrlgNatFold srlgNaturalFoldWidth(const Expression& expr,
+                                        const slang::SVInt& tgtIv, int32_t tgtW,
+                                        const ASTContext& ctx) {
+    SrlgNatFold r{tgtW, tgtW, tgtIv, false};
+    auto& nat = stripImplicitConv(expr);
+    if (&nat == &expr || !nat.type || !nat.type->isIntegral())
+        return r;
+    int32_t natW = (int32_t)nat.type->getBitWidth();
+    if (natW <= 0 || natW == tgtW)
+        return r;  // no implicit resize happened: nothing to model
+    ConstantValue ncv = ctx.tryEval(nat);
+    if (!ncv || !ncv.isInteger())
+        return r;
+    slang::SVInt niv = ncv.integer();
+    if ((int32_t)niv.getBitWidth() != natW)
+        return r;
+    r.natural = natW;
+    r.value = niv;
+    r.width = (natW > 64) ? natW : (natW < tgtW ? natW : tgtW);
+    r.valid = true;
+    return r;
+}
+
 UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* typedConv,
                                       bool paramCtx) {
     // Surelog's netlist elaboration re-compiles top-view cont_assign
@@ -1575,17 +1636,37 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
         if (stripImplicitConv(expr).kind != ExpressionKind::Concatenation)
             return nullptr;
         auto* c = s.MakeConstant();
-        c->VpiSize((int32_t)expr.type->getBitWidth());
+        int32_t uw = (int32_t)expr.type->getBitWidth();
+        slang::SVInt uv = iv;
+        bool utrunc = false;
+        // § srlgFoldNaturalWidth — an X/Z concat takes the SAME adjustSize
+        // clamp as a clean one (arm cell b8_cat_x: golden BIN:001x0000 size 8
+        // for `{4'b001x,4'b0000}` into a 20-bit net, where we emitted 20).
+        // get_value's parseBinary failure is NOT strict
+        // (UHDM/templates/ExprEval.cpp:1975 `if (strict) invalidValue = invalid;`)
+        // so an x/z value still reaches the truncating arm — cell b9_cat_x_nar.
+        if (!paramCtx) {
+            auto nw = srlgNaturalFoldWidth(expr, iv, uw, ctx);
+            if (nw.valid) {
+                uw = nw.width;
+                uv = nw.value;
+                utrunc = nw.width < nw.natural;
+            }
+        }
+        c->VpiSize(uw);
         std::string bits;
-        for (int32_t i = (int32_t)expr.type->getBitWidth() - 1; i >= 0; i--) {
-            auto b = iv[i];
+        for (int32_t i = uw - 1; i >= 0; i--) {
+            auto b = uv[i];
             bits += b.isUnknown() ? (b.value == slang::logic_t::Z_VALUE ? 'z' : 'x')
                     : (b.value ? '1' : '0');
         }
         c->VpiValue("BIN:" + bits);
         c->VpiConstType(vpiBinaryConst);
-        c->VpiDecompile(std::to_string((int32_t)expr.type->getBitWidth()) + "'b" +
-                        bits);
+        // § srlgConcatTruncDecompile — see the clean-concat arm below.
+        if (paramCtx)
+            c->VpiDecompile(std::to_string(uw) + "'b" + bits);
+        else if (utrunc)
+            c->VpiDecompile(bits);
         return c;
     }
     // A SIZE cast whose OPERAND is a signed non-literal (N'(signed_ref)) folds
@@ -1697,17 +1778,51 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
         (paramCtx && stripImplicitConv(expr).kind == ExpressionKind::Replication)) {
         auto* c = s.MakeConstant();
         int32_t w = (int32_t)expr.type->getBitWidth();
+        slang::SVInt wv = iv;
+        // § srlgFoldNaturalWidth — a NON-PARAMETER concat (the cont_assign
+        // fold) is clamped by adjustSize's LOGIC_TYPESPEC arm, which truncates
+        // the digits AND the size to the target only when natural > target and
+        // does nothing at all otherwise.  So digits and size are both
+        // (natural > 64) ? natural : min(natural, target).  The paramCtx path
+        // is deliberately untouched: § replFoldParamInt32 above measured it
+        // separately and it clamps against the replication's own `int` result
+        // type, not the declared parameter type.
+        bool trunc9 = false;
+        if (!paramCtx) {
+            auto nw = srlgNaturalFoldWidth(expr, iv, w, ctx);
+            if (nw.valid) {
+                w = nw.width;
+                wv = nw.value;
+                trunc9 = nw.width < nw.natural;
+            }
+        }
         c->VpiSize(stripImplicitConv(expr).kind == ExpressionKind::Replication &&
                            w > 32 && w <= 64
                        ? 32
                        : w);
         std::string bits;
         for (int32_t i = w - 1; i >= 0; i--)
-            bits += (iv[i] == slang::logic_t(1)) ? '1' : '0';
+            bits += (wv[i] == slang::logic_t(1)) ? '1' : '0';
         c->VpiValue("BIN:" + bits);
         c->VpiConstType(vpiBinaryConst);
+        // NOTE (§ srlgConcatTruncDecompile, r10oth4) — DIRECTION: ADD.
+        // The vpiConcatOp PRODUCER (UHDM/templates/ExprEval.cpp, `c1->VpiValue`
+        // / `VpiSize` / `VpiConstType` and nothing else) writes NO vpiDecompile
+        // and NO typespec, so a non-parameter concat fold normally has none —
+        // which is what we already emitted.  But adjustSize's TRUNCATING arm
+        // (`if (orig_size > size) { … c->VpiDecompile(v); … }` in the
+        // logic_typespec branch, CompileHelper.cpp) ADDS one, equal to the
+        // TRUNCATED bit string and BARE — no `<w>'b` prefix.
+        // THE GATE is therefore "the digits were actually truncated", i.e.
+        // natural > target AND natural <= 64; the > 64 case never reaches the
+        // arm at all.  Witnesses (golden, both sides in the README table):
+        // b2_cat_nar 16->8 dc=00001111, b7_cat_repl_nar 9->4 dc=1111,
+        // b9_cat_x_nar 8->4 dc=0000; and dc=<NONE> in b1/b3/b4/b5/b6/b8, every
+        // one of which is un-truncated.
         if (paramCtx)
             c->VpiDecompile(std::to_string(w) + "'b" + bits);
+        else if (trunc9)
+            c->VpiDecompile(bits);
         return c;
     }
     // A folded REPLICATION over a SIZED element ({8{2'(1'b1)}}) is Surelog's
@@ -1725,10 +1840,33 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
         if (sizedElem9) {
             auto* c = s.MakeConstant();
             int32_t w = (int32_t)expr.type->getBitWidth();
+            int32_t dw = w;
+            slang::SVInt wv = iv;
+            // § srlgFoldNaturalWidth — THIS IS YosysOldOr's HEAD.  A
+            // REPLICATION carries the `word size` int_typespec its
+            // vpiMultiConcatOp producer attaches, so adjustSize takes the
+            // INT_TYPESPEC arm, which never touches the value string and only
+            // does `c->VpiSize((orig_size < size) ? orig_size : size)`.  Hence
+            // the digits stay at the FULL replication width while vpiSize is
+            // clamped: `assign tag = {dw-1{1'b0}}` with dw=22 into a 20-bit
+            // target gives golden BIN with 21 digits at vpiSize 20
+            // (or1200_dc_tag.v:99).  A plain concat differs — its producer
+            // attaches no typespec, so it takes the logic_typespec arm and its
+            // digits DO truncate (arm cell b7_cat_repl_nar proves the split is
+            // decided by the TOP-LEVEL operator, not by containing a
+            // replication).
+            if (!paramCtx) {
+                auto nw = srlgNaturalFoldWidth(expr, iv, w, ctx);
+                if (nw.valid) {
+                    w = nw.width;      // vpiSize: min(natural, target), or natural > 64
+                    dw = nw.natural;   // digits: ALWAYS the natural width
+                    wv = nw.value;
+                }
+            }
             c->VpiSize(w);
             std::string bits;
-            for (int32_t i = w - 1; i >= 0; i--)
-                bits += (iv[i] == slang::logic_t(1)) ? '1' : '0';
+            for (int32_t i = dw - 1; i >= 0; i--)
+                bits += (wv[i] == slang::logic_t(1)) ? '1' : '0';
             c->VpiValue("BIN:" + bits);
             c->VpiConstType(vpiBinaryConst);
             c->VpiDecompile(bits);
