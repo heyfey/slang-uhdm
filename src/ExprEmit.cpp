@@ -406,6 +406,47 @@ static const slang::syntax::NameSyntax* scopedChainRootName48(
 // hangs its Lhs on becomes `@@BAD_SYMBOL@@`.  A concatenation lvalue
 // (`{a, base67::x} = y`) has no golden yet and takes the READ form, which is
 // I4's answer rather than a guess.
+// NOTE § invalidNewCallFromSyntax55 (predicate half).  GATE: `true` for an
+// expression that IS a `new` object-creation in the SOURCE, whether or not slang
+// managed to BIND it.
+//
+// WHY THIS EXISTS.  slang refuses to bind `x = new(...)` in two situations that
+// uvm-1.2 hits constantly, and in BOTH it returns `badExpr(comp, nullptr)` — an
+// `InvalidExpression` with a NULL child, an EMPTY sourceRange, and the original
+// `NewClassExpressionSyntax` still attached (slang attaches syntax to every
+// created expression, `Expression::create`'s tail `result->syntax = &syntax;`):
+//   (a) the target's type is an ABSTRACT class —
+//       slang/source/ast/expressions/AssignmentExpressions.cpp
+//       `resolveNewClassTarget`: `if (!isSuperClass && classType->isAbstract) {
+//       addDiag(diag::NewVirtualClass); return {nullptr,false}; }`
+//   (b) the target's type is NOT A CLASS AT ALL — the same routine's
+//       `if (!assignmentTarget || !assignmentTarget->isClass())` ->
+//       `diag::NewClassTarget`.
+// Both fire inside a GENERIC class's DEFAULT specialization, where the type
+// parameter's default is `virtual class uvm_object` / `virtual class
+// uvm_component` (case a) or plain `int` (case b, `uvm_built_in_pair
+// #(type T1=int, T2=T1)`), and where slang's diagnostics are suppressed — which
+// is why the databases still build and the loss is silent.
+//
+// Surelog never type-checks the construct: it emits the `new` call regardless.
+// So did we, for every shape slang BINDS; the whole difference is the bind.
+static bool sourceIsNewClassExpr55(const slang::ast::Expression& e) {
+    if (e.kind == ExpressionKind::NewClass)
+        return true;
+    if (e.kind != ExpressionKind::Invalid)
+        return false;
+    const auto* syn = e.syntax;
+    if (!syn || syn->kind != syntax::SyntaxKind::NewClassExpression)
+        return false;
+    // Only the BARE `new` form.  A SCOPED `new` (`super.new`, `C::new`) reaches
+    // this only through paths this pass did not measure, and golden names those
+    // "super.new" rather than "new", so they stay unsupported rather than be
+    // guessed at.
+    const auto& ncs = syn->as<syntax::NewClassExpressionSyntax>();
+    return ncs.scopedNew &&
+           ncs.scopedNew->kind == syntax::SyntaxKind::ConstructorName;
+}
+
 static bool assignTargetParent48(const UHDM::BaseClass* p) {
     if (!p)
         return false;
@@ -3164,7 +3205,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 asn->Lhs((UHDM::expr*)lhs);
                 // A class-handle assignment (bar = new()) re-parents its Lhs
                 // ref through an artifact hier_path (weakly-tail only).
-                if (stripImplicitConv(*rhsExpr).kind == ExpressionKind::NewClass &&
+                // NOTE § invalidNewCallFromSyntax55 (Lhs half).  GATE widened
+                // from `kind == NewClass` to `sourceIsNewClassExpr55`, so the
+                // SAME re-parent happens when slang left the `new` UNBOUND.
+                // Surelog's rule is a SOURCE rule — it never bound anything —
+                // so an unbound `new` must not take a different Lhs shape from
+                // a bound one.  DUMP-ONLY at the corpus sites (`vpiParent` is
+                // not read by `assignment::Compare`, which compares Rhs then
+                // Lhs, and the ref's `Actual_group` is null on BOTH sides
+                // there), measured on arm a1 cells C8/C9/C10.
+                if (sourceIsNewClassExpr55(stripImplicitConv(*rhsExpr)) &&
                     lhs->UhdmType() == UHDM::uhdmref_obj) {
                     auto* hp = s.MakeHier_path();
                     hp->VpiName(((UHDM::ref_obj*)lhs)->VpiName());
@@ -14932,6 +14982,79 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         return r14;
             if (iv2.child)
                 return emitExpr(*iv2.child, parent, prefix, netMap);
+            // NOTE § invalidNewCallFromSyntax55 (emit half).  GATE:
+            // `sourceIsNewClassExpr55` — an Invalid node with NO child whose
+            // syntax is a bare-`new` NewClassExpression (see that predicate for
+            // the two slang branches that produce it and the source citation).
+            // Placed AFTER the child unwrap and immediately BEFORE the
+            // unsupported note, so it can only ever turn a `return nullptr` into
+            // an object: no path that already emitted anything changes shape.
+            //
+            // The object is EXACTLY the one the bound `case NewClass` arm builds
+            // for a plain `new`: a LOC-LESS `method_func_call` named "new",
+            // parented at the assignment, arguments as `vpiArgument`.  Golden
+            // (arm a1, cells C8/C9/C10/C11) carries no vpiFunction, no prefix and
+            // no location on it — `rhsAt=0:0-0:0` — and the argument is a
+            // NAME-ONLY `ref_obj` with no `vpiActual`, spanning the argument
+            // identifier alone.  slang bound nothing here, so there is no symbol
+            // to bind the argument to and the name-only ref is not a compromise:
+            // it is what golden holds.
+            // GATE (the measurement that made it necessary): our side emitted an
+            // `assignment` with a NULL Rhs at 7 uvm-1.2 sites in SimpleUVM
+            // (uvm_registry.svh 66/207/208, uvm_pair.svh 67/72,
+            // uvm_random_stimulus.svh 101, uvm_pool.svh 307), and
+            // `uvm_registry.svh:207`'s was the whole-design cmp HEAD of
+            // SimpleUVM and Scoreboard.
+            if (sourceIsNewClassExpr55(expr)) {
+                const auto& ncs55 =
+                    expr.syntax->as<syntax::NewClassExpressionSyntax>();
+                auto* mfc55 = s.MakeMethod_func_call();
+                mfc55->VpiName("new");
+                mfc55->VpiParent(parent);
+                if (ncs55.argList && !ncs55.argList->parameters.empty()) {
+                    auto* args55 = s.MakeAnyVec();
+                    for (auto a55 : ncs55.argList->parameters) {
+                        const syntax::SyntaxNode* ae55 = nullptr;
+                        if (a55->kind == syntax::SyntaxKind::OrderedArgument)
+                            ae55 = a55->as<syntax::OrderedArgumentSyntax>().expr;
+                        // An OrderedArgument's `expr` is a PropertyExprSyntax in
+                        // slang's grammar; the ordinary-expression case arrives
+                        // wrapped in SimplePropertyExpr / SimpleSequenceExpr, as
+                        // the § droppedCall14 arm above already has to unwrap.
+                        if (ae55 &&
+                            ae55->kind == syntax::SyntaxKind::SimplePropertyExpr)
+                            ae55 = ae55->as<syntax::SimplePropertyExprSyntax>().expr;
+                        if (ae55 &&
+                            ae55->kind == syntax::SyntaxKind::SimpleSequenceExpr)
+                            ae55 = ae55->as<syntax::SimpleSequenceExprSyntax>().expr;
+                        if (ae55 &&
+                            ae55->kind == syntax::SyntaxKind::IdentifierName) {
+                            std::string an55(
+                                ae55->as<syntax::IdentifierNameSyntax>()
+                                    .identifier.valueText());
+                            auto* ar55 = s.MakeRef_obj();
+                            ar55->VpiName(an55);
+                            ar55->VpiFullName(joinRef(prefix, an55));
+                            ar55->VpiParent(mfc55);
+                            setLoc(ar55, ae55->sourceRange());
+                            args55->push_back(ar55);
+                            continue;
+                        }
+                        // Any other actual shape is NOT guessed at: it is
+                        // NOTED, so a dropped argument can never be silent (a
+                        // dropped one would also fail cmp on the arg-vector
+                        // size, which is how it would be found).
+                        noteUnsupportedAt(
+                            "unbound new() argument shape: " +
+                                std::string(ae55 ? toString(ae55->kind)
+                                                 : toString(a55->kind)),
+                            a55->sourceRange().start());
+                    }
+                    if (!args55->empty())
+                        mfc55->Tf_call_args(args55);
+                }
+                return mfc55;
+            }
             noteUnsupportedAt("expression kind: Invalid",
                               expr.syntax ? expr.syntax->sourceRange().start()
                                           : expr.sourceRange.start());
