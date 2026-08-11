@@ -3008,6 +3008,34 @@ private:
     // (uvm_pkg::uvm_id_actions_array).  Consumed in buildClassTypedefTs
     // (src/UhdmExporter.cpp:1931, grep `auto* gcN50`).
     std::map<const void*, UHDM::class_typespec*> classTdGroupBase50;
+    // NOTE § classNestedClassTdGroupNoAnchor54 — the SAME group, for the case
+    // pass 50 left as residue R2: a class-handle typedef group with NO
+    // package-level anchor, i.e. no `classTdGroupBase50` entry.  Golden STILL
+    // resolves it into one base plus aliased clones; the base is the member
+    // whose DECLARING CLASS's Surelog design-map key sorts FIRST, tie-broken
+    // by the TYPEDEF's own name.  Collected in buildClassTypedefTs
+    // (grep `classNestedTd54.push_back`) and drained design-final
+    // (grep `void UhdmExporter::drainClassNestedTdGroups54`).
+    // GATE and its three refutations are in tools/probe/r10uvm54repro/README.md
+    // (arm a1): the TYPEDEF-NAME key and SOURCE ORDER are both refuted by
+    // a1's g54 group, and the SHORT-class-name spelling by a1's n54 group.
+    struct ClassNestedTd54 {
+        // Surelog's Design::m_classDefinitions key: `<pkg>::<cls>` for a
+        // package class, `work@<cls>` for a compilation-unit one
+        // (Surelog src/DesignCompile/ResolveSymbols.cpp, `fullSubName`).
+        std::string owner;
+        std::string name;                        // the typedef's own name
+        UHDM::class_typespec* ts = nullptr;
+        const void* key = nullptr;               // GENERIC class, else the
+                                                 // target ClassType itself
+    };
+    std::vector<ClassNestedTd54> classNestedTd54;
+    // Dedup by OBJECT: buildClassTypedefTs can be re-entered for the same
+    // class through the on-demand path in makeTypespec, and one typespec must
+    // never appear twice in its own group.
+    std::set<const UHDM::class_typespec*> classNestedTd54Seen;
+    std::string surelogClassKey54(const slang::ast::ClassType& cls) const;
+    void drainClassNestedTdGroups54();
     // § typedefAliasSharesTypespec25 — for a class typedef whose target is
     // written as a type parameter, the ROOT of that parameter's DEFAULT chain
     // (`type RSP = REQ` -> REQ; `type RSP_IMP = IMP` -> IMP).  Surelog's

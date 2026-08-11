@@ -1656,7 +1656,52 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
         // RHS also gives it the literal's packed range.
         auto* dn = declNodeOf(ps);
         UHDM::typespec* dts = nullptr;
+        // NOTE § classParamWrittenTypeTypespec54 — a class value parameter with
+        // an EXPLICITLY WRITTEN data type takes THAT type's typespec, spanning
+        // the DATA TYPE SYNTAX; only an IMPLICIT (untyped) parameter takes the
+        // int_typespec spanning the WHOLE DECLARATION that this site used to
+        // build unconditionally.  DIRECTION: RESHAPE (kind + span).
+        // WITNESS — this was the cmp HEAD of all seven comparable UVM rows once
+        // § classNestedClassTdGroupNoAnchor54 landed:
+        //   LHS golden(BuildUVMPkg): string_typespec, line:13652:48-13652:54
+        //     |vpiParent parameter (uvm_pkg::uvm_object_registry::Tname)
+        //   RHS ours: int_typespec, line:13652:48-13652:72
+        // (uvm-1.2 spells the same class at uvm_registry.svh:189, and both the
+        // parameter and its fold CONSTANT share the one object on both sides.)
+        // GATE, proved necessary three ways in tools/probe/r10uvm54repro:
+        //   * the IMPLICIT arm is UNTOUCHED — `#(P = 3)` keeps the
+        //     whole-declaration int_typespec, which is what the live
+        //     `ClassParamAsParam` / `ClassTypeParam` canaries carry;
+        //   * only `string` and a PredefinedIntegerType `int` are converted;
+        //     every other written type falls through to the old shape rather
+        //     than guessing a kind this pass has not measured (a `byte`/`bit
+        //     [7:0]` class parameter is recorded as residue, not fixed);
+        //   * the SIZED-literal packed range below stays on the implicit arm
+        //     only, since golden's written-type span has no literal range.
+        // BuildUVMPkg census (clsparam.py kinds): golden 5 string_typespec +
+        // 2 int_typespec of 7 class parameters; ours before this law 7
+        // int_typespec, and every one of the 7 spans was the whole declaration.
         {
+            const syntax::DataTypeSyntax* wtSyn54 = nullptr;
+            if (const DeclaredType* dt54 = ps.getDeclaredType())
+                wtSyn54 = dt54->getTypeSyntax();
+            if (wtSyn54 &&
+                wtSyn54->kind != syntax::SyntaxKind::ImplicitType) {
+                auto& pct54 = ps.getType().getCanonicalType();
+                UHDM::typespec* wts54 = nullptr;
+                if (pct54.kind == SymbolKind::StringType)
+                    wts54 = s.MakeString_typespec();
+                else if (pct54.kind == SymbolKind::PredefinedIntegerType &&
+                         pct54.as<PredefinedIntegerType>().integerKind ==
+                             PredefinedIntegerType::Int)
+                    wts54 = s.MakeInt_typespec();
+                if (wts54) {
+                    setLoc(wts54, wtSyn54->sourceRange());
+                    dts = wts54;
+                }
+            }
+        }
+        if (!dts) {
             auto* its = s.MakeInt_typespec();
             if (dn)
                 setLoc(its, dn->sourceRange());
@@ -2122,6 +2167,100 @@ void UhdmExporter::emitClassTypedefs(const ClassType& cls, UHDM::class_defn* cd)
 // class that sorts EARLIER by name can force it (see makeTypespec). Builds
 // and REGISTERS each nested typedef's typespec once; the owning class's own
 // emitClassTypedefs then reuses the objects, parents them and lists them.
+// NOTE § classNestedClassTdGroupNoAnchor54 — the SORT KEY of the base pick,
+// TRANSCRIBED from Surelog rather than guessed.
+// `ElaborationStep::bindTypedefs_` builds ONE `defs` vector — FileContents,
+// then PACKAGES, then MODULES, then PROGRAMS, then
+// `design->getClassDefinitions()` — and walks it once.  The first typedef of a
+// given target class to be walked mints a bare `class_typespec`
+// (`compileTypespec` + `populateCoreMembers` = the NAME-TOKEN span, no alias)
+// and stores it on the shared target DataType (`dt->setTypespec(ts)`); every
+// LATER typedef of the same target then takes the `def->getTypespec() != null`
+// path, `clone_tree`s that object and hangs a `Typedef_alias` ref on the clone.
+// So "the base" is simply "walked first", and among CLASS-nested typedefs that
+// order is `Design::m_classDefinitions`, a
+// `std::multimap<std::string, ClassDefinition*>` whose KEY is the FULLY
+// QUALIFIED name that `ResolveSymbols` registered: `<pkg>::<cls>` for a class
+// declared in a package, `<lib>@<cls>` (= `work@<cls>`) for a compilation-unit
+// one.  Within one class the order is `DesignComponent::TypeDefMap`, a
+// `std::map<std::string, TypeDef*>` keyed by the TYPEDEF's name.
+// That also explains why a PACKAGE-level typedef always wins (pass-50 law 4):
+// packages are walked before classes.
+std::string UhdmExporter::surelogClassKey54(const ClassType& cls) const {
+    if (const Scope* sc = cls.getParentScope()) {
+        const Symbol& ss = sc->asSymbol();
+        if (ss.kind == SymbolKind::Package)
+            return std::string(ss.name) + "::" + std::string(cls.name);
+    }
+    // UNMEASURED HALF, recorded rather than guessed: Surelog registers a class
+    // nested in a MODULE or in another CLASS under other keys; no arm here
+    // reaches those, and every corpus owner is a package class or a
+    // compilation-unit class.
+    return "work@" + std::string(cls.name);
+}
+
+// NOTE § classNestedClassTdGroupNoAnchor54 — the drain.  DIRECTION: RESHAPE
+// (span) + ADD (the alias).  Runs DESIGN-FINAL because the group is
+// design-wide: it needs every class's typedefs built AND `classTdGroupBase50`
+// fully published by both `emitPackage` views, since "has a package anchor" is
+// the gate that keeps this law off pass-50 law 4's territory.
+// GATE, and how it was proved necessary (arm a1, tools/probe/r10uvm54repro):
+//   * a group that HAS a `classTdGroupBase50` entry is skipped entirely — a1's
+//     `k54` group (package anchor `s54::k_anchor54`) must keep aliasing to the
+//     PACKAGE object, and it does, untouched;
+//   * a group with exactly ONE member gets NOTHING — a1's `h54` group, where
+//     golden gives `r54::a_owner54::h_only54` no vpiTypedefAlias at all;
+//   * the base is never itself reshaped and an existing alias is never
+//     replaced (the object can be SHARED across package views —
+//     § pkgImportCloneLastWriter32 — so a second ref_typespec child would be a
+//     duplicate on a shared object).
+void UhdmExporter::drainClassNestedTdGroups54() {
+    std::map<const void*, std::vector<size_t>> grp54;
+    for (size_t i = 0; i < classNestedTd54.size(); i++) {
+        auto& e = classNestedTd54[i];
+        if (!e.ts || !e.key)
+            continue;
+        // The PACKAGE anchor wins: that is pass-50 law 4, already applied at
+        // build time, and this law is exactly its no-anchor complement.
+        if (classTdGroupBase50.count(e.key))
+            continue;
+        grp54[e.key].push_back(i);
+    }
+    for (auto& [k54, idx54] : grp54) {
+        (void)k54;
+        if (idx54.size() < 2)
+            continue;
+        std::stable_sort(idx54.begin(), idx54.end(),
+                         [&](size_t a, size_t b) {
+                             auto& x = classNestedTd54[a];
+                             auto& y = classNestedTd54[b];
+                             if (x.owner != y.owner)
+                                 return x.owner < y.owner;
+                             return x.name < y.name;
+                         });
+        auto* bts54 = classNestedTd54[idx54[0]].ts;
+        for (size_t j = 1; j < idx54.size(); j++) {
+            auto& m54 = classNestedTd54[idx54[j]];
+            if (m54.ts == bts54 || m54.ts->Typedef_alias())
+                continue;
+            m54.ts->VpiLineNo(bts54->VpiLineNo());
+            m54.ts->VpiColumnNo(bts54->VpiColumnNo());
+            m54.ts->VpiEndLineNo(bts54->VpiEndLineNo());
+            m54.ts->VpiEndColumnNo(bts54->VpiEndColumnNo());
+            m54.ts->VpiFile(bts54->VpiFile());
+            // The alias ref's fullname is `<declaring class key>::<typedef>`,
+            // measured on BOTH corpora: golden BuildUVMPkg says
+            // `uvm_pkg::uvm_agent::type_id`, golden a1 says
+            // `work@mm54::n_u54` and `zbb54::aa54::n_z54`.
+            auto* ar54 = s.MakeRef_typespec();
+            ar54->VpiParent(m54.ts);
+            ar54->VpiFullName(m54.owner + "::" + m54.name);
+            ar54->Actual_typespec(bts54);
+            m54.ts->Typedef_alias(ar54);
+        }
+    }
+}
+
 void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                                        const std::string& clsName) {
     if (!buildingClassTypedefs.insert(&cls).second)
@@ -2218,6 +2357,35 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                     ar50->Actual_typespec(bts50);
                     cts->Typedef_alias(ar50);
                 }
+            // NOTE § classNestedClassTdGroupNoAnchor54 — COLLECT every
+            // class-nested class-handle typedef, whether or not law 4 above
+            // found a package anchor: the drain needs the WHOLE group to know
+            // that a group HAS no anchor, and `classTdGroupBase50` may not be
+            // populated yet at this point anyway (pass-50 residue R2b — the
+            // on-demand call from makeTypespec can run before emitPackage).
+            // GATE: keyed on the target's GENERIC class when it is a
+            // specialization and on the target ClassType itself otherwise —
+            // golden groups NON-generic targets too, measured on BuildUVMPkg's
+            // `uvm_pkg::uvm_callbacks_base` group (2 members, base
+            // `uvm_callbacks_base::this_type` @26619:11-29, clone
+            // `uvm_typed_callbacks::super_type` aliased to it), so a
+            // genericClass-only key would MISS it.
+            // GATE, second half — a typedef whose WRITTEN target is a TYPE
+            // PARAMETER (`typedef REQ req_type;`) never joins a group.  Golden
+            // hands such a typedef the PARAMETER's own typespec object
+            // (§ typedefAliasSharesTypespec25), so it has no clone and no
+            // alias.  MEASURED OVER-FIRE, which is why this half exists: with
+            // the gate absent, `uvm_pkg::uvm_sequencer_param_base::rsp_type`
+            // (REQ and RSP both resolving to uvm_sequence_item in the default
+            // specialization) acquired an alias -> `req_type` that golden does
+            // NOT have, on BOTH BuildUVMPkg and SimpleUVM.
+            if (!tpAliasRoot25.count((const void*)&ta) &&
+                classNestedTd54Seen.insert(cts).second) {
+                auto* gcN54 = ct.as<ClassType>().genericClass;
+                classNestedTd54.push_back(
+                    {surelogClassKey54(cls), std::string(ta.name), cts,
+                     gcN54 ? (const void*)gcN54 : (const void*)&ct});
+            }
             // § classRepresentativeSkipsTypeParamAlias25 — see the header.
             // `typedef REQ req_type;` resolves, in the specialization slang
             // hands us, to a ClassType, so the object is built exactly like a
@@ -5122,6 +5290,13 @@ UHDM::design* UhdmExporter::exportDesign() {
             for (auto* m9 : *tm9)
                 fixList9(m9);
     }
+    // NOTE § classNestedClassTdGroupNoAnchor54 — DESIGN-FINAL, and BEFORE the
+    // three listing passes below so they publish finished objects.  It is
+    // placed here and not later because it must not disturb the pinned tail
+    // ordering (§ classInheritsContainerImports23 -> § 45 -> § 38 DEAD LAST);
+    // it only writes a span and one vpiTypedefAlias child on class-nested
+    // class_typespecs, which none of those passes reads.
+    drainClassNestedTdGroups54();
     // § importPublishesPackageClasses24 — DESIGN-FINAL, and BEFORE the class
     // arm below: the package listings it rewrites (and the names it
     // requalifies) are what the class arm then inherits.
