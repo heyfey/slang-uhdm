@@ -708,6 +708,68 @@ UHDM::typespec* UhdmExporter::tdVecNamedClone42(const Type& al,
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {
+    // § virtualIfaceTsIsInterfaceTs6 — a WRITTEN `virtual <iface>[.<modport>]`
+    // type is an `interface_typespec` NAMED after the interface and spanned
+    // over `<iface>[.<modport>]` — i.e. the `virtual` (and the optional
+    // `interface`) keyword is NOT part of the span, and the modport IS.  We
+    // used to fall through to the generic tail and mint a LOC-ONLY
+    // `logic_typespec` spanning the whole written type INCLUDING `virtual`.
+    //
+    // Producer: `CompileHelper::compileDataDeclaration` steps PAST the
+    // `paVIRTUAL` node (`if (fC->Type(intVec_TypeReg) == paVIRTUAL)
+    // intVec_TypeReg = fC->Sibling(intVec_TypeReg)`), so the Signal's
+    // typespec node is the interface-name StringConst and `compileTypespec`
+    // resolves it to the interface's own `interface_typespec`.
+    //
+    // NOT shared: golden mints ONE object PER DECLARATION, each at its own
+    // span (arm v1 design-listing: four separate `interface_typespec (v_if)`
+    // at 48:24, 57:24, 99:11, 100:11).  It also carries NOTHING but vpiName —
+    // no vpiInstance, no ranges.
+    //
+    // GATE: the WRITTEN syntax must be a VirtualInterfaceTypeSyntax.  A
+    // TYPEDEF'd spelling (`wif_t x`) is deliberately left alone — golden's
+    // shape there is the typedef's own object and this pass did not measure
+    // the variable-side half (residue R4).
+    //
+    // KNOWN-WRONG HALF, added by the r10oth6 VERIFIER (residue R7).  The end
+    // token below ignores `VirtualInterfaceTypeSyntax::parameters`, which is a
+    // real member of that node (slang AllSyntax.h, `struct
+    // VirtualInterfaceTypeSyntax`: virtualKeyword, interfaceKeyword, name,
+    // parameters, modport).  MEASURED on arm `v3_paramvif.sv`, module scope —
+    // the only position this function runs in for a virtual interface, since
+    // law A pushes a class PROPERTY and `continue`s before any ref_typespec:
+    //   `virtual p_if #(.W(4))     pm1;`  golden 37:11-37:24, ours 37:11-37:15
+    //                                     -> ours TOO NARROW (drops `#(...)`)
+    //   `virtual p_if #(.W(4)).IP  pm2;`  golden 38:11-38:24, ours 38:11-38:27
+    //                                     -> ours TOO WIDE (golden stops at the
+    //                                        parameters and EXCLUDES `.IP`)
+    // Golden's end token is therefore: parameters.end if parameters, else
+    // modport.end if modport, else name.end — NOT what is written below.  The
+    // no-parameter halves ARE correct and are measured (arm v1 `mvi` 99:11-99:18,
+    // `mvb` 100:11-100:15, `mvk` 103:21-103:25, `mvkm` 104:21-104:28, all
+    // byte-equal to golden).  Reach of the broken half: 26 written
+    // `virtual <iface> #(` sites across both corpora; ZERO of them move a row
+    // or a byte today (all five gates clean), so this is a latent residue and
+    // NOT a regression.  Left unfixed on purpose: a span change is exactly the
+    // over-fire class this campaign keeps losing passes to, and it deserves its
+    // own measured pass rather than a verifier's drive-by edit.
+    {
+        const syntax::SyntaxNode* vsyn6 =
+            typeSynOverride
+                ? typeSynOverride
+                : (declSymbol.getDeclaredType()
+                       ? declSymbol.getDeclaredType()->getTypeSyntax()
+                       : nullptr);
+        if (vsyn6 && vsyn6->kind == syntax::SyntaxKind::VirtualInterfaceType) {
+            auto& vts6 = vsyn6->as<syntax::VirtualInterfaceTypeSyntax>();
+            auto* its6 = s.MakeInterface_typespec();
+            its6->VpiName(vts6.name.valueText());
+            auto endTok6 = vts6.modport ? vts6.modport->sourceRange().end()
+                                        : vts6.name.range().end();
+            setLoc(its6, SourceRange(vts6.name.range().start(), endTok6));
+            return its6;
+        }
+    }
     if (auto* csn = classScopeTypeRef(typeSynOverride ? typeSynOverride
                                                       : (declSymbol.getDeclaredType()
                                                              ? declSymbol.getDeclaredType()

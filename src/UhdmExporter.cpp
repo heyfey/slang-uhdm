@@ -653,6 +653,40 @@ void UhdmExporter::emitClassPropInit29(const PendingPropInit29& pi) {
             pi.var->Expr((UHDM::expr*)e28);
 }
 
+// § classDefnVirtualFromVirtualIfaceDecl6 (predicate) — does this class
+// declaration's SYNTAX SUBTREE write a `virtual <iface>` data type anywhere?
+// Surelog's rule is literally `fC->sl_collect(id, VObjectType::paVIRTUAL)`
+// over the whole class subtree (CompileClass.cpp, grep `defn->VpiVirtual`),
+// and `sl_collect` recurses (FileContent.cpp `NodeId FileContent::sl_collect`).
+// The grammar emits a standalone `paVIRTUAL` node in exactly two places that
+// can sit inside a class body: `VIRTUAL? CLASS` and
+// `VIRTUAL INTERFACE? interface_identifier` — a `virtual function` qualifier
+// does NOT (measured: arm cell k3_virtmethod reads vpiVirtual ABSENT on BOTH
+// sides).
+//
+// STRUCK BY THE r10oth6 VERIFIER — this comment used to end "So a syntax walk
+// for VirtualInterfaceType is the same predicate."  IT IS NOT, and the sentence
+// above it names the counterexample it ignored: `VIRTUAL? CLASS` is the OTHER
+// paVIRTUAL site that can sit in a class body.  A class whose only `virtual` is
+// a NESTED `virtual class` gets vpiVirtual:1 from golden's `sl_collect` and
+// ABSENT from this walk.  MEASURED, not reasoned — arm cell `v4_nestedvirt.sv`,
+// `x1_outer`: golden 1 / ours ABSENT, with the control `x2_outer` (nested class
+// NOT virtual) reading ABSENT on both sides.  This is an UNDER-fire and it is
+// PRE-EXISTING (the pristine binary reads ABSENT too, since the outer class is
+// not abstract), so it is not a regression of this pass — it is filed as
+// residue R8 and deliberately NOT widened here, because widening it needs the
+// `virtual class` half measured on its own and this pass did not do that.
+static bool hasVirtualIfaceSyntax6(const slang::syntax::SyntaxNode* n) {
+    if (!n)
+        return false;
+    if (n->kind == slang::syntax::SyntaxKind::VirtualInterfaceType)
+        return true;
+    for (size_t i = 0, e = n->getChildCount(); i < e; ++i)
+        if (hasVirtualIfaceSyntax6(n->childNode(i)))
+            return true;
+    return false;
+}
+
 // A class definition (file-level or module-local): properties as ::-scoped
 // automatic vars (typespecs deferred to the write phase), methods via
 // emitTaskFuncs in class scope. File-level classes display their work@ name;
@@ -840,6 +874,37 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             v = s.MakeStruct_var();
         if (!v && ct.kind == SymbolKind::UnpackedUnionType)
             v = s.MakeUnion_var();
+        // § virtualIfacePropIsBareLogicVar6 — a VIRTUAL INTERFACE class
+        // PROPERTY is a BARE `logic_var` in golden, carrying nothing but
+        // name / fullname / parent / span / vpiAutomatic / vpiVisibility, and
+        // in particular NO vpiTypespec at all.  We used to `continue` here
+        // ("class property type: VirtualInterfaceType"), which DELETED the
+        // property from the class's vpiVariables listing — SVSwitch's head was
+        // exactly that: golden's first Driver variable is the line-13
+        // `virtual input_interface.IP input_intf`, ours was the line-14
+        // `mailbox drvr2sb`.
+        //
+        // WHY a logic_var, transcribed from the producer rather than guessed:
+        // Surelog never models a virtual interface at all.  `Signal`'s type is
+        // the `slStringConst` of the interface name (CompileHelper.cpp
+        // compileDataDeclaration steps PAST the `paVIRTUAL` node), no typespec
+        // binds, and `ElaborationStep::makeVar_` falls off the end of its
+        // subnettype switch into its `// default type (fallback)` arm, which
+        // mints a bare `logic_var` with null packed ranges.  The tail of
+        // makeVar_ then stamps vpiAutomatic (unless static) and vpiVisibility,
+        // which is why the object still reads like a normal property.
+        //
+        // GATE: canonical-type kind only, so the TYPEDEF'd spelling
+        // (`typedef virtual w_if.IP wif_t; wif_t vi;`) lands here too — arm
+        // cell k6_typedef proves golden treats it identically.  All four
+        // written spellings (`virtual <if>.<mp>`, `virtual <if>`,
+        // `virtual interface <if>`, `virtual interface <if>.<mp>`) are ONE
+        // cell in golden: v1 arm cells c1..c4.
+        bool vifProp6 = false;
+        if (!v && ct.kind == SymbolKind::VirtualInterfaceType) {
+            v = s.MakeLogic_var();
+            vifProp6 = true;
+        }
         if (!v) {
             noteUnsupportedAt("class property type: " +
                               std::string(toString(ct.kind)), cp.location);
@@ -1013,10 +1078,40 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                 setLoc(c3, ic0.sourceRange);
                 v->Expr(c3);
             }
+            // § virtualIfaceNullInitIsClassParented6 — `virtual v_if.IP vi =
+            // null;` rides a vpiNullConst (constType 11) sized 64, decompile
+            // `0`, value UINT:0 — and its vpiParent is the CLASS_DEFN, not the
+            // variable.  That is not a slip: Surelog builds the initializer in
+            // `TestbenchElaboration::bindProperties_` with
+            // `exp->VpiParent(defn)` and then makeVar_'s FALLBACK arm (the one
+            // this property lands in) only does `var->Expr(assignExp)` — it
+            // never re-parents.  Every arm the fallback does NOT reach
+            // re-parents to the var, so the gate is the virtual-interface
+            // property, not `null`.  Witness: v1 cell c11_init, both sides.
+            else if (vifProp6 && ic0.kind == ExpressionKind::NullLiteral) {
+                auto* cn6 = s.MakeConstant();
+                cn6->VpiDecompile("0");
+                cn6->VpiSize(64);
+                cn6->VpiValue("UINT:0");
+                cn6->VpiConstType(vpiNullConst);
+                cn6->VpiParent(cd);
+                setLoc(cn6, ic0.sourceRange);
+                v->Expr(cn6);
+            }
             // Everything else is a § classPropInit29 shape: deferred to just
             // after emitTaskFuncs so a call can bind the class's own methods.
             else
                 lateInit29.push_back({v, &cp, pfn0});
+        }
+        // § virtualIfacePropIsBareLogicVar6 (second half) — and it carries NO
+        // ref_typespec.  Golden's object is five fields long; the ref_typespec
+        // + write-phase mint below would add a `vpiTypespec` edge that
+        // variables::Compare reads, so the property must skip it entirely.
+        // Arm cells c1..c5, c7..c9, c12, k6, k8, k9 all read exactly
+        // name/fullname/parent/span/automatic/visibility on BOTH sides.
+        if (vifProp6) {
+            vars->push_back(v);
+            continue;
         }
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(fullName + "::" + std::string(cp.name));
@@ -1035,7 +1130,20 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
     if (cls.genericClass)
         genericDefnMap.emplace(cls.genericClass, cd);
     // `virtual class` / `pure virtual class`.
-    if (cls.isAbstract)
+    // § classDefnVirtualFromVirtualIfaceDecl6 — ...and ALSO when the class
+    // BODY writes a `virtual <iface>` data type anywhere, even though the
+    // class itself is not abstract.  This is a Surelog artefact, not an LRM
+    // rule: `sl_collect(classId, paVIRTUAL)` cannot tell the `virtual` of a
+    // virtual-interface declaration from the `virtual` of `virtual class`.
+    // class_defn::Compare reads vpiVirtual right after the scope base
+    // (generated/src/class_defn.cpp `lhs->VpiVirtual() == rhs->VpiVirtual()`),
+    // i.e. immediately after the vpiVariables listing this pass fixes — so
+    // without this the SVSwitch head would simply move one field along.
+    // Arm cells, BOTH sides: property k8/k9 = 1, method FORMAL k7 = 1, method
+    // BODY LOCAL k5 = 1, in-class TYPEDEF k11 = 1; and the three controls
+    // k1_plain / k3_virtmethod / k6_typedef (typedef written OUTSIDE the
+    // class) all read ABSENT on both sides.
+    if (cls.isAbstract || hasVirtualIfaceSyntax6(cls.getSyntax()))
         cd->VpiVirtual(true);
     // Parameters BEFORE typedefs: Surelog compiles the class header first, so
     // a formal's typespec is the older object (arena order — VirtualClass's
