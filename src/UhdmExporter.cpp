@@ -1868,7 +1868,53 @@ UHDM::class_defn* UhdmExporter::classDefnFor(const Type& ct) {
         if (auto* gc = ct.as<ClassType>().genericClass)
             if (auto git = genericDefnMap.find(gc); git != genericDefnMap.end())
                 return git->second;
+    // NOTE § builtinClassTsLinksBuiltinFileDefn7 — DIRECTION: ADD an EDGE.
+    // GATE: `mailbox` / `semaphore` / `process` resolve, in slang, to a
+    // specialization of a generic class slang synthesizes in its OWN built-in
+    // `std` package, which lives in no compilation unit; the class_defn we emit
+    // for the same name comes from the injected <cwd>/builtin.sv text.  The two
+    // symbols are unrelated, so the SHORT NAME is the only bridge there is.
+    // NECESSARY, not cosmetic: `class_typespec::Compare` reads vpiClassDefn, and
+    // this missing scalar POINTER was SVSwitch's cmp head -- `BaseClass.h`'s
+    // scalar SafeCompare prints a missing POINTER as `RHS: <null>` on the
+    // POINTEE, i.e. as if the whole class_defn OBJECT were absent (it is not; we
+    // emit all ten of SVSwitch's).
+    // MEASURED both sides: arm c1_builtins cells a1_mb / a2_sem / a3_proc
+    // (properties), a9_mb (formal), a15_mb (module var) and arm c3_bounds cell
+    // d13 -- golden carries the edge in EVERY one, we carried it in NONE.
+    // GATE (byte verifier + arm): only isBuiltinStdClass, so nothing that
+    // already resolves is touched, and the map is EMPTY under --nobuiltin.
+    if (!builtinFileDefnByName.empty() && isBuiltinStdClass(ct)) {
+        if (auto bit = builtinFileDefnByName.find(ct.name);
+            bit != builtinFileDefnByName.end())
+            return bit->second;
+    }
     return nullptr;
+}
+
+// § builtinClassTsLinksBuiltinFileDefn7's gate.  slang's `std` package is
+// compiler-synthesized (Compilation::getStdPackage), so its classes have no
+// syntax and no compilation unit; a USER class of the same short name always
+// has a CompilationUnit / InstanceBody / user Package home and is rejected
+// here.  Stopping at the FIRST enclosing Package / CompilationUnit /
+// InstanceBody is what makes that distinction, rather than the class's name.
+bool UhdmExporter::isBuiltinStdClass(const Type& ct) {
+    if (ct.kind != SymbolKind::ClassType)
+        return false;
+    auto scopeOf = [](const Symbol& sym) { return sym.getParentScope(); };
+    const Scope* sc = scopeOf(ct);
+    if (!sc)
+        if (auto* gc = ct.as<ClassType>().genericClass)
+            sc = scopeOf(*gc);
+    for (; sc; sc = sc->asSymbol().getParentScope()) {
+        auto& sym = sc->asSymbol();
+        if (sym.kind == SymbolKind::Package)
+            return sym.name == "std";
+        if (sym.kind == SymbolKind::CompilationUnit ||
+            sym.kind == SymbolKind::InstanceBody)
+            return false;
+    }
+    return false;
 }
 
 // The specialization carried by a class_typespec (see the header note).
@@ -4131,16 +4177,22 @@ UHDM::design* UhdmExporter::exportDesign() {
         // class_defn objects lead the arena; the design's class LIST is then
         // ordered by SHORT class name (Surelog's multimap<name, ClassDefn*>).
         std::map<const ClassType*, UHDM::class_defn*> made;
-        auto emitOne = [&](const ClassType* c) {
+        auto emitOne = [&](const ClassType* c, bool fromBuiltinFile) {
             std::string cname = "work@" + std::string(c->name);
             made[c] = emitClassDefn(*c, cname, cname, d);
+            // NOTE § builtinClassTsLinksBuiltinFileDefn7 — the SHORT-NAME index
+            // classDefnFor falls back to.  Only the injected builtin.sv unit
+            // feeds it, so it stays empty under --nobuiltin and can never shadow
+            // a user class.  See the header comment for why the bridge exists.
+            if (fromBuiltinFile && made[c])
+                builtinFileDefnByName.emplace(std::string(c->name), made[c]);
         };
         for (auto& e : ents)
             if (e.builtinFile)
-                emitOne(e.cls);
+                emitOne(e.cls, /*fromBuiltinFile=*/true);
         for (auto& e : ents)
             if (!e.builtinFile)
-                emitOne(e.cls);
+                emitOne(e.cls, /*fromBuiltinFile=*/false);
         std::stable_sort(ents.begin(), ents.end(),
                          [](const ClassEnt& a, const ClassEnt& b) {
                              return a.cls->name < b.cls->name;

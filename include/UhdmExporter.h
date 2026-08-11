@@ -2947,6 +2947,27 @@ private:
     // class_defn for a class type, following a specialization back to its
     // generic declaration when the specialization itself was never emitted.
     UHDM::class_defn* classDefnFor(const slang::ast::Type& ct);
+    // § builtinClassTsLinksBuiltinFileDefn7 — the class_defns emitted from the
+    // INJECTED <cwd>/builtin.sv unit, keyed by SHORT class name (`mailbox`,
+    // `process`, `semaphore`).
+    //
+    // WHY A SECOND MAP IS UNAVOIDABLE.  `mailbox m;` in user code binds, in
+    // slang, to a specialization of the GenericClassDefSymbol slang builds in
+    // its own built-in `std` package (source/ast/builtins/StdPackage.cpp, grep
+    // `allocGenericClass("mailbox"`) -- a symbol that appears in NO compilation
+    // unit, so classDefnMap / genericDefnMap can never see it.  The class_defn
+    // named `work@mailbox` that we DO emit comes from the separate text of
+    // share/builtin.sv.  Two unrelated symbols, one short name: without this
+    // bridge every `mailbox`/`semaphore`/`process` class_typespec lost its
+    // vpiClassDefn edge, which was SVSwitch's cmp head.
+    // GATE: isBuiltinStdClass(), i.e. only a class whose home is that `std`
+    // package; a user class merely NAMED `mailbox` lives in a compilation unit
+    // and resolves the normal way.  Empty under --nobuiltin.
+    std::map<std::string, UHDM::class_defn*, std::less<>> builtinFileDefnByName;
+    // True when @a ct is one of slang's compiler-synthesized `std`-package
+    // classes (mailbox / semaphore / process / ...): walk its parent scopes and
+    // stop at the first Package / CompilationUnit / InstanceBody.
+    static bool isBuiltinStdClass(const slang::ast::Type& ct);
     // --builtins: mirror Surelog's default (no -nobuiltin) content.
     bool builtins = false;
     std::string builtinFilePath;

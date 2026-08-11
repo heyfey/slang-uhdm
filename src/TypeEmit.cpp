@@ -1027,40 +1027,87 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // and the same in a program -> unnamed, while the module-scope
             // `C e;` and a $unit-scope class both stay named). vpiClassDefn is
             // linked either way. SimpleConstraint `frame_t frame = new();`.
-            // A CLASS-METHOD body local is unnamed the same way, wherever its
-            // class lives (measured: `package pk; class C; class D; function
-            // void f(); C m2; begin C m3; end` -> both unnamed, while the
-            // class PROPERTY `C m1` and a module function's `pk::C m5` keep
-            // their names). Surelog compiles a class body with no enclosing
-            // design scope to name the type from.
-            bool inClassMethod0 = false;
-            {
-                bool sawSub0 = false;
-                for (auto sc0 = declSymbol.getParentScope(); sc0;
-                     sc0 = sc0->asSymbol().getParentScope()) {
-                    auto k0 = sc0->asSymbol().kind;
-                    if (k0 == SymbolKind::Subroutine)
-                        sawSub0 = true;
-                    // The class PROPERTY `C m1` (no subroutine between it and
-                    // its class) keeps its name.
-                    if (k0 == SymbolKind::ClassType) {
-                        inClassMethod0 = sawSub0;
-                        break;
-                    }
-                    if (k0 == SymbolKind::InstanceBody || k0 == SymbolKind::Package ||
-                        k0 == SymbolKind::CompilationUnit)
-                        break;
+            //
+            // ~~A CLASS-METHOD body local is unnamed the same way, wherever its
+            // class lives.~~  **STRUCK BY r10oth7 — REFUTED IN ITS "WHEREVER"
+            // CLAUSE.**  The old rule unnamed EVERY class-method body local and
+            // that is over-wide: golden NAMES the local whenever the class's
+            // home design component differs from the enclosing class's (arm
+            // c2_localname cells b5..b9, arm c1_builtins a13_user, arm
+            // c4_crosscomp e1/e3), and it was SVSwitch's `packet pkt;` in
+            // Driver::start / Receiver::start / Scoreboard::start (four sites).
+            // The old comment's own witness (`package pk; class C; class D;
+            // function void f(); C m2;`) is cell b2/e2' and still reads UNNAMED
+            // on both sides — it is the SAME-component case, not a class-method
+            // case.  Do not carry the superseded wording forward.
+            //
+            // NOTE § classMethodLocalNameFollowsHomeComponent7 — DIRECTION: ADD
+            // a NAME, by NARROWING an over-wide suppression.  A class is NOT a
+            // design component, so the § localClassTsUnnamed15 same-component
+            // test below now walks THROUGH the enclosing ClassType instead of
+            // stopping at it, and the blanket class-method rule is gone.
+            // GATE (arms c1..c4 + the byte verifier + both row gates).
+            //
+            // A uniquified instance body is a DIFFERENT Scope per instance
+            // while the class symbol keeps the scope it was declared in, so
+            // identity has to go through the definition, not the body.
+            auto compKey0 = [](const Scope* sc) -> const void* {
+                if (!sc)
+                    return nullptr;
+                auto& sym = sc->asSymbol();
+                if (sym.kind == SymbolKind::InstanceBody)
+                    return (const void*)&sym.as<InstanceBodySymbol>().getDefinition();
+                return (const void*)&sym;
+            };
+            // The HOME DESIGN COMPONENT of a scope: the first enclosing Package
+            // or InstanceBody, walking THROUGH class / subroutine / block
+            // scopes.  $unit is deliberately NOT a component and yields
+            // nullptr — that is the half the arms pinned down: a $unit class
+            // used from a $unit class's method is NAMED (b5), and a $unit class
+            // used from a MODULE class's method is NAMED too (e1), while two
+            // classes in one package (b2/e2'), one package class used from its
+            // own subclass (e6) and two classes in one module (b10) are all
+            // UNNAMED.
+            auto homeComp0 = [](const Scope* sc) -> const Scope* {
+                for (; sc; sc = sc->asSymbol().getParentScope()) {
+                    auto k = sc->asSymbol().kind;
+                    if (k == SymbolKind::InstanceBody || k == SymbolKind::Package)
+                        return sc;
+                    if (k == SymbolKind::CompilationUnit)
+                        return nullptr;
                 }
+                return nullptr;
+            };
+            // Is the declaration a BODY LOCAL (inside a subroutine or a
+            // statement block), and is there a class between it and its
+            // component?  The class PROPERTY `C m1` (no subroutine between it
+            // and its class) keeps its name, which is why nested0 gates
+            // everything below.
+            bool nested0 = false, inClassBody0 = false;
+            for (auto sc0 = declSymbol.getParentScope(); sc0;
+                 sc0 = sc0->asSymbol().getParentScope()) {
+                auto k0 = sc0->asSymbol().kind;
+                if (k0 == SymbolKind::Subroutine ||
+                    k0 == SymbolKind::StatementBlock) {
+                    nested0 = true;
+                    continue;
+                }
+                // § classMethodLocalNameFollowsHomeComponent7: transparent.
+                if (k0 == SymbolKind::ClassType) {
+                    inClassBody0 = true;
+                    continue;
+                }
+                break;
             }
             // A class-method FORMAL is not a body local: Surelog compiles the
             // argument list from the prototype's own scope and keeps the name
             // (`extern function void add_testsuite(svunit_testsuite ts)` ->
             // class_typespec named svunit_testsuite on BOTH the prototype's
-            // and the definition's io_decl).
+            // and the definition's io_decl).  Arm cells a9_mb / a10_user /
+            // a11_pkg read NAMED on both sides.
             if (declSymbol.kind == SymbolKind::FormalArgument)
-                inClassMethod0 = false;
-            // § localClassTsUnnamed15 — the statement-scope rule above is one
-            // case of a general one: a class-typed variable declared INSIDE a
+                nested0 = false;
+            // § localClassTsUnnamed15 — a class-typed variable declared INSIDE a
             // subroutine or a statement block loses the class name whenever the
             // class is declared in the SAME design component, and keeps it
             // whenever the class comes from anywhere else.  Measured both
@@ -1072,47 +1119,57 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // keep the name; a package function FORMAL keeps it too (t20).
             // This is the `uvm_globals::run_test` shape — `uvm_root top;` in a
             // package task — and it is 390 of SeqDriver's mismatching pairs.
-            bool localSameComp0 = false;
-            if (declSymbol.kind != SymbolKind::FormalArgument) {
-                // A uniquified instance body is a DIFFERENT Scope per instance
-                // while the class symbol keeps the scope it was declared in, so
-                // identity has to go through the definition, not the body.
-                auto compKey0 = [](const Scope* sc) -> const void* {
-                    if (!sc)
-                        return nullptr;
-                    auto& sym = sc->asSymbol();
-                    if (sym.kind == SymbolKind::InstanceBody)
-                        return (const void*)&sym.as<InstanceBodySymbol>()
-                            .getDefinition();
-                    return (const void*)&sym;
-                };
-                const Scope* host0 = nullptr;
-                bool nested0 = false;
-                for (auto sc0 = declSymbol.getParentScope(); sc0;
-                     sc0 = sc0->asSymbol().getParentScope()) {
-                    auto k0 = sc0->asSymbol().kind;
-                    if (k0 == SymbolKind::Subroutine ||
-                        k0 == SymbolKind::StatementBlock) {
-                        nested0 = true;
-                        continue;
-                    }
-                    if (k0 == SymbolKind::InstanceBody ||
-                        k0 == SymbolKind::Package)
-                        host0 = sc0;
-                    break;
-                }
-                localSameComp0 = nested0 && host0 &&
-                                 compKey0(ct0.getParentScope()) ==
-                                     compKey0(host0);
-            }
-            if (!inClassMethod0 && !localSameComp0 &&
+            // r10oth7 re-measured every one of those cells (arm c3_bounds d4 /
+            // d9 / d12) and they all still read as this comment says.
+            const Scope* declHome0 = homeComp0(declSymbol.getParentScope());
+            bool localSameComp0 =
+                nested0 && declHome0 &&
+                compKey0(declHome0) == compKey0(homeComp0(ct0.getParentScope()));
+            // NOTE § builtinClassTsLinksBuiltinFileDefn7, the NAMING half —
+            // and it is a SUPPRESSION, in the opposite direction to the edge.
+            // A built-in (`mailbox`) handle declared as a class-method BODY
+            // LOCAL is UNNAMED in golden even though its home (slang's `std`
+            // package) differs from the enclosing class's: Surelog cannot
+            // resolve it as a DataType from inside a class body at all and
+            // falls into `CompileHelper::compileVariable`'s global
+            // `design->getClassDefinition(typeName)` arm, which mints a
+            // class_typespec with Class_defn and NO VpiName (CompileType.cpp,
+            // grep `design->getClassDefinition(typeName)`).  NECESSARY: without
+            // it the law above would NAME arm cell a12_mb, which golden leaves
+            // unnamed.  Deliberately gated on inClassBody0 — at a module- or
+            // package-subroutine local golden emits an `unsupported_typespec`
+            // instead of a class_typespec (arm c3_bounds cells d5/d10/d11), so
+            // the naming question there is UNMEASURED and this pass does not
+            // touch it.
+            bool builtinLocalUnnamed0 =
+                nested0 && inClassBody0 && isBuiltinStdClass(ct0);
+            if (!localSameComp0 && !builtinLocalUnnamed0 &&
                 !(declSymbol.getParentScope() &&
                   declSymbol.getParentScope()->asSymbol().kind ==
                       SymbolKind::StatementBlock &&
                   ct0.getParentScope() &&
                   ct0.getParentScope()->asSymbol().kind == SymbolKind::InstanceBody))
                 cts->VpiName(ct0.name);
-            if (auto* bcd0 = classDefnFor(ct0))
+            // NOTE § builtinClassTsLinksBuiltinFileDefn7, THE NARROWING —
+            // and it was found by an arm, not reasoned: a BUILT-IN handle
+            // declared as a local of a subroutine or statement block that is NOT
+            // inside a class is an `unsupported_typespec` in golden, not a
+            // class_typespec (arm c3_bounds cells d5 / d10 / d11).  Golden's
+            // object there carries vpiName and vpiInstance and NOTHING ELSE, so
+            // the class_defn edge law A adds everywhere else would make our
+            // (already wrong-KIND) object one field FURTHER from golden's, not
+            // closer.  Transcribed: Surelog's statement-scope compileTypespec
+            // falls through to its catch-all, which mints an unsupported_typespec
+            // carrying the WRITTEN NAME and no class_defn at all.
+            // MEASURED: without this narrowing arm c3_bounds's dump distance rose
+            // 96 -> 102 content lines; with it, it does not rise.  The remaining
+            // wrong KIND is residue R4.
+            bool builtinStmtScopeNoLink0 =
+                nested0 && !inClassBody0 && isBuiltinStdClass(ct0);
+            if (builtinStmtScopeNoLink0) {
+                // deliberately no link, and NOT deferred either
+            }
+            else if (auto* bcd0 = classDefnFor(ct0))
                 cts->Class_defn(bcd0);
             else
                 pendingClassTsLink.push_back({cts, &ct0});
