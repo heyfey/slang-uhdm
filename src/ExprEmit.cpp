@@ -636,6 +636,17 @@ struct ClassArgBindOff12 {
     explicit ClassArgBindOff12(int& d) : p(&d), saved(d) { d = 0; }
     ~ClassArgBindOff12() { *p = saved; }
 };
+// § classInBodyRecvCallArgNoBind52 — the RECEIVER-QUALIFIED call-argument
+// window (see recvCallArgDepth52 in UhdmExporter.h).  It is a SILENCER, the
+// mirror of ClassArgBind12: raised around the argument list of every
+// EXPRESSION-position `recv.m(args)` our emitter renders as a hier_path, and
+// read by the bind gate only when the body is an IN-BODY class method.
+struct RecvCallArg52 {
+    int* p;
+    int saved;
+    explicit RecvCallArg52(int& d) : p(&d), saved(d) { d = d + 1; }
+    ~RecvCallArg52() { *p = saved; }
+};
 
 static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     dst->VpiLineNo(src->VpiLineNo());
@@ -5628,8 +5639,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // in-body twin binds nothing at any depth.
                 bool ctrlBodyNoBind28 =
                     curSubClassScope9 && !curSubOob9 && ctrlBodyDepth28 > 0;
+                // NOTE § classInBodyRecvCallArgNoBind52 — GATE: an IN-BODY
+                // class method (curSubClassScope9 && !curSubOob9) inside the
+                // ARGUMENT LIST of a RECEIVER-QUALIFIED, EXPRESSION-position
+                // call (recvCallArgDepth52 > 0).  DIRECTION: SUPPRESS.
+                // curSubClassScope9 rather than classMethodNoBind for exactly
+                // the reason § controlBodyNoBind28 gives one line up: an
+                // if/case CONDITION clears classMethodNoBind mid-body, and the
+                // condition is where the corpus head lives
+                // (`if (!pool.exists(key))`, uvm-1.2 uvm_pool.svh:87).  The
+                // OUT-OF-BODY half is measured, not assumed — arm a2's ob52
+                // writes the identical bodies after `endclass` and golden
+                // binds all nine of its arguments.
+                bool recvCallArgNoBind52 =
+                    curSubClassScope9 && !curSubOob9 && recvCallArgDepth52 > 0;
                 if (((classMethodNoBind && classArgBindDepth12 == 0) ||
-                     unitSubNoBind9 || ctrlBodyNoBind28) &&
+                     unitSubNoBind9 || ctrlBodyNoBind28 ||
+                     recvCallArgNoBind52) &&
                     !superNewFormal28) {
                     // Class-method body outside an if/case condition, or a
                     // `$unit`-scope subroutine body: no actual of any kind
@@ -8332,6 +8358,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          call.thisClass()->sourceRange.end() + 1,
                                          sub.name));
                         auto* margs0 = s.MakeAnyVec();
+                        // NOTE § classInBodyRecvCallArgNoBind52 — SITE 1 of 3,
+                        // the one-name-receiver CLASS-METHOD call in
+                        // EXPRESSION position (arm a2 ib_cond_hnd_formal
+                        // `if (h.um52(f) == 0)`: golden NONE, ours bound
+                        // before this law).  GATE: in-body class method.
+                        RecvCallArg52 rca52(recvCallArgDepth52);
                         // § writtenCallArgs16 — only the actuals WRITTEN at
                         // the call site; a defaulted formal is slang's, not
                         // Surelog's.
@@ -8462,6 +8494,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(mfcH,
                                SourceRange(posH, posH + namesH.back().size()));
                         auto* argsH = s.MakeAnyVec();
+                        // NOTE § classInBodyRecvCallArgNoBind52 — SITE 2 of 3,
+                        // the DOTTED-PATH call in EXPRESSION position (two or
+                        // more receiver names).  GATE: in-body class method.
+                        RecvCallArg52 rca52H(recvCallArgDepth52);
                         // § writtenCallArgs16 — only the actuals WRITTEN at
                         // the call site; a defaulted formal is slang's, not
                         // Surelog's.
@@ -9818,6 +9854,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* margs = s.MakeAnyVec();
                         if (iterArg9)
                             margs->push_back(iterArg9);
+                        // NOTE § classInBodyRecvCallArgNoBind52 — SITE 3 of 3,
+                        // the BUILT-IN method on a receiver in EXPRESSION
+                        // position.  THIS IS THE CORPUS HEAD'S SITE:
+                        // `if (!pool.exists(key))` in uvm-1.2 uvm_pool.svh:87
+                        // inside `function T uvm_pool::get(KEY key)`, whose
+                        // class body ends at line 232 (IN BODY).  GATE:
+                        // in-body class method.  Arm a2 ib_cond_builtin_formal
+                        // is the same shape read on one golden, both sides.
+                        RecvCallArg52 rca52B(recvCallArgDepth52);
                         for (size_t ai = 1; ai < call.arguments().size(); ai++) {
                             bool fs2 = forceConstParent;
                             if (isLiteralExpr(*call.arguments()[ai]))

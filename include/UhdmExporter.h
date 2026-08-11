@@ -1945,6 +1945,34 @@ private:
     // arguments never enter (`$display("%0d", f)` binds nothing) and a
     // CONCATENATION operand leaves it (`sink({f, loc})` binds neither).
     int classArgBindDepth12 = 0;
+    // § classInBodyRecvCallArgNoBind52 — depth of RECEIVER-QUALIFIED call
+    // ARGUMENT nesting, i.e. a call rendered as the two-or-more element
+    // `hier_path{ref_obj recv…, method_func_call m}` shape that EXPRESSION
+    // position takes.  Non-zero silences every reference actual for an
+    // IN-BODY class method (curSubClassScope9 && !curSubOob9) — including the
+    // ones the if/case CONDITION carve-out would otherwise let through, which
+    // is the whole point: the corpus head is `if (!pool.exists(key))` in
+    // uvm-1.2 uvm_pool.svh:87, a CONDITION.
+    //
+    // Measured on arm a2, IN-BODY class ib52 vs the SAME BODIES written OUT OF
+    // BODY (ob52) and in a PACKAGE function (pk_all), one golden, both sides:
+    //     ib_cond_builtin_formal  `if (amap.exists(k))`   golden NONE
+    //     ib_cond_hnd_formal      `if (h.um52(f) == 0)`   golden NONE
+    //     ib_stmt_hnd_formal      `h.ut52(f);`            golden io_decl  <- STATEMENT binds
+    //     ib_cond_bare_formal     `if (bare52(f) == 0)`   golden io_decl  <- no receiver
+    //   and the OUT-OF-BODY twins of the two silenced cells, written after
+    //   `endclass` and otherwise character-for-character identical:
+    //     ob_cond_builtin_formal  `if (amap.exists(k))`   golden io_decl
+    //     ob_cond_hnd_formal      `if (h.um52(f) == 0)`   golden io_decl
+    //   (ob52's and pk_all's other cells bind too; the ONE cell that binds in
+    //   NO home is the class-PROPERTY argument `bare52(prop)`, which is
+    //   § classArgBind12's own pre-existing rule and not this law's business.)
+    // so the gate needs all three halves: a RECEIVER, a NON-STATEMENT
+    // position, and an IN-BODY class method.  STATEMENT position never takes
+    // the hier_path shape in our emitter, so the counter is raised only at the
+    // three `!callStmtCtx0` hier_path arms and the statement half needs no
+    // test of its own.
+    int recvCallArgDepth52 = 0;
     // § superNewFormalBinds28 — depth of `super.new(...)` ARGUMENT nesting.
     // The chain-up call is NOT an ordinary call for binding purposes: inside
     // its argument list a reference to one of the constructor's own FORMALS
