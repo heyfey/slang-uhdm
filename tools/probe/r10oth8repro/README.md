@@ -125,11 +125,55 @@ carries an unquantified build term. The instrument to reuse is right here:
 `ctflake.sh` for per-binary determinism, and the four-row table above for the
 population.
 
-**Why the pass still landed:** the churn is not caused by the fix (proved above),
-it is caused by *changing the binary at all* — so no landing avoids it, and
-declining to fix a known typedef-piercing over-fire in order to preserve one
-particular draw of an unstable ordering would be preserving the artefact instead
-of the law. All five gates are green on the shipped binary.
+**Why the pass still landed:** ~~the churn is not caused by the fix (proved
+above), it is caused by *changing the binary at all*~~ — see the correction
+immediately below; the operative reason is that the churn is not SEMANTIC (the
+`vpiSigned` sets are identical), no row or dump verdict moved, and declining to
+fix a known typedef-piercing over-fire in order to preserve one particular draw of
+an unstable ordering would be preserving the artefact instead of the law. All five
+gates are green on the shipped binary.
+
+### 0.2 CORRECTION TO 0.1, ONE PASS LATER — "any binary change flips it" IS REFUTED, and the MECHANISM IS NAMED
+
+**REFUTED by r10oth9** (the very next pass, `tools/probe/r10oth9repro/`): it
+changed the binary too — `51bb84bc…` → `6c33528b…`, and three independent builds
+in three different trees agreed on that md5 bit-for-bit — and its 9 surelog byte
+movers carry **ZERO changed `class_typespec` and `vpiTypedefAlias` lines**, all 9
+attributable to its own law. So *changing the binary* is NOT sufficient. What
+r10oth8's F1 hunk did specifically is: it **stops calling `isSigned()`** on some
+written types (the descent returns false before clause (c)), and in slang that
+call can force lazy type resolution, which ALLOCATES. Different allocation ⇒
+different addresses.
+
+**Why addresses reach the output — the structural finding, and it makes this a
+FINDABLE BUG rather than a mood:** the exporter keys several typespec/alias tables
+on POINTERS and then ITERATES them.
+
+| table | declaration | iterated at |
+|---|---|---|
+| `typedefTs` | `std::map<const slang::ast::Symbol*, UHDM::typespec*>`, `include/UhdmExporter.h:2595` | `src/TypeEmit.cpp:7238`, `:7363`; `src/TaskFuncEmit.cpp:2768`, `:2797`, `:3020`, `:3141` |
+| `pkgTopTypedefTs` | `std::map<const void*, UHDM::typespec*>`, `include/UhdmExporter.h:3483` | `src/TypeEmit.cpp:7241`, `:7365`, `:7398` |
+| `bareScalarTdCopy` | `std::map<const UHDM::typespec*, UHDM::typespec*>`, `include/UhdmExporter.h:505` | `src/TypeEmit.cpp:7625` |
+
+`std::map` over a pointer key iterates in **ADDRESS order**. Those loops feed
+`listingTs` and `aliasOfAlias` — themselves `std::set<const typespec*>`, address-ordered
+again — and the campaign's own FIRST-WINS / LAST-LISTER policies then make the
+WINNER depend on that order. Address order changes ⇒ a different object wins ⇒ a
+different alias/typespec population. That closes the loop from "my 20-line
+predicate edit" to "+98 aliases on BuildUVMPkg" without any semantic change.
+
+**RANKED FOLLOW-UP, now concrete:** give those tables a stable iteration order —
+key on a source identity (file/line/col/name) or carry an insertion-ordered vector
+beside the map — and re-measure. Until then every UVM alias census carries an
+unquantified build term. Do it AFTER the in-flight UVM pass lands: it is the same
+region.
+
+**One more correction, from r10oth9's verifier (its F2):** "each binary is
+deterministic across reps" holds for BuildUVMPkg and SeqDriver (6/6 identical for
+me) but **NOT for Scoreboard**, which is nondeterministic on *every* binary
+(5/5 identical on one pristine run, 3-of-5 distinct on a patched one, 2 distinct
+over 12 further pristine reps). State the test name with the determinism claim;
+`ctflake.sh` is the instrument either way.
 
 ---
 

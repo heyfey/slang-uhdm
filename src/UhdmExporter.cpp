@@ -854,13 +854,131 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             if (auto* rrt = reg->Typespec();
                 rrt && !((UHDM::ref_typespec*)rrt)->Actual_typespec() &&
                 et->getCanonicalType().kind == SymbolKind::PredefinedIntegerType) {
-                if (auto* pts = predefIntTypespec(et->getCanonicalType(), cp))
+                if (auto* pts = predefIntTypespec(et->getCanonicalType(), cp)) {
                     ((UHDM::ref_typespec*)rrt)->Actual_typespec(pts);
+                    // § arrayElemTsSignedParented9 — the ELEMENT TYPESPEC of a
+                    // dynamic / queue / assoc CLASS PROPERTY carries BOTH
+                    // `vpiParent` -> its own `vpiReg` element var AND
+                    // `vpiSigned` = THE ELEMENT TYPE'S RESOLVED SIGNEDNESS.
+                    // `predefIntTypespec` mints a bare object on purpose (its
+                    // header comment: the io_decl / local copy Surelog hands
+                    // back is the unsigned-looking one) and leaves both fields
+                    // to its callers; this call site is the one that owes them.
+                    //
+                    // WITNESS: SVSwitch Packet.sv:23 `rand byte data[];` — the
+                    // head at base 37ffbd2 was exactly
+                    //   golden byte_typespec 23:6 { vpiParent -> byte_var
+                    //          (work@packet::data), vpiSigned:1 }
+                    //   ours   byte_typespec 23:6 { }
+                    // while the PLAIN SCALAR `byte fcs;` one line below already
+                    // got both from us (arm b1 cell c01_fcs), because a scalar
+                    // property goes through the write-phase `makeTypespec`
+                    // mint, whose PredefinedIntegerType arm stamps
+                    // `VpiSigned(pit.isSigned)` and whose caller then stamps
+                    // `ts->VpiParent(pc.var)`.  The MODULE-scope twin is
+                    // already correct too (arm b1 m02_data): TypeEmit's
+                    // `emitDynArrayVar` does `elemTs->VpiParent(reg)` (grep
+                    // `Signedness rides the ARRAY here`) over a typespec that
+                    // `sharedTypespec`/`makeTypespec` had already signed.  So
+                    // this is the ONE arm of the three that owed the fields,
+                    // and both stamps are TRANSCRIBED from a working sibling
+                    // rather than invented.
+                    //
+                    // IT IS *NOT* § arrayVarSignedWritten8's PREDICATE, AND
+                    // THAT IS A MEASUREMENT, NOT A SHORTCUT.  The two carriers
+                    // DISAGREE on the typedef cell, which is the whole reason
+                    // arm b3 exists:
+                    //   `typedef byte b_t; rand b_t x[];` (b3 f01_btd/g01_btd)
+                    //       array_var vpiSigned  -> ABSENT on both sides
+                    //                               (§ arrayVarSignedWritten8
+                    //                                clause (a)/(b): a typedef
+                    //                                NAME gets nothing)
+                    //       element typespec     -> golden vpiSigned:1
+                    //   `typedef b_t b2_t; rand b2_t x[];` (b3 f05_chain) — same
+                    //       split, golden typespec `1`, array_var absent.
+                    // So the typespec keys on the RESOLVED type (`isSigned()`
+                    // pierces the alias, which is exactly what r10oth8's F1 had
+                    // to STOP the array_var doing), while the array_var keys on
+                    // the type AS WRITTEN.  Reusing `arraySignedWritten8` here
+                    // would leave f01/f05 wrong in the same direction they are
+                    // wrong today.  DO NOT MERGE THE TWO PREDICATES.
+                    //
+                    // NEGATIVE CONTROLS THAT FIRE: `byte unsigned` /
+                    // `int unsigned` / `shortint unsigned` / `longint unsigned`
+                    // / `integer unsigned` and `time` (b2 d02/d05/d07/d09/d11/
+                    // d12) are golden-ABSENT and stay absent, because the value
+                    // stamped is `isSigned()` and not a constant 1 — and `time`
+                    // additionally has no case below, matching `makeTypespec`.
+                    //
+                    // THE SHARED-OBJECT HAZARD DOES NOT REACH THIS SITE, and
+                    // that is measured, not assumed: `predefIntTypespec` does
+                    // `s.Make<X>_typespec()` unconditionally, so every object it
+                    // returns is FRESH.  The R10OTH9_TRACE instrument (removed
+                    // before shipping; the run is quoted in
+                    // tools/probe/r10oth9repro/README.md §2) printed a DISTINCT
+                    // pointer and `sharedAlias=0` for all 20 PATH_I objects
+                    // across arms b1/b2/b3, `isSharedAliasTs` included.  A
+                    // typedef'd element does NOT change that: the alias
+                    // registries are never consulted on this path.
+                    // ONE GATE, AND IT IS THE ONE CLAUSE THE TWO CARRIERS
+                    // AGREE ON: § arrayVarSignedWritten8's clause (a), the
+                    // WHOLE ARRAY reached through a typedef
+                    // (`typedef byte barr_t[]; rand barr_t x;`).  Golden's
+                    // object for that shape is not a `byte_typespec` at all —
+                    // it is a bare `array_typespec` carrying NEITHER field
+                    // (arm b3 cells f06_wholetd / g06_wholetd, both sides at
+                    // own child depth).  Stamping there is a MEASURED over-fire
+                    // on a cell golden leaves empty, so it is gated out rather
+                    // than shipped and explained away.  The residue that our
+                    // object is the wrong CLASS is ranked R4 and is NOT touched
+                    // here.
+                    // NOTE this is clause (a) ONLY.  Clauses (b)+(c) — the
+                    // "as written" kind list — are what arms b3 f01/f05 REFUTE
+                    // for this carrier; see the § comment above.
+                    if (cp.getType().kind != SymbolKind::TypeAlias &&
+                        et->isSigned())
+                        switch (pts->UhdmType()) {
+                            case UHDM::uhdmint_typespec:
+                                ((UHDM::int_typespec*)pts)->VpiSigned(true);
+                                break;
+                            case UHDM::uhdminteger_typespec:
+                                ((UHDM::integer_typespec*)pts)->VpiSigned(true);
+                                break;
+                            case UHDM::uhdmshort_int_typespec:
+                                ((UHDM::short_int_typespec*)pts)
+                                    ->VpiSigned(true);
+                                break;
+                            case UHDM::uhdmlong_int_typespec:
+                                ((UHDM::long_int_typespec*)pts)
+                                    ->VpiSigned(true);
+                                break;
+                            case UHDM::uhdmbyte_typespec:
+                                ((UHDM::byte_typespec*)pts)->VpiSigned(true);
+                                break;
+                            default:
+                                break;
+                        }
+                    if (cp.getType().kind != SymbolKind::TypeAlias)
+                        pts->VpiParent(reg);
+                }
             }
             // An ELEMENT type with no shared alias (a bare `bit [7:0]`) still
             // gets its own typespec, minted in the write phase like any other
             // property's (SimpleConstraint `rand bit [7:0] payload []`: the
             // vpiReg bit_var's ref_typespec -> a ranged bit_typespec).
+            //
+            // § arrayElemTsSignedParented9, THE HALF THIS PASS DELIBERATELY DID
+            // NOT SHIP.  This branch already gets `vpiParent` (the write phase
+            // stamps `ts->VpiParent(pc.var)` with `pc.var` = `reg`), but it does
+            // NOT get `vpiSigned` for a SIGNED bit/logic/reg element: arm b2
+            // cells d14_bits / d16_logics / d18_regs / d20_vecs / d21_lvecs read
+            // golden `1` against our absent.  IT IS NOT A CLASS-SCOPE DEFECT —
+            // the MODULE twins e14/e16/e20/e21 read exactly the same way, so it
+            // is a shared law over a different producer (`makeTypespec`'s
+            // scalar/packed arm, not its PredefinedIntegerType arm) with a much
+            // wider blast radius than this pass measured.  Ranked R1 in
+            // tools/probe/r10oth9repro/README.md; do not fix it here without
+            // the module-scope arm table to go with it.
             if (auto* rrt = reg->Typespec();
                 rrt && !((UHDM::ref_typespec*)rrt)->Actual_typespec())
                 pendingClassPropTs.push_back(
@@ -1270,6 +1388,14 @@ bool UhdmExporter::isSharedAliasTs(const Type& t, const UHDM::typespec* ts) {
 // through a typedef — gets no `vpiSigned` either, and golden gives that shape
 // no `vpiArrayType` at all (arm a5 cells d04/d05/e04/e05, an open residue of
 // its own).
+//
+// DO NOT REUSE THIS PREDICATE FOR THE ELEMENT TYPESPEC.
+// § arrayElemTsSignedParented9 (grep it in `emitClassDefn`) measured the OTHER
+// carrier of signedness on the same declaration and the two DISAGREE on exactly
+// the cell clause (a)/(b) exists for: `typedef byte b_t; b_t x[];` gives the
+// array_var NOTHING and the ELEMENT TYPESPEC `vpiSigned:1` (arms b3 f01_btd /
+// g01_btd / f05_chain).  The typespec keys on the RESOLVED type, this predicate
+// on the type AS WRITTEN.  Two laws, two carriers, one declaration.
 bool UhdmExporter::arraySignedWritten8(const Type& declaredWhole,
                                        const Type& writtenElem) {
     // (a) the array must be written at the declarator, not behind a typedef.
