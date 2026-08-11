@@ -6366,6 +6366,134 @@ void UhdmExporter::classRetNameDefViewNoBind37(UHDM::design* d) {
     }
 }
 
+// § classMethodRetNameNoBind56 — a reference to a function's IMPLICIT RETURN
+// VARIABLE carries NO `vpiActual` when the function is an IN-BODY CLASS METHOD.
+// The discriminator is the ONE flag the emitted routine already carries:
+// `vpiMethod` (set in emitTaskFuncs for `protoOf || ((designScope ||
+// classScope) && (!oob || oobCtor))`), and this law takes only the CLASS half
+// of it — an out-of-body definition's class listing carries `vpiMethod` FALSE
+// and keeps the binding.
+//
+// The law does NOT key on the things the brief for this pass proposed, and each
+// of those is REFUTED by its own arm cells (golden side, own child depth):
+//   * NOT the return TYPE — arm a6, class-IN-BODY: class handle 3, int 3,
+//     string 3, struct 3 return-name refs, golden binds 0 of all 12; the same
+//     four types at module scope bind 3/3/3/1.
+//   * NOT the ARGUMENT POSITION — arm a5, class-IN-BODY: `$cast` 2, plain call
+//     3, function `output` formal 2, `inout` formal 2, plain-assignment lvalue
+//     1, golden binds 0 of all 11 (the brief called the `$cast` the key); the
+//     same five positions at module scope bind 11/11.
+//   * NOT explicit `return` vs own-name assignment — arm a4 (an explicit-return
+//     function has no return-name reference at all), NOT a void function or a
+//     task (neither has a return variable), NOT recursion (arm a7, 2 cells).
+//   * NOT the package VIEW — arm a3's `p3::c3::m_in` exists in ONE view and is
+//     unbound there; § classRetNameDefViewNoBind37's view law is a DIFFERENT
+//     law about out-of-body listings and is left exactly as it was.
+//
+// THE SCOPE GRID that fixes the boundary, arm a3, ONE database, golden side,
+// return-name refs bound / total:
+//
+//     module-level function      work@a3_top.mf         3/3   BINDS
+//     generate-block function    work@a3_top.gb.gf      3/3   BINDS
+//     package free function      p3::pf   (both views)  6/6   BINDS
+//     class OUT-OF-BODY method   p3::c3::m_out  ELAB    3/3   BINDS
+//     class OUT-OF-BODY method   p3::c3::m_out  DEF     0/3   § 37 owns this
+//     class IN-BODY method       p3::c3::m_in           0/3   THIS LAW
+//
+// CORPUS REACH, all four UVM tests, `vpiMethod=1` functions only
+// (tools/probe/r10uvm56repro/retown.cpp + owntab.py):
+//     SimpleUVM   golden 0 bound / 67 refs   ours 6
+//     Scoreboard  golden 0 bound / 67        ours 6
+//     SeqDriver   golden 0 bound / 68        ours 6
+//     BuildUVMPkg golden 0 bound / 39        ours 1
+// and the `vpiMethod=0` buckets agree EXACTLY on all four (176/176/173/176 of
+// the out-of-body class listings), which is why the flag and not the scope
+// walk is the predicate.  This is the head of SimpleUVM(both modes) and
+// Scoreboard(default) at 946579a: `$cast(create, obj)` in
+// uvm_registry.svh:259, `create` being the function's own return variable.
+//
+// § retNameNewLhsNoBind56 — the SECOND, independent law.
+//
+// READ THE PREDICATE, NOT THE NAME (verifier finding, applied at integration).
+// The § name says `new`-Lhs because that is the site the pass was chasing, but the
+// code below is `parent->UhdmType() == uhdmhier_path` and NOTHING NARROWER: it
+// drops the binding for ANY hier_path-parented return-name reference, at ANY
+// scope, whether the hier_path came from pass 55's artefact or straight from the
+// SOURCE.  That width is CORRECT, not an accident — the verifier's arm
+// `v3_hierpath` puts source-built hier_paths (struct member as lvalue and as a
+// read, class-handle member, a NESTED member) at module and package scope and
+// golden binds **0 of all 26**, while ours over-bound only the 4 `= new()` sites
+// and now agrees everywhere.  A future reader who trusts the name will
+// under-model the law; the name is kept only because it is already the greppable
+// marker at four sites.
+//
+// The site the pass was chasing: a return-name reference that
+// § invalidNewCallFromSyntax55 re-parented into the ARTEFACT
+// `hier_path` of `<name> = new(...)` carries no `vpiActual` either.  Pass 55
+// nulls that ref at emit time on purpose; drainFuncRet runs LATER and was
+// silently CLOBBERING the null for a return name (pass 55's "null on BOTH
+// sides" holds for an ordinary local, not for the return variable — recorded as
+// a refutation in tools/probe/r10uvm56repro/README.md).  Golden binds 0 of the
+// 20 hier_path-parented return-name refs in SimpleUVM; arm a8's module-scope
+// `p_ret` is the isolated witness and its `p_loc` (ordinary local as the same
+// lvalue) is the positive control that stays bound on both sides.
+//
+// DIRECTION for both: DROP a binding, never add one.  Applied DESIGN-FINAL,
+// after every pass that fills a null `Actual_group`, so nothing can re-bind
+// what is dropped; the return-variable object itself is still MINTED (exactly
+// as § classRetNameDefViewNoBind37 leaves it) so serializer ids do not shift.
+// The two consumers that run after this point are proved not to reach these
+// refs: § thisImplicitNetBoth38 guards on `VpiName() != "this"`, and
+// § castSizeParamRefBindFinal only walks an `int_typespec`'s `Cast_to_expr`
+// under a listing's `Parameters()`.
+// THAT PROOF COVERS *OUR* PASSES ONLY (verifier F1, recorded at integration).
+// After `exportDesign()` returns, `uhdm_main.cpp` runs UHDM-LIBRARY consumers that
+// DO read `Actual_group` — `UHDM::ElaboratorContext` + `UHDM::UhdmAdjuster` under
+// `-elabuhdm`, `UHDM::SynthSubset` under `-synth` — and **636 of the surelog
+// testflags rows carry `-elabuhdm`**.  The risk is bounded to zero EMPIRICALLY,
+// not by argument: none of those 636 rows moved a byte, and the three UVM
+// testflags movers carry no `-elabuhdm` at all.  Any future widening of this drop
+// has to re-price that, because a within-emitter grep cannot see it.
+void UhdmExporter::retNameNoBind56(UHDM::design* d) {
+    (void)d;
+    if (retNameRefs56.empty())
+        return;
+    const bool dbg56 = getenv("SLANG_UHDM_DBG56") != nullptr;
+    int dropA = 0, dropB = 0;
+    for (auto& e : retNameRefs56) {
+        if (!e.tf)
+            continue;
+        // § classMethodRetNameNoBind56
+        const bool inBodyMethod56 = e.classMethod && e.tf->VpiMethod();
+        for (auto* r : e.refs) {
+            if (!r)
+                continue;
+            bool drop56 = inBodyMethod56;
+            // § retNameNewLhsNoBind56
+            if (!drop56) {
+                const UHDM::BaseClass* p56 = r->VpiParent();
+                drop56 = p56 && p56->UhdmType() == UHDM::uhdmhier_path;
+            }
+            if (!drop56 || !r->Actual_group())
+                continue;
+            if (inBodyMethod56)
+                ++dropA;
+            else
+                ++dropB;
+            if (dbg56)
+                fprintf(stderr, "DBG56 %s %s '%s' %d:%d\n",
+                        inBodyMethod56 ? "lawA" : "lawB",
+                        std::string(e.tf->VpiFullName()).c_str(),
+                        std::string(r->VpiName()).c_str(), (int)r->VpiLineNo(),
+                        (int)r->VpiColumnNo());
+            r->Actual_group(nullptr);
+        }
+    }
+    if (dbg56)
+        fprintf(stderr, "DBG56 routines=%zu lawA-drops=%d lawB-drops=%d\n",
+                retNameRefs56.size(), dropA, dropB);
+}
+
 // § thisImplicitNetBoth38 — a bare `this` reference inside a CLASS METHOD that
 // a MODULE listing carries (on top of its package one) binds ONE implicit
 // `logic_net` named `this`, minted in the DEF-VIEW listing of the top module,

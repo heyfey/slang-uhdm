@@ -2704,6 +2704,18 @@ private:
     std::vector<std::pair<UHDM::task_func*, std::vector<UHDM::ref_obj*>>>
         classRetNameRefs37;
     void classRetNameDefViewNoBind37(UHDM::design* d);
+    // § classMethodRetNameNoBind56 + § retNameNewLhsNoBind56 — EVERY reference
+    // to an implicit return variable that drainFuncRet bound, class method or
+    // not (pass 37's vector takes only the class ones, and one of the two laws
+    // fires at MODULE scope).  Recorded because `pendingFuncRet` is cleared as
+    // it drains; read by the design-final pass `retNameNoBind56`.
+    struct RetNameRefs56 {
+        UHDM::task_func* tf = nullptr;
+        bool classMethod = false;
+        std::vector<UHDM::ref_obj*> refs;
+    };
+    std::vector<RetNameRefs56> retNameRefs56;
+    void retNameNoBind56(UHDM::design* d);
     // § thisImplicitNetBoth38 — a bare `this` inside a class method that BOTH
     // package views list binds ONE implicit `logic_net` named `this` in the
     // DEF-view listing of the top module.  Design-final for the same reason

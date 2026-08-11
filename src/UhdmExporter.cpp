@@ -5455,6 +5455,17 @@ UHDM::design* UhdmExporter::exportDesign() {
     // return-name ref (drainFuncRet owns those), and design-final because the
     // predicate is which package VIEW lists the class_defn.
     classRetNameDefViewNoBind37(d);
+    // § classMethodRetNameNoBind56 + § retNameNewLhsNoBind56 — DESIGN-FINAL,
+    // immediately after pass 37 because they are the same field on the same
+    // references and the two laws are disjoint from its view law: 56/A drops
+    // the binding on an IN-BODY class method's return name in EVERY view
+    // (`vpiMethod` = 1; golden binds 0 of 241 such refs over the four UVM
+    // tests), 56/B drops it on the `= new(...)` artefact-hier_path Lhs that
+    // § invalidNewCallFromSyntax55 had already nulled and this drain
+    // re-bound.  Nothing after this point reads these refs' `Actual_group`:
+    // § thisImplicitNetBoth38 requires `VpiName() == "this"` and
+    // § castSizeParamRefBindFinal only walks a listing's `Parameters()`.
+    retNameNoBind56(d);
     // § castSizeParamRefBindFinal — a `P'(x)` size cast whose target P is a
     // module-BODY localparam leaves its int_typespec's Cast_to_expr ref_obj
     // UNBOUND: § stampCastSizeParamTs binds `up` only on the call that first

@@ -20410,6 +20410,14 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
         // until every view exists.
         if (pf.classMethod37 && pf.tf37)
             classRetNameRefs37.push_back({pf.tf37, pf.refs});
+        // § classMethodRetNameNoBind56 + § retNameNewLhsNoBind56 — the same
+        // hand-off, but for EVERY entry rather than only the class ones: one of
+        // the two laws (the `= new(...)` Lhs) fires at MODULE scope too, where
+        // `classMethod37` is false.  Both laws are applied DESIGN-FINAL (see
+        // `retNameNoBind56`) so that every pass which FILLS a null
+        // `Actual_group` has already run and cannot re-bind what we drop.
+        if (pf.tf37)
+            retNameRefs56.push_back({pf.tf37, pf.classMethod37, pf.refs});
         // $UNIT functions with TYPEDEF'd returns get no return-var artifact
         // (body refs stay unbound; the Return uses the Typedef_alias clone).
         if (sub.getReturnType().kind == SymbolKind::TypeAlias) {
