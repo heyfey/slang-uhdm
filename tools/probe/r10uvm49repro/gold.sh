@@ -15,6 +15,14 @@
 #     is a hard NO_OUTPUT/exit 6 rather than a verdict.
 #   * the slang binary is never defaulted to the MAIN-TREE build silently: the
 #     resolved path and its md5 are printed on every run.
+# +2 BIAS FIXED AT INTEGRATION (found by the pass-50 verifier, confirmed by the
+# master). uhdm-dump's FIRST LINE is the DATABASE PATH, which always differs
+# between golden and ours, so it contributes one `-` and one `+` to every
+# `diff -u`. Drivers that reported `grep -c '^[-+]'` minus 2 (subtracting only
+# the ---/+++ headers) were therefore over-counting content by EXACTLY 2. Master
+# verified on a real arm: raw 48, raw-2 = 46, TRUE content = 44. Both dumps are
+# now piped through `sed '1d'` -- the same thing tests/check_goldens.sh already
+# does -- so every figure from this driver is real content.
 set -u
 ARM=${1:?arm dir name}
 OUT=${2:?outdir}
@@ -45,8 +53,8 @@ O=$OUT/ours.uhdm
 [ -f "$O" ] || { echo "NO_OUTPUT: ours $O absent"; exit 6; }
 echo "golden bytes=$(stat -c %s "$G")  ours bytes=$(stat -c %s "$O")"
 
-uhdm-dump "$G" | sed 's#/home/[^ ,]*/##g' > "$OUT/g.dump" 2>&1
-uhdm-dump "$O" | sed 's#/home/[^ ,]*/##g' > "$OUT/o.dump" 2>&1
+uhdm-dump "$G" | sed 's#/home/[^ ,]*/##g' | sed '1d' > "$OUT/g.dump" 2>&1
+uhdm-dump "$O" | sed 's#/home/[^ ,]*/##g' | sed '1d' > "$OUT/o.dump" 2>&1
 [ -s "$OUT/g.dump" ] || { echo "NO_OUTPUT: golden dump empty"; exit 6; }
 [ -s "$OUT/o.dump" ] || { echo "NO_OUTPUT: ours dump empty"; exit 6; }
 echo "g.dump lines=$(wc -l < "$OUT/g.dump")  o.dump lines=$(wc -l < "$OUT/o.dump")"

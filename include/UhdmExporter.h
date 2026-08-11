@@ -2947,6 +2947,18 @@ private:
     // the ClassDefinition — so the class keeps a null typespec and
     // writeDataTypes drops its whole entry.  pkgClassKeys24 skips these.
     std::set<const UHDM::typespec*> tpAliasClassTs25;
+    // NOTE § classNestedClassTdJoinsPkgGroup50 — GENERIC CLASS symbol -> the
+    // resolved BASE class_typespec of the PACKAGE-level class-handle typedef
+    // group for that generic class (filled by both resolution passes in
+    // emitPackage — grep `classTdGroupBase50[k9] =`: src/ParamEmit.cpp:19130
+    // for § pkgClassTd9 and :19188 for § pkgImportClassTdClone50).  A
+    // class-NESTED class-handle typedef of the same generic class is, in golden,
+    // a CLONE of that base: uvm_pool's `typedef uvm_pool#(KEY,T) this_type;`
+    // carries the base's span (BuildUVMPkg 30449:9-17, not its own
+    // 14277:11-19), the package's vpiInstance, and a vpiTypedefAlias -> the base
+    // (uvm_pkg::uvm_id_actions_array).  Consumed in buildClassTypedefTs
+    // (src/UhdmExporter.cpp:1931, grep `auto* gcN50`).
+    std::map<const void*, UHDM::class_typespec*> classTdGroupBase50;
     // § typedefAliasSharesTypespec25 — for a class typedef whose target is
     // written as a type parameter, the ROOT of that parameter's DEFAULT chain
     // (`type RSP = REQ` -> REQ; `type RSP_IMP = IMP` -> IMP).  Surelog's

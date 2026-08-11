@@ -832,6 +832,41 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             }
             return it->second;
         }
+        // NOTE § classTdTopOnlyShare50 — a CLASS-HANDLE typedef is listed in the
+        // ELABORATED package view ONLY (`else if (topView)` at
+        // src/ParamEmit.cpp:18999, the arm that fills `pkgClassTd9` at
+        // src/ParamEmit.cpp:19027 `pkgClassTd9.push_back`), so it is registered
+        // in `pkgTopTypedefTs` alone (src/ParamEmit.cpp:19100
+        // `pkgTopTypedefTs[&ta] = ts;`) and NEVER in `typedefTs`
+        // (src/ParamEmit.cpp:19098 is the `!topView` half and this arm never
+        // runs there).  The lookup above keys the WHOLE share on `typedefTs`,
+        // so every one of these typedefs missed it and each declaration MINTED
+        // a fresh declaration-site class_typespec named for the GENERIC CLASS.
+        // Golden points the declaration at the LISTING object instead:
+        //   BuildUVMPkg, `uvm_id_verbosities_array id_verbosities;` at
+        //   uvm_pkg.sv:30483 (uvm-1.2 base/uvm_report_handler.svh:62)
+        //     LHS golden: class_var -> ref_typespec -> vpiActual =
+        //                 class_typespec (uvm_pkg::uvm_id_verbosities_array),
+        //                 line:30449:9, endln:30449:17 — the SAME id (186109)
+        //                 as the package's own vpiTypedef entry
+        //     RHS ours:   class_typespec (uvm_pool), line:30483:3-27, parented
+        //                 at the class_var
+        // and that pair is the SINGLE cmp head of all four UVM tests.
+        // GATE: the returned object is one of the two registered typedef
+        // objects, so `isSharedAliasTs` is TRUE for it and every §
+        // sharedAliasNoStamp41 guard already in the callers applies unchanged —
+        // this arm adds a SHARER, it must never let a use stamp the object.
+        if (!bypassTypedefShare &&
+            declared->getType().kind == SymbolKind::TypeAlias) {
+            auto& tdLeaf50 =
+                arrayElemLeaf(declared->getType()).getCanonicalType();
+            if (tdLeaf50.kind == SymbolKind::ClassType)
+                if (auto t50 =
+                        pkgTopTypedefTs.find((const void*)&declared->getType());
+                    t50 != pkgTopTypedefTs.end() && t50->second &&
+                    t50->second->UhdmType() == UHDM::uhdmclass_typespec)
+                    return t50->second;
+        }
         // § arrayElemTypedefTs15 — an UNPACKED array of a typedef types on its
         // ELEMENT (the dims ride the wrapping array_typespec), and that element
         // is the TYPEDEF'S OWN typespec object, not a fresh one at the

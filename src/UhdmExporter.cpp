@@ -1907,6 +1907,47 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                         r = cn->identifier.range();
                 setLoc(cts, r);
             }
+            // NOTE § classNestedClassTdJoinsPkgGroup50 — a class-NESTED
+            // class-handle typedef whose GENERIC CLASS already has a
+            // package-level class-handle typedef group joins that group as a
+            // CLONE, exactly as a second package-level typedef of the same
+            // generic class does (§ pkgClassTd9): the base's span and vpiFile,
+            // the base's vpiInstance, and a vpiTypedefAlias ref -> the base.
+            // WITNESS — the SINGLE remaining cmp head of ALL SEVEN comparable
+            // UVM rows before this arm, `uvm_pool::this_type`:
+            //   LHS golden(BuildUVMPkg): class_typespec (this_type), id:186335,
+            //     line:30449:9, endln:30449:17, |vpiTypedefAlias: ref_typespec
+            //     (uvm_pkg::uvm_pool::this_type) -> vpiActual class_typespec
+            //     (uvm_pkg::uvm_id_actions_array) id:186106, |vpiInstance
+            //     package uvm_pkg
+            //   RHS ours: class_typespec (this_type), line:14277:11-19, NO
+            //     vpiTypedefAlias (cmp prints `RHS: <null>` for the ref), no
+            //     vpiInstance
+            // GATE: the group key is the GENERIC CLASS, never the specialisation
+            // (pass-49 arm a4 groups gc49#(string,int) and gc49#(int,string)
+            // under one base), and the base is the one the PACKAGE pass already
+            // resolved — NOT a re-sort over the merged set, which would pick
+            // `this_type` ('t' < 'u') and is REFUTED by golden.
+            if (auto* gcN50 = ct.as<ClassType>().genericClass)
+                if (auto bit50 = classTdGroupBase50.find((const void*)gcN50);
+                    bit50 != classTdGroupBase50.end() && bit50->second &&
+                    bit50->second != cts) {
+                    auto* bts50 = bit50->second;
+                    cts->VpiLineNo(bts50->VpiLineNo());
+                    cts->VpiColumnNo(bts50->VpiColumnNo());
+                    cts->VpiEndLineNo(bts50->VpiEndLineNo());
+                    cts->VpiEndColumnNo(bts50->VpiEndColumnNo());
+                    cts->VpiFile(bts50->VpiFile());
+                    if (bts50->Instance() && !cts->Instance())
+                        cts->Instance(bts50->Instance());
+                    // The BASE is a registered/shared listing object
+                    // (§ sharedAliasNoStamp41): read only, never stamped.
+                    auto* ar50 = s.MakeRef_typespec();
+                    ar50->VpiParent(cts);
+                    ar50->VpiFullName(clsName + "::" + std::string(ta.name));
+                    ar50->Actual_typespec(bts50);
+                    cts->Typedef_alias(ar50);
+                }
             // § classRepresentativeSkipsTypeParamAlias25 — see the header.
             // `typedef REQ req_type;` resolves, in the specialization slang
             // hands us, to a ClassType, so the object is built exactly like a
@@ -3912,8 +3953,22 @@ UHDM::design* UhdmExporter::exportDesign() {
     for (auto& pc : pendingClassPropTs) {
         auto* ts = makeTypespec(*pc.sym);
         pc.rt->Actual_typespec(ts);
-        if (ts)
-            ts->VpiParent(pc.var);
+        // NOTE § classPropNoStampShared50 — this stamp is unconditional today,
+        // which is § sharedAliasNoStamp41's forbidden move the moment
+        // makeTypespec hands back a REGISTERED typedef object.  Measured, not
+        // predicted: with § classTdTopOnlyShare50 in and this guard OUT, the
+        // SeqDriver module listing entry `class_typespec
+        // (uvm_pkg::uvm_id_verbosities_array)` lost its `vpiParent: module_inst
+        // work@top_tb` (golden's, and ours at 8c14dc7) and became `vpiParent:
+        // class_var (uvm_pkg::uvm_report_handler::id_verbosities)` — one
+        // property re-parenting the whole design's listing object.
+        // GATE: pointer identity through isSharedAliasTs, never a canonical
+        // kind (a `typedef int myint` walks any kind guard).
+        if (ts) {
+            auto* dt50 = pc.sym->getDeclaredType();
+            if (!dt50 || !isSharedAliasTs(dt50->getType(), ts))
+                ts->VpiParent(pc.var);
+        }
     }
     pendingClassPropTs.clear();
     // Write phase: walk defs NAME-SORTED; top defs write their ports +

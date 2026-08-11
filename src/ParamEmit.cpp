@@ -16983,6 +16983,16 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     // it, so every Class_defn here is still a pendingClassTsLink).
     std::vector<std::tuple<std::string, UHDM::class_typespec*, const void*>>
         pkgClassTd9;
+    // NOTE § pkgImportClassTdClone50 — the SAME (name, class_typespec, generic
+    // class) triple for the class-handle typedefs this package publishes on
+    // behalf of a package it IMPORTS.  Those never reach the `else if (topView)`
+    // arm at :18999 (`else if (topView) {`): the import-clone builder at :17341
+    // (`cl8 = makeTypespec(ta8, tSyn8);`) makes them first and the
+    // pkgImportedByPkg share at :17673 then hands the TOP view that clone and
+    // `continue`s (traced, not guessed — see tools/probe/r10uvm50repro/README.md
+    // § a7).  Resolved by the SAME base/alias pass, right after pkgClassTd9's.
+    std::vector<std::tuple<std::string, UHDM::class_typespec*, const void*>>
+        pkgImportClassTd50;
     // A package IMPORTING another package lists the imported ENUM typedefs
     // as ONE shared clone per typedef (created on first sight; module import
     // listings share it) plus an import_typespec per import item (after the
@@ -17344,9 +17354,68 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         // members (BlackBePipeInt bp_bedrock_msg_u, whose six
                         // members are all bp_common_pkg enums).
                         bindImportCloneMembers(cl8, ta8.getCanonicalType());
+                        // NOTE § pkgImportClassTdClone50 — a CLASS-HANDLE clone
+                        // is NOT a plain makeTypespec copy: golden's is the same
+                        // shape the package's own class-handle listing entries
+                        // get at :18999 — span = the GENERIC CLASS NAME TOKEN of
+                        // the group's base typedef, vpiParameter/vpiParamAssign
+                        // EMPTY, and a vpiTypedefAlias -> the base.  Witness
+                        // (arm a7, `typedef gc50#(string,int) aaa_v_t;` line 18):
+                        //   LHS golden: class_typespec (p50u::aaa_v_t),
+                        //               line:18:11, endln:18:15, no vpiParameter
+                        //   RHS 8c14dc7: line:18:11, endln:18:29 (the whole
+                        //               `gc50#(string, int)`) + 2 vpiParameter +
+                        //               2 vpiParamAssign, and zzz_a_t keeps its
+                        //               OWN line 19 with NO vpiTypedefAlias
+                        // Corpus: SeqDriver's `work@top_tb` listing entry
+                        // uvm_pkg::uvm_id_verbosities_array — 31:9-31:31 + params
+                        // + no alias, golden 29:9-29:17 + alias ->
+                        // uvm_id_actions_array.  GATE: the missing
+                        // vpiTypedefAlias ref_typespec IS SeqDriver's single cmp
+                        // head at this point in the pass (LHS ref_typespec
+                        // (work@top_tb.uvm_pkg::uvm_id_verbosities_array) vs RHS
+                        // <null>), so the arm is necessary by direct witness.
+                        if (cl8->UhdmType() == UHDM::uhdmclass_typespec) {
+                            auto& ct50 =
+                                ta8.targetType.getType().getCanonicalType();
+                            const Type* leaf50 =
+                                &arrayElemLeaf(ta8.targetType.getType())
+                                     .getCanonicalType();
+                            if (ct50.kind !=
+                                    SymbolKind::FixedSizeUnpackedArrayType &&
+                                leaf50->kind == SymbolKind::ClassType) {
+                                auto* ccl50 = (UHDM::class_typespec*)cl8;
+                                ccl50->Parameters(nullptr);
+                                ccl50->Param_assigns(nullptr);
+                                if (tSyn8)
+                                    setLoc(ccl50,
+                                           SourceRange(
+                                               tSyn8->sourceRange().start(),
+                                               tSyn8->sourceRange().start() +
+                                                   leaf50->name.size()));
+                            }
+                        }
                         pkgImportCloneTs[tdSym] = cl8;
                         if (!topView)
                             defPassOwnedTs.insert(cl8);
+                    }
+                    // Collected in BOTH views and whether the clone was freshly
+                    // built or cached, so the base pick sees every name in the
+                    // group; the resolution below is idempotent.
+                    if (cl8->UhdmType() == UHDM::uhdmclass_typespec) {
+                        auto& ct51 = ta8.targetType.getType().getCanonicalType();
+                        const Type* leaf51 =
+                            &arrayElemLeaf(ta8.targetType.getType())
+                                 .getCanonicalType();
+                        if (ct51.kind != SymbolKind::FixedSizeUnpackedArrayType &&
+                            leaf51->kind == SymbolKind::ClassType) {
+                            auto* gc51 = leaf51->as<ClassType>().genericClass;
+                            pkgImportClassTd50.push_back(
+                                {std::string(ta8.name),
+                                 (UHDM::class_typespec*)cl8,
+                                 gc51 ? (const void*)gc51
+                                      : (const void*)leaf51});
+                        }
                     }
                     // The last-writer stamp is a DEF-pass effect only: the
                     // elaborated pass re-lists the very same object and leaves
@@ -17608,6 +17677,11 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 share0 = cIt0->second;
             else if (auto dIt0 = typedefTs.find(&ta); dIt0 != typedefTs.end())
                 share0 = dIt0->second;
+            // NOTE § pkgImportClassTdClone50 — THIS is the `continue` that keeps a
+            // CLASS-HANDLE typedef of an imported package away from the class-
+            // handle listing arm at :18999 (traced on arm a7: `share17672
+            // pkg=p50u td=aaa_v_t clone=1`).  The clone it hands back is now
+            // built in the class-handle SHAPE at :17357, so this share stays.
             if (share0) {
                 pkgTopTypedefTs[&ta] = share0;
                 pkgTdByName.emplace_back(std::string(ta.name), share0);
@@ -19049,6 +19123,11 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     std::get<0>(pkgClassTd9[it9->second]))
                 base9[cd9] = i;
         }
+        // NOTE § classNestedClassTdJoinsPkgGroup50 — publish each group's base so
+        // a class-NESTED typedef of the same generic class can join it as a
+        // clone; see include/UhdmExporter.h `classTdGroupBase50`.
+        for (auto& [k9, i9] : base9)
+            classTdGroupBase50[k9] = std::get<1>(pkgClassTd9[i9]);
         for (size_t i = 0; i < pkgClassTd9.size(); i++) {
             auto* cd9 = std::get<2>(pkgClassTd9[i]);
             if (!cd9)
@@ -19068,6 +19147,77 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             art9->VpiFullName(prefix + prefix + std::get<0>(pkgClassTd9[i]));
             art9->Actual_typespec(bts9);
             cts9->Typedef_alias(art9);
+        }
+    }
+    // NOTE § pkgImportClassTdClone50 — the same base/alias resolution for the
+    // IMPORT clones (collected at :17413).  Base pick is the NAME-FIRST of the
+    // clones sharing one GENERIC CLASS — the pass-49 a1/a3 law, re-measured here
+    // on arm a7 (source order aaa_v_t(18) then zzz_a_t(19); golden's base is
+    // aaa_v_t and BOTH carry 18:11-18:15) — and the GROUPING KEY is the generic
+    // class, never the specialisation (pass-49 a4).
+    // Idempotent by construction: both package views walk the SAME cached clone
+    // objects, so the span copy is a no-op the second time and the alias is
+    // added only when absent.  Ordered by (file,line,col) before the pick so the
+    // group never depends on first-hit order.
+    {
+        std::stable_sort(
+            pkgImportClassTd50.begin(), pkgImportClassTd50.end(),
+            [](auto& a, auto& b) {
+                auto* x = std::get<1>(a);
+                auto* y = std::get<1>(b);
+                if (x->VpiFile() != y->VpiFile())
+                    return x->VpiFile() < y->VpiFile();
+                if (x->VpiLineNo() != y->VpiLineNo())
+                    return x->VpiLineNo() < y->VpiLineNo();
+                return x->VpiColumnNo() < y->VpiColumnNo();
+            });
+        std::map<const void*, size_t> base50;
+        for (size_t i = 0; i < pkgImportClassTd50.size(); i++) {
+            auto* k50 = std::get<2>(pkgImportClassTd50[i]);
+            if (!k50)
+                continue;
+            auto it50 = base50.find(k50);
+            if (it50 == base50.end() ||
+                std::get<0>(pkgImportClassTd50[i]) <
+                    std::get<0>(pkgImportClassTd50[it50->second]))
+                base50[k50] = i;
+        }
+        // § classNestedClassTdJoinsPkgGroup50 — same publication for the import
+        // clones (SeqDriver reaches uvm_pkg's typedefs ONLY this way).
+        for (auto& [k9, i9] : base50)
+            classTdGroupBase50[k9] = std::get<1>(pkgImportClassTd50[i9]);
+        for (size_t i = 0; i < pkgImportClassTd50.size(); i++) {
+            auto* k50 = std::get<2>(pkgImportClassTd50[i]);
+            if (!k50)
+                continue;
+            size_t b50 = base50[k50];
+            if (b50 == i)
+                continue;
+            auto* bts50 = std::get<1>(pkgImportClassTd50[b50]);
+            auto* cts50 = std::get<1>(pkgImportClassTd50[i]);
+            if (bts50 == cts50)
+                continue;
+            cts50->VpiLineNo(bts50->VpiLineNo());
+            cts50->VpiColumnNo(bts50->VpiColumnNo());
+            cts50->VpiEndLineNo(bts50->VpiEndLineNo());
+            cts50->VpiEndColumnNo(bts50->VpiEndColumnNo());
+            cts50->VpiFile(bts50->VpiFile());
+            // NEVER re-add: the clone is SHARED across both package views and
+            // across every importer (§ pkgImportCloneLastWriter32), so a second
+            // ref_typespec here would be a duplicate child on a shared object.
+            if (!cts50->Typedef_alias()) {
+                auto* art50 = s.MakeRef_typespec();
+                art50->VpiParent(cts50);
+                // HONESTLY NOT DONE: golden's fullname is CONTAINER PREFIX +
+                // joiner + the package-qualified name (`work@top_tb.` +
+                // `uvm_pkg::uvm_id_verbosities_array`), and the container here is
+                // the importing PACKAGE, not the module that finally lists the
+                // clone.  vpiFullName is NOT read by BaseClass::Compare, so this
+                // is DUMP_MATCH residue, ranked in the README.
+                art50->VpiFullName(cts50->VpiName());
+                art50->Actual_typespec(bts50);
+                cts50->Typedef_alias(art50);
+            }
         }
     }
     // The Typespecs LIST is name-sorted (creation stayed source-ordered).
