@@ -2356,6 +2356,74 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     if (auto* cm27 =
                             p27->as_if<syntax::ClassMethodDeclarationSyntax>())
                         qualCtor27 = !cm27->qualifiers.empty();
+        // § qualifiedLifetimeMethodLosesNamePortsBody46 — the SAME unadvanced
+        // node, one function further along, and it costs the NAME as well.
+        //
+        // `CompileClass::compile_class_method_` hands `compileFunction` the
+        // unadvanced `fC->Child(id)`, i.e. the QUALIFIER node.
+        // `setFuncTaskQualifiers` unwraps a `Function_declaration` into its
+        // child ONLY in its very first `if` (CompileStmt.cpp:1844), which is
+        // reached only when the node handed in IS that Function_declaration —
+        // with a qualifier in front, the qualifier loop consumes the qualifier
+        // and RETURNS the Function_declaration still wrapped.  `compileFunction`
+        // then takes `Child()` of it, which is the LIFETIME node whenever the
+        // declaration writes `automatic`/`static`, instead of the
+        // Function_body_declaration.  Everything derived from there comes out
+        // invalid: the NAME, the `Tf_port_list` and the body.  vpiVisibility
+        // survives (its own `if` did fire) and vpiAutomatic does NOT (its `if`
+        // never saw the node) — which is exactly the field-for-field shape of
+        // golden's object.
+        //
+        // MEASURED, not inferred, on three arms: t64a crosses `local` x
+        // `automatic` x a two-token return type against six control spellings
+        // and REFUTES BOTH of the handoff's candidate distinguishers (`local`
+        // alone is named: f_loc_2tok, f_loc_1tok; a two-token `int unsigned`
+        // return alone is named: f_auto_2tok, f_2tok).  t64b adds `protected`
+        // (same artifact, vpiVisibility 2) and the multi-method collapse.  t64c
+        // adds `virtual` and class-item `static` (same artifact) plus the
+        // controls for each qualifier alone and for a lifetime alone, and its
+        // c66c cell shows a written `static` LIFETIME does it too.
+        //
+        // Corpus reach is ONE object, and it is the whole remaining BuildUVMPkg
+        // residue: `uvm_pkg.sv:75228 local function automatic int unsigned
+        // ceil(...)` in class uvm_reg_map — confirmed to be the SAME object
+        // behind LSTOTAL 2, r10uvm23m tf=2, IOTOTAL 2 and IOTOTAL2 3.  A census
+        // over BOTH corpora (every UVM version included) finds exactly four
+        // qualifier+lifetime sites: this one, its uvm_reg_map.svh original, and
+        // two in Ibex (SLANG_REJECT).  uhdm2rtlil has none.
+        //
+        // NOT IMPLEMENTED, MEASURED AND RECORDED: when a class holds SEVERAL
+        // such methods they COLLAPSE onto one object (t64a's six -> one
+        // `function ''` at the LAST one's line but with the FIRST one's KIND;
+        // t64b's c65d -> one, taking the last one's visibility) — and t64b's
+        // c65b shows the collapse is not even uniform across kinds.  No corpus
+        // test has two in one class, so this emits one stub per declaration and
+        // leaves the collapse to the arm's record rather than guessing at it.
+        // PROTOTYPES and OUT-OF-BODY definitions are excluded for the same
+        // reason: they run through a different Surelog entry point
+        // (`Method_prototype` / a package-scope compile) and no golden was read.
+        bool qualLifetime46 = false;
+        if (classScope && !protoOf && !oob && !cloneMode)
+            if (auto* fsyn46 = sub.getSyntax())
+                if (const syntax::SyntaxNode* p46 = fsyn46->parent)
+                    if (auto* cm46 =
+                            p46->as_if<syntax::ClassMethodDeclarationSyntax>())
+                        if (!cm46->qualifiers.empty())
+                            if (auto* fd46 =
+                                    fsyn46->as_if<
+                                        syntax::FunctionDeclarationSyntax>())
+                                qualLifetime46 =
+                                    !fd46->prototype->lifetime.valueText()
+                                         .empty();
+        // The OWNER path golden's stub carries in place of a full name: the
+        // CLASS's own full name.  `prefix` here is the scope path WITH its
+        // trailing separator (joinPath only appends the leaf), so drop it.
+        std::string qualLifeOwner46 = prefix;
+        if (qualLifeOwner46.size() >= 2 &&
+            qualLifeOwner46.compare(qualLifeOwner46.size() - 2, 2, "::") == 0)
+            qualLifeOwner46.resize(qualLifeOwner46.size() - 2);
+        else if (!qualLifeOwner46.empty() && qualLifeOwner46.back() == '.')
+            qualLifeOwner46.pop_back();
         // The CLASS's own copy of an out-of-body body is where Surelog's
         // module hoist re-binds unresolvable property names (the package
         // clone's stay unbound) — see classPropRefs.
@@ -2409,6 +2477,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         : (UHDM::task_func*)s.MakeTask();
         tf->VpiName(sub.name);
         tf->VpiFullName(fullName);
+        // § qualifiedLifetimeMethodLosesNamePortsBody46 — no name, and the full
+        // name stops at the CLASS (`uvm_pkg::uvm_reg_map`, not `...::ceil`),
+        // because both come from the same invalid node.
+        if (qualLifetime46) {
+            tf->VpiName("");
+            tf->VpiFullName(qualLifeOwner46);
+        }
         tf->VpiParent(m);
         tfHomeSub9[tf] = &sub;
         // The def-view package listing names its clone "class::method" and
@@ -2627,9 +2702,24 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             }
             ((UHDM::function*)tf)->Return(rv);
         }
+        // § qualifiedLifetimeMethodLosesNamePortsBody46 — the RETURN VAR too.
+        // With the data-type node invalid, `returnType->init` never runs and
+        // Surelog's default return class is LOGIC, so golden's stub returns a
+        // bare `logic_var` carrying ONLY the class's full name: no name, no
+        // typespec (not even a ref_typespec) and no location.  Measured on the
+        // t64c/c66c cell and on every t64a/t64b stub.  VpiType is a COMPARED
+        // field, so emitting our ordinary `int_var` here would keep the object
+        // unequal even with the name fixed.
+        if (isFunc && qualLifetime46 && !sub.getReturnType().isVoid()) {
+            auto* rv46 = s.MakeLogic_var();
+            rv46->VpiFullName(qualLifeOwner46);
+            rv46->VpiParent(tf);
+            ((UHDM::function*)tf)->Return(rv46);
+        }
         // Function return: an anonymous variable carrying only the full name,
         // anchored at the return-type syntax like its typespec.
-        if (isFunc && sub.returnValVar && !sub.getReturnType().isVoid()) {
+        if (isFunc && !qualLifetime46 && sub.returnValVar &&
+            !sub.getReturnType().isVoid()) {
             // A return type Surelog cannot resolve (the cover-cross implicit
             // CrossQueueType) leaves CompileType with no variable class to
             // pick: the return object is a bare ref_var pointing at the
@@ -3965,7 +4055,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             funcMap[arg] = io;
             si.argTs.push_back({ts, bareImplicit ? (const void*)argTsyn : nullptr});
         }
-        if (!ios->empty() && !qualCtor27)
+        // § qualifiedLifetimeMethodLosesNamePortsBody46 attaches no formals for
+        // the same reason § 27 attaches none: the `Tf_port_list` derives from a
+        // node that came out invalid.  The io_decls are still BUILT (the body
+        // binder's maps are populated from them) and then left unattached,
+        // exactly as § 27 leaves a qualified constructor's.
+        if (!ios->empty() && !qualCtor27 && !qualLifetime46)
             tf->Io_decls(ios);
 
         // The prototype listing ends here: no body, no locals, no params, and
@@ -4842,7 +4937,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         tfBodyCtorNoPorts27 = tfBodyCtor27 && sub.getArguments().empty();
         // § qualifiedCtorLosesPortListAndBody27: the routine never reaches a
         // statement at all when a qualifier displaced its anchor.
-        auto* body = qualCtor27
+        // § qualifiedLifetimeMethodLosesNamePortsBody46: same, one node further
+        // along (a written lifetime behind a class-item qualifier).
+        auto* body = (qualCtor27 || qualLifetime46)
                          ? nullptr
                          : emitStmt(sub.getBody(), tf, fullName, funcMap);
         // A constructor body that is one bare `super.new(...)` never reaches

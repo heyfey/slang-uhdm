@@ -5364,6 +5364,93 @@ const std::vector<UHDM::attribute*>* UhdmExporter::findAttrs(const Symbol* sym) 
     return nullptr;
 }
 
+// § bindIfaceTwinInParent46 — the predicate, kept to the CELLS THAT WERE READ.
+// `bind <modulename> <iface> <name>(...)` at file or module scope is the shape
+// arms t63a-f and the corpus pair SimpleUVM / InterfaceBinding measured.  The
+// other two bind spellings are deliberately EXCLUDED because no golden was read
+// for them: an INSTANCE-PATH target (`bind $root.top.foo_i ...`) and a bind
+// nested in a GENERATE scope, both of which the module arm below already treats
+// specially (dropped from the elab view entirely).  Excluding them leaves those
+// paths byte-identical to pass 45 rather than guessing.
+const slang::syntax::BindDirectiveSyntax* UhdmExporter::plainModuleTargetBind(
+    const InstanceSymbol& child) {
+    const syntax::BindDirectiveSyntax* bindSyn = nullptr;
+    for (auto p2 = child.getSyntax(); p2; p2 = p2->parent) {
+        if (p2->kind == syntax::SyntaxKind::BindDirective)
+            bindSyn = &p2->as<syntax::BindDirectiveSyntax>();
+        else if (bindSyn && (p2->kind == syntax::SyntaxKind::GenerateBlock ||
+                             p2->kind == syntax::SyntaxKind::GenerateRegion ||
+                             p2->kind == syntax::SyntaxKind::IfGenerate ||
+                             p2->kind == syntax::SyntaxKind::LoopGenerate))
+            return nullptr;
+    }
+    if (!bindSyn)
+        return nullptr;
+    if (bindSyn->target->kind != syntax::SyntaxKind::IdentifierName)
+        return nullptr;
+    return bindSyn;
+}
+
+// § bindIfaceTwinInParent46 — the twin object.
+//
+// CONTENT IS MEASURED, not inferred: arm t63f gives the bound interface one of
+// everything (net ports and variable ports, an internal variable, an internal
+// wire, a modport, a parameter, a cont_assign, an always block, a task and a
+// function, a clocking block) and golden's twin holds exactly PORTS, MODPORTS,
+// VARIABLES, PARAMETERS and PARAM_ASSIGNS — no nets, no cont_assigns, no
+// processes, no task_funcs, no clocking blocks, no typespecs.  Pointer identity
+// (`r10uvm46if -p`) says the twin holds the SAME port and variable OBJECTS as
+// the instance it twins, in fresh vectors.
+//
+// So the twin SHARES and MUST NOT MUTATE: golden's shared children keep their
+// VpiParent on the ORIGINAL interface_inst (the bit_var under `work@top`'s twin
+// still parents at the `work@top.dut` object), and re-stamping them would move a
+// compared field on objects the target's own view owns.  Nothing here is
+// mutated: only fresh vectors are built.
+UHDM::interface_inst* UhdmExporter::makeBindIfaceTwin(UHDM::interface_inst* src,
+                                                     UHDM::instance* holder) {
+    auto* tw = s.MakeInterface_inst();
+    tw->VpiName(src->VpiName());
+    tw->VpiDefName(src->VpiDefName());
+    // Already the PARENT-based path (rewritten at the child site), which is what
+    // golden's twin and golden's original BOTH carry.
+    tw->VpiFullName(std::string(src->VpiFullName()));
+    tw->VpiParent(holder);
+    // The bind STATEMENT's line, column 0, and NO end location — Surelog's
+    // netlist site passes `instance->getLineNb()` alone.  No VpiDefFile /
+    // VpiDefLineNo and no Instance(): those are the child-walk object's marks,
+    // and the twin carries neither (measured on every arm cell).
+    tw->VpiFile(std::string(src->VpiFile()));
+    tw->VpiLineNo(src->VpiLineNo());
+    tw->VpiColumnNo(0);
+    if (src->Ports()) {
+        auto* v = s.MakePortVec();
+        *v = *src->Ports();
+        tw->Ports(v);
+    }
+    if (src->Modports()) {
+        auto* v = s.MakeModportVec();
+        *v = *src->Modports();
+        tw->Modports(v);
+    }
+    if (src->Variables()) {
+        auto* v = s.MakeVariablesVec();
+        *v = *src->Variables();
+        tw->Variables(v);
+    }
+    if (src->Parameters()) {
+        auto* v = s.MakeAnyVec();
+        *v = *src->Parameters();
+        tw->Parameters(v);
+    }
+    if (src->Param_assigns()) {
+        auto* v = s.MakeParam_assignVec();
+        *v = *src->Param_assigns();
+        tw->Param_assigns(v);
+    }
+    return tw;
+}
+
 UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
                                            UHDM::instance* parentM, NetMap* parentNets,
                                            std::set<const Symbol*>* parentRefs, bool isTop) {
@@ -7979,6 +8066,38 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     child, prefix + "." + std::string(child.name), m, &topNets, &instRefs);
                 ifaceInstMap[&child] = ii;
                 ifaceChildren->push_back(ii);
+                // § bindIfaceTwinInParent46 — a BOUND interface is named, and
+                // published a SECOND time, at the TARGET INSTANCE'S PARENT.
+                //
+                // `DesignElaboration::createBindInstance_` builds the bind
+                // instance with `parent->getParent()` as its parent (the
+                // TARGET's parent, not the target), so its full path drops the
+                // target component: `work@top.add_sub_if0`, never
+                // `work@top.dut.add_sub_if0` — while its NETS and VARIABLES keep
+                // the target-based path, so only this object's own VpiFullName
+                // moves.  Then `NetlistElaboration::elaborate_` self-registers
+                // an interface-type instance into ITS PARENT's
+                // `netlist->interfaces()`, which `UhdmWriter::writeInstance`
+                // attaches to that parent — a SECOND interface_inst for one
+                // source instance.  Measured on six arm cells (t63a-f) plus the
+                // corpus pair SimpleUVM / InterfaceBinding.
+                if (const auto* bsyn9 = plainModuleTargetBind(child)) {
+                    (void)bsyn9;
+                    // NO parent (the target is itself a top-level instance):
+                    // `getParent()` is null, `createBindInstance_` then
+                    // re-parents onto the TARGET, and the two publications
+                    // COLLAPSE onto the same holder — where the child walk's
+                    // object wins and the netlist twin is dropped by
+                    // `Serializer::GarbageCollect`.  InterfaceBinding and
+                    // uhdm2rtlil's add_sub_bind_if are both this cell and both
+                    // already CMP_EQUAL with DUMP=match, so this arm must stay
+                    // byte-identical: no rename, no twin.
+                    if (parentM && parentM->VpiFullName().length()) {
+                        ii->VpiFullName(std::string(parentM->VpiFullName()) +
+                                        "." + std::string(child.name));
+                        bindIfaceTwinSrc[parentM].push_back(ii);
+                    }
+                }
                 continue;
             }
             // Bound instances path directly under the top module.
@@ -8174,6 +8293,23 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     }
     if (!progChildren->empty())
         m->Programs(progChildren);
+    // § bindIfaceTwinInParent46, second half — publish the twins THIS instance
+    // holds, and only if it instantiates no interface of its own.
+    //
+    // THE SUPPRESSION IS NOT A GUESS, it is arm t63e: `writeInstance` attaches
+    // `netlist->interfaces()` (where the twin lives) to the holder and its child
+    // walk then builds a FRESH vector for the holder's OWN interface
+    // instantiations and OVERWRITES the field with it — the netlist branch
+    // declares a shadowing local, so the outer `subInterfaces` is still null at
+    // the child walk.  The twin is then unreachable and
+    // `Serializer::GarbageCollect` drops the object entirely.  Golden t63e lists
+    // ONLY `own_if` and holds no twin object at all.
+    if (auto twit9 = bindIfaceTwinSrc.find(m); twit9 != bindIfaceTwinSrc.end()) {
+        if (ifaceChildren->empty())
+            for (auto* src9 : twit9->second)
+                ifaceChildren->push_back(makeBindIfaceTwin(src9, m));
+        bindIfaceTwinSrc.erase(twit9);
+    }
     if (!ifaceChildren->empty())
         instSetInterfaces(m, ifaceChildren);
 

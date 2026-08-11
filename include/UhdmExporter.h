@@ -59,6 +59,7 @@ struct ExpressionSyntax;
 struct VariableDimensionSyntax;
 struct RangeSelectSyntax;
 struct TimingControlSyntax;
+struct BindDirectiveSyntax;
 } // namespace slang::syntax
 
 #include <uhdm/uhdm.h>
@@ -851,6 +852,18 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::interface_inst*> ifacePortViewMap;
     // Interface instance -> its col-0 tail duplicate (see makeIfaceRefDup).
     std::map<const slang::ast::Symbol*, UHDM::interface_inst*> ifaceTailDup;
+    // § bindIfaceTwinInParent46 — a BOUND interface is published TWICE: under the
+    // TARGET instance (the child walk) and under the TARGET'S PARENT (Surelog's
+    // netlist self-registration, `elaborate_` -> `elab_interface_` with
+    // `instance->getParent()`).  Keyed by the HOLDER (the target's parent
+    // instance object) and filled while that holder's member loop is running, so
+    // the holder's own frame can decide: an own interface instantiation
+    // OVERWRITES the twins out of existence (arm t63e).  Cleared per holder as
+    // soon as it is consumed, so a holder is never published twice.
+    std::map<UHDM::instance*, std::vector<UHDM::interface_inst*>> bindIfaceTwinSrc;
+    static const slang::syntax::BindDirectiveSyntax* plainModuleTargetBind(
+        const slang::ast::InstanceSymbol& child);
+    UHDM::interface_inst* makeBindIfaceTwin(UHDM::interface_inst* src, UHDM::instance* holder);
     UHDM::interface_inst* emitInterfaceDef(const slang::ast::InstanceSymbol& inst);
     UHDM::interface_inst* emitInterfaceInstance(const slang::ast::InstanceSymbol& inst,
                                                 const std::string& path,
