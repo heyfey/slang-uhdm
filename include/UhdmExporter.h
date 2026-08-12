@@ -62,6 +62,10 @@ struct VariableDimensionSyntax;
 struct RangeSelectSyntax;
 struct TimingControlSyntax;
 struct BindDirectiveSyntax;
+// § parensLessEventPathBaseRef9 — the base identifier of a parens-less event
+// control's dotted path is returned as its SYNTAX node, so the name comes from
+// the identifier TOKEN rather than the source text.
+struct IdentifierNameSyntax;
 } // namespace slang::syntax
 
 #include <uhdm/uhdm.h>
@@ -764,6 +768,19 @@ private:
     bool vifCollapsedComponents5(
         const slang::ast::MemberAccessExpression& ma,
         std::vector<std::pair<std::string, slang::SourceRange>>& out);
+    // § parensLessEventPathBaseRef9 — an event control written WITHOUT
+    // PARENTHESES over a DOT-separated path (`@ a.b;`, `@ a.b.c;`) is ONE
+    // ref_obj in golden, named for the path's BASE identifier alone and spanning
+    // the WHOLE dotted text; everything after the first dot is DROPPED.  The
+    // PARENTHESIZED spelling of the very same path (`@(a.b);`) keeps the full
+    // hier_path, and the same dotted read anywhere else (assignment rhs, call
+    // argument, `if` condition) is untouched — so the discriminator is the
+    // event-control FORM, not the base's type.  Returns the BASE identifier's
+    // syntax node (its token carries the name, which is how an ESCAPED
+    // identifier whose own text contains a dot survives), or null when the law
+    // declines.  Definition + the SOLE call site carry the same § tag.
+    const slang::syntax::IdentifierNameSyntax* parensLessEventPathBase9(
+        const slang::ast::TimingControl& tc) const;
     // Dotted interface-member path (s.req.adr) -> hier_path with per-token
     // ref_obj elements; the LAST element carries a module-scoped fullname.
     UHDM::hier_path* buildDottedHierPath(const slang::ast::Expression& expr,

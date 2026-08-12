@@ -292,6 +292,103 @@ UHDM::delay_control* UhdmExporter::emitDelayControl(const TimingControl& tc,
     return dc;
 }
 
+// § parensLessEventPathBaseRef9 — THE LAW (definition; ONE call site, tagged
+// with the same §, in the `EdgeKind::None` arm of emitEventExpr just below).
+//
+//   An event control written WITHOUT PARENTHESES over a DOT-separated path is
+//   ONE `ref_obj` in golden: `vpiName` is the path's BASE identifier ALONE,
+//   `vpiFullName` is that name joined to the enclosing prefix, and the SPAN is
+//   the WHOLE dotted text.  Everything after the first dot is DROPPED — no
+//   hier_path, no path elements, however deep the path is written.
+//
+//     SVSwitch/Environemnt.sv:63   repeat (4) @ input_intf.clock;
+//       golden  ref_obj (work@Environment::reset::input_intf) @63:16-63:32
+//       ours    hier_path (input_intf.clock) @63:16-63:32 + 2 elements
+//
+//   The PARENTHESIZED spelling of the very same path in the very same file
+//   (Environemnt.sv:121, `repeat(10000) @(input_intf.clock);`) keeps the FULL
+//   two-element hier_path, which is what makes the parentheses — and not the
+//   base's type, not the member's kind — the discriminator.  Measured across
+//   five arms: a virtual-interface handle, a real interface INSTANCE, a
+//   hierarchical module reference, a packed-struct member and a class-object
+//   event member ALL collapse, and the clocking block `cb` collapses whether it
+//   is the leaf (`@ vif.cb`) or an intermediate (`@ vif.cb.rdy`).
+//
+// WHERE THE COLLAPSE COMES FROM.  `@ <hierarchical_identifier>` and
+// `@ ( <event_expression> )` are DIFFERENT grammar productions, and slang keeps
+// them apart to the last:
+//
+//   slang/source/ast/TimingControl.cpp:59   case SyntaxKind::EventControl:
+//                                  :60       SignalEventControl::fromSyntax(…EventControlSyntax…)
+//                                  :63   case SyntaxKind::EventControlWithExpression:
+//                                  :64       EventListControl::fromSyntax(…)
+//                                  :86   result->syntax = &syntax;
+//
+// so the AST node's own `syntax` kind IS the written form, with no text
+// scanning and no guessing.  Surelog's parens-less production evidently binds
+// only the leading identifier and then stretches that one reference over the
+// whole `hierarchical_identifier` node — which is exactly the object golden
+// ships, name from the first token and span from the last.
+//
+// STATED GATE == CODE GATE.  Each clause below is one clause of the code, in
+// the code's order, with the arm cell that EXECUTES it:
+//
+//   (1) the event control is the PARENS-LESS form.
+//       `tc.syntax->kind != SyntaxKind::EventControl -> null`
+//       executed by: every `@( … )` twin — a1 c2/c4/c6/c13, a2 d2/d4/d6/d8/d10,
+//       a3 g2, a4 h2/h6 — all of which DECLINE and keep their hier_path.
+//   (2) there is no edge and no `iff` — both unspellable in this production, so
+//       this clause is an ASSERTION, not a filter.
+//       `sec.edge != EdgeKind::None || sec.iffCondition -> null`
+//       executed by: a1 c7 `@(posedge vif.clock)` (which also fails clause 1).
+//   (3) the written name is a DOT-separated path, every separator on its left
+//       spine a `.` and not a `::`.
+//       `kind != ScopedName -> null`; `separator.kind != TokenKind::Dot -> null`
+//       executed by: a1 c8 `@ loc` (not dotted, DECLINES — and is already
+//       byte-identical to golden), a2 d11 `@ pk::pev` (`::`, DECLINES — also
+//       already byte-identical).
+//   (4) the left spine bottoms out in a PLAIN IDENTIFIER, whose TOKEN supplies
+//       the name.  Reading the token and not the source text is what keeps an
+//       ESCAPED identifier whose own text CONTAINS A DOT (`\esc.h .clock`)
+//       from being split in half.
+//       `n->kind != IdentifierName -> null`
+//       executed by: a3 g1 (escaped base, FIRES, name `esc.h`), a4 h1
+//       (`this.…`) and a4 h7 (`$root.…`), whose leftmost element is a keyword
+//       token — see the README's residues for what golden does with those.
+//
+// The law NEVER MOVES A SPAN: the emitted ref_obj is located at
+// `sec.expr.sourceRange`, the same range the hier_path it replaces was already
+// located at, in every cell of every arm.  So a spelling that made our span
+// disagree with golden's (a3 g1's escaped identifier) disagrees by exactly the
+// same amount after this change as before it.
+const slang::syntax::IdentifierNameSyntax* UhdmExporter::parensLessEventPathBase9(
+    const TimingControl& tc) const {
+    // (1) THE PARENS-LESS FORM.  `@(x)` is EventControlWithExpression.
+    if (!tc.syntax || tc.syntax->kind != syntax::SyntaxKind::EventControl)
+        return nullptr;
+    if (tc.kind != TimingControlKind::SignalEvent)
+        return nullptr;
+    // (2) no edge, no `iff` — asserted rather than assumed.
+    auto& sec = tc.as<SignalEventControl>();
+    if (sec.edge != EdgeKind::None || sec.iffCondition)
+        return nullptr;
+    // (3) a DOT-separated path, all the way down the left spine.
+    const syntax::ExpressionSyntax* n =
+        tc.syntax->as<syntax::EventControlSyntax>().eventName;
+    if (!n || n->kind != syntax::SyntaxKind::ScopedName)
+        return nullptr;
+    while (n->kind == syntax::SyntaxKind::ScopedName) {
+        auto& sn = n->as<syntax::ScopedNameSyntax>();
+        if (sn.separator.kind != parsing::TokenKind::Dot)
+            return nullptr;
+        n = sn.left;
+    }
+    // (4) a plain identifier at the bottom; its TOKEN carries the name.
+    if (n->kind != syntax::SyntaxKind::IdentifierName)
+        return nullptr;
+    return &n->as<syntax::IdentifierNameSyntax>();
+}
+
 UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass* parent,
                                        const std::string& prefix,
                                        NetMap& netMap) {
@@ -396,6 +493,22 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
                                     emitPropFormalRef(nm, nr, parent, prefix))
                                 return fr;
                         }
+                    }
+                    // § parensLessEventPathBaseRef9 — THE SOLE CALL SITE.  A
+                    // parens-less `@ a.b(.c…)` is ONE ref_obj named for the
+                    // BASE, spanning the whole dotted text; the predicate above
+                    // carries the law, its four clauses and their arm cells.
+                    // The span is `sec.expr.sourceRange` — the SAME range the
+                    // hier_path this replaces already used — so the law changes
+                    // the object's KIND, NAME and FULLNAME and never its span.
+                    if (auto* bs9 = parensLessEventPathBase9(tc)) {
+                        auto* r9 = s.MakeRef_obj();
+                        std::string nm9(bs9->identifier.valueText());
+                        r9->VpiName(nm9);
+                        r9->VpiFullName(joinRef(prefix, nm9));
+                        r9->VpiParent(parent);
+                        setLoc(r9, sec.expr.sourceRange);
+                        return r9;
                     }
                     return emitExpr(sec.expr, parent, prefix, netMap);
                 }
