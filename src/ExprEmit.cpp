@@ -5313,10 +5313,50 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             c->VpiSize(src->VpiSize());
                             std::string_view v = src->VpiValue();
                             c->VpiValue(std::string(v));
+                            // § enumSubstIntConst30 — THE vpiConstType OF A
+                            // SUBSTITUTED ENUM LITERAL IS DERIVED FROM THE
+                            // enum_const'S OWN VALUE-ENCODING PREFIX, and an
+                            // `INT:` value is vpiIntConst (7), NEVER
+                            // vpiUIntConst (9).  This chain was missing its
+                            // `INT:` arm and fell through to vpiUIntConst, so
+                            // every implicit-valued package enum member folded
+                            // to a SELF-INCONSISTENT object: value `INT:0`,
+                            // vpiConstType 9.  vpi_user.h:491,493 —
+                            // 7 = vpiIntConst, 9 = vpiUIntConst.
+                            //
+                            // MEASURED (tools/probe/r10earl30repro §3): golden
+                            // holds ZERO (INT:, 9) constants in ANY arm, and
+                            // its (INT:, 7) count equals our (INT:, 9) count
+                            // one for one — 16/16 on g3_base, 7/7 on g5_scope.
+                            // The grid says neither the CONTEXT (comparison
+                            // operand, cont-assign, assignment RHS, select
+                            // index, concat element, case item), nor the SCOPE
+                            // (module body, function, task, always_ff, named
+                            // block, generate-if), nor the VIEW (def and elab
+                            // both), nor the enum BASE TYPE (logic [2:0],
+                            // logic [7:0], signed, bit, int, byte, no base)
+                            // discriminates: all of them read 7 in golden.
+                            // What DOES discriminate is the MEMBER'S OWN
+                            // WRITTEN FORM, and it is already carried in the
+                            // value: an implicit or based member encodes `INT:`
+                            // (-> 7) while an UNSIZED-DECIMAL member
+                            // (`Z1 = 1`) encodes `UINT:` at size 64 (-> 9,
+                            // which the fallthrough already got right and which
+                            // g3_base's J0/J1 cells confirm MATCHED golden
+                            // before this change).
+                            //
+                            // The same law is already written out at
+                            // `enumMemberSubstConst` (ExprEmit ~3141, the
+                            // struct-pattern/parameter substitution) and at
+                            // ParamEmit ~12642 (an enum-typed parameter's RHS);
+                            // this call site and ModuleEmit ~23806 were the two
+                            // that never got it.  Corpus head: Earlgrey_0_1
+                            // dm_csrs.sv:389 `cmderr_q == dm::CmdErrNone`.
                             c->VpiConstType(v.rfind("BIN:", 0) == 0   ? vpiBinaryConst
                                             : v.rfind("HEX:", 0) == 0 ? vpiHexConst
                                             : v.rfind("OCT:", 0) == 0 ? vpiOctConst
                                             : v.rfind("DEC:", 0) == 0 ? vpiDecConst
+                                            : v.rfind("INT:", 0) == 0 ? vpiIntConst
                                                                       : vpiUIntConst);
                             setLoc(c, expr.sourceRange);
                             if (!suppressConstParent && parent &&

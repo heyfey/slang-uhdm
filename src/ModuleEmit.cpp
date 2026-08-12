@@ -23803,10 +23803,32 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                     c->VpiSize(src->VpiSize());
                     std::string_view v = src->VpiValue();
                     c->VpiValue(std::string(v));
+                    // § enumSubstIntConst30 — SECOND CALL SITE of the one law
+                    // stated in full at ExprEmit ~5169: a constant minted by
+                    // COPYING an enum_const's value takes its vpiConstType from
+                    // THAT VALUE'S ENCODING PREFIX, so `INT:` is vpiIntConst
+                    // (7), never vpiUIntConst (9).  MEASURED at this site, not
+                    // fixed by analogy: arm `g6_iface.sv` (an interface whose
+                    // cont_assign RHS is a package enum const, instantiated so
+                    // the elab view folds) reads golden (INT:,7) x2 / ours
+                    // (INT:,9) x2, with the HEX member (`Y1 = 4'h5`) staying
+                    // vpiHexConst and the UNSIZED-decimal member (`Z1 = 1`)
+                    // staying vpiUIntConst on both sides.
+                    //
+                    // REFUTED BY THAT ARM, and left alone: the comment above
+                    // says the elab fold is LOC-LESS.  Golden folds it at the
+                    // WRITTEN span in the DEF interface view and SHARES that one
+                    // object into the elab view (g.dump 764 and 1100 are the
+                    // same object at `line:21:14`); we mint a fresh loc-less one
+                    // per elab view and keep a ref in the def view, which is why
+                    // golden has 51 constants there and we have 47.  That is an
+                    // object-COUNT/SPAN law, not a vpiConstType law — ranked
+                    // residue R2, deliberately NOT touched here.
                     c->VpiConstType(v.rfind("BIN:", 0) == 0   ? vpiBinaryConst
                                     : v.rfind("HEX:", 0) == 0 ? vpiHexConst
                                     : v.rfind("OCT:", 0) == 0 ? vpiOctConst
                                     : v.rfind("DEC:", 0) == 0 ? vpiDecConst
+                                    : v.rfind("INT:", 0) == 0 ? vpiIntConst
                                                               : vpiUIntConst);
                     rhsShare = c;
                 }
