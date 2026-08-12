@@ -608,6 +608,22 @@ void UhdmExporter::emitClassPropInit29(const PendingPropInit29& pi) {
                 pi.var->Expr((UHDM::expr*)e27);
         return;
     }
+    // § typeParamScopedCallRef59 — CALL SITE 2 of 2.  A class-property
+    // initializer written `<Tparam>::<method>(...)` is the SAME degraded ref_obj
+    // § classPropScopedCallIsRefObj29 builds two blocks below, except that slang
+    // never produced a CallExpression for it, so that arm's `ic.kind ==
+    // ExpressionKind::Call` gate can never see it and this whole function used
+    // to `return` one line down leaving the property with NO vpiExpr.
+    // GATE (the code below IS the gate): the initializer is an `Invalid`
+    // expression with NO child whose syntax roots in a `::`-scoped name.
+    // Measured on arm a2 cell P12 (`Tregistry m_prop = Tregistry::get();`):
+    // golden hangs `ref_obj Tregistry::get`@108:24-35 on the property's own
+    // int_var with fullname `<property fullname>::Tregistry::get`, which is the
+    // prefix this call passes.  It was the arm's LAST remaining head.
+    if (auto* r59 = invalidScopedCallRef59(ic, pi.var, pi.pfn)) {
+        pi.var->Expr((UHDM::expr*)r59);
+        return;
+    }
     if (ic.kind != ExpressionKind::Call || ic.as<CallExpression>().isSystemCall())
         return;
     if (auto* snn29 = scopedCallName29(ic)) {

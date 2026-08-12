@@ -1754,6 +1754,16 @@ private:
     UHDM::any* scopedChainDropRef48(const slang::ast::Expression& e,
                                     UHDM::BaseClass* parent,
                                     const std::string& prefix);
+    // § typeParamScopedCallRef59 — the bare unbound `ref_obj`
+    // (`Tregistry::get`) golden gives a `::`-scoped reference slang REFUSED TO
+    // BIND, which inside a generic class's DEFAULT specialization is every
+    // `<type-parameter>::<method>(...)` there is.  Null when this expression is
+    // not one.  TWO call sites, both of which returned nullptr before it:
+    // emitExpr's `Invalid` arm and emitClassPropInit29.  See the decode at the
+    // definition (ExprEmit.cpp).
+    UHDM::any* invalidScopedCallRef59(const slang::ast::Expression& e,
+                                      UHDM::BaseClass* parent,
+                                      const std::string& prefix);
     /// The literal's source spelling, rebuilt from its tokens when the span
     /// crosses a macro boundary (a macro-sized based literal).
     std::string rawTextLit(const slang::ast::Expression& expr);

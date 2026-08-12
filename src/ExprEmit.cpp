@@ -474,6 +474,47 @@ static bool sourceIsNewClassExpr55(const slang::ast::Expression& e) {
            ncs.scopedNew->kind == syntax::SyntaxKind::ConstructorName;
 }
 
+// § typeParamScopedCallRef59 (predicate half) — the `::`-scoped NAME behind an
+// expression slang REFUSED TO BIND, or null.
+//
+// WHY THIS EXISTS.  `<Tparam>::<method>(...)` inside a GENERIC class's DEFAULT
+// specialization is unresolvable by construction: the type parameter's default
+// is `int` (UVM's `class uvm_registry_common #(type Tregistry=int, type
+// Tcreator=int, ...)`), so slang looks `get` up in `int`, finds nothing, and
+// returns `badExpr` — an `InvalidExpression` with a NULL child, an EMPTY
+// sourceRange, and the original syntax still attached.  Inside a generic class
+// slang's diagnostics are suppressed, so the database still builds and the loss
+// is SILENT.  Measured: a1_witness reproduces the corpus head in 68 lines and
+// slang-uhdm reports exactly `expression kind: Invalid`.
+//
+// Surelog resolves NOTHING through `::`: its class_scope arm yields a bare
+// `ref_obj` named FIRST-SEGMENT `::` FINAL-IDENTIFIER whatever the qualifier
+// turns out to be — which is why § staticScopedCall12 already builds exactly
+// that object for every shape slang DOES bind, INCLUDING a type parameter bound
+// to a class that really has the method (arm a3 S3 / a4 B5+B7: golden and ours
+// both `ref_obj Tcreator::get`).  So the whole difference is the BIND, and this
+// predicate's only job is to reach the same object from the SYNTAX.
+//
+// This is deliberately keyed on the SYNTAX being `::`-scoped and NOT on the
+// qualifier being a type parameter: arm a4 shows golden emits the identical
+// object for all nine bindings a type parameter can take (int, string, bit, a
+// virtual class without the method, a class with a NON-static one, `type T`
+// with NO DEFAULT, and a `type U = T` chain), and arm a3 shows it does the same
+// through a concrete class and a typedef alias.  A qualifier test would have to
+// enumerate exactly the set slang fails on, which is the set this predicate
+// already IS.
+static const slang::syntax::NameSyntax* invalidScopedNameSyntax59(
+    const slang::ast::Expression& e) {
+    if (e.kind != ExpressionKind::Invalid)
+        return nullptr;
+    // A CHILD means slang salvaged a sub-expression: the plain unwrap and
+    // § droppedCall14 above own those, and this arm must never change a path
+    // that already emits something.
+    if (e.as<InvalidExpression>().child)
+        return nullptr;
+    return scopedChainRootName48(e.syntax);
+}
+
 static bool assignTargetParent48(const UHDM::BaseClass* p) {
     if (!p)
         return false;
@@ -606,6 +647,66 @@ UHDM::any* UhdmExporter::scopedChainDropRef48(const slang::ast::Expression& e,
     r48->VpiParent(parent);
     setLoc(r48, SourceRange(ns48->sourceRange().start(), end48));
     return r48;
+}
+
+// § typeParamScopedCallRef59 — the object.  IDENTICAL in every field to the one
+// § staticScopedCall12 builds for the bound case and to the one
+// § classPropScopedCallIsRefObj29 builds for a class-property initializer: an
+// UNBOUND `ref_obj`, vpiName = FIRST written segment `::` FINAL identifier,
+// vpiFullName = the caller's prefix joined to that, span = the scoped name's
+// start up to (NOT including) the final identifier — i.e. the qualifier
+// `Tregistry::` alone, which is Surelog's class_scope span.
+//
+// MEASURED SPANS, read off golden rather than derived (arm a2, one spelling per
+// row): `Tregistry::get` at 43:21 dumps `line:43:21, endln:43:32` and
+// `Tregistry::` is exactly cols 21-31, so the END is the column the final
+// identifier STARTS at.  The corpus head agrees to the character:
+// `line:14104:24, endln:14104:35` with `get` at column 35.
+//
+// NOTHING hung off the reference survives — the ARGUMENTS, a `.member` chain, a
+// select.  That is not a shortcut: golden drops them too (a2 P9
+// `Tregistry::getn(1,"a")` -> one ref_obj `Tregistry::getn`; a2 P10
+// `Tregistry::get().ok()` -> one ref_obj `Tregistry::get`; a2 P5
+// `Tcreator::create_by_type(Tregistry::get(), nm)` -> ONE ref_obj named
+// `Tcreator::create_by_type`, the inner call GONE).  It falls out of building
+// the object from the SCOPED NAME alone, which is what Surelog does.
+UHDM::any* UhdmExporter::invalidScopedCallRef59(const slang::ast::Expression& e,
+                                                UHDM::BaseClass* parent,
+                                                const std::string& prefix) {
+    auto* ns59 = invalidScopedNameSyntax59(e);
+    if (!ns59)
+        return nullptr;
+    std::string f59, l59;
+    slang::SourceLocation end59;
+    if (!splitScopedName12(*ns59, f59, l59, end59))
+        return nullptr;
+    // VERIFIER PROBE (r10uvm59 verify): the ASSIGNMENT-TARGET half.  Golden
+    // writes § staticScopedLvalueBad48's `FIRST::@@BAD_SYMBOL@@` over the WHOLE
+    // lvalue for a `::` target it cannot resolve, and that does not depend on
+    // whether slang bound it: measured on `T::sprop = 3;` inside a generic class
+    // (golden `T::@@BAD_SYMBOL@@`@12:7-12:15) and on `nosuchpkg59::sig = 1;`
+    // inside an uninstantiated generate block (golden
+    // `nosuchpkg59::@@BAD_SYMBOL@@`@6:7-6:23).  Same gate as ExprEmit.cpp:3422.
+    // NOTE the second half: § staticScopedLvalueBad48's builder spans
+    // `whole.sourceRange`, and an InvalidExpression's sourceRange is EMPTY
+    // (that is part of pass 59's own decode), so the placeholder would come out
+    // with NO location at all — invisible to uhdm-cmp, which blacklists
+    // vpiLineNo/vpiColumnNo, and wrong in the dump.  The SYNTAX range is the
+    // whole written lvalue and is what golden's span equals: `T::sprop = 3;`
+    // -> 12:7-12:15, `nosuchpkg59::sig = 1;` -> 6:7-6:23.
+    if (inLhs && assignTargetParent48(parent)) {
+        auto* b59 = scopedLvalueBadRef48(e, parent, prefix);
+        if (b59 && e.syntax)
+            setLoc(b59, e.syntax->sourceRange());
+        return b59;
+    }
+    std::string nm59 = f59 + "::" + l59;
+    auto* r59 = s.MakeRef_obj();
+    r59->VpiName(nm59);
+    r59->VpiFullName(joinRef(prefix, nm59));
+    r59->VpiParent(parent);
+    setLoc(r59, SourceRange(ns59->sourceRange().start(), end59));
+    return r59;
 }
 
 // § staticScopedLvalueBad48 — the ASSIGNMENT-TARGET form of a `::`-written
@@ -15790,6 +15891,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 return mfc55;
             }
+            // § typeParamScopedCallRef59 (emit half) — a `::`-scoped reference
+            // slang refused to bind becomes the SAME bare unbound `ref_obj`
+            // § staticScopedCall12 builds for the bound case: name = FIRST
+            // written segment `::` FINAL identifier, span = the scoped name's
+            // start up to (NOT including) that final identifier, UNBOUND (no
+            // vpiActual), with the arguments and everything else hung off the
+            // reference DROPPED.  Placed AFTER the child unwrap, AFTER
+            // § droppedCall14 and AFTER § invalidNewCallFromSyntax55, and
+            // immediately BEFORE the unsupported note, so it can only ever turn
+            // a `return nullptr` into an object.
+            //
+            // MEASURED, cell for cell (arm a2, thirteen positions of ONE
+            // spelling): golden emits this object in assignment-RHS, bare
+            // STATEMENT, if-CONDITION, call-ARGUMENT, RETURN, binary-OPERAND,
+            // for-body, class-PROPERTY-initializer and instance-method position,
+            // with and without parentheses (`Tregistry::sprop`), with and
+            // without arguments (`Tregistry::getn(1,"a")`), and it DROPS both a
+            // chain hung off the call (`Tregistry::get().ok()` -> ONE ref_obj)
+            // and a NESTED type-parameter call used as an argument
+            // (`Tcreator::create_by_type(Tregistry::get(), nm)` -> ONE ref_obj
+            // named `Tcreator::create_by_type`; the inner one is GONE).  The
+            // argument drop is not a compromise — it is what golden holds, and
+            // it falls out of building the object from the SCOPED NAME alone.
+            if (auto* r59 = invalidScopedCallRef59(expr, parent, prefix))
+                return r59;
             noteUnsupportedAt("expression kind: Invalid",
                               expr.syntax ? expr.syntax->sourceRange().start()
                                           : expr.sourceRange.start());
