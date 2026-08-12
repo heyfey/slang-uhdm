@@ -383,6 +383,42 @@ static bool inClassScope12(const slang::ast::Symbol& sym) {
     return false;
 }
 
+// § covergroupBuiltinCall8 — whether `sub` is one of a COVERGROUP's built-in
+// methods, i.e. a subroutine whose immediately-enclosing scope is a
+// `CovergroupBodySymbol`.
+//
+// WHAT LIVES THERE, exhaustively, read out of slang
+// (`slang/source/ast/symbols/CoverSymbols.cpp`):
+//   * `sample` — added by `CovergroupType::fromSyntax`:
+//         MethodBuilder sample(comp, "sample"sv, comp.getVoidType(), ...);
+//         body->addMember(sample.symbol);
+//     and given FORMALS when the source writes
+//     `covergroup c with function sample(...)` (`sample.copyArg(*arg)`).
+//   * `set_inst_name`, `get_coverage`, `get_inst_coverage`, `start`, `stop` —
+//     added by `addBuiltInMethods(*this, /*isCovergroup=*/true)` in the
+//     `CovergroupBodySymbol` CONSTRUCTOR.
+// Every one of them is therefore reached by this ONE predicate, and cells
+// a1 C1/C2/C5, a2 D1–D4, a3 E1–E6, a4 F1–F5 and a5 G1/G2 EXECUTE all six.
+//
+// WHY THE SCOPE KIND AND NOT THE NAME.  The name is not a discriminator: a
+// USER class may define its own `sample` (arm a5 cells G3/G4, and the corpus
+// itself — `third_party/tests/SVSwitch/Coverage.sv` declares `task sample`
+// on the very class that owns the covergroup, so the enclosing task and the
+// built-in share the identifier). Those keep `SymbolKind::ClassType` and must
+// keep taking the pre-existing arms; they do, because this predicate never
+// reads a name.
+//
+// DELIBERATELY EXCLUDED: `Coverpoint` and `CoverCross`, which slang ALSO gives
+// built-ins (`addBuiltInMethods(*this, false)` at CoverSymbols.cpp's
+// CoverpointSymbol and CoverCrossSymbol constructors). Arm a3 cell E7
+// (`cgc8.cpc8.get_coverage()`) is the EXECUTED abstain control: its
+// parent-scope kind is `Coverpoint`, it already matched golden before this
+// pass, and it must not move.
+static bool covergroupBuiltinCall8(const slang::ast::SubroutineSymbol& sub) {
+    const slang::ast::Scope* psc = sub.getParentScope();
+    return psc && psc->asSymbol().kind == slang::ast::SymbolKind::CovergroupBody;
+}
+
 // § staticScopedChainDrops48 — the `::` SCOPE NAME at the root of a chain's
 // SYNTAX, or null.  It has to come from the syntax of the WHOLE chain, not from
 // the base sub-expression: slang leaves a chained base's `syntax` NULL (measured
@@ -9426,8 +9462,60 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 // Class METHOD calls (bar.set(4)): a method_func_call at the
                 // method token, with an UNBOUND receiver ref as vpiPrefix.
+                //
+                // NOTE § covergroupBuiltinCall8 — THE SAME SITE, ONE CLAUSE
+                // WIDER, and deliberately NOT a second arm.
+                //
+                // STATED GATE: the callee's immediately-enclosing scope is a
+                // CovergroupBody (§ covergroupBuiltinCall8 above), and the call
+                // has a receiver.  CODE GATE: `covergroupBuiltinCall8(sub)`,
+                // OR-ed onto the existing `ClassType` clause, under the
+                // UNCHANGED `call.thisClass()` requirement.  The two scope
+                // kinds are DISJOINT, so an in-law class-method call can never
+                // take my clause and a covergroup built-in can never take
+                // theirs.  `call.thisClass()` is non-null for EVERY covergroup
+                // built-in call in the grid — measured, not assumed, on all
+                // five arms.
+                //
+                // THE LAW: Surelog does not distinguish a covergroup BUILT-IN
+                // method call from a USER class-method call AT ALL.  It has no
+                // covergroup-aware call path: `compileTfCall` sees a dotted
+                // invocation and emits the same objects either way.  Cell for
+                // cell, golden's object for the covergroup call is BYTE-
+                // IDENTICAL IN SHAPE to golden's object for the user call
+                // written beside it —
+                //   a1 C1 `cg8.sample();`      == a1 C3 `p8.touch();`
+                //         method_func_call(<method>) at the method token,
+                //         vpiPrefix an unbound ref_obj at the receiver token
+                //         whose vpiFullName is scoped by the ENCLOSING
+                //         SUBROUTINE, no vpiFunction/vpiTask link;
+                //   a2 D3 `cgb8.sample(3, w8);` == a2 D5 `this.user8(3, w8);`
+                //         the actuals ride as ordinary vpiArgument children,
+                //         literal parented AT the call;
+                //   a4 F4 `this.cgi8.sample();`
+                //         -> § thisRecvCall11's STATEMENT form: the call is
+                //         literally NAMED "this", located at the FIRST name
+                //         after it, vpiPrefix the STRING constant "this";
+                //   a4 F5 `h8.cgi8.sample();`
+                //         -> § deepRecvCall11's STATEMENT form: named after
+                //         SEGMENT 1 (`cgi8`) with segment 0 (`h8`) as the
+                //         prefix, the method's own name and arguments dropped.
+                // F4 and F5 are what make this a WIDENING and not a copy: a
+                // fresh arm modelled on the flat `<recv>.<method>` shape emits
+                // the wrong object for BOTH, and only this site knows them.
+                //
+                // AND IT IS WHY THE RECEIVER IS READ FROM THE BOUND EXPRESSION,
+                // NOT FROM SOURCE TEXT.  This arm derives the receiver from
+                // `call.thisClass()`'s symbols; an arm that instead split
+                // `rawText(expr.sourceRange)` on its LAST '.' is defeated by an
+                // ESCAPED IDENTIFIER, which may CONTAIN a dot.  Arm a5 cell G1
+                // writes exactly that (`\cg.esc8 .sample();`) and golden's
+                // prefix ref_obj is `vpiName:cg.esc8` — the UNESCAPED name,
+                // dot and all.  TESTED, not reasoned about.
                 if (auto psc0 = sub.getParentScope();
-                    psc0 && psc0->asSymbol().kind == SymbolKind::ClassType &&
+                    psc0 &&
+                    (psc0->asSymbol().kind == SymbolKind::ClassType ||
+                     covergroupBuiltinCall8(sub)) &&
                     call.thisClass()) {
                     // ...but only as a STATEMENT. In EXPRESSION position the
                     // same call is a hier_path named "<recv>.<method>" whose
