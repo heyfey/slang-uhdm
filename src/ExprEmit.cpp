@@ -2727,6 +2727,153 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     return hp;
 }
 
+// § thisPathSelectErased4 — a member path whose base is the WRITTEN `this`
+// keyword renders with EVERY element/range select ERASED.
+//
+//     foreach (this.data[i])
+//     if (pkt.data[i] !== this.data[i])          // SVSwitch Packet.sv:122
+//
+// Golden, for the two operands of that ONE comparison:
+//
+//   pkt.data[i]   hier_path (pkt.data[i])  { ref_obj(pkt), bit_select(data)+idx }
+//   this.data[i]  hier_path (this.data)    { ref_obj(this), ref_obj(data)      }
+//
+// Same line, same loop variable, same foreach, same rvalue-in-comparison
+// position: the ONLY thing that differs is the receiver. So the gate is the
+// written `this` keyword and NOTHING else — the same discriminator r10svs3
+// landed (§ thisSuperNewAssignNoStmt3). The measured grid (both arms in
+// tools/probe/r10svs4repro, 27 + 13 cells) REFUTES every other candidate:
+//
+//   * NOT the foreach context, and NOT loop-var-ness: a plain CONSTANT index
+//     outside any loop (`this.data[2]`) is erased too, and a for-loop var
+//     (`this.data[j]`) is erased, while `pkt.data[j]` on the SAME line keeps.
+//   * NOT the array kind: dynamic (`byte data[]`), fixed (`fx[4]`), queue
+//     (`q[$]`) and 2-D (`m2[2][3]`) all erase — the 2-D erases BOTH dims and
+//     the element is a plain ref_obj, not a var_select.
+//   * NOT the syntactic position: rvalue-in-comparison, plain-assignment rhs,
+//     call argument, and LVALUE all erase. Position gates only the SPANS
+//     (below), which no Compare method reads.
+//   * NOT the select depth or select kind: `this.data[k][3]` (bit within the
+//     element) and `this.data[k][3:0]` (part select) both erase to `this.data`,
+//     and a select BELOW a further member (`this.st[k].fld`) erases to
+//     `this.st.fld` with a plain ref_obj in the middle.
+//   * `super` behaves IDENTICALLY in golden (`super.data[k]` -> hier_path
+//     `super.data`), but slang resolves `super.data` straight to the inherited
+//     member and hands us no `super` base at all, so we emit no hier_path there
+//     today — a MISSING-SHAPE gap, not an index-presence one. Deliberately out
+//     of this predicate; see residue R3.
+//
+// The cmp-VISIBLE half of the law is exactly two fields, and they are the two
+// this head fails on: `hier_path::Compare` reads Path_elems + Root_value +
+// VpiName (hier_path.cpp), and `ref_obj::Compare` opens with
+// `VpiType() - other->VpiType()`. VpiFullName and every line/column field are
+// read by NO Compare method, so the span/name detail below is dump-only —
+// reproduced anyway because this is new code and costs nothing.
+//
+// Golden's span/name shape, position-gated (measured, arm g1 cells c1/c9 and
+// arm g2 cells d1/d9):
+//   hier_path loc : LVALUE -> the `this` token; otherwise the WHOLE written
+//                   expression, index text included.
+//   elem[0] `this`: ALWAYS the FIRST MEMBER's name token (never its own).
+//   elem[i>0]     : LVALUE -> LOC-LESS with a scope-prefixed fullname;
+//                   otherwise its own member-name token with a BARE name.
+//
+// Returns null unless this really is a select-carrying written-`this` member
+// path; the UNINDEXED `this.member` form is deliberately NOT routed here (it is
+// already cmp-equal, and its span/fullname shape differs from golden in a
+// cmp-invisible way that would move every class test's dump — residue R1).
+UHDM::hier_path* UhdmExporter::emitThisPathSelectErased(const Expression& expr,
+                                                       UHDM::BaseClass* parent,
+                                                       const std::string& prefix) {
+    // Peel the whole access chain: members are KEPT, selects are DROPPED.
+    struct Mem {
+        std::string name;
+        SourceRange nameSpan;
+    };
+    std::vector<Mem> mems; // outer-to-inner
+    bool sawSelect = false;
+    const Expression* cur = &expr;
+    while (true) {
+        if (cur->kind == ExpressionKind::MemberAccess) {
+            auto& ma = cur->as<MemberAccessExpression>();
+            auto end = cur->sourceRange.end();
+            mems.push_back({std::string(ma.member.name),
+                            SourceRange(end - ma.member.name.size(), end)});
+            cur = &ma.value();
+        }
+        else if (cur->kind == ExpressionKind::ElementSelect) {
+            sawSelect = true;
+            cur = &cur->as<ElementSelectExpression>().value();
+        }
+        else if (cur->kind == ExpressionKind::RangeSelect) {
+            sawSelect = true;
+            cur = &cur->as<RangeSelectExpression>().value();
+        }
+        else
+            break;
+    }
+    if (!sawSelect || mems.empty())
+        return nullptr;
+    if (cur->kind != ExpressionKind::NamedValue)
+        return nullptr;
+    auto& nv = cur->as<NamedValueExpression>();
+    // The WRITTEN keyword is the gate. slang names the implicit self variable
+    // `this`, and names it that ONLY when the keyword was written (an implicit
+    // member reference resolves straight to the member symbol) — BUT THE NAME
+    // TEST ALONE IS NOT THE WRITTEN-KEYWORD TEST, and the sentence that said so
+    // shipped a latent regression (verifier F1, FIXED AT INTEGRATION): a
+    // SystemVerilog ESCAPED IDENTIFIER `\this ` is an ordinary variable whose
+    // `symbol.name`, after the escape is stripped, is exactly `this`, and the
+    // name test fired the erase law on it at MODULE scope where golden — and
+    // our own pristine binary — keep the select intact (arm v3_escaped.sv
+    // cells x6/x8: hier_path::VpiName `this.arr[k]` -> `this.arr` and the
+    // element bit_select -> ref_obj, BOTH cmp-visible fields flipped from
+    // right to wrong).  Inside a class the exposure is nil (slang resolves the
+    // NAME `this` to the implicit self even when an escaped member exists, so
+    // `\this [k]` does not compile there); the corpus carries zero escaped
+    // `\this` (grep-proven).  The fix is the STATED law made literal: the raw
+    // source text of the base must BE the keyword — an escaped identifier's
+    // raw text starts with a backslash and fails the comparison.  rawText maps
+    // macro-expanded locations through getFullyOriginalRange, so a `this`
+    // written inside a macro body still reads "this".
+    if (nv.symbol.name != "this" || rawText(nv.sourceRange) != "this")
+        return nullptr;
+    std::reverse(mems.begin(), mems.end()); // base..outer order
+    if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
+        refCollector->insert(&nv.symbol);
+    std::string dotted("this");
+    for (auto& m : mems)
+        dotted += "." + m.name;
+    auto* hp = s.MakeHier_path();
+    hp->VpiName(dotted);
+    hp->VpiFullName(dotted);
+    hp->VpiParent(parent);
+    setLoc(hp, inLhs ? cur->sourceRange : expr.sourceRange);
+    auto* elems = s.MakeAnyVec();
+    {
+        auto* rt = s.MakeRef_obj();
+        rt->VpiName("this");
+        rt->VpiFullName("this");
+        rt->VpiParent(hp);
+        setLoc(rt, mems.front().nameSpan);
+        elems->push_back(rt);
+    }
+    for (auto& m : mems) {
+        auto* r = s.MakeRef_obj();
+        r->VpiName(m.name);
+        if (inLhs)
+            r->VpiFullName(joinRef(prefix, m.name));
+        else {
+            (void)r->VpiFullName(); // freeze the bare name before parenting
+            setLoc(r, m.nameSpan);
+        }
+        r->VpiParent(hp);
+        elems->push_back(r);
+    }
+    hp->Path_elems(elems);
+    return hp;
+}
+
 // A property-decl FORMAL reference: property-scoped ref bound to an implicit
 // module wire minted at the first use (Surelog leaks formals as module nets).
 UHDM::ref_obj* UhdmExporter::emitPropFormalRef(std::string_view nm, SourceRange nr,
@@ -10798,6 +10945,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::ElementSelect: {
             auto& es = expr.as<ElementSelectExpression>();
+            // § thisPathSelectErased4 — SITE 1 of 3. A select whose base chain
+            // bottoms out at the WRITTEN `this` keyword erases the select
+            // entirely: `this.data[i]` is the hier_path `this.data` with two
+            // PLAIN ref_obj elements. This is the SVSwitch:122 head, and it must
+            // run BEFORE every arm below (the mixed builder, the single-dim
+            // `chain` arm and the nested-select arm all mint bit_select /
+            // var_select elements carrying the index).
+            if (auto* thp = emitThisPathSelectErased(expr, parent, prefix))
+                return thp;
             // Selects on member access become hier_paths whose last element
             // is the select object (lazily-frozen fullname).
             const Expression* esBottom = &es.value();
@@ -11285,6 +11441,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::RangeSelect: {
             auto& rs = expr.as<RangeSelectExpression>();
+            // § thisPathSelectErased4 — SITE 2 of 3. A RANGE select erases the
+            // same way an element select does (`this.data[k][3:0]` -> the
+            // hier_path `this.data`), measured as grid cell d5.
+            if (auto* thp = emitThisPathSelectErased(expr, parent, prefix))
+                return thp;
             // Range select of an element select (x[0][1:0]) flattens to a
             // var_select whose leading indices are the element selectors and
             // whose final index is the (indexed_)part_select.
@@ -12381,6 +12542,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // reachable from the exporter: it would take slang adopting
             // Surelog's layout. HierPathEval is blocked on that, not on naming.
             //
+            // § thisPathSelectErased4 — SITE 3 of 3. A select BELOW a further
+            // member (`this.st[k].fld`) reaches emitExpr as a MemberAccess, and
+            // golden erases that select too — the hier_path is `this.st.fld`
+            // with a PLAIN ref_obj where the bit_select would have been (grid
+            // cells d1/d7/d8). This must run before the emitMixedHierPath arm
+            // just below, which is what mints that bit_select today.
+            if (auto* thp = emitThisPathSelectErased(expr, parent, prefix))
+                return thp;
             // p.hi -> hier_path with unbound ref elements: base ref has
             // name only; member refs carry module-scoped fullnames.
             std::vector<const Expression*> chain;
@@ -14979,6 +15148,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (!nargs->empty())
                 mfc->Tf_call_args(nargs);
             stripRefFullNames11(mfc);
+            return mfc;
+        }
+        // § copyClassIsNewCall4 — the SHALLOW-COPY constructor `pkt = new gpkt`
+        // is a method_func_call named "new" carrying the copied handle as its
+        // ONE argument, shaped exactly like the `new()` and `new[n]` arms
+        // either side of it.  We had NO arm for it at all, so emitExpr returned
+        // null and the assignment lost its whole Rhs; golden (SVSwitch
+        // Driver.sv:38) has:
+        //
+        //   method_func_call: (new), id:1447                 <- LOC-LESS
+        //   |vpiParent:  assignment 38:6-38:20
+        //   |vpiArgument: ref_obj (work@Driver::start::gpkt) 38:16-38:20
+        //   |vpiName:new
+        //
+        // LOC-LESS is measured, not assumed: the dump prints no line/endln on
+        // golden's node, and it is the same convention as the `new()` arm (the
+        // `new[n]` arm above DOES setLoc — the difference is that NewArray's
+        // golden carries a span, which is why the two arms differ here).  The
+        // argument keeps its scope-prefixed fullname (golden prints
+        // vpiFullName), so `stripRefFullNames11` — which the NewArray arm calls
+        // — is deliberately NOT called here.
+        case ExpressionKind::CopyClass: {
+            auto& cce = expr.as<CopyClassExpression>();
+            auto* mfc = s.MakeMethod_func_call();
+            mfc->VpiName("new");
+            mfc->VpiParent(parent);
+            auto* nargs = s.MakeAnyVec();
+            if (auto* a9 = emitExpr(cce.sourceExpr(), mfc, prefix, netMap))
+                nargs->push_back(a9);
+            if (!nargs->empty())
+                mfc->Tf_call_args(nargs);
             return mfc;
         }
         case ExpressionKind::NewClass: {

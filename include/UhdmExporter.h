@@ -1030,6 +1030,15 @@ private:
     UHDM::hier_path* emitMixedHierPath(const slang::ast::Expression& expr,
                                        UHDM::BaseClass* parent, const std::string& prefix,
                                        NetMap& netMap);
+    // § thisPathSelectErased4 — a member path written through the `this`
+    // KEYWORD renders with EVERY element/range select ERASED. See the long
+    // comment at the definition in ExprEmit.cpp for the measured grid.
+    // Returns null unless `expr` IS such a path (base is the written `this`,
+    // at least one member, at least one select) — every other shape is left
+    // to the ordinary select/member arms.
+    UHDM::hier_path* emitThisPathSelectErased(const slang::ast::Expression& expr,
+                                              UHDM::BaseClass* parent,
+                                              const std::string& prefix);
     // `paramCtx` marks a fold that becomes a PARAMETER's value (a param_assign
     // Rhs) rather than an rvalue: those always carry a vpiDecompile.
     UHDM::any* tryFoldConst(const slang::ast::Expression& expr,
