@@ -1,0 +1,168 @@
+diff --git a/include/UhdmExporter.h b/include/UhdmExporter.h
+index 526547f..ac8b791 100644
+--- a/include/UhdmExporter.h
++++ b/include/UhdmExporter.h
+@@ -2721,6 +2721,8 @@ private:
+     // DEF-view listing of the top module.  Design-final for the same reason
+     // pass 37's law is: the predicate is which package views hold the routine.
+     void thisImplicitNetBoth38(UHDM::design* d);
++    // r10det1 INSTRUMENT — NOT PRODUCTION.  env R10DET1_ORDER=<path>.
++    void r10det1DumpOrder(const char* tag);
+     // A pkg ALIAS-of-vector-typedef's bare clone aliases the TARGET's
+     // TOP/module listing object (jeras_union imm_l_t); the top listing does
+     // not exist at def-pkg time, so the binding resolves after the top walk.
+diff --git a/src/UhdmExporter.cpp b/src/UhdmExporter.cpp
+index efcd470..2974f73 100644
+--- a/src/UhdmExporter.cpp
++++ b/src/UhdmExporter.cpp
+@@ -5,6 +5,7 @@
+ // SPDX-License-Identifier: MIT
+ //------------------------------------------------------------------------------
+ #include "UhdmExporter.h"
++#include <cstring>  // r10det1 INSTRUMENT (strchr)
+ 
+ #include "EmitHelpers.h"
+ #include "slang/syntax/SyntaxTree.h"
+@@ -2910,7 +2911,126 @@ bool UhdmExporter::srcOrderLess(SourceLocation a, SourceLocation b) const {
+     return a.offset() < b.offset();
+ }
+ 
++// ===================== r10det1 INSTRUMENT — NOT PRODUCTION =====================
++// Two env-guarded knobs in ONE binary, so a "does allocation order reach the
++// output?" experiment carries NO BUILD TERM at all: the same bytes answer both
++// arms.  Neither knob is read by any emitter decision.
++//
++//   R10DET1_PAD=<bytes>   leak one heap block before the FIRST UHDM allocation.
++//                         Semantically null; nothing reads it.  Its only effect
++//                         is that every later pool chunk lands elsewhere.
++//   R10DET1_ORDER=<path>  write the ITERATION ORDER of the suspect containers as
++//                         SOURCE IDENTITIES (type/name/file:line:col), so two
++//                         runs' orders can be diffed without any address in the
++//                         comparison.  Addresses are NEVER printed: an address
++//                         differs trivially between runs, a source-identity
++//                         SEQUENCE does not.
++// INSTRUMENT CORRECTION, measured not assumed: ONE allocation of >=128 KiB goes
++// to mmap under glibc (M_MMAP_THRESHOLD) and therefore does NOT move the main
++// arena at all -- a single 256 KiB pad is a NO-OP as a perturbation, which is a
++// trap this pass fell into on its first arm.  So the pad is expressed as a COUNT
++// of SMALL blocks (each well under the threshold), all leaked, which does move
++// every subsequent brk-served allocation.  `R10DET1_PAD=<count>[:<bytes>]`,
++// bytes defaulting to 48.
++static void r10det1Pad() {
++    const char* e = getenv("R10DET1_PAD");
++    if (!e || !*e)
++        return;
++    long n = atol(e);
++    long sz = 48;
++    if (const char* c = strchr(e, ':'))
++        sz = atol(c + 1);
++    if (n <= 0 || sz <= 0)
++        return;
++    static std::vector<char*>* keep = new std::vector<char*>();
++    for (long i = 0; i < n; i++)
++        keep->push_back(new char[(size_t)sz]());
++    fprintf(stderr, "R10DET1: padded %ld blocks x %ld bytes, first=%p\n", n, sz,
++            (void*)(*keep)[0]);
++}
++
++void UhdmExporter::r10det1DumpOrder(const char* tag) {
++    const char* p = getenv("R10DET1_ORDER");
++    if (!p || !*p)
++        return;
++    FILE* f = fopen(p, "a");
++    if (!f)
++        return;
++    // (0) THE ADDRESS PROOF.  Without this the whole perturbation experiment is
++    // unfalsifiable: "the pad changed nothing" is worthless if the pad never
++    // moved an address.  Print the RAW address extremes and a few concrete
++    // pointers -- these SHOULD differ between two runs of one binary under
++    // different pads, and are the only place an address is printed at all.
++    {
++        auto all = s.AllObjects();
++        const void* lo = nullptr;
++        const void* hi = nullptr;
++        size_t nonnull = 0;
++        for (auto& kv : all) {
++            if (!kv.first)
++                continue;
++            if (!lo)
++                lo = kv.first;
++            hi = kv.first;
++            ++nonnull;
++        }
++        fprintf(f, "%s\tADDRPROOF\tn=%zu\tlo=%p\thi=%p\tdesign=%p\tthis=%p\n",
++                tag, nonnull, lo, hi, (const void*)d, (const void*)this);
++    }
++    // (1) Serializer::AllObjects() -- std::map<const BaseClass*,uint32_t>, i.e.
++    // ADDRESS-ORDERED, iterated at 15 sites in this emitter.  Print the address
++    // order as source identities, and the serializer id beside it: the id is
++    // assigned in CREATION order, so "the id column is not monotone" is itself
++    // the proof that this iteration is not creation order.
++    {
++        auto all = s.AllObjects();
++        size_t i = 0;
++        for (auto& kv : all) {
++            const UHDM::BaseClass* o = kv.first;
++            if (!o)
++                continue;
++            fprintf(f, "%s\tALLOBJ\t%zu\tid=%u\t%s\t%s\t%s:%u:%u\n", tag, i++,
++                    kv.second, UHDM::UhdmName(o->UhdmType()).data(),
++                    std::string(o->VpiName()).c_str(),
++                    std::string(o->VpiFile()).c_str(), o->VpiLineNo(),
++                    o->VpiColumnNo());
++        }
++    }
++    // (2) typedefTs -- std::map<const slang::ast::Symbol*, typespec*>, iterated
++    // at 30 sites.  Source identity of the KEY symbol.
++    {
++        size_t i = 0;
++        for (auto& kv : typedefTs) {
++            const slang::ast::Symbol* sym = kv.first;
++            if (!sym)
++                continue;
++            auto sl = sym->location;
++            fprintf(f, "%s\tTYPEDEFTS\t%zu\t%s\toff=%u\tts=%s\n", tag, i++,
++                    std::string(sym->name).c_str(),
++                    (unsigned)sl.offset(),
++                    kv.second ? std::string(kv.second->VpiName()).c_str()
++                              : "(null)");
++        }
++    }
++    // (3) pkgTopTypedefTs -- std::map<const void*, typespec*>: the key is an
++    // opaque pointer, so the only stable identity available is the VALUE's own
++    // name/span.  That is exactly the problem this pass is measuring.
++    {
++        size_t i = 0;
++        for (auto& kv : pkgTopTypedefTs) {
++            UHDM::typespec* ts = kv.second;
++            fprintf(f, "%s\tPKGTOPTS\t%zu\t%s\t%s:%u:%u\n", tag, i++,
++                    ts ? std::string(ts->VpiName()).c_str() : "(null)",
++                    ts ? std::string(ts->VpiFile()).c_str() : "-",
++                    ts ? ts->VpiLineNo() : 0u, ts ? ts->VpiColumnNo() : 0u);
++        }
++    }
++    fclose(f);
++}
++// =================== end r10det1 INSTRUMENT — NOT PRODUCTION ===================
++
+ UHDM::design* UhdmExporter::exportDesign() {
++    r10det1Pad();
+     auto& root = comp.getRoot();
+     computeParamMultiplicity();
+ 
+@@ -5025,6 +5145,7 @@ UHDM::design* UhdmExporter::exportDesign() {
+     // parameter's constant typespec.  After the typedef pass so a typedef
+     // object it also moved is not moved twice.
+     pkgParamTsTopInstance16(d);
++    r10det1DumpOrder("PRE-LAWS");  // r10det1 INSTRUMENT
+     bareScalarTypedefVarTs();
+     // § importCloneBareTdAlias16: inside a wildcard-import CLONE body the
+     // alias target of that bare copy is bare too.  Right after LAW S, whose
+@@ -5541,6 +5662,7 @@ UHDM::design* UhdmExporter::exportDesign() {
+     // passes included) has to have run.  It only ever fills a null
+     // Actual_group on a reference named `this` and appends one net.
+     thisImplicitNetBoth38(d);
++    r10det1DumpOrder("END");  // r10det1 INSTRUMENT
+     return d;
+ }
+ 

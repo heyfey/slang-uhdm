@@ -83,7 +83,20 @@ three different values — a per-binary draw, not a per-run one, and consistent
 with an allocation-order-dependent iteration. **No row moved on either corpus and
 no dump verdict changed**; the four tests were and stay `CMP_NOTEQUAL`.
 
-### 0.1 A CAMPAIGN-LEVEL FINDING THIS INTEGRATION FORCED OUT: the ALIAS/TYPESPEC POPULATION IS BUILD-DEPENDENT
+### 0.1 ~~A CAMPAIGN-LEVEL FINDING: the ALIAS/TYPESPEC POPULATION IS BUILD-DEPENDENT~~ — **REFUTED, SEE §0.3 BEFORE READING ANY OF THIS**
+
+> **EVERYTHING IN §0.1 AND §0.2 IS WRONG.** r10det1 refuted it and I re-derived the
+> decisive fact myself: the two binaries I compared differed by ALL OF PASS 54, not
+> only by my F1 hunk. `git show 8d4d6ed:src/UhdmExporter.cpp | grep -c
+> drainClassNestedTdGroups54` → **0**, the same on `0c08a3f` → **2**. Pass 54's law
+> exists to hang `Typedef_alias` refs on `class_typespec` clones, so the "+98
+> aliases from a semantically-null edit" was that law working, on a different base.
+> The population is NOT build-dependent (four different binaries at `3500bc4` give
+> a byte-identical BuildUVMPkg database) and address order provably does not reach
+> the output (a pad that permutes 8190 order lines moves nothing; `uhdm-cmp` calls
+> the databases EQUAL). Full account and instruments:
+> `tools/probe/r10det1repro/README.md`, commit `9d77c37`. The paragraphs below are
+> kept only so the error is legible; **do not cite them.**
 
 Chasing those 7 movers produced something worth more than the pass's own law, and
 it is established **by elimination, with the alternative closed**:
@@ -133,7 +146,15 @@ fix a known typedef-piercing over-fire in order to preserve one particular draw 
 an unstable ordering would be preserving the artefact instead of the law. All five
 gates are green on the shipped binary.
 
-### 0.2 CORRECTION TO 0.1, ONE PASS LATER — "any binary change flips it" IS REFUTED, and the MECHANISM IS NAMED
+### 0.2 ~~CORRECTION TO 0.1 — "any binary change flips it" IS REFUTED, and the MECHANISM IS NAMED~~ — **THE "MECHANISM" IS ALSO REFUTED; SEE §0.3**
+
+> §0.2 was right that "any binary change flips it" is false, and WRONG in the
+> replacement it offered: the pointer-keyed-`std::map` address-order mechanism does
+> not reach the emitted database at all. That was settled by an experiment §0.2
+> could not have run — one binary, an env-guarded heap pad, so the confound between
+> allocation, semantics and codegen is removed. **The table of file:line citations
+> below is still accurate as an INVENTORY of pointer-keyed containers; its causal
+> claim is not.** See §0.3 / `tools/probe/r10det1repro/README.md`.
 
 **REFUTED by r10oth9** (the very next pass, `tools/probe/r10oth9repro/`): it
 changed the binary too — `51bb84bc…` → `6c33528b…`, and three independent builds
