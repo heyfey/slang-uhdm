@@ -23,6 +23,26 @@ struct CtrlBody28 {
     ~CtrlBody28() { --*p; }
 };
 
+// § blockLocalSameCtrlDepthArgBinds57 — records, for the whole time a
+// STATEMENT BLOCK is being emitted, the ctrlBodyDepth28 at which that block
+// was ENTERED.  The reference binder then asks whether a candidate symbol's
+// declaring block is open at the SAME depth it is reading at; see
+// UhdmExporter.h's blkCtrlDepth57 for the law and every measured cell.
+// A block with no blockSymbol pushes nothing (there is nothing to key on).
+struct BlkCtrl57 {
+    std::vector<std::pair<const void*, int>>* v = nullptr;
+    BlkCtrl57(std::vector<std::pair<const void*, int>>& st, const void* key, int d) {
+        if (key) {
+            v = &st;
+            v->emplace_back(key, d);
+        }
+    }
+    ~BlkCtrl57() {
+        if (v)
+            v->pop_back();
+    }
+};
+
 // The variable class a typespec implies — UHDM's own
 // CompileHelper::getSimpleVarFromTypespec mapping, which is what Surelog uses
 // to materialize an IMPLICITLY declared variable (a foreach loop variable)
@@ -833,6 +853,16 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 b = ub;
             }
             b->VpiParent(parent);
+            // § blockLocalSameCtrlDepthArgBinds57 — CALL SITE 2 of 3 (the
+            // recorder).  From here to this case's `return b` this block is
+            // OPEN at the current ctrlBodyDepth28, which is what lets a
+            // call-argument reference tell "declared where I am reading"
+            // (binds) from "declared one control body out" (stays bare).
+            // A FORK arm is recorded exactly like a sequential begin because
+            // a fork raises no depth (b4 e9:120/121 — golden binds both the
+            // arm's own local and the enclosing if-body local).
+            BlkCtrl57 bcd57(blkCtrlDepth57, (const void*)bs.blockSymbol,
+                            ctrlBodyDepth28);
             // Block-local variable declarations become scope Variables
             // (module-scoped fullnames, no visibility flag).
             NetMap blockMap = netMap;

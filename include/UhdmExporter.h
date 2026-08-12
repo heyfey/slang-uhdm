@@ -1996,6 +1996,37 @@ private:
     // uvm_scope_stack::get's `if (v != "" && ...)`, the head of the whole
     // Scoreboard/SimpleUVM package-listing residue, must stay bare.
     int ctrlBodyDepth28 = 0;
+    // § blockLocalSameCtrlDepthArgBinds57 — the ONE carve-out from
+    // § controlBodyNoBind28, measured on r10uvm57repro/b1..b4 (see that
+    // README's cell tables; every cell below names its arm and line).
+    //
+    // Inside the § classArgBind12 window (a USER call's ARGUMENT list, which
+    // for an in-body class method is STATEMENT POSITION only — see
+    // § classInBodyBareCallArgStmtOnly53) a reference to a variable declared
+    // in an UNNAMED STATEMENT BLOCK BINDS even at ctrlBodyDepth28 > 0, but
+    // ONLY when the DECLARING block was entered at the SAME ctrlBodyDepth28
+    // as the reference now sees.  Everything else keeps §28's silence:
+    //   * b1 f:29 `sink(blkloc)` block local, depth 1==1  -> golden BINDS
+    //   * b1 f:30 `sink(bodyloc)` METHOD-BODY local, d1   -> golden bare
+    //   * b1 f:31 `sink(farg)` FORMAL, d1                 -> golden bare
+    //   * b1 g:49 `sink(prop)` class PROPERTY, d1         -> golden bare
+    //   * b1 f:33 `$display(blkloc)` SYSTEM call          -> golden bare
+    //     (never enters the window at all — classArgBindDepth12's own law)
+    //   * b2 f:24 `nmd::nmdblk` in a NAMED block, d1==1   -> golden bare
+    //   * b3 f:23 `pln1` in a PLAIN begin nested inside a control body,
+    //     entered at d1, referenced at d1                 -> golden BINDS
+    //   * b3 f:24 `ctl1` declared in the control body, referenced from that
+    //     nested plain begin, still d1                    -> golden BINDS
+    //   * b2 f:36 `outr` declared at d1, referenced at d2 -> golden bare
+    //   * b3 f:64 `lpv` for-body local read one `if` deeper (d1 vs d2) -> bare
+    //   * b4 e1:35 `p0` declared in a depth-0 plain begin, read at d1 -> bare
+    //   * b4 e9:120/121 a FORK ARM inside an `if` does NOT raise the depth,
+    //     so both the arm's own local and the if-body local BIND there
+    // A named block is excluded because Surelog scopes its locals through the
+    // label (`pb3::shp::f::inm::inmv`) and leaves every reference bare.
+    // The stack is keyed on the slang StatementBlockSymbol so shadowing comes
+    // out right when two sibling blocks declare the SAME name (b2 f:44/49).
+    std::vector<std::pair<const void*, int>> blkCtrlDepth57;
     // LAW C (call binding), decoded on purpose-built goldens r10uvm7/c1+c2:
     // Surelog resolves a BARE subroutine call against the enclosing package/
     // module's subroutines and — only for a method written INSIDE its class
@@ -2893,6 +2924,12 @@ private:
     // struct typespec_member as vpiActual_value.  See TaskFuncEmit.cpp.
     bool memberActualLeak(const slang::ast::Expression& asnExpr);
     void buildMemberActualLeak();
+    // § blockLocalSameCtrlDepthArgBinds57 — the predicate itself (see the
+    // blkCtrlDepth57 member above for the law and its arm cells).  True when
+    // `sym` is a variable declared in an UNNAMED statement block that is
+    // currently open AND was entered at exactly the ctrlBodyDepth28 the
+    // caller sees now.
+    bool blkLocalSameCtrlDepth57(const slang::ast::Symbol& sym) const;
     std::optional<std::set<const slang::ast::Expression*>> memberLeakAsgs;
     // Scope for resolving identifiers inside a pkg-function's return/arg TYPE
     // ranges (logic [PARAM-1:0]) — SL binds such refs to the pkg param's

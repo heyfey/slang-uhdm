@@ -223,6 +223,33 @@ UHDM::any* UhdmExporter::pkgPatSubstValue(const Expression& expr, int depth) {
 // (r10apb3 repro 10: `if (p::ch.f(1))`, `p::ch.t();`, `r = p::ch.f(2)` and
 // `r = p::ch.x` all collapse to `ref_obj p::ch`, while the identical calls
 // through a MODULE-local handle keep their full hier_path shape).
+// § blockLocalSameCtrlDepthArgBinds57 — CALL SITE 1 of 3 (the predicate; the
+// recorder is StmtEmit.cpp's BlkCtrl57 push, the gate is the bind gate below).
+// See UhdmExporter.h's blkCtrlDepth57 for the law and every measured arm cell.
+// Three conditions, each one a cell that FAILS without it:
+//   (1) the symbol is a plain VARIABLE (b1 g:49 excludes the class property,
+//       b1 f:31 the formal — a FormalArgument's parent scope is the
+//       subroutine, so (2) already rejects it, and this keeps it explicit);
+//   (2) its declaring scope is a STATEMENT BLOCK, not the subroutine body
+//       (b1 f:30 `sink(bodyloc)` at depth 1 is golden-bare);
+//   (3) that block is UNNAMED (b2 f:24 `nmd::nmdblk`, b3 f:47 `inm::inmv`
+//       are golden-bare) and is OPEN at exactly `depth` (b2 f:36, b3 f:64
+//       and b4 e1:35 are the depth-MISMATCH cells, all golden-bare).
+bool UhdmExporter::blkLocalSameCtrlDepth57(const slang::ast::Symbol& sym) const {
+    if (sym.kind != SymbolKind::Variable)
+        return false;
+    auto* declScope = sym.getParentScope();
+    if (!declScope)
+        return false;
+    auto& declSym = declScope->asSymbol();
+    if (declSym.kind != SymbolKind::StatementBlock || !declSym.name.empty())
+        return false;
+    for (auto it = blkCtrlDepth57.rbegin(); it != blkCtrlDepth57.rend(); ++it)
+        if (it->first == (const void*)&declSym)
+            return it->second == ctrlBodyDepth28;
+    return false;
+}
+
 bool UhdmExporter::isPkgQualifiedVarRef(const Expression& e) {
     if (e.kind != ExpressionKind::NamedValue)
         return false;
@@ -5687,8 +5714,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // uvm_component::lookup's `comp = top;` inside an `if` body —
                 // an out-of-body definition — binds in golden while t38d's
                 // in-body twin binds nothing at any depth.
-                bool ctrlBodyNoBind28 =
-                    curSubClassScope9 && !curSubOob9 && ctrlBodyDepth28 > 0;
+                // § blockLocalSameCtrlDepthArgBinds57 — CALL SITE 3 of 3 (the
+                // carve-out).  GATE: inside the § classArgBind12 window
+                // (classArgBindDepth12 > 0 — which for an in-body class method
+                // is STATEMENT POSITION only, § classInBodyBareCallArgStmtOnly53,
+                // and which SYSTEM calls and CONCATENATION operands never enter)
+                // a reference to a variable declared in an UNNAMED statement
+                // block open at the SAME ctrlBodyDepth28 lifts § 28's silence.
+                // DIRECTION: ADD (a vpiActual that was absent).  It lifts ONLY
+                // § controlBodyNoBind28 — classMethodNoBind, unitSubNoBind9 and
+                // § classInBodyRecvCallArgNoBind52 all still apply, so the
+                // EXPRESSION-position and receiver-qualified cells stay bare.
+                // The corpus head it clears is uvm-1.2 uvm_registry.svh:265
+                // `uvm_report_fatal("FCTTYP", msg, UVM_NONE);` inside
+                // `if (!$cast(create,obj)) begin string msg; ... end` — where
+                // golden's ONLY extra line over ours is that argument's
+                // `|vpiActual: \_string_var (…::create::msg)`.
+                bool blkLocalArgBind57 =
+                    classArgBindDepth12 > 0 &&
+                    blkLocalSameCtrlDepth57(nv.symbol);
+                bool ctrlBodyNoBind28 = curSubClassScope9 && !curSubOob9 &&
+                                        ctrlBodyDepth28 > 0 &&
+                                        !blkLocalArgBind57;
                 // NOTE § classInBodyRecvCallArgNoBind52 — GATE: an IN-BODY
                 // class method (curSubClassScope9 && !curSubOob9) inside the
                 // ARGUMENT LIST of a RECEIVER-QUALIFIED, EXPRESSION-position
