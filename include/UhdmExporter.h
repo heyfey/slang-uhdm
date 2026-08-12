@@ -215,7 +215,17 @@ private:
     /// reduces; when that Rhs is one of these the reduce fails and the
     /// REFERENCE survives, which is why `parameter P = PkgConcatParam` keeps a
     /// ref_obj in the def view where `parameter D = PkgIntParam` folds.
-    bool paramDefRhsIsOp(const slang::ast::ParameterSymbol& ps);
+    /// aggregateToo (§ fcArgPkgParamValueFolds32, r10earl32): the struct/union
+    /// EXCEPTION above does NOT hold at a SUBROUTINE-CALL ARGUMENT.  There is
+    /// no `inParamInit` inlining to hand the reader the default's tree, so
+    /// golden simply keeps the ref_obj: `build_config_func(
+    /// cva6_config_pkg::cva6_cfg)` where `cva6_cfg` is a
+    /// `config_pkg::cva6_user_cfg_t` localparam initialised by a structured
+    /// pattern (Surelog tests FuncStructVal / FuncStructValSimple, both modes).
+    /// Passing true skips the exception and answers on the initialiser's shape
+    /// alone.  Default false, so the two older call sites are unchanged.
+    bool paramDefRhsIsOp(const slang::ast::ParameterSymbol& ps,
+                         bool aggregateToo = false);
     /// @a e reads a parameter whose ALREADY-EMITTED elaborated `param_assign`
     /// Rhs is not a constant, so Surelog's elab reduce of @a e has no value to
     /// work with and the reference survives.  Only meaningful after the

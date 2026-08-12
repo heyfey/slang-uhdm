@@ -4522,11 +4522,90 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(ref, expr.sourceRange);
                     return ref;
                 }
+                // § fcArgPkgParamValueFolds32 (r10earl32) — A PACKAGE
+                // PARAMETER PASSED AS A SUBROUTINE-CALL ARGUMENT IS REPLACED
+                // BY ITS VALUE, AND THE ONE THING THAT STOPS THAT IS THE
+                // PARAMETER'S OWN INITIALISER BEING A CONCATENATION,
+                // REPLICATION OR ASSIGNMENT PATTERN — the same "the reduce has
+                // no value to hand over" predicate § paramDefRhsIsOp already
+                // transcribes for every other read position.
+                //
+                // THE HEAD: Earlgrey_0_1/default, dm_mem.sv:365
+                // `abstract_cmd[2][63:32] = dm::load(ac_ar.aarsize, 5'd8,
+                // 5'd10, dm::DataAddr);` — golden's 4th actual is
+                // `constant 12'h380 @365:75-365:87` (the WHOLE `dm::DataAddr`
+                // text) and ours was `ref_obj (dm::DataAddr) @365:75-365:79`
+                // (the `dm::` qualifier alone).  expr::Compare reads
+                // BaseClass::Compare's VpiType first, so the object KIND was
+                // the row's whole head.  8 argument slots on that design, all
+                // `dm::DataAddr` into dm::load / dm::store / dm::float_load /
+                // dm::float_store.
+                //
+                // WHY THE ARM BELOW EXISTED AND WHY IT IS NOW A CARVE-OUT.
+                // § fcArgBareImportRef was measured on Earlgrey's
+                // aes_sbox_canright `aes_mvm(data_i, A2X)` and on
+                // r10earl_repro/vi.sv rows A/B — and BOTH of those parameters
+                // are pattern-initialised (`A2X` is
+                // `logic [7:0] A2X [8] = '{...}`, `vip::AVEC` the same shape).
+                // The arm then generalised "a call argument keeps its ref" to
+                // EVERY package parameter, which vi.sv's OWN rows C/D/E/F
+                // (`thru(ASCL)` / `thru(vip::ASCL)`, a plain
+                // `logic [7:0] ASCL = 8'h5`) already refuted: golden folds all
+                // four.  This pass keeps the arm for exactly the parameters it
+                // was measured on and lets every other one fall through to the
+                // module-side fold below.
+                //
+                // THE DISCRIMINATOR IS THE INITIALISER, NOT THE TYPE — measured
+                // cell for cell on a2_type.sv, where the two hypotheses the
+                // corpus cannot separate are separated on purpose:
+                //   t3  `logic [1:0][3:0] T3 = 8'hAB`   MULTI-DIM, literal
+                //                                       -> golden FOLDS
+                //   t2  `logic [7:0]      T2 = {4'h1,4'h2}`  ONE-DIM, concat
+                //                                       -> golden keeps the REF
+                //   t8  `logic [7:0]      T8 = 8'h1 + 8'h2`  arithmetic init
+                //                                       -> golden FOLDS
+                // so neither dimensionality (Earlgrey's PRINCE_SBOX4 is a
+                // PACKED `logic [15:0][3:0]`, not an unpacked array) nor width
+                // (t12 is 72 bits and folds) nor signedness, typedef-ness or
+                // enum-typedness is the key.  patParamNoFold is kept beside it
+                // because it is the same refusal one step earlier (a pattern
+                // whose target never acquires a value at all).
+                //
+                // `aggregateToo=true` IS LOAD-BEARING AND WAS MEASURED AS A
+                // REGRESSION, not reasoned: paramDefRhsIsOp's struct/union
+                // exception exists for the `inParamInit` INLINING arm further
+                // down, and a call argument has no such inlining.  The first
+                // cut of this law took the exception, folded
+                // `build_config_pkg::build_config_func(
+                // cva6_config_pkg::cva6_cfg)` — a `cva6_user_cfg_t` localparam
+                // written as a structured pattern — into that pattern's op75
+                // tree, and demoted FuncStructVal and FuncStructValSimple from
+                // CMP_EQUAL to CMP_NOTEQUAL in BOTH modes (surelog default
+                // 467 -> 465).  Golden keeps the ref_obj there, which is the
+                // same "the initialiser is a pattern" answer as everywhere
+                // else once the exception is out of the way.
+                //
+                // STATED GATE == CODE GATE.  The gate is exactly two things:
+                // (1) the fold's parent IS a `func_call`/`task_call` — nothing
+                // walks, nothing looks through an operation, so an argument
+                // that is an EXPRESSION over the parameter is untouched (its
+                // leaf already folds through the operation arms); and (2) the
+                // parameter's own initialiser is not one of the five
+                // non-reducing shapes.  There is NO context flag, NO view test,
+                // NO import test and NO TEXT TEST here — the qualified/bare
+                // split lives entirely inside the carve-out body, unchanged.
+                const bool fcArgPos32 =
+                    parent && (parent->UhdmType() == UHDM::uhdmfunc_call ||
+                               parent->UhdmType() == UHDM::uhdmtask_call);
+                const bool fcArgFold32 =
+                    fcArgPos32 &&
+                    !patParamNoFold(nv.symbol.as<ParameterSymbol>()) &&
+                    !paramDefRhsIsOp(nv.symbol.as<ParameterSymbol>(),
+                                     /*aggregateToo=*/true);
                 // Function-call ARGS keep a pkg-scoped ref (named pkg::P,
                 // anchored at the package-qualifier span) bound to the
                 // package's def parameter object.
-                if (parent && (parent->UhdmType() == UHDM::uhdmfunc_call ||
-                               parent->UhdmType() == UHDM::uhdmtask_call)) {
+                if (fcArgPos32 && !fcArgFold32) {
                     // § fcArgBareImportRef — ...only for the QUALIFIED
                     // spelling.  The same parameter read UNQUALIFIED after a
                     // wildcard import is the IMPORTING MODULE's materialized
@@ -5706,6 +5785,60 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 full31 = fn31;
                             stampFoldedPkgParamTs(c, nv.symbol, full31,
                                                   /*declTsOnly=*/true);
+                        }
+                    }
+                    // § fcArgFoldParent32 (r10earl32) — WHERE THE NEW FOLDED
+                    // CALL ARGUMENT HANGS, and the ONE ts it carries on its
+                    // own.  Both halves are a WRITTEN-SPELLING split, the same
+                    // one § fcArgBareImportRef records for the ref it replaces,
+                    // and both were read off a1_kind.sv c13/c14 and
+                    // r10earl_repro/vi.sv rows C/D/E/F:
+                    //   QUALIFIED `pk::P` -> vpiParent is THE CALL, no ts here
+                    //   BARE (wildcard-imported) -> vpiParent is the PACKAGE
+                    //     parameter's own param_assign, and the constant
+                    //     carries ref_typespec(prefix) -> the PARAMETER'S OWN
+                    //     declaration typespec
+                    // The bare half is not a new law: it is § the
+                    // materialized-import fold ts this file already stamps at
+                    // six other positions (procOpFold9, tfOpFold9, ndaOpFold9,
+                    // sysFuncArgFold, caPsOpFold9, ipsWidFold9), reached at a
+                    // seventh.  vi.sv row E (`thru(ASCL)` in an always_comb)
+                    // is the witness: golden
+                    // `constant 8'h5 @34:16-34:20 p=param_assign
+                    //  ts=ref_typespec(work@via)->logic_typespec@10:13-10:24`,
+                    // and 10:13-10:24 is `logic [7:0]` on the PARAMETER's own
+                    // declaration line, not the formal's.
+                    // THE ts HALF IS GATED ON A PROCESS, and that is measured,
+                    // not defensive: in a CONT-ASSIGN or a subroutine BODY
+                    // golden's answer for the SAME cell is the FORMAL's
+                    // typespec instead (a4_text.sv e8 -> logic_typespec@56:38,
+                    // the formal `v`'s type, where vi.sv row E in an
+                    // always_comb reads logic_typespec@10:13, the PARAMETER's
+                    // own).  Stamping the parameter's own object outside a
+                    // process would put a WRONG object where golden has a
+                    // different one — the defect class r10earl31 §3.2 c5
+                    // refused — so this abstains there and R1 records the
+                    // formal-ts law it leaves on the table.
+                    // PURELY ADDITIVE: guarded on `!c->Typespec()`, so no
+                    // earlier arm's stamp can be rewritten.
+                    if (fcArgFold32) {
+                        bool qual32 = rawText(expr.sourceRange).find("::") !=
+                                      std::string::npos;
+                        if (qual32)
+                            c->VpiParent(parent);
+                        else {
+                            if (auto cIt32 = pkgParamConst.find(&nv.symbol);
+                                cIt32 != pkgParamConst.end() &&
+                                cIt32->second->VpiParent())
+                                c->VpiParent(
+                                    (UHDM::BaseClass*)cIt32->second->VpiParent());
+                            else
+                                c->VpiParent(parent);
+                            if (!c->Typespec() && !currentTf &&
+                                (inProcessEmit || inGenScopeProc) &&
+                                importedParamDefTs.count(&nv.symbol))
+                                stampFoldedPkgParamTs(c, nv.symbol, prefix,
+                                                      /*declTsOnly=*/true);
                         }
                     }
                     return c;
@@ -10569,6 +10702,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                           a->UhdmType() == UHDM::uhdmconstant &&
                                           constArgBodyEvald60 && !intFormal))
                                       : (!inLhs && !defOpArg && !portInitCtx &&
+                                         // MEASURED AND DELIBERATELY NOT TAKEN
+                                         // (r10earl32 R1): golden DOES stamp
+                                         // the formal's typespec on a package
+                                         // parameter actual that FOLDED to a
+                                         // constant (a4_text.sv e1/e2/e3/e6/e7
+                                         // and its bare half e8/e9/e10;
+                                         // a1_kind.sv c1/c2/c13/c14/c15;
+                                         // r10earl_repro/vi.sv rows C/D), so
+                                         // relaxing `!paramRef` for exactly
+                                         // those constants was built — and it
+                                         // OVER-FIRED on two cells golden
+                                         // leaves bare: a call nested under an
+                                         // OPERATION in a def-view cont-assign
+                                         // (a3_ctx.sv g10, a5_init.sv n1/n5-n8)
+                                         // and a call in a DEF-VIEW
+                                         // GENERATE-BLOCK process (a3_ctx.sv
+                                         // g4).  Both have an analogue already
+                                         // in this file (ndaOpCallArg9;
+                                         // inGenScopeProc), so the rule is
+                                         // reachable — but it is a formal-ts
+                                         // law, not a fold law, and it did not
+                                         // get to ship on two arm cells' worth
+                                         // of evidence.  Left bare: an absent
+                                         // object, never a wrong one.
                                          (!paramRef || elabParamArgFold) &&
                                          !paramRootSel &&
                                          !(intFormal &&

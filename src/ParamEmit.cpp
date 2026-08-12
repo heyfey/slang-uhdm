@@ -678,7 +678,8 @@ void UhdmExporter::bindOrParkParamTs(const ParameterSymbol& p,
         pendingSubstOpTs.push_back({&p, rt});
 }
 
-bool UhdmExporter::paramDefRhsIsOp(const ParameterSymbol& ps) {
+bool UhdmExporter::paramDefRhsIsOp(const ParameterSymbol& ps,
+                                   bool aggregateToo) {
     auto* init = ps.getInitializer();
     if (!init)
         return false;
@@ -692,15 +693,21 @@ bool UhdmExporter::paramDefRhsIsOp(const ParameterSymbol& ps) {
     // emitExpr) instead of leaving the ref_obj, so `parameter p::cfg_t CFG =
     // p::CFG_DEF` folds even though CFG_DEF's own Rhs is a pattern operation
     // (uhdm2rtlil iface_scalar_localparam and its three siblings).
-    switch (ps.getType().getCanonicalType().kind) {
-        case SymbolKind::PackedStructType:
-        case SymbolKind::UnpackedStructType:
-        case SymbolKind::PackedUnionType:
-        case SymbolKind::UnpackedUnionType:
-            return false;
-        default:
-            break;
-    }
+    // § fcArgPkgParamValueFolds32 (r10earl32): `aggregateToo` SKIPS this
+    // exception.  It is an `inParamInit`-inlining rule, and a SUBROUTINE-CALL
+    // ARGUMENT has no such inlining — golden keeps the ref_obj there
+    // (FuncStructVal / FuncStructValSimple, measured as a REGRESSION from the
+    // first cut of that law and gated here rather than in its own site).
+    if (!aggregateToo)
+        switch (ps.getType().getCanonicalType().kind) {
+            case SymbolKind::PackedStructType:
+            case SymbolKind::UnpackedStructType:
+            case SymbolKind::PackedUnionType:
+            case SymbolKind::UnpackedUnionType:
+                return false;
+            default:
+                break;
+        }
     const Expression* e = &stripImplicitConv(*init);
     // 3'({3'h1}) — an explicit size/type cast wrapping a concatenation keeps
     // the whole vpiCastOp tree, so look through the cast.
