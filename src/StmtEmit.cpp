@@ -1100,7 +1100,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         rrt0->VpiParent(reg0);
                         rrt0->Actual_typespec(ts);
                         reg0->Typespec(rrt0);
-                        if (leaf0->isSigned())
+                        // § typeParamRetIsRefVar58 — no vpiSigned on a
+                        // ref_var; the same repeat of the law as the
+                        // block-item array factory at TaskFuncEmit ~4428.
+                        if (leaf0->isSigned() &&
+                            !typeParamVarIsRefVar58(*leaf0))
                             reg0->VpiSigned(true);
                         auto* rv0 = s.MakeVariablesVec();
                         rv0->push_back(reg0);

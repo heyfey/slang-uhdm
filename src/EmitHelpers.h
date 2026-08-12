@@ -522,6 +522,32 @@ inline const TypeParameterSymbol* typeParamOfAlias(const TypeAliasType& ta) {
     return nullptr;
 }
 
+// § typeParamRetIsRefVar58 — THE PREDICATE.  A declaration whose written type
+// is a TYPE PARAMETER is a bare `ref_var` in golden, WHATEVER the parameter is
+// bound to, with the ONE exception of a CLASS binding (then `class_var`).  See
+// include/UhdmExporter.h for the law, the decoded Surelog mechanism and every
+// measured cell; the gate lives at the top of makeReturnVar below, which is the
+// single factory our return vars, our subroutine-body locals, our block locals
+// and our non-integral for-loop variables all come out of.
+//
+// GATE, and it is exactly Surelog's: TypeAlias + `TypeAssignment` syntax (the
+// only syntax kind that spells a type-parameter assignment, and never a
+// `typedef` — see typeParamOfAlias above) + the canonical type is NOT a
+// ClassType.  Deliberately NOT a scope walk: typeParamOfAlias's members() loop
+// answers the same question but costs a scope scan per declaration, and the
+// syntax kind alone is what § assocIdxTypeParamNoIndexTs51 already gates on.
+inline bool typeParamVarIsRefVar58(const Type& declType) {
+    if (declType.kind != SymbolKind::TypeAlias)
+        return false;
+    auto* syn = declType.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::TypeAssignment)
+        return false;
+    // A CLASS binding keeps its class_var: Surelog reaches it through
+    // compileTypespec's class_typespec arm (CompileType.cpp:386-400), the one
+    // branch of compileVariable that fires BEFORE the ref_var fallthrough.
+    return declType.getCanonicalType().kind != SymbolKind::ClassType;
+}
+
 // NOTE § assocIdxTypeParamNoIndexTs51 — the PREDICATE of the pass-51 law.
 // An ASSOCIATIVE dimension whose index type was written as a TYPE PARAMETER
 // gets NO `vpiIndexTypespec` in golden, at ANY site and in EITHER view.
@@ -2070,6 +2096,16 @@ inline bool unpackedArrayTypedefCopies(const TypeAliasType& ta) {
 inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
                                       bool signedImplicitRet = false) {
     auto& ct = retType.getCanonicalType();
+    // § typeParamRetIsRefVar58 — THE GATE, and it must run BEFORE every arm
+    // below because the arms key on the CANONICAL type, which for a type
+    // parameter is the BINDING and therefore resolves the very thing golden
+    // refuses to resolve.  Emitting no vpiSigned is part of the law, not an
+    // omission: golden's ref_var carries none, and `variables::Compare` DOES
+    // compare vpiSigned (UHDM build/generated/src/variables.cpp), so the flag
+    // and the object class stand or fall together.  Law + cells:
+    // include/UhdmExporter.h and tools/probe/r10uvm58repro/README.md.
+    if (typeParamVarIsRefVar58(retType))
+        return s.MakeRef_var();
     // An UNPACKED-array return (typedef int T[N]; function T f) is a bare
     // array_var carrying only the ref to the array_typespec — Surelog
     // (ArrayExprFuncArg/DefaultPattern*).  Unlike a function-LOCAL unpacked

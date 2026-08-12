@@ -1458,8 +1458,20 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType) {
     // makeReturnVar does for a subroutine-local container — an `int unsigned
     // seed_table[string]` element is an int_var, not the bit_var its 2-state
     // integral base would give (BuildUVMPkg uvm_seed_map).
+    // § typeParamRetIsRefVar58's ONE EXCLUSION, and it is a MEASURED over-fire
+    // this pass caught with mv58.sh before landing: this factory builds the
+    // element variable of a CLASS PROPERTY container, and a class property is
+    // the one declaration Surelog compiles through ElaborationStep's explicit
+    // `Parameter` branch (ElaborationStep.cpp:1885-1900), which RESOLVES the
+    // type parameter to its concrete var class instead of falling through to
+    // compileVariable's ref_var.  So `protected T queue[$];` in
+    // `uvm_queue #(type T=int)` is an int_var in golden — 3 objects on each of
+    // the four UVM rows — while the `T`-returning method right below it is a
+    // ref_var.  Passing the CANONICAL type keeps the gate off: it is the
+    // predefined-integer arm this branch wants and nothing else changes,
+    // because every arm reachable from here reads only the canonical type.
     else if (ec.kind == SymbolKind::PredefinedIntegerType)
-        v = makeReturnVar(s, elemType);
+        v = makeReturnVar(s, ec);
     else if (ec.kind == SymbolKind::ScalarType ||
              ec.kind == SymbolKind::PackedArrayType)
         v = ec.isFourState() ? (UHDM::variables*)s.MakeLogic_var()

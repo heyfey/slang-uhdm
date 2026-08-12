@@ -2091,6 +2091,82 @@ private:
     // The stack is keyed on the slang StatementBlockSymbol so shadowing comes
     // out right when two sibling blocks declare the SAME name (b2 f:44/49).
     std::vector<std::pair<const void*, int>> blkCtrlDepth57;
+    // ================= § typeParamRetIsRefVar58 — THE LAW =================
+    // A declaration whose WRITTEN TYPE IS A TYPE PARAMETER is a bare
+    // `ref_var` in golden — with NO vpiSigned — whatever the parameter is
+    // bound to, EXCEPT when the binding is a CLASS, which stays a `class_var`.
+    //
+    // DIRECTION: RESHAPE (one object's UHDM class + one bool), never add or
+    // delete.  PREDICATE: typeParamVarIsRefVar58 in src/EmitHelpers.h.
+    // GATE (and the gate in the code is this gate): slang `TypeAlias` whose
+    // syntax node is a `TypeAssignment`, and whose CANONICAL type is not a
+    // `ClassType`.  SITE: the top of makeReturnVar, the single factory that
+    // produces our function RETURN vars (TaskFuncEmit 2673/2736), our
+    // subroutine-body and block LOCALS (TaskFuncEmit 4667), our array element
+    // regs (930/1207/4420) and our non-integral for-loop variables
+    // (StmtEmit 2153) — one decision point, so no call site can drift.
+    //
+    // THE DECODED MECHANISM (Surelog, read not guessed).  A named-type
+    // declaration is compiled by CompileHelper::compileVariable
+    // (src/DesignCompile/CompileType.cpp:334-434), whose slStringConst arm
+    // tries, in order: (1) component->getDataType(name)->getActual()
+    // ->getTypespec() fed to getSimpleVarFromTypespec — which would give the
+    // concrete var class, but a type parameter is a `Parameter` and
+    // `Parameter` never has DataType::m_typespec set (only TypeDefs do, at
+    // ElaborationStep.cpp:217-284), so this yields NOTHING; (2)
+    // design->getClassDefinition(name) — there is no class called `T`;
+    // (3) `ts->UhdmType() == uhdmclass_typespec` -> class_var, the ONE arm a
+    // type parameter can reach, and only when its binding is a class; then
+    // (4) the fallthrough at CompileType.cpp:421 — `MakeRef_var`.  The
+    // function-return caller (CompileStmt.cpp:2401-2410) clears the name it
+    // set, which is why golden's ref_var is anonymous.
+    // A CLASS PROPERTY of type `T` is NOT this: it is compiled by
+    // ElaborationStep.cpp:1885-1900, which has an explicit `Parameter` branch
+    // that calls elabTypeParameter_ and DOES resolve to the concrete var
+    // class.  That asymmetry is the whole law, and it is why the property must
+    // keep its int_var while the return var next to it becomes a ref_var.
+    //
+    // MEASURED CELLS (tools/probe/r10uvm58repro; LHS golden(Surelog), RHS
+    // ours; every arm's table is in that README):
+    //   * a2 — `pure virtual function int/bit/string g();` in a #(type T=int)
+    //     virtual class AND in a non-parameterised one: 0/12 differing cells.
+    //     PURE VIRTUAL IS NOT THE DISCRIMINATOR.  The TYPE PARAMETER IS.
+    //   * a1 — the corpus witness `pure virtual function T get();` AND its
+    //     NON-pure twin `virtual function T get(); ... endfunction`: golden
+    //     ref_var for BOTH.  The corpus proves the same twice over:
+    //     uvm_set_get_dap_base::get (pure) and uvm_set_before_get_dap::get
+    //     (non-pure, with a body) are both golden ref_var.
+    //   * a3 — non-virtual, static, and a module-scope function inside
+    //     `module #(type T=int)`: golden ref_var for all three, plus the
+    //     subroutine LOCAL `T r;`.
+    //   * a4 — the binding axis: int, bit, byte, string, logic, real, an
+    //     enum typedef, a struct typedef, `type U=T`, and `type T` with NO
+    //     default -> golden ref_var for EVERY one; `type T=<class>` ->
+    //     class_var (and ours already agreed there).
+    //   * v1 — unpacked array, queue, associative, dynamic array and
+    //     `virtual interface` bindings -> golden ref_var; a PARAMETERISED
+    //     class binding -> class_var.
+    //   * a8 — subroutine local, named-begin local and loop-body local ->
+    //     golden ref_var; the CLASS PROPERTY `T m_prop;` -> int_var on BOTH
+    //     sides (the ElaborationStep negative control above).
+    //   * a7 — the same parameter as a FORMAL type stays an `io_decl` on both
+    //     sides: the law is about VARIABLES, not ports.
+    //   * a6 — NEGATIVE CONTROL, a pure virtual in a NON-parameterised class:
+    //     0 differing cells before and after.
+    //   * v2/v3 — NOT VIEW-SCOPED and NOT SPECIALIZATION-SCOPED: a module
+    //     type parameter instantiated three ways (`#()`, `#(string)`,
+    //     `#(byte)`) and a generic class declared as `#(int)`, `#(string)`,
+    //     `#(byte)`-extended and defaulted produce NO second listing in
+    //     golden, so there is no elaborated cell that could disagree.
+    // NOT COMPARED, and this is why the head is only ONE object deep: UHDM's
+    // generated Compare BLACKLISTS vpiLineNo/vpiColumnNo/vpiEndLineNo/
+    // vpiEndColumnNo/vpiFile/vpiFullName (UHDM scripts/classes.py
+    // `vpi_blacklist`), so golden's SHARED per-parameter typespec — one object
+    // per class type parameter, reused by the return var, every `T` io_decl
+    // and every `T` property, located at the LAST textual use of the
+    // parameter in the class — is invisible to uhdm-cmp.  It is a BYTE
+    // residue, ranked first in the README, NOT part of this law.
+    // ======================================================================
     // LAW C (call binding), decoded on purpose-built goldens r10uvm7/c1+c2:
     // Surelog resolves a BARE subroutine call against the enclosing package/
     // module's subroutines and — only for a method written INSIDE its class

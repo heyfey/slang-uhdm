@@ -936,7 +936,9 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     rrt0->VpiParent(reg0);
     rrt0->Actual_typespec(elemTs);
     reg0->Typespec(rrt0);
-    if (qelem0->isSigned())
+    // § typeParamRetIsRefVar58 — no vpiSigned on a ref_var; the same repeat of
+    // the law as the block-item array factory at ~4428.
+    if (qelem0->isSigned() && !typeParamVarIsRefVar58(*qelem0))
         reg0->VpiSigned(true);
     auto* rv0 = s.MakeVariablesVec();
     rv0->push_back(reg0);
@@ -1213,7 +1215,9 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
     rrt0->VpiParent(reg0);
     rrt0->Actual_typespec(elemTs);
     reg0->Typespec(rrt0);
-    if (elem0->isSigned())
+    // § typeParamRetIsRefVar58 — no vpiSigned on a ref_var; the same repeat of
+    // the law as the block-item array factory at ~4428.
+    if (elem0->isSigned() && !typeParamVarIsRefVar58(*elem0))
         reg0->VpiSigned(true);
     auto* rv0 = s.MakeVariablesVec();
     rv0->push_back(reg0);
@@ -4425,7 +4429,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     regRt->VpiParent(reg);
                     regRt->Actual_typespec(elemTs);
                     reg->Typespec(regRt);
-                    if (leaf->isSigned())
+                    // § typeParamRetIsRefVar58 — the ONE call site that stamps
+                    // vpiSigned AFTER the factory, so the law's "no vpiSigned"
+                    // half has to be repeated here or a ref_var would carry a
+                    // flag golden never puts on one (v4_contprop's `T qloc [$];`
+                    // subroutine-local element: golden ref_var with no
+                    // vpiSigned, ours ref_var,S before this guard).
+                    if (leaf->isSigned() && !typeParamVarIsRefVar58(*leaf))
                         reg->VpiSigned(true);
                     auto* rv = s.MakeVariablesVec();
                     rv->push_back(reg);
