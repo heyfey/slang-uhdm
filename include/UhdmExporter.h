@@ -3435,6 +3435,18 @@ private:
     UHDM::variables* classAssocElemVar(const slang::ast::Symbol& cp,
                                        const slang::ast::Type& elemType,
                                        const slang::ast::ClassType& owner);
+    // § fixedClassPropIsArrayVar6 — the vpiReg element of a FIXED-SIZE
+    // unpacked-array class property.  It is classAssocElemVar plus the three
+    // element kinds a fixed array reaches and a dynamic one has never been
+    // measured on: a VIRTUAL INTERFACE (bare logic_var, NO typespec), `chandle`
+    // and `shortreal` (own var class, NO typespec) and `real`.
+    UHDM::variables* classFixedElemVar6(const slang::ast::Symbol& cp,
+                                        const slang::ast::Type& elemType,
+                                        const slang::ast::ClassType& owner);
+    // § fixedUnpackedCount6 — the vpiSize of a fixed-size unpacked array
+    // (product of the dim widths; a PARAM-sized dim contributes 1).  Shared by
+    // the module-scope emitArrayVar and the class-property arm.
+    int32_t fixedUnpackedCount6(const slang::ast::Symbol& sym);
     // The associative dimensions of a class property: vpiIndexTypespec for
     // the outermost, a `STRING:associative` marker vpiRange per inner one.
     void emitAssocDims(const slang::ast::Symbol& cp,

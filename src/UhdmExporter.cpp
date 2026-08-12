@@ -765,9 +765,110 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         int32_t vis = cp.visibility == Visibility::Protected ? 2
                       : cp.visibility == Visibility::Local   ? 3
                                                              : 1;
+        // § fixedClassPropIsArrayVar6 — a FIXED-SIZE unpacked-array CLASS
+        // PROPERTY (`Receiver rcvr[4];`) is an `array_var` in golden, built from
+        // exactly the same parts as the dynamic/queue/assoc property one line
+        // below — bare `array_typespec` behind a `ref_typespec`, ELEMENT var
+        // under `vpiReg`, `vpiRandType`/`vpiVisibility`/`vpiAutomatic` from the
+        // qualifiers — plus THREE fixed-only members: `vpiArrayType:1`,
+        // `vpiSize` = the element COUNT (§ fixedUnpackedCount6), and one
+        // `vpiRange` per written dimension.  We used to `continue` here
+        // ("class property type: FixedSizeUnpackedArrayType"), which DELETED the
+        // property from the class's `vpiVariables` listing — and `scope::Compare`
+        // reads that vector, so the whole class first-failed.  SVSwitch's head at
+        // base 80892a3 was exactly that: golden's `class_defn (work@Environment)`
+        // lists `array_var (work@Environment::output_intf)` at 17 and
+        // `array_var (work@Environment::rcvr)` at 20 and ours listed NEITHER.
+        //
+        // WITNESSES, both read in full from the pristine dumps before any code
+        // was written (tools/probe/r10svs6repro/README.md §2):
+        //   Environemnt.sv:17 `virtual output_interface.OP output_intf[4];`
+        //     array_var @17:31-17:42 {size 4, arrayType 1, randType 1,
+        //     visibility 1, automatic 1, range @17:43-17:44, reg = a BARE
+        //     logic_var with NO typespec}
+        //   Environemnt.sv:20 `Receiver rcvr[4];`
+        //     ...same, reg = class_var -> ref_typespec -> class_typespec
+        //     (Receiver) @20:3-20:11.
+        //
+        // WHY NOT ROUTE THROUGH TypeEmit.cpp's `emitArrayVar`, which already
+        // builds this shape at MODULE scope — THE BRIEF'S OWN QUESTION, and the
+        // answer is MEASURED, not stylistic.  `emitArrayVar`'s element decode is
+        // wrong for 9 element kinds and the class arm would have INHERITED every
+        // one: arm b2's MODULE twins read golden `byte_var`/`short_int_var`/
+        // `long_int_var`/`real_var`/`short_real_var`/`string_var`/`struct_var`
+        // (unpacked)/`class_var`/`byte_var`(typedef) against our `int_var` or
+        // `logic_var` (cells m03, m04, m05, m06, m15, m16, m17, m21, m22, m24 —
+        // 10 DIFFER readings, all PRE-EXISTING and all r10oth9's residue R5
+        // widened).  The class-property element factory
+        // (`classAssocElemVar`/`classElemVar`) is right for all of them, so the
+        // shared parts reused here are the two that ARE right at both scopes:
+        // § fixedUnpackedCount6 and `buildUnpackedRanges`.
+        //
+        // GATE — three clauses, each one measured:
+        //   (1) the canonical type is a FixedSizeUnpackedArrayType, and
+        //   (2) the property's OWN type is not itself a typedef NAME.  This is
+        //       § arrayVarSignedWritten8's clause (a) reused as a SHAPE gate,
+        //       because golden's object for `typedef byte barr_t[4]; barr_t x;`
+        //       is a DIFFERENT and much smaller object: NO vpiSize, NO
+        //       vpiArrayType, NO vpiRandType, NO vpiRange, NO vpiReg, and its
+        //       actual typespec is a NAMED `array_typespec (barr_t)` (arm b2
+        //       cells c25_wholetd / m25_wholetd — the module twin over-fires on
+        //       all five today, which is r10oth8's own open residue).  Building
+        //       the full shape there would be a MEASURED over-fire, so it is
+        //       gated out and left as residue R1 rather than shipped and
+        //       explained away, and
+        //   (3) the INNERMOST element (after descending every fixed dim) is not
+        //       itself dynamic/queue/assoc.  For `int x[4][]` golden's array_var
+        //       carries `vpiArrayType:2` — the UNSIZED dim's kind wins wherever
+        //       it sits — with NO range and NO element var (arm b3 cells
+        //       c06_fixdyn / c08_fixq / c09_fixassoc, and c07_dynfix / c10_qfix
+        //       from the other side).  That is a different law with a different
+        //       shape; the hybrids stay exactly as they are today (no object at
+        //       all: residue R2) instead of being swallowed by this arm.
+        const Type* fixedElem6 = nullptr;
+        if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType &&
+            cp.getType().kind != SymbolKind::TypeAlias) {
+            const Type* in6 = &ct;
+            size_t nCanon6 = 0;
+            while (in6->getCanonicalType().kind ==
+                   SymbolKind::FixedSizeUnpackedArrayType) {
+                in6 = &in6->getCanonicalType()
+                           .as<FixedSizeUnpackedArrayType>()
+                           .elementType;
+                ++nCanon6;
+            }
+            // GATE CLAUSE (2b), ADDED AT INTEGRATION (verifier F1): clause (2)
+            // tests only the property's OWN type, so a whole-array typedef ONE
+            // LEVEL DOWN (`typedef byte b4_t[4]; b4_t x[2];`) slipped past it
+            // and this arm built a WRONG object — vpiSize 8 (the canonical
+            // descent multiplied the typedef's hidden [4] in) with ONE range,
+            // vpiSigned:1, and a flat byte_var element where golden nests an
+            // array_var carrying the NAMED array_typespec (b4_t).  Verifier
+            // cell v1_gaps.sv v01_tdarr, measured on both binaries; the module
+            // twin m01_tdarr shows emitArrayVar inherits the same defect.
+            // The refusal: every canonical fixed dim must have been WRITTEN on
+            // the declarator — a typedef contributing hidden dims makes
+            // nCanon6 exceed the written count, and that shape belongs to the
+            // R1/R2 typedef family, not this law.  AST-shape test only.
+            size_t nWritten6 = 0;
+            if (auto* dsyn6 = cp.getSyntax();
+                dsyn6 && dsyn6->kind == syntax::SyntaxKind::Declarator)
+                nWritten6 =
+                    dsyn6->as<syntax::DeclaratorSyntax>().dimensions.size();
+            if (nCanon6 <= nWritten6)
+                switch (in6->getCanonicalType().kind) {
+                    case SymbolKind::DynamicArrayType:
+                    case SymbolKind::QueueType:
+                    case SymbolKind::AssociativeArrayType:
+                        break;
+                    default:
+                        fixedElem6 = in6;
+                        break;
+                }
+        }
         // A DYNAMIC-array / QUEUE / ASSOC property is an array_var carrying a
         // bare array_typespec, with the ELEMENT variable under vpiReg.
-        if (ct.kind == SymbolKind::DynamicArrayType ||
+        if (fixedElem6 || ct.kind == SymbolKind::DynamicArrayType ||
             ct.kind == SymbolKind::QueueType ||
             ct.kind == SymbolKind::AssociativeArrayType) {
             const Type* et = nullptr;
@@ -785,7 +886,14 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             // Index_typespec and (ndims-1) marker ranges, and the vpiReg
             // element is the INNERMOST element type.
             std::vector<const Type*> assocIdx;
-            if (ct.kind == SymbolKind::DynamicArrayType)
+            // § fixedClassPropIsArrayVar6 — the element is the INNERMOST one
+            // (a 2-D `int x[4][2]` has an int_var element, arm b3 c05_2d) and
+            // the array kind is vpiArrayType 1.
+            if (fixedElem6) {
+                et = fixedElem6;
+                akind = 1;
+            }
+            else if (ct.kind == SymbolKind::DynamicArrayType)
                 et = &ct.as<DynamicArrayType>().elementType;
             else if (ct.kind == SymbolKind::QueueType) {
                 et = &ct.as<QueueType>().elementType;
@@ -802,7 +910,8 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                     cur = et;
                 }
             }
-            auto* reg = classAssocElemVar(cp, *et, cls);
+            auto* reg = fixedElem6 ? classFixedElemVar6(cp, *et, cls)
+                                   : classAssocElemVar(cp, *et, cls);
             if (!reg) {
                 noteUnsupported("class array property element");
                 continue;
@@ -812,7 +921,18 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             av->VpiFullName(pfn);
             av->VpiParent(cd);
             setLoc(av, nameSpan(cp.location, cp.name));
-            av->VpiSize(1);
+            // § fixedClassPropIsArrayVar6 — vpiSize is the ELEMENT COUNT for a
+            // fixed array (4 for `[4]`, 8 for `[4][2]`, and 1 for a PARAM-sized
+            // `[N]` — arm b3 cells c01_size / c05_2d / c11_paramsz), against the
+            // flat 1 a dynamic/queue/assoc property carries.
+            av->VpiSize(fixedElem6 ? fixedUnpackedCount6(cp) : 1);
+            // § constClassPropIsConstantVariable27 reaches the ARRAY property
+            // too: `const int x[4] = '{...}` carries vpiConstantVariable:1 on the
+            // array_var (arm b4 cell c06_const, read at own child depth).  The
+            // scalar arm below already had this; the array arm did not, and no
+            // dynamic-array cell had exercised it.
+            if (cp.flags.has(VariableFlags::Const))
+                av->VpiConstantVariable(true);
             // ...and the same static rule as the scalar arm below.
             if (cp.lifetime != VariableLifetime::Static)
                 av->VpiAutomatic(true);
@@ -835,6 +955,19 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             // base 8d4d6ed was `array_var (work@packet::data)` with golden
             // carrying `|vpiSigned:1` and ours not.  `variables::Compare` reads
             // VpiSigned, so it gates.
+            //
+            // r10svs6 MADE THIS THE FOURTH CALL SITE, exactly as r10oth9's
+            // residue R3 predicted it would need to be, and the predicate holds
+            // AS WRITTEN for a FIXED array at class scope — 25 arm b2 cells,
+            // golden `1` on `int`/`byte`/`shortint`/`longint`/`integer`/
+            // `bit signed [7:0]`/`logic signed [7:0]` (c01, c03, c05, c06, c07,
+            // c13, c14) and ABSENT on every unsigned atom, `time`, bare
+            // `bit`/`logic`/`reg`, unsigned vector, `real`, `shortreal`,
+            // `string`, enum (INCLUDING the SIGNED-enum typedef c19_senum),
+            // packed and unpacked struct, class handle, `chandle` and the
+            // typedef'd element c24_btd.  Clause (b)'s kind list and clause
+            // (a)'s typedef rejection are therefore both live at this scope for
+            // fixed arrays too, and NOTHING about the predicate had to change.
             if (arraySignedWritten8(cp.getType(), *et))
                 av->VpiSigned(true);
             auto* ats = s.MakeArray_typespec();
@@ -843,6 +976,18 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             art->Actual_typespec(ats);
             av->Typespec(art);
             emitAssocDims(cp, assocIdx, av, ats);
+            // § fixedClassPropIsArrayVar6 — one `vpiRange` per WRITTEN dimension,
+            // built by the SAME `buildUnpackedRanges` the module-scope arm uses.
+            // Reusing it is a measurement, not an assumption: every module twin
+            // of every dimension spelling is byte-identical to golden already
+            // (arm b3 cells m01_size / m02_rng03 / m03_rng30 / m04_rng14 /
+            // m05_2d / m11_paramsz all EQ), and golden's class-scope spans are
+            // the same rule — the whole `[0:3]` for a range dim (b3 c02_rng03,
+            // 9:16-9:21) and the SIZE TOKEN alone for a `[4]` dim (b3 c01_size,
+            // 8:16-8:17; SVSwitch witness 1, 17:43-17:44).
+            if (fixedElem6)
+                if (auto* rngs6 = buildUnpackedRanges(cp, av))
+                    av->Ranges(rngs6);
             reg->VpiParent(av);
             reg->VpiFullName(pfn);
             setLoc(reg, nameSpan(cp.location, cp.name));
@@ -1005,7 +1150,37 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             // § classPropInit29 — a dynamic/queue/assoc property carries its
             // declaration initializer too (uvm_sequence_library's
             // `int seqs_distrib[string] = '{default:0}`).
-            if (cp.getInitializer())
+            //
+            // § fixedClassPropIsArrayVar6, THE INITIALIZER HALF — an ARRAY
+            // PATTERN on a FIXED array is not a § classPropInit29 shape: golden
+            // parents the operation at the ELEMENT var and hangs it off BOTH the
+            // array_var's and the element's `vpiExpr` (arm b4 cells c06_const /
+            // c11_initpat, where the `vpiExpr` operation's own `vpiParent` reads
+            // `int_var (work@b4_cls::c11_initpat)` and the same object is printed
+            // under the element too).  That is exactly what the MODULE-scope
+            // sibling already does (TypeEmit.cpp emitArrayVar, grep
+            // `Array-pattern initializer`), so the code is transcribed from it —
+            // including `suppressConstParent`, which keeps the pattern's LEAF
+            // constants unparented while the nested pattern operations
+            // self-parent.
+            if (auto* pin6 = fixedElem6 ? cp.getInitializer() : nullptr) {
+                auto& ic6 = stripImplicitConv(*pin6);
+                if (ic6.kind == ExpressionKind::SimpleAssignmentPattern ||
+                    ic6.kind == ExpressionKind::ReplicatedAssignmentPattern ||
+                    ic6.kind == ExpressionKind::StructuredAssignmentPattern) {
+                    NetMap none6;
+                    bool savedSCP6 = suppressConstParent;
+                    suppressConstParent = true;
+                    if (auto* e6 = emitExpr(ic6, reg, pfn, none6)) {
+                        av->Expr((UHDM::expr*)e6);
+                        reg->Expr((UHDM::expr*)e6);
+                    }
+                    suppressConstParent = savedSCP6;
+                }
+                else
+                    lateInit29.push_back({av, &cp, pfn});
+            }
+            else if (cp.getInitializer())
                 lateInit29.push_back({av, &cp, pfn});
             vars->push_back(av);
             continue;
@@ -1525,6 +1700,56 @@ UHDM::variables* UhdmExporter::classAssocElemVar(const Symbol& cp,
         }
     }
     return classElemVar(elemType);
+}
+
+// § fixedClassPropIsArrayVar6, THE ELEMENT FACTORY.  A FIXED-size unpacked
+// array reaches four element kinds that no dynamic/queue/assoc class property in
+// either corpus ever exercised, so `classElemVar` has no arm for them and would
+// hand back null — which in this arm means `noteUnsupported` and the property
+// DELETED from the class listing again.  All four are measured, in both the
+// class arm (b2/b5 `c`-cells) and its module twin:
+//
+//   VIRTUAL INTERFACE  -> a BARE `logic_var` with NO `vpiTypespec` AT ALL.  This
+//     is § virtualIfacePropIsBareLogicVar6's law one level down: Surelog never
+//     models a virtual interface, so `ElaborationStep::makeVar_` falls into its
+//     `// default type (fallback)` arm and mints a bare logic_var.  ALL FIVE
+//     written spellings are one cell — `virtual w_if.IP`, `virtual w_if`,
+//     `virtual interface w_if`, `virtual interface w_if.IP` and a
+//     `typedef virtual w_if.IP` name (arm b5 c01..c05) — and so is the 2-D case
+//     (c06_vif2d).  THE WITNESS IS SVSwitch Environemnt.sv:17.
+//   chandle   -> `chandle_var`, also with NO typespec (b2 c23_chandle).
+//   shortreal -> `short_real_var`, also with NO typespec (b2 c16_sreal).  `real`
+//     is NOT in this group: golden gives it a `real_typespec` spanned at the
+//     `real` keyword (b2 c15_real), which is what the write-phase mint produces,
+//     so it goes through the typespec path like every other kind.
+//
+// HOW THE THREE NO-TYPESPEC KINDS ACTUALLY SUPPRESS THE TYPESPEC, since there is
+// no flag for it: they are returned with NO `ref_typespec` attached at all, and
+// the caller's shared line is `if (auto* rrt = reg->Typespec(); rrt && !...)`, so
+// a null `vpiTypespec` skips both the `predefIntTypespec` arm and the write-phase
+// `pendingClassPropTs` mint on its own.  A flag would have been a second way to
+// say the same thing and could have drifted from it.
+UHDM::variables* UhdmExporter::classFixedElemVar6(const Symbol& cp,
+                                                  const Type& elemType,
+                                                  const ClassType& owner) {
+    auto& ec = elemType.getCanonicalType();
+    if (ec.kind == SymbolKind::VirtualInterfaceType)
+        return s.MakeLogic_var();
+    if (ec.kind == SymbolKind::CHandleType)
+        return s.MakeChandle_var();
+    if (ec.kind == SymbolKind::FloatingType) {
+        auto fk = ec.as<FloatingType>().floatKind;
+        if (fk == FloatingType::ShortReal)
+            return s.MakeShort_real_var();
+        // `real` (and `realtime`, which slang canonicalises to it) keeps the
+        // typespec path; the ref_typespec is added by the caller's shared code.
+        auto* rv = s.MakeReal_var();
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiParent(rv);
+        rv->Typespec(rt);
+        return rv;
+    }
+    return classAssocElemVar(cp, elemType, owner);
 }
 
 UHDM::typespec* UhdmExporter::assocIndexTs(const Type& idx, const Symbol& sym) {

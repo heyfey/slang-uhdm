@@ -14255,42 +14255,22 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
     return ranges;
 }
 
-UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string& name,
-                                            const std::string& fullName, UHDM::BaseClass* m,
-                                            UHDM::typespec* elemTs) {
+// § fixedUnpackedCount6 — the vpiSize of a FIXED-SIZE unpacked array: the
+// PRODUCT of the unpacked dimension widths, with a PARAM-SIZED dim (`[DEPTH]`)
+// contributing 1 (a Surelog quirk, not a width computation) and a
+// `$high`/`$low`/`$left`/`$right` bound taking Surelog's own reduced value.
+//
+// IT IS ONE FUNCTION BECAUSE THE LAW IS ONE LAW.  It was lifted VERBATIM out of
+// `emitArrayVar`, where it was inline, so that r10svs6's CLASS-PROPERTY arm
+// (§ fixedClassPropIsArrayVar6, src/UhdmExporter.cpp) computes the size with the
+// same code rather than a second copy that could drift: the param-sized quirk is
+// measured at class scope too (arm b3 cell `c11_paramsz`, golden `vpiSize:1` for
+// `int c11_paramsz[N]` in a parameterized class, exactly like the module twin
+// `m11_paramsz`).
+int32_t UhdmExporter::fixedUnpackedCount6(const Symbol& sym) {
     auto declared = sym.getDeclaredType();
     if (!declared)
-        return nullptr;
-    auto& ct = declared->getType().getCanonicalType();
-    if (ct.kind != SymbolKind::FixedSizeUnpackedArrayType)
-        return nullptr;
-
-    // Leaf element type (for the inner reg's class and signedness).
-    const Type* leaf = &declared->getType().getCanonicalType();
-    while (leaf->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
-        leaf = &leaf->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
-    // NOTE § arrayVarSignedWritten8, the ADD half at the MODULE-SCOPE
-    // FIXED-SIZE site — the THIRD and widest-reach call site.  GATE: the shared
-    // `arraySignedWritten8` predicate (defined in UhdmExporter.cpp).  This too
-    // used to read `leaf->isSigned()` and over-fired on a typedef'd element:
-    // arm a7 cells h02 (`typedef byte b_t; b_t x[4];`) and h03, plus arm a8
-    // cell m06 (`tp::pb_t x[4];`), all golden `-` against our `1`.  The
-    // `h01`/`h05` written-keyword cells were and stay `1` on both sides, which
-    // is the POSITIVE control for this tightening.
-    bool leafSigned = arraySignedWritten8(declared->getType(), *leaf);
-    auto* av = s.MakeArray_var();
-    av->VpiName(name);
-    av->VpiFullName(fullName);
-    av->VpiParent(m);
-    setLoc(av, nameSpan(sym.location, sym.name));
-    if (leafSigned)
-        av->VpiSigned(true);
-    av->VpiRandType(1);
-    av->VpiVisibility(1);
-    av->VpiArrayType(1);
-
-    // Total element count = product of the unpacked dimension widths —
-    // PARAM-sized ([DEPTH]) dims contribute 1 (Surelog quirk).
+        return 1;
     int32_t total = 1;
     {
         std::vector<const syntax::VariableDimensionSyntax*> dimSyns;
@@ -14340,7 +14320,47 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
             di0++;
         }
     }
-    av->VpiSize(total);
+    return total;
+}
+
+UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string& name,
+                                            const std::string& fullName, UHDM::BaseClass* m,
+                                            UHDM::typespec* elemTs) {
+    auto declared = sym.getDeclaredType();
+    if (!declared)
+        return nullptr;
+    auto& ct = declared->getType().getCanonicalType();
+    if (ct.kind != SymbolKind::FixedSizeUnpackedArrayType)
+        return nullptr;
+
+    // Leaf element type (for the inner reg's class and signedness).
+    const Type* leaf = &declared->getType().getCanonicalType();
+    while (leaf->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
+        leaf = &leaf->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
+    // NOTE § arrayVarSignedWritten8, the ADD half at the MODULE-SCOPE
+    // FIXED-SIZE site — the THIRD and widest-reach call site.  GATE: the shared
+    // `arraySignedWritten8` predicate (defined in UhdmExporter.cpp).  This too
+    // used to read `leaf->isSigned()` and over-fired on a typedef'd element:
+    // arm a7 cells h02 (`typedef byte b_t; b_t x[4];`) and h03, plus arm a8
+    // cell m06 (`tp::pb_t x[4];`), all golden `-` against our `1`.  The
+    // `h01`/`h05` written-keyword cells were and stay `1` on both sides, which
+    // is the POSITIVE control for this tightening.
+    bool leafSigned = arraySignedWritten8(declared->getType(), *leaf);
+    auto* av = s.MakeArray_var();
+    av->VpiName(name);
+    av->VpiFullName(fullName);
+    av->VpiParent(m);
+    setLoc(av, nameSpan(sym.location, sym.name));
+    if (leafSigned)
+        av->VpiSigned(true);
+    av->VpiRandType(1);
+    av->VpiVisibility(1);
+    av->VpiArrayType(1);
+
+    // The element count was INLINE here until r10svs6; it is now
+    // § fixedUnpackedCount6 (just above) because the CLASS-PROPERTY arm needs
+    // the same law and a second copy of the param-sized quirk would drift.
+    av->VpiSize(fixedUnpackedCount6(sym));
 
     // Ranges: one per unpacked dim.
     UHDM::VectorOfrange* avRanges = buildUnpackedRanges(sym, av);
