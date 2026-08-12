@@ -13,6 +13,7 @@
 #include "EmitHelpers.h"
 
 #include "slang/ast/expressions/Operator.h"
+#include "slang/ast/symbols/CoverSymbols.h"
 
 namespace slang_uhdm {
 
@@ -3936,7 +3937,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // not read by `assignment::Compare`, which compares Rhs then
                 // Lhs, and the ref's `Actual_group` is null on BOTH sides
                 // there), measured on arm a1 cells C8/C9/C10.
-                if (sourceIsNewClassExpr55(stripImplicitConv(*rhsExpr)) &&
+                // NOTE § covergroupNewCall7 (Lhs half) — THE SAME SITE, ONE
+                // CLAUSE WIDER, deliberately NOT a second copy of the re-parent.
+                // GATE: the stripped RHS is `ExpressionKind::NewCovergroup`.
+                // Surelog's rule is a SOURCE rule about the word `new` — it does
+                // not type-check the target at all — so a COVERGROUP handle must
+                // take the same Lhs shape as a class handle, and it does:
+                //   arm a1 C1 `cg1 = new();`   golden Lhs parent = hier_path(cg1)
+                //   arm a1 C2 `cg2 = new;`     golden Lhs parent = hier_path(cg2)
+                //   arm a2 D3 `cgd3 = new(3,w)` golden Lhs parent = hier_path(cgd3)
+                //   arm a3 E3 `mi = new;` at MODULE scope, golden hier_path(mi)
+                // and the corpus head itself, SVSwitch Coverage.sv:30, golden
+                //   `ref_obj (work@coverage::new::switch_coverage)` whose
+                //   vpiParent is `hier_path: (switch_coverage)`.
+                // The in-law cells a1 C3/C4 and a2 D4 (real CLASS handles) are
+                // the control: they already matched golden before this pass and
+                // must not move — they take the § invalidNewCallFromSyntax55
+                // clause, never this one, because the two kinds are disjoint.
+                if ((sourceIsNewClassExpr55(stripImplicitConv(*rhsExpr)) ||
+                     stripImplicitConv(*rhsExpr).kind ==
+                         ExpressionKind::NewCovergroup) &&
                     lhs->UhdmType() == UHDM::uhdmref_obj) {
                     auto* hp = s.MakeHier_path();
                     hp->VpiName(((UHDM::ref_obj*)lhs)->VpiName());
@@ -15986,6 +16006,114 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     mfc->Tf_call_args(nargs9);
             }
             return mfc;
+        }
+        // NOTE § covergroupNewCall7 (emit half).  GATE: the expression kind is
+        // EXACTLY `ExpressionKind::NewCovergroup`.  Nothing else is read — no
+        // syntax, no name, no context — so the STATED gate and the CODE gate are
+        // the same single clause.
+        //
+        // WHY THIS EXISTS, and why it is NOT § invalidNewCallFromSyntax55.
+        // `cg = new()` where `cg` is a COVERGROUP handle is BOUND by slang, not
+        // refused: `NewClassExpression::fromSyntax`
+        // (slang/source/ast/expressions/AssignmentExpressions.cpp) opens with
+        //     if (syntax.scopedNew->kind == SyntaxKind::ConstructorName &&
+        //         assignmentTarget && assignmentTarget->isCovergroup())
+        //         return NewCovergroupExpression::fromSyntax(...);
+        // and only falls through to `resolveNewClassTarget` (the routine whose
+        // two `badExpr` branches pass 55 recovers from) for everything else.  So
+        // there is NO InvalidExpression here and NOTHING to recover from the
+        // syntax: the actuals are ordinary BOUND expressions, bound by
+        // `CallExpression::bindArgs` against `CovergroupType::getArguments()`.
+        // The whole defect was that `emitExpr` had no arm for the kind at all,
+        // and the `default:` label noted `expression kind: NewCovergroup` and
+        // returned nullptr — which left the enclosing `assignment` with a NULL
+        // vpiRhs.  That NULL Rhs was the whole-design cmp HEAD of SVSwitch in
+        // BOTH modes (third_party/tests/SVSwitch/Coverage.sv:30,
+        // `switch_coverage = new();` inside `function new`).
+        //
+        // MEASURED (arm a1 cells C1/C2, arm a2 cells D1/D2/D3, arm a3 cell E3):
+        // golden's object is EXACTLY the one the bound `case NewClass` arm above
+        // builds for a plain `new` — a LOC-LESS `method_func_call` named "new"
+        // (no vpiFunction, no vpiPrefix, no file/line), parented at the caller's
+        // parent, with the covergroup's ACTUALS as ordinary `vpiArgument`
+        // children.  It is the same object whether the source wrote `new()` or
+        // bare `new` (C1 vs C2), and the same at MODULE scope inside an
+        // `initial` block as inside a class constructor (E3 vs C1).
+        case ExpressionKind::NewCovergroup: {
+            auto& nge7 = expr.as<NewCovergroupExpression>();
+            auto* mfc7 = s.MakeMethod_func_call();
+            mfc7->VpiName("new");
+            mfc7->VpiParent(parent);
+            // § writtenCallArgs16, the COVERGROUP-ctor arm — ADDED AT
+            // INTEGRATION (verifier F1, arm v1_defaultargs.sv).  bindArgs
+            // fills `formal->getDefaultValue()` for every UNWRITTEN formal
+            // (slang CallExpression.cpp), so nge7.arguments is FORMAL-length
+            // while golden emits one vpiArgument per WRITTEN actual: `new;`
+            // carries NONE (cell G1), `new(1)` against two formals carries
+            // ONE (G2), and the NAMED `new(.b(9))` carries only the `9` (G4)
+            // — a positional count-truncation like the NewClass arm's would
+            // emit the wrong arg there, so the WRITTEN set is built from the
+            // call's own syntax: a positional prefix plus named matches
+            // against CovergroupType's formal list.  A default-filled arg is
+            // recognisable in the dump by its span pointing at the covergroup
+            // DECLARATION — that is what the un-gated arm shipped.
+            std::vector<bool> written7;
+            bool haveMap7 = false;
+            if (auto* cgt7 =
+                    nge7.type->getCanonicalType().as_if<CovergroupType>()) {
+                auto formals7 = cgt7->getArguments();
+                if (auto* nsy7 =
+                        nge7.syntax
+                            ? nge7.syntax
+                                  ->as_if<syntax::NewClassExpressionSyntax>()
+                            : nullptr) {
+                    haveMap7 = true;
+                    written7.assign(formals7.size(), false);
+                    size_t pos7 = 0;
+                    if (nsy7->argList)
+                        for (auto* p7 : nsy7->argList->parameters) {
+                            if (p7->kind ==
+                                syntax::SyntaxKind::OrderedArgument) {
+                                if (pos7 < written7.size())
+                                    written7[pos7] = true;
+                                ++pos7;
+                            }
+                            else if (p7->kind ==
+                                     syntax::SyntaxKind::NamedArgument) {
+                                auto nm7 = p7->as<syntax::NamedArgumentSyntax>()
+                                               .name.valueText();
+                                for (size_t i7 = 0; i7 < formals7.size(); ++i7)
+                                    if (formals7[i7]->name == nm7) {
+                                        written7[i7] = true;
+                                        break;
+                                    }
+                            }
+                            else
+                                ++pos7; // an EMPTY argument slot stays default
+                        }
+                }
+            }
+            auto* nargs7 = s.MakeAnyVec();
+            size_t ai7 = 0;
+            for (auto* ax7 : nge7.arguments) {
+                size_t idx7 = ai7++;
+                if (haveMap7 && (idx7 >= written7.size() || !written7[idx7]))
+                    continue;
+                // Same literal handling as the NewClass arm: Surelog parents a
+                // constant at the CALL here (arm a2 cell D1: the `3` of
+                // `cgd1 = new(3)` carries `vpiParent -> method_func_call (new)`),
+                // and `forceConstParent` is what makes emitExpr do that for a
+                // parent that is neither an operation nor a bit_select.
+                bool fs7 = forceConstParent;
+                if (isLiteralExpr(*ax7))
+                    forceConstParent = true;
+                if (auto* ae7 = emitExpr(*ax7, mfc7, prefix, netMap))
+                    nargs7->push_back(ae7);
+                forceConstParent = fs7;
+            }
+            if (!nargs7->empty())
+                mfc7->Tf_call_args(nargs7);
+            return mfc7;
         }
         case ExpressionKind::AssertionInstance: {
             // A named-property instantiation (down_n(8'd3)): property_inst
