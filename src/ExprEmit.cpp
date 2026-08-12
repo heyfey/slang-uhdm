@@ -10532,6 +10532,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             !currentSubSym ||
                             pkgSubCalledAsContAssignRhs(*currentSubSym) ||
                             pkgSubEvaluatedFromParamInit(*currentSubSym);
+                        // § tfBodyConstArgNoFormalTs60 (r10uvm60) — a CONSTANT
+                        // actual of a call inside a SUBROUTINE BODY carries the
+                        // formal's typespec (and takes the formal's width) ONLY
+                        // when SURELOG'S EVALUATOR RAN THAT BODY, which is the
+                        // TRANSITIVE closure of "called as a cont-assign rhs"
+                        // and "called from a parameter initialiser"
+                        // (§ tfBodyConstArgNeedsEvaldBody60, TaskFuncEmit).
+                        //
+                        // The arm below used to stamp EVERY constant actual in
+                        // EVERY non-package subroutine body, which is a pure
+                        // over-fire everywhere the body is not evaluated:
+                        // measured across 400 corpus goldens, the cell
+                        // (scope in {CLASS_METHOD, PKG_FUNC, MOD_FUNC,
+                        // TF_ORPHAN}, constant, has-typespec) holds
+                        // 0 objects against 75 217 bare ones, and the ONE
+                        // whole-corpus exception, uhdm2rtlil const_fold_func's
+                        // `help_mul = inp * loop(2)`, is exactly a body reached
+                        // as a continuous-assign rhs.  Corpus head: uvm-1.2's
+                        // `uvm_report_error(..., "", 1)` inside every
+                        // `uvm_error macro expansion — a class method nothing
+                        // evaluates — where the stamp ALSO shrank the literal
+                        // from Surelog's 64 to the `bit` formal's 1 and hung a
+                        // ref_typespec named after the enclosing METHOD on an
+                        // integer literal.
+                        bool constArgBodyEvald60 =
+                            currentSubSym && subBodyEvaluated60(*currentSubSym);
                         bool argCtxOk =
                             !ndaOpCallArg9 && !precUnreduced9 &&
                             (currentTf ? ((pkgTopEmit && !structFormal9 &&
@@ -10541,7 +10567,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                 UHDM::uhdmoperation)) ||
                                          (!pkgScopeInst && callArgDepth == 1 &&
                                           a->UhdmType() == UHDM::uhdmconstant &&
-                                          !intFormal))
+                                          constArgBodyEvald60 && !intFormal))
                                       : (!inLhs && !defOpArg && !portInitCtx &&
                                          (!paramRef || elabParamArgFold) &&
                                          !paramRootSel &&

@@ -533,6 +533,194 @@ bool UhdmExporter::pkgSubEvaluatedFromParamInit(const SubroutineSymbol& sub) {
     return paramInitCallees9.count(&sub) != 0;
 }
 
+// § tfBodyConstArgNeedsEvaldBody60 (r10uvm60) — THE SET OF SUBROUTINE BODIES
+// SURELOG'S EVALUATOR DESCENDS INTO, and it is a TRANSITIVE closure, not a
+// one-hop test.
+//
+// The two predicates above name the two SEEDS: a subroutine called as the
+// DIRECT rhs of a continuous assignment, and one called inside a parameter
+// initialiser.  Surelog reduces those calls, and while reducing them it runs
+// the bodies — and the bodies of everything THOSE call, to any depth.  Measured
+// on tools/probe/r10uvm60repro/b6_reached.sv, whose six rows differ ONLY in how
+// the body holding `g60(1)` is reached:
+//
+//   R1 body IS a cont-assign rhs callee        golden STAMPS (size 4)
+//   R2 body reached from an always_comb        golden BARE   (size 64)
+//   R3 body reached from an initial block      golden BARE   (size 64)
+//   R4 body reached from a localparam init     golden STAMPS (size 4)
+//   R5 body TWO LEVELS under a cont-assign     golden STAMPS (size 4)  <- the
+//      transitive cell: `r5_inner` is called only by `r5_outer`, and only
+//      `r5_outer` is the cont-assign rhs.  A one-hop predicate calls this cell
+//      BARE and UNDER-FIRES on it.
+//   R6 a CLASS METHOD as a cont-assign rhs is UNREACHABLE BY THE LANGUAGE
+//      (slang -Wdynamic-non-procedural) — but the verifier proved a class
+//      method DOES enter the closure through a PLAIN module function that a
+//      seed reaches (v2_class.sv: cont-assign rhs `caller` calls `c62::sm`),
+//      and golden is BARE inside it.  See the POISONING rule below.
+//
+// CORRECTED AT INTEGRATION (verifier findings F1-F3, each with its own arm,
+// all corpus-price-0 by the verifier's two-corpora census):
+//   SEEDS are not two but "every elaboration-time constant context".  Two more
+//   are measured here and were UNDER-FIRES of the two-seed law — arms
+//   v3_genif.sv / v4_dim.sv flipped from cmp-clean on PRISTINE to carrying a
+//   HEAD on the patched binary, because golden STAMPS inside bodies reached
+//   from (a) a GENERATE-IF/CASE CONDITION (v1_reach w1) and (b) a PACKED-
+//   DIMENSION BOUND (`logic [w3(4'd1):0]`, v1_reach w3), both of which
+//   Surelog's evaluator must run at elaboration time exactly like a param
+//   initialiser.  slang retains the bound generate condition on
+//   GenerateBlockSymbol (conditionExpression / caseItemExpressions); a packed
+//   dimension bound is re-bound from the declaration's TYPE SYNTAX in the
+//   declaring scope — the same ASTContext + Expression::bind idiom
+//   TypeEmit.cpp already uses on dimension bounds.
+//   POISONING (the verifier's mechanism correction, v5_class2.sv): golden's
+//   rule is "the body was actually REDUCED", and ONE callee the evaluator
+//   cannot run makes it abandon the WHOLE body — a constant actual sitting
+//   BESIDE the class-method call in the seed body itself stays bare (golden
+//   31:31 size 64 vs caller2's control 35:22 size 4).  Same family as the
+//   precUnreduced9 / siblingCallArg9 left-to-right abort laws.  So a body
+//   holding a CLASS-METHOD call (the one unreducible kind measured) is
+//   neither inserted nor traversed.  Class-ness of the CALLEE'S OWNER is the
+//   test — reachability alone was refuted twice (v2_class, v5_class2).
+//
+// The closure walks call edges only (no parameter edges: § subEvaluatedFrom-
+// ParamInit already models the parameter side design-wide through the seed).
+bool UhdmExporter::subBodyEvaluated60(const SubroutineSymbol& sub) {
+    if (!evaldBodies60Built) {
+        evaldBodies60Built = true;
+        // Force both seed sets to exist.  Both predicates build their cache on
+        // first call, so they are called ONCE here with the argument at hand;
+        // the return values are deliberately unused.
+        (void)pkgSubCalledAsContAssignRhs(sub);
+        (void)pkgSubEvaluatedFromParamInit(sub);
+        // Seeds (c) + (d): callees of generate-if/case conditions and of
+        // packed-dimension bounds, harvested design-wide in the same walk
+        // shape as the two predicates above.
+        std::vector<const SubroutineSymbol*> elabSeeds60;
+        auto harvest60 = [&](const Expression& e60) {
+            e60.visit(makeVisitor([&](auto& v60, const CallExpression& ce60) {
+                if (!ce60.isSystemCall())
+                    if (auto* sp60 = std::get_if<const SubroutineSymbol*>(
+                            &ce60.subroutine))
+                        if (*sp60)
+                            elabSeeds60.push_back(*sp60);
+                v60.visitDefault(ce60);
+            }));
+        };
+        auto harvestDims60 = [&](const Symbol& m60) {
+            auto* dt60 = m60.getDeclaredType();
+            if (!dt60)
+                return;
+            auto* tsyn60 = dt60->getTypeSyntax();
+            if (!tsyn60 || tsyn60->kind == syntax::SyntaxKind::ImplicitType)
+                return;
+            auto* it60 = tsyn60->as_if<syntax::IntegerTypeSyntax>();
+            if (!it60 || it60->dimensions.empty())
+                return;
+            auto* psc60 = m60.getParentScope();
+            if (!psc60)
+                return;
+            ASTContext dctx60(*psc60, LookupLocation::max);
+            for (auto* d60 : it60->dimensions) {
+                if (!d60->specifier ||
+                    d60->specifier->kind !=
+                        syntax::SyntaxKind::RangeDimensionSpecifier)
+                    continue;
+                auto& sel60 = *d60->specifier
+                                   ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                   .selector;
+                std::vector<const syntax::ExpressionSyntax*> bs60;
+                if (auto* b60 = sel60.as_if<syntax::BitSelectSyntax>())
+                    bs60.push_back(b60->expr);
+                else if (auto* r60 = sel60.as_if<syntax::RangeSelectSyntax>()) {
+                    bs60.push_back(r60->left);
+                    bs60.push_back(r60->right);
+                }
+                for (auto* b60 : bs60)
+                    if (b60) {
+                        auto& be60 = Expression::bind(*b60, dctx60);
+                        if (!be60.bad())
+                            harvest60(be60);
+                    }
+            }
+        };
+        std::function<void(const Scope&)> scan60 = [&](const Scope& sc60) {
+            for (auto& mem : sc60.members()) {
+                if (mem.kind == SymbolKind::Variable ||
+                    mem.kind == SymbolKind::Net)
+                    harvestDims60(mem);
+                else if (mem.kind == SymbolKind::Instance)
+                    scan60(mem.as<InstanceSymbol>().body);
+                else if (mem.kind == SymbolKind::InstanceArray) {
+                    for (auto* e : mem.as<InstanceArraySymbol>().elements)
+                        if (e->kind == SymbolKind::Instance)
+                            scan60(e->as<InstanceSymbol>().body);
+                }
+                else if (mem.kind == SymbolKind::GenerateBlock) {
+                    auto& gb60 = mem.as<GenerateBlockSymbol>();
+                    if (auto* ce60 = gb60.getConditionExpression())
+                        harvest60(*ce60);
+                    for (auto* ci60 : gb60.caseItemExpressions)
+                        if (ci60)
+                            harvest60(*ci60);
+                    if (!gb60.isUninstantiated)
+                        scan60(gb60);
+                }
+                else if (mem.kind == SymbolKind::GenerateBlockArray)
+                    for (auto* ge : mem.as<GenerateBlockArraySymbol>().entries)
+                        scan60(*ge);
+            }
+        };
+        for (auto* ti : comp.getRoot().topInstances)
+            scan60(ti->body);
+        for (auto* pk : comp.getPackages())
+            scan60(*pk);
+        // The closure, with whole-body ABORT on a class-method callee.  A
+        // separate seen-set (not insert().second) so a poisoned body is
+        // remembered as visited without ever entering the evaluated set.
+        std::set<const SubroutineSymbol*> seen60;
+        std::function<void(const SubroutineSymbol&)> walk =
+            [&](const SubroutineSymbol& s0) {
+                if (!seen60.insert(&s0).second)
+                    return;
+                bool poisoned60 = false;
+                s0.getBody().visit(makeVisitor(
+                    [&](auto& v0, const CallExpression& ce0) {
+                        if (!ce0.isSystemCall())
+                            if (auto* sp0 = std::get_if<const SubroutineSymbol*>(
+                                    &ce0.subroutine))
+                                if (*sp0) {
+                                    auto* oc0 = (*sp0)->getParentScope();
+                                    if (oc0 && oc0->asSymbol().kind ==
+                                                   SymbolKind::ClassType)
+                                        poisoned60 = true;
+                                }
+                        v0.visitDefault(ce0);
+                    }));
+                if (poisoned60)
+                    return;
+                evaldBodies60.insert(&s0);
+                s0.getBody().visit(makeVisitor(
+                    [&](auto& v0, const CallExpression& ce0) {
+                        if (!ce0.isSystemCall())
+                            if (auto* sp0 = std::get_if<const SubroutineSymbol*>(
+                                    &ce0.subroutine))
+                                if (*sp0)
+                                    walk(**sp0);
+                        v0.visitDefault(ce0);
+                    }));
+            };
+        for (auto* s0 : contAssignRhsCallees9)
+            if (s0)
+                walk(*s0);
+        for (auto* s0 : paramInitCallees9)
+            if (s0)
+                walk(*s0);
+        for (auto* s0 : elabSeeds60)
+            walk(*s0);
+    }
+    return evaldBodies60.count(&sub) != 0;
+}
+
 // § subEvaluatedFromParamInit — the subroutines Surelog's ExprEval really
 // RUNS while elaborating an instance's parameters.
 //

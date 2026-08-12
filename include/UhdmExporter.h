@@ -3107,6 +3107,14 @@ private:
     bool pkgSubEvaluatedFromParamInit(const slang::ast::SubroutineSymbol& sub);
     std::set<const slang::ast::SubroutineSymbol*> paramInitCallees9;
     bool paramInitCalleesBuilt9 = false;
+    /// § tfBodyConstArgNeedsEvaldBody60 — TRANSITIVE closure of the two seeds
+    /// above: the subroutines Surelog's evaluator actually descends into.  A
+    /// CONSTANT call actual inside a subroutine body carries the formal's
+    /// typespec (and is resized to the formal's width) ONLY for a body in this
+    /// set — see TaskFuncEmit.cpp and tools/probe/r10uvm60repro.
+    bool subBodyEvaluated60(const slang::ast::SubroutineSymbol& sub);
+    std::set<const slang::ast::SubroutineSymbol*> evaldBodies60;
+    bool evaldBodies60Built = false;
     // True when Surelog's ExprEval actually EXECUTES this subroutine while
     // reducing a parameter of its own instance body — see TaskFuncEmit.cpp.
     bool subEvaluatedFromParamInit(const slang::ast::SubroutineSymbol& sub);
