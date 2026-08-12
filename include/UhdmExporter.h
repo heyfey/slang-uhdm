@@ -1518,6 +1518,15 @@ private:
     // a genvar leaves a ref_obj; a PACKAGE parameter does not).
     bool srlgBitsFoldArg(const slang::ast::Expression& arg,
                          bool elabView = false);
+    // § bitsOwnClassPropFold61 — the complementary case `srlgBitsFoldArg`
+    // refuses: `$bits(X)` where X is a SIMPLE UNQUALIFIED name for a property
+    // declared DIRECTLY in the class body that lexically contains the method
+    // being compiled.  Surelog folds exactly that and nothing else in the
+    // family (arms c1/c3/c4 in tools/probe/r10uvm61repro; the full negative
+    // list — out-of-block bodies, locals, formals, class parameters,
+    // inherited members, `this.`/`super.`, handles, and parameter-dependent
+    // widths — is on the definition in src/ExprEmit.cpp).
+    bool bitsOwnClassPropFold61(const slang::ast::Expression& arg);
     // True when a declaration-bound SYNTAX tree reads a `$unit`-scope
     // parameter. Surelog never substitutes one, so such a bound stays an
     // unfolded operation in every view.

@@ -1160,6 +1160,259 @@ bool UhdmExporter::srlgBitsFoldArg(const slang::ast::Expression& arg0,
     return srlgFullySpecType(sym->getDeclaredType()->getType(), 0);
 }
 
+// True when a declaration bound under `n` reads a parameter — value or type —
+// declared by a CLASS.
+//
+// WHY THIS IS NOT `r9DimNamesResolved`.  That helper walks the parameter's
+// parent scopes looking for Package / CompilationUnit / InstanceBody, and a
+// CLASS is none of the three: the walk sails straight past the ClassType to
+// the enclosing package and answers "resolved".  That is correct for the
+// net/signal path it was written for and WRONG here, and it is not a
+// hypothetical — it was an OVER-FIRE this pass's own grid caught before the
+// patch landed (c4_edge.sv rows 39 and 49: `logic [W-1:0] m_dep` folded to
+// UINT:8 / UINT:16 where golden keeps the sys_func_call).  Both the
+// ELABORATED specialization `parm_c#(8)` and the class that is NEVER
+// instantiated behave the same way, so this is not about elaboration: slang
+// HAS a width for these and Surelog still refuses it.  Rather than widen a
+// helper five other call sites depend on, the class case gets its own test.
+static bool readsClassParam61(const slang::syntax::SyntaxNode& n,
+                              const slang::ast::Scope* scope) {
+    using SK = slang::syntax::SyntaxKind;
+    using namespace slang::ast;
+    if (!scope)
+        return false;
+    if (n.kind == SK::IdentifierName || n.kind == SK::IdentifierSelectName) {
+        std::string_view nm =
+            n.kind == SK::IdentifierName
+                ? n.as<slang::syntax::IdentifierNameSyntax>()
+                      .identifier.valueText()
+                : n.as<slang::syntax::IdentifierSelectNameSyntax>()
+                      .identifier.valueText();
+        auto* sym = scope->lookupName(nm);
+        if (!sym)
+            return false;
+        if (sym->kind != SymbolKind::Parameter &&
+            sym->kind != SymbolKind::TypeParameter &&
+            sym->kind != SymbolKind::Specparam)
+            return false;
+        // CORRECTED AT INTEGRATION (verifier F1, arms v1_pkgparam.sv +
+        // v7_pkgts.sv): the original walk answered "class parameter only" and
+        // let a PACKAGE-parameter width fold where golden keeps the
+        // sys_func_call (four over-fire cells, pristine RIGHT on all).  The
+        // measured axis is WHERE THE SYNTAX LIVES, not where the parameter
+        // lives: golden refuses whenever a parameter NAME is reachable from
+        // syntax written inside the class body — own dimension (`[PW-1:0]`,
+        // `[PW:0]`), via a pkg LOCALPARAM (`[LW-1:0]`), or through a
+        // CLASS-declared typedef — and folds when the width arrives through a
+        // type declared OUTSIDE the class (package typedef, package packed
+        // struct), because that typespec is already resolved when the class
+        // is compiled.  This helper is only ever handed class-body syntax
+        // (the property's own declaration, or a class-declared alias's — see
+        // typeReadsClassParam61), so ANY parameter kind refuses here.
+        return true;
+    }
+    for (size_t i = 0; i < n.getChildCount(); i++)
+        if (auto* c = n.childNode(i))
+            if (readsClassParam61(*c, scope))
+                return true;
+    return false;
+}
+
+// The same question asked of a whole TYPE rather than one declaration's
+// syntax: does any part of it — an alias in the chain, a packed-struct field,
+// an array element — read a class parameter?
+//
+// The declaration-syntax test alone is NOT enough, and again this is measured,
+// not feared: c4_edge.sv rows `dep_t m_tdep` (a class-declared
+// `typedef logic [W-1:0]`) and `deps_t m_sdep` (a packed struct with a
+// `logic [W-1:0]` field) both spell the property's own type as a bare
+// identifier, so `readsClassParam61` on that syntax sees no parameter at all
+// and the fold over-fired UINT:8 / UINT:10 against golden's sys_func_call.
+// This mirrors `srlgFullySpecType`'s walk exactly, one question changed.
+static bool typeReadsClassParam61(const slang::ast::Type& type, int depth) {
+    using namespace slang::ast;
+    // Depth bail answers TRUE — i.e. REFUSE the fold.  Every uncertain answer
+    // in this predicate must fall to the sys_func_call we already emit; an
+    // under-fire keeps a pre-existing difference, an over-fire creates a new
+    // wrong constant.
+    if (depth > 8)
+        return true;
+    // CORRECTED AT INTEGRATION (verifier F1, v7_pkgts.sv rows 28/29/30): the
+    // walk must follow ONLY alias links declared INSIDE a class.  A package
+    // typedef (`pkg_dep_t` of `logic [PW-1:0]`) and a package packed struct
+    // with a pkg-param field both FOLD in golden — the outside-declared type
+    // is already resolved when the class is compiled — while the SAME width
+    // through a CLASS-declared typedef KEEPS.  So an outside-declared link
+    // answers false (fold) and stops the walk.
+    auto inClass61 = [](const Scope* sc0) {
+        for (auto sc = sc0; sc; sc = sc->asSymbol().getParentScope()) {
+            auto k = sc->asSymbol().kind;
+            if (k == SymbolKind::ClassType)
+                return true;
+            if (k == SymbolKind::Package || k == SymbolKind::CompilationUnit ||
+                k == SymbolKind::InstanceBody)
+                return false;
+        }
+        return false;
+    };
+    const Type* cur = &type;
+    while (cur->kind == SymbolKind::TypeAlias) {
+        auto& ta = cur->as<TypeAliasType>();
+        if (!inClass61(ta.getParentScope()))
+            return false;
+        if (auto* sy = ta.getSyntax())
+            if (readsClassParam61(*sy, ta.getParentScope()))
+                return true;
+        cur = &ta.targetType.getType();
+    }
+    auto& c = cur->getCanonicalType();
+    if (c.kind == SymbolKind::PackedStructType) {
+        if (!inClass61(c.getParentScope()))
+            return false;
+        for (auto& f : c.as<PackedStructType>().membersOfType<FieldSymbol>()) {
+            const DeclaredType* fdt = f.getDeclaredType();
+            const Scope* fsc = f.getParentScope();
+            if (!fdt)
+                return true;
+            if (auto* ts = fdt->getTypeSyntax())
+                if (readsClassParam61(*ts, fsc))
+                    return true;
+            if (auto* ds = fdt->getDimensionSyntax())
+                for (auto d : *ds)
+                    if (readsClassParam61(*d, fsc))
+                        return true;
+            if (typeReadsClassParam61(f.getType(), depth + 1))
+                return true;
+        }
+        return false;
+    }
+    if (c.isUnpackedArray() || c.isPackedArray())
+        return typeReadsClassParam61(*c.getArrayElementType(), depth + 1);
+    return false;
+}
+
+// § bitsOwnClassPropFold61 — the ONE place Surelog folds `$bits` that
+// `srlgBitsFoldArg` above deliberately refuses.
+//
+// THE LAW.  Surelog reduces `$bits(X)` to a bare unsized-decimal constant
+// (`UINT:<width>`, `vpiSize` 64, `vpiConstType` 9, NO typespec) exactly when
+// X is a SIMPLE UNQUALIFIED identifier naming a property DECLARED DIRECTLY IN
+// the class body that LEXICALLY CONTAINS the method being compiled.  Nothing
+// else about the call matters — not the class, not the macro, not the
+// statement nesting, not the call the result is an argument of.
+//
+// EVERY negative arm below is MEASURED, not assumed (tools/probe/r10uvm61repro,
+// arms c1_scope.sv / c3_sibling.sv / c4_edge.sv, golden = Surelog):
+//   * OUT-OF-BLOCK body (`extern` + `C::m`)  KEEPS  (c1 R2; the corpus's
+//     uvm_component::do_print, uvm_packer::pack_bytes, uvm_transaction::
+//     do_record, uvm_sequencer_param_base::do_print all sit here)
+//   * function LOCAL                          KEEPS  (c1 R3; uvm_sequence_item::
+//     do_print `$bits(depth)`, uvm_report_message::do_print `$bits(l_verbosity)`)
+//   * function FORMAL                         KEEPS  (c1 R4)
+//   * class PARAMETER / LOCALPARAM            KEEPS  (c1 R6)
+//   * INHERITED member                        KEEPS  (c1 R8)
+//   * `this.m` / `super.m`                    KEEPS  (c1 R9, c4 R6) — these are
+//     MemberAccess, so the NamedValue test excludes them by construction
+//   * class HANDLE, queue                     KEEPS  (c1 R7)
+//   * PARAMETER-DEPENDENT width `logic [W-1:0]` KEEPS (c4 R3/R4), elaborated
+//     specialization AND never-instantiated default alike — this is the one
+//     cell where slang HAS a width (8, 16) and Surelog still refuses, so the
+//     literal-dimension certification is load-bearing, not decoration
+// and the POSITIVE arms: own member of any width, `static`/`const`/`rand`,
+// packed struct / enum / typedef alias, fixed-size UNPACKED array, a member of
+// a DERIVED class declared in that derived class, a member queried from inside
+// nested `if`/`for` blocks, from a `new` constructor body, from a class
+// declared in a MODULE rather than a package, and in a parameterized class
+// when the width does not depend on the parameter.
+//
+// SCOPE OF THE FAMILY — REFUTES the brief's "$bits (and sibling sys-func)":
+// `$bits` is the ONLY type-query that folds.  c3_sibling.sv puts $size,
+// $clog2, $high, $low, $left, $right, $countones, $dimensions,
+// $unpacked_dimensions and $increment on the SAME member in the SAME in-block
+// method: golden keeps every one of them a sys_func_call, and so do we.  This
+// predicate is therefore called only under `name == "$bits"`.
+bool UhdmExporter::bitsOwnClassPropFold61(const slang::ast::Expression& arg0) {
+    using namespace slang::ast;
+    if (!currentSubSym)
+        return false;
+    // OUT-OF-BLOCK bodies never fold.  `outOfBlockIndex` is non-zero only for
+    // a subroutine slang built through `createOutOfBlock`, which is exactly
+    // the `extern`-prototype + `C::m` spelling.
+    if (currentSubSym->outOfBlockIndex != SymbolIndex(0))
+        return false;
+    const Scope* home = currentSubSym->getParentScope();
+    if (!home || home->asSymbol().kind != SymbolKind::ClassType)
+        return false;
+    auto& arg = stripImplicitConv(arg0);
+    if (arg.kind != ExpressionKind::NamedValue)
+        return false;
+    auto& sym = arg.as<NamedValueExpression>().symbol;
+    if (sym.kind != SymbolKind::ClassProperty)
+        return false;
+    // OWN class only.  An inherited member's parent scope is the BASE class,
+    // so this single test carries both the inheritance arm and the
+    // out-of-block arm's second half.
+    if (sym.getParentScope() != home)
+        return false;
+    // Parameter-dependent widths do NOT fold.  Reuse the SAME literal-
+    // dimension certification the net/signal path uses, with `unitResolves`
+    // and `bodyResolves` both false: a class has neither a `$unit` nor a
+    // module-body parameter that Surelog would have already substituted.
+    const DeclaredType* dt = sym.getDeclaredType();
+    if (!dt)
+        return false;
+    const Scope* ssc = sym.getParentScope();
+    if (auto* ts = dt->getTypeSyntax()) {
+        if (!r9DimsLiteral(*ts, ssc, /*unitResolves=*/false, /*bodyResolves=*/false))
+            return false;
+        if (readsClassParam61(*ts, ssc))
+            return false;
+    }
+    if (auto* ds = dt->getDimensionSyntax())
+        for (auto d : *ds) {
+            if (!r9DimsLiteral(*d, ssc, /*unitResolves=*/false, /*bodyResolves=*/false))
+                return false;
+            if (readsClassParam61(*d, ssc))
+                return false;
+        }
+    if (!srlgFullySpecType(dt->getType(), 0))
+        return false;
+    if (typeReadsClassParam61(dt->getType(), 0))
+        return false;
+    // The WIDTH must come from slang's own type system, never from a guess.
+    // Integral covers packed vectors, enums, packed structs and typedef
+    // aliases of them; a fixed-size unpacked array folds to its bitstream
+    // width (c1 R7 `bit m_arr[4]` -> 4).
+    //
+    // DELIBERATELY EXCLUDED, and this is an UNDER-FIRE I am declaring rather
+    // than papering over: `real`.  Golden folds `$bits(<real member>)` to
+    // UINT:32 (c4 R8 line 99) where the language and slang both say 64.  I
+    // cannot derive Surelog's 32 from slang's type system, and emitting 64
+    // would be a WRONG-VALUE over-fire — strictly worse than the
+    // sys_func_call we already emit.  `isIntegral()` excludes `real` and
+    // `string` together.
+    const Type* t = arg.type;
+    if (!t)
+        return false;
+    // `time` KEEPS in golden (verifier F2, arm v4_type.sv line 47) although
+    // it IS integral in slang (64 bits) — while `integer` beside it FOLDS to
+    // UINT:32.  The verifier's decoded hypothesis: the two Surelog keeps
+    // (`time`, `realtime`) are exactly the two LRM alias types
+    // (time = bit[63:0], realtime = real); realtime is already excluded by
+    // isIntegral, time needs the explicit clause.
+    if (auto* pit61 = t->getCanonicalType().as_if<PredefinedIntegerType>();
+        pit61 && pit61->integerKind == PredefinedIntegerType::Time)
+        return false;
+    if (t->isIntegral())
+        return t->getBitWidth() > 0;
+    if (t->isUnpackedArray() && t->isFixedSize()) {
+        auto& el = *t->getArrayElementType();
+        if (el.isIntegral() && el.getBitWidth() > 0)
+            return t->getBitstreamWidth() > 0;
+    }
+    return false;
+}
+
 // A function that just hands one of its formals back (`f = inp;` /
 // `return inp;`). Surelog substitutes such a call for typing purposes, so a
 // NESTED call to it carries no formal-ts stamp of its own — the enclosing
@@ -11366,6 +11619,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // the only one we still folded there (PackageEval, AllPackageSignal).
             if (curPkgEmitSym && !pkgEmitTopView)
                 bitsKeep = true;
+            // § bitsOwnClassPropFold61 — and a CLASS BODY overrides both of
+            // the above.  This sits AFTER the package guard on purpose: uvm-1.2
+            // declares every class inside `uvm_pkg`, so a check placed before
+            // it would be switched straight back off for the very cells the
+            // corpus needs (the witness `uvm_get_to_lock_dap::do_print`).  The
+            // package rule is about the package's OWN def listing, not about
+            // method bodies that happen to live in one — measured: golden
+            // folds `$bits(m_b)` in `c1_pkg::inblock_c::r1` (arm c1 R1) while
+            // still keeping `$bits(t)` in the package's own def listing.
+            bool ownPropFold61 = false;
+            if (name == "$bits" && !call.arguments().empty() &&
+                bitsOwnClassPropFold61(*call.arguments()[0])) {
+                bitsKeep = false;
+                ownPropFold61 = true;
+            }
             if (name == "$bits" && !bitsKeep) {
                 bool localParamArg =
                     !call.arguments().empty() &&
@@ -11383,7 +11651,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // width so the fold decision and the fold agree
                 // (HierPathPackedStruct's `$bits(a.pair[0])`).
                 std::optional<uint64_t> staticBits9;
-                if (!cv && !call.arguments().empty()) {
+                // § bitsOwnClassPropFold61's VALUE.  The root-context
+                // `tryEval` above cannot answer for a class property — there
+                // is no instance to read — so it returns nothing and, without
+                // this arm, the gate would open and then emit a
+                // sys_func_call anyway.  STATED GATE == CODE GATE: the same
+                // predicate that opened the gate supplies the width, and it
+                // has already certified the type integral-with-a-width or a
+                // fixed-size unpacked array.
+                if (!cv && ownPropFold61) {
+                    auto& a61 = stripImplicitConv(*call.arguments()[0]);
+                    if (a61.type->isIntegral())
+                        staticBits9 = a61.type->getBitWidth();
+                    else
+                        staticBits9 = a61.type->getBitstreamWidth();
+                }
+                if (!cv && !staticBits9 && !call.arguments().empty()) {
                     auto& a9 = stripImplicitConv(*call.arguments()[0]);
                     if ((a9.kind == ExpressionKind::MemberAccess ||
                          a9.kind == ExpressionKind::ElementSelect ||
