@@ -4894,20 +4894,89 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // same "the initialiser is a pattern" answer as everywhere
                 // else once the exception is out of the way.
                 //
-                // STATED GATE == CODE GATE.  The gate is exactly two things:
-                // (1) the fold's parent IS a `func_call`/`task_call` — nothing
-                // walks, nothing looks through an operation, so an argument
-                // that is an EXPRESSION over the parameter is untouched (its
-                // leaf already folds through the operation arms); and (2) the
-                // parameter's own initialiser is not one of the five
-                // non-reducing shapes.  There is NO context flag, NO view test,
-                // NO import test and NO TEXT TEST here — the qualified/bare
-                // split lives entirely inside the carve-out body, unchanged.
+                // STATED GATE == CODE GATE.  As of r10earl33 the gate is
+                // THREE things (the original two-clause claim here went stale
+                // the moment § genScopeBareArgKeepsRef33 landed — verifier
+                // F4.1): (1) the fold's parent IS a `func_call`/`task_call` —
+                // nothing walks, nothing looks through an operation, so an
+                // argument that is an EXPRESSION over the parameter is
+                // untouched (its leaf already folds through the operation
+                // arms); (2) the parameter's own initialiser is not one of
+                // the five non-reducing shapes; and (3) NOT
+                // genScopeBareArg33 — a CONTEXT FLAG (elaborated gen scope)
+                // combined with § argWrittenQualIsSyntaxKind33's syntax-kind
+                // discriminator, defined just below.  The qualified/bare
+                // split inside the carve-out body is ALSO changed by
+                // r10earl33 (syntax-kind, not raw text).
                 const bool fcArgPos32 =
                     parent && (parent->UhdmType() == UHDM::uhdmfunc_call ||
                                parent->UhdmType() == UHDM::uhdmtask_call);
+                // § argWrittenQualIsSyntaxKind33 (r10earl33) — THE WRITTEN
+                // QUALIFIER, READ AS A SYNTAX KIND INSTEAD OF AS TEXT.
+                // `pkg::P` parses as a ScopedName and a bare `P` as an
+                // IdentifierName, whatever either one is SPELLED with, so this
+                // predicate answers the macro case for the same reason
+                // `rawText` does (a macro EXPANDS before the parse, so
+                // `mf(`QP)` is a real ScopedName node) and answers the ESCAPED
+                // case the text test gets WRONG: `\a::b ` is ONE identifier
+                // whose NAME contains `::`, and `rawText(...).find("::")` reads
+                // that bare read as QUALIFIED.  That is r10earl32's F1, and it
+                // is why the gen-scope arm below could not be written with a
+                // text test: the two would disagree on exactly that spelling
+                // and the disagreement would mint a WRONG object (a
+                // qualifier-spanned, package-bound ref where golden has a bare
+                // gen-scoped one).  b1_gen.sv k17/k18 are the cells.
+                // FALLBACK IS THE OLD ANSWER, deliberately: an expression with
+                // no syntax node (a re-emitted clone) keeps the text reading,
+                // so no existing cell can move on a null.
+                const bool fcArgQual33 =
+                    expr.syntax
+                        ? expr.syntax->kind == syntax::SyntaxKind::ScopedName
+                        : rawText(expr.sourceRange).find("::") !=
+                              std::string::npos;
+                // § genScopeBareArgKeepsRef33 (r10earl33) — A BARE
+                // (WILDCARD-IMPORTED) PACKAGE-PARAMETER CALL ARGUMENT INSIDE AN
+                // ELABORATED GENERATE SCOPE KEEPS ITS REF.  This is the other
+                // half of the generate-context reach, and it is a REGRESSION
+                // § fcArgPkgParamValueFolds32 shipped: before that pass the
+                // carve-out below returned for EVERY package parameter in a
+                // call-argument position, so this cell was right; the
+                // fall-through folds it.
+                // MEASURED, not reasoned — a3_ctx.sv cell g3's ELABORATED twin,
+                // read on a PRE-r10earl32 binary (266d3a6) and on this one:
+                //   golden      ref_obj (work@c32top.ua.gblk.P) 46:18-46:19
+                //   266d3a6     ref_obj (work@c32top.ua.gblk.P) 46:18-46:19  =
+                //   a060719     constant 12'h380 p=param_assign  + a ts   WRONG
+                // and the same split on b1_gen k5 (36:32, an elaborated
+                // for-generate CONT-ASSIGN) and v4_more 30:31.  r10earl32's own
+                // arm file holds the cell; its reader could not print it,
+                // because cells32.py keys a row on the argument span alone and
+                // COLLAPSES the def listing onto the elaborated gen_scopes —
+                // cells33.py is view-keyed and its selfcheck is exactly that.
+                // THE GATE IS THE GENERATE SCOPE AND THE MISSING QUALIFIER,
+                // the same pair § defGenProcWildcardPkgParamNoFold19 (def-view
+                // gen PROCESS) and § genNestedScopePkgParamNoFold24 (NESTED gen
+                // scope) already turn on — this is their third container, the
+                // ELABORATED top-level gen scope, which those two do not reach.
+                // LAW 24'S CONTAINER IS SUBTRACTED (verifier F1, fixed at
+                // integration): law 24's arm sits BELOW this gate (~5425), so
+                // without the !genNestedScopeEmit24 clause a bare pkg-param
+                // call arg in a NESTED elaborated gen scope was diverted into
+                // the carve-out and law 24 — the arm that mints golden's
+                // per-instance enum_const clone bound via vpiActual — never
+                // ran: three arms (b1_gen k13 116:17 x2, a3_ctx 58:30,
+                // v6_tfnest 40:25 x2) lost a binding that was GOLDEN-EXACT at
+                // a060719.  The original claim here ("b1 k13 proves law 24
+                // still owns the nested cell: a ref before AND after") was
+                // TRUE OF THE KIND ONLY — the instrument never read vpiActual.
+                // The QUALIFIED sibling in the very same statement (b1 k12
+                // 100:15, a3 g4 47:18) folds on both sides and is untouched.
+                const bool genScopeBareArg33 =
+                    fcArgPos32 && !fcArgQual33 &&
+                    (inGenScopeCaRhs || inGenScopeProc) &&
+                    !genNestedScopeEmit24;
                 const bool fcArgFold32 =
-                    fcArgPos32 &&
+                    fcArgPos32 && !genScopeBareArg33 &&
                     !patParamNoFold(nv.symbol.as<ParameterSymbol>()) &&
                     !paramDefRhsIsOp(nv.symbol.as<ParameterSymbol>(),
                                      /*aggregateToo=*/true);
@@ -4932,8 +5001,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // *_noreuse `aes_mvm(data_i, A2X)` — three AllModules
                     // heads reading `ref_obj 'A2X' vs
                     // 'aes_sbox_canright_pkg::A2X'`.
-                    if (rawText(expr.sourceRange).find("::") ==
-                        std::string::npos) {
+                    // § argWrittenQualIsSyntaxKind33 — the split is read from
+                    // the SYNTAX KIND, not from `rawText(...).find("::")`.  It
+                    // MUST be the same predicate the gen-scope arm above uses
+                    // to send a read here in the first place, or the two
+                    // disagree on a bare ESCAPED identifier whose name contains
+                    // `::` and this arm hands back a qualifier-spanned,
+                    // package-bound ref where golden has a bare one.  Every
+                    // OTHER spelling reads identically under both tests — bare
+                    // IdentifierName, written `pkg::P`, and a MACRO-written
+                    // `pkg::P` alike (the macro expands before the parse, so
+                    // the node really is a ScopedName) — so no measured cell of
+                    // r10earl32's a4_text arm moves.
+                    if (!fcArgQual33) {
                         ref->VpiFullName(joinRef(prefix, nv.symbol.name));
                         ref->VpiParent(parent);
                         setLoc(ref, expr.sourceRange);

@@ -12450,6 +12450,112 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                                qEnd9));
                             return c9;
                         }
+                // § genCaArgPkgParamValueFolds33 (r10earl33) — THE
+                // GENERATE-CONTEXT REACH of § fcArgPkgParamValueFolds32, which
+                // that law could not have had: a DEF-VIEW GENERATE-BLOCK
+                // CONT-ASSIGN is emitted from SYNTAX (this function), not from
+                // the bound AST, so `emitExpr`'s call-argument arm — the fold
+                // AND its § fcArgBareImportRef carve-out alike — never ran on
+                // one.  Every `pkg::P` call argument written inside a generate
+                // body therefore fell to the unconditional `ref_obj` below.
+                //
+                // THE CELLS (b1_gen.sv, cells33.py, `allModules` view — and
+                // reading them needs a VIEW-KEYED reader: r10earl32's
+                // cells32.py collapses the def listing and the elaborated
+                // gen_scopes onto ONE row and prints only the first):
+                //   36:19 for-generate CA, qualified   golden constant 12'h380
+                //                                      ours   ref_obj p33::P
+                //   44:19 if-generate CA                same split
+                //   51:19 / 54:19 both arms of if/else  same split
+                //   73:23 the inner arg of a NESTED call, 74:26 a qualified
+                //   PACKAGE call's argument, 83:37 an `int` parameter,
+                //   130:19 a module that is NEVER INSTANTIATED — same split
+                // and the two v4_more.sv cells r10earl32's own verifier logged
+                // as F4 (30:19, 35:19).  The BARE sibling in the same
+                // cont-assign (36:32 / 30:31) is a ref in golden AND in ours
+                // and STAYS one: it is an IdentifierName, not a ScopedName, so
+                // it never enters this arm at all.
+                //
+                // THE FIX IS A DELEGATION, NOT A SECOND FOLD.  Re-implementing
+                // the fold here would fork the law; instead the read is bound
+                // in the enclosing scope and handed to `emitExpr` with the CALL
+                // as its parent, which is exactly the position
+                // § fcArgPkgParamValueFolds32 was measured at.  That gets both
+                // of golden's answers from one arm, and b2_init.sv is the proof
+                // that both are needed at this position:
+                //   FOLDS  literal, arithmetic, multi-dim literal, int,
+                //          untyped, 72-bit, typedef'd, enum-typed, signed
+                //   REF    concat (N2), replication (N3), cast-of-concat (N4),
+                //          multi-dim pattern (N7), unpacked pattern (N8),
+                //          packed-struct pattern (N14)
+                // — the SAME initialiser discriminator, cell for cell, that
+                // a2_type/a5_init measured in a module cont-assign.  And the
+                // kept refs are not merely kept: golden spans them at the
+                // `q33::` QUALIFIER (52:21-52:26) where this arm's own ref_obj
+                // spans the whole `q33::N2` (52:21-52:28), so the carve-out's
+                // span is golden's here too and the delegation fixes six ref
+                // cells it never folds.
+                //
+                // STATED GATE == CODE GATE, and it is three things:
+                //   (1) `inDefGenCaExpr` — the def-view generate cont-assign
+                //       context, set at ModuleEmit's gen-block CA loop and
+                //       nowhere else that reaches a call argument.  A def-view
+                //       gen-block PROCESS is NOT this arm (it runs through
+                //       emitProcess -> emitExpr with defGenProcessEmit, where
+                //       § defGenProcWildcardPkgParamNoFold19 already owns the
+                //       bare read): b1 k11/k12 (99:15 bare -> ref, 100:15
+                //       qualified -> constant) and k13/k14 in a NESTED scope
+                //       agree with golden BEFORE and AFTER, untouched.
+                //   (2) the DIRECT parent is a `func_call`/`task_call` — the
+                //       same direct-parent test as § fcArgPos32, nothing walks.
+                //       b1 k6 (72:20, the argument is an OPERATION over the
+                //       parameter) is an `operation` on both sides and stays
+                //       one.
+                //   (3) the written text resolves to a PACKAGE PARAMETER
+                //       (`crossPkgBoundParam9`, the tokenizer this file already
+                //       uses at five other positions) AND the AST bind of the
+                //       same syntax names THE SAME SYMBOL.  Both must agree or
+                //       the arm abstains, so a local shadow can never be folded
+                //       through a text match.
+                // NO TEXT TEST BEYOND THAT RESOLUTION, and the text arm
+                // (b3_text.sv) is what says what it costs: a MACRO-written
+                // argument (e2 `mf(`QP)`) and a macro-written CALL (e3) both
+                // fold, because `rawTextExp` hands back the EXPANSION; an
+                // ESCAPED parameter name (e4 `p33b::\e@x `) and, above all, an
+                // escaped name that CONTAINS `::` (e5 `p33b::\a::b `) fail
+                // `crossPkgBoundParam9`'s second-`::` reject and ABSTAIN — an
+                // ABSENT object where golden folds, never a WRONG one, which is
+                // the failure direction r10earl32's F1 got backwards.
+                //
+                // ORPHAN DISCIPLINE: `emitExpr` is called only when all three
+                // gates hold, and whatever it returns (constant or the
+                // carve-out's ref) IS the returned object, so this arm never
+                // mints a second node and never leaves one parented-but-unused
+                // in the arena.
+                if (inDefGenCaExpr && parent &&
+                    (parent->UhdmType() == UHDM::uhdmfunc_call ||
+                     parent->UhdmType() == UHDM::uhdmtask_call)) {
+                    if (const ParameterSymbol* fp33 = crossPkgBoundParam9(raw)) {
+                        const Scope& fs33 =
+                            currentScope ? *currentScope
+                                         : (const Scope&)comp.getRoot();
+                        ASTContext fx33(fs33, LookupLocation::max);
+                        auto& fe33 = Expression::bind(
+                            syn.as<syntax::ExpressionSyntax>(), fx33);
+                        if (!fe33.bad()) {
+                            auto& fs0 = stripImplicitConv(fe33);
+                            if (fs0.kind == ExpressionKind::NamedValue &&
+                                &fs0.as<NamedValueExpression>().symbol ==
+                                    (const Symbol*)fp33) {
+                                NetMap fnm33;
+                                if (auto* fo33 = emitExpr(fs0, parent,
+                                                          syntaxRefPrefix,
+                                                          fnm33))
+                                    return fo33;
+                            }
+                        }
+                    }
+                }
                 auto* ref = s.MakeRef_obj();
                 ref->VpiName(raw);
                 ref->VpiFullName(raw);
