@@ -1622,6 +1622,70 @@ private:
     UHDM::expr* emitAssignDelay(const slang::syntax::TimingControlSyntax* dsyn,
                                 UHDM::BaseClass* parent);
     std::string rawText(slang::SourceRange range);
+    /// § concatIdxDecompile29 — a hier_path select whose index is a
+    /// CONCATENATION renders that index by DECOMPILING the expression TREE, not
+    /// by copying the source text the way every other index does.
+    ///
+    /// Surelog never reads source text for these names: it walks its own
+    /// elaborated expression and prints each node through a decompiler whose
+    /// leaf table is INCOMPLETE.  Copying source text therefore diverges from
+    /// golden in three separate ways at once, all visible in one Earlgrey head
+    /// (dm_csrs.sv:309, `abstractauto_q.autoexecprogbuf[{1'b1,
+    /// dmi_req_i.addr[3:0]}]` -> golden `...[{1'b1,}]`):
+    ///   * SPACING — the decompiler writes NO space after a concatenation comma,
+    ///     whatever the source wrote (`{1'b1, 4'd3}` -> `{1'b1,4'd3}`), and a
+    ///     single space around a binary arithmetic operator.
+    ///   * EMPTY ELEMENTS — a node the decompiler has no case for contributes
+    ///     the EMPTY STRING, and its comma survives: a hier reference, a
+    ///     single-level bit select, a user function call and an explicit cast
+    ///     all vanish (`{1'b1,}`, `{,1'b1}`, `{1'b0,,1'b1}`, `{,}`).
+    ///   * PARTIAL ELEMENTS — a part select renders its RANGE ALONE, dropping
+    ///     the base name (`w[3:0]` -> `3:0`, `w[1+:2]` -> `1+:2`), while a
+    ///     multi-level element select renders in full (`m[1][2]`).
+    ///
+    /// The whole decoded table, measured cell-for-cell against Surelog on
+    /// tools/probe/r10earl29repro (arms a1/a2/a5/b2/b3, both positions, 2- and
+    /// 3-element concatenations; see that README for the verbatim grid):
+    ///   constant                    -> its own spelling      1'b1 / 4'd3
+    ///   ref_obj (net/var/localparam/enum literal/enum var)
+    ///                               -> its NAME              k / P / E1 / ev
+    ///   concatenation               -> {R(e),R(e),...}       comma, NO space
+    ///   replication                 -> {R(n){R(concat)}}     {2{1'b1}}
+    ///                                                          -> {2{{1'b1}}}
+    ///   binary + - * /              -> R(l) op R(r)          spaces around op
+    ///   unary ~                     -> ~R(operand)           ~k[0] -> ~
+    ///   ternary                     -> R(c) ? R(l) : R(r)    ` ? 1'b1 : 1'b0`
+    ///   system function call        -> its own spelling      $clog2(4)
+    ///   part / indexed part select on a SIMPLE base
+    ///                               -> the RANGE only        w[3:0] -> 3:0
+    ///   multi-level element select on a SIMPLE base
+    ///                               -> in full               m[1][2]
+    ///   single-level bit select     -> EMPTY                 w[2] -> ``
+    ///   member access / hier ref    -> EMPTY                 rq.addr, u.x
+    ///   user function call          -> EMPTY                 fx(k)
+    ///   explicit cast               -> EMPTY                 2'(k)
+    ///
+    /// THE GATE, and it is the gate in the code at every call site: the index's
+    /// TOP-LEVEL expression is a CONCATENATION.  Everything else keeps the
+    /// caller's existing raw-text rendering untouched — a non-concatenation
+    /// index (measured: golden drops the WHOLE bracket group when the top-level
+    /// index is a hier ref, a bit select or a multi-level element select) and an
+    /// indexed part select over a concatenation (`data[{a,3'b0}+:8]`) are
+    /// deliberately OUT of this law's scope, and a plain non-hier bit_select
+    /// carries no index in its name at all (arm a3, 11/11 cells equal).
+    ///
+    /// `idxDecompile` returns FALSE for any node kind the grid did not measure,
+    /// which aborts the whole index and keeps the raw text: an unmeasured
+    /// spelling is left as it was rather than guessed at.  The measured
+    /// abstentions are a wildcard-imported package parameter element (golden
+    /// reduces it to a sized literal `2'd1`, NOT the decimal value
+    /// § hierSelPkgParamFold would splice) and a string literal element.
+    ///
+    /// Returns the bracket text WITHOUT its brackets, or "" to mean "not my
+    /// shape, leave the caller's text alone".  A concatenation always renders
+    /// at least `{}`, so the empty return is unambiguous.
+    std::string concatIdxText(const slang::ast::Expression& sel);
+    bool idxDecompile(const slang::ast::Expression& e, std::string& out);
     /// § hierSelPkgParamFold — a select's DECOMPILED text carries the VALUE of
     /// a PACKAGE parameter and the IDENTIFIER of a module-scope one.
     ///

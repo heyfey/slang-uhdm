@@ -1273,6 +1273,252 @@ static std::string selName(std::string s) {
     return o;
 }
 
+// § concatIdxDecompile29 (the decoded table and the gate are in the
+// declaration comment, include/UhdmExporter.h) — the text between the LAST
+// top-level brackets of a select's spelling: `w[3:0]` -> `3:0`,
+// `w[1+:2]` -> `1+:2`.  Returns "" when the text has no bracket group.
+static std::string lastBracketBody(const std::string& t) {
+    size_t close = std::string::npos;
+    for (size_t i = t.size(); i-- > 0;)
+        if (t[i] == ']') {
+            close = i;
+            break;
+        }
+    if (close == std::string::npos)
+        return {};
+    int depth = 0;
+    for (size_t i = close; i-- > 0;) {
+        if (t[i] == ']')
+            depth++;
+        else if (t[i] == '[') {
+            if (!depth)
+                return t.substr(i + 1, close - i - 1);
+            depth--;
+        }
+    }
+    return {};
+}
+
+// § concatIdxDecompile29 — the SELECT-element classifier.  Walks a select chain
+// down to its base and reports how many element-select levels sit above that
+// base, so the three measured select renderings can be told apart:
+//   base reached through a MEMBER ACCESS or a HIERARCHICAL name  -> EMPTY
+//   one element-select level over a simple name (`w[2]`)         -> EMPTY
+//   two or more levels over a simple name (`m[1][2]`)            -> full text
+// A range select over a simple name renders its range alone and is handled by
+// the caller, which needs the range text rather than a level count.
+struct SelBaseInfo {
+    bool simpleBase = false;  // the chain bottoms out at a plain local name
+    int elemLevels = 0;       // element-select levels above that name
+};
+static SelBaseInfo selBaseInfo(const Expression& e) {
+    SelBaseInfo r;
+    const Expression* cur = &stripImplicitConv(e);
+    while (true) {
+        if (cur->kind == ExpressionKind::ElementSelect) {
+            r.elemLevels++;
+            cur = &stripImplicitConv(cur->as<ElementSelectExpression>().value());
+        }
+        else if (cur->kind == ExpressionKind::RangeSelect) {
+            cur = &stripImplicitConv(cur->as<RangeSelectExpression>().value());
+        }
+        else
+            break;
+    }
+    r.simpleBase = cur->kind == ExpressionKind::NamedValue;
+    return r;
+}
+
+// § concatIdxDecompile29 — one node of Surelog's index decompiler.  Appends this
+// node's rendering to `out` and returns TRUE; returns FALSE for a node kind the
+// grid did not measure, which aborts the whole index so the caller keeps its
+// raw text rather than shipping a guessed spelling.  Rendering the EMPTY STRING
+// is a SUCCESS (`return true` with nothing appended) — that is the measured
+// behaviour for a hier reference, a bit select, a user call and a cast, and it
+// is what leaves golden's bare comma behind.
+bool UhdmExporter::idxDecompile(const Expression& e0, std::string& out) {
+    auto& e = stripImplicitConv(e0);
+    switch (e.kind) {
+        // ---- renders as its own written spelling
+        case ExpressionKind::IntegerLiteral:
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+            out += selName(rawText(e.sourceRange));
+            return true;
+        case ExpressionKind::NamedValue: {
+            auto& sym = e.as<NamedValueExpression>().symbol;
+            // MEASURED ABSTENTION: a wildcard-imported package parameter is
+            // reduced by golden to a SIZED literal (b3_edges o1, `PP` -> `2'd1`),
+            // which is neither the identifier nor the decimal value
+            // § hierSelPkgParamFold splices for a whole-index fold.  Abstain.
+            if (importedParamDefTs.count(&sym))
+                return false;
+            out += sym.name;
+            return true;
+        }
+        // ---- renders EMPTY: the decompiler has no case for these
+        case ExpressionKind::HierarchicalValue:  // u.x            (b3_edges o5)
+        case ExpressionKind::MemberAccess:       // rq.addr        (a1_hp2 o3)
+            return true;
+        case ExpressionKind::Conversion:
+            // FIXED AT INTEGRATION (verifier F1, the severest finding, and it
+            // made a name STRICTLY WORSE THAN BASE).  This arm returned true
+            // (render EMPTY) for EVERY conversion that survived
+            // `stripImplicitConv`, on the model that a surviving conversion is
+            // a written cast.  FALSE: the strip removes `isImplicit()` =
+            // Implicit AND Propagated (ConversionExpression.h:28, enum order
+            // Implicit/Propagated/StreamingConcat/Explicit/BitstreamCast), so
+            // what survives is any of the OTHER THREE kinds — and slang wraps
+            // the string literal of `q.m[{"a_chan_", s}]` (arm v10_str.sv) in
+            // exactly such a conversion.  Measured: golden
+            // `q.m[{"a_chan_",s}]` (the literal RENDERED), base ONE space off,
+            // the un-gated arm shipped `q.m[{,s}]` — the literal DELETED.
+            // The one measured EMPTY cell (b3_edges o3, `2'(k)`) is a WRITTEN
+            // cast, so the gate is the SYNTAX: only a written CastExpression
+            // renders EMPTY; every other surviving conversion ABSTAINS,
+            // keeping the whole index's raw text (base behaviour, never
+            // worse).  Named real carriers of the string shape (all
+            // SLANG_REJECT today): Opentitan tlul xbar_env.sv:79/81/85/87.
+            return e.syntax &&
+                           e.syntax->kind == syntax::SyntaxKind::CastExpression
+                       ? true   // written cast -> EMPTY (b3_edges o3)
+                       : false; // anything else -> ABSTAIN (F1)
+        case ExpressionKind::Call:
+            // A SYSTEM call renders its own spelling ($clog2(4), $signed(k)); a
+            // USER call renders EMPTY (a1_hp2 o8, `fx(k)`).  Only a
+            // single-argument system call is measured, so a spelling carrying an
+            // argument separator or any space abstains rather than guess.
+            if (!e.as<CallExpression>().isSystemCall())
+                return true;
+            {
+                std::string t = rawText(e.sourceRange);
+                if (t.empty() || t.find(',') != std::string::npos ||
+                    t.find(' ') != std::string::npos)
+                    return false;
+                out += t;
+            }
+            return true;
+        // ---- structural nodes
+        case ExpressionKind::Concatenation: {
+            out += '{';
+            bool first = true;
+            for (auto* op : e.as<ConcatenationExpression>().operands()) {
+                if (!first)
+                    out += ',';  // NO space, whatever the source wrote
+                first = false;
+                if (!idxDecompile(*op, out))
+                    return false;
+            }
+            out += '}';
+            return true;
+        }
+        case ExpressionKind::Replication: {
+            // Surelog holds the repeated part as a CONCATENATION, so it renders
+            // with braces of its own and the whole node DOUBLES them:
+            // `{2{1'b1}}` -> `{2{{1'b1}}}` (a1_hp2 o7, b3_edges o6).
+            auto& r = e.as<ReplicationExpression>();
+            out += '{';
+            if (!idxDecompile(r.count(), out))
+                return false;
+            out += '{';
+            if (!idxDecompile(r.concat(), out))
+                return false;
+            out += "}}";
+            return true;
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& b = e.as<BinaryExpression>();
+            const char* op = nullptr;
+            switch (b.op) {
+                case BinaryOperator::Add: op = "+"; break;
+                case BinaryOperator::Subtract: op = "-"; break;
+                case BinaryOperator::Multiply: op = "*"; break;
+                case BinaryOperator::Divide: op = "/"; break;
+                default: return false;  // unmeasured operator
+            }
+            if (!idxDecompile(b.left(), out))
+                return false;
+            out += ' ';
+            out += op;
+            out += ' ';
+            return idxDecompile(b.right(), out);
+        }
+        case ExpressionKind::UnaryOp: {
+            auto& u = e.as<UnaryExpression>();
+            if (u.op != UnaryOperator::BitwiseNot)
+                return false;  // unmeasured operator
+            out += '~';
+            return idxDecompile(u.operand(), out);
+        }
+        case ExpressionKind::ConditionalOp: {
+            auto& c = e.as<ConditionalExpression>();
+            if (c.conditions.size() != 1 || c.conditions[0].pattern)
+                return false;  // unmeasured (pattern / multi-condition) form
+            if (!idxDecompile(*c.conditions[0].expr, out))
+                return false;
+            out += " ? ";
+            if (!idxDecompile(c.left(), out))
+                return false;
+            out += " : ";
+            return idxDecompile(c.right(), out);
+        }
+        // ---- selects: three measured renderings, told apart by the base
+        case ExpressionKind::RangeSelect: {
+            // The RANGE ALONE, base name dropped (a1_hp2 o4 `w[3:0]` -> `3:0`,
+            // b3_edges o2 `w[1+:2]` -> `1+:2`); EMPTY when the base is reached
+            // through a member access (a1_hp2 o10 `rq.addr[3:0]`).
+            // GATE TIGHTENED AT INTEGRATION (verifier F2): the original test
+            // was `simpleBase` alone, which cannot tell `w[3:0]` (range over a
+            // plain name -> range alone) from `m[1][3:0]` (range over a
+            // MULTI-LEVEL element select -> golden renders it IN FULL, arm
+            // v2_sel o1: golden `{1'b1,m[1][3:0]}`, the un-gated arm shipped
+            // `{1'b1,3:0}` — the base name LOST, strictly worse than base).
+            // Correct gate, verifier-specified: simpleBase AND elemLevels==0;
+            // anything else ABSTAINS (whole-index raw text, base behaviour) —
+            // the full-text rendering golden uses there is UNMEASURED beyond
+            // one cell, so it is not guessed at.
+            auto rinfo = selBaseInfo(e);
+            if (!rinfo.simpleBase)
+                return true;
+            if (rinfo.elemLevels != 0)
+                return false;  // F2: range over element select -> ABSTAIN
+            std::string body = lastBracketBody(rawText(e.sourceRange));
+            if (body.empty())
+                return false;
+            out += selName(body);
+            return true;
+        }
+        case ExpressionKind::ElementSelect: {
+            auto info = selBaseInfo(e);
+            if (!info.simpleBase)
+                return true;  // rq.addr[0] and friends render EMPTY
+            if (info.elemLevels < 2)
+                return true;  // a single-level bit select renders EMPTY (o5)
+            // Two or more levels render in FULL (a1_hp2 o9, `m[1][2]`).
+            std::string t = selName(rawText(e.sourceRange));
+            if (t.empty())
+                return false;
+            out += t;
+            return true;
+        }
+        default:
+            return false;  // an unmeasured node kind abstains
+    }
+}
+
+// § concatIdxDecompile29 — THE GATE.  The index's TOP-LEVEL expression must be a
+// CONCATENATION; every other index keeps the caller's raw-text rendering.  A
+// top-level REPLICATION is deliberately excluded: the grid measured replication
+// only as an ELEMENT, never as a whole index.
+std::string UhdmExporter::concatIdxText(const Expression& sel) {
+    auto& s9 = stripImplicitConv(sel);
+    if (s9.kind != ExpressionKind::Concatenation)
+        return {};
+    std::string out;
+    if (!idxDecompile(s9, out))
+        return {};
+    return out;
+}
+
 // § macroExpandedText tail — the SELECT BASE's spelling cut out of the whole
 // select's expanded spelling.  A HierarchicalValue produced inside a macro body
 // (`RIF.read_data[__i]`, RIF substituted) carries no syntax node of its own, so
@@ -2274,8 +2520,15 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     std::string dotted;
     for (size_t i = 0; i < comps.size(); ++i) {
         dotted += (i == 0 ? comps[i].name : "." + comps[i].name);
-        for (auto& sel : comps[i].sels)
-            dotted += "[" + spaceIdxOps(rawText(sel.sel->sourceRange)) + "]";
+        for (auto& sel : comps[i].sels) {
+            // § concatIdxDecompile29 — a CONCATENATION index is decompiled from
+            // the tree; every other index keeps its raw text.
+            std::string ci29 = concatIdxText(*sel.sel);
+            dotted += "[" +
+                      (ci29.empty() ? spaceIdxOps(rawText(sel.sel->sourceRange))
+                                    : ci29) +
+                      "]";
+        }
     }
 
     // A multi-dim element select on the BASE array (group_status[0][0].a)
@@ -2306,7 +2559,15 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             // dotted fullnames; each bit_select's loc is the base name (first
             // dim) or the prior selector's span (later dims).
             for (size_t k = 0; k < comp.sels.size(); ++k) {
-                dottedAt += "[" + spaceIdxOps(rawText(comp.sels[k].sel->sourceRange)) + "]";
+                // § concatIdxDecompile29 — same gate as the `dotted` loop above;
+                // the two renderings must agree or the hier_path name and its
+                // bit_select fullnames disagree on the same select.
+                std::string ci29b = concatIdxText(*comp.sels[k].sel);
+                dottedAt += "[" +
+                            (ci29b.empty() ? spaceIdxOps(rawText(
+                                                 comp.sels[k].sel->sourceRange))
+                                           : ci29b) +
+                            "]";
                 auto* bs = s.MakeBit_select();
                 if (k == 0) // only the first dim carries vpiName
                     bs->VpiName(comp.name);
@@ -2344,7 +2605,13 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         }
         else if (!comp.sels.empty()) {
             auto& sel = comp.sels[0];
-            dottedAt += "[" + spaceIdxOps(rawText(sel.sel->sourceRange)) + "]";
+            // § concatIdxDecompile29 — same gate as the `dotted` loop above.
+            std::string ci29c = concatIdxText(*sel.sel);
+            dottedAt += "[" +
+                        (ci29c.empty()
+                             ? spaceIdxOps(rawText(sel.sel->sourceRange))
+                             : ci29c) +
+                        "]";
             auto* bs = s.MakeBit_select();
             bs->VpiName(comp.name);
             bs->VpiParent(hp);
@@ -10560,9 +10827,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     dotted +=
                         "." + std::string((*it2)->as<MemberAccessExpression>().member.name);
                 std::string idxTxt9 = rawText(es.selector().sourceRange);
-                if (auto red9 = reducedImportedIdx(es.selector(), idxTxt9, comp,
-                                                   importedParamDefTs);
-                    !red9.empty())
+                // § concatIdxDecompile29 — THE EARLGREY SITE.  A CONCATENATION
+                // index is decompiled from the tree; every other index keeps its
+                // raw text and its existing § hierSelPkgParamFold reduction (the
+                // two are mutually exclusive: that fold fires only on a bare
+                // NamedValue index).
+                std::string ci29d = concatIdxText(es.selector());
+                if (!ci29d.empty())
+                    idxTxt9 = ci29d;
+                else if (auto red9 = reducedImportedIdx(es.selector(), idxTxt9,
+                                                        comp, importedParamDefTs);
+                         !red9.empty())
                     idxTxt9 = red9;
                 dotted += "[" + idxTxt9 + "]";
                 hp->VpiName(dotted);
@@ -10678,8 +10953,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             dotted += "." +
                                       std::string(
                                           (*it2)->as<MemberAccessExpression>().member.name);
-                        for (auto it2 = sels.rbegin(); it2 != sels.rend(); ++it2)
-                            dotted += "[" + rawText((*it2)->sourceRange) + "]";
+                        for (auto it2 = sels.rbegin(); it2 != sels.rend(); ++it2) {
+                            // § concatIdxDecompile29 — same gate as the other
+                            // hier_path name sites (arm b1_sites o1/o4,
+                            // `z.g[{1'b0,k[0]}][3]`, is THIS site).
+                            std::string ci29e = concatIdxText(**it2);
+                            dotted += "[" +
+                                      (ci29e.empty() ? rawText((*it2)->sourceRange)
+                                                     : ci29e) +
+                                      "]";
+                        }
                         hp->VpiName(dotted);
                         hp->VpiFullName(dotted);
                         hp->VpiParent(parent);
