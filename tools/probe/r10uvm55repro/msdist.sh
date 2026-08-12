@@ -21,8 +21,20 @@ for f in "$G" "$O"; do
   [ -s "$f" ] || { echo "NO_OUTPUT: missing or empty $f"; exit 6; }
 done
 T=$(mktemp -d)
-sort "$G" | uniq -c | awk '{c=$1; $1=""; print c"\t"$0}' > "$T/g.cnt"
-sort "$O" | uniq -c | awk '{c=$1; $1=""; print c"\t"$0}' > "$T/o.cnt"
+# DEFECT FIXED AT INTEGRATION 2026-08-11 — this instrument was WHITESPACE-BLIND,
+# and the master had already quoted its numbers in three commit messages before
+# r10uvm57 caught it.  The old key was built with
+#     uniq -c | awk '{c=$1; $1=""; print c"\t"$0}'
+# and assigning `$1=""` makes awk REBUILD $0 with a single-space OFS, which
+# DESTROYS the leading indentation and COLLAPSES every internal run of spaces.
+# uhdm-dump encodes an object's DEPTH as leading spaces, so two dumps differing
+# ONLY in nesting compared EQUAL: verified minimal case, `  \_foo: (a)` versus
+# `      \_foo: (a)` reported MULTISET DISTANCE 0, as did `a  b` versus `a b`.
+# Every depth-only / re-parenting change was therefore invisible, which is the
+# campaign law "an object is not a dump occurrence" failing in the other
+# direction.  `sed` keeps the rest of the line VERBATIM, indentation included.
+sort "$G" | uniq -c | sed -E 's/^ *([0-9]+) /\1\t/' > "$T/g.cnt"
+sort "$O" | uniq -c | sed -E 's/^ *([0-9]+) /\1\t/' > "$T/o.cnt"
 awk -F'\t' '
   FNR==NR { g[$2]=$1; next }
   { o[$2]=$1 }
