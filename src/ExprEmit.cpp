@@ -3640,7 +3640,8 @@ std::string UhdmExporter::rawTextPkgFold(SourceRange range,
 
 // § elabHierSelWidthFold (declaration comment in UhdmExporter.h).
 void UhdmExporter::stampFoldedPkgParamTs(UHDM::constant* c, const Symbol& sym,
-                                         const std::string& fullName) {
+                                         const std::string& fullName,
+                                         bool declTsOnly) {
     if (!c || sym.kind != SymbolKind::Parameter)
         return;
     auto* psc = sym.getParentScope();
@@ -3656,6 +3657,14 @@ void UhdmExporter::stampFoldedPkgParamTs(UHDM::constant* c, const Symbol& sym,
         if (auto poit = pkgParamObj.find(&sym);
             poit != pkgParamObj.end() && poit->second->Typespec())
             its = poit->second->Typespec()->Actual_typespec();
+    // § psBoundPkgParamTs31's abstention: an EXPLICITLY typed package parameter
+    // whose own typespec is not resolvable here would otherwise get a
+    // synthesized int_typespec — a WRONG object where golden has the typedef's
+    // logic_typespec (e2_origin.sv c5, `localparam w_t TC = 4'h3;`, whose
+    // parameter object carries the right ref_typespec but whose
+    // Actual_typespec is still unbound at this point).  Leave it bare.
+    if (!its && !implicit9 && declTsOnly)
+        return;
     if (!its) {
         auto* its0 = s.MakeInt_typespec();
         if (auto dt = dp.getDeclaredType())
@@ -4111,8 +4120,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if ((contAssignView != 0 || ndaRhsEmit) &&
                 (!c9 || c9->UhdmType() != UHDM::uhdmconstant))
                 caCondReduceStop = true;
+            // § psBoundPkgParamTs31's F1 gate, THE SOURCE HALF (added at
+            // integration): golden stamps a fold's ref_typespec on the
+            // CONDITION and the FALSE arm of a ternary inside a select bound
+            // but leaves the TRUE arm BARE (verifier arms v4_ops.sv o24 — one
+            // line, all three positions — and the 24-line minimal witness
+            // v3_tern.sv, which the un-gated law flipped from PASS_CMP +
+            // DUMP_MATCH to CMP_FAIL).  A walk-up test at the stamp site
+            // CANNOT see this: `op->Operands(operands)` is attached at the
+            // END of this block, so during operand emission the list is NULL
+            // and no positional read of the parent works — measured twice
+            // (a pointer test, then a size test; both provably dead).  So the
+            // position is recorded WHERE IT IS KNOWN — here, around the
+            // true-arm emission — as a stack of op POINTERS so the stamp walk
+            // refuses on the exact ancestor (a part_select that itself sits
+            // in a true arm must still stamp its own bounds).
+            ternTrueArmOps31.push_back(op);
             if (auto* t = emitExpr(cond.left(), op, prefix, netMap))
                 operands->push_back(t);
+            ternTrueArmOps31.pop_back();
             if (auto* f = emitExpr(cond.right(), op, prefix, netMap))
                 operands->push_back(f);
             caCondReduceStop = savedStop9;
@@ -5517,6 +5543,171 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         rawText(expr.sourceRange).find("::") !=
                             std::string::npos)
                         stampFoldedPkgParamTs(c, nv.symbol, prefix);
+                    // § psBoundPkgParamTs31 (r10earl31) — A PACKAGE-PARAMETER
+                    // FOLD THAT LANDS IN A part_select's RANGE, on EITHER
+                    // BOUND, CARRIES A ref_typespec TO THE PARAMETER'S OWN
+                    // DECLARATION TYPESPEC — in every scope, at every
+                    // operation depth, whatever the spelling.
+                    //
+                    // THE HEAD: Earlgrey_0_1/default, dm_csrs.sv:408
+                    // `abstractauto_d.autoexecdata = 12'(dmi_req_i.data[
+                    // dm::DataCount-1:0]);` — golden's folded `4'h2` carries
+                    // ref_typespec(work@dm_csrs.csr_read_write.dmi_req_i.data
+                    // [4'h2 - 1:0].data) -> logic_typespec 25:14-25:25 (the
+                    // localparam's OWN `logic [3:0]` in dm_pkg.sv), ours was
+                    // bare, and expr::Compare reads Typespec() before any
+                    // constant field, so this was the row's whole head.
+                    //
+                    // WHY THE EXISTING RULES DO NOT REACH IT (both measured,
+                    // e1_psbound.sv):
+                    //   * § caPartSelBoundFoldTs's psOwner9 excludes
+                    //     inProcessEmit / currentTf, and its walk is one
+                    //     operation deep — dm_csrs.sv:409's bound
+                    //     (`dm::ProgBufSize-1+16`) is TWO deep.
+                    //   * every stamping arm above needs
+                    //     importedParamDefTs.count(sym), i.e. the param must be
+                    //     MATERIALIZED by an import.  dm_csrs.sv has NO import
+                    //     at all, so a qualified-only read is invisible there;
+                    //     e1 o11 shows even the CONT-ASSIGN bound stays bare
+                    //     without one, while golden stamps it.
+                    //
+                    // STATED GATE == CODE GATE.  The gate is exactly: this is a
+                    // package-parameter fold (the enclosing `if` at the top of
+                    // this block), the constant is still BARE, and walking up
+                    // through OPERATIONS ONLY reaches a part_select.  Nothing
+                    // else — no context flag, no view test, no import test, and
+                    // NO TEXT TEST (e4 k3 stamps a MACRO-written bound, so a
+                    // rawText("::") test would have missed it, and a `work@`
+                    // test would have keyed on a character a legal ESCAPED
+                    // identifier can contain — e4 k2 selects through `\d@x `).
+                    // The operation-only walk is what abstains on golden's
+                    // measured negatives: a bound under a SYS-FUNC CALL
+                    // (e1 o8 / vo.sv row F) stops at the sys_func_call, and a
+                    // bit_select INDEX, an indexed-part-select BASE, an
+                    // assignment RHS, a replication count, a concat element, a
+                    // case item and an if/for condition (e3 p1..p14) all stop
+                    // somewhere else — golden leaves every one of them BARE.
+                    if (!c->Typespec()) {
+                        const UHDM::any* up31 = parent;
+                        bool ternTrueArm31 = false;
+                        for (int g31 = 0; g31 < 32 && up31 &&
+                                          up31->UhdmType() ==
+                                              UHDM::uhdmoperation;
+                             ++g31) {
+                            // GATE ADDED AT INTEGRATION (verifier F1, the one
+                            // finding that kept its verdict at "PASS with a
+                            // required follow-up"): golden does NOT treat a
+                            // CONDITIONAL's operands alike.  On
+                            // `(cond ? T : F)` inside a select bound golden
+                            // stamps the CONDITION and the FALSE arm but
+                            // leaves the TRUE arm (operand index 1) BARE —
+                            // measured on TWO spellings (v4_ops.sv o24, all
+                            // three positions of one line, and the 24-line
+                            // minimal witness v3_tern.sv, which the un-gated
+                            // law flipped from PASS_CMP + DUMP_MATCH to
+                            // CMP_FAIL).  The refusal is STRUCTURAL, matching
+                            // the law's own no-text-test discipline: refuse
+                            // when the walk passes through the TRUE arm of a
+                            // vpiConditionOp (VpiOpType 32).
+                            //
+                            // POSITION CANNOT BE READ FROM THE PARENT: this
+                            // code runs while the ancestor operations are
+                            // MID-CONSTRUCTION — `op->Operands(operands)` is
+                            // attached only after ALL operands are emitted,
+                            // so the parent's list is NULL here (measured
+                            // twice: a pointer test, then a size test; both
+                            // provably dead).  The ConditionalOp arm instead
+                            // pushes itself on ternTrueArmOps31 around its
+                            // TRUE-arm emission; a hop found in that stack IS
+                            // a ternary whose true arm we are inside —
+                            // pointer identity, so a part_select that itself
+                            // sits in a true arm (a real shape,
+                            // `c ? d[X-1:0] : e`) still stamps its bounds.
+                            // This is also consistent with the campaign's old
+                            // fold rule that vpiConditionOp reduces only the
+                            // SELECTED arm.  Zero corpus reach today (no
+                            // corpus file writes a ternary inside select
+                            // brackets — grep-proven by the verifier), so the
+                            // gate changes no gate number.
+                            auto* op31 =
+                                (const UHDM::operation*)up31;
+                            if (op31->VpiOpType() == 32) {
+                                for (const UHDM::any* t31 : ternTrueArmOps31)
+                                    if (t31 == up31) {
+                                        ternTrueArm31 = true;
+                                        break;
+                                    }
+                            }
+                            up31 = up31->VpiParent();
+                        }
+                        if (!ternTrueArm31 && up31 &&
+                            up31->UhdmType() == UHDM::uhdmpart_select) {
+                            // The ref_typespec is named after THE SELECT, and a
+                            // PLAIN select already carries the whole scoped
+                            // name this rule needs — `work@e1.blk.d` in a named
+                            // block, `work@e1.d` in an unnamed one,
+                            // `work@e1.f1.w` in a function body,
+                            // `work@e4.gblk[0].ginner.d` in an elaborated gen
+                            // scope, `work@e4child.blk@1.d@x` for an ESCAPED
+                            // signal name — so it is used VERBATIM.
+                            // DO NOT rebuild it as `prefix + "." + name`: that
+                            // form was BUILT AND MEASURED WRONG.  `prefix` is
+                            // not the statement's scope here — the emitter
+                            // descends into a range through the SELECT, so a
+                            // bound one operation deep already carries the
+                            // select's own fullname as its prefix and the
+                            // rebuild doubled the last component
+                            // (`work@e1.blk.d.d`, 8 arm cells, e1 + e4).
+                            // A select nested in a HIER_PATH is the exception:
+                            // its fullname is only the dotted path text
+                            // (`dmi_req_i.data[4'h2 - 1:0]`), so the scope
+                            // prefix and the select's own member name bracket it
+                            // — `work@dm_csrs.csr_read_write.dmi_req_i.data[
+                            // 4'h2 - 1:0].data`, e4 k4 one struct level deeper,
+                            // and e1 o12/o13 hold that form at ZERO operation
+                            // depth and on the RIGHT bound.  The hier_path test
+                            // is STRUCTURAL, not a text test, for the reason
+                            // given above.
+                            auto* ps31 = (const UHDM::part_select*)up31;
+                            std::string nm31(ps31->VpiName());
+                            std::string fn31(ps31->VpiFullName());
+                            bool hier31 =
+                                ps31->VpiParent() &&
+                                ps31->VpiParent()->UhdmType() ==
+                                    UHDM::uhdmhier_path;
+                            std::string full31 = prefix;
+                            if (fn31.empty()) {
+                                if (!nm31.empty())
+                                    full31 = prefix + "." + nm31;
+                            }
+                            else if (hier31)
+                                // GUARD ADDED AT INTEGRATION (verifier F2): a
+                                // hier_path select's OWN fullname can already
+                                // carry the instance prefix — a select inside a
+                                // PORT CONNECTION arrives here with
+                                // `work@v5.u1.a.o.a[...]`, and the un-guarded
+                                // `prefix + "." + fn31` minted a SECOND stamp
+                                // named `work@v5.work@v5.u1...`-style (one of
+                                // the two copies got the def-view prefix
+                                // doubled; arm v5_hier.sv:26).  The
+                                // pre-existing arm at the `fn9.compare` site
+                                // already had exactly this guard; the new
+                                // branch inherits it.  vpiFullName is compared
+                                // nowhere, but a NEW object with a WRONG name
+                                // is the defect class this pass fixed twice
+                                // before delivery — it does not get to ship a
+                                // third.
+                                full31 = (fn31.compare(0, prefix.size(),
+                                                       prefix) == 0
+                                              ? fn31
+                                              : prefix + "." + fn31) +
+                                         (nm31.empty() ? "" : "." + nm31);
+                            else
+                                full31 = fn31;
+                            stampFoldedPkgParamTs(c, nv.symbol, full31,
+                                                  /*declTsOnly=*/true);
+                        }
+                    }
                     return c;
                 }
                 ref->VpiFullName(std::string(scope->asSymbol().name) + "::" +

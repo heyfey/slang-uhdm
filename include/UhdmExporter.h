@@ -416,9 +416,18 @@ private:
     // parameter has no such object and is left bare (golden: BlackBePipeInt's
     // `[0+:vaddr_width_p]` fold carries no vpiTypespec while the sibling
     // `[0+:dword_width_gp]` does).
+    // declTsOnly (§ psBoundPkgParamTs31): REFUSE the synthesized int_typespec
+    // when the parameter's declared type is EXPLICIT but its own object's
+    // typespec is not resolvable yet — a typedef-typed package localparam
+    // (`localparam w_t TC = 4'h3;`) reaches this site with its ref_typespec's
+    // Actual_typespec still unbound, and minting an int_typespec there would
+    // replace a MISSING object with a WRONG one (golden points at the typedef's
+    // logic_typespec).  Measured cell: e2_origin.sv c5.  Default false, so the
+    // two older call sites keep their behaviour byte-for-byte.
     void stampFoldedPkgParamTs(UHDM::constant* c,
                                const slang::ast::Symbol& sym,
-                               const std::string& fullName);
+                               const std::string& fullName,
+                               bool declTsOnly = false);
     // Surelog clones a NAMED vector-typedef typespec at every REFERENCE
     // instead of sharing the module's object, and the copy DROPS vpiInstance
     // (the shared object's instance is the def-view module). Copies the fields
@@ -2448,6 +2457,16 @@ private:
     // fold to a constant: Surelog's reduction abandons the expression at that
     // first unfoldable operand, so nothing below binds actuals to formals.
     bool caCondReduceStop = false;
+    // § psBoundPkgParamTs31's F1 gate: the ternary operations whose TRUE arm
+    // is being emitted RIGHT NOW (a stack — ternaries nest).  The stamp
+    // site's ancestor walk cannot read operand position from the parent op
+    // (its Operands() vector is attached only AFTER all operands are emitted
+    // — measured twice), so the position is recorded where it is known: the
+    // ConditionalOp arm pushes the op around its left() emission, and the
+    // stamp walk refuses when a hop is in this stack (pointer identity — the
+    // exact ancestor, not merely "somewhere inside some true arm", so a
+    // part_select that itself sits in a true arm still stamps its bounds).
+    std::vector<const UHDM::any*> ternTrueArmOps31;
     // The nearest enclosing assignment/op-82 object — an embedded assignment
     // expression's LHS ref parents here (not at its own op).
     UHDM::BaseClass* enclosingAssign = nullptr;
