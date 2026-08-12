@@ -605,6 +605,20 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                     m->Attributes(mav);
             }
         }
+        // § endBlockLabelAllOwners62 — a `program`'s `endprogram : <name>` is
+        // the SAME ModuleDeclarationSyntax::blockName, and `instSetEndLabel`
+        // has always handled UHDM::program — but the kind test one line above
+        // is `== ModuleDeclaration`, so the helper's program arm was DEAD CODE
+        // and every labelled program lost its vpiEndLabel.  A textbook
+        // stated-gate/code-gate split, caught by censusing all EIGHT
+        // end-label-owning object types instead of the one in the head.
+        // Deliberately a separate branch, not a widened kind test: the
+        // ModuleDeclaration branch also REWRITES the span (`mr0`) to start at
+        // the `module` keyword, and a program's span must not move here.
+        else if (syntax->kind == syntax::SyntaxKind::ProgramDeclaration) {
+            if (auto* bn = syntax->as<syntax::ModuleDeclarationSyntax>().blockName)
+                instSetEndLabel(m, bn->name.valueText());
+        }
         setLoc(m, mr0);
     }
 

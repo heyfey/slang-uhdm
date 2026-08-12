@@ -722,9 +722,18 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         // sl_collect(modId, paCLASS) start node), so a `virtual class` starts
         // past the `virtual`.
         auto r = syn->sourceRange();
-        if (auto* cds = syn->as_if<syntax::ClassDeclarationSyntax>())
+        if (auto* cds = syn->as_if<syntax::ClassDeclarationSyntax>()) {
             if (cds->classKeyword.range().start() != SourceLocation::NoLocation)
                 r = SourceRange(cds->classKeyword.range().start(), r.end());
+            // § endBlockLabelAllOwners62 — `endclass : <name>` -> vpiEndLabel,
+            // the WRITTEN TOKEN's text, bare (never the ::-qualified fullname).
+            // class_defn::Compare reads vpiEndLabel as its LAST field, so a
+            // labelled class whose every other field already matches
+            // first-fails on nothing but this: that is exactly the
+            // uvm_set_get_dap_base head this pass was given.
+            if (auto* ebn = cds->endBlockName)
+                cd->VpiEndLabel(ebn->name.valueText());
+        }
         setLoc(cd, r);
     }
     auto* vars = s.MakeVariablesVec();

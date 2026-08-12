@@ -930,12 +930,22 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // Anchored at the block name token.
                 auto nl = bs.blockSymbol->location;
                 setLoc(nb, SourceRange(nl, nl + bs.blockSymbol->name.size()));
-                // end : label
+                // § endBlockLabelAllOwners62 — `end : lbl` AND
+                // `join/join_any/join_none : lbl`.  A ParallelBlockStatement is
+                // the same BlockStatementSyntax with the same `endBlockName`,
+                // and named_fork owns a vpiEndLabel slot that fork_stmt does
+                // not — so the label is stamped on the NAMED fork only, which
+                // is exactly the set the old `!isFork` test threw away.
+                // MEASURED, not assumed: golden labels all three join
+                // flavours (c3 rows f_all/f_any/guard) and labels neither an
+                // unlabelled join (f_bare) nor an unnamed fork.
                 if (stmt.syntax &&
-                    stmt.syntax->kind == syntax::SyntaxKind::SequentialBlockStatement)
+                    syntax::BlockStatementSyntax::isKind(stmt.syntax->kind))
                     if (auto* ebn = stmt.syntax->as<syntax::BlockStatementSyntax>()
                                         .endBlockName) {
-                        if (!isFork)
+                        if (isFork)
+                            ((UHDM::named_fork*)nb)->VpiEndLabel(ebn->name.valueText());
+                        else
                             ((UHDM::named_begin*)nb)
                                 ->VpiEndLabel(ebn->name.valueText());
                     }
