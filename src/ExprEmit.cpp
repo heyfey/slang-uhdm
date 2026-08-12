@@ -7952,7 +7952,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         {
                             // § classArgBind12 — a USER call's arguments bind
                             // their actual even inside a class method.
-                            ClassArgBind12 cab17(classArgBindDepth12);
+                            // § blockLocalSameCtrlDepthArgBinds57 — THE §53 GATE,
+                            // ADDED AT INTEGRATION (verifier FINDING 2: the same
+                            // defect as the § classCallNoLink12 site above, in
+                            // the `super.<m>()` window, LATENT with 0 corpus
+                            // reach today but proved on arm v4_superexpr.sv —
+                            // `super.bv(r1);` in STATEMENT position is golden
+                            // BOUND, while `i1 = super.bm(r1)`, the same call as
+                            // an OPERAND, and `return super.bm(r1d)` are all
+                            // golden BARE and were binding.  Its `this.iv(r2)` /
+                            // `o.bv(r3)` siblings are already correct because
+                            // § classInBodyRecvCallArgNoBind52 windows them.
+                            // `callStmtCtx0`, not the member, which this arm
+                            // clears.
+                            ClassArgBindIf38 cab17(
+                                classArgBindDepth12,
+                                callStmtCtx0 ||
+                                    !(curSubClassScope9 && !curSubOob9));
                             // § writtenCallArgs16 — only the actuals WRITTEN
                             // at the call site.
                             for (auto arg17 : writtenArgs16(call)) {
@@ -8770,7 +8786,38 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                         setLoc(fc0, cr12);
                         auto* cargs = s.MakeAnyVec();
-                        ClassArgBind12 cab12(classArgBindDepth12);
+                        // § blockLocalSameCtrlDepthArgBinds57 — THE §53 GATE,
+                        // ADDED AT INTEGRATION (verifier FINDING 1, a SHIPPED
+                        // over-fire with real corpus reach).  This window was
+                        // opened UNGATED, which was harmless while
+                        // § controlBodyNoBind28 suppressed every block-local
+                        // binding at depth > 0 — and stopped being harmless the
+                        // moment pass 57 carved §28 open for block-locals in an
+                        // argument list.  § classInBodyBareCallArgStmtOnly53
+                        // restricts that window to STATEMENT position for an
+                        // in-body class method, and only the site below (grep
+                        // `ClassArgBindIf38 cab12`) was applying it.
+                        // WITNESS in the corpus, uvm_pkg.sv 75319-75322 inside
+                        // `foreach (m_regs_by_offset[i]) begin uvm_reg rg = …`:
+                        //   `get_reg_map_info(rg)` at 75321:46 is EXPRESSION
+                        //      position -> golden BARE, we bound it (over-fire)
+                        //   `m.add_reg(rg, …)` at 75322:15 is STATEMENT
+                        //      position -> golden BINDS, and so do we (correct)
+                        // 4 over-fired vpiActual edges out of 345 new bindings,
+                        // on BuildUVMPkg in both modes, and NOT cmp-visible —
+                        // no gate the pass ran could see it.  This branch is
+                        // § classCallNoLink12, reached when the callee is not yet
+                        // in `subMap`: `get_reg_map_info` is `extern virtual`
+                        // DEFINED OUT-OF-BODY BELOW ITS CALLER, which is why the
+                        // in-body arm's gate never applied.  Arm v3_exprsib.sv
+                        // cells D8a/D8c/D8d (callee declared BELOW, in operand
+                        // and nested-call position) are the witnesses; D1a/D1b
+                        // (callee above) are the positive controls.
+                        // `callStmtCtx0`, NOT the member `callStmtContext`,
+                        // which is cleared at the top of this `case`.
+                        ClassArgBindIf38 cab12(
+                            classArgBindDepth12,
+                            callStmtCtx0 || !(curSubClassScope9 && !curSubOob9));
                         // § writtenCallArgs16 — only the actuals WRITTEN at
                         // the call site; a defaulted formal is slang's, not
                         // Surelog's.
