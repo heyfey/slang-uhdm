@@ -2089,6 +2089,10 @@ private:
     // there decides where the shifted statement walk lands.
     static bool isSuperNewStmt27(const slang::ast::Statement& st,
                                  bool* parens = nullptr);
+    // § thisSuperNewAssignNoStmt3 — is this statement one Surelog contributes
+    // NO STATEMENT-LIST ELEMENT for?  See the decode and the five call sites at
+    // the definition in StmtEmit.cpp.
+    static bool thisSuperNewAssignNoStmt3(const slang::ast::Statement& st);
     // A TASK-scope `parameter`/`localparam` is a body STATEMENT in Surelog:
     // its param_assign moves into the body `begin` (synthesized for the
     // purpose when the body has none) and is parented there, while the

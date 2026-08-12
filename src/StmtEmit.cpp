@@ -490,6 +490,117 @@ bool UhdmExporter::isSuperNewStmt27(const Statement& st, bool* parens) {
     return true;
 }
 
+// § thisSuperNewAssignNoStmt3 — an assignment written
+//     <this|super>[.<name>]... = new[...]      (dynamic-array construction)
+//     <this|super>[.<name>]... = new(...)      (class construction)
+// contributes NO ELEMENT to a Surelog statement LIST.  The statement is simply
+// absent from the enclosing `begin`'s vpiStmt list; the `begin` itself survives,
+// even when every element it had was such an assignment (it is then an EMPTY
+// begin), and when the assignment is the WHOLE body of a plain subroutine the
+// subroutine gets NO vpiStmt at all.
+//
+// THE GATE IS THE `this`/`super` KEYWORD ON THE LHS **AND** A WRITTEN `new` ON
+// THE RHS — both halves are load-bearing, and each was measured on its own.
+// SVSwitch/Packet.sv is the natural experiment, two ADJACENT methods of ONE
+// class, one `new[...]` each:
+//     line 71 byte_pack    `bytes = new[data.size + 4];`      golden KEEPS it
+//     line 87 byte_unpack  `this.data = new[bytes.size - 4];` golden DROPS it
+// and the arms in tools/probe/r10svs3repro separate every property that differs
+// between those two lines (arm a1, 10 cells; arm a2, 13; arm a3, 12; arm a4, 10;
+// LHS is golden throughout):
+//     KEPT   `loc = new[3]` (local) · `bytes = new[d.size+4]` (ref formal) ·
+//            `d = new[3]` and `d = new[bytes.size-4]` (BARE property, i.e. an
+//            IMPLICIT this) · `h.d = new[3]` (another object's property) ·
+//            `this.s = 5` and `this.d = e` (this-LHS, NON-new RHS)
+//     DROPPED `this.d = new[3]` · `this.d = new[e.size+4]` · `this.d = new[7]` ·
+//            `this.d = new[3](e)` (the copy form) · `this.h = new()` ·
+//            `this.h = new(1)` · `this.h.d = new[3]` (a DEEPER this path) ·
+//            `super.d = new[3]`
+// so it is neither "a member-select lvalue" (`h.d` is kept) nor "a `new[]`
+// assignment" (`d = new[3]` is kept) nor "a class-property lvalue" (the bare
+// spelling of the SAME property is kept): it is the written KEYWORD.  Read the
+// SYNTAX, not the bound AST — an IMPLICIT class-property reference is a
+// MemberAccess on an implicit `this` in slang, so the AST cannot tell `d` from
+// `this.d` at all (the same reason § classPropIterThisRefVar21 reads the syntax).
+//
+// STATEMENT POSITION IS PART OF THE LAW, and it is why this predicate is a
+// LIST-APPEND test and not an "emit nothing, ever" test.  Surelog does not drop
+// the construct — it builds an assignment with NEITHER vpiLhs NOR vpiRhs (an
+// EMPTY assignment, vpiOpType 82 / vpiBlocking 1) and then whether that object
+// survives depends ENTIRELY on the slot it lands in.  Measured, golden side:
+//   OMITTED  · element of a `begin`'s statement list  (a2 n10/n11, a3 p9/p10)
+//            · element of an EXPLICIT `begin`'s list even when it is the only
+//              one — the begin survives EMPTY, golden BLOCK n=0 (a3 p4, and
+//              a4 q8 / a5 r4 at TWO list levels)
+//            · statement list of a `fork` — the fork_stmt survives with an
+//              EMPTY list, golden BLOCK n=0 (a3 p8, a5 r3)
+//            · the WHOLE body of a plain function/task — no vpiStmt (a1 m4/m8/
+//              m9, a2 n3/n4/n5/n8, a3 p1/p3)
+//   KEPT as the EMPTY assignment (this predicate must NOT fire) ·
+//              sole branch of an `if` (a2 n6) · sole body of a `while` (a3 p5) ·
+//              of a `foreach` (a3 p6) · a `case_item`'s statement (a3 p7) ·
+//              and — the exception that decides the whole shape of the law —
+//              a CLASS CONSTRUCTOR'S **OWN** STATEMENT LIST: sole statement
+//              (a2 `new`, a3 `new`) AND list element alike (a4 `new`, golden
+//              STMTS=3 with the drop present; a5 `ctorplain::new`).  Surelog
+//              compiles constructor bodies through
+//              `compileClassConstructorDeclaration`, which shares no code with
+//              compileFunction (§ constructorBodyElementShift27), so that slot
+//              is reached through emitCtorBody27 and never through call sites
+//              3/4 below (emitStmt diverts on `tfBodyCtor27 && tfBodyStmt9 ==
+//              &stmt`) nor through call site 5 (which tests `!tfBodyCtor27`).
+//
+//              THE CONSTRUCTOR EXCEPTION IS THAT SLOT ONLY — **NOT** "anywhere
+//              inside a constructor", and an earlier draft of this comment said
+//              "ANYWHERE INSIDE A CLASS CONSTRUCTOR", which arm a5 REFUTES.
+//              a5 `ctornest::new` is a constructor whose body is
+//              `s = k; begin this.d = new[3]; s = 2; end` and golden's INNER
+//              begin has n=1 (only `s = 2`): one block level down, golden DROPS
+//              it exactly as it does outside a constructor.  That is why call
+//              sites 1 and 2 carry NO constructor gate — emitCtorBody27's
+//              EK_FSN case recurses straight back into emitStmt, so a nested
+//              block inside a constructor reaches them, and firing there is
+//              CORRECT.  Gating them on the constructor would have re-broken
+//              a5 r1.
+//
+// REFUTATION THIS PASS OWES ITS BRIEF: the brief framed the site as a `new[...]`
+// / dynamic-array question.  It is not.  `new()` on a class handle drops exactly
+// the same way (a1 m9, a4 q9), and `new[...]` on a bare property does not drop
+// at all (a1 m3/m7).  The dynamic array is a coincidence of the corpus site.
+bool UhdmExporter::thisSuperNewAssignNoStmt3(const Statement& st) {
+    const syntax::SyntaxNode* sn = st.syntax;
+    if (!sn || sn->kind != syntax::SyntaxKind::ExpressionStatement)
+        return false;
+    const syntax::ExpressionSyntax* ex =
+        &*sn->as<syntax::ExpressionStatementSyntax>().expr;
+    // Only the SIMPLE assignment operator: `+=`/`<=` and friends are separate
+    // SyntaxKinds and none of them can take a `new` on the right, so requiring
+    // this kind is exact rather than merely conservative.
+    if (ex->kind != syntax::SyntaxKind::AssignmentExpression)
+        return false;
+    auto& be = ex->as<syntax::BinaryExpressionSyntax>();
+    // RHS HALF: a WRITTEN `new` construction.  `new[n]`, `new[n](src)` are
+    // NewArrayExpression; `new`, `new()`, `new(a, b)` are NewClassExpression.
+    // NewCovergroupExpression is deliberately NOT included: no arm measured it
+    // and a covergroup handle is not assignable through `this.` in this corpus.
+    auto rk = be.right->kind;
+    if (rk != syntax::SyntaxKind::NewArrayExpression &&
+        rk != syntax::SyntaxKind::NewClassExpression)
+        return false;
+    // LHS HALF: the path ROOT is the `this` or `super` KEYWORD.  A bare name is
+    // an IdentifierName and never a ScopedName, which is what keeps the
+    // implicit-this spelling (`d = new[3]`, golden KEEPS it) out.
+    const syntax::SyntaxNode* lhsNode = &*be.left;
+    if (lhsNode->kind != syntax::SyntaxKind::ScopedName)
+        return false;
+    const syntax::NameSyntax* root =
+        &*lhsNode->as<syntax::ScopedNameSyntax>().left;
+    while (root->kind == syntax::SyntaxKind::ScopedName)
+        root = &*root->as<syntax::ScopedNameSyntax>().left;
+    return root->kind == syntax::SyntaxKind::ThisHandle ||
+           root->kind == syntax::SyntaxKind::SuperHandle;
+}
+
 // § constructorBodyElementShift27 — a class CONSTRUCTOR body is compiled by
 // `CompileHelper::compileClassConstructorDeclaration` (CompileStmt.cpp:2165),
 // a routine that shares no code with compileFunction/compileTask, and it
@@ -1130,6 +1241,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         emitDeclStmt9(*st);
                         continue;
                     }
+                    // § thisSuperNewAssignNoStmt3 — CALL SITE 1 of 5: the
+                    // statement list of a WRITTEN `begin`/`fork`.  The block
+                    // itself is built either way, so an all-dropped block comes
+                    // out EMPTY, which is what golden does (a3 p9, a4 q8).
+                    if (thisSuperNewAssignNoStmt3(*st))
+                        continue;
                     if (auto* u = emitStmt(*st, b, innerPrefix, blockMap))
                         stmts->push_back(u);
                 }
@@ -1140,6 +1257,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // has no VariableDeclaration arm (LocalScopeHierPath).
             else if (body.kind == StatementKind::VariableDeclaration) {
                 emitDeclStmt9(body);
+            }
+            // § thisSuperNewAssignNoStmt3 — CALL SITE 2 of 5: a WRITTEN
+            // `begin`'s SINGLE statement is still a list element (slang skips
+            // the StatementList wrapper for it), and golden keeps the begin and
+            // empties it — arm a3 p4, `begin this.d = new[3]; end`.
+            else if (thisSuperNewAssignNoStmt3(body)) {
+                // no element
             }
             else if (auto* u = emitStmt(body, b, innerPrefix, blockMap)) {
                 stmts->push_back(u);
@@ -2721,9 +2845,21 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             size_t eff9 = initCount + real.size();
             if (eff9 == 0 || (eff9 <= 1 && !bodyBlockDecls9 && !bodyParams9)) {
                 UHDM::any* result = nullptr;
-                for (auto st : real)
+                for (auto st : real) {
+                    // § thisSuperNewAssignNoStmt3 — CALL SITE 3 of 5: a
+                    // single-effective-statement list takes NO wrapper, so
+                    // dropping the element here is what makes a subroutine
+                    // whose WHOLE body is the assignment come out with no
+                    // vpiStmt at all — golden's shape in arms a1 m4/m8/m9,
+                    // a2 n3/n4/n5/n8 and a3 p1/p3.  A CONSTRUCTOR body never
+                    // reaches this line: the arm returns to emitCtorBody27
+                    // above, which is exactly the exception a4's `new` cell
+                    // measured (golden KEEPS the drop inside a constructor).
+                    if (thisSuperNewAssignNoStmt3(*st))
+                        continue;
                     if (auto* u = emitStmt(*st, parent, prefix, netMap))
                         result = u;
+                }
                 return result;
             }
             auto* ub = s.MakeBegin();
@@ -2843,9 +2979,18 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     as->Rhs((UHDM::expr*)r);
                 stmts->push_back(as);
             }
-            for (auto st : real)
+            for (auto st : real) {
+                // § thisSuperNewAssignNoStmt3 — CALL SITE 4 of 5: THE SVSwitch
+                // SITE.  `byte_unpack`'s body is a 8-element statement list and
+                // `this.data = new[bytes.size - 4];` is element [4]; golden's
+                // list has 7 elements and ours had 8, which is the vector-SIZE
+                // mismatch uhdm-cmp reports as the whole head.  A CONSTRUCTOR
+                // body cannot reach here (emitCtorBody27 above).
+                if (thisSuperNewAssignNoStmt3(*st))
+                    continue;
                 if (auto* u = emitStmt(*st, ub, prefix, netMap))
                     stmts->push_back(u);
+            }
             ub->Stmts(stmts);
             return ub;
         }

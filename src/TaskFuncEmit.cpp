@@ -4951,6 +4951,20 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             sub.getBody().kind != StatementKind::List &&
             isSuperNewStmt27(sub.getBody()))
             body = nullptr;
+        // § thisSuperNewAssignNoStmt3 — CALL SITE 5 of 5: a body slang did NOT
+        // wrap in a StatementList reaches emitStmt's ExpressionStatement arm
+        // directly, so the three list call sites never see it; golden gives such
+        // a subroutine NO vpiStmt (arms a1 m4/m8/m9, a2 n3/n4/n5/n8, a3 p1/p3).
+        // THE CONSTRUCTOR IS EXCLUDED and the exclusion is the gate that makes
+        // this law match golden rather than exceed it: a3 p2 and a2 `new` are a
+        // constructor whose WHOLE body is the assignment and golden KEEPS an
+        // (Lhs-less, Rhs-less) assignment there.  `tfBodyCtor27` is still live
+        // at this point — it is restored on the next line — so it is the
+        // constructor test, matching the `super.new` drop just above.
+        if (body && !tfBodyCtor27 &&
+            sub.getBody().kind != StatementKind::List &&
+            thisSuperNewAssignNoStmt3(sub.getBody()))
+            body = nullptr;
         tfBodyCtor27 = savedCtor27;
         tfBodyCtorNoPorts27 = savedCtorNP27;
         // § pkgCloneHierBind9 — record this body's own locals+formals by NAME
