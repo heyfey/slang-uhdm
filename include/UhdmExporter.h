@@ -23,6 +23,7 @@ class DefinitionSymbol;
 class Symbol;
 class Statement;
 class Expression;
+class MemberAccessExpression;
 class Type;
 class AssertionExpr;
 class ProceduralBlockSymbol;
@@ -734,6 +735,16 @@ private:
     // of the size expression is a literal, i.e. when Surelog would fold it.
     static bool sizeDimFoldsWithoutParams(
         const slang::syntax::ExpressionSyntax& e);
+    // § vifClockingPathComponent5 — the path components slang COLLAPSED out of a
+    // VIRTUAL-INTERFACE dotted reference (`vif.cb.sig` -> ONE MemberAccess whose
+    // member is `sig`), recovered as (name, own name-token span) pairs in
+    // base..leaf order.  Empty / false when nothing was collapsed, when the
+    // collapsed scopes are not ones this pass measured, or when the WRITTEN text
+    // is not exactly `<comp>.` per component (which would make the spans lies).
+    // Definition + the three call sites carry the same § tag.
+    bool vifCollapsedComponents5(
+        const slang::ast::MemberAccessExpression& ma,
+        std::vector<std::pair<std::string, slang::SourceRange>>& out);
     // Dotted interface-member path (s.req.adr) -> hier_path with per-token
     // ref_obj elements; the LAST element carries a module-scoped fullname.
     UHDM::hier_path* buildDottedHierPath(const slang::ast::Expression& expr,

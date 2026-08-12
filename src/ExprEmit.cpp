@@ -2366,6 +2366,121 @@ bool UhdmExporter::isIntEncoded(const Expression& e) {
     }
 }
 
+// § vifClockingPathComponent5 — THE LAW (definition; three call sites, each
+// tagged with the same §).
+//
+// WHAT IS LOST AND WHY.  slang resolves a dotted reference through a VIRTUAL
+// INTERFACE with ONE lookup: `Lookup::selectChild`
+// (slang/source/ast/Lookup.cpp, the `vit.modport ? vit.modport : &vit.iface`
+// arm) hands the WHOLE remaining selector list to `lookupDownward`, and
+// `Expression::bindLookupResult` (Expression.cpp, "If we were accessed via a
+// virtual interface wrap the result up in a member access expression") then
+// wraps the LEAF symbol in a SINGLE MemberAccessExpression over the vif
+// expression.  So `vif.cb.data_status` reaches the exporter as
+// MemberAccess(member = ClockVar `data_status`, value = NamedValue `vif`): every
+// component the source wrote BETWEEN the handle and the leaf — a named CLOCKING
+// BLOCK, or a nested interface INSTANCE — is absent from the AST chain, and the
+// hier_path built from that chain came out with 2 elements named
+// `vif.data_status` where golden has 3 named `vif.cb.data_status`.  This is the
+// SVSwitch head (Driver.sv:53).  A REAL interface handle is NOT affected (arm
+// a2: module-scope instance, interface port, modport port, `u_mid.m.cb.ds`
+// hierarchical — all eleven paths were already byte-identical to golden), which
+// is why the law is scoped to the virtual-interface base and to nothing else.
+//
+// THE GATE, and it is exactly what the code below tests:
+//   (1) the accessed VALUE's canonical type is a VirtualInterfaceType;
+//   (2) walking UP from the leaf symbol's scope reaches that vif's own interface
+//       body through NOTHING BUT named CLOCKING BLOCKs and nested interface
+//       INSTANCE bodies (an allowlist: a MODPORT scope, a class, a statement
+//       block — anything else — DECLINES, which is what keeps a plain modport
+//       member like `vif.reset` at two elements, since a ModportPortSymbol's
+//       parent scope IS the modport);
+//   (3) at least one such component was collected (else nothing was collapsed);
+//   (4) the WRITTEN text immediately before the leaf's name token is EXACTLY
+//       `<comp>.` for each recovered component, in order.  The spans are
+//       computed by walking BACKWARD from the leaf token, so a space, a comment
+//       or an escaped identifier IN THAT WINDOW would make them LIES — the text
+//       check is what makes them measurements.
+//
+// MEASURED, arm a5 (one cell per way of breaking clause (4); every cell's dump
+// is quoted in the README) — and it REFUTES two guesses an earlier revision of
+// this comment made:
+//   * `vif . cb . ds` (spaces around the dots) DECLINES, as designed: the window
+//     before `ds` reads " cb", not "cb.".  We then emit the pristine 2-element
+//     path, which is still not golden's 3-element one — DECLINING IS NOT BEING
+//     RIGHT, it is refusing to guess a span.  README residue R3.
+//   * a comment or a NEWLINE *before* the recovered component (`vif./*c*/cb.din`,
+//     `vif.\n   cb.din`) FIRES and lands BYTE-IDENTICAL to golden, because the
+//     window checked is only `<comp>.` — what sits to the LEFT of the recovered
+//     component is never read.  The earlier claim that these are lies was wrong.
+//   * a path spelled entirely through a MACRO (`` `CBSEL(vif) `` with body
+//     `H.cb.ds`) also FIRES and lands BYTE-IDENTICAL to golden (both tools put
+//     every element at the macro CALL site).  The earlier claim that the macro
+//     case declines — "residue R4" — is REFUTED; it converges.
+// Callers get names + spans and mint the elements themselves, because the three
+// hier_path builders differ in what an element is (ref_obj / bit_select comp).
+bool UhdmExporter::vifCollapsedComponents5(
+    const MemberAccessExpression& ma,
+    std::vector<std::pair<std::string, SourceRange>>& out) {
+    out.clear();
+    const Type* vt = ma.value().type;
+    if (!vt)
+        return false;
+    auto& cvt = vt->getCanonicalType();
+    if (cvt.kind != SymbolKind::VirtualInterfaceType)
+        return false;
+    const Scope* stop = &cvt.as<slang::ast::VirtualInterfaceType>().iface.body;
+    // (2) the scope walk: leaf..base order, allowlisted kinds only.
+    std::vector<std::string> names;
+    const Scope* sc = ma.member.getParentScope();
+    bool reached = false;
+    for (int g = 0; g < 8 && sc; g++) {
+        if (sc == stop) {
+            reached = true;
+            break;
+        }
+        auto& ssym = sc->asSymbol();
+        if (ssym.kind == SymbolKind::ClockingBlock) {
+            if (ssym.name.empty())
+                return false;
+            names.emplace_back(ssym.name);
+            sc = ssym.getParentScope();
+            continue;
+        }
+        if (ssym.kind == SymbolKind::InstanceBody) {
+            auto* pi = ssym.as<InstanceBodySymbol>().parentInstance;
+            if (!pi || pi->name.empty())
+                return false;
+            names.emplace_back(pi->name);
+            sc = pi->getParentScope();
+            continue;
+        }
+        return false;
+    }
+    if (!reached || names.empty())
+        return false;
+    // (4) the spans, walked BACKWARD from the leaf's own name token, and the
+    // text check that makes them true.
+    auto leafEnd = ma.sourceRange.end();
+    if (ma.member.name.empty() || leafEnd == slang::SourceLocation::NoLocation)
+        return false;
+    auto leafStart = leafEnd - ma.member.name.size();
+    if (rawText(SourceRange(leafStart, leafEnd)) != ma.member.name)
+        return false;
+    auto cursor = leafStart;
+    std::vector<std::pair<std::string, SourceRange>> rev;
+    for (auto& nm : names) { // names is leaf..base, i.e. the walk-back order
+        auto dot = cursor - 1;
+        auto start = dot - nm.size();
+        if (rawText(SourceRange(start, cursor)) != nm + ".")
+            return false;
+        rev.emplace_back(nm, SourceRange(start, dot));
+        cursor = start;
+    }
+    out.assign(rev.rbegin(), rev.rend());
+    return true;
+}
+
 // A dotted interface-member reference (s.req.adr): hier_path whose ref_obj
 // elements anchor at their own token; the LAST element carries the
 // module-scoped fullname (work@mod.<last>) — Surelog quirk.
@@ -2573,6 +2688,12 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         std::vector<Sel> sels; // one or more element selects on this component
         SourceRange nameSpan;  // the member/base name token
         bool isBase = false;
+        // § vifClockingPathComponent5 — a component RECOVERED by this pass (one
+        // slang collapsed out of a virtual-interface reference), not one the
+        // source's own member chain produced.  It gets NO explicit fullname:
+        // golden's intermediate `cb` is bare (`ref_obj: (cb) |vpiName:cb`, arm
+        // a4 cell f2), while the LEAF below it still takes the dotted one.
+        bool vifIns5 = false;
     };
     std::vector<Comp> comps;
     const Expression* cur = &expr;
@@ -2584,6 +2705,9 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             c.sels.push_back(*it);
         pendingSels.clear();
     };
+    // § vifClockingPathComponent5 — SITE 2 of 3: the member access adjacent to
+    // the base, i.e. the one slang may have collapsed a vif's inner scopes into.
+    const MemberAccessExpression* innerMa5 = nullptr;
     while (true) {
         if (cur->kind == ExpressionKind::MemberAccess) {
             auto& ma = cur->as<MemberAccessExpression>();
@@ -2593,6 +2717,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             c.nameSpan = SourceRange(end - ma.member.name.size(), end);
             attachSels(c);
             comps.push_back(c);
+            innerMa5 = &ma;
             cur = &ma.value();
         }
         else if (cur->kind == ExpressionKind::ElementSelect) {
@@ -2617,6 +2742,41 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     if (!baseNv)
         return nullptr;
     std::reverse(comps.begin(), comps.end());
+    // § vifClockingPathComponent5 — SITE 2 of 3.  Splice the components slang
+    // collapsed out of a virtual-interface reference in right after the base, as
+    // plain (select-less) components: everything downstream — the hier_path's
+    // name, each element's fullname, and `firstMemberSpan` (the lvalue base
+    // anchor, which golden puts on the FIRST recovered component) — is then
+    // derived from the component list exactly as it is for a written path.
+    // THE LIVE CELL HERE IS ARM a4 f2, `varr[0].cb.ds <= 1` — a SELECT ON THE
+    // BASE with the collapsed component above it.  MEASURED CORRECTION: an
+    // earlier revision of this comment claimed arm a3 cells e1/e3
+    // (`vif.cb.din[3] <= 1`, `r = vif.cb.dout[2]`) and THAT IS FALSE — those
+    // are `ElementSelect` over `MemberAccess` over a NamedValue base, and the
+    // ElementSelect case routes them to the single-dim `chain` arm, not here
+    // (this builder is only entered when the chain BOTTOMS OUT in another
+    // select).  e1/e3 are still 2-element after this pass; they are README
+    // residue R2, deliberately unfixed because their corpus reach is ZERO (the
+    // only `.<cb>.<sig>[` sites in either corpus are 12 lines in `ariane`, a
+    // test with NO ROW, and they go through a real interface port anyway).
+    // The `comps.size() == 2` gate is SITE 1's `chain.size() == 1` in this
+    // builder's terms: exactly ONE member access above the base is what a
+    // collapsed vif reference looks like, and a longer chain is the
+    // `this.vif.cb.sig` shape whose golden is defective (README R1).
+    if (comps.size() == 2 && innerMa5) {
+        std::vector<std::pair<std::string, SourceRange>> vifComps5;
+        if (vifCollapsedComponents5(*innerMa5, vifComps5)) {
+            std::vector<Comp> ins5;
+            for (auto& vc5 : vifComps5) {
+                Comp c5;
+                c5.name = vc5.first;
+                c5.nameSpan = vc5.second;
+                c5.vifIns5 = true;
+                ins5.push_back(c5);
+            }
+            comps.insert(comps.begin() + 1, ins5.begin(), ins5.end());
+        }
+    }
 
     std::string dotted;
     for (size_t i = 0; i < comps.size(); ++i) {
@@ -2804,7 +2964,18 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             auto* r = s.MakeRef_obj();
             r->VpiName(comp.name);
             (void)r->VpiFullName();
-            if (baseSelMode && !comp.isBase) {
+            // § vifClockingPathComponent5 — SITE 2 of 3.  A RECOVERED component
+            // stays BARE.  Golden, arm a4 f2 (`varr[0].cb.ds <= 1`):
+            //     \_ref_obj: (cb) ... |vpiName:cb            <- NO vpiFullName
+            //     \_ref_obj: (varr[0].cb.ds) ... |vpiName:ds  |vpiFullName:...
+            // so the dotted fullname belongs to the LEAF only.  This costs
+            // nothing in `Compare` (BaseClass::Compare reads VpiType, VpiName,
+            // VpiDefName — never VpiFullName) and is here to keep the BYTES
+            // converging, which is the instrument GATE 5 uses.
+            if (comp.vifIns5) {
+                // nothing: no explicit fullname on a recovered component
+            }
+            else if (baseSelMode && !comp.isBase) {
                 // Trailing member of a base-select path: an RVALUE resolves to
                 // the struct member's own fullname (work@top.min_v); an LVALUE
                 // keeps the dotted path.
@@ -11964,8 +12135,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto& bnv = base->as<NamedValueExpression>();
                     if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                         refCollector->insert(&bnv.symbol);
+                    // § vifClockingPathComponent5 — SITE 3 of 3, the RANGE
+                    // select over a collapsed vif reference
+                    // (`vif.cb.din[3:0] <= 4'h5`, arm a3 cell e2).  Same gate as
+                    // SITE 1: ONE member access above the base.
+                    std::vector<std::pair<std::string, SourceRange>> vifComps5;
+                    if (chain.size() == 1)
+                        vifCollapsedComponents5(
+                            chain.front()->as<MemberAccessExpression>(), vifComps5);
                     auto* hp = s.MakeHier_path();
                     std::string dotted(bnv.symbol.name);
+                    for (auto& vc5 : vifComps5)
+                        dotted += "." + vc5.first;
                     for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2)
                         dotted += "." +
                                   std::string(
@@ -12013,14 +12194,35 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // token, keeping only its own length.
                         SourceRange bsr9 = base->sourceRange;
                         if (inLhs && !chain.empty()) {
+                            // § vifClockingPathComponent5 — SITE 3 of 3.  With a
+                            // recovered component the anchor is that component's
+                            // WHOLE token, not "the first member's start plus the
+                            // base's own length": golden's a3 e2 base ref is
+                            // 43:9-11, i.e. exactly the two columns of `cb`.
+                            if (!vifComps5.empty()) {
+                                bsr9 = vifComps5.front().second;
+                            }
+                            else {
                             auto& fma9 =
                                 (*chain.rbegin())->as<MemberAccessExpression>();
                             auto fst9 = (*chain.rbegin())->sourceRange.end() -
                                         fma9.member.name.size();
                             bsr9 = SourceRange(
                                 fst9, fst9 + bnv.symbol.name.size());
+                            }
                         }
                         setLoc(r, bsr9);
+                        elems->push_back(r);
+                    }
+                    // § vifClockingPathComponent5 — SITE 3 of 3: the recovered
+                    // components, bare ref_objs at their own token (same shape as
+                    // SITE 1's).
+                    for (auto& vc5 : vifComps5) {
+                        auto* r = s.MakeRef_obj();
+                        r->VpiName(vc5.first);
+                        (void)r->VpiFullName();
+                        r->VpiParent(hp);
+                        setLoc(r, vc5.second);
                         elems->push_back(r);
                     }
                     for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2) {
@@ -12750,8 +12952,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 nv.symbol.kind == SymbolKind::Parameter &&
                 nv.symbol.getType().getCanonicalType().kind ==
                     SymbolKind::PackedStructType;
+            // § vifClockingPathComponent5 — SITE 1 of 3.  The components slang
+            // collapsed out of a virtual-interface reference, recovered and
+            // spliced in between the base and the leaf.  `chain.size() == 1` is
+            // part of the gate — BUT THE RATIONALE THIS COMMENT ORIGINALLY GAVE
+            // FOR IT WAS FALSE, and the verifier's cell refuted it at
+            // integration (its F1): golden's defect is specific to the WRITTEN
+            // `this` KEYWORD (`this.vif.cb.sig` -> golden emits `this.vif.cb`,
+            // dropping the leaf; arm a4 cell f1), NOT to chain length.  For a
+            // vif held by ANOTHER OBJECT (`ho.h.cb.ds`, verifier arm
+            // v3_handle.sv) golden is perfectly well-formed — 4 elements — and
+            // this gate OVER-DECLINES it.  Priced: 635 `X.Y.<cb>.<id>` source
+            // sites across the corpora, ZERO in any test with a CMP row today
+            // (all SLANG_REJECT / no-row / never-compiled library), which is
+            // why no gate moves — but it becomes the live population the
+            // moment Opentitan/Ibex/SimpleInterface stop being SLANG_REJECT.
+            // Ranked R1b in the README, above R1: widening this gate needs the
+            // longer-chain recovery MEASURED, not assumed, with the
+            // this-keyword cell as its negative control.
+            std::vector<std::pair<std::string, SourceRange>> vifComps5;
+            if (chain.size() == 1)
+                vifCollapsedComponents5(chain.front()->as<MemberAccessExpression>(),
+                                        vifComps5);
             auto* hp = s.MakeHier_path();
             std::string dotted(nv.symbol.name);
+            for (auto& vc5 : vifComps5)
+                dotted += "." + vc5.first;
             for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2)
                 dotted += "." + std::string((*it2)->as<MemberAccessExpression>().member.name);
             hp->VpiName(dotted);
@@ -12803,17 +13029,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // Lvalue paths (and param-init struct-member reads) anchor the
                 // base ref at the FIRST member's token span.
                 if ((inLhs || paramInitStructMember) && !chain.empty()) {
+                    // § vifClockingPathComponent5 — SITE 1 of 3.  With a
+                    // recovered component spliced in, the FIRST member is that
+                    // component, not the leaf: golden puts BOTH the base ref and
+                    // the `cb` ref on the `cb` token (a1 c1, `vif.cb.ds <= 1`).
+                    if (!vifComps5.empty()) {
+                        setLoc(r, vifComps5.front().second);
+                    }
+                    else {
                     auto& fm = *chain.back();
                     auto end = fm.sourceRange.end();
                     setLoc(r, SourceRange(
                                   end - fm.as<MemberAccessExpression>().member.name.size(),
                                   end));
+                    }
                 }
                 else {
                     setLoc(r, base->sourceRange);
                 }
                 elems->push_back(r);
                 }
+            }
+            // § vifClockingPathComponent5 — SITE 1 of 3.  The recovered
+            // components are plain ref_objs at their own name token with a
+            // NAME-ONLY fullname, in BOTH positions: golden's intermediate `cb`
+            // is bare (`ref_obj (cb)`) whether the path is an lvalue (a1 c1) or
+            // an rvalue (a1 c3), and only the LEAF ever takes a scoped fullname.
+            for (auto& vc5 : vifComps5) {
+                auto* r = s.MakeRef_obj();
+                r->VpiName(vc5.first);
+                (void)r->VpiFullName();
+                r->VpiParent(hp);
+                setLoc(r, vc5.second);
+                elems->push_back(r);
             }
             for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2) {
                 auto& ma = (*it2)->as<MemberAccessExpression>();
