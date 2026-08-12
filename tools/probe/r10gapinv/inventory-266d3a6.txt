@@ -1,0 +1,36 @@
+DISTINCT FAMILIES with any delta: 1037   total differing instances: 635587
+TOTAL   FAMILY (kind of line @ owner)              TESTS  per-test delta (+=golden has more / we MISS, -=we OVER-emit)
+26654   FIELD vpiParent/ @constant                 9      SeqDriver+10364 Earlgrey_+5300 SimpleUVM+2912 Scoreboar+2717
+21893   FIELD vpiActual/ @ref_typespec             8      Earlgrey_+12006 SeqDriver+4556 YosysVerx-1848 SimpleUVM+1373
+21888   FIELD vpiParent/ @ref_typespec             8      Earlgrey_+11916 SeqDriver+4597 YosysVerx-1848 SimpleUVM+1399
+20424   FIELD vpiFullName/s @ref_typespec          8      Earlgrey_+10593 SeqDriver+4823 YosysVerx-1848 SimpleUVM+1353
+18540   FIELD vpiSize/# @constant                  9      Earlgrey_+5330 SeqDriver+4921 YosysVerx-2374 SimpleUVM+1899
+18533   FIELD vpiConstType/# @constant             9      Earlgrey_+5330 SeqDriver+4936 YosysVerx-2374 SimpleUVM+1894
+18057   FIELD vpiDecompile/# @constant             9      Earlgrey_+5113 SeqDriver+4718 YosysVerx-2136 SimpleUVM+1804
+12143   CHILD range @constant                      9      SeqDriver+4212 YosysVerx-1892 Earlgrey_+1512 BuildUVMP+1223
+11986   CHILD constant @range                      9      SeqDriver+4114 YosysVerx-1892 Earlgrey_+1494 BuildUVMP+1216
+10705   FIELD UINT/# @constant                     9      SeqDriver+2816 YosysVerx-2135 Earlgrey_+1901 SimpleUVM+1298
+8958    FIELD vpiParent/ @int_typespec             7      Earlgrey_+5566 SeqDriver+1934 Rggen+556 SimpleUVM+528
+8204    CHILD ref_typespec @int_typespec           7      Earlgrey_+4423 SeqDriver+2086 SimpleUVM+670 Rggen+556
+8121    CHILD int_typespec @ref_typespec           7      Earlgrey_+5701 SeqDriver+1033 SimpleUVM+806 Scoreboar+457
+7290    FIELD INT/# @constant                      8      Earlgrey_+3255 SeqDriver+1823 Rggen-689 BuildUVMP+519
+6859    CHILD int_typespec @design                 7      Earlgrey_+5032 SeqDriver+676 Rggen+497 BuildUVMP-375
+6393    FIELD vpiRightRange/ @range                9      SeqDriver+2142 YosysVerx-946 Earlgrey_+822 BuildUVMP+716
+6393    FIELD vpiLeftRange/ @range                 9      SeqDriver+2142 YosysVerx-946 Earlgrey_+822 BuildUVMP+716
+6389    FIELD vpiParent/ @range                    9      SeqDriver+2141 YosysVerx-946 Earlgrey_+822 BuildUVMP+715
+6247    CHILD bit_typespec @ref_typespec           6      SeqDriver+2462 BuildUVMP+1247 Scoreboar+997 SimpleUVM+993
+6019    FIELD vpiTypespec/ @hier_path              1      Earlgrey_+6019
+6019    CHILD hier_path @ref_typespec              1      Earlgrey_+6019
+6019    CHILD ref_typespec @hier_path              1      Earlgrey_+6019
+5863    CHILD struct_typespec @ref_typespec        3      Earlgrey_+5822 SeqDriver+40 BuildUVMP+1
+5703    FIELD vpiName/s @ref_obj                   8      Earlgrey_-2915 YosysVerx-1495 Rggen+450 SeqDriver-353
+5555    FIELD vpiExpr/ @hier_path                  1      Earlgrey_+5555
+5428    FIELD vpiFullName/s @ref_obj               8      Earlgrey_-2883 YosysVerx-1495 SeqDriver-351 Rggen+204
+5315    CHILD ref_typespec @bit_typespec           6      SeqDriver+3021 BuildUVMP+737 SimpleUVM+656 Scoreboar+656
+5070    CHILD struct_var @hier_path                1      Earlgrey_+5070
+5042    FIELD vpiParent/ @ref_obj                  8      Earlgrey_-2915 YosysVerx-1495 Rggen+450 SeqDriver-95
+4839    FIELD vpiSigned/# @int_typespec            6      Earlgrey_+3352 Rggen+496 BuildUVMP-314 Scoreboar-302
+
+80% of all differing instances live in the TOP 111 families (of 1037)
+done YosysVerx
+done Rggen
