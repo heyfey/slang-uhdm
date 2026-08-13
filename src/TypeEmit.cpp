@@ -14906,10 +14906,17 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
         // this site is not one — it is a place the registry was never asked.
         //
         // The keyword arms below stay as the FALLBACK rather than delegating to
-        // assocIndexTs wholesale: this site sets VpiSigned on a signed
-        // predefined-integer index and assocIndexTs does not, so routing
-        // everything through it would silently drop a compared flag here (or
-        // add one at the other three sites).  Only the registry arm is shared.
+        // assocIndexTs wholesale.  THE REASON THIS COMMENT USED TO GIVE IS NO
+        // LONGER TRUE AND IS CORRECTED HERE RATHER THAN LEFT TO ROT: it said
+        // "this site sets VpiSigned on a signed predefined-integer index and
+        // assocIndexTs does not, so routing everything through it would ...
+        // add one at the other three sites".  § assocIndexTsSigned63 measured
+        // golden at the other sites and golden WANTS the flag at every one of
+        // them (arms b1/b3/b4 — class, inner dimension, package), so the
+        // asymmetry this comment defended was a DEFECT, not an invariant.  The
+        // stamp is now ONE body called from all three producers; what still
+        // keeps this site's arms separate is only the SPAN/Instance handling
+        // below, which differs per site.
         if (auto* sh43 = sharedAliasTs(*dims[0].indexType)) {
             its = sh43;
             if (auto* cl43 = tdVecNamedClone42(*dims[0].indexType,
@@ -14920,29 +14927,14 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
         else if (ick.kind == SymbolKind::StringType)
             its = s.MakeString_typespec();
         else if (ick.kind == SymbolKind::PredefinedIntegerType) {
-            its = predefIntTypespec(ick, sym);
-            // predefIntTypespec leaves the signed flag to its callers; an
-            // `[int]` index carries it (typespec::Compare reads it).
-            if (its && ick.isSigned())
-                switch (its->UhdmType()) {
-                    case UHDM::uhdmint_typespec:
-                        ((UHDM::int_typespec*)its)->VpiSigned(true);
-                        break;
-                    case UHDM::uhdminteger_typespec:
-                        ((UHDM::integer_typespec*)its)->VpiSigned(true);
-                        break;
-                    case UHDM::uhdmshort_int_typespec:
-                        ((UHDM::short_int_typespec*)its)->VpiSigned(true);
-                        break;
-                    case UHDM::uhdmlong_int_typespec:
-                        ((UHDM::long_int_typespec*)its)->VpiSigned(true);
-                        break;
-                    case UHDM::uhdmbyte_typespec:
-                        ((UHDM::byte_typespec*)its)->VpiSigned(true);
-                        break;
-                    default:
-                        break;
-                }
+            // § assocIndexTsSigned63 — predefIntTypespec leaves the signed flag
+            // to its callers; an `[int]` index carries it (typespec::Compare
+            // reads it).  THIS SITE IS UNCHANGED IN BEHAVIOUR: the clause it
+            // used to spell out inline is now the shared body, and arm b2's
+            // module grid (m01..m21) is the before/after control that says so —
+            // it read `same` on every signed-atom cell BEFORE this pass and
+            // must still read `same` after it.
+            its = assocIndexSignedAtom63(ick, predefIntTypespec(ick, sym));
         }
         else if (ick.isIntegral())
             its = s.MakeLogic_typespec();

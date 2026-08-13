@@ -1791,10 +1791,94 @@ UHDM::typespec* UhdmExporter::assocIndexTs(const Type& idx, const Symbol& sym) {
         return sh;
     }
     if (ic.kind == SymbolKind::PredefinedIntegerType)
-        return predefIntTypespec(ic, sym);
+        return assocIndexSignedAtom63(ic, predefIntTypespec(ic, sym));
     if (ic.isIntegral())
         return s.MakeLogic_typespec();
     return nullptr;
+}
+
+// § assocIndexTsSigned63 — the INDEX TYPESPEC of an ASSOCIATIVE array carries
+// `vpiSigned` = THE INDEX TYPE'S RESOLVED SIGNEDNESS, and carries NOTHING ELSE.
+//
+// GATE: `ic.isSigned()` on the CANONICAL index type, and the kind switch.  That
+// is the WHOLE gate — no scope test, no view test, no typedef test, no
+// declarator test — and each of those was measured rather than assumed
+// (tools/probe/r10uvm63repro, arms b1..b4, 4 scopes x 21 index kinds):
+//
+//   CLASS property (b1) / MODULE variable (b2) / PACKAGE variable (b4) —
+//     golden's grid is CELL-FOR-CELL IDENTICAL in all three.  `integer` `int`
+//     `byte` `shortint` `longint` and their explicit `signed` spellings read
+//     `vpiSigned:1`; `time`, every `unsigned` spelling, `bit`, `logic`, `reg`,
+//     unsigned packed vectors and `string` read ABSENT.  There is no scope this
+//     law is bound to, which is why the gate has no scope term.
+//   OUTER slot (`vpiIndexTypespec`) and INNER slot (the `STRING:associative`
+//     marker constant's own typespec, dimensions 2..N of `[string][integer]`)
+//     read THE SAME (b3 f10..f13 / g10..g13).  The law is a property of the
+//     INDEX POSITION, not of the vpiIndexTypespec SLOT, so it belongs in this
+//     shared factory and not at one call site.
+//
+// **THE `vpiParent` HALF OF § arrayElemTsSignedParented9 DOES NOT CARRY OVER,
+// AND THAT IS THE PASS'S SHARPEST MEASUREMENT.**  The ELEMENT typespec of a
+// dynamic/queue/assoc class property takes BOTH `vpiParent` -> its element var
+// AND `vpiSigned`; the INDEX typespec takes `vpiSigned` ALONE.  Golden's index
+// object is UNPARENTED in every cell of b1, b2 and b3's declaration-spanned
+// rows — 21 + 21 + 8 cells, zero exceptions.  The only index cells where golden
+// prints `vpiParent` are the ones whose object is a TYPEDEF's own listing
+// object (b3 `?line17`..`?line23`, b4 `t01`..`t05`), where the parent is the
+// typedef declaration and has nothing to do with the index position.  Stamping
+// `VpiParent` here would have been a MEASURED over-fire on every cell this pass
+// clears, transcribed from a sibling law that does not apply.
+//
+// NOR IS THERE A TYPEDEF GATE, and that too is a measured difference from § 9.
+// § arrayElemTsSignedParented9 gates on `cp.getType().kind != TypeAlias`
+// (clause (a) of § arrayVarSignedWritten8) because golden's object for a
+// whole-array typedef is a bare `array_typespec` carrying neither field.  The
+// index position has no such cell: for `typedef int T[integer]; T q;` golden's
+// index object is the TYPEDEF's `integer_typespec`, and it carries
+// `vpiSigned:1` (arm b4 `?line32`).  A typedef gate here would suppress a flag
+// golden emits.  A typedef'd INDEX (`T q[my_int_t]`) never reaches this arm at
+// all — `sharedAliasTs` / § arrayElemTdClone42 returns above it.
+//
+// WHERE THE CLAUSE CAME FROM: it is TRANSCRIBED, not invented.  The
+// module/interface instance-level writer (`src/TypeEmit.cpp`, grep
+// `assocIndexTs and assocIndexTs does not`) has carried exactly this switch
+// since pass 43, and its own comment records that `assocIndexTs` lacked it —
+// that note is what this pass measured and acted on.  `src/ParamEmit.cpp`'s
+// § assocIdxSiteFive44 gets the same call, so all THREE producers of the index
+// rule now agree; `grep -rn 'assocIndexSignedAtom63' src/ include/` names them.
+//
+// DIRECTION: ADD ONLY.  The helper mints nothing, deletes nothing, re-parents
+// nothing and moves no span; the only dump-line shape it can produce is
+// `|vpiSigned:1`.  A null typespec is passed through untouched so the caller's
+// `if (its)` guards keep their meaning.
+//
+// `time` IS DOUBLY EXCLUDED, on purpose: `isSigned()` is false for it AND the
+// switch has no `time_typespec` case, matching `makeTypespec`.  Golden reads
+// ABSENT for `[time]` in all four arms (b1 c06 / b2 m06 / b4 p06).
+UHDM::typespec* UhdmExporter::assocIndexSignedAtom63(const Type& ic,
+                                                     UHDM::typespec* ts) {
+    if (!ts || !ic.isSigned())
+        return ts;
+    switch (ts->UhdmType()) {
+        case UHDM::uhdmint_typespec:
+            ((UHDM::int_typespec*)ts)->VpiSigned(true);
+            break;
+        case UHDM::uhdminteger_typespec:
+            ((UHDM::integer_typespec*)ts)->VpiSigned(true);
+            break;
+        case UHDM::uhdmshort_int_typespec:
+            ((UHDM::short_int_typespec*)ts)->VpiSigned(true);
+            break;
+        case UHDM::uhdmlong_int_typespec:
+            ((UHDM::long_int_typespec*)ts)->VpiSigned(true);
+            break;
+        case UHDM::uhdmbyte_typespec:
+            ((UHDM::byte_typespec*)ts)->VpiSigned(true);
+            break;
+        default:
+            break;
+    }
+    return ts;
 }
 
 // The associative dimensions of one class property.  The OUTERMOST index type

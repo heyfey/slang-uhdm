@@ -1395,6 +1395,12 @@ private:
         caFoldReadNames;
     UHDM::typespec* predefIntTypespec(const slang::ast::Type& ct,
                                       const slang::ast::Symbol& sym);
+    // § assocIndexTsSigned63 — stamp an ASSOCIATIVE-INDEX typespec with the
+    // index type's RESOLVED signedness and nothing else.  Read the law at the
+    // definition in src/UhdmExporter.cpp; `ic` must be the CANONICAL index
+    // type, and a null `ts` is passed through.
+    UHDM::typespec* assocIndexSignedAtom63(const slang::ast::Type& ic,
+                                           UHDM::typespec* ts);
 
     slang::SourceLocation structTypedefUseEnd(
         const slang::ast::InstanceBodySymbol& body,

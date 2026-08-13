@@ -20530,7 +20530,13 @@ bool UhdmExporter::emitPkgArrayVar(const Symbol& vs, UHDM::instance* up,
             else if (ick.kind == SymbolKind::StringType)
                 its = s.MakeString_typespec();
             else if (ick.kind == SymbolKind::PredefinedIntegerType)
-                its = predefIntTypespec(ick, vs);
+                // § assocIndexTsSigned63 — this site is a HAND COPY of
+                // `assocIndexTs`'s arms (it does not call it), so it owes the
+                // signedness stamp separately.  MEASURED at PACKAGE scope, arm
+                // b4 cells p01..p09: golden's grid there is cell-for-cell the
+                // same as the class (b1) and module (b2) grids, so the law has
+                // no scope term and this copy may not have one either.
+                its = assocIndexSignedAtom63(ick, predefIntTypespec(ick, vs));
             else if (ick.isIntegral())
                 its = s.MakeLogic_typespec();
         }
