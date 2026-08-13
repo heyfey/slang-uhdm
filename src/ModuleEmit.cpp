@@ -879,40 +879,42 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
 
-        // A class-handle def net carries a typespec ONLY when the handle is
-        // never procedurally assigned (bar = new() strips it — OneThis vs
-        // OneClass).
-        bool classHandle =
-            it.sym->getDeclaredType() &&
-            it.sym->getDeclaredType()->getType().getCanonicalType().kind ==
-                SymbolKind::ClassType;
-        // ...but a handle written with a SCOPED class name (pack::doorOpen)
-        // keeps its typespec regardless: Surelog resolves the class_scope
-        // reference eagerly, so the write never strips it (ClassMini).
-        if (classHandle)
-            if (auto dts9 = it.sym->getDeclaredType();
-                dts9 && dts9->getTypeSyntax() &&
-                dts9->getTypeSyntax()->kind == syntax::SyntaxKind::NamedType &&
-                dts9->getTypeSyntax()->as<syntax::NamedTypeSyntax>().name->kind ==
-                    syntax::SyntaxKind::ScopedName)
-                classHandle = false;
-        if (classHandle) {
-            bool written = false;
-            for (auto& mb : body.members()) {
-                if (mb.kind != SymbolKind::ProceduralBlock)
-                    continue;
-                mb.as<ProceduralBlockSymbol>().getBody().visit(
-                    makeVisitor([&](auto& vis, const AssignmentExpression& ax) {
-                        auto& lc = stripImplicitConv(ax.left());
-                        if (lc.kind == ExpressionKind::NamedValue &&
-                            &lc.as<NamedValueExpression>().symbol == it.sym)
-                            written = true;
-                        vis.visitDefault(ax);
-                    }));
-            }
-            if (!written)
-                classHandle = false;
-        }
+        // § classHandleWriteKeepsTs10 — ASSIGNING a class handle does NOT strip
+        // its def-view typespec.  There is NO class-handle clause in this gate:
+        // a class handle is typed by exactly the same rules as any other net,
+        // and the ONE thing that removes its def-view typespec is the NON-ANSI
+        // HEADER rule (`namedTypeNet`, just below) — a rule about the SPELLING
+        // of the type in the module HEADER's neighbourhood, not about what the
+        // body does to the handle.
+        //
+        // This replaces a `written`-strip that stood here and cited OneThis vs
+        // OneClass.  Both citations survive WITHOUT it and the strip was a pure
+        // over-fire; r10svs10 measured the cross in three arms:
+        //
+        //   c2 h_nonansi   `module h(a); input a;`  h1 ASSIGNED  golden NONE
+        //                                          h2 unassigned golden NONE
+        //        -> in OneThis's own header form golden strips BOTH, so
+        //           assignment is not what stripped OneThis: `namedTypeNet` is,
+        //           and it still fires (bare `foo` name, no initializer).
+        //   c2 i_ansi      `module i(input logic a);`  i1 ASSIGNED golden TS(K)
+        //                                             i2 unassign  golden TS(K)
+        //   c2 f_none      `module f;`                 f1 ASSIGNED golden TS(K)
+        //   c1             TOP module / non-top module / TOP program /
+        //                  non-top program / interface, ASSIGNED: golden TS(K)
+        //                  in EVERY one — scope kind and top-ness both refuted.
+        //
+        // So golden's answer never depends on the write, and the strip was
+        // wrong on six cells while being redundant on the ones it got right.
+        // It was also incoherent on its own terms: it scanned only
+        // ProceduralBlock members, so a handle assigned inside a TASK or
+        // FUNCTION body (c3 n3/n4) kept its typespec while the same assignment
+        // in an `initial` (n1) lost it.
+        //
+        // The SCOPED-name carve-out that sat here (ClassMini, `pack::doorOpen`)
+        // went with it: it existed only to undo this strip, and c2 j1/j2 plus
+        // c3 q8 confirm a scoped-name handle keeps its typespec with no clause
+        // of its own — it is simply a net like the others now.
+        //
         // In a NON-ANSI-HEADER module (a `(...)` port list that is not
         // ANSI-declared — a non-ANSI list, or empty parens) Surelog fails to
         // resolve a BARE typedef NAME while writing the definition's nets, so
@@ -945,7 +947,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         bool explicitPortNet =
             std::find(explicitPortSyms.begin(), explicitPortSyms.end(),
                       it.sym) != explicitPortSyms.end();
-        if (!it.port && !explicitPortNet && !implicitNet && !classHandle &&
+        if (!it.port && !explicitPortNet && !implicitNet &&
             !namedTypeNet && !typeParamArgNet && !hasBareImplicitType(*it.sym)) {
             // Local nets carry a typespec whose actual is created only in
             // the write phase (Surelog arena order); the ref is patched then.
