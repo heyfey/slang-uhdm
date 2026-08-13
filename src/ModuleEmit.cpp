@@ -298,16 +298,39 @@ static bool isPkgStructType(const Symbol& sym, bool descendUnpacked = false) {
     return false;
 }
 
+// § pkgStructDeclArrFlat35 — a packed dimension written AT THE DECLARATION is
+// TRANSPARENT to the struct-FLATNESS tests.
+//
+// `isPkgStructType` already walks packed-array dims down to the struct leaf,
+// but the two FLATNESS tests that qualify its wire tag — this one, and the
+// atom-member test at the def-view net site — stopped at the declaration's
+// OWN canonical type and answered "not a struct" for `pkg::t [N-1:0] x`.
+// The pair was incoherent: one and the same declaration was a package-struct
+// net for the purpose of the tag and a non-struct for the purpose of the
+// tag's exceptions, so every exception silently switched off the moment a
+// packed dimension was written at the declaration.
+//
+// Returns the canonical STRUCT the declaration ultimately names, or nullptr.
+// PACKED dims only: the unpacked case is unmeasured (residue R3) and the
+// member arm below has always been packed-only too.
+static const Type* declPackedStructLeaf35(const Symbol& sym) {
+    auto* dt = sym.getDeclaredType();
+    if (!dt)
+        return nullptr;
+    const Type* t = &dt->getType().getCanonicalType();
+    while (t->getCanonicalType().kind == SymbolKind::PackedArrayType)
+        t = &t->getCanonicalType().as<PackedArrayType>().elementType;
+    const Type& c = t->getCanonicalType();
+    return c.isStruct() ? &c : nullptr;
+}
+
 // A struct with a nested-struct field: Surelog leaves its net UNTYPED
 // (no vpiNetType), unlike flat vector/scalar-member structs.
 static bool hasStructFieldMember(const Symbol& sym) {
-    auto* dt = sym.getDeclaredType();
-    if (!dt)
+    const Type* leaf = declPackedStructLeaf35(sym);
+    if (!leaf)
         return false;
-    auto& ct = dt->getType().getCanonicalType();
-    if (!ct.isStruct())
-        return false;
-    for (auto& f : ct.as<Scope>().members())
+    for (auto& f : leaf->as<Scope>().members())
         if (f.kind == SymbolKind::Field) {
             auto& fct = f.as<FieldSymbol>().getType().getCanonicalType();
             if (fct.isStruct())
@@ -852,13 +875,13 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                    it.sym->getDeclaredType()->getType().getCanonicalType().kind ==
                        SymbolKind::UnpackedStructType) &&
                  !([&] {
-                     auto d9 = it.sym->getDeclaredType();
-                     if (!d9)
+                     // § pkgStructDeclArrFlat35 — the ATOM-member test reads
+                     // the same struct leaf as the nested-member test beside
+                     // it: a declaration-carried packed dim is transparent.
+                     const Type* c9 = declPackedStructLeaf35(*it.sym);
+                     if (!c9)
                          return false;
-                     auto& c9 = d9->getType().getCanonicalType();
-                     if (!c9.isStruct())
-                         return false;
-                     for (auto& f9 : c9.as<Scope>().members())
+                     for (auto& f9 : c9->as<Scope>().members())
                          if (f9.kind == SymbolKind::Field) {
                              auto& fc9 = f9.as<FieldSymbol>()
                                              .getType()
