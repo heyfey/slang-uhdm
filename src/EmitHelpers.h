@@ -2671,6 +2671,65 @@ inline bool nullInitDefnParented2(bool vifProp,
            cp.getType().getCanonicalType().kind == slang::ast::SymbolKind::CHandleType;
 }
 
+// § classScopedTypedefPropIsBareLogicVar73 — does this class PROPERTY's
+// DECLARED TYPE NAME live in a CLASS scope that the property's own class body
+// does not itself declare?
+//
+// Surelog compiles a class property from a `Signal` whose type is the WRITTEN
+// NAME, and resolves that name against the class's OWN typedef table and the
+// enclosing package / compilation unit — never against another class's.  A name
+// that has to come out of a class scope (`C::t`, or a typedef INHERITED from a
+// base class, or the class's own typedef written `C::t`) is not found, no
+// typespec binds, and `ElaborationStep::makeVar_` falls off the end of its
+// `subnettype` switch into the same `// default type (fallback)` arm that
+// § virtualIfacePropIsBareLogicVar6 already transcribes: a BARE `logic_var`
+// with NO vpiTypespec, keeping only name / fullname / parent / span and the
+// qualifier fields (`vpiAutomatic`, `vpiVisibility`, `vpiConstantVariable`,
+// `vpiIsRandomized` + `vpiRandType`).  This is the THIRD trigger of that one
+// fallback, not a new object.
+//
+// THE GATE, read off the grid (tools/probe/r10uvm73repro/README.md §2) and
+// nothing else:
+//   (1) the property's OWN declared type is a TYPEDEF NAME (a TypeAlias).  A
+//       bare `holder h;` class handle, a `logic [7:0] x;`, and every
+//       declarator-formed array (`holder::e_t x[3]`, `x[]`, `x[$]`) are NOT
+//       typedef names and do NOT degrade — arm a1 cells c_class_handle,
+//       c_qual_enum_arr, c_qual_enum_aa and arm a5 cells c_qual_dyn / c_qual_q
+//       read AGREE on both sides today.  A typedef of a WHOLE array or queue
+//       DOES degrade (a5 c_qual_arrtd / c_qual_qtd), which is why the test is
+//       on the WRITTEN type and not on the canonical kind.
+//   (2) that typedef's HOME SCOPE is a ClassType.  A package / $unit typedef
+//       does not degrade however it is written — a1 c_pkg_enum, c_pkg_struct,
+//       c_pkgqual_enum (`p1::pkg_e_t`, package-QUALIFIED, still fine).
+//   (3) and either the home class is NOT the property's own class (INHERITED —
+//       a1 c_inh_enum, a2 c_grand_inh, two levels up), or the name was WRITTEN
+//       with a `::` scope qualifier (a1 c_self_qual_enum: the class's OWN
+//       typedef, self-qualified, degrades — so the qualifier alone is
+//       sufficient and "can Surelog see the type" is REFUTED as the axis).
+//
+// The population is a class property only: the same type on a FUNCTION LOCAL
+// (a1 l_qual_enum), on a FORMAL ARGUMENT (a1 a_qual_enum) and on a class-scope
+// ALIAS of the same qualified name (a2 c_locloc) all keep their full typespec
+// in golden.  A PACKAGE variable degrades too (a5 p_pkgvar) but that is a
+// different emission site with its own canary surface — README residue R1.
+inline bool classScopedTypedefProp73(const slang::ast::ClassPropertySymbol& cp,
+                                     const slang::ast::Symbol& ownerCls) {
+    const slang::ast::Type& dt = cp.getType();
+    if (dt.kind != slang::ast::SymbolKind::TypeAlias)
+        return false;
+    const slang::ast::Scope* home = dt.getParentScope();
+    if (!home || home->asSymbol().kind != slang::ast::SymbolKind::ClassType)
+        return false;
+    if (&home->asSymbol() != &ownerCls)
+        return true;
+    // The class's OWN typedef: only the ::-qualified SPELLING degrades.
+    if (auto* tsyn = cp.getDeclaredType()->getTypeSyntax())
+        if (auto* nts = tsyn->as_if<syntax::NamedTypeSyntax>())
+            return nts->name &&
+                   nts->name->kind == syntax::SyntaxKind::ScopedName;
+    return false;
+}
+
 // Is this parameter's own DECLARED default a TIME literal (parameter P = 5ns)?
 // Read from the declarator syntax, not getInitializer(), so an instance
 // override cannot flip the answer (same reasoning as

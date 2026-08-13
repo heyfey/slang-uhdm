@@ -807,6 +807,19 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         int32_t vis = cp.visibility == Visibility::Protected ? 2
                       : cp.visibility == Visibility::Local   ? 3
                                                              : 1;
+        // § classScopedTypedefPropIsBareLogicVar73 — a property whose DECLARED
+        // TYPE NAME comes out of a CLASS scope the property's own class body
+        // does not declare (`uvm_sequencer_base::seq_req_t request;`,
+        // uvm_sequencer_base.svh:1771 — the head this pass was given, and
+        // `rand uvm_mem_mam::alloc_mode_e mode` / `locality` with it) is a BARE
+        // `logic_var` in golden with NO vpiTypespec at all: Surelog's Signal
+        // never binds a typespec for it and `makeVar_` ends in the same
+        // `// default type (fallback)` arm § virtualIfacePropIsBareLogicVar6
+        // transcribes.  The predicate is in EmitHelpers.h with its three
+        // measured clauses; it is read HERE, ahead of every emission arm,
+        // because the degradation outranks the ARRAY arm too (a5 c_qual_qtd: a
+        // class-scope QUEUE typedef is a logic_var, not an array_var).
+        const bool foreignTd73 = classScopedTypedefProp73(cp, cls);
         // § fixedClassPropIsArrayVar6 — a FIXED-SIZE unpacked-array CLASS
         // PROPERTY (`Receiver rcvr[4];`) is an `array_var` in golden, built from
         // exactly the same parts as the dynamic/queue/assoc property one line
@@ -910,9 +923,18 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         }
         // A DYNAMIC-array / QUEUE / ASSOC property is an array_var carrying a
         // bare array_typespec, with the ELEMENT variable under vpiReg.
-        if (fixedElem6 || ct.kind == SymbolKind::DynamicArrayType ||
-            ct.kind == SymbolKind::QueueType ||
-            ct.kind == SymbolKind::AssociativeArrayType) {
+        // § classScopedTypedefPropIsBareLogicVar73 outranks this arm: the
+        // FIXED gate above already refuses a typedef NAME (clause 2), but this
+        // one does not, so a class-scope WHOLE-QUEUE / WHOLE-DYNAMIC typedef
+        // (`holder::q_t x;`) would otherwise build an array_var where golden
+        // has a bare logic_var — arm a5 cell c_qual_qtd, measured on both
+        // binaries.  A DECLARATOR-formed array of the same qualified element
+        // (`holder::e_t x[]`, `x[$]`) is NOT a typedef name, so it keeps this
+        // arm and stays byte-identical to golden (a5 c_qual_dyn / c_qual_q).
+        if (!foreignTd73 &&
+            (fixedElem6 || ct.kind == SymbolKind::DynamicArrayType ||
+             ct.kind == SymbolKind::QueueType ||
+             ct.kind == SymbolKind::AssociativeArrayType)) {
             const Type* et = nullptr;
             int32_t akind = 2;
             // Every ASSOCIATIVE dimension of the declaration, outermost
@@ -1231,10 +1253,21 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         // var (int_var + vpiSigned), not a bare bit_var; anonymous bit/logic
         // vectors keep bit/logic_var.
         UHDM::variables* v = nullptr;
+        // § classScopedTypedefPropIsBareLogicVar73 — FIRST, ahead of every kind
+        // decode, because the degradation is decided by the NAME's home scope
+        // and not by what the name resolves to: arm a4 measures golden's
+        // `logic_var` on the class-qualified enum, int, string, chandle,
+        // packed struct, unpacked struct, whole-array, whole-queue and CLASS
+        // HANDLE spellings alike (c_plain, c_randc, c_str, c_chand,
+        // c_qual_pstruct, c_qual_ustruct, a5 c_qual_arrtd / c_qual_qtd,
+        // a2 c_qual_handle), against our enum_var / int_var / string_var /
+        // chandle_var / bit_var / struct_var / array_var / class_var.
+        if (foreignTd73)
+            v = s.MakeLogic_var();
         // An ENUM-typed property is an enum_var, not the bit/logic_var its
         // integral base would give (SimpleConstraint `rand pkt_type ptype`);
         // the array-element path (classElemVar) already had this rule.
-        if (ct.kind == SymbolKind::EnumType)
+        else if (ct.kind == SymbolKind::EnumType)
             v = s.MakeEnum_var();
         else if (ct.isIntegral()) {
             if (ct.kind == SymbolKind::PredefinedIntegerType)
@@ -1352,10 +1385,42 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                     std::string d0 = u0.toString(LiteralBase::Decimal, false);
                     auto* c0 = s.MakeConstant();
                     c0->VpiDecompile(d0);
-                    c0->VpiSize((int32_t)cp.getType().getBitWidth());
+                    // § classScopedTypedefPropIsBareLogicVar73, the INITIALIZER
+                    // half — and it is § classPropNullInitParentedByTypespec2's
+                    // OWN law seen on a third population, exactly as that pass
+                    // stated it ("having no typespec is the gate"): with no
+                    // typespec the constant is parented by the CLASS_DEFN, not
+                    // by the variable.  Arm a4 cells c_intinit and c_const
+                    // against their controls k_intinit / k_const (the var).
+                    //
+                    // THE SIZE IS **NOT** A CONSTANT 64 — verifier arm v3
+                    // (v3_size.sv, `§ 73` refinement) measured golden on the
+                    // cells that make "property width" and "literal width"
+                    // DISAGREE, and the carrier is the LITERAL AS WRITTEN:
+                    //   c_uns   `holder::i_t = 7`     unsized -> 64
+                    //   c_uns96 `holder::w_t = 7`     unsized -> 64  (NOT 96)
+                    //   c_uns4  `holder::n_t = 7`     unsized -> 64  (NOT 4)
+                    //   c_mix_w4`holder::w_t = 4'd7`  SIZED   ->  4  (NOT 64)
+                    //   c_sz8   `holder::i_t = 8'd7`  SIZED   ->  8  (NOT 64)
+                    //   c_sz32  `holder::i_t = 32'd7` SIZED   -> 32  (NOT 64)
+                    // i.e. an UNSIZED literal falls back to Surelog's
+                    // typespec-less default 64 (the a4 cells that produced the
+                    // original "sized 64" reading are all unsized), while a
+                    // SIZED literal keeps the width it was written with.  The
+                    // NON-degraded branch is deliberately left EXACTLY as it
+                    // was: its own sized-literal defect (v3 k_sz8 / k_mix_w4,
+                    // identical on the pristine binary) is PRE-EXISTING and
+                    // belongs to another head — widening the fix there would
+                    // move corpus rows this pass has not measured.
+                    c0->VpiSize(
+                        foreignTd73
+                            ? (ic0.as<IntegerLiteral>().isDeclaredUnsized
+                                   ? 64
+                                   : (int32_t)ic0.type->getBitWidth())
+                            : (int32_t)cp.getType().getBitWidth());
                     c0->VpiValue("UINT:" + d0);
                     c0->VpiConstType(vpiUIntConst);
-                    c0->VpiParent(v);
+                    c0->VpiParent(foreignTd73 ? (UHDM::any*)cd : (UHDM::any*)v);
                     setLoc(c0, ic0.sourceRange);
                     v->Expr(c0);
                 }
@@ -1398,13 +1463,41 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                         std::string d1 = u1.toString(LiteralBase::Decimal, false);
                         auto* c1 = s.MakeConstant();
                         c1->VpiDecompile(d1);
-                        c1->VpiSize((int32_t)cp.getType().getBitWidth());
+                        // § classScopedTypedefPropIsBareLogicVar73 — the SAME
+                        // two facts one level down: the OPERATION takes the
+                        // class_defn parent and the operand constant is sized
+                        // by the LITERAL AS WRITTEN.  Arm a4 cell c_neg
+                        // (`holder::i_t c_neg = -1`) against its control k_neg
+                        // (the var).  `int depth = -1` is uvm-1.2's single
+                        // commonest property initializer, so the shape is not
+                        // hypothetical — only its class-qualified spelling is
+                        // rare.
+                        //
+                        // The size is NOT a constant 64, for exactly the reason
+                        // v3 gives one level up; verifier arm v4 (v4_neg.sv)
+                        // measures the negated twin:
+                        //   c_n_uns  `holder::i_t = -1`     unsized -> 64
+                        //   c_n_uns4 `holder::n_t = -1`     unsized -> 64
+                        //   c_n_sz8  `holder::i_t = -8'd1`  SIZED   ->  8
+                        //   c_n_sz4  `holder::w_t = -4'd1`  SIZED   ->  4
+                        // `ub0` is already stripped of the implicit conversion,
+                        // so its type IS the literal's own.  The non-degraded
+                        // branch is again left untouched (v4 k_n_sz8 / k_n_sz4
+                        // are the same PRE-EXISTING defect, identical on the
+                        // pristine binary).
+                        c1->VpiSize(
+                            foreignTd73
+                                ? (ub0.as<IntegerLiteral>().isDeclaredUnsized
+                                       ? 64
+                                       : (int32_t)ub0.type->getBitWidth())
+                                : (int32_t)cp.getType().getBitWidth());
                         c1->VpiValue("UINT:" + d1);
                         c1->VpiConstType(vpiUIntConst);
                         setLoc(c1, ub0.sourceRange);
                         auto* op1 = s.MakeOperation();
                         op1->VpiOpType(vpiMinusOp);
-                        op1->VpiParent(v);
+                        op1->VpiParent(foreignTd73 ? (UHDM::any*)cd
+                                                   : (UHDM::any*)v);
                         setLoc(op1, ic0.sourceRange);
                         c1->VpiParent(op1);
                         auto* ops1 = s.MakeAnyVec();
@@ -1522,7 +1615,15 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                 cn6->VpiSize(64);
                 cn6->VpiValue("UINT:0");
                 cn6->VpiConstType(vpiNullConst);
-                cn6->VpiParent(nullInitDefnParented2(vifProp6, cp)
+                // § classScopedTypedefPropIsBareLogicVar73 joins the FIRST
+                // argument, not the helper: r10buvm2 owns this predicate and
+                // its law is "NO TYPESPEC -> the null constant keeps Surelog's
+                // class_defn parent".  A degraded property has no typespec, so
+                // it is another instance of THAT law rather than a new one, and
+                // the helper's body is left untouched.  Arm a4 cell c_null
+                // (`holder::self_t c_null = null` — class_defn-parented in
+                // golden) against control k_null (var-parented).
+                cn6->VpiParent(nullInitDefnParented2(vifProp6 || foreignTd73, cp)
                                    ? (UHDM::any*)cd
                                    : (UHDM::any*)v);
                 setLoc(cn6, ic0.sourceRange);
@@ -1539,7 +1640,12 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         // variables::Compare reads, so the property must skip it entirely.
         // Arm cells c1..c5, c7..c9, c12, k6, k8, k9 all read exactly
         // name/fullname/parent/span/automatic/visibility on BOTH sides.
-        if (vifProp6) {
+        // § classScopedTypedefPropIsBareLogicVar73 (second half) — the SAME
+        // skip, for the same reason: golden's degraded object has NO
+        // vpiTypespec edge at all (the head's `logic_var
+        // (uvm_pkg::uvm_sequence_request::request)` is six fields long and ours
+        // was thirteen), so it must not reach the write-phase mint either.
+        if (vifProp6 || foreignTd73) {
             vars->push_back(v);
             continue;
         }
