@@ -11430,11 +11430,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                 }
                 // § multiDimPackedParamNoFold, other half — the operation that
-                // law keeps alive IS the instance's complex value, and
-                // UhdmWriter.cpp:2214 runs reorderAssignmentPattern over a
-                // module's param_assigns on the way out, so the TOP listing
-                // carries the reversed form while the DEF listing (written from
-                // the unreduced expression) keeps source order.
+                // law keeps alive IS the instance's complex value, and it is
+                // reordered on the way into the ELABORATED listing, so the TOP
+                // listing carries the reversed form while the DEF listing
+                // (written from the unreduced expression) keeps source order.
                 // Entered on a CONCAT head only — the same scope
                 // § multiDimPackedParamNoFold keeps alive.  Pattern-headed ops
                 // reach this point through other rules that already own their
@@ -11442,7 +11441,59 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // (12 vpiReordered marks against golden's 8 on the repro-6
                 // golden).  The recursion itself stays type-generic because a
                 // concat's nested levels may be either.
-                if (topView && !inPackage && rhs &&
+                //
+                // REFUTATION, r10earl42 — the citation above USED to name
+                // `UhdmWriter.cpp:2214` as the site that runs this for a
+                // module.  That is WRONG and it is why this rule over-fired.
+                // UhdmWriter.cpp:2214 sits in the CONT_ASSIGN loop and passes
+                // the cont_assign's Lhs, and `reorderAssignmentPattern`
+                // (CompileExpression.cpp:5888) reverses ONLY when
+                // `lhs->UhdmType() == uhdmparameter`, so that call can never
+                // reorder anything.  Reading EVERY call site of
+                // `reorderAssignmentPattern` in Surelog:
+                //   * CompileExpression 944 / 1015 / 1117 — gated
+                //     `opType == vpiAssignmentPatternOp` (a CONCAT never
+                //     enters);
+                //   * NetlistElaboration 286 — gated
+                //     `opType == vpiAssignmentPatternOp ||
+                //      vpiMultiAssignmentPatternOp` (idem);
+                //   * NetlistElaboration 1455 — lhs is a PORT's
+                //     `Actual_group`, never a parameter;
+                //   * UhdmWriter 2214 — cont_assign lhs, never a parameter;
+                //   * DesignElaboration 2348 / 2592 — the "Regular params"
+                //     loop over the MODULE'S OWN DECLARED parameters, where
+                //     ANY operation value (concat included) is reordered.
+                // A top-level CONCAT therefore reorders in exactly one place:
+                // the module's OWN parameter list.  A package localparam
+                // MATERIALIZED into a module by a wildcard import is not a
+                // member of that loop and keeps SOURCE ORDER.
+                //
+                // § importedConcatNoMdimReorder42 — hence `!isImported`.
+                // Golden grid (a1_earl42.sv, topModules, imported copies in
+                // work@mimp42): B1_PKG_CC `logic [3:0][31:0] = {c,c,c,c}`,
+                // B6_PKG_NEST `logic [1:0][1:0][31:0] = {{c,c},{c,c}}` and
+                // B9_PKG_SYM `logic [NW-1:0][31:0] = {c,c,c,c}` are ALL
+                // source-ordered and UNFLAGGED in golden, while the module's
+                // OWN D1_OWN_NEST / D2_OWN_FLAT / C1_MOD_CC reverse.  The
+                // ref_obj-headed imported copy B5_PKG_CR still reverses and is
+                // owned by § modParamPatternReorder above, which is why this
+                // gate must not be widened to cover it.
+                // Earlgrey witness: tl_main_pkg.sv:13 ADDR_SPACE_PERI and :32
+                // ADDR_MASK_PERI, materialized into work@top_earlgrey and
+                // work@top_earlgrey.u_xbar_main by `import tl_main_pkg::*`.
+                //
+                // SECOND REFUTATION, SAME CITATION — § modParamPatternReorder
+                // just above cites `UhdmWriter`'s reorderAssignmentPattern for
+                // the same non-existent reason.  Its GATE is measured-correct
+                // and is left alone, but the MECHANISM it names is wrong: the
+                // measured behaviour (v42_overfire.sv) is that a materialized
+                // import copy INHERITS the package listing's order verbatim —
+                // `E2_PKG_CR` is DESC+flagged in allPackages/topPackages AND
+                // in work@mixed42, `E0_PKG_CC` is ASC+unflagged in ALL FOUR —
+                // so an imported copy is never independently reordered at all,
+                // and § modParamPatternReorder is best read as reproducing
+                // that inheritance for the ref_obj-headed case.
+                if (topView && !inPackage && !isImported && rhs &&
                     rhs->UhdmType() == UHDM::uhdmoperation &&
                     ((UHDM::operation*)rhs)->VpiOpType() == vpiConcatOp &&
                     writtenPackedDimCount(ps) >= 2) {

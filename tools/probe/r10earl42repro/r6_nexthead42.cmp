@@ -1,0 +1,46 @@
+LHS:
+decompile:
+constant: , id:194476, line:290:28, endln:290:42
+|vpiParent:
+\_param_assign: , id:194077, line:9:27, endln:9:66
+|vpiDecompile:32'h00008000
+|vpiSize:32
+|HEX:00008000
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey), id:194477
+  |vpiParent:
+  \_constant: , id:194476, line:290:28, endln:290:42
+  |vpiFullName:work@top_earlgrey
+  |vpiActual:
+  \_logic_typespec: , id:194478, line:9:14, endln:9:26
+|vpiConstType:5
+
+decompile:
+constant: , id:194476, line:290:28, endln:290:42
+|vpiParent:
+\_param_assign: , id:194077, line:9:27, endln:9:66
+|vpiDecompile:32'h00008000
+|vpiSize:32
+|HEX:00008000
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey), id:194477
+  |vpiParent:
+  \_constant: , id:194476, line:290:28, endln:290:42
+  |vpiFullName:work@top_earlgrey
+  |vpiActual:
+  \_logic_typespec: , id:194478, line:9:14, endln:9:26
+|vpiConstType:5
+RHS:
+decompile:
+ref_obj: (work@top_earlgrey.u_rv_core_ibex.boot_addr_i.ADDR_SPACE_ROM), id:189207, line:290:28, endln:290:42
+|vpiParent:
+\_port: (boot_addr_i), id:189206, line:290:5, endln:290:43
+|vpiName:ADDR_SPACE_ROM
+|vpiFullName:work@top_earlgrey.u_rv_core_ibex.boot_addr_i.ADDR_SPACE_ROM
+
+decompile:
+ref_obj: (work@top_earlgrey.u_rv_core_ibex.boot_addr_i.ADDR_SPACE_ROM), id:189207, line:290:28, endln:290:42
+|vpiParent:
+\_port: (boot_addr_i), id:189206, line:290:5, endln:290:43
+|vpiName:ADDR_SPACE_ROM
+|vpiFullName:work@top_earlgrey.u_rv_core_ibex.boot_addr_i.ADDR_SPACE_ROM
