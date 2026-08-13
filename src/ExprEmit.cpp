@@ -11347,7 +11347,58 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // every actual bare, while the SAME design's
                         // module-level `is_compliance(test_file)` in a plain
                         // always block is bare on both sides already.
+                        //
+                        // § defGenProcArgNoFormalTs39 — and the DEF-VIEW
+                        // GENERATE process emitter is a THIRD emitter of the
+                        // same procedural context, covered by NEITHER flag.
+                        // `inProcessEmit` is emitModuleDef's process loop and
+                        // `inGenScopeProc` is the ELABORATED gen_scope loop; an
+                        // `always`/`initial` written inside ANY generate scope
+                        // (a gen-for BODY, a gen-if / gen-else BRANCH, a
+                        // gen-case ITEM) is re-emitted for the AllModules
+                        // listing by emitDefGenStmts' own process loop, which
+                        // sets `defGenProcessEmit` — so every such block
+                        // escaped the procedural bar and stamped the callee's
+                        // formal typespec on its actuals.  Earlgrey
+                        // `prim_prince` is the measurement and it is THE head:
+                        // `always_comb begin : p_fwd_d64` inside
+                        // `if (DataWidth == 64) begin : gen_fwd_d64` calls
+                        // `prim_cipher_pkg::prince_mult_prime_64bit(
+                        // data_state_round)` and golden's DEF-view actual is
+                        // BARE, while ours carried a ref_typespec -> the
+                        // FORMAL's logic_typespec (prim_cipher_pkg.sv:110:59).
+                        // The Earlgrey census is 30/30 golden-bare across both
+                        // shapes that design contains (`gen_if_else > always`
+                        // and `gen_for > gen_if_else > always`) with ZERO golden
+                        // stamps anywhere under a def-view generate process, and
+                        // the rule is INDIFFERENT to the actual's kind: the 18
+                        // objects it moves are 14 ref_obj and 4 bit_select, and
+                        // a1_argts.sv crosses part-select, constant, operation,
+                        // nested call, param ref, int formal and typedef formal
+                        // in the same position — plus a gen-for BODY process
+                        // (`gen_g1`, which no Earlgrey def listing happens to
+                        // contain) and `always_ff` / `always_latch` / `always @*`
+                        // / `initial` — every one golden-bare.
+                        // A generate CONT-ASSIGN is NOT covered (it is not
+                        // procedural): golden's own behaviour there is mixed by
+                        // actual kind (prim_present) and a1_argts `gen_g6` is
+                        // the control that must not move.
+                        //
+                        // SECOND EFFECT, cmp-invisible and load-bearing for
+                        // BYTES: `ref_obj::VpiFullName()` is a LAZY MEMOISING
+                        // getter (it calls ComputeFullName and caches).  The
+                        // block below READS it to name the ref_typespec, and at
+                        // that moment emitDefGenStmts has not yet run
+                        // `p->VpiParent(b)` on the process — so the parent walk
+                        // stopped at the module and FROZE a fullname missing the
+                        // generate components (`work@prim_prince.p_fwd_d64.
+                        // data_state_round` for golden's `work@prim_prince.
+                        // gen_fwd_pass.gen_fwd_d64.p_fwd_d64.data_state_round`).
+                        // Not stamping means not reading, so 14 Earlgrey
+                        // ref_objs get their name computed at dump time from the
+                        // finished tree and reach golden's string exactly.
                         if (isFunc && !inProcessEmit && !inGenScopeProc &&
+                            !defGenProcessEmit &&
                             !caCondReduceStop && argCtxOk && !pkgScopedRef &&
                             !strFormalConst && !paramInitLit9 && !namedArgs9 &&
                             // A PROPERTY-DECL body's call args carry no

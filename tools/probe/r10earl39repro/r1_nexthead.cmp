@@ -1,0 +1,100 @@
+LHS:
+decompile:
+var_select: (prim_cipher_pkg::PRINCE_ROUND_CONST), id:148354, line:106:29, endln:106:82
+|vpiParent:
+\_operation: , id:148353, line:105:29, endln:106:82
+|vpiName:prim_cipher_pkg::PRINCE_ROUND_CONST
+|vpiIndex:
+\_ref_obj: (work@prim_prince.gen_fwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST.k), id:148355, line:106:65, endln:106:66
+  |vpiParent:
+  \_var_select: (prim_cipher_pkg::PRINCE_ROUND_CONST), id:148354, line:106:29, endln:106:82
+  |vpiName:k
+  |vpiFullName:work@prim_prince.gen_fwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST.k
+|vpiIndex:
+\_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (prim_cipher_pkg::PRINCE_ROUND_CONST), id:148356, line:106:68, endln:106:81
+  |vpiParent:
+  \_var_select: (prim_cipher_pkg::PRINCE_ROUND_CONST), id:148354, line:106:29, endln:106:82
+  |vpiName:prim_cipher_pkg::PRINCE_ROUND_CONST
+  |vpiDefName:prim_cipher_pkg::PRINCE_ROUND_CONST
+  |vpiConstantSelect:1
+  |vpiLeftRange:
+  \_operation: , id:148358, line:106:68, endln:106:79
+    |vpiParent:
+    \_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (prim_cipher_pkg::PRINCE_ROUND_CONST), id:148356, line:106:68, endln:106:81
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (work@prim_prince.gen_fwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST.DataWidth), id:148357, line:106:68, endln:106:77
+      |vpiParent:
+      \_operation: , id:148358, line:106:68, endln:106:79
+      |vpiName:DataWidth
+      |vpiFullName:work@prim_prince.gen_fwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST.DataWidth
+    |vpiOperand:
+    \_constant: , id:148359, line:106:78, endln:106:79
+      |vpiParent:
+      \_operation: , id:148358, line:106:68, endln:106:79
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:148360, line:106:80, endln:106:81
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+var_select: (prim_cipher_pkg::PRINCE_ROUND_CONST), id:148354, line:106:29, endln:106:82
+|vpiParent:
+\_operation: , id:148353, line:105:29, endln:106:82
+|vpiName:prim_cipher_pkg::PRINCE_ROUND_CONST
+|vpiIndex:
+\_ref_obj: (work@prim_prince.gen_fwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST.k), id:148355, line:106:65, endln:106:66
+  |vpiParent:
+  \_var_select: (prim_cipher_pkg::PRINCE_ROUND_CONST), id:148354, line:106:29, endln:106:82
+  |vpiName:k
+  |vpiFullName:work@prim_prince.gen_fwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST.k
+|vpiIndex:
+\_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (prim_cipher_pkg::PRINCE_ROUND_CONST), id:148356, line:106:68, endln:106:81
+  |vpiParent:
+  \_var_select: (prim_cipher_pkg::PRINCE_ROUND_CONST), id:148354, line:106:29, endln:106:82
+  |vpiName:prim_cipher_pkg::PRINCE_ROUND_CONST
+  |vpiDefName:prim_cipher_pkg::PRINCE_ROUND_CONST
+  |vpiConstantSelect:1
+  |vpiLeftRange:
+  \_operation: , id:148358, line:106:68, endln:106:79
+    |vpiParent:
+    \_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (prim_cipher_pkg::PRINCE_ROUND_CONST), id:148356, line:106:68, endln:106:81
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (work@prim_prince.gen_fwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST.DataWidth), id:148357, line:106:68, endln:106:77
+      |vpiParent:
+      \_operation: , id:148358, line:106:68, endln:106:79
+      |vpiName:DataWidth
+      |vpiFullName:work@prim_prince.gen_fwd_pass.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST.DataWidth
+    |vpiOperand:
+    \_constant: , id:148359, line:106:78, endln:106:79
+      |vpiParent:
+      \_operation: , id:148358, line:106:68, endln:106:79
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:148360, line:106:80, endln:106:81
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS:
+decompile:
+ref_obj: (prim_cipher_pkg::PRINCE_ROUND_CONST[k][DataWidth-1:0]), id:127541, line:106:29, endln:106:82
+|vpiParent:
+\_operation: , id:127539, line:105:29, endln:106:82
+|vpiName:prim_cipher_pkg::PRINCE_ROUND_CONST[k][DataWidth-1:0]
+
+decompile:
+ref_obj: (prim_cipher_pkg::PRINCE_ROUND_CONST[k][DataWidth-1:0]), id:127541, line:106:29, endln:106:82
+|vpiParent:
+\_operation: , id:127539, line:105:29, endln:106:82
+|vpiName:prim_cipher_pkg::PRINCE_ROUND_CONST[k][DataWidth-1:0]
