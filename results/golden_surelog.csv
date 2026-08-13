@@ -1557,8 +1557,8 @@ YosysOldI2c,default,CMP_EQUAL,,,differ
 YosysOldI2c,testflags,CMP_EQUAL,,,differ
 YosysOldOpen,default,CMP_EQUAL,,,differ
 YosysOldOpen,testflags,CMP_EQUAL,,,differ
-YosysOldOr,default,CMP_NOTEQUAL,decompile:,,
-YosysOldOr,testflags,CMP_NOTEQUAL,decompile:,,
+YosysOldOr,default,CMP_EQUAL,,,differ
+YosysOldOr,testflags,CMP_EQUAL,,,differ
 YosysOldSasc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysOldTests/sasc/cache/synth.v:1:8: error: design element does not have a time scale defi,,
 YosysOldSasc,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysOldTests/sasc/cache/synth.v:1:8: error: design element does not have a time scale defi,,
 YosysOldSimpleSpi,default,CMP_EQUAL,,,differ

@@ -13981,8 +13981,17 @@ int32_t UhdmExporter::srlgRangedElabWidth(const ParameterSymbol& ps) {
 //   select in a NESTED ternary condition   assign w = n[0]?(P[0]?..)   -> LOCATED
 //   select in a LOCALPARAM initializer     localparam Q = P[0]         -> LOCATED
 //   select in a param-init ternary cond    parameter Q = P[0] ? 3 : 4  -> LOCATED
-//   whole name in a ternary condition      assign w = P ? n1 : n2      -> LOCATED
+//   whole name in a ternary condition      assign w = P ? n1 : n2      -> *WRONG*
+//        REFUTED by r10yoo1 arms z5 and k1: golden answers BARE here, not
+//        LOCATED.  z5 uses THIS table's own parameter shape (`parameter [4:0]
+//        P1 = 7`) in exactly this position; k1 repeats it with the module
+//        INSTANTIATED, which is the one difference this table's probes had.
+//        Both come back BARE.  The position is now handled by
+//        § caTernOperandRead1 in paramCaFoldRead below; this row is kept, struck
+//        through, because a silently deleted wrong measurement is indistinguishable
+//        from one that was never made.
 //   whole name in a non-foldable CA        assign o = a & P            -> LOCATED
+//        (still true: r10yoo1 arm cells y2 `nb & B1` and y6 `{nf,F1}`)
 //   never read                                                        -> LOCATED
 // So Surelog's cont-assign reduce descends only as far as it stays constant:
 // a top-level ternary gets its CONDITION evaluated (getObject) even when the
@@ -14238,13 +14247,96 @@ bool UhdmExporter::paramCaFoldRead(const ParameterSymbol& ps) {
                 continue;
             auto& rhs = asn.as<AssignmentExpression>().right();
             ASTContext ctx(comp.getRoot(), LookupLocation::max);
-            if (!ctx.tryEval(rhs))
+            auto harvest = [&](const Expression& e) {
+                e.visit(makeVisitor([&](auto& v,
+                                        const NamedValueExpression& nv) {
+                    if (nv.symbol.kind == SymbolKind::Parameter)
+                        names.insert(nv.symbol.name);
+                    v.visitDefault(nv);
+                }));
+            };
+            if (ctx.tryEval(rhs)) {
+                harvest(rhs);
                 continue;
-            rhs.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
-                if (nv.symbol.kind == SymbolKind::Parameter)
-                    names.insert(nv.symbol.name);
-                v.visitDefault(nv);
-            }));
+            }
+            // § caTernOperandRead1 — A CONT-ASSIGN RHS THAT DOES NOT FOLD AS A
+            // WHOLE STILL REDUCES ITS TERNARY OPERANDS, and Surelog calls
+            // getObject on a parameter it reaches that way.  Two positions, and
+            // only two, were measured to reach it:
+            //
+            //   (1) the CONDITION, when the condition itself folds
+            //         assign o = P ? n1 : n2;            -> BARE
+            //   (2) BOTH BRANCHES, when BOTH of them fold
+            //         assign o = (n1|n2) ? P2 : P1;      -> BARE, BARE
+            //
+            // and a branch pair with ONE non-constant member reaches nothing:
+            //         assign o = n ? P : n2;             -> LOCATED
+            //
+            // WHY THE `tryEval(rhs)` ABOVE IS NOT ENOUGH, which is this whole
+            // pass: the corpus witness is
+            //   or1200_fpu_intfloat_conv.v:283  assign out_fixed =
+            //       ((qnan_d | snan_d) | ind_d) ? QNAN : INF;
+            // whose CONDITION reads NETS, so the RHS folds nowhere, so INF and
+            // QNAN were never harvested and kept the declaration's LOCATED
+            // int_typespec -- while golden gives them the loc-less bare one and
+            // gives SNAN (read nowhere) the located one.  That 2-cell split IS
+            // the YosysOldOr head.
+            //
+            // MEASURED, arm a5_readshape.v / a6_overfire.v / a7_instantiated.v,
+            // golden side, every module in the ELABORATED view:
+            //   y1 both branches, cond is nets      -> BARE,BARE   (the witness)
+            //   y3 whole name in the condition      -> BARE
+            //   y4 ONE branch a param, other a net  -> LOCATED
+            //   y5 branch of a NESTED ternary       -> LOCATED
+            //   y2 `nb & B1` / y6 `{nf,F1}`         -> LOCATED (not a ternary)
+            //   y7 the same ternary in an always    -> LOCATED (not a cont-assign)
+            //   y8 never read                       -> LOCATED
+            //   z1 untyped sized-literal param      -> BARE  (witness population)
+            //   z2 RANGED untyped param             -> BARE
+            //   z3 TYPED logic-vector param         -> BARE
+            //   z6 ranged, ONE branch               -> LOCATED
+            //   z7 unsized-decimal init             -> no range exists; unmoved
+            //   k3 an OVERRIDDEN param              -> LOCATED (the caller's
+            //                                         !isOverriddenParam gate)
+            //
+            // THE ABLATION TABLE AT src/ParamEmit.cpp:13993 IS REFUTED BY z5/k1.
+            // It records `whole name in a ternary condition -> LOCATED`.  Cell
+            // z5 runs the table's OWN parameter shape (`parameter [4:0] P1 = 7`)
+            // in exactly that position and golden answers BARE; cell k1 repeats
+            // it with the module INSTANTIATED -- the one difference the table's
+            // probes had -- and golden still answers BARE.  So that row is
+            // wrong, not merely narrow, and the comment there now says so.
+            //
+            // Only the PLAIN single-predicate ternary is modelled; a pattern
+            // condition (`cond matches p`) is left alone, exactly as the two
+            // other ConditionalOp readers in this codebase leave it
+            // (src/ExprEmit.cpp:209, :2102).
+            const Expression& r0 = stripImplicitConv(rhs);
+            if (r0.kind != ExpressionKind::ConditionalOp)
+                continue;
+            auto& co = r0.as<ConditionalExpression>();
+            if (co.conditions.size() != 1 || co.conditions[0].pattern)
+                continue;
+            // VERIFIER EXPERIMENT (r10yoo1v): harvest a WHOLE NAME only, never
+            // a name buried inside a compound operand.  Golden keeps the
+            // LOCATED ts for `(P == c) ? n : n`, `n ? (B1|c) : (B2|c)` and a
+            // NESTED foldable branch pair (arm v1_verifier.v, 8 cells).
+            auto harvestWhole = [&](const Expression& e) {
+                const Expression& s = stripImplicitConv(e);
+                if (s.kind != ExpressionKind::NamedValue)
+                    return;
+                auto& sym = s.as<NamedValueExpression>().symbol;
+                if (sym.kind == SymbolKind::Parameter)
+                    names.insert(sym.name);
+            };
+            if (ctx.tryEval(*co.conditions[0].expr))
+                harvestWhole(*co.conditions[0].expr);
+            // BOTH branches, or neither: y4/z6 are the cells that make this an
+            // `&&` and not two independent tests.
+            if (ctx.tryEval(co.left()) && ctx.tryEval(co.right())) {
+                harvestWhole(co.left());
+                harvestWhole(co.right());
+            }
         }
         it = caFoldReadNames.emplace(body, std::move(names)).first;
     }
