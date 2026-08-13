@@ -20619,12 +20619,15 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
             std::string localFull(r->VpiFullName());
             if (localFull.empty())
                 localFull = pf.fullName + "." + std::string(sub.name);
-            auto* lv = makeReturnVar(s, sub.getReturnType(),
-                                     [&] {
-                                         auto* rs0 = returnTypeSyntax(sub);
-                                         return rs0 && rs0->kind ==
-                                             slang::syntax::SyntaxKind::ImplicitType;
-                                     }());
+            // § implicitRetSigningIsIntVar70, site 4 of 4 — `drainFuncRet`'s
+            // per-reference body local (arm a4 cells 25:12 `selfref_u` and
+            // 29:12 `selfref_s`, both golden int_var + vpiSigned:1).  A
+            // "just gate the in-body return var" patch would have left this
+            // object a logic_var while its sibling became an int_var, on the
+            // SAME declaration.
+            auto* lv = makeReturnVar(
+                s, sub.getReturnType(),
+                implicitRetWrittenSigning70(returnTypeSyntax(sub)));
             // § atomVarSignedWritten68, site 7 of 7 — the PER-REFERENCE body
             // local `drainFuncRet` mints for a reference to the return name.
             // ADJACENT TO § retLocalPkgRangeBind67, which owns this same

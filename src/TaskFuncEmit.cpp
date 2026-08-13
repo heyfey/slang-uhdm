@@ -2399,12 +2399,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // same shape on all four UVM tests.
             if (mp.subroutineKind == SubroutineKind::Function &&
                 !mp.getReturnType().isVoid()) {
-                auto* prv = makeReturnVar(s, mp.getReturnType());
-                // § atomVarSignedWritten68, site 1 of 7 — a PURE VIRTUAL
-                // prototype's synthesized return var (arm a5 cell 18:25).
-                clearNamedAtomSigned68(prv, mp.getReturnType());
-                prv->VpiFullName(pt->VpiFullName());
-                prv->VpiParent(pt);
+                // § implicitRetSigningIsIntVar70, site 3 of 4 — the PURE
+                // VIRTUAL prototype (arm a4 cells 12:27 `pv_u` and 13:27
+                // `pv_s`, both golden int_var + vpiSigned:1 + logic_typespec).
+                // THE RETURN-TYPE SYNTAX IS HOISTED ABOVE THE FACTORY for this
+                // one reason: a prototype has no FunctionDeclaration, so
+                // `returnTypeSyntax(sub)` cannot serve it and the predicate
+                // needs the FunctionPrototypeSyntax's own returnType.  The
+                // block below is byte-for-byte the one that used to sit AFTER
+                // the factory call; only its position moved.
                 const syntax::DataTypeSyntax* prsyn = nullptr;
                 if (auto* psyn0 = mp.getSyntax()) {
                     if (psyn0->kind == syntax::SyntaxKind::ClassMethodPrototype)
@@ -2415,6 +2418,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         prsyn = psyn0->as<syntax::FunctionPrototypeSyntax>()
                                     .returnType;
                 }
+                auto* prv = makeReturnVar(s, mp.getReturnType(),
+                                          implicitRetWrittenSigning70(prsyn));
+                // § atomVarSignedWritten68, site 1 of 7 — a PURE VIRTUAL
+                // prototype's synthesized return var (arm a5 cell 18:25).
+                clearNamedAtomSigned68(prv, mp.getReturnType());
+                prv->VpiFullName(pt->VpiFullName());
+                prv->VpiParent(pt);
                 {
                     tfContext = true;
                     auto* pts = makeTypespec(mp, prsyn);
@@ -2938,12 +2948,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // A DPI-IMPORT prototype has no returnValVar; synthesize its Return
         // var (anonymous, at the return-type token, ts ref to a fresh ts).
         if (isFunc && !sub.returnValVar && dpiImport && !sub.getReturnType().isVoid()) {
-            auto* rv = makeReturnVar(s, sub.getReturnType(),
-                                     [&] {
-                                         auto* rs0 = returnTypeSyntax(sub);
-                                         return rs0 && rs0->kind ==
-                                             slang::syntax::SyntaxKind::ImplicitType;
-                                     }());
+            // § implicitRetSigningIsIntVar70, site 2 of 4.  ZERO POPULATION AND
+            // SAID SO: golden emits NO Return var at all for a DPI import whose
+            // return type is implicit-plus-signing (arm a4 cell 18:27, golden
+            // side empty), so this site's cell is an over-emit we already had
+            // and the law only changes its CLASS.  Neither corpus contains the
+            // spelling, so it moves no byte; it is gated here rather than left
+            // behind so the factory's callers all state the same predicate.
+            auto* rv = makeReturnVar(
+                s, sub.getReturnType(),
+                implicitRetWrittenSigning70(returnTypeSyntax(sub)));
             // § atomVarSignedWritten68, site 2 of 7 — a DPI-IMPORT prototype's
             // synthesized return var (arm a5 cell 27:27).
             clearNamedAtomSigned68(rv, sub.getReturnType());
@@ -3001,15 +3015,18 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         sub.getReturnType().as<TypeAliasType>().getParentScope();
                     xsc && xsc->asSymbol().kind == SymbolKind::CoverCrossBody)
                     crossImplicitRet = true;
+            // § implicitRetSigningIsIntVar70, site 1 of 4 — THE HEAD'S OWN
+            // SITE.  The ordinary return variable: in-class method,
+            // out-of-body `extern` body, package-homed free function and
+            // module-homed function alike (arm a3 cells 16/24/29/52/59, arm a1
+            // cells 8/11/16/19).  `uvm_tr_stream::get_recorders` @371:13 and
+            // `uvm_tr_database::get_streams` @186:13 are this cell.
             auto* rv =
                 crossImplicitRet
                     ? (UHDM::variables*)s.MakeRef_var()
-                    : makeReturnVar(s, sub.getReturnType(),
-                                    [&] {
-                                        auto* rs0 = returnTypeSyntax(sub);
-                                        return rs0 && rs0->kind ==
-                                            slang::syntax::SyntaxKind::ImplicitType;
-                                    }());
+                    : makeReturnVar(
+                          s, sub.getReturnType(),
+                          implicitRetWrittenSigning70(returnTypeSyntax(sub)));
             // § atomVarSignedWritten68, site 3 of 7 — THE ordinary return
             // variable, in-class, out-of-body `extern`, package-homed and
             // module-homed alike (arm a5 cells 12:12 pkf, 21:10 V5::ex_ret,

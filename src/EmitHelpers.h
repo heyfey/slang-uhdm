@@ -2075,6 +2075,32 @@ inline const syntax::SyntaxNode* returnTypeSyntax(const SubroutineSymbol& sub) {
     return nullptr;
 }
 
+// § implicitRetSigningIsIntVar70 — THE PREDICATE.  Was the return type written
+// as an IMPLICIT base type (no type keyword at all) carrying a SIGNING KEYWORD?
+//
+//     function unsigned      f;      -> TRUE     <- the UVM head
+//     function signed        f;      -> TRUE
+//     function unsigned[3:0] f;      -> TRUE
+//     function signed  [3:0] f;      -> TRUE
+//     function               f;      -> false    (implicit, NO signing)
+//     function         [3:0] f;      -> false    (implicit, NO signing)
+//     function logic unsigned f;     -> false    (the base type is WRITTEN)
+//     function int  unsigned  f;     -> false    (ditto)
+//
+// THIS IS A SYNTAX QUESTION AND NEVER A TYPE QUESTION, and that is the whole
+// correction this pass makes.  The predecessor arm asked `retType.isSigned()`,
+// which answers "is the resulting TYPE signed" — and golden does not care:
+// `function unsigned get_recorders(...)` produces an `int_var` carrying
+// `vpiSigned:1` in golden even though the keyword says UNSIGNED (measured,
+// tools/probe/r10uvm70repro/README.md §2, arm a1 cells 8/11/16/19).  The flag
+// records that a SIGNING KEYWORD WAS WRITTEN on a type that had no base, not
+// the keyword's direction.
+inline bool implicitRetWrittenSigning70(const syntax::SyntaxNode* rs) {
+    if (!rs || rs->kind != syntax::SyntaxKind::ImplicitType)
+        return false;
+    return rs->as<syntax::ImplicitTypeSyntax>().signing.valid();
+}
+
 // Does a declaration naming this unpacked-array typedef get a per-reference
 // COPY of the typedef's array_typespec, or does it bind the shared object?
 // Measured over a 6-shape golden pair (int / size-form int / anonymous
@@ -2094,7 +2120,7 @@ inline bool unpackedArrayTypedefCopies(const TypeAliasType& ta) {
 
 // Return-value variables take the class of the function's return type.
 inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
-                                      bool signedImplicitRet = false) {
+                                      bool implicitWrittenSigning70 = false) {
     auto& ct = retType.getCanonicalType();
     // § typeParamRetIsRefVar58 — THE GATE, and it must run BEFORE every arm
     // below because the arms key on the CANONICAL type, which for a type
@@ -2212,11 +2238,34 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
     if (ct.kind == SymbolKind::PackedArrayType &&
         ct.as<PackedArrayType>().elementType.kind == SymbolKind::TypeAlias)
         return s.MakePacked_array_var();
-    // A SIGNED implicit-base packed return (function signed [3:0] f) is an
-    // int_var carrying vpiSigned (Surelog); other packed returns/vars stay
-    // logic_vars (signedness rides on the typespec).
-    if (signedImplicitRet && ct.kind == SymbolKind::PackedArrayType &&
-        retType.isSigned()) {
+    // § implicitRetSigningIsIntVar70 — an IMPLICIT-base return type carrying a
+    // WRITTEN SIGNING KEYWORD is an int_var stamped `vpiSigned:1`, in BOTH
+    // directions and with or WITHOUT a packed range (Surelog).  The typespec
+    // stays a logic_typespec and is already correct on our side — golden's own
+    // object disagrees with itself here (int_var + logic_typespec), which is
+    // why the kind cannot be inferred from the typespec.
+    //
+    // THIS ARM REPLACES A NARROWER ONE and the widening is the pass.  The old
+    // text read `signedImplicitRet && ct.kind == PackedArrayType &&
+    // retType.isSigned()`, i.e. "function signed [3:0] f" ONLY, and it missed
+    // three of the four cells its own family contains:
+    //     function unsigned      f;   golden int_var+vpiSigned  <- the UVM head
+    //     function signed        f;   golden int_var+vpiSigned
+    //     function unsigned [3:0]f;   golden int_var+vpiSigned
+    //     function signed   [3:0]f;   golden int_var+vpiSigned  (already right)
+    // `retType.isSigned()` is FALSE for the two `unsigned` spellings, and
+    // `ct.kind == PackedArrayType` is FALSE for the two range-less ones, so the
+    // old gate could only ever pass the fourth.  The predicate now lives in
+    // `implicitRetWrittenSigning70` and asks the SYNTAX, which is the only
+    // thing golden keys on.
+    //
+    // NARROWNESS, stated so the code gate matches the written gate: the caller
+    // passes TRUE only for an `ImplicitTypeSyntax` whose `signing` token is
+    // valid.  A bare `function f;` and a bare `function [3:0] f;` pass FALSE
+    // and keep their old objects; an EXPLICIT base with a signing keyword
+    // (`logic signed`, `reg signed`, `bit unsigned`, `int unsigned`) is not an
+    // ImplicitType at all and never reaches here.
+    if (implicitWrittenSigning70) {
         auto* v = s.MakeInt_var();
         v->VpiSigned(true);
         return v;
