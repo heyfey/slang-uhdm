@@ -8203,10 +8203,34 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     insts->push_back(ei);
                 }
                 // The interface_array wrapper (name=port, fullname=path.port).
+                //
+                // § progPortIfaceArrayUnowned13 — A `program` INSTANCE OWNS NO
+                // PORT-VIEW interface_array.  The wrapper is still built and is
+                // still the port LowConn's actual, but it is UNOWNED: not in
+                // the program's Interface_arrays() vector and carrying no
+                // vpiParent, so Surelog's database reaches it only through that
+                // weak reference (it lands in uhdm-dump's `weaklyReferenced`
+                // tail).  A `module_inst` and an `interface_inst` parent OWN it
+                // normally.  The discriminator is the PARENT'S KIND and nothing
+                // else: measured EQ/DIF-identical across SIX written connection
+                // shapes (ordered x2 udp-shaped, ordered x2 NOT udp-shaped by
+                // an operation first terminal, ordered x2 with an EMPTY
+                // terminal, ordered x1, named, and the `#()` delay2 boundary in
+                // both directions) — arms a1/a3, 20 program cells and 20 module
+                // cells.  This is the TRANSCRIPTION, for Interface_arrays(), of
+                // the rule this file already carries ~1900 lines further down
+                // for Interfaces(): "A `program` instance lists NO port-view
+                // interface_inst: Surelog's program writer never materialises
+                // the per-iface-port instance view that its module writer
+                // does."  Same writer, same omission, same reason.
+                bool progOwner13 = m->UhdmType() == UHDM::uhdmprogram;
                 auto* iarr = s.MakeInterface_array();
                 iarr->VpiName(std::string(portBase->name));
-                iarr->VpiFullName(prefix + "." + std::string(portBase->name));
-                iarr->VpiParent(m);
+                if (!progOwner13) {
+                    iarr->VpiFullName(prefix + "." +
+                                      std::string(portBase->name));
+                    iarr->VpiParent(m);
+                }
                 iarr->VpiSize((int32_t)insts->size());
                 // Locate at the port-declarator name; range at the [dim].
                 if (decl)
@@ -8271,12 +8295,24 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 }
                 if (!insts->empty())
                     iarr->Instances(insts);
-                auto* iarrs = instGetInterfaceArrays(m);
-                if (!iarrs) {
-                    iarrs = s.MakeInterface_arrayVec();
-                    instSetInterfaceArrays(m, iarrs);
+                // § progPortIfaceArrayUnowned13 — the OWNERSHIP clause.  This is
+                // the only COMPARED half of the law: program::Compare
+                // (generated program.cpp:217) and module_inst::Compare
+                // (module_inst.cpp:402) both read Interface_arrays(), so a
+                // vector golden leaves null against ours holding one element is
+                // a one-sided vector failure.  The fullname/parent above are
+                // DUMP-ONLY (instance_array::Compare reads VpiName, VpiSize,
+                // Expr, Ranges, Left/Right_expr, Instances, Modules,
+                // Elem_typespec, Ports — never VpiFullName; no Compare anywhere
+                // reads vpiParent).
+                if (!progOwner13) {
+                    auto* iarrs = instGetInterfaceArrays(m);
+                    if (!iarrs) {
+                        iarrs = s.MakeInterface_arrayVec();
+                        instSetInterfaceArrays(m, iarrs);
+                    }
+                    iarrs->push_back(iarr);
                 }
-                iarrs->push_back(iarr);
                 // Re-point the port LowConn ref from the def modport to the
                 // interface_array wrapper (Surelog).
                 for (auto* pp : ifPortList)
