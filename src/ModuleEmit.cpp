@@ -2274,7 +2274,32 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     auto connSpanA = rep->getPortConnections();
     std::vector<const PortConnection*> ordConnsA(connSpanA.begin(),
                                                  connSpanA.end());
-    if (!hasOrderedConns(*rep)) {
+    // § arrayBcastPortPositionalNoFormal12 (r10svs12).  A broadcast port of a
+    // module_array follows the SAME three rules the def ref_module port below
+    // already obeys, and for the same reason: Surelog builds the port from the
+    // CONNECTION it was written as, not from the formal it resolves to.  An
+    // ORDERED (positional) connection therefore yields a port that is
+    // NAMELESS, anchored at the ACTUAL, and whose HighConn ref scope omits the
+    // formal entirely (`work@top.<arr>.<actual>`); a NAMED one keeps the
+    // formal's name, spans the whole `.formal(actual)` text, and interposes
+    // the formal (`work@top.<arr>.<formal>.<actual>`).  We named EVERY
+    // broadcast port after the formal and interposed it in every fullname,
+    // which is right for the named form and wrong for the positional one.
+    //   SVSwitch top.sv:38 `output_interface output_intf[4](Clock);` — golden's
+    //   port has an EMPTY vpiName at 38:33-38:38 with HighConn fullname
+    //   work@top.output_intf.Clock; ours read `clock` with no span and
+    //   work@top.output_intf.clock.Clock.  vpiName is compared by
+    //   BaseClass::Compare, before every vector in ports::Compare, so it was
+    //   the whole 54-line head.
+    // Measured in tools/probe/r10svs12repro (arms d1/d2/d3): golden is
+    // nameless-at-the-actual for the positional form on an INTERFACE array
+    // (d1 h1/h10, d3 k1), on a MODULE array (d2 m1/m9) and on a scalar
+    // ref_module (d1 h8, d2 m7 — already matching), and formal-named for the
+    // named form in all of d1 h2/h4/h5, d2 m2/m4/m6, d3 k2.  Child kind and
+    // container kind are REFUTED as discriminators; the connection's WRITTEN
+    // STYLE is the whole rule.
+    bool orderedA = hasOrderedConns(*rep);
+    if (!orderedA) {
         std::vector<std::pair<uint64_t, const PortConnection*>> keyedA;
         keyedA.reserve(ordConnsA.size());
         for (auto conn : ordConnsA) {
@@ -2307,10 +2332,16 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
             continue;
         auto* npcA = findConnSyntax(*rep, conn->port.name);
         auto* p = s.MakePort();
-        p->VpiName(conn->port.name);
+        // § arrayBcastPortPositionalNoFormal12: nameless for a POSITIONAL
+        // connection, anchored at the ACTUAL (there is no `.formal(actual)`
+        // text to span).
+        if (!orderedA)
+            p->VpiName(conn->port.name);
         p->VpiParent(ma);
         if (npcA)
             setLoc(p, npcA->sourceRange());
+        else if (orderedA)
+            setLoc(p, ax->sourceRange);
         // A SELECTED actual keeps its WRITTEN select shape on the broadcast
         // HighConn: because Surelog compiles the connection from syntax (see
         // above), `.dout(wr_addr_gray_sync[AW:0])` stays a part_select whose
@@ -2335,11 +2366,18 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
             syntaxRefPrefix = spA;
         }
         if (!hcA) {
+            // § arrayBcastPortPositionalNoFormal12: Surelog leaves this ref's
+            // fullname UNSET and lets UHDM compute it at write time by walking
+            // the parent chain (ref -> port -> module_array -> module).  This
+            // is that walk, and a POSITIONAL conn's port is NAMELESS, so it
+            // contributes nothing to the scope — exactly the `connScope9`
+            // computation the ref_module writer below already performs.
+            std::string connScopeA =
+                prefix + "." + std::string(arr.name) +
+                (orderedA ? "" : "." + std::string(conn->port.name));
             auto* r = s.MakeRef_obj();
             r->VpiName(rsym->name);
-            r->VpiFullName(prefix + "." + std::string(arr.name) + "." +
-                           std::string(conn->port.name) + "." +
-                           std::string(rsym->name));
+            r->VpiFullName(connScopeA + "." + std::string(rsym->name));
             r->VpiParent(p);
             setLoc(r, ax->sourceRange);
             if (auto nit = nets.find(rsym); nit != nets.end())
