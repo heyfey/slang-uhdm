@@ -1383,10 +1383,39 @@ inline const Expression* connectionExpr(const PortConnection& conn) {
 }
 
 // Refs inside package scopes keep :: separators all the way down.
+//
+// § scopeRootedPathKeepsColons41 — "inside a package scope" is a property of
+// the path's ROOT, not of any `::` anywhere in it.  The rule is therefore:
+// keep `::` only when the FIRST `::` comes BEFORE the first `.`, i.e. when the
+// path is ROOTED in a scoped name; once a `.` has been taken first, the path is
+// a HIERARCHY and a `::` appearing later is just a qualified NAME inside one
+// segment.  FOUR golden cells fix it, and only this rule satisfies all four:
+//
+//   A  aes_pkg::aes_circ_byte_shift.in   + s      `::` first  -> `::`
+//        golden aes_pkg::aes_circ_byte_shift::in::s
+//   B  work@foo::set                     + body   `::` only   -> `::`
+//        golden work@foo::set::body        (uhdm2rtlil test `OneThis`)
+//   C  work@Receiver::start.bytes         + size  `::` first  -> `::`
+//        golden work@Receiver::start::bytes::size (surelog test `SVSwitch`)
+//   D  work@prim_prince.gen_fwd_pass[1].
+//      prim_cipher_pkg::PRINCE_ROUND_CONST + k    `.`  first  -> `.`
+//        golden ...prim_cipher_pkg::PRINCE_ROUND_CONST.k
+//
+// Cell D is the one § pkgWrittenQualSelBase41 creates: before it, no prefix
+// with a `.` BEFORE its first `::` ever reached this function, so the old
+// blanket "any `::` anywhere" rule was never exercised on that shape and every
+// index ref under a qualified select came out `...pkg::X::k`.  TWO wrong
+// repairs were measured and discarded before this one — "test `work@`" broke
+// cell B and was caught by the ROW GATE (`OneThis` dump match->differ), and
+// "`work@` AND dotted" broke cell C and was caught by the BYTE VERIFIER
+// (`SVSwitch`, both modes, -5 bytes).  All four cells are kept here so the
+// next edit cannot break one silently.
 inline std::string joinRef(const std::string& prefix, std::string_view name) {
     if (prefix.size() >= 2 && prefix.compare(prefix.size() - 2, 2, "::") == 0)
         return prefix + std::string(name);
-    if (prefix.find("::") != std::string::npos)
+    const size_t c41 = prefix.find("::");
+    const size_t d41 = prefix.find('.');
+    if (c41 != std::string::npos && (d41 == std::string::npos || c41 < d41))
         return prefix + "::" + std::string(name);
     return prefix + "." + std::string(name);
 }

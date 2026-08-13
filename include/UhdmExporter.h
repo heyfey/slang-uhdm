@@ -1850,6 +1850,12 @@ private:
     // See the decode at the definition (ExprEmit.cpp): a package-QUALIFIED
     // reference to a package variable, which Surelog resolves only whole.
     bool isPkgQualifiedVarRef(const slang::ast::Expression& e);
+    // § pkgWrittenQualSelBase41 — see the decode at the definition
+    // (ExprEmit.cpp).  The QUALIFIED name (`pkg::x`) a select must carry when
+    // its base is a package member WRITTEN with the qualifier, and the empty
+    // string in every other case.  The discriminator is the WRITTEN SPELLING,
+    // proved by a separating pair on one imported parameter.
+    std::string pkgWrittenQualSelBase41(const slang::ast::Expression& base);
     // § retNameRecvCollapse69 — see the decode at the definition
     // (ExprEmit.cpp).  ONE predicate shared by BOTH call paths (the built-in
     // method path and the user class-method path): does a method call whose

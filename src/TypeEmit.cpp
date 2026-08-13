@@ -11347,6 +11347,22 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             if (selChain.empty())
                 return nullptr;
             if (selChain.size() > 1) {
+                // § selChainDecideBeforeMint41 — the SECOND latent defect
+                // r10earl40 recorded.  The loop below returns nullptr for a
+                // selector kind it cannot build (`+:` / `-:`), but by then the
+                // var_select, its expr_vec and every child already built are
+                // IN THE SERIALIZER'S ARENA, and the arena is what gets
+                // written: uhdm-dump shows a BYTE-IDENTICAL database while the
+                // FILE grows (r10earl41repro/v41_orphan.sv, measured both
+                // ways).  An abstention must therefore be decided BEFORE the
+                // first Make*() call.  This pre-scan admits exactly the two
+                // selector kinds the loop below can build, so the loop's own
+                // `else` arm is now unreachable and is kept only as a
+                // fail-safe should a kind be added to one and not the other.
+                for (auto* s3 : selChain)
+                    if (s3->kind != syntax::SyntaxKind::BitSelect &&
+                        s3->kind != syntax::SyntaxKind::SimpleRangeSelect)
+                        return nullptr;
                 auto* vs = s.MakeVar_select();
                 vs->VpiName(chainBase);
                 std::string vsFull;
@@ -12722,7 +12738,29 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     if (isn40->selectors.size() > 1 &&
                         lb40 != std::string::npos && lb40 > 0) {
                         std::string savedPfx40 = syntaxRefPrefix;
-                        qualSelBase40 = raw.substr(0, lb40);
+                        // § qualSelBaseNoWhitespace41 — policy (3), and the
+                        // LATENT DEFECT r10earl40 recorded and could not
+                        // observe: this base is cut out of the WRITTEN TEXT at
+                        // the first '[', so EVERY space the author wrote
+                        // inside the qualified name lands INSIDE vpiName and
+                        // then inside every child fullname
+                        // (`q41::A [g][W-1:0]` -> name "q41::A ", index ref
+                        // "...q41::A .g").  Golden's name is `q41::A` for ALL
+                        // FIVE whitespace placements, measured cell for cell
+                        // in a1_earl41.sv: before the first selector
+                        // (c_ws_trail), between the selectors (c_ws_mid),
+                        // before the `::` (c_ws_coll), after the `::`
+                        // (c_ws_colr) and all of them at once (c_ws_all).
+                        // Whitespace inside a qualified base is never
+                        // significant — the base is identifiers joined by
+                        // `::` — so STRIPPING IT ALL is the whole fix, and it
+                        // is strictly wider than the "trailing space" the
+                        // defect was first seen as.  ZERO occurrences in
+                        // Earlgrey, so only the arm can prove it.
+                        qualSelBase40.clear();
+                        for (char c41 : raw.substr(0, lb40))
+                            if (!isspace((unsigned char)c41))
+                                qualSelBase40 += c41;
                         syntaxRefPrefix.clear();          // policy (1)
                         auto* sel40 = emitSyntaxExpr(*isn40, parent);
                         syntaxRefPrefix = savedPfx40;

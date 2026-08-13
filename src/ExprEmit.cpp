@@ -339,6 +339,52 @@ bool UhdmExporter::isPkgQualifiedVarRef(const Expression& e) {
     return rawText(e.sourceRange).rfind(pn0 + "::", 0) == 0;
 }
 
+// § pkgWrittenQualSelBase41 — the ELABORATED twin of r10earl40's def-view
+// delegation, and the discriminator it turns on, MEASURED rather than assumed.
+//
+// A select whose base is a package member is named by golden with the PACKAGE
+// QUALIFIER (`prim_cipher_pkg::PRINCE_ROUND_CONST`) where the AST path names it
+// with the bare tail.  The question the census could not answer — is the
+// qualifier a property of the SYMBOL'S HOME PACKAGE or of the WRITTEN
+// SPELLING? — is settled by a SEPARATING PAIR in a1_earl41.sv:
+//
+//     import q41::*;
+//     always_comb c_mpr_imp_blit  = A[1][DW-1:0];        golden vpiName: A
+//     always_comb c_mpr_impq_blit = q41::A[1][DW-1:0];   golden vpiName: q41::A
+//
+// The SAME parameter, of the SAME package, reached through the SAME import,
+// in the SAME construct — and golden's two names differ.  **The written
+// spelling is the whole gate**, and the "declared in a package" test alone
+// (which § stampFoldedPkgParamTs and § isPkgQualifiedVarRef use for other
+// purposes) would have qualified the imported bare cell and moved it AWAY from
+// golden.
+//
+// The returned name is REBUILT from the symbols (`pkg::name`), never sliced out
+// of the source text, so it carries no whitespace the author may have written
+// (`p41 :: A[i][j]`, cell c_ws_* on the syntax side); the written text is read
+// ONLY to answer the yes/no question, with whitespace removed first for the
+// same reason.  Empty return == not a qualified-written package base == every
+// caller keeps its previous behaviour byte for byte.
+std::string UhdmExporter::pkgWrittenQualSelBase41(const Expression& base) {
+    if (base.kind != ExpressionKind::NamedValue)
+        return {};
+    auto& nv41 = base.as<NamedValueExpression>();
+    auto* psc41 = nv41.symbol.getParentScope();
+    if (!psc41 || psc41->asSymbol().kind != SymbolKind::Package)
+        return {};
+    std::string pn41(psc41->asSymbol().name);
+    if (pn41.empty() || nv41.symbol.name.empty())
+        return {};
+    std::string w41;
+    for (char c41 : rawText(base.sourceRange))
+        if (!isspace((unsigned char)c41))
+            w41 += c41;
+    std::string q41 = pn41 + "::";
+    if (w41.rfind(q41, 0) != 0)
+        return {};
+    return q41 + std::string(nv41.symbol.name);
+}
+
 // § staticScopedCall12 — the identifier token of a simple / parameterized /
 // selected name node, used to read the segments of a `::`-scoped name.
 static slang::parsing::Token scopedSegId12(const slang::syntax::NameSyntax& n) {
@@ -12466,9 +12512,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto& nv2 = base->as<NamedValueExpression>();
                     if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                         refCollector->insert(&nv2.symbol);
+                    // § pkgWrittenQualSelBase41 — SITE 2 of 2 (nested element
+                    // selects, no trailing range).  Golden qualifies this
+                    // shape too (cell c_mpr_pkg_bb: `p41::A[sel][0]` ->
+                    // vpiName `p41::A`), so the law is stated once and applied
+                    // at both var_select builders.  Its Earlgrey footprint is
+                    // predicted ZERO — the census finds all 10 golden
+                    // qualified elab var_selects in the trailing-range shape —
+                    // and the post-patch census is what falsifies that.
+                    std::string qb41 = pkgWrittenQualSelBase41(*base);
+                    std::string bnm41 =
+                        qb41.empty() ? std::string(nv2.symbol.name) : qb41;
                     auto* vs = s.MakeVar_select();
-                    vs->VpiName(nv2.symbol.name);
-                    std::string baseFull = joinRef(prefix, nv2.symbol.name);
+                    vs->VpiName(bnm41);
+                    std::string baseFull = joinRef(prefix, bnm41);
                     // A port HIGH-CONN select carries no written fullname:
                     // UHDM computes it through the port and the instance
                     // (<inst>.<port>.<sig>), and only skips the port name for
@@ -12860,9 +12917,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto& nvb = base->as<NamedValueExpression>();
                     if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                         refCollector->insert(&nvb.symbol);
+                    // § pkgWrittenQualSelBase41 — SITE 1 of 2, and THE ONE THE
+                    // CENSUS NAMES: a package-qualified base with element
+                    // selectors and a TRAILING RANGE
+                    // (`prim_cipher_pkg::PRINCE_ROUND_CONST[k][DataWidth-1:0]`)
+                    // is the whole 24-object elab/def population — 20 objects
+                    // over prim_prince 106:29 / 106:68 / 142:30 / 142:86 in
+                    // FIVE elaborated gen_fwd_pass/gen_bwd_pass instances, and
+                    // 4 more at 81:22 / 81:61 / 167:15 / 167:55, the
+                    // MODULE-LEVEL always_comb twins that the def view emits
+                    // through this same AST path.  The base name is the ONLY
+                    // thing that changes; the structure was already golden's,
+                    // which is why r10earl40 could clear the syntax path by
+                    // delegation and leave this one standing.
+                    std::string qb41 = pkgWrittenQualSelBase41(*base);
+                    std::string bnm41 =
+                        qb41.empty() ? std::string(nvb.symbol.name) : qb41;
                     auto* vs = s.MakeVar_select();
-                    vs->VpiName(nvb.symbol.name);
-                    std::string baseFull = joinRef(prefix, nvb.symbol.name);
+                    vs->VpiName(bnm41);
+                    std::string baseFull = joinRef(prefix, bnm41);
                     vs->VpiFullName(baseFull);
                     vs->VpiParent(parent);
                     setLoc(vs, expr.sourceRange);
@@ -12889,14 +12962,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
                         auto* ps = s.MakePart_select();
-                        ps->VpiName(nvb.symbol.name);
-                        ps->VpiDefName(nvb.symbol.name);
+                        ps->VpiName(bnm41);
+                        ps->VpiDefName(bnm41);
                         // The part_select repeats the base name, so its own
                         // fullname DOUBLES it; bound refs inside the ranges
                         // scope through THAT (UHDM ComputeFullName only skips
                         // a bit_select/indexed_part_select/hier_path parent).
-                        std::string psFull =
-                            baseFull + "." + std::string(nvb.symbol.name);
+                        std::string psFull = baseFull + "." + bnm41;
                         ps->VpiFullName(psFull);
                         ps->VpiParent(vs);
                         setLoc(ps, selRange);
@@ -12917,9 +12989,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     else {
                         auto* ips = s.MakeIndexed_part_select();
-                        ips->VpiName(nvb.symbol.name);
-                        ips->VpiDefName(nvb.symbol.name);
-                        ips->VpiFullName(baseFull + "." + std::string(nvb.symbol.name));
+                        ips->VpiName(bnm41);
+                        ips->VpiDefName(bnm41);
+                        ips->VpiFullName(baseFull + "." + bnm41);
                         ips->VpiParent(vs);
                         setLoc(ips, selRange);
                         ips->VpiIndexedPartSelectType(
