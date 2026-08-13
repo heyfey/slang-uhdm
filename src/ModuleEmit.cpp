@@ -2890,6 +2890,133 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
                         rports->push_back(p);
                         continue;
                     }
+                    // § scopedConnPkgParamSubst44 (r10earl44) — THE `::`
+                    // COMPLEMENT of § defConnPkgParamFold43, and it is TWO
+                    // arms because golden's answer for the WRITTEN `pkg::P`
+                    // form splits on the SAME predicate § 43 splits on — is
+                    // there a value to hand over — but produces a DIFFERENT
+                    // shape on BOTH sides of that split:
+                    //
+                    //   pkg param whose def Rhs IS a constant (pkgParamConst)
+                    //     -> a BARE constant: value, size, decompile and const
+                    //        type only, spanned over the WHOLE written
+                    //        reference.  NO vpiParent and NO typespec — which
+                    //        is exactly what makes this a different cell from
+                    //        § 43's bare-written fold, whose constant carries
+                    //        the package param_assign as its parent AND a
+                    //        ref_typespec.  Measured on a1_earl44 u_q1 / u_q6 /
+                    //        u_q17 / u_ni1 and v44_overfire u_e0.
+                    //   pkg param whose def Rhs is an OPERATION (a pattern,
+                    //   concat or replication — every struct/array shape)
+                    //     -> the ref_obj SURVIVES, but named with the
+                    //        QUALIFIED spelling, carrying NO vpiFullName, bound
+                    //        through vpiActual to the PACKAGE's own def-view
+                    //        `parameter` object, and spanned from the start of
+                    //        the written name UP TO (not including) the FINAL
+                    //        identifier — i.e. over the `pkg::` qualifier
+                    //        alone.  THIS IS THE EARLGREY HEAD (628:26) and
+                    //        its NINE design-wide twins.
+                    //
+                    // The BARE form of both shapes is § 43's and is UNTOUCHED:
+                    // this arm is reached only for a `ScopedName`, and § 43's
+                    // own gate excludes `::`.  a1_earl44 u_b1 (bare scalar,
+                    // § 43 folds with parent+ts) and u_b2 (bare struct, stays
+                    // a bare-named ref_obj with a synthesized fullname) are the
+                    // positive controls, and v44_overfire holds them in the
+                    // SAME module as their scoped twins.
+                    //
+                    // WHY THE WRITTEN FORM IS READ AS A SYNTAX KIND, not as
+                    // `rawText(...).find("::")`: § argWrittenQualIsSyntaxKind33
+                    // measured that an ESCAPED identifier `\a::b ` is ONE
+                    // token whose NAME contains `::`, so the text test reads a
+                    // bare reference as qualified and would mint a
+                    // qualifier-spanned, package-bound ref where golden has a
+                    // bare one.
+                    //
+                    // WHY THE ENUM-TYPED PACKAGE PARAMETER IS NOT HERE: golden
+                    // folds `pkg::E` (an `en44_t` localparam initialised from
+                    // an enum member) to a BARE constant `1`, size 2,
+                    // vpiConstType 7 — but its def Rhs is a `ref_obj` to the
+                    // enum_const, so it is in NEITHER gate and this arm leaves
+                    // it exactly as it was.  It needs a second value source and
+                    // it is r10earl43's residue R2, re-measured here as
+                    // a1_earl44 u_q12 / v44_overfire u_e7 with a design-wide
+                    // Earlgrey population of ZERO.  The same is true of a
+                    // scoped ENUM CONSTANT (u_q13 / u_e8).
+                    if (expr->kind == ExpressionKind::NamedValue &&
+                        expr->syntax &&
+                        expr->syntax->kind == syntax::SyntaxKind::ScopedName) {
+                        auto& nv44 = expr->as<NamedValueExpression>();
+                        const Symbol* psym44 = &nv44.symbol;
+                        const Scope* hsc44 = psym44->getParentScope();
+                        if (psym44->kind == SymbolKind::Parameter && hsc44 &&
+                            hsc44->asSymbol().kind == SymbolKind::Package) {
+                            auto cit44 = pkgParamConst.find(psym44);
+                            if (cit44 != pkgParamConst.end() && cit44->second) {
+                                auto* c44 = s.MakeConstant();
+                                c44->VpiDecompile(cit44->second->VpiDecompile());
+                                c44->VpiSize(cit44->second->VpiSize());
+                                c44->VpiValue(cit44->second->VpiValue());
+                                c44->VpiConstType(cit44->second->VpiConstType());
+                                setLoc(c44, expr->sourceRange);
+                                p->High_conn(c44);
+                                defRefModConn = false;
+                                rports->push_back(p);
+                                continue;
+                            }
+                            auto poit44 = pkgParamObj.find(psym44);
+                            if (poit44 != pkgParamObj.end() &&
+                                paramDefRhsIsOp(psym44->as<ParameterSymbol>(),
+                                                /*aggregateToo=*/true)) {
+                                // The name is REBUILT from the symbols, never
+                                // sliced out of the source text, so a
+                                // whitespace spelling (`p44 :: P`) cannot leak
+                                // into it — the same policy
+                                // § pkgWrittenQualSelBase41 states.
+                                std::string qn44 =
+                                    std::string(hsc44->asSymbol().name) + "::" +
+                                    std::string(psym44->name);
+                                auto* r44 = s.MakeRef_obj();
+                                r44->VpiName(qn44);
+                                // "GOLDEN HAS NO vpiFullName" IS SPELLED
+                                // `VpiFullName(name)`, NOT "leave it unset" —
+                                // and that is a MEASURED correction, not a
+                                // style choice.  `ref_obj::VpiFullName()` in
+                                // UHDM LAZILY COMPUTES the name by walking the
+                                // parent chain when the field is unset and
+                                // CACHES the result into the object, so an
+                                // unset fullname on a ref whose parent is the
+                                // port becomes
+                                // `work@top.<inst>.<port>.pkg::P` at write
+                                // time; `ref_obj::GetVpiPropertyValue` then
+                                // prints the field only when it DIFFERS from
+                                // vpiName.  Setting it EQUAL to the name is
+                                // therefore the only way to reproduce golden's
+                                // "no vpiFullName" dump line — the same idiom
+                                // § fcArgBareImportRef and
+                                // § structParamBareImportRef already use
+                                // (`ref->VpiName(pn); ref->VpiFullName(pn);`).
+                                // The FIRST build of this pass
+                                // (md5 a300dbaa53e8fa0abe9d4aa877eac296) left
+                                // it unset: name, span and actual were all
+                                // golden's and the grid row STILL read DIFFER,
+                                // on the synthesized fullname alone.
+                                r44->VpiFullName(qn44);
+                                r44->VpiParent(p);
+                                r44->Actual_group(poit44->second);
+                                auto& sn44 =
+                                    expr->syntax->as<syntax::ScopedNameSyntax>();
+                                setLoc(r44,
+                                       SourceRange(
+                                           expr->sourceRange.start(),
+                                           sn44.right->sourceRange().start()));
+                                p->High_conn(r44);
+                                defRefModConn = false;
+                                rports->push_back(p);
+                                continue;
+                            }
+                        }
+                    }
                 }
                 if (expr->kind == ExpressionKind::NamedValue) {
                     auto& nv = expr->as<NamedValueExpression>();
