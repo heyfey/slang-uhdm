@@ -399,6 +399,16 @@ private:
         UHDM::task_func* tf37 = nullptr;
         bool classMethod37 = false;
         bool clone37 = false;
+        // § retNameLocalInstIsHomeNotClass3 — the vpiInstance the per-reference
+        // return-name LOCAL's typespec takes.  `inst` above is the LISTING
+        // OWNER (`pkgScope ? m : nullptr`), which for a class method is the
+        // CLASS_DEFN, and the drain used it for both jobs; every other
+        // consumer of `inst` (view detection, per-view keys, the pkgOnly
+        // phase gate) still wants the listing owner, so the STAMP gets its own
+        // field rather than a changed `inst`.  This is `emitTaskFuncs`' own
+        // `tsInst` — the value every typespec the subroutine mints already
+        // takes — captured at PUSH time because the drain runs design-final.
+        UHDM::instance* tsInst3 = nullptr;
     };
 
     struct PendingParamTs {

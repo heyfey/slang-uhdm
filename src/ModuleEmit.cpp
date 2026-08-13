@@ -20872,8 +20872,26 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                 syntaxRefPrefix.clear();
                 tfContext = false;
                 ts->VpiParent(rt);
-                if (pf.inst)
-                    ts->Instance(pf.inst);
+                // § retNameLocalInstIsHomeNotClass3 — the per-reference
+                // return-name local's typespec takes the SUBROUTINE's own
+                // instance (`tsInst3`), not the LISTING OWNER (`pf.inst`).
+                // The two differ for exactly one shape: a CLASS method, where
+                // the listing owner is the class_defn.  Surelog's vpiInstance
+                // names a scope that can hold an instance and NEVER a
+                // class_defn (§ instanceIsNeverAClassDefn2, r10sd2: golden 0
+                // in all four UVM designs both modes), and golden's own cells
+                // say what belongs there instead — grid g1/g5/g6/g7, the
+                // out-of-body shape: `bit_typespec@8:12 vpiInstance ->
+                // package p1` where we wrote `class_defn (p1::c1)`; grid g3,
+                // the $unit-homed class with no package at all, and the UVM
+                // in-body key (`uvm_tlm_generic_payload`): NULL.  `tsInst`
+                // already encodes both — the out-of-body home package (view-
+                // matched, and the package CLONE's target in a clone pass),
+                // and nothing for an in-class body or a class with no package
+                // home.  Reach: 428 / 216 / 216 / 203 slots on
+                // SeqDriver / SimpleUVM / Scoreboard / BuildUVMPkg.
+                if (pf.tsInst3)
+                    ts->Instance(pf.tsInst3);
             }
             rt->Actual_typespec(ts);
             lv->Typespec(rt);
