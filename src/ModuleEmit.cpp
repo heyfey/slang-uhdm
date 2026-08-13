@@ -2356,9 +2356,27 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
         if (csA && csA->kind == syntax::SyntaxKind::SimpleSequenceExpr)
             csA = csA->as<syntax::SimpleSequenceExprSyntax>().expr;
         UHDM::any* hcA = nullptr;
+        // § genConnDottedActualIsHierPath37 — CALL SITE 2 of 2 (the PLAIN-BODY
+        // MODULE ARRAY).  A DOTTED actual (`.rd_i(pin_i.rd)`) on a module
+        // ARRAY's broadcast connection is a hier_path in golden's def listing
+        // exactly as it is on a scalar instance, and the SELECT was never the
+        // discriminator: this gate only admitted a SELECTED actual, so an
+        // UNSELECTED `a.b` fell to the ref_obj below — which names itself
+        // after the LEAF component (`rd`) while spanning the WHOLE `pin_i.rd`
+        // text, because `rsym` is the resolved member symbol.  Measured on
+        // a2_fence.sv's `f_parr` cell (`ch38 i_parr [0:1] (.rd_i(pin_i.rd))`):
+        // golden is `hier_path(pin_i.rd)` over `ref_obj(pin_i)` bare +
+        // `ref_obj(rd)` full `work@top38.i_parr.rd_i.rd`.  No stamp is needed
+        // here — `syntaxRefPrefix` is ALREADY set to the array/formal scope on
+        // this path, and the ScopedName emitter's own leaf rule
+        // (`syntaxRefPrefix + "." + leaf`) is golden's string.
+        // `::` is excluded by the DOT test: a package-scoped actual is a
+        // different rule (it folds, or keeps a bound ref).
+        bool dotA37 = csA && csA->kind == syntax::SyntaxKind::ScopedName &&
+                      rawText(csA->sourceRange()).find('.') != std::string::npos;
         if (!ifaceArr && csA && ax->kind != ExpressionKind::NamedValue &&
             (csA->kind == syntax::SyntaxKind::ElementSelectExpression ||
-             csA->kind == syntax::SyntaxKind::IdentifierSelectName)) {
+             csA->kind == syntax::SyntaxKind::IdentifierSelectName || dotA37)) {
             std::string spA = syntaxRefPrefix;
             syntaxRefPrefix = prefix + "." + std::string(arr.name) + "." +
                               std::string(conn->port.name);
@@ -25499,10 +25517,22 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         // never reached the hier_path emitter and became one
                         // ref_obj named with the whole raw text.  What
                         // Surelog keys on is that the path is SELECTED at
-                        // all — tj.sv row D.  An UNSELECTED `a.b` still keeps
-                        // the doubled-fullname ref_obj of the final else.
+                        // all — tj.sv row D.
+                        //
+                        // § genConnDottedActualIsHierPath37 — CALL SITE 1 of 2
+                        // (the GEN-SCOPE listing).  r10earl8's closing sentence
+                        // here read "an UNSELECTED `a.b` still keeps the
+                        // doubled-fullname ref_obj of the final else".  That is
+                        // **REFUTED**: the SELECT was never any part of the
+                        // discriminator.  Golden builds a hier_path for EVERY
+                        // dotted actual in this listing, and it was only the
+                        // `!idxGroups.empty()` conjunct that kept the
+                        // unselected form out — the shape the Earlgrey head
+                        // `flash_phy.sv:129 .rd_i(flash_ctrl_i.rd)` takes.
+                        // a1_pact.sv measures 9 cells of it and a2_fence.sv 8
+                        // more; not one wants the ref_obj.
                         if (dotSyn9->kind == syntax::SyntaxKind::ScopedName &&
-                            !idxGroups.empty() && !act.empty() &&
+                            !act.empty() &&
                             act.find('.') != std::string::npos)
                             dotHp9 = emitSyntaxExpr(*dotSyn9, p);
                         // § genConnOperatorActualFirst (r10earl8).  The
@@ -25530,6 +25560,35 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         }
                         else if (dotHp9 &&
                             dotHp9->UhdmType() == UHDM::uhdmhier_path) {
+                            // The LEAF's fullname scopes through the CHILD
+                            // INSTANCE and its FORMAL
+                            // (`work@top.gen_c.i_gn.rd_i.rd`); every other
+                            // element keeps the BARE written component text.
+                            // That is the rule the AST (non-gen) path already
+                            // applies to a hier_path HighConn a few thousand
+                            // lines up ("A struct-member (dotted) conn on a
+                            // REGULAR port scopes its LAST element through the
+                            // child port path"), transposed to this listing.
+                            // It is a POST-STAMP and not a `syntaxRefPrefix`
+                            // assignment on purpose: this arm also serves
+                            // SELECTED paths, whose bit_select element carries
+                            // its own BARE select text in golden
+                            // (a2 `f_selint` `uarr_i[b]`, `f_mparr`
+                            // `arr_if[b]`), and setting the prefix would
+                            // rewrite those too.  Only a ref_obj leaf is
+                            // stamped: a part_select / indexed_part_select leaf
+                            // keeps its own bare path text (a1 `g_psel`,
+                            // a2 `f_seltail`).
+                            auto* hp37 = (UHDM::hier_path*)dotHp9;
+                            if (auto* pes37 = hp37->Path_elems();
+                                pes37 && !pes37->empty())
+                                if (auto* lf37 = pes37->back();
+                                    lf37->UhdmType() == UHDM::uhdmref_obj)
+                                    ((UHDM::ref_obj*)lf37)
+                                        ->VpiFullName(
+                                            branchPrefix + "." + iname + "." +
+                                            formal + "." +
+                                            std::string(lf37->VpiName()));
                             p->High_conn((UHDM::expr*)dotHp9);
                         }
                         else if (idxGroups.size() >= 2 && !act.empty() &&
