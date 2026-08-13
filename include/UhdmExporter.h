@@ -4212,6 +4212,14 @@ private:
     // When set, emitSyntaxExpr refs carry this scope prefix in VpiFullName.
     std::string syntaxRefPrefix;
     std::string syntaxRefSep = ".";
+    // § pkgScopedMultiSelVarSelect40 — the QUALIFIED spelling of a
+    // package-scoped select base (`prim_cipher_pkg::PRINCE_ROUND_CONST`),
+    // handed from emitSyntaxExpr's ScopedName arm to its IdentifierSelectName
+    // arm so the select builder names the base with its qualifier instead of
+    // the bare tail.  ONE writer (the ScopedName arm) and ONE reader (the
+    // multi-selector `var_select` builder), which CONSUMES it on entry so a
+    // nested select inside an index can never inherit it.
+    std::string qualSelBase40;
     // $bits(SIGNAL) typespec-bound arg refs bind their DEF nets once the
     // nets exist (drained at the end of exportDesign).
     std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>>

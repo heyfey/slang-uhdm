@@ -11311,7 +11311,13 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // part_select with base-doubled naming
             // (MultirangesStartNotFromZero gen CA).
             std::vector<const syntax::SelectorSyntax*> selChain;
-            std::string_view chainBase;
+            std::string chainBase;
+            // § pkgScopedMultiSelVarSelect40 — CONSUMED HERE, unconditionally,
+            // so that a select written INSIDE an index (`a::b[c::d[i]][x]`)
+            // cannot inherit the outer base.  Empty for every bare-base caller,
+            // which is every caller that existed before this pass.
+            std::string qualBase40;
+            qualBase40.swap(qualSelBase40);
             if (syn.kind == syntax::SyntaxKind::ElementSelectExpression) {
                 const syntax::SyntaxNode* walk = &syn;
                 while (walk->kind ==
@@ -11329,7 +11335,9 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             }
             else {
                 auto& isnW = syn.as<syntax::IdentifierSelectNameSyntax>();
-                chainBase = isnW.identifier.valueText();
+                chainBase = qualBase40.empty()
+                                ? std::string(isnW.identifier.valueText())
+                                : qualBase40;
                 for (auto* s2 : isnW.selectors) {
                     if (!s2->selector)
                         return nullptr;
@@ -12643,6 +12651,89 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                     return fo33;
                             }
                         }
+                    }
+                }
+                // § pkgScopedMultiSelVarSelect40 — a PACKAGE-SCOPED name
+                // carrying TWO OR MORE SELECTORS is a SELECT, not a name.
+                // Everything below this point pastes the WHOLE WRITTEN TEXT
+                // into one `ref_obj`'s vpiName
+                // (`prim_cipher_pkg::PRINCE_ROUND_CONST[k][DataWidth-1:0]`),
+                // which is the Earlgrey_0_1/default head at prim_prince.sv
+                // :105-106.  Golden builds the same `var_select` it builds for
+                // a BARE base — the structure is already implemented, twelve
+                // lines up — and the only thing that kept a qualified base out
+                // of it is that the select builder's base must be an
+                // `IdentifierName` and `pkg::X[i][j]` parses as a `ScopedName`
+                // whose RIGHT is the `IdentifierSelectName`.
+                //
+                // SO THIS IS A DELEGATION, NOT A SECOND BUILDER: the right-hand
+                // `IdentifierSelectName` is emitted by the existing arm with
+                // the QUALIFIED spelling handed across in `qualSelBase40`, and
+                // that arm's whole policy grid (bit+range -> part_select,
+                // bit+indexed-range -> indexed_part_select, bit+bit ->
+                // constant index, genvar/param/literal/expression indices)
+                // comes with it unchanged.  Measured cell for cell in
+                // a1_sel40.sv against Surelog.
+                //
+                // TWO MEASURED POLICIES ARE ENCODED IN THE THREE LINES BELOW:
+                //
+                //  (1) NO STORED FULLNAME ANYWHERE IN THE SUBTREE.  Golden's
+                //      `var_select` and `part_select` print NO `vpiFullName`
+                //      and its index refs print one that DEPENDS ON THE PARENT
+                //      CHAIN, not on the enclosing scope: the SAME source shape
+                //      reads `p40::ARR40::p40::ARR40::k` when the select is a
+                //      cont-assign's whole RHS (a1_sel40 76:32) and
+                //      `work@prim_prince.gen_fwd_pass.prim_cipher_pkg::
+                //      PRINCE_ROUND_CONST.k` when it sits under an `operation`
+                //      (prim_prince 106:29).  Those are not two conventions,
+                //      they are ONE `UHDM::ComputeFullName()` walk over two
+                //      different vpiParent chains, and the way to reproduce it
+                //      is to STORE NOTHING and let the getter compute.  The
+                //      select builder already spells "store nothing" as
+                //      "`syntaxRefPrefix` is empty" — every `VpiFullName` call
+                //      in it is guarded on that prefix — so CLEARING the prefix
+                //      for the duration is the whole implementation.  The
+                //      brief's instruction to transcribe golden's two odd
+                //      "select-scoped" and "doubled" strings literally is
+                //      therefore REFUTED: transcribing either one would have
+                //      hard-coded a scope that the other cell contradicts.
+                //
+                //  (2) THE SPAN OF THE WHOLE OBJECT COVERS THE QUALIFIER.
+                //      Golden spans the `var_select` over the ENTIRE written
+                //      text including `pkg::` (106:29-106:82), while the
+                //      delegate is emitted from the RIGHT-hand syntax node and
+                //      would span only `PRINCE_ROUND_CONST[k][DataWidth-1:0]`.
+                //      The children keep their own (already correct) spans.
+                //
+                // SCOPE: TWO OR MORE SELECTORS ONLY.  A SINGLE-selector
+                // package select is a DIFFERENT span policy — golden anchors a
+                // lone `bit_select`/`part_select` AT THE SELECTOR
+                // (a1_sel40 95:43-95:44, 99:42-99:45) and not over the written
+                // text — and Earlgrey contains NONE of them in this position:
+                // the census over both 4.8M-line dumps finds our pasted-text
+                // `ref_obj` at EXACTLY TWO spans, prim_prince 106:29-106:82 and
+                // 142:30-142:100, and BOTH carry two selectors.  That is a
+                // measured boundary, not a convenient one; the single-selector
+                // cells are residue R2 with their span policy already read off.
+                if (const auto* isn40 =
+                        syn.as<syntax::ScopedNameSyntax>()
+                            .right->as_if<syntax::IdentifierSelectNameSyntax>()) {
+                    auto lb40 = raw.find('[');
+                    if (isn40->selectors.size() > 1 &&
+                        lb40 != std::string::npos && lb40 > 0) {
+                        std::string savedPfx40 = syntaxRefPrefix;
+                        qualSelBase40 = raw.substr(0, lb40);
+                        syntaxRefPrefix.clear();          // policy (1)
+                        auto* sel40 = emitSyntaxExpr(*isn40, parent);
+                        syntaxRefPrefix = savedPfx40;
+                        qualSelBase40.clear();
+                        if (sel40) {
+                            setLoc(sel40, syn.sourceRange());   // policy (2)
+                            return sel40;
+                        }
+                        // The delegate ABSTAINED (an unsupported selector
+                        // kind).  Fall through to the ref_obj below: an
+                        // unchanged wrong object, never a half-built one.
                     }
                 }
                 auto* ref = s.MakeRef_obj();

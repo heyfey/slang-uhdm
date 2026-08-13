@@ -1,0 +1,154 @@
+LHS:
+decompile:
+operation: , id:194130, line:13:59, endln:18:4
+|vpiParent:
+\_param_assign: , id:194129, line:13:32, endln:18:4
+|vpiOpType:33
+|vpiOperand:
+\_constant: , id:194131, line:14:5, endln:14:17
+  |vpiParent:
+  \_operation: , id:194130, line:13:59, endln:18:4
+  |vpiDecompile:32'h40000000
+  |vpiSize:32
+  |HEX:40000000
+  |vpiConstType:5
+|vpiOperand:
+\_constant: , id:194132, line:15:5, endln:15:17
+  |vpiParent:
+  \_operation: , id:194130, line:13:59, endln:18:4
+  |vpiDecompile:32'h40080000
+  |vpiSize:32
+  |HEX:40080000
+  |vpiConstType:5
+|vpiOperand:
+\_constant: , id:194133, line:16:5, endln:16:17
+  |vpiParent:
+  \_operation: , id:194130, line:13:59, endln:18:4
+  |vpiDecompile:32'h400a0000
+  |vpiSize:32
+  |HEX:400a0000
+  |vpiConstType:5
+|vpiOperand:
+\_constant: , id:194134, line:17:5, endln:17:17
+  |vpiParent:
+  \_operation: , id:194130, line:13:59, endln:18:4
+  |vpiDecompile:32'h40150000
+  |vpiSize:32
+  |HEX:40150000
+  |vpiConstType:5
+
+decompile:
+operation: , id:194130, line:13:59, endln:18:4
+|vpiParent:
+\_param_assign: , id:194129, line:13:32, endln:18:4
+|vpiOpType:33
+|vpiOperand:
+\_constant: , id:194131, line:14:5, endln:14:17
+  |vpiParent:
+  \_operation: , id:194130, line:13:59, endln:18:4
+  |vpiDecompile:32'h40000000
+  |vpiSize:32
+  |HEX:40000000
+  |vpiConstType:5
+|vpiOperand:
+\_constant: , id:194132, line:15:5, endln:15:17
+  |vpiParent:
+  \_operation: , id:194130, line:13:59, endln:18:4
+  |vpiDecompile:32'h40080000
+  |vpiSize:32
+  |HEX:40080000
+  |vpiConstType:5
+|vpiOperand:
+\_constant: , id:194133, line:16:5, endln:16:17
+  |vpiParent:
+  \_operation: , id:194130, line:13:59, endln:18:4
+  |vpiDecompile:32'h400a0000
+  |vpiSize:32
+  |HEX:400a0000
+  |vpiConstType:5
+|vpiOperand:
+\_constant: , id:194134, line:17:5, endln:17:17
+  |vpiParent:
+  \_operation: , id:194130, line:13:59, endln:18:4
+  |vpiDecompile:32'h40150000
+  |vpiSize:32
+  |HEX:40150000
+  |vpiConstType:5
+RHS:
+decompile:
+operation: , id:59785, line:13:59, endln:18:4
+|vpiParent:
+\_param_assign: , id:59784, line:13:32, endln:18:4
+|vpiOpType:33
+|vpiReordered:1
+|vpiOperand:
+\_constant: , id:59789, line:17:5, endln:17:17
+  |vpiParent:
+  \_operation: , id:59785, line:13:59, endln:18:4
+  |vpiDecompile:32'h40150000
+  |vpiSize:32
+  |HEX:40150000
+  |vpiConstType:5
+|vpiOperand:
+\_constant: , id:59788, line:16:5, endln:16:17
+  |vpiParent:
+  \_operation: , id:59785, line:13:59, endln:18:4
+  |vpiDecompile:32'h400a0000
+  |vpiSize:32
+  |HEX:400a0000
+  |vpiConstType:5
+|vpiOperand:
+\_constant: , id:59787, line:15:5, endln:15:17
+  |vpiParent:
+  \_operation: , id:59785, line:13:59, endln:18:4
+  |vpiDecompile:32'h40080000
+  |vpiSize:32
+  |HEX:40080000
+  |vpiConstType:5
+|vpiOperand:
+\_constant: , id:59786, line:14:5, endln:14:17
+  |vpiParent:
+  \_operation: , id:59785, line:13:59, endln:18:4
+  |vpiDecompile:32'h40000000
+  |vpiSize:32
+  |HEX:40000000
+  |vpiConstType:5
+
+decompile:
+operation: , id:59785, line:13:59, endln:18:4
+|vpiParent:
+\_param_assign: , id:59784, line:13:32, endln:18:4
+|vpiOpType:33
+|vpiReordered:1
+|vpiOperand:
+\_constant: , id:59789, line:17:5, endln:17:17
+  |vpiParent:
+  \_operation: , id:59785, line:13:59, endln:18:4
+  |vpiDecompile:32'h40150000
+  |vpiSize:32
+  |HEX:40150000
+  |vpiConstType:5
+|vpiOperand:
+\_constant: , id:59788, line:16:5, endln:16:17
+  |vpiParent:
+  \_operation: , id:59785, line:13:59, endln:18:4
+  |vpiDecompile:32'h400a0000
+  |vpiSize:32
+  |HEX:400a0000
+  |vpiConstType:5
+|vpiOperand:
+\_constant: , id:59787, line:15:5, endln:15:17
+  |vpiParent:
+  \_operation: , id:59785, line:13:59, endln:18:4
+  |vpiDecompile:32'h40080000
+  |vpiSize:32
+  |HEX:40080000
+  |vpiConstType:5
+|vpiOperand:
+\_constant: , id:59786, line:14:5, endln:14:17
+  |vpiParent:
+  \_operation: , id:59785, line:13:59, endln:18:4
+  |vpiDecompile:32'h40000000
+  |vpiSize:32
+  |HEX:40000000
+  |vpiConstType:5
