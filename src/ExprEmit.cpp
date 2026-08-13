@@ -7192,27 +7192,69 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // an out-of-body definition — binds in golden while t38d's
                 // in-body twin binds nothing at any depth.
                 // § blockLocalSameCtrlDepthArgBinds57 — CALL SITE 3 of 3 (the
-                // carve-out).  GATE: inside the § classArgBind12 window
+                // carve-out), WIDENED BY § blkLocalSameCtrlDepthWindowBinds64
+                // below from ONE window to BOTH of them.
+                // §57's window: the § classArgBind12 argument list
                 // (classArgBindDepth12 > 0 — which for an in-body class method
                 // is STATEMENT POSITION only, § classInBodyBareCallArgStmtOnly53,
-                // and which SYSTEM calls and CONCATENATION operands never enter)
-                // a reference to a variable declared in an UNNAMED statement
-                // block open at the SAME ctrlBodyDepth28 lifts § 28's silence.
-                // DIRECTION: ADD (a vpiActual that was absent).  It lifts ONLY
-                // § controlBodyNoBind28 — classMethodNoBind, unitSubNoBind9 and
-                // § classInBodyRecvCallArgNoBind52 all still apply, so the
-                // EXPRESSION-position and receiver-qualified cells stay bare.
-                // The corpus head it clears is uvm-1.2 uvm_registry.svh:265
+                // and which SYSTEM calls and CONCATENATION operands never enter).
+                // In it, a reference to a variable declared in an UNNAMED
+                // statement block open at the SAME ctrlBodyDepth28 lifts § 28's
+                // silence.  §57's corpus head was uvm-1.2 uvm_registry.svh:265
                 // `uvm_report_fatal("FCTTYP", msg, UVM_NONE);` inside
                 // `if (!$cast(create,obj)) begin string msg; ... end` — where
-                // golden's ONLY extra line over ours is that argument's
+                // golden's ONLY extra line over ours was that argument's
                 // `|vpiActual: \_string_var (…::create::msg)`.
-                bool blkLocalArgBind57 =
-                    classArgBindDepth12 > 0 &&
+                // § blkLocalSameCtrlDepthWindowBinds64 — the § 57 carve-out was
+                // never ARGUMENT-LIST-shaped; it is WINDOW-shaped.  §57 measured
+                // it in the only window it had an arm for (a user call's
+                // argument list) and wrote the window into the gate.  Arm
+                // b1_cond.sv measures the OTHER window an in-body class method
+                // has — the if/case CONDITION, where StmtEmit.cpp clears
+                // classMethodNoBind with the comment "condition refs DO bind" —
+                // and golden binds a same-depth unnamed-block local there too.
+                // The corpus head is uvm-1.2 uvm_recorder.svh:346:75,
+                //   else begin
+                //      integer handle = get_inst_id();                  // 343
+                //      if (m_ids_by_recorder.exists(this) &&
+                //          m_ids_by_recorder[this] != handle)           // 346
+                // where `handle` is the ONE of its four uses golden binds:
+                // 349:28 (a bit-select index on an assignment LHS), 350:36 (an
+                // assignment RHS) and 352:17 (a return operand) are all golden
+                // BARE and stay bare, because outside a window classMethodNoBind
+                // is still in force and this term never reaches them.
+                // MEASURED, not assumed, on b1_cond.sv (cell -> golden):
+                //   c01 40:11 if CONDITION, d1               -> BIND (the head)
+                //   c12 64:13 CASE condition, d1             -> BIND
+                //   c14 61:13 cond inside a nested PLAIN begin, still d1 -> BIND
+                //   c30 102:11 cond, ref under an OPERATION  -> BIND
+                //   c31 103:16 cond, ref inside a CALL arg   -> BIND
+                //   c36 108:11 cond, `inside` operand        -> BIND
+                //   c13 63:14 WHILE condition, d1            -> bare  <-- the
+                //     discriminator: a while/for condition does NOT clear
+                //     classMethodNoBind, so it is NOT a window, and golden
+                //     agrees.  A gate written as "any condition" would have
+                //     over-fired here.
+                //   c02/c03/c04 assignment RHS, LHS index, return, all d1 -> bare
+                //   c05 bodyloc / c09 prop / c10 farg in a cond, d1       -> bare
+                //   c07/c15 same local read one control body DEEPER       -> bare
+                //   c16 named block at d1                                 -> bare
+                // b3_kinds.sv adds the two axes that carry NO term at all: all
+                // NINE var kinds (int/integer/logic/bit/byte/string/real/class
+                // handle/packed vector) and all FOUR initialiser shapes (none /
+                // literal / CALL / operation) read identically, and if-begin,
+                // else-begin and bare-begin are one cell.
+                // DIRECTION: ADD (a vpiActual that was absent).  It lifts ONLY
+                // § controlBodyNoBind28.  unitSubNoBind9 and
+                // § classInBodyRecvCallArgNoBind52 are separate disjuncts of the
+                // silence below and are NOT touched (b2_modtwin.sv u01/o01 are
+                // their measured, still-open residues).
+                bool blkLocalWindowBind64 =
+                    (classArgBindDepth12 > 0 || !classMethodNoBind) &&
                     blkLocalSameCtrlDepth57(nv.symbol);
                 bool ctrlBodyNoBind28 = curSubClassScope9 && !curSubOob9 &&
                                         ctrlBodyDepth28 > 0 &&
-                                        !blkLocalArgBind57;
+                                        !blkLocalWindowBind64;
                 // NOTE § classInBodyRecvCallArgNoBind52 — GATE: an IN-BODY
                 // class method (curSubClassScope9 && !curSubOob9) inside the
                 // ARGUMENT LIST of a RECEIVER-QUALIFIED, EXPRESSION-position

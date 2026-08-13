@@ -2152,10 +2152,22 @@ private:
     // § controlBodyNoBind28, measured on r10uvm57repro/b1..b4 (see that
     // README's cell tables; every cell below names its arm and line).
     //
-    // Inside the § classArgBind12 window (a USER call's ARGUMENT list, which
-    // for an in-body class method is STATEMENT POSITION only — see
-    // § classInBodyBareCallArgStmtOnly53) a reference to a variable declared
-    // in an UNNAMED STATEMENT BLOCK BINDS even at ctrlBodyDepth28 > 0, but
+    // WIDENED BY § blkLocalSameCtrlDepthWindowBinds64 (r10uvm64): the carve-out
+    // is not ARGUMENT-LIST-shaped, it is WINDOW-shaped.  An in-body class method
+    // has TWO binding windows — the § classArgBind12 argument list AND the
+    // if/case CONDITION, the one place StmtEmit.cpp clears classMethodNoBind —
+    // and golden lifts §28 for a same-depth unnamed-block local in BOTH.  §57
+    // had an arm for only the first and wrote that window into its gate; arm
+    // r10uvm64repro/b1_cond.sv measures the second, cell for cell, and the
+    // discriminator is that a WHILE/FOR condition is NOT a window (it never
+    // clears classMethodNoBind) and golden leaves it bare.  See ExprEmit.cpp's
+    // `blkLocalWindowBind64` for the full cell list.
+    //
+    // Inside a window (a USER call's ARGUMENT list, which for an in-body class
+    // method is STATEMENT POSITION only — see
+    // § classInBodyBareCallArgStmtOnly53 — or an if/case CONDITION) a reference
+    // to a variable declared in an UNNAMED STATEMENT BLOCK BINDS even at
+    // ctrlBodyDepth28 > 0, but
     // ONLY when the DECLARING block was entered at the SAME ctrlBodyDepth28
     // as the reference now sees.  Everything else keeps §28's silence:
     //   * b1 f:29 `sink(blkloc)` block local, depth 1==1  -> golden BINDS
