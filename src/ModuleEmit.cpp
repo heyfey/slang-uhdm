@@ -20807,7 +20807,60 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
             if (!ts) {
                 tfContext = true;
                 syntaxRefPrefix = localFull;
+                // § retLocalPkgRangeBind67 — the PER-REFERENCE body-local
+                // return variable this drain mints gets its return type
+                // compiled here, and this emission is the ONLY one of the two
+                // that did not set `tfTypeScope`: `emitTaskFuncs`' own
+                // return-type emission (TaskFuncEmit, `tfTypeScope = pkgScope
+                // ? sub.getParentScope() : nullptr`) does.  Without it
+                // makeTypespec's § r10fsv3 S3 arm never runs and a range bound
+                // naming a parameter of the subroutine's OWN PACKAGE
+                // (`function bit[UVM_LARGE_STRING:0] uvm_string_to_bits`,
+                // uvm_globals.svh:421 and :434) comes out with a NULL
+                // `vpiActual` where golden binds the parameter's own Rhs
+                // object.  `ref_obj::Compare` walks `Actual_group` right after
+                // `VpiName`, so that one null pointer IS the SimpleUVM /
+                // Scoreboard head: `LHS: constant@410:30 … RHS: <null>`.
+                //
+                // PACKAGE-HOMED ONLY, and that is measured, not conservative:
+                // arm a2 m12's module-scope twin
+                // (`work@a2top.t_to_bits.t_to_bits.A2_LARGE`) has NO golden
+                // counterpart at all — golden folds a module function's
+                // imported-param bound to a constant and emits no ref there —
+                // so binding it would be minting agreement with nothing.
+                // The separator follows the same gate: a package-scope local's
+                // reference fullname is `pkg::f::f::NAME` in golden, where our
+                // default `.` produced `pkg::f::f.NAME` (dump-visible only —
+                // `ref_obj::Compare` does not read VpiFullName).
+                const slang::ast::Scope* retPkgScope67 = nullptr;
+                if (auto* hs67 = sub.getParentScope())
+                    if (hs67->asSymbol().kind == SymbolKind::Package)
+                        retPkgScope67 = hs67;
+                // WHICH VIEW this pending entry belongs to: `pf.inst` is the
+                // package object the body was listed under (`pkgScope ? m :
+                // nullptr` at the push site), so membership in `pkgTopMap` is
+                // the elaborated view — the same test the aggregate-typedef
+                // arm above already makes as `topPf1`.
+                bool retTopView67 = false;
+                if (pf.inst)
+                    for (auto& [pk67, po67] : pkgTopMap)
+                        if ((UHDM::instance*)po67 == pf.inst) {
+                            (void)pk67;
+                            retTopView67 = true;
+                            break;
+                        }
+                auto* savedTfS67 = tfTypeScope;
+                bool savedDV67 = retLocalDefView67;
+                std::string savedSep67 = syntaxRefSep;
+                if (retPkgScope67) {
+                    tfTypeScope = retPkgScope67;
+                    retLocalDefView67 = !retTopView67;
+                    syntaxRefSep = "::";
+                }
                 ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
+                syntaxRefSep = savedSep67;
+                retLocalDefView67 = savedDV67;
+                tfTypeScope = savedTfS67;
                 syntaxRefPrefix.clear();
                 tfContext = false;
                 ts->VpiParent(rt);

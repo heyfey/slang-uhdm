@@ -3253,6 +3253,17 @@ private:
     // the def-view constant in both views, which is why the preference is
     // opt-in rather than global.
     bool tfTypeScopeViewLocal = false;
+    // § retLocalPkgRangeBind67.  Set with tfTypeScope around the DEF-VIEW
+    // body-local return variable `drainFuncRet` mints per binding reference.
+    // The drain runs AFTER every package view is emitted, so the per-view maps
+    // (`pkgParamConst`, `pkgParamDefRhs`) are frozen in their LAST-view state
+    // and a def-view local would otherwise chain to the ELABORATED view's
+    // folded constant.  `pkgParamDefRhsDefView17` is the one map the top pass
+    // cannot overwrite, so the def-view local reads it FIRST.  Measured: arm
+    // a2 m01 golden binds `constant` in one view and the declaration's
+    // `operation` in the other, and without this flag both came out
+    // `constant`.
+    bool retLocalDefView67 = false;
     std::map<const void*, UHDM::constant*> foldedRet;
     std::map<const void*, UHDM::typespec*> foldCloneTs;
     struct PendingParamCloneTs {

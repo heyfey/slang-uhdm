@@ -11041,8 +11041,20 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         // rewritten per view); a return/arg range keeps the
                         // def-view constant in both views.
                         auto pit2 = pkgParamDefRhs.find(&psy);
-                        if (tfTypeScopeViewLocal && pkgTopEmit &&
-                            pit2 != pkgParamDefRhs.end())
+                        // § retLocalPkgRangeBind67 — the DEF-VIEW body-local
+                        // return variable, minted by a drain that runs AFTER
+                        // every view, must read the one map the top pass
+                        // cannot overwrite.  Golden's two views of the same
+                        // range bind DIFFERENT objects (arm a2 m01: the
+                        // declaration's `operation` in the def view, the
+                        // folded `constant` in the elaborated one), and the
+                        // frozen maps alone cannot tell them apart.
+                        auto dv67 = pkgParamDefRhsDefView17.find(&psy);
+                        if (retLocalDefView67 &&
+                            dv67 != pkgParamDefRhsDefView17.end() && dv67->second)
+                            ref->Actual_group(dv67->second);
+                        else if (tfTypeScopeViewLocal && pkgTopEmit &&
+                                 pit2 != pkgParamDefRhs.end())
                             ref->Actual_group(pit2->second);
                         else if (auto pit = pkgParamConst.find(&psy);
                                  pit != pkgParamConst.end())
@@ -11165,6 +11177,31 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             if (!ref->Actual_group())
                 if (auto* fna9 = fnLocalParamRangeActual(name, syn.sourceRange()))
                     ref->Actual_group(fna9);
+            // R10UVM67_REFDBG=1 — ONE LINE PER SYNTAX-EMITTED IDENTIFIER REF,
+            // at the branch point, printing every gate that could have stopped
+            // the bind.  The campaign's rule (r10e23): an env-gated trace at
+            // the branch point beats a hypothesis.
+            static const bool refDbg67 = getenv("R10UVM67_REFDBG") != nullptr;
+            if (refDbg67)
+                fprintf(stderr,
+                        "DBG67 name=%s full=%s loc=%d:%d bound=%s tfTs=%d "
+                        "tfViewLoc=%d curPkg=%s tdClone18=%d suppress=%d "
+                        "pkgTsParam=%d foreign=%d defNetTs=%d cur=%d\n",
+                        std::string(name).c_str(),
+                        std::string(ref->VpiFullName()).c_str(),
+                        (int)ref->VpiLineNo(), (int)ref->VpiColumnNo(),
+                        ref->Actual_group()
+                            ? UHDM::UhdmName(ref->Actual_group()->UhdmType())
+                                  .data()
+                            : "NULL",
+                        (int)(tfTypeScope != nullptr),
+                        (int)tfTypeScopeViewLocal,
+                        curPkgEmitSym ? std::string(curPkgEmitSym->name).c_str()
+                                      : "-",
+                        (int)tdCloneRefNoBind18, (int)suppressRefActual,
+                        (int)(pkgTsParam9 != nullptr), (int)pkgTsForeign9,
+                        (int)(defNetTsScope != nullptr),
+                        (int)(currentScope != nullptr));
             return ref;
         }
         case syntax::SyntaxKind::IntegerLiteralExpression: {
