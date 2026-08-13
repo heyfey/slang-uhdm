@@ -1331,6 +1331,14 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             v = makeReturnVar(s,
                                               bm.getDeclaredType()->getType());
                     }
+                    // § atomVarSignedWritten68, site 5 of 7 — a BLOCK-item
+                    // local: `begin`, a NAMED begin, a `fork` arm, an
+                    // `initial` / `always_comb` body (arm a1 t_blk / t_ini, arm
+                    // a5 33:9 ac_loc / 37:9 nb_loc / 40:13 fk_loc).  The
+                    // array/queue arm ABOVE this `else` mints an element reg of
+                    // its own and is left alone for the same reason site 4 is
+                    // gated: element signedness is § arrayVarSignedWritten8's.
+                    clearNamedAtomSigned68(v, bm.getDeclaredType()->getType());
                     v->VpiName(bm.name);
                     v->VpiFullName(bfull);
                     v->VpiParent(b);
@@ -2507,6 +2515,14 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     }
                     if (intLoopVar && !logicLoopVar)
                         v->VpiSigned(ct.as<PredefinedIntegerType>().isSigned);
+                    // § atomVarSignedWritten68, site 6 of 7 — a FOR-HEADER loop
+                    // variable (arm a1 t_for).  This arm does NOT go through
+                    // makeReturnVar for an integer atom (`intLoopVar` mints the
+                    // var itself and the line above stamps the flag off the
+                    // CANONICAL type, which is precisely the typedef-piercing
+                    // this law forbids), so the clear is applied to whatever the
+                    // arm produced.
+                    clearNamedAtomSigned68(v, lv->getType());
                     v->VpiName(lv->name);
                     v->VpiFullName(joinRef(prefix, lv->name));
                     setLoc(v, SourceRange(lv->location, lv->location + lv->name.size()));

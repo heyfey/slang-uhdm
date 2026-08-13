@@ -2240,6 +2240,72 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
     return s.MakeLogic_var();
 }
 
+// § atomVarSignedWritten68 — the ONE predicate behind `vpiSigned` on a SCALAR
+// INTEGER-ATOM variable at SUBROUTINE / STATEMENT scope, applied POST-FACTORY at
+// every site that declares one.
+//
+// GOLDEN'S RULE, transcribed from measurement (tools/probe/r10uvm68repro,
+// 108 cells over 5 arms + a span census of the SimpleUVM golden): the flag keys
+// on the atom being WRITTEN AT THE DECLARATION, exactly as
+// § arrayVarSignedWritten8's clause (a) does for an `array_var` and as
+// makeVar's `namedTy9` (r10c15) already does for a MODULE-scope variable.  A
+// type NAME carries no signing syntax, so Surelog's compileVariable computes no
+// signedness and the variable gets nothing:
+//
+//     int      x;        -> int_var  vpiSigned:1
+//     typedef int t_t;
+//     t_t      y;        -> int_var  NO vpiSigned          <- this law
+//
+// and identically for `integer` / `shortint` / `longint` / `byte` (arm a2, all
+// five atoms), at ANY typedef chain depth, whether the name is written
+// package-qualified or reached by wildcard import (arm a3), and at every
+// declaration site a subroutine has: the return variable (including an
+// out-of-body `extern` body, a DPI-import prototype and a PURE VIRTUAL
+// prototype), a body local, a begin / named-begin / fork block local, an
+// always_comb local and a for-header loop variable (arms a1/a5).
+// In the SimpleUVM golden this holds for 34/34 named `int_var`, 193/193 named
+// `bit_var` and 15/15 named `logic_var`, with ZERO counterexamples.
+//
+// THE OTHER CARRIER GOES THE OTHER WAY, and that is the pass's refutation: the
+// int_typespec the variable points at DOES carry `vpiSigned:1` when it is named
+// (64/64 in the same golden, `int_typespec (UVM_FILE)@313:9` among them).  The
+// TYPESPEC keys on the RESOLVED type, the VARIABLE on the type AS WRITTEN —
+// the scalar sibling of § arrayElemTsSignedParented9's two-carrier finding.  So
+// there is nothing to "also fix" on the typespec: it is already right.
+//
+// WHY POST-FACTORY AND NOT INSIDE makeReturnVar: makeReturnVar is ALSO the
+// ELEMENT-REG factory (TypeEmit's `emitArrayVar`, TaskFuncEmit's queue/dyn
+// block-item arms, ParamEmit's package array), and those sites hand it an
+// ARRAY ELEMENT type which can itself be a typedef alias.  Element-var
+// signedness is § arrayVarSignedWritten8 / § arrayElemTsSignedParented9
+// territory, measured there and deliberately NOT touched here; gating inside
+// the factory would silently change it.  Call this ONLY where the type is the
+// DECLARATION's own type.
+//
+// Setting the field FALSE is how the flag is cleared everywhere in this emitter
+// (makeVar does `VpiSigned(pit.isSigned && !namedTy9)`); `vpiSigned` is a plain
+// bool with no unset state and the dump prints it only when true.
+inline void clearNamedAtomSigned68(UHDM::variables* v, const Type& declared) {
+    if (!v)
+        return;
+    // A NAME, at any chain depth: slang models `typedef t_t u_t;` as a
+    // TypeAlias whose target is another TypeAlias, so one test covers the chain
+    // (arm a3 x_td1/x_td3).  A `parameter type` / class TYPE PARAMETER is also
+    // a TypeAliasType here, and golden agrees it gets nothing — but it has
+    // already become a `ref_var` via § typeParamVarIsRefVar58, which carries no
+    // vpiSigned either way, so this is a no-op on it (arm a4, 11/11 EQ).
+    if (declared.kind != SymbolKind::TypeAlias)
+        return;
+    // ONLY the predefined integer atoms.  `bit`/`logic`/`reg` and packed
+    // vectors never get the flag on the VARIABLE at this scope on either side,
+    // and a named `time` gets nothing on either side (arm a2 t_time/r_time), so
+    // narrowing to PredefinedIntegerType keeps the edit to the population it
+    // was measured on.
+    if (declared.getCanonicalType().kind != SymbolKind::PredefinedIntegerType)
+        return;
+    v->VpiSigned(false);
+}
+
 // Packed dims written after a NAMED type (filter_ctl_t [1:0] a) live neither
 // in the type syntax nor in getResolvedDimensions; scan the source between
 // the type name and the declarator for bracket groups. Returns

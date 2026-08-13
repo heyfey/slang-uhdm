@@ -2400,6 +2400,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             if (mp.subroutineKind == SubroutineKind::Function &&
                 !mp.getReturnType().isVoid()) {
                 auto* prv = makeReturnVar(s, mp.getReturnType());
+                // § atomVarSignedWritten68, site 1 of 7 — a PURE VIRTUAL
+                // prototype's synthesized return var (arm a5 cell 18:25).
+                clearNamedAtomSigned68(prv, mp.getReturnType());
                 prv->VpiFullName(pt->VpiFullName());
                 prv->VpiParent(pt);
                 const syntax::DataTypeSyntax* prsyn = nullptr;
@@ -2941,6 +2944,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                          return rs0 && rs0->kind ==
                                              slang::syntax::SyntaxKind::ImplicitType;
                                      }());
+            // § atomVarSignedWritten68, site 2 of 7 — a DPI-IMPORT prototype's
+            // synthesized return var (arm a5 cell 27:27).
+            clearNamedAtomSigned68(rv, sub.getReturnType());
             rv->VpiFullName(fullName);
             rv->VpiParent(tf);
             if (auto* rsyn = returnTypeSyntax(sub)) {
@@ -3004,6 +3010,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                         return rs0 && rs0->kind ==
                                             slang::syntax::SyntaxKind::ImplicitType;
                                     }());
+            // § atomVarSignedWritten68, site 3 of 7 — THE ordinary return
+            // variable, in-class, out-of-body `extern`, package-homed and
+            // module-homed alike (arm a5 cells 12:12 pkf, 21:10 V5::ex_ret,
+            // 29:12 selfref; arm a1 f_ret_t / f_mret_t).  The
+            // `crossImplicitRet` arm above makes a ref_var and never reaches
+            // the atom factory, so it is deliberately not gated.
+            clearNamedAtomSigned68(rv, sub.getReturnType());
             rv->VpiFullName(fullName);
             rv->VpiParent(tf);
             // An IMPLICIT return type ("function f;") yields a bare return var:
@@ -4936,6 +4949,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             break;
                     }
                     v = makeReturnVar(s, *lt9);
+                    // § atomVarSignedWritten68, site 4 of 7 — a subroutine BODY
+                    // LOCAL (arm a1 t_loc / t_loci / t_tsk / t_mfloc, arm a5
+                    // 22:13 ex_loc).  GATED ON `lt9 == decl9`: when the loop
+                    // above DESCENDED into an array element, the object is an
+                    // element var and its signedness is
+                    // § arrayVarSignedWritten8 / § arrayElemTsSignedParented9
+                    // territory, measured there and not here.
+                    if (lt9 == &fmv.getDeclaredType()->getType())
+                        clearNamedAtomSigned68(v, *lt9);
                 }
                 v->VpiName(fmv.name);
                 v->VpiFullName(vfull);

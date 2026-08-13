@@ -20625,6 +20625,14 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                                          return rs0 && rs0->kind ==
                                              slang::syntax::SyntaxKind::ImplicitType;
                                      }());
+            // § atomVarSignedWritten68, site 7 of 7 — the PER-REFERENCE body
+            // local `drainFuncRet` mints for a reference to the return name.
+            // ADJACENT TO § retLocalPkgRangeBind67, which owns this same
+            // object's return-type RANGE BINDING (tfTypeScope): different field,
+            // same object, no interaction — 67 sets `tfTypeScope` before
+            // compiling the type, this clears a flag on the variable afterwards.
+            // Arm a5's `selfref` (29:12) is the shape.
+            clearNamedAtomSigned68(lv, sub.getReturnType());
             lv->VpiName(sub.name);
             lv->VpiFullName(localFull);
             lv->VpiParent(r);
