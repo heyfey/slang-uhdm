@@ -4230,6 +4230,51 @@ void UhdmExporter::stampFoldedPkgParamTs(UHDM::constant* c, const Symbol& sym,
     c->Typespec(rt);
 }
 
+// § inheritedNameBindsPkgFn72 — LAW C's LOOKUP half, factored out so the two
+// arms that need it cannot drift apart.  Walk OUT of the CALLER's class (and
+// of every enclosing class, for a nested one) to the package or instance body
+// that holds it, and answer the free subroutine of that name if there is one.
+//
+// The walk starts at the CALLER, never at the callee: the whole point of the
+// law is that the name the caller wrote is INHERITED, so the callee's own home
+// is a base class that says nothing about which package the call was written
+// in.
+// The DIRECT half is the walk LAW C always did.  The WILDCARD half is the same
+// law reached by the other spelling: SimpleUVM's own `class env extends
+// uvm_env` sits at $unit scope under `import uvm_pkg::*`, so walking out of it
+// lands on a COMPILATION UNIT, which declares no `uvm_report_enabled` at all —
+// golden binds the package function there exactly as it does inside uvm_pkg
+// (5 calls in work@env::connect_phase / ::run_phase, measured).  The import is
+// read off the landing scope's OWN members, the same way
+// emitImportedPkgClassMethodClones reads it.
+static const Symbol* pkgFreeSubForName72(const Symbol* callerSub,
+                                         std::string_view nm) {
+    if (!callerSub)
+        return nullptr;
+    const Scope* osc72 = callerSub->getParentScope();
+    while (osc72 && osc72->asSymbol().kind == SymbolKind::ClassType)
+        osc72 = osc72->asSymbol().getParentScope();
+    if (!osc72)
+        return nullptr;
+    SymbolKind k72 = osc72->asSymbol().kind;
+    if (k72 == SymbolKind::Package || k72 == SymbolKind::InstanceBody) {
+        auto* f72 = osc72->find(nm);
+        if (f72 && f72->kind == SymbolKind::Subroutine)
+            return f72;
+    }
+    for (auto& m72 : osc72->members()) {
+        if (m72.kind != SymbolKind::WildcardImport)
+            continue;
+        auto* wp72 = m72.as<WildcardImportSymbol>().getPackage();
+        if (!wp72)
+            continue;
+        auto* f72 = wp72->find(nm);
+        if (f72 && f72->kind == SymbolKind::Subroutine)
+            return f72;
+    }
+    return nullptr;
+}
+
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
@@ -10514,6 +10559,43 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         return mfc;
                     }
                 }
+                // § inheritedNameBindsPkgFn72 — LAW C's GATE, HOISTED.  It used
+                // to be computed ~200 lines below, which put it AFTER the
+                // § classCallNoLink12 arm had already `return`ed — so the one
+                // population that needs the law most (a call whose callee is
+                // not in subMap yet) never reached it.  Nothing in the gate
+                // depends on the subMap lookup, so it moves up whole and is
+                // read at BOTH sites; the reasoning it carries stays written
+                // out at its old home, below.
+                bool qualCall9 = false;
+                if (auto* csyn9 = expr.syntax) {
+                    if (auto* iv9 =
+                            csyn9->as_if<syntax::InvocationExpressionSyntax>())
+                        csyn9 = iv9->left;
+                    qualCall9 =
+                        csyn9 &&
+                        csyn9->kind == syntax::SyntaxKind::ScopedName;
+                }
+                // The in-body half NO LONGER READS `classMethodNoBind`.  That
+                // flag is a REF-binding rule and StmtEmit turns it OFF inside
+                // an if/case CONDITION (:2408 "condition refs DO bind") — so
+                // the identical call bound the inherited METHOD in
+                // `if (uvm_report_enabled(...))` and took LAW C one line
+                // later.  TaskFuncEmit:5234 already states the principle this
+                // restores: "unlike classMethodNoBind these are NOT toggled
+                // inside conditions — a call's binding does not depend on
+                // where in the body it sits."
+                bool inheritedCall72 = false;
+                if (currentSubSym && curSubClassScope9 && !qualCall9)
+                    if (auto* callee9 = sub.getParentScope())
+                        if (auto* caller9 = currentSubSym->getParentScope())
+                            inheritedCall72 =
+                                callee9->asSymbol().kind ==
+                                    SymbolKind::ClassType &&
+                                caller9->asSymbol().kind ==
+                                    SymbolKind::ClassType &&
+                                (curSubOob9 ||
+                                 &callee9->asSymbol() != &caller9->asSymbol());
                 auto it = subMap.find(&sub);
                 // § elabInstCallDefSub — ANY call in an ELAB instance body
                 // binds the shared DEF function (the elab view lists it and
@@ -10592,6 +10674,42 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // caller) -> func_call with NO link.
                         auto* fc0 = (UHDM::tf_call*)s.MakeFunc_call();
                         fc0->VpiName(sub.name);
+                        // § inheritedNameBindsPkgFn72 — SITE 2 of 2.  The arm
+                        // above is right that Surelog links no INHERITED class
+                        // method (t6's `bm(1)`), but "no method" is not "no
+                        // callee": when the enclosing PACKAGE declares a FREE
+                        // FUNCTION of the same name, golden binds THAT, and
+                        // uvm-1.2 is built on the coincidence —
+                        // `uvm_report_enabled` is a package function AND a
+                        // method of uvm_report_object AND of
+                        // uvm_sequence_item, so every derived class's calls
+                        // resolve in slang to the inherited METHOD.  The main
+                        // arm has run this fall-back since LAW C; this arm
+                        // returns before reaching it, and left 140 of
+                        // SimpleUVM's 1081 `uvm_report_enabled` func_calls
+                        // with a null vpiFunction where golden has the
+                        // package function — the cmp head on SimpleUVM
+                        // (both modes) and Scoreboard.
+                        //
+                        // Only a FUNCTION is bound: this arm has already
+                        // committed to a func_call (Surelog's single-pass
+                        // default for a name it has not seen), and stamping a
+                        // task into vpiFunction would be a bad cast.
+                        if (inheritedCall72)
+                            if (auto* fb72 =
+                                    pkgFreeSubForName72(currentSubSym, sub.name))
+                                if (auto f72 = subMap.find(fb72);
+                                    f72 != subMap.end() && f72->second.tf) {
+                                    UHDM::task_func* tf72 = f72->second.tf;
+                                    if (!curPkgEmitSym)
+                                        if (auto e72 = pkgElabSubTf.find(fb72);
+                                            e72 != pkgElabSubTf.end() &&
+                                            e72->second)
+                                            tf72 = e72->second;
+                                    if (tf72->UhdmType() == UHDM::uhdmfunction)
+                                        ((UHDM::func_call*)fc0)
+                                            ->Function((UHDM::function*)tf72);
+                                }
                         fc0->VpiParent(parent);
                         // § callParenSpan11 — a no-arg call's slang range stops
                         // at the callee name; the written invocation runs
@@ -10734,29 +10852,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // is the exception in both shapes: the qualifier is its own
                 // lookup and always resolves (golden binds all 23 of them,
                 // from package, module and class-method sites alike).
-                bool qualCall9 = false;
-                if (auto* csyn9 = expr.syntax) {
-                    if (auto* iv9 =
-                            csyn9->as_if<syntax::InvocationExpressionSyntax>())
-                        csyn9 = iv9->left;
-                    qualCall9 =
-                        csyn9 &&
-                        csyn9->kind == syntax::SyntaxKind::ScopedName;
-                }
-                bool inheritedNoBind9 = false;
-                if (currentSubSym && curSubClassScope9 && !qualCall9)
-                    if (auto* callee9 = sub.getParentScope())
-                        if (auto* caller9 = currentSubSym->getParentScope())
-                            inheritedNoBind9 =
-                                callee9->asSymbol().kind ==
-                                    SymbolKind::ClassType &&
-                                caller9->asSymbol().kind ==
-                                    SymbolKind::ClassType &&
-                                (curSubOob9
-                                     ? true
-                                     : (classMethodNoBind &&
-                                        &callee9->asSymbol() !=
-                                            &caller9->asSymbol()));
+                // (§ inheritedNameBindsPkgFn72 — `qualCall9` and this gate are
+                // computed ABOVE, before the subMap lookup, so the
+                // § classCallNoLink12 arm can read the same one.  SITE 1 of 2.)
+                bool inheritedNoBind9 = inheritedCall72;
                 // LAW C's fall-back arm: a class lookup that fails does not
                 // stop there — Surelog keeps walking OUT to the enclosing
                 // package/module and binds a free subroutine of the same
@@ -10768,17 +10867,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // callee=pkg:uvm_pkg).  The fall-back keeps the call's own
                 // kind, so a package TASK found this way stays a task_call.
                 if (inheritedNoBind9) {
-                    const Scope* osc9 = currentSubSym->getParentScope();
-                    while (osc9 && osc9->asSymbol().kind ==
-                                       SymbolKind::ClassType)
-                        osc9 = osc9->asSymbol().getParentScope();
-                    const Symbol* fb9 = nullptr;
-                    if (osc9 &&
-                        (osc9->asSymbol().kind == SymbolKind::Package ||
-                         osc9->asSymbol().kind == SymbolKind::InstanceBody))
-                        if (auto* f9 = osc9->find(sub.name);
-                            f9 && f9->kind == SymbolKind::Subroutine)
-                            fb9 = f9;
+                    // (§ inheritedNameBindsPkgFn72 — the walk this arm spelled
+                    // inline is now `pkgFreeSubForName72`, the SAME function
+                    // the § classCallNoLink12 arm calls.  Behaviour here is
+                    // byte-identical: the helper is that walk, moved.)
+                    const Symbol* fb9 =
+                        pkgFreeSubForName72(currentSubSym, sub.name);
                     if (fb9)
                         if (auto fit9 = subMap.find(fb9);
                             fit9 != subMap.end() && fit9->second.tf) {
