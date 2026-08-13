@@ -1097,6 +1097,37 @@ static void stampElemTsInstance(UHDM::typespec* t0, UHDM::instance* inst) {
 // ArrayMethodIterator), for subroutine locals and `begin` block locals alike
 // (ApbSlave `svunit_testcase match[$]`).  Returns null when `vs` is not a
 // queue or dynamic array.
+
+// § classHomedTypeTsNoPkgInstance4 — a typespec whose TYPE is declared INSIDE A
+// CLASS never carries a package `vpiInstance` in Surelog, whatever scope the
+// DECLARATION that uses it sits in.
+//
+// The two facts meet in the array-local helpers because our emission creates ONE
+// typespec per typedef and SHARES it: a class method's queue/assoc LOCAL stamps
+// the home package (§ queueLocalElemTsInstance40 / § assocLocalArrayVar40, both
+// correct for a PACKAGE-homed element type) onto the very object the class's own
+// DATA MEMBER points at, and the data member is where uhdm-cmp reaches it.
+//
+// Measured cell for cell, the same program with the typedef inside the class vs
+// in the package (grid q9/q10 for the queue arm, q11 for the associative arm):
+//   class-homed typedef   golden `<null>`          ours (pristine) `TOP:p9`
+//   package-homed typedef golden `ALL:p10 TOP:p10` ours `ALL:p10 TOP:p10`  PASS
+// on the SAME declaration shape.  This is the head on BOTH BuildUVMPkg rows:
+// `struct_typespec(m_inst_typename_alias_t)`, the element type of
+// `uvm_default_factory::m_inst_aliases[$]`, stamped from that class's
+// out-of-body method locals.
+static bool classHomedType4(const Type* t) {
+    if (!t)
+        return false;
+    if (const Scope* sc = t->getParentScope())
+        if (sc->asSymbol().kind == SymbolKind::ClassType)
+            return true;
+    if (const Scope* sc = t->getCanonicalType().getParentScope())
+        if (sc->asSymbol().kind == SymbolKind::ClassType)
+            return true;
+    return false;
+}
+
 UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
                                                     const std::string& afull,
                                                     UHDM::any* parent,
@@ -1124,7 +1155,8 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     // golden — `oob57::mQueue57`/`mDyn57` are `int_typespec@pk57` and
     // `inb57::iQueue57` is unscoped — and uhdm-cmp RECURSES a typespec's
     // Instance, so the missing stamp was a compared field.
-    if (elemTs && tsInst && !elemTs->Instance())
+    // § classHomedTypeTsNoPkgInstance4 gate (site 1 of 2) — see the predicate.
+    if (elemTs && tsInst && !elemTs->Instance() && !classHomedType4(qelem0))
         elemTs->Instance(tsInst);
     auto* av = s.MakeArray_var();
     av->VpiName(vs.name);
@@ -1313,7 +1345,9 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
     tfContext = true;
     UHDM::typespec* elemTs = makeTypespec(vs);
     tfContext = savedTfCtx0;
-    if (elemTs && tsInst && !elemTs->Instance())
+    // § classHomedTypeTsNoPkgInstance4 gate (site 2 of 2) — the ASSOCIATIVE arm,
+    // measured separately (grid q11) rather than generalised from the queue arm.
+    if (elemTs && tsInst && !elemTs->Instance() && !classHomedType4(elem0))
         elemTs->Instance(tsInst);
     auto* av = s.MakeArray_var();
     av->VpiName(vs.name);
