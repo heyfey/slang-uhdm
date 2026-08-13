@@ -3532,6 +3532,26 @@ private:
         std::string paramName;
     };
     std::vector<PendingClassTsPa> pendingClassTsPa;
+    // NOTE § classTdSpecParamsForeignHome1 — a CLASS-SCOPE class-handle typedef
+    // written `C #(<ordered args>)` carries the specialization (one
+    // vpiParameter type_parameter + one vpiParamAssign) EXACTLY WHEN Surelog's
+    // three `getClassDefinition` probes in `compileTypespec`'s slStringConst arm
+    // (CompileType.cpp:1896-1918 — `typeName`, `<component>::typeName`,
+    // `<parentScope>::typeName`) all MISS, so the reference falls through to
+    // `compileDatastructureTypespec`, whose ClassDefinition arm
+    // (CompileType.cpp:904-1000) is the ONLY writer of a class_typespec's
+    // Parameters/Param_assigns.  See the implementation comment for the grid.
+    // Returns true when the params were emitted.
+    bool emitClassTdSpecParams1(UHDM::class_typespec* cts,
+                                const slang::ast::ClassType& target,
+                                const slang::ast::ClassType& declCls,
+                                const slang::syntax::SyntaxNode* typeSyn);
+    // The CLONE half of the same law: a typedef that joins an existing group
+    // takes `clone_tree` of the BASE, so it carries the BASE's specialization
+    // verbatim -- not the one its own `#(...)` text would give (measured on
+    // grid cell b22 and on all 60 UVM `type_id` clones).
+    void copyClassTdSpecParams1(UHDM::class_typespec* dst,
+                                UHDM::class_typespec* base);
     // Class-scope `parameter` / `localparam` / `parameter type` declarations:
     // vpiParameter + vpiParamAssign on the class_defn.
     void emitClassParameters(const slang::ast::ClassType& cls, UHDM::class_defn* cd,

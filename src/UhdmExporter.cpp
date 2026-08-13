@@ -2589,6 +2589,283 @@ void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType&
     cts->Param_assigns(pas);
 }
 
+// NOTE § classTdSpecParamsForeignHome1 — the SPECIALIZATION carried by a
+// CLASS-SCOPE class-handle typedef, and the ONE predicate that decides it.
+//
+// WHAT WAS MISSING.  SeqDriver's shared 85-line cmp head, both modes, is
+//   LHS  class_typespec (adpcm_pkg::type_id) @440:12-440:31, with vpiParameter
+//        type_parameter T -> class_typespec (adpcm_seq_item) and a vpiParamAssign
+//        whose Lhs is uvm_pkg::uvm_object_registry::T
+//   RHS  <null>
+// and `RHS: <null>` here is NOT a missing object: we emit that class_typespec,
+// with the right name, span, vpiInstance and vpiClassDefn, at the SAME index of
+// the SAME 125-entry `work@top_tb` Typespecs vector golden uses (censused
+// span-keyed on both sides: 125 == 125, object present).  It is the
+// `rhs == nullptr` arm of UHDM's VECTOR `SafeCompare` (BaseClass.h:216-220),
+// which sets `m_failedLhs` to the CONTAINER and leaves `m_failedRhs` unset --
+// byte-for-byte the same cmp.log text a missing singular object produces.  The
+// brief's r10uvm52-era reading ("head-is-an-object means every recursive vector
+// before it passed") is therefore FALSE for a NULL vector, and following it
+// would have sent this pass hunting a typespec-minting owner that already exists.
+// The deficit is `Parameters` (and `Param_assigns`) on an object we already emit.
+//
+// THE LAW, transcribed from Surelog rather than guessed.  A class_typespec's
+// Parameters/Param_assigns have exactly ONE writer in Surelog:
+// `CompileHelper::compileDatastructureTypespec`'s ClassDefinition arm
+// (CompileType.cpp:904-1000), which walks the WRITTEN `Parameter_value_assignment`
+// and pushes one type_parameter + one param_assign per ORDERED argument.  That
+// arm is reached only as the LAST resort of `compileTypespec`'s slStringConst
+// case: three probes run first (CompileType.cpp:1896-1918)
+//     design->getClassDefinition(typeName)
+//     design->getClassDefinition(<component>::typeName)
+//     design->getClassDefinition(<component's parent scope>::typeName)
+// and a HIT there mints a bare class_typespec with Name + Class_defn and NO
+// parameters.  So the predicate is "all three probes miss", i.e. the target
+// generic class is NOT nested in the referencing class and NOT a sibling of it
+// in the referencing class's immediate parent scope.  Surelog keys a package
+// class `pkg::C` and a compilation-unit class `work@C`, so the parent-scope
+// probe can only ever hit for a PACKAGE parent -- which is why a $unit class
+// referencing a $unit generic DOES carry the specialization (cell b13).
+//
+// GRID (tools/probe/r10sd1repro/grid/, one cell PER FILE -- see ct1grid.sh for
+// why a1_registry.sv's single-file version was worthless).  LHS always golden:
+//   b1  class td, target in OWN pkg                              golden --  (probe 3 hits)
+//   b2  same, arg is another class                               golden --
+//   b12 same, typedef produced by a MACRO                        golden --  (macro IRRELEVANT)
+//   b3  PACKAGE td, target in OWN pkg                            golden --  (probe 2 hits)
+//   b18 class td, target named QUALIFIED `rp::regb#(..)`         golden --  (paClass_scope arm)
+//   b21 class td, foreign target, NO `#(...)`                    golden --
+//   b20 class td, foreign target, NAMED args `#(.T(x))`          golden --  (ordered-only loop)
+//   b19 class td in a generic, foreign target, arg = OWN type param  golden --  (the
+//       `datatype_cast<const Parameter*>` arm returns nullptr, "Prevent
+//       circular definition")
+//   b5  same with an own-package target                          golden --
+//   b11 class td, target in a WILDCARD-imported pkg              golden PA  <- SeqDriver
+//   b17 same via an EXPLICIT `import rp::regb;`                  golden PA
+//   b14 same plus a macro                                        golden PA
+//   b23 same with ONE ordered arg (value formal defaulted)       golden PA
+//   b13 class td in a $unit class, $unit target                  golden PA  (see above)
+//   b22 TWO class tds of one foreign generic                     golden PA on BOTH
+//   b4/b15/b16 MODULE- and PACKAGE-scope tds of a foreign generic golden PA -- a
+//       DIFFERENT emission site, DISCLOSED AS A RESIDUE and deliberately not
+//       touched here: the whole-design cell grid shows zero corpus reach for
+//       them (every differing key is a class-scope one).
+//   b9/b24/b25/b26/b27 INLINE declarations -- not this site; b9 already agrees.
+bool UhdmExporter::emitClassTdSpecParams1(
+        UHDM::class_typespec* cts, const ClassType& target,
+        const ClassType& declCls, const syntax::SyntaxNode* typeSyn) {
+    if (!cts || cts->Parameters())
+        return false;
+    // (1) The written spelling must be an UNQUALIFIED `C #(...)`.  A ScopedName
+    // (`rp::regb #(..)`) takes Surelog's paPackage_scope/paClass_scope arm
+    // (CompileType.cpp:1522-1545), which mints a bare class_typespec -- cell b18.
+    auto* nt1 = typeSyn ? typeSyn->as_if<syntax::NamedTypeSyntax>() : nullptr;
+    auto* cn1 = nt1 ? nt1->name->as_if<syntax::ClassNameSyntax>() : nullptr;
+    if (!cn1)
+        return false;
+    // (2) ORDERED arguments only: the loop Surelog walks is guarded on
+    // `paOrdered_parameter_assignment`, so a named-arg spelling produces the
+    // (empty, hence dump- and cmp-invisible) vectors and nothing else -- b20.
+    std::vector<const syntax::ExpressionSyntax*> ord1;
+    for (auto* pa1 : cn1->parameters->parameters) {
+        if (!pa1 || pa1->kind != syntax::SyntaxKind::OrderedParamAssignment)
+            return false;
+        ord1.push_back(&*pa1->as<syntax::OrderedParamAssignmentSyntax>().expr);
+    }
+    if (ord1.empty())
+        return false;
+    // (3) THE HOME TEST — Surelog's three getClassDefinition probes.
+    const Symbol* gsym1 = target.genericClass
+                              ? static_cast<const Symbol*>(target.genericClass)
+                              : static_cast<const Symbol*>(&target);
+    const Scope* gsc1 = gsym1->getParentScope();
+    const Symbol* home1 = gsc1 ? &gsc1->asSymbol() : nullptr;
+    if (home1) {
+        if (home1 == static_cast<const Symbol*>(&declCls))
+            return false; // nested in the referencing class (probe 2)
+        const Scope* dp1 = declCls.getParentScope();
+        // Probe 3 spells `<parentScopeName>::<typeName>`.  It hits whenever the
+        // target is a SIBLING of the referencing class in that class's IMMEDIATE
+        // parent scope -- and that scope is a Package (`pb::regb`) OR an
+        // enclosing CLASS (`pb::outerb::regb`), because Surelog keys a nested
+        // class under its outer class exactly as it keys a package class under
+        // its package.  What probe 3 can NEVER spell is a compilation-unit
+        // class, which Surelog keys `work@C` (cell b13, which must keep firing).
+        // So the test is "the parent scope is a NAMED declaration scope", i.e.
+        // Package or ClassType -- NOT Package alone.
+        //
+        // VERIFIER FINDING F1 (r10sd1 verifier pass): with `Package` alone this
+        // predicate MISSED the enclosing-class case and the emitter OVER-FIRED.
+        // Witness cell `grid/b28_nestedouter.sv`: golden carries NO
+        // specialization (probe 3 spells `pb::outerb::regb` and HITS), the
+        // pristine binary agreed, and the Package-only gate emitted one anyway
+        // -- a SAME -> DIFF regression, dump content vs golden 94 -> 143.
+        if (dp1 && home1 == &dp1->asSymbol() &&
+            (home1->kind == SymbolKind::Package ||
+             home1->kind == SymbolKind::ClassType))
+            return false;
+    }
+    // (4) Which formals are backed by a CONCRETE written argument.  An argument
+    // that names a parameter of the referencing class (or of a class enclosing
+    // it) resolves, in Surelog, through `compileDatastructureTypespec`'s
+    // `datatype_cast<const Parameter*>` arm, which returns nullptr and pushes
+    // NOTHING -- cells b19 and b5.  Ordered index i counts ALL formals (value
+    // ones included), exactly as Surelog's `getOrderedParameters()` does.
+    auto namesAParamOf1 = [&](std::string_view id1) {
+        for (const Scope* sc1 = &declCls; sc1;) {
+            for (auto& m1 : sc1->members())
+                if ((m1.kind == SymbolKind::TypeParameter ||
+                     m1.kind == SymbolKind::Parameter) &&
+                    m1.name == id1)
+                    return true;
+            auto& ss1 = sc1->asSymbol();
+            if (ss1.kind != SymbolKind::ClassType)
+                break;
+            sc1 = ss1.getParentScope();
+            if (sc1 && sc1->asSymbol().kind != SymbolKind::ClassType)
+                break;
+        }
+        return false;
+    };
+    std::set<std::string> ok1;
+    size_t idx1 = 0;
+    for (auto& m1 : target.members()) {
+        if (m1.kind != SymbolKind::TypeParameter &&
+            m1.kind != SymbolKind::Parameter)
+            continue;
+        if (idx1 >= ord1.size())
+            break;
+        const syntax::ExpressionSyntax* a1 = ord1[idx1++];
+        if (m1.kind != SymbolKind::TypeParameter)
+            continue;
+        std::string_view id1;
+        if (a1 && a1->kind == syntax::SyntaxKind::IdentifierName)
+            id1 = a1->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        if (!id1.empty() && namesAParamOf1(id1))
+            continue;
+        ok1.insert(std::string(m1.name));
+    }
+    if (ok1.empty())
+        return false;
+    // (5) BUILD.  Deliberate differences from emitClassTsParams, each measured
+    // on cell b11's golden:
+    //   * NO VpiFullName is written on the type_parameter or its ref_typespec.
+    //     Golden's `work@topb.pb::tidb.T` (and SeqDriver's
+    //     `work@top_tb.adpcm_pkg::type_id.T`) is EXACTLY what UHDM's
+    //     `ComputeFullName()` yields from the FINAL parent chain, and that chain
+    //     is not known here -- the object is renamed `<pkg>::<td>` and
+    //     re-parented to the module_inst by the package/module listing passes
+    //     that run LATER.  Leaving it unset lets the reader compute it, which is
+    //     also what Surelog does; the same rule gives every one of the 60 group
+    //     clones its own `<owner>::<td>::T` spelling for free.
+    //   * NO span on the type_parameter and NO span on the param_assign
+    //     (golden prints neither).
+    //   * the ACTUAL's span is the whole `#(...)` text, not the argument's own.
+    auto* params1 = s.MakeAnyVec();
+    auto* pas1 = s.MakeParam_assignVec();
+    for (auto& m1 : target.members()) {
+        if (m1.kind != SymbolKind::TypeParameter)
+            continue;
+        auto& tps1 = m1.as<TypeParameterSymbol>();
+        if (!ok1.count(std::string(tps1.name)))
+            continue;
+        auto* tp1 = s.MakeType_parameter();
+        tp1->VpiName(tps1.name);
+        tp1->VpiParent(cts);
+        auto* rt1 = s.MakeRef_typespec();
+        rt1->VpiParent(tp1);
+        auto& dct1 = tps1.targetType.getType().getCanonicalType();
+        UHDM::typespec* its1 = nullptr;
+        if (dct1.kind == SymbolKind::ClassType) {
+            auto* nts1 = s.MakeClass_typespec();
+            nts1->VpiName(dct1.name);
+            nts1->VpiParent(tp1);
+            if (auto* bcd1 = classDefnFor(dct1))
+                nts1->Class_defn(bcd1);
+            else
+                pendingClassTsLink.push_back({nts1, &dct1});
+            setLoc(nts1, cn1->parameters->sourceRange());
+            its1 = nts1;
+        }
+        else {
+            its1 = makeTypespec(m1, tps1.targetType.getTypeSyntax());
+            if (its1)
+                its1->VpiParent(tp1);
+        }
+        rt1->Actual_typespec(its1);
+        tp1->Typespec(rt1);
+        params1->push_back(tp1);
+        auto* pa1 = s.MakeParam_assign();
+        pa1->VpiParent(cts);
+        pa1->Rhs(tp1);
+        pas1->push_back(pa1);
+        // Lhs is the TARGET class_defn's own formal of the same name; golden's
+        // clones carry a clone of it, which compares equal to the shared object
+        // (type_parameter::Compare reads VpiName + Typespec, never identity).
+        bool bound1 = false;
+        if (auto* bcd1 = classDefnFor(target); bcd1 && bcd1->Parameters())
+            for (auto* p1 : *bcd1->Parameters())
+                if (p1->VpiName() == tps1.name) {
+                    pa1->Lhs(p1);
+                    bound1 = true;
+                    break;
+                }
+        if (!bound1)
+            pendingClassTsPa.push_back({pa1, &target, std::string(tps1.name)});
+    }
+    if (params1->empty())
+        return false;
+    cts->Parameters(params1);
+    cts->Param_assigns(pas1);
+    return true;
+}
+
+// § classTdSpecParamsForeignHome1, the CLONE half.  Surelog's later typedefs of
+// one target take the `clone_tree` path (ElaborationStep.cpp:193-200), so a
+// clone carries the BASE's specialization and NOT the one its own `#(...)` text
+// would produce: cell b22's `pb::wb::tidb` binds T to `ub`, and all 60 UVM
+// `type_id` / `this_type` clones bind T to `adpcm_seq_item` / `adpcm_driver`.
+// Fresh objects per clone (never a shared vector): the type_parameter's parent
+// is what ComputeFullName reads, and golden gives every clone its own
+// `<owner>::<td>::T` spelling.
+void UhdmExporter::copyClassTdSpecParams1(UHDM::class_typespec* dst,
+                                          UHDM::class_typespec* base) {
+    if (!dst || !base || dst == base || dst->Parameters() || !base->Parameters())
+        return;
+    auto* params1 = s.MakeAnyVec();
+    auto* pas1 = s.MakeParam_assignVec();
+    auto* bpas1 = base->Param_assigns();
+    size_t i1 = 0;
+    for (auto* bp1 : *base->Parameters()) {
+        if (!bp1 || bp1->UhdmType() != UHDM::uhdmtype_parameter) {
+            i1++;
+            continue;
+        }
+        auto* btp1 = (UHDM::type_parameter*)bp1;
+        auto* tp1 = s.MakeType_parameter();
+        tp1->VpiName(btp1->VpiName());
+        tp1->VpiParent(dst);
+        if (auto* brt1 = btp1->Typespec()) {
+            auto* rt1 = s.MakeRef_typespec();
+            rt1->VpiParent(tp1);
+            rt1->Actual_typespec(brt1->Actual_typespec());
+            tp1->Typespec(rt1);
+        }
+        params1->push_back(tp1);
+        auto* pa1 = s.MakeParam_assign();
+        pa1->VpiParent(dst);
+        pa1->Rhs(tp1);
+        if (bpas1 && i1 < bpas1->size() && bpas1->at(i1))
+            pa1->Lhs(bpas1->at(i1)->Lhs());
+        pas1->push_back(pa1);
+        i1++;
+    }
+    if (params1->empty())
+        return;
+    dst->Parameters(params1);
+    dst->Param_assigns(pas1);
+}
+
 // Class-scope typedefs (class_defn vpiTypedef), NAME-ordered: Surelog writes
 // the class's DataTypeMap, a std::map keyed by the typedef name, and gives a
 // class_defn's typespecs no vpiInstance (UhdmWriter::writeDataTypes).
@@ -2816,6 +3093,15 @@ void UhdmExporter::drainClassNestedTdGroups54() {
             ar54->VpiFullName(m54.owner + "::" + m54.name);
             ar54->Actual_typespec(bts54);
             m54.ts->Typedef_alias(ar54);
+            // § classTdSpecParamsForeignHome1, the CLONE half.  A clone carries
+            // the BASE's specialization, not its own `#(...)`: grid cell b22's
+            // `pb::wb::tidb` binds T to `ub`, and SeqDriver's 60 `type_id` /
+            // `this_type` clones all bind T to `adpcm_seq_item` (@440) or
+            // `adpcm_driver` (@468).  A clone whose own gate already fired (its
+            // written args ARE foreign-concrete) keeps what it has --
+            // copyClassTdSpecParams1 refuses a non-empty destination -- which is
+            // the b22 base/base case where both members' own text agrees anyway.
+            copyClassTdSpecParams1(m54.ts, bts54);
         }
     }
 }
@@ -2875,6 +3161,11 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                         r = cn->identifier.range();
                 setLoc(cts, r);
             }
+            // § classTdSpecParamsForeignHome1 — the SPECIALIZATION.  Runs BEFORE
+            // the two group arms below on purpose: a group's BASE is whichever
+            // member is walked first, and the clone arms copy from whatever the
+            // base already carries.
+            emitClassTdSpecParams1(cts, ct.as<ClassType>(), cls, typeSyn);
             // NOTE § classNestedClassTdJoinsPkgGroup50 — a class-NESTED
             // class-handle typedef whose GENERIC CLASS already has a
             // package-level class-handle typedef group joins that group as a
@@ -2915,6 +3206,15 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                     ar50->VpiFullName(clsName + "::" + std::string(ta.name));
                     ar50->Actual_typespec(bts50);
                     cts->Typedef_alias(ar50);
+                    // § classTdSpecParamsForeignHome1, clone half: a
+                    // package-anchored clone carries the ANCHOR's
+                    // specialization.  UNMEASURED CELL, recorded as such: no
+                    // grid cell and no corpus row reaches a package-anchored
+                    // group whose base is a FOREIGN generic (every UVM group
+                    // that moves here is the no-anchor kind, drained below), so
+                    // this call is a no-op today -- `copyClassTdSpecParams1`
+                    // returns immediately when the base has no Parameters.
+                    copyClassTdSpecParams1(cts, bts50);
                 }
             // NOTE § classNestedClassTdGroupNoAnchor54 — COLLECT every
             // class-nested class-handle typedef, whether or not law 4 above
