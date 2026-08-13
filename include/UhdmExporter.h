@@ -1784,8 +1784,15 @@ private:
         slang::SourceLocation b, e;
         std::string txt;
     };
+    /// aggregateAbstain34 (§ hpMixedIdxPkgFold34, verifier V-F1): the
+    /// ELEMENT-SELECT index-text sites abstain on a package parameter whose
+    /// initialiser is a CONCATENATION or REPLICATION — golden keeps the
+    /// identifier (and a ref_obj index) there, and the un-gated fold wrote
+    /// `a3[9]` where golden has `a3[InCat]` (arm v5_init.sv; pristine was
+    /// right).  The pre-existing RANGE arm keeps its behaviour (false).
     void collectPkgParamFolds(const slang::ast::Expression& e,
-                              std::vector<PkgFoldSub>& out);
+                              std::vector<PkgFoldSub>& out,
+                              bool aggregateAbstain34 = false);
     std::string rawTextPkgFold(slang::SourceRange range,
                                const std::vector<PkgFoldSub>& subs);
     /// The node's text as the PREPROCESSED token stream reads it: outside a

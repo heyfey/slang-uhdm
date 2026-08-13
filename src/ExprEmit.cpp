@@ -3068,18 +3068,50 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         }
     }
 
+    // § hpMixedIdxPkgFold34 — THE ONE renderer for every element-select index
+    // text this builder puts into a name.  § hierSelPkgParamFold (the law and
+    // its measured table are in the declaration comment, include/UhdmExporter.h)
+    // says a select's decompiled text carries the VALUE of a PACKAGE parameter
+    // and the IDENTIFIER of a module-scope one, because Surelog decompiles the
+    // name off the ELABORATED expression and its definition-compile has already
+    // substituted every package parameter (packages compile first) while the
+    // module's own parameter/localparam/genvar is still symbolic there.  That
+    // law was implemented and applied to the RANGE-select hier_path arm only;
+    // this builder — the one that owns `a[IDX].m.n` — never got it, which is
+    // the Earlgrey flash_ctrl.sv:315 head (`region_cfgs[MpRegions].base.q`
+    // against golden's `region_cfgs[8].base.q`).
+    //
+    // The substitution is PER-LEAF and TEXTUAL, spliced by SOURCE OFFSET: the
+    // operator structure of a compound index survives (`arr2[PkgLp-1]` reads
+    // `[8 - 1]`, never `[7]`), and an ESCAPED identifier — whose spelling may
+    // contain brackets or digits — is replaced by its own range rather than by
+    // any name match (arm a3_escaped.sv).  `rawTextPkgFold` returns plain
+    // `rawText` when nothing was collected, so a name with no package parameter
+    // in it renders byte-for-byte as before.
+    //
+    // Measured grid, a1_idxkind.sv + a2_shape.sv, golden vs ours, 24 cells:
+    // package localparam / package parameter / QUALIFIED `pkg::P` read all
+    // reduce, at BASE and TRAILING position, bare and compound, bit- and
+    // part-select; module localparam, module parameter and GENVAR all keep
+    // their text.  Corpus confirmation in a second, independent family:
+    // tlul_socket_m1's `tl_h_i[i].a_source[...]` keeps its genvar `[i]` in
+    // golden while reducing its other leaves.
+    auto idxText34 = [&](const Expression& selExpr) {
+        // § concatIdxDecompile29 — a CONCATENATION index is decompiled from
+        // the tree; every other index keeps its raw text.
+        std::string ci29 = concatIdxText(selExpr);
+        if (!ci29.empty())
+            return ci29;
+        std::vector<PkgFoldSub> pf34;
+        collectPkgParamFolds(selExpr, pf34, /*aggregateAbstain34=*/true);
+        return spaceIdxOps(rawTextPkgFold(selExpr.sourceRange, pf34));
+    };
+
     std::string dotted;
     for (size_t i = 0; i < comps.size(); ++i) {
         dotted += (i == 0 ? comps[i].name : "." + comps[i].name);
-        for (auto& sel : comps[i].sels) {
-            // § concatIdxDecompile29 — a CONCATENATION index is decompiled from
-            // the tree; every other index keeps its raw text.
-            std::string ci29 = concatIdxText(*sel.sel);
-            dotted += "[" +
-                      (ci29.empty() ? spaceIdxOps(rawText(sel.sel->sourceRange))
-                                    : ci29) +
-                      "]";
-        }
+        for (auto& sel : comps[i].sels)
+            dotted += "[" + idxText34(*sel.sel) + "]";
     }
 
     // A multi-dim element select on the BASE array (group_status[0][0].a)
@@ -3110,15 +3142,11 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             // dotted fullnames; each bit_select's loc is the base name (first
             // dim) or the prior selector's span (later dims).
             for (size_t k = 0; k < comp.sels.size(); ++k) {
-                // § concatIdxDecompile29 — same gate as the `dotted` loop above;
-                // the two renderings must agree or the hier_path name and its
-                // bit_select fullnames disagree on the same select.
-                std::string ci29b = concatIdxText(*comp.sels[k].sel);
-                dottedAt += "[" +
-                            (ci29b.empty() ? spaceIdxOps(rawText(
-                                                 comp.sels[k].sel->sourceRange))
-                                           : ci29b) +
-                            "]";
+                // § hpMixedIdxPkgFold34 / § concatIdxDecompile29 — the SAME
+                // renderer as the `dotted` loop above; the two must agree or
+                // the hier_path name and its bit_select fullnames disagree on
+                // the same select.
+                dottedAt += "[" + idxText34(*comp.sels[k].sel) + "]";
                 auto* bs = s.MakeBit_select();
                 if (k == 0) // only the first dim carries vpiName
                     bs->VpiName(comp.name);
@@ -3156,13 +3184,9 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         }
         else if (!comp.sels.empty()) {
             auto& sel = comp.sels[0];
-            // § concatIdxDecompile29 — same gate as the `dotted` loop above.
-            std::string ci29c = concatIdxText(*sel.sel);
-            dottedAt += "[" +
-                        (ci29c.empty()
-                             ? spaceIdxOps(rawText(sel.sel->sourceRange))
-                             : ci29c) +
-                        "]";
+            // § hpMixedIdxPkgFold34 / § concatIdxDecompile29 — the SAME
+            // renderer as the `dotted` loop above.
+            dottedAt += "[" + idxText34(*sel.sel) + "]";
             auto* bs = s.MakeBit_select();
             bs->VpiName(comp.name);
             bs->VpiParent(hp);
@@ -3854,7 +3878,8 @@ UHDM::constant* UhdmExporter::enumMemberSubstConst(const Symbol& sym) {
 
 // § hierSelPkgParamFold (declaration comment in UhdmExporter.h) — collector.
 void UhdmExporter::collectPkgParamFolds(const Expression& e,
-                                        std::vector<PkgFoldSub>& out) {
+                                        std::vector<PkgFoldSub>& out,
+                                        bool aggregateAbstain34) {
     e.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
         v.visitDefault(nv);
         if (nv.symbol.kind != SymbolKind::Parameter)
@@ -3878,6 +3903,19 @@ void UhdmExporter::collectPkgParamFolds(const Expression& e,
             auto& si = stripImplicitConv(*ini);
             if (si.kind == ExpressionKind::IntegerLiteral)
                 t = stripSep(rawText(si.sourceRange));
+            // § hpMixedIdxPkgFold34's V-F1 gate (ADDED AT INTEGRATION): at
+            // the ELEMENT-SELECT sites golden keeps the IDENTIFIER for a
+            // package parameter whose initialiser is a CONCATENATION or
+            // REPLICATION (arm v5_init.sv: golden a3[InCat], the un-gated
+            // fold wrote a3[9]; pristine was RIGHT).  The same
+            // concat/repl-init discriminator § fcArgPkgParamValueFolds32
+            // measured for value folds reappears on the NAME axis.  The
+            // pre-existing RANGE arm passes false and keeps its landed
+            // behaviour.
+            else if (aggregateAbstain34 &&
+                     (si.kind == ExpressionKind::Concatenation ||
+                      si.kind == ExpressionKind::Replication))
+                return;
         }
         if (t.empty())
             t = cv.integer().toString(LiteralBase::Decimal, false);
