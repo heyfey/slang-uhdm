@@ -26392,11 +26392,38 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         ngi->VpiStmt(t);
                 }
                 if (nIf.elseClause && ngie) {
-                    if (auto* e = emitBranch(
-                            *nIf.elseClause->clause, ngie,
-                            findNested((const syntax::SyntaxNode*)nIf
-                                           .elseClause->clause),
-                            branchPrefix, false))
+                    // § genChainBranchScopeThreads38 — an `else if` CLAUSE
+                    // introduces NO AST SCOPE OF ITS OWN: its branch blocks
+                    // are SIBLINGS of this if's branches in the SAME
+                    // enclosing scope.  findNested therefore returns null for
+                    // an IfGenerate clause (it is not a GenerateBlock and no
+                    // member's syntax is it), and the recursion's own
+                    // `!astBlock` fallback searches the MODULE BODY — which
+                    // is right at module level (r5p_gpr gen_default, where
+                    // the chain branches ARE body members) and WRONG inside
+                    // any generate scope, where they are members of the
+                    // enclosing gen block.  Every branch after the first
+                    // `else if` of a chain nested in a gen-for / gen-if /
+                    // case-item therefore lost its scope, and with it FIVE
+                    // scope-gated emission loops at once: gen-block
+                    // localparams, VARIABLE DECLARATIONS (the head —
+                    // padring.sv:126 `logic unused_out, unused_oe;` inside
+                    // `end else if (ConnectMioIn[k]) begin : gen_mio_input`),
+                    // case-generate item scopes, further nested if-generate
+                    // branch scopes (recursively — the loss compounds with
+                    // depth), and processes.  Thread the CURRENT scope down.
+                    //
+                    // MONOTONE: where the module-level fallback is the right
+                    // answer, `astBlock` is null and this assignment is a
+                    // no-op, so the module-level chain is provably unchanged.
+                    const Scope* ecScope38 = findNested(
+                        (const syntax::SyntaxNode*)nIf.elseClause->clause);
+                    if (!ecScope38 &&
+                        nIf.elseClause->clause->kind ==
+                            syntax::SyntaxKind::IfGenerate)
+                        ecScope38 = astBlock;
+                    if (auto* e = emitBranch(*nIf.elseClause->clause, ngie,
+                                             ecScope38, branchPrefix, false))
                         ngie->VpiElseStmt((UHDM::any*)e);
                 }
                 stmts->push_back(ng0);
