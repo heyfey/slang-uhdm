@@ -251,6 +251,78 @@ bool UhdmExporter::blkLocalSameCtrlDepth57(const slang::ast::Symbol& sym) const 
     return false;
 }
 
+// § retNameRecvCollapse69 — WHEN A METHOD CALL'S RECEIVER IS THE ENCLOSING
+// FUNCTION'S OWN RETURN VARIABLE, SURELOG RESOLVES THE RECEIVER TO THE FUNCTION
+// AND SWALLOWS THE METHOD.
+//
+// THE LAW, as measured (arms a1_type / a2_scope / a3_recv, both sides, and the
+// four UVM tests):
+//
+//   A method call written `<r>.<m>(args)` where `<r>` names the ENCLOSING
+//   function's implicit return variable is emitted by Surelog as a plain
+//   `func_call` NAMED `<r>`, spanning the WHOLE call expression, carrying
+//   `vpiFunction` -> the ENCLOSING FUNCTION ITSELF and the METHOD's arguments
+//   as its own `vpiArgument` children.  The method name appears NOWHERE.
+//   This happens IF AND ONLY IF
+//     (a) the call is in STATEMENT position, and
+//     (b) the enclosing function is NOT a class OUT-OF-BODY method.
+//   In EXPRESSION position, or inside an out-of-body method body, the ordinary
+//   method shape is kept.
+//
+// Surelog's `compileTfCall` resolves a dotted invocation BY ITS FIRST
+// IDENTIFIER; inside a function the return variable shares the function's name,
+// so the lookup lands on the FUNCTION and the call is compiled as a call to it.
+//
+// THE TWO GATES ARE NOT DECORATION — EACH HAS A CORPUS CELL THAT DIES WITHOUT
+// IT, and each refutes a law this pass's brief expected to hold:
+//
+//   (a) STATEMENT ONLY.  `uvm_misc.svh:357`
+//       `uvm_instance_scope = uvm_instance_scope.substr(0,pos);` and `:351`
+//       `pos = uvm_instance_scope.len()-1;` are EXPRESSION position on a
+//       package free function, and golden keeps `substr`/`len` as
+//       method_func_calls.  The pre-existing built-in arm below had NO position
+//       gate and over-collapsed both, plus arm cells A2/A4/B3/C2/D2/F2/G5/H4.
+//
+//   (b) NOT OUT-OF-BODY.  `uvm_printer.svh:992` `index_string.itoa(index);` is
+//       STATEMENT position and golden KEEPS the method shape — the ONE corpus
+//       cell that contradicts a position-only law.  Its enclosing routine is
+//       written `function string uvm_printer::index_string(...)`, OUT OF BODY,
+//       while every corpus cell that DOES collapse is an IN-BODY method
+//       (uvm_tr_stream::open_recorder, uvm_sequence_base::create_item) or a
+//       free/covergroup function (CrossFunc `myFunc1.push_back`).
+//
+// A `string` RETURN TYPE IS **NOT** THE DISCRIMINATOR, though it fits the whole
+// corpus population exactly and was this pass's first law.  Arm a2_scope
+// separates the two hypotheses on the two cells the corpus does not contain:
+// cell G2 (string return, IN-BODY method, statement) COLLAPSES and cell H1
+// (class-handle return, OUT-OF-BODY method, statement) KEEPS.  Type-based:
+// REFUTED.  The full type axis (string, queue, dynamic array, associative
+// array, class handle, enum) is in a1_type and golden treats every one of them
+// the same way; only POSITION and OUT-OF-BODY move a cell.
+//
+// NARROWNESS: the receiver must be EXACTLY the return name.  A CHAINED receiver
+// whose FIRST segment is the return name (`n_chain.inner.touch(n);`, arm a3
+// cell N6) ALSO collapses in golden — but to an ARGUMENT-LESS func_call, a
+// different object — and has ZERO corpus population, so it is left to
+// § deepRecvCall11 and ranked as a residue.  The `NamedValue` test below
+// excludes it structurally rather than by a comment.
+bool UhdmExporter::retNameRecvCollapse69(const Expression& recv,
+                                         bool stmtCtx) const {
+    if (!stmtCtx || !funcRetSym)
+        return false;
+    // (b) an OUT-OF-BODY class method keeps the method shape.
+    if (curSubOob9)
+        return false;
+    if (recv.kind != ExpressionKind::NamedValue)
+        return false;
+    if (&recv.as<NamedValueExpression>().symbol != funcRetSym)
+        return false;
+    // The return variable's parent scope IS the subroutine whose name it
+    // carries; without it there is no function to name the call after.
+    auto* ps0 = funcRetSym->getParentScope();
+    return ps0 && ps0->asSymbol().kind == SymbolKind::Subroutine;
+}
+
 bool UhdmExporter::isPkgQualifiedVarRef(const Expression& e) {
     if (e.kind != ExpressionKind::NamedValue)
         return false;
@@ -9708,6 +9780,43 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             sr11.end() > callRng11.end())
                             callRng11 = sr11;
                     }
+                    // § retNameRecvCollapse69 — THE HEAD.  A USER class-method
+                    // call on the enclosing function's own return variable
+                    // collapses exactly like the built-in one does; this path
+                    // never knew the rule, so `open_recorder.m_do_open(this,
+                    // m_time, type_name);` came out as a method_func_call named
+                    // for the METHOD with the receiver as vpiPrefix, where
+                    // golden emits `func_call (open_recorder)` over the whole
+                    // statement bound to `uvm_tr_stream::open_recorder` itself.
+                    //
+                    // The arguments are the METHOD's, taken through
+                    // writtenArgs16 (a DEFAULTED formal is not written and
+                    // Surelog does not list it); the receiver is
+                    // `call.thisClass()` here rather than argument 0, which is
+                    // the only difference from the built-in arm's body.
+                    // `callRng11` and not `expr.sourceRange` so the no-argument
+                    // spelling still runs through the closing paren
+                    // (§ callParenSpan11).
+                    if (retNameRecvCollapse69(recv0, callStmtCtx0)) {
+                        auto& fsub69 = funcRetSym->getParentScope()
+                                           ->asSymbol()
+                                           .as<SubroutineSymbol>();
+                        auto* fc69 = s.MakeFunc_call();
+                        fc69->VpiName(fsub69.name);
+                        fc69->VpiParent(parent);
+                        setLoc(fc69, callRng11);
+                        if (auto sit69 = subMap.find(&fsub69);
+                            sit69 != subMap.end())
+                            fc69->Function((UHDM::function*)sit69->second.tf);
+                        auto* fargs69 = s.MakeAnyVec();
+                        for (auto arg69 : writtenArgs16(call))
+                            if (auto* a69 =
+                                    emitExpr(*arg69, fc69, prefix, netMap))
+                                fargs69->push_back(a69);
+                        if (!fargs69->empty())
+                            fc69->Tf_call_args(fargs69);
+                        return fc69;
+                    }
                     // § deepRecvCall11 — the two arms below only ever knew a
                     // receiver that is ONE bare name; a DOTTED or INDEXED
                     // receiver (`m.l.doit()`, `m.la[2].get()`, `q[0].get()`)
@@ -11562,34 +11671,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // is dropped (CrossFunc). Gated on the receiver being this
                 // function's own return variable, the only receiver that
                 // names a subroutine.
-                if (!call.arguments().empty() && funcRetSym) {
-                    auto& rcv0 = stripImplicitConv(*call.arguments()[0]);
-                    if (rcv0.kind == ExpressionKind::NamedValue &&
-                        &rcv0.as<NamedValueExpression>().symbol == funcRetSym) {
-                        auto* ps0 = funcRetSym->getParentScope();
-                        if (ps0 &&
-                            ps0->asSymbol().kind == SymbolKind::Subroutine) {
-                            auto& fsub0 =
-                                ps0->asSymbol().as<SubroutineSymbol>();
-                            auto* fc0 = s.MakeFunc_call();
-                            fc0->VpiName(fsub0.name);
-                            fc0->VpiParent(parent);
-                            setLoc(fc0, expr.sourceRange);
-                            if (auto sit0 = subMap.find(&fsub0);
-                                sit0 != subMap.end())
-                                fc0->Function(
-                                    (UHDM::function*)sit0->second.tf);
-                            auto* fargs = s.MakeAnyVec();
-                            for (size_t ai = 1; ai < call.arguments().size();
-                                 ai++)
-                                if (auto* a2 = emitExpr(*call.arguments()[ai],
-                                                        fc0, prefix, netMap))
-                                    fargs->push_back(a2);
-                            if (!fargs->empty())
-                                fc0->Tf_call_args(fargs);
-                            return fc0;
-                        }
-                    }
+                //
+                // § retNameRecvCollapse69 NARROWED THIS ARM.  It previously
+                // tested only "the receiver is the return variable" and so
+                // fired in EXPRESSION position and inside OUT-OF-BODY method
+                // bodies, where golden keeps the method shape.  That
+                // over-collapsed `uvm_instance_scope.substr(0,pos)` and
+                // `uvm_instance_scope.len()` (expression) and
+                // `index_string.itoa(index);` (out-of-body) on every UVM test,
+                // and arm cells A2/A4/B3/C2/D2/F2/G5/H4.  CrossFunc's
+                // `myFunc1.push_back` is statement position in a covergroup
+                // function and keeps the arm, unchanged.
+                if (!call.arguments().empty() &&
+                    retNameRecvCollapse69(
+                        stripImplicitConv(*call.arguments()[0]), stmtCtx)) {
+                    auto& fsub0 = funcRetSym->getParentScope()
+                                      ->asSymbol()
+                                      .as<SubroutineSymbol>();
+                    auto* fc0 = s.MakeFunc_call();
+                    fc0->VpiName(fsub0.name);
+                    fc0->VpiParent(parent);
+                    setLoc(fc0, expr.sourceRange);
+                    if (auto sit0 = subMap.find(&fsub0); sit0 != subMap.end())
+                        fc0->Function((UHDM::function*)sit0->second.tf);
+                    auto* fargs = s.MakeAnyVec();
+                    for (size_t ai = 1; ai < call.arguments().size(); ai++)
+                        if (auto* a2 = emitExpr(*call.arguments()[ai], fc0,
+                                                prefix, netMap))
+                            fargs->push_back(a2);
+                    if (!fargs->empty())
+                        fc0->Tf_call_args(fargs);
+                    return fc0;
                 }
                 if (!call.arguments().empty()) {
                     auto* recv = call.arguments()[0];

@@ -1840,6 +1840,14 @@ private:
     // See the decode at the definition (ExprEmit.cpp): a package-QUALIFIED
     // reference to a package variable, which Surelog resolves only whole.
     bool isPkgQualifiedVarRef(const slang::ast::Expression& e);
+    // § retNameRecvCollapse69 — see the decode at the definition
+    // (ExprEmit.cpp).  ONE predicate shared by BOTH call paths (the built-in
+    // method path and the user class-method path): does a method call whose
+    // RECEIVER is `recv` collapse to a `func_call` named by the ENCLOSING
+    // function?  `stmtCtx` must be the call's OWN statement flag, captured
+    // before the member `callStmtContext` is cleared.
+    bool retNameRecvCollapse69(const slang::ast::Expression& recv,
+                               bool stmtCtx) const;
     // § staticScopedChainDrops48 — see the decode at the definition
     // (ExprEmit.cpp): the base of a `::`-rooted member/select/call CHAIN whose
     // whole tail Surelog discards, or null when this expression is not one.
