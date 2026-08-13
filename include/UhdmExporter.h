@@ -66,6 +66,9 @@ struct BindDirectiveSyntax;
 // control's dotted path is returned as its SYNTAX node, so the name comes from
 // the identifier TOKEN rather than the source text.
 struct IdentifierNameSyntax;
+// § emptyFnBodyEndLabelBegin65 — the `endfunction : <label>` clause; its NAME
+// TOKEN is the whole span of the empty-body `begin`.
+struct NamedBlockClauseSyntax;
 } // namespace slang::syntax
 
 #include <uhdm/uhdm.h>
@@ -2333,6 +2336,14 @@ private:
     // NO STATEMENT-LIST ELEMENT for?  See the decode and the five call sites at
     // the definition in StmtEmit.cpp.
     static bool thisSuperNewAssignNoStmt3(const slang::ast::Statement& st);
+    // § emptyFnBodyEndLabelBegin65 — does this subroutine get golden's EMPTY
+    // body `begin`, and if so WHERE is it located?  Returns the
+    // `endfunction : <label>` clause whose NAME TOKEN is that block's whole
+    // span, or nullptr when the law does not fire.  Four terms, no others; the
+    // decode and its 35 measured arm cells live at the definition in
+    // TaskFuncEmit.cpp.
+    static const slang::syntax::NamedBlockClauseSyntax* emptyFnBodyEndLabel65(
+        const slang::ast::SubroutineSymbol& sub);
     // A TASK-scope `parameter`/`localparam` is a body STATEMENT in Surelog:
     // its param_assign moves into the body `begin` (synthesized for the
     // purpose when the body has none) and is parented there, while the

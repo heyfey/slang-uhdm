@@ -979,6 +979,79 @@ bool UhdmExporter::isTaskScopeParam9(const Symbol& sym) {
            owner.as<SubroutineSymbol>().subroutineKind == SubroutineKind::Task;
 }
 
+// § emptyFnBodyEndLabelBegin65 — a subroutine with a SYNTACTICALLY EMPTY body
+// that is closed with `endfunction : <label>` carries, in golden, a vpiStmt:
+// an EMPTY `begin` whose whole span IS THE LABEL'S TOKEN and whose only other
+// field is the function's vpiFullName.  The corpus witness is the head of
+// SimpleUVM (both modes) and Scoreboard at 575f51d:
+//
+//   544  protected virtual function void do_open(uvm_tr_stream stream,
+//   545                                          time open_time,
+//   546                                          string type_name);
+//   547  endfunction : do_open
+//        ^^^^^^^^^^^^^^^^^^^^^^  golden: begin @547:18-547:25 == `do_open`
+//
+// FOUR terms and NO others; each is a measured arm cell, not an assumption
+// (b1_empty.sv, b2_scopes.sv, b3_taskport.sv — 47 subroutine cells between
+// them):
+//   * THE END LABEL MUST BE WRITTEN.  The block's span IS that label's token,
+//     so an unlabelled `endfunction`/`endtask` leaves golden nothing to locate
+//     and it emits none (c05/c07/c08/c20/e08 bare vs c01/c03/c04/c18 begin).
+//     Spaces around the colon are irrelevant (`endfunction:d04_nospace`, d04;
+//     `endtask: readmemh` is the corpus's own witness).
+//   * THE BODY MUST BE SYNTACTICALLY EMPTY — `items` empty.  "No statements" is
+//     NOT the test and would over-fire: a body holding only a variable
+//     DECLARATION (c17, c21) or only a NULL STATEMENT `;` (d03) is golden-BARE
+//     while our emitter gives all three of them a null body.
+//   * THE CLASS CONSTRUCTOR IS EXCLUDED, unconditionally: c13 (portless), e22
+//     (WITH a port) and e26 (out-of-body, with a port) are all golden-bare, so
+//     the exclusion is not the port-list term below.  Surelog compiles the
+//     constructor in compileClassConstructorDeclaration, the same split
+//     § constructorBodyElementShift27 measures one node further along.
+//   * A TASK ALSO NEEDS A NON-EMPTY tf_port_list; a FUNCTION never does.  This
+//     is the term my first pass got WRONG and the whole-design per-cell audit
+//     of SimpleUVM REFUTED: I wrote "FUNCTION only" off eight golden-bare task
+//     cells, every one of which happened to be written `task foo();` — and
+//     golden's `task uvm_reg_block::readmemh(string filename); endtask:
+//     readmemh` HAS the begin.  b3 separates the two candidate discriminators
+//     cell by cell: it is the PORT LIST, not out-of-body-ness (e06 OOB+port
+//     fires, e10 OOB+portless bare, e01 in-body+port fires, e02 in-body
+//     portless bare, and e03/e04/e09/e20/e21/e23/e24 fire in module, package,
+//     interface, explicit-direction, `automatic` and `virtual` shapes).  Not
+//     "portList present" but "ports NON-EMPTY": `task t();` and `task t;` are
+//     both bare (e02, e28) while `function void f;` with no parens at all
+//     fires (e27) — slang builds a FunctionPortList for written parens even
+//     when it holds nothing.  The FUNCTION's analogue was tested and REFUTED:
+//     a function with no written return type still fires (e12, e16, e19, e27).
+// NOT in the gate, because each was measured to carry NO term: scope ($unit,
+// module, interface, program, package, class, out-of-body definition),
+// virtual / protected / static / automatic, the return type (void, explicit or
+// omitted), the formals of a FUNCTION, and one-line vs multi-line layout.
+const slang::syntax::NamedBlockClauseSyntax* UhdmExporter::emptyFnBodyEndLabel65(
+    const SubroutineSymbol& sub) {
+    if ((sub.flags & MethodFlags::Constructor) != MethodFlags::None)
+        return nullptr;
+    auto* syn = sub.getSyntax();
+    if (!syn)
+        return nullptr;
+    // A TaskDeclaration shares this syntax NODE TYPE with a FunctionDeclaration,
+    // which is why the task term below is read off the PORT LIST and not off the
+    // node type.
+    if (syn->kind != syntax::SyntaxKind::FunctionDeclaration &&
+        syn->kind != syntax::SyntaxKind::TaskDeclaration)
+        return nullptr;
+    auto& fd = syn->as<syntax::FunctionDeclarationSyntax>();
+    if (!fd.items.empty())
+        return nullptr;
+    if (sub.subroutineKind == SubroutineKind::Task &&
+        (!fd.prototype->portList || fd.prototype->portList->ports.empty()))
+        return nullptr;
+    auto* ebn = fd.endBlockName;
+    if (!ebn || ebn->name.range().start() == SourceLocation::NoLocation)
+        return nullptr;
+    return ebn;
+}
+
 const slang::ast::FormalArgumentSymbol* UhdmExporter::elabCallFormal(
     const slang::ast::ParameterSymbol& ps) {
     if (!elabCalledSubs) {
@@ -5240,6 +5313,26 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             ub9->Stmts(bstmts9);
             body = ub9;
         }
+        // § emptyFnBodyEndLabelBegin65 — the empty-bodied labelled subroutine's
+        // own `begin`.  Placed here, after every body-DROP rule above, so the
+        // gate can never fire on a body those rules emptied: it is a SYNTAX
+        // test (`items` empty), and every dropped body has items — EXCEPT the
+        // § qualifiedLifetimeMethodLosesNamePortsBody46 family, whose body is
+        // nulled at 5213 WITHOUT looking at it (verifier F1, arm v1_qualdrop.sv
+        // q01-q06: a syntactically-empty qualified+lifetime method would take
+        // this arm while golden collapses the whole method to a stub with
+        // -NONE- at vpiStmt — six surplus blocks, 0 corpus sites).  The
+        // !qualLifetime46 term makes the stated argument true instead of
+        // merely unviolated.  qualCtor27's family is already excluded by the
+        // predicate's constructor term.
+        if (!body && !qualLifetime46)
+            if (auto* ebn65 = emptyFnBodyEndLabel65(sub)) {
+                auto* eb65 = s.MakeBegin();
+                eb65->VpiParent(tf);
+                eb65->VpiFullName(fullName);
+                setLoc(eb65, ebn65->name.range());
+                body = eb65;
+            }
         classMethodNoBind = savedCMNB;
         curSubClassScope9 = savedSCS9;
         curSubOob9 = savedSOB9;
