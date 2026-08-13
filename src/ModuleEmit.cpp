@@ -2810,6 +2810,87 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
                 prefix + "." + std::string(child.name) +
                 (ordered ? "" : "." + std::string(conn->port.name));
             if (auto expr = connectionExpr(*conn)) {
+                {
+                    // § defConnPkgParamFold43 — a DEF-listing port connection
+                    // whose actual is a BARE (import-materialized) reference
+                    // to a PACKAGE parameter is SUBSTITUTED by that
+                    // parameter's OWN def-view constant, re-spanned at the
+                    // reference, keeping the package's `param_assign` as its
+                    // vpiParent and carrying a ref_typespec whose fullname is
+                    // the ENCLOSING MODULE's def name and whose actual is the
+                    // parameter's DECLARED typespec (Surelog).
+                    //
+                    // Measured cell-for-cell on v43_overfire.sv, ONE module,
+                    // one wildcard import, an own localparam that is the pkg
+                    // one's exact twin:
+                    //   Q_PLAIN   (pkg logic[31:0])  -> constant + ts + parent
+                    //   E1_OWN    (module's OWN, identical type AND value)
+                    //                                -> ref_obj, UNCHANGED
+                    //   E7_OWN_FROM_PKG (own, value COPIED from the pkg one)
+                    //                                -> ref_obj, UNCHANGED
+                    //   Q_STR / Q_REAL / Q_ENUM      -> constant + ts + parent
+                    //   Q_STRUCT / Q_ARR             -> ref_obj, UNCHANGED
+                    // so ownership is PER PARAMETER (`pkgParamConst` is keyed
+                    // on the symbol and only a package's own parameters are
+                    // ever registered in it), never "this scope imports
+                    // something", and the aggregate shapes stay symbolic
+                    // because their def Rhs is an OPERATION and so never
+                    // enters `pkgParamConst` at all.
+                    //
+                    // The WRITTEN `pkg::P` form is a DIFFERENT cell: golden
+                    // folds it to the same VALUE but BARE — no vpiParent, no
+                    // typespec (v43_overfire u_e8, a1_earl43 u_c2).  It is
+                    // deliberately NOT folded here: firing this arm on it
+                    // would stamp a parent and a typespec golden does not
+                    // have.  See README.md § 7 R1.
+                    //
+                    // The reference is read THROUGH the implicit conversion:
+                    // whether the actual needs one is a property of the FORMAL
+                    // (a 32-bit pkg param into a 32-bit formal has none, into
+                    // a 16-bit or an implicit 1-bit formal it does), and
+                    // golden's cell is the same either way — it is the
+                    // PARAMETER's own value, at the parameter's own width, in
+                    // the parameter's own written base.  Reading only the bare
+                    // NamedValue would have left a1_earl43's u_c5 / u_c6 /
+                    // u_c10 / u_c15 half-right: the constant already correct
+                    // (emitExpr folds a pkg param through a conversion) but
+                    // with NEITHER the parent NOR the typespec.
+                    auto& sx43 = stripImplicitConv(*expr);
+                    const UHDM::constant* pkc43 = nullptr;
+                    const Symbol* psym43 = nullptr;
+                    if (sx43.kind == ExpressionKind::NamedValue)
+                        psym43 = &sx43.as<NamedValueExpression>().symbol;
+                    if (psym43 && psym43->kind == SymbolKind::Parameter &&
+                        rawText(sx43.sourceRange).find("::") ==
+                            std::string::npos)
+                        if (auto pit43 = pkgParamConst.find(psym43);
+                            pit43 != pkgParamConst.end())
+                            pkc43 = pit43->second;
+                    if (pkc43) {
+                        auto* c43 = s.MakeConstant();
+                        c43->VpiDecompile(pkc43->VpiDecompile());
+                        c43->VpiSize(pkc43->VpiSize());
+                        c43->VpiValue(pkc43->VpiValue());
+                        c43->VpiConstType(pkc43->VpiConstType());
+                        setLoc(c43, sx43.sourceRange);
+                        // The PACKAGE's param_assign, taken off the
+                        // parameter's own def constant — not `p`.
+                        c43->VpiParent((UHDM::BaseClass*)pkc43->VpiParent());
+                        auto* rt43 = s.MakeRef_typespec();
+                        rt43->VpiFullName(prefix);
+                        rt43->VpiParent(c43);
+                        if (auto poIt43 = pkgParamObj.find(psym43);
+                            poIt43 != pkgParamObj.end() &&
+                            poIt43->second->Typespec())
+                            rt43->Actual_typespec(
+                                poIt43->second->Typespec()->Actual_typespec());
+                        c43->Typespec(rt43);
+                        p->High_conn(c43);
+                        defRefModConn = false;
+                        rports->push_back(p);
+                        continue;
+                    }
+                }
                 if (expr->kind == ExpressionKind::NamedValue) {
                     auto& nv = expr->as<NamedValueExpression>();
                     auto* r = s.MakeRef_obj();

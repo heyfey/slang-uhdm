@@ -1,0 +1,30 @@
+LHS:
+decompile:
+ref_obj: (pinmux_pkg::LC_PINMUX_STRAP_REQ_DEFAULT), id:194917, line:628:26, endln:628:38
+|vpiParent:
+\_port: (lc_pinmux_strap_i), id:194916, line:628:7, endln:628:66
+|vpiName:pinmux_pkg::LC_PINMUX_STRAP_REQ_DEFAULT
+|vpiActual:
+\_parameter: (pinmux_pkg::LC_PINMUX_STRAP_REQ_DEFAULT), id:36795, line:26:28, endln:26:55
+
+decompile:
+ref_obj: (pinmux_pkg::LC_PINMUX_STRAP_REQ_DEFAULT), id:194917, line:628:26, endln:628:38
+|vpiParent:
+\_port: (lc_pinmux_strap_i), id:194916, line:628:7, endln:628:66
+|vpiName:pinmux_pkg::LC_PINMUX_STRAP_REQ_DEFAULT
+|vpiActual:
+\_parameter: (pinmux_pkg::LC_PINMUX_STRAP_REQ_DEFAULT), id:36795, line:26:28, endln:26:55
+RHS:
+decompile:
+ref_obj: (work@top_earlgrey.u_pinmux.lc_pinmux_strap_i.LC_PINMUX_STRAP_REQ_DEFAULT), id:189632, line:628:26, endln:628:65
+|vpiParent:
+\_port: (lc_pinmux_strap_i), id:189631, line:628:7, endln:628:66
+|vpiName:LC_PINMUX_STRAP_REQ_DEFAULT
+|vpiFullName:work@top_earlgrey.u_pinmux.lc_pinmux_strap_i.LC_PINMUX_STRAP_REQ_DEFAULT
+
+decompile:
+ref_obj: (work@top_earlgrey.u_pinmux.lc_pinmux_strap_i.LC_PINMUX_STRAP_REQ_DEFAULT), id:189632, line:628:26, endln:628:65
+|vpiParent:
+\_port: (lc_pinmux_strap_i), id:189631, line:628:7, endln:628:66
+|vpiName:LC_PINMUX_STRAP_REQ_DEFAULT
+|vpiFullName:work@top_earlgrey.u_pinmux.lc_pinmux_strap_i.LC_PINMUX_STRAP_REQ_DEFAULT
