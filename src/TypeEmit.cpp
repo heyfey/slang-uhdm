@@ -1926,6 +1926,58 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         bs9->getParentScope()->asSymbol().kind ==
                                             SymbolKind::Package)
                                         patPkgPar9 = &bs9->as<ParameterSymbol>();
+                            // § patDefBoundShadowedImport36 (r10earl36) — A
+                            // MODULE-LOCAL PARAMETER OR LOCALPARAM OF THE SAME
+                            // NAME DOES NOT HIDE THE WILDCARD-IMPORTED PACKAGE
+                            // MEMBER FROM SURELOG, so § patDefBoundPkgParamSubst
+                            // above still substitutes — the packed-array
+                            // (named-element) carrier of the very rule
+                            // § shadowedImportBoundFold already implements for
+                            // the plain-vector carrier (TypeEmit's defNetTsScope
+                            // arm, whose re-point this is copied from verbatim).
+                            //
+                            // THE HEAD: Earlgrey_0_1/default, flash_mp.sv:22
+                            // `input flash_ctrl_reg_pkg::…_mp_bank_cfg_mreg_t
+                            // [NumBanks-1:0] bank_cfgs_i` — golden's DEF-view
+                            // packed_array_typespec range folds `NumBanks` to
+                            // `constant 2` carrying ref_typespec -> the
+                            // int_typespec of flash_ctrl_pkg's OWN
+                            // `localparam int NumBanks` (flash_ctrl_pkg.sv:11:14,
+                            // vpiInstance = the package), NOT the module's
+                            // `parameter int NumBanks = 2` at flash_mp.sv:12.
+                            // slang's Lookup obeys the LRM and lets the module's
+                            // own declaration shadow the import, so the test
+                            // above answered "not package-homed" and the bound
+                            // stayed a symbolic ref_obj.  Its next-line sibling
+                            // `[TotalRegions-1:0]` — a module localparam with NO
+                            // package twin — stays a ref_obj in golden too, and
+                            // is the negative that keeps the gate honest.
+                            //
+                            // STATED GATE == CODE GATE.  The gate is exactly:
+                            // the `<ident>-<digits>` DEF-view bound form of the
+                            // arm below (identV && tfContext), the identifier
+                            // written UNQUALIFIED, slang resolved it to a
+                            // parameter that is NOT package-homed, and some
+                            // enclosing scope's WILDCARD import declares that
+                            // name.  Nothing else — no text test beyond the one
+                            // the arm below already applies, and NO widening of
+                            // the `plainIdV` arm, which golden answers
+                            // DIFFERENTLY PER VIEW (a1 cell a_shp_plain: the def
+                            // view takes the package value, the elab view keeps
+                            // the module's — residue R1).
+                            if (!patPkgPar9 && identV && tfContext &&
+                                idV.find("::") == std::string::npos)
+                                if (auto* psc9 = declSymbol.getParentScope())
+                                    if (auto* bs9 =
+                                            Lookup::unqualified(*psc9, idV);
+                                        bs9 &&
+                                        bs9->kind == SymbolKind::Parameter &&
+                                        bs9->getParentScope() &&
+                                        bs9->getParentScope()->asSymbol().kind !=
+                                            SymbolKind::Package)
+                                        if (auto* wp9 =
+                                                wildcardPkgParamNamed9(psc9, idV))
+                                            patPkgPar9 = wp9;
                             if (identV && tfContext) {
                                 auto* opV = s.MakeOperation();
                                 opV->VpiOpType(vpiSubOp);
