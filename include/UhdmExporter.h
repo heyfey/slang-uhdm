@@ -1878,7 +1878,9 @@ private:
     // CHAIN's own syntax (a chained base sub-expression carries none).
     UHDM::any* scopedChainDropRef48(const slang::ast::Expression& e,
                                     UHDM::BaseClass* parent,
-                                    const std::string& prefix);
+                                    const std::string& prefix,
+                                    const slang::ast::Expression* base1 = nullptr);
+
     // § typeParamScopedCallRef59 — the bare unbound `ref_obj`
     // (`Tregistry::get`) golden gives a `::`-scoped reference slang REFUSED TO
     // BIND, which inside a generic class's DEFAULT specialization is every

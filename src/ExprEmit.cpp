@@ -683,6 +683,81 @@ static bool assignTargetParent48(const UHDM::BaseClass* p) {
     }
 }
 
+// § scopedRootFromStmtSyntax1 — the `::`-separated ScopedName that STARTS at
+// `loc`, found anywhere under `root`, or null.
+//
+// WHY A SEARCH AND NOT A POINTER.  slang leaves an invocation's Expression with
+// a NULL `syntax` pointer (`Expression::create` refuses to overwrite it there —
+// the same fact § droppedCall14's `findDroppedCallAt14` was written for), and a
+// CHAINED base sub-expression carries none either, so for the corpus head there
+// is NO syntax node anywhere on the expression to read the written `::` off.
+// What every such expression DOES carry is a valid `sourceRange`, and the
+// enclosing statement's syntax is on hand (`stmtSyntax14`, set for every
+// statement, not only rejected ones).  A `::` ScopedName is uniquely identified
+// inside one statement by the column its FIRST token sits on.
+//
+// The DoubleColon test is what keeps this from matching the `.`-separated outer
+// node of the very same chain, which begins at the identical column: the walk
+// visits the outer node first, rejects it on the separator, and descends to the
+// `::` node underneath it.
+static const slang::syntax::NameSyntax* scopedRootAt1(
+    const slang::syntax::SyntaxNode& root, slang::SourceLocation loc) {
+    if (root.kind == slang::syntax::SyntaxKind::ScopedName) {
+        auto& sn1 = root.as<slang::syntax::ScopedNameSyntax>();
+        if (sn1.separator.kind == slang::parsing::TokenKind::DoubleColon &&
+            root.getFirstToken().location() == loc)
+            return &root.as<slang::syntax::NameSyntax>();
+    }
+    for (size_t i = 0; i < root.getChildCount(); i++)
+        if (auto* c1 = root.childNode(i))
+            if (auto* r1 = scopedRootAt1(*c1, loc))
+                return r1;
+    return nullptr;
+}
+
+// § scopedRootFromStmtSyntax1 — the chain's `::` root, from the chain's own
+// syntax when it has one and from the enclosing STATEMENT's syntax when it does
+// not.  ONE lookup, read by BOTH halves of § staticScopedChainDrops48 (the
+// predicate that decides the collapse and the builder that mints its object),
+// so the two can never disagree about which `::` they are splitting.
+static const slang::syntax::NameSyntax* scopedChainRoot1(
+    const slang::ast::Expression& whole, const slang::ast::Expression& base,
+    const slang::syntax::SyntaxNode* stmtSyn1) {
+    if (auto* ns1 = scopedChainRootName48(whole.syntax))
+        return ns1;
+    if (stmtSyn1 && base.sourceRange.start().valid())
+        return scopedRootAt1(*stmtSyn1, base.sourceRange.start());
+    return nullptr;
+}
+
+// § scopedBuiltinRecvIsChain1 — the RECEIVER of a BUILT-IN METHOD call, or null
+// when this call has no receiver at all.
+//
+// slang gives a class method call its receiver in `thisClass()`, but a BUILT-IN
+// method (`q.push_back(x)`, `s.itoa(n)`, `arr.size()`, `e.name()`) is a
+// SystemSubroutine whose `thisClass()` is NULL and whose receiver is
+// `arguments()[0]` — the same shape a FREE function call has, which is why the
+// original § staticScopedChainDrops48 walk (`if (!thisClass()) return nullptr`)
+// treated the two as one and never reached a built-in method's receiver.
+//
+// THE `$` TEST IS LOAD-BEARING, NOT COSMETIC.  A real system TASK/FUNCTION
+// (`$display(p1::q.size())`, `$cast(a, p1::h)`) is ALSO a SystemSubroutine with
+// a null `thisClass()`, and ITS `arguments()[0]` is an ORDINARY ARGUMENT, not a
+// receiver.  Without the `$` test the walk would treat `$display(x)` as a chain
+// rooted at `x` and collapse the whole call into a ref_obj.  This is the same
+// discriminator the built-in-method emitter already uses at the head of the
+// system-call arm ("Built-in METHOD calls (e.first(), arr.size(): no leading
+// $)"), stated once here and read by both.
+static const slang::ast::Expression* builtinMethodRecv1(
+    const slang::ast::CallExpression& ce) {
+    if (!ce.isSystemCall() || ce.arguments().empty())
+        return nullptr;
+    std::string_view nm1 = ce.getSubroutineName();
+    if (!nm1.empty() && nm1[0] == '$')
+        return nullptr;
+    return ce.arguments()[0];
+}
+
 // § staticScopedChainDrops48 — the BASE of a `::`-rooted `.member` / select /
 // `.method(...)` CHAIN, or null when there is no such chain.  Surelog's
 // expression compiler never resolves THROUGH a `::` scope, so everything hung
@@ -711,6 +786,11 @@ static bool assignTargetParent48(const UHDM::BaseClass* p) {
 // A call with a NULL thisClass (`p67::pf67(nm)`, `base67::sfunc()`) is not a
 // chain at all: t67b D1..D4 keep their func_call / staticScopedCall12 ref on
 // BOTH sides and this walk never reaches them.
+//
+// § scopedBuiltinRecvIsChain1 — EXCEPT when the null `thisClass()` belongs to a
+// BUILT-IN METHOD, whose receiver slang hides in `arguments()[0]`; see the
+// decode at `builtinMethodRecv1` just below.  That gap is what left
+// BuildUVMPkg's head standing.
 const slang::ast::Expression* UhdmExporter::scopedChainDropBase48(
     const slang::ast::Expression& e) {
     using slang::ast::ExpressionKind;
@@ -737,9 +817,16 @@ const slang::ast::Expression* UhdmExporter::scopedChainDropBase48(
         }
         if (cur->kind == ExpressionKind::Call) {
             auto& ce48 = cur->as<slang::ast::CallExpression>();
-            if (!ce48.thisClass())
+            // § scopedBuiltinRecvIsChain1 — SITE 1 of 1.  A USER class method
+            // carries its receiver in `thisClass()`; a BUILT-IN one carries it
+            // in `arguments()[0]` and leaves `thisClass()` NULL, which the
+            // original walk could not tell from a FREE function call.
+            const slang::ast::Expression* recv1 = ce48.thisClass();
+            if (!recv1)
+                recv1 = builtinMethodRecv1(ce48);
+            if (!recv1)
                 return nullptr;
-            cur = &stripImplicitConv(*ce48.thisClass());
+            cur = &stripImplicitConv(*recv1);
             steps48++;
             continue;
         }
@@ -749,7 +836,7 @@ const slang::ast::Expression* UhdmExporter::scopedChainDropBase48(
         return nullptr;
     // The chain must be a `::` scope THIS EMITTER can split, because the object
     // the collapse returns is built from that split.
-    auto* ns48 = scopedChainRootName48(e.syntax);
+    auto* ns48 = scopedChainRoot1(e, *cur, stmtSyntax14);
     if (!ns48)
         return nullptr;
     std::string f48, l48;
@@ -787,8 +874,14 @@ const slang::ast::Expression* UhdmExporter::scopedChainDropBase48(
 // unbound even inside § classArgBind12's window).
 UHDM::any* UhdmExporter::scopedChainDropRef48(const slang::ast::Expression& e,
                                               UHDM::BaseClass* parent,
-                                              const std::string& prefix) {
-    auto* ns48 = scopedChainRootName48(e.syntax);
+                                              const std::string& prefix,
+                                              const slang::ast::Expression* base1) {
+    // § scopedRootFromStmtSyntax1 — the SAME lookup the predicate used, so the
+    // object is always built from the `::` the predicate split.  `base1` is the
+    // base the predicate returned; without it this falls back to the chain's own
+    // syntax exactly as before.
+    auto* ns48 = base1 ? scopedChainRoot1(e, *base1, stmtSyntax14)
+                       : scopedChainRootName48(e.syntax);
     if (!ns48)
         return nullptr;
     std::string f48, l48;
@@ -4220,7 +4313,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (auto* base48 = emitExpr(*cb48, parent, prefix, netMap))
                 return base48;
         }
-        else if (auto* cr48 = scopedChainDropRef48(expr, parent, prefix))
+        else if (auto* cr48 = scopedChainDropRef48(expr, parent, prefix, cb48))
             return cr48;
     }
     switch (expr.kind) {
