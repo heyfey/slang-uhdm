@@ -4468,6 +4468,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         bool blockItems9 =
             !bodyIoDecl9 &&
             (portParens9 || sub.subroutineKind == SubroutineKind::Task);
+        // § ctorBodyLocalsNotOnFunc71 — the body locals this block collects.
+        // Hoisted out of the block ONLY so the `$bits(<formal>)` io_decl
+        // binding below keeps running over exactly the set it ran over before
+        // this pass: that loop used to read `tf->Variables()`, and a
+        // constructor no longer HAS one.  Reading the collected vector instead
+        // of the emitted vector keeps the binder's input identical for
+        // constructor and non-constructor alike, so the gate below changes
+        // what is EMITTED and nothing else.
+        UHDM::VectorOfvariables* fvarsAll71 = nullptr;
         {
             auto* fvars = s.MakeVariablesVec();
             for (auto& fmv : sub.members()) {
@@ -5082,7 +5091,32 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 funcMap[&fmv] = v;
                 fvars->push_back(v);
             }
-            if (!fvars->empty())
+            fvarsAll71 = fvars;
+            // § ctorBodyLocalsNotOnFunc71 — A CLASS CONSTRUCTOR carries NO
+            // vpiVariables vector.  Its body locals are listed on the BODY
+            // SCOPE alone, which already lists them identically (measured:
+            // SimpleUVM's `uvm_objection::new` begin block is byte-identical
+            // to golden's, all four entries), so nothing is orphaned; and
+            // where a constructor has no body scope at all, golden keeps only
+            // the ref_obj USE and no variable object (arm a1 `c_auto::new`).
+            // EVERY OTHER SUBROUTINE IS UNTOUCHED — golden puts variables on
+            // 665 of SimpleUVM's non-constructor subroutines and we already
+            // matched all 665 before this pass.
+            //
+            // CONSTRUCTOR-NESS IS SLANG'S OWN FLAG, NOT THE NAME.  A NAME test
+            // (`sub.name == "new"`) OVER-FIRES: an ESCAPED IDENTIFIER is exempt
+            // from keyword rules, so `function int \new (int a);` is an
+            // ORDINARY class method that slang also names "new", and golden
+            // KEEPS its body local on the function (verifier arm a4_escnew:
+            // golden 1, base 1, name-gate 0 — a regression the corpora cannot
+            // see because no corpus source uses `\new`).  `MethodFlags::
+            // Constructor` is set on the in-body constructor AND on the
+            // out-of-body DEFINITION, so all THREE prints of arm a1's
+            // `c_oob::new` are covered — including the package-parented one,
+            // which was that arm's own cmp head.
+            bool ctorNoVars71 =
+                (sub.flags & MethodFlags::Constructor) != MethodFlags::None;
+            if (!fvars->empty() && !ctorNoVars71)
                 tf->Variables(fvars);
         }
 
@@ -5118,8 +5152,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // subroutine's formals are io_decls (PackFunc's
         // `reg [$bits(a)-1:0] a_vec`). Both exist by now, so bind by name
         // against this function's own io_decls.
-        if (!ios->empty() && tf->Variables())
-            for (auto* fv0 : *tf->Variables()) {
+        if (!ios->empty() && fvarsAll71 && !fvarsAll71->empty())
+            for (auto* fv0 : *fvarsAll71) {
                 auto* frt0 = fv0->Typespec();
                 auto* fts0 = frt0 ? frt0->Actual_typespec() : nullptr;
                 if (!fts0 || fts0->UhdmType() != UHDM::uhdmlogic_typespec)
