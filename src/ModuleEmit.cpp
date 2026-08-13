@@ -22497,40 +22497,57 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
         dup->VpiColumnNo(0);
     }
 
-    // Shares the home view's variable objects (shown shallow in the tail dump).
-    // VARIABLE symbols only — NET-kind symbols (header-port-backing clk/rst
-    // wires) are not listed as dup Variables (Surelog); they reach the dup via
-    // the modport io_decl exprs instead.
+    // § ifaceDupVarsAreHomeVars14 — THE COL-0 TAIL DUP'S `Variables()` IS THE
+    // HOME VIEW'S `Variables()`, ELEMENT FOR ELEMENT AND IN THE SAME ORDER.
+    // The dup shares the objects (uhdm-dump prints them shallow because the
+    // home view was visited first); it does not decide MEMBERSHIP for itself.
+    //
+    // WHAT WAS HERE BEFORE, AND THE ONE THING IT GOT WRONG.  The list was
+    // RE-DERIVED from the symbol table — `collectNetOrder(body)` filtered by
+    // `sharedNets`, then by `it.sym->kind == SymbolKind::Net`, then by a switch
+    // over five NET-CLASS UHDM types.  The second filter is the bug: slang
+    // models an interface's ANSI HEADER PORT as a **NetSymbol whatever its data
+    // type**, so `input bit clock` was dropped — yet its HOME object is a
+    // `bit_var`, i.e. a `variables`, and golden lists it.  Measured on 36 cells
+    // across two arms (b1 = header-port kind, b2 = order/doubling/receiver):
+    //
+    //   header port      home object    golden dup lists it?   old code
+    //   input bit clock  bit_var        YES                    dropped  (c1,c8,c9)
+    //   input int n      int_var        YES                    dropped  (c4)
+    //   input bit a,b    bit_var x2     YES, in DECL order     dropped  (c6)
+    //   input wire clk   logic_net      no                     dropped  (c2) ok
+    //   input logic clk  logic_net      no                     dropped  (c3) ok
+    //   output reg r     logic_net      no                     dropped  (c5) ok
+    //   struct member    struct_net     no                     dropped  (d5) ok
+    //   logic arr [0:1]  array_var      YES                    kept     (d5) ok
+    //
+    // So the discriminator is the UHDM CLASS of the shared home object
+    // (`variables` vs `nets`) and NOT the slang symbol kind — and the home
+    // view's own `Variables()` vector already applies exactly that partition,
+    // in exactly golden's order.  Copying it is therefore the whole rule and it
+    // needs no filter of its own.
+    //
+    // THE ORDER IS THE HOME VIEW'S, NOT "the port first".  Arm b2 cell d1 (a
+    // NON-ANSI interface whose body variable is declared BEFORE the port's own
+    // `input bit clk;` declaration) has golden listing `logic_var dat` FIRST and
+    // `bit_var clk` SECOND, on the home view AND on the dup.  A rule that
+    // prepended the port variable would have broken that cell.
+    //
+    // THE DOUBLING IS THE HOME VIEW'S TOO.  An interface handed to an UNBOUND
+    // generic `interface` port lists its variables twice; the deleted block
+    // recomputed `boundToPlainGenericIfacePort(inst, isUnboundGenericIfacePort)`
+    // — a SECOND COPY of the predicate the home view (`dblVars9`, this file's
+    // interface emitter) had already applied to the very vector we now copy.
+    // One rule, one place.
+    //
+    // `home` is the elaborated home view and the ONE call site always passes it
+    // (`grep -c 'makeIfaceRefDup('` = 3: this definition, this comment, and the
+    // single call in the home-view path, which passes `iface`); a home-less dup
+    // would list no Variables, which is unreachable today.
     auto* vars = s.MakeVariablesVec();
-    for (auto& it : collectNetOrder(body))
-        if (auto nit = it.portExprNet ? sharedNets.end() : sharedNets.find(it.sym);
-            nit != sharedNets.end()) {
-            if (it.sym->kind == SymbolKind::Net)
-                continue;
-            // NET-CLASS home objects (struct_net members) are not dup
-            // Variables either — they reach the dup via modport io exprs.
-            switch (nit->second->UhdmType()) {
-                case UHDM::uhdmstruct_net:
-                case UHDM::uhdmlogic_net:
-                case UHDM::uhdmarray_net:
-                case UHDM::uhdmenum_net:
-                case UHDM::uhdmpacked_array_net:
-                    continue;
-                default:
-                    break;
-            }
-            vars->push_back((UHDM::variables*)nit->second);
-        }
-    // The tail dup carries the same doubled listing the home view does when
-    // the instance is handed to a plain generic port.
-    if (!vars->empty() && boundToPlainGenericIfacePort(
-            inst, [this](const InterfacePortSymbol& ip9) {
-                return isUnboundGenericIfacePort(ip9);
-            })) {
-        size_t half9 = vars->size();
-        for (size_t i9 = 0; i9 < half9; i9++)
-            vars->push_back((*vars)[i9]);
-    }
+    if (home && home->Variables())
+        for (auto* hv : *home->Variables())
+            vars->push_back(hv);
     if (!vars->empty())
         dup->Variables(vars);
     // § ifaceDupSharesHomePorts — the col-0 tail dup SHARES the HOME view's
