@@ -21352,16 +21352,42 @@ UHDM::checker_inst* UhdmExporter::emitCheckerInst(const Symbol& sym, UHDM::BaseC
     return ci;
 }
 
+// § cbEventRefFirstInstance15 — DESIGN-FINAL drain: give every non-first
+// instance's clocking event ref the object its DEF view's ref ended up naming
+// (the FIRST elaborated instance's variable).  Deferred to here, and not done
+// inline at elab-emission time, so the result cannot depend on whether the first
+// instance's home view happened to be emitted before the others'.  Only ever
+// FILLS a NULL Actual_group on a clocking-event ref_obj; it writes nothing else.
+void UhdmExporter::drainCbElabRefs15() {
+    for (auto& [r9, key9] : pendingCbElabRefs) {
+        if (r9->Actual_group())
+            continue;
+        auto dI9 = defCbEventRefs.find(key9);
+        if (dI9 == defCbEventRefs.end() || !dI9->second)
+            continue;
+        if (auto* a9 = dI9->second->Actual_group())
+            r9->Actual_group(a9);
+    }
+}
+
 void UhdmExporter::emitNamedClockingBlocks(const InstanceBodySymbol& body,
                                            UHDM::instance* m,
                                            const std::string& prefix,
                                            NetMap& nm, bool defView) {
     UHDM::VectorOfclocking_block* vec = nullptr;
     // ELAB pass: resolve def-view event refs against this instance's nets.
+    // § cbEventRefFirstInstance15 — FIRST WRITER WINS.  The def ref must name
+    // the FIRST elaborated instance's variable, and it is this vector that
+    // decides which: without the guard a def whose instances SHARED one body
+    // would end up naming the LAST instance, and § cbEventRefFirstInstance15's
+    // elab clones would then follow it to the wrong object.  Measured: every
+    // corpus and arm body is distinct, so the guard is a no-op today and the
+    // STATED rule ("the FIRST") is what the code now enforces.
     if (!defView)
         for (auto& [r9, sym9] : pendingCbRefs)
-            if (auto nit9 = nm.find(sym9); nit9 != nm.end())
-                r9->Actual_group(nit9->second);
+            if (!r9->Actual_group())
+                if (auto nit9 = nm.find(sym9); nit9 != nm.end())
+                    r9->Actual_group(nit9->second);
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::ClockingBlock)
             continue;
@@ -21400,30 +21426,64 @@ void UhdmExporter::emitNamedClockingBlocks(const InstanceBodySymbol& body,
         ec->VpiParent(cb);
         setLoc(ec, SourceRange(cdecl.at.range().start(),
                                cdecl.event->sourceRange().end()));
-        // Event refs emit UNBOUND in BOTH views; only the DEF ref binds
-        // (to the ELAB var, via pendingCbRefs) — Surelog.
+        // Event refs emit UNBOUND in BOTH views; the DEF ref binds to the FIRST
+        // elaborated instance's var (pendingCbRefs), and every OTHER instance's
+        // elab ref binds to that same object — § cbEventRefFirstInstance15.
         NetMap emptyNm9;
         if (auto* cond = emitEventExpr(cbs.getEvent(), ec, cbFull, emptyNm9)) {
             ec->VpiCondition(cond);
-            if (defView) {
-                // Def-view event refs bind the ELAB var (patched late).
-                std::function<void(UHDM::any*)> collect = [&](UHDM::any* e) {
+            // The event expression is a ref_obj, or an operation
+            // (posedge/negedge/`or`) over them — a bare `@(clock)` is the ref
+            // itself (arm a3 cell e3), so the walk must handle both.
+            std::function<void(UHDM::any*, const std::function<void(
+                                              UHDM::ref_obj*)>&)>
+                walk9 = [&](UHDM::any* e,
+                            const std::function<void(UHDM::ref_obj*)>& fn) {
                     if (!e)
                         return;
-                    if (e->UhdmType() == UHDM::uhdmref_obj) {
-                        auto* r0 = (UHDM::ref_obj*)e;
-                        if (!r0->Actual_group())
-                            if (auto* sym0 =
-                                    body.find(std::string(r0->VpiName())))
-                                pendingCbRefs.emplace_back(r0, sym0);
-                    }
+                    if (e->UhdmType() == UHDM::uhdmref_obj)
+                        fn((UHDM::ref_obj*)e);
                     else if (e->UhdmType() == UHDM::uhdmoperation) {
                         if (auto* ops = ((UHDM::operation*)e)->Operands())
                             for (auto* o : *ops)
-                                collect(o);
+                                walk9(o, fn);
                     }
                 };
-                collect(cond);
+            if (defView) {
+                // Def-view event refs bind the ELAB var (patched late), and the
+                // def ref is ALSO the object every non-first elab ref copies.
+                //
+                // These two maps need NO first-writer-wins guard, unlike the
+                // pendingCbRefs drain above, and the reason is structural rather
+                // than lucky: emitInterfaceDef is called from exactly ONE site
+                // (UhdmExporter.cpp:4788) iterating `defs`, which holds ONE entry
+                // per def name, so a given `csyn` reaches this line exactly once.
+                // Arm a3 cell e1 measures the only shape that could challenge it
+                // — one interface at TWO parameterizations — and confirms a
+                // SINGLE def view (`work@e1_if`) for both.
+                defCbBody[(const void*)csyn] = &body;
+                walk9(cond, [&](UHDM::ref_obj* r0) {
+                    if (r0->Actual_group())
+                        return;
+                    std::string rn9(r0->VpiName());
+                    defCbEventRefs[{(const void*)csyn, rn9}] = r0;
+                    if (auto* sym0 = body.find(rn9))
+                        pendingCbRefs.emplace_back(r0, sym0);
+                });
+            }
+            // § cbEventRefFirstInstance15 — the FIRST elaborated instance's own
+            // elab ref stays UNBOUND (it cloned the def ref BEFORE the def ref
+            // was patched); every other instance's binds to the def ref's
+            // target.  `defCbBody` identifies the first instance by BODY
+            // IDENTITY, which is exactly the instance whose nets patched the def
+            // ref, so the two halves of the rule cannot disagree.
+            else if (auto dbI9 = defCbBody.find((const void*)csyn);
+                     dbI9 != defCbBody.end() && dbI9->second != &body) {
+                walk9(cond, [&](UHDM::ref_obj* r0) {
+                    if (!r0->Actual_group())
+                        pendingCbElabRefs.push_back(
+                            {r0, {(const void*)csyn, std::string(r0->VpiName())}});
+                });
             }
         }
         cb->Clocking_event(ec);

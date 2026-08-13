@@ -336,6 +336,34 @@ private:
                                           UHDM::BaseClass* cb, int32_t& edge);
     std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>>
         pendingCbRefs;
+    // § cbEventRefFirstInstance15 — an ELAB (home) view's clocking block is a
+    // CLONE of the DEF view's, and the clone carries whatever the DEF's event
+    // ref pointed at AT CLONE TIME.  The DEF's ref is patched by the FIRST
+    // elaborated instance (pendingCbRefs above), so instance 1 clones an
+    // UNBOUND ref and instances 2..N clone the already-bound one: every elab
+    // ref except the first instance's own binds to the FIRST elaborated
+    // instance's variable.  Measured across arms a1/a2/a3 (11 shapes) — it is
+    // the DEF'S first instance design-wide, not the array's first element, and
+    // not per parameterization.
+    //
+    // KEY = the clocking DECLARATION'S SYNTAX NODE + the ref's name.  The
+    // syntax node is what all instances of a def share, INCLUDING two different
+    // parameterizations (arm a3 cell e1: `e1_if #(16) e16` binds to
+    // `e1_if #(8) e8`'s variable), and it separates two clocking blocks in one
+    // interface (cell e2).  A key of (definition, parameterization) would have
+    // UNDER-fired on e16; a key of the definition alone would have merged cba
+    // and cbb.
+    std::map<std::pair<const void*, std::string>, UHDM::ref_obj*>
+        defCbEventRefs;
+    // The body that produced each clocking block's DEF view — i.e. the FIRST
+    // elaborated instance's body.  Its OWN elab ref must stay UNBOUND, which is
+    // the asymmetry that makes this a clone rule and not a lookup rule.
+    std::map<const void*, const slang::ast::InstanceBodySymbol*> defCbBody;
+    // Elab refs awaiting their def ref's target, drained in exportDesign so the
+    // answer cannot depend on the order the elab views were emitted in.
+    std::vector<std::pair<UHDM::ref_obj*, std::pair<const void*, std::string>>>
+        pendingCbElabRefs;
+    void drainCbElabRefs15();
 
     /// Per-subroutine emission products (call sites link to these). An arg
     /// typespec may be deferred (bare implicit): ts null, key set.

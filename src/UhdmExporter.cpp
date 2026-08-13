@@ -5860,6 +5860,14 @@ UHDM::design* UhdmExporter::exportDesign() {
             for (auto* m9 : *tm9)
                 fixList9(m9);
     }
+    // § cbEventRefFirstInstance15 — DESIGN-FINAL, and placed AHEAD of the pinned
+    // tail below because it is independent of every pass there: it only fills a
+    // NULL vpiActual on a clocking-block EVENT ref_obj, and none of the four
+    // tail passes reads or writes one (§ 54 writes class_typespec spans, § 24 /
+    // § 23 / § 45 rewrite package and class LISTINGS, § 38 touches only refs
+    // NAMED `this`).  Every interface view has been emitted by this point, which
+    // is the only ordering this drain actually requires.
+    drainCbElabRefs15();
     // NOTE § classNestedClassTdGroupNoAnchor54 — DESIGN-FINAL, and BEFORE the
     // three listing passes below so they publish finished objects.  It is
     // placed here and not later because it must not disturb the pinned tail

@@ -1301,8 +1301,8 @@ StructVarImp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVar
 StructVarImp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVarImp/dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,
 SurelogMacro,default,CMP_EQUAL,,,match
 SurelogMacro,testflags,CMP_EQUAL,,,match
-SVSwitch,default,CMP_NOTEQUAL,decompile:,,
-SVSwitch,testflags,CMP_NOTEQUAL,decompile:,,
+SVSwitch,default,CMP_EQUAL,,,differ
+SVSwitch,testflags,CMP_EQUAL,,,differ
 SynthFilterDollarError,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SynthFilterDollarError/dut.sv:4:10: error: unknown package 'pack',,
 SynthFilterDollarError,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SynthFilterDollarError/dut.sv:4:10: error: unknown package 'pack',,
 SynthForeach,default,CMP_EQUAL,,,differ
