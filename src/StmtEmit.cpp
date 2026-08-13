@@ -714,6 +714,90 @@ bool UhdmExporter::thisSuperNewAssignNoStmt3(const Statement& st) {
            root->kind == syntax::SyntaxKind::SuperHandle;
 }
 
+// § declInitWrittenNewNoStmt66 — a local variable DECLARATION whose WRITTEN
+// initializer is a `new` construction
+//     <type> v = new;   <type> v = new(...);        (class construction)
+//     <type> v[] = new[n];  = new[n](src);          (dynamic-array construction)
+// contributes NO ELEMENT to the enclosing Surelog statement LIST, and the
+// variable therefore keeps the enclosing BLOCK as its vpiParent instead of
+// re-parenting onto the declaration assignment.  Every OTHER initializer
+// contributes a leading blocking `assignment` in declaration order and DOES own
+// the variable — so this is a per-declaration term, not a per-declaration-kind
+// one.
+//
+// THE TERM IS THE WRITTEN `new` AND NOTHING ELSE, and each half of that was
+// measured against its own counterexample (arms a1/a2, 40 subroutine cells; LHS
+// golden throughout).  The corpus witness is the r10uvm66 head,
+// uvm-1.2 src/base/uvm_links.svh:251-257:
+//
+//   254     uvm_cause_effect_link ce_link = new(name);
+//   255     ce_link.set(lhs, rhs);
+//   256     return ce_link;
+//
+// golden's body begin @255:7-255:29 holds TWO statements and parents `ce_link`
+// on the BEGIN; ours held THREE and parented it on the surplus `assignment`.
+//
+//   NOT THE VARIABLE'S TYPE.  A class handle initialized from a FUNCTION CALL
+//     (a1 m06) or from `null` (a1 m17) KEEPS its assignment, and a QUEUE
+//     initialized from a concatenation (a1 m21) keeps its own — while a
+//     DYNAMIC ARRAY initialized `new[3]` drops it (a1 m08, a2 n10b).  Both
+//     directions measured, so neither `class_var` nor `array_var` is the term.
+//   NOT "ANY INITIALIZER".  int/string/expression/ref/`automatic` initializers
+//     all keep their assignment (a1 m04/m05/m15/m18/m22).
+//   NOT THE `new[...]` FORM ALONE.  `new`, `new()`, `new(arg)`, `new[n]` and
+//     `new[n](src)` all drop (a2 n09/n10, a1 m01/m02) — including `new` written
+//     with NO PARENTHESES (a2 n09), which is why the gate reads the SYNTAX KIND
+//     and not an argument list.
+//   NOT A STATEMENT-POSITION LAW.  The SAME construction written as a
+//     STATEMENT over a bare local — `a1c ce; ce = new(name);` — is KEPT by
+//     golden (a1 m07); § thisSuperNewAssignNoStmt3 owns that family and needs a
+//     `this`/`super` LHS to fire.  This law needs no LHS spelling at all,
+//     because a declaration has none.
+//   NOT SCOPE- OR SLOT-DEPENDENT among statement lists: class method, package
+//     free function, module/interface/program/$unit function, task,
+//     out-of-body definition, parameterized and typedef'd handles, a written
+//     `begin`/named `begin`/`fork`/for/while body/case item and a module
+//     `initial`/`always` all drop it (a1 m01/m02/m13/m16/m20/m24/m26,
+//     a2 n02/n02b/n03/n04/n05/n06/n11/n12/n13/n14/n15/n19/n20/n22/n23).
+//
+// THE CLASS CONSTRUCTOR IS THE ONE STATEMENT LIST THIS LAW DOES **NOT** REACH,
+// and that is measured, not assumed.  a2 n01 is a constructor WITH A PORT LIST
+// (so § constructorBodyElementShift27 does not eat its first element and the
+// cell is really measured) whose body opens `a2c ce = new();`: golden KEEPS the
+// assignment there and parents `ce` on it.  That is § 27's model (2) exactly —
+// compileClassConstructorDeclaration has no Rhs-less-assignment filter, and an
+// initializer that compiles to nothing leaves precisely such an assignment —
+// so emitCtorBody27's EK_BID arm is deliberately NOT a call site of this
+// predicate.  a2 n01b (`int x = 5;` in the same constructor) is the control.
+//
+// THE COUNT IS NOT TOUCHED, and arm a3 is why.  The dropped element still
+// counts toward the body's `begin`-wrapper decision: a2 n07, a body whose EVERY
+// element is a `new`-initialized declaration, gets golden's wrapper and it is
+// EMPTY (`begin@128:10-128:24[]`), with both locals parented on it.  So this
+// predicate only ever skips a LIST APPEND; `initCount`/`eff9` and the wrapper
+// anchor are left exactly as they were.
+bool UhdmExporter::declInitWrittenNewNoStmt66(const slang::ast::VariableSymbol& vs) {
+    // `getDeclaredType()` is a not_null<> on ValueSymbol, so there is nothing to
+    // null-check here — the one thing that can be absent is the initializer.
+    const slang::ast::DeclaredType* dt = vs.getDeclaredType();
+    // The WRITTEN node, not the bound expression: the same SyntaxKinds
+    // § thisSuperNewAssignNoStmt3 reads on its RHS half, so the two laws share
+    // one vocabulary.  NewCovergroupExpression is deliberately NOT included —
+    // no arm measured it and no corpus site reaches it.
+    // CopyClassExpression ADDED AT INTEGRATION (verifier F1, arm
+    // v1_qualcopy.sv w05/w06): `v1c ce = new src;` is a `new` construction
+    // too — golden emits no declaration assignment and parents the var on the
+    // BEGIN, and ParamEmit.cpp already lists the copy form beside the other
+    // two (§ copyClassIsNewCall4's family).  0 corpus sites; the gate was one
+    // term short of its own headline.
+    auto* isyn = dt->getInitializerSyntax();
+    if (!isyn)
+        return false;
+    return isyn->kind == syntax::SyntaxKind::NewClassExpression ||
+           isyn->kind == syntax::SyntaxKind::NewArrayExpression ||
+           isyn->kind == syntax::SyntaxKind::CopyClassExpression;
+}
+
 // § constructorBodyElementShift27 — a class CONSTRUCTOR body is compiled by
 // `CompileHelper::compileClassConstructorDeclaration` (CompileStmt.cpp:2165),
 // a routine that shares no code with compileFunction/compileTask, and it
@@ -1332,13 +1416,24 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     vs.getDeclaredType() ? vs.getDeclaredType()->getInitializer()
                                          : nullptr;
                 auto vit = blockMap.find(&vs);
-                // A CLASS-HANDLE local initialized with `new()` emits
-                // NO assignment at all: golden keeps only the class_var
-                // (parented at the begin). Measured on `module m1;
-                // class C; ... initial begin C d = new(); end` and the
-                // program form — SimpleConstraint `frame_t frame =
-                // new();`.
-                if (init && init->kind == ExpressionKind::NewClass)
+                // § declInitWrittenNewNoStmt66 — CALL SITE 1 of 2: the
+                // statement list of a WRITTEN block (begin / named begin /
+                // fork / loop body / case item) and of a module `initial` /
+                // `always`.  A local whose written initializer is a `new`
+                // emits NO assignment at all: golden keeps only the variable,
+                // parented at the block.
+                //
+                // THIS SITE ALREADY CARRIED THE LAW — for `NewClass` ONLY, and
+                // it was ONE TERM SHORT.  The clause it replaces read
+                // `init->kind == ExpressionKind::NewClass`, measured on
+                // `initial begin C d = new(); end` and SimpleConstraint's
+                // `frame_t frame = new();`.  Arm a2 n02/n03 are the DYNAMIC-
+                // ARRAY twins of exactly those two cells — `int d[] =
+                // new[3];` in a written begin and in a module `initial` — and
+                // golden drops them too, while we kept the assignment and
+                // re-parented the array_var onto it.  The predicate now covers
+                // both `new` forms from one place.
+                if (declInitWrittenNewNoStmt66(vs))
                     return;
                 // RESIDUE (ranked, measured on `program p1; initial
                 // begin integer j = 0; j = 1; end`): when the block is
@@ -3090,6 +3185,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             for (auto* vsym : declVars) {
                 auto* init = vsym->getDeclaredType()->getInitializer();
                 if (!init)
+                    continue;
+                // § declInitWrittenNewNoStmt66 — CALL SITE 2 of 2: THE HEAD'S
+                // SITE.  A SUBROUTINE BODY's statement list.  `initCount` above
+                // deliberately still counts this declaration, so the wrapper
+                // begin is built and anchored exactly as before and an
+                // all-dropped body comes out as golden's EMPTY begin (a2 n07);
+                // only the list APPEND is skipped, which also leaves the
+                // variable on the vpiParent the wrapper loop above gave it.
+                if (declInitWrittenNewNoStmt66(*vsym))
                     continue;
                 auto* as = s.MakeAssignment();
                 as->VpiParent(ub);

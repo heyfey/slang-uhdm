@@ -38,6 +38,7 @@ class TimingControl;
 class ClockingSkew;
 class SubroutineSymbol;
 class FormalArgumentSymbol;
+class VariableSymbol;
 class EnumType;
 class GenerateBlockSymbol;
 class GenerateBlockArraySymbol;
@@ -2336,6 +2337,14 @@ private:
     // NO STATEMENT-LIST ELEMENT for?  See the decode and the five call sites at
     // the definition in StmtEmit.cpp.
     static bool thisSuperNewAssignNoStmt3(const slang::ast::Statement& st);
+    // § declInitWrittenNewNoStmt66 — does this local variable DECLARATION
+    // contribute NO declaration-initializer `assignment` to the enclosing
+    // statement list (and therefore keep its own vpiParent on the block)?  True
+    // exactly when the declaration's WRITTEN initializer is a `new`
+    // construction.  See the decode and its two call sites — and the one site
+    // it deliberately does NOT cover, the class constructor — at the definition
+    // in StmtEmit.cpp.
+    static bool declInitWrittenNewNoStmt66(const slang::ast::VariableSymbol& vs);
     // § emptyFnBodyEndLabelBegin65 — does this subroutine get golden's EMPTY
     // body `begin`, and if so WHERE is it located?  Returns the
     // `endfunction : <label>` clause whose NAME TOKEN is that block's whole
