@@ -1097,9 +1097,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                     break;
                 }
             // Only a BARE whole-interface connection gets a connection-site
-            // net; modport-qualified (.mon(s.mon)) don't, and a POSITIONAL
-            // conn mixed with regular conns takes no connection-site net at
-            // all (iface_method_call h1(hintf, su, ...) — Surelog).
+            // net; modport-qualified (.mon(s.mon)) don't.
             if (!pc || !connectionExpr(*pc) ||
                 rawText(connectionExpr(*pc)->sourceRange).find('.') != std::string::npos)
                 continue;
@@ -1109,14 +1107,37 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             if (auto* npc0 = findConnSyntax(child, pb->name))
                 if (!npc0->expr)
                     continue;
-            {
-                bool mixed9 = false;
-                for (auto cc9 : child.getPortConnections())
-                    if (cc9->port.kind != SymbolKind::InterfacePort)
-                        mixed9 = true;
-                if (hasOrderedConns(child) && mixed9)
-                    continue;
-            }
+            // § udpShapedConnNoIfaceNet11 — the connection-site net exists only
+            // when Surelog parsed the instantiation as a MODULE instantiation.
+            // An ORDERED list of two or more terminals whose FIRST parses as a
+            // net_lvalue is a **udp_instantiation** to its parser
+            // (udpShapedInstantiation, already decoded here for ref_module),
+            // and compileUdpInstantiation never reaches the parent
+            // implicit-net fallback that mints this net — so NONE of that
+            // list's actuals gets one.
+            //
+            // The clause this replaced was "an ORDERED conn mixed with regular
+            // conns mints nothing", read off `iface_method_call h1(hintf, su,
+            // ...)`.  That witness confounds two axes and the predicate is
+            // wrong in BOTH directions (arm c2_udpshape, 14 cells, one child
+            // per interface instance so the multi-child clause cannot
+            // interfere):
+            //   * it MISSES the all-interface udp-shaped list — `testcase TC
+            //     (mem_intf,input_intf,output_intf)` in SVSwitch top.sv:44 has
+            //     no regular port at all, so `mixed9` stayed false and we
+            //     minted three nets golden does not have (c2 e2/e3);
+            //   * it FIRES on ordered lists that are NOT udp-shaped, where
+            //     golden DOES mint: an operation or a literal as the first
+            //     terminal (c2 e6/e7), a single terminal with a second port
+            //     left unconnected (e8), an empty terminal (e12), and a `#()`
+            //     override that exceeds delay2 (e14).
+            // Golden's answer matches udpShapedInstantiation on all 14 cells,
+            // and `h1(hintf, su, ...)` is still skipped — it IS udp-shaped.
+            // Child kind (module/program), formal modport qualification,
+            // interface-port count and actual-vs-formal name agreement are all
+            // REFUTED as discriminators (arm c1_childkind, 8 cells all EQ).
+            if (udpShapedInstantiation(child))
+                continue;
             // An interface instance connected to MULTIPLE children gets a
             // SINGLE connection-site net, anchored at the FIRST connection
             // site (source order) — Surelog. Skip later duplicates.
@@ -1142,6 +1163,16 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         if (member.kind != SymbolKind::Instance)
             continue;
         auto& child = member.as<InstanceSymbol>();
+        // § udpShapedConnNoIfaceNet11 applies to the ARRAY actual too: the
+        // rule is a property of the CONNECTION LIST's parse, not of the
+        // actual's shape.  SVSwitch's one list carries both kinds
+        // (`mem_intf,input_intf` scalar and `output_intf[4]` array), so
+        // gating only the scalar loop would clear two thirds of the head and
+        // leave the third.  Arm c3_ifacearray: golden mints for a one-terminal
+        // ordered list (f1) and for named lists (f3/f6), and mints nothing for
+        // the two-terminal ordered lists (f2/f4).
+        if (udpShapedInstantiation(child))
+            continue;
         for (auto pb : child.body.getPortList()) {
             if (pb->kind != SymbolKind::InterfacePort)
                 continue;
