@@ -546,16 +546,32 @@ const slang::syntax::SyntaxNode* UhdmExporter::scopedCallName29(
 //     enqueues its property here explicitly (uvm_sequence_library's
 //     `int seqs_distrib[string] = '{default:0}`).
 //
+//   § classPropTimeLitInit2 (r10buvm2, and the arm that CLEARED BuildUVMPkg's
+//     head) — a TIME LITERAL is a `vpiUIntConst` (constType 9, NOT the
+//     vpiTimeConst 8 the shape's name suggests: Surelog's `paTime_literal`
+//     arm literally writes `c->VpiConstType(vpiUIntConst)`), whose VALUE is
+//     § srlgTimeLitVal's FIXED per-unit factor table (s 1e12, ms 1e9, ns 1e6,
+//     us 1e3, ps 1, fs 1e-3) — a table that never consults the timescale and
+//     is not even monotone.  Pass 29 left the factor "unsettled" from two
+//     cells; it was settled the same session in `§ srlgTimeLitVal` for the
+//     PARAMETER carrier, and arm a1's seven unit cells re-prove it here
+//     (`9200s` -> 9200000000000000, `7ms` -> 7000000000, `7us` -> 7000,
+//     `7ns` -> 7000000, `7ps` -> 7, `7fs` -> 0, `1.5ns` -> 1000000).
+//     What pass 29 could NOT have known is the SECOND half: the SIZE and the
+//     vpiDecompile are decided by `CompileHelper::adjustSize`, which
+//     `makeVar_`'s tail runs over every constant initializer with the
+//     property's TYPESPEC.  On a `time_typespec` `Bits()` reports
+//     invalidValue, so adjustSize does NOTHING and the raw literal object
+//     survives — size 64, no decompile.  On any other integral typespec it
+//     masks the value to that width, resizes, and stamps a decimal decompile.
+//
 // NOT modelled (measured, left for a later pass — see the pass-29 residue
 // ranking): a BASED literal keeps its source spelling and base constType
 // (`8'hff` -> `HEX:ff`, decompile `8'hff`) where the inline IntegerLiteral arm
 // prints decimal, and its SIZE follows a rule t39b did NOT settle (`int
-// k_wide = 8'hff` sizes 32 but `int k_bin = 4'b1010` sizes 4); a TIME literal
-// (`9200s` -> UINT:9200000000000000, size 64, NO decompile) scales by a factor
-// t39c did not settle either (`5ns` -> 5000000, `7ps` -> 7 under one
-// `timescale 1ns/1ps`); and a SIMPLE assignment pattern's element constants
-// size at the ELEMENT width where emitExpr gives them 64 (t39c a_dyn — no UVM
-// property reaches it).
+// k_wide = 8'hff` sizes 32 but `int k_bin = 4'b1010` sizes 4); and a SIMPLE
+// assignment pattern's element constants size at the ELEMENT width where
+// emitExpr gives them 64 (t39c a_dyn — no UVM property reaches it).
 void UhdmExporter::emitClassPropInit29(const PendingPropInit29& pi) {
     auto& cp = pi.cp->as<ClassPropertySymbol>();
     auto* pinit = cp.getInitializer();
@@ -624,8 +640,25 @@ void UhdmExporter::emitClassPropInit29(const PendingPropInit29& pi) {
         pi.var->Expr((UHDM::expr*)r59);
         return;
     }
-    if (ic.kind != ExpressionKind::Call || ic.as<CallExpression>().isSystemCall())
+    if (ic.kind != ExpressionKind::Call)
         return;
+    // § classPropSysCallInit2 — a SYSTEM function call initializer stays a
+    // `sys_func_call` named `$<f>`, parented at the property, spanning the
+    // WHOLE call, with its written arguments — which is exactly what emitExpr
+    // already builds; this arm only stops throwing it away.  The kind test is
+    // the gate: emitExpr FOLDS `$bits` (§ srlgBitsFoldArg / §
+    // bitsOwnClassPropFold61) and returns a constant, and golden's own folded
+    // `$bits` constant is sized by `adjustSize` at the property's width, which
+    // this pass did NOT decode — so a folded result is left OFF rather than
+    // emitted at the wrong size.  Arm a2 cells m04_urand ($urandom),
+    // m05_urandr ($urandom_range with arguments), m06_random, m07_time,
+    // m09_sqrt; the refused cell is m08_bits, residue R3.
+    if (ic.as<CallExpression>().isSystemCall()) {
+        if (auto* es2 = emitExpr(ic, pi.var, pi.pfn, nm29))
+            if (es2->UhdmType() == UHDM::uhdmsys_func_call)
+                pi.var->Expr((UHDM::expr*)es2);
+        return;
+    }
     if (auto* snn29 = scopedCallName29(ic)) {
         auto* sn29 = &snn29->as<syntax::ScopedNameSyntax>();
         // Only a CLASS scope degrades; a package qualifier keeps the call
@@ -1425,23 +1458,73 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                 setLoc(c3, ic0.sourceRange);
                 v->Expr(c3);
             }
-            // § virtualIfaceNullInitIsClassParented6 — `virtual v_if.IP vi =
-            // null;` rides a vpiNullConst (constType 11) sized 64, decompile
-            // `0`, value UINT:0 — and its vpiParent is the CLASS_DEFN, not the
-            // variable.  That is not a slip: Surelog builds the initializer in
+            // § classPropTimeLitInit2 — a TIME LITERAL class-property
+            // initializer.  See the law block above emitClassPropInit29; the
+            // ONE thing that decides the object's shape is whether Surelog's
+            // `adjustSize` could size the property's TYPESPEC.
+            else if (ic0.kind == ExpressionKind::TimeLiteral) {
+                uint64_t tv2 = srlgTimeLitVal(rawText(ic0.sourceRange));
+                const Type& pt2 = cp.getType().getCanonicalType();
+                if (timeLikeType2(pt2)) {
+                    // adjustSize is a NO-OP on a `time_typespec`, so the raw
+                    // paTime_literal object survives: size 64, NO decompile.
+                    auto* c5 = s.MakeConstant();
+                    c5->VpiSize(64);
+                    c5->VpiValue("UINT:" + std::to_string(tv2));
+                    c5->VpiConstType(vpiUIntConst);
+                    c5->VpiParent(v);
+                    setLoc(c5, ic0.sourceRange);
+                    v->Expr(c5);
+                }
+                else if (pt2.isIntegral() && pt2.getBitWidth()) {
+                    // adjustSize FIRES: mask to the property's width, resize,
+                    // and stamp the decimal decompile it never had before.
+                    uint32_t w2 = pt2.getBitWidth();
+                    uint64_t mv2 = w2 >= 64 ? tv2 : (tv2 & ((1ull << w2) - 1));
+                    std::string d2 = std::to_string(mv2);
+                    auto* c5 = s.MakeConstant();
+                    c5->VpiDecompile(d2);
+                    c5->VpiSize((int32_t)w2);
+                    c5->VpiValue("UINT:" + d2);
+                    c5->VpiConstType(vpiUIntConst);
+                    c5->VpiParent(v);
+                    setLoc(c5, ic0.sourceRange);
+                    v->Expr(c5);
+                }
+                // A REAL / SHORTREAL property is left off: golden sizes it by
+                // an `ExprEval::size(real_typespec)` answer this pass measured
+                // (32) but did NOT decode, and a guessed width is worse than a
+                // missing object.  Residue R2.
+            }
+            // § classPropNullInitParentedByTypespec2 — `= null` rides a
+            // vpiNullConst (constType 11) sized 64, decompile `0`, value
+            // UINT:0 on EVERY property that can hold it, and its vpiParent is
+            // the CLASS_DEFN for some of them and the VARIABLE for others.
+            // Surelog builds the initializer in
             // `TestbenchElaboration::bindProperties_` with
-            // `exp->VpiParent(defn)` and then makeVar_'s FALLBACK arm (the one
-            // this property lands in) only does `var->Expr(assignExp)` — it
-            // never re-parents.  Every arm the fallback does NOT reach
-            // re-parents to the var, so the gate is the virtual-interface
-            // property, not `null`.  Witness: v1 cell c11_init, both sides.
-            else if (vifProp6 && ic0.kind == ExpressionKind::NullLiteral) {
+            // `exp->VpiParent(defn)` and then hands it to `makeVar_`, whose
+            // TYPESPEC-DRIVEN arms all re-parent it to the variable and whose
+            // trailing `subnettype` FALLBACK chain (reached only when the
+            // property has NO typespec) ends in a bare `var->Expr(assignExp)`
+            // that does not.
+            //
+            // THIS WIDENS § virtualIfaceNullInitIsClassParented6 AND REFUTES
+            // ITS STATED GATE.  That law's comment ended "the gate is the
+            // virtual-interface property, not `null`" — arm a2 cell m02_null
+            // is the counterexample: a plain `chandle p = null;` is
+            // CLASS_DEFN-parented too (golden's chandle_var carries no
+            // typespec at all, `paChandle_type` being one of the fallback
+            // chain's own branches).  The virtual interface was never the
+            // gate; having no typespec is.
+            else if (ic0.kind == ExpressionKind::NullLiteral) {
                 auto* cn6 = s.MakeConstant();
                 cn6->VpiDecompile("0");
                 cn6->VpiSize(64);
                 cn6->VpiValue("UINT:0");
                 cn6->VpiConstType(vpiNullConst);
-                cn6->VpiParent(cd);
+                cn6->VpiParent(nullInitDefnParented2(vifProp6, cp)
+                                   ? (UHDM::any*)cd
+                                   : (UHDM::any*)v);
                 setLoc(cn6, ic0.sourceRange);
                 v->Expr(cn6);
             }

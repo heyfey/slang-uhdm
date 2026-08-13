@@ -2627,6 +2627,50 @@ inline uint64_t srlgTimeLitVal(std::string_view raw) {
     return (uint64_t)d;
 }
 
+// § classPropTimeLitInit2 (predicate 1 of 2) — does this type land on a
+// Surelog `time_typespec`?
+//
+// It is the ONE question that decides a time-literal class-property
+// initializer's SIZE and whether it carries a vpiDecompile at all, because
+// `CompileHelper::adjustSize` is a no-op exactly when `Bits()` returns
+// `invalidValue` for the property's typespec, and a `time_typespec` is such a
+// typespec.  TWO written types reach it, and they are NOT the same slang kind:
+// `time` (a PredefinedIntegerType) and `realtime` (a FloatingType) —
+// `compileTypespec`'s `paNonIntType_RealTime` arm builds a `time_typespec`
+// exactly as `paIntegerAtomType_Time` does.  Measured on arm a1, cells
+// k01..k07 / k09 / k11..k13 (size 64, NO decompile) against k08 / k10 / k17..
+// k20 / k22 / k23 / k24 (resized + decompiled).  `longint k17_li = 5ns` is the
+// cell that proves the gate is the TYPESPEC KIND and not "the width is already
+// 64": it is 64 bits wide and golden decompiles it.
+inline bool timeLikeType2(const slang::ast::Type& ct) {
+    using namespace slang::ast;
+    if (ct.kind == SymbolKind::PredefinedIntegerType)
+        return ct.as<PredefinedIntegerType>().integerKind ==
+               PredefinedIntegerType::Time;
+    if (ct.kind == SymbolKind::FloatingType)
+        return ct.as<FloatingType>().floatKind == FloatingType::RealTime;
+    return false;
+}
+
+// § classPropNullInitParentedByTypespec2 (predicate 2 of 2) — is this
+// property's `= null` initializer parented at the CLASS_DEFN rather than at
+// the variable?
+//
+// YES exactly when the property has NO typespec in golden, i.e. when Surelog's
+// `makeVar_` reaches it only in the trailing `subnettype` fallback chain,
+// whose tail does a bare `var->Expr(assignExp)` and never re-parents.  Two
+// written types can hold `null` and land there: a `virtual <iface>` property
+// (the pre-existing `vifProp6` half, arm a2 cell m11_vnull) and a `chandle`
+// (`paChandle_type`, arm a2 cell m02_null).  A CLASS HANDLE does NOT — it is
+// built by makeVar_'s `datatype_cast<ClassDefinition>` arm, which re-parents
+// (arm a2 cell m01_null, and BuildUVMPkg's
+// `uvm_component::m_unsupported_resource_base`).
+inline bool nullInitDefnParented2(bool vifProp,
+                                  const slang::ast::ClassPropertySymbol& cp) {
+    return vifProp ||
+           cp.getType().getCanonicalType().kind == slang::ast::SymbolKind::CHandleType;
+}
+
 // Is this parameter's own DECLARED default a TIME literal (parameter P = 5ns)?
 // Read from the declarator syntax, not getInitializer(), so an instance
 // override cannot flip the answer (same reasoning as
