@@ -1327,6 +1327,25 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     }
                     else {
                         v = makeEnumArrayVar(ts, bfull, b);
+                        // § classTdLocalVarKindFollowsCompileOrder10,
+                        // SITE 2 of 2 — the BLOCK-ITEM local (`begin`/`fork`
+                        // body, an `initial` body).  Same law, same order,
+                        // measured on the same grid: `g2`'s `b_scoped_struct`
+                        // is a begin-block local of a late-sorting owner's
+                        // struct typedef and golden gives it the same bare
+                        // `class_var` it gives the function-body local two
+                        // lines above it.  EmitHelpers.h carries the law.
+                        if (!v)
+                            switch (classTdLocalVarKind10(bm)) {
+                                case TdLocalVarKind10::ClassVar:
+                                    v = s.MakeClass_var();
+                                    break;
+                                case TdLocalVarKind10::RefVar:
+                                    v = s.MakeRef_var();
+                                    break;
+                                case TdLocalVarKind10::Resolved:
+                                    break;
+                            }
                         if (!v)
                             v = makeReturnVar(s,
                                               bm.getDeclaredType()->getType());

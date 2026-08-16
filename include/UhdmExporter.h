@@ -3491,10 +3491,6 @@ private:
     void buildClassRep25();
     const slang::ast::Symbol* tpAliasRootOf25(const slang::ast::ClassType& cls,
                                               std::string_view written) const;
-    // Class-nested typedefs whose typespec had to be built on demand by a
-    // reference from an EARLIER-sorted class: Surelog's variable-class
-    // fallback for such a forward reference is a class_var (IOClassStruct).
-    std::set<const void*> onDemandClassTypedefs;
     // PACKAGE-scope class definitions, listed under the ELABORATED (top-view)
     // package only — Surelog's un-elaborated Package carries an empty class map
     // (UhdmWriter.cpp writePackage/getUnElabPackage). Listed name-sorted, the

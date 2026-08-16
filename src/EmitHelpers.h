@@ -2730,6 +2730,279 @@ inline bool classScopedTypedefProp73(const slang::ast::ClassPropertySymbol& cp,
     return false;
 }
 
+// ---------------------------------------------------------------------------
+// § classTdLocalVarKindFollowsCompileOrder10
+//
+// THE LAW.  A SUBROUTINE-scope declaration — a body local, a block-item local
+// or the RETURN VARIABLE — whose declared type names a typedef that lives
+// inside a CLASS takes the object class that typedef's typespec implies ONLY
+// IF Surelog had already compiled the owning class when it compiled this
+// declaration.  Otherwise the declaration falls back, and WHICH fallback
+// depends on how the type was WRITTEN:
+//
+//   * written `Owner::td` (a ScopedName)  ->  a bare `class_var`
+//   * written `td`        (a bare name)   ->  a bare `ref_var`
+//
+// In BOTH fallbacks the variable's name, full name, span, parent and
+// ref_typespec — and that ref's `vpiActual`, the real struct/enum/int/class
+// typespec, patched in afterwards by `needLateTypedefBinding` — are IDENTICAL
+// to the resolved arm.  ONLY THE OBJECT CLASS CHANGES.  That is exactly the
+// SeqDriver head: `class_var` vs `struct_var` on
+// `uvm_resource_types::access_t access_record` at uvm_resource.svh:483:34,
+// with every other line of the object byte-equal between the two sides.
+//
+// WHY, read off Surelog and then measured cell by cell (tools/probe/
+// r10sd10repro/grid10):
+//   `CompileHelper::compileVariable`'s `paClass_scope` arm (CompileType.cpp
+//   ~553) resolves the owner with THREE lookups and no more —
+//   `getClassDefinition(<written scope name>)`,
+//   `<declaring component's own full name>::<scope name>`, and
+//   `<declaring component's PARENT scope's name>::<scope name>` — then asks the
+//   owner's DataType for a typespec, and ends `if (var == nullptr) var =
+//   s.MakeClass_var();`.  The BARE-name arm (CompileType.cpp ~340) runs the
+//   same question through `component->getDataType` and ends its own fallback
+//   chain at `MakeRef_var`.  A class's typedefs have a typespec only once that
+//   class's `CompileClass` has run, and `CompileDesign::compile` runs its
+//   passes in this order:
+//        packages (strict order) -> FILE CONTENTS -> modules -> programs
+//        -> CLASSES, LAST,
+//   iterating `ClassNameClassDefinitionMultiMap` — a `std::map<std::string, …,
+//   StringViewCompare>` whose comparator is literally `a < b`.  So class bodies
+//   are compiled in LEXICOGRAPHIC ORDER OF THEIR FULLY-QUALIFIED NAMES, and
+//   SOURCE ORDER IS IRRELEVANT.
+//
+// SOURCE ORDER IS IRRELEVANT is not an inference, it is grid cell
+// `g8_sortorder_refutation`: with the owner written FIRST in the file and named
+// `zholder`, a user named `auser` gets `class_var`; with the owner written LAST
+// and named `ahold`, a user named `zuser` gets `struct_var`.
+//
+// THE PREDICATE, in the four questions it actually asks:
+//   (1) OWNER — is the declared type a TypeAlias whose home scope is a
+//       ClassType?  A package / `$unit` typedef never reaches this law: its
+//       typespec is built in the package pass, which runs before every class,
+//       and `pkg::t` takes `compileVariable`'s `getPackage()` arm instead
+//       (grid `g3` `c_pkg_scope`, `struct_var` on both sides).
+//   (2) BODY FORM — is the declaration inside an OUT-OF-BODY (`extern`) method
+//       definition?  That body is written at file scope and is compiled by the
+//       FileContent pass, BEFORE ANY CLASS AT ALL, so NOTHING is resolved
+//       there — not even the class's OWN typedef (grid `g6`: `v_ext_bare`
+//       `ref_var`, `v_ext_scoped` and `v_ext_sibling` `class_var`, against
+//       `struct_var` for all three inline).  This is what makes
+//       `uvm_component::m_set_cl_action`'s `uvm_cmdline_parsed_arg_t t` a
+//       `ref_var` in golden even though the typedef is `uvm_component`'s own.
+//   (3) REACH (scoped spelling only) — the lookup rebuilds exactly ONE key,
+//       `<the declaring class's OUTERMOST CONTAINER>::<the ONE written
+//       segment>`, so the owner must be a DIRECT CHILD of that container and
+//       the written scope must be a single segment.  An owner imported from
+//       ANOTHER package is a `class_var` however the names sort (grid `g4`
+//       `v_imported`); so is a two-segment spelling of a sibling in the
+//       declaring class's OWN package (`px12::a12::a_t`, cell v12).
+//       [V-FIX vsd10 — the shipped form of this question asked "self or a
+//       class sharing the declaring class's PARENT SCOPE", which is the same
+//       question only while the declaring class is NOT itself nested; see the
+//       measured table at the `scopedReach` term below.]
+//   (4) ORDER — was the owner's class compiled before the declaring class?
+//       Its own typedef always is: `CompileClass` compiles a class's TYPES
+//       before it binds any body (grid `g4` `v_self`, `g6` inline arm).  A
+//       SIBLING is decided by comparing the leaf names, because the two map
+//       keys differ only there.  A class NESTED in the declaring class carries
+//       the declaring class's whole key as a PREFIX and therefore always sorts
+//       AFTER it (grid `g4` `v_inner`).  A declaration compiled outside any
+//       class — a module or `initial`-block local — is compiled before EVERY
+//       class (grid `g3` `init_late` / `init_early`).
+//
+// WHAT THIS LAW DOES NOT DO, so the gate stated is the gate coded: it never
+// changes the RESOLVED arm.  Grid `g7`'s `r_early_cls` — a SCOPED class-handle
+// typedef whose owner IS compiled — is golden `class_var` and ours `ref_var`,
+// because § aliasClassRefVar10 answers the bare-name question at a site that
+// also sees the scoped spelling.  That is a real defect, it is left alone
+// here, and it is filed as this pass's residue R1 with `g7` as its cell.
+enum class TdLocalVarKind10 { Resolved, ClassVar, RefVar };
+
+// The declaration CONTEXT Surelog compiles this symbol in: the nearest
+// enclosing ClassType (null when the package / module / `$unit` pass compiles
+// it instead), and whether an OUT-OF-BODY method definition was crossed on the
+// way — `outOfBlockIndex` is non-zero exactly for an `extern` body, the same
+// test src/ExprEmit.cpp already uses to refuse folding in one.
+struct TdDeclCtx10 {
+    const slang::ast::ClassType* cls = nullptr;
+    bool outOfBody = false;
+};
+
+inline TdDeclCtx10 tdDeclCtx10(const slang::ast::Symbol& sym) {
+    TdDeclCtx10 r;
+    auto note = [&](const slang::ast::Symbol& ss) {
+        if (ss.kind == slang::ast::SymbolKind::Subroutine &&
+            ss.as<slang::ast::SubroutineSymbol>().outOfBlockIndex !=
+                slang::ast::SymbolIndex(0))
+            r.outOfBody = true;
+    };
+    note(sym);
+    for (const slang::ast::Scope* sc = sym.getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope()) {
+        const slang::ast::Symbol& ss = sc->asSymbol();
+        note(ss);
+        if (ss.kind == slang::ast::SymbolKind::ClassType) {
+            r.cls = &ss.as<slang::ast::ClassType>();
+            return r;
+        }
+        if (ss.kind == slang::ast::SymbolKind::Package ||
+            ss.kind == slang::ast::SymbolKind::CompilationUnit ||
+            ss.kind == slang::ast::SymbolKind::InstanceBody)
+            return r;
+    }
+    return r;
+}
+
+inline TdLocalVarKind10 classTdLocalVarKind10(const slang::ast::Symbol& declSym) {
+    const slang::ast::DeclaredType* dt = declSym.getDeclaredType();
+    if (!dt)
+        return TdLocalVarKind10::Resolved;
+    const slang::ast::Type& ty = dt->getType();
+    // (1) OWNER
+    if (ty.kind != slang::ast::SymbolKind::TypeAlias)
+        return TdLocalVarKind10::Resolved;
+    const slang::ast::Scope* osc = ty.getParentScope();
+    if (!osc || osc->asSymbol().kind != slang::ast::SymbolKind::ClassType)
+        return TdLocalVarKind10::Resolved;
+    const slang::ast::ClassType& owner =
+        osc->asSymbol().as<slang::ast::ClassType>();
+    // V-FIX vsd10 — `oneSeg` is the SCOPED arm's own question and is measured,
+    // not assumed: a written scope of TWO OR MORE segments (`pkg::cls::td`,
+    // `otherpkg::cls::td`) NEVER resolves, because the lookup below rebuilds
+    // exactly ONE key, `<container>::<the one written segment>`.  Cells
+    // `v12_segment_probe` `s_sib2` (`px12::a12::a_t`, an EARLY-sorting sibling
+    // of the declaring class's own package — golden `class_var`, and we emitted
+    // `struct_var` before this term), `v4` `v_imported` and `v6` `v_inh_scoped`.
+    bool scoped = false;
+    bool oneSeg = false;
+    if (auto* tsyn = dt->getTypeSyntax())
+        if (auto* nts = tsyn->as_if<syntax::NamedTypeSyntax>())
+            if (nts->name &&
+                nts->name->kind == syntax::SyntaxKind::ScopedName) {
+                scoped = true;
+                auto& sn = nts->name->as<syntax::ScopedNameSyntax>();
+                // ONE segment means ONE class name, parameterisation included:
+                // a PARAMETERIZED owner is written `aparm#(int)::td` and slang
+                // gives that segment a `ClassName` node, not an
+                // `IdentifierName`.  Measured both ways — cell `v6`
+                // `v_early_parm` (`aparm6#(int)::prec_t`, EARLY-sorting owner)
+                // is golden `struct_var` and must RESOLVE, while `v2`'s
+                // `zparm2#(int)::prec_t` and `zother2#(int)::orec_t`
+                // (LATE-sorting owners) stay golden `class_var` and are held
+                // back by the ORDER term, not by this one.  Reading only
+                // `IdentifierName` here regressed `v_early_parm` and the cell
+                // caught it before this fix landed.
+                auto lk = (&*sn.left)->kind;
+                oneSeg = lk == syntax::SyntaxKind::IdentifierName ||
+                         lk == syntax::SyntaxKind::ClassName;
+            }
+    const TdDeclCtx10 ctx = tdDeclCtx10(declSym);
+    const slang::ast::Scope* op = owner.getParentScope();
+    const slang::ast::Scope* dp = ctx.cls ? ctx.cls->getParentScope() : nullptr;
+    const bool self = ctx.cls == &owner;
+    const bool sibling = ctx.cls && op && dp && op == dp;
+    // (4) ORDER.  Only a SIBLING is compared, and then by LEAF NAME, because
+    // two siblings' map keys differ only there.  Every other owner is treated
+    // as NOT YET COMPILED, which is the fallback direction: the scoped arm's
+    // question (3) already forces the fallback for one, and the only way a bare
+    // name can reach a non-sibling owner at all is INHERITANCE ACROSS SCOPES,
+    // where this predicate does not reconstruct the two full keys.  Named as a
+    // limit rather than hidden: on this corpus that case is `adpcm_pkg::…`
+    // inheriting from `uvm_pkg::…`, where the full-key relation agrees with the
+    // fallback anyway.
+    const bool ownerCompiled =
+        !ctx.outOfBody && ctx.cls &&
+        (self || (sibling && owner.name < ctx.cls->name));
+    // (3) REACH — the SCOPED spelling's own question, and NOT redundant with
+    // (4): the three lookups rebuild the owner's key as `<scope>::<name>` from
+    // the DECLARING component's name, and a `$unit`-level class is registered
+    // as `work@<name>`, which none of the three ever spells.  So a `$unit`
+    // sibling — and a `$unit` class's OWN typedef, written with its own scope —
+    // is a `class_var` even though the owner IS compiled.  MEASURED, both ways:
+    // grid `g9`, `v_unit_sibling` / `v_unit_self_scoped` `class_var` against
+    // `v_mod_sibling` `struct_var` for the same shape inside a MODULE (whose
+    // name, `work@top`, the lookup does spell).
+    //
+    // V-FIX vsd10 — THE SCOPED ARM RESOLVES AGAINST THE DECLARING CLASS'S
+    // OUTERMOST CONTAINER, AND AGAINST NOTHING ELSE.
+    //
+    // The shipped form asked `self || sibling` with `sibling` meaning "the two
+    // classes share a PARENT SCOPE", and read `nameableScope` off that parent.
+    // For a class declared at package / module / `$unit` level the two readings
+    // agree exactly (the parent scope IS the container), which is why every
+    // corpus row and every grid10 cell is unmoved by this term.  They come
+    // apart the moment the DECLARING class is itself NESTED in another class,
+    // and there the shipped form is wrong in BOTH directions:
+    //
+    //   MEASURED, golden vs the shipped binary (cells v9/v11/v12/v13/v14):
+    //     `outer::o_t` from a class nested in `outer`      golden struct_var,
+    //         shipped class_var   <- PRISTINE-RIGHT -> PATCHED-WRONG
+    //     `o12::o_t` from a class nested TWO deep          golden struct_var,
+    //         shipped class_var   <- same regression, module scope too
+    //         (`mo11::o_t` from `mo11::mi11`, cell v11)
+    //     `a13::a_t`, a TOP-LEVEL early sibling, named from inside a nested
+    //         class                                        golden struct_var,
+    //         shipped class_var   <- same regression
+    //     `m13::m_t`, a NESTED class's OWN typedef, self-qualified
+    //                                                      golden class_var,
+    //         shipped struct_var  <- the other direction
+    //     `n13::n_t`, a SIBLING NESTED class                golden class_var,
+    //         shipped answers it by ORDER, so it is right only while the names
+    //         happen to sort that way (cell v14 renames it and the answer flips
+    //         while golden does not)
+    //
+    // The rule that answers all fourteen measured cells at once: Surelog
+    // rebuilds ONE key, `<the declaring class's outermost container>::<the one
+    // written segment>`, and resolves only if that key names the owner.  So the
+    // owner must be a DIRECT CHILD of the container the declaring class's
+    // outermost enclosing class sits in — `px13::a13` is, `px13::o13::n13` is
+    // not — and the container must be NAMEABLE, which `$unit` is not (that is
+    // the shipped law's `g9`, preserved here: the walk stops at a
+    // CompilationUnit and `rootNameable` is false).
+    //
+    // ORDER then compares that same key against the DECLARING class's key.
+    // When the owner IS the outermost enclosing class, its key is a strict
+    // PREFIX of the declaring class's, so it always sorts first and is always
+    // compiled — that is why `outer::o_t` resolves from an inner class while
+    // `o12::m12::m_t` does not.  Otherwise the two keys share the container
+    // prefix and differ at the next segment, so the LEAF comparison is against
+    // the OUTERMOST class's name, not the declaring class's.
+    const slang::ast::ClassType* topCls = ctx.cls;
+    while (topCls) {
+        const slang::ast::Scope* tp = topCls->getParentScope();
+        if (tp && tp->asSymbol().kind == slang::ast::SymbolKind::ClassType)
+            topCls = &tp->asSymbol().as<slang::ast::ClassType>();
+        else
+            break;
+    }
+    const slang::ast::Scope* rootScope =
+        topCls ? topCls->getParentScope() : nullptr;
+    bool rootNameable = false;
+    if (rootScope) {
+        auto k = rootScope->asSymbol().kind;
+        rootNameable = k == slang::ast::SymbolKind::Package ||
+                       k == slang::ast::SymbolKind::InstanceBody;
+    }
+    const bool scopedReach = !ctx.outOfBody && ctx.cls && oneSeg &&
+                             rootNameable && op && op == rootScope;
+    const bool scopedOrder =
+        topCls && (&owner == topCls || owner.name < topCls->name);
+    if (scoped)
+        return (scopedReach && scopedOrder) ? TdLocalVarKind10::Resolved
+                                            : TdLocalVarKind10::ClassVar;
+    // BARE spelling.  Surelog reaches the typedef LEXICALLY here
+    // (`component->getDataType`), so question (3) does not apply and a `$unit`
+    // class's own bare typedef resolves (grid `g9` `v_unit_self_bare`).  A bare
+    // name reaching a class-nested typedef from OUTSIDE any class is not
+    // expressible, so that arm is carried UNEXERCISED and deliberately changes
+    // nothing rather than guessing a fallback never measured.
+    if (!ctx.cls)
+        return TdLocalVarKind10::Resolved;
+    return ownerCompiled ? TdLocalVarKind10::Resolved
+                         : TdLocalVarKind10::RefVar;
+}
+
 // Is this parameter's own DECLARED default a TIME literal (parameter P = 5ns)?
 // Read from the declarator syntax, not getInitializer(), so an instance
 // override cannot flip the answer (same reasoning as

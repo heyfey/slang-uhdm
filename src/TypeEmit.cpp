@@ -837,11 +837,14 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     // name (`uvm_resource_base` -> `uvm_resource_types::access_t`) has not
     // been compiled yet when this reference is emitted: Surelog compiles
     // every class's TYPES before binding any body, so build the owning
-    // class's typedefs on demand and share them. Record that it happened —
-    // Surelog's variable-class fallback for such a forward reference is a
-    // class_var (probe-verified pair over one source: owner sorted BEFORE
-    // -> struct_var, owner sorted AFTER -> class_var, both bound to the SAME
-    // struct_typespec). IOClassStruct.
+    // class's typedefs on demand and share them. IOClassStruct.
+    //
+    // The variable-CLASS half of that same observation used to be recorded
+    // here, as `onDemandClassTypedefs`, and consumed by TaskFuncEmit.  It is
+    // gone: whether OUR emission order had to build the owner on demand is not
+    // whether SURELOG had compiled it, and the two answers differ on the
+    // corpus.  § classTdLocalVarKindFollowsCompileOrder10 (EmitHelpers.h) asks
+    // Surelog's question directly and this arm now only shares the typespec.
     if (declared && !bypassTypedefShare &&
         declared->getType().kind == SymbolKind::TypeAlias &&
         !typedefTs.count(&declared->getType())) {
@@ -855,8 +858,6 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             if (opsc9 && (opsc9->asSymbol().kind == SymbolKind::Package ||
                           opsc9->asSymbol().kind == SymbolKind::ClassType)) {
                 buildClassTypedefTs(ocl9, std::string(ocl9.name));
-                if (typedefTs.count(&declared->getType()))
-                    onDemandClassTypedefs.insert((const void*)&declared->getType());
             }
         }
     }

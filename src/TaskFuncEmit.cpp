@@ -3064,12 +3064,34 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // module-homed function alike (arm a3 cells 16/24/29/52/59, arm a1
             // cells 8/11/16/19).  `uvm_tr_stream::get_recorders` @371:13 and
             // `uvm_tr_database::get_streams` @186:13 are this cell.
+            // § classTdLocalVarKindFollowsCompileOrder10, SITE 3 of 3 — THE
+            // RETURN VARIABLE.  Surelog compiles it with the same
+            // `compileVariable`, so the same law governs it: grid `g7`'s
+            // `r_late_struct` / `r_late_cls` are `class_var` in golden against
+            // our `struct_var` / `ref_var`, and `r_ext_early` / `r_ext_own`
+            // show the out-of-body arm.  On the corpus this is the
+            // `uvm_resource_pool::lookup_name` family — six SeqDriver rows
+            // returning `uvm_resource_types::rsrc_q_t`.
+            UHDM::variables* lateRv10 = nullptr;
+            if (!crossImplicitRet)
+                switch (classTdLocalVarKind10(sub)) {
+                    case TdLocalVarKind10::ClassVar:
+                        lateRv10 = s.MakeClass_var();
+                        break;
+                    case TdLocalVarKind10::RefVar:
+                        lateRv10 = s.MakeRef_var();
+                        break;
+                    case TdLocalVarKind10::Resolved:
+                        break;
+                }
             auto* rv =
                 crossImplicitRet
                     ? (UHDM::variables*)s.MakeRef_var()
-                    : makeReturnVar(
-                          s, sub.getReturnType(),
-                          implicitRetWrittenSigning70(returnTypeSyntax(sub)));
+                    : lateRv10
+                          ? lateRv10
+                          : makeReturnVar(
+                                s, sub.getReturnType(),
+                                implicitRetWrittenSigning70(returnTypeSyntax(sub)));
             // § atomVarSignedWritten68, site 3 of 7 — THE ordinary return
             // variable, in-class, out-of-body `extern`, package-homed and
             // module-homed alike (arm a5 cells 12:12 pkf, 21:10 V5::ex_ret,
@@ -4983,14 +5005,34 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // enum_var element), anchored at its name and NOT automatic.
                 UHDM::variables* v = makeEnumArrayVar(vts, vfull, tf);
                 bool isEnumArr = v != nullptr;
-                // A FORWARD reference to a class-nested typedef (the owning
-                // class sorts after this one) has no compiled type yet when
-                // Surelog picks the variable class, so it falls back to a
-                // class_var while still binding the shared struct_typespec
-                // (IOClassStruct; see makeTypespec's on-demand build).
-                if (!v && onDemandClassTypedefs.count(
-                              (const void*)&fmv.getDeclaredType()->getType()))
-                    v = s.MakeClass_var();
+                // § classTdLocalVarKindFollowsCompileOrder10, SITE 1 of 2 —
+                // the SUBROUTINE-BODY local.  A class-nested typedef whose
+                // owning class Surelog has not compiled yet has no typespec
+                // when the variable class is picked, so the declaration falls
+                // back to a bare `class_var` (scoped spelling) or a bare
+                // `ref_var` (bare spelling) while still binding the same
+                // typespec.  See EmitHelpers.h for the law, its three
+                // questions and the grid cell behind each one.
+                //
+                // THIS REPLACES the `onDemandClassTypedefs` PROXY, which asked
+                // whether OUR OWN emission order had had to build the owner's
+                // typedefs on demand.  That proxy is our order, not Surelog's:
+                // it MISSED the SeqDriver head (we emit `uvm_resource_types`
+                // before `uvm_resource_base`, so the typedef was already
+                // registered and no on-demand build happened) and it OVER-FIRED
+                // on the bare spelling (grid `g5` `v_inherited_bare`: golden
+                // `ref_var`, the proxy's `class_var`).
+                if (!v)
+                    switch (classTdLocalVarKind10(fmv)) {
+                        case TdLocalVarKind10::ClassVar:
+                            v = s.MakeClass_var();
+                            break;
+                        case TdLocalVarKind10::RefVar:
+                            v = s.MakeRef_var();
+                            break;
+                        case TdLocalVarKind10::Resolved:
+                            break;
+                    }
                 if (!v) {
                     const Type* lt9 = &fmv.getDeclaredType()->getType();
                     // A TF-ITEM body models an array local by its ELEMENT
