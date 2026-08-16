@@ -2740,6 +2740,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // module hoist re-binds unresolvable property names (the package
         // clone's stay unbound) — see classPropRefs.
         inClassBodyEmit = oob && classScope && !cloneMode;
+        // § withIterRefBindsHoistNet75 — the same body's home PACKAGE, as a
+        // slang symbol, for the refs that carry none of their own.  `body` IS
+        // the class scope here (classScope), so its parent scope is the
+        // package the class was declared in.
+        classBodyHomePkg75 = nullptr;
+        if (inClassBodyEmit)
+            if (auto* cps75 = body.asSymbol().getParentScope();
+                cps75 && cps75->asSymbol().kind == SymbolKind::Package)
+                classBodyHomePkg75 = &cps75->asSymbol();
         // The instance every typespec minted for THIS subroutine takes.
         UHDM::instance* tsInst = (pkgScope && !classScope)
                                      ? (UHDM::instance*)m
@@ -5482,6 +5491,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         tfs->push_back(tf);
     }
     inClassBodyEmit = false;
+    classBodyHomePkg75 = nullptr;
     if (!tfs->empty()) {
         if (cloneMode) {
             if (auto* ex0 = pkgClassTfClone->Task_funcs())

@@ -3874,6 +3874,17 @@ private:
     // Set while a CLASS-OWNED method body is emitted (not the package clone
     // pass, whose refs Surelog leaves unbound).
     bool inClassBodyEmit = false;
+    // § withIterRefBindsHoistNet75 — the home PACKAGE of the class whose OWN
+    // body is currently being emitted; null whenever inClassBodyEmit is false.
+    // The array-method iterator ARGUMENT ref is built from SYNTAX TEXT and
+    // carries no slang symbol at all, so it cannot derive its package the way
+    // the class-property arm derives one from `nv.symbol`.
+    const slang::ast::Symbol* classBodyHomePkg75 = nullptr;
+    // Every ARRAY-METHOD `with`-clause ITERATOR symbol seen so far.  slang
+    // gives a FOREACH loop variable the SAME SymbolKind::Iterator, and golden
+    // does NOT net one (its refs bind the loop variable object), so membership
+    // in this set — never the symbol kind — is the gate on the reference side.
+    std::set<const slang::ast::Symbol*> withIterSyms75;
     std::map<const void*, UHDM::package*> pkgDefMap;
     // ELAB/top-view package objects (filled in emitPackage when topView).
     // Module- and package-side cross-view links whose Surelog equivalents reach

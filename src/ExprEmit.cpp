@@ -8236,6 +8236,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     classPropRefs.push_back({ref, std::string(nv.symbol.name),
                                              expr.sourceRange, hp9});
                 }
+                // § withIterRefBindsHoistNet75 — SITE B of 2.  A BARE READ of
+                // the same iterator inside the `with` expression itself
+                // (`avail_sequences.find with (item == i)`,
+                // `... .find_index(node) with (node == to_node)`) binds the
+                // very same wire — one per NAME per module, minted at the
+                // FIRST reference and shared by every later function.  The
+                // gate is membership in withIterSyms75, so a FOREACH loop
+                // variable (same SymbolKind, and golden nets none) is out.
+                else if (classBodyHomePkg75 && withIterSyms75.count(&nv.symbol))
+                    classPropRefs.push_back({ref, std::string(nv.symbol.name),
+                                             expr.sourceRange,
+                                             classBodyHomePkg75});
             }
             ref->VpiParent(parent);
             if (rawText(SourceRange(expr.sourceRange.start(), expr.sourceRange.start() + 1)) ==
@@ -12102,12 +12114,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // named `q`, the identical `q.sum()` is named
                         // `q.sum`, and so are size/min (r10apb3 repro 7).
                         const Expression* withExpr9 = nullptr;
-                        if (call.isSystemCall())
-                            withExpr9 =
+                        // § withIterRefBindsHoistNet75 — the iterator SYMBOL
+                        // rides the same pair as the with-expression.  Taking
+                        // it here (instead of testing SymbolKind::Iterator at
+                        // the reference) is what keeps FOREACH loop variables,
+                        // which share that kind, out of the law.
+                        const slang::ast::ValueSymbol* withIterSym75 = nullptr;
+                        if (call.isSystemCall()) {
+                            auto ii75 =
                                 std::get<CallExpression::SystemCallInfo>(
                                     call.subroutine)
-                                    .getIteratorInfo()
-                                    .first;
+                                    .getIteratorInfo();
+                            withExpr9 = ii75.first;
+                            withIterSym75 = ii75.second;
+                        }
                         // § parensLessCallIsPathRefObj — SITE 1 of 1.  THE
                         // PARENTHESES ARE THE WHOLE DISCRIMINATOR.  A built-in
                         // method written WITHOUT an argument list (`data.size`,
@@ -12356,12 +12376,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 ia9->VpiParent(mfc);
                                 setLoc(ia9, ar9);
                                 iterArg9 = ia9;
+                                // § withIterRefBindsHoistNet75 — SITE A of 2.
+                                // The WRITTEN iterator argument.  Surelog
+                                // cannot resolve the name at all when the
+                                // method body is compiled OUT OF BODY (in the
+                                // home package's scope), so the ref falls into
+                                // the same late-binding pool the unresolvable
+                                // class-property names fall into and a module
+                                // that HOISTS the method binds it to — and
+                                // when it declares none, MINTS — an implicit
+                                // wire of that name.  Recording it here, in
+                                // emission order, IS the mint order.
+                                if (inClassBodyEmit && classBodyHomePkg75)
+                                    classPropRefs.push_back(
+                                        {ia9, std::string(rawText(ar9)), ar9,
+                                         classBodyHomePkg75});
                             }
                         }
-                        if (withExpr9)
+                        if (withExpr9) {
+                            if (withIterSym75)
+                                withIterSyms75.insert(withIterSym75);
                             if (auto* w9 =
                                     emitExpr(*withExpr9, parent, prefix, netMap))
                                 mfc->With(w9);
+                        }
                         // Extra method args (past the receiver); literal args
                         // parent at the method call.
                         auto* margs = s.MakeAnyVec();
