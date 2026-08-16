@@ -13708,14 +13708,6 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // Final selector: a part_select (or indexed_part_select).
                     SourceRange selRange(rs.left().sourceRange.start(),
                                          rs.right().sourceRange.end());
-                    bool constSel = false;
-                    {
-                        ASTContext cctx(comp.getRoot(), LookupLocation::max);
-                        constSel = (rs.left().kind == ExpressionKind::IntegerLiteral ||
-                                    cctx.tryEval(rs.left())) &&
-                                   (rs.right().kind == ExpressionKind::IntegerLiteral ||
-                                    cctx.tryEval(rs.right()));
-                    }
                     if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
                         auto* ps = s.MakePart_select();
                         ps->VpiName(bnm41);
@@ -13728,8 +13720,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         ps->VpiFullName(psFull);
                         ps->VpiParent(vs);
                         setLoc(ps, selRange);
-                        if (constSel)
-                            ps->VpiConstantSelect(true);
+                        ps->VpiConstantSelect(true);  // § everyPartSelIsConstSel78
                         // A range endpoint that IS a literal stays unparented;
                         // a constant nested in an endpoint OPERATION keeps its
                         // operation parent (Surelog).
@@ -13758,21 +13749,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(ips, selRange);
                         ips->VpiIndexedPartSelectType(
                             rs.getSelectionKind() == RangeSelectionKind::IndexedUp ? 1 : 2);
-                        // An INDEXED part-select is "constant" on its WIDTH
-                        // alone — the base is allowed to vary — exactly like
-                        // the whole-variable form below; only the SIMPLE
-                        // part_select above needs both bounds.  Scr1SvTests
-                        // scr1_dp_memory `ram_block[addrb][i*8 +: 8]`: golden
-                        // stamps vpiConstantSelect:1 with `i*8` as the base,
-                        // and that single missing flag was the design-echo
-                        // head (49 of 93 vectors) — the ONE vpiConstantSelect
-                        // of 343 that differed across the whole database.
-                        {
-                            ASTContext wctx9(comp.getRoot(), LookupLocation::max);
-                            if (rs.right().kind == ExpressionKind::IntegerLiteral ||
-                                wctx9.tryEval(rs.right()))
-                                ips->VpiConstantSelect(true);
-                        }
+                        // § everyPartSelIsConstSel78.  The old rule here was
+                        // "constant WIDTH suffices" — a strictly weaker gate
+                        // than the SIMPLE arm's "both ends", and it was right
+                        // about the direction (Scr1SvTests scr1_dp_memory
+                        // `ram_block[addrb][i*8 +: 8]`: golden stamps the flag
+                        // with `i*8` as the base).  It was still a gate, and
+                        // Surelog has none: the flag is unconditional.
+                        ips->VpiConstantSelect(true);
                         bool savedSup = suppressConstParent;
                         suppressConstParent = isLiteralExpr(rs.left());
                         // § genLpUseFoldParentScope47 — CALL SITE 2 of 4: THE
@@ -13865,13 +13849,6 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         std::string selFull9 = joinRef(prefix, selText);
                         SourceRange rngSpan9(rs.left().sourceRange.start(),
                                              rs.right().sourceRange.end());
-                        bool widthConst9 = false;
-                        {
-                            ASTContext wctx(comp.getRoot(), LookupLocation::max);
-                            widthConst9 =
-                                rs.right().kind == ExpressionKind::IntegerLiteral ||
-                                (bool)wctx.tryEval(rs.right());
-                        }
                         if (inLhs) {
                             // LVALUE shape (Surelog's hier_path branch of
                             // compileSelectExpression):
@@ -13936,8 +13913,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 ps->VpiFullName(selFull9);
                                 ps->VpiParent(hp);
                                 setLoc(ps, rngSpan9);
-                                if (widthConst9)
-                                    ps->VpiConstantSelect(true);
+                                ps->VpiConstantSelect(true);  // § everyPartSelIsConstSel78
                                 bound9(rs.left());
                                 if (auto* l = emitExpr(rs.left(), ps, selFull9,
                                                        netMap))
@@ -13958,8 +13934,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                             RangeSelectionKind::IndexedUp
                                         ? 1
                                         : 2);
-                                if (widthConst9)
-                                    ips->VpiConstantSelect(true);
+                                ips->VpiConstantSelect(true);  // § everyPartSelIsConstSel78
                                 bound9(rs.left());
                                 if (auto* b = emitExpr(rs.left(), ips, selFull9,
                                                        netMap))
@@ -13993,13 +13968,6 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         SourceRange selRange(rs.left().sourceRange.start(),
                                              rs.right().sourceRange.end());
                         std::string dblFull = vsFull + "." + memName;
-                        bool widthConst = false;
-                        {
-                            ASTContext wctx(comp.getRoot(), LookupLocation::max);
-                            widthConst =
-                                rs.right().kind == ExpressionKind::IntegerLiteral ||
-                                (bool)wctx.tryEval(rs.right());
-                        }
                         bool savedSup = suppressConstParent;
                         if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
                             auto* ps = s.MakePart_select();
@@ -14008,8 +13976,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             ps->VpiFullName(dblFull);
                             ps->VpiParent(vs);
                             setLoc(ps, selRange);
-                            if (widthConst)
-                                ps->VpiConstantSelect(true);
+                            ps->VpiConstantSelect(true);  // § everyPartSelIsConstSel78
                             suppressConstParent = true;
                             if (auto* l = emitExpr(rs.left(), ps, dblFull, netMap))
                                 ps->Left_range((UHDM::expr*)l);
@@ -14029,8 +13996,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 rs.getSelectionKind() == RangeSelectionKind::IndexedUp
                                     ? 1
                                     : 2);
-                            if (widthConst)
-                                ips->VpiConstantSelect(true);
+                            ips->VpiConstantSelect(true);  // § everyPartSelIsConstSel78
                             suppressConstParent = isLiteralExpr(rs.left());
                             if (auto* b = emitExpr(rs.left(), ips, dblFull, netMap))
                                 ips->Base_expr((UHDM::expr*)b);
@@ -14171,33 +14137,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         SourceRange elemLoc(
                             (*it2)->sourceRange.end() - ma.member.name.size(),
                             rs.right().sourceRange.end());
-                        bool constSel = false;
-                        // § hierSelConstWidthSuffices17 (r10earl17).  For the
-                        // INDEXED form the base may be a variable and the
-                        // select is still vpiConstantSelect — "constant width
-                        // suffices", the rule the plain (non-hier) indexed
-                        // emitter below and the two var_select emitters above
-                        // already use (widthConst9 / widthConst).  THIS site
-                        // was the only one demanding both ends, and that made
+                        // § everyPartSelIsConstSel78 SUPERSEDES
+                        // § hierSelConstWidthSuffices17 (r10earl17) HERE.  r17
+                        // widened this site from "both ends constant" to
+                        // "constant WIDTH suffices" because
                         // `tl_i.a_data[8*i+:8]` inside a for-loop
                         // (tlul_adapter_sram.sv:163) read false where golden
-                        // reads true — the head of FOUR AllModules entries
-                        // (tlul_adapter_sram plus hmac / spi_device / usbdev,
-                        // which re-enter it through a ref_module) once
-                        // § pkgBoundMintTsTopInstance17 cleared the pointer
-                        // ahead of it.  The SIMPLE arm keeps the both-ends
-                        // rule: a `[a:b]` select has no width to be constant.
-                        bool constSelIdx17 = false;
-                        {
-                            ASTContext cctx(comp.getRoot(), LookupLocation::max);
-                            bool lc17 = rs.left().kind ==
-                                            ExpressionKind::IntegerLiteral ||
-                                        (bool)cctx.tryEval(rs.left());
-                            constSelIdx17 = rs.right().kind ==
-                                                ExpressionKind::IntegerLiteral ||
-                                            (bool)cctx.tryEval(rs.right());
-                            constSel = lc17 && constSelIdx17;
-                        }
+                        // reads true — the head of FOUR AllModules entries.
+                        // r17's DIRECTION was right and its measurement stands;
+                        // it simply stopped one step short.  Surelog evaluates
+                        // NOTHING: compilePartSelectRange stamps the flag on
+                        // every part_select and every indexed_part_select it
+                        // builds, so both arms are unconditional now.
                         if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
                             auto* ps = s.MakePart_select();
                             ps->VpiName(ma.member.name);
@@ -14213,8 +14164,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             else
                                 ps->VpiFullName(dotted);
                             setLoc(ps, elemLoc);
-                            if (constSel)
-                                ps->VpiConstantSelect(true);
+                            ps->VpiConstantSelect(true);  // § everyPartSelIsConstSel78
                             bool sup = suppressConstParent;
                             suppressConstParent = true;
                             if (auto* l = emitExpr(rs.left(), ps, prefix, netMap))
@@ -14236,8 +14186,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             ips->VpiIndexedPartSelectType(
                                 rs.getSelectionKind() == RangeSelectionKind::IndexedUp ? 1
                                                                                        : 2);
-                            if (constSelIdx17)  // § hierSelConstWidthSuffices17
-                                ips->VpiConstantSelect(true);
+                            ips->VpiConstantSelect(true);  // § everyPartSelIsConstSel78
                             bool sup = suppressConstParent;
                             suppressConstParent = isLiteralExpr(rs.left());
                             if (auto* b = emitExpr(rs.left(), ips, prefix, netMap))
@@ -14484,15 +14433,6 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // expr end.
                         SourceRange selLoc(exprStart + lastOff,
                                            rs.right().sourceRange.end());
-                        bool constSel = false;
-                        {
-                            ASTContext cctx(comp.getRoot(), LookupLocation::max);
-                            constSel =
-                                (rs.left().kind == ExpressionKind::IntegerLiteral ||
-                                 cctx.tryEval(rs.left())) &&
-                                (rs.right().kind == ExpressionKind::IntegerLiteral ||
-                                 cctx.tryEval(rs.right()));
-                        }
                         bool sup = suppressConstParent;
                         if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
                             auto* ps2 = s.MakePart_select();
@@ -14500,8 +14440,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             ps2->VpiFullName(selText);
                             ps2->VpiParent(hp);
                             setLoc(ps2, selLoc);
-                            if (constSel)
-                                ps2->VpiConstantSelect(true);
+                            ps2->VpiConstantSelect(true);  // § everyPartSelIsConstSel78
                             suppressConstParent = isLiteralExpr(rs.left());
                             if (auto* l = emitExpr(rs.left(), ps2, prefix, netMap))
                                 ps2->Left_range((UHDM::expr*)l);
@@ -14532,18 +14471,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 rs.getSelectionKind() == RangeSelectionKind::IndexedUp
                                     ? 1
                                     : 2);
-                            // An indexed part-select's WIDTH is always constant;
-                            // Surelog marks vpiConstantSelect on the width alone
-                            // (a dynamic base still yields a constant select).
-                            bool widthConst = false;
-                            {
-                                ASTContext wctx(comp.getRoot(), LookupLocation::max);
-                                widthConst =
-                                    rs.right().kind == ExpressionKind::IntegerLiteral ||
-                                    (bool)wctx.tryEval(rs.right());
-                            }
-                            if (widthConst)
-                                ips2->VpiConstantSelect(true);
+                            // § everyPartSelIsConstSel78 — unconditional.
+                            ips2->VpiConstantSelect(true);
                             suppressConstParent = isLiteralExpr(rs.left());
                             // A dynamic BASE ref is named through the select
                             // itself (work@top.a[0].source[base-:2].base) —
@@ -14614,18 +14543,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(ips, rangeSelectorSpan(rs));
                 ips->VpiIndexedPartSelectType(
                     rs.getSelectionKind() == RangeSelectionKind::IndexedUp ? 1 : 2);
-                // Constant width suffices (the base may be a variable).
-                {
-                    ASTContext cctx(comp.getRoot(), LookupLocation::max);
-                    if (rs.right().kind == ExpressionKind::IntegerLiteral ||
-                        cctx.tryEval(rs.right()))
-                        ips->VpiConstantSelect(true);
-                }
+                ips->VpiConstantSelect(true);  // § everyPartSelIsConstSel78
                 // Refs nested in OPERATIONS scope by the base name; DIRECT
                 // refs stay module-scoped. Only DIRECT literal bounds
                 // suppress constant parents.
                 auto savedSel = selectBasePrefix;
-                std::string basePfx = prefix + "." + std::string(nv.symbol.name);
+                // § partSelBoundPrefixJoinsByScope78 — SITE 1 of 2.  The
+                // doubled base prefix is a SCOPE JOIN and must use the
+                // enclosing scope's separator regime, which is exactly what
+                // joinRef decides.  A hard `.` was right for every module and
+                // gen-scope prefix (they have no `::`, so joinRef returns the
+                // same string) and wrong for every class/package one.
+                std::string basePfx = joinRef(prefix, nv.symbol.name);
                 auto boundPfx = [&](const Expression& e) -> const std::string& {
                     return stripImplicitConv(e).kind == ExpressionKind::NamedValue ? prefix
                                                                                    : basePfx;
@@ -14743,16 +14672,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             else
                 (void)psel->VpiFullName();
             setLoc(psel, expr.sourceRange);
-            bool constSel = false;
-            {
-                ASTContext cctx(comp.getRoot(), LookupLocation::max);
-                constSel = (rs.left().kind == ExpressionKind::IntegerLiteral ||
-                            cctx.tryEval(rs.left())) &&
-                           (rs.right().kind == ExpressionKind::IntegerLiteral ||
-                            cctx.tryEval(rs.right()));
-            }
-            if (constSel)
-                psel->VpiConstantSelect(true);
+            // § everyPartSelIsConstSel78 — THE HEAD's own site.
+            // `arb_sequence_q[0:b-1]` (uvm_sequencer_base.svh:681) has a
+            // NON-constant right end, the old both-ends gate read false, and
+            // golden reads 1: Surelog stamps the flag from the GRAMMAR
+            // (paConstant_range), never from an evaluation.
+            psel->VpiConstantSelect(true);
             // Part-select writes DO re-point later whole refs (subbytes:
             // next_data_reg = data_reg_128 binds the [31:24] part_select) —
             // but only TOP-LEVEL LHS selects count as writes; a select
@@ -14776,7 +14701,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Refs nested in bound OPERATIONS scope by the base name; in a
             // function/task body EVERY bound ref (incl. bare params) scopes by
             // the base name (Surelog's doubled part-select-bound fullname).
-            std::string basePfx = prefix + "." + std::string(nv.symbol.name);
+            // § partSelBoundPrefixJoinsByScope78 — SITE 2 of 2, and THE HEAD's
+            // own site: `arb_sequence_q[0:b-1]` in a CLASS method wants
+            // `…grant_queued_locks::arb_sequence_q::b`, not `…locks.arb…`.
+            std::string basePfx = joinRef(prefix, nv.symbol.name);
             auto boundPfx = [&](const Expression& e) -> const std::string& {
                 // Function/task bodies AND param inits scope EVERY bound ref
                 // by the base name (Surelog's doubled part-select fullname);
