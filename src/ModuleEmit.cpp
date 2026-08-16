@@ -4380,8 +4380,90 @@ static void importCopyTsSub7(UHDM::typespec* cpTs, UHDM::typespec* srcTs, int de
     }
 }
 
+// § importCopyElemVarTsNoInstance8 — the COPY's subtree does not stop at its
+// typespec.  An UNPACKED-ARRAY variable also owns an ELEMENT VARIABLE
+// (`array_var::Variables()`, one per array), the element variable has a
+// typespec of its own, and THAT typespec is the copy's too — and unstamped.
+//
+// sd7 §2.1 concluded "the `Elem_typespec` arm never fires — zero `ts/elem` rows
+// exist on either side", and that is TRUE and MISLEADING.  An associative
+// array's ELEMENT TYPE is not reached through `array_typespec::Elem_typespec`
+// in these databases at all; it is reached through the element VARIABLE, which
+// no census in this campaign had walked.  So sd7 nulled the `[string]` INDEX
+// typespec of `uvm_seed_map uvm_random_seed_table_lookup [string]` and left the
+// `uvm_seed_map` ELEMENT typespec next to it still carrying the package stamp.
+//
+// NAMED BY EXHAUSTIVE MEASUREMENT, not by reasoning (`ct8head --brute`): every
+// one of the 13 464 stamped `vpiInstance` slots in our SeqDriver database is
+// nulled in turn and the whole design re-compared; EXACTLY ONE advances the
+// walk, and it is
+//
+//   class_typespec(uvm_seed_map)@328:1-328:13 < ref_typespec
+//     < class_var@328:14-328:42
+//     < array_var(uvm_random_seed_table_lookup)@328:14-328:42
+//     < class_defn(adpcm_seq_item) < package(adpcm_pkg)
+//
+// THE CONTROL THAT FORBIDS THE BLANKET RULE (`ct8pop`, the element-variable
+// cell, both sides): golden STAMPS 19 of the 140 element-variable typespecs in
+// the class listings and we stamp the same objects at 8 of them; a rule reading
+// "an element variable's typespec carries no instance" would destroy those.
+// Only the IMPORT COPY's element variable moves, and only when `clone_tree`
+// actually duplicated it — a shared object is the package listing's and nulling
+// it is sd7 §9.7's backfire.
+//
+// AND THE STAMP MUST STILL NAME THE SOURCE PACKAGE.  The first version of this
+// law nulled every duplicated element typespec, and grid cell `g6` CAUGHT IT
+// OVER-FIRING before it landed: when the element type is a package TYPEDEF, the
+// import machinery has already re-stamped the shared clone onto the IMPORTING
+// package (§ pkgImportCloneLastWriter32) and GOLDEN CARRIES THAT STAMP TOO —
+// `struct_typespec(p6::t6)` reads `inst=ALL:q6` on both sides, and the blanket
+// rule turned ours into `<null>`.  What golden never carries is the stamp the
+// clone merely INHERITED from the package it was copied OUT of.  So the gate is
+// the stamp's own identity: null it only while it still names the SOURCE
+// package.  Measured on all six grid cells and on the corpus, both directions.
+static void importCopyElem8(UHDM::variables* cp, UHDM::variables* src,
+                            std::string_view srcPkgName) {
+    if (!cp || !src || srcPkgName.empty())
+        return;
+    if (cp->UhdmType() != UHDM::uhdmarray_var || src->UhdmType() != UHDM::uhdmarray_var)
+        return;
+    auto* cvs = ((UHDM::array_var*)cp)->Variables();
+    auto* svs = ((UHDM::array_var*)src)->Variables();
+    // Positional pairing only, and only when the two agree in size: a size
+    // mismatch means the clone is not the shape this law was measured on.
+    if (!cvs || !svs || cvs->size() != svs->size())
+        return;
+    for (size_t i = 0, n = cvs->size(); i < n; ++i) {
+        UHDM::variables* ce = (*cvs)[i];
+        UHDM::variables* se = (*svs)[i];
+        if (!ce || !se || ce == se)   // SHARED with the source: not the copy's
+            continue;
+        auto* crt = ce->Typespec();
+        auto* srt = se->Typespec();
+        if (!crt || !srt)
+            continue;
+        auto* cts = crt->Actual_typespec();
+        auto* sts = srt->Actual_typespec();
+        if (!cts || cts == sts)       // SHARED: the package listing's object
+            continue;
+        auto* in8 = cts->Instance();
+        // Only the stamp INHERITED from the source package moves; a stamp that
+        // already names the importing scope is the import machinery's and
+        // golden has it too (grid `g6`).  Compared by NAME because a package
+        // has two objects — the def view and the elaborated one — and the
+        // clone can carry either.
+        if (!in8 || in8->VpiName() != srcPkgName)
+            continue;
+        cts->Instance(nullptr);
+        // The same rule for the levels below it — § importCopyTsSubtreeNoInstance7's
+        // walk, entered at depth 0 because depth 0 was just nulled here.
+        importCopyTsSub7(cts, sts, 0);
+    }
+}
+
 static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src,
-                                       UHDM::class_defn* cd) {
+                                       UHDM::class_defn* cd,
+                                       std::string_view srcPkgName) {
     if (!src || !cd)
         return src;
     UHDM::ElaboratorContext ctx5(&s, false, /*muteErrors=*/true);
@@ -4417,6 +4499,8 @@ static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src
             importCopyTsSub7(at5, st7, 0);
         }
     }
+    // § importCopyElemVarTsNoInstance8 — see the header above importCopyElem8.
+    importCopyElem8(cp, src, srcPkgName);
     if (auto* e5 = cp->Expr())
         e5->VpiParent(cp);
     // § importCopyInitRefIsOwnedAndUnbound6 — see the header above
@@ -4595,7 +4679,7 @@ void UhdmExporter::classInheritsContainerImports23() {
             if (auto* v23 = pv23->Variables())
                 for (auto* x23 : *v23)
                     if (x23 && (!only23 || x23->VpiName() == on23))
-                        vars23->push_back(importVarCopy5(s, x23, cd));
+                        vars23->push_back(importVarCopy5(s, x23, cd, pv23->VpiName()));
             // The PARAMETER arm walks `def->getParameterMap()`, a
             // std::map<name, Parameter*> — so an imported parameter batch is
             // NAME-SORTED, unlike the param_assign arm right below it, which
