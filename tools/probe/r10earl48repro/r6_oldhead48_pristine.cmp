@@ -1,0 +1,644 @@
+LHS:
+decompile:
+gen_scope_array: (work@prim_present.gen_round[0].gen_d64), id:962901, line:94:9, endln:95:95
+|vpiParent:
+\_gen_scope: (work@prim_present.gen_round[0]), id:962897, line:51:42, endln:118:6
+|vpiName:gen_d64
+|vpiFullName:work@prim_present.gen_round[0].gen_d64
+|vpiGenScope:
+\_gen_scope: (work@prim_present.gen_round[0].gen_d64), id:962902, line:94:9, endln:95:95
+  |vpiParent:
+  \_gen_scope_array: (work@prim_present.gen_round[0].gen_d64), id:962901, line:94:9, endln:95:95
+  |vpiFullName:work@prim_present.gen_round[0].gen_d64
+  |vpiContAssign:
+  \_cont_assign: , id:223785, line:94:16, endln:95:94
+    |vpiParent:
+    \_gen_scope: (work@prim_present.gen_round[0].gen_d64), id:962902, line:94:9, endln:95:95
+    |vpiRhs:
+    \_func_call: (prim_cipher_pkg::sbox4_64bit), id:223786, line:94:34, endln:94:49
+      |vpiParent:
+      \_cont_assign: , id:223785, line:94:16, endln:95:94
+      |vpiArgument:
+      \_ref_obj: (work@prim_present.gen_round[0].gen_d64.data_state_xor), id:223787, line:94:63, endln:94:77
+        |vpiParent:
+        \_func_call: (prim_cipher_pkg::sbox4_64bit), id:223786, line:94:34, endln:94:49
+        |vpiTypespec:
+        \_ref_typespec: (work@prim_present.gen_round[0].gen_d64.data_state_xor), id:962904
+          |vpiParent:
+          \_ref_obj: (work@prim_present.gen_round[0].gen_d64.data_state_xor), id:223787, line:94:63, endln:94:77
+          |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state_xor
+          |vpiActual:
+          \_logic_typespec: , id:17331, line:336:47, endln:336:52
+        |vpiName:data_state_xor
+        |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state_xor
+      |vpiArgument:
+      \_ref_obj: (prim_cipher_pkg::PRESENT_SBOX4), id:223788, line:95:63, endln:95:80
+        |vpiParent:
+        \_func_call: (prim_cipher_pkg::sbox4_64bit), id:223786, line:94:34, endln:94:49
+        |vpiName:prim_cipher_pkg::PRESENT_SBOX4
+        |vpiActual:
+        \_parameter: (prim_cipher_pkg::PRESENT_SBOX4), id:15846, line:141:31, endln:141:44
+      |vpiName:prim_cipher_pkg::sbox4_64bit
+      |vpiFunction:
+      \_function: (prim_cipher_pkg::sbox4_64bit), id:14939, line:336:3, endln:343:28
+    |vpiLhs:
+    \_ref_obj: (work@prim_present.gen_round[0].gen_d64.data_state_sbox), id:223784, line:94:16, endln:94:31
+      |vpiParent:
+      \_cont_assign: , id:223785, line:94:16, endln:95:94
+      |vpiName:data_state_sbox
+      |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state_sbox
+      |vpiActual:
+      \_logic_var: (work@prim_present.gen_round[0].data_state_sbox), id:223775, line:52:43, endln:52:58
+  |vpiContAssign:
+  \_cont_assign: , id:223793, line:96:16, endln:97:94
+    |vpiParent:
+    \_gen_scope: (work@prim_present.gen_round[0].gen_d64), id:962902, line:94:9, endln:95:95
+    |vpiRhs:
+    \_func_call: (prim_cipher_pkg::perm_64bit), id:223794, line:96:34, endln:96:49
+      |vpiParent:
+      \_cont_assign: , id:223793, line:96:16, endln:97:94
+      |vpiArgument:
+      \_ref_obj: (work@prim_present.gen_round[0].gen_d64.data_state_sbox), id:223795, line:96:62, endln:96:77
+        |vpiParent:
+        \_func_call: (prim_cipher_pkg::perm_64bit), id:223794, line:96:34, endln:96:49
+        |vpiTypespec:
+        \_ref_typespec: (work@prim_present.gen_round[0].gen_d64.data_state_sbox), id:962938
+          |vpiParent:
+          \_ref_obj: (work@prim_present.gen_round[0].gen_d64.data_state_sbox), id:223795, line:96:62, endln:96:77
+          |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state_sbox
+          |vpiActual:
+          \_logic_typespec: , id:17449, line:354:46, endln:354:51
+        |vpiName:data_state_sbox
+        |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state_sbox
+      |vpiArgument:
+      \_ref_obj: (prim_cipher_pkg::PRESENT_PERM64), id:223796, line:97:62, endln:97:79
+        |vpiParent:
+        \_func_call: (prim_cipher_pkg::perm_64bit), id:223794, line:96:34, endln:96:49
+        |vpiName:prim_cipher_pkg::PRESENT_PERM64
+        |vpiActual:
+        \_parameter: (prim_cipher_pkg::PRESENT_PERM64), id:16230, line:172:31, endln:172:45
+      |vpiName:prim_cipher_pkg::perm_64bit
+      |vpiFunction:
+      \_function: (prim_cipher_pkg::perm_64bit), id:14941, line:354:3, endln:361:27
+    |vpiLhs:
+    \_bit_select: (work@prim_present.gen_round[0].gen_d64.data_state), id:223792, line:96:16, endln:96:31
+      |vpiParent:
+      \_cont_assign: , id:223793, line:96:16, endln:97:94
+      |vpiName:data_state
+      |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state
+      |vpiIndex:
+      \_operation: , id:223790, line:96:27, endln:96:30
+        |vpiParent:
+        \_bit_select: (work@prim_present.gen_round[0].gen_d64.data_state), id:223792, line:96:16, endln:96:31
+        |vpiOpType:24
+        |vpiOperand:
+        \_ref_obj: (work@prim_present.gen_round[0].gen_d64.data_state.k), id:223789, line:96:27, endln:96:28
+          |vpiParent:
+          \_operation: , id:223790, line:96:27, endln:96:30
+          |vpiName:k
+          |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state.k
+        |vpiOperand:
+        \_constant: , id:223791, line:96:29, endln:96:30
+          |vpiParent:
+          \_operation: , id:223790, line:96:27, endln:96:30
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+
+decompile:
+gen_scope_array: (work@prim_present.gen_round[0].gen_d64), id:962901, line:94:9, endln:95:95
+|vpiParent:
+\_gen_scope: (work@prim_present.gen_round[0]), id:962897, line:51:42, endln:118:6
+|vpiName:gen_d64
+|vpiFullName:work@prim_present.gen_round[0].gen_d64
+|vpiGenScope:
+\_gen_scope: (work@prim_present.gen_round[0].gen_d64), id:962902, line:94:9, endln:95:95
+  |vpiParent:
+  \_gen_scope_array: (work@prim_present.gen_round[0].gen_d64), id:962901, line:94:9, endln:95:95
+  |vpiFullName:work@prim_present.gen_round[0].gen_d64
+  |vpiContAssign:
+  \_cont_assign: , id:223785, line:94:16, endln:95:94
+    |vpiParent:
+    \_gen_scope: (work@prim_present.gen_round[0].gen_d64), id:962902, line:94:9, endln:95:95
+    |vpiRhs:
+    \_func_call: (prim_cipher_pkg::sbox4_64bit), id:223786, line:94:34, endln:94:49
+      |vpiParent:
+      \_cont_assign: , id:223785, line:94:16, endln:95:94
+      |vpiArgument:
+      \_ref_obj: (work@prim_present.gen_round[0].gen_d64.data_state_xor), id:223787, line:94:63, endln:94:77
+        |vpiParent:
+        \_func_call: (prim_cipher_pkg::sbox4_64bit), id:223786, line:94:34, endln:94:49
+        |vpiTypespec:
+        \_ref_typespec: (work@prim_present.gen_round[0].gen_d64.data_state_xor), id:962904
+          |vpiParent:
+          \_ref_obj: (work@prim_present.gen_round[0].gen_d64.data_state_xor), id:223787, line:94:63, endln:94:77
+          |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state_xor
+          |vpiActual:
+          \_logic_typespec: , id:17331, line:336:47, endln:336:52
+        |vpiName:data_state_xor
+        |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state_xor
+      |vpiArgument:
+      \_ref_obj: (prim_cipher_pkg::PRESENT_SBOX4), id:223788, line:95:63, endln:95:80
+        |vpiParent:
+        \_func_call: (prim_cipher_pkg::sbox4_64bit), id:223786, line:94:34, endln:94:49
+        |vpiName:prim_cipher_pkg::PRESENT_SBOX4
+        |vpiActual:
+        \_parameter: (prim_cipher_pkg::PRESENT_SBOX4), id:15846, line:141:31, endln:141:44
+      |vpiName:prim_cipher_pkg::sbox4_64bit
+      |vpiFunction:
+      \_function: (prim_cipher_pkg::sbox4_64bit), id:14939, line:336:3, endln:343:28
+    |vpiLhs:
+    \_ref_obj: (work@prim_present.gen_round[0].gen_d64.data_state_sbox), id:223784, line:94:16, endln:94:31
+      |vpiParent:
+      \_cont_assign: , id:223785, line:94:16, endln:95:94
+      |vpiName:data_state_sbox
+      |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state_sbox
+      |vpiActual:
+      \_logic_var: (work@prim_present.gen_round[0].data_state_sbox), id:223775, line:52:43, endln:52:58
+  |vpiContAssign:
+  \_cont_assign: , id:223793, line:96:16, endln:97:94
+    |vpiParent:
+    \_gen_scope: (work@prim_present.gen_round[0].gen_d64), id:962902, line:94:9, endln:95:95
+    |vpiRhs:
+    \_func_call: (prim_cipher_pkg::perm_64bit), id:223794, line:96:34, endln:96:49
+      |vpiParent:
+      \_cont_assign: , id:223793, line:96:16, endln:97:94
+      |vpiArgument:
+      \_ref_obj: (work@prim_present.gen_round[0].gen_d64.data_state_sbox), id:223795, line:96:62, endln:96:77
+        |vpiParent:
+        \_func_call: (prim_cipher_pkg::perm_64bit), id:223794, line:96:34, endln:96:49
+        |vpiTypespec:
+        \_ref_typespec: (work@prim_present.gen_round[0].gen_d64.data_state_sbox), id:962938
+          |vpiParent:
+          \_ref_obj: (work@prim_present.gen_round[0].gen_d64.data_state_sbox), id:223795, line:96:62, endln:96:77
+          |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state_sbox
+          |vpiActual:
+          \_logic_typespec: , id:17449, line:354:46, endln:354:51
+        |vpiName:data_state_sbox
+        |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state_sbox
+      |vpiArgument:
+      \_ref_obj: (prim_cipher_pkg::PRESENT_PERM64), id:223796, line:97:62, endln:97:79
+        |vpiParent:
+        \_func_call: (prim_cipher_pkg::perm_64bit), id:223794, line:96:34, endln:96:49
+        |vpiName:prim_cipher_pkg::PRESENT_PERM64
+        |vpiActual:
+        \_parameter: (prim_cipher_pkg::PRESENT_PERM64), id:16230, line:172:31, endln:172:45
+      |vpiName:prim_cipher_pkg::perm_64bit
+      |vpiFunction:
+      \_function: (prim_cipher_pkg::perm_64bit), id:14941, line:354:3, endln:361:27
+    |vpiLhs:
+    \_bit_select: (work@prim_present.gen_round[0].gen_d64.data_state), id:223792, line:96:16, endln:96:31
+      |vpiParent:
+      \_cont_assign: , id:223793, line:96:16, endln:97:94
+      |vpiName:data_state
+      |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state
+      |vpiIndex:
+      \_operation: , id:223790, line:96:27, endln:96:30
+        |vpiParent:
+        \_bit_select: (work@prim_present.gen_round[0].gen_d64.data_state), id:223792, line:96:16, endln:96:31
+        |vpiOpType:24
+        |vpiOperand:
+        \_ref_obj: (work@prim_present.gen_round[0].gen_d64.data_state.k), id:223789, line:96:27, endln:96:28
+          |vpiParent:
+          \_operation: , id:223790, line:96:27, endln:96:30
+          |vpiName:k
+          |vpiFullName:work@prim_present.gen_round[0].gen_d64.data_state.k
+        |vpiOperand:
+        \_constant: , id:223791, line:96:29, endln:96:30
+          |vpiParent:
+          \_operation: , id:223790, line:96:27, endln:96:30
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+RHS:
+decompile:
+gen_scope_array: (work@prim_present.gen_round[0].gen_enc), id:173364, line:91:14, endln:116:8
+|vpiParent:
+\_gen_scope: (work@prim_present.gen_round[0]), id:173324, line:51:42, endln:118:6
+|vpiName:gen_enc
+|vpiFullName:work@prim_present.gen_round[0].gen_enc
+|vpiGenScope:
+\_gen_scope: (work@prim_present.gen_round[0].gen_enc), id:173365, line:91:14, endln:116:8
+  |vpiParent:
+  \_gen_scope_array: (work@prim_present.gen_round[0].gen_enc), id:173364, line:91:14, endln:116:8
+  |vpiFullName:work@prim_present.gen_round[0].gen_enc
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@prim_present.gen_round[0].gen_enc.gen_d64), id:173366, line:93:28, endln:99:10
+    |vpiParent:
+    \_gen_scope: (work@prim_present.gen_round[0].gen_enc), id:173365, line:91:14, endln:116:8
+    |vpiName:gen_d64
+    |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64
+    |vpiGenScope:
+    \_gen_scope: (work@prim_present.gen_round[0].gen_enc.gen_d64), id:173367, line:93:28, endln:99:10
+      |vpiParent:
+      \_gen_scope_array: (work@prim_present.gen_round[0].gen_enc.gen_d64), id:173366, line:93:28, endln:99:10
+      |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64
+      |vpiContAssign:
+      \_cont_assign: , id:173368, line:94:16, endln:95:94
+        |vpiParent:
+        \_gen_scope: (work@prim_present.gen_round[0].gen_enc.gen_d64), id:173367, line:93:28, endln:99:10
+        |vpiRhs:
+        \_func_call: (prim_cipher_pkg::sbox4_64bit), id:173369, line:94:34, endln:94:49
+          |vpiParent:
+          \_cont_assign: , id:173368, line:94:16, endln:95:94
+          |vpiArgument:
+          \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_xor), id:173370, line:94:63, endln:94:77
+            |vpiParent:
+            \_func_call: (prim_cipher_pkg::sbox4_64bit), id:173369, line:94:34, endln:94:49
+            |vpiTypespec:
+            \_ref_typespec: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_xor), id:173371
+              |vpiParent:
+              \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_xor), id:173370, line:94:63, endln:94:77
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_xor
+              |vpiActual:
+              \_logic_typespec: , id:23156, line:336:47, endln:336:52
+            |vpiName:data_state_xor
+            |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_xor
+          |vpiArgument:
+          \_ref_obj: (prim_cipher_pkg::PRESENT_SBOX4), id:173372, line:95:63, endln:95:80
+            |vpiParent:
+            \_func_call: (prim_cipher_pkg::sbox4_64bit), id:173369, line:94:34, endln:94:49
+            |vpiName:prim_cipher_pkg::PRESENT_SBOX4
+            |vpiActual:
+            \_parameter: (prim_cipher_pkg::PRESENT_SBOX4), id:21827, line:141:31, endln:141:44
+          |vpiName:prim_cipher_pkg::sbox4_64bit
+          |vpiFunction:
+          \_function: (prim_cipher_pkg::sbox4_64bit), id:23147, line:336:3, endln:343:28
+        |vpiLhs:
+        \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox), id:173373, line:94:16, endln:94:31
+          |vpiParent:
+          \_cont_assign: , id:173368, line:94:16, endln:95:94
+          |vpiName:data_state_sbox
+          |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox
+          |vpiActual:
+          \_logic_var: (work@prim_present.gen_round[0].data_state_sbox), id:173334, line:52:43, endln:52:58
+      |vpiContAssign:
+      \_cont_assign: , id:173374, line:96:16, endln:97:94
+        |vpiParent:
+        \_gen_scope: (work@prim_present.gen_round[0].gen_enc.gen_d64), id:173367, line:93:28, endln:99:10
+        |vpiRhs:
+        \_func_call: (prim_cipher_pkg::perm_64bit), id:173375, line:96:34, endln:96:49
+          |vpiParent:
+          \_cont_assign: , id:173374, line:96:16, endln:97:94
+          |vpiArgument:
+          \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox), id:173376, line:96:62, endln:96:77
+            |vpiParent:
+            \_func_call: (prim_cipher_pkg::perm_64bit), id:173375, line:96:34, endln:96:49
+            |vpiTypespec:
+            \_ref_typespec: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox), id:173377
+              |vpiParent:
+              \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox), id:173376, line:96:62, endln:96:77
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox
+              |vpiActual:
+              \_logic_typespec: , id:23262, line:354:46, endln:354:51
+            |vpiName:data_state_sbox
+            |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox
+          |vpiArgument:
+          \_ref_obj: (prim_cipher_pkg::PRESENT_PERM64), id:173378, line:97:62, endln:97:79
+            |vpiParent:
+            \_func_call: (prim_cipher_pkg::perm_64bit), id:173375, line:96:34, endln:96:49
+            |vpiName:prim_cipher_pkg::PRESENT_PERM64
+            |vpiActual:
+            \_parameter: (prim_cipher_pkg::PRESENT_PERM64), id:21967, line:172:31, endln:172:45
+          |vpiName:prim_cipher_pkg::perm_64bit
+          |vpiFunction:
+          \_function: (prim_cipher_pkg::perm_64bit), id:23253, line:354:3, endln:361:27
+        |vpiLhs:
+        \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state), id:173379, line:96:16, endln:96:31
+          |vpiParent:
+          \_cont_assign: , id:173374, line:96:16, endln:97:94
+          |vpiName:data_state
+          |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state
+          |vpiIndex:
+          \_operation: , id:173380, line:96:27, endln:96:30
+            |vpiParent:
+            \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state), id:173379, line:96:16, endln:96:31
+            |vpiOpType:24
+            |vpiOperand:
+            \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state.k), id:173381, line:96:27, endln:96:28
+              |vpiParent:
+              \_operation: , id:173380, line:96:27, endln:96:30
+              |vpiName:k
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state.k
+            |vpiOperand:
+            \_constant: , id:173382, line:96:29, endln:96:30
+              |vpiParent:
+              \_operation: , id:173380, line:96:27, endln:96:30
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@prim_present.gen_round[0].gen_enc.gen_k128), id:173383, line:107:28, endln:110:10
+    |vpiParent:
+    \_gen_scope: (work@prim_present.gen_round[0].gen_enc), id:173365, line:91:14, endln:116:8
+    |vpiName:gen_k128
+    |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128
+    |vpiGenScope:
+    \_gen_scope: (work@prim_present.gen_round[0].gen_enc.gen_k128), id:173384, line:107:28, endln:110:10
+      |vpiParent:
+      \_gen_scope_array: (work@prim_present.gen_round[0].gen_enc.gen_k128), id:173383, line:107:28, endln:110:10
+      |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128
+      |vpiContAssign:
+      \_cont_assign: , id:173385, line:108:16, endln:108:97
+        |vpiParent:
+        \_gen_scope: (work@prim_present.gen_round[0].gen_enc.gen_k128), id:173384, line:107:28, endln:110:10
+        |vpiRhs:
+        \_func_call: (prim_cipher_pkg::present_update_key128), id:173386, line:108:34, endln:108:49
+          |vpiParent:
+          \_cont_assign: , id:173385, line:108:16, endln:108:97
+          |vpiArgument:
+          \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key), id:173387, line:108:83, endln:108:84
+            |vpiParent:
+            \_func_call: (prim_cipher_pkg::present_update_key128), id:173386, line:108:34, endln:108:49
+            |vpiTypespec:
+            \_ref_typespec: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key), id:173389
+              |vpiParent:
+              \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key), id:173387, line:108:83, endln:108:84
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128.round_key
+              |vpiActual:
+              \_logic_typespec: , id:22669, line:231:58, endln:231:63
+            |vpiName:round_key
+            |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128.round_key
+            |vpiIndex:
+            \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_k128.k), id:173388, line:108:83, endln:108:84
+              |vpiParent:
+              \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key), id:173387, line:108:83, endln:108:84
+              |vpiName:k
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128.k
+          |vpiArgument:
+          \_operation: , id:173390, line:108:87, endln:108:96
+            |vpiParent:
+            \_func_call: (prim_cipher_pkg::present_update_key128), id:173386, line:108:34, endln:108:49
+            |vpiTypespec:
+            \_ref_typespec: (work@prim_present.gen_round[0].gen_enc.gen_k128), id:173396
+              |vpiParent:
+              \_operation: , id:173390, line:108:87, endln:108:96
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128
+              |vpiActual:
+              \_logic_typespec: , id:22675, line:232:58, endln:232:63
+            |vpiOpType:67
+            |vpiOperand:
+            \_operation: , id:173393, line:108:90, endln:108:95
+              |vpiParent:
+              \_operation: , id:173390, line:108:87, endln:108:96
+              |vpiOpType:24
+              |vpiOperand:
+              \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_k128.k), id:173394, line:108:90, endln:108:91
+                |vpiParent:
+                \_operation: , id:173393, line:108:90, endln:108:95
+                |vpiName:k
+                |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128.k
+              |vpiOperand:
+              \_constant: , id:173395, line:108:94, endln:108:95
+                |vpiParent:
+                \_operation: , id:173393, line:108:90, endln:108:95
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+          |vpiName:prim_cipher_pkg::present_update_key128
+          |vpiFunction:
+          \_function: (prim_cipher_pkg::present_update_key128), id:22660, line:231:3, endln:241:38
+        |vpiLhs:
+        \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key), id:173397, line:108:16, endln:108:30
+          |vpiParent:
+          \_cont_assign: , id:173385, line:108:16, endln:108:97
+          |vpiName:round_key
+          |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128.round_key
+          |vpiIndex:
+          \_operation: , id:173398, line:108:26, endln:108:29
+            |vpiParent:
+            \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key), id:173397, line:108:16, endln:108:30
+            |vpiOpType:24
+            |vpiOperand:
+            \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key.k), id:173399, line:108:26, endln:108:27
+              |vpiParent:
+              \_operation: , id:173398, line:108:26, endln:108:29
+              |vpiName:k
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128.round_key.k
+            |vpiOperand:
+            \_constant: , id:173400, line:108:28, endln:108:29
+              |vpiParent:
+              \_operation: , id:173398, line:108:26, endln:108:29
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+
+decompile:
+gen_scope_array: (work@prim_present.gen_round[0].gen_enc), id:173364, line:91:14, endln:116:8
+|vpiParent:
+\_gen_scope: (work@prim_present.gen_round[0]), id:173324, line:51:42, endln:118:6
+|vpiName:gen_enc
+|vpiFullName:work@prim_present.gen_round[0].gen_enc
+|vpiGenScope:
+\_gen_scope: (work@prim_present.gen_round[0].gen_enc), id:173365, line:91:14, endln:116:8
+  |vpiParent:
+  \_gen_scope_array: (work@prim_present.gen_round[0].gen_enc), id:173364, line:91:14, endln:116:8
+  |vpiFullName:work@prim_present.gen_round[0].gen_enc
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@prim_present.gen_round[0].gen_enc.gen_d64), id:173366, line:93:28, endln:99:10
+    |vpiParent:
+    \_gen_scope: (work@prim_present.gen_round[0].gen_enc), id:173365, line:91:14, endln:116:8
+    |vpiName:gen_d64
+    |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64
+    |vpiGenScope:
+    \_gen_scope: (work@prim_present.gen_round[0].gen_enc.gen_d64), id:173367, line:93:28, endln:99:10
+      |vpiParent:
+      \_gen_scope_array: (work@prim_present.gen_round[0].gen_enc.gen_d64), id:173366, line:93:28, endln:99:10
+      |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64
+      |vpiContAssign:
+      \_cont_assign: , id:173368, line:94:16, endln:95:94
+        |vpiParent:
+        \_gen_scope: (work@prim_present.gen_round[0].gen_enc.gen_d64), id:173367, line:93:28, endln:99:10
+        |vpiRhs:
+        \_func_call: (prim_cipher_pkg::sbox4_64bit), id:173369, line:94:34, endln:94:49
+          |vpiParent:
+          \_cont_assign: , id:173368, line:94:16, endln:95:94
+          |vpiArgument:
+          \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_xor), id:173370, line:94:63, endln:94:77
+            |vpiParent:
+            \_func_call: (prim_cipher_pkg::sbox4_64bit), id:173369, line:94:34, endln:94:49
+            |vpiTypespec:
+            \_ref_typespec: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_xor), id:173371
+              |vpiParent:
+              \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_xor), id:173370, line:94:63, endln:94:77
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_xor
+              |vpiActual:
+              \_logic_typespec: , id:23156, line:336:47, endln:336:52
+            |vpiName:data_state_xor
+            |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_xor
+          |vpiArgument:
+          \_ref_obj: (prim_cipher_pkg::PRESENT_SBOX4), id:173372, line:95:63, endln:95:80
+            |vpiParent:
+            \_func_call: (prim_cipher_pkg::sbox4_64bit), id:173369, line:94:34, endln:94:49
+            |vpiName:prim_cipher_pkg::PRESENT_SBOX4
+            |vpiActual:
+            \_parameter: (prim_cipher_pkg::PRESENT_SBOX4), id:21827, line:141:31, endln:141:44
+          |vpiName:prim_cipher_pkg::sbox4_64bit
+          |vpiFunction:
+          \_function: (prim_cipher_pkg::sbox4_64bit), id:23147, line:336:3, endln:343:28
+        |vpiLhs:
+        \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox), id:173373, line:94:16, endln:94:31
+          |vpiParent:
+          \_cont_assign: , id:173368, line:94:16, endln:95:94
+          |vpiName:data_state_sbox
+          |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox
+          |vpiActual:
+          \_logic_var: (work@prim_present.gen_round[0].data_state_sbox), id:173334, line:52:43, endln:52:58
+      |vpiContAssign:
+      \_cont_assign: , id:173374, line:96:16, endln:97:94
+        |vpiParent:
+        \_gen_scope: (work@prim_present.gen_round[0].gen_enc.gen_d64), id:173367, line:93:28, endln:99:10
+        |vpiRhs:
+        \_func_call: (prim_cipher_pkg::perm_64bit), id:173375, line:96:34, endln:96:49
+          |vpiParent:
+          \_cont_assign: , id:173374, line:96:16, endln:97:94
+          |vpiArgument:
+          \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox), id:173376, line:96:62, endln:96:77
+            |vpiParent:
+            \_func_call: (prim_cipher_pkg::perm_64bit), id:173375, line:96:34, endln:96:49
+            |vpiTypespec:
+            \_ref_typespec: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox), id:173377
+              |vpiParent:
+              \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox), id:173376, line:96:62, endln:96:77
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox
+              |vpiActual:
+              \_logic_typespec: , id:23262, line:354:46, endln:354:51
+            |vpiName:data_state_sbox
+            |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state_sbox
+          |vpiArgument:
+          \_ref_obj: (prim_cipher_pkg::PRESENT_PERM64), id:173378, line:97:62, endln:97:79
+            |vpiParent:
+            \_func_call: (prim_cipher_pkg::perm_64bit), id:173375, line:96:34, endln:96:49
+            |vpiName:prim_cipher_pkg::PRESENT_PERM64
+            |vpiActual:
+            \_parameter: (prim_cipher_pkg::PRESENT_PERM64), id:21967, line:172:31, endln:172:45
+          |vpiName:prim_cipher_pkg::perm_64bit
+          |vpiFunction:
+          \_function: (prim_cipher_pkg::perm_64bit), id:23253, line:354:3, endln:361:27
+        |vpiLhs:
+        \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state), id:173379, line:96:16, endln:96:31
+          |vpiParent:
+          \_cont_assign: , id:173374, line:96:16, endln:97:94
+          |vpiName:data_state
+          |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state
+          |vpiIndex:
+          \_operation: , id:173380, line:96:27, endln:96:30
+            |vpiParent:
+            \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state), id:173379, line:96:16, endln:96:31
+            |vpiOpType:24
+            |vpiOperand:
+            \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_d64.data_state.k), id:173381, line:96:27, endln:96:28
+              |vpiParent:
+              \_operation: , id:173380, line:96:27, endln:96:30
+              |vpiName:k
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_d64.data_state.k
+            |vpiOperand:
+            \_constant: , id:173382, line:96:29, endln:96:30
+              |vpiParent:
+              \_operation: , id:173380, line:96:27, endln:96:30
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@prim_present.gen_round[0].gen_enc.gen_k128), id:173383, line:107:28, endln:110:10
+    |vpiParent:
+    \_gen_scope: (work@prim_present.gen_round[0].gen_enc), id:173365, line:91:14, endln:116:8
+    |vpiName:gen_k128
+    |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128
+    |vpiGenScope:
+    \_gen_scope: (work@prim_present.gen_round[0].gen_enc.gen_k128), id:173384, line:107:28, endln:110:10
+      |vpiParent:
+      \_gen_scope_array: (work@prim_present.gen_round[0].gen_enc.gen_k128), id:173383, line:107:28, endln:110:10
+      |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128
+      |vpiContAssign:
+      \_cont_assign: , id:173385, line:108:16, endln:108:97
+        |vpiParent:
+        \_gen_scope: (work@prim_present.gen_round[0].gen_enc.gen_k128), id:173384, line:107:28, endln:110:10
+        |vpiRhs:
+        \_func_call: (prim_cipher_pkg::present_update_key128), id:173386, line:108:34, endln:108:49
+          |vpiParent:
+          \_cont_assign: , id:173385, line:108:16, endln:108:97
+          |vpiArgument:
+          \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key), id:173387, line:108:83, endln:108:84
+            |vpiParent:
+            \_func_call: (prim_cipher_pkg::present_update_key128), id:173386, line:108:34, endln:108:49
+            |vpiTypespec:
+            \_ref_typespec: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key), id:173389
+              |vpiParent:
+              \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key), id:173387, line:108:83, endln:108:84
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128.round_key
+              |vpiActual:
+              \_logic_typespec: , id:22669, line:231:58, endln:231:63
+            |vpiName:round_key
+            |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128.round_key
+            |vpiIndex:
+            \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_k128.k), id:173388, line:108:83, endln:108:84
+              |vpiParent:
+              \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key), id:173387, line:108:83, endln:108:84
+              |vpiName:k
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128.k
+          |vpiArgument:
+          \_operation: , id:173390, line:108:87, endln:108:96
+            |vpiParent:
+            \_func_call: (prim_cipher_pkg::present_update_key128), id:173386, line:108:34, endln:108:49
+            |vpiTypespec:
+            \_ref_typespec: (work@prim_present.gen_round[0].gen_enc.gen_k128), id:173396
+              |vpiParent:
+              \_operation: , id:173390, line:108:87, endln:108:96
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128
+              |vpiActual:
+              \_logic_typespec: , id:22675, line:232:58, endln:232:63
+            |vpiOpType:67
+            |vpiOperand:
+            \_operation: , id:173393, line:108:90, endln:108:95
+              |vpiParent:
+              \_operation: , id:173390, line:108:87, endln:108:96
+              |vpiOpType:24
+              |vpiOperand:
+              \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_k128.k), id:173394, line:108:90, endln:108:91
+                |vpiParent:
+                \_operation: , id:173393, line:108:90, endln:108:95
+                |vpiName:k
+                |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128.k
+              |vpiOperand:
+              \_constant: , id:173395, line:108:94, endln:108:95
+                |vpiParent:
+                \_operation: , id:173393, line:108:90, endln:108:95
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+          |vpiName:prim_cipher_pkg::present_update_key128
+          |vpiFunction:
+          \_function: (prim_cipher_pkg::present_update_key128), id:22660, line:231:3, endln:241:38
+        |vpiLhs:
+        \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key), id:173397, line:108:16, endln:108:30
+          |vpiParent:
+          \_cont_assign: , id:173385, line:108:16, endln:108:97
+          |vpiName:round_key
+          |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128.round_key
+          |vpiIndex:
+          \_operation: , id:173398, line:108:26, endln:108:29
+            |vpiParent:
+            \_bit_select: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key), id:173397, line:108:16, endln:108:30
+            |vpiOpType:24
+            |vpiOperand:
+            \_ref_obj: (work@prim_present.gen_round[0].gen_enc.gen_k128.round_key.k), id:173399, line:108:26, endln:108:27
+              |vpiParent:
+              \_operation: , id:173398, line:108:26, endln:108:29
+              |vpiName:k
+              |vpiFullName:work@prim_present.gen_round[0].gen_enc.gen_k128.round_key.k
+            |vpiOperand:
+            \_constant: , id:173400, line:108:28, endln:108:29
+              |vpiParent:
+              \_operation: , id:173398, line:108:26, endln:108:29
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9

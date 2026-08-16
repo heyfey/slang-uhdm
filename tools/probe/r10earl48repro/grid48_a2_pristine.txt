@@ -1,0 +1,66 @@
+ELAB gen path                                  golden span      ours span       
+------------------------------------------------------------------------------------------------
+  work@a2_earl48.u1                            44:12-48:6       44:12-48:6      
+      golden kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array
+  work@a2_earl48.u1.genblk1                    46:7-46:15       46:7-46:15      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a2_earl48.u10_ei                        138:5-144:8      138:5-144:8     
+      golden kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array
+O work@a2_earl48.u10_ei.u10                    -- ABSENT --     140:14-144:8    
+      ours   kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array
+O work@a2_earl48.u10_ei.u10.u10_c              -- ABSENT --     141:14-143:10   
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+G work@a2_earl48.u10_ei.u10_c                  142:9-142:17     -- ABSENT --    
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a2_earl48.u2_c                          55:7-55:15       54:12-56:8      
+      ^ SPAN DIFFERS
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a2_earl48.u3_c1                         64:7-64:15       63:12-65:8      
+      ^ SPAN DIFFERS
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+O work@a2_earl48.u3_c2                         -- ABSENT --     66:12-68:8      
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+O work@a2_earl48.u4                            -- ABSENT --     74:12-78:6      
+      ours   kids: vpiParent/gen_scope_array
+O work@a2_earl48.u5                            -- ABSENT --     83:12-90:6      
+      ours   kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array
+O work@a2_earl48.u5.u5_c2                      -- ABSENT --     87:12-89:8      
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a2_earl48.u6                            95:12-100:6      95:12-100:6     
+      golden kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiParamAssign/param_assign, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiParamAssign/param_assign, vpiGenScopeArray/gen_scope_array
+  work@a2_earl48.u6.u6_c                       97:12-99:8       97:12-99:8      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a2_earl48.u7                            105:12-110:6     105:12-110:6    
+      golden kids: vpiParent/gen_scope_array, vpiModule/module_inst, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiModule/module_inst, vpiGenScopeArray/gen_scope_array
+  work@a2_earl48.u7.u7_c                       107:12-109:8     107:12-109:8    
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a2_earl48.u8                            115:12-124:6     115:12-124:6    
+      golden kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array
+  work@a2_earl48.u8.u8_c                       117:10-119:10    118:9-118:17    
+      ^ SPAN DIFFERS
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+O work@a2_earl48.u9                            -- ABSENT --     129:12-132:6    
+      ours   kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array
+O work@a2_earl48.u9.u9_c                       -- ABSENT --     130:12-131:8    
+      ours   kids: vpiParent/gen_scope_array
+O work@a2_earl48.u_if48.u11                    -- ABSENT --     29:12-36:6      
+      ours   kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array, vpiGenScopeArray/gen_scope_array
+O work@a2_earl48.u_if48.u11.u11_c1             -- ABSENT --     30:12-32:8      
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+O work@a2_earl48.u_if48.u11.u11_c2             -- ABSENT --     33:12-35:8      
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+G work@a2_earl48.u_if48.u11_c1                 31:7-31:15       -- ABSENT --    
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+
+golden-only: 2   ours-only: 11   shared: 11

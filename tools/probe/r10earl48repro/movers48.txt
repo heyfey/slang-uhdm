@@ -1,0 +1,28 @@
+r10earl48 — THE FOUR GATE-5 MOVERS, opened one at a time.
+Patched binary e99e73e91ad94071fa61639f222c8054, pristine d44ed8d2fb93787d4d333d98c00da7f6.
+
+1. surelog/default/Earlgrey_0_1   REAL, the target
+   49939877 -> 49887749 bytes (-52128); dump 4655864 -> 4652516 lines (-3348)
+   md5 09b53b21d06dbd0d18127237992f87ce -> fa1540060d27b1af8784b77ee95b459b
+   identical to the standalone earl48.sh databases on both sides.
+
+2. surelog/{default,testflags}/IfGen3   REAL, ZERO size delta, moves TOWARD golden
+   Surelog/tests/IfGenenerate/test3/dut3.sv, work@lzc.all_true span
+       golden 15:7-15:40   pristine 14:12-18:8   patched 15:7-15:40
+   DETERMINISM (3 solo runs of each binary, dut3.sv --single-unit):
+       pristine 2315deb2acf784a9625a0079b6b4d4b8 x3
+       patched  f7252eab60f1b868fd09747093863c32 x3
+   DIRECTION (msdist.sh vs each mode's OWN golden cache):
+       default   77 -> 35        (cache 59304d00359120e6bb3c)
+       testflags 117 -> 35       (cache 460be4ff840a1ffa28d9)
+   elab gen PATHS unchanged: 17 shared, 0 golden-only, 0 ours-only, both sides.
+
+3. surelog/default/Scoreboard   NOT REAL: multi-stability, re-measured here
+   size delta 0; the dump difference is a REORDER of 46 design-level
+   svunit_pkg:: vpiTaskFunc entries, no generate object in it.
+   Solo runs in Surelog/third_party/tests/Scoreboard:
+       patched  binary, 3 runs : 307fdd7029de20a47dd07f2769398495 x1
+                                 51045a62d0e4e6e704e705f39ca9083e x2
+       pristine binary, 8 runs : 307fdd7029de20a47dd07f2769398495 x2
+                                 51045a62d0e4e6e704e705f39ca9083e x6
+   BOTH binaries produce BOTH databases -> the mover is the coin, not the law.

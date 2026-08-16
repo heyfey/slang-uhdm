@@ -12000,6 +12000,92 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
     // bus.gen_rsp, NOT bus.gen_dly.gen_rsp). Modules keep every level
     // (genblk_order outer.foo).
     std::set<const GenerateBlockSymbol*> collapsedGenLeaf9;
+    // § elseArmFirstItemReplaces48 — a TAKEN PLAIN-ELSE generate arm is
+    // REPLACED, in the ELABORATED view, by the taken block of its FIRST member
+    // ITEM when that item is an IF-generate.  See pushGenBlk9 (the ONLY call
+    // site) for the full statement of the law and the arm rows behind every
+    // clause; `elseArmLeaf48` carries the promoted blocks whose span must come
+    // from their own first member (a THEN-branch promotion; an ELSE-branch one
+    // keeps its begin..end, a3 v2_e).
+    std::set<const GenerateBlockSymbol*> elseArmLeaf48;
+    auto elseArmSurvivor48 =
+        [](const GenerateBlockSymbol& blk) -> const GenerateBlockSymbol* {
+        // A PLAIN-else arm is a begin..end block hanging DIRECTLY off an
+        // ElseClause.  An ELSE-IF arm's block hangs off the nested IfGenerate
+        // instead, and golden keeps that level (a1 t_e4) -- this one test is
+        // the whole then/else-if/else discrimination.
+        auto* syn = blk.getSyntax();
+        if (!syn || syn->kind != syntax::SyntaxKind::GenerateBlock ||
+            blk.getArrayIndex() || !syn->parent ||
+            syn->parent->kind != syntax::SyntaxKind::ElseClause)
+            return nullptr;
+        // The arm's FIRST top-level ITEM decides, and the members that follow
+        // it are never visited: a localparam (a2 u6), a module instance (a2
+        // u7), a for-generate (a3 v3) or a case-generate (a3 v6) in that
+        // position keeps the level, while ANY member after the first item is
+        // dropped with it (a3 v5's `wire d3`, a3 v4's `v4_l[i]`).
+        // AN EMPTY ITEM `;` IS AN ITEM (verifier arm v48v_emptyitem): golden
+        // KEEPS the level when a `;` stands before the if-generate, and the
+        // PRISTINE binary already agreed with golden there, so skipping
+        // EmptyMember here was a REGRESSION.  Only TransparentMember (an
+        // import/wildcard alias, no source item of its own) and Genvar (the
+        // loop's implicit parameter) are not items; the EmptyMember case is
+        // handled at the `!ms` test below, because slang gives it no syntax.
+        const syntax::SyntaxNode* item = nullptr;
+        const GenerateBlockSymbol* survivor = nullptr;
+        for (auto& gm : blk.members()) {
+            if (gm.kind == SymbolKind::TransparentMember ||
+                gm.kind == SymbolKind::Genvar)
+                continue;
+            auto* ms = gm.getSyntax();
+            if (!ms) {
+                // A member with NO syntax of its own is an EmptyMember `;`.
+                // FIRST, it is an ITEM and the level stands (verifier arm
+                // v48v_emptyitem: golden keeps `x2_e`, and the pristine binary
+                // agreed with golden there).  AFTER the first item it is
+                // dropped with every other sibling (v48v_emptyitem2 y1 still
+                // collapses to `y1_c`).
+                if (!item)
+                    return nullptr;
+                break;
+            }
+            while (ms->parent && ms->parent != syn)
+                ms = ms->parent;
+            if (!item) {
+                if (gm.kind != SymbolKind::GenerateBlock ||
+                    ms->kind != syntax::SyntaxKind::IfGenerate)
+                    return nullptr;
+                item = ms;
+            }
+            else if (ms != item)
+                break;
+            // An if/else pair contributes BOTH of its blocks as members of the
+            // same item; the instantiated one is the survivor (a3 v2 promotes
+            // the ELSE block `v2_e`).
+            auto& b2 = gm.as<GenerateBlockSymbol>();
+            if (b2.isUninstantiated || b2.isUnnamed || !b2.getSyntax() ||
+                b2.getSyntax()->kind != syntax::SyntaxKind::GenerateBlock)
+                continue;
+            survivor = &b2;
+        }
+        if (!survivor)
+            return nullptr;
+        // An EMPTY promoted block is FENCED OUT of this pass (README R1):
+        // golden emits NOTHING AT ALL for the arm there (a2 u9), and so does
+        // it when the first item has no taken block (a2 u4/u5).  We keep the
+        // level instead of modelling the loss -- 0 Earlgrey_0_1 cells.
+        // FENCED WITH u4/u5/u9 (README.verifier R1b): golden ALSO promotes a
+        // block whose only member is a `;`, spanning it AT the `;` (verifier
+        // arm v48v_emptyitem2 y3, golden `y3_c` 24:7-24:8).  slang gives an
+        // EmptyMember no syntax node, so that span cannot be reproduced here;
+        // the level is kept instead, exactly as the pristine binary kept it.
+        for (auto& gm : survivor->members())
+            if (gm.kind != SymbolKind::TransparentMember &&
+                gm.kind != SymbolKind::EmptyMember &&
+                gm.kind != SymbolKind::Genvar)
+                return survivor;
+        return nullptr;
+    };
     auto collapseIfLeaf9 =
         [](const GenerateBlockSymbol* b) -> const GenerateBlockSymbol* {
         while (true) {
@@ -12182,10 +12268,17 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             // also anchors at its first content item (Surelog).
             if (!underCase9 && !unnamedIf9 && collapsedGenLeaf9.count(&blk))
                 underCase9 = true;
+            // § elseArmFirstItemReplaces48 — a THEN-branch block PROMOTED out
+            // of a plain-else arm anchors at its first member's item too, and
+            // there a LOCALPARAM counts (a3 v7_c spans `localparam int F7=5;`).
+            bool elseArm48 = elseArmLeaf48.count(&blk) != 0;
+            if (!underCase9 && !unnamedIf9 && elseArm48)
+                underCase9 = true;
             if (underCase9 || unnamedIf9)
                 for (auto& gm9 : blk.members()) {
                     if (gm9.kind == SymbolKind::Genvar ||
-                        (!unnamedIf9 && gm9.kind == SymbolKind::Parameter) ||
+                        (!unnamedIf9 && !elseArm48 &&
+                         gm9.kind == SymbolKind::Parameter) ||
                         gm9.kind == SymbolKind::TransparentMember)
                         continue;
                     if (auto* ms9 = gm9.getSyntax()) {
@@ -14940,6 +15033,41 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
     pushGenBlk9 = [&](const GenerateBlockSymbol& blk, const std::string& name,
                       const std::string& parentFull, UHDM::BaseClass* parentObj,
                       UHDM::VectorOfgen_scope_array* out) {
+        // ---- § elseArmFirstItemReplaces48 --------------------------------
+        // A TAKEN PLAIN-ELSE generate arm is REPLACED, in the ELABORATED view,
+        // by the taken block of its FIRST member ITEM when that item is an
+        // IF-generate: the arm's LEVEL DISAPPEARS, the promoted block hangs
+        // where the arm hung under its OWN name, and EVERY other member of the
+        // arm -- generate or not -- is DROPPED.  Surelog's elaborator descends
+        // into the first item of a plain-else block and never comes back for
+        // the siblings; `prim_present.sv:91-116` is the Earlgrey_0_1 witness
+        // (golden emits `gen_round[i].gen_d64` where we emitted
+        // `gen_round[i].gen_enc.gen_d64`, and emits NOTHING for `gen_k128`).
+        //
+        // The clauses and the arms that measured them (LHS always Surelog):
+        //   * a THEN arm never collapses (a1 t_then/t_t2, genblk_order
+        //     outer.foo) and neither does an ELSE-IF arm (a1 t_e4);
+        //   * the arm's FIRST item must be an IF-generate: a localparam (a2
+        //     u6), an instance (a2 u7), a for-generate (a3 v3) or a
+        //     case-generate (a3 v6/a2 u8) in that position keeps the level;
+        //   * the promoted block must be NAMED -- an unnamed one keeps the
+        //     arm (a2 u1 `u1.genblk1`);
+        //   * it applies to UNNAMED else arms as well (a2 u2/u3) and
+        //     RECURSIVELY (a1 t_e7 collapses twice to `t_e7_c`);
+        //   * a THEN-branch promotion re-spans at its first member's item, an
+        //     ELSE-branch promotion keeps its begin..end (a3 v2_e).
+        // FENCED OUT, stated not implemented (0 Earlgrey_0_1 cells, README
+        // R1): when the first item has NO taken block (a2 u4/u5) or its taken
+        // block is EMPTY (a2 u9), golden emits NOTHING AT ALL for the arm.
+        if (auto* surv48 = elseArmSurvivor48(blk)) {
+            if (auto* ssyn48 = surv48->getSyntax();
+                ssyn48 && ssyn48->parent &&
+                ssyn48->parent->kind == syntax::SyntaxKind::IfGenerate)
+                elseArmLeaf48.insert(surv48);
+            pushGenBlk9(*surv48, std::string(surv48->getExternalName()),
+                        parentFull, parentObj, out);
+            return;
+        }
         if (genHoists9(blk, name)) {
             for (auto& gm : blk.members()) {
                 if (gm.kind == SymbolKind::GenerateBlockArray) {

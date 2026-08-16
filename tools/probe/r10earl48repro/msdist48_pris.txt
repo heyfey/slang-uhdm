@@ -1,0 +1,4 @@
+golden-only line instances: 237038
+ours-only   line instances: 69454
+MULTISET DISTANCE (sum |dg-do|): 306492
+g lines=4823448  o lines=4655864

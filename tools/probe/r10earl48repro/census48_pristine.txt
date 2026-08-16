@@ -1,0 +1,76 @@
+golden elab gen_scope_array fullnames: 5182 distinct
+ours   elab gen_scope_array fullnames: 5244 distinct
+shared: 5151   GOLDEN-ONLY: 31   OURS-ONLY: 93
+shared paths with a DIFFERENT span: 0
+
+OURS-ONLY paths explained by deleting EXACTLY ONE component: 62
+OURS-ONLY paths NOT so explained: 31
+
+--- dropped-level population, by (module, dropped component) ---
+  work@prim_present                        drop gen_enc            x62     e.g. work@prim_present.gen_round[0].gen_enc  ->  work@prim_present.gen_round[0]
+
+--- OURS-ONLY not explained by a single drop (first 60) ---
+   work@prim_present.gen_round[0].gen_enc.gen_k128
+   work@prim_present.gen_round[10].gen_enc.gen_k128
+   work@prim_present.gen_round[11].gen_enc.gen_k128
+   work@prim_present.gen_round[12].gen_enc.gen_k128
+   work@prim_present.gen_round[13].gen_enc.gen_k128
+   work@prim_present.gen_round[14].gen_enc.gen_k128
+   work@prim_present.gen_round[15].gen_enc.gen_k128
+   work@prim_present.gen_round[16].gen_enc.gen_k128
+   work@prim_present.gen_round[17].gen_enc.gen_k128
+   work@prim_present.gen_round[18].gen_enc.gen_k128
+   work@prim_present.gen_round[19].gen_enc.gen_k128
+   work@prim_present.gen_round[1].gen_enc.gen_k128
+   work@prim_present.gen_round[20].gen_enc.gen_k128
+   work@prim_present.gen_round[21].gen_enc.gen_k128
+   work@prim_present.gen_round[22].gen_enc.gen_k128
+   work@prim_present.gen_round[23].gen_enc.gen_k128
+   work@prim_present.gen_round[24].gen_enc.gen_k128
+   work@prim_present.gen_round[25].gen_enc.gen_k128
+   work@prim_present.gen_round[26].gen_enc.gen_k128
+   work@prim_present.gen_round[27].gen_enc.gen_k128
+   work@prim_present.gen_round[28].gen_enc.gen_k128
+   work@prim_present.gen_round[29].gen_enc.gen_k128
+   work@prim_present.gen_round[2].gen_enc.gen_k128
+   work@prim_present.gen_round[30].gen_enc.gen_k128
+   work@prim_present.gen_round[3].gen_enc.gen_k128
+   work@prim_present.gen_round[4].gen_enc.gen_k128
+   work@prim_present.gen_round[5].gen_enc.gen_k128
+   work@prim_present.gen_round[6].gen_enc.gen_k128
+   work@prim_present.gen_round[7].gen_enc.gen_k128
+   work@prim_present.gen_round[8].gen_enc.gen_k128
+   work@prim_present.gen_round[9].gen_enc.gen_k128
+
+--- GOLDEN-ONLY (first 60) ---
+   work@prim_present.gen_round[0].gen_d64
+   work@prim_present.gen_round[10].gen_d64
+   work@prim_present.gen_round[11].gen_d64
+   work@prim_present.gen_round[12].gen_d64
+   work@prim_present.gen_round[13].gen_d64
+   work@prim_present.gen_round[14].gen_d64
+   work@prim_present.gen_round[15].gen_d64
+   work@prim_present.gen_round[16].gen_d64
+   work@prim_present.gen_round[17].gen_d64
+   work@prim_present.gen_round[18].gen_d64
+   work@prim_present.gen_round[19].gen_d64
+   work@prim_present.gen_round[1].gen_d64
+   work@prim_present.gen_round[20].gen_d64
+   work@prim_present.gen_round[21].gen_d64
+   work@prim_present.gen_round[22].gen_d64
+   work@prim_present.gen_round[23].gen_d64
+   work@prim_present.gen_round[24].gen_d64
+   work@prim_present.gen_round[25].gen_d64
+   work@prim_present.gen_round[26].gen_d64
+   work@prim_present.gen_round[27].gen_d64
+   work@prim_present.gen_round[28].gen_d64
+   work@prim_present.gen_round[29].gen_d64
+   work@prim_present.gen_round[2].gen_d64
+   work@prim_present.gen_round[30].gen_d64
+   work@prim_present.gen_round[3].gen_d64
+   work@prim_present.gen_round[4].gen_d64
+   work@prim_present.gen_round[5].gen_d64
+   work@prim_present.gen_round[6].gen_d64
+   work@prim_present.gen_round[7].gen_d64
+   work@prim_present.gen_round[8].gen_d64
+   work@prim_present.gen_round[9].gen_d64

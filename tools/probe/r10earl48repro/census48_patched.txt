@@ -1,0 +1,13 @@
+golden elab gen_scope_array fullnames: 5182 distinct
+ours   elab gen_scope_array fullnames: 5182 distinct
+shared: 5182   GOLDEN-ONLY: 0   OURS-ONLY: 0
+shared paths with a DIFFERENT span: 0
+
+OURS-ONLY paths explained by deleting EXACTLY ONE component: 0
+OURS-ONLY paths NOT so explained: 0
+
+--- dropped-level population, by (module, dropped component) ---
+
+--- OURS-ONLY not explained by a single drop (first 60) ---
+
+--- GOLDEN-ONLY (first 60) ---

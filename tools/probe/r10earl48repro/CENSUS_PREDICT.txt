@@ -1,0 +1,53 @@
+r10earl48 — CENSUS PREDICTION, written from the PRISTINE artifact
+(tools/probe/r10earl48repro/census48_pristine.txt) BEFORE the patched
+Earlgrey_0_1 database existed.  Pristine binary md5 d44ed8d2fb93787d4d333d98c00da7f6,
+pristine slang.uhdm md5 09b53b21d06dbd0d18127237992f87ce (= the database
+r10earl47 shipped; its cmp.log is byte-identical to the committed witness
+tools/probe/r10earl47repro/r6_nexthead47.cmp, 644 lines, 1 head).
+
+THE PRISTINE ARTIFACT SAYS (census48.py, uhdmtopModules region only):
+  golden elab gen_scope_array fullnames  5182 distinct
+  ours   elab gen_scope_array fullnames  5244 distinct
+  shared 5151   GOLDEN-ONLY 31   OURS-ONLY 93
+  shared paths with a DIFFERENT span: 0
+  every one of the 124 differing paths is in work@prim_present, and in NO
+  other module of the design.
+
+PREDICTED MOVERS — exactly these and no others:
+  1. 31 gen_scope_array/gen_scope pairs `work@prim_present.gen_round[i].gen_enc`
+     (i = 0..30) DISAPPEAR.
+  2. 31 gen_scope_array/gen_scope pairs `…gen_round[i].gen_enc.gen_d64`
+     become `…gen_round[i].gen_d64`, re-parented onto gen_round[i]'s gen_scope,
+     and their span changes 93:28-99:10 -> 94:9-95:95 (the first member's item).
+     Every descendant fullname loses the `.gen_enc` component with them.
+  3. 31 gen_scope_array/gen_scope pairs `…gen_round[i].gen_enc.gen_k128`
+     DISAPPEAR WITH THEIR CONTENT — the `assign round_key[k+1] =
+     prim_cipher_pkg::present_update_key128(...)` cont_assign and its whole
+     sub-tree.  `present_update_key128` must then appear ZERO times in the
+     patched dump's uhdmtopModules region, as it does in golden's.
+
+PREDICTED CENSUS AFTER THE PATCH:
+  GOLDEN-ONLY 0    OURS-ONLY 0    shared 5182    span disagreements 0
+
+PREDICTED NON-MOVERS, NAMED so that a move is a FAILED PREDICTION:
+  * the 5151 shared elab gen paths of every other module — prim_keccak,
+    prim_prince, prim_gate_gen, jtag_mux, padring, sram2tlul,
+    tlul_assert_multiple, prim_sync_reqack and the whole top_earlgrey tree;
+  * the DEF (uhdmallModules) view of prim_present, which names
+    work@prim_present.gen_round.gen_enc.gen_d64 under named_begin on BOTH
+    sides and is not reached by this law (§ genChainBranchScopeThreads38's
+    emitDefGenStmts is a different function and is untouched);
+  * every genscope canary by name: gen_test4, gen_test5, gen_test9,
+    genvar_loop_decl_2, genvar_loop_decl_3, paramod_genscope_child,
+    genscope_cells; plus InterfaceModPort, BlackParrotComplex, YosysOldOr,
+    SVSwitch;
+  * jeras_tcb_gpio's interface collapse (`bus.gen_rsp`): its `gen_dly` plain-
+    else arm is pre-empted by the EXISTING collapseIfLeaf9 at the module-level
+    loop, which returns the same block, so the new law is INERT there.
+
+PREDICTED LINE ARITHMETIC (direction, from the pristine artifact):
+  NEGATIVE.  This pass DELETES 31 gen_scope_array/gen_scope pairs (gen_enc),
+  DELETES 31 more with their cont_assign sub-trees (gen_k128) and RENAMES the
+  31 gen_d64 sub-trees.  The patched slang.uhdm must therefore be SMALLER than
+  49 939 877 bytes and the dump SHORTER than 4 199 404 lines.  The multiset
+  distance to golden must go DOWN.

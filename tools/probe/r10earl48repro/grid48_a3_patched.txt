@@ -1,0 +1,41 @@
+ELAB gen path                                  golden span      ours span       
+------------------------------------------------------------------------------------------------
+  work@a3_earl48.v1_c                          21:10-22:6       21:10-22:6      
+      golden kids: vpiParent/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array
+  work@a3_earl48.v2_e                          30:14-32:8       30:14-32:8      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a3_earl48.v3                            38:12-45:6       38:12-45:6      
+      golden kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array, vpiGenScopeArray/gen_scope_array, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array, vpiGenScopeArray/gen_scope_array, vpiGenScopeArray/gen_scope_array
+  work@a3_earl48.v3.v3_c                       42:12-44:8       42:12-44:8      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a3_earl48.v3.v3_l[0]                    39:36-41:8       39:36-41:8      
+      golden kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a3_earl48.v3.v3_l[1]                    39:36-41:8       39:36-41:8      
+      golden kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a3_earl48.v4_c                          52:7-52:15       52:7-52:15      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a3_earl48.v5_c                          64:7-64:15       64:7-64:15      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a3_earl48.v6                            72:12-84:6       72:12-84:6      
+      golden kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array, vpiGenScopeArray/gen_scope_array
+  work@a3_earl48.v6.v6_c                       74:10-76:10      75:9-75:17      
+      ^ SPAN DIFFERS
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a3_earl48.v6.v6_c2                      81:12-83:8       81:12-83:8      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a3_earl48.v7_c                          91:7-91:29       91:7-91:29      
+      golden kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiParamAssign/param_assign
+      ours   kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiParamAssign/param_assign
+
+golden-only: 0   ours-only: 0   shared: 12

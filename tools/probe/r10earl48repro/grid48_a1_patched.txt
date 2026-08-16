@@ -1,0 +1,64 @@
+ELAB gen path                                  golden span      ours span       
+------------------------------------------------------------------------------------------------
+  work@a1_earl48.t_e1_c                        62:7-62:15       62:7-62:15      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a1_earl48.t_e2_c1                       71:7-71:15       71:7-71:15      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a1_earl48.t_e3                          81:12-86:6       81:12-86:6      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign, vpiGenScopeArray/gen_scope_array
+  work@a1_earl48.t_e3.t_e3_c                   83:12-85:8       83:12-85:8      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a1_earl48.t_e4                          92:5-94:8        92:5-94:8       
+      golden kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array
+  work@a1_earl48.t_e4.t_e4_c                   92:12-94:8       92:12-94:8      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a1_earl48.t_e5_c                        102:7-102:15     102:7-102:15    
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a1_earl48.t_e6                          109:12-113:6     109:12-113:6    
+      golden kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array, vpiGenScopeArray/gen_scope_array
+  work@a1_earl48.t_e6.t_e6_l[0]                110:36-112:8     110:36-112:8    
+      golden kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a1_earl48.t_e6.t_e6_l[1]                110:36-112:8     110:36-112:8    
+      golden kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a1_earl48.t_e7_c                        123:9-123:17     123:9-123:17    
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a1_earl48.t_l[0]                        129:34-145:6     129:34-145:6    
+      golden kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiNet/logic_net, vpiContAssign/cont_assign, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiNet/logic_net, vpiContAssign/cont_assign, vpiGenScopeArray/gen_scope_array
+  work@a1_earl48.t_l[0].t_l_d64                136:9-136:17     136:9-136:17    
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiNet/logic_net, vpiContAssign/cont_assign, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiNet/logic_net, vpiContAssign/cont_assign, vpiContAssign/cont_assign
+  work@a1_earl48.t_l[1]                        129:34-145:6     129:34-145:6    
+      golden kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiNet/logic_net, vpiContAssign/cont_assign, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiParameter/parameter, vpiNet/logic_net, vpiContAssign/cont_assign, vpiGenScopeArray/gen_scope_array
+  work@a1_earl48.t_l[1].t_l_d64                136:9-136:17     136:9-136:17    
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiNet/logic_net, vpiContAssign/cont_assign, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiNet/logic_net, vpiContAssign/cont_assign, vpiContAssign/cont_assign
+  work@a1_earl48.t_t2                          46:10-53:6       46:10-53:6      
+      golden kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array, vpiGenScopeArray/gen_scope_array
+  work@a1_earl48.t_t2.t_t2_c1                  47:12-49:8       47:12-49:8      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a1_earl48.t_t2.t_t2_c2                  50:12-52:8       50:12-52:8      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+  work@a1_earl48.t_then                        39:10-43:6       39:10-43:6      
+      golden kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array
+      ours   kids: vpiParent/gen_scope_array, vpiGenScopeArray/gen_scope_array
+  work@a1_earl48.t_then.t_then_c               40:12-42:8       40:12-42:8      
+      golden kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+      ours   kids: vpiParent/gen_scope_array, vpiNet/logic_net, vpiContAssign/cont_assign
+
+golden-only: 0   ours-only: 0   shared: 20
