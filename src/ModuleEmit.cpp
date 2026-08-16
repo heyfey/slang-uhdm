@@ -11,6 +11,11 @@
 
 #include "EmitHelpers.h"
 
+// § importedClassVarIsOwnCopyNoInstance5's cloner.  ElaboratorListener.h is what
+// defines UHDM::ElaboratorContext, the CloneContext clone_tree needs.
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/clone_tree.h>
+
 #include "slang/ast/EvalContext.h"
 #include "slang/ast/symbols/CheckerSymbols.h"
 #include "slang/syntax/SyntaxTree.h"
@@ -4136,6 +4141,85 @@ void UhdmExporter::classKeyTsScopeOwner35(
             fixCls35(c35);
 }
 
+// § importedClassVarIsOwnCopyNoInstance5 — a package VARIABLE listed into an
+// IMPORTING CLASS is that class's OWN object, never the package's.  The copy
+// carries the NAME span, its own ref_typespec and its own actual typespec, and
+// THAT TYPESPEC NEVER CARRIES A vpiInstance.  The package's own listing keeps
+// the shared, package-stamped object.
+//
+// The mechanism on golden's side is why the two listings cannot share: Surelog's
+// `importPackage` (`CompileHelper.cpp`:170-190) copies the package's compiler-side
+// `Signal*`/`Variable*` SYMBOLS into the class, and `TestbenchElaboration.cpp`
+// :723-790 (`bindProperties_`) then COMPILES A FRESH UHDM variable per class from
+// each symbol — `compileTypespec(classDefinition, ...)` in the CLASS's scope, so
+// no package instance is ever stamped, and `populateCoreMembers(id, id, obj)`
+// with `id` = the signal's NAME node, so the span is the NAME's, not the
+// declarator's.  We had no symbol to re-emit from at this point in the write
+// phase, so we pushed the package's UHDM object and inherited its package stamp.
+//
+// MEASURED, not reasoned (`ct5cls`, SeqDriver, both sides, 1206 class-listing
+// variable entries each):
+//
+//              golden                    ours (pristine 511725d)
+//   entry      own 1206                  own 1041 / SHARED 165
+//   span       NAME 1206                 NAME 1126 / other 80
+//   X own named INST      63             63          <- IDENTICAL, must not move
+//   X SHARED anon INST     -             45          \
+//   X SHARED named INST    -             115         |  the whole surplus, and
+//   X SHARED anon null     -             5           /  all of it is SHARED
+//
+// The `X own named INST 63` row agreeing cell for cell is what forbids the
+// tempting phrasing "a class-listing typespec has no instance": golden stamps 63
+// of them, we stamp the same 63, and a blanket null would have destroyed all 63.
+// The instance is dropped on the COPY, which only the import arm makes.
+//
+// CLONE DEPTH is `clone_tree`'s, and that was measured too, not assumed
+// (`ct5deep` on golden vs `ct5clone` on ours):
+//
+//   L0 var  L1 ref_typespec  L1 expr  L2 actual typespec   -> DISTINCT (golden)
+//   L3 the actual typespec's own children (`Class_defn`)   -> SHARED  (golden)
+//
+// `clone_tree` reproduces exactly that split — `class_typespec L3.Class_defn
+// SHARED 23`, +3.7 serializer objects per clone — so it stops where golden stops.
+// `DeepClone` was NOT used (`UhdmExporter.h`:490: it recurses forever through the
+// self-referential `Typedef_alias`), and a hand-written per-kind shallow copy was
+// NOT used either: it would have had to enumerate every `variables` subtype that
+// can reach this site, and every kind it missed would have failed SILENTLY by
+// falling back to the shared push.
+static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src,
+                                       UHDM::class_defn* cd) {
+    if (!src || !cd)
+        return src;
+    UHDM::ElaboratorContext ctx5(&s, false, /*muteErrors=*/true);
+    auto* cp = (UHDM::variables*)UHDM::clone_tree(src, &ctx5);
+    if (!cp)
+        return src;
+    const std::string nm(src->VpiName());
+    const std::string fn(cd->VpiFullName());
+    cp->VpiParent(cd);
+    if (!fn.empty() && !nm.empty())
+        cp->VpiFullName(fn + "::" + nm);
+    // The NAME span: start unchanged, end = start + the name's length, on the
+    // start line.  Golden writes it with populateCoreMembers(nameId, nameId) and
+    // it holds on 1206 of 1206 entries; it coincides with the declarator span
+    // whenever the declaration has no initializer, which is why only 80 of our
+    // 165 shared entries read as span-wrong.
+    if (!nm.empty()) {
+        cp->VpiEndLineNo(cp->VpiLineNo());
+        cp->VpiEndColumnNo(cp->VpiColumnNo() + (uint32_t)nm.size());
+    }
+    if (auto* rt5 = cp->Typespec()) {
+        rt5->VpiParent(cp);
+        if (!fn.empty() && !nm.empty())
+            rt5->VpiFullName(fn + "::" + nm);
+        if (auto* at5 = rt5->Actual_typespec())
+            at5->Instance(nullptr);
+    }
+    if (auto* e5 = cp->Expr())
+        e5->VpiParent(cp);
+    return cp;
+}
+
 // § classInheritsContainerImports23 — see the header.  A CLASS inherits the
 // whole content of every package imported by its CONTAINER into its OWN
 // vpiTaskFunc / vpiTypedef / vpiVariables / vpiParameter / vpiParamAssign
@@ -4304,7 +4388,7 @@ void UhdmExporter::classInheritsContainerImports23() {
             if (auto* v23 = pv23->Variables())
                 for (auto* x23 : *v23)
                     if (x23 && (!only23 || x23->VpiName() == on23))
-                        vars23->push_back(x23);
+                        vars23->push_back(importVarCopy5(s, x23, cd));
             // The PARAMETER arm walks `def->getParameterMap()`, a
             // std::map<name, Parameter*> — so an imported parameter batch is
             // NAME-SORTED, unlike the param_assign arm right below it, which
