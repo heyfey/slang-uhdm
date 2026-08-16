@@ -14508,9 +14508,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                      expr.type->getCanonicalType()
                                          .as<FixedSizeUnpackedArrayType>()
                                          .range.right;
-            // A SINGLE-operand packed pattern whose operand is a nested op
-            // still runs the level logic (the stamp below reaches its mid —
-            // param_packed_array_subst).
+            // A SINGLE-operand pattern whose operand is a nested op still runs
+            // the level logic (the stamp below reaches its mid —
+            // param_packed_array_subst).  This was `nestedOpsPre9 &&
+            // !isUnpackedArr`, i.e. PACKED only, and the UNPACKED half of the
+            // same shape never entered the block at all: `a1_earl45 m45_one`
+            // (`int T [1][3]`) is a ONE-ROW table whose single operand is a
+            // pattern op, and golden stamps that row exactly as it stamps the
+            // first row of a five-row one.  § elabPatternFirstRowElemSize45 is
+            // stated over "the FIRST operand", not "the first of at least
+            // two", so the row count may not be part of the gate.
             bool nestedOpsPre9 = false;
             for (auto* o9 : *operands)
                 if (o9->UhdmType() == UHDM::uhdmoperation) {
@@ -14521,8 +14528,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 ((expr.type->isIntegral() &&
                   !expr.type->getCanonicalType().isScalar()) ||
                  isUnpackedArr) &&
-                (operands->size() > 1 ||
-                 (nestedOpsPre9 && !isUnpackedArr))) {
+                (operands->size() > 1 || nestedOpsPre9)) {
                 // § pkgPatternNoReorderConst — the reorder above is a MODULE
                 // rule.  Inside a PACKAGE only a ref_obj-headed operand list
                 // ever reorders; a CONSTANT- or PATTERN-headed one keeps
@@ -14610,20 +14616,92 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto& elemT = expr.type->getCanonicalType()
                                       .as<FixedSizeUnpackedArrayType>()
                                       .elementType;
-                    bool elemIsArray = elemT.getCanonicalType().kind ==
-                                       SymbolKind::FixedSizeUnpackedArrayType;
                     const Type* leaf = &elemT.getCanonicalType();
                     while (leaf->getCanonicalType().kind ==
                            SymbolKind::FixedSizeUnpackedArrayType)
                         leaf = &leaf->getCanonicalType()
                                     .as<FixedSizeUnpackedArrayType>()
                                     .elementType;
-                    // A NESTED op whose elements are themselves sub-arrays gets
-                    // vpiSize = leaf width (the outermost carries the
-                    // array_typespec instead; the innermost, whose elements are
-                    // leaf constants, gets nothing).
-                    if (wasInPattern && elemIsArray && leaf->isIntegral())
-                        op->VpiSize((int32_t)leaf->getBitWidth());
+                    // § elabPatternFirstRowElemSize45 — the vpiSize stamp on a
+                    // nested unpacked-array pattern op is placed by the
+                    // OUTERMOST pattern on its OWN FIRST OPERAND; it is not a
+                    // property a nested op can decide about itself.  Measured
+                    // design-wide on Earlgrey (census45: exactly TWO divergent
+                    // operation cells among 51 646, both of them the FIRST ROW
+                    // of one of prim_keccak's two `int [5][5]` tables) and
+                    // cell-for-cell on a1_earl45 / v45_order:
+                    //   * ASCENDING outer range -> the FIRST operand ONLY,
+                    //     whatever the row count (a45o_asc3: rows 1 and 2 carry
+                    //     nothing) and whatever the nesting depth below it
+                    //     (g45_four: the four depth-2 ops carry nothing);
+                    //   * DESCENDING outer range -> the operand list is
+                    //     REVERSED above and BOTH ENDS carry the stamp, i.e.
+                    //     the STORED-first row and the SOURCE-first row
+                    //     (b45o_desc3, c45o_desc4: the two ends, never a
+                    //     middle) -- so this is `front()` plus, when the list
+                    //     was reversed, `back()`;
+                    //   * the value is the width of the type left after
+                    //     stripping every UNPACKED dimension: `int`->32,
+                    //     `byte`->8, `logic [11:0]`->12, `logic [3:0][7:0]`->32,
+                    //     a 16-bit packed struct ->16;
+                    //   * the stamped operand must itself be an ASSIGNMENT
+                    //     PATTERN.  "The first operand is an operation" is NOT
+                    //     the same predicate: a 1-D unpacked array whose
+                    //     elements are EXPRESSIONS (`int T [5] =
+                    //     '{1344/64, ...}`, Surelog/tests/Kmac/sha3_pkg.sv:20)
+                    //     has arithmetic ops as operands, and golden emits NO
+                    //     OBJECT AT ALL there -- it folds them.  Stamping one
+                    //     is a stamp on an object the law does not describe;
+                    //     it was caught by GATE 5 (Kmac +4 B, BlackBePipeInt
+                    //     +12 B, at the 4-bytes-per-stamp rate) and the probe
+                    //     is `v45_expr.sv`.
+                    //   * NOTHING else is stamped -- not the outermost op, not
+                    //     a 1-D array whose operands are constants (h45o_flat),
+                    //     and not a PACKAGE listing (§ pkgVecPatternNoSize;
+                    //     n45_pkg carries no size on either side).
+                    // The rule this replaces ("a NESTED op whose elements are
+                    // themselves sub-arrays gets vpiSize = leaf width; the
+                    // innermost, whose elements are leaf constants, gets
+                    // nothing") is REFUTED IN BOTH DIRECTIONS: it stamped
+                    // nothing on every 2-level table -- the Earlgrey head --
+                    // and it over-stamped every deep op of a 3- or 4-level one.
+                    // F-1 fix (earl45 verifier): "OUTERMOST" must also hold
+                    // against STRUCT-keyed and REPLICATED enclosing patterns,
+                    // which never set inAssignPattern (its writers are this
+                    // case only).  Those shapes are visible in the UHDM parent
+                    // chain: a tagged_pattern, or a pattern operation — with
+                    // the multi-pattern's inner vpiConcatOp walked through.
+                    bool underPat45 = false;
+                    for (const UHDM::any* p45 = parent; p45;) {
+                        if (p45->UhdmType() == UHDM::uhdmtagged_pattern) {
+                            underPat45 = true;
+                            break;
+                        }
+                        if (p45->UhdmType() != UHDM::uhdmoperation)
+                            break;
+                        auto t45 = ((const UHDM::operation*)p45)->VpiOpType();
+                        if (t45 == vpiAssignmentPatternOp ||
+                            t45 == vpiMultiAssignmentPatternOp) {
+                            underPat45 = true;
+                            break;
+                        }
+                        if (t45 != vpiConcatOp)
+                            break;
+                        p45 = p45->VpiParent();
+                    }
+                    if (!wasInPattern && !underPat45 && !paramInitPkg &&
+                        leaf->isIntegral() && !operands->empty()) {
+                        const int32_t lw45 = (int32_t)leaf->getBitWidth();
+                        auto stamp45 = [&](UHDM::any* o45) {
+                            if (o45 && o45->UhdmType() == UHDM::uhdmoperation &&
+                                ((UHDM::operation*)o45)->VpiOpType() ==
+                                    vpiAssignmentPatternOp)
+                                ((UHDM::expr*)o45)->VpiSize(lw45);
+                        };
+                        stamp45(operands->front());
+                        if (op->VpiReordered())
+                            stamp45(operands->back());
+                    }
                     for (auto* o : *operands) {
                         // Only the OUTERMOST pattern's direct leaf elements
                         // resize (int -> 32); nested-pattern leaves keep 64.

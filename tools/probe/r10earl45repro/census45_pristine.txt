@@ -1,0 +1,105 @@
+Q1  operation objects: golden 51646   ours 51473
+
+Q1b per-side tally (section, opType, has-size) -- top 40
+   G  topModules   opType=11    hassize=False  6192
+   O  topModules   opType=11    hassize=False  6095
+   G  topModules   opType=28    hassize=False  5683
+   O  topModules   opType=28    hassize=False  5683
+   G  allModules   opType=28    hassize=False  3522
+   O  allModules   opType=28    hassize=False  3522
+   O  topModules   opType=33    hassize=False  3337
+   G  topModules   opType=33    hassize=False  3237
+   G  topModules   opType=14    hassize=False  2790
+   O  topModules   opType=14    hassize=False  2790
+   G  topModules   opType=4     hassize=False  2765
+   O  topModules   opType=4     hassize=False  2763
+   G  topModules   opType=29    hassize=False  2577
+   O  topModules   opType=29    hassize=False  2577
+   G  topModules   opType=32    hassize=False  2538
+   O  topModules   opType=32    hassize=False  2538
+   G  topModules   opType=36    hassize=False  1997
+   O  topModules   opType=36    hassize=False  1997
+   O  topModules   opType=34    hassize=False  1896
+   G  topModules   opType=34    hassize=False  1796
+   G  allModules   opType=4     hassize=False  1464
+   O  allModules   opType=4     hassize=False  1464
+   O  topModules   opType=24    hassize=False  1407
+   G  topModules   opType=67    hassize=False  1386
+   G  topModules   opType=24    hassize=False  1345
+   O  topModules   opType=67    hassize=False  1291
+   G  allModules   opType=26    hassize=False  1158
+   O  allModules   opType=26    hassize=False  1158
+   G  allModules   opType=14    hassize=False  1067
+   O  allModules   opType=14    hassize=False  1067
+   G  allModules   opType=30    hassize=False  1037
+   O  allModules   opType=30    hassize=False  1037
+   G  allModules   opType=33    hassize=False  731
+   O  allModules   opType=33    hassize=False  731
+   G  topModules   opType=15    hassize=False  635
+   O  topModules   opType=15    hassize=False  635
+   G  allModules   opType=32    hassize=False  563
+   O  allModules   opType=32    hassize=False  563
+   G  allModules   opType=11    hassize=False  521
+   G  topModules   opType=6     hassize=False  499
+
+Q2  SPAN-KEYED JOIN: common 50972  golden-only 674  ours-only 501
+    opType   goldenSize  oursSize   cells   (only rows that DIFFER are marked <<<)
+    28       None        None         9257
+    11       None        None         6631
+    4        None        None         4229
+    33       None        None         4007
+    14       None        None         3858
+    32       None        None         3101
+    29       None        None         2992
+    36       None        None         1997
+    34       None        None         1961
+    24       None        None         1608
+    26       None        None         1566
+    30       None        None         1476
+    67       None        None         1470
+    15       None        None         1057
+    3        None        None          775
+    39       None        None          723
+    75       None        None          558
+    40       None        None          556
+    35       None        None          554
+    6        None        None          503
+    20       None        None          332
+    62       None        None          249
+    25       None        None          222
+    7        None        None          197
+    27       None        None          189
+    18       None        None          174
+    22       None        None          113
+    13       None        None           91
+    12       None        None           80
+    23       None        None           75
+    8        None        None           64
+    19       None        None           56
+    5        None        None           54
+    95       None        None           54
+    37       None        None           42
+    43       None        None           31
+    21       None        None           22
+    9        None        None           20
+    32       2           2               9
+    28       32          32              9
+    64       None        None            5
+    72       None        None            2
+    75       32          None            2 <<<
+    42       None        None            1
+
+Q3  op75 (assignment pattern) cells ONLY, by (depth, gSize, oSize)
+    depth=0   gSize=None     oSize=None         533
+    depth=1   gSize=32       oSize=None           2 <<<
+    depth=1   gSize=None     oSize=None          25
+
+Q4  DIVERGENT op75 cells, named (up to 60)
+    topModules   depth=1  g=32  o=None   2 cells
+    topModules   work@prim_keccak (work@prim_keccak)            193:5-193:32     depth=1 g=32 o=None owner=operation.vpiOperand
+    topModules   work@prim_keccak (work@prim_keccak)            52:5-52:32       depth=1 g=32 o=None owner=operation.vpiOperand
+    TOTAL divergent op75 cells: 2
+
+Q5  DIVERGENT operations of ANY opType, by signature
+    topModules   opType=75    SIZE(32->None)                                2
+    TOTAL divergent operation cells (all opTypes): 2
