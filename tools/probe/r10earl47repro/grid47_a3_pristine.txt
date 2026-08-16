@@ -1,0 +1,64 @@
+VW  SCOPE                          FIELD          SPAN          | GOLDEN                                       | OURS                                         | VERDICT
+2   work@a3_earl47.gen_x[1]        vpiRhs         18:26-18:35   | const INT:6 ct7 sz32 dec=6 par=param_assign  | const INT:6 ct7 sz32 dec=6 par=param_assign  | same
+2   rk@a3_earl47.gen_x[1].gen_y[1] vpiRhs         21:28-21:34   | const UINT:11 ct9 sz32 dec=11 par=param_assign | const UINT:11 ct9 sz32 dec=11 par=param_assign | same
+2   rk@a3_earl47.gen_x[1].gen_y[0] vpiRhs         21:28-21:34   | const UINT:10 ct9 sz32 dec=10 par=param_assign | const UINT:10 ct9 sz32 dec=10 par=param_assign | same
+2   rl47.gen_x[1].gen_y[1].p_ini.d vpiBaseExpr    24:30-24:31   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   rl47.gen_x[1].gen_y[0].p_ini.d vpiBaseExpr    24:30-24:31   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   rl47.gen_x[1].gen_y[1].p_ini.d vpiWidthExpr   24:35-24:38   | ref_obj(LPX)                                 | ref_obj(LPX)                                 | same
+2   rl47.gen_x[1].gen_y[0].p_ini.d vpiWidthExpr   24:35-24:38   | ref_obj(LPX)                                 | ref_obj(LPX)                                 | same
+2   @a3_earl47.gen_x[1].gen_y[0].d vpiBaseExpr    26:25-26:26   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   @a3_earl47.gen_x[1].gen_y[1].d vpiBaseExpr    26:25-26:26   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   @a3_earl47.gen_x[1].gen_y[0].d vpiWidthExpr   26:30-26:33   | ref_obj(LPY)                                 | ref_obj(LPY)                                 | same
+2   @a3_earl47.gen_x[1].gen_y[1].d vpiWidthExpr   26:30-26:33   | ref_obj(LPY)                                 | ref_obj(LPY)                                 | same
+2   @a3_earl47.gen_x[1].gen_y[0].d vpiBaseExpr    27:25-27:26   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   @a3_earl47.gen_x[1].gen_y[1].d vpiBaseExpr    27:25-27:26   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   @a3_earl47.gen_x[1].gen_y[0].d vpiWidthExpr   27:30-27:33   | const INT:6 ct7 sz32 dec=6 par=param_assign  | ref_obj(LPX)                                 | DIFF <<<
+2   @a3_earl47.gen_x[1].gen_y[1].d vpiWidthExpr   27:30-27:33   | const INT:6 ct7 sz32 dec=6 par=param_assign  | ref_obj(LPX)                                 | DIFF <<<
+2   @a3_earl47.gen_x[1].gen_y[1].d vpiBaseExpr    28:25-28:26   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   @a3_earl47.gen_x[1].gen_y[0].d vpiBaseExpr    28:25-28:26   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   @a3_earl47.gen_x[1].gen_y[0].d vpiWidthExpr   28:30-28:32   | ref_obj(MP)                                  | ref_obj(MP)                                  | same
+2   @a3_earl47.gen_x[1].gen_y[1].d vpiWidthExpr   28:30-28:32   | ref_obj(MP)                                  | ref_obj(MP)                                  | same
+2   @a3_earl47.gen_x[1].gen_y[0].d vpiBaseExpr    29:30-29:31   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   @a3_earl47.gen_x[1].gen_y[1].d vpiBaseExpr    29:30-29:31   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   @a3_earl47.gen_x[1].gen_y[1].d vpiWidthExpr   29:35-29:38   | const INT:6 ct7 sz32 dec=6 par=param_assign  | ref_obj(LPX)                                 | DIFF <<<
+2   @a3_earl47.gen_x[1].gen_y[0].d vpiWidthExpr   29:35-29:38   | const INT:6 ct7 sz32 dec=6 par=param_assign  | ref_obj(LPX)                                 | DIFF <<<
+2   earl47.gen_x[1].gen_y[1].p_lhs vpiBaseExpr    30:20-30:23   | const INT:6 ct7 sz32 dec=6 par=indexed_part_select | ref_obj(LPX)                                 | DIFF <<<
+2   earl47.gen_x[1].gen_y[0].p_lhs vpiBaseExpr    30:20-30:23   | const INT:6 ct7 sz32 dec=6 par=indexed_part_select | ref_obj(LPX)                                 | DIFF <<<
+2   earl47.gen_x[1].gen_y[0].p_lhs vpiWidthExpr   30:27-30:28   | const UINT:4 ct9 sz64 dec=4 par=indexed_part_select | const UINT:4 ct9 sz64 dec=4 par=-            | DIFF <<<
+2   earl47.gen_x[1].gen_y[1].p_lhs vpiWidthExpr   30:27-30:28   | const UINT:4 ct9 sz64 dec=4 par=indexed_part_select | const UINT:4 ct9 sz64 dec=4 par=-            | DIFF <<<
+2   rk@a3_earl47.gen_x[1].gen_y[0] vpiRhs         30:32-30:36   | const HEX:A ct5 sz4 dec=4'hA par=cont_assign | const HEX:A ct5 sz4 dec=4'hA par=cont_assign | same
+2   rk@a3_earl47.gen_x[1].gen_y[1] vpiRhs         30:32-30:36   | const HEX:A ct5 sz4 dec=4'hA par=cont_assign | const HEX:A ct5 sz4 dec=4'hA par=cont_assign | same
+2   7.gen_x[1].gen_y[0].gen_z[0].d vpiBaseExpr    34:26-34:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   7.gen_x[1].gen_y[0].gen_z[1].d vpiBaseExpr    34:26-34:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   7.gen_x[1].gen_y[1].gen_z[0].d vpiBaseExpr    34:26-34:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   7.gen_x[1].gen_y[1].gen_z[1].d vpiBaseExpr    34:26-34:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   7.gen_x[1].gen_y[0].gen_z[1].d vpiWidthExpr   34:31-34:34   | const UINT:10 ct9 sz32 dec=10 par=param_assign | ref_obj(LPY)                                 | DIFF <<<
+2   7.gen_x[1].gen_y[1].gen_z[0].d vpiWidthExpr   34:31-34:34   | const UINT:11 ct9 sz32 dec=11 par=param_assign | ref_obj(LPY)                                 | DIFF <<<
+2   7.gen_x[1].gen_y[0].gen_z[0].d vpiWidthExpr   34:31-34:34   | const UINT:10 ct9 sz32 dec=10 par=param_assign | ref_obj(LPY)                                 | DIFF <<<
+2   7.gen_x[1].gen_y[1].gen_z[1].d vpiWidthExpr   34:31-34:34   | const UINT:11 ct9 sz32 dec=11 par=param_assign | ref_obj(LPY)                                 | DIFF <<<
+2   7.gen_x[1].gen_y[0].gen_z[1].d vpiBaseExpr    35:26-35:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   7.gen_x[1].gen_y[0].gen_z[0].d vpiBaseExpr    35:26-35:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   7.gen_x[1].gen_y[1].gen_z[0].d vpiBaseExpr    35:26-35:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   7.gen_x[1].gen_y[1].gen_z[1].d vpiBaseExpr    35:26-35:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   7.gen_x[1].gen_y[0].gen_z[1].d vpiWidthExpr   35:31-35:34   | ref_obj(LPX)                                 | ref_obj(LPX)                                 | same
+2   7.gen_x[1].gen_y[0].gen_z[0].d vpiWidthExpr   35:31-35:34   | ref_obj(LPX)                                 | ref_obj(LPX)                                 | same
+2   7.gen_x[1].gen_y[1].gen_z[1].d vpiWidthExpr   35:31-35:34   | ref_obj(LPX)                                 | ref_obj(LPX)                                 | same
+2   7.gen_x[1].gen_y[1].gen_z[0].d vpiWidthExpr   35:31-35:34   | ref_obj(LPX)                                 | ref_obj(LPX)                                 | same
+2   7.gen_x[1].gen_y[1].gen_z[0].d vpiBaseExpr    36:26-36:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   7.gen_x[1].gen_y[1].gen_z[1].d vpiBaseExpr    36:26-36:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   7.gen_x[1].gen_y[0].gen_z[1].d vpiBaseExpr    36:26-36:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   7.gen_x[1].gen_y[0].gen_z[0].d vpiBaseExpr    36:26-36:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   7.gen_x[1].gen_y[1].gen_z[0].d vpiWidthExpr   36:31-36:33   | ref_obj(MP)                                  | ref_obj(MP)                                  | same
+2   7.gen_x[1].gen_y[0].gen_z[1].d vpiWidthExpr   36:31-36:33   | ref_obj(MP)                                  | ref_obj(MP)                                  | same
+2   7.gen_x[1].gen_y[0].gen_z[0].d vpiWidthExpr   36:31-36:33   | ref_obj(MP)                                  | ref_obj(MP)                                  | same
+2   7.gen_x[1].gen_y[1].gen_z[1].d vpiWidthExpr   36:31-36:33   | ref_obj(MP)                                  | ref_obj(MP)                                  | same
+2   7.gen_x[1].gen_y[0].gen_z[1].d vpiBaseExpr    37:26-37:27   | ref_obj(x)                                   | ref_obj(x)                                   | same
+2   7.gen_x[1].gen_y[1].gen_z[0].d vpiBaseExpr    37:26-37:27   | ref_obj(x)                                   | ref_obj(x)                                   | same
+2   7.gen_x[1].gen_y[1].gen_z[1].d vpiBaseExpr    37:26-37:27   | ref_obj(x)                                   | ref_obj(x)                                   | same
+2   7.gen_x[1].gen_y[0].gen_z[0].d vpiBaseExpr    37:26-37:27   | ref_obj(x)                                   | ref_obj(x)                                   | same
+2   7.gen_x[1].gen_y[1].gen_z[0].d vpiWidthExpr   37:31-37:32   | const UINT:4 ct9 sz64 dec=4 par=-            | const UINT:4 ct9 sz64 dec=4 par=-            | same
+2   7.gen_x[1].gen_y[1].gen_z[1].d vpiWidthExpr   37:31-37:32   | const UINT:4 ct9 sz64 dec=4 par=-            | const UINT:4 ct9 sz64 dec=4 par=-            | same
+2   7.gen_x[1].gen_y[0].gen_z[1].d vpiWidthExpr   37:31-37:32   | const UINT:4 ct9 sz64 dec=4 par=-            | const UINT:4 ct9 sz64 dec=4 par=-            | same
+2   7.gen_x[1].gen_y[0].gen_z[0].d vpiWidthExpr   37:31-37:32   | const UINT:4 ct9 sz64 dec=4 par=-            | const UINT:4 ct9 sz64 dec=4 par=-            | same
+
+rows=61  differing=12   (scope filter 'gen_x[1]')

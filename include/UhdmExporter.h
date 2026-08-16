@@ -2501,6 +2501,14 @@ private:
     // HEX:6 / decompile "4'h6"). Null when `sym` is not an enum member or its
     // value is not reconstructible. Located by the caller.
     UHDM::constant* enumMemberSubstConst(const slang::ast::Symbol& sym);
+    // § genLpUseFoldParentScope47 — the constant Surelog SUBSTITUTES for a
+    // reference to a GEN-SCOPE LOCALPARAM whose declaring gen scope is the
+    // IMMEDIATE PARENT of the use site's emission scope (`usePrefix`), in a
+    // SELECT BOUND.  Null for every other distance, for a genvar, and for any
+    // expression that is not a bare reference.  Definition + the full law in
+    // src/ExprEmit.cpp.
+    UHDM::constant* genLpUseFoldBound47(const slang::ast::Expression& e,
+                                        const std::string& usePrefix);
     // True when the enum member has a LITERAL form to substitute: an integer
     // literal initializer, or none at all (an implicit member, which carries
     // its computed decimal).  A member initialized by an EXPRESSION (rp32's

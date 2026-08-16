@@ -1,0 +1,27 @@
+VW  SCOPE                          FIELD          SPAN          | GOLDEN                                       | OURS                                         | VERDICT
+3   work@b1_earl47.gen_x[1]        vpiRhs         25:26-25:35   | const INT:6 ct7 sz32 dec=6 par=param_assign  | const INT:6 ct7 sz32 dec=6 par=param_assign  | same
+3   work@b1_earl47.gen_x[1].d      vpiBaseExpr    31:23-31:24   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+3   work@b1_earl47.gen_x[1].d      vpiWidthExpr   31:28-31:31   | ref_obj(LPA)                                 | ref_obj(LPA)                                 | same
+3   work@b1_earl47.gen_x[1].d      vpiBaseExpr    34:28-34:29   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+3   work@b1_earl47.gen_x[1].d      vpiWidthExpr   34:33-34:36   | ref_obj(LPA)                                 | ref_obj(LPA)                                 | same
+3   rk@b1_earl47.gen_x[1].r_dini.d vpiBaseExpr    37:29-37:30   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+3   rk@b1_earl47.gen_x[1].r_dini.d vpiWidthExpr   37:34-37:37   | const INT:6 ct7 sz32 dec=6 par=param_assign  | ref_obj(LPA)                                 | DIFF <<<
+3   work@b1_earl47.gen_x[1].r_lhs  vpiBaseExpr    40:18-40:21   | ref_obj(LPA)                                 | ref_obj(LPA)                                 | same
+3   work@b1_earl47.gen_x[1].r_lhs  vpiWidthExpr   40:25-40:26   | const UINT:4 ct9 sz64 dec=4 par=indexed_part_select | const UINT:4 ct9 sz64 dec=4 par=-            | DIFF <<<
+3   work@b1_earl47.gen_x[1]        vpiRhs         40:30-40:34   | const HEX:A ct5 sz4 dec=4'hA par=cont_assign | const HEX:A ct5 sz4 dec=4'hA par=cont_assign | same
+3   @b1_earl47.gen_x[1].u_leaf.i.d vpiBaseExpr    43:26-43:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const INT:0 ct7 sz64 dec=0 par=-             | DIFF <<<
+3   @b1_earl47.gen_x[1].u_leaf.i.d vpiWidthExpr   43:31-43:34   | const INT:6 ct7 sz32 dec=6 par=-             | const UINT:6 ct9 sz32 dec=6 par=-            | DIFF <<<
+3   @b1_earl47.gen_x[1].gen_y[1].d vpiBaseExpr    48:25-48:26   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+3   @b1_earl47.gen_x[1].gen_y[0].d vpiBaseExpr    48:25-48:26   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+3   @b1_earl47.gen_x[1].gen_y[1].d vpiWidthExpr   48:30-48:33   | const INT:6 ct7 sz32 dec=6 par=param_assign  | ref_obj(LPA)                                 | DIFF <<<
+3   @b1_earl47.gen_x[1].gen_y[0].d vpiWidthExpr   48:30-48:33   | const INT:6 ct7 sz32 dec=6 par=param_assign  | ref_obj(LPA)                                 | DIFF <<<
+3   rk@b1_earl47.gen_x[1].gen_if.d vpiBaseExpr    53:26-53:29   | const INT:6 ct7 sz32 dec=6 par=param_assign  | ref_obj(LPA)                                 | DIFF <<<
+3   rk@b1_earl47.gen_x[1].gen_if.d vpiWidthExpr   53:33-53:34   | const UINT:4 ct9 sz64 dec=4 par=-            | const UINT:4 ct9 sz64 dec=4 par=-            | same
+3   work@b1_earl47.gen_x[1].d      vpiBaseExpr    58:22-58:23   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+3   work@b1_earl47.gen_x[1].d      vpiOperand     58:28-58:29   | ref_obj(x)                                   | ref_obj(x)                                   | same
+3   work@b1_earl47.gen_x[1].d      vpiOperand     58:32-58:33   | const UINT:1 ct9 sz64 dec=1 par=operation    | const UINT:1 ct9 sz64 dec=1 par=operation    | same
+3   work@b1_earl47.gen_x[1].d      vpiBaseExpr    59:22-59:23   | ref_obj(x)                                   | ref_obj(x)                                   | same
+3   work@b1_earl47.gen_x[1].d      vpiWidthExpr   59:27-59:28   | const UINT:4 ct9 sz64 dec=4 par=-            | const UINT:4 ct9 sz64 dec=4 par=-            | same
+3   work@b1_earl47.gen_x[1]        vpiRhs         62:21-62:27   | ref_obj(r_dini)                              | ref_obj(r_dini)                              | same
+
+rows=24  differing=7   (scope filter 'gen_x[1]')

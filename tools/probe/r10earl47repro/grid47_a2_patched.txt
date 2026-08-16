@@ -1,0 +1,39 @@
+VW  SCOPE                          FIELD          SPAN          | GOLDEN                                       | OURS                                         | VERDICT
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiBaseExpr    32:26-32:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiWidthExpr   32:31-32:34   | const INT:6 ct7 sz32 dec=6 par=param_assign  | const INT:6 ct7 sz32 dec=6 par=param_assign  | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiBaseExpr    33:26-33:29   | const INT:6 ct7 sz32 dec=6 par=param_assign  | const INT:6 ct7 sz32 dec=6 par=param_assign  | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiWidthExpr   33:33-33:34   | const UINT:4 ct9 sz64 dec=4 par=-            | const UINT:4 ct9 sz64 dec=4 par=-            | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiBaseExpr    34:26-34:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiWidthExpr   34:31-34:34   | const UINT:8 ct9 sz32 dec=8 par=param_assign | const UINT:8 ct9 sz32 dec=8 par=param_assign | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiLeftRange   35:26-35:29   | const INT:6 ct7 sz32 dec=6 par=param_assign  | const INT:6 ct7 sz32 dec=6 par=param_assign  | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiRightRange  35:32-35:33   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiLeftRange   36:26-36:28   | const UINT:31 ct9 sz64 dec=31 par=-          | const UINT:31 ct9 sz64 dec=31 par=-          | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiRightRange  36:31-36:34   | const INT:6 ct7 sz32 dec=6 par=param_assign  | const INT:6 ct7 sz32 dec=6 par=param_assign  | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiIndex       37:26-37:29   | const INT:6 ct7 sz32 dec=6 par=bit_select    | ref_obj(LPA)                                 | DIFF <<<
+2   rk@a2_earl47.gen_x[1].gen_y[0] vpiRhs         39:24-39:27   | const INT:6 ct7 sz32 dec=6 par=cont_assign   | ref_obj(LPA)                                 | DIFF <<<
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiBaseExpr    40:26-40:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiOperand     40:31-40:34   | const INT:6 ct7 sz32 dec=6 par=operation     | ref_obj(LPA)                                 | DIFF <<<
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiOperand     40:37-40:38   | const UINT:1 ct9 sz64 dec=1 par=operation    | const UINT:1 ct9 sz64 dec=1 par=operation    | same
+2   2_earl47.gen_x[1].gen_y[0].LPA vpiLeftRange   41:29-41:30   | const UINT:3 ct9 sz64 dec=3 par=-            | const UINT:3 ct9 sz64 dec=3 par=-            | same
+2   2_earl47.gen_x[1].gen_y[0].LPA vpiRightRange  41:31-41:32   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   rk@a2_earl47.gen_x[1].gen_y[0] vpiOperand     41:35-41:39   | const BIN:1 ct3 sz1 dec=1'b1 par=-           | const BIN:1 ct3 sz1 dec=1'b1 par=-           | same
+2   a2_earl47.gen_x[1].gen_y[0].bx vpiIndex       42:27-42:28   | ref_obj(x)                                   | ref_obj(x)                                   | same
+2   a2_earl47.gen_x[1].gen_y[0].bx vpiIndex       42:30-42:31   | ref_obj(y)                                   | ref_obj(y)                                   | same
+2   earl47.gen_x[1].gen_y[0].bx.bx vpiBaseExpr    42:33-42:34   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   earl47.gen_x[1].gen_y[0].bx.bx vpiWidthExpr   42:38-42:41   | const INT:58 ct7 sz32 dec=58 par=param_assign | const INT:58 ct7 sz32 dec=58 par=param_assign | same
+2   a2_earl47.gen_x[1].gen_y[0].bx vpiIndex       43:27-43:28   | ref_obj(x)                                   | ref_obj(x)                                   | same
+2   a2_earl47.gen_x[1].gen_y[0].bx vpiIndex       43:30-43:31   | ref_obj(y)                                   | ref_obj(y)                                   | same
+2   earl47.gen_x[1].gen_y[0].bx.bx vpiBaseExpr    43:33-43:36   | const INT:58 ct7 sz32 dec=58 par=param_assign | const INT:58 ct7 sz32 dec=58 par=param_assign | same
+2   earl47.gen_x[1].gen_y[0].bx.bx vpiWidthExpr   43:40-43:41   | const UINT:4 ct9 sz64 dec=4 par=-            | const UINT:4 ct9 sz64 dec=4 par=-            | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiBaseExpr    46:26-46:27   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiWidthExpr   46:31-46:33   | ref_obj(MP)                                  | ref_obj(MP)                                  | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiBaseExpr    47:26-47:28   | ref_obj(MP)                                  | ref_obj(MP)                                  | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiWidthExpr   47:32-47:33   | const UINT:4 ct9 sz64 dec=4 par=-            | const UINT:4 ct9 sz64 dec=4 par=-            | same
+2   a2_earl47.gen_x[1].gen_y[0].MP vpiLeftRange   48:28-48:29   | const UINT:3 ct9 sz64 dec=3 par=-            | const UINT:3 ct9 sz64 dec=3 par=-            | same
+2   a2_earl47.gen_x[1].gen_y[0].MP vpiRightRange  48:30-48:31   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   rk@a2_earl47.gen_x[1].gen_y[0] vpiOperand     48:34-48:38   | const BIN:1 ct3 sz1 dec=1'b1 par=-           | const BIN:1 ct3 sz1 dec=1'b1 par=-           | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiBaseExpr    50:26-50:27   | ref_obj(x)                                   | ref_obj(x)                                   | same
+2   @a2_earl47.gen_x[1].gen_y[0].d vpiWidthExpr   50:31-50:32   | const UINT:4 ct9 sz64 dec=4 par=-            | const UINT:4 ct9 sz64 dec=4 par=-            | same
+2   rk@a2_earl47.gen_x[1].gen_y[0] vpiRhs         ?             | const INT:7 ct7 sz64 dec=7 par=cont_assign   | const UINT:7 ct9 sz64 dec=7 par=-            | DIFF <<<
+
+rows=36  differing=4   (scope filter 'gen_x[1].gen_y[0]')

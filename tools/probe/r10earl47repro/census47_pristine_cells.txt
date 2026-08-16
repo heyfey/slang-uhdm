@@ -1,0 +1,232 @@
+$clog2 | vpiArgument | 15:33-15:41 | g=constant dec=2 val=UINT:2 | o=constant  dec=2
+$clog2 | vpiArgument | 31:41-31:53 | g=constant dec=256 val=UINT:256 | o=constant  dec=256
+$clog2 | vpiArgument | 32:41-32:53 | g=constant dec=256 val=UINT:256 | o=constant  dec=256
+$clog2 | vpiArgument | 34:40-34:52 | g=constant dec=4 val=UINT:4 | o=constant  dec=4
+$clog2 | vpiArgument | 36:17-36:25 | g=constant dec=64 val=UINT:64 | o=constant  dec=64
+drsp_fifo_o.d_source[0+:1] | vpiWidthExpr | 235:57-235:62 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+drsp_fifo_o.d_source[0+:1] | vpiWidthExpr | 237:57-237:62 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+drsp_fifo_o.d_source[0+:2] | vpiWidthExpr | 235:57-235:62 | g=constant dec=2 val=UINT:2 | o=constant  dec=2
+drsp_fifo_o.d_source[0+:2] | vpiWidthExpr | 237:57-237:62 | g=constant dec=2 val=UINT:2 | o=constant  dec=2
+flash_ctrl_i.addr[16+:1] | vpiBaseExpr | 66:44-66:53 | g=constant dec=16 val=UINT:16 | o=constant  dec=16
+flash_ctrl_i.addr[16+:1] | vpiWidthExpr | 66:57-66:62 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+read_buf[i].addr[7+:8] | vpiBaseExpr | 122:60-122:71 | g=constant dec=7 val=UINT:7 | o=ABSENT  dec=
+read_buf[i].addr[7+:8] | vpiWidthExpr | 122:75-122:80 | g=constant dec=8 val=UINT:8 | o=ABSENT  dec=
+reg2hw.addr.q[31:17] | vpiRightRange | 454:53-454:58 | g=constant dec=17 val=UINT:17 | o=constant  dec=17
+reg2hw.addr.q[DataBitWidth+:17] | vpiWidthExpr | 171:52-171:57 | g=constant dec=17 val=UINT:17 | o=constant  dec=17
+reg2hw.addr.q[DataBitWidth+:17] | vpiWidthExpr | 249:52-249:57 | g=constant dec=17 val=UINT:17 | o=constant  dec=17
+reg2hw.addr.q[DataBitWidth+:17] | vpiWidthExpr | 277:52-277:57 | g=constant dec=17 val=UINT:17 | o=constant  dec=17
+region_cfgs[8] | vpiIndex | 315:22-315:31 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+region_cfgs[8] | vpiIndex | 316:22-316:31 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+region_cfgs[8] | vpiIndex | 317:22-317:31 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+region_cfgs[8] | vpiIndex | 318:22-318:31 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+region_cfgs[8] | vpiIndex | 319:22-319:31 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+region_cfgs[8] | vpiIndex | 320:22-320:31 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+rst_parent_ni | vpiOperand | 139:21-139:33 | g=constant dec=2 val=UINT:2 | o=constant  dec=2
+rst_req_i | vpiOperand | 149:37-149:49 | g=constant dec=2 val=UINT:2 | o=constant  dec=2
+tl_h_i[i].a_source[8 - 1-:1] | vpiWidthExpr | 105:61-105:66 | g=constant dec=1 val=UINT:1 | o=ABSENT  dec=
+tl_h_i[i].a_source[8 - 1-:2] | vpiWidthExpr | 105:61-105:66 | g=constant dec=2 val=UINT:2 | o=ABSENT  dec=
+work@alert_handler_ping_timer.p_enable_mask.enable_mask | vpiRightRange | 108:31-108:38 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@alert_handler_ping_timer.ping_sel | vpiRightRange | 141:51-141:58 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@alert_handler_ping_timer.spurious_ping | vpiRightRange | 150:61-150:68 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@flash_ctrl | vpiOperand | 316:43-316:52 | g=constant dec=9 val=UINT:9 | o=constant  dec=9
+work@flash_ctrl.u_flash_mp.req_addr_i.flash_addr | vpiBaseExpr | 337:28-337:33 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@flash_ctrl.u_flash_mp.req_addr_i.flash_addr | vpiWidthExpr | 337:37-337:46 | g=constant dec=9 val=UINT:9 | o=constant  dec=9
+work@flash_ctrl.u_flash_mp.req_bk_i.flash_addr | vpiBaseExpr | 339:26-339:35 | g=constant dec=16 val=UINT:16 | o=constant  dec=16
+work@flash_ctrl.u_flash_mp.req_bk_i.flash_addr | vpiWidthExpr | 339:39-339:44 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@flash_phy.host_addr_i | vpiBaseExpr | 65:51-65:60 | g=constant dec=16 val=UINT:16 | o=constant  dec=16
+work@flash_phy.host_addr_i | vpiWidthExpr | 65:64-65:69 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@flash_phy_core.i_flash.addr_i.muxed_addr | vpiRightRange | 226:36-226:46 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@flash_phy_rd | vpiOperand | 130:30-130:36 | g=constant dec=4 val=UINT:4 | o=constant  dec=4
+work@pinmux | vpiRhs | 222:19-222:27 | g=constant dec=15 val=UINT:15 | o=constant  dec=15
+work@pinmux.p_sleep | vpiOperand | 134:31-134:39 | g=constant dec=15 val=UINT:15 | o=constant  dec=15
+work@prim_keccak.gen_rho_x[0].gen_rho_y[1].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=28 val=INT:28 | o=ref_obj work@prim_keccak.gen_rho_x[0].gen_rho_y[1].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[0].gen_rho_y[1].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=28 val=INT:28 | o=ref_obj work@prim_keccak.gen_rho_x[0].gen_rho_y[1].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[0].gen_rho_y[1].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=36 val=INT:36 | o=ref_obj work@prim_keccak.gen_rho_x[0].gen_rho_y[1].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[0].gen_rho_y[2].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=61 val=INT:61 | o=ref_obj work@prim_keccak.gen_rho_x[0].gen_rho_y[2].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[0].gen_rho_y[2].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=61 val=INT:61 | o=ref_obj work@prim_keccak.gen_rho_x[0].gen_rho_y[2].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[0].gen_rho_y[2].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=3 val=INT:3 | o=ref_obj work@prim_keccak.gen_rho_x[0].gen_rho_y[2].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[0].gen_rho_y[3].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=23 val=INT:23 | o=ref_obj work@prim_keccak.gen_rho_x[0].gen_rho_y[3].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[0].gen_rho_y[3].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=23 val=INT:23 | o=ref_obj work@prim_keccak.gen_rho_x[0].gen_rho_y[3].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[0].gen_rho_y[3].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=41 val=INT:41 | o=ref_obj work@prim_keccak.gen_rho_x[0].gen_rho_y[3].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[0].gen_rho_y[4].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=46 val=INT:46 | o=ref_obj work@prim_keccak.gen_rho_x[0].gen_rho_y[4].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[0].gen_rho_y[4].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=46 val=INT:46 | o=ref_obj work@prim_keccak.gen_rho_x[0].gen_rho_y[4].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[0].gen_rho_y[4].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=18 val=INT:18 | o=ref_obj work@prim_keccak.gen_rho_x[0].gen_rho_y[4].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[0].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=63 val=INT:63 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[0].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[0].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=63 val=INT:63 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[0].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[0].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=1 val=INT:1 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[0].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[1].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=20 val=INT:20 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[1].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[1].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=20 val=INT:20 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[1].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[1].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=44 val=INT:44 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[1].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[2].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=54 val=INT:54 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[2].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[2].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=54 val=INT:54 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[2].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[2].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=10 val=INT:10 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[2].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[3].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=19 val=INT:19 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[3].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[3].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=19 val=INT:19 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[3].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[3].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=45 val=INT:45 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[3].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[4].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=62 val=INT:62 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[4].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[4].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=62 val=INT:62 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[4].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[1].gen_rho_y[4].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=2 val=INT:2 | o=ref_obj work@prim_keccak.gen_rho_x[1].gen_rho_y[4].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[0].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=2 val=INT:2 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[0].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[0].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=2 val=INT:2 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[0].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[0].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=62 val=INT:62 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[0].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[1].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=58 val=INT:58 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[1].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[1].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=58 val=INT:58 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[1].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[1].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=6 val=INT:6 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[1].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[2].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=21 val=INT:21 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[2].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[2].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=21 val=INT:21 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[2].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[2].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=43 val=INT:43 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[2].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[3].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=49 val=INT:49 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[3].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[3].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=49 val=INT:49 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[3].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[3].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=15 val=INT:15 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[3].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[4].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=3 val=INT:3 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[4].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[4].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=3 val=INT:3 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[4].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[2].gen_rho_y[4].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=61 val=INT:61 | o=ref_obj work@prim_keccak.gen_rho_x[2].gen_rho_y[4].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[0].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=36 val=INT:36 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[0].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[0].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=36 val=INT:36 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[0].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[0].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=28 val=INT:28 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[0].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[1].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=9 val=INT:9 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[1].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[1].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=9 val=INT:9 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[1].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[1].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=55 val=INT:55 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[1].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[2].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=39 val=INT:39 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[2].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[2].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=39 val=INT:39 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[2].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[2].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=25 val=INT:25 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[2].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[3].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=43 val=INT:43 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[3].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[3].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=43 val=INT:43 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[3].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[3].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=21 val=INT:21 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[3].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[4].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=8 val=INT:8 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[4].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[4].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=8 val=INT:8 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[4].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[3].gen_rho_y[4].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=56 val=INT:56 | o=ref_obj work@prim_keccak.gen_rho_x[3].gen_rho_y[4].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[0].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=37 val=INT:37 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[0].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[0].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=37 val=INT:37 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[0].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[0].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=27 val=INT:27 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[0].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[1].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=44 val=INT:44 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[1].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[1].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=44 val=INT:44 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[1].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[1].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=20 val=INT:20 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[1].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[2].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=25 val=INT:25 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[2].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[2].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=25 val=INT:25 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[2].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[2].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=39 val=INT:39 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[2].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[3].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=56 val=INT:56 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[3].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[3].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=56 val=INT:56 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[3].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[3].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=8 val=INT:8 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[3].gen_others.theta_data.Offset dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[4].gen_others.theta_data.theta_data | vpiBaseExpr | 66:58-66:66 | g=constant dec=50 val=INT:50 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[4].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[4].gen_others.theta_data.theta_data | vpiWidthExpr | 65:61-65:69 | g=constant dec=50 val=INT:50 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[4].gen_others.theta_data.ShiftAmt dec=
+work@prim_keccak.gen_rho_x[4].gen_rho_y[4].gen_others.theta_data.theta_data | vpiWidthExpr | 66:68-66:74 | g=constant dec=14 val=INT:14 | o=ref_obj work@prim_keccak.gen_rho_x[4].gen_rho_y[4].gen_others.theta_data.Offset dec=
+work@pwrmgr_fsm | vpiOperand | 119:24-119:36 | g=constant dec=2 val=UINT:2 | o=constant  dec=2
+work@pwrmgr_fsm | vpiOperand | 120:25-120:37 | g=constant dec=2 val=UINT:2 | o=constant  dec=2
+work@pwrmgr_fsm | vpiOperand | 289:25-289:37 | g=constant dec=2 val=UINT:2 | o=constant  dec=2
+work@pwrmgr_fsm | vpiOperand | 290:26-290:38 | g=constant dec=2 val=UINT:2 | o=constant  dec=2
+work@pwrmgr_fsm | vpiOperand | 299:25-299:37 | g=constant dec=2 val=UINT:2 | o=constant  dec=2
+work@pwrmgr_fsm | vpiOperand | 300:26-300:38 | g=constant dec=2 val=UINT:2 | o=constant  dec=2
+work@pwrmgr_wake_info.info_o | vpiBaseExpr | 49:14-49:25 | g=constant dec=16 val=UINT:16 | o=constant  dec=16
+work@pwrmgr_wake_info.info_o | vpiBaseExpr | 49:42-49:53 | g=constant dec=16 val=UINT:16 | o=constant  dec=16
+work@pwrmgr_wake_info.info_o | vpiWidthExpr | 48:19-48:30 | g=constant dec=16 val=UINT:16 | o=constant  dec=16
+work@pwrmgr_wake_info.info_o | vpiWidthExpr | 48:47-48:58 | g=constant dec=16 val=UINT:16 | o=constant  dec=16
+work@rstmgr_ctrl.rst_parent_synced | vpiWidthExpr | 65:58-65:68 | g=constant dec=1 val=INT:1 | o=constant  dec=1
+work@rstmgr_ctrl.rst_req_i | vpiWidthExpr | 64:51-64:61 | g=constant dec=1 val=INT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.gen_prog_data | vpiOperand | 190:27-190:36 | g=constant dec=64 val=UINT:64 | o=constant  dec=64
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.addr_i.muxed_addr | vpiRightRange | 226:36-226:46 | g=constant dec=1 val=UINT:1 | o=ABSENT  dec=
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].addr_i | vpiBaseExpr | 123:36-123:41 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].addr_i | vpiRightRange | 112:66-112:76 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].addr_i | vpiRightRange | 121:78-121:88 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].addr_i | vpiWidthExpr | 123:45-123:50 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[1].addr_i | vpiBaseExpr | 123:36-123:41 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[1].addr_i | vpiRightRange | 112:66-112:76 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[1].addr_i | vpiRightRange | 121:78-121:88 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[1].addr_i | vpiWidthExpr | 123:45-123:50 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[2].addr_i | vpiBaseExpr | 123:36-123:41 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[2].addr_i | vpiRightRange | 112:66-112:76 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[2].addr_i | vpiRightRange | 121:78-121:88 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[2].addr_i | vpiWidthExpr | 123:45-123:50 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[3].addr_i | vpiBaseExpr | 123:36-123:41 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[3].addr_i | vpiRightRange | 112:66-112:76 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[3].addr_i | vpiRightRange | 121:78-121:88 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[3].addr_i | vpiWidthExpr | 123:45-123:50 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_word_sel.addr_i | vpiWidthExpr | 184:50-184:60 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.gen_prog_data | vpiOperand | 190:27-190:36 | g=constant dec=64 val=UINT:64 | o=constant  dec=64
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_flash.addr_i.muxed_addr | vpiRightRange | 226:36-226:46 | g=constant dec=1 val=UINT:1 | o=ABSENT  dec=
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[0].addr_i | vpiBaseExpr | 123:36-123:41 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[0].addr_i | vpiRightRange | 112:66-112:76 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[0].addr_i | vpiRightRange | 121:78-121:88 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[0].addr_i | vpiWidthExpr | 123:45-123:50 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[1].addr_i | vpiBaseExpr | 123:36-123:41 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[1].addr_i | vpiRightRange | 112:66-112:76 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[1].addr_i | vpiRightRange | 121:78-121:88 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[1].addr_i | vpiWidthExpr | 123:45-123:50 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[2].addr_i | vpiBaseExpr | 123:36-123:41 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[2].addr_i | vpiRightRange | 112:66-112:76 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[2].addr_i | vpiRightRange | 121:78-121:88 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[2].addr_i | vpiWidthExpr | 123:45-123:50 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[3].addr_i | vpiBaseExpr | 123:36-123:41 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[3].addr_i | vpiRightRange | 112:66-112:76 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[3].addr_i | vpiRightRange | 121:78-121:88 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_buf_match[3].addr_i | vpiWidthExpr | 123:45-123:50 | g=constant dec=8 val=UINT:8 | o=constant  dec=8
+work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_word_sel.addr_i | vpiWidthExpr | 184:50-184:60 | g=constant dec=1 val=UINT:1 | o=constant  dec=1
+work@top_earlgrey.u_pinmux.gen_mio_out[0] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[0].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[10] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[10].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[11] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[11].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[12] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[12].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[13] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[13].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[14] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[14].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[15] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[15].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[16] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[16].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[17] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[17].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[18] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[18].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[19] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[19].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[1] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[1].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[20] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[20].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[21] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[21].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[22] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[22].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[23] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[23].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[24] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[24].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[25] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[25].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[26] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[26].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[27] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[27].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[28] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[28].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[29] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[29].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[2] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[2].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[30] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[30].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[31] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[31].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[3] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[3].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[4] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[4].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[5] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[5].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[6] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[6].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[7] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[7].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[8] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[8].MioPeriphHasSleepMode dec=
+work@top_earlgrey.u_pinmux.gen_mio_out[9] | vpiOperand | 176:43-176:64 | g=constant dec=32'b11111111111111111111111111111111 val=BIN:11111111111111111111111111111111 | o=ref_obj work@top_earlgrey.u_pinmux.gen_mio_out[9].MioPeriphHasSleepMode dec=
+work@usbdev | vpiOperand | 420:23-420:33 | g=constant dec=12 val=UINT:12 | o=constant  dec=12
+work@usbdev | vpiOperand | 421:23-421:33 | g=constant dec=12 val=UINT:12 | o=constant  dec=12
+work@xbar_main | vpiOperand | 398:41-398:54 | g=constant dec=32'h00003fff val=HEX:00003fff | o=constant  dec=32'h00003fff
+work@xbar_main | vpiOperand | 401:50-401:69 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 404:50-404:68 | g=constant dec=32'h0000ffff val=HEX:0000ffff | o=constant  dec=32'h0000ffff
+work@xbar_main | vpiOperand | 407:50-407:66 | g=constant dec=32'h0007ffff val=HEX:0007ffff | o=constant  dec=32'h0007ffff
+work@xbar_main | vpiOperand | 415:41-415:54 | g=constant dec=32'h00003fff val=HEX:00003fff | o=constant  dec=32'h00003fff
+work@xbar_main | vpiOperand | 418:50-418:69 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 421:50-421:68 | g=constant dec=32'h0000ffff val=HEX:0000ffff | o=constant  dec=32'h0000ffff
+work@xbar_main | vpiOperand | 424:50-424:66 | g=constant dec=32'h0007ffff val=HEX:0007ffff | o=constant  dec=32'h0007ffff
+work@xbar_main | vpiOperand | 439:50-439:70 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 442:50-442:63 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 445:50-445:64 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 448:50-448:67 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 451:50-451:66 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 454:50-454:67 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 457:50-457:73 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 460:50-460:67 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 468:41-468:54 | g=constant dec=32'h00003fff val=HEX:00003fff | o=constant  dec=32'h00003fff
+work@xbar_main | vpiOperand | 471:50-471:68 | g=constant dec=32'h0000ffff val=HEX:0000ffff | o=constant  dec=32'h0000ffff
+work@xbar_main | vpiOperand | 474:50-474:66 | g=constant dec=32'h0007ffff val=HEX:0007ffff | o=constant  dec=32'h0007ffff
+work@xbar_main | vpiOperand | 489:50-489:70 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 492:50-492:63 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 495:50-495:64 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 498:50-498:67 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 501:50-501:66 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 504:50-504:67 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 507:50-507:73 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_main | vpiOperand | 510:50-510:67 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_peri | vpiOperand | 102:49-102:63 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_peri | vpiOperand | 105:49-105:69 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_peri | vpiOperand | 108:49-108:67 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_peri | vpiOperand | 111:49-111:65 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_peri | vpiOperand | 114:49-114:65 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_peri | vpiOperand | 117:49-117:65 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_peri | vpiOperand | 120:49-120:65 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff
+work@xbar_peri | vpiOperand | 99:40-99:54 | g=constant dec=32'h00000fff val=HEX:00000fff | o=constant  dec=32'h00000fff

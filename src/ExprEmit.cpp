@@ -4115,6 +4115,114 @@ UHDM::constant* UhdmExporter::enumMemberSubstConst(const Symbol& sym) {
     return c;
 }
 
+// § genLpUseFoldParentScope47 — THE LAW (definition; FOUR call sites, all in
+// this file, each labelled `CALL SITE n of 4`).
+//
+//   A REFERENCE TO A GEN-SCOPE LOCALPARAM IS REPLACED, IN A SELECT BOUND, BY
+//   A USE-SITE COPY OF THAT LOCALPARAM'S FOLD CONSTANT — EXACTLY WHEN THE
+//   LOCALPARAM'S DECLARING GEN SCOPE IS THE IMMEDIATE PARENT OF THE USE
+//   SITE'S EMISSION SCOPE PATH.  ONE HOP UP THE NAME, NO MORE AND NO LESS.
+//
+// The copy carries the localparam's folded digits, size and encoding, the
+// USE's OWN span, the localparam's own `param_assign` as vpiParent (a
+// BORROWED parent — the constant hangs structurally under the select) and a
+// ref_typespec named for the DECLARING gen scope, whose actual is that
+// localparam's own typespec (the pendingGenLpTs drain fills it in, exactly as
+// it does for the hier-path index fold and the gen-local var-init fold).
+//
+// WHY "ONE HOP", MEASURED (tools/probe/r10earl47repro, arms a1/a2/a3/b1, all
+// five instances of each, LHS always golden):
+//   * distance 0 — the localparam and the cont_assign in the SAME gen scope:
+//     golden keeps a `ref_obj`.  (a1 row IPSW, b1 row SAME.)
+//   * distance 1 — the use one gen scope DEEPER, in a nested for-generate
+//     (a2 gen_y) or an if-generate (b1 gen_if, and prim_keccak's own
+//     `gen_others`): golden SUBSTITUTES, in EVERY position measured — an
+//     indexed_part_select's width and base, a part_select's left and right
+//     range, a bit_select's index, an operation operand, a bare cont_assign
+//     Rhs, and inside a PROCESS as well as a cont_assign.
+//   * distance 2 and 3 — a2/a3 `z_2up`, `z_3up`, and a MODULE parameter read
+//     from two scopes down: golden keeps a `ref_obj` again.  It is NOT "any
+//     enclosing scope".
+//   * a GENVAR at distance 1 or 2 is NEVER substituted (a2 `n_gvb`, a3
+//     `z_gv`) — and cannot be, since genvars are not in genLpFoldByPath.
+//   * a MODULE parameter at distance 1 (a1 `r_mpw`) IS substituted by golden;
+//     we already emit a constant with the same digits/size/encoding there by
+//     another path, so this law deliberately does not reach it (§7 R-2).
+// The DECLARATION-INITIALIZER cell falls out of the same one-hop test rather
+// than needing a clause: a gen-local variable's init is emitted with the
+// VARIABLE's full name as its prefix, so its own scope's localparam is one hop
+// up and IS substituted (b1 `r_dini`, golden agrees), while the same init one
+// scope deeper is two hops and is NOT (a3 `p_ini`, golden agrees).
+//
+// The SELECT BOUND restriction is this pass's, not golden's: the four bound
+// positions are the whole Earlgrey_0_1 population of this shape (census 47,
+// 72 cells, all in prim_keccak) and the other positions are ranked residues.
+UHDM::constant* UhdmExporter::genLpUseFoldBound47(const Expression& e,
+                                                  const std::string& usePrefix) {
+    auto& le = stripImplicitConv(e);
+    if (le.kind != ExpressionKind::NamedValue)
+        return nullptr;
+    auto& sym = le.as<NamedValueExpression>().symbol;
+    if (sym.kind != SymbolKind::Parameter)
+        return nullptr;
+    // ONE hop up the emission scope path, and only one.
+    auto dot = usePrefix.rfind('.');
+    if (dot == std::string::npos)
+        return nullptr;
+    std::string declScope = usePrefix.substr(0, dot);
+    auto it = genLpFoldByPath.find(declScope + "." + std::string(sym.name));
+    // The path must resolve to THIS declaration's symbol: a same-named
+    // localparam in some other gen instance is a different object.
+    if (it == genLpFoldByPath.end() || it->second.ps != &sym.as<ParameterSymbol>())
+        return nullptr;
+    // F1 fix (earl47 verifier): ONE NAME HOP IS NOT ONE SCOPE HOP.  The
+    // dropped component must be a GENERATE child of the declaring scope
+    // (or the declared VARIABLE of a declaration initializer) — a
+    // function/task/named-block name in that position must REFUSE:
+    // golden keeps the ref_obj there, and the nb cell was a
+    // pristine-right regression (v47v_prefixkinds.sv is the contract).
+    std::string last47 = usePrefix.substr(dot + 1);
+    if (auto br47 = last47.find('['); br47 != std::string::npos)
+        last47 = last47.substr(0, br47);
+    const Scope* dsc47 = it->second.ps->getParentScope();
+    bool okChild47 = false;
+    if (dsc47) {
+        for (auto& m47 : dsc47->members()) {
+            if (m47.name != last47)
+                continue;
+            if (m47.kind == SymbolKind::GenerateBlock ||
+                m47.kind == SymbolKind::GenerateBlockArray ||
+                m47.kind == SymbolKind::Variable ||
+                m47.kind == SymbolKind::Net) {
+                okChild47 = true;
+                break;
+            }
+        }
+    }
+    if (!okChild47)
+        return nullptr;
+    auto* src = it->second.c;
+    if (!src)
+        return nullptr;
+    auto* c = s.MakeConstant();
+    c->VpiDecompile(src->VpiDecompile());
+    c->VpiSize(src->VpiSize());
+    c->VpiValue(std::string(src->VpiValue()));
+    c->VpiConstType(src->VpiConstType());
+    c->VpiParent(it->second.pa);
+    setLoc(c, le.sourceRange);
+    auto* rt = s.MakeRef_typespec();
+    rt->VpiFullName(declScope);
+    rt->VpiParent(c);
+    c->Typespec(rt);
+    for (auto& gl : pendingGenLpTs)
+        if (gl.ps == it->second.ps) {
+            gl.shareRts.push_back(rt);
+            break;
+        }
+    return c;
+}
+
 // § hierSelPkgParamFold (declaration comment in UhdmExporter.h) — collector.
 void UhdmExporter::collectPkgParamFolds(const Expression& e,
                                         std::vector<PkgFoldSub>& out,
@@ -13430,10 +13538,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // operation parent (Surelog).
                         bool savedSup = suppressConstParent;
                         suppressConstParent = isLiteralExpr(rs.left());
-                        if (auto* l = emitExpr(rs.left(), ps, psFull, netMap))
+                        // § genLpUseFoldParentScope47 — CALL SITE 1 of 4: the
+                        // part_select bounds under a multi-index var_select.
+                        if (auto* lf47 = genLpUseFoldBound47(rs.left(), prefix))
+                            ps->Left_range(lf47);
+                        else if (auto* l = emitExpr(rs.left(), ps, psFull, netMap))
                             ps->Left_range((UHDM::expr*)l);
                         suppressConstParent = isLiteralExpr(rs.right());
-                        if (auto* r = emitExpr(rs.right(), ps, psFull, netMap))
+                        if (auto* rf47 = genLpUseFoldBound47(rs.right(), prefix))
+                            ps->Right_range(rf47);
+                        else if (auto* r = emitExpr(rs.right(), ps, psFull, netMap))
                             ps->Right_range((UHDM::expr*)r);
                         suppressConstParent = savedSup;
                         idxs->push_back(ps);
@@ -13464,10 +13578,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                         bool savedSup = suppressConstParent;
                         suppressConstParent = isLiteralExpr(rs.left());
-                        if (auto* b = emitExpr(rs.left(), ips, baseFull, netMap))
+                        // § genLpUseFoldParentScope47 — CALL SITE 2 of 4: THE
+                        // HEAD's own site (prim_keccak
+                        // `theta_data[x][y][0+:ShiftAmt]` — a var_select with
+                        // two indices and a trailing indexed_part_select).
+                        if (auto* bf47 = genLpUseFoldBound47(rs.left(), prefix))
+                            ips->Base_expr(bf47);
+                        else if (auto* b = emitExpr(rs.left(), ips, baseFull, netMap))
                             ips->Base_expr((UHDM::expr*)b);
                         suppressConstParent = isLiteralExpr(rs.right());
-                        if (auto* w = emitExpr(rs.right(), ips, baseFull, netMap))
+                        if (auto* wf47 = genLpUseFoldBound47(rs.right(), prefix))
+                            ips->Width_expr(wf47);
+                        else if (auto* w = emitExpr(rs.right(), ips, baseFull, netMap))
                             ips->Width_expr((UHDM::expr*)w);
                         suppressConstParent = savedSup;
                         idxs->push_back(ips);
@@ -14385,10 +14507,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
                 suppressConstParent = isLiteralExpr(rs.left());
-                if (auto* b = emitExpr(rs.left(), ips, boundPfx(rs.left()), netMap))
+                // § genLpUseFoldParentScope47 — CALL SITE 3 of 4: the
+                // whole-variable indexed part-select (`d[0 +: LPA]`).
+                if (auto* bf47 = genLpUseFoldBound47(rs.left(), prefix))
+                    ips->Base_expr(bf47);
+                else if (auto* b = emitExpr(rs.left(), ips, boundPfx(rs.left()), netMap))
                     ips->Base_expr((UHDM::expr*)b);
                 suppressConstParent = isLiteralExpr(rs.right());
-                if (auto* w = emitExpr(rs.right(), ips, boundPfx(rs.right()), netMap))
+                if (auto* wf47 = genLpUseFoldBound47(rs.right(), prefix))
+                    ips->Width_expr(wf47);
+                else if (auto* w = emitExpr(rs.right(), ips, boundPfx(rs.right()), netMap))
                     ips->Width_expr((UHDM::expr*)w);
                 inPsBound = savedPsB9;
                 suppressConstParent = savedSup;
@@ -14471,9 +14599,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             inPsBound = true;
             bool savedPsR = inPsRangeBound;
             inPsRangeBound = true;
-            if (auto* l = emitExpr(rs.left(), psel, boundPfx(rs.left()), netMap))
+            // § genLpUseFoldParentScope47 — CALL SITE 4 of 4: the
+            // whole-variable simple part-select (`d[LPA : 0]`).
+            if (auto* lf47 = genLpUseFoldBound47(rs.left(), prefix))
+                psel->Left_range(lf47);
+            else if (auto* l = emitExpr(rs.left(), psel, boundPfx(rs.left()), netMap))
                 psel->Left_range((UHDM::expr*)l);
-            if (auto* r = emitExpr(rs.right(), psel, boundPfx(rs.right()), netMap))
+            if (auto* rf47 = genLpUseFoldBound47(rs.right(), prefix))
+                psel->Right_range(rf47);
+            else if (auto* r = emitExpr(rs.right(), psel, boundPfx(rs.right()), netMap))
                 psel->Right_range((UHDM::expr*)r);
             inPsRangeBound = savedPsR;
             inPsBound = false;

@@ -1,0 +1,39 @@
+VW  SCOPE                          FIELD          SPAN          | GOLDEN                                       | OURS                                         | VERDICT
+2   work@a1_earl47.gen_x[1]        vpiRhs         33:26-33:35   | const  ct- sz- dec=- par=-                   | const  ct- sz- dec=- par=-                   | same
+2   work@a1_earl47.gen_x[1]        vpiRhs         34:26-34:27   | const UINT:8 ct9 sz32 dec=8 par=param_assign | const UINT:8 ct9 sz32 dec=8 par=-            | DIFF <<<
+2   work@a1_earl47.gen_x[1]        vpiRhs         35:26-35:33   | const INT:58 ct7 sz32 dec=58 par=param_assign | const INT:58 ct7 sz32 dec=58 par=param_assign | same
+2   work@a1_earl47.gen_x[1].d      vpiBaseExpr    41:25-41:26   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   work@a1_earl47.gen_x[1].d      vpiWidthExpr   41:30-41:33   | ref_obj(LPA)                                 | ref_obj(LPA)                                 | same
+2   work@a1_earl47.gen_x[1].d      vpiBaseExpr    42:25-42:28   | ref_obj(LPA)                                 | ref_obj(LPA)                                 | same
+2   work@a1_earl47.gen_x[1].d      vpiWidthExpr   42:32-42:33   | const UINT:4 ct9 sz64 dec=4 par=-            | const UINT:4 ct9 sz64 dec=4 par=-            | same
+2   work@a1_earl47.gen_x[1].d      vpiBaseExpr    43:25-43:26   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   work@a1_earl47.gen_x[1].d      vpiWidthExpr   43:30-43:33   | ref_obj(LPL)                                 | ref_obj(LPL)                                 | same
+2   work@a1_earl47.gen_x[1].d      vpiLeftRange   44:25-44:28   | ref_obj(LPA)                                 | ref_obj(LPA)                                 | same
+2   work@a1_earl47.gen_x[1].d      vpiRightRange  44:31-44:32   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   work@a1_earl47.gen_x[1].d      vpiLeftRange   45:25-45:27   | const UINT:31 ct9 sz64 dec=31 par=-          | const UINT:31 ct9 sz64 dec=31 par=-          | same
+2   work@a1_earl47.gen_x[1].d      vpiRightRange  45:30-45:33   | ref_obj(LPA)                                 | ref_obj(LPA)                                 | same
+2   work@a1_earl47.gen_x[1].d      vpiIndex       46:25-46:28   | ref_obj(LPA)                                 | ref_obj(LPA)                                 | same
+2   work@a1_earl47.gen_x[1].d      vpiBaseExpr    49:25-49:26   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   work@a1_earl47.gen_x[1].d      vpiOperand     49:30-49:33   | ref_obj(LPA)                                 | ref_obj(LPA)                                 | same
+2   work@a1_earl47.gen_x[1].d      vpiOperand     49:36-49:37   | const UINT:1 ct9 sz64 dec=1 par=operation    | const UINT:1 ct9 sz64 dec=1 par=operation    | same
+2   work@a1_earl47.gen_x[1].d      vpiOperand     50:26-50:29   | ref_obj(LPA)                                 | ref_obj(LPA)                                 | same
+2   work@a1_earl47.gen_x[1].d      vpiOperand     50:30-50:31   | const UINT:1 ct9 sz64 dec=1 par=operation    | const UINT:1 ct9 sz64 dec=1 par=operation    | same
+2   work@a1_earl47.gen_x[1].d      vpiRightRange  50:34-50:35   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   work@a1_earl47.gen_x[1]        vpiOperand     50:38-50:42   | const BIN:1 ct3 sz1 dec=1'b1 par=-           | const BIN:1 ct3 sz1 dec=1'b1 par=-           | same
+2   work@a1_earl47.gen_x[1].d      vpiBaseExpr    53:25-53:26   | ref_obj(x)                                   | ref_obj(x)                                   | same
+2   work@a1_earl47.gen_x[1].d      vpiWidthExpr   53:30-53:31   | const UINT:4 ct9 sz64 dec=4 par=-            | const UINT:4 ct9 sz64 dec=4 par=-            | same
+2   work@a1_earl47.gen_x[1].d      vpiBaseExpr    54:25-54:26   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   work@a1_earl47.gen_x[1].d      vpiWidthExpr   54:30-54:32   | const UINT:8 ct9 sz32 dec=8 par=param_assign | const UINT:8 ct9 sz32 dec=8 par=indexed_part_select | DIFF <<<
+2   work@a1_earl47.gen_x[1]        vpiOperand     55:23-55:25   | ABSENT                                       | const UINT:8 ct9 sz32 dec=8 par=param_assign | DIFF <<<
+2   work@a1_earl47.gen_x[1]        vpiOperand     55:28-55:29   | ABSENT                                       | const UINT:1 ct9 sz64 dec=1 par=operation    | DIFF <<<
+2   work@a1_earl47.gen_x[1].bx     vpiIndex       58:26-58:27   | ref_obj(x)                                   | ref_obj(x)                                   | same
+2   work@a1_earl47.gen_x[1].bx     vpiIndex       58:29-58:30   | const UINT:1 ct9 sz64 dec=1 par=var_select   | const UINT:1 ct9 sz64 dec=1 par=var_select   | same
+2   work@a1_earl47.gen_x[1].bx.bx  vpiBaseExpr    58:32-58:33   | const UINT:0 ct9 sz64 dec=0 par=-            | const UINT:0 ct9 sz64 dec=0 par=-            | same
+2   work@a1_earl47.gen_x[1].bx.bx  vpiWidthExpr   58:37-58:40   | ref_obj(LPS)                                 | ref_obj(LPS)                                 | same
+2   work@a1_earl47.gen_x[1].bx     vpiIndex       59:26-59:27   | ref_obj(x)                                   | ref_obj(x)                                   | same
+2   work@a1_earl47.gen_x[1].bx     vpiIndex       59:29-59:30   | const UINT:1 ct9 sz64 dec=1 par=var_select   | const UINT:1 ct9 sz64 dec=1 par=var_select   | same
+2   work@a1_earl47.gen_x[1].bx.bx  vpiBaseExpr    59:32-59:35   | ref_obj(LPS)                                 | ref_obj(LPS)                                 | same
+2   work@a1_earl47.gen_x[1].bx.bx  vpiWidthExpr   59:39-59:40   | const UINT:4 ct9 sz64 dec=4 par=-            | const UINT:4 ct9 sz64 dec=4 par=-            | same
+2   work@a1_earl47.gen_x[1]        vpiRhs         ?             | const UINT:9 ct9 sz64 dec=9 par=cont_assign  | const UINT:7 ct9 sz64 dec=7 par=-            | DIFF <<<
+
+rows=36  differing=5   (scope filter 'gen_x[1]')

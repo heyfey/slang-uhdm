@@ -1,0 +1,41 @@
+GOLDEN substituted-fold constants: 355 printed cells, 260 keys
+
+-- GOLDEN substituted, by USE POSITION (field) --
+  operation . vpiOperand       82
+  indexed_part_select . vpiWidthExpr     81
+  indexed_part_select . vpiBaseExpr     41
+  part_select . vpiRightRange     36
+  sys_func_call . vpiArgument      7
+  bit_select . vpiIndex         6
+  part_select . vpiLeftRange      5
+  assignment . vpiRhs           1
+  port . vpiHighConn            1
+
+OURS substituted-fold constants: 173 keys
+
+-- JOIN: golden substituted vs OURS (by field) --
+  ours-constant          operation . vpiOperand       50
+  ours-ref_obj           indexed_part_select . vpiWidthExpr     48
+  ours-ref_obj           operation . vpiOperand       32
+  ours-constant          indexed_part_select . vpiWidthExpr     25
+  ours-ref_obj           indexed_part_select . vpiBaseExpr     24
+  ours-constant          part_select . vpiRightRange     21
+  ours-constant          indexed_part_select . vpiBaseExpr     14
+  ours-substituted       part_select . vpiRightRange     13
+  ours-constant          bit_select . vpiIndex         6
+  ours-constant          sys_func_call . vpiArgument      5
+  ours-substituted       part_select . vpiLeftRange      5
+  ours-substituted       indexed_part_select . vpiWidthExpr      5
+  ABSENT                 indexed_part_select . vpiWidthExpr      3
+  ours-substituted       sys_func_call . vpiArgument      2
+  ABSENT                 part_select . vpiRightRange      2
+  ours-substituted       indexed_part_select . vpiBaseExpr      2
+  ours-constant          assignment . vpiRhs           1
+  ours-substituted       port . vpiHighConn            1
+  ABSENT                 indexed_part_select . vpiBaseExpr      1
+
+-- OVER-FIRE: ours substituted at a key golden does not --
+  operation . vpiOperand      141
+  bit_select . vpiIndex         4
+
+differing/absent cells -> /tmp/r10earl47/cx_pris_cells.txt (232 rows)

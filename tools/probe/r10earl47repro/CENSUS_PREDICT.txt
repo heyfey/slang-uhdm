@@ -1,0 +1,61 @@
+r10earl47 — THE PREDICTION, written from the PRISTINE ARTIFACT
+(/tmp/r10earl47/census47_pristine*.txt, produced by census47.py against the
+pristine binary 2ecf28a8494750468a6edcd435b8f874 and the immutable golden
+cache) BEFORE the patched binary existed.  Committed verbatim.
+
+INSTRUMENT.  census47.py keys every object on (nearest enclosing named scope,
+field label, span) and calls a `constant` SUBSTITUTED when its printed
+vpiParent is a `param_assign` while it hangs STRUCTURALLY somewhere else (a
+declaration's own Rhs constant has container == param_assign and is therefore
+never counted).  260 distinct golden substitution keys in Earlgrey_0_1.
+
+WHAT MOVES — 72 cells, and only these 72:
+
+  population                                              cells
+  ------------------------------------------------------  -----
+  prim_keccak.sv  indexed_part_select.vpiWidthExpr           48
+      (65:61-65:69 `theta_data[x][y][0+:ShiftAmt]`  = 24,
+       66:68-66:74 `theta_data[x][y][ShiftAmt+:Offset]` = 24)
+  prim_keccak.sv  indexed_part_select.vpiBaseExpr            24
+      (66:58-66:66 `theta_data[x][y][ShiftAmt+:...]`)
+  ------------------------------------------------------  -----
+  TOTAL PREDICTED                                            72
+
+They are spread over 24 distinct gen scopes —
+`work@prim_keccak.gen_rho_x[i].gen_rho_y[j].gen_others`, every (i,j) with
+Offset != 0 — 3 cells each.  ONE view only: prim_keccak is never instantiated
+in Earlgrey_0_1, so it has a single elaborated view.
+
+WHAT MUST NOT MOVE — named so that a move is a FAILED PREDICTION:
+
+  * the 32 `operation.vpiOperand` cells at pinmux.sv:176:43-176:64
+    (`sleep_mux = $bits(...)'({MioPeriphHasSleepMode, 1'b1, 1'b1, 1'b1})`).
+    Golden substitutes there too, but the symbol is a MODULE parameter of
+    `pinmux`, not a gen-scope localparam, so it is not in genLpFoldByPath and
+    this law cannot reach it.  They stay `ref_obj`.  RESIDUE.
+  * the 122 keys where golden substitutes and we ALREADY emit a constant with
+    the same digits (50 operand, 25 width, 21 right-range, 14 base, 6 index,
+    5 argument, 1 assignment-rhs).  Those constants differ from golden only in
+    vpiParent, which BaseClass::Compare does not read; this law does not touch
+    the paths that mint them.
+  * the 145 keys where WE substitute and golden does not (141 operand,
+    4 bit_select index).  Pre-existing; count must be 145 before and after.
+  * the 6 keys ABSENT on our side (3 width, 2 right-range, 1 base) —
+    structural, not a leaf question.
+  * every `ours-substituted` row that already agrees (12040 Rhs + 13 + 5 + 5
+    + 2 + 2 + 1).
+
+CMP FIELDS.  uhdm-cmp reads, for a constant: VpiType, VpiName, VpiDefName
+(BaseClass::Compare), VpiDecompile, VpiSize, Typespec (expr::Compare) and
+VpiConstType (constant::Compare).  It does NOT read vpiParent.  So the 72
+movers are cmp-visible ONLY through the type change ref_obj -> constant, and
+the substituted constant MUST carry a ref_typespec whose actual matches
+golden's `int_typespec` or the cmp head simply moves to the typespec.
+
+THE HEAD.  prim_keccak.sv:65:61 in gen_rho_x[0].gen_rho_y[1].gen_others is the
+FIRST of the 72 in compare order; clearing it advances the row.
+
+BYTE VERIFIER.  Predicted database movers, both corpora, both modes:
+Earlgrey_0_1 (default) only.  No u2r or surelog test in either corpus has a
+gen-scope localparam read from a CHILD gen scope in a select bound — but that
+is a prediction, not a measurement, and the verifier is what decides it.

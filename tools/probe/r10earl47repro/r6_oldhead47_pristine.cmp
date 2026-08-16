@@ -1,0 +1,46 @@
+LHS:
+decompile:
+constant: , id:221286, line:65:61, endln:65:69
+|vpiParent:
+\_param_assign: , id:221260, line:61:22, endln:61:42
+|vpiDecompile:28
+|vpiSize:32
+|INT:28
+|vpiTypespec:
+\_ref_typespec: (work@prim_keccak.gen_rho_x[0].gen_rho_y[1]), id:221287
+  |vpiParent:
+  \_constant: , id:221286, line:65:61, endln:65:69
+  |vpiFullName:work@prim_keccak.gen_rho_x[0].gen_rho_y[1]
+  |vpiActual:
+  \_int_typespec: , id:221288, line:61:18, endln:61:21
+|vpiConstType:7
+
+decompile:
+constant: , id:221286, line:65:61, endln:65:69
+|vpiParent:
+\_param_assign: , id:221260, line:61:22, endln:61:42
+|vpiDecompile:28
+|vpiSize:32
+|INT:28
+|vpiTypespec:
+\_ref_typespec: (work@prim_keccak.gen_rho_x[0].gen_rho_y[1]), id:221287
+  |vpiParent:
+  \_constant: , id:221286, line:65:61, endln:65:69
+  |vpiFullName:work@prim_keccak.gen_rho_x[0].gen_rho_y[1]
+  |vpiActual:
+  \_int_typespec: , id:221288, line:61:18, endln:61:21
+|vpiConstType:7
+RHS:
+decompile:
+ref_obj: (work@prim_keccak.gen_rho_x[0].gen_rho_y[1].gen_others.theta_data.ShiftAmt), id:172237, line:65:61, endln:65:69
+|vpiParent:
+\_indexed_part_select: theta_data (work@prim_keccak.gen_rho_x[0].gen_rho_y[1].gen_others.theta_data.theta_data), id:172235, line:65:58, endln:65:69
+|vpiName:ShiftAmt
+|vpiFullName:work@prim_keccak.gen_rho_x[0].gen_rho_y[1].gen_others.theta_data.ShiftAmt
+
+decompile:
+ref_obj: (work@prim_keccak.gen_rho_x[0].gen_rho_y[1].gen_others.theta_data.ShiftAmt), id:172237, line:65:61, endln:65:69
+|vpiParent:
+\_indexed_part_select: theta_data (work@prim_keccak.gen_rho_x[0].gen_rho_y[1].gen_others.theta_data.theta_data), id:172235, line:65:58, endln:65:69
+|vpiName:ShiftAmt
+|vpiFullName:work@prim_keccak.gen_rho_x[0].gen_rho_y[1].gen_others.theta_data.ShiftAmt
