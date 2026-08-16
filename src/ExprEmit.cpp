@@ -7,6 +7,7 @@
 #include "UhdmExporter.h"
 
 #include <algorithm>
+#include <cctype>
 #include <cerrno>
 #include <cstdlib>
 
@@ -306,6 +307,86 @@ bool UhdmExporter::blkLocalSameCtrlDepth57(const slang::ast::Symbol& sym) const 
 // different object — and has ZERO corpus population, so it is left to
 // § deepRecvCall11 and ranked as a residue.  The `NamedValue` test below
 // excludes it structurally rather than by a comment.
+// § classMethodParensLessStepIsRefObj77 — the WRITTEN-PARENS probe.  The
+// header carries the law and the two refuted alternatives; this is the walk.
+bool UhdmExporter::methodParensWritten77(SourceRange nameRng,
+                                         std::string_view nm) {
+    if (nm.empty() || nameRng.start() == SourceLocation::NoLocation)
+        return true;
+    // ANCHOR: the span handed in must really spell the method name.  Every
+    // caller derives it as `receiver.end() + 1`, which is exact only for the
+    // TIGHT spelling; anything else (spaces around the dot, a macro-remapped
+    // surface) lands off the token and is refused here rather than measured
+    // wrongly downstream.
+    if (rawText(nameRng) != nm)
+        return true;
+    auto at = nameRng.end();
+    std::string tail;
+    // The window must be wide enough to step OVER a comment, not just past
+    // spaces, so it starts far wider than the old 64.  `rawText` returns ""
+    // for a range that runs off the end of the buffer, so halve until it
+    // reads.
+    for (size_t w = 4096;; w /= 2) {
+        tail = rawText(SourceRange(at, at + w));
+        if (!tail.empty() || w <= 1)
+            break;
+    }
+    // § parensProbeSkipsTriviaAndWith77 — VERIFIER-FIXED, two measured
+    // over-fires.  The first cut skipped only " \t\r\n", which made the probe
+    // answer PARENS-LESS on two forms that are written calls:
+    //
+    //   * `o.meth /* c */ ()` and `o.meth // c \n ()` — a COMMENT is not
+    //     whitespace, and its first character is `/`, never `(`.  Arm
+    //     `v77x2_comment.sv` measures BOTH spellings: golden keeps
+    //     `method_func_call` for each, our pristine agreed, and the first cut
+    //     broke both (1 wrong cell -> 2).  The original README named only the
+    //     block-comment spelling and called it unmeasured.
+    //   * `o.randomize with { … }` — IEEE 1800 randomize_call makes the
+    //     argument list OPTIONAL in front of a constraint block, so this is
+    //     PARENS-LESS and still emphatically a CALL.  Golden emits a
+    //     `method_func_call` carrying `vpiWith` -> `constraint`; our pristine
+    //     had the class RIGHT and the first cut broke it to `ref_obj`.  Site
+    //     1's `!withExpr9` does not cover it: `withExpr9` is only ever set
+    //     from `getIteratorInfo()`, the ARRAY-LOCATOR `with`, never from a
+    //     randomize constraint block.  Arm `v77x1_randwith.sv`.
+    //
+    // Both directions here are CONSERVATIVE: every added case makes the probe
+    // read PARENS-FUL, which strictly SHRINKS the set of firing sites, so no
+    // cell that converged under the first cut can regress.  Exhausting the
+    // window without reaching a real token also reads PARENS-FUL.
+    auto identChar77 = [](unsigned char c) {
+        return std::isalnum(c) || c == '_' || c == '$';
+    };
+    for (size_t i = 0; i < tail.size();) {
+        char c = tail[i];
+        if (c == ' ' || c == '\t' || c == '\r' || c == '\n') {
+            i++;
+            continue;
+        }
+        if (c == '/' && i + 1 < tail.size() && tail[i + 1] == '/') {
+            auto nl = tail.find('\n', i + 2);
+            if (nl == std::string::npos)
+                return true;  // comment runs past the window — refuse
+            i = nl + 1;
+            continue;
+        }
+        if (c == '/' && i + 1 < tail.size() && tail[i + 1] == '*') {
+            auto e = tail.find("*/", i + 2);
+            if (e == std::string::npos)
+                return true;  // comment runs past the window — refuse
+            i = e + 2;
+            continue;
+        }
+        if (c == '(')
+            return true;
+        if (tail.compare(i, 4, "with") == 0 &&
+            (i + 4 >= tail.size() || !identChar77(tail[i + 4])))
+            return true;
+        return false;  // a real token that is neither `(` nor `with`
+    }
+    return true;  // window exhausted before any token — refuse
+}
+
 bool UhdmExporter::retNameRecvCollapse69(const Expression& recv,
                                          bool stmtCtx) const {
     if (!stmtCtx || !funcRetSym)
@@ -10500,11 +10581,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             suppressConstParent = ssx11;
                             elems11->push_back(bs11);
                         }
+                        auto mNm11 = nameSpan(recvE11.sourceRange.end() + 1,
+                                              sub.name);
+                        // § classMethodParensLessStepIsRefObj77 — SITE 2 of 3,
+                        // the DEEP-RECEIVER class-method call.  THIS IS THE
+                        // CORPUS HEAD'S SITE: `item.process_id.status`
+                        // @uvm_sequencer_base.svh 664:71 and
+                        // `arb_sequence_q[i].process_id.status` @755/756.
+                        // Written WITHOUT an argument list, the trailing step
+                        // is a scope-joined `ref_obj` in golden, not a call.
+                        // The path is already spanned right (`callRng11`) and
+                        // the name token already located right, so this swaps
+                        // the CLASS and adds the ordinary § prefix join and
+                        // nothing else.  A `this`-rooted receiver never
+                        // reaches here (`thisRoot11`, handled above).
+                        if (writtenArgs16(call).empty() &&
+                            !methodParensWritten77(mNm11, sub.name)) {
+                            auto* rq11 = s.MakeRef_obj();
+                            rq11->VpiName(sub.name);
+                            rq11->VpiFullName(
+                                joinRef(prefix, std::string(sub.name)));
+                            rq11->VpiParent(hp11);
+                            setLoc(rq11, mNm11);
+                            elems11->push_back(rq11);
+                            hp11->Path_elems(elems11);
+                            return hp11;
+                        }
                         auto* mfc11 = s.MakeMethod_func_call();
                         mfc11->VpiName(sub.name);
                         mfc11->VpiParent(hp11);
-                        setLoc(mfc11, nameSpan(recvE11.sourceRange.end() + 1,
-                                               sub.name));
+                        setLoc(mfc11, mNm11);
                         auto* margs11 = s.MakeAnyVec();
                         {
                             // NOTE § classInBodyRecvCallArgNoBind52 — SITE 4,
@@ -10588,12 +10694,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         r0->VpiParent(hp0);
                         setLoc(r0, call.thisClass()->sourceRange);
                         elems0->push_back(r0);
+                        auto mNm0 = nameSpan(
+                            call.thisClass()->sourceRange.end() + 1, sub.name);
+                        // § classMethodParensLessStepIsRefObj77 — SITE 3 of 3,
+                        // the ONE-NAME-receiver class-method call in
+                        // EXPRESSION position (`p.status`, `o.meth`).  Same
+                        // swap, same reasons; arms c1/c2/c3 measure it and
+                        // arm c3's `o.meth()` / `cntxt.get_depth()` shapes are
+                        // the parens-ful controls that must not move.
+                        if (writtenArgs16(call).empty() &&
+                            !methodParensWritten77(mNm0, sub.name)) {
+                            auto* rq0 = s.MakeRef_obj();
+                            rq0->VpiName(sub.name);
+                            rq0->VpiFullName(
+                                joinRef(prefix, std::string(sub.name)));
+                            rq0->VpiParent(hp0);
+                            setLoc(rq0, mNm0);
+                            elems0->push_back(rq0);
+                            hp0->Path_elems(elems0);
+                            return hp0;
+                        }
                         auto* mfc0 = s.MakeMethod_func_call();
                         mfc0->VpiName(sub.name);
                         mfc0->VpiParent(hp0);
-                        setLoc(mfc0, nameSpan(
-                                         call.thisClass()->sourceRange.end() + 1,
-                                         sub.name));
+                        setLoc(mfc0, mNm0);
                         auto* margs0 = s.MakeAnyVec();
                         // NOTE § classInBodyRecvCallArgNoBind52 — SITE 1 of 3,
                         // the one-name-receiver CLASS-METHOD call in
@@ -12316,10 +12440,83 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // gate, and it is deliberately the TIGHT direction: a
                         // receiver whose own text contains a `(` reads
                         // parens-ful and keeps the pre-existing behaviour.
+                        //
+                        // § classMethodParensLessStepIsRefObj77 — THE SECOND
+                        // SPELLING OF THE SAME ANOMALY.  slang's collapse onto
+                        // the receiver happens only for the ARRAY/STRING/ENUM
+                        // built-ins, which slang models as SYSTEM calls.  For a
+                        // real CLASS method — `process::status` on a `process`
+                        // handle, or a user-declared class method — slang binds
+                        // an ordinary CallExpression whose sourceRange covers
+                        // the WHOLE dotted text, `item.process_id.status`, so
+                        // the collapse test above can never fire and every one
+                        // of those steps stayed a `method_func_call`.  Golden
+                        // makes no such distinction: parens-less is parens-less.
+                        // The second gate is the same TEXT test at the other
+                        // spelling — the written text is EXACTLY
+                        // `<receiver>.<method>`, i.e. no `(` was written.  It
+                        // is text, not `expr.syntax`, for the reason
+                        // § parensLessSyntaxKindRefuted records: a syntax-kind
+                        // test reads false-positive inside a CAST and cost that
+                        // pass four u2r rows.
+                        //
+                        // `this` IS FENCED OUT, and the fence is MEASURED, not
+                        // assumed.  Golden does want a `ref_obj` for
+                        // `this.randomize` too (arm c3 cells R1/R5 — which
+                        // REFUTES r10svs2's F3, see the README), but every
+                        // element of a `this`-ROOTED path is NAME-ONLY in
+                        // golden, not scope-joined, and our own `this` element
+                        // still carries the wrong span there.  Firing here
+                        // would trade one wrong field for another on a cell
+                        // that stays wrong either way, so the `this` regime is
+                        // left whole for its own pass (README residue R1).
+                        //
+                        // THE GATE IS THE `(` ITSELF, READ OUT OF THE SOURCE
+                        // BUFFER — not `expr.sourceRange`, and not
+                        // `expr.syntax`.  BOTH of the obvious gates were
+                        // MEASURED AND BOTH ARE WRONG:
+                        //   * `expr.syntax->kind != InvocationExpression` reads
+                        //     false-positive inside a CAST
+                        //     (§ parensLessSyntaxKindRefuted, four u2r rows).
+                        //   * `rawText(expr.sourceRange) == recvText + "." +
+                        //     name` reads false-positive whenever slang binds
+                        //     the CallExpression from the MEMBER-ACCESS syntax
+                        //     instead of the invocation.  SimpleUVM has 23 such
+                        //     cells: `(cntxt.get_depth())` @uvm_config_db.svh
+                        //     203:63 is written WITH EMPTY PARENS and slang's
+                        //     range is 203:63-203:78, exactly `cntxt.get_depth`;
+                        //     `comp.uvm_report_fatal("GET_CFG_TYPE_FAIL", …)`
+                        //     @uvm_utils.svh 720:9 carries FOUR arguments and
+                        //     its range is 720:9-720:30, exactly
+                        //     `comp.uvm_report_fatal`.  Golden emits a
+                        //     `method_func_call` for every one of them and we
+                        //     already agree; a text-equality gate would have
+                        //     broken 23 correct cells per UVM database to fix 3.
+                        // So the probe reads the buffer FORWARD from the end of
+                        // the method-name token and asks whether the next
+                        // non-whitespace character is `(`.  Two guards make it
+                        // refuse rather than guess:
+                        //   * `anchorOk77` — the window `[mStart9, +name)` must
+                        //     spell the method name.  A spaced or macro-remapped
+                        //     spelling (`q . size`) fails it and keeps the
+                        //     pre-existing shape (r10svs2's F2 residue), and
+                        //     nothing downstream is asked to trust a span that
+                        //     did not land on the token.
+                        //   * `call.arguments().size() == 1` — receiver only.
+                        //     A written argument list is parentheses by
+                        //     definition, and this is the half that does NOT
+                        //     depend on any text at all.
+                        // Everything ambiguous reads PARENS-FUL: an empty read,
+                        // a buffer end, an unanchored token.
+                        auto mStart9 = recv->sourceRange.end() + 1;
                         bool parensLess9 =
                             !withExpr9 &&
-                            rawText(expr.sourceRange) == recvText;
-                        auto mStart9 = recv->sourceRange.end() + 1;
+                            (rawText(expr.sourceRange) == recvText ||
+                             (dots[0] != "this" &&
+                              call.arguments().size() == 1 &&
+                              !methodParensWritten77(
+                                  SourceRange(mStart9, mStart9 + name.size()),
+                                  name)));
                         auto* hp = s.MakeHier_path();
                         std::string dotted =
                             withExpr9 ? recvText : recvText + "." + name;

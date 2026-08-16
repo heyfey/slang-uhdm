@@ -1743,6 +1743,33 @@ private:
     UHDM::expr* emitAssignDelay(const slang::syntax::TimingControlSyntax* dsyn,
                                 UHDM::BaseClass* parent);
     std::string rawText(slang::SourceRange range);
+    /// § classMethodParensLessStepIsRefObj77 — did the author WRITE an argument
+    /// list after the method-name token spanning `nameRng`?
+    ///
+    /// The whole pass turns on this question and BOTH of the obvious ways to
+    /// ask it are MEASURED WRONG (see the law at the SITES in ExprEmit.cpp):
+    /// `expr.syntax->kind` reads false-positive inside a CAST, and
+    /// `rawText(expr.sourceRange)` reads false-positive whenever slang binds a
+    /// CallExpression from the MEMBER-ACCESS syntax rather than the invocation
+    /// — `(cntxt.get_depth())` is written WITH empty parens and slang's range
+    /// is exactly `cntxt.get_depth`.  So this reads the `(` out of the SOURCE
+    /// BUFFER, scanning forward past whitespace from the end of the name.
+    ///
+    /// It REFUSES rather than guesses: the window must actually spell `nm`
+    /// (a spaced or macro-remapped `q . size` fails and reads PARENS-FUL), and
+    /// an empty or exhausted buffer reads PARENS-FUL.
+    ///
+    /// § parensProbeSkipsTriviaAndWith77 — the scan steps over COMMENTS (both
+    /// `/*…*/` and `//…`) as well as whitespace, and reads a following `with`
+    /// keyword as PARENS-FUL.  Both were measured over-fires of the first cut:
+    /// `o.meth /*c*/ ()` / `o.meth //c \n ()` are written calls whose first
+    /// non-space character is `/`, and `o.randomize with { … }` is a written
+    /// call with NO argument list at all (IEEE 1800 makes the parens optional
+    /// in front of a constraint block; golden emits a `method_func_call`
+    /// carrying `vpiWith`).  Arms `v77x2_comment.sv` / `v77x1_randwith.sv`.
+    /// Every one of these cases makes the probe read PARENS-FUL, which
+    /// strictly shrinks the firing set — the safe direction.
+    bool methodParensWritten77(slang::SourceRange nameRng, std::string_view nm);
     /// § concatIdxDecompile29 — a hier_path select whose index is a
     /// CONCATENATION renders that index by DECOMPILING the expression TREE, not
     /// by copying the source text the way every other index does.
