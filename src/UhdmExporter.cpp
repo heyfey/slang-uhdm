@@ -1818,16 +1818,68 @@ bool UhdmExporter::arraySignedWritten8(const Type& declaredWhole,
     return writtenElem.isSigned();
 }
 
-UHDM::variables* UhdmExporter::classElemVar(const Type& elemType) {
+UHDM::variables* UhdmExporter::classElemVar(const Type& elemType,
+                                            const Symbol* declKey9) {
     auto& ec = elemType.getCanonicalType();
     UHDM::variables* v = nullptr;
     UHDM::typespec* ts = nullptr;
+    // NOTE § classPropElemTsFollowsScalarTd9, THE ON-DEMAND HALF, and it is a
+    // TRANSCRIPTION of makeTypespec's own arm (grep "has not been compiled yet
+    // when this reference is emitted"), not a new mechanism.  `emitClassDefn`
+    // walks VARIABLES BEFORE it calls `emitClassTypedefs`, so at this point the
+    // owning class's OWN nested typedefs are not in `typedefTs` yet and
+    // `sharedAliasTs` below would miss every one of them — which is why a
+    // class-NESTED typedef element (`typedef uvm_port_base #(IF) this_type;
+    // this_type m_imp_list [string];`) resolved to the underlying class while
+    // the PACKAGE-level spelling one line up did not.  The scalar path already
+    // forces this build for exactly the same reason; the array element is
+    // catching up with its own scalar here too.
+    // GATE: only a PACKAGE-nested or class-nested owning class, because a
+    // $unit-level class displays as `work@C` and this path cannot reconstruct
+    // that name — the identical gate makeTypespec carries.  `buildClassTypedefTs`
+    // is idempotent (`buildingClassTypedefs` re-entrancy set + a per-member
+    // `typedefTs.count` early exit), so a class whose typedefs are already
+    // built is a no-op.
+    if (elemType.kind == SymbolKind::TypeAlias && !typedefTs.count(&elemType)) {
+        if (auto* osc9 = elemType.getParentScope();
+            osc9 && osc9->asSymbol().kind == SymbolKind::ClassType) {
+            auto& ocl9 = osc9->asSymbol().as<ClassType>();
+            if (auto* opsc9 = ocl9.getParentScope();
+                opsc9 && (opsc9->asSymbol().kind == SymbolKind::Package ||
+                          opsc9->asSymbol().kind == SymbolKind::ClassType))
+                buildClassTypedefTs(ocl9, std::string(ocl9.name));
+        }
+    }
     if (ec.kind == SymbolKind::ClassType) {
         v = s.MakeClass_var();
-        auto* cts = s.MakeClass_typespec();
-        cts->VpiName(ec.name);
-        pendingClassTsLink.push_back({cts, &ec});
-        ts = cts;
+        // NOTE § classPropElemTsFollowsScalarTd9, THE CLASS-HANDLE HALF.  The
+        // three arms below this one already ask `sharedAliasTs` — the element
+        // of a struct / union / enum TYPEDEF binds the TYPEDEF'S OWN LISTING
+        // OBJECT — and this arm did not, so a CLASS-handle typedef element
+        // resolved through the alias to the underlying class and minted a
+        // FRESH, UNLOCATED object named for it:
+        //   `uvm_id_actions_array severity_id_actions [uvm_severity];`
+        //     golden class_typespec (uvm_pkg::uvm_id_actions_array)
+        //            @29:9-29:17  inst=ALL:adpcm_pkg
+        //     ours   class_typespec (uvm_pool) @0:0-0:0  inst=<null>
+        // The SCALAR spelling of the same declaration was already right —
+        // § classTdTopOnlyShare50 gives `uvm_id_verbosities_array
+        // id_verbosities;` the listing object — so this is the array element
+        // catching up with its own scalar, not a new policy.
+        // GATE: `sharedAliasTs` returns a registry entry, so `isSharedAliasTs`
+        // is TRUE for it and § sharedAliasNoStamp41's guards apply; and the
+        // KIND is checked, so a typedef whose listing object is not a
+        // `class_typespec` (a `typedef` chain that resolved elsewhere) keeps
+        // the fresh mint.
+        UHDM::typespec* sh9 = sharedAliasTs(elemType);
+        if (sh9 && sh9->UhdmType() == UHDM::uhdmclass_typespec)
+            ts = sh9;
+        else {
+            auto* cts = s.MakeClass_typespec();
+            cts->VpiName(ec.name);
+            pendingClassTsLink.push_back({cts, &ec});
+            ts = cts;
+        }
     }
     else if (ec.isStruct()) {
         v = s.MakeStruct_var();
@@ -1859,8 +1911,36 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType) {
     // ref_var.  Passing the CANONICAL type keeps the gate off: it is the
     // predefined-integer arm this branch wants and nothing else changes,
     // because every arm reachable from here reads only the canonical type.
-    else if (ec.kind == SymbolKind::PredefinedIntegerType)
+    else if (ec.kind == SymbolKind::PredefinedIntegerType) {
         v = makeReturnVar(s, ec);
+        // NOTE § classPropElemTsFollowsScalarTd9, THE INTEGER-ATOM HALF, and
+        // the object it binds is NOT the listing object the aggregates take:
+        // § tdVecNamedClone42's KIND GATE says every ATOM gets a
+        // PER-DECLARATION NAMED CLONE that ALIASES the listing object, and
+        // golden does exactly that here too —
+        //   `uvm_action severity_actions [uvm_severity];`
+        //     golden int_typespec (uvm_action) @272:9-272:12 inst=TOP:uvm_pkg
+        //     ours   int_typespec ()           @67:3-67:13   inst=<null>
+        // where @272:9 is the `int` token of `typedef int uvm_action;`.  Left
+        // to itself this arm returns a var with a NULL actual and the caller's
+        // `predefIntTypespec` mint (grep § arrayElemTsSignedParented9) makes a
+        // bare, UNNAMED object at the property's own span.  The clone carries
+        // the alias's name, the typedef's span, the listing object's
+        // vpiInstance and vpiTypedefAlias, and — like every other element
+        // typespec on this path — `vpiParent` -> its own vpiReg element var.
+        // GATE: `declKey9` (the property symbol) must be present, because
+        // `tdVecNamedClone42` keys its cache on the declaration; a caller with
+        // no key keeps the old mint.  The clone is per (declaration, position)
+        // so posKey 0 is the ELEMENT slot and never collides with
+        // `assocIndexTs`'s posKey 1 on the same property.
+        if (declKey9)
+            if (auto* sh9 = sharedAliasTs(elemType))
+                if (auto* cl9 = tdVecNamedClone42(elemType, (const void*)declKey9,
+                                                  sh9, /*posKey=*/0)) {
+                    cl9->VpiParent(v);
+                    ts = cl9;
+                }
+    }
     else if (ec.kind == SymbolKind::ScalarType ||
              ec.kind == SymbolKind::PackedArrayType)
         v = ec.isFourState() ? (UHDM::variables*)s.MakeLogic_var()
@@ -1897,7 +1977,7 @@ UHDM::variables* UhdmExporter::classAssocElemVar(const Symbol& cp,
             return s.MakeLogic_var();
         }
     }
-    return classElemVar(elemType);
+    return classElemVar(elemType, &cp);
 }
 
 // § fixedClassPropIsArrayVar6, THE ELEMENT FACTORY.  A FIXED-size unpacked

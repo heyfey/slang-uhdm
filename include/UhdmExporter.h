@@ -3644,7 +3644,12 @@ private:
     // The vpiReg element variable of a class-scope dynamic-array / queue /
     // assoc property, typed by the shared element typespec. Null when the
     // element type has no variable form here.
-    UHDM::variables* classElemVar(const slang::ast::Type& elemType);
+    // § classPropElemTsFollowsScalarTd9 — `declKey9` is the PROPERTY symbol and
+    // is the cache key `tdVecNamedClone42` needs to mint the per-declaration
+    // named clone an INTEGER-ATOM typedef element binds.  Null keeps the
+    // caller's own `predefIntTypespec` mint.
+    UHDM::variables* classElemVar(const slang::ast::Type& elemType,
+                                  const slang::ast::Symbol* declKey9 = nullptr);
     // The vpiReg element of an ASSOCIATIVE class property, which is
     // classElemVar except when the element type is a typedef Surelog cannot
     // see from the declaring class (a BASE class's nested typedef, reached

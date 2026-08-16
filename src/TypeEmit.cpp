@@ -958,6 +958,32 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 sawUnpacked9 = true;
             }
             if (sawUnpacked9 && el9->kind == SymbolKind::TypeAlias) {
+                // NOTE § arrayElemTdIsScalarTd9 — § classTdTopOnlyShare50, ONE
+                // SPELLING LOWER.  A CLASS-HANDLE typedef is registered in
+                // `pkgTopTypedefTs` ALONE (src/ParamEmit.cpp:19340, reached
+                // through the `else if (topView)` arm at :19239 that fills
+                // `pkgClassTd9`) and NEVER in `typedefTs` — which is exactly
+                // what pass 50's own comment above says.  The lookup on the
+                // next line reads `typedefTs` only, so `ta ma [string];` /
+                // `ta ma [];` / `ta ma [$]` / `ta ma [4]` MISSED the share that
+                // the scalar `ta c;` one line above gets, fell through to the
+                // "Class handles: a fresh class_typespec per declaration" arm
+                // at the bottom of this function, and minted a declaration-site
+                // object named for the UNDERLYING CLASS.
+                //   v1 (sd8's verifier's standing counterexample, F1):
+                //     golden class_typespec (pa::ta)  @8:11-8:13  inst=ALL:qa
+                //     ours   class_typespec (ka)      @9:3-9:5    inst=<null>
+                // GATE: the returned object is `pkgTopTypedefTs`'s own entry,
+                // so `isSharedAliasTs` is TRUE for it and every
+                // § sharedAliasNoStamp41 guard already in the callers applies
+                // unchanged — this arm adds a SHARER and must never let a use
+                // stamp or re-span the object.
+                if (el9->getCanonicalType().kind == SymbolKind::ClassType &&
+                    !typedefTs.count(el9))
+                    if (auto c9 = pkgTopTypedefTs.find((const void*)el9);
+                        c9 != pkgTopTypedefTs.end() && c9->second &&
+                        c9->second->UhdmType() == UHDM::uhdmclass_typespec)
+                        return c9->second;
                 // The DEF-view object, not the elaborated `pkg::name` one the
                 // scalar path prefers: golden's element is `uvm_reg_addr_t`
                 // at the typedef (73:10), not `uvm_pkg::uvm_reg_addr_t` at the
