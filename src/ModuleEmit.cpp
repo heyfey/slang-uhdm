@@ -4312,6 +4312,74 @@ static void importCopyRefs6(UHDM::any* e, const std::string& owner, int depth) {
                 importCopyRefs6(a6, owner, depth + 1);
 }
 
+// § importCopyTsSubtreeNoInstance7 — the COPY that
+// § importedClassVarIsOwnCopyNoInstance5 pushes into an importing CLASS owns its
+// typespec's WHOLE SUBTREE, not just the top typespec, and every level of it is
+// UNSTAMPED.  § …5 nulls the copy's ACTUAL typespec (depth 0); the typespecs
+// that typespec points at through vpiIndexTypespec / vpiElemTypespec keep the
+// package stamp the clone inherited, and golden has none there.
+//
+// MEASURED, not reasoned (`ct7pop`, SeqDriver, both sides, every typespec in the
+// typespec subtree of all 1206 class-listing variables, keyed by DEPTH):
+//
+//                       golden          ours (pristine f0d93e1)
+//   depth 0  <null>      1139            1139     <- IDENTICAL
+//   depth 0  SET           63              63     <- IDENTICAL, must not move
+//   depth 1  <null>        81              76
+//   depth 1  SET           39              44     <- the whole surplus: 5
+//   depth 2  SET            3               3     <- IDENTICAL
+//
+// The `depth 1 SET 39` row is what forbids the blanket phrasing "a nested
+// class-listing typespec has no instance": golden stamps 39 of them and so do
+// we, because those belong to the classes' OWN variables, which the import arm
+// never touches.  The five that move are all one shape — the `[string]` INDEX
+// typespec of `uvm_seed_map uvm_random_seed_table_lookup [string]`, the
+// package's associative array, copied into the five adpcm classes.
+//
+// THE PACKAGE'S OWN LISTING KEEPS ITS STAMP, and that is what makes this the
+// copy's law rather than the array emitter's (`ct7pkgsub`, all four package
+// listings, both sides, IDENTICAL):
+//
+//   [ALL] uvm_pkg   index string_typespec@328:44  inst=ALL:uvm_pkg
+//   [TOP] uvm_pkg   index string_typespec@328:44  inst=TOP:uvm_pkg
+//   [ALL] adpcm_pkg index string_typespec@328:44  inst=ALL:adpcm_pkg
+//   [TOP] adpcm_pkg index string_typespec@328:44  inst=TOP:adpcm_pkg
+//
+// Had the rule been "an associative array's index typespec carries no
+// instance", those four would have had to move too, and they must not.
+//
+// THE POINTER-IDENTITY GUARD IS THE WHOLE SAFETY ARGUMENT.  A nested typespec is
+// nulled only when `clone_tree` actually DUPLICATED it — when the copy's object
+// is not pointer-identical to the source's.  `clone_tree` deliberately keeps
+// some children shared (sd5 measured `class_typespec.Class_defn` SHARED), and
+// nulling a shared object destroys the PACKAGE listing's stamp at the same
+// time: `ct7mut` measures that backfire directly, as 15 slots whose nulling
+// flips the whole-design compare from `r=-1` to `r=1`.
+static void importCopyTsSub7(UHDM::typespec* cpTs, UHDM::typespec* srcTs, int depth) {
+    if (!cpTs || !srcTs || depth > 4)
+        return;
+    if (cpTs == srcTs)   // SHARED with the source: not the copy's to rewrite
+        return;
+    if (depth > 0)       // depth 0 is § …5's, and is already null by then
+        cpTs->Instance(nullptr);
+    if (cpTs->UhdmType() != srcTs->UhdmType())
+        return;          // structurally divergent: stop rather than guess
+    auto sub7 = [&](UHDM::ref_typespec* a, UHDM::ref_typespec* b) {
+        if (a && b)
+            importCopyTsSub7(a->Actual_typespec(), b->Actual_typespec(), depth + 1);
+    };
+    if (cpTs->UhdmType() == UHDM::uhdmarray_typespec) {
+        auto* ca7 = (UHDM::array_typespec*)cpTs;
+        auto* sa7 = (UHDM::array_typespec*)srcTs;
+        sub7(ca7->Index_typespec(), sa7->Index_typespec());
+        sub7(ca7->Elem_typespec(), sa7->Elem_typespec());
+    } else if (cpTs->UhdmType() == UHDM::uhdmpacked_array_typespec) {
+        auto* cp7 = (UHDM::packed_array_typespec*)cpTs;
+        auto* sp7 = (UHDM::packed_array_typespec*)srcTs;
+        sub7(cp7->Elem_typespec(), sp7->Elem_typespec());
+    }
+}
+
 static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src,
                                        UHDM::class_defn* cd) {
     if (!src || !cd)
@@ -4338,8 +4406,16 @@ static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src
         rt5->VpiParent(cp);
         if (!fn.empty() && !nm.empty())
             rt5->VpiFullName(fn + "::" + nm);
-        if (auto* at5 = rt5->Actual_typespec())
+        if (auto* at5 = rt5->Actual_typespec()) {
             at5->Instance(nullptr);
+            // § importCopyTsSubtreeNoInstance7 — see the header above
+            // importCopyTsSub7.  The typespecs THIS typespec points at are the
+            // copy's own too, and unstamped.
+            UHDM::typespec* st7 = nullptr;
+            if (auto* srt7 = src->Typespec())
+                st7 = srt7->Actual_typespec();
+            importCopyTsSub7(at5, st7, 0);
+        }
     }
     if (auto* e5 = cp->Expr())
         e5->VpiParent(cp);
