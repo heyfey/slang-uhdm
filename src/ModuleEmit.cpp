@@ -4186,6 +4186,132 @@ void UhdmExporter::classKeyTsScopeOwner35(
 // NOT used either: it would have had to enumerate every `variables` subtype that
 // can reach this site, and every kind it missed would have failed SILENTLY by
 // falling back to the shared push.
+// § importCopyInitRefIsOwnedAndUnbound6 — the COPY that
+// § importedClassVarIsOwnCopyNoInstance5 pushes into an importing class owns its
+// INITIALISER'S REFERENCES as well: every `ref_obj`/`ref_var` in the copied
+// initialiser is re-named onto THE COPY's owner chain
+// (`<copy fullname>::<ref name>`) and is left UNBOUND — its `vpiActual` is null.
+// Only the package's OWN listing keeps the binding.
+//
+// MEASURED on SeqDriver, `ct6clsref`, EVERY class-listing initialiser reference
+// on both sides — 52 rows each, 336 classes, 1206 listing entries:
+//
+//                                      golden   ours (pristine e07cb9c)
+//   full == <class>::<var>::<refname>    52          27   <- the class's OWN vars
+//   full == uvm_pkg::<var>::<refname>     0          25   <- the import copies
+//   vpiActual non-null                    0           5
+//
+// The 27 rows we already spell correctly are the classes' own variables, which
+// this arm never touches — that is what forbids the blanket phrasing "a class
+// listing's initialiser reference is unbound" being implemented anywhere but on
+// the copy.  Grid cell `g3` is that control and it must not move.
+//
+// The DEPTH is measured too, not assumed (grid cell `g2`, `int b2 = a2 + 1;`):
+// golden re-names and unbinds a reference that is an OPERAND of the initialiser
+// exactly as it does a bare one, so the walk descends operations, selects and
+// call arguments — the same shape as `bindInitRefsIn47`, whose type-punning
+// defect is the reason each spelling is reached through `any_cast` to its OWN
+// static type (`ref_var` is `final : public variables`, `ref_obj` is
+// `: public simple_expr` — UNRELATED hierarchies, and a C-style cast between
+// them writes at the wrong offset).
+//
+// SELECTS ARE INSIDE THE `ref_obj` ARM, NOT BESIDE IT — verifier finding F1.
+// `bit_select`, `part_select`, `indexed_part_select` and `var_select` are all
+// `final : public ref_obj`, and UHDM's `any_cast` is IS-A (`RTTI.h`'s
+// `AsOfTypeRecurse` walks the whole base chain), so the `ref_obj` test above
+// catches every one of them.  `bindInitRefsIn47` dispatches on `UhdmType()`,
+// which is EXACT, so ITS select cases are reachable; the same cases written
+// BELOW an is-a `any_cast` are DEAD CODE, and that is what this function's
+// first cut shipped — the select itself was re-named (which golden does want)
+// and its INDEX was then never visited at all.  Both halves are measured:
+//
+//   cell                                     golden                    first cut
+//   v1 `logic b1 = a1[idx1];`   root  bit_select q1::c1::b1::a1        == golden
+//                               index ref_obj    q1::c1::b1::idx1, null  p1::b1::idx1, BOUND
+//   v8 `int b8 = arr8[i8];`     same shape, same split
+//   v5 `logic[3:0] b5 = a5[i5 +: 4];`
+//                               root  indexed_part_select q5::c5::b5::a5 == golden
+//                               base  ref_obj             q5::c5::b5::i5  p5::b5::i5
+//
+// so the select must be re-named AND descended.  `part_select`'s ranges and
+// `var_select`'s indices are an EMPTY PRODUCT CELL in every source form that
+// can be written here — SV requires constant part-select bounds and they fold
+// before this point (cell v7, `a7[H7:0]` with a package parameter: NO nested
+// reference on EITHER side), and an unpacked element select arrives as a
+// `bit_select` (cell v8), never a `var_select`.  They are descended anyway
+// because the law is about the copy owning its initialiser's references and
+// cannot be conditioned on a spelling that cannot be witnessed — leaving them
+// out would rebuild the very dead-arm hazard this comment exists to record.
+//
+// NOT DESCENDED, and deliberately: `hier_path`.  Golden does NOT apply this law
+// uniformly to a path — cell v3 (`int b3 = st3.f3;`) has golden re-naming the
+// SECOND element (`q3::c3::b3::f3`) while the FIRST stays the bare `st3` on
+// both sides.  A blanket arm would over-fire on element 0.  One cell is not a
+// law, so the path form is left alone and recorded as a residue.
+//
+// This runs ONLY on a freshly cloned subtree, so nothing shared is mutated: the
+// package's own listing, and the binding `bindListingInitRefs47` made on it, are
+// untouched (grid `g4`, the no-import control, is byte-identical).
+static void importCopyRefs6(UHDM::any* e, const std::string& owner, int depth) {
+    if (!e || depth > 12)
+        return;
+    if (auto* ro6 = any_cast<UHDM::ref_obj*>(e)) {
+        if (!ro6->VpiName().empty())
+            ro6->VpiFullName(owner + "::" + std::string(ro6->VpiName()));
+        ro6->Actual_group(nullptr);
+        // ...and the select spellings carry operands of their own.  This switch
+        // is INSIDE the arm precisely because `any_cast` already claimed them.
+        switch (e->UhdmType()) {
+            case UHDM::uhdmbit_select:
+                importCopyRefs6((UHDM::any*)((UHDM::bit_select*)e)->VpiIndex(),
+                                owner, depth + 1);
+                break;
+            case UHDM::uhdmpart_select:
+                importCopyRefs6(
+                    (UHDM::any*)((UHDM::part_select*)e)->Left_range(), owner,
+                    depth + 1);
+                importCopyRefs6(
+                    (UHDM::any*)((UHDM::part_select*)e)->Right_range(), owner,
+                    depth + 1);
+                break;
+            case UHDM::uhdmindexed_part_select:
+                importCopyRefs6(
+                    (UHDM::any*)((UHDM::indexed_part_select*)e)->Base_expr(),
+                    owner, depth + 1);
+                importCopyRefs6(
+                    (UHDM::any*)((UHDM::indexed_part_select*)e)->Width_expr(),
+                    owner, depth + 1);
+                break;
+            case UHDM::uhdmvar_select:
+                if (auto* ix6 = ((UHDM::var_select*)e)->Exprs())
+                    for (auto* x6 : *ix6)
+                        importCopyRefs6(x6, owner, depth + 1);
+                break;
+            default:
+                break;
+        }
+        return;
+    }
+    if (auto* rv6 = any_cast<UHDM::ref_var*>(e)) {
+        if (!rv6->VpiName().empty())
+            rv6->VpiFullName(owner + "::" + std::string(rv6->VpiName()));
+        rv6->Actual_group(nullptr);
+        return;
+    }
+    // `operation` has NO derived kinds in the UHDM model, so the exact test is
+    // safe here in a way the select tests above were not.
+    if (e->UhdmType() == UHDM::uhdmoperation) {
+        if (auto* ops6 = ((UHDM::operation*)e)->Operands())
+            for (auto* o6 : *ops6)
+                importCopyRefs6(o6, owner, depth + 1);
+        return;
+    }
+    if (auto* tc6 = any_cast<UHDM::tf_call*>(e))
+        if (auto* args6 = tc6->Tf_call_args())
+            for (auto* a6 : *args6)
+                importCopyRefs6(a6, owner, depth + 1);
+}
+
 static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src,
                                        UHDM::class_defn* cd) {
     if (!src || !cd)
@@ -4217,6 +4343,11 @@ static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src
     }
     if (auto* e5 = cp->Expr())
         e5->VpiParent(cp);
+    // § importCopyInitRefIsOwnedAndUnbound6 — see the header above
+    // importCopyRefs6.  The copy's INITIALISER REFERENCES are the class's own
+    // too: re-named onto the copy's owner chain and left UNBOUND.
+    if (!fn.empty() && !nm.empty())
+        importCopyRefs6(cp->Expr(), fn + "::" + nm, 0);
     return cp;
 }
 
