@@ -1,0 +1,39 @@
+r10earl49 — CENSUS PREDICTION, written from the PRISTINE artifact BEFORE the
+patched Earlgrey run.
+
+Instrument: census49.py over the ELABORATED view of both dumps
+(golden 1207207..3840019, pristine ours 1196438..3757090), keyed on
+(instance ref name, RHS-typespec kind, RHS-typespec span) with the
+param_assign and RHS constant spans projected out (they carry an unrelated,
+pre-existing end-column divergence).  10194 golden cells vs 10197 ours;
+79 differing lines.
+
+The law (§ caOperandScanRead49) can only move a cell in these two directions:
+  (a) LOCATED -> BARE  where the reducer's operand pre-scan now reaches the
+      parameter (the new arm), and
+  (b) BARE -> LOCATED  where § caTernOperandRead1 fired and the pre-scan does
+      not (bare-net ternary condition; arm cell E4).
+
+CENSUS OF DIRECTION (a) IN EARLGREY, elaborated view, whole design:
+  work@sram2tlul   golden logic_typespec@NOSPAN  ours logic_typespec@15:13-15:39
+  ...and NO OTHER CELL.  Every other logic_typespec disagreement in the design
+  runs the OTHER way (ours NOSPAN / golden located) and belongs to
+  paramNameIsRead's wide select rule, which this pass does not touch:
+      work@jtag_mux                                       11:13-11:31
+      work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr      41:13-41:31
+      work@top_earlgrey.u_alert_handler.i_ping_timer.i_prim_lfsr  41:13-41:31
+      work@top_earlgrey.u_dm_top.i_dm_mem   34:14-34:26, 66/68/72:14-*:40
+      work@top_earlgrey.u_usbdev.usbdev_impl.u_usb_fs_nb_pe.u_usb_fs_rx 74:14-74:25
+
+CENSUS OF DIRECTION (b) IN EARLGREY: no cell in the 79-line disagreement set
+has the ternary shape caTernOperandRead1 alone reaches, and the arm cells that
+do (E4/E4b) are golden-LOCATED, so any Earlgrey cell of that shape would be a
+CURRENT over-fire that the patch REMOVES (a move TOWARDS golden).
+
+PREDICTION FOR Earlgrey_0_1 / default (BYTE-DETERMINISTIC row):
+  1. the database md5 FLIPS (a real mover);
+  2. EXACTLY ONE elaborated param_assign RHS typespec changes,
+     work@sram2tlul TlBaseAddr, LOCATED(15:13-15:39) -> BARE(NOSPAN [31:0]);
+  3. the 66-line cmp head is CLEARED and the row advances to a different head;
+  4. the DEF view (lines 1..1196437) stays BYTE-IDENTICAL to pristine;
+  5. every other top module's elaborated block stays byte-identical.

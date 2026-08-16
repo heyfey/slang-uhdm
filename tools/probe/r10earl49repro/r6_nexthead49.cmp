@@ -1,0 +1,52 @@
+LHS:
+decompile:
+operation: , id:967109, line:42:27, endln:42:53
+|vpiParent:
+\_cont_assign: , id:967105, line:42:10, endln:42:53
+|vpiTypespec:
+\_ref_typespec: (work@sram2tlul), id:967110
+  |vpiParent:
+  \_operation: , id:967109, line:42:27, endln:42:53
+  |vpiFullName:work@sram2tlul
+  |vpiActual:
+  \_int_typespec: , id:967111
+|vpiOpType:67
+|vpiOperand:
+\_ref_obj: (work@sram2tlul.SRAM_DWB), id:190522, line:42:44, endln:42:52
+  |vpiParent:
+  \_operation: , id:190523, line:42:27, endln:42:53
+  |vpiName:SRAM_DWB
+  |vpiFullName:work@sram2tlul.SRAM_DWB
+
+decompile:
+operation: , id:967109, line:42:27, endln:42:53
+|vpiParent:
+\_cont_assign: , id:967105, line:42:10, endln:42:53
+|vpiTypespec:
+\_ref_typespec: (work@sram2tlul), id:967110
+  |vpiParent:
+  \_operation: , id:967109, line:42:27, endln:42:53
+  |vpiFullName:work@sram2tlul
+  |vpiActual:
+  \_int_typespec: , id:967111
+|vpiOpType:67
+|vpiOperand:
+\_ref_obj: (work@sram2tlul.SRAM_DWB), id:190522, line:42:44, endln:42:52
+  |vpiParent:
+  \_operation: , id:190523, line:42:27, endln:42:53
+  |vpiName:SRAM_DWB
+  |vpiFullName:work@sram2tlul.SRAM_DWB
+RHS:
+decompile:
+constant: , id:176600
+|vpiDecompile:2
+|vpiSize:2
+|UINT:2
+|vpiConstType:9
+
+decompile:
+constant: , id:176600
+|vpiDecompile:2
+|vpiSize:2
+|UINT:2
+|vpiConstType:9

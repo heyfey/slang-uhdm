@@ -1,0 +1,29 @@
+r10earl49 — the SECOND byte-verifier mover, Scoreboard/default, NOT this pass's.
+
+  msdist.sh  MULTISET DISTANCE (sum |dg-do|): 0
+             g lines=1097723   o lines=1097723
+  shapes49.sh ADDED shapes=0 instances=0  REMOVED shapes=0 instances=0  NET=+0
+  diff       2 hunks, a single block of 46 `vpiTaskFunc` lines in svunit_pkg
+             MOVED (svunit_base::get_name .. svunit_testsuite::add_testcase)
+
+MULTISET-0 PROVES NOTHING BY ITSELF (standing rule), so the control was run:
+the SAME PATCHED BINARY, invoked serially outside the sweep with the row's own
+cmds.txt command line, THREE TIMES:
+
+  c683862618d4a4da4327d71a2d9e01d1  /tmp/r10earl49_noise_p1/slang.uhdm
+  c683862618d4a4da4327d71a2d9e01d1  /tmp/r10earl49_noise_p2/slang.uhdm
+  c683862618d4a4da4327d71a2d9e01d1  /tmp/r10earl49_noise_p3/slang.uhdm
+
+and the PRISTINE binary, three times:
+
+  c683862618d4a4da4327d71a2d9e01d1  /tmp/r10earl49_noise_n1/slang.uhdm
+  c683862618d4a4da4327d71a2d9e01d1  /tmp/r10earl49_noise_n2/slang.uhdm
+  c683862618d4a4da4327d71a2d9e01d1  /tmp/r10earl49_noise_n3/slang.uhdm
+
+SIX runs, TWO binaries, ONE md5 -- and it is the PRISTINE sweep's md5.  The
+only artifact carrying 95ccb101a855 is the one the SWEEP produced, under a
+loaded machine (this session's --jobs 2 sweep plus another session's two).
+§ caOperandScanRead49 touches `paramCaFoldRead` only and cannot reorder a
+task/function list.  This is the known emitter nondeterminism (SourceLocation
+compares across macro buffers flipping under parallel parse), not a mover of
+this pass.

@@ -1,0 +1,22 @@
+r10earl49 — PER-SHAPE MULTISET movers, Earlgrey_0_1/default, pristine vs patched
+(shapes49.sh; multiset, never diff alignment)
+
+ADDED        1  [  |vpiRange:]
+ADDED        1  [    |vpiParent:]
+ADDED        1  [      |UINT:31]
+ADDED        1  [    |vpiLeftRange:]
+ADDED        1  [    \_logic_typespec: ]
+ADDED        2  [    \_constant: ]
+ADDED        1  [    |vpiRightRange:]
+ADDED        1  [        \_logic_typespec: ]
+ADDED        1  [      |UINT:0]
+ADDED        1  [\_logic_typespec: ]
+ADDED        1  [  \_range: ]
+REMOVED      1  [        \_logic_typespec: , line:15:13, endln:15:39]
+ADDED shapes=11 instances=12   REMOVED shapes=1 instances=1   NET=+11
+a lines=4652516  b lines=4652527
+
+READING: ONE edge re-pointed (the param_assign Rhs constant's ref_typespec
+Actual, the single REMOVED shape) and ONE object materialised (the fresh
+loc-less logic_typespec + its range + two bare UINT bounds, 11 lines, which is
+byte-for-byte the object golden carries).  Nothing else in 4.65M lines.

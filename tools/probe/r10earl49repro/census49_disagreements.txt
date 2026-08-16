@@ -1,0 +1,88 @@
+r10earl49 — the 79-line golden-vs-PRISTINE disagreement set of the elaborated
+param_assign Rhs typespec census (census49.py; 10194 golden / 10197 ours cells,
+keyed on instance+typespec kind+span with the pa/rhs spans projected out).
+Regenerate: census49.py <dump> <elab-lo> <elab-hi> | sed -E 's/rhs=[^ ]*  */rhs=X /; s/pa=[^ ]*  */pa=X /' | sort
+
+AFTER the patch the set is 77 lines: the ONE sram2tlul pair below is gone and
+NOTHING entered.  Every remaining line runs the OTHER way (ours NOSPAN /
+golden located) and belongs to paramNameIsRead, residue R1.
+
+< ref=work@jtag_mux                              actual=logic_typespec@11:13-11:31
+> ref=work@jtag_mux                              actual=logic_typespec@NOSPAN
+< ref=work@sram2tlul                             actual=logic_typespec@NOSPAN
+> ref=work@sram2tlul                             actual=logic_typespec@15:13-15:39
+< ref=work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr actual=logic_typespec@41:13-41:31
+> ref=work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr actual=logic_typespec@NOSPAN
+< ref=work@top_earlgrey.u_alert_handler.i_ping_timer.i_prim_lfsr actual=logic_typespec@41:13-41:31
+> ref=work@top_earlgrey.u_alert_handler.i_ping_timer.i_prim_lfsr actual=logic_typespec@NOSPAN
+< ref=work@top_earlgrey.u_dm_top                 actual=int_typespec@NOSPAN
+> ref=work@top_earlgrey.u_dm_top                 actual=logic_typespec@NOSPAN
+< ref=work@top_earlgrey.u_dm_top.i_dm_mem        actual=logic_typespec@34:14-34:26
+< ref=work@top_earlgrey.u_dm_top.i_dm_mem        actual=logic_typespec@66:14-66:40
+< ref=work@top_earlgrey.u_dm_top.i_dm_mem        actual=logic_typespec@68:14-68:40
+< ref=work@top_earlgrey.u_dm_top.i_dm_mem        actual=logic_typespec@72:14-72:40
+> ref=work@top_earlgrey.u_dm_top.i_dm_mem        actual=logic_typespec@NOSPAN
+> ref=work@top_earlgrey.u_dm_top.i_dm_mem        actual=logic_typespec@NOSPAN
+> ref=work@top_earlgrey.u_dm_top.i_dm_mem        actual=logic_typespec@NOSPAN
+> ref=work@top_earlgrey.u_dm_top.i_dm_mem        actual=logic_typespec@NOSPAN
+< ref=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl actual=int_typespec@10:13-10:16
+< ref=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl actual=int_typespec@11:13-11:16
+> ref=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl actual=int_typespec@12:14-12:17
+> ref=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl actual=int_typespec@13:14-13:17
+> ref=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl actual=int_typespec@18:14-18:17
+< ref=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl actual=int_typespec@9:13-9:16
+< ref=work@top_earlgrey.u_flash_ctrl.u_flash_mp  actual=int_typespec@11:13-11:16
+> ref=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl actual=logic_typespec@41:14-41:30
+> ref=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl actual=logic_typespec@42:14-42:30
+> ref=work@top_earlgrey.u_flash_ctrl.u_flash_mp  actual=int_typespec@11:14-11:17
+< ref=work@top_earlgrey.u_flash_ctrl.u_flash_mp  actual=int_typespec@12:13-12:16
+< ref=work@top_earlgrey.u_flash_ctrl.u_flash_mp  actual=int_typespec@13:13-13:16
+> ref=work@top_earlgrey.u_flash_ctrl.u_flash_mp  actual=int_typespec@22:14-22:17
+> ref=work@top_earlgrey.u_flash_ctrl.u_flash_mp  actual=int_typespec@28:14-28:17
+< ref=work@top_earlgrey.u_pinmux                 actual=int_typespec@NOSPAN
+> ref=work@top_earlgrey.u_pinmux                 actual=logic_typespec@NOSPAN
+> ref=work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync actual=bit_typespec@9:13-9:16
+< ref=work@top_earlgrey.u_rstmgr.i_lc_src        actual=int_typespec@11:13-11:16
+> ref=work@top_earlgrey.u_rstmgr.i_lc_src        actual=int_typespec@7:14-7:17
+< ref=work@top_earlgrey.u_rstmgr.i_sys_src       actual=int_typespec@11:13-11:16
+> ref=work@top_earlgrey.u_rstmgr.i_sys_src       actual=int_typespec@7:14-7:17
+> ref=work@top_earlgrey.u_rv_timer               actual=int_typespec@10:13-10:16
+> ref=work@top_earlgrey.u_rv_timer               actual=int_typespec@11:13-11:16
+< ref=work@top_earlgrey.u_rv_timer               actual=int_typespec@19:14-19:17
+< ref=work@top_earlgrey.u_rv_timer               actual=int_typespec@20:14-20:17
+> ref=work@top_earlgrey.u_usbdev                 actual=int_typespec@10:13-10:16
+> ref=work@top_earlgrey.u_usbdev                 actual=int_typespec@83:14-83:17
+< ref=work@top_earlgrey.u_usbdev                 actual=int_typespec@91:14-91:17
+< ref=work@top_earlgrey.u_usbdev                 actual=int_typespec@NOSPAN
+> ref=work@top_earlgrey.u_usbdev.u_memory_2p     actual=int_typespec@66:14-66:17
+< ref=work@top_earlgrey.u_usbdev.u_memory_2p     actual=int_typespec@NOSPAN
+< ref=work@top_earlgrey.u_usbdev.usbdev_impl.u_usb_fs_nb_pe.u_usb_fs_rx actual=logic_typespec@74:14-74:25
+> ref=work@top_earlgrey.u_usbdev.usbdev_impl.u_usb_fs_nb_pe.u_usb_fs_rx actual=logic_typespec@NOSPAN
+< ref=work@top_earlgrey.u_xbar_main.u_sm1_17     actual=int_typespec@10:12-10:15
+> ref=work@top_earlgrey.u_xbar_main.u_sm1_17     actual=int_typespec@72:14-72:26
+< ref=work@top_earlgrey.u_xbar_main.u_sm1_18     actual=int_typespec@10:12-10:15
+> ref=work@top_earlgrey.u_xbar_main.u_sm1_18     actual=int_typespec@72:14-72:26
+< ref=work@top_earlgrey.u_xbar_main.u_sm1_19     actual=int_typespec@10:12-10:15
+> ref=work@top_earlgrey.u_xbar_main.u_sm1_19     actual=int_typespec@72:14-72:26
+< ref=work@top_earlgrey.u_xbar_main.u_sm1_20     actual=int_typespec@10:12-10:15
+> ref=work@top_earlgrey.u_xbar_main.u_sm1_20     actual=int_typespec@72:14-72:26
+< ref=work@top_earlgrey.u_xbar_main.u_sm1_23     actual=int_typespec@10:12-10:15
+> ref=work@top_earlgrey.u_xbar_main.u_sm1_23     actual=int_typespec@72:14-72:26
+< ref=work@top_earlgrey.u_xbar_main.u_sm1_24     actual=int_typespec@10:12-10:15
+> ref=work@top_earlgrey.u_xbar_main.u_sm1_24     actual=int_typespec@72:14-72:26
+< ref=work@top_earlgrey.u_xbar_main.u_sm1_25     actual=int_typespec@10:12-10:15
+> ref=work@top_earlgrey.u_xbar_main.u_sm1_25     actual=int_typespec@72:14-72:26
+< ref=work@top_earlgrey.u_xbar_main.u_sm1_26     actual=int_typespec@10:12-10:15
+> ref=work@top_earlgrey.u_xbar_main.u_sm1_26     actual=int_typespec@72:14-72:26
+< ref=work@top_earlgrey.u_xbar_main.u_sm1_27     actual=int_typespec@10:12-10:15
+> ref=work@top_earlgrey.u_xbar_main.u_sm1_27     actual=int_typespec@72:14-72:26
+< ref=work@top_earlgrey.u_xbar_main.u_sm1_28     actual=int_typespec@10:12-10:15
+> ref=work@top_earlgrey.u_xbar_main.u_sm1_28     actual=int_typespec@72:14-72:26
+< ref=work@top_earlgrey.u_xbar_main.u_sm1_29     actual=int_typespec@10:12-10:15
+> ref=work@top_earlgrey.u_xbar_main.u_sm1_29     actual=int_typespec@72:14-72:26
+< ref=work@top_earlgrey.u_xbar_main.u_sm1_30     actual=int_typespec@10:12-10:15
+> ref=work@top_earlgrey.u_xbar_main.u_sm1_30     actual=int_typespec@72:14-72:26
+< ref=work@top_earlgrey.u_xbar_main.u_sm1_31     actual=int_typespec@10:12-10:15
+> ref=work@top_earlgrey.u_xbar_main.u_sm1_31     actual=int_typespec@72:14-72:26
+< TOTAL 10194
+> TOTAL 10197

@@ -14277,6 +14277,301 @@ const TypeAliasType* UhdmExporter::pkgHomedTdAlias18(const Type& t) const {
     return &ta;
 }
 
+// ---------------------------------------------------------------------------
+// § caOperandScanRead49 — the OPERAND PRE-SCAN of UHDM's own reducer, which is
+// what actually decides whether a parameter's elab param_assign Rhs constant
+// takes Surelog's loc-less bare typespec.  Transcribed from
+// `UHDM::ExprEval::reduceExpr`, templates/ExprEval.cpp:3014:
+//
+//     bool constantOperands = true;
+//     for (auto oper : *op->Operands()) {
+//       if (optype == uhdmref_obj) {
+//         if (getValue(name, ...) == nullptr) { constantOperands = false; break; }
+//       } else if (optype == uhdmoperation)     { }   // skipped, no break
+//         else if (optype == uhdmsys_func_call) { }
+//         else if (optype == uhdmfunc_call)     { }
+//         else if (optype == uhdmbit_select)    { }
+//         else if (optype == uhdmhier_path)     { }
+//         else if (optype == uhdmvar_select)    { }
+//         else if (optype == uhdmenum_var)      { }
+//         else if (optype != uhdmconstant)      { constantOperands = false; break; }
+//     }
+//     if (constantOperands) { ...reduceExpr() every operand... }
+//
+// and `getValue` is `CompileHelper::getValue` (CompileExpression.cpp:960),
+// whose `instance->getComplexValue(name)` arm runs `setRange(constant, val)`
+// — the very rewrite that replaces the parameter's LOCATED declaration
+// typespec with a fresh loc-less `logic_typespec` holding the folded
+// [left:right] as bare UINT constants.  So the rule is not "which read shape",
+// it is: WALK THE TOP-LEVEL OPERATION'S OPERANDS IN ORDER; every BARE NAME
+// with a constant value is rewritten; the FIRST bare name WITHOUT one (a net,
+// a variable) STOPS the walk; nested operations, calls, bit-selects,
+// hier-paths and constants are stepped over WITHOUT stopping it; anything else
+// (notably a PART-SELECT, which the list above does not name) stops it; and if
+// nothing stopped it, the reducer then recurses into every operand.
+//
+// MEASURED, golden side (Surelog), 40 cells over five arms — every one of them
+// predicted by the transcription above, including the two that REFUTE the
+// § caTernOperandRead1 model this replaces:
+//
+//   c1_earl49.sv — `parameter logic [W-1:0] Cn`, one read position each
+//     C1  `C1 | {..,n[3:0]}`      BARE     operand0 is a bare name
+//     C2  `C2 & n`                BARE     ...and `n` stops the walk after it
+//     C3  `C3 + n`                BARE
+//     C5  `n & C5`                LOCATED  `n` stops the walk BEFORE C5
+//     C4  `(C4==n) ? n : '0`      LOCATED  operand0 is an operation; `n` stops
+//     C6  `{C6[3:0], n[W-5:0]}`   LOCATED  a PART-SELECT operand stops the walk
+//     C7  `always_comb r7=C7|n`   LOCATED  procedural: no reduce at all
+//     C8  `c ? C8 : n`            LOCATED  the net condition stops it
+//     C9  read only as an override LOCATED
+//     C10 never read              LOCATED
+//     C11 `C11[W-1:0]` whole Rhs  BARE     (already ours, paramNameIsRead)
+//     C12 `C12[k] | n[k]` in gen  BARE     (already ours, paramNameIsRead)
+//   d1_earl49.sv — how far the walk goes
+//     D1a `(D1a+D1b) & n`         LOCATED  compound operand0 is STEPPED OVER,
+//     D2  `~D2 & n`               LOCATED  never descended -- and then `n`
+//     D3  `{D3[3:0],28'b0} & n`   LOCATED  stops the walk, so no recursion
+//     D5  `D5 & n & m`            LOCATED  = `(D5&n) & m`; `m` stops it
+//     D6  `n & D6 & m`            LOCATED
+//     D9a `D9a & n & D9b`         BARE     = `(D9a&n) & D9b`; nothing stops
+//     D9b                         BARE     the outer walk, so it RECURSES
+//     R1  ranged untyped `R1 & n` BARE     the law is type-independent
+//     R2  untyped sized literal   BARE
+//   e1_earl49.sv — the cells where this model and caTernOperandRead1 disagree
+//     E1  `(n|m) ? E1 : n`        BARE     caTernOperandRead1 said LOCATED
+//                                          ("both branches must fold") — WRONG
+//     E2  `(n|m) ? n : E2`        LOCATED
+//     E3a/E3b `(n|m) ? E3a : E3b` BARE,BARE
+//     E4  `cn ? E4 : E4b`         LOCATED,LOCATED   caTernOperandRead1 said
+//                                          BARE,BARE (bare-net cond + two
+//                                          folding branches) — WRONG
+//     E5  `E5 ? n : m`            BARE
+//     E6  `$clog2(E6) & n`        LOCATED  a call is stepped over, not entered
+//     E7  `E7[3:0] & n`           LOCATED  part-select operand stops the walk
+//     E8  `32'h1 & E8`            BARE     a constant is stepped over
+//     E9  `n[0] ? E9 : m`         BARE     a BIT-select is stepped over
+//   b1/b2_earl49.sv — the same six read shapes with the packed range's bound
+//     taken from the module's own parameter (b1) and from a PACKAGE parameter
+//     (b2): IDENTICAL answers, so the BOUND SOURCE is not a discriminator.
+//
+// The corpus witness this pass exists for is Earlgrey sram2tlul.sv:44
+//   assign tl_o.a_address = TlBaseAddr | {{(top_pkg::TL_AW-SramAw-SRAM_DWB){1'b0}},
+//                                         mem_addr,{(SRAM_DWB){1'b0}}};
+// — operand0 is the bare name `TlBaseAddr`, so golden rewrites it and we did
+// not.  It is the C1 cell exactly.
+//
+// The three older ablation tables in this file are all CONSISTENT with the
+// transcription, which is why none of them found it: every "net operand blocks
+// the rewrite" row they recorded (`nn == X`, `nn + X`, `a & P`, `n ? P : n2`)
+// happens to put the NET FIRST, and every row they recorded as reaching it
+// puts the PARAMETER first.  The position, not the presence, is the rule.
+// ---------------------------------------------------------------------------
+namespace {
+
+// The operand list our exporter builds for `e`, in UHDM order, or false when
+// `e` is not an operation at all.
+bool srlgOperandsOf49(const Expression& e,
+                      std::vector<const Expression*>& out) {
+    switch (e.kind) {
+        case ExpressionKind::BinaryOp: {
+            auto& b = e.as<BinaryExpression>();
+            out.push_back(&b.left());
+            out.push_back(&b.right());
+            return true;
+        }
+        case ExpressionKind::UnaryOp:
+            out.push_back(&e.as<UnaryExpression>().operand());
+            return true;
+        case ExpressionKind::ConditionalOp: {
+            auto& c = e.as<ConditionalExpression>();
+            // Only the PLAIN single-predicate ternary is modelled; a pattern
+            // condition (`cond matches p`) is left alone, exactly as the two
+            // other ConditionalOp readers in this codebase leave it
+            // (src/ExprEmit.cpp:209, :2102).
+            if (c.conditions.size() != 1 || c.conditions[0].pattern ||
+                !c.conditions[0].expr)
+                return false;
+            out.push_back(c.conditions[0].expr);
+            out.push_back(&c.left());
+            out.push_back(&c.right());
+            return true;
+        }
+        case ExpressionKind::Concatenation:
+            for (auto* op : e.as<ConcatenationExpression>().operands())
+                out.push_back(op);
+            return true;
+        case ExpressionKind::Replication: {
+            auto& r = e.as<ReplicationExpression>();
+            out.push_back(&r.count());
+            out.push_back(&r.concat());
+            return true;
+        }
+        default:
+            return false;
+    }
+}
+
+// The pre-scan's four outcomes for one operand.
+enum class SrlgOpnd49 {
+    RefConst, // uhdmref_obj, getValue() non-null  -> REWRITTEN, walk continues
+    RefStop,  // uhdmref_obj, getValue() null      -> walk stops here
+    Skip,     // operation/call/bit_select/hier_path/constant -> stepped over
+    Stop      // anything else (part_select, ...)  -> walk stops here
+};
+
+bool srlgIsOp49(const Expression& e) {
+    std::vector<const Expression*> tmp;
+    return srlgOperandsOf49(stripImplicitConv(e), tmp);
+}
+
+SrlgOpnd49 srlgClassify49(const Expression& e0) {
+    const Expression& e = stripImplicitConv(e0);
+    if (srlgIsOp49(e))
+        return SrlgOpnd49::Skip;
+    switch (e.kind) {
+        case ExpressionKind::NamedValue:
+            switch (e.as<NamedValueExpression>().symbol.kind) {
+                case SymbolKind::Parameter:
+                case SymbolKind::Specparam:
+                case SymbolKind::EnumValue:
+                case SymbolKind::Genvar:
+                    return SrlgOpnd49::RefConst;
+                default:
+                    return SrlgOpnd49::RefStop;
+            }
+        case ExpressionKind::IntegerLiteral:
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+        case ExpressionKind::RealLiteral:
+        case ExpressionKind::TimeLiteral:
+        case ExpressionKind::StringLiteral:
+        case ExpressionKind::NullLiteral:
+            return SrlgOpnd49::Skip; // uhdmconstant
+        case ExpressionKind::Call:
+            return SrlgOpnd49::Skip; // uhdmsys_func_call / uhdmfunc_call
+        case ExpressionKind::MemberAccess:
+        case ExpressionKind::HierarchicalValue:
+            return SrlgOpnd49::Skip; // uhdmhier_path
+        case ExpressionKind::ElementSelect:
+            // uhdmbit_select only when the base is a plain name; a select of a
+            // select or of a member is not one, so it takes the Stop exit.
+            return stripImplicitConv(e.as<ElementSelectExpression>().value())
+                               .kind == ExpressionKind::NamedValue
+                       ? SrlgOpnd49::Skip
+                       : SrlgOpnd49::Stop;
+        default:
+            // RangeSelect is a uhdmpart_select, which the pre-scan's list does
+            // NOT name -> it CLEARS constantOperands (arm cells C6 and E7).
+            // Everything unmodelled takes the same conservative exit.
+            return SrlgOpnd49::Stop;
+    }
+}
+
+// The InstanceBody a symbol lives in, or null when it has none — which is
+// exactly the case for a PACKAGE member.
+//
+// VERIFIER FIX (r10earl49v, arms v1/v6): the harvest below records a BARE
+// `sym.name` and `paramCaFoldRead` answers `names.count(ps.name)`, so neither
+// end is scoped.  A PACKAGE parameter read in a cont-assign therefore marked a
+// MODULE parameter of the SAME NAME as read:
+//     package v1p; parameter logic [31:0] KA = 32'h11; endpackage
+//     module m #(parameter logic [31:0] KA = 32'h33)(...);
+//       assign o1 = v1p::KA | n;      // module KA is read NOWHERE
+// and the module's own KA took the loc-less bare typespec.  Golden keeps it
+// LOCATED, and the reason is visible in the elaborated dump: Surelog emits
+// `v1p::KA` as a `constant` (`32'h11`, vpiConstType:5), NOT a `ref_obj`, so
+// the pre-scan's `uhdmconstant` arm STEPS OVER it and resolves no name at all.
+// Cell v6 `{v6p::KP, KR, n}` pins the direction: golden gives KR the BARE
+// typespec, so a package-parameter operand continues the walk (Skip) rather
+// than stopping it.  A non-local parameter is therefore stepped over exactly
+// like a constant — walk continues, NO name harvested.
+const Scope* srlgOwningBody49(const Symbol& sym) {
+    for (auto* sc = sym.getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope())
+        if (sc->asSymbol().kind == SymbolKind::InstanceBody)
+            return sc;
+    return nullptr;
+}
+
+void srlgCaOperandScan49(const Expression& e0,
+                         std::set<std::string_view>& names, const Scope* body,
+                         ASTContext& ctx, int depth) {
+    if (depth > 32)
+        return;
+    const Expression& e = stripImplicitConv(e0);
+    std::vector<const Expression*> opnds;
+    if (!srlgOperandsOf49(e, opnds))
+        return;
+    bool constantOperands = true;
+    for (auto* op : opnds) {
+        if (!op) {
+            constantOperands = false;
+            break;
+        }
+        auto k = srlgClassify49(*op);
+        if (k == SrlgOpnd49::RefConst) {
+            auto& sym = stripImplicitConv(*op)
+                            .as<NamedValueExpression>()
+                            .symbol;
+            // Only a parameter of THIS instance body is a name the reducer can
+            // resolve here; a package parameter is a constant to Surelog and is
+            // merely stepped over (see srlgOwningBody49 above).
+            if (sym.kind == SymbolKind::Parameter &&
+                srlgOwningBody49(sym) == body)
+                names.insert(sym.name);
+            continue;
+        }
+        if (k == SrlgOpnd49::Skip)
+            continue;
+        constantOperands = false;
+        break;
+    }
+    // `if (constantOperands)` is the gate on the recursion: nothing stopped the
+    // walk, so the reducer goes on to reduceExpr() the operands, and a nested
+    // operation runs the whole pre-scan again (cells D9a/D9b).  Every binary,
+    // unary, comparison and concat arm reduces ALL of its operands
+    // unconditionally (`if (invalidValue) break;` comes AFTER both calls --
+    // ExprEval.cpp:3250 vpiBitAndOp, :1638 reduceCompOp) ...
+    if (!constantOperands)
+        return;
+    // ... but vpiConditionOp (ExprEval.cpp:3763) is the ONE exception, and it
+    // is load-bearing:
+    //     expr* cond = reduceExpr(operands[0], invalidValue, ...);
+    //     get_value(invalidValue, cond);
+    //     if (invalidValue) break;              // <-- neither branch reduced
+    //     the_val = reduceExpr(condVal ? operands[1] : operands[2], ...);
+    // so a ternary reduces its CONDITION always, and exactly ONE branch -- the
+    // TAKEN one -- and only when the condition folded.
+    //
+    // WITNESS, and the reason this arm exists: prim_filter_ctr.sv:54-56
+    //     assign diff_ctr_d =
+    //         (filter_i != filter_q)           ? '0       :
+    //                 (diff_ctr_q == CYCLESM1) ? CYCLESM1 :
+    //                     (diff_ctr_q + 1'b1);
+    // The top-level ternary's operands are (operation, constant, operation) --
+    // nothing stops the pre-scan -- but its condition reads two VARIABLES and
+    // never folds, so the nested ternary holding `CYCLESM1` is never reduced
+    // and golden keeps CYCLESM1's LOCATED typespec.  Recursing into every
+    // operation operand instead over-fired on all 32 `u_gpio.gen_filter[i]`
+    // instances of Earlgrey (measured: census disagreements 79 -> 141 before
+    // this arm, 79 -> 78 after it).
+    if (e.kind == ExpressionKind::ConditionalOp) {
+        if (srlgIsOp49(*opnds[0]))
+            srlgCaOperandScan49(*opnds[0], names, body, ctx, depth + 1);
+        auto cv = ctx.tryEval(*opnds[0]);
+        if (!cv)
+            return;
+        const Expression* taken = cv.isTrue() ? opnds[1] : opnds[2];
+        if (taken && srlgIsOp49(*taken))
+            srlgCaOperandScan49(*taken, names, body, ctx, depth + 1);
+        return;
+    }
+    for (auto* op : opnds)
+        if (op && srlgIsOp49(*op))
+            srlgCaOperandScan49(*op, names, body, ctx, depth + 1);
+}
+
+} // namespace
+
 bool UhdmExporter::paramCaFoldRead(const ParameterSymbol& ps) {
     const Scope* body = nullptr;
     for (auto* sc = ps.getParentScope(); sc;
@@ -14310,84 +14605,13 @@ bool UhdmExporter::paramCaFoldRead(const ParameterSymbol& ps) {
                 harvest(rhs);
                 continue;
             }
-            // § caTernOperandRead1 — A CONT-ASSIGN RHS THAT DOES NOT FOLD AS A
-            // WHOLE STILL REDUCES ITS TERNARY OPERANDS, and Surelog calls
-            // getObject on a parameter it reaches that way.  Two positions, and
-            // only two, were measured to reach it:
-            //
-            //   (1) the CONDITION, when the condition itself folds
-            //         assign o = P ? n1 : n2;            -> BARE
-            //   (2) BOTH BRANCHES, when BOTH of them fold
-            //         assign o = (n1|n2) ? P2 : P1;      -> BARE, BARE
-            //
-            // and a branch pair with ONE non-constant member reaches nothing:
-            //         assign o = n ? P : n2;             -> LOCATED
-            //
-            // WHY THE `tryEval(rhs)` ABOVE IS NOT ENOUGH, which is this whole
-            // pass: the corpus witness is
-            //   or1200_fpu_intfloat_conv.v:283  assign out_fixed =
-            //       ((qnan_d | snan_d) | ind_d) ? QNAN : INF;
-            // whose CONDITION reads NETS, so the RHS folds nowhere, so INF and
-            // QNAN were never harvested and kept the declaration's LOCATED
-            // int_typespec -- while golden gives them the loc-less bare one and
-            // gives SNAN (read nowhere) the located one.  That 2-cell split IS
-            // the YosysOldOr head.
-            //
-            // MEASURED, arm a5_readshape.v / a6_overfire.v / a7_instantiated.v,
-            // golden side, every module in the ELABORATED view:
-            //   y1 both branches, cond is nets      -> BARE,BARE   (the witness)
-            //   y3 whole name in the condition      -> BARE
-            //   y4 ONE branch a param, other a net  -> LOCATED
-            //   y5 branch of a NESTED ternary       -> LOCATED
-            //   y2 `nb & B1` / y6 `{nf,F1}`         -> LOCATED (not a ternary)
-            //   y7 the same ternary in an always    -> LOCATED (not a cont-assign)
-            //   y8 never read                       -> LOCATED
-            //   z1 untyped sized-literal param      -> BARE  (witness population)
-            //   z2 RANGED untyped param             -> BARE
-            //   z3 TYPED logic-vector param         -> BARE
-            //   z6 ranged, ONE branch               -> LOCATED
-            //   z7 unsized-decimal init             -> no range exists; unmoved
-            //   k3 an OVERRIDDEN param              -> LOCATED (the caller's
-            //                                         !isOverriddenParam gate)
-            //
-            // THE ABLATION TABLE AT src/ParamEmit.cpp:13993 IS REFUTED BY z5/k1.
-            // It records `whole name in a ternary condition -> LOCATED`.  Cell
-            // z5 runs the table's OWN parameter shape (`parameter [4:0] P1 = 7`)
-            // in exactly that position and golden answers BARE; cell k1 repeats
-            // it with the module INSTANTIATED -- the one difference the table's
-            // probes had -- and golden still answers BARE.  So that row is
-            // wrong, not merely narrow, and the comment there now says so.
-            //
-            // Only the PLAIN single-predicate ternary is modelled; a pattern
-            // condition (`cond matches p`) is left alone, exactly as the two
-            // other ConditionalOp readers in this codebase leave it
-            // (src/ExprEmit.cpp:209, :2102).
-            const Expression& r0 = stripImplicitConv(rhs);
-            if (r0.kind != ExpressionKind::ConditionalOp)
-                continue;
-            auto& co = r0.as<ConditionalExpression>();
-            if (co.conditions.size() != 1 || co.conditions[0].pattern)
-                continue;
-            // VERIFIER EXPERIMENT (r10yoo1v): harvest a WHOLE NAME only, never
-            // a name buried inside a compound operand.  Golden keeps the
-            // LOCATED ts for `(P == c) ? n : n`, `n ? (B1|c) : (B2|c)` and a
-            // NESTED foldable branch pair (arm v1_verifier.v, 8 cells).
-            auto harvestWhole = [&](const Expression& e) {
-                const Expression& s = stripImplicitConv(e);
-                if (s.kind != ExpressionKind::NamedValue)
-                    return;
-                auto& sym = s.as<NamedValueExpression>().symbol;
-                if (sym.kind == SymbolKind::Parameter)
-                    names.insert(sym.name);
-            };
-            if (ctx.tryEval(*co.conditions[0].expr))
-                harvestWhole(*co.conditions[0].expr);
-            // BOTH branches, or neither: y4/z6 are the cells that make this an
-            // `&&` and not two independent tests.
-            if (ctx.tryEval(co.left()) && ctx.tryEval(co.right())) {
-                harvestWhole(co.left());
-                harvestWhole(co.right());
-            }
+            // § caOperandScanRead49 — the RHS did not fold as a whole, so the
+            // reducer's operand PRE-SCAN decides what still gets rewritten.
+            // See the transcription of ExprEval::reduceExpr above this
+            // function for the mechanism and the 40-cell measured grid.
+            // This REPLACES § caTernOperandRead1, which arm cells E1 and E4
+            // refute in both directions.
+            srlgCaOperandScan49(rhs, names, body, ctx, 0);
         }
         it = caFoldReadNames.emplace(body, std::move(names)).first;
     }

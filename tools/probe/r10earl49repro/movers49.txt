@@ -1,0 +1,16 @@
+1221374c1221374
+<         \_logic_typespec: , line:15:13, endln:15:39
+---
+>         \_logic_typespec: 
+4543900a4543901,4543911
+> \_logic_typespec: 
+>   |vpiRange:
+>   \_range: 
+>     |vpiParent:
+>     \_logic_typespec: 
+>     |vpiLeftRange:
+>     \_constant: 
+>       |UINT:31
+>     |vpiRightRange:
+>     \_constant: 
+>       |UINT:0
