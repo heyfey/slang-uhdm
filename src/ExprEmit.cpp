@@ -4275,6 +4275,86 @@ static const Symbol* pkgFreeSubForName72(const Symbol* callerSub,
     return nullptr;
 }
 
+// § builtinRecvIndexedStepIsBitSelect74 — the helper that recovers the index
+// EXPRESSION of each dotted step of a BUILT-IN METHOD call's RECEIVER path.
+//
+// THE LAW (measured design-wide on SimpleUVM, 47 cells, and cell by cell in
+// tools/probe/r10uvm74repro): a step of such a receiver path that is WRITTEN
+// WITH AN INDEX — `arb_sequence_q[i].request.name()`, `split_val[2].len()`,
+// `m_streams[name].exists(...)` — is a **bit_select** in golden, whose
+// `vpiName` is the BASE NAME ALONE, whose `vpiFullName` is the WRITTEN
+// component text, whose SPAN ENDS AT THE END OF THE BASE NAME (before the
+// `[`), and whose `vpiIndex` child is PARENTED AT THE ENCLOSING HIER_PATH and
+// not at the bit_select.  We emitted one flat `ref_obj` named after the whole
+// written component and spanning through the `]`.
+//
+// THE TEXT SPLIT (`dots`) STILL DECIDES THE ELEMENTS; this walk only supplies
+// the index EXPRESSION, so that the index goes through the ordinary `emitExpr`
+// machinery and binds its `vpiActual` exactly as golden's does.  It REFUSES —
+// returns false, leaving every element the plain ref_obj it already was —
+// unless the tree it walks agrees with that text split COMPONENT FOR
+// COMPONENT.  A disagreement means text and tree are describing different
+// things (a dot inside an index, a multi-dimensional select, a collapsed
+// virtual-interface scope, an implicit conversion), and there the pre-existing
+// shape is the safe one.
+static bool builtinRecvStepSelectors74(
+    const Expression& recv, const std::vector<std::string>& dots,
+    std::vector<const Expression*>& selOut) {
+    std::vector<std::pair<std::string, const Expression*>> comps;
+    const Expression* cur = &recv;
+    const Expression* pendSel = nullptr;
+    bool pendMulti = false;
+    for (;;) {
+        if (cur->kind == ExpressionKind::MemberAccess) {
+            auto& ma = cur->as<MemberAccessExpression>();
+            comps.emplace_back(std::string(ma.member.name),
+                               pendMulti ? nullptr : pendSel);
+            pendSel = nullptr;
+            pendMulti = false;
+            cur = &ma.value();
+        }
+        else if (cur->kind == ExpressionKind::ElementSelect) {
+            auto& es = cur->as<ElementSelectExpression>();
+            if (pendSel)
+                pendMulti = true; // multi-dim: this component is refused below
+            pendSel = &es.selector();
+            cur = &es.value();
+        }
+        else if (cur->kind == ExpressionKind::NamedValue) {
+            comps.emplace_back(
+                std::string(cur->as<NamedValueExpression>().symbol.name),
+                pendMulti ? nullptr : pendSel);
+            break;
+        }
+        else
+            return false;
+    }
+    std::reverse(comps.begin(), comps.end());
+    if (comps.size() != dots.size())
+        return false;
+    selOut.assign(dots.size(), nullptr);
+    for (size_t k = 0; k < dots.size(); k++) {
+        const std::string& d = dots[k];
+        const std::string& n = comps[k].first;
+        if (d == n) { // a plain component: the tree must agree it has no select
+            if (comps[k].second)
+                return false;
+            continue;
+        }
+        // The ONLY other spelling this law accepts is `<name>[...]`: exactly
+        // one bracket pair, opening right after the component name, closing at
+        // the very end.  Anything else (a second dimension, a `]` in the
+        // middle, a name the tree does not confirm) refuses the whole path.
+        if (d.size() < n.size() + 3 || d.compare(0, n.size(), n) != 0 ||
+            d[n.size()] != '[' || d.back() != ']' ||
+            d.find('[', n.size() + 1) != std::string::npos ||
+            d.find(']') != d.size() - 1 || !comps[k].second)
+            return false;
+        selOut[k] = comps[k].second;
+    }
+    return true;
+}
+
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
@@ -12093,7 +12173,113 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // ref_obj o, ref_obj cn, method_func_call
                         // constraint_mode).
                         auto nmStart0 = recv->sourceRange.start();
-                        for (auto& dn0 : dots) {
+                        // § builtinRecvIndexedStepIsBitSelect74 — SITE 1 of 1.
+                        // An INDEXED step is a bit_select over the BASE NAME
+                        // with the written component as its fullname and its
+                        // index child parented at the HIER_PATH.  The helper's
+                        // declaration carries the law and the refusal rule;
+                        // `stepSel74[k]` is non-null for exactly the steps the
+                        // TEXT wrote with one index AND the bound tree confirms.
+                        // The `with`-clause form is deliberately OUT: it has
+                        // its own fullname regime (every element scoped) and
+                        // NO measured cell — README residue R2.
+                        std::vector<const Expression*> stepSel74;
+                        bool idxSteps74 =
+                            !withExpr9 &&
+                            builtinRecvStepSelectors74(*recv, dots, stepSel74);
+                        // A bit_select's fullname is the CUMULATIVE dotted path
+                        // through this step, which at the BASE is just the
+                        // written component: golden `mq[i]` at the base and
+                        // `m.lq[i]` / `mq[i].lq[j]` / `m.sq[i]` at a middle or
+                        // trailing step (arm b2 cells p_base/p_mid/p_both/
+                        // p_last).  The plain ref_obj elements stay name-only,
+                        // unchanged.
+                        std::string dotSoFar74;
+                        for (size_t k74 = 0; k74 < dots.size(); k74++) {
+                            const std::string& dn0 = dots[k74];
+                            dotSoFar74 += (k74 == 0 ? dn0 : "." + dn0);
+                            const Expression* sel74 =
+                                idxSteps74 ? stepSel74[k74] : nullptr;
+                            if (sel74) {
+                                auto lb74 = dn0.find('[');
+                                std::string base74 = dn0.substr(0, lb74);
+                                std::string idx74 =
+                                    dn0.substr(lb74 + 1,
+                                               dn0.size() - lb74 - 2);
+                                auto* bs74 = s.MakeBit_select();
+                                bs74->VpiName(base74);
+                                bs74->VpiFullName(dotSoFar74);
+                                bs74->VpiParent(hp);
+                                setLoc(bs74,
+                                       SourceRange(nmStart0,
+                                                   nmStart0 + base74.size()));
+                                if (!idx74.empty() &&
+                                    idx74.find_first_not_of("0123456789") ==
+                                        std::string::npos) {
+                                    // An INTEGER-LITERAL index is a BARE
+                                    // constant: size 64, UINT, NO vpiParent
+                                    // at all (golden `split_val[2].len`,
+                                    // `args[4].atoi`) — the same hand-built
+                                    // shape buildDottedHierPath's own
+                                    // constant-index arm writes, and NOT what
+                                    // emitExpr would make of the literal.
+                                    auto* c74 = s.MakeConstant();
+                                    c74->VpiDecompile(idx74);
+                                    c74->VpiSize(64);
+                                    c74->VpiValue("UINT:" + idx74);
+                                    c74->VpiConstType(vpiUIntConst);
+                                    auto io74 = nmStart0 + lb74 + 1;
+                                    setLoc(c74, SourceRange(io74,
+                                                            io74 + idx74.size()));
+                                    bs74->VpiIndex(c74);
+                                }
+                                else {
+                                    // Every other index goes through emitExpr
+                                    // so it BINDS ITS vpiActual the way golden
+                                    // binds it (golden `m_streams[name]`'s
+                                    // index ref carries vpiActual -> io_decl).
+                                    // A COMPOUND index doubles its operands'
+                                    // fullnames through the hier display
+                                    // (golden `sq[j + 1].len` operand
+                                    // `…::f::sq[j + 1].len::j`); a bare name
+                                    // index does not (`…::f::i`).
+                                    bool simple74 =
+                                        sel74->kind == ExpressionKind::NamedValue;
+                                    if (auto* ix74 = emitExpr(
+                                            *sel74, hp,
+                                            simple74 ? prefix
+                                                     : joinRef(prefix, dotted),
+                                            netMap)) {
+                                        // THE PARENT RULE IS ON THE RESULT
+                                        // KIND, NOT ON THE SPELLING.  Golden
+                                        // parents the index at the hier_path
+                                        // for every kind EXCEPT a CONSTANT,
+                                        // which is UNPARENTED — and the
+                                        // all-digits TEXT test above only
+                                        // recognises a BARE DECIMAL, so
+                                        // `sq[4'd2]`, `sq['h2]` and `sq[ 2 ]`
+                                        // reach here and are constants too
+                                        // (v74_edge2 cells x_based / x_hexlit
+                                        // / x_trailsp, measured against
+                                        // golden's UNPARENTED constant).
+                                        // Without this the stated sub-law
+                                        // "an integer-literal index is a BARE
+                                        // constant, NO vpiParent" would be
+                                        // true of the PROSE and false of the
+                                        // CODE for every literal not spelled
+                                        // in bare decimal.
+                                        ((UHDM::any*)ix74)->VpiParent(
+                                            ix74->UhdmType() ==
+                                                    UHDM::uhdmconstant
+                                                ? nullptr
+                                                : (UHDM::BaseClass*)hp);
+                                        bs74->VpiIndex((UHDM::expr*)ix74);
+                                    }
+                                }
+                                elems->push_back(bs74);
+                                nmStart0 = nmStart0 + dn0.size() + 1;
+                                continue;
+                            }
                             auto* r0 = s.MakeRef_obj();
                             r0->VpiName(dn0);
                             // name-only (dump omits) unless the with-clause
