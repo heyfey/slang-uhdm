@@ -3427,11 +3427,137 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         return spaceIdxOps(rawTextPkgFold(selExpr.sourceRange, pf34));
     };
 
+    // § hpMidSelIdxDecompiled79 — the index text a MID-PATH component select
+    // puts into this hier_path's NAME is NOT the source's raw text: it is
+    // Surelog's `decompileHelper` (CompileHelper.cpp:2544) applied to the
+    // index OBJECT.  That function's dispatch is CLOSED and it has NO default
+    // arm, so an index it does not know renders as the EMPTY STRING:
+    //
+    //     constant             -> VpiDecompile          "2"
+    //     ref_obj              -> VpiName               "i"
+    //     operation            -> ExprEval::prettyPrint "i + 1"
+    //     bit_select           -> "[" + (its CONSTANT | REF_OBJ | OPERATION
+    //                            index) + "]", and "" for any other index kind
+    //     part_select          -> "[l:r]"
+    //     indexed_part_select  -> "[b+:w]" / "[b-:w]"
+    //     var_select           -> the concatenation of its exprs
+    //     EVERYTHING ELSE      -> ""      <- no `else`, no default
+    //
+    // The first three rows are what `idxText34` above already produces (that
+    // is what § hpMixedIdxPkgFold34 IS: a package parameter has been folded to
+    // a CONSTANT by the time Surelog decompiles, a module one is still a
+    // ref_obj, so the fold table and this table are the same table).  The rows
+    // this adds are the SELECT rows and the empty default.
+    //
+    // Measured, golden, arm a2 (`iarr[<idx>].f`), index expression -> name:
+    //     midx[i]            -> iarr[[i]].f        bit_select, ref_obj index
+    //     midx[midx[i]]      -> iarr[].f           bit_select, SELECT index
+    //     i + 1              -> iarr[i + 1].f      operation      (unchanged)
+    //     midx[i] + 1        -> iarr[ + 1].f       operation, select operand
+    //     2                  -> iarr[2].f          constant       (unchanged)
+    //     h.idx[i]           -> iarr[].f           hier_path
+    //     fn(i)              -> iarr[].f           func_call
+    //     pk[3:0]            -> iarr[[3:0]].f      part_select
+    //     iarr2[midx[i]][j]  -> iarr2[[i]][j].f    per DIMENSION
+    // and in the corpus, `m_inst_override_name_queues[obj.get_type_name].queue`
+    // is golden's `m_inst_override_name_queues[].queue` — the MemberAccess row.
+    //
+    // THE GATE IS `mid`: a TRAILING component select is NOT touched.  Golden's
+    // trailing sites are a different Surelog code path with their own rules,
+    // and they are not even self-consistent — uvm_reg_map.svh writes
+    // `top_map.m_regs_by_offset` at 771 and `top_map.m_regs_by_offset[]` at
+    // 772 for the SAME index expression, one rvalue and one lvalue.  That is
+    // README residue R1; this pass does not own it.
+    //
+    // The `+ 1` cell above is decompileHelper's OPERATION row recursing into
+    // ExprEval::prettyPrint, which drops a select operand the same way.  It is
+    // NOT implemented here (README residue R2): the corpus population of a
+    // mid-path select-inside-operation index is ZERO, and prettyPrint is a
+    // second closed dispatch that needs its own census.
+    auto idxDecompile79 = [&](const Expression& selExpr,
+                              bool mid) -> std::string {
+        if (!mid)
+            return idxText34(selExpr);
+        // decompileHelper renders a CONSTANT, a REF_OBJ and an OPERATION as
+        // themselves; those are the three kinds idxText34 already covers.
+        auto rendersAsItself = [&](const Expression& e) {
+            switch (e.kind) {
+                case ExpressionKind::ElementSelect:
+                case ExpressionKind::RangeSelect:
+                case ExpressionKind::MemberAccess:
+                case ExpressionKind::Call:
+                case ExpressionKind::NewClass:
+                case ExpressionKind::NewArray:
+                case ExpressionKind::Streaming:
+                case ExpressionKind::Inside:
+                    return false;
+                default:
+                    return true;
+            }
+        };
+        // § hpMidSelIdxSelectIsBitSelectV79 — VERIFIER FIX.  decompileHelper
+        // dispatches on the index OBJECT's UHDM TYPE, and only a select whose
+        // base is a PLAIN IDENTIFIER becomes a `bit_select`/`part_select`.  A
+        // select written over a MEMBER ACCESS (`h.idx[i]`, `this.midx[i]`,
+        // `s2[j].idx[i]`) is a UHDM **hier_path**, which decompileHelper has
+        // NO row for -> the EMPTY STRING.  Without this test the bracket arms
+        // below fire on the outer ElementSelect and mint `iarr[[i]].f` where
+        // GOLDEN writes `iarr[].f`.  MEASURED on golden, four spellings:
+        //     iarr[h.idx[i]].f      -> iarr[].f   (r10uvm79's own c2 d6)
+        //     iarr[this.midx[i]].f  -> iarr[].f
+        //     iarr[s.idx[i]].f      -> iarr[].f
+        //     iarr[s2[j].idx[i]].f  -> iarr[].f
+        // and the CONTROL that must keep its brackets: an INHERITED member,
+        //     iarr[bidx[i]].f       -> iarr[[i]].f
+        // which is a plain NamedValue base and is unaffected.
+        // Only the NAME is corrected: golden DOES hang such an index off the
+        // hier_path, so § hpMidSelIdxAtPath79's structural half is unchanged.
+        auto uhdmSelectBase79 = [&](const Expression& e) {
+            const Expression* c = &stripImplicitConv(e);
+            for (;;) {
+                if (c->kind == ExpressionKind::ElementSelect)
+                    c = &stripImplicitConv(c->as<ElementSelectExpression>().value());
+                else if (c->kind == ExpressionKind::RangeSelect)
+                    c = &stripImplicitConv(c->as<RangeSelectExpression>().value());
+                else
+                    break;
+            }
+            return c->kind == ExpressionKind::NamedValue;
+        };
+        const Expression& e79 = stripImplicitConv(selExpr);
+        if ((e79.kind == ExpressionKind::ElementSelect ||
+             e79.kind == ExpressionKind::RangeSelect) &&
+            !uhdmSelectBase79(e79))
+            return {};
+        if (e79.kind == ExpressionKind::ElementSelect) {
+            const Expression& in79 =
+                stripImplicitConv(e79.as<ElementSelectExpression>().selector());
+            if (!rendersAsItself(in79))
+                return {};
+            return "[" + idxText34(in79) + "]";
+        }
+        if (e79.kind == ExpressionKind::RangeSelect) {
+            auto& rs79 = e79.as<RangeSelectExpression>();
+            std::string mid79;
+            switch (rs79.getSelectionKind()) {
+                case RangeSelectionKind::Simple: mid79 = ":"; break;
+                case RangeSelectionKind::IndexedUp: mid79 = "+:"; break;
+                case RangeSelectionKind::IndexedDown: mid79 = "-:"; break;
+            }
+            return "[" + idxText34(rs79.left()) + mid79 +
+                   idxText34(rs79.right()) + "]";
+        }
+        if (!rendersAsItself(e79))
+            return {};
+        return idxText34(selExpr);
+    };
+
     std::string dotted;
     for (size_t i = 0; i < comps.size(); ++i) {
+        bool mid79 = i + 1 < comps.size();
         dotted += (i == 0 ? comps[i].name : "." + comps[i].name);
         for (auto& sel : comps[i].sels)
-            dotted += "[" + idxText34(*sel.sel) + "]";
+            dotted += "[" + idxDecompile79(*sel.sel, mid79) + "]";
     }
 
     // A multi-dim element select on the BASE array (group_status[0][0].a)
@@ -3456,17 +3582,22 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     for (size_t i = 0; i < comps.size(); ++i) {
         auto& comp = comps[i];
         bool lastMember = i + 1 == comps.size();
+        // § hpMidSelIdxDecompiled79 / § hpMidSelIdxAtPath79 — both laws are
+        // gated on the SAME predicate: this component's select is followed by
+        // further path components.
+        bool mid79 = !lastMember;
         dottedAt += (i == 0 ? comp.name : "." + comp.name);
         if (comp.isBase && baseSelMode) {
             // Base multi-dim element select: one bit_select per dim. Simple
             // dotted fullnames; each bit_select's loc is the base name (first
             // dim) or the prior selector's span (later dims).
             for (size_t k = 0; k < comp.sels.size(); ++k) {
-                // § hpMixedIdxPkgFold34 / § concatIdxDecompile29 — the SAME
-                // renderer as the `dotted` loop above; the two must agree or
-                // the hier_path name and its bit_select fullnames disagree on
-                // the same select.
-                dottedAt += "[" + idxText34(*comp.sels[k].sel) + "]";
+                // § hpMixedIdxPkgFold34 / § concatIdxDecompile29 /
+                // § hpMidSelIdxDecompiled79 — the SAME renderer as the
+                // `dotted` loop above, gated by the SAME `mid79`; the two must
+                // agree or the hier_path name and its bit_select fullnames
+                // disagree on the same select.
+                dottedAt += "[" + idxDecompile79(*comp.sels[k].sel, mid79) + "]";
                 auto* bs = s.MakeBit_select();
                 if (k == 0) // only the first dim carries vpiName
                     bs->VpiName(comp.name);
@@ -3490,12 +3621,55 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 bool savedSCP = suppressConstParent;
                 if (!doParent)
                     suppressConstParent = true;
-                if (auto* ix = emitExpr(*comp.sels[k].sel, bs, prefix, netMap)) {
+                // § hpMidSelIdxAtPath79 — a MID-PATH component select whose
+                // index is ITSELF A SELECT hangs that index off the HIER_PATH,
+                // spans it over the index's WHOLE source text, and scopes it
+                // (and everything nested under it) through the path's own name.
+                //
+                // All three follow from UHDM ComputeFullName (BaseClass.cpp:100)
+                // plus where Surelog hangs the object.  ComputeFullName walks
+                // the parent chain and skips a name only for the pairs listed
+                // at BaseClass.cpp:126-138 — child ref_obj under bit_select,
+                // and child ref_obj under hier_path.  So:
+                //   * a BARE REF_OBJ index directly under the path is skipped
+                //     past the path and keeps PLAIN scope (`…::probe::i`) —
+                //     which is why the gate is "the index is a select", not
+                //     "the index is non-trivial";
+                //   * a SELECT index under the path is NOT skipped, so it
+                //     names itself `<prefix>::<path name>::<its own name>`;
+                //   * a ref_obj under THAT select skips the select but not the
+                //     path, landing on the same scope.
+                // Golden, arm a1 c1 (the head), all four objects:
+                //   hier_path   arb_sequence_q[[i]].sequence_ptr      17:20-17:67
+                //   bit_select  arb_sequence_q  full=arb_sequence_q[[i]]  17:20-17:34
+                //   bit_select  avail_sequences  17:35-17:53  parent=HIER_PATH
+                //     full=work@seqr::m_choose_next_request::
+                //          arb_sequence_q[[i]].sequence_ptr::avail_sequences
+                //   ref_obj     i  17:51-17:52  parent=the inner bit_select
+                //     full=…::arb_sequence_q[[i]].sequence_ptr::i
+                // and the MODULE-scope twin (arm a1 c6) is the same with `.`
+                // at every joint — which is exactly what `joinRef` decides.
+                //
+                // A TRAILING select is excluded and MEASURED so: golden's 12
+                // SimpleUVM objects that keep the bit_select parent are ALL
+                // trailing (uvm_reg_map 771/772/773, uvm_objection 696/712/715,
+                // …), and arm a2's INNER `h.idx[i]` — a trailing select inside
+                // an index — parents at its own bit_select in GOLDEN too.
+                const Expression& sx79 = stripImplicitConv(*comp.sels[k].sel);
+                bool selIdx79 = mid79 &&
+                                (sx79.kind == ExpressionKind::ElementSelect ||
+                                 sx79.kind == ExpressionKind::RangeSelect);
+                std::string idxPfx79 = selIdx79 ? joinRef(prefix, dotted) : prefix;
+                if (auto* ix = emitExpr(*comp.sels[k].sel, bs, idxPfx79, netMap)) {
                     // VARIABLE index refs parent at the HIER_PATH
                     // (ucsbece dll_d[i].valid); constants keep the
                     // bit_select parent.
                     if (((UHDM::any*)ix)->UhdmType() == UHDM::uhdmref_obj)
                         ((UHDM::any*)ix)->VpiParent(hp);
+                    if (selIdx79) {
+                        ((UHDM::any*)ix)->VpiParent(hp);
+                        setLoc((UHDM::any*)ix, comp.sels[k].sel->sourceRange);
+                    }
                     bs->VpiIndex((UHDM::expr*)ix);
                 }
                 suppressConstParent = savedSCP;
@@ -3504,12 +3678,31 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         }
         else if (!comp.sels.empty()) {
             auto& sel = comp.sels[0];
-            // § hpMixedIdxPkgFold34 / § concatIdxDecompile29 — the SAME
-            // renderer as the `dotted` loop above.
-            dottedAt += "[" + idxText34(*sel.sel) + "]";
+            // § hpMixedIdxPkgFold34 / § concatIdxDecompile29 /
+            // § hpMidSelIdxDecompiled79 — the SAME renderer as the `dotted`
+            // loop above, gated by the SAME `mid79`.
+            dottedAt += "[" + idxDecompile79(*sel.sel, mid79) + "]";
             auto* bs = s.MakeBit_select();
             bs->VpiName(comp.name);
             bs->VpiParent(hp);
+            // § hpMidSelIdxAtPath79 — SITE 2 of 2, the MEMBER-select twin of
+            // the base-select site above.  Arm a2 d10, `h.arr[midx[i]].f`:
+            // golden hangs the inner `midx[i]` off the HIER_PATH at 30:15-30:22
+            // and names it `work@grid::probe::h.arr[[i]].f::midx`, byte for
+            // byte the base-select cell one component over.  Only the INDEX's
+            // prefix, parent and span belong to this law — the bit_select's
+            // OWN loc and fullname stay with the branch chain below, which is
+            // why this is a prefix variable plus a post-pass and not a branch
+            // of its own.  CORPUS POPULATION ZERO: all 18 select-typed
+            // path-element indices in either corpus are base-select (census
+            // E7), so this site is carried by the ARM alone, and the byte
+            // verifier is what proves it inert.
+            const Expression& sx79b = stripImplicitConv(*sel.sel);
+            bool selIdx79b = mid79 &&
+                             (sx79b.kind == ExpressionKind::ElementSelect ||
+                              sx79b.kind == ExpressionKind::RangeSelect);
+            const std::string idxPfx79b =
+                selIdx79b ? joinRef(prefix, dotted) : prefix;
             // Lvalue: loc spans member+index, fullname lazily freezes to the
             // work@-prefixed doubled form, index constant parents to the
             // bit_select. Rvalue: loc is the member token only, fullname is the
@@ -3543,7 +3736,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 // the dotted path as its name (Surelog).
                 setLoc(bs, sel.sel->sourceRange);
                 bs->VpiFullName(dottedAt);
-                if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
+                if (auto* ix = emitExpr(*sel.sel, bs, idxPfx79b, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
             else if (baseNv->symbol.kind == SymbolKind::Variable &&
@@ -3562,7 +3755,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 // module-compile (def) view and PARENTS it in the
                 // re-elaborated instance view.
                 suppressConstParent = inProcessEmit || !reemitting;
-                if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
+                if (auto* ix = emitExpr(*sel.sel, bs, idxPfx79b, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
                 suppressConstParent = savedSCP;
             }
@@ -3574,7 +3767,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 // at the INDEX span (Surelog).
                 setLoc(bs, sel.sel->sourceRange);
                 (void)bs->VpiFullName();
-                if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
+                if (auto* ix = emitExpr(*sel.sel, bs, idxPfx79b, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
             else if (lastMember) {
@@ -3583,14 +3776,41 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 // member span and the dotted path (Surelog).
                 setLoc(bs, sel.sel->sourceRange);
                 (void)bs->VpiFullName();
-                if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
+                if (auto* ix = emitExpr(*sel.sel, bs, idxPfx79b, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
             else {
                 setLoc(bs, comp.nameSpan);
                 bs->VpiFullName(dottedAt);
-                if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
+                if (auto* ix = emitExpr(*sel.sel, bs, idxPfx79b, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
+            }
+            // § hpMidSelIdxAtPath79 — SITE 2 of 2, the post-pass half: the
+            // SELECT index hangs off the HIER_PATH and spans its own whole
+            // source text, whichever branch above emitted it.
+            //
+            // § hpMidSelIdxAtPathRvalueOnlyV79 — VERIFIER FIX.  At SITE 2 the
+            // "index at the path" half is an RVALUE rule.  MEASURED on golden,
+            // one class method, the SAME member select two lines apart:
+            //   rvalue  r = h.arr[midx[i]].f;   bit_select midx  parent = the
+            //           HIER_PATH, loc 24:15-24:22 (the whole `midx[i]`),
+            //           full = work@recv::probe::h.arr[[i]].f::midx
+            //   LVALUE      h.arr[midx[i]].f = 4;  bit_select midx  parent =
+            //           the MEMBER BIT_SELECT, loc 27:16-27:17,
+            //           full = ...::h.arr[[i]].f::arr::midx  (the bit_select
+            //           is in the chain, so ComputeFullName adds `arr`)
+            // The unfixed post-pass reparented the LVALUE index at the
+            // hier_path, and the PRISTINE 113a511 build was RIGHT on that
+            // field.  Gating on `!inLhs` restores golden's parent without
+            // giving back the name the law does fix.  SITE 1 (base select) is
+            // untouched: golden parents the index at the path for the lvalue
+            // base select too (`iarr[midx[i]].f = 3`, `iq[midx[i]].f = 5`,
+            // both byte-exact before and after this gate).
+            if (selIdx79b && !inLhs) {
+                if (auto* ix = bs->VpiIndex()) {
+                    ((UHDM::any*)ix)->VpiParent(hp);
+                    setLoc((UHDM::any*)ix, sel.sel->sourceRange);
+                }
             }
             elems->push_back(bs);
         }
@@ -3609,17 +3829,40 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             if (comp.vifIns5) {
                 // nothing: no explicit fullname on a recovered component
             }
+            // § hpTailElemJoinsByScope79 — the THIRD site of the joint family
+            // pass 77 and pass 78 worked (r10uvm77 fixed the trailing-step
+            // refs, r10uvm78 the doubled part-select prefixes): the joint
+            // between the ENCLOSING SCOPE and a hier_path's TRAILING path
+            // element.  Golden, arm a1 c1/c2/c3, three separate paths in one
+            // class method, all three:
+            //     work@seqr::m_choose_next_request::sequence_ptr
+            // and the module twin (arm a1 c6) `work@top.sequence_ptr`.
+            // It is `joinRef`, not a hard `.`, for the reason UHDM states at
+            // BaseClass.cpp:100: ComputeFullName picks ONE separator for the
+            // WHOLE parent chain from package/class_defn ancestry, so an
+            // eagerly cached name must agree at every joint.
+            //
+            // REFUTATION CARRIED FORWARD (r10uvm78 RF-1, re-measured here on
+            // the WHOLE corpus): "a `.` in a `::` scope is always wrong" is
+            // FALSE — golden writes 768 of them (`vmm_log::start_msg.msg` and
+            // friends).  That is why this is NOT a blanket rule.  It is
+            // admissible here because the census settles the overlap: golden's
+            // 768 live in exactly TWO databases (SimpleVMM, which is
+            // SLANG_REJECT for us, and Ariane2024), and in BOTH of them OUR
+            // side has ZERO — while in all ELEVEN databases where our side has
+            // one, GOLDEN HAS ZERO.  The two populations are disjoint, by
+            // measurement, before the build.
             else if (baseSelMode && !comp.isBase) {
                 // Trailing member of a base-select path: an RVALUE resolves to
                 // the struct member's own fullname (work@top.min_v); an LVALUE
                 // keeps the dotted path.
                 if (!inLhs && lastMember)
-                    r->VpiFullName(prefix + "." + comp.name);
+                    r->VpiFullName(joinRef(prefix, comp.name));
                 else
                     r->VpiFullName(dottedAt);
             }
             else if (!inLhs && lastMember && !comp.isBase)
-                r->VpiFullName(prefix + "." + comp.name);
+                r->VpiFullName(joinRef(prefix, comp.name));
             r->VpiParent(hp);
             // Lvalue paths anchor the base ref at the first member token.
             if (comp.isBase && inLhs && comps.size() > 1)
