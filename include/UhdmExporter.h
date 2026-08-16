@@ -1142,6 +1142,14 @@ private:
     const slang::ast::Expression* unpackedParamPatternLeaf(
         const slang::ast::Expression& sel);
     bool isIntEncoded(const slang::ast::Expression& e);
+    // § genLpFoldSignedStructural46 — the GEN-SCOPE localparam fold's INT/UINT
+    // law (defined in ModuleEmit.cpp next to its two call sites, which are the
+    // parameter's own VpiValue and its param_assign Rhs constant).  It is a
+    // THIRD, INDEPENDENTLY MEASURED encoding law: it is NOT isIntEncoded (which
+    // answers `%` and `/` but not `-` or `*`) and NOT srlgArithFoldSigned
+    // (which has no `**` and no ternary).  See the § comment at the definition
+    // for the cell-for-cell grid that separates all three.
+    bool genLpFoldSigned46(const slang::ast::Expression& e, int depth = 0);
     void analyzeParamEnc(const slang::ast::Scope& body);
     // Design-global pre-pass: definitions instantiated with MULTIPLE DISTINCT
     // parameter-value tuples (Surelog uniquifies these; their untyped overrides

@@ -1,0 +1,148 @@
+### A1 instance [0]
+PARAM    | G param value          | O param value          || G pa constant                      | O pa constant                      | VERDICT
+A_MOD    | INT:0 signed           | INT:0 signed           || INT:0 ct7 size=64 dec=0            | INT:0 ct7 size=32 dec=0            | DIFF <<<
+B_DIV    | INT:0 signed           | INT:0 signed           || INT:0 ct7 size=32 dec=0            | INT:0 ct7 size=32 dec=0            | same
+C_MUL    | INT:0 signed           | INT:0 signed           || INT:0 ct7 size=32 dec=0            | INT:0 ct7 size=32 dec=0            | same
+D_SUB    | INT:64 signed          | INT:64 signed          || INT:64 ct7 size=64 dec=64          | INT:64 ct7 size=32 dec=64          | DIFF <<<
+E_SUB2   | INT:256 signed         | INT:256 signed         || INT:256 ct7 size=32 dec=256        | INT:256 ct7 size=32 dec=256        | same
+F_ADD    | UINT:64 signed         | UINT:64 signed         || UINT:64 ct9 size=32 dec=64         | UINT:64 ct9 size=32 dec=64         | same
+G_SEL    | UINT:0 signed          | UINT:0 signed          || UINT:0 ct9 size=32 dec=0           | UINT:0 ct9 size=32 dec=0           | same
+H_GMOD   | INT:0 signed           | INT:0 signed           || INT:0 ct7 size=32 dec=0            | INT:0 ct7 size=32 dec=0            | same
+I_KMOD   | INT:1 signed           | INT:1 signed           || INT:1 ct7 size=32 dec=1            | INT:1 ct7 size=32 dec=1            | same
+J_PROP   | INT:1 signed           | INT:1 signed           || INT:1 ct7 size=32 dec=1            | INT:1 ct7 size=32 dec=1            | same
+K_MODM   | INT:0 signed           | INT:0 signed           || INT:0 ct7 size=32 dec=0            | INT:0 ct7 size=32 dec=0            | same
+L_CAST   | UINT:0 signed          | UINT:0 signed          || UINT:0 ct9 size=32 dec=0           | UINT:0 ct9 size=32 dec=0           | same
+M_POW    | INT:2 signed           | INT:2 signed           || INT:2 ct7 size=32 dec=2            | INT:2 ct7 size=32 dec=2            | same
+N_UMIN   | INT:0 signed           | INT:0 signed           || INT:0 ct7 size=32 dec=0            | INT:0 ct7 size=32 dec=0            | same
+T_IU     | INT:0                  | INT:0                  || INT:0 ct7 size=32 dec=0            | INT:0 ct7 size=32 dec=0            | same
+T_LG     | INT:0                  | INT:0                  || INT:0 ct7 size=32 dec=0            | INT:0 ct7 size=32 dec=0            | same
+T_BT     | INT:0                  | INT:0                  || INT:0 ct7 size=8 dec=0             | INT:0 ct7 size=8 dec=0             | same
+T_BY     | INT:0 signed           | INT:0 signed           || INT:0 ct7 size=8 dec=0             | INT:0 ct7 size=8 dec=0             | same
+T_SI     | INT:0 signed           | INT:0 signed           || INT:0 ct7 size=16 dec=0            | INT:0 ct7 size=16 dec=0            | same
+T_IG     | INT:0 signed           | INT:0 signed           || INT:0 ct7 size=32 dec=0            | INT:0 ct7 size=32 dec=0            | same
+T_UN     | INT:0                  | INT:0                  || INT:0 ct7 size=64 dec=0            | INT:0 ct7 size=32 dec=0            | DIFF <<<
+NEG      | INT:-1 signed          | INT:-1 signed          || INT:-1 ct7 size=64 dec=-1          | INT:-1 ct7 size=32 dec=-1          | DIFF <<<
+x        | UINT:0                 | UINT:0                 || (no param_assign)                  | (no param_assign)                  | same
+
+rows=23  differing=4   (instance filter '[0].')
+
+### A1 instance [1]
+PARAM    | G param value          | O param value          || G pa constant                      | O pa constant                      | VERDICT
+A_MOD    | INT:36 signed          | INT:36 signed          || INT:36 ct7 size=64 dec=36          | INT:36 ct7 size=32 dec=36          | DIFF <<<
+B_DIV    | INT:18 signed          | INT:18 signed          || INT:18 ct7 size=32 dec=18          | INT:18 ct7 size=32 dec=18          | same
+C_MUL    | INT:72 signed          | INT:72 signed          || INT:72 ct7 size=32 dec=72          | INT:72 ct7 size=32 dec=72          | same
+D_SUB    | INT:28 signed          | INT:28 signed          || INT:28 ct7 size=64 dec=28          | INT:28 ct7 size=32 dec=28          | DIFF <<<
+E_SUB2   | INT:220 signed         | INT:220 signed         || INT:220 ct7 size=32 dec=220        | INT:220 ct7 size=32 dec=220        | same
+F_ADD    | UINT:100 signed        | UINT:100 signed        || UINT:100 ct9 size=32 dec=100       | UINT:100 ct9 size=32 dec=100       | same
+G_SEL    | UINT:36 signed         | UINT:36 signed         || UINT:36 ct9 size=32 dec=36         | UINT:36 ct9 size=32 dec=36         | same
+H_GMOD   | INT:1 signed           | INT:1 signed           || INT:1 ct7 size=32 dec=1            | INT:1 ct7 size=32 dec=1            | same
+I_KMOD   | INT:1 signed           | INT:1 signed           || INT:1 ct7 size=32 dec=1            | INT:1 ct7 size=32 dec=1            | same
+J_PROP   | INT:37 signed          | INT:37 signed          || INT:37 ct7 size=32 dec=37          | INT:37 ct7 size=32 dec=37          | same
+K_MODM   | INT:72 signed          | INT:72 signed          || INT:72 ct7 size=32 dec=72          | INT:72 ct7 size=32 dec=72          | same
+L_CAST   | UINT:36 signed         | UINT:36 signed         || UINT:36 ct9 size=32 dec=36         | UINT:36 ct9 size=32 dec=36         | same
+M_POW    | INT:4 signed           | INT:4 signed           || INT:4 ct7 size=32 dec=4            | INT:4 ct7 size=32 dec=4            | same
+N_UMIN   | INT:36 signed          | INT:36 signed          || INT:36 ct7 size=32 dec=36          | INT:36 ct7 size=32 dec=36          | same
+T_IU     | INT:36                 | INT:36                 || INT:36 ct7 size=32 dec=36          | INT:36 ct7 size=32 dec=36          | same
+T_LG     | INT:36                 | INT:36                 || INT:36 ct7 size=32 dec=36          | INT:36 ct7 size=32 dec=36          | same
+T_BT     | INT:36                 | INT:36                 || INT:36 ct7 size=8 dec=36           | INT:36 ct7 size=8 dec=36           | same
+T_BY     | INT:36 signed          | INT:36 signed          || INT:36 ct7 size=8 dec=36           | INT:36 ct7 size=8 dec=36           | same
+T_SI     | INT:36 signed          | INT:36 signed          || INT:36 ct7 size=16 dec=36          | INT:36 ct7 size=16 dec=36          | same
+T_IG     | INT:36 signed          | INT:36 signed          || INT:36 ct7 size=32 dec=36          | INT:36 ct7 size=32 dec=36          | same
+T_UN     | INT:36                 | INT:36                 || INT:36 ct7 size=64 dec=36          | INT:36 ct7 size=32 dec=36          | DIFF <<<
+NEG      | INT:0 signed           | INT:0 signed           || INT:0 ct7 size=64 dec=0            | INT:0 ct7 size=32 dec=0            | DIFF <<<
+x        | UINT:1                 | UINT:1                 || (no param_assign)                  | (no param_assign)                  | same
+
+rows=23  differing=4   (instance filter '[1].')
+
+### A1 instance [2]
+PARAM    | G param value          | O param value          || G pa constant                      | O pa constant                      | VERDICT
+A_MOD    | INT:3 signed           | INT:3 signed           || INT:3 ct7 size=64 dec=3            | INT:3 ct7 size=32 dec=3            | DIFF <<<
+B_DIV    | INT:2 signed           | INT:2 signed           || INT:2 ct7 size=32 dec=2            | INT:2 ct7 size=32 dec=2            | same
+C_MUL    | INT:6 signed           | INT:6 signed           || INT:6 ct7 size=32 dec=6            | INT:6 ct7 size=32 dec=6            | same
+D_SUB    | INT:61 signed          | INT:61 signed          || INT:61 ct7 size=64 dec=61          | INT:61 ct7 size=32 dec=61          | DIFF <<<
+E_SUB2   | INT:253 signed         | INT:253 signed         || INT:253 ct7 size=32 dec=253        | INT:253 ct7 size=32 dec=253        | same
+F_ADD    | UINT:67 signed         | UINT:67 signed         || UINT:67 ct9 size=32 dec=67         | UINT:67 ct9 size=32 dec=67         | same
+G_SEL    | UINT:3 signed          | UINT:3 signed          || UINT:3 ct9 size=32 dec=3           | UINT:3 ct9 size=32 dec=3           | same
+H_GMOD   | INT:2 signed           | INT:2 signed           || INT:2 ct7 size=32 dec=2            | INT:2 ct7 size=32 dec=2            | same
+I_KMOD   | INT:1 signed           | INT:1 signed           || INT:1 ct7 size=32 dec=1            | INT:1 ct7 size=32 dec=1            | same
+J_PROP   | INT:4 signed           | INT:4 signed           || INT:4 ct7 size=32 dec=4            | INT:4 ct7 size=32 dec=4            | same
+K_MODM   | INT:6 signed           | INT:6 signed           || INT:6 ct7 size=32 dec=6            | INT:6 ct7 size=32 dec=6            | same
+L_CAST   | UINT:3 signed          | UINT:3 signed          || UINT:3 ct9 size=32 dec=3           | UINT:3 ct9 size=32 dec=3           | same
+M_POW    | INT:8 signed           | INT:8 signed           || INT:8 ct7 size=32 dec=8            | INT:8 ct7 size=32 dec=8            | same
+N_UMIN   | INT:3 signed           | INT:3 signed           || INT:3 ct7 size=32 dec=3            | INT:3 ct7 size=32 dec=3            | same
+T_IU     | INT:3                  | INT:3                  || INT:3 ct7 size=32 dec=3            | INT:3 ct7 size=32 dec=3            | same
+T_LG     | INT:3                  | INT:3                  || INT:3 ct7 size=32 dec=3            | INT:3 ct7 size=32 dec=3            | same
+T_BT     | INT:3                  | INT:3                  || INT:3 ct7 size=8 dec=3             | INT:3 ct7 size=8 dec=3             | same
+T_BY     | INT:3 signed           | INT:3 signed           || INT:3 ct7 size=8 dec=3             | INT:3 ct7 size=8 dec=3             | same
+T_SI     | INT:3 signed           | INT:3 signed           || INT:3 ct7 size=16 dec=3            | INT:3 ct7 size=16 dec=3            | same
+T_IG     | INT:3 signed           | INT:3 signed           || INT:3 ct7 size=32 dec=3            | INT:3 ct7 size=32 dec=3            | same
+T_UN     | INT:3                  | INT:3                  || INT:3 ct7 size=64 dec=3            | INT:3 ct7 size=32 dec=3            | DIFF <<<
+NEG      | INT:1 signed           | INT:1 signed           || INT:1 ct7 size=64 dec=1            | INT:1 ct7 size=32 dec=1            | DIFF <<<
+x        | UINT:2                 | UINT:2                 || (no param_assign)                  | (no param_assign)                  | same
+
+rows=23  differing=4   (instance filter '[2].')
+
+### A1 instance [3]
+PARAM    | G param value          | O param value          || G pa constant                      | O pa constant                      | VERDICT
+A_MOD    | INT:41 signed          | INT:41 signed          || INT:41 ct7 size=64 dec=41          | INT:41 ct7 size=32 dec=41          | DIFF <<<
+B_DIV    | INT:53 signed          | INT:53 signed          || INT:53 ct7 size=32 dec=53          | INT:53 ct7 size=32 dec=53          | same
+C_MUL    | INT:210 signed         | INT:210 signed         || INT:210 ct7 size=32 dec=210        | INT:210 ct7 size=32 dec=210        | same
+D_SUB    | INT:23 signed          | INT:23 signed          || INT:23 ct7 size=64 dec=23          | INT:23 ct7 size=32 dec=23          | DIFF <<<
+E_SUB2   | INT:151 signed         | INT:151 signed         || INT:151 ct7 size=32 dec=151        | INT:151 ct7 size=32 dec=151        | same
+F_ADD    | UINT:169 signed        | UINT:169 signed        || UINT:169 ct9 size=32 dec=169       | UINT:169 ct9 size=32 dec=169       | same
+G_SEL    | UINT:105 signed        | UINT:105 signed        || UINT:105 ct9 size=32 dec=105       | UINT:105 ct9 size=32 dec=105       | same
+H_GMOD   | INT:0 signed           | INT:0 signed           || INT:0 ct7 size=32 dec=0            | INT:0 ct7 size=32 dec=0            | same
+I_KMOD   | INT:1 signed           | INT:1 signed           || INT:1 ct7 size=32 dec=1            | INT:1 ct7 size=32 dec=1            | same
+J_PROP   | INT:42 signed          | INT:42 signed          || INT:42 ct7 size=32 dec=42          | INT:42 ct7 size=32 dec=42          | same
+K_MODM   | INT:82 signed          | INT:82 signed          || INT:82 ct7 size=32 dec=82          | INT:82 ct7 size=32 dec=82          | same
+L_CAST   | UINT:41 signed         | UINT:41 signed         || UINT:41 ct9 size=32 dec=41         | UINT:41 ct9 size=32 dec=41         | same
+M_POW    | INT:16 signed          | INT:16 signed          || INT:16 ct7 size=32 dec=16          | INT:16 ct7 size=32 dec=16          | same
+N_UMIN   | INT:105 signed         | INT:105 signed         || INT:105 ct7 size=32 dec=105        | INT:105 ct7 size=32 dec=105        | same
+T_IU     | INT:41                 | INT:41                 || INT:41 ct7 size=32 dec=41          | INT:41 ct7 size=32 dec=41          | same
+T_LG     | INT:41                 | INT:41                 || INT:41 ct7 size=32 dec=41          | INT:41 ct7 size=32 dec=41          | same
+T_BT     | INT:41                 | INT:41                 || INT:41 ct7 size=8 dec=41           | INT:41 ct7 size=8 dec=41           | same
+T_BY     | INT:41 signed          | INT:41 signed          || INT:41 ct7 size=8 dec=41           | INT:41 ct7 size=8 dec=41           | same
+T_SI     | INT:41 signed          | INT:41 signed          || INT:41 ct7 size=16 dec=41          | INT:41 ct7 size=16 dec=41          | same
+T_IG     | INT:41 signed          | INT:41 signed          || INT:41 ct7 size=32 dec=41          | INT:41 ct7 size=32 dec=41          | same
+T_UN     | INT:41                 | INT:41                 || INT:41 ct7 size=64 dec=41          | INT:41 ct7 size=32 dec=41          | DIFF <<<
+NEG      | INT:2 signed           | INT:2 signed           || INT:2 ct7 size=64 dec=2            | INT:2 ct7 size=32 dec=2            | DIFF <<<
+x        | UINT:3                 | UINT:3                 || (no param_assign)                  | (no param_assign)                  | same
+
+rows=23  differing=4   (instance filter '[3].')
+
+### A1 instance [4]
+PARAM    | G param value          | O param value          || G pa constant                      | O pa constant                      | VERDICT
+A_MOD    | INT:18 signed          | INT:18 signed          || INT:18 ct7 size=64 dec=18          | INT:18 ct7 size=32 dec=18          | DIFF <<<
+B_DIV    | INT:105 signed         | INT:105 signed         || INT:105 ct7 size=32 dec=105        | INT:105 ct7 size=32 dec=105        | same
+C_MUL    | INT:420 signed         | INT:420 signed         || INT:420 ct7 size=32 dec=420        | INT:420 ct7 size=32 dec=420        | same
+D_SUB    | INT:46 signed          | INT:46 signed          || INT:46 ct7 size=64 dec=46          | INT:46 ct7 size=32 dec=46          | DIFF <<<
+E_SUB2   | INT:46 signed          | INT:46 signed          || INT:46 ct7 size=32 dec=46          | INT:46 ct7 size=32 dec=46          | same
+F_ADD    | UINT:274 signed        | UINT:274 signed        || UINT:274 ct9 size=32 dec=274       | UINT:274 ct9 size=32 dec=274       | same
+G_SEL    | UINT:210 signed        | UINT:210 signed        || UINT:210 ct9 size=32 dec=210       | UINT:210 ct9 size=32 dec=210       | same
+H_GMOD   | INT:1 signed           | INT:1 signed           || INT:1 ct7 size=32 dec=1            | INT:1 ct7 size=32 dec=1            | same
+I_KMOD   | INT:1 signed           | INT:1 signed           || INT:1 ct7 size=32 dec=1            | INT:1 ct7 size=32 dec=1            | same
+J_PROP   | INT:19 signed          | INT:19 signed          || INT:19 ct7 size=32 dec=19          | INT:19 ct7 size=32 dec=19          | same
+K_MODM   | INT:36 signed          | INT:36 signed          || INT:36 ct7 size=32 dec=36          | INT:36 ct7 size=32 dec=36          | same
+L_CAST   | UINT:18 signed         | UINT:18 signed         || UINT:18 ct9 size=32 dec=18         | UINT:18 ct9 size=32 dec=18         | same
+M_POW    | INT:32 signed          | INT:32 signed          || INT:32 ct7 size=32 dec=32          | INT:32 ct7 size=32 dec=32          | same
+N_UMIN   | INT:210 signed         | INT:210 signed         || INT:210 ct7 size=32 dec=210        | INT:210 ct7 size=32 dec=210        | same
+T_IU     | INT:18                 | INT:18                 || INT:18 ct7 size=32 dec=18          | INT:18 ct7 size=32 dec=18          | same
+T_LG     | INT:18                 | INT:18                 || INT:18 ct7 size=32 dec=18          | INT:18 ct7 size=32 dec=18          | same
+T_BT     | INT:18                 | INT:18                 || INT:18 ct7 size=8 dec=18           | INT:18 ct7 size=8 dec=18           | same
+T_BY     | INT:18 signed          | INT:18 signed          || INT:18 ct7 size=8 dec=18           | INT:18 ct7 size=8 dec=18           | same
+T_SI     | INT:18 signed          | INT:18 signed          || INT:18 ct7 size=16 dec=18          | INT:18 ct7 size=16 dec=18          | same
+T_IG     | INT:18 signed          | INT:18 signed          || INT:18 ct7 size=32 dec=18          | INT:18 ct7 size=32 dec=18          | same
+T_UN     | INT:18                 | INT:18                 || INT:18 ct7 size=64 dec=18          | INT:18 ct7 size=32 dec=18          | DIFF <<<
+NEG      | INT:3 signed           | INT:3 signed           || INT:3 ct7 size=64 dec=3            | INT:3 ct7 size=32 dec=3            | DIFF <<<
+x        | UINT:4                 | UINT:4                 || (no param_assign)                  | (no param_assign)                  | same
+
+rows=23  differing=4   (instance filter '[4].')
+
+### A1 module-scope controls
+PARAM    | G param value          | O param value          || G pa constant                      | O pa constant                      | VERDICT
+MOD_MOD  | None:None signed       | None:None signed       || INT:41 ct7 size=32 dec=41          | INT:41 ct7 size=32 dec=41          | same
+MOD_SUB  | None:None signed       | None:None signed       || INT:28 ct7 size=32 dec=28          | INT:28 ct7 size=32 dec=28          | same
+MOD_ADD  | None:None signed       | None:None signed       || UINT:100 ct9 size=32 dec=100       | UINT:100 ct9 size=32 dec=100       | same
+MOD_SEL  | None:None signed       | None:None signed       || UINT:36 ct9 size=32 dec=36         | UINT:36 ct9 size=32 dec=36         | same
+
+rows=4  differing=0   (instance filter 'a1_earl46.MOD')

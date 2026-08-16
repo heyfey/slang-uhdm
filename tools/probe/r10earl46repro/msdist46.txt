@@ -1,0 +1,10 @@
+### pris
+golden-only line instances: 238458
+ours-only   line instances: 70226
+MULTISET DISTANCE (sum |dg-do|): 308684
+g lines=4823448  o lines=4655216
+### pat
+golden-only line instances: 237830
+ours-only   line instances: 69598
+MULTISET DISTANCE (sum |dg-do|): 307428
+g lines=4823448  o lines=4655216

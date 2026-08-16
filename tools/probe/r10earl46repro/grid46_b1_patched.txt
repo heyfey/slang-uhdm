@@ -1,0 +1,131 @@
+### B1 instance [0]
+PARAM    | G param value          | O param value          || G pa constant                      | O pa constant                      | VERDICT
+IDXMUL   | UINT:0 signed          | UINT:0 signed          || UINT:0 ct9 size=32 dec=0           | UINT:0 ct9 size=32 dec=0           | same
+IDXMOD   | UINT:210 signed        | UINT:210 signed        || UINT:210 ct9 size=32 dec=210       | UINT:210 ct9 size=32 dec=210       | same
+SHL      | UINT:0 signed          | UINT:0 signed          || UINT:0 ct9 size=32 dec=0           | UINT:0 ct9 size=32 dec=0           | same
+ANDM     | UINT:0 signed          | UINT:0 signed          || UINT:0 ct9 size=32 dec=0           | UINT:0 ct9 size=32 dec=0           | same
+ORM      | UINT:1 signed          | UINT:1 signed          || UINT:1 ct9 size=32 dec=1           | UINT:1 ct9 size=32 dec=1           | same
+TERNM    | UINT:3 signed          | UINT:3 signed          || UINT:3 ct9 size=32 dec=3           | UINT:3 ct9 size=32 dec=3           | same
+TERNU    | UINT:3 signed          | UINT:3 signed          || UINT:3 ct9 size=32 dec=3           | UINT:3 ct9 size=32 dec=3           | same
+FCALL    | UINT:0 signed          | UINT:0 signed          || UINT:0 ct9 size=32 dec=0           | UINT:0 ct9 size=32 dec=0           | same
+CONCM    | BIN:00000000 signed    | UINT:0 signed          || BIN:00000000 ct3 size=8 dec=8'b00000000 | UINT:0 ct9 size=32 dec=0           | DIFF <<<
+LSHM     | UINT:1 signed          | UINT:1 signed          || UINT:1 ct9 size=32 dec=1           | UINT:1 ct9 size=32 dec=1           | same
+MODREF   | INT:42 signed          | INT:42 signed          || INT:42 ct7 size=32 dec=42          | INT:42 ct7 size=32 dec=42          | same
+SELREF   | UINT:37 signed         | UINT:37 signed         || UINT:37 ct9 size=32 dec=37         | UINT:37 ct9 size=32 dec=37         | same
+SUBADD   | INT:1 signed           | INT:1 signed           || INT:1 ct7 size=32 dec=1            | INT:1 ct7 size=32 dec=1            | same
+ADDSUB   | INT:1 signed           | INT:1 signed           || INT:1 ct7 size=32 dec=1            | INT:1 ct7 size=32 dec=1            | same
+CASTMUL  | INT:0 signed           | INT:0 signed           || INT:0 ct7 size=32 dec=0            | INT:0 ct7 size=32 dec=0            | same
+CASTADD  | UINT:1 signed          | UINT:1 signed          || UINT:1 ct9 size=32 dec=1           | UINT:1 ct9 size=32 dec=1           | same
+MULCAST  | UINT:0 signed          | UINT:0 signed          || UINT:0 ct9 size=32 dec=0           | UINT:0 ct9 size=32 dec=0           | same
+UPLUS    | None:None signed       | INT:0 signed           || INT:0 ct7 size=64 dec=0            | INT:0 ct7 size=32 dec=0            | DIFF <<<
+UNOTL    | UINT:1 signed          | UINT:1 signed          || UINT:1 ct9 size=32 dec=1           | UINT:1 ct9 size=32 dec=1           | same
+x        | UINT:0                 | UINT:0                 || (no param_assign)                  | (no param_assign)                  | same
+
+rows=20  differing=2   (instance filter '[0].')
+
+### B1 instance [1]
+PARAM    | G param value          | O param value          || G pa constant                      | O pa constant                      | VERDICT
+IDXMUL   | UINT:36 signed         | UINT:36 signed         || UINT:36 ct9 size=32 dec=36         | UINT:36 ct9 size=32 dec=36         | same
+IDXMOD   | UINT:0 signed          | UINT:0 signed          || UINT:0 ct9 size=32 dec=0           | UINT:0 ct9 size=32 dec=0           | same
+SHL      | UINT:72 signed         | UINT:72 signed         || UINT:72 ct9 size=32 dec=72         | UINT:72 ct9 size=32 dec=72         | same
+ANDM     | UINT:36 signed         | UINT:36 signed         || UINT:36 ct9 size=32 dec=36         | UINT:36 ct9 size=32 dec=36         | same
+ORM      | UINT:73 signed         | UINT:73 signed         || UINT:73 ct9 size=32 dec=73         | UINT:73 ct9 size=32 dec=73         | same
+TERNM    | INT:36 signed          | INT:36 signed          || INT:36 ct7 size=32 dec=36          | INT:36 ct7 size=32 dec=36          | same
+TERNU    | INT:72 signed          | INT:72 signed          || INT:72 ct7 size=32 dec=72          | INT:72 ct7 size=32 dec=72          | same
+FCALL    | UINT:7 signed          | UINT:7 signed          || UINT:7 ct9 size=32 dec=7           | UINT:7 ct9 size=32 dec=7           | same
+CONCM    | BIN:00100100 signed    | UINT:36 signed         || BIN:00100100 ct3 size=8 dec=8'b00100100 | UINT:36 ct9 size=32 dec=36         | DIFF <<<
+LSHM     | UINT:1 signed          | UINT:1 signed          || UINT:1 ct9 size=32 dec=1           | UINT:1 ct9 size=32 dec=1           | same
+MODREF   | INT:42 signed          | INT:42 signed          || INT:42 ct7 size=32 dec=42          | INT:42 ct7 size=32 dec=42          | same
+SELREF   | UINT:37 signed         | UINT:37 signed         || UINT:37 ct9 size=32 dec=37         | UINT:37 ct9 size=32 dec=37         | same
+SUBADD   | INT:37 signed          | INT:37 signed          || INT:37 ct7 size=32 dec=37          | INT:37 ct7 size=32 dec=37          | same
+ADDSUB   | INT:37 signed          | INT:37 signed          || INT:37 ct7 size=32 dec=37          | INT:37 ct7 size=32 dec=37          | same
+CASTMUL  | INT:2 signed           | INT:2 signed           || INT:2 ct7 size=32 dec=2            | INT:2 ct7 size=32 dec=2            | same
+CASTADD  | UINT:37 signed         | UINT:37 signed         || UINT:37 ct9 size=32 dec=37         | UINT:37 ct9 size=32 dec=37         | same
+MULCAST  | UINT:72 signed         | UINT:72 signed         || UINT:72 ct9 size=32 dec=72         | UINT:72 ct9 size=32 dec=72         | same
+UPLUS    | None:None signed       | INT:36 signed          || INT:36 ct7 size=64 dec=36          | INT:36 ct7 size=32 dec=36          | DIFF <<<
+UNOTL    | UINT:0 signed          | UINT:0 signed          || UINT:0 ct9 size=32 dec=0           | UINT:0 ct9 size=32 dec=0           | same
+x        | UINT:1                 | UINT:1                 || (no param_assign)                  | (no param_assign)                  | same
+
+rows=20  differing=2   (instance filter '[1].')
+
+### B1 instance [2]
+PARAM    | G param value          | O param value          || G pa constant                      | O pa constant                      | VERDICT
+IDXMUL   | UINT:3 signed          | UINT:3 signed          || UINT:3 ct9 size=32 dec=3           | UINT:3 ct9 size=32 dec=3           | same
+IDXMOD   | UINT:36 signed         | UINT:36 signed         || UINT:36 ct9 size=32 dec=36         | UINT:36 ct9 size=32 dec=36         | same
+SHL      | UINT:6 signed          | UINT:6 signed          || UINT:6 ct9 size=32 dec=6           | UINT:6 ct9 size=32 dec=6           | same
+ANDM     | UINT:3 signed          | UINT:3 signed          || UINT:3 ct9 size=32 dec=3           | UINT:3 ct9 size=32 dec=3           | same
+ORM      | UINT:7 signed          | UINT:7 signed          || UINT:7 ct9 size=32 dec=7           | UINT:7 ct9 size=32 dec=7           | same
+TERNM    | INT:3 signed           | INT:3 signed           || INT:3 ct7 size=32 dec=3            | INT:3 ct7 size=32 dec=3            | same
+TERNU    | INT:6 signed           | INT:6 signed           || INT:6 ct7 size=32 dec=6            | INT:6 ct7 size=32 dec=6            | same
+FCALL    | UINT:3 signed          | UINT:3 signed          || UINT:3 ct9 size=32 dec=3           | UINT:3 ct9 size=32 dec=3           | same
+CONCM    | BIN:00000011 signed    | UINT:3 signed          || BIN:00000011 ct3 size=8 dec=8'b00000011 | UINT:3 ct9 size=32 dec=3           | DIFF <<<
+LSHM     | UINT:8 signed          | UINT:8 signed          || UINT:8 ct9 size=32 dec=8           | UINT:8 ct9 size=32 dec=8           | same
+MODREF   | INT:42 signed          | INT:42 signed          || INT:42 ct7 size=32 dec=42          | INT:42 ct7 size=32 dec=42          | same
+SELREF   | UINT:37 signed         | UINT:37 signed         || UINT:37 ct9 size=32 dec=37         | UINT:37 ct9 size=32 dec=37         | same
+SUBADD   | INT:4 signed           | INT:4 signed           || INT:4 ct7 size=32 dec=4            | INT:4 ct7 size=32 dec=4            | same
+ADDSUB   | INT:4 signed           | INT:4 signed           || INT:4 ct7 size=32 dec=4            | INT:4 ct7 size=32 dec=4            | same
+CASTMUL  | INT:4 signed           | INT:4 signed           || INT:4 ct7 size=32 dec=4            | INT:4 ct7 size=32 dec=4            | same
+CASTADD  | UINT:4 signed          | UINT:4 signed          || UINT:4 ct9 size=32 dec=4           | UINT:4 ct9 size=32 dec=4           | same
+MULCAST  | UINT:6 signed          | UINT:6 signed          || UINT:6 ct9 size=32 dec=6           | UINT:6 ct9 size=32 dec=6           | same
+UPLUS    | None:None signed       | INT:3 signed           || INT:3 ct7 size=64 dec=3            | INT:3 ct7 size=32 dec=3            | DIFF <<<
+UNOTL    | UINT:0 signed          | UINT:0 signed          || UINT:0 ct9 size=32 dec=0           | UINT:0 ct9 size=32 dec=0           | same
+x        | UINT:2                 | UINT:2                 || (no param_assign)                  | (no param_assign)                  | same
+
+rows=20  differing=2   (instance filter '[2].')
+
+### B1 instance [3]
+PARAM    | G param value          | O param value          || G pa constant                      | O pa constant                      | VERDICT
+IDXMUL   | UINT:105 signed        | UINT:105 signed        || UINT:105 ct9 size=32 dec=105       | UINT:105 ct9 size=32 dec=105       | same
+IDXMOD   | UINT:3 signed          | UINT:3 signed          || UINT:3 ct9 size=32 dec=3           | UINT:3 ct9 size=32 dec=3           | same
+SHL      | UINT:82 signed         | UINT:82 signed         || UINT:82 ct9 size=32 dec=82         | UINT:82 ct9 size=32 dec=82         | same
+ANDM     | UINT:41 signed         | UINT:41 signed         || UINT:41 ct9 size=32 dec=41         | UINT:41 ct9 size=32 dec=41         | same
+ORM      | UINT:211 signed        | UINT:211 signed        || UINT:211 ct9 size=32 dec=211       | UINT:211 ct9 size=32 dec=211       | same
+TERNM    | INT:41 signed          | INT:41 signed          || INT:41 ct7 size=32 dec=41          | INT:41 ct7 size=32 dec=41          | same
+TERNU    | INT:210 signed         | INT:210 signed         || INT:210 ct7 size=32 dec=210        | INT:210 ct7 size=32 dec=210        | same
+FCALL    | UINT:8 signed          | UINT:8 signed          || UINT:8 ct9 size=32 dec=8           | UINT:8 ct9 size=32 dec=8           | same
+CONCM    | BIN:00101001 signed    | UINT:41 signed         || BIN:00101001 ct3 size=8 dec=8'b00101001 | UINT:41 ct9 size=32 dec=41         | DIFF <<<
+LSHM     | UINT:2 signed          | UINT:2 signed          || UINT:2 ct9 size=32 dec=2           | UINT:2 ct9 size=32 dec=2           | same
+MODREF   | INT:42 signed          | INT:42 signed          || INT:42 ct7 size=32 dec=42          | INT:42 ct7 size=32 dec=42          | same
+SELREF   | UINT:37 signed         | UINT:37 signed         || UINT:37 ct9 size=32 dec=37         | UINT:37 ct9 size=32 dec=37         | same
+SUBADD   | INT:106 signed         | INT:106 signed         || INT:106 ct7 size=32 dec=106        | INT:106 ct7 size=32 dec=106        | same
+ADDSUB   | INT:106 signed         | INT:106 signed         || INT:106 ct7 size=32 dec=106        | INT:106 ct7 size=32 dec=106        | same
+CASTMUL  | INT:6 signed           | INT:6 signed           || INT:6 ct7 size=32 dec=6            | INT:6 ct7 size=32 dec=6            | same
+CASTADD  | UINT:42 signed         | UINT:42 signed         || UINT:42 ct9 size=32 dec=42         | UINT:42 ct9 size=32 dec=42         | same
+MULCAST  | UINT:210 signed        | UINT:210 signed        || UINT:210 ct9 size=32 dec=210       | UINT:210 ct9 size=32 dec=210       | same
+UPLUS    | None:None signed       | INT:41 signed          || INT:41 ct7 size=64 dec=41          | INT:41 ct7 size=32 dec=41          | DIFF <<<
+UNOTL    | UINT:0 signed          | UINT:0 signed          || UINT:0 ct9 size=32 dec=0           | UINT:0 ct9 size=32 dec=0           | same
+x        | UINT:3                 | UINT:3                 || (no param_assign)                  | (no param_assign)                  | same
+
+rows=20  differing=2   (instance filter '[3].')
+
+### B1 instance [4]
+PARAM    | G param value          | O param value          || G pa constant                      | O pa constant                      | VERDICT
+IDXMUL   | UINT:210 signed        | UINT:210 signed        || UINT:210 ct9 size=32 dec=210       | UINT:210 ct9 size=32 dec=210       | same
+IDXMOD   | UINT:105 signed        | UINT:105 signed        || UINT:105 ct9 size=32 dec=105       | UINT:105 ct9 size=32 dec=105       | same
+SHL      | UINT:36 signed         | UINT:36 signed         || UINT:36 ct9 size=32 dec=36         | UINT:36 ct9 size=32 dec=36         | same
+ANDM     | UINT:18 signed         | UINT:18 signed         || UINT:18 ct9 size=32 dec=18         | UINT:18 ct9 size=32 dec=18         | same
+ORM      | UINT:421 signed        | UINT:421 signed        || UINT:421 ct9 size=32 dec=421       | UINT:421 ct9 size=32 dec=421       | same
+TERNM    | INT:18 signed          | INT:18 signed          || INT:18 ct7 size=32 dec=18          | INT:18 ct7 size=32 dec=18          | same
+TERNU    | INT:420 signed         | INT:420 signed         || INT:420 ct7 size=32 dec=420        | INT:420 ct7 size=32 dec=420        | same
+FCALL    | UINT:9 signed          | UINT:9 signed          || UINT:9 ct9 size=32 dec=9           | UINT:9 ct9 size=32 dec=9           | same
+CONCM    | BIN:00010010 signed    | UINT:18 signed         || BIN:00010010 ct3 size=8 dec=8'b00010010 | UINT:18 ct9 size=32 dec=18         | DIFF <<<
+LSHM     | UINT:4 signed          | UINT:4 signed          || UINT:4 ct9 size=32 dec=4           | UINT:4 ct9 size=32 dec=4           | same
+MODREF   | INT:42 signed          | INT:42 signed          || INT:42 ct7 size=32 dec=42          | INT:42 ct7 size=32 dec=42          | same
+SELREF   | UINT:37 signed         | UINT:37 signed         || UINT:37 ct9 size=32 dec=37         | UINT:37 ct9 size=32 dec=37         | same
+SUBADD   | INT:211 signed         | INT:211 signed         || INT:211 ct7 size=32 dec=211        | INT:211 ct7 size=32 dec=211        | same
+ADDSUB   | INT:211 signed         | INT:211 signed         || INT:211 ct7 size=32 dec=211        | INT:211 ct7 size=32 dec=211        | same
+CASTMUL  | INT:8 signed           | INT:8 signed           || INT:8 ct7 size=32 dec=8            | INT:8 ct7 size=32 dec=8            | same
+CASTADD  | UINT:19 signed         | UINT:19 signed         || UINT:19 ct9 size=32 dec=19         | UINT:19 ct9 size=32 dec=19         | same
+MULCAST  | UINT:420 signed        | UINT:420 signed        || UINT:420 ct9 size=32 dec=420       | UINT:420 ct9 size=32 dec=420       | same
+UPLUS    | None:None signed       | INT:18 signed          || INT:18 ct7 size=64 dec=18          | INT:18 ct7 size=32 dec=18          | DIFF <<<
+UNOTL    | UINT:0 signed          | UINT:0 signed          || UINT:0 ct9 size=32 dec=0           | UINT:0 ct9 size=32 dec=0           | same
+x        | UINT:4                 | UINT:4                 || (no param_assign)                  | (no param_assign)                  | same
+
+rows=20  differing=2   (instance filter '[4].')
+
+### B1 module-scope controls
+PARAM    | G param value          | O param value          || G pa constant                      | O pa constant                      | VERDICT
+MOD_MOD  | None:None signed       | None:None signed       || INT:41 ct7 size=32 dec=41          | INT:41 ct7 size=32 dec=41          | same
+MOD_SEL  | None:None signed       | None:None signed       || UINT:36 ct9 size=32 dec=36         | UINT:36 ct9 size=32 dec=36         | same
+
+rows=2  differing=0   (instance filter 'b1_earl46.MOD')

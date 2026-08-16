@@ -1,0 +1,26 @@
+### gen_test4 (u2r, BOTH modes) — per-shape movers
+ADDED        1  [        |INT:0]
+ADDED        1  [        |INT:1]
+REMOVED      1  [        |UINT:0]
+REMOVED      1  [        |UINT:1]
+ADDED shapes=2 instances=2   REMOVED shapes=2 instances=2   NET=+0
+a lines=1287  b lines=1287
+
+### gen_test4 — MULTISET DISTANCE vs GOLDEN
+  pristine MULTISET DISTANCE (sum |dg-do|): 10
+  patched  MULTISET DISTANCE (sum |dg-do|): 6
+
+### int_types (u2r, BOTH modes) — per-shape movers
+ADDED       17  [        |INT:-1]
+REMOVED      6  [        |UINT:1]
+REMOVED      6  [        |UINT:3]
+REMOVED      1  [        |UINT:18446744073709551615]
+REMOVED      1  [        |UINT:255]
+REMOVED      1  [        |UINT:65535]
+REMOVED      2  [        |UINT:4294967295]
+ADDED shapes=1 instances=17   REMOVED shapes=6 instances=17   NET=+0
+a lines=29405  b lines=29405
+
+### int_types — MULTISET DISTANCE vs GOLDEN
+  pristine MULTISET DISTANCE (sum |dg-do|): 2208
+  patched  MULTISET DISTANCE (sum |dg-do|): 2174

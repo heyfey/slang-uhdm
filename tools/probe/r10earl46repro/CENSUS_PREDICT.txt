@@ -1,0 +1,44 @@
+r10earl46 CENSUS-PREDICT — written BEFORE the patched binary was run,
+derived ENTIRELY from the ARTIFACT (census46_pristine.txt, produced from the
+PRISTINE c31af36 binary md5 0752f5052bbb7c06209747018ddef20d against the
+immutable golden cache).
+
+PREDICTED MOVERS (Earlgrey_0_1, default mode), by census key:
+
+  CONSTANT, golden INT / ours UINT -> becomes INT / INT, owner param_assign.vpiRhs,
+  every one inside a gen_scope:
+     span 64:27-64:41   rv_plic_target.sv  `Pa = Base0 + offset`         255
+     span 60:31-60:48   prim_keccak.sv     `Offset = RhoOffset[x][y]%W`   25   <- THE HEAD
+     span 61:33-61:42   prim_keccak.sv     `ShiftAmt = W- Offset`         25
+     span 104:38-104:52 (flash i_valid_random tree, same `Base0+offset`)  14
+                                                              subtotal   319
+
+  PARAMETER, golden INT / ours UINT -> becomes INT / INT, owner gen_scope.vpiParameter,
+  the SAME four declarations, second carrier:
+     span 64:22-64:24  255 | 61:22-61:30  25 | 60:22-60:28  25 | 104:33-104:35  14
+                                                              subtotal   319
+
+  TOTAL PREDICTED: 638 cells flip, 0 cells flip the other way.
+
+PREDICTED NON-MOVERS (stated explicitly so a move would be a FAILED prediction):
+
+  * The 12 PARAMETER cells at spans 37:17 / 34:17 / 46:17 / 31:17 / 21:18 /
+    18:18 / 11:18, which appear in topModules(module_inst.vpiParameter),
+    allModules and topPackages alike.  Those are MODULE- and PACKAGE-scope
+    parameters: a DIFFERENT carrier (ParamEmit's srlgArithFoldSigned /
+    isIntEncoded), untouched by this patch.
+  * The 6 CONSTANT cells at spans 10:32-10:35, 16:32-16:35, 8:30-8:32 and
+    207:35-208:82 — module-port localparams of instances, same reason.
+  * The 156 "golden UINT / ours INT" CONSTANT cells stay at 156.  131 of them
+    are range constants with NO span and NO scope; 141 unspanned INT->UINT
+    cells sit opposite them with mismatched values (g=INT:1 vs o=UINT:0).
+    Both sets are ORDINAL-PAIRING NOISE in this census, not a population:
+    an unspanned, unscoped constant cannot be span-keyed, so the join pairs
+    arbitrary members of a pool.  They are reported here so that "they did not
+    change" is a check and not a claim.
+  * The 3 indexed_part_select.vpiBaseExpr UINT->INT cells (128:32, 178:32,
+    185:32) are a pre-existing over-fire in a DIFFERENT emitter.  They must
+    not grow.
+  * PARAMETER "golden UINT / ours INT" is 0 today and must STAY 0: the law's
+    over-fire half (b1 rows IDXMUL / ORM / FCALL / TERNU) has no cells in
+    Earlgrey, so it can only move the corpus, never this design.

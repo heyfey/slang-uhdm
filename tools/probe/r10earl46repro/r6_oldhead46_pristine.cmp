@@ -1,0 +1,64 @@
+LHS:
+decompile:
+constant: , id:221174, line:60:31, endln:60:48
+|vpiParent:
+\_param_assign: , id:221173, line:60:22, endln:60:48
+|vpiDecompile:0
+|vpiSize:32
+|INT:0
+|vpiTypespec:
+\_ref_typespec: (work@prim_keccak.gen_rho_x[0].gen_rho_y[0]), id:221175
+  |vpiParent:
+  \_constant: , id:221174, line:60:31, endln:60:48
+  |vpiFullName:work@prim_keccak.gen_rho_x[0].gen_rho_y[0]
+  |vpiActual:
+  \_int_typespec: , id:221128, line:60:18, endln:60:21
+|vpiConstType:7
+
+decompile:
+constant: , id:221174, line:60:31, endln:60:48
+|vpiParent:
+\_param_assign: , id:221173, line:60:22, endln:60:48
+|vpiDecompile:0
+|vpiSize:32
+|INT:0
+|vpiTypespec:
+\_ref_typespec: (work@prim_keccak.gen_rho_x[0].gen_rho_y[0]), id:221175
+  |vpiParent:
+  \_constant: , id:221174, line:60:31, endln:60:48
+  |vpiFullName:work@prim_keccak.gen_rho_x[0].gen_rho_y[0]
+  |vpiActual:
+  \_int_typespec: , id:221128, line:60:18, endln:60:21
+|vpiConstType:7
+RHS:
+decompile:
+constant: , id:172186, line:60:31, endln:60:48
+|vpiParent:
+\_param_assign: , id:172185, line:60:22, endln:60:48
+|vpiDecompile:0
+|vpiSize:32
+|UINT:0
+|vpiTypespec:
+\_ref_typespec: (work@prim_keccak.gen_rho_x[0].gen_rho_y[0]), id:172187
+  |vpiParent:
+  \_constant: , id:172186, line:60:31, endln:60:48
+  |vpiFullName:work@prim_keccak.gen_rho_x[0].gen_rho_y[0]
+  |vpiActual:
+  \_int_typespec: , id:732510, line:60:18, endln:60:21
+|vpiConstType:9
+
+decompile:
+constant: , id:172186, line:60:31, endln:60:48
+|vpiParent:
+\_param_assign: , id:172185, line:60:22, endln:60:48
+|vpiDecompile:0
+|vpiSize:32
+|UINT:0
+|vpiTypespec:
+\_ref_typespec: (work@prim_keccak.gen_rho_x[0].gen_rho_y[0]), id:172187
+  |vpiParent:
+  \_constant: , id:172186, line:60:31, endln:60:48
+  |vpiFullName:work@prim_keccak.gen_rho_x[0].gen_rho_y[0]
+  |vpiActual:
+  \_int_typespec: , id:732510, line:60:18, endln:60:21
+|vpiConstType:9

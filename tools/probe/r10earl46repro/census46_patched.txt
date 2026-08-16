@@ -1,0 +1,271 @@
+
+================ CONSTANT: golden 136758  ours 131438  span-matched 129202  golden-only 7556  ours-only 2236
+  Q1 encoding join  golden -> ours   (DIFFERING rows <<<)
+     UINT     -> UINT        73461
+     INT      -> INT         19603
+     HEX      -> HEX         17260
+     BIN      -> BIN         16494
+     STRING   -> STRING       1135
+     DEC      -> DEC           567
+     INT      -> UINT          170  <<<
+     UINT     -> INT           156  <<<
+     BIN      -> UINT          128  <<<
+     None     -> None          103
+     UINT     -> BIN            72  <<<
+     HEX      -> UINT           44  <<<
+     INT      -> BIN             5  <<<
+     None     -> UINT            4  <<<
+  Q2 INT/UINT disagreements:  golden INT / ours UINT = 170   golden UINT / ours INT = 156
+  Q3 golden INT -> ours UINT: by (section, span, ownerkind.ownerfield)
+     topModules   ?                      operation.vpiOperand                  138 cells
+     topModules   19:17-19:19            range.vpiLeftRange                      4 cells
+     topModules   14:10-14:12            range.vpiLeftRange                      4 cells
+     topModules   20:17-20:19            range.vpiLeftRange                      3 cells
+     topModules   ?                      range.vpiLeftRange                      3 cells
+     topModules   34:12-34:13            range.vpiLeftRange                      3 cells
+     topModules   10:32-10:35            param_assign.vpiRhs                     2 cells
+     topModules   31:30-31:35            operation.vpiOperand                    2 cells
+     topModules   16:32-16:35            param_assign.vpiRhs                     2 cells
+     topModules   74:29-74:34            operation.vpiOperand                    1 cells
+     topModules   72:53-72:58            operation.vpiOperand                    1 cells
+     topModules   27:22-27:23            range.vpiLeftRange                      1 cells
+     topModules   207:35-208:82          param_assign.vpiRhs                     1 cells
+     topModules   28:17-28:19            range.vpiLeftRange                      1 cells
+     topModules   26:17-26:19            range.vpiLeftRange                      1 cells
+     topModules   64:12-64:13            range.vpiLeftRange                      1 cells
+     topModules   56:12-56:27            range.vpiLeftRange                      1 cells
+     topModules   8:30-8:32              param_assign.vpiRhs                     1 cells
+     distinct spans: 17   total cells: 170
+  Q3b sample scopes (up to 12 per span, first 6 spans)
+     span 10:32-10:35  (2 cells)
+        topModules earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic) g=INT:128/ct7 size=32 dec=128 | o=UINT:128/ct9 size=32 dec=128
+        topModules earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_flash.gen_generic) g=INT:128/ct7 size=32 dec=128 | o=UINT:128/ct9 size=32 dec=128
+     span 14:10-14:12  (4 cells)
+        topModules ?                                                                      g=INT:0/ct7 size=64 dec=0 | o=UINT:11/ct9 size=64 dec=11
+        topModules ?                                                                      g=INT:0/ct7 size=64 dec=0 | o=UINT:11/ct9 size=64 dec=11
+        topModules ?                                                                      g=INT:31/ct7 size=64 dec=31 | o=UINT:11/ct9 size=64 dec=11
+        topModules ?                                                                      g=INT:0/ct7 size=64 dec=0 | o=UINT:31/ct9 size=64 dec=31
+     span 16:32-16:35  (2 cells)
+        topModules _flash_banks[0])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[0]) g=INT:128/ct7 size=32 dec=128 | o=UINT:128/ct9 size=32 dec=128
+        topModules _flash_banks[1])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[1]) g=INT:128/ct7 size=32 dec=128 | o=UINT:128/ct9 size=32 dec=128
+     span 19:17-19:19  (4 cells)
+        topModules ?                                                                      g=INT:0/ct7 size=64 dec=0 | o=UINT:63/ct9 size=64 dec=63
+        topModules ?                                                                      g=INT:0/ct7 size=64 dec=0 | o=UINT:63/ct9 size=64 dec=63
+        topModules ?                                                                      g=INT:31/ct7 size=64 dec=31 | o=UINT:63/ct9 size=64 dec=63
+        topModules ?                                                                      g=INT:0/ct7 size=64 dec=0 | o=UINT:63/ct9 size=64 dec=63
+     span 207:35-208:82  (1 cells)
+        topModules work@top_earlgrey (work@top_earlgrey)                                  g=INT:64/ct7 size=32 dec=64 | o=UINT:64/ct9 size=32 dec=64
+     span 20:17-20:19  (3 cells)
+        topModules ?                                                                      g=INT:0/ct7 size=64 dec=0 | o=UINT:63/ct9 size=64 dec=63
+        topModules ?                                                                      g=INT:0/ct7 size=64 dec=0 | o=UINT:63/ct9 size=64 dec=63
+        topModules ?                                                                      g=INT:31/ct7 size=64 dec=31 | o=UINT:63/ct9 size=64 dec=63
+  Q3 golden UINT -> ours INT: by (section, span, ownerkind.ownerfield)
+     topModules   ?                      range.vpiLeftRange                    106 cells
+     topModules   ?                      range.vpiRightRange                    25 cells
+     topModules   14:10-14:12            range.vpiLeftRange                      4 cells
+     topModules   19:17-19:19            range.vpiLeftRange                      4 cells
+     topModules   20:17-20:19            range.vpiLeftRange                      3 cells
+     topModules   64:12-64:13            range.vpiRightRange                     3 cells
+     topModules   34:12-34:13            range.vpiLeftRange                      3 cells
+     topModules   128:32-128:33          indexed_part_select.vpiBaseExpr         2 cells
+     topModules   54:36-54:48            operation.vpiOperand                    1 cells
+     topModules   185:32-185:33          indexed_part_select.vpiBaseExpr         1 cells
+     topModules   178:32-178:33          indexed_part_select.vpiBaseExpr         1 cells
+     topModules   27:22-27:23            range.vpiRightRange                     1 cells
+     topModules   28:17-28:19            range.vpiLeftRange                      1 cells
+     topModules   26:17-26:19            range.vpiLeftRange                      1 cells
+     distinct spans: 13   total cells: 156
+  Q3b sample scopes (up to 12 per span, first 6 spans)
+     span 128:32-128:33  (2 cells)
+        topModules _flash_banks[0])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[0]) g=UINT:0/ct9 size=64 dec=0 | o=INT:0/ct7 size=64 dec=0
+        topModules _flash_banks[1])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[1]) g=UINT:0/ct9 size=64 dec=0 | o=INT:0/ct7 size=64 dec=0
+     span 14:10-14:12  (4 cells)
+        topModules ?                                                                      g=UINT:11/ct9 size=64 dec=11 | o=INT:0/ct7 size=64 dec=0
+        topModules ?                                                                      g=UINT:11/ct9 size=64 dec=11 | o=INT:0/ct7 size=64 dec=0
+        topModules ?                                                                      g=UINT:31/ct9 size=64 dec=31 | o=INT:0/ct7 size=64 dec=0
+        topModules ?                                                                      g=UINT:31/ct9 size=64 dec=31 | o=INT:3/ct7 size=64 dec=3
+     span 178:32-178:33  (1 cells)
+        topModules evice.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded.gen_secded_39_32) g=UINT:0/ct9 size=64 dec=0 | o=INT:0/ct7 size=64 dec=0
+     span 185:32-185:33  (1 cells)
+        topModules evice.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded.gen_secded_39_32) g=UINT:0/ct9 size=64 dec=0 | o=INT:0/ct7 size=64 dec=0
+     span 19:17-19:19  (4 cells)
+        topModules ?                                                                      g=UINT:63/ct9 size=64 dec=63 | o=INT:0/ct7 size=64 dec=0
+        topModules ?                                                                      g=UINT:63/ct9 size=64 dec=63 | o=INT:0/ct7 size=64 dec=0
+        topModules ?                                                                      g=UINT:63/ct9 size=64 dec=63 | o=INT:0/ct7 size=64 dec=0
+        topModules ?                                                                      g=UINT:63/ct9 size=64 dec=63 | o=INT:3/ct7 size=64 dec=3
+     span 20:17-20:19  (3 cells)
+        topModules ?                                                                      g=UINT:63/ct9 size=64 dec=63 | o=INT:0/ct7 size=64 dec=0
+        topModules ?                                                                      g=UINT:63/ct9 size=64 dec=63 | o=INT:0/ct7 size=64 dec=0
+        topModules ?                                                                      g=UINT:63/ct9 size=64 dec=63 | o=INT:3/ct7 size=64 dec=3
+  Q4 ALL divergent constant cells by signature (top 40)
+     topModules   enc(BIN->UINT) ct(3->9) size(4->32) dec(4'b0010->2)                               128
+     topModules   dec(0->1)                                                                         123
+     topModules   enc(INT->UINT) ct(7->9) dec(None->0)                                              103
+     topModules   enc(UINT->INT) ct(9->7) dec(0->None)                                              102
+     topModules   dec(1->0)                                                                          98
+     topModules   dec(7->9)                                                                          76
+     topModules   dec(9->7)                                                                          76
+     topModules   dec(4'h2->32'h2)                                                                   66
+     topModules   dec(6->5)                                                                          60
+     topModules   dec(5->6)                                                                          58
+     topModules   enc(HEX->UINT) ct(5->9) dec(4'h2->2)                                               44
+     topModules   dec(0->6)                                                                          41
+     topModules   dec(0->2)                                                                          36
+     topModules   enc(INT->UINT) ct(7->None) size(64->None)                                          35
+     topModules   ct(9->None) size(64->None) dec(0->None)                                            35
+     topModules   dec(8->6)                                                                          32
+     topModules   dec(2->0)                                                                          32
+     topModules   dec(4->0)                                                                          31
+     topModules   dec(6->8)                                                                          27
+     topModules   enc(UINT->BIN) ct(9->3) size(16->-1) dec(0->'0)                                    25
+     topModules   enc(UINT->INT) ct(None->7) size(None->64)                                          25
+     topModules   ct(None->9) size(None->64) dec(None->0)                                            25
+     topModules   dec(5->0)                                                                          25
+     topModules   dec(0->5)                                                                          25
+     topModules   enc(UINT->BIN) ct(9->3) size(3->-1) dec(0->'0)                                     25
+     topModules   dec(7->0)                                                                          23
+     topModules   dec(3->0)                                                                          22
+     topModules   dec(1->5)                                                                          21
+     topModules   dec(4'h0->32'h0)                                                                   20
+     topModules   dec(6->0)                                                                          19
+     topModules   dec(5->1)                                                                          19
+     topModules   dec(0->7)                                                                          17
+     topModules   enc(UINT->BIN) ct(9->3) size(1->-1) dec(0->'0)                                     16
+     topModules   dec(0->3)                                                                          16
+     topModules   dec(31->15)                                                                        16
+     topModules   dec(6->4)                                                                          16
+     topModules   dec(3->6)                                                                          14
+     topModules   dec(7->3)                                                                          14
+     topModules   enc(INT->UINT) ct(7->9)                                                            13
+     topModules   dec(2->31)                                                                         12
+     TOTAL divergent constant cells: 2005
+
+================ PARAMETER: golden 32108  ours 29754  span-matched 29741  golden-only 2367  ours-only 13
+  Q1 encoding join  golden -> ours   (DIFFERING rows <<<)
+     None     -> None        14093
+     UINT     -> UINT         7278
+     HEX      -> HEX          3585
+     BIN      -> BIN          1803
+     STRING   -> STRING       1099
+     INT      -> INT           885
+     UINT     -> None          504  <<<
+     HEX      -> None          257  <<<
+     INT      -> None          114  <<<
+     INT      -> UINT           73  <<<
+     DEC      -> DEC            33
+     DEC      -> None           11  <<<
+     STRING   -> None            5  <<<
+     BIN      -> None            1  <<<
+  Q2 INT/UINT disagreements:  golden INT / ours UINT = 73   golden UINT / ours INT = 0
+  Q3 golden INT -> ours UINT: by (section, span, ownerkind.ownerfield)
+     topModules   34:17-34:30            gen_scope.vpiParameter                 12 cells
+     topModules   46:17-46:31            gen_scope.vpiParameter                 12 cells
+     topModules   31:17-31:31            gen_scope.vpiParameter                 12 cells
+     topModules   37:17-37:34            gen_scope.vpiParameter                 12 cells
+     topModules   21:18-21:33            module_inst.vpiParameter                4 cells
+     topModules   18:18-18:26            module_inst.vpiParameter                4 cells
+     topModules   11:18-11:28            module_inst.vpiParameter                3 cells
+     allModules   21:18-21:33            module_inst.vpiParameter                2 cells
+     topPackages  11:18-11:28            package.vpiParameter                    1 cells
+     topPackages  37:17-37:34            package.vpiParameter                    1 cells
+     allModules   46:17-46:31            module_inst.vpiParameter                1 cells
+     topPackages  21:18-21:33            package.vpiParameter                    1 cells
+     topPackages  34:17-34:30            package.vpiParameter                    1 cells
+     topPackages  31:17-31:31            package.vpiParameter                    1 cells
+     allModules   37:17-37:34            module_inst.vpiParameter                1 cells
+     allModules   11:18-11:28            module_inst.vpiParameter                1 cells
+     allModules   34:17-34:30            module_inst.vpiParameter                1 cells
+     topPackages  18:18-18:26            package.vpiParameter                    1 cells
+     topPackages  46:17-46:31            package.vpiParameter                    1 cells
+     allModules   31:17-31:31            module_inst.vpiParameter                1 cells
+     distinct spans: 7   total cells: 73
+  Q3b sample scopes (up to 12 per span, first 6 spans)
+     span 11:18-11:28  (5 cells)
+        allModules work@rstmgr_ctrl (work@rstmgr_ctrl)                                    g=INT:1/ctNone size=None dec=None | o=UINT:1/ctNone size=None dec=None
+        topModules work@top_earlgrey (work@top_earlgrey)                                  g=INT:1/ctNone size=None dec=None | o=UINT:1/ctNone size=None dec=None
+        topModules work@top_earlgrey (work@top_earlgrey)                                  g=INT:1/ctNone size=None dec=None | o=UINT:1/ctNone size=None dec=None
+        topModules work@top_earlgrey (work@top_earlgrey)                                  g=INT:1/ctNone size=None dec=None | o=UINT:1/ctNone size=None dec=None
+        topPackages rstmgr_pkg (rstmgr_pkg::)                                              g=INT:1/ctNone size=None dec=None | o=UINT:1/ctNone size=None dec=None
+     span 18:18-18:26  (5 cells)
+        topModules work@top_earlgrey (work@top_earlgrey)                                  g=INT:4/ctNone size=None dec=None | o=UINT:4/ctNone size=None dec=None
+        topModules work@top_earlgrey (work@top_earlgrey)                                  g=INT:4/ctNone size=None dec=None | o=UINT:4/ctNone size=None dec=None
+        topModules work@top_earlgrey (work@top_earlgrey)                                  g=INT:4/ctNone size=None dec=None | o=UINT:4/ctNone size=None dec=None
+        topModules work@top_earlgrey (work@top_earlgrey)                                  g=INT:4/ctNone size=None dec=None | o=UINT:4/ctNone size=None dec=None
+        topPackages hmac_pkg (hmac_pkg::)                                                  g=INT:4/ctNone size=None dec=None | o=UINT:4/ctNone size=None dec=None
+     span 21:18-21:33  (7 cells)
+        allModules work@flash_erase_ctrl (work@flash_erase_ctrl)                          g=INT:512/ctNone size=None dec=None | o=UINT:512/ctNone size=None dec=None
+        allModules work@flash_mp (work@flash_mp)                                          g=INT:512/ctNone size=None dec=None | o=UINT:512/ctNone size=None dec=None
+        topModules work@top_earlgrey (work@top_earlgrey)                                  g=INT:512/ctNone size=None dec=None | o=UINT:512/ctNone size=None dec=None
+        topModules work@top_earlgrey (work@top_earlgrey)                                  g=INT:512/ctNone size=None dec=None | o=UINT:512/ctNone size=None dec=None
+        topModules work@top_earlgrey (work@top_earlgrey)                                  g=INT:512/ctNone size=None dec=None | o=UINT:512/ctNone size=None dec=None
+        topModules work@top_earlgrey (work@top_earlgrey)                                  g=INT:512/ctNone size=None dec=None | o=UINT:512/ctNone size=None dec=None
+        topPackages flash_ctrl_pkg (flash_ctrl_pkg::)                                      g=INT:512/ctNone size=None dec=None | o=UINT:512/ctNone size=None dec=None
+     span 31:17-31:31  (14 cells)
+        allModules work@flash_phy_core (work@flash_phy_core)                              g=INT:0/ctNone size=None dec=None | o=UINT:0/ctNone size=None dec=None
+        topModules _flash_banks[0])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[0]) g=INT:0/ctNone size=None dec=None | o=UINT:0/ctNone size=None dec=None
+        topModules _flash_banks[0])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[0]) g=INT:0/ctNone size=None dec=None | o=UINT:0/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0]) g=INT:0/ctNone size=None dec=None | o=UINT:0/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[1]) g=INT:0/ctNone size=None dec=None | o=UINT:0/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[2]) g=INT:0/ctNone size=None dec=None | o=UINT:0/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[3]) g=INT:0/ctNone size=None dec=None | o=UINT:0/ctNone size=None dec=None
+        topModules _flash_banks[1])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[1]) g=INT:0/ctNone size=None dec=None | o=UINT:0/ctNone size=None dec=None
+        topModules _flash_banks[1])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[1]) g=INT:0/ctNone size=None dec=None | o=UINT:0/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_bufs[0]) g=INT:0/ctNone size=None dec=None | o=UINT:0/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_bufs[1]) g=INT:0/ctNone size=None dec=None | o=UINT:0/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_bufs[2]) g=INT:0/ctNone size=None dec=None | o=UINT:0/ctNone size=None dec=None
+     span 34:17-34:30  (14 cells)
+        allModules work@flash_phy_core (work@flash_phy_core)                              g=INT:2/ctNone size=None dec=None | o=UINT:2/ctNone size=None dec=None
+        topModules _flash_banks[0])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[0]) g=INT:2/ctNone size=None dec=None | o=UINT:2/ctNone size=None dec=None
+        topModules _flash_banks[0])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[0]) g=INT:2/ctNone size=None dec=None | o=UINT:2/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0]) g=INT:2/ctNone size=None dec=None | o=UINT:2/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[1]) g=INT:2/ctNone size=None dec=None | o=UINT:2/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[2]) g=INT:2/ctNone size=None dec=None | o=UINT:2/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[3]) g=INT:2/ctNone size=None dec=None | o=UINT:2/ctNone size=None dec=None
+        topModules _flash_banks[1])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[1]) g=INT:2/ctNone size=None dec=None | o=UINT:2/ctNone size=None dec=None
+        topModules _flash_banks[1])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[1]) g=INT:2/ctNone size=None dec=None | o=UINT:2/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_bufs[0]) g=INT:2/ctNone size=None dec=None | o=UINT:2/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_bufs[1]) g=INT:2/ctNone size=None dec=None | o=UINT:2/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_bufs[2]) g=INT:2/ctNone size=None dec=None | o=UINT:2/ctNone size=None dec=None
+     span 37:17-37:34  (14 cells)
+        allModules work@flash_phy_core (work@flash_phy_core)                              g=INT:128/ctNone size=None dec=None | o=UINT:128/ctNone size=None dec=None
+        topModules _flash_banks[0])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[0]) g=INT:128/ctNone size=None dec=None | o=UINT:128/ctNone size=None dec=None
+        topModules _flash_banks[0])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[0]) g=INT:128/ctNone size=None dec=None | o=UINT:128/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0]) g=INT:128/ctNone size=None dec=None | o=UINT:128/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[1]) g=INT:128/ctNone size=None dec=None | o=UINT:128/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[2]) g=INT:128/ctNone size=None dec=None | o=UINT:128/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[3]) g=INT:128/ctNone size=None dec=None | o=UINT:128/ctNone size=None dec=None
+        topModules _flash_banks[1])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[1]) g=INT:128/ctNone size=None dec=None | o=UINT:128/ctNone size=None dec=None
+        topModules _flash_banks[1])/(work@top_earlgrey.u_flash_eflash.gen_flash_banks[1]) g=INT:128/ctNone size=None dec=None | o=UINT:128/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_bufs[0]) g=INT:128/ctNone size=None dec=None | o=UINT:128/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_bufs[1]) g=INT:128/ctNone size=None dec=None | o=UINT:128/ctNone size=None dec=None
+        topModules op_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_rd.gen_bufs[2]) g=INT:128/ctNone size=None dec=None | o=UINT:128/ctNone size=None dec=None
+  Q4 ALL divergent parameter cells by signature (top 40)
+     allModules   enc(UINT->None)                                                                   347
+     allModules   enc(HEX->None)                                                                    257
+     topModules   enc(UINT->None)                                                                   156
+     topModules   enc(INT->None)                                                                     69
+     topModules   enc(INT->UINT)                                                                     59
+     allModules   enc(INT->None)                                                                     45
+     allModules   size(8->None)                                                                      16
+     allModules   enc(DEC->None)                                                                     11
+     allModules   enc(INT->UINT)                                                                      7
+     topPackages  enc(INT->UINT)                                                                      7
+     allModules   size(26->None)                                                                      5
+     allModules   enc(STRING->None)                                                                   5
+     allModules   size(12->None)                                                                      5
+     allModules   size(64->None)                                                                      4
+     allModules   size(23->None)                                                                      3
+     allModules   size(32->None)                                                                      3
+     allModules   size(13->None)                                                                      3
+     allModules   size(3->None)                                                                       2
+     allModules   size(2->None)                                                                       2
+     allModules   size(15->None)                                                                      2
+     allModules   size(21->None)                                                                      2
+     allModules   size(9->None)                                                                       2
+     allModules   size(93->None)                                                                      2
+     allModules   size(14->None)                                                                      2
+     allModules   enc(BIN->None)                                                                      1
+     topPackages  enc(UINT->None)                                                                     1
+     allModules   size(5->None)                                                                       1
+     allModules   size(59->None)                                                                      1
+     TOTAL divergent parameter cells: 1020

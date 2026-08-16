@@ -11429,6 +11429,305 @@ UhdmExporter::genIfUnitMisevalFalse(const GenerateBlockSymbol& blk) {
     return sel9 == bsyn ? GenIfPick::Emit : GenIfPick::Skip;
 }
 
+// § genLpFoldSignedStructural46 — THE LAW (definition; TWO call sites, both in
+// the gen-scope localparam fold below and both tagged with the same §).
+//
+// A GEN-SCOPE LOCALPARAM'S FOLD IS INT-ENCODED (`INT:v` + vpiIntConst/7) WHEN
+// THE **STRUCTURE** OF ITS INITIALIZER REACHES A SIGNED-MINTING ARITHMETIC
+// OPERATOR FROM THE TOP.  It is UINT-encoded (`UINT:v` + vpiUIntConst/9)
+// otherwise.  The DECLARED TYPE IS IRRELEVANT — measured identical for `int`,
+// `int unsigned`, `logic [31:0]`, `bit [7:0]`, `byte`, `shortint`, `integer`
+// and UNTYPED (a1_earl46.sv rows T_IU/T_LG/T_BT/T_BY/T_SI/T_IG/T_UN, all
+// golden INT on `ARR[x] % W`).
+//
+// The reachability rules, EVERY ONE OF THEM MEASURED against Surelog on
+// tools/probe/r10earl46repro/{a1,b1}_earl46.sv (five gen instances each, every
+// value non-negative so the `negSib9` arm is off on every row):
+//
+//   `-` `*` `/` `%` `**`   MINT signed                    a1 E_SUB2/C_MUL/
+//                                                         B_DIV/A_MOD/M_POW
+//   unary `-`              MINTS signed                    a1 N_UMIN
+//   unary `+`              PROPAGATES from its operand     b1 UPLUS
+//   `+`                    PROPAGATES from EITHER operand  a1 J_PROP (INT),
+//                                                          a1 F_ADD (UINT)
+//   `?:` with a CONSTANT   PROPAGATES from the TAKEN       b1 TERNM/TERNU at
+//   condition              BRANCH ONLY                      x=0 (UINT) vs x=3
+//                                                           (INT) — the SAME
+//                                                           two rows flip with
+//                                                           the condition
+//   a REF to a parameter   PROPAGATES from THAT parameter's b1 MODREF (INT,
+//                          own initializer, module- or       module scope) vs
+//                          gen-scope, any depth              b1 SELREF (UINT);
+//                                                            a1 J_PROP
+//   an EXPLICIT cast       SEALS its operand                b1 MULCAST/CASTADD
+//                                                            (UINT) vs CASTMUL
+//                                                            (INT: the `*` is
+//                                                            OUTSIDE the cast)
+//   EVERYTHING ELSE        RESETS to unsigned              b1 IDXMUL (index),
+//   (index, `<<`, `&`,                                      ORM (`|`), FCALL
+//   `|`, `!`, a call, a                                     (a call), SHL, ANDM,
+//   concat, a literal, a                                    LSHM, UNOTL, IDXMOD;
+//   genvar)                                                 a1 G_SEL, `x`
+//
+// WHAT THIS REPLACES, AND WHY THE REPLACEMENT IS NOT OPTIONAL.  Until this pass
+// both call sites used a slang VISITOR that answered "does a Multiply, Divide
+// or Power appear ANYWHERE in the tree (except under an explicit cast)".  That
+// predicate is wrong in BOTH directions and the arms measure both:
+//   UNDER-fires — it has no `-`, no `%`, and no notion of propagation through a
+//     REF, so `Offset = RhoOffset[x][y] % W` (prim_keccak.sv:60),
+//     `ShiftAmt = W - Offset` (:61) and `Pa = Base0 + offset`
+//     (rv_plic_target.sv:64, `Base0 = (2**level)-1`) all came out UINT where
+//     golden writes INT.  Design-wide census on Earlgrey_0_1: 638 cells
+//     (319 constants + the 319 matching parameter values).
+//   OVER-fires — "anywhere" reaches through operators that RESET, so
+//     `ARR[x*1]`, `(ARR[x]*2) | 1`, `$clog2(ARR[x]*2+1)` and a ternary whose
+//     TAKEN branch is a plain literal all came out INT where golden writes
+//     UINT (b1 rows IDXMUL / ORM / FCALL / TERNU-at-x=0).  Earlgrey has ZERO
+//     such cells today (census Q2 on the parameter side: golden UINT / ours
+//     INT = 0), so this half moves nothing there — it is a correctness debt
+//     this law pays off, not a regression risk introduced by it.
+//
+// THIS IS A THIRD LAW, NOT A UNIFICATION.  ParamEmit's `srlgArithFoldSigned`
+// (§ impArithFoldSigned / § impModFoldSigned) has no `**` and no ternary;
+// ExprEmit's `isIntEncoded` answers `/` and `%` but NOT `-` and NOT `*`, and
+// has no ternary either.  Both were measured on their OWN carriers and both
+// stay exactly as they are: a1/b1's MODULE-SCOPE control rows (MOD_MOD,
+// MOD_SUB, MOD_ADD, MOD_SEL) are byte-identical to golden on BOTH sides before
+// and after this pass, which is what proves the carrier is this one.
+// § genLpFoldSignedIntReadsBitsSigned46 — F-1 CORRECTION (earl46 verifier):
+// golden's DIGITS follow the sign of the MATHEMATICAL fold value computed
+// BEFORE truncation to the declared width (v46v_digits: `32'hC0000000 * 1`
+// stays INT:3221225472 — positive product, unsigned digits — while
+// `0 - 32'h40000000` reads INT:-1073741824).  slang's ConstantValue is
+// post-conversion, so its sign cannot answer; this mirror of
+// genLpFoldSigned46's walk folds the SAME shapes in 128-bit arithmetic.
+// RESET/seal nodes contribute their slang fold read UNSIGNED; anything
+// unevaluable sets ok=false and the caller falls back to the signed
+// rendering (the shipped behaviour, correct on every measured corpus cell).
+static void mathFold46(slang::ast::Compilation& comp46, const Expression& e,
+                       bool& ok, __int128& out, int depth) {
+    using slang::ast::ASTContext;
+    using slang::ast::LookupLocation;
+    if (!ok)
+        return;
+    if (depth > 32) {
+        ok = false;
+        return;
+    }
+    auto leafU64 = [&](const Expression& x) {
+        ASTContext lctx46(comp46.getRoot(), LookupLocation::max);
+        ConstantValue lcv = lctx46.tryEval(x);
+        if (!lcv || !lcv.isInteger() || lcv.integer().hasUnknown()) {
+            ok = false;
+            return;
+        }
+        // A leaf's VALUE respects its own signedness: a select of a signed
+        // -1 element IS negative (v46v_gaps G5), while an unsigned literal
+        // like 32'hC0000000 is its positive bit value.
+        auto li = lcv.integer();
+        if (li.isSigned() && li.isNegative()) {
+            auto sN = li.as<int64_t>();
+            if (!sN) {
+                ok = false;
+                return;
+            }
+            out = (__int128)*sN;
+            return;
+        }
+        auto u = li.as<uint64_t>();
+        if (!u) {
+            ok = false;
+            return;
+        }
+        out = (__int128)*u;
+    };
+    switch (e.kind) {
+        case ExpressionKind::Conversion: {
+            auto& ce = e.as<ConversionExpression>();
+            if (ce.isImplicit())
+                mathFold46(comp46, ce.operand(), ok, out, depth + 1);
+            else
+                leafU64(e);
+            return;
+        }
+        case ExpressionKind::UnaryOp: {
+            auto& ue = e.as<UnaryExpression>();
+            if (ue.op == UnaryOperator::Minus) {
+                mathFold46(comp46, ue.operand(), ok, out, depth + 1);
+                out = -out;
+                return;
+            }
+            if (ue.op == UnaryOperator::Plus) {
+                mathFold46(comp46, ue.operand(), ok, out, depth + 1);
+                return;
+            }
+            leafU64(e);
+            return;
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& be = e.as<BinaryExpression>();
+            switch (be.op) {
+                case BinaryOperator::Subtract:
+                case BinaryOperator::Multiply:
+                case BinaryOperator::Divide:
+                case BinaryOperator::Mod:
+                case BinaryOperator::Power:
+                case BinaryOperator::Add: {
+                    __int128 l = 0, r = 0;
+                    mathFold46(comp46, be.left(), ok, l, depth + 1);
+                    mathFold46(comp46, be.right(), ok, r, depth + 1);
+                    if (!ok)
+                        return;
+                    const __int128 CAP = ((__int128)1) << 100;
+                    switch (be.op) {
+                        case BinaryOperator::Add: out = l + r; break;
+                        case BinaryOperator::Subtract: out = l - r; break;
+                        case BinaryOperator::Multiply:
+                            if ((l > 0 && (l > CAP || r > CAP || r < -CAP)) ||
+                                (l < 0 && (-l > CAP))) {
+                                ok = false;
+                                return;
+                            }
+                            out = l * r;
+                            break;
+                        case BinaryOperator::Divide:
+                            if (r == 0) {
+                                ok = false;
+                                return;
+                            }
+                            out = l / r;
+                            break;
+                        case BinaryOperator::Mod:
+                            if (r == 0) {
+                                ok = false;
+                                return;
+                            }
+                            out = l % r;
+                            break;
+                        case BinaryOperator::Power: {
+                            if (r < 0 || r > 128) {
+                                ok = false;
+                                return;
+                            }
+                            __int128 acc = 1;
+                            for (__int128 i = 0; i < r; i++) {
+                                if (acc > CAP || acc < -CAP) {
+                                    ok = false;
+                                    return;
+                                }
+                                acc *= l;
+                            }
+                            out = acc;
+                            break;
+                        }
+                        default: ok = false; return;
+                    }
+                    return;
+                }
+                default:
+                    leafU64(e);
+                    return;
+            }
+        }
+        case ExpressionKind::ConditionalOp: {
+            auto& co = e.as<ConditionalExpression>();
+            if (co.conditions.size() != 1 || co.conditions[0].pattern) {
+                leafU64(e);
+                return;
+            }
+            ASTContext cctx46(comp46.getRoot(), LookupLocation::max);
+            ConstantValue ccv = cctx46.tryEval(*co.conditions[0].expr);
+            if (!ccv || !ccv.isInteger() || ccv.integer().hasUnknown()) {
+                ok = false;
+                return;
+            }
+            mathFold46(comp46, ccv.isTrue() ? co.left() : co.right(), ok, out,
+                       depth + 1);
+            return;
+        }
+        case ExpressionKind::NamedValue: {
+            auto& sy = e.as<NamedValueExpression>().symbol;
+            if (sy.kind == SymbolKind::Parameter) {
+                if (auto* in = sy.as<ParameterSymbol>().getInitializer()) {
+                    mathFold46(comp46, *in, ok, out, depth + 1);
+                    return;
+                }
+            }
+            leafU64(e);
+            return;
+        }
+        default:
+            leafU64(e);
+            return;
+    }
+}
+
+bool UhdmExporter::genLpFoldSigned46(const Expression& e, int depth) {
+    // A parameter REF hops into another parameter's initializer, so this walk
+    // can in principle cycle; the cap is the guard.  The cap is NOT a measured
+    // frontier — it is a bound chosen to be far above any plausible parameter
+    // chain, and returning `false` at it degrades to the pre-pass answer for
+    // that cell rather than looping.  No Earlgrey_0_1 or corpus cell was
+    // observed to reach it (every predicted mover in CENSUS_PREDICT.txt landed
+    // exactly as predicted, which a truncated walk would have broken).
+    if (depth > 32)
+        return false;
+    switch (e.kind) {
+        case ExpressionKind::Conversion: {
+            auto& ce = e.as<ConversionExpression>();
+            // An EXPLICIT size/type cast SEALS its operand (b1 MULCAST,
+            // CASTADD; Rggen's `OFFSET_ADDRESS + ADDRESS_WIDTH'(BBW * g)`).
+            return ce.isImplicit() && genLpFoldSigned46(ce.operand(), depth + 1);
+        }
+        case ExpressionKind::UnaryOp: {
+            auto& ue = e.as<UnaryExpression>();
+            if (ue.op == UnaryOperator::Minus)
+                return true;
+            // Unary `+` propagates; `!` and `~` RESET (b1 UNOTL is golden
+            // UINT even though its operand is a `%`).
+            if (ue.op == UnaryOperator::Plus)
+                return genLpFoldSigned46(ue.operand(), depth + 1);
+            return false;
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& be = e.as<BinaryExpression>();
+            switch (be.op) {
+                case BinaryOperator::Subtract:
+                case BinaryOperator::Multiply:
+                case BinaryOperator::Divide:
+                case BinaryOperator::Mod:
+                case BinaryOperator::Power:
+                    return true;
+                case BinaryOperator::Add:
+                    return genLpFoldSigned46(be.left(), depth + 1) ||
+                           genLpFoldSigned46(be.right(), depth + 1);
+                default:
+                    return false;
+            }
+        }
+        case ExpressionKind::ConditionalOp: {
+            auto& co = e.as<ConditionalExpression>();
+            if (co.conditions.size() != 1 || co.conditions[0].pattern)
+                return false;
+            ASTContext cctx9(comp.getRoot(), LookupLocation::max);
+            ConstantValue cvv9 = cctx9.tryEval(*co.conditions[0].expr);
+            if (!cvv9 || !cvv9.isInteger() || cvv9.integer().hasUnknown())
+                return false;
+            return genLpFoldSigned46(cvv9.isTrue() ? co.left() : co.right(),
+                                     depth + 1);
+        }
+        case ExpressionKind::NamedValue: {
+            auto& sy9 = e.as<NamedValueExpression>().symbol;
+            if (sy9.kind != SymbolKind::Parameter)
+                return false;
+            auto* in9 = sy9.as<ParameterSymbol>().getInitializer();
+            return in9 && genLpFoldSigned46(*in9, depth + 1);
+        }
+        default:
+            return false;
+    }
+}
+
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
                                  const std::string& prefix, NetMap& netMap) {
     // An instance whose parameter override reads a member-leftover struct
@@ -11782,39 +12081,23 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     realLp = true;
                     break;
                 }
-            // A MULTIPLICATIVE init (a*b, a/b, a**b) encodes the fold SIGNED —
-            // on the param_assign constant (below) AND on the parameter's own
-            // value (gen_test5 PREV = step / CHUNK, DIM = WIDTH / step,
-            // LAST_START = i * CHUNK; IfGen1/2/3 POWER = 2**level).
-            // Additive/plain refs keep UINT (genvar_loop_decl_2 w = x,
-            // LocalParamInNestedForLoops Offset = RhoOffset[1]).
-            // ...but an EXPLICIT SIZE CAST SEALS its operand: a multiply
-            // written inside W'(...) leaves the fold unsigned.  Purpose-built
-            // golden (repro t5.sv, one gen block, nine localparams):
-            //   bit [W-1:0] A = W'(B*g)      -> UINT   (cast seals)
-            //   bit [W-1:0] K = W'(B*g) + 1  -> UINT   (cast seals, add outside)
-            //   bit [W-1:0] E = B*g          -> INT
-            //   int C = B*g / int D = 1+B*g  -> INT
-            //   untyped F = B*g / H = 1+B*g  -> INT
-            //   int I = 1+g / bit J = 1+g    -> UINT
-            // and Rggen's `localparam bit [ADDRESS_WIDTH-1:0] START_ADDRESS =
-            // OFFSET_ADDRESS + ADDRESS_WIDTH'(BUS_BYTE_WIDTH * g)`, 10 gen
-            // scopes, golden UINT throughout.
+            // § genLpFoldSignedStructural46 — CALL SITE 1 of 2: the
+            // PARAMETER'S OWN VALUE.  The gen-scope localparam carries the
+            // encoding decision TWICE (here, and on the param_assign Rhs
+            // constant below), and Surelog always writes the SAME answer to
+            // both — measured on every one of the 43 grid rows in
+            // a1_earl46.sv + b1_earl46.sv, and on the real target
+            // (prim_keccak gen_rho_x[0].gen_rho_y[0].Offset: golden INT:0 on
+            // the parameter AND INT:0/ct7 on the constant).  Moving one and
+            // not the other trades one divergence for another, and the cmp
+            // head — which sits on the CONSTANT — would not show it.
+            // The predicate's full measured law is at its definition above.
+            // The rows this REPLACES a `{*, /, **} anywhere` visitor with are
+            // recorded there in both directions (under- AND over-fire).
             bool mulDivLp9 = false;
             if (realLp)
                 if (auto* ini9 = ps.getInitializer())
-                    ini9->visit(makeVisitor(
-                        [&](auto& v9x, const ConversionExpression& ce9) {
-                            if (ce9.isImplicit())
-                                v9x.visitDefault(ce9);
-                        },
-                        [&](auto& v9x, const BinaryExpression& be9) {
-                            if (be9.op == BinaryOperator::Multiply ||
-                                be9.op == BinaryOperator::Divide ||
-                                be9.op == BinaryOperator::Power)
-                                mulDivLp9 = true;
-                            v9x.visitDefault(be9);
-                        }));
+                    mulDivLp9 = genLpFoldSigned46(*ini9);
             // A gen-scope localparam initialized by a BIT- or PART-SELECT off a
             // PACKED base (localparam debug = AsyncOn[k]) takes the select
             // encoding Surelog gives every other select fold: BINARY at the
@@ -11843,7 +12126,57 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 up->VpiValue("BIN:" + selBits9);
             else if (cv.isInteger() && !cv.integer().hasUnknown()) {
                 bool neg = cv.integer().isSigned() && cv.integer().isNegative();
-                std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
+                // § genLpFoldSignedIntReadsBitsSigned46 — WHEN THE FOLD IS
+                // INT-ENCODED THE DIGITS ARE THE **SIGNED** READING OF THE
+                // BITS, whatever the localparam's declared signedness.  The
+                // param_assign constant arm below has always done this
+                // (`SVInt svv = cv.integer(); svv.setSigned(true);`, with the
+                // measured note "`localparam integer unsigned y = -1` /
+                // `reg [1:0] y = -1` all fold to -1 — Surelog"); the
+                // PARAMETER'S OWN VALUE did not, and until this pass nothing
+                // noticed because the value arm almost never took the INT
+                // branch on an UNSIGNED ConstantValue.
+                //
+                // MEASURED, and it is the byte verifier that forced it.
+                // uhdm2rtlil `int_types` writes `localparam typ y = -1` inside
+                // a gen block for every integer type.  Golden writes
+                // **INT:-1** on BOTH carriers.  Pristine wrote UINT:4294967295
+                // (wrong prefix, unsigned digits); with only the § …Structural46
+                // predicate in place the unary `-` correctly turns the prefix
+                // to INT and the arm then wrote INT:4294967295 — and for the
+                // 64-bit row INT:18446744073709551615, which uhdm-dump renders
+                // as **INT:0** because it does not fit an int64.  Half-fixing
+                // the prefix and leaving the digits unsigned DESTROYS the
+                // value, so the two halves are one change, not two.
+                // `SVInt::toString` on a SIGNED SVInt renders the signed
+                // decimal at ANY width — it does not go through int64 and so
+                // has no truncation of its own.
+                // F-1 (earl46 verifier): the SIGNED rendering applies iff the
+                // MATHEMATICAL fold is negative, not merely because the prefix
+                // is INT — `32'hC0000000 * 1` keeps the unsigned digits
+                // (golden INT:3221225472) while `0 - 32'h40000000` reads
+                // signed.  mathFold46 mirrors the structural walk; when it
+                // cannot evaluate, the signed rendering stands (correct on
+                // every measured corpus cell).
+                bool signedDigits46 = neg || mulDivLp9;
+                if (mulDivLp9 && !neg) {
+                    if (auto* ini46 = ps.getInitializer()) {
+                        bool mok46 = true;
+                        __int128 mv46 = 0;
+                        mathFold46(comp, *ini46, mok46, mv46, 0);
+                        if (mok46)
+                            signedDigits46 = mv46 < 0;
+                    }
+                }
+                std::string digits;
+                if (signedDigits46) {
+                    SVInt sv9 = cv.integer();
+                    sv9.setSigned(true);
+                    digits = sv9.toString(LiteralBase::Decimal, false);
+                }
+                else {
+                    digits = cv.integer().toString(LiteralBase::Decimal, false);
+                }
                 up->VpiValue(((neg || mulDivLp9) ? "INT:" : "UINT:") + digits);
             }
             if (realLp) {
@@ -12009,7 +12342,27 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         // gen-array localparam is negative (gen_test4 PREV =
                         // i-1: foo[0] is -1 so ALL fold INT); otherwise UINT
                         // (LPINFL/gvl2 keep UINT on signed types).
-                        bool negSib9 = sv < 0;
+                        // F-1 (earl46 verifier): "negative" here means the
+                        // MATHEMATICAL fold, not the signed reading of the
+                        // bits — an MSB-set POSITIVE fold (32'hC0000000 * 1)
+                        // must not self-classify as a negative sibling, or the
+                        // INT prefix arrives with the WRONG signed digits.
+                        // When the math walk cannot evaluate, the signed-bits
+                        // reading stands (correct on every measured cell).
+                        auto mathNeg46 = [&](const ParameterSymbol& px46,
+                                             bool bitsNeg46) {
+                            if (!bitsNeg46)
+                                return false;
+                            if (auto* pin46 = px46.getInitializer()) {
+                                bool mok46 = true;
+                                __int128 mv46 = 0;
+                                mathFold46(comp, *pin46, mok46, mv46, 0);
+                                if (mok46 && mv46 >= 0)
+                                    return false;
+                            }
+                            return true;
+                        };
+                        bool negSib9 = mathNeg46(ps, sv < 0);
                         if (!negSib9) {
                             if (auto bp9 = blk.getParentScope();
                                 bp9 && bp9->asSymbol().kind ==
@@ -12022,13 +12375,15 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                         if (sm9.kind ==
                                                 SymbolKind::Parameter &&
                                             sm9.name == ps.name) {
-                                            auto& sv9 =
-                                                sm9.as<ParameterSymbol>()
-                                                    .getValue();
+                                            auto& psm9 =
+                                                sm9.as<ParameterSymbol>();
+                                            auto& sv9 = psm9.getValue();
                                             if (sv9.isInteger() &&
-                                                sv9.integer()
-                                                        .as<int64_t>()
-                                                        .value_or(0) < 0)
+                                                mathNeg46(
+                                                    psm9,
+                                                    sv9.integer()
+                                                            .as<int64_t>()
+                                                            .value_or(0) < 0))
                                                 negSib9 = true;
                                         }
                                     if (negSib9)
@@ -12036,29 +12391,37 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                 }
                             }
                         }
-                        // MULTIPLICATIVE inits (a*b, a/b, a**b) also encode INT
-                        // with the pa parent (gen_test5 PREV = step / CHUNK,
-                        // LAST_START = i * CHUNK; IfGen1/2/3 POWER = 2**level);
-                        // additive/plain refs keep UINT (genvar_loop_decl_2
-                        // w = x).  An EXPLICIT SIZE CAST seals its operand —
-                        // see the § cast-seal note on the value encoding above
-                        // (repro t5.sv A/K vs E).
-                        if (!negSib9 && ps.getInitializer()) {
-                            bool mulDiv9 = false;
-                            ps.getInitializer()->visit(makeVisitor(
-                                [&](auto& v9x, const ConversionExpression& ce9) {
-                                    if (ce9.isImplicit())
-                                        v9x.visitDefault(ce9);
-                                },
-                                [&](auto& v9x, const BinaryExpression& be9) {
-                                    if (be9.op == BinaryOperator::Multiply ||
-                                        be9.op == BinaryOperator::Divide ||
-                                        be9.op == BinaryOperator::Power)
-                                        mulDiv9 = true;
-                                    v9x.visitDefault(be9);
-                                }));
-                            if (mulDiv9)
-                                negSib9 = true;
+                        // § genLpFoldSignedStructural46 — CALL SITE 2 of 2: the
+                        // PARAM_ASSIGN RHS CONSTANT (this is the object the
+                        // r10earl46 cmp head sits on).  Same predicate, same
+                        // answer as call site 1 above; the `negSib9` arm it
+                        // ORs into is INDEPENDENT (a negative sibling instance
+                        // forces INT on the whole gen array) and is LEFT
+                        // EXACTLY AS IT WAS — re-deciding it is a separate
+                        // measurement.  Note that the law SUBSUMES most of it
+                        // in practice: gen_test4's `PREV = i-1` is a Subtract
+                        // and now answers INT on its own merits.
+                        if (!negSib9 && ps.getInitializer() &&
+                            genLpFoldSigned46(*ps.getInitializer())) {
+                            negSib9 = true;
+                            // F-1 (earl46 verifier), carrier 2: when the INT
+                            // prefix comes from the STRUCTURAL law alone (no
+                            // negative sibling) the DIGITS still follow the
+                            // MATHEMATICAL fold's sign — a non-negative fold
+                            // keeps the unsigned rendering on value AND
+                            // decompile (`32'hC0000000 * 1` stays
+                            // INT:3221225472).  gen_test4's negatives keep the
+                            // signed rendering (math fold < 0), and positives
+                            // render identically either way.
+                            bool mok46 = true;
+                            __int128 mv46 = 0;
+                            mathFold46(comp, *ps.getInitializer(), mok46, mv46, 0);
+                            if (mok46 && mv46 >= 0 && !cv.integer().hasUnknown()) {
+                                if (auto uu46 = cv.integer().as<uint64_t>()) {
+                                    sd = std::to_string(*uu46);
+                                    c2->VpiDecompile(sd);
+                                }
+                            }
                         }
                         // A SELECT init keeps the select encoding decided on
                         // the parameter above: BINARY at the select's width,
