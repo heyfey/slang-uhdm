@@ -401,6 +401,34 @@ static slang::parsing::Token scopedSegId12(const slang::syntax::NameSyntax& n) {
     }
 }
 
+// A CLASS-SCOPE enum constant: walking OUT from the enum value's own scope the
+// first *named container* reached is a class, not a package / instance body /
+// compilation unit.  The walk (rather than a direct `getParentScope()` test) is
+// load-bearing because slang parents an EnumValueSymbol on the enum's own
+// scope, so a class-scope enum constant is NEVER a direct child of the
+// ClassType -- which is exactly why the pre-existing class-PROPERTY arm in the
+// hoist pool (a direct-parent test) never saw one.
+//
+// Used by BOTH halves of LAW C's reference side: the arm that refuses to stamp
+// an `enum_const` from an out-of-body body, and § classEnumConstBindsHoistNet76
+// which hands the same reference to the hoisted-net pool.  One predicate, two
+// call sites, so the two halves cannot drift apart.
+static bool classScopeEnumConst76(const slang::ast::Symbol& sym) {
+    using slang::ast::SymbolKind;
+    if (sym.kind != SymbolKind::EnumValue)
+        return false;
+    for (auto sc8 = sym.getParentScope(); sc8;
+         sc8 = sc8->asSymbol().getParentScope()) {
+        auto k8 = sc8->asSymbol().kind;
+        if (k8 == SymbolKind::ClassType)
+            return true;
+        if (k8 == SymbolKind::Package || k8 == SymbolKind::InstanceBody ||
+            k8 == SymbolKind::CompilationUnit)
+            return false;
+    }
+    return false;
+}
+
 // § staticScopedCall12 — decompose a `::`-scoped name into the FIRST written
 // segment and the FINAL identifier, which is all Surelog keeps of it (see the
 // law at the call arm).  Returns false when `n` is not a `::` scope.
@@ -8065,21 +8093,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // bare in both).  We stamped the real enum_const in every view
                 // — 368 rows of SeqDriver's DEFPKG residue, SEQ_TYPE_REQ /
                 // SEQ_TYPE_LOCK in uvm_sequencer_base's extern methods.  The
-                // implicit-net half is NOT implemented (ranked residue).
-                else if (curSubOob9 && nv.symbol.kind == SymbolKind::EnumValue &&
-                         [&] {
-                             for (auto sc8 = nv.symbol.getParentScope(); sc8;
-                                  sc8 = sc8->asSymbol().getParentScope()) {
-                                 auto k8 = sc8->asSymbol().kind;
-                                 if (k8 == SymbolKind::ClassType)
-                                     return true;
-                                 if (k8 == SymbolKind::Package ||
-                                     k8 == SymbolKind::InstanceBody ||
-                                     k8 == SymbolKind::CompilationUnit)
-                                     return false;
-                             }
-                             return false;
-                         }()) {
+                // implicit-net half is § classEnumConstBindsHoistNet76, below:
+                // the reference stays enum_const-less HERE and is handed to the
+                // hoisted-net pool at the end of this case.
+                else if (curSubOob9 && classScopeEnumConst76(nv.symbol)) {
                     // no actual of any kind
                 }
                 // § enumNoBind13 — two further contexts in which Surelog
@@ -8245,6 +8262,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // gate is membership in withIterSyms75, so a FOREACH loop
                 // variable (same SymbolKind, and golden nets none) is out.
                 else if (classBodyHomePkg75 && withIterSyms75.count(&nv.symbol))
+                    classPropRefs.push_back({ref, std::string(nv.symbol.name),
+                                             expr.sourceRange,
+                                             classBodyHomePkg75});
+                // § classEnumConstBindsHoistNet76 — the CLASS-SCOPE ENUM
+                // CONSTANT half of LAW C's reference side, and the third name
+                // family to reach this pool.  An out-of-body body is compiled
+                // in the home PACKAGE's scope, where the class's own enum
+                // constants are as invisible as its properties, so the name
+                // falls into the same late-binding pool and the hoisting module
+                // mints the same bare `logic_net` for it (SimpleUVM:
+                // `work@top.SEQ_TYPE_LOCK` @664:54 serves grant_queued_locks
+                // @664:54 + @677:65, wait_for_grant @1069:21 and m_lock_req
+                // @1175:21; `work@top.SEQ_TYPE_REQ` @763:40 serves three more).
+                //
+                // The reference must be written UNQUALIFIED.  A `::`-scoped
+                // read of a class-scope enum constant (`process::KILLED`,
+                // `uvm_mem_mam::GREEDY`, `uvm_resource_types::PRI_HIGH`) names
+                // its own scope and Surelog leaves it bare in BOTH views --
+                // 24 such references in SimpleUVM alone, every one of which a
+                // rule written without this test would have minted a wire for.
+                else if (classBodyHomePkg75 && classScopeEnumConst76(nv.symbol) &&
+                         !(expr.syntax &&
+                           expr.syntax->kind == syntax::SyntaxKind::ScopedName))
                     classPropRefs.push_back({ref, std::string(nv.symbol.name),
                                              expr.sourceRange,
                                              classBodyHomePkg75});
