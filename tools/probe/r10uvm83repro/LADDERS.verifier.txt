@@ -1,0 +1,94 @@
+# r10uvm83 — VERIFIER'S OWN LADDER RUN.  MEASUREMENT-ONLY (uhdm-cmp is the judge).
+# ctladder built by me from the COMMITTED tools/probe/r10ladder1repro/ctladder.cpp,
+# unmodified, into /tmp/v83_lad/ctladder.  Nothing in UHDM was patched or rebuilt.
+# BEFORE workdir /tmp/v83_wd_sl_ctl  (CONTROL binary 44956a58cccfce6600c047936ee9fc51)
+# AFTER  workdir /tmp/v83_wd_sl_pat  (SHIPPED binary 8969b56acb68815e8a86747c02153fb4)
+# MAX=20000 BUDGET=1800, all seven UVM row-modes, both directions.
+
+== calib (golden-vs-golden MUST give ZERO rungs)
+MODE      TEST           GOLDENOBJS    RUNGS VERDICT
+default   BuildUVMPkg        183142        0 ZERO-HEADS
+default   Scoreboard         187081        0 ZERO-HEADS
+default   SimpleUVM          188084        0 ZERO-HEADS
+-- ZERO-HEADS=3 FAIL=0        <- identical to the implementer's, object counts included
+
+== BEFORE (my own run)
+MODE      TEST             RUNGS STOP                   MAXVIS     SECS
+default   SeqDriver          508 FIXPOINT           43092/317210    549.9  rc=0
+default   SimpleUVM          229 ROOT-BLOCKED       40574/188084    148.7  rc=0
+default   Scoreboard         230 ROOT-BLOCKED       43417/187081    187.4  rc=0
+default   BuildUVMPkg        259 FIXPOINT           46259/183142    218.5  rc=0
+testflags SeqDriver          268 FIXPOINT           26062/317222    240.8  rc=0
+testflags SimpleUVM          229 ROOT-BLOCKED       40586/188096    165.4  rc=0
+testflags BuildUVMPkg        259 FIXPOINT           46259/183142    195.0  rc=0
+-- laddered=7  SKIP-NOFILE=0  UNKNOWN-NAME=0
+
+== AFTER (my own run)
+default   SeqDriver          507 FIXPOINT           43092/317210    552.9  rc=0
+default   SimpleUVM          228 ROOT-BLOCKED       40574/188084    147.3  rc=0
+default   Scoreboard         229 ROOT-BLOCKED       43417/187081    186.0  rc=0
+default   BuildUVMPkg        258 FIXPOINT           46259/183142    218.0  rc=0
+testflags SeqDriver          267 FIXPOINT           26062/317222    240.4  rc=0
+testflags SimpleUVM          228 ROOT-BLOCKED       40586/188096    165.6  rc=0
+testflags BuildUVMPkg        258 FIXPOINT           46259/183142    193.3  rc=0
+-- laddered=7  SKIP-NOFILE=0  UNKNOWN-NAME=0
+
+ROW                              B     A   DELTA  FAM=package|* B->A
+ladder_default_BuildUVMPkg      259   258     -1  1 -> 0
+ladder_default_Scoreboard       230   229     -1  1 -> 0
+ladder_default_SeqDriver        508   507     -1  2 -> 1   (survivor: package|VpiName|TEXT:uvm_pkg|adpcm_pkg)
+ladder_default_SimpleUVM        229   228     -1  1 -> 0
+ladder_testflags_BuildUVMPkg    259   258     -1  1 -> 0
+ladder_testflags_SeqDriver      268   267     -1  2 -> 1   (same survivor)
+ladder_testflags_SimpleUVM      229   228     -1  1 -> 0
+EVERY NUMBER ABOVE, MAXVIS INCLUDED, MATCHES THE IMPLEMENTER'S LADDERS.r10uvm83.txt.
+
+== R1 BEFORE -> AFTER (my run)
+default   BuildUVMPkg    constant|<rhs-null>|MISSING-OURS      -> unchanged
+default   Scoreboard     package|~Typespecs|VEC:G>O            -> constant|VpiType|KIND:constant>hier_path
+default   SeqDriver      package|<rhs-null>|MISSING-OURS       -> constant|VpiType|KIND:constant>hier_path
+default   SimpleUVM      package|~Typespecs|VEC:G>O            -> constant|VpiType|KIND:constant>hier_path
+testflags BuildUVMPkg    constant|<rhs-null>|MISSING-OURS      -> unchanged
+testflags SeqDriver      package|<rhs-null>|MISSING-OURS       -> constant|VpiType|KIND:constant>hier_path
+testflags SimpleUVM      package|~Typespecs|VEC:G>O            -> constant|VpiType|KIND:constant>hier_path
+
+== THE INSTRUMENT'S FIELD ATTRIBUTION, CAUGHT IN THE ACT (and why the pass's
+   diagnosis of it is EXACTLY right)
+
+BEFORE, default/SimpleUVM, rung 1, verbatim from MY run:
+
+  RUNG 1 r=1 ... KINDL=package KINDR=<null> KINDP=design FIELD=~Typespecs
+         SHAPE=VEC:G>O FAM=package|~Typespecs|VEC:G>O CASCADE=1
+     L  package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+     R  <null>
+     G= 123   O= 89
+     PL package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1 < design(work@top)#194978
+     RF G:design(work@top)#194978  O:design(work@top)#1
+     MK unsupported_typespec(uvm_resource_types::rsrc_q_t)@uvm_sequencer_base.svh:1434:3-1434:23#25349
+
+and on Scoreboard the same rung prints `G= 125  O= 91`.
+
+Three things are proved by that block alone, and I measured each independently:
+
+1. `G= 123 / O= 89` and `G= 125 / O= 91` are **`design::Typespecs`**, NOT the
+   package's.  My own `v83pkg` reads golden/ours `design::Typespecs` = 123/89 on
+   SimpleUVM and **125/91 on Scoreboard**, while the elaborated `package uvm_pkg`
+   has Typespecs **89/89** on both.  The `RF` line says so out loud: the
+   REFERRER is the design.  So the ladder printed the REFERRER's field against
+   the TARGET's identity — the heuristic defect the pass diagnosed.
+2. the official judge's head on those same rows is `LHS: package uvm_pkg #1 /
+   RHS: <null>` (my `/tmp/v83_heads_ctl/*.cmp`), i.e. a
+   `SafeCompare(lhs, nullptr)` — a SINGULAR field, not a vector shape.  The
+   ladder and the judge named the same OBJECT and different FIELDS, and the
+   judge was right.
+3. the rung's own `MK` line names
+   `unsupported_typespec(uvm_resource_types::rsrc_q_t)@…:1434:3-1434:23`
+   (#25349 SimpleUVM, #25354 Scoreboard/SeqDriver) — the exact object this pass
+   stamped.  The instrument had the owner all along.
+
+== AFTER R1 == THE OFFICIAL HEAD, on all five NE rows
+My own `uhdm-cmp` output for the five NE rows heads on
+`constant@uvm_sequencer_base.svh:1576:23-1576:44` (golden id 25787 on
+SeqDriver/Scoreboard, 25782 on SimpleUVM) against
+`hier_path(this.sequences.size)`, parent `operation@1576:19-1576:44` — byte-for-byte
+the ladder's AFTER R1.  Ladder and judge agree on R1 for the first time.

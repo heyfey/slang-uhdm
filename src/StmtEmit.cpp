@@ -1508,8 +1508,18 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // body).  Same law, same three questions; grid11 `g3`
                     // `blk3::l_blk` is the cell that scores this site on its
                     // own.
-                    if (auto* uts11 = makeScopedTdUnsupTs11(bm))
+                    if (auto* uts11 = makeScopedTdUnsupTs11(bm)) {
+                        // § scopedTdUnsupTsHomePkgInstance83, the BLOCK-ITEM
+                        // twin of the subroutine-body site in TaskFuncEmit.cpp
+                        // (that site carries the law).  `pkgScopeInst` is the
+                        // very pointer the resolved `ts` above was stamped with
+                        // — the home package for an out-of-body class method, a
+                        // package free function's own package, and NULL for an
+                        // in-body method, where the stamp is inert.
+                        if (pkgScopeInst)
+                            uts11->Instance(pkgScopeInst);
                         rt->Actual_typespec(uts11);
+                    }
                     else
                         rt->Actual_typespec(ts);
                     v->Typespec(rt);

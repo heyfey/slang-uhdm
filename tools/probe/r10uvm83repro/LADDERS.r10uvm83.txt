@@ -1,0 +1,209 @@
+# r10uvm83 — LADDER BEFORE/AFTER (ctladder, MEASUREMENT-ONLY; uhdm-cmp remains the judge)
+# BEFORE workdir /tmp/r10uvm83_wd_BASE  (CONTROL binary 44956a58cccfce6600c047936ee9fc51)
+# AFTER  workdir /tmp/r10uvm83_wd_PATCH (SHIPPED binary 8969b56acb68815e8a86747c02153fb4)
+# inputs pinned by sha256 in INPUTS.r10uvm83.txt; MAX=20000 BUDGET=1800
+# ctladder built from the COMMITTED r10ladder1repro/ctladder.cpp, unmodified.
+
+== calib (golden-vs-golden must give ZERO rungs)
+MODE      TEST           GOLDENOBJS    RUNGS VERDICT
+default   BuildUVMPkg        183142        0 ZERO-HEADS
+default   Scoreboard         187081        0 ZERO-HEADS
+default   SimpleUVM          188084        0 ZERO-HEADS
+-- ZERO-HEADS=3 FAIL=0
+
+== BEFORE
+MODE      TEST             RUNGS STOP                   MAXVIS     SECS
+default   SeqDriver          508 FIXPOINT           43092/317210    555.1  rc=0
+default   SimpleUVM          229 ROOT-BLOCKED       40574/188084    139.9  rc=0
+default   Scoreboard         230 ROOT-BLOCKED       43417/187081    179.0  rc=0
+default   BuildUVMPkg        259 FIXPOINT           46259/183142    203.2  rc=0
+testflags SeqDriver          268 FIXPOINT           26062/317222    221.3  rc=0
+testflags SimpleUVM          229 ROOT-BLOCKED       40586/188096    139.5  rc=0
+testflags BuildUVMPkg        259 FIXPOINT           46259/183142    189.8  rc=0
+-- laddered=7  SKIP-NOFILE=0  UNKNOWN-NAME=0
+
+== AFTER
+MODE      TEST             RUNGS STOP                   MAXVIS     SECS
+default   SeqDriver          507 FIXPOINT           43092/317210    501.8  rc=0
+default   SimpleUVM          228 ROOT-BLOCKED       40574/188084    152.5  rc=0
+default   Scoreboard         229 ROOT-BLOCKED       43417/187081    194.9  rc=0
+default   BuildUVMPkg        258 FIXPOINT           46259/183142    211.1  rc=0
+testflags SeqDriver          267 FIXPOINT           26062/317222    224.5  rc=0
+testflags SimpleUVM          228 ROOT-BLOCKED       40586/188096    150.3  rc=0
+testflags BuildUVMPkg        258 FIXPOINT           46259/183142    188.1  rc=0
+-- laddered=7  SKIP-NOFILE=0  UNKNOWN-NAME=0
+
+ROW                              B_RUNGS   A_RUNGS     DELTA   VERDICT
+ladder_default_BuildUVMPkg           259       258        -1   MOVED  (FAM=package|* rungs 1 -> 0)
+ladder_default_Scoreboard            230       229        -1   MOVED  (FAM=package|* rungs 1 -> 0)
+ladder_default_SeqDriver             508       507        -1   MOVED  (FAM=package|* rungs 2 -> 1)
+ladder_default_SimpleUVM             229       228        -1   MOVED  (FAM=package|* rungs 1 -> 0)
+ladder_testflags_BuildUVMPkg         259       258        -1   MOVED  (FAM=package|* rungs 1 -> 0)
+ladder_testflags_SeqDriver           268       267        -1   MOVED  (FAM=package|* rungs 2 -> 1)
+ladder_testflags_SimpleUVM           229       228        -1   MOVED  (FAM=package|* rungs 1 -> 0)
+
+== R1 (the OFFICIAL head, which is ladder rung 1) BEFORE -> AFTER
+-- ladder_default_BuildUVMPkg
+   BEFORE R1 KINDL=constant  FAM=constant|<rhs-null>|MISSING-OURS
+   AFTER  R1 KINDL=constant  FAM=constant|<rhs-null>|MISSING-OURS
+-- ladder_default_Scoreboard
+   BEFORE R1 KINDL=package  FAM=package|~Typespecs|VEC:G>O
+   AFTER  R1 KINDL=constant  FAM=constant|VpiType|KIND:constant>hier_path
+-- ladder_default_SeqDriver
+   BEFORE R1 KINDL=package  FAM=package|<rhs-null>|MISSING-OURS
+   AFTER  R1 KINDL=constant  FAM=constant|VpiType|KIND:constant>hier_path
+-- ladder_default_SimpleUVM
+   BEFORE R1 KINDL=package  FAM=package|~Typespecs|VEC:G>O
+   AFTER  R1 KINDL=constant  FAM=constant|VpiType|KIND:constant>hier_path
+-- ladder_testflags_BuildUVMPkg
+   BEFORE R1 KINDL=constant  FAM=constant|<rhs-null>|MISSING-OURS
+   AFTER  R1 KINDL=constant  FAM=constant|<rhs-null>|MISSING-OURS
+-- ladder_testflags_SeqDriver
+   BEFORE R1 KINDL=package  FAM=package|<rhs-null>|MISSING-OURS
+   AFTER  R1 KINDL=constant  FAM=constant|VpiType|KIND:constant>hier_path
+-- ladder_testflags_SimpleUVM
+   BEFORE R1 KINDL=package  FAM=package|~Typespecs|VEC:G>O
+   AFTER  R1 KINDL=constant  FAM=constant|VpiType|KIND:constant>hier_path
+
+== before ladder_default_BuildUVMPkg top families (first rung in brackets)
+    54  [R6]  <null>|<lhs-null>|EXTRA-OURS
+    45  [R149]  sys_func_call|VpiType|KIND:sys_func_call>constant
+    28  [R9]  function|<rhs-null>|MISSING-OURS
+    27  [R63]  bit_typespec|VpiType|KIND:bit_typespec>int_typespec
+    10  [R19]  io_decl|<rhs-null>|MISSING-OURS
+     8  [R4]  ref_typespec|<rhs-null>|MISSING-OURS
+== before ladder_default_Scoreboard top families (first rung in brackets)
+    70  [R7]  <null>|<lhs-null>|EXTRA-OURS
+    22  [R65]  parameter|VpiType|KIND:parameter>constant
+    16  [R117]  sys_func_call|VpiType|KIND:sys_func_call>constant
+     8  [R24]  function|<rhs-null>|MISSING-OURS
+     8  [R208]  constant|VpiSize|INT:G<O
+     7  [R59]  ref_obj|VpiType|KIND:ref_obj>hier_path
+== before ladder_default_SeqDriver top families (first rung in brackets)
+   165  [R7]  <null>|<lhs-null>|EXTRA-OURS
+    28  [R65]  constant|VpiSize|INT:G<O
+    25  [R10]  ref_typespec|<rhs-null>|MISSING-OURS
+    16  [R341]  typespec_member|<rhs-null>|MISSING-OURS
+    16  [R380]  sys_func_call|VpiType|KIND:sys_func_call>constant
+    16  [R340]  struct_var|<rhs-null>|MISSING-OURS
+== before ladder_default_SimpleUVM top families (first rung in brackets)
+    68  [R7]  <null>|<lhs-null>|EXTRA-OURS
+    21  [R26]  parameter|VpiType|KIND:parameter>constant
+    16  [R100]  sys_func_call|VpiType|KIND:sys_func_call>constant
+     8  [R24]  function|<rhs-null>|MISSING-OURS
+     8  [R194]  constant|VpiSize|INT:G<O
+     6  [R95]  ref_obj|VpiType|KIND:ref_obj>hier_path
+== before ladder_testflags_BuildUVMPkg top families (first rung in brackets)
+    54  [R6]  <null>|<lhs-null>|EXTRA-OURS
+    45  [R149]  sys_func_call|VpiType|KIND:sys_func_call>constant
+    28  [R9]  function|<rhs-null>|MISSING-OURS
+    27  [R63]  bit_typespec|VpiType|KIND:bit_typespec>int_typespec
+    10  [R19]  io_decl|<rhs-null>|MISSING-OURS
+     8  [R4]  ref_typespec|<rhs-null>|MISSING-OURS
+== before ladder_testflags_SeqDriver top families (first rung in brackets)
+   103  [R7]  <null>|<lhs-null>|EXTRA-OURS
+    20  [R68]  constant|VpiSize|INT:G<O
+    16  [R184]  sys_func_call|VpiType|KIND:sys_func_call>constant
+    14  [R109]  constant|VpiDecompile|TEXT:#|int
+    11  [R18]  ref_obj|VpiType|KIND:ref_obj>hier_path
+     9  [R21]  function|<rhs-null>|MISSING-OURS
+== before ladder_testflags_SimpleUVM top families (first rung in brackets)
+    68  [R7]  <null>|<lhs-null>|EXTRA-OURS
+    21  [R26]  parameter|VpiType|KIND:parameter>constant
+    16  [R100]  sys_func_call|VpiType|KIND:sys_func_call>constant
+     8  [R24]  function|<rhs-null>|MISSING-OURS
+     8  [R194]  constant|VpiSize|INT:G<O
+     6  [R95]  ref_obj|VpiType|KIND:ref_obj>hier_path
+== after ladder_default_BuildUVMPkg top families (first rung in brackets)
+    54  [R6]  <null>|<lhs-null>|EXTRA-OURS
+    45  [R148]  sys_func_call|VpiType|KIND:sys_func_call>constant
+    28  [R9]  function|<rhs-null>|MISSING-OURS
+    27  [R63]  bit_typespec|VpiType|KIND:bit_typespec>int_typespec
+    10  [R19]  io_decl|<rhs-null>|MISSING-OURS
+     8  [R4]  ref_typespec|<rhs-null>|MISSING-OURS
+== after ladder_default_Scoreboard top families (first rung in brackets)
+    70  [R6]  <null>|<lhs-null>|EXTRA-OURS
+    22  [R64]  parameter|VpiType|KIND:parameter>constant
+    16  [R116]  sys_func_call|VpiType|KIND:sys_func_call>constant
+     8  [R23]  function|<rhs-null>|MISSING-OURS
+     8  [R207]  constant|VpiSize|INT:G<O
+     7  [R58]  ref_obj|VpiType|KIND:ref_obj>hier_path
+== after ladder_default_SeqDriver top families (first rung in brackets)
+   165  [R6]  <null>|<lhs-null>|EXTRA-OURS
+    28  [R64]  constant|VpiSize|INT:G<O
+    25  [R9]  ref_typespec|<rhs-null>|MISSING-OURS
+    16  [R340]  typespec_member|<rhs-null>|MISSING-OURS
+    16  [R379]  sys_func_call|VpiType|KIND:sys_func_call>constant
+    16  [R339]  struct_var|<rhs-null>|MISSING-OURS
+== after ladder_default_SimpleUVM top families (first rung in brackets)
+    68  [R6]  <null>|<lhs-null>|EXTRA-OURS
+    21  [R25]  parameter|VpiType|KIND:parameter>constant
+    16  [R99]  sys_func_call|VpiType|KIND:sys_func_call>constant
+     8  [R23]  function|<rhs-null>|MISSING-OURS
+     8  [R193]  constant|VpiSize|INT:G<O
+     6  [R94]  ref_obj|VpiType|KIND:ref_obj>hier_path
+== after ladder_testflags_BuildUVMPkg top families (first rung in brackets)
+    54  [R6]  <null>|<lhs-null>|EXTRA-OURS
+    45  [R148]  sys_func_call|VpiType|KIND:sys_func_call>constant
+    28  [R9]  function|<rhs-null>|MISSING-OURS
+    27  [R63]  bit_typespec|VpiType|KIND:bit_typespec>int_typespec
+    10  [R19]  io_decl|<rhs-null>|MISSING-OURS
+     8  [R4]  ref_typespec|<rhs-null>|MISSING-OURS
+== after ladder_testflags_SeqDriver top families (first rung in brackets)
+   103  [R6]  <null>|<lhs-null>|EXTRA-OURS
+    20  [R67]  constant|VpiSize|INT:G<O
+    16  [R183]  sys_func_call|VpiType|KIND:sys_func_call>constant
+    14  [R108]  constant|VpiDecompile|TEXT:#|int
+    11  [R17]  ref_obj|VpiType|KIND:ref_obj>hier_path
+     9  [R20]  function|<rhs-null>|MISSING-OURS
+== after ladder_testflags_SimpleUVM top families (first rung in brackets)
+    68  [R6]  <null>|<lhs-null>|EXTRA-OURS
+    21  [R25]  parameter|VpiType|KIND:parameter>constant
+    16  [R99]  sys_func_call|VpiType|KIND:sys_func_call>constant
+     8  [R23]  function|<rhs-null>|MISSING-OURS
+     8  [R193]  constant|VpiSize|INT:G<O
+     6  [R94]  ref_obj|VpiType|KIND:ref_obj>hier_path
+
+== HOW TO READ THESE NUMBERS — the ladder moved ONE rung and the JUDGE moved 1.4M lines
+
+The rung counts barely change (-1 on every row).  That is not a disappointment,
+it is the exact inverse of r10uvm82 and it is the point:
+
+  * r10uvm82 cleared 902 LADDER rungs and the OFFICIAL judge moved NOTHING
+    (byte-identical cmp output on all seven row-modes).
+  * r10uvm83 cleared ONE ladder rung — the WALL, which the ladder had always
+    been able to mask and step over — and the OFFICIAL judge moved from
+    1,450,011 / 1,405,511 / 1,399,779 cmp lines to 54 on all five NE rows.
+
+`FAM=package|*` rungs: 1 -> 0 on SimpleUVM, Scoreboard and both BuildUVMPkg
+rows; 2 -> 1 on the two SeqDriver rows.  The rung that REMAINS on SeqDriver is a
+different family entirely — R76 `package|VpiName|TEXT:uvm_pkg|adpcm_pkg`, a
+package ORDER/naming disagreement in the design's package vectors, not the wall.
+
+== THE BRIEF'S FIELD NAMES CAME FROM THIS INSTRUMENT, AND THEY WERE WRONG
+
+BEFORE R1, verbatim:
+  SimpleUVM / Scoreboard / testflags SimpleUVM  `package|~Typespecs|VEC:G>O`
+  SeqDriver / testflags SeqDriver               `package|<rhs-null>|MISSING-OURS`
+These are exactly the strings r10uvm82's README quoted and this pass's brief
+carried forward as "125 vs 91, a membership deficit of 34 typespecs".  Read off
+the databases (CENSUS Part 0) the elaborated `package uvm_pkg` has Typespecs
+89/89 and NOT ONE null vector on either side: the ladder's FIELD attribution for
+a `SafeCompare(lhs, nullptr)` head is a heuristic over the HEAD OBJECT, and the
+head object is the TARGET of the failing edge, not its owner.  The rung's own
+`MK` line had the answer all along — it masked
+`unsupported_typespec(uvm_resource_types::rsrc_q_t)@uvm_sequencer_base.svh:1434:3`,
+which IS the owner this pass fixed.
+
+AFTER R1 on all five NE rows: `constant|VpiType|KIND:constant>hier_path` at
+`uvm_sequencer_base.svh:1576:23` — byte-for-byte the official uhdm-cmp head, and
+the same object the pre-existing ladders had listed as R3.  The ladder and the
+judge now agree on R1.
+
+== ROOT-BLOCKED, BEFORE AND AFTER
+SimpleUVM / Scoreboard stop ROOT-BLOCKED on BOTH sides.  BEFORE that was the
+wall itself (a design-level shape (d) the ladder cannot mask — the instrument
+said out loud that it could not see past this head, which is why a field-level
+tracer had to be built).  AFTER it is the design-level membership deficits
+CENSUS Part 0 hands forward (`design::Typespecs` 123 vs 89,
+`design::Parameters` / `Param_assigns` 45 vs 0).

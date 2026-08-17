@@ -1,0 +1,176 @@
+# r10uvm83 — VERIFIER ARMS, full output.  MEASUREMENT-ONLY.
+# LHS is ALWAYS golden(Surelog); RHS is ALWAYS ours.  Each arm run on BOTH
+# binaries: PRIS = 44956a58cccfce6600c047936ee9fc51, PATCH = 8969b56acb68815e8a86747c02153fb4.
+# G/P/Q = the vpiInstance ROLE MULTISET of every unsupported_typespec, keyed by
+# (name, span), for GOLDEN / PRISTINE / PATCHED.  A cell that matched golden on
+# the pristine binary and stops matching on the patched one is flagged
+# PRISTINE-RIGHT->PATCHED-WRONG.  TOTAL OVER 24 CELLS: REGRESSED=0.
+#   10 cells REGRESSED=0 FIXED=0   (inert on both binaries, or unreachable in ours)
+#   11 cells REGRESSED=0 FIXED=1
+#    3 cells REGRESSED=0 FIXED=2
+======== v83_a02_pkgfreefunc
+  PRIS   v83_a02_pkgfreefunc        CMP_FAIL  heads=1    lines=105     DUMP_DIFF=41
+  PATCH  v83_a02_pkgfreefunc        CMP_FAIL  heads=1    lines=65      DUMP_DIFF=37
+  zbase2::c_t                11:5  -  11:13       G=pkg:DEF(pa2)x1,pkg:ELAB(pa2)x1 P=NULLx2                       Q=pkg:DEF(pa2)x1,pkg:ELAB(pa2)x1  *** FIXED
+  -- REGRESSED=0 FIXED=1
+======== v83_a03_pkgfreefunc_block
+  PRIS   v83_a03_pkgfreefunc_block  CMP_FAIL  heads=1    lines=99      DUMP_DIFF=13
+  PATCH  v83_a03_pkgfreefunc_block  CMP_FAIL  heads=1    lines=17      DUMP_DIFF=9
+  zbase3::c_t                10:7  -  10:15       G=pkg:DEF(pa3)x1,pkg:ELAB(pa3)x1 P=NULLx2                       Q=pkg:DEF(pa3)x1,pkg:ELAB(pa3)x1  *** FIXED
+  -- REGRESSED=0 FIXED=1
+======== v83_a04_oob_block
+  PRIS   v83_a04_oob_block          CMP_FAIL  heads=1    lines=71      DUMP_DIFF=25
+  PATCH  v83_a04_oob_block          CMP_FAIL  heads=1    lines=17      DUMP_DIFF=21
+  zbase4::c_t                13:9  -  13:17       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase4::c_t                19:7  -  19:15       G=pkg:DEF(pa4)x1,pkg:ELAB(pa4)x1 P=NULLx2                       Q=pkg:DEF(pa4)x1,pkg:ELAB(pa4)x1  *** FIXED
+  -- REGRESSED=0 FIXED=1
+======== v83_a05_oob_fork
+  PRIS   v83_a05_oob_fork           CMP_FAIL  heads=1    lines=83      DUMP_DIFF=25
+  PATCH  v83_a05_oob_fork           CMP_FAIL  heads=1    lines=17      DUMP_DIFF=21
+  zbase5::c_t                13:11 -  13:19       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase5::c_t                21:9  -  21:17       G=pkg:DEF(pa5)x1,pkg:ELAB(pa5)x1 P=NULLx2                       Q=pkg:DEF(pa5)x1,pkg:ELAB(pa5)x1  *** FIXED
+  -- REGRESSED=0 FIXED=1
+======== v83_a06_modclass
+  PRIS   v83_a06_modclass           CMP_FAIL  heads=1    lines=395     DUMP_DIFF=196
+  PATCH  v83_a06_modclass           CMP_FAIL  heads=1    lines=395     DUMP_DIFF=196
+  zbase6::c_t                12:7  -  12:15       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase6::c_t                16:5  -  16:13       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase6::c_t                19:5  -  19:13       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  -- REGRESSED=0 FIXED=0
+======== v83_a07_unitclass
+  PRIS   v83_a07_unitclass          CMP_FAIL  heads=1    lines=17      DUMP_DIFF=67
+  PATCH  v83_a07_unitclass          CMP_FAIL  heads=1    lines=17      DUMP_DIFF=67
+  zbase7::c_t                10:5  -  10:13       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase7::c_t                14:3  -  14:11       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase7::c_t                17:3  -  17:11       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  -- REGRESSED=0 FIXED=0
+======== v83_a08_selfqual_oob
+  PRIS   v83_a08_selfqual_oob       CMP_FAIL  heads=1    lines=105     DUMP_DIFF=74
+  PATCH  v83_a08_selfqual_oob       CMP_FAIL  heads=1    lines=65      DUMP_DIFF=70
+  abase8::c_t                12:7  -  12:15       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  abase8::c_t                17:5  -  17:13       G=pkg:DEF(pa8)x1,pkg:ELAB(pa8)x1 P=NULLx2                       Q=pkg:DEF(pa8)x1,pkg:ELAB(pa8)x1  *** FIXED
+  -- REGRESSED=0 FIXED=1
+======== v83_a09_paramclass
+  PRIS   v83_a09_paramclass         CMP_FAIL  heads=1    lines=17      DUMP_DIFF=76
+  PATCH  v83_a09_paramclass         CMP_FAIL  heads=1    lines=17      DUMP_DIFF=76
+  zbase9::c_t                12:7  -  12:21       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase9::c_t                17:5  -  17:19       G=pkg:DEF(pa9)x1,pkg:ELAB(pa9)x1 P=pkg:DEF(pa9)x1,pkg:ELAB(pa9)x1 Q=pkg:DEF(pa9)x1,pkg:ELAB(pa9)x1
+  -- REGRESSED=0 FIXED=0
+======== v83_a10_ifaceclass
+  PRIS   v83_a10_ifaceclass         CMP_FAIL  heads=1    lines=96      DUMP_DIFF=37
+  PATCH  v83_a10_ifaceclass         CMP_FAIL  heads=1    lines=96      DUMP_DIFF=33
+  ic10::c_t                  12:7  -  12:13       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  ic10::c_t                  16:5  -  16:11       G=pkg:DEF(pa10)x1,pkg:ELAB(pa10)x1 P=NULLx2                       Q=pkg:DEF(pa10)x1,pkg:ELAB(pa10)x1  *** FIXED
+  -- REGRESSED=0 FIXED=1
+======== v83_a11_forward
+  PRIS   v83_a11_forward            CMP_FAIL  heads=1    lines=96      DUMP_DIFF=33
+  PATCH  v83_a11_forward            CMP_FAIL  heads=1    lines=96      DUMP_DIFF=29
+  zbase11::c_t               13:7  -  13:16       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase11::c_t               17:5  -  17:14       G=pkg:DEF(pa11)x1,pkg:ELAB(pa11)x1 P=NULLx2                       Q=pkg:DEF(pa11)x1,pkg:ELAB(pa11)x1  *** FIXED
+  -- REGRESSED=0 FIXED=1
+======== v83_a12_chain
+  PRIS   v83_a12_chain              CMP_FAIL  heads=1    lines=28      DUMP_DIFF=85
+  PATCH  v83_a12_chain              CMP_FAIL  heads=1    lines=28      DUMP_DIFF=81
+  t_td                       10:13 -  10:23       G=NULLx1                       P=ABSENT                       Q=ABSENT                      
+  zhold12::plain_td          17:7  -  17:16       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zhold12::plain_td          22:5  -  22:14       G=pkg:DEF(pa12)x1,pkg:ELAB(pa12)x1 P=NULLx2                       Q=pkg:DEF(pa12)x1,pkg:ELAB(pa12)x1  *** FIXED
+  -- REGRESSED=0 FIXED=1
+======== v83_a13_nested
+  PRIS   v83_a13_nested             CMP_FAIL  heads=1    lines=105     DUMP_DIFF=77
+  PATCH  v83_a13_nested             CMP_FAIL  heads=1    lines=65      DUMP_DIFF=69
+  zouter13::c_t              15:7  -  15:27       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zouter13::c_t              20:5  -  20:25       G=pkg:DEF(pa13)x1,pkg:ELAB(pa13)x1 P=NULLx2                       Q=pkg:DEF(pa13)x1,pkg:ELAB(pa13)x1  *** FIXED
+  zouter13::out_t            16:7  -  16:17       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zouter13::out_t            21:5  -  21:15       G=pkg:DEF(pa13)x1,pkg:ELAB(pa13)x1 P=NULLx2                       Q=pkg:DEF(pa13)x1,pkg:ELAB(pa13)x1  *** FIXED
+  -- REGRESSED=0 FIXED=2
+======== v83_a14_import_wild
+  PRIS   v83_a14_import_wild        CMP_FAIL  heads=1    lines=96      DUMP_DIFF=81
+  PATCH  v83_a14_import_wild        CMP_FAIL  heads=1    lines=96      DUMP_DIFF=81
+  zbase14::c_t               16:7  -  16:16       G=NULLx1                       P=ABSENT                       Q=ABSENT                      
+  zbase14::c_t               20:5  -  20:14       G=pkg:DEF(pb14)x1,pkg:ELAB(pb14)x1 P=ABSENT                       Q=ABSENT                      
+  -- REGRESSED=0 FIXED=0
+======== v83_a15_reexport
+  PRIS   NO_OUTPUT v83_a15_reexport
+  PATCH  NO_OUTPUT v83_a15_reexport
+  zbase15::c_t               19:7  -  19:16       G=NULLx1                       P=ABSENT                       Q=ABSENT                      
+  zbase15::c_t               23:5  -  23:14       G=pkg:DEF(pc15)x1,pkg:ELAB(pc15)x1 P=ABSENT                       Q=ABSENT                      
+  -- REGRESSED=0 FIXED=0
+======== v83_a16_explicit_import
+  PRIS   v83_a16_explicit_import    CMP_FAIL  heads=1    lines=150     DUMP_DIFF=79
+  PATCH  v83_a16_explicit_import    CMP_FAIL  heads=1    lines=150     DUMP_DIFF=79
+  zbase16::c_t               15:7  -  15:16       G=NULLx1                       P=ABSENT                       Q=ABSENT                      
+  zbase16::c_t               19:5  -  19:14       G=pkg:DEF(pb16)x1,pkg:ELAB(pb16)x1 P=ABSENT                       Q=ABSENT                      
+  -- REGRESSED=0 FIXED=0
+======== v83_a17_arrays
+  PRIS   v83_a17_arrays             CMP_FAIL  heads=1    lines=285     DUMP_DIFF=324
+  PATCH  v83_a17_arrays             CMP_FAIL  heads=1    lines=285     DUMP_DIFF=324
+  zbase17::c_t               13:7  -  13:16       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase17::c_t               14:7  -  14:16       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase17::c_t               15:7  -  15:16       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase17::c_t               16:7  -  16:16       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase17::c_t               20:5  -  20:14       G=pkg:DEF(pa17)x1,pkg:ELAB(pa17)x1 P=NULLx2                       Q=NULLx2                      
+  zbase17::c_t               21:5  -  21:14       G=pkg:DEF(pa17)x1,pkg:ELAB(pa17)x1 P=NULLx2                       Q=NULLx2                      
+  zbase17::c_t               22:5  -  22:14       G=pkg:DEF(pa17)x1,pkg:ELAB(pa17)x1 P=NULLx2                       Q=NULLx2                      
+  zbase17::c_t               23:5  -  23:14       G=pkg:DEF(pa17)x1,pkg:ELAB(pa17)x1 P=NULLx2                       Q=NULLx2                      
+  -- REGRESSED=0 FIXED=0
+======== v83_a18_oob_ctor_virtual
+  PRIS   v83_a18_oob_ctor_virtual   CMP_FAIL  heads=1    lines=50      DUMP_DIFF=65
+  PATCH  v83_a18_oob_ctor_virtual   CMP_FAIL  heads=1    lines=50      DUMP_DIFF=65
+  zbase18::c_t               14:5  -  14:14       G=pkg:DEF(pa18)x1,pkg:ELAB(pa18)x1 P=NULLx2                       Q=pkg:DEF(pa18)x1,pkg:ELAB(pa18)x1  *** FIXED
+  zbase18::c_t               19:7  -  19:16       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase18::c_t               23:5  -  23:14       G=ABSENT                       P=NULLx2                       Q=pkg:DEF(pa18)x1,pkg:ELAB(pa18)x1  ~~~ MOVED (both differ from golden)
+  -- REGRESSED=0 FIXED=1
+======== v83_a19_pkgtd_control
+  PRIS   v83_a19_pkgtd_control      CMP_FAIL  heads=1    lines=56      DUMP_DIFF=87
+  PATCH  v83_a19_pkgtd_control      CMP_FAIL  heads=1    lines=56      DUMP_DIFF=87
+  -- REGRESSED=0 FIXED=0
+======== v83_a20_task_multi
+  PRIS   v83_a20_task_multi         CMP_FAIL  heads=1    lines=191     DUMP_DIFF=134
+  PATCH  v83_a20_task_multi         CMP_FAIL  heads=1    lines=191     DUMP_DIFF=134
+  zfar20::far_t              20:7  -  20:15       G=NULLx1                       P=ABSENT                       Q=ABSENT                      
+  zfar20::far_t              25:5  -  25:13       G=pkg:DEF(pa20)x1,pkg:ELAB(pa20)x1 P=ABSENT                       Q=ABSENT                      
+  zfar20::far_t              28:7  -  28:15       G=pkg:DEF(pa20)x1,pkg:ELAB(pa20)x1 P=ABSENT                       Q=ABSENT                      
+  -- REGRESSED=0 FIXED=0
+======== v83_a21_iface_prog
+  PRIS   v83_a21_iface_prog         CMP_FAIL  heads=1    lines=2358    DUMP_DIFF=139
+  PATCH  v83_a21_iface_prog         CMP_FAIL  heads=1    lines=2358    DUMP_DIFF=139
+  zbase21::c_t               13:7  -  13:16       G=NULLx1                       P=ABSENT                       Q=ABSENT                      
+  zbase21::c_t               17:5  -  17:14       G=NULLx1                       P=ABSENT                       Q=ABSENT                      
+  -- REGRESSED=0 FIXED=0
+======== v83_a22_genblock
+  PRIS   v83_a22_genblock           CMP_FAIL  heads=1    lines=275     DUMP_DIFF=33
+  PATCH  v83_a22_genblock           CMP_FAIL  heads=1    lines=17      DUMP_DIFF=25
+  zbase22::c_t               13:9  -  13:18       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase22::c_t               19:7  -  19:16       G=pkg:DEF(pa22)x1,pkg:ELAB(pa22)x1 P=NULLx2                       Q=pkg:DEF(pa22)x1,pkg:ELAB(pa22)x1  *** FIXED
+  zbase22::c_t               22:7  -  22:16       G=pkg:DEF(pa22)x1,pkg:ELAB(pa22)x1 P=NULLx2                       Q=pkg:DEF(pa22)x1,pkg:ELAB(pa22)x1  *** FIXED
+  -- REGRESSED=0 FIXED=2
+======== v83_a23_innerclass_oob
+  PRIS   v83_a23_innerclass_oob     CMP_FAIL  heads=1    lines=111     DUMP_DIFF=72
+  PATCH  v83_a23_innerclass_oob     CMP_FAIL  heads=1    lines=17      DUMP_DIFF=64
+  zbase23::c_t               13:9  -  13:18       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase23::c_t               17:7  -  17:16       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase23::c_t               21:5  -  21:14       G=pkg:DEF(pa23)x1,pkg:ELAB(pa23)x1 P=NULLx2                       Q=pkg:DEF(pa23)x1,pkg:ELAB(pa23)x1  *** FIXED
+  zbase23::c_t               23:7  -  23:16       G=pkg:DEF(pa23)x1,pkg:ELAB(pa23)x1 P=NULLx2                       Q=pkg:DEF(pa23)x1,pkg:ELAB(pa23)x1  *** FIXED
+  -- REGRESSED=0 FIXED=2
+======== v83_a24_formal_oob
+  PRIS   v83_a24_formal_oob         CMP_FAIL  heads=1    lines=175     DUMP_DIFF=85
+  PATCH  v83_a24_formal_oob         CMP_FAIL  heads=1    lines=175     DUMP_DIFF=81
+  zbase24::c_t               11:21 -  11:30       G=NULLx1                       P=ABSENT                       Q=ABSENT                      
+  zbase24::c_t               11:40 -  11:49       G=NULLx1                       P=ABSENT                       Q=ABSENT                      
+  zbase24::c_t               11:70 -  11:82       G=NULLx1                       P=ABSENT                       Q=ABSENT                      
+  zbase24::c_t               12:28 -  12:37       G=NULLx1                       P=ABSENT                       Q=ABSENT                      
+  zbase24::c_t               12:28 -  12:40       G=ABSENT                       P=NULLx1                       Q=NULLx1                      
+  zbase24::c_t               13:7  -  13:16       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase24::c_t               16:12 -  16:21       G=pkg:DEF(pa24)x1,pkg:ELAB(pa24)x1 P=NULLx3                       Q=NULLx3                      
+  zbase24::c_t               16:41 -  16:50       G=pkg:DEF(pa24)x1,pkg:ELAB(pa24)x1 P=ABSENT                       Q=ABSENT                      
+  zbase24::c_t               16:41 -  16:53       G=ABSENT                       P=NULLx3                       Q=NULLx3                      
+  zbase24::c_t               16:71 -  16:83       G=pkg:DEF(pa24)x1,pkg:ELAB(pa24)x1 P=NULLx3                       Q=NULLx3                      
+  zbase24::c_t               17:5  -  17:14       G=pkg:DEF(pa24)x1,pkg:ELAB(pa24)x1 P=NULLx2                       Q=pkg:DEF(pa24)x1,pkg:ELAB(pa24)x1  *** FIXED
+  -- REGRESSED=0 FIXED=1
+======== g4
+  PRIS   g4                         CMP_FAIL  heads=1    lines=17      DUMP_DIFF=149
+  PATCH  g4                         CMP_FAIL  heads=1    lines=17      DUMP_DIFF=149
+  aderiv4::own_c_t           35:7  -  35:16       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase4::c_t                33:7  -  33:15       G=NULLx1                       P=NULLx1                       Q=NULLx1                      
+  zbase4::c_t                45:5  -  45:13       G=pkg:DEF(px4)x1,pkg:ELAB(px4)x1 P=NULLx2                       Q=pkg:DEF(px4)x1,pkg:ELAB(px4)x1  *** FIXED
+  -- REGRESSED=0 FIXED=1

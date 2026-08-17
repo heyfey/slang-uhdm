@@ -16393,8 +16393,24 @@ UHDM::typespec* UhdmExporter::makeScopedTdUnsupTs11(const Symbol& declSym) {
     if (nm.empty())
         return nullptr;
     // Golden's object carries a vpiName and a span and NOTHING else — no
-    // parent, no vpiFullName, no vpiInstance (read straight off the SeqDriver
-    // head's LHS decompile, which prints one line).
+    // parent, no vpiFullName.
+    //
+    // § scopedTdUnsupTsHomePkgInstance83 CORRECTION.  The sentence that stood
+    // here also claimed "no vpiInstance (read straight off the SeqDriver head's
+    // LHS decompile, which prints one line)".  THAT CLAIM WAS FALSE and it was
+    // the official cmp head of all five UVM NE rows for thirty passes.
+    // A placeholder decompiled as a REFERENCED LEAF prints ONE identity line and
+    // NONE of its own fields — that is the "prints one line" the old sentence
+    // cited — while the SAME object decompiled AS A ROOT does print
+    // `|vpiInstance:`.  The reading was of the leaf form, which is silent about
+    // the field rather than evidence against it; read off the DATABASE (or off a
+    // root decompile), golden's placeholder for an OUT-OF-BODY class
+    // method's declaration carries the home package (SimpleUVM golden:
+    // `uvm_sequencer_base.svh:1434:3` and `uvm_reg_block.svh:1260:4`, def-view
+    // copy -> def package, elab-view copy -> elaborated package), and only an
+    // IN-BODY method's carries none.  The stamp is therefore NOT applied here —
+    // this helper has no subroutine context — but at each CALL SITE, from the
+    // same `tsInst` / `pkgScopeInst` pointer the site's resolved typespec uses.
     auto* uts = s.MakeUnsupported_typespec();
     uts->VpiName(nm);
     auto sr = scopedTdPrefixSpan11(declSym);

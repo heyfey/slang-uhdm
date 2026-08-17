@@ -1,0 +1,130 @@
+# r10uvm83 — GATE EVIDENCE.  Base f5a97aa.  Worktree /tmp/wt_r10uvm83.
+# CONTROL binary md5 44956a58cccfce6600c047936ee9fc51  (my own build of f5a97aa)
+# SHIPPED binary md5 8969b56acb68815e8a86747c02153fb4  (every number below)
+# GOLDEN_DEFER echoed [UNSET] at every sweep launch; 5 DEFERRED in both surelog
+# modes, exactly as in the committed baseline.  slang was NOT patched.
+# results/*.csv were READ ONLY — this pass promoted NOTHING.
+# The four slang-fenced tests were never dispatched: canaudit.sh, run in THIS
+# directory (so its HERE is this directory), prints FENCE-BREACH=0.  Their names
+# are deliberately not written into any file here.
+
+GATE 1  BUILD           both binaries built -j 2 against the official UHDM
+                        install; md5s above, each read after the
+                        "Linking CXX executable slang-uhdm" line.  Nothing in
+                        UHDM was patched or rebuilt.
+                        RE-BUILD CHECK: comment corrections were made to
+                        src/TaskFuncEmit.cpp and src/TypeEmit.cpp AFTER the gated
+                        build (the leaf-vs-root decompile mechanism, see README).
+                        The tree was rebuilt — the log shows both files
+                        recompiled and the executable relinked — and the binary
+                        is BYTE-IDENTICAL, md5 8969b56acb68815e8a86747c02153fb4.
+                        Every number below therefore holds for the SHIPPED
+                        source, not only for the source that was gated.
+
+GATE 2  GOLDENS         tests/check_goldens.sh  ->  23 PASS / 0 FAIL
+        NEG CONTROL     SLANG_UHDM=/bin/false   ->  0 PASS / 23 FAIL
+
+GATE 3  UHDM2RTLIL      1462 rows (default+testflags): 679 CMP_EQUAL /
+                        50 SLANG_REJECT / 2 SURELOG_FAIL in BOTH modes.
+                        ct8rows.sh, COMMITTED-BASELINE-FIRST:
+                          results/gate_uhdm2rtlil.csv (731 testflags rows)
+                          vs my CONTROL sweep, testflags rows: 0 differing ROWS
+                          vs my SHIPPED sweep, testflags rows: 0 differing ROWS
+                          CONTROL vs SHIPPED, all 1462 rows: 0 differing ROWS
+                        (dump column included in every one of the three)
+
+GATE 4  SURELOG         1588 rows (default+testflags).  ct8rows.sh,
+                        COMMITTED-BASELINE-FIRST:
+                          results/golden_surelog.csv vs my CONTROL sweep:
+                            0 differing ROWS over 1588
+                          results/golden_surelog.csv vs my SHIPPED sweep:
+                            0 differing ROWS over 1588
+                        Status AND dump histograms identical per mode; the
+                        committed baseline's YosysVerx CMP_EQUAL rows are
+                        carried unchanged.
+
+GATE 5  BYTEVERIFY      surelog : MOVERS 7 / 953   — ALL SEVEN PREDICTED BY NAME
+                                  (default+testflags SeqDriver / SimpleUVM /
+                                   BuildUVMPkg, and default Scoreboard)
+                        u2r     : MOVERS 0 / 1358  (predicted 0)
+                        SELFCHECK  surelog 952/953 flagged, u2r 1357/1358
+                        SELFCHECK1 surelog 8 (7 real movers + 1 corrupted),
+                                   u2r 1 (0 real + 1 corrupted)
+
+PREDICTOR BIJECTION    ct83pred over EVERY pristine database of both corpora:
+                        surelog 953 -> nonzero on exactly 7, the same 7 the
+                        byte comparison found; 946 pred=0 all byte-SAME.
+                        u2r 1358 -> nonzero on 0; 0 movers measured.
+                        Zero false positives, zero false negatives, both corpora.
+
+BOUNDARY sd grids       r10buvm3repro/sdbound.sh: cells=347 MOVERS=2
+                        NO_OUTPUT(both)=4.  The two movers are
+                        r10sd11repro/grid11/g4.sv and r10sd12repro/grid11/g4.sv
+                        — THE LAW'S OWN GRID CELL (§ classScopedTdDeclTsUnsupported11's
+                        grid11 `g4`, whose whole point is an OUT-OF-BODY method
+                        body), and they are named here rather than summarised.
+BOUNDARY all sd/uvm/buvm  r10uvm82repro/allbound82.sh: CELLS=923 MOVERS=2
+                        NO_OUTPUT=16 — the same two g4 cells and nothing else.
+                        The 4 segfault lines in that run are SYMMETRIC (2 from
+                        the pristine binary, 2 from the patched one, on the same
+                        cells) and are pre-existing, not a regression.
+
+grid11 POSITIVE CONTROL, scored against a REAL SURELOG GOLDEN (ct11grid.sh +
+                        ct83inst on the arm's own surelog.uhdm), cell g4:
+                          site                          golden      pristine  patched
+                          45:5  zbase4::c_t o_scoped     pkg:DEF     NULL      pkg:DEF
+                          (OUT-OF-BODY aderiv4::f_oob)  pkg:ELAB    NULL      pkg:ELAB
+                          33:7  zbase4::c_t b_scoped     NULL        NULL      NULL
+                          35:7  aderiv4::own_c_t b_own   NULL        NULL      NULL
+                          (both IN-BODY f_inline)
+                        The out-of-body half moves to golden EXACTLY; the
+                        in-body half — the negative control inside the same
+                        cell — does not move.
+                        r10sd11repro/ct11grid.sh's THREE measures (cmp lines,
+                        DUMP_DIFF content/hunks, bound-typespec table differing
+                        sides) are IDENTICAL pristine vs patched on ALL EIGHT
+                        grid11 cells, which is the mechanism restated: the field
+                        this pass fixes is not printed by the dump and not read
+                        by that table.
+
+CANARIES                canaries.sh  surelog ok=52 changed=0 absent=0
+                                             unknown-names=7 (the documented
+                                             u2r-only expectation)
+                                     u2r     ok=8  changed=0 absent=0
+                                             (fresh csv filtered to testflags,
+                                             the committed baseline's own shape)
+                        ctcan2.sh    surelog EXPECT_UNKNOWN=1 ok=58 changed=0
+                                     u2r     EXPECT_UNKNOWN=6 ok=1  changed=0
+                        canaudit.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0
+                        DATABASE md5 pins (patched == pristine, all five names,
+                        BOTH modes each):
+                          SVSwitch           default/testflags 4842211c4030  <- the mandated pin
+                          YosysVerx          default/testflags 6ccda350c24a  <- the mandated pin
+                          InterfaceModPort   default/testflags 59a365f3ce2c
+                          BlackParrotComplex default e3e354129d5a  testflags 73a10e8217e5
+                          YosysOldOr         default/testflags d68e0796d62c
+
+OFFICIAL HEADS (rowheads.sh, grep -c '^LHS:' — ONE head per run every time)
+        row                     BEFORE lines   AFTER lines   status
+        SeqDriver   default        1450011           54       CMP_NOTEQUAL (unchanged)
+        SeqDriver   testflags      1450011           54       CMP_NOTEQUAL
+        SimpleUVM   default        1405511           54       CMP_NOTEQUAL
+        SimpleUVM   testflags      1405511           54       CMP_NOTEQUAL
+        Scoreboard  default        1399779           54       CMP_NOTEQUAL
+        Scoreboard  testflags        SKIP-NOFILE (SLANG_REJECT — no database)
+        BuildUVMPkg default             19           19       CMP_NOTEQUAL
+        BuildUVMPkg testflags           19           19       CMP_NOTEQUAL
+        The BEFORE line counts are byte-for-byte the ones r10uvm82 recorded
+        (1450011 / 1405511 / 1399779), which is what proves my CONTROL build
+        reproduces the committed baseline before anything is claimed about the
+        patched one.
+
+DETERMINISM NOTE (recorded, not swept under)
+        SeqDriver testflags and Scoreboard default produce DIFFERENT database
+        bytes between two independent workdirs with the SAME binary (pristine
+        SeqDriver testflags: 4f482d08f546 in my 4-test workdir, 13056b5cd98f in
+        the full sweep).  That is the campaign's known emitter nondeterminism
+        (MEMORY: SourceLocation across macro buffers under parallel parse), NOT
+        a mover: within each PAIRED sweep the mover set is exactly the 7
+        predicted databases, ct8rows reports 0 differing rows in both
+        directions, and the official heads are identical in both workdirs.

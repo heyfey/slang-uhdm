@@ -1,0 +1,47 @@
+# r10uvm83 — THE MOVER PREDICTION, made from the PRISTINE trees ONLY, and the
+# measurement it was checked against.  MEASUREMENT-ONLY.
+#
+# PREDICTOR (ct83pred.cpp): an `unsupported_typespec` whose VpiName contains
+# "::" and whose `Instance()` is NULL, bound through a `ref_typespec` whose
+# enclosing `function`/`task` HAS a non-null `Instance()`.  A subroutine's own
+# vpiInstance is set exactly for an OUT-OF-BODY definition, and that pointer
+# (`oobHomePkg`) is the one the law stamps — so the predicate is the law, read
+# back off the database instead of off the emitter.
+
+== the four UVM tests, pristine (base 44956a58cccfce6600c047936ee9fc51)
+PRED 2 34  default/BuildUVMPkg-bf853d43        PRED 2 34  testflags/BuildUVMPkg-bf853d43
+PRED 4 35  default/Scoreboard-59431470
+PRED 8 39  default/SeqDriver-32af76aa          PRED 8 39  testflags/SeqDriver-32af76aa
+PRED 4 35  default/SimpleUVM-1dc93a62          PRED 4 35  testflags/SimpleUVM-1dc93a62
+   (first number = predicted movers, second = ALL "::"-named placeholders)
+   MEASURED by byteverify.sh on those seven databases: MOVERS 7 / 7 — every
+   predicted-nonzero database moved, and there is no eighth.
+   SimpleUVM's 4 == ct83cen's 2 differing keys x 2 package views, exactly.
+   NOTE: BuildUVMPkg is NOT a negative control in this pass (PRED 2): its two
+   databases DO move, while its official head does not (its head is a
+   `constant` inside `uvm_default_factory::find_override_by_name`, which the
+   walk reaches BEFORE the placeholder).  A pass whose negative control is
+   "unchanged bytes" would have been the wrong control here, and the predictor
+   says so up front.
+
+== the WHOLE surelog corpus, pristine (953 databases)
+   predictor nonzero on EXACTLY 7:
+PRED 2 34 default/BuildUVMPkg-bf853d43      PRED 2 34 testflags/BuildUVMPkg-bf853d43
+PRED 4 35 default/Scoreboard-59431470
+PRED 8 39 default/SeqDriver-32af76aa        PRED 8 39 testflags/SeqDriver-32af76aa
+PRED 4 35 default/SimpleUVM-1dc93a62        PRED 4 35 testflags/SimpleUVM-1dc93a62
+   (every other one of the 953 is PRED 0)
+   MEASURED by byteverify.sh: MOVERS 7 / 953 — the same seven, by name.
+   946 databases with PRED 0 -> byte-SAME.  0 false positives, 0 false negatives.
+
+== the WHOLE uhdm2rtlil corpus, pristine (1358 databases)
+   predictor nonzero: NONE (0 of 1358)
+   MEASURED by byteverify.sh: MOVERS 0 / 1358.
+
+== sd/uvm/buvm boundary arms (allbound82.sh, 923 cells)
+   MOVERS 2, both `grid11/g4.sv` (r10sd11repro and r10sd12repro) — the law's own
+   positive cell, an OUT-OF-BODY class method with `zbase4::c_t o_scoped;`.
+   NO_OUTPUT 16 (the 4 segfault lines in the run are symmetric: 2 from the
+   pristine binary and 2 from the patched one, on the same cells — pre-existing).
+   r10buvm3repro/sdbound.sh over the sd grids alone: cells=347 MOVERS=2 (the
+   same two g4 cells) NO_OUTPUT(both)=4.

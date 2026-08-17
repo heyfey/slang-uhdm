@@ -1,0 +1,169 @@
+# r10uvm83 — THE CENSUS THAT FOUND THE WALL, AND THE ONE THAT REFUTED THE BRIEF.
+# MEASUREMENT-ONLY.  uhdm-cmp remains the sole judge.
+# Base f5a97aa.  CONTROL binary 44956a58cccfce6600c047936ee9fc51,
+# SHIPPED binary 8969b56acb68815e8a86747c02153fb4.
+
+== PART 0.  THE BRIEF'S PREMISE, MEASURED AND REFUTED (ct83pkg)
+
+The brief (inherited from r10uvm82's README) said the head field was, on
+SimpleUVM/Scoreboard, `package|~Typespecs|VEC:G>O 125 vs 91` — "a MEMBERSHIP
+deficit of 34 typespecs" — and on SeqDriver a package vector golden has and we
+do not.  Read straight off the databases, EVERY compared vector of the
+elaborated `package uvm_pkg` is IDENTICAL in size on both sides:
+
+  row (both modes)   Variables Parameters Param_assigns Typespecs Class_defns Task_funcs
+  SeqDriver   G/O      33/33     45/45        45/45       89/89     323/323     58/58
+  SimpleUVM   G/O      33/33     45/45        45/45       89/89     323/323     58/58
+  Scoreboard  G/O      33/33     45/45        45/45       89/89     323/323     58/58
+  BuildUVMPkg G/O      26/26     41/41        41/41       89/89     327/327     52/52
+
+and every OTHER vector (Property_decls, Sequence_decls, Concurrent_assertions,
+Named_events, Named_event_arrays, Virtual_interface_vars, Logic_vars,
+Array_vars, Array_var_mems, Scopes, Instance_items, Let_decls, Attributes,
+Programs, Program_arrays, Nets, Array_nets, Spec_params, Assertions) is NULL on
+BOTH sides, with Module_inst and Instance NULL on both.  There is no membership
+deficit on the package at all, and `package::Compare` cannot produce this head.
+
+The "34" IS REAL, and it belongs to a DIFFERENT owner: `design::Typespecs`
+(golden 123, ours 89 — a deficit of exactly 34).  `design::Compare` walks
+AllPackages and TopPackages BEFORE Typespecs, so that deficit is a LATER
+divergence, not the head — the ladder rung that reported `G= 123 O= 89` had
+simply attributed the DESIGN's field to the package it was masking.
+
+Read at the same time and handed forward: the DESIGN level carries two more
+membership deficits behind the same wall, both measured on patched SimpleUVM —
+
+  design::Typespecs      golden 123   ours 89    (deficit 34 — the brief's number)
+  design::Parameters     golden  45   ours  0
+  design::Param_assigns  golden  45   ours  0
+  design::Task_funcs     golden 894   ours 894   (equal)
+  design::Let_decls      golden   0   ours   0   (equal)
+
+None of them is reachable by the official judge until AllPackages / TopPackages
+agree, so they are the campaign's next design-level targets, in that order.
+
+== PART 1.  THE HEAD, LOCATED EXACTLY (ct83path, 116 levels, every level
+   CONFIRMED against the official m_failedLhs/m_failedRhs pair)
+
+  OWNER   unsupported_typespec(uvm_resource_types::rsrc_q_t)
+          @uvm_sequencer_base.svh:1434:3-1434:23
+  FIELD   Instance   (vpiInstance, compared by typespec::Compare)
+  GOLDEN  package(uvm_pkg)#1   <- the ELABORATED package
+  OURS    <null>
+
+HOW THE DUMP HID IT.  The visitor prints a REFERENCED object as ONE identity
+line with none of its own fields; only a decompile ROOT gets its fields.  Inside
+the old head, this placeholder appears as
+
+  \_unsupported_typespec: (uvm_resource_types::rsrc_q_t), id:25354, line:1434:3, endln:1434:23
+
+and nothing more — literally "prints one line".  Decompiled AS A ROOT the same
+object prints `|vpiInstance:` and the package under it (measured on golden
+#25349 / #25354).  The leaf form is SILENT about the field, not evidence against
+it.  (This pass's own first draft over-corrected to "decompile never prints
+vpiInstance for a typespec", which a root decompile refuted before the patch was
+finalised — the same species of error as the one being fixed, and recorded as
+such.)
+
+`SafeCompare(lhs, rhs == nullptr)` sets ONLY `m_failedLhs`, and it sets it to
+the TARGET of the edge — which is why uhdm-cmp printed
+`LHS: package uvm_pkg / RHS: <null>` and 1,450,011 lines of that package's
+subtree while the actual defect was one null pointer on a typespec 115 levels
+away.  The path (abridged; full trace in the pass log) is
+
+  design -> AllPackages[1] (the DEF-view uvm_pkg) -> Variables[2]
+  -> ... -> class_defn(uvm_sequencer_base) -> Task_funcs[..]
+  -> function(start_phase_sequence) -> Variables[1] class_var(rq)
+  -> Typespec -> ref_typespec -> Actual_typespec
+  -> unsupported_typespec(uvm_resource_types::rsrc_q_t) -> Instance
+
+== PART 2.  THE FAMILY, ENUMERATED BY NAME (ct83inst --dump)
+   All 36 `Owner::td`-named unsupported_typespec objects of SimpleUVM's golden,
+   grouped by span and vpiInstance ROLE, against ours:
+
+  span                  golden            ours            verdict
+  496:12-496:23         pkg:DEF, pkg:ELAB (object ABSENT)  a MISSING-OBJECT family, NOT this pass
+  1260:4-1260:24        pkg:DEF, pkg:ELAB NULL, NULL       <== THIS PASS
+  1308:33-1308:53       NULL              NULL @1308:33-1308:61 (a SPAN family, NOT this pass)
+  1434:3-1434:23        pkg:DEF, pkg:ELAB NULL, NULL       <== THIS PASS (the head)
+  the other 32 groups   NULL              NULL             already equal
+
+   So golden instances EXACTLY THREE of thirty-six, and the three are the
+   OUT-OF-BODY class-method declarations:
+     uvm_reg_block.svh:1254   function int uvm_reg_block::find_blocks(...)
+                              -> 1260  `uvm_resource_types::rsrc_q_t rs;`
+     uvm_sequencer_base.svh:1432 function void uvm_sequencer_base::start_phase_sequence(...)
+                              -> 1434  `uvm_resource_types::rsrc_q_t rq;`
+   while every IN-BODY one is uninstanced in golden too:
+     uvm_resource.svh:714  function void set(...) -> 717  `... rsrc_q_t rq;`  NULL/NULL
+     uvm_resource.svh:868  function uvm_resource_types::rsrc_q_t lookup_name  NULL/NULL
+     ... 30 more.
+   `tsInst` (= `oobHomePkg` for an out-of-body method, null for an in-body one)
+   IS that distinguisher already, so the law needs no new predicate.
+
+== PART 3.  JOINED vpiInstance CENSUS (ct83cen, role-MULTISET join, SimpleUVM)
+   golden-vs-golden calibration: KEYS 23052, SAME-ROLE-MULTISET 23052,
+   DIFFERING 0.  ours-vs-golden, unsupported_typespec keys only:
+
+     G{pkg:DEFx1 pkg:ELABx1} O{NULLx2}      2   <== THIS PASS's family
+     G{pkg:DEFx1 pkg:ELABx1} O{pkg:ELABx2}  10  (REQ/RSP type-parameter names — a DIFFERENT site)
+     G{pkg:DEFx1}            O{pkg:DEFx1 pkg:ELABx1} 2 (m_executing_phases — a DIFFERENT site)
+
+== PART 4.  THE PREDICTOR (ct83pred, PRISTINE databases only)
+   an unsupported_typespec with "::" in its name and a NULL Instance, bound
+   through a ref_typespec whose enclosing function/task HAS an Instance:
+
+     PRED 2 34  default/BuildUVMPkg      PRED 2 34  testflags/BuildUVMPkg
+     PRED 4 35  default/Scoreboard
+     PRED 8 39  default/SeqDriver        PRED 8 39  testflags/SeqDriver
+     PRED 4 35  default/SimpleUVM        PRED 4 35  testflags/SimpleUVM
+   (second number = all "::"-named placeholders in that database)
+   SimpleUVM's 4 == the census's 2 keys x 2 package views, exactly.
+
+== PART 5.  AFTER THE FIX — what is EQUAL now and what is left (ct83inst --dump,
+   every `Owner::td`-named placeholder, by span and vpiInstance ROLE)
+
+  row                 GOLDEN                  PRISTINE   PATCHED
+  SimpleUVM default   30 NULL 3 DEF 3 ELAB    36 NULL    30 NULL 2 DEF 2 ELAB
+  SeqDriver  default  30 NULL 3 DEF 13 ELAB   38 NULL    30 NULL 2 DEF 6 ELAB
+  Scoreboard default  30 NULL 3 DEF 3 ELAB    34 NULL    30 NULL 2 DEF 2 ELAB
+  BuildUVMPkg default 31 NULL 2 DEF 2 ELAB    33 NULL    31 NULL 1 DEF 1 ELAB
+
+  Span-by-span, PATCHED vs GOLDEN, there is NO LONGER A SINGLE
+  instanced-vs-NULL disagreement on any row.  Every residual is an OBJECT-COUNT
+  or SPAN difference in a DIFFERENT family:
+
+    SimpleUVM   496:12-496:23   golden DEF+ELAB, ours: object ABSENT
+                1308:33         golden span -1308:53, ours -1308:61 (both NULL)
+    SeqDriver   496:12-496:23   golden 1 DEF + 3 ELAB, ours: object ABSENT
+                1260:4 / 1434:3 golden 5 ELAB copies each, ours 3 — golden clones
+                                the placeholder into MORE elaborated listings
+                                (SeqDriver's adpcm_pkg imports uvm_pkg)
+                1308:33         the same span family
+    Scoreboard / BuildUVMPkg    the same two families, smaller
+
+  So this pass's law is COMPLETE for the field it names, and the two families
+  that remain are (a) a placeholder-CLONE MEMBERSHIP law and (b) a placeholder
+  SPAN law.  Neither is a missing stamp.
+
+== PART 6.  WHICH OF THE TWO PATCHED SITES FIRES WHERE — MEASURED, NOT INFERRED
+
+The law is applied at two call sites of `makeScopedTdUnsupTs11`, and each is
+reached by a DIFFERENT population, read off the variable's own vpiParent:
+
+  * § classScopedTdDeclTsUnsupported11 SITE 2, `src/StmtEmit.cpp` (BLOCK-ITEM
+    local, stamp = `pkgScopeInst`) — the UVM rows.  Golden and ours both parent
+    `class_var(rq)` at a synthetic `begin@1434:3-1434:35`:
+        class_var(rq)#25350 < begin#25342 < ...   (golden)
+        class_var(rq)#103800 < begin#103812 < ... (ours)
+  * § classScopedTdDeclTsUnsupported11 SITE 1, `src/TaskFuncEmit.cpp`
+    (SUBROUTINE-BODY local, stamp = `tsInst`) — grid11 `g4`.  There the variable
+    is parented at the function itself:
+        ref_var(px4::aderiv4::f_oob::o_scoped) < function(px4::aderiv4::f_oob)
+
+So neither site is redundant: the corpus proves SITE 2, the grid proves SITE 1,
+and each stamps with the pointer its own site already computed for the resolved
+typespec.  (g4's patched dump also shows `|vpiInstance: \_package: px4` on the
+placeholder where the pristine one shows only `|vpiName:` — the same leaf/root
+printing rule as Part 1: in the design-level typespec listing the placeholder IS
+a root, so there the field is visible.)

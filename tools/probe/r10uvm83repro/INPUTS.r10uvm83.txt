@@ -1,0 +1,34 @@
+# r10uvm83 — LADDER INPUTS, pinned by sha256.  MEASUREMENT-ONLY.
+# BEFORE workdir /tmp/r10uvm83_wd_BASE  (CONTROL binary 44956a58cccfce6600c047936ee9fc51)
+# AFTER  workdir /tmp/r10uvm83_wd_PATCH (SHIPPED binary 8969b56acb68815e8a86747c02153fb4)
+# ctladder built from the COMMITTED tools/probe/r10ladder1repro/ctladder.cpp with the
+# build line in its own header, into /tmp/r10uvm83_lad/ctladder; nothing in UHDM touched.
+
+== default/BuildUVMPkg-bf853d43
+  GOLDEN(LHS) e26bba88479417fb4a5538ca6a250abc /home/heyfey/.cache/slang-uhdm-goldens/1d1c5ee1fda0267f8ebb/golden.uhdm
+  BEFORE(RHS) 2ffa72640ed238eb669126988a7104dc
+  AFTER (RHS) 690de90826ec318b6d398241372e1738
+== default/Scoreboard-59431470
+  GOLDEN(LHS) 83745ddb7de4976709dc579ccb356189 /home/heyfey/.cache/slang-uhdm-goldens/614374ccbb97c7ff9446/golden.uhdm
+  BEFORE(RHS) ff3f9340ae07138a3632358683142347
+  AFTER (RHS) b9c8e3349fdcaadaa83a4d3cd407c440
+== default/SeqDriver-32af76aa
+  GOLDEN(LHS) bc64b9e72e50f6412af9b2e4701af3fe /home/heyfey/.cache/slang-uhdm-goldens/b5b4389e30f948a6a29f/golden.uhdm
+  BEFORE(RHS) eb288e1077a867793ce3736f07360879
+  AFTER (RHS) 4ab6e16977746581bc742b78a4addc4c
+== default/SimpleUVM-1dc93a62
+  GOLDEN(LHS) 20a5b92c44f2a72169dee1e54eee28fd /home/heyfey/.cache/slang-uhdm-goldens/02575d101ccaaa38d155/golden.uhdm
+  BEFORE(RHS) 1aa2e068e40928dc6180b5cf95520817
+  AFTER (RHS) fcda2e67a78db4cf4f5537a34db3662f
+== testflags/BuildUVMPkg-bf853d43
+  GOLDEN(LHS) e26bba88479417fb4a5538ca6a250abc /home/heyfey/.cache/slang-uhdm-goldens/1795eced22413f58df56/golden.uhdm
+  BEFORE(RHS) 2ffa72640ed238eb669126988a7104dc
+  AFTER (RHS) 690de90826ec318b6d398241372e1738
+== testflags/SeqDriver-32af76aa
+  GOLDEN(LHS) da067a84120c4e00ef574d6bceb0be5c /home/heyfey/.cache/slang-uhdm-goldens/dae43e130380ebfeaa07/golden.uhdm
+  BEFORE(RHS) 107370f22b0a64bb9c3f9660429adfc9
+  AFTER (RHS) 31bde40ee6f26e1ecc1ff9ef11fe0bf6
+== testflags/SimpleUVM-1dc93a62
+  GOLDEN(LHS) 092c0c27357b4894a82552adb393e3f3 /home/heyfey/.cache/slang-uhdm-goldens/0abe1b16d20a6f7e4a93/golden.uhdm
+  BEFORE(RHS) f906b1b2919a4d3805dcf834940aeb42
+  AFTER (RHS) 29dc402a3a61477566e4bed9b44dde42

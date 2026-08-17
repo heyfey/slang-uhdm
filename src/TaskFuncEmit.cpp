@@ -5204,8 +5204,55 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // BINDING and nothing else: the variable's own class, span and
                 // parent are § classTdLocalVarKindFollowsCompileOrder10's and
                 // are already golden-exact.
-                if (auto* uts11 = makeScopedTdUnsupTs11(fmv))
+                if (auto* uts11 = makeScopedTdUnsupTs11(fmv)) {
+                    // § scopedTdUnsupTsHomePkgInstance83 — THE WALL.  This
+                    // placeholder takes the SAME `vpiInstance` the RESOLVED
+                    // typespec of this very declaration takes two dozen lines up:
+                    // the HOME PACKAGE for an out-of-body class method (`tsInst` ==
+                    // `oobHomePkg`) and NOTHING for an in-body one, where `tsInst`
+                    // is null and this stamp is inert.  The substitution above
+                    // THREW THE STAMP AWAY, and `typespec::Compare` reads
+                    // `Instance` — so the discarded pointer was the official head
+                    // of all five UVM NE rows (`uvm_sequencer_base.svh:1434:3`
+                    // `uvm_resource_types::rsrc_q_t rq`, reached through
+                    // `unsupported_typespec::Instance` from golden's ELABORATED
+                    // `package uvm_pkg`, which is why the head PRINTED as that
+                    // package with `RHS: <null>`: SafeCompare(lhs, nullptr) sets
+                    // m_failedLhs to the TARGET and leaves m_failedRhs unset).
+                    //
+                    // WHY A DUMP READING MISSED IT, EXACTLY.  The visitor prints
+                    // a REFERENCED object as ONE identity line and none of its
+                    // own fields; only a decompile ROOT gets its fields printed.
+                    // Inside the old 1,450,011-line head, this very placeholder
+                    // appears as
+                    //   \_unsupported_typespec: (uvm_resource_types::rsrc_q_t),
+                    //     id:25354, line:1434:3, endln:1434:23
+                    // and nothing else — which is literally the "prints one line"
+                    // the earlier note here cited when it concluded the object
+                    // "carries a vpiName and a span and NOTHING else ... no
+                    // vpiInstance".  Decompiled AS A ROOT the same object prints
+                    // `|vpiInstance:` and the package under it (measured on
+                    // golden #25349/#25354).  So the reading was of the LEAF form,
+                    // and the leaf form cannot show this field.
+                    //
+                    // MEASURED, not generalised: over ALL 36 `Owner::td`-named
+                    // placeholders in SimpleUVM's golden, exactly THREE span-groups
+                    // carry an instance (496:12, 1260:4, 1434:3) and 33 carry none
+                    // — and the three are precisely the OUT-OF-BODY method
+                    // declarations (`uvm_reg_block::find_blocks`,
+                    // `uvm_sequencer_base::start_phase_sequence`), while every
+                    // in-body one (`uvm_resource_pool::set` at 717:5,
+                    // `lookup_name` at 868:12, ...) is uninstanced on BOTH sides
+                    // already.  `tsInst` IS that distinguisher, so the gate is the
+                    // pointer itself and no new predicate is introduced.
+                    if (tsInst) {
+                        uts11->Instance(importCopyTsInst ? importCopyTsInst
+                                                         : tsInst);
+                        if (importCopyTsInst && importCopyTsCollect)
+                            importCopyTsCollect->push_back(uts11);
+                    }
                     vrt->Actual_typespec(uts11);
+                }
                 else {
                     vrt->Actual_typespec(vts);
                     deferForeignTopTs(fmv, vrt, vts);
