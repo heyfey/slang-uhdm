@@ -1370,7 +1370,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         art0->VpiParent(av0);
                         art0->Actual_typespec(ats0);
                         av0->Typespec(art0);
-                        auto* reg0 = makeReturnVar(s, *leaf0);
+                        // § declArrayElemKindIsDeclKind12, SITE 4 of 4 — the
+                        // FIXED-SIZE declarator array, BLOCK-item form.
+                        // grid12 `h1` `a_fx` / `k_fx` in a `begin` body.
+                        auto* reg0 = makeDeclArrayElemVar12(s, bm, *leaf0);
                         reg0->VpiParent(av0);
                         setLoc(reg0, nameSpan(bm.location, bm.name));
                         auto* rrt0 = s.MakeRef_typespec();
@@ -1382,7 +1385,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         // ref_var; the same repeat of the law as the
                         // block-item array factory at TaskFuncEmit ~4428.
                         if (leaf0->isSigned() &&
-                            !typeParamVarIsRefVar58(*leaf0))
+                            !typeParamVarIsRefVar58(*leaf0) &&
+                            declArrayElemVarKind12(bm) ==
+                                TdLocalVarKind10::Resolved)
                             reg0->VpiSigned(true);
                         // § blockDeclAutomaticIsWrittenKw80, SITE 3 of 4 — the
                         // FIXED-SIZE unpacked array's element (arm c2 c_fix,

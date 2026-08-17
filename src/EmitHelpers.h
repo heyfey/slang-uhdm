@@ -2854,11 +2854,18 @@ inline TdDeclCtx10 tdDeclCtx10(const slang::ast::Symbol& sym) {
     return r;
 }
 
-inline TdLocalVarKind10 classTdLocalVarKind10(const slang::ast::Symbol& declSym) {
+// `tyOverride`, added by r10sd12 and used by NOTHING ELSE than
+// § declArrayElemKindIsDeclKind12: the DECLARATOR-ARRAY element variable asks
+// this same predicate about the declaration's WRITTEN BASE TYPE, which is the
+// declared type with the declarator's own dimensions peeled off.  Every existing
+// caller passes nothing and reads `dt->getType()` exactly as before.
+inline TdLocalVarKind10 classTdLocalVarKind10(
+    const slang::ast::Symbol& declSym,
+    const slang::ast::Type* tyOverride = nullptr) {
     const slang::ast::DeclaredType* dt = declSym.getDeclaredType();
     if (!dt)
         return TdLocalVarKind10::Resolved;
-    const slang::ast::Type& ty = dt->getType();
+    const slang::ast::Type& ty = tyOverride ? *tyOverride : dt->getType();
     // (1) OWNER
     if (ty.kind != slang::ast::SymbolKind::TypeAlias)
         return TdLocalVarKind10::Resolved;
@@ -3001,6 +3008,137 @@ inline TdLocalVarKind10 classTdLocalVarKind10(const slang::ast::Symbol& declSym)
         return TdLocalVarKind10::Resolved;
     return ownerCompiled ? TdLocalVarKind10::Resolved
                          : TdLocalVarKind10::RefVar;
+}
+
+// ---------------------------------------------------------------------------
+// § declArrayElemKindIsDeclKind12
+//
+// THE LAW.  The ELEMENT variable of a DECLARATOR-ARRAY declaration at
+// SUBROUTINE / STATEMENT scope — `T name[int]`, `T name[$]`, `T name[]`,
+// `T name[4]` — takes THE SAME OBJECT CLASS the SCALAR declaration `T name;`
+// would take at that same site.  The array brackets decide the ARRAY_VAR's
+// shape and NOTHING about the element's class.
+//
+// WHY, read off Surelog and then measured.  `CompileHelper::compileStmt`'s
+// paVariable_declaration arm (src/DesignCompile/CompileStmt.cpp ~1173) compiles
+// the declarator's dimensions and the DATA TYPE separately, and it builds the
+// element by calling the ordinary scalar factory on the DATA-TYPE NODE ALONE:
+//
+//     variables* var = compileVariable(component, fC, Data_type, …);
+//     …
+//     if (unpackedDimensions) {
+//       array_var* arr = s.MakeArray_var();
+//       …
+//       arr->VpiName(fC->SymName(Var));
+//       var->VpiName("");        // <- the SAME object, renamed
+//       var->VpiParent(arr);
+//       vars->push_back(var);    // <- and re-parented under vpiReg
+//     }
+//
+// So the element variable IS the scalar variable.  Every arm of
+// `compileVariable` therefore reaches it unchanged, and in particular the two
+// laws this emitter already carries for a class-nested typedef at subroutine
+// scope do:
+//
+//   * § classTdLocalVarKindFollowsCompileOrder10 — a `Owner::td` spelling ends
+//     at `compileVariable`'s paClass_scope arm, whose BOTH halves yield a
+//     `class_var` (the resolved half runs `getSimpleVarFromTypespec` on a
+//     class_typespec, CompileType.cpp ~134; the tail is literally
+//     `if (var == nullptr) var = s.MakeClass_var()`, ~616), and a BARE `td`
+//     in an OUT-OF-BODY method body ends at the bare arm's `MakeRef_var`
+//     tail (~421).
+//   * § aliasClassRefVar10 — the bare class-handle alias's `ref_var`.
+//
+// OURS ASKED NEITHER.  The four declarator-array element sites call
+// `makeReturnVar(s, <ELEMENT TYPE>)`, i.e. they hand the factory the type with
+// the brackets ALREADY PEELED and never look at how the declaration was
+// WRITTEN.  A `Owner::td` element then falls to § aliasClassRefVar10's
+// `ref_var` (golden: `class_var`) and a bare class-nested STRUCT typedef in an
+// out-of-body body falls to `struct_var` (golden: `ref_var`).  Both are on the
+// corpus and BOTH are converted by this one predicate:
+//
+//   uvm_resource.svh:955  `uvm_resource_types::rsrc_q_t all[int];`
+//       golden class_var / ours ref_var    <- THE SeqDriver HEAD (r10sd11 R0)
+//   uvm_factory.svh:2036  `m_inst_typename_alias_t type_alias_inst[$];`
+//       golden ref_var   / ours struct_var <- BuildUVMPkg, the same law's
+//                                             OTHER arm, in the other direction
+//
+// THE PREDICATE IS NOT A NEW ONE.  It is r10sd10's, asked about the
+// declaration's WRITTEN BASE TYPE instead of its full declared type — the
+// SPELLING half (`scoped` / `oneSeg`) already reads `getTypeSyntax()`, which
+// for a declarator is the base `Owner::td` node and carries no brackets at all,
+// so only the TYPE had to be peeled.  Peeling is by the number of dimensions
+// WRITTEN ON THE DECLARATOR, never "peel every array level", because a typedef
+// that is ITSELF an array (`typedef int arr_t[4]; arr_t a[2];`) must keep its
+// own level: Surelog compiles `arr_t` as the Data_type and the declarator's
+// `[2]` as the unpacked dimension, and nothing else.
+//
+// WHAT THIS DOES NOT TOUCH, stated so the gate written is the gate coded:
+// the `Resolved` arm is byte-unchanged — it still calls `makeReturnVar` on the
+// element type, so every int / bit / logic / enum / struct / string / class
+// element the corpus has today keeps the object it has today.  The law can only
+// fire where r10sd10's predicate fires, i.e. where the declared type NAMES A
+// TYPEDEF THAT LIVES IN A CLASS.
+inline const slang::ast::Type* declArrayElemDeclType12(
+    const slang::ast::Symbol& sym) {
+    const slang::ast::DeclaredType* dt = sym.getDeclaredType();
+    if (!dt)
+        return nullptr;
+    size_t ndim = 0;
+    if (auto* dsyn = sym.getSyntax())
+        if (dsyn->kind == syntax::SyntaxKind::Declarator)
+            ndim = dsyn->as<syntax::DeclaratorSyntax>().dimensions.size();
+    if (!ndim)
+        return nullptr;
+    const slang::ast::Type* t = &dt->getType();
+    for (size_t i = 0; i < ndim; i++) {
+        const slang::ast::Type& c = t->getCanonicalType();
+        // `elementType` is the DECLARED element, so a typedef survives the peel
+        // (that is the whole point: the predicate below asks about the alias).
+        if (c.kind == slang::ast::SymbolKind::QueueType)
+            t = &c.as<slang::ast::QueueType>().elementType;
+        else if (c.kind == slang::ast::SymbolKind::DynamicArrayType)
+            t = &c.as<slang::ast::DynamicArrayType>().elementType;
+        else if (c.kind == slang::ast::SymbolKind::AssociativeArrayType)
+            t = &c.as<slang::ast::AssociativeArrayType>().elementType;
+        else if (c.kind ==
+                 slang::ast::SymbolKind::FixedSizeUnpackedArrayType)
+            t = &c.as<slang::ast::FixedSizeUnpackedArrayType>().elementType;
+        else
+            // Fewer array levels than written dimensions (a PACKED dimension
+            // written on the declarator, which is not an unpacked container).
+            // Stop rather than guess; the caller's `Resolved` arm is the safe
+            // direction.
+            return t;
+    }
+    return t;
+}
+
+// r10sd10's question, asked about a DECLARATOR ARRAY's element.  `Resolved`
+// whenever the declaration is not a declarator array at all, so a caller can
+// apply it unconditionally.
+inline TdLocalVarKind10 declArrayElemVarKind12(
+    const slang::ast::Symbol& declSym) {
+    const slang::ast::Type* et = declArrayElemDeclType12(declSym);
+    if (!et)
+        return TdLocalVarKind10::Resolved;
+    return classTdLocalVarKind10(declSym, et);
+}
+
+// The element variable itself: r10sd10's answer when it has one, and the
+// UNCHANGED `makeReturnVar` factory otherwise.
+inline UHDM::variables* makeDeclArrayElemVar12(UHDM::Serializer& s,
+                                               const slang::ast::Symbol& declSym,
+                                               const Type& elemType) {
+    switch (declArrayElemVarKind12(declSym)) {
+        case TdLocalVarKind10::ClassVar:
+            return s.MakeClass_var();
+        case TdLocalVarKind10::RefVar:
+            return s.MakeRef_var();
+        case TdLocalVarKind10::Resolved:
+            break;
+    }
+    return makeReturnVar(s, elemType);
 }
 
 // ---------------------------------------------------------------------------

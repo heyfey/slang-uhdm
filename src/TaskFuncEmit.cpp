@@ -1228,7 +1228,11 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     art0->VpiParent(av);
     art0->Actual_typespec(ats);
     av->Typespec(art0);
-    auto* reg0 = makeReturnVar(s, *qelem0);
+    // § declArrayElemKindIsDeclKind12, SITE 1 of 4 (queue / dynamic) — the
+    // element variable is the SCALAR variable Surelog's compileStmt builds from
+    // the DATA-TYPE node and then re-parents under the array_var, so it takes
+    // r10sd10's answer for the declaration's WRITTEN base type.  grid12 `h1`.
+    auto* reg0 = makeDeclArrayElemVar12(s, vs, *qelem0);
     reg0->VpiParent(av);
     reg0->VpiFullName(afull);
     setLoc(reg0, nameSpan(vs.location, vs.name));
@@ -1238,8 +1242,12 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     rrt0->Actual_typespec(elemTs);
     reg0->Typespec(rrt0);
     // § typeParamRetIsRefVar58 — no vpiSigned on a ref_var; the same repeat of
-    // the law as the block-item array factory at ~4428.
-    if (qelem0->isSigned() && !typeParamVarIsRefVar58(*qelem0))
+    // the law as the block-item array factory at ~4428.  § declArrayElemKind-
+    // IsDeclKind12 joins the same guard: Surelog's paClass_scope / bare-name
+    // FALLBACKS compute no signedness at all, so a `class_var` / `ref_var`
+    // minted by that law must not carry the flag either.
+    if (qelem0->isSigned() && !typeParamVarIsRefVar58(*qelem0) &&
+        declArrayElemVarKind12(vs) == TdLocalVarKind10::Resolved)
         reg0->VpiSigned(true);
     auto* rv0 = s.MakeVariablesVec();
     rv0->push_back(reg0);
@@ -1517,7 +1525,8 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
     art0->VpiParent(av);
     art0->Actual_typespec(ats);
     av->Typespec(art0);
-    auto* reg0 = makeReturnVar(s, *elem0);
+    // § declArrayElemKindIsDeclKind12, SITE 2 of 4 (associative).  grid12 `h1`.
+    auto* reg0 = makeDeclArrayElemVar12(s, vs, *elem0);
     reg0->VpiParent(av);
     reg0->VpiFullName(afull);
     setLoc(reg0, nameSpan(vs.location, vs.name));
@@ -1526,9 +1535,10 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
     rrt0->VpiParent(reg0);
     rrt0->Actual_typespec(elemTs);
     reg0->Typespec(rrt0);
-    // § typeParamRetIsRefVar58 — no vpiSigned on a ref_var; the same repeat of
-    // the law as the block-item array factory at ~4428.
-    if (elem0->isSigned() && !typeParamVarIsRefVar58(*elem0))
+    // § typeParamRetIsRefVar58 + § declArrayElemKindIsDeclKind12 — see the
+    // queue arm's note; the same two guards, for the same reason.
+    if (elem0->isSigned() && !typeParamVarIsRefVar58(*elem0) &&
+        declArrayElemVarKind12(vs) == TdLocalVarKind10::Resolved)
         reg0->VpiSigned(true);
     auto* rv0 = s.MakeVariablesVec();
     rv0->push_back(reg0);
@@ -4814,7 +4824,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     art->VpiParent(av);
                     art->Actual_typespec(ats);
                     av->Typespec(art);
-                    auto* reg = makeReturnVar(s, *leaf);
+                    // § declArrayElemKindIsDeclKind12, SITE 3 of 4 — the
+                    // FIXED-SIZE declarator array, tf-item form.  grid12 `h1`
+                    // `a_fx` / `k_fx`.
+                    auto* reg = makeDeclArrayElemVar12(s, fmv, *leaf);
                     reg->VpiParent(av);
                     setLoc(reg, nameSpan(fmv.location, fmv.name));
                     auto* regRt = s.MakeRef_typespec();
@@ -4828,7 +4841,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // flag golden never puts on one (v4_contprop's `T qloc [$];`
                     // subroutine-local element: golden ref_var with no
                     // vpiSigned, ours ref_var,S before this guard).
-                    if (leaf->isSigned() && !typeParamVarIsRefVar58(*leaf))
+                    if (leaf->isSigned() && !typeParamVarIsRefVar58(*leaf) &&
+                        declArrayElemVarKind12(fmv) ==
+                            TdLocalVarKind10::Resolved)
                         reg->VpiSigned(true);
                     auto* rv = s.MakeVariablesVec();
                     rv->push_back(reg);
