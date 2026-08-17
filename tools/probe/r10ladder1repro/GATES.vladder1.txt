@@ -1,0 +1,57 @@
+=== vladder1 GATES — VERIFIED INSTRUMENT, PRIVATE PINNED WORKDIR
+# workdir /tmp/vladder1_wd_PINNED, slang-uhdm built at the MANDATED BASE d853e76
+# inputs pinned by sha256 in INPUTS.vladder1.txt (pinned=11 missing=0)
+
+=== GATE 1: build against the OFFICIAL UHDM install
+$ g++ -O2 -std=c++17 ctladder.cpp -I ~/.local/include -L ~/.local/lib64 -L ~/.local/lib -luhdm -lcapnp -lkj -o ctladder
+build rc=0   (links ~/.local/lib64/libuhdm, calls the official design::Compare; no UHDM source patched, no private UHDM build)
+
+=== GATE 2: calibration — golden vs golden must give ZERO rungs, ALL 11 rows
+MODE      TEST           GOLDENOBJS    RUNGS VERDICT
+default   SeqDriver          317210        0 ZERO-HEADS
+default   SimpleUVM          188084        0 ZERO-HEADS
+default   Scoreboard         187081        0 ZERO-HEADS
+default   BuildUVMPkg        183142        0 ZERO-HEADS
+default   Earlgrey_0_1       783183        0 ZERO-HEADS
+testflags SeqDriver          317222        0 ZERO-HEADS
+testflags SimpleUVM          188096        0 ZERO-HEADS
+testflags BuildUVMPkg        183142        0 ZERO-HEADS
+default   YosysVerx           24205        0 ZERO-HEADS
+testflags YosysVerx           24205        0 ZERO-HEADS
+default   Rggen              252296        0 ZERO-HEADS
+-- ZERO-HEADS=11 FAIL=0
+calib rc=0
+
+=== GATE 3: sanity — rung #1 IS uhdm-cmp's head, byte for byte, ALL 11 rows
+# rowheads.sh uses ~/.local/bin/uhdm-cmp, rowsanity.sh uses ~/git-repos/UHDM/build/bin/uhdm-cmp:
+#   2ad8015175758e918de1789b86ef1ea5  /home/heyfey/.local/bin/uhdm-cmp
+#   2ad8015175758e918de1789b86ef1ea5  /home/heyfey/git-repos/UHDM/build/bin/uhdm-cmp
+# -> SAME BINARY, so gate 3 IS head-1 equivalence with rowheads.sh
+MODE      TEST             CMPBYTES   LADBYTES VERDICT
+default   SeqDriver            1078       1078 MATCH(rc 255/255)
+default   SimpleUVM            1077       1077 MATCH(rc 255/255)
+default   Scoreboard           1077       1077 MATCH(rc 255/255)
+default   BuildUVMPkg          2172       2172 MATCH(rc 255/255)
+default   Earlgrey_0_1          878        878 MATCH(rc 255/255)
+testflags SeqDriver            1078       1078 MATCH(rc 255/255)
+testflags SimpleUVM            1077       1077 MATCH(rc 255/255)
+testflags BuildUVMPkg          2172       2172 MATCH(rc 255/255)
+default   YosysVerx         6605901    6605901 MATCH(rc 255/255)
+testflags YosysVerx         6605901    6605901 MATCH(rc 255/255)
+default   Rggen                 228        228 MATCH(rc 255/255)
+-- MATCH=11 FAIL=0
+sanity rc=0
+
+=== GATE 4: determinism — two runs of a row give the SAME ladder
+# Earlgrey_0_1 EXCLUDED and NOT deterministic: stop=BUDGET is a WALL CLOCK.
+#   shipped artifact 3215 rungs @1500s; verifier re-runs @1500s on the same
+#   golden: 3017 and 3170.  The number measures the machine, not the row.
+MODE      TEST              RUNGS VERDICT
+default   SeqDriver           396 IDENTICAL
+default   SimpleUVM           398 IDENTICAL
+default   Rggen                98 IDENTICAL
+default   YosysVerx             1 IDENTICAL
+testflags YosysVerx             1 IDENTICAL
+default   BuildUVMPkg         273 IDENTICAL
+-- IDENTICAL=6 NOT=0
+det rc=0

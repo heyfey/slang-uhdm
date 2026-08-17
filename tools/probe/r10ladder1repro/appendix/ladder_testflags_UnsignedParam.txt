@@ -1,0 +1,12 @@
+# ctladder MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN(LHS) /home/heyfey/.cache/slang-uhdm-goldens/4bc0d9d90bf0af44eee7/golden.uhdm
+# OURS  (RHS) /tmp/ctl_wd_sl_115082d/testflags/UnsignedParam-e420460c//slang.uhdm
+# ladder max=20000 budget=1800s  golden_objs=87 ours_objs=84
+RUNG	1	r=1	vis=84	masklvl=0	masked=56	cands=1	KINDL=module_inst	KINDR=<null>	KINDP=design	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=module_inst|<rhs-null>|MISSING-OURS	FAM2=module_inst|<rhs-null>
+   L  module_inst(work@top)@dut.sv:4:1-13:10
+   R  <null>
+   G= -   O= -
+   PL module_inst(work@top)@dut.sv:4:1-13:10 < design(work@top)@:0:0-0:0
+   PR -
+   MK module_inst(work@top)@dut.sv:4:1-13:10
+[S] rungs=1 stop=FIXPOINT escalated=0 ref_joins=0 nofield=0 maxvis=84/87 masks=1 secs=0.0

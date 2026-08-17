@@ -1,0 +1,13 @@
+# ctladder MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN(LHS) /home/heyfey/.cache/slang-uhdm-goldens/96826d0b6c81af5a5a47/golden.uhdm
+# OURS  (RHS) /tmp/ctl_wd_sl_115082d/default/TopParam-67e3eef8//slang.uhdm
+# ladder max=20000 budget=1800s  golden_objs=99 ours_objs=92
+RUNG	1	r=2	vis=1	masklvl=-1	masked=0	cands=0	KINDL=design	KINDR=design	KINDP=<root>	FIELD=VpiName	SHAPE=TEXT:work@top|unnamed	FAM=design|VpiName|TEXT:work@top|unnamed	FAM2=design|VpiName
+   BI 1 compares, mask set = 0 object(s)
+   L  design(work@top)@:0:0-0:0
+   R  design(unnamed)@:0:0-0:0
+   G= "work@top"   O= "unnamed"
+   PL design(work@top)@:0:0-0:0
+   PR design(unnamed)@:0:0-0:0
+   !! ROOT-BLOCKED: the only maskable owner is the design root — subtree masking cannot see past a design-level field
+[S] rungs=1 stop=ROOT-BLOCKED escalated=0 ref_joins=0 nofield=0 maxvis=1/99 masks=0 secs=0.0

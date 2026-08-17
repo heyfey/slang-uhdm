@@ -1,0 +1,359 @@
+# ctladder MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN(LHS) /home/heyfey/.cache/slang-uhdm-goldens/02575d101ccaaa38d155/golden.uhdm
+# OURS  (RHS) /tmp/ctl_wd_sl_d853e76/default/SimpleUVM-1dc93a62//slang.uhdm
+# ladder max=20000 budget=1800s  golden_objs=188084 ours_objs=183100
+RUNG	1	r=588	vis=10559	masklvl=0	masked=4000	cands=64	KINDL=string_var	KINDR=io_decl	KINDP=package	FIELD=VpiType	SHAPE=KIND:string_var>io_decl	FAM=string_var|VpiType|KIND:string_var>io_decl	FAM2=string_var|VpiType
+   L  string_var(val)@uvm_phase.svh:802:12-802:15
+   R  io_decl(val)@:1381:68-1381:71
+   G= string_var   O= io_decl
+   PL string_var(val)@uvm_phase.svh:802:12-802:15 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR io_decl(val)@:1381:68-1381:71 < function(set_arbitration)@:1381:1-1383:12 < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK string_var(val)@uvm_phase.svh:802:12-802:15
+RUNG	2	r=1	vis=13374	masklvl=0	masked=4000	cands=64	KINDL=package	KINDR=<null>	KINDP=design	FIELD=~Typespecs	SHAPE=VEC:G>O	FAM=package|~Typespecs|VEC:G>O	FAM2=package|~Typespecs
+   L  package(uvm_pkg)@uvm_pkg.sv:28:1-39:11
+   R  <null>
+   G= 123   O= 89
+   PL package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR -
+   RF G:design(work@top)@:0:0-0:0  O:design(work@top)@:0:0-0:0
+   MK unsupported_typespec(uvm_resource_types::rsrc_q_t)@uvm_sequencer_base.svh:1434:3-1434:23
+RUNG	3	r=-4993	vis=13803	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=hier_path	KINDP=operation	FIELD=VpiType	SHAPE=KIND:constant>hier_path	FAM=constant|VpiType|KIND:constant>hier_path	FAM2=constant|VpiType
+   L  constant@uvm_sequencer_base.svh:1576:23-1576:44
+   R  hier_path(this.sequences.size)@:1576:23-1576:44
+   G= constant   O= hier_path
+   PL constant@uvm_sequencer_base.svh:1576:23-1576:44 < operation@uvm_sequencer_base.svh:1576:19-1576:44 < for_stmt@uvm_sequencer_base.svh:1576:3-1576:6 < begin@uvm_sequencer_base.svh:1576:3-1579:6 < function(remove_sequence)@uvm_sequencer_base.svh:1574:1-1580:12 < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR hier_path(this.sequences.size)@:1576:23-1576:44 < operation@:1576:19-1576:44 < for_stmt@:1576:3-1576:6 < begin@:1576:3-1579:6 < function(remove_sequence)@:1574:1-1580:12 < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK constant@uvm_sequencer_base.svh:1576:23-1576:44
+RUNG	4	r=1	vis=13811	masklvl=0	masked=4000	cands=64	KINDL=method_func_call	KINDR=method_func_call	KINDP=if_stmt	FIELD=VpiName	SHAPE=TEXT:this|sequences	FAM=method_func_call|VpiName|TEXT:this|sequences	FAM2=method_func_call|VpiName
+   L  method_func_call(this)@uvm_sequencer_base.svh:1578:12-1578:21
+   R  method_func_call(sequences)@:1578:12-1578:21
+   G= "this"   O= "sequences"
+   PL method_func_call(this)@uvm_sequencer_base.svh:1578:12-1578:21 < if_stmt@uvm_sequencer_base.svh:1577:5-1578:32 < begin@uvm_sequencer_base.svh:1576:51-1579:6 < for_stmt@uvm_sequencer_base.svh:1576:3-1576:6 < begin@uvm_sequencer_base.svh:1576:3-1579:6 < function(remove_sequence)@uvm_sequencer_base.svh:1574:1-1580:12 < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11
+   PR method_func_call(sequences)@:1578:12-1578:21 < if_stmt@:1577:5-1578:32 < begin@:1576:51-1579:6 < for_stmt@:1576:3-1576:6 < begin@:1576:3-1579:6 < function(remove_sequence)@:1574:1-1580:12 < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11
+   MK method_func_call(this)@uvm_sequencer_base.svh:1578:12-1578:21
+RUNG	5	r=1	vis=13840	masklvl=0	masked=4000	cands=64	KINDL=method_func_call	KINDR=method_func_call	KINDP=begin	FIELD=VpiName	SHAPE=TEXT:this|sequences	FAM=method_func_call|VpiName|TEXT:this|sequences	FAM2=method_func_call|VpiName
+   L  method_func_call(this)@uvm_sequencer_base.svh:1591:10-1591:19
+   R  method_func_call(sequences)@:1591:10-1591:19
+   G= "this"   O= "sequences"
+   PL method_func_call(this)@uvm_sequencer_base.svh:1591:10-1591:19 < begin@uvm_sequencer_base.svh:1589:56-1592:6 < for_stmt@uvm_sequencer_base.svh:1589:3-1589:6 < function(set_sequences_queue)@uvm_sequencer_base.svh:1586:1-1593:12 < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR method_func_call(sequences)@:1591:10-1591:19 < begin@:1589:56-1592:6 < for_stmt@:1589:3-1589:6 < function(set_sequences_queue)@:1586:1-1593:12 < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK method_func_call(this)@uvm_sequencer_base.svh:1591:10-1591:19
+RUNG	6	r=-32	vis=14094	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=operation	KINDP=<root>	FIELD=VpiType	SHAPE=KIND:constant>operation	FAM=constant|VpiType|KIND:constant>operation	FAM2=constant|VpiType
+   L  constant@uvm_sequencer_base.svh:1685:10-1685:11
+   R  operation@:1685:10-1685:12
+   G= constant   O= operation
+   PL constant@uvm_sequencer_base.svh:1685:10-1685:11
+   PR operation@:1685:10-1685:12 < return_stmt@:1685:3-1685:9 < begin@:1679:3-1680:36 < function(get_seq_kind)@:1675:1-1686:12 < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK constant@uvm_sequencer_base.svh:1685:10-1685:11
+RUNG	7	r=-1	vis=14269	masklvl=0	masked=4000	cands=64	KINDL=class_typespec	KINDR=class_typespec	KINDP=class_defn	FIELD=VpiName	SHAPE=TEXT:rsp_type|uvm_sequence_item	FAM=class_typespec|VpiName|TEXT:rsp_type|uvm_sequence_item	FAM2=class_typespec|VpiName
+   L  class_typespec(rsp_type)@uvm_sequencer_param_base.svh:211:58-211:61
+   R  class_typespec(uvm_sequence_item)@:0:0-0:0
+   G= "rsp_type"   O= "uvm_sequence_item"
+   PL class_typespec(rsp_type)@uvm_sequencer_param_base.svh:211:58-211:61 < class_defn(uvm_sequencer_param_base)@uvm_sequencer_param_base.svh:31:1-215:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR class_typespec(uvm_sequence_item)@:0:0-0:0
+   MK class_typespec(rsp_type)@uvm_sequencer_param_base.svh:211:58-211:61
+RUNG	8	r=-1	vis=14557	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=string_var	KINDP=package	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   BI 20 compares, mask set = 1 object(s)
+   L  <null>
+   R  string_var(s_connection_warning_id)@:24:14-24:60
+   G= -   O= -
+   PL -
+   PR string_var(s_connection_warning_id)@:24:14-24:60 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK class_defn(uvm_phase)@uvm_phase.svh:134:1-660:9  [bisected]
+RUNG	9	r=-1	vis=7475	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=class_var	KINDP=package	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   BI 18 compares, mask set = 1 object(s)
+   L  <null>
+   R  class_var(build_ph)@:46:11-46:19
+   G= -   O= -
+   PL -
+   PR class_var(build_ph)@:46:11-46:19 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK class_defn(uvm_domain)@uvm_domain.svh:65:1-218:9  [bisected]
+RUNG	10	r=-32	vis=8348	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=operation	KINDP=operation	FIELD=VpiType	SHAPE=KIND:constant>operation	FAM=constant|VpiType|KIND:constant>operation	FAM2=constant|VpiType
+   L  constant@uvm_transaction.svh:529:23-529:24
+   R  operation@:529:23-529:25
+   G= constant   O= operation
+   PL constant@uvm_transaction.svh:529:23-529:24 < operation@uvm_transaction.svh:529:11-529:25 < return_stmt@uvm_transaction.svh:529:3-529:9 < function(is_active)@uvm_transaction.svh:528:1-530:12 < class_defn(uvm_transaction)@uvm_transaction.svh:124:9-470:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR operation@:529:23-529:25 < operation@:529:11-529:25 < return_stmt@:529:3-529:9 < function(is_active)@:528:1-530:12 < class_defn(uvm_transaction)@uvm_transaction.svh:124:9-470:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK constant@uvm_transaction.svh:529:23-529:24
+RUNG	11	r=5	vis=9028	masklvl=0	masked=4000	cands=64	KINDL=enum_typespec	KINDR=enum_typespec	KINDP=class_defn	FIELD=VpiName	SHAPE=G-EXTRA-SUFFIX(_enum)	FAM=enum_typespec|VpiName|G-EXTRA-SUFFIX(_enum)	FAM2=enum_typespec|VpiName
+   L  enum_typespec(uvm_pkg::uvm_sequence_state_enum)@uvm_object_globals.svh:399:1-410:22
+   R  enum_typespec(uvm_pkg::uvm_sequence_state)@:399:1-410:22
+   G= "uvm_pkg::uvm_sequence_state_enum"   O= "uvm_pkg::uvm_sequence_state"
+   PL enum_typespec(uvm_pkg::uvm_sequence_state_enum)@uvm_object_globals.svh:399:1-410:22 < class_defn(work@env)@testbench.sv:7:1-39:9 < design(work@top)@:0:0-0:0
+   PR enum_typespec(uvm_pkg::uvm_sequence_state)@:399:1-410:22 < module_inst(work@top)@testbench.sv:44:1-71:10 < design(work@top)@:0:0-0:0
+   MK enum_typespec(uvm_pkg::uvm_sequence_state_enum)@uvm_object_globals.svh:399:1-410:22
+RUNG	12	r=1	vis=9630	masklvl=1	masked=4	cands=64	KINDL=logic_var	KINDR=<null>	KINDP=begin	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_var|<rhs-null>|MISSING-OURS	FAM2=logic_var|<rhs-null>
+   L  logic_var(e)@uvm_sequence_base.svh:757:11-757:12
+   R  <null>
+   G= -   O= -
+   PL logic_var(e)@uvm_sequence_base.svh:757:11-757:12 < begin@uvm_sequence_base.svh:758:5-758:26 < task(wait_for_relevant)@uvm_sequence_base.svh:756:3-763:10 < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR -
+   MK ref_obj(e)@uvm_sequence_base.svh:762:6-762:7
+RUNG	13	r=1	vis=9832	masklvl=0	masked=4000	cands=64	KINDL=io_decl	KINDR=<null>	KINDP=function	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=io_decl|<rhs-null>|MISSING-OURS	FAM2=io_decl|<rhs-null>
+   L  io_decl(l_sequencer)@uvm_sequence_base.svh:940:71-940:82
+   R  <null>
+   G= -   O= -
+   PL io_decl(l_sequencer)@uvm_sequence_base.svh:940:71-940:82 < function(create_item)@uvm_sequence_base.svh:939:3-939:12 < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR -
+   MK ref_obj(l_sequencer)@uvm_sequence_base.svh:946:40-946:51
+RUNG	14	r=-1	vis=10889	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=string_var	KINDP=package	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   BI 15 compares, mask set = 1 object(s)
+   L  <null>
+   R  string_var(s_connection_warning_id)@:24:14-24:60
+   G= -   O= -
+   PL -
+   PR string_var(s_connection_warning_id)@:24:14-24:60 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK package(uvm_pkg)@uvm_pkg.sv:28:1-39:11  [bisected]
+RUNG	15	r=1	vis=754	masklvl=0	masked=4000	cands=64	KINDL=function	KINDR=<null>	KINDP=class_defn	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=function|<rhs-null>|MISSING-OURS	FAM2=function|<rhs-null>
+   L  function(print_field)@uvm_printer.svh:102:3-102:9
+   R  <null>
+   G= -   O= -
+   PL function(print_field)@uvm_printer.svh:102:3-102:9 < class_defn(uvm_printer)@uvm_printer.svh:74:9-285:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR -
+   MK func_call(print_field)@uvm_printer.svh:116:5-116:71
+RUNG	16	r=-576	vis=2743	masklvl=0	masked=1	cands=64	KINDL=logic_net	KINDR=int_var	KINDP=module_inst	FIELD=VpiType	SHAPE=KIND:logic_net>int_var	FAM=logic_net|VpiType|KIND:logic_net>int_var	FAM2=logic_net|VpiType
+   L  logic_net(sz)@:488:15-488:17
+   R  int_var(sz)@:485:7-485:9
+   G= logic_net   O= int_var
+   PL logic_net(sz)@:488:15-488:17 < module_inst@testbench.sv:44:1-71:10 < design(work@top)@:0:0-0:0
+   PR int_var(sz)@:485:7-485:9 < begin@:486:3-486:10 < function(get_bytes)@:484:1-500:12 < class_defn(uvm_packer)@uvm_packer.svh:39:1-400:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK logic_net(sz)@:488:15-488:17
+RUNG	17	r=34	vis=3283	masklvl=0	masked=3	cands=64	KINDL=parameter	KINDR=constant	KINDP=design	FIELD=VpiType	SHAPE=KIND:parameter>constant	FAM=parameter|VpiType|KIND:parameter>constant	FAM2=parameter|VpiType
+   L  parameter(UVM_PACK)@uvm_object_globals.svh:195:11-195:19
+   R  constant@:195:31-195:32
+   G= parameter   O= constant
+   PL parameter(UVM_PACK)@uvm_object_globals.svh:195:11-195:19 < design(work@top)@:0:0-0:0
+   PR constant@:195:31-195:32 < param_assign@:195:11-195:36 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK parameter(UVM_PACK)@uvm_object_globals.svh:195:11-195:19
+RUNG	18	r=1	vis=3717	masklvl=1	masked=4000	cands=64	KINDL=string_var	KINDR=<null>	KINDP=foreach_stmt	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=string_var|<rhs-null>|MISSING-OURS	FAM2=string_var|<rhs-null>
+   L  string_var(index)@uvm_packer.svh:797:18-797:23
+   R  <null>
+   G= -   O= -
+   PL string_var(index)@uvm_packer.svh:797:18-797:23 < foreach_stmt@uvm_packer.svh:797:3-797:10 < begin@uvm_packer.svh:797:3-806:6 < function(pack_string)@uvm_packer.svh:795:1-811:12 < class_defn(uvm_packer)@uvm_packer.svh:39:1-400:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR -
+   MK foreach_stmt@uvm_packer.svh:797:3-797:10
+RUNG	19	r=34	vis=3801	masklvl=0	masked=3	cands=64	KINDL=parameter	KINDR=constant	KINDP=design	FIELD=VpiType	SHAPE=KIND:parameter>constant	FAM=parameter|VpiType|KIND:parameter>constant	FAM2=parameter|VpiType
+   L  parameter(UVM_UNPACK)@uvm_object_globals.svh:208:11-208:21
+   R  constant@:208:30-208:46
+   G= parameter   O= constant
+   PL parameter(UVM_UNPACK)@uvm_object_globals.svh:208:11-208:21 < design(work@top)@:0:0-0:0
+   PR constant@:208:30-208:46 < param_assign@:208:11-208:48 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK parameter(UVM_UNPACK)@uvm_object_globals.svh:208:11-208:21
+RUNG	20	r=-14	vis=3867	masklvl=0	masked=4000	cands=64	KINDL=logic_typespec	KINDR=logic_typespec	KINDP=ref_typespec	FIELD=VpiName	SHAPE=O-EXTRA-PREFIX(uvm_pkg::)	FAM=logic_typespec|VpiName|O-EXTRA-PREFIX(uvm_pkg::)	FAM2=logic_typespec|VpiName
+   L  logic_typespec(uvm_bitstream_t)@uvm_object_globals.svh:49:9-49:42
+   R  logic_typespec(uvm_pkg::uvm_bitstream_t)@:49:9-49:42
+   G= "uvm_bitstream_t"   O= "uvm_pkg::uvm_bitstream_t"
+   PL logic_typespec(uvm_bitstream_t)@uvm_object_globals.svh:49:9-49:42 < ref_typespec@:0:0-0:0 < logic_var(unpack_field)@uvm_packer.svh:892:10-892:25 < ref_obj(unpack_field)@uvm_packer.svh:893:3-893:15 < assignment@uvm_packer.svh:893:3-893:21 < begin@uvm_packer.svh:894:3-901:6 < function(unpack_field)@uvm_packer.svh:892:1-902:12 < class_defn(uvm_packer)@uvm_packer.svh:39:1-400:9
+   PR logic_typespec(uvm_pkg::uvm_bitstream_t)@:49:9-49:42 < ref_typespec@:0:0-0:0 < logic_var(unpack_field)@:892:10-892:25 < ref_obj(unpack_field)@:893:3-893:15 < assignment@:893:3-893:21 < begin@:894:3-901:6 < function(unpack_field)@:892:1-902:12 < class_defn(uvm_packer)@uvm_packer.svh:39:1-400:9
+   MK logic_typespec(uvm_bitstream_t)@uvm_object_globals.svh:49:9-49:42
+RUNG	21	r=-7	vis=3926	masklvl=0	masked=4000	cands=64	KINDL=logic_typespec	KINDR=logic_typespec	KINDP=ref_typespec	FIELD=VpiName	SHAPE=O-EXTRA-PREFIX(uvm_pkg::)	FAM=logic_typespec|VpiName|O-EXTRA-PREFIX(uvm_pkg::)	FAM2=logic_typespec|VpiName
+   L  logic_typespec(uvm_integral_t)@uvm_object_globals.svh:59:9-59:28
+   R  logic_typespec(uvm_pkg::uvm_integral_t)@:59:9-59:28
+   G= "uvm_integral_t"   O= "uvm_pkg::uvm_integral_t"
+   PL logic_typespec(uvm_integral_t)@uvm_object_globals.svh:59:9-59:28 < ref_typespec@:0:0-0:0 < logic_var(unpack_field_int)@uvm_packer.svh:908:10-908:24 < ref_obj(unpack_field_int)@uvm_packer.svh:909:3-909:19 < assignment@uvm_packer.svh:909:3-909:25 < begin@uvm_packer.svh:910:3-917:6 < function(unpack_field_int)@uvm_packer.svh:908:1-918:12 < class_defn(uvm_packer)@uvm_packer.svh:39:1-400:9
+   PR logic_typespec(uvm_pkg::uvm_integral_t)@:59:9-59:28 < ref_typespec@:0:0-0:0 < logic_var(unpack_field_int)@:908:10-908:24 < ref_obj(unpack_field_int)@:909:3-909:19 < assignment@:909:3-909:25 < begin@:910:3-917:6 < function(unpack_field_int)@:908:1-918:12 < class_defn(uvm_packer)@uvm_packer.svh:39:1-400:9
+   MK logic_typespec(uvm_integral_t)@uvm_object_globals.svh:59:9-59:28
+RUNG	22	r=-1	vis=12619	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=string_var	KINDP=package	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   BI 35 compares, mask set = 3 object(s)
+   L  <null>
+   R  string_var(s_connection_warning_id)@:24:14-24:60
+   G= -   O= -
+   PL -
+   PR string_var(s_connection_warning_id)@:24:14-24:60 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK class_defn(uvm_factory)@uvm_factory.svh:75:9-320:9  [bisected]
+RUNG	23	r=1	vis=8904	masklvl=0	masked=4000	cands=64	KINDL=function	KINDR=<null>	KINDP=class_defn	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=function|<rhs-null>|MISSING-OURS	FAM2=function|<rhs-null>
+   L  function(set_severity_count)@uvm_report_server.svh:76:9-76:21
+   R  <null>
+   G= -   O= -
+   PL function(set_severity_count)@uvm_report_server.svh:76:9-76:21 < class_defn(uvm_report_server)@uvm_report_server.svh:48:9-236:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR -
+   MK func_call(set_severity_count)@uvm_report_server.svh:120:33-120:87
+RUNG	24	r=1	vis=8926	masklvl=1	masked=15	cands=64	KINDL=function	KINDR=<null>	KINDP=class_defn	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=function|<rhs-null>|MISSING-OURS	FAM2=function|<rhs-null>
+   L  function(set_id_count)@uvm_report_server.svh:83:9-83:21
+   R  <null>
+   G= -   O= -
+   PL function(set_id_count)@uvm_report_server.svh:83:9-83:21 < class_defn(uvm_report_server)@uvm_report_server.svh:48:9-236:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR -
+   MK func_call(set_id_count)@uvm_report_server.svh:127:33-127:75
+RUNG	25	r=1	vis=8923	masklvl=0	masked=4000	cands=64	KINDL=function	KINDR=<null>	KINDP=class_defn	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=function|<rhs-null>|MISSING-OURS	FAM2=function|<rhs-null>
+   L  function(set_message_database)@uvm_report_server.svh:100:9-100:21
+   R  <null>
+   G= -   O= -
+   PL function(set_message_database)@uvm_report_server.svh:100:9-100:21 < class_defn(uvm_report_server)@uvm_report_server.svh:48:9-236:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR -
+   MK func_call(set_message_database)@uvm_report_server.svh:130:17-130:66
+RUNG	26	r=1	vis=8924	masklvl=1	masked=12	cands=64	KINDL=function	KINDR=<null>	KINDP=class_defn	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=function|<rhs-null>|MISSING-OURS	FAM2=function|<rhs-null>
+   L  function(set_max_quit_count)@uvm_report_server.svh:60:9-60:21
+   R  <null>
+   G= -   O= -
+   PL function(set_max_quit_count)@uvm_report_server.svh:60:9-60:21 < class_defn(uvm_report_server)@uvm_report_server.svh:48:9-236:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR -
+   MK func_call(set_max_quit_count)@uvm_report_server.svh:131:17-131:62
+RUNG	27	r=1	vis=8925	masklvl=1	masked=8	cands=64	KINDL=function	KINDR=<null>	KINDP=class_defn	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=function|<rhs-null>|MISSING-OURS	FAM2=function|<rhs-null>
+   L  function(set_quit_count)@uvm_report_server.svh:68:9-68:21
+   R  <null>
+   G= -   O= -
+   PL function(set_quit_count)@uvm_report_server.svh:68:9-68:21 < class_defn(uvm_report_server)@uvm_report_server.svh:48:9-236:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR -
+   MK func_call(set_quit_count)@uvm_report_server.svh:132:17-132:54
+RUNG	28	r=1994	vis=9484	masklvl=0	masked=6	cands=64	KINDL=ref_var	KINDR=logic_var	KINDP=function	FIELD=VpiType	SHAPE=KIND:ref_var>logic_var	FAM=ref_var|VpiType|KIND:ref_var>logic_var	FAM2=ref_var|VpiType
+   L  ref_var@uvm_report_message.svh:338:20-338:36
+   R  logic_var@:338:20-338:36
+   G= ref_var   O= logic_var
+   PL ref_var@uvm_report_message.svh:338:20-338:36 < function(get_elements)@uvm_report_message.svh:338:3-338:10 < class_defn(uvm_report_message_element_container)@uvm_report_message.svh:286:1-454:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR logic_var@:338:20-338:36 < function(get_elements)@:338:3-340:14 < class_defn(uvm_report_message_element_container)@uvm_report_message.svh:286:1-454:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK ref_var@uvm_report_message.svh:338:20-338:36
+RUNG	29	r=1	vis=10460	masklvl=0	masked=4000	cands=64	KINDL=function	KINDR=<null>	KINDP=class_defn	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=function|<rhs-null>|MISSING-OURS	FAM2=function|<rhs-null>
+   L  function(report_summarize)@uvm_report_server.svh:172:9-172:21
+   R  <null>
+   G= -   O= -
+   PL function(report_summarize)@uvm_report_server.svh:172:9-172:21 < class_defn(uvm_report_server)@uvm_report_server.svh:48:9-236:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR -
+   MK func_call(report_summarize)@uvm_report_server.svh:181:11-181:33
+RUNG	30	r=1	vis=10852	masklvl=0	masked=4000	cands=64	KINDL=io_decl	KINDR=<null>	KINDP=function	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=io_decl|<rhs-null>|MISSING-OURS	FAM2=io_decl|<rhs-null>
+   L  io_decl(severity)@uvm_report_server.svh:458:50-458:58
+   R  <null>
+   G= -   O= -
+   PL io_decl(severity)@uvm_report_server.svh:458:50-458:58 < function(incr_severity_count)@uvm_report_server.svh:458:3-460:14 < class_defn(uvm_default_report_server)@uvm_report_server.svh:245:1-918:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR -
+   MK ref_obj(severity)@uvm_report_server.svh:459:22-459:30
+RUNG	31	r=-21	vis=11175	masklvl=0	masked=9	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=operation	FIELD=VpiName	SHAPE=TEXT:m_streams[].exists|m_streams[ro.get_name()].exists	FAM=hier_path|VpiName|TEXT:m_streams[].exists|m_streams[ro.get_name()].exists	FAM2=hier_path|VpiName
+   L  hier_path(m_streams[].exists)@uvm_report_server.svh:666:48-666:94
+   R  hier_path(m_streams[ro.get_name()].exists)@:666:48-666:94
+   G= "m_streams[].exists"   O= "m_streams[ro.get_name()].exists"
+   PL hier_path(m_streams[].exists)@uvm_report_server.svh:666:48-666:94 < operation@uvm_report_server.svh:666:12-666:95 < begin@uvm_report_server.svh:660:53-695:8 < if_stmt@uvm_report_server.svh:660:5-695:8 < begin@uvm_report_server.svh:653:5-653:56 < function(execute_report_message)@uvm_report_server.svh:647:3-647:10 < class_defn(uvm_default_report_server)@uvm_report_server.svh:245:1-918:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11
+   PR hier_path(m_streams[ro.get_name()].exists)@:666:48-666:94 < operation@:666:12-666:95 < begin@:660:53-695:8 < if_stmt@:660:5-695:8 < begin@:653:5-653:56 < function(execute_report_message)@:647:3-739:14 < class_defn(uvm_default_report_server)@uvm_report_server.svh:245:1-918:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11
+   MK hier_path(m_streams[].exists)@uvm_report_server.svh:666:48-666:94
+RUNG	32	r=-2	vis=11252	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=<root>	FIELD=VpiConstType	SHAPE=INT:G<O	FAM=constant|VpiConstType|INT:G<O	FAM2=constant|VpiConstType
+   L  constant@uvm_report_server.svh:689:82-689:82
+   R  constant@:321:58-321:59
+   G= 7   O= 9
+   PL constant@uvm_report_server.svh:689:82-689:82
+   PR constant@:321:58-321:59 < method_func_call(open_recorder)@:689:42-689:55 < hier_path(stream.open_recorder)@:689:35-689:114 < assignment@:689:24-689:114 < begin@:688:28-694:11 < if_stmt@:688:8-694:11 < begin@:660:53-695:8 < if_stmt@:660:5-695:8
+   MK constant@uvm_report_server.svh:689:82-689:82
+RUNG	33	r=-1	vis=15403	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=string_var	KINDP=package	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   BI 15 compares, mask set = 1 object(s)
+   L  <null>
+   R  string_var(s_connection_warning_id)@:24:14-24:60
+   G= -   O= -
+   PL -
+   PR string_var(s_connection_warning_id)@:24:14-24:60 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK class_defn(uvm_coreservice_t)@uvm_coreservice.svh:49:9-113:9  [bisected]
+RUNG	34	r=-1	vis=13027	masklvl=0	masked=4000	cands=64	KINDL=<null>	KINDR=io_decl	KINDP=function	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   L  <null>
+   R  io_decl(action)@:347:51-347:57
+   G= -   O= -
+   PL -
+   PR io_decl(action)@:347:51-347:57 < function(format_action)@:347:3-347:9 < class_defn(uvm_report_handler)@uvm_report_handler.svh:55:1-797:30 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK class_defn(uvm_report_handler)@uvm_report_handler.svh:55:1-797:30
+RUNG	35	r=-1	vis=11781	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=enum_const	KINDP=enum_typespec	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   BI 17 compares, mask set = 1 object(s)
+   L  <null>
+   R  enum_const(UVM_ERROR)@:246:3-246:12
+   G= -   O= -
+   PL -
+   PR enum_const(UVM_ERROR)@:246:3-246:12 < enum_typespec(uvm_pkg::uvm_severity)@:242:1-248:16 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK class_defn(uvm_report_object)@uvm_report_object.svh:81:1-656:9  [bisected]
+RUNG	36	r=1	vis=1883	masklvl=0	masked=4000	cands=64	KINDL=ref_typespec	KINDR=<null>	KINDP=ref_obj	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=ref_typespec|<rhs-null>|MISSING-OURS	FAM2=ref_typespec|<rhs-null>
+   L  ref_typespec@:0:0-0:0
+   R  <null>
+   G= -   O= -
+   PL ref_typespec@:0:0-0:0 < ref_obj(init)@uvm_svcmd_dpi.svh:32:33-32:37 < func_call(uvm_dpi_get_next_arg_c)@uvm_svcmd_dpi.svh:32:10-32:38 < return_stmt@uvm_svcmd_dpi.svh:32:3-32:9 < function(uvm_dpi_get_next_arg)@uvm_svcmd_dpi.svh:31:1-33:12 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR -
+   MK ref_obj(init)@uvm_svcmd_dpi.svh:32:33-32:37
+RUNG	37	r=-1	vis=13137	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=string_var	KINDP=package	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   BI 36 compares, mask set = 4 object(s)
+   L  <null>
+   R  string_var(s_connection_warning_id)@:24:14-24:60
+   G= -   O= -
+   PL -
+   PR string_var(s_connection_warning_id)@:24:14-24:60 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK class_defn(uvm_object)@uvm_object.svh:46:9-788:9  [bisected]
+RUNG	38	r=-1	vis=9323	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=class_var	KINDP=package	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   BI 16 compares, mask set = 1 object(s)
+   L  <null>
+   R  class_var(end_of_elaboration_ph)@:48:11-48:32
+   G= -   O= -
+   PL -
+   PR class_var(end_of_elaboration_ph)@:48:11-48:32 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK class_defn(uvm_resource_base)@uvm_resource.svh:199:9-579:9  [bisected]
+RUNG	39	r=-1	vis=11438	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=string_var	KINDP=package	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   BI 17 compares, mask set = 1 object(s)
+   L  <null>
+   R  string_var(s_connection_warning_id)@:24:14-24:60
+   G= -   O= -
+   PL -
+   PR string_var(s_connection_warning_id)@:24:14-24:60 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK class_defn(uvm_transaction)@uvm_transaction.svh:124:9-470:9  [bisected]
+RUNG	40	r=-1	vis=8104	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=package	KINDP=design	FIELD=~Typespecs	SHAPE=VEC:G>O	FAM=<null>|~Typespecs|VEC:G>O	FAM2=<null>|~Typespecs
+   BI 18 compares, mask set = 1 object(s)
+   L  <null>
+   R  package(uvm_pkg)@uvm_pkg.sv:28:1-39:11
+   G= 123   O= 89
+   PL -
+   PR package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   RF G:design(work@top)@:0:0-0:0  O:design(work@top)@:0:0-0:0
+   MK class_defn(uvm_component)@uvm_component.svh:60:9-1710:25  [bisected]
+RUNG	41	r=-1	vis=10770	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=class_var	KINDP=package	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   BI 18 compares, mask set = 1 object(s)
+   L  <null>
+   R  class_var(end_of_elaboration_ph)@:48:11-48:32
+   G= -   O= -
+   PL -
+   PR class_var(end_of_elaboration_ph)@:48:11-48:32 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK class_defn(uvm_root)@uvm_root.svh:71:1-301:9  [bisected]
+RUNG	42	r=117997561	vis=3539	masklvl=0	masked=4000	cands=64	KINDL=function	KINDR=function	KINDP=package	FIELD=VpiName	SHAPE=G-EXTRA-PREFIX(uvm_root::)	FAM=function|VpiName|G-EXTRA-PREFIX(uvm_root::)	FAM2=function|VpiName
+   L  function(uvm_root::get)@uvm_root.svh:324:1-327:12
+   R  function(get)@:324:1-327:12
+   G= "uvm_root::get"   O= "get"
+   PL function(uvm_root::get)@uvm_root.svh:324:1-327:12 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   PR function(get)@:324:1-327:12 < class_defn(uvm_root)@uvm_root.svh:71:1-301:9 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK function(uvm_root::get)@uvm_root.svh:324:1-327:12
+RUNG	43	r=-1	vis=14187	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=string_var	KINDP=package	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   BI 16 compares, mask set = 1 object(s)
+   L  <null>
+   R  string_var(s_connection_warning_id)@:24:14-24:60
+   G= -   O= -
+   PL -
+   PR string_var(s_connection_warning_id)@:24:14-24:60 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK class_defn(uvm_test_done_objection)@uvm_objection.svh:1118:1-1365:9  [bisected]
+RUNG	44	r=-1	vis=3605	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=ref_typespec	KINDP=parameter	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   BI 22 compares, mask set = 1 object(s)
+   L  <null>
+   R  ref_typespec@:0:0-0:0
+   G= -   O= -
+   PL -
+   PR ref_typespec@:0:0-0:0 < parameter(UVM_RADIX)@:99:11-99:20 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK package(uvm_pkg)@uvm_pkg.sv:28:1-39:11  [bisected]
+RUNG	45	r=7	vis=3727	masklvl=0	masked=3	cands=64	KINDL=parameter	KINDR=parameter	KINDP=class_defn	FIELD=VpiImported	SHAPE=O-EMPTY	FAM=parameter|VpiImported|O-EMPTY	FAM2=parameter|VpiImported
+   L  parameter(UVM_ABSTRACT)@uvm_object_globals.svh:201:11-201:23
+   R  parameter(UVM_ABSTRACT)@:201:11-201:23
+   G= "uvm_pkg"   O= 0
+   PL parameter(UVM_ABSTRACT)@uvm_object_globals.svh:201:11-201:23 < class_defn(work@env)@testbench.sv:7:1-39:9 < design(work@top)@:0:0-0:0
+   PR parameter(UVM_ABSTRACT)@:201:11-201:23 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK parameter(UVM_ABSTRACT)@uvm_object_globals.svh:201:11-201:23
+RUNG	46	r=-1	vis=3726	masklvl=1000	masked=4000	cands=0	KINDL=<null>	KINDR=ref_typespec	KINDP=parameter	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   BI 14 compares, mask set = 1 object(s)
+   L  <null>
+   R  ref_typespec@:0:0-0:0
+   G= -   O= -
+   PL -
+   PR ref_typespec@:0:0-0:0 < parameter(UVM_ALL_ON)@:181:11-181:21 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11 < design(work@top)@:0:0-0:0
+   MK class_defn(work@env)@testbench.sv:7:1-39:9  [bisected]
+RUNG	47	r=1	vis=360	masklvl=0	masked=4000	cands=1	KINDL=module_inst	KINDR=<null>	KINDP=design	FIELD=~Typespecs	SHAPE=VEC:G>O	FAM=module_inst|~Typespecs|VEC:G>O	FAM2=module_inst|~Typespecs
+   L  module_inst@testbench.sv:44:1-71:10
+   R  <null>
+   G= 123   O= 89
+   PL module_inst@testbench.sv:44:1-71:10 < design(work@top)@:0:0-0:0
+   PR -
+   RF G:design(work@top)@:0:0-0:0  O:design(work@top)@:0:0-0:0
+   MK module_inst@testbench.sv:44:1-71:10
+RUNG	48	r=1	vis=360	masklvl=-1	masked=0	cands=0	KINDL=design	KINDR=design	KINDP=<root>	FIELD=Typespecs	SHAPE=VEC:G>O	FAM=design|Typespecs|VEC:G>O	FAM2=design|Typespecs
+   BI 1 compares, mask set = 0 object(s)
+   L  design(work@top)@:0:0-0:0
+   R  design(work@top)@:0:0-0:0
+   G= 123   O= 89
+   PL design(work@top)@:0:0-0:0
+   PR design(work@top)@:0:0-0:0
+   !! ROOT-BLOCKED: the only maskable owner is the design root — subtree masking cannot see past a design-level field
+[S] rungs=48 stop=ROOT-BLOCKED escalated=19 ref_joins=3 nofield=0 maxvis=15403/188084 masks=52 secs=3.8

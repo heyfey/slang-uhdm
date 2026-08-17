@@ -1,0 +1,26 @@
+# ctladder MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN(LHS) /home/heyfey/.cache/slang-uhdm-goldens/bac55586bd4b7a0bee27/golden.uhdm
+# OURS  (RHS) /tmp/ctl_wd_sl_115082d/testflags/HierPathEval-4dd24c06//slang.uhdm
+# ladder max=20000 budget=1800s  golden_objs=115 ours_objs=136
+RUNG	1	r=1	vis=91	masklvl=0	masked=20	cands=4	KINDL=constant	KINDR=constant	KINDP=param_assign	FIELD=VpiDecompile	SHAPE=DIGITS-ONLY	FAM=constant|VpiDecompile|DIGITS-ONLY	FAM2=constant|VpiDecompile
+   L  constant@dut.sv:35:35-35:36
+   R  constant@:35:35-35:36
+   G= "1"   O= "0"
+   PL constant@dut.sv:35:35-35:36 < param_assign@dut.sv:35:25-35:36 < module_inst(u_prim_pad_attr)@dut.sv:50:4-54:6 < module_inst(work@top)@dut.sv:46:1-55:10 < design(work@top)@:0:0-0:0
+   PR constant@:35:35-35:36 < param_assign@:35:25-35:36 < module_inst(u_prim_pad_attr)@dut.sv:50:4-54:6 < module_inst(work@top)@dut.sv:46:1-55:10 < design(work@top)@:0:0-0:0
+   MK constant@dut.sv:35:35-35:36
+RUNG	2	r=1	vis=102	masklvl=0	masked=20	cands=11	KINDL=constant	KINDR=constant	KINDP=param_assign	FIELD=VpiDecompile	SHAPE=DIGITS-ONLY	FAM=constant|VpiDecompile|DIGITS-ONLY	FAM2=constant|VpiDecompile
+   L  constant@dut.sv:21:44-21:45
+   R  constant@:21:44-21:45
+   G= "1"   O= "0"
+   PL constant@dut.sv:21:44-21:45 < param_assign@dut.sv:21:25-21:45 < module_inst(u_impl_generic)@dut.sv:38:8-42:10 < gen_scope@dut.sv:37:11-43:7 < gen_scope_array(gen_outer_if)@dut.sv:37:11-43:7 < module_inst(u_prim_pad_attr)@dut.sv:50:4-54:6 < module_inst(work@top)@dut.sv:46:1-55:10 < design(work@top)@:0:0-0:0
+   PR constant@:21:44-21:45 < param_assign@:21:25-21:45 < module_inst(u_impl_generic)@dut.sv:38:8-42:10 < gen_scope@:37:11-43:7 < gen_scope_array(gen_outer_if)@:37:11-43:7 < module_inst(u_prim_pad_attr)@dut.sv:50:4-54:6 < module_inst(work@top)@dut.sv:46:1-55:10 < design(work@top)@:0:0-0:0
+   MK constant@dut.sv:21:44-21:45
+RUNG	3	r=14	vis=103	masklvl=0	masked=3	cands=6	KINDL=gen_scope_array	KINDR=gen_scope_array	KINDP=module_inst	FIELD=VpiName	SHAPE=TEXT:gen_inner_if_true|gen_inner_if_false	FAM=gen_scope_array|VpiName|TEXT:gen_inner_if_true|gen_inner_if_false	FAM2=gen_scope_array|VpiName
+   L  gen_scope_array(gen_inner_if_true)@dut.sv:23:6-25:10
+   R  gen_scope_array(gen_inner_if_false)@:27:6-29:9
+   G= "gen_inner_if_true"   O= "gen_inner_if_false"
+   PL gen_scope_array(gen_inner_if_true)@dut.sv:23:6-25:10 < module_inst(u_impl_generic)@dut.sv:38:8-42:10 < gen_scope@dut.sv:37:11-43:7 < gen_scope_array(gen_outer_if)@dut.sv:37:11-43:7 < module_inst(u_prim_pad_attr)@dut.sv:50:4-54:6 < module_inst(work@top)@dut.sv:46:1-55:10 < design(work@top)@:0:0-0:0
+   PR gen_scope_array(gen_inner_if_false)@:27:6-29:9 < module_inst(u_impl_generic)@dut.sv:38:8-42:10 < gen_scope@:37:11-43:7 < gen_scope_array(gen_outer_if)@:37:11-43:7 < module_inst(u_prim_pad_attr)@dut.sv:50:4-54:6 < module_inst(work@top)@dut.sv:46:1-55:10 < design(work@top)@:0:0-0:0
+   MK gen_scope_array(gen_inner_if_true)@dut.sv:23:6-25:10
+[S] rungs=3 stop=FIXPOINT escalated=0 ref_joins=0 nofield=0 maxvis=103/115 masks=3 secs=0.0

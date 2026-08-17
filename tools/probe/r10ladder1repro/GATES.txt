@@ -1,0 +1,100 @@
+=== GATE 1: build against the official UHDM install
+$ g++ -O2 -std=c++17 ctladder.cpp -I ~/.local/include -L ~/.local/lib64 -L ~/.local/lib -luhdm -lcapnp -lkj -o ctladder
+build rc=0
+the freshly built binary is BYTE-IDENTICAL to the one that produced every artifact in this directory
+
+=== GATE 2: calibration (golden vs golden must give ZERO rungs), all 11 rows
+MODE      TEST           GOLDENOBJS    RUNGS VERDICT
+-- ZERO-HEADS=0 FAIL=0
+calib rc=0
+
+=== GATE 2: calibration (golden vs golden must give ZERO rungs)
+# run against the CURRENT control workdir /tmp/ctl_wd_sl_0424f46 (see README 4.1:
+#  the workdir this pass started on was pruned mid-run, and its successor was pruned too)
+MODE      TEST           GOLDENOBJS    RUNGS VERDICT
+default   SeqDriver          317210        0 ZERO-HEADS
+default   SimpleUVM          188084        0 ZERO-HEADS
+default   Scoreboard         187081        0 ZERO-HEADS
+default   BuildUVMPkg        183142        0 ZERO-HEADS
+default   Earlgrey_0_1       783183        0 ZERO-HEADS
+testflags SeqDriver          317222        0 ZERO-HEADS
+testflags SimpleUVM          188096        0 ZERO-HEADS
+testflags BuildUVMPkg        183142        0 ZERO-HEADS
+default   YosysVerx           24205        0 ZERO-HEADS
+testflags YosysVerx           24205        0 ZERO-HEADS
+default   Rggen              252296        0 ZERO-HEADS
+-- ZERO-HEADS=11 FAIL=0
+calib rc=0
+
+=== GATE 3: sanity (rung #1 == uhdm-cmp head, byte for byte)
+MODE      TEST             CMPBYTES   LADBYTES VERDICT
+default   SeqDriver        38802397   38802397 MATCH(rc 255/255)
+default   SimpleUVM        37526489   37526489 MATCH(rc 255/255)
+default   Scoreboard       37353800   37353800 MATCH(rc 255/255)
+default   BuildUVMPkg           529        529 MATCH(rc 255/255)
+default   Earlgrey_0_1          373        373 MATCH(rc 255/255)
+testflags SeqDriver        38802397   38802397 MATCH(rc 255/255)
+testflags SimpleUVM        37526489   37526489 MATCH(rc 255/255)
+testflags BuildUVMPkg           529        529 MATCH(rc 255/255)
+default   YosysVerx         6605901    6605901 MATCH(rc 255/255)
+testflags YosysVerx         6605901    6605901 MATCH(rc 255/255)
+default   Rggen                 228        228 MATCH(rc 255/255)
+-- MATCH=11 FAIL=0
+sanity rc=0
+
+=== GATE 4: determinism (two runs, identical ladders) — fast rows in full
+MODE      TEST              RUNGS VERDICT
+default   SimpleUVM            47 IDENTICAL
+default   Scoreboard           76 IDENTICAL
+default   BuildUVMPkg          89 IDENTICAL
+default   YosysVerx             1 IDENTICAL
+testflags YosysVerx             1 IDENTICAL
+-- IDENTICAL=5 NOT=0
+det rc=0
+MODE      TEST              RUNGS VERDICT
+default   SeqDriver            59 IDENTICAL
+testflags SeqDriver            59 IDENTICAL
+testflags SimpleUVM            47 IDENTICAL
+testflags BuildUVMPkg          89 IDENTICAL
+default   Rggen                98 IDENTICAL
+-- IDENTICAL=5 NOT=0
+det rc=0
+
+=== GATE 4 (cont): Earlgrey, bounded to the first 200 rungs (a full pair would be 50 min)
+MODE      TEST              RUNGS VERDICT
+default   Earlgrey_0_1        200 IDENTICAL
+-- IDENTICAL=1 NOT=0
+det rc=0
+
+=== GATE 3 + GATE 4 RE-VERIFIED OFFLINE from the saved pairs (regate.sh)
+# The control workdirs are rotated and pruned constantly — this pass lost TWO of
+# them mid-run — so both gates leave their RAW PAIRS on disk and the verdict is
+# re-derivable without any workdir.  This block is that re-derivation, run
+# against the evidence produced by the gate-3/gate-4 pass over the 115082d
+# workdir (since pruned):
+-- gate 3 re-verification (head1 pairs in /tmp/r10ladder1_out/g3)
+  head1_default_BuildUVMPkg                         529 bytes IDENTICAL
+  head1_default_Rggen                               228 bytes IDENTICAL
+  head1_default_Scoreboard                     37353800 bytes IDENTICAL
+  head1_default_SeqDriver                      38802397 bytes IDENTICAL
+  head1_default_SimpleUVM                      37526489 bytes IDENTICAL
+  head1_default_YosysVerx                       6605901 bytes IDENTICAL
+  head1_testflags_BuildUVMPkg                       529 bytes IDENTICAL
+  head1_testflags_SeqDriver                    38802397 bytes IDENTICAL
+  head1_testflags_SimpleUVM                    37526489 bytes IDENTICAL
+  head1_testflags_YosysVerx                     6605901 bytes IDENTICAL
+-- gate 4 re-verification (ladder pairs in /tmp/r10ladder1_out/g4)
+  det_default_BuildUVMPkg                      89 rungs IDENTICAL
+  det_default_Rggen                            98 rungs IDENTICAL
+  det_default_Scoreboard                       76 rungs IDENTICAL
+  det_default_SeqDriver                        59 rungs IDENTICAL
+  det_default_SimpleUVM                        47 rungs IDENTICAL
+  det_default_YosysVerx                         1 rungs IDENTICAL
+  det_testflags_BuildUVMPkg                    89 rungs IDENTICAL
+  det_testflags_SeqDriver                      59 rungs IDENTICAL
+  det_testflags_SimpleUVM                      47 rungs IDENTICAL
+  det_testflags_YosysVerx                       1 rungs IDENTICAL
+[S] REGATE gate3 ok=10 bad=0   gate4 ok=10 bad=0
+
+[S] GATES  build=PASS  calib=PASS(11/11)  sanity=PASS(11/11)  determinism=PASS(11/11, Earlgrey bounded to 200 rungs)
+[S] ALL GATES PASS

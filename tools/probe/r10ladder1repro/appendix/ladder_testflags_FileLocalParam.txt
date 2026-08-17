@@ -1,0 +1,33 @@
+# ctladder MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN(LHS) /home/heyfey/.cache/slang-uhdm-goldens/2732b532878c0c6c6846/golden.uhdm
+# OURS  (RHS) /tmp/ctl_wd_sl_115082d/testflags/FileLocalParam-b8ba49d5//slang.uhdm
+# ladder max=20000 budget=1800s  golden_objs=36 ours_objs=24
+RUNG	1	r=1	vis=7	masklvl=1	masked=8	cands=6	KINDL=ref_typespec	KINDR=<null>	KINDP=parameter	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=ref_typespec|<rhs-null>|MISSING-OURS	FAM2=ref_typespec|<rhs-null>
+   L  ref_typespec@:0:0-0:0
+   R  <null>
+   G= -   O= -
+   PL ref_typespec@:0:0-0:0 < parameter(MAP)@dut.sv:3:23-3:26 < design(work@top)@:0:0-0:0
+   PR -
+   MK parameter(MAP)@dut.sv:3:23-3:26
+RUNG	2	r=1	vis=20	masklvl=1	masked=11	cands=2	KINDL=constant	KINDR=<null>	KINDP=param_assign	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=constant|<rhs-null>|MISSING-OURS	FAM2=constant|<rhs-null>
+   L  constant@dut.sv:3:33-5:48
+   R  <null>
+   G= -   O= -
+   PL constant@dut.sv:3:33-5:48 < param_assign@dut.sv:3:23-5:48 < design(work@top)@:0:0-0:0
+   PR -
+   MK param_assign@dut.sv:3:23-5:48
+RUNG	3	r=-601	vis=24	masklvl=0	masked=1	cands=3	KINDL=constant	KINDR=ref_obj	KINDP=param_assign	FIELD=VpiType	SHAPE=KIND:constant>ref_obj	FAM=constant|VpiType|KIND:constant>ref_obj	FAM2=constant|VpiType
+   L  constant@dut.sv:13:16-13:19
+   R  ref_obj(MAP)@:13:16-13:19
+   G= constant   O= ref_obj
+   PL constant@dut.sv:13:16-13:19 < param_assign@dut.sv:13:13-13:19 < module_inst(work@top)@dut.sv:11:1-19:10 < design(work@top)@:0:0-0:0
+   PR ref_obj(MAP)@:13:16-13:19 < param_assign@:13:13-13:19 < module_inst(work@top)@dut.sv:11:1-19:10 < design(work@top)@:0:0-0:0
+   MK constant@dut.sv:13:16-13:19
+RUNG	4	r=1	vis=24	masklvl=0	masked=7	cands=1	KINDL=module_inst	KINDR=<null>	KINDP=design	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=module_inst|<rhs-null>|MISSING-OURS	FAM2=module_inst|<rhs-null>
+   L  module_inst(work@top)@dut.sv:11:1-19:10
+   R  <null>
+   G= -   O= -
+   PL module_inst(work@top)@dut.sv:11:1-19:10 < design(work@top)@:0:0-0:0
+   PR -
+   MK module_inst(work@top)@dut.sv:11:1-19:10
+[S] rungs=4 stop=FIXPOINT escalated=2 ref_joins=0 nofield=0 maxvis=24/36 masks=4 secs=0.0

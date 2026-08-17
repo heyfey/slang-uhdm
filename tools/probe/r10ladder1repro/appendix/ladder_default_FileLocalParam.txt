@@ -1,0 +1,19 @@
+# ctladder MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN(LHS) /home/heyfey/.cache/slang-uhdm-goldens/403366009cb5c418cb8f/golden.uhdm
+# OURS  (RHS) /tmp/ctl_wd_sl_115082d/default/FileLocalParam-b8ba49d5//slang.uhdm
+# ladder max=20000 budget=1800s  golden_objs=117 ours_objs=108
+RUNG	1	r=1	vis=91	masklvl=1	masked=8	cands=9	KINDL=ref_typespec	KINDR=<null>	KINDP=parameter	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=ref_typespec|<rhs-null>|MISSING-OURS	FAM2=ref_typespec|<rhs-null>
+   L  ref_typespec@:0:0-0:0
+   R  <null>
+   G= -   O= -
+   PL ref_typespec@:0:0-0:0 < parameter(MAP)@dut.sv:3:23-3:26 < design(work@top)@:0:0-0:0
+   PR -
+   MK parameter(MAP)@dut.sv:3:23-3:26
+RUNG	2	r=1	vis=104	masklvl=1	masked=11	cands=2	KINDL=operation	KINDR=<null>	KINDP=param_assign	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=operation|<rhs-null>|MISSING-OURS	FAM2=operation|<rhs-null>
+   L  operation@dut.sv:3:33-5:48
+   R  <null>
+   G= -   O= -
+   PL operation@dut.sv:3:33-5:48 < param_assign@dut.sv:3:23-5:48 < design(work@top)@:0:0-0:0
+   PR -
+   MK param_assign@dut.sv:3:23-5:48
+[S] rungs=2 stop=FIXPOINT escalated=2 ref_joins=0 nofield=0 maxvis=104/117 masks=2 secs=0.0

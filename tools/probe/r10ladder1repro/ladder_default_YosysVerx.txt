@@ -1,0 +1,12 @@
+# ctladder MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN(LHS) /home/heyfey/.cache/slang-uhdm-goldens/1821d813be7d4d2a6703/golden.uhdm
+# OURS  (RHS) /tmp/vladder1_wd_PINNED/default/YosysVerx-3c02adf6//slang.uhdm
+# ladder max=20000 budget=1500s  golden_objs=24205 ours_objs=36089
+RUNG	1	r=-1	vis=24205	masklvl=0	masked=1	cands=1	KINDL=<null>	KINDR=module_inst	KINDP=design	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>
+   L  <null>
+   R  module_inst(work@vexriscv.demo.GenFull)@vexriscv.demo.GenFull.v:1059:1-7202:10#19575
+   G= -   O= -
+   PL -
+   PR module_inst(work@vexriscv.demo.GenFull)@vexriscv.demo.GenFull.v:1059:1-7202:10#19575 < design(work@vexriscv.demo.GenFull)@:0:0-0:0#1
+   MK module_inst(work@vexriscv.demo.GenFull)@vexriscv.demo.GenFull.v:1059:1-7202:10#24206
+[S] rungs=1 stop=FIXPOINT escalated=0 ref_joins=0 nofield=0 maxvis=24205/24205 masks=1 cascades=0 suppressed=1/24205 secs=0.2

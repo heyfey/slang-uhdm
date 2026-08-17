@@ -1,0 +1,12 @@
+ROW                              RUNGS   TRIALS   BISECT  COMPARES     SECS MS/COMPARE
+ladder_default_BuildUVMPkg.txt     273      315     1084      1673    208.8     124.81
+ladder_default_Earlgrey_0_1.txt    3256     4208        0      7465   1500.2     200.96
+ladder_default_Rggen.txt            98       98        0       197      9.6      48.73
+ladder_default_Scoreboard.txt      403      395     1488      2287    244.2     106.78
+ladder_default_SeqDriver.txt       396      372     1488      2257    138.2      61.23
+ladder_default_SimpleUVM.txt       398      386     1387      2172    187.5      86.33
+ladder_default_YosysVerx.txt         1        1        0         3      0.2      66.67
+ladder_testflags_BuildUVMPkg.txt     273      315     1084      1673    202.4     120.98
+ladder_testflags_SeqDriver.txt     525      484     1776      2786    281.0     100.86
+ladder_testflags_SimpleUVM.txt     398      386     1413      2198    186.2      84.71
+ladder_testflags_YosysVerx.txt       1        1        0         3      0.2      66.67
