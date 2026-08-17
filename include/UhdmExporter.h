@@ -1346,6 +1346,27 @@ private:
     // misevaluated, so slang's own selection stands.
     enum class GenIfPick { NotApplicable, Skip, Emit };
     GenIfPick genIfUnitMisevalFalse(const slang::ast::GenerateBlockSymbol& blk);
+    // § genIfUnvaluedFuncParam7 — the SECOND source of the same valuelessness:
+    // a parameter whose initializer is a const call Surelog's ExprEval never
+    // reduces has no value either, so a generate-if condition reading it is
+    // FALSE as well.  `funcParamCallSeen9` is the design-wide cost gate (set by
+    // computeCompoundWriteBack, which already visits every definition's
+    // parameter initializers); `funcParamUnvalued9` memoises the per-parameter
+    // answer and doubles as the recursion guard.  See ParamEmit.
+    bool funcParamCallSeen9 = false;
+    std::map<const slang::ast::Symbol*, bool> funcParamUnvalued9;
+    bool srlgParamCallUnvalued(const slang::ast::ParameterSymbol& ps);
+    bool srlgGenIfCondUnvalued(const slang::syntax::SyntaxNode* n0,
+                               const slang::ast::Scope* look0);
+    // § genIfUnvaluedFuncParam7's REACH, CUT BY THE VERIFIER (r10vrgg7).  The
+    // NAMES a `defparam` targets: such a parameter's value comes from the
+    // defparam, not from the initializer this predicate can see, so the law
+    // does not claim it (cells/w_defparam -- golden keeps slang's arm).
+    // Collected from SYNTAX in computeCompoundWriteBack's existing root walk;
+    // `defParamScan9` records that the walk has run, so an empty set means
+    // "no defparam anywhere", never "not looked".
+    bool defParamScan9 = false;
+    std::set<std::string> defParamNames9;
     // § elabVarRangeMisevalSubst — when set, emitSyntaxExpr resolves
     // identifiers in this scope and SPLICES the init of any parameter in
     // elabMisevalParams at the use site (see TypeEmit).

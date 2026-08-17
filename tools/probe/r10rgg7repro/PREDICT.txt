@@ -1,0 +1,61 @@
+r10rgg7 — THE PREDICTION, filed from PRISTINE DATABASES BEFORE the patched
+binary existed.  BASE COMMIT 6da448b, base binary md5 57a8b410c476677c5d7496851f57e28d.
+
+Measured with census7.py over the golden (cache 6fc99d8f4119ff55b3e1) and the
+BASE dump of default:Rggen.
+
+1. THE HEAD.  uhdm-cmp golden vs base = 85 cmp lines / 1 head; the head object is
+   LHS golden `gen_scope (work@rggen.u_block_0.u_adapter.u_adapter_common
+   .u_mux.g.u_reducer.g_reduce)` carrying the else arm's `always` /
+   `o_result = next_data[0]`, RHS ours `<null>`.
+
+2. INSTANCE COUNT.  17 elaborated `rggen_or_reducer` module_inst in ours, 13 in
+   golden, in BOTH the DEF listing (4 rows, identical on both sides) and the
+   ELAB view.  The four ours-only paths are exactly:
+       u_block_0...u_mux.g.u_reducer.g_reduce.u_reducer                 (N=7)
+       u_block_0...u_mux.g.u_reducer.g_reduce.u_reducer.g_reduce.u_reducer (N=2)
+       u_block_1...u_mux.g.u_reducer.g_reduce.u_reducer                 (N=5)
+       u_block_1...u_mux.g.u_reducer.g_reduce.u_reducer.g_reduce.u_reducer (N=2)
+   slang's own chain is 25->7->2->1 and 20->5->2->1; golden has NO nesting at
+   any of its 13.  PREDICTED AFTER: 13 = 13, zero ours-only paths.
+
+3. PER-INSTANCE SHAPE, golden vs base, over the 14 shared keys (13 ELAB + the
+   DEF definition):  golden-only keys 0, differing keys **2** — the two adapter
+   muxes' ARM field and NOTHING ELSE.  Everything the brief asks to be emitted
+   "as golden has them" ALREADY MATCHES on all 13 in the pristine base:
+     * every param_assign Rhs is an UNFOLDED `func_call`
+       (SUB_N_LIST=get_sub_n_list, OFFSET_LIST=get_offset_list,
+       NEXT_N=get_next_n) on both sides, both views;
+     * `next_data`'s typespec is a `logic_typespec` with no folded range on both;
+     * the instance-level `always_comb` (the `i < NEXT_N` for loop) shape agrees;
+     * the else arm's body agrees BYTE-FOR-BYTE in shape at the eleven
+       read-data muxes where we already take it:
+       `ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)`.
+   So (c) and (d) of the brief need NO new code, and (a)'s binding is already
+   proven by the eleven instances that carry it.  Only the ARM DECISION moves.
+
+4. THE OBJECT DELTA, exact.  Each of the two adapter muxes' `g_reduce`
+   gen_scope_array subtree:
+       base   160 objects  {gen_scope_array 3, gen_scope 3, module_inst 2,
+                            parameter 20, param_assign 10, ref_typespec 28,
+                            function 14, logic_net 10, ref_obj 11, constant 9,
+                            func_call 8, logic_typespec 10, int_typespec 10,
+                            bit_typespec 8, logic_var 4, port 4, always 3,
+                            begin 1, assignment 1, bit_select 1}
+       golden   8 objects  {gen_scope_array 1, gen_scope 1, always 1, begin 1,
+                            assignment 1, bit_select 1, constant 1, ref_obj 1}
+   PREDICTED AFTER: 8 objects at each site, kind-for-kind golden's, i.e.
+   **-152 objects per site, -304 in the database**, and 0 remaining differing
+   census keys.
+
+5. MOVERS (whole-database byte identity, base -> patched), predicted BY NAME
+   from the PROBE binary's site listing (a pristine-emission build carrying only
+   the env-gated `[genif7]` print; its databases are byte-identical to base's):
+   see PREDICT_MOVERS.txt, written before byteverify.sh ran.
+
+6. WHAT MUST NOT MOVE.  Every generate-if row on both corpora.  The 22 CONTROL
+   cells of the golden grid (plain literal / folding call / $clog2 / own N /
+   package parameter, N in {1,2,8,25}, one and two instances) keep slang's arm on
+   golden, and `y_mdpacked_n8` proves the `packedDimCount >= 2` clause must be
+   EXCLUDED from the predicate — with it in, that cell would have flipped and
+   golden does not flip it.

@@ -1,0 +1,236 @@
+r10vrgg7 — CENSUS.txt (Rggen/default, golden vs base vs pat; vfix's DB is BYTE-IDENTICAL to pat's)
+
+== census7.py (per-instance shapes, both views, keyed on (view, instance path))
+-- gold
+# DEF reducer module_inst count = 4
+# ELAB reducer module_inst count = 13
+DEF	work@rggen_or_reducer	PA[WIDTH=constant(sz=64,ct=9,dec=2) N=constant(sz=64,ct=9,dec=1) SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61 OFFSET_LIST=func_call(get_offset_list)@63:47:63:62 NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[]	ARM[NOGENSCOPE]	PROC[always(t=2) forstop_ops=0]
+DEF	work@rggen_or_reducer	PA[]	VAR[]	ARM[NOGENSCOPE]	PROC[]
+DEF	work@rggen_or_reducer	PA[]	VAR[]	ARM[NOGENSCOPE]	PROC[]
+DEF	work@rggen_or_reducer	PA[]	VAR[]	ARM[NOGENSCOPE]	PROC[]
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_12.u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_8.u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=34)[ovr] N=constant(sz=32,ct=9,dec=25)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_1.u_adapter.u_adapter_common.u_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=34)[ovr] N=constant(sz=32,ct=9,dec=20)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+-- base
+# DEF reducer module_inst count = 4
+# ELAB reducer module_inst count = 17
+DEF	work@rggen_or_reducer	PA[WIDTH=constant(sz=64,ct=9,dec=2) N=constant(sz=64,ct=9,dec=1) SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61 OFFSET_LIST=func_call(get_offset_list)@63:47:63:62 NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[]	ARM[NOGENSCOPE]	PROC[always(t=2) forstop_ops=0]
+DEF	work@rggen_or_reducer	PA[]	VAR[]	ARM[NOGENSCOPE]	PROC[]
+DEF	work@rggen_or_reducer	PA[]	VAR[]	ARM[NOGENSCOPE]	PROC[]
+DEF	work@rggen_or_reducer	PA[]	VAR[]	ARM[NOGENSCOPE]	PROC[]
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_12.u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_8.u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=34)[ovr] N=constant(sz=32,ct=9,dec=25)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=2 ALWAYS=3 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=34)[ovr] N=func_call(get_next_n)@91:18:91:24[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=1 ALWAYS=2 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.u_reducer.g_reduce.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=34)[ovr] N=func_call(get_next_n)@91:18:91:24[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_1.u_adapter.u_adapter_common.u_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=34)[ovr] N=constant(sz=32,ct=9,dec=20)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=2 ALWAYS=3 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_1.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=34)[ovr] N=func_call(get_next_n)@91:18:91:24[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=1 ALWAYS=2 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_1.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.u_reducer.g_reduce.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=34)[ovr] N=func_call(get_next_n)@91:18:91:24[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+-- pat
+# DEF reducer module_inst count = 4
+# ELAB reducer module_inst count = 13
+DEF	work@rggen_or_reducer	PA[WIDTH=constant(sz=64,ct=9,dec=2) N=constant(sz=64,ct=9,dec=1) SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61 OFFSET_LIST=func_call(get_offset_list)@63:47:63:62 NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[]	ARM[NOGENSCOPE]	PROC[always(t=2) forstop_ops=0]
+DEF	work@rggen_or_reducer	PA[]	VAR[]	ARM[NOGENSCOPE]	PROC[]
+DEF	work@rggen_or_reducer	PA[]	VAR[]	ARM[NOGENSCOPE]	PROC[]
+DEF	work@rggen_or_reducer	PA[]	VAR[]	ARM[NOGENSCOPE]	PROC[]
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_12.u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.g_register_8.u_register.u_register_common.u_read_data_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=32)[ovr] N=constant(sz=32,ct=7,dec=2)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=34)[ovr] N=constant(sz=32,ct=9,dec=25)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+ELAB	work@rggen.u_block_1.u_adapter.u_adapter_common.u_mux.g.u_reducer	PA[WIDTH=constant(sz=32,ct=9,dec=34)[ovr] N=constant(sz=32,ct=9,dec=20)[ovr] SUB_N_LIST=func_call(get_sub_n_list)@62:47:62:61[ovr] OFFSET_LIST=func_call(get_offset_list)@63:47:63:62[ovr] NEXT_N=func_call(get_next_n)@64:47:64:57]	VAR[next_data:logic_typespec]	ARM[name=g_reduce MODINST=0 ALWAYS=1 ref_obj(o_result) <= bit_select(next_data) idx=constant(sz=64,ct=9,dec=0)]	PROC[always(t=?) forstop_ops=0]
+
+== subtree7.py (object-kind census of each g_reduce gen_scope_array subtree)
+-- gold
+DEF	work@rggen_or_reducer	GSA=0
+DEF	work@rggen_or_reducer	GSA=0
+DEF	work@rggen_or_reducer	GSA=0
+DEF	work@rggen_or_reducer	GSA=0
+ELAB	work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_8.u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_12.u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_1.u_adapter.u_adapter_common.u_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+-- instances printed = 17
+-- base
+DEF	work@rggen_or_reducer	GSA=0
+DEF	work@rggen_or_reducer	GSA=0
+DEF	work@rggen_or_reducer	GSA=0
+DEF	work@rggen_or_reducer	GSA=0
+ELAB	work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer	GSA n=160 {'always': 3, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'bit_typespec': 8, 'constant': 9, 'func_call': 8, 'function': 14, 'gen_scope': 3, 'gen_scope_array': 3, 'int_typespec': 10, 'logic_net': 10, 'logic_typespec': 10, 'logic_var': 4, 'module_inst': 2, 'param_assign': 10, 'parameter': 20, 'port': 4, 'ref_obj': 11, 'ref_typespec': 28}
+ELAB	work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.u_reducer	GSA n=84 {'always': 2, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'bit_typespec': 4, 'constant': 5, 'func_call': 4, 'function': 7, 'gen_scope': 2, 'gen_scope_array': 2, 'int_typespec': 5, 'logic_net': 5, 'logic_typespec': 5, 'logic_var': 2, 'module_inst': 1, 'param_assign': 5, 'parameter': 10, 'port': 2, 'ref_obj': 6, 'ref_typespec': 14}
+ELAB	work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.u_reducer.g_reduce.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_8.u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_12.u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_1.u_adapter.u_adapter_common.u_mux.g.u_reducer	GSA n=160 {'always': 3, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'bit_typespec': 8, 'constant': 9, 'func_call': 8, 'function': 14, 'gen_scope': 3, 'gen_scope_array': 3, 'int_typespec': 10, 'logic_net': 10, 'logic_typespec': 10, 'logic_var': 4, 'module_inst': 2, 'param_assign': 10, 'parameter': 20, 'port': 4, 'ref_obj': 11, 'ref_typespec': 28}
+ELAB	work@rggen.u_block_1.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.u_reducer	GSA n=84 {'always': 2, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'bit_typespec': 4, 'constant': 5, 'func_call': 4, 'function': 7, 'gen_scope': 2, 'gen_scope_array': 2, 'int_typespec': 5, 'logic_net': 5, 'logic_typespec': 5, 'logic_var': 2, 'module_inst': 1, 'param_assign': 5, 'parameter': 10, 'port': 2, 'ref_obj': 6, 'ref_typespec': 14}
+ELAB	work@rggen.u_block_1.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.u_reducer.g_reduce.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+-- instances printed = 21
+-- pat
+DEF	work@rggen_or_reducer	GSA=0
+DEF	work@rggen_or_reducer	GSA=0
+DEF	work@rggen_or_reducer	GSA=0
+DEF	work@rggen_or_reducer	GSA=0
+ELAB	work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_8.u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[0].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_11.g[1].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_0.g_register_12.u_register.u_register_common.u_read_data_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+ELAB	work@rggen.u_block_1.u_adapter.u_adapter_common.u_mux.g.u_reducer	GSA n=8 {'always': 1, 'assignment': 1, 'begin': 1, 'bit_select': 1, 'constant': 1, 'gen_scope': 1, 'gen_scope_array': 1, 'ref_obj': 1}
+-- instances printed = 17
+
+== dbcensus.py (whole-dump SECTIONED + DEPTH-KEYED census)
+== /tmp/vrgg7_cen/gold.dump
+   DEF   objects=21128 kinds=56 depth-keys=326
+   ELAB  objects=548985 kinds=51 depth-keys=789
+   TAIL  objects=1012 kinds=27 depth-keys=59
+== /tmp/vrgg7_cen/base.dump
+   DEF   objects=21058 kinds=56 depth-keys=326
+   ELAB  objects=546373 kinds=51 depth-keys=785
+   TAIL  objects=998 kinds=27 depth-keys=58
+== /tmp/vrgg7_cen/pat.dump
+   DEF   objects=21058 kinds=56 depth-keys=326
+   ELAB  objects=545469 kinds=51 depth-keys=785
+   TAIL  objects=998 kinds=27 depth-keys=58
+== DELTA /tmp/vrgg7_cen/gold.dump -> /tmp/vrgg7_cen/base.dump
+   DEF   total 21128 -> 21058 (-70)
+       int_typespec          160 ->    142  (-18)
+       operation             777 ->    779  (+2)
+       param_assign          380 ->    362  (-18)
+       parameter             501 ->    483  (-18)
+       ref_typespec          719 ->    701  (-18)
+       depth-keyed: EXTRA-in-B=2 MISSING-in-B=72
+   ELAB  total 548985 -> 546373 (-2612)
+       always                674 ->    678  (+4)
+       array_typespec        411 ->    347  (-64)
+       bit_select           6033 ->   5921  (-112)
+       bit_typespec        10300 ->   9173  (-1127)
+       constant            49789 ->  50120  (+331)
+       cont_assign         18002 ->  17804  (-198)
+       enum_const           8754 ->   8746  (-8)
+       enum_typespec       16387 ->  16375  (-12)
+       func_call            2358 ->   2373  (+15)
+       function             2151 ->   2169  (+18)
+       gen_scope           16036 ->  15739  (-297)
+       gen_scope_array      8816 ->   8824  (+8)
+       hier_path           17137 ->  16782  (-355)
+       indexed_part_select   2345 ->   2369  (+24)
+       int_typespec        16768 ->  16239  (-529)
+       interface_inst      14329 ->  14467  (+138)
+       logic_net           17210 ->  17236  (+26)
+       logic_typespec      45256 ->  47110  (+1854)
+       logic_var           32414 ->  33234  (+820)
+       modport             18554 ->  18555  (+1)
+       module_inst         26278 ->  26552  (+274)
+       operation           17171 ->  16271  (-900)
+       package              3707 ->   3663  (-44)
+       param_assign        15570 ->  14628  (-942)
+       parameter           28296 ->  27284  (-1012)
+       port                18232 ->  18130  (-102)
+       range               35857 ->  37333  (+1476)
+       ref_obj             25794 ->  25387  (-407)
+       ref_typespec        47805 ->  46313  (-1492)
+       depth-keyed: EXTRA-in-B=6576 MISSING-in-B=9188
+   TAIL  total 1012 -> 998 (-14)
+       int_typespec           48 ->     44  (-4)
+       module_inst             3 ->      5  (+2)
+       package                36 ->     35  (-1)
+       param_assign           36 ->     32  (-4)
+       parameter              52 ->     48  (-4)
+       ref_typespec           96 ->     93  (-3)
+       depth-keyed: EXTRA-in-B=3 MISSING-in-B=17
+== DELTA /tmp/vrgg7_cen/gold.dump -> /tmp/vrgg7_cen/pat.dump
+   DEF   total 21128 -> 21058 (-70)
+       int_typespec          160 ->    142  (-18)
+       operation             777 ->    779  (+2)
+       param_assign          380 ->    362  (-18)
+       parameter             501 ->    483  (-18)
+       ref_typespec          719 ->    701  (-18)
+       depth-keyed: EXTRA-in-B=2 MISSING-in-B=72
+   ELAB  total 548985 -> 545469 (-3516)
+       array_typespec        411 ->    347  (-64)
+       bit_select           6033 ->   5921  (-112)
+       bit_typespec        10300 ->   9131  (-1169)
+       constant            49789 ->  49988  (+199)
+       cont_assign         18002 ->  17804  (-198)
+       enum_const           8754 ->   8746  (-8)
+       enum_typespec       16387 ->  16375  (-12)
+       func_call            2358 ->   2335  (-23)
+       function             2151 ->   2139  (-12)
+       gen_scope           16036 ->  15731  (-305)
+       hier_path           17137 ->  16782  (-355)
+       indexed_part_select   2345 ->   2369  (+24)
+       int_typespec        16768 ->  16203  (-565)
+       interface_inst      14329 ->  14467  (+138)
+       logic_net           17210 ->  17200  (-10)
+       logic_typespec      45256 ->  47038  (+1782)
+       logic_var           32414 ->  33218  (+804)
+       modport             18554 ->  18555  (+1)
+       module_inst         26278 ->  26484  (+206)
+       operation           17171 ->  16241  (-930)
+       package              3707 ->   3663  (-44)
+       param_assign        15570 ->  14588  (-982)
+       parameter           28296 ->  27224  (-1072)
+       port                18232 ->  18098  (-134)
+       range               35857 ->  37189  (+1332)
+       ref_obj             25794 ->  25359  (-435)
+       ref_typespec        47805 ->  46233  (-1572)
+       depth-keyed: EXTRA-in-B=5854 MISSING-in-B=9370
+   TAIL  total 1012 -> 998 (-14)
+       int_typespec           48 ->     44  (-4)
+       module_inst             3 ->      5  (+2)
+       package                36 ->     35  (-1)
+       param_assign           36 ->     32  (-4)
+       parameter              52 ->     48  (-4)
+       ref_typespec           96 ->     93  (-3)
+       depth-keyed: EXTRA-in-B=3 MISSING-in-B=17

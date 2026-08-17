@@ -1,0 +1,44 @@
+r10rgg7 — THE MOVER PREDICTION, BY NAME, filed BEFORE byteverify.sh ran.
+
+HOW IT WAS MEASURED.  A third binary was built for this and nothing else:
+  probe  /tmp/r10rgg7_probe_bin  md5 6eb7855c43c9e1d84d4da9e23af26539
+It is the patched source with the new source's contribution to the arm decision
+ANDed with `false`, so its EMISSION is the base binary's.  Control, run on the
+target itself: the probe's Rggen database is BYTE-IDENTICAL to the base
+binary's (`cmp` on /tmp/r10rgg7_wd_base/default/Rggen-50ccbd70/slang.uhdm).
+It carries only the env-gated `SLANG_UHDM_GENIF7_DEBUG` stderr line, one per
+generate-if arm whose condition § genIfUnvaluedFuncParam7's predicate reads as
+FALSE.  sitescan.py re-runs it over EVERY test of BOTH corpora in BOTH modes
+using verify_golden.py's OWN argv construction and cwd.
+
+THE RESULT — the predicate fires at exactly ONE SITE IN EITHER CORPUS:
+
+  corpus      mode        rows  SKIP-BLOCKED  NORUN  rows-with-sites  sites
+  uhdm2rtlil  default      731        0          52         0            0
+  uhdm2rtlil  testflags    731        0          52         0            0
+  surelog     default      789        5         307         1            1
+  surelog     testflags    784       10         306         1            1
+
+  SITE surelog Rggen  rggen_or_reducer.sv:88:9  blk=g_reduce
+      (`generate if (NEXT_N > 1) begin : g_reduce ... else begin : g_reduce`)
+
+  NORUN is the count of rows whose slang run produced no database at all; it
+  matches the committed baselines' own SLANG_REJECT+SURELOG_FAIL counts (u2r
+  50+2, surelog/default 283+25=308 against 307 measured) — those rows have no
+  database to move, and they are COUNTED here rather than skipped.
+
+PREDICTED MOVERS, whole-database byte identity, base -> patched:
+  surelog  default/Rggen      the law's target: -304 objects, 17 -> 13
+                              rggen_or_reducer instances
+  EVERYTHING ELSE: byte-identical.  In particular
+  surelog  testflags/Rggen    NOT a mover: the row is SURELOG_FAIL (no golden),
+                              so verify_golden never runs slang there.
+  Predicted mover count: u2r 0, surelog 1.
+
+WHY THIS IS TIGHT.  The predicate needs a PARAMETER whose initializer is a
+const call Surelog's ExprEval bails on (poison / body localparam / an argument
+outside its system-call repertoire), READ BY A GENERATE-IF CONDITION.  Both
+corpora contain exactly one such design.  The 22 control cells of the golden
+grid are the other half of the argument: a generate-if reading a parameter
+Surelog CAN value keeps slang's arm on golden, and the predicate leaves it
+alone.

@@ -1,0 +1,111 @@
+r10vrgg7 — EVERY GATE LEG, MEASURED BY THE VERIFIER FROM FRESH WORKTREES.
+
+WORKTREES  /tmp/wt_vrgg7pris (pristine 6da448b)  /tmp/wt_vrgg7 (patch + the four cuts)
+BINARIES   base 57a8b410c476677c5d7496851f57e28d   <- BIT-IDENTICAL to the implementer's /tmp/r10rgg7_base_bin
+           pat  636e2cb6f2a0e1e9cc096cf015fe9bed   <- BIT-IDENTICAL to the implementer's /tmp/r10rgg7_pat_bin
+           vfix 1bc2c2804575d44a12bb47adeeacd186   <- pat + the four verifier cuts
+           (both binaries rebuilt from scratch at -j 2; the md5 match proves the
+            build is reproducible and that I measured the same programs)
+
+(1) GOLDENS, SLANG_UHDM exported EXPLICITLY per binary
+      base PASS=23 FAIL=0     pat PASS=23 FAIL=0     vfix PASS=23 FAIL=0
+      NEGATIVE CONTROL SLANG_UHDM=/bin/false  PASS=0 FAIL=23
+
+(2) u2r --mode both  (679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL per mode)
+      base 1462 rows  {CMP_EQUAL 1358, SLANG_REJECT 100, SURELOG_FAIL 4}
+      pat  1462 rows  identical histogram
+      vfix 1462 rows  identical histogram
+      ct8rows committed results/gate_uhdm2rtlil.csv (testflags rows) -> base : 0 differing ROWS / 731
+      ct8rows committed -> pat : 0 differing ROWS      committed -> vfix : 0 differing ROWS
+      ct8rows base -> pat : 0 differing ROWS / 1462    pat -> vfix : 0 differing ROWS / 1462
+
+(3) surelog --mode both  (1588 rows)
+      base {CMP_EQUAL 936, SLANG_REJECT 567, SURELOG_FAIL 48, CMP_NOTEQUAL 20,
+            DEFERRED 10, NO_DATABASE 3, UNTRANSLATABLE 2, TIMEOUT 1, NO_UHDM 1}
+      pat, vfix : identical histogram
+      ct8rows committed results/golden_surelog.csv -> base : 0 differing ROWS / 1588
+      ct8rows base -> pat : 0 differing ROWS        pat -> vfix : 0 differing ROWS
+      committed -> vfix : 0 differing ROWS
+      NO ROW WAS CONVERTED.  Rggen stays CMP_NOTEQUAL.  results/*.csv untouched.
+
+(4) byteverify SELFCHECK=1 (the selfcheck leg reports 0 movers on every run)
+      u2r  base -> pat  : identical=1358 MOVERS=0
+      u2r  base -> vfix : identical=1358 MOVERS=0
+      u2r  pat  -> vfix : identical=1358 MOVERS=0
+      sl   base -> pat  : identical=954  MOVERS=2  -> default/Rggen, default/Scoreboard
+      sl   base -> vfix : identical=954  MOVERS=2  -> the SAME two
+      sl   pat  -> vfix : identical=956  MOVERS=0
+      ATTRIBUTION, measured not asserted: THREE runs of the SAME base binary on
+      Scoreboard's own recorded argv gave md5 54b68730c66b (x2) and 010feb186a55
+      (x1) -- the documented ~50/50 coin, so base-vs-patched byte inequality on
+      that row is NOT attributable to the patch.  Rggen was PREDICTED BY NAME
+      before the gate ran (PREDICT_MOVERS.txt).
+
+(5) CANARIES
+      canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0
+      canaries.sh  surelog: ok=52 changed=0 absent=0 unknown=7
+      canaries.sh  u2r    : ok=8  changed=0 absent=0 unknown=25
+      ctcan2.sh    surelog (EXPECT_UNKNOWN=1): ok=58 changed=0 absent=0
+      ctcan2.sh    u2r     (EXPECT_UNKNOWN=6): ok=1  changed=0 absent=0
+      PINS on the vfix databases: SVSwitch 4842211c4030 (both modes),
+        YosysVerx 6ccda350c24a (both modes); InterfaceModPort 59a365f3ce2c,
+        BlackParrotComplex e3e354129d5a / 73a10e8217e5, YosysOldOr d68e0796d62c
+        -- every one BYTE-IDENTICAL to base.
+      THE EXTENDED RULE'S OWN WITNESSES, byte-identical base -> pat -> vfix:
+        Scr1SvTests   c71d6e17de6f (default) c5bdbceb5ab7 (testflags)
+        typedef_param 7a3e8d17cf1e (default) 3abff14a580a (testflags)
+
+(6) THE OFFICIAL JUDGE (rowheads.sh, uhdm-cmp, LHS always golden)
+      base : Rggen/default 85 cmp lines / 1 head
+      pat  : Rggen/default 66 cmp lines / 1 head, head in a DIFFERENT FAMILY
+      vfix : Rggen/default 66 cmp lines / 1 head, .cmp file BYTE-IDENTICAL to pat's
+      every other measured row unchanged: SeqDriver 47/47, SimpleUVM 47/47,
+      Scoreboard 47, MiniAmiq 47/47, BuildUVMPkg 79/79, Earlgrey_0_1 46/33.
+
+(7) FIRING SITES (sitescan.py, verify_golden's OWN argv, the VFIX binary)
+      surelog default   rows=789 SKIP-BLOCKED=5  NORUN=338 (measured BEFORE the driver fence; see README R6) rows-with-sites=1 distinct-sites=1
+      surelog testflags rows=784 SKIP-BLOCKED=10 NORUN=313 rows-with-sites=1 distinct-sites=1
+      u2r     default   rows=731 SKIP-BLOCKED=0  NORUN=230 rows-with-sites=0 distinct-sites=0
+      u2r     testflags rows=731 SKIP-BLOCKED=0  NORUN=123 rows-with-sites=0 distinct-sites=0
+      THE ONE SITE: rggen_or_reducer.sv:88:9 blk=g_reduce.
+      CAVEAT STATED: a NORUN row produced no database, so no site there was
+      observed -- and a row with no database cannot move.
+
+(8) BOUNDARY (boundary.sh, fd-3 list, children </dev/null, PROCESSED asserted)
+      rgg1-6 + vrgg2-6 : list=500 PROCESSED=500 uncompilable=94 asymmetries=0
+        [pat]  identical=404 MOVERS=2      [vfix] identical=404 MOVERS=2
+        the SAME two, both re-measured against REAL SURELOG on a PRIVATE COPY:
+          r10rgg6repro/cells/r3_gen_cond          golden gsa=0  base 2  pat 0  vfix 0
+          r10rgg6repro/cells/rec_p2_n4_yes_typed_param
+                                       golden gsa=2 / 65 module_inst lines
+                                       base       6 / 99
+                                       pat/vfix   2 / 65
+        BOTH ARE CORRECTIONS.
+      POSITIVE CONTROL (same driver, this pass's own cells): list=40 PROCESSED=40
+        [pat] MOVERS=20   [vfix] MOVERS=15  -- a "2 movers" reading above is not
+        the driver failing to look, and vfix moves exactly 5 fewer cells (the 5
+        it un-breaks).
+
+(9) MEASUREMENT-ONLY LADDER (r10ladder1 ctladder, rebuilt here; NOT a judge)
+      Rggen/default rungs  base 94  pat 92  vfix 92, stop=FIXPOINT on all three
+      family census 19 -> 18 and EXACTLY ONE family moves:
+        gen_scope|<rhs-null>|MISSING-OURS  2 -> 0
+      pat and vfix family censuses are IDENTICAL.
+
+(10) COST (the srlgMisevalSyntax 10 GB trap, re-checked)
+      Earlgrey_0_1 base 4.74 s / pat 5.29 s / vfix 4.89 s
+      BlackBePipeInt base 0.34 s / pat 0.33 s / vfix 0.37 s
+      Rggen base 1.21 s / pat 1.24 s / vfix 1.20 s   -- no blow-up.
+
+(11) GENERATE-IF EXPOSURE, measured not asserted
+      57 distinct CMP_EQUAL test names carry a conditional generate
+      (surelog 31 of 470, u2r 26 of 679).  Every one of their databases is
+      BYTE-IDENTICAL base -> vfix (byteverify above), so every generate-if
+      CMP_EQUAL row stays CMP_EQUAL by byte identity, the strongest form.
+
+(12) THE DELIVERABLE REPRODUCES FROM A FRESH WORKTREE
+      /tmp/r10rgg7.verified.patch applied to a FRESH `git worktree add ... 6da448b`
+      (git apply --check clean, production diff byte-identical to my working
+      tree's) and BUILT FROM SCRATCH at -j 2 produces
+        1bc2c2804575d44a12bb47adeeacd186
+      = the exact vfix binary every gate above was measured on.

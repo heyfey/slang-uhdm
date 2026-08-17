@@ -1,0 +1,4 @@
+DEF   OK      63
+ELAB  FIXED   37
+ELAB  OK      45
+TOTAL rows=145  BROKEN=0

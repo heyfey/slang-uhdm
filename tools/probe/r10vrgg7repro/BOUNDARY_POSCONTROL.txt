@@ -1,0 +1,39 @@
+== list=40 files, ref=/tmp/vrgg7_base_bin
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/b_poison/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/b_poison/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/b_unnamed/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/b_unnamed/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/r_unval_d2/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/r_unval_d2/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/r_unval_d4/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/r_unval_d4/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/s_memberdot/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/s_pkgshadow/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_bits/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_clog2/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_clog2/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_defparam/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_indirect_minus/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_indirect_minus/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_indirect_ne/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_indirect_ne/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_indirect_not/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_indirect_not/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_or/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_or/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_override_unval/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_override_unval/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_pkgparam_gate/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_pkgparam_gate/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/w_ternarydead/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/x_elseif/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/x_elseif/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/x_mixed_chain/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/x_mixed_chain/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/x_nested/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/x_nested/dut.sv
+MOVER[pat] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/x_noelse/dut.sv
+MOVER[vfix] /tmp/wt_vrgg7/tools/probe/r10vrgg7repro/cells/x_noelse/dut.sv
+-- PROCESSED=40 WANT=40 uncompilable=0
+-- [pat] identical=20 MOVERS=20 asymmetries=0
+-- [vfix] identical=25 MOVERS=15 asymmetries=0

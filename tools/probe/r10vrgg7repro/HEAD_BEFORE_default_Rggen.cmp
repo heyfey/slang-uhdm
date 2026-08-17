@@ -1,0 +1,85 @@
+LHS:
+decompile:
+gen_scope: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce), id:349541, line:97:10, endln:101:8
+|vpiParent:
+\_gen_scope_array: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce), id:349540, line:97:10, endln:101:8
+|vpiFullName:work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce
+|vpiProcess:
+\_always: , id:22778, line:98:7, endln:100:10
+  |vpiParent:
+  \_gen_scope: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce), id:349541, line:97:10, endln:101:8
+  |vpiStmt:
+  \_begin: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce), id:22779, line:98:19, endln:100:10
+    |vpiParent:
+    \_always: , id:22778, line:98:7, endln:100:10
+    |vpiFullName:work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce
+    |vpiStmt:
+    \_assignment: , id:22780, line:99:9, endln:99:33
+      |vpiParent:
+      \_begin: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce), id:22779, line:98:19, endln:100:10
+      |vpiOpType:82
+      |vpiBlocking:1
+      |vpiRhs:
+      \_bit_select: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.next_data), id:22783, line:99:31, endln:99:32
+        |vpiParent:
+        \_assignment: , id:22780, line:99:9, endln:99:33
+        |vpiName:next_data
+        |vpiFullName:work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.next_data
+        |vpiIndex:
+        \_constant: , id:22782, line:99:31, endln:99:32
+          |vpiParent:
+          \_bit_select: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.next_data), id:22783, line:99:31, endln:99:32
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiLhs:
+      \_ref_obj: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.o_result), id:22781, line:99:9, endln:99:17
+        |vpiParent:
+        \_assignment: , id:22780, line:99:9, endln:99:33
+        |vpiName:o_result
+        |vpiFullName:work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.o_result
+  |vpiAlwaysType:2
+
+decompile:
+gen_scope: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce), id:349541, line:97:10, endln:101:8
+|vpiParent:
+\_gen_scope_array: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce), id:349540, line:97:10, endln:101:8
+|vpiFullName:work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce
+|vpiProcess:
+\_always: , id:22778, line:98:7, endln:100:10
+  |vpiParent:
+  \_gen_scope: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce), id:349541, line:97:10, endln:101:8
+  |vpiStmt:
+  \_begin: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce), id:22779, line:98:19, endln:100:10
+    |vpiParent:
+    \_always: , id:22778, line:98:7, endln:100:10
+    |vpiFullName:work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce
+    |vpiStmt:
+    \_assignment: , id:22780, line:99:9, endln:99:33
+      |vpiParent:
+      \_begin: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce), id:22779, line:98:19, endln:100:10
+      |vpiOpType:82
+      |vpiBlocking:1
+      |vpiRhs:
+      \_bit_select: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.next_data), id:22783, line:99:31, endln:99:32
+        |vpiParent:
+        \_assignment: , id:22780, line:99:9, endln:99:33
+        |vpiName:next_data
+        |vpiFullName:work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.next_data
+        |vpiIndex:
+        \_constant: , id:22782, line:99:31, endln:99:32
+          |vpiParent:
+          \_bit_select: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.next_data), id:22783, line:99:31, endln:99:32
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiLhs:
+      \_ref_obj: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.o_result), id:22781, line:99:9, endln:99:17
+        |vpiParent:
+        \_assignment: , id:22780, line:99:9, endln:99:33
+        |vpiName:o_result
+        |vpiFullName:work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer.g_reduce.o_result
+  |vpiAlwaysType:2
+RHS: <null>

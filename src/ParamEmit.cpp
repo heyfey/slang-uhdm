@@ -14202,6 +14202,214 @@ bool UhdmExporter::srlgMisevalSyntax(const syntax::SyntaxNode* n0,
     return hit;
 }
 
+// § genIfUnvaluedFuncParam7 — THE LAW.  Surelog's ExprEval refuses to reduce
+// some constant-function calls, and when the refused call is a PARAMETER'S
+// INITIALIZER the elaborated parameter never receives a value at all: its
+// param_assign keeps the symbolic `func_call` the def view wrote (the fold gate
+// in emitParameters above, and elabParamCallSymbolic which reads the same three
+// bails from the reference side).  A CONDITIONAL GENERATE whose condition reads
+// such a parameter therefore behaves exactly as § genIfUnitMisevalFalse
+// measured for a valueless $unit parameter: the condition evaluates FALSE and
+// the chain walks on to the next arm and, in the end, to the `else`.
+//
+// MEASURED against REAL SURELOG on tools/probe/r10rgg7repro/cells (63 cells,
+// both arms named `g_reduce` and told apart by CONTENT, exactly Rggen's shape):
+//
+//   * WHICH ARM.  A poisoning function (`r += ((l[i] != 0) ? 1 : 0)`, i.e.
+//     rggen_or_reducer's own get_next_n) over a PLAIN VALUED pattern array —
+//     no saturated write-back anywhere — makes golden take the ELSE arm at
+//     EVERY N in {1,2,3,4,5,8,20,25} (cells/p_pat_n*), and so does the full
+//     Rggen get_sub_n_list + get_next_n pair (cells/s_sat_n*, cells/m_sat_*),
+//     at one instance and at thirteen.  The saturated regime is NOT the
+//     discriminator; the refused reduction is.
+//   * IT IS THE CONDITION THAT IS FALSE, not the identifier reading zero:
+//     `NEXT != 1` takes the ELSE arm too (cells/k_pat_ne1, k_sat_ne1) where
+//     reading 0 would have made it TRUE, and a BARE `if (NEXT)` likewise
+//     (k_*_bare).  Same separation r10scr4 measured for the $unit form.
+//   * THE ARM CONTENT IS IRRELEVANT: markers, a real module_inst, a nested
+//     generate-for all read ELSE (cells/a_*_{for,inst}).
+//   * WHICH BAIL COUNTS.  Each clause of the fold gate has its own cell:
+//       a poisoning body                 cells/p_pat_*      ELSE
+//       a body declaring a LOCALPARAM    cells/y_declparam_n8  ELSE
+//       an argument outside ExprEval's
+//         system-call repertoire ($floor) cells/y_unevalarg_n8 ELSE
+//       a MULTIDIM PACKED parameter whose
+//         function FOLDS                 cells/y_mdpacked_n8   *** slang's arm
+//     The last one is why `packedDimCount(ps.getType()) >= 2` — which also
+//     keeps the Rhs symbolic — is NOT part of this predicate: Surelog still
+//     HAS the value, it just never rewrites the Rhs object.  Assuming that
+//     clause would have flipped an arm golden does not flip.
+//   * REACH.  The function may live in a PACKAGE (cells/x_pkgfunc_n8), and the
+//     valuelessness is TRANSITIVE through parameter reads whatever the reading
+//     expression is: `NEXT = RAW + 0` (cells/p_chain_n8) and
+//     `NEXT = addup(RAW)` — a FOLDING call over an unvalued actual —
+//     (cells/x_argchain_n8) both read ELSE.
+//   * CONTROLS, every one of which keeps SLANG'S arm: a plain literal, a
+//     FOLDING call, `$clog2`, the instance's own parameter N, a package
+//     parameter, at N in {1,2,8,25}, one instance and two
+//     (cells/c_*, cells/m_plain_8_2, cells/m_fold_8_2).  22 cells, 22 agreements
+//     on the pristine binary.
+//
+// An ARGUMENT Surelog cannot itself reduce (a system call outside the
+// $bits/$size/$high/$low/$left/$right/$clog2/$signed/$unsigned repertoire)
+// makes EvalFunc report an invalid value — the same clause the fold gate
+// applies, transcribed here so the two cannot drift apart.
+static bool callArgOutsideEvalRepertoire(const CallExpression& ce) {
+    static const std::set<std::string> kEvalSys = {
+        "$bits", "$size", "$high", "$low", "$left",
+        "$right", "$clog2", "$signed", "$unsigned"};
+    bool bad = false;
+    for (auto* a : ce.arguments())
+        a->visit(makeVisitor([&](auto& v, const CallExpression& ce9) {
+            if (ce9.isSystemCall() &&
+                !kEvalSys.count(std::string(ce9.getSubroutineName())))
+                bad = true;
+            v.visitDefault(ce9);
+        }));
+    return bad;
+}
+
+// § genIfUnvaluedFuncParam7's REACH, CUT BY THE VERIFIER (r10vrgg7).  The law
+// above is right about WHICH parameters Surelog leaves unvalued; the TRANSITIVE
+// half over-reached, and the CONDITION SCAN mis-bound a qualified name.  Three
+// narrowings and one fence, each with its own golden cell in
+// tools/probe/r10vrgg7repro/cells (measured against REAL SURELOG):
+//
+//   * TYPE-ONLY SYSTEM CALLS.  ExprEval answers $bits/$size/$high/$low/$left/
+//     $right/$increment/$dimensions/$unpacked_dimensions from the operand's
+//     TYPE and never reads its VALUE.  cells/w_bits (`NEXT = $bits(RAW)`, RAW
+//     unvalued) keeps SLANG'S ARM on golden -- the base was right and the
+//     shipped predicate flipped it.  cells/w_clog2 (`NEXT = $clog2(RAW)`) is
+//     the control that keeps the clause honest: $clog2 DOES consume the value
+//     and golden takes the ELSE arm there, so it must keep propagating.
+//   * A CONSTANT-PREDICATE CONDITIONAL propagates only through its LIVE arm:
+//     `NEXT = (1) ? 8 : RAW` is valued (cells/w_ternarydead, golden keeps
+//     slang's arm).  slang has already decided this for us -- knownSide().
+//   * A DEFPARAM TARGET is outside the claim (cells/w_defparam): the value
+//     comes from the defparam, not from the declared initializer, and slang
+//     hands this predicate the DECLARED one.
+// and, in srlgGenIfCondUnvalued below,
+//   * A QUALIFIED NAME'S TAIL IS NEVER RESOLVED IN THE LOCAL SCOPE.  slang
+//     parses `gp::NEXT` and `CFG.nxt` alike as a ScopedName whose right child
+//     is a plain IdentifierName, so a bare-identifier walk looked `NEXT`/`nxt`
+//     up in the module and bound a DIFFERENT symbol.  cells/s_pkgshadow and
+//     cells/s_memberdot are the two witnesses: golden and the pristine base
+//     both take the `if` arm, the shipped predicate took the `else`.
+static bool typeOnlySysCall9(const CallExpression& ce) {
+    if (!ce.isSystemCall())
+        return false;
+    static const std::set<std::string> kTypeOnly = {
+        "$bits",       "$size",       "$high",       "$low",
+        "$left",       "$right",      "$increment",  "$dimensions",
+        "$unpacked_dimensions"};
+    return kTypeOnly.count(std::string(ce.getSubroutineName())) != 0;
+}
+
+bool UhdmExporter::srlgParamCallUnvalued(const ParameterSymbol& ps) {
+    auto it7 = funcParamUnvalued9.find(&ps);
+    if (it7 != funcParamUnvalued9.end())
+        return it7->second;
+    // THE DEFPARAM FENCE (r10vrgg7).  Keyed on the NAME the defparam targets,
+    // so it fences the parameter in BOTH views (the def-view symbol and the
+    // instance's are different objects).  `defParamScan9` distinguishes "no
+    // defparam in this design" from "the walk never ran".
+    if (defParamScan9 && !defParamNames9.empty() &&
+        defParamNames9.count(std::string(ps.name))) {
+        funcParamUnvalued9[&ps] = false;
+        return false;
+    }
+    // Seeded FALSE first: this doubles as the recursion guard for a parameter
+    // chain that reads itself back (an illegal design still has to terminate).
+    funcParamUnvalued9[&ps] = false;
+    bool bad7 = false;
+    if (auto* init7 = ps.getInitializer()) {
+        auto& ic7 = stripImplicitConv(*init7);
+        if (ic7.kind == ExpressionKind::Call &&
+            !ic7.as<CallExpression>().isSystemCall()) {
+            auto& cx7 = ic7.as<CallExpression>();
+            if (auto sp7 = std::get_if<const SubroutineSymbol*>(&cx7.subroutine);
+                sp7 && *sp7)
+                bad7 = subroutineDeclaresParam(**sp7) ||
+                       subroutinePoisonsEvalFunc(**sp7, comp) ||
+                       callArgOutsideEvalRepertoire(cx7);
+        }
+        if (!bad7)
+            init7->visit(makeVisitor(
+                [&](auto& v, const NamedValueExpression& nv) {
+                    if (!bad7 && nv.symbol.kind == SymbolKind::Parameter &&
+                        srlgParamCallUnvalued(nv.symbol.as<ParameterSymbol>()))
+                        bad7 = true;
+                    v.visitDefault(nv);
+                },
+                [&](auto& v, const CallExpression& ce) {
+                    // TYPE-ONLY: the operand's VALUE is never read, so nothing
+                    // under it can make this reader unvalued.  NOT descending
+                    // is the whole point -- do not add visitDefault here.
+                    if (typeOnlySysCall9(ce))
+                        return;
+                    v.visitDefault(ce);
+                },
+                [&](auto& v, const ConditionalExpression& ce) {
+                    // A CONSTANT predicate leaves one arm dead; only the live
+                    // one is evaluated.  The conditions themselves are still
+                    // walked -- a predicate that READS an unvalued parameter is
+                    // not constant and falls through to the default walk.
+                    if (auto* live9 = ce.knownSide()) {
+                        for (auto& c9 : ce.conditions)
+                            c9.expr->visit(v);
+                        live9->visit(v);
+                        return;
+                    }
+                    v.visitDefault(ce);
+                }));
+    }
+    funcParamUnvalued9[&ps] = bad7;
+    return bad7;
+}
+
+// Does this generate-if CONDITION read a parameter Surelog never valued?
+// The identifier resolution is the expensive half (lookupName forces lazy
+// elaboration — the trap the srlgMisevalSyntax cost guard above records), so it
+// runs only behind `funcParamCallSeen9`: a design in which no parameter
+// initializer calls a user function anywhere cannot have such a parameter.
+bool UhdmExporter::srlgGenIfCondUnvalued(const syntax::SyntaxNode* n0,
+                                         const Scope* look0) {
+    if (!funcParamCallSeen9 || !n0 || !look0)
+        return false;
+    bool hit7 = false;
+    std::function<void(const syntax::SyntaxNode*, int)> scan7 =
+        [&](const syntax::SyntaxNode* n7, int depth7) {
+            if (!n7 || hit7 || depth7 > 8)
+                return;
+            // A QUALIFIED NAME (r10vrgg7).  slang parses `gp::NEXT` AND
+            // `CFG.nxt` as a ScopedName whose right child is a bare
+            // IdentifierName; resolving that child in `look0` binds a
+            // DIFFERENT symbol of the same name and falsified two conditions
+            // golden reads as TRUE (cells/s_pkgshadow, cells/s_memberdot).
+            // The whole name is therefore skipped -- a package-qualified read
+            // is the already-declared reach residue, never a mis-bind.  An
+            // argument list under an InvocationExpression is NOT skipped: only
+            // the name node itself is a ScopedName.
+            if (n7->kind == syntax::SyntaxKind::ScopedName)
+                return;
+            if (n7->kind == syntax::SyntaxKind::IdentifierName) {
+                auto nm7 =
+                    n7->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                if (nm7.empty())
+                    return;
+                auto* sy7 = look0->lookupName(nm7);
+                if (sy7 && sy7->kind == SymbolKind::Parameter &&
+                    srlgParamCallUnvalued(sy7->as<ParameterSymbol>()))
+                    hit7 = true;
+                return;
+            }
+            for (size_t i7 = 0; i7 < n7->getChildCount(); i7++)
+                scan7(n7->childNode(i7), depth7 + 1);
+        };
+    scan7(n0, 0);
+    return hit7;
+}
+
 bool UhdmExporter::srlgElabMiseval(const ParameterSymbol& ps) {
     auto dsyn9 = ps.getSyntax();
     if (!dsyn9 || dsyn9->kind != syntax::SyntaxKind::Declarator)
@@ -22505,10 +22713,24 @@ void UhdmExporter::computeCompoundWriteBack() {
     // those literals AND a parameter in the same scope calls that function.
     // Earlgrey / UVM / every other corpus row exits here.
     std::vector<const InstanceSymbol*> allInsts;
-    comp.getRoot().visit(makeVisitor([&](auto& v, const InstanceSymbol& is) {
-        allInsts.push_back(&is);
-        v.visitDefault(is);
-    }));
+    comp.getRoot().visit(makeVisitor(
+        [&](auto& v, const InstanceSymbol& is) {
+            allInsts.push_back(&is);
+            v.visitDefault(is);
+        },
+        [&](auto& v, const DefParamSymbol& dp) {
+            // § genIfUnvaluedFuncParam7's DEFPARAM FENCE (r10vrgg7): the
+            // TARGET NAME, read from SYNTAX so nothing is resolved and no
+            // diagnostic can be minted here.
+            if (auto* dsy = dp.getSyntax();
+                dsy && dsy->kind == syntax::SyntaxKind::DefParamAssignment)
+                defParamNames9.insert(std::string(
+                    dsy->as<syntax::DefParamAssignmentSyntax>()
+                        .name->getLastToken()
+                        .valueText()));
+            v.visitDefault(dp);
+        }));
+    defParamScan9 = true;
     // definition -> its elaborated instances, in hierarchy order.
     std::map<const DefinitionSymbol*, std::vector<const InstanceSymbol*>> byDef;
     for (auto* is : allInsts) {
@@ -22533,6 +22755,11 @@ void UhdmExporter::computeCompoundWriteBack() {
             init->visit(makeVisitor([&](auto& v, const CallExpression& ce) {
                 (void)0;
                 if (auto sp = std::get_if<const SubroutineSymbol*>(&ce.subroutine)) {
+                    // § genIfUnvaluedFuncParam7's design-wide cost gate: this
+                    // walk already reaches every definition's parameter
+                    // initializers, so the flag is free here.
+                    if (*sp)
+                        funcParamCallSeen9 = true;
                     std::vector<const slang::syntax::SyntaxNode*> tmp;
                     collectCompoundLits(**sp, tmp);
                     if (!tmp.empty())

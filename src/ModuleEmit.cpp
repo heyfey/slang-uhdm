@@ -12109,10 +12109,18 @@ bool UhdmExporter::genLoopUnitMiseval(const GenerateBlockArraySymbol& arr) {
 // (`NotApplicable` otherwise), and a chain in which slang instantiated NO arm
 // is left alone as well: this rule FLIPS an evaluation, it does not invent one
 // where slang had no constant to begin with.
+//
+// § genIfUnvaluedFuncParam7 (r10rgg7) adds a SECOND source of the same
+// valuelessness — a parameter whose initializer is a const call Surelog's
+// ExprEval never reduces, so the elaborated parameter has no value at all.  The
+// law, its 63-cell golden grid and the four bail clauses it does and does not
+// claim are written at srlgParamCallUnvalued (ParamEmit).  Nothing else about
+// this function changes: the same chain walk, the same "FLIPS an evaluation,
+// never invents one" guard, the same Emit/Skip contract.
 UhdmExporter::GenIfPick
 UhdmExporter::genIfUnitMisevalFalse(const GenerateBlockSymbol& blk) {
     if (unitParamNoValue.empty() && elabMisevalParams.empty() &&
-        !unitParamsMultiRoot())
+        !unitParamsMultiRoot() && !funcParamCallSeen9)
         return GenIfPick::NotApplicable;
     auto* bsyn = blk.getSyntax();
     if (!bsyn || !bsyn->parent)
@@ -12147,7 +12155,19 @@ UhdmExporter::genIfUnitMisevalFalse(const GenerateBlockSymbol& blk) {
         auto it9 = armInst9.find(cur->block);
         bool inst9 = it9 != armInst9.end() && it9->second;
         anyInst9 |= inst9;
-        if (srlgMisevalSyntax(cur->condition, psc, root9))
+        bool unval7 = srlgGenIfCondUnvalued(cur->condition, psc);
+        if (unval7 && getenv("SLANG_UHDM_GENIF7_DEBUG")) {
+            // MEASUREMENT HOOK (env-gated, never on by default): one line per
+            // site the new source fires at, so the mover set can be predicted
+            // BY NAME over both corpora from a PRISTINE-emission build.
+            auto sr7 = cur->condition->sourceRange();
+            fprintf(stderr, "[genif7] %s:%u:%u blk=%s\n",
+                    std::string(sm->getFileName(sr7.start())).c_str(),
+                    (unsigned)sm->getLineNumber(sr7.start()),
+                    (unsigned)sm->getColumnNumber(sr7.start()),
+                    std::string(blk.getExternalName()).c_str());
+        }
+        if (srlgMisevalSyntax(cur->condition, psc, root9) || unval7)
             anyMiseval9 = true;  // Surelog reads this condition as FALSE
         else if (inst9 && !sel9) {
             sel9 = cur->block;

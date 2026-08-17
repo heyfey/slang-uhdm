@@ -1,0 +1,46 @@
+r10vrgg7 — THE MEASURED GRID (40 cells, REAL SURELOG as golden)
+base 57a8b410c476677c5d7496851f57e28d  pat 636e2cb6f2a0e1e9cc096cf015fe9bed  vfix 1bc2c2804575d44a12bb47adeeacd186
+ARM: which content the ELAB view elaborated (a_mark = the if arm, b_mark = else,
+     c_mark = a third arm); both arms are named g_reduce, exactly Rggen's shape.
+
+CELL                 GOLDEN         BASE           PAT            VFIX           VERDICT
+b_poison             MARKS=b_mark   MARKS=a_mark   MARKS=b_mark   MARKS=b_mark   PAT-FIXED VFIX-FIXED
+b_unnamed            MARKS=b_mark   MARKS=a_mark   MARKS=b_mark   MARKS=b_mark   PAT-FIXED VFIX-FIXED
+c_clog2lit           MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   OK(control held)
+c_condcall           MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   OK(control held)
+c_fold               MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   OK(control held)
+c_lit                MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   OK(control held)
+c_mdpacked           MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   OK(control held)
+c_unread             MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   OK(control held)
+r_unval_d2           MARKS=b_mark   MARKS=a_mark,b_mark MARKS=b_mark   MARKS=b_mark   PAT-FIXED VFIX-FIXED
+r_unval_d4           MARKS=b_mark   MARKS=a_mark,b_mark MARKS=b_mark   MARKS=b_mark   PAT-FIXED VFIX-FIXED
+r_valued_d1          MARKS=b_mark   MARKS=b_mark   MARKS=b_mark   MARKS=b_mark   OK(control held)
+r_valued_d2          MARKS=a_mark,b_mark MARKS=a_mark,b_mark MARKS=a_mark,b_mark MARKS=a_mark,b_mark OK(control held)
+r_valued_d3          MARKS=a_mark,b_mark MARKS=a_mark,b_mark MARKS=a_mark,b_mark MARKS=a_mark,b_mark OK(control held)
+r_valued_d4          MARKS=a_mark,b_mark MARKS=a_mark,b_mark MARKS=a_mark,b_mark MARKS=a_mark,b_mark OK(control held)
+s_genshadow          MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   OK(control held)
+s_memberdot          MARKS=a_mark   MARKS=a_mark   MARKS=b_mark   MARKS=a_mark   PAT-BROKEN
+s_pkgnoshadow        MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   OK(control held)
+s_pkgshadow          MARKS=a_mark   MARKS=a_mark   MARKS=b_mark   MARKS=a_mark   PAT-BROKEN
+w_andfalse           MARKS=b_mark   MARKS=b_mark   MARKS=b_mark   MARKS=b_mark   OK(control held)
+w_bits               MARKS=a_mark   MARKS=a_mark   MARKS=b_mark   MARKS=a_mark   PAT-BROKEN
+w_clog2              MARKS=b_mark   MARKS=a_mark   MARKS=b_mark   MARKS=b_mark   PAT-FIXED VFIX-FIXED
+w_defparam           MARKS=a_mark   MARKS=a_mark   MARKS=b_mark   MARKS=a_mark   PAT-BROKEN
+w_indirect_minus     MARKS=b_mark   MARKS=a_mark   MARKS=b_mark   MARKS=b_mark   PAT-FIXED VFIX-FIXED
+w_indirect_ne        MARKS=b_mark   MARKS=a_mark   MARKS=b_mark   MARKS=b_mark   PAT-FIXED VFIX-FIXED
+w_indirect_not       MARKS=b_mark   MARKS=a_mark   MARKS=b_mark   MARKS=b_mark   PAT-FIXED VFIX-FIXED
+w_or                 MARKS=b_mark   MARKS=a_mark   MARKS=b_mark   MARKS=b_mark   PAT-FIXED VFIX-FIXED
+w_override_unval     MARKS=b_mark   MARKS=a_mark   MARKS=b_mark   MARKS=b_mark   PAT-FIXED VFIX-FIXED
+w_override_val       MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   OK(control held)
+w_pkgparam_gate      MARKS=b_mark   MARKS=a_mark   MARKS=b_mark   MARKS=b_mark   PAT-FIXED VFIX-FIXED
+w_pkgparam_nogate    MARKS=b_mark   MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   STILL(under-reach)
+w_ternarydead        MARKS=a_mark   MARKS=a_mark   MARKS=b_mark   MARKS=a_mark   PAT-BROKEN
+w_unitparam          MARKS=b_mark   MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   STILL(under-reach)
+x_casegen            MARKS=b_mark   MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   STILL(under-reach)
+x_elseif             MARKS=c_mark   MARKS=b_mark   MARKS=c_mark   MARKS=c_mark   PAT-FIXED VFIX-FIXED
+x_genfor             MARKS=-        MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   STILL(under-reach)
+x_genfor_body        MARKS=b_mark   MARKS=a_mark   MARKS=a_mark   MARKS=a_mark   STILL(under-reach)
+x_genfor_genvar      MARKS=a_mark,b_mark MARKS=a_mark,b_mark MARKS=a_mark,b_mark MARKS=a_mark,b_mark OK(control held)
+x_mixed_chain        MARKS=b_mark   MARKS=a_mark   MARKS=c_mark   MARKS=c_mark   STILL(under-reach)
+x_nested             MARKS=b_mark   MARKS=a_mark   MARKS=-        MARKS=-        STILL(under-reach)
+x_noelse             MARKS=-        MARKS=a_mark   MARKS=-        MARKS=-        PAT-FIXED VFIX-FIXED

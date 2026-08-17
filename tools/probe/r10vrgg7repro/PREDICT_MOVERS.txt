@@ -1,0 +1,30 @@
+r10vrgg7 — THE MOVER PREDICTION, filed BEFORE the vfix sweeps ran.
+Binaries: base 57a8b410c476677c5d7496851f57e28d (pristine 6da448b)
+          pat  636e2cb6f2a0e1e9cc096cf015fe9bed (implementer's /tmp/r10rgg7.patch)
+          vfix 1bc2c2804575d44a12bb47adeeacd186 (pat + the four verifier cuts)
+
+MECHANISM.  The four cuts can only change a decision at a site where the
+SHIPPED predicate already fired, and only if that site's condition/initializer
+carries one of the four shapes:
+  (1) a ScopedName in the CONDITION            (`gp::N`, `CFG.n`)
+  (2) a type-only system call in an INITIALIZER (`$bits(RAW)` ...)
+  (3) a constant-predicate conditional in an INITIALIZER (`1 ? 8 : RAW`)
+  (4) a parameter whose NAME a defparam targets
+The shipped patch fires at EXACTLY ONE site in either corpus (r10rgg7's
+sitescan over both corpora, both modes: rggen_or_reducer.sv:88:9,
+`if (NEXT_N > 1)`).  That condition is a BARE IDENTIFIER; NEXT_N's initializer
+is `get_next_n(SUB_N_LIST)` — a plain user call, no system call, no
+conditional; and Rggen contains no defparam.  NONE of the four cuts can reach
+it.
+
+PREDICTIONS
+  P1  vfix vs pat  : 0 movers on BOTH corpora, both modes (1358 u2r, 956 sl).
+  P2  vfix vs base : EXACTLY the movers pat vs base had —
+                     surelog default/Rggen (the intended conversion) and
+                     surelog default/Scoreboard (the documented ~50/50 coin,
+                     which two runs of the SAME base binary already differ on);
+                     u2r 0 movers.
+  P3  Rggen's vfix database is BYTE-IDENTICAL to Rggen's pat database, so
+      rowheads must read Rggen/default = 66 cmp lines / 1 head again.
+  P4  goldens 23/0, u2r 679/50/2 per mode with 0 differing rows, surelog 1588
+      rows with 0 differing rows, every canary pin unchanged.

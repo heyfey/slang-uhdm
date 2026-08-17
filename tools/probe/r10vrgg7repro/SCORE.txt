@@ -1,0 +1,259 @@
+b_poison               pat   FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+b_poison               vfix  FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+b_unnamed              pat   FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+b_unnamed              vfix  FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+r_unval_d2             pat   MISSING-KEY
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+      base=MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+    ELAB work@top.u0.g_reduce.u_next                         
+      gold=None
+      base=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+      pat =None
+r_unval_d2             vfix  MISSING-KEY
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+      base=MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+      vfix=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+    ELAB work@top.u0.g_reduce.u_next                         
+      gold=None
+      base=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+      vfix=None
+r_unval_d4             pat   MISSING-KEY
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+      base=MARKS=a_mark,b_mark	GSA=1	GS=4	SUB=3	LEAF=1
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+    ELAB work@top.u0.g_reduce.u_next                         
+      gold=None
+      base=MARKS=a_mark,b_mark	GSA=1	GS=3	SUB=2	LEAF=1
+      pat =None
+    ELAB work@top.u0.g_reduce.u_next.g_reduce.u_next         
+      gold=None
+      base=MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+      pat =None
+    ELAB work@top.u0.g_reduce.u_next.g_reduce.u_next.g_reduce.u_next
+      gold=None
+      base=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+      pat =None
+r_unval_d4             vfix  MISSING-KEY
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+      base=MARKS=a_mark,b_mark	GSA=1	GS=4	SUB=3	LEAF=1
+      vfix=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+    ELAB work@top.u0.g_reduce.u_next                         
+      gold=None
+      base=MARKS=a_mark,b_mark	GSA=1	GS=3	SUB=2	LEAF=1
+      vfix=None
+    ELAB work@top.u0.g_reduce.u_next.g_reduce.u_next         
+      gold=None
+      base=MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+      vfix=None
+    ELAB work@top.u0.g_reduce.u_next.g_reduce.u_next.g_reduce.u_next
+      gold=None
+      base=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+      vfix=None
+s_memberdot            pat   BROKEN
+    ELAB work@top.u0                                         
+      gold=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+s_pkgshadow            pat   BROKEN
+    ELAB work@top.u0                                         
+      gold=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_bits                 pat   BROKEN
+    ELAB work@top.u0                                         
+      gold=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_clog2                pat   FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_clog2                vfix  FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_defparam             pat   BROKEN
+    ELAB work@top.u0                                         
+      gold=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_indirect_minus       pat   FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_indirect_minus       vfix  FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_indirect_ne          pat   FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_indirect_ne          vfix  FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_indirect_not         pat   FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_indirect_not         vfix  FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_or                   pat   FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_or                   vfix  FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_override_unval       pat   FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_override_unval       vfix  FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_pkgparam_gate        pat   FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_pkgparam_gate        vfix  FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_pkgparam_nogate      pat   STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_pkgparam_nogate      vfix  STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_ternarydead          pat   BROKEN
+    ELAB work@top.u0                                         
+      gold=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_unitparam            pat   STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+w_unitparam            vfix  STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+x_casegen              pat   STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+x_casegen              vfix  STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+x_elseif               pat   FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=c_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=c_mark	GSA=1	GS=1	SUB=0	LEAF=0
+x_elseif               vfix  FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=c_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=c_mark	GSA=1	GS=1	SUB=0	LEAF=0
+x_genfor               pat   STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=8	GS=8	SUB=0	LEAF=0
+      pat =MARKS=a_mark	GSA=8	GS=8	SUB=0	LEAF=0
+x_genfor               vfix  STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=8	GS=8	SUB=0	LEAF=0
+      vfix=MARKS=a_mark	GSA=8	GS=8	SUB=0	LEAF=0
+x_genfor_body          pat   STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=2	GS=4	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=2	GS=4	SUB=0	LEAF=0
+      pat =MARKS=a_mark	GSA=2	GS=4	SUB=0	LEAF=0
+x_genfor_body          vfix  STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=2	GS=4	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=2	GS=4	SUB=0	LEAF=0
+      vfix=MARKS=a_mark	GSA=2	GS=4	SUB=0	LEAF=0
+x_mixed_chain          pat   STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=c_mark	GSA=1	GS=1	SUB=0	LEAF=0
+x_mixed_chain          vfix  STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=c_mark	GSA=1	GS=1	SUB=0	LEAF=0
+x_nested               pat   STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=-	GSA=1	GS=1	SUB=0	LEAF=0
+x_nested               vfix  STILL
+    ELAB work@top.u0                                         
+      gold=MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=-	GSA=1	GS=1	SUB=0	LEAF=0
+x_noelse               pat   FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      pat =MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+x_noelse               vfix  FIXED
+    ELAB work@top.u0                                         
+      gold=MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+      base=MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+      vfix=MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+== pat: {'FIXED': 11, 'OK': 15, 'MISSING-KEY': 2, 'BROKEN': 5, 'STILL': 7}
+== vfix: {'FIXED': 11, 'OK': 20, 'MISSING-KEY': 2, 'STILL': 7}

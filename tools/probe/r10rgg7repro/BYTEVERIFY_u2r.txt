@@ -1,0 +1,4 @@
+==== SELFCHECK: base vs base (MUST be 0 movers)
+-- identical=1358 MOVERS=0 only-in-A=0 only-in-B=0
+==== base vs patched
+-- identical=1358 MOVERS=0 only-in-A=0 only-in-B=0

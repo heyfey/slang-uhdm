@@ -1,0 +1,66 @@
+LHS:
+decompile:
+constant: , id:349089, line:55:14, endln:55:16
+|vpiParent:
+\_cont_assign: , id:349090, line:40:11, endln:40:53
+|vpiDecompile:1
+|vpiSize:1
+|BIN:1
+|vpiConstType:3
+
+decompile:
+constant: , id:349089, line:55:14, endln:55:16
+|vpiParent:
+\_cont_assign: , id:349090, line:40:11, endln:40:53
+|vpiDecompile:1
+|vpiSize:1
+|BIN:1
+|vpiConstType:3
+RHS:
+decompile:
+func_call: (pre_decode), id:8066, line:40:27, endln:40:53
+|vpiParent:
+\_cont_assign: , id:8065, line:40:11, endln:40:53
+|vpiArgument:
+\_hier_path: (bus_if.address), id:8067, line:40:38, endln:40:52
+  |vpiParent:
+  \_func_call: (pre_decode), id:8066, line:40:27, endln:40:53
+  |vpiActual:
+  \_ref_obj: (bus_if), id:8068, line:40:38, endln:40:44
+    |vpiParent:
+    \_hier_path: (bus_if.address), id:8067, line:40:38, endln:40:52
+    |vpiName:bus_if
+  |vpiActual:
+  \_ref_obj: (work@rggen_adapter_common.address), id:8069, line:40:45, endln:40:52
+    |vpiParent:
+    \_hier_path: (bus_if.address), id:8067, line:40:38, endln:40:52
+    |vpiName:address
+    |vpiFullName:work@rggen_adapter_common.address
+  |vpiName:bus_if.address
+|vpiName:pre_decode
+|vpiFunction:
+\_function: (work@rggen_adapter_common.pre_decode), id:7964, line:42:3, endln:57:14
+
+decompile:
+func_call: (pre_decode), id:8066, line:40:27, endln:40:53
+|vpiParent:
+\_cont_assign: , id:8065, line:40:11, endln:40:53
+|vpiArgument:
+\_hier_path: (bus_if.address), id:8067, line:40:38, endln:40:52
+  |vpiParent:
+  \_func_call: (pre_decode), id:8066, line:40:27, endln:40:53
+  |vpiActual:
+  \_ref_obj: (bus_if), id:8068, line:40:38, endln:40:44
+    |vpiParent:
+    \_hier_path: (bus_if.address), id:8067, line:40:38, endln:40:52
+    |vpiName:bus_if
+  |vpiActual:
+  \_ref_obj: (work@rggen_adapter_common.address), id:8069, line:40:45, endln:40:52
+    |vpiParent:
+    \_hier_path: (bus_if.address), id:8067, line:40:38, endln:40:52
+    |vpiName:address
+    |vpiFullName:work@rggen_adapter_common.address
+  |vpiName:bus_if.address
+|vpiName:pre_decode
+|vpiFunction:
+\_function: (work@rggen_adapter_common.pre_decode), id:7964, line:42:3, endln:57:14

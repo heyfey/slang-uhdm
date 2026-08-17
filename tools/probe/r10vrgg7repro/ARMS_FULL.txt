@@ -1,0 +1,984 @@
+######## b_poison
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## b_unnamed
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## c_clog2lit
+--- gold
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## c_condcall
+--- gold
+INSTS=5
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=5
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=5
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=5
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## c_fold
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## c_lit
+--- gold
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## c_mdpacked
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## c_unread
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## r_unval_d2
+--- gold
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- pat
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## r_unval_d4
+--- gold
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- base
+INSTS=6
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=4	SUB=3	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=3	SUB=2	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- pat
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## r_valued_d1
+--- gold
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- base
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- pat
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- vfix
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+######## r_valued_d2
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+######## r_valued_d3
+--- gold
+INSTS=5
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=3	SUB=2	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- base
+INSTS=5
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=3	SUB=2	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- pat
+INSTS=5
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=3	SUB=2	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- vfix
+INSTS=5
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=3	SUB=2	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+######## r_valued_d4
+--- gold
+INSTS=6
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=4	SUB=3	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=3	SUB=2	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- base
+INSTS=6
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=4	SUB=3	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=3	SUB=2	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- pat
+INSTS=6
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=4	SUB=3	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=3	SUB=2	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+--- vfix
+INSTS=6
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=1	GS=4	SUB=3	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=3	SUB=2	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next	MARKS=a_mark,b_mark	GSA=1	GS=2	SUB=1	LEAF=1
+ELAB	work@top.u0.g_reduce.u_next.g_reduce.u_next.g_reduce.u_next	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=1
+######## s_genshadow
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=2	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=2	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=2	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=2	SUB=0	LEAF=0
+######## s_memberdot
+--- gold
+INSTS=5
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=5
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=5
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=5
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## s_pkgnoshadow
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## s_pkgshadow
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_andfalse
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_bits
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_clog2
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_defparam
+--- gold
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_indirect_minus
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_indirect_ne
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_indirect_not
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_or
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_override_unval
+--- gold
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_override_val
+--- gold
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_pkgparam_gate
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_pkgparam_nogate
+--- gold
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_ternarydead
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## w_unitparam
+--- gold
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=3
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## x_casegen
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## x_elseif
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=c_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=c_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=c_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## x_genfor
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=8	GS=8	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=8	GS=8	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=8	GS=8	SUB=0	LEAF=0
+######## x_genfor_body
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=2	GS=4	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=2	GS=4	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=2	GS=4	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=2	GS=4	SUB=0	LEAF=0
+######## x_genfor_genvar
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=2	GS=4	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=2	GS=4	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=2	GS=4	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark,b_mark	GSA=2	GS=4	SUB=0	LEAF=0
+######## x_mixed_chain
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=c_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=c_mark	GSA=1	GS=1	SUB=0	LEAF=0
+######## x_nested
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=b_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=-	GSA=1	GS=1	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=-	GSA=1	GS=1	SUB=0	LEAF=0
+######## x_noelse
+--- gold
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+--- base
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=a_mark	GSA=1	GS=1	SUB=0	LEAF=0
+--- pat
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+--- vfix
+INSTS=4
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+DEF	work@sub	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
+ELAB	work@top.u0	MARKS=-	GSA=0	GS=0	SUB=0	LEAF=0
