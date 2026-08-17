@@ -3173,6 +3173,63 @@ private:
     std::set<UHDM::task_func*> tfShells;
     // Typedef typespecs shared across views; enum consts for value refs.
     std::map<const slang::ast::Symbol*, UHDM::typespec*> typedefTs;
+    /// § sharedTdRefNoRestamp9 — WHICH shared-typedef cell @a ts falls in.  See
+    /// `sharedTypedefTsRef9` below for the law.  The five values exist because
+    /// the law does NOT claim the whole (scope x kind) grid, and every fence
+    /// below was written only after a measurement refuted the wider rule:
+    ///
+    /// | cell         | reference-site stamp | evidence |
+    /// |---|---|---|
+    /// | `PkgClassTs` | REMOVED (the law)    | BuildUVMPkg's 6 `uvm_*_cb_iter` / `uvm_event_pool`, uvm83 `v83_a19`, buvm5 `a2`/`v4` |
+    /// | `PkgOther`   | KEPT                 | claiming it turned Scoreboard's and SimpleUVM's `uvm_pkg::uvm_severity` from golden's ELAB to the def twin |
+    /// | `ClassOther` | REMOVED (the law)    | the three objects the BuildUVMPkg head reaches |
+    /// | `ClassKeyTs` | KEPT at sites 1-3    | claiming it turned uvm83 `v83_a03`/`v83_a23` `zbase::c_t` from ELAB to NONE |
+    /// |              | REMOVED at site 4    | the SHIPPED `sharedClassTypedef9` answer (IOClassStruct); re-claiming it moved uvm83 `v83_a12` `plain_td` |
+    enum class SharedTd9 {
+        NotShared,   ///< not the shared object at all — every CLONE lands here
+        PkgClassTs,  ///< PACKAGE-scope typedef whose object is a class_typespec
+        PkgOther,    ///< any other PACKAGE-scope typedef (enum/struct/logic/…)
+        ClassKeyTs,  ///< CLASS-scope typedef whose object is a class_typespec
+        ClassOther,  ///< any other CLASS-scope typedef (enum/struct/int/…)
+        /// § classPkgAliasKeepsStamp9v (the VERIFIER's cell) — a CLASS-scope
+        /// typedef that is an ALIAS OF A PACKAGE-HOMED typedef
+        /// (`class k; typedef pkg::b_s n_s; ... endclass`).  Golden does NOT
+        /// leave these bare: it stamps them with the ELABORATED package (arm
+        /// `w6clsalias`, all 10 cells read `G=ELAB`), so they are NOT the
+        /// head's family and the ClassOther removal must not reach them.  At
+        /// SITE 1 the pre-law stamp already got golden's answer RIGHT when the
+        /// reference is a PACKAGE function's block local (`w6` `n10_s`:
+        /// G=ELAB P=ELAB, and the law as first shipped wrote NONE — a
+        /// pristine-right→patched-wrong cell).  This cell is therefore held at
+        /// EXACTLY its pre-law behaviour: the stamp is KEPT at sites 1-3 and
+        /// REMOVED at site 4, which is what the shipped `sharedClassTypedef9`
+        /// did before this law existed.  Getting golden's ELAB answer at the
+        /// other three sites is a law of its own with its own census.
+        ClassPkgAlias
+    };
+    /// § sharedTdRefNoRestamp9 — TRUE when @a ts IS the one SHARED typespec
+    /// object the typedef named by @a declSym's declared type owns: the object
+    /// its DECLARING scope's own listing holds (`typedefTs`, or its elaborated
+    /// twin in `pkgTopTypedefTs`) and that every reference binds.  Surelog
+    /// creates that object once, where the typedef is WRITTEN, and stamps its
+    /// vpiInstance there; a REFERENCE to it — a formal, a return type, a
+    /// subroutine body local, a nested-block local — never re-instances it.
+    /// Our reference sites did, and because an out-of-body class method's
+    /// `tsInst` is the HOME PACKAGE (§ scopedTdUnsupTsHomePkgInstance83) the
+    /// re-stamp landed on the DECLARING scope's own listing entry: a
+    /// class_defn's typespec got a package where golden carries NOTHING
+    /// (`writeDataTypes` skips vpiInstance for a class_defn), and a package
+    /// typedef's single ELABORATED entry got the DEF twin.
+    /// Scope-fenced to CLASS and PACKAGE typedefs, the two the census measured;
+    /// a $unit-level one displays as `work@C` and no listing holds it.  Which of
+    /// the four (scope x kind) cells the law actually CLAIMS is in the table on
+    /// `SharedTd9` above — each fence there is a measurement, not a hunch.
+    /// The test is by POINTER IDENTITY, which is what keeps every CLONE path
+    /// (the wildcard-import subroutine copies, § pkgImportCloneLastWriter32's
+    /// aggregates, a freshly minted twin) firmly outside the law: a clone is
+    /// not the shared object and still takes its stamp.
+    SharedTd9 sharedTypedefTsRef9(const slang::ast::Symbol& declSym,
+                                  const UHDM::typespec* ts) const;
     // Canonical types of module-scope struct typedefs whose member refs are
     // MODULE-PREFIXED (neither nested-typedef nor whole-assigned). Def-view
     // nets of such structs (scalar or unpacked-array; NOT packed-array) carry

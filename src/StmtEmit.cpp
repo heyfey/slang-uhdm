@@ -1351,7 +1351,23 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     tfContext = true;
                     auto* ts = makeTypespec(bm);
                     tfContext = savedTf;
-                    if (pkgScopeInst)
+                    // § sharedTdRefNoRestamp9, SITE 1 of 4 — the BLOCK-ITEM
+                    // local, and the one the BuildUVMPkg head runs through.
+                    // `makeTypespec` SHARES the declaring scope's own typedef
+                    // object, so this stamp does not instance the local's
+                    // typespec: it re-instances the CLASS's (or the package's
+                    // ELABORATED) listing entry, 40 000 lines away.  The
+                    // subroutine-body-local twin of this site (TaskFuncEmit,
+                    // SITE 4) has carried the class half of the test since
+                    // IOClassStruct; a nested `begin` took this path instead
+                    // and never asked.
+                    // TWO of the four (scope x kind) cells are deliberately
+                    // NOT claimed — see the table on SharedTd9.
+                    // ClassPkgAlias is NOT in the skip set here — see
+                    // § classPkgAliasKeepsStamp9v on SharedTd9.
+                    const auto shTd9 = sharedTypedefTsRef9(bm, ts);
+                    if (pkgScopeInst && shTd9 != SharedTd9::PkgClassTs &&
+                        shTd9 != SharedTd9::ClassOther)
                         ts->Instance(pkgScopeInst);
                     // Surelog's VERILOG-mode lexer (a `.v` root file — see
                     // verilogLexMode) has no `logic` keyword, so a block-local

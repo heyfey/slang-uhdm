@@ -705,6 +705,88 @@ UHDM::typespec* UhdmExporter::tdVecNamedClone42(const Type& al,
     return cl;
 }
 
+// § sharedTdRefNoRestamp9 — the SHARED-typedef-object test every REFERENCE
+// site asks before it stamps vpiInstance.  See the declaration in
+// UhdmExporter.h for the law, the two scopes it fences and why the test is by
+// POINTER IDENTITY (a clone is not the shared object and still takes a stamp).
+//
+// Measured, not assumed.  The three objects the BuildUVMPkg head reaches —
+// `uvm_policy::recursion_state_e`, `uvm_component::m_verbosity_setting`,
+// `uvm_component::uvm_cmdline_parsed_arg_t` — are class-scope typedefs whose
+// ONLY use is a block-item local inside a NESTED block of an out-of-body
+// method (`if (first) begin m_verbosity_setting setting; ... end`,
+// uvm_pkg.sv:41181 / 41272 / 41444).  Golden's copies carry no vpiInstance;
+// ours carried the def-view uvm_pkg.  The arm grid (v1/v2/v3/v4) reads every
+// neighbouring cell: an IN-BODY method's nested local is already clean
+// (`tsInst` is null there), a top-level body local is already clean (this very
+// test existed at that ONE site, class-scoped, as `sharedClassTypedef9`), and
+// an unreferenced typedef is clean because nothing re-stamps it.
+UhdmExporter::SharedTd9 UhdmExporter::sharedTypedefTsRef9(
+    const Symbol& declSym, const UHDM::typespec* ts) const {
+    if (!ts)
+        return SharedTd9::NotShared;
+    const auto* dt9 = declSym.getDeclaredType();
+    if (!dt9)
+        return SharedTd9::NotShared;
+    const Type& ty9 = dt9->getType();
+    bool shared9 = false;
+    if (auto i9 = typedefTs.find(&ty9); i9 != typedefTs.end() && i9->second == ts)
+        shared9 = true;
+    if (!shared9)
+        if (auto t9 = pkgTopTypedefTs.find((const void*)&ty9);
+            t9 != pkgTopTypedefTs.end() && t9->second == ts)
+            shared9 = true;
+    if (!shared9)
+        return SharedTd9::NotShared;
+    const auto* osc9 = ty9.getParentScope();
+    if (!osc9)
+        return SharedTd9::NotShared;
+    const SymbolKind k9 = osc9->asSymbol().kind;
+    const bool clsTs9 = ts->UhdmType() == UHDM::uhdmclass_typespec;
+    if (k9 == SymbolKind::Package)
+        return clsTs9 ? SharedTd9::PkgClassTs : SharedTd9::PkgOther;
+    if (k9 != SymbolKind::ClassType)
+        return SharedTd9::NotShared;
+    // THE KIND SPLIT, and it goes the OPPOSITE way in the two scopes.  Both
+    // halves were written only after a measurement refuted the wider rule; the
+    // table on `SharedTd9` in UhdmExporter.h names the arm that caught each.
+    //
+    //  * CLASS scope, `class_typespec`: golden stamps SOME of them and not
+    //    others (BuildUVMPkg golden: 9 carry the ELABORATED uvm_pkg, 135 are
+    //    bare, in ONE design) because their owner is decided by the LAST
+    //    PACKAGE LISTING to publish the object (§ classKeyTsScopeOwner35 —
+    //    `writePackage` re-stamps a package's whole listing after
+    //    `writeDataTypes`).  That is a LISTING fact; our emitter happens to
+    //    reach it THROUGH a reference-site stamp, so fencing it is a
+    //    regression, not a fix.
+    //  * PACKAGE scope, everything EXCEPT `class_typespec`: the DECLARATION
+    //    site does not always leave the elaborated listing entry stamped, and
+    //    the reference-site stamp is what makes it right today (Scoreboard /
+    //    SimpleUVM `uvm_pkg::uvm_severity`).
+    //
+    // Both cells are therefore REPORTED and left to their sites, and closing
+    // either one properly is a law of its own with its own census.
+    // § classPkgAliasKeepsStamp9v — a class-scope typedef whose target is
+    // ITSELF a typedef homed in a PACKAGE is not the head's family: golden
+    // stamps it with the ELABORATED package (arm w6clsalias, 10/10 cells
+    // G=ELAB), and at site 1 the pre-law stamp already reached that answer for
+    // a PACKAGE function's block local (w6 n10_s: G=ELAB P=ELAB Q=NONE before
+    // this fence).  Reported as its own cell and held at pre-law behaviour.
+    // The test is TARGET-IS-A-TYPEDEF, not merely target-homed-in-a-package:
+    // an INLINE `typedef struct {...} s;` / `typedef enum {...} e;` at class
+    // scope — which is exactly what the three BuildUVMPkg head objects are —
+    // has an ANONYMOUS struct/enum target, never a TypeAlias, so it cannot
+    // land here.
+    if (ty9.kind == SymbolKind::TypeAlias) {
+        const Type& tgt9 = ty9.as<TypeAliasType>().targetType.getType();
+        if (tgt9.kind == SymbolKind::TypeAlias)
+            if (const auto* tsc9 = tgt9.getParentScope();
+                tsc9 && tsc9->asSymbol().kind == SymbolKind::Package)
+                return SharedTd9::ClassPkgAlias;
+    }
+    return clsTs9 ? SharedTd9::ClassKeyTs : SharedTd9::ClassOther;
+}
+
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {

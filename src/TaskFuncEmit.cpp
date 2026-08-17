@@ -3436,7 +3436,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // typespec (`p::C`, a typedef'd class type) takes one.
             if (ts->UhdmType() == UHDM::uhdmclass_typespec && ts->VpiName().empty())
                 useInst9 = nullptr;
-            if (useInst9 &&
+            // § sharedTdRefNoRestamp9, SITE 2 of 4 — the RETURN type.
+            // `foreignSharedTs` fenced only a typedef homed in ANOTHER
+            // package; the shared object of a typedef homed in THIS package,
+            // or in the class itself, was still re-stamped (arm v1 a8 / v4
+            // d7_t).
+            const SharedTd9 shRet9 =
+                sub.returnValVar ? sharedTypedefTsRef9(*sub.returnValVar, ts)
+                                 : SharedTd9::NotShared;
+            if (useInst9 && shRet9 != SharedTd9::PkgClassTs &&
+                shRet9 != SharedTd9::ClassOther &&
                 !(sub.returnValVar && foreignSharedTs(*sub.returnValVar, ts))) {
                 ts->Instance(importCopyTsInst ? importCopyTsInst : useInst9);
                 stampElemTsInstance(ts, (UHDM::instance*)ts->Instance());
@@ -4414,8 +4423,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                 acp32->VpiName(qn36.substr(p36 + 2));
                         }
                     }
+                // § sharedTdRefNoRestamp9, SITE 3 of 4 — the FORMAL.
+                const SharedTd9 shArg9 =
+                    sharedTypedefTsRef9(*arg, (const UHDM::typespec*)ts);
                 if (tsInst &&
                     !foreignSharedTs(*arg, (const UHDM::typespec*)ts) &&
+                    shArg9 != SharedTd9::PkgClassTs &&
+                    shArg9 != SharedTd9::ClassOther &&
                     !(pkgTopEmit &&
                       defPassOwnedTs.count((UHDM::typespec*)ts))) {
                     ((UHDM::typespec*)ts)->Instance(
@@ -5024,16 +5038,26 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         }
                     }
                 }
-                // A CLASS-NESTED typedef object is shared with its owning
-                // class_defn's vpiTypedef listing and stays unscoped —
+                // § sharedTdRefNoRestamp9, SITE 4 of 4 — the SUBROUTINE-BODY
+                // local.  A CLASS-NESTED typedef object is shared with its
+                // owning class_defn's vpiTypedef listing and stays unscoped —
                 // stamping it here would scope the whole typedef to the
-                // referencing class (IOClassStruct).
-                bool sharedClassTypedef9 = false;
-                if (auto itS9 = typedefTs.find(&fmv.getDeclaredType()->getType());
-                    itS9 != typedefTs.end() && itS9->second == vts)
-                    if (auto* oscS9 = fmv.getDeclaredType()->getType().getParentScope())
-                        sharedClassTypedef9 =
-                            oscS9->asSymbol().kind == SymbolKind::ClassType;
+                // referencing class (IOClassStruct).  The predicate lives in
+                // ONE place now and every reference site asks it; what THIS
+                // site gains is the PACKAGE arm (arm v4 d2_t: our stamp
+                // re-pointed the package's ELABORATED listing entry at the def
+                // twin).  It keeps the SHIPPED class-scope semantics — ANY
+                // kind, `class_typespec` INCLUDED, unlike sites 1-3: narrowing
+                // it here moved uvm83's v83_a12 `plain_td` from NONE to the def
+                // package, so the shipped answer stays the answer.
+                // § classPkgAliasKeepsStamp9v is INCLUDED here (it is neither
+                // NotShared nor PkgOther): the pre-law `sharedClassTypedef9`
+                // skipped the stamp for ANY class-scope shared typedef, alias
+                // of a package typedef included, so this site keeps that.
+                const SharedTd9 shLoc9 = sharedTypedefTsRef9(fmv, vts);
+                const bool sharedClassTypedef9 =
+                    shLoc9 != SharedTd9::NotShared &&
+                    shLoc9 != SharedTd9::PkgOther;
                 // `m` is the CLASS_DEFN for a method, and a class scope is not
                 // a vpiInstance: an out-of-body method's body locals are
                 // resolved in the home PACKAGE and carry it, an in-class
