@@ -1,0 +1,70 @@
+r10uvm89 — THE INPUTS.  Everything a re-run needs, so no number here rests on a
+binary or a path that cannot be rebuilt.
+
+REPO       /home/heyfey/git-repos/slang-uhdm, branch auto5h, BASE 1995a67
+WORKTREE   /tmp/wt_r10uvm89   (git worktree add /tmp/wt_r10uvm89 1995a67)
+BUILD      cmake -DCMAKE_BUILD_TYPE=Release -S /tmp/wt_r10uvm89 -B /tmp/wt_r10uvm89/build
+           cmake --build build -j 2      (md5sum taken SEPARATELY after each build)
+BINARIES   /tmp/r10uvm89_bin/slang-uhdm.pris  8c0c3117060071d0c48bd1a3910ed4cc
+           /tmp/r10uvm89_bin/slang-uhdm.pat   f43f3f12bde2230ff65752b6942e049c
+PATCH      /tmp/r10uvm89.patch = git diff vs 1995a67
+
+BASELINES  THE ONES IN MY OWN WORKTREE, /tmp/wt_r10uvm89 @ 1995a67:
+             results/golden_surelog.csv    1588 ROWS (both modes)
+             results/gate_uhdm2rtlil.csv    731 ROWS — TESTFLAGS ONLY, so a
+               both-modes fresh CSV is compared to it TESTFLAGS-FILTERED and the
+               DEFAULT half is compared PATCHED-vs-PRISTINE instead.  Both
+               comparisons are reported.
+           results/*.csv were READ ONLY.  NOTHING WAS PROMOTED.  NO ROW CONVERTED.
+           slang was NOT patched.  GOLDEN_DEFER read [UNSET] on every sweep.
+
+TOOLS      uhdm-cmp  ~/.local/bin/uhdm-cmp     (THE ONLY ACCEPTANCE JUDGE)
+           uhdm-dump ~/.local/bin/uhdm-dump
+           surelog   ~/git-repos/Surelog/build/bin/surelog   (arm goldens)
+           ct89cen   g++ -O2 -std=c++17 ct89cen.cpp -I ~/.local/include \
+                       -L ~/.local/lib64 -L ~/.local/lib -luhdm -lcapnp -lkj \
+                       -o /tmp/r10uvm89_ct89cen
+           ctladder  built from tools/probe/r10ladder1repro/ctladder.cpp, same
+                     flags -> /tmp/r10uvm89_ctladder.  MEASUREMENT-ONLY.
+
+SWEEPS     sweep89.sh <binary> <corpus> <tag>  (verify_golden.py --mode both
+           --jobs 2, my own --out/--workdir, SLANG_UHDM exported, GOLDEN_DEFER
+           echoed, cmds.txt grepped for the BINARY PATH afterwards)
+             /tmp/r10uvm89_{pris,pat}_surelog.csv      1588 rows each
+             /tmp/r10uvm89_{pris,pat}_uhdm2rtlil.csv   1462 rows each
+             workdirs /tmp/r10uvm89_wd_{pris,pat}_{surelog,uhdm2rtlil}
+
+CORPUS PATHS the arms and the decode read
+           uvm-1.2      ~/git-repos/Surelog/third_party/UVM/uvm-1.2/src
+           1800.2-2017  ~/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output
+           SeqDriver golden cache
+                        ~/.cache/slang-uhdm-goldens/b5b4389e30f948a6a29f/golden.uhdm
+
+SURELOG SOURCES the law is decoded FROM
+           src/DesignCompile/CompileHelper.cpp:2544   decompileHelper (the closed
+                                                     dispatch, no default arm)
+           src/DesignCompile/CompileExpression.cpp:5586  convention A
+                                                     ("[" + decompile(INDEX) + "]")
+           src/DesignCompile/CompileExpression.cpp:5547  convention B
+                                                     (decompile(ELEMENT))
+           src/DesignCompile/CompileExpression.cpp:1503  the LVALUE builder's own
+                                                     copy of convention A
+                                                     (compileSelectExpression)
+
+DRIVERS IN THIS DIRECTORY
+  ct89cen.cpp  the hier_path NAME census (--paths / --brk / --idx); per path it
+               prints NAME, NELEM, ELEMS, LVAL and one
+               MID|TRAIL:<elem>:IDX=<kinds>:BRK=<text> field per selected element
+  cen89.sh     runs ct89cen over golden AND ours for every row-mode of a workdir
+  join89.py    span-keyed golden-vs-ours join, classified BRK-EMPTIED /
+               BRK-DROPPED / BRK-FOLDED / OTHER
+  dis89.py     THE AUTHORITATIVE disagreement table: per (MID|TRAIL, element
+               kind, index kind, G/O bracket class, LVAL)
+  grid89.py    the GOLDEN-ONLY grid (calibration, golden vs golden shapes)
+  ana89.py     the golden grid restricted to indices decompileHelper has no row for
+  arm89.sh     one arm: Surelog golden + BOTH binaries in ONE scratch dir
+  three89.sh   the GOLDEN / PRISTINE / PATCHED name table for an arm workdir
+  pred89.sh    THE MOVER PREDICTOR, pristine bytes only
+  sweep89.sh / ct8rows.sh / byteverify.sh / attr89.sh / pins89.sh / bound89.sh
+  canaries.sh / ctcan2.sh / canaudit.sh   (carried forward unchanged)
+  rowladders89.sh  ctladder over named rows (MEASUREMENT-ONLY)

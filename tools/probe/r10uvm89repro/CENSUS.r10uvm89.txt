@@ -1,0 +1,94 @@
+r10uvm89 — THE CENSUS.  MEASUREMENT-ONLY.  LHS IS ALWAYS GOLDEN.
+
+Instrument: ct89cen (one row per hier_path, walking Serializer::AllObjects once —
+uhdm-dump reprints an object at every reference, so dump lines are NOT an object
+count) + dis89.py (span-keyed join, classified).
+
+JOIN KEY = THE SPAN ALONE.  Our hier_paths carry an EMPTY vpiFile, so a
+file|span key pairs NOTHING; the file basename is kept in the golden rows and
+printed, and the pairing is span + sorted order within a span.  paired-rows is
+reported so an unpaired census cannot read as agreement.
+
+CALIBRATION, GOLDEN vs GOLDEN (grid89.py over the five UVM row-modes, default):
+every bracket-named golden hier_path, keyed (MID|TRAIL, element kind, index kind,
+LVAL, bracket class).  THE SPLIT IS PERFECT:
+
+  MID   bit_select  IDX=hier_path            LVAL=0   EMPTY      12
+  MID   bit_select  IDX=hier_path            LVAL=2   EMPTY      49
+  MID   bit_select  IDX=bit_select           LVAL=2   TEXT [[i]] 14
+  MID   bit_select  IDX=constant             LVAL=0/2 TEXT       86 / 89
+  MID   bit_select  IDX=operation            LVAL=0/2 TEXT       68 / 83
+  MID   bit_select  IDX=ref_obj              LVAL=0/1/2 TEXT     495 / 232 / 3864
+  TRAIL bit_select  IDX=func_call            LVAL=1   EMPTY       5
+  TRAIL bit_select  IDX=hier_path            LVAL=1   EMPTY      34
+  TRAIL bit_select  IDX=bit_select           LVAL=2   DROPPED     2
+  TRAIL bit_select  IDX=constant             LVAL=0/1/2 TEXT     187 / 412 / 327
+  TRAIL bit_select  IDX=ref_obj              LVAL=0/1/2 TEXT     127 / 550 / 353
+  TRAIL bit_select  IDX=operation            LVAL=0/1 TEXT         4 / 2
+  TRAIL indexed_part_select IDX=hier_path,constant LVAL=0/2 TEXT   8 / 8
+  TRAIL part_select IDX=constant,constant    LVAL=0   TEXT         1
+  TRAIL var_select  IDX=ref_obj,ips          LVAL=2   TEXT         2
+
+READ IT: an index kind decompileHelper HAS a row for keeps its text in EVERY
+position (1379 TRAILING objects at LVAL=0, 1 and 2 alike — the negative control
+that kills "an rvalue loses its brackets").  An index kind it has NO row for is
+`[]` in 39 TRAILING objects, EVERY ONE AT LVAL=1, and DROPPED in 2, NOT at
+LVAL=1.  MID is `[]` at LVAL=0 AND LVAL=2 — position-independent.
+
+GOLDEN-vs-OURS, PRISTINE, differing paired rows by class (dis89.py).  SeqDriver
+/default; the other rows differ only in multiplicity:
+
+  16  MID/bit_select   GIDX=operation  G-TEXT|O-TEXT  LVAL=0   spacing, R1
+  12  MID/bit_select   GIDX=operation  G-TEXT|O-TEXT  LVAL=2   spacing, R1
+   9  SHAPE-MISMATCH   golden m_streams[].exists, ours has NO selected element  R3
+   8  TRAIL/bit_select GIDX=hier_path  G-EMPTY|O-TEXT LVAL=1   <- THIS LAW
+   4  TRAIL/bit_select GIDX=hier_path  G-DROP |O-TEXT LVAL=2   <- THIS LAW
+   4  TRAIL/bit_select GIDX=hier_path  G-DROP |O-TEXT LVAL=0   <- THIS LAW
+   2  TRAIL/ips        GIDX=hier_path,constant G-TEXT|O-EMPTY LVAL=0  R2
+   2  TRAIL/ips        GIDX=hier_path,constant G-TEXT|O-EMPTY LVAL=2  R2
+   1  TRAIL/bit_select GIDX=operation  G-TEXT|O-TEXT  LVAL=0   prettyPrint, R1
+   1  TRAIL/bit_select GIDX=func_call  G-EMPTY|O-TEXT LVAL=1   <- THE HEAD
+   2  SHAPE-MISMATCH   a task_func ORDER flip (the Scoreboard/default COIN)
+
+The uvm79 residue R1 quotation is IN THIS TABLE, measured: golden writes
+`top_map.m_regs_by_offset` at uvm_reg_map.svh:771 (LVAL=2, DROPPED) and
+`top_map.m_regs_by_offset_wo` at :773 (LVAL=0, DROPPED) where the LVALUE at :772
+is `[]` — one Surelog builder per position, not an inconsistency.
+
+AFTER THE PATCH, the SAME table per row-mode, diffed against the SAME table
+before: EVERY LINE IS A DELETION.  Nothing was added, nothing changed count.
+
+  default_SeqDriver     -8 -4 -4 -1  = 17 objects to golden
+  testflags_SeqDriver   -8 -4 -4 -1  = 17
+  default_SimpleUVM     -6 -2 -2 -1  = 11
+  testflags_SimpleUVM   -6 -2 -2 -1  = 11
+  default_Scoreboard    -6 -2 -2 -1  = 11
+  default_MiniAmiq      -8 -4 -4 -2 -1 = 19   (the -2 is the bit_select-index DROP)
+  testflags_MiniAmiq    -8 -4 -4 -2 -1 = 19
+  default_BuildUVMPkg   -6 -2 -2 -1  = 11
+  testflags_BuildUVMPkg -6 -2 -2 -1  = 11
+  default_Earlgrey_0_1  NO CHANGE AT ALL
+  testflags_Earlgrey_0_1 NO CHANGE AT ALL
+  default_Rggen         NO CHANGE AT ALL
+
+TOTAL 127 objects across 9 databases = exactly the 9 predicted byte movers and
+their predicted per-database cell counts.
+
+BRACKET-NAMED hier_path COUNT, golden vs ours, before -> after:
+  SeqDriver   1921 vs 1929 -> 1921 vs 1921   EXACT
+  SimpleUVM   1030 vs 1034 -> 1030 vs 1030   EXACT
+  Scoreboard  1030 vs 1034 -> 1030 vs 1030   EXACT
+  MiniAmiq    2025 vs 2033 -> 2025 vs 2025   EXACT
+  BuildUVMPkg  996 vs  999 ->  996 vs  995   one MISSING-OURS remains (R3)
+  Earlgrey    5355 vs 5432 -> unchanged (the FOLD family, not this law)
+  Rggen       3386 vs 3386 -> unchanged (the FOLD family, not this law)
+
+THE FOLD SUB-SHAPE WAS MEASURED AND IS NOT CLAIMED.  Earlgrey/Rggen's F1 members
+are golden `reg2hw…q[0]` vs ours `q[i]` and golden `register_if[12].value[0+:1]`
+vs ours `register_if[6+7*i+6].value[0 + 1 * l+:1]`: 475 (Earlgrey) + 24 (Rggen)
+BRK-FOLDED cells whose index kind is IDENTICAL on both sides and whose bracket
+text differs because golden decompiles an ELABORATED index (a folded constant)
+where we still hold the genvar/loop identifier.  That is elaborated-index folding
+— a different mechanism, orthogonal to which BRACKETS survive — and this pass
+leaves all 499 cells byte-identical to pristine, proven by the class-table diff
+above being EMPTY for those two rows.

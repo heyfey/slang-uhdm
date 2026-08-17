@@ -2142,6 +2142,32 @@ static void stampCloneTreeInstance(UHDM::typespec* ts, UHDM::instance* inst,
     }
 }
 
+// § hpMidSelIdxDecompiled79 / § hpTrailSelIdxDecompiled89 — THE CLOSED DISPATCH.
+// Surelog's `CompileHelper::decompileHelper` (CompileHelper.cpp:2544) renders an
+// index object by switching on its UHDM type, with NO `else` and NO default arm:
+// a CONSTANT gives its vpiDecompile, a REF_OBJ its vpiName, an OPERATION its
+// ExprEval::prettyPrint, the four SELECT kinds their own bracket text, and
+// EVERYTHING ELSE the EMPTY STRING.  This predicate is the "renders as itself"
+// half of that table -- the three kinds whose text a raw-source render already
+// equals.  It is a FILE-STATIC and not a lambda because BOTH hier_path-name
+// sites read it (`emitMixedHierPath` and the single-dim `chain` arm of the
+// ElementSelect case), and two copies of a closed dispatch list would drift.
+static bool rendersAsItself89(const slang::ast::Expression& e) {
+    switch (e.kind) {
+        case slang::ast::ExpressionKind::ElementSelect:
+        case slang::ast::ExpressionKind::RangeSelect:
+        case slang::ast::ExpressionKind::MemberAccess:
+        case slang::ast::ExpressionKind::Call:
+        case slang::ast::ExpressionKind::NewClass:
+        case slang::ast::ExpressionKind::NewArray:
+        case slang::ast::ExpressionKind::Streaming:
+        case slang::ast::ExpressionKind::Inside:
+            return false;
+        default:
+            return true;
+    }
+}
+
 // A selector's source text used inside a hier_path/select NAME drops
 // whitespace (mem[i][ 7: 0] -> [7:0]): Surelog normalizes the range in the
 // object name even when the source spaced it.
@@ -3730,27 +3756,17 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     // NOT implemented here (README residue R2): the corpus population of a
     // mid-path select-inside-operation index is ZERO, and prettyPrint is a
     // second closed dispatch that needs its own census.
+    // decompileHelper renders a CONSTANT, a REF_OBJ and an OPERATION as
+    // themselves; those are the three kinds idxText34 already covers.  The list
+    // itself now lives in the file-static `rendersAsItself89` because
+    // § hpTrailSelIdxDecompiled89's SITE 2 reads the SAME closed dispatch.
+    auto rendersAsItself = [&](const Expression& e) {
+        return rendersAsItself89(e);
+    };
     auto idxDecompile79 = [&](const Expression& selExpr,
                               bool mid) -> std::string {
         if (!mid)
             return idxText34(selExpr);
-        // decompileHelper renders a CONSTANT, a REF_OBJ and an OPERATION as
-        // themselves; those are the three kinds idxText34 already covers.
-        auto rendersAsItself = [&](const Expression& e) {
-            switch (e.kind) {
-                case ExpressionKind::ElementSelect:
-                case ExpressionKind::RangeSelect:
-                case ExpressionKind::MemberAccess:
-                case ExpressionKind::Call:
-                case ExpressionKind::NewClass:
-                case ExpressionKind::NewArray:
-                case ExpressionKind::Streaming:
-                case ExpressionKind::Inside:
-                    return false;
-                default:
-                    return true;
-            }
-        };
         // § hpMidSelIdxSelectIsBitSelectV79 — VERIFIER FIX.  decompileHelper
         // dispatches on the index OBJECT's UHDM TYPE, and only a select whose
         // base is a PLAIN IDENTIFIER becomes a `bit_select`/`part_select`.  A
@@ -3808,18 +3824,130 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         return idxText34(selExpr);
     };
 
+    // A multi-dim element select on the BASE array (group_status[0][0].a)
+    // emits one bit_select per dim with simple dotted fullnames and a special
+    // loc chain, distinct from the member-select (b.a[0].x) work@-doubled form.
+    // HOISTED above § hpTrailSelIdxDecompiled89's renderer, which reads it: the
+    // SAME predicate that already picks this hier_path's LVALUE SPAN also picks
+    // the TRAILING bracket convention, because both are consequences of WHICH
+    // Surelog builder ran.
+    bool baseSelMode = !comps.empty() && comps[0].isBase && !comps[0].sels.empty();
+
+    // § hpTrailSelIdxDecompiled89 — THE WHOLE BRACKET GROUP a component select
+    // contributes to this hier_path's NAME, brackets included, because whether
+    // the BRACKETS THEMSELVES survive is part of the law.
+    //
+    // Surelog assembles a path name by appending, per component select, one of
+    // TWO texts -- and they differ ONLY when the index is a kind
+    // `decompileHelper` has no row for:
+    //
+    //   A  "[" + decompileHelper(the INDEX) + "]"        -> `[]` survives
+    //   B        decompileHelper(the ELEMENT)            -> the whole `[...]`
+    //                                                       group VANISHES
+    //
+    // (CompileExpression.cpp:5586 is A, :5547 is B; `decompileHelper`'s
+    // bit_select row, CompileHelper.cpp:2558, emits its own brackets only for a
+    // CONSTANT / REF_OBJ / OPERATION index and NOTHING otherwise, which is why
+    // B can lose the brackets while A cannot.  For a part_select /
+    // indexed_part_select / var_select ELEMENT, B's own row builds the same
+    // `[l:r]` / `[b+:w]` text A does, so A and B agree there.)
+    //
+    // WHICH ONE, measured on golden two independent ways:
+    //
+    //   * a MID-PATH select is ALWAYS A -- § hpMidSelIdxDecompiled79's law,
+    //     unchanged, and the corpus confirms it in BOTH positions
+    //     (`m_streams[].exists` at LVAL=2, `m_inst_override_name_queues[].queue`
+    //     at LVAL=0);
+    //   * a TRAILING select is A when the hier_path is an ASSIGNMENT LVALUE and
+    //     B otherwise.
+    //
+    // That is uvm79's README residue R1 -- "golden's trailing sites are not even
+    // self-consistent: uvm_reg_map.svh writes `top_map.m_regs_by_offset` at 771
+    // and `top_map.m_regs_by_offset[]` at 772 for the SAME index expression, one
+    // rvalue and one lvalue" -- DECODED: they are not inconsistent, they are two
+    // Surelog call sites, and the LVALUE is the discriminator.
+    //
+    // Arm a1, golden, TRAILING LVALUE, one cell per index kind:
+    //     [2]              constant             -> [2]
+    //     [i]              ref_obj              -> [i]
+    //     [i + 1]          operation            -> [i + 1]
+    //     [gn()]           func_call            -> []        <- THE HEAD
+    //     [this.gn()]      method_func_call     -> []
+    //     [hh.gn()]        method_func_call     -> []
+    //     [f89(i)]         func_call (package)  -> []
+    //     [hh.q.size()]    method_func_call     -> []
+    //     [$clog2(8)]      sys_func_call        -> []
+    //     [oo.f]           hier_path            -> []
+    //     [ii[i]]          bit_select           -> [[i]]
+    //     [pk[3:0]]        part_select          -> [[3:0]]
+    //     [pk[1+:2]]       indexed_part_select  -> [[1+:2]]
+    //     [{s, s}]         operation            -> [{s,s}]
+    //     [i ? 1 : 2]      operation            -> [i ? 1 : 2]
+    //     ["lit"]          constant             -> ["lit"]
+    //     ['{a:1,b:2}]     operation            -> ['{,}]
+    // -- i.e. BYTE FOR BYTE the MID table, which is why this arm of the code is
+    // literally `mid || inLhs`.
+    //
+    // Arm a1, golden, the SAME kinds TRAILING and NOT an lvalue (rvalue,
+    // condition, call argument, out-of-body method, package function, module
+    // initial):  `oo = hh.amap[gn()]` -> `hh.amap`,
+    // `oo = hh.aidx[oo.f]` -> `hh.aidx`, `if (hh.aidx[oo.f] != null)` ->
+    // `hh.aidx`, `oo = hh.aidx[ii[i]]` -> `hh.aidx`.  THE GROUP IS GONE, and
+    // note the LAST one: a bit_select index renders `[[i]]` under A and NOTHING
+    // under B, so the gate is NOT "the index is empty" -- it is `rendersAsItself`
+    // on the index, the same closed dispatch list.
+    //
+    // Corpus, the five UVM row-modes, golden: TRAILING bit_select with an index
+    // decompileHelper has no row for is `[]` in 39 objects, EVERY ONE at LVAL=1,
+    // and DROPPED in 6, NONE at LVAL=1 -- a perfect split.  A TRAILING select
+    // with a CONSTANT / REF_OBJ / OPERATION index keeps its text at LVAL=0, 1
+    // AND 2 (187/412/327 and 127/550/353 objects), which is the negative control:
+    // convention B is not "an rvalue loses its brackets".
+    //
+    // `inLhs` is exactly golden's `vpiLhs` test: it is set around the LHS emit
+    // of an assignment expression (ExprEmit.cpp:5713), of a procedural
+    // `assign_stmt` (StmtEmit.cpp:1805) and of a `cont_assign`
+    // (ModuleEmit.cpp:22112) -- the three parents whose `Lhs()` the census reads.
+    // THE TRAILING GATE IS `inLhs && !baseSelMode`, NOT `inLhs` -- VERIFIED BY
+    // THE BOUNDARY GATE BEFORE LANDING.  r10uvm81's fenced arm `v81h_lvbase.sv`
+    // is the cell that forced it: `m[idx[idx[i]]].mi[idx[idx[i]]] = 3;` is an
+    // ASSIGNMENT LVALUE and golden still writes `m[].mi` -- THE GROUP GONE --
+    // while `mm.mi[oo.f] = 2;` on the same golden writes `mm.mi[]`.  Arm a2
+    // separates the two axes on one golden, 24 cells:
+    //     base NOT selected + LVALUE   -> []        (P1 P2 P4 P5, N1 N2)
+    //     base NOT selected + rvalue   -> gone      (P3 P6, N3)
+    //     base    SELECTED  + LVALUE   -> gone      (Q1 Q2 Q4 Q5 Q6, N4)
+    //     base    SELECTED  + rvalue   -> gone      (Q3, N5)
+    //     MID, either base, either position -> []   (P4/P5/P6's `amap[]`, and
+    //                                                v81h's own `m[]`)
+    // and the SPAN is the tell: golden's base-selected LVALUE hier_paths span
+    // the BASE TOKEN ALONE (`36:7-36:8`) where the others span the whole written
+    // path -- i.e. Surelog reached them through a DIFFERENT builder, which is
+    // also why they get a different bracket convention.  `baseSelMode` is the
+    // predicate this emitter ALREADY uses to reproduce that span, so the gate
+    // and the span it models cannot drift apart.
+    auto selGroup89 = [&](const Expression& selExpr, bool mid) -> std::string {
+        const std::string inner = idxDecompile79(selExpr, /*mid=*/true);
+        if (mid || (inLhs && !baseSelMode))
+            return "[" + inner + "]";
+        const Expression& e89 = stripImplicitConv(selExpr);
+        // B: a RANGE select's own decompileHelper row builds the brackets, so
+        // it is unchanged; a bit_select keeps them only for an index the
+        // dispatch has a row for.
+        if (e89.kind == ExpressionKind::RangeSelect)
+            return "[" + inner + "]";
+        if (!rendersAsItself(e89))
+            return {};
+        return "[" + inner + "]";
+    };
+
     std::string dotted;
     for (size_t i = 0; i < comps.size(); ++i) {
         bool mid79 = i + 1 < comps.size();
         dotted += (i == 0 ? comps[i].name : "." + comps[i].name);
         for (auto& sel : comps[i].sels)
-            dotted += "[" + idxDecompile79(*sel.sel, mid79) + "]";
+            dotted += selGroup89(*sel.sel, mid79);
     }
-
-    // A multi-dim element select on the BASE array (group_status[0][0].a)
-    // emits one bit_select per dim with simple dotted fullnames and a special
-    // loc chain, distinct from the member-select (b.a[0].x) work@-doubled form.
-    bool baseSelMode = !comps.empty() && comps[0].isBase && !comps[0].sels.empty();
 
     if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
         refCollector->insert(&baseNv->symbol);
@@ -3853,7 +3981,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 // `dotted` loop above, gated by the SAME `mid79`; the two must
                 // agree or the hier_path name and its bit_select fullnames
                 // disagree on the same select.
-                dottedAt += "[" + idxDecompile79(*comp.sels[k].sel, mid79) + "]";
+                dottedAt += selGroup89(*comp.sels[k].sel, mid79);
                 auto* bs = s.MakeBit_select();
                 if (k == 0) // only the first dim carries vpiName
                     bs->VpiName(comp.name);
@@ -3937,7 +4065,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             // § hpMixedIdxPkgFold34 / § concatIdxDecompile29 /
             // § hpMidSelIdxDecompiled79 — the SAME renderer as the `dotted`
             // loop above, gated by the SAME `mid79`.
-            dottedAt += "[" + idxDecompile79(*sel.sel, mid79) + "]";
+            dottedAt += selGroup89(*sel.sel, mid79);
             auto* bs = s.MakeBit_select();
             bs->VpiName(comp.name);
             bs->VpiParent(hp);
@@ -15159,7 +15287,115 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                         comp, importedParamDefTs);
                          !red9.empty())
                     idxTxt9 = red9;
-                dotted += "[" + idxTxt9 + "]";
+                // § hpTrailSelIdxDecompiled89 — SITE 2 of 2, AND THE HEAD'S OWN
+                // SITE.  `obj.member[<index>]` with NO further path component and
+                // NO select on the base is built HERE, not in
+                // `emitMixedHierPath` (that builder is entered only when the
+                // chain bottoms out in ANOTHER select), so this is where
+                // `provider.m_provided_to[get_full_name()] = this;` is named.
+                //
+                // The law (decoded from Surelog, measured on golden — the long
+                // statement is at § hpTrailSelIdxDecompiled89 in
+                // `emitMixedHierPath`): a TRAILING component select renders
+                //     "[" + decompileHelper(the INDEX)  + "]"   when the
+                //         hier_path is an ASSIGNMENT LVALUE (Surelog's
+                //         CompileExpression.cpp:5586 arm), so the brackets
+                //         SURVIVE EMPTY for an index the dispatch has no row for;
+                //           decompileHelper(the ELEMENT)         otherwise
+                //         (CompileExpression.cpp:5547 arm), and the bit_select
+                //         row emits its own brackets ONLY for a CONSTANT /
+                //         REF_OBJ / OPERATION index -- so the WHOLE `[...]`
+                //         GROUP VANISHES for anything else.
+                //
+                // The three arms below are exactly those three cases.  The FIRST
+                // one is byte-for-byte the pre-existing behaviour, which is why
+                // every TRAILING select with a constant / identifier / operation
+                // index (1379 golden objects across the five UVM row-modes, at
+                // LVAL=0, 1 and 2 alike) is untouched: this law can only reach an
+                // index kind `decompileHelper` has NO row for.
+                //
+                // Golden, arm a1, in-body class method, TRAILING LVALUE:
+                //   hh.amap[gn()]        -> hh.amap[]        func_call
+                //   hh.amap[this.gn()]   -> hh.amap[]        method_func_call
+                //   hh.amap[hh.gn()]     -> hh.amap[]        method_func_call
+                //   hh.aidx[f89(i)]      -> hh.aidx[]        func_call (package)
+                //   hh.aidx[hh.q.size()] -> hh.aidx[]        method_func_call
+                //   hh.aidx[$clog2(8)]   -> hh.aidx[]        sys_func_call
+                //   hh.aidx[oo.f]        -> hh.aidx[]        hier_path
+                //   hh.apat['{a:1,b:2}]  -> hh.apat['{,}]    operation (residue R2)
+                //   hh.aidx[ii[i]]       -> hh.aidx[[i]]     bit_select
+                //   hh.aidx[pk[3:0]]     -> hh.aidx[[3:0]]   part_select
+                //   hh.aidx[pk[1+:2]]    -> hh.aidx[[1+:2]]  indexed_part_select
+                // and the SAME kinds NOT in lvalue position (rvalue, condition,
+                // call argument, out-of-body method, package function, module
+                // initial) lose the group entirely:
+                //   oo = hh.amap[gn()]           -> hh.amap
+                //   oo = hh.aidx[oo.f]           -> hh.aidx
+                //   if (hh.aidx[oo.f] != null)   -> hh.aidx
+                //   oo = hh.aidx[ii[i]]          -> hh.aidx
+                // -- note the LAST: a bit_select index renders `[[i]]` under the
+                // lvalue arm and NOTHING here, so the gate is `rendersAsItself89`
+                // on the index and NOT "the rendered text is empty".
+                //
+                // `inLhs` is exactly the census's `LVAL=1`: it is set around the
+                // LHS emit of an assignment expression (ExprEmit.cpp), of a
+                // procedural `assign_stmt` (StmtEmit.cpp) and of a `cont_assign`
+                // (ModuleEmit.cpp) — the three parents whose `Lhs()` is read.
+                const Expression& sx89 = stripImplicitConv(es.selector());
+                if (rendersAsItself89(sx89)) {
+                    dotted += "[" + idxTxt9 + "]";
+                }
+                else if (!inLhs) {
+                    // decompileHelper(ELEMENT): no row for this index kind.
+                }
+                else {
+                    // decompileHelper(INDEX) wrapped in brackets.  Its SELECT
+                    // rows render their own bracket text, and a select written
+                    // over a member access is a UHDM hier_path, which has no row
+                    // (§ hpMidSelIdxSelectIsBitSelectV79's measurement).
+                    std::string in89;
+                    if (sx89.kind == ExpressionKind::ElementSelect ||
+                        sx89.kind == ExpressionKind::RangeSelect) {
+                        const Expression* sb89 = &sx89;
+                        for (;;) {
+                            if (sb89->kind == ExpressionKind::ElementSelect)
+                                sb89 = &stripImplicitConv(
+                                    sb89->as<ElementSelectExpression>().value());
+                            else if (sb89->kind == ExpressionKind::RangeSelect)
+                                sb89 = &stripImplicitConv(
+                                    sb89->as<RangeSelectExpression>().value());
+                            else
+                                break;
+                        }
+                        if (sb89->kind == ExpressionKind::NamedValue) {
+                            if (sx89.kind == ExpressionKind::ElementSelect) {
+                                const Expression& i89 = stripImplicitConv(
+                                    sx89.as<ElementSelectExpression>().selector());
+                                if (rendersAsItself89(i89))
+                                    in89 = "[" + spaceIdxOps(selName(
+                                               rawText(i89.sourceRange))) + "]";
+                            }
+                            else {
+                                auto& rs89 = sx89.as<RangeSelectExpression>();
+                                std::string m89;
+                                switch (rs89.getSelectionKind()) {
+                                    case RangeSelectionKind::Simple:
+                                        m89 = ":"; break;
+                                    case RangeSelectionKind::IndexedUp:
+                                        m89 = "+:"; break;
+                                    case RangeSelectionKind::IndexedDown:
+                                        m89 = "-:"; break;
+                                }
+                                in89 = "[" +
+                                       spaceIdxOps(selName(rawText(
+                                           rs89.left().sourceRange))) + m89 +
+                                       spaceIdxOps(selName(rawText(
+                                           rs89.right().sourceRange))) + "]";
+                            }
+                        }
+                    }
+                    dotted += "[" + in89 + "]";
+                }
                 hp->VpiName(dotted);
                 hp->VpiFullName(dotted);
                 hp->VpiParent(parent);

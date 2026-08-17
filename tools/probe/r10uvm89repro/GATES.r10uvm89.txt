@@ -1,0 +1,120 @@
+r10uvm89 — THE GATES.  All five mandatory gates, RUN, with their controls.
+GOLDEN_DEFER read [UNSET] on every sweep.  results/*.csv were READ ONLY.
+NOTHING WAS PROMOTED.  NO ROW CONVERTED.  slang was NOT patched.
+Baselines are the ones IN MY OWN WORKTREE, /tmp/wt_r10uvm89 @ 1995a67
+(results/golden_surelog.csv = 1588 rows both modes; results/gate_uhdm2rtlil.csv
+= 731 TESTFLAGS-ONLY rows).
+
+(1) BUILD — ONE worktree (/tmp/wt_r10uvm89 @ 1995a67), -j 2, md5 taken
+    SEPARATELY after each build
+      PRISTINE  /tmp/r10uvm89_bin/slang-uhdm.pris  8c0c3117060071d0c48bd1a3910ed4cc
+      PATCHED   /tmp/r10uvm89_bin/slang-uhdm.pat   f43f3f12bde2230ff65752b6942e049c
+    CROSS-CHECK that the pristine binary really is the committed base: 8 of the
+    9 pristine surelog databases this pass moves carry the EXACT md5 prefixes
+    r10uvm88's GATES recorded as its PATCHED values (MiniAmiq eebc11cbeaf5,
+    Scoreboard 7dc5f4e87180, SeqDriver 527feb4653aa / b5accf5d5d75, SimpleUVM
+    c546931d6fee / 72907696c435).  BuildUVMPkg reads 17fc5fc4db08 where uvm88
+    recorded 7c37b8331853 — uvm88's number was taken PRE-COMMIT in its own
+    worktree; ct8rows says 0 differing rows against the COMMITTED baseline on
+    both binaries, which is the authority here.
+
+(2) GOLDENS — tests/check_goldens.sh, SLANG_UHDM exported EXPLICITLY to each
+      PATCHED                23 PASS / 0 FAIL
+      PRISTINE               23 PASS / 0 FAIL
+      SLANG_UHDM=/bin/false   0 PASS / 23 FAIL   <- the negative control: the
+                                                    harness really does read
+                                                    SLANG_UHDM (it defaults to
+                                                    the MAIN-TREE binary)
+
+(3) uhdm2rtlil — verify_golden.py --corpus uhdm2rtlil --mode both --jobs 2, my
+    own --out/--workdir; cmds.txt grepped for the BINARY PATH afterwards (not
+    the substring `slang-uhdm`, which also matches `slang-uhdm-goldens/...`)
+      PATCHED  [default]   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+               [testflags] 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+      PRISTINE  identical histograms, both modes
+      cmds.txt: 1458 lines naming /tmp/r10uvm89_bin/slang-uhdm.pat (1458 naming
+               .pris in the pristine workdir)
+      ct8rows PATCHED  (testflags-filtered) vs results/gate_uhdm2rtlil.csv:
+               731 ROWS, 0 differing ROWS, status AND dump histograms identical
+      ct8rows PRISTINE (testflags-filtered) vs the same baseline: 0 differing ROWS
+      ct8rows PATCHED vs PRISTINE, BOTH MODES, all 1462 rows: 0 differing ROWS
+               (the DEFAULT half has no committed baseline — the gate CSV is
+               testflags-only — so it is gated against the pristine sweep, and
+               that comparison is reported here rather than hidden)
+      byteverify PAT vs PRIS: 1358 paths, PATH_SETS_IDENTICAL, MOVERS 0 / 1358
+               — EXACTLY what PREDICT said (pred89.sh over the 1358 pristine
+               databases found ZERO cells this law can reach)
+               SELFCHECK=1  1357 / 1358 flagged (the comparator can see)
+      canaries.sh  ok=18 changed=0 absent=0 unknown-names=27 (expected 27)
+                   [vs the pristine both-modes CSV; vs the TESTFLAGS-ONLY
+                    committed gate CSV the 9 default rows read ABSENT, which is
+                    the baseline's shape and NOT a change — both runs recorded]
+      ctcan2.sh    ok=2  changed=0 absent=0 unknown-patterns=6 (EXPECT_UNKNOWN=6)
+
+(4) surelog — verify_golden.py --corpus surelog --mode both --jobs 2
+      PATCHED  [default]   470 CMP_EQUAL / 11 CMP_NOTEQUAL / 5 DEFERRED /
+                           283 SLANG_REJECT / 25 SURELOG_FAIL
+               [testflags] 466 CMP_EQUAL / 9 CMP_NOTEQUAL / 5 DEFERRED /
+                           3 NO_DATABASE / 1 NO_UHDM / 284 SLANG_REJECT /
+                           23 SURELOG_FAIL / 1 TIMEOUT / 2 UNTRANSLATABLE
+      PRISTINE  identical histograms, both modes.
+      cmds.txt: 1523 lines naming the binary under test, per workdir.
+      ct8rows PATCHED  vs results/golden_surelog.csv: 1588 ROWS, 0 differing
+               ROWS, status AND dump histograms identical per mode.
+      ct8rows PRISTINE vs the same baseline:           0 differing ROWS.
+      THE WHOLE STATUS HISTOGRAM WAS READ, not only the NE rows — an rc=139
+      segfault is recorded as SLANG_REJECT wearing the last stderr warning, and
+      SLANG_REJECT is 283/284 on BOTH binaries and unchanged.
+      NO ROW CONVERTED.  All eleven / nine CMP_NOTEQUAL rows stay CMP_NOTEQUAL.
+      The seven UVM row-modes keep that status with a NEW head and a SHORTER cmp
+      (96 -> 89 lines).
+      canaries.sh  ok=56 changed=0 absent=0 unknown-names=8 (expected 8)
+      ctcan2.sh    ok=58 changed=0 absent=0 unknown-patterns=1 (EXPECT_UNKNOWN=1)
+      canaudit.sh  audited=33 UNCOVERED=0 FENCE-BREACH=0; the four slang-fenced
+                   names appear in NO driver in this directory.
+      NAMED PINS, md5 of the patched database vs the pristine one (pins89.sh):
+        InterfaceModPort   default/testflags  59a365f3ce2c = 59a365f3ce2c
+        BlackParrotComplex default e3e354129d5a, testflags 73a10e8217e5, both =
+        YosysOldOr         default/testflags  d68e0796d62c = d68e0796d62c
+        SVSwitch           default/testflags  4842211c4030  <- the brief's pin
+        YosysVerx          default/testflags  6ccda350c24a  <- the brief's pin
+      SAME=10 MOVED=0 UNKNOWN-NAME=0.
+
+(5) BYTES — byteverify.sh on the surelog corpus, BOTH negative controls
+      956 paths, PATH_SETS_IDENTICAL, MOVERS 9 / 956:
+        ./default/BuildUVMPkg-bf853d43    17fc5fc4db08 -> 36d3e6bbab21
+        ./default/MiniAmiq-544c7f61       eebc11cbeaf5 -> 469d3f81fcd6
+        ./default/Scoreboard-59431470     7dc5f4e87180 -> 58672a7a6f13
+        ./default/SeqDriver-32af76aa      527feb4653aa -> b3f7cbea3d31
+        ./default/SimpleUVM-1dc93a62      c546931d6fee -> c3116fd56e0b
+        ./testflags/BuildUVMPkg-bf853d43  17fc5fc4db08 -> 36d3e6bbab21
+        ./testflags/MiniAmiq-544c7f61     eebc11cbeaf5 -> 469d3f81fcd6
+        ./testflags/SeqDriver-32af76aa    b5accf5d5d75 -> 14805ef8cf43
+        ./testflags/SimpleUVM-1dc93a62    72907696c435 -> 64046e4e0763
+      EXACTLY the nine PREDICT named BY NAME from the PRISTINE bytes, with the
+      per-database CELL COUNTS matching too (PRED_SURELOG.r10uvm89.txt:
+      SeqDriver 17, MiniAmiq 19, SimpleUVM/Scoreboard/BuildUVMPkg 11).
+      SELFCHECK=1   955 / 956 flagged.
+      SELFCHECK1=1  10  (the 9 real movers + the 1 corrupted file).
+      ATTRIBUTION (attr89.sh), SeqDriver/default, 312 delta lines:
+        58 `\_bit_select` out / 58 in, 52 `\_hier_path` out / 52 in,
+        29 `|vpiFullName` out / 29 in, 17 `|vpiName` out / 17 in
+      — FOUR line kinds and nothing else, insertions == deletions on every one,
+      and `|vpiName` = 17 = the predicted cell count for that database.
+      BuildUVMPkg 192 lines (11 vpiName), MiniAmiq 344 lines (19 vpiName).
+
+(6) BOUNDARY — bound89.sh over uvm77-88, buvm3-11, sd8-12 arm sources
+      LISTED=596 PROCESSED=596 (asserted equal; the list is read on fd 3 and
+      every child gets </dev/null), MOVED=1, NO_OUTPUT=6.
+      THE ONE MOVED ARM IS SAID OUT LOUD: r10uvm81repro/v81h_lvbase.sv, 80 dump
+      lines.  It moves TOWARD GOLDEN.  Its two cells, measured three ways
+      (three89.sh, GOLDEN / PRISTINE / PATCHED):
+        m[idx[idx[i]]].mi[idx[idx[i]]] = 3   golden m[].mi
+                                            pristine m[].mi[idx[idx[i]]]
+                                            patched  m[].mi          FIXED
+        the module twin at :50                                        FIXED
+      FIXED=2 BROKE=0.  cmp dumpdiff 538 -> 484.  THIS ARM IS ALSO WHAT FORCED
+      THE FINAL GATE (`inLhs && !baseSelMode`, not `inLhs`) — see README.
+      The 6 NO_OUTPUT sources produce NO DATABASE ON EITHER BINARY (checked
+      per-side: pris.uhdm=NO and pat.uhdm=NO for all six), i.e. pre-existing
+      slang rejections, symmetric.

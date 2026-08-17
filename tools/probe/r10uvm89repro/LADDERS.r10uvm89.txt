@@ -1,0 +1,49 @@
+r10uvm89 — THE LADDER.  ctladder (tools/probe/r10ladder1repro/ctladder.cpp),
+MEASUREMENT-ONLY; the official uhdm-cmp remains the sole judge.
+MAX=200 rungs, BUDGET=900s, PRISTINE and PATCHED databases from my own sweeps.
+
+  row                  rungs  stop        F1 (hier_path|VpiName) rungs in 200
+  default_SeqDriver      200  MAX-RUNGS   pristine 8  ->  patched 6
+  default_BuildUVMPkg    193/192 FIXPOINT pristine 5  ->  patched 4
+
+PRISTINE default_SeqDriver, the 8 F1 rungs, in ladder order:
+  1  provider.m_provided_to[]        | provider.m_provided_to[get_full_name()]  <- THE HEAD, CLAIMED
+  2  gp.m_byte_enable[i % ]          | gp.m_byte_enable[i % gp.m_byte_enable_length]   R1
+  3  packer.m_bits[+:#]              | packer.m_bits[]                                  R2
+  4  packer.m_bits[+:#]              | packer.m_bits[]                                  R2
+  5  packer.m_bits[+:#]              | packer.m_bits[]                                  R2
+  6  packer.m_bits[+:#]              | packer.m_bits[]                                  R2
+  7  m_streams[].exists              | m_streams[ro.get_name()].exists                  R3
+  8  c.objection.m_scheduled_contexts[] | ...[c.obj]                            <- CLAIMED
+PATCHED: rungs 1 and 8 are GONE; the other six are unchanged, in order.
+
+PRISTINE default_BuildUVMPkg, the 5 F1 rungs:
+  1  m_streams[].exists | m_streams[ro.get_name()].exists                              R3
+  2  provider.m_provided_to[] | provider.m_provided_to[get_full_name()]      <- CLAIMED
+  3  m_children[].get_type_name | m_children[child.get_name()].get_type_name           R3
+  4  m_streams[].exists | m_streams[stream.get_name()].exists                          R3
+  5  m_streams[].size   | m_streams[stream.get_name()].size                            R3
+PATCHED: rung 2 is GONE; the other four are unchanged, in order.
+
+WHAT THE LAW CLAIMS OF F1.  CLUSTERS.vladder1.md's F1 is 98 distinct objects /
+98 rungs over 9 rows.  Measured in the census's own currency (objects brought to
+golden, which is what a rung is made of), this law claims 127 objects over 9
+databases — 17/17 SeqDriver, 11/11 SimpleUVM, 11 Scoreboard, 19/19 MiniAmiq,
+11/11 BuildUVMPkg — and ZERO on Earlgrey_0_1 and Rggen.  In the ladder's own
+first-200-rung currency it claims 2 of SeqDriver's 8 F1 rungs and 1 of
+BuildUVMPkg's 5.  IT LEAVES three sub-shapes, all of them measured above:
+  R1  ExprEval::prettyPrint — golden drops a hier_path operand of an OPERATION
+      index (`[i % ]`) and spaces its operators (`[idx - 1]` vs ours `[idx-1]`).
+      28-29 MID objects + 1-3 TRAIL objects per UVM row.  A SECOND closed
+      dispatch, needing its own census (uvm79's R2, still open).
+  R2  a TRAILING indexed_part_select in a DIFFERENT emitter arm: golden
+      `packer.m_bits[+:32]`, ours `packer.m_bits[]`.  OURS IS TOO EMPTY here,
+      the opposite direction, 4 objects per UVM row.  Convention A and B AGREE
+      for a range element, so this law cannot reach it.
+  R3  a select under a METHOD-CALL chain (`m_streams[].exists`,
+      `m_children[].get_type_name`): our path's element list has NO selected
+      element at all, so it is a STRUCTURAL family, not a name-text one.
+      5-9 objects per UVM row.
+  R4  the FOLD sub-shape, Earlgrey/Rggen only: golden decompiles an ELABORATED
+      index (`q[0]`, `register_if[12]`) where we hold the genvar (`q[i]`,
+      `register_if[6+7*i+6]`).  499 objects, ZERO touched by this pass.

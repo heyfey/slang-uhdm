@@ -1,0 +1,53 @@
+r10uvm89 — THE ARMS.  Every cell read off ONE golden, three ways
+(three89.sh: GOLDEN / PRISTINE / PATCHED).  MEASUREMENT-ONLY.
+
+ARM a1  g89_a1_idxkind.sv — WHICH INDEX KIND, AND WHERE
+  17 index kinds x TRAILING/MID x LVALUE/rvalue/argument/condition, in an
+  IN-BODY class method, an OUT-OF-BODY method, a PACKAGE function, a module
+  `initial` and a module `always_comb`.
+  RESULT: FIXED=27  BROKE=0  STILL-WRONG=3.
+  GOLDEN's TRAILING-LVALUE table, one cell per kind (all now reproduced):
+    [2] constant -> [2]              [i] ref_obj -> [i]
+    [i + 1] operation -> [i + 1]     ["lit"] constant -> ["lit"]
+    [{s, s}] operation -> [{s,s}]    [i ? 1 : 2] operation -> [i ? 1 : 2]
+    [gn()] func_call -> []           [this.gn()] method_func_call -> []
+    [hh.gn()] method_func_call -> [] [f89(i)] func_call -> []
+    [hh.q.size()] method_func_call -> []   [$clog2(8)] sys_func_call -> []
+    [oo.f] hier_path -> []           [ii[i]] bit_select -> [[i]]
+    [pk[3:0]] part_select -> [[3:0]] [pk[1+:2]] ips -> [[1+:2]]
+  and the same kinds NOT in lvalue position lose the group entirely.
+  THE THREE RESIDUES, each a DIFFERENT family, all identical in pristine:
+    * `hh.apat['{a: 1, b: 2}]` vs golden `hh.apat['{,}]` — an ASSIGNMENT
+      PATTERN index is an OPERATION, so decompileHelper HAS a row for it and
+      recurses into ExprEval::prettyPrint, which drops its operands.  Same
+      family as `gp.m_byte_enable[i % ]`.  R1.
+    * `gn().len` at 81:25 — we emit a hier_path golden does not.  EXTRA-OURS.
+    * `hh.amap[gn()].nm.len` vs golden `hh.amap[].nm` — a select followed by a
+      METHOD CALL CHAIN goes through a different builder whose element list has
+      no bit_select at all.  R3.
+
+ARM a2  g89_a2_base.sv — WHICH SELECT DECIDES (the axis-separating arm)
+  base-NOT-selected vs base-SELECTED  x  LVALUE vs rvalue  x  TRAIL vs MID,
+  every index a func_call or a member select (a kind with NO decompileHelper
+  row), in a class method AND a module `initial`.  24 cells.
+  RESULT: FIXED=17  BROKE=0  STILL-WRONG=7 (all 7 are EXTRA-OURS hier_paths for
+  the index expressions themselves — `gn().len`, `oo.f` — present in pristine).
+  GOLDEN's answer, the whole point of the arm:
+      base NOT selected + LVALUE   -> []      P1 P2 P4 P5, N1 N2
+      base NOT selected + rvalue   -> gone    P3 P6, N3
+      base    SELECTED + LVALUE    -> gone    Q1 Q2 Q4 Q5 Q6, N4
+      base    SELECTED + rvalue    -> gone    Q3, N5
+      MID, either base, either position -> [] (P4/P5/P6's `amap[]`)
+  and golden's base-selected LVALUE hier_paths SPAN THE BASE TOKEN ALONE
+  (`36:7-36:8`) where the others span the whole written path — the tell that
+  Surelog reached them through a different builder.
+
+ARM v81h  r10uvm81repro/v81h_lvbase.sv — THE FENCED ARM THAT FORCED THE GATE
+  Not written by this pass: it is one of the 596 sources the standing brief
+  fences, and the BOUNDARY GATE flagged it MOVED on the FIRST cut of this law
+  (gate = `inLhs` alone).  Reading it against GOLDEN is what produced arm a2 and
+  the final gate `inLhs && !baseSelMode`.
+    `m[idx[idx[i]]].mi[idx[idx[i]]] = 3;`  golden m[].mi   (LVALUE, group GONE)
+    `mm.mi[oo.f] = 2;` on the same golden  golden mm.mi[]  (LVALUE, `[]`)
+  FIRST CUT:  m[].mi[] — WRONG, and the boundary gate caught it.
+  FINAL:      m[].mi   — GOLDEN.  FIXED=2 BROKE=0, dumpdiff 538 -> 484.

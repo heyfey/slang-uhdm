@@ -1,0 +1,96 @@
+LHS:
+decompile:
+hier_path: (provider.m_provided_to[]), id:274991, line:485:5, endln:485:44
+|vpiParent:
+\_assignment: , id:274990, line:485:5, endln:485:51
+|vpiActual:
+\_ref_obj: (provider), id:274992, line:485:14, endln:485:27
+  |vpiParent:
+  \_hier_path: (provider.m_provided_to[]), id:274991, line:485:5, endln:485:44
+  |vpiName:provider
+|vpiActual:
+\_bit_select: (uvm_pkg::uvm_port_base::connect::provider.m_provided_to[]::m_provided_to), id:274993, line:485:14, endln:485:44
+  |vpiParent:
+  \_hier_path: (provider.m_provided_to[]), id:274991, line:485:5, endln:485:44
+  |vpiName:m_provided_to
+  |vpiFullName:uvm_pkg::uvm_port_base::connect::provider.m_provided_to[]::m_provided_to
+  |vpiIndex:
+  \_func_call: (get_full_name), id:274994, line:485:28, endln:485:43
+    |vpiParent:
+    \_bit_select: (uvm_pkg::uvm_port_base::connect::provider.m_provided_to[]::m_provided_to), id:274993, line:485:14, endln:485:44
+    |vpiName:get_full_name
+    |vpiFunction:
+    \_function: (uvm_pkg::uvm_port_base::get_full_name), id:274733, line:263:3, endln:263:10
+|vpiName:provider.m_provided_to[]
+
+decompile:
+hier_path: (provider.m_provided_to[]), id:274991, line:485:5, endln:485:44
+|vpiParent:
+\_assignment: , id:274990, line:485:5, endln:485:51
+|vpiActual:
+\_ref_obj: (provider), id:274992, line:485:14, endln:485:27
+  |vpiParent:
+  \_hier_path: (provider.m_provided_to[]), id:274991, line:485:5, endln:485:44
+  |vpiName:provider
+|vpiActual:
+\_bit_select: (uvm_pkg::uvm_port_base::connect::provider.m_provided_to[]::m_provided_to), id:274993, line:485:14, endln:485:44
+  |vpiParent:
+  \_hier_path: (provider.m_provided_to[]), id:274991, line:485:5, endln:485:44
+  |vpiName:m_provided_to
+  |vpiFullName:uvm_pkg::uvm_port_base::connect::provider.m_provided_to[]::m_provided_to
+  |vpiIndex:
+  \_func_call: (get_full_name), id:274994, line:485:28, endln:485:43
+    |vpiParent:
+    \_bit_select: (uvm_pkg::uvm_port_base::connect::provider.m_provided_to[]::m_provided_to), id:274993, line:485:14, endln:485:44
+    |vpiName:get_full_name
+    |vpiFunction:
+    \_function: (uvm_pkg::uvm_port_base::get_full_name), id:274733, line:263:3, endln:263:10
+|vpiName:provider.m_provided_to[]
+RHS:
+decompile:
+hier_path: (provider.m_provided_to[get_full_name()]), id:52787, line:485:5, endln:485:44
+|vpiParent:
+\_assignment: , id:52786, line:485:5, endln:485:51
+|vpiActual:
+\_ref_obj: (provider), id:52788, line:485:14, endln:485:27
+  |vpiParent:
+  \_hier_path: (provider.m_provided_to[get_full_name()]), id:52787, line:485:5, endln:485:44
+  |vpiName:provider
+|vpiActual:
+\_bit_select: (uvm_pkg::uvm_port_base::connect::provider.m_provided_to[get_full_name()]::m_provided_to), id:52789, line:485:14, endln:485:44
+  |vpiParent:
+  \_hier_path: (provider.m_provided_to[get_full_name()]), id:52787, line:485:5, endln:485:44
+  |vpiName:m_provided_to
+  |vpiFullName:uvm_pkg::uvm_port_base::connect::provider.m_provided_to[get_full_name()]::m_provided_to
+  |vpiIndex:
+  \_func_call: (get_full_name), id:52790, line:485:28, endln:485:41
+    |vpiParent:
+    \_bit_select: (uvm_pkg::uvm_port_base::connect::provider.m_provided_to[get_full_name()]::m_provided_to), id:52789, line:485:14, endln:485:44
+    |vpiName:get_full_name
+    |vpiFunction:
+    \_function: (uvm_pkg::uvm_port_base::get_full_name), id:52536, line:263:3, endln:265:14
+|vpiName:provider.m_provided_to[get_full_name()]
+
+decompile:
+hier_path: (provider.m_provided_to[get_full_name()]), id:52787, line:485:5, endln:485:44
+|vpiParent:
+\_assignment: , id:52786, line:485:5, endln:485:51
+|vpiActual:
+\_ref_obj: (provider), id:52788, line:485:14, endln:485:27
+  |vpiParent:
+  \_hier_path: (provider.m_provided_to[get_full_name()]), id:52787, line:485:5, endln:485:44
+  |vpiName:provider
+|vpiActual:
+\_bit_select: (uvm_pkg::uvm_port_base::connect::provider.m_provided_to[get_full_name()]::m_provided_to), id:52789, line:485:14, endln:485:44
+  |vpiParent:
+  \_hier_path: (provider.m_provided_to[get_full_name()]), id:52787, line:485:5, endln:485:44
+  |vpiName:m_provided_to
+  |vpiFullName:uvm_pkg::uvm_port_base::connect::provider.m_provided_to[get_full_name()]::m_provided_to
+  |vpiIndex:
+  \_func_call: (get_full_name), id:52790, line:485:28, endln:485:41
+    |vpiParent:
+    \_bit_select: (uvm_pkg::uvm_port_base::connect::provider.m_provided_to[get_full_name()]::m_provided_to), id:52789, line:485:14, endln:485:44
+    |vpiName:get_full_name
+    |vpiFunction:
+    \_function: (uvm_pkg::uvm_port_base::get_full_name), id:52536, line:263:3, endln:265:14
+|vpiName:provider.m_provided_to[get_full_name()]

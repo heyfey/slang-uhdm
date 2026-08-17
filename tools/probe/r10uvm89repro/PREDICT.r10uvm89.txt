@@ -1,0 +1,27 @@
+r10uvm89 — THE PREDICTION, MADE FROM PRISTINE BYTES BEFORE THE PATCHED BINARY
+EXISTED (pred89.sh; full listings in PRED_SURELOG.r10uvm89.txt and
+PRED_U2R.r10uvm89.txt).
+
+WHAT IS REACHABLE, read off a pristine database with no reference to the patch:
+a hier_path with a TRAILING bit_select whose INDEX kind is not
+constant / ref_obj / operation.  ct89cen --idx prints exactly that field.
+
+SURELOG CORPUS, 956 pristine databases -> 9 PREDICTED MOVERS, BY NAME:
+  11  default/BuildUVMPkg-bf853d43
+  19  default/MiniAmiq-544c7f61
+  11  default/Scoreboard-59431470
+  17  default/SeqDriver-32af76aa
+  11  default/SimpleUVM-1dc93a62
+  11  testflags/BuildUVMPkg-bf853d43
+  19  testflags/MiniAmiq-544c7f61
+  17  testflags/SeqDriver-32af76aa
+  11  testflags/SimpleUVM-1dc93a62
+  the other 947 databases predicted BYTE-IDENTICAL.
+
+UHDM2RTLIL CORPUS, 1358 pristine databases -> 0 PREDICTED MOVERS.
+  This is the law's strongest negative control: a CMP_EQUAL uhdm2rtlil row
+  carrying one of these cells would refute it outright, and NONE does.
+
+MEASURED (gate 5): MOVERS 9 / 956 and 0 / 1358 — exactly the predicted sets, and
+the per-database `|vpiName` delta-line counts in the attribution (17 / 11 / 19)
+equal the predicted per-database cell counts.
