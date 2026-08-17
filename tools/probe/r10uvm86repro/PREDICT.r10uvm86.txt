@@ -1,0 +1,83 @@
+r10uvm86 — THE MOVER PREDICTION, BY NAME, FROM PRISTINE DATABASES ALONE.
+
+Instrument: ct86cen.cpp (this directory), built UNMODIFIED, run over the golden
+cache and over /tmp/r10uvm86_wd_PRIS_surelog.  ct86cen never reads a patched
+database and never runs the emitter; the whole prediction is a join of
+  GHEAD  golden's REDUCED negated literal (constant, vpiConstType 7, decompile
+         starting '-') sitting at a return_stmt's vpiCondition, and
+  OHEAD  our return_stmt whose condition is an operation vpiOpType 1 over ONE
+         constant operand,
+tagged with the LISTING the enclosing subroutine is reached from (DEFPKG =
+uhdmallPackages, TOPPKG = uhdmtopPackages) and with DIRECT/nested (the
+return_stmt's own vpiParent being the task_func, or the synthetic begin whose
+parent is the task_func).
+
+THE PREDICTED MOVER SET — 3 / 1 / 1 / 3 / 0 OBJECTS PER DATABASE.
+
+  row/mode                 objects  the OBJECTS, by fullname and listing
+  SeqDriver default            3    uvm_pkg::uvm_sequencer_base::get_seq_kind  TOPPKG
+                                    adpcm_pkg::uvm_sequencer_base::get_seq_kind TOPPKG
+                                    adpcm_pkg::uvm_sequencer_base::get_seq_kind DEFPKG
+  SeqDriver testflags          3    the same three
+  SimpleUVM default            1    uvm_pkg::uvm_sequencer_base::get_seq_kind  TOPPKG
+  SimpleUVM testflags          1    the same one
+  Scoreboard default           1    the same one
+  Scoreboard testflags         -    SLANG_REJECT, no database on either binary
+  MiniAmiq default             3    uvm_pkg::uvm_sequencer_base::get_seq_kind  TOPPKG
+                                    svaunit_pkg::uvm_sequencer_base::get_seq_kind TOPPKG
+                                    svaunit_pkg::uvm_sequencer_base::get_seq_kind DEFPKG
+  MiniAmiq testflags           3    the same three
+  BuildUVMPkg default          0    GHEAD 0 and OHEAD 29 == 29 on both sides
+  BuildUVMPkg testflags        0    the same
+
+  every one of them is `return -1;` at uvm_sequencer_base.svh:1685:10 —
+  uvm-1.2's ONLY out-of-body, direct-body-statement negated-literal return.
+
+THE OBJECTS THAT MUST NOT MOVE — golden keeps the OPERATION on all of them, and
+they are the whole reason the law needs both of its fences.  ct86cen lists them
+as OHEAD/DIRECT on GOLDEN, i.e. measured, not assumed:
+
+  uvm_pkg::uvm_recorder::create_stream                 @652:13   IN-BODY method
+  uvm_pkg::uvm_recorder::begin_tr                      @692:12   IN-BODY
+  uvm_pkg::uvm_text_recorder::begin_tr                 @1096:13  IN-BODY
+  uvm_pkg::uvm_sequence_base::m_get_sqr_sequence_id    @1391:12  IN-BODY
+  uvm_pkg::uvm_typed_callbacks::m_cb_find              @229:12   IN-BODY
+  svaunit_pkg::svaunit_vpi_wrapper::find               @724:14   IN-BODY (MiniAmiq)
+  uvm_pkg::uvm_sequencer_base::get_seq_kind  DEFPKG    @1685:10  the HOME
+        package's DEF view — the SAME source line as the movers, one listing
+        over.  This single row is what makes `!(pkgDefViewBody9 &&
+        !pkgImportCloneEmit)` a measured fence and not a guess, and it is why
+        the SeqDriver/MiniAmiq counts are 3 and not 4.
+
+  and the 12 further out-of-body `return -1;` of uvm-1.2 that this law leaves
+  alone because they are NESTED (an `if`, or an `if ... begin`), each verified
+  in the source and each absent from golden's GHEAD:
+    uvm_sequencer_base.svh:777, 780, 797      (m_choose_next_request)
+    uvm_reg.svh:1720, 1728, 1747, 1755        (get_offset, get_addresses)
+    uvm_reg_map.svh:1531, 1536                (get_submap_offset)
+    uvm_mem.svh:1218, 1226                    (get_offset)
+  ct86cen counts them inside OHEAD-minus-OHEAD_DIRECT, and that residue is
+  EQUAL on golden and ours in every row (SeqDriver 46/46, SimpleUVM 24/24,
+  Scoreboard 24/24, MiniAmiq 49/49, BuildUVMPkg 24/24).
+
+THE BIJECTION, BEFORE ANY CODE (golden GHEAD  ==  ours OHEAD_DIRECT deficit):
+
+  row            GOLD GHEAD  GOLD OHEAD  OURS OHEAD  deficit  GOLD/OURS DIRECT
+  SeqDriver           3          52          55         3         6 / 9
+  SeqDriver TF        3          52          55         3         6 / 9
+  SimpleUVM           1          30          31         1         6 / 7
+  SimpleUVM TF        1          30          31         1         6 / 7
+  Scoreboard          1          30          31         1         6 / 7
+  Scoreboard TF       1          30          31         1         6 / 7  (golden only)
+  MiniAmiq            3          56          59         3         7 / 10
+  MiniAmiq TF         3          56          59         3         7 / 10
+  BuildUVMPkg         0          29          29         0         5 / 5
+  BuildUVMPkg TF      0          29          29         0         5 / 5
+
+  GHEAD == deficit == (ours DIRECT - golden DIRECT) in ALL TEN row-modes.  Zero
+  golden-only and zero ours-only sites outside that column.
+
+u2r PREDICTION: ZERO movers.  No uhdm2rtlil test holds a package-scope
+subroutine whose DIRECT body return is a negated literal — pred86.sh over
+/tmp/r10uvm86_wd_PRIS_uhdm2rtlil prints no PRED line at all.  The 679 CMP_EQUAL
+rows must therefore stay byte-identical, and byteverify.sh is what checks it.

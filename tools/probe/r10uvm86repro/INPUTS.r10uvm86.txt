@@ -1,0 +1,55 @@
+r10uvm86 — INPUTS.  Every number in this directory is reproducible from these.
+
+REPO        /home/heyfey/git-repos/slang-uhdm, branch auto5h
+BASE COMMIT 562d71d  (r10uvm85, § thisStmtHandleCall85)
+WORKTREE    /tmp/wt_r10uvm86   (git worktree add /tmp/wt_r10uvm86 562d71d)
+SCRATCH     /tmp/r10uvm86_*    (nothing else was written outside these)
+PATCH       /tmp/r10uvm86.patch = git diff 562d71d, production + this directory
+
+BINARIES (cmake -DCMAKE_BUILD_TYPE=Release, --build -j 2, md5 taken separately)
+  PRISTINE  /tmp/wt_r10uvm86/build_pris/slang-uhdm  a72e9f1d933756a6ecc21c29d221b577
+  PATCHED   /tmp/wt_r10uvm86/build_pat/slang-uhdm   4f5ce2e9053b3b55ad2726497d1b2cd7
+
+TOOLS (all read-only judges / measurement)
+  uhdm-cmp   ~/.local/bin/uhdm-cmp      THE ONLY ACCEPTANCE JUDGE
+  uhdm-dump  ~/.local/bin/uhdm-dump
+  surelog    ~/git-repos/Surelog/build/bin/surelog   (golden producer)
+  harness    scripts/verify_golden.py --mode both --jobs 2, own --out/--workdir
+  GOLDEN_DEFER  UNSET for every run (echoed by sweep86.sh)
+
+SURELOG SOURCE READ (the law is decoded, not guessed)
+  src/DesignCompile/CompilePackage.cpp:60-72     FunctorCompilePackage — the
+        elaborated Package with Reduce::Yes, getUnElabPackage() with Reduce::No
+  src/DesignCompile/CompileStmt.cpp:834-845      paRETURN — the ONLY statement
+        arm that threads the inherited reduce into compileExpression
+  src/DesignCompile/CompileExpression.cpp:3648   the tail reduce (reduceExpr)
+        and :3656 the populateCoreMembers that gives the folded constant the
+        MINUS TOKEN's span
+  src/DesignCompile/CompileExpression.cpp:3462-3505  the paUnary_Minus arm that
+        builds the operation the DEF view keeps
+  src/DesignCompile/CompileClass.cpp:489/521/555/575/591  every class-body
+        compileFunction/compileTask — Reduce::No, always
+  src/DesignCompile/CompileModule.cpp:776/783/1171/1177  module — Reduce::No
+  src/DesignCompile/CompileFileContent.cpp:94-97 $unit — Reduce::No
+  src/DesignCompile/UhdmWriter.cpp:1237-1277     the `::`-split that moves a
+        package task_func named `<class>::<m>` INTO the class_defn — which is
+        why the corpus head sits on a CLASS METHOD
+
+WORKDIRS / CSVs
+  /tmp/r10uvm86_wd_PRIS_surelog     /tmp/r10uvm86_PRIS_surelog.csv     (1588 rows)
+  /tmp/r10uvm86_wd_PAT_surelog      /tmp/r10uvm86_PAT_surelog.csv      (1588 rows)
+  /tmp/r10uvm86_wd_PRIS_uhdm2rtlil  /tmp/r10uvm86_PRIS_uhdm2rtlil.csv  (1462 rows)
+  /tmp/r10uvm86_wd_PAT_uhdm2rtlil   /tmp/r10uvm86_PAT_uhdm2rtlil.csv   (1462 rows)
+  results/*.csv were READ ONLY.  The committed uhdm2rtlil baseline holds
+  TESTFLAGS ROWS ONLY (731), so the default half is gated against this pass's
+  own PRISTINE run, which is itself gated at 679/50/2.
+
+GOLDEN CACHES used by the census (verify_golden.py's own cache hits)
+  SeqDriver   default b5b4389e30f948a6a29f  testflags dae43e130380ebfeaa07
+  SimpleUVM   default 02575d101ccaaa38d155  testflags 0abe1b16d20a6f7e4a93
+  Scoreboard  default 614374ccbb97c7ff9446  testflags 38bec1a9ed42a1c26209
+  MiniAmiq    default 373e21b8854542ba4b76  testflags 37dec59abc8b68674273
+  BuildUVMPkg default 1d1c5ee1fda0267f8ebb  testflags 1795eced22413f58df56
+  (the cache file is <dir>/golden.uhdm — handing ct86cen the .../slpp_all path
+   the cmds.txt line suggests throws a kj I/O exception and prints NOTHING, an
+   ops trap that would have read as "golden has no such objects")

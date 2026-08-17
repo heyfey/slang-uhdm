@@ -5470,6 +5470,22 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // appends to it (see pkgDefViewBody9).
         pkgDefViewBody9 =
             cloneMode || (pkgScope && !classScope && !pkgTopEmit);
+        // § negLitPkgRetFold86 — the ELABORATED-package compile's own window
+        // (see UhdmExporter.h).  The HOME test is a PACKAGE-scope subroutine:
+        // the package's own function/task, or an out-of-body class-method
+        // DEFINITION whose class is declared in a package.  The VIEW test
+        // excludes only the home package's DEF twin — an IMPORT CLONE keeps
+        // the fold in both of the importer's views, because golden's clone is
+        // a copy of the elaborated object (arm a4).
+        bool savedPRF86 = pkgRetFoldHome86;
+        {
+            bool homePkg86 = pkgScope && !classScope;
+            if (!homePkg86 && classScope && oob)
+                if (auto* hp86 = ((UHDM::class_defn*)m)->VpiParent())
+                    homePkg86 = hp86->UhdmType() == UHDM::uhdmpackage;
+            pkgRetFoldHome86 =
+                homePkg86 && !(pkgDefViewBody9 && !pkgImportCloneEmit);
+        }
         auto* savedBodyStmt9 = tfBodyStmt9;
         bool savedBodyIo9 = tfBodyTfItems9;
         auto savedBodyPa9 = std::move(tfBodyPa9);
@@ -5623,6 +5639,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         curSubOob9 = savedSOB9;
         unitSubNoBind9 = savedUSNB9;
         pkgDefViewBody9 = savedPDV9;
+        pkgRetFoldHome86 = savedPRF86;
         if (body)
             tf->Stmt(body);
         // A packed-array-of-enum local is a body-block member in Surelog's

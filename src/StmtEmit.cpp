@@ -3238,6 +3238,104 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         }
                     }
                 }
+                // § negLitPkgRetFold86 (r10uvm86) — THE NEGATED-LITERAL FOLD,
+                // in the SAME window one law further in.  Surelog's
+                // `paRETURN` arm hands the ELABORATED package compile's
+                // `Reduce::Yes` to `compileExpression`, whose tail then runs
+                // `ExprEval::reduceExpr` over the whole return expression
+                // (CompileExpression.cpp:3648).  A UNARY MINUS over an INTEGER
+                // LITERAL reduces to ONE constant, and every field of it was
+                // read off golden (arms a1/a5, 25 operand spellings between
+                // them, 16 of those as POSITIVE controls):
+                //
+                //   * the SPAN is the MINUS TOKEN ALONE.  reduceExpr's result
+                //     carries no line, so compileExpression's tail runs
+                //     `populateCoreMembers(parent, parent, result)` on the
+                //     `paUnary_Minus` node — one character, whatever the
+                //     operand's width (`-(1)`, `- 1` and `-32'hFFFFFFFF` all
+                //     span exactly the `-`).
+                //   * vpiSize is the LITERAL'S OWN size, which is what our
+                //     literal arm already stamps: 64 unsized decimal, N sized,
+                //     and **-1** for an unsized BASED literal (`-'d1`).  a5's
+                //     positive controls (`return 8'd3;` ... `return 'h10;`)
+                //     are byte-identical to golden on both binaries, which is
+                //     why this fold EMITS THE OPERAND and rewrites it in place
+                //     instead of building a constant from scratch.
+                //   * vpiValue/vpiDecompile are `-<D>` where <D> is the
+                //     literal's RAW BIT PATTERN read as an UNSIGNED decimal —
+                //     `-2'sb10` is -2 (not +2), `-8'sh80` is -128,
+                //     `-32'hFFFFFFFF` is -4294967295, `-1_0` is -10 — and `-0`
+                //     reads a plain `0`.
+                //   * vpiConstType becomes 7 (vpiIntConst), replacing the
+                //     operand's base-derived type, and the constant is
+                //     UNPARENTED (as every reduced return constant is; a5's
+                //     `return 1;` control shows the same on both binaries).
+                //
+                // FENCES, each with an arm cell that fails without it:
+                //   * the VIEW/HOME half is `pkgRetFoldHome86` (a3 b_only /
+                //     i_only, a4's five folded listings and its module,
+                //     $unit and DEF-view controls);
+                //   * DIRECT STATEMENT OF THE BODY — an explicit `begin/end`,
+                //     if, for, while, case, fork or named block all hardcode
+                //     `Reduce::No`, and the corpus proves it matters: of the
+                //     TWELVE out-of-body `return -1;` in uvm-1.2, ELEVEN sit
+                //     inside an `if` or an `if ... begin` and golden keeps
+                //     every one of their operations (a3 d_beginend / d_if /
+                //     d_ifbegin / d_for / d_while / d_case / d_do / d_nblk
+                //     against d_only and d_multi);
+                //   * INTEGER literal only.  A REAL operand folds too
+                //     (`-1.5` -> REAL:-1.500000 ct 2) but by a DIFFERENT
+                //     formatting rule and with ZERO corpus witnesses, so it is
+                //     left as measured residue R2 rather than guessed;
+                //     `-(-1)`, `~1` and `1 - 2` are the general-fold residues
+                //     R3 and `+1` is golden's own operation (a1 r_uplus, which
+                //     already agrees).
+                if (pkgRetFoldHome86 && tfBodyStmt9) {
+                    auto* b86 = (const Statement*)tfBodyStmt9;
+                    bool direct86 = b86 == &stmt;
+                    if (!direct86 && b86->kind == StatementKind::List)
+                        for (auto st86 : b86->as<StatementList>().list)
+                            if (st86 == &stmt) {
+                                direct86 = true;
+                                break;
+                            }
+                    auto& rx86 = stripImplicitConv(*rs.expr);
+                    if (direct86 && rx86.kind == ExpressionKind::UnaryOp &&
+                        rx86.as<UnaryExpression>().op == UnaryOperator::Minus) {
+                        auto& ib86 = stripImplicitConv(
+                            rx86.as<UnaryExpression>().operand());
+                        if (ib86.kind == ExpressionKind::IntegerLiteral &&
+                            !ib86.as<IntegerLiteral>().getValue().hasUnknown())
+                            if (auto* e86 = emitExpr(ib86, r, prefix, netMap);
+                                e86 &&
+                                e86->UhdmType() == UHDM::uhdmconstant) {
+                                slang::SVInt u86 =
+                                    ib86.as<IntegerLiteral>().getValue();
+                                u86.setSigned(false);
+                                std::string d86 =
+                                    u86.toString(LiteralBase::Decimal, false);
+                                std::string t86 =
+                                    d86 == "0" ? d86 : ("-" + d86);
+                                auto* c86 = (UHDM::constant*)e86;
+                                c86->VpiDecompile(t86);
+                                c86->VpiValue("INT:" + t86);
+                                c86->VpiConstType(vpiIntConst);
+                                // reduceExpr mints a BARE constant: a SIGNED
+                                // based literal's own `int_typespec` ref does
+                                // not survive the fold (a5 f_neg1sb1 /
+                                // f_neg2sb10 / f_neg4sd8 / f_neg8sh80 against
+                                // their p_* controls, where golden keeps it on
+                                // the UNFOLDED literal).
+                                c86->Typespec(nullptr);
+                                setLoc(c86,
+                                       SourceRange(rx86.sourceRange.start(),
+                                                   rx86.sourceRange.start() +
+                                                       1));
+                                r->VpiCondition(c86);
+                                return r;
+                            }
+                    }
+                }
                 // § pkgRetTopCallArgFormalTs8 (r10buvm8) — THE ONE WINDOW.
                 // Surelog compiles the ELABORATED package with Reduce::Yes and
                 // `compileStmt`'s paRETURN arm is the only arm that threads that

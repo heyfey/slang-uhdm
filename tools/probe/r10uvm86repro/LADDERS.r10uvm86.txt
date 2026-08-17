@@ -1,0 +1,52 @@
+r10uvm86 — THE HEADS.  MEASUREMENT-ONLY; the OFFICIAL uhdm-cmp produced every
+object below, through the COMMITTED rowheads.sh (carried forward byte-identical
+from r10uvm85repro, md5 0f16c74ec27882cb4fc01afd3d6b1180).  LHS is ALWAYS golden.
+Heads counted with `grep -c '^LHS:'` anchored at column 0.
+
+== R1 — THE RUNG THE JUDGE STOPS AT, all nine row-modes with a database
+
+  mode/row              BEFORE                         AFTER
+  default/SeqDriver     constant(INT:-1) @1685:10      class_typespec(rsp_type) @211:58
+  testflags/SeqDriver   constant(INT:-1) @1685:10      class_typespec(rsp_type) @211:58
+  default/SimpleUVM     constant(INT:-1) @1685:10      class_typespec(rsp_type) @211:58
+  testflags/SimpleUVM   constant(INT:-1) @1685:10      class_typespec(rsp_type) @211:58
+  default/Scoreboard    constant(INT:-1) @1685:10      class_typespec(rsp_type) @211:58
+  default/MiniAmiq      constant(INT:-1) @1685:10      class_typespec(rsp_type) @211:58
+  testflags/MiniAmiq    constant(INT:-1) @1685:10      class_typespec(rsp_type) @211:58
+  default/BuildUVMPkg   ref_typespec(uvm_pkg::uvm_is_match::s)   UNCHANGED
+  testflags/BuildUVMPkg ref_typespec(uvm_pkg::uvm_is_match::s)   UNCHANGED
+  testflags/Scoreboard  SLANG_REJECT — no database on either binary
+
+  CMP LINE COUNT, the five rows that share the head:  38 -> 28  (all seven
+  row-modes).  BuildUVMPkg: 644467 -> 644467, its own older head untouched.
+
+  THE HEAD THAT IS GONE, verbatim from the pristine cmp:
+    LHS golden  constant: id:26079, line:1685:10, endln:1685:11
+                |vpiDecompile:-1  |vpiSize:64  |INT:-1  |vpiConstType:7
+    RHS ours    operation: id:107059, line:1685:10, endln:1685:12
+                |vpiParent: \_return_stmt: line:1685:3, endln:1685:9
+                |vpiOpType:1
+                |vpiOperand: \_constant: line:1685:11, endln:1685:12
+                             |vpiDecompile:1 |vpiSize:64 |UINT:1 |vpiConstType:9
+
+  THE NEW HEAD (R0 below), verbatim from the patched cmp:
+    LHS golden  class_typespec: (rsp_type), line:211:58, endln:211:61
+                |vpiParent: \_class_defn:(uvm_pkg::uvm_sequencer_param_base)
+                            uvm_sequencer_param_base.svh:31:1-215:9
+                |vpiName:rsp_type
+                |vpiClassDefn: \_class_defn:(uvm_pkg::uvm_sequence_item)
+    RHS ours    class_typespec: (uvm_sequence_item)   [NO SPAN, NO vpiParent]
+                |vpiName:uvm_sequence_item
+                |vpiClassDefn: \_class_defn:(uvm_pkg::uvm_sequence_item)
+
+== WHAT WAS NOT RUN, AND WHY
+
+  tools/probe/r10ladder1repro/ctladder.cpp was NOT run this pass.  The ladder's
+  value is finding a FAMILY behind a head when the head's population is unknown;
+  here the population was known exactly BEFORE any code (CENSUS Part 1 is a
+  bijection over every object of every database, which is strictly stronger than
+  a masking walk that hides part of the database from every later rung), and the
+  family is THREE OBJECTS in the largest row.  The official judge's own head is
+  reported above for all nine row-modes, measured, and the byte movers are 7/955
+  with every one attributed.  Claiming a ladder number that was not produced
+  would be this campaign's own worst failure mode; it is therefore not claimed.

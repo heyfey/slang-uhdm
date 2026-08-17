@@ -2549,6 +2549,30 @@ private:
     // out-of-body class method and an in-class one: the def listing is
     // uniformly unresolved, the elaborated listing resolves what it can).
     bool pkgDefViewBody9 = false;
+    /// § negLitPkgRetFold86 (r10uvm86) — true while emitting a subroutine body
+    /// that Surelog compiles with `Reduce::Yes`, which is the ELABORATED half
+    /// of a PACKAGE compile and nothing else.
+    ///
+    /// `FunctorCompilePackage` (CompilePackage.cpp:63/68) compiles every
+    /// package TWICE — the elaborated `Package` with `Reduce::Yes` and its
+    /// `getUnElabPackage()` twin with `Reduce::No` — while a MODULE
+    /// (CompileModule.cpp:776/783), a `$unit` FileContent
+    /// (CompileFileContent.cpp:94) and a CLASS BODY (CompileClass.cpp:489/521)
+    /// all hardcode `Reduce::No`.  So the reach is exactly: a package's own
+    /// function/task, an OUT-OF-BODY class-method definition WRITTEN at
+    /// package scope (which `UhdmWriter::writePackage`'s `::`-split then moves
+    /// into the class_defn, UhdmWriter.cpp:1254 — that is why the corpus head
+    /// sits on a class method), and every WILDCARD-IMPORT CLONE of either,
+    /// which copies the already-folded object into BOTH of the importer's
+    /// views (arm a4: `p4b::c4a::oob_ret` and `p4b::p4a_own` read folded in
+    /// uhdmallPackages AND uhdmtopPackages).  It is FALSE for the home
+    /// package's own DEF view and for an IN-BODY class method.
+    ///
+    /// Inside such a body only `compileStmt`'s `paRETURN` arm threads the
+    /// inherited reduce into `compileExpression` (CompileStmt.cpp:838); this
+    /// is the same window § `pkgRetTopExpr8` describes, and the same
+    /// direct-statement-of-the-body test applies.
+    bool pkgRetFoldHome86 = false;
     // The package variables/nets of the package view currently being
     // emitted, by declaring symbol. A reference from one of that package's
     // own subroutines or class methods binds them (Surelog compiles those

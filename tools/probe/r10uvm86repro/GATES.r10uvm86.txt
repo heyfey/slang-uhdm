@@ -1,0 +1,87 @@
+r10uvm86 — THE GATES.  All five mandatory gates, run, with their controls.
+GOLDEN_DEFER read [UNSET] on every sweep (echoed by sweep86.sh).
+results/*.csv were READ ONLY.  NOTHING WAS PROMOTED.
+
+(1) BUILD — both binaries, -j 2, md5 taken separately
+      PRISTINE  build_pris/slang-uhdm  a72e9f1d933756a6ecc21c29d221b577
+      PATCHED   build_pat/slang-uhdm   4f5ce2e9053b3b55ad2726497d1b2cd7
+
+(2) GOLDENS — tests/check_goldens.sh
+      PATCHED   23 PASS
+      PRISTINE  23 PASS
+      SLANG_UHDM=/bin/false  0 PASS      <- the negative control: the harness
+                                            really does read SLANG_UHDM
+
+(3) uhdm2rtlil — verify_golden.py --corpus uhdm2rtlil --mode both --jobs 2
+      PATCHED  [default]   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+               [testflags] 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+      ct8rows testflags vs results/gate_uhdm2rtlil.csv (the COMMITTED baseline,
+              which holds TESTFLAGS ROWS ONLY — 731):  0 differing ROWS
+      ct8rows BOTH modes vs this pass's own PRISTINE run (1462 rows,
+              itself 679/50/2 in both modes):          0 differing ROWS
+      byteverify PAT vs PRIS: 1358 paths, PATH_SETS_IDENTICAL, MOVERS 0
+      canaries.sh  ok=9  changed=0  absent=0  unknown-names=25 (expected 25)
+      ctcan2.sh    ok=1  changed=0  absent=0  unknown-patterns=6 (EXPECT_UNKNOWN=6)
+
+(4) surelog — verify_golden.py --corpus surelog --mode both --jobs 2
+      PATCHED  [default]   470 CMP_EQUAL / 11 CMP_NOTEQUAL / 5 DEFERRED /
+                           283 SLANG_REJECT / 25 SURELOG_FAIL
+               [testflags] 466 CMP_EQUAL / 8 CMP_NOTEQUAL / 5 DEFERRED /
+                           3 NO_DATABASE / 1 NO_UHDM / 285 SLANG_REJECT /
+                           23 SURELOG_FAIL / 1 TIMEOUT / 2 UNTRANSLATABLE
+      ct8rows vs results/golden_surelog.csv: 1588 ROWS, 0 differing ROWS,
+              status AND dump histograms identical per mode.
+      THE STATUS HISTOGRAM WAS READ, not only the NE rows — verify_golden.py
+      records an rc=139 segfault as SLANG_REJECT wearing the last stderr
+      warning, so SLANG_REJECT is 283/285 on BOTH binaries and unchanged.
+      NO ROW CONVERTED.  All eleven / eight CMP_NOTEQUAL rows stay
+      CMP_NOTEQUAL; the five UVM rows this pass moves keep that status with a
+      SHORTER cmp (38 -> 28 lines) and a NEW head.  results/*.csv untouched.
+      canaries.sh  ok=52 changed=0 absent=0 unknown-names=8 (expected 8)
+      ctcan2.sh    ok=58 changed=0 absent=0 unknown-patterns=1 (EXPECT_UNKNOWN=1)
+      canaudit.sh  audited=31 UNCOVERED=0 FENCE-BREACH=0; the four slang-fenced
+                   names appear in NO driver here.
+
+(5) BYTES — byteverify.sh on the surelog corpus, with BOTH negative controls
+      955 paths, PATH_SETS_IDENTICAL, MOVERS 7 / 955:
+        ./default/SeqDriver-32af76aa      40192736a82f -> 21c0f76b37dc
+        ./testflags/SeqDriver-32af76aa    7829581da459 -> 1218a9ef7731
+        ./default/SimpleUVM-1dc93a62      b3b048fb260a -> 2b4baec4b512
+        ./testflags/SimpleUVM-1dc93a62    2240861c85f7 -> 92bc6f019cd7
+        ./default/Scoreboard-59431470     ffb678634d24 -> a55ce7a83bcd
+        ./default/MiniAmiq-544c7f61       305c346a865d -> 2c14bcf2492a
+        ./testflags/MiniAmiq-544c7f61     305c346a865d -> 2c14bcf2492a
+      EXACTLY the seven row-modes PREDICT named as nonzero, and NOTHING ELSE —
+      BuildUVMPkg (both modes) is byte-identical, which PREDICT called at 0
+      objects from the pristine databases alone.
+      SELFCHECK=1   954 / 955 flagged   (comparator sees a difference)
+      SELFCHECK1=1  8                   (7 real movers + the 1 corrupted file)
+      Every mover is ATTRIBUTED object for object by CENSUS Part 3: 3/3/1/1/1/3/3.
+
+CANARY PINS (md5 prefix of slang.uhdm, patched sweep)
+      InterfaceModPort    59a365f3ce2c  == pristine, both modes
+      BlackParrotComplex  e3e354129d5a / 73a10e8217e5  == pristine
+      YosysOldOr          d68e0796d62c  == pristine, both modes
+      SVSwitch            4842211c4030  == THE BRIEF'S PIN, both modes
+      YosysVerx           6ccda350c24a  == THE BRIEF'S PIN, both modes
+
+BOUNDARY ARMS — v86bound.sh, the committed arm sources of the neighbouring
+passes, compiled by BOTH binaries and compared BY DUMP BYTES:
+      r10uvm84/85 + r10buvm7/8       84 sources, 83 identical, 0 MOVED, 1 NO_OUTPUT
+      r10buvm3-6 + r10uvm80-83       73 sources, 72 identical, 0 MOVED, 1 NO_OUTPUT
+      r10uvm77/78/79 + the CONSTANT-FOLD precedents r10uvm19/29/73
+                                     35 sources, 35 identical, 0 MOVED
+      192 sources, 190 byte-identical, ZERO MOVED.  The two NO_OUTPUT
+      (r10buvm8/v5kinds8, r10uvm83/v83_a15_reexport) produce no database on
+      EITHER binary — pre-existing slang rejections, counted, not tolerated.
+
+ARMS (arm86.sh, golden + both binaries in one scratch dir; cell86.sh per cell)
+      arm            pris cmp   pat cmp    cells DIFF pris -> pat
+      g86_a1_kinds   CMP_FAIL   CMP_FAIL     15 -> 8
+      g86_a2_ctx     CMP_FAIL   CMP_FAIL     14 -> 11
+      g86_a3_nest    CMP_FAIL   PASS_CMP     4  -> 0     <- SAY IT LOUDLY
+      g86_a4_scope   CMP_FAIL   CMP_FAIL     10 -> 3
+      g86_a5_vals    CMP_FAIL   CMP_FAIL     13 -> 1
+      208 cells total; 33 CURED, ZERO REGRESSED: the pris->pat cell-set diff is all
+      `<` lines in every arm.  g86_a3_nest goes CMP_FAIL -> PASS_CMP; NO CORPUS
+      ROW PASSES cmp and NOTHING WAS PROMOTED.

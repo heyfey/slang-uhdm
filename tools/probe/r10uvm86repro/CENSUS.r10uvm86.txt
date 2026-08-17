@@ -1,0 +1,98 @@
+r10uvm86 — THE CENSUS.  MEASUREMENT-ONLY; uhdm-cmp is the only judge.
+Instrument: ct86cen.cpp (this directory), Serializer::AllObjects so every object
+is counted ONCE.  LHS is ALWAYS golden.  Every number below was produced by
+running the tool; none is derived.
+
+== PART 1 — GOLDEN vs OURS, PRISTINE (the deficit, before any code)
+
+  row/mode            GOLD                              OURS
+                      objs    GHEAD OHEAD DIRECT        objs    GHEAD OHEAD DIRECT
+  default/SeqDriver   317210    3     52     6          299321    0     55     9
+  testflags/SeqDriver 317222    3     52     6          299333    0     55     9
+  default/SimpleUVM   188084    1     30     6          183208    0     31     7
+  testflags/SimpleUVM 188096    1     30     6          183220    0     31     7
+  default/Scoreboard  187081    1     30     6          183680    0     31     7
+  testflags/Scoreboard 187083   1     30     6            —  SLANG_REJECT, no DB
+  default/MiniAmiq    330074    3     56     7          309973    0     59    10
+  testflags/MiniAmiq  330074    3     56     7          309973    0     59    10
+  default/BuildUVMPkg 183142    0     29     5          180486    0     29     5
+  testflags/BuildUVMPkg 183142  0     29     5          180486    0     29     5
+
+  THE BIJECTION: in EVERY row-mode
+      GOLD GHEAD  ==  (OURS OHEAD - GOLD OHEAD)  ==  (OURS DIRECT - GOLD DIRECT)
+  i.e. 3 / 3 / 1 / 1 / 1 / 1 / 3 / 3 / 0 / 0.  The NESTED residue
+  (OHEAD - DIRECT) is EQUAL on both sides everywhere — 46/46, 24/24, 24/24,
+  49/49, 24/24 — so nothing outside the DIRECT column is in play at all.
+
+== PART 2 — THE SITES, BY NAME (see PREDICT for the full list)
+
+  golden's GHEAD is the SAME OBJECT in every row: `return -1;` at
+  uvm_sequencer_base.svh:1685:10, folded to
+      constant  span 1685:10-1685:11  vpiSize 64  INT:-1  vpiDecompile -1  ct 7
+  reached once per PACKAGE LISTING that owns an elaborated copy:
+      SeqDriver    uvm_pkg TOPPKG, adpcm_pkg TOPPKG, adpcm_pkg DEFPKG
+      SimpleUVM    uvm_pkg TOPPKG
+      Scoreboard   uvm_pkg TOPPKG
+      MiniAmiq     uvm_pkg TOPPKG, svaunit_pkg TOPPKG, svaunit_pkg DEFPKG
+      BuildUVMPkg  none
+  and golden KEEPS the operation on uvm_pkg's own DEFPKG copy of that very
+  line — the fence, measured, not assumed.
+
+== PART 3 — GOLDEN vs OURS, PATCHED (exact after)
+
+  row/mode            GOLD GHEAD/OHEAD   PATCHED GHEAD/OHEAD
+  default/SeqDriver         3 / 52            3 / 52
+  testflags/SeqDriver       3 / 52            3 / 52
+  default/SimpleUVM         1 / 30            1 / 30
+  testflags/SimpleUVM       1 / 30            1 / 30
+  default/Scoreboard        1 / 30            1 / 30
+  default/MiniAmiq          3 / 56            3 / 56
+  testflags/MiniAmiq        3 / 56            3 / 56
+  default/BuildUVMPkg       0 / 29            0 / 29
+  testflags/BuildUVMPkg     0 / 29            0 / 29
+
+  and the SET JOIN, not just the counts: for SeqDriver, SimpleUVM and MiniAmiq
+  the sorted `--list` output of GHEAD and of OHEAD — (span, size, value,
+  decompile, listing, owner fullname) — is IDENTICAL between golden and the
+  patched database, with ZERO golden-only and ZERO ours-only entries in either
+  population.  That is the whole law's reach, object for object.
+
+== PART 4 — THE SOURCE CENSUS THAT PREDICTED PART 1 (grep, before any DB read)
+
+  All 23 `return <negated literal>` in the three UVM trees, classified by
+  walking back to the nearest function/task declaration:
+
+    OUT-OF-BODY (12)                                     nesting   golden
+      uvm_sequencer_base.svh:1685  get_seq_kind          DIRECT    FOLDED
+      uvm_sequencer_base.svh:777   m_choose_next_request if..begin operation
+      uvm_sequencer_base.svh:780   m_choose_next_request if..begin operation
+      uvm_sequencer_base.svh:797   m_choose_next_request if/if    operation
+      uvm_reg.svh:1720             get_offset            if        operation
+      uvm_reg.svh:1728             get_offset            if..begin operation
+      uvm_reg.svh:1747             get_addresses         if        operation
+      uvm_reg.svh:1755             get_addresses         if..begin operation
+      uvm_reg_map.svh:1531         get_submap_offset     if..begin operation
+      uvm_reg_map.svh:1536         get_submap_offset     if..begin operation
+      uvm_mem.svh:1218             get_offset            if        operation
+      uvm_mem.svh:1226             get_offset            if..begin operation
+    IN-BODY (11) — golden keeps the operation on all of them
+      uvm_sequence_base.svh:1391, uvm_recorder.svh:652/692/1090/1096,
+      uvm_spell_chkr.svh:158, uvm_callback.svh:229,
+      svaunit_vpi_wrapper.svh:417/432/715/724
+    svunit_base: ZERO sites.
+
+  ONE site of 23 is both out-of-body AND a direct body statement, and it is the
+  head.  Part 1's 3/1/1/3 are that ONE site counted once per elaborated listing.
+
+== PART 5 — WHAT WAS NOT CLAIMED
+
+  * `-1` is the ONLY negated-literal spelling the corpus uses in a return; the
+    sized / based / octal / signed-based / underscored operand rules in a5 are
+    measured on PURPOSE-BUILT golden, not on the corpus.
+  * golden ALSO folds a return that is a parameter, a comparison, a concat, a
+    `$bits`, an enum constant, a call to a foldable function, a binary
+    arithmetic expression, a ternary, `~1`, `-(-1)` and a negated REAL — all in
+    the same window (a1/a2 measure every one).  This pass folds NONE of them;
+    they are residues R1-R3, and a2's cell list is their arm.
+  * OHEAD-minus-DIRECT (the nested returns) is EQUAL on both sides in every
+    row, so this census says nothing about them and neither does the patch.
