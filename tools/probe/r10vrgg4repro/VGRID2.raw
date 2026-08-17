@@ -1,0 +1,2013 @@
+== v1d_trunc_synth
+  G   work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@mid_v1d|interface_array(ifc4.host)@12:72-12:75 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@mid_v1d|interface_array(ifc4.host)@12:72-12:75 ROP(op11)
+  G   work@mid_v1d|interface_array(ifc4.host)@12:72-12:75 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @12:76-12:77
+  G   work@mid_v1d|interface_array(ifc4.host)@12:72-12:75 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @17:12-17:13
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:72-12:75 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:72-12:75 ROP(op11)
+  G   work@top.m|interface_array(work@top.m.arr)@12:72-12:75 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @12:76-12:77
+  G   work@top.m|interface_array(work@top.m.arr)@12:72-12:75 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=3 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|bit_typespec()@6:13-6:22 LEFT sz=64 UINT:1 ct=9 ts=N dec=1 @6:18-6:19
+  G   <root>|bit_typespec()@6:13-6:22 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:20-6:21
+  G   <root>|bit_typespec()@12:28-12:37 LEFT sz=64 UINT:2 ct=9 ts=N dec=2 @12:33-12:34
+  G   <root>|bit_typespec()@12:28-12:37 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @12:35-12:36
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|array_typespec()@12:62-12:77 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@12:62-12:77 ROP(op11)
+  G   <root>|array_typespec()@12:62-12:77 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @12:76-12:77
+  G   <root>|array_typespec()@12:62-12:77 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@mid_v1d|interface_array(ifc4.host)@12:72-12:75 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@mid_v1d|interface_array(ifc4.host)@12:72-12:75 ROP(op11)
+  BASE work@mid_v1d|interface_array(ifc4.host)@12:72-12:75 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @12:76-12:77
+  BASE work@mid_v1d|interface_array(ifc4.host)@12:72-12:75 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @17:12-17:13
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:72-12:75 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:72-12:75 ROP(op11)
+  BASE work@top.m|interface_array(work@top.m.arr)@12:72-12:75 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @12:76-12:77
+  BASE work@top.m|interface_array(work@top.m.arr)@12:72-12:75 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=2 UINT:2 ct=9 ts=N dec=2 @9:18-9:19
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|bit_typespec()@6:13-6:22 LEFT sz=64 UINT:1 ct=9 ts=N dec=1 @6:18-6:19
+  BASE <root>|bit_typespec()@6:13-6:22 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:20-6:21
+  BASE <root>|bit_typespec()@12:28-12:37 LEFT sz=64 UINT:2 ct=9 ts=N dec=2 @12:33-12:34
+  BASE <root>|bit_typespec()@12:28-12:37 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @12:35-12:36
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@12:62-12:78 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@12:62-12:78 ROP(op11)
+  BASE <root>|array_typespec()@12:62-12:78 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @12:76-12:77
+  BASE <root>|array_typespec()@12:62-12:78 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@mid_v1d|interface_array(ifc4.host)@12:72-12:75 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@mid_v1d|interface_array(ifc4.host)@12:72-12:75 ROP(op11)
+  PAT work@mid_v1d|interface_array(ifc4.host)@12:72-12:75 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @12:76-12:77
+  PAT work@mid_v1d|interface_array(ifc4.host)@12:72-12:75 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @17:12-17:13
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:72-12:75 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:72-12:75 ROP(op11)
+  PAT work@top.m|interface_array(work@top.m.arr)@12:72-12:75 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @12:76-12:77
+  PAT work@top.m|interface_array(work@top.m.arr)@12:72-12:75 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=3 UINT:2 ct=9 ts=N dec=2 @9:18-9:19
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|bit_typespec()@6:13-6:22 LEFT sz=64 UINT:1 ct=9 ts=N dec=1 @6:18-6:19
+  PAT <root>|bit_typespec()@6:13-6:22 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:20-6:21
+  PAT <root>|bit_typespec()@12:28-12:37 LEFT sz=64 UINT:2 ct=9 ts=N dec=2 @12:33-12:34
+  PAT <root>|bit_typespec()@12:28-12:37 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @12:35-12:36
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@12:62-12:78 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@12:62-12:78 ROP(op11)
+  PAT <root>|array_typespec()@12:62-12:78 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @12:76-12:77
+  PAT <root>|array_typespec()@12:62-12:78 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v1e_trunc_verbatim
+  G   work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @14:12-14:13
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|bit_typespec()@6:13-6:22 LEFT sz=64 UINT:1 ct=9 ts=N dec=1 @6:18-6:19
+  G   <root>|bit_typespec()@6:13-6:22 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:20-6:21
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @14:12-14:13
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|bit_typespec()@6:13-6:22 LEFT sz=64 UINT:1 ct=9 ts=N dec=1 @6:18-6:19
+  BASE <root>|bit_typespec()@6:13-6:22 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:20-6:21
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @14:12-14:13
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|bit_typespec()@6:13-6:22 LEFT sz=64 UINT:1 ct=9 ts=N dec=1 @6:18-6:19
+  PAT <root>|bit_typespec()@6:13-6:22 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:20-6:21
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v1f_trunc_arith
+  G   work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @14:12-14:13
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=64 INT:6 ct=7 ts=N dec=6 @9:18-9:19
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|bit_typespec()@6:13-6:22 LEFT sz=64 UINT:1 ct=9 ts=N dec=1 @6:18-6:19
+  G   <root>|bit_typespec()@6:13-6:22 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:20-6:21
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @14:12-14:13
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=2 UINT:2 ct=9 ts=N dec=2 @9:18-9:19
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|bit_typespec()@6:13-6:22 LEFT sz=64 UINT:1 ct=9 ts=N dec=1 @6:18-6:19
+  BASE <root>|bit_typespec()@6:13-6:22 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:20-6:21
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_v1d|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:2 ct=9 ts=N dec=2 @14:12-14:13
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=64 INT:2 ct=7 ts=N dec=2 @9:18-9:19
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|bit_typespec()@6:13-6:22 LEFT sz=64 UINT:1 ct=9 ts=N dec=1 @6:18-6:19
+  PAT <root>|bit_typespec()@6:13-6:22 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:20-6:21
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v5g_noovr_integer_u
+  G   work@leaf_v5g_noovr_integer_u|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_v5g_noovr_integer_u|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_v5g_noovr_integer_u|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_v5g_noovr_integer_u|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=32 UINT:4 ct=9 ts=N dec=4 @9:18-9:19
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_v5g_noovr_integer_u|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_v5g_noovr_integer_u|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_v5g_noovr_integer_u|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_v5g_noovr_integer_u|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=32 UINT:4 ct=9 ts=Y:integer_typespec dec=4 @9:18-9:19
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_v5g_noovr_integer_u|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_v5g_noovr_integer_u|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_v5g_noovr_integer_u|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_v5g_noovr_integer_u|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=32 UINT:4 ct=9 ts=N dec=4 @9:18-9:19
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v5h_noovr_longint_u
+  G   work@leaf_v5h_noovr_longint_u|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_v5h_noovr_longint_u|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_v5h_noovr_longint_u|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_v5h_noovr_longint_u|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @9:18-9:19
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_v5h_noovr_longint_u|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_v5h_noovr_longint_u|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_v5h_noovr_longint_u|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_v5h_noovr_longint_u|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=64 UINT:4 ct=9 ts=Y:long_int_typespec dec=4 @9:18-9:19
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_v5h_noovr_longint_u|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_v5h_noovr_longint_u|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_v5h_noovr_longint_u|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_v5h_noovr_longint_u|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @9:18-9:19
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v5i_noovr_shortint_u
+  G   work@leaf_v5i_noovr_shortint_u|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_v5i_noovr_shortint_u|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_v5i_noovr_shortint_u|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_v5i_noovr_shortint_u|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=16 UINT:4 ct=9 ts=N dec=4 @9:18-9:19
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_v5i_noovr_shortint_u|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_v5i_noovr_shortint_u|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_v5i_noovr_shortint_u|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_v5i_noovr_shortint_u|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=16 UINT:4 ct=9 ts=Y:short_int_typespec dec=4 @9:18-9:19
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_v5i_noovr_shortint_u|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_v5i_noovr_shortint_u|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_v5i_noovr_shortint_u|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_v5i_noovr_shortint_u|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=16 UINT:4 ct=9 ts=N dec=4 @9:18-9:19
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v5j_noovr_byte_u
+  G   work@leaf_v5j_noovr_byte_u|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_v5j_noovr_byte_u|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_v5j_noovr_byte_u|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_v5j_noovr_byte_u|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=8 UINT:4 ct=9 ts=N dec=4 @9:18-9:19
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_v5j_noovr_byte_u|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_v5j_noovr_byte_u|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_v5j_noovr_byte_u|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_v5j_noovr_byte_u|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=8 UINT:4 ct=9 ts=Y:byte_typespec dec=4 @9:18-9:19
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_v5j_noovr_byte_u|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_v5j_noovr_byte_u|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_v5j_noovr_byte_u|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_v5j_noovr_byte_u|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=8 UINT:4 ct=9 ts=N dec=4 @9:18-9:19
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v5k_noovr_int_signed
+  G   work@leaf_v5k_noovr_int_signed|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_v5k_noovr_int_signed|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_v5k_noovr_int_signed|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_v5k_noovr_int_signed|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=32 UINT:4 ct=9 ts=Y:int_typespec dec=4 @9:18-9:19
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_v5k_noovr_int_signed|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_v5k_noovr_int_signed|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_v5k_noovr_int_signed|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_v5k_noovr_int_signed|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=32 UINT:4 ct=9 ts=Y:int_typespec dec=4 @9:18-9:19
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_v5k_noovr_int_signed|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_v5k_noovr_int_signed|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_v5k_noovr_int_signed|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_v5k_noovr_int_signed|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=32 UINT:4 ct=9 ts=Y:int_typespec dec=4 @9:18-9:19
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v5l_noovr_logic_sgn
+  G   work@leaf_v5l_noovr_logic_sgn|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_v5l_noovr_logic_sgn|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_v5l_noovr_logic_sgn|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_v5l_noovr_logic_sgn|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=8 UINT:4 ct=9 ts=Y:int_typespec dec=4 @9:18-9:19
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@6:13-6:31 LEFT sz=64 UINT:7 ct=9 ts=N dec=7 @6:27-6:28
+  G   <root>|logic_typespec()@6:13-6:31 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:29-6:30
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_v5l_noovr_logic_sgn|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_v5l_noovr_logic_sgn|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_v5l_noovr_logic_sgn|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_v5l_noovr_logic_sgn|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=8 UINT:4 ct=9 ts=N dec=4 @9:18-9:19
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@6:13-6:31 LEFT sz=64 UINT:7 ct=9 ts=N dec=7 @6:27-6:28
+  BASE <root>|logic_typespec()@6:13-6:31 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:29-6:30
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_v5l_noovr_logic_sgn|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_v5l_noovr_logic_sgn|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_v5l_noovr_logic_sgn|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_v5l_noovr_logic_sgn|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=8 UINT:4 ct=9 ts=N dec=4 @9:18-9:19
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@6:13-6:31 LEFT sz=64 UINT:7 ct=9 ts=N dec=7 @6:27-6:28
+  PAT <root>|logic_typespec()@6:13-6:31 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:29-6:30
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v5m_noovr_implicit_sgn
+  G   work@leaf_v5m_noovr_implicit_sgn|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_v5m_noovr_implicit_sgn|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_v5m_noovr_implicit_sgn|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_v5m_noovr_implicit_sgn|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=8 UINT:4 ct=9 ts=Y:int_typespec dec=4 @9:18-9:19
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|int_typespec()@6:13-6:19 LEFT sz=64 UINT:7 ct=9 ts=N dec=7 @6:21-6:22
+  G   <root>|int_typespec()@6:13-6:19 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:23-6:24
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_v5m_noovr_implicit_sgn|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_v5m_noovr_implicit_sgn|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_v5m_noovr_implicit_sgn|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_v5m_noovr_implicit_sgn|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=8 UINT:4 ct=9 ts=N dec=4 @9:18-9:19
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|int_typespec()@6:13-6:19 LEFT sz=64 UINT:7 ct=9 ts=N dec=7 @6:21-6:22
+  BASE <root>|int_typespec()@6:13-6:19 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:23-6:24
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_v5m_noovr_implicit_sgn|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_v5m_noovr_implicit_sgn|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_v5m_noovr_implicit_sgn|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_v5m_noovr_implicit_sgn|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:4 ct=9 ts=N dec=4 @14:12-14:13
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=8 UINT:4 ct=9 ts=N dec=4 @9:18-9:19
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|int_typespec()@6:13-6:19 LEFT sz=64 UINT:7 ct=9 ts=N dec=7 @6:21-6:22
+  PAT <root>|int_typespec()@6:13-6:19 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @6:23-6:24
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v5n_noovr_bit1
+  G   work@leaf_v5n_noovr_bit1|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_v5n_noovr_bit1|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_v5n_noovr_bit1|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_v5n_noovr_bit1|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:1 ct=9 ts=N dec=1 @14:12-14:13
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=1 UINT:1 ct=9 ts=N dec=1 @9:18-9:19
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_v5n_noovr_bit1|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_v5n_noovr_bit1|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_v5n_noovr_bit1|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_v5n_noovr_bit1|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:1 ct=9 ts=N dec=1 @14:12-14:13
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=1 UINT:1 ct=9 ts=N dec=1 @9:18-9:19
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_v5n_noovr_bit1|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_v5n_noovr_bit1|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_v5n_noovr_bit1|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_v5n_noovr_bit1|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:1 ct=9 ts=N dec=1 @14:12-14:13
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=1 UINT:1 ct=9 ts=N dec=1 @9:18-9:19
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v6i_ovr_replication
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @14:12-14:13
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=3 BIN:110 ct=3 ts=N dec=3'b110 @9:18-9:19
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @14:12-14:13
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=32 INT:-2 ct=7 ts=Y:int_typespec dec=-2 @9:18-9:19
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @14:12-14:13
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=32 INT:-2 ct=7 ts=N dec=-2 @9:18-9:19
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v6j_ovr_signed_based
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @14:12-14:13
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=8 INT:6 ct=7 ts=N dec=6 @9:18-9:19
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @14:12-14:13
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=8 DEC:6 ct=1 ts=N dec=8'sd6 @9:18-9:19
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @14:12-14:13
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=8 INT:6 ct=7 ts=N dec=6 @9:18-9:19
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v6k_ovr_octbin
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @14:12-14:13
+  G   work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=3 BIN:110 ct=3 ts=N dec=3'b110 @9:18-9:19
+  G   work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @14:12-14:13
+  BASE work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=3 BIN:110 ct=3 ts=N dec=3'b110 @9:18-9:19
+  BASE work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @14:12-14:13
+  PAT work@top|module_array(work@ifc4)@14:8-14:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP0 sz=3 BIN:110 ct=3 ts=N dec=3'b110 @9:18-9:19
+  PAT work@top.u|interface_array(work@top.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v7a_arith_paramref
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@mid_v7a_arith_paramref|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@mid_v7a_arith_paramref|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  G   work@mid_v7a_arith_paramref|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   work@mid_v7a_arith_paramref|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|array_typespec()@12:71-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@12:71-12:86 ROP(op11)
+  G   <root>|array_typespec()@12:71-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   <root>|array_typespec()@12:71-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@mid_v7a_arith_paramref|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@mid_v7a_arith_paramref|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  BASE work@mid_v7a_arith_paramref|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE work@mid_v7a_arith_paramref|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=32 UINT:6 ct=9 ts=Y:int_typespec dec=6 @9:18-9:19
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@12:71-12:87 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@12:71-12:87 ROP(op11)
+  BASE <root>|array_typespec()@12:71-12:87 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE <root>|array_typespec()@12:71-12:87 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@mid_v7a_arith_paramref|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@mid_v7a_arith_paramref|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  PAT work@mid_v7a_arith_paramref|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT work@mid_v7a_arith_paramref|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 INT:6 ct=7 ts=N dec=6 @9:18-9:19
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@12:71-12:87 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@12:71-12:87 ROP(op11)
+  PAT <root>|array_typespec()@12:71-12:87 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT <root>|array_typespec()@12:71-12:87 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v7b_arith_ovrparam
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@mid_v7b_arith_ovrparam|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@mid_v7b_arith_ovrparam|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  G   work@mid_v7b_arith_ovrparam|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   work@mid_v7b_arith_ovrparam|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|array_typespec()@12:71-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@12:71-12:86 ROP(op11)
+  G   <root>|array_typespec()@12:71-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   <root>|array_typespec()@12:71-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@mid_v7b_arith_ovrparam|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@mid_v7b_arith_ovrparam|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  BASE work@mid_v7b_arith_ovrparam|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE work@mid_v7b_arith_ovrparam|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=32 UINT:6 ct=9 ts=Y:int_typespec dec=6 @9:18-9:19
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@12:71-12:87 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@12:71-12:87 ROP(op11)
+  BASE <root>|array_typespec()@12:71-12:87 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE <root>|array_typespec()@12:71-12:87 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@mid_v7b_arith_ovrparam|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@mid_v7b_arith_ovrparam|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  PAT work@mid_v7b_arith_ovrparam|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT work@mid_v7b_arith_ovrparam|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 INT:6 ct=7 ts=N dec=6 @9:18-9:19
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@12:71-12:87 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@12:71-12:87 ROP(op11)
+  PAT <root>|array_typespec()@12:71-12:87 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT <root>|array_typespec()@12:71-12:87 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v7c_arith_localparam
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@mid_v7c_arith_localparam|interface_array(ifc4.host)@12:83-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@mid_v7c_arith_localparam|interface_array(ifc4.host)@12:83-12:86 ROP(op11)
+  G   work@mid_v7c_arith_localparam|interface_array(ifc4.host)@12:83-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  G   work@mid_v7c_arith_localparam|interface_array(ifc4.host)@12:83-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@18:8-18:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@18:8-18:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@18:8-18:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @18:12-18:13
+  G   work@top|module_array(work@ifc4)@18:8-18:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:83-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP(op11)
+  G   work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  G   work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|array_typespec()@12:73-12:88 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@12:73-12:88 ROP(op11)
+  G   <root>|array_typespec()@12:73-12:88 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  G   <root>|array_typespec()@12:73-12:88 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@mid_v7c_arith_localparam|interface_array(ifc4.host)@12:83-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@mid_v7c_arith_localparam|interface_array(ifc4.host)@12:83-12:86 ROP(op11)
+  BASE work@mid_v7c_arith_localparam|interface_array(ifc4.host)@12:83-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  BASE work@mid_v7c_arith_localparam|interface_array(ifc4.host)@12:83-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@18:8-18:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@18:8-18:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@18:8-18:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @18:12-18:13
+  BASE work@top|module_array(work@ifc4)@18:8-18:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:83-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP(op11)
+  BASE work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  BASE work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=32 UINT:6 ct=9 ts=Y:int_typespec dec=6 @9:18-9:19
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@12:73-12:89 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@12:73-12:89 ROP(op11)
+  BASE <root>|array_typespec()@12:73-12:89 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  BASE <root>|array_typespec()@12:73-12:89 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@mid_v7c_arith_localparam|interface_array(ifc4.host)@12:83-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@mid_v7c_arith_localparam|interface_array(ifc4.host)@12:83-12:86 ROP(op11)
+  PAT work@mid_v7c_arith_localparam|interface_array(ifc4.host)@12:83-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  PAT work@mid_v7c_arith_localparam|interface_array(ifc4.host)@12:83-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@18:8-18:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@18:8-18:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@18:8-18:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @18:12-18:13
+  PAT work@top|module_array(work@ifc4)@18:8-18:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:83-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP(op11)
+  PAT work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  PAT work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 INT:6 ct=7 ts=N dec=6 @9:18-9:19
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@12:73-12:89 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@12:73-12:89 ROP(op11)
+  PAT <root>|array_typespec()@12:73-12:89 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  PAT <root>|array_typespec()@12:73-12:89 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v7d_arith_pure_lit
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@mid_v7d_arith_pure_lit|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@mid_v7d_arith_pure_lit|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  G   work@mid_v7d_arith_pure_lit|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   work@mid_v7d_arith_pure_lit|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|array_typespec()@12:71-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@12:71-12:86 ROP(op11)
+  G   <root>|array_typespec()@12:71-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   <root>|array_typespec()@12:71-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@mid_v7d_arith_pure_lit|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@mid_v7d_arith_pure_lit|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  BASE work@mid_v7d_arith_pure_lit|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE work@mid_v7d_arith_pure_lit|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=32 UINT:6 ct=9 ts=Y:int_typespec dec=6 @9:18-9:19
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@12:71-12:87 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@12:71-12:87 ROP(op11)
+  BASE <root>|array_typespec()@12:71-12:87 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE <root>|array_typespec()@12:71-12:87 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@mid_v7d_arith_pure_lit|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@mid_v7d_arith_pure_lit|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  PAT work@mid_v7d_arith_pure_lit|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT work@mid_v7d_arith_pure_lit|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 INT:6 ct=7 ts=N dec=6 @9:18-9:19
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@12:71-12:87 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@12:71-12:87 ROP(op11)
+  PAT <root>|array_typespec()@12:71-12:87 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT <root>|array_typespec()@12:71-12:87 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v7e_arith_pkgparam
+  G   work@leaf_a|interface_array(ifc4.host)@12:14-12:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@12:14-12:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@12:14-12:17 ROP0 ref_obj[12:18-12:19]
+  G   work@leaf_a|interface_array(ifc4.host)@12:14-12:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@mid_v7e_arith_pkgparam|interface_array(ifc4.host)@15:81-15:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@mid_v7e_arith_pkgparam|interface_array(ifc4.host)@15:81-15:84 ROP(op11)
+  G   work@mid_v7e_arith_pkgparam|interface_array(ifc4.host)@15:81-15:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @15:85-15:86
+  G   work@mid_v7e_arith_pkgparam|interface_array(ifc4.host)@15:81-15:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@20:8-20:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@20:8-20:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@20:8-20:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @20:12-20:13
+  G   work@top|module_array(work@ifc4)@20:8-20:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m|interface_array(work@top.m.arr)@15:81-15:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m|interface_array(work@top.m.arr)@15:81-15:84 ROP(op11)
+  G   work@top.m|interface_array(work@top.m.arr)@15:81-15:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @15:85-15:86
+  G   work@top.m|interface_array(work@top.m.arr)@15:81-15:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@12:14-12:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@12:14-12:17 ROP(op11)
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@12:14-12:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:18-12:19
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@12:14-12:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@12:3-12:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@12:3-12:19 ROP(op11)
+  G   <root>|array_typespec()@12:3-12:19 ROP0 ref_obj[12:18-12:19]
+  G   <root>|array_typespec()@12:3-12:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|array_typespec()@15:71-15:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@15:71-15:86 ROP(op11)
+  G   <root>|array_typespec()@15:71-15:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @15:85-15:86
+  G   <root>|array_typespec()@15:71-15:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@12:14-12:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@12:14-12:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@12:14-12:17 ROP0 ref_obj[12:18-12:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@12:14-12:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@mid_v7e_arith_pkgparam|interface_array(ifc4.host)@15:81-15:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@mid_v7e_arith_pkgparam|interface_array(ifc4.host)@15:81-15:84 ROP(op11)
+  BASE work@mid_v7e_arith_pkgparam|interface_array(ifc4.host)@15:81-15:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @15:85-15:86
+  BASE work@mid_v7e_arith_pkgparam|interface_array(ifc4.host)@15:81-15:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@20:8-20:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@20:8-20:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@20:8-20:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @20:12-20:13
+  BASE work@top|module_array(work@ifc4)@20:8-20:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m|interface_array(work@top.m.arr)@15:81-15:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m|interface_array(work@top.m.arr)@15:81-15:84 ROP(op11)
+  BASE work@top.m|interface_array(work@top.m.arr)@15:81-15:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @15:85-15:86
+  BASE work@top.m|interface_array(work@top.m.arr)@15:81-15:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@12:14-12:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@12:14-12:17 ROP(op11)
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@12:14-12:17 ROP0 sz=32 UINT:6 ct=9 ts=Y:int_typespec dec=6 @12:18-12:19
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@12:14-12:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@15:71-15:87 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@15:71-15:87 ROP(op11)
+  BASE <root>|array_typespec()@15:71-15:87 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @15:85-15:86
+  BASE <root>|array_typespec()@15:71-15:87 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|array_typespec()@12:3-12:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@12:3-12:20 ROP(op11)
+  BASE <root>|array_typespec()@12:3-12:20 ROP0 ref_obj[12:18-12:19]
+  BASE <root>|array_typespec()@12:3-12:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@12:14-12:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@12:14-12:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@12:14-12:17 ROP0 ref_obj[12:18-12:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@12:14-12:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@mid_v7e_arith_pkgparam|interface_array(ifc4.host)@15:81-15:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@mid_v7e_arith_pkgparam|interface_array(ifc4.host)@15:81-15:84 ROP(op11)
+  PAT work@mid_v7e_arith_pkgparam|interface_array(ifc4.host)@15:81-15:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @15:85-15:86
+  PAT work@mid_v7e_arith_pkgparam|interface_array(ifc4.host)@15:81-15:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@20:8-20:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@20:8-20:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@20:8-20:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @20:12-20:13
+  PAT work@top|module_array(work@ifc4)@20:8-20:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m|interface_array(work@top.m.arr)@15:81-15:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m|interface_array(work@top.m.arr)@15:81-15:84 ROP(op11)
+  PAT work@top.m|interface_array(work@top.m.arr)@15:81-15:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @15:85-15:86
+  PAT work@top.m|interface_array(work@top.m.arr)@15:81-15:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@12:14-12:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@12:14-12:17 ROP(op11)
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@12:14-12:17 ROP0 sz=64 INT:6 ct=7 ts=N dec=6 @12:18-12:19
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@12:14-12:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@15:71-15:87 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@15:71-15:87 ROP(op11)
+  PAT <root>|array_typespec()@15:71-15:87 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @15:85-15:86
+  PAT <root>|array_typespec()@15:71-15:87 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|array_typespec()@12:3-12:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@12:3-12:20 ROP(op11)
+  PAT <root>|array_typespec()@12:3-12:20 ROP0 ref_obj[12:18-12:19]
+  PAT <root>|array_typespec()@12:3-12:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v7f_arith_unsigned_p
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@mid_v7f_arith_unsigned_p|interface_array(ifc4.host)@12:92-12:95 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@mid_v7f_arith_unsigned_p|interface_array(ifc4.host)@12:92-12:95 ROP(op11)
+  G   work@mid_v7f_arith_unsigned_p|interface_array(ifc4.host)@12:92-12:95 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:96-12:97
+  G   work@mid_v7f_arith_unsigned_p|interface_array(ifc4.host)@12:92-12:95 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:92-12:95 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:92-12:95 ROP(op11)
+  G   work@top.m|interface_array(work@top.m.arr)@12:92-12:95 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:96-12:97
+  G   work@top.m|interface_array(work@top.m.arr)@12:92-12:95 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|array_typespec()@12:82-12:97 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@12:82-12:97 ROP(op11)
+  G   <root>|array_typespec()@12:82-12:97 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:96-12:97
+  G   <root>|array_typespec()@12:82-12:97 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@mid_v7f_arith_unsigned_p|interface_array(ifc4.host)@12:92-12:95 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@mid_v7f_arith_unsigned_p|interface_array(ifc4.host)@12:92-12:95 ROP(op11)
+  BASE work@mid_v7f_arith_unsigned_p|interface_array(ifc4.host)@12:92-12:95 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:96-12:97
+  BASE work@mid_v7f_arith_unsigned_p|interface_array(ifc4.host)@12:92-12:95 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:92-12:95 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:92-12:95 ROP(op11)
+  BASE work@top.m|interface_array(work@top.m.arr)@12:92-12:95 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:96-12:97
+  BASE work@top.m|interface_array(work@top.m.arr)@12:92-12:95 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=32 UINT:6 ct=9 ts=Y:int_typespec dec=6 @9:18-9:19
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@12:82-12:98 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@12:82-12:98 ROP(op11)
+  BASE <root>|array_typespec()@12:82-12:98 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:96-12:97
+  BASE <root>|array_typespec()@12:82-12:98 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@mid_v7f_arith_unsigned_p|interface_array(ifc4.host)@12:92-12:95 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@mid_v7f_arith_unsigned_p|interface_array(ifc4.host)@12:92-12:95 ROP(op11)
+  PAT work@mid_v7f_arith_unsigned_p|interface_array(ifc4.host)@12:92-12:95 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:96-12:97
+  PAT work@mid_v7f_arith_unsigned_p|interface_array(ifc4.host)@12:92-12:95 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:92-12:95 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:92-12:95 ROP(op11)
+  PAT work@top.m|interface_array(work@top.m.arr)@12:92-12:95 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:96-12:97
+  PAT work@top.m|interface_array(work@top.m.arr)@12:92-12:95 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@12:82-12:98 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@12:82-12:98 ROP(op11)
+  PAT <root>|array_typespec()@12:82-12:98 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:96-12:97
+  PAT <root>|array_typespec()@12:82-12:98 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v7g_mul_paramref
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@mid_v7g_mul_paramref|interface_array(ifc4.host)@12:79-12:82 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@mid_v7g_mul_paramref|interface_array(ifc4.host)@12:79-12:82 ROP(op11)
+  G   work@mid_v7g_mul_paramref|interface_array(ifc4.host)@12:79-12:82 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:83-12:84
+  G   work@mid_v7g_mul_paramref|interface_array(ifc4.host)@12:79-12:82 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:79-12:82 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:79-12:82 ROP(op11)
+  G   work@top.m|interface_array(work@top.m.arr)@12:79-12:82 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:83-12:84
+  G   work@top.m|interface_array(work@top.m.arr)@12:79-12:82 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 INT:6 ct=7 ts=N dec=6 @9:18-9:19
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|array_typespec()@12:69-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@12:69-12:84 ROP(op11)
+  G   <root>|array_typespec()@12:69-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:83-12:84
+  G   <root>|array_typespec()@12:69-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@mid_v7g_mul_paramref|interface_array(ifc4.host)@12:79-12:82 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@mid_v7g_mul_paramref|interface_array(ifc4.host)@12:79-12:82 ROP(op11)
+  BASE work@mid_v7g_mul_paramref|interface_array(ifc4.host)@12:79-12:82 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:83-12:84
+  BASE work@mid_v7g_mul_paramref|interface_array(ifc4.host)@12:79-12:82 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:79-12:82 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:79-12:82 ROP(op11)
+  BASE work@top.m|interface_array(work@top.m.arr)@12:79-12:82 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:83-12:84
+  BASE work@top.m|interface_array(work@top.m.arr)@12:79-12:82 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=32 UINT:6 ct=9 ts=Y:int_typespec dec=6 @9:18-9:19
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@12:69-12:85 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@12:69-12:85 ROP(op11)
+  BASE <root>|array_typespec()@12:69-12:85 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:83-12:84
+  BASE <root>|array_typespec()@12:69-12:85 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@mid_v7g_mul_paramref|interface_array(ifc4.host)@12:79-12:82 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@mid_v7g_mul_paramref|interface_array(ifc4.host)@12:79-12:82 ROP(op11)
+  PAT work@mid_v7g_mul_paramref|interface_array(ifc4.host)@12:79-12:82 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:83-12:84
+  PAT work@mid_v7g_mul_paramref|interface_array(ifc4.host)@12:79-12:82 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:79-12:82 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:79-12:82 ROP(op11)
+  PAT work@top.m|interface_array(work@top.m.arr)@12:79-12:82 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:83-12:84
+  PAT work@top.m|interface_array(work@top.m.arr)@12:79-12:82 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 INT:6 ct=7 ts=N dec=6 @9:18-9:19
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@12:69-12:85 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@12:69-12:85 ROP(op11)
+  PAT <root>|array_typespec()@12:69-12:85 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:83-12:84
+  PAT <root>|array_typespec()@12:69-12:85 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v7h_unary_paramref
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@mid_v7h_unary_paramref|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@mid_v7h_unary_paramref|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  G   work@mid_v7h_unary_paramref|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   work@mid_v7h_unary_paramref|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=32 INT:6 ct=7 ts=N dec=6 @9:18-9:19
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|array_typespec()@12:71-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@12:71-12:86 ROP(op11)
+  G   <root>|array_typespec()@12:71-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   <root>|array_typespec()@12:71-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@mid_v7h_unary_paramref|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@mid_v7h_unary_paramref|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  BASE work@mid_v7h_unary_paramref|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE work@mid_v7h_unary_paramref|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=32 UINT:6 ct=9 ts=Y:int_typespec dec=6 @9:18-9:19
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@12:71-12:87 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@12:71-12:87 ROP(op11)
+  BASE <root>|array_typespec()@12:71-12:87 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE <root>|array_typespec()@12:71-12:87 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@mid_v7h_unary_paramref|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@mid_v7h_unary_paramref|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  PAT work@mid_v7h_unary_paramref|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT work@mid_v7h_unary_paramref|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 INT:6 ct=7 ts=N dec=6 @9:18-9:19
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@12:71-12:87 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@12:71-12:87 ROP(op11)
+  PAT <root>|array_typespec()@12:71-12:87 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT <root>|array_typespec()@12:71-12:87 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v7i_shift_paramref
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@mid_v7i_shift_paramref|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@mid_v7i_shift_paramref|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  G   work@mid_v7i_shift_paramref|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   work@mid_v7i_shift_paramref|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|array_typespec()@12:71-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@12:71-12:86 ROP(op11)
+  G   <root>|array_typespec()@12:71-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  G   <root>|array_typespec()@12:71-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@mid_v7i_shift_paramref|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@mid_v7i_shift_paramref|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  BASE work@mid_v7i_shift_paramref|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE work@mid_v7i_shift_paramref|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=32 UINT:6 ct=9 ts=Y:int_typespec dec=6 @9:18-9:19
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@12:71-12:87 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@12:71-12:87 ROP(op11)
+  BASE <root>|array_typespec()@12:71-12:87 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  BASE <root>|array_typespec()@12:71-12:87 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@mid_v7i_shift_paramref|interface_array(ifc4.host)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@mid_v7i_shift_paramref|interface_array(ifc4.host)@12:81-12:84 ROP(op11)
+  PAT work@mid_v7i_shift_paramref|interface_array(ifc4.host)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT work@mid_v7i_shift_paramref|interface_array(ifc4.host)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP(op11)
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT work@top.m|interface_array(work@top.m.arr)@12:81-12:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@12:71-12:87 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@12:71-12:87 ROP(op11)
+  PAT <root>|array_typespec()@12:71-12:87 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:85-12:86
+  PAT <root>|array_typespec()@12:71-12:87 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v7j_clog2_paramref
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@mid_v7j_clog2_paramref|interface_array(ifc4.host)@12:82-12:85 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@mid_v7j_clog2_paramref|interface_array(ifc4.host)@12:82-12:85 ROP(op11)
+  G   work@mid_v7j_clog2_paramref|interface_array(ifc4.host)@12:82-12:85 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:86-12:87
+  G   work@mid_v7j_clog2_paramref|interface_array(ifc4.host)@12:82-12:85 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:82-12:85 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:82-12:85 ROP(op11)
+  G   work@top.m|interface_array(work@top.m.arr)@12:82-12:85 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:86-12:87
+  G   work@top.m|interface_array(work@top.m.arr)@12:82-12:85 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|array_typespec()@12:72-12:87 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@12:72-12:87 ROP(op11)
+  G   <root>|array_typespec()@12:72-12:87 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:86-12:87
+  G   <root>|array_typespec()@12:72-12:87 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@mid_v7j_clog2_paramref|interface_array(ifc4.host)@12:82-12:85 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@mid_v7j_clog2_paramref|interface_array(ifc4.host)@12:82-12:85 ROP(op11)
+  BASE work@mid_v7j_clog2_paramref|interface_array(ifc4.host)@12:82-12:85 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:86-12:87
+  BASE work@mid_v7j_clog2_paramref|interface_array(ifc4.host)@12:82-12:85 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:82-12:85 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:82-12:85 ROP(op11)
+  BASE work@top.m|interface_array(work@top.m.arr)@12:82-12:85 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:86-12:87
+  BASE work@top.m|interface_array(work@top.m.arr)@12:82-12:85 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=32 UINT:6 ct=9 ts=Y:int_typespec dec=6 @9:18-9:19
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@12:72-12:88 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@12:72-12:88 ROP(op11)
+  BASE <root>|array_typespec()@12:72-12:88 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:86-12:87
+  BASE <root>|array_typespec()@12:72-12:88 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@mid_v7j_clog2_paramref|interface_array(ifc4.host)@12:82-12:85 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@mid_v7j_clog2_paramref|interface_array(ifc4.host)@12:82-12:85 ROP(op11)
+  PAT work@mid_v7j_clog2_paramref|interface_array(ifc4.host)@12:82-12:85 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:86-12:87
+  PAT work@mid_v7j_clog2_paramref|interface_array(ifc4.host)@12:82-12:85 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:82-12:85 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:82-12:85 ROP(op11)
+  PAT work@top.m|interface_array(work@top.m.arr)@12:82-12:85 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:86-12:87
+  PAT work@top.m|interface_array(work@top.m.arr)@12:82-12:85 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@12:72-12:88 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@12:72-12:88 ROP(op11)
+  PAT <root>|array_typespec()@12:72-12:88 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:86-12:87
+  PAT <root>|array_typespec()@12:72-12:88 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v7k_ternary_paramref
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@mid_v7k_ternary_paramref|interface_array(ifc4.host)@12:83-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@mid_v7k_ternary_paramref|interface_array(ifc4.host)@12:83-12:86 ROP(op11)
+  G   work@mid_v7k_ternary_paramref|interface_array(ifc4.host)@12:83-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  G   work@mid_v7k_ternary_paramref|interface_array(ifc4.host)@12:83-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:83-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP(op11)
+  G   work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  G   work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=32 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|array_typespec()@12:73-12:88 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@12:73-12:88 ROP(op11)
+  G   <root>|array_typespec()@12:73-12:88 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  G   <root>|array_typespec()@12:73-12:88 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@mid_v7k_ternary_paramref|interface_array(ifc4.host)@12:83-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@mid_v7k_ternary_paramref|interface_array(ifc4.host)@12:83-12:86 ROP(op11)
+  BASE work@mid_v7k_ternary_paramref|interface_array(ifc4.host)@12:83-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  BASE work@mid_v7k_ternary_paramref|interface_array(ifc4.host)@12:83-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:83-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP(op11)
+  BASE work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  BASE work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=32 UINT:6 ct=9 ts=Y:int_typespec dec=6 @9:18-9:19
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@12:73-12:89 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@12:73-12:89 ROP(op11)
+  BASE <root>|array_typespec()@12:73-12:89 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  BASE <root>|array_typespec()@12:73-12:89 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@mid_v7k_ternary_paramref|interface_array(ifc4.host)@12:83-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@mid_v7k_ternary_paramref|interface_array(ifc4.host)@12:83-12:86 ROP(op11)
+  PAT work@mid_v7k_ternary_paramref|interface_array(ifc4.host)@12:83-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  PAT work@mid_v7k_ternary_paramref|interface_array(ifc4.host)@12:83-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:83-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP(op11)
+  PAT work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  PAT work@top.m|interface_array(work@top.m.arr)@12:83-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@12:73-12:89 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@12:73-12:89 ROP(op11)
+  PAT <root>|array_typespec()@12:73-12:89 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:87-12:88
+  PAT <root>|array_typespec()@12:73-12:89 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+== v7l_cast_paramref
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  G   work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@mid_v7l_cast_paramref|interface_array(ifc4.host)@12:80-12:83 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@mid_v7l_cast_paramref|interface_array(ifc4.host)@12:80-12:83 ROP(op11)
+  G   work@mid_v7l_cast_paramref|interface_array(ifc4.host)@12:80-12:83 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:84-12:85
+  G   work@mid_v7l_cast_paramref|interface_array(ifc4.host)@12:80-12:83 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  G   work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:80-12:83 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m|interface_array(work@top.m.arr)@12:80-12:83 ROP(op11)
+  G   work@top.m|interface_array(work@top.m.arr)@12:80-12:83 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:84-12:85
+  G   work@top.m|interface_array(work@top.m.arr)@12:80-12:83 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  G   work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  G   <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  G   <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  G   <root>|array_typespec()@9:3-9:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@9:3-9:19 ROP(op11)
+  G   <root>|array_typespec()@9:3-9:19 ROP0 ref_obj[9:18-9:19]
+  G   <root>|array_typespec()@9:3-9:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  G   <root>|array_typespec()@12:70-12:85 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  G   <root>|array_typespec()@12:70-12:85 ROP(op11)
+  G   <root>|array_typespec()@12:70-12:85 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:84-12:85
+  G   <root>|array_typespec()@12:70-12:85 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  BASE work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@mid_v7l_cast_paramref|interface_array(ifc4.host)@12:80-12:83 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@mid_v7l_cast_paramref|interface_array(ifc4.host)@12:80-12:83 ROP(op11)
+  BASE work@mid_v7l_cast_paramref|interface_array(ifc4.host)@12:80-12:83 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:84-12:85
+  BASE work@mid_v7l_cast_paramref|interface_array(ifc4.host)@12:80-12:83 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  BASE work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:80-12:83 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m|interface_array(work@top.m.arr)@12:80-12:83 ROP(op11)
+  BASE work@top.m|interface_array(work@top.m.arr)@12:80-12:83 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:84-12:85
+  BASE work@top.m|interface_array(work@top.m.arr)@12:80-12:83 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=32 UINT:6 ct=9 ts=Y:int_typespec dec=6 @9:18-9:19
+  BASE work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  BASE <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  BASE <root>|array_typespec()@12:70-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@12:70-12:86 ROP(op11)
+  BASE <root>|array_typespec()@12:70-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:84-12:85
+  BASE <root>|array_typespec()@12:70-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  BASE <root>|array_typespec()@9:3-9:20 ROP(op11)
+  BASE <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  BASE <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  BASE <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP(op11)
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP0 ref_obj[9:18-9:19]
+  PAT work@leaf_a|interface_array(ifc4.host)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@mid_v7l_cast_paramref|interface_array(ifc4.host)@12:80-12:83 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@mid_v7l_cast_paramref|interface_array(ifc4.host)@12:80-12:83 ROP(op11)
+  PAT work@mid_v7l_cast_paramref|interface_array(ifc4.host)@12:80-12:83 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:84-12:85
+  PAT work@mid_v7l_cast_paramref|interface_array(ifc4.host)@12:80-12:83 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @17:12-17:13
+  PAT work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:80-12:83 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m|interface_array(work@top.m.arr)@12:80-12:83 ROP(op11)
+  PAT work@top.m|interface_array(work@top.m.arr)@12:80-12:83 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:84-12:85
+  PAT work@top.m|interface_array(work@top.m.arr)@12:80-12:83 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP(op11)
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @9:18-9:19
+  PAT work@top.m.u|interface_array(work@top.m.u.arr)@9:14-9:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+  PAT <root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+  PAT <root>|array_typespec()@12:70-12:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@12:70-12:86 ROP(op11)
+  PAT <root>|array_typespec()@12:70-12:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @12:84-12:85
+  PAT <root>|array_typespec()@12:70-12:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|array_typespec()@9:3-9:20 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+  PAT <root>|array_typespec()@9:3-9:20 ROP(op11)
+  PAT <root>|array_typespec()@9:3-9:20 ROP0 ref_obj[9:18-9:19]
+  PAT <root>|array_typespec()@9:3-9:20 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+  PAT <root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+PROBLEMS=0

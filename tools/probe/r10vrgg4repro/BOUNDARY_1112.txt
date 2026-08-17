@@ -1,0 +1,14 @@
+  NO-DATABASE r10buvm8repro_v5kinds8.sv
+  NO-DATABASE r10earl54repro_v10_v54.sv
+  NO-DATABASE r10fiot_repro_a1.sv
+  NO-DATABASE r10fiot_repro_a2.sv
+  MOVED       r10rggen7repro_t4.sv  base=638bfd1c4348 pat=43d1dc41cbb3
+  NO-DATABASE r10scr13repro_t4b.sv
+  NO-DATABASE r10svs13repro_v2_localdecl.sv
+  NO-DATABASE r10svs14repro_v3v_chandle.sv
+  NO-DATABASE r10uvm47repro_t65b_dut.sv
+  NO-DATABASE r10uvm83repro_v83_a15_reexport.sv
+  NO-DATABASE r10vrgg2repro_y5_sub_dut.sv
+  NO-DATABASE r10vrgg3repro_xj_recv_param_hier_dependent_dut.sv
+  NO-DATABASE r10vrgg3repro_y4_iface_param_in_sub_dut.sv
+ARMS=1112 MOVED=1 NO-DATABASE=12

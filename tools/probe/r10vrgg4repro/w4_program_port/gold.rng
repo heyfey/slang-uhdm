@@ -1,0 +1,11 @@
+work@top|module_array(work@ifc4)@8:8-8:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+work@top|module_array(work@ifc4)@8:8-8:11 ROP(op11)
+work@top|module_array(work@ifc4)@8:8-8:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @8:12-8:13
+work@top|module_array(work@ifc4)@8:8-8:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+<root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+<root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+<root>|interface_array(arr)@5:50-5:53 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+<root>|interface_array(arr)@5:50-5:53 ROP(op11)
+<root>|interface_array(arr)@5:50-5:53 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @5:54-5:55
+<root>|interface_array(arr)@5:50-5:53 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+<root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]

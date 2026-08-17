@@ -1,0 +1,19 @@
+work@leaf_v5d_noovr_enumparam|interface_array(ifc4.host)@12:14-12:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+work@leaf_v5d_noovr_enumparam|interface_array(ifc4.host)@12:14-12:17 ROP(op11)
+work@leaf_v5d_noovr_enumparam|interface_array(ifc4.host)@12:14-12:17 ROP0 ref_obj[12:18-12:19]
+work@leaf_v5d_noovr_enumparam|interface_array(ifc4.host)@12:14-12:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+work@top|module_array(work@ifc4)@17:8-17:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+work@top|module_array(work@ifc4)@17:8-17:11 ROP(op11)
+work@top|module_array(work@ifc4)@17:8-17:11 ROP0 sz=64 UINT:3 ct=9 ts=N dec=3 @17:12-17:13
+work@top|module_array(work@ifc4)@17:8-17:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+work@top.u|interface_array(work@top.u.arr)@12:14-12:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+work@top.u|interface_array(work@top.u.arr)@12:14-12:17 ROP(op11)
+work@top.u|interface_array(work@top.u.arr)@12:14-12:17 ROP0 sz=32 UINT:3 ct=9 ts=N dec=3 @12:18-12:19
+work@top.u|interface_array(work@top.u.arr)@12:14-12:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+<root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+<root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+<root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+<root>|array_typespec()@12:3-12:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+<root>|array_typespec()@12:3-12:19 ROP(op11)
+<root>|array_typespec()@12:3-12:19 ROP0 ref_obj[12:18-12:19]
+<root>|array_typespec()@12:3-12:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-

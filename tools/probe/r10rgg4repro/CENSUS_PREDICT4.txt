@@ -1,0 +1,9 @@
+# files scanned      : 14612
+# BARE-ID dims (law) : 38 in 5 tests
+# other dims (dropped): 69 in 10 tests
+#
+  16  surelog3p:Tnoc
+  13  surelog3p:Rsd
+   4  surelog3p:ariane
+   4  surelog3p:rggen
+   1  surelog:FuncDef2

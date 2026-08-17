@@ -1,0 +1,15 @@
+work@mid_w5|array_net(work@mid_w5.arr)@5:51-5:54 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+work@mid_w5|array_net(work@mid_w5.arr)@5:51-5:54 ROP(op11)
+work@mid_w5|array_net(work@mid_w5.arr)@5:51-5:54 ROP0 ref_obj[5:55-5:56]
+work@mid_w5|array_net(work@mid_w5.arr)@5:51-5:54 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+work@top|module_array(work@ifc4)@8:8-8:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+work@top|module_array(work@ifc4)@8:8-8:11 ROP(op11)
+work@top|module_array(work@ifc4)@8:8-8:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @8:12-8:13
+work@top|module_array(work@ifc4)@8:8-8:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+work@top.u|interface_array(work@top.u.arr)@5:51-5:54 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+work@top.u|interface_array(work@top.u.arr)@5:51-5:54 ROP(op11)
+work@top.u|interface_array(work@top.u.arr)@5:51-5:54 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @5:55-5:56
+work@top.u|interface_array(work@top.u.arr)@5:51-5:54 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+<root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+<root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+<root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]

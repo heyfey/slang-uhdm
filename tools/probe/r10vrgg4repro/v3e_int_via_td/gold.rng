@@ -1,0 +1,31 @@
+work@leaf_a|interface_array(ifc4.host)@10:14-10:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+work@leaf_a|interface_array(ifc4.host)@10:14-10:17 ROP(op11)
+work@leaf_a|interface_array(ifc4.host)@10:14-10:17 ROP0 ref_obj[10:18-10:19]
+work@leaf_a|interface_array(ifc4.host)@10:14-10:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+work@mid_v3e_int_via_td|interface_array(ifc4.host)@13:81-13:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+work@mid_v3e_int_via_td|interface_array(ifc4.host)@13:81-13:84 ROP(op11)
+work@mid_v3e_int_via_td|interface_array(ifc4.host)@13:81-13:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @13:85-13:86
+work@mid_v3e_int_via_td|interface_array(ifc4.host)@13:81-13:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+work@top|module_array(work@ifc4)@18:8-18:11 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+work@top|module_array(work@ifc4)@18:8-18:11 ROP(op11)
+work@top|module_array(work@ifc4)@18:8-18:11 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @18:12-18:13
+work@top|module_array(work@ifc4)@18:8-18:11 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+work@top.m|interface_array(work@top.m.arr)@13:81-13:84 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+work@top.m|interface_array(work@top.m.arr)@13:81-13:84 ROP(op11)
+work@top.m|interface_array(work@top.m.arr)@13:81-13:84 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @13:85-13:86
+work@top.m|interface_array(work@top.m.arr)@13:81-13:84 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+work@top.m.u|interface_array(work@top.m.u.arr)@10:14-10:17 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+work@top.m.u|interface_array(work@top.m.u.arr)@10:14-10:17 ROP(op11)
+work@top.m.u|interface_array(work@top.m.u.arr)@10:14-10:17 ROP0 sz=32 UINT:6 ct=9 ts=N dec=6 @10:18-10:19
+work@top.m.u|interface_array(work@top.m.u.arr)@10:14-10:17 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+<root>|logic_typespec()@2:3-2:16 LEFT sz=64 INT:7 ct=7 ts=N dec=7 @2:10-2:11
+<root>|logic_typespec()@2:3-2:16 RIGHT sz=64 UINT:0 ct=9 ts=N dec=0 @2:14-2:15
+<root>|logic_typespec()@2:3-2:16 LEFT operation[2:10-2:13]
+<root>|array_typespec()@10:3-10:19 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+<root>|array_typespec()@10:3-10:19 ROP(op11)
+<root>|array_typespec()@10:3-10:19 ROP0 ref_obj[10:18-10:19]
+<root>|array_typespec()@10:3-10:19 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-
+<root>|array_typespec()@13:71-13:86 LEFT sz=64 UINT:0 ct=9 ts=N dec=0 @-
+<root>|array_typespec()@13:71-13:86 ROP(op11)
+<root>|array_typespec()@13:71-13:86 ROP0 sz=64 UINT:6 ct=9 ts=N dec=6 @13:85-13:86
+<root>|array_typespec()@13:71-13:86 ROP1 sz=64 INT:1 ct=7 ts=N dec=- @-

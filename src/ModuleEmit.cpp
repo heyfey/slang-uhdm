@@ -23750,6 +23750,108 @@ bool UhdmExporter::sizeDimFoldsWithoutParams(
     return false;
 }
 
+
+// § sizeDimOvrChain4 — the ENCODING of an ELAB size-form dimension `[P]` whose
+// expression is a bare reference to an OVERRIDDEN parameter.
+//
+// Surelog computes that bound with its OVERRIDE-EXPRESSION reducer, NOT with the
+// declaration-site {producer, adjustSize} pair that fills the parameter's own
+// `param_assign`.  Two consequences, both measured on every overridden cell of
+// the grid in `tools/probe/r10rgg4repro` and on the real Rggen head:
+//
+//   * the leaf parameter's DECLARED TYPE never narrows the bound (`int R`
+//     overridden by `#(.R(25))` reads size 64, not 32), and
+//   * the bound carries NO `vpiTypespec` at all.
+//
+// The chain is walked TRANSITIVELY — `#(.R(R))` hops into the parent's own R,
+// which may itself be overridden — and the TERMINAL decides the shape:
+//
+//   terminal                                   | size          | const type
+//   -------------------------------------------|---------------|-------------
+//   a NON-overridden parameter Q               | Q's type width| vpiUIntConst
+//   an integer/vector literal, a concatenation  | the literal object VERBATIM
+//     (a DECIMAL-based literal is re-encoded as INT / vpiIntConst with a
+//      bare-decimal decompile: `8'd6` -> size 8 `INT:6`, `'d6` -> size -1)
+//   a SIGNED arithmetic operator (+ - * / % **) | 64            | vpiIntConst
+//   a comparison/shift/logical operator, a call,
+//     an explicit cast, a conditional           | 64            | vpiUIntConst
+//
+// An UNSIGNED arithmetic result is unsigned too — golden reads `(3>1)+5` as
+// `UINT` because the comparison operand makes the sum unsigned — which is why
+// the arithmetic arm consults slang's own result signedness and not just the
+// operator.  Anything else returns None and the caller keeps its old path.
+enum class SizeDimOvr4 { None, Verbatim, Synth };
+
+static SizeDimOvr4 sizeDimOvrEnc4(const ParameterSymbol& p, int32_t& size,
+                                  bool& uintForm,
+                                  const syntax::ExpressionSyntax*& litSyn) {
+    const Expression* e = p.getInitializer();
+    for (int hop = 0; e && hop < 32; ++hop) {
+        // Unwrap the declared type's own coercion; an EXPLICIT cast is a
+        // terminal, not a wrapper.
+        while (e->kind == ExpressionKind::Conversion &&
+               e->as<ConversionExpression>().isImplicit()) {
+            e = &e->as<ConversionExpression>().operand();
+        }
+        switch (e->kind) {
+            case ExpressionKind::NamedValue:
+            case ExpressionKind::HierarchicalValue: {
+                const Symbol& t = e->as<ValueExpressionBase>().symbol;
+                if (t.kind != SymbolKind::Parameter)
+                    return SizeDimOvr4::None;
+                auto& tp = t.as<ParameterSymbol>();
+                if (tp.isOverridden()) {
+                    e = tp.getInitializer();
+                    continue;
+                }
+                auto bw = tp.getType().getBitWidth();
+                if (bw == 0)
+                    return SizeDimOvr4::None;
+                size = (int32_t)bw;
+                uintForm = true;
+                return SizeDimOvr4::Synth;
+            }
+            case ExpressionKind::IntegerLiteral:
+            case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+            case ExpressionKind::Concatenation:
+            case ExpressionKind::Replication:
+                if (!e->syntax)
+                    return SizeDimOvr4::None;
+                litSyn = e->syntax;
+                return SizeDimOvr4::Verbatim;
+            case ExpressionKind::UnaryOp: {
+                auto o = e->as<UnaryExpression>().op;
+                bool arith =
+                    o == UnaryOperator::Plus || o == UnaryOperator::Minus;
+                size = 64;
+                uintForm = !(arith && e->type->isSigned());
+                return SizeDimOvr4::Synth;
+            }
+            case ExpressionKind::BinaryOp: {
+                auto o = e->as<BinaryExpression>().op;
+                bool arith = o == BinaryOperator::Add ||
+                             o == BinaryOperator::Subtract ||
+                             o == BinaryOperator::Multiply ||
+                             o == BinaryOperator::Divide ||
+                             o == BinaryOperator::Mod ||
+                             o == BinaryOperator::Power;
+                size = 64;
+                uintForm = !(arith && e->type->isSigned());
+                return SizeDimOvr4::Synth;
+            }
+            case ExpressionKind::Call:
+            case ExpressionKind::Conversion:
+            case ExpressionKind::ConditionalOp:
+                size = 64;
+                uintForm = true;
+                return SizeDimOvr4::Synth;
+            default:
+                return SizeDimOvr4::None;
+        }
+    }
+    return SizeDimOvr4::None;
+}
+
 bool UhdmExporter::fillSizeDimRange(UHDM::range* r,
                                     const syntax::VariableDimensionSyntax& dim,
                                     const Scope* foldScope, int64_t foldVal,
@@ -23790,16 +23892,56 @@ bool UhdmExporter::fillSizeDimRange(UHDM::range* r,
             // not through the param_assign value that the declared type has
             // already narrowed: `#(4)` on an `int P` reads size 64 at the use
             // site while `P`'s own param_assign Rhs reads size 32.
-            if (sym && sym->kind == SymbolKind::Parameter &&
-                sym->as<ParameterSymbol>().isOverridden())
-                if (auto dt = sym->as<ParameterSymbol>().getDeclaredType())
-                    if (auto* isyn = dt->getInitializerSyntax())
-                        if (auto* ov = emitSyntaxExpr(*isyn, op))
-                            if (ov->UhdmType() == UHDM::uhdmconstant) {
-                                setLoc((UHDM::constant*)ov,
-                                       bs->expr->sourceRange());
-                                sizeOperand = ov;
+            // § sizeDimOvrChain4 walks that override CHAIN (see the comment on
+            // sizeDimOvrEnc4 above) and answers with the terminal's shape.
+            bool ovrChain4 = sym && sym->kind == SymbolKind::Parameter &&
+                             sym->as<ParameterSymbol>().isOverridden();
+            if (ovrChain4) {
+                auto& psym4 = sym->as<ParameterSymbol>();
+                int32_t osz4 = 64;
+                bool ouint4 = true;
+                const syntax::ExpressionSyntax* lit4 = nullptr;
+                auto enc4 = sizeDimOvrEnc4(psym4, osz4, ouint4, lit4);
+                if (enc4 == SizeDimOvr4::Verbatim) {
+                    if (auto* ov = emitSyntaxExpr(*lit4, op))
+                        if (ov->UhdmType() == UHDM::uhdmconstant) {
+                            auto* c = (UHDM::constant*)ov;
+                            setLoc(c, bs->expr->sourceRange());
+                            // A DECIMAL-based literal is re-encoded as a bare
+                            // signed INT (`8'd6` -> size 8 `INT:6`, dec "6");
+                            // hex/binary/plain-decimal forms are kept verbatim.
+                            if (c->VpiConstType() == vpiDecConst) {
+                                c->VpiValue("INT:" + std::to_string(foldVal));
+                                c->VpiDecompile(std::to_string(foldVal));
+                                c->VpiConstType(vpiIntConst);
                             }
+                            c->Typespec(nullptr);
+                            sizeOperand = c;
+                        }
+                }
+                else if (enc4 == SizeDimOvr4::Synth) {
+                    auto* c = s.MakeConstant();
+                    c->VpiSize(osz4);
+                    c->VpiValue((ouint4 ? "UINT:" : "INT:") +
+                                std::to_string(foldVal));
+                    c->VpiDecompile(std::to_string(foldVal));
+                    c->VpiConstType(ouint4 ? vpiUIntConst : vpiIntConst);
+                    c->VpiParent(op);
+                    setLoc(c, bs->expr->sourceRange());
+                    sizeOperand = c;
+                }
+                // Unmodelled override shapes keep the pre-§ path verbatim.
+                if (!sizeOperand)
+                    if (auto dt = psym4.getDeclaredType())
+                        if (auto* isyn = dt->getInitializerSyntax())
+                            if (auto* ov = emitSyntaxExpr(*isyn, op))
+                                if (ov->UhdmType() == UHDM::uhdmconstant) {
+                                    setLoc((UHDM::constant*)ov,
+                                           bs->expr->sourceRange());
+                                    ((UHDM::constant*)ov)->Typespec(nullptr);
+                                    sizeOperand = ov;
+                                }
+            }
             // Otherwise it reduces to this view's own param_assign value.
             if (!sizeOperand && sym && mInst && mInst->Param_assigns())
                 for (auto* pa : *mInst->Param_assigns()) {
@@ -23816,15 +23958,21 @@ bool UhdmExporter::fillSizeDimRange(UHDM::range* r,
                     c->VpiConstType(src->VpiConstType());
                     c->VpiParent(op);
                     setLoc(c, bs->expr->sourceRange());
-                    // The reduced value keeps the parameter's own type link.
-                    // The reduced value carries the parameter's type link only
-                    // for a PREDEFINED-integer parameter: `int P` reduces to a
-                    // constant with an int_typespec ref, while `bit [7:0] Q`
-                    // reduces to a bare constant (measured pair).
+                    // The reduced value carries the parameter's type link
+                    // only for a parameter declared plain, SIGNED `int` and
+                    // only while it is NOT overridden.  `integer`, `longint`,
+                    // `shortint`, `byte`, `int unsigned` and `bit [7:0]` all
+                    // reduce to a BARE constant (grid arm b, 9 golden cells),
+                    // and every overridden cell of arms a/b/g/h is bare too —
+                    // § sizeDimOvrChain4.
+                    auto& pty4 = sym->as<ParameterSymbol>().getType();
+                    bool plainInt4 =
+                        pty4.isPredefinedInteger() && pty4.isSigned() &&
+                        pty4.getCanonicalType()
+                                .as<PredefinedIntegerType>()
+                                .integerKind == PredefinedIntegerType::Int;
                     if (auto* srt = src->Typespec();
-                        srt && sym->as<ParameterSymbol>()
-                                   .getType()
-                                   .isPredefinedInteger()) {
+                        srt && plainInt4 && !ovrChain4) {
                         auto* rt = s.MakeRef_typespec();
                         rt->VpiFullName(std::string(srt->VpiFullName()));
                         rt->VpiParent(c);

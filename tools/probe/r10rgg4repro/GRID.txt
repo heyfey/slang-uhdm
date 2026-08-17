@@ -1,0 +1,145 @@
+r10rgg4 — THE MEASURED GRID (78 cells, all four arms) for § sizeDimOvrChain4
+===========================================================================
+
+Every number below is GOLDEN (real Surelog, `-parse -nopython -d uhdm -top top`)
+measured by `attrib.py` on the ELABORATED interface_array's dimension range:
+
+    range[0 : <ROP0> - 1]        ROP0 = the folded size operand
+
+`sz` is vpiSize, `ts` is whether the constant carries a vpiTypespec at all.
+BASE = the pristine binary at f65aff5, PAT = the patched one.
+Score: `score.py` — FIXED=43  BROKEN=0  STILL=26  OK=1653  MISS=0.
+
+
+ARM A — HOW THE LEAF'S SIZE PARAMETER IS SET  (leaf: `parameter int R = 4`, `[R]`)
+--------------------------------------------------------------------------------
+| cell                    | how R reaches the leaf        | GOLDEN ROP0            | BASE was        |
+|-------------------------|-------------------------------|------------------------|-----------------|
+| a1_noovr                | not overridden (default 4)    | sz=32 UINT:4 **ts=Y**  | agreed          |
+| a2_ovr_lit              | `#(.R(6))`                    | sz=64 UINT:6 ts=N      | agreed          |
+| a3_ovr_sizedlit         | `#(.R(8'd6))`                 | sz=8  INT:6  ts=N      | DEC:6 ct=1 "8'd6" |
+| a4_ovr_paramref         | `#(.R(R))`  **THE HEAD**      | sz=64 UINT:6 ts=N      | sz=32 ts=Y      |
+| a5_ovr_paramarith       | `#(.R(R-1))`                  | sz=64 INT:6  ts=N      | sz=32 ts=Y      |
+| a6_ovr_ref_to_default   | `#(.R(R))`, parent R default  | sz=32 UINT:4 ts=N      | sz=32 ts=Y      |
+| a6b_ovr_toplocalparam   | `#(.R(TLP))` top localparam   | sz=32 UINT:6 ts=N      | sz=32 ts=Y      |
+| a6c_ovr_pkgparam        | `#(.R(pk4::PR))`              | sz=32 UINT:6 ts=N      | sz=32 ts=Y      |
+| a7_ovr_pos_paramref     | positional `#(R)`             | sz=64 UINT:6 ts=N      | sz=32 ts=Y      |
+| a8_two_level_paramref   | `#(.R(R))` TWICE (rggen depth)| sz=64 UINT:6 ts=N ×2   | sz=32 ts=Y ×2   |
+
+a4 vs a6 is the pass's single most informative pair: the SAME written override
+`#(.R(R))` reads 64 when the parent's R is itself overridden by a literal and 32
+when the parent's R keeps its default.  The chain, not the leaf, decides.
+
+
+ARM B — THE LEAF PARAMETER'S DECLARED TYPE  (18 cells)
+-----------------------------------------------------
+NOT overridden (the declaration-site value; the TYPESPEC column is the law):
+
+| leaf type            | GOLDEN | ts | BASE ts |
+|----------------------|--------|----|---------|
+| `int R`              | sz=32  | Y  | Y  ok   |
+| `R` (untyped)        | sz=32  | N  | N  ok   |
+| `bit [7:0] R`        | sz=8   | N  | N  ok   |
+| `logic [7:0] R`      | sz=8   | N  | N  ok   |
+| `integer R`          | sz=32  | N  | **Y**   |
+| `longint R`          | sz=64  | N  | **Y**   |
+| `shortint R`         | sz=16  | N  | **Y**   |
+| `byte R`             | sz=8   | N  | **Y**   |
+| `int unsigned R`     | sz=32  | N  | **Y**   |
+
+=> the typespec is attached for PLAIN SIGNED `int` and for nothing else.  The
+pre-§ gate was `isPredefinedInteger()`, which is five types too wide.
+
+OVERRIDDEN by `#(.R(R))` with the parent's R = 6 (a literal override): golden
+reads **sz=64 UINT:6 ts=N in all nine rows** — the leaf's declared type is inert.
+
+
+ARM G — THE CHAIN TERMINAL'S TYPE  (leaf `int R`, `#(.R(P))`, P not overridden)
+------------------------------------------------------------------------------
+| parent P's type       | GOLDEN ROP0                | modelled as        |
+|-----------------------|----------------------------|--------------------|
+| `int P = 6`           | sz=32 UINT:6 ts=N          | width 32, UINT  ok |
+| `P = 6` (untyped)     | sz=32 UINT:6 ts=N          | width 32, UINT  ok |
+| `bit [7:0] P = 6`     | sz=8  UINT:6 ts=N          | width 8,  UINT  ok |
+| `longint P = 6`       | sz=64 UINT:6 ts=N          | width 64, UINT  ok |
+| `byte P = 6`          | sz=8  UINT:6 ts=N          | width 8,  UINT  ok |
+| `int unsigned P = 6`  | sz=32 UINT:6 ts=N          | width 32, UINT  ok |
+| `integer P = 6`       | sz=32 UINT:6 ts=N          | width 32, UINT  ok |
+| `P = 8'd6` (untyped)  | sz=8  **INT:6 ct=7**       | RESIDUE R1        |
+| `P = 3*2` (untyped)   | sz=64 **INT:6 ct=7**       | RESIDUE R2        |
+
+The terminal's OWN declaration-site value is what golden copies.  For a typed
+parameter that is exactly {type width, UINT}; for an UNTYPED one whose default is
+not a plain decimal literal it is the default's own reduced shape, which slang's
+implicit type does not carry (R1/R2 below).
+
+
+ARM H — THE OVERRIDE EXPRESSION'S KIND  (leaf `int R`, `#(.R(<expr>))`)
+----------------------------------------------------------------------
+| expr             | GOLDEN ROP0                  | PAT | rule           |
+|------------------|------------------------------|-----|----------------|
+| `6`              | sz=64 UINT:6 ct=9 dec "6"    | ok  | literal verbatim |
+| `8'd6`           | sz=8  INT:6  ct=7 dec "6"    | ok  | DEC re-encoded |
+| `32'h6`          | sz=32 HEX:6  ct=5 dec "32'h6"| ok  | literal verbatim |
+| `'d6`            | sz=-1 INT:6  ct=7 dec "6"    | ok  | DEC re-encoded |
+| `3*2`            | sz=64 INT:6  ct=7            | ok  | signed arith   |
+| `(6)`            | sz=64 UINT:6 ct=9            | ok  | literal verbatim |
+| `$clog2(64)`     | sz=64 UINT:6 ct=9            | ok  | call           |
+| `int'(6)`        | sz=64 UINT:6 ct=9            | ok  | explicit cast  |
+| `{3'b011,1'b0}`  | sz=4  BIN:0110 ct=3          | ok  | concat verbatim |
+| `(1)?6:0`        | sz=64 UINT:6 ct=9            | ok  | conditional    |
+| `-(-6)`          | sz=64 INT:6  ct=7            | ok  | signed unary   |
+| `3<<1`           | sz=64 UINT:6 ct=9            | ok  | shift (not arith) |
+| `(3>1)+5`        | sz=64 **UINT**:6 ct=9        | ok  | arith, UNSIGNED result |
+| `6-0`            | sz=64 INT:6  ct=7            | ok  | signed arith   |
+| `int'(6.0)`      | an UNFOLDED operation        | R3  | golden folds nothing |
+
+`(3>1)+5` is the cell that forced the arithmetic arm to consult slang's own
+result signedness rather than only the operator: `+` with an unsigned comparison
+operand is an UNSIGNED sum, and golden encodes it UINT.
+
+
+ARM C — THE DIMENSION EXPRESSION (bounding the law's REACH)
+----------------------------------------------------------
+Only a BARE IDENTIFIER dimension enters § sizeDimOvrChain4.  Golden's answers for
+the others are recorded because they are the NEXT family, not this one:
+
+| dim            | GOLDEN (noovr / paramref)   | PAT                    |
+|----------------|-----------------------------|------------------------|
+| `[R]`          | 32 UINT / 64 UINT           | both to golden         |
+| `[R-1]`        | 64 INT:3 / 64 INT:5         | unfolded operation  R4 |
+| `[R*2]`        | 64 INT:8 / 64 INT:12        | unfolded operation  R4 |
+| `[$clog2(R)]`  | 64 UINT:2 / 64 UINT:3       | unfolded sys_func_call R4 |
+| `[R+Q]`        | **32** UINT:6 / 64 UINT:8   | unfolded operation  R4 |
+| `[(R)]`        | 32 UINT ts=Y / 64 UINT ts=N | unfolded ref_obj    R4 |
+| `[R-1:0]`      | the msb:lsb branch          | agrees                 |
+| `[6]`          | 64 UINT:6                   | agrees                 |
+| `[3*2]`        | 64 INT:6                    | agrees (span R5)       |
+
+
+ARM D — THE OTHER RANGE SITES (the boundary: nothing here may move)
+------------------------------------------------------------------
+d1 logic member + unpacked member, d2 module array PORT, d3 NON-array interface
+port, d4 interface INSTANCE array, d5 module INSTANCE array, d6 typedef range,
+d7 param range, d8 a generate-nested interface ARRAY port.
+
+BASE and PAT dumps are BYTE-IDENTICAL on d1..d7 (verified directly, not inferred
+from the score): the law reaches only the elaborated interface_array PORT.  d8
+moves, correctly and by design — a generate-nested interface array port is the
+same site.
+
+
+RESIDUES (each measured, each named, none of them new)
+-----------------------------------------------------
+R1  an UNTYPED terminal parameter defaulted to a DECIMAL-BASED literal
+    (`parameter P = 8'd6`): golden sz=8 INT, we read sz=8 UINT.  The terminal's
+    value is its own reduced default, and slang's implicit type carries the width
+    but not the DEC->INT re-encoding.
+R2  an UNTYPED terminal parameter defaulted to ARITHMETIC (`parameter P = 3*2`):
+    golden sz=64 INT, we read sz=32 UINT (slang's implicit `int`).
+R3  `int'(6.0)` as the override: golden folds NOTHING and keeps an operation.
+R4  a dimension that is not a bare identifier (`[R-1]`, `[R*2]`, `[$clog2(R)]`,
+    `[R+Q]`, `[(R)]`): golden FOLDS it in the elaborated view and we keep the
+    written tree.  This is the next family in this file and it is untouched here.
+R5  a DEF-view `array_typespec` span is one column wider than golden's on every
+    cell, base and patch alike; no Compare reads it.

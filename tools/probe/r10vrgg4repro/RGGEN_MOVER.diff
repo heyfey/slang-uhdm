@@ -1,0 +1,24 @@
+88754c88754
+<                 |vpiSize:32
+---
+>                 |vpiSize:64
+88756,88762d88755
+<                 |vpiTypespec:
+<                 \_ref_typespec: (work@rggen.u_block_0.u_adapter.u_adapter_common)
+<                   |vpiParent:
+<                   \_constant: , line:18:39, endln:18:48
+<                   |vpiFullName:work@rggen.u_block_0.u_adapter.u_adapter_common
+<                   |vpiActual:
+<                   \_int_typespec: , line:7:13, endln:7:16
+748574c748567
+<                 |vpiSize:32
+---
+>                 |vpiSize:64
+748576,748582d748568
+<                 |vpiTypespec:
+<                 \_ref_typespec: (work@rggen.u_block_1.u_adapter.u_adapter_common)
+<                   |vpiParent:
+<                   \_constant: , line:18:39, endln:18:48
+<                   |vpiFullName:work@rggen.u_block_1.u_adapter.u_adapter_common
+<                   |vpiActual:
+<                   \_int_typespec: , line:7:13, endln:7:16

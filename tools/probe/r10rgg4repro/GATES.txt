@@ -1,0 +1,108 @@
+r10rgg4 — THE FIVE MANDATORY GATES  (base BEFORE patch, every leg)
+=================================================================
+
+BASE COMMIT f65aff5.  Worktree /tmp/wt_r10rgg4.  Builds -j 2, md5 taken
+separately.  results/*.csv were READ ONLY and are NOT promoted.
+
+GATE 1 — BUILD BOTH, MD5 BOTH
+-----------------------------
+  pristine (f65aff5)  e7d7538aeba7a67462a4b050c9e97ad7   /tmp/r10rgg4_base_bin
+  patched             3bdde2e3ef868e6b5b50ca8607ae77ab   /tmp/r10rgg4_pat_bin
+  both linked "Built target slang_uhdm"; no errors.
+
+GATE 2 — GOLDENS + NEGATIVE CONTROL
+-----------------------------------
+  ./gates.sh gold pat      -> PASS=23 FAIL=0
+  ./gates.sh goldneg       -> PASS=0  FAIL=23   (SLANG_UHDM=/bin/false)
+
+GATE 3 — uhdm2rtlil, BOTH MODES, WHOLE-ROW  (baseline sweep taken FIRST)
+-----------------------------------------------------------------------
+  1462 rows (731 tests x 2 modes)
+    default   679 CMP_EQUAL   50 SLANG_REJECT   2 SURELOG_FAIL
+    testflags 679 CMP_EQUAL   50 SLANG_REJECT   2 SURELOG_FAIL
+  ct8rows base-sweep vs patch-sweep          : 0 differing ROWS
+  ct8rows results/gate_uhdm2rtlil.csv vs patch (testflags rows): 0 differing ROWS
+  dump-column histogram unchanged in both modes
+    default   52 blank / 187 differ / 492 match
+    testflags 52 blank / 183 differ / 496 match
+
+GATE 4 — surelog corpus, --mode both, WHOLE-ROW over 1588 rows
+--------------------------------------------------------------
+  ct8rows base-sweep vs patch-sweep             : 0 differing ROWS
+  ct8rows results/golden_surelog.csv vs patch   : 0 differing ROWS
+    default   470 CMP_EQUAL  11 CMP_NOTEQUAL  5 DEFERRED  283 SLANG_REJECT
+              25 SURELOG_FAIL
+    testflags 466 CMP_EQUAL   8 CMP_NOTEQUAL  5 DEFERRED    3 NO_DATABASE
+              1 NO_UHDM  285 SLANG_REJECT  23 SURELOG_FAIL  1 TIMEOUT
+              2 UNTRANSLATABLE
+  (the single TIMEOUT is present in the COMMITTED baseline; it is not a mover)
+
+GATE 5 — BYTE VERIFIER, both corpora, both negative controls
+------------------------------------------------------------
+  PREDICTION FILED FIRST (PREDICT_R0.txt): 0 movers in uhdm2rtlil; the Rggen
+  databases and nothing else in surelog.
+
+  uhdm2rtlil : databases patched=1358 pristine=1358, PATH_SETS_IDENTICAL
+               MOVERS: 0 / 1358
+               SELFCHECK  1357/1358 flagged
+               SELFCHECK1 exactly 1
+  surelog    : databases patched=955 pristine=955, PATH_SETS_IDENTICAL
+               MOVERS: 1 / 955
+                 ./default/Rggen-50ccbd70/slang.uhdm
+                   patched=40759330e7a1 pristine=ac993c35a0ee
+               SELFCHECK  954/955 flagged
+               SELFCHECK1 2  (the corrupted file + the one real mover)
+
+  MOVER ATTRIBUTION — the ENTIRE 1,583,001-line dump delta, 18 line-sides:
+    work@rggen.u_block_0.u_adapter.u_adapter_common   vpiSize 32 -> 64,
+      vpiTypespec -> ref_typespec -> int_typespec  REMOVED (7 lines)
+    work@rggen.u_block_1.u_adapter.u_adapter_common   vpiSize 32 -> 64,
+      vpiTypespec -> ref_typespec -> int_typespec  REMOVED (7 lines)
+    Both objects are the § sizeDimOvrChain4 site and both move TO GOLDEN
+    (golden: 64 / bare at both -- see rggencensus.sh, 6/6 bounds identical).
+
+CANARIES — full battery
+-----------------------
+  canaries.sh vs results/golden_surelog.csv : ok=52 changed=0 absent=0
+  canaries.sh u2r base-sweep vs patch-sweep : ok=16 changed=0 absent=0
+  byte identity, base -> patch (md5 first 12):
+    InterfaceModPort    default/testflags  59a365f3ce2c  IDENTICAL
+    BlackParrotComplex  default e3e354129d5a / testflags 73a10e8217e5 IDENTICAL
+    YosysOldOr          default/testflags  d68e0796d62c  IDENTICAL
+  PINS matched exactly:
+    SVSwitch   4842211c4030   (both modes)
+    YosysVerx  6ccda350c24a   (both modes)
+
+BOUNDARIES — only cells the law NAMES moved
+-------------------------------------------
+  r10rgg3repro  (37 interface-port-view range cells, 957 measured range lines)
+      BASE=951/957  PAT=951/957   PROBLEMS=0    -> 0 movers
+  r10vrgg3repro (52 adversarial cells, OFFICIAL uhdm-cmp per cell via run.sh)
+      every cell's BASE status == PAT status     -> 0 movers
+      (score2.sh was tried first and scored -1/N on all 52 because it does not
+       BUILD the databases; that reading was DISCARDED, not reported)
+  r10earl49/51/52/55repro — the fold-law family (adjustSize + typespec PRESENCE)
+      foldbnd.sh: 47 sources, whole-dump byte compare, movers=0, no-database=0
+      CTRL positive control: 47/47 cross-pairs flagged
+  arm D of this pass's own grid (logic member, module array port, non-array
+  interface port, interface instance array, module instance array, typedef range,
+  param range): BASE and PAT dumps BYTE-IDENTICAL, verified directly.
+
+LADDER (measurement-only)
+-------------------------
+  Rggen default: 63 rungs FIXPOINT -> 61 rungs FIXPOINT; family census identical
+  row for row except constant|VpiSize|INT:G>O, 2 -> 0.  See LADDER.md.
+
+VERDICT
+-------
+  All five gates PASS.  Rggen/default does NOT pass -- its head ADVANCED
+  (50 -> 64 cmp lines, new head named in LADDER.md).  results/*.csv NOT promoted.
+
+PATCH SELF-VERIFICATION (the stale-binary loop, closed)
+-------------------------------------------------------
+  /tmp/r10rgg4.patch applied to a FRESH `git worktree add <dir> f65aff5`:
+    git apply --check        clean
+    git apply                clean, working tree = 1 modified + 1 untracked dir
+    cmake --build -j 2       "Built target slang_uhdm"
+    md5sum                   3bdde2e3ef868e6b5b50ca8607ae77ab
+  -- BYTE-IDENTICAL to the binary every gate above was run with.

@@ -1,0 +1,30 @@
+r10rgg4 — PREDICTION WRITTEN BEFORE THE BYTE VERIFIER RAN
+=========================================================
+
+§ sizeDimOvrChain4 is reached from exactly ONE call site: the ELABORATED
+interface_array port's dimension range (src/ModuleEmit.cpp ~9294, the only
+`fillSizeDimRange` call that passes a foldScope).  So only a design that declares
+an INTERFACE ARRAY PORT whose dimension is the SIZE form `[E]` with `E` a bare
+identifier can move a byte.
+
+census.py scanned 14,612 corpus sources and found 38 such declarations, in FIVE
+test directories (and ZERO in the uhdm2rtlil corpus):
+
+  16  surelog3p:Tnoc      -> Tnoc.sl              SLANG_REJECT  (rc=-11) both modes
+  13  surelog3p:Rsd       -> Rsd.sl               DEFERRED            both modes
+   4  surelog3p:ariane    -> Ariane2024.sl        SLANG_REJECT/NO_DATABASE
+   4  surelog3p:rggen     -> Rggen.sl             CMP_NOTEQUAL(default)
+   1  surelog:FuncDef2    -> FuncDef2             SLANG_REJECT        both modes
+
+(The 13 Rsd hits are STRUCT-typed unpacked array ports, not interface arrays, and
+would be untouched even with a database.)
+
+PREDICTIONS
+  uhdm2rtlil : 0 byte movers out of ~1358 databases.
+  surelog    : the Rggen databases and NOTHING else -- default certainly, and
+               testflags too if our side produced one (its row is SURELOG_FAIL,
+               which is a GOLDEN-side failure).
+  rows       : 0 status/dump rows move in either corpus (Rggen/default stays
+               CMP_NOTEQUAL: the head ADVANCES, it does not clear the test).
+  Rggen head : 50 cmp lines / 1 head -> a DEEPER head; the § 18:39 constant is
+               gone from the divergence.
