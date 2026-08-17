@@ -3834,6 +3834,10 @@ bool UhdmExporter::srcOrderLess(SourceLocation a, SourceLocation b) const {
 }
 
 UHDM::design* UhdmExporter::exportDesign() {
+    // § compoundLitWriteBackSat2 — decide the constant-evaluated function
+    // bodies' literal values BEFORE anything is emitted, so the def view and
+    // every elab copy agree on the one value golden's shared object carries.
+    computeCompoundWriteBack();
     auto& root = comp.getRoot();
     computeParamMultiplicity();
 

@@ -1,0 +1,114 @@
+r10vrgg2 — THE 40-CELL LEGAL-SV GRID.  Golden = REAL Surelog (unmodified), one
+whole design per cell, the cell located from its own source by pos.py.
+
+BINARIES
+  BASE      8e90e5e318029d1336b1c447d9f8356e   5c132aa, unpatched
+  PATCHED   a3be4c6ccd7aab268a5cd64ca89b31fb   r10rgg2 as shipped
+  VERIFIED  c872259e5c5113959e3d0902271419eb   r10rgg2 + the DEMAND GATE
+
+SCORE (cells whose value equals golden's, out of 40)
+  BASE 24      PATCHED 20      VERIFIED 33
+The shipped gate is NET NEGATIVE on legal SV: it converts 13 cells from RIGHT to
+WRONG while winning 9.  The demand gate keeps all 9 wins and gives the 13 back.
+
+CELL                 POS     GOLDEN                     BASE                       PATCHED                    VERIFIED
+w1_sized_dem         28:22   UINT:0                     DEC:1                      UINT:0                     UINT:0
+w2_hex_dem           28:22   UINT:0                     HEX:1                      UINT:0                     UINT:0
+w3_bin_dem           28:22   UINT:0                     BIN:1                      UINT:0                     UINT:0
+w4_narrow_dem        28:22   UINT:0                     UINT:1                     UINT:0                     UINT:0
+w5_multi_dem         28:22   UINT:0                     UINT:1                     UINT:0                     UINT:0
+w6_multi_add_dem     28:22   UINT:0                     UINT:1                     UINT:0                     UINT:0
+w7_dem_x3            28:22   UINT:0                     UINT:1                     UINT:0                     UINT:0
+w8_dem_n2            28:22   UINT:1                     UINT:1                     UINT:1                     UINT:1
+w9_dem_n4            28:22   UINT:1                     UINT:1                     UINT:1                     UINT:1
+wa_pkg_dem           13:21   UINT:0                     UINT:1                     UINT:0                     UINT:0
+wb_pkg_dem1          13:21   UINT:1                     UINT:1                     UINT:1                     UINT:1
+x1_v1x2_n25          28:22   UINT:1                     UINT:1                     UINT:0                     UINT:1
+x2_v1x2_n20          28:22   UINT:1                     UINT:1                     UINT:0                     UINT:1
+x3_v1x3_n25          28:22   UINT:1                     UINT:1                     UINT:0                     UINT:1
+x4_v2x2_n25          28:22   UINT:1                     UINT:1                     UINT:0                     UINT:1
+y1_nested            28:22   UINT:1                     UINT:1                     UINT:1                     UINT:1
+y2_recur             12:14   UINT:1                     UINT:1                     UINT:1                     UINT:1
+y3fix_dualctx        28:22   UINT:1                     UINT:1                     UINT:0                     UINT:1
+y4_multi             28:22   UINT:1                     UINT:1                     UINT:0                     UINT:1
+y5_mod               28:22   UINT:7                     UINT:7                     UINT:7                     UINT:7
+y5_mul               28:22   UINT:2                     UINT:2                     UINT:2                     UINT:2
+y5_shl               28:23   UINT:1                     UINT:1                     UINT:1                     UINT:1
+y5_sub               28:22   UINT:1                     UNMEASURED                 UNMEASURED                 UNMEASURED
+y6b_neverconst_int   28:22   UINT:1                     UINT:1                     UINT:1                     UINT:1
+y6fix_neverconst     28:22   UINT:1                     UINT:1                     UINT:1                     UINT:1
+y7_narrowidx         28:22   UINT:1                     UINT:1                     UINT:0                     UINT:1
+y8_sized             28:22   DEC:1                      DEC:1                      UINT:0                     DEC:1
+y9_paramloop         15:12   UINT:1                     UINT:1                     UINT:1                     UINT:1
+ya_pkg               13:21   UINT:1                     UINT:1                     UINT:0                     UINT:1
+z10_chain            28:22   UINT:17592186044416        UINT:1                     UINT:0                     UINT:1
+z11_unrel_chain      28:22   UINT:1                     UINT:1                     UINT:0                     UINT:1
+z1_unrel_int         28:22   UINT:1                     UINT:1                     UINT:0                     UINT:1
+z2_int_consumer      28:22   UINT:17592186044416        UINT:1                     UINT:0                     UINT:1
+z3_range_consumer    28:22   UINT:72057594037927936     UINT:1                     UINT:0                     UINT:1
+z4_nextn_fn          28:22   UINT:0                     UINT:1                     UINT:0                     UINT:0
+z5_gen_consumer      28:22   UINT:274877906944          UINT:1                     UINT:0                     UINT:1
+z6_display           28:22   UINT:1                     UINT:1                     UINT:0                     UINT:1
+z7_arr_consumer      28:22   UINT:1                     UINT:1                     UINT:0                     UINT:1
+z8_vec_consumer      28:22   UINT:17592186044416        UINT:1                     UINT:0                     UINT:1
+z9_gen_lp            28:22   UINT:1125899906842624      UINT:1                     UINT:0                     UINT:1
+UNMEASURED=3
+
+READING THE COLUMNS
+  golden UINT:1 (or DEC:1 / UINT:7 / UINT:2)  = the literal AS THE SOURCE WROTE
+    IT: Surelog constant-evaluated the function ZERO times, or the statement ran
+    at most once per evaluation, or the operator has no write-back arm.
+  golden UINT:0 = the SATURATED fixpoint (>= 64 uint64 doublings).
+  golden 2^38 / 2^44 / 2^50 / 2^56 = a FINITE, count-dependent exponent.  No
+    binary gets these right and none claims to.
+  UNMEASURED on our three columns in y5_sub only: `list_index -= 1` drives a
+    negative element select and SLANG REJECTS the design (-Windex-oob) before any
+    UHDM is written.  Patching slang is out of scope; golden reads UINT:1.
+
+THE 13 REGRESSIONS THE SHIPPED GATE INTRODUCED (base RIGHT -> patched WRONG)
+  x1 x2 x3 x4   the v1 shape (the escaping localparam's only consumer is a
+                continuous assign) at 2 and 3 instances, N=25 and N=20
+  z1            + an UNRELATED `int` localparam
+  z6            + `$display(SUB_N_LIST[0])`
+  z7            + a packed-array localparam COPY = SUB_N_LIST
+  z11           + an `int` localparam consuming a DIFFERENT parameter
+  y3fix         + an always_comb call on the same function
+  y4            a SECOND compound literal in the same body
+  y7            a 5-bit index (wraps at 32 on a correct machine)
+  y8            a SIZED literal (`+= 4'd1`) -- and the const TYPE moved too,
+                DEC:1 -> UINT:0
+  ya_pkg        a PACKAGE function with no scalar consumer (both of golden's two
+                body copies read UINT:1; the patch stamped both to 0)
+All 13 are legal SV, parse clean on BOTH sides, and are exactly the shape the
+pass's own vsweep v1/v2 cells already measured at ZERO evaluations -- with the
+single change that >= 2 instances open the saturation gate.
+
+THE 9 CELLS THE LAW GETS RIGHT (base WRONG -> both patched binaries RIGHT)
+  z4            `localparam int NEXT_N = get_next_n(SUB_N_LIST)` -- Rggen's own
+                consumer shape, 2 instances
+  w1 w2 w3      the same, with `+= 4'd1` / `8'h1` / `32'b1`: golden re-encodes
+                the literal as UINT:0 and KEEPS vpiSize (4 / 8 / 32).  The
+                unconditional vpiUIntConst + untouched VpiSize are CORRECT.
+  w4            the same with a 5-bit index: Surelog does NOT wrap it, it escapes
+  w5 w6         the same with a second compound literal (`half_n -= 3` / `+= 3`)
+  w7            the same at 3 instances
+  wa_pkg_dem    the same through a PACKAGE function
+and the three cells the law must NOT touch and does not: w8 (N=2), w9 (N=4 --
+the FuncInModule / LogicArrayParam canary shape) and wb (1 instance).
+
+THE 6 RESIDUE CELLS (no binary right; the shipped one is wrong differently)
+  z2  `localparam int NEXT = SUB_N_LIST[0]`          golden 2^44
+  z8  `localparam logic [15:0] SMALL = SUB_N_LIST[0]` golden 2^44
+  z10 chain COPY(array) -> NX(int)                    golden 2^44
+  z3  a declaration RANGE `logic [SUB_N_LIST[0]+1:0]` golden 2^56
+  z5  a GENERATE condition                            golden 2^38
+  z9  an int localparam inside a generate block       golden 2^50
+Four different exponents for four consumer shapes of ONE unchanged function body
+at ONE instance count: the second, independent refutation of a derivable count.
+The verified binary leaves all six at the written literal (= what base did).
+
+UNDER-CLAIM, MEASURED (not a regression, both binaries identical): in a
+saturating design the OTHER compound literals of the same body are corrupted too
+and NOT to the fixpoint -- w5's `half_n -= 3` reads golden INT:16 and w6's
+`half_n += 3` reads golden UINT:596 while both binaries emit 3.  Only the literal
+the runaway index is ALIASED to reaches 0.

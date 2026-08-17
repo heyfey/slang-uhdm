@@ -1,0 +1,37 @@
+r10rgg2 — CENSUS of the law's reach, taken BEFORE the code was written
+======================================================================
+QUESTION: which corpus tests hold a COMPOUND ASSIGNMENT WITH A LITERAL Rhs
+inside a function/task body?  Those are the only literals Surelog's
+setValueInInstance can ever overwrite, so they bound the blast radius exactly.
+
+SCAN: every .sv/.v/.svh/.vh under ~/git-repos/Surelog/tests,
+~/git-repos/Surelog/third_party/tests and ~/git-repos/uhdm2rtlil/test, matching
+`<name> (+=|-=|*=|/=) <literal>;` while inside a function/task (no line-start
+anchor, so `for (...) a += 1;` is caught too).
+
+RESULT: 37 files.  uhdm2rtlil: **ZERO** — that whole corpus cannot be reached.
+For the surelog corpus, the only files whose function is CONSTANT-EVALUATED
+(called from a localparam) are:
+
+| file | test row(s) | status | literal, golden | ours (base) |
+|---|---|---|---|---|
+| rggen/rggen-sv-rtl/rggen_or_reducer.sv:30 | Rggen default | CMP_NOTEQUAL (head) | UINT:0 | UINT:1 |
+| Surelog/tests/FuncInModule/dut.sv:32 | FuncInModule both | **CMP_EQUAL** | UINT:1 | UINT:1 |
+| Surelog/tests/LogicArrayParam/dut.sv:68 | LogicArrayParam both | **CMP_EQUAL** | UINT:1 | UINT:1 |
+| Surelog/tests/FuncDef2/dut.sv (width += 1, x4) | FuncDef2 both | SLANG_REJECT | - | - |
+| Tnoc/cores/tnoc/rtl/common/tnoc_pkg.sv (x4) | Tnoc both | SLANG_REJECT | - | - |
+
+FuncInModule and LogicArrayParam hold `get_sub_n_list` VERBATIM — the same
+function as Rggen's head — at N=4 with ONE instance.  They are the pass's
+built-in canaries: at N=4 the while loop runs exactly ONCE, so the corrupted
+replay is identical to the correct one, the literal never doubles and golden
+keeps the written 1.  A law that saturates them would demote two CMP_EQUAL rows.
+
+Every other hit is a CLASS METHOD or a testbench task (Ibex, IbexGoogle,
+Opentitan, CoresSweRV(MP), Scr1(SvTests), ariane, AmiqEth, SplitFile, Google
+chapter-8, Zachjs, Rsd) — never constant-evaluated, and Rsd is DEFERRED and
+Zachjs SLANG_REJECT besides.
+
+PREDICTED MOVEMENT: exactly ONE object in the whole corpus, Rggen's
+`constant@rggen_or_reducer.sv:30:22`.  MEASURED: see GATES.md gate 5 (byteverify
+surelog reports Rggen as the only mover).

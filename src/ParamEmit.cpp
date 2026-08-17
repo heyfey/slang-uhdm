@@ -21513,4 +21513,940 @@ void UhdmExporter::collectOobCtorLocals(const PackageSymbol& pkg,
 // importing packages' Typespecs slots, stamp Instance = the importing pkg,
 // and expose them for module import listings.
 
+
+// ===========================================================================
+// § compoundLitWriteBackSat2 (r10rgg2) — Surelog's constant-function evaluator
+// OVERWRITES a compound assignment's LITERAL Rhs constant in the tree, and the
+// variable's own new value becomes THAT OBJECT, so the literal feeds itself.
+//
+// MECHANISM, transcribed from UHDM templates/ExprEval.cpp
+// (`setValueInInstance` ~5021 + the opType tail ~5397):
+//     rhsexp = reduceExpr(st->Rhs())          // the tree's own object
+//     valUI  = get_uvalue(rhsexp)             // read BEFORE any write
+//     c      = any_cast<constant *>(rhsexp)   // === that object
+//     prevRhs= the param_assign holding the Lhs's current value
+//     vpiAddOp : c->VpiValue("UINT:" + (valUI + get_uvalue(prevRhs)))
+//     vpiSubOp : c->VpiValue("INT:"  + (get_value(prevRhs) - valI))
+//     vpiMultOp / vpiDivOp likewise; NO OTHER opType has an arm
+//     ...then a fresh param_assign for the Lhs is pushed with Rhs = c
+// so from the second execution on `prev == val` and `a += <lit>` DOUBLES the
+// literal every execution, wrapping at 2^64 (get_uvalue does NOT mask by
+// VpiSize -- measured, see the r10rgg2 arms).
+//
+// MEASURED GATES (tools/probe/r10rgg2repro/b1_rgg2.sv, golden = real Surelog):
+//   * a SELECT Lhs (`p[0] += 1`) REBUILDS `c` before the opType tail, so the
+//     literal is UNTOUCHED (cell dsel);
+//   * a non-literal Rhs (`a += K`, `a += (1+1)`) hands the tail a FRESH reduce
+//     product, so the written literals are UNTOUCHED (cells dparam, dexpr);
+//   * `%=` / `<<=` have no arm at all: the literal is UNTOUCHED (dmod, dshl).
+//
+// WHAT IS *NOT* MODELLED, AND WHY (this is the pass's central measurement):
+// the number of times Surelog constant-evaluates one function is NOT a
+// function of the source.  It is demand-driven by parameter resolution:
+// tools/probe/r10rgg2repro/vsweep shows the SAME `rggen_or_reducer` body, one
+// instance, N=25, giving 0 evaluations with only `SUB_N_LIST` present, still 0
+// with an unused `OFFSET_LIST` added, and FIFTY-ONE once an `int`-typed
+// `NEXT_N` localparam is added.  So the closed form
+//     L := (L + v) * 2^(I-1) per evaluation
+// (verified on 30+ arm cells) can only be applied where the exponent is
+// EVALUATION-COUNT-INDEPENDENT.  Two such regimes exist, and only they ship:
+//   (1) every evaluation executes the statement AT MOST ONCE  ->  exponent 0,
+//       the literal keeps its written value for ANY count (this is why
+//       `FuncInModule` / `LogicArrayParam`, the same function at N=4, are
+//       CMP_EQUAL today and must stay so);
+//   (2) the corrupted replay drives an ARRAY SELECT INDEX PAST ITS BOUND, so
+//       the parameter's fold is BROKEN; every consumer re-demands it, every
+//       re-run doubles the literal again, and the uint64 doubling reaches the
+//       FIXPOINT 0 (0 + 0 = 0, and with the accumulator pinned at 0 the
+//       evaluation is well behaved again, so 0 is stable).  Measured: 2
+//       instances of the real `rggen_or_reducer` already saturate
+//       (`e25x2` -> 0) while ONE leaves a finite 2^56, so the regime is
+//       claimed only at >= 2 elaborated instances.
+// Anything else BAILS and keeps the written literal.
+namespace {
+
+// One mutable body literal, keyed by its declarator syntax so the SAME entry
+// serves every instance's copy of the AST (and the def view's).
+struct WbLit {
+    uint64_t val = 0;
+    bool isInt = false;
+    bool seeded = false;
+};
+
+// A scalar variable's value CELL.  `alias` non-null means the variable's value
+// object IS that literal (Surelog's `pa->Rhs(c)`), so reads follow the
+// literal's CURRENT value -- this aliasing is the whole mechanism.
+struct WbCell {
+    const slang::syntax::SyntaxNode* alias = nullptr;
+    uint64_t v = 0;
+};
+
+// A packed array we track element-wise, exactly as Surelog tracks it as one
+// binary string: an out-of-range write is DROPPED and an out-of-range read
+// INVALIDATES the fold (measured: `h25_m` in d1_rgg2.sv stops the while loop
+// the iteration the index leaves the bound).
+struct WbArr {
+    std::vector<uint64_t> words;
+    uint32_t elemBits = 0;
+};
+
+class SrlgWriteBack {
+public:
+    explicit SrlgWriteBack(std::map<const slang::syntax::SyntaxNode*, WbLit>& lits)
+        : lits(lits) {}
+
+    // Replay one constant evaluation of @a sub with @a argv.  Returns false
+    // when anything outside the modelled subset was met (the caller must then
+    // discard the whole result).
+    bool run(const SubroutineSymbol& sub, const std::vector<int64_t>& argv) {
+        bail = false;
+        invalid = false;
+        steps = 0;
+        env.clear();
+        arrs.clear();
+        auto formals = sub.getArguments();
+        if (formals.size() != argv.size() || !sub.returnValVar)
+            return false;
+        for (size_t i = 0; i < formals.size(); i++) {
+            if (formals[i]->direction != ArgumentDirection::In)
+                return false;
+            env[formals[i]] = WbCell{nullptr, (uint64_t)argv[i]};
+        }
+        declare(*sub.returnValVar);
+        bool returned = false;
+        exec(sub.getBody(), returned);
+        return !bail;
+    }
+
+    // Did the replay drive a select index past its array's bound?  That is
+    // regime (2): the fold is broken and the literal saturates.  `escapeKey`
+    // names the literal the runaway index was ALIASED to -- only that literal
+    // is the one the doubling runs away on, so only that one saturates.
+    bool escaped() const { return esc; }
+    const slang::syntax::SyntaxNode* escapeKey() const { return escKey; }
+    int why() const { return bailLine; }
+
+private:
+    std::map<const slang::syntax::SyntaxNode*, WbLit>& lits;
+    std::map<const Symbol*, WbCell> env;
+    std::map<const Symbol*, WbArr> arrs;
+    bool bail = false;
+    int bailLine = 0;
+    void doBail(int ln) { if (!bail) { bail = true; bailLine = ln; } }
+    bool invalid = false;
+    bool esc = false;
+    const slang::syntax::SyntaxNode* escKey = nullptr;
+    uint64_t steps = 0;
+
+    static const Expression& strip(const Expression& e) { return stripImplicitConv(e); }
+
+    // The literal object a compound assignment's Rhs IS, or null when the Rhs
+    // reduces to a fresh constant (which the write-back then targets instead).
+    static const slang::syntax::SyntaxNode* litKey(const Expression& e) {
+        auto& s2 = strip(e);
+        if (s2.kind != ExpressionKind::IntegerLiteral)
+            return nullptr;
+        return s2.syntax;
+    }
+
+    void declare(const Symbol& sym) {
+        if (sym.kind != SymbolKind::Variable && sym.kind != SymbolKind::FormalArgument)
+            return;
+        auto& t = sym.as<ValueSymbol>().getType();
+        // A MULTI-DIMENSIONAL packed array (`bit [N-1:0][15:0]`) is tracked
+        // element-wise, matching Surelog's one-binary-string model with its
+        // dropped out-of-range writes and INVALIDATING out-of-range reads.  A
+        // plain vector (`bit [15:0]`, `logic [7:0]`) is a SCALAR here even
+        // though slang also spells it PackedArrayType -- element width 1 is the
+        // discriminator.  (Without it `current_n = 16'(n)` reads as a whole-
+        // array assignment and the replay bails.)
+        if (t.kind == SymbolKind::PackedArrayType &&
+            t.as<PackedArrayType>().elementType.getBitWidth() > 1) {
+            auto& pa = t.as<PackedArrayType>();
+            uint64_t n = pa.range.width();
+            uint64_t eb = pa.elementType.getBitWidth();
+            if (n == 0 || n > 65536 || eb == 0 || eb > 64) {
+                doBail(__LINE__);
+                return;
+            }
+            arrs[&sym] = WbArr{std::vector<uint64_t>(n, 0), (uint32_t)eb};
+            return;
+        }
+        if (!t.isIntegral() || t.getBitWidth() > 64) {
+            doBail(__LINE__);
+            return;
+        }
+        env[&sym] = WbCell{nullptr, 0};
+    }
+
+    // The literal a select INDEX expression is currently aliased to (null when
+    // the index is not a plain variable holding a literal object).
+    const slang::syntax::SyntaxNode* indexAlias(const Expression& sel) const {
+        auto& s2 = strip(sel);
+        if (s2.kind != ExpressionKind::NamedValue)
+            return nullptr;
+        auto it = env.find(&s2.as<NamedValueExpression>().symbol);
+        return it == env.end() ? nullptr : it->second.alias;
+    }
+
+    void noteEscape(const Expression& sel) {
+        esc = true;
+        invalid = true;
+        if (!escKey)
+            escKey = indexAlias(sel);
+    }
+
+    uint64_t cellVal(const WbCell& c) const {
+        if (c.alias) {
+            auto it = lits.find(c.alias);
+            if (it != lits.end())
+                return it->second.val;
+        }
+        return c.v;
+    }
+
+    void exec(const Statement& st, bool& returned) {
+        if (bail || invalid || returned)
+            return;
+        if (++steps > 400000) { // no Surelog cap exists; ours only prevents a hang
+            doBail(__LINE__);
+            return;
+        }
+        switch (st.kind) {
+            case StatementKind::Empty:
+                return;
+            case StatementKind::List:
+                for (auto* s2 : st.as<StatementList>().list) {
+                    exec(*s2, returned);
+                    if (bail || invalid || returned)
+                        return;
+                }
+                return;
+            case StatementKind::Block:
+                exec(st.as<BlockStatement>().body, returned);
+                return;
+            case StatementKind::VariableDeclaration: {
+                auto& vs = st.as<VariableDeclStatement>().symbol;
+                declare(vs);
+                if (bail)
+                    return;
+                if (auto* init = vs.getInitializer())
+                    assign(vs, nullptr, *init, std::nullopt);
+                return;
+            }
+            case StatementKind::ExpressionStatement:
+                execExpr(st.as<ExpressionStatement>().expr);
+                return;
+            case StatementKind::Return: {
+                auto* re = st.as<ReturnStatement>().expr;
+                returned = true;
+                if (!re)
+                    return;
+                // The returned VALUE is irrelevant here (only the literals'
+                // final state is), and it is routinely a whole packed ARRAY,
+                // which `eval` does not produce -- so a tracked array name is
+                // accepted without evaluating it.
+                auto& rs = strip(*re);
+                if (rs.kind == ExpressionKind::NamedValue &&
+                    arrs.count(&rs.as<NamedValueExpression>().symbol))
+                    return;
+                (void)eval(*re);
+                return;
+            }
+            case StatementKind::Conditional: {
+                auto& cs = st.as<ConditionalStatement>();
+                if (cs.conditions.size() != 1 || cs.conditions[0].pattern) {
+                    doBail(__LINE__);
+                    return;
+                }
+                auto c = eval(*cs.conditions[0].expr);
+                if (!c)
+                    return;
+                // ExprEval's if arm takes the TRUE branch on `val > 0`.
+                if (*c > 0)
+                    exec(cs.ifTrue, returned);
+                else if (cs.ifFalse)
+                    exec(*cs.ifFalse, returned);
+                return;
+            }
+            case StatementKind::WhileLoop: {
+                auto& ws = st.as<WhileLoopStatement>();
+                while (!bail && !invalid && !returned) {
+                    auto c = eval(ws.cond);
+                    if (!c || *c == 0)
+                        break;
+                    exec(ws.body, returned);
+                    if (++steps > 400000) {
+                        doBail(__LINE__);
+                        return;
+                    }
+                }
+                return;
+            }
+            case StatementKind::ForLoop: {
+                auto& fs = st.as<ForLoopStatement>();
+                for (auto* iv : fs.loopVars) {
+                    declare(*iv);
+                    if (bail)
+                        return;
+                    if (auto* init = iv->getInitializer())
+                        assign(*iv, nullptr, *init, std::nullopt);
+                }
+                for (auto* ie : fs.initializers)
+                    execExpr(*ie);
+                while (!bail && !invalid && !returned) {
+                    if (fs.stopExpr) {
+                        auto c = eval(*fs.stopExpr);
+                        if (!c || *c == 0)
+                            break;
+                    }
+                    exec(fs.body, returned);
+                    if (bail || invalid || returned)
+                        break;
+                    for (auto* se : fs.steps)
+                        execExpr(*se);
+                    if (++steps > 400000) {
+                        doBail(__LINE__);
+                        return;
+                    }
+                }
+                return;
+            }
+            case StatementKind::RepeatLoop: {
+                auto& rs = st.as<RepeatLoopStatement>();
+                auto n = eval(rs.count);
+                if (!n)
+                    return;
+                for (int64_t i = 0; i < *n && !bail && !invalid && !returned; i++)
+                    exec(rs.body, returned);
+                return;
+            }
+            default:
+                doBail(__LINE__);
+                return;
+        }
+    }
+
+    // A statement-position expression: an assignment, or a ++/-- step.
+    void execExpr(const Expression& e) {
+        if (bail || invalid)
+            return;
+        if (e.kind == ExpressionKind::UnaryOp) {
+            auto& uo = e.as<UnaryExpression>();
+            switch (uo.op) {
+                case UnaryOperator::Preincrement:
+                case UnaryOperator::Postincrement:
+                case UnaryOperator::Predecrement:
+                case UnaryOperator::Postdecrement:
+                    break;
+                default:
+                    doBail(__LINE__);
+                    return;
+            }
+            auto& tgt = strip(uo.operand());
+            if (tgt.kind != ExpressionKind::NamedValue) {
+                doBail(__LINE__);
+                return;
+            }
+            auto& sym = tgt.as<NamedValueExpression>().symbol;
+            auto it = env.find(&sym);
+            if (it == env.end()) {
+                doBail(__LINE__);
+                return;
+            }
+            bool up = uo.op == UnaryOperator::Preincrement ||
+                      uo.op == UnaryOperator::Postincrement;
+            // ExprEval builds a FRESH constant for ++/-- (reduceExpr's
+            // vpiPreIncOp arm), so no literal is written back here.
+            it->second = WbCell{nullptr, cellVal(it->second) + (up ? 1u : (uint64_t)-1)};
+            return;
+        }
+        if (e.kind != ExpressionKind::Assignment) {
+            doBail(__LINE__);
+            return;
+        }
+        auto& ae = e.as<AssignmentExpression>();
+        const Expression* rhs = &ae.right();
+        std::optional<BinaryOperator> op;
+        if (ae.isCompound() && ae.op) {
+            op = *ae.op;
+            auto& rc = strip(ae.right());
+            if (rc.kind != ExpressionKind::BinaryOp) {
+                doBail(__LINE__);
+                return;
+            }
+            auto& be = rc.as<BinaryExpression>();
+            rhs = strip(be.left()).kind == ExpressionKind::LValueReference ? &be.right()
+                                                                          : &be.left();
+        }
+        auto& lhs = strip(ae.left());
+        if (lhs.kind == ExpressionKind::NamedValue) {
+            assign(lhs.as<NamedValueExpression>().symbol, nullptr, *rhs, op);
+            return;
+        }
+        if (lhs.kind == ExpressionKind::ElementSelect) {
+            auto& es = lhs.as<ElementSelectExpression>();
+            auto& base = strip(es.value());
+            if (base.kind != ExpressionKind::NamedValue) {
+                doBail(__LINE__);
+                return;
+            }
+            assign(base.as<NamedValueExpression>().symbol, &es.selector(), *rhs, op);
+            return;
+        }
+        doBail(__LINE__);
+    }
+
+    // The whole write-back, in one place.  @a sel non-null selects an element.
+    void assign(const Symbol& sym, const Expression* sel, const Expression& rhs,
+                std::optional<BinaryOperator> op) {
+        if (bail || invalid)
+            return;
+        auto ai = arrs.find(&sym);
+        if (sel) {
+            if (ai == arrs.end()) {
+                doBail(__LINE__);
+                return;
+            }
+            auto idx = eval(*sel);
+            if (!idx)
+                return;
+            auto v = eval(rhs);
+            if (!v)
+                return;
+            uint64_t mask = ai->second.elemBits >= 64
+                                ? ~0ull
+                                : ((1ull << ai->second.elemBits) - 1);
+            if (*idx < 0 || (uint64_t)*idx >= ai->second.words.size()) {
+                // Surelog DROPS the write and then INVALIDATES on the matching
+                // read: the fold is broken from here on (regime 2).
+                noteEscape(*sel);
+                return;
+            }
+            uint64_t& w = ai->second.words[(size_t)*idx];
+            uint64_t nv = (uint64_t)*v;
+            if (op) {
+                switch (*op) {
+                    case BinaryOperator::Add: nv = w + nv; break;
+                    case BinaryOperator::Subtract: nv = w - nv; break;
+                    case BinaryOperator::Multiply: nv = w * nv; break;
+                    case BinaryOperator::Divide:
+                        if (nv == 0) { doBail(__LINE__); return; }
+                        nv = w / nv;
+                        break;
+                    default: doBail(__LINE__); return;
+                }
+            }
+            w = nv & mask;
+            return;
+        }
+        if (ai != arrs.end()) {
+            // A WHOLE-array assignment: only the all-zero form is modelled
+            // (`list = '0`), which is the only one the corpus shape needs.
+            if (op) { doBail(__LINE__); return; }
+            auto v = eval(rhs);
+            if (!v)
+                return;
+            if (*v != 0) {
+                if (getenv("SLANG_UHDM_WB_DEBUG"))
+                    fprintf(stderr, "[wb]     whole-array rhs kind=%d v=%lld\n",
+                            (int)strip(rhs).kind, (long long)*v);
+                doBail(__LINE__);
+                return;
+            }
+            std::fill(ai->second.words.begin(), ai->second.words.end(), 0ull);
+            return;
+        }
+        auto ei = env.find(&sym);
+        if (ei == env.end()) { doBail(__LINE__); return; }
+        const slang::syntax::SyntaxNode* key = litKey(rhs);
+        if (!op) {
+            // Plain assign: the variable's value object becomes the reduced
+            // Rhs -- the literal itself when the Rhs IS a literal.
+            if (key) {
+                // First sight of this literal: record the value the SOURCE
+                // wrote, since the variable now aliases the object itself.
+                auto ins = lits.emplace(key, WbLit{});
+                if (ins.second) {
+                    ins.first->second.seeded = true;
+                    auto w = srlgWord(
+                        ConstantValue(strip(rhs).as<IntegerLiteral>().getValue()));
+                    if (!w) {
+                        doBail(__LINE__);
+                        return;
+                    }
+                    ins.first->second.val = (uint64_t)*w;
+                }
+                ei->second = WbCell{key, 0};
+                return;
+            }
+            auto v = eval(rhs);
+            if (!v)
+                return;
+            ei->second = WbCell{nullptr, (uint64_t)*v};
+            return;
+        }
+        uint64_t prev = cellVal(ei->second);
+        if (!key) {
+            // A fresh reduce product carries the new value; no literal moves.
+            auto v = eval(rhs);
+            if (!v)
+                return;
+            uint64_t nv = 0;
+            if (!apply(*op, prev, (uint64_t)*v, nv))
+                return;
+            ei->second = WbCell{nullptr, nv};
+            return;
+        }
+        auto li = lits.find(key);
+        if (li == lits.end()) { doBail(__LINE__); return; }
+        uint64_t nv = 0;
+        if (!apply(*op, prev, li->second.val, nv))
+            return;
+        li->second.val = nv;
+        li->second.isInt = *op != BinaryOperator::Add;
+        ei->second = WbCell{key, 0};
+    }
+
+    bool apply(BinaryOperator op, uint64_t prev, uint64_t val, uint64_t& out) {
+        switch (op) {
+            case BinaryOperator::Add:
+                out = val + prev;
+                return true;
+            case BinaryOperator::Subtract:
+                out = prev - val;
+                return true;
+            case BinaryOperator::Multiply:
+                out = prev * val;
+                return true;
+            case BinaryOperator::Divide:
+                if (val == 0) { doBail(__LINE__); return false; }
+                out = (uint64_t)((int64_t)prev / (int64_t)val);
+                return true;
+            default:
+                // No arm in setValueInInstance: the literal is untouched and
+                // the variable takes the literal's own value.
+                out = val;
+                return true;
+        }
+    }
+
+    std::optional<int64_t> eval(const Expression& e) {
+        if (bail || invalid)
+            return std::nullopt;
+        switch (e.kind) {
+            case ExpressionKind::Conversion: {
+                auto& cv = e.as<ConversionExpression>();
+                auto v = eval(cv.operand());
+                if (!v)
+                    return std::nullopt;
+                if (cv.isImplicit())
+                    return v;
+                // A written size cast (`16'(n)`) masks to the target width.
+                auto& t = *cv.type;
+                if (!t.isIntegral())
+                    return std::nullopt;
+                uint64_t w = t.getBitWidth();
+                if (w == 0 || w > 64)
+                    return std::nullopt;
+                if (w == 64)
+                    return v;
+                return (int64_t)((uint64_t)*v & ((1ull << w) - 1));
+            }
+            case ExpressionKind::IntegerLiteral: {
+                auto* key = e.syntax;
+                if (key) {
+                    auto it = lits.find(key);
+                    if (it != lits.end())
+                        return (int64_t)it->second.val;
+                }
+                auto v = srlgWord(ConstantValue(e.as<IntegerLiteral>().getValue()));
+                return v;
+            }
+            case ExpressionKind::UnbasedUnsizedIntegerLiteral: {
+                auto cv = e.as<UnbasedUnsizedIntegerLiteral>().getValue();
+                if (cv.hasUnknown())
+                    return std::nullopt;
+                return cv.as<int64_t>().value_or(0);
+            }
+            case ExpressionKind::NamedValue: {
+                auto& sym = e.as<NamedValueExpression>().symbol;
+                auto ei = env.find(&sym);
+                if (ei != env.end())
+                    return (int64_t)cellVal(ei->second);
+                if (sym.kind == SymbolKind::Parameter)
+                    return srlgWord(sym.as<ParameterSymbol>().getValue());
+                doBail(__LINE__);
+                return std::nullopt;
+            }
+            case ExpressionKind::ElementSelect: {
+                auto& es = e.as<ElementSelectExpression>();
+                auto& base = strip(es.value());
+                if (base.kind != ExpressionKind::NamedValue) {
+                    doBail(__LINE__);
+                    return std::nullopt;
+                }
+                auto ai = arrs.find(&base.as<NamedValueExpression>().symbol);
+                if (ai == arrs.end()) {
+                    doBail(__LINE__);
+                    return std::nullopt;
+                }
+                auto idx = eval(es.selector());
+                if (!idx)
+                    return std::nullopt;
+                if (*idx < 0 || (uint64_t)*idx >= ai->second.words.size()) {
+                    noteEscape(es.selector());
+                    return std::nullopt;
+                }
+                return (int64_t)ai->second.words[(size_t)*idx];
+            }
+            case ExpressionKind::UnaryOp: {
+                auto& uo = e.as<UnaryExpression>();
+                auto v = eval(uo.operand());
+                if (!v)
+                    return std::nullopt;
+                switch (uo.op) {
+                    case UnaryOperator::Plus: return *v;
+                    case UnaryOperator::Minus: return -*v;
+                    case UnaryOperator::LogicalNot: return *v == 0 ? 1 : 0;
+                    default: break;
+                }
+                doBail(__LINE__);
+                return std::nullopt;
+            }
+            case ExpressionKind::ConditionalOp: {
+                auto& co = e.as<ConditionalExpression>();
+                if (co.conditions.size() != 1 || co.conditions[0].pattern) {
+                    doBail(__LINE__);
+                    return std::nullopt;
+                }
+                auto c = eval(*co.conditions[0].expr);
+                if (!c)
+                    return std::nullopt;
+                return eval(*c != 0 ? co.left() : co.right());
+            }
+            case ExpressionKind::BinaryOp: {
+                auto& bo = e.as<BinaryExpression>();
+                auto l = eval(bo.left());
+                if (!l)
+                    return std::nullopt;
+                auto r = eval(bo.right());
+                if (!r)
+                    return std::nullopt;
+                uint64_t ul = (uint64_t)*l, ur = (uint64_t)*r;
+                switch (bo.op) {
+                    case BinaryOperator::Add: return (int64_t)(ul + ur);
+                    case BinaryOperator::Subtract: return (int64_t)(ul - ur);
+                    case BinaryOperator::Multiply: return (int64_t)(ul * ur);
+                    case BinaryOperator::Divide:
+                        if (*r == 0 || *l < 0 || *r < 0)
+                            break;
+                        return *l / *r;
+                    case BinaryOperator::Mod:
+                        if (*r == 0 || *l < 0 || *r < 0)
+                            break;
+                        return *l % *r;
+                    case BinaryOperator::BinaryAnd: return (int64_t)(ul & ur);
+                    case BinaryOperator::BinaryOr: return (int64_t)(ul | ur);
+                    case BinaryOperator::BinaryXor: return (int64_t)(ul ^ ur);
+                    case BinaryOperator::LogicalAnd: return (*l != 0 && *r != 0) ? 1 : 0;
+                    case BinaryOperator::LogicalOr: return (*l != 0 || *r != 0) ? 1 : 0;
+                    case BinaryOperator::Equality: return *l == *r ? 1 : 0;
+                    case BinaryOperator::Inequality: return *l != *r ? 1 : 0;
+                    case BinaryOperator::GreaterThan: return *l > *r ? 1 : 0;
+                    case BinaryOperator::GreaterThanEqual: return *l >= *r ? 1 : 0;
+                    case BinaryOperator::LessThan: return *l < *r ? 1 : 0;
+                    case BinaryOperator::LessThanEqual: return *l <= *r ? 1 : 0;
+                    case BinaryOperator::LogicalShiftLeft:
+                    case BinaryOperator::ArithmeticShiftLeft:
+                        if (ur >= 64)
+                            break;
+                        return (int64_t)(ul << ur);
+                    case BinaryOperator::LogicalShiftRight:
+                    case BinaryOperator::ArithmeticShiftRight:
+                        if (ur >= 64)
+                            break;
+                        return (int64_t)(ul >> ur);
+                    default:
+                        break;
+                }
+                doBail(__LINE__);
+                return std::nullopt;
+            }
+            default:
+                break;
+        }
+        doBail(__LINE__);
+        return std::nullopt;
+    }
+};
+
+// Seed each tracked literal with the value actually WRITTEN in the source, the
+// first time that literal is seen (the replay then mutates it in place).
+static void seedCompoundLits(const SubroutineSymbol& sub,
+                             std::map<const slang::syntax::SyntaxNode*, WbLit>& lits) {
+    sub.getBody().visit(makeVisitor([&](auto& v, const IntegerLiteral& il) {
+        if (il.syntax) {
+            auto it = lits.find(il.syntax);
+            if (it != lits.end() && !it->second.seeded) {
+                it->second.seeded = true;
+                if (auto w = srlgWord(ConstantValue(il.getValue())))
+                    it->second.val = (uint64_t)*w;
+            }
+        }
+        v.visitDefault(il);
+    }));
+}
+
+// Does this function body hold a statement-level compound assignment whose Rhs
+// IS an integer literal and whose Lhs is a WHOLE variable?  Those are the only
+// literals setValueInInstance can ever overwrite (b1_rgg2 cells dsel/dparam/
+// dexpr pin the three negatives).
+static void collectCompoundLits(const SubroutineSymbol& sub,
+                                std::vector<const slang::syntax::SyntaxNode*>& out) {
+    sub.getBody().visit(makeVisitor([&](auto& v, const ExpressionStatement& es) {
+        if (es.expr.kind == ExpressionKind::Assignment) {
+            auto& ae = es.expr.as<AssignmentExpression>();
+            if (ae.isCompound() && ae.op &&
+                stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue) {
+                auto& rc = stripImplicitConv(ae.right());
+                if (rc.kind == ExpressionKind::BinaryOp) {
+                    auto& be = rc.as<BinaryExpression>();
+                    const Expression* r =
+                        stripImplicitConv(be.left()).kind == ExpressionKind::LValueReference
+                            ? &be.right()
+                            : &be.left();
+                    auto& rs = stripImplicitConv(*r);
+                    if (rs.kind == ExpressionKind::IntegerLiteral && rs.syntax)
+                        out.push_back(rs.syntax);
+                }
+            }
+        }
+        v.visitDefault(es);
+    }));
+}
+
+// § compoundLitWriteBackSat2 — THE DEMAND GATE (added by the pass's adversarial
+// verifier, r10vrgg2, after 13 pristine-right -> patched-wrong cells).
+//
+// Surelog's evaluation count is demand-driven (README § 2), and the count can be
+// ZERO: a localparam whose only consumers are continuous assignments, procedural
+// code, `$display`, or another PACKED-ARRAY localparam is never constant-folded
+// at all, so its function is never executed and the literal keeps the value the
+// SOURCE wrote.  MEASURED against real Surelog, one instance-count and shape per
+// cell (tools/probe/r10vrgg2repro/GRID.txt):
+//
+//   golden = the WRITTEN literal (ZERO evaluations, base was already RIGHT):
+//     v1 shape x2 / x3 instances (N=25, N=20);  + an UNRELATED `int` localparam;
+//     + `$display(SUB_N_LIST[0])`;  + a packed-array localparam COPY;
+//     + an `int` localparam consuming a DIFFERENT parameter;  + an always_comb
+//     call on the same function;  a narrow index; a sized literal; a second
+//     accumulator; a PACKAGE function with no scalar consumer.
+//   golden SATURATED to 0 (the claim):  a SCALAR (non-array) parameter in the
+//     same body whose initializer CALLS a function WITH the escaping parameter
+//     as an argument — Rggen's `localparam int NEXT_N = get_next_n(SUB_N_LIST)`,
+//     and the same shape on a package function.
+//
+// So the saturated regime is claimed only in that measured consumer shape.  A
+// consumer that demands the fold in some OTHER shape (a direct
+// `int NX = SUB_N_LIST[0]`, a declaration RANGE, a generate condition) leaves
+// golden a FINITE power of two whose exponent is not derivable — measured
+// 2^38 / 2^44 / 2^50 / 2^56 on otherwise identical cells — so those bail and
+// keep the written literal, exactly as the base binary did.
+static bool wbScalarish(const ParameterSymbol& q) {
+    auto& t = q.getType();
+    if (!t.isIntegral())
+        return false;
+    // A multi-element packed array (`bit [N-1:0][15:0]`) does NOT demand the
+    // fold; a plain vector (`logic [15:0]`, `int`) is scalar here.  Element
+    // width 1 is the same discriminator the replay uses.
+    if (t.kind == SymbolKind::PackedArrayType &&
+        t.as<PackedArrayType>().elementType.getBitWidth() > 1)
+        return false;
+    return true;
+}
+
+static bool wbDemanded(const slang::ast::Scope& body, const ParameterSymbol& p) {
+    for (auto& m : body.members()) {
+        if (m.kind != SymbolKind::Parameter)
+            continue;
+        auto& q = m.as<ParameterSymbol>();
+        if (&q == &p || !wbScalarish(q))
+            continue;
+        auto* init = q.getInitializer();
+        if (!init)
+            continue;
+        bool hit = false;
+        init->visit(makeVisitor([&](auto& v, const CallExpression& ce) {
+            for (auto* a : ce.arguments()) {
+                a->visit(makeVisitor([&](auto& v2, const NamedValueExpression& nv) {
+                    if (&nv.symbol == &p)
+                        hit = true;
+                    v2.visitDefault(nv);
+                }));
+            }
+            v.visitDefault(ce);
+        }));
+        if (hit)
+            return true;
+    }
+    return false;
+}
+
+} // namespace
+
+void UhdmExporter::computeCompoundWriteBack() {
+    // Pre-filter: nothing to do unless some function in the design holds one of
+    // those literals AND a parameter in the same scope calls that function.
+    // Earlgrey / UVM / every other corpus row exits here.
+    std::vector<const InstanceSymbol*> allInsts;
+    comp.getRoot().visit(makeVisitor([&](auto& v, const InstanceSymbol& is) {
+        allInsts.push_back(&is);
+        v.visitDefault(is);
+    }));
+    // definition -> its elaborated instances, in hierarchy order.
+    std::map<const DefinitionSymbol*, std::vector<const InstanceSymbol*>> byDef;
+    for (auto* is : allInsts) {
+        byDef[&is->getDefinition()].push_back(is);
+    }
+    for (auto& [ds, insts] : byDef) {
+        if (insts.empty())
+            continue;
+        // The const-eval SITES: parameters of the definition whose initializer
+        // calls a subroutine declared in the same body.  Walked on the FIRST
+        // instance; every instance shares the syntax.
+        auto& body0 = insts.front()->body;
+        std::vector<const ParameterSymbol*> sites;
+        for (auto& m : body0.members()) {
+            if (m.kind != SymbolKind::Parameter)
+                continue;
+            auto& ps = m.as<ParameterSymbol>();
+            auto* init = ps.getInitializer();
+            if (!init)
+                continue;
+            bool callsLocal = false;
+            init->visit(makeVisitor([&](auto& v, const CallExpression& ce) {
+                (void)0;
+                if (auto sp = std::get_if<const SubroutineSymbol*>(&ce.subroutine)) {
+                    std::vector<const slang::syntax::SyntaxNode*> tmp;
+                    collectCompoundLits(**sp, tmp);
+                    if (!tmp.empty())
+                        callsLocal = true;
+                }
+                v.visitDefault(ce);
+            }));
+            if (callsLocal)
+                sites.push_back(&ps);
+        }
+        if (sites.empty())
+            continue;
+        const bool dbg9 = getenv("SLANG_UHDM_WB_DEBUG") != nullptr;
+        if (dbg9)
+            fprintf(stderr, "[wb] def %s insts=%zu sites=%zu\n",
+                    std::string(ds->name).c_str(), insts.size(), sites.size());
+        // Replay every (instance x site) in order, carrying the literal state:
+        // one shared literal object per definition, exactly as golden has it.
+        std::map<const slang::syntax::SyntaxNode*, WbLit> lits;
+        bool ok = true;
+        const slang::syntax::SyntaxNode* escKey = nullptr;
+        const ParameterSymbol* escSite = nullptr;
+        for (auto* is : insts) {
+            for (auto* proto : sites) {
+                auto* found = is->body.find(proto->name);
+                if (!found || found->kind != SymbolKind::Parameter) {
+                    ok = false;
+                    break;
+                }
+                auto* init = found->as<ParameterSymbol>().getInitializer();
+                // An assignment-context CONVERSION wraps the call whenever the
+                // parameter's declared type differs from the return type.
+                while (init && init->kind == ExpressionKind::Conversion)
+                    init = &init->as<ConversionExpression>().operand();
+                if (!init || init->kind != ExpressionKind::Call) {
+                    ok = false;
+                    break;
+                }
+                auto& ce = init->as<CallExpression>();
+                auto sp = std::get_if<const SubroutineSymbol*>(&ce.subroutine);
+                if (!sp) {
+                    ok = false;
+                    break;
+                }
+                std::vector<const slang::syntax::SyntaxNode*> keys;
+                collectCompoundLits(**sp, keys);
+                for (auto* k : keys)
+                    lits.emplace(k, WbLit{});
+                seedCompoundLits(**sp, lits);
+                EvalContext ec(ASTContext(is->body, LookupLocation::max));
+                std::vector<int64_t> argv;
+                for (auto* a : ce.arguments()) {
+                    ConstantValue cv = a->eval(ec);
+                    auto w = srlgWord(cv);
+                    if (!w) {
+                        ok = false;
+                        break;
+                    }
+                    argv.push_back(*w);
+                }
+                if (!ok)
+                    break;
+                SrlgWriteBack wb(lits);
+                bool runOk = wb.run(**sp, argv);
+                if (dbg9) {
+                    fprintf(stderr, "[wb]   inst %s arg0=%lld runOk=%d why=%d esc=%d key=%p",
+                            std::string(is->name).c_str(),
+                            argv.empty() ? 0LL : (long long)argv[0], (int)runOk, wb.why(),
+                            (int)wb.escaped(), (const void*)wb.escapeKey());
+                    for (auto& kv : lits)
+                        fprintf(stderr, " lit=%llu", (unsigned long long)kv.second.val);
+                    fprintf(stderr, "\n");
+                }
+                if (!runOk) {
+                    ok = false;
+                    break;
+                }
+                if (wb.escaped()) {
+                    escKey = wb.escapeKey();
+                    escSite = proto;
+                    break;
+                }
+            }
+            if (!ok || escKey)
+                break;
+        }
+        if (!ok)
+            continue;
+        if (escKey) {
+            // Regime (2): the fold is broken, so the parameter is re-demanded
+            // and the literal doubles until it reaches the uint64 FIXPOINT.
+            // Claimed only where TWO OR MORE instances re-demand it (one
+            // instance leaves a finite exponent -- measured 2^56 at N=25).
+            if (insts.size() < 2)
+                continue;
+            // THE DEMAND GATE: unless a scalar parameter in the same body feeds
+            // the escaping parameter to a function call, Surelog never folds it
+            // and the literal keeps what the source wrote (13 measured cells).
+            if (!escSite || !wbDemanded(body0, *escSite)) {
+                if (dbg9)
+                    fprintf(stderr, "[wb]   escaped but NOT DEMANDED -> bail\n");
+                continue;
+            }
+            auto li = lits.find(escKey);
+            // `+=` only: its fixpoint is UINT 0.  `-=` also settles at zero but
+            // INT-encoded, and no corpus row needs it, so it is not claimed.
+            if (li != lits.end() && !li->second.isInt) {
+                compoundWbLits[escKey] = 0;
+                if (dbg9)
+                    fprintf(stderr, "[wb]   SATURATED -> 0\n");
+            }
+            continue;
+        }
+        // Regime (1): the exponent is 0 (the statement ran at most once per
+        // evaluation) -- the literal keeps its written value for ANY count, so
+        // nothing is recorded.  Any other settled outcome is EVALUATION-COUNT
+        // DEPENDENT and therefore NOT claimed (see the vsweep note above).
+    }
+}
+
+
 } // namespace slang_uhdm

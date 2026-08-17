@@ -1,0 +1,56 @@
+r10rgg2 — PREDICTIONS, written BEFORE the gate battery was read
+================================================================
+Binaries: base 8e90e5e318029d1336b1c447d9f8356e (5c132aa)
+          patched a3be4c6ccd7aab268a5cd64ca89b31fb
+
+1. Gate 2 goldens: patched 23 PASS / 0 FAIL; /bin/false 0 PASS / 23 FAIL.
+2. Gate 3 uhdm2rtlil, both modes, both binaries: 679 CMP_EQUAL / 50
+   SLANG_REJECT / 2 SURELOG_FAIL.  ct8rows vs the committed
+   results/gate_uhdm2rtlil.csv: 0 differing ROWS, three ways.
+3. Gate 4 surelog, both modes, both binaries: 0 differing ROWS over 1588
+   against the committed results/golden_surelog.csv.  In particular
+     * Rggen,default stays CMP_NOTEQUAL with detail `decompile:` — the head
+       MOVES off rung 1 but the new head is also a decompile difference, so the
+       ROW text does not change and results/*.csv is NOT promoted;
+     * FuncInModule and LogicArrayParam (the SAME `get_sub_n_list` function at
+       N=4, both CMP_EQUAL today) stay CMP_EQUAL: their replay never leaves the
+       array bound, so the law does not fire.
+4. Gate 5 byteverify:
+     * uhdm2rtlil: 0 movers (no uhdm2rtlil source has a constant-evaluated
+       compound-assign literal — census below);
+     * surelog: EXACTLY ONE mover, ./default/Rggen-*/slang.uhdm, plus possibly
+       the known-nondeterministic ./default/Scoreboard-* (MEMORY.md "emitter
+       nondeterminism"; r10rgg1 proved that hash swaps sides between runs).
+5. Canaries all at their pins, both modes: InterfaceModPort, BlackParrotComplex,
+   YosysOldOr, SVSwitch 4842211c4030, YosysVerx 6ccda350c24a CMP_EQUAL/match,
+   Earlgrey_0_1 byte-identical (Earlgrey has no const-evaluated compound-assign
+   literal at all).
+6. Ladder default:Rggen: 70 rungs BEFORE (r10rgg1's committed fixpoint) ->
+   69 AFTER.  Exactly rung 1 leaves; every other family's count unchanged; no
+   new family appears.
+7. Rggen's object delta base->patched: ONE field pair on ONE object —
+   `constant@rggen_or_reducer.sv:30:22` vpiDecompile 1->0 and UINT:1->UINT:0.
+   Nothing else.  Size stays 64 and vpiConstType stays 9 on BOTH sides.
+8. The arms (a1/b1/c1/d1 + real/ + vsweep/) are BYTE-IDENTICAL between the two
+   binaries: not one of their cells escapes an array bound with >= 2 instances.
+
+MEASURED (see GATES.md for the full tables) — every line above HELD:
+ 1. 23/0 and 0/23.                                             EXACT
+ 2. 679/50/2 both modes both binaries; ct8rows 0/731, 0/731, 0/1462.  EXACT
+ 3. surelog 0 differing ROWS over 1588, three ways; Rggen still
+    CMP_NOTEQUAL,decompile:; FuncInModule + LogicArrayParam still CMP_EQUAL;
+    results/*.csv NOT promoted.                                 EXACT
+ 4. byteverify u2r 0/1358 (SELFCHECK 1357); surelog 2/953 = Rggen (mine) +
+    Scoreboard (nondeterministic, and the BASE binary produced the "patched"
+    hash in 2 of 10 identical runs).                            EXACT
+ 5. Every canary at its pin, both modes.                        EXACT
+ 6. Ladder default:Rggen 70 -> 69, FIXPOINT, only
+    constant|VpiDecompile|DIGITS-ONLY 8 -> 7, no new family.    EXACT
+ 7. Rggen delta = 8 dump-diff lines = 2 changed field lines on ONE object.
+                                                                EXACT
+ 8. a1/b1/c1/d1 byte-identical between the binaries.            EXACT
+ONE PREDICTION WAS INCOMPLETE, IN THE HONEST DIRECTION: the pass's own
+real/ and vsweep/ boundary grids DO move (that is their purpose) — 5 of 5 real
+cells and 6 of 12 vsweep cells now match golden exactly, one cell
+(single-instance N=25) over-saturates and is named as residue 1 in README § 7.
+No cell anywhere goes pristine-right -> patched-wrong.

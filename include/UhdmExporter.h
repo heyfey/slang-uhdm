@@ -2145,6 +2145,17 @@ private:
     UHDM::Serializer& s;
     const slang::SourceManager* sm;
     UHDM::design* d = nullptr;
+    // § compoundLitWriteBackSat2 (r10rgg2) — literals in a CONSTANT-EVALUATED
+    // function body that Surelog's evaluator OVERWRITES (its
+    // setValueInInstance writes a compound assignment's computed value back
+    // over the Rhs literal object and then makes the variable's value BE that
+    // object, so the literal feeds itself and doubles).  Keyed by the
+    // literal's SYNTAX so the one entry serves the def view and every
+    // instance's copy of the AST, matching golden's single shared object.
+    // Only the regimes whose value is EVALUATION-COUNT-INDEPENDENT are
+    // recorded; see the mechanism note in ParamEmit.cpp.
+    std::map<const slang::syntax::SyntaxNode*, uint64_t> compoundWbLits;
+    void computeCompoundWriteBack();
     std::map<const slang::ast::DefinitionSymbol*, DefInfo> defMap;
     // Interface definitions -> their def-view interface_inst shell (referenced
     // by a parent module's ref_module Actual in the def view).

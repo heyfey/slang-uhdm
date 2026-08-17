@@ -5223,7 +5223,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 return op;
             }
             auto* asn = s.MakeAssignment();
-            // NOTE § compoundWriteBack — DECODED FROM SOURCE, NOT IMPLEMENTED.
+            // NOTE § compoundWriteBack — MECHANISM (now IMPLEMENTED for the
+            // count-independent regimes by § compoundLitWriteBackSat2; the
+            // schedule measurement that bounds it is in ParamEmit's
+            // computeCompoundWriteBack note and tools/probe/r10rgg2repro).
             // When Surelog's constant-function evaluator EXECUTES a body, it
             // OVERWRITES a compound assignment's LITERAL Rhs constant in the
             // tree with the value it computed.  UHDM
@@ -5249,12 +5252,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // read UINT:0 in golden while the written literal is 1 — the DEF
             // listing's function object is shared across every
             // rggen_or_reducer instance, so the exponent saturates.
-            // That single object is the WHOLE-DESIGN cmp head for Rggen.
-            // Implementing it means emulating ExprEval's evalStmt (including
-            // packed bit-select LHS writes) AND the order/set of evaluations
-            // over the whole design — SrlgFold (ParamEmit ~2062) is the
-            // starting point but bails on compound assignments and non-
-            // NamedValue LHSs today.  Recorded, not guessed.
+            // That single object WAS the WHOLE-DESIGN cmp head for Rggen and
+            // is now golden's UINT:0 (§ compoundLitWriteBackSat2): the replay
+            // of ExprEval's evalStmt (packed element writes included) drives
+            // `list_index` past `list`'s last element, so the fold is BROKEN,
+            // every consumer re-demands it and the doubling reaches the uint64
+            // fixpoint 0.  What is NOT modelled is the EVALUATION COUNT: it is
+            // demand-driven, not source-derivable (r10rgg2repro/vsweep — the
+            // same body, one instance, N=25, gives 0 evaluations with only
+            // SUB_N_LIST present and FIFTY-ONE once an int-typed NEXT_N
+            // localparam is added), so only count-INDEPENDENT regimes ship.
             //
             // Compound assignments (o += 10) carry the operator as the
             // assignment op type; the Rhs is the value operand (the implicit
@@ -5337,6 +5344,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // second, so the plain overwrite lands on the right one.
             if (rhs && pkgScopeInst && currentTf)
                 bodyAsgRhsObj[rhsExpr] = rhs;
+            // § compoundLitWriteBackSat2 — the value Surelog's constant-function
+            // evaluator left ON this literal, not the one the source wrote.  The
+            // pre-pass (ParamEmit computeCompoundWriteBack) records an entry only
+            // for a literal whose value is EVALUATION-COUNT-INDEPENDENT, keyed by
+            // the literal's syntax so the def view and every instance copy agree
+            // -- golden has ONE shared object and it is Rggen's whole-design
+            // uhdm-cmp head (`rggen_or_reducer.sv:30` `list_index += 1`, golden
+            // UINT:0 against the written 1).  Size and const type are NOT
+            // touched: golden restamps those only when the literal is also the
+            // object the fold RETURNS, which this shape never is (measured,
+            // b1_rgg2 cell dtwo: the returning literal goes to size 32, the
+            // other keeps 64).
+            if (rhs && !compoundWbLits.empty() && ae.isCompound() &&
+                rhs->UhdmType() == UHDM::uhdmconstant) {
+                auto& rl9 = stripImplicitConv(*rhsExpr);
+                if (rl9.kind == ExpressionKind::IntegerLiteral && rl9.syntax) {
+                    auto wb9 = compoundWbLits.find(rl9.syntax);
+                    if (wb9 != compoundWbLits.end()) {
+                        auto* c9 = (UHDM::constant*)rhs;
+                        c9->VpiValue("UINT:" + std::to_string(wb9->second));
+                        c9->VpiDecompile(std::to_string(wb9->second));
+                        c9->VpiConstType(vpiUIntConst);
+                    }
+                }
+            }
             // A backslash-padded STRING Rhs stretches the assignment's end
             // column to match (StringWithBackslash).
             if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
