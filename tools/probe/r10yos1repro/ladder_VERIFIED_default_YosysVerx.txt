@@ -1,0 +1,5 @@
+# ctladder MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN(LHS) /home/heyfey/.cache/slang-uhdm-goldens/1821d813be7d4d2a6703/golden.uhdm
+# OURS  (RHS) /tmp/vyos1_wd_v1_sl/default/YosysVerx-3c02adf6//slang.uhdm
+# ladder max=20000 budget=1800s  golden_objs=24205 ours_objs=24205
+[S] rungs=0 stop=FIXPOINT escalated=0 ref_joins=0 nofield=0 maxvis=0/24205 masks=0 cascades=0 suppressed=0/24205 secs=0.0

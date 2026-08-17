@@ -722,6 +722,11 @@ private:
                                  const std::string& path, UHDM::instance* parentM,
                                  NetMap* parentNets,
                                  std::set<const slang::ast::Symbol*>* parentRefs, bool isTop);
+    // § dottedTopNameBareElab — the uhdmtopModules entry for a top whose module
+    // name contains a `.`: Surelog leaves it UNELABORATED, so this emits a bare
+    // shell and NOTHING else (the def views fill on the `unrefDefs` route).
+    UHDM::module_inst* emitBareTopShell(const slang::ast::InstanceSymbol& inst,
+                                        const std::string& prefix);
     // Interfaces are emitted as interface_inst (design->AllInterfaces), not
     // module_inst. emitInterfaceDef builds the generic def (nets); the elab
     // instance (vars + init) is referenced from a parent module via

@@ -1,0 +1,20 @@
+r10yos1 — PREDICTIONS RECORDED BEFORE THE MEASUREMENT (§ dottedTopNameBareElab)
+
+Basis: tools/probe/r10yos1repro/census.sh — exactly ONE module/interface/program
+declaration in EITHER corpus has a DOT in its declared name
+(third_party/tests/YosysVerx/vexriscv.demo.GenFull.v: \vexriscv.demo.GenFull),
+and it is that test's design top.  The new code is reached only from
+exportDesign's top loop under `name.find('.') != npos`, so no other test can
+enter it.
+
+P1  surelog ct8rows vs results/golden_surelog.csv: EXACTLY 2 differing rows —
+      YosysVerx,default    CMP_NOTEQUAL/differ -> CMP_EQUAL/match
+      YosysVerx,testflags  CMP_NOTEQUAL/differ -> CMP_EQUAL/match
+    CMP_NOTEQUAL 11 -> 10 (default), 8 -> 7 (testflags).
+    CMP_EQUAL    469 -> 470 (default), 465 -> 466 (testflags).
+P2  u2r ct8rows: 0 differing rows, 679/50/2 both modes.  (Done: PASS.)
+P3  byteverify surelog: EXACTLY 2 movers, both named YosysVerx-3c02adf6.
+P4  byteverify u2r: 0 movers.
+P5  canaries.sh + ctcan2.sh: 0 CHANGED on both corpora.
+P6  ladder on YosysVerx: 1 rung (FIXPOINT, ours_objs=36089) -> 0 rungs
+    (EQUAL at rung 0, ours_objs=24205 = golden's).

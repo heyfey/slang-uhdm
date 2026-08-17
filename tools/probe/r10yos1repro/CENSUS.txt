@@ -1,0 +1,9 @@
+== surelog corpus ==
+  DOTTED-NAME  /home/heyfey/git-repos/Surelog/third_party/tests/YosysVerx/vexriscv.demo.GenFull.v: \vexriscv.demo.GenFull
+surelog: escaped-name declarations = 101  (dotted = 1, plain = 100)
+
+== uhdm2rtlil corpus (compiled inputs only) ==
+uhdm2rtlil: escaped-name declarations = 2  (dotted = 0, plain = 2)
+
+A DOTTED-NAME hit is only a MOVER if that module is also a design TOP
+(not instantiated by anything else) — see grid.sh arm h_dotchild.

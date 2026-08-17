@@ -1,0 +1,19 @@
+ARM                      TOP                          NBINST  KIDS VERDICT
+a_simple                 work@top                         2     5 FULL-ELAB
+b_escaped                work@a.b.C                       1     0 BARE-SHELL
+c_multitop               work@top1                        4     5 FULL-ELAB
+c_multitop               work@top2                        4     5 FULL-ELAB
+d_escnodot               work@foo                         2     5 FULL-ELAB
+e_escdot_nochild         work@a.b.C                       1     0 BARE-SHELL
+f_escbracket             work@a[0]                        2     5 FULL-ELAB
+g_escdollar              work@a$b                         2     5 FULL-ELAB
+h_dotchild               work@top                         2     5 FULL-ELAB
+i_multitop_onedot        work@a.b.C                       3     0 BARE-SHELL
+i_multitop_onedot        work@plaintop                    3     5 FULL-ELAB
+j_plainfirst_dotsecond   work@plaintop                    3     5 FULL-ELAB
+j_plainfirst_dotsecond   work@a.b.C                       3     0 BARE-SHELL
+
+LAW § dottedTopNameBareElab: a design top whose module NAME contains a
+'.' is NOT elaborated — its uhdmtopModules entry is a bare module_inst
+(vpiName/vpiDefName/vpiTop/vpiTopModule + source range and nothing else).
+The def view (uhdmallModules) is unaffected.  Per-top, not per-design.

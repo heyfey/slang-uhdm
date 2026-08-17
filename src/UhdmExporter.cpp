@@ -3892,6 +3892,33 @@ UHDM::design* UhdmExporter::exportDesign() {
     // empty and the design falls to `unnamed` with a null TopModules. Not
     // reachable without a slang change; the AllModules def views already match.
 
+    // § dottedTopNameBareElab — measured on a 10-arm purpose-built grid
+    // (tools/probe/r10yos1repro/grid.sh): a DESIGN TOP whose module name
+    // contains a `.` (only reachable through an escaped identifier,
+    // `module \a.b.C ... endmodule`) is NOT elaborated by Surelog.  Its
+    // uhdmtopModules entry is a BARE module_inst — vpiParent(design),
+    // vpiName/vpiDefName = work@<name>, vpiTop, vpiTopModule, the module's
+    // source range — and carries NO nets, ports, cont_assigns, parameters,
+    // processes or child instances at all ("Nb instances: 1 / Max instance
+    // depth: 1" in Surelog's own log, even when the module instantiates
+    // children).  The DEF view (uhdmallModules) is untouched and complete.
+    // The grid pins every boundary:
+    //   * the dot must be in the TOP's own name — `\a[0]`, `\a$b` and plain
+    //     `\foo` tops all elaborate normally, so it is the DOT and not the
+    //     escaping;
+    //   * a dotted name on a CHILD module elaborates normally (h_dotchild);
+    //   * the rule is PER TOP, not per design: in a two-top design the
+    //     dotted top is bare while the plain top beside it is fully
+    //     elaborated (i_multitop_onedot / j_plainfirst_dotsecond), and the
+    //     design name / top ORDER are unaffected (source order, as always).
+    // Surelog builds elaborated instance paths by concatenating with '.', so
+    // a dotted top name makes its own hierarchical path unresolvable and the
+    // instance tree comes back empty; only the top shell survives.
+    std::set<const InstanceSymbol*> bareTops;
+    for (auto* t : orderedTops)
+        if (t->getDefinition().name.find('.') != std::string_view::npos)
+            bareTops.insert(t);
+
     // Surelog attaches the include records before any model content.
     emitIncludeFileInfos();
 
@@ -3899,10 +3926,31 @@ UHDM::design* UhdmExporter::exportDesign() {
     // module map.
     std::map<std::string, const InstanceSymbol*> defs;
     std::set<std::string> uninstGenDefNames;
-    for (auto inst : orderedTops) {
-        auto name = std::string(inst->getDefinition().name);
-        if (defs.emplace(name, inst).second)
-            collectDefs(inst->body, defs, &uninstGenDefNames);
+    // § dottedTopNameBareElab — BARE tops are collected LAST, so a def that an
+    // ELABORATED top also instantiates takes its def-view representative from
+    // the elaborated subtree.  MEASURED (a dotted top FIRST in source order
+    // beside a plain top sharing one child, both instantiating `child`):
+    // collectDefs keeps ONE representative instance per definition and
+    // emitModuleDef fills that representative's DefInfo::nets keyed by ITS
+    // body's symbols, while the port phase runs from whichever instance the
+    // instance walk reaches FIRST (emitInstance's `!filled` fill).  A bare top
+    // runs no walk, so the walk arrives from the OTHER top with a DIFFERENT
+    // InstanceBodySymbol, every `netMap.find(internal)` in emitPorts misses,
+    // and the def-view ports lose their LowConn actual: golden's
+    // `port(a) |vpiLowConn ref_obj(work@child.a.a) |vpiActual logic_net
+    // (work@child.a)` came back with a null actual (one uhdm-cmp head,
+    // `LHS: logic_net(work@child.a)` / `RHS: <null>`), which the PRISTINE
+    // binary got right.  Collecting bare tops last keeps the representative
+    // and the filling instance the same object.  When no top is bare the two
+    // passes are exactly the original single loop (byte-identical output).
+    for (int barePass = 0; barePass < 2; ++barePass) {
+        for (auto inst : orderedTops) {
+            if ((bareTops.count(inst) != 0) != (barePass == 1))
+                continue;
+            auto name = std::string(inst->getDefinition().name);
+            if (defs.emplace(name, inst).second)
+                collectDefs(inst->body, defs, &uninstGenDefNames);
+        }
     }
     // Parsed-but-unreferenced module definitions (an explicit --top prunes
     // them from the root) still get def views — Surelog compiles every parsed
@@ -3958,6 +4006,31 @@ UHDM::design* UhdmExporter::exportDesign() {
     };
     for (auto* udefSym : comp.getUnreferencedDefinitions())
         addDefOnlyModule(*udefSym);
+    // § dottedTopNameBareElab — a BARE top runs no instance walk, so NOTHING
+    // under it (the top's own def included) is ever reached by one: those defs
+    // fill their port phase in the write-phase fallback below, name-sorted,
+    // exactly like a def whose only "instance" never happened.  Defs an
+    // ELABORATED top also reaches are protected by that fallback's `!filled`
+    // guard, so listing them here is safe in a mixed multi-top design.
+    // INTERFACE defs are EXCLUDED: the write-phase fallback calls
+    // emitModuleDefPorts, which reads DefInfo::mod, and an interface def has no
+    // DefInfo::mod at all (its shell lives in ifaceDefMap, see the def-shell
+    // pre-pass) — every other unrefDefs producer is module/program-only for
+    // exactly this reason.  MEASURED: without this guard
+    // `module \a.b.C (input x, output y); plainif bus(); ... endmodule`
+    // SEGFAULTS the exporter (null DefInfo::mod dereference) where the
+    // pristine binary writes a database; probe arm
+    // tools/probe/r10yos1repro/grid/k_dottopiface.sv.
+    for (auto* bt : bareTops) {
+        std::map<std::string, const InstanceSymbol*> sub;
+        sub.emplace(std::string(bt->getDefinition().name), bt);
+        collectDefs(bt->body, sub, &uninstGenDefNames);
+        for (auto& [n9, i9] : sub) {
+            if (useInterfacePath(*i9))
+                continue;
+            unrefDefs.insert(&i9->getDefinition());
+        }
+    }
     // Modules instantiated ONLY inside a non-taken generate branch: slang never
     // reports them as unreferenced, but Surelog still compiled them, so they
     // carry the same def-view-only entry in AllModules. A def added here can
@@ -5502,6 +5575,12 @@ UHDM::design* UhdmExporter::exportDesign() {
 
     for (auto inst : orderedTops) {
         std::string prefix = "work@" + std::string(inst->getDefinition().name);
+        // § dottedTopNameBareElab — a top whose NAME carries a `.` elaborates
+        // to a BARE SHELL in Surelog (see emitBareTopShell for the grid).
+        if (bareTops.count(inst)) {
+            topMods->push_back(emitBareTopShell(*inst, prefix));
+            continue;
+        }
         // isTop always yields a module_inst (see emitInstance): design->
         // TopModules has no program variant.
         topMods->push_back((UHDM::module_inst*)emitInstance(*inst, prefix, nullptr, nullptr,
@@ -5577,6 +5656,27 @@ UHDM::design* UhdmExporter::exportDesign() {
             bool savedTf = tfContext;
             if (useInterfacePath(*inst))
                 tfContext = true;
+            // NOTE § dottedTopNameBareElab — a BARE top pushes no TopPending, so
+            // it never reaches emitTopPorts and its def-view net typespecs drain
+            // HERE, on the non-top rule.  I shipped a `tfContext = true` for
+            // them first (the TOP-def rule, on the argument that Surelog
+            // compiled the module the same way whether or not the instance tree
+            // came back empty) and then MEASURED it: built the predicate behind
+            // a switch and ran YosysVerx both ways — the two databases are
+            // BYTE-IDENTICAL, so the predicate is inert on the only witness
+            // that exists and is NOT shipped.  It would only bite for a dotted
+            // top with PARAM-DEPENDENT net ranges, and no such test exists in
+            // either corpus (census.sh: one dotted name, corpus-wide).
+            // VERIFIER CORRECTION (vyos1) — "inert" holds for YosysVerx ONLY.
+            // Re-measured on purpose-built dotted tops that DO carry
+            // param-dependent net ranges (vgrid/w3_paramnet.v,
+            // vgrid/w13_pkg.sv): the predicate is NOT inert there — it moves the
+            // output and moves it TOWARD golden (w3 span-stripped dump delta
+            // 93 -> 40 lines, w13 88 -> 73) — but it does NOT close the gap
+            // (uhdm-cmp still reports one head either way, golden keeping
+            // `W-1` as an operation where we fold a constant).  So NOT SHIPPING
+            // it is still the right call, for a stronger reason than "inert":
+            // it is an incomplete fix for a residue no corpus row witnesses.
             for (auto& pn : pendingNetTs) {
                 if (pn.di == di && !pn.rt->Actual_typespec())
                     materializeDefNetTs(pn);

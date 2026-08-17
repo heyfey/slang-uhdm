@@ -6296,6 +6296,60 @@ void UhdmExporter::bindConnPathRootTs53(UHDM::any* h, const Expression& conn,
     }
 }
 
+// § dottedTopNameBareElab — the design-top emission for a top whose module
+// NAME contains a `.` (an escaped identifier: `module \a.b.C ... endmodule`).
+//
+// MEASURED, not modelled (10-arm grid, tools/probe/r10yos1repro/grid.sh, each
+// arm a real Surelog run + uhdm-dump):
+//
+//   arm                       top name      Nb instances   topModules entry
+//   a_simple                  top                     2    FULL elaboration
+//   b_escaped                 \a.b.C                  1    BARE shell
+//   d_escnodot                \foo                    2    FULL elaboration
+//   e_escdot_nochild          \a.b.C (no child)       1    BARE shell
+//   f_escbracket              \a[0]                   2    FULL elaboration
+//   g_escdollar               \a$b                    2    FULL elaboration
+//   h_dotchild                top (\a.b.C child)      2    FULL elaboration
+//   i_multitop_onedot         \a.b.C + plaintop       3    BARE + FULL
+//   j_plainfirst_dotsecond    plaintop + \a.b.C       3    FULL + BARE
+//
+// So: the DOT is the discriminator (not the escaping — `[`, `]`, `$` are
+// fine), it must be in the TOP's own name (a dotted CHILD is fine), and the
+// rule is PER TOP (a plain top beside a dotted one still elaborates fully).
+// The bare shell carries EXACTLY vpiParent(design), vpiName, vpiDefName,
+// vpiTop, vpiTopModule and the module's source range/file — no nets, ports,
+// parameters, cont_assigns, processes or child instances.
+//
+// The DEF view (uhdmallModules) is NOT affected: Surelog compiled the module
+// normally and only elaboration came back empty.  Every def under a bare top is
+// therefore filled by the write-phase fallback in exportDesign (the `unrefDefs`
+// route), NAME-SORTED, exactly like a def no instance walk ever reached — so
+// this emits the shell and nothing else.
+//
+// MEASURED — the first cut filled those defs here instead, walking the instance
+// tree for its def-fill side effect in the order the elaborated walk would have
+// used.  It converted the row but left 77 def-view PORT typespecs in the WRONG
+// arena slot (GenFull, InstructionCache, DataCache — first-encounter order),
+// where golden has them name-sorted and interleaved with each def's local-net
+// typespecs.  Reason: a def-view port typespec that has an elaborated instance
+// is not the object emitModuleDefPorts made — the write phase recompiles it
+// (drainElabPortTs / the emitTopPorts swap) at the def's name-sorted slot, and
+// that is the object that survives.  With no elaboration at all, the only way
+// to land in the same slot is to fill the def there.
+UHDM::module_inst* UhdmExporter::emitBareTopShell(const InstanceSymbol& inst,
+                                                  const std::string& prefix) {
+    auto* m = s.MakeModule_inst();
+    m->VpiName(prefix);
+    m->VpiDefName(prefix);
+    m->VpiParent(d);
+    m->VpiTop(true);
+    m->VpiTopModule(true);
+    m->VpiFile(fullFilePath(inst.getDefinition().location));
+    if (auto syntax = inst.body.getSyntax())
+        setLoc(m, syntax->sourceRange());
+    return m;
+}
+
 UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
                                            UHDM::instance* parentM, NetMap* parentNets,
                                            std::set<const Symbol*>* parentRefs, bool isTop) {

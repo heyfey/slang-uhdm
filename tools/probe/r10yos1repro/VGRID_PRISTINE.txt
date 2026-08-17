@@ -1,0 +1,35 @@
+ARM                      SURELOG  OURS     CMP    NOSPAN   NOTE
+./vgrid.sh: line 47: 4030433 Segmentation fault      "$SURELOG" -parse "$f" -mt 0 -mp 0 -o "$d/sl" > "$d/sl.log" 2>&1
+v1_pkgonly               NODB(0)  -        -      -        no golden: surelog produced 0 databases
+v2_genoff_dotted         ok       ok       EQUAL  0        heads=0 rawdump=differ
+v3_bind_outside          ok       ok       NE     138      heads=1 rawdump=differ
+v4_dotted_top_plus_iface ok       ok       NE     108      heads=1 rawdump=differ
+v5_dotted_uninst_only    ok       ok       NE     78       heads=1 rawdump=differ
+w10_dotend               ok       ok       NE     183      heads=1 rawdump=differ
+w11_rich                 ok       ok       NE     303      heads=1 rawdump=differ
+w12_bind                 ok       ok       NE     138      heads=1 rawdump=differ
+w13_pkg                  ok       ok       NE     251      heads=1 rawdump=differ
+w14_dotted_child         ok       ok       NE     183      heads=1 rawdump=differ
+w15_ifaceport            ok       REJECT(3) -      -        /tmp/wt_vyos1/tools/probe/r10yos1repro/vgrid/w15_ifaceport
+w16_threetop             ok       ok       NE     187      heads=1 rawdump=differ
+w17_hierref              ok       ok       NE     238      heads=1 rawdump=differ
+w18_macromodule          ok       ok       NE     183      heads=1 rawdump=differ
+w19_dotdot               ok       ok       NE     183      heads=1 rawdump=differ
+w1_shared_child          ok       ok       NE     187      heads=1 rawdump=differ
+w20_unrefdef             ok       ok       NE     183      heads=1 rawdump=differ
+w2_two_dotted            ok       ok       NE     366      heads=1 rawdump=differ
+w3_paramnet              ok       ok       NE     301      heads=1 rawdump=differ
+w4_paramchild            ok       ok       NE     457      heads=1 rawdump=differ
+w5_iface                 ok       ok       NE     24       heads=1 rawdump=differ
+w6_prog                  ok       ok       EQUAL  0        heads=0 rawdump=match
+w7_deep                  ok       ok       NE     311      heads=1 rawdump=differ
+w8_gen                   ok       ok       NE     230      heads=1 rawdump=differ
+w9_dotstart              ok       ok       NE     183      heads=1 rawdump=differ
+x1_plainfirst_shared     ok       ok       NE     183      heads=1 rawdump=differ
+x2_plainonly             ok       ok       EQUAL  0        heads=0 rawdump=match
+x3_ownchildren           ok       ok       NE     183      heads=1 rawdump=differ
+x4_twoplain_shared       ok       ok       EQUAL  4        heads=0 rawdump=differ
+x5_threetop_plain        ok       ok       EQUAL  4        heads=0 rawdump=differ
+y1_secondtop_fills       ok       ok       EQUAL  0        heads=0 rawdump=match
+y2_firsttop_fills        ok       ok       EQUAL  0        heads=0 rawdump=match
+TOTAL span-stripped dump-diff lines over all arms: 4789

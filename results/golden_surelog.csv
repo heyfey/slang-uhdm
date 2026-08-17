@@ -1583,7 +1583,7 @@ YosysTests,default,SLANG_REJECT,error: no input files,,
 YosysTests,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysTests/batch.txt:1:1: error: expected member,,
 YosysTestSuite,default,SLANG_REJECT,error: no input files,,
 YosysTestSuite,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysTestSuite/batch.txt:1:1: error: expected member,,
-YosysVerx,default,CMP_NOTEQUAL,decompile:,,
-YosysVerx,testflags,CMP_NOTEQUAL,decompile:,,
+YosysVerx,default,CMP_EQUAL,,,match
+YosysVerx,testflags,CMP_EQUAL,,,match
 Zachjs,default,SLANG_REJECT,error: no input files,,
 Zachjs,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Zachjs/batch.txt:1:1: error: expected member,,
