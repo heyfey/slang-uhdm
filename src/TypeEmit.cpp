@@ -4769,8 +4769,41 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
         if (baseSyn->kind == syntax::SyntaxKind::NamedType &&
             et.baseType.kind == SymbolKind::TypeAlias)
             if (auto* shb = sharedAliasTs(et.baseType)) {
+                // § enumBaseTdChainNoClone10 (r10buvm10) — A TYPEDEF-OF-TYPEDEF
+                // BASE TAKES NO CLONE AT ALL, and the LISTING OBJECT keeps its
+                // QUALIFIED name.
+                //
+                // Surelog states it in the same walk that mints the clone:
+                // `compileDatastructureTypespec`'s `while (dt)` loop sets
+                // `parent_tpd` on the first TypeDef it meets and BREAKS THERE
+                // with `result = parent_tpd->getTypespec()` whenever that
+                // typedef already owns a typespec — so a chain's OUTER typedef
+                // never reaches the `SimpleType` clone arm below.  That listing
+                // object already IS a named alias object (CompileHelper.cpp
+                // ~1021 gives a `typedef <name> <name>;` listing entry its own
+                // `Typedef_alias` -> the target), so cloning it would mint a
+                // SECOND alias object where golden has one.
+                //
+                // This is § tdChainNoClone43's cell at the enum-base position,
+                // and arm `w1v_enumbase10` measures it: golden binds
+                // `bit_typespec 'pk10::t_chain'` (QUALIFIED, aliased) as
+                // `e_chain`'s base, where the pristine binary bound a bare
+                // unaliased clone.  The first cut of § enumBaseTdAliasClone10
+                // hung an alias on that clone and grid10.sh called it an
+                // OVER-FIRE; the fence is the fix, not the retreat.
+                const bool chained0 =
+                    et.baseType.as<TypeAliasType>().targetType.getType().kind ==
+                    SymbolKind::TypeAlias;
                 UHDM::typespec* cl0 = nullptr;
-                if (shb->UhdmType() == UHDM::uhdmbit_typespec) {
+                if (chained0) {
+                    auto* brtC = s.MakeRef_typespec();
+                    brtC->VpiFullName(refFullName);
+                    brtC->VpiParent(ets);
+                    brtC->Actual_typespec(shb);
+                    ets->Base_typespec(brtC);
+                    baseSyn = nullptr;  // cl0 stays null: no clone, no alias
+                }
+                else if (shb->UhdmType() == UHDM::uhdmbit_typespec) {
                     auto* o0 = (UHDM::bit_typespec*)shb;
                     auto* n0 = s.MakeBit_typespec();
                     n0->VpiSigned(o0->VpiSigned());
@@ -4811,6 +4844,46 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                     cl0->VpiColumnNo(shb->VpiColumnNo());
                     cl0->VpiEndLineNo(shb->VpiEndLineNo());
                     cl0->VpiEndColumnNo(shb->VpiEndColumnNo());
+                    // § enumBaseTdAliasClone10 (r10buvm10) — THE CLONE IS A
+                    // LAW-S CLONE AND CARRIES ITS Typedef_alias.
+                    //
+                    // The object above is the per-use copy Surelog's
+                    // `compileDatastructureTypespec` mints in its `SimpleType`
+                    // arm (Surelog CompileType.cpp ~882-896): when a NAMED type
+                    // resolves through a TypeDef to a SIMPLE (atom/vector) type
+                    // it `clone_tree`s the typedef's typespec and hangs a
+                    // `Typedef_alias` ref on the clone pointing back at the
+                    // object it was made of.  An enum's BASE is one more caller
+                    // of that same arm (CompileType.cpp ~1319, the
+                    // `paEnum_base_type` case runs the base name through
+                    // `compileTypespec`), so `typedef enum uvm_field_flag_t
+                    // {...} uvm_radix_enum;` takes exactly the shape LAW S
+                    // (§ bareScalarTdCopyOf) and § arrayElemTdClone42 already
+                    // build at every other position: bare name, the typedef's
+                    // own span, alias -> the LISTING object of the view being
+                    // emitted.  We minted the copy and the name and the span
+                    // and left the alias null — and `typespec::Compare` walks
+                    // `Typedef_alias`, so the missing pointer IS the head
+                    // (`SafeCompare(lhs, nullptr)` prints golden's ref and
+                    // `RHS: <null>`).
+                    //
+                    // The AGGREGATE kinds are outside the law and outside this
+                    // block by construction: Surelog's Enum / Struct / Union /
+                    // ClassDefinition arms all `break` with the SHARED object
+                    // and clone nothing, and `cl0` is only ever built for
+                    // bit_typespec / logic_typespec above.
+                    //
+                    // The target is `shb` — the object the clone was COPIED
+                    // FROM — so the def-view copy aliases the def listing
+                    // object and the elaborated copy the elaborated twin,
+                    // without this site needing to know which view it is in.
+                    if (!cl0->Typedef_alias()) {
+                        auto* art0 = s.MakeRef_typespec();
+                        art0->VpiFullName(std::string(et.baseType.name));
+                        art0->VpiParent(cl0);
+                        art0->Actual_typespec(shb);
+                        cl0->Typedef_alias(art0);
+                    }
                     auto* brt0 = s.MakeRef_typespec();
                     brt0->VpiFullName(refFullName);
                     brt0->VpiParent(ets);
