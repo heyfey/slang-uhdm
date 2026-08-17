@@ -1,0 +1,88 @@
+r10earl54 — CENSUS PREDICTION, § connReplFoldNested54
+WRITTEN FROM THE GOLDEN + PRISTINE PAIR ONLY.  No patched database existed when
+this file was committed to; the numbers below are what the patched Earlgrey run
+is then held to, and any deviation is a finding, not a rounding.
+
+INSTRUMENT
+  tools/probe/r10earl54repro/census54.py  (self-test: `--selftest <a1 workdir>`,
+  which asserts the a1 grid's known answers MOVERS=4 KEEP=1 UNPAIRED=4 and the
+  golden-vs-golden invariant MOVERS=0 KEEP=1 UNPAIRED=0 — KEEP=1 there is
+  CORRECT, it is golden's own non-constant-body cell restating "do not move").
+
+INPUTS
+  GOLDEN  ~/.cache/slang-uhdm-goldens/00d4794526e44dc553f3/golden.uhdm
+          -> /tmp/r10earl54_g_earl.dump          4 823 448 lines
+  OURS    pristine 5bd0a3a, md5 7ce3130a87d5b31d4d167a3e82d7bbb0
+          -> /tmp/r10earl54_pris_earl/o.dump     4 702 430 lines
+  BASE cmp: 1 head, 82 lines (`earl54.sh`, default mode).
+
+MEASUREMENT (golden vs pristine, ELABORATED port HighConn, nesting depth > 0,
+def listing excluded)
+
+  GOLDEN slots = 1441        OURS slots = 1709
+  MOVERS   (ours multiconcat, golden constant at the same key) =  99
+  KEEP     (ours multiconcat, golden multiconcat too)          =   1
+  UNPAIRED (no golden slot at that key)                        =   0
+
+  MOVERS by span
+     tlul_fifo_sync.sv 76:69-76:91     98     the head's site, 98 rspfifo instances
+     clkmgr_pkg.sv     38:11-38:20      1     `.status_i(clkmgr_pkg::CLK_HINT_STATUS_DEFAULT)`
+
+  KEEP (the ONE object that must NOT move)
+     work@top_earlgrey.u_rstmgr.i_sys_src | rst_req_i | 149:36-149:65
+     rstmgr.sv:149  `{PowerDomains{ndm_req_valid}}` — NON-CONSTANT body.
+     Golden keeps op34; `tryEval` fails; the arm abstains by construction.
+
+PREDICTIONS
+  P1  Earlgrey_0_1/default head 82 lines / 1 head -> the tlul_fifo_sync.sv:76
+      constant>operation head is CLEARED.  The new head (R0) is whatever
+      uhdm-cmp reaches next; its identity is NOT predicted.
+  P2  Exactly 99 objects change kind, operation -> constant, all of them inside
+      an elaborated port HighConn at depth > 0.  0 move away from golden.
+  P3  0 objects at depth 0 change (the pre-existing arm is untouched).
+  P4  The rstmgr KEEP object stays a multiconcat.
+  P5  DEF VIEW BYTE-IDENTICAL.  The `uhdmallModules` / `ref_module` listing is
+      minted by a different code path; golden and pristine BOTH keep op34 there
+      (a1 grid), and the hook is not on that path.
+  P6  Ladder family `constant|VpiType|KIND:constant>operation` (15 rungs at the
+      base): the 12 rungs at tlul_fifo_sync.sv:76:69-76:91 CLEAR.  The 3 that do
+      NOT are named and are NOT this law:
+        rung 1041  flash_ctrl.sv:137:18-137:30  `.tl_i(tl_fifo_h2d[0])` — golden
+                   folds an unpacked-array-of-struct ELEMENT SELECT to a
+                   constant.  No replication anywhere.
+        rungs 599/600  prim_ram_2p_async_adv gen_secded cont_assign at
+                   171:24 / 172:24 — a CONT-ASSIGN, which this law's fence
+                   explicitly excludes (a1 cell C7 measured golden keeping op34
+                   for a replication there; these two are a different shape
+                   again, golden's constant carrying no location at all).
+  P7  Ladder family `constant|VpiType|KIND:constant>ref_obj` (1 304 rungs,
+      1 330 objects Earlgrey+Rggen): NOT this law, NOT taken.  Every cell is a
+      PROCEDURAL statement — `storage[fifo_wptr[PTR_WIDTH-1:0]]` inside an
+      always block at prim_fifo_sync.sv:131 — where golden folds a PARAMETER
+      REFERENCE to a constant.  There is no replication and no connection
+      actual; one law does not answer both, and Rggen is not touched here.
+  P8  Corpus gates: 0 differing rows on uhdm2rtlil (679/50/2) and 0 over the
+      1588 surelog rows.  No golden contains a `vpiHighConn` with a multiconcat
+      under it (checked: only AssignSumOfConstantsInSubmodule and
+      AssignSumWithParameterInSubmodule have HighConns at all, both plain
+      ref_objs; counter.dump and lcov.dump have op34 only in cont_assign /
+      procedural contexts, which the fence excludes), so gate 2 stays 23/0.
+
+RESIDUES KNOWN BEFORE THE RUN (not claimed, not taken)
+  R1  A conn actual that is WHOLLY constant-foldable folds to ONE constant in
+      golden with NO vpiDecompile and NO vpiTypespec (a1 `u_cat`
+      {{4{1'b0}},{4{1'b1}}} -> BIN:00001111 size 8; `u_nest` -> BIN:11110111).
+      A DIFFERENT shape from this law's, measured on two cells only, and both
+      cells were unequal before this pass.  The nested fold leaves them unequal
+      in a new way, which per earl52-F2's ranking is not a regression: no corpus
+      row that WAS equal is involved.
+  R2  Our depth-0 folded constant's `ref_typespec` VpiFullName is one component
+      short of golden's (`work@a1_earl54.a` vs `work@a1_earl54.u_direct.a`):
+      the pre-existing arm uses `hcPrefix` (parent path) where golden uses the
+      instance's own path.  `ref_typespec::Compare` reads VpiName + VpiDefName +
+      Actual_typespec and NOT VpiFullName, so it is cmp-invisible; left alone
+      deliberately rather than spend dump-byte movers on zero verdict change.
+  R3  Nested conn-actual `ref_obj` VpiFullNames are unscoped on our side
+      (`work@a1_earl54.sel` vs golden `work@a1_earl54.u_ter.a.sel`) — the
+      existing scoping loop handles DIRECT concat operands only.  Also
+      cmp-invisible (`ref_obj::Compare` does not read VpiFullName).

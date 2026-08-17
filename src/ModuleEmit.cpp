@@ -6462,6 +6462,126 @@ UHDM::module_inst* UhdmExporter::emitBareTopShell(const InstanceSymbol& inst,
     return m;
 }
 
+// § connReplFoldNested54 (declaration comment in UhdmExporter.h).
+UHDM::constant* UhdmExporter::replBinConst54(const Expression& re,
+                                             UHDM::any* parent,
+                                             const std::string& tsFullName) {
+    ASTContext cx(comp.getRoot(), LookupLocation::max);
+    ConstantValue v = cx.tryEval(re);
+    if (!v || !v.isInteger() || v.integer().hasUnknown())
+        return nullptr;
+    auto iv = v.integer();
+    // BARE BITS, most significant first — the depth-0 arm's decompile, which is
+    // golden's (a1 `u_direct` 00000000, `u_ter` 0000, Earlgrey rspfifo 32 of
+    // them).  NOT a `<w>'b`-prefixed spelling: that is the PARAMETER-context
+    // shape earl52 fenced, and mixing the two is how this family got two
+    // different answers for one written expression.
+    std::string bits;
+    for (int32_t b = (int32_t)iv.getBitWidth() - 1; b >= 0; b--)
+        bits += (iv[b] == slang::logic_t(1)) ? '1' : '0';
+    auto* c = s.MakeConstant();
+    c->VpiDecompile(bits);
+    c->VpiSize((int32_t)iv.getBitWidth());
+    c->VpiValue("BIN:" + bits);
+    c->VpiConstType(vpiBinaryConst);
+    setLoc(c, re.sourceRange);
+    // vpiParent = THE ENCLOSING OPERATION.  This is the ONE field that differs
+    // from the depth-0 arm, where the constant IS the actual and parents at the
+    // port; golden's a1 `u_ter` / `u_bin` / `u_deep` cells and the Earlgrey head
+    // (parent = the ternary at 75:22-76:91) all parent at the operation.
+    c->VpiParent(parent);
+    auto* rt = s.MakeRef_typespec();
+    rt->VpiFullName(tsFullName);
+    rt->VpiParent(c);
+    rt->Actual_typespec(s.MakeInt_typespec());
+    c->Typespec(rt);
+    return c;
+}
+
+void UhdmExporter::foldConnReplNested54(UHDM::any* h, const Expression& conn,
+                                        const std::string& tsFullName) {
+    // Depth 0 is not this site's business: when the actual ITSELF is a
+    // replication the pre-existing arm has already produced the constant, and
+    // `h` is not an operation at all.
+    if (!h || h->UhdmType() != UHDM::uhdmoperation)
+        return;
+    // THE MATCH IS BY SPAN, NOT BY OPERAND POSITION.
+    //
+    // § connPathRootTs53's declaration comment records why positional pairing
+    // is forbidden here: a replication's UHDM operand list is {count, concat}
+    // and slang's is {count, concat} only by luck, a ternary's is three, and a
+    // nested concat's arity depends on how the emit chain flattened it — and a
+    // mis-pair does not fail loudly, it folds the WRONG expression's value into
+    // a cmp-visible field.  The span is written onto the emitted operation by
+    // `setLoc` from the replication's own `sourceRange`, so it is the emit
+    // chain's OWN identification of which slang node produced which object.
+    // `locLineCol` is the same arithmetic `setLoc` used, macro mapping and all.
+    using Key = std::array<uint32_t, 4>;
+    std::map<Key, const Expression*> reps;
+    std::set<Key> ambig;
+    auto keyOf = [&](SourceRange sr) {
+        Key k{0, 0, 0, 0};
+        if (sr.start() != SourceLocation::NoLocation)
+            locLineCol(sr.start(), k[0], k[1]);
+        if (sr.end() != SourceLocation::NoLocation)
+            locLineCol(sr.end(), k[2], k[3]);
+        return k;
+    };
+    auto collect = [&](const Expression& root) {
+        root.visit(makeVisitor([&](auto& v, const ReplicationExpression& re) {
+            v.visitDefault(re);
+            Key k = keyOf(re.sourceRange);
+            auto ins = reps.emplace(k, (const Expression*)&re);
+            if (!ins.second && ins.first->second != (const Expression*)&re)
+                ambig.insert(k);  // two nodes, one span -> decline both
+        }));
+    };
+    collect(conn);
+    // A PACKAGE-PARAMETER ACTUAL carries its replication in the PARAMETER'S
+    // INITIALIZER, not in the connection expression.  Earlgrey
+    // `.status_i(clkmgr_pkg::CLK_HINT_STATUS_DEFAULT)` with
+    // `parameter clk_hint_status_t CLK_HINT_STATUS_DEFAULT = '{idle: {2{1'b1}}}`
+    // is such a cell: golden folds the `{2{1'b1}}` (BIN:11, size 2) inside the
+    // op75 actual, and we emit the parameter's own initializer subtree there —
+    // so the replication object EXISTS in our output but not in `conn`.  It is
+    // 1 of the census's 99 movers and the census counted it, so the visitor
+    // reaches the initializers too.  Span keying makes this safe: an
+    // initializer node that did NOT produce the object under `h` simply has no
+    // matching span.
+    conn.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+        v.visitDefault(nv);
+        if (nv.symbol.kind != SymbolKind::Parameter)
+            return;
+        if (auto* init = nv.symbol.as<ParameterSymbol>().getInitializer())
+            collect(*init);
+    }));
+    if (reps.empty())
+        return;
+    std::function<void(UHDM::operation*)> walk = [&](UHDM::operation* opn) {
+        auto* ops = opn->Operands();
+        if (!ops)
+            return;
+        for (size_t i = 0; i < ops->size(); i++) {
+            auto* o = (*ops)[i];
+            if (!o || o->UhdmType() != UHDM::uhdmoperation)
+                continue;
+            auto* co = (UHDM::operation*)o;
+            if (co->VpiOpType() == vpiMultiConcatOp) {
+                Key k{co->VpiLineNo(), co->VpiColumnNo(), co->VpiEndLineNo(),
+                      co->VpiEndColumnNo()};
+                auto it = reps.find(k);
+                if (it != reps.end() && !ambig.count(k))
+                    if (auto* c = replBinConst54(*it->second, opn, tsFullName)) {
+                        (*ops)[i] = c;
+                        continue;  // the whole op34 subtree is gone
+                    }
+            }
+            walk(co);
+        }
+    };
+    walk((UHDM::operation*)h);
+}
+
 UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
                                            UHDM::instance* parentM, NetMap* parentNets,
                                            std::set<const Symbol*>* parentRefs, bool isTop) {
@@ -10679,6 +10799,17 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         bindConnPathRootTs53(h, *expr,
                                              prefix + "." + std::string(ps.name),
                                              parentNets);
+                        // § connReplFoldNested54 — a REPLICATION nested at any
+                        // depth in this ELABORATED actual folds to a full-width
+                        // BIN constant.  The ts fullname is
+                        // `<this instance's path>.<formal>` — `prefix`, the same
+                        // string § connPathRootTs53 takes, NOT `hcPrefix`
+                        // (which is the PARENT's path: the depth-0 arm above
+                        // uses it and so prints one component short of golden,
+                        // a pre-existing residue that `ref_typespec::Compare`
+                        // cannot see because it does not read VpiFullName).
+                        foldConnReplNested54(
+                            h, *expr, prefix + "." + std::string(ps.name));
                         // Struct-member conns: last element scopes through the
                         // child port path; the hier_path carries the struct ts
                         // ref + the parent's elab base net as vpiExpr.

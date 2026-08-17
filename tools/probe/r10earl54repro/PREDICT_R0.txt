@@ -1,0 +1,33 @@
+r10earl54 — NEW-HEAD PREDICTION, written BEFORE the patched Earlgrey cmp.log was
+opened (the patched run was already in flight; this file's timestamp precedes any
+read of it, and the reasoning below uses only the BASE ladder + the census).
+
+METHOD.  The pristine head IS ladder rung 26 of
+tools/probe/r10ladder1repro/ladder_default_Earlgrey_0_1.txt (that ladder was
+taken at an older base; rungs 1-25 have since been fixed, rungs 3-25 by
+r10earl53).  uhdm-cmp stops at the FIRST failure in its own walk, and empirically
+that walk agrees with the ladder's order.  So the new head should be the first
+rung after 26 whose family is neither
+  * `constant|VpiType|KIND:constant>operation` at tlul_fifo_sync.sv:76:69-76:91
+    (rungs 26 and 60 — what § connReplFoldNested54 clears), nor
+  * `ref_typespec|<rhs-null>|MISSING-OURS` (rungs 27-59, 61-70 — r10earl53's
+    family, already cleared at this base).
+
+That is RUNG 71:
+
+  PREDICTED R0
+    KINDL=int_typespec  KINDR=logic_typespec  KINDP=<root>  FIELD=VpiType
+    L(golden) int_typespec  @ :0:0-0:0   (#288957)
+    R(ours)   logic_typespec @ :0:0-0:0  (#765149)
+    A loc-less typespec whose KIND differs: golden int, ours logic.  Nothing to
+    do with replication, connections, or folding.
+
+  Secondary candidates, if the walk order differs from the ladder's:
+    rung 72/73  ref_obj>constant inside an indexed_part_select
+    rung 599/600 prim_ram_2p_async_adv gen_secded cont_assign 171:24 / 172:24
+    rung 1041   flash_ctrl.sv:137 `.tl_i(tl_fifo_h2d[0])` element-select fold
+    an R1 whole-actual constant-concat fold (a1 `u_cat` shape)
+
+  What must NOT be the new head: anything at tlul_fifo_sync.sv:76:69-76:91, and
+  anything whose RHS is a constant our arm minted where golden has an operation
+  (that would be the over-fire the census's KEEP cell guards).

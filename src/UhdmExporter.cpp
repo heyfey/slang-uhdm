@@ -98,37 +98,45 @@ static bool paramTypedByLocalTypedef(const Scope& body) {
     return false;
 }
 
-void UhdmExporter::setLoc(UHDM::BaseClass* obj, SourceRange range) {
-    if (range.start() == SourceLocation::NoLocation)
-        return;
+// The line/column ONE UHDM object field gets for ONE SourceLocation.
+//
+// Extracted verbatim from `setLoc`'s former `lineColOf` lambda so that a
+// consumer needing the span an object WOULD get — § connReplFoldNested54 keys a
+// slang sub-expression against the span already written onto its emitted UHDM
+// twin — reads the SAME arithmetic instead of a second copy of it.  A second
+// copy is exactly how the "emitter nondeterminism" memory entry was earned:
+// macro-buffer locations must be mapped through getFullyOriginalLoc and any
+// path that forgets to flips per run.  Behaviour is unchanged; this is a move.
+void UhdmExporter::locLineCol(SourceLocation lc, uint32_t& L, uint32_t& C) {
+    uint32_t vl, vc;
     // Macro-expanded tokens: SINGLE-LINE bodies lay out VIRTUALLY at the
     // INVOCATION site (usage line, usage col + body offset); later lines of
     // multi-line bodies keep their macro-DEFINITION-site span (Surelog).
-    auto lineColOf = [&](SourceLocation lc, uint32_t& L, uint32_t& C) {
-        uint32_t vl, vc;
-        // Single-line macro bodies lay out at the invocation site; add the
-        // intra-body argument-substitution shift Surelog applies.
-        if (sm->isMacroLoc(lc) && macroInvLineCol(lc, vl, vc)) {
-            L = vl;
-            C = (uint32_t)((int32_t)vc + macroArgShift(lc));
-            return;
-        }
-        // Multi-line macro bodies keep their definition line; the column is the
-        // definition column shifted right past earlier argument substitutions.
-        if (sm->isMacroLoc(lc)) {
-            SourceLocation d = sm->getFullyOriginalLoc(lc);
-            L = (uint32_t)sm->getLineNumber(d);
-            C = (uint32_t)((int32_t)sm->getColumnNumber(d) + macroArgShift(lc));
-            return;
-        }
-        fileLineCol(lc, L, C);
-    };
+    if (sm->isMacroLoc(lc) && macroInvLineCol(lc, vl, vc)) {
+        L = vl;
+        C = (uint32_t)((int32_t)vc + macroArgShift(lc));
+        return;
+    }
+    // Multi-line macro bodies keep their definition line; the column is the
+    // definition column shifted right past earlier argument substitutions.
+    if (sm->isMacroLoc(lc)) {
+        SourceLocation d = sm->getFullyOriginalLoc(lc);
+        L = (uint32_t)sm->getLineNumber(d);
+        C = (uint32_t)((int32_t)sm->getColumnNumber(d) + macroArgShift(lc));
+        return;
+    }
+    fileLineCol(lc, L, C);
+}
+
+void UhdmExporter::setLoc(UHDM::BaseClass* obj, SourceRange range) {
+    if (range.start() == SourceLocation::NoLocation)
+        return;
     uint32_t l = 0, c = 0;
-    lineColOf(range.start(), l, c);
+    locLineCol(range.start(), l, c);
     obj->VpiLineNo(l);
     obj->VpiColumnNo(c);
     if (range.end() != SourceLocation::NoLocation) {
-        lineColOf(range.end(), l, c);
+        locLineCol(range.end(), l, c);
         obj->VpiEndLineNo(l);
         obj->VpiEndColumnNo(c);
     }

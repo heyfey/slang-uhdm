@@ -989,6 +989,42 @@ private:
     void bindConnPathRootTs53(UHDM::any* h, const slang::ast::Expression& conn,
                               const std::string& tsPrefix, NetMap* parentNets);
 
+    /// § connReplFoldNested54 — A REPLICATION NESTED AT ANY DEPTH INSIDE AN
+    /// ELABORATED PORT-CONNECTION ACTUAL FOLDS TO A FULL-WIDTH BIN CONSTANT.
+    ///
+    /// Surelog's `NetlistElaboration::high_conn_` compiles the actual with
+    /// `Reduce::Yes`, and `compileExpression`'s tail runs `reduceExpr` at EVERY
+    /// recursion level — so every sub-expression of a connection actual that
+    /// evaluates folds, however deep.  We already folded the ONE case where the
+    /// replication IS the whole actual (ReplicationPassedToInstance); this is
+    /// the same object at depth > 0.  The folded constant carries the identical
+    /// shape golden mints at depth 0: bare-bits `vpiDecompile` at the
+    /// replication's own width, `BIN:` value, `vpiBinaryConst`, a conn-scoped
+    /// `ref_typespec` over a loc-less `int_typespec`, and — the one field that
+    /// differs from depth 0 — `vpiParent` = the ENCLOSING OPERATION.
+    ///
+    /// THE CONTEXT FENCE IS THE WHOLE LAW.  `Reduce::Yes` is what the
+    /// CONNECTION path passes; the same written replication does NOT fold in
+    /// * a cont-assign RHS (measured, a1 cell C7 — golden keeps op34),
+    /// * a procedural assignment (measured, a1 cell C8 — golden keeps op34),
+    /// * a parameter declaration initializer (earl52 fence F2: `{N{4'h2}}`
+    ///   reads 48 binary digits AT SIZE 32, a different shape entirely), or
+    /// * the DEF listing's `ref_module` connections (measured, a1 — both sides
+    ///   keep op34; the earl38 byte fence).
+    /// So this runs at the ELABORATED conn site only, next to
+    /// § connPathRootTs53, and nowhere else.
+    ///
+    /// A non-constant body ({PowerDomains{ndm_req_valid}}, rstmgr.sv:149) does
+    /// not evaluate and is left alone — golden keeps it too, and the Earlgrey
+    /// census names that exact object as the one cell that must NOT move.
+    void foldConnReplNested54(UHDM::any* h, const slang::ast::Expression& conn,
+                              const std::string& tsFullName);
+    /// The folded constant for ONE replication, or null when it does not
+    /// evaluate to a known integer.
+    UHDM::constant* replBinConst54(const slang::ast::Expression& re,
+                                   UHDM::any* parent,
+                                   const std::string& tsFullName);
+
     // § ifaceDupSharesHomePorts: {tail dup, home view}. The home's ports are
     // built by the DEFERRED emitTopPorts drain, so the share is replayed late.
     std::vector<std::pair<UHDM::interface_inst*, UHDM::interface_inst*>>
@@ -1728,6 +1764,11 @@ private:
         UHDM::any* parent, const std::string& prefix, NetMap& netMap,
         bool connFold = false);
 
+    /// The (line, column) `setLoc` would write for ONE SourceLocation — the
+    /// macro-buffer mapping included.  Public to this class so a consumer that
+    /// must recognise the span already stamped on an emitted object
+    /// (§ connReplFoldNested54) reads the same arithmetic rather than a copy.
+    void locLineCol(slang::SourceLocation lc, uint32_t& line, uint32_t& col);
     void setLoc(UHDM::BaseClass* obj, slang::SourceRange range);
     // setLoc with the end shrunk by whitespace Surelog compacts out of
     // spaced based literals within the range (8'd 3 -> 8'd3).
