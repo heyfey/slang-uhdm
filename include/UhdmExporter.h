@@ -1040,6 +1040,10 @@ private:
     UHDM::struct_typespec* buildStructTs(const slang::ast::Scope& structScope, bool packed,
                                          const std::string& aliasName,
                                          const std::string& memberSep = ".");
+    // § aggMemberAggTdSharesListing3 — true when an aggregate member's
+    // written type is a STRUCT/UNION typedef WITH a listing typespec, i.e.
+    // exactly the population `bypassTypedefShare` must NOT suppress.
+    bool aggMemberIsSharedAggTd3(const slang::ast::Symbol& fm) const;
     // Primitives (gates/switches/udps) declared in `body` into `m`, which is
     // a module_inst (module body) or a gen_scope (generate block): Surelog
     // fills vpiPrimitive/vpiPrimitiveArray on BOTH (GenerateUnnamed).

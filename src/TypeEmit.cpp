@@ -8035,6 +8035,60 @@ void UhdmExporter::foldVecBounds(UHDM::typespec* dst, int64_t left,
         rng->Right_expr(nr);
 }
 
+// § aggMemberAggTdSharesListing3 — the predicate.
+//
+// `buildClassTypedefTs` builds a CLASS-scope aggregate typedef with
+// `bypassTypedefShare = true` held across the WHOLE `buildStructTs` /
+// `buildUnionTs` call.  That flag exists for the typedef's own target type (a
+// chained `typedef other_td_t f_t;` must mint its own object rather than share
+// `other_td_t`'s), but it is a GLOBAL and it leaks into every MEMBER the
+// aggregate declares: `makeTypespec`'s share at TypeEmit.cpp:867 is gated on
+// `!bypassTypedefShare`, so a member written with a struct typedef's name fell
+// through the whole function and came back as the generic tail's LOC-ONLY
+// `logic_typespec` spanning the written type name.
+//
+// Golden binds the member's `ref_typespec` to the typedef's OWN LISTING
+// OBJECT, the same object the package's `vpiTypedef` entry holds — this is
+// § classPropElemTsFollowsScalarTd9's law ("the typedef binds the LISTING")
+// one level down, at a typespec_member instead of a variable.
+//
+// GATE, three halves, each one measured:
+//   * the member's WRITTEN type must be a TypeAlias (an anonymous inline
+//     `struct {...} m;` member keeps its fresh object);
+//   * its canonical type must be a STRUCT or a UNION — the two kinds whose
+//     listing object THIS pair of builders produces.  The vector, enum,
+//     class-handle, alias-of-alias and packed-array member kinds all have
+//     their OWN arms above this one and must not be re-routed: measured on
+//     arm a2's grid, golden's enum-typedef and unpacked-array-typedef cells
+//     (`c_en`, `c_arr`) are ALSO the shared listing and we get them wrong,
+//     but their existing arms mint CLONES in other contexts and widening the
+//     gate to them is a different law with a different clone question
+//     (residues R2/R3);
+//   * the listing object must already exist and be a NAMED struct_typespec or
+//     union_typespec.  An unnamed one is an anonymous nested build, not a
+//     listing.
+// The returned object is a REGISTERED listing typespec, so
+// § sharedAliasNoStamp41 applies: the caller must never stamp or re-span it.
+bool UhdmExporter::aggMemberIsSharedAggTd3(const Symbol& fm) const {
+    auto* dt3 = fm.getDeclaredType();
+    if (!dt3)
+        return false;
+    auto& mt3 = dt3->getType();
+    if (mt3.kind != SymbolKind::TypeAlias)
+        return false;
+    auto& ct3 = mt3.getCanonicalType();
+    if (ct3.kind != SymbolKind::PackedStructType &&
+        ct3.kind != SymbolKind::UnpackedStructType &&
+        ct3.kind != SymbolKind::PackedUnionType &&
+        ct3.kind != SymbolKind::UnpackedUnionType)
+        return false;
+    auto it3 = typedefTs.find(&mt3);
+    return it3 != typedefTs.end() && it3->second &&
+           (it3->second->UhdmType() == UHDM::uhdmstruct_typespec ||
+            it3->second->UhdmType() == UHDM::uhdmunion_typespec) &&
+           !it3->second->VpiName().empty();
+}
+
 UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, bool packed,
                                                    const std::string& aliasName,
                                                    const std::string& memberSep) {
@@ -8721,8 +8775,19 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     }
                 }
             }
-            if (!fts)
+            if (!fts) {
+                // § aggMemberAggTdSharesListing3 — LIFT the typedef-share
+                // ban for exactly this member, so `makeTypespec` runs its own
+                // share (which also picks the DEF vs ELABORATED listing twin
+                // and honours § pkgTdRangeViewFold18's defClone exception).
+                bool unban3 =
+                    bypassTypedefShare && aggMemberIsSharedAggTd3(fm);
+                if (unban3)
+                    bypassTypedefShare = false;
                 fts = makeTypespec(fm, memberTypeSyn);
+                if (unban3)
+                    bypassTypedefShare = true;
+            }
             // A nested ANONYMOUS struct member's struct_typespec is located at
             // the `struct` keyword span (Surelog); makeTypespec leaves it
             // loc-less for the anonymous form.
@@ -9445,8 +9510,19 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                     }
                 }
             }
-            if (!fts)
+            if (!fts) {
+                // § aggMemberAggTdSharesListing3 — LIFT the typedef-share
+                // ban for exactly this member, so `makeTypespec` runs its own
+                // share (which also picks the DEF vs ELABORATED listing twin
+                // and honours § pkgTdRangeViewFold18's defClone exception).
+                bool unban3 =
+                    bypassTypedefShare && aggMemberIsSharedAggTd3(fm);
+                if (unban3)
+                    bypassTypedefShare = false;
                 fts = makeTypespec(fm, memberTypeSyn);
+                if (unban3)
+                    bypassTypedefShare = true;
+            }
             // A nested ANONYMOUS struct member's struct_typespec is located at
             // the `struct` keyword span (Surelog); makeTypespec leaves it
             // loc-less for the anonymous form.
