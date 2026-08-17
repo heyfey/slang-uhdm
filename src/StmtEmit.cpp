@@ -29,6 +29,35 @@ struct CtrlBody28 {
 // declaring block is open at the SAME depth it is reading at; see
 // UhdmExporter.h's blkCtrlDepth57 for the law and every measured cell.
 // A block with no blockSymbol pushes nothing (there is nothing to key on).
+// § refVarLocalWindowBinds5 — the CONDITION window, as a counter.
+//
+// It was first raised at only the three sites that clear `classMethodNoBind`
+// with the comment "condition refs DO bind"; a while/for condition is
+// deliberately NOT one of them (arm a2 b04 is golden-bare there, and § 64's
+// c13 measured the same boundary for the in-body law).
+//
+// V-FIX vbuvm5 — THREE MORE SITES, each one a measured pristine-RIGHT ->
+// patched-WRONG cell that the three-site version created:
+//   SITE 4  the case ITEM EXPRESSION (plain/casex/casez/unique case, but NOT
+//           `case … inside`)                       arms v3 w01/w02/w03/w04/w13,
+//                                                  v3 w06, v5 z09
+//   SITE 5  the IMMEDIATE ASSERT / ASSUME / COVER condition
+//                                                  arms v4 y01/y02/y03/y05,
+//                                                  v5 z07/z08
+//   SITE 6  the EVENT CONTROL expression `@(v)` / `@(posedge v)`
+//                                                  arm v5 z01/z03/z04
+// Every one of the six sites keeps the SAME depth half of the law: the
+// one-body-deeper twin of each new cell is golden-bare and stays bare (v3 w05,
+// v5 z05, v4 y04, v5 z06, v4 y10, v5 z02).
+//
+// This counter has exactly ONE reader, `refVarLocalNoBind5`, so widening it
+// cannot reach any other law.
+struct CondWindow5 {
+    int* p;
+    explicit CondWindow5(int& d) : p(&d) { ++*p; }
+    ~CondWindow5() { --*p; }
+};
+
 struct BlkCtrl57 {
     std::vector<std::pair<const void*, int>>* v = nullptr;
     BlkCtrl57(std::vector<std::pair<const void*, int>>& st, const void* key, int d) {
@@ -1064,6 +1093,18 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             ecRange = SourceRange(stmt.sourceRange.start(), end);
                         }
                         setLoc(ec, ecRange);
+                        // V-FIX vbuvm5 — § refVarLocalWindowBinds5 WINDOW
+                        // SITE 6 of 6.  An EVENT CONTROL expression is a
+                        // binding window with the same depth law.  Measured
+                        // golden, out-of-body tasks, arm v5:
+                        //   z01 34:7  `@(vz) …`, decl d0 read d0        BIND
+                        //   z04 56:15 `@(posedge vz) …`, d0==d0         BIND
+                        //   z03 49:9  decl inside that same block, d1==d1 BIND
+                        //   z02 41:9  `@(vz)` one body DEEPER than decl  bare
+                        // Module-level `always @(...)` cannot reach the
+                        // predicate at all (it needs `currentSubSym`), so this
+                        // window is procedural-subroutine-only by construction.
+                        CondWindow5 cw5ev(condBindDepth5);
                         if (auto* cond = emitEventExpr(timing, ec, prefix, netMap))
                             ec->VpiCondition(cond);
                     }
@@ -2521,7 +2562,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     ie->VpiQualifier(vpiPriorityQualifier);
                 bool sCM9 = classMethodNoBind;
                 classMethodNoBind = false; // condition refs DO bind
-                auto* c = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap);
+                UHDM::any* c = nullptr;
+                {   // § refVarLocalWindowBinds5 — WINDOW SITE 1 of 3
+                    CondWindow5 cw5(condBindDepth5);
+                    c = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap);
+                }
                 classMethodNoBind = sCM9;
                 if (c)
                     ie->VpiCondition((UHDM::expr*)c);
@@ -2541,7 +2586,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 is->VpiQualifier(vpiPriorityQualifier);
             bool sCM8 = classMethodNoBind;
             classMethodNoBind = false; // condition refs DO bind
-            auto* c8 = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap);
+            UHDM::any* c8 = nullptr;
+            {   // § refVarLocalWindowBinds5 — WINDOW SITE 2 of 3
+                CondWindow5 cw5(condBindDepth5);
+                c8 = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap);
+            }
             classMethodNoBind = sCM8;
             if (c8)
                 is->VpiCondition((UHDM::expr*)c8);
@@ -2823,7 +2872,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // the case_stmt itself.
             bool sCM7 = classMethodNoBind;
             classMethodNoBind = false; // condition refs DO bind
-            auto* c7 = emitExpr(cs.expr, parent, prefix, netMap);
+            UHDM::any* c7 = nullptr;
+            {   // § refVarLocalWindowBinds5 — WINDOW SITE 3 of 3
+                CondWindow5 cw5(condBindDepth5);
+                c7 = emitExpr(cs.expr, parent, prefix, netMap);
+            }
             classMethodNoBind = sCM7;
             if (c7) {
                 if (c7->UhdmType() == UHDM::uhdmconstant)
@@ -2914,7 +2967,28 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     exprs->push_back(oi);
                 }
                 else
+                // V-FIX vbuvm5 — § refVarLocalWindowBinds5 WINDOW SITE 4.
+                // A case ITEM EXPRESSION is a binding window on exactly the
+                // same terms as the case CONDITION, and the shipped patch
+                // raised the window only for the condition.  Measured golden,
+                // out-of-body methods, arm v3/v5:
+                //   v3 w01 45:7/45:11  a MULTI-expression item, d0==d0  BIND
+                //   v3 w02 55:7  casex item, d0==d0                     BIND
+                //   v3 w03 65:7  casez item, d0==d0                     BIND
+                //   v3 w04 75:7  unique-case item, d0==d0               BIND
+                //   v3 w13 154:8 item that is an OPERATION `(uw + 1)`   BIND
+                //   v3 w06 99:9  item in a block that also DECLARES it,
+                //                d1==d1                                 BIND
+                //   v5 z09 104:14 nested case, decl d1 read d1          BIND
+                //   v3 w05 86:9  case one control body DEEPER than decl bare
+                //   v5 z05 66:11 case TWO bodies deeper than the decl   bare
+                // so the depth half of the law is unchanged; only the position
+                // was missing.  `case (x) inside` is DELIBERATELY excluded —
+                // it is the other arm of this `if` and golden leaves its item
+                // members BARE (arm v4 y06 69:7, decl d0 read d0), which is
+                // why the window is raised here and not around both arms.
                 for (auto e : g.expressions) {
+                    CondWindow5 cw5(condBindDepth5);
                     if (auto* ue = emitExpr(*e, it, prefix, netMap)) {
                         // Case-item expr refs and calls parent at the
                         // enclosing scope (constants stay at the case_item).
@@ -2937,6 +3011,23 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             uc->Case_items(items);
             return uc;
         }
+        // V-FIX vbuvm5 — § refVarLocalWindowBinds5 WINDOW SITE 5 of 6, three
+        // spellings.  An IMMEDIATE ASSERTION's condition is a binding window
+        // on the same terms as an if condition; the shipped patch left it out.
+        // Measured golden, out-of-body methods, arms v4/v5:
+        //   v4 y03 45:13 `assert (vy != null) …; else …`, d0==d0      BIND
+        //   v4 y01 33:13 `assume (vy != null) …`, d0==d0              BIND
+        //   v4 y02 39:12 `cover  (vy != null) …`, d0==d0              BIND
+        //   v4 y05 60:15 assert whose block DECLARES vy, d1==d1       BIND
+        //   v5 z07 85:13 / z08 92:13 the same, d0==d0                 BIND
+        //   v4 y04 52:15 assert one control body DEEPER than the decl bare
+        //   v5 z06 77:15 assert inside a `for` body, decl at d0       bare
+        //   v4 y10 96:18 assert inside a case ITEM, decl at d0        bare
+        // The ACTION BLOCK is NOT a window and is left alone: v5 z07 85:41 and
+        // z08 93:26 read `uz` from the action / else-action block as a CALL
+        // ARGUMENT and golden binds them through § classArgBind12's window,
+        // before and after — which is also why the action block must not be
+        // given a CtrlBody28 it does not have.
         case StatementKind::ImmediateAssertion: {
             auto& ia = stmt.as<ImmediateAssertionStatement>();
             UHDM::any* ua = nullptr;
@@ -2952,7 +3043,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         a->VpiIsDeferred(1);
                     if (ia.isFinal)
                         a->VpiIsFinal(1);
-                    if (auto* c = emitExpr(ia.cond, a, prefix, netMap))
+                    // V-FIX vbuvm5 — § refVarLocalWindowBinds5 WINDOW SITE 5.
+                    if (auto* c = [&] {
+                            CondWindow5 cw5(condBindDepth5);
+                            return emitExpr(ia.cond, a, prefix, netMap);
+                        }())
                         a->Expr((UHDM::expr*)c);
                     if (ia.ifTrue) {
                         if (auto* t = emitStmt(*ia.ifTrue, a, prefix, netMap))
@@ -2973,7 +3068,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         a->VpiIsDeferred(1);
                     if (ia.isFinal)
                         a->VpiIsFinal(1);
-                    if (auto* c = emitExpr(ia.cond, a, prefix, netMap))
+                    // V-FIX vbuvm5 — § refVarLocalWindowBinds5 WINDOW SITE 5.
+                    if (auto* c = [&] {
+                            CondWindow5 cw5(condBindDepth5);
+                            return emitExpr(ia.cond, a, prefix, netMap);
+                        }())
                         a->Expr((UHDM::expr*)c);
                     if (ia.ifTrue) {
                         if (auto* t = emitStmt(*ia.ifTrue, a, prefix, netMap))
@@ -2994,7 +3093,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         a->VpiIsDeferred(1);
                     if (ia.isFinal)
                         a->VpiIsFinal(1);
-                    if (auto* c = emitExpr(ia.cond, a, prefix, netMap))
+                    // V-FIX vbuvm5 — § refVarLocalWindowBinds5 WINDOW SITE 5.
+                    if (auto* c = [&] {
+                            CondWindow5 cw5(condBindDepth5);
+                            return emitExpr(ia.cond, a, prefix, netMap);
+                        }())
                         a->Expr((UHDM::expr*)c);
                     if (ia.ifTrue) {
                         if (auto* t = emitStmt(*ia.ifTrue, a, prefix, netMap))

@@ -2317,6 +2317,26 @@ private:
     // The stack is keyed on the slang StatementBlockSymbol so shadowing comes
     // out right when two sibling blocks declare the SAME name (b2 f:44/49).
     std::vector<std::pair<const void*, int>> blkCtrlDepth57;
+    // § refVarLocalWindowBinds5 (r10buvm5) — the if/case CONDITION window as a
+    // COUNTER rather than as `classMethodNoBind = false`.
+    //
+    // StmtEmit.cpp's three condition sites already clear `classMethodNoBind`
+    // with the comment "condition refs DO bind", and every reader of THAT flag
+    // gets the window for free.  An OUT-OF-BODY method never sets the flag in
+    // the first place (`classMethodNoBind = classScope && !oob`), so a law that
+    // has to tell "inside a condition" from "in an assignment" in an
+    // out-of-body body cannot read it at all.
+    //
+    // V-FIX vbuvm5 — the counter is raised at SIX sites, not three: the three
+    // `classMethodNoBind`-clearing ones (unique/priority `if`, plain `if`,
+    // `case` condition) plus the case ITEM EXPRESSION, the IMMEDIATE
+    // ASSERT/ASSUME/COVER condition and the EVENT CONTROL expression.  Each of
+    // the three added sites is a measured pristine-RIGHT -> patched-WRONG cell
+    // of the three-site version; see StmtEmit.cpp's CondWindow5 for the cell
+    // list.  It is still NOT raised on a while/for/do-while condition, on a
+    // `wait`, on a `case … inside` item member or on a `return` — all measured
+    // golden-bare (a2 b04, § 64's c13, v1 k08/k02, v4 y06/y08).
+    int condBindDepth5 = 0;
     // ================= § typeParamRetIsRefVar58 — THE LAW =================
     // A declaration whose WRITTEN TYPE IS A TYPE PARAMETER is a bare
     // `ref_var` in golden — with NO vpiSigned — whatever the parameter is
@@ -3380,6 +3400,65 @@ private:
     // currently open AND was entered at exactly the ctrlBodyDepth28 the
     // caller sees now.
     bool blkLocalSameCtrlDepth57(const slang::ast::Symbol& sym) const;
+    // § refVarLocalWindowBinds5 (r10buvm5) — THE LAW.
+    //
+    //   A reference to a SUBROUTINE-LOCAL variable whose emitted DECLARATION IS
+    //   A `ref_var` — i.e. a local Surelog itself never resolved to a variable
+    //   kind — binds its vpiActual ONLY when BOTH
+    //     (a) it stands in a BINDING WINDOW: one of the six condBindDepth5
+    //         sites — an if/case CONDITION, a case ITEM EXPRESSION, an
+    //         immediate assertion CONDITION or an EVENT CONTROL expression —
+    //         or a USER call's ARGUMENT list (classArgBindDepth12), and
+    //     (b) the declaration is at the SAME ctrlBodyDepth28 the reference
+    //         reads at — the subroutine's own declaration section read at depth
+    //         0, or an UNNAMED statement block open at exactly this depth
+    //         (blkLocalSameCtrlDepth57).
+    //   Everywhere else it is BARE.
+    //
+    // This is § controlBodyNoBind28 + § blkLocalSameCtrlDepthWindowBinds64's
+    // shape, but it is NOT the same law and must not be folded into it: §28 is
+    // gated on an IN-BODY class method (`curSubClassScope9 && !curSubOob9`) and
+    // applies to EVERY local, while this one applies to a `ref_var` local in
+    // EVERY method — out-of-body definitions included, which is where the whole
+    // corpus population lives — and to NOTHING ELSE.  The controls are what
+    // make that split load-bearing: arm a2's c01/c02/c03 read an `int`, a
+    // resolved class handle and a `string` from the identical positions in the
+    // identical out-of-body bodies and golden binds ALL of them, in an
+    // assignment and one block deeper alike.  The uvm_pkg twin of c03 is
+    // `set_inst_alias`'s `original_type_name`, bound at 12764:53 from inside the
+    // `else begin` where `orig_type_alias_per_inst` — the head — is not.
+    //
+    // MEASURED (arm a1/a2 cell -> golden), out-of-body unless marked:
+    //   P1 73:21  `hold5.push_back(v5)` stmt method-call arg, d0  -> BIND
+    //   P3 86:11  `sink5(v5)` stmt plain-call arg, d0             -> BIND
+    //   P5 99:9   `if (v5 == null)` condition, d0                 -> BIND
+    //   P7 112:16 `if (!$cast(v5, fifo5))` $cast in a condition   -> BIND
+    //   S1 145:19 class-nested STRUCT typedef local, same shape   -> BIND
+    //   b02/b03   if-condition / CASE condition, d0               -> BIND
+    //   b06       call arg that is an OPERATION (both spellings)  -> BIND
+    //   b09       decl AND read in the same unnamed block, d1==d1 -> BIND
+    //   i01       the IN-CLASS twin of P1 (already correct)       -> BIND
+    //   P2/P4/P6/P8/S2  the same five, one block deeper           -> bare
+    //   b08       BARE (no-begin) `if` body: SAME block, d0 vs d1 -> bare
+    //             ^ the cell that proves the test is CONTROL DEPTH, not the
+    //               block: Surelog opens no block there and still refuses
+    //   b10       decl at d1, read at d2                          -> bare
+    //   b11       NAMED begin, same block, same depth             -> bare
+    //   b01       `$display("%p", v5)` SYSTEM call arg, d0        -> bare
+    //   b04       WHILE condition, d0                             -> bare
+    //   P10/P11   assignment LHS and RHS, same block, d0          -> bare
+    //   i08       the IN-CLASS twin of b08 (already correct)      -> bare
+    //
+    // RESIDUE R1 — a USER call nested INSIDE a condition (a1 P9,
+    // `if (port5.try5(v5) == 0)`) is golden BARE and this predicate still binds
+    // it: the window is open and the depth matches.  It is left alone on
+    // purpose.  Golden also NAMES that argument differently — `p9_5::port5.try5
+    // ::v5`, the callee path spliced into the scope prefix, exactly as uvm_pkg
+    // spells `send_request::m_req_fifo.try_put::param_t` — so the two corpus
+    // cells (uvm_pkg 54020, 54474) cannot go byte-equal from the binding alone,
+    // and a gate written blind here would have been unmeasurable.
+    bool refVarLocalNoBind5(const slang::ast::Symbol& sym,
+                            const UHDM::any* declObj) const;
     std::optional<std::set<const slang::ast::Expression*>> memberLeakAsgs;
     // Scope for resolving identifiers inside a pkg-function's return/arg TYPE
     // ranges (logic [PARAM-1:0]) — SL binds such refs to the pkg param's

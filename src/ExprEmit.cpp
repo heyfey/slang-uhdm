@@ -269,6 +269,49 @@ bool UhdmExporter::blkLocalSameCtrlDepth57(const slang::ast::Symbol& sym) const 
     return false;
 }
 
+// § refVarLocalWindowBinds5 — the predicate.  See UhdmExporter.h for the law,
+// its twenty measured arm cells and residue R1.  TRUE means SUPPRESS the
+// vpiActual this reference would otherwise carry.
+//
+// Four conditions, each one a cell that fails without it:
+//   (1) the DECLARATION OBJECT is a `ref_var`.  Arm a2's c01/c02/c03 controls
+//       (int / class handle / string) are golden-BOUND in every position this
+//       law silences, so the gate must key on the emitted object, not on the
+//       position.
+//   (2) it is a plain subroutine LOCAL — kind Variable, declared in the
+//       subroutine or in a statement block, and inside a subroutine body now
+//       (currentSubSym).  A class PROPERTY, a FORMAL, a package variable and a
+//       module-scope statement block are all somebody else's law.
+//   (3) the FUNCTION RETURN NAME is excluded outright: it is a Variable whose
+//       parent scope is the subroutine, so (2) would otherwise catch it, and
+//       its binding is § makeReturnVar's, not this one's.
+//   (4) BIND only inside a window at the matching control-body depth.
+bool UhdmExporter::refVarLocalNoBind5(const slang::ast::Symbol& sym,
+                                      const UHDM::any* declObj) const {
+    if (!declObj || declObj->UhdmType() != UHDM::uhdmref_var)
+        return false;
+    if (!currentSubSym || sym.kind != SymbolKind::Variable)
+        return false;
+    if (funcRetSym && &sym == funcRetSym)
+        return false;
+    auto* declScope = sym.getParentScope();
+    if (!declScope)
+        return false;
+    bool sameDepth;
+    switch (declScope->asSymbol().kind) {
+        case SymbolKind::StatementBlock:
+            sameDepth = blkLocalSameCtrlDepth57(sym);
+            break;
+        case SymbolKind::Subroutine:
+            sameDepth = ctrlBodyDepth28 == 0;
+            break;
+        default:
+            return false;
+    }
+    bool window = classArgBindDepth12 > 0 || condBindDepth5 > 0;
+    return !(sameDepth && window);
+}
+
 // § retNameRecvCollapse69 — WHEN A METHOD CALL'S RECEIVER IS THE ENCLOSING
 // FUNCTION'S OWN RETURN VARIABLE, SURELOG RESOLVES THE RECEIVER TO THE FUNCTION
 // AND SWALLOWS THE METHOD.
@@ -8658,12 +8701,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                &nv.symbol.getParentScope()
                                     ->asSymbol()
                                     .as<SubroutineSymbol>())) {
-                    ref->Actual_group(it->second);
+                    // § refVarLocalWindowBinds5 — the ONLY reader of the
+                    // predicate.  A `ref_var` local read outside a binding
+                    // window, or one control body deeper than its own
+                    // declaration, carries NO vpiActual — and it is NOT
+                    // registered for select re-pointing either: "binds
+                    // nothing" has to survive endSelTrack's back-patch too.
+                    //
+                    // V-FIX vbuvm5 — `selWholeWrittenVars` is EXCLUDED from
+                    // that suppression and stays where it was.  It is not a
+                    // record of THIS reference; it is the source-level fact
+                    // "this VARIABLE is also written whole", and endSelTrack
+                    // reads it to decide what OTHER, still-bound references to
+                    // the same variable re-point to.  Silencing the insert
+                    // made an assignment-LHS whole write invisible, so the
+                    // constant-bounds part-select carve-out stopped firing and
+                    // a correctly-bound WINDOW reference was re-pointed at the
+                    // part_select.  Measured on arm v2 (`bs = 8'h00;` next to
+                    // `bs[3:0] = 4'hf;`):
+                    //   s01 37:12 `isinks(bs)` call arg  golden ref_var,
+                    //             pristine ref_var, shipped part_select
+                    //   s05 70:9  `if (bs == 8'h0f)`     golden ref_var,
+                    //             pristine ref_var, shipped part_select
+                    // Both are pristine-RIGHT -> patched-WRONG, and both come
+                    // back with this one line moved back out.
+                    bool bind5 = !refVarLocalNoBind5(nv.symbol, it->second);
+                    if (bind5)
+                        ref->Actual_group(it->second);
                     // Whole ref: may be re-pointed to a select object if this
                     // variable is written via a select elsewhere in the body.
                     if (selTrackActive) {
-                        selWholeRefs.push_back(
-                            {ref, &nv.symbol, selScopeChain()});
+                        if (bind5)
+                            selWholeRefs.push_back(
+                                {ref, &nv.symbol, selScopeChain()});
                         if (inLhs)
                             selWholeWrittenVars.insert(&nv.symbol);
                     }
