@@ -9105,6 +9105,119 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 suppressConstParent = true;
                 forceConstParent = false;
             }
+            // § lvIncDecSelMemberCollapse7 — an INC/DEC operand whose lvalue
+            // text reads `base[...] . <anything>` COLLAPSES, in golden, to a
+            // SINGLE reference NAMED FOR THE BASE, spanning the WHOLE lvalue
+            // text: `m_override_info[index].used++` is one
+            // `ref_obj (…find_override_by_type::m_override_info)` @13042:7-34,
+            // not a hier_path (BuildUVMPkg's head).
+            //
+            // This is a GRAMMAR fact, not a type fact.  Surelog's parser builds
+            // a `Hierarchical_identifier` node — the production
+            // `{identifier constant_bit_select .} identifier` — ONLY when the
+            // FIRST identifier is followed by a bracket and then a dot.  In
+            // that case `Variable_lvalue`'s child is that one node, and
+            // CompileExpression.cpp's primary arm (paHierarchical_identifier,
+            // ~2696) takes the name from `fC->Child(child)` — the FIRST
+            // identifier ALONE — and then walks only the SIBLINGS of the
+            // `Ps_or_hierarchical_identifier`, i.e. the trailing `select`.
+            // Every bracket and every dot INSIDE the Hierarchical_identifier is
+            // never visited: `[index].used` is dropped on the floor.  Its
+            // trailing `Select` here holds an EMPTY `Bit_select`, so
+            // `compileSelectExpression` returns nullptr and the arm falls
+            // through to "create ref_obj down below" — the same code a BARE
+            // `sq++` reference takes, which is why golden's object carries the
+            // ordinary scoped fullname and the ordinary late binding (a module
+            // one binds its `logic_net`, a class property's binds nothing).
+            // The span is then overwritten by the `paVariable_lvalue` arm's
+            // `populateCoreMembers(child, child, variable)` (~2465) with the
+            // WHOLE lvalue node's text.
+            //
+            // Everything else keeps its hier_path, because the parser never
+            // builds a Hierarchical_identifier for it — measured, both ways,
+            // in tools/probe/r10buvm7repro/v1_lvincdecshape.sv:
+            //   `sbare.used++`, `ch.iq[i]++`, `ch.sq[i].used++`, `ch.s.ai[i]++`
+            //       -> hier_path (the FIRST identifier carries no bracket)
+            //   `iq[i]++`, `i++`  -> bit_select / ref_obj (nothing to drop)
+            //   `sq[i].used = 5`, `sq[i].used += 2`, `r = sq[i].used`, an if
+            //   condition, a call argument, a return  -> hier_path (an rvalue
+            //       parses as `Complex_func_call`; a blocking assignment's
+            //       lvalue takes its own compile path)
+            // and the base's own kind is IRRELEVANT: queue / dynamic / assoc /
+            // fixed / multi-dim, struct member or class property, member depth
+            // 1 or 2, class method / task / fork / foreach / module initial /
+            // always, postfix or prefix, ++ or --, statement or expression —
+            // all 13 grid cells collapse or not by that one grammar test.
+            //
+            // NOT CLAIMED: a lvalue with a TRAILING bracket
+            // (`sq[i].ai[1]++` -> golden's bit_select named `sq` indexed by the
+            // LAST bracket; `sq[i].v[3:0]++` -> a part_select named `sq`).
+            // Golden has ZERO of those in either corpus (census over 3673
+            // golden databases: WIDESEL=0), so they are left to the hier_path
+            // builder and recorded as § lvIncDecTrailingSelect7 residue.
+            if (opType == vpiPostIncOp || opType == vpiPreIncOp ||
+                opType == vpiPostDecOp || opType == vpiPreDecOp) {
+                const Expression* cur = &stripImplicitConv(ue.operand());
+                bool trailingSel7 =
+                    cur->kind == ExpressionKind::ElementSelect ||
+                    cur->kind == ExpressionKind::RangeSelect;
+                bool sawMember7 = false, baseSel7 = false;
+                const NamedValueExpression* baseNv7 = nullptr;
+                while (!trailingSel7) {
+                    if (cur->kind == ExpressionKind::MemberAccess) {
+                        sawMember7 = true;
+                        baseSel7 = false;
+                        cur = &stripImplicitConv(
+                            cur->as<MemberAccessExpression>().value());
+                    }
+                    else if (cur->kind == ExpressionKind::ElementSelect) {
+                        baseSel7 = true;
+                        cur = &stripImplicitConv(
+                            cur->as<ElementSelectExpression>().value());
+                    }
+                    else if (cur->kind == ExpressionKind::RangeSelect) {
+                        baseSel7 = true;
+                        cur = &stripImplicitConv(
+                            cur->as<RangeSelectExpression>().value());
+                    }
+                    else {
+                        if (cur->kind == ExpressionKind::NamedValue)
+                            baseNv7 = &cur->as<NamedValueExpression>();
+                        break;
+                    }
+                }
+                // baseSel7 is the kind of the step DIRECTLY above the base:
+                // the bracket that makes the parser build the
+                // Hierarchical_identifier in the first place.
+                if (!trailingSel7 && sawMember7 && baseSel7 && baseNv7) {
+                    if (auto* r7 = emitExpr(*baseNv7, op, prefix, netMap)) {
+                        setLoc(r7, ue.operand().sourceRange);
+                        // § lvIncDecCollapseNetSpans7 — the collapsed reference
+                        // is an ORDINARY one, so a class property named here in
+                        // a HOISTED class body mints the hoisting module's bare
+                        // `logic_net` exactly as any other unresolved property
+                        // reference does (classPropRefs / bindClassPropRefs).
+                        // Golden mints them too — SimpleUVM/testflags gets
+                        // `work@top.m_override_info` @1441:4-31,
+                        // `m_type_overrides` @1403:6-34 (x3),
+                        // `m_uvm_applied_cl_action` @3506:5-36 and
+                        // `m_uvm_applied_cl_sev` @3576:5-33, and the PRISTINE
+                        // binary mints NONE of the four — and it spans each net
+                        // over the WHOLE LVALUE, because Surelog's lateBinding
+                        // reads the REF's span and by then the Variable_lvalue
+                        // arm has already overwritten it.  The recorded range is
+                        // the NamedValue's own, so it is re-pointed here at the
+                        // same text the reference now spans.
+                        if (!classPropRefs.empty() &&
+                            classPropRefs.back().ref == r7)
+                            classPropRefs.back().range =
+                                ue.operand().sourceRange;
+                        operands->push_back(r7);
+                        op->Operands(operands);
+                        return op;
+                    }
+                }
+            }
             if (auto* e = emitExpr(ue.operand(), op, prefix, netMap))
                 operands->push_back(e);
             suppressConstParent = savedS;
