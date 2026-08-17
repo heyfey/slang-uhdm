@@ -20628,6 +20628,75 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // unary-MINUS / binary-SUBTRACT over params fold to a loc-less
         // signed INT at the UNCONVERTED value, sized to the LHS width.
         bool skipGeneralFold = false;
+        // § memberLhsCastNoElabFold51 (r10earl51) — DIRECTION: BAIL (do not
+        // fold; the operation we already know how to emit is the answer).
+        //
+        // THE LAW.  In the ELABORATED view, a cont_assign whose Lhs is a
+        // struct-MEMBER access (a hier_path) keeps a CAST rhs as an unreduced
+        // `operation vpiOpType:67`.  Every OTHER reducible rhs shape on the
+        // very same Lhs still folds, and the very same cast on a whole-signal
+        // Lhs folds too.
+        //
+        // THE MECHANISM, transcribed from Surelog's UhdmWriter::writeCont_assign
+        // (src/DesignCompile/UhdmWriter.cpp:2090).  That function reduces the
+        // rhs in exactly TWO places:
+        //   1. `if (lhs->UhdmType() == uhdmref_obj)` — a WHOLE-signal Lhs —
+        //      calls reduceExpr + adjustSize and writes the constant back.
+        //      A hier_path Lhs never enters it.
+        //   2. the trailing `if (simplified == false)` reduce.
+        // Between them sits
+        //      } else if (rhs->UhdmType() == uhdmoperation) {
+        //        if (const ref_typespec* ro1 = op->Typespec()) {
+        //          ... flattenPatternAssignments ...
+        //          if (tmp->UhdmType() == uhdmoperation) { ...; simplified = true; }
+        // reached exactly when the Lhs yielded NO typespec (a hier_path) and
+        // the rhs operation CARRIES ONE.  A cast operation always carries its
+        // target typespec; a plain binary/unary/ternary/concat operation never
+        // does.  So `simplified` is set, arm 2 is skipped, and the cast rides
+        // out into a freshly cloned cont_assign.
+        //
+        // MEASURED, one read position per cell, golden = real Surelog:
+        //   i1  (struct_NET base)   s.m1 s.m2 t.m1..t.m4  cast    -> operation
+        //                           a1 a2 b1 b2 b3        cast    -> constant
+        //   i2  (struct_VAR base)   tl_o.size tl_o.k2     cast    -> operation
+        //                           tl_o.k4 (bare ref)            -> constant
+        //                           tl_o.k5..k6 (literals)        -> constant
+        //                           n_size n_k2 (net twins) cast  -> constant
+        //   i3  tl.c1 SZW'(LPD), tl.c7 int'(LP2)          cast    -> operation
+        //       tl.c2 `LP2|4'h1`, tl.c3 `4'h1|4'h2`, tl.c4 ternary,
+        //       tl.c5 concat, tl.c6 `~4'h1`                       -> constant
+        //       m1..m7 — the SAME seven shapes on a NET Lhs       -> constant
+        //   i4  CHILD instance view, NESTED member (tl.user.rsvd), an INTERNAL
+        //       struct var (loc.c1), a LITERAL operand (SZW'(3)) -> operation
+        //       pv[3:0] / pv[0] select Lhs                        -> unchanged
+        // so neither the operand's kind, nor the member depth, nor port-vs-
+        // internal, nor top-vs-child view is a carrier: the Lhs being a member
+        // access and the rhs being a cast are the whole rule.
+        bool memberLhsCast51 = false;
+        {
+            const Expression* l51 = &stripImplicitConv(ae.left());
+            bool memberLhs51 = false;
+            for (int g51 = 0; g51 < 32 &&
+                              l51->kind == ExpressionKind::MemberAccess;
+                 ++g51) {
+                memberLhs51 = true;
+                l51 = &stripImplicitConv(
+                    l51->as<MemberAccessExpression>().value());
+            }
+            if (memberLhs51) {
+                auto& r51 = stripImplicitConv(ae.right());
+                // An EXPLICIT cast written as `T'(x)` / `N'(x)`.  The
+                // `signed'(x)` form is excluded: it emits a sys_func_call, not
+                // an operation, so Surelog's `rhs->UhdmType() == uhdmoperation`
+                // arm never sees it.
+                memberLhsCast51 =
+                    r51.kind == ExpressionKind::Conversion &&
+                    !r51.as<ConversionExpression>().isImplicit() && r51.syntax &&
+                    r51.syntax->kind == syntax::SyntaxKind::CastExpression;
+            }
+        }
+        if (memberLhsCast51)
+            skipGeneralFold = true;
         // § elabCaTernaryNoFoldSigRefBranch22 (r10earl22) — a CONSTANT-
         // CONDITION ternary cont-assign RHS reduces in the elab view ONLY
         // WHEN NEITHER BRANCH IS A BARE SIGNAL REFERENCE.  qc22.sv crosses the
@@ -21038,7 +21107,9 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // (int'(X)), that evals fully folds loc-less: UINT by magnitude at
         // the result width (signed wraps encode 4294967295-style). Casts of
         // literals / calls keep the operation.
-        if (!rhs && topView) {
+        // § memberLhsCastNoElabFold51 — this is the SECOND of the three fold
+        // sites a member-Lhs cast can reach (skipGeneralFold covers the first).
+        if (!rhs && topView && !memberLhsCast51) {
             auto& rc0 = stripImplicitConv(ae.right());
             auto& rcOp = rc0.kind == ExpressionKind::Conversion
                              ? stripImplicitConv(rc0.as<ConversionExpression>().operand())
@@ -21114,7 +21185,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // A SIZE cast of a VARIABLE with a constant initializer folds
         // through the variable's INITIAL value (Surelog reduce quirk):
         // loc-less unparented constant at the cast width.
-        if (!rhs && topView) {
+        // § memberLhsCastNoElabFold51 — the THIRD and last fold site.
+        if (!rhs && topView && !memberLhsCast51) {
             auto& rc0 = stripImplicitConv(ae.right());
             if (rc0.kind == ExpressionKind::Conversion &&
                 !rc0.as<ConversionExpression>().isImplicit() && rc0.syntax &&

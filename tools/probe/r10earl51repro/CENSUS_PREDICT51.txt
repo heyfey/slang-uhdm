@@ -1,0 +1,49 @@
+r10earl51 — CENSUS PREDICTION, written from the PRISTINE pair BEFORE the
+patched Earlgrey_0_1 run.
+
+INSTRUMENT
+  castgrid51.py <dump> --view=top
+  keyed on `<enclosing instance fullname> <cont_assign source span>`; a
+  cont_assign printed without a body is resolved against the DEF view's answer
+  for the same key and marked `=def` (object SHARING, which uhdm-cmp does not
+  compare, is stripped before diffing).
+
+BASELINE (pristine binary md5 a554402b367aeb786bef648638b94e35)
+  golden rows 16424, ours 16424, same order.
+  Content disagreements (the `=def` marker stripped), COMPLETE:
+
+    cells   scope / span                                   golden      ours
+    -----   -------------------------------------------    ---------   ---------
+       81   work@rv_plic_target 73:18-73:39                 constant    ref_obj
+        8   work@prim_arbiter_tree 114:20-114:42            constant    ref_obj
+        2   work@prim_ram_2p_async_adv 171:12 / 172:12      constant    operation
+        1   work@padctrl 39:12-39:38                        constant    operation
+        1   work@sram2tlul 42:10-42:53                      operation   constant   <-- R0, THE HEAD
+        4   work@gpio 56/58/79/81, work@prim_packer 183     span end-column only
+
+PREDICTION
+  § memberLhsCastNoElabFold51 fires ONLY on an elaborated cont_assign whose
+  Lhs is a struct-MEMBER access and whose Rhs is an explicit `T'(x)` / `N'(x)`
+  cast.  In Earlgrey_0_1 that is ONE cell:
+
+    work@sram2tlul 42:10-42:53   ours constant UINT:2 sz=2  ->  operation
+                                 vpiOpType:67, ref_typespec(work@sram2tlul) ->
+                                 int_typespec, operand ref_obj
+                                 (work@sram2tlul.SRAM_DWB) 42:44-42:52
+                                 == golden, exactly.
+
+  EXPECTED AFTER THE PATCH
+    * castgrid51 content disagreements: 97 -> 96; the sram2tlul row GONE and
+      ZERO rows entering (the other 92 rows are different families and this
+      patch cannot reach them: they are ref_obj-vs-constant and
+      operation-vs-constant in the OPPOSITE direction, none with a cast rhs).
+    * Earlgrey_0_1/default cmp head: 52 lines / 1 head  ->  CLEARED.
+    * DEF view (dump lines 1..1196437) BYTE-IDENTICAL — the three guarded fold
+      sites are all inside `if (... topView)`.
+    * dump SHAPES: exactly one `constant` (UINT:2 sz=2, loc-less) removed and
+      one `operation`(67) + one `ref_typespec` + one `int_typespec` + one
+      `ref_obj` added, all in the work@sram2tlul TOP-module view.
+    * Earlgrey_0_1 is byte-deterministic: the md5 of slang.uhdm MUST change.
+    * every other corpus row: 0 differing CSV rows on all 8 sweeps; canaries
+      byte-identical; boundary arms byte-identical except cells whose Lhs is a
+      member access and whose Rhs is a cast.
