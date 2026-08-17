@@ -1,0 +1,56 @@
+r10earl52 — CENSUS PREDICTION
+Written from the GOLDEN dump and the PRISTINE (d853e76) dump only, BEFORE the
+patched Earlgrey database was read.  Instrument: census52.py --view=top, keyed
+by {Lhs parameter full name, Rhs constant span}, valued by
+{vpiConstType, value, vpiSize, vpiDecompile}.  Order-blind: no object identity
+and no workdir path enters the key.
+
+BASE MEASUREMENT (golden vs pristine, Earlgrey_0_1/default, ELAB view)
+  golden param_assign-with-constant-Rhs keys ....... 10210
+  ours ............................................. 10197
+  joined on {name, span} ............................  9818
+  DISAGREEING .......................................    55
+    decompile-only ..................................    44
+    const-type / value-class ........................    11
+
+THE 44 DECOMPILE-ONLY ROWS ARE 43 + 1 AND THEY POINT OPPOSITE WAYS
+  43 x `Depth` @12:40:12:41 (prim_fifo_sync.sv `parameter int unsigned Depth
+       = 4`, reached as an OVERRIDE `.Depth(ReqDepth)` and stamped at the
+       DEFAULT's span): golden HEX:0/HEX:2 size 32 decompile "4'h0"/"4'h2",
+       ours "32'h0"/"32'h2".  GOLDEN DOES NOT RE-RENDER ON THE OVERRIDE PATH.
+   1 x `FifoDepth` @68:30:68:52 (rv_core_ibex.sv:68, a NON-overridden
+       localparam): golden "32'h0", ours "4'h0".  GOLDEN DOES RE-RENDER ON THE
+       DECLARATION path.
+  This pair is why § paramInitAdjustSizeElab52's final srlgOvRender is NOT
+  hoisted into the pass-8/28 override block: the two paths measurably differ,
+  and hoisting it would have turned 43 correct-modulo-one-field rows into 43
+  rows wrong in the same field the other way.
+
+PREDICTION — EXACTLY TWO MOVERS, BOTH TO GOLDEN
+  1. work@top_earlgrey.u_rv_core_ibex.FifoPass  @67:29:67:51
+       ours   {ct=3 BIN:1   sz=32 dec="1'b1"}
+       -> new {ct=7 INT:-1  sz=32 dec="-1"}   == golden      [THE R0 HEAD]
+  2. work@top_earlgrey.u_rv_core_ibex.FifoDepth @68:30:68:52
+       ours   {ct=5 HEX:0   sz=32 dec="4'h0"}
+       -> new {ct=5 HEX:0   sz=32 dec="32'h0"} == golden
+
+PREDICTED NON-MOVERS, and why (every remaining disagreeing row)
+  * 43 x `Depth` — OVERRIDDEN, so the emit `continue`s in the pass-8/28 block
+    long before this pass's site.  Untouched.
+  * `Aw` x3 (`localparam int Aw = $clog2(Depth)`, golden INT:14 / INT:9, ours
+    BIN:0000…1110 size 32) — the initializer is a SYSTEM CALL; `ovEnc8`
+    declines it, so the row cannot move.  A ranked residue, not this law.
+  * `WordsPerPage` x4, `AlignedMuxSize`, `Width` (golden INT:n, ours UINT:n) —
+    arithmetic-operation initializers; `ovEnc8` declines.  Ranked residue.
+  * `DefaultSeed` (golden UINT:0, ours UINT:1) — a VALUE disagreement, not an
+    encoding one.  Nothing here can move it.
+  * the 392 keys present in golden and absent from ours, and the 379 the other
+    way (naming/span families) — no encoding field is read for them.
+
+PREDICTED DEF-VIEW MOVERS: ZERO.  The rule is gated `topView && !inPackage`,
+and all six probe arms measured the DEF view byte-identical before and after
+(a1/a2/a3/a4/v1/v2, 0 fixed / 0 broken in --view=def).  earl38's DEF fence
+(lines 1..~1196437) must hold byte-for-byte.
+
+PREDICTED HEAD: FifoPass CLEARS.  Earlgrey_0_1/default goes from
+1 head / 64 lines to a DIFFERENT head; the next head is R0 for r10earl53.

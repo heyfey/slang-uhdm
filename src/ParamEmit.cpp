@@ -5195,6 +5195,258 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 continue;
             }
         }
+        // r10earl52 — HOISTED, unchanged, out of the override block below
+        // so § paramInitAdjustSizeElab52 can run the SAME encoder on a
+        // NON-overridden parameter's own declared initializer.  Nothing in
+        // either lambda depends on the override path; they take the
+        // parameter and the expression as arguments.
+        // The typespec kind/signedness/width Surelog gives a parameter
+        // (makeParamTs' shape, read back for adjustSize).  An UNTYPED
+        // param's implicit int_typespec takes the width of its DECLARED
+        // literal default and is never signed; a decimal-BASED default
+        // mints no typespec at all, which makes adjustSize a no-op.
+        auto clsParam8 = [&](const ParameterSymbol& p8,
+                             const Expression* dflt8, SrlgTsK& k8,
+                             bool& sg8, int32_t& w8) {
+            k8 = SrlgTsK::Other;
+            sg8 = false;
+            w8 = 0;
+            bool tp8 = false;
+            if (auto d8 = p8.getDeclaredType())
+                if (auto ty8 = d8->getTypeSyntax())
+                    tp8 = ty8->kind != syntax::SyntaxKind::ImplicitType;
+            if (!tp8) {
+                if (isRangedUntypedParam(p8)) {
+                    k8 = SrlgTsK::Logic;
+                    w8 = (int32_t)p8.getType().getBitWidth();
+                    return;
+                }
+                const Expression* di8 = dflt8;
+                if (!di8)
+                    return;
+                auto& dl8 = stripImplicitConv(*di8);
+                if (dl8.kind != ExpressionKind::IntegerLiteral ||
+                    !dl8.type || !dl8.type->isIntegral())
+                    return;
+                std::string rl8 = rawTextLit(dl8);
+                auto tk8 = rl8.find('\'');
+                if (tk8 != std::string::npos) {
+                    auto bp8 = tk8 + 1;
+                    if (bp8 < rl8.size() &&
+                        (rl8[bp8] == 's' || rl8[bp8] == 'S'))
+                        bp8++;
+                    if (bp8 < rl8.size() &&
+                        (rl8[bp8] == 'd' || rl8[bp8] == 'D'))
+                        return;  // decimal-based default: no typespec
+                }
+                k8 = SrlgTsK::Int;
+                w8 = (int32_t)dl8.type->getBitWidth();
+                return;
+            }
+            auto& ct8 = p8.getType().getCanonicalType();
+            if (!ct8.isIntegral() || ct8.isEnum())
+                return;
+            w8 = (int32_t)p8.getType().getBitWidth();
+            sg8 = ct8.isSigned();
+            if (ct8.kind == SymbolKind::PredefinedIntegerType)
+                k8 = ct8.as<PredefinedIntegerType>().integerKind ==
+                             PredefinedIntegerType::Int
+                         ? SrlgTsK::Int
+                         : SrlgTsK::Other;
+            else if (ct8.kind == SymbolKind::ScalarType)
+                k8 = ct8.as<ScalarType>().scalarKind ==
+                             ScalarType::Bit
+                         ? SrlgTsK::Bit
+                         : SrlgTsK::Logic;
+            else if (ct8.kind == SymbolKind::PackedArrayType) {
+                const Type* el8 = &ct8.as<PackedArrayType>()
+                                       .elementType.getCanonicalType();
+                while (el8->kind == SymbolKind::PackedArrayType)
+                    el8 = &el8->as<PackedArrayType>()
+                               .elementType.getCanonicalType();
+                k8 = (el8->kind == SymbolKind::ScalarType &&
+                      el8->as<ScalarType>().scalarKind ==
+                          ScalarType::Bit)
+                         ? SrlgTsK::Bit
+                         : SrlgTsK::Logic;
+            }
+            else
+                w8 = 0;  // struct/union/typedef vector: other arms own it
+        };
+        std::function<bool(const Expression&, int, SrlgOvEnc&)> ovEnc8 =
+            [&](const Expression& e8, int d8,
+                SrlgOvEnc& o8) -> bool {
+            if (d8 > 8)
+                return false;
+            auto& x8 = stripImplicitConv(e8);
+            if (x8.kind == ExpressionKind::IntegerLiteral)
+                return srlgLitEnc(rawTextLit(x8), o8);
+            // A DEGENERATE unbased-unsized fill ('0) enters the
+            // pipeline as an UNSIZED BINARY 0 — adjustSize's
+            // orig_size == -1 tail then pads it to each hop's target
+            // width, exactly as it does for an unsized based literal.
+            // So `#(.BASE_ADDRESS(BA))` with `bit [AW-1:0] BA = '0`
+            // lands BIN:0 size <w> decompile <w>'b0, not the decimal
+            // UINT fold (rggen_apb_adapter). '1 and 'x/'z keep their
+            // existing (measured) paths.
+            if (x8.kind ==
+                ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                logic_t lb8 = x8.as<UnbasedUnsizedIntegerLiteral>()
+                                  .getLiteralValue();
+                if (lb8.isUnknown() || lb8.value != 0)
+                    return false;
+                o8.ct = vpiBinaryConst;
+                o8.dg = "0";
+                // The fill takes the DECLARED width of the parameter
+                // it initialises (the context type slang gives the
+                // literal); adjustSize has no arm for a `bit` target,
+                // so the size has to come from here.
+                const Type* ut8 = e8.type ? e8.type : x8.type;
+                o8.size = (ut8 && ut8->isIntegral() &&
+                           ut8->getBitWidth() > 0 &&
+                           ut8->getBitWidth() <= 64)
+                              ? (int32_t)ut8->getBitWidth()
+                              : -1;
+                return true;
+            }
+            // § ovEncTernaryTakenBranch28 — A CONSTANT-CONDITION
+            // TERNARY OVERRIDE ACTUAL BEHAVES EXACTLY AS IF THE TAKEN
+            // BRANCH HAD BEEN WRITTEN IN ITS PLACE: it contributes NO
+            // hop of its own (no adjustSize, no Value round-trip).
+            // Without this arm ovEnc8 returned false and the whole
+            // override fell through to the decimal UINT fold, which is
+            // the pass-27 exit frontier:
+            //   prim_fifo_sync.sv:11:40 `parameter bit Pass = 1'b1`
+            //   reached top_earlgrey -> u_rv_core_ibex -> fifo_i
+            //   (tlul_fifo_sync `int unsigned ReqPass = 1'b1`) ->
+            //   reqfifo, with rv_core_ibex.sv:67
+            //   `localparam int FifoPass = PipeLine ? 1'b0 : 1'b1`
+            //   feeding `.ReqPass(FifoPass)`.
+            //   LHS(golden) {ct=3 BIN sz=1 dec=1'b1} /
+            //   RHS(ours)   {ct=9 UINT sz=1 dec=1}
+            // THE PROOF IS A PAIR GRID (qc28.sv): every golden row of
+            // a ternary-sourced chain is BYTE-IDENTICAL to the row of
+            // the same chain written with the branch literal in place —
+            // `localparam int TerBit = C ? 1'b0 : 1'b1` reads exactly
+            // as `localparam int DirBit = 1'b1` in all 7 override
+            // targets, and `C ? 8'hcd : 8'hab` exactly as `8'hab` in
+            // all 7.  A COMPARISON condition (`(C == 1'b1) ? ...`), a
+            // NESTED ternary, and a ternary written DIRECTLY as the
+            // actual with no localparam at all all measure the same,
+            // so neither the condition's shape nor the nesting nor the
+            // localparam hop is a discriminator.
+            if (!ternArmOff28 &&
+                x8.kind == ExpressionKind::ConditionalOp) {
+                auto& co8 = x8.as<ConditionalExpression>();
+                if (co8.conditions.size() != 1 ||
+                    co8.conditions[0].pattern)
+                    return false;
+                ASTContext pctx8(comp.getRoot(), LookupLocation::max);
+                ConstantValue pv8 =
+                    pctx8.tryEval(*co8.conditions[0].expr);
+                if (!pv8 || !pv8.isInteger() ||
+                    pv8.integer().hasUnknown())
+                    return false;
+                if (ovDbg28)
+                    std::cerr << "R10E28 TERN d=" << d8 << " taken="
+                              << (pv8.isTrue() ? "then" : "else")
+                              << " @" << sm->getLineNumber(
+                                     x8.sourceRange.start())
+                              << ":"
+                              << sm->getColumnNumber(
+                                     x8.sourceRange.start())
+                              << "\n";
+                return ovEnc8(pv8.isTrue() ? co8.left() : co8.right(),
+                              d8 + 1, o8);
+            }
+            if (x8.kind == ExpressionKind::NamedValue) {
+                auto& sy8 = x8.as<NamedValueExpression>().symbol;
+                if (sy8.kind != SymbolKind::Parameter)
+                    return false;
+                auto& pp8 = sy8.as<ParameterSymbol>();
+                auto* in8 = pp8.getInitializer();
+                if (!in8 || !ovEnc8(*in8, d8 + 1, o8))
+                    return false;
+                // § ovEncScalarSourceSkipsHops28 — A ONE-BIT BASED
+                // LITERAL IS SELF-DETERMINED: no parameter hop on the
+                // override path adjusts or re-renders it, only the
+                // FINAL TARGET's adjustSize (run by the caller) does.
+                // The 238-cell matrix that built this pipeline never
+                // varied the source WIDTH below 8, so every hop ran.
+                // qc28's `localparam int DirBit = 1'b1` grid is the
+                // measurement (LHS(golden) / RHS(ours) pre-patch):
+                //   -> int          INT:-1 size 32  / INT:-1 size 32
+                //   -> int unsigned BIN:1  size 1   / INT:-1 size 32
+                //   -> bit          BIN:1  size 1   / INT:-1 size 1
+                //   -> logic [7:0]  BIN:1  size 1   / INT:-1 size 8
+                // i.e. golden reaches EVERY target from the literal
+                // itself; only the `int` target's own signed arm ever
+                // fires.  Two instance hops down (`.TL(HI)` inside a
+                // module reached by `.HI(DirBit)`) golden STILL reads
+                // BIN:1 size 1, which is what rules out "the origin
+                // hop only" and gives the rule its `o8.size == 1`
+                // form.  The 8-BIT twin is the NEGATIVE CONTROL and
+                // must keep running every hop: `8'hab` through the
+                // same chain is HEX 32'hab on BOTH sides today, and a
+                // size-blind skip would drop it to 8'hab.
+                // KNOWN OPEN, MEASURED, NOT FIXED HERE: one extra
+                // SAME-SCOPE localparam hop (`localparam int ViaLp =
+                // TerBit;`) makes golden read INT:-1 size 32 again in
+                // all 7 targets, so golden does run SOME size-1 hop.
+                // qc28's u_vl rows are that residue; they are wrong
+                // before this patch (UINT) and wrong after (BIN), so
+                // it is ranked, not regressed.
+                if (!scalarSkipOff28 && o8.size == 1) {
+                    if (ovDbg28)
+                        std::cerr << "R10E28 SCAL d=" << d8 << " hop='"
+                                  << pp8.name << "' ct=" << o8.ct
+                                  << " dec=" << o8.dec << "\n";
+                    return true;
+                }
+                SrlgTsK sk8;
+                bool ss8;
+                int32_t sw8;
+                clsParam8(pp8, in8, sk8, ss8, sw8);
+                srlgAdjustSize(o8, sk8, ss8, sw8);
+                // The hop is a Value round-trip: the decompile is
+                // re-rendered at the size this parameter's own
+                // adjustSize left behind.
+                srlgOvRender(o8);
+                return true;
+            }
+            // A CONCAT / REPLICATION actual reduces to a BINARY Value
+            // at the concat's OWN width — a bit pattern, never a
+            // number — and adjustSize then takes it from there:
+            // `{A1}` with `A1 = 8'hab` into `parameter int M` lands
+            // INT:-85 size 32 (BIN:10101011 size 8, MSB set, signed
+            // int target), into an UNTYPED one BIN:10101011 size 8.
+            if (x8.kind == ExpressionKind::Concatenation ||
+                x8.kind == ExpressionKind::Replication) {
+                if (!x8.type || !x8.type->isIntegral())
+                    return false;
+                uint64_t cw8 = x8.type->getBitWidth();
+                if (cw8 == 0 || cw8 > 64)
+                    return false;
+                ASTContext cctx8(comp.getRoot(), LookupLocation::max);
+                ConstantValue cv8 = cctx8.tryEval(x8);
+                if (!cv8.isInteger() || cv8.integer().hasUnknown())
+                    return false;
+                slang::SVInt rv8 =
+                    cv8.integer().resize((slang::bitwidth_t)cw8);
+                std::string bits8;
+                for (int64_t i8 = (int64_t)cw8 - 1; i8 >= 0; i8--)
+                    bits8 += (rv8[(int32_t)i8] == slang::logic_t(1))
+                                 ? '1'
+                                 : '0';
+                o8.ct = vpiBinaryConst;
+                o8.dg = bits8;
+                o8.size = (int32_t)cw8;
+                srlgOvRender(o8);
+                return true;
+            }
+            return false;
+        };
+
         // § elabOvMisevalNoFold skips the WHOLE override render: every arm
         // below reduces the actual to a value, and the value is exactly what
         // Surelog could not compute.
@@ -6047,252 +6299,6 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                     }
                 }
-                // The typespec kind/signedness/width Surelog gives a parameter
-                // (makeParamTs' shape, read back for adjustSize).  An UNTYPED
-                // param's implicit int_typespec takes the width of its DECLARED
-                // literal default and is never signed; a decimal-BASED default
-                // mints no typespec at all, which makes adjustSize a no-op.
-                auto clsParam8 = [&](const ParameterSymbol& p8,
-                                     const Expression* dflt8, SrlgTsK& k8,
-                                     bool& sg8, int32_t& w8) {
-                    k8 = SrlgTsK::Other;
-                    sg8 = false;
-                    w8 = 0;
-                    bool tp8 = false;
-                    if (auto d8 = p8.getDeclaredType())
-                        if (auto ty8 = d8->getTypeSyntax())
-                            tp8 = ty8->kind != syntax::SyntaxKind::ImplicitType;
-                    if (!tp8) {
-                        if (isRangedUntypedParam(p8)) {
-                            k8 = SrlgTsK::Logic;
-                            w8 = (int32_t)p8.getType().getBitWidth();
-                            return;
-                        }
-                        const Expression* di8 = dflt8;
-                        if (!di8)
-                            return;
-                        auto& dl8 = stripImplicitConv(*di8);
-                        if (dl8.kind != ExpressionKind::IntegerLiteral ||
-                            !dl8.type || !dl8.type->isIntegral())
-                            return;
-                        std::string rl8 = rawTextLit(dl8);
-                        auto tk8 = rl8.find('\'');
-                        if (tk8 != std::string::npos) {
-                            auto bp8 = tk8 + 1;
-                            if (bp8 < rl8.size() &&
-                                (rl8[bp8] == 's' || rl8[bp8] == 'S'))
-                                bp8++;
-                            if (bp8 < rl8.size() &&
-                                (rl8[bp8] == 'd' || rl8[bp8] == 'D'))
-                                return;  // decimal-based default: no typespec
-                        }
-                        k8 = SrlgTsK::Int;
-                        w8 = (int32_t)dl8.type->getBitWidth();
-                        return;
-                    }
-                    auto& ct8 = p8.getType().getCanonicalType();
-                    if (!ct8.isIntegral() || ct8.isEnum())
-                        return;
-                    w8 = (int32_t)p8.getType().getBitWidth();
-                    sg8 = ct8.isSigned();
-                    if (ct8.kind == SymbolKind::PredefinedIntegerType)
-                        k8 = ct8.as<PredefinedIntegerType>().integerKind ==
-                                     PredefinedIntegerType::Int
-                                 ? SrlgTsK::Int
-                                 : SrlgTsK::Other;
-                    else if (ct8.kind == SymbolKind::ScalarType)
-                        k8 = ct8.as<ScalarType>().scalarKind ==
-                                     ScalarType::Bit
-                                 ? SrlgTsK::Bit
-                                 : SrlgTsK::Logic;
-                    else if (ct8.kind == SymbolKind::PackedArrayType) {
-                        const Type* el8 = &ct8.as<PackedArrayType>()
-                                               .elementType.getCanonicalType();
-                        while (el8->kind == SymbolKind::PackedArrayType)
-                            el8 = &el8->as<PackedArrayType>()
-                                       .elementType.getCanonicalType();
-                        k8 = (el8->kind == SymbolKind::ScalarType &&
-                              el8->as<ScalarType>().scalarKind ==
-                                  ScalarType::Bit)
-                                 ? SrlgTsK::Bit
-                                 : SrlgTsK::Logic;
-                    }
-                    else
-                        w8 = 0;  // struct/union/typedef vector: other arms own it
-                };
-                std::function<bool(const Expression&, int, SrlgOvEnc&)> ovEnc8 =
-                    [&](const Expression& e8, int d8,
-                        SrlgOvEnc& o8) -> bool {
-                    if (d8 > 8)
-                        return false;
-                    auto& x8 = stripImplicitConv(e8);
-                    if (x8.kind == ExpressionKind::IntegerLiteral)
-                        return srlgLitEnc(rawTextLit(x8), o8);
-                    // A DEGENERATE unbased-unsized fill ('0) enters the
-                    // pipeline as an UNSIZED BINARY 0 — adjustSize's
-                    // orig_size == -1 tail then pads it to each hop's target
-                    // width, exactly as it does for an unsized based literal.
-                    // So `#(.BASE_ADDRESS(BA))` with `bit [AW-1:0] BA = '0`
-                    // lands BIN:0 size <w> decompile <w>'b0, not the decimal
-                    // UINT fold (rggen_apb_adapter). '1 and 'x/'z keep their
-                    // existing (measured) paths.
-                    if (x8.kind ==
-                        ExpressionKind::UnbasedUnsizedIntegerLiteral) {
-                        logic_t lb8 = x8.as<UnbasedUnsizedIntegerLiteral>()
-                                          .getLiteralValue();
-                        if (lb8.isUnknown() || lb8.value != 0)
-                            return false;
-                        o8.ct = vpiBinaryConst;
-                        o8.dg = "0";
-                        // The fill takes the DECLARED width of the parameter
-                        // it initialises (the context type slang gives the
-                        // literal); adjustSize has no arm for a `bit` target,
-                        // so the size has to come from here.
-                        const Type* ut8 = e8.type ? e8.type : x8.type;
-                        o8.size = (ut8 && ut8->isIntegral() &&
-                                   ut8->getBitWidth() > 0 &&
-                                   ut8->getBitWidth() <= 64)
-                                      ? (int32_t)ut8->getBitWidth()
-                                      : -1;
-                        return true;
-                    }
-                    // § ovEncTernaryTakenBranch28 — A CONSTANT-CONDITION
-                    // TERNARY OVERRIDE ACTUAL BEHAVES EXACTLY AS IF THE TAKEN
-                    // BRANCH HAD BEEN WRITTEN IN ITS PLACE: it contributes NO
-                    // hop of its own (no adjustSize, no Value round-trip).
-                    // Without this arm ovEnc8 returned false and the whole
-                    // override fell through to the decimal UINT fold, which is
-                    // the pass-27 exit frontier:
-                    //   prim_fifo_sync.sv:11:40 `parameter bit Pass = 1'b1`
-                    //   reached top_earlgrey -> u_rv_core_ibex -> fifo_i
-                    //   (tlul_fifo_sync `int unsigned ReqPass = 1'b1`) ->
-                    //   reqfifo, with rv_core_ibex.sv:67
-                    //   `localparam int FifoPass = PipeLine ? 1'b0 : 1'b1`
-                    //   feeding `.ReqPass(FifoPass)`.
-                    //   LHS(golden) {ct=3 BIN sz=1 dec=1'b1} /
-                    //   RHS(ours)   {ct=9 UINT sz=1 dec=1}
-                    // THE PROOF IS A PAIR GRID (qc28.sv): every golden row of
-                    // a ternary-sourced chain is BYTE-IDENTICAL to the row of
-                    // the same chain written with the branch literal in place —
-                    // `localparam int TerBit = C ? 1'b0 : 1'b1` reads exactly
-                    // as `localparam int DirBit = 1'b1` in all 7 override
-                    // targets, and `C ? 8'hcd : 8'hab` exactly as `8'hab` in
-                    // all 7.  A COMPARISON condition (`(C == 1'b1) ? ...`), a
-                    // NESTED ternary, and a ternary written DIRECTLY as the
-                    // actual with no localparam at all all measure the same,
-                    // so neither the condition's shape nor the nesting nor the
-                    // localparam hop is a discriminator.
-                    if (!ternArmOff28 &&
-                        x8.kind == ExpressionKind::ConditionalOp) {
-                        auto& co8 = x8.as<ConditionalExpression>();
-                        if (co8.conditions.size() != 1 ||
-                            co8.conditions[0].pattern)
-                            return false;
-                        ASTContext pctx8(comp.getRoot(), LookupLocation::max);
-                        ConstantValue pv8 =
-                            pctx8.tryEval(*co8.conditions[0].expr);
-                        if (!pv8 || !pv8.isInteger() ||
-                            pv8.integer().hasUnknown())
-                            return false;
-                        if (ovDbg28)
-                            std::cerr << "R10E28 TERN d=" << d8 << " taken="
-                                      << (pv8.isTrue() ? "then" : "else")
-                                      << " @" << sm->getLineNumber(
-                                             x8.sourceRange.start())
-                                      << ":"
-                                      << sm->getColumnNumber(
-                                             x8.sourceRange.start())
-                                      << "\n";
-                        return ovEnc8(pv8.isTrue() ? co8.left() : co8.right(),
-                                      d8 + 1, o8);
-                    }
-                    if (x8.kind == ExpressionKind::NamedValue) {
-                        auto& sy8 = x8.as<NamedValueExpression>().symbol;
-                        if (sy8.kind != SymbolKind::Parameter)
-                            return false;
-                        auto& pp8 = sy8.as<ParameterSymbol>();
-                        auto* in8 = pp8.getInitializer();
-                        if (!in8 || !ovEnc8(*in8, d8 + 1, o8))
-                            return false;
-                        // § ovEncScalarSourceSkipsHops28 — A ONE-BIT BASED
-                        // LITERAL IS SELF-DETERMINED: no parameter hop on the
-                        // override path adjusts or re-renders it, only the
-                        // FINAL TARGET's adjustSize (run by the caller) does.
-                        // The 238-cell matrix that built this pipeline never
-                        // varied the source WIDTH below 8, so every hop ran.
-                        // qc28's `localparam int DirBit = 1'b1` grid is the
-                        // measurement (LHS(golden) / RHS(ours) pre-patch):
-                        //   -> int          INT:-1 size 32  / INT:-1 size 32
-                        //   -> int unsigned BIN:1  size 1   / INT:-1 size 32
-                        //   -> bit          BIN:1  size 1   / INT:-1 size 1
-                        //   -> logic [7:0]  BIN:1  size 1   / INT:-1 size 8
-                        // i.e. golden reaches EVERY target from the literal
-                        // itself; only the `int` target's own signed arm ever
-                        // fires.  Two instance hops down (`.TL(HI)` inside a
-                        // module reached by `.HI(DirBit)`) golden STILL reads
-                        // BIN:1 size 1, which is what rules out "the origin
-                        // hop only" and gives the rule its `o8.size == 1`
-                        // form.  The 8-BIT twin is the NEGATIVE CONTROL and
-                        // must keep running every hop: `8'hab` through the
-                        // same chain is HEX 32'hab on BOTH sides today, and a
-                        // size-blind skip would drop it to 8'hab.
-                        // KNOWN OPEN, MEASURED, NOT FIXED HERE: one extra
-                        // SAME-SCOPE localparam hop (`localparam int ViaLp =
-                        // TerBit;`) makes golden read INT:-1 size 32 again in
-                        // all 7 targets, so golden does run SOME size-1 hop.
-                        // qc28's u_vl rows are that residue; they are wrong
-                        // before this patch (UINT) and wrong after (BIN), so
-                        // it is ranked, not regressed.
-                        if (!scalarSkipOff28 && o8.size == 1) {
-                            if (ovDbg28)
-                                std::cerr << "R10E28 SCAL d=" << d8 << " hop='"
-                                          << pp8.name << "' ct=" << o8.ct
-                                          << " dec=" << o8.dec << "\n";
-                            return true;
-                        }
-                        SrlgTsK sk8;
-                        bool ss8;
-                        int32_t sw8;
-                        clsParam8(pp8, in8, sk8, ss8, sw8);
-                        srlgAdjustSize(o8, sk8, ss8, sw8);
-                        // The hop is a Value round-trip: the decompile is
-                        // re-rendered at the size this parameter's own
-                        // adjustSize left behind.
-                        srlgOvRender(o8);
-                        return true;
-                    }
-                    // A CONCAT / REPLICATION actual reduces to a BINARY Value
-                    // at the concat's OWN width — a bit pattern, never a
-                    // number — and adjustSize then takes it from there:
-                    // `{A1}` with `A1 = 8'hab` into `parameter int M` lands
-                    // INT:-85 size 32 (BIN:10101011 size 8, MSB set, signed
-                    // int target), into an UNTYPED one BIN:10101011 size 8.
-                    if (x8.kind == ExpressionKind::Concatenation ||
-                        x8.kind == ExpressionKind::Replication) {
-                        if (!x8.type || !x8.type->isIntegral())
-                            return false;
-                        uint64_t cw8 = x8.type->getBitWidth();
-                        if (cw8 == 0 || cw8 > 64)
-                            return false;
-                        ASTContext cctx8(comp.getRoot(), LookupLocation::max);
-                        ConstantValue cv8 = cctx8.tryEval(x8);
-                        if (!cv8.isInteger() || cv8.integer().hasUnknown())
-                            return false;
-                        slang::SVInt rv8 =
-                            cv8.integer().resize((slang::bitwidth_t)cw8);
-                        std::string bits8;
-                        for (int64_t i8 = (int64_t)cw8 - 1; i8 >= 0; i8--)
-                            bits8 += (rv8[(int32_t)i8] == slang::logic_t(1))
-                                         ? '1'
-                                         : '0';
-                        o8.ct = vpiBinaryConst;
-                        o8.dg = bits8;
-                        o8.size = (int32_t)cw8;
-                        srlgOvRender(o8);
-                        return true;
-                    }
-                    return false;
-                };
                 SrlgTsK tk8;
                 bool tsg8;
                 int32_t tw8;
@@ -12117,6 +12123,164 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 if (elabOvMiseval9) {
                     setLoc((UHDM::expr*)rhs, init->sourceRange);
                     elabOvMisevalRhs[&member] = rhs;
+                }
+                // § paramInitAdjustSizeElab52 — THE ADJUSTSIZE PIPELINE IS
+                // NOT AN OVERRIDE RULE.  Surelog's ElabCParam runs the same
+                // {producer, CompileHelper::adjustSize} pair over a
+                // parameter's OWN DECLARED initializer when it elaborates the
+                // instance, so a NON-overridden localparam whose value
+                // originates in a written literal lands the very encoding the
+                // pass-8/28 pipeline above computes — the `overridden` gate on
+                // that block was never a measured discriminator, only the
+                // shape passes 8 and 28 happened to look at.
+                //
+                // WHERE it runs (measured, a1/a2/a3/a4_earl52, 118 golden
+                // rows): the ELABORATED module view ONLY.  Every DEF-view row
+                // of all four arms — and every PACKAGE row, which has no elab
+                // view at all — keeps the producer encoding and is already
+                // byte-identical today (a4 `package a4p_earl52` PK_int reads
+                // BIN:1 size 1 where the same `localparam int S_int = 1'b1`
+                // one instance down reads INT:-1 size 32).  So this is gated
+                // topView && !inPackage, and earl38's DEF fence is untouched
+                // by construction.
+                //
+                // WHAT the head really is: the corpus head
+                // `localparam int FifoPass = PipeLine ? 1'b0 : 1'b1`
+                // (rv_core_ibex.sv:67, golden INT:-1 size 32 dec "-1" ct 7 /
+                // ours BIN:1 size 32 dec "1'b1" ct 3) is NOT a ternary rule.
+                // MY BRIEF SAID "Surelog's constant-condition ternary reduce
+                // resizes the selected literal"; THE TERNARY IS NOT THE
+                // DISCRIMINATOR AT ALL.  a1/a2 pair every `C ? 1'b0 : 1'b1`
+                // row with the same target written `= 1'b1` directly, and
+                // golden is BYTE-IDENTICAL across all 17 target types and all
+                // 18 literal spellings — `localparam int D_int = 1'b1` reads
+                // INT:-1 size 32 with no ternary anywhere.  The ternary only
+                // supplies the taken branch (§ ovEncTernaryTakenBranch28
+                // already knew that); the sign-extension is adjustSize's
+                // `int`-only signed arm.  a3 confirms the condition's own
+                // shape is inert: module param / localparam / int param /
+                // bare literal / comparison / negation / nesting / THEN-side
+                // all read INT:-1.
+                //
+                // THE MEASURED GRID, source `1'b1` into 17 targets (a1, golden
+                // elab): int INT:-1 sz32, typedef'd int INT:-1 sz32 — and
+                // EVERY other target BIN:1 sz1: int unsigned, integer, byte,
+                // shortint, longint, logic, logic[31:0], logic signed [31:0],
+                // bit, bit[31:0], typedef'd logic[31:0], untyped, ranged
+                // untyped, real.  That is exactly srlgAdjustSize: only
+                // SrlgTsK::Int has a sign-extend arm, and it needs the target
+                // SIGNED; everything else keeps min(literal, target) or no
+                // arm at all.  a2 pins the producer side into `int`: 1'b0 ->
+                // BIN:0 sz1, 2'b10 -> INT:-2, 2'b01 -> BIN:01 sz2, 4'b1001 ->
+                // INT:-7, 1'sb1 -> INT:-1, '0 -> BIN:0 sz32 "32'b0", 4'h8 ->
+                // HEX:8 sz32 "32'h8", 8'd5 -> INT:5, 3'o7 -> UINT:7, bare 1
+                // -> UINT:1, 33'h1_0000_0001 -> HEX:100000001 sz32 (digits
+                // NOT truncated).  a4 pins the shapes that only this gate
+                // exposes: {CA,CB} -> INT:-85, {2{4'h5}} -> BIN:01010101 sz8,
+                // an 8-bit param hop -> HEX:ab sz32 "32'hab", a 1-bit param
+                // hop -> INT:-1 (the § ovEncScalarSourceSkipsHops28 skip).
+                //
+                // THE ONE ADDITION over the override path: a FINAL
+                // srlgOvRender.  adjustSize's non-BIN arm only re-sizes, so
+                // the decompile has to be re-rendered at the size it left
+                // behind — that is the whole `4'h8 -> 32'h8` / `8'hab ->
+                // 32'hab` / `33'h… -> 32'h…` column, which is 6 of a2+a4's
+                // rows.  It is deliberately NOT hoisted into the override
+                // block above: that block's decompiles are measured by the
+                // 238-cell pass-8 matrix and this pass does not re-measure
+                // them, so the override path stays byte-identical.
+                //
+                // ORDERING: this rewrites the constant the NON-override
+                // emit chain already built, in place, just before it is bound
+                // as the Rhs — so every arm that CHOSE that constant keeps
+                // its choice of object, span, parent and typespec, and only
+                // the four encoding fields move.  It is deliberately the LAST
+                // word of the chain's encoding and the FIRST of the binding
+                // tail, so the arms below (the imported-copy resize, the
+                // § impCopyCastFold rebuild) still win over it where they
+                // fire; neither can fire on an initializer `ovEnc8` accepts.
+                //
+                // TWO FENCES, BOTH PAID FOR BY AN EARLGREY REGRESSION THAT
+                // THE FIRST PATCHED RUN PRODUCED AND THE CENSUS CAUGHT:
+                //
+                //  F1 `!defViewOrig9`, NOT just `topView`.  § modDefImportShape
+                //  FORCE-FLIPS `topView` to true while emitting a module's DEF
+                //  listing of a MATERIALIZED IMPORT COPY, so `topView` alone
+                //  let this rule rewrite eleven DEF-view rows of
+                //  ibex_pkg.sv:476 `parameter logic [1:0] CSR_MISA_MXL =
+                //  2'd1` — golden's DEF copy keeps the producer's DEC:1 size 2
+                //  "2'd1" and only its ELAB copy becomes INT:1 "1", and we
+                //  already had both right.  `defViewOrig9` is the PHYSICAL
+                //  view and is the honest discriminator, exactly as
+                //  § modDefImportShape's own RD note says.  v3_earl52
+                //  reproduces the whole shape in 19 lines.
+                //
+                //  F2 no CONCATENATION / REPLICATION initializer.  `ovEnc8`'s
+                //  concat arm is measured on OVERRIDE ACTUALS, where the
+                //  concat's own width is the Value's width; on a DECLARATION
+                //  it is not.  `tlul_socket_1n.sv:47 parameter bit [N*4-1:0]
+                //  DReqDepth = {N{4'h2}}` (N=12) reads BIN 48 digits at size
+                //  32 in golden — the digits of a 48-bit replication with a
+                //  32-bit size, which no arm of adjustSize produces — and we
+                //  already matched it.  Re-deriving the size from the concat
+                //  width moved both u_s1n_32 rows off golden.  a4's K_cat /
+                //  K_cat1 / K_litc stay unequal (they were unequal before
+                //  too); a corpus row that WAS equal outranks a probe row
+                //  that was not.
+                const ExpressionKind ik52 = stripImplicitConv(*init).kind;
+                if (topView && !defViewOrig9 && !inPackage && !funcScope &&
+                    !overridden && !cliOv &&
+                    ik52 != ExpressionKind::Concatenation &&
+                    ik52 != ExpressionKind::Replication &&
+                    rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                    init && ps.getValue().isInteger() &&
+                    !ps.getValue().integer().hasUnknown() &&
+                    ps.getValue().integer().getBitWidth() <= 64) {
+                    SrlgTsK tk52;
+                    bool tsg52;
+                    int32_t tw52;
+                    clsParam8(ps, init, tk52, tsg52, tw52);
+                    SrlgOvEnc e52;
+                    //  F3 `int` TARGETS ONLY.  `SrlgTsK::Int` is the only
+                    //  kind whose `adjustSize` arm does anything at all
+                    //  (sign-extend a set MSB when signed, else clamp to
+                    //  min(literal, target)); Logic only truncates and Bit /
+                    //  Other have no arm, so for those kinds this rule can
+                    //  only restate a size the emit chain already chose — and
+                    //  the surelog corpus says it restates it WRONG in five
+                    //  tests, all of them non-`int` targets, all of them
+                    //  CMP_EQUAL before:
+                    //    SignedBinConst  `parameter [1:0] p1 = 1'sb1`
+                    //        golden INT:3 sz2 "3" — a SIGNED literal
+                    //        sign-extends to the RANGED-UNTYPED width and
+                    //        turns INT; the producer's `s`-drop is an
+                    //        override-path rule, not a declaration one.
+                    //    GenCase / GenCaseStmt `parameter bit signed x_1sb1
+                    //        = 1'sb1` golden INT:-1 sz1 — same `s`, on a
+                    //        `bit` target with no adjustSize arm at all.
+                    //    Scr1SvTests `localparam [SCR1_GPR_FIELD_WIDTH-1:0]
+                    //        SCR1_MPRF_ZERO_ADDR = 5'd0` golden INT:0
+                    //        size ONE, not size 5 — a sized-DECIMAL producer
+                    //        into a ranged-untyped target keeps a size no arm
+                    //        of the model derives.
+                    //    PackedArrayHighConn `parameter logic [0:0][1:0]
+                    //        DioPadBank = '0` golden keeps the RAW `'0`
+                    //        decompile where an `int` target renders "32'b0".
+                    //  Every one of those is a target kind whose arm is a
+                    //  no-op, and every corpus row this pass FIXES is an
+                    //  `int` one.  a1's 19 non-`int` probe rows stay unequal;
+                    //  they were unequal before too, and a corpus row that
+                    //  WAS equal outranks a probe row that was not.
+                    if (tk52 == SrlgTsK::Int && tw52 > 0 && tw52 <= 64 &&
+                        ovEnc8(*init, 0, e52)) {
+                        srlgAdjustSize(e52, tk52, tsg52, tw52);
+                        srlgOvRender(e52);
+                        auto* c52 = (UHDM::constant*)rhs;
+                        c52->VpiValue(srlgOvValue(e52));
+                        c52->VpiConstType(e52.ct);
+                        c52->VpiSize(e52.size);
+                        c52->VpiDecompile(e52.dec);
+                    }
                 }
                 pa->Rhs(rhs);
                 paramRhsObj[&member] = rhs;
