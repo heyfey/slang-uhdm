@@ -1060,6 +1060,89 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             if (fixedElem6)
                 if (auto* rngs6 = buildUnpackedRanges(cp, av))
                     av->Ranges(rngs6);
+            // NOTE § bitElemSharesArrayRanges11 — the ELEMENT variable of a
+            // CLASS-PROPERTY `array_var` carries `vpiRange` = THE ARRAY_VAR'S
+            // OWN RANGE VECTOR, and it does so if and only if that element is a
+            // `bit_var`.  `array_var::Compare` reads `Variables()` and
+            // `variables`/`bit_var::Compare` reads `Ranges()`, so the missing
+            // vector IS a compared difference, not decoration.
+            //
+            // WITNESS — the `uhdm-cmp` head of BuildUVMPkg in BOTH modes at
+            // base e359f0a, `uvm_pkg.sv:21545`
+            // `bit compare_map[uvm_object][uvm_object];`:
+            //   LHS golden  bit_var (uvm_pkg::uvm_comparer::compare_map)
+            //               |vpiRange -> range 21545:30-21545:42
+            //                            (the INNER assoc marker, `UINT:0` ..
+            //                             `STRING:associative` -> class_typespec
+            //                             uvm_object)
+            //   RHS <null>
+            // The vector SafeCompare sets `m_failedLhs` to the OWNER of the
+            // vector — so the head names the ELEMENT and the FIELD is the
+            // element's `Ranges`, not anything on the array_var (whose own
+            // `vpiRange` we already emit, byte for byte).
+            //
+            // DECODED FROM THE PRODUCER, not guessed.  Surelog
+            // `ElaborationStep::makeVar_` (src/DesignCompile/ElaborationStep.cpp
+            // ~1921) has exactly ONE arm in its `(found == false) && tps`
+            // typespec switch that touches the element's ranges:
+            //     } else if (tpstype == uhdmbit_typespec) {
+            //         bit_var* stv = s.MakeBit_var();
+            //         stv->Ranges(unpackedDimensions);   // <- the SAME vector
+            // and `unpackedDimensions` is the very vector the array_var pass
+            // (~2113) then ERASES the outermost unsized marker from and hands to
+            // `array_var->Ranges(...)`.  The `logic_typespec` arm three lines
+            // above has the same line COMMENTED OUT ("it is a repeat of the
+            // typespec packed dimension"), which is why the law is bit-only.
+            //
+            // THE GATE IS THE ELEMENT KIND AND NOTHING ELSE, and every other
+            // candidate gate was REFUTED on a purpose-built grid
+            // (tools/probe/r10buvm11repro, golden vs ours, LHS golden):
+            //   * NOT the dim shape — arm w1 gives golden's element the array's
+            //     markers in ALL of `[int][int]`, `[int][string]`, `[k][k]`,
+            //     `[][]`, `[$][$]`, `[int][$]`, `[$][int]`, `[][int]`,
+            //     `[int][]`, `[int][int][int]`, `[int][2]`, `[][2]`, `[$][2]`,
+            //     `[int][2][3]`, `[4]`, `[2][3]`, `[0:3]`; the 1-D unsized
+            //     shapes (`[int]`, `[]`, `[$]`) leave the array_var rangeless
+            //     and golden's element vector is then EMPTY, which serialization
+            //     drops — so the `!avr->empty()` test below is the same fact.
+            //   * NOT the home — arm w3 gives it at a class in a package, a
+            //     class in a module, a class at $unit scope, in the DEF view and
+            //     the ELAB view alike.  Subroutine- and block-LOCAL arrays are
+            //     the fence: golden gives THEM no array_var ranges at all
+            //     (`bit fl_aa[int][int]` reads `av-`/`ev-` on both sides), so
+            //     TaskFuncEmit's sites are deliberately untouched.
+            //   * NOT a typedef test — arm w2 and arm w6 give it to a
+            //     package-scope `typedef bit`, a `typedef bit [7:0]`, a
+            //     typedef-of-typedef, a QUALIFIED `pk::b_t`, and to typedefs
+            //     declared INSIDE the class, identically to a written `bit`.
+            //     (The MODULE-scope twin of that cell reads the OTHER way — arm
+            //     w4 `f_btd`/`f_bvtd`/`n_btd` — which is exactly why this stamp
+            //     is at the CLASS site only; see residue R1.)
+            //   * NOT "any integral" — arm w2's 2-D assoc grid gives NOTHING to
+            //     logic, `logic [7:0]`, a `typedef logic`, int, int unsigned,
+            //     byte, shortint, longint, integer, time, real, shortreal,
+            //     string, chandle, a class handle, an enum (even a `enum bit`
+            //     one), a packed struct or an unpacked struct — 18 cells, all
+            //     golden-empty and all already correct here.
+            //   * A BASE-CLASS typedef element degrades to a `logic_var` before
+            //     it reaches this line (§ classAssocElemVar's own law, arm w6
+            //     `a_bbtd`/`f_bbtd`), so the kind gate fences it for free.
+            // The three class-scope producers of `av->Ranges` — `emitAssocDims`'
+            // inner-dimension markers, `buildUnpackedRanges`' fixed dims, and
+            // § assocTypeParamDimIsStaticSize51's `[0 : KEY-1]` reshape (arm w5
+            // `pool[KEY]` with `T = bit`) — all three answer the same way, which
+            // is why the stamp sits AFTER all of them and reads the array_var
+            // back rather than re-deriving anything.
+            //
+            // THE VECTOR IS SHARED, not copied, because Surelog shares it: the
+            // range objects keep `vpiParent` -> the array_var in golden too.
+            // uhdm-cmp does not compare object identity, so sharing is not the
+            // measured fact — the CONTENT is — but copying would have to
+            // reproduce every field of every bound expression, and re-parenting
+            // would be a second, invented difference.
+            if (reg->UhdmType() == UHDM::uhdmbit_var)
+                if (auto* avr = av->Ranges(); avr && !avr->empty())
+                    ((UHDM::bit_var*)reg)->Ranges(avr);
             reg->VpiParent(av);
             reg->VpiFullName(pfn);
             setLoc(reg, nameSpan(cp.location, cp.name));
