@@ -1,0 +1,16 @@
+# r10rgg6 CENSUS — every func_call in Rggen/default, keyed
+# (view, enclosing instance path, callee, line:col, ts?, ts actual).
+# LHS is ALWAYS golden.  Calibrated golden-vs-golden first: the same
+# scan of the SAME golden twice is identical by construction (one file).
+
+== gold: total=2431 with-vpiTypespec=13
+     13    OTHER	get_next_n	66:10	int_typespec@64:15
+== base: total=2463 with-vpiTypespec=20
+     17    ELAB	get_sub_n_list	62:47	bit_typespec@36:56
+      3    OTHER	get_next_n	66:10	int_typespec@64:15
+== pat: total=2446 with-vpiTypespec=3
+      3    OTHER	get_next_n	66:10	int_typespec@64:15
+
+== whole-dump diff base -> patched (Rggen/default)
+   removed lines: 120
+   added lines:   1

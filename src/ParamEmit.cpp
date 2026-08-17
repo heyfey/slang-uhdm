@@ -12375,6 +12375,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 pa->Rhs(rhs);
                 paramRhsObj[&member] = rhs;
+                // § nestedParamActualTs6 VIEW GUARD.  paramRhsObj is keyed by
+                // the SAME body symbol both views write, so it holds whichever
+                // view ran LAST -- the identical hazard the elabOvMisevalRhs
+                // note above already records for its own rule.  The write-
+                // through law must never land on a DEF-listing Rhs: a driving
+                // site the emitter reaches BEFORE the enclosing instance's
+                // ELAB param_assigns (an instance PORT-CONNECTION expression
+                // is one, measured on r10vrgg6repro/cells2/w_port_conn) still
+                // sees the DEF object and would mint a ref_typespec in the
+                // DEFINITION listing -- the exact spurious-object class this
+                // pass removes from Rggen.  Recorded on the PHYSICAL elaborated
+                // view (defViewOrig9, not topView: § modDefImportShape
+                // force-flips topView while emitting a materialized import
+                // copy's DEF listing).
+                if (topView && !defViewOrig9)
+                    elabParamRhsObj6[&member] = rhs;
                 // A DEF-view param_assign is a DEEP-CLONED object at
                 // elaboration, so Surelog re-parents its Rhs at the
                 // param_assign. Our fold/emit fallback leaves a bare constant
@@ -12471,6 +12487,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         pa->Rhs(cc9);
                         rhs = cc9;
                         paramRhsObj[&member] = cc9;
+                        // § nestedParamActualTs6 VIEW GUARD (see above).
+                        if (topView && !defViewOrig9)
+                            elabParamRhsObj6[&member] = cc9;
                     }
                 }
                 // The ELAB (top-view) MODULE copy of a TYPED param re-emits

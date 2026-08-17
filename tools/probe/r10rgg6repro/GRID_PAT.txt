@@ -1,0 +1,83 @@
+genfor_none_n4_yes_typed_param             MATCH  P1=none@-;P2=none@-;P1=none@-;P2=none@-;P1=none@-;P2=none@-;
+genfor_p1_n4_yes_typed_param               MATCH  P1=none@-;P2=none@-;P3=none@-;P1=none@-;P2=none@-;P3=none@-;P1=none@-;P2=none@-;P3=none@-;
+genfor_p2_n4_yes_typed_param               MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+one_none_n4_yes_typed_ca                   MATCH  P1=none@-;
+one_none_n4_yes_typed_param                MATCH  P1=none@-;P2=none@-;
+one_none_n4_yes_typed_proc                 MATCH  P1=none@-;
+one_p1_n20_yes_typed_param                 MATCH  P1=none@-;P2=none@-;P3=none@-;
+one_p1_n25_yes_typed_param                 MATCH  P1=none@-;P2=none@-;P3=none@-;
+one_p1_n2_yes_typed_param                  MATCH  P1=none@-;P2=none@-;P3=none@-;
+one_p1_n4_no_typed_param                   NO-SLANG-DB
+  gold: P1=none@-;P2=none@-;P3=none@-;
+one_p1_n4_yes_typed_param                  MATCH  P1=none@-;P2=none@-;P3=none@-;
+one_p1_n4_yes_typed_param_2ts              MATCH  P1=none@-;P2=none@-;P3=none@-;
+one_p1_n5_yes_typed_param                  MATCH  P1=none@-;P2=none@-;P3=none@-;
+one_p2_n20_yes_typed_param                 MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+one_p2_n25_yes_typed_param                 MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+one_p2_n2_yes_typed_param                  MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+one_p2_n4_no_typed_param                   NO-GOLDEN-DB
+one_p2_n4_yes_typed_param                  MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+one_p2_n4_yes_typed_param_2ts              MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+one_p2_n4_yes_untyped_param                NO-SLANG-DB
+  gold: P1=ts@logic_typespec@?;P2=none@-;P3=none@-;
+one_p2_n5_yes_typed_param                  MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+r2_ca_outer                                MATCH  P1=none@-;P2=none@-;
+r2_chain3                                  MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+r2_chain3_nodemand                         MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+r2_chain4                                  MATCH  P1=ts@bit_typespec@36:43;P2=ts@bit_typespec@42:43;P3=none@-;P4=none@-;
+r2_demand_net                              DIFF
+  gold: P1=ts@bit_typespec@36:43;P2=none@-;
+  ours: P1=none@-;P2=none@-;
+r2_narrow_inner                            MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+r2_rggen                                   MATCH  P1=none@-;P2=none@-;P3=none@-;
+r2_rggen_plus                              MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;P4=none@-;
+r2_two_ts_f2first                          MATCH  P1=ts@bit_typespec@42:43;P2=none@-;P2B=none@-;P3=none@-;P3B=none@-;
+r2_two_ts_g2first                          MATCH  P1=ts@bit_typespec@36:43;P2B=none@-;P2=none@-;P3B=none@-;P3=none@-;
+r3_chain5                                  MATCH  P1=ts@bit_typespec@36:43;P2=ts@bit_typespec@42:43;P3=ts@bit_typespec@36:43;P4=none@-;P5=none@-;
+r3_gen_cond                                DIFF
+  gold: P1=ts@bit_typespec@36:43;P2=none@-;
+  ours: P1=none@-;P2=none@-;
+r3_inline_nested                           MATCH  P1=ts@bit_typespec@36:43;P3=none@-;
+r3_order_split                             MATCH  P1=ts@bit_typespec@42:43;P2B=none@-;P2=none@-;P3=none@-;P3B=none@-;
+r3_proc_outer                              MATCH  P1=none@-;P2=none@-;
+r3_same_twice                              MATCH  P1=ts@bit_typespec@48:65;P2=none@-;P3=none@-;
+r3_two_actuals                             MATCH  P1=ts@bit_typespec@42:43;P1B=ts@bit_typespec@48:65;P2=none@-;P3=none@-;
+r3_unpacked_dim                            DIFF
+  gold: P1=ts@bit_typespec@36:43;P2=none@-;
+  ours: P1=none@-;P2=none@-;
+r4_f2_then_g2                              MATCH  P1=ts@bit_typespec@42:43;P2=none@-;P2B=none@-;P3=none@-;P3B=none@-;
+r4_g2only                                  MATCH  P1=ts@bit_typespec@42:43;P2B=none@-;P3B=none@-;
+r4_g2_then_f2                              MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P2B=none@-;P3B=none@-;P3=none@-;
+rec_none_n4_yes_typed_param                NO-SLANG-DB
+  gold: P1=none@-;P2=none@-;P1=none@-;P2=none@-;
+rec_p1_n4_yes_typed_param                  MATCH  P1=none@-;P2=none@-;P3=none@-;
+rec_p2_n4_yes_typed_param                  DIFF
+  gold: P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+  ours: P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;N=none@-;P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;N=none@-;P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+top_none_n4_yes_typed_ca                   MATCH  P1=none@-;
+top_none_n4_yes_typed_param                MATCH  P1=none@-;P2=none@-;
+top_none_n4_yes_typed_proc                 MATCH  P1=none@-;
+top_p1_n20_yes_typed_param                 MATCH  P1=none@-;P2=none@-;P3=none@-;
+top_p1_n25_yes_typed_param                 MATCH  P1=none@-;P2=none@-;P3=none@-;
+top_p1_n2_yes_typed_param                  MATCH  P1=none@-;P2=none@-;P3=none@-;
+top_p1_n4_no_typed_param                   NO-SLANG-DB
+  gold: P1=none@-;P2=none@-;P3=none@-;
+top_p1_n4_yes_typed_param                  MATCH  P1=none@-;P2=none@-;P3=none@-;
+top_p1_n4_yes_typed_param_2ts              MATCH  P1=none@-;P2=none@-;P3=none@-;
+top_p1_n5_yes_typed_param                  MATCH  P1=none@-;P2=none@-;P3=none@-;
+top_p2_n20_yes_typed_param                 MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+top_p2_n25_yes_typed_param                 MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+top_p2_n2_yes_typed_param                  MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+top_p2_n4_no_typed_param                   NO-GOLDEN-DB
+top_p2_n4_yes_typed_param                  MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+top_p2_n4_yes_typed_param_2ts              MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+top_p2_n4_yes_untyped_param                NO-SLANG-DB
+  gold: P1=ts@logic_typespec@?;P2=none@-;P3=none@-;
+top_p2_n5_yes_typed_param                  MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+twoN_none_n4_yes_typed_param               MATCH  P1=none@-;P2=none@-;P1=none@-;P2=none@-;
+two_none_n4_yes_typed_param                MATCH  P1=none@-;P2=none@-;P1=none@-;P2=none@-;
+twoN_p1_n4_yes_typed_param                 MATCH  P1=none@-;P2=none@-;P3=none@-;P1=none@-;P2=none@-;P3=none@-;
+twoN_p2_n4_yes_typed_param                 MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+two_p1_n4_yes_typed_param                  MATCH  P1=none@-;P2=none@-;P3=none@-;P1=none@-;P2=none@-;P3=none@-;
+two_p2_n4_yes_typed_param                  MATCH  P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;P1=ts@bit_typespec@36:43;P2=none@-;P3=none@-;
+-- comparable=62 MATCH=58 DIFF=4 unmeasurable=7

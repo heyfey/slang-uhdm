@@ -1,0 +1,51 @@
+# r10vrgg6 — THE ORDER CLAUSE OF § nestedParamActualTs6 IS REFUTED
+#
+# SHIPPED CLAIM (r10rgg6 README §3 and the header comment):
+#   "writes are LAST-WINS, ordered by the DRIVING (outer) expressions, and
+#    within one driver by argument order, depth-first"
+#   backed by cells/r3_order_split ("the OUTER order decides").
+#
+# THE BATTERY.  One target parameter P1 = f1(4); two or three middle
+# parameters whose Rhs calls take P1 (f2/g2/h2, DIFFERENT formal typespecs);
+# one consumer per middle.  Every permutation was run against REAL SURELOG.
+#
+#  cell                     middles decl order  consumer order   GOLDEN picks
+#  cells/x_three_drivers    PA PB PC (f2 g2 h2) D1 D2 D3         h2
+#  cells/x_three_drivers_rev PA PB PC           D3 D2 D1         h2
+#  cells/y_mid_rev          PC PB PA            D1 D2 D3         h2
+#  cells/z_fnfwd_consfwd    PA PB PC            D1 D2 D3         h2
+#  cells/z_fnfwd_consrev    PA PB PC            D3 D2 D1         h2
+#  cells/z_fnrev_consfwd    PA PB PC (fns h2 g2 f2) D1 D2 D3     h2
+#  cells/z_fnrev_consrev    PA PB PC (fns h2 g2 f2) D3 D2 D1     h2
+#  cells/s_A_declFH_consFH  PF PH               DF1 DH1          h2
+#  cells/s_B_declFH_consHF  PF PH               DH1 DF1          h2
+#  cells/s_C_declHF_consFH  PH PF               DF1 DH1          h2
+#  cells/s_D_declHF_consHF  PH PF               DH1 DF1          h2   <-- KILLER
+#
+# s_D is the killer: the h2 chain is BOTH first-declared and first-consumed,
+# and golden STILL puts h2's formal on P1's Rhs.  No "last wins" over either
+# order can produce that.
+#
+# CONFOUNDERS ELIMINATED, each by its own cell:
+#   function DECLARATION order   cells/z_fnrev_*      (h2 moved to line 12)  no effect
+#   function NAME sort           cells/r_fnname_swap  (f2->zz, h2->aa)       no effect
+#   parameter NAME sort          cells/n_name_f2last, n_name_g2last          no effect
+#   FORMAL name sort             cells/q_formal_f2last (a_h2->aaa, a_f2->zzz) no effect
+#   function BODY / value        cells/p_body_swap    (+16'd1 <-> +16'd3)    no effect
+#
+# CONSEQUENCE.  The implemented rule (last driver emitted wins) disagrees with
+# golden on cells s_B, s_D, x_three_drivers_rev, z_fnfwd_consrev,
+# z_fnrev_consrev.  The PRISTINE base binary disagrees on a DIFFERENT set of
+# the same size, so this is a RESIDUE, NOT A REGRESSION -- and the corpus does
+# not exercise it (0 rows move on either corpus).  But the clause as written is
+# not a measured law and the next pass must not build on it.
+#
+# WHAT IS STILL TRUE, and confirmed here:
+#   * a chain with NO consumer is stamped by NOTHING (cells/y_no_consumer:
+#     golden bare, base wrongly stamped, r10rgg6 correctly bare) -- so the
+#     "one level down from a DRIVER" core of the law holds;
+#   * with ONE consumer the answer is that consumer's chain
+#     (cells/y_one_consumer_PA);
+#   * an 18-deep chain reproduces golden EXACTLY, all 19 objects
+#     (cells/v_deep18), so the depth>16 cutoff never bites: each link is
+#     reachable at depth 1 from a driver two declarations up.

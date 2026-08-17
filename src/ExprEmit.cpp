@@ -11094,6 +11094,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::Call: {
             auto& call = expr.as<CallExpression>();
+            // § nestedParamActualTs6 needs to know whether the call being
+            // emitted is the OUTERMOST one of the expression it sits in.  The
+            // emitted object's vpiParent cannot answer that (the param_assign
+            // is not the `parent` handed to emitExpr), so the depth is counted
+            // here, where nesting actually happens.
+            struct CallDepthGuard6 {
+                int& d;
+                explicit CallDepthGuard6(int& x) : d(x) { d++; }
+                ~CallDepthGuard6() { d--; }
+            } callDepthGuard6(callEmitDepth6);
             if (!call.isSystemCall()) {
                 bool callStmtCtx0 = callStmtContext;
                 callStmtContext = false;
@@ -13016,50 +13026,73 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                 si.argTs[argIdx].first;
                                     }
                                 }
-                                // ...and in the ELAB view of a parameter
-                                // initializer the same binding writes through
-                                // to whatever the reference RESOLVES to.  When
-                                // the referenced parameter's own Rhs stayed a
-                                // symbolic func_call (no value to hand over),
-                                // that call IS the resolved object, so it —
-                                // not the bare ref actual — ends up carrying
-                                // the formal's typespec: FuncInModule's
-                                // `get_sub_n_list(N)` Rhs picks up the
-                                // `bit [N-1:0][15:0] sub_n_list` typespec of
-                                // get_offset_list, the formal SUB_N_LIST_P is
-                                // passed to one line below.
-                                // Only when the actual STAYED a reference: an
-                                // argument the elaborator replaced by the
-                                // parameter's value carries the stamp on that
-                                // constant instead (NEXT_N's OFFSET_LIST arg),
-                                // and get_offset_list's own Rhs call is left
-                                // bare in the golden.
-                                if (inParamInit && !paramInitDef && isFunc &&
-                                    !currentTf && !elabParamArgFold &&
-                                    a->UhdmType() == UHDM::uhdmref_obj &&
-                                    sk == SymbolKind::Parameter &&
-                                    argIdx < si.argTs.size() &&
-                                    si.argTs[argIdx].first) {
-                                    auto rit = paramRhsObj.find(
-                                        &baseArg.as<NamedValueExpression>().symbol);
-                                    if (rit != paramRhsObj.end() && rit->second &&
-                                        rit->second->UhdmType() ==
-                                            UHDM::uhdmfunc_call) {
-                                        auto* fcp = (UHDM::func_call*)rit->second;
-                                        if (!fcp->Typespec()) {
-                                            std::string tsPfx = prefix;
-                                            if (tsPfx.size() >= 2 &&
-                                                tsPfx.compare(tsPfx.size() - 2, 2,
-                                                              "::") == 0)
-                                                tsPfx.resize(tsPfx.size() - 2);
-                                            auto* rtp = s.MakeRef_typespec();
-                                            rtp->VpiFullName(tsPfx);
-                                            rtp->VpiParent(fcp);
-                                            rtp->Actual_typespec(
-                                                si.argTs[argIdx].first);
-                                            fcp->Typespec(rtp);
-                                        }
-                                    }
+                                // § nestedParamActualTs6 — ...and in the ELAB
+                                // view the same binding writes through to
+                                // whatever the reference RESOLVES to, but ONLY
+                                // ONE LEVEL DOWN.  The OUTERMOST call of an
+                                // elaboration-time constant expression reduces
+                                // against evalFunc's CLONED param_assigns, so
+                                // its own direct parameter actuals' Rhs calls
+                                // stay bare; a call reached NESTED (an inline
+                                // sub-call, or the callee of a parameter the
+                                // outer call takes as an actual) writes
+                                // through to the TREE object.
+                                //   FuncInModule  NEXT_N = get_next_n(
+                                //     OFFSET_LIST) -> one level down is
+                                //     get_offset_list(SUB_N_LIST_P), so
+                                //     SUB_N_LIST_P's `get_sub_n_list(N)` Rhs
+                                //     IS stamped with `bit [N-1:0][15:0]
+                                //     sub_n_list` (dut.sv:39:56).
+                                //   Rggen         NEXT_N = get_next_n(
+                                //     SUB_N_LIST) -> one level down is
+                                //     get_sub_n_list(N) itself, whose only
+                                //     actual is the integer parameter N (Rhs a
+                                //     constant, not a call), so NOTHING is
+                                //     stamped: golden leaves the elaborated
+                                //     `get_sub_n_list(N)` bare in all 13
+                                //     instances.
+                                // The two sources differ in exactly that one
+                                // argument, and 66 purpose-built golden cells
+                                // (tools/probe/r10rgg6repro) separate on it and
+                                // on nothing else — not on instance count, not
+                                // on recursion, not on N, not on whether the
+                                // fold saturates.
+                                if (isFunc && !currentTf && !moduleDefEmit &&
+                                    !paramInitDef && !paramInitPkg &&
+                                    !inProcessEmit && !inGenScopeProc &&
+                                    !defGenProcessEmit && !ndaRhsEmit &&
+                                    !elabConnEmit21 && !portInitCtx &&
+                                    contAssignView == 0 && !inLhs &&
+                                    sk == SymbolKind::Parameter) {
+                                    // The call being emitted is OUTERMOST when
+                                    // it hangs straight off the param_assign;
+                                    // then it stamps nothing itself and only
+                                    // drives the descent (selfTs null).  An
+                                    // INLINE nested call (f3(f2(P1))) parents
+                                    // on the outer func_call and does stamp its
+                                    // own actual.
+                                    UHDM::typespec* selfTs6 =
+                                        callEmitDepth6 <= 1
+                                            ? nullptr
+                                            : (argIdx < si.argTs.size()
+                                                   ? si.argTs[argIdx].first
+                                                   : nullptr);
+                                    std::string tsPfx6 = prefix;
+                                    if (tsPfx6.size() >= 2 &&
+                                        tsPfx6.compare(tsPfx6.size() - 2, 2,
+                                                       "::") == 0)
+                                        tsPfx6.resize(tsPfx6.size() - 2);
+                                    uint64_t site6 =
+                                        ((uint64_t)expr.sourceRange.start()
+                                             .buffer()
+                                             .getId()
+                                         << 40) ^
+                                        (uint64_t)expr.sourceRange.start()
+                                            .offset();
+                                    stampNestedParamActualTs6(
+                                        baseArg.as<NamedValueExpression>()
+                                            .symbol,
+                                        selfTs6, tsPfx6, site6, 0);
                                 }
                             }
                         }
@@ -19955,6 +19988,134 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             noteUnsupportedAt("expression kind: " + std::string(toString(expr.kind)),
                               expr.sourceRange.start());
             return nullptr;
+    }
+}
+
+// § nestedParamActualTs6 — the ELAB-view formal-typespec write-through, one
+// level down.  `psym` is a PARAMETER that an elaboration-time constant call
+// takes as a direct actual.  `selfTs` is the formal typespec that call binds it
+// to, or null when the caller was the OUTERMOST call of the constant expression
+// (whose binding reaches evalFunc's cloned param_assigns, never the tree).
+//
+// From there the walk is the evaluation Surelog actually performs: to hand the
+// callee a value for `psym` it must reduce `psym`'s own param_assign Rhs, and
+// if that Rhs is a func_call `G`, G's argument binding runs NESTED — so each of
+// G's own parameter actuals gets G's formal typespec written onto ITS Rhs call,
+// and so on down.  Measured to the bottom on r10rgg6repro/cells/r3_chain5
+// (five deep: golden stamps P1, P2 and P3 and leaves P4 and P5 bare).
+//
+// LAST WINS: r3_same_twice (`k2(P1, P1)`) puts k2's SECOND formal on P1, and
+// r3_order_split shows the winner is decided by the order of the DRIVING outer
+// expressions, not of the consumers — which is what makes this walk, driven
+// from the outer call, the right shape for the rule.  Only refs this law minted
+// are rebound, so another law's typespec on the same call is never clobbered.
+void UhdmExporter::stampNestedParamActualTs6(const slang::ast::Symbol& psym,
+                                             UHDM::typespec* selfTs,
+                                             const std::string& tsPfx,
+                                             uint64_t siteKey, int depth) {
+    using namespace slang::ast;
+    // A DIAGNOSTIC, not a law: R10RGG6_TRACE=1 prints every step of the walk to
+    // stderr.  It exists because the first cut of this law produced the RIGHT
+    // answer on every single-chain cell and the FIRST driver's answer on every
+    // two-chain one, and no amount of reading the code said why.
+    static const bool tr6 = ::getenv("R10RGG6_TRACE") != nullptr;
+    if (depth > 16 || psym.kind != SymbolKind::Parameter)
+        return;
+    if (tr6)
+        fprintf(stderr, "[rgg6] d=%d p=%.*s selfTs=%p rhs=%s\n", depth,
+                (int)psym.name.size(), psym.name.data(), (void*)selfTs,
+                paramRhsObj.count(&psym)
+                    ? (paramRhsObj[&psym]
+                           ? UHDM::UhdmName(paramRhsObj[&psym]->UhdmType()).data()
+                           : "null")
+                    : "absent");
+    if (selfTs) {
+        auto rit = paramRhsObj.find(&psym);
+        // THE VIEW GUARD (r10vrgg6): stamp only when the Rhs paramRhsObj holds
+        // right now is the one the PHYSICAL ELABORATED view recorded.  Without
+        // it the write lands on the DEF-listing object whenever the driving
+        // site is emitted before the enclosing instance's ELAB param_assigns.
+        auto eit = elabParamRhsObj6.find(&psym);
+        if (rit != paramRhsObj.end() && rit->second &&
+            eit != elabParamRhsObj6.end() && eit->second == rit->second &&
+            rit->second->UhdmType() == UHDM::uhdmfunc_call) {
+            auto* fcp = (UHDM::func_call*)rit->second;
+            auto* rtp = fcp->Typespec();
+            auto key6 = std::make_tuple(siteKey, (const void*)fcp,
+                                        (const void*)selfTs);
+            bool fresh6 = nestedParamTsApplied6.insert(key6).second;
+            if (tr6)
+                fprintf(stderr, "[rgg6]   stamp fcp=%p rtp=%p mine=%d\n",
+                        (void*)fcp, (void*)rtp,
+                        rtp ? (int)nestedParamTsRef6.count(rtp) : -1);
+            if (!fresh6) {
+                // a RE-EMISSION of a site that already wrote this exact
+                // typespec onto this exact call: golden evaluated it once.
+            }
+            else if (!rtp) {
+                rtp = s.MakeRef_typespec();
+                rtp->VpiFullName(tsPfx);
+                rtp->VpiParent(fcp);
+                fcp->Typespec(rtp);
+                nestedParamTsRef6.insert(rtp);
+                rtp->Actual_typespec(selfTs);
+            }
+            else if (nestedParamTsRef6.count(rtp)) {
+                rtp->Actual_typespec(selfTs);
+            }
+        }
+    }
+    const Expression* init = psym.as<ParameterSymbol>().getInitializer();
+    if (!init)
+        return;
+    const Expression& ce = stripImplicitConv(*init);
+    if (ce.kind != ExpressionKind::Call)
+        return;
+    auto& call = ce.as<CallExpression>();
+    if (call.isSystemCall())
+        return;
+    auto subp = std::get_if<const SubroutineSymbol*>(&call.subroutine);
+    if (!subp || !*subp)
+        return;
+    const SubroutineSymbol& gsub = **subp;
+    // § elabInstCallDefSub's lookup: every instance body gets its own
+    // SubroutineSymbol, only the DEF-emitted one carries argTs.
+    auto it = subMap.find(&gsub);
+    if (it == subMap.end())
+        if (auto psc = gsub.getParentScope();
+            psc && psc->asSymbol().kind == SymbolKind::InstanceBody) {
+            auto dit = defSubByName.find(std::make_pair(
+                (const Symbol*)&psc->asSymbol()
+                    .as<InstanceBodySymbol>()
+                    .getDefinition(),
+                std::string(gsub.name)));
+            if (dit != defSubByName.end())
+                it = subMap.find(dit->second);
+        }
+    if (it == subMap.end()) {
+        if (tr6)
+            fprintf(stderr, "[rgg6]   NO SubInfo for callee %.*s\n",
+                    (int)gsub.name.size(), gsub.name.data());
+        return;
+    }
+    const SubInfo& gsi = it->second;
+    if (tr6)
+        fprintf(stderr, "[rgg6]   callee %.*s argTs=%zu args=%zu\n",
+                (int)gsub.name.size(), gsub.name.data(), gsi.argTs.size(),
+                call.arguments().size());
+    auto args = call.arguments();
+    for (size_t j = 0; j < args.size(); j++) {
+        if (!args[j])
+            continue;
+        const Expression& aj = stripImplicitConv(*args[j]);
+        if (aj.kind != ExpressionKind::NamedValue)
+            continue;
+        auto& qsym = aj.as<NamedValueExpression>().symbol;
+        if (qsym.kind != SymbolKind::Parameter)
+            continue;
+        stampNestedParamActualTs6(
+            qsym, j < gsi.argTs.size() ? gsi.argTs[j].first : nullptr, tsPfx,
+            siteKey, depth + 1);
     }
 }
 

@@ -1,0 +1,140 @@
+# r10vrgg6 GRID — golden vs base(f9bd718) vs r10rgg6-patched vs r10vrgg6-fixed
+# base=ef5689e3 pat=c636d3e0 fix=1b77ae23
+
+== batch 1: scope/topology axes (20 cells) ==
+v_bitselect_actual       both-OK
+v_casegen                *** REGRESSION ***
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@16:43;ELAB|P2|f2=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@16:43;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+v_deep18                 both-OK
+v_defparam               both-OK
+v_genscope_chain         DIFF/DIFF
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|f3=none@-;ELAB|P1|f1=ts@bit_typespec@16:43;ELAB|P2|f2=none@-;ELAB|P3|f3=none@-;ELAB|P1|f1=ts@bit_typespec@16:43;ELAB|P2|f2=none@-;ELAB|P3|f3=none@-;OTHER|P3|f3=none@-;OTHER|P3|f3=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|f3=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|f3=none@-;
+v_hier_pkg_actual        both-OK
+v_iface_chain            both-OK
+v_iface_pkg_mix          both-OK
+v_ifgen_chain            DIFF/DIFF
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|f3=none@-;ELAB|P1|f1=ts@bit_typespec@16:43;ELAB|P2|f2=none@-;ELAB|P3|f3=none@-;OTHER|P3|f3=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|f3=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|f3=none@-;
+v_inst_override          both-OK
+v_multi_consumer         FIXED
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P2B|g2=none@-;DEF|P3|f3=none@-;DEF|P3B|f3=none@-;ELAB|P1|f1=ts@bit_typespec@21:43;ELAB|P2|f2=none@-;ELAB|P2B|g2=none@-;ELAB|P3|f3=none@-;ELAB|P3B|f3=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P2B|g2=none@-;DEF|P3|f3=none@-;DEF|P3B|f3=none@-;ELAB|P1|f1=ts@bit_typespec@16:43;ELAB|P2|f2=none@-;ELAB|P2B|g2=none@-;ELAB|P3|f3=none@-;ELAB|P3B|f3=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P2B|g2=none@-;DEF|P3|f3=none@-;DEF|P3B|f3=none@-;ELAB|P1|f1=ts@bit_typespec@21:43;ELAB|P2|f2=none@-;ELAB|P2B|g2=none@-;ELAB|P3|f3=none@-;ELAB|P3B|f3=none@-;
+v_nested_inline_deep     both-OK
+v_paramport_default      both-OK
+v_pkg_chain              DIFF/DIFF
+  gold: OTHER|p::P1|f1=none@-;OTHER|p::P2|f2=none@-;OTHER|p::P3|f3=none@-;OTHER|p::P1|f1=none@-;OTHER|p::P2|f2=none@-;OTHER|p::P3|f3=none@-;
+  base: OTHER|p::P1|f1=none@-;OTHER|p::P2|f2=none@-;OTHER|p::P3|f3=none@-;
+  pat : OTHER|p::P1|f1=none@-;OTHER|p::P2|f2=none@-;OTHER|p::P3|f3=none@-;
+v_pkgfn_modparam         both-OK
+v_recursive_inst         both-OK
+v_shared_fnname          FIXED
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|f3=none@-;DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|f3=none@-;ELAB|P1|f1=ts@bit_typespec@16:43;ELAB|P2|f2=none@-;ELAB|P3|f3=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;ELAB|P3|f3=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|f3=none@-;DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|f3=none@-;ELAB|P1|f1=ts@bit_typespec@16:43;ELAB|P2|f2=none@-;ELAB|P3|f3=none@-;ELAB|P1|f1=ts@bit_typespec@53:43;ELAB|P2|f2=none@-;ELAB|P3|f3=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|f3=none@-;DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|f3=none@-;ELAB|P1|f1=ts@bit_typespec@16:43;ELAB|P2|f2=none@-;ELAB|P3|f3=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;ELAB|P3|f3=none@-;
+v_struct_formal          both-OK
+v_two_inst_same_n        both-OK
+v_untyped_formal         both-OK
+-- comparable=20 baseMATCH=15 patMATCH=16 REGRESSIONS=1 FIXED=2 unmeasurable=0
+
+== batch 2: DRIVING-SITE axis (10 cells) ==
+w_always_body            FIXED
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+w_cont_assign            FIXED
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+w_decl_range             *** REGRESSION ***
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+w_genvar_bound           *** REGRESSION ***
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+w_in_function            DIFF/DIFF
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P4|useit=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=ts@bit_typespec@20:29;ELAB|P4|useit=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P4|useit=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P4|useit=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+w_initial_disp           FIXED
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+w_inst_param_ovr         DIFF/DIFF
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@17:41;ELAB|P2|f2=ts@bit_typespec@23:29;ELAB|K|f3=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@17:41;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@17:41;ELAB|P2|f2=none@-;
+w_netdecl_rhs            FIXED
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+w_port_conn              DIFF/DIFF
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@17:41;ELAB|P2|f2=ts@bit_typespec@23:29;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@17:41;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=ts@bit_typespec@17:41;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+w_two_ctx_order          both-OK
+-- comparable=10 baseMATCH=3 patMATCH=5 REGRESSIONS=2 FIXED=4 unmeasurable=0
+
+== batch 2 re-run: r10rgg6-patched vs r10vrgg6-fixed ==
+w_always_body            both-OK
+w_cont_assign            both-OK
+w_decl_range             DIFF/DIFF
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+w_genvar_bound           DIFF/DIFF
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+w_in_function            DIFF/DIFF
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P4|useit=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=ts@bit_typespec@20:29;ELAB|P4|useit=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P4|useit=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P4|useit=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+w_initial_disp           both-OK
+w_inst_param_ovr         DIFF/DIFF
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@17:41;ELAB|P2|f2=ts@bit_typespec@23:29;ELAB|K|f3=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@17:41;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@17:41;ELAB|P2|f2=none@-;
+w_netdecl_rhs            both-OK
+w_port_conn              DIFF/DIFF
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@17:41;ELAB|P2|f2=ts@bit_typespec@23:29;
+  base: DEF|P1|f1=ts@bit_typespec@17:41;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+w_two_ctx_order          both-OK
+-- comparable=10 baseMATCH=5 patMATCH=5 REGRESSIONS=0 FIXED=0 unmeasurable=0
+
+== batch 3: order/task/recursion (8 cells) ==
+x_cross_chains           DIFF/DIFF
+  gold: DEF|P1|f1=none@-;DEF|Q1|f1=none@-;DEF|P2|f2=none@-;DEF|Q2|g2=none@-;DEF|P3|k2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|Q1|f1=ts@bit_typespec@17:41;ELAB|P2|f2=none@-;ELAB|Q2|g2=none@-;ELAB|P3|k2=none@-;
+  base: DEF|P1|f1=none@-;DEF|Q1|f1=none@-;DEF|P2|f2=none@-;DEF|Q2|g2=none@-;DEF|P3|k2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|Q1|f1=ts@bit_typespec@17:41;ELAB|P2|f2=none@-;ELAB|Q2|g2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|Q1|f1=none@-;DEF|P2|f2=none@-;DEF|Q2|g2=none@-;DEF|P3|k2=none@-;ELAB|P1|f1=none@-;ELAB|Q1|f1=none@-;ELAB|P2|f2=none@-;ELAB|Q2|g2=none@-;
+x_gen_two_inst           both-OK
+x_inline_same_fn         both-OK
+x_recursive_fn           DIFF/DIFF
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|R|rf=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|R|rf=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|R|rf=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+x_same_twice2            FIXED
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|k2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|k2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;DEF|P3|k2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+x_task_actual            FIXED
+  gold: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+  base: DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|P2|f2=none@-;
+  pat : DEF|P1|f1=none@-;DEF|P2|f2=none@-;ELAB|P1|f1=none@-;ELAB|P2|f2=none@-;
+x_three_drivers          FIXED
+  gold: DEF|P1|f1=none@-;DEF|PA|f2=none@-;DEF|PB|g2=none@-;DEF|PC|h2=none@-;DEF|D1|f3=none@-;DEF|D2|f3=none@-;DEF|D3|f3=none@-;ELAB|P1|f1=ts@bit_typespec@20:41;ELAB|PA|f2=none@-;ELAB|PB|g2=none@-;ELAB|PC|h2=none@-;ELAB|D1|f3=none@-;ELAB|D2|f3=none@-;ELAB|D3|f3=none@-;
+  base: DEF|P1|f1=none@-;DEF|PA|f2=none@-;DEF|PB|g2=none@-;DEF|PC|h2=none@-;DEF|D1|f3=none@-;DEF|D2|f3=none@-;DEF|D3|f3=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|PA|f2=none@-;ELAB|PB|g2=none@-;ELAB|PC|h2=none@-;ELAB|D1|f3=none@-;ELAB|D2|f3=none@-;ELAB|D3|f3=none@-;
+  pat : DEF|P1|f1=none@-;DEF|PA|f2=none@-;DEF|PB|g2=none@-;DEF|PC|h2=none@-;DEF|D1|f3=none@-;DEF|D2|f3=none@-;DEF|D3|f3=none@-;ELAB|P1|f1=ts@bit_typespec@20:41;ELAB|PA|f2=none@-;ELAB|PB|g2=none@-;ELAB|PC|h2=none@-;ELAB|D1|f3=none@-;ELAB|D2|f3=none@-;ELAB|D3|f3=none@-;
+x_three_drivers_rev      DIFF/DIFF
+  gold: DEF|P1|f1=none@-;DEF|PA|f2=none@-;DEF|PB|g2=none@-;DEF|PC|h2=none@-;DEF|D3|f3=none@-;DEF|D2|f3=none@-;DEF|D1|f3=none@-;ELAB|P1|f1=ts@bit_typespec@20:41;ELAB|PA|f2=none@-;ELAB|PB|g2=none@-;ELAB|PC|h2=none@-;ELAB|D3|f3=none@-;ELAB|D2|f3=none@-;ELAB|D1|f3=none@-;
+  base: DEF|P1|f1=none@-;DEF|PA|f2=none@-;DEF|PB|g2=none@-;DEF|PC|h2=none@-;DEF|D3|f3=none@-;DEF|D2|f3=none@-;DEF|D1|f3=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|PA|f2=none@-;ELAB|PB|g2=none@-;ELAB|PC|h2=none@-;ELAB|D3|f3=none@-;ELAB|D2|f3=none@-;ELAB|D1|f3=none@-;
+  pat : DEF|P1|f1=none@-;DEF|PA|f2=none@-;DEF|PB|g2=none@-;DEF|PC|h2=none@-;DEF|D3|f3=none@-;DEF|D2|f3=none@-;DEF|D1|f3=none@-;ELAB|P1|f1=ts@bit_typespec@14:41;ELAB|PA|f2=none@-;ELAB|PB|g2=none@-;ELAB|PC|h2=none@-;ELAB|D3|f3=none@-;ELAB|D2|f3=none@-;ELAB|D1|f3=none@-;
+-- comparable=8 baseMATCH=2 patMATCH=5 REGRESSIONS=0 FIXED=3 unmeasurable=0

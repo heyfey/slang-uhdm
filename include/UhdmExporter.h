@@ -4973,6 +4973,52 @@ private:
     std::map<const slang::syntax::SyntaxNode*, UHDM::typespec*> defParamTsRebound;
     // Definitions whose first ELAB instance has already emitted parameters.
     std::set<const slang::ast::DefinitionSymbol*> elabParamRebindSeenDef;
+    // § nestedParamActualTs6 — the ELAB-view half of the same write-through,
+    // and it fires ONLY ONE LEVEL DOWN.  Surelog reduces an elaboration-time
+    // constant call by binding its actuals to the callee's formals; an actual
+    // that names a parameter resolves (ExprEval::getValue) to that parameter's
+    // own param_assign Rhs, and when the Rhs is a func_call Surelog can only
+    // evaluate NESTED, the write-through lands on THAT call object.  The
+    // OUTERMOST call of the constant expression writes through to evalFunc's
+    // CLONED copy of the enclosing scope's param_assigns instead, so its own
+    // direct parameter actuals are left bare — which is exactly the difference
+    // between FuncInModule (`NEXT_N = get_next_n(OFFSET_LIST)` reaches
+    // `get_offset_list(SUB_N_LIST_P)` one level down, so SUB_N_LIST_P's
+    // `get_sub_n_list(N)` Rhs IS stamped) and Rggen (`NEXT_N =
+    // get_next_n(SUB_N_LIST)` reaches `get_sub_n_list(N)` itself, whose only
+    // actual is the plain integer parameter N, so nothing is stamped and
+    // golden leaves the elaborated `get_sub_n_list(N)` call bare in all
+    // thirteen instances).  Writes are LAST-WINS, in the order the DRIVING
+    // (outer) constant expressions are emitted, argument order depth-first.
+    // Measured on 66 purpose-built golden cells (tools/probe/r10rgg6repro).
+    void stampNestedParamActualTs6(const slang::ast::Symbol& psym,
+                                   UHDM::typespec* selfTs,
+                                   const std::string& tsPfx, uint64_t siteKey,
+                                   int depth);
+    // The ref_typespec objects THIS law minted, so a later (last-wins) write
+    // rebinds only its own refs and never clobbers a typespec another law put
+    // on the same call.
+    std::set<UHDM::ref_typespec*> nestedParamTsRef6;
+    // § nestedParamActualTs6 VIEW GUARD — the parameter Rhs objects recorded
+    // on the PHYSICAL ELABORATED view only.  paramRhsObj holds whichever view
+    // ran last, so the law stamps only when the two agree; see the note at the
+    // recording site in ParamEmit.cpp.
+    std::map<const slang::ast::Symbol*, UHDM::any*> elabParamRhsObj6;
+    // (driving call site, target call, formal typespec) triples this law has
+    // already applied.  Golden evaluates each parameter initializer ONCE per
+    // instance, but our emitter re-emits the same source expression more than
+    // once (measured with R10RGG6_TRACE on cells/r4_f2_then_g2: the driver
+    // `P3 = f3(P2)` runs a SECOND time, after `P3B = f3(P2B)`, and its repeat
+    // silently un-did the later chain's write).  Deduplicating the TRIPLE and
+    // not the pair is deliberate: cells/r3_same_twice passes ONE parameter to
+    // BOTH formals of one call from ONE site, and golden keeps the SECOND
+    // formal — so two writes from one site with different typespecs must both
+    // land, in order.
+    std::set<std::tuple<uint64_t, const void*, const void*>>
+        nestedParamTsApplied6;
+    // How many emitExpr Call frames are open right now: 1 = the OUTERMOST call
+    // of the expression being emitted, >1 = an inline nested call.
+    int callEmitDepth6 = 0;
     // pendingParamTs index -> the rebound typespec its ref must end up on
     // (applied at the tail of patchParamTypespecs, after the normal clone).
     std::map<size_t, UHDM::typespec*> pendingParamTsRebind;

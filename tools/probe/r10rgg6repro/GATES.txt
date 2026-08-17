@@ -1,0 +1,93 @@
+r10rgg6 — THE FIVE MANDATORY GATES, as RUN.  BASE COMMIT f9bd718.
+
+(1) BOTH BINARIES BUILT (-j 2, md5 separately)
+      base  /tmp/r10rgg6_base_bin   ef5689e371158c0ccfabe2d543c6c881
+      pat   /tmp/r10rgg6_pat_bin    c636d3e012031c0e3602b0d10f031aa7
+    Distinct md5s -- the two sides of every measurement below are two
+    different programs, not one program measured twice.
+
+(2) GOLDENS.  SLANG_UHDM exported EXPLICITLY to each binary (both
+    verify_golden.py and tests/check_goldens.sh silently fall back to the
+    MAIN-TREE build otherwise).
+      base    PASS=23 FAIL=0
+      patched PASS=23 FAIL=0
+      NEGATIVE CONTROL  SLANG_UHDM=/bin/false  PASS=0 FAIL=23
+    The negative control is what proves the 23/0 was a measurement.
+
+(3) uhdm2rtlil, --mode both, jobs 2, own --out/--workdir
+      base    679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL per mode
+      patched 679 / 50 / 2 per mode
+      ct8rows base -> patched          : 0 differing ROWS (whole row, dump
+                                          column included)
+      ct8rows committed gate_uhdm2rtlil.csv vs patched testflags half
+                                        : 0 differing ROWS
+      byteverify SELFCHECK=1            : selfcheck 0 movers, real run
+                                          identical=1358 MOVERS=0
+
+(4) surelog, --mode both, jobs 2, own --out/--workdir
+      ct8rows  MY BASE -> MY PATCHED   : 0 differing ROWS over 1588.
+      ct8rows  committed golden_surelog.csv -> MY BASE : 1 differing ROW
+          < Earlgrey_0_1,testflags,CMP_NOTEQUAL,decompile:,,
+          > Earlgrey_0_1,testflags,SLANG_REJECT,reqfifo_rdata.error,,
+        READ THIS LOUDLY: that row moves at the BASE COMMIT, with the
+        PRISTINE f9bd718 binary, before a line of this pass exists.  Run
+        standalone in the test's own directory:
+          /tmp/r10rgg6_base_bin ... --elabuhdm --single-unit   rc=139
+          /tmp/r10rgg6_pat_bin  ... --elabuhdm --single-unit   rc=139
+        rc=139 is a SEGFAULT, which verify_golden.py records as
+        SLANG_REJECT wearing the last stderr warning (`reqfifo_rdata.error`
+        is a warning, not a rejection reason) -- exactly the trap the ops
+        rules name.  The MAIN-TREE binary (a later commit) exits rc=4 on the
+        same input, so it does not produce that row's CMP_NOTEQUAL here
+        either.  NOTHING in this pass touches it: base and patched are the
+        same row, the same rc, the same stderr.
+      byteverify SELFCHECK=1: selfcheck 0 movers; real run identical=952
+        MOVERS=3, every one PREDICTED BY NAME beforehand (PREDICT.txt):
+          default/Rggen              -- the law's target, -17 ref_typespec
+          default/FuncInModule       -- serialized object identity only
+          testflags/FuncInModule     -- serialized object identity only
+        FuncInModule's two databases differ BYTE-WISE but their uhdm-dump
+        output is identical except the banner line naming the file, and both
+        rows stay CMP_EQUAL/dump=differ -- the law re-creates that test's
+        ref_typespec through a different code path, so only its UhdmId
+        numbering moves.
+
+(5) BOUNDARY (boundary.sh, SUBDIRECTORY arms compiled): 292 source files
+    under r10rgg5 / r10vrgg2-5 / r10uvm82 / r10buvm8 / r10earl47 / r10earl53.
+      identical=208  MOVERS=1  uncompilable=83  asymmetries=0
+    The ONE mover is r10vrgg2repro/x4_v2x2_n25/dut.sv, and it is a
+    CORRECTION, verified against REAL SURELOG on that exact cell:
+      golden  ELAB SUB_N_LIST get_sub_n_list 40:47  ts=none
+      base    ELAB SUB_N_LIST get_sub_n_list 40:47  ts=bit_typespec@32:56
+      patched ELAB SUB_N_LIST get_sub_n_list 40:47  ts=none
+    (its `get_offset_list(SUB_N_LIST)` is the OUTERMOST call of the only
+    parameter initializer that consumes SUB_N_LIST, so golden stamps
+    nothing -- the r2_rggen square of the grid.)
+
+CANARIES
+  canaries.sh  surelog : ok=52 changed=0 absent=0 unknown-names=7 (expected)
+  canaries.sh  u2r     : ok=16 changed=0 absent=0 unknown-names=25 (expected)
+  ctcan2.sh    surelog : ok=58 changed=0 unknown-patterns=1 (expected)
+  ctcan2.sh    u2r     : ok=2  changed=0 unknown-patterns=6 (expected)
+  canaudit.sh          : audited=29 UNCOVERED=0 FENCE-BREACH=0, self-tests live
+  byte canaries        : InterfaceModPort / BlackParrotComplex / YosysOldOr
+                         BYTE-IDENTICAL in both modes
+  pins                 : SVSwitch 4842211c4030, YosysVerx 6ccda350c24a
+
+HEADS (rowheads.sh, official uhdm-cmp, heads = grep -c '^LHS:')
+  test          mode        base            patched
+  SeqDriver     default     28 / 1          28 / 1
+  SeqDriver     testflags   28 / 1          28 / 1
+  SimpleUVM     default     28 / 1          28 / 1
+  SimpleUVM     testflags   28 / 1          28 / 1
+  Scoreboard    default     28 / 1          28 / 1
+  MiniAmiq      default     28 / 1          28 / 1
+  MiniAmiq      testflags   28 / 1          28 / 1
+  BuildUVMPkg   default     17 / 1          17 / 1
+  BuildUVMPkg   testflags   17 / 1          17 / 1
+  Earlgrey_0_1  default     20 / 1          20 / 1
+  Rggen         default     17 / 1          85 / 1   <-- head OBJECT moved
+  FuncInModule  default      0 / 0           0 / 0   (CMP_EQUAL, unchanged)
+  FuncInModule  testflags    0 / 0           0 / 0   (CMP_EQUAL, unchanged)
+  (Scoreboard/testflags, Earlgrey_0_1/testflags and Rggen/testflags print
+   SKIP-NOFILE and are COUNTED -- Rggen has ONE comparable mode by design.)

@@ -1,0 +1,50 @@
+# r10vrgg6 — RANKED RESIDUES of § nestedParamActualTs6 after the view guard
+#
+# R1  THE LAW'S REACH IS BOUNDED BY OUR ELAB CALL-OBJECT EMISSION.  (7 cells)
+#     The write-through is driven from emitExpr's Call case, so a driving site
+#     at which our emitter emits NO ELAB-view func_call cannot drive at all.
+#     Golden evaluates the site and stamps; we leave the target bare.  ONE root,
+#     seven syntactic faces, all measured against real Surelog:
+#        cells/w_decl_range      logic [f3(P2)-1:0] q;      (= r10rgg6 r2_demand_net)
+#        (r10rgg6) r3_unpacked_dim   logic [1:0] a [f3(P2)]; ZERO f3 calls emitted
+#        (r10rgg6) r3_gen_cond       if (f3(P2) > 1)
+#        cells/v_casegen         case (f3(P2))              NEW FACE
+#        cells/w_genvar_bound    for (genvar g=0; g<f3(P2); g++)   NEW FACE
+#        cells/x_cross_chains    localparam int P3 = k2(P2,Q2);  the ELAB k2
+#                                object is not emitted AT ALL -- NEW FACE, and
+#                                the most alarming one because the driving site
+#                                is a PLAIN PARAMETER INITIALIZER, the shape the
+#                                law is built for
+#        cells/w_port_conn       .i(32'(f3(P2)))            NEW FACE
+#     In every one of these the PRISTINE base agreed with golden BY ACCIDENT --
+#     its depth-0 rule painted the same answer from the wrong driver, and that
+#     same rule is what put 17 wrong objects in Rggen.  Corpus exposure: ZERO
+#     (0 rows on either corpus, both modes).  Closing R1 needs the ELAB call
+#     objects to exist, or an AST-side driver; either is its own law.
+#
+# R2  THE ORDER SELECTOR IS UNKNOWN.  See ORDER.txt.  11 cells; the shipped
+#     "last driving expression wins" is refuted by cells/s_D.  Affects only
+#     designs where several chains converge on ONE parameter.  Corpus: ZERO.
+#
+# R3  CONSTANT FUNCTION BODIES DO NOT DRIVE.  cells/w_in_function: golden
+#     stamps BOTH P1 and P2 through `localparam int P4 = useit();` whose body
+#     holds `f3(P2)`; the `!currentTf` clause blocks it.  base got P1 (again by
+#     the accidental route), r10rgg6 and r10vrgg6 get neither.  Closing it means
+#     REMOVING a negative clause -- an expansion, not a narrowing, and it must
+#     not be attempted without its own boundary run.
+#
+# R4  INSTANCE PARAMETER OVERRIDES DRIVE, BUT AS OUTERMOST.  cells/w_inst_param_ovr:
+#     `sub #(.K(f3(P2)))` -- golden stamps P1 *and* P2, i.e. it treats the
+#     override call as ALREADY NESTED (the override is bound inside the
+#     instantiation's own parameter clone).  We drive it at depth 0 and get P1
+#     only.  base identical, so no move.
+#
+# R5  GENERATE-SCOPE LOCALPARAM CHAINS EMIT NO ELAB param_assign CALLS AT ALL.
+#     cells/v_genscope_chain (golden 6 ELAB rows, ours 0), cells/v_ifgen_chain
+#     (golden 3, ours 0).  PRE-EXISTING, identical on all three binaries; named
+#     here because it is the same missing-object family as R1 and a pass that
+#     fixes R1 will meet it.
+#
+# R6  golden's Rggen carries 13 func_calls with a vpiTypespec in the OTHER view
+#     (neither allModules nor topModules); we emit 0.  Unchanged by this pass;
+#     it sits behind the current tree-shape head.

@@ -1,0 +1,76 @@
+# r10rgg6 MOVER PREDICTION (surelog corpus), made from the SOURCES before
+# the patched binary was ever run over the corpus.  A test can only move
+# if it declares a parameter whose initializer is a CALL WITH AN
+# IDENTIFIER ARGUMENT -- the only shape stampNestedParamActualTs6 reaches.
+CANDIDATE Ariane2024
+    fpnew_cast_multi_f2c3e12b0f6462d72c9de7a4a8edf6ab0ff0f478.sv: localparam = fpnew_pkg::max_int_width(IntFmtConfig...)
+    fpnew_cast_multi_f2c3e12b0f6462d72c9de7a4a8edf6ab0ff0f478.sv: localparam = fpnew_pkg::super_format(FpFmtConfig...)
+    fpnew_classifier_123fae86841875eb321a54464c09a2c0c6af94af.sv: localparam = fpnew_pkg::fp_width(FpFormat...)
+    fpnew_classifier_123fae86841875eb321a54464c09a2c0c6af94af.sv: localparam = fpnew_pkg::exp_bits(FpFormat...)
+CANDIDATE ArianeElab2
+    dut.sv: localparam = fpnew_pkg::num_operands(OpGroup...)
+    dut.sv: localparam = fpnew_pkg::any_enabled_multi(FmtUnitTypes...)
+CANDIDATE ArrayExprFuncArg
+    dut.sv: localparam = MAX_VADDR_CNT(VADDR...)
+CANDIDATE BlackParrotMuteErrors
+    dut.sv: parameter = vbits(NumPart...)
+    dut.sv: parameter = vbits(NumSwCfgWindowWords...)
+CANDIDATE BlockingAssignRewrite
+    dut.sv: localparam = log2(RATIO...)
+CANDIDATE Delay2Param
+    dut.sv: localparam = clog2(intWidth...)
+    dut.sv: localparam = clog2(intWidth...)
+    dut.sv: localparam = clog2(intWidth2...)
+CANDIDATE Earlgrey_nexysvideo
+    lc_ctrl_pkg.sv: parameter = vbits(NumLcStates...)
+    lc_ctrl_pkg.sv: parameter = vbits(NumTokens...)
+    otbn_core_model.sv: localparam = prim_util_pkg::vbits(ImemSizeByte...)
+    otbn_core_model.sv: localparam = prim_util_pkg::vbits(DmemSizeByte...)
+CANDIDATE EvalFunc
+    dut.sv: localparam = log2(RATIO...)
+    dut.sv: localparam = vbits(RATIO...)
+    dut.sv: localparam = log2_2(RATIO...)
+    dut.sv: localparam = prim_util_pkg::vbits(RATIO...)
+CANDIDATE EvalFuncCont
+    dut.sv: localparam = num_out(WIDTH...)
+CANDIDATE EvalFuncPack
+    dut.sv: parameter = prim_util_pkg::vbits(InfosPerBank...)
+    dut.sv: parameter = vbits(InfosPerBank...)
+CANDIDATE FuncCase
+    dut.sv: parameter = num_operands(DIVSQRT...)
+CANDIDATE FuncInModule
+    dut.sv: localparam = get_sub_n_list(N...)
+    dut.sv: localparam = get_offset_list(SUB_N_LIST_P...)
+    dut.sv: localparam = get_next_n(OFFSET_LIST...)
+CANDIDATE IncompTitan
+    prim_ram_1p_adv.sv: localparam = prim_util_pkg::vbits(Depth...)
+    tlul_adapter_sram.sv: localparam = prim_util_pkg::vbits(SramByte...)
+    otbn.sv: localparam = vbits(ImemSizeByte...)
+    otbn.sv: localparam = vbits(DmemSizeByte...)
+CANDIDATE LogicArrayParam
+    dut.sv: localparam = get_sub_n_list(N...)
+    dut.sv: localparam = get_offset_list(SUB_N_LIST_P...)
+    dut.sv: localparam = get_next_n(OFFSET_LIST...)
+CANDIDATE PreprocFunc
+    dut.sv: localparam = log2(RATIO...)
+CANDIDATE Rggen
+    rggen_or_reducer.sv: localparam = get_sub_n_list(N...)
+    rggen_or_reducer.sv: localparam = get_offset_list(SUB_N_LIST...)
+    rggen_or_reducer.sv: localparam = get_next_n(SUB_N_LIST...)
+    rggen_address_decoder.sv: localparam = calc_end_address(START_ADDRESS...)
+CANDIDATE Tnoc
+    tbcm_crc.sv: parameter = get_crc_width(CRC_TYPE...)
+    tbcm_crc.sv: parameter = get_crc_polynomial(CRC_TYPE...)
+    tnoc_flit_if_fifo.sv: localparam = get_flit_width(PACKET_CONFIG...)
+    tnoc_packet_serializer.sv: localparam = get_request_header_flits(PACKET_CONFIG...)
+-- candidate tests=17 of 794
+# uhdm2rtlil corpus
+CANDIDATE-U2R EnumMultirange
+    dut.sv: parameter = vbits(NumLcStates...)
+CANDIDATE-U2R asym_ram_sdp_read_wider
+    dut.sv: localparam = log2(RATIO...)
+CANDIDATE-U2R asym_ram_sdp_write_wider
+    dut.sv: localparam = log2(RATIO...)
+CANDIDATE-U2R func_upto
+    dut.sv: localparam = F(A_CONST...)
+-- u2r candidate tests=4 of 731
