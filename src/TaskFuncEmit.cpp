@@ -3374,6 +3374,23 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         pendingClassTsLink.push_back({cts9, &rct9});
                     if (auto* rsyn9 = returnTypeSyntax(sub))
                         setLoc(cts9, rsyn9->sourceRange());
+                    // § classTpTsResolvedNameEverySite87 — the RETURN site.
+                    // `function REQ last_req(...)` in `uvm_sequencer_param_base`
+                    // (and `get_current_item` / `last_rsp`): golden's return
+                    // typespec is the class-scope type-parameter GROUP object,
+                    // NAMED `rsp_type`, not the anonymous mint above.  The
+                    // anonymity of a class-handle return is otherwise the law
+                    // (SeqDriver golden: 1986 uninstanced anonymous objects) and
+                    // is untouched — this fires only for a return written as one
+                    // of the enclosing class's own type parameters whose group
+                    // has a winning typedef.  Arm a2 `c_sites::m_ret`.
+                    if (sub.returnValVar)
+                        if (auto gnR87 = classTpGroupDeclName87(
+                                *sub.returnValVar, returnTypeSyntax(sub));
+                            !gnR87.empty()) {
+                            cts9->VpiName(gnR87);
+                            tpGroupTs87.insert(cts9);
+                        }
                     ts = cts9;
                 }
             }
@@ -3434,7 +3451,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // listing and either view (SeqDriver golden: 1986 of them, all
             // uninstanced; repro r2 `function D C::h()`).  Only a NAMED class
             // typespec (`p::C`, a typedef'd class type) takes one.
-            if (ts->UhdmType() == UHDM::uhdmclass_typespec && ts->VpiName().empty())
+            if (ts->UhdmType() == UHDM::uhdmclass_typespec &&
+                (ts->VpiName().empty() ||
+                 tpGroupTs87.count((const UHDM::typespec*)ts)))
                 useInst9 = nullptr;
             // § sharedTdRefNoRestamp9, SITE 2 of 4 — the RETURN type.
             // `foreignSharedTs` fenced only a typedef homed in ANOTHER

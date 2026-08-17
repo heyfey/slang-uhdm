@@ -705,6 +705,261 @@ UHDM::typespec* UhdmExporter::tdVecNamedClone42(const Type& al,
     return cl;
 }
 
+// § classTpTsResolvedNameEverySite87 — the class-scope TYPE-PARAMETER typespec
+// GROUP, at every site.  The law, the arm cells that fixed it and the two
+// deliberate exclusions are on the declarations in UhdmExporter.h.
+//
+// The winner table is § classTypeParamTdGroupLastWins33c's, rebuilt here rather
+// than lifted out of `emitTaskFuncs`: that map is a LOCAL of the listing pass
+// and this pass runs at declaration sites the listing pass never reaches.  The
+// two must therefore agree by CONSTRUCTION, which is why the walk below is a
+// transcription of § 33c's — same syntax test for "which typedef names which
+// parameter", same DECLARATION-ORDER walk so the LAST parameter with a typedef
+// owns the group, same `pkgHomedTdAlias18` exclusion for a parameter whose
+// type is a PACKAGE typedef (t41b: golden re-points the package's own shared
+// listing object there, a whole-corpus blast radius § tdListingFormalAsWritten33
+// owns).  The ONE narrowing: this table keeps CLASS-resolved groups only.
+const std::map<const Type*, const TypeAliasType*>&
+UhdmExporter::classTpGroup87(const Scope& body) {
+    if (auto it = tpGroupWinner87.find(&body); it != tpGroupWinner87.end())
+        return it->second;
+    auto& out = tpGroupWinner87[&body];
+    // Which class typedef NAMES which type parameter — read off the WRITTEN
+    // syntax, because slang has already canonicalised `typedef A a_t;` and
+    // `typedef int a_t;` to the same thing.
+    //
+    // THREE ORDERING / ELIGIBILITY RULES, all READ OFF GOLDEN by the r10uvm87
+    // VERIFIER's arms v87_a1 / a6 / a7 / a8, and none of them "last writer
+    // wins".  Rule (3) is inline below, at the typedef it rejects.
+    //
+    //  (1) CONSUMPTION.  A class typedef that ANOTHER typedef of the SAME class
+    //      body is written on — `typedef RSP rsp_t; typedef rsp_t rsp2_t;` — is
+    //      REMOVED from the candidate set.  Surelog emits the DEPENDENT one as
+    //      an `unsupported_typespec` and the one it names NEVER REACHES the
+    //      class's vpiTypedef listing at all: arm v7 `k2_87` (the only typedef
+    //      of the winning parameter is consumed -> golden's group object keeps
+    //      the class-header DEFAULT SPELLING `b87`, and the pristine build was
+    //      RIGHT there while the first cut of this law renamed it `rsp_t`),
+    //      `k6_87` (the consumed typedef belongs to the NON-winning parameter ->
+    //      the surviving `rsp_t` still wins) and `k8_87` (`x_t` consumed, `y_t`
+    //      survives -> golden says `y_t`).  The consumer must be a PLAIN named
+    //      typedef: `k7_87`'s `typedef rsp_t rsp_q_t[$];` is an `array_typespec`
+    //      and consumes NOTHING, so the dimension list has to be empty; `k4_87`
+    //      / `k5_87` (an unrelated class / `int` typedef) consume nothing
+    //      either, which the "names a TypeAlias of THIS body" test already gives.
+    //
+    //  (2) FIRST, not last, among what SURVIVES rule (1).  Arm v6 `t1_87`
+    //      (`typedef REQ a_t; typedef REQ b_t;` -> golden `a_t`) and `t2_87`
+    //      (`typedef REQ req_t; typedef RSP x_t; typedef RSP y_t;` -> golden
+    //      `x_t`) both refute "last typedef wins" from the same side.  The LAST
+    //      PARAMETER still owns the group (§ 33c's t45a, re-read here by v1
+    //      `c11_87`: the typedefs are written rsp_t-then-req_t and golden still
+    //      says `rsp_t`) — it is only the choice AMONG one parameter's typedefs
+    //      that is first-wins.  `emplace` is what encodes it.
+    struct Td87 { const TypeAliasType* al; const Symbol* tp; };
+    std::vector<Td87> ordered;
+    std::set<const Symbol*> consumed87;
+    for (auto& mem : body.members()) {
+        if (mem.kind != SymbolKind::TypeAlias)
+            continue;
+        auto& al = mem.as<TypeAliasType>();
+        auto* syn = al.getSyntax();
+        if (!syn || syn->kind != syntax::SyntaxKind::TypedefDeclaration)
+            continue;
+        auto& tds = syn->as<syntax::TypedefDeclarationSyntax>();
+        //  (3) QUALIFIED typedefs are NOT candidates.  `local typedef RSP
+        //      rsp_t;` / `protected typedef RSP rsp_t;` reach golden's class as
+        //      NO vpiTypedef LISTING ENTRY AT ALL, and the group object then
+        //      keeps the class-header DEFAULT SPELLING — verifier arm v8 cells
+        //      `v87` (local) and `pv87` (protected), where golden and the
+        //      PRISTINE build both read `e87` and the first cut of this law
+        //      renamed them `rsp_t`.  Surelog drops a qualified typedef from the
+        //      class type table; the unqualified twin one class up (`w87`) is
+        //      listed and does name the group, so this is the qualifier and
+        //      nothing else.
+        if (const syntax::SyntaxNode* par = syn->parent;
+            par && par->kind == syntax::SyntaxKind::ClassPropertyDeclaration &&
+            !par->as<syntax::ClassPropertyDeclarationSyntax>().qualifiers.empty())
+            continue;
+        const syntax::DataTypeSyntax* dt = tds.type;
+        if (!dt || dt->kind != syntax::SyntaxKind::NamedType)
+            continue;
+        auto& nt = dt->as<syntax::NamedTypeSyntax>();
+        if (nt.name->kind != syntax::SyntaxKind::IdentifierName)
+            continue;
+        auto id = nt.name->as<syntax::IdentifierNameSyntax>()
+                      .identifier.valueText();
+        if (id.empty())
+            continue;
+        const Symbol* f = body.find(id);
+        if (!f)
+            continue;
+        if (f->kind == SymbolKind::TypeParameter)
+            ordered.push_back({&al, f});
+        else if (f->kind == SymbolKind::TypeAlias && tds.dimensions.empty() &&
+                 f->getParentScope() == &body)
+            consumed87.insert(f);  // rule (1)
+    }
+    std::map<const Symbol*, const TypeAliasType*> tdOfTp;
+    for (auto& e : ordered)
+        if (!consumed87.count(e.al))
+            tdOfTp.emplace(e.tp, e.al);  // rule (2): FIRST survivor wins
+    for (auto& mem : body.members()) {
+        if (mem.kind != SymbolKind::TypeParameter)
+            continue;
+        auto& pty = mem.as<TypeParameterSymbol>().targetType.getType();
+        if (pkgHomedTdAlias18(pty))
+            continue;
+        auto& cty = pty.getCanonicalType();
+        if (cty.kind != SymbolKind::ClassType)
+            continue;  // this pass owns the CLASS groups only
+        auto t = tdOfTp.find(&mem);
+        if (t == tdOfTp.end())
+            continue;
+        out[&cty] = t->second;
+    }
+    return out;
+}
+
+// The group NAME a DECLARATION should wear.  Empty means "not a member of a
+// group that has a winning typedef" — and empty must leave every existing
+// naming law alone, which is why `c_notd` (a group with NO typedef, arm a2) is
+// not touched here: golden names its objects for the class, which is already
+// what the caller does.
+std::string UhdmExporter::classTpGroupDeclName87(
+    const Symbol& declSymbol, const syntax::SyntaxNode* typeSyn) {
+    if (!typeSyn || typeSyn->kind != syntax::SyntaxKind::NamedType)
+        return {};
+    auto& nt = typeSyn->as<syntax::NamedTypeSyntax>();
+    if (nt.name->kind != syntax::SyntaxKind::IdentifierName)
+        return {};
+    auto id = nt.name->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    if (id.empty())
+        return {};
+    // The enclosing CLASS BODY, walking THROUGH subroutine and statement-block
+    // scopes: arm a2 `c_sites` reads a method body local and a nested-block
+    // local off golden as group members, so stopping at the first non-class
+    // scope would miss exactly the two cells that refute
+    // § localClassTsUnnamed15's suppression here.
+    const Scope* body = nullptr;
+    for (auto sc = declSymbol.getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope()) {
+        auto k = sc->asSymbol().kind;
+        if (k == SymbolKind::ClassType) {
+            body = sc;
+            break;
+        }
+        if (k == SymbolKind::Subroutine) {
+            // § oobParamClassTypeParamFormalUnsupported31's fence, one
+            // declaration kind wider.  An OUT-OF-BODY definition is compiled in
+            // the HOME PACKAGE's scope, where the class's own type parameters
+            // are NOT visible, so Surelog degrades every one of its
+            // type-parameter-written types to an `unsupported_typespec` NAMED AS
+            // WRITTEN — its BODY LOCALS included, which is a cell § 31 did not
+            // name and this pass MEASURED: golden's
+            // `uvm_sequencer_param_base::send_request`'s `REQ param_t;`
+            // (uvm_sequencer_param_base.svh:270) and `analysis_write`'s
+            // `RSP response;` (:351) are BOTH `unsupported_typespec (REQ)` /
+            // `(RSP)`.  Without this fence the law fired there, renamed the
+            // (already wrong-KIND) object and — because a package-scope listing
+            // stamps `vpiInstance` on anything that is not anonymous — ADDED a
+            // `vpiInstance uvm_pkg` that golden does not carry.  slang
+            // re-parents an out-of-body definition INTO the class, so scope
+            // identity cannot see this; the WRITTEN prototype name can, and a
+            // SCOPED one (`c::f`) is exactly out-of-body-ness.
+            if (auto* ssyn = sc->asSymbol().getSyntax())
+                if (auto* fds =
+                        ssyn->as_if<syntax::FunctionDeclarationSyntax>())
+                    if (fds->prototype && fds->prototype->name &&
+                        fds->prototype->name->kind ==
+                            syntax::SyntaxKind::ScopedName)
+                        return {};
+            continue;
+        }
+        if (k != SymbolKind::StatementBlock)
+            break;
+    }
+    if (!body)
+        return {};
+    const Symbol* f = body->find(id);
+    if (!f)
+        return {};
+    // A parameter this class only INHERITS is not its own group: arm a2's
+    // `c_deri extends c_spec #(ot87)` writes `REQ p_scalar;` and golden emits
+    // no typespec for it at all, so the DECLARED-HERE test is what keeps this
+    // law off a shape it has not measured (and is the same test
+    // § baseClassTypeParamFormalUnsupported34 pins its own predicate on).
+    const Type* key = nullptr;
+    if (f->kind == SymbolKind::TypeParameter) {
+        if (f->getParentScope() != body)
+            return {};
+        key = &f->as<TypeParameterSymbol>().targetType.getType().getCanonicalType();
+    }
+    else if (f->kind == SymbolKind::TypeAlias) {
+        // The typedef-SPELLED use (`req_type p_td;`, arm a2 `c_tduse`): golden
+        // binds it to the same group object.  Its key is the alias's own
+        // canonical type, which is the parameter's.
+        if (f->getParentScope() != body)
+            return {};
+        key = &f->as<TypeAliasType>().getCanonicalType();
+    }
+    else
+        return {};
+    auto& grp = classTpGroup87(*body);
+    auto w = grp.find(key);
+    if (w == grp.end() || !w->second)
+        return {};
+    return std::string(w->second->name);
+}
+
+// The name a CLASS TYPE PARAMETER's own class_typespec wears.  Arm a3 reads
+// every cell of this off ONE golden, both directions:
+//   `#(type A = lbase)`             -> `lbase`        (written text)
+//   `#(type A = q87::qbase)`        -> `q87::qbase`   (written text, QUALIFIED —
+//                                      NOT the resolved simple name)
+//   `#(type A = qbase)` wildcard-imported -> `qbase`
+//   `#(type A = q87::qpar#(lbase))` -> `q87::qpar`    (`#(...)` STRIPPED)
+//   `#(type B = A)`                 -> `lbase`        (the RESOLVED class —
+//                                      the written text is a type parameter)
+// and the corpus agrees on all four shapes at once: golden's
+// `uvm_visitor_adapter` reads `uvm_component` / `uvm_visitor` where ours read
+// `STRUCTURE` / `uvm_visitor#(STRUCTURE)`, and the `uvm_sequencer_analysis_fifo
+// #(RSP)` SPECIALIZATION reads `uvm_sequence_item` where ours read `RSP`.
+std::string UhdmExporter::classTpTsName87(const ClassType& cls,
+                                          const syntax::SyntaxNode* dsyn,
+                                          const Type& resolved) {
+    // The group's winning typedef wins over the spelling
+    // (`uvm_sequencer_param_base` -> `rsp_type`, the head of this pass).
+    {
+        auto& grp = classTpGroup87(cls);
+        auto w = grp.find(&resolved);
+        if (w != grp.end() && w->second)
+            return std::string(w->second->name);
+    }
+    if (!dsyn)
+        return std::string(resolved.name);
+    // A bare identifier that names a TYPE PARAMETER (`type B = A`, and the
+    // `#(RSP)` override spelling) resolves to the class the chain ends in.
+    if (auto* nt = dsyn->as_if<syntax::NamedTypeSyntax>())
+        if (nt->name->kind == syntax::SyntaxKind::IdentifierName) {
+            auto id =
+                nt->name->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+            if (const Symbol* f = id.empty() ? nullptr : cls.find(id);
+                f && f->kind == SymbolKind::TypeParameter)
+                return std::string(resolved.name);
+        }
+    std::string w = rawText(dsyn->sourceRange());
+    // `#(...)` is not part of the name Surelog writes.
+    if (auto h = w.find('#'); h != std::string::npos)
+        w.resize(h);
+    while (!w.empty() && (w.back() == ' ' || w.back() == '\t' ||
+                          w.back() == '\n' || w.back() == '\r'))
+        w.pop_back();
+    if (w.empty())
+        return std::string(resolved.name);
+    return w;
+}
+
 // § sharedTdRefNoRestamp9 — the SHARED-typedef-object test every REFERENCE
 // site asks before it stamps vpiInstance.  See the declaration in
 // UhdmExporter.h for the law, the two scopes it fences and why the test is by
@@ -1259,6 +1514,26 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                   ct0.getParentScope() &&
                   ct0.getParentScope()->asSymbol().kind == SymbolKind::InstanceBody))
                 cts->VpiName(ct0.name);
+            // § classTpTsResolvedNameEverySite87 — the DECLARATION-SITE half,
+            // and it OVERRIDES the two lines above in BOTH directions: it
+            // renames a class PROPERTY / array ELEMENT that was named for the
+            // class, and it NAMES a method body local / nested-block local /
+            // return var that § localClassTsUnnamed15 had just suppressed
+            // (arm a2 `c_sites` reads all twelve holders off ONE golden object,
+            // `l_v` and `l_nested` and `m_ret` among them).  It fires only when
+            // the WRITTEN type is one of the enclosing class's OWN type
+            // parameters (or a typedef of one) AND that group has a winning
+            // typedef, so a group without one — arm a2 `c_notd`, whose golden
+            // objects are named for the class — is left exactly as it was.
+            if (auto gn87 = classTpGroupDeclName87(
+                    declSymbol,
+                    typeSynOverride ? typeSynOverride
+                                    : (declared ? declared->getTypeSyntax()
+                                                : nullptr));
+                !gn87.empty()) {
+                cts->VpiName(gn87);
+                tpGroupTs87.insert(cts);
+            }
             // NOTE § builtinClassTsLinksBuiltinFileDefn7, THE NARROWING —
             // and it was found by an arm, not reasoned: a BUILT-IN handle
             // declared as a local of a subroutine or statement block that is NOT

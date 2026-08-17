@@ -1,0 +1,38 @@
+r10uvm87 — INPUTS, pinned.  MEASUREMENT-ONLY artifacts; the official judges are
+`uhdm-cmp` (~/.local/bin/uhdm-cmp) and scripts/verify_golden.py.
+
+BASE COMMIT          c6b3768   (worktree /tmp/wt_r10uvm87, `git worktree add`)
+BRANCH               auto5h    (the base commit, detached)
+slang PATCHED?       NO.  Nothing outside src/ + include/ + tools/probe/r10uvm87repro/.
+GOLDEN_DEFER         [UNSET] on every sweep (echoed by sweep87.sh and by the
+                     sweep driver /tmp/r10uvm87_sweeps.sh).
+results/*.csv        READ ONLY.  Nothing promoted.  No row converted.
+
+BINARIES (built in ONE worktree, -j 2, md5 taken separately after each build)
+  PRISTINE  /tmp/r10uvm87_bin/slang-uhdm.pris   456ee94629dc6f82c811b9ffca6d80eb
+  PATCHED   /tmp/r10uvm87_bin/slang-uhdm.pat    e7c707e6712a8c32ce9c420768f6651b
+
+TOOLS
+  surelog     ~/git-repos/Surelog/build/bin/surelog          (v1.86-114-gcbdbea458c)
+  uhdm-cmp    ~/.local/bin/uhdm-cmp
+  uhdm-dump   ~/.local/bin/uhdm-dump
+  ctladder    tools/probe/r10ladder1repro/ctladder.cpp, built UNMODIFIED into
+              /tmp/r10uvm87_ladder/ctladder (MEASUREMENT-ONLY; never a judge)
+  ct87cen     tools/probe/r10uvm87repro/ct87cen.cpp (this pass's census tool)
+
+GOLDEN SOURCE for the seven target row-modes
+  ~/git-repos/Surelog/third_party/UVM/uvm-1.2/src   (the uvm-1.2 tree; each
+  row's golden is the CACHE HIT named in its own workdir cmds.txt, which
+  rowheads.sh reads rather than assuming)
+
+WORKDIRS (each pass-prefixed and its own; no shared /tmp/ctl_wd_* was read)
+  /tmp/r10uvm87_wd_pris                 the 5 target names, both modes, PRISTINE
+  /tmp/r10uvm87_wd_pat                  the 5 target names, both modes, PATCHED
+  /tmp/r10uvm87_wd_{pris,pat}_surelog   full surelog corpus, both modes
+  /tmp/r10uvm87_wd_{pris,pat}_uhdm2rtlil full u2r corpus, both modes
+  /tmp/r10uvm87_bound                   the 555-source boundary gate
+  /tmp/r10uvm87_arm_g87_a*              the four arms
+
+FENCED — NEVER DISPATCHED, and named in NO driver in this directory:
+  the four slang-fenced tests (canaudit.sh asserts their absence and is the
+  only file here that may name them).

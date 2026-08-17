@@ -1,0 +1,133 @@
+r10uvm87 — THE CENSUS.  MEASUREMENT-ONLY (tool: ct87cen.cpp).
+Database: default/SeqDriver, golden = the cache hit its own cmds.txt names
+(/home/heyfey/.cache/slang-uhdm-goldens/b5b4389e30f948a6a29f/golden.uhdm).
+
+Every `class_typespec` object of ONE database is visited EXACTLY ONCE
+(Serializer::AllObjects — uhdm-dump reprints an object at every reference, so a
+dump-line count is not an object count) and keyed by the fields
+`class_typespec::Compare` reads: vpiName, vpiClassDefn, vpiInstance.  Objects are
+grouped by (OWNER class_defn, ClassDefn target).
+
+THE INSTRUMENT'S OWN BLIND SPOT, CLOSED BEFORE THE READING: this pass's HEAD
+object is UNPARENTED (`class_typespec (uvm_sequence_item)` with no vpiParent and
+no span), so walking vpiParent cannot name its owner and a census that only
+walked parents would have been BLIND to the very population being moved.  ct87cen
+recovers the owner from the REFERENCE side — every `ref_typespec` whose
+Actual_typespec is the object contributes its own owner ("|viaref").
+
+--------------------------------------------------------------------------
+PART 1 — the whole-population join, golden vs ours, BEFORE and AFTER
+--------------------------------------------------------------------------
+  PRISTINE  owner/defn pairs disagreeing with golden = 184   of which the NAME SET differs = 155
+        GOLDEN_ONLY_PAIR       97
+        OURS_ONLY_PAIR         38
+        SAME_NAMES_DIFF_COUNT  29
+        NAME_SET_DIFFERS       12
+        OURS_EXTRA_NAMES       8
+  PATCHED   owner/defn pairs disagreeing with golden = 172   of which the NAME SET differs = 136
+        GOLDEN_ONLY_PAIR       97
+        OURS_ONLY_PAIR         38
+        SAME_NAMES_DIFF_COUNT  36
+        NAME_SET_DIFFERS       0
+        OURS_EXTRA_NAMES       1
+
+  READING.  `NAME_SET_DIFFERS` 12 -> 0 and `OURS_EXTRA_NAMES` 8 -> 1: the whole
+  type-parameter naming family is closed but ONE owner.  `SAME_NAMES_DIFF_COUNT`
+  rises 29 -> 36 because seven pairs that used to differ in their NAMES now
+  differ only in the OBJECT COUNT — golden SHARES one object where we still mint
+  one per declaration.  That count is NOT cmp-judged (`Compare` reads the object,
+  not the sharing) and is recorded as residue R3.
+  `GOLDEN_ONLY_PAIR` / `OURS_ONLY_PAIR` are UNCHANGED at 97 / 38: this pass
+  creates and destroys no class_typespec.
+
+--------------------------------------------------------------------------
+PART 2 — every owner whose NAME SET moved, with golden alongside
+--------------------------------------------------------------------------
+  uvm_pkg::uvm_bottom_up_visitor_adapter         -> uvm_pkg::uvm_visitor
+      GOLDEN  ['uvm_visitor']
+      PRIST   ['uvm_visitor#(STRUCTURE)']
+      PATCH   ['uvm_visitor']   EXACT
+  uvm_pkg::uvm_by_level_visitor_adapter          -> uvm_pkg::uvm_visitor
+      GOLDEN  ['uvm_visitor']
+      PRIST   ['uvm_visitor#(STRUCTURE)']
+      PATCH   ['uvm_visitor']   EXACT
+  uvm_pkg::uvm_in_order_comparator               -> uvm_pkg::uvm_built_in_comp
+      GOLDEN  ['uvm_built_in_comp']
+      PRIST   ['uvm_built_in_comp #( T )']
+      PATCH   ['uvm_built_in_comp']   EXACT
+  uvm_pkg::uvm_in_order_comparator               -> uvm_pkg::uvm_built_in_converter
+      GOLDEN  ['uvm_built_in_converter']
+      PRIST   ['uvm_built_in_converter #( T )']
+      PATCH   ['uvm_built_in_converter']   EXACT
+  uvm_pkg::uvm_in_order_comparator               -> uvm_pkg::uvm_built_in_pair
+      GOLDEN  ['uvm_built_in_pair']
+      PRIST   ['uvm_built_in_pair #( T )']
+      PATCH   ['uvm_built_in_pair']   EXACT
+  uvm_pkg::uvm_push_driver                       -> uvm_pkg::uvm_sequence_item
+      GOLDEN  ['uvm_sequence_item']
+      PRIST   ['REQ', 'uvm_sequence_item']
+      PATCH   ['uvm_sequence_item']   EXACT
+  uvm_pkg::uvm_push_sequencer                    -> uvm_pkg::uvm_sequence_item
+      GOLDEN  ['uvm_sequence_item']
+      PRIST   ['REQ', 'uvm_sequence_item']
+      PATCH   ['uvm_sequence_item']   EXACT
+  uvm_pkg::uvm_reg_sequence                      -> uvm_pkg::uvm_sequence
+      GOLDEN  ['uvm_sequence']
+      PRIST   ['uvm_sequence #(uvm_reg_item)']
+      PATCH   ['uvm_sequence']   EXACT
+  uvm_pkg::uvm_resource_db                       -> uvm_pkg::uvm_object
+      GOLDEN  ['uvm_object']
+      PRIST   ['T']
+      PATCH   ['uvm_object']   EXACT
+  uvm_pkg::uvm_sequence                          -> uvm_pkg::uvm_sequence_item
+      GOLDEN  ['uvm_sequence_item']
+      PRIST   ['REQ', 'uvm_sequence_item']
+      PATCH   ['uvm_sequence_item']   EXACT
+  uvm_pkg::uvm_sequence_library                  -> uvm_pkg::uvm_sequence_item
+      GOLDEN  ['uvm_sequence_item']
+      PRIST   ['REQ', 'uvm_sequence_item']
+      PATCH   ['uvm_sequence_item']   EXACT
+  uvm_pkg::uvm_sequencer                         -> uvm_pkg::uvm_sequence_item
+      GOLDEN  ['uvm_sequence_item']
+      PRIST   ['REQ', 'uvm_sequence_item']
+      PATCH   ['uvm_sequence_item']   EXACT
+  uvm_pkg::uvm_sequencer_analysis_fifo           -> uvm_pkg::uvm_sequence_item
+      GOLDEN  ['uvm_sequence_item']
+      PRIST   ['RSP']
+      PATCH   ['uvm_sequence_item']   EXACT
+  uvm_pkg::uvm_sequencer_param_base              -> uvm_pkg::uvm_sequence_item
+      GOLDEN  ['rsp_type']
+      PRIST   ['REQ', 'RSP', 'rsp_type', 'uvm_sequence_item']
+      PATCH   ['rsp_type']   EXACT
+  uvm_pkg::uvm_sqr_if_base                       -> uvm_pkg::uvm_object
+      GOLDEN  ['uvm_object']
+      PRIST   ['T1', 'uvm_object']
+      PATCH   ['uvm_object']   EXACT
+  uvm_pkg::uvm_structure_proxy                   -> uvm_pkg::uvm_component
+      GOLDEN  ['uvm_component']
+      PRIST   ['STRUCTURE']
+      PATCH   ['uvm_component']   EXACT
+  uvm_pkg::uvm_top_down_visitor_adapter          -> uvm_pkg::uvm_visitor
+      GOLDEN  ['uvm_visitor']
+      PRIST   ['uvm_visitor#(STRUCTURE)']
+      PATCH   ['uvm_visitor']   EXACT
+  uvm_pkg::uvm_visitor_adapter                   -> uvm_pkg::uvm_component
+      GOLDEN  ['uvm_component']
+      PRIST   ['STRUCTURE']
+      PATCH   ['uvm_component']   EXACT
+  uvm_pkg::uvm_visitor_adapter                   -> uvm_pkg::uvm_visitor
+      GOLDEN  ['uvm_visitor']
+      PRIST   ['VISITOR']
+      PATCH   ['uvm_visitor']   EXACT
+
+  19 owner/defn pairs moved; 19 of them land EXACTLY on golden's name set.
+
+--------------------------------------------------------------------------
+PART 3 — the ONE owner still disagreeing (residue R4)
+--------------------------------------------------------------------------
+  uvm_pkg::uvm_callbacks                         | uvm_pkg::uvm_typed_callbacks
+      GOLDEN ['uvm_typed_callbacks']   PATCH ['adpcm_pkg::super_type', 'uvm_typed_callbacks']
+  `uvm_callbacks`'s `typedef uvm_typed_callbacks#(T) super_type;` is a CLASS
+  TYPEDEF whose target is a parameterized class, NOT a type parameter — a
+  different family (§ classNestedClassTdGroupNoAnchor54's), deliberately not
+  touched here.

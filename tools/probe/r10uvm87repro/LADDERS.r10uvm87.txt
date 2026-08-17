@@ -1,0 +1,76 @@
+r10uvm87 — THE LADDER, before and after.  MEASUREMENT-ONLY.
+Instrument: tools/probe/r10ladder1repro/ctladder.cpp, built UNMODIFIED.
+The OFFICIAL uhdm-cmp remains the sole judge; nothing here is an acceptance.
+LHS is ALWAYS golden.  Row: default/SeqDriver.  MAX=20000.
+Inputs pinned in INPUTS.r10uvm87.txt (golden = the cache hit the row's own
+cmds.txt names; ours = /tmp/r10uvm87_wd_{pris,pat}/default/SeqDriver-32af76aa).
+
+  golden_objs=317210   ours_objs=299318   (both runs, both binaries)
+
+==========================================================================
+1.  THE NEW HEAD IS PROVEN PRE-EXISTING, FROM THE PRISTINE DATABASE ALONE
+==========================================================================
+This is the reading that matters, because the official cmp line count on the
+seven target row-modes goes UP (28 -> 47) and a rising number must never be
+waved through.
+
+PRISTINE ladder, the first two rungs, verbatim:
+
+  RUNG 1  KINDL=class_typespec KINDR=class_typespec KINDP=class_defn
+          FIELD=VpiName  FAM=class_typespec|VpiName|TEXT:rsp_type|uvm_sequence_item
+     L  class_typespec(rsp_type)@uvm_sequencer_param_base.svh:211:58-211:61#303453
+     R  class_typespec(uvm_sequence_item)@:0:0-0:0#107233
+     G= "rsp_type"   O= "uvm_sequence_item"
+                                             <- THIS PASS'S HEAD
+
+  RUNG 2  KINDL=<null> KINDR=string_var KINDP=package
+          FIELD=<lhs-null>  SHAPE=EXTRA-OURS
+     R  string_var(s_connection_warning_id)@:24:14-24:60#6440
+          < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#6040 < design(work@top_tb)
+                                             <- THE NEW HEAD, ALREADY THERE
+
+Masking EXACTLY the one object of rung 1 in the PRISTINE database exposes the
+patched build's head, verbatim.  The patched ladder's RUNG 1 is that same object,
+and its bisected mask names the site:
+     MK if_stmt@uvm_port_base.svh:244:5-245:75#274720   [bisected]
+i.e. `if (...) m_comp.set_report_id_action(s_connection_warning_id, UVM_NO_ACTION);`
+That, not this pass, is what the extra 19 cmp lines print.  Recorded as R0.
+
+==========================================================================
+2.  THE FAMILY, COUNTED
+==========================================================================
+PRISTINE, run to FIXPOINT: 425 rungs, maxvis 34208/317210, 390.1 s.
+  `class_typespec|VpiName` rungs: 12, at these rung indices —
+
+    rung   FAM
+       1   class_typespec|VpiName|TEXT:rsp_type|uvm_sequence_item      <- this pass
+      69   class_typespec|VpiName|TEXT:uvm_object|T                    <- this pass
+      95   class_typespec|VpiName|TEXT:uvm_sequence_item|RSP           <- this pass
+     168   class_typespec|VpiName|TEXT:adpcm_driver|adpcm_sequencer    -- OTHER family
+     169   class_typespec|VpiName|TEXT:adpcm_driver|adpcm_sequencer    -- OTHER family
+     170   class_typespec|VpiName|O-EXTRA-SUFFIX( #( T ))              <- this pass
+     171   class_typespec|VpiName|O-EXTRA-SUFFIX( #( T ))              <- this pass
+     172   class_typespec|VpiName|O-EXTRA-SUFFIX( #( T ))              <- this pass
+     244   class_typespec|VpiName|TEXT:adpcm_seq_item|adpcm_tx_seq     -- OTHER family
+     245   class_typespec|VpiName|TEXT:adpcm_seq_item|adpcm_tx_seq     -- OTHER family
+     374   class_typespec|VpiName|TEXT:adpcm_driver|adpcm_test         -- OTHER family
+     375   class_typespec|VpiName|TEXT:adpcm_driver|adpcm_test         -- OTHER family
+
+  THIS PASS'S FAMILY = 6 rungs (1, 69, 95, 170, 171, 172).
+  The other 6 are a DIFFERENT law (a class handle bound to the wrong class_defn
+  target: golden `adpcm_driver` where ours says `adpcm_sequencer` / `adpcm_test`
+  / `adpcm_tx_seq`) and this pass neither touches nor claims them.
+
+PATCHED: STOPPED AT 211 RUNGS BY ITS TIME BUDGET — this run did NOT reach
+FIXPOINT and the number below is therefore stated as a PARTIAL, not as a total.
+  `class_typespec|VpiName` rungs in those 211: **2**, and both are
+  `TEXT:adpcm_driver|adpcm_sequencer` — the OTHER family.
+
+  ALL SIX of this pass's rungs are GONE.  That is a complete reading for them,
+  not a partial one, because the ladder walks the SAME traversal in both runs and
+  211 > 172: every rung index at which the pristine ladder fired this family has
+  been passed.  What the partial cannot say is anything about rungs beyond 211,
+  and it is not claimed.
+
+  The ladder is the only instrument that can see rungs 69/95/170/171/172 at all:
+  the official uhdm-cmp stops at rung 1.

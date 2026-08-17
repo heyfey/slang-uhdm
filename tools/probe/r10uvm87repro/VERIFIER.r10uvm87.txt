@@ -1,0 +1,213 @@
+r10uvm87 — THE ADVERSARIAL VERIFIER'S RECORD.  MEASUREMENT-ONLY.
+uhdm-cmp + scripts/verify_golden.py remain the only judges.  slang NOT patched;
+results/*.csv READ ONLY; GOLDEN_DEFER read [UNSET] on every sweep.
+
+WORKTREES  /tmp/wt_v87 (patch + verifier fix) and /tmp/wt_v87pris, both @c6b3768
+BINARIES   pris  456ee94629dc6f82c811b9ffca6d80eb   (== the implementer's)
+           pat   e7c707e6712a8c32ce9c420768f6651b   (== the implementer's)
+           vfix  eeba4ac43c992653352b2d43c0ae3345   (pat + the three fixes below)
+
+1. WHAT REPRODUCED, BIT FOR BIT
+   * both md5s above, from independent configure+build (-j 2, md5 separately);
+   * goldens 23/0 pris, 23/0 pat, 23/0 vfix; SLANG_UHDM=/bin/false 0/23;
+   * uhdm2rtlil 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL, both modes,
+     all three binaries; ct8rows vs the c6b3768 gate_uhdm2rtlil.csv = 0 rows;
+   * surelog 1588 rows; ct8rows vs the c6b3768 golden_surelog.csv = 0 differing
+     ROWS for pris AND pat, histograms identical; NO ROW CONVERTED;
+   * byteverify pat vs pris = MOVERS 9 / 955, EXACTLY the nine named row-modes;
+     8 of the 9 md5 PAIRS match the implementer's digits exactly.  The 9th,
+     Scoreboard/default, differs on BOTH sides (mine 6b5d5cdead0e -> 71db77c52f32,
+     theirs 53766e920bad -> 7854ba9480f4) — that is the standing brief's ~50/50
+     COIN, independently re-observed, and it is the ONLY row whose digits move;
+   * canaries ok=56/changed=0/unknown=8 (surelog) and ok=9/0/27 (u2r);
+     ctcan2 58/0 and 1/0; canaudit audited=33 UNCOVERED=0 FENCE-BREACH=0;
+   * canary PINS: InterfaceModPort 59a365f3ce2c, BlackParrotComplex
+     e3e354129d5a / 73a10e8217e5, YosysOldOr d68e0796d62c, SVSwitch
+     4842211c4030, YosysVerx 6ccda350c24a — all identical pris vs pat;
+   * boundary 555 sources, MOVED 4, NO_OUTPUT 6; the 6 fail on BOTH binaries
+     with identical error counts (symmetric, pre-existing);
+   * rowheads: 28 -> 47 on SeqDriver x2 / SimpleUVM x2 / Scoreboard/default /
+     MiniAmiq x2, BuildUVMPkg 17 -> 17, Earlgrey 20 and Rggen 64 unchanged;
+   * the new head is verbatim the implementer's `string_var
+     uvm_pkg::s_connection_warning_id`, LHS <null>, EXTRA-OURS;
+   * SeqDriver/default pris->pat dump delta = 152 lines and the ONLY line kinds
+     present are `class_typespec` and `|vpiName` — re-measured here.
+   * the 4 boundary movers (r10sd9/10/11/12's g7_typeparam_control) move TOWARD
+     golden: 2 cells fixed, 0 regressions, re-read against Surelog here.
+
+   ONE CORRECTION to the implementer's GATES file: its ct8rows line cites
+   `results/gate_uhdm2rtlil.csv` / `results/golden_surelog.csv` without saying
+   WHICH tree.  Against the MAIN TREE's copies (now at f950314) BOTH binaries
+   show 1 differing row (Earlgrey_0_1/testflags CMP_NOTEQUAL -> SLANG_REJECT),
+   because pass 57 landed after c6b3768.  The baselines that belong to the base
+   commit are the WORKTREE's, and against those the count is 0 for pris and pat
+   alike.  The gate is green; the citation needed the tree named.
+
+2. WHAT BROKE — three cells where the PRISTINE build was RIGHT and the patched
+   build was WRONG on legal SystemVerilog.  All three are in `classTpGroup87`'s
+   winner table, all three are ORDERING/ELIGIBILITY rules that "last writer
+   wins" got wrong, and all three were read off Surelog, both directions.
+
+   (a) TYPEDEF-OF-A-TYPEDEF CONSUMES ITS TARGET.        arm v87_a7 `k2_87`
+       class k2_87 #(type REQ = b87, type RSP = REQ);
+         typedef RSP rsp_t;  typedef rsp_t rsp2_t;  REQ p;
+       golden  class_typespec (b87)     <- the class-header DEFAULT SPELLING
+       pris    class_typespec (b87)     RIGHT
+       pat     class_typespec (rsp_t)   WRONG
+       Golden's class carries NO vpiTypedef entry for `rsp_t` at all — only
+       `unsupported_typespec (rsp2_t)`.  The dependent typedef consumes the one
+       it names.  `k6_87` (the consumed typedef belongs to the NON-winning
+       parameter -> the surviving `rsp_t` still wins) and `k8_87` (`x_t`
+       consumed, `y_t` survives -> golden `y_t`) read the same law from the
+       other two sides, and `k7_87` (`typedef rsp_t rsp_q_t[$];` -> an
+       `array_typespec`, `rsp_t` SURVIVES) fixes the consumer to a PLAIN named
+       typedef with an EMPTY dimension list.  `k4_87` / `k5_87` (an unrelated
+       class / `int` typedef) consume nothing.
+
+   (b) AMONG ONE PARAMETER'S TYPEDEFS, THE FIRST WINS.  arms v87_a1 `c12_87`,
+       v87_a6 `t1_87` / `t2_87`
+         typedef REQ a_t;  typedef REQ b_t;   golden a_t, pat b_t
+         typedef REQ req_t; typedef RSP x_t; typedef RSP y_t;
+                                             golden x_t, pat y_t
+       Not a pristine-right cell (pristine said `base87`/`b87`), but a measured
+       defect of the shipped law.  § 33c's "LAST PARAMETER" is untouched and
+       re-read from the opposite side by v87_a1 `c11_87` (`typedef RSP rsp_t;`
+       written BEFORE `typedef REQ req_t;` and golden still says `rsp_t`).
+
+   (c) A QUALIFIED TYPEDEF IS NOT A CANDIDATE.          arm v87_a8 `v87`/`pv87`
+       class v87 #(type REQ = e87, type RSP = REQ);
+         local typedef RSP rsp_t;  REQ p;
+       golden  class_typespec (e87)     — and NO vpiTypedef listing entry
+       pris    class_typespec (e87)     RIGHT
+       pat     class_typespec (rsp_t)   WRONG
+       `protected typedef` reads the same (`pv87`).  The unqualified twin one
+       class up (`w87`) IS listed and DOES name the group, so it is the
+       qualifier and nothing else.
+
+   THE FIX (src/TypeEmit.cpp, `classTpGroup87` only — 3 rules, ~30 lines, no
+   new call site, no other law touched):
+     * skip a TypeAlias whose syntax parent is a ClassPropertyDeclaration with a
+       non-empty qualifier list;
+     * collect the class's typedefs in DECLARATION ORDER, and mark as CONSUMED
+       any TypeAlias of THIS body that another PLAIN (dimension-less) named
+       typedef of this body is written on;
+     * `tdOfTp.emplace(param, alias)` over the survivors, so the FIRST surviving
+       typedef of each parameter wins; the LAST PARAMETER still owns the group.
+
+3. THE ARMS — nine sources, every cell read off ONE golden, both directions.
+   Verdicts are per-CELL, from a depth-keyed identity census (v87cen3.py: key =
+   the dump-tree path of the three enclosing objects, value = the
+   class_typespec NAME multiset), never from a diff line count.
+
+     arm                what it settles                      pris->pat  pris->vfix
+     v87_a1_defaults    default KINDS (class / virtual /      0 reg      0 reg
+                        parameterized / int / struct / enum), 29 fixed   31 fixed
+                        3-deep chains, typedef count/order
+     v87_a2_sites       12 declaration sites: scalar/rand/    0 reg      0 reg
+                        static/local/protected property,      29 fixed   29 fixed
+                        queue/dyn/fixed/assoc element,
+                        formals by value/ref/const ref/
+                        output/inout, 3 return forms, method
+                        body local, nested-block local, task
+                        local, $cast local, virtual method,
+                        pure virtual method, typedef-spelled
+     v87_a3_oob         out-of-body function / TASK / ctor,   0 reg      0 reg
+                        their formals, body locals, nested-   5 fixed    5 fixed
+                        block locals and return, vs the
+                        in-body twin
+     v87_a4_scope       classes in $unit / module / interface 0 reg      0 reg
+                        / program, inheritance, one-and       11 fixed   11 fixed
+                        both-parameter specializations
+     v87_a5_overfire    a class typedef whose CANONICAL type  0 reg      0 reg
+                        coincides with a parameter's resolved 13 fixed   13 fixed
+                        class, nested classes, forward
+                        typedefs, qualified and `#(...)`
+                        and `#(...)::` spellings
+     v87_a6_tdpick      which typedef of a parameter wins,    2 REG      0 reg
+                        and declarations written as the       3 fixed    10 fixed
+                        NON-winning typedef
+     v87_a7_tdchain     typedef-of-a-typedef, array typedef,  2 REG      0 reg
+                        unrelated class / int typedef, chain  18 fixed   19 fixed
+                        on the non-winning parameter
+     v87_a8_exotic      interface-class defaults, fork/for/   4 REG      0 reg
+                        foreach block locals, LOCAL and       13 fixed   15 fixed
+                        PROTECTED typedefs, wildcard-import
+                        clones across packages
+     v87_a9_more        nested-class defaults, typedef        0 reg      0 reg
+                        written AFTER its uses, constraints   20 fixed   20 fixed
+                        + covergroup, a derived class
+                        RE-DECLARING the same typedef name,
+                        a qualified typedef target
+     r10sd9's own g7_typeparam_control (the boundary mover)   0 reg      0 reg
+                                                              2 fixed    2 fixed
+     ---------------------------------------------------------------------------
+     TOTAL (10 sources, 155 judged cells)                     8 REG      0 REG
+                                                              143 fixed  155 fixed
+
+   Across ALL NINE arms the pris->vfix dump delta contains EXACTLY TWO line
+   kinds — `class_typespec` and `|vpiName`.  No vpiInstance, no span, no parent
+   and no object-kind line moves anywhere, which is the direct test of the
+   hazard the implementer named for the RETURN site (a package listing stamps
+   vpiInstance on anything not anonymous) at every OTHER site the law reaches.
+
+4. RESIDUES THE ARMS MEASURED, RANKED (none of them regressions)
+   R-A  OUT-OF-BODY FORMALS.  arm v87_a3: golden names an out-of-body method's
+        io_decl formal with the GROUP name (`rsp_t`); pris and vfix both say
+        `b87`.  The out-of-body fence is correct for BODY LOCALS and the RETURN
+        (golden degrades both to `unsupported_typespec`, G={} in the census) but
+        is one declaration kind too WIDE: the FORMAL keeps kind class_typespec
+        in golden and only its NAME is wrong.  Cheap, cmp-visible, and it is the
+        corpus shape (uvm_sequencer_param_base::send_request / analysis_write).
+        HIGHEST-VALUE next step for this law.
+   R-B  golden SHARES one object per group where we mint one per declaration
+        (the implementer's R3).  Re-measured: arm v87_a2 golden 48
+        class_typespec objects, ours 94, with 12 golden holders on ONE object.
+        Not cmp-judged today; it is what makes the arm-level line counts rise
+        while every NAME lands on golden.
+   R-C  A class declared in a MODULE / INTERFACE / PROGRAM: golden emits the
+        group class_typespec, we emit NOTHING at that path (arm v87_a4,
+        work@m87::mc87, work@icx87, work@prog87::gc87 — G={'rsp_t'}, P={}, A={}).
+        Pre-existing, untouched, and the $unit class (work@u87) IS fixed.
+   R-D  An INTERFACE-CLASS type parameter is an `unsupported_typespec` in golden
+        and a class_typespec for us (arm v87_a8 `icp87`, v87_a9 `d87`,
+        v87_a5 `sp3_87`) — the KIND is wrong before the name is, so those cells
+        are not name-comparable.
+   R-E  int / packed-struct / enum groups (the implementer's R1), unchanged and
+        deliberately so.
+
+5. VERDICT: ACCEPT WITH A RE-CUT.  The law is real, decoded from golden rather
+   than guessed, and every headline number is reproducible.  Three ordering /
+   eligibility cells of the winner table were wrong; they are fixed here, in
+   the one function that owned them, and the re-cut is /tmp/r10uvm87.verified.patch.
+
+6. THE RE-CUT'S OWN GATES (binary `vfix` eeba4ac43c992653352b2d43c0ae3345;
+   the comment-only header edit that documents the rules rebuilds to the SAME
+   md5, so these readings cover the shipped tree exactly)
+   (1) build   -j 2, md5 taken separately; pris/pat/vfix all built here.
+   (2) goldens 23 PASS / 0 FAIL; SLANG_UHDM=/bin/false 0 PASS / 23 FAIL.
+   (3) u2r     679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL, both modes.
+               ct8rows vs the c6b3768 gate_uhdm2rtlil.csv (731 rows): 0 rows.
+               byteverify vfix vs pris: 1358 paths, PATH_SETS_IDENTICAL,
+               MOVERS 0 / 1358; SELFCHECK 1357/1358; SELFCHECK1 1.
+   (4) surelog 470/11/5/283/25 [default] and 466/8/5/3/1/285/23/1/2 [testflags]
+               — identical to pristine.  ct8rows vs the c6b3768
+               golden_surelog.csv (1588 rows): 0 differing ROWS, status AND
+               dump histograms identical.  NO ROW CONVERTED.
+               canaries 56/0/8 and ctcan2 58/0/1; canaudit 33/0/0.
+               PINS: InterfaceModPort 59a365f3ce2c, BlackParrotComplex
+               e3e354129d5a / 73a10e8217e5, YosysOldOr d68e0796d62c,
+               SVSwitch 4842211c4030, YosysVerx 6ccda350c24a.
+   (5) bytes   vfix vs pris: MOVERS 9 / 955 — the SAME nine row-modes, and this
+               run's Scoreboard/default digit is 7854ba9480f4, THE
+               IMPLEMENTER'S, while my `pat` run gave 71db77c52f32: the coin,
+               caught landing both ways.
+               vfix vs PAT: MOVERS 1 / 955, Scoreboard/default ONLY, 92 delta
+               lines whose only kinds are `vpiTaskFunc` / `function` / `task`;
+               ORDER-BLIND the function/task multiset differs by 0 lines and the
+               `class_typespec`+`|vpiName` multiset differs by 0 lines.
+               => THE RE-CUT IS CORPUS-NEUTRAL.  It changes only shapes no
+               corpus source writes (qualified typedefs of a type parameter,
+               and typedef chains built on one).
+   (6) heads   47 / 47 / 47 / 47 / 17 / 20 / 64, identical to `pat`, and the
+               head text is the same `string_var uvm_pkg::s_connection_warning_id`.
+   (7) boundary 555 sources, MOVED 4, NO_OUTPUT 6 — identical to `pat`.

@@ -3819,6 +3819,76 @@ private:
     // (uvm_pkg::uvm_id_actions_array).  Consumed in buildClassTypedefTs
     // (src/UhdmExporter.cpp:1931, grep `auto* gcN50`).
     std::map<const void*, UHDM::class_typespec*> classTdGroupBase50;
+    // § classTpTsResolvedNameEverySite87 — the CLASS-SCOPE TYPE-PARAMETER
+    // TYPESPEC GROUP, one spelling wider than
+    // § classTypeParamTdGroupLastWins33c.
+    //
+    // > A class holds ONE `class_typespec` per DISTINCT RESOLVED CLASS among
+    // > its own TYPE PARAMETERS.  § 33c named that object at the ONE site it
+    // > owns — a task/function `io_decl` formal.  Golden wears the SAME name at
+    // > EVERY site: the class's own `type_parameter` typespecs, a class
+    // > PROPERTY, the ELEMENT of a queue / dynamic / fixed / associative array
+    // > property, a method BODY LOCAL, a NESTED-BLOCK local and a RETURN var.
+    // > The name is the LAST type parameter's typedef (§ 33c's winner) when the
+    // > group has one, and otherwise the parameter's DEFAULT/OVERRIDE spelling
+    // > with any `#(...)` removed — or, when that spelling is itself a type
+    // > parameter's name, the RESOLVED CLASS's own simple name.
+    //
+    // THE WINNER TABLE'S THREE ORDERING/ELIGIBILITY RULES, all read off golden
+    // by the r10uvm87 VERIFIER (arms v87_a1/a6/a7/a8, record in
+    // tools/probe/r10uvm87repro/VERIFIER.r10uvm87.txt) after the first cut of
+    // this law got each of them wrong:
+    //   * a class typedef carrying a VISIBILITY QUALIFIER (`local typedef` /
+    //     `protected typedef`) is NOT a candidate — golden gives such a typedef
+    //     no vpiTypedef listing entry at all and the group object keeps the
+    //     class-header default spelling (v87_a8 `v87` / `pv87`);
+    //   * a class typedef that ANOTHER PLAIN (dimension-less) named typedef of
+    //     the same body is written on is CONSUMED — golden emits the dependent
+    //     one as `unsupported_typespec` and the one it names never reaches the
+    //     listing (v87_a7 `k2_87` / `k6_87` / `k8_87`; `k7_87`'s
+    //     `typedef rsp_t rsp_q_t[$];` is an array_typespec and consumes
+    //     nothing);
+    //   * among ONE parameter's surviving typedefs the FIRST in declaration
+    //     order wins (v87_a6 `t1_87` / `t2_87`, v87_a1 `c12_87`).  The LAST
+    //     PARAMETER still owns the group — § 33c's t45a, re-read from the
+    //     opposite side by v87_a1 `c11_87`.
+    //
+    // `tpGroupWinner87` is the § 33c winner table, cached per class BODY scope
+    // and restricted to CLASS-resolved groups (an `int` / `struct` / `enum`
+    // group is golden's too, but its objects are the package-listing kinds
+    // § pkgImportAggCloneLastWriter32 and § tdListingFormalAsWritten33 own, and
+    // this pass does not reach into that graph — measured residue, arm a2 cells
+    // `c_int` / `c_str` / `c_enum`).
+    std::map<const slang::ast::Scope*,
+             std::map<const slang::ast::Type*,
+                      const slang::ast::TypeAliasType*>>
+        tpGroupWinner87;
+    /// The § 33c winner table for one class body, built (and cached) on first
+    /// ask.  Empty map = this class has no CLASS-resolved type-parameter group
+    /// with a typedef.
+    const std::map<const slang::ast::Type*, const slang::ast::TypeAliasType*>&
+    classTpGroup87(const slang::ast::Scope& body);
+    /// The group NAME a DECLARATION should wear, or empty when the declaration
+    /// is not written as a member of a class-scope type-parameter group that
+    /// has a winning typedef.  `typeSyn` is the WRITTEN data type (the caller's
+    /// override, else the symbol's own).
+    std::string classTpGroupDeclName87(const slang::ast::Symbol& declSymbol,
+                                       const slang::syntax::SyntaxNode* typeSyn);
+    /// The name a CLASS TYPE PARAMETER's own `class_typespec` wears: the
+    /// group's winning typedef if there is one, else the written spelling with
+    /// `#(...)` stripped, else the resolved class's simple name.
+    /// Every typespec § classTpTsResolvedNameEverySite87 NAMES.  Only the
+    /// RETURN site reads it: `emitTaskFuncs`'s class-handle return arm decides
+    /// "carries no vpiInstance" by asking whether the class_typespec is
+    /// ANONYMOUS, and this law is the one thing that can make that object
+    /// named.  Golden's group object carries no instance (arm a2 `c_sites`
+    /// `m_ret`), so the gate has to test membership here as well as emptiness —
+    /// otherwise naming the return typespec would silently ADD a vpiInstance,
+    /// which `class_typespec::Compare` reads.
+    std::set<const UHDM::typespec*> tpGroupTs87;
+    std::string classTpTsName87(const slang::ast::ClassType& cls,
+                                const slang::syntax::SyntaxNode* dsyn,
+                                const slang::ast::Type& resolved);
     // NOTE § classNestedClassTdGroupNoAnchor54 — the SAME group, for the case
     // pass 50 left as residue R2: a class-handle typedef group with NO
     // package-level anchor, i.e. no `classTdGroupBase50` entry.  Golden STILL

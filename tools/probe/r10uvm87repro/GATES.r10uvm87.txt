@@ -1,0 +1,103 @@
+r10uvm87 — THE GATES.  All five mandatory gates, RUN, with their controls.
+GOLDEN_DEFER read [UNSET] on every sweep.  results/*.csv were READ ONLY.
+NOTHING WAS PROMOTED.  NO ROW CONVERTED.  slang was NOT patched.
+
+(1) BUILD — ONE worktree (/tmp/wt_r10uvm87 @ c6b3768), -j 2, md5 taken
+    SEPARATELY after each build
+      PRISTINE  /tmp/r10uvm87_bin/slang-uhdm.pris  456ee94629dc6f82c811b9ffca6d80eb
+      PATCHED   /tmp/r10uvm87_bin/slang-uhdm.pat   e7c707e6712a8c32ce9c420768f6651b
+
+(2) GOLDENS — tests/check_goldens.sh, SLANG_UHDM exported EXPLICITLY to each
+      PATCHED                23 PASS / 0 FAIL
+      PRISTINE               23 PASS / 0 FAIL
+      SLANG_UHDM=/bin/false   0 PASS / 23 FAIL   <- the negative control: the
+                                                    harness really does read
+                                                    SLANG_UHDM (it defaults to
+                                                    the MAIN-TREE binary if not)
+
+(3) uhdm2rtlil — verify_golden.py --corpus uhdm2rtlil --mode both --jobs 2,
+    my own --out/--workdir; cmds.txt grepped afterwards to prove WHICH binary ran
+      PATCHED  [default]   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+               [testflags] 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+      PRISTINE  same, both modes
+      cmds.txt: 1458 lines naming /tmp/r10uvm87_bin/slang-uhdm.{pat,pris}
+      ct8rows testflags vs results/gate_uhdm2rtlil.csv (the COMMITTED baseline,
+              which holds TESTFLAGS ROWS ONLY -- 731):  0 differing ROWS,
+              status AND dump histograms identical
+      byteverify PAT vs PRIS: 1358 paths, PATH_SETS_IDENTICAL, MOVERS 0 / 1358
+              SELFCHECK=1  1357 / 1358 flagged (the comparator can see)
+      canaries.sh  ok=9  changed=0 absent=0 unknown-names=27 (expected 27)
+      ctcan2.sh    ok=1  changed=0 absent=0 unknown-patterns=6 (EXPECT_UNKNOWN=6)
+
+(4) surelog — verify_golden.py --corpus surelog --mode both --jobs 2
+      PATCHED  [default]   470 CMP_EQUAL / 11 CMP_NOTEQUAL / 5 DEFERRED /
+                           283 SLANG_REJECT / 25 SURELOG_FAIL
+               [testflags] 466 CMP_EQUAL / 8 CMP_NOTEQUAL / 5 DEFERRED /
+                           3 NO_DATABASE / 1 NO_UHDM / 285 SLANG_REJECT /
+                           23 SURELOG_FAIL / 1 TIMEOUT / 2 UNTRANSLATABLE
+      PRISTINE  IDENTICAL histograms, both modes.
+      ct8rows PATCHED vs results/golden_surelog.csv:  1588 ROWS,
+              0 differing ROWS, status AND dump histograms identical per mode.
+      ct8rows PRISTINE vs the same baseline:          0 differing ROWS.
+      THE STATUS HISTOGRAM WAS READ, not only the NE rows -- verify_golden.py
+      records an rc=139 segfault as SLANG_REJECT wearing the last stderr
+      warning, so SLANG_REJECT is 283/285 on BOTH binaries and unchanged.
+      NO ROW CONVERTED.  All eleven / eight CMP_NOTEQUAL rows stay
+      CMP_NOTEQUAL; the seven UVM row-modes this pass moves keep that status
+      with a NEW head and a LONGER cmp (28 -> 47 lines), which is the NEXT RUNG
+      being printed and is proven pre-existing by the pristine ladder (README).
+      canaries.sh  ok=56 changed=0 absent=0 unknown-names=8 (expected 8)
+      ctcan2.sh    ok=58 changed=0 absent=0 unknown-patterns=1 (EXPECT_UNKNOWN=1)
+      canaudit.sh  audited=33 UNCOVERED=0 FENCE-BREACH=0; the four slang-fenced
+                   names appear in NO driver here.
+
+(5) BYTES — byteverify.sh on the surelog corpus, BOTH negative controls
+      955 paths, PATH_SETS_IDENTICAL, MOVERS 9 / 955:
+        ./default/SeqDriver-32af76aa      dc0ccc626e94 -> 841eb0d97bb2
+        ./testflags/SeqDriver-32af76aa    72de6937a195 -> 887a83e0114a
+        ./default/SimpleUVM-1dc93a62      161dfdefce38 -> 14d71bbb4355
+        ./testflags/SimpleUVM-1dc93a62    118528c182ac -> 4452ec845f53
+        ./default/Scoreboard-59431470     53766e920bad -> 7854ba9480f4
+        ./default/MiniAmiq-544c7f61       3d7bd1db30b8 -> 1f61c8b2c53c
+        ./testflags/MiniAmiq-544c7f61     3d7bd1db30b8 -> 1f61c8b2c53c
+        ./default/BuildUVMPkg-bf853d43    2eb0d87b1a1e -> 26ebb79b8893
+        ./testflags/BuildUVMPkg-bf853d43  2eb0d87b1a1e -> 26ebb79b8893
+      EXACTLY the nine UVM row-modes PREDICT named as nonzero, and NOTHING ELSE.
+      BuildUVMPkg is NOT a negative control in this pass and PREDICT said so:
+      18 site-A objects, predicted BY NAME from the pristine bytes.
+      SELFCHECK=1   954 / 955 flagged
+      SELFCHECK1=1  10           (9 real movers + the 1 corrupted file)
+
+      ATTRIBUTION, object for object, on all nine (uhdm-dump delta of the
+      patched vs the pristine database):
+        eight of nine   152 delta lines, 25 distinct objects, and the ONLY line
+                        kinds present are `class_typespec` and `|vpiName`.
+        Scoreboard/default  244 delta lines.  The extra 92 are the STANDING
+                        BRIEF's ~50/50 COIN (svunit_pkg vpiTaskFunc reorder) and
+                        are attributed ORDER-BLIND, as the brief requires:
+                          * the SAME PRISTINE binary run TWICE gives two
+                            different Scoreboard databases (md5 14248ac15c44 vs
+                            53766e920bad, 118 delta lines dominated by
+                            |vpiTaskFunc) -- the coin, measured, not assumed;
+                          * the ORDER-BLIND multiset of every `function:` /
+                            `task:` dump line is IDENTICAL between pristine and
+                            patched (0 differing lines);
+                          * Scoreboard's `class_typespec` + `|vpiName` delta is
+                            152 lines, the same as the other eight.
+
+CANARY PINS (md5 prefix of slang.uhdm, PATCHED surelog sweep)
+      InterfaceModPort    59a365f3ce2c  both modes   == the committed value
+      BlackParrotComplex  e3e354129d5a / 73a10e8217e5 == the committed values
+      YosysOldOr          d68e0796d62c  both modes   == the committed value
+      SVSwitch            4842211c4030  both modes   == THE BRIEF'S PIN
+      YosysVerx           6ccda350c24a  both modes   == THE BRIEF'S PIN
+
+BOUNDARY ARMS — v87bound.sh, RECURSIVE over the committed arm sources of
+      uvm77-86 + buvm3-9 + sd8-12:
+      555 sources, MOVED 4, NO_OUTPUT 6.
+      The 6 NO_OUTPUT fail on BOTH binaries (checked one by one) -- symmetric,
+      pre-existing, multi-file arms this driver does not feed.
+      The 4 MOVED are ONE file duplicated across r10sd9/10/11/12,
+      `g7_typeparam_control.sv`, which is the corpus head's own shape and whose
+      committed header calls it a cell that pass "provably cannot move".  It
+      moves TOWARD golden here (README, "The boundary").

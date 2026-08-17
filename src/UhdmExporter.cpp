@@ -1885,6 +1885,21 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType,
         else {
             auto* cts = s.MakeClass_typespec();
             cts->VpiName(ec.name);
+            // § classTpTsResolvedNameEverySite87 — the ARRAY-ELEMENT site, and
+            // it is THE HEAD of this pass: `REQ m_last_req_buffer[$];` in
+            // `uvm_sequencer_param_base`.  golden's element typespec is the
+            // class-scope type-parameter GROUP object (named `rsp_type`), ours
+            // was this fresh, unlocated mint named for the RESOLVED class
+            // (`uvm_sequence_item`).  Same rename as the scalar property one
+            // spelling up in makeTypespec; the object stays per-declaration.
+            if (declKey9)
+                if (auto* dt87 = declKey9->getDeclaredType())
+                    if (auto gn87 = classTpGroupDeclName87(*declKey9,
+                                                           dt87->getTypeSyntax());
+                        !gn87.empty()) {
+                        cts->VpiName(gn87);
+                        tpGroupTs87.insert(cts);
+                    }
             pendingClassTsLink.push_back({cts, &ec});
             ts = cts;
         }
@@ -2427,8 +2442,16 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
             UHDM::typespec* its = nullptr;
             if (auto& dct = dt.getCanonicalType(); dct.kind == SymbolKind::ClassType) {
                 auto* cts = s.MakeClass_typespec();
-                cts->VpiName(dsyn ? std::string(rawText(dsyn->sourceRange()))
-                                  : std::string(dct.name));
+                // § classTpTsResolvedNameEverySite87 — this line used to be
+                // `rawText(dsyn->sourceRange())`, i.e. the WRITTEN TEXT
+                // verbatim, and golden never writes it verbatim: it strips the
+                // `#(...)`, it resolves a spelling that is itself a type
+                // parameter, and a group with a typedef wins over both.  Arm a3
+                // reads the four spellings; the SeqDriver census reads the same
+                // four in UVM (`uvm_visitor_adapter`, `uvm_in_order_comparator`,
+                // `uvm_sequencer`'s `type RSP = REQ`, and the `#(RSP)`
+                // specialization of `uvm_sequencer_analysis_fifo`).
+                cts->VpiName(classTpTsName87(cls, dsyn, dct));
                 cts->VpiParent(tp);
                 if (dsyn)
                     setLoc(cts, dsyn->sourceRange());

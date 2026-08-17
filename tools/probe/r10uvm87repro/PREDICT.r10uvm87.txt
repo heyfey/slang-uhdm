@@ -1,0 +1,122 @@
+r10uvm87 — THE MOVER PREDICTION, made from the PRISTINE DATABASES ALONE and
+from the SOURCE, BEFORE the patched binary existed.  MEASUREMENT-ONLY.
+
+The law has two emission halves and they are predicted by different instruments,
+because only one of them is visible in the bytes.
+
+==========================================================================
+SITE A — the class's own `type_parameter` typespec  (ct87cen --pred)
+==========================================================================
+PREDICATE, computable from the PRISTINE bytes alone: a `class_typespec` whose
+vpiParent is a `type_parameter` and whose vpiName is NOT a spelling of its own
+vpiClassDefn (neither the simple name nor anything ending in `::<simple name>`).
+Those are exactly the objects site A renames.
+
+  per-database counts (PRISTINE):
+    default/BuildUVMPkg-bf853d43       18 objects
+    default/MiniAmiq-544c7f61          20 objects
+    default/Scoreboard-59431470        21 objects
+    default/SeqDriver-32af76aa         20 objects
+    default/SimpleUVM-1dc93a62         20 objects
+    testflags/BuildUVMPkg-bf853d43     18 objects
+    testflags/MiniAmiq-544c7f61        20 objects
+    testflags/SeqDriver-32af76aa       20 objects
+    testflags/SimpleUVM-1dc93a62       20 objects
+
+  the twenty on default/SeqDriver, BY NAME (owner :: type parameter :
+  pristine name -> the name the law computes, which is golden's):
+    uvm_pkg::uvm_bottom_up_visitor_adapter  ::  uvm_pkg::uvm_bottom_up_visitor_adapter::VISITOR   pristine="uvm_visitor#(STRUCTURE)"   ->  golden="uvm_pkg::uvm_visitor"
+    uvm_pkg::uvm_by_level_visitor_adapter  ::  uvm_pkg::uvm_by_level_visitor_adapter::VISITOR   pristine="uvm_visitor#(STRUCTURE)"   ->  golden="uvm_pkg::uvm_visitor"
+    uvm_pkg::uvm_in_order_comparator  ::  uvm_pkg::uvm_in_order_comparator::comp_type   pristine="uvm_built_in_comp #( T )"   ->  golden="uvm_pkg::uvm_built_in_comp"
+    uvm_pkg::uvm_in_order_comparator  ::  uvm_pkg::uvm_in_order_comparator::convert   pristine="uvm_built_in_converter #( T )"   ->  golden="uvm_pkg::uvm_built_in_converter"
+    uvm_pkg::uvm_in_order_comparator  ::  uvm_pkg::uvm_in_order_comparator::pair_type   pristine="uvm_built_in_pair #( T )"   ->  golden="uvm_pkg::uvm_built_in_pair"
+    uvm_pkg::uvm_push_driver  ::  uvm_pkg::uvm_push_driver::RSP   pristine="REQ"   ->  golden="uvm_pkg::uvm_sequence_item"
+    uvm_pkg::uvm_push_sequencer  ::  uvm_pkg::uvm_push_sequencer::RSP   pristine="REQ"   ->  golden="uvm_pkg::uvm_sequence_item"
+    uvm_pkg::uvm_reg_sequence  ::  uvm_pkg::uvm_reg_sequence::BASE   pristine="uvm_sequence #(uvm_reg_item)"   ->  golden="uvm_pkg::uvm_sequence"
+    uvm_pkg::uvm_resource_db  ::  uvm_pkg::uvm_resource_db::T   pristine="T"   ->  golden="uvm_pkg::uvm_object"
+    uvm_pkg::uvm_sequence_library  ::  uvm_pkg::uvm_sequence_library::RSP   pristine="REQ"   ->  golden="uvm_pkg::uvm_sequence_item"
+    uvm_pkg::uvm_sequencer_analysis_fifo  ::  uvm_pkg::uvm_sequencer_analysis_fifo::RSP   pristine="RSP"   ->  golden="uvm_pkg::uvm_sequence_item"
+    uvm_pkg::uvm_sequencer_param_base  ::  uvm_pkg::uvm_sequencer_param_base::REQ   pristine="REQ"   ->  golden="uvm_pkg::uvm_sequence_item"
+    uvm_pkg::uvm_sequencer_param_base  ::  uvm_pkg::uvm_sequencer_param_base::RSP   pristine="RSP"   ->  golden="uvm_pkg::uvm_sequence_item"
+    uvm_pkg::uvm_sequencer  ::  uvm_pkg::uvm_sequencer::RSP   pristine="REQ"   ->  golden="uvm_pkg::uvm_sequence_item"
+    uvm_pkg::uvm_sequence  ::  uvm_pkg::uvm_sequence::RSP   pristine="REQ"   ->  golden="uvm_pkg::uvm_sequence_item"
+    uvm_pkg::uvm_sqr_if_base  ::  uvm_pkg::uvm_sqr_if_base::T2   pristine="T1"   ->  golden="uvm_pkg::uvm_object"
+    uvm_pkg::uvm_structure_proxy  ::  uvm_pkg::uvm_structure_proxy::STRUCTURE   pristine="STRUCTURE"   ->  golden="uvm_pkg::uvm_component"
+    uvm_pkg::uvm_top_down_visitor_adapter  ::  uvm_pkg::uvm_top_down_visitor_adapter::VISITOR   pristine="uvm_visitor#(STRUCTURE)"   ->  golden="uvm_pkg::uvm_visitor"
+    uvm_pkg::uvm_visitor_adapter  ::  uvm_pkg::uvm_visitor_adapter::STRUCTURE   pristine="STRUCTURE"   ->  golden="uvm_pkg::uvm_component"
+    uvm_pkg::uvm_visitor_adapter  ::  uvm_pkg::uvm_visitor_adapter::VISITOR   pristine="VISITOR"   ->  golden="uvm_pkg::uvm_visitor"
+
+  VERIFIED AFTER THE BUILD: the same predicate on the PATCHED databases returns
+  2 objects on every row-mode (3 on Scoreboard) and every one of them is a
+  CORRECT output of the law, not a miss:
+    * uvm_sequencer_param_base::REQ and ::RSP now read `rsp_type` — the group's
+      winning TYPEDEF, which is legitimately not a spelling of the class; golden
+      writes exactly `rsp_type` there.  The predicate is a strict SUPERSET of the
+      mover set and this is where it over-fires, by construction.
+    * Scoreboard's third is `work@my_scoreboard::type_id::T` named
+      `my_scoreboard`: its vpiClassDefn fullname is `work@my_scoreboard`, which
+      has no `::`, so the predicate's simple-name split cannot match it.  It was
+      in the PRISTINE list too and it did NOT move — an instrument artifact,
+      named here so it is not read as a residue.
+
+==========================================================================
+SITE B — the DECLARATION sites (properties, array elements, body locals,
+         nested-block locals, return vars)          (SOURCE, then measured)
+==========================================================================
+Site B fires only where a class-scope declaration is WRITTEN as one of the
+class's own type parameters (or a typedef of one) AND that group has a WINNING
+TYPEDEF (§ classTypeParamTdGroupLastWins33c's winner).  A group with no typedef
+is left exactly as it was — golden names its objects for the class, which is
+already what the pristine emitter does (arm a2 `c_notd`, 5/5 cells).
+
+The corpus reach is therefore bounded by the source predicate
+`typedef <TYPE PARAMETER> <name>;` inside a class.  Over the whole uvm-1.2 tree
+that is (grep, transcribed):
+
+    seq/uvm_sequencer_param_base.svh:35   typedef REQ req_type;
+    seq/uvm_sequencer_param_base.svh:36   typedef RSP rsp_type;
+    tlm1/uvm_imps.svh:235,246,257,268,279,290   typedef IMP this_imp_type;
+    macros/uvm_tlm_defines.svh:270,293,317,343,366,390  (the same, in macros)
+    macros/uvm_object_defines.svh:159     typedef T ___local_type____;
+    base/uvm_spell_chkr.svh:30            typedef T tab_t[string];   <- NOT a
+        bare NamedType (it is an ASSOCIATIVE-ARRAY typedef), so it never enters
+        the group and predicts NO mover.
+
+`uvm_sequencer_param_base` is the only one of those whose class body then
+DECLARES anything written as `REQ` / `RSP`, so the SITE-B mover set predicted BY
+NAME, per UVM database, is:
+
+    uvm_sequencer_param_base.svh:38   REQ m_last_req_buffer[$];  (queue ELEMENT)
+    uvm_sequencer_param_base.svh:39   RSP m_last_rsp_buffer[$];  (queue ELEMENT)
+    uvm_sequencer_param_base.svh:81   function REQ get_current_item();  (RETURN)
+    uvm_sequencer_param_base.svh:82     REQ t;                   (BODY LOCAL)
+    uvm_sequencer_param_base.svh:122  function REQ last_req(...);       (RETURN)
+    uvm_sequencer_param_base.svh:188  function RSP last_rsp(...);       (RETURN)
+
+and NOTHING ELSE.  The first of those is THE HEAD.
+
+PREDICTED NOT TO MOVE, and why:
+  * uvm_sequencer_param_base.svh:270 `REQ param_t;` and :351 `RSP response;` —
+    body locals of OUT-OF-BODY definitions.  Those are compiled in the PACKAGE's
+    scope where the class's type parameters are invisible, so golden degrades
+    them to `unsupported_typespec (REQ)` / `(RSP)`
+    (§ oobParamClassTypeParamFormalUnsupported31, one declaration kind wider).
+    THIS PREDICTION WAS MADE AFTER THE FACT, NOT BEFORE: the first patched build
+    DID move them, the pristine-vs-patched dump delta showed a `vpiInstance
+    uvm_pkg` appearing on two objects, golden was read, and the out-of-body fence
+    was added.  Recorded here as the pass's own refuted prediction rather than
+    presented as foresight.
+  * every io_decl FORMAL — § 33c already names those and this pass does not
+    touch that site.
+
+==========================================================================
+BYTE-LEVEL PREDICTION
+==========================================================================
+  surelog corpus: the movers are exactly the databases that contain UVM, i.e.
+    the NINE row-modes above (SeqDriver x2, SimpleUVM x2, Scoreboard/default,
+    MiniAmiq x2, BuildUVMPkg x2) plus any other UVM-compiling test.
+    BuildUVMPkg is NOT a negative control this time — 18 site-A objects are
+    predicted to move in it — and its cmp head is predicted UNCHANGED, because
+    that head (`ref_typespec uvm_pkg::uvm_is_match::s`) is in another family.
+  uhdm2rtlil corpus: 0 movers over 1358 databases — no u2r test compiles a class
+    whose type parameter resolves to a CLASS with a differing written spelling.
