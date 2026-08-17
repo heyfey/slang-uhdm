@@ -1,0 +1,62 @@
+r10earl55 — CENSUS PREDICTION, written BEFORE the patched binary was built.
+(No patched database exists at the time of writing; the numbers below come from
+the GOLDEN + PRISTINE pair only, via census55 on Earlgrey_0_1/default and the
+a1/a2/a3/a4/a5 arms.)
+
+THE LAW UNDER TEST
+  § replFoldTsW1 — an ELAB-view param_assign whose Rhs is a folded REPLICATION
+  of a param declared as a PACKED VECTOR **one bit wide** carries a LOC-LESS
+  int_typespec whose VpiValue is the REPLICATED OPERAND's width — the same
+  object shape the UNTYPED fold already gets (§ replFoldTs9) — and NOT the
+  declared type's loc-less logic_typespec with folded bounds.
+
+PREDICTED MOVERS — Earlgrey_0_1/default: EXACTLY ONE CELL
+  ELAB work@top_earlgrey.u_dm_top.SelectableHarts  rv_dm.sv:50:34-50:67
+    `localparam logic [NrHarts-1:0] SelectableHarts = {NrHarts{1'b1}}`, NrHarts=1
+    pristine  ref_typespec{work@top_earlgrey.u_dm_top} -> logic_typespec[0:0]
+    patched   ref_typespec{work@top_earlgrey.u_dm_top} -> int_typespec UINT:1
+    golden    int_typespec (#288957) UINT:1                          <- THE HEAD
+  This is the ONLY width-1 typed replication fold in the design's param space
+  (census55 over all 13k param_assign cells: the head's family has TWO members,
+  and the other one is 32 bits wide).
+
+PREDICTED NON-MOVERS that the law must NOT touch (all measured PRISTINE==GOLDEN)
+  ELAB u_pinmux.DioPeriphHasSleepMode  15 bits  loc-less logic_typespec  KEEP
+  ELAB u_pinmux.DioPeriphHasWkup       15 bits  loc-less logic_typespec  KEEP
+  ELAB u_dm_top.i_dm_csrs.SelectableHarts   1 bit, but an OVERRIDDEN PORT-LIST
+        parameter -> LOCATED logic_typespec[0:0]                       KEEP
+  ELAB u_dm_top.i_dm_mem.SelectableHarts    ditto                      KEEP
+  every DEF-listing param_assign (the earl38 fence): still the unfolded
+        operation with NO typespec                                     KEEP
+
+PREDICTED STILL-WRONG (named, so the pass is not read as clearing them)
+  ELAB u_pinmux.MioPeriphHasSleepMode  32 bits  golden int / ours logic   R1
+  ELAB u_usbdev.AVFifoWidth, u_usbdev.u_memory_2p.LocalDataBitsPerMask:
+       golden LOC-LESS int_typespec, ours LOCATED int_typespec           R2
+  ELAB u_flash_ctrl.u_flash_erase_ctrl.{Bank,Page}AddrMask: golden keeps an
+       OPERATION where we fold a constant                               R3
+  ELAB u_pwrmgr.i_cdc.i_ast_sync.ResetValue: struct_typespec vs bit_typespec R4
+
+ARM PREDICTIONS (the grids, both views)
+  a5: the 14 width-1 ELAB cells whose current actual is a LOC-LESS ranged
+      logic_typespec MOVE to int_typespec and land on golden:
+        u_e1.S  u_e2.A  u_e2.B  u_e2.C(UINT:2!)  u_e2.D  u_e3.E  u_e3.F
+        u_e4.H  u_e7.L  u_e7.M  u_e8.N  u_e8.P  u_e8.Q
+      and the ones whose current actual is LOCATED do NOT move (a different
+      code path, left alone on purpose):
+        u_e3.G (scalar `logic`, no range)   u_e5.gen_b[0..1].J (gen scope)
+        u_e6.K (a package-param ref, not a replication at all)
+  a4: the 11 width-1 cells (u_c0_1 … u_ca_1) MOVE to golden; the 22 cells at
+      width 4 and 15 do NOT move — 10 of them are already equal and 10 stay
+      wrong (a4's own residue: at width > 1 the CONSUMER decides, and that is
+      NOT this law).
+  a1: LG1, LM1, BT1, RG1, ZG1, u_n1.SEL, p_n1.SELP move to golden (7 cells);
+      every width > 1 cell stays where it is.
+  a2/a3: no width-1 cell exists, so NOTHING moves in either arm.
+
+PREDICTED CORPUS EFFECT
+  u2r 731 rows x 2 modes and surelog 1588 rows: ZERO whole-row changes other
+  than the Earlgrey_0_1/default byte mover.  A width-1 typed replication fold
+  in a param declaration is the only object this law can reach, and any test
+  that already had one and compared EQUAL would have to have golden's
+  logic_typespec at width 1 — which 25 grid cells over a4+a5 say does not exist.

@@ -1,0 +1,35 @@
+r10earl55 — NEW-HEAD PREDICTION, written BEFORE the patched binary existed.
+(The patched source was not yet compiled when this file was written; the
+reasoning uses only the PRISTINE ladder over the base 8477b5d database and the
+census.  `lad_pris8.txt`, an 8-rung pristine ladder run of 8.9 s, is the
+instrument — NOT the matched-budget pair, which is run once at the end.)
+
+METHOD.  The pristine head IS rung 1 of a fresh ladder over Earlgrey_0_1/default
+at 8477b5d, and § replFoldTsW1 makes exactly ONE object equal — that rung's
+`int_typespec#288957`.  Masking a rung is how the ladder emulates fixing it, and
+earl54 established that the ladder's walk order agrees with uhdm-cmp's.  So the
+new head must be RUNG 2.
+
+  PREDICTED R0
+    KINDL=ref_obj  KINDR=constant  KINDP=indexed_part_select  FIELD=VpiType
+    SHAPE=KIND:ref_obj>constant
+    L(golden) ref_obj(PTRV_W) @prim_fifo_sync.sv:70:38-70:44  (#291403)
+    R(ours)   constant        @:70:38-70:44                   (#235788)
+    PL  indexed_part_select(fifo_wptr) @prim_fifo_sync.sv:70:35-70:44
+        < cont_assign @70:12-70:45 < gen_scope(gen_normal_fifo) @52:12-151:6
+        < module_inst(i_fifo) @dm_csrs.sv:553:3 < module_inst(i_dm_csrs)
+        @rv_dm.sv:107:3 < module_inst(u_dm_top) @top_earlgrey.sv:312:3
+    WE OVER-FOLD: golden keeps the parameter REFERENCE `PTRV_W` in the
+    part-select's bound and we hand back a constant.  This is the direction-
+    REVERSED member of the family earl54 measured at 2 036 pristine rungs
+    (`constant>ref_obj`), and it has nothing to do with typespecs.
+
+  Secondary candidates, if uhdm-cmp's walk diverges from the ladder's:
+    rung 3      the same shape one line down (fifo_rptr, 71:38-71:44)
+    rungs 4-8   `int_typespec(DepthW)@prim_fifo_sync.sv:16:27 > integer_typespec`
+                — the 333-rung PRE-EXISTING family named in LADDER54.md, whose
+                first member is reached immediately after rungs 2-3
+    the R1 cell this pass does NOT fix: u_pinmux.MioPeriphHasSleepMode, 32 bits
+
+  What must NOT be the new head: anything at rv_dm.sv:50, and any loc-less
+  typespec KIND disagreement under a width-1 replication fold.

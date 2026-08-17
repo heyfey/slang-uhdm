@@ -8865,8 +8865,60 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         if (rct.kind == SymbolKind::PackedArrayType &&
                             rct.isIntegral()) {
                             mkRef();
-                            auto fr = rct.getFixedRange();
-                            pendingPartSelFoldTs.push_back({rt, fr.left, fr.right});
+                            // § replFoldTsW1 — a ONE-BIT packed vector is the
+                            // EXCEPTION: it does NOT get the declared bounds.
+                            // Golden hands a width-1 fold the SAME loc-less
+                            // int_typespec the UNTYPED fold gets (see
+                            // § replFoldTs9 just below) — nameless, unlocated,
+                            // no range, VpiValue = the REPLICATED OPERAND's
+                            // width, which is NOT always 1
+                            // (`logic [0:0] C = {1{2'b10}}` -> UINT:2).
+                            // MEASURED, on 25 grid cells with no
+                            // counterexample: at width 1 EVERY consumer gives
+                            // int_typespec (a4_earl55 crosses 11 consumers x
+                            // widths 1/4/15 — no use at all, a bit-select
+                            // alone in a cont-assign RHS, a bit-select inside
+                            // an operation, the whole param, a concat, a
+                            // reduction, an if-generate condition, a whole
+                            // and a selected parameter-override actual, an
+                            // always_comb read, a procedural if — and the
+                            // width-1 column is int_typespec ELEVEN times);
+                            // a5_earl55 adds [3:3] (non-zero-based single
+                            // bit), signed, `bit`, `reg`, [0:0][0:0], nested
+                            // replications and a wider operand, all int.
+                            // At width > 1 the CONSUMER decides instead
+                            // (a4: the reducing reads get the declared
+                            // logic_typespec, the non-reducing ones get
+                            // int_typespec) — that is a DIFFERENT law and it
+                            // is deliberately NOT taken here; R1 in
+                            // README.md names its residue.
+                            // Earlgrey witness: rv_dm.sv:50
+                            // `localparam logic [NrHarts-1:0] SelectableHarts
+                            //  = {NrHarts{1'b1}}` with NrHarts = 1.
+                            // FENCE, and it is MEASURED, not stylistic:
+                            // a5_earl55's `pk5_55::PKW1` is the same width-1
+                            // declaration inside a PACKAGE, where golden's
+                            // folded Rhs constant carries NO TYPESPEC AT ALL —
+                            // so the int_typespec would be one wrong answer
+                            // swapped for another.  The first build of this law
+                            // had no fence and attrib55 caught exactly that
+                            // cell as a STILL-WRONG reshape.  Same domain as
+                            // § replFoldTs9 below: ELAB view, module scope.
+                            if (rct.getBitWidth() == 1 && topView &&
+                                !inPackage) {
+                                auto* itsW1 = s.MakeInt_typespec();
+                                auto& rxW1 = scv.as<ReplicationExpression>();
+                                int32_t ow1 =
+                                    rxW1.concat().type
+                                        ? (int32_t)rxW1.concat().type->getBitWidth()
+                                        : 0;
+                                itsW1->VpiValue("UINT:" + std::to_string(ow1));
+                                rt->Actual_typespec(itsW1);
+                            } else {
+                                auto fr = rct.getFixedRange();
+                                pendingPartSelFoldTs.push_back(
+                                    {rt, fr.left, fr.right});
+                            }
                             replFoldTs = true;
                         }
                         else if (rct.kind == SymbolKind::PredefinedIntegerType) {
