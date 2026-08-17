@@ -1,0 +1,66 @@
+r10earl57 — CENSUS PREDICTION, written BEFORE the patched binary was BUILT.
+Measured with census57.py on the PRISTINE databases (md5 8add453b5494…) and the
+golden cache; calibration golden-vs-golden on a1 = agree 7 / DISAGREE 0.
+
+THE LAW, two clauses:
+  § castSizeElabScopeBind57 — re-bind a cast target's name in the scope the
+    cast SITE belongs to when the STALE `currentScope` bind FAILS (genvars
+    excluded).
+  § castGenScopeCaParamFreshTs57 — inside an ELABORATED GEN-SCOPE CONT-ASSIGN
+    the fresh NAMED int_typespec is minted whatever the target's declared
+    default was (§ castTgtDefaultIsLiteral does not reach a gen-block cast).
+
+EARLGREY_0_1/default — pristine census: agree 570, DISAGREE 892,
+ONLY-GOLD 137, ONLY-OURS 12.
+
+  PREDICTED TO-GOLDEN = 888, AWAY-GOLDEN = 0, and the residue is EXACTLY the
+  two `enum_typespec(dm::csr_reg_t)` cells (dm_mem 388:47 / 427:47, a SPAN-only
+  difference, name and kind already equal, so not a cmp difference at all and
+  not this law's business).
+
+  The 888, by site (every one a FAILED bind today, ours a value-less
+  `integer_typespec` at the cast-site token):
+
+    762  prim_fifo_sync.sv 72:45 73:45 73:67 74:21 74:38 74:60  (6 x 127
+         elaborated gen_normal_fifo copies)   G=int_typespec(DepthW)@16:27-16:27
+         -> BOTH clauses (gen-scope cont-assign, computed default)
+     46  tlul_socket_m1 131:51 in u_socket.gen_u_o[i]
+         G=int_typespec(NWD)@49:27-49:27      -> BOTH clauses
+     72  prim_fifo_async.sv 144:33 145:49 145:71 146:20 146:37 146:64
+         158:33 159:49 159:76 160:20 160:37 160:59  (12 x 6 instances),
+         MODULE scope   G=int_typespec()@12:14-12:26 (the DECLARATION ts)
+         -> BIND clause ONLY (the gen clause must NOT reach it)
+      5  dm_mem 105:36 106:36 107:36 109:36 111:36, module scope
+         G=int_typespec()@61:14-61:26 (DECL ts)      -> BIND clause only
+      2  dm_mem 110:36 112:36  G=int_typespec(NrHarts)@20:33-20:33  (fresh:
+         literal default at module scope)            -> BIND clause only
+      1  prim_lfsr 315:30 in i_prim_lfsr.gen_gal_xor (GEN SCOPE)
+         G=int_typespec(LfsrDw)@33:32-33:32          -> BOTH clauses
+      1  rstmgr 225:52, module scope
+         G=int_typespec(ExtResetReasons)@8:18-8:18   -> BIND clause only
+      1  pinmux 211:25, module scope
+         G=int_typespec()@207:14-207:17 (DECL ts)    -> BIND clause only
+
+  NAMED RISK: the DECL-ts rows (72 + 5 + 1 = 78) need `defMap[def].paramTs` to
+  hold the ELAB instance symbol; the non-reemitting param-reuse arm has no
+  § paramCastTsBySyntax fallback, so if the lookup misses they land on the
+  catch-all `integer_typespec` WITH a vpiExpr — a shape CHANGE that is still
+  not golden (STILL-WRONG, not AWAY-GOLDEN).  Predicted anyway as TO-GOLDEN;
+  if they miss, the count is 810 and the miss is reported LOUDLY.
+
+ARMS (three-way, golden / pristine / patched), TO-GOLDEN predicted:
+
+  a1_earl57 (the corpus shape reduced)          4   AWAY 0
+  v1_paramkinds57 (module scope, 14 targets)    0   AWAY 0   (already all agree)
+  v2_contexts57 (5 contexts x the same targets) 7   AWAY 0
+  v3_gengrid57 (inside the block, 17 positions)18   AWAY 0
+      and v3's UNMOVED-BAD = 5, NAMED IN ADVANCE:
+        42:23 / 43:23 (x2 copies each) — always_comb INSIDE the gen block:
+          golden mints the FRESH ts there too, but this pass fences on the
+          CONT-ASSIGN (`inGenScopeCaRhs`); the procedural axis has a measured
+          COUNTEREXAMPLE one line away (45:18 `initial`, where golden keeps the
+          DECL ts and we already agree), so it is a second law and a residue.
+        69:18 — the GENVAR cast, explicitly excluded by the fence.
+
+DEF VIEW: byte-identical (`castSiteScope57` is null outside `emitInstance`,
+`inGenScopeCaRhs` is false outside the elaborated gen-scope cont-assign arm).

@@ -1,0 +1,60 @@
+r10earl57 — NEW-HEAD PREDICTION, written BEFORE the patched binary produced a
+single Earlgrey database.
+
+INSTRUMENT: `lad_pris40.txt`, a 40-rung PRISTINE ladder over
+Earlgrey_0_1/default (--max=40 --budget=300) on the databases this pass built
+itself (pristine md5 8add453b54945397904d8162cd75f5c1, golden from the immutable
+cache).  Masking a rung is how the ladder emulates fixing it; earl54 established
+that its walk order agrees with uhdm-cmp's.
+
+THE PRISTINE LADDER'S FIRST SIX RUNGS ARE ALL THIS PASS'S FAMILY, and every one
+is a `DepthW'(…)` size cast in the SAME elaborated gen scope
+(work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo):
+
+  RUNG 1  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985050
+          vs integer_typespec@:72:45-72:51#235799     (uhdm-cmp's head, 20 lines)
+  RUNG 2  #985061 vs integer_typespec@:73:45-73:51#235811
+  RUNG 3  #985065 vs integer_typespec@:73:67-73:73#235815
+  RUNG 4  #985071 vs integer_typespec@:74:21-74:27#235821
+  RUNG 5  #985077 vs integer_typespec@:74:38-74:44#235828
+  RUNG 6  #985083 vs integer_typespec@:74:60-74:66#…
+
+The census says all six are among the 762 `DepthW` cells the two clauses clear,
+so the new head must be PRISTINE RUNG 7:
+
+  PREDICTED R0
+    KINDL=constant  KINDR=ref_obj  KINDP=operation  FIELD=VpiType
+    SHAPE=KIND:constant>ref_obj
+    L(golden) constant   @prim_fifo_sync.sv:131:29-131:38  #291799
+    R(ours)   ref_obj(PTR_WIDTH) @:131:29-131:38           #236039 (PRISTINE id)
+    PL  operation@131:29-131:40 < part_select(fifo_wptr)@131:19-131:43
+        < bit_select(storage)@131:11-131:44 < assignment@131:11-131:53
+        < begin@130:29-132:12 < if_stmt@130:9-132:12
+        < event_control@129:17-129:33
+    i.e. `storage[fifo_wptr[PTR_WIDTH-2:0]] <= wdata;` in the `always_ff` of
+    gen_depth_gt1 — the PROCEDURAL member of the OPPOSITE-direction family
+    (golden folds the select-bound operand, we keep the ref).  It is r10earl56's
+    R3/R5 residue by name, is NOT this pass's law, and is NOT a new defect: the
+    fence earl56 landed (`directBound56`) is what leaves it alone.
+
+  Golden's object id 291799 is predicted EXACTLY.  OUR id will renumber
+  (earl55's lesson): the patched database drops 888 value-less
+  `integer_typespec`s and mints 812 named `int_typespec`s + 78 shared
+  declaration-typespec reuses, so #236039 is a PRISTINE-side id and may shift.
+  Golden's cannot.
+
+  THE ONE WAY THIS PREDICTION FAILS, named in advance: the 78 DECL-TS rows
+  (prim_fifo_async, dm_mem, pinmux) need `defMap[def].paramTs` to hold the ELAB
+  instance's ParameterSymbol.  The non-reemitting param-reuse arm has NO
+  § paramCastTsBySyntax fallback, so a miss lands them on the catch-all
+  `integer_typespec` WITH a vpiExpr instead of golden's declaration typespec.
+  That would leave R0 at prim_fifo_async.sv:144:33 (KINDL=int_typespec,
+  KINDR=integer_typespec, the same family, one file further on) and the head
+  would MOVE but not to rung 7.  Either way it cannot be AWAY-GOLDEN: the
+  pristine answer there is already wrong.
+
+  What must NOT be the new head: anything at prim_fifo_sync.sv 72:45, 73:45,
+  73:67, 74:21, 74:38, 74:60, and nothing in the two
+  `enum_typespec(dm::csr_reg_t)` cells (dm_mem 388:47 / 427:47) — that pair is a
+  SPAN-only census artefact, equal in name and kind, and this pass must leave it
+  byte-identical.

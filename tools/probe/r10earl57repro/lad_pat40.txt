@@ -1,0 +1,285 @@
+# ctladder MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN(LHS) /home/heyfey/.cache/slang-uhdm-goldens/00d4794526e44dc553f3/golden.uhdm
+# OURS  (RHS) /tmp/r10earl57_wd_pat/slang.uhdm
+# ladder max=40 budget=400s  golden_objs=783183 ours_objs=770501
+RUNG	1	r=-601	vis=303313	masklvl=0	masked=3	cands=64	KINDL=constant	KINDR=ref_obj	KINDP=operation	FIELD=VpiType	SHAPE=KIND:constant>ref_obj	FAM=constant|VpiType|KIND:constant>ref_obj	FAM2=constant|VpiType
+   L  constant@prim_fifo_sync.sv:131:29-131:38#291799
+   R  ref_obj(PTR_WIDTH)@:131:29-131:38#236039
+   G= constant   O= ref_obj
+   PL constant@prim_fifo_sync.sv:131:29-131:38#291799 < operation@prim_fifo_sync.sv:131:29-131:40#291802 < part_select(fifo_wptr)@prim_fifo_sync.sv:131:19-131:43#291798 < bit_select(storage)@prim_fifo_sync.sv:131:11-131:44#291805 < assignment@prim_fifo_sync.sv:131:11-131:53#291797 < begin@prim_fifo_sync.sv:130:29-132:12#291796 < if_stmt@prim_fifo_sync.sv:130:9-132:12#291795 < event_control@prim_fifo_sync.sv:129:17-129:33#291791
+   PR ref_obj(PTR_WIDTH)@:131:29-131:38#236039 < operation@:131:29-131:40#236038 < part_select(fifo_wptr)@:131:19-131:43#236037 < bit_select(storage)@:131:11-131:44#236036 < assignment@:131:11-131:53#236035 < begin@:130:29-132:12#236034 < if_stmt@:130:9-132:12#236032 < event_control@:129:17-129:33#236029
+   MK constant@prim_fifo_sync.sv:131:29-131:38#291799
+RUNG	2	r=1	vis=303341	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#291318
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#291318 < module_inst(i_fifo)@dm_csrs.sv:553:3-568:5#985021 < module_inst(i_dm_csrs)@rv_dm.sv:107:3-156:5#984841 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#985104
+RUNG	3	r=1	vis=304201	masklvl=13	masked=1142	cands=64	KINDL=package	KINDR=<null>	KINDP=design	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=package|<rhs-null>|MISSING-OURS	FAM2=package|<rhs-null>
+   L  package(dm)@dm_pkg.sv:19:1-414:16#16
+   R  <null>
+   G= -   O= -
+   PL package(dm)@dm_pkg.sv:19:1-414:16#16 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK logic_typespec@dm_pkg.sv:34:14-34:26#292571
+RUNG	4	r=-1	vis=305205	masklvl=0	masked=638600	cands=64	KINDL=<null>	KINDR=logic_net	KINDP=module_inst	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>	CASCADE=1
+   L  <null>
+   R  logic_net(clk_i)@:11:16-11:21#238264
+   G= -   O= -
+   PL -
+   PR logic_net(clk_i)@:11:16-11:21#238264 < module_inst(i_tck_inv)@dmi_jtag_tap.sv:221:3-227:5#238256 < module_inst(i_dmi_jtag_tap)@dmi_jtag.sv:217:3-238:5#238127 < module_inst(dap)@rv_dm.sv:273:3-296:5#237917 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#234557 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK module_inst(i_tck_inv)@dmi_jtag_tap.sv:221:3-227:5#985586  [CASCADE: this mask hides >=1% of the golden database for every later rung]
+RUNG	5	r=1	vis=307217	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#296267
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#296267 < module_inst(u_reqfifo)@tlul_adapter_sram.sv:239:3-254:5#986501 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#985951 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#986584
+RUNG	6	r=1	vis=307698	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#296904
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#296904 < module_inst(u_maskfifo)@tlul_adapter_sram.sv:260:3-275:5#986589 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#985951 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#986672
+RUNG	7	r=1	vis=308187	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#297539
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#297539 < module_inst(u_rspfifo)@tlul_adapter_sram.sv:283:3-298:5#986677 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#985951 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#986760
+RUNG	8	r=9	vis=308234	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=operation	FIELD=VpiDecompile	SHAPE=O-EXTRA-PREFIX(')	FAM=constant|VpiDecompile|O-EXTRA-PREFIX(')	FAM2=constant|VpiDecompile
+   L  constant@tlul_adapter_sram.sv:132:18-132:20#986031
+   R  constant@:132:18-132:20#241881
+   G= "0"   O= "'0"
+   PL constant@tlul_adapter_sram.sv:132:18-132:20#986031 < operation@tlul_adapter_sram.sv:129:17-142:4#986010 < cont_assign@tlul_adapter_sram.sv:129:10-142:4#986008 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#985951 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR constant@:132:18-132:20#241881 < operation@:129:17-142:4#241869 < cont_assign@:129:10-142:4#241867 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#239931 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#234557 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK constant@tlul_adapter_sram.sv:132:18-132:20#986031
+RUNG	9	r=9	vis=308262	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=operation	FIELD=VpiDecompile	SHAPE=O-EXTRA-PREFIX(')	FAM=constant|VpiDecompile|O-EXTRA-PREFIX(')	FAM2=constant|VpiDecompile
+   L  constant@tlul_adapter_sram.sv:138:18-138:20#986074
+   R  constant@:138:18-138:20#241909
+   G= "0"   O= "'0"
+   PL constant@tlul_adapter_sram.sv:138:18-138:20#986074 < operation@tlul_adapter_sram.sv:129:17-142:4#986010 < cont_assign@tlul_adapter_sram.sv:129:10-142:4#986008 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#985951 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR constant@:138:18-138:20#241909 < operation@:129:17-142:4#241869 < cont_assign@:129:10-142:4#241867 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#239931 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#234557 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK constant@tlul_adapter_sram.sv:138:18-138:20#986074
+RUNG	10	r=-601	vis=309332	masklvl=0	masked=3	cands=64	KINDL=constant	KINDR=ref_obj	KINDP=operation	FIELD=VpiType	SHAPE=KIND:constant>ref_obj	FAM=constant|VpiType|KIND:constant>ref_obj	FAM2=constant|VpiType
+   L  constant@prim_fifo_sync.sv:131:29-131:38#299158
+   R  ref_obj(PTR_WIDTH)@:131:29-131:38#243005
+   G= constant   O= ref_obj
+   PL constant@prim_fifo_sync.sv:131:29-131:38#299158 < operation@prim_fifo_sync.sv:131:29-131:40#299161 < part_select(fifo_wptr)@prim_fifo_sync.sv:131:19-131:43#299157 < bit_select(storage)@prim_fifo_sync.sv:131:11-131:44#299164 < assignment@prim_fifo_sync.sv:131:11-131:53#299156 < begin@prim_fifo_sync.sv:130:29-132:12#299155 < if_stmt@prim_fifo_sync.sv:130:9-132:12#299154 < event_control@prim_fifo_sync.sv:129:17-129:33#299150
+   PR ref_obj(PTR_WIDTH)@:131:29-131:38#243005 < operation@:131:29-131:40#243004 < part_select(fifo_wptr)@:131:19-131:43#243003 < bit_select(storage)@:131:11-131:44#243002 < assignment@:131:11-131:53#243001 < begin@:130:29-132:12#243000 < if_stmt@:130:9-132:12#242998 < event_control@:129:17-129:33#242995
+   MK constant@prim_fifo_sync.sv:131:29-131:38#299158
+RUNG	11	r=1	vis=309360	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#298680
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#298680 < module_inst(u_reqfifo)@tlul_adapter_sram.sv:239:3-254:5#987322 < module_inst(u_tl_adapter_rom)@top_earlgrey.sv:350:3-371:5#986765 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#987405
+RUNG	12	r=-601	vis=309823	masklvl=0	masked=3	cands=64	KINDL=constant	KINDR=ref_obj	KINDP=operation	FIELD=VpiType	SHAPE=KIND:constant>ref_obj	FAM=constant|VpiType|KIND:constant>ref_obj	FAM2=constant|VpiType
+   L  constant@prim_fifo_sync.sv:131:29-131:38#299807
+   R  ref_obj(PTR_WIDTH)@:131:29-131:38#243505
+   G= constant   O= ref_obj
+   PL constant@prim_fifo_sync.sv:131:29-131:38#299807 < operation@prim_fifo_sync.sv:131:29-131:40#299810 < part_select(fifo_wptr)@prim_fifo_sync.sv:131:19-131:43#299806 < bit_select(storage)@prim_fifo_sync.sv:131:11-131:44#299813 < assignment@prim_fifo_sync.sv:131:11-131:53#299805 < begin@prim_fifo_sync.sv:130:29-132:12#299804 < if_stmt@prim_fifo_sync.sv:130:9-132:12#299803 < event_control@prim_fifo_sync.sv:129:17-129:33#299799
+   PR ref_obj(PTR_WIDTH)@:131:29-131:38#243505 < operation@:131:29-131:40#243504 < part_select(fifo_wptr)@:131:19-131:43#243503 < bit_select(storage)@:131:11-131:44#243502 < assignment@:131:11-131:53#243501 < begin@:130:29-132:12#243500 < if_stmt@:130:9-132:12#243498 < event_control@:129:17-129:33#243495
+   MK constant@prim_fifo_sync.sv:131:29-131:38#299807
+RUNG	13	r=1	vis=309851	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#299329
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#299329 < module_inst(u_maskfifo)@tlul_adapter_sram.sv:260:3-275:5#987410 < module_inst(u_tl_adapter_rom)@top_earlgrey.sv:350:3-371:5#986765 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#987493
+RUNG	14	r=-601	vis=310314	masklvl=0	masked=3	cands=64	KINDL=constant	KINDR=ref_obj	KINDP=operation	FIELD=VpiType	SHAPE=KIND:constant>ref_obj	FAM=constant|VpiType|KIND:constant>ref_obj	FAM2=constant|VpiType
+   L  constant@prim_fifo_sync.sv:131:29-131:38#300454
+   R  ref_obj(PTR_WIDTH)@:131:29-131:38#244005
+   G= constant   O= ref_obj
+   PL constant@prim_fifo_sync.sv:131:29-131:38#300454 < operation@prim_fifo_sync.sv:131:29-131:40#300457 < part_select(fifo_wptr)@prim_fifo_sync.sv:131:19-131:43#300453 < bit_select(storage)@prim_fifo_sync.sv:131:11-131:44#300460 < assignment@prim_fifo_sync.sv:131:11-131:53#300452 < begin@prim_fifo_sync.sv:130:29-132:12#300451 < if_stmt@prim_fifo_sync.sv:130:9-132:12#300450 < event_control@prim_fifo_sync.sv:129:17-129:33#300446
+   PR ref_obj(PTR_WIDTH)@:131:29-131:38#244005 < operation@:131:29-131:40#244004 < part_select(fifo_wptr)@:131:19-131:43#244003 < bit_select(storage)@:131:11-131:44#244002 < assignment@:131:11-131:53#244001 < begin@:130:29-132:12#244000 < if_stmt@:130:9-132:12#243998 < event_control@:129:17-129:33#243995
+   MK constant@prim_fifo_sync.sv:131:29-131:38#300454
+RUNG	15	r=1	vis=310350	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#299976
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#299976 < module_inst(u_rspfifo)@tlul_adapter_sram.sv:283:3-298:5#987498 < module_inst(u_tl_adapter_rom)@top_earlgrey.sv:350:3-371:5#986765 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#987581
+RUNG	16	r=1	vis=310398	masklvl=1	masked=2	cands=64	KINDL=enum_const	KINDR=<null>	KINDP=enum_typespec	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=enum_const|<rhs-null>|MISSING-OURS	FAM2=enum_const|<rhs-null>
+   L  enum_const(OpRead)@tlul_adapter_sram.sv:49:5-49:11#191246
+   R  <null>
+   G= -   O= -
+   PL enum_const(OpRead)@tlul_adapter_sram.sv:49:5-49:11#191246 < enum_typespec(req_op_e)@tlul_adapter_sram.sv:47:3-51:15#191242 < module_inst@tlul_adapter_sram.sv:15:1-318:10#954349 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(OpRead)@tlul_adapter_sram.sv:131:50-131:56#986839
+RUNG	17	r=9	vis=310401	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=operation	FIELD=VpiDecompile	SHAPE=O-EXTRA-PREFIX(')	FAM=constant|VpiDecompile|O-EXTRA-PREFIX(')	FAM2=constant|VpiDecompile
+   L  constant@tlul_adapter_sram.sv:132:18-132:20#986845
+   R  constant@:132:18-132:20#244154
+   G= "0"   O= "'0"
+   PL constant@tlul_adapter_sram.sv:132:18-132:20#986845 < operation@tlul_adapter_sram.sv:129:17-142:4#986824 < cont_assign@tlul_adapter_sram.sv:129:10-142:4#986822 < module_inst(u_tl_adapter_rom)@top_earlgrey.sv:350:3-371:5#986765 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR constant@:132:18-132:20#244154 < operation@:129:17-142:4#244142 < cont_assign@:129:10-142:4#244140 < module_inst(u_tl_adapter_rom)@top_earlgrey.sv:350:3-371:5#242180 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK constant@tlul_adapter_sram.sv:132:18-132:20#986845
+RUNG	18	r=1	vis=310424	masklvl=1	masked=2	cands=64	KINDL=enum_const	KINDR=<null>	KINDP=enum_typespec	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=enum_const|<rhs-null>|MISSING-OURS	FAM2=enum_const|<rhs-null>
+   L  enum_const(OpRead)@tlul_adapter_sram.sv:49:5-49:11#191246
+   R  <null>
+   G= -   O= -
+   PL enum_const(OpRead)@tlul_adapter_sram.sv:49:5-49:11#191246 < enum_typespec(req_op_e)@tlul_adapter_sram.sv:47:3-51:15#191242 < module_inst@tlul_adapter_sram.sv:15:1-318:10#954349 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(OpRead)@tlul_adapter_sram.sv:136:68-136:74#986880
+RUNG	19	r=9	vis=310429	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=operation	FIELD=VpiDecompile	SHAPE=O-EXTRA-PREFIX(')	FAM=constant|VpiDecompile|O-EXTRA-PREFIX(')	FAM2=constant|VpiDecompile
+   L  constant@tlul_adapter_sram.sv:138:18-138:20#986888
+   R  constant@:138:18-138:20#244182
+   G= "0"   O= "'0"
+   PL constant@tlul_adapter_sram.sv:138:18-138:20#986888 < operation@tlul_adapter_sram.sv:129:17-142:4#986824 < cont_assign@tlul_adapter_sram.sv:129:10-142:4#986822 < module_inst(u_tl_adapter_rom)@top_earlgrey.sv:350:3-371:5#986765 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR constant@:138:18-138:20#244182 < operation@:129:17-142:4#244142 < cont_assign@:129:10-142:4#244140 < module_inst(u_tl_adapter_rom)@top_earlgrey.sv:350:3-371:5#242180 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK constant@tlul_adapter_sram.sv:138:18-138:20#986888
+RUNG	20	r=1	vis=310526	masklvl=1	masked=2	cands=64	KINDL=enum_const	KINDR=<null>	KINDP=enum_typespec	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=enum_const|<rhs-null>|MISSING-OURS	FAM2=enum_const|<rhs-null>
+   L  enum_const(OpWrite)@tlul_adapter_sram.sv:48:5-48:12#191245
+   R  <null>
+   G= -   O= -
+   PL enum_const(OpWrite)@tlul_adapter_sram.sv:48:5-48:12#191245 < enum_typespec(req_op_e)@tlul_adapter_sram.sv:47:3-51:15#191242 < module_inst@tlul_adapter_sram.sv:15:1-318:10#954349 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(OpWrite)@tlul_adapter_sram.sv:202:38-202:45#987090
+RUNG	21	r=1	vis=310527	masklvl=60	masked=638600	cands=64	KINDL=enum_const	KINDR=<null>	KINDP=enum_typespec	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=enum_const|<rhs-null>|MISSING-OURS	FAM2=enum_const|<rhs-null>	CASCADE=1
+   L  enum_const(OpRead)@tlul_adapter_sram.sv:49:5-49:11#191246
+   R  <null>
+   G= -   O= -
+   PL enum_const(OpRead)@tlul_adapter_sram.sv:49:5-49:11#191246 < enum_typespec(req_op_e)@tlul_adapter_sram.sv:47:3-51:15#191242 < module_inst@tlul_adapter_sram.sv:15:1-318:10#954349 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK module_inst(u_tl_adapter_rom)@top_earlgrey.sv:350:3-371:5#986765  [CASCADE: this mask hides >=1% of the golden database for every later rung]
+RUNG	22	r=-601	vis=309625	masklvl=0	masked=3	cands=64	KINDL=constant	KINDR=ref_obj	KINDP=operation	FIELD=VpiType	SHAPE=KIND:constant>ref_obj	FAM=constant|VpiType|KIND:constant>ref_obj	FAM2=constant|VpiType
+   L  constant@prim_fifo_sync.sv:131:29-131:38#301995
+   R  ref_obj(PTR_WIDTH)@:131:29-131:38#245487
+   G= constant   O= ref_obj
+   PL constant@prim_fifo_sync.sv:131:29-131:38#301995 < operation@prim_fifo_sync.sv:131:29-131:40#301998 < part_select(fifo_wptr)@prim_fifo_sync.sv:131:19-131:43#301994 < bit_select(storage)@prim_fifo_sync.sv:131:11-131:44#302001 < assignment@prim_fifo_sync.sv:131:11-131:53#301993 < begin@prim_fifo_sync.sv:130:29-132:12#301992 < if_stmt@prim_fifo_sync.sv:130:9-132:12#301991 < event_control@prim_fifo_sync.sv:129:17-129:33#301987
+   PR ref_obj(PTR_WIDTH)@:131:29-131:38#245487 < operation@:131:29-131:40#245486 < part_select(fifo_wptr)@:131:19-131:43#245485 < bit_select(storage)@:131:11-131:44#245484 < assignment@:131:11-131:53#245483 < begin@:130:29-132:12#245482 < if_stmt@:130:9-132:12#245480 < event_control@:129:17-129:33#245477
+   MK constant@prim_fifo_sync.sv:131:29-131:38#301995
+RUNG	23	r=1	vis=309653	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#301517
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#301517 < module_inst(u_reqfifo)@tlul_adapter_sram.sv:239:3-254:5#988187 < module_inst(u_tl_adapter_ram_main)@top_earlgrey.sv:397:3-416:5#987637 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#988270
+RUNG	24	r=-601	vis=310116	masklvl=0	masked=3	cands=64	KINDL=constant	KINDR=ref_obj	KINDP=operation	FIELD=VpiType	SHAPE=KIND:constant>ref_obj	FAM=constant|VpiType|KIND:constant>ref_obj	FAM2=constant|VpiType
+   L  constant@prim_fifo_sync.sv:131:29-131:38#302644
+   R  ref_obj(PTR_WIDTH)@:131:29-131:38#245987
+   G= constant   O= ref_obj
+   PL constant@prim_fifo_sync.sv:131:29-131:38#302644 < operation@prim_fifo_sync.sv:131:29-131:40#302647 < part_select(fifo_wptr)@prim_fifo_sync.sv:131:19-131:43#302643 < bit_select(storage)@prim_fifo_sync.sv:131:11-131:44#302650 < assignment@prim_fifo_sync.sv:131:11-131:53#302642 < begin@prim_fifo_sync.sv:130:29-132:12#302641 < if_stmt@prim_fifo_sync.sv:130:9-132:12#302640 < event_control@prim_fifo_sync.sv:129:17-129:33#302636
+   PR ref_obj(PTR_WIDTH)@:131:29-131:38#245987 < operation@:131:29-131:40#245986 < part_select(fifo_wptr)@:131:19-131:43#245985 < bit_select(storage)@:131:11-131:44#245984 < assignment@:131:11-131:53#245983 < begin@:130:29-132:12#245982 < if_stmt@:130:9-132:12#245980 < event_control@:129:17-129:33#245977
+   MK constant@prim_fifo_sync.sv:131:29-131:38#302644
+RUNG	25	r=1	vis=310144	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#302166
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#302166 < module_inst(u_maskfifo)@tlul_adapter_sram.sv:260:3-275:5#988275 < module_inst(u_tl_adapter_ram_main)@top_earlgrey.sv:397:3-416:5#987637 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#988358
+RUNG	26	r=-601	vis=310607	masklvl=0	masked=3	cands=64	KINDL=constant	KINDR=ref_obj	KINDP=operation	FIELD=VpiType	SHAPE=KIND:constant>ref_obj	FAM=constant|VpiType|KIND:constant>ref_obj	FAM2=constant|VpiType
+   L  constant@prim_fifo_sync.sv:131:29-131:38#303291
+   R  ref_obj(PTR_WIDTH)@:131:29-131:38#246487
+   G= constant   O= ref_obj
+   PL constant@prim_fifo_sync.sv:131:29-131:38#303291 < operation@prim_fifo_sync.sv:131:29-131:40#303294 < part_select(fifo_wptr)@prim_fifo_sync.sv:131:19-131:43#303290 < bit_select(storage)@prim_fifo_sync.sv:131:11-131:44#303297 < assignment@prim_fifo_sync.sv:131:11-131:53#303289 < begin@prim_fifo_sync.sv:130:29-132:12#303288 < if_stmt@prim_fifo_sync.sv:130:9-132:12#303287 < event_control@prim_fifo_sync.sv:129:17-129:33#303283
+   PR ref_obj(PTR_WIDTH)@:131:29-131:38#246487 < operation@:131:29-131:40#246486 < part_select(fifo_wptr)@:131:19-131:43#246485 < bit_select(storage)@:131:11-131:44#246484 < assignment@:131:11-131:53#246483 < begin@:130:29-132:12#246482 < if_stmt@:130:9-132:12#246480 < event_control@:129:17-129:33#246477
+   MK constant@prim_fifo_sync.sv:131:29-131:38#303291
+RUNG	27	r=1	vis=310643	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#302813
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#302813 < module_inst(u_rspfifo)@tlul_adapter_sram.sv:283:3-298:5#988363 < module_inst(u_tl_adapter_ram_main)@top_earlgrey.sv:397:3-416:5#987637 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#988446
+RUNG	28	r=1	vis=310687	masklvl=1	masked=2	cands=64	KINDL=enum_const	KINDR=<null>	KINDP=enum_typespec	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=enum_const|<rhs-null>|MISSING-OURS	FAM2=enum_const|<rhs-null>
+   L  enum_const(OpRead)@tlul_adapter_sram.sv:49:5-49:11#191246
+   R  <null>
+   G= -   O= -
+   PL enum_const(OpRead)@tlul_adapter_sram.sv:49:5-49:11#191246 < enum_typespec(req_op_e)@tlul_adapter_sram.sv:47:3-51:15#191242 < module_inst@tlul_adapter_sram.sv:15:1-318:10#954349 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(OpRead)@tlul_adapter_sram.sv:131:50-131:56#987711
+RUNG	29	r=9	vis=310690	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=operation	FIELD=VpiDecompile	SHAPE=O-EXTRA-PREFIX(')	FAM=constant|VpiDecompile|O-EXTRA-PREFIX(')	FAM2=constant|VpiDecompile
+   L  constant@tlul_adapter_sram.sv:132:18-132:20#987717
+   R  constant@:132:18-132:20#246636
+   G= "0"   O= "'0"
+   PL constant@tlul_adapter_sram.sv:132:18-132:20#987717 < operation@tlul_adapter_sram.sv:129:17-142:4#987696 < cont_assign@tlul_adapter_sram.sv:129:10-142:4#987694 < module_inst(u_tl_adapter_ram_main)@top_earlgrey.sv:397:3-416:5#987637 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR constant@:132:18-132:20#246636 < operation@:129:17-142:4#246624 < cont_assign@:129:10-142:4#246622 < module_inst(u_tl_adapter_ram_main)@top_earlgrey.sv:397:3-416:5#244662 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK constant@tlul_adapter_sram.sv:132:18-132:20#987717
+RUNG	30	r=1	vis=310713	masklvl=1	masked=2	cands=64	KINDL=enum_const	KINDR=<null>	KINDP=enum_typespec	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=enum_const|<rhs-null>|MISSING-OURS	FAM2=enum_const|<rhs-null>
+   L  enum_const(OpRead)@tlul_adapter_sram.sv:49:5-49:11#191246
+   R  <null>
+   G= -   O= -
+   PL enum_const(OpRead)@tlul_adapter_sram.sv:49:5-49:11#191246 < enum_typespec(req_op_e)@tlul_adapter_sram.sv:47:3-51:15#191242 < module_inst@tlul_adapter_sram.sv:15:1-318:10#954349 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(OpRead)@tlul_adapter_sram.sv:136:68-136:74#987752
+RUNG	31	r=9	vis=310718	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=operation	FIELD=VpiDecompile	SHAPE=O-EXTRA-PREFIX(')	FAM=constant|VpiDecompile|O-EXTRA-PREFIX(')	FAM2=constant|VpiDecompile
+   L  constant@tlul_adapter_sram.sv:138:18-138:20#987760
+   R  constant@:138:18-138:20#246664
+   G= "0"   O= "'0"
+   PL constant@tlul_adapter_sram.sv:138:18-138:20#987760 < operation@tlul_adapter_sram.sv:129:17-142:4#987696 < cont_assign@tlul_adapter_sram.sv:129:10-142:4#987694 < module_inst(u_tl_adapter_ram_main)@top_earlgrey.sv:397:3-416:5#987637 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR constant@:138:18-138:20#246664 < operation@:129:17-142:4#246624 < cont_assign@:129:10-142:4#246622 < module_inst(u_tl_adapter_ram_main)@top_earlgrey.sv:397:3-416:5#244662 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK constant@tlul_adapter_sram.sv:138:18-138:20#987760
+RUNG	32	r=1	vis=310815	masklvl=1	masked=2	cands=64	KINDL=enum_const	KINDR=<null>	KINDP=enum_typespec	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=enum_const|<rhs-null>|MISSING-OURS	FAM2=enum_const|<rhs-null>
+   L  enum_const(OpWrite)@tlul_adapter_sram.sv:48:5-48:12#191245
+   R  <null>
+   G= -   O= -
+   PL enum_const(OpWrite)@tlul_adapter_sram.sv:48:5-48:12#191245 < enum_typespec(req_op_e)@tlul_adapter_sram.sv:47:3-51:15#191242 < module_inst@tlul_adapter_sram.sv:15:1-318:10#954349 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(OpWrite)@tlul_adapter_sram.sv:202:38-202:45#987962
+RUNG	33	r=1	vis=310816	masklvl=59	masked=638600	cands=64	KINDL=enum_const	KINDR=<null>	KINDP=enum_typespec	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=enum_const|<rhs-null>|MISSING-OURS	FAM2=enum_const|<rhs-null>	CASCADE=1
+   L  enum_const(OpRead)@tlul_adapter_sram.sv:49:5-49:11#191246
+   R  <null>
+   G= -   O= -
+   PL enum_const(OpRead)@tlul_adapter_sram.sv:49:5-49:11#191246 < enum_typespec(req_op_e)@tlul_adapter_sram.sv:47:3-51:15#191242 < module_inst@tlul_adapter_sram.sv:15:1-318:10#954349 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK module_inst(u_tl_adapter_ram_main)@top_earlgrey.sv:397:3-416:5#987637  [CASCADE: this mask hides >=1% of the golden database for every later rung]
+RUNG	34	r=-2	vis=308864	masklvl=0	masked=3	cands=64	KINDL=constant	KINDR=constant	KINDP=param_assign	FIELD=VpiDecompile	SHAPE=TEXT:#|#'b#	FAM=constant|VpiDecompile|TEXT:#|#'b#	FAM2=constant|VpiDecompile
+   L  constant@prim_ram_1p_adv.sv:32:41-32:53#303406
+   R  constant@:32:41-32:53#246923
+   G= "14"   O= "32'b00000000000000000000000000001110"
+   PL constant@prim_ram_1p_adv.sv:32:41-32:53#303406 < param_assign@prim_ram_1p_adv.sv:32:18-32:53#303405 < module_inst(u_ram1p_ram_main)@top_earlgrey.sv:418:3-438:5#988451 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR constant@:32:41-32:53#246923 < param_assign@:32:18-32:53#246922 < module_inst(u_ram1p_ram_main)@top_earlgrey.sv:418:3-438:5#246874 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK constant@prim_ram_1p_adv.sv:32:41-32:53#303406
+RUNG	35	r=-601	vis=310214	masklvl=0	masked=3	cands=64	KINDL=constant	KINDR=ref_obj	KINDP=operation	FIELD=VpiType	SHAPE=KIND:constant>ref_obj	FAM=constant|VpiType|KIND:constant>ref_obj	FAM2=constant|VpiType
+   L  constant@prim_fifo_sync.sv:131:29-131:38#305321
+   R  ref_obj(PTR_WIDTH)@:131:29-131:38#248300
+   G= constant   O= ref_obj
+   PL constant@prim_fifo_sync.sv:131:29-131:38#305321 < operation@prim_fifo_sync.sv:131:29-131:40#305324 < part_select(fifo_wptr)@prim_fifo_sync.sv:131:19-131:43#305320 < bit_select(storage)@prim_fifo_sync.sv:131:11-131:44#305327 < assignment@prim_fifo_sync.sv:131:11-131:53#305319 < begin@prim_fifo_sync.sv:130:29-132:12#305318 < if_stmt@prim_fifo_sync.sv:130:9-132:12#305317 < event_control@prim_fifo_sync.sv:129:17-129:33#305313
+   PR ref_obj(PTR_WIDTH)@:131:29-131:38#248300 < operation@:131:29-131:40#248299 < part_select(fifo_wptr)@:131:19-131:43#248298 < bit_select(storage)@:131:11-131:44#248297 < assignment@:131:11-131:53#248296 < begin@:130:29-132:12#248295 < if_stmt@:130:9-132:12#248293 < event_control@:129:17-129:33#248290
+   MK constant@prim_fifo_sync.sv:131:29-131:38#305321
+RUNG	36	r=1	vis=310242	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#304843
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#304843 < module_inst(u_reqfifo)@tlul_adapter_sram.sv:239:3-254:5#989101 < module_inst(u_tl_adapter_eflash)@top_earlgrey.sv:447:3-469:5#988544 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#989184
+RUNG	37	r=-601	vis=310705	masklvl=0	masked=3	cands=64	KINDL=constant	KINDR=ref_obj	KINDP=operation	FIELD=VpiType	SHAPE=KIND:constant>ref_obj	FAM=constant|VpiType|KIND:constant>ref_obj	FAM2=constant|VpiType
+   L  constant@prim_fifo_sync.sv:131:29-131:38#305970
+   R  ref_obj(PTR_WIDTH)@:131:29-131:38#248800
+   G= constant   O= ref_obj
+   PL constant@prim_fifo_sync.sv:131:29-131:38#305970 < operation@prim_fifo_sync.sv:131:29-131:40#305973 < part_select(fifo_wptr)@prim_fifo_sync.sv:131:19-131:43#305969 < bit_select(storage)@prim_fifo_sync.sv:131:11-131:44#305976 < assignment@prim_fifo_sync.sv:131:11-131:53#305968 < begin@prim_fifo_sync.sv:130:29-132:12#305967 < if_stmt@prim_fifo_sync.sv:130:9-132:12#305966 < event_control@prim_fifo_sync.sv:129:17-129:33#305962
+   PR ref_obj(PTR_WIDTH)@:131:29-131:38#248800 < operation@:131:29-131:40#248799 < part_select(fifo_wptr)@:131:19-131:43#248798 < bit_select(storage)@:131:11-131:44#248797 < assignment@:131:11-131:53#248796 < begin@:130:29-132:12#248795 < if_stmt@:130:9-132:12#248793 < event_control@:129:17-129:33#248790
+   MK constant@prim_fifo_sync.sv:131:29-131:38#305970
+RUNG	38	r=1	vis=310733	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#305492
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#305492 < module_inst(u_maskfifo)@tlul_adapter_sram.sv:260:3-275:5#989189 < module_inst(u_tl_adapter_eflash)@top_earlgrey.sv:447:3-469:5#988544 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#989272
+RUNG	39	r=-601	vis=311196	masklvl=0	masked=3	cands=64	KINDL=constant	KINDR=ref_obj	KINDP=operation	FIELD=VpiType	SHAPE=KIND:constant>ref_obj	FAM=constant|VpiType|KIND:constant>ref_obj	FAM2=constant|VpiType
+   L  constant@prim_fifo_sync.sv:131:29-131:38#306617
+   R  ref_obj(PTR_WIDTH)@:131:29-131:38#249300
+   G= constant   O= ref_obj
+   PL constant@prim_fifo_sync.sv:131:29-131:38#306617 < operation@prim_fifo_sync.sv:131:29-131:40#306620 < part_select(fifo_wptr)@prim_fifo_sync.sv:131:19-131:43#306616 < bit_select(storage)@prim_fifo_sync.sv:131:11-131:44#306623 < assignment@prim_fifo_sync.sv:131:11-131:53#306615 < begin@prim_fifo_sync.sv:130:29-132:12#306614 < if_stmt@prim_fifo_sync.sv:130:9-132:12#306613 < event_control@prim_fifo_sync.sv:129:17-129:33#306609
+   PR ref_obj(PTR_WIDTH)@:131:29-131:38#249300 < operation@:131:29-131:40#249299 < part_select(fifo_wptr)@:131:19-131:43#249298 < bit_select(storage)@:131:11-131:44#249297 < assignment@:131:11-131:53#249296 < begin@:130:29-132:12#249295 < if_stmt@:130:9-132:12#249293 < event_control@:129:17-129:33#249290
+   MK constant@prim_fifo_sync.sv:131:29-131:38#306617
+RUNG	40	r=1	vis=311232	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#306139
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#306139 < module_inst(u_rspfifo)@tlul_adapter_sram.sv:283:3-298:5#989277 < module_inst(u_tl_adapter_eflash)@top_earlgrey.sv:447:3-469:5#988544 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#989360
+[S] rungs=40 stop=MAX-RUNGS escalated=22 ref_joins=0 nofield=0 maxvis=311232/783183 masks=40 cascades=3 suppressed=638600/783183 secs=38.8

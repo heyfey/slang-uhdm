@@ -3122,6 +3122,20 @@ private:
     // logic_typespec instead of minting the integer_typespec + vpiExpr shape
     // Surelog builds (BlackBePipeInt bp_common_pkg host_base_addr_gp).
     const slang::ast::Scope* castBindScope = nullptr;
+    // § castSizeElabScopeBind57 (r10earl57) — THE SCOPE THE CAST SITE ACTUALLY
+    // BELONGS TO while an ELABORATED instance's content is emitted.
+    // `emitModuleDef` sets `currentScope = &body` for the DEFINITION view, but
+    // `emitInstance` sets it NOWHERE, so every elaborated instance's content is
+    // emitted with `currentScope` still pointing at whatever DEFINITION was
+    // compiled last (measured on Earlgrey_0_1/default: the 127 elaborated
+    // `prim_fifo_sync.gen_normal_fifo` copies bind `DepthW` in `dm_csrs`,
+    // `tlul_err`, `tlul_fifo_async`, … — 834 FAILED binds).  A failed bind makes
+    // the cast fall through to the value-less `integer_typespec` fallback, which
+    // is NEVER golden's answer for a cast target written as a parameter name.
+    // Read ONLY as a RE-BIND FALLBACK when the stale scope's bind FAILS, so no
+    // cast that resolves today can move; `emitInstance` sets it to the instance
+    // body and the gen-scope cont-assign arm narrows it to the gen block.
+    const slang::ast::Scope* castSiteScope57 = nullptr;
     std::map<const slang::ast::Symbol*, bool> paramIntEnc;
     std::vector<PendingParamTs> pendingParamTs;
     // An ELAB unpacked-array param's own array_typespec clone is built after

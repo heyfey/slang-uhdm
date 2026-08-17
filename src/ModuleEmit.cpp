@@ -6620,6 +6620,16 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         bool prev;
         ~ElabTsGuard() { slot = prev; }
     } elabTsGuard{elabInstanceTs, savedElabInstTs};
+    // § castSizeElabScopeBind57 — this function never sets `currentScope`, so a
+    // size cast written in THIS instance's content binds its target name in the
+    // last DEFINITION's body.  Record the scope the content really belongs to;
+    // the cast arm reads it only when that stale bind FAILS.
+    struct CastSiteScopeGuard57 {
+        const slang::ast::Scope*& slot;
+        const slang::ast::Scope* prev;
+        ~CastSiteScopeGuard57() { slot = prev; }
+    } castSiteGuard57{castSiteScope57, castSiteScope57};
+    castSiteScope57 = &body;
     // Pending-typespec ranges owned by this top's tree (recorded before the
     // def fill, which already queues def-local net typespecs).
     size_t paramLo = pendingParamTs.size();
@@ -14814,6 +14824,12 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                        parentFull == prefix &&
                                        genBlkIsLoopBody(blk);
                 inGenScopeCaRhs = true;
+                // § castSizeElabScopeBind57 — the gen block declares its OWN
+                // localparams (prim_fifo_sync's PTRV_W / v3's GLIT, GDEP), and
+                // the instance body cannot see them; narrow the re-bind scope
+                // to the block whose assign this is.
+                const Scope* savedCastSiteScope57 = castSiteScope57;
+                castSiteScope57 = &blk;
                 // § genNestedScopePkgParamNoFold24 — the NESTING test, read
                 // here and consumed at the pkg-param fold site in ExprEmit.
                 genNestedScopeEmit24 = parentFull != prefix;
@@ -14902,6 +14918,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                          sm->getColumnNumber(sr9.end()), lts9});
                 }
                 inGenScopeCaRhs = false;
+                castSiteScope57 = savedCastSiteScope57;
                 genNestedScopeEmit24 = false;
                 genCaLhsSelect22 = false;
                 genCaLhsGenLocal23 = false;

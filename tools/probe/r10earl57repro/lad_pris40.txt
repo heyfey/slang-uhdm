@@ -1,0 +1,285 @@
+# ctladder MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN(LHS) /home/heyfey/.cache/slang-uhdm-goldens/00d4794526e44dc553f3/golden.uhdm
+# OURS  (RHS) /tmp/r10earl57_wd_pris/slang.uhdm
+# ladder max=40 budget=300s  golden_objs=783183 ours_objs=770423
+RUNG	1	r=-6	vis=303228	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985050
+   R  integer_typespec@:72:45-72:51#235799
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985050 < ref_typespec@:0:0-0:0#985049 < operation@prim_fifo_sync.sv:72:45-72:59#985048 < operation@prim_fifo_sync.sv:72:20-74:80#985046 < cont_assign@prim_fifo_sync.sv:72:12-74:80#985044 < gen_scope@prim_fifo_sync.sv:52:12-151:6#985041 < gen_scope_array(gen_normal_fifo)@prim_fifo_sync.sv:52:12-151:6#985040 < module_inst(i_fifo)@dm_csrs.sv:553:3-568:5#985021
+   PR integer_typespec@:72:45-72:51#235799
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985050
+RUNG	2	r=-6	vis=303239	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985061
+   R  integer_typespec@:73:45-73:51#235811
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985061 < ref_typespec@:0:0-0:0#985060 < operation@prim_fifo_sync.sv:73:45-73:64#985059 < operation@prim_fifo_sync.sv:73:45-73:86#985058 < operation@prim_fifo_sync.sv:73:20-74:80#985054 < operation@prim_fifo_sync.sv:72:20-74:80#985046 < cont_assign@prim_fifo_sync.sv:72:12-74:80#985044 < gen_scope@prim_fifo_sync.sv:52:12-151:6#985041
+   PR integer_typespec@:73:45-73:51#235811
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985061
+RUNG	3	r=-6	vis=303243	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985065
+   R  integer_typespec@:73:67-73:73#235815
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985065 < ref_typespec@:0:0-0:0#985064 < operation@prim_fifo_sync.sv:73:67-73:86#985063 < operation@prim_fifo_sync.sv:73:45-73:86#985058 < operation@prim_fifo_sync.sv:73:20-74:80#985054 < operation@prim_fifo_sync.sv:72:20-74:80#985046 < cont_assign@prim_fifo_sync.sv:72:12-74:80#985044 < gen_scope@prim_fifo_sync.sv:52:12-151:6#985041
+   PR integer_typespec@:73:67-73:73#235815
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985065
+RUNG	4	r=-6	vis=303249	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985071
+   R  integer_typespec@:74:21-74:27#235821
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985071 < ref_typespec@:0:0-0:0#985070 < operation@prim_fifo_sync.sv:74:21-74:35#985069 < operation@prim_fifo_sync.sv:74:21-74:57#985068 < operation@prim_fifo_sync.sv:74:21-74:79#985067 < operation@prim_fifo_sync.sv:73:20-74:80#985054 < operation@prim_fifo_sync.sv:72:20-74:80#985046 < cont_assign@prim_fifo_sync.sv:72:12-74:80#985044
+   PR integer_typespec@:74:21-74:27#235821
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985071
+RUNG	5	r=-6	vis=303255	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985077
+   R  integer_typespec@:74:38-74:44#235828
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985077 < ref_typespec@:0:0-0:0#985076 < operation@prim_fifo_sync.sv:74:38-74:57#985075 < operation@prim_fifo_sync.sv:74:21-74:57#985068 < operation@prim_fifo_sync.sv:74:21-74:79#985067 < operation@prim_fifo_sync.sv:73:20-74:80#985054 < operation@prim_fifo_sync.sv:72:20-74:80#985046 < cont_assign@prim_fifo_sync.sv:72:12-74:80#985044
+   PR integer_typespec@:74:38-74:44#235828
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985077
+RUNG	6	r=-6	vis=303259	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985081
+   R  integer_typespec@:74:60-74:66#235832
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985081 < ref_typespec@:0:0-0:0#985080 < operation@prim_fifo_sync.sv:74:60-74:79#985079 < operation@prim_fifo_sync.sv:74:21-74:79#985067 < operation@prim_fifo_sync.sv:73:20-74:80#985054 < operation@prim_fifo_sync.sv:72:20-74:80#985046 < cont_assign@prim_fifo_sync.sv:72:12-74:80#985044 < gen_scope@prim_fifo_sync.sv:52:12-151:6#985041
+   PR integer_typespec@:74:60-74:66#235832
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#985081
+RUNG	7	r=-601	vis=303313	masklvl=0	masked=3	cands=64	KINDL=constant	KINDR=ref_obj	KINDP=operation	FIELD=VpiType	SHAPE=KIND:constant>ref_obj	FAM=constant|VpiType|KIND:constant>ref_obj	FAM2=constant|VpiType
+   L  constant@prim_fifo_sync.sv:131:29-131:38#291799
+   R  ref_obj(PTR_WIDTH)@:131:29-131:38#236039
+   G= constant   O= ref_obj
+   PL constant@prim_fifo_sync.sv:131:29-131:38#291799 < operation@prim_fifo_sync.sv:131:29-131:40#291802 < part_select(fifo_wptr)@prim_fifo_sync.sv:131:19-131:43#291798 < bit_select(storage)@prim_fifo_sync.sv:131:11-131:44#291805 < assignment@prim_fifo_sync.sv:131:11-131:53#291797 < begin@prim_fifo_sync.sv:130:29-132:12#291796 < if_stmt@prim_fifo_sync.sv:130:9-132:12#291795 < event_control@prim_fifo_sync.sv:129:17-129:33#291791
+   PR ref_obj(PTR_WIDTH)@:131:29-131:38#236039 < operation@:131:29-131:40#236038 < part_select(fifo_wptr)@:131:19-131:43#236037 < bit_select(storage)@:131:11-131:44#236036 < assignment@:131:11-131:53#236035 < begin@:130:29-132:12#236034 < if_stmt@:130:9-132:12#236032 < event_control@:129:17-129:33#236029
+   MK constant@prim_fifo_sync.sv:131:29-131:38#291799
+RUNG	8	r=1	vis=303341	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#291318
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#291318 < module_inst(i_fifo)@dm_csrs.sv:553:3-568:5#985021 < module_inst(i_dm_csrs)@rv_dm.sv:107:3-156:5#984841 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#985104
+RUNG	9	r=1	vis=304201	masklvl=13	masked=1142	cands=64	KINDL=package	KINDR=<null>	KINDP=design	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=package|<rhs-null>|MISSING-OURS	FAM2=package|<rhs-null>
+   L  package(dm)@dm_pkg.sv:19:1-414:16#16
+   R  <null>
+   G= -   O= -
+   PL package(dm)@dm_pkg.sv:19:1-414:16#16 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK logic_typespec@dm_pkg.sv:34:14-34:26#292571
+RUNG	10	r=-6	vis=304621	masklvl=0	masked=5	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec@dm_mem.sv:61:14-61:26#985425
+   R  integer_typespec@:105:36-105:50#736953
+   G= int_typespec   O= integer_typespec
+   PL int_typespec@dm_mem.sv:61:14-61:26#985425 < ref_typespec@:0:0-0:0#985424 < operation@dm_mem.sv:105:36-105:64#985423 < cont_assign@dm_mem.sv:105:10-105:64#985421 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#985290 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR integer_typespec@:105:36-105:50#736953 < ref_typespec@:0:0-0:0#237708 < operation@:105:36-105:64#237707 < cont_assign@:105:10-105:64#237706 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#237091 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#234557 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK int_typespec@dm_mem.sv:61:14-61:26#985425
+RUNG	11	r=-6	vis=304627	masklvl=0	masked=5	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec@dm_mem.sv:61:14-61:26#985431
+   R  integer_typespec@:106:36-106:50#736954
+   G= int_typespec   O= integer_typespec
+   PL int_typespec@dm_mem.sv:61:14-61:26#985431 < ref_typespec@:0:0-0:0#985430 < operation@dm_mem.sv:106:36-106:62#985429 < cont_assign@dm_mem.sv:106:10-106:62#985427 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#985290 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR integer_typespec@:106:36-106:50#736954 < ref_typespec@:0:0-0:0#237713 < operation@:106:36-106:62#237712 < cont_assign@:106:10-106:62#237711 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#237091 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#234557 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK int_typespec@dm_mem.sv:61:14-61:26#985431
+RUNG	12	r=-6	vis=304633	masklvl=0	masked=5	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec@dm_mem.sv:61:14-61:26#985437
+   R  integer_typespec@:107:36-107:50#736955
+   G= int_typespec   O= integer_typespec
+   PL int_typespec@dm_mem.sv:61:14-61:26#985437 < ref_typespec@:0:0-0:0#985436 < operation@dm_mem.sv:107:36-107:64#985435 < cont_assign@dm_mem.sv:107:10-107:64#985433 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#985290 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR integer_typespec@:107:36-107:50#736955 < ref_typespec@:0:0-0:0#237718 < operation@:107:36-107:64#237717 < cont_assign@:107:10-107:64#237716 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#237091 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#234557 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK int_typespec@dm_mem.sv:61:14-61:26#985437
+RUNG	13	r=-6	vis=304639	masklvl=0	masked=5	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec@dm_mem.sv:61:14-61:26#985443
+   R  integer_typespec@:109:36-109:50#736956
+   G= int_typespec   O= integer_typespec
+   PL int_typespec@dm_mem.sv:61:14-61:26#985443 < ref_typespec@:0:0-0:0#985442 < operation@dm_mem.sv:109:36-109:61#985441 < cont_assign@dm_mem.sv:109:10-109:61#985439 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#985290 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR integer_typespec@:109:36-109:50#736956 < ref_typespec@:0:0-0:0#237723 < operation@:109:36-109:61#237722 < cont_assign@:109:10-109:61#237721 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#237091 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#234557 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK int_typespec@dm_mem.sv:61:14-61:26#985443
+RUNG	14	r=-6	vis=304645	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(NrHarts)@dm_mem.sv:20:33-20:33#985449
+   R  integer_typespec@:110:36-110:43#736957
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(NrHarts)@dm_mem.sv:20:33-20:33#985449 < ref_typespec@:0:0-0:0#985448 < operation@dm_mem.sv:110:36-110:62#985447 < cont_assign@dm_mem.sv:110:10-110:62#985445 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#985290 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR integer_typespec@:110:36-110:43#736957 < ref_typespec@:0:0-0:0#237728 < operation@:110:36-110:62#237727 < cont_assign@:110:10-110:62#237726 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#237091 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#234557 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK int_typespec(NrHarts)@dm_mem.sv:20:33-20:33#985449
+RUNG	15	r=-6	vis=304651	masklvl=0	masked=5	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec@dm_mem.sv:61:14-61:26#985455
+   R  integer_typespec@:111:36-111:50#736958
+   G= int_typespec   O= integer_typespec
+   PL int_typespec@dm_mem.sv:61:14-61:26#985455 < ref_typespec@:0:0-0:0#985454 < operation@dm_mem.sv:111:36-111:63#985453 < cont_assign@dm_mem.sv:111:10-111:63#985451 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#985290 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR integer_typespec@:111:36-111:50#736958 < ref_typespec@:0:0-0:0#237733 < operation@:111:36-111:63#237732 < cont_assign@:111:10-111:63#237731 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#237091 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#234557 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK int_typespec@dm_mem.sv:61:14-61:26#985455
+RUNG	16	r=-6	vis=304657	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(NrHarts)@dm_mem.sv:20:33-20:33#985461
+   R  integer_typespec@:112:36-112:43#736959
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(NrHarts)@dm_mem.sv:20:33-20:33#985461 < ref_typespec@:0:0-0:0#985460 < operation@dm_mem.sv:112:36-112:64#985459 < cont_assign@dm_mem.sv:112:10-112:64#985457 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#985290 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR integer_typespec@:112:36-112:43#736959 < ref_typespec@:0:0-0:0#237738 < operation@:112:36-112:64#237737 < cont_assign@:112:10-112:64#237736 < module_inst(i_dm_mem)@rv_dm.sv:239:3-268:5#237091 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#234557 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK int_typespec(NrHarts)@dm_mem.sv:20:33-20:33#985461
+RUNG	17	r=-1	vis=305205	masklvl=0	masked=638600	cands=64	KINDL=<null>	KINDR=logic_net	KINDP=module_inst	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>	CASCADE=1
+   L  <null>
+   R  logic_net(clk_i)@:11:16-11:21#238252
+   G= -   O= -
+   PL -
+   PR logic_net(clk_i)@:11:16-11:21#238252 < module_inst(i_tck_inv)@dmi_jtag_tap.sv:221:3-227:5#238244 < module_inst(i_dmi_jtag_tap)@dmi_jtag.sv:217:3-238:5#238115 < module_inst(dap)@rv_dm.sv:273:3-296:5#237905 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#234557 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK module_inst(i_tck_inv)@dmi_jtag_tap.sv:221:3-227:5#985586  [CASCADE: this mask hides >=1% of the golden database for every later rung]
+RUNG	18	r=-6	vis=307114	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986530
+   R  integer_typespec@:72:45-72:51#240519
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986530 < ref_typespec@:0:0-0:0#986529 < operation@prim_fifo_sync.sv:72:45-72:59#986528 < operation@prim_fifo_sync.sv:72:20-74:80#986526 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986524 < gen_scope@prim_fifo_sync.sv:52:12-151:6#986521 < gen_scope_array(gen_normal_fifo)@prim_fifo_sync.sv:52:12-151:6#986520 < module_inst(u_reqfifo)@tlul_adapter_sram.sv:239:3-254:5#986501
+   PR integer_typespec@:72:45-72:51#240519
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986530
+RUNG	19	r=-6	vis=307125	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986541
+   R  integer_typespec@:73:45-73:51#240531
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986541 < ref_typespec@:0:0-0:0#986540 < operation@prim_fifo_sync.sv:73:45-73:64#986539 < operation@prim_fifo_sync.sv:73:45-73:86#986538 < operation@prim_fifo_sync.sv:73:20-74:80#986534 < operation@prim_fifo_sync.sv:72:20-74:80#986526 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986524 < gen_scope@prim_fifo_sync.sv:52:12-151:6#986521
+   PR integer_typespec@:73:45-73:51#240531
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986541
+RUNG	20	r=-6	vis=307129	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986545
+   R  integer_typespec@:73:67-73:73#240535
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986545 < ref_typespec@:0:0-0:0#986544 < operation@prim_fifo_sync.sv:73:67-73:86#986543 < operation@prim_fifo_sync.sv:73:45-73:86#986538 < operation@prim_fifo_sync.sv:73:20-74:80#986534 < operation@prim_fifo_sync.sv:72:20-74:80#986526 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986524 < gen_scope@prim_fifo_sync.sv:52:12-151:6#986521
+   PR integer_typespec@:73:67-73:73#240535
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986545
+RUNG	21	r=-6	vis=307135	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986551
+   R  integer_typespec@:74:21-74:27#240541
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986551 < ref_typespec@:0:0-0:0#986550 < operation@prim_fifo_sync.sv:74:21-74:35#986549 < operation@prim_fifo_sync.sv:74:21-74:57#986548 < operation@prim_fifo_sync.sv:74:21-74:79#986547 < operation@prim_fifo_sync.sv:73:20-74:80#986534 < operation@prim_fifo_sync.sv:72:20-74:80#986526 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986524
+   PR integer_typespec@:74:21-74:27#240541
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986551
+RUNG	22	r=-6	vis=307141	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986557
+   R  integer_typespec@:74:38-74:44#240548
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986557 < ref_typespec@:0:0-0:0#986556 < operation@prim_fifo_sync.sv:74:38-74:57#986555 < operation@prim_fifo_sync.sv:74:21-74:57#986548 < operation@prim_fifo_sync.sv:74:21-74:79#986547 < operation@prim_fifo_sync.sv:73:20-74:80#986534 < operation@prim_fifo_sync.sv:72:20-74:80#986526 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986524
+   PR integer_typespec@:74:38-74:44#240548
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986557
+RUNG	23	r=-6	vis=307145	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986561
+   R  integer_typespec@:74:60-74:66#240552
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986561 < ref_typespec@:0:0-0:0#986560 < operation@prim_fifo_sync.sv:74:60-74:79#986559 < operation@prim_fifo_sync.sv:74:21-74:79#986547 < operation@prim_fifo_sync.sv:73:20-74:80#986534 < operation@prim_fifo_sync.sv:72:20-74:80#986526 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986524 < gen_scope@prim_fifo_sync.sv:52:12-151:6#986521
+   PR integer_typespec@:74:60-74:66#240552
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986561
+RUNG	24	r=1	vis=307217	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#296267
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#296267 < module_inst(u_reqfifo)@tlul_adapter_sram.sv:239:3-254:5#986501 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#985951 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#986584
+RUNG	25	r=-6	vis=307595	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986618
+   R  integer_typespec@:72:45-72:51#241008
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986618 < ref_typespec@:0:0-0:0#986617 < operation@prim_fifo_sync.sv:72:45-72:59#986616 < operation@prim_fifo_sync.sv:72:20-74:80#986614 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986612 < gen_scope@prim_fifo_sync.sv:52:12-151:6#986609 < gen_scope_array(gen_normal_fifo)@prim_fifo_sync.sv:52:12-151:6#986608 < module_inst(u_maskfifo)@tlul_adapter_sram.sv:260:3-275:5#986589
+   PR integer_typespec@:72:45-72:51#241008
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986618
+RUNG	26	r=-6	vis=307606	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986629
+   R  integer_typespec@:73:45-73:51#241020
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986629 < ref_typespec@:0:0-0:0#986628 < operation@prim_fifo_sync.sv:73:45-73:64#986627 < operation@prim_fifo_sync.sv:73:45-73:86#986626 < operation@prim_fifo_sync.sv:73:20-74:80#986622 < operation@prim_fifo_sync.sv:72:20-74:80#986614 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986612 < gen_scope@prim_fifo_sync.sv:52:12-151:6#986609
+   PR integer_typespec@:73:45-73:51#241020
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986629
+RUNG	27	r=-6	vis=307610	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986633
+   R  integer_typespec@:73:67-73:73#241024
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986633 < ref_typespec@:0:0-0:0#986632 < operation@prim_fifo_sync.sv:73:67-73:86#986631 < operation@prim_fifo_sync.sv:73:45-73:86#986626 < operation@prim_fifo_sync.sv:73:20-74:80#986622 < operation@prim_fifo_sync.sv:72:20-74:80#986614 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986612 < gen_scope@prim_fifo_sync.sv:52:12-151:6#986609
+   PR integer_typespec@:73:67-73:73#241024
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986633
+RUNG	28	r=-6	vis=307616	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986639
+   R  integer_typespec@:74:21-74:27#241030
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986639 < ref_typespec@:0:0-0:0#986638 < operation@prim_fifo_sync.sv:74:21-74:35#986637 < operation@prim_fifo_sync.sv:74:21-74:57#986636 < operation@prim_fifo_sync.sv:74:21-74:79#986635 < operation@prim_fifo_sync.sv:73:20-74:80#986622 < operation@prim_fifo_sync.sv:72:20-74:80#986614 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986612
+   PR integer_typespec@:74:21-74:27#241030
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986639
+RUNG	29	r=-6	vis=307622	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986645
+   R  integer_typespec@:74:38-74:44#241037
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986645 < ref_typespec@:0:0-0:0#986644 < operation@prim_fifo_sync.sv:74:38-74:57#986643 < operation@prim_fifo_sync.sv:74:21-74:57#986636 < operation@prim_fifo_sync.sv:74:21-74:79#986635 < operation@prim_fifo_sync.sv:73:20-74:80#986622 < operation@prim_fifo_sync.sv:72:20-74:80#986614 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986612
+   PR integer_typespec@:74:38-74:44#241037
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986645
+RUNG	30	r=-6	vis=307626	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986649
+   R  integer_typespec@:74:60-74:66#241041
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986649 < ref_typespec@:0:0-0:0#986648 < operation@prim_fifo_sync.sv:74:60-74:79#986647 < operation@prim_fifo_sync.sv:74:21-74:79#986635 < operation@prim_fifo_sync.sv:73:20-74:80#986622 < operation@prim_fifo_sync.sv:72:20-74:80#986614 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986612 < gen_scope@prim_fifo_sync.sv:52:12-151:6#986609
+   PR integer_typespec@:74:60-74:66#241041
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986649
+RUNG	31	r=1	vis=307698	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#296904
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#296904 < module_inst(u_maskfifo)@tlul_adapter_sram.sv:260:3-275:5#986589 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#985951 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#986672
+RUNG	32	r=-6	vis=308076	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986706
+   R  integer_typespec@:72:45-72:51#241497
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986706 < ref_typespec@:0:0-0:0#986705 < operation@prim_fifo_sync.sv:72:45-72:59#986704 < operation@prim_fifo_sync.sv:72:20-74:80#986702 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986700 < gen_scope@prim_fifo_sync.sv:52:12-151:6#986697 < gen_scope_array(gen_normal_fifo)@prim_fifo_sync.sv:52:12-151:6#986696 < module_inst(u_rspfifo)@tlul_adapter_sram.sv:283:3-298:5#986677
+   PR integer_typespec@:72:45-72:51#241497
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986706
+RUNG	33	r=-6	vis=308087	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986717
+   R  integer_typespec@:73:45-73:51#241509
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986717 < ref_typespec@:0:0-0:0#986716 < operation@prim_fifo_sync.sv:73:45-73:64#986715 < operation@prim_fifo_sync.sv:73:45-73:86#986714 < operation@prim_fifo_sync.sv:73:20-74:80#986710 < operation@prim_fifo_sync.sv:72:20-74:80#986702 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986700 < gen_scope@prim_fifo_sync.sv:52:12-151:6#986697
+   PR integer_typespec@:73:45-73:51#241509
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986717
+RUNG	34	r=-6	vis=308091	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986721
+   R  integer_typespec@:73:67-73:73#241513
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986721 < ref_typespec@:0:0-0:0#986720 < operation@prim_fifo_sync.sv:73:67-73:86#986719 < operation@prim_fifo_sync.sv:73:45-73:86#986714 < operation@prim_fifo_sync.sv:73:20-74:80#986710 < operation@prim_fifo_sync.sv:72:20-74:80#986702 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986700 < gen_scope@prim_fifo_sync.sv:52:12-151:6#986697
+   PR integer_typespec@:73:67-73:73#241513
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986721
+RUNG	35	r=-6	vis=308097	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986727
+   R  integer_typespec@:74:21-74:27#241519
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986727 < ref_typespec@:0:0-0:0#986726 < operation@prim_fifo_sync.sv:74:21-74:35#986725 < operation@prim_fifo_sync.sv:74:21-74:57#986724 < operation@prim_fifo_sync.sv:74:21-74:79#986723 < operation@prim_fifo_sync.sv:73:20-74:80#986710 < operation@prim_fifo_sync.sv:72:20-74:80#986702 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986700
+   PR integer_typespec@:74:21-74:27#241519
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986727
+RUNG	36	r=-6	vis=308103	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986733
+   R  integer_typespec@:74:38-74:44#241526
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986733 < ref_typespec@:0:0-0:0#986732 < operation@prim_fifo_sync.sv:74:38-74:57#986731 < operation@prim_fifo_sync.sv:74:21-74:57#986724 < operation@prim_fifo_sync.sv:74:21-74:79#986723 < operation@prim_fifo_sync.sv:73:20-74:80#986710 < operation@prim_fifo_sync.sv:72:20-74:80#986702 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986700
+   PR integer_typespec@:74:38-74:44#241526
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986733
+RUNG	37	r=-6	vis=308107	masklvl=0	masked=1	cands=64	KINDL=int_typespec	KINDR=integer_typespec	KINDP=ref_typespec	FIELD=VpiType	SHAPE=KIND:int_typespec>integer_typespec	FAM=int_typespec|VpiType|KIND:int_typespec>integer_typespec	FAM2=int_typespec|VpiType
+   L  int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986737
+   R  integer_typespec@:74:60-74:66#241530
+   G= int_typespec   O= integer_typespec
+   PL int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986737 < ref_typespec@:0:0-0:0#986736 < operation@prim_fifo_sync.sv:74:60-74:79#986735 < operation@prim_fifo_sync.sv:74:21-74:79#986723 < operation@prim_fifo_sync.sv:73:20-74:80#986710 < operation@prim_fifo_sync.sv:72:20-74:80#986702 < cont_assign@prim_fifo_sync.sv:72:12-74:80#986700 < gen_scope@prim_fifo_sync.sv:52:12-151:6#986697
+   PR integer_typespec@:74:60-74:66#241530
+   MK int_typespec(DepthW)@prim_fifo_sync.sv:16:27-16:27#986737
+RUNG	38	r=1	vis=308187	masklvl=1	masked=7	cands=64	KINDL=logic_net	KINDR=<null>	KINDP=module_inst	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=logic_net|<rhs-null>|MISSING-OURS	FAM2=logic_net|<rhs-null>
+   L  logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#297539
+   R  <null>
+   G= -   O= -
+   PL logic_net(rdata)@prim_fifo_sync.sv:29:27-29:32#297539 < module_inst(u_rspfifo)@tlul_adapter_sram.sv:283:3-298:5#986677 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#985951 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR -
+   MK ref_obj(rdata)@prim_fifo_sync.sv:145:14-145:19#986760
+RUNG	39	r=9	vis=308234	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=operation	FIELD=VpiDecompile	SHAPE=O-EXTRA-PREFIX(')	FAM=constant|VpiDecompile|O-EXTRA-PREFIX(')	FAM2=constant|VpiDecompile
+   L  constant@tlul_adapter_sram.sv:132:18-132:20#986031
+   R  constant@:132:18-132:20#241869
+   G= "0"   O= "'0"
+   PL constant@tlul_adapter_sram.sv:132:18-132:20#986031 < operation@tlul_adapter_sram.sv:129:17-142:4#986010 < cont_assign@tlul_adapter_sram.sv:129:10-142:4#986008 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#985951 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR constant@:132:18-132:20#241869 < operation@:129:17-142:4#241857 < cont_assign@:129:10-142:4#241855 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#239919 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#234557 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK constant@tlul_adapter_sram.sv:132:18-132:20#986031
+RUNG	40	r=9	vis=308262	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=operation	FIELD=VpiDecompile	SHAPE=O-EXTRA-PREFIX(')	FAM=constant|VpiDecompile|O-EXTRA-PREFIX(')	FAM2=constant|VpiDecompile
+   L  constant@tlul_adapter_sram.sv:138:18-138:20#986074
+   R  constant@:138:18-138:20#241897
+   G= "0"   O= "'0"
+   PL constant@tlul_adapter_sram.sv:138:18-138:20#986074 < operation@tlul_adapter_sram.sv:129:17-142:4#986010 < cont_assign@tlul_adapter_sram.sv:129:10-142:4#986008 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#985951 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#984752 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058 < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   PR constant@:138:18-138:20#241897 < operation@:129:17-142:4#241857 < cont_assign@:129:10-142:4#241855 < module_inst(tl_adapter_device_mem)@rv_dm.sv:299:3-320:5#239919 < module_inst(u_dm_top)@top_earlgrey.sv:312:3-339:5#234557 < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189535 < design(work@prim_sync_reqack)@:0:0-0:0#1
+   MK constant@tlul_adapter_sram.sv:138:18-138:20#986074
+[S] rungs=40 stop=MAX-RUNGS escalated=5 ref_joins=0 nofield=0 maxvis=308262/783183 masks=40 cascades=1 suppressed=638600/783183 secs=18.1

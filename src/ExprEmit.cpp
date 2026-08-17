@@ -10319,7 +10319,47 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         leftSyn = leftSyn->as<syntax::ParenthesizedExpressionSyntax>()
                                       .expression;
                     ASTContext bctx(bindSc9, LookupLocation::max);
-                    auto& sizeExpr = Expression::bind(*cesyn.left, bctx);
+                    const Expression* sizeExprP9 = &Expression::bind(*cesyn.left, bctx);
+                    // § castSizeElabScopeBind57 (r10earl57) — AN ELABORATED
+                    // INSTANCE'S CONTENT IS EMITTED WITH A STALE `currentScope`.
+                    // `emitModuleDef` sets it to the def body; `emitInstance`
+                    // sets it nowhere, so a cast written in an elaborated
+                    // instance binds its TARGET NAME in whatever DEFINITION was
+                    // compiled last.  When that scope cannot see the name the
+                    // bind FAILS, `emitExpr` of the bad expression returns null,
+                    // and the deferred/catch-all arms below hand back a
+                    // `integer_typespec` at the cast-site token with NO value and
+                    // NO vpiExpr — a shape golden NEVER emits for a cast target
+                    // written as a parameter name.  Measured on
+                    // Earlgrey_0_1/default: 834 of the 890 disagreeing cast
+                    // typespecs, every one a failed bind (`DepthW` looked up in
+                    // `dm_csrs`, `tlul_err`, `tlul_fifo_async`, …).
+                    //
+                    // THE FENCE IS THE FAILURE ITSELF: the re-bind runs ONLY
+                    // when the stale scope's bind is bad, so every cast that
+                    // resolves today keeps its answer, and the DEF view (where
+                    // `castSiteScope57` is null) cannot move at all.
+                    //
+                    // A GENVAR target is excluded: golden leaves `gi'(x)` in a
+                    // for-generate body as the `unsupported_typespec` the def
+                    // view minted (v3 69:18), so resolving it would only trade
+                    // one wrong kind for another.
+                    if (sizeExprP9->bad() && castSiteScope57 &&
+                        castSiteScope57 != &bindSc9) {
+                        ASTContext bctx57(*castSiteScope57, LookupLocation::max);
+                        auto& re57 = Expression::bind(*cesyn.left, bctx57);
+                        auto& core57 = stripImplicitConv(re57);
+                        bool genvar57 =
+                            core57.kind == ExpressionKind::NamedValue &&
+                            core57.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter &&
+                            core57.as<NamedValueExpression>()
+                                .symbol.as<ParameterSymbol>()
+                                .isFromGenvar();
+                        if (!re57.bad() && !genvar57)
+                            sizeExprP9 = &re57;
+                    }
+                    auto& sizeExpr = *sizeExprP9;
                     auto lr = leftSyn->sourceRange();
                     // DEF-view gen-block PROCEDURAL casts keep the size
                     // SYMBOLIC: an unfolded parameter width P'(x) becomes an
@@ -10660,7 +10700,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         .symbol.as<ParameterSymbol>();
                         auto* wsc9 = wp9.getParentScope();
                         if (wsc9 &&
-                            wsc9->asSymbol().kind == SymbolKind::InstanceBody)
+                            wsc9->asSymbol().kind == SymbolKind::InstanceBody &&
+                            // § castGenScopeCaParamFreshTs57 (r10earl57) — A
+                            // CONT-ASSIGN CAST WRITTEN INSIDE AN ELABORATED
+                            // GENERATE BLOCK ALWAYS TAKES THE FRESH NAMED
+                            // TYPESPEC.  § castTgtDefaultIsLiteral is a
+                            // DEFINITION-compile rule: Surelog can only fold a
+                            // literal-default width when it compiles the module
+                            // body, so a computed-default target reuses its own
+                            // declaration typespec instead.  A gen-block cast
+                            // never takes that route — its def-view target is an
+                            // `unsupported_typespec` named as written (we already
+                            // emit that), and the ELABORATED copy resolves the
+                            // name through the INSTANCE, where every parameter
+                            // has a folded value, so the fresh named typespec is
+                            // minted whatever the declared default was.
+                            // MEASURED, one golden row per cell (v2/v3, both
+                            // views, cast operand a PORT so nothing folds away):
+                            //   context            literal dflt  computed dflt
+                            //   module cont_assign    fresh         DECL ts
+                            //   function body        fresh         DECL ts
+                            //   always_comb @module  fresh         DECL ts
+                            //   initial   @gen block fresh         DECL ts
+                            //   GEN-IF   cont_assign fresh         FRESH
+                            //   GEN-FOR  cont_assign fresh         FRESH
+                            //   nested gen cont_assign fresh       FRESH
+                            // and the fresh typespec is an `int_typespec` for an
+                            // `int unsigned`, an `integer`, a `logic [7:0]`, a
+                            // `bit [5:0]` and an UNTYPED target alike — the
+                            // KEYWORD does not reach it.  The corpus family is
+                            // prim_fifo_sync's `DepthW'(…)` (6 sites x 127
+                            // elaborated gen_normal_fifo copies) and
+                            // tlul_socket_m1's `NWD'(…)`.
+                            !inGenScopeCaRhs)
                             litWidthParam9 = castTgtDefaultIsLiteral(wp9);
                     }
                     if (!cts && litWidthParam9 &&
