@@ -3215,7 +3215,29 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
     if (moduleArrays && !moduleArrays->empty() && mmod)
         mmod->Module_arrays(moduleArrays);
 
-    emitImportArtifacts(body, m);
+    // § defPortsNullDefInstGuard (r10vrgg3) — `DefInfo& info = defMap[&def]`
+    // above DEFAULT-CONSTRUCTS the entry, so `info.mod` is NULL for a definition
+    // that was never registered with an instance object.  A source with NO TOP
+    // MODULE reaches exactly that state for its interface definitions, and
+    // emitImportArtifacts dereferences `m` unconditionally (`m->Typespecs()`) —
+    // a SEGFAULT on legal SystemVerilog, PRE-EXISTING at 05d9c8f on BOTH the
+    // base and the r10rgg3 binaries:
+    //     printf 'interface v3if;\n  parameter W = 8;\nendinterface\n' > x.sv
+    //     slang-uhdm --single-unit x.sv -o /dev/null      -> rc=139
+    //     #0 emitImportArtifacts #1 emitModuleDefPorts #2 exportDesign
+    // Every other use of `m` in this function is already null-guarded (`mmod`
+    // is null and each write tests it), so this call is the only unguarded one.
+    // BYTE-NEUTRAL ON EVERY EXISTING DATABASE, measured: 0 movers over all 1358
+    // uhdm2rtlil databases and over all 953 SHARED surelog databases; u2r rows
+    // 0-differing in both modes; 1040 committed probe arms MOVED=0.  It is NOT
+    // status-neutral, and that is the point: two committed probe arms
+    // (r10uvm67repro/{c3_iface,v3_boundary}.sv) and the surelog corpus test
+    // MiniAmiq stop CRASHING and start exporting, so MiniAmiq moves
+    // SLANG_REJECT -> CMP_NOTEQUAL in BOTH modes (2 rows / 1588).  Its
+    // SLANG_REJECT detail read "no top-level modules found in design", which is
+    // why a SEGFAULT on a real corpus test had never been seen.
+    if (m)
+        emitImportArtifacts(body, m);
 
     return m;
 }
