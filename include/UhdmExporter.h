@@ -2804,6 +2804,19 @@ private:
     // default-instantiated body while the iface vars' typespecs are built.
     const slang::ast::Scope* ifaceDefaultScope = nullptr;
     std::map<const void*, const slang::ast::InstanceSymbol*> ifaceDefaultInst;
+    // § portViewRangeRecvParams — the default instances a reference-style
+    // interface PORT VIEW folds its member ranges in, with each interface PORT
+    // parameter SUBSTITUTED by the RECEIVING module instance's same-named
+    // parameter/localparam value.  Keyed by {def, substitution signature}.  The
+    // slang HierarchyOverrideNode each instance body keeps a raw pointer to is
+    // allocated in the Compilation's own BumpAllocator, so it outlives every
+    // body built from it without this header needing Compilation.h.
+    std::map<std::pair<const slang::ast::DefinitionSymbol*, std::string>,
+             const slang::ast::InstanceSymbol*>
+        ifaceRecvSubstInst;
+    const slang::ast::Scope* ifacePortViewFoldScope(
+        const slang::ast::DefinitionSymbol& def,
+        const slang::ast::InstanceSymbol* recv);
     // Interface-def function-body signal refs awaiting their ELAB-view
     // variable binding (Surelog binds the shared def function at elab).
     std::map<const slang::ast::DefinitionSymbol*,

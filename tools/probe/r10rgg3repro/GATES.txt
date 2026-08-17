@@ -1,0 +1,104 @@
+r10rgg3 — THE FIVE GATES, as run, with the numbers
+==================================================
+BASE   05d9c8f          md5 f885e175806e87832e466155710d8f0a  (built TWICE, in
+                        /tmp/wt_r10rgg3 pre-patch and in /tmp/wt_r10rgg3base —
+                        the SAME md5 both times)
+PATCH  /tmp/r10rgg3.patch  md5 34540a12c28e57d55d70cffc407c3abd
+Both configured Release, -DCMAKE_PREFIX_PATH=~/.local, gcc-toolset-14, `-j 2`,
+md5 taken as a separate step.  GOLDEN_DEFER never set.
+
+GATE 1  BUILD BOTH + md5
+  base rc=0, patched rc=0, `Built target slang_uhdm` in each log.
+  Reproducibility: the patch re-applied to a FRESH 05d9c8f worktree
+  (`git apply --check` clean; only whitespace warnings, all inside GRID.raw's
+  column padding) and rebuilt from scratch reproduces the patched md5.
+
+GATE 2  GOLDENS
+  patched: 23 PASS / 0 FAIL.
+  NEGATIVE CONTROL SLANG_UHDM=/bin/false: 0 PASS / 23 FAIL.
+
+GATE 3  uhdm2rtlil, BOTH modes, BASELINE FIRST
+  base    : default 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+            testflags 679 / 50 / 2
+  patched : identical, both modes
+  ct8rows(base, patched)                     : 0 differing ROWS / 1462
+  ct8rows(results/gate_uhdm2rtlil.csv, patched testflags): 0 differing ROWS / 731
+  NOTE, measured and fully attributed to the BASE binary (NOT to this patch):
+  results/golden_uhdm2rtlil.csv differs from the BASE binary's own run on 104
+  rows.  Every one of them is a SLANG_REJECT `detail` column that names the DUT
+  by RELATIVE path in the committed file and by ABSOLUTE path in both fresh runs
+  (`dut.sv:9:26:` vs `/home/.../dut.sv:9:26:`).  Base and patched are identical
+  there, so the committed file is stale, not the emitter.
+
+GATE 4  Surelog suite, BOTH modes
+  base    : default   470 CMP_EQUAL / 10 CMP_NOTEQUAL / 5 DEFERRED /
+                      284 SLANG_REJECT / 25 SURELOG_FAIL
+            testflags 466 / 7 / 5 / 286 / 23 / 3 NO_DATABASE / 2 UNTRANSLATABLE /
+                      1 TIMEOUT / 1 NO_UHDM
+  patched : identical, both modes
+  ct8rows(base, patched)                  : 0 differing ROWS / 1588
+  ct8rows(results/golden_surelog.csv, pat): 0 differing ROWS / 1588
+  NO Rggen conversion is claimed: Rggen stays CMP_NOTEQUAL and results/*.csv is
+  NOT promoted.
+
+GATE 5  BYTE VERIFIER, both corpora, with BOTH negative controls
+  uhdm2rtlil : PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358
+               SELFCHECK 1357/1358, SELFCHECK1 = 1
+  surelog    : PATH_SETS_IDENTICAL (953)   MOVERS 1 / 953
+               MOVER ./default/Rggen-50ccbd70/slang.uhdm
+                     pristine 3605f43ee469 -> patched ac993c35a0ee
+               SELFCHECK 952/953, SELFCHECK1 = 2 (1 corruption + 1 real mover)
+  PREDICTION, recorded BEFORE the run from census.py: EXACTLY ONE mover,
+  `default:Rggen`.  The census flagged six tests; five cannot move —
+  Tnoc / ClassScope / svinterface1 / svinterface_at_top are SLANG_REJECT (no
+  database), and simple_interface's port view is the HOME-LIKE cell (modport
+  port + named connection + non-array instance), verified byte-identical
+  directly (6d2d016925c9 both binaries).  Rggen testflags is SURELOG_FAIL and
+  writes no slang.uhdm, so `default` is the only Rggen path.  CONFIRMED EXACTLY.
+
+CANARIES
+  canaries.sh  surelog: ok=52 changed=0 absent=0 unknown-names=7 (expected 7)
+  canaries.sh  u2r    : ok=16 changed=0 absent=0 unknown-names=25 (expected)
+  ctcan2.sh    surelog: ok=58 changed=0 absent=0 unknown-patterns=1 (EXPECT 1)
+  ctcan2.sh    u2r    : ok=2  changed=0 absent=0 unknown-patterns=6 (EXPECT 6)
+  BYTE identity of the named canaries and the two PINS, base vs patched:
+    InterfaceModPort   59a365f3ce2c  IDENTICAL both modes   <- the delicate one
+    BlackParrotComplex e3e354129d5a / 73a10e8217e5 IDENTICAL
+    YosysOldOr         d68e0796d62c  IDENTICAL both modes
+    SVSwitch           4842211c4030  PIN MATCHES
+    YosysVerx          6ccda350c24a  PIN MATCHES
+
+BOUNDARIES  (boundary.sh, in this directory)
+  Every COMMITTED probe arm in tools/probe/*repro — 1003 arms, this pass's own
+  directory excluded — exported under BOTH binaries and byte-compared:
+    ARMS=1003  MOVED=0  NO-DATABASE=11
+  The 11 are SYMMETRIC (base=none pat=none, checked one by one and listed by
+  name in the run output); they are arms that need a driver-specific top or are
+  the known slang-rejecting arm y5_sub.
+
+THE LADDER  (MEASUREMENT-ONLY; uhdm-cmp stays the judge)
+  default:Rggen   69 FIXPOINT -> 63 FIXPOINT, maxvis 94492/252296 -> 94488/252296
+  The ONLY family that moved: constant|VpiDecompile|DIGITS-ONLY  7 -> 1.
+  NO NEW FAMILY appears.  The 6 removed rungs are exactly, by LHS site:
+    rggen_register_if.sv:10:10 x2   rggen_register_if.sv:17:10 x2
+    rggen_apb_if.sv:7:10       x2
+  The 1 survivor is rggen_or_reducer.sv:64:58 (r10rgg2's get_next_n residue).
+
+OFFICIAL HEADS  (rowheads.sh, Rggen default only)
+  base    36 cmp lines, 1 `^LHS:`  head = constant@rggen_register_if.sv:10:10
+                                          G "15" vs O "7"
+  patched 50 cmp lines, 1 `^LHS:`  head = constant@rggen_adapter_common.sv:18:39
+                                          VpiSize G 64 vs O 32 (+ an extra
+                                          vpiTypespec on OUR side)
+  The head ADVANCED (ladder vis 18710 -> 19155); the line count grew only
+  because the new head's object prints a ref_typespec subtree.
+
+DETERMINISM
+  Three patched Rggen exports in a row: ac993c35a0ee244e3e61f5babde93d5a x3.
+
+SWEEP HYGIENE
+  Every sweep ran `scripts/verify_golden.py --jobs 2` with this pass's OWN
+  --out and --workdir.  Each of the four workdirs' cmds.txt files name exactly
+  ONE slang binary, the intended one:
+    slbase/u2rbase -> /tmp/wt_r10rgg3base/build/slang-uhdm
+    slpat/u2rpat   -> /tmp/r10rgg3_pat_bin

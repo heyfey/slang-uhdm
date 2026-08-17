@@ -1,0 +1,116 @@
+r10rgg3 GRID — § portViewRangeRecvParams + § ifaceArrayElemViewFoldsDefault
+==========================================================================
+GOLDEN = real Surelog (~/git-repos/Surelog/build/bin/surelog -parse -nopython
+-d uhdm -top top dut.sv).  BASE = 05d9c8f (md5 f885e175806e87832e466155710d8f0a).
+PAT = /tmp/r10rgg3.patch (md5 34540a12c28e57d55d70cffc407c3abd).
+MEASUREMENT-ONLY: uhdm-cmp remains the sole acceptance judge; this grid measures
+DECLARATION RANGE constants only.
+
+THE CELL SOURCE (all cells share this interface unless the cell says otherwise):
+
+  interface itf #(parameter int AW = 16, parameter int BW = 32,
+                  parameter int VW = BW);
+    logic [AW-1:0] a;      logic [BW-1:0] b;      logic [VW-1:0] v;
+    wire  [AW-1:0] wn;     localparam int LP = AW + 1;   logic [LP-1:0] lpm;
+    modport mp (input a, b, v);
+  endinterface
+
+`a`  reads AW directly.   `b` reads BW.   `v` reads VW, whose DEFAULT is `BW`.
+`lpm` reads the interface's OWN LOCALPARAM `LP = AW + 1`.
+`recv` is the receiving module; `top` holds the interface instance(s).
+
+THE LAW, measured cell by cell
+------------------------------
+(1) A REFERENCE-STYLE interface PORT VIEW re-elaborates the interface DEFINITION
+    under the RECEIVING module instance: every interface parameter named in a
+    member declaration takes the value of the receiving module's OWN same-named
+    parameter or localparam when one exists, and the interface's declared
+    default otherwise.  The CONNECTED instance's overrides are never read.
+    The substitution is TRANSITIVE through the interface's own parameter and
+    localparam defaults.
+(2) The HOME-LIKE cell — a MODPORT-qualified port reached by a NAMED port
+    connection to a NON-ARRAY instance — is the one exception: it reads the
+    CONNECTED instance and is unaffected by the receiving module's parameters.
+(3) An interface-ARRAY ELEMENT port view takes clause (1) UNCONDITIONALLY: none
+    of the emitter's four "read the connected instance" exceptions (multi-
+    parameterised def, text-multi def, aggregate-override view, generate-bearing
+    interface) reaches it.
+
+THE MEASURED TABLE (golden `a` / `lpm` per cell; 'defaults' = 15/16)
+-------------------------------------------------------------------
+ cell                      port form / connection        recv params    golden a/lpm
+ a1_mp_named_norecvp       itf.mp p     .p(inst)         none            7 /  8  CONNECTED
+ a2_mp_named_recvp         itf.mp p     .p(inst)         AW=5            7 /  8  CONNECTED  <- clause (2)
+ a3_mp_pos_norecvp         itf.mp p     (inst)           none           15 / 16  defaults
+ a4_mp_pos_recvp           itf.mp p     (inst)           AW=5            4 /  5  RECV
+ b1_pl_named_norecvp       itf p        .p(inst)         none           15 / 16  defaults
+ b2_pl_named_recvp         itf p        .p(inst)         AW=5            4 /  5  RECV
+ c1_arr_whole_norecvp      itf.mp p[3]  .p(arr)          none           15 / 16  defaults
+ c2_arr_whole_recvp        itf.mp p[3]  .p(arr)          AW=5            4 /  5  RECV (all 3 elems)
+ d1_elem_named_norecvp     itf.mp p     .p(arr[0])       none           15 / 16  defaults
+ d2_elem_named_recvp       itf.mp p     .p(arr[0])       AW=5            4 /  5  RECV
+ e1_namedovr_norecvp       itf.mp p     .p(inst) #(.AW(8))  none         7 /  8  CONNECTED
+ e2_namedovr_recvp         itf.mp p     .p(inst) #(.AW(8))  AW=5         7 /  8  CONNECTED
+ e3_namedovr_arr_recvp     itf.mp p[3]  .p(arr)  #(.AW(8))  AW=5         4 /  5  RECV
+ e4_namedovr_arr_norecvp   itf.mp p[3]  .p(arr)  #(.AW(8))  none        15 / 16  defaults
+ f1_noovr_arr_recvp        itf.mp p[3]  .p(arr)  NO override AW=5        4 /  5  RECV
+ g1_arr_recv_awbw          itf.mp p[3]  .p(arr)          AW=5,BW=64      4 /  5, and b=63 AND v=63
+ g2_single_recv_awbw       itf.mp p     .p(inst)         AW=5,BW=64      7 /  8, b=31, v=63  CONNECTED
+ h1_two_level_arr          two levels of array port      AW=7 then 7     6 /  7  at BOTH levels
+ i1_module_array_pos       MODULE array #(8,32)          AW=7            7 / -   module's own params
+ j1_rggen_shape            itf.mp p[25] .p(arr) recv #(.AW(16),.BW(32)) 15 / 16
+ k1_rggen_apb_shape        itf.mp p     .p(arr[1])       AW=7            6 /  7
+ l1_single_recvaw_differs  itf.mp p     .p(inst)         AW=7           15 / 16  <- see note
+ m1_port_passthrough       port passed down 1 level      AW=7 then 7     6 /  7
+ n1_transitive_vw          itf.mp p[3]  .p(arr)          BW=64          15 / 16, b=63 AND v=63
+ n2_recv_localparam        itf.mp p[3]  .p(arr)   localparam AW=5        4 /  5  localparams count
+ n3_recv_var_notparam      itf.mp p[3]  .p(arr)   logic AW               15 / 16  variables do NOT
+ n4_parent_has_aw          itf.mp p[3]  .p(arr)   top has AW=3          15 /  3  SPLIT — see residue
+ n5_gen_scope_recv         port view inside a GEN SCOPE  AW=6            5 /  6
+ n6_recv_param_overridden  recv AW declared 8, overridden 16           15 / 16
+ n7_module_same_named      MODULE array, enclosing AW=7                 15 / -   module unaffected
+ n8_recv_ovr_disambig      recv AW declared 8, overridden 9              8 /  9  ELABORATED value
+ n9_recv_type_param        recv's AW is a TYPE parameter                15 / 16  no substitution
+ p1_multiparam_arr_recvp   2 override tuples on the def  AW=5            4 /  5  clause (3)
+ p2_multiparam_arr_norecvp 2 override tuples on the def  none           15 / 16  clause (3)
+ p3_multiparam_pos_recvp   2 tuples, SINGLE positional   AW=5            4 /  5  RESIDUE
+ p4_textmulti_arr_recvp    text-differing tuples         AW=5            4 /  5  clause (3)
+ p5_gen_iface_arr_recvp    GENERATE-bearing interface    AW=5            4 /  5  clause (3)
+
+NOTE on l1: `.p(inst)` is a NAMED modport connection to a NON-ARRAY instance —
+clause (2) — so recv's AW=7 is ignored and the CONNECTED instance's #(16,32,32)
+gives 15/16.  It is the direct control for k1, which differs ONLY in connecting
+`arr[1]` instead of `inst` and answers 6/7.
+
+WHAT THE FOUR DISAMBIGUATIONS PROVE
+-----------------------------------
+* a2 vs a4  : the switch is the CONNECTION FORM, not the receiving parameter.
+* n1        : `v` = 63 with BOTH the instance and the default at VW=32 can only
+              come from re-evaluating `VW = BW` with recv's BW=64.  TRANSITIVE.
+* n8        : recv's AW is declared 8 and overridden to 9; golden reads 8, i.e.
+              AW=9 — the ELABORATED value, not the declaration default.
+* n3 / n9   : a same-named VARIABLE and a same-named TYPE parameter both leave
+              the interface default in place — only value parameters substitute.
+
+SCORE (agreeing range lines / measured range lines, per cell)
+------------------------------------------------------------
+See GRID.raw for the per-cell table produced by score.sh.
+TOTAL: BASE 831/957   PAT 951/957   PROBLEMS=0
+
+THE 6 REMAINING DISAGREEMENTS, both UNCLAIMED and both measured
+---------------------------------------------------------------
+1. n4_parent_has_aw (3 lines).  When the receiving module does NOT declare the
+   name but an ANCESTOR does, golden's two resolution paths DISAGREE: a member's
+   own range keeps the interface default (`a` = 15 although top says AW=3) while
+   the interface's LOCALPARAM initializer resolves the name HIERARCHICALLY
+   (`lpm` = 3, i.e. LP = top's AW + 1).  This pass consults the receiving
+   instance ONLY, so n4's `lpm` stays at 16.  Neither corpus contains the shape.
+2. p3_multiparam_pos_recvp (3 lines).  A MULTI-parameterised def reached by a
+   SINGLE POSITIONAL modport port view: golden takes clause (1) (4/5) but the
+   emitter's `multiParamIface` exception still routes it to the connected
+   instance (7/8).  Clause (3) deliberately covers only the ARRAY-ELEMENT view,
+   because that is the shape Rggen and the census name; widening the exception
+   for non-array views has no corpus witness in either direction and would move
+   the delicate iface_param_2level / iface_cfg_mem / iface_unpacked_struct_array
+   family.  NEXT HYPOTHESIS: drop `!multiParamIface && !textMultiIface9` for the
+   POSITIONAL modport cell only (posModportPortView9), and re-gate.

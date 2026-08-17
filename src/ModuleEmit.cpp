@@ -7,6 +7,7 @@
 #include "UhdmExporter.h"
 
 #include <algorithm>
+#include <deque>
 #include <functional>
 
 #include "EmitHelpers.h"
@@ -24497,6 +24498,118 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
     return dup;
 }
 
+// ── § portViewRangeRecvParams ────────────────────────────────────────────────
+// The scope a REFERENCE-STYLE interface PORT VIEW folds its member declaration
+// ranges in.
+//
+// Surelog does not bind such a view to the connected instance at all: it
+// re-elaborates the interface DEFINITION under the RECEIVING module instance,
+// so every interface parameter named inside a member declaration resolves to
+// the receiving module's OWN parameter of that name when one exists, and to the
+// interface's declared default otherwise.  The connected instance's overrides
+// are never consulted.
+//
+// Measured cell by cell on real Surelog (tools/probe/r10rgg3repro/GRID.txt,
+// 39 cells; `a` is `logic [AW-1:0]`, `lpm` is `logic [LP-1:0]` with the
+// interface's own `localparam int LP = AW + 1`):
+//
+//   cell                        recv's params      golden a / lpm
+//   a3 modport + POSITIONAL     none               15 / 16   (iface defaults)
+//   a4 modport + POSITIONAL     AW = 5              4 /  5   (RECV's AW)
+//   b1 plain   + named          none               15 / 16
+//   b2 plain   + named          AW = 5              4 /  5
+//   c2 array   + whole-array    AW = 5              4 /  5   (every element)
+//   d2 array elem `.p(arr[0])`  AW = 5              4 /  5
+//   n1 array   + whole-array    BW = 64            15 / 16, but b = 63 AND
+//                                                  v = 63 — `VW = BW` is
+//                                                  re-evaluated with the
+//                                                  SUBSTITUTED BW, so the
+//                                                  substitution is TRANSITIVE
+//   n2 array, recv's AW is a LOCALPARAM in the body 4 / 5  (localparams count)
+//   n3 recv declares a VARIABLE named AW          15 / 16  (only parameters)
+//   n8 recv's `AW = 8` OVERRIDDEN to 9 at its own
+//      instantiation                               8 /  9  (the ELABORATED
+//                                                  value, not the declared 8)
+//   n9 recv's AW is a TYPE parameter              15 / 16  (no substitution)
+//   a1/a2/e1/e2/g2 modport + NAMED + non-array: the HOME-LIKE view — the
+//      CONNECTED instance's values (7 / 8), unaffected by recv's AW=5.  That
+//      cell is excluded by namedModportPortView9 at the call site.
+//
+// UNCLAIMED RESIDUE, measured (cell n4): when the receiving module does NOT
+// declare the name but an ANCESTOR does, the two resolution paths DISAGREE in
+// golden — a member's own range keeps the interface default (`a` = 15 with
+// top's AW = 3) while the interface's LOCALPARAM initializer resolves the name
+// HIERARCHICALLY (`lpm` = 3, i.e. LP = top's AW + 1).  Only the receiving
+// instance is consulted here, so n4's `lpm` stays at 16.  No corpus row and no
+// Rggen site has that shape (an interface localparam naming a parameter absent
+// from the receiving module but present above it).
+const Scope* UhdmExporter::ifacePortViewFoldScope(const DefinitionSymbol& def,
+                                                  const InstanceSymbol* recv) {
+    // The plain default instance is both the fallback scope and the source of
+    // the interface parameters' DECLARATOR syntax nodes — the keys slang's
+    // ParameterBuilder looks the override map up by.
+    auto dit0 = ifaceDefaultInst.find(&def);
+    if (dit0 == ifaceDefaultInst.end())
+        dit0 = ifaceDefaultInst
+                   .emplace(&def, &InstanceSymbol::createDefault(comp, def))
+                   .first;
+    const InstanceSymbol* base = dit0->second;
+    if (!recv)
+        return &base->body;
+    std::vector<std::pair<const syntax::SyntaxNode*, ConstantValue>> ovr;
+    std::string sig;
+    for (auto& mb : base->body.members()) {
+        if (mb.kind != SymbolKind::Parameter)
+            continue;
+        auto& ps = mb.as<ParameterSymbol>();
+        // A LOCALPARAM of the interface is not substituted directly: it is
+        // recomputed from the substituted PORT parameters (that is what makes
+        // n1/a4's `lpm` come out right).
+        if (ps.isLocalParam() || !ps.getType().getCanonicalType().isIntegral())
+            continue;
+        auto* psyn = ps.getSyntax();
+        if (!psyn)
+            continue;
+        // The receiving module instance's OWN scope only — never a walk
+        // upwards (cell n4's `a` keeps the interface default though top
+        // declares AW).  A TYPE parameter or a same-named variable is not a
+        // ParameterSymbol and so does not substitute (n9 / n3).
+        auto* found = recv->body.find(mb.name);
+        if (!found || found->kind != SymbolKind::Parameter)
+            continue;
+        auto& rp = found->as<ParameterSymbol>();
+        if (!rp.getType().getCanonicalType().isIntegral())
+            continue;
+        auto& cv = rp.getValue();
+        if (!cv.isInteger() || cv.integer().hasUnknown())
+            continue;
+        sig += std::string(mb.name) + "=" + cv.toString() + ";";
+        ovr.emplace_back(psyn, cv);
+    }
+    if (ovr.empty())
+        return &base->body;
+    auto key = std::make_pair(&def, sig);
+    auto it0 = ifaceRecvSubstInst.find(key);
+    if (it0 == ifaceRecvSubstInst.end()) {
+        // The node must outlive every InstanceBodySymbol built from it — each
+        // body keeps a raw hierarchyOverrideNode pointer and re-reads it lazily
+        // while its members elaborate.  slang's BumpAllocator refuses the type
+        // (it is not trivially destructible) and UhdmExporter.h deliberately
+        // forward-declares slang instead of including Compilation.h, so the
+        // nodes live in a translation-unit deque whose elements never move.
+        static std::deque<HierarchyOverrideNode> substNodes9;
+        substNodes9.emplace_back();
+        auto* node = &substNodes9.back();
+        for (auto& [psyn, cv] : ovr)
+            node->paramOverrides.emplace(
+                psyn, HierarchyOverrideNode::ParamOverride{cv, nullptr, nullptr});
+        it0 = ifaceRecvSubstInst
+                  .emplace(key, &InstanceSymbol::createDefault(comp, def, node))
+                  .first;
+    }
+    return &it0->second->body;
+}
+
 UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& inst,
                                                           const std::string& path,
                                                           UHDM::instance* parentM,
@@ -24993,14 +25106,21 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // ...and so does a MODPORT-qualified view reached by a NAMED port
     // connection (r10ie — same switch that keeps its param_assigns above).
     bool textMultiIface9 = textMultiParamDefs.count(&def) > 0;
-    if (portView && !multiParamIface && !textMultiIface9 && !aggOvPortView &&
-        !ifaceHasGen9 && !namedModportPortView9) {
-        auto dit0 = ifaceDefaultInst.find(&def);
-        if (dit0 == ifaceDefaultInst.end())
-            dit0 = ifaceDefaultInst
-                       .emplace(&def, &InstanceSymbol::createDefault(comp, def))
-                       .first;
-        ifaceDefaultScope = &dit0->second->body;
+    // § ifaceArrayElemViewFoldsDefault — an interface-ARRAY ELEMENT port view
+    // folds at the DEFAULT scope UNCONDITIONALLY: none of the four exceptions
+    // above reaches it.  Measured on real Surelog (r10rgg3repro/GRID.txt cells
+    // p1/p2/p4/p5, and Rggen itself, where `rggen_register_if` is instantiated
+    // `#(8,32,64)` in block_0 and `#(7,32,32)` in block_1 — a TEXT-multi def
+    // whose element port views under u_adapter still read 15/31, the default
+    // values, not the connected 7/63).  The element view already drops every
+    // param_assign for the same reason (§ ifaceArrayElemPortViewNoPa): Surelog
+    // never binds it to the connected element, so there is nothing to read the
+    // instance's values from.
+    bool arrElemPortView9 = portView && !inst.arrayPath.empty();
+    if (portView && (arrElemPortView9 ||
+                     (!multiParamIface && !textMultiIface9 && !aggOvPortView &&
+                      !ifaceHasGen9 && !namedModportPortView9))) {
+        ifaceDefaultScope = ifacePortViewFoldScope(def, portView);
     }
     // Pre-create each port's typespec BEFORE the variable typespecs so their
     // arena ids precede the elab var typespecs — matching Surelog's

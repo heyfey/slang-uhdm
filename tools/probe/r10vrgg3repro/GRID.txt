@@ -1,0 +1,387 @@
+r10vrgg3 — ADVERSARIAL VERIFICATION of r10rgg3
+§ portViewRangeRecvParams + § ifaceArrayElemViewFoldsDefault
+==============================================================================
+VERDICT: the law HOLDS.  52 adversarial cells, ZERO pristine-right ->
+patched-wrong, 22 conversions to CMP_EQUAL, 41 cells measurably closer to golden
+and NONE further away.  FIVE residues found — four are the law being too NARROW,
+one is a real MECHANISM error (R5, the substituted value is truncated by the
+interface parameter's declared type and golden does not truncate).  One
+PRE-EXISTING crash class on legal SV found, characterised as a FAMILY, and FIXED
+here — it reaches a real corpus test.
+
+GOLDEN  = real Surelog (~/git-repos/Surelog/build/bin/surelog -parse -nopython
+          -d uhdm -top top dut.sv), pinned cbdbea458c
+JUDGE   = ~/git-repos/UHDM/build/bin/uhdm-cmp md5 2ad8015175758e918de1789b86ef1ea5
+BASE    = 05d9c8f                     md5 f885e175806e87832e466155710d8f0a
+PAT     = BASE + /tmp/r10rgg3.patch   md5 34540a12c28e57d55d70cffc407c3abd
+FIX     = PAT  + § defPortsNullDefInstGuard
+                                      md5 2c1c08fe5194d829ddc36716b3746d78
+LHS is ALWAYS golden.  MEASUREMENT-ONLY: uhdm-cmp is the sole judge; the range
+score below is read as a DIRECTION only.
+
+1. WHAT REPRODUCED, BIT FOR BIT
+------------------------------------------------------------------------------
+Both binaries were built here from scratch (`-j 2`, md5 taken separately) in
+fresh worktrees at 05d9c8f; the patch applied with `git apply --check` clean
+(38 whitespace warnings, all inside GRID.raw's column padding).
+
+  BASE md5 f885e175806e87832e466155710d8f0a        <- claimed, MATCHED
+  PAT  md5 34540a12c28e57d55d70cffc407c3abd        <- claimed, MATCHED
+
+  gate 2 goldens PATCHED            23 PASS / 0 FAIL          MATCHED
+         SLANG_UHDM=/bin/false       0 PASS / 23 FAIL         MATCHED
+         goldens BASE               23 PASS / 0 FAIL          (control)
+  gate 3 u2r base default/testflags  679 / 50 / 2  both       MATCHED
+         u2r pat  default/testflags  679 / 50 / 2  both       MATCHED
+         ct8rows(base, pat)          0 differing ROWS / 1462  MATCHED
+         ct8rows(results/gate_uhdm2rtlil.csv, pat testflags)
+                                     0 differing ROWS / 731   MATCHED
+  gate 4 surelog base default   470/10/5/284/25                MATCHED
+                       testflags 466/7/5/286/23/3/2/1/1        MATCHED
+         surelog pat  identical both modes                     MATCHED
+         ct8rows(base, pat)          0 differing ROWS / 1588   MATCHED
+         ct8rows(results/golden_surelog.csv, pat)
+                                     0 differing ROWS / 1588   MATCHED
+         Rggen stays CMP_NOTEQUAL; results/*.csv NOT promoted   CONFIRMED
+  gate 5 byteverify u2r      MOVERS 0 / 1358, SC 1357, SC1 1    MATCHED
+         byteverify surelog  MOVERS 1 / 953,  SC 952,  SC1 2    MATCHED
+           the ONE mover ./default/Rggen-50ccbd70/slang.uhdm
+           pristine 3605f43ee469 -> patched ac993c35a0ee        MATCHED
+  ladder default:Rggen   69 FIXPOINT -> 63 FIXPOINT             MATCHED
+         maxvis 94492/252296 -> 94488/252296                    MATCHED
+         ONLY constant|VpiDecompile|DIGITS-ONLY 7 -> 1          MATCHED
+         no new family; the other 15 families unchanged         MATCHED
+         6 removed rungs = rggen_register_if.sv:10:10 x2,
+           :17:10 x2, rggen_apb_if.sv:7:10 x2                   MATCHED
+         survivor = rggen_or_reducer.sv:64:58                    MATCHED
+  rowheads Rggen/default  36 lines/1 head -> 50 lines/1 head    MATCHED
+         new head constant@rggen_adapter_common.sv:18:39-18:48
+           VpiSize G=64 O=32, decompile 25 both sides            MATCHED
+  grid   score.sh over the 37 shipped cells
+           TOTAL BASE=831/957  PAT=951/957  PROBLEMS=0           MATCHED
+  census 6 tests flagged (Rggen, Tnoc, ClassScope, simple_interface,
+           svinterface1, svinterface_at_top)                      MATCHED
+         Tnoc/ClassScope/svinterface1/svinterface_at_top are
+           SLANG_REJECT; simple_interface stays CMP_EQUAL and
+           byte-identical base vs pat                             MATCHED
+  canaries surelog ok=52 changed=0 / u2r ok=16 changed=0          MATCHED
+  ctcan2   surelog ok=58 changed=0 / u2r ok=2 changed=0           MATCHED
+  byte identity base vs pat, measured individually:
+           InterfaceModPort   59a365f3ce2c  both modes  IDENTICAL
+           BlackParrotComplex e3e354129d5a / 73a10e8217e5 IDENTICAL
+           YosysOldOr         d68e0796d62c  both modes  IDENTICAL
+           Earlgrey_0_1       29794f8bda09  IDENTICAL
+           BuildUVMPkg/SeqDriver/SimpleUVM/Scoreboard   IDENTICAL
+           SVSwitch  PIN 4842211c4030  MATCHES
+           YosysVerx PIN 6ccda350c24a  MATCHES
+  boundary ARMS=1003 MOVED=0  (with the asymmetry hole CLOSED:
+           ASYMMETRIC=0, NO-DATABASE-BOTH=11, each named)          MATCHED
+  determinism three patched Rggen exports ac993c35a0ee x3          MATCHED
+  Rggen's 6 moved range keys: all six pristine-wrong -> patched-right,
+           ZERO pristine-right -> patched-wrong, whole-design range
+           agreement 15758 -> 15764 / 17784 (exactly +6)            MATCHED
+  perf     Rggen export 83 ms base -> 63 ms patched; the hostile
+           substituted values (AW=65536 unpacked dim, genvar bound
+           3000) cost 12 ms -> 14 ms.  No blow-up.
+
+2. THE GOLDEN EVIDENCE, RE-READ INDEPENDENTLY
+------------------------------------------------------------------------------
+The report's decisive claim was checked straight out of golden's own dump
+(cache 6fc99d8f4119ff55b3e1), not taken on trust:
+
+  work@rggen.u_block_0.register_if[0].address                     [ 7:0]
+  work@rggen.u_block_0.u_adapter.register_if[0].address           [15:0]
+  work@rggen.u_block_0.u_adapter.u_adapter_common.…address        [15:0]
+  work@rggen.u_block_1.register_if[0].address                     [ 6:0]
+  work@rggen.u_block_1.apb_if.paddr                               [ 6:0]  <=
+  work@rggen.u_bridge.apb_if.paddr                                [15:0]
+  work@rggen.apb_if[0..1].paddr                                   [15:0]
+
+`u_block_1.apb_if.paddr` is decisive exactly as claimed: the CONNECTED
+`apb_if[1]` is [15:0] and the interface default is 16, and golden says 6.
+`block_1.sv:25` is `parameter int ADDRESS_WIDTH = 7` — verified in the source.
+The positional-override hypothesis is refuted by the real instance's [7:0]
+(block_0 `rggen_register_if #(8,32,64)`) and [6:0] (block_1 `#(7,32,32)`).
+
+3. BREAKING THE LAW — 49 ADVERSARIAL CELLS, NONE OF THEM r10rgg3'S
+------------------------------------------------------------------------------
+Judged by the OFFICIAL uhdm-cmp (`run.sh`), direction by golden range-line
+agreement (`score2.sh`).  Full output in GRID.raw.
+
+  CMP_NOTEQUAL -> CMP_EQUAL (the patch CONVERTS the cell)              22
+  CMP_EQUAL    -> CMP_EQUAL (preserved)                                 3
+  CMP_NOTEQUAL -> CMP_NOTEQUAL                                         25
+  symmetric NO-DATABASE (my own invalid SV, base==pat)                  2
+  *** CMP_EQUAL -> CMP_NOTEQUAL (pristine-right -> patched-wrong) ***   0
+  range-agreement direction:  41 BETTER, 11 unchanged, 0 WORSE
+
+The three preserved-EQUAL cells are the ones that matter as controls:
+  xb_module_array_contrast   a MODULE array with a same-named parameter —
+                             modules are untouched, as claimed.
+  xi_iface_param_type        the interface's parameter is a TYPE parameter and
+                             the receiver declares a `type T` too — no
+                             substitution, byte-identical.
+  z1_single_genfor_named     a NON-array interface inside a genfor reached by a
+                             NAMED modport connection — the HOME-LIKE exception
+                             still fires (a generate scope does not set
+                             `inst.arrayPath`), so this cell is UNMOVED.
+
+HOSTILE substituted values, all with the design itself legal SV, all CONVERTED
+and none crashing or hanging:
+  v1  recv AW = 0            (substituted body would be `logic [-1:0]`)
+  v2  recv AW = -3
+  v3  recv AW = 100000
+  v9  recv AW = 2147483647
+  v7  member `logic [AW-9:0]` with recv AW = 4
+  v12 reversed ranges `[0:AW-1]` and `[AW:AW+7]`
+  v13 recv's AW is `localparam int AW = $clog2(N)` — the ELABORATED value
+  v5  the interface's GENERATE CONDITION flips under the substitution
+  v10 the interface's genvar-loop BOUND becomes 3000 (still 14 ms)
+  v11 the interface's UNPACKED DIMENSION becomes 65536 (still 14 ms)
+  v8  `localparam Q = 64/AW` with recv AW = 0 — golden itself reports
+      "Division by zero in instance" (UH0722) and still emits a database, which
+      is INDEPENDENT EVIDENCE that Surelog performs this substitution
+
+THE BYPASS BOUNDARY (the riskiest edit: `arrElemPortView9` overrides FOUR
+existing "read the connected instance" exceptions unconditionally).  r10rgg3's
+grid covers the multi-parameterised case with NO receiving parameter (p2) but
+not the other three; measured here, and all three CONVERT:
+  z5 text-multi def   + array element view + NO recv param   -> CMP_EQUAL
+  z6 generate-bearing + array element view + NO recv param   -> CMP_EQUAL
+  z9 multi-param def, two DIFFERENT value tuples, no recv p  -> CMP_EQUAL
+So clause (3) is right for all four bypassed exceptions, substitution or not.
+
+4. THE FOUR RESIDUES I FOUND — the law is TOO NARROW, each with a witness
+------------------------------------------------------------------------------
+R1  INTERFACE LOCALPARAMS DO SUBSTITUTE.  `ifacePortViewFoldScope` skips them
+    (`if (ps.isLocalParam() || …) continue`) and the code comment asserts they
+    are "not substituted directly: it is recomputed from the substituted PORT
+    parameters".  REFUTED, twice:
+      xf_iface_localparam_name_clash   iface `localparam int LP = 8;`
+                                       recv  `parameter int LP = 3`
+        golden  work@top.u.p[*].lpm  [2:0]      (LP = 3, recv's)
+        ours                          [7:0]      (LP = 8, the interface's)
+      v14_iface_lp_derived             iface `localparam int LP = AW + 1;`
+                                       recv  `#(AW = 5, LP = 100)`
+        golden  lpm [99:0]   -> recv's LP=100 BEATS the recomputed AW+1=6
+        ours    lpm  [5:0]   -> the recomputed value
+    v14 is the disambiguation: a receiving parameter of the interface
+    LOCALPARAM's name OVERRIDES the localparam's own initializer, even when
+    that initializer would be recomputed from an already-substituted parameter.
+    NEXT: add a second HierarchyOverrideNode entry keyed on the localparam's
+    declarator when the receiver has the name (slang honours paramOverrides
+    keyed by declarator syntax; whether it honours one on a localparam
+    declarator is the one thing to test first), and re-gate the a4/n1/n2 cells
+    which need the RECOMPUTED value when the receiver does NOT have the name.
+
+R2  A NON-INTEGRAL receiving parameter substitutes too — golden converts it.
+      xd_recv_param_string   recv `parameter string AW = "hi"`
+        golden  p[*].a [26728:0]   ("hi" = 16'h6869 = 26729, minus 1)
+        ours            [15:0]
+      xe_recv_param_real     recv `parameter real AW = 5.0`
+        golden  p[*].a [4:0]       (5.0 -> 5)
+        ours            [15:0]
+    The guard is `!rp.getType().getCanonicalType().isIntegral() -> continue`.
+    NEXT: accept a string/real receiving parameter by converting the
+    ConstantValue the way Surelog does (string -> its packed bit value,
+    real -> truncation), and keep the integral guard on the INTERFACE side.
+
+R3  An UNKNOWN receiving value is not skipped by golden — it leaves the range
+    UNFOLDED.
+      xh_recv_param_4state_x  recv `parameter logic [31:0] AW = 32'hx`
+        golden  p[*].a  range decompiles as the chain  32'hx , 1 , 0
+                i.e. the OPERATION `32'hx - 1` is kept, unreduced
+        ours            [15:0]   (the `cv.integer().hasUnknown()` skip)
+    NEXT: on hasUnknown, emit the range bound as an unreduced operation over
+    the substituted X constant rather than falling back to the default.
+
+R5  THE SUBSTITUTED VALUE IS TRUNCATED BY THE INTERFACE PARAMETER'S DECLARED
+    TYPE, AND GOLDEN DOES NOT TRUNCATE.  This is a MECHANISM error, not a
+    too-narrow gate: the value is handed to slang as a
+    `HierarchyOverrideNode::ParamOverride`, so slang converts it to the interface
+    parameter's own declared type before elaborating.
+      q3_sig_collision   iface `parameter bit [3:0] AW = 12`
+                         recvA `parameter int AW = 20`
+                         recvB `parameter logic [7:0] AW = 4`
+        golden  ua.p[*].a [19:0]   (AW = 20, RAW)      ub.p[*].a [3:0]
+        ours    ua.p[*].a  [3:0]   (20 & 4'hF = 4)     ub.p[*].a [3:0]  (right)
+        base    both at the default [11:0]
+    Net still an improvement (recvB's three lines converge, recvA's three move
+    from one wrong value to another), so it is not a regression — but any
+    interface whose parameter is NARROWER than the receiver's will fold wrong.
+    Rggen is unaffected: every parameter on both sides is `int`.
+    NEXT: widen the ConstantValue to the receiver's own type before building the
+    override, or bypass ParameterBuilder's type conversion for this scope
+    entirely (a purpose-built ASTContext over the substituted values rather than
+    a re-elaborated instance).
+
+R6  A RECEIVER THAT IS ITSELF AN INTERFACE emits nothing at all on our side —
+    a MISSING-object residue, base == patched, unrelated to the law but found by
+    the same grid.
+      q1_iface_recv_is_iface   `interface recvif #(AW=5)(itf.mp p[3]);`
+        golden emits work@top.p[0..2] with a [15:0], b [31:0], v [31:0],
+          lpm [16:0] — the interface DEFAULTS, i.e. an interface-typed receiver
+          does NOT substitute (12 golden range lines)
+        ours emits NO such scope at all
+    Recorded because it CONSTRAINS R1/R5: the substitution rule is a MODULE rule.
+
+R4  n4's SPLIT (r10rgg3's own residue 2) reproduced and confirmed: when the
+    receiver does NOT declare the name but an ANCESTOR does, golden's member
+    range keeps the interface default while the interface's LOCALPARAM
+    initializer resolves HIERARCHICALLY.  Grid cell n4 scores 24/27 on both
+    binaries.  R1's fix must not break this: the localparam path resolves
+    upwards, the member path does not.
+
+Unrelated residues these cells also surfaced, base == patched, NOT this pass's:
+  * x4_arr_2d  8/86 — a 2-D interface array PORT (`itf.mp p[2][3]`); golden's
+    `array_typespec` under the port disagrees at the very first object.  The
+    single largest untouched gap in this grid.
+  * xa/x5/x6   an interface instantiated INSIDE an interface, and an interface
+    array declared inside a generate (`module_array` under a `named_begin`).
+  * w4/x6      an EXTRA logic_var on our side for an interface member that
+    carries a continuous assign (`LHS: <null>`).
+  * z2         a receiver MODULE ARRAY connected to an interface array — golden
+    puts a `logic_net (work@top.arr)` on the top that we do not.
+  * every cell shows one `int_typespec` PARENT-name disagreement
+    (`work@top.arr[0]` in golden, `itf` in ours) — the systematic floor in the
+    range score, present at base.
+
+5. THE CRASH CLASS — PRE-EXISTING ON LEGAL SV, FIXED HERE
+------------------------------------------------------------------------------
+r10rgg3's residue 3 reproduced and then CHARACTERISED as a whole FAMILY, not
+one input.  `emitModuleDefPorts` does `DefInfo& info = defMap[&def]`, which
+default-constructs, so `info.mod` is null for a definition never registered
+with an instance object; `emitImportArtifacts(body, m)` then dereferences it.
+Backtrace (gdb, BASE binary):
+    #0 UhdmExporter::emitImportArtifacts  #1 emitModuleDefPorts  #2 exportDesign
+Any source with an INTERFACE and NO TOP MODULE hits it.  Measured over 15
+synthetic no-top shapes, BASE and PAT identical:
+    CRASH rc=139 : bare interface with a parameter; bare interface with a
+      variable; EMPTY interface; parameterised interface; interface + package
+      import; TWO interfaces; interface + typedef; interface + program
+    OK           : bare package; bare program; bare checker; interface class;
+      parameterised module (it becomes the top); interface + module
+    rc=3 (slang) : `modport mp(input W)` on a parameter — a real rejection
+Golden Surelog emits a database for all eight crashers.  Two COMMITTED probe
+arms are in the family: tools/probe/r10uvm67repro/{c3_iface.sv,v3_boundary.sv}.
+
+FIX (§ defPortsNullDefInstGuard, src/ModuleEmit.cpp ~3218): `if (m)` before the
+call — the only unguarded use of `m` in that function, every other one already
+tests `mmod`.
+
+AND THE CRASH REACHES THE REAL CORPUS.  The surelog test `MiniAmiq` SEGFAULTS on
+BOTH the base and the r10rgg3 binaries (rc=139, verified directly with the row's
+own argv out of its cmds.txt), and the harness recorded it as
+    MiniAmiq,default,SLANG_REJECT,warning: no top-level modules found in design
+because `verify_golden.py` picks the last stderr line when no line contains
+"error" — so a SEGFAULT on a real corpus test has been sitting inside the
+SLANG_REJECT bucket wearing a benign warning as its detail.  Grepping the CSVs
+for `rc=139` finds NOTHING, which is exactly why nobody saw it.
+
+MEASURED, FIX vs PAT and FIX vs BASE:
+    goldens                       23 PASS / 0 FAIL
+    u2r both modes                679 / 50 / 2
+      ct8rows(BASE, FIX)          0 differing ROWS / 1462
+      ct8rows(PAT,  FIX)          0 differing ROWS / 1462
+      ct8rows(gate_uhdm2rtlil.csv, FIX testflags)  0 / 731
+      byteverify u2r              MOVERS 0 / 1358 (SC 1357, SC1 1)
+    surelog default   470 CMP_EQUAL / 11 CMP_NOTEQUAL / 5 / 283 / 25
+            testflags 466 / 8 / 5 / 285 / 23 / 3 / 2 / 1 / 1
+      ct8rows(PAT, FIX)           2 differing ROWS / 1588  <= NOT ZERO, quoted:
+        < MiniAmiq,default,SLANG_REJECT,warning: no top-level modules found …
+        < MiniAmiq,testflags,SLANG_REJECT,warning: no top-level modules found …
+        > MiniAmiq,default,CMP_NOTEQUAL,decompile:
+        > MiniAmiq,testflags,CMP_NOTEQUAL,decompile:
+      ct8rows(results/golden_surelog.csv, FIX)   the SAME 2 rows
+      byteverify surelog          PATH_SETS_DIFFER by exactly the 2 NEW
+        MiniAmiq paths; over the 953 SHARED paths MOVERS = 0
+    canaries surelog ok=52 changed=0 / u2r ok=16 changed=0
+    ctcan2   surelog ok=58 changed=0 / u2r ok=2  changed=0
+    boundary2(PAT, FIX)  ARMS=1040 MOVED=0 ASYMMETRIC=2 — exactly the two
+      crashing committed arms, in the base-crashed direction
+    ladder default:Rggen  63 FIXPOINT, maxvis 94488/252296 (= PAT)
+    rowheads Rggen/default 50 lines / 1 head (= PAT); Rggen byte-IDENTICAL to PAT
+    the 49 adversarial cells  PAT vs FIX: 0 differences
+    determinism  MiniAmiq exported three times: cc2ec5617171 x3
+    all 8 synthetic crashers + both committed arms: rc=0, database emitted
+
+SO THE GUARD IS BYTE-NEUTRAL BUT NOT ROW-NEUTRAL.  It moves 2 of the 1588
+surelog rows, SLANG_REJECT -> CMP_NOTEQUAL — a crash becoming a comparable
+database.  That is strictly better and it puts MiniAmiq on the ladder for the
+first time, but it is NOT the "0 differing rows" gate 4 demands, so it is
+shipped SEPARATELY (/tmp/r10vrgg3_crashguard.patch) for the master to promote
+with these rows quoted.  Dropping that one hunk restores gate 4 to 0 / 1588
+with no other effect.
+
+6. FACTUAL ERRORS IN THE IMPLEMENTER'S REPORT (conclusions all survive)
+------------------------------------------------------------------------------
+E1  "Grid on real Surelog, 39 cells" and "gen_grid.py (39 cells)".  It is 37.
+    gen_grid.py prints `37 cells`, GRID.txt's own table has 37 rows and its
+    README says 37.  The SCORE (831/957, 951/957) is over those 37.
+E2  "results/golden_uhdm2rtlil.csv … differs on 104 rows … EVERY ONE of them is
+    a SLANG_REJECT `detail` naming the DUT by RELATIVE path".  100 of the 104
+    keys are that; the other 4 are CMP_EQUAL rows whose DUMP column moved
+    `differ` -> `match`: ParameterSizeOfInstance and paramod_genscope_child,
+    both modes.  paramod_genscope_child is a NAMED CANARY.  The attribution
+    (stale file, BASE-attributable, not this patch) is still correct — both my
+    binaries agree with each other on all 104.
+E3  "simple_interface … verified byte-identical (6d2d016925c9 both binaries)".
+    The CONCLUSION reproduces (byte-identical), the NUMBER does not: the sweep
+    argv gives 12f18daa38b9 (default) / 044f20bf6c3c (testflags), and a direct
+    `--single-unit dut.sv` also gives 12f18daa38b9 (`dut_simple.sv` gives
+    8238a122aae3).  No argv reproduces the quoted hash.
+E4  "ladder vis 18710 -> 19155 (rung 2 -> rung 5 of the old map)".  True only
+    against the COMMITTED r10ladder1 ladder (98 rungs, from an older base).
+    Against the BASE-at-05d9c8f ladder it is rung 1 (vis 18710) -> rung 3
+    (vis 19155).  The map is not named in the report.
+E5  boundary.sh's own guard has a HOLE (not a wrong number, a wrong gate): it
+    reports NO-DATABASE when EITHER binary produced none, counts it in `nodb`,
+    and exits on `moved -eq 0`.  An arm where BASE exported and PATCH did not
+    would read as NO-DATABASE and the gate would still pass — exactly the shape
+    the gate exists to catch.  boundary2.sh here counts the sides separately
+    and is fatal on asymmetry; re-run over the same 1003 arms: ASYMMETRIC=0, so
+    the hole hid nothing this time.
+E6  score.sh scores `comm -12` of golden's lines against ours, so an EXTRA line
+    on our side is never penalised; the denominator is golden's count only.
+    Not wrong for this measurement, but it is an agreement score, not identity.
+
+7. RANKED RESIDUES (measured, unclaimed, each with a next step)
+------------------------------------------------------------------------------
+ 1. R1 interface LOCALPARAM substitution (2 witnesses: xf, v14).  The only one of
+    the four whose fix is a change to THIS pass's own function, and the only one
+    whose absence contradicts a comment the pass wrote.  Rggen has no witness,
+    so it is invisible to gate 4 — which is precisely why it needs the grid.
+ 2. r10rgg3's OWN residue 1, p3_multiparam_pos_recvp (3 grid lines, 11/14 on both
+    binaries).  Reproduced.  Its next hypothesis (drop
+    `!multiParamIface && !textMultiIface9` for the positional-modport cell only)
+    is now BETTER SUPPORTED than the report knew: z5/z6/z9 show the same bypass
+    is correct for the ARRAY case with no substitution at all, in all three of
+    the other exception families.
+ 3. R2 non-integral receiving parameters (xd string -> 26728, xe real -> 5).
+    Two witnesses, one line of code each on the accept side, but they need
+    Surelog's exact string->bits and real->int conversions transcribed.
+ 4. R3 an X-valued receiving parameter leaves the range UNREDUCED (xh).  Distinct
+    mechanism from R1/R2 — it needs an unreduced OPERATION emitted, not a value.
+ 5. R5 the declared-type TRUNCATION (q3).  The only finding here that is a
+    mechanism error rather than a missing case, and the cheapest to get wrong
+    again: it is invisible whenever both sides are `int`, which is every corpus
+    witness the pass has.
+ 6. R6 an interface-typed RECEIVER emits no port view at all (q1, 12 golden
+    range lines missing on BOTH binaries).
+ 7. R4/n4's hierarchical-vs-local SPLIT.  Unchanged, and now a CONSTRAINT on R1
+    rather than an independent item.
+ 8. x4_arr_2d — a 2-D interface array PORT (`itf.mp p[2][3]`), 8/86 golden range
+    lines on BOTH binaries, first divergence on the port's own `array_typespec`.
+    The largest gap this grid found and entirely outside this pass's law.
+ 9. THE STALE `results/golden_uhdm2rtlil.csv`.  104 keys differ from the BASE
+    binary's own run: 100 are the relative-vs-absolute SLANG_REJECT detail, and 4
+    are CMP_EQUAL rows whose dump column moved `differ` -> `match`
+    (ParameterSizeOfInstance, paramod_genscope_child — the latter is a NAMED
+    CANARY, so any pass that gates canaries.sh against this file will see a
+    phantom change).  `results/gate_uhdm2rtlil.csv` is current (0 / 731).
+10. `verify_golden.py`'s SLANG_REJECT detail hides crashes: it reports the last
+    stderr line when none contains "error", so a rc=139 reads as whatever warning
+    came last.  MiniAmiq wore "no top-level modules found in design" for as long
+    as this crash has existed.  A two-line fix (record the return code when it is
+    >= 128) would make the whole class visible; scripts/ is outside this pass's
+    surface so it is reported, not changed.

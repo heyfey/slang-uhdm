@@ -1,0 +1,27 @@
+interface itf #(parameter int AW = 16, parameter int BW = 32,
+                parameter int VW = BW);
+  logic [AW-1:0] a;
+  logic [BW-1:0] b;
+  logic [VW-1:0] v;
+  wire  [AW-1:0] wn;
+  localparam int LP = AW + 1;
+  logic [LP-1:0] lpm;
+  modport mp (input a, b, v);
+endinterface
+module inner #(
+  parameter int AW = 9
+)(
+  itf.mp p
+);
+endmodule
+module recv #(
+  parameter int AW = 7
+)(
+  itf.mp p
+);
+  inner #(.AW(AW)) ui (.p(p));
+endmodule
+module top;
+  itf #(16, 32, 32) arr[2]();
+  recv u (.p(arr[1]));
+endmodule
