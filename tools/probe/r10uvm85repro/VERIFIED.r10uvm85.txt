@@ -1,0 +1,180 @@
+# r10uvm85 — ADVERSARIAL VERIFICATION.  MEASUREMENT-ONLY; uhdm-cmp and
+# scripts/verify_golden.py remain the only judges.  slang was NOT patched;
+# results/*.csv were READ ONLY; NOTHING was promoted; GOLDEN_DEFER [UNSET] at all
+# four sweep launches.  Fresh worktrees /tmp/wt_v85 (shipped) and /tmp/wt_v85pris
+# (control), both at f65aff5; build dirs /tmp/v85_bld_{PAT,CTL}; scratch /tmp/v85_*.
+# THE PRODUCTION SURFACE OF THIS PATCH IS UNCHANGED FROM THE IMPLEMENTER'S:
+# src/ExprEmit.cpp md5 ef2926e4b0381eae879389ff2ce3774f, +221/-0 lines, and the
+# binary it builds is 36ecfe07e327047f610e97621b9e1947.  Everything added here is
+# tools/probe/r10uvm85repro/{v85x*.sv, v85bound.sh, v85sdbound.sh, this file}.
+
+== EVERY HEADLINE NUMBER REPRODUCED, INDEPENDENTLY BUILT AND SWEPT
+  BUILD    control e7d7538aeba7a67462a4b050c9e97ad7 (third build of f65aff5, a
+           third worktree and a third build dir — byte-identical to both of the
+           implementer's), shipped 36ecfe07e327047f610e97621b9e1947 from a
+           from-scratch configure+build.  md5sum run as its own command.
+  GOLDENS  23 PASS / 0 FAIL; SLANG_UHDM=/bin/false 0 PASS / 23 FAIL.
+  U2R      679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL, BOTH modes, BOTH
+           binaries; ct8rows BASELINE FIRST: committed↔control 0, committed↔
+           shipped 0 (731 testflags rows), control↔shipped 0 of 1462.
+  SURELOG  1588 rows; histograms identical (default 470/283/25/11/5,
+           testflags 466/285/23/8/5 + 3 NO_DATABASE 2 UNTRANSLATABLE 1 TIMEOUT
+           1 NO_UHDM); ct8rows committed↔control 0, committed↔shipped 0,
+           control↔shipped 0, all over 1588 whole rows incl. the dump column.
+  BYTEVERIFY surelog 9 movers / 955 — the SAME NINE names; u2r 0 / 1358.
+           SELFCHECK 954/955 and 1357/1358; SELFCHECK1 10 and 1.
+  PREDICTION pred85.sh over the PRISTINE workdirs (ct85cen binary md5
+           12ed7c8d8b03607ba5a1d48993e140e2, rebuilt from the committed source):
+           PRED>0 on 9 of 955 and 0 of 1358 — the predicted set EQUALS the
+           measured mover set, zero false positives, zero false negatives.
+  CENSUS   reproduced in ALL NINE databases (the implementer listed six):
+           GHEAD deficit 40/20/20/16/40 == OHEAD == PRED == THISKW deficit;
+           after: GHEAD/GARGS/THISKW/MOCKUP all == golden, OHEAD 0, THISNET
+           UNCHANGED (1 in SeqDriver+SimpleUVM on BOTH sides, 0 elsewhere).
+           JOIN CAVEAT, MEASURED: ct85cen --list prints a FILE column that
+           golden fills and ours leaves EMPTY, so the "zero golden-only, zero
+           ours-only" join holds on (span,name,prefix,args) with that column
+           CUT — it is not file-qualified.  Cut: 0/0 in all nine; on the
+           control the same join is 40/20/20/16/40 golden-only.
+  HEADS    rowheads.sh, one head per run: SeqDriver/SimpleUVM 68→38,
+           Scoreboard/MiniAmiq 64→38, BuildUVMPkg 17→17, Scoreboard testflags
+           SKIP-NOFILE.  Head OBJECT: method_func_call(this)@1578:12 →
+           constant@1685:10 on all seven affected row-modes; BuildUVMPkg's
+           ref_typespec head unchanged.  NO ROW PASSES cmp.  R0 (the `return -1`
+           fold) is present IDENTICALLY on the CONTROL binary — 4 occurrences of
+           `operation@1685:10-12` in both SeqDriver databases — so it is
+           pre-existing and merely uncovered.
+  LADDER   ctladder md5 1ca5be11bf714009318c8dec2eeb3bbe rebuilt; SimpleUVM
+           default 218→216 rungs, both ROOT-BLOCKED, FAM=method_func_call|
+           VpiName|TEXT:this|* 2→0, every other FAM count identical.
+  BOUNDARY v85bound.sh (allbound82 with a v85 scratch dir), with all eleven new
+           arms present: CELLS=1014 MOVERS=30 NO_OUTPUT=15 — 1003 committed
+           cells + my 11, and 30 = the implementer's 12 own arms + the SAME SEVEN
+           uvm84 cells (ast84, g84_a1_exprctx, g84_a7_stmt, g84_b3_pkgoob,
+           g84_d2_ctx, v84x7_misc, v84x8_break) + my 11.  NOT ONE unnamed cell
+           moved, at either arm count.  v85sdbound.sh: 347 cells, 0
+           movers.  uvm84's lvIncDecTarget84 fence arm (v84x2_incdec.sv) is
+           byte-identical.
+  CANARIES canaries surelog ok=52 changed=0 absent=0 unknown=8; u2r ok=9
+           changed=0 absent=0 unknown=25; ctcan2 PASS both corpora at the
+           documented EXPECT_UNKNOWN (1 / 6), and the full-1462 absent=1 FAILS
+           IDENTICALLY ON THE CONTROL — a baseline-slice artefact, confirmed.
+           canaudit audited=31 UNCOVERED=0 FENCE-BREACH=0.  All five DATABASE
+           md5 pins hold on both binaries and both modes, SVSwitch 4842211c4030
+           and YosysVerx 6ccda350c24a included.
+  DETERMINISM the shipped binary run TWICE on SeqDriver by hand reproduces
+           a8c03b30196e026e94751f4d3246fdc5 — the sweep's own database.
+
+== THE LAW WAS ATTACKED ON 12 NEW ARMS.  ZERO pristine-right → patched-wrong
+   cells anywhere (v85x1..v85x9, v85xA, v85xB, plus the 11 shipped arms and the
+   7 uvm84 movers, all re-run cell by cell against GOLDEN with cell85.sh).
+  v85x1_kinds    every built-in family, arity 0..2, queue/dynarray/assoc/string,
+                 REF-argument iterators, user arity 3 — 26 of 30 cells FIXED.
+  v85x2_roots    super / this.super, both families, both depths, arity 0..3, a
+                 SHADOWED base member — 11 of 11 FIXED, arm goes PASS_CMP.
+  v85x3_with     REFUTES THE LAW'S UNIVERSAL CLAUSE (residue V1 below).
+  v85x4_pos      foreach / repeat / do-while / fork+join / join_any / nested
+                 named blocks / #1-delayed / multi-label case / forever — all
+                 FIXED; the two rvalue-deep-this ARGUMENT cells FIXED.
+  v85x5_text     members named superq/super_q/thisx/this_q, an INHERITED member
+                 through `this`, spaced / tab / NEWLINE-split handles, an index
+                 containing a CALL, parens-less at both depths — all FIXED.
+                 The spaced handle is ACCEPTED and CORRECT (the g85_b1 line
+                 comment "the gate declines" is stale; the code comment is
+                 right).  A COMMENT between the handle and the name still
+                 declines and keeps the pristine defect (residue V3).
+  v85x6_esc      THE NET, BOTH WAYS: golden has none in the hoisting module and
+                 pristine mints one (3 refs) — patched 0, EQUAL to golden; a
+                 module that GENUINELY declares `logic \this ;` keeps it, golden
+                 3 refs / patched 3, and the arm goes PASS_CMP.
+  v85x7_deep     depths 2..5, both families, arities 1..3, indices at every
+                 position — the argument-DROP direction, the only direction this
+                 law removes objects in.  11 of 17 cells FIXED (the three
+                 remaining are residue V2, the other three are pre-existing
+                 class_typespec spans).
+  v85x8_scope    parameterized class (two specializations), STATIC first step,
+                 virtual base + override, super in an override, class in a
+                 PROGRAM — all FIXED.  (A class inside an INTERFACE is not
+                 emitted AT ALL on either binary — pre-existing, unrelated.)
+  v85x9_misc     constructors (base and derived), super.new, std::mailbox and
+                 std::semaphore methods, THE CORPUS'S OWN depth-2 spelling
+                 `this.hv[k].p.kill()`, $cast, a cast actual — all FIXED.
+  v85xA_macro    macro-supplied whole call and macro-supplied RECEIVER land at
+                 the CALL SITE, span for span with golden.  (A macro supplying
+                 only the handle or only the member emits no call object on
+                 EITHER binary — pre-existing.)
+  v85xB_overfire residue V4 below.
+  uvm84's MOCKUP population never moves AWAY from golden on any arm: golden/
+  pris/pat = 2/2/2, 8/8/8, 0/0/0, 3/3/3, 1/1/1, 7/6/6 and — v84x8_break —
+  8/4/6, i.e. the patch moves it TWO OBJECTS TOWARD golden.  The corpus MOCKUP
+  is unchanged in all nine databases.
+
+== RANKED RESIDUES FOUND BY THE VERIFIER (none is a regression; every one is
+   wrong on the CONTROL binary too, and none has a corpus witness)
+  V1  THE LAW'S CLAUSE "statement position ALWAYS parses a
+      paConstant_bit_select" IS FALSE, measured on golden: a `with` clause
+      (v85x3 L14/L15/L16/L18/L22/L25/L27/L28) and a KEYWORD-named built-in
+      (`and`/`or`/`xor`/`unique` — L19/L24/L26) take Surelog's SELECT arm and
+      golden emits a `hier_path this.q` spanning the WHOLE call with elements
+      ref_obj this + ref_obj q.  The patch OVER-FIRES there — but so did the
+      pristine emitter, with the same object count (2 wrong objects either way),
+      and no `with`/keyword spelling reaches any corpus row (byteverify: 9
+      movers, all census-predicted).  `min`/`sum`/`product`/`unique_index`
+      (non-keyword, no with) ARE this law's arm and are FIXED.
+  V2  THE ARITY CLAUSE IS INCOMPLETE, and Surelog's own source says so.
+      CompileExpression.cpp:5240 reads the arguments from
+      `Sibling(Sibling(Constant_bit_select))`, which two names below the handle
+      is the SECOND STEP'S OWN Constant_bit_select — so when that step is
+      INDEXED, golden compiles its INDEX as the call's single argument.
+      Measured on three cells: `this.h.mv[1].l.arr.delete(k)` (v85x7 L32),
+      `this.h.mv[1].mm(k)` (L39) and `this.h.mv[1].l.lm3(k,k,k)` (L44) — golden
+      has a `constant` at the index's span, we have none.  The patch is still
+      strictly CLOSER than pristine at every one (L39: pristine 1 wrong + 1
+      missing → patched 1 missing; L44: pristine 3 wrong + 1 missing → patched 1
+      missing), and the UNINDEXED second step (L43, three args, depth 3) is
+      FIXED — golden emits nothing there and neither do we.  ZERO
+      corpus witnesses: my own grep over the three UVM trees finds 62/60/57
+      depth-1 statements, exactly ONE depth-2 per tree, and ZERO with an indexed
+      second step — the same reason R1 was left unlanded.
+  V3  A COMMENT between the handle and the first name (`this./*c*/q.delete(4)`,
+      v85x5 L34) declines the gate and keeps the PRISTINE defect, which is a
+      call literally NAMED `/*c*/q` plus a ref_obj prefix.  Declining is safe
+      but it is not right; golden's shape there is this law's.
+  V4  SITE 1 assumes `arguments()[0]` of a non-`$` system subroutine is the
+      RECEIVER.  `std::randomize(this.n, this.m)` (v85xB L15) has no receiver at
+      all: golden emits ONE `ref_obj` named `std::randomize` and NO arguments,
+      pristine emitted 2 wrong objects, and the patch emits 4 (it now also emits
+      the second this-rooted actual).  ZERO occurrences of `std::randomize` in
+      any of the three UVM trees, and zero byte movers outside the nine, so no
+      corpus row is touched.  slang exposes no public `isMethod` on
+      SystemSubroutine, so the honest fix is a §-law for `std::` global calls,
+      not a heuristic here.
+  V5  PRE-EXISTING ABORT ON LEGAL SV, BOTH BINARIES (not this pass's, found
+      while building the net arm): 4 lines,
+        module b2; logic \super ; initial \super = 1'b1; endmodule
+      terminates with std::runtime_error "source:1:6: error: expected '.'" and
+      writes no database.  `logic \this ;` + assignment is fine; the `\super `
+      net alone (no assignment) is fine.  Surelog compiles it and emits both
+      nets.  Reproduced on e7d7538a and 36ecfe07 alike.
+  V6  Pre-existing and unchanged, listed so they are not read as this pass's:
+      the ONE-STEP `this.n` hier_path spans only `this` and carries one path
+      element (v85x4 L22, v85x9 L27/L32 — identical on both binaries; it is what
+      makes the newly-emitted deep-this ACTUAL visible in v85x1 L44/L45/L46/L53);
+      the one-step method span is computed as `receiver-text length + 1` and so
+      is 2 columns short through `this . randomize()` (v85xB L18); a class
+      declared inside an INTERFACE is not emitted at all (v85x8 L49-L52).
+  V7  OPS NITS, no measurement affected: sweep85.sh defaults REPO to
+      /tmp/wt_r10uvm85 (the implementer's worktree — overridable, but it will not
+      exist for anyone else); CENSUS calls 12ed7c8d8b03 the md5 of ct85cen.cpp
+      when it is the md5 of the BINARY built from it (the source is
+      814e47cf977564c9ed4ff9f36acc6c30, and the binary reproduces exactly);
+      g85_b1_edges.sv's L21 comment says the spaced handle "declines" when it is
+      accepted and correct; and the two CompileExpression.cpp citations drift by
+      one and two lines (rootName is :5161 not :5162, the
+      paConstant_bit_select arm opens at :5229 not :5227) — the CODE quoted in
+      the comment is verbatim correct, and CompileHelper.cpp:4157 is exact.
+
+== VERDICT: ACCEPT.  Every headline number reproduces bit-for-bit on an
+   independently built pair of binaries and four independent sweeps; no arm,
+   grid cell, canary, pin or row went backwards; and twelve new adversarial arms
+   found no cell where the control was right and the shipped binary is wrong.

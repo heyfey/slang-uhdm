@@ -1,0 +1,52 @@
+# r10uvm85 — CENSUS / LADDER INPUTS, pinned by md5.  MEASUREMENT-ONLY.
+# BEFORE workdir /tmp/r10uvm85_wd_CTL_surelog   (CONTROL e7d7538aeba7a67462a4b050c9e97ad7)
+# AFTER  workdir /tmp/r10uvm85_wd_PAT_surelog   (SHIPPED 36ecfe07e327047f610e97621b9e1947)
+# u2r    /tmp/r10uvm85_wd_{CTL,PAT}_uhdm2rtlil  (1358 databases each, 0 movers)
+# ct85cen built from the COMMITTED ct85cen.cpp in this directory
+#   (md5 12ed7c8d8b03607ba5a1d48993e140e2).
+# ctladder built from the COMMITTED tools/probe/r10ladder1repro/ctladder.cpp,
+#   UNMODIFIED (md5 1ca5be11bf714009318c8dec2eeb3bbe — the same tool r10uvm84
+#   recorded).  Nothing in UHDM was touched.
+# EVERY "BEFORE" md5 below equals r10uvm84's recorded "AFTER" md5, so this
+# control reproduces the committed state of the tree exactly.
+
+== default/SeqDriver-32af76aa
+  GOLDEN(LHS) 3a6b8779f914d2e7de79b548ed30f36e /home/heyfey/.cache/slang-uhdm-goldens/b5b4389e30f948a6a29f/golden.uhdm
+  BEFORE(RHS) 5d442cd98ff6764af246cc1bc59bf532
+  AFTER (RHS) a8c03b30196e026e94751f4d3246fdc5
+== default/SimpleUVM-1dc93a62
+  GOLDEN(LHS) cb847ec843394de13887f5cf89adc400 /home/heyfey/.cache/slang-uhdm-goldens/02575d101ccaaa38d155/golden.uhdm
+  BEFORE(RHS) 09864024ae2f18e8d59b57589e5ccf49
+  AFTER (RHS) 1ac944cc697aae7f405f9a6372002aaf
+== default/Scoreboard-59431470
+  GOLDEN(LHS) 5fb72d07997dcd45b0649e755bb61d3e /home/heyfey/.cache/slang-uhdm-goldens/614374ccbb97c7ff9446/golden.uhdm
+  BEFORE(RHS) 255734a08319b99a1d92f6b7414b1927
+  AFTER (RHS) 6ada70e7f7677c17679382ea837d7ad7
+== default/BuildUVMPkg-bf853d43
+  GOLDEN(LHS) ccaf8dec3382c47ae81f572c817831f9 /home/heyfey/.cache/slang-uhdm-goldens/1d1c5ee1fda0267f8ebb/golden.uhdm
+  BEFORE(RHS) 23875b96a3caeb2b2c4e8ba9ec8925a1
+  AFTER (RHS) 7d4909f8907f0a8908505826c0f1fccb
+== default/MiniAmiq-544c7f61
+  GOLDEN(LHS) be2b4d92dc730256383d273f6103c412 /home/heyfey/.cache/slang-uhdm-goldens/373e21b8854542ba4b76/golden.uhdm
+  BEFORE(RHS) 31cc0c05d5209f770e5d5d7d25ce384d
+  AFTER (RHS) 885ffa8b2438074e347b982560cdafd8
+== testflags/SeqDriver-32af76aa
+  GOLDEN(LHS) 7a5b3bca9517fb32587b8b79916ed887 /home/heyfey/.cache/slang-uhdm-goldens/dae43e130380ebfeaa07/golden.uhdm
+  BEFORE(RHS) 1b920cfa9e601cf032f34c3d4797327a
+  AFTER (RHS) 44162149b3a02e09699c4051498be07d
+== testflags/SimpleUVM-1dc93a62
+  GOLDEN(LHS) 03692ca30dcc3cd12e6a08f985a6271e /home/heyfey/.cache/slang-uhdm-goldens/0abe1b16d20a6f7e4a93/golden.uhdm
+  BEFORE(RHS) fa6e062583f503bb48de5c864c63d8e0
+  AFTER (RHS) a740f2aabb046fe27bb946684bc4cdb2
+== testflags/Scoreboard-59431470
+  GOLDEN(LHS) ce601d9e82fab7e8303c506f7318268c /home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm
+  BEFORE(RHS) NO-DATABASE (SLANG_REJECT)
+  AFTER (RHS) NO-DATABASE (SLANG_REJECT)
+== testflags/BuildUVMPkg-bf853d43
+  GOLDEN(LHS) ccaf8dec3382c47ae81f572c817831f9 /home/heyfey/.cache/slang-uhdm-goldens/1795eced22413f58df56/golden.uhdm
+  BEFORE(RHS) 23875b96a3caeb2b2c4e8ba9ec8925a1
+  AFTER (RHS) 7d4909f8907f0a8908505826c0f1fccb
+== testflags/MiniAmiq-544c7f61
+  GOLDEN(LHS) be2b4d92dc730256383d273f6103c412 /home/heyfey/.cache/slang-uhdm-goldens/37dec59abc8b68674273/golden.uhdm
+  BEFORE(RHS) 31cc0c05d5209f770e5d5d7d25ce384d
+  AFTER (RHS) 885ffa8b2438074e347b982560cdafd8

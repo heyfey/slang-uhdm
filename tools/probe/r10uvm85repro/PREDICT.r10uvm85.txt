@@ -1,0 +1,50 @@
+# r10uvm85 — THE PREDICTION, made from PRISTINE databases BEFORE the patched
+# sweep was read, and the measurement that followed.  MEASUREMENT-ONLY.
+
+== THE PREDICTOR
+ct85cen's PRED column == OHEAD: the number of method_func_call objects whose
+vpiPrefix is a ref_obj NAMED this/super.  Every one of them is an object this
+law rewrites; nothing else in the emitter builds that shape.  PRED>0 predicts a
+byte MOVER, PRED==0 predicts byte-identity.  pred85.sh runs it over a whole
+verify_golden workdir.
+
+== PREDICTED, from /tmp/r10uvm85_wd_CTL_surelog (control binary
+   e7d7538aeba7a67462a4b050c9e97ad7), 955 databases, RESTORE_FAIL=0:
+
+  PRED>0 on 9 of 955:
+    default/SeqDriver-32af76aa       PRED 40
+    default/SimpleUVM-1dc93a62       PRED 20
+    default/Scoreboard-59431470      PRED 20
+    default/BuildUVMPkg-bf853d43     PRED 16
+    default/MiniAmiq-544c7f61        PRED 40
+    testflags/SeqDriver-32af76aa     PRED 40
+    testflags/SimpleUVM-1dc93a62     PRED 20
+    testflags/BuildUVMPkg-bf853d43   PRED 16
+    testflags/MiniAmiq-544c7f61      PRED 40
+  946 databases PRED 0.
+
+== PREDICTED, from /tmp/r10uvm85_wd_CTL_uhdm2rtlil, 1358 databases:
+  PRED>0 on 0 of 1358.  (No uhdm2rtlil test writes a statement-position
+  implicit-class-handle method call; the corpus is RTL, not class code.)
+
+== MEASURED (byteverify.sh, patched workdir vs control workdir)
+  surelog     MOVERS 9 / 955   — THE SAME NINE, name for name
+  uhdm2rtlil  MOVERS 0 / 1358  — as predicted
+  ZERO false positives, ZERO false negatives, both corpora.
+
+== PER-MOVER ATTRIBUTION (ct85cen, control -> patched, against that row's own
+   golden; the full table is CENSUS Part 2/3)
+  every mover's ENTIRE delta is this family: GHEAD +40/+20/+16 to golden's
+  count, GARGS +48/+24/+20 to golden's count, THISKW +40/+20/+16 to golden's
+  count, OHEAD -> 0, MOCKUP UNCHANGED, THISNET UNCHANGED.  No other population
+  in the census moved in any database, and the (span,name,prefix,args) sets join
+  with zero difference on both sides.
+
+== WHAT THE PREDICTOR CANNOT SEE, STATED
+  SITE 2 (the argument DEPTH gate inside § thisRecvCall11) removes an ARGUMENT
+  from a call that is already shaped right, so a database could move without any
+  OHEAD.  It does not happen in this corpus and that is measured two ways: the
+  source grep finds exactly ONE `this.<a>.<b>.<method>(` statement per UVM tree
+  and it is `.p.kill()` with NO arguments (CENSUS Part 6), and the byte movers
+  are exactly the 9 OHEAD databases — had SITE 2 moved a tenth, byteverify
+  would have named it and this file would have been wrong.

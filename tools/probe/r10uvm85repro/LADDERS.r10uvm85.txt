@@ -1,0 +1,73 @@
+# r10uvm85 — THE LADDER.  MEASUREMENT-ONLY, and it is NOT an acceptance judge:
+# uhdm-cmp is.  Instrument: the COMMITTED tools/probe/r10ladder1repro/ctladder.cpp,
+# built UNMODIFIED (md5 1ca5be11bf714009318c8dec2eeb3bbe — the same tool r10uvm84
+# recorded), run through the COMMITTED rowladders.sh.  LHS is ALWAYS golden.
+
+== R1 — THE RUNG THE OFFICIAL JUDGE STOPS AT, on BOTH sides of all nine row-modes
+   (ctladder --head1; the object printed is byte-for-byte uhdm-cmp's own head)
+
+  mode/row                BEFORE (control)                                AFTER (shipped)
+  default/SeqDriver       method_func_call(this) @1578:12-1578:21          constant @1685:10-1685:11
+  default/SimpleUVM       method_func_call(this) @1578:12-1578:21          constant @1685:10-1685:11
+  default/Scoreboard      method_func_call(this) @1578:12-1578:21          constant @1685:10-1685:11
+  default/MiniAmiq        method_func_call(this) @1578:12-1578:21          constant @1685:10-1685:11
+  testflags/SeqDriver     method_func_call(this) @1578:12-1578:21          constant @1685:10-1685:11
+  testflags/SimpleUVM     method_func_call(this) @1578:12-1578:21          constant @1685:10-1685:11
+  testflags/MiniAmiq      method_func_call(this) @1578:12-1578:21          constant @1685:10-1685:11
+  default/BuildUVMPkg     ref_typespec(uvm_pkg::uvm_is_match::s)           UNCHANGED (never this family)
+  testflags/BuildUVMPkg   ref_typespec(uvm_pkg::uvm_is_match::s)           UNCHANGED
+  testflags/Scoreboard    SLANG_REJECT — no database on either binary
+
+  The BEFORE head's own R1 dump carries the MIS-BIND this pass retires:
+    |vpiPrefix: ref_obj (uvm_pkg::uvm_sequencer_base::remove_sequence::this)
+                 |vpiActual: logic_net (work@top_tb.this) @152:45-152:49
+  and golden's, one rung above it:
+    |vpiName:this  |vpiArgument: ref_obj(...::remove_sequence::i) -> int_var
+    |vpiPrefix: constant  decompile:this size:4 STRING:this constType:6
+
+== THE FAMILY IS GONE FROM THE LADDER (full ladder, default/SimpleUVM)
+
+  BEFORE  218 rungs, STOP=ROOT-BLOCKED, 144s
+          RUNG 1  FAM=method_func_call|VpiName|TEXT:this|sequences  @1578:12
+          RUNG 2  FAM=method_func_call|VpiName|TEXT:this|sequences  @1591:10
+          RUNG 3  FAM=constant|VpiType|KIND:constant>operation      @1685:10  <- the NEW head, already visible as rung 3
+  AFTER   216 rungs, STOP=ROOT-BLOCKED, 145s
+          ZERO rungs of FAM=method_func_call|VpiName|TEXT:this|*
+
+  Family census over the whole SimpleUVM ladder, BEFORE -> AFTER:
+    method_func_call|VpiName|TEXT:this|sequences        2 -> 0
+    method_func_call|<rhs-null>|MISSING-OURS            5 -> 5   (untouched)
+    method_func_call|VpiType|KIND:method_func_call>hier_path  3 -> 3 (untouched)
+    method_func_call|VpiName|TEXT:delete|get_name()]     1 -> 1   (untouched; R3)
+
+  WHAT IS NOT CLAIMED.  The rung TOTAL is not a family size and the two totals are
+  not comparable as a score: BOTH runs stop ROOT-BLOCKED (an unmaskable shape),
+  not at FIXPOINT, and every rung's CASCADE mask hides part of the database from
+  every later rung — SimpleUVM's rung 1 masks 187,799 golden objects.  The
+  comparable numbers are R1 (above, all nine rows) and the per-FAM counts (this
+  family 2 -> 0, every other method_func_call family unchanged).  The 40/20/16
+  objects this pass converts are counted by CENSUS, which reads every object of
+  every database instead of only those the masking walk reaches.
+
+== A ROW WHOSE LADDER IS DOMINATED BY CASCADES (default/BuildUVMPkg)
+  BEFORE 250 rungs, STOP=FIXPOINT, 186s
+  AFTER  250 rungs, STOP=FIXPOINT, 211s
+  and the FAM histogram is IDENTICAL, rung for rung, top to bottom:
+    54 <null>|<lhs-null>|EXTRA-OURS
+    45 sys_func_call|VpiType|KIND:sys_func_call>constant
+    28 function|<rhs-null>|MISSING-OURS
+    27 bit_typespec|VpiType|KIND:bit_typespec>int_typespec
+    10 io_decl|<rhs-null>|MISSING-OURS
+     8 ref_typespec|<rhs-null>|MISSING-OURS
+  NO rung of this pass's family appears in EITHER ladder, even though the census
+  counts 16 such objects in that database and puts all 16 at golden after the
+  patch (CENSUS Part 3: BuildUVMPkg 160/160 GHEAD, 237/237 GARGS, 668/668 THISKW,
+  and a (span,name,prefix,args) join with zero difference on both sides).
+  THE REASON IS THE MASK, NOT AN ABSENCE: this row's rung 1 (`ref_typespec`
+  MISSING-OURS) is a CASCADE that hides 125,247 golden objects from every later
+  rung, and the family lives under it.  This is exactly why the CENSUS — which
+  reads Serializer::AllObjects and therefore every object, masked or not — is the
+  instrument this pass predicts and attributes with, and the ladder is only asked
+  for the head and the per-FAM movement.  A pass that had scored itself on rung
+  totals would have read BuildUVMPkg as "nothing happened" while 16 objects went
+  to golden.

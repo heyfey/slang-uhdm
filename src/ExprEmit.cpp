@@ -993,6 +993,136 @@ static bool thisDeepStepMockup84(std::string_view written) {
     return q < written.size() && written[q] == '.';
 }
 
+// § thisStmtHandleCall85 — THE STATEMENT-POSITION TWIN OF THE MOCKUP, and the
+// head of SEVEN UVM rows: `this.sequences.delete(i);`
+// @uvm_sequencer_base.svh:1578:12.
+//
+// Surelog reaches `compileComplexFuncCall` for a STATEMENT-position call two
+// ways — `compileTfCall`'s `paImplicit_class_handle` leaf
+// (CompileHelper.cpp:4157) and `compileExpression`'s own
+// this/super/this.super case — and lands in the SAME four-way split on what
+// FOLLOWS the first name after the handle.  In statement position the parser
+// puts a `paConstant_bit_select` there (EMPTY for a plain name, carrying the
+// index expression when the step is indexed), never the `slStringConst` that
+// selects § thisDeepStepMockupConst84's mockup.  That arm
+// (CompileExpression.cpp:5227) is:
+//
+//     method_func_call *fcall = s.MakeMethod_func_call();
+//     if (expr *object = compileExpression(..., Handle, ...)) fcall->Prefix(object);
+//     if (VectorOfany *arguments = compileTfCallArguments(
+//             component, fC, fC->Sibling(fC->Sibling(List_of_arguments)), ...))
+//       fcall->Tf_call_args(arguments);
+//     fcall->VpiName(rootName);
+//     fC->populateCoreMembers(Method, Method, fcall);
+//
+// so, field by field and every one of them MEASURED on Surelog goldens over
+// tools/probe/r10uvm85repro (arms a1/a3/a4/a6/a7/a8, 40 differing cells):
+//
+//   * vpiName is the ROOT, never the method: "this" for a `this` handle,
+//     "super" for BOTH `super` and `this.super` (rootName, :5162);
+//   * the span is `Method` — the FIRST NAME AFTER THE HANDLE, its NAME ONLY:
+//     `this.qq[1].delete(0);` spans `qq` (a4 L24), not `qq[1]`;
+//   * vpiPrefix is the handle compiled as an EXPRESSION, which for these three
+//     keywords is a bare STRING constant (CompileExpression.cpp:3523-3552):
+//     STRING:this size 4 / STRING:super size 5 / STRING:this.super size 10,
+//     vpiConstType vpiStringConst, vpiDecompile the same text, spanning the
+//     handle text, and UNPARENTED;
+//   * THE METHOD NAME APPEARS NOWHERE;
+//   * the ARGUMENTS ride the call — but only when there is EXACTLY ONE name
+//     between the handle and the method.  `Sibling(Sibling(Constant_bit_select))`
+//     is the argument list only at that depth; one name deeper it is the NEXT
+//     `Constant_bit_select` and the whole list is dropped.  a6 L20/L21/L22 is
+//     that ladder on one golden (`this.q.delete(k)` keeps `k`,
+//     `this.h.arr.delete(k)` and `this.h.l.arr.delete(k)` keep nothing), and
+//     a4 L26 confirms an INDEX does not count as a name.
+//
+// This decoder is the gate.  It reads the receiver's SOURCE TEXT for the same
+// reason § thisDeepStepMockup84 does: slang resolves `super.bq` straight to the
+// inherited member, so the written handle survives nowhere else, and for a
+// PARENS-LESS built-in slang's own call range collapses onto the receiver.  The
+// text must match — handle, optional whitespace, `.`, optional whitespace, a
+// PLAIN identifier — so an ESCAPED identifier (`\this ` is an ordinary variable
+// whose symbol name is also "this", uvm84's verifier F1: its raw text starts
+// with a backslash and fails the comparison), a receiver that is a CALL
+// (`this.get_q().size()`) or anything with a COMMENT in the way DECLINES and
+// keeps the pre-existing shape rather than guessing.  `this.super` is tried
+// before `this`, but only when the `.` follows it, so `this.superq.delete(0)`
+// decodes as handle `this` + step `superq`.
+struct HandleStmtCall85 {
+    std::string handle;  // the WRITTEN handle: this / super / this.super
+    std::string root;    // Surelog's rootName: this / super
+    std::string step;    // the first name after the handle ("" if there is none)
+    size_t stepOff = 0;  // its offset in the receiver text
+    bool multiStep = false;  // a SECOND name follows -> the arguments are dropped
+};
+static bool handleStmtCall85(std::string_view t, HandleStmtCall85& out) {
+    auto idch85 = [](char c) {
+        return std::isalnum((unsigned char)c) || c == '_' || c == '$';
+    };
+    static const char* kHandles85[] = {"this.super", "super", "this"};
+    for (const char* h85 : kHandles85) {
+        std::string_view hs85(h85);
+        if (t.rfind(hs85, 0) != 0)
+            continue;
+        // WHITESPACE between the handle, the `.` and the name is skipped and
+        // the SPANS STILL COME OUT RIGHT, because every one of them is an
+        // OFFSET INTO THIS TEXT rather than a token count: golden spans the
+        // handle alone and the name alone through `this . q.delete(0);`
+        // (arm b1 L22, where the pristine emitter produced a call literally
+        // NAMED " q").  A COMMENT is not whitespace here — it leaves a `/` in
+        // the way and the gate declines, which is the safe direction.
+        size_t w85 = hs85.size();
+        while (w85 < t.size() && std::isspace((unsigned char)t[w85]))
+            w85++;
+        // The receiver may BE the handle (`this.randomize()`): one step, the
+        // paList_of_arguments arm, where only the PREFIX is this law's.
+        if (w85 == t.size()) {
+            out.handle = std::string(hs85);
+            out.root = hs85 == "this" ? "this" : "super";
+            out.step.clear();
+            out.multiStep = false;
+            return true;
+        }
+        if (t[w85] != '.')
+            continue;  // `this.superq...` — try the shorter handle
+        size_t p85 = w85 + 1;
+        while (p85 < t.size() && std::isspace((unsigned char)t[p85]))
+            p85++;
+        size_t q85 = p85;
+        while (q85 < t.size() && idch85(t[q85]))
+            q85++;
+        if (q85 == p85)
+            return false;  // not a plain identifier: decline
+        // `super` is a KEYWORD, so a step can never be named it: reaching here
+        // with that step means the handle was written `this . super` and the
+        // longer candidate missed it on the whitespace.  Decline rather than
+        // emit a `this` prefix where golden emits a `this.super` one.
+        if (t.compare(p85, q85 - p85, "super") == 0)
+            return false;
+        out.handle = std::string(hs85);
+        out.root = hs85 == "this" ? "this" : "super";
+        out.step = std::string(t.substr(p85, q85 - p85));
+        out.stepOff = p85;
+        // Skip a BRACKETED index on the first step — it is not a name, and
+        // Surelog's arm keeps the arguments across it (a4 L24/L25).
+        if (q85 < t.size() && t[q85] == '[') {
+            int d85 = 0;
+            while (q85 < t.size()) {
+                if (t[q85] == '[')
+                    d85++;
+                else if (t[q85] == ']' && --d85 == 0) {
+                    q85++;
+                    break;
+                }
+                q85++;
+            }
+        }
+        out.multiStep = q85 < t.size() && t[q85] == '.';
+        return true;
+    }
+    return false;
+}
+
 // § staticScopedChainDrops48 — the BASE of a `::`-rooted `.member` / select /
 // `.method(...)` CHAIN, or null when there is no such chain.  Surelog's
 // expression compiler never resolves THROUGH a `::` scope, so everything hung
@@ -11331,6 +11461,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         mfc11->VpiParent(parent);
                         mfc11->Prefix(thisConst11());
                         auto* ma11 = s.MakeAnyVec();
+                        // § thisStmtHandleCall85 — SITE 2 of 2, the ARGUMENT
+                        // DEPTH GATE, and it belongs to this arm as much as to
+                        // the built-in one: Surelog reads the argument list from
+                        // `Sibling(Sibling(Constant_bit_select))`, which is the
+                        // list only when ONE name stands between the handle and
+                        // the method.  `this.h.l.lm6(k);` (arm a6 L24) is TWO
+                        // names deep and golden emits NO argument for it, where
+                        // this arm emitted `k` — an extra object on every such
+                        // call.  An INDEX is not a name (a4 L22/L23 keep their
+                        // arguments through `this.hv[1].um4(k)`), which is why
+                        // the test is on segs11.size() and not on the text.
+                        if (segs11.size() <= 2)
                         {
                             // § thisRecvCallArgBind38 — a STATEMENT-position
                             // DIRECT `this.m(f)` binds its arguments like any
@@ -13463,6 +13605,85 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // prefix o, no args, and `t.sub.m(4);` ->
                     // method_func_call(sub) prefix t, no args.
                     if (stmtCtx && !recvText.empty()) {
+                        // § thisStmtHandleCall85 — SITE 1 of 2, AND THE CORPUS
+                        // HEAD.  A BUILT-IN method (`delete`/`push_back`/
+                        // `size`/`exists`) is a SystemSubroutine whose
+                        // `thisClass()` is NULL and whose receiver hides in
+                        // `arguments()[0]` (§ scopedBuiltinRecvIsChain1's
+                        // decode), so § thisRecvCall11 — which ships this exact
+                        // shape for a USER method — was unreachable for it and
+                        // this arm minted a call named after the MEMBER with a
+                        // ref_obj prefix and no arguments at all: four defects
+                        // on one object.  See the law at `handleStmtCall85`.
+                        //
+                        // THE MIS-BIND THIS ALSO RETIRES: the ref_obj prefix
+                        // was a bare name `this`, and in a module that HOISTS an
+                        // out-of-body class method that name falls into the
+                        // late-binding pool and binds — after MINTING — a
+                        // module net called `this` (`logic_net work@top.this`,
+                        // arm a8 L23 pristine).  A constant prefix cannot bind
+                        // anything, so the phantom net's only reference goes
+                        // with it.
+                        HandleStmtCall85 h85;
+                        if (handleStmtCall85(recvText, h85)) {
+                            auto* mfc85 = s.MakeMethod_func_call();
+                            if (h85.step.empty()) {
+                                // The receiver IS the handle: Surelog's
+                                // paList_of_arguments arm, which names the call
+                                // after the METHOD and keeps its own arguments.
+                                // Only the PREFIX KIND is this law's here
+                                // (a9 L11/L12, `void'(this.randomize())`).
+                                mfc85->VpiName(name);
+                                auto ms85 = recv->sourceRange.start() +
+                                            recvText.size() + 1;
+                                setLoc(mfc85,
+                                       SourceRange(ms85, ms85 + name.size()));
+                            }
+                            else {
+                                mfc85->VpiName(h85.root);
+                                auto st85 =
+                                    recv->sourceRange.start() + h85.stepOff;
+                                setLoc(mfc85, SourceRange(st85,
+                                                          st85 + h85.step.size()));
+                            }
+                            mfc85->VpiParent(parent);
+                            auto* c85 = s.MakeConstant();
+                            c85->VpiValue("STRING:" + h85.handle);
+                            c85->VpiDecompile(h85.handle);
+                            c85->VpiSize((int)h85.handle.size());
+                            c85->VpiConstType(vpiStringConst);
+                            setLoc(c85,
+                                   SourceRange(recv->sourceRange.start(),
+                                               recv->sourceRange.start() +
+                                                   h85.handle.size()));
+                            mfc85->Prefix(c85);
+                            if (!h85.multiStep) {
+                                // NO § classArgBind12 WINDOW, and that is
+                                // measured both ways on ONE golden pair: arm a8
+                                // leaves the IN-BODY twin's loop variable and
+                                // formal BARE (L14/L16) and binds the
+                                // OUT-OF-BODY twin's to the int_var and the
+                                // io_decl (L23/L25) — exactly what the standing
+                                // bind machinery does with no window open, and
+                                // what § thisRecvCallArgBind38 already measured
+                                // for the DEEP user-method twin of this arm.
+                                auto* ar85 = s.MakeAnyVec();
+                                for (size_t ai = 1;
+                                     ai < call.arguments().size(); ai++) {
+                                    bool fs85 = forceConstParent;
+                                    if (isLiteralExpr(*call.arguments()[ai]))
+                                        forceConstParent = true;
+                                    if (auto* a85 =
+                                            emitExpr(*call.arguments()[ai],
+                                                     mfc85, prefix, netMap))
+                                        ar85->push_back(a85);
+                                    forceConstParent = fs85;
+                                }
+                                if (!ar85->empty())
+                                    mfc85->Tf_call_args(ar85);
+                            }
+                            return mfc85;
+                        }
                         bool deep0 = dots.size() > 1;
                         const std::string& callNm0 = deep0 ? dots[1] : name;
                         const std::string& recvNm0 = dots[0];

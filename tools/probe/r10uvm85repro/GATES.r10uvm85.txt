@@ -1,0 +1,139 @@
+# r10uvm85 — GATE EVIDENCE.  Base f65aff5.  Worktree /tmp/wt_r10uvm85
+# (the CONTROL was built from a SECOND worktree of the same commit,
+#  /tmp/wt_r10uvm85pri, so the two binaries share no build tree).
+# CONTROL binary md5 e7d7538aeba7a67462a4b050c9e97ad7  — BUILT TWICE, in two
+#   different worktrees and two different build dirs, BYTE-IDENTICAL both times.
+# SHIPPED binary md5 36ecfe07e327047f610e97621b9e1947  — every number below.
+#   BUILD-RACE CONTROL: this md5 was produced BOTH by the incremental build that
+#   compiled the edited TU and by a from-scratch configure+build of a clean build
+#   directory (8 TUs, /tmp/r10uvm85_bld_PAT).  Identical.  uvm84 lost a clause to
+#   exactly this trap; here the two builds agree to the byte.
+# GOLDEN_DEFER echoed [UNSET] at every sweep launch (sweep85.sh prints it); 5
+#   DEFERRED in both surelog modes, exactly as in the committed baseline.
+#   slang was NOT patched.  results/*.csv were READ ONLY — NOTHING was promoted.
+# The four slang-fenced tests were never dispatched: canaudit.sh, run in THIS
+#   directory, prints FENCE-BREACH=0.  Their names appear in no file here.
+
+GATE 1  BUILD      both binaries built -j 2 against the official UHDM install;
+                   md5s above, read after "Linking CXX executable slang-uhdm".
+                   Nothing in UHDM was patched or rebuilt.  md5sum was run as a
+                   separate command from the build, never in the build pipeline.
+
+GATE 2  GOLDENS    tests/check_goldens.sh, SLANG_UHDM=<shipped>:
+                     23 PASS / 0 FAIL
+        NEG CTRL   SLANG_UHDM=/bin/false: 0 PASS / 23 FAIL
+
+GATE 3  UHDM2RTLIL 1462 rows (default+testflags), SHIPPED binary:
+                     679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL in BOTH
+                     modes — the committed figures.
+        ct8rows.sh, COMMITTED-BASELINE-FIRST (dump column included every time):
+                     results/gate_uhdm2rtlil.csv (731 testflags rows)
+                       vs my CONTROL sweep, testflags rows : 0 differing ROWS
+                       vs my SHIPPED sweep, testflags rows : 0 differing ROWS
+                     CONTROL vs SHIPPED, all 1462 rows     : 0 differing ROWS
+
+GATE 4  SURELOG    1588 rows (default+testflags).  ct8rows.sh, BASELINE FIRST:
+                     results/golden_surelog.csv vs my CONTROL sweep:
+                       0 differing ROWS over 1588
+                     results/golden_surelog.csv vs my SHIPPED sweep:
+                       0 differing ROWS over 1588
+                     CONTROL vs SHIPPED: 0 differing ROWS
+                   Status AND dump histograms identical per mode, before and
+                   after (default 470 CMP_EQUAL / 11 CMP_NOTEQUAL / 5 DEFERRED /
+                   283 SLANG_REJECT / 25 SURELOG_FAIL, dump 244 differ 226 match;
+                   testflags 466/8/5/285/23 + 3 NO_DATABASE 1 NO_UHDM 1 TIMEOUT
+                   2 UNTRANSLATABLE, dump 300 differ 166 match).
+                   NO ROW PASSES cmp; nothing converted and nothing regressed.
+
+GATE 5  BYTEVERIFY (SHIPPED workdirs /tmp/r10uvm85_wd_PAT_{surelog,uhdm2rtlil}
+                    vs CONTROL /tmp/r10uvm85_wd_CTL_{surelog,uhdm2rtlil})
+                   surelog : MOVERS 9 / 955 — ALL NINE PREDICTED BY NAME on the
+                             PRISTINE databases before the patched sweep ran
+                             (PREDICT.r10uvm85.txt), each attributed by census
+                             to golden's own GHEAD/GARGS/THISKW counts
+                             (CENSUS Parts 2-3).
+                   u2r     : MOVERS 0 / 1358  (predicted 0 of 1358)
+                   SELFCHECK  surelog 954/955 flagged, u2r 1357/1358
+                   SELFCHECK1 surelog 10 (9 real + 1 corrupted),
+                              u2r 1 (0 real + 1 corrupted)
+
+BOUNDARY all sd/uvm/buvm   r10uvm82repro/allbound82.sh (the COMMITTED script,
+                   CONTROL vs SHIPPED): CELLS=1003 MOVERS=19 NO_OUTPUT=15.
+                   19 = 12 of THIS pass's own arms + 7 of uvm84's, and EVERY ONE
+                   of the 7 is attributed below, against GOLDEN, cell by cell:
+                     ast84.sv          `this.q.delete(i);`/`push_back("y")`
+                                       -> now PASS_CMP (was CMP_FAIL)
+                     g84_a1_exprctx.sv L25 `while (...) this.q.delete(0);`
+                                       -> now PASS_CMP
+                     g84_a7_stmt.sv    uvm84's own STATEMENT arm, all three
+                                       handle cells -> 0 differing object sets
+                                       (its residual cmp head is the
+                                       class-handle-property head every arm
+                                       declaring `inner h;` carries, on BOTH
+                                       binaries)
+                     g84_b3_pkgoob.sv  the 20-line corpus repro -> PASS_CMP
+                     v84x8_break.sv    L28/L29 `this.q.push_back(this.h.fld);` /
+                                       `this.q.delete(this.g.fld);` FIXED — and
+                                       their deep-`this` ARGUMENTS now emit
+                                       uvm84's own MOCKUP, which is what golden
+                                       has there: the two laws compose
+                     v84x7_misc.sv     L21 `void'(this.h.randomize());` and L25
+                                       `void'(this.h.arr.find_first_index()
+                                       with (item==3));` FIXED (the `with` is
+                                       dropped in golden and in ours)
+                     g84_d2_ctx.sv     L13 `void'(this.randomize() with {...});`
+                                       — NEUTRAL, and stated as such: golden's
+                                       object there is a func_call NAMED "this"
+                                       spanning the whole call (a THIRD Surelog
+                                       arm), so the cell is wrong on both
+                                       binaries; the patch changed our prefix
+                                       from a ref_obj to the handle constant
+                                       inside an already-wrong cell.  Same cell
+                                       appears as v84x7 L22.  Residue R2.
+BOUNDARY sd grids  r10buvm3repro/sdbound.sh: cells=347 MOVERS=0
+                   NO_OUTPUT(both)=4 (the documented v2/v6 grid11 cells).
+
+CANARIES           canaries.sh  surelog ok=52 changed=0 absent=0
+                                        unknown-names=8 (documented u2r-only)
+                                u2r     ok=9  changed=0 absent=0
+                                        unknown-names=25 (documented)
+                   ctcan2.sh    surelog EXPECT_UNKNOWN=1 ok=58 changed=0 PASS
+                                u2r     EXPECT_UNKNOWN=6 ok=1 changed=0 PASS
+                     OPS NOTE, MEASURED ON THE CONTROL TOO: run against the
+                     WHOLE 1462-row u2r csv, ctcan2 reports absent=1 and FAIL
+                     for `2DFunctionArg default: base=[] fresh=[CMP_EQUAL]` —
+                     the committed baseline holds TESTFLAGS ROWS ONLY, so the
+                     default-mode row is missing from the BASELINE, not from the
+                     sweep.  The CONTROL csv fails identically.  The
+                     apples-to-apples run is the testflags slice, and both the
+                     control and the shipped slice PASS with absent=0.
+                   canaudit.sh  audited=31 UNCOVERED=0 FENCE-BREACH=0 (run in
+                                THIS directory, so its HERE is this directory)
+                   DATABASE md5 pins (SHIPPED == CONTROL, all five names, BOTH
+                   modes each, and every value equals uvm84's recorded pin):
+                     SVSwitch           default/testflags 4842211c4030 <- mandated
+                     YosysVerx          default/testflags 6ccda350c24a <- mandated
+                     InterfaceModPort   default/testflags 59a365f3ce2c
+                     BlackParrotComplex default e3e354129d5a testflags 73a10e8217e5
+                     YosysOldOr         default/testflags d68e0796d62c
+
+OFFICIAL HEADS (rowheads.sh, grep -c '^LHS:' — ONE head per run, every run)
+        row                     BEFORE lines  AFTER lines  status
+        SeqDriver   default          68            38       CMP_NOTEQUAL (MOVED)
+        SeqDriver   testflags        68            38       CMP_NOTEQUAL (MOVED)
+        SimpleUVM   default          68            38       CMP_NOTEQUAL (MOVED)
+        SimpleUVM   testflags        68            38       CMP_NOTEQUAL (MOVED)
+        Scoreboard  default          64            38       CMP_NOTEQUAL (MOVED)
+        Scoreboard  testflags        SKIP-NOFILE (SLANG_REJECT — no database)
+        BuildUVMPkg default          17            17       CMP_NOTEQUAL (UNMOVED)
+        BuildUVMPkg testflags        17            17       CMP_NOTEQUAL (UNMOVED)
+        MiniAmiq    default          64            38       CMP_NOTEQUAL (MOVED)
+        MiniAmiq    testflags        64            38       CMP_NOTEQUAL (MOVED)
+        NO ROW PASSES cmp.  NOTHING WAS PROMOTED.  The head OBJECT changed from
+        `method_func_call(this)` vs `method_func_call(sequences)`
+        @uvm_sequencer_base.svh:1578:12 (uvm84's R0, this law's object) to a
+        NEGATIVE-LITERAL FOLD at :1685:10 — `return -1;` in get_seq_kind, golden
+        ONE constant (INT:-1, size 64, constType 7), ours an
+        `operation vpiOpType:1` over `constant 1` (R0 below).  BuildUVMPkg's head
+        is its own older `ref_typespec uvm_pkg::uvm_is_match::s` and was never
+        this family.

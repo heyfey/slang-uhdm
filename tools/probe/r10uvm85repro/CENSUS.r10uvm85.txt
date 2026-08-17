@@ -1,0 +1,105 @@
+# r10uvm85 — THE CENSUS.  MEASUREMENT-ONLY: uhdm-cmp and scripts/verify_golden.py
+# remain the only judges.  Instrument: ct85cen.cpp (Serializer::AllObjects, so
+# each object is counted ONCE — uhdm-dump reprints an object at every reference),
+# md5 12ed7c8d8b03607ba5a1d48993e140e2, built from the committed source in this
+# directory.  slang was NOT patched; results/*.csv were READ ONLY; NOTHING was
+# promoted.
+
+== PART 1 — THE POPULATIONS
+
+  GHEAD    method_func_call NAMED exactly "this"/"super" whose vpiPrefix is a
+           STRING constant decompiling to this / super / this.super.  Surelog's
+           paConstant_bit_select arm — the STATEMENT-position
+           `<handle>.<member>.<method>(args)` object.
+  GARGS    the vpiArgument count of that population (the DROPPED ARGUMENT is one
+           of the head's four defects, and the arity rule — args survive only ONE
+           name below the handle — is visible nowhere else).
+  OHEAD    method_func_call whose vpiPrefix is a ref_obj NAMED this/super: the
+           shape our PRISTINE emitter put there.  Also the MOVER PREDICTOR.
+  THISKW   constant decompile this/super/this.super, size>0, vpiConstType 6.
+           GHEAD's prefixes are a SUBSET, so this must GROW by exactly the
+           number of converted calls — uvm84's own unexplained THISKW deficit.
+  MOCKUP   uvm84's § thisDeepStepMockupConst84 object (a constant carrying ONLY
+           vpiDecompile "this").  THE CONTROL POPULATION of this pass.
+  THISNET  a logic_net NAMED "this".  NOT a phantom in the corpus: GOLDEN HAS
+           ONE TOO in SeqDriver and SimpleUVM (see Part 4).
+
+== PART 2 — THE DEFICIT WAS A BIJECTION, MEASURED BEFORE ANY CODE WAS WRITTEN
+   (every column from a PRISTINE control database and its own golden)
+
+  row (both modes)   GHEAD ours/gold  DEFICIT  OHEAD=PRED  GARGS ours/gold  ARGS-  THISKW ours/gold  KW-
+  SeqDriver             206 / 246       40         40        339 / 387       48     1159 / 1199      40
+  SimpleUVM             144 / 164       20         20        217 / 241       24      695 /  715      20
+  Scoreboard (default)  144 / 164       20         20        217 / 241       24      695 /  715      20
+  BuildUVMPkg           144 / 160       16         16        217 / 237       20      652 /  668      16
+  MiniAmiq              206 / 246       40         40        339 / 387       48     1170 / 1210      40
+
+  GHEAD DEFICIT == OHEAD == PRED == THISKW DEFICIT, EXACTLY, IN EVERY DATABASE.
+  The THISKW column is the same 16 / 20 / 40 uvm84's census recorded as "the
+  THISKW deficit this pass did not close ... EXACTLY this family's prefix
+  constants" — this pass closes precisely that, and nothing else touches it.
+  MOCKUP is EQUAL on both sides in every row before the patch (386/386 SeqDriver
+  and MiniAmiq, 252/252 SimpleUVM and Scoreboard, 244/244 BuildUVMPkg): uvm84's
+  population was already at golden and had to stay there.
+
+== PART 3 — AFTER: EVERY POPULATION EQUALS GOLDEN'S, AND THE SPAN SETS JOIN
+
+  row (both modes)   GHEAD  GARGS  THISKW  MOCKUP  OHEAD  THISNET   == golden?
+  SeqDriver            246    387    1199     386     0       1      ALL EQUAL
+  SimpleUVM            164    241     715     252     0       1      ALL EQUAL
+  Scoreboard(default)  164    241     715     252     0       0      ALL EQUAL
+  BuildUVMPkg          160    237     668     244     0       0      ALL EQUAL
+  MiniAmiq             246    387    1210     386     0       0      ALL EQUAL
+
+  And not merely the COUNTS.  ct85cen --list emits one row per GHEAD object as
+  (span, vpiName, prefix text, argument count); joining golden's set against
+  ours per database:
+
+  database                        golden  ours  GOLDEN-ONLY  OURS-ONLY
+  default/BuildUVMPkg              160     160       0           0
+  default/SeqDriver                246     246       0           0
+  default/SimpleUVM                164     164       0           0
+  default/Scoreboard               164     164       0           0
+  default/MiniAmiq                 246     246       0           0
+  testflags/SeqDriver              246     246       0           0
+
+  Object for object, SPAN for SPAN, PREFIX TEXT for PREFIX TEXT, ARGUMENT COUNT
+  for ARGUMENT COUNT.  There is no residue inside this family.
+
+== PART 4 — THE `this` NET, AND WHY IT IS NOT A PHANTOM IN THE CORPUS
+
+  The pristine head's prefix ref_obj BINDS a module net called `this`
+  (`logic_net work@top_tb.this` @152:45, read off the ladder's own R1 dump on
+  the control SeqDriver).  In the 20-line repro g85_a8_corpus.sv that net is
+  MINTED FOR THAT REFERENCE ALONE and golden has none: pristine THISNET 1,
+  golden 0, patched 0 — the mis-bind and the net both go with the law.
+  IN THE CORPUS THE NET IS GOLDEN'S TOO: SeqDriver and SimpleUVM have exactly
+  ONE each on BOTH sides (golden @902:36, ours @152:45 — a SPAN difference,
+  and vpiFile/span are not compared), and Scoreboard / BuildUVMPkg / MiniAmiq
+  have NONE on either side.  After the patch THISNET is UNCHANGED in all nine
+  databases: the corpus net has other unresolvable `this` references keeping it
+  alive, so removing this one reference removed no object.  A law that had
+  deleted golden's net would have shown up here as 1 -> 0.
+
+== PART 5 — THE ARITY RULE AT SCALE
+  GARGS moves 339 -> 387 (SeqDriver/MiniAmiq), 217 -> 241 (SimpleUVM/
+  Scoreboard), 217 -> 237 (BuildUVMPkg): +48 / +24 / +20 arguments over +40 /
+  +20 / +16 calls.  More arguments than calls, because a converted call may
+  carry two; and NOT one per call, because a chain two names below the handle
+  keeps none (arm a6 L21/L22, arm a4 L26).  A law that had kept every argument
+  would have overshot here, and one that had dropped them all would have
+  undershot by 48.
+
+== PART 6 — THE CORPUS SOURCE COUNT, INDEPENDENT OF UHDM
+  grep over the three UVM trees the corpus uses (statement-position, first
+  column of the statement):
+    `this.<member>[...].<method>(`            uvm-1.2 62, 1800.2 60, 1.1d 57
+    `this.<a>.<b>.<method>(`                  1 in each tree, and it is
+        `this.m_update_thread[element].p.kill();` (uvm_reg_backdoor.svh:309) —
+        an INDEXED member, then a name, then a NO-ARGUMENT call: SITE 2's
+        depth gate changes NO object in the corpus and is landed on the ARM
+        that measures it (a6 L24), not on a corpus witness.
+    `(this.|super.)<member>.<method>(` with a SUPER root   ZERO in all three
+        trees — which is why the deep-`super` USER-method cell (b1 L19/L25,
+        MEASURED and still wrong) is left as residue R1 instead of being
+        landed on a third site with no corpus coverage at all.
