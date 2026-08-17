@@ -1,0 +1,52 @@
+r10rgg1 — PREDICTION, written BEFORE the sweeps and the after-ladders.
+BASE 039295a.  Binaries: base 46ec7c0bc45b1db39ad166958072c784,
+patched 20d8a03b9c1ecbea5cccdedad856cc33.
+
+TWO LAWS SHIPPED
+  L1 § ifaceDotEnumConstFold1 (ModuleEmit) — an ELAB cont_assign with an
+     INTERFACE-MEMBER (hier_path) Lhs and a BARE ENUM-CONSTANT Rhs re-emits a
+     FRESH cont_assign whose Rhs is a LOC-LESS constant in the enum member's
+     own literal form (2'b00 -> BIN:00 sz2 ct3; 4'h6 -> HEX:6 sz4 ct5, i.e. the
+     MEMBER's width, never the interface member's).
+  L2 § enumTernTakenLeafEnc1 (ParamEmit) — the § enumConstOvEnc encoding
+     rewrite now reaches the enum member through a constant-condition TERNARY's
+     TAKEN branch (earl49's reducer rule), so a localparam whose initializer
+     folds through `C ? E_A : E_B` carries the taken member's encoding.
+
+WHAT MOVES (rows)
+  1. default:Rggen — 28 of its 98 ladder rungs are these two laws:
+     26 rungs FAM constant|VpiType|KIND:constant>ref_obj (ALL of them the ONE
+     shared object ref_obj(RGGEN_OKAY)@104:35 — `assign register_if.status =
+     RGGEN_OKAY;` in rggen_register_common.sv, once per register instance) and
+     2 rungs FAM constant|VpiDecompile|G-EXTRA-PREFIX(#'b#) (the
+     rggen_adapter_common.sv:128 DEFAULT_STATUS localparam, both adapters).
+     PREDICTED after-ladder: 98 -> 70 rungs, and rung 1 UNCHANGED (see below).
+     The row STAYS CMP_NOTEQUAL: the official head is rung 1, which neither law
+     touches.
+  2. default:Earlgrey_0_1 — PREDICTED NO CHANGE at all (0 rungs moved, ladder
+     395 -> 395, bytes may move only if it has an enum-const iface-member CA;
+     the census says its 34 constant>ref_obj rungs are PTR_WIDTH / N /
+     FwMode*Fifo *parameter* reads inside always-block statements and port
+     bit-select indices — a DIFFERENT mechanism from L1, so the FAM label is
+     shared but the law is not).
+  3. NO other row changes status. Canaries InterfaceModPort, BlackParrotComplex,
+     YosysOldOr byte-identical; SVSwitch stays 4842211c4030; YosysVerx stays
+     6ccada350c24a-pinned CMP_EQUAL in BOTH modes.
+
+BYTE MOVERS (byteverify, named in advance)
+  * uhdm2rtlil: any row with an interface-member cont_assign whose Rhs is a bare
+    enum constant, or a localparam folding through a ternary onto an enum
+    member.  I expect FEW; every mover must be one of those two shapes.
+  * surelog: default:Rggen and testflags:Rggen(SURELOG_FAIL, no db) plus the
+    same two shapes elsewhere.  Earlgrey_0_1 predicted NOT a mover.
+  A mover that is neither shape REFUTES the pass.
+
+RESIDUES measured but NOT claimed (grid c1_rgg1.sv, real Surelog):
+  R1 C2  `vif.b = P`  (param ref)   — golden reuses the parameter's own
+                                      constant object; ours stays SHARED.
+  R2 C11 `vif.k = LE_SEL`           — same, for an enum-typed localparam.
+  R3 C5  `vif.e = (BZ)?L_ERR:L_OKAY` — golden folds LOC-LESS INT:0 sz64 ct7:
+                                      inside a cont_assign the enum form is
+                                      LOST (unlike the param_assign of L2).
+  R4 C6  `vif.f = P + 1`            — golden folds LOC-LESS UINT:2 sz64
+                                      (unadjusted: tps is null for hier_path).

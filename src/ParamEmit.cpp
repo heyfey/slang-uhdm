@@ -556,6 +556,45 @@ static const Expression* srlgLitFormSrc(Compilation& comp, const Expression& e,
     return nullptr;
 }
 
+// § enumTernTakenLeafEnc1 (r10rgg1) — the ENUM MEMBER a fold's value actually
+// came from, walking a TERNARY's TAKEN branch (and only that one: earl49's
+// `§ caOperandScanRead49` reducer rule — the condition folds, then exactly ONE
+// branch, the taken one, is reduced).  `srlgLitFormSrc` above already walks the
+// same shape for a LITERAL leaf; an enum-member leaf never reached it because
+// `bareParamRef` only names ParameterSymbols.
+//
+// THE LAW.  A localparam whose initializer reduces THROUGH a constant-condition
+// ternary to an enum member carries that member's OWN encoding, exactly as a
+// bare enum-constant default does (§ enumConstOvEnc): `rggen_status
+// DEFAULT_STATUS = (ERROR_STATUS) ? RGGEN_SLAVE_ERROR : RGGEN_OKAY` folds to
+// decompile `2'b00` / BIN:00 / vpiBinaryConst at the parameter's own width, not
+// to the generic UINT:0 the folding arm produced.  Rggen
+// rggen_adapter_common.sv:128, both adapter instances.
+static const Symbol* enumTernTakenLeafEnc1(Compilation& comp,
+                                           const Expression& e,
+                                           int depth = 0) {
+    if (depth > 8)
+        return nullptr;
+    const Expression& se = stripImplicitConv(e);
+    if (se.kind == ExpressionKind::NamedValue &&
+        se.as<NamedValueExpression>().symbol.kind == SymbolKind::EnumValue)
+        return &se.as<NamedValueExpression>().symbol;
+    if (se.kind == ExpressionKind::ConditionalOp) {
+        auto& co = se.as<ConditionalExpression>();
+        if (co.conditions.size() != 1 || co.conditions[0].pattern)
+            return nullptr;
+        ASTContext cx(comp.getRoot(), LookupLocation::max);
+        ConstantValue pv = cx.tryEval(*co.conditions[0].expr);
+        if (!pv || !pv.isInteger() || pv.integer().hasUnknown())
+            return nullptr;
+        return enumTernTakenLeafEnc1(
+            comp, pv.integer().as<uint64_t>().value_or(0) != 0 ? co.left()
+                                                              : co.right(),
+            depth + 1);
+    }
+    return nullptr;
+}
+
 static bool patNoFoldTarget(const Type& t) {
     const Type& ct = t.getCanonicalType();
     return ct.isIntegral() && ct.kind != SymbolKind::PackedArrayType &&
@@ -12088,12 +12127,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // SW_{READ,WRITE}_ACTION, 541 gen-tree vectors.
                 if (topView && !inPackage && !overridden && rhs && init &&
                     rhs->UhdmType() == UHDM::uhdmconstant) {
-                    auto& ev6 = stripImplicitConv(*init);
-                    if (ev6.kind == ExpressionKind::NamedValue &&
-                        ev6.as<NamedValueExpression>().symbol.kind ==
-                            SymbolKind::EnumValue) {
-                        if (auto* ec6 = enumMemberSubstConst(
-                                ev6.as<NamedValueExpression>().symbol)) {
+                    // § enumTernTakenLeafEnc1 — a bare reference is depth 0
+                    // of the same walk, so this covers the original arm
+                    // unchanged and adds the constant-condition ternary.
+                    const Symbol* ev6s = enumTernTakenLeafEnc1(comp, *init);
+                    if (ev6s) {
+                        if (auto* ec6 = enumMemberSubstConst(*ev6s)) {
                             auto* rc6 = (UHDM::constant*)rhs;
                             std::string v6(ec6->VpiValue());
                             rc6->VpiValue(v6);

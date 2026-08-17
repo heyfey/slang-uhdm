@@ -19740,18 +19740,63 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // The base is either the module's own interface PORT or a LOCAL
         // interface instance (InterfaceAsPort's top-level u_sim_sram_if).
         bool ifaceDotFresh = false;
+        // § ifaceDotEnumConstFold1 (r10rgg1) — ...and when it is a BARE
+        // ENUM-CONSTANT reference.  THE LAW: Surelog's
+        // UhdmWriter::writeCont_assign (UhdmWriter.cpp:2244, the trailing
+        // `if (simplified == false)` arm) reduces EVERY cont_assign Rhs it did
+        // not already simplify and, when the reduce yields a CONSTANT, clones
+        // the cont_assign and installs that constant.  An interface-member Lhs
+        // is a hier_path, so `lhs->Typespec()` is null, `tps` stays null and
+        // the `adjustSize(tps, ...)` on the next line is a no-op: the constant
+        // rides out with the REDUCER's own width and encoding, NOT the
+        // interface member's.  For an enum-constant name the reducer hands back
+        // the enum member's own value, so the Rhs is a LOC-LESS constant in
+        // that member's literal form (`2'b00` -> BIN:00 size 2, `4'h6` ->
+        // HEX:6 size 4 even onto a 2-bit member).
+        // MEASURED, one read position per cell, golden = real Surelog
+        // (tools/probe/r10rgg1repro/c1_rgg1.sv, elaborated view):
+        //   C1  vif.a = L_OKAY        local enum const  -> FRESH  2'b00 BIN sz2
+        //   C9  vif.i = PK_OKAY       pkg enum const    -> FRESH  2'b00 BIN sz2
+        //   C10 vif.j = PK_H (4'h6)   pkg enum, WIDER   -> FRESH  4'h6 HEX sz4
+        //   C3  vif.c = 2'b01         literal           -> FRESH (literalRhs)
+        //   C4  vif.d = n1            net ref           -> SHARED
+        //   C8  vif.h = n1 | P        net in operands   -> SHARED
+        //   C12 vif.l = w1            internal net ref  -> SHARED
+        //   D1  w1 = L_ERR            plain-signal Lhs  -> FRESH (already ours)
+        // and four cells the same arm-2 reduce also folds that this pass does
+        // NOT claim (named residues, still SHARED on our side):
+        //   R1 C2  vif.b = P          param ref    -> golden reuses the
+        //                                            parameter's own constant
+        //   R2 C11 vif.k = LE_SEL     enum-typed localparam ref -> same
+        //   R3 C5  vif.e = (BZ)?L_ERR:L_OKAY -> loc-less INT:0 sz64 ct=7 (the
+        //                                       enum form is LOST in a
+        //                                       cont_assign ternary fold)
+        //   R4 C6  vif.f = P + 1      -> loc-less UINT:2 sz64 (unadjusted)
+        bool ifaceDotEnum1 = false;
+        const Symbol* ifaceDotEnumSym1 = nullptr;
         {
             auto& l0 = stripImplicitConv(ae.left());
             std::string lraw = std::string(rawText(l0.sourceRange));
             auto ldot = lraw.find('.');
-            if (topView && literalRhs &&
+            auto& r0e = stripImplicitConv(ae.right());
+            bool enumRefRhs1 =
+                r0e.kind == ExpressionKind::NamedValue &&
+                r0e.as<NamedValueExpression>().symbol.kind ==
+                    SymbolKind::EnumValue;
+            if (topView && (literalRhs || enumRefRhs1) &&
                 l0.kind == ExpressionKind::HierarchicalValue &&
                 ldot != std::string::npos) {
                 auto* bsym = body.find(lraw.substr(0, ldot));
                 if (bsym && (bsym->kind == SymbolKind::InterfacePort ||
                              (bsym->kind == SymbolKind::Instance &&
-                              bsym->as<InstanceSymbol>().isInterface())))
+                              bsym->as<InstanceSymbol>().isInterface()))) {
                     ifaceDotFresh = true;
+                    if (enumRefRhs1) {
+                        ifaceDotEnum1 = true;
+                        ifaceDotEnumSym1 =
+                            &r0e.as<NamedValueExpression>().symbol;
+                    }
+                }
             }
         }
         // A select-LHS over an UNPACKED-array base (intermediate[3] = ...,
@@ -19965,6 +20010,38 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 defInfo->contAssigns[myIdx]->Rhs()->UhdmType() ==
                     UHDM::uhdmconstant)
                 bc = (UHDM::expr*)defInfo->contAssigns[myIdx]->Rhs();
+            // § ifaceDotEnumConstFold1 — an ENUM-CONSTANT Rhs the DEF view left
+            // as a ref_obj has no def-view constant to share, so the fresh CA
+            // carries the REDUCER's own object: a LOC-LESS constant in the enum
+            // member's literal form, parented at this cont_assign.
+            //
+            // § ifaceDotEnumDefConstWins1 (vrgg1) — ...and when the DEF view DID
+            // already fold the Rhs to a constant, that OBJECT is what golden's
+            // fresh elab CA carries, NOT a second loc-less copy.  The only
+            // enum-constant Rhs whose def view folds is the QUALIFIED
+            // `pkg::MEMBER` form (§ pkgEnumRhs, the `::`-gated LOCATED fold a
+            // few lines below): Surelog's arm-2 reduce hands back the constant
+            // it already installed, so the elab Rhs is a REPEAT of the def
+            // constant at the qualified-name span, not a fresh one.  Measured on
+            // real Surelog, tools/probe/r10rgg1repro/v1_vrgg1.sv:
+            //   A2 `vif.b = PK_OKAY`     unqualified import -> FRESH loc-less
+            //                                                 BIN:00 sz2 ct3
+            //   A3 `vif.c = L_OKAY`      module-local       -> FRESH loc-less
+            //   A6 `vif.f = PK_H`        unqualified, HEX   -> FRESH loc-less
+            //   A1 `vif.a = p_v1::PK_OKAY` QUALIFIED        -> SHARED def const
+            //                                                 @16:18 (LOCATED)
+            //   A4 `vif.d = p_v1::PK_ERR`  QUALIFIED        -> SHARED @19:18
+            //   A5 `vif.e = p_v1::PK_H`    QUALIFIED, HEX   -> SHARED @20:18
+            // The discriminator is therefore ALREADY COMPUTED here — "did the
+            // def view produce a constant?" — so this needs no new predicate,
+            // only the def-view constant taking precedence.  Rggen's own site
+            // (`assign register_if.status = RGGEN_OKAY;`, unqualified) keeps its
+            // def-view ref_obj and so still takes the fresh arm.
+            if (!bc && ifaceDotEnum1 && ifaceDotEnumSym1)
+                if (auto* ec1 = enumMemberSubstConst(*ifaceDotEnumSym1)) {
+                    ec1->VpiParent(ca);
+                    bc = ec1;
+                }
             if (!bc) {
                 auto* c9 = s.MakeConstant();
                 setLoc(c9, stripImplicitConv(ae.right()).sourceRange);

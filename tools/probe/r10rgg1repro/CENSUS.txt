@@ -1,0 +1,41 @@
+r10rgg1 — CENSUS.  Golden-vs-golden FIRST (the r10ladder1 calibration gate is
+part of the committed instrument: golden vs golden gives ZERO rungs on >=3 rows,
+Rggen included).  LHS is ALWAYS golden.  ONE head per run.
+
+default:Rggen ladder, family counts (r10ladder1 ctladder, FIXPOINT both times)
+
+  family                                                     BEFORE  AFTER
+  constant|VpiType|KIND:constant>ref_obj                          26      0   <- L1
+  hier_path|VpiName|TEXT:register_if[#].value[#+:#]|...            24     24
+  constant|VpiDecompile|TEXT:#|#+#*i+#*j+k                         11     11
+  constant|VpiDecompile|DIGITS-ONLY                                 8      8
+  constant|VpiDecompile|TEXT:#|-#                                   6      6
+  <null>|<lhs-null>|EXTRA-OURS                                      3      3
+  operation|VpiType|KIND:operation>constant                         2      2
+  constant|VpiType|KIND:constant>operation                          2      2
+  constant|VpiType|KIND:constant>func_call                          2      2
+  constant|VpiSize|INT:G>O                                          2      2
+  constant|VpiDecompile|TEXT:#|#+i                                  2      2
+  constant|VpiDecompile|TEXT:#|#+#*i+#                              2      2
+  constant|VpiDecompile|O-EXTRA-SUFFIX(+i)                          2      2
+  constant|VpiDecompile|G-EXTRA-PREFIX(#'b#)                        2      0   <- L2
+  logic_typespec|VpiType|KIND:logic_typespec>bit_typespec           1      1
+  constant|VpiDecompile|TEXT:#'hab|#                                1      1
+  constant|VpiDecompile|O-EXTRA-SUFFIX(+#*i+#*j+k)                  1      1
+  constant|VpiDecompile|O-EXTRA-PREFIX(-)                           1      1
+  TOTAL                                                            98     70
+
+  All 26 rungs of the L1 family carry the SAME ours-side object,
+  ref_obj(RGGEN_OKAY)@:104:35-104:45#10646 — one shared def-view object compared
+  against 26 different golden per-instance constants.  Objects, not rungs, is
+  the honest unit: the DATABASE delta is 44 folded cont_assigns (golden has
+  exactly 44 at that site; we had 0, now 44) + 2 param_assign encodings.
+
+default:Earlgrey_0_1 — 34 rungs in the SAME FAM, ZERO of them this mechanism:
+  14  ref_obj(PTR_WIDTH)@131:29        prim_fifo_sync.sv, always-block assignment,
+                                       operation under part_select under bit_select
+   4  ref_obj(N)@215:25 / @216:25      tlul_socket_1n.sv, same procedural shape
+  16  ref_obj(FwMode{Tx,Rx}Fifo)@...   spi_device.sv:427-465, bit_select INDEX
+                                       inside a PORT connection
+  Predicted NO movement; measured slang.uhdm BYTE-IDENTICAL
+  (7d55ccc8f53e9b928d6fa87009575b26 both binaries) and rungs 1-394 identical.
