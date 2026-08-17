@@ -1,0 +1,134 @@
+======== ARM rgg2lit
+-- a1_rgg2  cells: base-vs-pat row-list diff
+  IDENTICAL (96 read positions)
+-- b1_rgg2  cells: base-vs-pat row-list diff
+  IDENTICAL (192 read positions)
+-- c1_rgg2  cells: base-vs-pat row-list diff
+  IDENTICAL (150 read positions)
+-- d1_rgg2  cells: base-vs-pat row-list diff
+  IDENTICAL (174 read positions)
+-- real/ (the literal 30:22 per cell)
+CELL    GOLDEN                             BASE                               PATCHED
+e2      UINT:1                             UINT:1                             UINT:1
+e20     UINT:0                             UINT:0                             UINT:0
+e25     UINT:72057594037927936             UINT:0                             UINT:0
+e25x2   UINT:0                             UINT:0                             UINT:0
+efull   UINT:0                             UINT:0                             UINT:0
+UNMEASURED=0
+-- vsweep
+CELL      GOLDEN                     BASE           PATCHED
+v1_n20    UINT:1                     UINT:1         UINT:1
+v1_n25    UINT:1                     UINT:1         UINT:1
+v2_n20    UINT:1                     UINT:1         UINT:1
+v2_n25    UINT:1                     UINT:1         UINT:1
+v3_n20    UINT:17592186044416        UINT:1         UINT:1
+v3_n25    UINT:72057594037927936     UINT:1         UINT:1
+v4_n20    UINT:0                     UINT:1         UINT:1
+v4_n25    UINT:72057594037927936     UINT:1         UINT:1
+v5_n20    UINT:0                     UINT:1         UINT:1
+v5_n25    UINT:72057594037927936     UINT:1         UINT:1
+v6_n20    UINT:0                     UINT:0         UINT:0
+v6_n25    UINT:72057594037927936     UINT:0         UINT:0
+UNMEASURED=0
+======== ARM vrgg2
+CELL                 POS     GOLDEN                     BASE                       PATCHED                   
+w1_sized_dem         28:22   UINT:0                     UINT:0                     UINT:0                    
+w2_hex_dem           28:22   UINT:0                     UINT:0                     UINT:0                    
+w3_bin_dem           28:22   UINT:0                     UINT:0                     UINT:0                    
+w4_narrow_dem        28:22   UINT:0                     UINT:0                     UINT:0                    
+w5_multi_dem         28:22   UINT:0                     UINT:0                     UINT:0                    
+w6_multi_add_dem     28:22   UINT:0                     UINT:0                     UINT:0                    
+w7_dem_x3            28:22   UINT:0                     UINT:0                     UINT:0                    
+w8_dem_n2            28:22   UINT:1                     UINT:1                     UINT:1                    
+w9_dem_n4            28:22   UINT:1                     UINT:1                     UINT:1                    
+wa_pkg_dem           13:21   UINT:0                     UINT:0                     UINT:0                    
+wb_pkg_dem1          13:21   UINT:1                     UINT:1                     UINT:1                    
+x1_v1x2_n25          28:22   UINT:1                     UINT:1                     UINT:1                    
+x2_v1x2_n20          28:22   UINT:1                     UINT:1                     UINT:1                    
+x3_v1x3_n25          28:22   UINT:1                     UINT:1                     UINT:1                    
+x4_v2x2_n25          28:22   UINT:1                     UINT:1                     UINT:1                    
+y1_nested            28:22   UINT:1                     UINT:1                     UINT:1                    
+y2_recur             12:14   UINT:1                     UINT:1                     UINT:1                    
+y3fix_dualctx        28:22   UINT:1                     UINT:1                     UINT:1                    
+y4_multi             28:22   UINT:1                     UINT:1                     UINT:1                    
+y5_mod               28:22   UINT:7                     UINT:7                     UINT:7                    
+y5_mul               28:22   UINT:2                     UINT:2                     UINT:2                    
+y5_shl               28:23   UINT:1                     UINT:1                     UINT:1                    
+y5_sub               28:22   UINT:1                     UNMEASURED                 UNMEASURED                
+y6b_neverconst_int   28:22   UINT:1                     UINT:1                     UINT:1                    
+y6fix_neverconst     28:22   UINT:1                     UINT:1                     UINT:1                    
+y7_narrowidx         28:22   UINT:1                     UINT:1                     UINT:1                    
+y8_sized             28:22   DEC:1                      DEC:1                      DEC:1                     
+y9_paramloop         15:12   UINT:1                     UINT:1                     UINT:1                    
+ya_pkg               13:21   UINT:1                     UINT:1                     UINT:1                    
+z10_chain            28:22   UINT:17592186044416        UINT:1                     UINT:1                    
+z11_unrel_chain      28:22   UINT:1                     UINT:1                     UINT:1                    
+z1_unrel_int         28:22   UINT:1                     UINT:1                     UINT:1                    
+z2_int_consumer      28:22   UINT:17592186044416        UINT:1                     UINT:1                    
+z3_range_consumer    28:22   UINT:72057594037927936     UINT:1                     UINT:1                    
+z4_nextn_fn          28:22   UINT:0                     UINT:0                     UINT:0                    
+z5_gen_consumer      28:22   UINT:274877906944          UINT:1                     UINT:1                    
+z6_display           28:22   UINT:1                     UINT:1                     UINT:1                    
+z7_arr_consumer      28:22   UINT:1                     UINT:1                     UINT:1                    
+z8_vec_consumer      28:22   UINT:17592186044416        UINT:1                     UINT:1                    
+z9_gen_lp            28:22   UINT:1125899906842624      UINT:1                     UINT:1                    
+UNMEASURED=2
+======== ARM rgg2byte
+  IDENTICAL a1_rgg2
+  IDENTICAL b1_rgg2
+  IDENTICAL c1_rgg2
+  IDENTICAL d1_rgg2
+  byte movers=0 / 4
+  POSITIVE CONTROL (patched vs the WRONG cell's base): 12 / 12 flagged
+PROBLEMS=0
+======== ARM vrgg2
+CELL                 POS     GOLDEN                     BASE                       PATCHED                   
+w1_sized_dem         28:22   UINT:0                     UINT:0                     UINT:0                    
+w2_hex_dem           28:22   UINT:0                     UINT:0                     UINT:0                    
+w3_bin_dem           28:22   UINT:0                     UINT:0                     UINT:0                    
+w4_narrow_dem        28:22   UINT:0                     UINT:0                     UINT:0                    
+w5_multi_dem         28:22   UINT:0                     UINT:0                     UINT:0                    
+w6_multi_add_dem     28:22   UINT:0                     UINT:0                     UINT:0                    
+w7_dem_x3            28:22   UINT:0                     UINT:0                     UINT:0                    
+w8_dem_n2            28:22   UINT:1                     UINT:1                     UINT:1                    
+w9_dem_n4            28:22   UINT:1                     UINT:1                     UINT:1                    
+wa_pkg_dem           13:21   UINT:0                     UINT:0                     UINT:0                    
+wb_pkg_dem1          13:21   UINT:1                     UINT:1                     UINT:1                    
+x1_v1x2_n25          28:22   UINT:1                     UINT:1                     UINT:1                    
+x2_v1x2_n20          28:22   UINT:1                     UINT:1                     UINT:1                    
+x3_v1x3_n25          28:22   UINT:1                     UINT:1                     UINT:1                    
+x4_v2x2_n25          28:22   UINT:1                     UINT:1                     UINT:1                    
+y1_nested            28:22   UINT:1                     UINT:1                     UINT:1                    
+y2_recur             12:14   UINT:1                     UINT:1                     UINT:1                    
+y3fix_dualctx        28:22   UINT:1                     UINT:1                     UINT:1                    
+y4_multi             28:22   UINT:1                     UINT:1                     UINT:1                    
+y5_mod               28:22   UINT:7                     UINT:7                     UINT:7                    
+y5_mul               28:22   UINT:2                     UINT:2                     UINT:2                    
+y5_shl               28:23   UINT:1                     UINT:1                     UINT:1                    
+y5_sub               28:22   UINT:1                     UNMEASURED                 UNMEASURED                
+y6b_neverconst_int   28:22   UINT:1                     UINT:1                     UINT:1                    
+y6fix_neverconst     28:22   UINT:1                     UINT:1                     UINT:1                    
+y7_narrowidx         28:22   UINT:1                     UINT:1                     UINT:1                    
+y8_sized             28:22   DEC:1                      DEC:1                      DEC:1                     
+y9_paramloop         15:12   UINT:1                     UINT:1                     UINT:1                    
+ya_pkg               13:21   UINT:1                     UINT:1                     UINT:1                    
+z10_chain            28:22   UINT:17592186044416        UINT:1                     UINT:1                    
+z11_unrel_chain      28:22   UINT:1                     UINT:1                     UINT:1                    
+z1_unrel_int         28:22   UINT:1                     UINT:1                     UINT:1                    
+z2_int_consumer      28:22   UINT:17592186044416        UINT:1                     UINT:1                    
+z3_range_consumer    28:22   UINT:72057594037927936     UINT:1                     UINT:1                    
+z4_nextn_fn          28:22   UINT:0                     UINT:0                     UINT:0                    
+z5_gen_consumer      28:22   UINT:274877906944          UINT:1                     UINT:1                    
+z6_display           28:22   UINT:1                     UINT:1                     UINT:1                    
+z7_arr_consumer      28:22   UINT:1                     UINT:1                     UINT:1                    
+z8_vec_consumer      28:22   UINT:17592186044416        UINT:1                     UINT:1                    
+z9_gen_lp            28:22   UINT:1125899906842624      UINT:1                     UINT:1                    
+UNMEASURED=2
+======== ARM rgg2byte
+  IDENTICAL a1_rgg2
+  IDENTICAL b1_rgg2
+  IDENTICAL c1_rgg2
+  IDENTICAL d1_rgg2
+  byte movers=0 / 4
+  POSITIVE CONTROL (patched vs the WRONG cell's base): 12 / 12 flagged
+PROBLEMS=0

@@ -21678,6 +21678,15 @@ public:
     const slang::syntax::SyntaxNode* escapeKey() const { return escKey; }
     int why() const { return bailLine; }
 
+    // § satArrArgFirstElem5 — the state of one tracked packed array when the
+    // replay stopped.  Null when @a sym is not a tracked array (a caller that
+    // reads nothing must not mistake that for an all-zero array, so the
+    // pointer is the answer, never a value).
+    const WbArr* arrState(const Symbol* sym) const {
+        auto it = arrs.find(sym);
+        return it == arrs.end() ? nullptr : &it->second;
+    }
+
 private:
     std::map<const slang::syntax::SyntaxNode*, WbLit>& lits;
     std::map<const Symbol*, WbCell> env;
@@ -22233,6 +22242,131 @@ private:
     }
 };
 
+// § satArrArgFirstElem5 — the local PACKED ARRAY a function returns
+// (`return list;`), plus THE SHAPE GATE.  Found STATICALLY, because the
+// corrupted replay stops at the escaping read and never reaches the return
+// statement; a body that does not match the gate yields null and the caller
+// claims nothing.
+//
+// THE GATE WAS ADDED BY THIS PASS'S ADVERSARIAL VERIFIER (r10vrgg5) AFTER THREE
+// PRISTINE-RIGHT -> PATCHED-WRONG CELLS ON REAL SURELOG.  The replay stops the
+// instant the write index escapes (`invalid`), so the array state it leaves is
+// the state AT THE ESCAPE.  Surelog's evaluator does NOT stop there — it runs
+// the body to completion on garbage and returns whatever the returned array
+// holds AT THE `return`.  Measured, tools/probe/r10vrgg5repro/GRID.txt:
+//   * v4_single   — a SECOND local array written only AFTER the escaping loop
+//                   and RETURNED: golden carries that array's post-loop write
+//                   (element 0 = 9), the replay never reaches it, and the pass
+//                   emitted an ALL-ZERO 400-bit constant on 4 objects where the
+//                   base binary was already byte-identical to golden;
+//   * v3_retlast  — the same two-array body with an unreachable earlier
+//                   `return list;`, which made the first-return scan pick the
+//                   WRONG array (element 0 = 4 against golden's 9);
+//   * v8_postzero — ONE array, re-zeroed and rewritten at index 0 AFTER the
+//                   loop: golden carries the post-loop write (10), the base
+//                   binary was RIGHT, and the pass emitted the escape-time
+//                   element 0 (4).
+// So the escape-time state is golden's answer only when NOTHING the body does
+// after the escape can still change the returned array.  This is the structural
+// transcription of exactly the shape where that holds — Rggen's
+// `get_sub_n_list` — and every other shape claims nothing:
+//   (1) exactly ONE tracked packed-array local (element width > 1);
+//   (2) at least one `return`, and EVERY return names that array;
+//   (3) exactly ONE whole-array assignment to it, non-compound, and it precedes
+//       every element write (`list = '0` before the loop);
+//   (4) every element write to it selects through a BARE VARIABLE and they all
+//       name the SAME variable (`list[list_index]`) — a literal index or a
+//       second index variable is a write the escape does not cover.
+static const Symbol* wbReturnedArraySym(const SubroutineSymbol& sub) {
+    // (1) the tracked packed-array locals — the same discriminator
+    // SrlgWriteBack::declare() uses, so "tracked" means the same thing here.
+    const Symbol* arr = nullptr;
+    bool manyArr = false;
+    sub.getBody().visit(makeVisitor([&](auto& v, const VariableDeclStatement& ds) {
+        auto& sy = ds.symbol;
+        auto& t = sy.getType();
+        if (t.kind == SymbolKind::PackedArrayType &&
+            t.as<PackedArrayType>().elementType.getBitWidth() > 1) {
+            if (arr && arr != &sy)
+                manyArr = true;
+            else
+                arr = &sy;
+        }
+        v.visitDefault(ds);
+    }));
+    if (!arr || manyArr)
+        return nullptr;
+    // (2) every return names it.
+    int nret = 0;
+    bool badRet = false;
+    sub.getBody().visit(makeVisitor([&](auto& v, const ReturnStatement& rs) {
+        nret++;
+        const Symbol* here = nullptr;
+        if (rs.expr) {
+            auto& re = stripImplicitConv(*rs.expr);
+            if (re.kind == ExpressionKind::NamedValue)
+                here = &re.as<NamedValueExpression>().symbol;
+        }
+        if (here != arr)
+            badRet = true;
+        v.visitDefault(rs);
+    }));
+    if (!nret || badRet)
+        return nullptr;
+    // (3) + (4) the writes.
+    int nWhole = 0, nElem = 0;
+    bool badAsn = false;
+    const Symbol* idxSym = nullptr;
+    slang::SourceLocation wholeLoc, minElemLoc;
+    sub.getBody().visit(makeVisitor([&](auto& v, const AssignmentExpression& ae) {
+        auto& lhs = stripImplicitConv(ae.left());
+        const Expression* sel = nullptr;
+        const Expression* base = &lhs;
+        if (lhs.kind == ExpressionKind::ElementSelect) {
+            auto& es = lhs.as<ElementSelectExpression>();
+            sel = &es.selector();
+            base = &stripImplicitConv(es.value());
+        }
+        if (base->kind != ExpressionKind::NamedValue ||
+            &base->as<NamedValueExpression>().symbol != arr) {
+            v.visitDefault(ae);
+            return;
+        }
+        auto loc = ae.sourceRange.start();
+        if (!sel) {
+            nWhole++;
+            if (ae.isCompound())
+                badAsn = true;
+            if (nWhole == 1 || loc < wholeLoc)
+                wholeLoc = loc;
+        }
+        else {
+            nElem++;
+            if (nElem == 1 || loc < minElemLoc)
+                minElemLoc = loc;
+            auto& s2 = stripImplicitConv(*sel);
+            if (s2.kind != ExpressionKind::NamedValue)
+                badAsn = true;
+            else {
+                auto* isym = &s2.as<NamedValueExpression>().symbol;
+                if (idxSym && idxSym != isym)
+                    badAsn = true;
+                else
+                    idxSym = isym;
+            }
+        }
+        v.visitDefault(ae);
+    }));
+    if (badAsn || nWhole != 1 || nElem == 0)
+        return nullptr;
+    // The zero-fill must PRECEDE every element write: a `list = '0` AFTER the
+    // loop would make the escape-time element 0 a fiction (golden returns the
+    // zeroed array, and so does the base binary).
+    if (!(wholeLoc < minElemLoc))
+        return nullptr;
+    return arr;
+}
+
 // Seed each tracked literal with the value actually WRITTEN in the source, the
 // first time that literal is seen (the replay then mutates it in place).
 static void seedCompoundLits(const SubroutineSymbol& sub,
@@ -22490,6 +22624,130 @@ void UhdmExporter::computeCompoundWriteBack() {
                 compoundWbLits[escKey] = 0;
                 if (dbg9)
                     fprintf(stderr, "[wb]   SATURATED -> 0\n");
+                // § satArrArgFirstElem5 (r10rgg5) — THE SECOND HALF OF THE SAME
+                // CORRUPTED EVALUATION, under EXACTLY this gate and no other.
+                //
+                // Once the write index has escaped, the escaping parameter's own
+                // ARRAY value is corrupted too, and its corrupted state is what
+                // an elaborated const-call ARGUMENT is handed.  Replaying with
+                // the literal ALREADY SATURATED (any value at or past the
+                // array's element count behaves identically, which is what makes
+                // this half count-INDEPENDENT) lands the FIRST loop iteration's
+                // element write at index 0 and escapes on the second, so
+                // ELEMENT 0 ALONE survives — and element 0 is the one element
+                // the corrupted and the correct evaluations agree on, because
+                // iteration 1 indexes 0 whatever the literal holds.
+                //
+                // The WIDTH is not the instance's own: Surelog's whole-array
+                // `list = '0` literal is the array variable's value object too,
+                // its VpiSize is stamped ONCE (the `VpiSize() == -1` guard in
+                // setValueInInstance) by the FIRST evaluating instance, and every
+                // later instance's value string is that same width.  Measured
+                // 26/26 cells in tools/probe/r10rgg5repro/GRID.txt, including
+                // the three orders that separate "first instance" from "widest
+                // instance" (a4_2_25 -> 32 everywhere, a5_20_25 -> 320, a3_25_2
+                // -> 400).
+                //
+                // RANKED RESIDUE, measured and NOT claimed: after enough
+                // demand-driven re-runs the literal reaches the uint64 fixpoint
+                // 0, the index stops escaping and the loop RUNS TO COMPLETION
+                // with every write pinned at index 0, so element 0 then holds
+                // the LAST iteration's write.  7 of the 26 cells read that way
+                // (a2_25x2 u01, a5_20_25 u01, b6_13x2 u01, b8_21x2 u01,
+                // b9_33x2 u00+u01, c6_33_25 u01, c7_25_33 u01) and which of the
+                // two an instance gets is the § compoundLitWriteBackSat2 demand
+                // count, which r10rgg2 § 2 PROVED is not source-derivable.  The
+                // two coincide wherever the descent's last index-0 write equals
+                // its first (N = 2, 4, 16, 20), and EVERY Rggen instance is on
+                // the first-write side.
+                constexpr uint64_t kSatL5 = 1ull << 40; // >> any modelled bound
+                int32_t sharedW5 = 0;
+                std::map<const ParameterSymbol*, SatArrVal5> pend5;
+                bool arrOk5 = true;
+                for (auto* is : insts) {
+                    auto* found5 = is->body.find(escSite->name);
+                    if (!found5 || found5->kind != SymbolKind::Parameter) {
+                        arrOk5 = false;
+                        break;
+                    }
+                    auto& ps5 = found5->as<ParameterSymbol>();
+                    auto* init5 = ps5.getInitializer();
+                    while (init5 && init5->kind == ExpressionKind::Conversion)
+                        init5 = &init5->as<ConversionExpression>().operand();
+                    if (!init5 || init5->kind != ExpressionKind::Call) {
+                        arrOk5 = false;
+                        break;
+                    }
+                    auto sp5 = std::get_if<const SubroutineSymbol*>(
+                        &init5->as<CallExpression>().subroutine);
+                    if (!sp5 || !*sp5) {
+                        arrOk5 = false;
+                        break;
+                    }
+                    const Symbol* ret5 = wbReturnedArraySym(**sp5);
+                    if (!ret5) {
+                        arrOk5 = false;
+                        break;
+                    }
+                    // A FRESH literal state per instance: the point of the
+                    // replay is the SATURATED regime, not the carried one.
+                    std::map<const slang::syntax::SyntaxNode*, WbLit> sl5;
+                    std::vector<const slang::syntax::SyntaxNode*> keys5;
+                    collectCompoundLits(**sp5, keys5);
+                    for (auto* k : keys5)
+                        sl5.emplace(k, WbLit{});
+                    seedCompoundLits(**sp5, sl5);
+                    auto si5 = sl5.find(escKey);
+                    if (si5 == sl5.end()) {
+                        arrOk5 = false;
+                        break;
+                    }
+                    si5->second.val = kSatL5;
+                    si5->second.isInt = false;
+                    si5->second.seeded = true;
+                    EvalContext ec5(ASTContext(is->body, LookupLocation::max));
+                    std::vector<int64_t> argv5;
+                    for (auto* a5 : init5->as<CallExpression>().arguments()) {
+                        auto w5 = srlgWord(a5->eval(ec5));
+                        if (!w5) {
+                            arrOk5 = false;
+                            break;
+                        }
+                        argv5.push_back(*w5);
+                    }
+                    if (!arrOk5)
+                        break;
+                    SrlgWriteBack wb5(sl5);
+                    if (!wb5.run(**sp5, argv5)) {
+                        arrOk5 = false;
+                        break;
+                    }
+                    const auto* st5 = wb5.arrState(ret5);
+                    if (!st5 || st5->elemBits == 0 || st5->words.empty()) {
+                        arrOk5 = false;
+                        break;
+                    }
+                    std::string bits5;
+                    bits5.reserve(st5->words.size() * st5->elemBits);
+                    for (size_t e5 = st5->words.size(); e5-- > 0;)
+                        for (int32_t b5 = (int32_t)st5->elemBits - 1; b5 >= 0; b5--)
+                            bits5 += ((st5->words[e5] >> b5) & 1ull) ? '1' : '0';
+                    if (!sharedW5)
+                        sharedW5 = (int32_t)bits5.size();
+                    if ((int32_t)bits5.size() < sharedW5)
+                        bits5.insert(0, (size_t)(sharedW5 - (int32_t)bits5.size()),
+                                     '0');
+                    else if ((int32_t)bits5.size() > sharedW5)
+                        bits5.erase(0, bits5.size() - (size_t)sharedW5);
+                    pend5[&ps5] = SatArrVal5{bits5, sharedW5};
+                }
+                if (arrOk5 && sharedW5 > 0)
+                    for (auto& kv5 : pend5)
+                        satArrArgVals[kv5.first] = kv5.second;
+                if (dbg9)
+                    fprintf(stderr,
+                            "[wb]   satArr ok=%d sharedW=%d recorded=%zu\n",
+                            (int)arrOk5, (int)sharedW5, pend5.size());
             }
             continue;
         }

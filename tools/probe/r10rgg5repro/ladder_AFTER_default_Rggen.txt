@@ -1,0 +1,425 @@
+# ctladder MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN(LHS) /home/heyfey/.cache/slang-uhdm-goldens/6fc99d8f4119ff55b3e1/golden.uhdm
+# OURS  (RHS) /tmp/r10rgg5_wd_pat/default/Rggen-50ccbd70/slang.uhdm
+# ladder max=20000 budget=1200s  golden_objs=252296 ours_objs=257744
+RUNG	1	r=-1	vis=19363	masklvl=0	masked=241318	cands=64	KINDL=<null>	KINDR=ref_typespec	KINDP=func_call	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>	CASCADE=1
+   L  <null>
+   R  ref_typespec@:0:0-0:0#17063
+   G= -   O= -
+   PL -
+   PR ref_typespec@:0:0-0:0#17063 < func_call(get_sub_n_list)@:62:47-62:61#17054 < param_assign@:62:33-62:64#17053 < module_inst(u_reducer)@rggen_mux.sv:19:7-25:9#17040 < gen_scope@:10:23-26:8#17023 < gen_scope_array(g)@:10:23-26:8#17022 < module_inst(u_mux)@rggen_adapter_common.sv:148:3-155:5#16963 < module_inst(u_adapter_common)@rggen_apb_adapter.sv:47:3-63:5#16643
+   MK module_inst(u_mux)@rggen_adapter_common.sv:148:3-155:5#349499  [CASCADE: this mask hides >=1% of the golden database for every later rung]
+RUNG	2	r=-12	vis=20952	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=func_call	KINDP=cont_assign	FIELD=VpiType	SHAPE=KIND:constant>func_call	FAM=constant|VpiType|KIND:constant>func_call	FAM2=constant|VpiType
+   L  constant@rggen_adapter_common.sv:55:14-55:16#349089
+   R  func_call(pre_decode)@:40:27-40:53#8066
+   G= constant   O= func_call
+   PL constant@rggen_adapter_common.sv:55:14-55:16#349089 < cont_assign@rggen_adapter_common.sv:40:11-40:53#349090 < module_inst(u_adapter_common)@rggen_apb_adapter.sv:47:3-63:5#349016 < module_inst(u_adapter)@block_0.sv:148:3-164:5#348893 < module_inst(u_block_0)@rggen.sv:149:3-270:5#347258 < module_inst(work@rggen)@rggen.sv:11:1-292:10#347107 < design(work@rggen)@:0:0-0:0#344552
+   PR func_call(pre_decode)@:40:27-40:53#8066 < cont_assign@:40:11-40:53#8065 < module_inst@rggen_adapter_common.sv:1:1-192:10#164 < design(work@rggen)@:0:0-0:0#1
+   MK constant@rggen_adapter_common.sv:55:14-55:16#349089
+RUNG	3	r=-32	vis=29451	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=operation	KINDP=cont_assign	FIELD=VpiType	SHAPE=KIND:constant>operation	FAM=constant|VpiType|KIND:constant>operation	FAM2=constant|VpiType
+   L  constant@:0:0-0:0#353520
+   R  operation@:68:29-68:78#10621
+   G= constant   O= operation
+   PL constant@:0:0-0:0#353520 < cont_assign@rggen_register_common.sv:68:11-68:78#353521 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#353432 < module_inst(u_register)@block_0.sv:410:5-423:7#353387 < gen_scope@block_0.sv:407:19-524:6#353028 < gen_scope_array(g_register_2)@block_0.sv:407:19-524:6#353027 < module_inst(u_block_0)@rggen.sv:149:3-270:5#347258 < module_inst(work@rggen)@rggen.sv:11:1-292:10#347107
+   PR operation@:68:29-68:78#10621 < cont_assign@:68:11-68:78#10620 < module_inst@rggen_register_common.sv:1:1-140:10#178 < design(work@rggen)@:0:0-0:0#1
+   MK constant@:0:0-0:0#353520
+RUNG	4	r=1	vis=30364	masklvl=0	masked=4	cands=64	KINDL=logic_typespec	KINDR=bit_typespec	KINDP=<root>	FIELD=VpiType	SHAPE=KIND:logic_typespec>bit_typespec	FAM=logic_typespec|VpiType|KIND:logic_typespec>bit_typespec	FAM2=logic_typespec|VpiType
+   L  logic_typespec@:0:0-0:0#36547
+   R  bit_typespec@:450:18-450:27#254203
+   G= logic_typespec   O= bit_typespec
+   PL logic_typespec@:0:0-0:0#36547
+   PR bit_typespec@:450:18-450:27#254203 < ref_typespec@:0:0-0:0#28234 < parameter(INITIAL_VALUE)@:450:28-450:41#28233 < gen_scope@:449:12-473:8#28232 < gen_scope_array(g_bit_field_1)@:449:12-473:8#28231 < gen_scope@:407:19-524:6#26622 < gen_scope_array(g_register_2)@:407:19-524:6#26621 < module_inst(u_block_0)@rggen.sv:149:3-270:5#12807
+   MK logic_typespec@:0:0-0:0#36547
+RUNG	5	r=7	vis=30822	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=port	FIELD=VpiDecompile	SHAPE=TEXT:#'hab|#	FAM=constant|VpiDecompile|TEXT:#'hab|#	FAM2=constant|VpiDecompile
+   L  constant@block_0.sv:468:30-468:43#36546
+   R  constant@:468:30-468:43#28610
+   G= "8'hab"   O= "171"
+   PL constant@block_0.sv:468:30-468:43#36546 < port(i_value)@rggen_bit_field.sv:28:39-28:46#36294 < module_inst(u_bit_field)@block_0.sv:453:7-472:9#353931 < gen_scope@block_0.sv:449:12-473:8#353896 < gen_scope_array(g_bit_field_1)@block_0.sv:449:12-473:8#353895 < gen_scope@block_0.sv:407:19-524:6#353028 < gen_scope_array(g_register_2)@block_0.sv:407:19-524:6#353027 < module_inst(u_block_0)@rggen.sv:149:3-270:5#347258
+   PR constant@:468:30-468:43#28610 < port(i_value)@:28:39-28:46#28607 < module_inst(u_bit_field)@block_0.sv:453:7-472:9#28322 < gen_scope@:449:12-473:8#28232 < gen_scope_array(g_bit_field_1)@:449:12-473:8#28231 < gen_scope@:407:19-524:6#26622 < gen_scope_array(g_register_2)@:407:19-524:6#26621 < module_inst(u_block_0)@rggen.sv:149:3-270:5#12807
+   MK constant@block_0.sv:468:30-468:43#36546
+RUNG	6	r=-32	vis=36000	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=operation	KINDP=cont_assign	FIELD=VpiType	SHAPE=KIND:constant>operation	FAM=constant|VpiType|KIND:constant>operation	FAM2=constant|VpiType
+   L  constant@:0:0-0:0#356370
+   R  operation@:68:29-68:78#10621
+   G= constant   O= operation
+   PL constant@:0:0-0:0#356370 < cont_assign@rggen_register_common.sv:68:11-68:78#356371 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#356282 < module_inst(u_register)@block_0.sv:628:5-641:7#356237 < gen_scope@block_0.sv:625:19-745:6#355822 < gen_scope_array(g_register_4)@block_0.sv:625:19-745:6#355821 < module_inst(u_block_0)@rggen.sv:149:3-270:5#347258 < module_inst(work@rggen)@rggen.sv:11:1-292:10#347107
+   PR operation@:68:29-68:78#10621 < cont_assign@:68:11-68:78#10620 < module_inst@rggen_register_common.sv:1:1-140:10#178 < design(work@rggen)@:0:0-0:0#1
+   MK constant@:0:0-0:0#356370
+RUNG	7	r=32	vis=46829	masklvl=0	masked=427	cands=64	KINDL=operation	KINDR=constant	KINDP=range	FIELD=VpiType	SHAPE=KIND:operation>constant	FAM=operation|VpiType|KIND:operation>constant	FAM2=operation|VpiType
+   L  operation@rggen_or_reducer.sv:66:10-66:18#60675
+   R  constant@:66:10-66:16#43353
+   G= operation   O= constant
+   PL operation@rggen_or_reducer.sv:66:10-66:18#60675 < range@rggen_or_reducer.sv:66:9-66:21#60625 < logic_typespec@rggen_or_reducer.sv:66:3-66:32#60708 < logic_var(next_data)@rggen_or_reducer.sv:66:33-66:42#60792 < module_inst(u_reducer)@rggen_mux.sv:19:7-25:9#361500 < gen_scope@rggen_mux.sv:10:23-26:8#361499 < gen_scope_array(g)@rggen_mux.sv:10:23-26:8#361498 < module_inst(u_read_data_mux)@rggen_register_common.sv:93:3-100:5#361491
+   PR constant@:66:10-66:16#43353 < range@:66:9-66:21#43352 < logic_typespec@:66:3-66:32#43351 < logic_var(next_data)@:66:33-66:42#43359 < module_inst(u_reducer)@rggen_mux.sv:19:7-25:9#43305 < gen_scope@:10:23-26:8#43294 < gen_scope_array(g)@:10:23-26:8#43293 < module_inst(u_read_data_mux)@rggen_register_common.sv:93:3-100:5#43232
+   MK operation@rggen_or_reducer.sv:66:10-66:18#60675
+RUNG	8	r=-1	vis=46872	masklvl=0	masked=241318	cands=64	KINDL=<null>	KINDR=ref_typespec	KINDP=func_call	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>	CASCADE=1
+   L  <null>
+   R  ref_typespec@:0:0-0:0#43328
+   G= -   O= -
+   PL -
+   PR ref_typespec@:0:0-0:0#43328 < func_call(get_sub_n_list)@:62:47-62:61#43319 < param_assign@:62:33-62:64#43318 < module_inst(u_reducer)@rggen_mux.sv:19:7-25:9#43305 < gen_scope@:10:23-26:8#43294 < gen_scope_array(g)@:10:23-26:8#43293 < module_inst(u_read_data_mux)@rggen_register_common.sv:93:3-100:5#43232 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#42953
+   MK module_inst(u_block_0)@rggen.sv:149:3-270:5#347258  [CASCADE: this mask hides >=1% of the golden database for every later rung]
+RUNG	9	r=32	vis=17621	masklvl=0	masked=427	cands=64	KINDL=operation	KINDR=constant	KINDP=range	FIELD=VpiType	SHAPE=KIND:operation>constant	FAM=operation|VpiType|KIND:operation>constant	FAM2=operation|VpiType
+   L  operation@rggen_or_reducer.sv:66:10-66:18#235734
+   R  constant@:66:10-66:16#156272
+   G= operation   O= constant
+   PL operation@rggen_or_reducer.sv:66:10-66:18#235734 < range@rggen_or_reducer.sv:66:9-66:21#235684 < logic_typespec@rggen_or_reducer.sv:66:3-66:32#235767 < logic_var(next_data)@rggen_or_reducer.sv:66:33-66:42#235851 < module_inst(u_reducer)@rggen_mux.sv:19:7-25:9#412091 < gen_scope@rggen_mux.sv:10:23-26:8#412090 < gen_scope_array(g)@rggen_mux.sv:10:23-26:8#412089 < module_inst(u_mux)@rggen_adapter_common.sv:148:3-155:5#412082
+   PR constant@:66:10-66:16#156272 < range@:66:9-66:21#156271 < logic_typespec@:66:3-66:32#156270 < logic_var(next_data)@:66:33-66:42#156278 < module_inst(u_reducer)@rggen_mux.sv:19:7-25:9#156224 < gen_scope@:10:23-26:8#156213 < gen_scope_array(g)@:10:23-26:8#156212 < module_inst(u_mux)@rggen_adapter_common.sv:148:3-155:5#156153
+   MK operation@rggen_or_reducer.sv:66:10-66:18#235734
+RUNG	10	r=-1	vis=17664	masklvl=0	masked=241318	cands=64	KINDL=<null>	KINDR=ref_typespec	KINDP=func_call	FIELD=<lhs-null>	SHAPE=EXTRA-OURS	FAM=<null>|<lhs-null>|EXTRA-OURS	FAM2=<null>|<lhs-null>	CASCADE=1
+   L  <null>
+   R  ref_typespec@:0:0-0:0#156247
+   G= -   O= -
+   PL -
+   PR ref_typespec@:0:0-0:0#156247 < func_call(get_sub_n_list)@:62:47-62:61#156238 < param_assign@:62:33-62:64#156237 < module_inst(u_reducer)@rggen_mux.sv:19:7-25:9#156224 < gen_scope@:10:23-26:8#156213 < gen_scope_array(g)@:10:23-26:8#156212 < module_inst(u_mux)@rggen_adapter_common.sv:148:3-155:5#156153 < module_inst(u_adapter_common)@rggen_apb_adapter.sv:47:3-63:5#155842
+   MK module_inst(u_mux)@rggen_adapter_common.sv:148:3-155:5#412082  [CASCADE: this mask hides >=1% of the golden database for every later rung]
+RUNG	11	r=-12	vis=18875	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=func_call	KINDP=cont_assign	FIELD=VpiType	SHAPE=KIND:constant>func_call	FAM=constant|VpiType|KIND:constant>func_call	FAM2=constant|VpiType
+   L  constant@rggen_adapter_common.sv:55:14-55:16#411727
+   R  func_call(pre_decode)@:40:27-40:53#8066
+   G= constant   O= func_call
+   PL constant@rggen_adapter_common.sv:55:14-55:16#411727 < cont_assign@rggen_adapter_common.sv:40:11-40:53#411728 < module_inst(u_adapter_common)@rggen_apb_adapter.sv:47:3-63:5#411654 < module_inst(u_adapter)@block_1.sv:45:3-61:5#411532 < module_inst(u_block_1)@rggen.sv:279:3-291:5#410233 < module_inst(work@rggen)@rggen.sv:11:1-292:10#347107 < design(work@rggen)@:0:0-0:0#344552
+   PR func_call(pre_decode)@:40:27-40:53#8066 < cont_assign@:40:11-40:53#8065 < module_inst@rggen_adapter_common.sv:1:1-192:10#164 < design(work@rggen)@:0:0-0:0#1
+   MK constant@rggen_adapter_common.sv:55:14-55:16#411727
+RUNG	12	r=-2	vis=23029	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=O-EXTRA-SUFFIX(+i)	FAM=constant|VpiDecompile|O-EXTRA-SUFFIX(+i)	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:173:42-173:43#242979
+   R  constant@:173:42-173:45#161716
+   G= "2"   O= "2+i"
+   PL constant@block_1.sv:173:42-173:43#242979 < bit_select(register_if)@block_1.sv:173:42-173:45#242980 < port(register_if)@rggen_indirect_register.sv:14:43-14:54#242725 < module_inst(u_register)@block_1.sv:160:9-176:11#414795 < gen_scope@block_1.sv:155:29-203:10#414264 < gen_scope_array(g[0])@block_1.sv:155:29-203:10#414263 < gen_scope@block_1.sv:153:12-204:8#414262 < gen_scope_array(g_register_0)@block_1.sv:153:12-204:8#414261
+   PR constant@:173:42-173:45#161716 < bit_select(register_if)@:173:42-173:45#161715 < port(register_if)@:14:43-14:54#161713 < module_inst(u_register)@block_1.sv:160:9-176:11#161652 < gen_scope@:155:29-203:10#161558 < gen_scope_array(g[0])@:155:29-203:10#161557 < gen_scope@:153:12-204:8#161556 < gen_scope_array(g_register_0)@:153:12-204:8#161555
+   MK constant@block_1.sv:173:42-173:43#242979
+RUNG	13	r=1	vis=25083	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+i	FAM=constant|VpiDecompile|TEXT:#|#+i	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:173:42-173:43#245925
+   R  constant@:173:42-173:45#163615
+   G= "3"   O= "2+i"
+   PL constant@block_1.sv:173:42-173:43#245925 < bit_select(register_if)@block_1.sv:173:42-173:45#245926 < port(register_if)@rggen_indirect_register.sv:14:43-14:54#245671 < module_inst(u_register)@block_1.sv:160:9-176:11#415884 < gen_scope@block_1.sv:155:29-203:10#415353 < gen_scope_array(g[1])@block_1.sv:155:29-203:10#415352 < gen_scope@block_1.sv:153:12-204:8#414262 < gen_scope_array(g_register_0)@block_1.sv:153:12-204:8#414261
+   PR constant@:173:42-173:45#163615 < bit_select(register_if)@:173:42-173:45#163614 < port(register_if)@:14:43-14:54#163612 < module_inst(u_register)@block_1.sv:160:9-176:11#163551 < gen_scope@:155:29-203:10#163457 < gen_scope_array(g[1])@:155:29-203:10#163456 < gen_scope@:153:12-204:8#161556 < gen_scope_array(g_register_0)@:153:12-204:8#161555
+   MK constant@block_1.sv:173:42-173:43#245925
+RUNG	14	r=-2	vis=27139	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=O-EXTRA-SUFFIX(+i)	FAM=constant|VpiDecompile|O-EXTRA-SUFFIX(+i)	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:225:42-225:43#248879
+   R  constant@:225:42-225:45#165516
+   G= "4"   O= "4+i"
+   PL constant@block_1.sv:225:42-225:43#248879 < bit_select(register_if)@block_1.sv:225:42-225:45#248880 < port(register_if)@rggen_indirect_register.sv:14:43-14:54#248625 < module_inst(u_register)@block_1.sv:212:9-228:11#416975 < gen_scope@block_1.sv:207:29-255:10#416444 < gen_scope_array(g[0])@block_1.sv:207:29-255:10#416443 < gen_scope@block_1.sv:205:12-256:8#416442 < gen_scope_array(g_register_1)@block_1.sv:205:12-256:8#416441
+   PR constant@:225:42-225:45#165516 < bit_select(register_if)@:225:42-225:45#165515 < port(register_if)@:14:43-14:54#165513 < module_inst(u_register)@block_1.sv:212:9-228:11#165452 < gen_scope@:207:29-255:10#165358 < gen_scope_array(g[0])@:207:29-255:10#165357 < gen_scope@:205:12-256:8#165356 < gen_scope_array(g_register_1)@:205:12-256:8#165355
+   MK constant@block_1.sv:225:42-225:43#248879
+RUNG	15	r=1	vis=29193	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+i	FAM=constant|VpiDecompile|TEXT:#|#+i	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:225:42-225:43#251825
+   R  constant@:225:42-225:45#167415
+   G= "5"   O= "4+i"
+   PL constant@block_1.sv:225:42-225:43#251825 < bit_select(register_if)@block_1.sv:225:42-225:45#251826 < port(register_if)@rggen_indirect_register.sv:14:43-14:54#251571 < module_inst(u_register)@block_1.sv:212:9-228:11#418064 < gen_scope@block_1.sv:207:29-255:10#417533 < gen_scope_array(g[1])@block_1.sv:207:29-255:10#417532 < gen_scope@block_1.sv:205:12-256:8#416442 < gen_scope_array(g_register_1)@block_1.sv:205:12-256:8#416441
+   PR constant@:225:42-225:45#167415 < bit_select(register_if)@:225:42-225:45#167414 < port(register_if)@:14:43-14:54#167412 < module_inst(u_register)@block_1.sv:212:9-228:11#167351 < gen_scope@:207:29-255:10#167257 < gen_scope_array(g[1])@:207:29-255:10#167256 < gen_scope@:205:12-256:8#165356 < gen_scope_array(g_register_1)@:205:12-256:8#165355
+   MK constant@block_1.sv:225:42-225:43#251825
+RUNG	16	r=-10	vis=31216	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=O-EXTRA-SUFFIX(+#*i+#*j+k)	FAM=constant|VpiDecompile|O-EXTRA-SUFFIX(+#*i+#*j+k)	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:280:44-280:53#254549
+   R  constant@:280:44-280:55#169302
+   G= "6"   O= "6+7*i+3*j+k"
+   PL constant@block_1.sv:280:44-280:53#254549 < bit_select(register_if)@block_1.sv:280:44-280:55#254550 < port(register_if)@rggen_default_register.sv:12:31-12:42#254311 < module_inst(u_register)@block_1.sv:269:15-282:17#418944 < gen_scope@block_1.sv:266:35-368:16#418638 < gen_scope_array(g[0])@block_1.sv:266:35-368:16#418637 < gen_scope@block_1.sv:265:33-369:14#418633 < gen_scope_array(g[0])@block_1.sv:265:33-369:14#418632
+   PR constant@:280:44-280:55#169302 < bit_select(register_if)@:280:44-280:55#169301 < port(register_if)@:12:31-12:42#169299 < module_inst(u_register)@block_1.sv:269:15-282:17#169257 < gen_scope@:266:35-368:16#169170 < gen_scope_array(g[0])@:266:35-368:16#169169 < gen_scope@:265:33-369:14#169166 < gen_scope_array(g[0])@:265:33-369:14#169165
+   MK constant@block_1.sv:280:44-280:53#254549
+RUNG	17	r=-5	vis=35303	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#259425
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#172928
+   G= "register_if[12].value[0+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#259425 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#259141 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#420229 < gen_scope@block_1.sv:342:39-366:20#420191 < gen_scope_array(g[0])@block_1.sv:342:39-366:20#420190 < gen_scope@block_1.sv:340:22-367:18#420189 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#420188 < gen_scope@block_1.sv:266:35-368:16#418638
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#172928 < port(i_sw_write_enable)@:23:39-23:56#172926 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#172675 < gen_scope@:342:39-366:20#172583 < gen_scope_array(g[0])@:342:39-366:20#172582 < gen_scope@:340:22-367:18#172581 < gen_scope_array(g_bit_field_2)@:340:22-367:18#172580 < gen_scope@:266:35-368:16#169170
+   MK hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#259425
+RUNG	18	r=-5	vis=35941	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#260282
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#173521
+   G= "register_if[12].value[1+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#260282 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#259998 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#420462 < gen_scope@block_1.sv:342:39-366:20#420424 < gen_scope_array(g[1])@block_1.sv:342:39-366:20#420423 < gen_scope@block_1.sv:340:22-367:18#420189 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#420188 < gen_scope@block_1.sv:266:35-368:16#418638
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#173521 < port(i_sw_write_enable)@:23:39-23:56#173519 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#173268 < gen_scope@:342:39-366:20#173176 < gen_scope_array(g[1])@:342:39-366:20#173175 < gen_scope@:340:22-367:18#172581 < gen_scope_array(g_bit_field_2)@:340:22-367:18#172580 < gen_scope@:266:35-368:16#169170
+   MK hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#260282
+RUNG	19	r=1	vis=36215	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+#*i+#*j+k	FAM=constant|VpiDecompile|TEXT:#|#+#*i+#*j+k	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:280:44-280:53#261496
+   R  constant@:280:44-280:55#173901
+   G= "7"   O= "6+7*i+3*j+k"
+   PL constant@block_1.sv:280:44-280:53#261496 < bit_select(register_if)@block_1.sv:280:44-280:55#261497 < port(register_if)@rggen_default_register.sv:12:31-12:42#261258 < module_inst(u_register)@block_1.sv:269:15-282:17#420963 < gen_scope@block_1.sv:266:35-368:16#420657 < gen_scope_array(g[1])@block_1.sv:266:35-368:16#420656 < gen_scope@block_1.sv:265:33-369:14#418633 < gen_scope_array(g[0])@block_1.sv:265:33-369:14#418632
+   PR constant@:280:44-280:55#173901 < bit_select(register_if)@:280:44-280:55#173900 < port(register_if)@:12:31-12:42#173898 < module_inst(u_register)@block_1.sv:269:15-282:17#173856 < gen_scope@:266:35-368:16#173769 < gen_scope_array(g[1])@:266:35-368:16#173768 < gen_scope@:265:33-369:14#169166 < gen_scope_array(g[0])@:265:33-369:14#169165
+   MK constant@block_1.sv:280:44-280:53#261496
+RUNG	20	r=-5	vis=40302	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#266372
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#177527
+   G= "register_if[12].value[0+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#266372 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#266088 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#422248 < gen_scope@block_1.sv:342:39-366:20#422210 < gen_scope_array(g[0])@block_1.sv:342:39-366:20#422209 < gen_scope@block_1.sv:340:22-367:18#422208 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#422207 < gen_scope@block_1.sv:266:35-368:16#420657
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#177527 < port(i_sw_write_enable)@:23:39-23:56#177525 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#177274 < gen_scope@:342:39-366:20#177182 < gen_scope_array(g[0])@:342:39-366:20#177181 < gen_scope@:340:22-367:18#177180 < gen_scope_array(g_bit_field_2)@:340:22-367:18#177179 < gen_scope@:266:35-368:16#173769
+   MK hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#266372
+RUNG	21	r=-5	vis=40940	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#267229
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#178120
+   G= "register_if[12].value[1+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#267229 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#266945 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#422481 < gen_scope@block_1.sv:342:39-366:20#422443 < gen_scope_array(g[1])@block_1.sv:342:39-366:20#422442 < gen_scope@block_1.sv:340:22-367:18#422208 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#422207 < gen_scope@block_1.sv:266:35-368:16#420657
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#178120 < port(i_sw_write_enable)@:23:39-23:56#178118 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#177867 < gen_scope@:342:39-366:20#177775 < gen_scope_array(g[1])@:342:39-366:20#177774 < gen_scope@:340:22-367:18#177180 < gen_scope_array(g_bit_field_2)@:340:22-367:18#177179 < gen_scope@:266:35-368:16#173769
+   MK hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#267229
+RUNG	22	r=2	vis=41214	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+#*i+#*j+k	FAM=constant|VpiDecompile|TEXT:#|#+#*i+#*j+k	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:280:44-280:53#268443
+   R  constant@:280:44-280:55#178500
+   G= "8"   O= "6+7*i+3*j+k"
+   PL constant@block_1.sv:280:44-280:53#268443 < bit_select(register_if)@block_1.sv:280:44-280:55#268444 < port(register_if)@rggen_default_register.sv:12:31-12:42#268205 < module_inst(u_register)@block_1.sv:269:15-282:17#422982 < gen_scope@block_1.sv:266:35-368:16#422676 < gen_scope_array(g[2])@block_1.sv:266:35-368:16#422675 < gen_scope@block_1.sv:265:33-369:14#418633 < gen_scope_array(g[0])@block_1.sv:265:33-369:14#418632
+   PR constant@:280:44-280:55#178500 < bit_select(register_if)@:280:44-280:55#178499 < port(register_if)@:12:31-12:42#178497 < module_inst(u_register)@block_1.sv:269:15-282:17#178455 < gen_scope@:266:35-368:16#178368 < gen_scope_array(g[2])@:266:35-368:16#178367 < gen_scope@:265:33-369:14#169166 < gen_scope_array(g[0])@:265:33-369:14#169165
+   MK constant@block_1.sv:280:44-280:53#268443
+RUNG	23	r=-5	vis=45301	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#273319
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#182126
+   G= "register_if[12].value[0+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#273319 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#273035 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#424267 < gen_scope@block_1.sv:342:39-366:20#424229 < gen_scope_array(g[0])@block_1.sv:342:39-366:20#424228 < gen_scope@block_1.sv:340:22-367:18#424227 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#424226 < gen_scope@block_1.sv:266:35-368:16#422676
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#182126 < port(i_sw_write_enable)@:23:39-23:56#182124 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#181873 < gen_scope@:342:39-366:20#181781 < gen_scope_array(g[0])@:342:39-366:20#181780 < gen_scope@:340:22-367:18#181779 < gen_scope_array(g_bit_field_2)@:340:22-367:18#181778 < gen_scope@:266:35-368:16#178368
+   MK hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#273319
+RUNG	24	r=-5	vis=45939	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#274176
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#182719
+   G= "register_if[12].value[1+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#274176 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#273892 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#424500 < gen_scope@block_1.sv:342:39-366:20#424462 < gen_scope_array(g[1])@block_1.sv:342:39-366:20#424461 < gen_scope@block_1.sv:340:22-367:18#424227 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#424226 < gen_scope@block_1.sv:266:35-368:16#422676
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#182719 < port(i_sw_write_enable)@:23:39-23:56#182717 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#182466 < gen_scope@:342:39-366:20#182374 < gen_scope_array(g[1])@:342:39-366:20#182373 < gen_scope@:340:22-367:18#181779 < gen_scope_array(g_bit_field_2)@:340:22-367:18#181778 < gen_scope@:266:35-368:16#178368
+   MK hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#274176
+RUNG	25	r=3	vis=46218	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+#*i+#*j+k	FAM=constant|VpiDecompile|TEXT:#|#+#*i+#*j+k	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:280:44-280:53#275401
+   R  constant@:280:44-280:55#183103
+   G= "9"   O= "6+7*i+3*j+k"
+   PL constant@block_1.sv:280:44-280:53#275401 < bit_select(register_if)@block_1.sv:280:44-280:55#275402 < port(register_if)@rggen_default_register.sv:12:31-12:42#275163 < module_inst(u_register)@block_1.sv:269:15-282:17#425006 < gen_scope@block_1.sv:266:35-368:16#424700 < gen_scope_array(g[0])@block_1.sv:266:35-368:16#424699 < gen_scope@block_1.sv:265:33-369:14#424695 < gen_scope_array(g[1])@block_1.sv:265:33-369:14#424694
+   PR constant@:280:44-280:55#183103 < bit_select(register_if)@:280:44-280:55#183102 < port(register_if)@:12:31-12:42#183100 < module_inst(u_register)@block_1.sv:269:15-282:17#183058 < gen_scope@:266:35-368:16#182971 < gen_scope_array(g[0])@:266:35-368:16#182970 < gen_scope@:265:33-369:14#182967 < gen_scope_array(g[1])@:265:33-369:14#182966
+   MK constant@block_1.sv:280:44-280:53#275401
+RUNG	26	r=-5	vis=50305	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#280277
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#186729
+   G= "register_if[12].value[0+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#280277 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#279993 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#426291 < gen_scope@block_1.sv:342:39-366:20#426253 < gen_scope_array(g[0])@block_1.sv:342:39-366:20#426252 < gen_scope@block_1.sv:340:22-367:18#426251 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#426250 < gen_scope@block_1.sv:266:35-368:16#424700
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#186729 < port(i_sw_write_enable)@:23:39-23:56#186727 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#186476 < gen_scope@:342:39-366:20#186384 < gen_scope_array(g[0])@:342:39-366:20#186383 < gen_scope@:340:22-367:18#186382 < gen_scope_array(g_bit_field_2)@:340:22-367:18#186381 < gen_scope@:266:35-368:16#182971
+   MK hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#280277
+RUNG	27	r=-5	vis=50943	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#281134
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#187322
+   G= "register_if[12].value[1+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#281134 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#280850 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#426524 < gen_scope@block_1.sv:342:39-366:20#426486 < gen_scope_array(g[1])@block_1.sv:342:39-366:20#426485 < gen_scope@block_1.sv:340:22-367:18#426251 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#426250 < gen_scope@block_1.sv:266:35-368:16#424700
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#187322 < port(i_sw_write_enable)@:23:39-23:56#187320 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#187069 < gen_scope@:342:39-366:20#186977 < gen_scope_array(g[1])@:342:39-366:20#186976 < gen_scope@:340:22-367:18#186382 < gen_scope_array(g_bit_field_2)@:340:22-367:18#186381 < gen_scope@:266:35-368:16#182971
+   MK hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#281134
+RUNG	28	r=-5	vis=51217	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+#*i+#*j+k	FAM=constant|VpiDecompile|TEXT:#|#+#*i+#*j+k	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:280:44-280:53#282348
+   R  constant@:280:44-280:55#187702
+   G= "10"   O= "6+7*i+3*j+k"
+   PL constant@block_1.sv:280:44-280:53#282348 < bit_select(register_if)@block_1.sv:280:44-280:55#282349 < port(register_if)@rggen_default_register.sv:12:31-12:42#282110 < module_inst(u_register)@block_1.sv:269:15-282:17#427025 < gen_scope@block_1.sv:266:35-368:16#426719 < gen_scope_array(g[1])@block_1.sv:266:35-368:16#426718 < gen_scope@block_1.sv:265:33-369:14#424695 < gen_scope_array(g[1])@block_1.sv:265:33-369:14#424694
+   PR constant@:280:44-280:55#187702 < bit_select(register_if)@:280:44-280:55#187701 < port(register_if)@:12:31-12:42#187699 < module_inst(u_register)@block_1.sv:269:15-282:17#187657 < gen_scope@:266:35-368:16#187570 < gen_scope_array(g[1])@:266:35-368:16#187569 < gen_scope@:265:33-369:14#182967 < gen_scope_array(g[1])@:265:33-369:14#182966
+   MK constant@block_1.sv:280:44-280:53#282348
+RUNG	29	r=-5	vis=55304	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#287224
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#191328
+   G= "register_if[12].value[0+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#287224 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#286940 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#428310 < gen_scope@block_1.sv:342:39-366:20#428272 < gen_scope_array(g[0])@block_1.sv:342:39-366:20#428271 < gen_scope@block_1.sv:340:22-367:18#428270 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#428269 < gen_scope@block_1.sv:266:35-368:16#426719
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#191328 < port(i_sw_write_enable)@:23:39-23:56#191326 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#191075 < gen_scope@:342:39-366:20#190983 < gen_scope_array(g[0])@:342:39-366:20#190982 < gen_scope@:340:22-367:18#190981 < gen_scope_array(g_bit_field_2)@:340:22-367:18#190980 < gen_scope@:266:35-368:16#187570
+   MK hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#287224
+RUNG	30	r=-5	vis=55942	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#288081
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#191921
+   G= "register_if[12].value[1+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#288081 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#287797 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#428543 < gen_scope@block_1.sv:342:39-366:20#428505 < gen_scope_array(g[1])@block_1.sv:342:39-366:20#428504 < gen_scope@block_1.sv:340:22-367:18#428270 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#428269 < gen_scope@block_1.sv:266:35-368:16#426719
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#191921 < port(i_sw_write_enable)@:23:39-23:56#191919 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#191668 < gen_scope@:342:39-366:20#191576 < gen_scope_array(g[1])@:342:39-366:20#191575 < gen_scope@:340:22-367:18#190981 < gen_scope_array(g_bit_field_2)@:340:22-367:18#190980 < gen_scope@:266:35-368:16#187570
+   MK hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#288081
+RUNG	31	r=-41746426	vis=56216	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+#*i+#*j+k	FAM=constant|VpiDecompile|TEXT:#|#+#*i+#*j+k	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:280:44-280:53#289295
+   R  constant@:280:44-280:55#192301
+   G= "11"   O= "6+7*i+3*j+k"
+   PL constant@block_1.sv:280:44-280:53#289295 < bit_select(register_if)@block_1.sv:280:44-280:55#289296 < port(register_if)@rggen_default_register.sv:12:31-12:42#289057 < module_inst(u_register)@block_1.sv:269:15-282:17#429044 < gen_scope@block_1.sv:266:35-368:16#428738 < gen_scope_array(g[2])@block_1.sv:266:35-368:16#428737 < gen_scope@block_1.sv:265:33-369:14#424695 < gen_scope_array(g[1])@block_1.sv:265:33-369:14#424694
+   PR constant@:280:44-280:55#192301 < bit_select(register_if)@:280:44-280:55#192300 < port(register_if)@:12:31-12:42#192298 < module_inst(u_register)@block_1.sv:269:15-282:17#192256 < gen_scope@:266:35-368:16#192169 < gen_scope_array(g[2])@:266:35-368:16#192168 < gen_scope@:265:33-369:14#182967 < gen_scope_array(g[1])@:265:33-369:14#182966
+   MK constant@block_1.sv:280:44-280:53#289295
+RUNG	32	r=-5	vis=60303	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#294171
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#195927
+   G= "register_if[12].value[0+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#294171 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#293887 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#430329 < gen_scope@block_1.sv:342:39-366:20#430291 < gen_scope_array(g[0])@block_1.sv:342:39-366:20#430290 < gen_scope@block_1.sv:340:22-367:18#430289 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#430288 < gen_scope@block_1.sv:266:35-368:16#428738
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#195927 < port(i_sw_write_enable)@:23:39-23:56#195925 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#195674 < gen_scope@:342:39-366:20#195582 < gen_scope_array(g[0])@:342:39-366:20#195581 < gen_scope@:340:22-367:18#195580 < gen_scope_array(g_bit_field_2)@:340:22-367:18#195579 < gen_scope@:266:35-368:16#192169
+   MK hier_path(register_if[12].value[0+:1])@block_1.sv:356:42-356:78#294171
+RUNG	33	r=-5	vis=60941	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#295028
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#196520
+   G= "register_if[12].value[1+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#295028 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#294744 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#430562 < gen_scope@block_1.sv:342:39-366:20#430524 < gen_scope_array(g[1])@block_1.sv:342:39-366:20#430523 < gen_scope@block_1.sv:340:22-367:18#430289 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#430288 < gen_scope@block_1.sv:266:35-368:16#428738
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#196520 < port(i_sw_write_enable)@:23:39-23:56#196518 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#196267 < gen_scope@:342:39-366:20#196175 < gen_scope_array(g[1])@:342:39-366:20#196174 < gen_scope@:340:22-367:18#195580 < gen_scope_array(g_bit_field_2)@:340:22-367:18#195579 < gen_scope@:266:35-368:16#192169
+   MK hier_path(register_if[12].value[1+:1])@block_1.sv:356:42-356:78#295028
+RUNG	34	r=-5	vis=61212	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+#*i+#	FAM=constant|VpiDecompile|TEXT:#|#+#*i+#	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:385:40-385:45#296532
+   R  constant@:385:40-385:47#196898
+   G= "12"   O= "6+7*i+6"
+   PL constant@block_1.sv:385:40-385:45#296532 < bit_select(register_if)@block_1.sv:385:40-385:47#296533 < port(register_if)@rggen_default_register.sv:12:31-12:42#296300 < module_inst(u_register)@block_1.sv:374:11-387:13#431368 < gen_scope@block_1.sv:371:16-417:12#430757 < gen_scope_array(g_register_1)@block_1.sv:371:16-417:12#430756 < gen_scope@block_1.sv:261:14-418:10#418629 < gen_scope_array(g_register_file_0)@block_1.sv:261:14-418:10#418628
+   PR constant@:385:40-385:47#196898 < bit_select(register_if)@:385:40-385:47#196897 < port(register_if)@:12:31-12:42#196895 < module_inst(u_register)@block_1.sv:374:11-387:13#196853 < gen_scope@:371:16-417:12#196768 < gen_scope_array(g_register_1)@:371:16-417:12#196767 < gen_scope@:261:14-418:10#169162 < gen_scope_array(g_register_file_0)@:261:14-418:10#169161
+   MK constant@block_1.sv:385:40-385:45#296532
+RUNG	35	r=-5	vis=63951	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+#*i+#*j+k	FAM=constant|VpiDecompile|TEXT:#|#+#*i+#*j+k	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:280:44-280:53#300091
+   R  constant@:280:44-280:55#199441
+   G= "13"   O= "6+7*i+3*j+k"
+   PL constant@block_1.sv:280:44-280:53#300091 < bit_select(register_if)@block_1.sv:280:44-280:55#300092 < port(register_if)@rggen_default_register.sv:12:31-12:42#299853 < module_inst(u_register)@block_1.sv:269:15-282:17#432459 < gen_scope@block_1.sv:266:35-368:16#432153 < gen_scope_array(g[0])@block_1.sv:266:35-368:16#432152 < gen_scope@block_1.sv:265:33-369:14#432148 < gen_scope_array(g[0])@block_1.sv:265:33-369:14#432147
+   PR constant@:280:44-280:55#199441 < bit_select(register_if)@:280:44-280:55#199440 < port(register_if)@:12:31-12:42#199438 < module_inst(u_register)@block_1.sv:269:15-282:17#199396 < gen_scope@:266:35-368:16#199309 < gen_scope_array(g[0])@:266:35-368:16#199308 < gen_scope@:265:33-369:14#199305 < gen_scope_array(g[0])@:265:33-369:14#199304
+   MK constant@block_1.sv:280:44-280:53#300091
+RUNG	36	r=9	vis=64520	masklvl=0	masked=6	cands=64	KINDL=constant	KINDR=constant	KINDP=param_assign	FIELD=VpiDecompile	SHAPE=O-EXTRA-PREFIX(-)	FAM=constant|VpiDecompile|O-EXTRA-PREFIX(-)	FAM2=constant|VpiDecompile
+   L  constant@rggen_register_common.sv:33:59-34:93#300581
+   R  constant@:33:59-34:93#199977
+   G= "64"   O= "-64"
+   PL constant@rggen_register_common.sv:33:59-34:93#300581 < param_assign@rggen_register_common.sv:33:43-34:93#300580 < gen_scope@rggen_register_common.sv:32:31-49:8#432658 < gen_scope_array(g_decoder[0])@rggen_register_common.sv:32:31-49:8#432657 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#432504 < module_inst(u_register)@block_1.sv:269:15-282:17#432459 < gen_scope@block_1.sv:266:35-368:16#432153 < gen_scope_array(g[0])@block_1.sv:266:35-368:16#432152
+   PR constant@:33:59-34:93#199977 < param_assign@:33:43-34:93#199976 < gen_scope@:32:31-49:8#199973 < gen_scope_array(g_decoder[0])@:32:31-49:8#199972 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#199577 < module_inst(u_register)@block_1.sv:269:15-282:17#199396 < gen_scope@:266:35-368:16#199309 < gen_scope_array(g[0])@:266:35-368:16#199308
+   MK constant@rggen_register_common.sv:33:59-34:93#300581
+RUNG	37	r=-5	vis=68033	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#304967
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#203067
+   G= "register_if[19].value[0+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#304967 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#304683 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#433744 < gen_scope@block_1.sv:342:39-366:20#433706 < gen_scope_array(g[0])@block_1.sv:342:39-366:20#433705 < gen_scope@block_1.sv:340:22-367:18#433704 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#433703 < gen_scope@block_1.sv:266:35-368:16#432153
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#203067 < port(i_sw_write_enable)@:23:39-23:56#203065 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#202814 < gen_scope@:342:39-366:20#202722 < gen_scope_array(g[0])@:342:39-366:20#202721 < gen_scope@:340:22-367:18#202720 < gen_scope_array(g_bit_field_2)@:340:22-367:18#202719 < gen_scope@:266:35-368:16#199309
+   MK hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#304967
+RUNG	38	r=-5	vis=68671	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#305824
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#203660
+   G= "register_if[19].value[1+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#305824 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#305540 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#433977 < gen_scope@block_1.sv:342:39-366:20#433939 < gen_scope_array(g[1])@block_1.sv:342:39-366:20#433938 < gen_scope@block_1.sv:340:22-367:18#433704 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#433703 < gen_scope@block_1.sv:266:35-368:16#432153
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#203660 < port(i_sw_write_enable)@:23:39-23:56#203658 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#203407 < gen_scope@:342:39-366:20#203315 < gen_scope_array(g[1])@:342:39-366:20#203314 < gen_scope@:340:22-367:18#202720 < gen_scope_array(g_bit_field_2)@:340:22-367:18#202719 < gen_scope@:266:35-368:16#199309
+   MK hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#305824
+RUNG	39	r=-5	vis=68945	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+#*i+#*j+k	FAM=constant|VpiDecompile|TEXT:#|#+#*i+#*j+k	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:280:44-280:53#307038
+   R  constant@:280:44-280:55#204040
+   G= "14"   O= "6+7*i+3*j+k"
+   PL constant@block_1.sv:280:44-280:53#307038 < bit_select(register_if)@block_1.sv:280:44-280:55#307039 < port(register_if)@rggen_default_register.sv:12:31-12:42#306800 < module_inst(u_register)@block_1.sv:269:15-282:17#434478 < gen_scope@block_1.sv:266:35-368:16#434172 < gen_scope_array(g[1])@block_1.sv:266:35-368:16#434171 < gen_scope@block_1.sv:265:33-369:14#432148 < gen_scope_array(g[0])@block_1.sv:265:33-369:14#432147
+   PR constant@:280:44-280:55#204040 < bit_select(register_if)@:280:44-280:55#204039 < port(register_if)@:12:31-12:42#204037 < module_inst(u_register)@block_1.sv:269:15-282:17#203995 < gen_scope@:266:35-368:16#203908 < gen_scope_array(g[1])@:266:35-368:16#203907 < gen_scope@:265:33-369:14#199305 < gen_scope_array(g[0])@:265:33-369:14#199304
+   MK constant@block_1.sv:280:44-280:53#307038
+RUNG	40	r=9	vis=69514	masklvl=0	masked=6	cands=64	KINDL=constant	KINDR=constant	KINDP=param_assign	FIELD=VpiDecompile	SHAPE=TEXT:#|-#	FAM=constant|VpiDecompile|TEXT:#|-#	FAM2=constant|VpiDecompile
+   L  constant@rggen_register_common.sv:33:59-34:93#307528
+   R  constant@:33:59-34:93#204576
+   G= "68"   O= "-60"
+   PL constant@rggen_register_common.sv:33:59-34:93#307528 < param_assign@rggen_register_common.sv:33:43-34:93#307527 < gen_scope@rggen_register_common.sv:32:31-49:8#434677 < gen_scope_array(g_decoder[0])@rggen_register_common.sv:32:31-49:8#434676 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#434523 < module_inst(u_register)@block_1.sv:269:15-282:17#434478 < gen_scope@block_1.sv:266:35-368:16#434172 < gen_scope_array(g[1])@block_1.sv:266:35-368:16#434171
+   PR constant@:33:59-34:93#204576 < param_assign@:33:43-34:93#204575 < gen_scope@:32:31-49:8#204572 < gen_scope_array(g_decoder[0])@:32:31-49:8#204571 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#204176 < module_inst(u_register)@block_1.sv:269:15-282:17#203995 < gen_scope@:266:35-368:16#203908 < gen_scope_array(g[1])@:266:35-368:16#203907
+   MK constant@rggen_register_common.sv:33:59-34:93#307528
+RUNG	41	r=-5	vis=73027	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#311914
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#207666
+   G= "register_if[19].value[0+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#311914 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#311630 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#435763 < gen_scope@block_1.sv:342:39-366:20#435725 < gen_scope_array(g[0])@block_1.sv:342:39-366:20#435724 < gen_scope@block_1.sv:340:22-367:18#435723 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#435722 < gen_scope@block_1.sv:266:35-368:16#434172
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#207666 < port(i_sw_write_enable)@:23:39-23:56#207664 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#207413 < gen_scope@:342:39-366:20#207321 < gen_scope_array(g[0])@:342:39-366:20#207320 < gen_scope@:340:22-367:18#207319 < gen_scope_array(g_bit_field_2)@:340:22-367:18#207318 < gen_scope@:266:35-368:16#203908
+   MK hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#311914
+RUNG	42	r=-5	vis=73665	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#312771
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#208259
+   G= "register_if[19].value[1+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#312771 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#312487 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#435996 < gen_scope@block_1.sv:342:39-366:20#435958 < gen_scope_array(g[1])@block_1.sv:342:39-366:20#435957 < gen_scope@block_1.sv:340:22-367:18#435723 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#435722 < gen_scope@block_1.sv:266:35-368:16#434172
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#208259 < port(i_sw_write_enable)@:23:39-23:56#208257 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#208006 < gen_scope@:342:39-366:20#207914 < gen_scope_array(g[1])@:342:39-366:20#207913 < gen_scope@:340:22-367:18#207319 < gen_scope_array(g_bit_field_2)@:340:22-367:18#207318 < gen_scope@:266:35-368:16#203908
+   MK hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#312771
+RUNG	43	r=-41615350	vis=73939	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+#*i+#*j+k	FAM=constant|VpiDecompile|TEXT:#|#+#*i+#*j+k	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:280:44-280:53#313985
+   R  constant@:280:44-280:55#208639
+   G= "15"   O= "6+7*i+3*j+k"
+   PL constant@block_1.sv:280:44-280:53#313985 < bit_select(register_if)@block_1.sv:280:44-280:55#313986 < port(register_if)@rggen_default_register.sv:12:31-12:42#313747 < module_inst(u_register)@block_1.sv:269:15-282:17#436497 < gen_scope@block_1.sv:266:35-368:16#436191 < gen_scope_array(g[2])@block_1.sv:266:35-368:16#436190 < gen_scope@block_1.sv:265:33-369:14#432148 < gen_scope_array(g[0])@block_1.sv:265:33-369:14#432147
+   PR constant@:280:44-280:55#208639 < bit_select(register_if)@:280:44-280:55#208638 < port(register_if)@:12:31-12:42#208636 < module_inst(u_register)@block_1.sv:269:15-282:17#208594 < gen_scope@:266:35-368:16#208507 < gen_scope_array(g[2])@:266:35-368:16#208506 < gen_scope@:265:33-369:14#199305 < gen_scope_array(g[0])@:265:33-369:14#199304
+   MK constant@block_1.sv:280:44-280:53#313985
+RUNG	44	r=10	vis=74508	masklvl=0	masked=6	cands=64	KINDL=constant	KINDR=constant	KINDP=param_assign	FIELD=VpiDecompile	SHAPE=TEXT:#|-#	FAM=constant|VpiDecompile|TEXT:#|-#	FAM2=constant|VpiDecompile
+   L  constant@rggen_register_common.sv:33:59-34:93#314475
+   R  constant@:33:59-34:93#209175
+   G= "72"   O= "-56"
+   PL constant@rggen_register_common.sv:33:59-34:93#314475 < param_assign@rggen_register_common.sv:33:43-34:93#314474 < gen_scope@rggen_register_common.sv:32:31-49:8#436696 < gen_scope_array(g_decoder[0])@rggen_register_common.sv:32:31-49:8#436695 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#436542 < module_inst(u_register)@block_1.sv:269:15-282:17#436497 < gen_scope@block_1.sv:266:35-368:16#436191 < gen_scope_array(g[2])@block_1.sv:266:35-368:16#436190
+   PR constant@:33:59-34:93#209175 < param_assign@:33:43-34:93#209174 < gen_scope@:32:31-49:8#209171 < gen_scope_array(g_decoder[0])@:32:31-49:8#209170 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#208775 < module_inst(u_register)@block_1.sv:269:15-282:17#208594 < gen_scope@:266:35-368:16#208507 < gen_scope_array(g[2])@:266:35-368:16#208506
+   MK constant@rggen_register_common.sv:33:59-34:93#314475
+RUNG	45	r=-5	vis=78021	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#318861
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#212265
+   G= "register_if[19].value[0+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#318861 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#318577 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#437782 < gen_scope@block_1.sv:342:39-366:20#437744 < gen_scope_array(g[0])@block_1.sv:342:39-366:20#437743 < gen_scope@block_1.sv:340:22-367:18#437742 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#437741 < gen_scope@block_1.sv:266:35-368:16#436191
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#212265 < port(i_sw_write_enable)@:23:39-23:56#212263 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#212012 < gen_scope@:342:39-366:20#211920 < gen_scope_array(g[0])@:342:39-366:20#211919 < gen_scope@:340:22-367:18#211918 < gen_scope_array(g_bit_field_2)@:340:22-367:18#211917 < gen_scope@:266:35-368:16#208507
+   MK hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#318861
+RUNG	46	r=-5	vis=78659	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#319718
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#212858
+   G= "register_if[19].value[1+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#319718 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#319434 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#438015 < gen_scope@block_1.sv:342:39-366:20#437977 < gen_scope_array(g[1])@block_1.sv:342:39-366:20#437976 < gen_scope@block_1.sv:340:22-367:18#437742 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#437741 < gen_scope@block_1.sv:266:35-368:16#436191
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#212858 < port(i_sw_write_enable)@:23:39-23:56#212856 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#212605 < gen_scope@:342:39-366:20#212513 < gen_scope_array(g[1])@:342:39-366:20#212512 < gen_scope@:340:22-367:18#211918 < gen_scope_array(g_bit_field_2)@:340:22-367:18#211917 < gen_scope@:266:35-368:16#208507
+   MK hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#319718
+RUNG	47	r=-5	vis=78938	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+#*i+#*j+k	FAM=constant|VpiDecompile|TEXT:#|#+#*i+#*j+k	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:280:44-280:53#320943
+   R  constant@:280:44-280:55#213242
+   G= "16"   O= "6+7*i+3*j+k"
+   PL constant@block_1.sv:280:44-280:53#320943 < bit_select(register_if)@block_1.sv:280:44-280:55#320944 < port(register_if)@rggen_default_register.sv:12:31-12:42#320705 < module_inst(u_register)@block_1.sv:269:15-282:17#438521 < gen_scope@block_1.sv:266:35-368:16#438215 < gen_scope_array(g[0])@block_1.sv:266:35-368:16#438214 < gen_scope@block_1.sv:265:33-369:14#438210 < gen_scope_array(g[1])@block_1.sv:265:33-369:14#438209
+   PR constant@:280:44-280:55#213242 < bit_select(register_if)@:280:44-280:55#213241 < port(register_if)@:12:31-12:42#213239 < module_inst(u_register)@block_1.sv:269:15-282:17#213197 < gen_scope@:266:35-368:16#213110 < gen_scope_array(g[0])@:266:35-368:16#213109 < gen_scope@:265:33-369:14#213106 < gen_scope_array(g[1])@:265:33-369:14#213105
+   MK constant@block_1.sv:280:44-280:53#320943
+RUNG	48	r=10	vis=79507	masklvl=0	masked=6	cands=64	KINDL=constant	KINDR=constant	KINDP=param_assign	FIELD=VpiDecompile	SHAPE=TEXT:#|-#	FAM=constant|VpiDecompile|TEXT:#|-#	FAM2=constant|VpiDecompile
+   L  constant@rggen_register_common.sv:33:59-34:93#321433
+   R  constant@:33:59-34:93#213778
+   G= "76"   O= "-52"
+   PL constant@rggen_register_common.sv:33:59-34:93#321433 < param_assign@rggen_register_common.sv:33:43-34:93#321432 < gen_scope@rggen_register_common.sv:32:31-49:8#438720 < gen_scope_array(g_decoder[0])@rggen_register_common.sv:32:31-49:8#438719 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#438566 < module_inst(u_register)@block_1.sv:269:15-282:17#438521 < gen_scope@block_1.sv:266:35-368:16#438215 < gen_scope_array(g[0])@block_1.sv:266:35-368:16#438214
+   PR constant@:33:59-34:93#213778 < param_assign@:33:43-34:93#213777 < gen_scope@:32:31-49:8#213774 < gen_scope_array(g_decoder[0])@:32:31-49:8#213773 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#213378 < module_inst(u_register)@block_1.sv:269:15-282:17#213197 < gen_scope@:266:35-368:16#213110 < gen_scope_array(g[0])@:266:35-368:16#213109
+   MK constant@rggen_register_common.sv:33:59-34:93#321433
+RUNG	49	r=-5	vis=83020	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#325819
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#216868
+   G= "register_if[19].value[0+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#325819 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#325535 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#439806 < gen_scope@block_1.sv:342:39-366:20#439768 < gen_scope_array(g[0])@block_1.sv:342:39-366:20#439767 < gen_scope@block_1.sv:340:22-367:18#439766 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#439765 < gen_scope@block_1.sv:266:35-368:16#438215
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#216868 < port(i_sw_write_enable)@:23:39-23:56#216866 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#216615 < gen_scope@:342:39-366:20#216523 < gen_scope_array(g[0])@:342:39-366:20#216522 < gen_scope@:340:22-367:18#216521 < gen_scope_array(g_bit_field_2)@:340:22-367:18#216520 < gen_scope@:266:35-368:16#213110
+   MK hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#325819
+RUNG	50	r=-5	vis=83658	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#326676
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#217461
+   G= "register_if[19].value[1+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#326676 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#326392 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#440039 < gen_scope@block_1.sv:342:39-366:20#440001 < gen_scope_array(g[1])@block_1.sv:342:39-366:20#440000 < gen_scope@block_1.sv:340:22-367:18#439766 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#439765 < gen_scope@block_1.sv:266:35-368:16#438215
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#217461 < port(i_sw_write_enable)@:23:39-23:56#217459 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#217208 < gen_scope@:342:39-366:20#217116 < gen_scope_array(g[1])@:342:39-366:20#217115 < gen_scope@:340:22-367:18#216521 < gen_scope_array(g_bit_field_2)@:340:22-367:18#216520 < gen_scope@:266:35-368:16#213110
+   MK hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#326676
+RUNG	51	r=-5	vis=83932	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+#*i+#*j+k	FAM=constant|VpiDecompile|TEXT:#|#+#*i+#*j+k	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:280:44-280:53#327890
+   R  constant@:280:44-280:55#217841
+   G= "17"   O= "6+7*i+3*j+k"
+   PL constant@block_1.sv:280:44-280:53#327890 < bit_select(register_if)@block_1.sv:280:44-280:55#327891 < port(register_if)@rggen_default_register.sv:12:31-12:42#327652 < module_inst(u_register)@block_1.sv:269:15-282:17#440540 < gen_scope@block_1.sv:266:35-368:16#440234 < gen_scope_array(g[1])@block_1.sv:266:35-368:16#440233 < gen_scope@block_1.sv:265:33-369:14#438210 < gen_scope_array(g[1])@block_1.sv:265:33-369:14#438209
+   PR constant@:280:44-280:55#217841 < bit_select(register_if)@:280:44-280:55#217840 < port(register_if)@:12:31-12:42#217838 < module_inst(u_register)@block_1.sv:269:15-282:17#217796 < gen_scope@:266:35-368:16#217709 < gen_scope_array(g[1])@:266:35-368:16#217708 < gen_scope@:265:33-369:14#213106 < gen_scope_array(g[1])@:265:33-369:14#213105
+   MK constant@block_1.sv:280:44-280:53#327890
+RUNG	52	r=11	vis=84501	masklvl=0	masked=6	cands=64	KINDL=constant	KINDR=constant	KINDP=param_assign	FIELD=VpiDecompile	SHAPE=TEXT:#|-#	FAM=constant|VpiDecompile|TEXT:#|-#	FAM2=constant|VpiDecompile
+   L  constant@rggen_register_common.sv:33:59-34:93#328380
+   R  constant@:33:59-34:93#218377
+   G= "80"   O= "-48"
+   PL constant@rggen_register_common.sv:33:59-34:93#328380 < param_assign@rggen_register_common.sv:33:43-34:93#328379 < gen_scope@rggen_register_common.sv:32:31-49:8#440739 < gen_scope_array(g_decoder[0])@rggen_register_common.sv:32:31-49:8#440738 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#440585 < module_inst(u_register)@block_1.sv:269:15-282:17#440540 < gen_scope@block_1.sv:266:35-368:16#440234 < gen_scope_array(g[1])@block_1.sv:266:35-368:16#440233
+   PR constant@:33:59-34:93#218377 < param_assign@:33:43-34:93#218376 < gen_scope@:32:31-49:8#218373 < gen_scope_array(g_decoder[0])@:32:31-49:8#218372 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#217977 < module_inst(u_register)@block_1.sv:269:15-282:17#217796 < gen_scope@:266:35-368:16#217709 < gen_scope_array(g[1])@:266:35-368:16#217708
+   MK constant@rggen_register_common.sv:33:59-34:93#328380
+RUNG	53	r=-5	vis=88014	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#332766
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#221467
+   G= "register_if[19].value[0+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#332766 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#332482 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#441825 < gen_scope@block_1.sv:342:39-366:20#441787 < gen_scope_array(g[0])@block_1.sv:342:39-366:20#441786 < gen_scope@block_1.sv:340:22-367:18#441785 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#441784 < gen_scope@block_1.sv:266:35-368:16#440234
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#221467 < port(i_sw_write_enable)@:23:39-23:56#221465 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#221214 < gen_scope@:342:39-366:20#221122 < gen_scope_array(g[0])@:342:39-366:20#221121 < gen_scope@:340:22-367:18#221120 < gen_scope_array(g_bit_field_2)@:340:22-367:18#221119 < gen_scope@:266:35-368:16#217709
+   MK hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#332766
+RUNG	54	r=-5	vis=88652	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#333623
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#222060
+   G= "register_if[19].value[1+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#333623 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#333339 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#442058 < gen_scope@block_1.sv:342:39-366:20#442020 < gen_scope_array(g[1])@block_1.sv:342:39-366:20#442019 < gen_scope@block_1.sv:340:22-367:18#441785 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#441784 < gen_scope@block_1.sv:266:35-368:16#440234
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#222060 < port(i_sw_write_enable)@:23:39-23:56#222058 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#221807 < gen_scope@:342:39-366:20#221715 < gen_scope_array(g[1])@:342:39-366:20#221714 < gen_scope@:340:22-367:18#221120 < gen_scope_array(g_bit_field_2)@:340:22-367:18#221119 < gen_scope@:266:35-368:16#217709
+   MK hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#333623
+RUNG	55	r=-5	vis=88926	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+#*i+#*j+k	FAM=constant|VpiDecompile|TEXT:#|#+#*i+#*j+k	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:280:44-280:53#334837
+   R  constant@:280:44-280:55#222440
+   G= "18"   O= "6+7*i+3*j+k"
+   PL constant@block_1.sv:280:44-280:53#334837 < bit_select(register_if)@block_1.sv:280:44-280:55#334838 < port(register_if)@rggen_default_register.sv:12:31-12:42#334599 < module_inst(u_register)@block_1.sv:269:15-282:17#442559 < gen_scope@block_1.sv:266:35-368:16#442253 < gen_scope_array(g[2])@block_1.sv:266:35-368:16#442252 < gen_scope@block_1.sv:265:33-369:14#438210 < gen_scope_array(g[1])@block_1.sv:265:33-369:14#438209
+   PR constant@:280:44-280:55#222440 < bit_select(register_if)@:280:44-280:55#222439 < port(register_if)@:12:31-12:42#222437 < module_inst(u_register)@block_1.sv:269:15-282:17#222395 < gen_scope@:266:35-368:16#222308 < gen_scope_array(g[2])@:266:35-368:16#222307 < gen_scope@:265:33-369:14#213106 < gen_scope_array(g[1])@:265:33-369:14#213105
+   MK constant@block_1.sv:280:44-280:53#334837
+RUNG	56	r=11	vis=89495	masklvl=0	masked=6	cands=64	KINDL=constant	KINDR=constant	KINDP=param_assign	FIELD=VpiDecompile	SHAPE=TEXT:#|-#	FAM=constant|VpiDecompile|TEXT:#|-#	FAM2=constant|VpiDecompile
+   L  constant@rggen_register_common.sv:33:59-34:93#335327
+   R  constant@:33:59-34:93#222976
+   G= "84"   O= "-44"
+   PL constant@rggen_register_common.sv:33:59-34:93#335327 < param_assign@rggen_register_common.sv:33:43-34:93#335326 < gen_scope@rggen_register_common.sv:32:31-49:8#442758 < gen_scope_array(g_decoder[0])@rggen_register_common.sv:32:31-49:8#442757 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#442604 < module_inst(u_register)@block_1.sv:269:15-282:17#442559 < gen_scope@block_1.sv:266:35-368:16#442253 < gen_scope_array(g[2])@block_1.sv:266:35-368:16#442252
+   PR constant@:33:59-34:93#222976 < param_assign@:33:43-34:93#222975 < gen_scope@:32:31-49:8#222972 < gen_scope_array(g_decoder[0])@:32:31-49:8#222971 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#222576 < module_inst(u_register)@block_1.sv:269:15-282:17#222395 < gen_scope@:266:35-368:16#222308 < gen_scope_array(g[2])@:266:35-368:16#222307
+   MK constant@rggen_register_common.sv:33:59-34:93#335327
+RUNG	57	r=-5	vis=93008	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#339713
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#226066
+   G= "register_if[19].value[0+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#339713 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#339429 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#443844 < gen_scope@block_1.sv:342:39-366:20#443806 < gen_scope_array(g[0])@block_1.sv:342:39-366:20#443805 < gen_scope@block_1.sv:340:22-367:18#443804 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#443803 < gen_scope@block_1.sv:266:35-368:16#442253
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#226066 < port(i_sw_write_enable)@:23:39-23:56#226064 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#225813 < gen_scope@:342:39-366:20#225721 < gen_scope_array(g[0])@:342:39-366:20#225720 < gen_scope@:340:22-367:18#225719 < gen_scope_array(g_bit_field_2)@:340:22-367:18#225718 < gen_scope@:266:35-368:16#222308
+   MK hier_path(register_if[19].value[0+:1])@block_1.sv:356:42-356:78#339713
+RUNG	58	r=-5	vis=93646	masklvl=0	masked=6	cands=64	KINDL=hier_path	KINDR=hier_path	KINDP=port	FIELD=VpiName	SHAPE=TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM=hier_path|VpiName|TEXT:register_if[#].value[#+:#]|register_if[#+#*i+#].value[# + # * l+:#]	FAM2=hier_path|VpiName
+   L  hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#340570
+   R  hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#226659
+   G= "register_if[19].value[1+:1]"   O= "register_if[6+7*i+6].value[0 + 1 * l+:1]"
+   PL hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#340570 < port(i_sw_write_enable)@rggen_bit_field.sv:23:39-23:56#340286 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#444077 < gen_scope@block_1.sv:342:39-366:20#444039 < gen_scope_array(g[1])@block_1.sv:342:39-366:20#444038 < gen_scope@block_1.sv:340:22-367:18#443804 < gen_scope_array(g_bit_field_2)@block_1.sv:340:22-367:18#443803 < gen_scope@block_1.sv:266:35-368:16#442253
+   PR hier_path(register_if[6+7*i+6].value[0 + 1 * l+:1])@:356:42-356:78#226659 < port(i_sw_write_enable)@:23:39-23:56#226657 < module_inst(u_bit_field)@block_1.sv:346:19-365:21#226406 < gen_scope@:342:39-366:20#226314 < gen_scope_array(g[1])@:342:39-366:20#226313 < gen_scope@:340:22-367:18#225719 < gen_scope_array(g_bit_field_2)@:340:22-367:18#225718 < gen_scope@:266:35-368:16#222308
+   MK hier_path(register_if[19].value[1+:1])@block_1.sv:356:42-356:78#340570
+RUNG	59	r=-5	vis=93917	masklvl=0	masked=1	cands=64	KINDL=constant	KINDR=constant	KINDP=bit_select	FIELD=VpiDecompile	SHAPE=TEXT:#|#+#*i+#	FAM=constant|VpiDecompile|TEXT:#|#+#*i+#	FAM2=constant|VpiDecompile
+   L  constant@block_1.sv:385:40-385:45#342074
+   R  constant@:385:40-385:47#227037
+   G= "19"   O= "6+7*i+6"
+   PL constant@block_1.sv:385:40-385:45#342074 < bit_select(register_if)@block_1.sv:385:40-385:47#342075 < port(register_if)@rggen_default_register.sv:12:31-12:42#341842 < module_inst(u_register)@block_1.sv:374:11-387:13#444883 < gen_scope@block_1.sv:371:16-417:12#444272 < gen_scope_array(g_register_1)@block_1.sv:371:16-417:12#444271 < gen_scope@block_1.sv:261:14-418:10#432144 < gen_scope_array(g_register_file_0)@block_1.sv:261:14-418:10#432143
+   PR constant@:385:40-385:47#227037 < bit_select(register_if)@:385:40-385:47#227036 < port(register_if)@:12:31-12:42#227034 < module_inst(u_register)@block_1.sv:374:11-387:13#226992 < gen_scope@:371:16-417:12#226907 < gen_scope_array(g_register_1)@:371:16-417:12#226906 < gen_scope@:261:14-418:10#199301 < gen_scope_array(g_register_file_0)@:261:14-418:10#199300
+   MK constant@block_1.sv:385:40-385:45#342074
+RUNG	60	r=11	vis=94486	masklvl=0	masked=6	cands=64	KINDL=constant	KINDR=constant	KINDP=param_assign	FIELD=VpiDecompile	SHAPE=TEXT:#|-#	FAM=constant|VpiDecompile|TEXT:#|-#	FAM2=constant|VpiDecompile
+   L  constant@rggen_register_common.sv:33:59-34:93#342564
+   R  constant@:33:59-34:93#227570
+   G= "88"   O= "-40"
+   PL constant@rggen_register_common.sv:33:59-34:93#342564 < param_assign@rggen_register_common.sv:33:43-34:93#342563 < gen_scope@rggen_register_common.sv:32:31-49:8#445082 < gen_scope_array(g_decoder[0])@rggen_register_common.sv:32:31-49:8#445081 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#444928 < module_inst(u_register)@block_1.sv:374:11-387:13#444883 < gen_scope@block_1.sv:371:16-417:12#444272 < gen_scope_array(g_register_1)@block_1.sv:371:16-417:12#444271
+   PR constant@:33:59-34:93#227570 < param_assign@:33:43-34:93#227569 < gen_scope@:32:31-49:8#227566 < gen_scope_array(g_decoder[0])@:32:31-49:8#227565 < module_inst(u_register_common)@rggen_default_register.sv:15:3-29:5#227173 < module_inst(u_register)@block_1.sv:374:11-387:13#226992 < gen_scope@:371:16-417:12#226907 < gen_scope_array(g_register_1)@:371:16-417:12#226906
+   MK constant@rggen_register_common.sv:33:59-34:93#342564
+[S] rungs=60 stop=FIXPOINT escalated=0 ref_joins=0 nofield=0 maxvis=94486/252296 masks=60 cascades=3 suppressed=241318/252296 secs=6.0

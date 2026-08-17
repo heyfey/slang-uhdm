@@ -1,0 +1,4 @@
+module top_e2_4_2;
+  rggen_or_reducer #(.WIDTH(2), .N(4)) u00 (.i_data(), .o_result());
+  rggen_or_reducer #(.WIDTH(2), .N(2)) u01 (.i_data(), .o_result());
+endmodule

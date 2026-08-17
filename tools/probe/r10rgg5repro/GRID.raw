@@ -1,0 +1,1873 @@
+== a1_25 GOLD : 3 get_next_n calls
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_a1_25.u00
+   66:10      constant   400    <397z>100                work@top_a1_25.u00.next_data
+== a1_25 BASE : 9 get_next_n calls
+     3  site=66:10      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a1_25.u00
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a1_25.u00.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_a1_25.u00.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_a1_25.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a1_25.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a1_25.u00.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a1_25.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a1_25.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a1_25 PAT : 9 get_next_n calls
+     3  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<398z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_a1_25.u00
+   91:18      constant   400    <397z>100                work@top_a1_25.u00.g_reduce
+   64:47      constant   400    <398z>11                 work@top_a1_25.u00.g_reduce.u_reducer
+   91:18      constant   400    <398z>11                 work@top_a1_25.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>10                 work@top_a1_25.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   400    <397z>100                work@top_a1_25.u00.next_data
+   66:10      constant   400    <397z>100                work@top_a1_25.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_a1_25.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a2_25x2 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=66:10      arg=constant   size=400   ct=3   dec=<398z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_a2_25x2.u00
+   64:47      constant   400    <398z>11                 work@top_a2_25x2.u01
+   66:10      constant   400    <397z>100                work@top_a2_25x2.u00.next_data
+   66:10      constant   400    <398z>11                 work@top_a2_25x2.u01.next_data
+== a2_25x2 BASE : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     2  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     2  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a2_25x2.u00
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a2_25x2.u00.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_a2_25x2.u00.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_a2_25x2.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a2_25x2.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a2_25x2.u01
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a2_25x2.u01.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_a2_25x2.u01.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_a2_25x2.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a2_25x2.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a2_25x2.u00.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a2_25x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a2_25x2.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a2_25x2.u01.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a2_25x2.u01.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a2_25x2.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a2_25x2 PAT : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     2  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     2  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+     2  site=64:47      arg=constant   size=400   ct=3   dec=<398z>11
+     2  site=91:18      arg=constant   size=400   ct=3   dec=<397z>100
+     2  site=91:18      arg=constant   size=400   ct=3   dec=<398z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_a2_25x2.u00
+   91:18      constant   400    <397z>100                work@top_a2_25x2.u00.g_reduce
+   64:47      constant   400    <398z>11                 work@top_a2_25x2.u00.g_reduce.u_reducer
+   91:18      constant   400    <398z>11                 work@top_a2_25x2.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>10                 work@top_a2_25x2.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   400    <397z>100                work@top_a2_25x2.u01
+   91:18      constant   400    <397z>100                work@top_a2_25x2.u01.g_reduce
+   64:47      constant   400    <398z>11                 work@top_a2_25x2.u01.g_reduce.u_reducer
+   91:18      constant   400    <398z>11                 work@top_a2_25x2.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>10                 work@top_a2_25x2.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   400    <397z>100                work@top_a2_25x2.u00.next_data
+   66:10      constant   400    <397z>100                work@top_a2_25x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_a2_25x2.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_a2_25x2.u01.next_data
+   66:10      constant   400    <397z>100                work@top_a2_25x2.u01.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_a2_25x2.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a3_25_2 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=66:10      arg=constant   size=400   ct=3   dec=<398z>10
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_a3_25_2.u00
+   64:47      constant   400    <398z>10                 work@top_a3_25_2.u01
+   66:10      constant   400    <397z>100                work@top_a3_25_2.u00.next_data
+   66:10      constant   400    <398z>10                 work@top_a3_25_2.u01.next_data
+== a3_25_2 BASE : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a3_25_2.u00
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a3_25_2.u00.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_a3_25_2.u00.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_a3_25_2.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a3_25_2.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   32     <30z>10                  work@top_a3_25_2.u01
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a3_25_2.u00.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a3_25_2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a3_25_2.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a3_25_2.u01.next_data
+== a3_25_2 PAT : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     2  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<398z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_a3_25_2.u00
+   91:18      constant   400    <397z>100                work@top_a3_25_2.u00.g_reduce
+   64:47      constant   400    <398z>11                 work@top_a3_25_2.u00.g_reduce.u_reducer
+   91:18      constant   400    <398z>11                 work@top_a3_25_2.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>10                 work@top_a3_25_2.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   400    <398z>10                 work@top_a3_25_2.u01
+   66:10      constant   400    <397z>100                work@top_a3_25_2.u00.next_data
+   66:10      constant   400    <397z>100                work@top_a3_25_2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_a3_25_2.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_a3_25_2.u01.next_data
+== a4_2_25 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<29z>100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=32    ct=3   dec=<29z>100
+     1  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_a4_2_25.u00
+   64:47      constant   32     <29z>100                 work@top_a4_2_25.u01
+   66:10      constant   32     <30z>10                  work@top_a4_2_25.u00.next_data
+   66:10      constant   32     <29z>100                 work@top_a4_2_25.u01.next_data
+== a4_2_25 BASE : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_a4_2_25.u00
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a4_2_25.u01
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a4_2_25.u01.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_a4_2_25.u01.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_a4_2_25.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a4_2_25.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   32     <30z>10                  work@top_a4_2_25.u00.next_data
+   66:10      constant   32     <30z>10                  work@top_a4_2_25.u01.next_data
+   66:10      constant   32     <30z>10                  work@top_a4_2_25.u01.g_reduce.u_reducer.next_data
+   66:10      constant   32     <30z>10                  work@top_a4_2_25.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a4_2_25 PAT : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<29z>100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=32    ct=3   dec=<29z>100
+     1  site=91:18      arg=constant   size=32    ct=3   dec=<30z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_a4_2_25.u00
+   64:47      constant   32     <29z>100                 work@top_a4_2_25.u01
+   91:18      constant   32     <29z>100                 work@top_a4_2_25.u01.g_reduce
+   64:47      constant   32     <30z>11                  work@top_a4_2_25.u01.g_reduce.u_reducer
+   91:18      constant   32     <30z>11                  work@top_a4_2_25.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a4_2_25.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   32     <30z>10                  work@top_a4_2_25.u00.next_data
+   66:10      constant   32     <30z>10                  work@top_a4_2_25.u01.next_data
+   66:10      constant   32     <30z>10                  work@top_a4_2_25.u01.g_reduce.u_reducer.next_data
+   66:10      constant   32     <30z>10                  work@top_a4_2_25.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a5_20_25 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=320   ct=3   dec=<318z>11
+     1  site=64:47      arg=func_call  size=None  ct=None dec=-
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=320   ct=3   dec=<318z>11
+     1  site=66:10      arg=func_call  size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      func_call  -      -                        work@top_a5_20_25.u00
+   64:47      constant   320    <318z>11                 work@top_a5_20_25.u01
+   66:10      func_call  -      -                        work@top_a5_20_25.u00.next_data
+   66:10      constant   320    <318z>11                 work@top_a5_20_25.u01.next_data
+== a5_20_25 BASE : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=320   ct=3   dec=<253z>1000000000000000100000000000000010000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=320   ct=3   dec=<253z>1000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=320   ct=3   dec=<253z>1000000000000000100000000000000010000000000000001000000000000000100
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=91:18      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a5_20_25.u00
+   91:18      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a5_20_25.u00.g_reduce
+   64:47      constant   80     <62z>110000000000000010  work@top_a5_20_25.u00.g_reduce.u_reducer
+   91:18      constant   80     <62z>110000000000000010  work@top_a5_20_25.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a5_20_25.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a5_20_25.u01
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a5_20_25.u01.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_a5_20_25.u01.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_a5_20_25.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a5_20_25.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a5_20_25.u00.next_data
+   66:10      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a5_20_25.u00.g_reduce.u_reducer.next_data
+   66:10      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a5_20_25.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a5_20_25.u01.next_data
+   66:10      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a5_20_25.u01.g_reduce.u_reducer.next_data
+   66:10      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a5_20_25.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a5_20_25 PAT : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=320   ct=3   dec=<317z>100
+     3  site=64:47      arg=constant   size=320   ct=3   dec=<318z>10
+     2  site=64:47      arg=constant   size=320   ct=3   dec=<317z>100
+     2  site=91:18      arg=constant   size=320   ct=3   dec=<317z>100
+     1  site=64:47      arg=constant   size=320   ct=3   dec=<318z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=320   ct=3   dec=<318z>10
+     1  site=91:18      arg=constant   size=320   ct=3   dec=<318z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   320    <317z>100                work@top_a5_20_25.u00
+   91:18      constant   320    <317z>100                work@top_a5_20_25.u00.g_reduce
+   64:47      constant   320    <318z>10                 work@top_a5_20_25.u00.g_reduce.u_reducer
+   91:18      constant   320    <318z>10                 work@top_a5_20_25.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   320    <318z>10                 work@top_a5_20_25.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   320    <317z>100                work@top_a5_20_25.u01
+   91:18      constant   320    <317z>100                work@top_a5_20_25.u01.g_reduce
+   64:47      constant   320    <318z>11                 work@top_a5_20_25.u01.g_reduce.u_reducer
+   91:18      constant   320    <318z>11                 work@top_a5_20_25.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   320    <318z>10                 work@top_a5_20_25.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   320    <317z>100                work@top_a5_20_25.u00.next_data
+   66:10      constant   320    <317z>100                work@top_a5_20_25.u00.g_reduce.u_reducer.next_data
+   66:10      constant   320    <317z>100                work@top_a5_20_25.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   320    <317z>100                work@top_a5_20_25.u01.next_data
+   66:10      constant   320    <317z>100                work@top_a5_20_25.u01.g_reduce.u_reducer.next_data
+   66:10      constant   320    <317z>100                work@top_a5_20_25.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a6_25_20 GOLD : 5 get_next_n calls
+     2  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     2  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_a6_25_20.u00
+   64:47      constant   400    <397z>100                work@top_a6_25_20.u01
+   66:10      constant   400    <397z>100                work@top_a6_25_20.u00.next_data
+   66:10      constant   400    <397z>100                work@top_a6_25_20.u01.next_data
+== a6_25_20 BASE : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=320   ct=3   dec=<253z>1000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=320   ct=3   dec=<253z>1000000000000000100000000000000010000000000000001000000000000000100
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=91:18      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a6_25_20.u00
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a6_25_20.u00.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_a6_25_20.u00.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_a6_25_20.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a6_25_20.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a6_25_20.u01
+   91:18      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a6_25_20.u01.g_reduce
+   64:47      constant   80     <62z>110000000000000010  work@top_a6_25_20.u01.g_reduce.u_reducer
+   91:18      constant   80     <62z>110000000000000010  work@top_a6_25_20.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a6_25_20.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a6_25_20.u00.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a6_25_20.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a6_25_20.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a6_25_20.u01.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a6_25_20.u01.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a6_25_20.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a6_25_20 PAT : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     3  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+     2  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     2  site=91:18      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<398z>10
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<398z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_a6_25_20.u00
+   91:18      constant   400    <397z>100                work@top_a6_25_20.u00.g_reduce
+   64:47      constant   400    <398z>11                 work@top_a6_25_20.u00.g_reduce.u_reducer
+   91:18      constant   400    <398z>11                 work@top_a6_25_20.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>10                 work@top_a6_25_20.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   400    <397z>100                work@top_a6_25_20.u01
+   91:18      constant   400    <397z>100                work@top_a6_25_20.u01.g_reduce
+   64:47      constant   400    <398z>10                 work@top_a6_25_20.u01.g_reduce.u_reducer
+   91:18      constant   400    <398z>10                 work@top_a6_25_20.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>10                 work@top_a6_25_20.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   400    <397z>100                work@top_a6_25_20.u00.next_data
+   66:10      constant   400    <397z>100                work@top_a6_25_20.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_a6_25_20.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_a6_25_20.u01.next_data
+   66:10      constant   400    <397z>100                work@top_a6_25_20.u01.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_a6_25_20.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a7_20x2 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=320   ct=3   dec=<317z>100
+     1  site=64:47      arg=func_call  size=None  ct=None dec=-
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=320   ct=3   dec=<317z>100
+     1  site=66:10      arg=func_call  size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      func_call  -      -                        work@top_a7_20x2.u00
+   64:47      constant   320    <317z>100                work@top_a7_20x2.u01
+   66:10      func_call  -      -                        work@top_a7_20x2.u00.next_data
+   66:10      constant   320    <317z>100                work@top_a7_20x2.u01.next_data
+== a7_20x2 BASE : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=320   ct=3   dec=<253z>1000000000000000100000000000000010000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=64:47      arg=constant   size=320   ct=3   dec=<253z>1000000000000000100000000000000010000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     2  site=91:18      arg=constant   size=320   ct=3   dec=<253z>1000000000000000100000000000000010000000000000001000000000000000100
+     2  site=91:18      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a7_20x2.u00
+   91:18      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a7_20x2.u00.g_reduce
+   64:47      constant   80     <62z>110000000000000010  work@top_a7_20x2.u00.g_reduce.u_reducer
+   91:18      constant   80     <62z>110000000000000010  work@top_a7_20x2.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a7_20x2.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a7_20x2.u01
+   91:18      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a7_20x2.u01.g_reduce
+   64:47      constant   80     <62z>110000000000000010  work@top_a7_20x2.u01.g_reduce.u_reducer
+   91:18      constant   80     <62z>110000000000000010  work@top_a7_20x2.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a7_20x2.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a7_20x2.u00.next_data
+   66:10      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a7_20x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a7_20x2.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a7_20x2.u01.next_data
+   66:10      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a7_20x2.u01.g_reduce.u_reducer.next_data
+   66:10      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a7_20x2.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a7_20x2 PAT : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=320   ct=3   dec=<317z>100
+     4  site=64:47      arg=constant   size=320   ct=3   dec=<318z>10
+     2  site=64:47      arg=constant   size=320   ct=3   dec=<317z>100
+     2  site=91:18      arg=constant   size=320   ct=3   dec=<317z>100
+     2  site=91:18      arg=constant   size=320   ct=3   dec=<318z>10
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   320    <317z>100                work@top_a7_20x2.u00
+   91:18      constant   320    <317z>100                work@top_a7_20x2.u00.g_reduce
+   64:47      constant   320    <318z>10                 work@top_a7_20x2.u00.g_reduce.u_reducer
+   91:18      constant   320    <318z>10                 work@top_a7_20x2.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   320    <318z>10                 work@top_a7_20x2.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   320    <317z>100                work@top_a7_20x2.u01
+   91:18      constant   320    <317z>100                work@top_a7_20x2.u01.g_reduce
+   64:47      constant   320    <318z>10                 work@top_a7_20x2.u01.g_reduce.u_reducer
+   91:18      constant   320    <318z>10                 work@top_a7_20x2.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   320    <318z>10                 work@top_a7_20x2.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   320    <317z>100                work@top_a7_20x2.u00.next_data
+   66:10      constant   320    <317z>100                work@top_a7_20x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   320    <317z>100                work@top_a7_20x2.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   320    <317z>100                work@top_a7_20x2.u01.next_data
+   66:10      constant   320    <317z>100                work@top_a7_20x2.u01.g_reduce.u_reducer.next_data
+   66:10      constant   320    <317z>100                work@top_a7_20x2.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a8_full GOLD : 27 get_next_n calls
+    11  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+    11  site=66:10      arg=constant   size=400   ct=3   dec=<398z>10
+     2  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     2  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_a8_full.u00
+   64:47      constant   400    <398z>10                 work@top_a8_full.u01
+   64:47      constant   400    <398z>10                 work@top_a8_full.u02
+   64:47      constant   400    <398z>10                 work@top_a8_full.u03
+   64:47      constant   400    <398z>10                 work@top_a8_full.u04
+   64:47      constant   400    <398z>10                 work@top_a8_full.u05
+   64:47      constant   400    <398z>10                 work@top_a8_full.u06
+   64:47      constant   400    <398z>10                 work@top_a8_full.u07
+   64:47      constant   400    <398z>10                 work@top_a8_full.u08
+   64:47      constant   400    <398z>10                 work@top_a8_full.u09
+   64:47      constant   400    <398z>10                 work@top_a8_full.u10
+   64:47      constant   400    <398z>10                 work@top_a8_full.u11
+   64:47      constant   400    <397z>100                work@top_a8_full.u12
+   66:10      constant   400    <397z>100                work@top_a8_full.u00.next_data
+   66:10      constant   400    <398z>10                 work@top_a8_full.u01.next_data
+   66:10      constant   400    <398z>10                 work@top_a8_full.u02.next_data
+   66:10      constant   400    <398z>10                 work@top_a8_full.u03.next_data
+   66:10      constant   400    <398z>10                 work@top_a8_full.u04.next_data
+   66:10      constant   400    <398z>10                 work@top_a8_full.u05.next_data
+   66:10      constant   400    <398z>10                 work@top_a8_full.u06.next_data
+   66:10      constant   400    <398z>10                 work@top_a8_full.u07.next_data
+   66:10      constant   400    <398z>10                 work@top_a8_full.u08.next_data
+   66:10      constant   400    <398z>10                 work@top_a8_full.u09.next_data
+   66:10      constant   400    <398z>10                 work@top_a8_full.u10.next_data
+   66:10      constant   400    <398z>10                 work@top_a8_full.u11.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u12.next_data
+== a8_full BASE : 39 get_next_n calls
+    17  site=66:10      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+    13  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=320   ct=3   dec=<253z>1000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=320   ct=3   dec=<253z>1000000000000000100000000000000010000000000000001000000000000000100
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=91:18      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u00
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u00.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_a8_full.u00.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_a8_full.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a8_full.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   32     <30z>10                  work@top_a8_full.u01
+   64:47      constant   32     <30z>10                  work@top_a8_full.u02
+   64:47      constant   32     <30z>10                  work@top_a8_full.u03
+   64:47      constant   32     <30z>10                  work@top_a8_full.u04
+   64:47      constant   32     <30z>10                  work@top_a8_full.u05
+   64:47      constant   32     <30z>10                  work@top_a8_full.u06
+   64:47      constant   32     <30z>10                  work@top_a8_full.u07
+   64:47      constant   32     <30z>10                  work@top_a8_full.u08
+   64:47      constant   32     <30z>10                  work@top_a8_full.u09
+   64:47      constant   32     <30z>10                  work@top_a8_full.u10
+   64:47      constant   32     <30z>10                  work@top_a8_full.u11
+   64:47      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u12
+   91:18      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u12.g_reduce
+   64:47      constant   80     <62z>110000000000000010  work@top_a8_full.u12.g_reduce.u_reducer
+   91:18      constant   80     <62z>110000000000000010  work@top_a8_full.u12.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a8_full.u12.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u00.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u01.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u02.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u03.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u04.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u05.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u06.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u07.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u08.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u09.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u10.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u11.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u12.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u12.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_a8_full.u12.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a8_full PAT : 39 get_next_n calls
+    17  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+    14  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+     2  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     2  site=91:18      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<398z>10
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<398z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_a8_full.u00
+   91:18      constant   400    <397z>100                work@top_a8_full.u00.g_reduce
+   64:47      constant   400    <398z>11                 work@top_a8_full.u00.g_reduce.u_reducer
+   91:18      constant   400    <398z>11                 work@top_a8_full.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>10                 work@top_a8_full.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   400    <398z>10                 work@top_a8_full.u01
+   64:47      constant   400    <398z>10                 work@top_a8_full.u02
+   64:47      constant   400    <398z>10                 work@top_a8_full.u03
+   64:47      constant   400    <398z>10                 work@top_a8_full.u04
+   64:47      constant   400    <398z>10                 work@top_a8_full.u05
+   64:47      constant   400    <398z>10                 work@top_a8_full.u06
+   64:47      constant   400    <398z>10                 work@top_a8_full.u07
+   64:47      constant   400    <398z>10                 work@top_a8_full.u08
+   64:47      constant   400    <398z>10                 work@top_a8_full.u09
+   64:47      constant   400    <398z>10                 work@top_a8_full.u10
+   64:47      constant   400    <398z>10                 work@top_a8_full.u11
+   64:47      constant   400    <397z>100                work@top_a8_full.u12
+   91:18      constant   400    <397z>100                work@top_a8_full.u12.g_reduce
+   64:47      constant   400    <398z>10                 work@top_a8_full.u12.g_reduce.u_reducer
+   91:18      constant   400    <398z>10                 work@top_a8_full.u12.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>10                 work@top_a8_full.u12.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   400    <397z>100                work@top_a8_full.u00.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u01.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u02.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u03.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u04.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u05.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u06.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u07.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u08.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u09.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u10.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u11.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u12.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u12.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_a8_full.u12.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a9_2_20 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<29z>100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=32    ct=3   dec=<29z>100
+     1  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_a9_2_20.u00
+   64:47      constant   32     <29z>100                 work@top_a9_2_20.u01
+   66:10      constant   32     <30z>10                  work@top_a9_2_20.u00.next_data
+   66:10      constant   32     <29z>100                 work@top_a9_2_20.u01.next_data
+== a9_2_20 BASE : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=320   ct=3   dec=<253z>1000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=320   ct=3   dec=<253z>1000000000000000100000000000000010000000000000001000000000000000100
+     1  site=91:18      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_a9_2_20.u00
+   64:47      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a9_2_20.u01
+   91:18      constant   320    <253z>1000000000000000100000000000000010000000000000001000000000000000100 work@top_a9_2_20.u01.g_reduce
+   64:47      constant   80     <62z>110000000000000010  work@top_a9_2_20.u01.g_reduce.u_reducer
+   91:18      constant   80     <62z>110000000000000010  work@top_a9_2_20.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a9_2_20.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   32     <30z>10                  work@top_a9_2_20.u00.next_data
+   66:10      constant   32     <30z>10                  work@top_a9_2_20.u01.next_data
+   66:10      constant   32     <30z>10                  work@top_a9_2_20.u01.g_reduce.u_reducer.next_data
+   66:10      constant   32     <30z>10                  work@top_a9_2_20.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== a9_2_20 PAT : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+     3  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<29z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=32    ct=3   dec=<29z>100
+     1  site=91:18      arg=constant   size=32    ct=3   dec=<30z>10
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_a9_2_20.u00
+   64:47      constant   32     <29z>100                 work@top_a9_2_20.u01
+   91:18      constant   32     <29z>100                 work@top_a9_2_20.u01.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a9_2_20.u01.g_reduce.u_reducer
+   91:18      constant   32     <30z>10                  work@top_a9_2_20.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_a9_2_20.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   32     <30z>10                  work@top_a9_2_20.u00.next_data
+   66:10      constant   32     <30z>10                  work@top_a9_2_20.u01.next_data
+   66:10      constant   32     <30z>10                  work@top_a9_2_20.u01.g_reduce.u_reducer.next_data
+   66:10      constant   32     <30z>10                  work@top_a9_2_20.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== b1_2x2 GOLD : 5 get_next_n calls
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_b1_2x2.u00
+   64:47      constant   32     <30z>10                  work@top_b1_2x2.u01
+   66:10      constant   32     <30z>10                  work@top_b1_2x2.u00.next_data
+   66:10      constant   32     <30z>10                  work@top_b1_2x2.u01.next_data
+== b1_2x2 BASE : 5 get_next_n calls
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_b1_2x2.u00
+   64:47      constant   32     <30z>10                  work@top_b1_2x2.u01
+   66:10      constant   32     <30z>10                  work@top_b1_2x2.u00.next_data
+   66:10      constant   32     <30z>10                  work@top_b1_2x2.u01.next_data
+== b1_2x2 PAT : 5 get_next_n calls
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_b1_2x2.u00
+   64:47      constant   32     <30z>10                  work@top_b1_2x2.u01
+   66:10      constant   32     <30z>10                  work@top_b1_2x2.u00.next_data
+   66:10      constant   32     <30z>10                  work@top_b1_2x2.u01.next_data
+== b2_4x2 GOLD : 5 get_next_n calls
+     2  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     2  site=66:10      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   64     <61z>100                 work@top_b2_4x2.u00
+   64:47      constant   64     <61z>100                 work@top_b2_4x2.u01
+   66:10      constant   64     <61z>100                 work@top_b2_4x2.u00.next_data
+   66:10      constant   64     <61z>100                 work@top_b2_4x2.u01.next_data
+== b2_4x2 BASE : 5 get_next_n calls
+     2  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     2  site=66:10      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   64     <61z>100                 work@top_b2_4x2.u00
+   64:47      constant   64     <61z>100                 work@top_b2_4x2.u01
+   66:10      constant   64     <61z>100                 work@top_b2_4x2.u00.next_data
+   66:10      constant   64     <61z>100                 work@top_b2_4x2.u01.next_data
+== b2_4x2 PAT : 5 get_next_n calls
+     2  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     2  site=66:10      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   64     <61z>100                 work@top_b2_4x2.u00
+   64:47      constant   64     <61z>100                 work@top_b2_4x2.u01
+   66:10      constant   64     <61z>100                 work@top_b2_4x2.u00.next_data
+   66:10      constant   64     <61z>100                 work@top_b2_4x2.u01.next_data
+== b3_5x2 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<46z>1100000000000000000000000000000010
+     1  site=64:47      arg=func_call  size=None  ct=None dec=-
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=80    ct=3   dec=<46z>1100000000000000000000000000000010
+     1  site=66:10      arg=func_call  size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   80     <46z>1100000000000000000000000000000010 work@top_b3_5x2.u00
+   64:47      func_call  -      -                        work@top_b3_5x2.u01
+   66:10      constant   80     <46z>1100000000000000000000000000000010 work@top_b3_5x2.u00.next_data
+   66:10      func_call  -      -                        work@top_b3_5x2.u01.next_data
+== b3_5x2 BASE : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=64:47      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     2  site=91:18      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   80     <62z>110000000000000010  work@top_b3_5x2.u00
+   91:18      constant   80     <62z>110000000000000010  work@top_b3_5x2.u00.g_reduce
+   64:47      constant   32     <30z>10                  work@top_b3_5x2.u00.g_reduce.u_reducer
+   64:47      constant   80     <62z>110000000000000010  work@top_b3_5x2.u01
+   91:18      constant   80     <62z>110000000000000010  work@top_b3_5x2.u01.g_reduce
+   64:47      constant   32     <30z>10                  work@top_b3_5x2.u01.g_reduce.u_reducer
+   66:10      constant   80     <62z>110000000000000010  work@top_b3_5x2.u00.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_b3_5x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_b3_5x2.u01.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_b3_5x2.u01.g_reduce.u_reducer.next_data
+== b3_5x2 PAT : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=64:47      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     2  site=91:18      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   80     <62z>110000000000000010  work@top_b3_5x2.u00
+   91:18      constant   80     <62z>110000000000000010  work@top_b3_5x2.u00.g_reduce
+   64:47      constant   32     <30z>10                  work@top_b3_5x2.u00.g_reduce.u_reducer
+   64:47      constant   80     <62z>110000000000000010  work@top_b3_5x2.u01
+   91:18      constant   80     <62z>110000000000000010  work@top_b3_5x2.u01.g_reduce
+   64:47      constant   32     <30z>10                  work@top_b3_5x2.u01.g_reduce.u_reducer
+   66:10      constant   80     <62z>110000000000000010  work@top_b3_5x2.u00.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_b3_5x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_b3_5x2.u01.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_b3_5x2.u01.g_reduce.u_reducer.next_data
+== b4_6x2 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=96    ct=3   dec=<62z>1100000000000000000000000000000011
+     1  site=64:47      arg=func_call  size=None  ct=None dec=-
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=96    ct=3   dec=<62z>1100000000000000000000000000000011
+     1  site=66:10      arg=func_call  size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   96     <62z>1100000000000000000000000000000011 work@top_b4_6x2.u00
+   64:47      func_call  -      -                        work@top_b4_6x2.u01
+   66:10      constant   96     <62z>1100000000000000000000000000000011 work@top_b4_6x2.u00.next_data
+   66:10      func_call  -      -                        work@top_b4_6x2.u01.next_data
+== b4_6x2 BASE : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=96    ct=3   dec=<78z>110000000000000011
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=64:47      arg=constant   size=96    ct=3   dec=<78z>110000000000000011
+     2  site=91:18      arg=constant   size=96    ct=3   dec=<78z>110000000000000011
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   96     <78z>110000000000000011  work@top_b4_6x2.u00
+   91:18      constant   96     <78z>110000000000000011  work@top_b4_6x2.u00.g_reduce
+   64:47      constant   32     <30z>10                  work@top_b4_6x2.u00.g_reduce.u_reducer
+   64:47      constant   96     <78z>110000000000000011  work@top_b4_6x2.u01
+   91:18      constant   96     <78z>110000000000000011  work@top_b4_6x2.u01.g_reduce
+   64:47      constant   32     <30z>10                  work@top_b4_6x2.u01.g_reduce.u_reducer
+   66:10      constant   96     <78z>110000000000000011  work@top_b4_6x2.u00.next_data
+   66:10      constant   96     <78z>110000000000000011  work@top_b4_6x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   96     <78z>110000000000000011  work@top_b4_6x2.u01.next_data
+   66:10      constant   96     <78z>110000000000000011  work@top_b4_6x2.u01.g_reduce.u_reducer.next_data
+== b4_6x2 PAT : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=96    ct=3   dec=<78z>110000000000000011
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=64:47      arg=constant   size=96    ct=3   dec=<78z>110000000000000011
+     2  site=91:18      arg=constant   size=96    ct=3   dec=<78z>110000000000000011
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   96     <78z>110000000000000011  work@top_b4_6x2.u00
+   91:18      constant   96     <78z>110000000000000011  work@top_b4_6x2.u00.g_reduce
+   64:47      constant   32     <30z>10                  work@top_b4_6x2.u00.g_reduce.u_reducer
+   64:47      constant   96     <78z>110000000000000011  work@top_b4_6x2.u01
+   91:18      constant   96     <78z>110000000000000011  work@top_b4_6x2.u01.g_reduce
+   64:47      constant   32     <30z>10                  work@top_b4_6x2.u01.g_reduce.u_reducer
+   66:10      constant   96     <78z>110000000000000011  work@top_b4_6x2.u00.next_data
+   66:10      constant   96     <78z>110000000000000011  work@top_b4_6x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   96     <78z>110000000000000011  work@top_b4_6x2.u01.next_data
+   66:10      constant   96     <78z>110000000000000011  work@top_b4_6x2.u01.g_reduce.u_reducer.next_data
+== b5_9x2 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<141z>100
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<14z>1100000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=144   ct=3   dec=<141z>100
+     1  site=66:10      arg=constant   size=144   ct=3   dec=<14z>1100000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   144    <14z>1100000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000100 work@top_b5_9x2.u00
+   64:47      constant   144    <141z>100                work@top_b5_9x2.u01
+   66:10      constant   144    <14z>1100000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000100 work@top_b5_9x2.u00.next_data
+   66:10      constant   144    <141z>100                work@top_b5_9x2.u01.next_data
+== b5_9x2 BASE : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     2  site=64:47      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     2  site=64:47      arg=constant   size=48    ct=3   dec=<46z>11
+     2  site=91:18      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u00
+   91:18      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u00.g_reduce
+   64:47      constant   48     <46z>11                  work@top_b5_9x2.u00.g_reduce.u_reducer
+   64:47      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u01
+   91:18      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u01.g_reduce
+   64:47      constant   48     <46z>11                  work@top_b5_9x2.u01.g_reduce.u_reducer
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u00.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u01.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u01.g_reduce.u_reducer.next_data
+== b5_9x2 PAT : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     2  site=64:47      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     2  site=64:47      arg=constant   size=48    ct=3   dec=<46z>11
+     2  site=91:18      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u00
+   91:18      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u00.g_reduce
+   64:47      constant   48     <46z>11                  work@top_b5_9x2.u00.g_reduce.u_reducer
+   64:47      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u01
+   91:18      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u01.g_reduce
+   64:47      constant   48     <46z>11                  work@top_b5_9x2.u01.g_reduce.u_reducer
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u00.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u01.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_b5_9x2.u01.g_reduce.u_reducer.next_data
+== b6_13x2 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=208   ct=3   dec=<206z>11
+     1  site=64:47      arg=func_call  size=None  ct=None dec=-
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=208   ct=3   dec=<206z>11
+     1  site=66:10      arg=func_call  size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      func_call  -      -                        work@top_b6_13x2.u00
+   64:47      constant   208    <206z>11                 work@top_b6_13x2.u01
+   66:10      func_call  -      -                        work@top_b6_13x2.u00.next_data
+   66:10      constant   208    <206z>11                 work@top_b6_13x2.u01.next_data
+== b6_13x2 BASE : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=208   ct=3   dec=<158z>11000000000000001000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=208   ct=3   dec=<158z>11000000000000001000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     2  site=91:18      arg=constant   size=208   ct=3   dec=<158z>11000000000000001000000000000001000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   208    <158z>11000000000000001000000000000001000000000000000100 work@top_b6_13x2.u00
+   91:18      constant   208    <158z>11000000000000001000000000000001000000000000000100 work@top_b6_13x2.u00.g_reduce
+   64:47      constant   64     <61z>100                 work@top_b6_13x2.u00.g_reduce.u_reducer
+   64:47      constant   208    <158z>11000000000000001000000000000001000000000000000100 work@top_b6_13x2.u01
+   91:18      constant   208    <158z>11000000000000001000000000000001000000000000000100 work@top_b6_13x2.u01.g_reduce
+   64:47      constant   64     <61z>100                 work@top_b6_13x2.u01.g_reduce.u_reducer
+   66:10      constant   208    <158z>11000000000000001000000000000001000000000000000100 work@top_b6_13x2.u00.next_data
+   66:10      constant   208    <158z>11000000000000001000000000000001000000000000000100 work@top_b6_13x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   208    <158z>11000000000000001000000000000001000000000000000100 work@top_b6_13x2.u01.next_data
+   66:10      constant   208    <158z>11000000000000001000000000000001000000000000000100 work@top_b6_13x2.u01.g_reduce.u_reducer.next_data
+== b6_13x2 PAT : 11 get_next_n calls
+     4  site=64:47      arg=constant   size=208   ct=3   dec=<205z>100
+     4  site=66:10      arg=constant   size=208   ct=3   dec=<205z>100
+     2  site=91:18      arg=constant   size=208   ct=3   dec=<205z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   208    <205z>100                work@top_b6_13x2.u00
+   91:18      constant   208    <205z>100                work@top_b6_13x2.u00.g_reduce
+   64:47      constant   208    <205z>100                work@top_b6_13x2.u00.g_reduce.u_reducer
+   64:47      constant   208    <205z>100                work@top_b6_13x2.u01
+   91:18      constant   208    <205z>100                work@top_b6_13x2.u01.g_reduce
+   64:47      constant   208    <205z>100                work@top_b6_13x2.u01.g_reduce.u_reducer
+   66:10      constant   208    <205z>100                work@top_b6_13x2.u00.next_data
+   66:10      constant   208    <205z>100                work@top_b6_13x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   208    <205z>100                work@top_b6_13x2.u01.next_data
+   66:10      constant   208    <205z>100                work@top_b6_13x2.u01.g_reduce.u_reducer.next_data
+== b7_16x2 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=256   ct=3   dec=<253z>100
+     1  site=64:47      arg=func_call  size=None  ct=None dec=-
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=256   ct=3   dec=<253z>100
+     1  site=66:10      arg=func_call  size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      func_call  -      -                        work@top_b7_16x2.u00
+   64:47      constant   256    <253z>100                work@top_b7_16x2.u01
+   66:10      func_call  -      -                        work@top_b7_16x2.u00.next_data
+   66:10      constant   256    <253z>100                work@top_b7_16x2.u01.next_data
+== b7_16x2 BASE : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=256   ct=3   dec=<205z>100000000000000010000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=256   ct=3   dec=<205z>100000000000000010000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     2  site=91:18      arg=constant   size=256   ct=3   dec=<205z>100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   256    <205z>100000000000000010000000000000001000000000000000100 work@top_b7_16x2.u00
+   91:18      constant   256    <205z>100000000000000010000000000000001000000000000000100 work@top_b7_16x2.u00.g_reduce
+   64:47      constant   64     <61z>100                 work@top_b7_16x2.u00.g_reduce.u_reducer
+   64:47      constant   256    <205z>100000000000000010000000000000001000000000000000100 work@top_b7_16x2.u01
+   91:18      constant   256    <205z>100000000000000010000000000000001000000000000000100 work@top_b7_16x2.u01.g_reduce
+   64:47      constant   64     <61z>100                 work@top_b7_16x2.u01.g_reduce.u_reducer
+   66:10      constant   256    <205z>100000000000000010000000000000001000000000000000100 work@top_b7_16x2.u00.next_data
+   66:10      constant   256    <205z>100000000000000010000000000000001000000000000000100 work@top_b7_16x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   256    <205z>100000000000000010000000000000001000000000000000100 work@top_b7_16x2.u01.next_data
+   66:10      constant   256    <205z>100000000000000010000000000000001000000000000000100 work@top_b7_16x2.u01.g_reduce.u_reducer.next_data
+== b7_16x2 PAT : 11 get_next_n calls
+     4  site=64:47      arg=constant   size=256   ct=3   dec=<253z>100
+     4  site=66:10      arg=constant   size=256   ct=3   dec=<253z>100
+     2  site=91:18      arg=constant   size=256   ct=3   dec=<253z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   256    <253z>100                work@top_b7_16x2.u00
+   91:18      constant   256    <253z>100                work@top_b7_16x2.u00.g_reduce
+   64:47      constant   256    <253z>100                work@top_b7_16x2.u00.g_reduce.u_reducer
+   64:47      constant   256    <253z>100                work@top_b7_16x2.u01
+   91:18      constant   256    <253z>100                work@top_b7_16x2.u01.g_reduce
+   64:47      constant   256    <253z>100                work@top_b7_16x2.u01.g_reduce.u_reducer
+   66:10      constant   256    <253z>100                work@top_b7_16x2.u00.next_data
+   66:10      constant   256    <253z>100                work@top_b7_16x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   256    <253z>100                work@top_b7_16x2.u01.next_data
+   66:10      constant   256    <253z>100                work@top_b7_16x2.u01.g_reduce.u_reducer.next_data
+== b8_21x2 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=336   ct=3   dec=<334z>11
+     1  site=64:47      arg=func_call  size=None  ct=None dec=-
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=336   ct=3   dec=<334z>11
+     1  site=66:10      arg=func_call  size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      func_call  -      -                        work@top_b8_21x2.u00
+   64:47      constant   336    <334z>11                 work@top_b8_21x2.u01
+   66:10      func_call  -      -                        work@top_b8_21x2.u00.next_data
+   66:10      constant   336    <334z>11                 work@top_b8_21x2.u01.next_data
+== b8_21x2 BASE : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=336   ct=3   dec=<254z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=64:47      arg=constant   size=336   ct=3   dec=<254z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=96    ct=3   dec=<78z>110000000000000011
+     2  site=91:18      arg=constant   size=336   ct=3   dec=<254z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100
+     2  site=91:18      arg=constant   size=96    ct=3   dec=<78z>110000000000000011
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   336    <254z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100 work@top_b8_21x2.u00
+   91:18      constant   336    <254z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100 work@top_b8_21x2.u00.g_reduce
+   64:47      constant   96     <78z>110000000000000011  work@top_b8_21x2.u00.g_reduce.u_reducer
+   91:18      constant   96     <78z>110000000000000011  work@top_b8_21x2.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_b8_21x2.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   336    <254z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100 work@top_b8_21x2.u01
+   91:18      constant   336    <254z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100 work@top_b8_21x2.u01.g_reduce
+   64:47      constant   96     <78z>110000000000000011  work@top_b8_21x2.u01.g_reduce.u_reducer
+   91:18      constant   96     <78z>110000000000000011  work@top_b8_21x2.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_b8_21x2.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   336    <254z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100 work@top_b8_21x2.u00.next_data
+   66:10      constant   336    <254z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100 work@top_b8_21x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   336    <254z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100 work@top_b8_21x2.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   336    <254z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100 work@top_b8_21x2.u01.next_data
+   66:10      constant   336    <254z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100 work@top_b8_21x2.u01.g_reduce.u_reducer.next_data
+   66:10      constant   336    <254z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100 work@top_b8_21x2.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== b8_21x2 PAT : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=336   ct=3   dec=<333z>100
+     2  site=64:47      arg=constant   size=336   ct=3   dec=<333z>100
+     2  site=64:47      arg=constant   size=336   ct=3   dec=<334z>10
+     2  site=64:47      arg=constant   size=336   ct=3   dec=<334z>11
+     2  site=91:18      arg=constant   size=336   ct=3   dec=<333z>100
+     2  site=91:18      arg=constant   size=336   ct=3   dec=<334z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   336    <333z>100                work@top_b8_21x2.u00
+   91:18      constant   336    <333z>100                work@top_b8_21x2.u00.g_reduce
+   64:47      constant   336    <334z>11                 work@top_b8_21x2.u00.g_reduce.u_reducer
+   91:18      constant   336    <334z>11                 work@top_b8_21x2.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   336    <334z>10                 work@top_b8_21x2.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   336    <333z>100                work@top_b8_21x2.u01
+   91:18      constant   336    <333z>100                work@top_b8_21x2.u01.g_reduce
+   64:47      constant   336    <334z>11                 work@top_b8_21x2.u01.g_reduce.u_reducer
+   91:18      constant   336    <334z>11                 work@top_b8_21x2.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   336    <334z>10                 work@top_b8_21x2.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   336    <333z>100                work@top_b8_21x2.u00.next_data
+   66:10      constant   336    <333z>100                work@top_b8_21x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   336    <333z>100                work@top_b8_21x2.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   336    <333z>100                work@top_b8_21x2.u01.next_data
+   66:10      constant   336    <333z>100                work@top_b8_21x2.u01.g_reduce.u_reducer.next_data
+   66:10      constant   336    <333z>100                work@top_b8_21x2.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== b9_33x2 GOLD : 5 get_next_n calls
+     2  site=64:47      arg=constant   size=528   ct=3   dec=<526z>11
+     2  site=66:10      arg=constant   size=528   ct=3   dec=<526z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   528    <526z>11                 work@top_b9_33x2.u00
+   64:47      constant   528    <526z>11                 work@top_b9_33x2.u01
+   66:10      constant   528    <526z>11                 work@top_b9_33x2.u00.next_data
+   66:10      constant   528    <526z>11                 work@top_b9_33x2.u01.next_data
+== b9_33x2 BASE : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=528   ct=3   dec=<398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     2  site=64:47      arg=constant   size=48    ct=3   dec=<46z>11
+     2  site=64:47      arg=constant   size=528   ct=3   dec=<398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     2  site=91:18      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     2  site=91:18      arg=constant   size=528   ct=3   dec=<398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_b9_33x2.u00
+   91:18      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_b9_33x2.u00.g_reduce
+   64:47      constant   144    <110z>1100000000000000100000000000000100 work@top_b9_33x2.u00.g_reduce.u_reducer
+   91:18      constant   144    <110z>1100000000000000100000000000000100 work@top_b9_33x2.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   48     <46z>11                  work@top_b9_33x2.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_b9_33x2.u01
+   91:18      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_b9_33x2.u01.g_reduce
+   64:47      constant   144    <110z>1100000000000000100000000000000100 work@top_b9_33x2.u01.g_reduce.u_reducer
+   91:18      constant   144    <110z>1100000000000000100000000000000100 work@top_b9_33x2.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   48     <46z>11                  work@top_b9_33x2.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_b9_33x2.u00.next_data
+   66:10      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_b9_33x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_b9_33x2.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_b9_33x2.u01.next_data
+   66:10      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_b9_33x2.u01.g_reduce.u_reducer.next_data
+   66:10      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_b9_33x2.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== b9_33x2 PAT : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=528   ct=3   dec=<525z>100
+     4  site=64:47      arg=constant   size=528   ct=3   dec=<525z>100
+     4  site=91:18      arg=constant   size=528   ct=3   dec=<525z>100
+     2  site=64:47      arg=constant   size=528   ct=3   dec=<526z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   528    <525z>100                work@top_b9_33x2.u00
+   91:18      constant   528    <525z>100                work@top_b9_33x2.u00.g_reduce
+   64:47      constant   528    <525z>100                work@top_b9_33x2.u00.g_reduce.u_reducer
+   91:18      constant   528    <525z>100                work@top_b9_33x2.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   528    <526z>11                 work@top_b9_33x2.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   528    <525z>100                work@top_b9_33x2.u01
+   91:18      constant   528    <525z>100                work@top_b9_33x2.u01.g_reduce
+   64:47      constant   528    <525z>100                work@top_b9_33x2.u01.g_reduce.u_reducer
+   91:18      constant   528    <525z>100                work@top_b9_33x2.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   528    <526z>11                 work@top_b9_33x2.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   528    <525z>100                work@top_b9_33x2.u00.next_data
+   66:10      constant   528    <525z>100                work@top_b9_33x2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   528    <525z>100                work@top_b9_33x2.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   528    <525z>100                work@top_b9_33x2.u01.next_data
+   66:10      constant   528    <525z>100                work@top_b9_33x2.u01.g_reduce.u_reducer.next_data
+   66:10      constant   528    <525z>100                work@top_b9_33x2.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== c1_2_2_25 GOLD : 7 get_next_n calls
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     2  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<29z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=32    ct=3   dec=<29z>100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_c1_2_2_25.u00
+   64:47      constant   32     <30z>10                  work@top_c1_2_2_25.u01
+   64:47      constant   32     <29z>100                 work@top_c1_2_2_25.u02
+   66:10      constant   32     <30z>10                  work@top_c1_2_2_25.u00.next_data
+   66:10      constant   32     <30z>10                  work@top_c1_2_2_25.u01.next_data
+   66:10      constant   32     <29z>100                 work@top_c1_2_2_25.u02.next_data
+== c1_2_2_25 BASE : 13 get_next_n calls
+     5  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+     3  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_c1_2_2_25.u00
+   64:47      constant   32     <30z>10                  work@top_c1_2_2_25.u01
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c1_2_2_25.u02
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c1_2_2_25.u02.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_c1_2_2_25.u02.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_c1_2_2_25.u02.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_c1_2_2_25.u02.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   32     <30z>10                  work@top_c1_2_2_25.u00.next_data
+   66:10      constant   32     <30z>10                  work@top_c1_2_2_25.u01.next_data
+   66:10      constant   32     <30z>10                  work@top_c1_2_2_25.u02.next_data
+   66:10      constant   32     <30z>10                  work@top_c1_2_2_25.u02.g_reduce.u_reducer.next_data
+   66:10      constant   32     <30z>10                  work@top_c1_2_2_25.u02.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== c1_2_2_25 PAT : 13 get_next_n calls
+     5  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+     3  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<29z>100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=32    ct=3   dec=<29z>100
+     1  site=91:18      arg=constant   size=32    ct=3   dec=<30z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_c1_2_2_25.u00
+   64:47      constant   32     <30z>10                  work@top_c1_2_2_25.u01
+   64:47      constant   32     <29z>100                 work@top_c1_2_2_25.u02
+   91:18      constant   32     <29z>100                 work@top_c1_2_2_25.u02.g_reduce
+   64:47      constant   32     <30z>11                  work@top_c1_2_2_25.u02.g_reduce.u_reducer
+   91:18      constant   32     <30z>11                  work@top_c1_2_2_25.u02.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_c1_2_2_25.u02.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   32     <30z>10                  work@top_c1_2_2_25.u00.next_data
+   66:10      constant   32     <30z>10                  work@top_c1_2_2_25.u01.next_data
+   66:10      constant   32     <30z>10                  work@top_c1_2_2_25.u02.next_data
+   66:10      constant   32     <30z>10                  work@top_c1_2_2_25.u02.g_reduce.u_reducer.next_data
+   66:10      constant   32     <30z>10                  work@top_c1_2_2_25.u02.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== c2_25_2_2 GOLD : 7 get_next_n calls
+     2  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+     2  site=66:10      arg=constant   size=400   ct=3   dec=<398z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_c2_25_2_2.u00
+   64:47      constant   400    <398z>10                 work@top_c2_25_2_2.u01
+   64:47      constant   400    <398z>10                 work@top_c2_25_2_2.u02
+   66:10      constant   400    <397z>100                work@top_c2_25_2_2.u00.next_data
+   66:10      constant   400    <398z>10                 work@top_c2_25_2_2.u01.next_data
+   66:10      constant   400    <398z>10                 work@top_c2_25_2_2.u02.next_data
+== c2_25_2_2 BASE : 13 get_next_n calls
+     5  site=66:10      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     3  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c2_25_2_2.u00
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c2_25_2_2.u00.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_c2_25_2_2.u00.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_c2_25_2_2.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_c2_25_2_2.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   32     <30z>10                  work@top_c2_25_2_2.u01
+   64:47      constant   32     <30z>10                  work@top_c2_25_2_2.u02
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c2_25_2_2.u00.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c2_25_2_2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c2_25_2_2.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c2_25_2_2.u01.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c2_25_2_2.u02.next_data
+== c2_25_2_2 PAT : 13 get_next_n calls
+     5  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     3  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<398z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_c2_25_2_2.u00
+   91:18      constant   400    <397z>100                work@top_c2_25_2_2.u00.g_reduce
+   64:47      constant   400    <398z>11                 work@top_c2_25_2_2.u00.g_reduce.u_reducer
+   91:18      constant   400    <398z>11                 work@top_c2_25_2_2.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>10                 work@top_c2_25_2_2.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   400    <398z>10                 work@top_c2_25_2_2.u01
+   64:47      constant   400    <398z>10                 work@top_c2_25_2_2.u02
+   66:10      constant   400    <397z>100                work@top_c2_25_2_2.u00.next_data
+   66:10      constant   400    <397z>100                work@top_c2_25_2_2.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_c2_25_2_2.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_c2_25_2_2.u01.next_data
+   66:10      constant   400    <397z>100                work@top_c2_25_2_2.u02.next_data
+== c3_5_25 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<46z>1100000000000000000000000000000010
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<77z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=80    ct=3   dec=<46z>1100000000000000000000000000000010
+     1  site=66:10      arg=constant   size=80    ct=3   dec=<77z>100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   80     <46z>1100000000000000000000000000000010 work@top_c3_5_25.u00
+   64:47      constant   80     <77z>100                 work@top_c3_5_25.u01
+   66:10      constant   80     <46z>1100000000000000000000000000000010 work@top_c3_5_25.u00.next_data
+   66:10      constant   80     <77z>100                 work@top_c3_5_25.u01.next_data
+== c3_5_25 BASE : 14 get_next_n calls
+     5  site=66:10      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=91:18      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   80     <62z>110000000000000010  work@top_c3_5_25.u00
+   91:18      constant   80     <62z>110000000000000010  work@top_c3_5_25.u00.g_reduce
+   64:47      constant   32     <30z>10                  work@top_c3_5_25.u00.g_reduce.u_reducer
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c3_5_25.u01
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c3_5_25.u01.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_c3_5_25.u01.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_c3_5_25.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_c3_5_25.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   80     <62z>110000000000000010  work@top_c3_5_25.u00.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_c3_5_25.u00.g_reduce.u_reducer.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_c3_5_25.u01.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_c3_5_25.u01.g_reduce.u_reducer.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_c3_5_25.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== c3_5_25 PAT : 14 get_next_n calls
+     5  site=66:10      arg=constant   size=80    ct=3   dec=<78z>10
+     3  site=64:47      arg=constant   size=80    ct=3   dec=<78z>10
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<77z>100
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<78z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=80    ct=3   dec=<77z>100
+     1  site=91:18      arg=constant   size=80    ct=3   dec=<78z>10
+     1  site=91:18      arg=constant   size=80    ct=3   dec=<78z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   80     <78z>10                  work@top_c3_5_25.u00
+   91:18      constant   80     <78z>10                  work@top_c3_5_25.u00.g_reduce
+   64:47      constant   80     <78z>10                  work@top_c3_5_25.u00.g_reduce.u_reducer
+   64:47      constant   80     <77z>100                 work@top_c3_5_25.u01
+   91:18      constant   80     <77z>100                 work@top_c3_5_25.u01.g_reduce
+   64:47      constant   80     <78z>11                  work@top_c3_5_25.u01.g_reduce.u_reducer
+   91:18      constant   80     <78z>11                  work@top_c3_5_25.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   80     <78z>10                  work@top_c3_5_25.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   80     <78z>10                  work@top_c3_5_25.u00.next_data
+   66:10      constant   80     <78z>10                  work@top_c3_5_25.u00.g_reduce.u_reducer.next_data
+   66:10      constant   80     <78z>10                  work@top_c3_5_25.u01.next_data
+   66:10      constant   80     <78z>10                  work@top_c3_5_25.u01.g_reduce.u_reducer.next_data
+   66:10      constant   80     <78z>10                  work@top_c3_5_25.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== c4_25_5 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=66:10      arg=constant   size=400   ct=3   dec=<398z>10
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_c4_25_5.u00
+   64:47      constant   400    <398z>10                 work@top_c4_25_5.u01
+   66:10      constant   400    <397z>100                work@top_c4_25_5.u00.next_data
+   66:10      constant   400    <398z>10                 work@top_c4_25_5.u01.next_data
+== c4_25_5 BASE : 14 get_next_n calls
+     5  site=66:10      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     2  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=91:18      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c4_25_5.u00
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c4_25_5.u00.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_c4_25_5.u00.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_c4_25_5.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_c4_25_5.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   80     <62z>110000000000000010  work@top_c4_25_5.u01
+   91:18      constant   80     <62z>110000000000000010  work@top_c4_25_5.u01.g_reduce
+   64:47      constant   32     <30z>10                  work@top_c4_25_5.u01.g_reduce.u_reducer
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c4_25_5.u00.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c4_25_5.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c4_25_5.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c4_25_5.u01.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c4_25_5.u01.g_reduce.u_reducer.next_data
+== c4_25_5 PAT : 14 get_next_n calls
+     5  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     3  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<398z>10
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<398z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_c4_25_5.u00
+   91:18      constant   400    <397z>100                work@top_c4_25_5.u00.g_reduce
+   64:47      constant   400    <398z>11                 work@top_c4_25_5.u00.g_reduce.u_reducer
+   91:18      constant   400    <398z>11                 work@top_c4_25_5.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>10                 work@top_c4_25_5.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   400    <398z>10                 work@top_c4_25_5.u01
+   91:18      constant   400    <398z>10                 work@top_c4_25_5.u01.g_reduce
+   64:47      constant   400    <398z>10                 work@top_c4_25_5.u01.g_reduce.u_reducer
+   66:10      constant   400    <397z>100                work@top_c4_25_5.u00.next_data
+   66:10      constant   400    <397z>100                work@top_c4_25_5.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_c4_25_5.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_c4_25_5.u01.next_data
+   66:10      constant   400    <397z>100                work@top_c4_25_5.u01.g_reduce.u_reducer.next_data
+== c5_9_25 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<141z>100
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<14z>1100000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=144   ct=3   dec=<141z>100
+     1  site=66:10      arg=constant   size=144   ct=3   dec=<14z>1100000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   144    <14z>1100000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000100 work@top_c5_9_25.u00
+   64:47      constant   144    <141z>100                work@top_c5_9_25.u01
+   66:10      constant   144    <14z>1100000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000100 work@top_c5_9_25.u00.next_data
+   66:10      constant   144    <141z>100                work@top_c5_9_25.u01.next_data
+== c5_9_25 BASE : 14 get_next_n calls
+     5  site=66:10      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=48    ct=3   dec=<46z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   144    <110z>1100000000000000100000000000000100 work@top_c5_9_25.u00
+   91:18      constant   144    <110z>1100000000000000100000000000000100 work@top_c5_9_25.u00.g_reduce
+   64:47      constant   48     <46z>11                  work@top_c5_9_25.u00.g_reduce.u_reducer
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c5_9_25.u01
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c5_9_25.u01.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_c5_9_25.u01.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_c5_9_25.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_c5_9_25.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_c5_9_25.u00.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_c5_9_25.u00.g_reduce.u_reducer.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_c5_9_25.u01.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_c5_9_25.u01.g_reduce.u_reducer.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_c5_9_25.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== c5_9_25 PAT : 14 get_next_n calls
+     5  site=66:10      arg=constant   size=144   ct=3   dec=<141z>100
+     2  site=64:47      arg=constant   size=144   ct=3   dec=<141z>100
+     2  site=64:47      arg=constant   size=144   ct=3   dec=<142z>11
+     2  site=91:18      arg=constant   size=144   ct=3   dec=<141z>100
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<142z>10
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=144   ct=3   dec=<142z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   144    <141z>100                work@top_c5_9_25.u00
+   91:18      constant   144    <141z>100                work@top_c5_9_25.u00.g_reduce
+   64:47      constant   144    <142z>11                 work@top_c5_9_25.u00.g_reduce.u_reducer
+   64:47      constant   144    <141z>100                work@top_c5_9_25.u01
+   91:18      constant   144    <141z>100                work@top_c5_9_25.u01.g_reduce
+   64:47      constant   144    <142z>11                 work@top_c5_9_25.u01.g_reduce.u_reducer
+   91:18      constant   144    <142z>11                 work@top_c5_9_25.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   144    <142z>10                 work@top_c5_9_25.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   144    <141z>100                work@top_c5_9_25.u00.next_data
+   66:10      constant   144    <141z>100                work@top_c5_9_25.u00.g_reduce.u_reducer.next_data
+   66:10      constant   144    <141z>100                work@top_c5_9_25.u01.next_data
+   66:10      constant   144    <141z>100                work@top_c5_9_25.u01.g_reduce.u_reducer.next_data
+   66:10      constant   144    <141z>100                work@top_c5_9_25.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== c6_33_25 GOLD : 5 get_next_n calls
+     2  site=64:47      arg=constant   size=528   ct=3   dec=<526z>11
+     2  site=66:10      arg=constant   size=528   ct=3   dec=<526z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   528    <526z>11                 work@top_c6_33_25.u00
+   64:47      constant   528    <526z>11                 work@top_c6_33_25.u01
+   66:10      constant   528    <526z>11                 work@top_c6_33_25.u00.next_data
+   66:10      constant   528    <526z>11                 work@top_c6_33_25.u01.next_data
+== c6_33_25 BASE : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=528   ct=3   dec=<398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=48    ct=3   dec=<46z>11
+     1  site=64:47      arg=constant   size=528   ct=3   dec=<398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=91:18      arg=constant   size=528   ct=3   dec=<398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c6_33_25.u00
+   91:18      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c6_33_25.u00.g_reduce
+   64:47      constant   144    <110z>1100000000000000100000000000000100 work@top_c6_33_25.u00.g_reduce.u_reducer
+   91:18      constant   144    <110z>1100000000000000100000000000000100 work@top_c6_33_25.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   48     <46z>11                  work@top_c6_33_25.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c6_33_25.u01
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c6_33_25.u01.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_c6_33_25.u01.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_c6_33_25.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_c6_33_25.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c6_33_25.u00.next_data
+   66:10      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c6_33_25.u00.g_reduce.u_reducer.next_data
+   66:10      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c6_33_25.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c6_33_25.u01.next_data
+   66:10      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c6_33_25.u01.g_reduce.u_reducer.next_data
+   66:10      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c6_33_25.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== c6_33_25 PAT : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=528   ct=3   dec=<525z>100
+     3  site=64:47      arg=constant   size=528   ct=3   dec=<525z>100
+     3  site=91:18      arg=constant   size=528   ct=3   dec=<525z>100
+     2  site=64:47      arg=constant   size=528   ct=3   dec=<526z>11
+     1  site=64:47      arg=constant   size=528   ct=3   dec=<526z>10
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=528   ct=3   dec=<526z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   528    <525z>100                work@top_c6_33_25.u00
+   91:18      constant   528    <525z>100                work@top_c6_33_25.u00.g_reduce
+   64:47      constant   528    <525z>100                work@top_c6_33_25.u00.g_reduce.u_reducer
+   91:18      constant   528    <525z>100                work@top_c6_33_25.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   528    <526z>11                 work@top_c6_33_25.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   528    <525z>100                work@top_c6_33_25.u01
+   91:18      constant   528    <525z>100                work@top_c6_33_25.u01.g_reduce
+   64:47      constant   528    <526z>11                 work@top_c6_33_25.u01.g_reduce.u_reducer
+   91:18      constant   528    <526z>11                 work@top_c6_33_25.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   528    <526z>10                 work@top_c6_33_25.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   528    <525z>100                work@top_c6_33_25.u00.next_data
+   66:10      constant   528    <525z>100                work@top_c6_33_25.u00.g_reduce.u_reducer.next_data
+   66:10      constant   528    <525z>100                work@top_c6_33_25.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   528    <525z>100                work@top_c6_33_25.u01.next_data
+   66:10      constant   528    <525z>100                work@top_c6_33_25.u01.g_reduce.u_reducer.next_data
+   66:10      constant   528    <525z>100                work@top_c6_33_25.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== c7_25_33 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=66:10      arg=constant   size=400   ct=3   dec=<398z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_c7_25_33.u00
+   64:47      constant   400    <398z>11                 work@top_c7_25_33.u01
+   66:10      constant   400    <397z>100                work@top_c7_25_33.u00.next_data
+   66:10      constant   400    <398z>11                 work@top_c7_25_33.u01.next_data
+== c7_25_33 BASE : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=48    ct=3   dec=<46z>11
+     1  site=64:47      arg=constant   size=528   ct=3   dec=<398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=91:18      arg=constant   size=528   ct=3   dec=<398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c7_25_33.u00
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c7_25_33.u00.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_c7_25_33.u00.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_c7_25_33.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_c7_25_33.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c7_25_33.u01
+   91:18      constant   528    <398z>1100000000000000100000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c7_25_33.u01.g_reduce
+   64:47      constant   144    <110z>1100000000000000100000000000000100 work@top_c7_25_33.u01.g_reduce.u_reducer
+   91:18      constant   144    <110z>1100000000000000100000000000000100 work@top_c7_25_33.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   48     <46z>11                  work@top_c7_25_33.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c7_25_33.u00.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c7_25_33.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c7_25_33.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c7_25_33.u01.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c7_25_33.u01.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_c7_25_33.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== c7_25_33 PAT : 17 get_next_n calls
+     6  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     3  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     3  site=91:18      arg=constant   size=400   ct=3   dec=<397z>100
+     2  site=64:47      arg=constant   size=400   ct=3   dec=<398z>11
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<398z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_c7_25_33.u00
+   91:18      constant   400    <397z>100                work@top_c7_25_33.u00.g_reduce
+   64:47      constant   400    <398z>11                 work@top_c7_25_33.u00.g_reduce.u_reducer
+   91:18      constant   400    <398z>11                 work@top_c7_25_33.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>10                 work@top_c7_25_33.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   400    <397z>100                work@top_c7_25_33.u01
+   91:18      constant   400    <397z>100                work@top_c7_25_33.u01.g_reduce
+   64:47      constant   400    <397z>100                work@top_c7_25_33.u01.g_reduce.u_reducer
+   91:18      constant   400    <397z>100                work@top_c7_25_33.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>11                 work@top_c7_25_33.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   400    <397z>100                work@top_c7_25_33.u00.next_data
+   66:10      constant   400    <397z>100                work@top_c7_25_33.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_c7_25_33.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_c7_25_33.u01.next_data
+   66:10      constant   400    <397z>100                work@top_c7_25_33.u01.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_c7_25_33.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== d1_25_w8 GOLD : 3 get_next_n calls
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_d1_25_w8.u00
+   66:10      constant   400    <397z>100                work@top_d1_25_w8.u00.next_data
+== d1_25_w8 BASE : 9 get_next_n calls
+     3  site=66:10      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_d1_25_w8.u00
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_d1_25_w8.u00.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_d1_25_w8.u00.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_d1_25_w8.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_d1_25_w8.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_d1_25_w8.u00.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_d1_25_w8.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_d1_25_w8.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== d1_25_w8 PAT : 9 get_next_n calls
+     3  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<398z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_d1_25_w8.u00
+   91:18      constant   400    <397z>100                work@top_d1_25_w8.u00.g_reduce
+   64:47      constant   400    <398z>11                 work@top_d1_25_w8.u00.g_reduce.u_reducer
+   91:18      constant   400    <398z>11                 work@top_d1_25_w8.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>10                 work@top_d1_25_w8.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   400    <397z>100                work@top_d1_25_w8.u00.next_data
+   66:10      constant   400    <397z>100                work@top_d1_25_w8.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_d1_25_w8.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== e1_2_4 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<29z>100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=32    ct=3   dec=<29z>100
+     1  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_e1_2_4.u00
+   64:47      constant   32     <29z>100                 work@top_e1_2_4.u01
+   66:10      constant   32     <30z>10                  work@top_e1_2_4.u00.next_data
+   66:10      constant   32     <29z>100                 work@top_e1_2_4.u01.next_data
+== e1_2_4 BASE : 5 get_next_n calls
+     2  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_e1_2_4.u00
+   64:47      constant   64     <61z>100                 work@top_e1_2_4.u01
+   66:10      constant   32     <30z>10                  work@top_e1_2_4.u00.next_data
+   66:10      constant   32     <30z>10                  work@top_e1_2_4.u01.next_data
+== e1_2_4 PAT : 5 get_next_n calls
+     2  site=66:10      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   32     <30z>10                  work@top_e1_2_4.u00
+   64:47      constant   64     <61z>100                 work@top_e1_2_4.u01
+   66:10      constant   32     <30z>10                  work@top_e1_2_4.u00.next_data
+   66:10      constant   32     <30z>10                  work@top_e1_2_4.u01.next_data
+== e2_4_2 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=constant   size=64    ct=3   dec=<62z>10
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=66:10      arg=constant   size=64    ct=3   dec=<62z>10
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   64     <61z>100                 work@top_e2_4_2.u00
+   64:47      constant   64     <62z>10                  work@top_e2_4_2.u01
+   66:10      constant   64     <61z>100                 work@top_e2_4_2.u00.next_data
+   66:10      constant   64     <62z>10                  work@top_e2_4_2.u01.next_data
+== e2_4_2 BASE : 5 get_next_n calls
+     2  site=66:10      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   64     <61z>100                 work@top_e2_4_2.u00
+   64:47      constant   32     <30z>10                  work@top_e2_4_2.u01
+   66:10      constant   64     <61z>100                 work@top_e2_4_2.u00.next_data
+   66:10      constant   64     <61z>100                 work@top_e2_4_2.u01.next_data
+== e2_4_2 PAT : 5 get_next_n calls
+     2  site=66:10      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   64     <61z>100                 work@top_e2_4_2.u00
+   64:47      constant   32     <30z>10                  work@top_e2_4_2.u01
+   66:10      constant   64     <61z>100                 work@top_e2_4_2.u00.next_data
+   66:10      constant   64     <61z>100                 work@top_e2_4_2.u01.next_data
+== e3_5_9 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<46z>1100000000000000000000000000000010
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<77z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=80    ct=3   dec=<46z>1100000000000000000000000000000010
+     1  site=66:10      arg=constant   size=80    ct=3   dec=<77z>100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   80     <46z>1100000000000000000000000000000010 work@top_e3_5_9.u00
+   64:47      constant   80     <77z>100                 work@top_e3_5_9.u01
+   66:10      constant   80     <46z>1100000000000000000000000000000010 work@top_e3_5_9.u00.next_data
+   66:10      constant   80     <77z>100                 work@top_e3_5_9.u01.next_data
+== e3_5_9 BASE : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=48    ct=3   dec=<46z>11
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=91:18      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   80     <62z>110000000000000010  work@top_e3_5_9.u00
+   91:18      constant   80     <62z>110000000000000010  work@top_e3_5_9.u00.g_reduce
+   64:47      constant   32     <30z>10                  work@top_e3_5_9.u00.g_reduce.u_reducer
+   64:47      constant   144    <110z>1100000000000000100000000000000100 work@top_e3_5_9.u01
+   91:18      constant   144    <110z>1100000000000000100000000000000100 work@top_e3_5_9.u01.g_reduce
+   64:47      constant   48     <46z>11                  work@top_e3_5_9.u01.g_reduce.u_reducer
+   66:10      constant   80     <62z>110000000000000010  work@top_e3_5_9.u00.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_e3_5_9.u00.g_reduce.u_reducer.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_e3_5_9.u01.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_e3_5_9.u01.g_reduce.u_reducer.next_data
+== e3_5_9 PAT : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=48    ct=3   dec=<46z>11
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=91:18      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   80     <62z>110000000000000010  work@top_e3_5_9.u00
+   91:18      constant   80     <62z>110000000000000010  work@top_e3_5_9.u00.g_reduce
+   64:47      constant   32     <30z>10                  work@top_e3_5_9.u00.g_reduce.u_reducer
+   64:47      constant   144    <110z>1100000000000000100000000000000100 work@top_e3_5_9.u01
+   91:18      constant   144    <110z>1100000000000000100000000000000100 work@top_e3_5_9.u01.g_reduce
+   64:47      constant   48     <46z>11                  work@top_e3_5_9.u01.g_reduce.u_reducer
+   66:10      constant   80     <62z>110000000000000010  work@top_e3_5_9.u00.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_e3_5_9.u00.g_reduce.u_reducer.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_e3_5_9.u01.next_data
+   66:10      constant   80     <62z>110000000000000010  work@top_e3_5_9.u01.g_reduce.u_reducer.next_data
+== e4_9_5 GOLD : 5 get_next_n calls
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<142z>10
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<14z>1100000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=66:10      arg=constant   size=144   ct=3   dec=<142z>10
+     1  site=66:10      arg=constant   size=144   ct=3   dec=<14z>1100000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   144    <14z>1100000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000100 work@top_e4_9_5.u00
+   64:47      constant   144    <142z>10                 work@top_e4_9_5.u01
+   66:10      constant   144    <14z>1100000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000100 work@top_e4_9_5.u00.next_data
+   66:10      constant   144    <142z>10                 work@top_e4_9_5.u01.next_data
+== e4_9_5 BASE : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=48    ct=3   dec=<46z>11
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=91:18      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   144    <110z>1100000000000000100000000000000100 work@top_e4_9_5.u00
+   91:18      constant   144    <110z>1100000000000000100000000000000100 work@top_e4_9_5.u00.g_reduce
+   64:47      constant   48     <46z>11                  work@top_e4_9_5.u00.g_reduce.u_reducer
+   64:47      constant   80     <62z>110000000000000010  work@top_e4_9_5.u01
+   91:18      constant   80     <62z>110000000000000010  work@top_e4_9_5.u01.g_reduce
+   64:47      constant   32     <30z>10                  work@top_e4_9_5.u01.g_reduce.u_reducer
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_e4_9_5.u00.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_e4_9_5.u00.g_reduce.u_reducer.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_e4_9_5.u01.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_e4_9_5.u01.g_reduce.u_reducer.next_data
+== e4_9_5 PAT : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=64:47      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=48    ct=3   dec=<46z>11
+     1  site=64:47      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=144   ct=3   dec=<110z>1100000000000000100000000000000100
+     1  site=91:18      arg=constant   size=80    ct=3   dec=<62z>110000000000000010
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   144    <110z>1100000000000000100000000000000100 work@top_e4_9_5.u00
+   91:18      constant   144    <110z>1100000000000000100000000000000100 work@top_e4_9_5.u00.g_reduce
+   64:47      constant   48     <46z>11                  work@top_e4_9_5.u00.g_reduce.u_reducer
+   64:47      constant   80     <62z>110000000000000010  work@top_e4_9_5.u01
+   91:18      constant   80     <62z>110000000000000010  work@top_e4_9_5.u01.g_reduce
+   64:47      constant   32     <30z>10                  work@top_e4_9_5.u01.g_reduce.u_reducer
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_e4_9_5.u00.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_e4_9_5.u00.g_reduce.u_reducer.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_e4_9_5.u01.next_data
+   66:10      constant   144    <110z>1100000000000000100000000000000100 work@top_e4_9_5.u01.g_reduce.u_reducer.next_data
+== e5_4_25 GOLD : 5 get_next_n calls
+     2  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     2  site=66:10      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   64     <61z>100                 work@top_e5_4_25.u00
+   64:47      constant   64     <61z>100                 work@top_e5_4_25.u01
+   66:10      constant   64     <61z>100                 work@top_e5_4_25.u00.next_data
+   66:10      constant   64     <61z>100                 work@top_e5_4_25.u01.next_data
+== e5_4_25 BASE : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   64     <61z>100                 work@top_e5_4_25.u00
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_e5_4_25.u01
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_e5_4_25.u01.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_e5_4_25.u01.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_e5_4_25.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_e5_4_25.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   64     <61z>100                 work@top_e5_4_25.u00.next_data
+   66:10      constant   64     <61z>100                 work@top_e5_4_25.u01.next_data
+   66:10      constant   64     <61z>100                 work@top_e5_4_25.u01.g_reduce.u_reducer.next_data
+   66:10      constant   64     <61z>100                 work@top_e5_4_25.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== e5_4_25 PAT : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=64    ct=3   dec=<61z>100
+     2  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=constant   size=64    ct=3   dec=<62z>10
+     1  site=64:47      arg=constant   size=64    ct=3   dec=<62z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=91:18      arg=constant   size=64    ct=3   dec=<62z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   64     <61z>100                 work@top_e5_4_25.u00
+   64:47      constant   64     <61z>100                 work@top_e5_4_25.u01
+   91:18      constant   64     <61z>100                 work@top_e5_4_25.u01.g_reduce
+   64:47      constant   64     <62z>11                  work@top_e5_4_25.u01.g_reduce.u_reducer
+   91:18      constant   64     <62z>11                  work@top_e5_4_25.u01.g_reduce.u_reducer.g_reduce
+   64:47      constant   64     <62z>10                  work@top_e5_4_25.u01.g_reduce.u_reducer.g_reduce.u_reducer
+   66:10      constant   64     <61z>100                 work@top_e5_4_25.u00.next_data
+   66:10      constant   64     <61z>100                 work@top_e5_4_25.u01.next_data
+   66:10      constant   64     <61z>100                 work@top_e5_4_25.u01.g_reduce.u_reducer.next_data
+   66:10      constant   64     <61z>100                 work@top_e5_4_25.u01.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+== e6_25_4 GOLD : 5 get_next_n calls
+     2  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     2  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_e6_25_4.u00
+   64:47      constant   400    <397z>100                work@top_e6_25_4.u01
+   66:10      constant   400    <397z>100                work@top_e6_25_4.u00.next_data
+   66:10      constant   400    <397z>100                work@top_e6_25_4.u01.next_data
+== e6_25_4 BASE : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=64:47      arg=constant   size=32    ct=3   dec=<30z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+     1  site=64:47      arg=constant   size=64    ct=3   dec=<61z>100
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=112   ct=3   dec=<93z>1000000000000000011
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_e6_25_4.u00
+   91:18      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_e6_25_4.u00.g_reduce
+   64:47      constant   112    <93z>1000000000000000011 work@top_e6_25_4.u00.g_reduce.u_reducer
+   91:18      constant   112    <93z>1000000000000000011 work@top_e6_25_4.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   32     <30z>10                  work@top_e6_25_4.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   64     <61z>100                 work@top_e6_25_4.u01
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_e6_25_4.u00.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_e6_25_4.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_e6_25_4.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <302z>11000000000000001000000000000001000000000000000100000000000000010000000000000001000000000000000100 work@top_e6_25_4.u01.next_data
+== e6_25_4 PAT : 11 get_next_n calls
+     4  site=66:10      arg=constant   size=400   ct=3   dec=<397z>100
+     2  site=64:47      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>10
+     1  site=64:47      arg=constant   size=400   ct=3   dec=<398z>11
+     1  site=64:47      arg=ref_obj    size=None  ct=None dec=-
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<397z>100
+     1  site=91:18      arg=constant   size=400   ct=3   dec=<398z>11
+  UNPARSED=0
+-- per-instance (site, path, dec)
+   64:47      ref_obj    -      -                        SUB_N_LIST
+   64:47      constant   400    <397z>100                work@top_e6_25_4.u00
+   91:18      constant   400    <397z>100                work@top_e6_25_4.u00.g_reduce
+   64:47      constant   400    <398z>11                 work@top_e6_25_4.u00.g_reduce.u_reducer
+   91:18      constant   400    <398z>11                 work@top_e6_25_4.u00.g_reduce.u_reducer.g_reduce
+   64:47      constant   400    <398z>10                 work@top_e6_25_4.u00.g_reduce.u_reducer.g_reduce.u_reducer
+   64:47      constant   400    <397z>100                work@top_e6_25_4.u01
+   66:10      constant   400    <397z>100                work@top_e6_25_4.u00.next_data
+   66:10      constant   400    <397z>100                work@top_e6_25_4.u00.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_e6_25_4.u00.g_reduce.u_reducer.g_reduce.u_reducer.next_data
+   66:10      constant   400    <397z>100                work@top_e6_25_4.u01.next_data
+PROBLEMS=0

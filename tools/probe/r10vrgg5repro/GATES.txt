@@ -1,0 +1,76 @@
+r10vrgg5 — EVERY GATE LEG, MEASURED BY THE VERIFIER
+===================================================
+Binaries, each md5'd SEPARATELY after its own -j 2 build:
+  BASE 39d8bb3                    c12479be81b3f9d27e3ac3d1c65385fc
+  PAT  39d8bb3 + r10rgg5.patch    86c714f4d3d9f2918a7cef833e719d84
+  FIX  PAT + this verifier's gate 906442585ab3ef7e8ff319ecd0f9a754
+BASE and PAT reproduce the implementer's md5s EXACTLY (bit-for-bit rebuild).
+
+GATE 1  goldens
+  BASE 23/0   PAT 23/0   FIX 23/0
+  NEGATIVE CONTROL SLANG_UHDM=/bin/false -> PASS=0 FAIL=23
+
+GATE 2  uhdm2rtlil, --mode both, 731 rows/mode
+  BASE / PAT / FIX all 679 CMP_EQUAL, 50 SLANG_REJECT, 2 SURELOG_FAIL, both modes.
+  ct8rows vs the COMMITTED results/gate_uhdm2rtlil.csv (testflags, the mode the
+  committed baseline holds): 0 differing rows for BASE, PAT and FIX.
+  ct8rows BASE vs PAT and BASE vs FIX over BOTH modes (1462 rows): 0 differing rows.
+  byteverify u2r: PAT vs BASE 0 movers / 1358; FIX vs BASE 0 movers / 1358.
+    SELFCHECK 1357/1358, SELFCHECK1 = 1.
+
+GATE 3  Surelog suite, --mode both, 1588 rows
+  BASE / PAT / FIX all: default 470 CMP_EQUAL / 11 CMP_NOTEQUAL, testflags 466/8.
+  ct8rows vs COMMITTED results/golden_surelog.csv: 0 differing rows, ALL THREE.
+  ct8rows BASE vs PAT and BASE vs FIX: 0 differing rows.
+  canaries FIX vs committed: ok=52 changed=0 absent=0 (7 u2r-only names, expected).
+  canaries u2r FIX vs committed: ok=8 changed=0 absent=0.
+  DATABASE PINS (default and testflags, all three binaries byte-identical):
+    SVSwitch   4842211c4030      YosysVerx  6ccda350c24a
+    InterfaceModPort 59a365f3ce2c  BlackParrotComplex e3e354129d5a
+    YosysOldOr d68e0796d62c
+
+GATE 4  byteverify surelog (SELFCHECK=1 SELFCHECK1=1)
+  PAT vs BASE: 2 movers / 955  -> default/Rggen + default/Scoreboard
+  FIX vs BASE: 1 mover  / 955  -> default/Rggen ONLY
+  Rggen patched md5 7c62bd84388b is IDENTICAL for PAT and FIX (the gate does not
+  disturb the target row).  Delta base->patched: 134 dump line-sides on 24
+  constants = 24 vpiDecompile + 24 BIN + 19 vpiSize (13x 32->400, 2x 80,
+  2x 112, 2x 320).  Reproduces the implementer's figure exactly.
+
+  THE SCOREBOARD MOVER IS NOT THIS LAW — RE-PROVEN INDEPENDENTLY.
+  The BASE BINARY ALONE, run FIVE times on third_party/tests/Scoreboard with the
+  workdir's own command line, produced:
+      851acfeef56c x4      09672aad595d x1
+  and 851acfeef56c is byte-identical to the database byteverify called "patched".
+  The 92 differing line-sides are svunit_pkg function/task listing order (36
+  `function`, 10 `task`, 46 `svunit_pkg` hits) = the recorded emitter
+  nondeterminism.  With the FIXED binary the mover did not appear at all.
+
+GATE 5  the target row
+  rowheads.sh (official uhdm-cmp, Rggen default):
+      BASE 64 cmp lines / 1 head        PAT 17 / 1 head        FIX 17 / 1 head
+  PAT and FIX head cmp output byte-identical.
+  BASE head  = the 400-bit constant @rggen_or_reducer.sv:64:58, parent
+               func_call(get_next_n)@66:10 — golden 4, ours the full list.
+  FIX head   = ref_typespec #17063 under func_call(get_sub_n_list)@62:47,
+               LHS <null> (EXTRA-OURS) — exactly the R0 the report predicts.
+  ctladder (measurement only): BASE 61 rungs FIXPOINT -> FIX 60 rungs FIXPOINT.
+  Family census identical row for row EXCEPT
+      constant|VpiDecompile|DIGITS-ONLY   1 -> 0
+  BASE rung 1 IS the old official head; FIX rung 1 IS the new one.
+  <null>|<lhs-null>|EXTRA-OURS family = 3 rungs (R0's three-object target).
+  Rggen census (rggencensus5.sh): GOLDEN ROWS=27, BASE-DEFICIT=26, FIXED=14,
+  STILL-DIFFERING=12 — the 12 are objects we emit no counterpart for.
+
+BOUNDARIES (BASE vs FIX)
+  32-cell r10rgg5 grid, real Surelog: GRID.raw BYTE-IDENTICAL to the shipped
+    patch's; FIXED 52, BROKEN 0, MOVED-WRONG 38, STILL 23, OK 23.
+  rgg2 write-back grids a1/b1/c1/d1: row lists IDENTICAL
+    (96 + 192 + 150 + 174 = 612 read positions); whole dumps byte-identical
+    (0 movers / 4), positive control 12/12 flagged.
+  rgg2 real/ and vsweep literals: BASE == FIX on all 17 cells.
+  r10vrgg2 40-cell DEMAND grid: BASE == FIX on every cell; every
+    golden==base cell still right.  y5_sub UNMEASURED on both (carried
+    instrument note).  PROBLEMS=0.
+  fold-law family (earl49/51/52/55, 47 sources, whole-dump byte compare):
+    0 movers, positive control 47/47 flagged.

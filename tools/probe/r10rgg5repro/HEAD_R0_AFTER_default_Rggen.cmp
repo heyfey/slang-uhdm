@@ -1,0 +1,17 @@
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer), id:17063
+|vpiParent:
+\_func_call: (get_sub_n_list), id:17054, line:62:47, endln:62:61
+|vpiFullName:work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer
+|vpiActual:
+\_bit_typespec: , id:10195, line:36:56, endln:36:59
+
+decompile:
+ref_typespec: (work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer), id:17063
+|vpiParent:
+\_func_call: (get_sub_n_list), id:17054, line:62:47, endln:62:61
+|vpiFullName:work@rggen.u_block_0.u_adapter.u_adapter_common.u_mux.g.u_reducer
+|vpiActual:
+\_bit_typespec: , id:10195, line:36:56, endln:36:59

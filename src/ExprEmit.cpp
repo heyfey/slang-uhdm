@@ -12756,6 +12756,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // in-tree constant): func_upto's kept F(A_CONST, B_CONST)
                     // carries two UINT constants, not A_CONST/B_CONST refs.
                     bool elabParamArgFold = false;
+                    // § satArrArgFirstElem5 — set when the SATURATED corrupted
+                    // array value (and its SHARED width) replaced slang's fold.
+                    // The formal-width re-stamp further down must then NOT run:
+                    // golden's width comes from the FIRST evaluating instance's
+                    // array, not from this instance's formal (11 of Rggen's 13
+                    // instances are N=2, formal width 32, golden width 400).
+                    bool satArrFold5 = false;
                     if (inParamInit && !paramInitDef && !paramInitPkg &&
                         isFunc && !currentTf && callArgDepth == 1 && a &&
                         a->UhdmType() == UHDM::uhdmref_obj) {
@@ -12798,6 +12805,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // 64-digit BIN, against `bit [63:0] R4`'s
                                 // INT/UINT hand-over one line below.
                                 if (packedDimCountE(psy9.getType()) > 1) {
+                                    // § satArrArgFirstElem5 (r10rgg5) — when
+                                    // § compoundLitWriteBackSat2's SATURATED
+                                    // regime holds, THIS is the object that
+                                    // carries the corrupted array: Surelog's
+                                    // evaluator escaped the write index after
+                                    // the first loop iteration, so element 0
+                                    // alone survives, at the width the FIRST
+                                    // evaluating instance's array had.  The
+                                    // pre-pass records an entry per instance
+                                    // parameter only under rgg2's own escape +
+                                    // ">= 2 instances" + DEMAND gate; every
+                                    // other design keeps the value slang folded,
+                                    // verbatim as before.
+                                    auto sv5 = satArrArgVals.find(&psy9);
+                                    if (sv5 != satArrArgVals.end() &&
+                                        sv5->second.width > 0 &&
+                                        (int32_t)sv5->second.bits.size() ==
+                                            sv5->second.width) {
+                                        c9->VpiDecompile(sv5->second.bits);
+                                        c9->VpiSize(sv5->second.width);
+                                        c9->VpiValue("BIN:" + sv5->second.bits);
+                                        c9->VpiConstType(vpiBinaryConst);
+                                        satArrFold5 = true;
+                                    }
+                                    else {
                                     int32_t w9 =
                                         (int32_t)psy9.getType().getBitWidth();
                                     if (w9 <= 0)
@@ -12811,6 +12843,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     c9->VpiSize(w9);
                                     c9->VpiValue("BIN:" + bits9);
                                     c9->VpiConstType(vpiBinaryConst);
+                                    }
                                 }
                                 else {
                                     std::string dg9 = pv9.integer().toString(
@@ -13546,7 +13579,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // `bit[7:0]`, so only the FORMAL's type answers
                             // this.
                             if (a->UhdmType() == UHDM::uhdmconstant && arg->type &&
-                                !intFormal && !arg->type->isString() &&
+                                !intFormal && !satArrFold5 &&
+                                !arg->type->isString() &&
                                 !stripImplicitConv(*arg).type->isString()) {
                                 auto* ac9 = (UHDM::constant*)a;
                                 ac9->VpiSize(

@@ -1,0 +1,98 @@
+r10vrgg5 — THE ADVERSARIAL GRID (verifier of r10rgg5 / § satArrArgFirstElem5)
+=============================================================================
+GOLDEN = real Surelog.  BASE = 39d8bb3 (c12479be81b3f9d27e3ac3d1c65385fc).
+PAT    = 39d8bb3 + /tmp/r10rgg5.patch (86c714f4d3d9f2918a7cef833e719d84).
+FIX    = PAT + this verifier's shape gate.
+Each cell is one file; run with run1.sh (self-contained) or run2.sh (adds the
+REAL rggen_or_reducer.sv).  Every reading is the `get_next_n` (or `g`) ARGUMENT
+constant's vpiSize / BIN value, `<Nz>` = N leading zeros.
+
+THE DEFECT THE GRID FOUND
+-------------------------
+`SrlgWriteBack` STOPS the instant the write index escapes (`invalid`), so the
+array state § satArrArgFirstElem5 reads is the state AT THE ESCAPE.  Surelog's
+evaluator does NOT stop there: it runs the body to completion on garbage and
+returns whatever the returned array holds AT THE `return`.  Three cells are
+PRISTINE-RIGHT -> PATCHED-WRONG because of it (12 dump objects).
+
+| cell          | shape                                              | GOLDEN     | BASE       | PAT (shipped) | verdict |
+|---------------|----------------------------------------------------|------------|------------|---------------|---------|
+| v4_single     | 2 arrays, `other[0]=9` AFTER the loop, ONE `return other;` | 400/9 | 400/9 (RIGHT) | 400/**0**   | **BROKEN x4** |
+| v3_retlast    | same, plus an unreachable earlier `return list;`    | 400/9      | 400/9 (RIGHT) | 400/**4**   | **BROKEN x4** |
+| v8_postzero   | ONE array, re-`'0`ed + `list[0]=10` AFTER the loop   | 400/10     | 400/10 (RIGHT)| 400/**4**   | **BROKEN x4** |
+| v7_post       | ONE array, `list[0]=10` after the loop (no re-zero)  | 400/10     | 400/full   | 400/4         | moved-wrong |
+| v6_revamb     | first `return other;`, actual `return list;`         | 400/4, 400/3 | 400/full | 400/**0**     | moved-wrong |
+| v5_retlist    | ONE `return list;`, a second array written AFTER the escape | 400/4, 400/3 | 400/full | 400/4, 400/4  | 1 fixed, 1 moved-wrong |
+
+v4_single is the sharpest: a SINGLE, UNAMBIGUOUS `return other;`.  Golden carries
+`other[0] = 9`, written AFTER the escape — proof that Surelog does not abandon the
+evaluation at the runaway index, only produces garbage from it.
+
+THE FIX (this verifier's, in `wbReturnedArraySym`)
+-------------------------------------------------
+Claim only the shape where nothing after the escape can still change the
+returned array — Rggen's `get_sub_n_list`:
+  (1) exactly ONE tracked packed-array local (element width > 1);
+  (2) at least one `return`, and EVERY return names that array;
+  (3) exactly ONE whole-array assignment, non-compound, lexically BEFORE every
+      element write;
+  (4) every element write selects through a BARE VARIABLE, all naming the SAME
+      variable.
+v3/v4/v6 fail (1); v7 fails (4); v8 fails (3).  Rggen passes all four.
+
+THE WIDTH / ORDER CLAIM HELD ON EVERY PROBE I COULD BUILD
+---------------------------------------------------------
+"the shared width is the FIRST INSTANTIATED instance's" was attacked with three
+orderings the 32-cell grid did not contain, and golden agreed with our DFS order
+in all three:
+
+| cell        | instance order (our getRoot DFS)          | GOLDEN width, ALL instances |
+|-------------|-------------------------------------------|-----------------------------|
+| w1_wrap     | wrp.u (N=2, NESTED one level) then r (N=25)| 32  — the nested one wins   |
+| w2_wrap2    | r (N=25) then wrp.u (N=2, nested)          | 400                         |
+| w3_genloop  | generate-for g[0..2] with N = 9, 25, 2     | 144 (= g[0]'s N=9)          |
+
+w1/w2 also FIX every value they touch.  w3's g[0] is the count-dependent settled
+regime (golden {0:4,4:2,8:3}); base is wrong there too, so it is moved-wrong.
+
+ARGUMENT SHAPES THE LAW MUST NOT TOUCH (x1_argshapes)
+----------------------------------------------------
+One body in the saturated regime carrying, alongside `get_next_n(SUB_N_LIST)`:
+`h(4)` (literal actual), `h(K)` (scalar-localparam actual),
+`get_next_n(id(SUB_N_LIST))` (the escaping param at call depth 2) and
+`get_next_n(COPY)` (a packed-array COPY of it).  See GRID.raw for the readings.
+
+WITH THE FIX IN — every cell re-measured (BASE vs FIXED)
+-------------------------------------------------------
+| cell        | verdict with the fix |
+|-------------|----------------------|
+| v3_retlast  | OK  x4 (base == fixed == golden) |
+| v4_single   | OK  x4 |
+| v8_postzero | OK  x4 |
+| v7_post     | STILL x4 (was moved-wrong; base was wrong too) |
+| v6_revamb   | STILL x4 (idem) |
+| v5_retlist  | STILL x4 — THE PRICE: one FIXED reading given up, deliberately |
+| w1_wrap     | FIXED 1, OK 2, STILL 1, 0 BROKEN |
+| w2_wrap2    | FIXED 3, 0 BROKEN |
+| w3_genloop  | FIXED 3, MOVED-WRONG 3, 0 BROKEN |
+| x1_argshapes| MOVED-WRONG 4, STILL 2, 0 BROKEN |
+| r10rgg5's own 32-cell grid | GRID.raw BYTE-IDENTICAL to the shipped patch's; FIXED 52, BROKEN 0 |
+| Rggen (real corpus row)    | database BYTE-IDENTICAL to the shipped patch's (md5 7c62bd84388b) |
+
+BROKEN = 0 everywhere, and the shipped law's whole yield is preserved.
+
+RANKED RESIDUES THIS VERIFICATION ADDS TO THE IMPLEMENTER'S FIVE
+---------------------------------------------------------------
+6. THE ESCAPE-TIME STATE IS NOT THE RETURN-TIME STATE.  `v4_single`/`v7_post`
+   prove Surelog runs the body to completion past the runaway index.  Modelling
+   that needs Surelog's OUT-OF-RANGE READ semantics: in the Rggen body the read
+   `current_n -= list[list_index]` out of range must yield something that
+   TERMINATES the `while (current_n > 0)` loop (returning 0 would spin forever,
+   and golden terminates).  Decode that one value and the gate can be dropped
+   and residues 2 and 3 come into range at the same time.
+7. x1_argshapes' `get_next_n(COPY)` — golden corrupts a packed-array localparam
+   that merely COPIES the escaping one; we keep slang's fold.  A one-hop
+   propagation of the claim through `localparam A = B;`.
+8. The nested actual `get_next_n(id(SUB_N_LIST))`: golden FOLDS the inner
+   pass-through call to a constant, we keep the `func_call`.  Pre-existing in
+   base and orthogonal to this law.

@@ -1,0 +1,97 @@
+r10rgg5 — THE FIVE MANDATORY GATES, EVERY LEG'S OUTPUT
+=====================================================
+BASE COMMIT 39d8bb3.  Worktree /tmp/wt_r10rgg5.  results/*.csv were READ ONLY.
+
+GATE 1 — BUILD BOTH, md5 SEPARATELY (-j 2)
+  base    c12479be81b3f9d27e3ac3d1c65385fc   /tmp/r10rgg5_base_bin
+  patched 86c714f4d3d9f2918a7cef833e719d84   /tmp/r10rgg5_pat_bin
+  0 compiler errors in either build; `Built target slang_uhdm` in both logs.
+
+GATE 2 — GOLDENS 23/0 BOTH BINARIES + /bin/false NEGATIVE CONTROL
+  ./gates.sh gold pat    -> PASS=23 FAIL=0
+  ./gates.sh gold base   -> PASS=23 FAIL=0
+  ./gates.sh goldneg     -> PASS=0  FAIL=23     (the exporter really is consulted)
+
+GATE 3 — uhdm2rtlil, BOTH MODES, BOTH BINARIES, ct8rows AGAINST THE COMMITTED
+         BASELINE (baseline FIRST)
+  base  csv 1462 rows: default 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+                       testflags 679 / 50 / 2
+  pat   csv 1462 rows: identical histogram
+  ct8rows results/gate_uhdm2rtlil.csv vs base(testflags) -> 0 differing ROWS
+  ct8rows results/gate_uhdm2rtlil.csv vs pat (testflags) -> 0 differing ROWS
+  ct8rows base(both modes) vs pat(both modes)            -> 0 differing ROWS
+
+GATE 4 — surelog corpus, --mode both, BOTH BINARIES, ct8rows over 1588 ROWS
+  base -> 0 differing ROWS against results/golden_surelog.csv
+  pat  -> 0 differing ROWS against results/golden_surelog.csv
+  default   470 CMP_EQUAL / 11 CMP_NOTEQUAL / 5 DEFERRED / 283 SLANG_REJECT
+            / 25 SURELOG_FAIL   (unchanged both sides)
+  testflags 466 / 8 / 5 / 3 NO_DATABASE / 1 NO_UHDM / 285 / 23 / 1 TIMEOUT
+            / 2 UNTRANSLATABLE  (unchanged both sides)
+  Rggen/default stays CMP_NOTEQUAL — the head ADVANCES, the row does not move.
+
+  CANARIES, per row, against the committed baseline:
+    surelog csv -> ok=52 changed=0 absent=0 unknown-names=7 (the 7 u2r-only names)
+    u2r csv     -> ok=8  changed=0 absent=0 unknown-names=25 (the surelog-only names)
+    InterfaceModPort / BlackParrotComplex / YosysOldOr / SVSwitch / YosysVerx all OK.
+
+GATE 5 — BYTE VERIFIER, BOTH CORPORA, SELFCHECK=1 AND SELFCHECK1=1
+  uhdm2rtlil : PATH_SETS_IDENTICAL (1358)  MOVERS: 0 / 1358
+               SELFCHECK 1357/1358 flagged; SELFCHECK1 = 1
+  surelog    : PATH_SETS_IDENTICAL (955)   MOVERS: 2 / 955
+               SELFCHECK 954/955 flagged;  SELFCHECK1 = 3 (1 + the 2 real movers)
+
+  EVERY MOVER NAMED AND ATTRIBUTED:
+   1. default/Rggen — § satArrArgFirstElem5, PREDICTED BY NAME in
+      CENSUS_PREDICT5.txt before the patched binary was measured.  Whole delta:
+      134 dump line-sides on 24 constant objects — 24 vpiDecompile + 24 BIN +
+      19 vpiSize (13x 32->400, 2x 80->400, 2x 112->400, 2x 320->400).
+   2. default/Scoreboard — NOT THIS LAW.  Attributed by a THREE-RUN CONTROL with
+      the BASE BINARY ALONE: the same base binary produced md5
+      5e4182bd1e6a, then 851acfeef56c, then 09672aad595d for the same test, and
+      851acfeef56c is byte-identical to the "patched" database.  The delta is 92
+      dump line-sides, all of them svunit_pkg `vpiTaskFunc` LISTING ORDER — the
+      emitter nondeterminism this campaign has on record (SourceLocation
+      compares across macro buffers under parallel parse), not a packed-array
+      constant.  MEMORY's own rule applied: check each binary's BASE before
+      attributing a delta.
+
+LADDER (tools/probe/r10ladder1repro/ctladder, MEASUREMENT-ONLY; uhdm-cmp remains
+the sole judge).  Same pinned pair of databases the gates used, against the
+cached golden 6fc99d8f4119ff55b3e1:
+  base 61 rungs FIXPOINT  maxvis 94487/252296
+  pat  60 rungs FIXPOINT  maxvis 94486/252296
+  family census identical row for row except ONE:
+    constant|VpiDecompile|DIGITS-ONLY   1 -> 0     <- § satArrArgFirstElem5
+  base rung 1 IS the official uhdm-cmp head (the 64:58 constant) and pat rung 1
+  IS the new official head, so the head advanced by exactly one rung.
+
+HEAD (rowheads.sh, official uhdm-cmp, Rggen default)
+  base 64 cmp lines / 1 head   -> pat 17 cmp lines / 1 head
+  (cmp LINE COUNT IS HEAD DEPTH, never a distance: the new head object is a
+   ref_typespec, which prints fewer lines than a 400-bit constant.)
+
+BOUNDARIES
+  fold-law family (r10earl49/51/52/55, 47 sources, whole-dump byte compare):
+    sources=47 movers=0 no-database=0; POSITIVE CONTROL 47/47 flagged.
+  r10rgg2's own write-back grids (a1/b1/c1/d1_rgg2, 612 read positions):
+    IDENTICAL base-vs-pat on all four; whole dumps byte-identical, POSITIVE
+    CONTROL 12/12 flagged.
+  r10rgg2 real/ (the literal at 30:22): e2/e20/e25/e25x2/efull unchanged.
+  r10rgg2 vsweep (12 cells): unchanged.
+  r10vrgg2's 40-cell DEMAND grid: base == pat on every cell; every cell golden
+    and base agreed on still agrees.  (y5_sub reads UNMEASURED on BOTH
+    binaries — a pre-existing instrument note carried from r10vrgg2, not a mover.)
+
+CANARY DATABASE PINS (byte, base vs patched, from the gate-4 workdirs)
+  SVSwitch            4842211c4030 == 4842211c4030   (the pass's named pin)
+  YosysVerx           6ccda350c24a == 6ccda350c24a   (the pass's named pin)
+  InterfaceModPort    59a365f3ce2c == 59a365f3ce2c
+  BlackParrotComplex  e3e354129d5a == e3e354129d5a
+  YosysOldOr          d68e0796d62c == d68e0796d62c
+
+THE SCOREBOARD CONTROL, verbatim (base binary c12479be..., same test, 3 runs)
+  /tmp/r10rgg5_sbchk1  5e4182bd1e6ab227fa664a590b5b274b
+  /tmp/r10rgg5_sbchk2  851acfeef56c1af6cb8f99c18fecce63
+  gate-4 base sweep    09672aad595d83f5e91d12646f107cbb
+  gate-4 pat  sweep    851acfeef56c1af6cb8f99c18fecce63  <- == sbchk2, a BASE run

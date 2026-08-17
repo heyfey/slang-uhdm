@@ -1,0 +1,137 @@
+r10rgg5 — THE MEASURED GRID, THE LAW, AND THE RANKED RESIDUES
+============================================================
+32 cells, each the REAL `rggen_or_reducer.sv` (copied out of Surelog's own
+third_party/tests/rggen tree at run time) instantiated at a chosen multiset of
+`N`, IN A CHOSEN ORDER.  GOLDEN = real Surelog.  Read out per cell/instance:
+the `get_next_n` ARGUMENT constant's vpiSize and its BIN value.  `<Nz>` = N
+leading zeros.  Full raw output: GRID.raw; per-row join: SCORE.txt; the
+FIXED/BROKEN verdict: VERDICT.txt.
+
+NOTATION
+  E0(N) = the element the FIRST loop iteration writes at index 0
+          (= the CORRECT list's element 0, because iteration 1 indexes 0
+             whatever the corrupted literal holds)
+  Z(N)  = the value element 0 holds when the literal has reached the uint64
+          FIXPOINT 0, so the index never moves and the loop RUNS TO COMPLETION:
+          the LAST index-0 write.
+    N     2  4  5  6  9 13 16 20 21 25 33
+    E0    2  4  2  3  4  4  4  4  4  4  4
+    Z     2  4  3  3  3  3  4  4  3  3  3
+
+1. THE SHARED WIDTH — 26/26 escaping-or-not cells, NO exception
+-------------------------------------------------------------
+Golden gives EVERY instance's argument constant the width the FIRST
+instantiated instance's `bit [N-1:0][15:0]` array had, not its own:
+
+  cell        instance order (N)      golden width, ALL instances
+  a3_25_2     25, 2                   400   (= 25x16)
+  a4_2_25     2, 25                    32   (= 2x16)   <- NOT the widest
+  a5_20_25    20, 25                  320   (= 20x16)  <- NOT the widest
+  a6_25_20    25, 20                  400
+  a7_20x2     20, 20                  320
+  a8_full     25, 2x11, 20            400   (the Rggen multiplicity)
+  a9_2_20     2, 20                    32
+  c1_2_2_25   2, 2, 25                 32
+  c2_25_2_2   25, 2, 2                400
+  c3_5_25     5, 25                    80
+  c4_25_5     25, 5                   400
+  c5_9_25     9, 25                   144
+  c6_33_25    33, 25                  528
+  c7_25_33    25, 33                  400
+  e1_2_4      2, 4                     32      (no escape anywhere)
+  e2_4_2      4, 2                     64      (no escape anywhere)
+  e3_5_9      5, 9                     80      (no escape anywhere)
+  e4_9_5      9, 5                    144      (no escape anywhere)
+  e5_4_25     4, 25                    64
+  e6_25_4     25, 4                   400
+  b1/b2/b3/b4/b5/b6/b7/b8/b9/d1  single N  -> that N's own width (trivial)
+
+MECHANISM (transcribed from UHDM templates/ExprEval.cpp): `list = '0` is a plain
+assignment whose Rhs literal object BECOMES the array variable's value object,
+exactly as § compoundLitWriteBackSat2's compound assignments do.  The tail's
+`if ((c->VpiSize() == -1) && (c->VpiConstType() == vpiBinaryConst))` block stamps
+that object's VpiSize from `ExprEval::size(lhsexp)` — ONCE.  Every later instance
+finds VpiSize already set and re-uses the FIRST instance's width.  The
+`(index*size_rhs + i) < si` bound in the element-write arm reads the same shared
+`si`, which is why an N=2 instance in a design whose first instance is N=25 has
+25 elements' worth of room and never escapes.
+
+2. THE SURVIVING ELEMENT — 20/20 escaping cells
+------------------------------------------------
+Wherever golden's constant belongs to an instance in the SATURATED regime,
+ONLY ELEMENT 0 IS NONZERO.  Every higher element is 0 — the corrupted write
+index is already past the bound on iteration 2, so nothing after iteration 1
+lands.  This clause has NO counterexample in the grid.
+
+3. WHAT ELEMENT 0 HOLDS — count-DEPENDENT, and this pass says so
+----------------------------------------------------------------
+  golden = E0 (the FIRST index-0 write), 13 cells:
+    a1_25 u00 | a2_25x2 u00 | a3_25_2 u00 | a4_2_25 u01 | a6_25_20 u00
+    a8_full u00 | c1_2_2_25 u02 | c2_25_2_2 u00 | c3_5_25 u01 | c4_25_5 u00
+    c5_9_25 u01 | b5_9x2 u01 | d1_25_w8 u00
+  golden = Z (the LAST index-0 write), 8 cells:
+    a2_25x2 u01 | a5_20_25 u01 | b6_13x2 u01 | b8_21x2 u01 | b9_33x2 u00
+    b9_33x2 u01 | c6_33_25 u01 | c7_25_33 u01
+  (the remaining escaping instances have E0 == Z and cannot tell them apart)
+
+Every theory that separates the two lists was REFUTED by a cell in it:
+  "the FIRST instance gets E0"                 -> b9_33x2 u00 is FIRST and Z
+  "a later instance gets Z"                    -> a4_2_25 u01, c1 u02, c3 u01,
+                                                  c5 u01, b5 u01 are later and E0
+  "a predecessor that ESCAPED forces Z"        -> a5_20_25's N=20 predecessor
+                                                  does not escape on its first
+                                                  evaluation, and u01 is Z
+  "the entering literal value decides"         -> b6_13x2 u01 enters at 8 and is
+                                                  Z, c5_9_25 u01 enters at 4 and
+                                                  is E0, b9_33x2 u00 enters at 1
+                                                  and is Z
+What decides it is how many demand-driven re-evaluations happen before that
+instance's constant is minted — whether the doubling has reached the uint64
+fixpoint yet — and r10rgg2 § 2 PROVED that count is not source-derivable (the
+same body, one instance, N=25 gives 0 evaluations with only SUB_N_LIST present
+and FIFTY-ONE once an int-typed NEXT_N is added).  This pass therefore claims
+E0, states the Z list by name, and shows that NO CELL goes pristine-right ->
+patched-wrong: on all 8 Z cells the base binary emitted the full multi-element
+list, which is neither E0 nor Z.
+
+  ALL THIRTEEN Rggen instances are on the E0 side (N=25 -> 4, N=2 -> 2,
+  N=20 -> 4), and for N=2 and N=20 E0 == Z, so only the N=25 head instance
+  actually rests on the claimed half.
+
+4. THE LAW AS SHIPPED
+---------------------
+> § satArrArgFirstElem5.  Inside § compoundLitWriteBackSat2's SATURATED regime —
+> escape ∧ >= 2 elaborated instances ∧ the r10vrgg2 DEMAND GATE ∧ the `+=`
+> fixpoint, no new gate of its own — the value an ELABORATED parameter-initializer
+> func_call ARGUMENT receives for the escaping MULTIDIMENSIONAL packed-array
+> parameter is the array a corrupted evaluation whose write index has ALREADY
+> ESCAPED leaves behind: ELEMENT 0 ALONE (the first loop iteration's write, which
+> is the correctly-folded element 0), every higher element ZERO, rendered at the
+> width of the FIRST INSTANTIATED instance's array — one shared width for every
+> instance of the definition, zero-extended or left-truncated to it.
+> The instance's own FORMAL width does not re-stamp the constant.
+
+5. RANKED RESIDUES
+------------------
+1. THE SHARED WIDTH IS NOT CLAIMED OUTSIDE THE SATURATED REGIME.  e1_2_4,
+   e2_4_2, e3_5_9, e4_9_5 measure it: golden shares the first instance's width
+   (32 / 64 / 80 / 144) where we emit each instance's own (32,64 / 64,32 /
+   80,144 / 144,80).  Nothing escapes in those designs, so § compoundLitWriteBackSat2
+   records nothing and this pass deliberately keeps the base behaviour.  Lifting
+   the width clause out of the saturation gate is the cheapest next step in this
+   family and it is a 4-cell, already-measured target.
+2. ELEMENT 0 IN THE POST-WRAP REGIME (§ 3's 8 cells).  Needs the demand count.
+3. THE COUNT-DEPENDENT SETTLED REGIME, carried from r10rgg2 residue 2 and now
+   measured on the ARRAY as well: b3_5x2 u00 golden {0:2, 2:3}, b4_6x2 u00
+   {0:3, 2:3}, b5_9x2 u00 {0:4, 4:2, 8:3} — the index skips elements because the
+   literal doubles, but never leaves the bound, so no escape is recorded and we
+   keep slang's correct list.  Same blocker.
+4. OUR next_data RANGE emits the WRONG instance's parameter.  In a8_full the 11
+   N=2 instances' 66:10 constants carry the N=25 instance's value on BOTH
+   binaries (base: its full list, patched: its element 0) where golden carries
+   each instance's own 2.  In the real Rggen those 12 objects are MISSING from
+   our database entirely (rggencensus5.sh: GOLD-ONLY 12), so they cost the
+   corpus row nothing today — but they are the next family in this file.
+5. Golden FOLDS the whole `next_data` range where we keep the call (a5_20_25 u00,
+   a7_20x2 u00, b3_5x2 u01, b6/b7/b8 u00): golden emits NO argument constant at
+   all there.  A SHAPE divergence, one level above this pass's field.

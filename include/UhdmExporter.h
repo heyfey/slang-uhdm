@@ -2168,6 +2168,22 @@ private:
     // Only the regimes whose value is EVALUATION-COUNT-INDEPENDENT are
     // recorded; see the mechanism note in ParamEmit.cpp.
     std::map<const slang::syntax::SyntaxNode*, uint64_t> compoundWbLits;
+    // § satArrArgFirstElem5 (r10rgg5) — the SECOND half of the same corrupted
+    // evaluation.  Once § compoundLitWriteBackSat2's write index has escaped,
+    // the PACKED-ARRAY parameter it was indexing no longer holds the value the
+    // source computes: only the FIRST loop iteration's element write ever
+    // lands, and the whole vector is rendered at the width the FIRST
+    // EVALUATING instance's array had -- ONE shared width for every instance of
+    // the definition, measured on 26 cells (tools/probe/r10rgg5repro).  Keyed
+    // per instance PARAMETER, because the surviving element is the one THAT
+    // instance's own first iteration wrote.  `first` is the BIN digit string
+    // (MSB first, already at the shared width); it is consulted only where an
+    // elaborated const-call argument folds such a parameter's value.
+    struct SatArrVal5 {
+        std::string bits;   // MSB-first BIN digits, exactly `width` long
+        int32_t width = 0;
+    };
+    std::map<const slang::ast::ParameterSymbol*, SatArrVal5> satArrArgVals;
     void computeCompoundWriteBack();
     std::map<const slang::ast::DefinitionSymbol*, DefInfo> defMap;
     // Interface definitions -> their def-view interface_inst shell (referenced

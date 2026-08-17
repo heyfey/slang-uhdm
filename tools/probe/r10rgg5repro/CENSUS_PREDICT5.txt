@@ -1,0 +1,57 @@
+r10rgg5 — PREDICTION, WRITTEN BEFORE THE PATCHED BINARY WAS MEASURED
+====================================================================
+(base binary md5 c12479be81b3f9d27e3ac3d1c65385fc,
+ patched      md5 4aacdc3e8415aef9fa30fc84dfc77951)
+
+REACH.  § satArrArgFirstElem5 is recorded ONLY inside the branch that already
+records § compoundLitWriteBackSat2's saturated literal: escape ∧ >= 2 elaborated
+instances of the definition ∧ the r10vrgg2 DEMAND GATE ∧ the `+=` fixpoint.  It
+is consulted at ONE site — ExprEmit's `elabParamArgFold`, the
+packedDimCountE > 1 branch, i.e. an ELABORATED parameter-initializer func_call
+argument that names a MULTIDIMENSIONAL packed-array parameter.  rgg2's own
+byte verifier already proved that gate reaches exactly ONE corpus design.
+
+  uhdm2rtlil : 0 byte movers out of ~1358 databases.
+  surelog    : the Rggen databases and NOTHING else.
+  rows       : 0 status rows move (Rggen/default stays CMP_NOTEQUAL — the head
+               ADVANCES; our tree still elaborates the recursive u_reducer chain
+               Surelog's corrupted fold never built, 17 instances against 13,
+               so the test cannot become CMP_EQUAL in this pass).
+
+GOLDEN-vs-OURS CENSUS of the 13 golden `get_next_n` argument constants
+(gncensus.py on the cached golden 6fc99d8f4119ff55b3e1 and on our slang.uhdm):
+
+  golden, per elaborated rggen_or_reducer instance (site 64:47 and 66:10 alike):
+    u_block_0…u_mux.g.u_reducer          (N=25)  size 400  BIN value 4
+    11 × …u_read_data_mux.g.u_reducer    (N=2)   size 400  BIN value 2
+    u_block_1…u_mux.g.u_reducer          (N=20)  size 400  BIN value 4
+
+  base (ours), same objects:
+    N=25 : size 400  value = the 25-element list 4,4,4,4,4,2,3   WRONG value
+    N=2  : size  32  value 2                                     WRONG size
+    N=20 : size 320  value = 4,4,4,4,4                            WRONG both
+
+PREDICTED AFTER:
+  * the N=25 instance's constant -> 400 / 4          (head object TO GOLDEN)
+  * each N=2 instance's constant -> 400 / 2          (size zero-extends)
+  * the N=20 instance's constant -> 400 / 4
+  so all 13 golden argument constants become byte-identical to golden, and the
+  Rggen `default` head MOVES OFF rggen_or_reducer.sv:64:58.
+  DEFICIT 13 -> 0 on that family.
+
+  Our EXTRA objects (the recursive g_reduce.u_reducer chain, and the `.N(NEXT_N)`
+  override arguments at 91:18) have no golden counterpart; they change too
+  (same law, same instances' parameters) and cannot be scored against golden.
+
+GRID PREDICTION (26+6 cells, real Surelog as golden):
+  * FIXED: every cell whose golden argument constant is single-element AND whose
+    element 0 is the FIRST index-0 write — a1_25, a2_25x2 u00, a3_25_2 (both),
+    a4_2_25 u01, a6_25_20 (both), a8_full (all 13), c1_2_2_25 u02, c2_25_2_2
+    (all), c3_5_25 u01, c4_25_5 (both), c5_9_25 u01, d1_25_w8, b5_9x2 u01.
+  * STILL WRONG (the named residue, wrong -> differently wrong, never
+    right -> wrong): a2_25x2 u01, a5_20_25 u01, b6_13x2 u01, b8_21x2 u01,
+    b9_33x2 u00+u01, c6_33_25 u01, c7_25_33 u01 — golden holds the LAST
+    index-0 write there (the post-wrap regime).
+  * UNTOUCHED (no escape found by the replay -> nothing recorded):
+    b1_2x2, b2_4x2, b3_5x2, b4_6x2, b5_9x2 u00, e1..e6.
+  * ZERO cells go pristine-right -> patched-wrong.  That is the acceptance bar.

@@ -1,0 +1,2 @@
+FOLD-BOUNDARY: sources=47 movers=0 no-database=0
+CTRL (each PAT dump vs the NEXT source's BASE dump): 47 / 47 flagged
