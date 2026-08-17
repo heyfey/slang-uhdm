@@ -1,0 +1,82 @@
+r10earl56 — CENSUS PREDICTION, written BEFORE the patched binary was RUN.
+(The patched binary was compiled at this point — md5
+4f47d34ada0f402e6d77ae216ae46657 — but it has not produced a single database:
+every number below comes from the GOLDEN dump and the PRISTINE dump only.)
+
+THE LAW.  § genScopeOwnParamNoSelFold56 — the gen-scope cont-assign
+select-bound parameter fold (`genCaLhsParamFold && inPsBound`, ExprEmit ~7458)
+ABSTAINS for a parameter whose IMMEDIATE DECLARING SCOPE IS A GENERATE BLOCK.
+Those are § genLpUseFoldParentScope47's business, and that rule folds EXACTLY
+the one-hop case, before this arm is reached.
+
+WHAT MOVES, AND IT IS ONE SHAPE.  `census56.py` keys every bit_select /
+part_select / indexed_part_select / var_select bound slot on
+(view, the select's own VpiFullName, line:col, slot, occurrence).
+
+  CALIBRATION FIRST, golden vs golden on a1: agree=153 DISAGREE=0
+  ONLY-GOLD=0 ONLY-OURS=0.  A detector that flags everything is a broken
+  detector.
+
+  Earlgrey_0_1/default, golden vs PRISTINE, 30 150 agreeing / 2 355 disagreeing
+  slots.  Of the 2 355, the direction this law reverses (golden `ref_obj`, ours
+  `constant`) is **256** slots and NOTHING ELSE in the database has that shape:
+
+    254   ELAB  indexed_part_select  vpiWidthExpr  G=ref_obj(PTRV_W)  O=constant
+          = prim_fifo_sync.sv 70:35 (127 cells) and 71:35 (127 cells), i.e.
+            `assign wptr_value = fifo_wptr[0+:PTRV_W];` and its rptr twin, in
+            127 elaborated `gen_normal_fifo` scopes.  PTRV_W is that gen
+            scope's OWN localparam (d0) — the fence's target.
+      2   ELAB  indexed_part_select  vpiWidthExpr  G=ref_obj(WordSelW) O=constant
+          = flash_phy_core.sv:192:20 in u_flash_eflash.gen_flash_banks[0]/[1]
+            .i_core.gen_prog_data.  WordSelW is a PACKAGE parameter
+            (flash_phy_pkg.sv:43) and the select sits inside an ALWAYS_COMB, not
+            a cont-assign: a different scope class AND a different arm.  The
+            fence is a SCOPE test, so it must NOT move these.
+
+  PREDICTED, Earlgrey_0_1/default:
+      TO-GOLDEN    254        (the PTRV_W cells, all of them, both lines)
+      AWAY-GOLDEN    0
+      STILL-WRONG    0
+      UNMOVED-BAD  2 101      (2 WordSelW + the 2 099 slots of the OPPOSITE
+                               direction, golden `constant` / ours `ref_obj`,
+                               which is the 2 036-rung family earl54 measured
+                               and which this law does not touch)
+      DEF view: NOT ONE SLOT.  All 256 candidate cells are ELAB (the earl38
+      fence); the only DEF disagreement anywhere near this law in the arms is
+      a1's pre-existing package-param cell.
+
+WHAT MOVES ON THE ARMS (golden vs pristine, measured; the patched column is the
+prediction):
+
+  a1  8 slots  ips WIDTH and ips BASE at d0, typed (D0W) and untyped (D0U),
+               in BOTH ELAB copies of the gen scope
+  a2  8 slots  a bare part_select bound at d0, a gen-scope `parameter` at d0,
+               a NESTED gen scope's own d0 localparam, and DISTANCE 2 —
+               in both ELAB copies
+  a3  6 slots  a select bound inside a FUNCTION-CALL ARGUMENT at d0, and the
+               cont-assign LHS select's width and right bound at d0
+  a4  8 slots  d0 with a NON-LITERAL initializer (the prim_fifo_sync
+               `$clog2(Depth) + ~|$clog2(Depth)` shape) and a d0 localparam
+               whose init reads a sibling localparam
+
+  AWAY-GOLDEN = 0 on every arm, and the cells that MUST NOT MOVE are named:
+    * every d1 cell (a1 gen_in.n_*, a2 g2.d1_*/g3.d1b_*/g4[i].fo_*,
+      a4 g2.z1_ipsw/z1_ipsb/z1_ps and g3[i].q1_ipsw) is `constant` on BOTH
+      sides today.  If § genLpUseFoldParentScope47 were not the arm folding
+      them, the fence would turn them into ref_objs and every one would be an
+      AWAY-GOLDEN.  THIS IS THE PASS'S PRIMARY REGRESSION CHECK.
+    * every dM / dP cell (a1 m_*, mu_*, p_*, k_*; a2's module reads; a3/a4
+      mv_ips, mr_bare, ml_t) must stay `constant` — golden folds them.
+    * every PROCEDURAL cell (a2 pc_*/pf_*, a4 nb) is `ref_obj` on both sides
+      already and must not move.
+    * every OPERATION bound (a1 w_psl/w_psr, a2 b_ipswop/b_ipsbop) must stay
+      the folded `constant` golden has.
+
+RESIDUES THIS LAW DOES NOT CLAIM, predicted to be UNMOVED:
+  R1  the 2 WordSelW cells (package param, procedural, gen scope).
+  R2  a3/a4's call-argument cell with a MODULE localparam (`f56(din[0+:MW])`),
+      golden ref_obj, ours constant — a CONTEXT discriminator, not a scope one.
+  R3  the 2 099 opposite-direction slots, incl. the bit_select INDEX at d1
+      (a1 n_bit, a2 d1_bit, a4 z1_bit): golden folds, we keep the ref.
+      § genLpUseFoldParentScope47 has no call site on a bit_select index.
+  R4  a3/a4's LHS-ips DEF-view SPAN residue (golden 51:12, ours 51:17).

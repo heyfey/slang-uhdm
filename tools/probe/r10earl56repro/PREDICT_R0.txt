@@ -1,0 +1,49 @@
+r10earl56 — NEW-HEAD PREDICTION, written BEFORE the patched binary was RUN.
+
+INSTRUMENT: `lad_pris12.txt`, a 12-rung PRISTINE ladder over
+Earlgrey_0_1/default (8.0 s, --max=12 --budget=400), on the databases this pass
+built itself.  Masking a rung is how the ladder emulates fixing it, and earl54
+established that the ladder's walk order agrees with uhdm-cmp's.
+
+The pristine ladder's FIRST TWO rungs are BOTH this pass's shape, in the SAME
+gen scope:
+
+  RUNG 1  ref_obj(PTRV_W)@prim_fifo_sync.sv:70:38-70:44#291403 vs
+          constant@:70:38-70:44#235789      KINDP=indexed_part_select(fifo_wptr)
+  RUNG 2  ref_obj(PTRV_W)@prim_fifo_sync.sv:71:38-71:44#291408 vs
+          constant@:71:38-71:44#235797      KINDP=indexed_part_select(fifo_rptr)
+
+uhdm-cmp stops at rung 1, which is why the pristine head is 46 lines long.  The
+census says § genScopeOwnParamNoSelFold56 clears BOTH (they are two of the 254
+PTRV_W cells), so the new head must be RUNG 3.
+
+  PREDICTED R0
+    KINDL=int_typespec  KINDR=integer_typespec  KINDP=ref_typespec
+    FIELD=VpiType   SHAPE=KIND:int_typespec>integer_typespec
+    L(golden) int_typespec(DepthW) @prim_fifo_sync.sv:16:27-16:27  #985050
+    R(ours)   integer_typespec     @:72:45-72:51                   #235805
+    PL  ref_typespec#985049 < operation @prim_fifo_sync.sv:72:45-72:59
+        < operation @72:20-74:80 < cont_assign @72:12-74:80
+        < gen_scope(gen_normal_fifo) @52:12-151:6
+        < module_inst(i_fifo) @dm_csrs.sv:553:3
+    i.e. `assign depth = (full) ? DepthW'(Depth) : ...` — the DepthW SIZE CAST
+    at prim_fifo_sync.sv:72.  It is the 333-rung PRE-EXISTING family LADDER54.md
+    named (`int_typespec>integer_typespec`), and rungs 3-8 of the pristine
+    ladder are all in it.  NOT this pass's law and not a new defect.
+
+  The golden object id is 985050 and is predicted EXACTLY.  earl55's lesson is
+  that OUR id will renumber (the patched database drops 254 constants and their
+  typespec refs and mints 254 ref_objs), so #235805 is a PRISTINE-side id and
+  may shift; golden's cannot.
+
+  THE ONE WAY THIS PREDICTION FAILS, and it is a real risk this pass names in
+  advance: the fence replaces our folded `constant` with whatever the ordinary
+  ref-emission path produces, and `ref_obj::Compare` reads VpiName, VpiDefName
+  and the ACTUAL.  If our new ref_obj disagrees with golden's on any of those,
+  R0 will be that ref_obj itself — same span 70:38-70:44, KINDL=KINDR=ref_obj,
+  FIELD=VpiName / VpiFullName / vpiActual — and the head would get SHALLOWER
+  rather than moving on.  The arms are what settle it before Earlgrey is run.
+
+  What must NOT be the new head: anything at prim_fifo_sync.sv:70:38 or
+  71:38, and anything in the `constant>ref_obj` family (rung 9's PTR_WIDTH
+  cell at 131:29 is the OPPOSITE direction and this pass leaves it alone).

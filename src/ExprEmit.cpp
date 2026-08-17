@@ -4769,6 +4769,23 @@ UHDM::constant* UhdmExporter::enumMemberSubstConst(const Symbol& sym) {
     return c;
 }
 
+// § genScopeOwnParamNoSelFold56 — is this parameter DECLARED BY A GENERATE
+// SCOPE?  The immediate parent scope is the answer: a `localparam` (or a
+// gen-scope `parameter`, which SV treats as one) written inside a generate
+// block belongs to that block's scope, while a module's own parameters belong
+// to its InstanceBody and a package's to the Package.  Only the gen-scope ones
+// are governed by § genLpUseFoldParentScope47's one-hop rule, and this is the
+// test that hands them over to it.
+bool UhdmExporter::genScopeDeclaredParam56(const Symbol& sym) {
+    if (sym.kind != SymbolKind::Parameter)
+        return false;
+    auto* psc = sym.getParentScope();
+    if (!psc)
+        return false;
+    auto k = psc->asSymbol().kind;
+    return k == SymbolKind::GenerateBlock || k == SymbolKind::GenerateBlockArray;
+}
+
 // § genLpUseFoldParentScope47 — THE LAW (definition; FOUR call sites, all in
 // this file, each labelled `CALL SITE n of 4`).
 //
@@ -7725,8 +7742,65 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // ELAB gen-scope CA LHS select bounds fold PARAM refs to
                 // typed constants (base-scoped ts ref -> the param's int ts
                 // at its decl type span — Surelog).
+                //
+                // § genScopeOwnParamNoSelFold56 — THE FENCE.  This fold has no
+                // business touching a parameter that a GENERATE SCOPE declares.
+                // Those are governed entirely by § genLpUseFoldParentScope47's
+                // ONE-HOP rule, which runs at every bound position BEFORE this
+                // arm is reached (CALL SITES 1-4), so the only cells that ever
+                // arrived here were the hops that rule REFUSES — and golden
+                // keeps a `ref_obj` at every one of them:
+                //
+                //   d0 (the use site's OWN gen scope)   golden ref_obj
+                //   d1 (exactly one gen scope out)      golden CONSTANT — and
+                //       § genLpUseFoldParentScope47 already substituted it, so
+                //       control never gets here
+                //   d2 and deeper                       golden ref_obj again
+                //
+                // measured in a1/a2 over the ips WIDTH, the ips BASE, a bare
+                // part_select bound and a bit_select index, in if-generate and
+                // for-generate bodies, `localparam` and gen-scope `parameter`,
+                // typed and untyped.  The corpus head is
+                // prim_fifo_sync.sv:70:38 `fifo_wptr[0+:PTRV_W]` inside
+                // `gen_normal_fifo`, whose PTRV_W is that scope's own d0
+                // localparam.
+                //
+                // A MODULE parameter or localparam, and a PACKAGE parameter,
+                // are NOT gen-scope-declared and keep folding here — golden
+                // folds all three (a1 cells m_*, mu_*, p_*, k_*), which is what
+                // makes this a scope test and not a distance test.
+                //
+                // THE FENCE IS ON THE **DIRECT** BOUND ONLY, and that clause
+                // is not decoration — it is a REGRESSION THIS PASS MEASURED AND
+                // FIXED BEFORE LANDING.  The first build fenced every
+                // gen-scope-declared parameter under `inPsBound`, including the
+                // ones nested inside a bound OPERATION, and turned 107
+                // PRISTINE-RIGHT cells at prim_fifo_sync.sv:127:48 into wrong
+                // ref_objs: `assign storage_rdata = storage[fifo_rptr[
+                // PTR_WIDTH-2:0]];` in `gen_depth_gt1`, where PTR_WIDTH is the
+                // PARENT gen scope's localparam (d1) and golden's ELAB copy
+                // holds the FOLDED constant (UINT:2, size 32, ts ref scoped by
+                // the select base) that the pristine binary already matched
+                // field for field.  A ref nested in an operation is a different
+                // question with a different answer, and the SELECT-BOUND census
+                // is structurally BLIND to it — it reads the slot's direct child
+                // only, which is `operation` on both sides.  The whole-dump
+                // diff is what caught it.
+                //
+                // `parent` is the discriminator and it is exact: call sites 3
+                // and 4 hand emitExpr the SELECT ITSELF for a direct bound,
+                // while emitExpr's BinaryOp arm hands its operands the
+                // `operation` it just minted.  The prefix agrees — golden's
+                // direct bound ref is scoped by the gen scope
+                // (`…gen_normal_fifo.PTRV_W`) and its nested one by the select
+                // base (`…storage.fifo_rptr.PTR_WIDTH`).
+                bool directBound56 =
+                    parent && (parent->UhdmType() == UHDM::uhdmpart_select ||
+                               parent->UhdmType() ==
+                                   UHDM::uhdmindexed_part_select);
                 if (genCaLhsParamFold && inPsBound &&
-                    nv.symbol.kind == SymbolKind::Parameter) {
+                    nv.symbol.kind == SymbolKind::Parameter &&
+                    !(directBound56 && genScopeDeclaredParam56(nv.symbol))) {
                     // A TYPELESS parameter object reduces to the plain
                     // unsized UINT — no width, no typespec (see
                     // typelessParamObj; BasicOh `ram[rd_addr[AW-1:0]]`).

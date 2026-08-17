@@ -2697,6 +2697,10 @@ private:
     // src/ExprEmit.cpp.
     UHDM::constant* genLpUseFoldBound47(const slang::ast::Expression& e,
                                         const std::string& usePrefix);
+    // § genScopeOwnParamNoSelFold56 — true when a GENERATE SCOPE declares this
+    // parameter, i.e. when § genLpUseFoldParentScope47's one-hop rule (and NOT
+    // the gen-scope cont-assign select-bound fold) owns the decision about it.
+    bool genScopeDeclaredParam56(const slang::ast::Symbol& sym);
     // True when the enum member has a LITERAL form to substitute: an integer
     // literal initializer, or none at all (an implicit member, which carries
     // its computed decimal).  A member initialized by an EXPRESSION (rp32's
