@@ -2741,6 +2741,18 @@ private:
     // parameter, i.e. when § genLpUseFoldParentScope47's one-hop rule (and NOT
     // the gen-scope cont-assign select-bound fold) owns the decision about it.
     bool genScopeDeclaredParam56(const slang::ast::Symbol& sym);
+    // § genLpOneHopProcBoundOp58 — the SCOPE-side of § genLpUseFoldParentScope47's
+    // one hop, asked of the slang scope tree instead of the emitted name: true
+    // when this gen-scope-declared parameter belongs to the generate scope that
+    // is the IMMEDIATE PARENT of the block whose body is being emitted.
+    // Definition + the full law in src/ExprEmit.cpp.
+    bool genLpOneHopUp58(const slang::ast::Symbol& sym);
+    // § genLpOneHopProcBoundOp58 — the substituted constant for such a
+    // parameter read NESTED INSIDE A SELECT-BOUND OPERATION of an ELABORATED
+    // gen-scope PROCESS.  Null whenever the law refuses.
+    UHDM::constant* genLpOneHopBoundOpFold58(const slang::ast::Expression& e,
+                                             UHDM::any* parent,
+                                             const std::string& prefix);
     // True when the enum member has a LITERAL form to substitute: an integer
     // literal initializer, or none at all (an implicit member, which carries
     // its computed decimal).  A member initialized by an EXPRESSION (rp32's
@@ -4602,6 +4614,32 @@ private:
     bool genScopeProcInLoop = false;
     // The gen block whose processes are currently being emitted (elab).
     const slang::ast::Scope* currentGenBlkScope = nullptr;
+    // § genLpOneHopProcBoundOp58 — the ELABORATED full name of the block
+    // `currentGenBlkScope` points at, set beside it.  The one-hop law needs
+    // the DECLARING scope's PATH (that is how `genLpFoldByPath` is keyed,
+    // and the per-instance value depends on it), and the emitted `prefix`
+    // cannot supply it inside a select bound: there the prefix is the
+    // SELECT's name, not the enclosing scope's.
+    std::string genBlkFullName58;
+    // § genLpOneHopProcBoundOp58 — the gen-scope PROCESS currently being
+    // emitted, so the law can read its PROCEDURE KIND.  `inGenScopeProc` is
+    // true for an `initial` too, and Surelog's `compileInitialBlock` passes
+    // NO instance at all — there is no netlist to substitute from, so an
+    // `initial` keeps its `ref_obj` at EVERY distance.  Measured: arm a1
+    // rows in_d1_pslo / in_d1_ipsbo / in_e1_* (8 cells) were
+    // pristine-right -> patched-wrong before this fence existed.
+    const slang::ast::ProceduralBlockSymbol* genProcSym58 = nullptr;
+    // V-FIX v58 — § genLpOneHopProcBoundOp58's NO-FOLD PROCEDURAL CONTEXTS.
+    // Depth of an EVENT-CONTROL EXPRESSION (`always @(v[L-2:0]) ...`) or an
+    // IMMEDIATE ASSERTION / ASSUMPTION / COVER CONDITION (`assert (v[L-2:0]
+    // != 0);`) being emitted.  Golden keeps the `ref_obj` at a one-hop
+    // gen-scope parameter in BOTH — measured on the verifier arms v6 (row
+    // 19:18) and v7 (rows 16:18, 18:19), where the pristine binary was RIGHT
+    // and the first patched binary was WRONG.  This is deliberately NARROWER
+    // than `condBindDepth5`, which also covers `if`/`case`/loop conditions —
+    // and golden FOLDS in all three of those (arm v2 rows 31:15, 34:17, arm
+    // v5 row 16:42).
+    int procNoFoldCtx58 = 0;
     // True while emitting an ELAB gen-scope CA LHS: param refs in select
     // bounds fold to typed constants (Surelog).
     bool genCaLhsParamFold = false;

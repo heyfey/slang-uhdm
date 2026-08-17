@@ -4786,6 +4786,145 @@ bool UhdmExporter::genScopeDeclaredParam56(const Symbol& sym) {
     return k == SymbolKind::GenerateBlock || k == SymbolKind::GenerateBlockArray;
 }
 
+// § genLpOneHopProcBoundOp58 — THE ONE HOP, DECODED FROM SURELOG AND ASKED OF
+// THE SCOPE TREE.
+//
+// `DesignElaboration::elaborateInstance_` compiles a generate block's
+// `ModuleDefinition` with `m_instance = parent` — the PARENT ModuleInstance,
+// created on the line AFTER the compile call — and every statement inside it is
+// compiled at `Reduce::No` (`compileAlwaysBlock` hardcodes it; so does
+// `compileStmt`).  At `Reduce::No` the only substitution `CompileExpression`'s
+// identifier arm can still make is the one guarded by
+// `param_ass->Rhs()->UhdmType() == uhdmconstant` over
+// `instance->getNetlist()->param_assigns()`, and `elab_parameters_` fills that
+// vector from `mod->getParamAssignVec()` — the definition's OWN parameters, and
+// nothing inherited.
+//
+// So the parameter set visible inside a generate block is EXACTLY its parent
+// scope's own parameters.  Distance 0 (the block's own localparams) is
+// invisible; distance 1 is visible; distance 2 and beyond are invisible.  Three
+// independently-measured laws fall out of that one line of Surelog:
+//   * § genLpUseFoldParentScope47's "one hop up the name, no more and no less";
+//   * § genScopeOwnParamNoSelFold56's d0 fence (a block cannot see itself);
+//   * § genProcParamFoldTopGenOnly20 — a MODULE parameter folds in a FLAT gen
+//     block (whose parent IS the module instance) and keeps its ref in a NESTED
+//     one (whose parent is a gen scope that has no module parameters).
+// This function is the scope-tree form of that test, for the cases where the
+// emitted NAME cannot answer it (a select-bound prefix is the SELECT's name,
+// not the enclosing scope's).
+bool UhdmExporter::genLpOneHopUp58(const Symbol& sym) {
+    if (!genScopeDeclaredParam56(sym))
+        return false;
+    const Scope* decl = sym.getParentScope();
+    if (!decl || !currentGenBlkScope)
+        return false;
+    const Scope* p = currentGenBlkScope->asSymbol().getParentScope();
+    // A for-generate body hangs under a GenerateBlockArray; that wrapper is not
+    // a scope Surelog ever compiles against, so it is not a hop.
+    while (p && p->asSymbol().kind == SymbolKind::GenerateBlockArray)
+        p = p->asSymbol().getParentScope();
+    return p == decl;
+}
+
+// § genLpOneHopProcBoundOp58 — THE LAW (definition; ONE call site, labelled
+// `CALL SITE 5`).
+//
+//   IN AN ELABORATED GEN-SCOPE **PROCESS**, A REFERENCE TO A ONE-HOP GEN-SCOPE
+//   PARAMETER NESTED INSIDE A SELECT-BOUND **OPERATION** IS REPLACED BY A COPY
+//   OF THAT PARAMETER'S ELABORATED `param_assign` Rhs CONSTANT — the same
+//   substitution § genCaLhsParamFold already makes one context over, in a
+//   gen-scope CONT-ASSIGN.
+//
+// The copy carries the pa Rhs constant's value, size, decompile and ENCODING
+// verbatim, the USE's own span, the enclosing OPERATION as `vpiParent` and a
+// `ref_typespec` whose fullname is the SELECT BASE and whose actual is the
+// parameter's own typespec.  Every one of those five fields is measured, not
+// chosen: the sibling `cont_assign` three lines up in the corpus shape emits
+// exactly this object and the pristine binary already matched it field for
+// field (§ genScopeOwnParamNoSelFold56's 107-cell regression note).
+//
+// THE Rhs-IS-A-CONSTANT TEST IS SURELOG'S OWN, NOT A HEURISTIC.  At
+// `Reduce::No` — which is what `compileAlwaysBlock` passes, always — the
+// netlist substitution arm is guarded by
+// `param_ass->Rhs()->UhdmType() == uhdmconstant`; `elabParamPa` is this
+// exporter's model of that same netlist `param_assign`, so a parameter whose
+// elaborated Rhs is not a constant KEEPS ITS `ref_obj` on both sides.
+//
+// WHAT THE GRID MEASURED (tools/probe/r10earl58repro/a1_earl58.sv, 468 golden
+// cells over 3 distances x 9 contexts x 12 positions x 3 generate kinds, both
+// elaborated copies; grid58.py is the reader).  Golden SUBSTITUTES a
+// gen-scope parameter at distance 1 in a cont_assign and in `always_ff`,
+// `always_comb` and `always @*` — at EVERY position measured — and keeps the
+// `ref_obj` at distance 0 and distance 2 in all four.  Three contexts refuse
+// the substitution at every distance, and Surelog says why:
+//   * `initial`   — `compileInitialBlock` passes NO instance at all, so there
+//                   is no netlist to substitute from (rows in_d1_*).
+//   * function/task BODY — same, and § genProcParamFold's `currentSubSym`
+//                   guard already encodes it (rows fn_*/tk_*).
+//   * net-decl-assign and var-decl-init answer d0/d1 BACKWARDS (golden folds
+//     at distance 0 and keeps the ref at distance 1), because those are
+//     elaborated against the declaring scope's OWN instance — r10earl56's R-V1,
+//     re-measured here (rows nd_d0_* / vd_d0_* fold, nd_d1_* / vd_d1_* do not).
+// A GENVAR is never substituted (rows fg_gv), and the generate KIND does not
+// matter: a named if-generate, an UNNAMED begin/end and a for-generate body all
+// substitute at distance 1 (rows un_*, fg_*).
+//
+// THE POSITION RESTRICTION IS OURS, exactly as § genLpUseFoldParentScope47's
+// was.  Golden substitutes at distance 1 in the bare operand, the plain
+// operation operand, the replication count, the comparison operand, the
+// bit_select INDEX, an LHS select bound, an `if` condition and a `case` item
+// as well — and Earlgrey_0_1 has ZERO cells of any of those shapes with a
+// one-hop gen-scope parameter (the whole-design census below enumerates the
+// family), so this pass claims the ONE position its corpus actually holds and
+// leaves the rest as ranked, arm-measured residues (README R1-R4).
+UHDM::constant* UhdmExporter::genLpOneHopBoundOpFold58(
+    const Expression& e, UHDM::any* parent, const std::string& prefix) {
+    auto& le = stripImplicitConv(e);
+    if (le.kind != ExpressionKind::NamedValue)
+        return nullptr;
+    auto& sym = le.as<NamedValueExpression>().symbol;
+    if (sym.kind != SymbolKind::Parameter)
+        return nullptr;
+    if (!genLpOneHopUp58(sym))
+        return nullptr;
+    // THIS INSTANCE'S OWN fold constant, found by PATH, never by a scan over
+    // the map's values: every elaborated copy of a parameterised module
+    // registers the same declaration, and prim_fifo_sync's 107 `gen_depth_gt1`
+    // copies do not share a PTR_WIDTH (Depth differs).  The declaring scope is
+    // ONE component up from the block being emitted -- the same hop
+    // `genLpOneHopUp58` just verified against the scope tree, now spelled as a
+    // path so the lookup lands in the right instance.
+    auto dot = genBlkFullName58.rfind('.');
+    if (dot == std::string::npos)
+        return nullptr;
+    auto it = genLpFoldByPath.find(genBlkFullName58.substr(0, dot) + "." +
+                                   std::string(sym.name));
+    if (it == genLpFoldByPath.end() ||
+        it->second.ps != &sym.as<ParameterSymbol>() || !it->second.c)
+        return nullptr;
+    auto* src = it->second.c;
+    auto* c = s.MakeConstant();
+    c->VpiDecompile(src->VpiDecompile());
+    c->VpiSize(src->VpiSize());
+    c->VpiValue(std::string(src->VpiValue()));
+    c->VpiConstType(src->VpiConstType());
+    c->VpiParent(parent);
+    setLoc(c, le.sourceRange);
+    auto* rt = s.MakeRef_typespec();
+    rt->VpiFullName(prefix);
+    rt->VpiParent(c);
+    c->Typespec(rt);
+    // The gen-localparam typespecs are built in the WRITE phase, so the actual
+    // is filled by the `pendingGenLpTs` drain -- exactly as
+    // § genLpUseFoldParentScope47's direct-bound copy does.
+    for (auto& gl : pendingGenLpTs)
+        if (gl.ps == it->second.ps) {
+            gl.shareRts.push_back(rt);
+            break;
+        }
+    return c;
+}
+
 // § genLpUseFoldParentScope47 — THE LAW (definition; FOUR call sites, all in
 // this file, each labelled `CALL SITE n of 4`).
 //
@@ -7798,6 +7937,74 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     parent && (parent->UhdmType() == UHDM::uhdmpart_select ||
                                parent->UhdmType() ==
                                    UHDM::uhdmindexed_part_select);
+                // § genLpOneHopProcBoundOp58 — CALL SITE 5, and THE ONLY ONE.
+                // The gen-scope PROCESS twin of the arm immediately below:
+                // `storage[fifo_wptr[PTR_WIDTH-2:0]] <= wdata;` in
+                // prim_fifo_sync's `gen_depth_gt1` always_ff, where the
+                // sibling `assign storage_rdata = storage[fifo_rptr[
+                // PTR_WIDTH-2:0]];` three lines up already folds through
+                // `genCaLhsParamFold`.  `inGenScopeProc` and
+                // `genCaLhsParamFold` are never both true — one is the
+                // elaborated gen-scope PROCESS window, the other the
+                // elaborated gen-scope CONT-ASSIGN window — so this arm can
+                // only ever fire where the one below cannot.
+                // ...and NOT in an `initial`/`final`: `compileInitialBlock`
+                // passes no instance, so golden keeps the `ref_obj` there at
+                // EVERY distance (arm a1 rows in_d1_*, in_e1_*).
+                bool alwaysProc58 =
+                    genProcSym58 &&
+                    (genProcSym58->procedureKind ==
+                         slang::ast::ProceduralBlockKind::Always ||
+                     genProcSym58->procedureKind ==
+                         slang::ast::ProceduralBlockKind::AlwaysComb ||
+                     genProcSym58->procedureKind ==
+                         slang::ast::ProceduralBlockKind::AlwaysFF ||
+                     genProcSym58->procedureKind ==
+                         slang::ast::ProceduralBlockKind::AlwaysLatch);
+                // V-FIX v58 — THE THREE NO-FOLD REGIONS THE SHIPPED LAW
+                // MISSED, every one of them a PRISTINE-RIGHT -> PATCHED-WRONG
+                // cell on legal SV (verifier arms v2/v5/v6/v7; LHS golden):
+                //
+                //  (a) A **for-stmt**, header AND body.  Golden keeps the
+                //      `ref_obj` in `for (int k = 0; ...) r <= v[L-2:0];`
+                //      (v5 13:72), in `for (k2 = 0; ...)` (v5 14:73), one
+                //      `if`+`begin` deeper (v5 25:27), and in all three header
+                //      positions (v6 14:44 init, 15:49 condition, 16:62
+                //      increment) — while it FOLDS in `foreach` (v5 15:61),
+                //      `do..while` (16:42), `forever` (17:52), `while` (v2
+                //      25:51), `repeat` (23:51) and a named `begin` (v5 20:20).
+                //      `procForAllDepth9` is EXACTLY this region and already
+                //      carries § genProcParamFold's identical measurement for a
+                //      MODULE parameter, so the same state answers both.
+                //
+                //  (b) A **BARE (unqualified) user function/task call
+                //      ARGUMENT**: `gf(v[L-2:0])` keeps its ref (v6 17:33, v7
+                //      14:34).  A PACKAGE-QUALIFIED call folds (`v7_pkg::pf`,
+                //      v7 12:42) and so does a SYSTEM call's argument
+                //      (`$countones`, v7 13:50) — which is why the test is
+                //      § genProcParamFoldQualCallArg20's `qualCallArg20` with
+                //      § genCaSysCallArgBinds22's depth as the second exit, and
+                //      not a plain `callArgDepth == 0`.
+                //
+                //  (c) An **event-control expression** and an **immediate
+                //      assertion condition** (`procNoFoldCtx58`; v6 19:18, v7
+                //      16:18 and 18:19).
+                //
+                // All three are REFUSALS ONLY: they can never make this arm
+                // fold where it did not, so the Earlgrey_0_1 head this pass
+                // claims is untouched (measured: the patched and V-FIX
+                // databases are byte-identical on both modes).
+                bool bareCallArg58 =
+                    callArgDepth > 0 && !qualCallArg20 && sysCallArgDepth22 == 0;
+                if (inGenScopeProc && alwaysProc58 && !currentSubSym &&
+                    !defGenProcessEmit && procForAllDepth9 == 0 &&
+                    procNoFoldCtx58 == 0 && !bareCallArg58 &&
+                    inPsBound && !directBound56 && parent &&
+                    parent->UhdmType() == UHDM::uhdmoperation &&
+                    nv.symbol.kind == SymbolKind::Parameter)
+                    if (auto* c58 =
+                            genLpOneHopBoundOpFold58(expr, parent, prefix))
+                        return c58;
                 if (genCaLhsParamFold && inPsBound &&
                     nv.symbol.kind == SymbolKind::Parameter &&
                     !(directBound56 && genScopeDeclaredParam56(nv.symbol))) {

@@ -15492,6 +15492,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         suppressRefActual = true;
         inGenScopeProc = true;
         currentGenBlkScope = &blk;
+        genBlkFullName58 = fullName;
         // § genNestedScopePkgParamNoFold24 — the same nesting test the
         // cont-assign arm above sets; a nested gen scope's PROCESS keeps the
         // unqualified pkg-param read too (wb24 R3, `always_comb r_proc[i] =
@@ -15520,7 +15521,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     genAsserts->push_back(as);
                     continue;
                 }
-                if (auto* p = emitProcess(gpb, m, fullName, netMap)) {
+                genProcSym58 = &gpb;
+                auto* p = emitProcess(gpb, m, fullName, netMap);
+                genProcSym58 = nullptr;
+                if (p) {
                     p->VpiParent(gs);
                     procs->push_back(p);
                 }
@@ -15528,6 +15532,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         }
         inGenScopeProc = false;
         currentGenBlkScope = nullptr;
+        genBlkFullName58.clear();
         genNestedScopeEmit24 = false;
         suppressRefActual = false;
         if (!genAsserts->empty())

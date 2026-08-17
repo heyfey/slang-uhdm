@@ -52,6 +52,13 @@ struct CtrlBody28 {
 //
 // This counter has exactly ONE reader, `refVarLocalNoBind5`, so widening it
 // cannot reach any other law.
+// V-FIX v58 — RAII depth for § genLpOneHopProcBoundOp58's no-fold procedural
+// contexts (event-control expressions and immediate assertion conditions).
+struct NoFoldCtx58 {
+    int* p;
+    explicit NoFoldCtx58(int& d) : p(&d) { ++*p; }
+    ~NoFoldCtx58() { --*p; }
+};
 struct CondWindow5 {
     int* p;
     explicit CondWindow5(int& d) : p(&d) { ++*p; }
@@ -1121,6 +1128,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         // predicate at all (it needs `currentSubSym`), so this
                         // window is procedural-subroutine-only by construction.
                         CondWindow5 cw5ev(condBindDepth5);
+                        // V-FIX v58 — § genLpOneHopProcBoundOp58 NO-FOLD SITE 1
+                        // of 4: an EVENT-CONTROL EXPRESSION.  Golden keeps the
+                        // `ref_obj` for a one-hop gen-scope parameter here
+                        // (verifier arms v6 19:18 `always @(v[L-2:0])`, v7
+                        // 16:18 `always @(v[L-2:0] or en)`) while it FOLDS in
+                        // the statement the same `always` carries (v7 15:55).
+                        NoFoldCtx58 nf58ev(procNoFoldCtx58);
                         if (auto* cond = emitEventExpr(timing, ec, prefix, netMap))
                             ec->VpiCondition(cond);
                     }
@@ -3086,8 +3100,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     if (ia.isFinal)
                         a->VpiIsFinal(1);
                     // V-FIX vbuvm5 — § refVarLocalWindowBinds5 WINDOW SITE 5.
+                    // V-FIX v58 — § genLpOneHopProcBoundOp58 NO-FOLD SITES
+                    // 2-4 of 4: an IMMEDIATE ASSERTION / ASSUMPTION / COVER
+                    // CONDITION (verifier arm v7 row 18:19, golden `ref_obj`,
+                    // pristine RIGHT, first patched binary WRONG).
                     if (auto* c = [&] {
                             CondWindow5 cw5(condBindDepth5);
+                            NoFoldCtx58 nf58ia(procNoFoldCtx58);
                             return emitExpr(ia.cond, a, prefix, netMap);
                         }())
                         a->Expr((UHDM::expr*)c);
@@ -3111,8 +3130,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     if (ia.isFinal)
                         a->VpiIsFinal(1);
                     // V-FIX vbuvm5 — § refVarLocalWindowBinds5 WINDOW SITE 5.
+                    // V-FIX v58 — § genLpOneHopProcBoundOp58 NO-FOLD SITES
+                    // 2-4 of 4: an IMMEDIATE ASSERTION / ASSUMPTION / COVER
+                    // CONDITION (verifier arm v7 row 18:19, golden `ref_obj`,
+                    // pristine RIGHT, first patched binary WRONG).
                     if (auto* c = [&] {
                             CondWindow5 cw5(condBindDepth5);
+                            NoFoldCtx58 nf58ia(procNoFoldCtx58);
                             return emitExpr(ia.cond, a, prefix, netMap);
                         }())
                         a->Expr((UHDM::expr*)c);
@@ -3136,8 +3160,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     if (ia.isFinal)
                         a->VpiIsFinal(1);
                     // V-FIX vbuvm5 — § refVarLocalWindowBinds5 WINDOW SITE 5.
+                    // V-FIX v58 — § genLpOneHopProcBoundOp58 NO-FOLD SITES
+                    // 2-4 of 4: an IMMEDIATE ASSERTION / ASSUMPTION / COVER
+                    // CONDITION (verifier arm v7 row 18:19, golden `ref_obj`,
+                    // pristine RIGHT, first patched binary WRONG).
                     if (auto* c = [&] {
                             CondWindow5 cw5(condBindDepth5);
+                            NoFoldCtx58 nf58ia(procNoFoldCtx58);
                             return emitExpr(ia.cond, a, prefix, netMap);
                         }())
                         a->Expr((UHDM::expr*)c);

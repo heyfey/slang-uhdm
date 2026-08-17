@@ -1,0 +1,111 @@
+r10earl58 — CENSUS PREDICTION, written BEFORE the patched binary produced any
+database.  Sources: the golden Earlgrey_0_1/default dump, the PRISTINE dump
+built from f950314 at /tmp/wt_r10earl58/build_pris (md5
+d3e7f0df4195b2b26d9100d1e00afd37), and the whole-design v56span3 census
+gold-vs-pristine (agree 489539, DISAGREE 6048, ONLY-GOLD 7802, ONLY-OURS 4887).
+
+================================================================================
+1. THE FAMILY, ENUMERATED — `constant > ref_obj` (golden substitutes, we do not)
+================================================================================
+2 595 cells in 80 (view, slot, parent-kind, span, name) groups.  Attributed by
+reading each group's scope path out of the pristine dump:
+
+  1 989  bit_select vpiIndex, DIRECT, in a CONT-ASSIGN, distance 1
+         rv_plic_target.sv 98/99/101/102/103 x 127 (`Pa`, `C0`, `C1` declared in
+         `gen_level`, used in `gen_nodes`) = 1 905
+         + the same module inside u_flash_eflash …gen_normal_case 142-152 x 6 = 84
+    348  bit_select vpiIndex — a GENVAR (`i`), tlul_socket_m1 gen_host_fifo /
+         gen_idrouting 109-118, 241, 250 x 29.  NEVER substituted by this law.
+    107  operation vpiOperand inside a PART-SELECT bound, in a PROCESS, distance 1
+         prim_fifo_sync.sv 131:29 `storage[fifo_wptr[PTR_WIDTH-2:0]] <= wdata;`
+         x 107 elaborated `gen_normal_fifo.gen_depth_gt1`   <<== THE R0 HEAD
+     90  operation vpiOperand, MODULE/PACKAGE params in gen-scope cont-assigns
+         tlul_socket_m1 97:30 IDW / 97:34 STIDW / 105:52 IDW (29 each),
+         pinmux 176:43 MioPeriphHasSleepMode (32)
+     61  bit_select vpiIndex / ips vpiBaseExpr in PORT HighConns and function
+         bodies: flash_phy_core Phy* (14), spi_device FwMode{Rx,Tx}Fifo (16),
+         tlul_socket_1n N (16), flash_ctrl DataBitWidth (3) / PageErase /
+         BankErase (2), prim_sram_arbiter N (1), plus 3 DEF-view cells
+         (flash_mp `i`, tlul_err `op_get`, `k`)
+
+THIS PASS CLAIMS EXACTLY ONE SUB-FAMILY: **the 107**.
+  * the 1 989 bit_select-index cells are the SAME LAW at a position this pass
+    does not reach (README R1) — they sit in cont-assigns of a for-generate
+    body, where `genCaLhsParamFold` is switched OFF by `blkInLoop3` and
+    `currentGenBlkScope` is not set at all, so claiming them needs new
+    elaborated-context plumbing that no measurement in this pass validates.
+  * the 348 genvar cells are excluded by the law itself (a genvar has no
+    `param_assign`).
+  * the 151 remaining cells are other families (module/package parameters,
+    port HighConns, function bodies).
+LEAVES: 2 488 of the 2 595.
+
+================================================================================
+2. THE OPPOSITE DIRECTION — `ref_obj > constant` (we substitute, golden does not)
+================================================================================
+28 cells, ALL PRE-EXISTING and NONE touched by this pass (the new arm only ever
+fires where the pristine binary emits a `ref_obj`):
+  16  prim_flash_bank / flash 143:22 BankAddrW + 143:34 LsbAddrBit
+   4  191:27 WidthMultiple + 192:25 WordSelW
+   6  prim_lfsr 308 LfsrDw / GAL_XOR_LUT_OFF
+   2  DEF-view bit_select indices (`kk`, `i`)
+PREDICTION: still 28 after the patch.
+
+================================================================================
+3. EXACT MOVER PREDICTION — Earlgrey_0_1/default
+================================================================================
+TO-GOLDEN     107   prim_fifo_sync.sv 131:29-131:38, ELAB view, one per
+                    elaborated `…gen_normal_fifo.gen_depth_gt1`
+AWAY-GOLDEN     0
+STILL-WRONG     0
+DEF VIEW        byte-identical (`uhdmallModules` md5 unchanged); the DEF copy of
+                the same statement keeps its `ref_obj`
+                (work@prim_fifo_sync.gen_normal_fifo.gen_depth_gt1.storage.
+                 fifo_wptr.PTR_WIDTH) because `inGenScopeProc` is an
+                ELABORATED-emission window.
+
+THE OBJECT, PREDICTED FIELD FOR FIELD (golden id 291799 in the u_dm_top copy):
+  constant  131:29-131:38   vpiParent -> operation 131:29-131:40
+            vpiDecompile 2   vpiSize 32   UINT:2   vpiConstType 9
+            vpiTypespec -> ref_typespec fullname
+              work@top_earlgrey.<inst>.gen_normal_fifo.gen_depth_gt1.storage.fifo_wptr
+              vpiActual -> int_typespec 56:16-56:28 (PTR_WIDTH's own, vpiSigned unset)
+
+WHOLE-DUMP DIFF, PREDICTED LINE SHAPE (path-normalised):
+  -107  \_ref_obj: (…gen_depth_gt1.storage.fifo_wptr.PTR_WIDTH)
+  -107  |vpiName:PTR_WIDTH
+  -107  |vpiFullName:…gen_depth_gt1.storage.fifo_wptr.PTR_WIDTH
+  +107  \_constant:                      +107 |vpiDecompile:2   +107 |UINT:2
+  +107  \_ref_typespec: (…storage.fifo_wptr)                +107 |vpiSize:32
+  +107  \_int_typespec: , line:56:16, endln:56:28   (a re-print of PTR_WIDTH's own)
+  ZERO lines naming any other file, identifier, net, var, port, process, assign,
+  module or instance.
+
+NEW HEAD (R0 of pass 59): pristine ladder rung 2 — see PREDICT_R0.txt.
+
+================================================================================
+4. CORPUS MOVER PREDICTION — BY NAME, from the SOURCES, before any sweep
+================================================================================
+The law needs: a NESTED generate block, an `always` inside it, a select bound
+holding an OPERATION over a parameter the ENCLOSING generate block declares,
+elaborated.  A grep of BOTH corpora for the exact corpus shape
+(`storage[fifo_wptr[PTR_WIDTH-2:0]] <=`) finds it in 10 source trees:
+  AzadiRTL fifo_sync.sv / fifo_async.sv        row: SLANG_REJECT (no database)
+  Earlgrey_nexysvideo                          row: DEFERRED    (no database)
+  Earlgrey_Verilator_0_1                       row: SLANG_REJECT
+  Earlgrey_Verilator_01_05_21                  row: DEFERRED
+  IncompTitan                                  row: SLANG_REJECT
+  Opentitan                                    row: SLANG_REJECT
+  Ibex                                         row: SLANG_REJECT
+  Earlgrey_0_1                                 row: CMP_NOTEQUAL, BOTH MODES
+`prim_fifo_async.sv` carries the same TEXT but its `PTR_WIDTH` is a MODULE
+localparam and its always_ff is at module scope — NOT a gen scope, so the arm
+cannot fire there (and the census confirms golden has no substitution at
+prim_fifo_async 170).
+
+PREDICTED BYTE MOVERS:
+  uhdm2rtlil corpus (both modes): 0 of 1 358 databases
+  surelog corpus  (both modes): EXACTLY 2 of 956 — Earlgrey_0_1/default and
+                                Earlgrey_0_1/testflags
+  u2r CSV rows: 0 differing rows.  surelog CSV rows: 0 differing rows (both
+  Earlgrey_0_1 rows stay CMP_NOTEQUAL; the head moves, the status does not).

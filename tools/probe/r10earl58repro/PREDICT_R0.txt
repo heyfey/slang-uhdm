@@ -1,0 +1,31 @@
+r10earl58 — PREDICTION OF THE NEXT HEAD (R0 of pass 59), written from the
+PRISTINE ladder before the patched binary produced an Earlgrey database.
+
+Pristine head (this pass's target), 46 cmp lines, 1 head:
+  L constant @prim_fifo_sync.sv:131:29-131:38 #291799  UINT:2 size 32
+  R ref_obj(work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.
+            gen_depth_gt1.storage.fifo_wptr.PTR_WIDTH) #236039
+  KINDP=operation  FIELD=VpiType  SHAPE=KIND:constant>ref_obj
+
+Every one of the 107 cells of that family is cleared by this pass, so the new
+head must be the first rung of the pristine ladder that is NOT this family.
+
+MEASURED (patched, md5 aaf21e86e1efe4599d12816a4fbf7fb7):
+  cmp 46 lines -> 29 lines, 1 head -> 1 head.  The 131:29 family is GONE from
+  the walk (whole-dump diff: 107 ref_obj removed, 107 constants added, nothing
+  else).  The new head is a DIFFERENT family and a MISSING OBJECT, not a field
+  difference:
+
+  R0 of pass 59 — Earlgrey_0_1/default
+    LHS(golden): logic_net (work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.rdata)
+                 id:291318  prim_fifo_sync.sv:29:27-29:32
+                 < module_inst work@prim_fifo_sync (…i_fifo) id:985021
+                 vpiTypespec -> ref_typespec #291319 -> logic_typespec 29:11-29:22
+    RHS(ours)  : <null>          <== WE EMIT NO SUCH NET AT ALL
+
+  `prim_fifo_sync.sv:29` is `logic [Width-1:0] rdata;` — a module-level net that
+  golden lists on the ELABORATED `module_inst` and we do not.  A MISSING-OBJECT
+  head, not a naming or fold question; it is not this pass's family and not a
+  regression (the pristine binary does not emit it either — the object is absent
+  on both sides of the pristine run, which is why it could not surface while a
+  field difference sat above it in the walk).
