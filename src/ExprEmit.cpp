@@ -13796,6 +13796,68 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 c->VpiParent(parent);
             return c;
         }
+        // § dollarBoundIsConst6 — the `$` QUEUE BOUND IS AN OBJECT.
+        //
+        // Surelog has no queue arm: it compiles a `$` bound as an ORDINARY
+        // EXPRESSION, where CompileExpression.cpp:3516 turns it into a
+        // vpiUnboundedConst — decompile `$`, size 1, value STRING:$, spanning
+        // the `$` character alone.  Two other emitters here already transcribe
+        // that constant for the DECLARATION `[0 : $]` range (the queue formal's
+        // io_decl range, the array_typespec range); this arm is the same
+        // constant in EXPRESSION position, which we were dropping on the floor
+        // because slang models `$` as an UnboundedLiteral and nothing in the
+        // dispatch claimed it.  `emitExpr` returned nullptr and every caller
+        // reads nullptr as "no object": the BuildUVMPkg head is a bit_select
+        // with NO vpiIndex at all
+        // (uvm_pkg.sv:12983 `m_override_info.push_back(matched_overrides[$])`).
+        //
+        // POSITION IS IRRELEVANT.  Arm v1_dollarpos puts one `$` in 21 distinct
+        // positions and golden mints the constant in EVERY one: a method-call
+        // argument (the corpus shape), a `return` expression (uvm_printer
+        // :20128), an assignment RHS, an assignment LHS (`q[$] = 7`), an `if`
+        // condition, a `case` expression, an arithmetic operand, a `$display`
+        // argument, both reads of `q[$] + q[$]`, a class method and a module
+        // `initial` block alike — and in every CARRIER kind: a plain
+        // bit_select's vpiIndex, a hier_path element bit_select's vpiIndex
+        // (`t[$].f`), a var_select's index list (`qq[1][$]`), a part_select's
+        // vpiRightRange (`q[1:$]`, `q[0:$]`, and the Google chapter-7
+        // concatenation shape `{q[0:0], q[1:$]}`) and an OPERAND of an index
+        // operation (`q[$-1]`).  There is no gate to write.
+        //
+        // PARENTING IS NOT `$`-SPECIFIC, and arm v3_parentpolicy is what proves
+        // it: in all seven positions where an INTEGER twin exists, golden gives
+        // the `$` constant EXACTLY the parent it gives the integer — parented to
+        // a plain bit_select (rvalue and lvalue), to a var_select and to an
+        // index operation; UNPARENTED under a part_select bound and under a
+        // hier_path element's bit_select — and the pristine binary already
+        // reproduces all seven for the integer.  So this arm reuses the
+        // emitter's EXISTING constant-parenting predicate rather than inventing
+        // one, and `$` is added to `isLiteralExpr` (it IS one of slang's
+        // literal expressions) so the var_select builder's
+        // `forceConstParent = isLiteralExpr(idx)` treats it the way golden does.
+        //
+        // NOT in scope, and NOT reachable from here: the SVA unbounded ranges
+        // (`##[1:$]`, `a[*1:$]`, `b[->1:$]`).  Golden mints `$` constants there
+        // too, but slang resolves those bounds inside SequenceRange before any
+        // expression survives, so arm v2_dollarexotic records ZERO
+        // UnboundedLiteral arrivals for all three — a separate family, left
+        // alone.  Likewise the BOUNDED-queue declaration `int q[$:2]`, whose
+        // `$` is a TYPE bound (arm v1 cell d01: golden has the range, we do
+        // not) and never reaches an expression emitter.
+        case ExpressionKind::UnboundedLiteral: {
+            auto* c = s.MakeConstant();
+            c->VpiDecompile("$");
+            c->VpiSize(1);
+            c->VpiValue("STRING:$");
+            c->VpiConstType(vpiUnboundedConst);
+            setLoc(c, expr.sourceRange);
+            if (forceConstParent ||
+                (!suppressConstParent && parent &&
+                 (parent->UhdmType() == UHDM::uhdmoperation ||
+                  parent->UhdmType() == UHDM::uhdmbit_select)))
+                c->VpiParent(parent);
+            return c;
+        }
         case ExpressionKind::ElementSelect: {
             auto& es = expr.as<ElementSelectExpression>();
             // § thisPathSelectErased4 — SITE 1 of 3. A select whose base chain

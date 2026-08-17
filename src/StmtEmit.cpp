@@ -271,11 +271,27 @@ void UhdmExporter::endSelTrack() {
         // Surelog's scope map holds the last object compiled for the name
         // either way, and the constant-bounds carve-out is what
         // multiple_blocking_gate pinned.
+        // § dollarBoundNotFolded6v — an UNBOUNDED (`$`) bound is NOT a FOLDED
+        // bound, and this carve-out must not read it as one.  § dollarBoundIsConst6
+        // made `q[$:0]`'s left bound an OBJECT (a vpiUnboundedConst constant)
+        // where it used to be nullptr, which silently flipped this test from
+        // false to true and left the whole-write ref bound to the NET.  Golden
+        // re-points it to the part_select: arm `v4_seltrackdollar.sv` cell s1
+        // (`a1 = '{...}; a1[$:0] = '{...}`) is golden `part_select`, and the
+        // pristine binary already produced `part_select` there — so reading `$`
+        // as a folded bound is a PRISTINE-RIGHT -> PATCHED-WRONG regression, and
+        // this clause is exactly its repair.  It is deliberately narrow: the
+        // FOLDED-bound carve-out itself still fires for every ordinary constant
+        // bound (cell s4 `a4[1:0]`, cell s6 `v1[3:0]`, which
+        // multiple_blocking_gate pins), and a `$` bound can only exist on a
+        // QUEUE part-select.
         if (selWholeWrittenVars.count(wr.sym) &&
             sel->UhdmType() == UHDM::uhdmpart_select &&
             ((UHDM::part_select*)sel)->Left_range() &&
             ((UHDM::part_select*)sel)->Left_range()->UhdmType() ==
-                UHDM::uhdmconstant)
+                UHDM::uhdmconstant &&
+            ((const UHDM::constant*)((UHDM::part_select*)sel)->Left_range())
+                    ->VpiConstType() != vpiUnboundedConst)
             continue;
         wr.ref->Actual_group(sel);
         // A function-return-name ref is ALSO queued in pendingFuncRet, whose

@@ -2573,11 +2573,20 @@ inline SelWidthFold selWidthParamFold(const Expression& w) {
     return r;
 }
 
+// § dollarBoundIsConst6 — `$` (slang's UnboundedLiteral, which lives in
+// LiteralExpressions.h beside the other three) counts here because golden's
+// parenting of a `$` bound is INDISTINGUISHABLE from its parenting of an
+// integer literal in the same position: arm v3_parentpolicy pairs the two in
+// seven positions and golden's answer is identical in all seven.  The site this
+// reaches is the var_select builder's `forceConstParent = isLiteralExpr(idx)`
+// (`qq[1][$]`), which the constant-parenting predicate alone would leave
+// unparented while golden parents it.
 inline bool isLiteralExpr(const Expression& e) {
     auto& c = stripImplicitConv(e);
     return c.kind == ExpressionKind::IntegerLiteral ||
            c.kind == ExpressionKind::StringLiteral ||
-           c.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral;
+           c.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral ||
+           c.kind == ExpressionKind::UnboundedLiteral;
 }
 
 // § srlgTimeLitVal — Surelog's TIME-literal reduction, transcribed field for
