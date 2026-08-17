@@ -18,6 +18,23 @@
 
 namespace slang_uhdm {
 
+// § namedTfArgsFormalSlots4 (emit half, the placeholder object).  The slot a
+// NAMED-argument func_call / task_call leaves for an UNWRITTEN formal is NOT
+// that formal's declared default: it is a bare `INT:0`, whatever the formal's
+// type or default expression is.  Arm a1 C7 proves all three at once —
+// `pf6(.d(9))` against `(string a="", string b="", int c=0, int d, int e=7,
+// bit f=0)` fills the `a`/`b` STRING slots, the `e` slot whose default is 7,
+// and the `f` bit slot with the same `0`.  It carries NO vpiParent and NO
+// source span; both absences are read off the golden dump, not assumed.
+static UHDM::constant* namedSlotFiller4(UHDM::Serializer& s) {
+    auto* c4 = s.MakeConstant();
+    c4->VpiValue("INT:0");
+    c4->VpiDecompile("0");
+    c4->VpiSize(64);
+    c4->VpiConstType(vpiIntConst);
+    return c4;
+}
+
 // § newArray11 — every reference under a `new[...]` array-allocation call is
 // NAME-ONLY in golden (`ref_obj (dyn)`, not `ref_obj (p::C::f::dyn)`), size
 // expression and copy source alike: Surelog compiles those arguments outside
@@ -10496,7 +10513,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     !(curSubClassScope9 && !curSubOob9));
                             // § writtenCallArgs16 — only the actuals WRITTEN
                             // at the call site.
-                            for (auto arg17 : writtenArgs16(call)) {
+                            // NOTE § namedMethodArgsWritten4 (emit half, method calls).  GATE:
+                            // the call's actual list uses NAMED association AND every written actual
+                            // maps to a distinct formal; otherwise `writtenArgsInOrder4` hands back
+                            // the § writtenCallArgs16 prefix UNCHANGED, so every positional call in
+                            // the corpus emits byte-identically.  DIRECTION: WRITTEN ORDER, and the
+                            // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
+                            // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
+                            std::vector<const Expression*> ob17;
+                            for (auto arg17 : writtenArgsInOrder4(call, sub, ob17)) {
                                 bool fs17 = forceConstParent;
                                 if (isLiteralExpr(*arg17))
                                     forceConstParent = true;
@@ -10951,7 +10976,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // § writtenCallArgs16 — only the actuals WRITTEN at
                             // the call site; a defaulted formal is slang's, not
                             // Surelog's.
-                            for (auto arg : writtenArgs16(call)) {
+                            // NOTE § namedMethodArgsWritten4 (emit half, method calls).  GATE:
+                            // the call's actual list uses NAMED association AND every written actual
+                            // maps to a distinct formal; otherwise `writtenArgsInOrder4` hands back
+                            // the § writtenCallArgs16 prefix UNCHANGED, so every positional call in
+                            // the corpus emits byte-identically.  DIRECTION: WRITTEN ORDER, and the
+                            // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
+                            // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
+                            std::vector<const Expression*> ob11a;
+                            for (auto arg : writtenArgsInOrder4(call, sub, ob11a)) {
                                 bool fs11 = forceConstParent;
                                 if (isLiteralExpr(*arg))
                                     forceConstParent = true;
@@ -11063,7 +11096,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // § writtenCallArgs16 — only the actuals WRITTEN at
                             // the call site; a defaulted formal is slang's, not
                             // Surelog's.
-                            for (auto arg : writtenArgs16(call)) {
+                            // NOTE § namedMethodArgsWritten4 (emit half, method calls).  GATE:
+                            // the call's actual list uses NAMED association AND every written actual
+                            // maps to a distinct formal; otherwise `writtenArgsInOrder4` hands back
+                            // the § writtenCallArgs16 prefix UNCHANGED, so every positional call in
+                            // the corpus emits byte-identically.  DIRECTION: WRITTEN ORDER, and the
+                            // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
+                            // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
+                            std::vector<const Expression*> ob11b;
+                            for (auto arg : writtenArgsInOrder4(call, sub, ob11b)) {
                                 bool fs11 = forceConstParent;
                                 if (isLiteralExpr(*arg))
                                     forceConstParent = true;
@@ -11157,7 +11198,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // § writtenCallArgs16 — only the actuals WRITTEN at
                         // the call site; a defaulted formal is slang's, not
                         // Surelog's.
-                        for (auto arg : writtenArgs16(call)) {
+                        // NOTE § namedMethodArgsWritten4 (emit half, method calls).  GATE:
+                        // the call's actual list uses NAMED association AND every written actual
+                        // maps to a distinct formal; otherwise `writtenArgsInOrder4` hands back
+                        // the § writtenCallArgs16 prefix UNCHANGED, so every positional call in
+                        // the corpus emits byte-identically.  DIRECTION: WRITTEN ORDER, and the
+                        // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
+                        // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
+                        std::vector<const Expression*> ob0;
+                        for (auto arg : writtenArgsInOrder4(call, sub, ob0)) {
                             bool fs0 = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -11207,7 +11256,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // § writtenCallArgs16 — only the actuals WRITTEN at
                         // the call site; a defaulted formal is slang's, not
                         // Surelog's.
-                        for (auto arg : writtenArgs16(call)) {
+                        // NOTE § namedMethodArgsWritten4 (emit half, method calls).  GATE:
+                        // the call's actual list uses NAMED association AND every written actual
+                        // maps to a distinct formal; otherwise `writtenArgsInOrder4` hands back
+                        // the § writtenCallArgs16 prefix UNCHANGED, so every positional call in
+                        // the corpus emits byte-identically.  DIRECTION: WRITTEN ORDER, and the
+                        // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
+                        // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
+                        std::vector<const Expression*> ob2a;
+                        for (auto arg : writtenArgsInOrder4(call, sub, ob2a)) {
                             bool fs2 = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -11291,7 +11348,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // § writtenCallArgs16 — only the actuals WRITTEN at
                         // the call site; a defaulted formal is slang's, not
                         // Surelog's.
-                        for (auto arg : writtenArgs16(call)) {
+                        // NOTE § namedMethodArgsWritten4 (emit half, method calls).  GATE:
+                        // the call's actual list uses NAMED association AND every written actual
+                        // maps to a distinct formal; otherwise `writtenArgsInOrder4` hands back
+                        // the § writtenCallArgs16 prefix UNCHANGED, so every positional call in
+                        // the corpus emits byte-identically.  DIRECTION: WRITTEN ORDER, and the
+                        // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
+                        // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
+                        std::vector<const Expression*> obH;
+                        for (auto arg : writtenArgsInOrder4(call, sub, obH)) {
                             bool fsH = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -11339,7 +11404,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // § writtenCallArgs16 — only the actuals WRITTEN at
                         // the call site; a defaulted formal is slang's, not
                         // Surelog's.
-                        for (auto arg : writtenArgs16(call)) {
+                        // NOTE § namedMethodArgsWritten4 (emit half, method calls).  GATE:
+                        // the call's actual list uses NAMED association AND every written actual
+                        // maps to a distinct formal; otherwise `writtenArgsInOrder4` hands back
+                        // the § writtenCallArgs16 prefix UNCHANGED, so every positional call in
+                        // the corpus emits byte-identically.  DIRECTION: WRITTEN ORDER, and the
+                        // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
+                        // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
+                        std::vector<const Expression*> ob2b;
+                        for (auto arg : writtenArgsInOrder4(call, sub, ob2b)) {
                             bool fs2 = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -11551,6 +11624,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // § writtenCallArgs16 — only the actuals WRITTEN at
                         // the call site; a defaulted formal is slang's, not
                         // Surelog's.
+                        // § namedTfArgsFormalSlots4 DOES NOT REACH THIS ARM,
+                        // AND THE CORPUS IS WHAT SAID SO.  I shipped the slot
+                        // filling here first, on the strength of arm a2 cell E1
+                        // (`im(.c(1), .b(2))`, a receiver-less in-class call,
+                        // golden `0[NOLOC] 2 1 0[NOLOC]`), and `BuildUVMPkg`
+                        // REFUTED it on the very next measurement: at
+                        // `uvm_pkg.sv:12476`
+                        //   if(m_matches_type_override(.override(...),
+                        //                              .requested_type(...),
+                        //                              .requested_type_name(...)))
+                        // golden carries THREE arguments and NO placeholders,
+                        // and my six-argument version became a NEW 208-line cmp
+                        // head — strictly worse than the 34-line one the pass
+                        // set out to clear.
+                        //
+                        // The discriminator is the CALLEE LINK, not the
+                        // receiver and not the call's UHDM kind: golden's a1/a2
+                        // slot-filled calls ALL carry `vpiFunction` (a1 C6/C7
+                        // -> `function (p1::pf6)`, a2 E1 -> `function
+                        // (p2::caller::im)`), while golden's 12476 func_call
+                        // carries NONE.  Surelog fills a formal-slot array only
+                        // once it has the callee's FORMALS; `uvm_default_factory
+                        // ::m_matches_type_override` is prototyped at 11952 and
+                        // DEFINED OUT-OF-BODY at 13465, so at 12476 it has
+                        // neither the formals nor the link and lists exactly
+                        // what was written.  This arm IS the no-link arm
+                        // (§ classCallNoLink12: the callee is not in `subMap`),
+                        // so it keeps the § writtenCallArgs16 prefix untouched.
                         for (auto arg : writtenArgs16(call)) {
                             if (arg->kind == ExpressionKind::Assignment) {
                                 auto& ae0 = arg->as<AssignmentExpression>();
@@ -11585,6 +11686,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // § writtenCallArgs16 — only the actuals WRITTEN at
                         // the call site; a defaulted formal is slang's, not
                         // Surelog's.
+                        // § namedTfArgsFormalSlots4 does not reach this arm
+                        // either, for the same reason as the arm above: a
+                        // unit-scope DPI import is emitted with NO vpiFunction
+                        // link ("carry their ARGUMENTS but NO vpiFunction
+                        // link"), and the slot filling is what golden does only
+                        // for a call whose callee it RESOLVED.
                         for (auto arg : writtenArgs16(call)) {
                             // Output args come wrapped as
                             // Assignment(lval, Empty) — unwrap as the bound
@@ -11853,17 +11960,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // (uvm_coreservice_t::get alone 143, golden 0), so the rule is
                 // NOT "qualified spelling keeps the qualifier"; decode where
                 // the other spelling goes before trying again.
+                // § namedTfArgsFormalSlots4 reads this decision: the formal-slot
+                // argument list is what golden emits for a call whose CALLEE IT
+                // RESOLVED, and `linked4` is exactly "this call ends up with a
+                // vpiFunction / vpiTask".
+                bool linked4 = false;
                 if ((inheritedNoBind9 || defGenProcessEmit) &&
                     !(qualPkgCall18 && realIsFunc18)) {
                     // name only — no vpiFunction / vpiTask (§ defGenCallNoBind,
                     // narrowed to the UNQUALIFIED case by
                     // § defGenQualPkgCallBinds18)
                 }
-                else if (isFunc)
-                    ((UHDM::func_call*)fc)->Function(
-                        boundClone ? boundClone : (UHDM::function*)siTf);
-                else
+                else if (isFunc) {
+                    auto* f4 = boundClone ? boundClone : (UHDM::function*)siTf;
+                    ((UHDM::func_call*)fc)->Function(f4);
+                    linked4 = f4 != nullptr;
+                }
+                else {
                     ((UHDM::task_call*)fc)->Task((UHDM::task*)siTf);
+                    linked4 = siTf != nullptr;
+                }
                 auto* args = s.MakeAnyVec();
                 size_t argIdx = 0;
                 // slang materialises a DEFAULTED formal as a full argument
@@ -11942,8 +12058,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 ClassArgBindIf38 cab12(
                     classArgBindDepth12,
                     callStmtCtx0 || !(curSubClassScope9 && !curSubOob9));
+                // NOTE § namedTfArgsFormalSlots4 (emit half — the ONLY arm it
+                // fires in).  GATE, both halves required:
+                //   (1) `linked4` — this call gets a vpiFunction / vpiTask.
+                //       BuildUVMPkg's `m_matches_type_override` is what forced
+                //       this clause: golden gives an UNRESOLVED named call only
+                //       the WRITTEN actuals (see the § classCallNoLink12 arm
+                //       above for the full refutation).
+                //   (2) `namedTfSlots4` — the list uses NAMED association AND
+                //       every written actual maps to a distinct formal.
+                // DIRECTION: emit ONE argument per FORMAL, in FORMAL order, an
+                // unwritten formal's slot holding the placeholder constant; a
+                // positional call keeps the § writtenCallArgs16 prefix exactly
+                // as before.
+                //
+                // THE CONTROL THIS ARM ALREADY OWNS, AND THE MEASURED REACH.
+                // `EvalFuncNamed` (`simple_minus(.value2(value2),
+                // .value1(value1))`) and `FuncArgsByName` are the corpus's only
+                // other named-argument func_calls, they are CMP_EQUAL today,
+                // and both write EVERY formal — so the slot list and the prefix
+                // are the SAME list and neither may move.  The corpus-wide
+                // census (tools/probe/r10buvm4repro/README.md §2) found named
+                // association in SEVEN test-modes' worth of source and no
+                // remaining cell where a RESOLVED call skips a formal, so this
+                // clause is measured-correct on the arms and provably INERT on
+                // the corpus.
+                std::vector<bool> slots4;
+                bool haveSlots4 = linked4 && namedTfSlots4(call, sub, slots4);
                 for (auto arg : call.arguments()) {
-                    if (argIdx >= nWritten9)
+                    if (haveSlots4) {
+                        if (argIdx >= slots4.size())
+                            break;
+                        if (!slots4[argIdx]) {
+                            args->push_back(namedSlotFiller4(s));
+                            argIdx++;
+                            continue;
+                        }
+                    }
+                    else if (argIdx >= nWritten9)
                         break;
                     // Output args come wrapped as Assignment(lval, Empty).
                     if (arg->kind == ExpressionKind::Assignment) {
@@ -17984,15 +18136,57 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // helper cannot read it: count here.  `uvm_domain::new(name)`
                 // against `uvm_phase::new(name, phase_type=UVM_PHASE_SCHEDULE,
                 // parent=null)` is the residual `Args/SIZE 2 vs 3` block.
-                size_t nw9 = cc9->as<CallExpression>().arguments().size();
-                if (auto* nsy9 =
-                        nce.syntax
-                            ? nce.syntax->as_if<syntax::NewClassExpressionSyntax>()
-                            : nullptr)
+                auto& ccall9 = cc9->as<CallExpression>();
+                size_t nw9 = ccall9.arguments().size();
+                auto* nsy9 =
+                    nce.syntax
+                        ? nce.syntax->as_if<syntax::NewClassExpressionSyntax>()
+                        : nullptr;
+                if (nsy9)
                     nw9 = nsy9->argList ? nsy9->argList->parameters.size() : 0;
+                // NOTE § namedMethodArgsWritten4 (emit half, constructor).
+                // GATE: the ctor's actual list uses NAMED association AND every
+                // written actual maps to a distinct formal (§ writtenFormalIdx4
+                // is all-or-nothing).  DIRECTION: replace the FORMAL-ORDER
+                // PREFIX with the WRITTEN-ORDER actual list; a positional
+                // `new(...)` produces the same list either way and does not
+                // move.
+                //
+                // WHY IT IS DECODED HERE INSTEAD OF THROUGH
+                // `writtenArgsInOrder4`: a `new(...)` hangs its actual list on
+                // the NewClassExpression's OWN syntax, not on an
+                // InvocationExpressionSyntax, so the shared reader cannot see
+                // it — exactly the reason the count above is computed here too.
+                //
+                // THIS IS THE BuildUVMPkg HEAD.  `uvm_pkg.sv:12509`
+                //   override = new(.orig_type(original_type),
+                //                  .orig_type_name(...), .ovrd_type(...),
+                //                  .ovrd_type_name(...), .replace(replace));
+                // skips `new`'s FIRST formal `string full_inst_path=""`, so the
+                // prefix handed golden's first argument slot that formal's
+                // DEFAULT — the `constant "" STRING` at 12370:39 that cmp
+                // reported against golden's `ref_obj original_type` at
+                // 12509:31.
+                std::vector<const Expression*> ord4;
+                if (nsy9 && nsy9->argList && !ccall9.isSystemCall()) {
+                    auto* csub4 =
+                        std::get<const SubroutineSymbol*>(ccall9.subroutine);
+                    std::vector<size_t> idx4;
+                    bool named4 = false;
+                    if (csub4 &&
+                        writtenFormalIdx4(&nsy9->argList->parameters,
+                                          csub4->getArguments(),
+                                          ccall9.arguments().size(), idx4,
+                                          named4) &&
+                        named4)
+                        for (size_t i4 : idx4)
+                            ord4.push_back(ccall9.arguments()[i4]);
+                }
                 size_t ai9 = 0;
-                for (auto arg9 : cc9->as<CallExpression>().arguments()) {
-                    if (ai9++ >= nw9)
+                for (auto arg9 : ord4.empty()
+                                     ? ccall9.arguments()
+                                     : std::span<const Expression* const>(ord4)) {
+                    if (ord4.empty() && ai9++ >= nw9)
                         break;
                     bool fs9 = forceConstParent;
                     if (isLiteralExpr(*arg9))

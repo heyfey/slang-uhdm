@@ -3439,6 +3439,152 @@ inline std::span<const Expression* const> writtenArgs16(
     return all.subspan(0, std::min(writtenCallArgs16(call), all.size()));
 }
 
+// ---------------------------------------------------------------- named args
+//
+// § writtenCallArgs16's PREFIX is only correct while WRITTEN ORDER equals
+// FORMAL ORDER — i.e. for a POSITIONAL call.  A call written with NAMED
+// association (`f(.b(x), .a(y))`) breaks that identity twice over: a skipped
+// formal may sit ANYWHERE in the list, not just at the tail, and the written
+// order need not be the formal order at all.  slang always hands back
+// `arguments()` in FORMAL order with every unwritten formal materialised as its
+// declared default, so a prefix of that list is, for a named call, a list of
+// the WRONG expressions in the WRONG order — the empty STRING constant at the
+// head of BuildUVMPkg's cmp was `uvm_factory_override::new`'s formal #1
+// default `""`, standing where golden holds the FIRST WRITTEN actual.
+//
+// `writtenFormalIdx4` is the ONE decoder both laws share: it maps each WRITTEN
+// actual to its FORMAL INDEX, in WRITTEN order.
+//
+// It is deliberately ALL-OR-NOTHING.  Anything it cannot account for exactly —
+// an EMPTY association (`.f()`, or the trailing `f(a,b,)` slot uvm-1.2's
+// `create`/`print_field_int`/`read`/`write` calls are full of), a name that
+// matches no formal, a duplicate, a position past the bound list — returns
+// false, and every caller then keeps its EXISTING behaviour unchanged.  A
+// decoder that guessed would silently rewrite argument lists it had not
+// understood; this one only ever speaks when the mapping is total.
+inline bool writtenFormalIdx4(
+    const syntax::SeparatedSyntaxList<syntax::ArgumentSyntax>* params,
+    std::span<const slang::ast::FormalArgumentSymbol* const> formals,
+    size_t nbound, std::vector<size_t>& idx, bool& anyNamed) {
+    idx.clear();
+    anyNamed = false;
+    if (!params || formals.empty())
+        return false;
+    std::vector<bool> used(formals.size(), false);
+    size_t pos = 0;
+    for (auto* p : *params) {
+        size_t f;
+        if (p->kind == syntax::SyntaxKind::NamedArgument) {
+            auto& na = p->as<syntax::NamedArgumentSyntax>();
+            if (!na.expr)
+                return false;
+            anyNamed = true;
+            auto nm = na.name.valueText();
+            size_t k = formals.size();
+            for (size_t i = 0; i < formals.size(); ++i)
+                if (formals[i]->name == nm) {
+                    k = i;
+                    break;
+                }
+            if (k == formals.size())
+                return false;
+            f = k;
+        }
+        else if (p->kind == syntax::SyntaxKind::OrderedArgument)
+            f = pos++;
+        else
+            return false; // EmptyArgument, and anything the grammar adds later
+        if (f >= formals.size() || f >= nbound || used[f])
+            return false;
+        used[f] = true;
+        idx.push_back(f);
+    }
+    return true;
+}
+
+// § namedMethodArgsWritten4 (decoder half) — a METHOD_FUNC_CALL's vpiArgument
+// list is the WRITTEN actual list in WRITTEN order: a formal that was not
+// written contributes NOTHING, and a named actual contributes the expression
+// the CALL SITE wrote, at the position the CALL SITE wrote it.
+//
+// MEASURED on arm a1 (`ct4arm.sh a1_namedargs.sv`), one golden, ten cells:
+// the ctor `new(.d(2), .b("bb"), .f(1), .c(1), .e(3))` against a six-formal
+// `new` lists `2 | "bb" | 1 | 1 | 3` — WRITTEN order, the skipped formal
+// absent — and `hh.mf6(.d(2), .c(1), .b("bb"))` lists `2 | 1 | "bb"` on a
+// plain method, `hh.mt6(...)` the same on a TASK, and arm a2's
+// `super.new(.c(k), .b(2))` the same on a base-constructor chain-up.
+//
+// Returns the WRITTEN-order actuals, or the § writtenCallArgs16 prefix
+// unchanged when the call is positional or the mapping is not total (the
+// prefix and the remap are the SAME list for a positional call, so this is a
+// no-op wherever named association was not used).
+inline std::span<const Expression* const> writtenArgsInOrder4(
+    const CallExpression& call, const slang::ast::SubroutineSymbol& sub,
+    std::vector<const Expression*>& buf) {
+    auto* isy = call.syntax
+                    ? call.syntax->as_if<syntax::InvocationExpressionSyntax>()
+                    : nullptr;
+    if (!isy || !isy->arguments)
+        return writtenArgs16(call);
+    auto all = call.arguments();
+    std::vector<size_t> idx;
+    bool named = false;
+    if (!writtenFormalIdx4(&isy->arguments->parameters, sub.getArguments(),
+                           all.size(), idx, named) ||
+        !named)
+        return writtenArgs16(call);
+    buf.clear();
+    for (size_t i : idx)
+        buf.push_back(all[i]);
+    return std::span<const Expression* const>(buf);
+}
+
+// § namedTfArgsFormalSlots4 (decoder half) — a FUNC_CALL / TASK_CALL written
+// with NAMED association is the OTHER half of the same fact, and it does NOT
+// follow the method rule: Surelog's plain tf-call path lists ONE vpiArgument
+// PER FORMAL, in FORMAL order, and fills an UNWRITTEN formal's slot with a
+// LOC-LESS, PARENT-LESS placeholder `constant` — `INT:0`, `vpiSize:64`,
+// `vpiDecompile:0`, `vpiConstType:7` — which is NOT the formal's declared
+// default.
+//
+// MEASURED on the same two arms, and the two shapes are decided by the UHDM
+// OBJECT KIND, not by the receiver:
+//   a1 C6  `pf6(.d(2), .b("bb"), .c(1))`  6 formals -> `0[NOLOC] "bb" 1 2 0[NOLOC] 0[NOLOC]`
+//   a1 C7  `pf6(.d(9))`                   6 formals -> `0 0 0 9 0 0`, five placeholders
+//   a2 E1  `im(.c(1), .b(2))`  an in-class BARE call, golden emits func_call
+//          -> `0[NOLOC] 2 1 0[NOLOC]`, so a receiver-less METHOD takes the
+//          TF-CALL rule, which is why this cannot be gated on "is a method"
+//   a2 E4  `gt(.c(1), .b(2))`  a TASK -> the same four slots
+//   a2 E7  `im(.b(2), .c(1))`  REORDERED -> `0 2 1 0`: FORMAL order, always
+//   a1 C12 `pf6("aa","bb",1,2)` PURELY POSITIONAL -> FOUR arguments and NO
+//          placeholders: the slot filling is gated on NAMED association, and
+//          this cell is why.
+//
+// `written` comes back sized to the formal list; false marks a placeholder
+// slot.  Returns false — leaving the caller's existing behaviour untouched —
+// for a positional call or a mapping § writtenFormalIdx4 could not total.
+inline bool namedTfSlots4(const CallExpression& call,
+                          const slang::ast::SubroutineSymbol& sub,
+                          std::vector<bool>& written) {
+    written.clear();
+    auto* isy = call.syntax
+                    ? call.syntax->as_if<syntax::InvocationExpressionSyntax>()
+                    : nullptr;
+    if (!isy || !isy->arguments)
+        return false;
+    auto formals = sub.getArguments();
+    std::vector<size_t> idx;
+    bool named = false;
+    if (!writtenFormalIdx4(&isy->arguments->parameters, formals,
+                           call.arguments().size(), idx, named) ||
+        !named)
+        return false;
+    written.assign(formals.size(), false);
+    for (size_t i : idx)
+        written[i] = true;
+    return true;
+}
+
 // Collects the value symbols referenced on a cont_assign LHS (their top-view
 // net typespecs lose the creation-time parent when Surelog re-elaborates the
 // assignment).
