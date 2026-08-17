@@ -1,0 +1,130 @@
+# r10uvm82 — ct82imp census: vpiImported over every scope's vpiParameter
+# GOLDEN vs OURS(base 4df4bab) vs OURS(patched).  MEASUREMENT-ONLY.
+
+=== default/SeqDriver-32af76aa
+--- GOLDEN b5b4389e30f948a6a29f
+SCOPES-WITH-PARAMS 170
+TALLY	class_defn|<EMPTY>	275
+TALLY	class_defn|uvm_pkg	225
+TALLY	module_inst|adpcm_pkg	90
+TALLY	module_inst|uvm_pkg	90
+TALLY	package|<EMPTY>	90
+TALLY	package|uvm_pkg	90
+--- OURS base
+SCOPES-WITH-PARAMS 170
+TALLY	class_defn|<EMPTY>	500
+TALLY	module_inst|adpcm_pkg	90
+TALLY	module_inst|uvm_pkg	90
+TALLY	package|<EMPTY>	90
+TALLY	package|uvm_pkg	90
+--- OURS patched
+SCOPES-WITH-PARAMS 170
+TALLY	class_defn|<EMPTY>	275
+TALLY	class_defn|uvm_pkg	225
+TALLY	module_inst|adpcm_pkg	90
+TALLY	module_inst|uvm_pkg	90
+TALLY	package|<EMPTY>	90
+TALLY	package|uvm_pkg	90
+
+=== default/SimpleUVM-1dc93a62
+--- GOLDEN 02575d101ccaaa38d155
+SCOPES-WITH-PARAMS 164
+TALLY	class_defn|<EMPTY>	275
+TALLY	class_defn|uvm_pkg	90
+TALLY	module_inst|uvm_pkg	180
+TALLY	package|<EMPTY>	90
+--- OURS base
+SCOPES-WITH-PARAMS 162
+TALLY	class_defn|<EMPTY>	365
+TALLY	package|<EMPTY>	90
+--- OURS patched
+SCOPES-WITH-PARAMS 162
+TALLY	class_defn|<EMPTY>	275
+TALLY	class_defn|uvm_pkg	90
+TALLY	package|<EMPTY>	90
+
+=== default/Scoreboard-59431470
+--- GOLDEN 614374ccbb97c7ff9446
+SCOPES-WITH-PARAMS 162
+TALLY	class_defn|<EMPTY>	275
+TALLY	class_defn|uvm_pkg	90
+TALLY	package|<EMPTY>	90
+--- OURS base
+SCOPES-WITH-PARAMS 162
+TALLY	class_defn|<EMPTY>	365
+TALLY	package|<EMPTY>	90
+--- OURS patched
+SCOPES-WITH-PARAMS 162
+TALLY	class_defn|<EMPTY>	275
+TALLY	class_defn|uvm_pkg	90
+TALLY	package|<EMPTY>	90
+
+=== default/BuildUVMPkg-bf853d43
+--- GOLDEN 1d1c5ee1fda0267f8ebb
+SCOPES-WITH-PARAMS 162
+TALLY	class_defn|<EMPTY>	280
+TALLY	package|<EMPTY>	82
+--- OURS base
+SCOPES-WITH-PARAMS 162
+TALLY	class_defn|<EMPTY>	280
+TALLY	package|<EMPTY>	82
+--- OURS patched
+SCOPES-WITH-PARAMS 162
+TALLY	class_defn|<EMPTY>	280
+TALLY	package|<EMPTY>	82
+
+=== testflags/SeqDriver-32af76aa
+--- GOLDEN dae43e130380ebfeaa07
+SCOPES-WITH-PARAMS 170
+TALLY	class_defn|<EMPTY>	275
+TALLY	class_defn|uvm_pkg	225
+TALLY	module_inst|adpcm_pkg	90
+TALLY	module_inst|uvm_pkg	90
+TALLY	package|<EMPTY>	90
+TALLY	package|uvm_pkg	90
+--- OURS base
+SCOPES-WITH-PARAMS 170
+TALLY	class_defn|<EMPTY>	500
+TALLY	module_inst|adpcm_pkg	90
+TALLY	module_inst|uvm_pkg	90
+TALLY	package|<EMPTY>	90
+TALLY	package|uvm_pkg	90
+--- OURS patched
+SCOPES-WITH-PARAMS 170
+TALLY	class_defn|<EMPTY>	275
+TALLY	class_defn|uvm_pkg	225
+TALLY	module_inst|adpcm_pkg	90
+TALLY	module_inst|uvm_pkg	90
+TALLY	package|<EMPTY>	90
+TALLY	package|uvm_pkg	90
+
+=== testflags/SimpleUVM-1dc93a62
+--- GOLDEN 0abe1b16d20a6f7e4a93
+SCOPES-WITH-PARAMS 164
+TALLY	class_defn|<EMPTY>	275
+TALLY	class_defn|uvm_pkg	90
+TALLY	module_inst|uvm_pkg	180
+TALLY	package|<EMPTY>	90
+--- OURS base
+SCOPES-WITH-PARAMS 162
+TALLY	class_defn|<EMPTY>	365
+TALLY	package|<EMPTY>	90
+--- OURS patched
+SCOPES-WITH-PARAMS 162
+TALLY	class_defn|<EMPTY>	275
+TALLY	class_defn|uvm_pkg	90
+TALLY	package|<EMPTY>	90
+
+=== testflags/BuildUVMPkg-bf853d43
+--- GOLDEN 1795eced22413f58df56
+SCOPES-WITH-PARAMS 162
+TALLY	class_defn|<EMPTY>	280
+TALLY	package|<EMPTY>	82
+--- OURS base
+SCOPES-WITH-PARAMS 162
+TALLY	class_defn|<EMPTY>	280
+TALLY	package|<EMPTY>	82
+--- OURS patched
+SCOPES-WITH-PARAMS 162
+TALLY	class_defn|<EMPTY>	280
+TALLY	package|<EMPTY>	82

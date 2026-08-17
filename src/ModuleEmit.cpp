@@ -4511,6 +4511,110 @@ static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src
     return cp;
 }
 
+// § classImportParamStamped82 — a class's inherited import copies of a
+// package's PARAMETERS are the class's OWN objects, stamped
+// `vpiImported = <the immediately-imported package>`, in BOTH listings.
+//
+// § classInheritsContainerImports23 hands the class the package's `vpiParameter`
+// and `vpiParamAssign` objects BY POINTER.  Surelog's `importPackage` does not:
+// it materializes a fresh `parameter` per listing entry (`vpiParent` = the
+// class, or the `param_assign` for the assign arm) and tags each with the
+// package it is importing FROM — the very stamp `parameter::Compare` reads as
+// its LAST field.  Sharing therefore hands `uhdm-cmp` an object whose
+// `vpiImported` is EMPTY where golden's is the package name, on every entry.
+//
+// WITNESSED (goldens, `ct82imp` census, tools/probe/r10uvm82repro):
+//   SeqDriver   5 classes x 45 = 225 class_defn parameters, ALL `uvm_pkg`
+//   SimpleUVM / Scoreboard   1 class x 90 (a $unit import counts TWICE)
+//   BuildUVMPkg   0 — no class inherits a parameter, and its ladder has no
+//                 rung of this family, which is the negative control.
+// Ours before this law: SeqDriver `class_defn|<EMPTY> 500` (275 own + the 225),
+// `class_defn|uvm_pkg 0`.
+//
+// TWO ARMS, and the ladder names both: `parameter|VpiImported|O-EMPTY` splits
+// 82 rungs `KINDP=class_defn` + 82 rungs `KINDP=param_assign` on every one of
+// the five NE rows.  Golden's `vpiParamAssign` Lhs is a THIRD object set — not
+// the entries of `vpiParameter` (measured: adpcm_driver `LhsIN=0 LhsOUT=45`) —
+// so fixing the listing alone would leave the assign arm firing unchanged.
+//
+// THE COPY SHARES EVERY CHILD POINTER and copies every scalar.  That is not
+// thrift, it is the proof obligation: the pre-law head is the LAST field of
+// `parameter::Compare`, so every earlier field of the SHARED object is already
+// equal to golden's copy; a copy that reuses those same children cannot move
+// any of them.  `vpiFullName` (never compared — comparescope.sh) is rewritten
+// onto the class's own chain to match golden's dump, exactly as
+// `importVarCopy5` does for the variable arm.
+//
+// The STAMP is the IMMEDIATELY-imported package, not the parameter's deeper
+// home: that is § impOcc's already-measured rule (`ImpOcc9::src`,
+// BitSelectOfParameterPassedToSubmodule re-exports NDioPads through pinmux_pkg
+// and golden reads `vpiImported=pinmux_pkg`).  No UVM row exercises the
+// re-export shape here — uvm_pkg imports nothing — so the class arm inherits
+// that rule rather than re-witnessing it.
+static UHDM::any* importParamCopy82(UHDM::Serializer& s, UHDM::any* src,
+                                    UHDM::BaseClass* parent,
+                                    const std::string& pkgName,
+                                    const std::string& ownerFull) {
+    // ONLY `parameter`.  A `type_parameter` also carries vpiImported, but no
+    // rung of the family is one (all 902 are KINDL=parameter) and no package in
+    // either corpus exports one through this path, so it stays SHARED — a
+    // narrower change cannot regress what it never touches.
+    if (!src || src->UhdmType() != UHDM::uhdmparameter || pkgName.empty())
+        return src;
+    auto* sp = (UHDM::parameter*)src;
+    auto* cp = s.MakeParameter();
+    const std::string nm(sp->VpiName());
+    cp->VpiName(nm);
+    cp->VpiValue(std::string(sp->VpiValue()));
+    cp->VpiDecompile(std::string(sp->VpiDecompile()));
+    cp->VpiSize(sp->VpiSize());
+    cp->VpiConstType(sp->VpiConstType());
+    cp->VpiSigned(sp->VpiSigned());
+    cp->VpiLocalParam(sp->VpiLocalParam());
+    cp->Typespec(sp->Typespec());
+    cp->Expr(sp->Expr());
+    cp->Ranges(sp->Ranges());
+    cp->Left_range(sp->Left_range());
+    cp->Right_range(sp->Right_range());
+    cp->VpiUses(sp->VpiUses());
+    cp->VpiFile(std::string(sp->VpiFile()));
+    cp->VpiLineNo(sp->VpiLineNo());
+    cp->VpiColumnNo(sp->VpiColumnNo());
+    cp->VpiEndLineNo(sp->VpiEndLineNo());
+    cp->VpiEndColumnNo(sp->VpiEndColumnNo());
+    cp->VpiFullName(!ownerFull.empty() && !nm.empty() ? ownerFull + "::" + nm
+                                                      : std::string(sp->VpiFullName()));
+    cp->VpiParent(parent);
+    cp->VpiImported(pkgName);
+    return cp;
+}
+
+// § classImportParamStamped82, the ASSIGN arm.  The param_assign itself is
+// copied only so its Lhs can be the class's own stamped parameter; its Rhs and
+// its attributes stay the package's objects, which is what they already were.
+static UHDM::param_assign* importPaCopy82(UHDM::Serializer& s,
+                                          UHDM::param_assign* src,
+                                          UHDM::class_defn* cd,
+                                          const std::string& pkgName,
+                                          const std::string& ownerFull) {
+    if (!src || pkgName.empty() || !src->Lhs() ||
+        src->Lhs()->UhdmType() != UHDM::uhdmparameter)
+        return src;
+    auto* cp = s.MakeParam_assign();
+    cp->VpiConnByName(src->VpiConnByName());
+    cp->VpiOverriden(src->VpiOverriden());
+    cp->Rhs(src->Rhs());
+    cp->Attributes(src->Attributes());
+    cp->VpiFile(std::string(src->VpiFile()));
+    cp->VpiLineNo(src->VpiLineNo());
+    cp->VpiColumnNo(src->VpiColumnNo());
+    cp->VpiEndLineNo(src->VpiEndLineNo());
+    cp->VpiEndColumnNo(src->VpiEndColumnNo());
+    cp->VpiParent(cd);
+    cp->Lhs(importParamCopy82(s, src->Lhs(), cp, pkgName, ownerFull));
+    return cp;
+}
+
 // § classInheritsContainerImports23 — see the header.  A CLASS inherits the
 // whole content of every package imported by its CONTAINER into its OWN
 // vpiTaskFunc / vpiTypedef / vpiVariables / vpiParameter / vpiParamAssign
@@ -4643,8 +4747,12 @@ void UhdmExporter::classInheritsContainerImports23() {
         auto* vars23 = s.MakeVariablesVec();
         auto* pars23 = s.MakeAnyVec();
         auto* pas23 = s.MakeParam_assignVec();
+        // § classImportParamStamped82 — the stamp every inherited parameter
+        // copy carries, and the owner chain its vpiFullName is rewritten onto.
+        const std::string cdFull82(cd->VpiFullName());
         for (auto& [p23, only23] : items) {
             std::string on23 = only23 ? std::string(only23->name) : std::string();
+            const std::string impName82(p23->name);
             for (auto* t23 : materializedPkgTfGroup(*p23))
                 if (!only23 || t23->VpiName() == on23)
                     addTf23(t23, /*imported=*/true);
@@ -4696,13 +4804,17 @@ void UhdmExporter::classInheritsContainerImports23() {
                                  [](const UHDM::any* a23, const UHDM::any* b23) {
                                      return a23->VpiName() < b23->VpiName();
                                  });
+                // § classImportParamStamped82 — the entries are the CLASS's own
+                // objects, stamped with the immediately-imported package.
                 for (auto* x23 : sorted23)
-                    pars23->push_back(x23);
+                    pars23->push_back(
+                        importParamCopy82(s, x23, cd, impName82, cdFull82));
             }
             if (auto* v23 = pv23->Param_assigns())
                 for (auto* x23 : *v23)
                     if (x23 && (!only23 || (x23->Lhs() && x23->Lhs()->VpiName() == on23)))
-                        pas23->push_back(x23);
+                        pas23->push_back(
+                            importPaCopy82(s, x23, cd, impName82, cdFull82));
         }
         // ...and the class's OWN members, after the whole import.
         if (auto* v23 = cd->Task_funcs())

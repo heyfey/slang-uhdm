@@ -1,0 +1,41 @@
+# r10uvm82 — THE MOVER PREDICTION, made from the PRISTINE trees ONLY, and the
+# measurement it was checked against.  ct82pred counts class-listing entries
+# whose vpiParent is a package — exactly the objects the law replaces.
+
+== surelog corpus, 953 pristine databases: predictor nonzero ==
+PRED 90 90 default/Scoreboard-59431470/slang.uhdm
+PRED 225 225 default/SeqDriver-32af76aa/slang.uhdm
+PRED 90 90 default/SimpleUVM-1dc93a62/slang.uhdm
+PRED 225 225 testflags/SeqDriver-32af76aa/slang.uhdm
+PRED 90 90 testflags/SimpleUVM-1dc93a62/slang.uhdm
+   (every other one of the 953 is PRED 0 0)
+   MEASURED by byteverify.sh: MOVERS 5 / 953 — the same five, by name.
+
+== uhdm2rtlil corpus, 1358 pristine databases ==
+   predictor nonzero: NONE (0 of 1358)
+   MEASURED by byteverify.sh: MOVERS 0 / 1358.
+
+== sd/uvm/buvm boundary arms, 893 pristine cell databases ==
+   the predictor/mover cross-tab is a BIJECTION:
+    879 pred=0+0 SAME
+      2 pred=10+10 MOVER
+      6 pred=1+1 MOVER
+      1 pred=14+14 MOVER
+      3 pred=2+2 MOVER
+      2 pred=4+4 MOVER
+   -> 879 pred=0 cells byte-SAME, 14 pred>0 cells MOVER, 0 false pos, 0 false neg.
+   the 14, with their predicted counts:
+r10sd6repro_gridv_v7_partsel_param pred=1+1 MOVER
+r10uvm22repro_t33a_t pred=1+1 MOVER
+r10uvm22repro_t33c_t pred=2+2 MOVER
+r10uvm23repro_t34a_t pred=1+1 MOVER
+r10uvm23repro_t34b_t pred=4+4 MOVER
+r10uvm23repro_t34c_t pred=2+2 MOVER
+r10uvm23repro_t34d_t pred=1+1 MOVER
+r10uvm23repro_t34e_t pred=2+2 MOVER
+r10uvm30repro_t40b_dut pred=1+1 MOVER
+r10uvm31repro_t41b_dut pred=10+10 MOVER
+r10uvm47repro_t66b_dut pred=10+10 MOVER
+r10uvm67repro_a2_rangeref pred=14+14 MOVER
+r10uvm74repro_b4_foldidx pred=1+1 MOVER
+r10uvm74repro_v74_edge pred=4+4 MOVER
