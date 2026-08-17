@@ -4815,6 +4815,177 @@ static bool builtinRecvStepSelectors74(
     return true;
 }
 
+// § pkgSubRefBindsPkgVarOverFormal81 — the PACKAGE's own variable listing
+// OVERWRITES a formal binding on a reference inside a PACKAGE-SCOPE subroutine.
+//
+// The mechanism is Surelog's `UhdmWriter::lateBinding` (UhdmWriter.cpp:3357+):
+// for a ref that reached late binding it writes, IN THIS ORDER and with no
+// early exit between the blocks,
+//     func->Io_decls() -> func->Variables() -> func->Parameters()
+//         -> func->Instance()'s Variables() **when that instance is a package**
+// and only THEN tests `if (ref->Actual_group()) break;`.  Every block is a
+// plain `ref->Actual_group(...)`, so the LAST writer wins and the package's
+// listing beats the subroutine's own formal.  A MODULE subroutine is immune:
+// the package block is guarded by `inst->UhdmType() == uhdmpackage`.
+//
+// A subroutine LOCAL is immune too, and for a different reason: it is bound
+// EARLY (`CompileHelper::bindVariable`, CompileStmt.cpp:3089, walks the parent
+// chain and checks a function's `Variables()` BEFORE its `Io_decls()`), so its
+// ref never enters the late-binding pool this overwrite iterates.  That is
+// exactly the split arm c4 measures: a FORMAL moves, a LOCAL does not.
+//
+// `bound` is the reference's FINAL binding, so the io_decl test IS the
+// "reached late binding" test for every position BUT ONE — see
+// `condPredEarlyBound81` below, which is that one.
+static UHDM::variables* pkgVarOverFormal81(const UHDM::instance* pkgInst,
+                                           const UHDM::any* bound,
+                                           std::string_view name) {
+    if (!pkgInst || !bound || name.empty())
+        return nullptr;
+    if (bound->UhdmType() != UHDM::uhdmio_decl)
+        return nullptr;
+    // The listing must be a PACKAGE's: Surelog's guard, verbatim.
+    if (pkgInst->UhdmType() != UHDM::uhdmpackage)
+        return nullptr;
+    auto* vars = ((const UHDM::package*)pkgInst)->Variables();
+    if (!vars)
+        return nullptr;
+    // FIRST match wins — Surelog `break`s out of the listing loop.
+    for (auto* v : *vars)
+        if (v && v->VpiName() == name)
+            return v;
+    return nullptr;
+}
+
+// § pkgSubRefBindsPkgVarOverFormal81, THE HOME-PACKAGE GATE.
+//
+// A package that WILDCARD-IMPORTS another materialises a COPY of the imported
+// package's subroutines as well as CLONES of its variables (SeqDriver's
+// `adpcm_pkg` carries all of uvm_pkg's), and in that COPY the formal SURVIVES.
+// Arm c8 measures the split three ways on ONE golden:
+//   `p89::c89::sv89::val`  (p89's own subroutine, p89's own `val`)  -> p89::val
+//   `q89::c89::sv89::val`  (the COPY of p89's subroutine inside q89) -> io_decl
+//   `q89::d89::qv89::val`  (q89's OWN subroutine, seeing q89's CLONE of
+//                           p89's `val`)                            -> q89::val
+// So the gate is NOT "the variable is this package's own" — a CLONE displaces
+// perfectly well.  The gate is that the SUBROUTINE is this package's own: the
+// imported copy's late-binding pool belongs to its DECLARING package, not to
+// the importer whose listing is being written.
+static bool subHomeIsPkg81(const slang::ast::Symbol* sub,
+                           const UHDM::instance* pkgInst) {
+    if (!sub || !pkgInst)
+        return false;
+    for (const slang::ast::Scope* sc = sub->getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope())
+        if (sc->asSymbol().kind == slang::ast::SymbolKind::Package)
+            return sc->asSymbol().name == pkgInst->VpiName();
+    return false;
+}
+
+// § pkgSubRefBindsPkgVarOverFormal81, THE EXCEPTION — the one position whose
+// reference is bound EARLY and is therefore immune to the package overwrite.
+//
+// `CompileHelper::compileConditionalStmt` (CompileStmt.cpp:1322) and the `case`
+// path compile their PREDICATE with `pexpr = pstmt`, the ENCLOSING statement —
+// the `if_stmt` / `case_stmt` object does not exist yet.  Every other position
+// (an assignment's operands, a `while`/`for` condition, a return expression, a
+// call argument) is compiled against an object whose own `VpiParent` is still
+// null, so `bindVariable`'s parent walk dies immediately and the reference goes
+// to late binding, where the package listing overwrites it.
+//
+// The predicate therefore binds early — and reaches the function's
+// `Io_decls()` — exactly when that ENCLOSING statement already has a parent
+// chain to the subroutine.  Measured on arm c7's ladder: a chain of plain
+// `begin`s keeps the formal at EVERY depth (0,1,2,3), while ONE conditional or
+// loop STATEMENT anywhere in the chain breaks it (its `VpiParent` is set by its
+// own caller, after its body is compiled) and the package variable wins.
+//
+// Returns true for "keep the formal".
+static bool condPredEarlyBound81(const slang::syntax::SyntaxNode* n) {
+    using slang::syntax::SyntaxKind;
+    if (!n)
+        return false;
+    const slang::syntax::SyntaxNode* prev = n;
+    const slang::syntax::SyntaxNode* p = n->parent;
+    bool inPred = false;
+    // Set while walking up OUT OF a `case` item's EXPRESSION list (never out of
+    // its statement clause) — read one step later, at the CaseStatement.
+    bool viaCaseItemExpr = false;
+    while (p) {
+        if (!inPred) {
+            if (p->kind == SyntaxKind::StandardCaseItem) {
+                // `compileCaseStmt` compiles an item's EXPRESSIONS with pstmt
+                // (CompileStmt.cpp:1505) and its CLAUSE with the case_item
+                // (:1512).  Record which half we came out of.
+                viaCaseItemExpr =
+                    prev != (const slang::syntax::SyntaxNode*)
+                                &*p->as<slang::syntax::StandardCaseItemSyntax>().clause;
+            }
+            else if (p->kind == SyntaxKind::ConditionalStatement) {
+                if (prev != (const slang::syntax::SyntaxNode*)
+                                &*p->as<slang::syntax::ConditionalStatementSyntax>()
+                                      .predicate)
+                    return false;  // we came out of a BRANCH, not the predicate
+                inPred = true;
+            }
+            else if (p->kind == SyntaxKind::CaseStatement) {
+                auto& cs81 = p->as<slang::syntax::CaseStatementSyntax>();
+                // TWO early-bound halves of a `case`, both compiled with pstmt:
+                // the CONDITION (CompileStmt.cpp:1445) and every ITEM
+                // EXPRESSION (:1505).  `case … inside` is the exception —
+                // its open-range items are compiled against the synthesized
+                // `inside` OPERATION (:1541), which is parentless, so they fall
+                // to late binding exactly like an ordinary statement.
+                bool viaExpr81 =
+                    prev == (const slang::syntax::SyntaxNode*)&*cs81.expr;
+                bool viaItem81 = viaCaseItemExpr &&
+                                 prev->kind == SyntaxKind::StandardCaseItem &&
+                                 !cs81.matchesOrInside;
+                if (!viaExpr81 && !viaItem81)
+                    return false;
+                inPred = true;
+            }
+            else if (p->kind == SyntaxKind::ImmediateAssertStatement ||
+                     p->kind == SyntaxKind::ImmediateAssumeStatement ||
+                     p->kind == SyntaxKind::ImmediateCoverStatement) {
+                // `compileSimpleImmediateAssertion` / its DEFERRED twin compile
+                // the assertion EXPRESSION with pstmt (CompileAssertion.cpp:284
+                // and :392) — so it binds early — while the ACTION BLOCK's
+                // statements, though also handed pstmt, are STATEMENTS whose own
+                // object is parentless when their operands are compiled, so they
+                // bind late.  Arm D measures both halves (D7/D10 vs D8/D9/D11).
+                if (prev != (const slang::syntax::SyntaxNode*)
+                                &*p->as<slang::syntax::ImmediateAssertionStatementSyntax>()
+                                      .expr)
+                    return false;  // the ACTION BLOCK, not the expression
+                inPred = true;
+            }
+        }
+        else {
+            // Above the predicate only BLOCKS may stand.  Any conditional /
+            // loop / case / fork statement in between is the cell arm c7
+            // measures as taking the PACKAGE variable.
+            switch (p->kind) {
+                case SyntaxKind::ConditionalStatement:
+                case SyntaxKind::CaseStatement:
+                case SyntaxKind::LoopStatement:
+                case SyntaxKind::DoWhileStatement:
+                case SyntaxKind::ForLoopStatement:
+                case SyntaxKind::ForeachLoopStatement:
+                case SyntaxKind::ForeverStatement:
+                case SyntaxKind::ParallelBlockStatement:
+                case SyntaxKind::ElseClause:
+                    return false;
+                default:
+                    break;
+            }
+        }
+        prev = p;
+        p = p->parent;
+    }
+    return inPred;
+}
+
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
@@ -8721,6 +8892,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                              expr.sourceRange,
                                              classBodyHomePkg75});
             }
+            // § pkgSubRefBindsPkgVarOverFormal81 — LAST, over the FINAL
+            // binding, because that is where Surelog's overwrite sits: the
+            // package listing is the last writer in `UhdmWriter::lateBinding`.
+            // The package's `Variables()` vector is COMPLETE by the time any
+            // subroutine body is emitted (ParamEmit `up->Variables(pvars)`
+            // ~20235, `emitTaskFuncs` ~20414), and `pkgScopeInst` is the home
+            // package for a package subroutine AND for an out-of-body class
+            // method (TaskFuncEmit ~1559 / ~2782), which is both halves of the
+            // corpus population.
+            if (subHomeIsPkg81(currentSubSym, pkgScopeInst) &&
+                !condPredEarlyBound81(expr.syntax))
+                if (auto* pv81 = pkgVarOverFormal81(pkgScopeInst,
+                                                    ref->Actual_group(),
+                                                    ref->VpiName()))
+                    ref->Actual_group(pv81);
             ref->VpiParent(parent);
             if (rawText(SourceRange(expr.sourceRange.start(), expr.sourceRange.start() + 1)) ==
                 "\\")
@@ -13876,7 +14062,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             std::string idxPrefix = prefix;
             bool idxRescoped = false;
             if (stripImplicitConv(es.selector()).kind != ExpressionKind::NamedValue) {
-                idxPrefix = prefix + "." + std::string(nv.symbol.name);
+                // § selIdxNestPrefixJoinsByScope80 — the FIFTH site of the
+                // joint family (r10uvm77 fixed the trailing-step refs, r10uvm78
+                // the doubled part-select prefixes, r10uvm79 the hier-path tail
+                // AND the path-scoped index; this is the prefix that same index
+                // subtree hands to what is NESTED under it).  The joint is
+                // `joinRef`, never a hard `"."` — UHDM's ComputeFullName picks
+                // ONE separator for the whole parent chain from package /
+                // class_defn ancestry, so a `::`-scoped select's nested index
+                // ref must be `::`-joined too.  This is r10uvm79's residue V-R1
+                // and arm c3 measures it: golden
+                // `…::probe80::iarr[].f::midx::i`, ours (before)
+                // `…::probe80::iarr[].f.midx::i`, at depths 2 and 3, and under
+                // an operation index — while the MODULE-scope twin (arm c3 d8,
+                // `work@mdeep80.sarr[].f.mi.mi`) is `.`-joined in golden and is
+                // byte-identical either way, because that is exactly what
+                // joinRef returns for a `.`-first prefix.
+                idxPrefix = joinRef(prefix, nv.symbol.name);
                 idxRescoped = true;
             }
             if (idxRescoped)
