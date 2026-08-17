@@ -1,0 +1,73 @@
+# r10uvm84 — THE MOVER PREDICTION, made on PRISTINE databases only, and what the
+# byte comparison then measured.  MEASUREMENT-ONLY.
+
+== THE PREDICTOR (ct84cen `PRED`, run by pred84.sh over a whole sweep workdir)
+A pristine `hier_path` whose VpiName passes the SHIPPED predicate
+(`thisDeepStepMockup84`: root `this`/`super`/`this.super`, then a PLAIN-IDENTIFIER
+first step, then a `.`).  Our hier_path NAME *is* the written chain with the indices
+erased, so this is the same rule the emitter applies to the written text.
+
+IT IS AN UPPER BOUND AND THE ARTIFACT SAYS SO.  Name-erasure of indices makes
+`this.ha[i].fld` (written index on the FIRST step — golden spells it as a hier_path
+and the shipped predicate DECLINES it on the text) indistinguishable BY NAME from
+`this.h.arr[i]` (index on the second step — accepted).  A database whose only PRED
+hits were of the first kind would be predicted a mover and measure byte-identical.
+On this corpus that never happens: PRED-nonzero == MOVERS, exactly.
+
+== PREDICTION — surelog corpus, 953 pristine databases
+PRED-nonzero on EXACTLY 7, named:
+  default/BuildUVMPkg-bf853d43     pred=84   mockup(pristine)=198
+  default/Scoreboard-59431470      pred=100  mockup=198
+  default/SeqDriver-32af76aa       pred=198  mockup=280
+  default/SimpleUVM-1dc93a62       pred=100  mockup=198
+  testflags/BuildUVMPkg-bf853d43   pred=84   mockup=198
+  testflags/SeqDriver-32af76aa     pred=198  mockup=280
+  testflags/SimpleUVM-1dc93a62     pred=100  mockup=198
+946 databases predicted pred=0.
+
+== PREDICTION — uhdm2rtlil corpus, 1358 pristine databases
+PRED-nonzero on 0.  Zero movers predicted.
+
+== MEASUREMENT (byteverify.sh, SHIPPED sweep /tmp/r10uvm84_wd_PATCH2 vs CONTROL
+   sweep /tmp/r10uvm84_wd_CONTROL; binaries 0896280a130ffc9d0de6308ad336982c and
+   f885e175806e87832e466155710d8f0a)
+surelog : MOVERS 7 / 953 — the SAME SEVEN, by path:
+            default/BuildUVMPkg   66f26934c92c -> 23875b96a3ca
+            default/Scoreboard    dcc60a23b500 -> 255734a08319
+            default/SeqDriver     f68fd713bc44 -> 5d442cd98ff6
+            default/SimpleUVM     b39d9e69d48c -> 09864024ae2f
+            testflags/BuildUVMPkg 66f26934c92c -> 23875b96a3ca
+            testflags/SeqDriver   823c8a5cff2d -> 1b920cfa9e60
+            testflags/SimpleUVM   d6aad78e6ca3 -> fa6e062583f5
+          946 predicted-zero databases: all byte-SAME.
+u2r     : MOVERS 0 / 1358 (predicted 0).
+SELFCHECK  surelog 952/953 flagged, u2r 1357/1358.
+SELFCHECK1 surelog 8 (7 real movers + 1 corrupted), u2r 1 (0 real + 1 corrupted).
+ZERO false positives, ZERO false negatives, both corpora.
+
+THE INC/DEC FENCE COSTS THE CORPUS NOTHING, AND THAT IS MEASURED TOO: the sweep of
+the discarded 01fa98c9 (no fence) and the sweep of the SHIPPED binary are
+BYTE-IDENTICAL on all 953 databases (byteverify PATCH2 vs PATCH: MOVERS 0 / 953).
+`grep -rE '(this|super)\.[A-Za-z_][A-Za-z_0-9]*\.[A-Za-z_][A-Za-z_0-9]*(\+\+|--)'`
+over the whole UVM-1.2 source tree returns ZERO hits, so the fence is carried for
+the LAW, not for the corpus — and the ladder AFTER, run on the earlier workdir, is
+therefore a measurement of the shipped databases as well.
+
+== PER-MOVER ATTRIBUTION (ct84cen, pristine -> patched, against that row's own golden)
+Every mover's MOCKUP count went to golden's EXACTLY and its CAND count went to
+golden's EXACTLY; THISKW (the control population) moved by 0 in all seven:
+  BuildUVMPkg  mock 198 -> 244 (gold 244)   cand 84 -> 38 (gold 38)   thiskw 553 (both)
+  Scoreboard   mock 198 -> 252 (gold 252)   cand 100 -> 46 (gold 46)  thiskw 559 (both)
+  SeqDriver    mock 280 -> 386 (gold 386)   cand 198 -> 92 (gold 92)  thiskw 973 (both)
+  SimpleUVM    mock 198 -> 252 (gold 252)   cand 100 -> 46 (gold 46)  thiskw 559 (both)
+(testflags rows identical to their default twins.)
+
+== WHY THE OTHER 946 + 1358 CANNOT MOVE
+The law needs the WRITTEN `this`/`super` keyword AND a second dotted step in an
+rvalue position.  `grep -rlE '(this|super)\.[A-Za-z_][A-Za-z_0-9]*\.[A-Za-z_]'` over
+every committed probe arm/grid `.sv` returns THREE files, and every one of their
+sites is either STATEMENT position (`this.nested.deep54(y4,t4);`,
+`this.prop.touch(n);`, `this.m_if.doit();`, `this.m_if.set(5);`,
+`this.m_if.inner.doit();`) or already covered by the shipped § thisRecvCall11
+(`return this.m_if.get();`).  That is the POSITIVE explanation of the boundary run's
+CELLS=968 MOVERS=0, and it is a grep, not an assumption.

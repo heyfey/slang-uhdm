@@ -1195,6 +1195,19 @@ private:
     UHDM::hier_path* emitThisPathSelectErased(const slang::ast::Expression& expr,
                                               UHDM::BaseClass* parent,
                                               const std::string& prefix);
+    // § thisDeepStepMockupConst84 — the one-field `constant` Surelog puts where
+    // a WRITTEN `this`/`super`-rooted chain has a PLAIN IDENTIFIER after its
+    // first step (`this.q.size()`, `this.cfg.n_bytes`).  Builder + the
+    // member/select entry point; the predicate is `thisDeepStepMockup84` in
+    // ExprEmit.cpp.
+    UHDM::constant* mockupThisConst84(slang::SourceRange span,
+                                      UHDM::BaseClass* parent);
+    // True only while an INC/DEC operand is being emitted: that operand is an
+    // LVALUE (golden keeps its hier_path) but this emitter reaches it with
+    // `inLhs` false.  Read by `thisDeepMemberMockup84` and by nothing else.
+    bool lvIncDecTarget84 = false;
+    UHDM::constant* thisDeepMemberMockup84(const slang::ast::Expression& expr,
+                                           UHDM::BaseClass* parent);
     // `paramCtx` marks a fold that becomes a PARAMETER's value (a param_assign
     // Rhs) rather than an rvalue: those always carry a vpiDecompile.
     UHDM::any* tryFoldConst(const slang::ast::Expression& expr,

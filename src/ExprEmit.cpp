@@ -927,6 +927,72 @@ static const slang::ast::Expression* builtinMethodRecv1(
     return ce.arguments()[0];
 }
 
+// § thisDeepStepMockupConst84 — THE PREDICATE.  Whether a WRITTEN chain rooted
+// at an IMPLICIT CLASS HANDLE (`this`, `super`, `this.super`) is one Surelog
+// reduces to a one-field MOCKUP CONSTANT.
+//
+// THE SURELOG SOURCE.  `compileComplexFuncCall`
+// (Surelog/src/DesignCompile/CompileExpression.cpp, the
+// `paImplicit_class_handle` branch) takes `Method = fC->Sibling(handle)` — the
+// FIRST name after the handle — and then splits on the type of the node that
+// FOLLOWS that name:
+//
+//   paList_of_arguments   `this.m(a)`      -> method_func_call named after the
+//                                            METHOD, vpiPrefix the `this`
+//                                            string constant
+//   paSelect / paConstant_expression
+//                         `this.n`, `this.q[i].len()`
+//                                         -> compileSelectExpression, or its
+//                                            fallback hier_path
+//   paConstant_bit_select `this.q.m(a);`   -> STATEMENT position: a
+//                                            method_func_call literally NAMED
+//                                            "this"
+//   slStringConst         `this.q.size()`  -> ":5250  // TODO: this is a mockup"
+//                                              constant *cvar = s.MakeConstant();
+//                                              cvar->VpiDecompile("this");
+//                                              result = cvar;
+//
+// That last arm is this law.  A PLAIN IDENTIFIER after the first name means the
+// whole rest of the chain — further members, indices, the method call and its
+// entire argument list — is DISCARDED and replaced by ONE constant whose only
+// field is `vpiDecompile` = the literal text "this" (for a `super` root too:
+// the string is hardcoded).  No value, no size, no vpiConstType, no typespec;
+// `compileExpression`'s tail (:3658) is what gives it the span of the whole
+// written chain.
+//
+// SO THE GATE IS EXACTLY "WHAT FOLLOWS THE FIRST STEP", and it is measured on
+// real Surelog goldens over the grid in tools/probe/r10uvm84repro:
+//
+//   this.q.size()   this.q.size   this.h.fld   this.h.m1()   this.h.arr.size()
+//   this.h.arr[i]   super.q.size()   this.super.barr.size()      -> MOCKUP
+//   this.n   this.m1()   super.bfld   this.q[i].len()   this.ha[i].fld -> NOT
+//
+// i.e. ONE step is never a mockup (there is no second name), and an INDEX or an
+// ARGUMENT LIST directly on the first step routes to the select/call arms
+// instead.  `written` is the chain as SOURCE TEXT because that is the only form
+// that distinguishes `this.q.size` from `this.q[i].len` in every position
+// (arm b1 cells L18..L25); the first step must be a PLAIN identifier, so a
+// receiver spelled `this.get_q()` or `this.q [i]` DECLINES rather than guesses.
+static bool thisDeepStepMockup84(std::string_view written) {
+    size_t p = 0;
+    if (written.rfind("this.super.", 0) == 0)
+        p = 11;
+    else if (written.rfind("this.", 0) == 0)
+        p = 5;
+    else if (written.rfind("super.", 0) == 0)
+        p = 6;
+    else
+        return false;
+    size_t q = p;
+    while (q < written.size() &&
+           (std::isalnum((unsigned char)written[q]) || written[q] == '_' ||
+            written[q] == '$'))
+        q++;
+    if (q == p)
+        return false;               // no first step at all
+    return q < written.size() && written[q] == '.';
+}
+
 // § staticScopedChainDrops48 — the BASE of a `::`-rooted `.member` / select /
 // `.method(...)` CHAIN, or null when there is no such chain.  Surelog's
 // expression compiler never resolves THROUGH a `::` scope, so everything hung
@@ -4081,6 +4147,80 @@ UHDM::hier_path* UhdmExporter::emitThisPathSelectErased(const Expression& expr,
     }
     hp->Path_elems(elems);
     return hp;
+}
+
+// § thisDeepStepMockupConst84 — THE BUILDER.  Mints Surelog's one-field mockup.
+//
+// The object carries `vpiDecompile` = "this" AND NOTHING ELSE.  `constant::
+// Compare` (UHDM generated) reads VpiType, VpiName, VpiDefName, VpiDecompile,
+// VpiSize, Typespec, VpiConstType — so every one of those six other fields
+// being UNSET is part of the compared shape, not an omission: a golden mockup
+// read off the corpus databases has size 0, const type 0 and no typespec
+// (ct84cen distinguishes it from the ORDINARY `this` keyword constant, which
+// carries size 4 / STRING:this / vpiStringConst and is this pass's control
+// population).  vpiValue is NOT compared and golden leaves it empty, so it is
+// left empty here too.
+//
+// The SPAN is the whole written chain (`compileExpression`'s :3658 tail).
+//
+// The PARENT follows the ordinary literal-constant policy already stated at the
+// integer-literal mint (operation operands, bit_select indices, case items,
+// immediate asserts) — MEASURED to be golden's behaviour for this object at the
+// CORPUS site: `i < this.sequences.size()` puts the mockup under the
+// `operation`, while an assignment RHS (`n = this.q.size()`) and a
+// `return this.q.size()` leave it PARENTLESS in golden, exactly as that policy
+// does.  Golden ALSO parents it at a sys_func_call ARGUMENT and a case_stmt
+// CONDITION, which the literal policy does not; `vpiParent` is read by no
+// Compare method, so that difference is dump-only and is recorded as a residue
+// rather than special-cased here.
+UHDM::constant* UhdmExporter::mockupThisConst84(SourceRange span,
+                                                UHDM::BaseClass* parent) {
+    auto* c84 = s.MakeConstant();
+    c84->VpiDecompile("this");
+    setLoc(c84, span);
+    if (forceConstParent ||
+        (!suppressConstParent && parent &&
+         (parent->UhdmType() == UHDM::uhdmoperation ||
+          parent->UhdmType() == UHDM::uhdmbit_select ||
+          parent->UhdmType() == UHDM::uhdmcase_item ||
+          parent->UhdmType() == UHDM::uhdmimmediate_assert)))
+        c84->VpiParent(parent);
+    return c84;
+}
+
+// § thisDeepStepMockupConst84 — SITES 2/3/4, the NO-CALL spellings: a member
+// access (`this.cfg.n_bytes`) or a select under one (`this.h.arr[i]`).  Returns
+// null unless this really is the mockup shape.
+//
+// THE LVALUE FENCE IS MEASURED, NOT ASSUMED.  Surelog compiles an assignment
+// TARGET through its lvalue path, never through `compileComplexFuncCall`, so the
+// mockup cannot appear there — arm c1 cells L12/L13/L14/L15 (`this.h.fld = 5`,
+// `this.h.arr[i] = 6`, `this.h.fld++`, `this.h.fld += 2`) all keep a golden
+// `hier_path`, while the SAME text one line later in rvalue position
+// (L16..L20: bare condition, ternary condition, `$display` argument, user-call
+// argument, concatenation operand) is a mockup in golden.  `inLhs` is the
+// emitter's lvalue-subtree flag; taking it whole (rather than
+// § staticScopedLvalueBad48's assignment-TARGET-parent test) also fences an
+// index expression written INSIDE an lvalue, which no corpus row and no grid
+// cell exercises — declining there leaves the pre-existing shape, which is the
+// conservative direction.
+//
+// `inLhs` IS NOT THE WHOLE LVALUE FENCE, AND THE MISSING HALF WAS AN ACTUAL
+// OVER-COLLAPSE CAUGHT BY THIS PASS'S OWN ARM BEFORE IT LANDED.  An INC/DEC
+// (`this.h.fld++`) is an lvalue that this emitter builds as an ORDINARY unary
+// operation — it never sets `inLhs` — so the first cut of this law replaced arm
+// c1 cell L14's golden `hier_path (this.h.fld)` (the operand of
+// `operation vpiOpType:62`, with golden's own LVALUE ref conventions intact)
+// with the mockup constant, while the `+=` twin on the very next line was
+// fenced correctly because THAT path does set `inLhs`.  `lvIncDecTarget84` is
+// set only around the inc/dec operand emit and is read only here.
+UHDM::constant* UhdmExporter::thisDeepMemberMockup84(const Expression& expr,
+                                                     UHDM::BaseClass* parent) {
+    if (inLhs || lvIncDecTarget84)
+        return nullptr;
+    if (!thisDeepStepMockup84(rawText(expr.sourceRange)))
+        return nullptr;
+    return mockupThisConst84(expr.sourceRange, parent);
 }
 
 // A property-decl FORMAL reference: property-scoped ref bound to an implicit
@@ -9250,8 +9390,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
             }
+            // § thisDeepStepMockupConst84 — THE INC/DEC HALF OF THE LVALUE FENCE.
+            // An inc/dec operand is an LVALUE and golden keeps its `hier_path`
+            // (arm c1 L14, `this.h.fld++` -> `hier_path (this.h.fld)` under
+            // `operation vpiOpType:62`), but this emitter reaches it as an
+            // ordinary unary operand with `inLhs` FALSE.  The flag is read by
+            // `thisDeepMemberMockup84` alone.
+            bool lvSaved84 = lvIncDecTarget84;
+            if (opType == vpiPostIncOp || opType == vpiPreIncOp ||
+                opType == vpiPostDecOp || opType == vpiPreDecOp)
+                lvIncDecTarget84 = true;
             if (auto* e = emitExpr(ue.operand(), op, prefix, netMap))
                 operands->push_back(e);
+            lvIncDecTarget84 = lvSaved84;
             suppressConstParent = savedS;
             forceConstParent = savedF;
             op->Operands(operands);
@@ -13196,6 +13347,57 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             withExpr9 = ii75.first;
                             withIterSym75 = ii75.second;
                         }
+                        // § thisDeepStepMockupConst84 — SITE 1 of 4, and THE
+                        // CORPUS HEAD: a BUILT-IN method whose receiver is a
+                        // `this`-rooted member.  `i < this.sequences.size()`
+                        // @uvm_sequencer_base.svh:1576:23 is the head of ALL
+                        // FIVE big UVM rows (r10uvm83's R0), and its twin
+                        // `this.regs.exists(rg)` / `this.in_use.size()` /
+                        // `this.fields.size()` family is 12 more source sites
+                        // per UVM database (CENSUS Part 2).
+                        //
+                        // WHY THIS SITE AND NOT § thisRecvCall11's.  That law
+                        // already ships this exact mockup — for a call slang
+                        // gives a `thisClass()`.  A BUILT-IN method
+                        // (`size`/`exists`/`num`/`len`) is a SystemSubroutine
+                        // whose `thisClass()` is NULL and whose receiver hides
+                        // in `arguments()[0]` (§ scopedBuiltinRecvIsChain1's
+                        // decode), so the whole this-rooted regime was
+                        // unreachable here and this arm minted a 3-element
+                        // hier_path instead.  The two arms are the SAME
+                        // Surelog branch reached from slang's two call models.
+                        //
+                        // The gate is the WRITTEN chain `<receiver>.<method>`,
+                        // never `expr.sourceRange` alone: for a PARENS-LESS
+                        // built-in (`this.q.size`) slang's range collapses onto
+                        // the RECEIVER (§ parensLessCallIsPathRefObj), which
+                        // would hide the second step from the predicate — and
+                        // golden mocks the parens-less spelling up too (arm a2
+                        // L8).  The SPAN is rebuilt the same way this arm's own
+                        // hier_path rebuilds it.
+                        // THE `with` CLAUSE IS NOT A MOCKUP, AND THAT IS
+                        // MEASURED (arm d1 L18).  `this.q.sum() with (item)`
+                        // parses with a `paSelect` node between the first name
+                        // and the method (AST: Implicit_class_handle, `q`,
+                        // Select, Built_in_method_call), so Surelog takes the
+                        // SELECT arm and golden emits the hier_path named `this.q`
+                        // this arm already builds — never the mockup.  Hence the
+                        // `!withExpr9` clause, and hence this block sits AFTER
+                        // the with-clause is read rather than at the top of the
+                        // arm.
+                        if (!inLhs && !withExpr9) {
+                            std::string chain84 =
+                                recvText + "." + std::string(name);
+                            if (thisDeepStepMockup84(chain84)) {
+                                auto mStart84 = recv->sourceRange.end() + 1;
+                                SourceRange sp84 =
+                                    rawText(expr.sourceRange) == recvText
+                                        ? SourceRange(expr.sourceRange.start(),
+                                                      mStart84 + name.size())
+                                        : expr.sourceRange;
+                                return mockupThisConst84(sp84, parent);
+                            }
+                        }
                         // § parensLessCallIsPathRefObj — SITE 1 of 1.  THE
                         // PARENTHESES ARE THE WHOLE DISCRIMINATOR.  A built-in
                         // method written WITHOUT an argument list (`data.size`,
@@ -14005,6 +14207,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::ElementSelect: {
             auto& es = expr.as<ElementSelectExpression>();
+            // § thisDeepStepMockupConst84 — SITE 2 of 4.  An INDEX on a step
+            // that is NOT the first one (`this.h.arr[i]`) is inside the
+            // discarded tail, so the whole thing is the mockup constant; an
+            // index on the FIRST step (`this.data[i]`, `this.ha[i].fld`) is
+            // § thisPathSelectErased4's own shape and the predicate declines it.
+            // MUST run before the erase law, which would otherwise consume both.
+            if (auto* mk84 = thisDeepMemberMockup84(expr, parent))
+                return mk84;
             // § thisPathSelectErased4 — SITE 1 of 3. A select whose base chain
             // bottoms out at the WRITTEN `this` keyword erases the select
             // entirely: `this.data[i]` is the hier_path `this.data` with two
@@ -14528,6 +14738,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::RangeSelect: {
             auto& rs = expr.as<RangeSelectExpression>();
+            // § thisDeepStepMockupConst84 — SITE 3 of 4, the RANGE-select
+            // spelling of SITE 2 (`this.h.arr[3:0]`).
+            if (auto* mk84 = thisDeepMemberMockup84(expr, parent))
+                return mk84;
             // § thisPathSelectErased4 — SITE 2 of 3. A RANGE select erases the
             // same way an element select does (`this.data[k][3:0]` -> the
             // hier_path `this.data`), measured as grid cell d5.
@@ -15629,6 +15843,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // reachable from the exporter: it would take slang adopting
             // Surelog's layout. HierPathEval is blocked on that, not on naming.
             //
+            // § thisDeepStepMockupConst84 — SITE 4 of 4, the NO-CALL, NO-SELECT
+            // spelling: a plain nested member read (`this.cfg.n_bytes`,
+            // `this.value.value`, `this.__m_uvm_status_container.status` — 15
+            // more source sites per UVM database, CENSUS Part 2).  ONE step
+            // (`this.n`) is not a mockup and the predicate declines it.
+            if (auto* mk84 = thisDeepMemberMockup84(expr, parent))
+                return mk84;
             // § thisPathSelectErased4 — SITE 3 of 3. A select BELOW a further
             // member (`this.st[k].fld`) reaches emitExpr as a MemberAccess, and
             // golden erases that select too — the hier_path is `this.st.fld`

@@ -1,0 +1,243 @@
+# r10uvm84 — ADVERSARIAL VERIFICATION.  Base 05d9c8f.  Worktrees /tmp/wt_v84
+# (patched) + /tmp/wt_v84pris (pristine), both built by the verifier from
+# scratch, -j 2, md5 read separately after "Linking CXX executable slang-uhdm".
+#
+# VERDICT: ACCEPT the law and the patch UNCHANGED.  Production surface is
+# BYTE-IDENTICAL to the implementer's /tmp/r10uvm84.patch; the only delta in
+# /tmp/r10uvm84.verified.patch is EIGHT new MEASUREMENT-ONLY verifier arms plus
+# three verifier drivers and this file, all inside tools/probe/r10uvm84repro/.
+# NOT ONE pristine-right -> patched-wrong cell was found on legal SV, over 22
+# arms / 141 golden mockup sites.
+
+== BINARIES — BOTH REPRODUCED BIT-FOR-BIT
+  CONTROL (pristine 05d9c8f) f885e175806e87832e466155710d8f0a   == implementer's
+  SHIPPED (patched)          0896280a130ffc9d0de6308ad336982c   == implementer's
+  ctladder, built from the COMMITTED r10ladder1repro/ctladder.cpp (which the
+  patch does not touch): 1ca5be11bf714009318c8dec2eeb3bbe       == implementer's
+
+== EVERY HEADLINE NUMBER, RE-MEASURED BY THE VERIFIER
+  GATE 2 goldens          23 PASS / 0 FAIL ; SLANG_UHDM=/bin/false 0 / 23
+  GATE 3 uhdm2rtlil       679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL, BOTH
+                          modes, both binaries.  ct8rows: committed
+                          gate_uhdm2rtlil.csv (731 testflags rows) vs my
+                          PRISTINE 0 differing rows, vs my PATCHED 0 differing
+                          rows; PRISTINE vs PATCHED over all 1462 rows 0.
+  GATE 4 surelog          1588 rows.  committed golden_surelog.csv vs my
+                          PRISTINE 0 differing ROWS; vs my PATCHED 0; PRISTINE
+                          vs PATCHED 0.  Status AND dump histograms identical
+                          (default 244 differ/226 match, testflags 300/166).
+                          5 DEFERRED per mode — GOLDEN_DEFER was [UNSET] at
+                          every launch (env -u GOLDEN_DEFER on all four sweeps).
+  GATE 5 byteverify       surelog MOVERS 7 / 953 — THE SAME SEVEN PATHS and the
+                          SAME md5 PAIRS the implementer's PREDICT table names
+                          (default+testflags SeqDriver/SimpleUVM/BuildUVMPkg and
+                          default Scoreboard).  u2r MOVERS 0 / 1358.
+                          SELFCHECK 952/953 and 1357/1358; SELFCHECK1 8 and 1.
+  DB md5 pins             all five canary databases SAME, both modes, and every
+                          value equals the implementer's:
+                          SVSwitch 4842211c4030 (mandated pin),
+                          YosysVerx 6ccda350c24a (mandated pin),
+                          InterfaceModPort 59a365f3ce2c,
+                          BlackParrotComplex default e3e354129d5a /
+                            testflags 73a10e8217e5, YosysOldOr d68e0796d62c.
+  CANARIES                canaries.sh surelog ok=52 changed=0 absent=0
+                          unknown=8; u2r ok=18 changed=0 absent=0 unknown=25.
+                          ctcan2 PASS both (EXPECT_UNKNOWN=1 / 6, changed=0).
+                          canaudit audited=31 UNCOVERED=0 FENCE-BREACH=0.
+  BOUNDARIES              sdbound (r10buvm3repro, committed): cells=347
+                          MOVERS=0 NO_OUTPUT(both)=4 — EXACT match.
+                          allbound82 (r10uvm82repro, committed): see the
+                          CORRECTION below.
+  OFFICIAL HEADS          rowheads.sh (the MANDATED r10uvm67repro copy), ONE head
+                          per row every time: SeqDriver d/t 54->68, SimpleUVM
+                          d/t 54->68, Scoreboard default 54->64, Scoreboard
+                          testflags SKIP-NOFILE, BuildUVMPkg d/t 17->17.
+                          NO ROW PASSES cmp.  results/*.csv untouched.
+                          The head OBJECT: BEFORE
+                            LHS constant@uvm_sequencer_base.svh:1576:23-1576:44
+                                (vpiDecompile:this, parent operation)
+                            RHS hier_path(this.sequences.size)@1576:23-1576:44
+                          AFTER
+                            LHS method_func_call(this)@1578:12-1578:21
+                            RHS method_func_call(sequences)@1578:12-1578:21
+                          verbatim as reported.
+  LADDER                  calib golden-vs-golden 3 rows ZERO-HEADS, FAIL=0.
+                          R1 BEFORE->AFTER on ALL SEVEN row-modes reproduces the
+                          official head byte-for-byte
+                          (constant|VpiType|KIND:constant>hier_path ->
+                           method_func_call|VpiName|TEXT:this|sequences; the two
+                          BuildUVMPkg rows keep ref_typespec|<rhs-null>).
+                          MINE_BEFORE 1 -> MINE_AFTER 0 on the five moving rows.
+  CENSUS ATTRIBUTION      per-mover, pristine->patched vs that row's own golden:
+                            SeqDriver    mock 280->386 (gold 386) cand 198->92
+                                         (gold 92)  thiskw 973 both
+                            SimpleUVM    mock 198->252 (gold 252) cand 100->46
+                                         (gold 46)  thiskw 559 both
+                            Scoreboard   mock 198->252 (gold 252) cand 100->46
+                                         (gold 46)  thiskw 559 both
+                            BuildUVMPkg  mock 198->244 (gold 244) cand  84->38
+                                         (gold 38)  thiskw 553 both
+                          BuildUVMPkg SPAN-SET join golden vs patched: MOCKUP
+                          244/244 goldenonly=0 ouronly=0; CAND 38/38 0/0.
+  DETERMINISM             my four sweeps ran in my own workdirs and produced the
+                          implementer's exact per-row database md5s (e.g.
+                          default/SeqDriver AFTER 5d442cd98ff6764af246cc1bc59bf532,
+                          BEFORE f68fd713bc44adf73ef31adda10960e4) — two
+                          independent sweeps, same bytes.
+
+== THREE CORRECTIONS TO THE IMPLEMENTER'S WRITE-UP (numbers, not the law)
+ 1. allbound82 CELLS.  The implementer reports "CELLS=968 MOVERS=0".  Run on a
+    tree that CONTAINS r10uvm84repro (i.e. with the patch applied, which is the
+    only tree the boundary is meaningful on) it is CELLS=983 MOVERS=12
+    NO_OUTPUT=17 — and ALL TWELVE MOVERS ARE r10uvm84repro's OWN ARMS
+    (ast84, g84_a1, a2, a4, a6, b1, b2, b3, c1, d1, d2, e1).  MOVERS OUTSIDE
+    r10uvm84repro = 0, so the uvm77-83 / buvm3-7 / sd8-12 boundary HOLDS; the
+    "968 / 0" figure was taken on a tree without the pass's own arms and
+    therefore never exercised the shape it was protecting.  With the eight
+    verifier arms added the count is CELLS=991 MOVERS=20, still 0 outside
+    r10uvm84repro.
+ 2. canaries.sh u2r ok=9 vs ok=18.  Against a two-mode u2r csv the count is 18
+    (9 names x 2 modes); the implementer's 9 comes from pairing against the
+    committed testflags-only gate_uhdm2rtlil.csv.  changed=0 both ways.
+ 3. "Across all 14 arms / 44 mockup sites the golden-vs-patched mockup span sets
+    have 0 asymmetry IN EITHER DIRECTION" is FALSE AS STATED, and understates
+    the site count.  Tree-aware extraction (v84mock.py, which follows the
+    dump's indentation instead of stopping at the first nested reference — a
+    line-window scan MISSES every mockup golden has PARENTED) gives, over those
+    14 arms, golden 56 / patched 49 sites with SEVEN GOLDEN-ONLY spans and ZERO
+    ours-only.  All seven are the statement-position / `void'()` family the
+    report already ranks as R0 (a1 25:34, a7 10:7 + 11:7 + 13:13, b3 11:11 +
+    18:9 x2).  The CORRECT and much stronger claim is ZERO OURS-ONLY: the law
+    never over-collapses anywhere it was measured.  Same reading on SeqDriver's
+    whole database: MOCKUP 386/386 with 16 golden-only / 16 ours-only spans that
+    are 4 MACRO-BODY sites x 4 instantiations (golden attributes the span to the
+    macro DEFINITION at 117/150, we to the USE at 711/720/951/1019) — residue
+    R2, span-only, and vpiFile/span are not read by Compare.
+
+== ADVERSARIAL PROGRAM — WHAT I TRIED TO BREAK, AND WHAT HELD
+Eight new arms, 108 cells, every one compiled on BOTH tools, each scored three
+ways: golden-vs-patched mockup SPAN-SET join, the dump-line LOST/GAINEDBAD
+multiset test (v84reg.sh: LOST = golden lines pristine matched and patched no
+longer supplies; GAINEDBAD = lines patched supplies BEYOND golden's count that
+pristine did not), and uhdm-cmp.
+  v84x1_depth      3- and 4-step chains, double index, two sites per line
+                   golden 8 / patched 8, 0 asymmetry, GAINEDBAD 0
+  v84x2_incdec     post/pre inc and dec, inc of an INDEXED deep chain, an
+                   lvalue INDEXED BY a deep chain, op-assign both sides, inc in
+                   rvalue position
+                   golden mocks EXACTLY ONE cell (the `+=` RHS, 20:21-20:31) and
+                   patched mocks EXACTLY THAT ONE.  MY PREDICTED DEFECT WAS
+                   REFUTED BY GOLDEN: `lvIncDecTarget84` stays set while the
+                   INDEX of an inc/dec target is emitted, which I expected to be
+                   an over-fence — golden does NOT mock `this.q[this.g.fld]++`'s
+                   index either, so the "leak" is the correct shape.
+  v84x3_args       output / inout / ref argument actuals, $bits, $signed, two
+                   args on one $display
+                   golden 11 / patched 10.  Golden DOES mock an OUTPUT and an
+                   INOUT and a REF actual, and patched fires there too — the
+                   `inLhs` fence is not over-broad.
+  v84x4_text       trivia and macros inside the chain -> RESIDUE V1, below
+  v84x5_scope      inherited member, super / this.super 2- and 3-step, a STATIC
+                   second step, a static handle then member, and `::`-rooted
+                   negative controls
+                   golden 6 / patched 6, 0 asymmetry
+  v84x6_stmt       case cond, CASE ITEM, if, while, repeat count, do-while,
+                   for cond, foreach body, immediate assert, `inside`, concat,
+                   all three ternary slots
+                   golden 15 / patched 15, 0 asymmetry
+  v84x7_misc       range select, indexed part select, bit select, VIRTUAL method,
+                   a call in the MIDDLE of the chain, randomize, randomize-with,
+                   array reductions with and without `with`
+                   golden 9 / patched 6 -> RESIDUE V2, below
+  v84x8_break      concat LVALUE, mixed concat lvalue, $cast OUTPUT actual,
+                   for-init/cond/step lvalues, deep chain as a BUILT-IN CALL
+                   ARGUMENT, super.new, macro supplying only the ROOT or only
+                   the TAIL of the chain, nested deep chain inside an index
+                   golden 10 / patched 4 -> RESIDUES V1 and R0, below.  The two
+                   concat LVALUES and the for-INIT and for-STEP are NOT mockups
+                   in golden and are not mockups in patched: the lvalue fence
+                   holds in the shapes no committed arm reached.
+SUMMARY OVER ALL 22 ARMS (14 implementer + 8 verifier):
+  GAINEDBAD = 0 on every arm.  OURS-ONLY mockup spans = 0 on every arm.
+  PRISTINE-ONLY mockup spans lost by patched = 0 on every arm (patched's mockup
+  set is a strict SUPERSET of pristine's everywhere).
+  Two arms move CMP_FAIL -> PASS_CMP (a2_parens, a4_super) and no arm moves
+  PASS_CMP -> CMP_FAIL (a3_bare is the only pristine PASS and it stays PASS,
+  dumps BYTE-IDENTICAL).  a5_indexed and a7_stmt dumps BYTE-IDENTICAL, as
+  reported.
+
+== RANKED RESIDUES (mine merged with the implementer's, cmp-visibility first)
+ R3  `this.q[i].len()` — golden's hier_path VpiName is `this.q.len` (index
+     ERASED); ours keeps the index.  hier_path::Compare READS VpiName, so this
+     is the top cmp-visible residue.  Arm g84_a5_indexed, LHS at 7:11.
+     UNCHANGED by this pass (pris/pat dumps byte-identical).
+ R0  STATEMENT position (`this.q.delete(i);`) — the new head of all five UVM
+     rows, and it costs THREE fields plus a MIS-BIND on ONE object, not one:
+     golden gives method_func_call NAMED "this" + vpiPrefix = the `this` keyword
+     STRING constant (size 4 / STRING:this / vpiConstType 6) + vpiArgument;
+     ours gives it the MEMBER's name, a vpiPrefix ref_obj MIS-BOUND to a
+     synthesized `this` symbol (`work@v84x8::c8x::f::this` in arm v84x8 L28,
+     the module net `logic_net (work@top.this)` in the corpus), AND DROPS THE
+     ARGUMENT ENTIRELY.  Measured fresh at v84x8_break L28/L29 and L26 of
+     g84_a7_stmt.  NEW MEASUREMENT: when the argument is itself a deep
+     this-chain golden mocks THE ARGUMENT TOO (v84x8 28:24, 29:21), so this
+     family also owns the last of a7/b3/a1's golden-only spans.  The unclosed
+     THISKW deficit (16 BuildUVMPkg / 20 SimpleUVM+Scoreboard / 40 SeqDriver) is
+     exactly this family's prefix constants — verified by census.
+ V1  THE PREDICATE IS ON RAW SOURCE TEXT AND SO IT CANNOT SEE THROUGH TRIVIA OR
+     A MACRO BOUNDARY (NEW, 7 measured cells).  Golden mocks all of these up and
+     patched declines every one:
+       v84x4 L15 `this . h . fld`        spaces around the dots
+       v84x4 L16 `this./*c*/h.fld`       block comment after the first dot
+       v84x4 L17 `this.h/*c*/.fld`       block comment before the second dot
+       v84x4 L20-21 `this.\n  h.fld`     newline inside the chain
+       v84x4 L23 `this.h .arr .size()`   spaces before the dots, call form
+       v84x8 L30 `` `ROOT84.h.fld ``     a macro supplies only the ROOT
+       v84x8 L31 ``this.`TAIL84``        a macro supplies only the TAIL
+     A macro supplying the WHOLE chain DOES fire and matches golden (v84x4 L18
+     `` `X84 ``, L19 `` `CALL84 ``), so the boundary is exactly "the predicate
+     reads the pre-expansion characters between the tokens".  THIS REPO ALREADY
+     PAID FOR THIS BUG ONCE: § parensProbeSkipsTriviaAndWith77, 30 lines above
+     the new predicate in the same file, is a VERIFIER FIX for a text probe that
+     skipped only " \t\r\n".  Every cell here fails in the CONSERVATIVE
+     direction (decline -> pre-existing hier_path), which is why it is a residue
+     and not a regression, and why I did NOT widen the predicate: widening
+     GROWS the firing set and needs its own census + PREDICT + full battery.
+     Ranked first of the new residues: 7 cells, one predicate, and a precedent
+     that says the fix is a token-skipping scan, not a guess.
+ V2  `!withExpr9` IS OVER-BROAD (NEW, 1 measured cell, and the fix follows from
+     the pass's own Surelog decode).  `this.h.arr.sum() with (item)` IS a golden
+     mockup (v84x7 24:11-24:39) and patched declines it, because the with-clause
+     veto is unconditional.  Surelog splits on the node AFTER THE FIRST NAME:
+     for `this.q.sum() with (item)` that node is the Select the with-clause
+     creates (so NOT a mockup — correctly measured as g84_d1 L20), but for
+     `this.h.arr.sum() with (item)` the node after `h` is the plain identifier
+     `arr` (so a mockup).  The one-line consequence: when withExpr9 is set the
+     predicate should be applied to `recvText` ALONE instead of to
+     `recvText + "." + name` — predicate("this.q") is false and
+     predicate("this.h.arr") is true, which is exactly golden on both cells.
+     NOT APPLIED HERE for the same reason as V1.
+ R1  the mockup's vpiParent at a sys_func_call / func_call / method_func_call
+     ARGUMENT and a case_stmt condition.  Confirmed and BOUNDED: it is the whole
+     content of every LOST reading in the multiset test (a1 2, c1 4, e1 4, x1 1,
+     x3 12, x8 1 lines) and vpiParent is read by no Compare method — dump-only.
+     Cells: g84_c1 L18/L19, g84_e1 L19/L20, v84x3 L19/L20/L21, v84x8 L26.
+ R2  4 macro-body span attributions per UVM database (mockups) + 3 (CANDs),
+     measured above on SeqDriver.  Span-only.
+ R4  one-step `super.bfld`: golden emits hier_path(super.bfld) with ref_obj
+     `super` + ref_obj `bfld`; we emit a single scope-resolved ref_obj.
+     PRE-EXISTING and PROVEN UNCHANGED by this pass — g84_b2 L16 is
+     byte-identical between pristine and patched dumps.  (It is the whole
+     explanation of that arm's LOST `|vpiName:super`, which is a multiset
+     artifact of the L14 hier_path correctly becoming a mockup, not a loss.)
+ R5  our mockups carry no vpiFile.  Not read by constant::Compare.
+
+== VERIFIER SURFACE ADDED (measurement-only; production code untouched)
+  v84x1_depth.sv v84x2_incdec.sv v84x3_args.sv v84x4_text.sv v84x5_scope.sv
+  v84x6_stmt.sv v84x7_misc.sv v84x8_break.sv
+  v84arm.sh   the three-way arm runner, /tmp/v84_arm_* namespace so it can never
+              clobber arm84.sh's
+  v84mock.py  TREE-AWARE mockup extraction (see correction 3 — a line-window
+              scan silently loses every PARENTED golden mockup)
+  v84reg.sh   the LOST / GAINEDBAD dump-line multiset regression detector
+  VERIFIED.v84.txt  this file

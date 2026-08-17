@@ -1,0 +1,154 @@
+# r10uvm84 — THE CENSUS.  MEASUREMENT-ONLY: uhdm-cmp and scripts/verify_golden.py
+# remain the only judges.  Instrument: ct84cen.cpp (Serializer::AllObjects, so each
+# object is counted ONCE — a uhdm-dump reprints an object at every reference and the
+# corpus head alone is printed three times).
+#   CONTROL binary f885e175806e87832e466155710d8f0a   SHIPPED 0896280a130ffc9d0de6308ad336982c
+
+== PART 0 — GOLDEN-VS-GOLDEN FIRST (the ladder's calibration, calib.sh)
+default BuildUVMPkg 183142 objects -> 0 rungs      ZERO-HEADS
+default Scoreboard  187081 objects -> 0 rungs      ZERO-HEADS
+default SimpleUVM   188084 objects -> 0 rungs      ZERO-HEADS
+-- ZERO-HEADS=3 FAIL=0.  The detector is silent on a database compared with itself.
+
+== PART 1 — THE THREE POPULATIONS, and why they are three and not one
+MOCKUP  a `constant` carrying ONLY VpiDecompile=="this" (size 0, const type 0, no
+        typespec).  Surelog's CompileExpression.cpp:5250 "TODO: this is a mockup".
+THISKW  a `constant` decompile "this" WITH size 4 / STRING:this / vpiStringConst(6):
+        the ORDINARY `paThis_keyword` primary (the vpiPrefix of a STATEMENT-position
+        `this.q.m(a);`).  THE CONTROL POPULATION — this pass must not move it.
+CAND    a `hier_path` named `this…`/`super…` with TWO OR MORE dots: the shape OUR
+        pristine emitter put where golden puts a MOCKUP.  Golden HAS legitimate CANDs
+        (`this.q.len` for the written `this.q[i].len()`), which is why the deficit is
+        a JOIN and not a count.
+
+== PART 2 — THE DEFICIT WAS AN EXACT BIJECTION BEFORE ANY CODE WAS WRITTEN
+Read off the PRISTINE databases and their own goldens (workdir /tmp/r10uvm84_wd_CONTROL):
+
+ test/mode                 GOLD mock  OURS mock  DEFICIT | GOLD cand  OURS cand  EXCESS
+ default/SeqDriver               386        280      106 |        92        198     106
+ default/SimpleUVM               252        198       54 |        46        100      54
+ default/Scoreboard              252        198       54 |        46        100      54
+ default/BuildUVMPkg             244        198       46 |        38         84      46
+ testflags/SeqDriver             386        280      106 |        92        198     106
+ testflags/SimpleUVM             252        198       54 |        46        100      54
+ testflags/BuildUVMPkg           244        198       46 |        38         84      46
+
+DEFICIT == EXCESS in every database, exactly.  Every mockup golden has and we lack is
+one hier_path we emit and golden lacks — one object, one span, one law.
+
+== PART 3 — WHAT THE 30 GOLDEN-ONLY SPANS ACTUALLY ARE (default/SimpleUVM, span join)
+golden mockup spans 93, ours 65, shared 63, GOLDEN-ONLY 30 spans = 54 objects.
+Classified by reading the source line at each span:
+
+  A. BUILT-IN method on a `this`-member — 12 spans.  THE HEAD IS IN HERE:
+       uvm_sequencer_base.svh:1576:23  for (int i = 0; i < this.sequences.size(); i++)
+       uvm_reg_block.svh:982/1000/1018/1035/1849  if (this.{blks,regs,vregs,mems,maps}.exists(x))
+       uvm_reg_backdoor.svh:260/306    if (this.m_update_thread.exists(element))
+       uvm_reg_backdoor.svh:322        return this.m_update_thread.num() > 0
+       uvm_mem_mam.svh:811             if (this.for_each_idx >= this.in_use.size())
+       uvm_vreg.svh:816/837            this.fields.size()-1
+  B. plain NESTED MEMBER, no call at all — 15 spans:
+       uvm_mem_mam.svh:672/675/709/715/716/718/763/764/765   this.cfg.{n_bytes,start_offset,end_offset}
+       uvm_reg_fifo.svh:157/241/252                          this.value.{value,get_compare()}
+       uvm_object.svh:935/965/987   !this.__m_uvm_status_container.status
+  C. 3 macro-body span attributions (uvm_message_defines.svh 117/150) — see PART 6.
+
+The A/B split is exactly the two emitter sites this pass adds: a BUILT-IN method's
+receiver hides in slang's `arguments()[0]` (§ scopedBuiltinRecvIsChain1's gap) and a
+member chain never reached the call code at all.
+
+== PART 4 — AFTER: the populations are golden's, object for object
+ test/mode                 GOLD mock  PAT mock | GOLD cand  PAT cand | THISKW ours (gold)
+ default/SeqDriver               386      386  |      92        92   |   973 (1013)
+ default/SimpleUVM               252      252  |      46        46   |   559  (579)
+ default/Scoreboard              252      252  |      46        46   |   559  (579)
+ default/BuildUVMPkg             244      244  |      38        38   |   553  (569)
+ testflags/SeqDriver             386      386  |      92        92   |   973 (1013)
+ testflags/SimpleUVM             252      252  |      46        46   |   559  (579)
+ testflags/BuildUVMPkg           244      244  |      38        38   |   553  (569)
+
+SPAN-SET join after the patch:
+  default/BuildUVMPkg  181 golden spans, 181 ours, GOLDEN-ONLY 0, OURS-ONLY 0
+  default/SimpleUVM     93 golden spans,  93 ours, GOLDEN-ONLY 4, OURS-ONLY 4  (PART 6)
+  default/SeqDriver     93 golden spans,  93 ours, GOLDEN-ONLY 4, OURS-ONLY 4  (PART 6)
+THISKW did not move by one object in any database — the control population held.
+
+== PART 5 — THE GRID (real Surelog goldens, tools/probe/r10uvm84repro/g84_*.sv)
+ cell                              written                          golden        pristine   patched
+ b1 L16  `this.one()`              1 step, CALL                     mockup*       = golden   = golden
+ b1 L17  `this.n`                  1 step, member                   hier_path     = golden   = golden
+ b1 L18  `this.q.size()`           2 steps, BUILT-IN                MOCKUP        hier_path  = golden
+ b1 L19  `this.h.fld`              2 steps, member                   MOCKUP        hier_path  = golden
+ b1 L20  `this.h.m1()`             2 steps, USER method              MOCKUP        mockup*    = golden
+ b1 L21  `this.h.arr.size()`       3 steps, BUILT-IN                 MOCKUP        hier_path  = golden
+ b1 L22  `this.h.arr[i]`           member then INDEX on step 2       MOCKUP        hier_path  = golden
+ b1 L23  `this.q[i].len()`         INDEX on step 1                   hier_path     hier_path  UNCHANGED (R3)
+ b1 L24  `this.ha[i].fld`          INDEX on step 1, then member      hier_path     = golden   = golden
+ b1 L25  `this.h.s.len()`          3 steps, string BUILT-IN          MOCKUP        hier_path  = golden
+ a2 L7/L8 `this.q.size()` / `.size` parens vs NO parens              MOCKUP x2     hier_path  = golden  (arm PASSES cmp)
+ a4      `super.q.size()`          super root                       MOCKUP ("this")hier_path = golden  (arm PASSES cmp)
+ b2 L15  `this.super.barr.size()`  this.super root                  MOCKUP        hier_path  = golden
+ b2 L16  `super.bfld`              super, ONE step                  hier_path     ref_obj    UNCHANGED (R4)
+ a3      `q.size()` etc            NO `this` (control)              hier_path     = golden   BYTE-IDENTICAL
+ a5      `this.q[i].len()`         indexed control                  hier_path     —          BYTE-IDENTICAL
+ c1 L12  `this.h.fld = 5`          LVALUE                           hier_path     = golden   = golden
+ c1 L13  `this.h.arr[i] = 6`       LVALUE + index                    hier_path     = golden   = golden
+ c1 L14  `this.h.fld++`            INC lvalue                       hier_path     = golden   = golden**
+ c1 L15  `this.h.fld += 2`         op-assign lvalue                 hier_path     = golden   = golden
+ c1 L16..L20  if-cond / ternary / $display arg / user-call arg / concat
+                                                                    MOCKUP x5     hier_path  = golden
+ d1 L20  `this.q.sum() with (item)` with-clause on step 1           hier_path     = golden   = golden
+ d1 L22/23 `this.am.exists(k)` / `.num()` assoc built-ins           MOCKUP x2     hier_path  = golden
+ d1 L25  `this.super.bfld`         this.super, ONE step             hier_path     ref_obj    UNCHANGED (R4)
+ d1 L26  `this.h.pk[1:0]`          RANGE select on step 2           MOCKUP        hier_path  = golden
+ d2      constraint / randomize-with                                NO OBJECT     —          NOT MOVED
+ b3      the CORPUS SHAPE in 20 lines (package class, out-of-body AND in-body
+         `for (int i = 0; i < this.sequences.size(); i++)`)          MOCKUP x3     hier_path x3  = golden x3
+ (*) the USER-METHOD spelling is § thisRecvCall11's, shipped before this pass.
+
+ PER-ARM MOCKUP COUNT (golden / pristine / patched), spans joined:
+   b1 6/1/6   a6 4/1/4   d1 7/0/7   d2 1/0/1   b3 3/0/3   — GOLDEN-ONLY spans 0, OURS-ONLY 0.
+ ARMS THAT NOW PASS uhdm-cmp OUTRIGHT: g84_a2_parens, g84_a4_super (both CMP_FAIL before).
+ ARMS BYTE-IDENTICAL pristine->patched (negative controls): g84_a3_bare, g84_a5_indexed,
+   g84_a7_stmt.
+
+ e1 L16  `wait (this.h.fld > 0)`   wait CONDITION                   MOCKUP        hier_path  = golden
+ e1 L19  `this.g(this.h.fld)`      OUTPUT-argument actual           MOCKUP        hier_path  = golden
+ e1 L20  `this.h2(this.h.fld)`     INOUT-argument actual            MOCKUP        hier_path  = golden
+ e1 L21  `i < this.h.fld`          for CONDITION                    MOCKUP        hier_path  = golden
+ e1 L22  `this.h.fld--`            DEC lvalue                       hier_path     = golden   = golden**
+ e1 L23  `--this.h.fld`            PRE-DEC lvalue                   hier_path     = golden   = golden**
+ e1 L24  `n = this.q[this.h.fld]`  deep chain as an INDEX (rvalue)  hier_path(this.q), index DROPPED — = golden
+ e1 L25  `this.q[this.h.fld] = 3`  same INDEX inside an LVALUE      hier_path(this.q), index DROPPED — = golden
+ (**) THE CELLS THAT REFUTED THE FIRST FENCE.  `inLhs` is FALSE for an inc/dec
+      operand in this emitter, so binary 01fa98c9 replaced these three golden
+      hier_paths with the mockup.  `lvIncDecTarget84` fixes it and the `+=` twin
+      (c1 L15), which DOES set `inLhs`, is the control that was right all along.
+
+== PART 5b — THE ARM BATTERY, MOCKUP SPAN SETS JOINED (SHIPPED binary)
+ arm            golden spans  patched spans  GOLDEN-ONLY  OURS-ONLY
+ a1_exprctx            8             8            0           0
+ a2_parens             2             2            0           0
+ a3_bare               0             0            0           0   (negative control)
+ a4_super              2             2            0           0
+ a5_indexed            0             0            0           0   (negative control)
+ a6_member             4             4            0           0
+ a7_stmt               0             0            0           0   (R0's family: THISKW, not MOCKUP)
+ b1_steps              6             6            0           0
+ b2_thissuper          3             3            0           0
+ b3_pkgoob             2             2            0           0
+ c1_lvalue             5             5            0           0
+ d1_edges              7             7            0           0
+ d2_ctx                1             1            0           0
+ e1_positions          4             4            0           0
+ -- 44 mockup sites over 14 arms, ZERO asymmetry in either direction.
+ BYTE-IDENTICAL pristine->patched: a3_bare, a5_indexed, a7_stmt.
+
+== PART 6 — RESIDUAL SPAN MISMATCH (4 objects, dump-only, NOT a compared field)
+SimpleUVM/SeqDriver keep 4 mockups whose LINE ATTRIBUTION differs: golden puts them in
+the MACRO BODY (uvm_message_defines.svh 117:33/117:34/150:50/150:52), we put them at the
+USE site (711:60, 720:58, 951:42, 1019:41).  Object COUNT is equal (252 = 252); 2 of the 4
+were already ours-only in the PRISTINE (951:42, 1019:41), so this is a pre-existing class
+of difference this pass grew by 2, not a new kind.  uhdm-cmp blacklists vpiLineNo /
+vpiColumnNo / vpiFile, and `constant::Compare` reads VpiType, VpiName, VpiDefName,
+VpiDecompile, VpiSize, Typespec, VpiConstType — none of which differ here.

@@ -1,0 +1,127 @@
+# r10uvm84 — GATE EVIDENCE.  Base 05d9c8f.  Worktree /tmp/wt_r10uvm84.
+# CONTROL binary md5 f885e175806e87832e466155710d8f0a  (my own build of 05d9c8f,
+#   built TWICE in two worktrees and byte-identical both times)
+# SHIPPED binary md5 0896280a130ffc9d0de6308ad336982c  (every number below)
+# TWO EARLIER BINARIES WERE MEASURED AND BOTH ARE DISCARDED, NAMED HERE BECAUSE
+# EACH PRODUCED A WRONG NUMBER FIRST:
+#   c3b2322b4db7283cce0cc153f8cc22a2  a BUILD RACE (gate 1) left it holding
+#     pre-edit code; it collapsed the with-clause cell d1 L20.
+#   01fa98c95fa6f595623122d360708fd7  correct on the with-clause, but it
+#     OVER-COLLAPSED the INC/DEC lvalue (arm c1 L14 `this.h.fld++`): golden keeps
+#     `hier_path (this.h.fld)` there and it emitted the mockup.  Caught by this
+#     pass's own LVALUE arm before landing; fixed by `lvIncDecTarget84`.
+# GOLDEN_DEFER echoed [UNSET] at every sweep launch; 5 DEFERRED in both surelog
+#   modes, exactly as in the committed baseline.  slang was NOT patched.
+#   results/*.csv were READ ONLY — this pass promoted NOTHING.
+# The four slang-fenced tests were never dispatched: canaudit.sh, run in THIS
+#   directory (so its HERE is this directory), prints FENCE-BREACH=0.  Their names
+#   are deliberately not written into any file here.
+
+GATE 1  BUILD           both binaries built -j 2 against the official UHDM install;
+                        md5s above, read after "Linking CXX executable slang-uhdm".
+                        Nothing in UHDM was patched or rebuilt.
+                        A BUILD RACE WAS CAUGHT AND IS RECORDED, because it produced
+                        a WRONG measurement first: `src/ExprEmit.cpp` was edited WHILE
+                        the first patched build was compiling that very TU, so the .o
+                        (08:33:05) came out NEWER than the source (08:32:32) while
+                        holding the PRE-edit code, and the next `cmake --build` did
+                        nothing (`grep -c ExprEmit.cpp.o` in the second log = 0).
+                        The binary that measurement was taken from
+                        (c3b2322b4db7283cce0cc153f8cc22a2) collapsed the with-clause
+                        cell d1 L20 that the shipped one correctly declines.  Fixed by
+                        `touch src/ExprEmit.cpp` + rebuild (third log recompiles the TU
+                        and relinks) and EVERY number below was re-taken on
+                        01fa98c95fa6f595623122d360708fd7.
+
+GATE 2  GOLDENS         tests/check_goldens.sh  ->  23 PASS / 0 FAIL  (on the
+                        SHIPPED binary; also 23/0 on the discarded 01fa98c9,
+                        which is why goldens alone are not a boundary)
+        NEG CONTROL     SLANG_UHDM=/bin/false   ->  0 PASS / 23 FAIL
+
+GATE 3  UHDM2RTLIL      1462 rows (default+testflags): 679 CMP_EQUAL / 50 SLANG_REJECT
+                        / 2 SURELOG_FAIL in BOTH modes.
+                        ct8rows.sh, COMMITTED-BASELINE-FIRST:
+                          results/gate_uhdm2rtlil.csv (731 testflags rows)
+                            vs my CONTROL sweep, testflags rows: 0 differing ROWS
+                            vs my SHIPPED sweep, testflags rows: 0 differing ROWS
+                          CONTROL vs SHIPPED, all 1462 rows: 0 differing ROWS
+                        (dump column included in every one of the three)
+
+GATE 4  SURELOG         1588 rows (default+testflags).  ct8rows.sh,
+                        COMMITTED-BASELINE-FIRST:
+                          results/golden_surelog.csv vs my CONTROL sweep:
+                            0 differing ROWS over 1588
+                          results/golden_surelog.csv vs my SHIPPED sweep:
+                            0 differing ROWS over 1588
+                          CONTROL vs SHIPPED: 0 differing ROWS
+                        Status AND dump histograms identical per mode
+                        (default 244 differ / 226 match, testflags 300 differ /
+                        166 match, before and after).
+
+GATE 5  BYTEVERIFY      (SHIPPED workdir /tmp/r10uvm84_wd_PATCH2 vs CONTROL
+                         /tmp/r10uvm84_wd_CONTROL)
+                        surelog : MOVERS 7 / 953 — ALL SEVEN PREDICTED BY NAME on the
+                                  PRISTINE databases before the patched sweep ran
+                                  (PREDICT.r10uvm84.txt), and each attributed by
+                                  census to golden's own mockup/CAND counts
+                        u2r     : MOVERS 0 / 1358  (predicted 0)
+                        SELFCHECK  surelog 952/953 flagged, u2r 1357/1358
+                        SELFCHECK1 surelog 8 (7 real + 1 corrupted),
+                                   u2r 1 (0 real + 1 corrupted)
+
+SHIPPED == the earlier patched sweep, by BYTES: byteverify PATCH2 vs PATCH
+                        MOVERS 0 / 953, so the inc/dec fence changed no corpus
+                        database and every number taken on either workdir holds
+                        for the shipped binary (UVM has zero deep-`this` inc/dec
+                        sites; grep in PREDICT).
+
+PREDICTOR BIJECTION    ct84cen/pred84 over EVERY pristine database of both corpora:
+                        surelog 953 -> nonzero on exactly 7, the same 7 the byte
+                        comparison found; 946 pred=0 all byte-SAME.
+                        u2r 1358 -> nonzero on 0; 0 movers measured.
+                        Zero false positives, zero false negatives, both corpora.
+
+BOUNDARY all sd/uvm/buvm  r10uvm82repro/allbound82.sh (the COMMITTED script, run with
+                        CONTROL vs SHIPPED): CELLS=968 MOVERS=0 NO_OUTPUT=17.  The 4
+                        segfault lines are SYMMETRIC (2 from each binary, same cells)
+                        and pre-existing.  MOVERS=0 is EXPLAINED, not lucky: a grep
+                        over every committed arm/grid `.sv` finds the shape in three
+                        files only, and every site is statement-position or already
+                        § thisRecvCall11's (see PREDICT.r10uvm84.txt).
+BOUNDARY sd grids       r10buvm3repro/sdbound.sh: cells=347 MOVERS=0
+                        NO_OUTPUT(both)=4 (the documented v2/v6 grid11 cells).
+
+CANARIES                canaries.sh  surelog ok=52 changed=0 absent=0
+                                             unknown-names=8 (the documented
+                                             u2r-only expectation)
+                                     u2r     ok=9  changed=0 absent=0
+                                             unknown-names=25 (documented)
+                        ctcan2.sh    surelog EXPECT_UNKNOWN=1 ok=58 changed=0 PASS
+                                     u2r     EXPECT_UNKNOWN=6 ok=1  changed=0 PASS
+                        canaudit.sh  audited=31 UNCOVERED=0 FENCE-BREACH=0
+                        DATABASE md5 pins (patched == pristine, all five names,
+                        BOTH modes each):
+                          SVSwitch           default/testflags 4842211c4030  <- mandated pin
+                          YosysVerx          default/testflags 6ccda350c24a  <- mandated pin
+                          InterfaceModPort   default/testflags 59a365f3ce2c
+                          BlackParrotComplex default e3e354129d5a  testflags 73a10e8217e5
+                          YosysOldOr         default/testflags d68e0796d62c
+
+OFFICIAL HEADS (rowheads.sh, grep -c '^LHS:' — ONE head per run every time)
+        row                     BEFORE lines   AFTER lines   status
+        SeqDriver   default          54            68        CMP_NOTEQUAL (head MOVED)
+        SeqDriver   testflags        54            68        CMP_NOTEQUAL (head MOVED)
+        SimpleUVM   default          54            68        CMP_NOTEQUAL (head MOVED)
+        SimpleUVM   testflags        54            68        CMP_NOTEQUAL (head MOVED)
+        Scoreboard  default          54            64        CMP_NOTEQUAL (head MOVED)
+        Scoreboard  testflags        SKIP-NOFILE (SLANG_REJECT — no database, both)
+        BuildUVMPkg default          17            17        CMP_NOTEQUAL (head UNMOVED)
+        BuildUVMPkg testflags        17            17        CMP_NOTEQUAL (head UNMOVED)
+        NO ROW PASSES cmp.  The line COUNT rose because the NEW head object is a
+        larger object, not because anything regressed: the head OBJECT changed from
+        `constant(decompile:this)` vs `hier_path(this.sequences.size)`
+        @uvm_sequencer_base.svh:1576:23 (r10uvm83's R0, the object this law fixes) to
+        `method_func_call(this)` vs `method_func_call(sequences)` @1578:12 — TWO LINES
+        LATER IN THE SAME FUNCTION, the STATEMENT-position family (R0 below).
+        BuildUVMPkg's head is its own older one (`ref_typespec uvm_pkg::uvm_is_match::s`)
+        and is not this family; its 46-object mockup deficit still closed.

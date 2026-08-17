@@ -1,0 +1,122 @@
+# r10uvm84 — LADDER BEFORE/AFTER (ctladder, MEASUREMENT-ONLY; uhdm-cmp remains the judge)
+# BEFORE workdir /tmp/r10uvm84_wd_CONTROL (CONTROL binary f885e175806e87832e466155710d8f0a)
+# AFTER  workdir /tmp/r10uvm84_wd_PATCH2  (SHIPPED binary 0896280a130ffc9d0de6308ad336982c)
+# inputs pinned by md5 in INPUTS.r10uvm84.txt
+# ctladder built from the COMMITTED r10ladder1repro/ctladder.cpp, unmodified
+#   (/tmp/r10uvm84_ctladder, md5 1ca5be11bf714009318c8dec2eeb3bbe).
+
+== calib (golden-vs-golden must give ZERO rungs) — MAX=20000 BUDGET=1800
+MODE      TEST           GOLDENOBJS    RUNGS VERDICT
+default   BuildUVMPkg        183142        0 ZERO-HEADS
+default   Scoreboard         187081        0 ZERO-HEADS
+default   SimpleUVM          188084        0 ZERO-HEADS
+-- ZERO-HEADS=3 FAIL=0
+
+== BEFORE — the FULL ladder, MAX=20000 BUDGET=1800, all seven row-modes
+MODE      TEST             RUNGS STOP                   MAXVIS     SECS
+default   SeqDriver          494 FIXPOINT           43097/317210    502.0  rc=0
+default   SimpleUVM          222 ROOT-BLOCKED       40578/188084    150.6  rc=0
+default   Scoreboard         219 ROOT-BLOCKED       45272/187081    205.1  rc=0
+default   BuildUVMPkg        250 FIXPOINT           46267/183142    232.6  rc=0
+testflags SeqDriver          258 FIXPOINT           26060/317222    258.6  rc=0
+testflags SimpleUVM          222 ROOT-BLOCKED       40590/188096    142.2  rc=0
+testflags BuildUVMPkg        250 FIXPOINT           46267/183142    219.5  rc=0
+-- laddered=7  SKIP-NOFILE=0  UNKNOWN-NAME=0
+
+== AFTER — R1 (the OFFICIAL head, which is ladder rung 1) on the SHIPPED workdir,
+   MAX=8 BUDGET=600 (eight rungs is all R1 needs, and it is the datum this pass is
+   about; the honest note on the AFTER TOTALS is at the bottom of this file)
+MODE      TEST             RUNGS STOP                   MAXVIS     SECS
+default   SeqDriver            8 MAX-RUNGS          13147/317210     11.2  rc=0
+default   SimpleUVM            8 MAX-RUNGS          14728/188084      8.0  rc=0
+default   Scoreboard           8 MAX-RUNGS          14714/187081      8.0  rc=0
+default   BuildUVMPkg          8 MAX-RUNGS          6254/183142      2.5  rc=0
+testflags SeqDriver            8 MAX-RUNGS          13159/317222     11.4  rc=0
+testflags SimpleUVM            8 MAX-RUNGS          14740/188096      8.2  rc=0
+testflags BuildUVMPkg          8 MAX-RUNGS          6254/183142      2.5  rc=0
+-- laddered=7  SKIP-NOFILE=0  UNKNOWN-NAME=0
+
+== R1 BEFORE -> AFTER, per row.  BOTH SIDES ARE BYTE-FOR-BYTE THE OFFICIAL uhdm-cmp
+   HEAD, so the ladder and the judge agree on this pass in both directions.
+-- ladder_default_BuildUVMPkg
+   BEFORE R1 FAM=ref_typespec|<rhs-null>|MISSING-OURS
+          L  ref_typespec@:0:0-0:0#4528
+          R  <null>
+   AFTER  R1 FAM=ref_typespec|<rhs-null>|MISSING-OURS
+          L  ref_typespec@:0:0-0:0#4528
+          R  <null>
+-- ladder_default_Scoreboard
+   BEFORE R1 FAM=constant|VpiType|KIND:constant>hier_path
+          L  constant@uvm_sequencer_base.svh:1576:23-1576:44#25787
+          R  hier_path(this.sequences.size)@:1576:23-1576:44#104226
+   AFTER  R1 FAM=method_func_call|VpiName|TEXT:this|sequences
+          L  method_func_call(this)@uvm_sequencer_base.svh:1578:12-1578:21#25797
+          R  method_func_call(sequences)@:1578:12-1578:21#104154
+-- ladder_default_SeqDriver
+   BEFORE R1 FAM=constant|VpiType|KIND:constant>hier_path
+          L  constant@uvm_sequencer_base.svh:1576:23-1576:44#25787
+          R  hier_path(this.sequences.size)@:1576:23-1576:44#106840
+   AFTER  R1 FAM=method_func_call|VpiName|TEXT:this|sequences
+          L  method_func_call(this)@uvm_sequencer_base.svh:1578:12-1578:21#25797
+          R  method_func_call(sequences)@:1578:12-1578:21#106768
+-- ladder_default_SimpleUVM
+   BEFORE R1 FAM=constant|VpiType|KIND:constant>hier_path
+          L  constant@uvm_sequencer_base.svh:1576:23-1576:44#25782
+          R  hier_path(this.sequences.size)@:1576:23-1576:44#104204
+   AFTER  R1 FAM=method_func_call|VpiName|TEXT:this|sequences
+          L  method_func_call(this)@uvm_sequencer_base.svh:1578:12-1578:21#25792
+          R  method_func_call(sequences)@:1578:12-1578:21#104132
+-- ladder_testflags_BuildUVMPkg
+   BEFORE R1 FAM=ref_typespec|<rhs-null>|MISSING-OURS
+          L  ref_typespec@:0:0-0:0#4528
+          R  <null>
+   AFTER  R1 FAM=ref_typespec|<rhs-null>|MISSING-OURS
+          L  ref_typespec@:0:0-0:0#4528
+          R  <null>
+-- ladder_testflags_SeqDriver
+   BEFORE R1 FAM=constant|VpiType|KIND:constant>hier_path
+          L  constant@uvm_sequencer_base.svh:1576:23-1576:44#25787
+          R  hier_path(this.sequences.size)@:1576:23-1576:44#106852
+   AFTER  R1 FAM=method_func_call|VpiName|TEXT:this|sequences
+          L  method_func_call(this)@uvm_sequencer_base.svh:1578:12-1578:21#25797
+          R  method_func_call(sequences)@:1578:12-1578:21#106780
+-- ladder_testflags_SimpleUVM
+   BEFORE R1 FAM=constant|VpiType|KIND:constant>hier_path
+          L  constant@uvm_sequencer_base.svh:1576:23-1576:44#25782
+          R  hier_path(this.sequences.size)@:1576:23-1576:44#104216
+   AFTER  R1 FAM=method_func_call|VpiName|TEXT:this|sequences
+          L  method_func_call(this)@uvm_sequencer_base.svh:1578:12-1578:21#25792
+          R  method_func_call(sequences)@:1578:12-1578:21#104144
+
+== THE LADDER NAMED THE NEXT HEAD BEFORE THIS PASS STARTED, AGAIN
+BEFORE, default/SimpleUVM: R1 is this pass's object and R2/R3 are ALREADY the
+family that becomes the new head:
+  RUNG 1  constant@uvm_sequencer_base.svh:1576:23-1576:44   vs hier_path(this.sequences.size)
+  RUNG 2  method_func_call(this)@1578:12-1578:21            vs method_func_call(sequences)
+  RUNG 3  method_func_call(this)@1591:10-1591:19            vs method_func_call(sequences)
+AFTER, the same row: R1 IS rung 2's object.  Nothing was guessed about what comes
+next — the instrument had already printed it.
+
+== THIS PASS'S FAMILY, IN RUNGS (BEFORE full runs; rungs are not objects — the
+   ladder masks containers, so a 106-object family shows as 13 rungs)
+ROW                                MINE_RUNGS       R0_RUNGS
+ladder_default_BuildUVMPkg                  0              0
+ladder_default_Scoreboard                   7              2
+ladder_default_SeqDriver                   13              4
+ladder_default_SimpleUVM                    4              2
+ladder_testflags_BuildUVMPkg                0              0
+ladder_testflags_SeqDriver                  4              2
+ladder_testflags_SimpleUVM                  4              2
+
+== WHAT WAS NOT MEASURED, AND WHY IT IS SAID OUT LOUD
+The FULL AFTER ladder (MAX=20000 BUDGET=1800 on all seven rows) was launched and is
+NOT reported here as rung TOTALS.  A concurrent agent's own ctladder run held the
+machine for the whole window, and under that contention the AFTER SeqDriver row was
+still climbing when this artifact was written, at which point it had walked
+  276 rungs with THIS PASS'S FAMILY at ZERO of them (BEFORE: 494 rungs, 13 of them),
+  after which the run was STOPPED rather than left to starve the machine further.
+A BUDGET-stopped total is not comparable to a FIXPOINT total, so quoting one against
+the other would be the "instrument's shipped numbers" error r10ladder1 was rejected
+for.  What IS reported is complete and is the load-bearing half: the calibration, the
+FULL before ladder, and R1 on BOTH sides for ALL SEVEN row-modes — the rung the
+official judge stops at.
