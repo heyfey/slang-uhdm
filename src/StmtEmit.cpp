@@ -43,6 +43,52 @@ struct BlkCtrl57 {
     }
 };
 
+// § blockDeclAutomaticIsWrittenKw80 — THE predicate, one definition, four call
+// sites in the block-local loop.
+//
+// A BLOCK-SCOPE (statement) variable declaration carries `vpiAutomatic` iff the
+// `automatic` KEYWORD is WRITTEN on that data declaration.  Surelog's
+// STATEMENT-level `CompileHelper::compileDataDeclaration`
+// (CompileStmt.cpp:1127) opens with `bool automatic_status = false`, sets it
+// true ONLY at a `paLifetime_Automatic` node and false at `paLifetime_Static`,
+// and writes `var->VpiAutomatic(automatic_status)` at :1196 — there is no
+// scope-default fallback anywhere on that path.  That is a DIFFERENT rule from
+// the two other Surelog sites this campaign already transcribes: the
+// tf-block-item one (:1690, `VpiAutomatic(!is_static)` — automatic unless
+// `static` is written; § r10fsv3, TaskFuncEmit) and the Signal/elaboration one
+// (ElaborationStep:2350, `VpiAutomatic(!sig->isStatic())`;
+// § packageVarAutomaticIsDataDeclShape26, ParamEmit).
+//
+// MEASURED on arm c1, 23 cells, golden — `automatic` reads 1 in a fork arm, a
+// begin, a NAMED begin, a module `initial`, an `always` body, a module task's
+// begin and a for-loop body's begin, with AND without an initializer; and
+// EVERY keyword-less cell reads 0 in those same positions, including a local of
+// a `function automatic`, whose subroutine lifetime does NOT propagate, and a
+// `for (int i = 0; ...)` init variable.  A written `static` reads 0, i.e. the
+// same as nothing.
+//
+// SLANG'S `VariableSymbol::lifetime` IS DELIBERATELY NOT READ: it is the
+// SEMANTIC lifetime, default-filled from the enclosing scope
+// (VariableSymbols.cpp:81, `lifetime = getDefaultLifetime(scope)`), so it is
+// Automatic for every block local of a class method — which golden reads 0.
+// Measured refutation in the README's RF-1.
+static bool writtenAutomaticKw80(const slang::ast::Symbol& bm) {
+    const syntax::SyntaxNode* dsyn = bm.getSyntax();
+    if (!dsyn || dsyn->kind != syntax::SyntaxKind::Declarator)
+        return false;
+    // The declarator's parent is the whole data_declaration, and the lifetime
+    // keyword is one of ITS modifiers — so a MULTI-DECLARATOR declaration
+    // (`automatic int a = 1, b = 2;`) answers true for every declarator, which
+    // is what golden does (arm c2 k_m1/k_m2).
+    const syntax::SyntaxNode* par = dsyn->parent;
+    if (!par || par->kind != syntax::SyntaxKind::DataDeclaration)
+        return false;
+    for (auto md : par->as<syntax::DataDeclarationSyntax>().modifiers)
+        if (md.kind == parsing::TokenKind::AutomaticKeyword)
+            return true;
+    return false;
+}
+
 // The variable class a typespec implies — UHDM's own
 // CompileHelper::getSimpleVarFromTypespec mapping, which is what Surelog uses
 // to materialize an IMPLICITLY declared variable (a foreach loop variable)
@@ -1190,6 +1236,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 for (auto& bm : bs.blockSymbol->members()) {
                     if (bm.kind != SymbolKind::Variable)
                         continue;
+                    // § blockDeclAutomaticIsWrittenKw80 — computed ONCE per
+                    // declaration and read at all FOUR factories below.
+                    const bool auto80 = writtenAutomaticKw80(bm);
                     // Package/class scopes keep `::` all the way down: a body
                     // local of svunit_testsuite::report is
                     // svunit_pkg::svunit_testsuite::report::match, matching
@@ -1203,8 +1252,19 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     if (auto* qav =
                             makeQueueDynArrayVar(bm, bfull, b, pkgScopeInst)) {
                         if (auto* qregs = qav->Variables())
-                            for (auto* qr : *qregs)
+                            for (auto* qr : *qregs) {
+                                // § blockDeclAutomaticIsWrittenKw80, SITE 1 of
+                                // 4 — the ELEMENT variable, never the
+                                // array_var (arm c2 d_que/e_dyn: golden reads
+                                // 1 on the inner int_var and 0 on its
+                                // array_var, and Surelog's CompileStmt.cpp:1196
+                                // is why — the flag is written on
+                                // compileVariable's result, BEFORE the
+                                // unpacked-dimension wrapper is minted).
+                                if (auto80)
+                                    qr->VpiAutomatic(true);
                                 vars->push_back(qr);
+                            }
                         vars->push_back(qav);
                         blockMap[&bm] = qav;
                         continue;
@@ -1217,8 +1277,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     if (auto* aav = makeAssocArrayVar(bm, bfull, b,
                                                       pkgScopeInst, false)) {
                         if (auto* aregs = aav->Variables())
-                            for (auto* ar : *aregs)
+                            for (auto* ar : *aregs) {
+                                // § blockDeclAutomaticIsWrittenKw80, SITE 2 of
+                                // 4 (arm c2 f_asc).
+                                if (auto80)
+                                    ar->VpiAutomatic(true);
                                 vars->push_back(ar);
+                            }
                         vars->push_back(aav);
                         blockMap[&bm] = aav;
                         continue;
@@ -1319,6 +1384,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         if (leaf0->isSigned() &&
                             !typeParamVarIsRefVar58(*leaf0))
                             reg0->VpiSigned(true);
+                        // § blockDeclAutomaticIsWrittenKw80, SITE 3 of 4 — the
+                        // FIXED-SIZE unpacked array's element (arm c2 c_fix,
+                        // n_marr).
+                        if (auto80)
+                            reg0->VpiAutomatic(true);
                         auto* rv0 = s.MakeVariablesVec();
                         rv0->push_back(reg0);
                         av0->Variables(rv0);
@@ -1381,6 +1451,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     else
                         rt->Actual_typespec(ts);
                     v->Typespec(rt);
+                    // § blockDeclAutomaticIsWrittenKw80, SITE 4 of 4 — the
+                    // SCALAR / vector / string / class-handle / enum / struct
+                    // declaration, which is the whole corpus population (arm c1
+                    // c1/c3/c6/c12/c14/c17/c19/c22, arm c2
+                    // a_scal/b_vec/g_str/h_cls/i_enum/j_str2/k_m1/k_m2).
+                    if (auto80)
+                        v->VpiAutomatic(true);
                     if (!vlogHiddenTy)
                         blockMap[&bm] = v;
                     vars->push_back(v);

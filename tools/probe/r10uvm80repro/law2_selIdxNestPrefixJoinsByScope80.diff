@@ -1,0 +1,29 @@
+diff --git a/src/ExprEmit.cpp b/src/ExprEmit.cpp
+index e14d6b8..31331cd 100644
+--- a/src/ExprEmit.cpp
++++ b/src/ExprEmit.cpp
+@@ -13876,7 +13876,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+             std::string idxPrefix = prefix;
+             bool idxRescoped = false;
+             if (stripImplicitConv(es.selector()).kind != ExpressionKind::NamedValue) {
+-                idxPrefix = prefix + "." + std::string(nv.symbol.name);
++                // § selIdxNestPrefixJoinsByScope80 — the FIFTH site of the
++                // joint family (r10uvm77 fixed the trailing-step refs, r10uvm78
++                // the doubled part-select prefixes, r10uvm79 the hier-path tail
++                // AND the path-scoped index; this is the prefix that same index
++                // subtree hands to what is NESTED under it).  The joint is
++                // `joinRef`, never a hard `"."` — UHDM's ComputeFullName picks
++                // ONE separator for the whole parent chain from package /
++                // class_defn ancestry, so a `::`-scoped select's nested index
++                // ref must be `::`-joined too.  This is r10uvm79's residue V-R1
++                // and arm c3 measures it: golden
++                // `…::probe80::iarr[].f::midx::i`, ours (before)
++                // `…::probe80::iarr[].f.midx::i`, at depths 2 and 3, and under
++                // an operation index — while the MODULE-scope twin (arm c3 d8,
++                // `work@mdeep80.sarr[].f.mi.mi`) is `.`-joined in golden and is
++                // byte-identical either way, because that is exactly what
++                // joinRef returns for a `.`-first prefix.
++                idxPrefix = joinRef(prefix, nv.symbol.name);
+                 idxRescoped = true;
+             }
+             if (idxRescoped)
