@@ -9504,7 +9504,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // ...and a PACKAGE-level variable of the package being emitted is
             // visible to every body inside it (svunit_pkg::svunit_version
             // read from svunit_testrunner::report).
-            if (!ref->Actual_group() && nv.symbol.kind == SymbolKind::Variable)
+            //
+            // § pkgVarBindsOnlyThroughInstance88 — "every body" is TOO MANY,
+            // and the excluded half is the whole corpus head.  Surelog binds a
+            // late-bound reference to a package's `Variables()` listing in ONE
+            // place, `UhdmWriter::lateBinding`, and it gets there only through
+            // `func->Instance()` guarded by `inst->UhdmType() == uhdmpackage`
+            // (the same walk § pkgSubRefBindsPkgVarOverFormal81 decodes).  A
+            // method written INSIDE a class body carries NO `vpiInstance` at
+            // all, so that listing is unreachable from it and golden leaves the
+            // reference bare -- `uvm_port_base::new`'s
+            // `set_report_id_action(s_connection_warning_id, ...)` @245:35 is
+            // the head, and `uvm_port_base::connect` / `m_check_relationship` /
+            // `resolve_bindings` / `get_if` / `is_unbounded`,
+            // `uvm_domain::get_common_domain`, `uvm_comparer::init`,
+            // `uvm_analysis_port::new`, `uvm_analysis_export::new`,
+            // `uvm_tlm_req_rsp_channel::new`, `uvm_root::phase_started` and
+            // `uvm_test_done_objection::m_do_stop_all` are the rest of it.
+            // The precedent in the comment above SURVIVES: `svunit_testrunner`
+            // declares `extern function void report();` and defines it OUT of
+            // the class body (svunit_testrunner.sv:41 vs :75), so its
+            // `vpiInstance` IS `svunit_pkg` and it still binds.  `const` is NOT
+            // the axis (arm a1 reads `const string` / `const int` / plain
+            // `string` / plain `int` on both sides of the split) and neither is
+            // the POSITION (arm a3: constructor, call argument, assignment RHS
+            // and LHS, return, if/while/for condition, case selector and item,
+            // nested block, foreach body, system-call argument, static method,
+            // task, virtual method, parameterized class, derived class -- ONE
+            // golden, ZERO binds).
+            if (!inBodyClassMethod88 && !ref->Actual_group() &&
+                nv.symbol.kind == SymbolKind::Variable)
                 if (auto pv9 = pkgViewVarObjs9.find(&nv.symbol);
                     pv9 != pkgViewVarObjs9.end())
                     ref->Actual_group(pv9->second);

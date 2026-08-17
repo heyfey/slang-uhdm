@@ -1,0 +1,137 @@
+r10uvm88 — THE GATES.  All five mandatory gates, RUN, with their controls.
+GOLDEN_DEFER read [UNSET] on every sweep.  results/*.csv were READ ONLY.
+NOTHING WAS PROMOTED.  NO ROW CONVERTED.  slang was NOT patched.
+The baselines used are the ones IN MY OWN WORKTREE, /tmp/wt_r10uvm88 @ ccb11b5
+(results/golden_surelog.csv = 1588 rows, results/gate_uhdm2rtlil.csv = 731
+TESTFLAGS-ONLY rows).
+
+(1) BUILD — ONE worktree (/tmp/wt_r10uvm88 @ ccb11b5), -j 2, md5 taken
+    SEPARATELY after each build
+      PRISTINE  /tmp/r10uvm88_bin/slang-uhdm.pris  aa09f80feb7d2f9a9b47474cc4588677
+      PATCHED   /tmp/r10uvm88_bin/slang-uhdm.pat   090279ecd94677a9b28d0bdee819d186
+
+(2) GOLDENS — tests/check_goldens.sh, SLANG_UHDM exported EXPLICITLY to each
+      PATCHED                23 PASS / 0 FAIL
+      PRISTINE               23 PASS / 0 FAIL
+      SLANG_UHDM=/bin/false   0 PASS / 23 FAIL   <- the negative control: the
+                                                    harness really does read
+                                                    SLANG_UHDM (it defaults to
+                                                    the MAIN-TREE binary)
+
+(3) uhdm2rtlil — verify_golden.py --corpus uhdm2rtlil --mode both --jobs 2,
+    my own --out/--workdir; cmds.txt grepped afterwards for the BINARY PATH
+    (not `slang-uhdm` -- that substring also matches the golden CACHE dirs
+    `slang-uhdm-goldens/...` and a grep for it proves nothing)
+      PATCHED  [default]   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+               [testflags] 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+      PRISTINE  identical histograms, both modes
+      cmds.txt: 1458 lines naming /tmp/r10uvm88_bin/slang-uhdm.pat  (and 1458
+               naming .pris in the pristine workdir)
+      ct8rows PATCHED  vs results/gate_uhdm2rtlil.csv: 731 ROWS, 0 differing
+               ROWS, status AND dump histograms identical
+      ct8rows PRISTINE vs the same baseline:            0 differing ROWS
+      byteverify PAT vs PRIS: 1358 paths, PATH_SETS_IDENTICAL, MOVERS 0 / 1358
+               -- EXACTLY what PREDICT said (pred88.sh over the 1358 pristine
+               databases found ZERO cells this law can reach)
+               SELFCHECK=1  1357 / 1358 flagged (the comparator can see)
+      canaries.sh  ok=9  changed=0 absent=0 unknown-names=27 (expected 27)
+      ctcan2.sh    ok=1  changed=0 absent=0 unknown-patterns=6 (EXPECT_UNKNOWN=6)
+
+(4) surelog — verify_golden.py --corpus surelog --mode both --jobs 2
+      PATCHED  [default]   470 CMP_EQUAL / 11 CMP_NOTEQUAL / 5 DEFERRED /
+                           283 SLANG_REJECT / 25 SURELOG_FAIL
+               [testflags] 466 CMP_EQUAL / 9 CMP_NOTEQUAL / 5 DEFERRED /
+                           3 NO_DATABASE / 1 NO_UHDM / 284 SLANG_REJECT /
+                           23 SURELOG_FAIL / 1 TIMEOUT / 2 UNTRANSLATABLE
+      PRISTINE  identical histograms, both modes.
+      cmds.txt: 1523 lines naming the binary under test, per workdir.
+      ct8rows PATCHED  vs results/golden_surelog.csv: 1588 ROWS, 0 differing
+               ROWS, status AND dump histograms identical per mode.
+      ct8rows PRISTINE vs the same baseline:           0 differing ROWS.
+      THE WHOLE STATUS HISTOGRAM WAS READ, not only the NE rows -- an rc=139
+      segfault is recorded as SLANG_REJECT wearing the last stderr warning, and
+      SLANG_REJECT is 283/284 on BOTH binaries and unchanged.
+      NO ROW CONVERTED.  All eleven / nine CMP_NOTEQUAL rows stay CMP_NOTEQUAL;
+      the five UVM rows this pass moves keep that status with a NEW head and a
+      LONGER cmp (47 -> 96 lines), which is the NEXT RUNG printing and is proven
+      pre-existing by the PRISTINE ladder (LADDERS.r10uvm88.txt).
+      canaries.sh  ok=56 changed=0 absent=0 unknown-names=8 (expected 8)
+      ctcan2.sh    ok=58 changed=0 absent=0 unknown-patterns=1 (EXPECT_UNKNOWN=1)
+      canaudit.sh  audited=33 UNCOVERED=0 FENCE-BREACH=0; the four slang-fenced
+                   names appear in NO driver in this directory.
+      NAMED PINS, md5 of the patched database vs the pristine one:
+        InterfaceModPort   default/testflags  59a365f3ce2c = 59a365f3ce2c
+        BlackParrotComplex default e3e354129d5a, testflags 73a10e8217e5, both =
+        YosysOldOr         default/testflags  d68e0796d62c = d68e0796d62c
+        SVSwitch           default/testflags  4842211c4030  <- the brief's pin
+        YosysVerx          default/testflags  6ccda350c24a  <- the brief's pin
+
+(5) BYTES — byteverify.sh on the surelog corpus, BOTH negative controls
+      956 paths, PATH_SETS_IDENTICAL, MOVERS 9 / 956:
+        ./default/BuildUVMPkg-bf853d43    e737ee62f495 -> 7c37b8331853
+        ./default/MiniAmiq-544c7f61       4c3af9741591 -> eebc11cbeaf5
+        ./default/Scoreboard-59431470     db15c8d03fc7 -> 7dc5f4e87180
+        ./default/SeqDriver-32af76aa      ffb86cc028fd -> 527feb4653aa
+        ./default/SimpleUVM-1dc93a62      12ca24078892 -> c546931d6fee
+        ./testflags/BuildUVMPkg-bf853d43  e737ee62f495 -> 7c37b8331853
+        ./testflags/MiniAmiq-544c7f61     4c3af9741591 -> eebc11cbeaf5
+        ./testflags/SeqDriver-32af76aa    e4a18601e0b3 -> b5accf5d5d75
+        ./testflags/SimpleUVM-1dc93a62    566d6c6fff1b -> 72907696c435
+      EXACTLY the nine PREDICT named BY NAME from the PRISTINE bytes, and
+      NOTHING ELSE.  947 databases byte-identical, including EVERY CMP_EQUAL row.
+      (Scoreboard/testflags is SLANG_REJECT on BOTH binaries and produces no
+      database; it is not a mover because there is nothing to move.)
+      SELFCHECK=1   955 / 956 flagged
+      SELFCHECK1=1  10  (9 real movers + the 1 corrupted file)
+
+      ATTRIBUTION, object for object, on all nine (attr88.sh = uhdm-dump delta):
+        SeqDriver / SimpleUVM / MiniAmiq   60 delta lines, ALL REMOVALS:
+              30 x `|vpiActual`  +  13 string_var + 13 class_var + 4 int_var
+        BuildUVMPkg                        58 delta lines, ALL REMOVALS:
+              29 x `|vpiActual`  +  13 string_var + 10 class_var + 4 int_var
+                                          + 2 enum_var
+        Scoreboard/default                138 lines in the sweep comparison.
+              Attributed ORDER-BLIND, as the standing brief requires: the
+              PRISTINE binary run SERIALLY four times gives c8a328a85c7c every
+              time, while the SWEEP's pristine Scoreboard is db15c8d03fc7 -- the
+              ~50/50 COIN (svunit_pkg typespec reorder under parallel parse).
+              The PATCHED binary gives 7dc5f4e87180 on all four serial runs AND
+              in the sweep.  Comparing the two SERIAL databases (same coin face):
+              60 delta lines, ALL REMOVALS, 30 x `|vpiActual` + 13 string_var +
+              13 class_var + 4 int_var -- IDENTICAL to the other rows and
+              nothing else.
+        The removed targets, by name (Scoreboard, serial):
+              9 uvm_pkg::s_connection_error_id      4 uvm_pkg::s_connection_warning_id
+              4 uvm_pkg::UVM_UNBOUNDED_CONNECTIONS  2 uvm_pkg::uvm_default_comparer
+              2 uvm_pkg::run_ph                     2 uvm_pkg::end_of_elaboration_ph
+              1 each: uvm_default_printer, start_of_simulation_ph, report_ph,
+                      extract_ph, connect_ph, check_ph, build_ph
+        EVERY delta line is a `|vpiActual` or the object line it pointed at.
+        ZERO added lines on eight of nine; on Scoreboard/default the added lines
+        are the coin's and are shown to be the coin's by the serial control.
+
+(6) BOUNDARY (bound88.sh) — every committed arm source of uvm77-87, buvm3-10,
+    sd8-12, RECURSIVELY (they keep arms in grid6/, grid7/, grid7v/, vgrid11/),
+    compiled with BOTH binaries, dumps compared:
+      LISTED=581  PROCESSED=581  MOVED=0  NO_OUTPUT=6
+    The list is built first and read on FD 3 and every child gets </dev/null,
+    and PROCESSED is asserted equal to LISTED -- a compiler that inherits the
+    loop's stdin eats the file list and a gate that stopped after one source
+    reads exactly like a clean one.  The 6 NO_OUTPUT fail on BOTH binaries
+    (checked file by file): multi-file arms this driver does not feed.
+    § classImportParamStamped82's arms are among the 581 and did not move; the
+    law never touches a `SymbolKind::Parameter`, and arm a2 reads a package
+    `parameter`, `localparam`, enum constant and function from an IN-BODY class
+    method on ONE golden and none of them is in this population at all.
+
+(7) ARMS (arm88.sh: golden(Surelog) + both binaries in ONE scratch dir)
+      g88_a1_scope  pris CMP_FAIL heads=1  -> pat CMP_FAIL heads=1, 8 dump lines
+                    moved; pkgvar binds golden 29, pris 25, pat 21; the 4 rows
+                    removed are EXACTLY the in-body ones; the 8 golden binds we
+                    still miss are residue R2 (the q88 import clone) and are
+                    identical in pristine.
+      g88_a2_bound  pris CMP_FAIL heads=1  -> pat **PASS_CMP heads=0**
+                    pkgvar binds golden 4, pris 6, pat 4 -- EXACT.
+      g88_a3_sites  pris CMP_FAIL heads=1  -> pat CMP_FAIL heads=1, 54 dump
+                    lines moved; pkgvar binds golden 0, pris 27, pat 0 -- EXACT.
+      In all three, the patched database has ZERO rows with SITEINST=<null>.

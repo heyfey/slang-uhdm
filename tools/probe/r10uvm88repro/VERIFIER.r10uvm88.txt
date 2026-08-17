@@ -1,0 +1,169 @@
+r10uvm88 — THE ADVERSARIAL VERIFIER'S RECORD.  Every headline number of the
+implementer's report was rebuilt from source in FRESH worktrees at ccb11b5
+(/tmp/wt_v88 patched, /tmp/wt_v88pris pristine) with independently built
+binaries, and reproduced BIT-FOR-BIT:
+
+  md5 pristine aa09f80feb7d2f9a9b47474cc4588677   (matches)
+  md5 patched  090279ecd94677a9b28d0bdee819d186   (matches)
+
+VERDICT: ACCEPT the law and the patch.  ZERO pristine-right -> patched-wrong
+cells were found on legal SV over six new arms; the production surface is
+UNCHANGED by this verification (the three source files are byte-identical to
+the implementer's).  This file and the six `v88_b*.sv` arms + `v88_run.sh` /
+`v88_cen.sh` are the ONLY additions.
+
+TWO SHIPPED CLAIMS ARE CORRECTED, both by measurement.
+
+(1) "Every patched arm database has ZERO rows with SITEINST=<null>" —
+    TRUE of a1/a2/a3, FALSE in general.  `v88_b1_qual.sv` and `v88_b6_pos.sv`
+    each hold a cell the law does not reach: a PACKAGE-QUALIFIED read of a
+    FOREIGN package's variable (`p1::cs1`, `p6::c6`) from an IN-BODY class
+    method.  golden leaves it BARE (0 binds in `q1::kq1::inb_qual`,
+    `r6::rk6::inb_r6`); pristine AND patched both bind it.
+
+      arm         golden  pristine(null)  patched(null)
+      b1_qual       22       21 (5)          19 (3)
+      b6_pos        14       25 (13)         13 (1)
+
+    The reason is a DIFFERENT code path: `src/ExprEmit.cpp:5935` — the
+    `isPkgQualifiedVarRef` arm — builds its own `ref_obj`, binds it from
+    `pkgVarObjsAll9` (ALL packages' variables, a separate map from
+    `pkgViewVarObjs9`) and RETURNS, so it never reaches the § 88 gate at
+    ~9328.  `isPkgQualifiedVarRef` is false inside the DECLARING package
+    (`pkgViewVarObjs9.count(...)`), which is why the OWN-package qualified read
+    (`q1::qcs1`) IS gated and only the FOREIGN one survives.
+    NOT a regression (pristine is wrong identically) and NOT fixed here: a
+    census of ALL 956 patched surelog databases finds ZERO rows with
+    `SITEINST=<null>`, i.e. the residue has NO corpus reach, and extending the
+    law into `pkgVarObjsAll9` would add surface with no measured benefit.
+
+(2) "The PATCHED binary gives 7dc5f4e87180 on all four serial runs AND in the
+    sweep" — the determinism half is NOT reproducible.  BOTH binaries flip the
+    Scoreboard coin.  Four serial runs each, same cwd, same argv:
+      pristine  54b68730c66b, c8a328a85c7c, 54b68730c66b, c8a328a85c7c
+      patched   7dc5f4e87180, 7dc5f4e87180, adb09fe26346, adb09fe26346
+    The coin's own delta is 92 dump lines, symmetric, and is a task_func ORDER
+    flip (23 `|vpiTaskFunc` + 18 `\_function` + 5 `\_task` EACH WAY), not a
+    typespec reorder.  The correct order-blind instrument is a FACE-MATCHED
+    pair, and it gives the law exactly:
+      pris.1 -> pat.3 : 60 lines, ALL REMOVALS, 30 |vpiActual + 13 string_var
+                        + 13 class_var + 4 int_var
+      pris.2 -> pat.1 : IDENTICAL
+    A face-MISmatched pair (pris.1 -> pat.1) prints the same 60 removals PLUS
+    the 92 coin lines — which is what the implementer's sweep comparison (138
+    lines) was seeing.  The conclusion stands; the control was luck.
+
+REPRODUCED EXACTLY (all of it): goldens 23/0 patched, 23/0 pristine, 0/23 with
+SLANG_UHDM=/bin/false.  surelog 470+11+5+283+25 / 466+9+5+3+1+284+23+1+2 on BOTH
+binaries, ct8rows 0 differing ROWS over 1588 for BOTH, status and dump
+histograms identical, NO ROW CONVERTED.  uhdm2rtlil 679/50/2 both modes both
+binaries, ct8rows 0 differing ROWS over the 731 TESTFLAGS-ONLY baseline rows
+(the baseline holds testflags only; a raw both-mode CSV prints 731 ADDED rows
+and must be filtered before the gate is read).  The two corpora's CSVs are
+IDENTICAL patched-vs-pristine, 0 lines: every CMP_EQUAL row stays CMP_EQUAL.
+Bytes: 956 paths PATH_SETS_IDENTICAL, MOVERS 9/956 — the same nine — SELFCHECK
+955/956, SELFCHECK1 10; uhdm2rtlil 0/1358 with SELFCHECK 1357/1358.  The
+PREDICTOR run on MY pristine bytes named exactly those nine (29/30 cells each)
+and zero on 1358 u2r databases.  Attribution on the eight non-coin movers: 60
+lines all removals (58 on BuildUVMPkg = 29+13+10+4+2, the 2 enum_var ALSO
+removals).  Census span-blind: SeqDriver 39 keys/EXTRA 22 -> 17 keys/EXTRA 0,
+agree 14 and MISSING 3 unchanged; BuildUVMPkg 33/21 -> 12/0, MISSING 4.
+Golden-vs-ours package-variable name sets IDENTICAL (66/66 SeqDriver, 26/26
+BuildUVMPkg).  Heads: seven row-modes 47 -> 96, 1 head each; BuildUVMPkg 79
+byte-identical; Earlgrey_0_1 46/33 and Rggen 17 byte-identical.  Both head cmp
+files are BYTE-IDENTICAL to the committed artifacts after workdir
+normalisation.  Boundary LISTED=581 PROCESSED=581 MOVED=0 NO_OUTPUT=6, the 6
+failing on BOTH binaries file-by-file, 7 uvm82 arms and 266 sd10/11/12 subdir
+arms inside the 581.  Canaries 56/0/0/8 and 9/0/0/27, ctcan2 58/0/0/1 and
+1/0/0/6, canaudit 33/0/0.  Pins: SVSwitch 4842211c4030, YosysVerx 6ccda350c24a,
+InterfaceModPort 59a365f3ce2c, BlackParrotComplex e3e354129d5a / 73a10e8217e5,
+YosysOldOr d68e0796d62c — all patched == pristine.
+
+THE "47 -> 96 IS THE NEXT RUNG" CLAIM, CONFIRMED WITHOUT THE LADDER: the
+patched head object is present in the PRISTINE database.  uhdm-dump of
+pristine `default/SeqDriver` prints `hier_path: (provider.m_provided_to
+[get_full_name()])` THREE times, the same three the patched database prints;
+`string_var: (uvm_pkg::s_connection_warning_id)` prints 8 times pristine and 4
+patched (the four removed edges).  The ladder was NOT re-run — it is
+measurement-only and this reading is stronger for the purpose.
+
+THE GATE'S CONTAINMENT, READ IN THE CODE.  A ref left bare by § 88 cannot be
+re-bound downstream: `inClassBodyEmit` is false for an in-body method, §
+withIterRefBindsHoistNet75 / § classEnumConstBindsHoistNet76 both require
+`classBodyHomePkg75` (set only under `inClassBodyEmit`), and §
+pkgSubRefBindsPkgVarOverFormal81 requires `subHomeIsPkg81(currentSubSym,
+pkgScopeInst)` which is false exactly when the new flag is true.  The io_decl
+re-bind in TaskFuncEmit (~5400) walks ONLY the RANGE expressions of a local's
+logic_typespec, never a body expression.  `emitTaskFuncs` has NO early return
+(all six `return;` in its span are inside lambdas), so the clear at ~5705
+always runs, and none of its five callers is reached from inside a subroutine
+body, so the flag cannot be clobbered re-entrantly.  RECORDED FRAGILITY, not a
+defect: `pkgScopeInst` is SAVED AND RESTORED at the top of `emitTaskFuncs`
+while `inBodyClassMethod88` (like `inClassBodyEmit`) is only hard-cleared to
+false — so the comment "the gate and the instance it models can never drift
+apart" holds only because the function is not re-entrant today.
+
+WHAT THE SIX NEW ARMS SETTLE (golden / pristine / patched pkgvar binds)
+  v88_b1_qual   22 / 21 / 19  QUALIFICATION: bare-via-wildcard, bare-via-explicit
+                              -import, own-package `q1::`, FOREIGN `p1::`, from
+                              in-body, out-of-body, and a package function.
+                              The foreign-qualified cell is residue (1) above.
+  v88_b2_types  22 / 30 / 20  TYPE x CONST: const/plain string, int, real, plus
+                              enum, packed struct, class handle, bit vector,
+                              logic, fixed/dynamic/queue/assoc arrays.  const is
+                              REFUTED as the axis a third time.  patched == the
+                              out-of-body set EXACTLY; the 2-row gap to golden is
+                              a PRE-EXISTING `struct_var` MISS present in
+                              pristine too.
+  v88_b3_scopes  5 /  8 /  5  WHERE THE CLASS LIVES: NESTED class in a class,
+                              class in ANOTHER package extending one in p3,
+                              $unit class, interface class, module class, plus a
+                              module task reading bare and `p3::`-qualified.
+                              Only the two in-package in-body methods moved, and
+                              golden's ONE module-task bind (`p3::c3`,
+                              SITEINST=module_inst) is UNTOUCHED — proof the gate
+                              does not reach a module subroutine.
+  v88_b4_nonsub  0 /  5 /  0  NOT-A-SUBROUTINE positions: property initialiser,
+                              static property initialiser, CONSTRAINT, default
+                              FORMAL value, fork body, assertion expression.
+                              golden binds none; patched binds none; the arm goes
+                              CMP_FAIL -> PASS_CMP with 0 heads.
+  v88_b5_fwd     4 /  9 /  4  virtual method, task, `local automatic` method,
+                              PARAMETERIZED class, generate-block class, and a
+                              package variable declared BEFORE the class (the
+                              forward-reference spelling is rejected by slang on
+                              BOTH binaries, symmetrically).
+  v88_b6_pos    14 / 25 / 13  POSITIONS a3 did not spell: concat, $display with
+                              three args, ternary (both arms), `inside` set,
+                              index expression, a METHOD CALL on the package
+                              variable (`c6.len()`), case selector + item, call
+                              argument, a module CONT-ASSIGN, and a foreign
+                              package's function.  One residual cell = residue
+                              (1).
+  Two arms now PASS cmp outright (the implementer's a2, and b4).  No corpus row
+  passes cmp and none was converted.
+
+RANKED RESIDUES
+  V1  `isPkgQualifiedVarRef` (ExprEmit.cpp ~5935) binds `otherpkg::var` from an
+      in-body class method through `pkgVarObjsAll9`, un-gated.  golden: bare.
+      Arm-only — ZERO reach across all 956 patched surelog databases.  A
+      one-line `!inBodyClassMethod88` on that bind would close it; NOT taken,
+      because a corpus-neutral edit is unmeasurable on the corpus.
+  V2  R1 (the implementer's): golden binds the package listing's copy of an
+      OUT-OF-BODY method's LOCAL (`m_set_cl_verb`'s cs/top, `uvm_root::new`'s
+      clp/rh) where we bind the local.  3 keys/row, 4 on BuildUVMPkg,
+      unchanged.  § 81's neighbour.
+  V3  arm-only: the 6 golden binds inside an IMPORTING package's wildcard-import
+      CLONE (b1's `q1::cs1`, b6's `r6::n6`) that neither binary makes.
+  V4  arm-only: golden binds a package `struct_var` from an out-of-body method
+      (b2 `v_st`); neither binary does.  Pre-existing.
+  V5  spans: our qualified-name `ref_obj` ENDCOL runs to the end of the written
+      `p1::cs1` where golden's stops earlier (b1 35:9-35:16 vs 35:9-35:13).
+      `ref_obj::Compare` reads no span.  A dump axis.
+
+MY DRIVERS: `v88_run.sh <arm.sv>` (PRI=/PAT=; Surelog golden + both binaries in
+ONE scratch dir) and `v88_cen.sh <workdir>` (three-way `ct88cen --pkgvar`
+census).  Sweeps ran through `scripts/verify_golden.py --mode both --jobs 2` with
+my OWN --out/--workdir, SLANG_UHDM exported per binary and cmds.txt grepped on
+the BINARY PATH (1523 lines surelog, 1458 u2r, per workdir); GOLDEN_DEFER read
+[UNSET] on all four.  results/*.csv were READ ONLY.

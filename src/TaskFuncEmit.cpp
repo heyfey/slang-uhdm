@@ -2766,6 +2766,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // module hoist re-binds unresolvable property names (the package
         // clone's stay unbound) — see classPropRefs.
         inClassBodyEmit = oob && classScope && !cloneMode;
+        // § pkgVarBindsOnlyThroughInstance88 — the COMPLEMENT of the flag
+        // above WITHIN a class: a method written inside the class body.  Read
+        // straight off the same two locals that decide `pkgScopeInst` below
+        // (`classScope && !oob` is exactly the case that leaves it null), so
+        // the gate and the instance it models can never drift apart.
+        inBodyClassMethod88 = classScope && !oob;
         // § withIterRefBindsHoistNet75 — the same body's home PACKAGE, as a
         // slang symbol, for the refs that carry none of their own.  `body` IS
         // the class scope here (classScope), so its parent scope is the
@@ -5696,6 +5702,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         tfs->push_back(tf);
     }
     inClassBodyEmit = false;
+    inBodyClassMethod88 = false;
     classBodyHomePkg75 = nullptr;
     if (!tfs->empty()) {
         if (cloneMode) {

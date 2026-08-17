@@ -4364,6 +4364,14 @@ private:
     // Set while a CLASS-OWNED method body is emitted (not the package clone
     // pass, whose refs Surelog leaves unbound).
     bool inClassBodyEmit = false;
+    // § pkgVarBindsOnlyThroughInstance88 — set while the body of a class method
+    // WRITTEN INSIDE THE CLASS BODY is emitted (as opposed to an out-of-body
+    // definition, which is compiled in the home package's scope and DOES carry
+    // that package as its `vpiInstance`).  Such a subroutine has a NULL
+    // `vpiInstance`, and Surelog's `UhdmWriter::lateBinding` reaches a
+    // package's `Variables()` listing ONLY through `func->Instance()` when that
+    // instance is a package -- so a reference from here can never bind one.
+    bool inBodyClassMethod88 = false;
     // § withIterRefBindsHoistNet75 — the home PACKAGE of the class whose OWN
     // body is currently being emitted; null whenever inClassBodyEmit is false.
     // The array-method iterator ARGUMENT ref is built from SYNTAX TEXT and

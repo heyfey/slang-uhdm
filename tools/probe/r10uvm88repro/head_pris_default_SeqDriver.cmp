@@ -1,0 +1,47 @@
+LHS: <null>
+RHS:
+decompile:
+string_var: (uvm_pkg::s_connection_warning_id), id:6442, line:24:14, endln:24:60
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:6042, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::s_connection_warning_id), id:6444
+  |vpiParent:
+  \_string_var: (uvm_pkg::s_connection_warning_id), id:6442, line:24:14, endln:24:60
+  |vpiFullName:uvm_pkg::s_connection_warning_id
+  |vpiActual:
+  \_string_typespec: , id:6443, line:24:7, endln:24:13
+|vpiName:s_connection_warning_id
+|vpiFullName:uvm_pkg::s_connection_warning_id
+|vpiAutomatic:1
+|vpiConstantVariable:1
+|vpiVisibility:1
+|vpiExpr:
+\_constant: , id:6445, line:24:40, endln:24:60
+  |vpiDecompile:"Connection Warning"
+  |vpiSize:144
+  |STRING:Connection Warning
+  |vpiConstType:6
+
+decompile:
+string_var: (uvm_pkg::s_connection_warning_id), id:6442, line:24:14, endln:24:60
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:6042, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::s_connection_warning_id), id:6444
+  |vpiParent:
+  \_string_var: (uvm_pkg::s_connection_warning_id), id:6442, line:24:14, endln:24:60
+  |vpiFullName:uvm_pkg::s_connection_warning_id
+  |vpiActual:
+  \_string_typespec: , id:6443, line:24:7, endln:24:13
+|vpiName:s_connection_warning_id
+|vpiFullName:uvm_pkg::s_connection_warning_id
+|vpiAutomatic:1
+|vpiConstantVariable:1
+|vpiVisibility:1
+|vpiExpr:
+\_constant: , id:6445, line:24:40, endln:24:60
+  |vpiDecompile:"Connection Warning"
+  |vpiSize:144
+  |STRING:Connection Warning
+  |vpiConstType:6

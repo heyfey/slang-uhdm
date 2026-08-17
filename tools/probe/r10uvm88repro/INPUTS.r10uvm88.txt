@@ -1,0 +1,62 @@
+r10uvm88 — THE INPUTS.  Everything a re-run needs, so no number here rests on a
+binary or a path that cannot be rebuilt.
+
+REPO       /home/heyfey/git-repos/slang-uhdm, branch auto5h, BASE ccb11b5
+WORKTREE   /tmp/wt_r10uvm88  (git worktree add /tmp/wt_r10uvm88 ccb11b5)
+BUILD      cmake -DCMAKE_BUILD_TYPE=Release -S /tmp/wt_r10uvm88 -B /tmp/r10uvm88_build
+           make -j 2      (md5sum taken SEPARATELY after each build)
+BINARIES   /tmp/r10uvm88_bin/slang-uhdm.pris  aa09f80feb7d2f9a9b47474cc4588677
+           /tmp/r10uvm88_bin/slang-uhdm.pat   090279ecd94677a9b28d0bdee819d186
+PATCH      /tmp/r10uvm88.patch = git diff vs ccb11b5
+
+TOOLS      uhdm-cmp  ~/.local/bin/uhdm-cmp        (THE ONLY JUDGE)
+           uhdm-dump ~/.local/bin/uhdm-dump
+           surelog   ~/git-repos/Surelog/build/bin/surelog   (arm goldens)
+           ct88cen   g++ -O2 -std=c++17 ct88cen.cpp -I ~/.local/include \
+                       -L ~/.local/lib64 -L ~/.local/lib -luhdm -lcapnp -lkj \
+                       -o /tmp/r10uvm88_ct88cen
+           ctladder  built from tools/probe/r10ladder1repro/ctladder.cpp, same flags
+
+SWEEPS     sweep88.sh <binary> <corpus> <tag>   (verify_golden.py --mode both
+           --jobs 2, my own --out/--workdir, SLANG_UHDM exported, GOLDEN_DEFER
+           echoed and read [UNSET])
+             /tmp/r10uvm88_{pris,pat}_surelog.csv      1588 rows each
+             /tmp/r10uvm88_{pris,pat}_uhdm2rtlil.csv   1462 rows each
+             workdirs /tmp/r10uvm88_wd_{pris,pat}_{surelog,uhdm2rtlil}
+
+CORPUS PATHS the arms and the coin control use
+           uvm-1.2      ~/git-repos/Surelog/third_party/UVM/uvm-1.2/src
+           svunit_base  ~/git-repos/Surelog/third_party/UVM/svunit_base
+           Scoreboard   ~/git-repos/Surelog/third_party/tests/Scoreboard
+           SeqDriver golden cache
+                        ~/.cache/slang-uhdm-goldens/b5b4389e30f948a6a29f/golden.uhdm
+
+DRIVERS IN THIS DIRECTORY
+  ct88cen.cpp   the ref_obj -> Actual_group census (--rows/--pkgvar/--pkgpop/--pkgvars)
+  pred88.sh     the MOVER PREDICTOR, pristine bytes only
+  join88.py     span-keyed golden-vs-ours join (shows the span splits)
+  join88_spanblind.py  the AUTHORITATIVE join: (SITE, NAME), no span
+  arm88.sh      one arm: Surelog golden + both binaries in ONE scratch dir
+  armcen88.sh   the pkgvar census of an arm workdir, g / pris / pat
+  attr88.sh     mover attribution: uhdm-dump delta classified by line kind
+  bound88.sh    the boundary gate (581 committed arm sources, FD 3, PROCESSED asserted)
+  sweep88.sh    the sweep driver
+  rowheads.sh   cmp lines / head count for the named rows
+  ct8rows.sh    the WHOLE-ROW CSV gate
+  byteverify.sh the byte gate + both negative controls
+  canaries.sh ctcan2.sh canaudit.sh   the canary battery and its audit
+
+ARMS       g88_a1_scope.sv   WHICH SCOPE binds (in-body / out-of-body / package
+                             function / package initialiser / another package /
+                             $unit / module task+initial / module-scope class),
+                             crossed with const string, const int, plain string,
+                             plain int, and a class-scope static control
+           g88_a2_bound.sv   THE BOUNDARY: package parameter, localparam, enum
+                             constant, function, a shadowing FORMAL and a
+                             shadowing LOCAL, read from an in-body method
+           g88_a3_sites.sv   WHICH POSITION: constructor, call argument under an
+                             `if`, assignment RHS and LHS, return, if/while/for
+                             condition, case selector and item, nested block,
+                             foreach body, system-call argument, static method,
+                             task, virtual method, parameterized class, derived
+                             class, class property initialiser

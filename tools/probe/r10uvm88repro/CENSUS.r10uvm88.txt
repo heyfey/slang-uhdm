@@ -1,0 +1,119 @@
+r10uvm88 — THE CENSUS.  MEASUREMENT-ONLY.  `uhdm-cmp` is the only judge.
+
+INSTRUMENT
+  ct88cen.cpp walks Serializer::AllObjects ONCE and prints one row per
+  `ref_obj`, carrying the two fields `ref_obj::Compare` actually reads
+  (`vpiName`, `Actual_group`) plus the DECODE axis `SITEINST` = the enclosing
+  `task_func`'s `vpiInstance`, and `SITECLS` = 1 when that subroutine sits under
+  a `class_defn`.  Joins are SPAN-BLIND on (SITE, NAME) -- `ref_obj::Compare`
+  never reads a span, and keying on the endcol split four Scoreboard binds that
+  AGREE (join88_spanblind.py; join88.py is the span-keyed version kept so the
+  split is visible rather than hidden).
+
+0.  GOLDEN-VS-GOLDEN FIRST
+  The package-scope VARIABLE SETS are IDENTICAL on both sides of every row:
+  SeqDriver golden 33 names / ours 33 names, `diff` clean including the
+  `vpiConstantVariable` flag (`ct88cen <db> --pkgvars`).  The head is therefore
+  NOT a missing object; it is a REFERENCE EDGE.
+  ctladder --calib (golden vs golden, SeqDriver): 0 rungs.
+
+1.  THE HEAD, READ AT THE SITE
+  MK line of the pristine ladder rung 1:
+      MK if_stmt@uvm_port_base.svh:244:5-245:75#274720   [bisected]
+  i.e. `if (!uvm_config_int::get(m_comp,"","check_connection_relationships",tmp))
+        m_comp.set_report_id_action(s_connection_warning_id, UVM_NO_ACTION);`
+
+  OWNER = the `method_func_call(set_report_id_action)`'s FIRST `vpiArgument`.
+  FIELD = that argument `ref_obj`'s `vpiActual` (`Actual_group`).
+
+    golden  ref_obj (uvm_pkg::uvm_port_base::new::s_connection_warning_id)
+            @245:35-245:58   vpiName s_connection_warning_id
+            vpiFullName uvm_pkg::uvm_port_base::new::s_connection_warning_id
+            -- NO vpiActual
+    ours    the SAME ref_obj, same name, same fullname, PLUS
+            vpiActual -> string_var (uvm_pkg::s_connection_warning_id) @24:14
+
+  So golden's argument is the SAME KIND of object with the SAME NAME; the only
+  difference is the presence of the Actual edge.  Surelog does NOT fold the
+  package `const string` into a STRING constant and does NOT emit a different
+  kind: the brief's two alternative hypotheses are both REFUTED at the site.
+
+2.  THE CENSUS OVER EVERY ref_obj -> PACKAGE-SCOPE-VARIABLE EDGE (SeqDriver)
+  golden binds 36 such edges; pristine ours binds 58; patched ours binds 28.
+  Split by the decode axis (`SITEINST` = the enclosing task_func's vpiInstance):
+
+    SITEINST                    golden  ours(pris)  ours(pat)
+    package:<pkg>                 32        24         24
+    -   (no enclosing task_func)   4         4          4    (pkg initialiser)
+    <null>                         0        30          0    <- THE DEFICIT
+                                 ----      ----       ----
+                                  36        58         28
+
+  GOLDEN HAS ZERO BINDS WITH SITEINST=<null>, and every one of our 30 is a class
+  method WRITTEN INSIDE ITS CLASS BODY.  The 32-vs-24 gap in the package row is
+  residue R1 below (8 objects: 4 keys x 2 copies) and is UNCHANGED by this pass.
+  On the arm (a1) the table also carries a `module_inst:<mod>` row -- ONE bind,
+  present and equal on both sides, whose `vpiName` carries the `p88::`
+  qualification: that is a different path (`isPkgQualifiedVarRef`) and it does
+  not move.
+
+3.  WHICH UVM METHODS ARE ON EACH SIDE OF THE SPLIT (source checked, file:line)
+  GOLDEN BINDS -- all OUT-OF-BODY or package scope:
+    uvm_object::print @878 / sprint @892 / compare @1056 / m_pack @1150 /
+      m_unpack_pre @1213        (uvm_object.svh `endclass` @788)
+    uvm_component::m_set_full_name @1946 / m_set_cl_verb @3384
+                                (uvm_component.svh `endclass : uvm_component` @1710)
+    uvm_root::new @339 / print_topology @572   (uvm_root.svh `endclass` @301)
+    uvm_sequencer_base::set_arbitration @1382 / start_default_sequence @1657
+                                (uvm_sequencer_base.svh `endclass` @482)
+    uvm_sequence_library::body @665            (`endclass` @347)
+    svunit_testrunner::report @75              (`extern` @41, `endclass` @43)
+    uvm_oneway_hash @374, uvm_create_random_seed @415  (PACKAGE functions)
+    uvm_default_printer = uvm_default_table_printer @637 (PACKAGE initialiser)
+  GOLDEN BINDS NOTHING -- all IN-BODY:
+    uvm_port_base::new @245 / connect @446..476 / m_check_relationship @665..693 /
+      resolve_bindings @748..754 / get_if @781 / is_unbounded @332
+                                (class body 196..791)
+    uvm_domain::get_common_domain @122..129     (`endclass` @218)
+    uvm_comparer::init @412..413                (`endclass` @421)
+    uvm_root::phase_started @252                (class body 71..301)
+    uvm_analysis_port::new @60, uvm_analysis_export::new @132
+    uvm_tlm_req_rsp_channel::new @226
+    uvm_test_done_objection::m_do_stop_all @1178
+    uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation @265
+    uvm_root::die, uvm_cmdline_processor::get_inst  (BuildUVMPkg's UVM only)
+  `uvm_root` sits on BOTH lists at DIFFERENT methods, so the axis is the
+  DEFINITION SITE, not the class.
+
+4.  THE SPAN-BLIND CENSUS, PRISTINE -> PATCHED (golden on the LHS always)
+
+    row          keys(p→P) agree  EXTRA-OURS  MISSING-OURS  rows golden/pris/pat
+    SeqDriver      39 → 17    14     22 → 0      3 → 3         36 / 58 / 28
+    SimpleUVM      38 → 16    13     22 → 0      3 → 3         34 / 56 / 26
+    Scoreboard     40 → 18    15     22 → 0      3 → 3         45 / 67 / 37
+    MiniAmiq       39 → 17    14     22 → 0      3 → 3         36 / 58 / 28
+    BuildUVMPkg    33 → 12     8     21 → 0      4 → 4         38 / 57 / 28
+
+  22 distinct (site,name) keys = 30 OBJECTS (a key can hold several refs).
+  `agree` is UNCHANGED on every row: nothing golden binds was un-bound.
+
+5.  RESIDUE, unchanged by this pass
+  R1  MISSING-OURS: golden binds the PACKAGE listing's copy of an OUT-OF-BODY
+      method's LOCAL (`uvm_component::m_set_cl_verb`'s `cs`/`top`,
+      `uvm_root::new`'s `clp`/`rh`) where we bind the local itself.  Surelog
+      HOISTS an out-of-body method's locals into the home package's
+      `Variables()` (both sides have the same 33-name set, so the hoist itself
+      agrees) and `lateBinding`'s package block then overwrites the local.
+      That is § pkgSubRefBindsPkgVarOverFormal81's neighbour -- it owns the
+      FORMAL contest, not the LOCAL one -- and is left alone.
+  R2  arm a1: 8 golden binds inside the IMPORTING package q88 (its out-of-body
+      `d88::qoob88` and its own `qf88` reading the wildcard-import CLONE
+      `q88::cstr88`) that we do not bind.  Identical in pristine and patched.
+  R3  Scoreboard SPANS: `svunit_testrunner::report`'s `svunit_version` ref sits
+      at 97:5 for us and 107:5 for golden; three `current_tc` refs differ in
+      ENDCOL only.  Same bind, same name -- a dump axis, not cmp-judged.
+  R4  arm a1's own cmp head is golden's class_defn carrying COPIES of the
+      package's variables as its `vpiVariables` (`p88::c88::cstr88`).  Present
+      in the corpus on BOTH sides (`adpcm_pkg::adpcm_driver::s_connection_*`),
+      so it is symmetric there; the arm exposes it because the arm has no such
+      copy.  A different family.

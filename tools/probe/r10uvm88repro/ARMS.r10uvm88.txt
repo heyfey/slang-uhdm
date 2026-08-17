@@ -1,0 +1,143 @@
+r10uvm88 — THE ARM READINGS.  golden(Surelog) vs PRISTINE vs PATCHED, one
+pkgvar-bind census per arm (armcen88.sh).  LHS is ALWAYS golden.
+
+################ g88_a1_scope
+g88_a1_scope/pris: CMP_FAIL  cmpheads=1  dumpdiff_lines=711
+g88_a1_scope/pat: CMP_FAIL  cmpheads=1  dumpdiff_lines=703
+g88_a1_scope: pris->pat moved 8 dump lines
+---- g
+35:9-35:15	NAME=cstr88	ACTFULL=p88::cstr88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=0
+35:9-35:15	NAME=cstr88	ACTFULL=p88::cstr88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=1
+36:9-36:15	NAME=pstr88	ACTFULL=p88::pstr88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=0
+36:9-36:15	NAME=pstr88	ACTFULL=p88::pstr88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=1
+37:29-37:35	NAME=cint88	ACTFULL=p88::cint88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=0
+37:29-37:35	NAME=cint88	ACTFULL=p88::cint88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=1
+37:37-37:43	NAME=pint88	ACTFULL=p88::pint88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=0
+37:37-37:43	NAME=pint88	ACTFULL=p88::pint88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=1
+42:9-42:15	NAME=cstr88	ACTFULL=p88::cstr88	SITE=task:p88::c88::oobt88	SITEINST=package:p88::	SITECLS=0
+42:9-42:15	NAME=cstr88	ACTFULL=p88::cstr88	SITE=task:p88::c88::oobt88	SITEINST=package:p88::	SITECLS=1
+43:9-43:15	NAME=pstr88	ACTFULL=p88::pstr88	SITE=task:p88::c88::oobt88	SITEINST=package:p88::	SITECLS=0
+43:9-43:15	NAME=pstr88	ACTFULL=p88::pstr88	SITE=task:p88::c88::oobt88	SITEINST=package:p88::	SITECLS=1
+48:13-48:19	NAME=cstr88	ACTFULL=p88::cstr88	SITE=function:p88::pf88	SITEINST=package:p88::	SITECLS=0
+48:13-48:19	NAME=cstr88	ACTFULL=p88::cstr88	SITE=function:p88::pf88	SITEINST=package:p88::	SITECLS=0
+48:21-48:27	NAME=pstr88	ACTFULL=p88::pstr88	SITE=function:p88::pf88	SITEINST=package:p88::	SITECLS=0
+48:21-48:27	NAME=pstr88	ACTFULL=p88::pstr88	SITE=function:p88::pf88	SITEINST=package:p88::	SITECLS=0
+52:20-52:26	NAME=cstr88	ACTFULL=p88::cstr88	SITE=package:p88::	SITEINST=-	SITECLS=0
+52:20-52:26	NAME=cstr88	ACTFULL=p88::cstr88	SITE=package:p88::	SITEINST=-	SITECLS=0
+52:20-52:26	NAME=cstr88	ACTFULL=q88::cstr88	SITE=package:q88::	SITEINST=-	SITECLS=0
+52:20-52:26	NAME=cstr88	ACTFULL=q88::cstr88	SITE=package:q88::	SITEINST=-	SITECLS=0
+67:9-67:15	NAME=cstr88	ACTFULL=q88::cstr88	SITE=function:q88::d88::qoob88	SITEINST=package:q88::	SITECLS=0
+67:9-67:15	NAME=cstr88	ACTFULL=q88::cstr88	SITE=function:q88::d88::qoob88	SITEINST=package:q88::	SITECLS=1
+68:9-68:15	NAME=pstr88	ACTFULL=q88::pstr88	SITE=function:q88::d88::qoob88	SITEINST=package:q88::	SITECLS=0
+68:9-68:15	NAME=pstr88	ACTFULL=q88::pstr88	SITE=function:q88::d88::qoob88	SITEINST=package:q88::	SITECLS=1
+71:13-71:19	NAME=cstr88	ACTFULL=q88::cstr88	SITE=function:q88::qf88	SITEINST=package:q88::	SITECLS=0
+71:13-71:19	NAME=cstr88	ACTFULL=q88::cstr88	SITE=function:q88::qf88	SITEINST=package:q88::	SITECLS=0
+71:21-71:27	NAME=pstr88	ACTFULL=q88::pstr88	SITE=function:q88::qf88	SITEINST=package:q88::	SITECLS=0
+71:21-71:27	NAME=pstr88	ACTFULL=q88::pstr88	SITE=function:q88::qf88	SITEINST=package:q88::	SITECLS=0
+99:12-99:17	NAME=p88::cstr88	ACTFULL=p88::cstr88	SITE=task:work@top88.mt88	SITEINST=module_inst:work@top88	SITECLS=0
+---- pris
+24:11-24:17	NAME=cstr88	ACTFULL=p88::cstr88	SITE=function:p88::c88::inb88	SITEINST=<null>	SITECLS=1
+25:11-25:17	NAME=pstr88	ACTFULL=p88::pstr88	SITE=function:p88::c88::inb88	SITEINST=<null>	SITECLS=1
+26:31-26:37	NAME=cint88	ACTFULL=p88::cint88	SITE=function:p88::c88::inb88	SITEINST=<null>	SITECLS=1
+26:39-26:45	NAME=pint88	ACTFULL=p88::pint88	SITE=function:p88::c88::inb88	SITEINST=<null>	SITECLS=1
+35:9-35:15	NAME=cstr88	ACTFULL=p88::cstr88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=0
+35:9-35:15	NAME=cstr88	ACTFULL=p88::cstr88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=1
+36:9-36:15	NAME=pstr88	ACTFULL=p88::pstr88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=0
+36:9-36:15	NAME=pstr88	ACTFULL=p88::pstr88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=1
+37:29-37:35	NAME=cint88	ACTFULL=p88::cint88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=0
+37:29-37:35	NAME=cint88	ACTFULL=p88::cint88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=1
+37:37-37:43	NAME=pint88	ACTFULL=p88::pint88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=0
+37:37-37:43	NAME=pint88	ACTFULL=p88::pint88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=1
+42:9-42:15	NAME=cstr88	ACTFULL=p88::cstr88	SITE=task:p88::c88::oobt88	SITEINST=package:p88::	SITECLS=0
+42:9-42:15	NAME=cstr88	ACTFULL=p88::cstr88	SITE=task:p88::c88::oobt88	SITEINST=package:p88::	SITECLS=1
+43:9-43:15	NAME=pstr88	ACTFULL=p88::pstr88	SITE=task:p88::c88::oobt88	SITEINST=package:p88::	SITECLS=0
+43:9-43:15	NAME=pstr88	ACTFULL=p88::pstr88	SITE=task:p88::c88::oobt88	SITEINST=package:p88::	SITECLS=1
+48:13-48:19	NAME=cstr88	ACTFULL=p88::cstr88	SITE=function:p88::pf88	SITEINST=package:p88::	SITECLS=0
+48:13-48:19	NAME=cstr88	ACTFULL=p88::cstr88	SITE=function:p88::pf88	SITEINST=package:p88::	SITECLS=0
+48:21-48:27	NAME=pstr88	ACTFULL=p88::pstr88	SITE=function:p88::pf88	SITEINST=package:p88::	SITECLS=0
+48:21-48:27	NAME=pstr88	ACTFULL=p88::pstr88	SITE=function:p88::pf88	SITEINST=package:p88::	SITECLS=0
+52:20-52:26	NAME=cstr88	ACTFULL=p88::cstr88	SITE=package:p88::	SITEINST=-	SITECLS=0
+52:20-52:26	NAME=cstr88	ACTFULL=p88::cstr88	SITE=package:p88::	SITEINST=-	SITECLS=0
+52:20-52:26	NAME=cstr88	ACTFULL=q88::cstr88	SITE=package:q88::	SITEINST=-	SITECLS=0
+52:20-52:26	NAME=cstr88	ACTFULL=q88::cstr88	SITE=package:q88::	SITEINST=-	SITECLS=0
+99:12-99:23	NAME=p88::cstr88	ACTFULL=p88::cstr88	SITE=task:work@top88.mt88	SITEINST=module_inst:work@top88	SITECLS=0
+---- pat
+35:9-35:15	NAME=cstr88	ACTFULL=p88::cstr88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=0
+35:9-35:15	NAME=cstr88	ACTFULL=p88::cstr88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=1
+36:9-36:15	NAME=pstr88	ACTFULL=p88::pstr88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=0
+36:9-36:15	NAME=pstr88	ACTFULL=p88::pstr88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=1
+37:29-37:35	NAME=cint88	ACTFULL=p88::cint88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=0
+37:29-37:35	NAME=cint88	ACTFULL=p88::cint88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=1
+37:37-37:43	NAME=pint88	ACTFULL=p88::pint88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=0
+37:37-37:43	NAME=pint88	ACTFULL=p88::pint88	SITE=function:p88::c88::oob88	SITEINST=package:p88::	SITECLS=1
+42:9-42:15	NAME=cstr88	ACTFULL=p88::cstr88	SITE=task:p88::c88::oobt88	SITEINST=package:p88::	SITECLS=0
+42:9-42:15	NAME=cstr88	ACTFULL=p88::cstr88	SITE=task:p88::c88::oobt88	SITEINST=package:p88::	SITECLS=1
+43:9-43:15	NAME=pstr88	ACTFULL=p88::pstr88	SITE=task:p88::c88::oobt88	SITEINST=package:p88::	SITECLS=0
+43:9-43:15	NAME=pstr88	ACTFULL=p88::pstr88	SITE=task:p88::c88::oobt88	SITEINST=package:p88::	SITECLS=1
+48:13-48:19	NAME=cstr88	ACTFULL=p88::cstr88	SITE=function:p88::pf88	SITEINST=package:p88::	SITECLS=0
+48:13-48:19	NAME=cstr88	ACTFULL=p88::cstr88	SITE=function:p88::pf88	SITEINST=package:p88::	SITECLS=0
+48:21-48:27	NAME=pstr88	ACTFULL=p88::pstr88	SITE=function:p88::pf88	SITEINST=package:p88::	SITECLS=0
+48:21-48:27	NAME=pstr88	ACTFULL=p88::pstr88	SITE=function:p88::pf88	SITEINST=package:p88::	SITECLS=0
+52:20-52:26	NAME=cstr88	ACTFULL=p88::cstr88	SITE=package:p88::	SITEINST=-	SITECLS=0
+52:20-52:26	NAME=cstr88	ACTFULL=p88::cstr88	SITE=package:p88::	SITEINST=-	SITECLS=0
+52:20-52:26	NAME=cstr88	ACTFULL=q88::cstr88	SITE=package:q88::	SITEINST=-	SITECLS=0
+52:20-52:26	NAME=cstr88	ACTFULL=q88::cstr88	SITE=package:q88::	SITEINST=-	SITECLS=0
+99:12-99:23	NAME=p88::cstr88	ACTFULL=p88::cstr88	SITE=task:work@top88.mt88	SITEINST=module_inst:work@top88	SITECLS=0
+
+################ g88_a2_bound
+g88_a2_bound/pris: CMP_FAIL  cmpheads=1  dumpdiff_lines=48
+g88_a2_bound/pat: PASS_CMP  cmpheads=0  dumpdiff_lines=44
+g88_a2_bound: pris->pat moved 4 dump lines
+---- g
+46:9-46:13	NAME=cv88	ACTFULL=b88::cv88	SITE=function:b88::k88::oob88	SITEINST=package:b88::	SITECLS=0
+46:9-46:13	NAME=cv88	ACTFULL=b88::cv88	SITE=function:b88::k88::oob88	SITEINST=package:b88::	SITECLS=1
+47:9-47:13	NAME=nv88	ACTFULL=b88::nv88	SITE=function:b88::k88::oob88	SITEINST=package:b88::	SITECLS=0
+47:9-47:13	NAME=nv88	ACTFULL=b88::nv88	SITE=function:b88::k88::oob88	SITEINST=package:b88::	SITECLS=1
+---- pris
+23:11-23:15	NAME=cv88	ACTFULL=b88::cv88	SITE=function:b88::k88::inb88	SITEINST=<null>	SITECLS=1
+24:11-24:15	NAME=nv88	ACTFULL=b88::nv88	SITE=function:b88::k88::inb88	SITEINST=<null>	SITECLS=1
+46:9-46:13	NAME=cv88	ACTFULL=b88::cv88	SITE=function:b88::k88::oob88	SITEINST=package:b88::	SITECLS=0
+46:9-46:13	NAME=cv88	ACTFULL=b88::cv88	SITE=function:b88::k88::oob88	SITEINST=package:b88::	SITECLS=1
+47:9-47:13	NAME=nv88	ACTFULL=b88::nv88	SITE=function:b88::k88::oob88	SITEINST=package:b88::	SITECLS=0
+47:9-47:13	NAME=nv88	ACTFULL=b88::nv88	SITE=function:b88::k88::oob88	SITEINST=package:b88::	SITECLS=1
+---- pat
+46:9-46:13	NAME=cv88	ACTFULL=b88::cv88	SITE=function:b88::k88::oob88	SITEINST=package:b88::	SITECLS=0
+46:9-46:13	NAME=cv88	ACTFULL=b88::cv88	SITE=function:b88::k88::oob88	SITEINST=package:b88::	SITECLS=1
+47:9-47:13	NAME=nv88	ACTFULL=b88::nv88	SITE=function:b88::k88::oob88	SITEINST=package:b88::	SITECLS=0
+47:9-47:13	NAME=nv88	ACTFULL=b88::nv88	SITE=function:b88::k88::oob88	SITEINST=package:b88::	SITECLS=1
+
+################ g88_a3_sites
+g88_a3_sites/pris: CMP_FAIL  cmpheads=1  dumpdiff_lines=260
+g88_a3_sites/pat: CMP_FAIL  cmpheads=1  dumpdiff_lines=206
+g88_a3_sites: pris->pat moved 54 dump lines
+---- g
+---- pris
+19:11-19:15	NAME=cs88	ACTFULL=s88::cs88	SITE=function:s88::t88::new	SITEINST=<null>	SITECLS=1
+23:21-23:25	NAME=cs88	ACTFULL=s88::cs88	SITE=function:s88::t88::call88	SITEINST=<null>	SITECLS=1
+23:27-23:31	NAME=ci88	ACTFULL=s88::ci88	SITE=function:s88::t88::call88	SITEINST=<null>	SITECLS=1
+27:12-27:16	NAME=cs88	ACTFULL=s88::cs88	SITE=function:s88::t88::asg88	SITEINST=<null>	SITECLS=1
+28:12-28:16	NAME=ci88	ACTFULL=s88::ci88	SITE=function:s88::t88::asg88	SITEINST=<null>	SITECLS=1
+28:19-28:23	NAME=nv88	ACTFULL=s88::nv88	SITE=function:s88::t88::asg88	SITEINST=<null>	SITECLS=1
+29:7-29:11	NAME=nv88	ACTFULL=s88::nv88	SITE=function:s88::t88::asg88	SITEINST=<null>	SITECLS=1
+32:37-32:41	NAME=cs88	ACTFULL=s88::cs88	SITE=function:s88::t88::ret88	SITEINST=<null>	SITECLS=1
+35:11-35:15	NAME=nv88	ACTFULL=s88::nv88	SITE=function:s88::t88::cond88	SITEINST=<null>	SITECLS=1
+35:19-35:23	NAME=ci88	ACTFULL=s88::ci88	SITE=function:s88::t88::cond88	SITEINST=<null>	SITECLS=1
+35:29-35:33	NAME=cs88	ACTFULL=s88::cs88	SITE=function:s88::t88::cond88	SITEINST=<null>	SITECLS=1
+36:14-36:18	NAME=nv88	ACTFULL=s88::nv88	SITE=function:s88::t88::cond88	SITEINST=<null>	SITECLS=1
+36:24-36:28	NAME=nv88	ACTFULL=s88::nv88	SITE=function:s88::t88::cond88	SITEINST=<null>	SITECLS=1
+36:31-36:35	NAME=nv88	ACTFULL=s88::nv88	SITE=function:s88::t88::cond88	SITEINST=<null>	SITECLS=1
+37:27-37:31	NAME=ci88	ACTFULL=s88::ci88	SITE=function:s88::t88::cond88	SITEINST=<null>	SITECLS=1
+41:13-41:17	NAME=nv88	ACTFULL=s88::nv88	SITE=function:s88::t88::case88	SITEINST=<null>	SITECLS=1
+42:19-42:23	NAME=cs88	ACTFULL=s88::cs88	SITE=function:s88::t88::case88	SITEINST=<null>	SITECLS=1
+42:9-42:13	NAME=ci88	ACTFULL=s88::ci88	SITE=function:s88::t88::case88	SITEINST=<null>	SITECLS=1
+49:13-49:17	NAME=cs88	ACTFULL=s88::cs88	SITE=function:s88::t88::nest88	SITEINST=<null>	SITECLS=1
+50:36-50:40	NAME=cs88	ACTFULL=s88::cs88	SITE=function:s88::t88::nest88	SITEINST=<null>	SITECLS=1
+54:51-54:55	NAME=cs88	ACTFULL=s88::cs88	SITE=function:s88::t88::sys88	SITEINST=<null>	SITECLS=1
+54:57-54:61	NAME=ci88	ACTFULL=s88::ci88	SITE=function:s88::t88::sys88	SITEINST=<null>	SITECLS=1
+56:43-56:47	NAME=cs88	ACTFULL=s88::cs88	SITE=function:s88::t88::sf88	SITEINST=<null>	SITECLS=1
+58:22-58:26	NAME=cs88	ACTFULL=s88::cs88	SITE=task:s88::t88::tk88	SITEINST=<null>	SITECLS=1
+60:39-60:43	NAME=cs88	ACTFULL=s88::cs88	SITE=function:s88::t88::vf88	SITEINST=<null>	SITECLS=1
+70:33-70:37	NAME=cs88	ACTFULL=s88::cs88	SITE=function:s88::u88::pinb88	SITEINST=<null>	SITECLS=1
+75:33-75:37	NAME=cs88	ACTFULL=s88::cs88	SITE=function:s88::w88::dinb88	SITEINST=<null>	SITECLS=1
+---- pat
+

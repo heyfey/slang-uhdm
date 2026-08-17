@@ -1,0 +1,77 @@
+r10uvm88 — THE LADDER.  MEASUREMENT-ONLY (tools/probe/r10ladder1repro/ctladder.cpp).
+`uhdm-cmp` stops at the FIRST disagreeing object and is the only judge; the
+ladder answers the question it cannot: how many more are there, and is the NEW
+head pre-existing rather than created by this pass?
+
+CALIBRATION (golden vs golden, SeqDriver/default): rungs=0 stop=FIXPOINT.
+A detector that flags everything is a broken detector; this one flags nothing on
+a database compared with itself.
+
+1.  THE HEAD, AND THE SITE THE BISECTION NAMES (PRISTINE database)
+    RUNG 1  KINDL=<null> KINDR=string_var KINDP=package
+            FIELD=<lhs-null>  SHAPE=EXTRA-OURS
+       R  string_var(s_connection_warning_id)@:24:14-24:60#6442
+       MK if_stmt@uvm_port_base.svh:244:5-245:75#274720   [bisected]
+    RUNG 2  KINDR=int_var
+       R  int_var(UVM_UNBOUNDED_CONNECTIONS)@:22:11-22:41#6433
+       MK function(is_unbounded)@uvm_port_base.svh:331:3-333:14#274787  [bisected]
+    RUNG 3  KINDR=string_var
+       R  string_var(s_connection_error_id)@:23:14-23:56#6438
+       MK class_defn(uvm_status_container)@uvm_misc.svh:206:1-305:9#6 [CASCADE]
+
+    The ladder groups by the TARGET object, so 30 removed EDGES appear as three
+    rungs at the top: the three package-scope variables `uvm_port_base` reads.
+
+2.  THE FAMILY, COUNTED OVER 60 RUNGS
+    PRISTINE default/SeqDriver, rungs 1..60: the rungs whose shape is
+    EXTRA-OURS with KINDR a VARIABLE under KINDP=package are
+        1 2 3 29 30 31 32 33 34 35 36 37 38 39 45 52 54     = 17 rungs
+    PATCHED default/SeqDriver, rungs 1..60:                  = 0 rungs
+    17 -> 0.  maxvis (golden objects proven equal) 13740 -> 22269 of 317210.
+    The ONE remaining EXTRA-OURS rung in the patched ladder is rung 56, a
+    `ref_typespec` under a `class_typespec` -- a DIFFERENT family, neither
+    touched nor claimed.
+
+3.  THE NEW HEAD IS THE NEXT RUNG, NOT A NEW DEFECT
+    PATCHED RUNG 1 is the official uhdm-cmp head after the patch, verbatim:
+        KINDL=hier_path KINDR=hier_path KINDP=assignment FIELD=VpiName
+        L  hier_path(provider.m_provided_to[])@uvm_port_base.svh:485:5-485:44
+        R  hier_path(provider.m_provided_to[get_full_name()])@:485:5-485:44
+    and it is in the PRISTINE database too -- the pristine ladder reaches it
+    once the three variable rungs above are masked.  The cmp LINE COUNT rising
+    47 -> 96 is that deeper rung printing, not a regression: the STATUS is
+    CMP_NOTEQUAL before and after, ct8rows reports 0 differing rows, and every
+    byte that moved is attributed in GATES § (5).
+
+4.  ROW HEADS, PRISTINE -> PATCHED (rowheads.sh; LHS is ALWAYS golden)
+    row              mode        cmp lines      heads   head object
+    SeqDriver        both        47 -> 96       1 -> 1  string_var -> hier_path
+    SimpleUVM        both        47 -> 96       1 -> 1  string_var -> hier_path
+    Scoreboard       default     47 -> 96       1 -> 1  string_var -> hier_path
+    MiniAmiq         both        47 -> 96       1 -> 1  string_var -> hier_path
+    BuildUVMPkg      both        79 -> 79       1 -> 1  UNCHANGED (its own older
+                                                        head: bit_var
+                                                        uvm_comparer::compare_map)
+    Earlgrey_0_1     default     46 -> 46       1 -> 1  UNCHANGED
+    Earlgrey_0_1     testflags   33 -> 33       1 -> 1  UNCHANGED
+    Rggen            default     17 -> 17       1 -> 1  UNCHANGED
+    Scoreboard/testflags and Rggen/testflags print SKIP-NOFILE and are COUNTED
+    (SLANG_REJECT / no golden), never silently dropped.
+
+    BuildUVMPkg moves BYTES (29 objects) but not its HEAD: its head is an older
+    one that sorts ahead of this family in the walk.  Said out loud because a
+    pass that moved bytes and reported "head unchanged" without saying which is
+    how a regression hides.
+
+R0 — THE NEW HEAD, for the next pass
+    ALL FIVE UVM rows (seven of the eight live row-modes) now share:
+        LHS golden  hier_path (provider.m_provided_to[])
+                    @uvm_port_base.svh:485:5-485:44
+        RHS ours    hier_path (provider.m_provided_to[get_full_name()])
+        FIELD VpiName, SHAPE TEXT: the INDEX EXPRESSION's text is included in
+        our hier_path's name and golden leaves the brackets EMPTY.
+        Site: `uvm_port_base::connect`,
+              `provider.m_provided_to[get_full_name()] = this;` @485:5.
+    Rungs 2/3/5/6 of the patched ladder are a second family:
+        method_func_call(super.new)@:0:0-0:0  MISSING-OURS  (golden emits an
+        implicit `super.new` call we do not).

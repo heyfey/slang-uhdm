@@ -1,0 +1,76 @@
+r10uvm88 — THE MOVER PREDICTION, MADE FROM PRISTINE BYTES BEFORE THE PATCHED
+BINARY EXISTED.  MEASUREMENT-ONLY.  Nothing here is an acceptance judge.
+
+THE LAW
+  § pkgVarBindsOnlyThroughInstance88 — a `ref_obj` carries an `Actual_group`
+  pointing at a PACKAGE-SCOPE variable ONLY when the ENCLOSING subroutine
+  carries that package as its `vpiInstance`.  Surelog binds a late-bound
+  reference to a package's `Variables()` listing in exactly one place,
+  `UhdmWriter::lateBinding`, and reaches it only through `func->Instance()`
+  under the guard `inst->UhdmType() == uhdmpackage`.  A class method WRITTEN
+  INSIDE THE CLASS BODY has NO `vpiInstance` at all, so that listing is
+  unreachable from it and golden leaves the reference BARE.
+
+THE PREDICTOR (pred88.sh, run on the PRISTINE workdir)
+  Every `ref_obj` whose `Actual_group` is a package-scope variable AND whose
+  enclosing task_func prints `SITEINST=<null>` while sitting under a
+  `class_defn` (`SITECLS=1`) is a cell this law REMOVES.  Both facts are read
+  off the pristine database by ct88cen; no patched binary is involved.
+
+SURELOG CORPUS — 956 databases scanned, 9 PREDICTED MOVERS, 947 predicted
+BYTE-IDENTICAL:
+
+  29 cells  default/BuildUVMPkg-bf853d43
+  30 cells  default/MiniAmiq-544c7f61
+  30 cells  default/Scoreboard-59431470
+  30 cells  default/SeqDriver-32af76aa
+  30 cells  default/SimpleUVM-1dc93a62
+  29 cells  testflags/BuildUVMPkg-bf853d43
+  30 cells  testflags/MiniAmiq-544c7f61
+  30 cells  testflags/SeqDriver-32af76aa
+  30 cells  testflags/SimpleUVM-1dc93a62
+  (Scoreboard/testflags is SLANG_REJECT and produces no database — it is not a
+   predicted mover because there is nothing to move.)
+
+THE CELLS, BY NAME (identical set on all nine, modulo BuildUVMPkg's own UVM
+version, which lacks `uvm_comparer::init` and adds `uvm_root::die` +
+`uvm_cmdline_processor::get_inst`):
+
+  s_connection_warning_id  <- uvm_port_base::new                @245:35  THE HEAD
+  s_connection_warning_id  <- uvm_port_base::m_check_relationship @665/679/693
+  s_connection_error_id    <- uvm_port_base::connect            @446/452/458/468/476
+  s_connection_error_id    <- uvm_port_base::resolve_bindings   @748/754
+  s_connection_error_id    <- uvm_port_base::get_if             @781
+  s_connection_error_id    <- uvm_tlm_req_rsp_channel::new      @226
+  UVM_UNBOUNDED_CONNECTIONS<- uvm_port_base::is_unbounded       @332
+  UVM_UNBOUNDED_CONNECTIONS<- uvm_port_base::resolve_bindings   @753
+  UVM_UNBOUNDED_CONNECTIONS<- uvm_analysis_port::new            @60
+  UVM_UNBOUNDED_CONNECTIONS<- uvm_analysis_export::new          @132
+  build_ph connect_ph end_of_elaboration_ph start_of_simulation_ph
+  run_ph extract_ph check_ph report_ph
+                           <- uvm_domain::get_common_domain     @122..129
+  end_of_elaboration_ph    <- uvm_root::phase_started           @252
+  uvm_default_comparer     <- uvm_comparer::init                @412/413
+  uvm_default_printer      <- uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation @265
+  run_ph                   <- uvm_test_done_objection::m_do_stop_all @1178
+  m_uvm_core_state         <- uvm_root::die                     (BuildUVMPkg only)
+  uvm_cmdline_proc         <- uvm_cmdline_processor::get_inst   (BuildUVMPkg only)
+
+Every one of those subroutines is written INSIDE its class body; every UVM
+package-variable reference golden DOES bind sits in an OUT-OF-BODY definition
+(`uvm_object::print/sprint/compare/m_pack/m_unpack_pre`,
+`uvm_component::m_set_full_name/m_set_cl_verb`, `uvm_root::new/print_topology`,
+`uvm_sequencer_base::set_arbitration/start_default_sequence`,
+`uvm_sequence_library::body`, `svunit_testrunner::report`) or in a
+PACKAGE-scope subroutine (`uvm_oneway_hash`, `uvm_create_random_seed`) or in a
+PACKAGE-scope initialiser (`uvm_default_printer = uvm_default_table_printer`).
+Those are NOT predicted to move and MUST NOT.
+
+NEGATIVE CONTROLS THE PREDICTION MAKES
+  * 947 surelog databases carry ZERO such cells and are predicted BYTE-IDENTICAL
+    — including every CMP_EQUAL row.  A CMP_EQUAL row carrying one of these
+    cells would REFUTE the law outright (its bind would already agree with
+    golden), so the empty intersection is a measurement, not an assumption.
+  * the uhdm2rtlil corpus is predicted to carry ZERO cells (no UVM, no
+    package-scope variable read from an in-body class method) — see
+    GATES.r10uvm88.txt for the run.
