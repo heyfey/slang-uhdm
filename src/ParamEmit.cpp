@@ -14053,10 +14053,51 @@ int32_t UhdmExporter::srlgRangedElabWidth(const ParameterSymbol& ps) {
 // (read as `BASE_ADDR[14:DEC_WD]` beside a net) keeps its LOCATED declaration
 // typespec, while `parameter [DEC_WD-1:0] BCSCTL1` (read as `BCSCTL1[0] ?
 // reg_hi_wr[BCSCTL1] : reg_lo_wr[BCSCTL1]`) takes the bare one.
+//
+// § selectReadNeedsReduce50 (r10earl50) SPLITS this collector's output.  `out`
+// (a select ANYWHERE) is the rule r10earl49 left standing as its residue R1,
+// and it is REFUTED on nine measured positions — see the grid above
+// paramNameIsRead.  The typed path now reads `wide50`, which is `out` MINUS
+// the five syntax contexts where Surelog's reducer provably does not reach the
+// select.  A context is dropped only when something else decides it or golden
+// says nothing decides it:
+//
+//   DROPPED (ctx bit 4)                    who decides it now
+//   * a CONTINUOUS ASSIGN                  paramCaFoldRead's operand walk
+//   * a GENERATE BLOCK's BODY (not its     paramCaFoldRead, which knows which
+//     condition)                           branch is INSTANTIATED
+//   * an INSTANCE's parameter overrides    paramCaFoldRead's instance arm
+//     and port connections
+//   * a PROCEDURAL block / task / function nothing — golden is LOCATED
+//     (h1.H4, h1.HC, h2.ID; the four Earlgrey dm_mem cells and usb_fs_rx.DJ)
+//   * a NET/VARIABLE declarator's          nothing — golden is LOCATED
+//     INITIALIZER (h2.I8, h2.I9, h4.K2)    (its ternary PREDICATE is kept, the
+//                                          NetDeclaration arm below)
+//
+//   KEPT, and each one is a MEASURED golden BARE:
+//   * a select in a GENERATE CONDITION            (h1.H6, h3.JA, h3.JB)
+//   * a select in a NET-DECL ternary PREDICATE    (h4.K5, h3.J3; openmsp430)
+//   * a select in a NET/VARIABLE declaration's    (h5.L7 `wire [L7[3:0]:0] w7;`)
+//     TYPE or DIMENSIONS
+//   * a select in ANOTHER PARAMETER's INITIALIZER — kept UNCHANGED, and it is
+//     the one position this pass could not decide: h5 cells L1..L8 measure it
+//     golden-LOCATED in eight variants, yet the `BlackParrotComplex` canary
+//     (`routing_matrix_p[0][i]` inside `output_dirs_sparse_lp`'s initializer)
+//     needs the BARE answer to stay byte-identical, and it was measured going
+//     CMP_EQUAL -> CMP_NOTEQUAL when this pass first dropped it.  Residue R5.
+//
+// A select in a CONT-ASSIGN ternary predicate is deliberately NOT in `wide50`:
+// the operand walk decides those, and it gets both answers right where a
+// blanket predicate rule gets one wrong (h2.I1 `I1[0] ? n1 : n2` is
+// golden-LOCATED, h4.K6 `K6[0] ? n1[0] : n2[0]` is golden-BARE).
+// `out` and `narrow` are left byte-for-byte as they were: `narrow` is the
+// RANGED-UNTYPED path and this pass does not touch it.
 static void collectSrlgReadNames(const syntax::SyntaxNode& n,
                                  std::map<std::string_view, int>& out,
                                  std::map<std::string_view, int>& narrow,
-                                 bool inGenCond = false) {
+                                 std::map<std::string_view, int>& wide50,
+                                 int ctx = 0) {
+    const bool inGenCond = (ctx & 1) != 0;
     if (n.kind == syntax::SyntaxKind::ContinuousAssign) {
         for (auto* a : n.as<syntax::ContinuousAssignSyntax>().assignments)
             if (a && a->kind == syntax::SyntaxKind::AssignmentExpression) {
@@ -14068,9 +14109,13 @@ static void collectSrlgReadNames(const syntax::SyntaxNode& n,
                     narrow[nm0]++;
                 }
                 if (r && r->kind == syntax::SyntaxKind::ConditionalExpression)
+                    // ctx = 1|4: the NARROW (ranged-untyped) rule keeps this
+                    // predicate, `wide50` drops it — the operand walk decides
+                    // a CONT-ASSIGN ternary and gets h2.I1 (`I1[0] ? n1 : n2`,
+                    // golden LOCATED) right where this rule gets it wrong.
                     collectSrlgReadNames(
                         *r->as<syntax::ConditionalExpressionSyntax>().predicate,
-                        out, narrow, /*inGenCond=*/true);
+                        out, narrow, wide50, /*ctx=*/5);
             }
     }
     // A NET-declaration assignment carries the same reduce (`wire x = P[0] ?
@@ -14087,7 +14132,7 @@ static void collectSrlgReadNames(const syntax::SyntaxNode& n,
                         collectSrlgReadNames(
                             *ini->expr->as<syntax::ConditionalExpressionSyntax>()
                                  .predicate,
-                            out, narrow, /*inGenCond=*/true);
+                            out, narrow, wide50, /*ctx=*/3);
     {
         std::string_view selName;
         if (n.kind == syntax::SyntaxKind::IdentifierSelectName)
@@ -14103,6 +14148,11 @@ static void collectSrlgReadNames(const syntax::SyntaxNode& n,
             out[selName]++;
             if (inGenCond)
                 narrow[selName]++;
+            // § selectReadNeedsReduce50: `out` minus the dropped contexts,
+            // plus the generate condition / net-decl predicate (ctx bit 2)
+            // which is reached even from inside a dropped one.
+            if ((ctx & 2) || !(ctx & 4))
+                wide50[selName]++;
         }
     }
     // The generate-condition subtrees: an if-generate's / case-generate's
@@ -14120,11 +14170,80 @@ static void collectSrlgReadNames(const syntax::SyntaxNode& n,
         condB = lg.stopExpr;
         condC = lg.iterationExpr;
     }
+    // § selectReadNeedsReduce50 — the DROPPED contexts.  `dropAll` marks a node
+    // every one of whose children is out of `wide50`'s reach; `dropBody` marks
+    // a generate construct, where only the children that are NOT the condition
+    // are dropped.  A generate CONDITION re-enters through ctx bit 2, so a
+    // condition nested inside a dropped subtree still counts (h3.JA).
+    bool dropAll = false;
+    switch (n.kind) {
+        case syntax::SyntaxKind::ContinuousAssign:
+        case syntax::SyntaxKind::HierarchyInstantiation:
+        case syntax::SyntaxKind::AlwaysBlock:
+        case syntax::SyntaxKind::AlwaysCombBlock:
+        case syntax::SyntaxKind::AlwaysFFBlock:
+        case syntax::SyntaxKind::AlwaysLatchBlock:
+        case syntax::SyntaxKind::InitialBlock:
+        case syntax::SyntaxKind::FinalBlock:
+        case syntax::SyntaxKind::FunctionDeclaration:
+        case syntax::SyntaxKind::TaskDeclaration:
+            dropAll = true;
+            break;
+        default:
+            break;
+    }
+    // A NET/VARIABLE declarator's INITIALIZER is dropped; its TYPE and its
+    // DIMENSIONS are not (h5.L7).  The EqualsValueClause is the initializer's
+    // own node, so the flag is carried down to it and applied there.
+    const bool inDataDecl =
+        (ctx & 8) != 0 || n.kind == syntax::SyntaxKind::NetDeclaration ||
+        n.kind == syntax::SyntaxKind::DataDeclaration;
+    if (inDataDecl && n.kind == syntax::SyntaxKind::EqualsValueClause)
+        dropAll = true;
+    // § caseGenItemIsACondition50v (VERIFIER FIX, arm w2 cell R1) — a
+    // CASE-GENERATE's ITEM LABELS are constant expressions Surelog evaluates at
+    // elaboration exactly like the case CONDITION beside them, but only the
+    // condition is a direct child of the CaseGenerate node, so `isCond` could
+    // never reach them and every item label fell into the dropped generate
+    // BODY.  Measured: `case (R2[1:0]) R1[1:0]: ... endcase` — golden gives
+    // BOTH R1 and R2 the BARE typespec; the first cut answered R2 BARE and R1
+    // LOCATED.  Re-entered with ctx=2 (the cond-re-entry bit WITHOUT the
+    // inGenCond bit), so `wide50` counts it and the RANGED-UNTYPED `narrow`
+    // map is left byte-for-byte as it was.
+    if (n.kind == syntax::SyntaxKind::CaseGenerate)
+        for (auto* ci : n.as<syntax::CaseGenerateSyntax>().items)
+            if (ci && ci->kind == syntax::SyntaxKind::StandardCaseItem)
+                for (auto* ex :
+                     ci->as<syntax::StandardCaseItemSyntax>().expressions)
+                    if (ex)
+                        collectSrlgReadNames(*ex, out, narrow, wide50,
+                                             /*ctx=*/2);
+    // § paramInitNeverDropped50v (VERIFIER FIX, arm w2 cell R5) — a PARAMETER
+    // declaration's INITIALIZER is the position this pass explicitly declares
+    // it does NOT touch (residue R5: h1.H5 / h5.L1-L8 measure it golden-LOCATED
+    // but the BlackParrotComplex canary needs BARE, so it was to be left as
+    // pristine had it).  The first cut left it alone only at MODULE level: a
+    // `localparam D = {24'b0, P[7:0]};` inside a GENERATE BLOCK sits in the
+    // dropped body and nothing else decides it, so P silently lost its read.
+    // Golden answers BARE there — the same as pristine — so the whole context
+    // is re-entered and this pass is now a true no-op on parameter
+    // initializers, exactly as its own comment claims.
+    const bool paramInit =
+        n.kind == syntax::SyntaxKind::ParameterDeclarationStatement ||
+        n.kind == syntax::SyntaxKind::ParameterDeclaration ||
+        n.kind == syntax::SyntaxKind::TypeParameterDeclaration;
+    const bool dropBody = (condA || condB || condC);
     for (size_t i = 0, e = n.getChildCount(); i < e; i++)
-        if (auto* c = n.childNode(i))
-            collectSrlgReadNames(*c, out, narrow,
-                                 inGenCond || c == condA || c == condB ||
-                                     c == condC);
+        if (auto* c = n.childNode(i)) {
+            const bool isCond = (c == condA || c == condB || c == condC);
+            int cctx = ctx | (isCond ? 3 : 0) | (inDataDecl ? 8 : 0) |
+                       (paramInit ? 2 : 0);
+            if (dropAll || (dropBody && !isCond))
+                cctx |= 4;
+            if (isCond)
+                cctx &= ~4;
+            collectSrlgReadNames(*c, out, narrow, wide50, cctx);
+        }
 }
 
 // Surelog's elaboration REWRITES a parameter's value typespec the first time
@@ -14151,6 +14270,52 @@ static void collectSrlgReadNames(const syntax::SyntaxNode& n,
 // Modelled on the SYNTAX, not the AST: the reads that matter include
 // elaboration-time ones slang has already folded away (generate conditions
 // of both taken and untaken branches).
+//
+// ---------------------------------------------------------------------------
+// § selectReadNeedsReduce50 (r10earl50) — "a SELECTED reference ANYWHERE" is
+// WRONG, and it is r10earl49's residue R1.  A select only reaches the resolver
+// where Surelog's reducer actually runs over it.  Measured against real
+// Surelog on 62 cells, `parameter logic [W-1:0]`, one read position each
+// (h1/h2/h3/h4_earl50.sv; every row below is golden's own answer):
+//
+//   READS (golden BARE)                          NOT A READ (golden LOCATED)
+//   H6 `if (H6[0])` gen condition                H4 `always_comb r=H4[3:0]|n`
+//   JA select in an UNTAKEN gen condition        HC `always_comb r=HC[0]?n:'0`
+//   JB select in a for-gen loop bound            ID procedural inside a gen blk
+//   K5 `wire t = K5[0] ? n1[0] : n2[0]`          H5 `localparam D={24'b0,H5[7:0]}`
+//   H1 `H1[k] | n[k]`   (gen scope, walk passes) H7 select in an UNTAKEN gen BODY
+//   K1 `K1[0] | n1[0]`  (module CA, walk passes) IE cont-assign in an UNTAKEN body
+//   HD `(HD[0]|1'b0) & 32'h1`  (nested op)       H2 `H2[3:0] | n`  PART-select
+//   HG `{31'b0, HG[0] & n[0]}` (skipped concat)  HA `{HA[0], n[W-2:0]}` part-sel
+//   K6 `K6[0] ? n1[0] : n2[0]` (CA ternary)      HB `HB[0] & n`  net STOPS walk
+//   IA `n1[IA[2:0]]`    (select in the INDEX)    H9 `n & {..,H9[0]}` net first
+//   H8 `assign t8 = H8[W-1:0]` (folds whole)     I1 `I1[0] ? n1 : n2` net branch
+//   HE `#(.S({24'b0, HE[7:0]}))` override        J1 `{31'b0, J1[n1[2:0]]}` index
+//   HF `.p(HF[0])` port connection                  does not fold
+//   I4 `#(.S(I4[W-1:0]))` override               K2 `wire t = K2[0] | n1[0]`
+//                                                J6/J7 inst conn, UNTAKEN body
+//
+// Three carriers, each separated by a pair that differs in exactly one thing:
+//   1. NET-DECL vs CONT-ASSIGN — K1 (BARE) vs K2 (LOCATED), same expression.
+//      A net-declaration assignment resolves NOTHING except its ternary
+//      PREDICATE (K5/J3, openmsp430 bcsctl1_wr) — which is exactly the rule
+//      the NetDeclaration arm above already models, kept verbatim.
+//   2. GEN SCOPE vs MODULE BODY — a BARE NAME resolves in a module-body
+//      cont-assign (K9/c1.C1) and NOT in a gen_scope one (JK `JK | n1`, JL,
+//      JM `assign tm = JM;`, all golden-LOCATED); a SELECT resolves in both
+//      (K3/H1/H8/K8).
+//   3. TAKEN vs UNTAKEN — an untaken branch's BODY resolves nothing at all
+//      (H7, IE, J6, J7, J9), while its CONDITION still does (JA).
+// The first two are why the syntax rule cannot decide a cont-assign at all;
+// paramCaFoldRead does it from the AST, which knows both.  What is left here
+// is `wide50`: the generate condition and the net-decl ternary predicate.
+//
+// The LargeHex counterexample this comment used to cite is NOT a parameter
+// initializer read: `parameter bit [75:0] DReqDepth` is also read as
+// `tlul_fifo_sync #(.ReqDepth(DReqDepth[0+:4]))`, and it is that INSTANCE
+// OVERRIDE — cell HE/I4 — that earns its bare typespec.  h1.H5 measures the
+// parameter-initializer position on its own and golden answers LOCATED.
+// ---------------------------------------------------------------------------
 bool UhdmExporter::paramNameIsRead(const ParameterSymbol& ps) {
     auto* syn = ps.getSyntax();
     if (!syn)
@@ -14165,23 +14330,27 @@ bool UhdmExporter::paramNameIsRead(const ParameterSymbol& ps) {
         return false;
     auto it = declIdentCounts.find(decl);
     if (it == declIdentCounts.end()) {
-        std::map<std::string_view, int> reads, narrow;
-        collectSrlgReadNames(*decl, reads, narrow);
+        std::map<std::string_view, int> reads, narrow, wide50;
+        collectSrlgReadNames(*decl, reads, narrow, wide50);
         declIdentCountsNarrow.emplace(decl, std::move(narrow));
+        declIdentCountsWide50.emplace(decl, std::move(wide50));
         it = declIdentCounts.emplace(decl, std::move(reads)).first;
     }
     // A RANGED-UNTYPED parameter takes the NARROW rule (see the ablation table
     // at collectSrlgReadNames): only the constant-evaluated select positions
-    // reach getObject for it, while a select anywhere at all is enough for a
-    // TYPED one — LargeHex `parameter bit [75:0] DReqDepth`, read as
-    // `DReqDepth[8*4+:4]` inside another parameter's initializer, still takes
-    // the bare rewrite where the untyped `localparam Q = P[0]` twin does not.
+    // reach getObject for it.  This pass does not touch that path.
     if (isRangedUntypedParam(ps)) {
         auto nit = declIdentCountsNarrow.find(decl);
         return nit != declIdentCountsNarrow.end() &&
                nit->second.count(ps.name) != 0;
     }
-    return it->second.count(ps.name) != 0;
+    // § selectReadNeedsReduce50: a TYPED parameter's SYNTAX rule is now the
+    // two constant-evaluated select positions only; the cont-assign positions
+    // are decided from the AST by paramCaFoldRead, which knows which generate
+    // branch is instantiated and which scope owns the assign.
+    auto wit = declIdentCountsWide50.find(decl);
+    return wit != declIdentCountsWide50.end() &&
+           wit->second.count(ps.name) != 0;
 }
 
 // The SAME getObject/setRange rewrite, reached the other way: Surelog REDUCES
@@ -14492,9 +14661,35 @@ const Scope* srlgOwningBody49(const Symbol& sym) {
     return nullptr;
 }
 
+// § selectReadNeedsReduce50 — the base of a SELECT, when that select is one
+// the reducer reaches.  `n1[IA[2:0]]` resolves IA (the index is reduced first),
+// `{24'b0, HE[7:0]}` in an instance override resolves HE.  A BARE name is NOT
+// harvested here: that is the walk's own job and it is scope-dependent.
+void srlgHarvestSelBases50(const Expression& e0,
+                           std::set<std::string_view>& names,
+                           const Scope* body) {
+    auto addBase = [&](const Expression& base) {
+        const Expression& b = stripImplicitConv(base);
+        if (b.kind != ExpressionKind::NamedValue)
+            return;
+        auto& sym = b.as<NamedValueExpression>().symbol;
+        if (sym.kind == SymbolKind::Parameter && srlgOwningBody49(sym) == body)
+            names.insert(sym.name);
+    };
+    e0.visit(makeVisitor(
+        [&](auto& v, const ElementSelectExpression& es) {
+            addBase(es.value());
+            v.visitDefault(es);
+        },
+        [&](auto& v, const RangeSelectExpression& rs) {
+            addBase(rs.value());
+            v.visitDefault(rs);
+        }));
+}
+
 void srlgCaOperandScan49(const Expression& e0,
                          std::set<std::string_view>& names, const Scope* body,
-                         ASTContext& ctx, int depth) {
+                         ASTContext& ctx, int depth, bool genScope) {
     if (depth > 32)
         return;
     const Expression& e = stripImplicitConv(e0);
@@ -14515,7 +14710,14 @@ void srlgCaOperandScan49(const Expression& e0,
             // Only a parameter of THIS instance body is a name the reducer can
             // resolve here; a package parameter is a constant to Surelog and is
             // merely stepped over (see srlgOwningBody49 above).
-            if (sym.kind == SymbolKind::Parameter &&
+            //
+            // § selectReadNeedsReduce50 — and only in the MODULE BODY.  Inside
+            // a gen_scope a BARE NAME operand never rewrites: h3 cells JK
+            // (`assign ok = JK | n1;`), JL (the same in a for-generate) and JM
+            // (`assign tm = JM;`) are all golden-LOCATED, while the SELECT
+            // cells of the very same scopes (h1.H1, h1.H8, h4.K3, h4.K8) are
+            // golden-BARE.
+            if (!genScope && sym.kind == SymbolKind::Parameter &&
                 srlgOwningBody49(sym) == body)
                 names.insert(sym.name);
             continue;
@@ -14554,20 +14756,44 @@ void srlgCaOperandScan49(const Expression& e0,
     // operation operand instead over-fired on all 32 `u_gpio.gen_filter[i]`
     // instances of Earlgrey (measured: census disagreements 79 -> 141 before
     // this arm, 79 -> 78 after it).
+    //
+    // § selectReadNeedsReduce50 — what "reduceExpr() every operand" does to an
+    // operand the PRE-SCAN merely stepped over.  A BIT-SELECT operand takes
+    // ExprEval.cpp:4724's arm, which reduces the INDEX first and only then
+    // calls getObject/getValue on the base NAME:
+    //     uint64_t index_val = get_value(invalidValue, reduceExpr(index,...));
+    //     if (invalidValue == false) { any *object = getObject(name, ...); }
+    // so BOTH halves are measured, and they answer differently:
+    //   h2.IA `{31'b0, n1[IA[2:0]]}`   BARE    — the INDEX's own select resolves
+    //   h1.H1 `H1[k] | n[k]`           BARE    — index folds, the base resolves
+    //   h3.J1 `{31'b0, J1[n1[2:0]]}`   LOCATED — the index does NOT fold, so the
+    //                                            base is never reached
+    // A PART-SELECT operand never gets here: it stopped the walk above.
+    auto reduceOpnd50 = [&](const Expression* op) {
+        if (!op)
+            return;
+        const Expression& o = stripImplicitConv(*op);
+        if (srlgIsOp49(o)) {
+            srlgCaOperandScan49(o, names, body, ctx, depth + 1, genScope);
+            return;
+        }
+        if (o.kind == ExpressionKind::ElementSelect) {
+            auto& es = o.as<ElementSelectExpression>();
+            srlgHarvestSelBases50(es.selector(), names, body);
+            if (ctx.tryEval(es.selector()))
+                srlgHarvestSelBases50(o, names, body);
+        }
+    };
     if (e.kind == ExpressionKind::ConditionalOp) {
-        if (srlgIsOp49(*opnds[0]))
-            srlgCaOperandScan49(*opnds[0], names, body, ctx, depth + 1);
+        reduceOpnd50(opnds[0]);
         auto cv = ctx.tryEval(*opnds[0]);
         if (!cv)
             return;
-        const Expression* taken = cv.isTrue() ? opnds[1] : opnds[2];
-        if (taken && srlgIsOp49(*taken))
-            srlgCaOperandScan49(*taken, names, body, ctx, depth + 1);
+        reduceOpnd50(cv.isTrue() ? opnds[1] : opnds[2]);
         return;
     }
     for (auto* op : opnds)
-        if (op && srlgIsOp49(*op))
-            srlgCaOperandScan49(*op, names, body, ctx, depth + 1);
+        reduceOpnd50(op);
 }
 
 } // namespace
@@ -14585,34 +14811,111 @@ bool UhdmExporter::paramCaFoldRead(const ParameterSymbol& ps) {
     auto it = caFoldReadNames.find(body);
     if (it == caFoldReadNames.end()) {
         std::set<std::string_view> names;
-        for (auto& m : body->members()) {
-            if (m.kind != SymbolKind::ContinuousAssign)
-                continue;
-            auto& asn = m.as<ContinuousAssignSymbol>().getAssignment();
-            if (asn.kind != ExpressionKind::Assignment)
-                continue;
-            auto& rhs = asn.as<AssignmentExpression>().right();
-            ASTContext ctx(comp.getRoot(), LookupLocation::max);
-            auto harvest = [&](const Expression& e) {
-                e.visit(makeVisitor([&](auto& v,
-                                        const NamedValueExpression& nv) {
-                    if (nv.symbol.kind == SymbolKind::Parameter)
-                        names.insert(nv.symbol.name);
-                    v.visitDefault(nv);
-                }));
-            };
-            if (ctx.tryEval(rhs)) {
-                harvest(rhs);
-                continue;
+        ASTContext ctx(comp.getRoot(), LookupLocation::max);
+        auto harvest = [&](const Expression& e) {
+            e.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+                if (nv.symbol.kind == SymbolKind::Parameter)
+                    names.insert(nv.symbol.name);
+                v.visitDefault(nv);
+            }));
+        };
+        // § selectReadNeedsReduce50 — the scan now walks the INSTANTIATED
+        // generate blocks too, and carries the one thing that changes inside
+        // them: `genScope`, which suppresses the BARE-NAME harvest.  An
+        // UNINSTANTIATED branch is skipped outright — its body resolves
+        // nothing at all (h1.H7, h2.IE, h3.J6/J7/J9, and the two Earlgrey
+        // `prim_lfsr` CustomCoeffs cells this pass exists for).
+        std::function<void(const Scope&, bool)> scan50 = [&](const Scope& sc,
+                                                             bool genScope) {
+            for (auto& m : sc.members()) {
+                if (m.kind == SymbolKind::GenerateBlock) {
+                    auto& gb = m.as<GenerateBlockSymbol>();
+                    if (!gb.isUninstantiated)
+                        scan50(gb, true);
+                    continue;
+                }
+                if (m.kind == SymbolKind::GenerateBlockArray) {
+                    for (auto* ge : m.as<GenerateBlockArraySymbol>().entries)
+                        if (ge)
+                            scan50(*ge, true);
+                    continue;
+                }
+                // An instance's PARAMETER OVERRIDES and PORT CONNECTIONS are
+                // compiled in THIS scope and Surelog reduces them: a SELECT
+                // anywhere inside one resolves its base (h1.HE `#(.S({24'b0,
+                // HE[7:0]}))`, h1.HF `.p(HF[0])`, h2.I4, and Surelog's own
+                // LargeHex `#(.ReqDepth(DReqDepth[0+:4]))`).  A BARE NAME does
+                // not: h2.I3 `#(.S(I3))` and c1.C9 are golden-LOCATED.
+                // § instArrayIsAnInstanceToo50v (VERIFIER FIX, arm w1 cells
+                // Q1/Q2/Q7) — an ARRAYED instantiation `sub #(...) u [1:0]
+                // (...)` is a `SymbolKind::InstanceArray` holding
+                // `SymbolKind::Instance` ELEMENTS, so matching only the latter
+                // saw none of its overrides or port connections — and the
+                // syntax rule no longer counts them either, because
+                // `HierarchyInstantiation` is in `dropAll`.  The two halves of
+                // the pass agreed to drop the same reads on the floor.
+                // Measured: golden BARE, pristine BARE, the first cut LOCATED,
+                // in the module body (Q1/Q2) and inside a generate block (Q7).
+                if (m.kind == SymbolKind::Instance ||
+                    m.kind == SymbolKind::InstanceArray) {
+                    std::function<void(const Symbol&)> doInst =
+                        [&](const Symbol& im) {
+                            if (im.kind == SymbolKind::InstanceArray) {
+                                for (auto* el :
+                                     im.as<InstanceArraySymbol>().elements)
+                                    if (el)
+                                        doInst(*el);
+                                return;
+                            }
+                            if (im.kind != SymbolKind::Instance)
+                                return;
+                            auto& ci = im.as<InstanceSymbol>();
+                            for (auto& cm : ci.body.members())
+                                if (cm.kind == SymbolKind::Parameter)
+                                    if (auto* ini = cm.as<ParameterSymbol>()
+                                                        .getInitializer())
+                                        srlgHarvestSelBases50(*ini, names,
+                                                              body);
+                            // § detachedInstNoConns — a def-only instance has
+                            // no parent scope and asking it for connections
+                            // segfaults.
+                            if (ci.getParentScope())
+                                for (auto* pc : ci.getPortConnections())
+                                    if (pc)
+                                        if (auto* pe = pc->getExpression())
+                                            srlgHarvestSelBases50(*pe, names,
+                                                                  body);
+                        };
+                    doInst(m);
+                    continue;
+                }
+                if (m.kind != SymbolKind::ContinuousAssign)
+                    continue;
+                auto& asn = m.as<ContinuousAssignSymbol>().getAssignment();
+                if (asn.kind != ExpressionKind::Assignment)
+                    continue;
+                auto& rhs = asn.as<AssignmentExpression>().right();
+                if (ctx.tryEval(rhs)) {
+                    // A whole-RHS fold resolves every name it holds in the
+                    // module body (r9hilo `assign o = X + 1;`), but inside a
+                    // gen_scope only the SELECTS do (h1.H8 BARE vs h3.JM
+                    // LOCATED).
+                    if (genScope)
+                        srlgHarvestSelBases50(rhs, names, body);
+                    else
+                        harvest(rhs);
+                    continue;
+                }
+                // § caOperandScanRead49 — the RHS did not fold as a whole, so
+                // the reducer's operand PRE-SCAN decides what still gets
+                // rewritten.  See the transcription of ExprEval::reduceExpr
+                // above this function for the mechanism and the measured grid.
+                // This REPLACES § caTernOperandRead1, which arm cells E1 and
+                // E4 refute in both directions.
+                srlgCaOperandScan49(rhs, names, body, ctx, 0, genScope);
             }
-            // § caOperandScanRead49 — the RHS did not fold as a whole, so the
-            // reducer's operand PRE-SCAN decides what still gets rewritten.
-            // See the transcription of ExprEval::reduceExpr above this
-            // function for the mechanism and the 40-cell measured grid.
-            // This REPLACES § caTernOperandRead1, which arm cells E1 and E4
-            // refute in both directions.
-            srlgCaOperandScan49(rhs, names, body, ctx, 0);
-        }
+        };
+        scan50(*body, /*genScope=*/false);
         it = caFoldReadNames.emplace(body, std::move(names)).first;
     }
     return it->second.count(ps.name) != 0;

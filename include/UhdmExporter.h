@@ -1422,6 +1422,13 @@ private:
     // ablation table at collectSrlgReadNames).
     std::map<const slang::syntax::SyntaxNode*,
              std::map<std::string_view, int>> declIdentCountsNarrow;
+    // § selectReadNeedsReduce50 — the TYPED parameter's syntax rule: the two
+    // positions Surelog constant-evaluates from the source and slang has
+    // already folded away, namely a GENERATE CONDITION and a NET-DECL ternary
+    // PREDICATE.  Every other select position is decided from the AST by
+    // paramCaFoldRead.
+    std::map<const slang::syntax::SyntaxNode*,
+             std::map<std::string_view, int>> declIdentCountsWide50;
     // True when the parameter is read anywhere inside a continuous assign
     // whose RHS constant-FOLDS (Surelog's reduction resolves each name it
     // meets through getObject/setRange).  Cached per instance body.

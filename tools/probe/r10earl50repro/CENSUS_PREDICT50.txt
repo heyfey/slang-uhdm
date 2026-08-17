@@ -1,0 +1,62 @@
+r10earl50 — CENSUS PREDICTION, written from the PRISTINE artifact BEFORE the
+patched Earlgrey run.
+
+INSTRUMENT.  `grid50.py` over the ELABORATED view of both dumps — every
+`param_assign -> vpiRhs -> constant -> vpiTypespec -> ref_typespec -> vpiActual`
+keyed on the CELL (`<instance>.<param>`) and read as BARE (span-less, Surelog's
+setRange rewrite) or LOCATED (the parameter's own declaration typespec).
+9933 golden cells / 9936 pristine-ours cells.
+
+This is NOT r10earl49's census49.py.  That one keyed on
+(instance, typespec kind, span) with the parameter NAME projected out, which
+conflates several families into one 77-line set; keyed on the cell, the
+BARE/LOCATED disagreement set is **12 cells**, not 77.  r10earl49's README
+claim that "every remaining line ... belongs to paramNameIsRead, residue R1" is
+therefore REFUTED before this pass writes a line of code: 7 of the 12 are R1,
+2 run the other way, and 3 are cells golden does not have at all.
+
+THE 12 PRISTINE DISAGREEMENTS, and what this law does to each:
+
+  R1 — ours BARE, golden LOCATED.  § selectReadNeedsReduce50 MOVES ALL SEVEN.
+   1 u_aes.aes_prng.aes_prng_lfsr.CustomCoeffs        BARE -> LOCATED
+   2 u_alert_handler.i_ping_timer.i_prim_lfsr.CustomCoeffs  BARE -> LOCATED
+        both: `assign coeffs = CustomCoeffs[LfsrDw-1:0];` inside
+        `if (CustomCoeffs > 0) begin : gen_custom` — an UNTAKEN generate
+        branch's BODY (prim_lfsr.sv:305-306, :330-331).  Arm cell h1.H7.
+   3 u_dm_top.i_dm_mem.AbstractCmdBaseAddr             BARE -> LOCATED
+   4 u_dm_top.i_dm_mem.DataBaseAddr                    BARE -> LOCATED
+   5 u_dm_top.i_dm_mem.FlagsBaseAddr                   BARE -> LOCATED
+   6 u_dm_top.i_dm_mem.ProgBufBaseAddr                 BARE -> LOCATED
+        all four: read only by a select inside an `always_comb` / `case`
+        (dm_mem.sv:290-313).  PROCEDURAL.  Arm cells h1.H4, h1.HC, h2.ID.
+   7 u_usbdev.usbdev_impl.u_usb_fs_nb_pe.u_usb_fs_rx.DJ BARE -> LOCATED
+        `dpair = DJ[1:0];` in a procedural block (usb_fs_rx.sv:83).
+
+  R2 — ours LOCATED, golden BARE.  NOT TOUCHED (opposite direction, and the
+  arm cells that pin it — h2.I6 `.q(I6)` and h3.JN — are pre-existing
+  LOCATED on both binaries before and after this patch):
+   8 u_usbdev.AVFifoWidth
+   9 u_usbdev.u_memory_2p.LocalDataBitsPerMask
+        both `int` localparams read only as a BARE-NAME instance override /
+        a net's declared range.
+
+  R4 — cells OURS emits and golden does not (a typespec-presence family, not
+  BARE/LOCATED).  NOT TOUCHED:
+  10 u_flash_ctrl.u_flash_erase_ctrl.BankAddrMask
+  11 u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask
+  12 u_pwrmgr.i_cdc.i_ast_sync.ResetValue
+
+PREDICTION FOR Earlgrey_0_1 / default (the BYTE-DETERMINISTIC row):
+  1. the database md5 FLIPS (a real mover);
+  2. EXACTLY SEVEN elaborated param_assign RHS typespec cells change, the
+     seven named above, every one BARE -> LOCATED, every one strictly toward
+     golden; the cell-keyed disagreement count goes 12 -> 5;
+  3. NO cell that currently AGREES with golden moves — in particular none of
+     the 43 elaborated cells that already take the bare rewrite;
+  4. the DEF view (lines 1..~1196437) stays BYTE-IDENTICAL to pristine;
+  5. the 52-line cmp head is NOT cleared.  It is r10earl49's R0 and it is a
+     DIFFERENT family: `sram2tlul.sv:42 assign tl_o.a_size =
+     top_pkg::TL_SZW'(SRAM_DWB);` — golden keeps the vpiCastOp operation with
+     its `ref_obj SRAM_DWB` operand and we fold it to `UINT:2`.  Nothing in
+     this law touches a cast fold, so the head stays where it is and the row
+     stays CMP_NOTEQUAL.
