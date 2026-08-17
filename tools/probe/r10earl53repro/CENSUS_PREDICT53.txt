@@ -1,0 +1,79 @@
+r10earl53 — CENSUS PREDICTION for § connPathRootTs53
+WRITTEN FROM {golden, PRISTINE} ONLY.  The patched database had not been built
+when this file was written; the patched binary was still linking.
+
+PRISTINE binary md5 5b1cf0657c877176f211f30adff39206  (BASE 0424f46)
+Earlgrey_0_1/default pristine head: 17 cmp lines / 1 head, RHS <null>.
+
+INSTRUMENT
+  hpcensus53.py --key streams a uhdm-dump and emits one row per FULL PRINT of a
+  hier_path, keyed {nearest enclosing module_inst/gen_scope, nearest enclosing
+  port, path name, span, the field it hangs on} with {TS?, the ref_typespec's
+  vpiActual}.  Childless prints are back-references and are excluded.
+
+THE BASELINE MEASUREMENT (golden vs pristine, Earlgrey_0_1/default)
+  golden  : 14478 full hier_path prints, 6968 carry a vpiTypespec
+  pristine:                       14680 prints,  949 carry one
+  join on the key above: 13774 shared keys, 695 golden-only, 895 ours-only
+      MISSING TS (golden has, we do not) : 5408   (vpiOperand 3284,
+                                                   vpiHighConn 2124)
+      EXTRA   TS (we have, golden does not): 0
+
+PREDICTION 1 — Earlgrey_0_1/default, TOP view
+  Every one of the 5408 gains a ref_typespec, because every one of their roots
+  is a typedef'd struct port/net of the parent instance and therefore has a
+  typedefTs entry.  Our TS count goes 949 -> 6357.  MISSING TS -> 0,
+  EXTRA TS -> 0.
+  Residual vs golden = 6968 - 6357 = 611, ALL of it in the 695 golden-only
+  keys, of which 464 are the `vpiPattern:tagged_pattern` family (a DIFFERENT
+  context, whose hier_paths our emitter hangs on `vpiOperand:operation`, so
+  they never shared a key) — untouched by this pass.
+
+PREDICTION 2 — direction
+  No hier_path LOSES a typespec and none gains a DIFFERENT one: the rule only
+  fires on `!hp->Typespec()`.  Every changed line in every database is an
+  ADDITION.  No line is deleted.
+
+PREDICTION 3 — the DEF view
+  ZERO movers.  The call site is inside emitInstance's ELABORATED connection
+  loop; the def listing's ref_module High_conn is minted elsewhere
+  (§ defRefModConn).  Golden agrees this is the right fence: its DEF-view
+  chain `uhdmallModules/vpiRefModule/vpiPort` holds 2276 hier_paths and NOT ONE
+  carries a typespec, and its `vpiRefModule/vpiPort/vpiHighConn:operation`
+  holds 79 more, also none.  Earlgrey DEF-view md5 must be unchanged.
+
+PREDICTION 4 — vpiExpr (Root_value)
+  Root_value is now bound wherever the root resolves, not only for a 1-level
+  member actual, so hier_paths that already matched on cmp will gain a vpiExpr
+  line in the dump.  uhdm-cmp does NOT read Root_value on a hier_path
+  (hier_path::Compare = Path_elems + Root_value + VpiName -- Root_value IS read;
+  but golden HAS it in every one of these cells, so the movement is TOWARD
+  golden, never away).  Cells where golden has no typespec but DOES have a
+  vpiExpr exist and are predicted to gain the vpiExpr too: arm a1 `u_arr`
+  (`ea_i[1].e0`, an ANONYMOUS unpacked-array root) is the witness.
+
+PREDICTION 5 — corpus gates
+  (3) uhdm2rtlil, both modes: 0 differing rows vs the committed baseline.
+  (4) surelog --mode both: 0 differing rows over 1588.
+  Every corpus row that was CMP_EQUAL stays CMP_EQUAL: the rule adds a
+  ref_typespec only where there was none, and a database that was byte-equal to
+  golden had golden's typespec already, so the `!hp->Typespec()` guard declines.
+  [FALSIFIABLE: any CMP_EQUAL -> CMP_NOTEQUAL row refutes this and names a
+  context where golden attaches NOTHING.]
+
+PREDICTION 6 — byte movers
+  MANY (this is a corpus-wide rule, not a one-cell fix).  A database moves iff
+  it contains at least one elaborated port connection whose actual holds a
+  hier_path whose root has a typedefTs entry.  Attribution is therefore
+  STRUCTURAL, not by name: attr53.py asserts that in EVERY mover, the dump
+  delta consists only of ADDED `ref_typespec`/`vpiTypespec`/`vpiFullName`/
+  `vpiActual`/`vpiExpr` lines under a hier_path, with ZERO deletions.
+  Earlgrey_0_1/default is a mover; Earlgrey_0_1/testflags is SLANG_REJECT and
+  has no database.
+
+PREDICTION 7 — the arms
+  a1: u_two, u_three, u_anon, u_cat x3, u_ncat x4, u_rep, u_bin x2, u_ter x2
+      = 15 cells gain the golden typespec; u_arr gains a Root_value and NO
+      typespec; the cont_assign / always / bare-operand cells stay bare.
+  a2: u_pa and u_ua gain it (u_ua's actual is an ARRAY typespec);
+      u_mid's `itf_i.mp` stays bare.

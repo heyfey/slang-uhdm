@@ -6160,6 +6160,142 @@ UHDM::interface_inst* UhdmExporter::makeBindIfaceTwin(UHDM::interface_inst* src,
     return tw;
 }
 
+// § connPathRootTs53 (declaration comment in UhdmExporter.h).
+//
+// TWO decisions here are measurements, not conveniences:
+//
+//  1. THE ROOT IS RESOLVED BY NAME, out of a map built from the connection
+//     expression's own NamedValueExpressions — NOT by pairing UHDM operands
+//     with slang sub-expressions positionally.  A replication's UHDM operand
+//     list is {count, concat} and slang's is {count, concat} only by luck; a
+//     ternary's is three; a nested concat's arity depends on how the emit
+//     chain flattened it.  A mis-pairing does not fail loudly, it binds a path
+//     to the WRONG struct's typespec, and uhdm-cmp compares Actual_typespec —
+//     so it would land as a head somewhere else entirely.  A name map cannot
+//     mis-pair; the only thing it can do is decline (an ambiguous name is
+//     dropped outright).
+//
+//  2. THE TYPESPEC IS WHATEVER `typedefTs` HOLDS FOR THE ROOT'S DECLARED TYPE,
+//     with NO kind fence.  Golden attaches `union_typespec` (a1 `u_uni`) and
+//     `array_typespec` (a2 `u_ua`, a typedef'd unpacked array) as readily as
+//     `struct_typespec`, and attaches NOTHING for an ANONYMOUS unpacked array
+//     root (a1 `u_arr`) — which is exactly the `typedefTs` miss.  A
+//     "struct only" fence was written first and REFUTED by a2 before it landed.
+void UhdmExporter::bindConnPathRootTs53(UHDM::any* h, const Expression& conn,
+                                        const std::string& tsPrefix,
+                                        NetMap* parentNets) {
+    if (!h || (h->UhdmType() != UHDM::uhdmhier_path &&
+               h->UhdmType() != UHDM::uhdmoperation))
+        return;
+    // COLLECT THE PATHS FIRST, AND DO NOTHING ELSE IF THERE ARE NONE.
+    //
+    // This early-out is not an optimisation, it is a FENCE, and a gate bought
+    // it.  The first version built the name map (and therefore called
+    // `getDeclaredType()->getType()`, forcing slang's LAZY type resolution)
+    // for EVERY operation-shaped connection actual in the design.  Forcing a
+    // type earlier than the emit chain otherwise would reorders the objects
+    // that chain later creates, and the byte verifier caught it: Scr1SvTests
+    // (both modes, uhdm dump byte-IDENTICAL) and Scoreboard (dump differing
+    // only by a REORDER of one vpiTaskFunc list) moved 227 and 3046 bytes.
+    // The early-out did NOT stop either of them, and
+    // that is a MEASUREMENT, not a guess: a temporary trace build (see the
+    // README's "how R3 was measured") printed every reach and every attach and
+    // showed Scr1SvTests reaching exactly TWO connections
+    // (`exu_queue.ialu_cmd`, `exu_queue.lsu_cmd`) that the OLD one-level rule
+    // ALREADY covered, with the pristine dump already carrying both
+    // ref_typespecs.  Scoreboard, separately, is a COIN: the PRISTINE binary
+    // alone produced three different md5s in three runs, two of them the exact
+    // "pristine" and "patched" sweep hashes.  The fence stays because it is
+    // still correct — a connection with no hier_path in it is now not touched
+    // at all — and what remains is recorded as residue R3.
+    std::vector<UHDM::hier_path*> paths;
+    std::function<void(UHDM::any*)> collect = [&](UHDM::any* n) {
+        if (!n)
+            return;
+        if (n->UhdmType() == UHDM::uhdmoperation) {
+            if (auto* ops = ((UHDM::operation*)n)->Operands())
+                for (auto* o : *ops)
+                    collect(o);
+            return;
+        }
+        if (n->UhdmType() == UHDM::uhdmhier_path)
+            paths.push_back((UHDM::hier_path*)n);
+    };
+    collect(h);
+    if (paths.empty())
+        return;
+    std::map<std::string, const ValueSymbol*> roots;
+    std::set<std::string> ambig;
+    conn.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+        v.visitDefault(nv);
+        std::string k(nv.symbol.name);
+        if (k.empty())
+            return;
+        auto ins = roots.emplace(k, &nv.symbol);
+        if (!ins.second && ins.first->second != &nv.symbol)
+            ambig.insert(k);
+    }));
+    if (roots.empty())
+        return;
+    for (auto* hp : paths) {
+        std::string nm(hp->VpiName());
+        if (nm.empty())
+            continue;
+        // THE ROOT IS THE LONGEST NAME IN `roots` THAT SPANS THE PATH'S HEAD,
+        // never `nm.substr(0, nm.find_first_of(".["))`.
+        //
+        // § connPathRootTs53's first version split the printed path text at the
+        // first `.` or `[`, and an ESCAPED IDENTIFIER MAY CONTAIN BOTH.  The
+        // verifier arm that measured it is r10earl37repro/v2_esc.sv, written by
+        // an earlier verifier for exactly this trap: `input q40::req_t \pin.i ;
+        // ch40 i_esc (.rd_i(\pin.i .rd))` prints as `hier_path: (pin.i.rd)`
+        // whose ROOT symbol is named `pin.i`.  Splitting at the first `.` asks
+        // for `pin`, misses, and DROPS a ref_typespec + vpiExpr that golden
+        // emits and that the one-level rule this helper replaced ALREADY got
+        // right (it read the slang symbol, never the text) — a
+        // pristine-right -> patched-wrong regression on legal SV.  `\a[0] .m`
+        // is the same trap through `[`, and there the split does not merely
+        // decline: it asks for `a`, and a DIFFERENT symbol actually called `a`
+        // in the same connection would answer.
+        //
+        // A prefix match must land on a WHOLE component (`nm[k.size()]` is `.`
+        // or `[`, or the names are equal), so `ea` never matches `ea_i.e0`.
+        // LONGEST wins, which is also the right answer when a plain root and an
+        // escaped root share a head: for `{a.x, \a.b .c}` the path `a.x` matches
+        // only `a` and the path `a.b.c` matches both `a` and `a.b`, and `a.b`
+        // is the one whose text actually spans the root.
+        const ValueSymbol* bs = nullptr;
+        size_t bestLen = 0;
+        for (auto& [k, sym] : roots) {
+            if (k.size() <= bestLen || k.size() > nm.size() || ambig.count(k))
+                continue;
+            if (nm.compare(0, k.size(), k) != 0)
+                continue;
+            if (nm.size() != k.size() && nm[k.size()] != '.' && nm[k.size()] != '[')
+                continue;
+            bestLen = k.size();
+            bs = sym;
+        }
+        if (!bs)
+            continue;
+        // `getDeclaredType()` is a not_null on ValueSymbol — no guard needed,
+        // and the same call is what the 1-level rule this generalises used.
+        if (!hp->Typespec())
+            if (auto tt = typedefTs.find(
+                    (const Symbol*)&bs->getDeclaredType()->getType());
+                tt != typedefTs.end()) {
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiFullName(tsPrefix + "." + std::string(hp->VpiName()));
+                rt->VpiParent(hp);
+                rt->Actual_typespec(tt->second);
+                hp->Typespec(rt);
+            }
+        if (!hp->Root_value() && parentNets)
+            if (auto nit = parentNets->find(bs); nit != parentNets->end())
+                hp->Root_value(nit->second);
+    }
+}
+
 UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
                                            UHDM::instance* parentM, NetMap* parentNets,
                                            std::set<const Symbol*>* parentRefs, bool isTop) {
@@ -10369,6 +10505,14 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         // Elab-view literal HighConns parent at the port.
                         if (h->UhdmType() == UHDM::uhdmconstant)
                             h->VpiParent(p);
+                        // § connPathRootTs53 — EVERY hier_path inside an
+                        // ELABORATED connection actual takes the ROOT
+                        // object's typespec, not just one that IS the actual.
+                        // Called on `h` itself so a concat / replication /
+                        // binary / ternary actual reaches its nested paths.
+                        bindConnPathRootTs53(h, *expr,
+                                             prefix + "." + std::string(ps.name),
+                                             parentNets);
                         // Struct-member conns: last element scopes through the
                         // child port path; the hier_path carries the struct ts
                         // ref + the parent's elab base net as vpiExpr.
@@ -10381,30 +10525,6 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                         ->VpiFullName(prefix + "." +
                                                       std::string(ps.name) + "." +
                                                       std::string(last->VpiName()));
-                            }
-                            auto& ce = stripImplicitConv(*expr);
-                            if (ce.kind == ExpressionKind::MemberAccess) {
-                                auto& mbase = stripImplicitConv(
-                                    ce.as<MemberAccessExpression>().value());
-                                if (mbase.kind == ExpressionKind::NamedValue) {
-                                    auto& bsym =
-                                        mbase.as<NamedValueExpression>().symbol;
-                                    if (auto tt = typedefTs.find(
-                                            (const Symbol*)&bsym.getDeclaredType()
-                                                ->getType());
-                                        tt != typedefTs.end()) {
-                                            auto* rt2 = s.MakeRef_typespec();
-                                            rt2->VpiFullName(
-                                                prefix + "." + std::string(ps.name) +
-                                                "." + std::string(hp->VpiName()));
-                                            rt2->VpiParent(hp);
-                                            rt2->Actual_typespec(tt->second);
-                                            hp->Typespec(rt2);
-                                        }
-                                    if (auto nit2 = parentNets->find(&bsym);
-                                        nit2 != parentNets->end())
-                                        hp->Root_value(nit2->second);
-                                }
                             }
                             // An IFACE-PORT member conn (.inp(conn.con_i)):
                             // the hier_path's vpiExpr is the ENCLOSING

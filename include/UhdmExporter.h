@@ -962,6 +962,28 @@ private:
         const slang::ast::InstanceSymbol& child);
     UHDM::interface_inst* makeBindIfaceTwin(UHDM::interface_inst* src, UHDM::instance* holder);
 
+    // § connPathRootTs53 — a hier_path that appears ANYWHERE inside an
+    // ELABORATED port-connection actual carries
+    //   * a `vpiTypespec` ref_typespec whose `vpiActual` is the typespec of the
+    //     path's ROOT object (`tl_h_i.a_opcode` -> `tlul_pkg::tl_h2d_t`, the
+    //     BASE struct, never the member's own type), named
+    //     `<child instance path>.<formal>.<the path's written text>`, and
+    //   * a `vpiExpr` (Root_value) bound to the PARENT instance's net/var for
+    //     that same root.
+    // Measured on Surelog over a1/a2_earl53: it fires for a 1-, 2- and 3-level
+    // member path, for a mid-path element select (`ha_i.pa[1].e0`), for concat /
+    // NESTED concat / replication / binary / ternary operands, for input and
+    // output directions, inside generate scopes and instance arrays, and for
+    // struct and union roots (an anonymous-struct or typedef'd-unpacked-array
+    // root is golden's too but is residue R1/R2 here).  The
+    // typespec is emitted only when the root's declared type HAS one
+    // (`typedefTs`): an ANONYMOUS unpacked array root (`el_t ea_i [0:1]`) gets
+    // the Root_value and NO typespec, which is why there is no typespec-KIND
+    // fence here — `array_typespec` is a legitimate actual (arm a2 `u_ua`).
+    // The DEF view's ref_module connections never reach this site.
+    void bindConnPathRootTs53(UHDM::any* h, const slang::ast::Expression& conn,
+                              const std::string& tsPrefix, NetMap* parentNets);
+
     // § ifaceDupSharesHomePorts: {tail dup, home view}. The home's ports are
     // built by the DEFERRED emitTopPorts drain, so the share is replayed late.
     std::vector<std::pair<UHDM::interface_inst*, UHDM::interface_inst*>>
