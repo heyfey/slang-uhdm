@@ -3414,6 +3414,30 @@ private:
     CallFold constCallFold(const slang::ast::Expression& expr);
     CallFold resolveConstExpr(const slang::ast::Expression& expr);
     bool pkgTopEmit = false;
+    // § pkgRetTopCallArgFormalTs8 (r10buvm8).  True only while emitting the
+    // EXPRESSION of a `return` that is a DIRECT statement of a PACKAGE-scope
+    // function's body, in the ELABORATED (TopPackages) listing.
+    //
+    // WHY THIS ONE CONTEXT.  Surelog compiles a package TWICE
+    // (CompilePackage.cpp FunctorCompilePackage): the elaborated Package with
+    // `Reduce::Yes` and the `getUnElabPackage()` twin with `Reduce::No`, and
+    // UhdmWriter puts the first in `design.TopPackages` and the second in
+    // `AllPackages`.  Inside a subroutine body, `compileStmt`'s `paRETURN` arm
+    // is the ONLY arm that threads the inherited `reduce` into
+    // `compileExpression` — every nested construct (`paSeq_block`, if, for,
+    // while, do, case, fork, and every assignment RHS through
+    // `compileBlockingAssignment`) hardcodes `Reduce::No`.  With `Reduce::Yes`,
+    // `compileExpression`'s user-function-call arm runs `EvalFunc`, and
+    // `ExprEval::evalFunc`'s "set args" loop stamps
+    //     exparg->Typespec()->Actual_typespec(io->Typespec()->Actual_typespec())
+    // on every actual — the callee formal's OWN typespec object, SHARED, in
+    // that same listing — BEFORE it discovers whether the body can be
+    // evaluated.  When the body folds, the whole call is replaced by the
+    // constant and the stamped actuals leave the tree with it; when it cannot
+    // (a DPI import has no body at all), the call survives carrying them.
+    // A class method and a module function are compiled once, with
+    // `Reduce::No`, and are bare — hence the `pkgScopeInst` half of the gate.
+    bool pkgRetTopExpr8 = false;
     // True only while emitting a package's typedef listing (both views). Lets
     // buildEnumTs keep a DEF-view PACKAGE enum base bound symbolic while
     // leaving module-context pkg-enum clones folded (distinguishes def-package

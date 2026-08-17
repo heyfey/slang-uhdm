@@ -3222,7 +3222,33 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         }
                     }
                 }
-                if (auto* e = emitExpr(*rs.expr, r, prefix, netMap)) {
+                // § pkgRetTopCallArgFormalTs8 (r10buvm8) — THE ONE WINDOW.
+                // Surelog compiles the ELABORATED package with Reduce::Yes and
+                // `compileStmt`'s paRETURN arm is the only arm that threads that
+                // reduce into `compileExpression`; every nested statement
+                // construct (paSeq_block included, so an EXPLICIT begin/end
+                // around the body CLOSES this window) hardcodes Reduce::No.
+                // See UhdmExporter.h `pkgRetTopExpr8` for the full mechanism.
+                // "Direct statement of the body" is exactly what Surelog's
+                // compileFunction reaches with the inherited reduce: the
+                // function's own Stmt, or a member of the synthetic `begin` a
+                // multi-statement body gets.
+                bool savedPRT8 = pkgRetTopExpr8;
+                if (pkgTopEmit && pkgScopeInst && tfBodyStmt9) {
+                    auto* b8 = (const Statement*)tfBodyStmt9;
+                    bool top8 = b8 == &stmt;
+                    if (!top8 && b8->kind == StatementKind::List)
+                        for (auto st8 : b8->as<StatementList>().list)
+                            if (st8 == &stmt) {
+                                top8 = true;
+                                break;
+                            }
+                    if (top8)
+                        pkgRetTopExpr8 = true;
+                }
+                auto* e = emitExpr(*rs.expr, r, prefix, netMap);
+                pkgRetTopExpr8 = savedPRT8;
+                if (e) {
                     r->VpiCondition((UHDM::expr*)e);
                     // § retUnbasedSizing — an UNBASED-UNSIZED return literal is
                     // sized to the FUNCTION RETURN TYPE and loses its QUOTE:

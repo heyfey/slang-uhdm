@@ -12348,6 +12348,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 auto* args = s.MakeAnyVec();
                 size_t argIdx = 0;
+                // § pkgRetArgTsFormalNameShadow8v (VERIFIER, r10buvm8) — the
+                // stamp TARGET map for the § pkgRetTopCallArgFormalTs8 window.
+                // `ExprEval::evalFunc` reduces actual i against a map that
+                // ALREADY holds the callee formals bound at positions < i, so an
+                // actual that is a BARE NAME equal to an earlier formal's name
+                // reduces to THAT EARLIER ARGUMENT OBJECT and formal i's
+                // typespec is written THERE, leaving actual i bare.  Measured
+                // (v11coll8.sv / v12coll8.sv, golden vs golden):
+                //   callee (a,b) <- (a,a) : arg0 = formal **b**'s ts, arg1 BARE
+                //   callee (a,b) <- (b,a) : arg0 = formal **b**'s ts, arg1 BARE
+                //   callee (a,b,c) <- (a,a,a) : arg0 = formal **c**, 1+2 BARE
+                //   callee (a,b) <- (a+1,a) : arg0 = formal **b**, arg1 BARE
+                //   callee (b,a) <- (a,a) : POSITIONAL, both stamped
+                //   callee (a,b) <- (b,b) : POSITIONAL (a LATER formal name
+                //                           is not in the map yet)
+                // key = formal name, value = the object that took that
+                // position's stamp.
+                std::map<std::string, UHDM::expr*> retStampTgt8v;
+                // § pkgRetTopArgTsElabTwin8's task_func, hoisted here (it is
+                // loop-invariant) so BOTH the positional stamp below and the
+                // name-shadow REDIRECT read the same object.
+                UHDM::task_func* stampTf8 = siTf;
+                if (pkgTopEmit && pkgRetTopExpr8)
+                    if (auto e8i = pkgElabSubTf.find(&sub);
+                        e8i != pkgElabSubTf.end() && e8i->second)
+                        stampTf8 = e8i->second;
+                // formal typespec for position `i`, the SHARED object golden
+                // binds (elab twin first, si.argTs otherwise).
+                auto formalTs8v = [&](size_t i) -> UHDM::typespec* {
+                    UHDM::typespec* t8 = i < si.argTs.size()
+                                             ? si.argTs[i].first : nullptr;
+                    if (stampTf8 && stampTf8 != si.tf && stampTf8->Io_decls() &&
+                        i < stampTf8->Io_decls()->size())
+                        if (auto* rte8 = (*stampTf8->Io_decls())[i]->Typespec())
+                            if (auto* ate8 = rte8->Actual_typespec())
+                                t8 = ate8;
+                    return t8;
+                };
                 // slang materialises a DEFAULTED formal as a full argument
                 // expression (located at the declaration's default). Surelog
                 // lists only the arguments actually WRITTEN — probe-verified
@@ -13050,9 +13088,116 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // Not stamping means not reading, so 14 Earlgrey
                         // ref_objs get their name computed at dump time from the
                         // finished tree and reach golden's string exactly.
+                        // § pkgRetTopCallArgFormalTs8 (r10buvm8) — the ONE new
+                        // disjunct of argCtxOk.  In the ELABORATED package
+                        // listing, a func_call reached from the expression of a
+                        // TOP-LEVEL `return` of a package function stamps the
+                        // callee formal's typespec on EVERY actual, with NO
+                        // reachability precondition at all — `pkgBodyEvald9`
+                        // (called as a cont-assign rhs / from a param
+                        // initialiser) is the wrong model here, because
+                        // `CompilePackage` compiles the whole elaborated package
+                        // with Reduce::Yes and the paRETURN arm threads it, so
+                        // the stamp lands on functions nothing evaluates.
+                        // BuildUVMPkg is the head: uvm_pkg.sv:9737
+                        // `return (uvm_re_match(s, str) == 0);` inside
+                        // uvm_is_match, which no cont-assign and no parameter
+                        // ever reaches.
+                        //
+                        // THE ARGUMENT KINDS ARE THE MEASURED SET.  v1/v2/v3
+                        // cross ref_obj, bit_select, constant (string literal on
+                        // a string formal included) and operation (on an `int`
+                        // formal included, which the sibling
+                        // `!(intFormal && operation)` fence would otherwise
+                        // block) — all stamped.  A `hier_path` actual takes
+                        // NOTHING (v1 a8d `dpi_ctx_i(c.cs, str)`, a8f
+                        // `dpi_pln_i(s, sv.a)`): `ExprEval::reduceExpr` returns
+                        // nullptr for a hier_path, so evalFunc's
+                        // `if (expr* exparg = reduceExpr(...))` never runs the
+                        // stamp.  A `func_call` actual takes nothing either
+                        // (v3 c7a `$signed(dpi_i(s,t))`, v2 b5a
+                        // `dpi_i(idn(s), t)`) — but ITS OWN actuals do, one
+                        // level down, which is why the window is a flag and not
+                        // a depth test.  `refArg` already excludes hier_path.
+                        // ...and `linked4` is the LAST half of the mechanism,
+                        // not a safety margin: `ExprEval::evalFunc` returns
+                        // immediately when `getTaskFunc(name, inst)` finds no
+                        // callee, so an UNRESOLVED call is never stamped.  That
+                        // is the whole 132-vs-61 split inside ONE golden
+                        // (uvm-1.2's uvm_pkg, cache 2175746050c0a188d7cc): its
+                        // ELABPKG/RETTOP/PKGFN cell is 61 ref_obj args ALL
+                        // stamped when the callee is BOUND and 132 ALL bare when
+                        // it is not — a clean partition, no cell straddling it.
+                        // § pkgRetCalleeDeclaredFirst8v (VERIFIER, r10buvm8)
+                        // — `linked4` reads OUR binder, and OURS resolves a
+                        // FORWARD reference inside a package that Surelog's
+                        // evaluator cannot: `ExprEval::evalFunc` returns
+                        // immediately when `getTaskFunc(name, inst)` misses, and
+                        // at the moment Surelog compiles a package function's
+                        // body only the subroutines declared EARLIER in that
+                        // package are registered.  So a call to a callee
+                        // declared LATER in the SAME package is BOUND in golden
+                        // (`vpiFunction` is filled by a later binding pass,
+                        // cfun=1) and its actuals are BARE.
+                        //
+                        // MEASURED, golden vs golden, v4order8.sv — every callee
+                        // there reaches a DPI import, so the fold is never the
+                        // fence and declaration order is the only variable:
+                        //   callee BEFORE caller            -> STAMPED (o1, o4h)
+                        //   callee == caller (recursion)    -> STAMPED (o3)
+                        //   callee AFTER caller (forward)   -> BARE
+                        //                                (o4f->o4g, o4g->o4f2,
+                        //                                 o2->late_cal)
+                        // Without this half, v4order8 took 6 objects golden does
+                        // not have and vfwdts8.sv — the same shape with formals
+                        // of a PACKAGE TYPEDEF type, so the minted
+                        // ref_typespec is cmp-visible — went
+                        // CMP_EQUAL -> CMP_NOTEQUAL.
+                        //
+                        // DECLARATION ORDER IS READ AS THE SCOPE MEMBER INDEX,
+                        // never as a SourceLocation: locations from different
+                        // macro-expansion buffers do not order stably (the
+                        // campaign's emitter-nondeterminism note), and uvm_pkg
+                        // declares half its subroutines inside macros.
+                        // Cross-scope callees are LEFT ALONE: another package's
+                        // function is compiled before the importer (v xpkg8 /
+                        // v7misc8 `qp7::qf` are both golden-stamped and both
+                        // stay stamped).
+                        bool calleeDeclFirst8v = true;
+                        if (currentSubSym && currentSubSym != (const Symbol*)&sub) {
+                            auto* csc8 = sub.getParentScope();
+                            auto* ksc8 = currentSubSym->getParentScope();
+                            if (csc8 && ksc8 &&
+                                &csc8->asSymbol() == &ksc8->asSymbol())
+                                calleeDeclFirst8v =
+                                    !(currentSubSym->getIndex() < sub.getIndex());
+                        }
+                        bool pkgRetArgTs8 =
+                            pkgTopEmit && pkgRetTopExpr8 && currentTf &&
+                            pkgScopeInst && linked4 && calleeDeclFirst8v &&
+                            (refArg || a->UhdmType() == UHDM::uhdmconstant ||
+                             a->UhdmType() == UHDM::uhdmoperation);
+                        // The name-shadow REDIRECT of
+                        // § pkgRetArgTsFormalNameShadow8v, computed here because
+                        // it decides whether THIS position gets an object at
+                        // all.  Applied ONLY where the stamp exists because of
+                        // this pass (`!argCtxOk`), so no cell the base binary
+                        // already stamped changes shape.
+                        UHDM::expr* shadowTgt8v = nullptr;
+                        bool shadowSkip8v = false;
+                        if (pkgRetArgTs8 && !argCtxOk &&
+                            a->UhdmType() == UHDM::uhdmref_obj) {
+                            auto sit8 = retStampTgt8v.find(
+                                std::string(((UHDM::ref_obj*)a)->VpiName()));
+                            if (sit8 != retStampTgt8v.end()) {
+                                shadowTgt8v = sit8->second;
+                                shadowSkip8v = true;
+                            }
+                        }
                         if (isFunc && !inProcessEmit && !inGenScopeProc &&
                             !defGenProcessEmit &&
-                            !caCondReduceStop && argCtxOk && !pkgScopedRef &&
+                            !caCondReduceStop && (argCtxOk || pkgRetArgTs8) &&
+                            !shadowSkip8v && !pkgScopedRef &&
                             !strFormalConst && !paramInitLit9 && !namedArgs9 &&
                             // A PROPERTY-DECL body's call args carry no
                             // formal-ts stamp (mriscv s2qed reg_map(inp1)).
@@ -13132,10 +13277,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // Earlgrey aes / aes_prng / prim_prince
                                 // through prim_cipher_pkg::sbox4_64bit
                                 // (aes_prng.sv:61).
-                                if (siTf && siTf != si.tf && siTf->Io_decls() &&
-                                    argIdx < siTf->Io_decls()->size())
+                                // § pkgRetTopCallArgFormalTs8, SECOND HALF —
+                                // AND THE ONE THING THE FIRST BUILD GOT WRONG.
+                                // Inside a package's OWN emission `siTf` is
+                                // deliberately left as the DEF object (the
+                                // `!curPkgEmitSym` guard where it is computed),
+                                // so the remap below could not fire and the
+                                // stamp bound the DEF listing's typespec.
+                                // `typespec::Compare` recurses `Instance()`, so
+                                // that made `package::Compare` read our def
+                                // package {top=0} against golden's elab one
+                                // {top=1} — BuildUVMPkg's cmp went 17 ->
+                                // 645 165 lines on THREE objects, with a dump
+                                // diff of exactly the three intended
+                                // ref_typespecs and nothing else.  Golden's
+                                // actual is the ELABORATED twin's io_decl
+                                // typespec, SHARED: measured on BuildUVMPkg,
+                                // golden's arg actuals are ids 428/431/389 and
+                                // its TopPackages io_decls' typespecs are
+                                // 428/431/389, while the AllPackages twins are
+                                // 60263/60266/60224.
+                                // (`stampTf8` is computed once, just above
+                                // the argument loop.)
+                                if (stampTf8 && stampTf8 != si.tf &&
+                                    stampTf8->Io_decls() &&
+                                    argIdx < stampTf8->Io_decls()->size())
                                     if (auto* rte9 =
-                                            (*siTf->Io_decls())[argIdx]->Typespec())
+                                            (*stampTf8->Io_decls())[argIdx]->Typespec())
                                         if (auto* ate9 = rte9->Actual_typespec())
                                             ats = ate9;
                                 if (ats)
@@ -13187,6 +13355,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     }
                                 }
                             }
+                        }
+                        // § pkgRetArgTsFormalNameShadow8v — record what THIS
+                        // position's stamp landed on, and on a SHADOWED position
+                        // write formal `argIdx`'s typespec onto the EARLIER
+                        // object instead of minting one here.  Recording the
+                        // TARGET (not `a`) is load-bearing: with callee (a,b,c)
+                        // taking (a,a,a) golden's map holds b -> arg0 as well,
+                        // which is why arg0 ends up carrying formal **c**'s
+                        // typespec and args 1 and 2 stay bare.
+                        if (pkgRetArgTs8 && !argCtxOk) {
+                            if (shadowSkip8v && shadowTgt8v &&
+                                shadowTgt8v->Typespec())
+                                if (auto* sats8v = formalTs8v(argIdx))
+                                    shadowTgt8v->Typespec()->Actual_typespec(
+                                        sats8v);
+                            auto fargs8v = sub.getArguments();
+                            if (argIdx < fargs8v.size())
+                                retStampTgt8v[std::string(
+                                    fargs8v[argIdx]->name)] =
+                                    shadowTgt8v ? shadowTgt8v : (UHDM::expr*)a;
                         }
                         args->push_back(a);
                     }
