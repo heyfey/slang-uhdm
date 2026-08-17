@@ -1158,6 +1158,14 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     // § classHomedTypeTsNoPkgInstance4 gate (site 1 of 2) — see the predicate.
     if (elemTs && tsInst && !elemTs->Instance() && !classHomedType4(qelem0))
         elemTs->Instance(tsInst);
+    // § classScopedTdDeclTsUnsupported11, SITE 4a of 5 (queue / dynamic) — the DECLARATOR-ARRAY
+    // local.  Golden binds the SAME placeholder object to the array_typespec's
+    // ELEMENT ref AND to the element variable's own ref (grid11 `g8`, all four
+    // declarator forms, both directions), so the substitution is made on
+    // `elemTs` itself — AFTER the vpiInstance stamp above, which golden's
+    // placeholder never carries.
+    if (auto* uts11 = makeScopedTdUnsupTs11(vs))
+        elemTs = uts11;
     auto* av = s.MakeArray_var();
     av->VpiName(vs.name);
     av->VpiFullName(afull);
@@ -1349,6 +1357,14 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
     // measured separately (grid q11) rather than generalised from the queue arm.
     if (elemTs && tsInst && !elemTs->Instance() && !classHomedType4(elem0))
         elemTs->Instance(tsInst);
+    // § classScopedTdDeclTsUnsupported11, SITE 4b of 5 (associative) — the DECLARATOR-ARRAY
+    // local.  Golden binds the SAME placeholder object to the array_typespec's
+    // ELEMENT ref AND to the element variable's own ref (grid11 `g8`, all four
+    // declarator forms, both directions), so the substitution is made on
+    // `elemTs` itself — AFTER the vpiInstance stamp above, which golden's
+    // placeholder never carries.
+    if (auto* uts11 = makeScopedTdUnsupTs11(vs))
+        elemTs = uts11;
     auto* av = s.MakeArray_var();
     av->VpiName(vs.name);
     av->VpiFullName(afull);
@@ -3064,7 +3080,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // module-homed function alike (arm a3 cells 16/24/29/52/59, arm a1
             // cells 8/11/16/19).  `uvm_tr_stream::get_recorders` @371:13 and
             // `uvm_tr_database::get_streams` @186:13 are this cell.
-            // § classTdLocalVarKindFollowsCompileOrder10, SITE 3 of 3 — THE
+            // § classTdLocalVarKindFollowsCompileOrder10, SITE 3 of 5 — THE
             // RETURN VARIABLE.  Surelog compiles it with the same
             // `compileVariable`, so the same law governs it: grid `g7`'s
             // `r_late_struct` / `r_late_cls` are `class_var` in golden against
@@ -3418,7 +3434,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     importCopyTsCollect->push_back(ts);
             }
             rv->Typespec(rt);
-            if (sub.returnValVar)
+            // § classScopedTdDeclTsUnsupported11, SITE 3 of 5 — the RETURN
+            // variable.  `function uvm_resource_types::rsrc_q_t lookup_name(…)`
+            // is the same declaration written at the return-type token: six
+            // rows on every UVM design, at 868:12 / 1010:12 / 1065:12 /
+            // 1076:12 / 1109:12 / 1269:12.
+            if (auto* uts11 = makeScopedTdUnsupTs11(sub))
+                rt->Actual_typespec(uts11);
+            else if (sub.returnValVar)
                 deferForeignTopTs(*sub.returnValVar, rt, ts);
             // A struct/enum/unpacked-array return's shared typespec sits at
             // the typedef, so the return var takes the return-TYPE syntax
@@ -4758,6 +4781,11 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     if (elemTs && tsInst && !elemTs->Instance())
                         elemTs->Instance(importCopyTsInst ? importCopyTsInst
                                                           : tsInst);
+                    // § classScopedTdDeclTsUnsupported11, SITE 4c of 5 —
+                    // the FIXED-SIZE declarator array, tf-item form.  grid11
+                    // `g8` `a_fx` / `k_fx`.
+                    if (auto* uts11 = makeScopedTdUnsupTs11(fmv))
+                        elemTs = uts11;
 
                     auto* av = s.MakeArray_var();
                     av->VpiName(fmv.name);
@@ -5151,9 +5179,22 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 auto* vrt = s.MakeRef_typespec();
                 vrt->VpiFullName(vfull);
                 vrt->VpiParent(v);
-                vrt->Actual_typespec(vts);
                 v->Typespec(vrt);
-                deferForeignTopTs(fmv, vrt, vts);
+                // § classScopedTdDeclTsUnsupported11, SITE 1 of 5 — the
+                // SUBROUTINE-BODY local.  `Owner::td` never reaches a class
+                // through Surelog's compileTypespec, so the declaration keeps
+                // the catch-all placeholder unless `td` CLAIMED its target's
+                // typespec slot; EmitHelpers.h carries the law and the grid11
+                // cell behind each of its four questions.  Applied to the
+                // BINDING and nothing else: the variable's own class, span and
+                // parent are § classTdLocalVarKindFollowsCompileOrder10's and
+                // are already golden-exact.
+                if (auto* uts11 = makeScopedTdUnsupTs11(fmv))
+                    vrt->Actual_typespec(uts11);
+                else {
+                    vrt->Actual_typespec(vts);
+                    deferForeignTopTs(fmv, vrt, vts);
+                }
                 if (!hasInit && !blockLocal && !blockItems9)
                     v->VpiAutomatic(true);
                 // § r10fsv3.  A body local written with the `automatic`

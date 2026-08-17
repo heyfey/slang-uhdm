@@ -1171,7 +1171,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 b = ub;
             }
             b->VpiParent(parent);
-            // § blockLocalSameCtrlDepthArgBinds57 — CALL SITE 2 of 3 (the
+            // § blockLocalSameCtrlDepthArgBinds57 — CALL SITE 2 of 5 (the
             // recorder).  From here to this case's `return b` this block is
             // OPEN at the current ctrlBodyDepth28, which is what lets a
             // call-argument reference tell "declared where I am reading"
@@ -1290,9 +1290,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         }
                         if (auto* arng0 = buildUnpackedRanges(bm, ats0))
                             ats0->Ranges(arng0);
+                        // § classScopedTdDeclTsUnsupported11, SITE 5 of 5 —
+                        // the FIXED-SIZE declarator array, BLOCK-item form.
+                        // grid11 `g8` `a_fx` / `k_fx`.
+                        UHDM::typespec* ets0 = ts;
+                        if (auto* uts11 = makeScopedTdUnsupTs11(bm))
+                            ets0 = uts11;
                         auto* ert0 = s.MakeRef_typespec();
                         ert0->VpiParent(ats0);
-                        ert0->Actual_typespec(ts);
+                        ert0->Actual_typespec(ets0);
                         ats0->Elem_typespec(ert0);
                         auto* art0 = s.MakeRef_typespec();
                         art0->VpiFullName(bfull);
@@ -1305,7 +1311,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         auto* rrt0 = s.MakeRef_typespec();
                         rrt0->VpiFullName(bfull);
                         rrt0->VpiParent(reg0);
-                        rrt0->Actual_typespec(ts);
+                        rrt0->Actual_typespec(ets0);
                         reg0->Typespec(rrt0);
                         // § typeParamRetIsRefVar58 — no vpiSigned on a
                         // ref_var; the same repeat of the law as the
@@ -1365,7 +1371,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     auto* rt = s.MakeRef_typespec();
                     rt->VpiFullName(bfull);
                     rt->VpiParent(v);
-                    rt->Actual_typespec(ts);
+                    // § classScopedTdDeclTsUnsupported11, SITE 2 of 5 — the
+                    // BLOCK-ITEM local (`begin` / `fork` body, an `initial`
+                    // body).  Same law, same three questions; grid11 `g3`
+                    // `blk3::l_blk` is the cell that scores this site on its
+                    // own.
+                    if (auto* uts11 = makeScopedTdUnsupTs11(bm))
+                        rt->Actual_typespec(uts11);
+                    else
+                        rt->Actual_typespec(ts);
                     v->Typespec(rt);
                     if (!vlogHiddenTy)
                         blockMap[&bm] = v;

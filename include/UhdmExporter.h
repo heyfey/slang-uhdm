@@ -2385,6 +2385,44 @@ private:
     // a symbol table, so no reference in the body takes an actual (formals,
     // block locals and loop iterators alike).
     bool unitSubNoBind9 = false;
+    // § classScopedTdDeclTsUnsupported11 — see src/EmitHelpers.h for the law.
+    // The CLAIM TABLE: for every DataType named by at least one typedef in the
+    // design, the smallest (group, container, name) key naming it — Surelog's
+    // `bindTypedefs_` order, which decides which single typedef repairs its
+    // `Owner::td` placeholder and which ones keep it.  Built once, lazily.
+    struct TdClaim11 {
+        int group = 9;
+        std::string container;
+        std::string name;
+        bool operator<(const TdClaim11& o) const {
+            if (group != o.group)
+                return group < o.group;
+            if (container != o.container)
+                return container < o.container;
+            return name < o.name;
+        }
+    };
+    std::map<const slang::ast::Symbol*, TdClaim11> tdClaims11;
+    bool tdClaims11Built = false;
+    void buildTdClaims11();
+    void collectTdClaims11(const slang::ast::Scope& sc, int group,
+                           const std::string& container, int depth);
+    /// Questions (2)+(3) alone: does this typedef LOSE the race for its
+    /// target's typespec slot?
+    bool tdDegrades11(const slang::ast::TypeAliasType& al);
+    /// V-FIX vsd11, question (5): can the WRITTEN spelling name the repair key
+    /// `<declaring class>::<typedef>` at all?  A derived class's spelling, a
+    /// multi-segment path and an interface-class owner never can.
+    bool scopedTdReaches11(const slang::ast::TypeAliasType& al,
+                           const std::vector<std::string_view>& segs);
+    /// The WRITTEN scoped text (`uvm_resource_types::rsrc_q_t`) when this
+    /// declaration's typespec degrades to the unsupported placeholder, else
+    /// empty.
+    std::string classScopedTdUnsupName11(const slang::ast::Symbol& declSym);
+    /// The `Owner::` prefix span the placeholder carries, or an invalid range.
+    slang::SourceRange scopedTdPrefixSpan11(const slang::ast::Symbol& declSym);
+    /// Mint the placeholder for `declSym`, or return null.
+    UHDM::typespec* makeScopedTdUnsupTs11(const slang::ast::Symbol& declSym);
     // True while emitting a subroutine body that belongs to the package's
     // UN-ELABORATED (def) view: a package function in the def pass, or an
     // out-of-body class-method CLONE in the def package's Task_funcs. Surelog

@@ -16061,4 +16061,270 @@ UHDM::packed_array_net* UhdmExporter::emitPackedStructArrayNet(const Symbol& sym
     return pan;
 }
 
+// ---------------------------------------------------------------------------
+// § classScopedTdDeclTsUnsupported11 — the CLAIM TABLE and the placeholder
+// factory.  The law, its four questions and the grid11 cell behind each one
+// live in src/EmitHelpers.h; this file only implements them.
+
+void UhdmExporter::collectTdClaims11(const Scope& sc, int group,
+                                     const std::string& container, int depth) {
+    // A class body can nest classes; 8 is far past anything a corpus source
+    // writes and keeps a malformed tree from walking forever.
+    if (depth > 8)
+        return;
+    for (auto& mem : sc.members()) {
+        if (mem.kind == SymbolKind::TypeAlias) {
+            auto& al = mem.as<TypeAliasType>();
+            const Symbol* slot = tdSlot11(al);
+            TdClaim11 k{group, container, std::string(al.name)};
+            auto it = tdClaims11.find(slot);
+            if (it == tdClaims11.end())
+                tdClaims11.emplace(slot, k);
+            else if (k < it->second)
+                it->second = k;
+            continue;
+        }
+        // V-FIX vsd11 — INTERFACE CLASSES ARE NOT IN THE LIST.  Neither their
+        // typedefs nor anything nested in them enters the race; see
+        // isIfaceClass11 in EmitHelpers.h for the two cells that measure it.
+        if (isIfaceClass11(mem))
+            continue;
+        if (mem.kind == SymbolKind::ClassType) {
+            collectTdClaims11(mem.as<ClassType>(), 4, surelogClassKey11(mem),
+                              depth + 1);
+            continue;
+        }
+        if (mem.kind == SymbolKind::GenericClassDef) {
+            // A generic class's typedefs are only reachable through its
+            // SPECIALISATIONS, and question (4) says all of them share ONE
+            // claim keyed on the generic — so every specialisation is walked
+            // under the GENERIC's own registered name.  `specializations()`
+            // iterates an unordered map; that is safe here because the table
+            // keeps a MINIMUM over the keys and never an insertion order.
+            const std::string gk = surelogClassKey11(mem);
+            auto& g = mem.as<GenericClassDefSymbol>();
+            // ONLY the specialisations the design ACTUALLY MADE.  Asking for
+            // the DEFAULT one (`getDefaultSpecialization`) MINTS a
+            // specialisation that did not exist, and that is not free: it
+            // changed `uvm_utils#(TYPE)::types_t`'s `[$]` right-range constant
+            // on SeqDriver from `UINT:0` to `UINT:1475` — two dump lines, both
+            // wrong (golden writes `STRING:$`), attributed by the per-shape
+            // verifier before this call was removed.  Every claimant the corpus
+            // needs is in a REAL specialisation: `uvm_queue#(uvm_resource_base)`
+            // carries the `this_type` that pushes `rsrc_q_t` out.
+            for (auto& spec : g.specializations())
+                if (spec.kind == SymbolKind::ClassType)
+                    collectTdClaims11(spec.as<ClassType>(), 4, gk, depth + 1);
+        }
+    }
+}
+
+void UhdmExporter::buildTdClaims11() {
+    if (tdClaims11Built)
+        return;
+    tdClaims11Built = true;
+    // Surelog's `bindTypedefs_` order, group by group.  Group 0 is the
+    // $unit / file-content pass, group 1 packages, group 2 modules, group 3
+    // programs, group 4 classes; the class group is reached RECURSIVELY from
+    // the first four, which is why a class carries its own registered name as
+    // its container rather than the scope it was walked from.
+    for (auto unit : comp.getCompilationUnits())
+        collectTdClaims11(*unit, 0, std::string(), 0);
+    for (auto pkg : comp.getPackages())
+        collectTdClaims11(*pkg, 1, std::string(pkg->name), 0);
+    // MODULES: only the INSTANTIATED bodies are reachable here, so a typedef
+    // in a module the design never instantiates is invisible to this table.
+    // Stated rather than hidden: it can only ever make this predicate answer
+    // "claimed" (the safe, unchanged direction), and no corpus row or grid
+    // cell exercises it.
+    for (auto inst : comp.getRoot().topInstances)
+        collectTdClaims11(inst->body, 2, std::string(inst->body.name), 0);
+}
+
+// Questions (2) and (3) on their own: does THIS typedef lose the race for its
+// target's typespec slot?  Named separately because the answer is needed twice
+// — once for the typedef the declaration writes, and once for the typedef that
+// one names (see the nested-target limit in classScopedTdUnsupName11).
+bool UhdmExporter::tdDegrades11(const TypeAliasType& al) {
+    const Symbol* slot = tdSlot11(al);
+    // A typedef whose chain ends at a type declared IN PLACE owns its own
+    // DataType: nothing else can have filled that slot first, so it always
+    // resolves (`g1`'s nine in-place cells, all unmoved).
+    if (slot == (const Symbol*)&al)
+        return false;
+    buildTdClaims11();
+    auto it = tdClaims11.find(slot);
+    if (it == tdClaims11.end())
+        return false;
+    const Scope* home = al.getParentScope();
+    if (!home)
+        return false;
+    const Symbol& hs = home->asSymbol();
+    int group = hs.kind == SymbolKind::Package           ? 1
+                : hs.kind == SymbolKind::CompilationUnit ? 0
+                : hs.kind == SymbolKind::InstanceBody    ? 2
+                : hs.kind == SymbolKind::ClassType       ? 4
+                                                         : 9;
+    std::string container =
+        group == 4 ? surelogClassKey11(hs) : std::string(hs.name);
+    TdClaim11 mine{group, container, std::string(al.name)};
+    return it->second < mine;
+}
+
+// V-FIX vsd11 — QUESTION (5), REACH, which the shipped predicate did not ask.
+//
+// `bindTypedefs_` repairs the placeholder by looking the WRITTEN text up in a
+// map whose class-scoped key is built as `<the class the typedef is DECLARED
+// in>::<the typedef's name>` — one segment of scope, the DECLARING class, and
+// nothing else.  So a written owner that names anything but that exact class
+// can never be repaired, whatever the CLAIM says.
+//
+//   MEASURED, vgrid11 `vc`, where EVERY typedef is the SOLE namer of its target
+//   so the claim is satisfied for all five and only reach can separate them:
+//     `abasec::inh_t`          declaring class, one segment  golden RESOLVES
+//     `adervc::inh_t`          the DERIVED class's spelling  golden DEGRADES
+//     `adervc::own_t`          declaring class               golden RESOLVES
+//     `innerc::deep_t`         declaring class, nested       golden RESOLVES
+//     `abasec::innerc::deep_t` MULTI-SEGMENT                 golden DEGRADES
+//   and vgrid11 `v9` `aout9::ainn9::deep_int_t`, whose target is `int` declared
+//   IN PLACE — the one shape the shipped law says can NEVER degrade — golden
+//   DEGRADES it too, because reach fails before the claim is ever asked.
+//   `v5` `zderv5::base_t` is the same fact on the corpus-shaped case.
+//
+// The NAME golden writes when reach fails is `<first segment>::<last segment>`,
+// not the whole written text: `aout9::ainn9::deep_t` -> `aout9::deep_t` (`v9`)
+// and `abasec::innerc::deep_t` -> `abasec::deep_t` (`vc`).  The SPAN is
+// unchanged — start of the type to the start of the LAST segment — and both
+// cells confirm it (31:7-31:21 over `aout9::ainn9::`, 32:7-32:23 over
+// `abasec::innerc::`).
+bool UhdmExporter::scopedTdReaches11(const TypeAliasType& al,
+                                     const std::vector<std::string_view>& segs) {
+    if (segs.size() != 2)
+        return false;
+    const Scope* home = al.getParentScope();
+    if (!home)
+        return false;
+    const Symbol& hs = home->asSymbol();
+    if (hs.kind != SymbolKind::ClassType || isIfaceClass11(hs))
+        return false;
+    return hs.name == segs.front();
+}
+
+std::string UhdmExporter::classScopedTdUnsupName11(const Symbol& declSym) {
+    const DeclaredType* dt = declSym.getDeclaredType();
+    if (!dt)
+        return {};
+    std::vector<std::string_view> segs;
+    if (!scopedTdSegs11(dt, segs))                       // (1) SPELLING
+        return {};
+    const Scope* from = declSym.getParentScope();
+    if (!from)
+        return {};
+    const TypeAliasType* al = scopedTdLeaf11(*from, segs);
+    if (!al)
+        return {};
+    // (5) REACH, then (2)+(3) CLAIM.  Reach failing binds the placeholder
+    // outright; only a declaration that CAN be repaired is asked whether it IS.
+    if (scopedTdReaches11(*al, segs) && !tdDegrades11(*al))
+        return {};
+    // A LIMIT, stated and gated rather than guessed at.  When the typedef's OWN
+    // written target is a CLASS-SCOPED name AND that target typedef itself
+    // degrades, Surelog cannot compile the TYPEDEF either: golden's object is
+    // then the TYPEDEF's own `unsupported_typespec` — named `td` and spanned at
+    // the TYPEDEF — and NOT the declaration-site placeholder this factory
+    // mints.  grid11 reads all three arms off one golden:
+    //   `g6` `t_td`  = `typedef zother6::o_t t_td;`, and `o_t` degrades
+    //                  -> golden `unsupported_typespec (t_td) @38:13`  DECLINE
+    //   `g1` `ss_t`  = `typedef zholda1::s_t ss_t;`, and `s_t` RESOLVES
+    //                  -> golden `unsupported_typespec (zholdb1::ss_t) @51:7`
+    //   `g6` `t_self`= `typedef t_cls t_self;`, target written BARE
+    //                  -> golden `unsupported_typespec (zh6::t_self) @63:7`
+    // Modelling the declined arm means changing the TYPEDEF LISTING object,
+    // which this pass does not touch.  No corpus row takes it —
+    // `uvm_resource_types::rsrc_q_t`'s target is `uvm_queue#(uvm_resource_base)`,
+    // a plain unscoped name.
+    if (auto* atsyn = al->getSyntax())
+        if (atsyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+            if (const syntax::DataTypeSyntax* att =
+                    atsyn->as<syntax::TypedefDeclarationSyntax>().type;
+                att && att->kind == syntax::SyntaxKind::NamedType)
+                if (const syntax::NameSyntax* an =
+                        att->as<syntax::NamedTypeSyntax>().name;
+                    an && an->kind == syntax::SyntaxKind::ScopedName) {
+                    std::vector<std::string_view> tsegs;
+                    std::function<bool(const syntax::NameSyntax*)> tw =
+                        [&](const syntax::NameSyntax* n) -> bool {
+                        if (!n)
+                            return false;
+                        if (n->kind == syntax::SyntaxKind::ScopedName) {
+                            auto& sn2 = n->as<syntax::ScopedNameSyntax>();
+                            return tw(sn2.left) && tw(sn2.right);
+                        }
+                        if (n->kind == syntax::SyntaxKind::IdentifierName) {
+                            tsegs.push_back(
+                                n->as<syntax::IdentifierNameSyntax>()
+                                    .identifier.valueText());
+                            return true;
+                        }
+                        return false;
+                    };
+                    // V-FIX vsd11: the declined arm asks the SAME two questions
+                    // the declaration is asked — reach THEN claim — so a target
+                    // written `A::B::td`, or on a derived class, or on an
+                    // interface class, declines for the same reason it would
+                    // degrade.
+                    if (tw(an) && tsegs.size() >= 2)
+                        if (const Scope* ah = al->getParentScope())
+                            if (const TypeAliasType* tgt =
+                                    scopedTdLeaf11(*ah, tsegs);
+                                tgt && (!scopedTdReaches11(*tgt, tsegs) ||
+                                        tdDegrades11(*tgt)))
+                            return {};
+                }
+    // V-FIX vsd11 — the NAME is `<first segment>::<LAST segment>`, which is the
+    // whole written text for the two-segment spelling every grid11 cell and
+    // every corpus row uses, and drops the middle for a longer one (`v9`, `vc`).
+    return std::string(segs.front()) + "::" + std::string(segs.back());
+}
+
+SourceRange UhdmExporter::scopedTdPrefixSpan11(const Symbol& declSym) {
+    const DeclaredType* dt = declSym.getDeclaredType();
+    if (!dt)
+        return SourceRange();
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return SourceRange();
+    auto& nt = tsyn->as<syntax::NamedTypeSyntax>();
+    if (!nt.name || nt.name->kind != syntax::SyntaxKind::ScopedName)
+        return SourceRange();
+    // `populateCoreMembers(type, type, ref)` on the paClass_scope NODE spans
+    // `Owner::` — the start of the written type to the start of its LAST
+    // segment, NOT the whole type name.  Measured on every grid11 cell that
+    // degrades (`g1` `zholdb1::cq_t` 21:7-21:16 over a 9-character prefix) and
+    // on the SeqDriver head (717:5-717:25 over `uvm_resource_types::`).
+    auto& sn = nt.name->as<syntax::ScopedNameSyntax>();
+    if (!sn.right)
+        return SourceRange();
+    auto s0 = tsyn->sourceRange().start();
+    auto s1 = sn.right->sourceRange().start();
+    if (s0 == SourceLocation::NoLocation || s1 == SourceLocation::NoLocation)
+        return SourceRange();
+    return SourceRange(s0, s1);
+}
+
+UHDM::typespec* UhdmExporter::makeScopedTdUnsupTs11(const Symbol& declSym) {
+    std::string nm = classScopedTdUnsupName11(declSym);
+    if (nm.empty())
+        return nullptr;
+    // Golden's object carries a vpiName and a span and NOTHING else — no
+    // parent, no vpiFullName, no vpiInstance (read straight off the SeqDriver
+    // head's LHS decompile, which prints one line).
+    auto* uts = s.MakeUnsupported_typespec();
+    uts->VpiName(nm);
+    auto sr = scopedTdPrefixSpan11(declSym);
+    if (sr.start() != SourceLocation::NoLocation)
+        setLoc(uts, sr);
+    return uts;
+}
+
 } // namespace slang_uhdm

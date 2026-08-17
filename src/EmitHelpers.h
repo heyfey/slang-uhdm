@@ -3003,6 +3003,257 @@ inline TdLocalVarKind10 classTdLocalVarKind10(const slang::ast::Symbol& declSym)
                          : TdLocalVarKind10::RefVar;
 }
 
+// ---------------------------------------------------------------------------
+// § classScopedTdDeclTsUnsupported11
+//
+// THE LAW.  A declaration whose type is WRITTEN `Owner::td`, with `Owner` a
+// CLASS, does NOT bind `td`'s real typespec.  It binds an
+// `unsupported_typespec` NAMED with the WRITTEN SCOPED TEXT and SPANNED over
+// the CLASS-SCOPE PREFIX (`Owner::`, start of the type to the start of the last
+// segment) — UNLESS `td` is the typedef that CLAIMED its target's typespec
+// slot, in which case the real typespec binds and nothing changes.
+//
+// WHY, read off Surelog and then measured cell by cell (grid11):
+//   `CompileHelper::compileTypespec`'s `paPackage_scope / paClass_scope` arm
+//   (CompileType.cpp ~1518) resolves the scope with EXACTLY ONE lookup,
+//   `design->getPackage(<written scope name>)`.  There is no class lookup at
+//   all, so `Owner::td` with a CLASS owner ALWAYS ends at the arm's tail
+//   `unsupported_typespec` named `Owner::td` and spanned by
+//   `populateCoreMembers(type, type, ref)` over the paClass_scope NODE — which
+//   covers `Owner::` and not the leaf.  THAT IS THE OBJECT GOLDEN KEEPS.
+//   `compileVariable`'s own paClass_scope arm (~554) then overwrites the
+//   variable's typespec with that same object and calls
+//   `component->needLateTypedefBinding(var)`.
+//
+//   The placeholder is repaired later, in `ElaborationStep::bindTypedefs_`,
+//   and ONLY through a `std::map<std::string, typespec*> specs` whose
+//   class-scoped key `Owner::td` is added at exactly ONE place: the
+//   `noTypespec == true` branch, i.e. the branch a typedef takes only when its
+//   TARGET DataType's typespec slot was still EMPTY when the typedef was
+//   processed.  A typedef whose target already carries a typespec takes the
+//   `else` at the top of the loop, which keys `specs` off the ALREADY-CLAIMED
+//   typespec's OWN name (`Owner::<that name>`) — so `Owner::td` is never a key,
+//   the swap never fires, and the placeholder survives into the database.
+//
+//   `bindTypedefs_` walks its typedefs in ONE order and fills each target's
+//   slot on first touch:
+//        $unit/file typedefs -> PACKAGE typedefs -> module -> program
+//        -> CLASS typedefs, LAST,
+//   iterating name-ordered maps at both levels (`ClassNameClassDefinition-
+//   MultiMap` by fully-qualified class name, `TypeDefMap` = `std::map<
+//   std::string, TypeDef*, StringViewCompare>` by typedef name).  So the
+//   CLAIMER of a target is the typedef with the smallest
+//   (group, container-name, typedef-name) key, and every other typedef naming
+//   the same target degrades.
+//
+// THE FOUR QUESTIONS, and the grid11 cell behind each:
+//   (1) SPELLING — the type is written `Owner::td`, a ScopedName whose ROOT
+//       resolves to a CLASS.  A PACKAGE root takes `compileTypespec`'s
+//       `getPackage` arm and resolves (`g4` `p_scoped`); a BARE name never
+//       reaches this arm at all (`g4` `b_inh` / `b_own`).
+//   (2) TARGET IS A NAME — `td`'s target must be another DataType: a class, a
+//       class specialisation, or another typedef, with any number of
+//       DECLARATOR dimensions on top.  A target declared IN PLACE has no
+//       shared slot and always resolves: `g1` proves it for int / enum /
+//       struct / packed struct / logic vector / string / `int m_t[string]` /
+//       `int n_t[4]`, all NINE unmoved.
+//   (3) CLAIM — `td` is not the smallest key naming that target.  `g1`
+//       `c_t` (first by NAME in its class) resolves while `ca_t` and `cq_t`
+//       degrade; `g7` `n7::a_t` (first by CONTAINER) resolves while `x7::b_t`
+//       degrades; `g7` `pk_t`, a PACKAGE typedef, claims ahead of BOTH
+//       `n7::c_t` and `x7::d_t`; `g7` `n7::u_t`, the only typedef naming its
+//       target, resolves.
+//   (4) GENERIC GROUPING — two DIFFERENT SPECIALISATIONS of one generic class
+//       share ONE claim.  `g7` `n7::p_a` (`zg7#(int)`) resolves and `x7::p_b`
+//       (`zg7#(byte)`) degrades, so the target key is the GENERIC, not the
+//       specialisation.  This is what puts UVM's `uvm_queue#(T)::this_type`
+//       ahead of `uvm_resource_types::rsrc_q_t` (`uvm_pkg::uvm_queue` <
+//       `uvm_pkg::uvm_resource_types`) and is the whole SeqDriver head.
+//
+// SITE IS IRRELEVANT: `g3` reads the same typedef as a body local, a
+// block-item local, a task local, an array-declarator local, a RETURN type and
+// three FORMALS, and golden binds the SAME real typespec to all eight when the
+// typedef claims its slot.  This pass therefore changes ONLY the three
+// SUBROUTINE-scope sites § classTdLocalVarKindFollowsCompileOrder10 already
+// owns; the FORMAL site keeps § classScopedTdFormalUnsupported34's older,
+// claim-blind predicate and its over-fire is filed as this pass's residue R1
+// with `g3` as its cell.
+
+// The WRITTEN segments of a `A::b` (or `A::b::c`) type, left to right.
+// IDENTIFIER segments only: a PARAMETERISED owner (`aparm#(int)::td`) is a
+// `ClassName` node, is outside every measured cell, and is refused rather than
+// guessed at.
+inline bool scopedTdSegs11(const slang::ast::DeclaredType* dt,
+                           std::vector<std::string_view>& segs) {
+    if (!dt)
+        return false;
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return false;
+    auto& nt = tsyn->as<syntax::NamedTypeSyntax>();
+    if (!nt.name || nt.name->kind != syntax::SyntaxKind::ScopedName)
+        return false;
+    std::function<bool(const syntax::NameSyntax*)> walk =
+        [&](const syntax::NameSyntax* n) -> bool {
+        if (!n)
+            return false;
+        if (n->kind == syntax::SyntaxKind::ScopedName) {
+            auto& sn = n->as<syntax::ScopedNameSyntax>();
+            return walk(sn.left) && walk(sn.right);
+        }
+        if (n->kind == syntax::SyntaxKind::IdentifierName) {
+            segs.push_back(
+                n->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+            return true;
+        }
+        return false;
+    };
+    return walk(nt.name) && segs.size() >= 2;
+}
+
+// The TypeAlias a `A::b(::c)` spelling names, or null — with the ROOT required
+// to be a CLASS, which is the whole difference between this law and the
+// package-scoped control (`g4` `p_scoped`, unmoved).
+inline const slang::ast::TypeAliasType* scopedTdLeaf11(
+    const slang::ast::Scope& from, const std::vector<std::string_view>& segs) {
+    const slang::ast::Symbol* root = nullptr;
+    for (const slang::ast::Scope* sc = &from; sc && !root;
+         sc = sc->asSymbol().getParentScope())
+        root = sc->find(segs.front());
+    if (!root)
+        return nullptr;
+    const slang::ast::Scope* cur = nullptr;
+    if (root->kind == slang::ast::SymbolKind::ClassType)
+        cur = &root->as<slang::ast::ClassType>();
+    else if (root->kind == slang::ast::SymbolKind::GenericClassDef) {
+        if (auto* ds = root->as<slang::ast::GenericClassDefSymbol>()
+                           .getDefaultSpecialization(from);
+            ds && ds->kind == slang::ast::SymbolKind::ClassType)
+            cur = &ds->as<slang::ast::ClassType>();
+    }
+    if (!cur)
+        return nullptr;
+    const slang::ast::Symbol* leaf = nullptr;
+    for (size_t i = 1; i < segs.size(); i++) {
+        leaf = cur->find(segs[i]);
+        if (!leaf)
+            return nullptr;
+        if (i + 1 < segs.size()) {
+            if (leaf->kind != slang::ast::SymbolKind::ClassType)
+                return nullptr;
+            cur = &leaf->as<slang::ast::ClassType>();
+        }
+    }
+    if (!leaf || leaf->kind != slang::ast::SymbolKind::TypeAlias)
+        return nullptr;
+    return &leaf->as<slang::ast::TypeAliasType>();
+}
+
+// The DataType whose typespec SLOT this typedef competes for — Surelog's
+// `typd->getDefinition()->getActual()`, i.e. the END of the definition chain.
+//
+// Declarator containers are peeled (`typedef zelem cq_t[$]` competes for
+// `zelem`, grid11 `g1` `cq_t`), a chain of typedef NAMES is chased to its end
+// (`g1` `ss_t` -> `s_t`, `g6` `t_self` -> `t_cls` -> `zelem6`), a
+// SPECIALISATION reports its GENERIC (question (4), `g7` `p_a` / `p_b`), and a
+// typedef whose chain ends at a type declared IN PLACE owns its own DataType
+// and therefore reports ITSELF — which is what makes `g1`'s `s_t` the claimant
+// that pushes `ss_t` out.  Never null: every typedef contests exactly one slot.
+inline const slang::ast::Symbol* tdSlot11(const slang::ast::TypeAliasType& al) {
+    const slang::ast::TypeAliasType* cur = &al;
+    // 16 is far past any corpus chain and keeps a cyclic alias (which slang
+    // rejects, but a malformed tree could still present) from looping.
+    for (int hop = 0; hop < 16; hop++) {
+        const slang::ast::Type* t = &cur->targetType.getType();
+        for (int guard = 0; guard < 8; guard++) {
+            if (t->kind == slang::ast::SymbolKind::QueueType)
+                t = &t->as<slang::ast::QueueType>().elementType;
+            else if (t->kind == slang::ast::SymbolKind::DynamicArrayType)
+                t = &t->as<slang::ast::DynamicArrayType>().elementType;
+            else if (t->kind == slang::ast::SymbolKind::AssociativeArrayType)
+                t = &t->as<slang::ast::AssociativeArrayType>().elementType;
+            else if (t->kind ==
+                     slang::ast::SymbolKind::FixedSizeUnpackedArrayType)
+                t = &t->as<slang::ast::FixedSizeUnpackedArrayType>()
+                         .elementType;
+            else
+                break;
+        }
+        if (t->kind == slang::ast::SymbolKind::ClassType) {
+            auto& ct = t->as<slang::ast::ClassType>();
+            return ct.genericClass ? (const slang::ast::Symbol*)ct.genericClass
+                                   : (const slang::ast::Symbol*)&ct;
+        }
+        if (t->kind != slang::ast::SymbolKind::TypeAlias)
+            return cur;
+        cur = &t->as<slang::ast::TypeAliasType>();
+    }
+    return cur;
+}
+
+// Surelog's REGISTERED name for a class / generic class — the key
+// `ClassNameClassDefinitionMultiMap` sorts on, and therefore the container half
+// of a class typedef's claim key.  Three forms, the ones r10sd10 filed as its
+// residue R6: `pkg::c`, `work@mod::c`, `work@c`.
+// V-FIX vsd11 — A CLASS NESTED IN ANOTHER CLASS IS REGISTERED UNDER ITS SHORT
+// NAME ALONE, and it is therefore ordered against the `pkg::c` / `work@mod::c`
+// / `work@c` forms by that bare name.
+//
+// The shipped form prepended every enclosing class, spelling a nested class
+// `pkg::Outer::Inner`.  For a class declared at package / module / `$unit`
+// level the two readings are identical, which is why no grid11 cell and no
+// corpus row separates them; they come apart the instant the DECLARING class is
+// itself nested, and there the shipped form decides the claim race backwards.
+//
+//   MEASURED, golden vs the shipped binary, and BRACKETED on both sides:
+//     vgrid11 `v3`  `binner3` nested in `pv3::aouter3`, both naming `zel3`:
+//         golden RESOLVES `binner3::s_in` and DEGRADES `aouter3::t_out`, so the
+//         NESTED typedef claims.  Shipped key `pv3::aouter3::binner3` sorts
+//         AFTER `pv3::aouter3` and degrades `binner3::s_in` instead —
+//         PRISTINE-RIGHT (`class_typespec (s_in)`) -> PATCHED-WRONG
+//         (`unsupported_typespec (binner3::s_in)`).
+//     vgrid11 `va`  the same shape with the nested class RENAMED `zzinna`, so
+//         its SHORT name sorts AFTER the outer's package key: golden DEGRADES
+//         `zzinna::z_in` and RESOLVES `aouta::a_out` — the claim goes the other
+//         way, which is what rules out both `Outer::Inner` and any rule that
+//         simply reaches nested classes first.
+//   `binner3` < `pv3::aouter3` and `pva::aouta` < `zzinna` is exactly the bare
+//   short name and nothing else.
+inline std::string surelogClassKey11(const slang::ast::Symbol& cls) {
+    const slang::ast::Scope* sc = cls.getParentScope();
+    if (sc) {
+        const slang::ast::Symbol& ss = sc->asSymbol();
+        if (ss.kind == slang::ast::SymbolKind::ClassType ||
+            ss.kind == slang::ast::SymbolKind::GenericClassDef)
+            return std::string(cls.name);
+        if (ss.kind == slang::ast::SymbolKind::Package)
+            return std::string(ss.name) + "::" + std::string(cls.name);
+        if (ss.kind == slang::ast::SymbolKind::InstanceBody)
+            return "work@" + std::string(ss.name) + "::" + std::string(cls.name);
+    }
+    return "work@" + std::string(cls.name);
+}
+
+// V-FIX vsd11 — an INTERFACE CLASS is not in the list `bindTypedefs_` walks.
+// Its typedefs neither CLAIM a target's typespec slot nor register an
+// `Owner::td` repair key, so `IfaceCls::td` ALWAYS degrades and never pushes
+// another typedef out.
+//
+//   MEASURED: vgrid11 `vb` — `aifb::only_t` is the SOLE typedef naming
+//   `zonlyb`, so every claim model resolves it, and golden DEGRADES it anyway;
+//   `aifb::shr_t` racing `zclsb::shr2_t` for one target sorts FIRST
+//   (`pvb::aifb` < `pvb::zclsb`) and golden still lets `shr2_t` RESOLVE.
+//   vgrid11 `v5` is the same fact on the corpus-shaped case: the shipped binary
+//   let `pv5::ai5::i_t` claim `zel5` and so degraded `zbase5::base_t` —
+//   PRISTINE-RIGHT -> PATCHED-WRONG.
+inline bool isIfaceClass11(const slang::ast::Symbol& s) {
+    if (s.kind == slang::ast::SymbolKind::ClassType)
+        return s.as<slang::ast::ClassType>().isInterface;
+    if (s.kind == slang::ast::SymbolKind::GenericClassDef)
+        return s.as<slang::ast::GenericClassDefSymbol>().isInterface;
+    return false;
+}
+
 // Is this parameter's own DECLARED default a TIME literal (parameter P = 5ns)?
 // Read from the declarator syntax, not getInitializer(), so an instance
 // override cannot flip the answer (same reasoning as
