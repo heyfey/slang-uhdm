@@ -1,0 +1,110 @@
+r10earl59 — PREDICTION OF THE NEXT HEAD (R0 of pass 60), measured on the
+PATCHED database (md5 cf2dadb2c8fc5811e76b801a078c1ddf) against the immutable
+golden cache 00d4794526e44dc553f3.
+
+R0 — Earlgrey_0_1/DEFAULT.  Head 29 cmp lines -> 9 743 cmp lines, 1 head -> 1
+head.  THE LINE COUNT IS HEAD DEPTH, NOT A DISTANCE: the new head's LHS
+decompile is a whole PACKAGE, which is why it prints 9 743 lines.
+
+  LHS(golden): package: dm (dm::) id:16  dm_pkg.sv:19:1-414:16
+               < design (work@prim_sync_reqack) id:919334
+  RHS(ours)  : <null>        <== a SCALAR slot, not a vector: a vector
+                                 SafeCompare sets BOTH m_failedLhs and
+                                 m_failedRhs to the OWNER, so an `RHS: <null>`
+                                 is always the two-argument SafeCompare with a
+                                 null rhs (BaseClass.h:187).
+
+THE SLOT, decoded by census rather than guessed: the only tags that precede a
+`\_package: dm (dm::)` line anywhere in either dump are `|vpiParent:`,
+`|vpiInstance:`, `|uhdmallPackages:` and `|uhdmtopPackages:`, and
+`instance::Compare` / the typespec Compares read `Instance()` (`vpiInstance`)
+but never `VpiParent`.  So the head is **`typespec::Instance()` — the
+`vpiInstance` back-pointer from an elaborated typespec to its DECLARING
+PACKAGE — which golden sets and we leave null.**
+
+  whole-design count of `|vpiInstance: -> package`, from `|uhdmtopModules:` to
+  the end of the dump (the elaborated tree plus the arena tail):
+      golden 15 402      ours 13 660      MISSING 1 742
+  spread over 33 PACKAGES, biggest first:
+      rv_plic_reg_pkg 1259/1055   ibex_pkg 1051/822   usbdev_reg_pkg 979/924
+      pinmux_reg_pkg 967/853      alert_handler_reg_pkg 877/817
+      flash_ctrl_pkg 621/496      flash_phy_pkg 586/461  pwrmgr_pkg 597/576
+      … dm:: 364/337 …            top_pkg 185/89        usb_consts_pkg 18/8
+  plus THREE module_inst rows: golden gives a typespec `vpiInstance ->
+  work@dmi_jtag` and one -> `work@ibex_cs_registers` that we do not, and we
+  give one -> `work@prim_sram_arbiter` that golden does not.
+
+  `dm::` is merely the FIRST package the walk reaches after the cell this pass
+  cleared; the family is design-wide.  Inside `dm::` the missing slots are 24
+  `logic_typespec` (dm_pkg.sv 22:14, 25:14, 34:14, the six `hartinfo_t` members
+  127-132, the seven `ac_ar_cmd_t` members 170-176, `dtm_op_e`'s base 180:16),
+  one `enum_typespec` (dm::dtm_op_e), and two `struct_typespec`
+  (dm::ac_ar_cmd_t, dm::hartinfo_t).
+
+NOT A REGRESSION, and the proof is a measurement, not an assertion:
+  * the `|vpiInstance: -> package dm` count is **405 in the PRISTINE dump and
+    405 in the PATCHED dump** (golden 432) — bit for bit the same family before
+    and after;
+  * the whole-design path-normalised diff PRISTINE vs PATCHED is **254 lines,
+    ADDED ONLY, ZERO REMOVED**, every one of them the `|vpiActual:` +
+    `\_logic_net: (…rdata) 29:27-29:32` pair this pass's law mints.
+  It could not surface while the `rdata` cell sat above it in the walk.
+
+R0-testflags — Earlgrey_0_1/TESTFLAGS, 33 cmp lines, UNCHANGED by this pass.
+The two binaries' cmp logs are BYTE-IDENTICAL down to the object ids (237109,
+755959), so nothing here is attributable to this pass.
+
+  LHS(golden): <null>
+  RHS(ours)  : parameter (work@top_earlgrey.u_dm_top.i_dm_mem.DbgAddressBits)
+               id:237109  dm_mem.sv:59:27-59:41  UINT:12  vpiLocalParam:1
+
+DECODED HERE, and the brief's framing ("an EXTRA elaborated localparam") is
+REFUTED BY THE NAME-SET CENSUS BEFORE ANY CODE.  The `Parameters()` vector on
+the elaborated `work@dm_mem (…u_dm_top.i_dm_mem)` module_inst is **20 entries on
+both sides, name for name, in the same order**:
+
+  NrHarts BusWidth SelectableHarts DbgAddressBits HartSelLen NrHartsAligned
+  MaxAar DataBaseAddr DataEndAddr ProgBufBaseAddr ProgBufEndAddr
+  AbstractCmdBaseAddr AbstractCmdEndAddr WhereToAddr FlagsBaseAddr
+  FlagsEndAddr HaltedAddr GoingAddr ResumingAddr ExceptionAddr
+
+EXTRA-OURS = [], MISSING-OURS = [].  **No listing is short or long.**  `LHS:
+<null>` with a non-null RHS is the scalar `SafeCompare` again, read the other
+way round: it is a `ref_obj::Actual_group` that golden leaves NULL and we SET.
+
+The census over every slot pointing at a `DbgAddressBits` parameter object,
+testflags mode:
+
+  | tag                       | golden | ours |
+  |---------------------------|--------|------|
+  | `\|vpiActual:`             |   27   | **28** |
+  | `\|vpiLhs:` (param_assign) |    1   |    1 |
+  | `\|vpiParameter:`          |    1   |    1 |
+
+and the 28th, keyed on its parent chain, is exactly one reference:
+
+  dm_mem.sv:64   localparam logic [DbgAddressBits-1:0] DataBaseAddr = (dm::DataAddr);
+                                   ^^^^^^^^^^^^^^ 64:21-64:35
+
+  range 64:20-64:40  <  operation 64:21-64:37  <  ref_obj
+      (work@dm_mem.DataBaseAddr.DbgAddressBits) 64:21-64:35
+    golden: vpiName + vpiFullName, NO vpiActual
+    ours  : |vpiActual: -> parameter (work@top_earlgrey.u_dm_top.i_dm_mem.DbgAddressBits)
+
+> **R0-testflags is a CROSS-VIEW ACTUAL LEAK: a DEF-VIEW localparam
+> declaration's RANGE BOUND (`work@dm_mem.…`) binds its `Actual_group` to the
+> ELABORATED INSTANCE's parameter object (`work@top_earlgrey.u_dm_top.i_dm_mem.…`).
+> Golden leaves that ref unbound.**
+
+WHY IT IS TESTFLAGS-ONLY, measured: run the same census on the DEFAULT-mode
+dumps and the count is **golden 0 / pristine 0 / patched 0** — in default mode
+that same `ref_obj` at 64:21 exists once on each side and binds the DEF-view
+`work@dm_mem.DbgAddressBits`, identically on both sides; only the testflags run
+(`-elabuhdm -parse -d coveruhdm -verbose`, i.e. `--elabuhdm` on our side)
+produces the elaborated-instance parameter that the def-view range then grabs.
+
+A SEPARATE MECHANISM FROM THIS PASS'S LAW, and not a candidate to fold in: this
+pass moves `cont_assign` Lhs pointers to MODULE-LEVEL NETS inside NESTED GENERATE
+SCOPES; R0-testflags is a def-view PARAMETER-RANGE ref binding across the
+def/elab boundary, with no generate scope and no cont_assign anywhere in it.
+Ranked R0-testflags for a pass whose primary arm is the testflags golden.

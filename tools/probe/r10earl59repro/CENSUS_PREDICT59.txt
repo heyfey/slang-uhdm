@@ -1,0 +1,58 @@
+r10earl59 — CENSUS PREDICTION, written BEFORE the patched binary existed.
+Pristine md5 62012557c82e8b1f1bf9527ff5333dd1.  Instrument census59.py, keyed on
+(enclosing-scope kind, NORMALISED scope name, cont_assign source extent, slot,
+ref LEAF name, occurrence) -> the vpiActual target's (kind, leaf name).
+CALIBRATED FIRST, Earlgrey_0_1/default golden vs golden: SAME=13797, every other
+bucket 0 — a detector that flags nothing on identical inputs.
+
+MEASURED PRISTINE (golden vs pristine, Earlgrey_0_1/default):
+  SAME                 13412
+  GOLD-BINDS-WE-DONT     127   <== THE CLAIM, all 127 one row:
+                                   gen_scope, |vpiLhs:, prim_fifo_sync.sv
+                                   line:145:14 endln:145:45, ref `rdata`,
+                                   golden ('logic_net','rdata'), ours None
+  WE-BIND-GOLD-DOESNT    128   pinmux data_mux/oe_mux/sleep_mux (:160/:174/
+                               :175/:176) — PAIRED 1:1 with the 128
+                               KEY-ONLY-GOLD rows below at the SAME extent,
+                               SAME name and the SAME actual, i.e. a
+                               scope-ATTRIBUTION difference, not a binding
+                               difference.  NOT this pass's family.
+  KEY-ONLY-GOLD          130   128 of them the pinmux pair above; 2 singletons
+                               (prim_packer :183 `valid_next`).
+  KEY-ONLY-OURS           91   89 gen_scope |vpiRhs: `offset` span keys
+                               (:73/:114) + the 2 prim_packer singletons.
+
+PREDICTION FOR THE PATCHED BINARY (§ genCaNestedModuleLhsOpRhsBinds59):
+
+  TO-GOLDEN          = 127   exactly the 127 rows above and no others
+  AWAY-GOLDEN        =   0
+  STILL-WRONG        =   0
+  every other bucket = UNCHANGED (128 / 130 / 91), SAME 13412 -> 13539
+
+  Object field for field, on all 127 cells, the ONLY new bytes in the database:
+      |vpiActual:
+      \_logic_net: (work@top_earlgrey.<path>.rdata), line:29:27, endln:29:32
+  parented under the existing
+      |vpiLhs:
+      \_ref_obj: (work@top_earlgrey.<path>.gen_normal_fifo.gen_output_zero.rdata)
+  i.e. a POINTER only — no new object is minted, no span moves, no name moves.
+  Whole-dump path-normalised diff, pristine vs patched: 254 lines
+  (127 `|vpiActual:` + 127 `\_logic_net: (...rdata) 29:27-29:32`), ADDED only,
+  ZERO REMOVED, and ZERO lines naming any other identifier.
+  DEF view (`work@prim_fifo_sync.…`): ZERO lines — the arm is elaborated-only
+  (`lhsSuppress` is computed inside emitGenScopes' elab path).
+
+MOVER PREDICTION BY NAME (gate 5, byte verifier):
+  surelog corpus: EXACTLY TWO databases move — `default/Earlgrey_0_1` and
+  `testflags/Earlgrey_0_1`.  Nothing else in either corpus (1358 u2r paths, 956
+  surelog paths) has a gen-scope cont_assign whose whole-ref LHS is a
+  MODULE-level signal AND whose Rhs is an `operation` AND which sits in a
+  NESTED generate scope; the boundary and canary batteries assert that.
+  If any OTHER database moves, the mover must be named and attributed before
+  this pass lands.
+
+HEAD PREDICTION:
+  Earlgrey_0_1/default: the 29-line head (LHS logic_net …i_dm_csrs.i_fifo.rdata
+  id:291318, RHS <null>) CLEARS.  The next head is a DIFFERENT family.
+  Earlgrey_0_1/testflags: 33 lines, UNCHANGED (its head is the EXTRA-OURS
+  elaborated localparam i_dm_mem.DbgAddressBits; see README R0-testflags).

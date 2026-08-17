@@ -15107,9 +15107,20 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 auto& lsym0 =
                     stripImplicitConv(ae.left()).as<NamedValueExpression>().symbol;
                 bool symModuleLevel = false;
-                if (auto sps0 = lsym0.getParentScope())
+                // r10earl59 VERIFIER — and whether that InstanceBody is a
+                // MODULE, which is the only body kind Surelog's write-time
+                // binder can search.  See the fence at opRhsModuleLhs59.
+                bool symInModuleBody59 = false;
+                if (auto sps0 = lsym0.getParentScope()) {
                     symModuleLevel =
                         sps0->asSymbol().kind == SymbolKind::InstanceBody;
+                    if (symModuleLevel)
+                        symInModuleBody59 =
+                            sps0->asSymbol()
+                                .as<InstanceBodySymbol>()
+                                .getDefinition()
+                                .definitionKind == DefinitionKind::Module;
+                }
                 if (auto ps0 = blk.getParentScope(); ps0) {
                     auto pk0 = ps0->asSymbol().kind;
                     // If-gen nested blocks leave module-level refs AND
@@ -15132,10 +15143,101 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                 default:
                                     mapsToVar0 = true;
                             }
-                    if ((pk0 == SymbolKind::GenerateBlock &&
-                         (symModuleLevel ||
-                          lsym0.kind == SymbolKind::Variable)) ||
-                        (pk0 == SymbolKind::GenerateBlockArray && mapsToVar0))
+                    // § genCaNestedModuleLhsOpRhsBinds59 (r10earl59) — the
+                    // MODULE-LEVEL half of the law above is REFUTED when the
+                    // emitted Rhs is an OPERATION, and the refutation is
+                    // SURELOG'S OWN CODE, not a heuristic.
+                    // `UhdmWriter::writeCont_assign` (UhdmWriter.cpp:2120):
+                    //
+                    //   if (lhs->UhdmType() == uhdmref_obj) {
+                    //     any* var = m_helper.bindVariable(mod, m,
+                    //                                      lhs->VpiName(), ..);
+                    //     if (var) {
+                    //       if (rhs->UhdmType() == uhdmoperation) {
+                    //         ... clone_tree(assign) ...
+                    //         ((ref_obj*)lhs)->Actual_group(var);   // THE BIND
+                    //
+                    // and `CompileHelper::bindVariable(component, scope, name)`
+                    // (CompileStmt.cpp:3089) has NO `uhdmgen_scope` case: it
+                    // falls to `default` and RECURSES on `scope->VpiParent()`,
+                    // so from a gen scope it walks straight up to the
+                    // enclosing `module_inst` and searches its Variables then
+                    // its Nets.  A MODULE-LEVEL name is therefore always found
+                    // — the gen-scope nesting DEPTH is irrelevant — and the
+                    // only gate is the Rhs being an `operation`.
+                    //
+                    // That is exactly the sibling note at
+                    // § genCaDirectRefBindsGenLocal below ("Surelog's elab
+                    // writer only re-binds a cont_assign LHS on the clone path
+                    // it takes for an OPERATION Rhs"), now applied to the
+                    // module-level LHS this suppression was over-claiming.
+                    //
+                    // MEASURED, arms v59v1/v59v2/v59v3 (a wrapper module so the
+                    // module under test is an INSTANTIATED CHILD, as in the
+                    // corpus), ELAB view, one axis per row:
+                    //   Rhs SHAPE at d2, module-level wire LHS —
+                    //     operation / ternary / concat / unary / replication /
+                    //     comparison / cast   -> golden BINDS  (was unbound)
+                    //     bare ref_obj (gen-local, ancestor gen-local, module
+                    //     net alike) / constant / parameter fold / part_select
+                    //     / hier_path / func_call / sys_func_call
+                    //                          -> golden leaves it UNBOUND
+                    //   LHS KIND at d2, operation Rhs — ANSI output PORT net,
+                    //     `output logic` port (a net in the elab view), module
+                    //     `wire`, module `logic` VAR (binds the logic_var)
+                    //                          -> golden BINDS, all four
+                    //   GEN NESTING with an operation Rhs — if-in-if (d2),
+                    //     three-deep (d3), UNNAMED begin/end inside a named
+                    //     if-gen, if-gen inside a FOR-generate body, and a
+                    //     module-level VAR written from a FOR-generate body
+                    //     (the `mapsToVar0` half)
+                    //                          -> golden BINDS, all five
+                    // and every row this arm does NOT name is left alone: an
+                    // ancestor gen scope's net/var and the block's own gen-local
+                    // var were already bound on both sides (compile time binds
+                    // one hop up — § genLpOneHopProcBoundOp58's decode), the
+                    // block's own gen-local NET unbound on both.
+                    // CORPUS: Earlgrey_0_1/default 127 cells, every one
+                    // prim_fifo_sync.sv:145 `assign rdata = empty ? 'b0 :
+                    // rdata_int;` in `gen_normal_fifo.gen_output_zero` — the R0
+                    // head of this pass.  Its sibling four lines down
+                    // (`gen_no_output_zero`, `assign rdata = rdata_int;`) is a
+                    // BARE ref Rhs and stays unbound, which is the same law
+                    // saying no.
+                    // RESIDUE R1: a BARE `bit_select` Rhs also binds in golden
+                    // (arm row `mn_d2_bselbare`) and is NOT claimed here — it
+                    // is not the `uhdmoperation` test, it is one of
+                    // writeCont_assign's OTHER clone triggers, and the Earlgrey
+                    // corpus holds no cell of that shape.
+                    // FENCE ADDED BY THE r10earl59 VERIFIER — the LHS's
+                    // InstanceBody must be a MODULE.  `bindVariable`
+                    // (CompileStmt.cpp:3089) switches on
+                    // uhdmfunction / uhdmtask / uhdmbegin / uhdmmodule_inst and
+                    // NOTHING ELSE: there is NO uhdminterface_inst and no
+                    // uhdmprogram case, so from a gen scope inside an INTERFACE
+                    // or a PROGRAM the walk recurses PAST that body and the
+                    // interface-level name is NEVER found -> golden does not
+                    // bind.  slang calls an interface body and a program body
+                    // an InstanceBody too, so `symModuleLevel` alone let the
+                    // exemption in.  MEASURED (arm w1_ifc59, PLAIN view, exact
+                    // keyed census): golden leaves `i_net_d2` (interface wire)
+                    // and `i_var_d2` (interface logic) UNBOUND at d2 with a
+                    // ternary Rhs while binding them at d1; without this fence
+                    // the patched binary bound both -> 2 pristine-right ->
+                    // patched-wrong cells (AWAY-GOLDEN 2).  In the ELABORATED
+                    // view the interface rows never reach this suppression at
+                    // all (golden, pristine and patched all bind), so the fence
+                    // moves exactly the plain-view interface/program cells back
+                    // to pristine behaviour and nothing else.  arm w5_prog59 is
+                    // the program half (golden emits no such cont_assign row).
+                    bool opRhsModuleLhs59 =
+                        symModuleLevel && symInModuleBody59 && rhs &&
+                        rhs->UhdmType() == UHDM::uhdmoperation;
+                    if (!opRhsModuleLhs59 &&
+                        ((pk0 == SymbolKind::GenerateBlock &&
+                          (symModuleLevel ||
+                           lsym0.kind == SymbolKind::Variable)) ||
+                         (pk0 == SymbolKind::GenerateBlockArray && mapsToVar0)))
                         lhsSuppress = true;
                 }
             }
