@@ -2643,6 +2643,18 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 }
                 pt->Io_decls(pios);
             }
+            // § externProtoInBodyCallBinds12 — SITE 1 of 2, the PURE VIRTUAL
+            // prototype.  slang answers a call to a pure method with the STUB
+            // SubroutineSymbol `MethodPrototypeSymbol::getSubroutine()` mints
+            // (SubroutineSymbols.cpp `createFromPrototype`), and that stub is in
+            // no scope's member list and in no map — which is why every such
+            // call fell into § classCallNoLink12 with no link at all.  Key the
+            // prototype object by that stub, in DECLARATION ORDER: the bodies
+            // below are emitted from the same loop, so a body sees exactly the
+            // prototypes written ABOVE it.  Arm v1 `call_pv`, arm v2 `call_mpv`.
+            if (pt->UhdmType() == UHDM::uhdmfunction)
+                if (auto* stub12 = mp.getSubroutine())
+                    classProtoFn12[stub12] = (UHDM::function*)pt;
             tfs->push_back(pt);
             continue;
         }
@@ -4499,6 +4511,18 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // no subMap registration (calls bind the DEFINITION object, which the
         // second group emits from the same SubroutineSymbol).
         if (protoOf) {
+            // § externProtoInBodyCallBinds12 — SITE 2 of 2, the `extern`
+            // prototype.  The comment two lines up ("calls bind the DEFINITION
+            // object") is the defect: golden binds THIS object, the one the
+            // class_defn lists, for every call written inside the class body.
+            // The key is the DEFINITION's SubroutineSymbol, because that is
+            // what slang resolves the call to (`createOutOfBlock`), and it is
+            // also the key `subMap` will later hold the definition object
+            // under -- so the call sites read this map FIRST and the redirect
+            // needs no second lookup.  Arm v1 `call_ef` / `call_es` /
+            // `call_etv` / `prop_es` / `prop_esb`, arm v2 `call_mef`.
+            if (tf->UhdmType() == UHDM::uhdmfunction)
+                classProtoFn12[&sub] = (UHDM::function*)tf;
             tfs->push_back(tf);
             continue;
         }

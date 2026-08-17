@@ -2533,6 +2533,50 @@ private:
     // classMethodNoBind, which if/case CONDITIONS toggle off mid-body.
     bool curSubClassScope9 = false;
     bool curSubOob9 = false;
+    // § externProtoInBodyCallBinds12 — the CALLEE-LINK half of the law the two
+    // flags above describe, and the half that was MISSING.  The comment above
+    // is right that a class body resolves only that class's own declarations
+    // and that "an `extern` prototype counts" — but nothing acted on the
+    // parenthesis, because a prototype takes NO subMap registration (calls
+    // were told to "bind the DEFINITION object", TaskFuncEmit ~4493), and the
+    // definition is emitted LAST.  So an in-body call to an `extern` /
+    // `pure virtual` sibling either got NO `vpiFunction` at all
+    // (§ classCallNoLink12's arm) or got the OUT-OF-BODY DEFINITION object,
+    // where golden has the PROTOTYPE object the class_defn lists.
+    //
+    // THE LAW.  A call written inside a class body -- an in-body method body,
+    // or a class-property initializer -- whose callee is a method of THAT SAME
+    // class declared as an `extern` or `pure virtual` PROTOTYPE binds
+    // `vpiFunction` to the PROTOTYPE function object listed in the
+    // class_defn, not to the out-of-body definition object.
+    //
+    // THE MAP IS THE GATE.  It is CLEARED at the top of every class body's
+    // emission and holds only THAT class's own prototypes, in DECLARATION
+    // ORDER as they are emitted, so three fences come for free and none of
+    // them needs a predicate:
+    //   * a BASE class's prototype is not in it (arm v2 `call_bef`: golden
+    //     lnk0 -- an inherited prototype is NOT visible, exactly as the
+    //     comment above says);
+    //   * a prototype declared BELOW the calling body is not in it YET (arm v1
+    //     `call_efb`: golden lnk0, the same sequential rule t8's `lateT`
+    //     already pinned for a plain method);
+    //   * ...but it IS in it by the time the class PROPERTY initializers are
+    //     drained (`lateInit29`, after emitTaskFuncs), which is exactly where
+    //     golden links a prototype declared one line BELOW the property (arm
+    //     v1 `prop_esb`, and the corpus witness `uvm_reg_field::m_predefined =
+    //     m_predefine_policies()`).
+    // The one predicate that IS needed is `!curSubOob9`: an OUT-OF-BODY
+    // definition is emitted at the END of the same class pass, when the map is
+    // full, and golden links nothing there (arm v1 `c2::oob_caller`, and the
+    // corpus witness `uvm_default_factory::m_matches_type_override`, all six
+    // of whose calls golden leaves bare).
+    //
+    // FUNCTIONS ONLY.  An `extern task` prototype called from an in-body task
+    // makes golden emit a `task_call` + `vpiTask` where we emit a `func_call`
+    // (arm v1 `call_ek` / arm v2 `call_tk`) -- a UHDM KIND disagreement, not a
+    // link disagreement, and stamping a `task*` into `Function()` would be a
+    // bad cast.  Named as residue R-task, measured at ZERO corpus cells.
+    std::map<const slang::ast::Symbol*, UHDM::function*> classProtoFn12;
     // True while emitting a `$unit`-scope subroutine's BODY: the compilation
     // unit is compiled before any instance and Surelog never revisits it with
     // a symbol table, so no reference in the body takes an actual (formals,

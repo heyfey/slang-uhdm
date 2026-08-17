@@ -1778,6 +1778,14 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
     emitClassParameters(cls, cd, fullName);
     emitClassTypedefs(cls, cd);
     currentClassDefn = cd;
+    // § externProtoInBodyCallBinds12 — THE MAP IS THE GATE (see
+    // UhdmExporter.h).  Cleared here so it can only ever hold THIS class's own
+    // prototypes: that is what fences a BASE class's prototype out (arm v2
+    // `call_bef`, golden lnk0) without a single class-identity predicate at the
+    // call site.  Saved and restored because a NESTED class's emission reuses
+    // this same routine.
+    auto savedProto12 = classProtoFn12;
+    classProtoFn12.clear();
     emitTaskFuncs(cls, cd, fullName + "::", nullptr, false);
     currentClassDefn = nullptr;
     // § classPropInit29 — the property initializers whose shape the inline
@@ -1787,6 +1795,12 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
     // bind vpiFunction once emitTaskFuncs has put that method in `subMap`.
     for (auto& pi29 : lateInit29)
         emitClassPropInit29(pi29);
+    // § externProtoInBodyCallBinds12 — the property initializers are drained
+    // ABOVE, with the map still full, which is exactly why golden's
+    // `uvm_reg_field::m_predefined = m_predefine_policies()` binds a prototype
+    // declared BELOW the property (arm v1 `prop_esb`).  The map goes out of
+    // scope only now.
+    classProtoFn12 = savedProto12;
     // NESTED classes are their own class_defns parented at the enclosing one
     // and listed in its vpiInternalScope (Surelog's
     // CompileClass::compile_class_declaration_ pushes them onto Scopes()).

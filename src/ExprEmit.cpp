@@ -12461,7 +12461,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // committed to a func_call (Surelog's single-pass
                         // default for a name it has not seen), and stamping a
                         // task into vpiFunction would be a bad cast.
-                        if (inheritedCall72)
+                        // § externProtoInBodyCallBinds12 — CALL SITE 1 of 2,
+                        // the no-link arm.  This is where every in-body call to
+                        // an `extern` / `pure virtual` sibling lands, because a
+                        // prototype takes no subMap registration; the map holds
+                        // this class's own prototypes emitted SO FAR, so
+                        // membership alone is the whole gate (see
+                        // UhdmExporter.h).  It is read BEFORE LAW C's
+                        // package-free-function fall-back: the class's own
+                        // prototype is the nearer declaration and golden binds
+                        // it (arm v1 `call_ef`), while the stragglers LAW C
+                        // serves are same-class methods declared BELOW, which
+                        // are never in this map.
+                        bool protoBound12 = false;
+                        if (!curSubOob9)
+                            if (auto p12 = classProtoFn12.find(&sub);
+                                p12 != classProtoFn12.end() && p12->second) {
+                                ((UHDM::func_call*)fc0)->Function(p12->second);
+                                protoBound12 = true;
+                            }
+                        if (inheritedCall72 && !protoBound12)
                             if (auto* fb72 =
                                     pkgFreeSubForName72(currentSubSym, sub.name))
                                 if (auto f72 = subMap.find(fb72);
@@ -12873,6 +12892,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 else if (isFunc) {
                     auto* f4 = boundClone ? boundClone : (UHDM::function*)siTf;
+                    // § externProtoInBodyCallBinds12 — CALL SITE 2 of 2, the
+                    // REDIRECT.  A class-PROPERTY initializer is drained after
+                    // emitTaskFuncs (`lateInit29`), so by then `subMap` DOES
+                    // hold the callee -- as the OUT-OF-BODY DEFINITION object,
+                    // where golden has the class_defn's PROTOTYPE.  Only the
+                    // link target moves; `siTf` and everything the argument
+                    // stamping below reads are left untouched, so a call that
+                    // is not in this map emits byte-identically.
+                    // Witnesses: `uvm_reg_field::m_predefined =
+                    // m_predefine_policies()` (golden proto@63531:4, ours had
+                    // the definition@64005:1) and `uvm_phase::
+                    // max_ready_to_end_iters = get_default_max_ready_to_end_
+                    // iterations()` -- the pass's only two `G=L P=X` cells.
+                    if (!curSubOob9)
+                        if (auto p12 = classProtoFn12.find(&sub);
+                            p12 != classProtoFn12.end() && p12->second)
+                            f4 = p12->second;
                     ((UHDM::func_call*)fc)->Function(f4);
                     linked4 = f4 != nullptr;
                 }
