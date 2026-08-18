@@ -1,0 +1,35 @@
+# r10v66 GATE TRANSCRIPT — VERIFIED binary 135dcb54233a7c20c33f2733d6ca230c
+# (pristine b10a3f6e195760bb08a26b9e13b79060, shipped patch aa09dc513ae0d50e02708833ede679bb)
+
+goldens          PASS=23 FAIL=0   (pristine 23/0, shipped 23/0, verified 23/0)
+negative control SLANG_UHDM=/bin/false  PASS=0 FAIL=23
+u2r testflags    679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+u2r default      679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+ct8rows u2r tf   vs results/gate_uhdm2rtlil.csv   PASS 0 rows
+ct8rows u2r tf   vs own pristine sweep            PASS 0 rows
+ct8rows u2r def  vs own pristine sweep            PASS 0 rows
+byteverify u2r   verified vs pristine   MOVERS 0/1358   selfcheck 1357/1358
+byteverify u2r   verified vs shipped    MOVERS 0/1358
+surelog default  470 CMP_EQUAL / 11 CMP_NOTEQUAL / 5 DEFERRED / 283 SLANG_REJECT / 25 SURELOG_FAIL
+surelog testflags 466 CMP_EQUAL / 9 CMP_NOTEQUAL / 5 DEFERRED / 284 SLANG_REJECT / 23 SURELOG_FAIL / 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+ct8rows surelog  vs results/golden_surelog.csv    PASS 0 rows
+byteverify sl    verified vs pristine   MOVERS 3/956  = Earlgrey default + testflags (predicted) + SeqDriver/testflags (order-only, README §4)
+byteverify sl    verified vs shipped    MOVERS 0/956
+cmds.txt audit   u2r 1458 lines + surelog 1523 lines, every one /tmp/v66_<binary>.bin
+Earlgrey heads   pristine 36/36 (1 head) -> verified 46/46 (1 head), AFTER cmp logs byte-identical
+Earlgrey census  32 TO-GOLDEN / 0 AWAY-GOLDEN / 0 MOVED-WRONG, both modes
+calibration      golden vs golden 0 differing / 162259 cells; golden re-read byte-identical
+rowheads         only Earlgrey moved (36->46); UVM chain 12, BuildUVMPkg 152, Rggen 36
+canaries         surelog ok=52 changed=0 ; u2r ok=8 changed=0
+ctcan2           surelog PASS ; u2r PASS
+canaudit         audited=29 UNCOVERED=0 FENCE-BREACH=0
+protected DBs    InterfaceModPort/BlackParrotComplex/YosysOldOr SAME; SVSwitch 4842211c4030; YosysVerx 6ccda350c24a
+Scr1SvTests      CMP_EQUAL both modes on all three binaries
+WIDE boundary    PROCESSED=2949 == LISTED, both views, RC_DIFF_CELLS=0/5898, DIFFERING=22 (11 files x 2)
+DIR  boundary    PROCESSED=1362 == LISTED, both views, RC_DIFF_CELLS=0/2724, DIFFERING=8
+fence names      the four slang-fenced test names (see canaudit.sh for the list): 0 hunks in the patch, 0 files in either boundary list
+GOLDEN_DEFER     unset ; results/*.csv never written
+
+NOTE the 2 CoresSweRV* rows read SURELOG_FAIL on the verified sweep (= the committed
+baseline) and TIMEOUT on this verifier's own pristine sweep: a SURELOG-side timeout
+under four concurrent sweeps, symmetric, and neither status is comparable.

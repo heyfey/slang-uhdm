@@ -11284,6 +11284,157 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 setLoc(ref, nameSpan(expr.sourceRange.start(), nv.symbol.name));
             else
                 setLoc(ref, expr.sourceRange);
+            // § elabConnEnumConstFold66 — inside an ELABORATED port `High_conn`,
+            // a read of an ENUM CONSTANT is a CONSTANT in golden, not a
+            // `ref_obj -> enum_const`.  This is the enum-constant twin of
+            // § connIpsPkgParamBoundNoTs65 / § connIpsBareBaseUint64 and it has
+            // the SAME cause: `NetlistElaboration::high_conn_`
+            // (Surelog src/DesignCompile/NetlistElaboration.cpp:854) RE-COMPILES
+            // the actual in the parent INSTANCE's context,
+            //     m_helper.compileExpression(parent_comp, fC, node,
+            //                                m_compileDesign, Reduce::Yes,
+            //                                /*pexpr=*/nullptr,
+            //                                /*instance=*/parent)
+            // instead of cloning the DEF-view expression, and with `Reduce::Yes`
+            // an enum-member identifier is answered by `getValue` and minted
+            // from the member's own `Value`, so the DEF listing's
+            // `ref_obj -> enum_const` never reaches the elaborated tree.
+            //
+            // THE HEAD (Earlgrey_0_1, BOTH modes, 36 cmp lines, 1 head, at
+            // f7cc5ad) — flash_phy_core.sv:163:17-163:24 `.req_i(reqs[PhyRead])`
+            // in the ELAB High_conn of `flash_phy_rd i_rd`:
+            //   LHS(golden) constant  |vpiDecompile:3'h0 |vpiSize:3 |HEX:0
+            //                         |vpiConstType:5    parent = bit_select
+            //   RHS(ours)   ref_obj (…i_core.PhyRead) |vpiActual -> enum_const
+            // `bit_select::Compare` runs the SINGULAR
+            // `SafeCompare(lhs->VpiIndex(), rhs->VpiIndex())`; both operands are
+            // non-null with DIFFERENT UhdmType, so `BaseClass::Compare`'s type
+            // test fails first and names BOTH sides in full — neither the
+            // `<null>` singular arm nor a vector size mismatch (read the MK
+            // line, RESUME §9).
+            //
+            // THE ENCODING, measured on golden over a 14-member grid
+            // (`g1_enum66.sv` / `g2_enc66.sv`, one member per written form):
+            // the folded constant carries the enum member's OWN `VpiValue` and
+            // `VpiSize` verbatim, `vpiConstType` from that value's ENCODING
+            // PREFIX (§ enumSubstIntConst30's mapping, third call site of the
+            // one law) and a decompile RE-MINTED from the value — NOT the
+            // member's own `VpiDecompile`:
+            //   3'h0    -> HEX:0    sz 3  ct 5  dec "3'h0"
+            //   4'b0010 -> BIN:0010 sz 4  ct 3  dec "4'b0010"
+            //   8'd5    -> INT:5    sz 8  ct 7  dec "5"    (member dec is "8'd5")
+            //   8'sd9   -> INT:9    sz 8  ct 7  dec "9"
+            //   auto    -> INT:n    sz W  ct 7  dec "n"    (declared width)
+            //   untyped -> UINT:n   sz 64 ct 9  dec "n"
+            // i.e. an INT:/UINT: value decompiles to the BARE DIGITS and a based
+            // value to `<size>'<base><digits>` — Surelog's
+            // `LValue::decompiledValue`.  COPYING the member's decompile is
+            // wrong for the sized-decimal member (`8'd5`) and the grid catches
+            // it.  A module-local, a `$unit` and a package enum behave alike;
+            // the module body, a gen-for and a gen-if home behave alike.
+            //
+            // WHY IT SITS AFTER THE BIND, not at the head of this case.  The
+            // FENCE is `Scr1SvTests` (surelog corpus, BOTH modes, CMP_EQUAL and
+            // it must stay CMP_EQUAL): `scr1_top_axi.sv:562
+            // .core_width(SCR1_MEM_WIDTH_WORD)` is a BARE enum-constant actual
+            // whose typedef Surelog never sees, so Surelog mints an IMPLICIT
+            // NET for the name and golden's High_conn is
+            // `ref_obj -> logic_net`; we model that net already.  A gate at the
+            // head of the case folded it and broke the row (built, measured,
+            // moved HERE).  Reading `ref->Actual_group()` — after every binding
+            // arm INCLUDING § pkgSubRefBindsPkgVarOverFormal81's last-writer
+            // overwrite — makes the rule exactly "fold the reads that DO resolve
+            // to the enum member", which is what `getValue` answers on Surelog's
+            // side.  It also leaves the deliberately UNBOUND families alone by
+            // construction (§ enumNoBind13's class-method and import-clone
+            // bodies, LAW C's out-of-body method, the late-bound anonymous-enum
+            // pool).
+            //
+            // THE CARVE-OUT: a PART_SELECT bound keeps the `ref_obj ->
+            // enum_const` in golden (`d_i[ED6:ED5]`, arm 1 `u_ps`, both bounds
+            // measured SAME as ours) — the same negative control
+            // § connIpsPkgParamBoundNoTs65 found for the typespec half.  An
+            // INDEXED-part-select bound (`d_i[EH1 +: 32]`, `d_i[0 +: ED5]`)
+            // DOES fold, and so do a bit-select index, an operation operand, a
+            // concat operand, a ternary arm and a BARE actual (arm 3).
+            //
+            // NOT TOUCHED, all measured as golden KEEPING the ref: the DEF-view
+            // `ref_module` High_conn (golden's def listing holds the ref_obj at
+            // the very same span — this gate is `elabConnEmit21`, the ELAB
+            // marker, so the def view is out by construction), every
+            // `cont_assign` operand in BOTH views (1,326 ELAB + 146 DEF
+            // Earlgrey cells stay `ref_obj`) and every procedural read.
+            //
+            // § connCallArgKeepsEnumRef66v (the VERIFIER's carve-out, and the
+            // ONE position the shipped grid did not hold).  Anywhere inside a
+            // tf_call ARGUMENT LIST the read keeps its `ref_obj ->
+            // enum_const` in golden, at EVERY depth.  Surelog's
+            // `CompileHelper::compileTfCallArguments`
+            // (src/DesignCompile/CompileHelper.cpp:4340) compiles each
+            // argument with `pexpr = call` — a NON-NULL parent expression —
+            // where `NetlistElaboration::high_conn_` compiles the actual
+            // itself with `pexpr = nullptr`; the identifier arm binds through
+            // `bindVariable(component, pexpr, …)` and never reaches the
+            // `getValue` substitution that mints the folded constant, so the
+            // reference survives the whole `Reduce::Yes` walk.  Measured on
+            // arm `v9_argdepth66.sv`, where `vf9(q) = q ^ 8'h5a` is the one
+            // written shape Surelog leaves as a `func_call` in the elaborated
+            // High_conn so the compiled arguments stay visible: golden keeps
+            // the ref at `arg[0]` (bare), `arg[0]/idx` (a bit-select index
+            // inside the argument), `arg[0]/op29[*]` (operation operands),
+            // `arg[0]/op33[1]` (a concat operand), `arg[0]/op67[0]` (a cast
+            // operand), `arg[0]/b` (an indexed-part-select base inside the
+            // argument) and `HC/b/…/arg[0]` (an argument of a call that is
+            // itself the ips base of the actual) — 8 cells, all of which the
+            // ungated rule moved pristine-RIGHT -> patched-WRONG.
+            // `callArgDepth` counts SYSTEM call arguments too (ExprEmit
+            // ~16570); golden reduces `$clog2(E)` / `$signed(E)` WHOLE to a
+            // constant, which neither binary reproduces, so leaving those
+            // arguments alone is exactly the pristine behaviour there.
+            if (elabConnEmit21 && nv.symbol.kind == SymbolKind::EnumValue &&
+                !inPsRangeBound && callArgDepth == 0 &&
+                !(parent && parent->UhdmType() == UHDM::uhdmpart_select))
+                if (const UHDM::any* act66 = ref->Actual_group();
+                    act66 && act66->UhdmType() == UHDM::uhdmenum_const) {
+                    auto* src66 = (const UHDM::enum_const*)act66;
+                    std::string v66(src66->VpiValue());
+                    if (auto cp66 = v66.find(':'); cp66 != std::string::npos) {
+                        std::string pfx66 = v66.substr(0, cp66);
+                        std::string dg66 = v66.substr(cp66 + 1);
+                        int32_t ct66 = 0;
+                        char bch66 = 0;
+                        if (pfx66 == "BIN") { ct66 = vpiBinaryConst; bch66 = 'b'; }
+                        else if (pfx66 == "OCT") { ct66 = vpiOctConst; bch66 = 'o'; }
+                        else if (pfx66 == "HEX") { ct66 = vpiHexConst; bch66 = 'h'; }
+                        else if (pfx66 == "DEC") { ct66 = vpiDecConst; bch66 = 'd'; }
+                        else if (pfx66 == "INT") ct66 = vpiIntConst;
+                        else if (pfx66 == "UINT") ct66 = vpiUIntConst;
+                        // Any other encoding (a STRING or REAL member, an X/Z
+                        // value) has no measured golden form: keep the ref.
+                        if (ct66 != 0 && !dg66.empty()) {
+                            int32_t sz66 = src66->VpiSize();
+                            auto* c66 = s.MakeConstant();
+                            c66->VpiValue(v66);
+                            c66->VpiSize(sz66);
+                            c66->VpiConstType(ct66);
+                            c66->VpiDecompile(
+                                bch66 ? std::to_string(sz66) + "'" + bch66 + dg66
+                                      : dg66);
+                            // Golden parents the fold at the owning select /
+                            // operation (`|vpiParent: \_bit_select`) and spans
+                            // it exactly where the ref sat.  `Compare` reads no
+                            // VpiParent and no span (RESUME §9); both are here
+                            // for the BYTES the boundary gate reads.
+                            c66->VpiParent(parent);
+                            c66->VpiFile(ref->VpiFile());
+                            c66->VpiLineNo(ref->VpiLineNo());
+                            c66->VpiColumnNo(ref->VpiColumnNo());
+                            c66->VpiEndLineNo(ref->VpiEndLineNo());
+                            c66->VpiEndColumnNo(ref->VpiEndColumnNo());
+                            return c66;
+                        }
+                    }
+                }
             return ref;
         }
         case ExpressionKind::UnaryOp: {

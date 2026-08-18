@@ -1,0 +1,8 @@
+plain r10earl61repro/g2_earl61.sv
+elab r10earl61repro/g2_earl61.sv
+plain r10earl66repro/g1_enum66.sv
+elab r10earl66repro/g1_enum66.sv
+plain r10earl66repro/g2_enc66.sv
+elab r10earl66repro/g2_enc66.sv
+plain r10earl66repro/g3_bare66.sv
+elab r10earl66repro/g3_bare66.sv

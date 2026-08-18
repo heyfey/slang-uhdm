@@ -1,0 +1,70 @@
+r10earl66 — THE GRIDS, MEASURED ON GOLDEN (Surelog -parse -nobuiltin -nocache
+-d uhdm), one line per cell.  MEASUREMENT ONLY; the official uhdm-cmp judges.
+
+=====================================================================
+GRID A — WHICH POSITION FOLDS an enum-constant read?  (g1_enum66.sv,
+         arm 3 g3_bare66.sv for the bare actual)
+=====================================================================
+  view / site                       position                golden
+  ---------------------------------------------------------------------
+  ELAB port High_conn               bit-select INDEX        CONSTANT
+  ELAB port High_conn               ips BASE   (d[E +: 32]) CONSTANT
+  ELAB port High_conn               ips WIDTH  (d[0 +: E])  CONSTANT
+  ELAB port High_conn               operation operand (==)  CONSTANT
+  ELAB port High_conn               concat operand          CONSTANT (whole
+                                                            concat reduced)
+  ELAB port High_conn               ternary arm             CONSTANT
+  ELAB port High_conn               cast operand 32'(E)     CONSTANT (whole
+                                                            cast reduced)
+  ELAB port High_conn               BARE actual .e_i(E)     CONSTANT
+  ELAB port High_conn               PART-SELECT bound       ref_obj -> enum_const
+                                    (d[E1:E0])              <-- NEGATIVE CONTROL
+  DEF   ref_module High_conn        every position          ref_obj -> enum_const
+  ELAB cont_assign                  every position          ref_obj -> enum_const
+  DEF   cont_assign                 every position          ref_obj -> enum_const
+  procedural (always_comb) index    -                       ref_obj -> enum_const
+  homes: module body / gen-for / gen-if  --  IDENTICAL in all three
+  origin: package enum / module-local enum / $unit enum -- IDENTICAL
+
+=====================================================================
+GRID B — WHAT ENCODING does the fold carry?  (g1_enum66.sv, g2_enc66.sv)
+         golden's constant, ELAB High_conn bit-select index
+=====================================================================
+  member declaration            golden ct  sz   value        decompile
+  ---------------------------------------------------------------------
+  EH0 = 3'h0                          5    3    HEX:0        3'h0
+  EH4 = 3'h4                          5    3    HEX:4        3'h4
+  EB2 = 4'b0010                       3    4    BIN:0010     4'b0010
+  ED5 = 8'd5                          7    8    INT:5        5
+  XS  = 8'sd9                         7    8    INT:9        9
+  EU1 = 1        (untyped base)       9    64   UINT:1       1
+  LU1 = 1        (module-local, untyped) 9  64   UINT:1      1
+  EA2            (auto, logic [2:0])  7    3    INT:2        2
+  EI1            (auto, int base)     7    32   INT:1        1
+  EM4            (auto after 8'h3, bit[7:0]) 7 8 INT:4       4
+  LH2 = 3'h2     (module-local hex)   5    3    HEX:2        3'h2
+  UN1 = 2'h2     ($unit enum)         5    2    HEX:2        2'h2
+  XP  = PLP[2:0] (from a localparam)  3    3    BIN:101      3'b101
+  XA  = 3'h2+3'h1 (EXPRESSION-valued) 9    3    UINT:3       3    (*)
+  XO  = 5'o17    (OCTAL)              9    5    UINT:15      15   (*)
+
+  THE RULE: value and size are the ENUM MEMBER'S OWN (`enum_const::VpiValue`
+  / `VpiSize`); vpiConstType comes from the value's ENCODING PREFIX
+  (BIN->3 OCT->4 HEX->5 DEC->1 INT->7 UINT->9); the decompile is RE-MINTED
+  from the value -- bare DIGITS for INT:/UINT:, `<size>'<base><digits>`
+  otherwise.  Copying the member's own VpiDecompile is WRONG for `8'd5`
+  (member "8'd5", fold "5").
+
+  (*) The two rows marked (*) are cells where OUR enum_const's own value
+  differs from Surelog's before this pass ever runs (XA: golden UINT:3, ours
+  BIN:011; XO: golden UINT:15, ours OCT:17).  They were WRONG before the fold
+  (ref_obj where golden has a constant) and they are WRONG after it (a
+  constant with our encoding) -- a SEPARATE law, ranked R2 in PREDICT_R0.txt,
+  and there is no cell of that shape anywhere in either corpus (fence scan).
+
+=====================================================================
+GRID C — the PACKAGE PARAMETER twin in the same position (g2_enc66.sv)
+=====================================================================
+  PLP (package localparam) as a bit-select index   ct 9 sz 32 UINT:5  dec 5
+  PPP (package parameter)  as a bit-select index   ct 9 sz 32 UINT:7  dec 7
+  -- the rgg11/earl64 copy law, unchanged by this pass.

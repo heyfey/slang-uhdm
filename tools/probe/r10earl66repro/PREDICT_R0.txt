@@ -1,0 +1,113 @@
+r10earl66 — THE NEXT HEAD (R0), BOTH Earlgrey_0_1 MODES, measured on the
+PATCHED database (binary md5 aa09dc513ae0d50e02708833ede679bb) against the
+immutable golden caches 00d4794526e44dc553f3 (default) and
+d7348d2d2fe67abe767b (testflags).  Pristine binary md5
+b10a3f6e195760bb08a26b9e13b79060, BASE f7cc5ad.
+
+earl65's R0 is CLEARED.  It was a VpiType head (constant vs ref_obj) and it is
+gone in BOTH modes, on the same object, with the two AFTER cmp logs
+byte-identical:
+
+  cmp depth  default   36 -> 46 lines    (line count is HEAD DEPTH, never a
+             testflags 36 -> 46 lines     distance)
+  heads      1 per run, both modes, before and after; the two AFTER logs are
+             byte-identical (HEAD_R0_AFTER_default.cmp ==
+             HEAD_R0_AFTER_testflags.cmp).
+
+  earl65 R0 (flash_phy_core.sv:163:17-163:24, `.req_i(reqs[PhyRead])`, the
+  ELAB High_conn bit-select INDEX of `flash_phy_rd i_rd`) — CLEARED, and with
+  it the WHOLE 32-cell family (whole-design census, both modes: 32 TO-GOLDEN,
+  0 AWAY-GOLDEN, 0 MOVED-WRONG, and those 32 are the ONLY cells that changed
+  anywhere in the database).  After the pass, of the 1,471 remaining
+  ours-ref_obj-to-enum_const cells in Earlgrey, ALL 1,471 agree with golden.
+
+=======================================================================
+R0 — Earlgrey_0_1, BOTH MODES, 46 cmp lines, 1 head
+=======================================================================
+
+  flash_phy_rd.sv:142:34-142:36 (lowrisc_ip_flash_ctrl_0.1/rtl -> prim_arbiter
+  tree), inside
+  gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.
+  gen_tree[0].gen_level[0].gen_nodes — the INDEX of the bit_select
+  `req_tree[C0]` in an ELABORATED cont_assign:
+
+      LHS(golden): constant  id:310350  142:34-142:36
+                     |vpiParent -> bit_select (…gen_nodes.req_tree)
+                     |vpiDecompile:1  |vpiSize:32  |INT:1  |vpiConstType:7
+                     |vpiTypespec -> ref_typespec -> int_typespec (105:20-105:32)
+      RHS(ours)  : ref_obj (…gen_nodes.C0) id:251945  142:34-142:36
+                     |vpiName:C0   (NO vpiActual — the gen-scope localparam is
+                                    unbound in our elaborated cont_assign)
+
+  HEAD DECODE (BaseClass.h + UHDM/build/generated/src/bit_select.cpp):
+  `bit_select::Compare` runs the SINGULAR `SafeCompare(lhs->VpiIndex(),
+  rhs->VpiIndex())`; both operands are non-null with DIFFERENT UhdmType, so
+  `BaseClass::Compare`'s type test fails first and BOTH sides are named in
+  full — the same MK shape earl65's R0 had, one family down the ladder.
+  Note the golden constant ALSO carries a LOCATED int_typespec here, where the
+  High_conn twin this pass just landed carries none: the position×view split
+  § connIpsPkgParamBoundNoTs65 measured holds for the value fold too.
+
+  > R0 (both modes): in an ELABORATED cont_assign, golden folds a GEN-SCOPE
+  > LOCALPARAM read used as a bit-select INDEX to `constant vpiIntConst sz 32`
+  > carrying the parameter's LOCATED declaration int_typespec, and we keep an
+  > UNBOUND ref_obj.  1,995 cells this shape.
+
+=======================================================================
+THE SUPERFAMILY, RE-RANKED ON THE PATCHED DATABASE (default mode;
+"golden has a CONSTANT where we have a REF_OBJ at the same positional key")
+=======================================================================
+  2,254 cells before this pass -> 2,222 after (testflags: 2,396).
+
+  rank  cells  sec   site  position  symbol                     note
+  ----------------------------------------------------------------------
+   R0   1,995  ELAB  CA    idx       C0 / C1 / Pa (gen-scope     THE NEW HEAD;
+                                     localparams of rv_plic's    earl64's R3
+                                     gen_tree/gen_level/gen_nodes
+                                     and prim_arbiter's tree)
+   R1a     89  ELAB  CA    RHS       offset                      whole-Rhs
+                                                                 reduce (earl64 R4)
+   R1b     87  ELAB  CA    op11[]    IDW                         operand fold
+   R1c     32  ELAB  CA    op33[]    MioPeriphHasSleepMode       operand fold
+   R1d     16  ELAB  HC    idx       N / STIDW / DataBitWidth    earl64 R5, the
+                                                                 High_conn残り
+   R1e      3  ELAB  HC    b         (ips base)                  earl64 R5
+  ----------------------------------------------------------------------
+  ELAB cont_assign carries 2,203 of the 2,222; ELAB High_conn carries 19.
+  EVERY remaining cell is a PARAMETER/LOCALPARAM read — the ENUM-CONSTANT
+  slice of the superfamily is now EMPTY in both modes.
+
+=======================================================================
+RANKED AFTER R0
+=======================================================================
+R1  THE TYPESPEC-PRESENCE MIRROR, carried from earl65 UNCHANGED by this pass
+    (this pass's 32 folds carry no typespec on either side): 95 cells where
+    GOLDEN carries a typespec on a folded constant and we carry none —
+    87 ELAB cont_assign ips WIDTH (`STIDW`, a module-body localparam), 6 ELAB
+    High_conn ips WIDTH (`N_TIMERS`, golden's object is a BARE signed
+    int_typespec — CompileExpression.cpp's `sval->isSigned()` mint), 2 ELAB
+    cont_assign operation operands (`NumBuf`), 1 param_assign Rhs where golden
+    has int_typespec and we have logic_typespec.
+R2  OUR ENUM_CONST'S OWN ENCODING, exposed (not caused) by this pass and
+    MEASURED on g2_enc66.sv: for an EXPRESSION-valued member
+    (`XA = 3'h2 + 3'h1`) golden's enum_const is `UINT:3 dec "3"` and ours is
+    `BIN:011 dec "3'h2 + 3'h1"`; for an OCTAL member (`XO = 5'o17`) golden is
+    `UINT:15` and ours `OCT:17`; for a localparam-part-select member
+    (`XP = PLP[2:0]`) golden's DEF copy is `UINT:5 sz 32` and its ELAB copy
+    `BIN:101 sz 3` — golden mints TWO enum_const objects per member and the
+    ELAB one is what the High_conn fold reproduces.  ZERO cells of this shape
+    exist in either corpus (fence scan, 2,981 databases), so it is a
+    correctness-of-the-model residue, not a row.
+R3  carried from earl64/65 and unchanged: earl64's R1 (the BASED-OVERRIDE
+    DECOMPILE spelling `"32'h2"` vs `"4'h2"`, 44 Earlgrey cells), R2 (the
+    negative override value `UINT:-3`), and earl61-63's residues.
+R4  A JUDGE-INVISIBLE SHAPE RESIDUE recorded, not taken: where golden reduces
+    a WHOLE High_conn expression to one constant (`32'(EH4)`, `{29'b0, EH4}`,
+    `32'(EH4 + 1)`, `(E1 == E1)`), we now emit an operation over FOLDED
+    constants — one level short of golden.  Arms g1_enum66 `u_barea`/`u_op`/
+    `u_cat`/`u_tern` and r10earl61repro's `g2_earl61.sv` `i_en`; it is the same
+    whole-expression reduce earl64 ranked as R4 and it is arm-only (fence scan
+    finds no corpus cell).  A positional-key census scores those cells
+    MOVED-WRONG because golden has NO cell at the sub-key at all — earl60's
+    attrv60.py lesson in a new dress: read WHAT golden holds at the parent key
+    before believing the label.

@@ -1,0 +1,83 @@
+# GOLDEN EVIDENCE — § connCallArgKeepsEnumRef66v
+
+Surelog -parse, elaborated instance work@vtop9.u_a of v9_argdepth66.sv.
+Every cell below is golden's; every one keeps ref_obj -> enum_const.
+
+TS ELAB work@vtop9.u_a HC_d1_L8:31 HC/arg[0] ref_obj span=19:20-19:22 name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4
+TS ELAB work@vtop9.u_a HC_d2_L8:53 HC/arg[0] bit_select span=20:24-20:26 name=bus
+TS ELAB work@vtop9.u_a HC_d2_L8:53 HC/arg[0]/idx ref_obj span=20:24-20:26 name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4
+TS ELAB work@vtop9.u_a HC_d3_L8:75 HC/arg[0]/op29[0] ref_obj span=21:20-21:22 name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4
+TS ELAB work@vtop9.u_a HC_d3_L8:75 HC/arg[0]/op29[1] ref_obj span=21:25-21:27 name=NB actual=enum_const aval=BIN:0101 adec=4'b0101 asz=4
+TS ELAB work@vtop9.u_a HC_d4_L9:31 HC/arg[0]/op33[0] constant span=22:21-22:25 ct=3 sz=4 val=BIN:0 dec=4'b0 ts=- tsspan=- tsname=-
+TS ELAB work@vtop9.u_a HC_d4_L9:31 HC/arg[0]/op33[1] ref_obj span=22:27-22:29 name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4
+TS ELAB work@vtop9.u_a HC_d5_L9:53 HC/b/op28[0]/arg[0] ref_obj span=23:25-23:27 name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4
+TS ELAB work@vtop9.u_a HC_d5_L9:53 HC/b/op28[1] constant span=23:31-23:35 ct=5 sz=8 val=HEX:7 dec=8'h7 ts=- tsspan=- tsname=-
+TS ELAB work@vtop9.u_a HC_d5_L9:53 HC indexed_part_select span=23:20-23:41 name=bus
+TS ELAB work@vtop9.u_a HC_d5_L9:53 HC/w constant span=23:40-23:41 ct=9 sz=64 val=UINT:8 dec=8 ts=- tsspan=- tsname=-
+TS ELAB work@vtop9.u_a HC_d6_L9:75 HC/arg[0]/op67[0] ref_obj span=24:23-24:25 name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4
+TS ELAB work@vtop9.u_a HC_d7_L10:31 HC/arg[0]/b ref_obj span=25:24-25:26 name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4
+TS ELAB work@vtop9.u_a HC_d7_L10:31 HC/arg[0] indexed_part_select span=25:24-25:31 name=bus
+TS ELAB work@vtop9.u_a HC_d7_L10:31 HC/arg[0]/w constant span=25:30-25:31 ct=9 sz=64 val=UINT:4 dec=4 ts=- tsspan=- tsname=-
+
+--- the same keys, PRISTINE (right) / SHIPPED-PATCH (wrong):
+
+cells 15 {'AWAY-GOLDEN': 8, 'STILL-RIGHT': 7}
+  AWAY-GOLDEN TS ELAB work@vtop9.u_a HC_d2_L8:53 HC/arg[0]/idx 
+      G ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      O ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      P constant ct=5 sz=4 val=HEX:3 dec=4'h3 ts=- tsname=-
+  AWAY-GOLDEN TS ELAB work@vtop9.u_a HC_d5_L9:53 HC/b/op28[0]/arg[0] 
+      G ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      O ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      P constant ct=5 sz=4 val=HEX:3 dec=4'h3 ts=logic_typespec tsname=-
+  AWAY-GOLDEN TS ELAB work@vtop9.u_a HC_d4_L9:31 HC/arg[0]/op33[1] 
+      G ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      O ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      P constant ct=5 sz=4 val=HEX:3 dec=4'h3 ts=- tsname=-
+  AWAY-GOLDEN TS ELAB work@vtop9.u_a HC_d3_L8:75 HC/arg[0]/op29[1] 
+      G ref_obj name=NB actual=enum_const aval=BIN:0101 adec=4'b0101 asz=4 
+      O ref_obj name=NB actual=enum_const aval=BIN:0101 adec=4'b0101 asz=4 
+      P constant ct=3 sz=4 val=BIN:0101 dec=4'b0101 ts=- tsname=-
+  AWAY-GOLDEN TS ELAB work@vtop9.u_a HC_d7_L10:31 HC/arg[0]/b 
+      G ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      O ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      P constant ct=5 sz=4 val=HEX:3 dec=4'h3 ts=- tsname=-
+  AWAY-GOLDEN TS ELAB work@vtop9.u_a HC_d1_L8:31 HC/arg[0] 
+      G ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      O ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      P constant ct=5 sz=4 val=HEX:3 dec=4'h3 ts=- tsname=-
+  AWAY-GOLDEN TS ELAB work@vtop9.u_a HC_d3_L8:75 HC/arg[0]/op29[0] 
+      G ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      O ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      P constant ct=5 sz=4 val=HEX:3 dec=4'h3 ts=- tsname=-
+  AWAY-GOLDEN TS ELAB work@vtop9.u_a HC_d6_L9:75 HC/arg[0]/op67[0] 
+      G ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      O ref_obj name=NH actual=enum_const aval=HEX:3 adec=4'h3 asz=4 
+      P constant ct=5 sz=4 val=HEX:3 dec=4'h3 ts=- tsname=-
+
+--- the same keys, VERIFIED patch (all STILL-RIGHT):
+
+cells 15 {'STILL-RIGHT': 15}
+
+--- arm 2 (.x12(vf2(PH))), the corpus-shaped instance, golden dump:
+    \_port: (x12), line:10:77, endln:10:80
+      |vpiParent:
+      \_module_inst: work@vk2 (work@vtop2.u_p), file:/tmp/v66_arms/v2_pos66/v2_pos66.sv, line:22:3, endln:35:32
+      |vpiName:x12
+      |vpiDirection:1
+      |vpiHighConn:
+      \_func_call: (vf2), line:33:17, endln:33:24
+        |vpiParent:
+        \_port: (x12), line:10:77, endln:10:80
+        |vpiArgument:
+        \_ref_obj: (work@vtop2.u_p.x12.PH), line:33:21, endln:33:23
+          |vpiParent:
+          \_func_call: (vf2), line:33:17, endln:33:24
+          |vpiName:PH
+          |vpiFullName:work@vtop2.u_p.x12.PH
+          |vpiActual:
+          \_enum_const: (PH), line:4:30, endln:4:39
+        |vpiName:vf2
+        |vpiFunction:
+        \_function: (work@vtop2.vf2), line:19:3, endln:21:14
+      |vpiLowConn:

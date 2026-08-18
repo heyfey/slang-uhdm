@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 09:20, HEAD = the rgg14 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 09:50, HEAD = the earl66 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,14 +182,14 @@ row-modes over 7 tests:
 |---|---|---|
 | SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | 17 | `typedef uvm_port_base #(IF) this_type;` (uvm_port_base.svh:199): golden's class_typespec leaves the slot EMPTY, we fill a self-referential ref_typespec (this_type → the same class_typespec); pass uvm97 in flight (uvm96 landed: 12→17, cast-target keyword typespec kinds) |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 29 | a bind-window gap at a bit-select INDEX: `m_severity_count[severity]++` (uvm_pkg.sv:30001, in-class method, assoc array keyed by an enum formal) — golden's index ref_obj binds the formal's io_decl, ours null; pass buvm21 in flight (buvm20 landed: 152→29, OOB-method body-local return typedef bare clone) |
-| Earlgrey_0_1/default | 36 (depth) | ELAB High_conn bit-select INDEX naming a package ENUM CONSTANT `reqs[PhyRead]` (flash_phy_core.sv:163): golden FOLDS it to the member's written encoding (HEX:0 sz 3 `3'h0`), we keep ref_obj→enum_const — 46 cells inside a 2,254-cell golden-folds/we-do-not superfamily; pass earl66 in flight (earl65 landed: 17→36 depth, ips-bound typespec presence) |
-| Earlgrey_0_1/testflags | 36 (depth) | SAME head, identical cmp log (earl65) |
+| Earlgrey_0_1/default | 46 (depth) | ELAB gen-scope cont_assign bit-select INDEX naming a gen-scope LOCALPARAM `req_tree[C0]` (prim_arbiter_tree.sv:142): golden folds to INT:1 sz32 with a located int_typespec, ours an UNBOUND ref_obj — 1,995-cell family (C0/C1/Pa) inside a 2,222-cell superfamily; pass earl67 in flight (earl66 landed: 36→46 depth, ELAB High_conn enum-const fold) |
+| Earlgrey_0_1/testflags | 46 (depth) | SAME head, identical cmp log (earl66) |
 | Rggen/default | 64 (depth) | `parameter bit [WIDTH-1:0] INITIAL_VALUE = '0` (rggen_bit_field.sv:5): golden BIN:0 vpiSize 2 (the FORMAL's declared width, located), ours vpiSize 64 loc-less — an unsized-fill parameter default/override sizing law; R-A 810 rows / R-C 24 hier_path port rows / R-E gen-scope localparam index fold next; pass rgg15 in flight (rgg14 landed: 36→64 depth, genvar port-index fold re-render) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 55 verifier fix-before-landing re-cuts (108 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 56 verifier fix-before-landing re-cuts (109 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

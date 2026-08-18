@@ -1,0 +1,36 @@
+LHS:
+decompile:
+constant: , id:309503, line:163:17, endln:163:24
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.reqs), id:309504, line:163:17, endln:163:24
+|vpiDecompile:3'h0
+|vpiSize:3
+|HEX:0
+|vpiConstType:5
+
+decompile:
+constant: , id:309503, line:163:17, endln:163:24
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.reqs), id:309504, line:163:17, endln:163:24
+|vpiDecompile:3'h0
+|vpiSize:3
+|HEX:0
+|vpiConstType:5
+RHS:
+decompile:
+ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.PhyRead), id:252928, line:163:17, endln:163:24
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.reqs), id:252927, line:163:17, endln:163:24
+|vpiName:PhyRead
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.PhyRead
+|vpiActual:
+\_enum_const: (PhyRead), id:1094, line:71:5, endln:71:24
+
+decompile:
+ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.PhyRead), id:252928, line:163:17, endln:163:24
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.reqs), id:252927, line:163:17, endln:163:24
+|vpiName:PhyRead
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.PhyRead
+|vpiActual:
+\_enum_const: (PhyRead), id:1094, line:71:5, endln:71:24
