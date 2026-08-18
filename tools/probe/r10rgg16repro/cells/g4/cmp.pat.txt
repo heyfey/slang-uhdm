@@ -1,0 +1,283 @@
+LHS: <null>
+RHS:
+decompile:
+interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+|vpiParent:
+\_module_inst: work@plainchild (work@top.u5), id:398, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:3, endln:35:37
+|vpiName:p
+|vpiFullName:work@top.u5.p
+|vpiVariables:
+\_logic_var: (work@top.u5.p.sig), id:422, line:5:17, endln:5:20
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |vpiTypespec:
+  \_ref_typespec: (work@top.u5.p.sig), id:427
+    |vpiParent:
+    \_logic_var: (work@top.u5.p.sig), id:422, line:5:17, endln:5:20
+    |vpiFullName:work@top.u5.p.sig
+    |vpiActual:
+    \_logic_typespec: , id:423, line:5:3, endln:5:16
+  |vpiName:sig
+  |vpiFullName:work@top.u5.p.sig
+  |vpiVisibility:1
+|vpiParameter:
+\_parameter: (work@top.u5.p.W), id:408, line:4:31, endln:4:32
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |UINT:8
+  |vpiTypespec:
+  \_ref_typespec: (work@top.u5.p.W), id:409
+    |vpiParent:
+    \_parameter: (work@top.u5.p.W), id:408, line:4:31, endln:4:32
+    |vpiFullName:work@top.u5.p.W
+    |vpiActual:
+    \_int_typespec: , id:594, line:4:27, endln:4:30
+  |vpiSigned:1
+  |vpiName:W
+  |vpiFullName:work@top.u5.p.W
+|vpiParameter:
+\_parameter: (work@top.u5.p.D), id:413, line:4:52, endln:4:53
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |UINT:2
+  |vpiTypespec:
+  \_ref_typespec: (work@top.u5.p.D), id:414
+    |vpiParent:
+    \_parameter: (work@top.u5.p.D), id:413, line:4:52, endln:4:53
+    |vpiFullName:work@top.u5.p.D
+    |vpiActual:
+    \_int_typespec: , id:595, line:4:48, endln:4:51
+  |vpiSigned:1
+  |vpiName:D
+  |vpiFullName:work@top.u5.p.D
+|vpiParameter:
+\_parameter: (work@top.u5.p.W), id:418, line:4:31, endln:4:32
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |UINT:8
+  |vpiTypespec:
+  \_ref_typespec: (work@top.u5.p.W), id:419
+    |vpiParent:
+    \_parameter: (work@top.u5.p.W), id:418, line:4:31, endln:4:32
+    |vpiFullName:work@top.u5.p.W
+    |vpiActual:
+    \_int_typespec: , id:596, line:4:27, endln:4:30
+  |vpiSigned:1
+  |vpiName:W
+  |vpiFullName:work@top.u5.p.W
+|vpiParameter:
+\_parameter: (work@top.u5.p.D), id:420, line:4:52, endln:4:53
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |UINT:2
+  |vpiTypespec:
+  \_ref_typespec: (work@top.u5.p.D), id:421
+    |vpiParent:
+    \_parameter: (work@top.u5.p.D), id:420, line:4:52, endln:4:53
+    |vpiFullName:work@top.u5.p.D
+    |vpiActual:
+    \_int_typespec: , id:597, line:4:48, endln:4:51
+  |vpiSigned:1
+  |vpiName:D
+  |vpiFullName:work@top.u5.p.D
+|vpiParamAssign:
+\_param_assign: , id:410, line:4:31, endln:4:36
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |vpiOverriden:1
+  |vpiRhs:
+  \_constant: , id:411, line:4:35, endln:4:36
+    |vpiParent:
+    \_param_assign: , id:410, line:4:31, endln:4:36
+    |vpiDecompile:8
+    |vpiSize:32
+    |UINT:8
+    |vpiTypespec:
+    \_ref_typespec: (work@top.u5.p), id:412
+      |vpiParent:
+      \_constant: , id:411, line:4:35, endln:4:36
+      |vpiFullName:work@top.u5.p
+      |vpiActual:
+      \_int_typespec: , id:594, line:4:27, endln:4:30
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (work@top.u5.p.W), id:408, line:4:31, endln:4:32
+|vpiParamAssign:
+\_param_assign: , id:415, line:4:52, endln:4:57
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |vpiOverriden:1
+  |vpiRhs:
+  \_constant: , id:416, line:4:56, endln:4:57
+    |vpiParent:
+    \_param_assign: , id:415, line:4:52, endln:4:57
+    |vpiDecompile:2
+    |vpiSize:32
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (work@top.u5.p), id:417
+      |vpiParent:
+      \_constant: , id:416, line:4:56, endln:4:57
+      |vpiFullName:work@top.u5.p
+      |vpiActual:
+      \_int_typespec: , id:595, line:4:48, endln:4:51
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (work@top.u5.p.D), id:413, line:4:52, endln:4:53
+|vpiDefName:work@ifc
+|vpiModport:
+\_modport: (mp), id:428, line:6:11, endln:6:13
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |vpiName:mp
+  |vpiIODecl:
+  \_io_decl: (sig), id:429, line:6:21, endln:6:24
+    |vpiParent:
+    \_modport: (mp), id:428, line:6:11, endln:6:13
+    |vpiDirection:1
+    |vpiName:sig
+    |vpiExpr:
+    \_logic_var: (work@top.u5.p.sig), id:422, line:5:17, endln:5:20
+  |vpiInterface:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+
+decompile:
+interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+|vpiParent:
+\_module_inst: work@plainchild (work@top.u5), id:398, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:3, endln:35:37
+|vpiName:p
+|vpiFullName:work@top.u5.p
+|vpiVariables:
+\_logic_var: (work@top.u5.p.sig), id:422, line:5:17, endln:5:20
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |vpiTypespec:
+  \_ref_typespec: (work@top.u5.p.sig), id:427
+    |vpiParent:
+    \_logic_var: (work@top.u5.p.sig), id:422, line:5:17, endln:5:20
+    |vpiFullName:work@top.u5.p.sig
+    |vpiActual:
+    \_logic_typespec: , id:423, line:5:3, endln:5:16
+  |vpiName:sig
+  |vpiFullName:work@top.u5.p.sig
+  |vpiVisibility:1
+|vpiParameter:
+\_parameter: (work@top.u5.p.W), id:408, line:4:31, endln:4:32
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |UINT:8
+  |vpiTypespec:
+  \_ref_typespec: (work@top.u5.p.W), id:409
+    |vpiParent:
+    \_parameter: (work@top.u5.p.W), id:408, line:4:31, endln:4:32
+    |vpiFullName:work@top.u5.p.W
+    |vpiActual:
+    \_int_typespec: , id:594, line:4:27, endln:4:30
+  |vpiSigned:1
+  |vpiName:W
+  |vpiFullName:work@top.u5.p.W
+|vpiParameter:
+\_parameter: (work@top.u5.p.D), id:413, line:4:52, endln:4:53
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |UINT:2
+  |vpiTypespec:
+  \_ref_typespec: (work@top.u5.p.D), id:414
+    |vpiParent:
+    \_parameter: (work@top.u5.p.D), id:413, line:4:52, endln:4:53
+    |vpiFullName:work@top.u5.p.D
+    |vpiActual:
+    \_int_typespec: , id:595, line:4:48, endln:4:51
+  |vpiSigned:1
+  |vpiName:D
+  |vpiFullName:work@top.u5.p.D
+|vpiParameter:
+\_parameter: (work@top.u5.p.W), id:418, line:4:31, endln:4:32
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |UINT:8
+  |vpiTypespec:
+  \_ref_typespec: (work@top.u5.p.W), id:419
+    |vpiParent:
+    \_parameter: (work@top.u5.p.W), id:418, line:4:31, endln:4:32
+    |vpiFullName:work@top.u5.p.W
+    |vpiActual:
+    \_int_typespec: , id:596, line:4:27, endln:4:30
+  |vpiSigned:1
+  |vpiName:W
+  |vpiFullName:work@top.u5.p.W
+|vpiParameter:
+\_parameter: (work@top.u5.p.D), id:420, line:4:52, endln:4:53
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |UINT:2
+  |vpiTypespec:
+  \_ref_typespec: (work@top.u5.p.D), id:421
+    |vpiParent:
+    \_parameter: (work@top.u5.p.D), id:420, line:4:52, endln:4:53
+    |vpiFullName:work@top.u5.p.D
+    |vpiActual:
+    \_int_typespec: , id:597, line:4:48, endln:4:51
+  |vpiSigned:1
+  |vpiName:D
+  |vpiFullName:work@top.u5.p.D
+|vpiParamAssign:
+\_param_assign: , id:410, line:4:31, endln:4:36
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |vpiOverriden:1
+  |vpiRhs:
+  \_constant: , id:411, line:4:35, endln:4:36
+    |vpiParent:
+    \_param_assign: , id:410, line:4:31, endln:4:36
+    |vpiDecompile:8
+    |vpiSize:32
+    |UINT:8
+    |vpiTypespec:
+    \_ref_typespec: (work@top.u5.p), id:412
+      |vpiParent:
+      \_constant: , id:411, line:4:35, endln:4:36
+      |vpiFullName:work@top.u5.p
+      |vpiActual:
+      \_int_typespec: , id:594, line:4:27, endln:4:30
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (work@top.u5.p.W), id:408, line:4:31, endln:4:32
+|vpiParamAssign:
+\_param_assign: , id:415, line:4:52, endln:4:57
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |vpiOverriden:1
+  |vpiRhs:
+  \_constant: , id:416, line:4:56, endln:4:57
+    |vpiParent:
+    \_param_assign: , id:415, line:4:52, endln:4:57
+    |vpiDecompile:2
+    |vpiSize:32
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (work@top.u5.p), id:417
+      |vpiParent:
+      \_constant: , id:416, line:4:56, endln:4:57
+      |vpiFullName:work@top.u5.p
+      |vpiActual:
+      \_int_typespec: , id:595, line:4:48, endln:4:51
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (work@top.u5.p.D), id:413, line:4:52, endln:4:53
+|vpiDefName:work@ifc
+|vpiModport:
+\_modport: (mp), id:428, line:6:11, endln:6:13
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0
+  |vpiName:mp
+  |vpiIODecl:
+  \_io_decl: (sig), id:429, line:6:21, endln:6:24
+    |vpiParent:
+    \_modport: (mp), id:428, line:6:11, endln:6:13
+    |vpiDirection:1
+    |vpiName:sig
+    |vpiExpr:
+    \_logic_var: (work@top.u5.p.sig), id:422, line:5:17, endln:5:20
+  |vpiInterface:
+  \_interface_inst: work@ifc (work@top.u5.p), id:407, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g4/dut.sv, line:35:0

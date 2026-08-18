@@ -1,0 +1,8 @@
+DEF	work@leafif	work@leafif	PV=1	par=2	pa=2	mp=1	var=0	tf=0	cb=0	port=0	PK=design	GK=-	PA={W:constant:8:-}{D:constant:2:-}	PL={W:UINT:8}{D:UINT:2}
+DEF	work@midif	work@midif	PV=1	par=1	pa=1	mp=1	var=0	tf=0	cb=0	port=1	PK=design	GK=-	PA={MW:constant:4:-}	PL={MW:UINT:4}
+ELAB	work@top.g.mig	work@midif	PV=1	par=1	pa=1	mp=1	var=1	tf=0	cb=0	port=0	PK=gen_scope	GK=gen_scope_array	PA={MW:constant:6:OV}	PL={MW:UINT:4}
+ELAB	work@top.g.u2.m	work@midif	PV=1	par=1	pa=1	mp=1	var=1	tf=0	cb=0	port=0	PK=module_inst	GK=gen_scope	PA={MW:constant:6:OV}	PL={MW:UINT:4}
+ELAB	work@top.g.u3.m	work@midif	PV=1	par=1	pa=0	mp=1	var=1	tf=0	cb=0	port=0	PK=module_inst	GK=gen_scope	PA=<null>	PL={MW:UINT:4}
+ELAB	work@top.li	work@leafif	PV=0	par=2	pa=2	mp=1	var=1	tf=0	cb=0	port=0	PK=module_inst	GK=design	PA={W:constant:16:OV}{D:constant:3:OV}	PL={W:UINT:8}{D:UINT:2}
+ELAB	work@top.mi	work@midif	PV=0	par=1	pa=1	mp=1	var=1	tf=0	cb=0	port=0	PK=module_inst	GK=design	PA={MW:constant:6:OV}	PL={MW:UINT:4}
+ELAB	work@top.u1.m	work@midif	PV=1	par=1	pa=1	mp=1	var=1	tf=0	cb=0	port=0	PK=module_inst	GK=module_inst	PA={MW:constant:6:OV}	PL={MW:UINT:4}

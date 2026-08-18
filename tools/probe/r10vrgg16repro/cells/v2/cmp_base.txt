@@ -1,0 +1,41 @@
+# r10vrgg16: HEAD STANZA ONLY (full log was 448 lines; the tail is the decompile)
+LHS:
+decompile:
+interface_inst: work@ifc (work@top.u1.p), id:198, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v2/dut.sv, line:19:0
+|vpiParent:
+\_module_inst: work@gchild (work@top.u1), id:389, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v2/dut.sv, line:19:3, endln:19:37
+|vpiName:p
+|vpiFullName:work@top.u1.p
+|vpiVariables:
+\_logic_var: (work@top.inst.sig), id:178, line:5:17, endln:5:20
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.inst), id:380, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v2/dut.sv, line:18:3, endln:18:24
+  |vpiTypespec:
+  \_ref_typespec: (work@top.inst.sig), id:179
+    |vpiParent:
+    \_logic_var: (work@top.inst.sig), id:178, line:5:17, endln:5:20
+    |vpiFullName:work@top.inst.sig
+    |vpiActual:
+    \_logic_typespec: , id:171, line:5:3, endln:5:16
+  |vpiName:sig
+  |vpiFullName:work@top.inst.sig
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@top.inst.sig), id:212, line:5:17, endln:5:20
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.inst), id:380, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v2/dut.sv, line:18:3, endln:18:24
+  |vpiTypespec:
+  \_ref_typespec: (work@top.inst.sig), id:213
+    |vpiParent:
+    \_logic_var: (work@top.inst.sig), id:212, line:5:17, endln:5:20
+    |vpiFullName:work@top.inst.sig
+    |vpiActual:
+    \_logic_typespec: , id:205, line:5:3, endln:5:16
+  |vpiName:sig
+  |vpiFullName:work@top.inst.sig
+  |vpiVisibility:1
+|vpiParameter:
+\_parameter: (work@top.u1.p.W), id:391, line:4:31, endln:4:32
+  |vpiParent:
+  \_interface_inst: work@ifc (work@top.u1.p), id:198, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v2/dut.sv, line:19:0
+  |UINT:8

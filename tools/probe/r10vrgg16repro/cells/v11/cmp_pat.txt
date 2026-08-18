@@ -1,0 +1,41 @@
+# r10vrgg16: HEAD STANZA ONLY (full log was 50 lines; the tail is the decompile)
+LHS:
+decompile:
+ref_obj: (work@top.p), id:223, line:16:13, endln:16:14
+|vpiParent:
+\_port: (p), id:184, line:9:22, endln:9:23
+|vpiName:p
+|vpiFullName:work@top.p
+|vpiActual:
+\_interface_inst: work@ifc (work@top.p), id:166, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v11/dut.sv, line:14:0
+
+decompile:
+ref_obj: (work@top.p), id:223, line:16:13, endln:16:14
+|vpiParent:
+\_port: (p), id:184, line:9:22, endln:9:23
+|vpiName:p
+|vpiFullName:work@top.p
+|vpiActual:
+\_interface_inst: work@ifc (work@top.p), id:166, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v11/dut.sv, line:14:0
+RHS:
+decompile:
+hier_path: (.), id:212, line:16:13, endln:16:14
+|vpiParent:
+\_port: (p), id:210, line:9:22, endln:9:23
+|vpiActual:
+\_ref_obj: (work@top.u1.p), id:213, line:16:13, endln:16:13
+  |vpiParent:
+  \_hier_path: (.), id:212, line:16:13, endln:16:14
+  |vpiFullName:work@top.u1.p
+|vpiActual:
+\_ref_obj: (work@top.u1.p.), id:214, line:16:14, endln:16:14
+  |vpiParent:
+  \_hier_path: (.), id:212, line:16:13, endln:16:14
+  |vpiFullName:work@top.u1.p.
+|vpiName:.
+
+decompile:
+hier_path: (.), id:212, line:16:13, endln:16:14
+|vpiParent:
+\_port: (p), id:210, line:9:22, endln:9:23
+|vpiActual:

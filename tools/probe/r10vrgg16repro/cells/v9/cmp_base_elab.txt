@@ -1,0 +1,37 @@
+# r10vrgg16: HEAD STANZA ONLY (full log was 36 lines; the tail is the decompile)
+LHS:
+decompile:
+constant: , id:347, line:5:10, endln:5:11
+|vpiParent:
+\_range: , id:340, line:5:9, endln:5:16
+|vpiDecompile:7
+|vpiSize:64
+|INT:7
+|vpiConstType:7
+
+decompile:
+constant: , id:347, line:5:10, endln:5:11
+|vpiParent:
+\_range: , id:340, line:5:9, endln:5:16
+|vpiDecompile:7
+|vpiSize:64
+|INT:7
+|vpiConstType:7
+RHS:
+decompile:
+constant: , id:358, line:5:10, endln:5:11
+|vpiParent:
+\_range: , id:357, line:5:9, endln:5:16
+|vpiDecompile:15
+|vpiSize:64
+|INT:15
+|vpiConstType:7
+
+decompile:
+constant: , id:358, line:5:10, endln:5:11
+|vpiParent:
+\_range: , id:357, line:5:9, endln:5:16
+|vpiDecompile:15
+|vpiSize:64
+|INT:15
+|vpiConstType:7

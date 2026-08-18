@@ -1,0 +1,41 @@
+# r10vrgg16: HEAD STANZA ONLY (full log was 1836 lines; the tail is the decompile)
+LHS:
+decompile:
+module_inst: work@top (work@top), id:1111, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v12/dut.sv, line:14:1, endln:24:10
+|vpiParent:
+\_design: (work@top), id:1086
+|vpiFullName:work@top
+|vpiDefName:work@top
+|vpiNet:
+\_logic_net: (work@top.o), id:1118, line:14:32, endln:14:33
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:1111, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v12/dut.sv, line:14:1, endln:24:10
+  |vpiName:o
+  |vpiFullName:work@top.o
+  |vpiNetType:36
+|vpiNet:
+\_logic_net: (work@top.inst), id:1120, line:17:20, endln:17:24
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:1111, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v12/dut.sv, line:14:1, endln:24:10
+  |vpiName:inst
+  |vpiFullName:work@top.inst
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (work@top.arr), id:1121, line:18:20, endln:18:23
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:1111, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v12/dut.sv, line:14:1, endln:24:10
+  |vpiName:arr
+  |vpiFullName:work@top.arr
+  |vpiNetType:1
+|vpiPort:
+\_port: (o), id:1112, line:14:32, endln:14:33
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:1111, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v12/dut.sv, line:14:1, endln:24:10
+  |vpiName:o
+  |vpiDirection:2
+  |vpiLowConn:
+  \_ref_obj: (work@top.o.o), id:1119, line:14:32, endln:14:33
+    |vpiParent:
+    \_port: (o), id:1112, line:14:32, endln:14:33
+    |vpiName:o
+    |vpiFullName:work@top.o.o

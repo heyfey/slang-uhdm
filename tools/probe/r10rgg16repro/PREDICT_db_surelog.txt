@@ -1,0 +1,67 @@
+PRISTINE ROOT /tmp/r10rgg16_slw_base
+databases scanned 956
+
+TIER-1 (PREDICTED MOVERS: port view with param_assigns inside a gen scope): 1
+  default/Rggen-50ccbd70/slang.uhdm
+      ELAB work@rggen.u_block_0.g_register_0.g_bit_field_0.u_bit_field.bit_field_if pa=1 GK=gen_scope
+      ELAB work@rggen.u_block_0.g_register_0.g_bit_field_1.u_bit_field.bit_field_if pa=1 GK=gen_scope
+      ELAB work@rggen.u_block_0.g_register_0.g_bit_field_2.u_bit_field.bit_field_if pa=1 GK=gen_scope
+      ELAB work@rggen.u_block_0.g_register_0.g_bit_field_3.u_bit_field.bit_field_if pa=1 GK=gen_scope
+      ELAB work@rggen.u_block_0.g_register_0.g_bit_field_4.u_bit_field.bit_field_if pa=1 GK=gen_scope
+      ELAB work@rggen.u_block_0.g_register_0.g_bit_field_5.u_bit_field.bit_field_if pa=1 GK=gen_scope
+      ELAB work@rggen.u_block_0.g_register_0.g_bit_field_6.u_bit_field.bit_field_if pa=1 GK=gen_scope
+      ELAB work@rggen.u_block_0.g_register_0.u_register.bit_field_if pa=1 GK=gen_scope
+
+TIER-2 (possible, module-scope port views with param_assigns): 26
+  default/FuncDeclScope-d548cca0/slang.uhdm (1 views)
+  default/GenForIfaceLocalparamBound-fe9fe25d/slang.uhdm (1 views)
+  default/GenForIfaceLocalparamNestedGen-0374ca75/slang.uhdm (1 views)
+  default/GenForStructParamBound-9f7b4470/slang.uhdm (1 views)
+  default/GenIfIfaceParamStructField-3c6c4e24/slang.uhdm (1 views)
+  default/InterfType-54ee30ac/slang.uhdm (1 views)
+  default/InterfaceElab-e41049d0/slang.uhdm (2 views)
+  default/InterfaceFuncCall-eed07c30/slang.uhdm (1 views)
+  default/InterfaceModPort-a10293bb/slang.uhdm (1 views)
+  default/InterfaceParamOverrideProp-02a9f775/slang.uhdm (3 views)
+  default/InterfaceUnpackedStructArrayDim-70b7f8f3/slang.uhdm (2 views)
+  default/MiniAmiq-544c7f61/slang.uhdm (1 views)
+  default/OneNetRange-cf1f634a/slang.uhdm (1 views)
+  testflags/FuncDeclScope-d548cca0/slang.uhdm (1 views)
+  testflags/GenForIfaceLocalparamBound-fe9fe25d/slang.uhdm (1 views)
+  testflags/GenForIfaceLocalparamNestedGen-0374ca75/slang.uhdm (1 views)
+  testflags/GenForStructParamBound-9f7b4470/slang.uhdm (1 views)
+  testflags/GenIfIfaceParamStructField-3c6c4e24/slang.uhdm (1 views)
+  testflags/InterfType-54ee30ac/slang.uhdm (1 views)
+  testflags/InterfaceElab-e41049d0/slang.uhdm (2 views)
+  testflags/InterfaceFuncCall-eed07c30/slang.uhdm (1 views)
+  testflags/InterfaceModPort-a10293bb/slang.uhdm (1 views)
+  testflags/InterfaceParamOverrideProp-02a9f775/slang.uhdm (3 views)
+  testflags/InterfaceUnpackedStructArrayDim-70b7f8f3/slang.uhdm (2 views)
+  testflags/MiniAmiq-544c7f61/slang.uhdm (1 views)
+  testflags/OneNetRange-cf1f634a/slang.uhdm (1 views)
+
+UNREADABLE 0
+
+PREDICTED-IDENTICAL 929
+
+================================================================================
+THE NAMED PREDICTION, recorded BEFORE the patched surelog sweep existed
+(the pat sweep was still running when this block was written; the u2r
+byteverify above it had already read MOVERS 0/1358, matching TIER-1 = 0).
+
+  surelog corpus:  EXACTLY ONE database moves —
+                       default/Rggen-50ccbd70/slang.uhdm
+                   and NOTHING ELSE.  All 955 others byte-identical.
+  uhdm2rtlil:      ZERO databases move (TIER-1 was empty).
+
+WHY the other TIER-1 rows of Rggen do NOT move: the eight
+`...g_register_0...u_bit_field.bit_field_if` port views listed above sit in a
+gen scope, but their connection actual (`bit_field_sub_if` /`bit_field_if`) is
+DECLARED IN THAT SAME GEN SCOPE, so the lookup HITS and golden keeps their one
+param_assign (golden census: `pa=1` on every one of them).  The gate is a
+lookup MISS gate; a hit changes nothing.
+
+WHY no TIER-2 database moves: every one of them is a MODULE-SCOPE port view
+whose actual is a direct member of the instantiating module body — the same
+`Scope::find` the gate performs, so the gate declines.
+================================================================================

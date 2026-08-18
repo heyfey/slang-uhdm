@@ -1,0 +1,41 @@
+# r10vrgg16: HEAD STANZA ONLY (full log was 7826 lines; the tail is the decompile)
+LHS:
+decompile:
+design: (work@top), id:353
+|vpiName:work@top
+|uhdmallPackages:
+\_package: builtin (builtin::), id:354
+  |vpiParent:
+  \_design: (work@top), id:353
+  |vpiName:builtin
+  |vpiFullName:builtin::
+  |vpiDefName:builtin
+|uhdmtopPackages:
+\_package: builtin (builtin::), id:122
+  |vpiParent:
+  \_design: (work@top), id:353
+  |vpiName:builtin
+  |vpiFullName:builtin::
+  |vpiDefName:builtin
+  |vpiTop:1
+  |vpiClassDefn:
+  \_class_defn: (builtin::any_sverilog_class), id:127
+    |vpiParent:
+    \_package: builtin (builtin::), id:122
+    |vpiName:any_sverilog_class
+    |vpiFullName:builtin::any_sverilog_class
+  |vpiClassDefn:
+  \_class_defn: (builtin::array), id:123
+    |vpiParent:
+    \_package: builtin (builtin::), id:122
+    |vpiName:array
+    |vpiFullName:builtin::array
+  |vpiClassDefn:
+  \_class_defn: (builtin::queue), id:124
+    |vpiParent:
+    \_package: builtin (builtin::), id:122
+    |vpiName:queue
+    |vpiFullName:builtin::queue
+  |vpiClassDefn:
+  \_class_defn: (builtin::string), id:125
+    |vpiParent:

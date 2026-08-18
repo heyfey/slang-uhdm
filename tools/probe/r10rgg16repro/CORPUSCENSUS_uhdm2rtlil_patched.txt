@@ -1,0 +1,4 @@
+root /tmp/r10rgg16_u2rw_pat
+databases with a golden 1358
+with >=1 interface_inst 130
+DIFFERING 0

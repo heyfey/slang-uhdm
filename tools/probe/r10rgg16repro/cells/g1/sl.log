@@ -1,0 +1,28 @@
+[INF:CM0023] Creating log file "/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g1/slpp_all/surelog.log".
+[NTE:PP0128] /tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g1/dut.sv:1:8: Non ASCII character detected, replaced by space.
+[WRN:PA0205] /tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g1/dut.sv:3:1: No timescale set for "ifc".
+[WRN:PA0205] /tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g1/dut.sv:8:1: No timescale set for "child".
+[WRN:PA0205] /tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g1/dut.sv:12:1: No timescale set for "top".
+[INF:CP0300] Compilation...
+[INF:CP0303] /tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g1/dut.sv:8:1: Compile module "work@child".
+[INF:CP0304] /tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g1/dut.sv:3:1: Compile interface "work@ifc".
+[INF:CP0303] /tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g1/dut.sv:12:1: Compile module "work@top".
+[INF:CP0302] Compile class "work@mailbox".
+[INF:CP0302] Compile class "work@process".
+[INF:CP0302] Compile class "work@semaphore".
+[INF:EL0526] Design Elaboration...
+[INF:CP0335] /tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g1/dut.sv:17:10: Compile generate block "work@top.g2".
+[INF:CP0335] /tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g1/dut.sv:21:10: Compile generate block "work@top.g3".
+[INF:CP0335] /tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g1/dut.sv:26:34: Compile generate block "work@top.g4[0]".
+[NTE:EL0503] /tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g1/dut.sv:12:1: Top level module "work@top".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 3.
+[NTE:EL0510] Nb instances: 5.
+[NTE:EL0511] Nb leaf instances: 0.
+[INF:UH0706] Creating UHDM Model...
+[INF:UH0708] Writing UHDM DB: /tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g1/slpp_all/surelog.uhdm ...
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 3
+[   NOTE] : 6

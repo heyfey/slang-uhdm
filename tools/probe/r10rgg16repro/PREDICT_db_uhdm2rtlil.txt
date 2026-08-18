@@ -1,0 +1,54 @@
+PRISTINE ROOT /tmp/r10rgg16_u2rw_base
+databases scanned 1358
+
+TIER-1 (PREDICTED MOVERS: port view with param_assigns inside a gen scope): 0
+
+TIER-2 (possible, module-scope port views with param_assigns): 44
+  default/InterfaceParameter-eabd56db/slang.uhdm (1 views)
+  default/InterfaceParameterSetValue-fa2d7b09/slang.uhdm (1 views)
+  default/iface_array_elem_cfg_param-e60a2aea/slang.uhdm (1 views)
+  default/iface_cfg_mem-0d90a5ba/slang.uhdm (2 views)
+  default/iface_cfg_param_def_pass-cce0db2f/slang.uhdm (2 views)
+  default/iface_ff_genvar_partsel-e98381d4/slang.uhdm (1 views)
+  default/iface_gen_delay-12520e81/slang.uhdm (1 views)
+  default/iface_gen_delay_struct-26f4d863/slang.uhdm (1 views)
+  default/iface_nested_param_field-5b989391/slang.uhdm (2 views)
+  default/iface_param_2level-b0253a04/slang.uhdm (2 views)
+  default/iface_param_port_width-a4008ebf/slang.uhdm (1 views)
+  default/iface_param_set_value-2b91cc5b/slang.uhdm (1 views)
+  default/iface_param_width_per_inst-c5025375/slang.uhdm (1 views)
+  default/iface_scalar_localparam-a7441da3/slang.uhdm (2 views)
+  default/iface_struct_field_param_width-66613b2e/slang.uhdm (2 views)
+  default/iface_struct_field_partsel-917f9147/slang.uhdm (2 views)
+  default/iface_unpacked_struct_array-6dce1376/slang.uhdm (2 views)
+  default/iface_wholestruct_param-ee3ccb15/slang.uhdm (2 views)
+  default/interface_array-56a01b59/slang.uhdm (1 views)
+  default/interface_array_fanout-038689c8/slang.uhdm (3 views)
+  default/jeras_tcb_gpio-ae64260e/slang.uhdm (2 views)
+  default/simple_interface-b621f0ee/slang.uhdm (4 views)
+  testflags/InterfaceParameter-eabd56db/slang.uhdm (1 views)
+  testflags/InterfaceParameterSetValue-fa2d7b09/slang.uhdm (1 views)
+  testflags/iface_array_elem_cfg_param-e60a2aea/slang.uhdm (1 views)
+  testflags/iface_cfg_mem-0d90a5ba/slang.uhdm (2 views)
+  testflags/iface_cfg_param_def_pass-cce0db2f/slang.uhdm (2 views)
+  testflags/iface_ff_genvar_partsel-e98381d4/slang.uhdm (1 views)
+  testflags/iface_gen_delay-12520e81/slang.uhdm (1 views)
+  testflags/iface_gen_delay_struct-26f4d863/slang.uhdm (1 views)
+  testflags/iface_nested_param_field-5b989391/slang.uhdm (2 views)
+  testflags/iface_param_2level-b0253a04/slang.uhdm (2 views)
+  testflags/iface_param_port_width-a4008ebf/slang.uhdm (1 views)
+  testflags/iface_param_set_value-2b91cc5b/slang.uhdm (1 views)
+  testflags/iface_param_width_per_inst-c5025375/slang.uhdm (1 views)
+  testflags/iface_scalar_localparam-a7441da3/slang.uhdm (2 views)
+  testflags/iface_struct_field_param_width-66613b2e/slang.uhdm (2 views)
+  testflags/iface_struct_field_partsel-917f9147/slang.uhdm (2 views)
+  testflags/iface_unpacked_struct_array-6dce1376/slang.uhdm (2 views)
+  testflags/iface_wholestruct_param-ee3ccb15/slang.uhdm (2 views)
+  testflags/interface_array-56a01b59/slang.uhdm (1 views)
+  testflags/interface_array_fanout-038689c8/slang.uhdm (3 views)
+  testflags/jeras_tcb_gpio-ae64260e/slang.uhdm (2 views)
+  testflags/simple_interface-b621f0ee/slang.uhdm (4 views)
+
+UNREADABLE 0
+
+PREDICTED-IDENTICAL 1314

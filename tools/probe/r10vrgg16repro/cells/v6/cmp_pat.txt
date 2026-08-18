@@ -1,0 +1,41 @@
+# r10vrgg16: HEAD STANZA ONLY (full log was 4071 lines; the tail is the decompile)
+LHS: <null>
+RHS:
+decompile:
+module_inst: work@top (work@top), id:173, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v6/dut.sv, line:12:1, endln:32:10
+|vpiParent:
+\_design: (work@top), id:1
+|vpiName:work@top
+|vpiParameter:
+\_parameter: (work@top.SEL), id:174, line:12:28, endln:12:31
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:173, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v6/dut.sv, line:12:1, endln:32:10
+  |UINT:1
+  |vpiTypespec:
+  \_ref_typespec: (work@top.SEL), id:175
+    |vpiParent:
+    \_parameter: (work@top.SEL), id:174, line:12:28, endln:12:31
+    |vpiFullName:work@top.SEL
+    |vpiActual:
+    \_int_typespec: , id:602, line:12:24, endln:12:27
+  |vpiSigned:1
+  |vpiName:SEL
+  |vpiFullName:work@top.SEL
+|vpiParamAssign:
+\_param_assign: , id:176, line:12:28, endln:12:35
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:173, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v6/dut.sv, line:12:1, endln:32:10
+  |vpiRhs:
+  \_constant: , id:177, line:12:34, endln:12:35
+    |vpiParent:
+    \_param_assign: , id:176, line:12:28, endln:12:35
+    |vpiDecompile:1
+    |vpiSize:32
+    |UINT:1
+    |vpiTypespec:
+    \_ref_typespec: (work@top), id:178
+      |vpiParent:
+      \_constant: , id:177, line:12:34, endln:12:35
+      |vpiFullName:work@top
+      |vpiActual:
+      \_int_typespec: , id:17, line:12:24, endln:12:27

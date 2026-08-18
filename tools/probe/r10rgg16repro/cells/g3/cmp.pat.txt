@@ -1,0 +1,36 @@
+LHS:
+decompile:
+ref_obj: (work@top.u_m.g.p), id:366, line:18:17, endln:18:18
+|vpiParent:
+\_port: (p), id:329, line:9:21, endln:9:22
+|vpiName:p
+|vpiFullName:work@top.u_m.g.p
+|vpiActual:
+\_interface_inst: work@ifc (work@top.u_m.p), id:234, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g3/dut.sv, line:25:0
+
+decompile:
+ref_obj: (work@top.u_m.g.p), id:366, line:18:17, endln:18:18
+|vpiParent:
+\_port: (p), id:329, line:9:21, endln:9:22
+|vpiName:p
+|vpiFullName:work@top.u_m.g.p
+|vpiActual:
+\_interface_inst: work@ifc (work@top.u_m.p), id:234, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g3/dut.sv, line:25:0
+RHS:
+decompile:
+ref_obj: (work@top.u_m.g.inst), id:339, line:18:17, endln:18:18
+|vpiParent:
+\_port: (p), id:337, line:9:21, endln:9:22
+|vpiName:inst
+|vpiFullName:work@top.u_m.g.inst
+|vpiActual:
+\_interface_inst: work@ifc (work@top.inst), id:187, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g3/dut.sv, line:23:0
+
+decompile:
+ref_obj: (work@top.u_m.g.inst), id:339, line:18:17, endln:18:18
+|vpiParent:
+\_port: (p), id:337, line:9:21, endln:9:22
+|vpiName:inst
+|vpiFullName:work@top.u_m.g.inst
+|vpiActual:
+\_interface_inst: work@ifc (work@top.inst), id:187, file:/tmp/wt_r10rgg16/tools/probe/r10rgg16repro/cells/g3/dut.sv, line:23:0

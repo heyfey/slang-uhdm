@@ -1,0 +1,39 @@
+# r10vrgg16: HEAD STANZA ONLY (full log was 38 lines; the tail is the decompile)
+LHS:
+decompile:
+bit_select: (p[0]), id:5, line:11:14, endln:11:15
+|vpiParent:
+\_hier_path: (p[0].sig[0]), id:3, line:11:14, endln:11:25
+|vpiName:p
+|vpiFullName:p[0]
+|vpiIndex:
+\_constant: , id:4, line:11:16, endln:11:17
+  |vpiDecompile:0
+  |vpiSize:64
+  |UINT:0
+  |vpiConstType:9
+
+decompile:
+bit_select: (p[0]), id:5, line:11:14, endln:11:15
+|vpiParent:
+\_hier_path: (p[0].sig[0]), id:3, line:11:14, endln:11:25
+|vpiName:p
+|vpiFullName:p[0]
+|vpiIndex:
+\_constant: , id:4, line:11:16, endln:11:17
+  |vpiDecompile:0
+  |vpiSize:64
+  |UINT:0
+  |vpiConstType:9
+RHS:
+decompile:
+ref_obj: (p[0]), id:18, line:11:14, endln:11:18
+|vpiParent:
+\_hier_path: (p[0].sig[0]), id:17, line:11:14, endln:11:25
+|vpiName:p[0]
+
+decompile:
+ref_obj: (p[0]), id:18, line:11:14, endln:11:18
+|vpiParent:
+\_hier_path: (p[0].sig[0]), id:17, line:11:14, endln:11:25
+|vpiName:p[0]

@@ -1,0 +1,38 @@
+g1: FIXED=2 STILL-RIGHT=5
+    FIXED                  ELAB work@top.g2.u2.p
+        was  ('work@ifc', 'PV=1', 'par=2', 'pa=2', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+        now  ('work@ifc', 'PV=1', 'par=2', 'pa=0', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+    FIXED                  ELAB work@top.g4[0].u4.p
+        was  ('work@ifc', 'PV=1', 'par=2', 'pa=2', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+        now  ('work@ifc', 'PV=1', 'par=2', 'pa=0', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+g2: FIXED=2 STILL-RIGHT=7
+    FIXED                  ELAB work@top.g2.u2.p
+        was  ('work@ifc', 'PV=1', 'par=2', 'pa=2', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+        now  ('work@ifc', 'PV=1', 'par=2', 'pa=0', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+    FIXED                  ELAB work@top.g4[0].u4.p
+        was  ('work@ifc', 'PV=1', 'par=2', 'pa=2', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+        now  ('work@ifc', 'PV=1', 'par=2', 'pa=0', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+g3: FIXED=2 STILL-RIGHT=7
+    FIXED                  ELAB work@top.u_m.g.u2.p
+        was  ('work@ifc', 'PV=1', 'par=2', 'pa=2', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+        now  ('work@ifc', 'PV=1', 'par=2', 'pa=0', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+    FIXED                  ELAB work@top.u_m2.g.u2.p
+        was  ('work@ifc', 'PV=1', 'par=2', 'pa=2', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+        now  ('work@ifc', 'PV=1', 'par=2', 'pa=0', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+g4: FIXED=2 STILL-RIGHT=8 STILL-WRONG=1
+    FIXED                  ELAB work@top.g2.u2.p
+        was  ('work@ifc', 'PV=1', 'par=2', 'pa=2', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+        now  ('work@ifc', 'PV=1', 'par=2', 'pa=0', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+    FIXED                  ELAB work@top.g6.u6.p
+        was  ('work@ifc', 'PV=1', 'par=4', 'pa=2', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+        now  ('work@ifc', 'PV=1', 'par=4', 'pa=0', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+    STILL-WRONG(ours/gold) ELAB work@top.u5.p
+        ours ('work@ifc', 'PV=1', 'par=4', 'pa=2', 'mp=1', 'var=1', 'PK=module_inst', 'GK=module_inst')
+        gold ('work@ifc', 'PV=1', 'par=4', 'pa=0', 'mp=1', 'var=1', 'PK=module_inst', 'GK=module_inst')
+g5: FIXED=2 STILL-RIGHT=4
+    FIXED                  ELAB work@top.go.gi.u2.p
+        was  ('work@ifc', 'PV=1', 'par=2', 'pa=2', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+        now  ('work@ifc', 'PV=1', 'par=2', 'pa=0', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+    FIXED                  ELAB work@top.go.gi.u3.p
+        was  ('work@ifc', 'PV=1', 'par=2', 'pa=2', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')
+        now  ('work@ifc', 'PV=1', 'par=2', 'pa=0', 'mp=1', 'var=1', 'PK=module_inst', 'GK=gen_scope')

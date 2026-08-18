@@ -1,0 +1,33 @@
+r10vrgg16 — THE ADVERSARIAL GRID: 14 cells x 2 views (default and --elabuhdm),
+scored golden vs base vs patched with the VIEW-GENERAL comparator
+(vcensus16.cpp + vscore16.py, multiset join, no span, no fullname-only key).
+
+CELL     VIEW   BROKEN  CHANGED-WRONG  FIXED  STILL-WRONG  STILL-RIGHT
+v1       def    0       0              2      0            10
+v1       _elab  0       0              2      0            10
+v2       def    0       0              0      2            4
+v2       _elab  0       0              0      2            4
+v3       def    0       0              0      2            10
+v3       _elab  0       0              0      6            8
+v4       def    0       0              0      8            3
+v4       _elab  0       0              0      8            3
+v5       def    0       0              1      0            3
+v5       _elab  0       0              1      0            3
+v6       def    0       0              5      0            8
+v6       _elab  0       0              5      0            8
+v7       def    0       0              1      0            3
+v7       _elab  0       0              1      0            3
+v8       def    0       0              3      0            11
+v8       _elab  0       0              3      0            11
+v9       def    0       0              2      3            7
+v9       _elab  0       0              2      3            7
+v10      def    0       0              2      1            6
+v10      _elab  0       2              0      1            6
+v11      def    0       0              0      0            7
+v11      _elab  0       0              0      2            5
+v12      def    0       0              0      8            10
+v12      _elab  0       0              0      8            10
+v13      def    0       1              0      7            3
+v13      _elab  0       1              0      7            3
+v14      def    0       0              2      0            3
+v14      _elab  0       1              1      0            3

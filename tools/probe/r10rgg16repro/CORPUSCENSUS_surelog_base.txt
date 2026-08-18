@@ -1,0 +1,23 @@
+root /tmp/r10rgg16_slw_base
+databases with a golden 956
+with >=1 interface_inst 61
+DIFFERING 3
+
+== testflags/SeqDriver-32af76aa  (2 differing keys)
+   DEF work@adpcm_if
+      gold ('work@adpcm_if', 'PV=1', 'par=0', 'pa=0', 'mp=0', 'var=0', 'PK=design', 'GK=-')
+      ours ('work@adpcm_if', 'PV=1', 'par=0', 'pa=0', 'mp=1', 'var=0', 'PK=design', 'GK=-')
+   ELAB work@top_tb.ADPCM
+      gold ('work@adpcm_if', 'PV=0', 'par=0', 'pa=0', 'mp=0', 'var=4', 'PK=module_inst', 'GK=design')
+      ours ('work@adpcm_if', 'PV=0', 'par=0', 'pa=0', 'mp=1', 'var=4', 'PK=module_inst', 'GK=design')
+== default/SeqDriver-32af76aa  (2 differing keys)
+   DEF work@adpcm_if
+      gold ('work@adpcm_if', 'PV=1', 'par=0', 'pa=0', 'mp=0', 'var=0', 'PK=design', 'GK=-')
+      ours ('work@adpcm_if', 'PV=1', 'par=0', 'pa=0', 'mp=1', 'var=0', 'PK=design', 'GK=-')
+   ELAB work@top_tb.ADPCM
+      gold ('work@adpcm_if', 'PV=0', 'par=0', 'pa=0', 'mp=0', 'var=4', 'PK=module_inst', 'GK=design')
+      ours ('work@adpcm_if', 'PV=0', 'par=0', 'pa=0', 'mp=1', 'var=4', 'PK=module_inst', 'GK=design')
+== default/Rggen-50ccbd70  (1 differing keys)
+   ELAB work@rggen.u_block_0.g_register_15.u_register.bus_if
+      gold ('work@rggen_bus_if', 'PV=1', 'par=4', 'pa=0', 'mp=1', 'var=8', 'PK=module_inst', 'GK=gen_scope')
+      ours ('work@rggen_bus_if', 'PV=1', 'par=4', 'pa=4', 'mp=1', 'var=8', 'PK=module_inst', 'GK=gen_scope')

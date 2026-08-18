@@ -26519,6 +26519,111 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             ifaceHasGen9 = true;
             break;
         }
+    // § ifacePortViewActualScopeGate16 — AN INTERFACE PORT VIEW WHOSE
+    //   CONNECTION ACTUAL IS NOT DECLARED IN THE INSTANTIATING SCOPE CARRIES
+    //   NO param_assigns AT ALL.
+    //
+    // Surelog does not compute a port copy's parameter values; it CLONES them
+    // off the interface instance the port connects to, and it finds that
+    // instance by NAME among the sub-instances of the copy's IMMEDIATE parent
+    // ModuleInstance -- `NetlistElaboration::getInterfaceInstance_` loops over
+    // `instance->getParent()->getAllSubInstances()` and `propagateIfaceParams_`
+    // copies `refInst`'s `netlist->param_assigns()` only when that loop hits.
+    // A GENERATE BLOCK is a ModuleInstance of its own, so an instance sitting
+    // inside `generate ... begin : g` sees ONLY what `g` declares: an actual
+    // living at module scope (or in an ENCLOSING generate block) is invisible,
+    // the lookup misses, `dstNetlist->param_assigns()` stays null, and
+    // `writeElabParameters` (UhdmWriter.cpp:442) then writes the definition's
+    // `Parameters` clones but leaves `Param_assigns` UNSET.
+    //
+    // Measured on golden over cells/g1..g5 (`par=`/`pa=` census, § 3):
+    //
+    //   actual's home                      instantiating scope   golden pa
+    //   named iface instance, same scope   module body           KEPT
+    //   named iface instance, module body  gen-if / gen-for      NONE
+    //   named iface instance, same gen blk gen-if                KEPT
+    //   named iface instance, OUTER gen    inner gen             NONE
+    //   enclosing module's own iface PORT  module body           KEPT   <- passthrough
+    //   enclosing module's own iface PORT  gen-if                NONE   <- Rggen's head
+    //   modport expression `inst.mp`       module body           KEPT
+    //   modport expression `inst.mp`       gen-if                NONE
+    //   interface-ARRAY element `arr[i]`   module body           NONE   <- see below
+    //
+    // The array-element row is the same mechanism read off the same code: the
+    // sub-instances of an interface array are named `arr[0]`, `arr[1]`, ... and
+    // `getInterfaceInstance_` matches the actual's BASE identifier `arr`, which
+    // equals no sub-instance name, so an indexed actual never resolves either.
+    // (Our array-element views already drop their param_assigns through
+    // § ifaceArrayElemPortViewNoPa below; this gate agrees with them.)
+    //
+    // The gate only ever REMOVES param_assigns, and only on the miss: when the
+    // actual IS a direct member of the instantiating scope every arm below is
+    // reached unchanged.  POSITIONAL connections are left alone -- Surelog
+    // compares the ACTUAL's name against the FORMAL's for those, a different
+    // rule that no measured cell of this pass exercises.
+    bool actualOutOfScope16 = false;
+    if (portView)
+        for (auto pb16 : portView->body.getPortList()) {
+            if (pb16->kind != SymbolKind::InterfacePort)
+                continue;
+            auto& ip16 = pb16->as<InterfacePortSymbol>();
+            if (ip16.getConnection().first != (const Symbol*)&inst)
+                continue;
+            auto* npc16 = findConnSyntax(*portView, ip16.name);
+            if (!npc16)
+                break;                       // positional: not this law
+            // The actual's BASE identifier, as Surelog reads it off the parse
+            // tree.  An omitted expression (`.p` shorthand) reads the FORMAL
+            // name; `a.mp` reads `a`; `arr[i]` matches nothing at all.
+            std::string_view base16;
+            bool selected16 = false;
+            if (const syntax::ExpressionSyntax* ax16 =
+                    connActualSyntax(npc16->expr)) {
+                const syntax::SyntaxNode* n16 = ax16;
+                while (n16->kind ==
+                       syntax::SyntaxKind::ParenthesizedExpression)
+                    n16 = n16->as<syntax::ParenthesizedExpressionSyntax>()
+                              .expression;
+                if (n16->kind == syntax::SyntaxKind::IdentifierName)
+                    base16 = n16->as<syntax::IdentifierNameSyntax>()
+                                 .identifier.valueText();
+                else if (n16->kind == syntax::SyntaxKind::IdentifierSelectName)
+                    selected16 = true;
+                else if (n16->kind == syntax::SyntaxKind::ScopedName) {
+                    const syntax::SyntaxNode* l16 =
+                        n16->as<syntax::ScopedNameSyntax>().left;
+                    while (l16 && l16->kind == syntax::SyntaxKind::ScopedName)
+                        l16 = l16->as<syntax::ScopedNameSyntax>().left;
+                    if (l16 &&
+                        l16->kind == syntax::SyntaxKind::IdentifierName)
+                        base16 = l16->as<syntax::IdentifierNameSyntax>()
+                                     .identifier.valueText();
+                }
+            }
+            else if (!npc16->expr)
+                base16 = ip16.name;          // `.p` shorthand
+            // The instantiating scope: an instance ARRAY is transparent (its
+            // elements' ModuleInstances hang off the same parent in Surelog).
+            const Scope* isc16 = portView->getParentScope();
+            while (isc16 &&
+                   isc16->asSymbol().kind == SymbolKind::InstanceArray)
+                isc16 = isc16->asSymbol().getParentScope();
+            // Only a real instance body / generate block is a Surelog
+            // ModuleInstance; anything else (the root) declines the law.
+            if (isc16 &&
+                (isc16->asSymbol().kind == SymbolKind::InstanceBody ||
+                 isc16->asSymbol().kind == SymbolKind::GenerateBlock ||
+                 isc16->asSymbol().kind == SymbolKind::GenerateBlockArray)) {
+                bool found16 = false;
+                if (!selected16 && !base16.empty())
+                    if (auto* sy16 = isc16->find(base16))
+                        found16 = sy16->kind == SymbolKind::Instance ||
+                                  sy16->kind == SymbolKind::InterfacePort;
+                if (!found16 && (selected16 || !base16.empty()))
+                    actualOutOfScope16 = true;
+            }
+            break;
+        }
     // § ifaceArrayElemPortViewNoPa — an interface-ARRAY ELEMENT port view
     // (`.register_if(register_if[0])`) carries NO param_assigns AT ALL, and
     // that outranks the multi-parameterization exception (a) below.  The
@@ -26530,7 +26635,12 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // element port views listed 5 param_assigns against golden's 0 (census
     // tools/probe/r10rggen5mp.cpp — `par=5 pa=0` on every golden row).  The
     // element's values live inline on its parameters either way.
-    if (portView && !inst.arrayPath.empty()) {
+    if (portView && actualOutOfScope16) {
+        // § ifacePortViewActualScopeGate16 (above) — the actual is invisible
+        // from the instantiating scope, so Surelog propagated nothing.
+        iface->Param_assigns(nullptr);
+    }
+    else if (portView && !inst.arrayPath.empty()) {
         iface->Param_assigns(nullptr);
     }
     else if (portView && !multiParamIface && connModport.empty()) {

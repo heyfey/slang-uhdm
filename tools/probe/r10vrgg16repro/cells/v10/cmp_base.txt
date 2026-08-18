@@ -1,0 +1,29 @@
+# r10vrgg16: HEAD STANZA ONLY (full log was 28 lines; the tail is the decompile)
+LHS:
+decompile:
+ref_obj: (work@top.g.l3.p.inst), id:56, line:27:18, endln:27:22
+|vpiParent:
+\_port: (p), id:55, line:27:14, endln:27:24
+|vpiName:inst
+|vpiFullName:work@top.g.l3.p.inst
+
+decompile:
+ref_obj: (work@top.g.l3.p.inst), id:56, line:27:18, endln:27:22
+|vpiParent:
+\_port: (p), id:55, line:27:14, endln:27:24
+|vpiName:inst
+|vpiFullName:work@top.g.l3.p.inst
+RHS:
+decompile:
+ref_obj: (work@top.g.l3.p.(inst)), id:56, line:27:17, endln:27:23
+|vpiParent:
+\_port: (p), id:55, line:27:14, endln:27:24
+|vpiName:(inst)
+|vpiFullName:work@top.g.l3.p.(inst)
+
+decompile:
+ref_obj: (work@top.g.l3.p.(inst)), id:56, line:27:17, endln:27:23
+|vpiParent:
+\_port: (p), id:55, line:27:14, endln:27:24
+|vpiName:(inst)
+|vpiFullName:work@top.g.l3.p.(inst)

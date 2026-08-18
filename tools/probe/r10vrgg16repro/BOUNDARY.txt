@@ -1,0 +1,85 @@
+r10vrgg16 — WIDE BOUNDARY over a COPY of the WHOLE tools/probe tree,
+no path filter, .sv AND .v, per-FILE and per-DIRECTORY, in BOTH views.
+Binaries /tmp/vrgg16_bin/{base,patched}.  Fenced names never dispatched (0 exist).
+
+== MODE=file VIEW=def
+LISTED=3105 PROCESSED=3105 IDENT=2965 MOVERS=13 UNCOMPILABLE=127 ASYM=0
+   movers:
+     MOVER r10earl61repro/v2_v61.sv
+     MOVER r10rgg16repro/cells/g1/dut.sv
+     MOVER r10rgg16repro/cells/g2/dut.sv
+     MOVER r10rgg16repro/cells/g3/dut.sv
+     MOVER r10rgg16repro/cells/g4/dut.sv
+     MOVER r10rgg16repro/cells/g5/dut.sv
+     MOVER r10vrgg16repro/cells/v1/dut.sv
+     MOVER r10vrgg16repro/cells/v10/dut.sv
+     MOVER r10vrgg16repro/cells/v5/dut.sv
+     MOVER r10vrgg16repro/cells/v6/dut.sv
+     MOVER r10vrgg16repro/cells/v7/dut.sv
+     MOVER r10vrgg16repro/cells/v8/dut.sv
+     MOVER r10vrgg16repro/cells/v9/dut.sv
+   asymmetries: 0
+== MODE=file VIEW=elab
+LISTED=3105 PROCESSED=3105 IDENT=2955 MOVERS=13 UNCOMPILABLE=137 ASYM=0
+   movers:
+     MOVER r10earl61repro/v2_v61.sv
+     MOVER r10rgg16repro/cells/g1/dut.sv
+     MOVER r10rgg16repro/cells/g2/dut.sv
+     MOVER r10rgg16repro/cells/g3/dut.sv
+     MOVER r10rgg16repro/cells/g4/dut.sv
+     MOVER r10rgg16repro/cells/g5/dut.sv
+     MOVER r10vrgg16repro/cells/v1/dut.sv
+     MOVER r10vrgg16repro/cells/v10/dut.sv
+     MOVER r10vrgg16repro/cells/v5/dut.sv
+     MOVER r10vrgg16repro/cells/v6/dut.sv
+     MOVER r10vrgg16repro/cells/v7/dut.sv
+     MOVER r10vrgg16repro/cells/v8/dut.sv
+     MOVER r10vrgg16repro/cells/v9/dut.sv
+   asymmetries: 0
+== MODE=dir VIEW=def
+LISTED=1425 PROCESSED=1425 IDENT=1292 MOVERS=12 UNCOMPILABLE=121 ASYM=0
+   movers:
+     MOVER r10rgg16repro/cells/g1
+     MOVER r10rgg16repro/cells/g2
+     MOVER r10rgg16repro/cells/g3
+     MOVER r10rgg16repro/cells/g4
+     MOVER r10rgg16repro/cells/g5
+     MOVER r10vrgg16repro/cells/v1
+     MOVER r10vrgg16repro/cells/v10
+     MOVER r10vrgg16repro/cells/v5
+     MOVER r10vrgg16repro/cells/v6
+     MOVER r10vrgg16repro/cells/v7
+     MOVER r10vrgg16repro/cells/v8
+     MOVER r10vrgg16repro/cells/v9
+   asymmetries: 0
+== MODE=dir VIEW=elab
+LISTED=1425 PROCESSED=1425 IDENT=1287 MOVERS=12 UNCOMPILABLE=126 ASYM=0
+   movers:
+     MOVER r10rgg16repro/cells/g1
+     MOVER r10rgg16repro/cells/g2
+     MOVER r10rgg16repro/cells/g3
+     MOVER r10rgg16repro/cells/g4
+     MOVER r10rgg16repro/cells/g5
+     MOVER r10vrgg16repro/cells/v1
+     MOVER r10vrgg16repro/cells/v10
+     MOVER r10vrgg16repro/cells/v5
+     MOVER r10vrgg16repro/cells/v6
+     MOVER r10vrgg16repro/cells/v7
+     MOVER r10vrgg16repro/cells/v8
+     MOVER r10vrgg16repro/cells/v9
+   asymmetries: 0
+
+VERDICT
+  Every mover in every arm is either one of the two passes' OWN grid cells
+  (the positive control fires, in both views and both modes) or
+  r10earl61repro/v2_v61.sv, which this pass's law NAMES and which is scored
+  TO GOLDEN below.  ZERO asymmetries, ZERO rc asymmetries.
+
+  r10earl61repro/v2_v61.sv, scored against a rebuilt golden with the
+  view-general comparator (vcensus16 + vscore16.py), BOTH views:
+      FIXED 1  BROKEN 0  STILL-WRONG 0  STILL-RIGHT 3
+      work@v2_v61.u1.gen_ifc.i_mp.p : pa 1 -> 0  == golden
+  and its OWN uhdm-cmp log is BYTE-IDENTICAL before and after (240 lines,
+  1 head) in both views -- earl61's head is a different family and did not
+  move.  earl61's and earl65's binder/modport laws HOLD.
+  rgg11..rgg15's repro arms are all in the same tree and are BYTE-IDENTICAL.

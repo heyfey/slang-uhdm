@@ -1,0 +1,45 @@
+r10rgg16 — BOUNDARY POSITIVE CONTROL
+====================================
+A boundary that reaches nothing prints exactly the same "MOVERS 0" a clean run
+prints, so the run must contain cells that are KNOWN to move.
+
+This pass's own grid cells are inside the scanned tree
+(/tmp/r10rgg16_bndsrc/r10rgg16repro/cells/g1..g5/dut.sv), and every one of
+them is a cell whose golden `pa` this pass changes.  The boundary reported all
+five as MOVERS:
+
+    MOVER /tmp/r10rgg16_bndsrc/r10rgg16repro/cells/g1/dut.sv
+    MOVER /tmp/r10rgg16_bndsrc/r10rgg16repro/cells/g2/dut.sv
+    MOVER /tmp/r10rgg16_bndsrc/r10rgg16repro/cells/g3/dut.sv
+    MOVER /tmp/r10rgg16_bndsrc/r10rgg16repro/cells/g4/dut.sv
+    MOVER /tmp/r10rgg16_bndsrc/r10rgg16repro/cells/g5/dut.sv
+
+=> the comparator, the file walk and the two binaries are all live.
+
+THE SIXTH MOVER, and its adjudication
+-------------------------------------
+    MOVER /tmp/r10rgg16_bndsrc/r10earl61repro/v2_v61.sv
+
+This is r10v61's adversarial grid 2, module `m_b1`:
+
+    iv61 bus (.clk(clk));                       // module scope
+    if (EN) begin : gen_ifc
+      kif61 i_mp (.p(bus.mp), .a(v & clk), .y(y1));
+      kfull61 i_fu (.b(bus),  .a(v | clk), .y(y2));
+    end
+
+i.e. EXACTLY this pass's law: a modport port view inside a generate block whose
+actual `bus` is declared one scope up.  It is a cell the law NAMES, and it moves
+TO GOLDEN.  Measured with surelog -parse on the same file (pvcensus16):
+
+  key                                    golden   base    patched
+  ELAB work@v2_v61.u1.bus                pa=1     pa=1    pa=1     (home view, PV=0)
+  ELAB work@v2_v61.u1.gen_ifc.i_mp.p     pa=0     pa=1    pa=0     <- FIXED
+  ELAB work@v2_v61.u1.gen_ifc.i_fu.b     pa=0     pa=0    pa=0
+  DEF  work@iv61                         pa=1     pa=1    pa=1
+
+uhdm-cmp on that arm: base and patched both 120 cmp lines, 1 head, and it is
+the SAME head both times (`module_array: (work@kv61)`, an unrelated family), so
+the arm's verdict is unchanged and the census strictly improves.
+
+    -- files=3095 identical=2962 MOVERS=6 uncompilable=127 asymmetries=0

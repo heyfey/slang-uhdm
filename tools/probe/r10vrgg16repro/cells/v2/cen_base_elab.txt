@@ -1,0 +1,7 @@
+DEF	work@ifc	work@ifc	PV=1	par=2	pa=2	mp=1	var=0	tf=0	cb=0	port=0	PK=design	GK=-	PA={W:constant:8:-}{D:constant:2:-}	PL={W:UINT:8}{D:UINT:2}
+ELAB	work@top.g.u3.p	work@ifc	PV=0	par=4	pa=0	mp=1	var=2	tf=0	cb=0	port=0	PK=module_inst	GK=gen_scope	PA=<null>	PL={W:UINT:8}{D:UINT:2}{W:UINT:8}{D:UINT:2}
+ELAB	work@top.g.u4.p	work@ifc	PV=0	par=4	pa=0	mp=1	var=1	tf=0	cb=0	port=0	PK=module_inst	GK=gen_scope	PA=<null>	PL={W:UINT:8}{D:UINT:2}{W:UINT:8}{D:UINT:2}
+ELAB	work@top.g.u4.p	work@ifc	PV=0	par=4	pa=0	mp=1	var=1	tf=0	cb=0	port=0	PK=module_inst	GK=gen_scope	PA=<null>	PL={W:UINT:8}{D:UINT:2}{W:UINT:8}{D:UINT:2}
+ELAB	work@top.inst	work@ifc	PV=0	par=2	pa=2	mp=1	var=2	tf=0	cb=0	port=0	PK=module_inst	GK=design	PA={W:constant:16:OV}{D:constant:3:OV}	PL={W:UINT:8}{D:UINT:2}
+ELAB	work@top.u1.p	work@ifc	PV=1	par=4	pa=0	mp=1	var=2	tf=0	cb=0	port=0	PK=module_inst	GK=module_inst	PA=<null>	PL={W:UINT:8}{D:UINT:2}{W:UINT:8}{D:UINT:2}
+ELAB	work@top.u2.p	work@ifc	PV=1	par=4	pa=0	mp=1	var=1	tf=0	cb=0	port=0	PK=module_inst	GK=module_inst	PA=<null>	PL={W:UINT:8}{D:UINT:2}{W:UINT:8}{D:UINT:2}

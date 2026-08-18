@@ -1,0 +1,41 @@
+# r10vrgg16: HEAD STANZA ONLY (full log was 472 lines; the tail is the decompile)
+LHS:
+decompile:
+named_begin: (work@top.g), id:52
+|vpiParent:
+\_gen_if: , id:33, line:22:3, endln:22:5
+|vpiName:g
+|vpiFullName:work@top.g
+|vpiStmt:
+\_ref_module: work@child (u4), id:34, line:24:11, endln:24:13
+  |vpiParent:
+  \_named_begin: (work@top.g), id:52
+  |vpiName:u4
+  |vpiDefName:work@child
+  |vpiPort:
+  \_port: (p), id:35, line:24:15, endln:24:20
+    |vpiParent:
+    \_ref_module: work@child (u4), id:34, line:24:11, endln:24:13
+    |vpiName:p
+    |vpiHighConn:
+    \_ref_obj: (work@top.g.u4.p.p), id:36, line:24:18, endln:24:19
+      |vpiParent:
+      \_port: (p), id:35, line:24:15, endln:24:20
+      |vpiName:p
+      |vpiFullName:work@top.g.u4.p.p
+  |vpiPort:
+  \_port: (o), id:37, line:24:22, endln:24:30
+    |vpiParent:
+    \_ref_module: work@child (u4), id:34, line:24:11, endln:24:13
+    |vpiName:o
+    |vpiHighConn:
+    \_bit_select: (work@top.g.u4.o), id:39, line:24:27, endln:24:28
+      |vpiParent:
+      \_port: (o), id:37, line:24:22, endln:24:30
+      |vpiName:o
+      |vpiFullName:work@top.g.u4.o
+      |vpiIndex:
+      \_constant: , id:38, line:24:27, endln:24:28
+        |vpiParent:
+        \_bit_select: (work@top.g.u4.o), id:39, line:24:27, endln:24:28
+        |vpiDecompile:3

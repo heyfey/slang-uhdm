@@ -1,0 +1,41 @@
+# r10vrgg16: HEAD STANZA ONLY (full log was 57 lines; the tail is the decompile)
+LHS:
+decompile:
+modport: (mp), id:211, line:7:11, endln:7:13
+|vpiParent:
+\_interface_inst: work@leafif (work@top.p), id:190, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v4/dut.sv, line:20:0
+|vpiName:mp
+|vpiIODecl:
+\_io_decl: (sig), id:212, line:7:21, endln:7:24
+  |vpiParent:
+  \_modport: (mp), id:211, line:7:11, endln:7:13
+  |vpiDirection:1
+  |vpiName:sig
+  |vpiExpr:
+  \_logic_var: (work@top.p.sig), id:209, line:6:17, endln:6:20
+    |vpiParent:
+    \_interface_inst: work@leafif (work@top.p), id:190, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v4/dut.sv, line:20:0
+    |vpiTypespec:
+    \_ref_typespec: (work@top.p.sig), id:210
+      |vpiParent:
+      \_logic_var: (work@top.p.sig), id:209, line:6:17, endln:6:20
+      |vpiFullName:work@top.p.sig
+      |vpiActual:
+      \_logic_typespec: , id:200, line:6:3, endln:6:16
+    |vpiName:sig
+    |vpiFullName:work@top.p.sig
+    |vpiVisibility:1
+|vpiInterface:
+\_interface_inst: work@leafif (work@top.p), id:190, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v4/dut.sv, line:20:0
+
+decompile:
+modport: (mp), id:211, line:7:11, endln:7:13
+|vpiParent:
+\_interface_inst: work@leafif (work@top.p), id:190, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v4/dut.sv, line:20:0
+|vpiName:mp
+|vpiIODecl:
+\_io_decl: (sig), id:212, line:7:21, endln:7:24
+  |vpiParent:
+  \_modport: (mp), id:211, line:7:11, endln:7:13
+  |vpiDirection:1
+  |vpiName:sig

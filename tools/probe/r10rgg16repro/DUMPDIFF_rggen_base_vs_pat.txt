@@ -1,0 +1,87 @@
+731464,731549d731463
+<             |vpiParamAssign:
+<             \_param_assign: , line:2:17, endln:2:35
+<               |vpiParent:
+<               \_interface_inst: work@rggen_bus_if (work@rggen.u_block_0.g_register_15.u_register.bus_if), file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:2289:0
+<               |vpiOverriden:1
+<               |vpiRhs:
+<               \_constant: , line:2:33, endln:2:35
+<                 |vpiParent:
+<                 \_param_assign: , line:2:17, endln:2:35
+<                 |vpiDecompile:8
+<                 |vpiSize:32
+<                 |UINT:8
+<                 |vpiTypespec:
+<                 \_ref_typespec: (work@rggen.u_block_0.g_register_15.u_register.bus_if)
+<                   |vpiParent:
+<                   \_constant: , line:2:33, endln:2:35
+<                   |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if
+<                   |vpiActual:
+<                   \_int_typespec: , line:2:13, endln:2:16
+<                 |vpiConstType:9
+<               |vpiLhs:
+<               \_parameter: (work@rggen.u_block_0.g_register_15.u_register.bus_if.ADDRESS_WIDTH), line:2:17, endln:2:30
+<             |vpiParamAssign:
+<             \_param_assign: , line:3:17, endln:3:35
+<               |vpiParent:
+<               \_interface_inst: work@rggen_bus_if (work@rggen.u_block_0.g_register_15.u_register.bus_if), file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:2289:0
+<               |vpiOverriden:1
+<               |vpiRhs:
+<               \_constant: , line:3:33, endln:3:35
+<                 |vpiParent:
+<                 \_param_assign: , line:3:17, endln:3:35
+<                 |vpiDecompile:32
+<                 |vpiSize:32
+<                 |UINT:32
+<                 |vpiTypespec:
+<                 \_ref_typespec: (work@rggen.u_block_0.g_register_15.u_register.bus_if)
+<                   |vpiParent:
+<                   \_constant: , line:3:33, endln:3:35
+<                   |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if
+<                   |vpiActual:
+<                   \_int_typespec: , line:3:13, endln:3:16
+<                 |vpiConstType:9
+<               |vpiLhs:
+<               \_parameter: (work@rggen.u_block_0.g_register_15.u_register.bus_if.BUS_WIDTH), line:3:17, endln:3:26
+<             |vpiParamAssign:
+<             \_param_assign: , line:8:19, endln:8:50
+<               |vpiParent:
+<               \_interface_inst: work@rggen_bus_if (work@rggen.u_block_0.g_register_15.u_register.bus_if), file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:2289:0
+<               |vpiRhs:
+<               \_constant: , line:8:49, endln:8:50
+<                 |vpiParent:
+<                 \_param_assign: , line:8:19, endln:8:50
+<                 |vpiDecompile:0
+<                 |vpiSize:32
+<                 |UINT:0
+<                 |vpiTypespec:
+<                 \_ref_typespec: (work@rggen.u_block_0.g_register_15.u_register.bus_if)
+<                   |vpiParent:
+<                   \_constant: , line:8:49, endln:8:50
+<                   |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if
+<                   |vpiActual:
+<                   \_int_typespec: , line:8:15, endln:8:18
+<                 |vpiConstType:9
+<               |vpiLhs:
+<               \_parameter: (work@rggen.u_block_0.g_register_15.u_register.bus_if.RGGEN_ACCESS_DATA_BIT), line:8:19, endln:8:40
+<             |vpiParamAssign:
+<             \_param_assign: , line:9:19, endln:9:50
+<               |vpiParent:
+<               \_interface_inst: work@rggen_bus_if (work@rggen.u_block_0.g_register_15.u_register.bus_if), file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:2289:0
+<               |vpiRhs:
+<               \_constant: , line:9:49, endln:9:50
+<                 |vpiParent:
+<                 \_param_assign: , line:9:19, endln:9:50
+<                 |vpiDecompile:1
+<                 |vpiSize:32
+<                 |UINT:1
+<                 |vpiTypespec:
+<                 \_ref_typespec: (work@rggen.u_block_0.g_register_15.u_register.bus_if)
+<                   |vpiParent:
+<                   \_constant: , line:9:49, endln:9:50
+<                   |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if
+<                   |vpiActual:
+<                   \_int_typespec: , line:9:15, endln:9:18
+<                 |vpiConstType:9
+<               |vpiLhs:
+<               \_parameter: (work@rggen.u_block_0.g_register_15.u_register.bus_if.RGGEN_ACCESS_NON_POSTED_BIT), line:9:19, endln:9:46

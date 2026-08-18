@@ -1,0 +1,41 @@
+# r10vrgg16: HEAD STANZA ONLY (full log was 293 lines; the tail is the decompile)
+LHS:
+decompile:
+interface_inst: work@midif (work@top.mi), id:601, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v13/dut.sv, line:22:3, endln:22:26
+|vpiParent:
+\_module_inst: work@top (work@top), id:576, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v13/dut.sv, line:20:1, endln:29:10
+|vpiName:mi
+|vpiFullName:work@top.mi
+|vpiVariables:
+\_logic_var: (work@top.mi.q), id:235, line:11:18, endln:11:19
+  |vpiParent:
+  \_interface_inst: work@midif (work@top.mi), id:601, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v13/dut.sv, line:22:3, endln:22:26
+  |vpiTypespec:
+  \_ref_typespec: (work@top.mi.q), id:236
+    |vpiParent:
+    \_logic_var: (work@top.mi.q), id:235, line:11:18, endln:11:19
+    |vpiFullName:work@top.mi.q
+    |vpiActual:
+    \_logic_typespec: , id:228, line:11:3, endln:11:17
+  |vpiName:q
+  |vpiFullName:work@top.mi.q
+  |vpiVisibility:1
+|vpiParameter:
+\_parameter: (work@top.mi.MW), id:602, line:10:33, endln:10:35
+  |vpiParent:
+  \_interface_inst: work@midif (work@top.mi), id:601, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v13/dut.sv, line:22:3, endln:22:26
+  |UINT:4
+  |vpiTypespec:
+  \_ref_typespec: (work@top.mi.MW), id:603
+    |vpiParent:
+    \_parameter: (work@top.mi.MW), id:602, line:10:33, endln:10:35
+    |vpiFullName:work@top.mi.MW
+    |vpiActual:
+    \_int_typespec: , id:604, line:10:29, endln:10:32
+  |vpiSigned:1
+  |vpiName:MW
+  |vpiFullName:work@top.mi.MW
+|vpiParamAssign:
+\_param_assign: , id:190, line:10:33, endln:10:39
+  |vpiParent:
+  \_interface_inst: work@midif (work@top.mi), id:601, file:/tmp/wt_vrgg16/tools/probe/r10vrgg16repro/cells/v13/dut.sv, line:22:3, endln:22:26

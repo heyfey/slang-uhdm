@@ -1,0 +1,43 @@
+== golden interface_inst census, Rggen (pvcensus16), by cell ==
+-- cells/g1
+work@top.g2.u2.p|work@ifc|par=2|pa=0|mp=1|pt=0|var=1|if=0
+work@top.g3.ginst|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.g3.u3.p|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.g4[0].u4.p|work@ifc|par=2|pa=0|mp=1|pt=0|var=1|if=0
+work@top.inst|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.u1.p|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+-- cells/g2
+work@top.g2.u2.p|work@ifc|par=2|pa=0|mp=1|pt=0|var=1|if=0
+work@top.g3.ginst|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.g3.u3.p|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.g4[0].u4.p|work@ifc|par=2|pa=0|mp=1|pt=0|var=1|if=0
+work@top.inst|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.inst2|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.u0.p|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.u1.p|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+-- cells/g3
+work@top.inst|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.inst2|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.u_m.g.u2.p|work@ifc|par=2|pa=0|mp=1|pt=0|var=1|if=0
+work@top.u_m.p|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.u_m.u1.p|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.u_m2.g.u2.p|work@ifc|par=2|pa=0|mp=1|pt=0|var=1|if=0
+work@top.u_m2.p|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.u_m2.u1.p|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+-- cells/g4
+work@top.arr[0]|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.arr[1]|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.g2.u2.p|work@ifc|par=2|pa=0|mp=1|pt=0|var=1|if=0
+work@top.g4.u4.p|work@ifc|par=2|pa=0|mp=1|pt=0|var=1|if=0
+work@top.g6.u6.p|work@ifc|par=4|pa=0|mp=1|pt=0|var=1|if=0
+work@top.inst|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.inst2|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.u1.p|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.u3.p|work@ifc|par=2|pa=0|mp=1|pt=0|var=1|if=0
+work@top.u5.p|work@ifc|par=4|pa=0|mp=1|pt=0|var=1|if=0
+-- cells/g5
+work@top.go.gi.u2.p|work@ifc|par=2|pa=0|mp=1|pt=0|var=1|if=0
+work@top.go.gi.u3.p|work@ifc|par=2|pa=0|mp=1|pt=0|var=1|if=0
+work@top.go.oinst|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.go.u1.p|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
+work@top.inst|work@ifc|par=2|pa=2|mp=1|pt=0|var=1|if=0
