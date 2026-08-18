@@ -327,14 +327,23 @@ EXPECT_UNKNOWN=6 bash tools/probe/r10uvm67repro/ctcan2.sh results/gate_uhdm2rtli
 (cd tools/probe/r10<pass>repro && bash canaudit.sh canaries.sh ctcan2.sh | tail -1)               # PASS
 # protected DBs by name (md5 vs control): InterfaceModPort BlackParrotComplex YosysOldOr SAME; SVSwitch 4842211c4030; YosysVerx 6ccda350c24a
 git add <production files> tools/probe/r10<pass>repro [tools/probe/r10v<pass>repro]
-# DOCS RIDE IN THE LANDING COMMIT: if §3b of RESUME.md (or GOLDEN_EQUIVALENCE §3.3)
-# needs refreshing for this landing, edit it NOW and `git add` it with the patch —
-# NEVER a separate docs-only commit (user direction 2026-08-18: doc-only commits
-# corrupt the landing history; one commit == one landing).
+# DOCS IMPLIED BY THE LANDING RIDE WITH IT: if §3b of RESUME.md (or GOLDEN_EQUIVALENCE
+# §3.3) needs refreshing because of this landing (heads, metrics, progress), edit it NOW
+# and `git add` it with the patch — do not split a landing's numbers from the code that
+# produced them (user direction 2026-08-18). Genuine documentation-only work (rules,
+# templates, corrections) may be committed on its own with a `docs:` subject.
 git commit -F - <<'EOF'
-block-3 groundwork: <family> pass N — § <law>, <what the head was and how it moved> — <the decoded model in one paragraph, the measurements (gates, movers, census, grid, boundary, heads), the residues>
+block-3 groundwork: <family> pass N — § <law>, <what the head was and how it moved>, <verifier verdict>
+<DECODED MODEL: Surelog file:line, the rule, gates/fences>
+<MEASUREMENTS in DURABLE terms only: heads before/after, census/grid/arm counts, conversions, "gates all green" in one line, boundary summary>
+<RESIDUES + R0 — the R0 line is what scripts/resume_survey.sh greps for>
+Evidence: tools/probe/r10<pass>repro/README.md (+ the verifier's tools/probe/r10v…repro/README.md)
 Co-Authored-By: <your model name> <noreply@…>
 EOF
+# COMMIT-MESSAGE HYGIENE (user direction 2026-08-18): NO session-ephemeral content —
+# no /tmp paths (patches, worktrees, scratch, controls), no binary/patch/cmp-log md5s,
+# no per-database mover hashes, no "integration on <hash>: build md5…" or rotation notes.
+# All of that lives in the committed pass README; the commit carries only what stays true.
 # rotate controls: mv $W/sl /tmp/ctl_wd_sl_<NEWHEAD>; mv $W/u2r /tmp/ctl_wd_u2r_<NEWHEAD>; cp the 3 CSVs; cp build/slang-uhdm /tmp/pris_<md5>.bin; rm the OLD control set
 # prune the landed pass's worktrees (git worktree remove --force; git worktree prune)
 # refill the slot: dispatch the next pass at NEWHEAD on the R0 the landing named; verify the model pin
