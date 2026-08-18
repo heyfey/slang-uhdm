@@ -1,0 +1,164 @@
+LHS:
+decompile:
+hier_path: (packer.m_bits[+:32]), id:310396, line:3674:28, endln:3674:61
+|vpiParent:
+\_assignment: , id:310392, line:3674:6, endln:3674:61
+|vpiActual:
+\_ref_obj: (packer), id:310397, line:3674:28, endln:3674:34
+  |vpiParent:
+  \_hier_path: (packer.m_bits[+:32]), id:310396, line:3674:28, endln:3674:61
+  |vpiName:packer
+|vpiActual:
+\_indexed_part_select: (packer.m_bits[+:32]), id:310398, line:3674:35, endln:3674:60
+  |vpiParent:
+  \_hier_path: (packer.m_bits[+:32]), id:310396, line:3674:28, endln:3674:61
+  |vpiName:m_bits
+  |vpiFullName:packer.m_bits[+:32]
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_hier_path: (packer.count), id:310399, line:3674:42, endln:3674:54
+    |vpiParent:
+    \_indexed_part_select: (packer.m_bits[+:32]), id:310398, line:3674:35, endln:3674:60
+    |vpiActual:
+    \_ref_obj: (packer), id:310400, line:3674:42, endln:3674:48
+      |vpiParent:
+      \_hier_path: (packer.count), id:310399, line:3674:42, endln:3674:54
+      |vpiName:packer
+    |vpiActual:
+    \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_unpack::packer.m_bits[+:32]::m_bits::count), id:310401, line:3674:49, endln:3674:54
+      |vpiParent:
+      \_hier_path: (packer.count), id:310399, line:3674:42, endln:3674:54
+      |vpiName:count
+      |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_unpack::packer.m_bits[+:32]::m_bits::count
+    |vpiName:packer.count
+  |vpiWidthExpr:
+  \_constant: , id:310402, line:3674:58, endln:3674:60
+    |vpiDecompile:32
+    |vpiSize:64
+    |UINT:32
+    |vpiConstType:9
+|vpiName:packer.m_bits[+:32]
+
+decompile:
+hier_path: (packer.m_bits[+:32]), id:310396, line:3674:28, endln:3674:61
+|vpiParent:
+\_assignment: , id:310392, line:3674:6, endln:3674:61
+|vpiActual:
+\_ref_obj: (packer), id:310397, line:3674:28, endln:3674:34
+  |vpiParent:
+  \_hier_path: (packer.m_bits[+:32]), id:310396, line:3674:28, endln:3674:61
+  |vpiName:packer
+|vpiActual:
+\_indexed_part_select: (packer.m_bits[+:32]), id:310398, line:3674:35, endln:3674:60
+  |vpiParent:
+  \_hier_path: (packer.m_bits[+:32]), id:310396, line:3674:28, endln:3674:61
+  |vpiName:m_bits
+  |vpiFullName:packer.m_bits[+:32]
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_hier_path: (packer.count), id:310399, line:3674:42, endln:3674:54
+    |vpiParent:
+    \_indexed_part_select: (packer.m_bits[+:32]), id:310398, line:3674:35, endln:3674:60
+    |vpiActual:
+    \_ref_obj: (packer), id:310400, line:3674:42, endln:3674:48
+      |vpiParent:
+      \_hier_path: (packer.count), id:310399, line:3674:42, endln:3674:54
+      |vpiName:packer
+    |vpiActual:
+    \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_unpack::packer.m_bits[+:32]::m_bits::count), id:310401, line:3674:49, endln:3674:54
+      |vpiParent:
+      \_hier_path: (packer.count), id:310399, line:3674:42, endln:3674:54
+      |vpiName:count
+      |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_unpack::packer.m_bits[+:32]::m_bits::count
+    |vpiName:packer.count
+  |vpiWidthExpr:
+  \_constant: , id:310402, line:3674:58, endln:3674:60
+    |vpiDecompile:32
+    |vpiSize:64
+    |UINT:32
+    |vpiConstType:9
+|vpiName:packer.m_bits[+:32]
+RHS:
+decompile:
+hier_path: (packer.m_bits[]), id:115264, line:3674:28, endln:3674:61
+|vpiParent:
+\_assignment: , id:115260, line:3674:6, endln:3674:61
+|vpiActual:
+\_ref_obj: (packer), id:115265, line:3674:28, endln:3674:34
+  |vpiParent:
+  \_hier_path: (packer.m_bits[]), id:115264, line:3674:28, endln:3674:61
+  |vpiName:packer
+|vpiActual:
+\_indexed_part_select: (packer.m_bits[]), id:115266, line:3674:35, endln:3674:60
+  |vpiParent:
+  \_hier_path: (packer.m_bits[]), id:115264, line:3674:28, endln:3674:61
+  |vpiName:m_bits
+  |vpiFullName:packer.m_bits[]
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_hier_path: (packer.count), id:115267, line:3674:42, endln:3674:54
+    |vpiParent:
+    \_indexed_part_select: (packer.m_bits[]), id:115266, line:3674:35, endln:3674:60
+    |vpiActual:
+    \_ref_obj: (packer), id:115268, line:3674:42, endln:3674:48
+      |vpiParent:
+      \_hier_path: (packer.count), id:115267, line:3674:42, endln:3674:54
+      |vpiName:packer
+    |vpiActual:
+    \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_unpack::count), id:115269, line:3674:49, endln:3674:54
+      |vpiParent:
+      \_hier_path: (packer.count), id:115267, line:3674:42, endln:3674:54
+      |vpiName:count
+      |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_unpack::count
+    |vpiName:packer.count
+  |vpiWidthExpr:
+  \_constant: , id:115270, line:3674:58, endln:3674:60
+    |vpiDecompile:32
+    |vpiSize:64
+    |UINT:32
+    |vpiConstType:9
+|vpiName:packer.m_bits[]
+
+decompile:
+hier_path: (packer.m_bits[]), id:115264, line:3674:28, endln:3674:61
+|vpiParent:
+\_assignment: , id:115260, line:3674:6, endln:3674:61
+|vpiActual:
+\_ref_obj: (packer), id:115265, line:3674:28, endln:3674:34
+  |vpiParent:
+  \_hier_path: (packer.m_bits[]), id:115264, line:3674:28, endln:3674:61
+  |vpiName:packer
+|vpiActual:
+\_indexed_part_select: (packer.m_bits[]), id:115266, line:3674:35, endln:3674:60
+  |vpiParent:
+  \_hier_path: (packer.m_bits[]), id:115264, line:3674:28, endln:3674:61
+  |vpiName:m_bits
+  |vpiFullName:packer.m_bits[]
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_hier_path: (packer.count), id:115267, line:3674:42, endln:3674:54
+    |vpiParent:
+    \_indexed_part_select: (packer.m_bits[]), id:115266, line:3674:35, endln:3674:60
+    |vpiActual:
+    \_ref_obj: (packer), id:115268, line:3674:42, endln:3674:48
+      |vpiParent:
+      \_hier_path: (packer.count), id:115267, line:3674:42, endln:3674:54
+      |vpiName:packer
+    |vpiActual:
+    \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_unpack::count), id:115269, line:3674:49, endln:3674:54
+      |vpiParent:
+      \_hier_path: (packer.count), id:115267, line:3674:42, endln:3674:54
+      |vpiName:count
+      |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_unpack::count
+    |vpiName:packer.count
+  |vpiWidthExpr:
+  \_constant: , id:115270, line:3674:58, endln:3674:60
+    |vpiDecompile:32
+    |vpiSize:64
+    |UINT:32
+    |vpiConstType:9
+|vpiName:packer.m_bits[]

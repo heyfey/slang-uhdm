@@ -1,0 +1,8 @@
+MOVED 2302_r10uvm94repro_g94_a1_idxbase.sv/def 240 lines
+MOVED 2302_r10uvm94repro_g94_a1_idxbase.sv/elab 410 lines
+MOVED 2303_r10uvm94repro_g94_a2_homes.sv/def 162 lines
+MOVED 2303_r10uvm94repro_g94_a2_homes.sv/elab 324 lines
+LISTED=2837 FENCED_SKIPPED=0 PROCESSED=2837 MOVED=4 NO_OUTPUT_PAIRS=258
+PROCESSED-ASSERT-OK
+(the boundary driver's own stderr lines reporting SYMMETRIC segfaults -- the
+ same sources fail on BOTH binaries -- were stripped; ASYMMETRIC_OUTPUT=0)

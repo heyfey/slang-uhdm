@@ -2424,6 +2424,119 @@ static std::string lastBracketBody(const std::string& t) {
     return {};
 }
 
+// § hpIdxBaseHierPathEmpty94 — `decompileHelper`'s INDEXED_PART_SELECT row,
+// and the row it does NOT have.
+//
+// Surelog composes a hier_path NAME by appending, per component select, the
+// text of `CompileHelper::decompileHelper` (CompileHelper.cpp:2544) — uvm79/89's
+// FIRST closed dispatch.  Its `indexed_part_select` row is
+//
+//     "[" + decompileHelper(Base_expr) + ('+'|'-') + ":"
+//         + decompileHelper(Width_expr) + "]"
+//
+// and both recursive calls run through the SAME closed dispatch: `constant` ->
+// `VpiDecompile`, `ref_obj` -> `VpiName`, `operation` -> `ExprEval::prettyPrint`
+// (uvm92's SECOND closed dispatch), `bit_select` / `part_select` /
+// `indexed_part_select` / `var_select` -> their own bracket text, and
+// **everything else -> the EMPTY STRING**.
+//
+// `hier_path` HAS NO ROW.  A DOTTED base therefore renders as NOTHING while the
+// `+:`/`-:` token and the width SURVIVE — the same "operand vanishes, operator
+// stays" asymmetry uvm92 measured one dispatch down.  That is the seven-row-mode
+// UVM head, `uvm_object_defines.svh:3674`/`3676` in the `` `uvm_unpack_enumN ``
+// macro body (`packer.m_bits[packer.count +: SIZE]`, SIZE = 32 at
+// `uvm_tlm2_generic_payload.svh:544`/`550`):
+//
+//     golden  hier_path VpiName  packer.m_bits[+:32]
+//     ours                       packer.m_bits[]        (macro-body raw text)
+//
+// Both the base (`packer.count`, a hier_path) and the width (the constant 32)
+// were ALREADY right in our `vpiBaseExpr`/`vpiWidthExpr`; only the NAME text was
+// short.  `VpiName` is read by `hier_path::Compare`; `VpiFullName` is not.
+//
+// CALIBRATION, golden-vs-golden, BEFORE any code: `ct94cen` (this pass's widened
+// uvm92 oracle — it LINKS the real `UHDM::ExprEval::prettyPrint` and transcribes
+// `decompileHelper`) over the WHOLE golden cache, 3673 databases and 8116
+// `indexed_part_select` path elements: **EXPM_Y 7736 / EXPM_N 380**, and the
+// split is PERFECT on one signature — every one of the 380 carries a
+// `vpiIntConst` (constType 7) base or width and none of the 7736 does.  A
+// `vpiIntConst` select operand is Surelog REDUCING the object AFTER the name was
+// composed, so those names are fossils of a pre-reduction tree and no transcription
+// off the final tree can reproduce them.  Outside that class the row is exact.
+//
+// The GATE below is narrower than the row: it fires only when the base object is
+// a `hier_path` (the row golden has and we lacked) and the width object is a
+// `constant` or a `ref_obj` (the two kinds this function can render EXACTLY).
+// An operation width would need `prettyPrint`, whose UHDM implementation
+// dereferences `oper->Operands()` UNCHECKED (`ExprEval.cpp:1015`, `1086`,
+// `1095`) -- uvm93's crash lesson -- and whose corpus population under this gate
+// is ZERO; it keeps the pre-existing raw-text rendering instead.  The corpus
+// census (tools/probe/r10uvm94repro/CENSUS.r10uvm94.txt) scores this gate at
+// FIX=28 BREAK=0 on the surelog corpus and FIX=0 BREAK=0 on uhdm2rtlil, whose
+// 252 range-select cells are ALREADY byte-identical to golden.
+static std::string dhOperandText94(const UHDM::any* o) {
+    if (!o)
+        return {};
+    if (o->UhdmType() == UHDM::uhdmconstant)
+        return std::string(((const UHDM::constant*)o)->VpiDecompile());
+    if (o->UhdmType() == UHDM::uhdmref_obj)
+        return std::string(((const UHDM::ref_obj*)o)->VpiName());
+    return {};
+}
+
+// Replace the LAST top-level bracket group's body in `nm`.  Returns false when
+// there is no such group (the name is then left exactly as it was).
+static bool replaceLastBracketBody94(std::string& nm, const std::string& body) {
+    if (nm.empty() || nm.back() != ']')
+        return false;
+    int depth = 0;
+    size_t open = std::string::npos;
+    for (size_t i = nm.size(); i-- > 0;) {
+        if (nm[i] == ']')
+            depth++;
+        else if (nm[i] == '[') {
+            if (--depth == 0) {
+                open = i;
+                break;
+            }
+        }
+    }
+    if (open == std::string::npos)
+        return false;
+    nm = nm.substr(0, open + 1) + body + "]";
+    return true;
+}
+
+static void hpIdxBaseHierPathEmpty94(UHDM::hier_path* hp) {
+    if (!hp || !hp->Path_elems() || hp->Path_elems()->empty())
+        return;
+    auto* ips = any_cast<UHDM::indexed_part_select*>(hp->Path_elems()->back());
+    if (!ips)
+        return;
+    const UHDM::any* b = ips->Base_expr();
+    if (!b || b->UhdmType() != UHDM::uhdmhier_path)
+        return;
+    const UHDM::any* w = ips->Width_expr();
+    if (!w || (w->UhdmType() != UHDM::uhdmconstant &&
+               w->UhdmType() != UHDM::uhdmref_obj))
+        return;
+    std::string body =
+        std::string(ips->VpiIndexedPartSelectType() == vpiPosIndexed ? "+:" : "-:") +
+        dhOperandText94(w);
+    const std::string old(hp->VpiName());
+    std::string nm = old;
+    if (!replaceLastBracketBody94(nm, body) || nm == old)
+        return;
+    hp->VpiName(nm);
+    if (hp->VpiFullName() == old)
+        hp->VpiFullName(nm);
+    for (auto* e : *hp->Path_elems()) {
+        if (auto* ip2 = any_cast<UHDM::indexed_part_select*>(e))
+            if (ip2->VpiFullName() == old)
+                ip2->VpiFullName(nm);
+    }
+}
+
 // § concatIdxDecompile29 — the SELECT-element classifier.  Walks a select chain
 // down to its base and reports how many element-select levels sit above that
 // base, so the three measured select renderings can be told apart:
@@ -16702,6 +16815,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                         elems->push_back(bs2);
                         hp->Path_elems(elems);
+                        // § hpIdxBaseHierPathEmpty94 — decompileHelper has NO hier_path row.
+                        hpIdxBaseHierPathEmpty94(hp);
                         return hp;
                     }
                 }
@@ -17207,6 +17322,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         elems->push_back(vs);
                     }
                     hp->Path_elems(elems);
+                    // § hpIdxBaseHierPathEmpty94 — decompileHelper has NO hier_path row.
+                    hpIdxBaseHierPathEmpty94(hp);
                     return hp;
                 }
             }
@@ -17412,6 +17529,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                     }
                     hp->Path_elems(elems);
+                    // § hpIdxBaseHierPathEmpty94 — decompileHelper has NO hier_path row.
+                    hpIdxBaseHierPathEmpty94(hp);
                     return hp;
                 }
             }
@@ -17711,6 +17830,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                         suppressConstParent = sup;
                         hp->Path_elems(elems);
+                        // § hpIdxBaseHierPathEmpty94 — decompileHelper has NO hier_path row.
+                        hpIdxBaseHierPathEmpty94(hp);
                         return hp;
                     }
                 }
@@ -18183,6 +18304,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 elems->push_back(r);
             }
             hp->Path_elems(elems);
+            // § hpIdxBaseHierPathEmpty94 — decompileHelper has NO hier_path row.
+            hpIdxBaseHierPathEmpty94(hp);
             return hp;
         }
         case ExpressionKind::SimpleAssignmentPattern: {
@@ -20577,6 +20700,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
 
             }
             hp->Path_elems(elems);
+            // § hpIdxBaseHierPathEmpty94 — decompileHelper has NO hier_path row.
+            hpIdxBaseHierPathEmpty94(hp);
             return hp;
         }
         case ExpressionKind::Inside: {

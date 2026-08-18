@@ -1,0 +1,63 @@
+== default/MiniAmiq-544c7f61  order-blind ins=28 del=28
+     12 \_hier_path: (packer.m_bits[+:32])
+     12 \_hier_path: (packer.m_bits[])
+      8 \_indexed_part_select: (packer.m_bits[+:32])
+      8 \_indexed_part_select: (packer.m_bits[])
+      4 |vpiName:packer.m_bits[+:32]
+      4 |vpiName:packer.m_bits[]
+      4 |vpiFullName:packer.m_bits[+:32]
+      4 |vpiFullName:packer.m_bits[]
+== default/Scoreboard-59431470  order-blind ins=28 del=28
+     12 \_hier_path: (packer.m_bits[+:32])
+     12 \_hier_path: (packer.m_bits[])
+      8 \_indexed_part_select: (packer.m_bits[+:32])
+      8 \_indexed_part_select: (packer.m_bits[])
+      4 |vpiName:packer.m_bits[+:32]
+      4 |vpiName:packer.m_bits[]
+      4 |vpiFullName:packer.m_bits[+:32]
+      4 |vpiFullName:packer.m_bits[]
+== default/SeqDriver-32af76aa  order-blind ins=28 del=28
+     12 \_hier_path: (packer.m_bits[+:32])
+     12 \_hier_path: (packer.m_bits[])
+      8 \_indexed_part_select: (packer.m_bits[+:32])
+      8 \_indexed_part_select: (packer.m_bits[])
+      4 |vpiName:packer.m_bits[+:32]
+      4 |vpiName:packer.m_bits[]
+      4 |vpiFullName:packer.m_bits[+:32]
+      4 |vpiFullName:packer.m_bits[]
+== default/SimpleUVM-1dc93a62  order-blind ins=28 del=28
+     12 \_hier_path: (packer.m_bits[+:32])
+     12 \_hier_path: (packer.m_bits[])
+      8 \_indexed_part_select: (packer.m_bits[+:32])
+      8 \_indexed_part_select: (packer.m_bits[])
+      4 |vpiName:packer.m_bits[+:32]
+      4 |vpiName:packer.m_bits[]
+      4 |vpiFullName:packer.m_bits[+:32]
+      4 |vpiFullName:packer.m_bits[]
+== testflags/MiniAmiq-544c7f61  order-blind ins=28 del=28
+     12 \_hier_path: (packer.m_bits[+:32])
+     12 \_hier_path: (packer.m_bits[])
+      8 \_indexed_part_select: (packer.m_bits[+:32])
+      8 \_indexed_part_select: (packer.m_bits[])
+      4 |vpiName:packer.m_bits[+:32]
+      4 |vpiName:packer.m_bits[]
+      4 |vpiFullName:packer.m_bits[+:32]
+      4 |vpiFullName:packer.m_bits[]
+== testflags/SeqDriver-32af76aa  order-blind ins=28 del=28
+     12 \_hier_path: (packer.m_bits[+:32])
+     12 \_hier_path: (packer.m_bits[])
+      8 \_indexed_part_select: (packer.m_bits[+:32])
+      8 \_indexed_part_select: (packer.m_bits[])
+      4 |vpiName:packer.m_bits[+:32]
+      4 |vpiName:packer.m_bits[]
+      4 |vpiFullName:packer.m_bits[+:32]
+      4 |vpiFullName:packer.m_bits[]
+== testflags/SimpleUVM-1dc93a62  order-blind ins=28 del=28
+     12 \_hier_path: (packer.m_bits[+:32])
+     12 \_hier_path: (packer.m_bits[])
+      8 \_indexed_part_select: (packer.m_bits[+:32])
+      8 \_indexed_part_select: (packer.m_bits[])
+      4 |vpiName:packer.m_bits[+:32]
+      4 |vpiName:packer.m_bits[]
+      4 |vpiFullName:packer.m_bits[+:32]
+      4 |vpiFullName:packer.m_bits[]

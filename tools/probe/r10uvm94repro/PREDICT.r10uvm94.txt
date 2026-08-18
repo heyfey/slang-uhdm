@@ -1,0 +1,14 @@
+r10uvm94 PREDICT — the mover set, named from PRISTINE bytes BEFORE any gate ran.
+
+== surelog ==
+PREDICT-MOVE default_MiniAmiq-544c7f61  cells=4
+PREDICT-MOVE default_Scoreboard-59431470  cells=4
+PREDICT-MOVE default_SeqDriver-32af76aa  cells=4
+PREDICT-MOVE default_SimpleUVM-1dc93a62  cells=4
+PREDICT-MOVE testflags_MiniAmiq-544c7f61  cells=4
+PREDICT-MOVE testflags_SeqDriver-32af76aa  cells=4
+PREDICT-MOVE testflags_SimpleUVM-1dc93a62  cells=4
+-- predicted movers: 7 databases, 28 cells
+
+== uhdm2rtlil ==
+-- predicted movers: 0 databases, 0 cells

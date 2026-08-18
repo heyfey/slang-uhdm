@@ -1,0 +1,54 @@
+LHS:
+decompile:
+constant: , id:311019, line:3364:13, endln:3364:29
+|vpiParent:
+\_operation: , id:311020, line:3364:13, endln:3364:34
+|vpiDecompile:8
+|vpiSize:64
+|UINT:8
+|vpiConstType:9
+
+decompile:
+constant: , id:311019, line:3364:13, endln:3364:29
+|vpiParent:
+\_operation: , id:311020, line:3364:13, endln:3364:34
+|vpiDecompile:8
+|vpiSize:64
+|UINT:8
+|vpiConstType:9
+RHS:
+decompile:
+sys_func_call: ($bits), id:115790, line:3364:13, endln:3364:29
+|vpiParent:
+\_operation: , id:115789, line:3364:13, endln:3364:34
+|vpiArgument:
+\_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_record::m_data), id:115791, line:3364:26, endln:3364:27
+  |vpiParent:
+  \_sys_func_call: ($bits), id:115790, line:3364:13, endln:3364:29
+  |vpiName:m_data
+  |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_record::m_data
+  |vpiIndex:
+  \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_record::i), id:115792, line:3364:26, endln:3364:27
+    |vpiParent:
+    \_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_record::m_data), id:115791, line:3364:26, endln:3364:27
+    |vpiName:i
+    |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_record::i
+|vpiName:$bits
+
+decompile:
+sys_func_call: ($bits), id:115790, line:3364:13, endln:3364:29
+|vpiParent:
+\_operation: , id:115789, line:3364:13, endln:3364:34
+|vpiArgument:
+\_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_record::m_data), id:115791, line:3364:26, endln:3364:27
+  |vpiParent:
+  \_sys_func_call: ($bits), id:115790, line:3364:13, endln:3364:29
+  |vpiName:m_data
+  |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_record::m_data
+  |vpiIndex:
+  \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_record::i), id:115792, line:3364:26, endln:3364:27
+    |vpiParent:
+    \_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_record::m_data), id:115791, line:3364:26, endln:3364:27
+    |vpiName:i
+    |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_record::i
+|vpiName:$bits

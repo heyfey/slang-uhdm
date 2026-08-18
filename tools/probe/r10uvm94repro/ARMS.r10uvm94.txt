@@ -1,0 +1,122 @@
+r10uvm94 ARMS — golden(Surelog) LHS always, BOTH views (def and -elabuhdm),
+PRISTINE 3856ec23a6b14a9071d6dcd94fe9bc47 vs PATCHED 646a349fe5ee059536bf54644f6d4386.
+three94.sh joins the three databases cell by cell on the SPAN (our hier_paths carry
+an EMPTY VpiFile).  BROKE is a pristine-right -> patched-wrong cell and must be 0.
+
+---- g94_a0_head / def
+g94_a0_head_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff64 pat=rc0/CMP_EQUAL/heads0/gdiff36 MOVED=28
+FIXED  |15:19-15:52           G=packer.m_bits[+:32]
+FIXED  |19:9-19:41            G=packer.m_bits[-:4]
+-- cells=8 ALREADY-OK=6 FIXED=2 BROKE=0 STILL-WRONG=0
+
+---- g94_a0_head / elab
+g94_a0_head_elab: slErr=0 pris=rc0/CMP_NE/heads1/gdiff194 pat=rc0/CMP_EQUAL/heads0/gdiff138 MOVED=56
+FIXED  |15:19-15:52           G=packer.m_bits[+:32]
+FIXED  |19:9-19:41            G=packer.m_bits[-:4]
+-- cells=8 ALREADY-OK=6 FIXED=2 BROKE=0 STILL-WRONG=0
+
+---- g94_a1_idxbase / def
+g94_a1_idxbase_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff746 pat=rc0/CMP_NE/heads1/gdiff554 MOVED=240
+FIXED  |44:12-44:41           G=hold.store[+:32]
+FIXED  |46:12-46:40           G=hold.minor[-:8]
+FIXED  |48:12-48:46           G=hold.store[+:16]
+STILL  |58:12-58:45           G=hold.store[+:LOCW94]                     pris=hold.store[hold.cursor+:9]         pat=hold.store[+:9]
+FIXED  |65:11-65:48           G=hold.store[+:32]
+FIXED  |67:11-67:49           G=hold.store[+:32]
+STILL  |69:11-69:45           G=hold.store[+:2 * 5]                      pris=hold.store[hold.cursor+:(2 * 5]    pat=hold.store[hold.cursor+:(2 * 5]
+FIXED  |71:11-71:49           G=hold.store[+:5]
+STILL  |73:11-73:44           G=hold.minor[-:LOCW94]                     pris=hold.minor[hold.stride-:9]         pat=hold.minor[-:9]
+STILL  |75:11-75:44           G=hold.minor[+:PARW94]                     pris=hold.minor[hold.cursor+:6]         pat=hold.minor[+:6]
+FIXED  |83:5-83:34            G=hold.store[+:20]
+FIXED  |85:15-85:44           G=hold.store[+:11]
+FIXED  |87:21-87:50           G=hold.store[+:64]
+FIXED  |89:17-89:46           G=hold.minor[+:14]
+FIXED  |91:12-91:46           G=hold.store[-:21]
+FIXED  |117:13-117:52         G=nest.deep.store[+:26]
+FIXED  |129:13-129:34         G=tt.bag[+:18]
+-- cells=26 ALREADY-OK=9 FIXED=13 BROKE=0 STILL-WRONG=4
+
+---- g94_a1_idxbase / elab
+g94_a1_idxbase_elab: slErr=0 pris=rc0/CMP_NE/heads1/gdiff1540 pat=rc0/CMP_NE/heads1/gdiff1220 MOVED=410
+FIXED  |44:12-44:41           G=hold.store[+:32]
+FIXED  |46:12-46:40           G=hold.minor[-:8]
+FIXED  |48:12-48:46           G=hold.store[+:16]
+STILL  |58:12-58:45           G=hold.store[+:LOCW94]                     pris=hold.store[hold.cursor+:9]         pat=hold.store[+:9]
+FIXED  |65:11-65:48           G=hold.store[+:32]
+FIXED  |67:11-67:49           G=hold.store[+:32]
+STILL  |69:11-69:45           G=hold.store[+:2 * 5]                      pris=hold.store[hold.cursor+:(2 * 5]    pat=hold.store[hold.cursor+:(2 * 5]
+FIXED  |71:11-71:49           G=hold.store[+:5]
+STILL  |73:11-73:44           G=hold.minor[-:LOCW94]                     pris=hold.minor[hold.stride-:9]         pat=hold.minor[-:9]
+STILL  |75:11-75:44           G=hold.minor[+:PARW94]                     pris=hold.minor[hold.cursor+:6]         pat=hold.minor[+:6]
+FIXED  |83:5-83:34            G=hold.store[+:20]
+FIXED  |85:15-85:44           G=hold.store[+:11]
+FIXED  |87:21-87:50           G=hold.store[+:64]
+FIXED  |89:17-89:46           G=hold.minor[+:14]
+FIXED  |91:12-91:46           G=hold.store[-:21]
+FIXED  |117:13-117:52         G=nest.deep.store[+:26]
+FIXED  |129:13-129:34         G=tt.bag[+:18]
+-- cells=26 ALREADY-OK=9 FIXED=13 BROKE=0 STILL-WRONG=4
+
+---- g94_a2_homes / def
+g94_a2_homes_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff403 pat=rc0/CMP_NE/heads1/gdiff255 MOVED=162
+FIXED  |53:23-53:55           G=chan94.lane[+:48]
+FIXED  |55:23-55:54           G=chan94.slot[-:22]
+FIXED  |57:23-57:53           G=kid94.pool[+:30]
+FIXED  |59:23-59:51           G=chan94.lane[+:19]
+FIXED  |61:23-61:57           G=chan94.lane[+:21]
+STILL  |63:23-63:49           G=chan94.lane[[2]+:25]                     pris=chan94.lane[nibs[2]+:25]           pat=chan94.lane[nibs[2]+:25]
+STILL  |65:23-65:57           G=chan94.lane[+:27]                        pris=chan94.lane[int'(cel.where)+:27]   pat=chan94.lane[int'(cel.where)+:27]
+STILL  |67:23-67:55           G=chan94.lane[32+:20]                      pris=chan94.lane[$bits(Head94)+:20]     pat=chan94.lane[$bits(Head94)+:20]
+STILL  |71:23-71:52           G=chan94.lane[7+:24]                       pris=chan94.lane[rp94::RW94+:24]        pat=chan94.lane[rp94::RW94+:24]
+STILL  |73:23-73:52           G=cel.body[+:LOCP94]                       pris=cel.body[cel.where+:23]            pat=cel.body[+:23]
+FIXED  |75:33-75:65           G=hd94.tag[+:3]
+STILL  |79:33-79:59           G=<none>                                   pris=chan94.lane[chan94.anchor]         pat=chan94.lane[chan94.anchor]
+STILL  |81:23-81:52           G=chan94.slot[7 - 1:0]                     pris=chan94.slot[rp94::RW94 - 1:0]      pat=chan94.slot[rp94::RW94 - 1:0]
+STILL  |83:23-83:59           G=chan94.lane[ * 2 + 1+:28]                pris=chan94.lane[cel.where * 2 + 1+:28] pat=chan94.lane[cel.where * 2 + 1+:28]
+FIXED  |90:28-90:56           G=chan94.lane[+:26]
+FIXED  |92:28-92:58           G=kid94.pool[-:18]
+FIXED  |98:5-98:33            G=chan94.lane[+:12]
+-- cells=20 ALREADY-OK=3 FIXED=9 BROKE=0 STILL-WRONG=8
+
+---- g94_a2_homes / elab
+g94_a2_homes_elab: slErr=0 pris=rc0/CMP_NE/heads1/gdiff1258 pat=rc0/CMP_NE/heads1/gdiff962 MOVED=324
+FIXED  |53:23-53:55           G=chan94.lane[+:48]
+FIXED  |55:23-55:54           G=chan94.slot[-:22]
+FIXED  |57:23-57:53           G=kid94.pool[+:30]
+FIXED  |59:23-59:51           G=chan94.lane[+:19]
+FIXED  |61:23-61:57           G=chan94.lane[+:21]
+STILL  |63:23-63:49           G=chan94.lane[[2]+:25]                     pris=chan94.lane[nibs[2]+:25]           pat=chan94.lane[nibs[2]+:25]
+STILL  |65:23-65:57           G=chan94.lane[+:27]                        pris=chan94.lane[int'(cel.where)+:27]   pat=chan94.lane[int'(cel.where)+:27]
+STILL  |67:23-67:55           G=chan94.lane[32+:20]                      pris=chan94.lane[$bits(Head94)+:20]     pat=chan94.lane[$bits(Head94)+:20]
+STILL  |71:23-71:52           G=chan94.lane[7+:24]                       pris=chan94.lane[rp94::RW94+:24]        pat=chan94.lane[rp94::RW94+:24]
+STILL  |73:23-73:52           G=cel.body[+:LOCP94]                       pris=cel.body[cel.where+:23]            pat=cel.body[+:23]
+FIXED  |75:33-75:65           G=hd94.tag[+:3]
+STILL  |79:33-79:59           G=<none>                                   pris=chan94.lane[chan94.anchor]         pat=chan94.lane[chan94.anchor]
+STILL  |81:23-81:52           G=chan94.slot[7 - 1:0]                     pris=chan94.slot[rp94::RW94 - 1:0]      pat=chan94.slot[rp94::RW94 - 1:0]
+STILL  |83:23-83:59           G=chan94.lane[ * 2 + 1+:28]                pris=chan94.lane[cel.where * 2 + 1+:28] pat=chan94.lane[cel.where * 2 + 1+:28]
+FIXED  |90:28-90:56           G=chan94.lane[+:26]
+FIXED  |92:28-92:58           G=kid94.pool[-:18]
+FIXED  |98:5-98:33            G=chan94.lane[+:12]
+-- cells=20 ALREADY-OK=3 FIXED=9 BROKE=0 STILL-WRONG=8
+
+---- g94_a3_widthref / def
+g94_a3_widthref_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff338 pat=rc0/CMP_NE/heads1/gdiff262 MOVED=76
+FIXED  |28:23-28:60           G=duo94.bank94[+:SRAMAW94]
+FIXED  |30:23-30:59           G=duo94.bank94[-:SHIFT94]
+STILL  |32:23-32:64           G=duo94.bank94[+:SRAMAW94 + 2]             pris=duo94.bank94[rec94.off94+:SRAMAW94 + 2] pat=duo94.bank94[rec94.off94+:SRAMAW94 + 2]
+FIXED  |34:23-34:64           G=duo94.bank94[+:48]
+FIXED  |36:23-36:54           G=duo94.bank94[+:13]
+STILL  |40:31-40:56           G=<none>                                   pris=duo94.bank94[rec94.off94]          pat=duo94.bank94[rec94.off94]
+FIXED  |44:23-44:62           G=duo94.inner94.room94[+:11]
+-- cells=8 ALREADY-OK=1 FIXED=5 BROKE=0 STILL-WRONG=2
+
+---- g94_a3_widthref / elab
+g94_a3_widthref_elab: slErr=1 pris=rc0/CMP_NE/heads1/gdiff589 pat=rc0/CMP_NE/heads1/gdiff437 MOVED=152
+FIXED  |28:23-28:60           G=duo94.bank94[+:SRAMAW94]
+FIXED  |30:23-30:59           G=duo94.bank94[-:SHIFT94]
+STILL  |32:23-32:64           G=duo94.bank94[+:SRAMAW94 + 2]             pris=duo94.bank94[rec94.off94+:SRAMAW94 + 2] pat=duo94.bank94[rec94.off94+:SRAMAW94 + 2]
+FIXED  |34:23-34:64           G=duo94.bank94[+:48]
+FIXED  |36:23-36:54           G=duo94.bank94[+:13]
+STILL  |40:31-40:56           G=<none>                                   pris=duo94.bank94[rec94.off94]          pat=duo94.bank94[rec94.off94]
+FIXED  |44:23-44:62           G=duo94.inner94.room94[+:11]
+-- cells=8 ALREADY-OK=1 FIXED=5 BROKE=0 STILL-WRONG=2

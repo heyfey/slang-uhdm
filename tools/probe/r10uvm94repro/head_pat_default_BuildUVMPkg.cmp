@@ -1,0 +1,84 @@
+LHS:
+decompile:
+bit_typespec: (uvm_field_flag_t), id:2174, line:7859:9, endln:7859:49
+|vpiParent:
+\_parameter: (uvm_pkg::UVM_PACK), id:2179, line:8001:28, endln:8001:36
+|vpiName:uvm_field_flag_t
+|vpiTypedefAlias:
+\_ref_typespec: (uvm_pkg::UVM_PACK::uvm_field_flag_t), id:2178
+  |vpiParent:
+  \_bit_typespec: (uvm_field_flag_t), id:2174, line:7859:9, endln:7859:49
+  |vpiFullName:uvm_pkg::UVM_PACK::uvm_field_flag_t
+  |vpiActual:
+  \_bit_typespec: (uvm_pkg::uvm_field_flag_t), id:1584, line:7859:9, endln:7859:49
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiRange:
+\_range: , id:2175, line:7859:13, endln:7859:49
+  |vpiParent:
+  \_bit_typespec: (uvm_field_flag_t), id:2174, line:7859:9, endln:7859:49
+  |vpiLeftRange:
+  \_constant: , id:2176, line:7859:14, endln:7859:42
+    |vpiParent:
+    \_range: , id:2175, line:7859:13, endln:7859:49
+    |vpiDecompile:27
+    |vpiSize:64
+    |INT:27
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:2177, line:7859:47, endln:7859:48
+    |vpiParent:
+    \_range: , id:2175, line:7859:13, endln:7859:49
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+bit_typespec: (uvm_field_flag_t), id:2174, line:7859:9, endln:7859:49
+|vpiParent:
+\_parameter: (uvm_pkg::UVM_PACK), id:2179, line:8001:28, endln:8001:36
+|vpiName:uvm_field_flag_t
+|vpiTypedefAlias:
+\_ref_typespec: (uvm_pkg::UVM_PACK::uvm_field_flag_t), id:2178
+  |vpiParent:
+  \_bit_typespec: (uvm_field_flag_t), id:2174, line:7859:9, endln:7859:49
+  |vpiFullName:uvm_pkg::UVM_PACK::uvm_field_flag_t
+  |vpiActual:
+  \_bit_typespec: (uvm_pkg::uvm_field_flag_t), id:1584, line:7859:9, endln:7859:49
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiRange:
+\_range: , id:2175, line:7859:13, endln:7859:49
+  |vpiParent:
+  \_bit_typespec: (uvm_field_flag_t), id:2174, line:7859:9, endln:7859:49
+  |vpiLeftRange:
+  \_constant: , id:2176, line:7859:14, endln:7859:42
+    |vpiParent:
+    \_range: , id:2175, line:7859:13, endln:7859:49
+    |vpiDecompile:27
+    |vpiSize:64
+    |INT:27
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:2177, line:7859:47, endln:7859:48
+    |vpiParent:
+    \_range: , id:2175, line:7859:13, endln:7859:49
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS:
+decompile:
+int_typespec: , id:177658, line:8001:11, endln:8001:27
+|vpiParent:
+\_parameter: (uvm_pkg::UVM_PACK), id:2850, line:8001:28, endln:8001:36
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:2745, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+
+decompile:
+int_typespec: , id:177658, line:8001:11, endln:8001:27
+|vpiParent:
+\_parameter: (uvm_pkg::UVM_PACK), id:2850, line:8001:28, endln:8001:36
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:2745, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11

@@ -1,0 +1,62 @@
+r10uvm94 CENSUS — the RANGE-SELECT census, GOLDEN vs OURS, made BEFORE the patch
+(pristine 3856ec23 sweep, my own workdir /tmp/r10uvm94_wdp).  Classes:
+  SAME  ours == golden and decompileHelper(our tree) == golden  (already right)
+  FIX   ours != golden and decompileHelper(our tree) == golden  (the law fixes it)
+  BREAK ours == golden and decompileHelper(our tree) != golden  (the law would BREAK it)
+  STILL wrong before and after
+
+== surelog corpus (956 databases with both sides) ==
+default_BuildUVMPkg-bf853d43  SAME=4  FIX=0  BREAK=0  STILL=0  UNMATCHED=6
+default_Earlgrey_0_1-71da2fd7  SAME=184  FIX=9  BREAK=0  STILL=58  UNMATCHED=12
+default_MiniAmiq-544c7f61  SAME=2  FIX=4  BREAK=0  STILL=0  UNMATCHED=0
+default_Rggen-50ccbd70  SAME=1735  FIX=0  BREAK=0  STILL=0  UNMATCHED=48
+default_Scoreboard-59431470  SAME=2  FIX=4  BREAK=0  STILL=0  UNMATCHED=0
+default_SeqDriver-32af76aa  SAME=3  FIX=4  BREAK=0  STILL=0  UNMATCHED=0
+default_SimpleUVM-1dc93a62  SAME=2  FIX=4  BREAK=0  STILL=0  UNMATCHED=0
+testflags_BlackBePipeInt-2987e0d2  SAME=4  FIX=0  BREAK=0  STILL=0  UNMATCHED=4
+testflags_BuildUVMPkg-bf853d43  SAME=4  FIX=0  BREAK=0  STILL=0  UNMATCHED=6
+testflags_Earlgrey_0_1-71da2fd7  SAME=397  FIX=17  BREAK=65  STILL=116  UNMATCHED=50
+testflags_MiniAmiq-544c7f61  SAME=2  FIX=4  BREAK=0  STILL=0  UNMATCHED=0
+testflags_SeqDriver-32af76aa  SAME=3  FIX=4  BREAK=0  STILL=0  UNMATCHED=0
+testflags_SimpleUVM-1dc93a62  SAME=2  FIX=4  BREAK=0  STILL=0  UNMATCHED=0
+TOTAL over 956 row-modes: SAME=2412 FIX=54 BREAK=65 STILL=174 UNMATCHED=126
+
+== uhdm2rtlil corpus (1358 databases) ==
+TOTAL over 1358 row-modes: SAME=252 FIX=0 BREAK=0 STILL=0 UNMATCHED=0
+
+== the classes SPLIT by path-element kind (the gate's whole justification) ==
+     65 BREAK part_select
+     54 FIX indexed_part_select
+    174 STILL indexed_part_select
+    108 UNMATCHED indexed_part_select
+     18 UNMATCHED part_select
+
+  Every BREAK is a part_select and NO indexed_part_select breaks; every FIX is an
+  indexed_part_select.  Gating the law on the indexed_part_select element alone
+  therefore yields BREAK=0 on both corpora, and uvm92's R2 (the part_select arm,
+  which reproduces golden's 'sub.adr[ADR - 1:]' from ONE source span) stays
+  untouched by construction.
+
+== the FIX population by shape ==
+     16 testflags_Earlgrey_0_1 indexed_part_select:+::constant(9):constant(9)::: G=[7+:8] O=[FlashWordsW+:PageW] OEXP=[7+:8]
+      8 default_Earlgrey_0_1 indexed_part_select:+::constant(9):constant(9)::: G=[7+:8] O=[FlashWordsW+:PageW] OEXP=[7+:8]
+      4 testflags_SimpleUVM indexed_part_select:+::hier_path:constant(9)::: G=[+:32] O=[] OEXP=[+:32]
+      4 testflags_SeqDriver indexed_part_select:+::hier_path:constant(9)::: G=[+:32] O=[] OEXP=[+:32]
+      4 testflags_MiniAmiq indexed_part_select:+::hier_path:constant(9)::: G=[+:32] O=[] OEXP=[+:32]
+      4 default_SimpleUVM indexed_part_select:+::hier_path:constant(9)::: G=[+:32] O=[] OEXP=[+:32]
+      4 default_SeqDriver indexed_part_select:+::hier_path:constant(9)::: G=[+:32] O=[] OEXP=[+:32]
+      4 default_Scoreboard indexed_part_select:+::hier_path:constant(9)::: G=[+:32] O=[] OEXP=[+:32]
+      4 default_MiniAmiq indexed_part_select:+::hier_path:constant(9)::: G=[+:32] O=[] OEXP=[+:32]
+      1 testflags_Earlgrey_0_1 indexed_part_select:+::constant(9):operation(vpiSubOp)::: G=[0+:IDW - STIDW] O=[0+:IDW-STIDW] OEXP=[0+:IDW - STIDW]
+      1 default_Earlgrey_0_1 indexed_part_select:+::constant(9):operation(vpiSubOp)::: G=[0+:IDW - STIDW] O=[0+:IDW-STIDW] OEXP=[0+:IDW - STIDW]
+
+== the cells THE PATCH'S GATE actually takes (base = hier_path, width = constant/ref_obj) ==
+PREDICT-MOVE default_MiniAmiq-544c7f61  cells=4
+PREDICT-MOVE default_Scoreboard-59431470  cells=4
+PREDICT-MOVE default_SeqDriver-32af76aa  cells=4
+PREDICT-MOVE default_SimpleUVM-1dc93a62  cells=4
+PREDICT-MOVE testflags_MiniAmiq-544c7f61  cells=4
+PREDICT-MOVE testflags_SeqDriver-32af76aa  cells=4
+PREDICT-MOVE testflags_SimpleUVM-1dc93a62  cells=4
+-- predicted movers: 7 databases, 28 cells
+-- predicted movers: 0 databases, 0 cells

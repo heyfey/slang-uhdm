@@ -1,0 +1,42 @@
+r10uvm94 GOLDEN-vs-GOLDEN — the DECODE AS AN ORACLE, run FIRST and on GOLDEN ONLY.
+
+ct94cen widens uvm92's oracle from 'path elements whose index is an OPERATION' to
+EVERY select-bearing path element, and adds the indexed_part_select ROW this pass
+owns.  It LINKS the real UHDM::ExprEval::prettyPrint and transcribes
+CompileHelper::decompileHelper, applies the composition to each path element of a
+golden database's OWN tree and compares it to the bracket text that database's
+hier_path NAME actually carries.  IPS_N counts indexed_part_select elements where
+the transcription does NOT reproduce golden.
+
+== the WHOLE golden cache (superset of both corpora) ==
+REFUTED(ips) /home/heyfey/.cache/slang-uhdm-goldens/d7348d2d2fe67abe767b/golden.uhdm
+-- dbs=3673 hier_path=1691966  elems ips=8116 ps=7349 bs=286740 vs=261
+   ALLSEL  EXPM_Y=298269 EXPM_N=4197
+   RANGE   RNG_Y=14715 RNG_N=750
+   IDXPSEL IPS_Y=7736 IPS_N=380  refuting dbs=7
+
+== the surelog corpus goldens ==
+REFUTED(ips) /home/heyfey/.cache/slang-uhdm-goldens/d7348d2d2fe67abe767b/golden.uhdm
+-- dbs=1516 hier_path=867004  elems ips=4519 ps=3571 bs=157151 vs=56
+   ALLSEL  EXPM_Y=162982 EXPM_N=2315
+   RANGE   RNG_Y=7468 RNG_N=622
+   IDXPSEL IPS_Y=4193 IPS_N=326  refuting dbs=6
+
+== the uhdm2rtlil corpus goldens ==
+goldens=1458
+-- dbs=1458 hier_path=13652  elems ips=26 ps=582 bs=6666 vs=36
+   ALLSEL  EXPM_Y=7300 EXPM_N=10
+   RANGE   RNG_Y=608 RNG_N=0
+   IDXPSEL IPS_Y=26 IPS_N=0  refuting dbs=0
+
+== WHY the 380 do not refute: the vpiIntConst signature, 380/380 vs 0/1254 ==
+over the SEVEN refuting databases, every indexed_part_select cell split by whether
+one of its operand objects is a constant of vpiConstType 7 (vpiIntConst):
+    380 EXPM=N has a vpiIntConst operand
+   1254 EXPM=Y no vpiIntConst operand
+
+A vpiIntConst select operand is Surelog REDUCING the object AFTER the hier_path
+NAME was composed, so that name is a FOSSIL of the pre-reduction tree and no
+transcription off the FINAL tree can reproduce it.  Two witnesses:
+l2_cache_update_stage.sv|67:19-67:53	NAME=l2r_request.data[byte_lane * 8+:8]	NELEM=2	LVAL=2	CELLS=TRAIL:ELEM=indexed_part_select:PST=+::BASEK=constant(7):WIDK=constant(9):BRK=[byte_lane * 8+:8]:EXP=[0+:8]:EXPM=N
+tlul_socket_m1.sv|103:33-103:67	NAME=tl_h_i[i].a_source[8 - 1-:1]	NELEM=2	LVAL=0	CELLS=MID:ELEM=bit_select:IXK=ref_obj:BRK=[i]:EXP=[i]:EXPM=Y;TRAIL:ELEM=indexed_part_select:PST=-::BASEK=constant(7):WIDK=constant(9):BRK=[8 - 1-:1]:EXP=[7-:1]:EXPM=N

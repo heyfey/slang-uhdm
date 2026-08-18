@@ -1,0 +1,97 @@
+r10uvm94 GATES — every landing gate, run from /tmp/wt_r10uvm94 at BASE 913bc0f.
+All baselines used are the ones IN MY WORKTREE plus my OWN pristine sweep; the
+shared /tmp/ctl_wd_* controls were NOT read.
+
+(1) BUILD both, md5 separately, -j 2 only
+    pristine (this worktree, unpatched)  3856ec23a6b14a9071d6dcd94fe9bc47
+        == the main tree's build/slang-uhdm at 913bc0f, byte for byte
+    patched                              646a349fe5ee059536bf54644f6d4386
+    both frozen chmod 555 at /tmp/r10uvm94_{pris_3856,pat}.bin BEFORE any sweep
+
+(2) GOLDENS  (SLANG_UHDM exported explicitly to EACH binary)
+    patched   PASS 23  FAIL 0
+    pristine  PASS 23  FAIL 0
+    negative control SLANG_UHDM=/bin/false  ->  PASS 0  FAIL 23
+
+(3) uhdm2rtlil, BOTH modes, patched
+    testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    default   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    ct8rows vs results/gate_uhdm2rtlil.csv (committed, IN THIS WORKTREE):
+        0 differing ROWS (status AND dump column)   PASS
+    ct8rows vs my own pristine sweep, testflags:    0 differing ROWS  PASS
+    ct8rows vs my own pristine sweep, default:      0 differing ROWS  PASS
+    cmds.txt audit: 1358 x 2 entries, every one `slang: /tmp/r10uvm94_pat.bin`
+
+(4) surelog corpus --mode both, 1588 rows, patched
+    ct8rows vs results/golden_surelog.csv (committed, IN THIS WORKTREE):
+        0 differing ROWS (status AND dump column)   PASS
+    ct8rows vs my own pristine sweep:               0 differing ROWS   PASS
+    default   470 CMP_EQUAL 11 CMP_NOTEQUAL 5 DEFERRED 283 SLANG_REJECT 25 SURELOG_FAIL
+    testflags 466 CMP_EQUAL  9 CMP_NOTEQUAL 5 DEFERRED   3 NO_DATABASE 1 NO_UHDM
+              284 SLANG_REJECT 23 SURELOG_FAIL 1 TIMEOUT 2 UNTRANSLATABLE
+    NO CORPUS ROW CONVERTED, NO ROW REGRESSED.  results/*.csv NOT edited.
+    (The pass's own arm g94_a0_head.sv DOES convert -- see ARMS.)
+    cmds.txt audit: 2981 entries, every one `slang: /tmp/r10uvm94_pat.bin`
+
+(5) BYTEVERIFY SELFCHECK=1, pristine-913bc0f-vs-patched
+    uhdm2rtlil : PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358   selfcheck 1357/1358
+    surelog    : PATH_SETS_IDENTICAL (956)   MOVERS 7 / 956    selfcheck  955/956
+      the 7 are EXACTLY the set PREDICT.r10uvm94.txt named from PRISTINE bytes
+      BEFORE the gate ran, by name:
+        default/{MiniAmiq,Scoreboard,SeqDriver,SimpleUVM}
+        testflags/{MiniAmiq,SeqDriver,SimpleUVM}
+      Earlgrey_0_1 x2, Rggen, BuildUVMPkg x2 are BYTE-IDENTICAL, as predicted.
+
+    ATTRIBUTION, ORDER-BLIND and ID-BLIND (Scoreboard/default is a ~50/50 coin):
+      every mover ins=28 del=28, and only FOUR line kinds change --
+        \_hier_path: (packer.m_bits[])        -> (packer.m_bits[+:32])   x12
+        \_indexed_part_select: (…[])          -> (…[+:32])               x8
+        |vpiName:packer.m_bits[]              -> …[+:32]                 x4
+        |vpiFullName:packer.m_bits[]          -> …[+:32]                 x4
+      4 cells per database, 7 databases, 28 cells -- the predicted number exactly.
+
+CANARIES
+    canaries.sh surelog   ok=56 changed=0 absent=0 (unknown-names=8, expected)
+    canaries.sh u2r       ok=9  changed=0 absent=0 (unknown-names=27, expected)
+    ctcan2 EXPECT_UNKNOWN=1 surelog  ok=58 changed=0  PASS
+    ctcan2 EXPECT_UNKNOWN=6 u2r      ok=1  changed=0  PASS
+    canaudit.sh canaries.sh ctcan2.sh  audited=33 UNCOVERED=0 FENCE-BREACH=0  PASS
+    PINS (pins94.sh, patched vs pristine): SAME=10 MOVED=0 UNKNOWN-NAME=0
+      InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical
+      SVSwitch  4842211c4030   YosysVerx  6ccda350c24a
+
+BOUNDARY (bound94.sh — EVERY tools/probe/*repro/**.sv in the worktree, BOTH
+binaries, BOTH VIEWS def and -elabuhdm; fd-3 list, children </dev/null,
+PROCESSED asserted, recursive so the sd8-12 subdirectory arms are compiled)
+    LISTED=2837 FENCED_SKIPPED=0 PROCESSED=2837 MOVED=4 NO_OUTPUT_PAIRS=258
+    PROCESSED-ASSERT-OK
+    ASYMMETRIC_OUTPUT = 0  (every source that fails, fails on BOTH binaries in
+    the SAME view -- no new crash, no new rejection; uvm93's -elabuhdm SIGSEGV
+    class would have shown here and does not)
+    the 4 MOVED are THIS PASS'S OWN new arms in both views -- the POSITIVE
+    CONTROL proving the gate can see a moved cell:
+      2302_r10uvm94repro_g94_a1_idxbase.sv/def   240 lines
+      2302_r10uvm94repro_g94_a1_idxbase.sv/elab  410 lines
+      2303_r10uvm94repro_g94_a2_homes.sv/def     162 lines
+      2303_r10uvm94repro_g94_a2_homes.sv/elab    324 lines
+    ZERO of the 2833 pre-existing arms from uvm77-93, buvm3-18, sd8-12, earl*,
+    rgg* moved in either view.
+    (g94_a0_head.sv and g94_a3_widthref.sv were written after the list was
+    built and are covered by ARMS.r10uvm94.txt in both views instead.)
+
+HEADS (rowheads.sh, pristine -> patched; counts are the head object's DEPTH)
+    TEST           MODE        pris   pat
+    SeqDriver      default      164    54
+    SeqDriver      testflags    164    54
+    SimpleUVM      default      164    54
+    SimpleUVM      testflags    164    54
+    Scoreboard     default      164    54
+    MiniAmiq       default      164    54
+    MiniAmiq       testflags    164    54
+    BuildUVMPkg    default/tf    84    84   (unchanged)
+    Earlgrey_0_1   default/tf    64    64   (unchanged)
+    Rggen          default      104   104   (unchanged)
+    Scoreboard/testflags and Rggen/testflags are SKIP-NOFILE (expected).
+    The seven UVM row-modes' 164-line head is CLEARED and they surface ONE new
+    shared head, byte-identical across all seven after id-stripping (md5
+    d50def21c86d) -- see R0 in README.md.

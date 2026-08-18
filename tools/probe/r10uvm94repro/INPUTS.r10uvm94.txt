@@ -1,0 +1,20 @@
+r10uvm94 INPUTS — every path this pass read or wrote.  MEASUREMENT-ONLY.
+
+worktree        /tmp/wt_r10uvm94            (git worktree add, BASE 913bc0f)
+patch           /tmp/r10uvm94.patch         (git diff vs 913bc0f)
+binaries        /tmp/r10uvm94_pris_3856.bin  3856ec23a6b14a9071d6dcd94fe9bc47 (chmod 555)
+                /tmp/r10uvm94_pat.bin        646a349fe5ee059536bf54644f6d4386 (chmod 555)
+sweeps          /tmp/r10uvm94_wdp  pristine  (sl.csv, u2r_tf.csv, u2r_def.csv)
+                /tmp/r10uvm94_wda  patched   (same three)
+censuses        /tmp/r10uvm94_cen_sl, /tmp/r10uvm94_cen_u2r  (.g golden, .o ours)
+oracle          /tmp/r10uvm94_ct94cen       (g++ from ct94cen.cpp)
+arms            /tmp/r10uvm94_armwd/<arm>_<def|elab>
+boundary        /tmp/r10uvm94_bound
+scratch         /tmp/r10uvm94_*             (all PASS-PREFIXED)
+
+NOT read: /tmp/ctl_wd_*, /tmp/ctl_*.csv (the shared controls).  Every baseline
+quoted is either results/*.csv IN THIS WORKTREE or my own pristine sweep.
+NOT written: anything outside the worktree and /tmp/r10uvm94_*.
+results/*.csv were READ ONLY and are unchanged.
+slang was NOT patched.  Nothing was promoted.  NO CORPUS ROW PASSES cmp that
+did not before.

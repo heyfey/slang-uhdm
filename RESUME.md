@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 04:55, HEAD = the buvm18 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 05:25, HEAD = the uvm94 landing, the 100th) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -180,7 +180,7 @@ row-modes over 7 tests:
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | 164 (depth) | hier_path VpiName of an INDEXED_PART_SELECT element: golden `packer.m_bits[+:32]` (base hier_path renders empty, width folded) vs ours `packer.m_bits[]` — uvm_object_defines.svh:3674 (`uvm_unpack_enumN`); pass uvm94 in flight (uvm93 landed: 28→164 depth, streaming slice_size type → minted width constant) |
+| SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | 54 | golden FOLDS `$bits(<expression>)` to a LOCATED constant (UINT:8) where we keep the sys_func_call — uvm_object_defines.svh:3364 `if (SIZE > 64)` in `uvm_record_field`; pass uvm95 in flight (uvm94 landed: 164→54, hier_path indexed_part_select base renders EMPTY) |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 17 | ours carries an EXTRA ref_typespec→unsupported_typespec on the ref_var of a FOREACH HEADER's array reference `foreach(m_object_references[i])` (uvm_pkg.sv:22452, assoc array of class handles) — golden's ref_var has no Typespec; pass buvm19 in flight (buvm18 landed: 84→17, package-param bare-typedef named clone) |
 | Earlgrey_0_1/default | 64 (depth) | ELAB constant ENCODING of a folded parameter read as a size-cast operand `DepthW'(Depth)` (prim_fifo_sync.sv:72, i_bank_sequence_fifo): golden INT:2 ct 7, ours UINT:2 ct 9 — instance-dependent (the parameter's own override encoding); pass earl64 in flight (earl63 landed: § constCallFoldAdjustSize63) |
 | Earlgrey_0_1/testflags | 28 (depth) | ELAB high_conn literal: the 0 base of `host_addr_i[0 +: BankAddrW]` (flash_phy.sv:128) golden UINT:0 ct 9, ours INT:0 ct 7 (DEF copy already UINT) — earl64 target B (earl63: 64→28) |
@@ -189,7 +189,7 @@ row-modes over 7 tests:
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 50 verifier fix-before-landing re-cuts (99 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 50 verifier fix-before-landing re-cuts (100 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 
