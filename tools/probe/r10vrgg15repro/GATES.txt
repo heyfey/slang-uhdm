@@ -1,0 +1,93 @@
+r10vrgg15 — GATES, all re-measured by the VERIFIER from its own worktrees.
+worktrees: /tmp/wt_vrgg15pris (5d8ff29) and /tmp/wt_vrgg15 (5d8ff29 + r10rgg15.patch)
+
+(1) BUILD, -j 2, md5 taken only after 'Built target' (2 hits per log)
+74963e213f7f98da45ceaec21ee541e2  /tmp/vrgg15_bin/base
+561e5694d8b9024a74719993ac67dc79  /tmp/vrgg15_bin/patched
+    -> BOTH md5s equal the implementer's reported values.
+
+(2) GOLDENS, SLANG_UHDM exported EXPLICITLY per binary
+    base    PASS=23 FAIL=0
+    patched PASS=23 FAIL=0
+    /bin/false PASS=0 FAIL=23
+
+(3) uhdm2rtlil, both modes, --jobs 2, own --out/--workdir
+   1358 CMP_EQUAL
+    100 SLANG_REJECT
+      4 SURELOG_FAIL
+    per mode: 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    ct8rows patched-vs-my-base : 0 differing rows over 1462 (status AND dump)
+    ct8rows testflags-vs-committed gate_uhdm2rtlil.csv : 0 differing over 731
+
+(4) surelog, both modes
+    936 CMP_EQUAL
+    567 SLANG_REJECT
+     48 SURELOG_FAIL
+     20 CMP_NOTEQUAL
+     10 DEFERRED
+      3 NO_DATABASE
+      2 UNTRANSLATABLE
+      1 TIMEOUT
+      1 NO_UHDM
+    ct8rows patched-vs-my-base           : 0 differing rows over 1588
+    ct8rows patched-vs-committed golden_surelog.csv : 0 differing over 1588
+    NO ROW CONVERTED.  Rggen,default is CMP_NOTEQUAL before AND after.
+    results/*.csv were READ ONLY and are unmodified.
+
+(5) BYTEVERIFY SELFCHECK=1
+    uhdm2rtlil: MOVERS 0 / 1358   selfcheck 1357/1358 flagged
+    surelog   : MOVERS 2 / 956    selfcheck 955/956 flagged
+      MOVER default/Rggen      = THE TARGET (3 changed dump lines, all TO-GOLDEN)
+      MOVER default/Scoreboard = THE DOCUMENTED COIN, attributed ORDER-BLIND:
+        raw diff 28 sides (one 13-line bit_typespec block relocated),
+        SORTED diff 2 sides = the output-path banner ONLY.  NOT the patch.
+
+CANARIES
+  canaries.sh surelog : ok=52 changed=0 absent=0
+  canaries.sh u2r     : ok=16 changed=0 absent=0
+  ctcan2.sh   surelog : ok=58 changed=0 (EXPECT_UNKNOWN=1)
+  ctcan2.sh   u2r     : ok=2  changed=0 (EXPECT_UNKNOWN=6)
+  canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+BYTE PINS (md5 first 12, base -> patched, both modes)
+  InterfaceModPort   59a365f3ce2c -> 59a365f3ce2c
+  BlackParrotComplex e3e354129d5a/73a10e8217e5 unchanged
+  YosysOldOr         d68e0796d62c -> d68e0796d62c
+  SVSwitch           4842211c4030 -> 4842211c4030  (PIN HELD)
+  YosysVerx          6ccda350c24a -> 6ccda350c24a  (PIN HELD)
+
+ROWHEADS (r10uvm67repro/rowheads.sh, unmodified)
+  SeqDriver/SimpleUVM/Scoreboard/MiniAmiq 17 ; BuildUVMPkg 29 ; Earlgrey_0_1 36
+  -> all UNCHANGED in both modes.  Rggen/default 64 -> 683.
+
+CMDS.TXT AUDIT, by BINARY PATH, file by file
+  wd_base_u2r 1462 files: 1458 name /tmp/vrgg15_bin/base, 0 name any other binary
+  wd_pat_u2r  1462 files: 1458 name /tmp/vrgg15_bin/patched, 0 name any other
+  wd_base_sl  1573 files: 1523 name base, 0 other ; wd_pat_sl 1523 patched, 0 other
+  (the remainder are SURELOG_FAIL / cache-hit rows where slang never ran)
+  0 files anywhere name ~/git-repos/slang-uhdm/build/slang-uhdm or a worktree binary.
+
+OWNER-KEYED CENSUS ON THE REAL TARGETS (pcensus.py, judge-fields payload,
+span scored separately; TO-GOLDEN / AWAY / STILL per slot)
+  Rggen / default   : 7372 keys  TO-GOLDEN 1  AWAY 0  STILL 7371
+     calibration golden-vs-golden 0 differing / 7346
+     negative control golden-vs-base 125 differing (instrument live)
+     the single TO-GOLDEN slot =
+     work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field.INITIAL_VALUE
+       GOLD  constant dec='b0 sz=2  ct=3 BIN=0 ts=bit_typespec  span L5:61-5:63
+       BASE  constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec  span <nospan>
+       PAT   constant dec='b0 sz=2  ct=3 BIN=0 ts=bit_typespec  span L5:61-5:63
+  Rggen / testflags : SURELOG_FAIL, no comparable database (unchanged)
+  Earlgrey_0_1 / default   : database BYTE-IDENTICAL base vs patched (569e2d8c49fe)
+  Earlgrey_0_1 / testflags : database BYTE-IDENTICAL base vs patched (3c5d8bdbafa3)
+     -> TO-GOLDEN 0, AWAY 0, STILL every slot, by byte identity.
+
+MY OWN PREDICTION, FROM THE PRISTINE DATABASES, BEFORE ATTRIBUTING ANYTHING
+  byte-grep every pristine database for the literal 'b0 -> 446 of 2314 hit;
+  dump each and count vpiDecompile:'b0 immediately followed by vpiSize:64:
+1     wd_base_sl/default/Rggen-50ccbd70/slang.uhdm
+1     wd_base_u2r/testflags/unbased_unsized_param-217a7595/slang.uhdm
+1     wd_base_u2r/default/unbased_unsized_param-217a7595/slang.uhdm
+  the two unbased_unsized_param slots have a 64-bit formal with NO default,
+  so both halves of the patch are no-ops there.
+  PREDICTED MOVER SET = { default/Rggen }.  MEASURED = the same.

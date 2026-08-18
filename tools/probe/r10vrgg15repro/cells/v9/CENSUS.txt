@@ -1,0 +1,25 @@
+STILL-OK     SPAN-OK                                                    
+STILL-OK     SPAN-OK      (work@leaf.L), line:6:24, endln:6:25          
+STILL-OK     SPAN-OK      (work@leaf.P), line:3:35, endln:3:36          
+STILL-OK     SPAN-OK      (work@leaf1.P), line:8:36, endln:8:37         
+STILL-WRONG  SPAN-OK      (work@v9.u0.L), line:6:24, endln:6:25         
+   GOLD [("constant dec=6'b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L6:28-6:29')]
+   BASE [("constant dec=1'b0 sz=1 ct=3 BIN=0 ts=bit_typespec", 'L6:28-6:29')]
+   PAT  [("constant dec=1'b0 sz=1 ct=3 BIN=0 ts=bit_typespec", 'L6:28-6:29')]
+FIXED        SPAN-FIXED   (work@v9.u0.P), line:3:35, endln:3:36         
+   GOLD [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L3:39-3:41')]
+   BASE [("constant dec=6'b0 sz=6 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L3:39-3:41')]
+STILL-OK     SPAN-FIXED   (work@v9.u1.P), line:8:36, endln:8:37         
+   GOLD [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', 'L8:40-8:42')]
+   BASE [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', '<nospan>')]
+   PAT  [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', 'L8:40-8:42')]
+STILL-WRONG  SPAN-OK      (work@v9.ux.L), line:6:24, endln:6:25         
+   GOLD [("constant dec='bX sz=-1 ct=3 BIN=X ts=bit_typespec", 'L6:28-6:29')]
+   BASE [("constant dec=1'bX sz=1 ct=3 BIN=X ts=bit_typespec", 'L6:28-6:29')]
+   PAT  [("constant dec=1'bX sz=1 ct=3 BIN=X ts=bit_typespec", 'L6:28-6:29')]
+STILL-OK     SPAN-FIXED   (work@v9.ux.P), line:3:35, endln:3:36         
+   GOLD [("constant dec='bX sz=-1 ct=3 BIN=X ts=bit_typespec", 'L3:39-3:41')]
+   BASE [("constant dec='bX sz=-1 ct=3 BIN=X ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='bX sz=-1 ct=3 BIN=X ts=bit_typespec", 'L3:39-3:41')]
+== keys=9 FIXED=1 BROKEN=0

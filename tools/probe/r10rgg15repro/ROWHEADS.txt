@@ -1,0 +1,23 @@
+r10rgg15 — official uhdm-cmp head measurement on the seven tracked rows, via
+tools/probe/r10uvm67repro/rowheads.sh (unmodified), base vs patched.
+A cmp LINE COUNT is the head OBJECT's decompile size and is NOT a progress
+metric; only the HEAD COUNT and WHICH object it is carry meaning.
+
+TEST           MODE       BASE           PATCHED
+SeqDriver      default    17 / 1 head    17 / 1 head    unchanged
+SeqDriver      testflags  17 / 1 head    17 / 1 head    unchanged
+SimpleUVM      default    17 / 1 head    17 / 1 head    unchanged
+SimpleUVM      testflags  17 / 1 head    17 / 1 head    unchanged
+Scoreboard     default    17 / 1 head    17 / 1 head    unchanged
+Scoreboard     testflags  SKIP-NOFILE (SLANG_REJECT row, no database)
+MiniAmiq       default    17 / 1 head    17 / 1 head    unchanged
+MiniAmiq       testflags  17 / 1 head    17 / 1 head    unchanged
+BuildUVMPkg    default    29 / 1 head    29 / 1 head    unchanged
+BuildUVMPkg    testflags  29 / 1 head    29 / 1 head    unchanged
+Earlgrey_0_1   default    36 / 1 head    36 / 1 head    unchanged
+Earlgrey_0_1   testflags  36 / 1 head    36 / 1 head    unchanged
+Rggen          default    64 / 1 head   683 / 1 head    THE TARGET: head cleared,
+                                                       new family (§ 9, R0)
+Rggen          testflags  SKIP-NOFILE (no comparable testflags mode; Rggen has ONE
+                                       comparable mode, the default one)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0   (both runs)

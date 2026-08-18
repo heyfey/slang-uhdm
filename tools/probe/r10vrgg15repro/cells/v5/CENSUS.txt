@@ -1,0 +1,58 @@
+STILL-OK     SPAN-OK                                                    
+FIXED        SPAN-FIXED   (work@v5.i1.P), line:2:55, endln:2:56         
+   GOLD [("constant dec='b0 sz=1 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=1 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+STILL-OK     SPAN-OK      (work@v5.i1.W), line:2:26, endln:2:27         
+FIXED        SPAN-FIXED   (work@v5.i128.P), line:2:55, endln:2:56       
+   GOLD [("constant dec='b0 sz=128 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=128 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+STILL-OK     SPAN-OK      (work@v5.i128.W), line:2:26, endln:2:27       
+FIXED        SPAN-FIXED   (work@v5.i2.P), line:2:55, endln:2:56         
+   GOLD [("constant dec='b0 sz=2 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=2 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+STILL-OK     SPAN-OK      (work@v5.i2.W), line:2:26, endln:2:27         
+FIXED        SPAN-FIXED   (work@v5.i33.P), line:2:55, endln:2:56        
+   GOLD [("constant dec='b0 sz=33 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=33 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+STILL-OK     SPAN-OK      (work@v5.i33.W), line:2:26, endln:2:27        
+STILL-OK     SPAN-FIXED   (work@v5.i64.P), line:2:55, endln:2:56        
+   GOLD [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+STILL-OK     SPAN-OK      (work@v5.i64.W), line:2:26, endln:2:27        
+FIXED        SPAN-FIXED   (work@v5.i65.P), line:2:55, endln:2:56        
+   GOLD [("constant dec='b0 sz=65 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=65 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+STILL-OK     SPAN-OK      (work@v5.i65.W), line:2:26, endln:2:27        
+FIXED        SPAN-FIXED   (work@v5.i7.P), line:2:55, endln:2:56         
+   GOLD [("constant dec='b0 sz=7 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=7 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+STILL-OK     SPAN-OK      (work@v5.i7.W), line:2:26, endln:2:27         
+FIXED        SPAN-FIXED   (work@v5.i8d.P), line:2:55, endln:2:56        
+   GOLD [("constant dec='b0 sz=8 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=8 ct=3 BIN=0 ts=bit_typespec", 'L2:59-2:61')]
+STILL-OK     SPAN-OK      (work@v5.i8d.W), line:2:26, endln:2:27        
+STILL-OK     SPAN-OK      (work@v5.i9d.P), line:2:55, endln:2:56        
+STILL-OK     SPAN-OK      (work@v5.i9d.W), line:2:26, endln:2:27        
+FIXED        SPAN-FIXED   (work@v5.s12.S), line:3:65, endln:3:66        
+   GOLD [("constant dec='b0 sz=12 ct=3 BIN=0 ts=logic_typespec", 'L3:69-3:71')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=logic_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=12 ct=3 BIN=0 ts=logic_typespec", 'L3:69-3:71')]
+STILL-OK     SPAN-OK      (work@v5.s12.W), line:3:27, endln:3:28        
+STILL-OK     SPAN-FIXED   (work@v5.s12o.S), line:3:65, endln:3:66       
+   GOLD [('constant dec=4095 sz=12 ct=9 UINT=4095 ts=logic_typespec', 'L3:69-3:71')]
+   BASE [('constant dec=4095 sz=12 ct=9 UINT=4095 ts=logic_typespec', '<nospan>')]
+   PAT  [('constant dec=4095 sz=12 ct=9 UINT=4095 ts=logic_typespec', 'L3:69-3:71')]
+STILL-OK     SPAN-OK      (work@v5.s12o.W), line:3:27, endln:3:28       
+STILL-OK     SPAN-OK      (work@w.P), line:2:55, endln:2:56             
+STILL-OK     SPAN-OK      (work@w.W), line:2:26, endln:2:27             
+STILL-OK     SPAN-OK      (work@ws.S), line:3:65, endln:3:66            
+STILL-OK     SPAN-OK      (work@ws.W), line:3:27, endln:3:28            
+== keys=27 FIXED=8 BROKEN=0

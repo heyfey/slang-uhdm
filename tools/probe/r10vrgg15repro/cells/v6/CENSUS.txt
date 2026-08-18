@@ -1,0 +1,60 @@
+STILL-WRONG  SPAN-WRONG                                                 
+   GOLD [('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None)]
+   BASE [('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None)]
+   PAT  [('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None), ('<norhs> dec=None sz=None ct=None None=None ts=None', None)]
+STILL-WRONG  SPAN-WRONG   (GL), line:20:28, endln:20:30                 
+   GOLD [("constant dec='0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L20:33-20:35'), ("constant dec='0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L20:33-20:35')]
+   BASE []
+   PAT  []
+STILL-OK     SPAN-OK      (pk::LP), line:4:24, endln:4:26               
+STILL-OK     SPAN-OK      (pk::PP), line:3:23, endln:3:25               
+STILL-WRONG  SPAN-OK      (work@C::CP), line:14:31, endln:14:33         
+   GOLD [("constant dec='0 sz=-1 ct=3 BIN=0 ts=bit_typespec", 'L14:36-14:38')]
+   BASE [("constant dec='0 sz=-1 ct=3 BIN=0 ts=int_typespec", 'L14:36-14:38')]
+   PAT  [("constant dec='0 sz=-1 ct=3 BIN=0 ts=int_typespec", 'L14:36-14:38')]
+STILL-OK     SPAN-OK      (work@e_en.P), line:11:29, endln:11:30        
+STILL-OK     SPAN-OK      (work@e_st.P), line:12:29, endln:12:30        
+STILL-WRONG  SPAN-OK      (work@e_td.P), line:10:29, endln:10:30        
+   GOLD [("constant dec='0 sz=-1 ct=3 BIN=0 ts=bit_typespec", 'L10:33-10:35')]
+   BASE [("constant dec='0 sz=-1 ct=3 BIN=0 ts=int_typespec", 'L10:33-10:35')]
+   PAT  [("constant dec='0 sz=-1 ct=3 BIN=0 ts=int_typespec", 'L10:33-10:35')]
+STILL-OK     SPAN-OK      (work@h6.P), line:9:34, endln:9:35            
+STILL-OK     SPAN-OK      (work@ifc.IP), line:13:37, endln:13:39        
+STILL-OK     SPAN-OK      (work@v6.BL), line:30:24, endln:30:26         
+STILL-WRONG  SPAN-OK      (work@v6.gblk[0].GL), line:20:28, endln:20:30 
+   GOLD [("constant dec=6'b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L20:33-20:35')]
+   BASE [('constant dec=0 sz=6 ct=9 UINT=0 ts=bit_typespec', 'L20:33-20:35')]
+   PAT  [('constant dec=0 sz=6 ct=9 UINT=0 ts=bit_typespec', 'L20:33-20:35')]
+FIXED        SPAN-FIXED   (work@v6.gblk[0].g_h6.P), line:9:34, endln:9:35
+   GOLD [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L9:38-9:40')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L9:38-9:40')]
+STILL-WRONG  SPAN-OK      (work@v6.gblk[1].GL), line:20:28, endln:20:30 
+   GOLD [("constant dec=6'b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L20:33-20:35')]
+   BASE [('constant dec=0 sz=6 ct=9 UINT=0 ts=bit_typespec', 'L20:33-20:35')]
+   PAT  [('constant dec=0 sz=6 ct=9 UINT=0 ts=bit_typespec', 'L20:33-20:35')]
+FIXED        SPAN-FIXED   (work@v6.gblk[1].g_h6.P), line:9:34, endln:9:35
+   GOLD [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L9:38-9:40')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L9:38-9:40')]
+FIXED        SPAN-FIXED   (work@v6.ifblk.i_h6.P), line:9:34, endln:9:35 
+   GOLD [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L9:38-9:40')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L9:38-9:40')]
+FIXED        SPAN-FIXED   (work@v6.u_h6.P), line:9:34, endln:9:35       
+   GOLD [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L9:38-9:40')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L9:38-9:40')]
+FIXED        SPAN-FIXED   (work@v6.u_ifc.IP), line:13:37, endln:13:39   
+   GOLD [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L13:42-13:44')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L13:42-13:44')]
+FIXED        SPAN-FIXED   (work@v6.u_st.P), line:12:29, endln:12:30     
+   GOLD [("constant dec='b0 sz=6 ct=3 BIN=0 ts=struct_typespec", 'L12:33-12:35')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=struct_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=6 ct=3 BIN=0 ts=struct_typespec", 'L12:33-12:35')]
+STILL-WRONG  SPAN-FIXED   (work@v6.u_td.P), line:10:29, endln:10:30     
+   GOLD [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L10:33-10:35')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=int_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=6 ct=3 BIN=0 ts=int_typespec", 'L10:33-10:35')]
+== keys=20 FIXED=6 BROKEN=0

@@ -1,0 +1,66 @@
+STILL-OK     SPAN-OK                                                    
+STILL-OK     SPAN-OK      (work@n0.Q), line:2:33, endln:2:34            
+STILL-OK     SPAN-OK      (work@n1.Q), line:3:33, endln:3:34            
+STILL-OK     SPAN-OK      (work@n2.Q), line:4:33, endln:4:34            
+STILL-OK     SPAN-OK      (work@n3.Q), line:5:33, endln:5:34            
+STILL-OK     SPAN-OK      (work@n4.Q), line:6:33, endln:6:34            
+FIXED        SPAN-OK      (work@v4.a0.Q), line:2:33, endln:2:34         
+   GOLD [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+STILL-OK     SPAN-OK      (work@v4.a1.Q), line:2:33, endln:2:34         
+STILL-OK     SPAN-OK      (work@v4.ax.Q), line:2:33, endln:2:34         
+STILL-OK     SPAN-OK      (work@v4.az.Q), line:2:33, endln:2:34         
+FIXED        SPAN-FIXED   (work@v4.b0.Q), line:3:33, endln:3:34         
+   GOLD [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L3:37-3:39')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L3:37-3:39')]
+STILL-OK     SPAN-FIXED   (work@v4.b1.Q), line:3:33, endln:3:34         
+   GOLD [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', 'L3:37-3:39')]
+   BASE [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', '<nospan>')]
+   PAT  [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', 'L3:37-3:39')]
+STILL-OK     SPAN-FIXED   (work@v4.bx.Q), line:3:33, endln:3:34         
+   GOLD [("constant dec='bX sz=-1 ct=3 BIN=X ts=bit_typespec", 'L3:37-3:39')]
+   BASE [("constant dec='bX sz=-1 ct=3 BIN=X ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='bX sz=-1 ct=3 BIN=X ts=bit_typespec", 'L3:37-3:39')]
+STILL-OK     SPAN-FIXED   (work@v4.bz.Q), line:3:33, endln:3:34         
+   GOLD [("constant dec='bZ sz=-1 ct=3 BIN=Z ts=bit_typespec", 'L3:37-3:39')]
+   BASE [("constant dec='bZ sz=-1 ct=3 BIN=Z ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='bZ sz=-1 ct=3 BIN=Z ts=bit_typespec", 'L3:37-3:39')]
+FIXED        SPAN-FIXED   (work@v4.c0.Q), line:4:33, endln:4:34         
+   GOLD [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L4:37-4:41')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L4:37-4:41')]
+STILL-OK     SPAN-FIXED   (work@v4.c1.Q), line:4:33, endln:4:34         
+   GOLD [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', 'L4:37-4:41')]
+   BASE [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', '<nospan>')]
+   PAT  [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', 'L4:37-4:41')]
+STILL-OK     SPAN-FIXED   (work@v4.cx.Q), line:4:33, endln:4:34         
+   GOLD [("constant dec='bX sz=-1 ct=3 BIN=X ts=bit_typespec", 'L4:37-4:41')]
+   BASE [("constant dec='bX sz=-1 ct=3 BIN=X ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='bX sz=-1 ct=3 BIN=X ts=bit_typespec", 'L4:37-4:41')]
+STILL-OK     SPAN-FIXED   (work@v4.cz.Q), line:4:33, endln:4:34         
+   GOLD [("constant dec='bZ sz=-1 ct=3 BIN=Z ts=bit_typespec", 'L4:37-4:41')]
+   BASE [("constant dec='bZ sz=-1 ct=3 BIN=Z ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='bZ sz=-1 ct=3 BIN=Z ts=bit_typespec", 'L4:37-4:41')]
+FIXED        SPAN-FIXED   (work@v4.d0.Q), line:5:33, endln:5:34         
+   GOLD [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L5:37-5:45')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L5:37-5:45')]
+STILL-OK     SPAN-FIXED   (work@v4.d1.Q), line:5:33, endln:5:34         
+   GOLD [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', 'L5:37-5:45')]
+   BASE [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', '<nospan>')]
+   PAT  [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', 'L5:37-5:45')]
+FIXED        SPAN-FIXED   (work@v4.e0.Q), line:6:33, endln:6:34         
+   GOLD [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L6:37-6:39')]
+   BASE [("constant dec='b0 sz=64 ct=3 BIN=0 ts=bit_typespec", '<nospan>')]
+   PAT  [("constant dec='b0 sz=6 ct=3 BIN=0 ts=bit_typespec", 'L6:37-6:39')]
+STILL-OK     SPAN-FIXED   (work@v4.e1.Q), line:6:33, endln:6:34         
+   GOLD [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', 'L6:37-6:39')]
+   BASE [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', '<nospan>')]
+   PAT  [('constant dec=63 sz=6 ct=9 UINT=63 ts=bit_typespec', 'L6:37-6:39')]
+STILL-OK     SPAN-OK      (work@v4.f1.Q), line:3:33, endln:3:34         
+STILL-OK     SPAN-OK      (work@v4.f2.Q), line:4:33, endln:4:34         
+STILL-OK     SPAN-OK      (work@v4.f3.Q), line:5:33, endln:5:34         
+STILL-OK     SPAN-OK      (work@v4.f4.Q), line:6:33, endln:6:34         
+== keys=26 FIXED=5 BROKEN=0

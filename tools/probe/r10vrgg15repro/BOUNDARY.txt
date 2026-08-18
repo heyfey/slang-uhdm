@@ -1,0 +1,58 @@
+r10vrgg15 — BOUNDARY (three arms, a COPY of tools/probe, NO path filter)
+
+base=/tmp/vrgg15_bin/base 74963e213f7f98da45ceaec21ee541e2
+patched=/tmp/vrgg15_bin/patched 561e5694d8b9024a74719993ac67dc79
+
+-- ARM 1: per FILE, DEF view
+MODE=file PROCESSED=3046 LISTED=3046 identical=2918 MOVERS=3 uncompilable=125 asymmetries=0
+MOVER r10rgg15repro/cells/g2/g2.sv
+MOVER r10rgg15repro/cells/g3/g3.sv
+MOVER r10rgg15repro/cells/g5/g5.sv
+rc histogram:
+   2821 rc_a=0 rc_b=0
+    125 rc_a=3 rc_b=3
+    100 rc_a=4 rc_b=4
+
+-- ARM 2: per DIRECTORY, DEF view
+MODE=dir PROCESSED=1395 LISTED=1395 identical=1272 MOVERS=3 uncompilable=120 asymmetries=0
+MOVER r10rgg15repro/cells/g2
+MOVER r10rgg15repro/cells/g3
+MOVER r10rgg15repro/cells/g5
+   1239 rc_a=0 rc_b=0
+    120 rc_a=3 rc_b=3
+     36 rc_a=4 rc_b=4
+
+-- ARM 3: per FILE, ELAB view (--elabuhdm)
+MODE=file PROCESSED=3046 LISTED=3046 identical=2908 MOVERS=3 uncompilable=135 asymmetries=0
+MOVER r10rgg15repro/cells/g2/g2.sv
+MOVER r10rgg15repro/cells/g3/g3.sv
+MOVER r10rgg15repro/cells/g5/g5.sv
+   2812 rc_a=0 rc_b=0
+    125 rc_a=3 rc_b=3
+     99 rc_a=4 rc_b=4
+     10 rc_a=139 rc_b=139
+
+-- rc=139 (SEGFAULT) cells, SYMMETRIC on both binaries, PRE-EXISTING:
+r10buvm8repro/v21shadow8.sv rc_a=139 rc_b=139
+r10buvm8repro/vshadowcells8/v21_s9.sv rc_a=139 rc_b=139
+r10uvm84repro/v84x8_break.sv rc_a=139 rc_b=139
+r10uvm87repro/v87_a4_scope.sv rc_a=139 rc_b=139
+r10uvm92repro/g92_a2_ppkinds.sv rc_a=139 rc_b=139
+r10vbuvm19repro/seg19.sv rc_a=139 rc_b=139
+r10vbuvm19repro/vg19e.sv rc_a=139 rc_b=139
+r10vrgg8repro/cells/v8_recurse/dut.sv rc_a=139 rc_b=139
+r10vrgg8repro/cells/v8_recurse_mutual/dut.sv rc_a=139 rc_b=139
+r10vrgg8repro/cells/v8_recurse_uncond/dut.sv rc_a=139 rc_b=139
+
+-- POSITIVE CONTROL: the three movers are this pass's own arms; scored
+   against REBUILT goldens they are all TO-GOLDEN:
+   g1 shapeFIXED=0 spanFIXED=0 shapeBROKEN=0 spanBROKEN=0
+   g2 shapeFIXED=8 spanFIXED=16 shapeBROKEN=0 spanBROKEN=0
+   g3 shapeFIXED=5 spanFIXED=6 shapeBROKEN=0 spanBROKEN=0
+   g4 shapeFIXED=0 spanFIXED=0 shapeBROKEN=0 spanBROKEN=0
+   g5 shapeFIXED=4 spanFIXED=4 shapeBROKEN=0 spanBROKEN=0
+
+-- FALSE-MOVER TRAP MEASURED AND FIXED: normalising only the workdir but
+   leaving the output basenames a.uhdm/b.uhdm made the dump BANNER differ,
+   and the first run reported 2329 movers in 2152 processed cells before it
+   was killed.  The gate now drops the dump's first line (sed 1d).

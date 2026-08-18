@@ -1,0 +1,39 @@
+== FAMILIES ==
+   32 EQUAL-SHAPE G const(UINT:0,sz=32,ct=9,dec=0)/LOC                   O const(UINT:0,sz=32,ct=9,dec=0)/LL
+   16 EQUAL-SHAPE G const(UINT:32768,sz=32,ct=9,dec=32768)/LOC           O const(UINT:32768,sz=32,ct=9,dec=32768)/LL
+   16 EQUAL-SHAPE G const(UINT:16384,sz=32,ct=9,dec=16384)/LOC           O const(UINT:16384,sz=32,ct=9,dec=16384)/LL
+   16 EQUAL-SHAPE G const(BIN:0000,sz=4,ct=3,dec=4'b0000)/LL             O const(BIN:0000,sz=4,ct=3,dec=4'b0000)/LL
+    8 EQUAL-SHAPE G const(UINT:65536,sz=32,ct=9,dec=65536)/LOC           O const(UINT:65536,sz=32,ct=9,dec=65536)/LL
+    8 EQUAL-SHAPE G const(UINT:2097152,sz=32,ct=9,dec=2097152)/LOC       O const(UINT:2097152,sz=32,ct=9,dec=2097152)/LL
+    8 EQUAL-SHAPE G const(UINT:1536,sz=32,ct=9,dec=1536)/LOC             O const(UINT:1536,sz=32,ct=9,dec=1536)/LL
+    8 EQUAL-SHAPE G const(UINT:1544,sz=32,ct=9,dec=1544)/LOC             O const(UINT:1544,sz=32,ct=9,dec=1544)/LL
+    8 EQUAL-SHAPE G const(UINT:40,sz=32,ct=9,dec=40)/LOC                 O const(UINT:40,sz=32,ct=9,dec=40)/LL
+    8 EQUAL-SHAPE G const(UINT:24,sz=32,ct=9,dec=24)/LOC                 O const(UINT:24,sz=32,ct=9,dec=24)/LL
+    8 EQUAL-SHAPE G const(UINT:1024,sz=32,ct=9,dec=1024)/LOC             O const(UINT:1024,sz=32,ct=9,dec=1024)/LL
+    8 EQUAL-SHAPE G const(UINT:1032,sz=32,ct=9,dec=1032)/LOC             O const(UINT:1032,sz=32,ct=9,dec=1032)/LL
+    8 EQUAL-SHAPE G const(UINT:32,sz=32,ct=9,dec=32)/LOC                 O const(UINT:32,sz=32,ct=9,dec=32)/LL
+    8 EQUAL-SHAPE G const(UINT:8,sz=32,ct=9,dec=8)/LOC                   O const(UINT:8,sz=32,ct=9,dec=8)/LL
+    8 EQUAL-SHAPE G const(UINT:56,sz=32,ct=9,dec=56)/LOC                 O const(UINT:56,sz=32,ct=9,dec=56)/LL
+    8 EQUAL-SHAPE G const(UINT:48,sz=32,ct=9,dec=48)/LOC                 O const(UINT:48,sz=32,ct=9,dec=48)/LL
+    8 EQUAL-SHAPE G const(UINT:512,sz=32,ct=9,dec=512)/LOC               O const(UINT:512,sz=32,ct=9,dec=512)/LL
+    8 EQUAL-SHAPE G const(UINT:520,sz=32,ct=9,dec=520)/LOC               O const(UINT:520,sz=32,ct=9,dec=520)/LL
+    8 EQUAL-SHAPE G const(UINT:16,sz=32,ct=9,dec=16)/LOC                 O const(UINT:16,sz=32,ct=9,dec=16)/LL
+    8 EQUAL-SHAPE G const(UINT:3145728,sz=32,ct=9,dec=3145728)/LOC       O const(UINT:3145728,sz=32,ct=9,dec=3145728)/LL
+    8 EQUAL-SHAPE G const(UINT:49152,sz=32,ct=9,dec=49152)/LOC           O const(UINT:49152,sz=32,ct=9,dec=49152)/LL
+    8 EQUAL-SHAPE G const(UINT:8192,sz=32,ct=9,dec=8192)/LOC             O const(UINT:8192,sz=32,ct=9,dec=8192)/LL
+    8 EQUAL-SHAPE G const(UINT:1048576,sz=32,ct=9,dec=1048576)/LOC       O const(UINT:1048576,sz=32,ct=9,dec=1048576)/LL
+    8 EQUAL-SHAPE G const(UINT:49144,sz=32,ct=9,dec=49144)/LOC           O const(UINT:49144,sz=32,ct=9,dec=49144)/LL
+    8 EQUAL-SHAPE G const(UINT:131072,sz=32,ct=9,dec=131072)/LOC         O const(UINT:131072,sz=32,ct=9,dec=131072)/LL
+    8 EQUAL-SHAPE G const(UINT:45056,sz=32,ct=9,dec=45056)/LOC           O const(UINT:45056,sz=32,ct=9,dec=45056)/LL
+    8 EQUAL-SHAPE G const(UINT:12288,sz=32,ct=9,dec=12288)/LOC           O const(UINT:12288,sz=32,ct=9,dec=12288)/LL
+    8 EQUAL-SHAPE G const(UINT:4096,sz=32,ct=9,dec=4096)/LOC             O const(UINT:4096,sz=32,ct=9,dec=4096)/LL
+    2 EQUAL-SHAPE G const(INT:-1,sz=32,ct=7,dec=-1)/LL                   O const(INT:-1,sz=32,ct=7,dec=-1)/LL
+    2 EQUAL-SHAPE G const(BIN:0010,sz=4,ct=3,dec=0010)/LL                O const(BIN:0010,sz=4,ct=3,dec=0010)/LL
+    2 EQUAL-SHAPE G const(UINT:19,sz=32,ct=9,dec=19)/LL                  O const(UINT:19,sz=32,ct=9,dec=19)/LL
+    2 EQUAL-SHAPE G const(UINT:1,sz=3,ct=9,dec=1)/LL                     O const(UINT:1,sz=3,ct=9,dec=1)/LL
+    2 EQUAL-SHAPE G const(HEX:200000000000000,sz=68,ct=5,dec=68'h200000000000000)/LL O const(HEX:200000000000000,sz=68,ct=5,dec=68'h200000000000000)/LL
+    2 EQUAL-SHAPE G const(UINT:8,sz=32,ct=9,dec=8)/LL                    O const(UINT:8,sz=32,ct=9,dec=8)/LL
+    1 DIFF        G const(BIN:0,sz=2,ct=3,dec='b0)/LOC                   O const(BIN:0,sz=64,ct=3,dec='b0)/LL
+default/Rggen-50ccbd70	ELAB|PA|work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field|INITIAL_VALUE
+	G const(BIN:0,sz=2,ct=3,dec='b0)/LOC	D:bit_typespec:U:lsz=0:PP:R[op11[ref(WIDTH),const(UINT:1,sz=64,ct=9,dec=1)/LOC]..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@rggen_bit_field.sv:5:13	L:rggen_bit_field.sv:5:61	PAL:rggen_bit_field.sv:5:33	OV:1
+	O const(BIN:0,sz=64,ct=3,dec='b0)/LL	D:bit_typespec:U:lsz=0:PP:R[op11[ref(WIDTH),const(UINT:1,sz=64,ct=9,dec=1)/LOC]..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@:5:13	L::0:0	PAL::5:33	OV:1	[DIFF]

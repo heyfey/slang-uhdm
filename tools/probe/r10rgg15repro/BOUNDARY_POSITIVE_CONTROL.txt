@@ -1,0 +1,14 @@
+MOVER PROBECOPY/r10rgg15repro/cells/g2/g2.sv
+MOVER PROBECOPY/r10rgg15repro/cells/g3/g3.sv
+MOVER PROBECOPY/r10rgg15repro/cells/g5/g5.sv
+
+THE POSITIVE CONTROL IS THE MOVER LIST ITSELF.  The boundary was run over a
+COPY of the WHOLE tools/probe tree (3,046 sources, no path filter), which
+includes THIS pass's own grid cells.  cells/g2, cells/g3 and cells/g5 are
+sources the law is KNOWN to move (g2's eight `'0`/`'1` override actuals, g3's
+five parameter-width `'0` overrides, g5's ten with/without-default rows), and
+all three are reported.  cells/g1 (defaults only) and cells/g4 (body and
+gen-scope localparams only) contain no override actual and are correctly NOT
+reported.  A gate that reported nothing at all would be indistinguishable from
+a gate that ran nothing; this one is proved live by three files it had to see
+and two it had to leave alone.

@@ -1,0 +1,80 @@
+LHS: <null>
+RHS:
+decompile:
+interface_inst: work@rggen_bus_if (work@rggen.u_block_0.g_register_15.u_register.bus_if), id:152571, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:2289:0
+|vpiParent:
+\_module_inst: work@rggen_external_register (work@rggen.u_block_0.g_register_15.u_register), id:152435, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:2289:5, endln:2300:7
+|vpiName:bus_if
+|vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if
+|vpiVariables:
+\_logic_var: (work@rggen.u_block_0.g_register_15.u_register.bus_if.valid), id:152592, line:7:29, endln:7:34
+  |vpiParent:
+  \_interface_inst: work@rggen_bus_if (work@rggen.u_block_0.g_register_15.u_register.bus_if), id:152571, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:2289:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.g_register_15.u_register.bus_if.valid), id:152594
+    |vpiParent:
+    \_logic_var: (work@rggen.u_block_0.g_register_15.u_register.bus_if.valid), id:152592, line:7:29, endln:7:34
+    |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if.valid
+    |vpiActual:
+    \_logic_typespec: , id:152593, line:7:3, endln:7:8
+  |vpiName:valid
+  |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if.valid
+  |vpiVisibility:1
+|vpiVariables:
+\_enum_var: (work@rggen.u_block_0.g_register_15.u_register.bus_if.access), id:152595, line:8:29, endln:8:35
+  |vpiParent:
+  \_interface_inst: work@rggen_bus_if (work@rggen.u_block_0.g_register_15.u_register.bus_if), id:152571, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:2289:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.g_register_15.u_register.bus_if.access), id:152596
+    |vpiParent:
+    \_enum_var: (work@rggen.u_block_0.g_register_15.u_register.bus_if.access), id:152595, line:8:29, endln:8:35
+    |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if.access
+    |vpiActual:
+    \_enum_typespec: (rggen_rtl_pkg::rggen_access), id:91, line:2:3, endln:6:18
+  |vpiName:access
+  |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if.access
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@rggen.u_block_0.g_register_15.u_register.bus_if.address), id:152597, line:9:29, endln:9:36
+  |vpiParent:
+  \_interface_inst: work@rggen_bus_if (work@rggen.u_block_0.g_register_15.u_register.bus_if), id:152571, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:2289:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.g_register_15.u_register.bus_if.address), id:152602
+    |vpiParent:
+    \_logic_var: (work@rggen.u_block_0.g_register_15.u_register.bus_if.address), id:152597, line:9:29, endln:9:36
+    |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if.address
+    |vpiActual:
+    \_logic_typespec: , id:152598, line:9:3, endln:9:28
+  |vpiName:address
+  |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if.address
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@rggen.u_block_0.g_register_15.u_register.bus_if.write_data), id:152603, line:10:29, endln:10:39
+  |vpiParent:
+  \_interface_inst: work@rggen_bus_if (work@rggen.u_block_0.g_register_15.u_register.bus_if), id:152571, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:2289:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.g_register_15.u_register.bus_if.write_data), id:152608
+    |vpiParent:
+    \_logic_var: (work@rggen.u_block_0.g_register_15.u_register.bus_if.write_data), id:152603, line:10:29, endln:10:39
+    |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if.write_data
+    |vpiActual:
+    \_logic_typespec: , id:152604, line:10:3, endln:10:24
+  |vpiName:write_data
+  |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if.write_data
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@rggen.u_block_0.g_register_15.u_register.bus_if.strobe), id:152609, line:11:29, endln:11:35
+  |vpiParent:
+  \_interface_inst: work@rggen_bus_if (work@rggen.u_block_0.g_register_15.u_register.bus_if), id:152571, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:2289:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.g_register_15.u_register.bus_if.strobe), id:152614
+    |vpiParent:
+    \_logic_var: (work@rggen.u_block_0.g_register_15.u_register.bus_if.strobe), id:152609, line:11:29, endln:11:35
+    |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if.strobe
+    |vpiActual:
+    \_logic_typespec: , id:152610, line:11:3, endln:11:26
+  |vpiName:strobe
+  |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if.strobe
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@rggen.u_block_0.g_register_15.u_register.bus_if.ready), id:152615, line:12:29, endln:12:34

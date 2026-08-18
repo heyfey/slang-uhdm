@@ -1,0 +1,105 @@
+default/DivisionOfSize-cec16cd8	ELAB|PA|work@top|PartInvDefault
+	G const(UINT:1,sz=3,ct=9,dec=1)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:2,sz=64,ct=9,dec=2)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@dut.sv:2:14	L::0:0	PAL:dut.sv:2:26	OV:0
+	O const(UINT:1,sz=3,ct=9,dec=1)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:2,sz=64,ct=9,dec=2)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@:2:14	L::0:0	PAL::2:26	OV:0	[EQUAL-SHAPE]
+default/ReplicationPassedToInstance-b09d8df4	ELAB|PA|work@top.u_dut|Width
+	G const(UINT:19,sz=32,ct=9,dec=19)/LL	D:int_typespec:S:lsz=0:PP:T@dut.sv:3:14	L::0:0	PAL:dut.sv:3:18	OV:1
+	O const(UINT:19,sz=32,ct=9,dec=19)/LL	D:int_typespec:S:lsz=0:PP:T@:3:14	L::0:0	PAL::3:18	OV:1	[EQUAL-SHAPE]
+default/param_no_default-dd9fd32a	ELAB|PA|work@top.e1|w
+	G const(UINT:0,sz=64,ct=9,dec=0)/LL	D:-:U:lsz=0:PP	L::0:0	PAL:dut.sv:2:15	OV:1
+	O const(UINT:0,sz=64,ct=9,dec=0)/LL	D:-:U:lsz=0:PP	L::0:0	PAL::2:15	OV:1	[EQUAL-SHAPE]
+default/param_no_default-dd9fd32a	ELAB|PA|work@top.e1|y
+	G const(UINT:2,sz=8,ct=9,dec=2)/LL	D:byte_typespec:U:lsz=0:PP:T@dut.sv:4:15	L::0:0	PAL:dut.sv:4:20	OV:1
+	O const(UINT:2,sz=8,ct=9,dec=2)/LL	D:byte_typespec:U:lsz=0:PP:T@:4:15	L::0:0	PAL::4:20	OV:1	[EQUAL-SHAPE]
+default/param_no_default-dd9fd32a	ELAB|PA|work@top.e2|w
+	G const(UINT:1,sz=64,ct=9,dec=1)/LL	D:-:U:lsz=0:PP	L::0:0	PAL:dut.sv:2:15	OV:1
+	O const(UINT:1,sz=64,ct=9,dec=1)/LL	D:-:U:lsz=0:PP	L::0:0	PAL::2:15	OV:1	[EQUAL-SHAPE]
+default/param_no_default-dd9fd32a	ELAB|PA|work@top.e2|y
+	G const(UINT:4,sz=8,ct=9,dec=4)/LL	D:byte_typespec:U:lsz=0:PP:T@dut.sv:4:15	L::0:0	PAL:dut.sv:4:20	OV:1
+	O const(UINT:4,sz=8,ct=9,dec=4)/LL	D:byte_typespec:U:lsz=0:PP:T@:4:15	L::0:0	PAL::4:20	OV:1	[EQUAL-SHAPE]
+default/param_no_default-dd9fd32a	ELAB|PA|work@top.e3|w
+	G const(UINT:1,sz=64,ct=9,dec=1)/LL	D:-:U:lsz=0:PP	L::0:0	PAL:dut.sv:2:15	OV:1
+	O const(UINT:1,sz=64,ct=9,dec=1)/LL	D:-:U:lsz=0:PP	L::0:0	PAL::2:15	OV:1	[EQUAL-SHAPE]
+default/param_no_default-dd9fd32a	ELAB|PA|work@top.e3|y
+	G const(UINT:5,sz=8,ct=9,dec=5)/LL	D:byte_typespec:U:lsz=0:PP:T@dut.sv:4:15	L::0:0	PAL:dut.sv:4:20	OV:1
+	O const(UINT:5,sz=8,ct=9,dec=5)/LL	D:byte_typespec:U:lsz=0:PP:T@:4:15	L::0:0	PAL::4:20	OV:1	[EQUAL-SHAPE]
+default/param_no_default-dd9fd32a	ELAB|PA|work@top.e4|w
+	G const(UINT:1,sz=64,ct=9,dec=1)/LL	D:-:U:lsz=0:PP	L::0:0	PAL:dut.sv:2:15	OV:1
+	O const(UINT:1,sz=64,ct=9,dec=1)/LL	D:-:U:lsz=0:PP	L::0:0	PAL::2:15	OV:1	[EQUAL-SHAPE]
+default/param_no_default-dd9fd32a	ELAB|PA|work@top.e4|y
+	G const(UINT:9,sz=8,ct=9,dec=9)/LL	D:byte_typespec:U:lsz=0:PP:T@dut.sv:4:15	L::0:0	PAL:dut.sv:4:20	OV:1
+	O const(UINT:9,sz=8,ct=9,dec=9)/LL	D:byte_typespec:U:lsz=0:PP:T@:4:15	L::0:0	PAL::4:20	OV:1	[EQUAL-SHAPE]
+default/setundef-c42cea7c	ELAB|PA|work@top.foo|a
+	G const(BIN:0x,sz=2,ct=3,dec=2'b0x)/LL	D:int_typespec:U:lsz=0:PP:R[const(UINT:1,sz=64,ct=9,dec=1)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@dut.sv:1:24	L::0:0	PAL:dut.sv:1:30	OV:1
+	O const(BIN:0x,sz=2,ct=3,dec=2'b0x)/LL	D:int_typespec:U:lsz=0:PP:R[const(UINT:1,sz=64,ct=9,dec=1)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@:1:24	L::0:0	PAL::1:30	OV:1	[EQUAL-SHAPE]
+default/unbased_unsized_param-217a7595	ELAB|PA|work@top.sp13|VALUE
+	G const(BIN:0,sz=64,ct=3,dec='b0)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@dut.sv:9:15	L::0:0	PAL:dut.sv:9:28	OV:1
+	O const(BIN:0,sz=64,ct=3,dec='b0)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@:9:15	L::0:0	PAL::9:28	OV:1	[EQUAL-SHAPE]
+default/unbased_unsized_param-217a7595	ELAB|PA|work@top.sp14|VALUE
+	G const(UINT:18446744073709551615,sz=64,ct=9,dec=18446744073709551615)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@dut.sv:9:15	L::0:0	PAL:dut.sv:9:28	OV:1
+	O const(UINT:18446744073709551615,sz=64,ct=9,dec=18446744073709551615)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@:9:15	L::0:0	PAL::9:28	OV:1	[EQUAL-SHAPE]
+default/unbased_unsized_param-217a7595	ELAB|PA|work@top.sp15|VALUE
+	G const(BIN:X,sz=-1,ct=3,dec='bX)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@dut.sv:9:15	L::0:0	PAL:dut.sv:9:28	OV:1
+	O const(BIN:X,sz=-1,ct=3,dec='bX)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@:9:15	L::0:0	PAL::9:28	OV:1	[EQUAL-SHAPE]
+default/unbased_unsized_param-217a7595	ELAB|PA|work@top.sp16|VALUE
+	G const(BIN:Z,sz=-1,ct=3,dec='bZ)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@dut.sv:9:15	L::0:0	PAL:dut.sv:9:28	OV:1
+	O const(BIN:Z,sz=-1,ct=3,dec='bZ)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@:9:15	L::0:0	PAL::9:28	OV:1	[EQUAL-SHAPE]
+testflags/DivisionOfSize-cec16cd8	ELAB|PA|work@top|PartInvDefault
+	G const(UINT:1,sz=3,ct=9,dec=1)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:2,sz=64,ct=9,dec=2)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@dut.sv:2:14	L::0:0	PAL:dut.sv:2:26	OV:0
+	O const(UINT:1,sz=3,ct=9,dec=1)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:2,sz=64,ct=9,dec=2)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@:2:14	L::0:0	PAL::2:26	OV:0	[EQUAL-SHAPE]
+testflags/ReplicationPassedToInstance-b09d8df4	ELAB|PA|work@top.u_dut|Width
+	G const(UINT:19,sz=32,ct=9,dec=19)/LL	D:int_typespec:S:lsz=0:PP:T@dut.sv:3:14	L::0:0	PAL:dut.sv:3:18	OV:1
+	O const(UINT:19,sz=32,ct=9,dec=19)/LL	D:int_typespec:S:lsz=0:PP:T@:3:14	L::0:0	PAL::3:18	OV:1	[EQUAL-SHAPE]
+testflags/param_no_default-dd9fd32a	ELAB|PA|work@top.e1|w
+	G const(UINT:0,sz=64,ct=9,dec=0)/LL	D:-:U:lsz=0:PP	L::0:0	PAL:dut.sv:2:15	OV:1
+	O const(UINT:0,sz=64,ct=9,dec=0)/LL	D:-:U:lsz=0:PP	L::0:0	PAL::2:15	OV:1	[EQUAL-SHAPE]
+testflags/param_no_default-dd9fd32a	ELAB|PA|work@top.e1|y
+	G const(UINT:2,sz=8,ct=9,dec=2)/LL	D:byte_typespec:U:lsz=0:PP:T@dut.sv:4:15	L::0:0	PAL:dut.sv:4:20	OV:1
+	O const(UINT:2,sz=8,ct=9,dec=2)/LL	D:byte_typespec:U:lsz=0:PP:T@:4:15	L::0:0	PAL::4:20	OV:1	[EQUAL-SHAPE]
+testflags/param_no_default-dd9fd32a	ELAB|PA|work@top.e2|w
+	G const(UINT:1,sz=64,ct=9,dec=1)/LL	D:-:U:lsz=0:PP	L::0:0	PAL:dut.sv:2:15	OV:1
+	O const(UINT:1,sz=64,ct=9,dec=1)/LL	D:-:U:lsz=0:PP	L::0:0	PAL::2:15	OV:1	[EQUAL-SHAPE]
+testflags/param_no_default-dd9fd32a	ELAB|PA|work@top.e2|y
+	G const(UINT:4,sz=8,ct=9,dec=4)/LL	D:byte_typespec:U:lsz=0:PP:T@dut.sv:4:15	L::0:0	PAL:dut.sv:4:20	OV:1
+	O const(UINT:4,sz=8,ct=9,dec=4)/LL	D:byte_typespec:U:lsz=0:PP:T@:4:15	L::0:0	PAL::4:20	OV:1	[EQUAL-SHAPE]
+testflags/param_no_default-dd9fd32a	ELAB|PA|work@top.e3|w
+	G const(UINT:1,sz=64,ct=9,dec=1)/LL	D:-:U:lsz=0:PP	L::0:0	PAL:dut.sv:2:15	OV:1
+	O const(UINT:1,sz=64,ct=9,dec=1)/LL	D:-:U:lsz=0:PP	L::0:0	PAL::2:15	OV:1	[EQUAL-SHAPE]
+testflags/param_no_default-dd9fd32a	ELAB|PA|work@top.e3|y
+	G const(UINT:5,sz=8,ct=9,dec=5)/LL	D:byte_typespec:U:lsz=0:PP:T@dut.sv:4:15	L::0:0	PAL:dut.sv:4:20	OV:1
+	O const(UINT:5,sz=8,ct=9,dec=5)/LL	D:byte_typespec:U:lsz=0:PP:T@:4:15	L::0:0	PAL::4:20	OV:1	[EQUAL-SHAPE]
+testflags/param_no_default-dd9fd32a	ELAB|PA|work@top.e4|w
+	G const(UINT:1,sz=64,ct=9,dec=1)/LL	D:-:U:lsz=0:PP	L::0:0	PAL:dut.sv:2:15	OV:1
+	O const(UINT:1,sz=64,ct=9,dec=1)/LL	D:-:U:lsz=0:PP	L::0:0	PAL::2:15	OV:1	[EQUAL-SHAPE]
+testflags/param_no_default-dd9fd32a	ELAB|PA|work@top.e4|y
+	G const(UINT:9,sz=8,ct=9,dec=9)/LL	D:byte_typespec:U:lsz=0:PP:T@dut.sv:4:15	L::0:0	PAL:dut.sv:4:20	OV:1
+	O const(UINT:9,sz=8,ct=9,dec=9)/LL	D:byte_typespec:U:lsz=0:PP:T@:4:15	L::0:0	PAL::4:20	OV:1	[EQUAL-SHAPE]
+testflags/setundef-c42cea7c	ELAB|PA|work@top.foo|a
+	G const(BIN:0x,sz=2,ct=3,dec=2'b0x)/LL	D:int_typespec:U:lsz=0:PP:R[const(UINT:1,sz=64,ct=9,dec=1)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@dut.sv:1:24	L::0:0	PAL:dut.sv:1:30	OV:1
+	O const(BIN:0x,sz=2,ct=3,dec=2'b0x)/LL	D:int_typespec:U:lsz=0:PP:R[const(UINT:1,sz=64,ct=9,dec=1)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@:1:24	L::0:0	PAL::1:30	OV:1	[EQUAL-SHAPE]
+testflags/unbased_unsized_param-217a7595	ELAB|PA|work@top.sp13|VALUE
+	G const(BIN:0,sz=64,ct=3,dec='b0)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@dut.sv:9:15	L::0:0	PAL:dut.sv:9:28	OV:1
+	O const(BIN:0,sz=64,ct=3,dec='b0)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@:9:15	L::0:0	PAL::9:28	OV:1	[EQUAL-SHAPE]
+testflags/unbased_unsized_param-217a7595	ELAB|PA|work@top.sp14|VALUE
+	G const(UINT:18446744073709551615,sz=64,ct=9,dec=18446744073709551615)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@dut.sv:9:15	L::0:0	PAL:dut.sv:9:28	OV:1
+	O const(UINT:18446744073709551615,sz=64,ct=9,dec=18446744073709551615)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@:9:15	L::0:0	PAL::9:28	OV:1	[EQUAL-SHAPE]
+testflags/unbased_unsized_param-217a7595	ELAB|PA|work@top.sp15|VALUE
+	G const(BIN:X,sz=-1,ct=3,dec='bX)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@dut.sv:9:15	L::0:0	PAL:dut.sv:9:28	OV:1
+	O const(BIN:X,sz=-1,ct=3,dec='bX)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@:9:15	L::0:0	PAL::9:28	OV:1	[EQUAL-SHAPE]
+testflags/unbased_unsized_param-217a7595	ELAB|PA|work@top.sp16|VALUE
+	G const(BIN:Z,sz=-1,ct=3,dec='bZ)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@dut.sv:9:15	L::0:0	PAL:dut.sv:9:28	OV:1
+	O const(BIN:Z,sz=-1,ct=3,dec='bZ)/LL	D:logic_typespec:U:lsz=0:PP:R[const(UINT:63,sz=64,ct=9,dec=63)/LOC..const(UINT:0,sz=64,ct=9,dec=0)/LOC;]:T@:9:15	L::0:0	PAL::9:28	OV:1	[EQUAL-SHAPE]
+
+== FAMILIES ==
+    6 EQUAL-SHAPE G const(UINT:1,sz=64,ct=9,dec=1)/LL                    O const(UINT:1,sz=64,ct=9,dec=1)/LL
+    2 EQUAL-SHAPE G const(UINT:1,sz=3,ct=9,dec=1)/LL                     O const(UINT:1,sz=3,ct=9,dec=1)/LL
+    2 EQUAL-SHAPE G const(UINT:19,sz=32,ct=9,dec=19)/LL                  O const(UINT:19,sz=32,ct=9,dec=19)/LL
+    2 EQUAL-SHAPE G const(UINT:0,sz=64,ct=9,dec=0)/LL                    O const(UINT:0,sz=64,ct=9,dec=0)/LL
+    2 EQUAL-SHAPE G const(UINT:2,sz=8,ct=9,dec=2)/LL                     O const(UINT:2,sz=8,ct=9,dec=2)/LL
+    2 EQUAL-SHAPE G const(UINT:4,sz=8,ct=9,dec=4)/LL                     O const(UINT:4,sz=8,ct=9,dec=4)/LL
+    2 EQUAL-SHAPE G const(UINT:5,sz=8,ct=9,dec=5)/LL                     O const(UINT:5,sz=8,ct=9,dec=5)/LL
+    2 EQUAL-SHAPE G const(UINT:9,sz=8,ct=9,dec=9)/LL                     O const(UINT:9,sz=8,ct=9,dec=9)/LL
+    2 EQUAL-SHAPE G const(BIN:0x,sz=2,ct=3,dec=2'b0x)/LL                 O const(BIN:0x,sz=2,ct=3,dec=2'b0x)/LL
+    2 EQUAL-SHAPE G const(BIN:0,sz=64,ct=3,dec='b0)/LL                   O const(BIN:0,sz=64,ct=3,dec='b0)/LL
+    2 EQUAL-SHAPE G const(UINT:18446744073709551615,sz=64,ct=9,dec=18446744073709551615)/LL O const(UINT:18446744073709551615,sz=64,ct=9,dec=18446744073709551615)/LL
+    2 EQUAL-SHAPE G const(BIN:X,sz=-1,ct=3,dec='bX)/LL                   O const(BIN:X,sz=-1,ct=3,dec='bX)/LL
+    2 EQUAL-SHAPE G const(BIN:Z,sz=-1,ct=3,dec='bZ)/LL                   O const(BIN:Z,sz=-1,ct=3,dec='bZ)/LL
