@@ -2482,6 +2482,141 @@ static void stampCloneTreeInstance(UHDM::typespec* ts, UHDM::instance* inst,
 // equals.  It is a FILE-STATIC and not a lambda because BOTH hier_path-name
 // sites read it (`emitMixedHierPath` and the single-dim `chain` arm of the
 // ElementSelect case), and two copies of a closed dispatch list would drift.
+
+// ---------------------------------------------------------------------------
+// § genvarIdxFoldRerender14 — Surelog's ExprEval::reduceExpr, modelled on the
+// slang SYNTAX tree (both users have the syntax; only one has a bound
+// expression).  See the header for the row table and its source lines.
+// ---------------------------------------------------------------------------
+int32_t UhdmExporter::srlgRedCt14(const slang::syntax::ExpressionSyntax& e0) {
+    namespace sx = slang::syntax;
+    using SK = sx::SyntaxKind;
+    const sx::ExpressionSyntax* e = &e0;
+    while (e->kind == SK::ParenthesizedExpression)
+        e = e->as<sx::ParenthesizedExpressionSyntax>().expression;
+    // Is this reduced operand's own constant type one of the four that make an
+    // enclosing vpiAddOp take the SIGNED arm?  (ExprEval.cpp:3167-3178.)
+    auto signedish = [](int32_t ct) {
+        return ct == vpiIntConst || ct == vpiStringConst || ct == vpiRealConst ||
+               ct == vpiDecConst;
+    };
+    switch (e->kind) {
+        // A BARE decimal literal is Surelog's `UINT:<n>` / vpiUIntConst / 64.
+        case SK::IntegerLiteralExpression:
+            return vpiUIntConst;
+        // A BASED literal keeps the base's own constant type; only `'d` is
+        // vpiIntConst and therefore only `'d` makes an enclosing add signed.
+        case SK::IntegerVectorExpression: {
+            std::string t = rawText(e->sourceRange());
+            auto q = t.find('\'');
+            if (q == std::string::npos)
+                return 0;
+            size_t b = q + 1;
+            if (b < t.size() && (t[b] == 's' || t[b] == 'S'))
+                b++;
+            if (b >= t.size())
+                return 0;
+            switch (tolower((unsigned char)t[b])) {
+                case 'd': return vpiIntConst;
+                case 'h': return vpiHexConst;
+                case 'o': return vpiOctConst;
+                case 'b': return vpiBinaryConst;
+                default:  return 0;
+            }
+        }
+        // A genvar / parameter reference: measured `UINT:<n>` on every golden
+        // grid cell (`arr[i]`, `arr[P]`, `arr[P+i]`).
+        case SK::IdentifierName:
+            return vpiUIntConst;
+        case SK::AddExpression: {
+            auto& b = e->as<sx::BinaryExpressionSyntax>();
+            int32_t l = srlgRedCt14(*b.left), r = srlgRedCt14(*b.right);
+            if (!l || !r)
+                return 0;
+            return (signedish(l) || signedish(r)) ? vpiIntConst : vpiUIntConst;
+        }
+        case SK::SubtractExpression:
+        case SK::MultiplyExpression:
+        case SK::DivideExpression: {
+            auto& b = e->as<sx::BinaryExpressionSyntax>();
+            if (!srlgRedCt14(*b.left) || !srlgRedCt14(*b.right))
+                return 0;
+            return vpiIntConst;
+        }
+        // NOTE (VERIFIER, r10vrgg14 arm `v1` cell `a16`): `BinaryXorExpression`
+        // was on this list and is NOT reducible.  `ExprEval::reduceExpr` has
+        // rows for vpiBitAndOp / vpiBitOrOp / vpiLShiftOp / vpiRShiftOp /
+        // vpiArithLShiftOp / vpiArithRShiftOp but **NO `vpiBitXorOp` case at
+        // all**, so golden leaves `arr[i^4]` as an OPERATION (measured:
+        // `operation op=30`, two operands, in both views).  Claiming a
+        // constant type for it made the emitter MINT a folded number where
+        // golden has no constant.  It abstains now.
+        case SK::BinaryAndExpression:
+        case SK::BinaryOrExpression:
+        case SK::LogicalShiftLeftExpression:
+        case SK::LogicalShiftRightExpression:
+        case SK::ArithmeticShiftLeftExpression:
+        case SK::ArithmeticShiftRightExpression: {
+            auto& b = e->as<sx::BinaryExpressionSyntax>();
+            if (!srlgRedCt14(*b.left) || !srlgRedCt14(*b.right))
+                return 0;
+            return vpiUIntConst;
+        }
+        case SK::UnaryMinusExpression: {
+            auto& u = e->as<sx::PrefixUnaryExpressionSyntax>();
+            if (!srlgRedCt14(*u.operand))
+                return 0;
+            return vpiIntConst;
+        }
+        // Everything else ABSTAINS: vpiModOp / vpiPowerOp / calls / selects /
+        // ternaries were not measured, and an unmodelled node must leave the
+        // pre-existing encoding untouched rather than guess.
+        default:
+            return 0;
+    }
+}
+
+slang::SourceRange UhdmExporter::srlgFoldSpan14(
+    const slang::syntax::ExpressionSyntax& e0) {
+    namespace sx = slang::syntax;
+    using SK = sx::SyntaxKind;
+    const sx::ExpressionSyntax* e = &e0;
+    while (e->kind == SK::ParenthesizedExpression)
+        e = e->as<sx::ParenthesizedExpressionSyntax>().expression;
+    if (sx::BinaryExpressionSyntax::isKind(e->kind))
+        return e->as<sx::BinaryExpressionSyntax>().left->sourceRange();
+    return e0.sourceRange();
+}
+
+bool UhdmExporter::srlgIdxHasGenvar14(const slang::syntax::ExpressionSyntax& e,
+                                      const slang::ast::Scope* scope) {
+    namespace sx = slang::syntax;
+    if (!scope)
+        return false;
+    bool found = false;
+    std::function<void(const sx::SyntaxNode&)> walk =
+        [&](const sx::SyntaxNode& n) {
+            if (found)
+                return;
+            if (n.kind == sx::SyntaxKind::IdentifierName) {
+                auto nm = n.as<sx::IdentifierNameSyntax>().identifier.valueText();
+                if (auto* sym = scope->lookupName(nm)) {
+                    if (sym->kind == slang::ast::SymbolKind::Genvar)
+                        found = true;
+                    else if (sym->kind == slang::ast::SymbolKind::Parameter &&
+                             sym->as<slang::ast::ParameterSymbol>().isFromGenvar())
+                        found = true;
+                }
+                return;
+            }
+            for (size_t i = 0, n2 = n.getChildCount(); i < n2; i++)
+                if (auto* c = n.childNode(i))
+                    walk(*c);
+        };
+    walk(e);
+    return found;
+}
+
 static bool isPpOperation92(const slang::ast::Expression& e);
 static bool rendersAsItself89(const slang::ast::Expression& e) {
     // § hpIdxOpPrettyPrint92 — VERIFIER FIX to uvm89's list, from ONE source of
@@ -17470,6 +17605,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (!tok8)
                         tok8 = d8.size();
                     setLoc(c8, SourceRange(st8, st8 + tok8));
+                    // § genvarIdxFoldRerender14 — the ENCODING and the SPAN of
+                    // this already-folded constant.  The value and the size
+                    // were right; `vpiConstType` was hard-coded UINT and the
+                    // span was the first source TOKEN.  Golden gives the
+                    // reduction's own type (a MULT / DIV / SUB anywhere on the
+                    // spine makes it `vpiIntConst`, ExprEval.cpp:3379/3703 and
+                    // the vpiAddOp rule at 3159) and re-spans on the
+                    // expression node's FIRST CHILD, i.e. the top operation's
+                    // LEFT OPERAND (`i*2+1` -> the span of `i*2`, not of `i`).
+                    // Grid g2 measures both on golden: 12 of 32 net-array
+                    // cells.  ABSTAIN (0) keeps the pre-existing bytes.
+                    if (auto* isyn8 = stripImplicitConv(es.selector()).syntax) {
+                        if (int32_t ct8 = srlgRedCt14(*isyn8)) {
+                            if (ct8 == vpiIntConst) {
+                                c8->VpiValue("INT:" + d8);
+                                c8->VpiConstType(vpiIntConst);
+                            }
+                            setLoc(c8, srlgFoldSpan14(*isyn8));
+                        }
+                    }
                     bs->VpiIndex(c8);
                     return bs;
                 }

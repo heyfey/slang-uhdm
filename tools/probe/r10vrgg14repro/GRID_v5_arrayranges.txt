@@ -1,0 +1,30 @@
+r10vrgg14 arm v5 — THE DEFECT THE SHIPPED PATCH CARRIED, and its fix.
+
+An interface instance array is indexed by a genvar expression in an unrolled
+generate-for.  The shipped ModuleEmit site read the folded VALUE off the
+resolved element's SLOT in its `InstanceArraySymbol` with
+
+        step = (range.left <= range.right) ? 1 : -1;
+        value = range.left + step * k;
+
+which assumes `elements[k]` follows the DECLARED direction.  It does not:
+slang builds `elements` ASCENDING FROM `range.lower()` whatever the direction,
+so the correct map is `value = range.lower() + k`.
+
+Measured (golden vs the SHIPPED patch vs the VERIFIER-FIXED patch), 3 unrollings:
+
+  declaration        index expr    GOLDEN      SHIPPED       FIXED
+  sif up  [0:63]     up[3+2*i]     3  5  7     3  5  7   ok  3  5  7   ok
+  sif off [10:20]    off[12+2*i]  12 14 16    12 14 16   ok 12 14 16   ok
+  sif dn  [63:0]     dn[3+2*i]     3  5  7    60 58 56  WRONG 3 5 7    ok
+  sif dn  [63:0]     dn[i]         0  1  2    63 62 61  WRONG 0 1 2    ok
+  sif rof [20:10]    rof[12+2*i]  12 14 16    18 16 14  WRONG 12 14 16 ok
+  sif rof [20:10]    rof[20-i]    20 19 18    10 11 12  WRONG 20 19 18 ok
+
+The shipped patch turned a WRONG TEXT (`12+2*i`) into a WRONG NUMBER, which is
+strictly harder to catch: a plausible decimal that mis-binds silently.  Every
+grid the implementer shipped (g1/g2/g3/pc1) declares its arrays ASCENDING, so
+none of them could see it.
+
+Official judge on this arm, BOTH views (default and -elabuhdm):
+  base 36 cmp lines / 1 head   shipped 36 / 1   verifier-fixed 0 / 0.

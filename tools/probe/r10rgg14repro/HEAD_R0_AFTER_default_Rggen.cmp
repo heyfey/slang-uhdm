@@ -1,0 +1,64 @@
+LHS:
+decompile:
+constant: , id:222437, line:5:61, endln:5:63
+|vpiParent:
+\_param_assign: , id:222436, line:5:33, endln:5:63
+|vpiDecompile:'b0
+|vpiSize:2
+|BIN:0
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field), id:222438
+  |vpiParent:
+  \_constant: , id:222437, line:5:61, endln:5:63
+  |vpiFullName:work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field
+  |vpiActual:
+  \_bit_typespec: , id:8379, line:5:13, endln:5:28
+|vpiConstType:3
+
+decompile:
+constant: , id:222437, line:5:61, endln:5:63
+|vpiParent:
+\_param_assign: , id:222436, line:5:33, endln:5:63
+|vpiDecompile:'b0
+|vpiSize:2
+|BIN:0
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field), id:222438
+  |vpiParent:
+  \_constant: , id:222437, line:5:61, endln:5:63
+  |vpiFullName:work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field
+  |vpiActual:
+  \_bit_typespec: , id:8379, line:5:13, endln:5:28
+|vpiConstType:3
+RHS:
+decompile:
+constant: , id:148116
+|vpiParent:
+\_param_assign: , id:148115, line:5:33, endln:5:63
+|vpiDecompile:'b0
+|vpiSize:64
+|BIN:0
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field), id:148117
+  |vpiParent:
+  \_constant: , id:148116
+  |vpiFullName:work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field
+  |vpiActual:
+  \_bit_typespec: , id:245600, line:5:13, endln:5:28
+|vpiConstType:3
+
+decompile:
+constant: , id:148116
+|vpiParent:
+\_param_assign: , id:148115, line:5:33, endln:5:63
+|vpiDecompile:'b0
+|vpiSize:64
+|BIN:0
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field), id:148117
+  |vpiParent:
+  \_constant: , id:148116
+  |vpiFullName:work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field
+  |vpiActual:
+  \_bit_typespec: , id:245600, line:5:13, endln:5:28
+|vpiConstType:3

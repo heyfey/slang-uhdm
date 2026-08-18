@@ -1,0 +1,13 @@
+e651aa64bc9e1106a42a31eacdee8d3c  base_1.uhdm
+e651aa64bc9e1106a42a31eacdee8d3c  base_2.uhdm
+e7b0c9b44b9af951d643dc823a78d1d3  base_3.uhdm
+e651aa64bc9e1106a42a31eacdee8d3c  base_4.uhdm
+e7b0c9b44b9af951d643dc823a78d1d3  base_5.uhdm
+e7b0c9b44b9af951d643dc823a78d1d3  base_6.uhdm
+e651aa64bc9e1106a42a31eacdee8d3c  pat_1.uhdm
+e651aa64bc9e1106a42a31eacdee8d3c  pat_2.uhdm
+e651aa64bc9e1106a42a31eacdee8d3c  pat_3.uhdm
+e651aa64bc9e1106a42a31eacdee8d3c  pat_4.uhdm
+e7b0c9b44b9af951d643dc823a78d1d3  pat_5.uhdm
+e651aa64bc9e1106a42a31eacdee8d3c  pat_6.uhdm
+-- the SAME BASE binary produces BOTH hashes (runs 1/2/4 vs 3/5/6): Scoreboard/default is the documented ~50/50 COIN, not a mover of this patch; the patched binary produces the same two faces.

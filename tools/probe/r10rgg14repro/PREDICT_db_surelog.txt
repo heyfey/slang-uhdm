@@ -1,0 +1,6 @@
+PREDICT default/PackedArrayHighConn-d5f4ff29  A:rawtext
+PREDICT default/Rggen-50ccbd70  A:rawtext,B:goldenct7
+PREDICT default/YosysOldOr-02449e06  A:rawtext
+PREDICT testflags/PackedArrayHighConn-d5f4ff29  A:rawtext
+PREDICT testflags/YosysOldOr-02449e06  A:rawtext
+-- scanned=956 predicted=5

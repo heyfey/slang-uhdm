@@ -1,0 +1,50 @@
+r10vrgg14 arm v1 — the EXPRESSION ZOO at an interface-instance-array PORT ACTUAL
+inside an unrolled generate-for (g[0] shown; g[1] is the same law at i=1).
+GOLDEN payload is `dec|sz|ct` of the vpiIndex constant; SPAN is golden's.
+`!!` = payload still not golden after the verifier-fixed patch.
+
+  a00 arr[i]           G 0  sz64 ct9  span=i          -> PATCHED MATCHES
+  a01 arr[i+1]         G 1  sz64 ct9  span=i          -> MATCHES
+  a02 arr[1+i]         G 1  sz64 ct9  span=1          -> MATCHES
+  a03 arr[3*i+2]       G 2  sz64 ct7  span=3*i        -> MATCHES
+  a04 arr[2+3*i]       G 2  sz64 ct7  span=2          -> MATCHES
+  a05 arr[i-0]         G 0  sz64 ct7  span=i          -> MATCHES
+  a06 arr[8-i]         G 8  sz64 ct7  span=8          -> MATCHES
+  a07 arr[(i+1)]       G 1  sz64 ct9  span=i          -> MATCHES (paren strip)
+  a08 arr[i*2]         G 0  sz64 ct7  span=i          -> MATCHES
+  a09 arr[2*i]         G 0  sz64 ct7  span=2          -> MATCHES
+  a10 arr[i/1]         G 0  sz64 ct7  span=i          -> MATCHES
+  a11 arr[i%2]      !! G 0  sz64 ct7  span=i          -- ABSTAIN (vpiModOp row
+                                                        missing; residue R-F)
+  a12 arr[i<<1]        G 0  sz64 ct9  span=i          -> MATCHES
+  a13 arr[i>>1]        G 0  sz64 ct9  span=i          -> MATCHES
+  a14 arr[i&1]         G 0  sz64 ct9  span=i          -> MATCHES
+  a15 arr[i|8]         G 8  sz64 ct9  span=i          -> MATCHES
+  a16 arr[i^4]      !! G = an OPERATION (op 30), NOT a constant
+                       -- `vpiBitXorOp` HAS NO CASE IN ExprEval::reduceExpr,
+                          so golden never folds `^`.  The shipped model claimed
+                          `vpiUIntConst` here and MINTED a folded number.
+                          VERIFIER FIX: abstain.  (Residue R-G: ours still
+                          emits a constant, as it did before this pass.)
+  a17 arr[P+i]         G 5  sz64 ct9  span=P          -> MATCHES
+  a18 arr[i+P]         G 5  sz64 ct9  span=i          -> MATCHES
+  a19 arr[P*i]         G 0  sz64 ct7  span=P          -> MATCHES
+  a20 arr[i*P]         G 0  sz64 ct7  span=i          -> MATCHES
+  a21 arr[P]        !! G 5  sz32 ct9  -- the parameter's OWN declaration
+                          constant; DELIBERATE ABSTAIN (rgg11 § R-B).
+  a22 arr[7]           G 7  sz64 ct9                  -> MATCHES (untouched)
+  a23 arr[P+Q]      !! G 8  sz32 ct9  -- parameter+parameter folds at the
+                          PARAMETERS' size 32, not 64; correctly out of reach
+                          because the genvar gate is false.  Residue R-H.
+  a24 arr[i ? 3 : 4]!! G 4  sz64 ct9  span=the chosen BRANCH -- ABSTAIN (R-F)
+  a25 arr[2**i]     !! G 1  sz64 ct7  span=2          -- ABSTAIN (R-F)
+  a26 arr[3'd2+i]      G 2  sz64 ct7  span=3'd2       -> MATCHES ('d is signed)
+  a27 arr[3'h2+i]      G 2  sz64 ct9  span=3'h2       -> MATCHES
+  a28 arr[3'b010+i]    G 2  sz64 ct9  span=3'b010     -> MATCHES
+  a29 arr[-(-i)]       G 0  sz64 ct7  span=`-` (1 col) -> payload MATCHES,
+                          span differs (Compare never reads span).
+  a30 arr[i+2+3]       G 5  sz64 ct9  span=i+2        -> MATCHES
+  a31 arr[(2+3)*i]     G 0  sz64 ct7  span=(2+3)      -> MATCHES
+  b00 arr[i+j]         G 0/1/1/2 ct9                  -> MATCHES
+  b01 arr[1+2*i+j]     G 1/2/3/4 ct7 span=1+2*i       -> MATCHES
+  b02 arr[i*4+j*2+1]   ct7 span=i*4+j*2               -> MATCHES

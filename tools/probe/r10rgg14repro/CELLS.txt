@@ -1,0 +1,9 @@
+== ARM CELLS, official uhdm-cmp, default mode (cell14.sh)
+cell   base(cmplines/heads)  patched(cmplines/heads)  byte(base vs pat)
+pc1    36/1                  0/0   *** PASSES uhdm-cmp ***   MOVED
+g1     84/1                  84/1  (arr[P] residue)          MOVED
+g2     84/1                  84/1  (arr[P] residue)          MOVED
+g3     38/1                  38/1  (localparam-index residue) MOVED
+pc2    50/1                  50/1  (bare parameter: ABSTAIN)  IDENTICAL
+pc4    54/1                  54/1  (unmodelled ops: ABSTAIN)  IDENTICAL
+pc5     0/0                   0/0  (non-port positions)       IDENTICAL

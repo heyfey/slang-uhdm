@@ -1,0 +1,36 @@
+LHS:
+decompile:
+constant: , id:89211, line:1748:36, endln:1748:38
+|vpiParent:
+\_bit_select: (work@rggen.u_block_0.g_register_10.g[0].u_register.register_if), id:89212, line:1748:36, endln:1748:40
+|vpiDecompile:10
+|vpiSize:64
+|UINT:10
+|vpiConstType:9
+
+decompile:
+constant: , id:89211, line:1748:36, endln:1748:38
+|vpiParent:
+\_bit_select: (work@rggen.u_block_0.g_register_10.g[0].u_register.register_if), id:89212, line:1748:36, endln:1748:40
+|vpiDecompile:10
+|vpiSize:64
+|UINT:10
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:62381, line:1748:36, endln:1748:40
+|vpiParent:
+\_bit_select: (work@rggen.u_block_0.g_register_10.g[0].u_register.register_if), id:62380, line:1748:36, endln:1748:40
+|vpiDecompile:10+i
+|vpiSize:64
+|UINT:10
+|vpiConstType:9
+
+decompile:
+constant: , id:62381, line:1748:36, endln:1748:40
+|vpiParent:
+\_bit_select: (work@rggen.u_block_0.g_register_10.g[0].u_register.register_if), id:62380, line:1748:36, endln:1748:40
+|vpiDecompile:10+i
+|vpiSize:64
+|UINT:10
+|vpiConstType:9

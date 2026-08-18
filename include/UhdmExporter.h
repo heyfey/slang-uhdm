@@ -2042,6 +2042,42 @@ private:
     bool ppIdxText92(const slang::ast::Expression& e,
                      const std::vector<PkgFoldSub>* pf, int depth,
                      std::string& out);
+    /// § genvarIdxFoldRerender14 — Surelog's `ExprEval::reduceExpr` CONSTANT
+    /// ENCODING for the arithmetic tree of a folded index.  Returns the
+    /// `vpiConstType` the reduction would stamp (`vpiIntConst` /
+    /// `vpiUIntConst` / a literal's own type), or **0 to ABSTAIN** — a node
+    /// this model does not cover, in which case the caller must keep its
+    /// pre-existing encoding byte for byte.
+    ///
+    /// The rows are read off `UHDM/templates/ExprEval.cpp`:
+    ///   `vpiMultOp` (3379), `vpiDivOp` (3703), `vpiSubOp`, `vpiMinusOp`
+    ///        -> `INT:` / `vpiIntConst`, ALWAYS;
+    ///   `vpiAddOp`/`vpiPlusOp` (3159) -> `INT:` / `vpiIntConst` iff a reduced
+    ///        operand's own `VpiConstType` is one of {vpiIntConst,
+    ///        vpiStringConst, vpiRealConst, vpiDecConst}, else `UINT:` /
+    ///        `vpiUIntConst`;
+    ///   shifts / bitwise AND/OR -> `UINT:` / `vpiUIntConst`.
+    /// `^` (`vpiBitXorOp`) has NO row in `reduceExpr` at all and therefore
+    /// ABSTAINS: golden keeps `arr[i^4]` as an unreduced `operation`
+    /// (r10vrgg14 arm `v1`/`a16`).
+    /// A bare decimal literal and a genvar/parameter reference both reduce to
+    /// `vpiUIntConst`; a BASED literal keeps its base's type.
+    int32_t srlgRedCt14(const slang::syntax::ExpressionSyntax& e);
+    /// § genvarIdxFoldRerender14 — the SPAN the folded constant takes.
+    /// Surelog re-spans a reduced expression with
+    /// `populateCoreMembers(child, child, result)` on the expression node's
+    /// FIRST CHILD, which for a binary operation is its LEFT OPERAND (golden
+    /// gives `14+4*i+j` the span of `14+4*i`, `i*2+1` the span of `i*2`, and
+    /// `3+i` the span of `3`).
+    slang::SourceRange srlgFoldSpan14(const slang::syntax::ExpressionSyntax& e);
+    /// § genvarIdxFoldRerender14 — does this index expression READ a genvar?
+    /// In an unrolled generate block slang models the loop index as a
+    /// `ParameterSymbol` with `isFromGenvar()`; the un-unrolled body keeps a
+    /// `SymbolKind::Genvar`.  A PARAMETER-only index is NOT this law's (golden
+    /// gives it the parameter's own declaration constant, `VpiSize` included —
+    /// r10rgg11's § genLpPortConnValue11 — which this pass does not take).
+    bool srlgIdxHasGenvar14(const slang::syntax::ExpressionSyntax& e,
+                            const slang::ast::Scope* scope);
     /// The node's text as the PREPROCESSED token stream reads it: outside a
     /// macro this is `rawText(syn.sourceRange())`, inside one it is the
     /// node's own tokens concatenated (which already carry the substituted

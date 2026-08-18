@@ -1,0 +1,5 @@
+MOVER tools/probe/r10rgg14repro/cells/g1/dut.sv
+MOVER tools/probe/r10rgg14repro/cells/g2/dut.sv
+MOVER tools/probe/r10rgg14repro/cells/g3/dut.sv
+MOVER tools/probe/r10rgg14repro/cells/pc1/dut.sv
+-- files=7 identical=3 MOVERS=4 uncompilable=0 asymmetries=0

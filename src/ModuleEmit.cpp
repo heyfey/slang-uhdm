@@ -9023,6 +9023,149 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         if (iconn && connectionExpr(*iconn))
                             setLoc(ic, ifaceElemIndexRange(
                                            connectionExpr(*iconn)->sourceRange));
+                        // § genvarIdxFoldRerender14.  The three lines above
+                        // are the SOURCE TEXT of the index: right for the
+                        // literal `arr[0]` this site was written for, and
+                        // WRONG for every genvar-dependent one -- `arr[10+i]`
+                        // gave `vpiDecompile "10+i"` and `UINT:10+i` (whose
+                        // leading integer is all `vpi_get_value` recovers), the
+                        // SAME text and the SAME number in every unrolling.
+                        // Golden's ELABORATED copy carries the REDUCTION: the
+                        // decompile is re-rendered from the folded value with
+                        // `std::to_string` (ExprEval.cpp:3159-3200), the type
+                        // is the reduction's own (a MULT / DIV / SUB on the
+                        // spine -> `vpiIntConst`), and the span is the
+                        // expression node's FIRST CHILD -- the top operation's
+                        // LEFT OPERAND.  Measured on golden over grid g1:
+                        // `arr[3+i]` -> `3`/`4` UINT sz64, `arr[2+4*i]` ->
+                        // `2`/`6` INT, `arr[1+2*i+j]` -> `1`,`2`,`3`,`4` INT,
+                        // `arr[P+i]` -> `5`/`6` UINT.
+                        //
+                        // The VALUE is not evaluated here -- it is READ OFF THE
+                        // RESOLVED ELEMENT: `ip.getConnection()` already names
+                        // the exact `InstanceSymbol` slang bound, so its slot
+                        // in the enclosing `InstanceArraySymbol` IS the index,
+                        // with no second evaluator to disagree with slang.
+                        //
+                        // GATED ON A GENVAR READ.  A parameter-only index
+                        // (`arr[P]`) is r10rgg11's declaration-constant COPY in
+                        // golden (`UINT:5` at the parameter's OWN `vpiSize` 32,
+                        // grid g1 cell `uf`), a different law with a different
+                        // size, and this pass leaves it exactly as it was.
+                        //
+                        // The bound expression of an INTERFACE connection is an
+                        // `ArbitrarySymbolExpression` and carries NO `syntax`
+                        // pointer (measured: `ce->syntax == nullptr` on every
+                        // grid g1 cell), so the index SYNTAX is read off the
+                        // instance's own connection list, matched by SPAN so
+                        // that named and ordered connections both resolve.
+                        const slang::syntax::ExpressionSyntax* isyn14 = nullptr;
+                        if (auto* ce14 = iconn ? connectionExpr(*iconn) : nullptr) {
+                            const syntax::ExpressionSyntax* ces14 = nullptr;
+                            if (auto* npc14 = findConnSyntax(inst, ip.name))
+                                ces14 = connActualSyntax(npc14->expr);
+                            if (!ces14)
+                                if (auto* isy14 = inst.getSyntax();
+                                    isy14 &&
+                                    isy14->kind ==
+                                        syntax::SyntaxKind::HierarchicalInstance)
+                                    for (auto* c14 :
+                                         isy14->as<syntax::HierarchicalInstanceSyntax>()
+                                             .connections) {
+                                        const syntax::ExpressionSyntax* ex14 = nullptr;
+                                        if (c14->kind ==
+                                            syntax::SyntaxKind::OrderedPortConnection)
+                                            ex14 = connActualSyntax(
+                                                c14->as<syntax::OrderedPortConnectionSyntax>()
+                                                    .expr);
+                                        if (ex14 && rawText(ex14->sourceRange()) ==
+                                                        connRaw) {
+                                            ces14 = ex14;
+                                            break;
+                                        }
+                                    }
+                            // `arr[10+i]` in a connection parses as an
+                            // `IdentifierSelectName` (a NAME with selectors),
+                            // not as an `ElementSelectExpression`; both spellings
+                            // are read so the site does not depend on which
+                            // production the parser chose.
+                            const syntax::ElementSelectSyntax* esel14 = nullptr;
+                            if (ces14 &&
+                                ces14->kind ==
+                                    syntax::SyntaxKind::ElementSelectExpression)
+                                esel14 =
+                                    ces14->as<syntax::ElementSelectExpressionSyntax>()
+                                        .select;
+                            else if (ces14 &&
+                                     ces14->kind ==
+                                         syntax::SyntaxKind::IdentifierSelectName) {
+                                auto& isn14 =
+                                    ces14->as<syntax::IdentifierSelectNameSyntax>();
+                                if (isn14.selectors.size() == 1)
+                                    esel14 = isn14.selectors[0];
+                            }
+                            if (esel14 && esel14->selector &&
+                                esel14->selector->kind ==
+                                    syntax::SyntaxKind::BitSelect)
+                                isyn14 = esel14->selector
+                                             ->as<syntax::BitSelectSyntax>()
+                                             .expr;
+                        }
+                        int32_t ct14 =
+                            (isyn14 &&
+                             srlgIdxHasGenvar14(*isyn14, inst.getParentScope()))
+                                ? srlgRedCt14(*isyn14)
+                                : 0;
+                        if (ct14) {
+                            long long fv14 = 0;
+                            bool haveFv14 = false;
+                            if (auto* psc14 = conn.first->getParentScope();
+                                psc14 && psc14->asSymbol().kind ==
+                                             SymbolKind::InstanceArray) {
+                                auto& ia14 =
+                                    psc14->asSymbol().as<InstanceArraySymbol>();
+                                for (size_t k14 = 0; k14 < ia14.elements.size();
+                                     k14++)
+                                    if (ia14.elements[k14] == conn.first) {
+                                        // VERIFIER FIX (r10vrgg14, arm `v5`).
+                                        // slang builds `elements` ASCENDING
+                                        // from `range.lower()` REGARDLESS of
+                                        // the declared direction, so the slot
+                                        // index is `lower() + k`, never
+                                        // `left +- k`.  The shipped
+                                        // `left + step*k` inverted every
+                                        // DESCENDING interface array and
+                                        // emitted a WRONG NUMBER that reads
+                                        // exactly like a right one:
+                                        // `sif rof [20:10]` / `rof[12+2*i]`
+                                        // gave 18,16,14 for golden's
+                                        // 12,14,16, and `sif dn [63:0]` /
+                                        // `dn[i]` gave 63,62,61 for golden's
+                                        // 0,1,2.  Ascending arrays
+                                        // (`[0:63]`, `[10:20]`) are
+                                        // unaffected -- which is why every
+                                        // shipped grid, all ascending, passed.
+                                        fv14 = (long long)ia14.range.lower() +
+                                               (long long)k14;
+                                        haveFv14 = true;
+                                        break;
+                                    }
+                            }
+                            if (haveFv14) {
+                                std::string d14 = std::to_string(fv14);
+                                ic->VpiDecompile(d14);
+                                ic->VpiSize(64);
+                                if (ct14 == vpiIntConst) {
+                                    ic->VpiValue("INT:" + d14);
+                                    ic->VpiConstType(vpiIntConst);
+                                }
+                                else {
+                                    ic->VpiValue("UINT:" + d14);
+                                    ic->VpiConstType(vpiUIntConst);
+                                }
+                                setLoc(ic, srlgFoldSpan14(*isyn14));
+                            }
+                        }
                         bs->VpiIndex(ic);
                         p->High_conn(bs);
                     }

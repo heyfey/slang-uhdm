@@ -1,0 +1,27 @@
+v1        def   N=112  BASE_ok=24   PAT_ok=90   VFIX_ok=90    {}
+v1        elab  N=192  BASE_ok=24   PAT_ok=90   VFIX_ok=90    {}
+v2        def   N=96   BASE_ok=49   PAT_ok=75   VFIX_ok=75    {}
+v2        elab  N=164  BASE_ok=49   PAT_ok=75   VFIX_ok=75    {}
+v3        def   N=35   BASE_ok=8    PAT_ok=28   VFIX_ok=28    {}
+v3        elab  N=59   BASE_ok=8    PAT_ok=28   VFIX_ok=28    {}
+v4        def   N=60   BASE_ok=44   PAT_ok=44   VFIX_ok=44    {}
+v4        elab  N=113  BASE_ok=68   PAT_ok=68   VFIX_ok=68    {}
+v5        def   N=28   BASE_ok=4    PAT_ok=10   VFIX_ok=16    {'FIXED_by_verifier': 6}
+v5        elab  N=49   BASE_ok=4    PAT_ok=10   VFIX_ok=16    {'FIXED_by_verifier': 6}
+v6        def   N=17   BASE_ok=5    PAT_ok=15   VFIX_ok=15    {}
+v6        elab  N=31   BASE_ok=5    PAT_ok=15   VFIX_ok=15    {}
+v7        def   N=21   BASE_ok=0    PAT_ok=14   VFIX_ok=14    {}
+v7        elab  N=35   BASE_ok=0    PAT_ok=14   VFIX_ok=14    {}
+v8        def   N=39   BASE_ok=18   PAT_ok=22   VFIX_ok=22    {}
+v8        elab  N=63   BASE_ok=24   PAT_ok=28   VFIX_ok=28    {}
+v9        def   N=12   BASE_ok=0    PAT_ok=0    VFIX_ok=0     {}
+v9        elab  N=24   BASE_ok=0    PAT_ok=0    VFIX_ok=0     {}
+v10       def   N=16   BASE_ok=10   PAT_ok=14   VFIX_ok=14    {}
+v10       elab  N=28   BASE_ok=10   PAT_ok=14   VFIX_ok=14    {}
+v11       def   N=15   BASE_ok=3    PAT_ok=9    VFIX_ok=9     {}
+v11       elab  N=27   BASE_ok=3    PAT_ok=9    VFIX_ok=9     {}
+v12       def   N=37   BASE_ok=21   PAT_ok=33   VFIX_ok=33    {}
+v12       elab  N=71   BASE_ok=21   PAT_ok=33   VFIX_ok=33    {}
+v13       def   N=27   BASE_ok=8    PAT_ok=10   VFIX_ok=10    {}
+v13       elab  N=45   BASE_ok=8    PAT_ok=10   VFIX_ok=10    {}
+TOTAL {'B_ok': 418, 'P_ok': 758, 'F_ok': 770, 'N': 1416, 'NOGOLD': 440, 'FIXED_by_verifier': 12}
