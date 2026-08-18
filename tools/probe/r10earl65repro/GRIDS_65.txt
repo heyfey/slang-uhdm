@@ -1,0 +1,41 @@
+r10earl65 — THE MEASURED GRID (GOLDEN, Surelog -parse -nobuiltin -nocache -d uhdm)
+MEASUREMENT ONLY.  Cells read with tscen65 / tsdet65 directly from the .uhdm.
+
+A. ELABORATED PORT High_conn — does a folded parameter read carry a typespec?
+   (g1_conn65.sv plain spelling, g2_hier65.sv dotted spelling; both give the
+   same answer, so the split is NOT the emission path but the POSITION.)
+
+   origin \ position    ips WIDTH   ips BASE   bit-sel IDX   part-sel BOUNDS
+   package localparam   none        none       none          LOCATED decl ts
+   module localparam    BARE signed BARE       BARE          LOCATED decl ts
+   port parameter       BARE*       -          -             -
+   literal / genvar     none        none       none          none
+   (* `Width` in prim_ram_2p_async_adv, overridden with an untyped literal, is
+      unsigned there and golden leaves it bare of a typespec entirely.)
+
+   BARE  = int_typespec, NO span (":0:0-0:0"), NO name, NO ranges, VpiSigned=1
+   LOCATED = the parameter's OWN declaration typespec, at its declaration span
+
+B. ELABORATED cont_assign — every origin carries the LOCATED declaration ts:
+     flash_phy.sv:65      BankAddrW (pkg)      /b  LOCATED  (18 cells)
+     flash_phy.sv:65      BankW     (pkg)      /w  LOCATED
+     ibex_core.sv:928     PMP_D     (pkg)      /idx LOCATED (4 cells)
+     prim_ram_2p_async_adv.sv:225 Width (port) /w  LOCATED  (3 cells)
+     flash_phy_rd.sv:122  PageW     (pkg)      /w  LOCATED  (16 cells)
+     g1_conn65.sv:50      PW        (pkg)      /w  LOCATED
+   and a genvar / loop-variable fold carries none (i: 0/319, k: 0/413).
+
+C. GOLDEN whole-design tallies (Earlgrey_0_1, default; testflags identical)
+     ELAB CA  idx  2012 with ts / 3588 without      ELAB HC  idx  0 / 2083
+     ELAB CA  w     160 / 20                        ELAB HC  w    6 / 19
+     ELAB CA  b      44 / 411                       ELAB HC  b    3 / 22
+     ELAB CA  l/r    35 / 1756                      ELAB HC  l/r  2 / 8
+   The 6 ELAB-HC-w and 3 ELAB-HC-b cells WITH a typespec are all the BARE
+   signed object (N_TIMERS, DataBitWidth — module-body localparams); not one
+   ELAB High_conn ips bound in the whole design carries a LOCATED one.
+
+D. OURS vs GOLDEN, whole design, both modes, PRISTINE (903bbea):
+     G_ts=int_typespec O_ts=-             : 95   (mirror family, NOT taken)
+     G_ts=-            O_ts=int_typespec  :  9   (this pass's law)
+     G_ts=int_typespec O_ts=logic_typespec:  1   (a param_assign, separate)
+   PATCHED: 95 / 0 / 1.  The 9 changed cells are the ONLY cells that changed.

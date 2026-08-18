@@ -1,0 +1,4 @@
+plain r10earl65repro/g1_conn65.sv
+elab r10earl65repro/g1_conn65.sv
+plain r10earl65repro/g2_hier65.sv
+elab r10earl65repro/g2_hier65.sv

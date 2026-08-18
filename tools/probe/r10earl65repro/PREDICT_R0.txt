@@ -1,0 +1,107 @@
+r10earl65 — THE NEXT HEAD (R0), BOTH Earlgrey_0_1 MODES, measured on the
+PATCHED database (binary md5 66e1e8bb63d8f8f8db9f40fe954c5f0b) against the
+immutable golden caches 00d4794526e44dc553f3 (default) and
+d7348d2d2fe67abe767b (testflags).  Pristine binary md5
+7726630ba6667945be188d5ed47ee259, BASE 903bbea.
+
+earl64's R0 is CLEARED.  It was a TYPESPEC-PRESENCE head and it is gone in
+BOTH modes, on the same object, with the two cmp logs byte-identical:
+
+  cmp depth  default   17 -> 36 lines   (line count is HEAD DEPTH, never a
+             testflags 17 -> 36 lines    distance: the new head prints two
+                                         full objects per side)
+  heads      1 per run, both modes, before and after; the two AFTER logs are
+             byte-identical.
+
+  earl64 R0 (flash_phy.sv:133:38-133:47, the folded `BankAddrW` WIDTH of
+  `.addr_i(flash_ctrl_i.addr[0 +: BankAddrW])` in gen_flash_banks[N].i_core)
+  — CLEARED, and with it ALL NINE cells of its family (whole-design census,
+  both modes: 9 -> 0 TO-GOLDEN, 0 AWAY-GOLDEN, and the 9 changed cells are the
+  ONLY cells that changed anywhere in the database).
+
+=======================================================================
+R0 — Earlgrey_0_1, BOTH MODES, 36 cmp lines, 1 head
+=======================================================================
+
+  flash_phy_core.sv:163:17-163:24 (lowrisc_ip_flash_ctrl_0.1/rtl), the port
+  connection of `flash_phy_rd i_rd` inside gen_flash_banks[0].i_core:
+
+      .req_i(reqs[PhyRead]),
+
+  `PhyRead` is an ENUM CONSTANT — `flash_phy_pkg.sv:70 typedef enum logic
+  [2:0] { PhyRead = 3'h0, … }` — read as the INDEX of the bit_select
+  `reqs[…]` in an ELABORATED port High_conn:
+
+      LHS(golden): constant id:309503  163:17-163:24
+                     |vpiParent -> bit_select
+                        (work@…gen_flash_banks[0].i_core.i_rd.reqs)
+                     |vpiDecompile:3'h0  |vpiSize:3  |HEX:0  |vpiConstType:5
+      RHS(ours)  : ref_obj  (work@…i_core.PhyRead) id:252928 163:17-163:24
+                     |vpiName:PhyRead
+                     |vpiActual -> enum_const (PhyRead) id:1094 71:5-71:24
+
+  HEAD DECODE (BaseClass.h + UHDM/build/generated/src/bit_select.cpp):
+  `bit_select::Compare` runs `SafeCompare(lhs->VpiIndex(), rhs->VpiIndex())`;
+  the two operands have DIFFERENT UhdmType, so the type test fails first and
+  BOTH sides are named in full (this is neither the `<null>` singular arm nor a
+  vector size mismatch — read the MK line, not the shape).  So the head is:
+  **golden FOLDS an enum-constant read to the enum member's own encoding at
+  its declared width, we keep the ref_obj to the enum_const.**
+
+  THE FAMILY (whole-design census, patched database, both modes identical):
+    * 14 cells are exactly this shape — an ELAB port High_conn BIT-SELECT
+      INDEX that is an enum-constant read:
+        PhyRead ×2, PhyProg ×4, PhyPgErase ×4, PhyBkErase ×4
+        (flash_phy_core.sv:163-166, `reqs[Phy*]`, both banks)
+    * 32 more are the same fold in an ELAB cont_assign OPERAND
+      (`MioPeriphHasSleepMode`, a 32-bit sized-literal localparam read)
+    * the SUPERFAMILY — every cell where golden has a CONSTANT and we have a
+      REF_OBJ at the same positional key — is 2,254 cells (IDW 58, STIDW 29,
+      C0/C1 ~500, Pa 39, …).  That is the biggest single TO-GOLDEN reservoir
+      the census sees and it is what earl64's R3 (the for-generate fold home)
+      and R4 (the whole-Rhs reduce) are each one slice of.
+
+> R0 (both modes): in an ELABORATED port High_conn, golden folds an
+> ENUM-CONSTANT bit-select index to `constant vpiHexConst size 3 HEX:0
+> decompile "3'h0"` (the enum member's own encoding at the enum's declared
+> width) and we keep `ref_obj -> enum_const`.  14 cells this shape, 46 with
+> the cont_assign operand half, inside a 2,254-cell golden-folds/we-do-not
+> superfamily.
+
+=======================================================================
+RANKED AFTER R0 (all measured in this pass; README §3, §5)
+=======================================================================
+R1  THE TYPESPEC-PRESENCE MIRROR, untouched by this pass and now the WHOLE
+    remaining typespec residue: 95 cells where GOLDEN carries a typespec on a
+    folded constant and we carry none, in BOTH modes, every other
+    compare-visible field equal.  The census splits them by ORIGIN, and the
+    split is the law to decode:
+      87  ELAB cont_assign ips WIDTH, `STIDW` (a MODULE-BODY localparam)
+       6  ELAB port High_conn ips WIDTH, `N_TIMERS` (rv_timer.sv:20,
+          `localparam int N_TIMERS = 1`) — golden's object here is a BARE
+          int_typespec: NO span, NO name, NO ranges, VpiSigned(1), i.e.
+          CompileExpression.cpp's `sval->isSigned()` mint, NOT the located
+          declaration typespec this pass just stopped copying
+       2  ELAB cont_assign operation operand, `NumBuf`
+       1  a param_assign Rhs where golden has int_typespec and we have
+          logic_typespec (`{pinmux_reg_pkg::NMioPeriphOut{1'b1}}`)
+    MEASURED GRID (g1_conn65.sv / g2_hier65.sv, golden): in an ELAB port
+    High_conn a MODULE-BODY localparam or a PORT parameter fold carries the
+    BARE signed int_typespec in ips WIDTH and in a bit-select INDEX, where a
+    PACKAGE parameter carries none.  We fold neither with a typespec, so this
+    is purely additive — but the object is a NEW bare int_typespec, not the
+    declaration's, and `typespec::Compare` reads VpiSigned, so it must be
+    minted exactly.
+R2  carried from earl64 and unchanged: its R1 (the BASED-OVERRIDE DECOMPILE
+    spelling, `"32'h2"` vs `"4'h2"`, 44 Earlgrey cells), R2 (the negative
+    override value `UINT:-3`), R3 (the missing fold in the FOR-GENERATE home,
+    48 gA_earl64 cells), R4 (the whole-Rhs reduce of an ELAB cont_assign),
+    R5 (the remaining High_conn index/width folds), and earl61-63's residues.
+R3  A JUDGE-INVISIBLE SPAN RESIDUE found by this pass's arm and left alone:
+    in the PLAIN ips arm our folded width constant is located at the columns
+    of the width TOKEN while golden's is three columns earlier
+    (g1_conn65.sv:37, `d_i[0    +: PW]` — golden 37:33-37:35, ours
+    37:36-37:38).  Compare reads no span (RESUME §9), so it is not a head; it
+    is recorded because it makes a span-carrying census payload score that
+    cell MOVED-WRONG when it is in fact TO-GOLDEN on every field the judge
+    reads (earl60's attrv60.py lesson, seen again).

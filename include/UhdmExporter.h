@@ -3022,6 +3022,20 @@ private:
     // same source expression is emitted as TWO objects, so a view-split fold
     // rule is expressible here and nowhere else.
     bool elabConnEmit21 = false;
+    // § connMpRootIpsBoundKeepsTs65v (r10v65, the verifier's fix to
+    // § connIpsPkgParamBoundNoTs65) — set ONLY while the Base_expr and the
+    // Width_expr of an ELABORATED port High_conn indexed-part-select whose
+    // hier-path ROOT is a MODPORT-RESTRICTED interface port are being emitted.
+    // Golden keeps the folded package parameter's declaration typespec in
+    // exactly that shape (Surelog's decodeHierPath VALUES a modport-rooted
+    // hierarchical actual instead of re-minting it from the parameter's Value,
+    // the precedent ModuleEmit.cpp's modportBase8 already records), and nowhere
+    // else: a whole-interface port, a GENERIC interface port, an interface
+    // INSTANCE named from the parent and a plain struct root all carry none.
+    // The flag exists because the BASE of that select is folded by the plain
+    // arm's § ipsWidFold9, one emitExpr level below the site that knows the
+    // root.
+    bool hcMpRoot65v = false;
     // § connOperandOwnScopeBind61 — the GENERATE BLOCK that IMMEDIATELY
     // encloses the instantiation whose ELABORATED port HighConn is being
     // emitted, or null when that instantiation sits at module scope.

@@ -8676,9 +8676,41 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // ips sibling of selFold9's bit_select rule but scoped by
                     // the MODULE (`work@bp_be_pipe_int`), not the select:
                     // BlackBePipeInt `src2[0+:rv64_shamtw_width_gp]` @15786:64.
+                    // § connIpsPkgParamBoundNoTs65 (r10earl65) — ...BUT NOT
+                    // INSIDE AN ELABORATED PORT CONNECTION.  This is the
+                    // INDEXED-PART-SELECT twin of the landed
+                    // § elabConnSelFoldNoTs21 (`selFoldTs21 = selFold9 &&
+                    // !elabConnEmit21`, the bit-select INDEX half): Surelog
+                    // compiles a High_conn actual by RE-COMPILING it in the
+                    // PARENT INSTANCE's context
+                    // (NetlistElaboration::high_conn_ ->
+                    // compileExpression(parent_comp, …, Reduce::Yes,
+                    // pexpr=nullptr, instance=parent)), so the package
+                    // parameter read is minted afresh from its VALUE and the
+                    // declaration typespec the DEF-view fold carried is NOT
+                    // reproduced.  MEASURED, golden, ELAB port High_conn
+                    // (g1_conn65.sv / g2_hier65.sv, both the plain and the
+                    // dotted spelling, module body / gen-for / gen-if):
+                    //   ips WIDTH  of a pkg localparam  -> NO typespec
+                    //   ips BASE   of a pkg localparam  -> NO typespec
+                    //   bit-select INDEX (pass 21)      -> NO typespec
+                    //   part-select BOUNDS              -> the parameter's OWN
+                    //     declaration typespec, LOCATED (§ psBoundPkgParamTs31
+                    //     / § caPartSelBoundFoldTs are UNCHANGED — they are the
+                    //     measured negative control of this law)
+                    // A MODULE-BODY localparam / PORT parameter fold in the
+                    // same ips position carries a BARE signed int_typespec in
+                    // golden (span-less, no name, no ranges) and nothing at all
+                    // in ours — that is the MIRROR family (95 Earlgrey cells)
+                    // and a SEPARATE law; this pass does not touch it.
+                    // § connMpRootIpsBoundKeepsTs65v — see the law at the
+                    // hier-path site; hcMpRoot65v is set only while the BASE
+                    // and WIDTH of a MODPORT-ROOTED elaborated High_conn
+                    // indexed-part-select are being emitted.
                     bool ipsWidFold9 = !inParamInit && parent &&
                                        parent->UhdmType() ==
-                                           UHDM::uhdmindexed_part_select;
+                                           UHDM::uhdmindexed_part_select &&
+                                       (!elabConnEmit21 || hcMpRoot65v);
                     // § caPartSelBoundFoldTs — and so does a CONT-ASSIGN
                     // PART-SELECT RANGE-BOUND fold.  § procPsFold9 is this
                     // same rule inside a process; outside one the bound
@@ -18018,7 +18050,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 wc9->VpiValue("UINT:" + wf9.text);
                                 wc9->VpiConstType(vpiUIntConst);
                                 setLoc(wc9, rs.right().sourceRange);
-                                stampFoldedPkgParamTs(wc9, *wf9.sym, prefix);
+                                // § connIpsPkgParamBoundNoTs65 — the DOTTED
+                                // (hier_path) half of the same law: inside an
+                                // ELABORATED port High_conn the width constant
+                                // is minted bare.  g2_hier65.sv u_h_w
+                                // (`.a_i(st_i.f[0 +: QW])`) is the witness, and
+                                // it is the shape of the Earlgrey head
+                                // (flash_phy.sv:133 `.addr_i(flash_ctrl_i.addr
+                                // [0 +: BankAddrW])`).
+                                if (!elabConnEmit21)
+                                    stampFoldedPkgParamTs(wc9, *wf9.sym, prefix);
                                 ips->Width_expr(wc9);
                             }
                             else if (auto* w = emitExpr(rs.right(), ips, prefix,
@@ -18051,6 +18092,55 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     (bb->kind == ExpressionKind::NamedValue &&
                      stripImplicitConv(rs.value()).kind !=
                          ExpressionKind::NamedValue)) {
+                    // § connMpRootIpsBoundKeepsTs65v (VERIFIER FIX to
+                    // § connIpsPkgParamBoundNoTs65) — THE ELAB HIGH_CONN
+                    // SUPPRESSION HAS ONE MEASURED CARVE-OUT: when the actual's
+                    // hier-path ROOT is a MODPORT-RESTRICTED interface port of
+                    // the instantiating module, golden KEEPS the parameter's
+                    // declaration typespec on the indexed-part-select bound.
+                    // That is the ONE hierarchical form Surelog's
+                    // decodeHierPath VALUES (the precedent is already written
+                    // down at ModuleEmit.cpp's modportBase8), so
+                    // NetlistElaboration::high_conn_ does not re-mint the read
+                    // from the parameter's Value the way it re-mints every
+                    // other shape, and the DEF-view fold's stamp survives.
+                    // MEASURED ON GOLDEN, arms a9_iface.sv / a10_mp.sv:
+                    //   `ifb.mp p`     -> KEEPS, on the WIDTH and on the BASE,
+                    //                     at depth 3 and depth 4, for both of
+                    //                     the interface's modport names
+                    //   `ifb p`        -> none  (WHOLE-interface port)
+                    //   `interface p`  -> none  (GENERIC interface port)
+                    //   `the_if.r.addr`-> none  (the interface INSTANCE named
+                    //                     from the parent)
+                    //   plain struct / struct-of-struct root -> none
+                    // Without it the pass turned FOUR arm cells from
+                    // pristine-RIGHT to patched-WRONG (a9 u_m3.i_m3,
+                    // a10 u_mp.i_w /.i_b /.i_d4, a10 u_mp2.i_w2).
+                    // Site 1 (the AST MemberAccess chain) needs no twin: its
+                    // root is a NamedValue and an InterfacePortSymbol is not a
+                    // ValueSymbol, so a modport root never reaches it.
+                    bool mpRoot65v = false;
+                    {
+                        const Symbol* rsy65v = nullptr;
+                        if (bb->kind == ExpressionKind::ArbitrarySymbol)
+                            rsy65v = bb->as<ArbitrarySymbolExpression>().symbol;
+                        else if (bb->kind == ExpressionKind::HierarchicalValue) {
+                            // slang COLLAPSES `p.r` (p an interface port) into
+                            // ONE HierarchicalValueExpression naming the
+                            // interface's own variable, so the syntactic root
+                            // is not an expression at all — it is the FIRST
+                            // element of the resolved hierarchical PATH.
+                            auto& hr65v =
+                                bb->as<HierarchicalValueExpression>().ref;
+                            if (!hr65v.path.empty())
+                                rsy65v = hr65v.path.front().symbol;
+                        }
+                        if (rsy65v)
+                            mpRoot65v =
+                                rsy65v->kind == SymbolKind::InterfacePort &&
+                                !rsy65v->as<InterfacePortSymbol>()
+                                     .modport.empty();
+                    }
                     std::string baseDotted = rawTextExpr(rs.value());
                     if (baseDotted.empty())
                         baseDotted = selBaseText(rawTextExpr(expr));
@@ -18290,6 +18380,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // § everyPartSelIsConstSel78 — unconditional.
                             ips2->VpiConstantSelect(true);
                             suppressConstParent = isLiteralExpr(rs.left());
+                            // § connMpRootIpsBoundKeepsTs65v — the BASE of this
+                            // same select is folded by the PLAIN arm's
+                            // § ipsWidFold9 (it descends through emitExpr), so
+                            // the carve-out has to reach it there: a10_mp's
+                            // `p.r.addr[B +: 16]` is a BASE cell.  Scoped to
+                            // this one select and restored right after.
+                            bool savedMp65v = hcMpRoot65v;
+                            hcMpRoot65v = mpRoot65v;
                             // A dynamic BASE ref is named through the select
                             // itself (work@top.a[0].source[base-:2].base) —
                             // Surelog scopes it by the hier-path element. A
@@ -18320,12 +18418,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 wc9->VpiValue("UINT:" + wf9.text);
                                 wc9->VpiConstType(vpiUIntConst);
                                 setLoc(wc9, rs.right().sourceRange);
-                                stampFoldedPkgParamTs(wc9, *wf9.sym, prefix);
+                                // § connIpsPkgParamBoundNoTs65 — SITE 2 of 2 of
+                                // the dotted half (the base-select spelling).
+                                // § connMpRootIpsBoundKeepsTs65v — the
+                                // modport carve-out (see mpRoot65v above).
+                                if (!elabConnEmit21 || mpRoot65v)
+                                    stampFoldedPkgParamTs(wc9, *wf9.sym, prefix);
                                 ips2->Width_expr(wc9);
                             }
                             else if (auto* w2 = emitExpr(rs.right(), ips2, prefix,
                                                          netMap))
                                 ips2->Width_expr((UHDM::expr*)w2);
+                            hcMpRoot65v = savedMp65v;
                             elems->push_back(ips2);
                         }
                         suppressConstParent = sup;
