@@ -4080,14 +4080,64 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         // `get_next_n(<64'b..>) - 1` while the second dim's
                         // `WIDTH-1` — a plain valued parameter — folds to 1 in
                         // the same typespec.
+                        // § elabVarRangeCallScopeDecl12 — the scope this bind
+                        // needs is the one that DECLARES the signal, not
+                        // `currentScope`: `currentScope` is STALE throughout
+                        // elaborated instance emission (RESUME §9; earl57 R3),
+                        // and on Rggen it pointed at `rggen_bit_field_if` /
+                        // `rggen_register_if` — INTERFACE bodies with no
+                        // `NEXT_N` at all — for 12 of the 13 `rggen_or_reducer`
+                        // instances, so `Expression::bind` came back BAD, the
+                        // symbolic-call arm never fired, and the bound fell to
+                        // the arithmetic fold (`INT:0` where golden keeps
+                        // `get_next_n(<400'b..>) - 1`).  The 13th instance was
+                        // right ONLY because the stale pointer happened to be
+                        // `rggen_or_reducer` at that moment.
+                        // `currentScope` is tried FIRST so every bound this arm
+                        // already claimed keeps the exact scope it had; the
+                        // declaring scope is a pure FALLBACK for the binds that
+                        // found nothing.
                         const ParameterSymbol* symCallParam = nullptr;
-                        if (bsyn && currentScope && !memberInitParam &&
+                        const Scope* symCallScope = nullptr;
+                        if (bsyn && !memberInitParam &&
                             !ovHierParam && !tfContext && !bitsOfSignal &&
                             !bareParamInParamTs && !defModuleParamDim &&
                             !ifacePortBound && !defPortDim) {
-                            ASTContext bctx(*currentScope, LookupLocation::max);
-                            auto& be = Expression::bind(*bsyn, bctx);
-                            if (!be.bad())
+                            const Scope* cand12[2] = {
+                                currentScope, declSymbol.getParentScope()};
+                            for (int ci12 = 0; ci12 < 2; ci12++) {
+                                const Scope* sc12 = cand12[ci12];
+                                if (!sc12 || symCallParam)
+                                    continue;
+                                if (ci12 == 1) {
+                                    // The FALLBACK bind, and only it, is
+                                    // guarded.  The `currentScope` bind above is
+                                    // left EXACTLY as the base performed it, so
+                                    // every bound this arm already claimed keeps
+                                    // its answer bit for bit.
+                                    if (sc12 == currentScope)
+                                        continue;
+                                    // CHEAP PRE-CHECK BEFORE THE SECOND BIND.
+                                    // An unconditional `Expression::bind` in a
+                                    // second scope is an AST-FORCING walk, and
+                                    // RESUME §9 records that forcing binds
+                                    // changes later emission: with the fallback
+                                    // bind run on EVERY declaration bound,
+                                    // SimpleUVM/testflags' queue typedef
+                                    // `TYPE types_t[$]` moved its right bound
+                                    // from one wrong constant to another
+                                    // (`UINT:0` -> `UINT:1475`; golden is
+                                    // `STRING:$`).  A NAME LOOKUP cannot force
+                                    // anything, so the second bind happens only
+                                    // for a bound that actually names a
+                                    // parameter this arm can claim.
+                                    if (!boundNamesSymCallParam12(bsyn, *sc12))
+                                        continue;
+                                }
+                                ASTContext bctx(*sc12, LookupLocation::max);
+                                auto& be = Expression::bind(*bsyn, bctx);
+                                if (be.bad())
+                                    continue;
                                 be.visit(makeVisitor(
                                     [&](auto& v, const NamedValueExpression& nv) {
                                         if (!symCallParam &&
@@ -4099,9 +4149,12 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                                 &nv.symbol.as<ParameterSymbol>();
                                         v.visitDefault(nv);
                                     }));
+                                if (symCallParam)
+                                    symCallScope = sc12;
+                            }
                         }
                         if (symCallParam) {
-                            ASTContext bctx(*currentScope, LookupLocation::max);
+                            ASTContext bctx(*symCallScope, LookupLocation::max);
                             auto& be = Expression::bind(*bsyn, bctx);
                             NetMap none;
                             std::string bpfx = boundOwnerFullName;
@@ -5067,6 +5120,61 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         }
     }
     return nullptr;
+}
+
+// § elabVarRangeCallScopeDecl12 — the CHEAP PRE-CHECK that guards the second
+// `Expression::bind` of `makeTypespec`'s symbolic-call bound arm.
+//
+// A NAME LOOKUP forces nothing; a bind does.  This walks the bound's SYNTAX for
+// plain identifiers and asks the scope whether any of them is a parameter whose
+// initializer is the symbolic const call the arm claims.  Only then is the full
+// bind performed.
+bool UhdmExporter::boundNamesSymCallParam12(const syntax::SyntaxNode* bsyn,
+                                            const slang::ast::Scope& sc) {
+    if (!bsyn)
+        return false;
+    bool found = false;
+    std::function<void(const syntax::SyntaxNode*)> walk =
+        [&](const syntax::SyntaxNode* n) {
+            if (!n || found)
+                return;
+            auto test12 = [&](const Symbol* sy) {
+                if (sy && sy->kind == SymbolKind::Parameter &&
+                    elabParamCallSymbolic(sy->as<ParameterSymbol>()))
+                    found = true;
+            };
+            if (n->kind == syntax::SyntaxKind::IdentifierName) {
+                std::string_view nm =
+                    n->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                if (!nm.empty())
+                    test12(Lookup::unqualified(sc, nm));
+                return;
+            }
+            // `pkg::P` — resolve the qualifier as a package and look the leaf up
+            // INSIDE it.  Without this arm the walk would test the qualifier
+            // (`pkg`, not a parameter) and then the leaf in the WRONG scope, and
+            // a package-homed symbolic-call parameter would never be seen
+            // (r10vrgg6repro/cells/v_pkg_chain's `p::P3` is the witness).
+            if (n->kind == syntax::SyntaxKind::ScopedName) {
+                auto& sn = n->as<syntax::ScopedNameSyntax>();
+                if (sn.left && sn.left->kind == syntax::SyntaxKind::IdentifierName &&
+                    sn.right && sn.right->kind == syntax::SyntaxKind::IdentifierName) {
+                    std::string_view qn =
+                        sn.left->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                    std::string_view ln =
+                        sn.right->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                    if (!qn.empty() && !ln.empty())
+                        if (auto* q = Lookup::unqualified(sc, qn))
+                            if (q->kind == SymbolKind::Package)
+                                test12(q->as<PackageSymbol>().find(ln));
+                }
+                return;
+            }
+            for (size_t i = 0; i < n->getChildCount(); i++)
+                walk(n->childNode(i));
+        };
+    walk(bsyn);
+    return found;
 }
 
 UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int64_t value,

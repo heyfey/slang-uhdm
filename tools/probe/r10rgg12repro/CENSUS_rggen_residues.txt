@@ -1,0 +1,20 @@
+810 ('ELAB', 'RANGE', 'op11[ref', 'const ct=ct=7')
+   ex: ELAB|RANGE|work@rggen.u_block_0.g_register_12.g_bit_field_0.u_bit_field.bit_field_if|logic_var:write_data|TS|0|L
+     G= ['op11[ref(WIDTH),const(UINT:1,sz=64,ct=9,dec=1)]']
+     O= ['const(INT:0,sz=64,ct=7,dec=0)']
+11 ('ELAB', 'PA', 'fcall:get_sub_n_list', 'fcall:get_sub_n_list')
+   ex: ELAB|PA|work@rggen.u_block_0.g_register_11.g[1].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))']
+     O= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))']
+7 ('ELAB', 'PA', 'const ct=ct=9', 'const ct=ct=9')
+   ex: ELAB|PA|work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_1.u_register.u_register_common.g_decoder[0]|START_ADDRESS
+     G= ['const(UINT:88,sz=7,ct=9,dec=88)']
+     O= ['const(UINT:-40,sz=7,ct=9,dec=-40)']
+4 ('ELAB', 'PA', '<absent>', 'const ct=ct=9')
+   ex: ELAB|PA|work@rggen.u_block_0.g_register_15.u_register.bus_if|RGGEN_ACCESS_DATA_BIT
+     G= None
+     O= ['const(UINT:0,sz=32,ct=9,dec=0)']
+1 ('ELAB', 'PA', 'const ct=ct=3', 'const ct=ct=3')
+   ex: ELAB|PA|work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field|INITIAL_VALUE
+     G= ["const(BIN:0,sz=2,ct=3,dec='b0)"]
+     O= ["const(BIN:0,sz=64,ct=3,dec='b0)"]

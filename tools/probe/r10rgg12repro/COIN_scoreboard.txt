@@ -1,0 +1,23 @@
+r10rgg12 — THE COIN, not this patch: default/Scoreboard.
+
+An EARLIER revision's sweep pair listed `default/Scoreboard` among the surelog
+byte-movers (the LANDING pair lists only `default/Rggen`).  It is the documented
+~50/50 COIN (RESUME §9: the svunit_pkg `vpiTaskFunc` ORDER flip / macro-buffer
+SourceLocation ordering under slang's parallel parse; up to four pristine hashes
+seen).  Proof, four runs of EACH binary on the workdir's OWN command line:
+
+  BASE binary   ef6f0c10f885c1fc6b6720a51d93c906
+                28006fd968290c9c557dd21911f5021e
+                084c84341013ba4964244e09e451670f
+                ef6f0c10f885c1fc6b6720a51d93c906
+  PATCHED bin   4afd17e8599e343191b6f4bcc4bf075d
+                28006fd968290c9c557dd21911f5021e
+                084c84341013ba4964244e09e451670f
+                084c84341013ba4964244e09e451670f
+
+  the BASE sweep artifact  = 28006fd968290c9c557dd21911f5021e
+  the PATCHED sweep artifact = ef6f0c10f885c1fc6b6720a51d93c906
+
+THE BASE BINARY ALONE PRODUCED THE "PATCHED" SWEEP HASH, AND THE PATCHED BINARY
+ALONE PRODUCED THE "BASE" SWEEP HASH.  The row's status, dump column and head
+count are unchanged (28 cmp lines / 1 head before and after).

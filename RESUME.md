@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 03:20, HEAD = the uvm93 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 03:50, HEAD = the rgg12 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -184,12 +184,12 @@ row-modes over 7 tests:
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 84 (depth) | typespec-linkage: `parameter uvm_field_flag_t UVM_PACK = (1<<8)` (uvm_pkg.sv:8001) — golden bit_typespec(uvm_field_flag_t)+vpiTypedefAlias, ours a bare int_typespec; pass buvm18 in flight (buvm17 landed: 29→84 depth, foreach loop-var ELAB binds) |
 | Earlgrey_0_1/default | 64 (depth) | param_assign Rhs CONSTANT of `localparam int Aw = vbits(Depth)` (prim_ram_1p_adv.sv:32, port-list localparam, user-function initializer): golden INT:14 ct 7 `14`, ours BIN ct 3 `32'b…1110` — a value-ENCODING law (sibling of rgg11 R-B); pass earl63 in flight (earl62 landed: 19→64) |
 | Earlgrey_0_1/testflags | 64 (depth) | SAME head, identical cmp log — the two Earlgrey modes share one head for the first time (earl62: 37→64) |
-| Rggen/default | 104 (depth) | an UNREDUCED user function call inside a packed range bound: rggen_or_reducer.sv:66 `logic [NEXT_N-1:0]…` with `localparam int NEXT_N = get_next_n(SUB_N_LIST)` — golden keeps `get_next_n(<400-bit BIN>) - 1` unevaluated, we fold to INT:0; pass rgg12 in flight (rgg11 landed: 36→104 depth, whole-dump diff = 4 lines) |
+| Rggen/default | 64 (depth) | the ARGUMENT constant of a param_assign Rhs func_call `get_sub_n_list(N)` (rggen_or_reducer.sv:62): golden INT:2 ct 7 typed by N's own param_assign/int_typespec (§ genLpPortConnValue11 in a third position), ours UINT:2 ct 9 typed by the formal — 11 rows; next family R-A 810 rows (bare ref(WIDTH) kept in ELAB range bounds); pass rgg13 in flight (rgg12 landed: 104→64 depth, symbolic-call bound + currentScope-stale fix) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 50 verifier fix-before-landing re-cuts (96 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 50 verifier fix-before-landing re-cuts (97 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

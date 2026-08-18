@@ -1,0 +1,4 @@
+ARM r10rgg12repro/cells/pc1/top.sv OK=30 FIXED=2 BROKEN=0 STILL=0
+ARM r10rgg12repro/cells/pc2/top.sv OK=24 FIXED=0 BROKEN=0 STILL=0
+ARM r10rgg12repro/cells/pc3/top.sv OK=32 FIXED=0 BROKEN=0 STILL=0
+-- arms=3 NOGOLD=0 OK=86 FIXED=2 BROKEN=0 STILL=0

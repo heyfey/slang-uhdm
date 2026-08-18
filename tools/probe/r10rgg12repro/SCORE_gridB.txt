@@ -1,0 +1,9 @@
+OK                 1190
+FIXED              4
+BROKEN             0
+STILL              84
+MOVED-STILL-WRONG  0
+FIXED f_while__net ELAB|RANGE|work@top.u_a|logic_net:v|TS|0|L
+FIXED f_while__net ELAB|RANGE|work@top.u_b|logic_net:v|TS|0|L
+FIXED f_while__var ELAB|RANGE|work@top.u_a|logic_var:v|TS|0|L
+FIXED f_while__var ELAB|RANGE|work@top.u_b|logic_var:v|TS|0|L

@@ -1397,6 +1397,10 @@ private:
     // reference, and Surelog inlines the call itself instead (see the
     // symCallParam arm in TypeEmit's packed-range bounds).
     bool elabParamCallSymbolic(const slang::ast::ParameterSymbol& ps);
+    // § elabVarRangeCallScopeDecl12 — cheap name-lookup pre-check that keeps the
+    // symbolic-call bound arm from forcing an AST bind on every declaration.
+    bool boundNamesSymCallParam12(const slang::syntax::SyntaxNode* bsyn,
+                                  const slang::ast::Scope& sc);
 
     // ---- EvalFunc member-assignment leftovers -------------------------------
     // A const function that builds its packed-struct result MEMBER BY MEMBER

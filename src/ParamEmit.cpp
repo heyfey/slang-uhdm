@@ -1278,6 +1278,103 @@ bool UhdmExporter::srlgEvalFuncFolds(const SubroutineSymbol& sub) {
 // reading it inlines the call expression instead of folding
 // (FuncInModule `logic [NEXT_N-1:0] next_data`, NEXT_N = get_next_n(...) with
 // get_next_n poisoned by its `(a[i] != 0) ? 1 : 0` select).
+// § elabParamCallCmpPoison12 — the NARROWED poison test this arm (and ONLY
+// this arm) uses.
+//
+// `subroutinePoisonsEvalFunc` was calibrated for a different question (the
+// cont-assign / cast fold of r10rgg8 and the r4fold NOTE) and it is too coarse
+// for the RANGE-BOUND one: it poisons on a func-scope select reached through
+// ANY non-`+` operator, so rggen's `get_sub_n_list` (`current_n -=
+// list[list_index]`) reads as symbolic — yet golden FOLDS that parameter's
+// bound (grid A `f_while`: `INT:3` for N=4, `INT:131075` for N=6; ablation
+// cell `abl1` rows `vs`, `vg`).  Measured on golden over the eight ablation
+// bodies of `tools/probe/r10rgg12repro/cells/abl1`, the bound stays SYMBOLIC
+// exactly when the function reaches a select of a function-scope value through
+// a COMPARISON, a LOGICAL/BITWISE operator or a TERNARY CONDITION —
+//   a_formal_tern  `acc += ((a[i] != 0) ? 1 : 0)`          KEEP (rggen's own)
+//   b_local_tern   same, select of a function LOCAL         KEEP
+//   c_formal_cmp   same + 0                                 KEEP
+//   e_formal_tern  same, packed-2D return                   KEEP
+//   mk / f_while   `current_n -= list[idx]` (arithmetic)    FOLD
+//   g_offsets      `o[i] = a[i-1] + o[i-1]` (arithmetic)    FOLD
+//   f_int_plain    no select at all                         FOLD
+// — and `d_formal_add` (`acc += 32'(a[i])`, a select in a PLAIN add) is the one
+// golden KEEPS that this predicate calls foldable; it is left on the FOLD side
+// deliberately, because that is the side this arm already took before this pass
+// and therefore cannot regress a row.  The test is an AND with the old one, so
+// the arm can only fire in a SUBSET of the places it fired before.
+static bool cmpCtxHasFuncScopeSelect12(const Expression& root,
+                                       const SubroutineSymbol& sub) {
+    bool found = false;
+    root.visit(makeVisitor(
+        [&](auto& v, const ElementSelectExpression& es) {
+            if (auto* rs = selectRootSym(es.value()))
+                if (isFuncScopeValue(*rs, sub))
+                    found = true;
+            v.visitDefault(es);
+        },
+        [&](auto& v, const RangeSelectExpression& rs2) {
+            if (auto* rs = selectRootSym(rs2.value()))
+                if (isFuncScopeValue(*rs, sub))
+                    found = true;
+            v.visitDefault(rs2);
+        }));
+    return found;
+}
+
+static bool elabParamCallCmpPoison12(const SubroutineSymbol& sub) {
+    bool found = false;
+    sub.getBody().visit(makeVisitor(
+        [&](auto& v, const ConditionalExpression& c) {
+            for (auto& cond : c.conditions)
+                if (cond.expr && cmpCtxHasFuncScopeSelect12(*cond.expr, sub))
+                    found = true;
+            v.visitDefault(c);
+        },
+        [&](auto& v, const BinaryExpression& b) {
+            switch (b.op) {
+                case BinaryOperator::LogicalAnd:
+                case BinaryOperator::LogicalOr:
+                case BinaryOperator::LogicalImplication:
+                case BinaryOperator::LogicalEquivalence:
+                case BinaryOperator::BinaryAnd:
+                case BinaryOperator::BinaryOr:
+                case BinaryOperator::BinaryXor:
+                case BinaryOperator::BinaryXnor:
+                    if (cmpCtxHasFuncScopeSelect12(b.left(), sub) ||
+                        cmpCtxHasFuncScopeSelect12(b.right(), sub))
+                        found = true;
+                    break;
+                default:
+                    if (OpInfo::isComparison(b.op) &&
+                        (cmpCtxHasFuncScopeSelect12(b.left(), sub) ||
+                         cmpCtxHasFuncScopeSelect12(b.right(), sub)))
+                        found = true;
+                    break;
+            }
+            v.visitDefault(b);
+        },
+        [&](auto& v, const UnaryExpression& u) {
+            switch (u.op) {
+                case UnaryOperator::BitwiseNot:
+                case UnaryOperator::LogicalNot:
+                case UnaryOperator::BitwiseAnd:
+                case UnaryOperator::BitwiseOr:
+                case UnaryOperator::BitwiseXor:
+                case UnaryOperator::BitwiseNand:
+                case UnaryOperator::BitwiseNor:
+                case UnaryOperator::BitwiseXnor:
+                    if (cmpCtxHasFuncScopeSelect12(u.operand(), sub))
+                        found = true;
+                    break;
+                default:
+                    break;
+            }
+            v.visitDefault(u);
+        }));
+    return found;
+}
+
 bool UhdmExporter::elabParamCallSymbolic(const ParameterSymbol& ps) {
     auto* init = ps.getInitializer();
     if (!init)
@@ -1290,7 +1387,7 @@ bool UhdmExporter::elabParamCallSymbolic(const ParameterSymbol& ps) {
         return false;
     if (subroutineDeclaresParam(**sp))
         return true;
-    if (subroutinePoisonsEvalFunc(**sp, comp))
+    if (subroutinePoisonsEvalFunc(**sp, comp) && elabParamCallCmpPoison12(**sp))
         return true;
     return false;
 }

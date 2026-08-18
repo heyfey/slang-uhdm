@@ -1,0 +1,4 @@
+ARM r10vrgg2repro/z3_range_consumer/dut.sv OK=29 FIXED=1 BROKEN=0 STILL=0
+ARM r10vrgg6repro/cells/v_genscope_chain/dut.sv OK=40 FIXED=2 BROKEN=0 STILL=0
+ARM r10vrgg6repro/cells/v_ifgen_chain/dut.sv OK=29 FIXED=1 BROKEN=0 STILL=0
+-- arms=3 NOGOLD=0 OK=98 FIXED=4 BROKEN=0 STILL=0

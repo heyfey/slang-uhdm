@@ -1,0 +1,13 @@
+OK                 723
+FIXED              7
+BROKEN             0
+STILL              57
+MOVED-STILL-WRONG  1
+FIXED genif__f_terneq__var ELAB|RANGE|work@top.u_a.g|logic_var:v|TS|0|L
+FIXED genif__f_while__net ELAB|RANGE|work@top.u_a.g|logic_net:v|TS|0|L
+FIXED genif__f_while__net ELAB|RANGE|work@top.u_b.g|logic_net:v|TS|0|L
+FIXED mod__f_while__net ELAB|RANGE|work@top.u_a|logic_net:v|TS|0|L
+FIXED mod__f_while__net ELAB|RANGE|work@top.u_b|logic_net:v|TS|0|L
+FIXED mod__f_while__var ELAB|RANGE|work@top.u_a|logic_var:v|TS|0|L
+FIXED mod__f_while__var ELAB|RANGE|work@top.u_b|logic_var:v|TS|0|L
+MOVED-STILL-WRONG genif__f_terneq__var ELAB|RANGE|work@top.u_b.g|logic_var:v|TS|0|L
