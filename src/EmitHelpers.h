@@ -3086,6 +3086,172 @@ inline TdLocalVarKind10 classTdLocalVarKind10(
 }
 
 // ---------------------------------------------------------------------------
+// § namedBaseUnpackedTdRetVar22
+//
+// THE LAW.  The FUNCTION RETURN VARIABLE of a function whose RETURN TYPE names
+// a TYPEDEF THAT CARRIES UNPACKED DIMENSIONS (`typedef <base> t[$] / [] /
+// [idx] / [N];`) is
+//
+//   * a `ref_var`  when the typedef's WRITTEN BASE is a NAMED TYPE and
+//     Surelog's typedef pass never attaches a typespec to that typedef, and
+//   * an `array_var` otherwise,
+//
+// and it is NEVER the `logic_var` our factory's fall-through gives a queue /
+// dynamic / associative return today.
+//
+// DECODED FROM SURELOG, not inferred.  `compileTaskFunc` builds the return
+// object with `compileVariable(component, fC, Return_data_type, …)`
+// (CompileStmt.cpp:2400-2416), and for a return type written as a NAME that
+// lands in `CompileType.cpp`'s `slStringConst` arm (:337-431), whose FIRST
+// question is
+//
+//     if (const DataType* dt = component->getDataType(typeName))
+//       if (typespec* tps = dt->getActual()->getTypespec())
+//         if (variables* var = getSimpleVarFromTypespec(tps, ranges, …))
+//
+// `getSimpleVarFromTypespec` (CompileType.cpp:78-233) turns an
+// `array_typespec` with no `Index_typespec` into an `array_var` — so WHEN the
+// typedef has a typespec, an unpacked-array return is an `array_var`, whatever
+// the container flavour.  WHEN IT DOES NOT, the arm is skipped,
+// `design->getClassDefinition(<the alias name>)` cannot find a class of that
+// name, the `class_typespec` test fails (the alias's own typespec is the
+// ARRAY, not a class), and control reaches the arm's tail — a bare
+// `s.MakeRef_var()` carrying the declaration's typespec (:421-431).  That
+// `ref_var` is never redeemed: `swapForSpecifiedVar` /
+// `lateTypedefBinding` only run for typespecs `getSimpleVarFromTypespec`
+// knows, and `UhdmWriter.cpp:1066`'s class-body `lateTypedefBinding` is
+// commented out (buvm17/19).
+//
+// WHICH TYPEDEFS HAVE NO TYPESPEC is `compileTypedef`'s own split
+// (CompileHelper.cpp:600-1100):
+//
+//   * an INLINE `struct` / `union` base (:657-1035) sets `st->setTypespec(...)`
+//     UNCONDITIONALLY, and so does the INLINE `enum` base;
+//   * a BUILT-IN base (`int`, `logic [7:0]`, `string`, …) takes the
+//     `SimpleType` arm (:1053-1098) and ends `simple->setTypespec(ts)`,
+//     UNCONDITIONALLY;
+//   * a NAMED base (`slStringConst` / `paClass_scope`, :890-1052) builds a
+//     `DummyType` and sets a typespec ONLY inside
+//       `if ((reduce == Reduce::Yes) && (Package || FileContent))`
+//     and then only when the base does NOT compile to a `class_typespec` or an
+//     `unsupported_typespec` (:906-907).
+//
+// So a NAMED-base unpacked typedef is un-typespec'd — hence `ref_var` —
+// in a CLASS, in a MODULE and in a `$unit` CLASS always; in a PACKAGE it is
+// `ref_var` when the base is a CLASS (the `class_typespec` exclusion) and,
+// when the base is a named NON-class, `ref_var` in the DEF listing (the
+// `Reduce::No` pass) against `array_var` in every elaborated listing.
+//
+// MEASURED, GOLDEN, 190 grid cells over `g22.sv` + `g22b.sv` in BOTH views:
+//
+//   written base        typedef scope   golden return var
+//   ------------------  --------------  ---------------------------------
+//   int / logic[7:0] /  any             array_var        (all 5 listings)
+//   string / inline
+//   struct / inline enum
+//   named CLASS         class/module    ref_var          (all listings)
+//   named CLASS         package         ref_var          (all listings)
+//   named non-class     class/module    ref_var          (all listings)
+//   named non-class     package         ref_var in DEFPKG, array_var else
+//   type parameter      class           ref_var          (all listings)
+//
+// and the container flavour is IRRELEVANT — `[$]`, `[]`, `[string]`, `[int]`
+// and `[4]` answer identically in every row of that table (cells
+// `pc_q_*`/`pc_d_*`/`pc_a_*`/`pc_f_*` and `pf_*`).
+//
+// THE FENCE, enumerated before the code was written: across BOTH corpora only
+// NINE databases contain a function whose return typespec is an
+// `array_typespec` at all.  Four of them — `ArrayExprFuncArg`,
+// `DefaultPatternInt`, `DefaultPatternModule`, `FuncRetArray`, all CMP_EQUAL —
+// carry `typedef int unsigned ASSIGN_VADDR_RET_T[2];`, whose written base is
+// the KEYWORD `int unsigned`, so this predicate answers `ArrayVar` and leaves
+// the object they already have.  The `uhdm2rtlil` corpus has NONE (0 of 1358).
+enum class UnpackedTdRetKind22 { Unchanged, RefVar, ArrayVar };
+
+inline UnpackedTdRetKind22 unpackedTdRetVarKind22(
+    const slang::ast::Symbol& sub, const slang::ast::Type& retType,
+    bool defPkgListing) {
+    // (0) THE OUT-OF-BODY EXCLUSION.  An `extern` definition's return object is
+    // NOT this law's: golden answers it with a `class_var` in five of the six
+    // listings a package class has (cells `po_q_cls`, `po_f_cls`, `po_tdcls`,
+    // `po_tdstruct`, `po_pq_cls` — only the ELABPKG/DEF listing shows the
+    // redeemed kind), which is § classTdLocalVarKindFollowsCompileOrder10's
+    // out-of-body arm, already emitted for every class-scoped spelling.  A
+    // PACKAGE-scoped typedef named from an out-of-body body reaches that law's
+    // early `Resolved` and would otherwise fall through to here.
+    if (tdDeclCtx10(sub).outOfBody)
+        return UnpackedTdRetKind22::Unchanged;
+    if (retType.kind != slang::ast::SymbolKind::TypeAlias)
+        return UnpackedTdRetKind22::Unchanged;
+    const auto& ta = retType.as<slang::ast::TypeAliasType>();
+    // The DIMENSIONS must be WRITTEN ON THE TYPEDEF.  A function returning a
+    // typedef whose TARGET is itself an array typedef (`typedef q_t alias_t;`)
+    // is a different declaration for Surelog and is deliberately not this
+    // law's (the no-dimension arm is residue R1, measured in `g22b.sv`).
+    const slang::syntax::SyntaxNode* syn = ta.getSyntax();
+    if (!syn || syn->kind != slang::syntax::SyntaxKind::TypedefDeclaration)
+        return UnpackedTdRetKind22::Unchanged;
+    const auto& tds = syn->as<slang::syntax::TypedefDeclarationSyntax>();
+    if (tds.dimensions.empty())
+        return UnpackedTdRetKind22::Unchanged;
+    // …and they must really be UNPACKED (a PACKED dimension written after the
+    // name is not expressible, but a typedef whose canonical type is not a
+    // container means the peel below has nothing to walk — refuse rather than
+    // guess).
+    switch (retType.getCanonicalType().kind) {
+        case slang::ast::SymbolKind::QueueType:
+        case slang::ast::SymbolKind::DynamicArrayType:
+        case slang::ast::SymbolKind::AssociativeArrayType:
+        case slang::ast::SymbolKind::FixedSizeUnpackedArrayType:
+            break;
+        default:
+            return UnpackedTdRetKind22::Unchanged;
+    }
+    // (1) THE WRITTEN BASE.  Only a NAMED type reaches `compileTypedef`'s
+    // DummyType arm; every keyword / inline-aggregate base is typespec'd
+    // unconditionally and is therefore redeemed to an `array_var`.
+    if (tds.type->kind != slang::syntax::SyntaxKind::NamedType)
+        return UnpackedTdRetKind22::ArrayVar;
+    // (2) THE TYPEDEF'S OWN SCOPE — the `Package || FileContent` gate.  Note
+    // this asks where the TYPEDEF lives, not where the FUNCTION lives: cells
+    // `pc_pq_cls` / `pc_pq_int` are a package typedef named by a class method
+    // and answer with the PACKAGE row of the table.
+    const slang::ast::Scope* tsc = ta.getParentScope();
+    const bool eager =
+        tsc && (tsc->asSymbol().kind == slang::ast::SymbolKind::Package ||
+                tsc->asSymbol().kind ==
+                    slang::ast::SymbolKind::CompilationUnit);
+    if (!eager)
+        return UnpackedTdRetKind22::RefVar;
+    // (3) THE BASE'S KIND — the `class_typespec` exclusion.  Peel exactly the
+    // dimensions WRITTEN on the typedef (never "peel every array level": a
+    // typedef of an array typedef must keep its own level), the same discipline
+    // § declArrayElemKindIsDeclKind12 uses.
+    const slang::ast::Type* bt = &ta.targetType.getType();
+    for (size_t i = 0; i < tds.dimensions.size() && bt; i++) {
+        const slang::ast::Type& c = bt->getCanonicalType();
+        if (c.kind == slang::ast::SymbolKind::QueueType)
+            bt = &c.as<slang::ast::QueueType>().elementType;
+        else if (c.kind == slang::ast::SymbolKind::DynamicArrayType)
+            bt = &c.as<slang::ast::DynamicArrayType>().elementType;
+        else if (c.kind == slang::ast::SymbolKind::AssociativeArrayType)
+            bt = &c.as<slang::ast::AssociativeArrayType>().elementType;
+        else if (c.kind == slang::ast::SymbolKind::FixedSizeUnpackedArrayType)
+            bt = &c.as<slang::ast::FixedSizeUnpackedArrayType>().elementType;
+        else
+            break;
+    }
+    if (bt && bt->getCanonicalType().kind == slang::ast::SymbolKind::ClassType)
+        return UnpackedTdRetKind22::RefVar;
+    // (4) The named NON-class base in a package: the DEF listing keeps the
+    // unredeemed `ref_var` the `Reduce::No` pass built, every elaborated
+    // listing gets the redeemed `array_var` (cells `bf_q_tdint` /
+    // `bf_q_tdenum` / `bf_q_tdstruct`, five listings each).
+    return defPkgListing ? UnpackedTdRetKind22::RefVar
+                         : UnpackedTdRetKind22::ArrayVar;
+}
+
+// ---------------------------------------------------------------------------
 // § declArrayElemKindIsDeclKind12
 //
 // THE LAW.  The ELEMENT variable of a DECLARATOR-ARRAY declaration at

@@ -3152,6 +3152,26 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     case TdLocalVarKind10::Resolved:
                         break;
                 }
+            // § namedBaseUnpackedTdRetVar22 — the UNPACKED-ARRAY typedef
+            // return.  It runs only where § classTdLocalVarKindFollowsCompile-
+            // Order10 answered `Resolved`, so the OUT-OF-BODY arm that law owns
+            // (golden `class_var`, cells `po_q_cls` / `po_q_int` / `po_f_cls`)
+            // is untouched, and only where the return type is a typedef with
+            // dimensions WRITTEN ON IT.  Law + the 190-cell golden table +
+            // the corpus fence: src/EmitHelpers.h.
+            if (!crossImplicitRet && !lateRv10)
+                switch (unpackedTdRetVarKind22(
+                    sub, sub.getReturnType(),
+                    curPkgEmitSym && !pkgEmitTopView)) {
+                    case UnpackedTdRetKind22::RefVar:
+                        lateRv10 = s.MakeRef_var();
+                        break;
+                    case UnpackedTdRetKind22::ArrayVar:
+                        lateRv10 = s.MakeArray_var();
+                        break;
+                    case UnpackedTdRetKind22::Unchanged:
+                        break;
+                }
             auto* rv =
                 crossImplicitRet
                     ? (UHDM::variables*)s.MakeRef_var()
