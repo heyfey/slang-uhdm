@@ -23328,8 +23328,71 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                     // A function declared INSIDE the typedef's own package
                     // keeps the BARE clone name with a Typedef_alias ref to
                     // the shared pkg ts (jeras_union imm_i_f).
+                    //
+                    // § pkgClassOobRetNameBareClone20 -- decoded in
+                    // tools/probe/r10buvm20repro.  "INSIDE the package"
+                    // REACHES THROUGH CLASS SCOPES: an OUT-OF-BODY method of a
+                    // package class (`function uvm_bitstream_t
+                    // uvm_packer::unpack_field(int size);`) is compiled in the
+                    // package too, and Surelog gives the BODY-LOCAL return
+                    // variable the very same bare clone it gives the
+                    // function's own `vpiReturn`.  `emitTaskFuncs`' return-
+                    // typespec arm already walks that chain
+                    // (`sameScopePkgFn9`, TaskFuncEmit.cpp); this drain --
+                    // which mints the variable a body REFERENCE (`unpack_field
+                    // = 'b0;`) binds -- tested `getParentScope() == sc1` and
+                    // so saw the CLASS, fell through to the qualified-name
+                    // arm, and emitted the package-qualified name with NO
+                    // Typedef_alias.  `typespec::Compare` reads VpiName FIRST
+                    // (typespec.cpp), so that name IS the head:
+                    //   LHS logic_typespec (uvm_bitstream_t)     id 193166
+                    //   RHS logic_typespec (uvm_pkg::uvm_bitstream_t) id 179019
+                    // on the return ref_typespec
+                    // `uvm_pkg::uvm_packer::unpack_field::unpack_field`.
+                    //
+                    // VERIFIER CLAUSE (r10v buvm20), and it is MEASURED, not
+                    // conservative: the reach-through is legal only when the
+                    // return type is WRITTEN with a BARE identifier.  Surelog
+                    // clones-and-bare-names in `compileTypespec` only for a
+                    // reference that resolves THROUGH a TypeDef by its plain
+                    // name; a PACKAGE-QUALIFIED spelling
+                    // (`function vpx::l8_t Cx::q();`) resolves to the
+                    // package's listing object and is SHARED, qualified, with
+                    // NO `Typedef_alias` -- exactly the gate
+                    // § pkgParamBareTdNamedClone18 already applies to
+                    // parameters (`writtenBare18`, ParamEmit.cpp).  Without
+                    // this clause the class reach-through fired on the
+                    // qualified spelling too and moved a body-local return
+                    // typespec that was ALREADY FIELD-FOR-FIELD GOLDEN
+                    // (arm `v8_qualfixed.sv` cells `vp8::C8::q8/q16/q1`
+                    // RETLOCAL, ELABPKG: pristine
+                    // `logic_typespec(vp8::l8_t)[noalias] rg=1[C7:C0] sg=1`
+                    // == golden, patched
+                    // `logic_typespec(l8_t)[alias->...]`) off it, on BOTH
+                    // `VpiName` -- `typespec::Compare`'s FIRST own field --
+                    // and `Typedef_alias`.  Corpus-invisible only because
+                    // uvm_pkg never writes its own typedefs qualified inside
+                    // itself; the gate costs nothing there (every converting
+                    // reference is bare) and it keeps the two spellings apart
+                    // the way golden does.
+                    bool writtenBare20 = false;
+                    if (auto* rsyn20 = returnTypeSyntax(sub))
+                        if (rsyn20->kind == syntax::SyntaxKind::NamedType)
+                            writtenBare20 =
+                                rsyn20->as<syntax::NamedTypeSyntax>()
+                                    .name->kind ==
+                                syntax::SyntaxKind::IdentifierName;
+                    const Scope* fsc20 = sub.getParentScope();
+                    bool viaClass20 = false;
+                    while (writtenBare20 && fsc20 && fsc20 != sc1 &&
+                           (fsc20->asSymbol().kind == SymbolKind::ClassType ||
+                            fsc20->asSymbol().kind ==
+                                SymbolKind::GenericClassDef)) {
+                        viaClass20 = true;
+                        fsc20 = fsc20->asSymbol().getParentScope();
+                    }
                     bool sameScope0 =
-                        !unitTd && sub.getParentScope() == sc1 &&
+                        !unitTd && fsc20 == sc1 && sc1 &&
                         sc1->asSymbol().kind == SymbolKind::Package;
                     std::string qn0(rta0.name);
                     if (!unitTd && sc1 && !sameScope0)
@@ -23340,6 +23403,24 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                     for (auto& [pk0, po0] : pkgTopMap)
                         if ((UHDM::instance*)po0 == pf.inst)
                             topPf0 = true;
+                    // ...but a CLASS METHOD's body-local clone folds in EVERY
+                    // listing.  Measured, golden side, on BOTH the corpus head
+                    // and the grid arm `g20.sv`: golden holds exactly ONE
+                    // object for an out-of-body method's body-local return
+                    // variable (`uvm_pkg::uvm_packer::unpack_field::unpack_field`,
+                    // `gp20::C20::oob_ret::oob_ret`) and its bound is the
+                    // FOLDED constant, while a package FREE function keeps the
+                    // two-object [symbolic def / folded elab] split
+                    // (`gp20::free_ret::free_ret`) that `topPf0` already
+                    // models and that this arm leaves untouched.  The class
+                    // listing is not the package's own DEF listing, so
+                    // § pkgTdRangeViewFold18 says FOLDED -- and since the DEF
+                    // package listing is walked FIRST (`design::Compare`:
+                    // AllPackages, then TopPackages, then AllClasses) while
+                    // `CompareContext::m_visited` is keyed on the LHS, it is
+                    // the FIRST-REACHED copy that the judge ever reads.
+                    if (viaClass20 && sameScope0)
+                        topPf0 = true;
                     auto mkClone0 = [&]() -> UHDM::typespec* {
                         bypassTypedefShare = true;
                         bool savedTf0 = tfContext;
