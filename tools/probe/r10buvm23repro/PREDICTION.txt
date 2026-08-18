@@ -1,0 +1,49 @@
+r10buvm23 — THE MOVER PREDICTION, written from the PRISTINE databases of both
+corpora BEFORE the patched sweep existed.  Reproduce with fence23.sh.
+
+THE POPULATION THIS LAW CAN REACH is exactly "a method-call RECEIVER PATH whose
+written text puts a `.` INSIDE a bracket pair" (`dotInBracket23`).  Every such
+receiver leaves one of two fossils in the PRISTINE database, so the population
+is enumerable from the databases rather than guessed from the sources:
+
+  DOTIDX  a hier_path whose own VpiName carries a `.` inside a bracket pair
+          (the EXPRESSION arms: our raw-text rendering of the subscript)
+  BOGUS   a NON-hier_path object whose VpiName carries a bracket or a paren
+          (the split fossils `m_streams[ro`, `get_name()]`, and the
+          STATEMENT arm's call named after a fragment)
+
+MEASURED over every slang.uhdm of both pristine sweeps
+(pristine md5 c140b82036818ac7f5ca2058b47ca85b):
+
+  uhdm2rtlil   1358 databases scanned.  DOTIDX 0 rows / 0 databases.
+               BOGUS rows carry only BALANCED instance-array names
+               (`genblk1[0]`, `arr[0]`, `m[1]`) — gen_scope_array, module_inst,
+               interface_inst and four ref_objs to instance-array elements.
+               NOT ONE receiver in that corpus has a dot inside a subscript.
+               PREDICTED MOVERS: NONE, 0 of 1358.
+
+  surelog      956 databases scanned.  DOTIDX 87 rows in 9 databases, and the
+               m_streams split-fossil family (`m_streams[stream`,
+               `m_streams[ro`, `get_name()]`) in the SAME 9:
+
+                 default/BuildUVMPkg   testflags/BuildUVMPkg
+                 default/MiniAmiq      testflags/MiniAmiq
+                 default/SeqDriver     testflags/SeqDriver
+                 default/SimpleUVM     testflags/SimpleUVM
+                 default/Scoreboard    (its testflags row is SLANG_REJECT)
+
+               = 9 databases, ALL of them CMP_NOTEQUAL rows today.
+               PREDICTED MOVERS: exactly those 9.
+
+THE THREE SOURCE SITES behind all 87 DOTIDX rows (uvm_pkg.sv line numbers; the
+uvm-1.2 rows carry the same three at 666 / 2666 / 2675 / 1828):
+
+  m_streams[<h>.get_name()].exists(...)      EXPRESSION, built-in   30163, 40585
+  m_streams[<h>.get_name()].size()           EXPRESSION, built-in   40594
+  m_children[child.get_name()].get_type_name() EXPRESSION, USER     39721
+  m_streams[stream.get_name()].delete(...)   STATEMENT,  built-in   40593
+
+NOT IN THE FAMILY, and deliberately so (the gate is BRACKETS, not parens):
+MiniAmiq's `control_assertion_dpi(a_sva.<x>)` / `get_cover_statistics_dpi(...)`
+receivers, which are split on a dot inside PARENTHESES today and stay split
+(README residue R-P).

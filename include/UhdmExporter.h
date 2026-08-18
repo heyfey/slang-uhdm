@@ -1989,6 +1989,24 @@ private:
     /// at least `{}`, so the empty return is unambiguous.
     std::string concatIdxText(const slang::ast::Expression& sel);
     bool idxDecompile(const slang::ast::Expression& e, std::string& out);
+    /// § dottedIdxRecvFromSyntax23 — the index text of ONE hier_path path
+    /// COMPONENT, i.e. `CompileHelper::decompileHelper` (CompileHelper.cpp:2544)
+    /// applied to the index OBJECT, WITHOUT the brackets the composer adds.
+    ///
+    /// This is § hpMidSelIdxDecompiled79's rendering promoted out of its lambda
+    /// so that the plain (call-less) path builder and the METHOD-CALL RECEIVER
+    /// builders share ONE transcription of that closed dispatch instead of two
+    /// that can drift.  The rows and the empty default are documented at the
+    /// § hpMidSelIdxDecompiled79 header in ExprEmit.cpp; the two that matter
+    /// here are `hier_path -> ""` and `func_call / method_func_call -> ""`,
+    /// which is why golden writes `m_streams[]` for
+    /// `m_streams[ro.get_name()]`.
+    std::string hpCompIdxDecompile23(const slang::ast::Expression& sel);
+    /// § hpMixedIdxPkgFold34 / § hpIdxOpPrettyPrint92 — the text a hier_path
+    /// component index contributes when the index object RENDERS AS ITSELF
+    /// (constant / ref_obj / operation).  Promoted verbatim out of the
+    /// `idxText34` lambda for the same single-source-of-truth reason.
+    std::string hpIdxText34(const slang::ast::Expression& selExpr);
     /// § hierSelPkgParamFold — a select's DECOMPILED text carries the VALUE of
     /// a PACKAGE parameter and the IDENTIFIER of a module-scope one.
     ///

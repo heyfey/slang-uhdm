@@ -2682,6 +2682,38 @@ static bool rendersAsItself89(const slang::ast::Expression& e) {
     }
 }
 
+// § dottedIdxRecvFromSyntax23 — THE GATE, and the whole fence of this pass.
+//
+// A METHOD-CALL RECEIVER PATH is turned into hier_path ELEMENTS by splitting the
+// receiver's SOURCE TEXT on `.`, which is right exactly while every `.` in that
+// text is a path separator.  It is NOT when the receiver carries an INDEX whose
+// index EXPRESSION contains a dot — `m_streams[ro.get_name()].exists(...)`
+// (uvm_pkg.sv:30163), `m_streams[stream.get_name()].size()`,
+// `m_children[child.get_name()].get_type_name()` — where the split cuts INSIDE
+// the subscript and mints elements literally named `m_streams[ro` and
+// `get_name()]`.
+//
+// This predicate is the ONLY thing that turns any of this pass's behaviour on,
+// so every receiver in either corpus whose text has no `.` inside a bracket
+// pair keeps its pre-existing emission BYTE FOR BYTE, by construction.  A `.`
+// inside PARENTHESES is deliberately NOT in the gate: MiniAmiq's
+// `control_assertion_dpi(a_sva.x)` receivers are split on it today and golden's
+// shape for them was not measured here (README residue R-P).
+static bool dotInBracket23(std::string_view t) {
+    int d23 = 0;
+    for (char c23 : t) {
+        if (c23 == '[')
+            d23++;
+        else if (c23 == ']') {
+            if (d23 > 0)
+                d23--;
+        }
+        else if (c23 == '.' && d23 > 0)
+            return true;
+    }
+    return false;
+}
+
 // A selector's source text used inside a hier_path/select NAME drops
 // whitespace (mem[i][ 7: 0] -> [7:0]): Surelog normalizes the range in the
 // object name even when the source spaced it.
@@ -2956,6 +2988,112 @@ static SelBaseInfo selBaseInfo(const Expression& e) {
 // is a SUCCESS (`return true` with nothing appended) — that is the measured
 // behaviour for a hier reference, a bit select, a user call and a cast, and it
 // is what leaves golden's bare comma behind.
+// § hpMixedIdxPkgFold34 / § concatIdxDecompile29 / § hpIdxOpPrettyPrint92 — the
+// text a hier_path component index contributes when the index object RENDERS AS
+// ITSELF.  Moved VERBATIM out of the `idxText34` lambda in
+// `buildDottedHierPath` (§ dottedIdxRecvFromSyntax23) so the receiver-path
+// builders reach the same three-way dispatch — concatenation from the tree,
+// operation through `ExprEval::prettyPrint`, everything else its raw text with
+// package-parameter folds spliced in and binary operators spaced.  The laws and
+// the measured grids stay documented at that lambda's site.
+std::string UhdmExporter::hpIdxText34(const Expression& selExpr) {
+    // § concatIdxDecompile29 — a CONCATENATION index is decompiled from
+    // the tree; every other index keeps its raw text.
+    std::string ci29 = concatIdxText(selExpr);
+    if (!ci29.empty())
+        return ci29;
+    std::vector<PkgFoldSub> pf34;
+    collectPkgParamFolds(selExpr, pf34, /*aggregateAbstain34=*/true);
+    // § hpIdxOpPrettyPrint92 — SITE 1 of 2.  An index that becomes a UHDM
+    // OPERATION is decompiled by `ExprEval::prettyPrint`, NOT by its raw
+    // source text: the operators are SPACED, the parentheses are GONE, and
+    // an operand prettyPrint has no row for renders EMPTY while its
+    // operator survives (`i % gp.m_byte_enable_length` -> `i % `).  The
+    // § concatIdxDecompile29 gate above runs FIRST and keeps a TOP-LEVEL
+    // concatenation on its own separately-measured renderer -- that is
+    // Earlgrey's `autoexecprogbuf[{1'b1,}]`, which golden and we already
+    // agree on byte for byte.  `spaceIdxOps` stays for every NON-operation
+    // index (it is a no-op on a bare identifier or literal) and is the
+    // rendering the model falls back to when it ABSTAINS.
+    if (isPpOperation92(selExpr)) {
+        std::string pp92;
+        if (ppIdxText92(selExpr, &pf34, 0, pp92))
+            return pp92;
+    }
+    return spaceIdxOps(rawTextPkgFold(selExpr.sourceRange, pf34));
+}
+
+// § dottedIdxRecvFromSyntax23 — `CompileHelper::decompileHelper` applied to a
+// hier_path path COMPONENT's index OBJECT, WITHOUT the brackets the name
+// composer adds around it.  Extracted VERBATIM out of § hpMidSelIdxDecompiled79's
+// `idxDecompile79` MID arm (the transcription of that closed dispatch, its
+// measured table and § hpMidSelIdxSelectIsBitSelectV79's verifier fix all live
+// at that lambda's header) so that the PLAIN path builder and the two
+// METHOD-CALL RECEIVER builders share ONE implementation.
+//
+// The two rows this pass depends on are the EMPTY DEFAULT ones: an index that
+// becomes a UHDM `hier_path` (`ro.get_name()`, `h.m`, `b[i].c`) or a
+// `func_call` / `method_func_call` (`f(x)`) has NO row in decompileHelper and
+// therefore contributes NOTHING between the brackets — golden's
+// `m_streams[].exists` for the source's `m_streams[ro.get_name()].exists`.
+std::string UhdmExporter::hpCompIdxDecompile23(const Expression& selExpr) {
+    // § hpMidSelIdxSelectIsBitSelectV79 — VERIFIER FIX.  decompileHelper
+    // dispatches on the index OBJECT's UHDM TYPE, and only a select whose
+    // base is a PLAIN IDENTIFIER becomes a `bit_select`/`part_select`.  A
+    // select written over a MEMBER ACCESS (`h.idx[i]`, `this.midx[i]`,
+    // `s2[j].idx[i]`) is a UHDM **hier_path**, which decompileHelper has
+    // NO row for -> the EMPTY STRING.  Without this test the bracket arms
+    // below fire on the outer ElementSelect and mint `iarr[[i]].f` where
+    // GOLDEN writes `iarr[].f`.  MEASURED on golden, four spellings:
+    //     iarr[h.idx[i]].f      -> iarr[].f   (r10uvm79's own c2 d6)
+    //     iarr[this.midx[i]].f  -> iarr[].f
+    //     iarr[s.idx[i]].f      -> iarr[].f
+    //     iarr[s2[j].idx[i]].f  -> iarr[].f
+    // and the CONTROL that must keep its brackets: an INHERITED member,
+    //     iarr[bidx[i]].f       -> iarr[[i]].f
+    // which is a plain NamedValue base and is unaffected.
+    // Only the NAME is corrected: golden DOES hang such an index off the
+    // hier_path, so § hpMidSelIdxAtPath79's structural half is unchanged.
+    auto uhdmSelectBase79 = [&](const Expression& e) {
+        const Expression* c = &stripImplicitConv(e);
+        for (;;) {
+            if (c->kind == ExpressionKind::ElementSelect)
+                c = &stripImplicitConv(c->as<ElementSelectExpression>().value());
+            else if (c->kind == ExpressionKind::RangeSelect)
+                c = &stripImplicitConv(c->as<RangeSelectExpression>().value());
+            else
+                break;
+        }
+        return c->kind == ExpressionKind::NamedValue;
+    };
+    const Expression& e79 = stripImplicitConv(selExpr);
+    if ((e79.kind == ExpressionKind::ElementSelect ||
+         e79.kind == ExpressionKind::RangeSelect) &&
+        !uhdmSelectBase79(e79))
+        return {};
+    if (e79.kind == ExpressionKind::ElementSelect) {
+        const Expression& in79 =
+            stripImplicitConv(e79.as<ElementSelectExpression>().selector());
+        if (!rendersAsItself89(in79))
+            return {};
+        return "[" + hpIdxText34(in79) + "]";
+    }
+    if (e79.kind == ExpressionKind::RangeSelect) {
+        auto& rs79 = e79.as<RangeSelectExpression>();
+        std::string mid79;
+        switch (rs79.getSelectionKind()) {
+            case RangeSelectionKind::Simple: mid79 = ":"; break;
+            case RangeSelectionKind::IndexedUp: mid79 = "+:"; break;
+            case RangeSelectionKind::IndexedDown: mid79 = "-:"; break;
+        }
+        return "[" + hpIdxText34(rs79.left()) + mid79 +
+               hpIdxText34(rs79.right()) + "]";
+    }
+    if (!rendersAsItself89(e79))
+        return {};
+    return hpIdxText34(selExpr);
+}
+
 bool UhdmExporter::idxDecompile(const Expression& e0, std::string& out) {
     auto& e = stripImplicitConv(e0);
     switch (e.kind) {
@@ -4858,31 +4996,13 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     // their text.  Corpus confirmation in a second, independent family:
     // tlul_socket_m1's `tl_h_i[i].a_source[...]` keeps its genvar `[i]` in
     // golden while reducing its other leaves.
+    // § dottedIdxRecvFromSyntax23 — THE BODY MOVED, THE BEHAVIOUR DID NOT.
+    // `idxText34` is now a one-line forwarder to `UhdmExporter::hpIdxText34`
+    // (declared in UhdmExporter.h) so that the METHOD-CALL RECEIVER builders,
+    // which need the SAME closed dispatch, call the SAME code rather than a
+    // second transcription of it.  Every call site below is unchanged.
     auto idxText34 = [&](const Expression& selExpr) {
-        // § concatIdxDecompile29 — a CONCATENATION index is decompiled from
-        // the tree; every other index keeps its raw text.
-        std::string ci29 = concatIdxText(selExpr);
-        if (!ci29.empty())
-            return ci29;
-        std::vector<PkgFoldSub> pf34;
-        collectPkgParamFolds(selExpr, pf34, /*aggregateAbstain34=*/true);
-        // § hpIdxOpPrettyPrint92 — SITE 1 of 2.  An index that becomes a UHDM
-        // OPERATION is decompiled by `ExprEval::prettyPrint`, NOT by its raw
-        // source text: the operators are SPACED, the parentheses are GONE, and
-        // an operand prettyPrint has no row for renders EMPTY while its
-        // operator survives (`i % gp.m_byte_enable_length` -> `i % `).  The
-        // § concatIdxDecompile29 gate above runs FIRST and keeps a TOP-LEVEL
-        // concatenation on its own separately-measured renderer -- that is
-        // Earlgrey's `autoexecprogbuf[{1'b1,}]`, which golden and we already
-        // agree on byte for byte.  `spaceIdxOps` stays for every NON-operation
-        // index (it is a no-op on a bare identifier or literal) and is the
-        // rendering the model falls back to when it ABSTAINS.
-        if (isPpOperation92(selExpr)) {
-            std::string pp92;
-            if (ppIdxText92(selExpr, &pf34, 0, pp92))
-                return pp92;
-        }
-        return spaceIdxOps(rawTextPkgFold(selExpr.sourceRange, pf34));
+        return hpIdxText34(selExpr);
     };
 
     // § hpMidSelIdxDecompiled79 — the index text a MID-PATH component select
@@ -4943,61 +5063,11 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                               bool mid) -> std::string {
         if (!mid)
             return idxText34(selExpr);
-        // § hpMidSelIdxSelectIsBitSelectV79 — VERIFIER FIX.  decompileHelper
-        // dispatches on the index OBJECT's UHDM TYPE, and only a select whose
-        // base is a PLAIN IDENTIFIER becomes a `bit_select`/`part_select`.  A
-        // select written over a MEMBER ACCESS (`h.idx[i]`, `this.midx[i]`,
-        // `s2[j].idx[i]`) is a UHDM **hier_path**, which decompileHelper has
-        // NO row for -> the EMPTY STRING.  Without this test the bracket arms
-        // below fire on the outer ElementSelect and mint `iarr[[i]].f` where
-        // GOLDEN writes `iarr[].f`.  MEASURED on golden, four spellings:
-        //     iarr[h.idx[i]].f      -> iarr[].f   (r10uvm79's own c2 d6)
-        //     iarr[this.midx[i]].f  -> iarr[].f
-        //     iarr[s.idx[i]].f      -> iarr[].f
-        //     iarr[s2[j].idx[i]].f  -> iarr[].f
-        // and the CONTROL that must keep its brackets: an INHERITED member,
-        //     iarr[bidx[i]].f       -> iarr[[i]].f
-        // which is a plain NamedValue base and is unaffected.
-        // Only the NAME is corrected: golden DOES hang such an index off the
-        // hier_path, so § hpMidSelIdxAtPath79's structural half is unchanged.
-        auto uhdmSelectBase79 = [&](const Expression& e) {
-            const Expression* c = &stripImplicitConv(e);
-            for (;;) {
-                if (c->kind == ExpressionKind::ElementSelect)
-                    c = &stripImplicitConv(c->as<ElementSelectExpression>().value());
-                else if (c->kind == ExpressionKind::RangeSelect)
-                    c = &stripImplicitConv(c->as<RangeSelectExpression>().value());
-                else
-                    break;
-            }
-            return c->kind == ExpressionKind::NamedValue;
-        };
-        const Expression& e79 = stripImplicitConv(selExpr);
-        if ((e79.kind == ExpressionKind::ElementSelect ||
-             e79.kind == ExpressionKind::RangeSelect) &&
-            !uhdmSelectBase79(e79))
-            return {};
-        if (e79.kind == ExpressionKind::ElementSelect) {
-            const Expression& in79 =
-                stripImplicitConv(e79.as<ElementSelectExpression>().selector());
-            if (!rendersAsItself(in79))
-                return {};
-            return "[" + idxText34(in79) + "]";
-        }
-        if (e79.kind == ExpressionKind::RangeSelect) {
-            auto& rs79 = e79.as<RangeSelectExpression>();
-            std::string mid79;
-            switch (rs79.getSelectionKind()) {
-                case RangeSelectionKind::Simple: mid79 = ":"; break;
-                case RangeSelectionKind::IndexedUp: mid79 = "+:"; break;
-                case RangeSelectionKind::IndexedDown: mid79 = "-:"; break;
-            }
-            return "[" + idxText34(rs79.left()) + mid79 +
-                   idxText34(rs79.right()) + "]";
-        }
-        if (!rendersAsItself(e79))
-            return {};
-        return idxText34(selExpr);
+        // § dottedIdxRecvFromSyntax23 — the MID arm's body now lives in
+        // `UhdmExporter::hpCompIdxDecompile23`, verbatim, so the METHOD-CALL
+        // RECEIVER builders share this transcription instead of carrying a
+        // second one.  The measured table stays in the comment block above.
+        return hpCompIdxDecompile23(selExpr);
     };
 
     // A multi-dim element select on the BASE array (group_status[0][0].a)
@@ -13900,7 +13970,40 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         //     `q[i].f()` is untouched;
                         //   * any segment whose text cannot be recovered
                         //     ABSTAINS the whole rebuild.
-                        {
+                        // § dottedIdxRecvFromSyntax23 — SITE 2 of 2 (the
+                        // USER-method deep receiver).  This arm ALREADY builds
+                        // the elements from the SYNTAX — `segs11` is the AST
+                        // walk — so its structure was right all along and only
+                        // the NAME TEXT was the source's raw spelling:
+                        // `m_children[child.get_name()].get_type_name` against
+                        // golden's `m_children[].get_type_name`
+                        // (uvm_pkg.sv:39721, and the same object in the four
+                        // uvm-1.2 rows).  Under the gate every index is
+                        // rendered by the SAME `decompileHelper` transcription
+                        // the built-in arm uses, which subsumes the
+                        // § hpIdxOpPrettyPrint92 rebuild below (an OPERATION
+                        // index reaches `ppIdxText92` through `hpIdxText34`),
+                        // so that block is skipped rather than allowed to
+                        // overwrite this one.
+                        bool dotIdx23 = dotInBracket23(recvTx11);
+                        if (dotIdx23) {
+                            std::string rb23;
+                            bool ok23 = !segs11.empty();
+                            for (auto& sg23 : segs11) {
+                                if (!rb23.empty())
+                                    rb23 += ".";
+                                rb23 += sg23.name;
+                                if (sg23.idx)
+                                    rb23 += "[" +
+                                            hpCompIdxDecompile23(*sg23.idx) +
+                                            "]";
+                            }
+                            if (ok23)
+                                recvTx11 = rb23;
+                            else
+                                dotIdx23 = false;
+                        }
+                        if (!dotIdx23) {
                             std::string rb92;
                             bool ok92 = !segs11.empty(), any92 = false;
                             for (auto& sg92 : segs11) {
@@ -13952,8 +14055,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             }
                             auto* bs11 = s.MakeBit_select();
                             bs11->VpiName(sg11.name);
+                            // § dottedIdxRecvFromSyntax23 — the element's
+                            // fullname follows the NAME's convention: the
+                            // DECOMPILED index under the gate (golden
+                            // `m_children[]`), the written component text off
+                            // it.  Not read by any generated `Compare`, so this
+                            // is byte-identity with golden, not correctness.
                             bs11->VpiFullName(
-                                rawText(sg11.node->sourceRange));
+                                dotIdx23
+                                    ? sg11.name + "[" +
+                                          hpCompIdxDecompile23(*sg11.idx) + "]"
+                                    : rawText(sg11.node->sourceRange));
                             bs11->VpiParent(hp11);
                             setLoc(bs11, sg11.nameRng);
                             // The index of a hier_path element is UNPARENTED
@@ -13964,8 +14076,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             forceConstParent = false;
                             suppressConstParent = true;
                             if (auto* ix11 =
-                                    emitExpr(*sg11.idx, bs11, prefix, netMap))
+                                    emitExpr(*sg11.idx, bs11, prefix, netMap)) {
+                                // § dottedIdxRecvFromSyntax23 — golden parents
+                                // a NON-CONSTANT element index at the
+                                // HIER_PATH, not at the bit_select
+                                // (uvm_pkg.sv:39721 `child.get_name`), which is
+                                // the convention § builtinRecvIndexedStepIsBitSelect74
+                                // already applies at the built-in twin.
+                                // vpiParent is not read by any generated
+                                // `Compare`, so this is byte-identity with
+                                // golden and nothing else — and it is GATED, so
+                                // no pre-existing element moves.
+                                if (dotIdx23 &&
+                                    ix11->UhdmType() != UHDM::uhdmconstant)
+                                    ((UHDM::any*)ix11)->VpiParent(hp11);
                                 bs11->VpiIndex((UHDM::expr*)ix11);
+                            }
                             forceConstParent = fsx11;
                             suppressConstParent = ssx11;
                             elems11->push_back(bs11);
@@ -16135,16 +16261,46 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // (`frame.multicast.constraint_mode(0)` -> receiver
                     // `frame.multicast`); Surelog models the dotted path one
                     // name per element.
+                    // § dottedIdxRecvFromSyntax23 — SITE 1 of 2 (the BUILT-IN
+                    // method arm; SITE 2 is § deepRecvCall11's USER-method
+                    // twin).  `dotInBracket23` is the gate: when it reads
+                    // FALSE the loop below is character-for-character the old
+                    // one (no `.` sits at depth > 0, so tracking depth can
+                    // change nothing), and when it reads TRUE the dots inside
+                    // the subscript stop being separators.
+                    const bool dotIdx23 = dotInBracket23(recvText);
                     std::vector<std::string> dots;
-                    for (size_t p0 = 0;;) {
-                        auto d0 = recvText.find('.', p0);
-                        if (d0 == std::string::npos) {
-                            dots.push_back(recvText.substr(p0));
-                            break;
+                    {
+                        size_t p0 = 0;
+                        int d23 = 0;
+                        for (size_t i23 = 0;; i23++) {
+                            if (i23 == recvText.size()) {
+                                dots.push_back(recvText.substr(p0));
+                                break;
+                            }
+                            char c23 = recvText[i23];
+                            if (dotIdx23 && c23 == '[')
+                                d23++;
+                            else if (dotIdx23 && c23 == ']') {
+                                if (d23 > 0)
+                                    d23--;
+                            }
+                            else if (c23 == '.' && d23 == 0) {
+                                dots.push_back(recvText.substr(p0, i23 - p0));
+                                p0 = i23 + 1;
+                            }
                         }
-                        dots.push_back(recvText.substr(p0, d0 - p0));
-                        p0 = d0 + 1;
                     }
+                    // § builtinRecvIndexedStepIsBitSelect74's TREE half,
+                    // HOISTED above the statement/expression split because
+                    // § dottedIdxRecvFromSyntax23 needs it in BOTH positions:
+                    // the expression arm renders the path NAME from the index
+                    // OBJECTS, and the statement arm reads the BASE NAME off
+                    // it.  The walk is pure (it only reads `recv` and `dots`),
+                    // so moving it changes nothing but the order of evaluation.
+                    std::vector<RecvStep74> stepSel74;
+                    const bool stepOk23 =
+                        builtinRecvStepSelectors74(*recv, dots, stepSel74);
                     // STATEMENT context (b.putc(2,"x");): a flat
                     // method_func_call with an unbound receiver Prefix.
                     // Surelog's statement-call path reads only the FIRST TWO
@@ -16238,6 +16394,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bool deep0 = dots.size() > 1;
                         const std::string& callNm0 = deep0 ? dots[1] : name;
                         const std::string& recvNm0 = dots[0];
+                        // § dottedIdxRecvFromSyntax23 — the STATEMENT-position
+                        // PREFIX of an INDEXED single-component receiver is the
+                        // BASE NAME, with the subscript dropped entirely.
+                        // MEASURED on golden, uvm_pkg.sv:40593
+                        // `m_streams[stream.get_name()].delete(stream.get_type_name());`:
+                        //     method_func_call (delete)              @40593:33-39
+                        //       vpiPrefix ref_obj (m_streams)        @40593:4-13
+                        //         vpiFullName uvm_pkg::uvm_component::free_tr_stream::m_streams
+                        //       vpiArgument hier_path (stream.get_type_name)
+                        // against our pristine call NAMED `get_name()]` with a
+                        // prefix named `m_streams[stream` and NO argument at
+                        // all — four defects on one object, all of them the
+                        // text split's.  The span follows the name: golden ends
+                        // the prefix at the `[`.  Gated exactly like SITE 1, so
+                        // `q[0].delete();` (no dot in the subscript) keeps its
+                        // written-component prefix untouched — golden's answer
+                        // there is README residue R-Q, not this law's.
+                        std::string recvNm23 = recvNm0;
+                        if (dotIdx23 && !deep0 && stepOk23 &&
+                            !stepSel74[0].sels.empty())
+                            recvNm23 = stepSel74[0].base;
                         auto* mfc = s.MakeMethod_func_call();
                         mfc->VpiName(callNm0);
                         mfc->VpiParent(parent);
@@ -16246,12 +16423,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                              : recvText.size() + 1);
                         setLoc(mfc, SourceRange(mStart, mStart + callNm0.size()));
                         auto* pr = s.MakeRef_obj();
-                        pr->VpiName(recvNm0);
-                        pr->VpiFullName(joinRef(prefix, recvNm0));
+                        pr->VpiName(recvNm23);
+                        pr->VpiFullName(joinRef(prefix, recvNm23));
                         pr->VpiParent(mfc);
                         setLoc(pr, SourceRange(recv->sourceRange.start(),
                                                recv->sourceRange.start() +
-                                                   recvNm0.size()));
+                                                   recvNm23.size()));
                         mfc->Prefix(pr);
                         if (!deep0) {
                             auto* margs = s.MakeAnyVec();
@@ -16475,9 +16652,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                               !methodParensWritten77(
                                   SourceRange(mStart9, mStart9 + name.size()),
                                   name)));
+                        // § dottedIdxRecvFromSyntax23 — the path NAME is
+                        // composed the way Surelog composes it
+                        // (`CompileExpression.cpp:5586`'s `while (BitSelect)`
+                        // loop): `the_name += "[" + decompileHelper(index) +
+                        // "]"` per written dimension.  `decompileHelper` has NO
+                        // row for a `hier_path` or a `func_call`, so a dotted
+                        // index contributes NOTHING between the brackets and
+                        // golden's name is `m_streams[].exists` where the
+                        // source wrote `m_streams[ro.get_name()].exists`.  Off
+                        // the gate this is `recvText` unchanged.
+                        std::string recvTx23 = recvText;
+                        if (dotIdx23 && stepOk23) {
+                            std::string rb23;
+                            for (size_t k23 = 0; k23 < dots.size(); k23++) {
+                                if (k23)
+                                    rb23 += ".";
+                                rb23 += stepSel74[k23].base;
+                                for (auto* sl23 : stepSel74[k23].sels)
+                                    rb23 += "[" +
+                                            hpCompIdxDecompile23(*sl23) + "]";
+                            }
+                            recvTx23 = rb23;
+                        }
                         auto* hp = s.MakeHier_path();
                         std::string dotted =
-                            withExpr9 ? recvText : recvText + "." + name;
+                            withExpr9 ? recvTx23 : recvTx23 + "." + name;
                         hp->VpiName(dotted);
                         hp->VpiFullName(dotted);
                         hp->VpiParent(parent);
@@ -16506,10 +16706,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // The `with`-clause form is deliberately OUT: it has
                         // its own fullname regime (every element scoped) and
                         // NO measured cell — README residue R2.
-                        std::vector<RecvStep74> stepSel74;
-                        bool idxSteps74 =
-                            !withExpr9 &&
-                            builtinRecvStepSelectors74(*recv, dots, stepSel74);
+                        bool idxSteps74 = !withExpr9 && stepOk23;
                         // A bit_select's fullname is the CUMULATIVE dotted path
                         // through this step, which at the BASE is just the
                         // written component: golden `mq[i]` at the base and
@@ -16549,7 +16746,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     const std::string& idx74 =
                                         st74->grps[d74].second;
                                     const Expression* sel74 = st74->sels[d74];
-                                    cum74 += "[" + idx74 + "]";
+                                    // § dottedIdxRecvFromSyntax23 — the
+                                    // CUMULATIVE fullname is composed from the
+                                    // DECOMPILED index, exactly like the path
+                                    // NAME above (golden `m_streams[]`); OFF
+                                    // THE GATE it is the written index text,
+                                    // unchanged.  `idx74` itself keeps the
+                                    // written text — the integer-literal test
+                                    // and the constant's span below are about
+                                    // WHAT WAS WRITTEN, not about the name.
+                                    cum74 += "[" +
+                                             (dotIdx23
+                                                  ? hpCompIdxDecompile23(*sel74)
+                                                  : idx74) +
+                                             "]";
                                     auto* bs74 = s.MakeBit_select();
                                     if (d74 == 0)
                                         bs74->VpiName(base74);
@@ -16627,7 +16837,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     }
                                     elems->push_back(bs74);
                                 }
-                                dotSoFar74 += (k74 == 0 ? dn0 : "." + dn0);
+                                // § dottedIdxRecvFromSyntax23 — the running
+                                // prefix IS `cum74`, which was built as
+                                // `dotSoFar74 + sep + base + brackets`.  OFF
+                                // THE GATE this is byte-identical to the
+                                // `dotSoFar74 += (k74 ? "." + dn0 : dn0)` it
+                                // replaces, because `stepIdxGroups14` requires
+                                // the bracket groups to TILE the written step:
+                                // `base + "[g0][g1]…" == dn0` exactly.
+                                // `nmStart0` stays on the WRITTEN text — it is
+                                // a source offset, not a name.
+                                dotSoFar74 = cum74;
                                 nmStart0 = nmStart0 + dn0.size() + 1;
                                 continue;
                             }

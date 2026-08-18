@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 15:50, HEAD = the uvm98 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 16:20, HEAD = the buvm23 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -181,7 +181,7 @@ row-modes over 7 tests:
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
 | SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | 50 / 108 (depth) | an inside-set RANGE member in the with-clause of an array locator method: uvm_domain.svh:199 `item.get_state() inside {[UVM_PHASE_STARTED:UVM_PHASE_CLEANUP]}` — golden's outer operation holds the bounds as bare ref_obj operands where we wrap them in an operation vpiOpType 37 (vpiListOp); pass uvm99 in flight (uvm98 landed: ~99k→50/108, bare-typedef-name FIRST-WRITER-WINS design-wide + the verifier's module/interface typedef suppressor) |
-| BuildUVMPkg×2 (1800.2 pp_output tree) | 166 (depth) | a hier_path split on the DOTS OF THE SOURCE TEXT inside a subscript: `m_streams[ro.get_name()].exists(…)` (uvm_pkg.sv:30163) — golden's first element is a bit_select whose index is the nested hier_path ro.get_name, ours two bogus ref_objs `m_streams[ro` / `get_name()]`; pass buvm23 in flight (buvm22 landed: 52→166 depth, unpacked-typedef return var kind) |
+| BuildUVMPkg×2 (1800.2 pp_output tree) | 32 (depth) | an OMITTED middle argument filling a defaulted formal (`stream.open_recorder(a,,c)`, uvm_pkg.sv:30186 → `time open_time = 0` :24157): golden re-encodes the default at the call site as an UNPARENTED constant vpiConstType 7 (INT:0) where we clone the declaration's literal (ct 9); constant::Compare reads VpiConstType only; pass buvm24 in flight (buvm23 landed: 166→32, a '.' inside a bracket pair is not a path separator — receiver hier_path elements from the AST, index text = decompileHelper of the index object, EMPTY for calls/hier_paths) |
 | Earlgrey_0_1/default | 216 (depth) | a hier_path operand of an ELAB gen-scope cont_assign (flash_phy_rd.sv:122:43 `read_buf[i].addr[FlashWordsW+:PageW]`): golden's vpiName folds the PARAMETER bounds `read_buf[i].addr[7+:8]` while the genvar index stays spelled — plus earl68's R1: a genvar hier_path ELEMENT INDEX becomes a LOCATED UINT sz 64 no-typespec constant (261 cells, testflags only); pass earl69 in flight (earl68 landed: 32→216 depth, whole-Rhs bare-genvar fold loc-less UINT sz 64 + adjustSize typespec-PRESENCE size rule) |
 | Earlgrey_0_1/testflags | 216 (depth) | SAME head, identical cmp log (earl68) |
 | Rggen/default | 194 (depth) | block_1.sv:356 `.i_sw_write_enable (register_if[6+7*i+6].value[0+1*l+:1])` — golden's port actual is a hier_path whose FIRST element is a bit_select with a FOLDED vpiIndex (INT:12); we emit a plain ref_obj plus a second element (48 objects vs golden 24 over 24 rows; Path_elems VECTOR container names the hier_path); R-A 810 rows / R-B 7 signed START_ADDRESS rows / R-N2 SeqDriver adpcm_if modport next; pass rgg17 in flight (rgg16 landed: 683→194 depth, interface-port view param_assigns only when the actual is found by NAME among the instantiating scope's sub-instances — a generate block is its own scope) |
@@ -189,7 +189,7 @@ row-modes over 7 tests:
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 60 verifier fix-before-landing re-cuts (117 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 60 verifier fix-before-landing re-cuts (118 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 
