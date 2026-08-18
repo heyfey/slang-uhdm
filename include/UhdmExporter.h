@@ -3997,6 +3997,80 @@ private:
     std::string classTpTsName87(const slang::ast::ClassType& cls,
                                 const slang::syntax::SyntaxNode* dsyn,
                                 const slang::ast::Type& resolved);
+
+    // § classTpTdGroupNonClsRootShared91 — the SAME class-scope type-parameter
+    // typespec group, for the resolved kinds § 87 deliberately left alone
+    // (its residue R1: `int` / `bit` / `logic` / a packed vector / `string` /
+    // `real`).  § 87 owns the CLASS-resolved half and NOTHING here may reach
+    // it; the AGGREGATE kinds (enum / struct / union) stay excluded because
+    // golden reaches them by RENAMING the PACKAGE's own shared listing object
+    // (arm `g91_a1_grid` cells `c_enum` / `c_st`: golden reads
+    // `enum_typespec 'p91::b_t'` AT THE PACKAGE TYPEDEF'S OWN SPAN), which is
+    // § tdListingFormalAsWritten33's whole-corpus graph and not this law's.
+    //
+    // > A class holds ONE typespec per DEFAULT-CHAIN ROOT among its own type
+    // > parameters.  The object is the one built from the ROOT parameter's
+    // > CLASS-HEADER DEFAULT, it is NAMED after the BYTE-WISE ALPHABETICALLY
+    // > LAST candidate typedef NAME of the chain, and every member of the chain
+    // > binds it: each type_parameter's own typespec, and the FIRST candidate
+    // > typedef of each member (which is therefore also the class's vpiTypedef
+    // > LISTING entry).
+    //
+    // The naming half of that sentence is the r10uvm91 VERIFIER's correction.
+    // The shipped law read "the typedef of the LAST PARAMETER of the chain (in
+    // declaration order)", which is indistinguishable from the name rule on the
+    // whole corpus and on every cell of `g91_a1_grid.sv`, and is REFUTED by six
+    // of the nine cells of `v91_a4_winner.sv` — see the fix site in TypeEmit.cpp
+    // for the cell-by-cell table, including the two cells (`d6`, `d7`) that fix
+    // the collation as a RAW BYTE compare rather than a case-folded or numeric
+    // one.
+    //
+    // The two cells that fix the two halves of that sentence, both read off ONE
+    // golden in `g91_a1_grid.sv`:
+    //   * `c_root #(type A=int, type B=A)` with a typedef on **B only** —
+    //     golden's ONE object sits at **A's** `int` (21 columns away from B's
+    //     `A`), so the anchor is the CHAIN ROOT and not the first group member.
+    //   * `c_two #(type A=int, type B=int)`, a typedef on each — golden emits
+    //     **TWO** objects, `a_t` and `b_t`.  Two parameters of the SAME
+    //     RESOLVED TYPE but of DIFFERENT chains are DIFFERENT groups, which is
+    //     the one cell that separates this key from § 33c's "resolved type"
+    //     key (`t45a` gives every same-typed parameter the same chain, so it
+    //     could not tell them apart).
+    // The winner table itself is § classTypeParamTdGroupLastWins33c's, with the
+    // r10uvm87 VERIFIER's three eligibility rules (a typedef-of-a-typedef
+    // CONSUMES its target; among ONE parameter's typedefs the FIRST wins; a
+    // `local`/`protected` typedef is not a candidate) — transcribed rather than
+    // lifted for the reason `classTpGroup87` gives at its own head.
+    struct TpGrpNc91 {
+        /// group member type parameter -> its default-chain ROOT parameter
+        std::map<const slang::ast::Symbol*, const slang::ast::Symbol*> rootOf;
+        /// ROOT parameter -> the winning typedef (absent = no candidate
+        /// typedef anywhere in the chain, and then this law does NOTHING:
+        /// arm cells `c_notd` / `c_qual`, where golden's shared object is
+        /// ANONYMOUS and every cmp field already agrees).
+        std::map<const slang::ast::Symbol*, const slang::ast::TypeAliasType*>
+            winner;
+        /// the FIRST candidate typedef of each member parameter — the only
+        /// typedefs that BIND the shared object.  Arm cell `c_dbl` is why the
+        /// set is needed: with two typedefs per parameter golden keeps the
+        /// SECOND ones as their own objects under their own names.
+        std::map<const slang::ast::TypeAliasType*, const slang::ast::Symbol*>
+            firstTdRoot;
+    };
+    std::map<const slang::ast::Scope*, TpGrpNc91> tpGrpNc91;
+    /// The group table for one class body, built (and cached) on first ask.
+    const TpGrpNc91& classTpGroupNc91(const slang::ast::Scope& body);
+    /// The ONE typespec of the group @a root anchors, minted on first ask from
+    /// the ROOT parameter's own class-header default (exactly as
+    /// `emitClassParameters` mints it) and named for the winner.  Null when
+    /// @a root is not a group root with a winning typedef.
+    std::map<const slang::ast::Symbol*, UHDM::typespec*> tpGrpNcTs91;
+    UHDM::typespec* classTpGroupNcTs91(const slang::ast::Scope& body,
+                                       const slang::ast::Symbol& tp);
+    /// The shared object a class TYPEDEF binds, or null when the typedef is not
+    /// the first candidate typedef of a group member.
+    UHDM::typespec* classTpGroupNcTdTs91(const slang::ast::Scope& body,
+                                         const slang::ast::TypeAliasType& ta);
     // NOTE § classNestedClassTdGroupNoAnchor54 — the SAME group, for the case
     // pass 50 left as residue R2: a class-handle typedef group with NO
     // package-level anchor, i.e. no `classTdGroupBase50` entry.  Golden STILL

@@ -1,0 +1,51 @@
+r10uvm91 — THE MOVER PREDICTION, made from PRISTINE BYTES ONLY and written
+BEFORE the byte verifier was read.  MEASUREMENT-ONLY.
+
+METHOD (pred91.sh + `ct91cen --pred`, run over every database of the PRISTINE
+sweep workdirs): a class_defn is a SITE of this law when its vpiTypedef LISTING
+holds a NAMED typespec of one of the law's SCALAR kinds and the class also has a
+type_parameter bound to a typespec of that SAME kind.  A database with >= 1 SITE
+is PREDICTED TO MOVE; one with 0 sites is PREDICTED BYTE-IDENTICAL.
+
+THE PREDICTOR IS A SUPERSET AND SAYS SO: it reads only the UHDM shape, not the
+WRITTEN typedef syntax the law actually gates on, so a class whose typedef is not
+written as a bare type-parameter name is flagged and does not move.  A prediction
+that is a superset is honest; one that is a subset would be a missed mover.
+
+--- surelog corpus (956 pristine databases) --------------------------------
+PREDICT-MOVE default/BuildUVMPkg-bf853d43    sites=6
+PREDICT-MOVE default/MiniAmiq-544c7f61       sites=6
+PREDICT-MOVE default/Scoreboard-59431470     sites=6
+PREDICT-MOVE default/SeqDriver-32af76aa      sites=6
+PREDICT-MOVE default/SimpleUVM-1dc93a62      sites=6
+PREDICT-MOVE default/VirtualClass-4b4da5ab   sites=1
+PREDICT-MOVE testflags/BuildUVMPkg-bf853d43  sites=6
+PREDICT-MOVE testflags/MiniAmiq-544c7f61     sites=6
+PREDICT-MOVE testflags/SeqDriver-32af76aa    sites=6
+PREDICT-MOVE testflags/SimpleUVM-1dc93a62    sites=6
+PREDICT-MOVE testflags/VirtualClass-4b4da5ab sites=1
+-- scanned=956 PREDICT-MOVE=11 PREDICT-IDENTICAL=945
+
+ALL SIX SITES IN EVERY UVM DATABASE ARE NAMED:
+  uvm_pkg::uvm_blocking_master_imp     [int_typespec 'this_rsp_type']
+  uvm_pkg::uvm_blocking_slave_imp      [int_typespec 'this_rsp_type']
+  uvm_pkg::uvm_master_imp              [int_typespec 'this_rsp_type']
+  uvm_pkg::uvm_nonblocking_master_imp  [int_typespec 'this_rsp_type']
+  uvm_pkg::uvm_nonblocking_slave_imp   [int_typespec 'this_rsp_type']
+  uvm_pkg::uvm_slave_imp               [int_typespec 'this_rsp_type']
+
+--- uhdm2rtlil corpus (1358 pristine databases) ----------------------------
+-- scanned=1358 PREDICT-MOVE=0 PREDICT-IDENTICAL=1358
+
+--- OUTCOME, read AFTER the prediction ------------------------------------
+surelog     ACTUAL MOVERS 9 / 956.  Every one of the 9 was predicted.
+            The 10th and 11th predictions (VirtualClass, both modes) DID NOT
+            move: its site is `work@C [logic_typespec 't_vector']`, and
+            `typedef logic [SIZE-1:0] t_vector;` is not a NamedType naming a
+            type parameter, so the law declines it.  That is the superset
+            behaviour named above, observed.  VirtualClass/default is
+            CMP_EQUAL with dump `match` (BYTE-IDENTICAL TO GOLDEN) and stayed
+            CMP_EQUAL/`match`.
+            The two predicted-but-absent databases are Scoreboard/testflags
+            (SLANG_REJECT, no database) — not a miss.
+uhdm2rtlil  ACTUAL MOVERS 0 / 1358.  Prediction and outcome agree exactly.

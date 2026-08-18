@@ -2555,6 +2555,17 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
                 pendingClassTsLink.push_back({cts, &dct});
                 its = cts;
             }
+            // § classTpTdGroupNonClsRootShared91, site A.  A type parameter
+            // in a default-chain group that HAS a winning typedef binds the
+            // group's ONE object — the object built from the CHAIN ROOT's own
+            // class-header default, named for the winner.  This is 18 of the
+            // 24 cells the corpus census names (the six `uvm_*_imp` classes'
+            // `IMP` / `REQ_IMP` / `RSP_IMP`, golden `this_rsp_type` where ours
+            // read ANONYMOUS).  It does NOT re-parent: golden's object hangs
+            // off the class_defn (it is the vpiTypedef LISTING entry), which
+            // `emitClassTypedefs` sets.
+            else if (auto* g91 = classTpGroupNcTs91(cls, mem))
+                its = g91;
             else {
                 its = makeTypespec(mem, dsyn);
                 if (its)
@@ -3533,6 +3544,23 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                                      .identifier.valueText()))
                         tpAliasRoot25.emplace((const void*)&ta,
                                               (const void*)root25);
+        // § classTpTdGroupNonClsRootShared91, site B.  The FIRST candidate
+        // typedef of a group member does not mint anything: it BINDS the
+        // group's one object, which is therefore also what the class's
+        // vpiTypedef LISTING and every property/local/formal written as this
+        // typedef will read.  The remaining 6 of the corpus census's 24 cells
+        // are here — `local this_req_type m_req_imp;` in the six `uvm_*_imp`
+        // classes, the cmp HEAD of all seven UVM row-modes, golden
+        // `this_rsp_type` where ours read `this_req_type`.
+        // The `VpiName(ta.name)` at the tail of this loop is exactly why the
+        // arm has to skip the whole body rather than fall through: renaming the
+        // shared object to the non-winning typedef's name is the bug being
+        // fixed.
+        if (!typedefTs.count((const Symbol*)&ta))
+            if (auto* sh91 = classTpGroupNcTdTs91(cls, ta)) {
+                typedefTs[(const Symbol*)&ta] = sh91;
+                continue;
+            }
         if (typedefTs.count((const Symbol*)&ta))
             continue;
         UHDM::typespec* ts = nullptr;

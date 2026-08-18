@@ -1,0 +1,109 @@
+r10uvm91 — THE CENSUS.  MEASUREMENT-ONLY.  LHS is ALWAYS golden.
+
+The instrument is `ct91cen` (one row per (class_defn, SITE) with the bound
+typespec's KIND / NAME / SPAN and a per-database OBJECT ORDINAL, so "golden
+SHARES ONE object" is a COUNT and not a sentence) joined by `cen91.py`.
+SITE ranges over: each type_parameter, the class vpiTypedef LISTING, each class
+PROPERTY, each method's io_decls, return var, body locals and nested-block
+locals.
+
+=========================================================================
+A.  GOLDEN-vs-GOLDEN CALIBRATION, on the arm (g91_a1_grid.sv, ONE golden)
+=========================================================================
+The claim under test is a SHARING claim, so it is read by OBJECT IDENTITY.
+Golden's `p91::c_uvm` — the corpus shape verbatim — binds ONE object at NINE
+sites:
+
+  TYPEPARAM IMP / REQ_IMP / RSP_IMP  \
+  LISTING                             |  int_typespec 'this_rsp_type'
+  PROP m_req_imp / m_rsp_imp          |  @21:54-21:57  = the `int` of
+  IO new::imp / req_imp / rsp_imp     /    `type IMP=int` in the CLASS HEADER
+
+and REQ / RSP — the two parameters with NO typedef — bind a DIFFERENT,
+ANONYMOUS object.  Distinct objects per class: golden 3, our PRISTINE 11.
+
+=========================================================================
+B.  THE CORPUS DEFICIT (default/SeqDriver, golden vs ours)
+=========================================================================
+                       PRISTINE          PATCHED
+  KIND disagreements      107               107
+  NAME disagreements      215               191      (-24, and ONLY -24)
+  COUNT / MISSING         1 / 1             1 / 1
+
+The 24 are EXACTLY this law's family, and the census names every one of them:
+
+  6 x  PROP m_req_imp      golden 'this_rsp_type'  ours 'this_req_type'
+  6 x  TYPEPARAM IMP       golden 'this_rsp_type'  ours ''  (ANONYMOUS)
+  6 x  TYPEPARAM REQ_IMP   golden 'this_rsp_type'  ours ''
+  6 x  TYPEPARAM RSP_IMP   golden 'this_rsp_type'  ours ''
+
+over the six classes uvm_blocking_master_imp / uvm_nonblocking_master_imp /
+uvm_master_imp / uvm_blocking_slave_imp / uvm_nonblocking_slave_imp /
+uvm_slave_imp.  AFTER: remaining int_typespec NAME disagreements = 0.
+PRISTINE-RIGHT -> PATCHED-WRONG cells = 0.
+
+The other four sites of each class (LISTING, PROP m_rsp_imp, IO new::imp /
+req_imp / rsp_imp) ALREADY agreed by NAME in the pristine build — the LISTING
+through § typedefAliasSharesTypespec25 and the io_decls through
+§ classTypeParamTdGroupLastWins33c — which is exactly why the deficit was 24
+and not 54.
+
+=========================================================================
+C.  THE REGRESSION THE CENSUS CAUGHT BEFORE ANY GATE RAN
+=========================================================================
+The FIRST cut of this law had no `dimensions.empty()` test on the typedef
+candidate walk.  The depth-keyed census read back SIX pristine-right ->
+patched-wrong cells, by name, in one run:
+
+  uvm_pkg::uvm_spell_chkr | IO check::strtab | G array_typespec 'tab_t'
+                                             | PRIS ok -> PAT int_typespec
+  uvm_pkg::uvm_spell_chkr | LISTING          | same
+  uvm_pkg::uvm_spell_chkr | TYPEPARAM T      | G int_typespec '' (ANONYMOUS)
+                                             | PRIS ok -> PAT 'tab_t'
+  uvm_pkg::uvm_utils      | LISTING          | G array_typespec 'types_t'
+  uvm_pkg::uvm_utils      | RET find_all     | same
+  uvm_pkg::uvm_utils      | TYPEPARAM TYPE   | G int_typespec '' -> 'types_t'
+
+`uvm_spell_chkr #(type T=int)` writes `typedef T tab_t[string];` and
+`uvm_utils #(type TYPE=int)` writes `typedef TYPE types_t[$];`.  A DIMENSIONED
+typedef is an `array_typespec` OVER the parameter, not a typedef OF it, and it
+names NOTHING: golden leaves those type_parameters ANONYMOUS.  Arm cells
+`c_dim` / `c_dim2` were written afterwards to hold the corpus's own lesson, and
+the gate is `tds.dimensions.empty()` on the candidate arm — a test
+§ classTpGroup87's transcription applies to its CONSUMPTION arm only.
+
+=========================================================================
+D.  THE ARM CENSUS (g91_a1_grid.sv, 27 classes, golden vs ours)
+=========================================================================
+                       PRISTINE   PATCHED
+  NAME disagreements      80         41
+  SPAN disagreements      36         23
+  KIND / COUNT / MISSING  4/3/3      4/3/1
+  pristine-right -> patched-wrong:  0
+
+Distinct objects per class, golden : pristine : patched, for the cells the law
+claims:  c_uvm 3:11:6   c_ord 1:7:4   c_root 1:5:3   c_two 2:6:4
+         c_bit/c_log/c_byte/c_shrt/c_real/c_str/c_vec 1:5:3 (1:4:3 for c_real,
+         c_str, c_base)   c_kind 2:8:5
+and, for the cells it deliberately declines:  c_cls 1:5:5 (§ 87's),
+c_enum 1:5:5 and c_st 1:5:5 (the package-listing graph), c_notd 1:5:5 and
+c_qual 1:5:5 (no candidate typedef -> golden's object is ANONYMOUS and every
+cmp field already agrees).
+
+=========================================================================
+E.  THE 41 NAME CELLS THE ARM STILL DISAGREES ON, ALL RECORDED AS RESIDUE
+=========================================================================
+   34  a PROPERTY / body LOCAL / nested-block LOCAL / RETURN written as the
+        PARAMETER NAME (`A p_a;`), where golden binds the group object and we
+        still mint an anonymous one.  ZERO CORPUS REACH — the corpus census (B)
+        finds no such cell — so the site is measured and NOT implemented
+        (residue R2).
+    6  the enum / packed-struct groups, where golden RENAMES THE PACKAGE'S OWN
+        listing object (`enum_typespec 'p91::b_t'` at the PACKAGE TYPEDEF'S own
+        span, 18:3-18:34, not at the class header).  Excluded by predicate
+        (residue R1).
+    1  `c_dim`'s `IO f_tab::t`, an `array_typespec` LISTING-order cell
+        (golden lists `q_t` and `tab_t`, we list `q_t` only) — pre-existing,
+        untouched by this pass, and the same shape as the 3 COUNT rows.
+  ---
+   41  and PRISTINE-RIGHT -> PATCHED-WRONG = 0.

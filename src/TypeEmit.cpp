@@ -960,6 +960,187 @@ std::string UhdmExporter::classTpTsName87(const ClassType& cls,
     return w;
 }
 
+// § classTpTdGroupNonClsRootShared91 — the group table.  The law, the two arm
+// cells that fix its anchor and its key, and the exclusions are on the
+// declaration in UhdmExporter.h.
+//
+// The typedef-candidate walk below is a TRANSCRIPTION of `classTpGroup87`'s —
+// same three eligibility rules, same declaration-order pass so the LAST
+// parameter with a candidate owns the group.  It differs in exactly two places,
+// both measured:
+//   * the KEY is the default-chain ROOT parameter (`tpAliasRootOf25`), not the
+//     canonical TYPE — arm cell `c_two`;
+//   * the kind filter is an ALLOW-list of the NON-class, NON-aggregate scalar
+//     kinds instead of § 87's `kind == ClassType`.
+const UhdmExporter::TpGrpNc91&
+UhdmExporter::classTpGroupNc91(const Scope& body) {
+    if (auto it = tpGrpNc91.find(&body); it != tpGrpNc91.end())
+        return it->second;
+    auto& out = tpGrpNc91[&body];
+    const Symbol& bsym = body.asSymbol();
+    if (bsym.kind != SymbolKind::ClassType)
+        return out;
+    auto& cls = bsym.as<ClassType>();
+    // (rules 1/2/3, verbatim from classTpGroup87)
+    struct Td91 { const TypeAliasType* al; const Symbol* tp; };
+    std::vector<Td91> ordered;
+    std::set<const Symbol*> consumed91;
+    for (auto& mem : body.members()) {
+        if (mem.kind != SymbolKind::TypeAlias)
+            continue;
+        auto& al = mem.as<TypeAliasType>();
+        auto* syn = al.getSyntax();
+        if (!syn || syn->kind != syntax::SyntaxKind::TypedefDeclaration)
+            continue;
+        auto& tds = syn->as<syntax::TypedefDeclarationSyntax>();
+        // rule (3): a `local`/`protected` typedef is not a candidate — golden
+        // drops it from the class type table entirely (arm cell `c_qual`,
+        // where golden's class has NO vpiTypedef listing entry at all and the
+        // shared object stays ANONYMOUS).
+        if (const syntax::SyntaxNode* par = syn->parent;
+            par && par->kind == syntax::SyntaxKind::ClassPropertyDeclaration &&
+            !par->as<syntax::ClassPropertyDeclarationSyntax>().qualifiers.empty())
+            continue;
+        const syntax::DataTypeSyntax* dt = tds.type;
+        if (!dt || dt->kind != syntax::SyntaxKind::NamedType)
+            continue;
+        auto& nt = dt->as<syntax::NamedTypeSyntax>();
+        if (nt.name->kind != syntax::SyntaxKind::IdentifierName)
+            continue;
+        auto id = nt.name->as<syntax::IdentifierNameSyntax>()
+                      .identifier.valueText();
+        if (id.empty())
+            continue;
+        const Symbol* f = body.find(id);
+        if (!f)
+            continue;
+        // rule (0), and the CORPUS ITSELF is the cell that pins it: a typedef
+        // written with DIMENSIONS is not a typedef OF the parameter, it is an
+        // `array_typespec` OVER it, and it names NOTHING.
+        // `uvm_spell_chkr #(type T=int)`'s `typedef T tab_t[string];` and
+        // `uvm_utils #(type TYPE=int)`'s `typedef TYPE types_t[$];` are golden's
+        // own counter-examples: golden leaves `TYPEPARAM T` ANONYMOUS and keeps
+        // `tab_t` / `types_t` as `array_typespec`s, and our PRISTINE build was
+        // RIGHT on all six of those cells.  The first cut of this law omitted
+        // this test — § 87's own transcription applies `dimensions.empty()` to
+        // the CONSUMPTION arm only — and the depth-keyed census read the six
+        // pristine-right -> patched-wrong cells straight back.
+        if (!tds.dimensions.empty())
+            continue;
+        if (f->kind == SymbolKind::TypeParameter)
+            ordered.push_back({&al, f});
+        else if (f->kind == SymbolKind::TypeAlias &&
+                 f->getParentScope() == &body)
+            consumed91.insert(f);  // rule (1)
+    }
+    std::map<const Symbol*, const TypeAliasType*> tdOfTp;
+    for (auto& e : ordered)
+        if (!consumed91.count(e.al))
+            tdOfTp.emplace(e.tp, e.al);  // rule (2): FIRST survivor wins
+    for (auto& mem : body.members()) {
+        if (mem.kind != SymbolKind::TypeParameter)
+            continue;
+        auto& pty = mem.as<TypeParameterSymbol>().targetType.getType();
+        // A parameter whose type is a PACKAGE typedef is out for the same
+        // reason it is out of § 33c and § 87: golden re-points the PACKAGE's
+        // own shared listing object there (t41b's `this_r_t`), a whole-corpus
+        // blast radius § tdListingFormalAsWritten33 owns.
+        if (pkgHomedTdAlias18(pty))
+            continue;
+        // The ALLOW-list.  ClassType is § 87's.  Enum / struct / union reach
+        // the package listing graph (arm cells `c_enum` / `c_st`).  Queues,
+        // dynamic / assoc / fixed arrays have no cell and are not claimed.
+        switch (pty.getCanonicalType().kind) {
+            case SymbolKind::PredefinedIntegerType:
+            case SymbolKind::ScalarType:
+            case SymbolKind::PackedArrayType:
+            case SymbolKind::FloatingType:
+            case SymbolKind::StringType:
+                break;
+            default:
+                continue;
+        }
+        const Symbol* root = tpAliasRootOf25(cls, mem.name);
+        if (!root)
+            continue;
+        out.rootOf[&mem] = root;
+        auto t = tdOfTp.find(&mem);
+        if (t == tdOfTp.end())
+            continue;
+        // VERIFIER FIX (r10uvm91 verify) — the winner is the BYTE-WISE
+        // ALPHABETICALLY LAST candidate typedef NAME of the chain, NOT the
+        // typedef of the chain's last parameter.  The shipped law said "the
+        // LAST parameter of that chain with a candidate typedef" and UVM
+        // cannot tell the two apart: `this_imp_type` < `this_req_type` <
+        // `this_rsp_type` happens to sort in parameter order, and so do every
+        // arm cell in `g91_a1_grid.sv` (`a_t`/`b_t`/`c_t` over A/B/C).  Nine
+        // cells in `v91_a4_winner.sv` separate them and golden takes the NAME
+        // every time:
+        //   d1  z_t on A, a_t on C          -> golden `z_t`   (param-order: a_t)
+        //   d4  m_t on A, z_t on B, a_t on C-> golden `z_t`   (param-order: a_t)
+        //   d5  b_t on A, a_t on B          -> golden `b_t`   (param-order: a_t)
+        //   d8  z_t on A, a_t on B          -> golden `z_t`   (param-order: a_t)
+        // and two cells fix the COLLATION as a raw byte compare, not a
+        // case-folded or numeric one:
+        //   d6  a_t on A, B_t on C -> golden `a_t`  ('B'=0x42 < 'a'=0x61)
+        //   d7  t2  on A, t10 on C -> golden `t2`   ("t10" < "t2")
+        // Every cell the shipped law got right it still gets right — the
+        // corpus's 24 cells and all 28 grid cells are unchanged — because on
+        // those the two rules AGREE.  `std::string_view::operator<` is the
+        // byte-wise compare d6/d7 demand.
+        if (auto& wslot = out.winner[root];
+            !wslot || wslot->name < t->second->name)
+            wslot = t->second;
+        out.firstTdRoot[t->second] = root;
+    }
+    // A member whose chain root did not itself survive the filters above is
+    // not a group member: the object this law shares is the ROOT's, and there
+    // is none to share.
+    for (auto it = out.rootOf.begin(); it != out.rootOf.end();)
+        it = out.rootOf.count(it->second) ? std::next(it) : out.rootOf.erase(it);
+    for (auto it = out.firstTdRoot.begin(); it != out.firstTdRoot.end();)
+        it = out.winner.count(it->second) ? std::next(it)
+                                          : out.firstTdRoot.erase(it);
+    for (auto it = out.winner.begin(); it != out.winner.end();)
+        it = out.rootOf.count(it->first) ? std::next(it) : out.winner.erase(it);
+    return out;
+}
+
+// The ONE object, minted on first ask from the ROOT parameter's own
+// class-header default — the same `makeTypespec(param, defaultSyntax)` call
+// `emitClassParameters` makes, so the object's KIND and SPAN are the ones our
+// pristine build already produced for that parameter and only the NAME and the
+// SHARING are new.
+UHDM::typespec* UhdmExporter::classTpGroupNcTs91(const Scope& body,
+                                                 const Symbol& tp) {
+    auto& grp = classTpGroupNc91(body);
+    auto r = grp.rootOf.find(&tp);
+    if (r == grp.rootOf.end())
+        return nullptr;
+    auto w = grp.winner.find(r->second);
+    if (w == grp.winner.end() || !w->second)
+        return nullptr;  // no candidate typedef anywhere in the chain
+    auto& slot = tpGrpNcTs91[r->second];
+    if (!slot) {
+        auto& rp = r->second->as<TypeParameterSymbol>();
+        auto* ts = makeTypespec(*r->second, rp.targetType.getTypeSyntax());
+        if (!ts)
+            return nullptr;
+        ts->VpiName(w->second->name);
+        slot = ts;
+    }
+    return slot;
+}
+
+UHDM::typespec* UhdmExporter::classTpGroupNcTdTs91(const Scope& body,
+                                                   const TypeAliasType& ta) {
+    auto& grp = classTpGroupNc91(body);
+    auto f = grp.firstTdRoot.find(&ta);
+    if (f == grp.firstTdRoot.end())
+        return nullptr;
+    return classTpGroupNcTs91(body, *f->second);
+}
+
 // § sharedTdRefNoRestamp9 — the SHARED-typedef-object test every REFERENCE
 // site asks before it stamps vpiInstance.  See the declaration in
 // UhdmExporter.h for the law, the two scopes it fences and why the test is by

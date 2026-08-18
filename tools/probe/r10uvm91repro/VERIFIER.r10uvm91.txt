@@ -1,0 +1,234 @@
+r10uvm91 — THE ADVERSARIAL VERIFIER'S RECORD.
+Fresh worktrees /tmp/wt_v91 (patched) and /tmp/wt_v91pris (pristine), both at
+4f68427.  Both binaries built BY THE VERIFIER, frozen at /tmp/v91_bin/ BEFORE
+any sweep, SLANG_UHDM exported explicitly per binary, every cmds.txt audited by
+BINARY PATH.  LHS is ALWAYS golden.  uhdm-cmp is the ONLY acceptance judge.
+
+VERDICT: ACCEPT WITH A FIX.  Every headline number in the implementer's report
+reproduced BIT-FOR-BIT.  The law's ANCHOR half is correct.  Its NAMING half is
+REFUTED and has been FIXED here; ship /tmp/r10uvm91.verified.patch.
+
+=== 1. BIT-FOR-BIT REPRODUCTION OF THE SHIPPED PATCH ======================
+Both binaries rebuilt from scratch reproduce the implementer's md5s EXACTLY:
+    pris  98272853bd35367aef0e7064636c078b   (implementer: same)
+    pat   c4b4917bd902599c8b8df857a031e09f   (implementer: same)
+The build is reproducible; every number below was taken against these bytes.
+
+ gate                          implementer          VERIFIER (independent)
+ (1) build md5s                see above            IDENTICAL
+ (2) goldens pris/pat          23/0, 23/0           23/0, 23/0
+     /bin/false control        0 PASS / 23 FAIL     0 PASS / 23 FAIL
+ (3) u2r both modes            679/50/2             679/50/2 both binaries
+     u2r rows vs committed     0 differing          0 differing (731 joined)
+     u2r pat-vs-pris           0 / 1462             0 / 1462 (status AND dump)
+     cmds.txt own-path         1458                 1458 own, 0 other, 0 maintree
+ (4) surelog histogram         470/11/5/283/25 def  IDENTICAL, both binaries
+                               466/9/5/284/23 tf    IDENTICAL, both binaries
+     surelog rows, 3 ways      0 / 1588             0 / 1588 all three ways
+     cmds.txt own-path         1523                 1523 own, 0 other, 0 maintree
+     NO ROW CONVERTED          asserted             CONFIRMED; Earlgrey_0_1
+                                                    testflags still CMP_NOTEQUAL;
+                                                    results/*.csv never written;
+                                                    GOLDEN_DEFER=[UNSET]
+ (5) byteverify surelog        9 / 956              9 / 956, SAME NINE NAMES
+     byteverify u2r            0 / 1358             0 / 1358
+     per-mover moved lines     216 each             216 each, ORDER-BLIND
+     moved-line kinds          int_typespec /       CONFIRMED, nothing else:
+                               type_parameter /     102 int_typespec(named),
+                               vpiSigned/vpiParent  36 int_typespec(anon),
+                               vpiName:this_r??_type 30 vpiSigned, 18 vpiParent,
+                                                    18 type_parameter,
+                                                    6+6 vpiName:this_r{eq,sp}_type
+ (6) pins                      SAME=10 MOVED=0      SAME=10 MOVED=0
+                               SVSwitch 4842211c4030 / YosysVerx 6ccda350c24a HELD
+ (7) canaries                  audited=33 UNCOV=0   audited=33 UNCOVERED=0
+                               FENCE-BREACH=0       FENCE-BREACH=0; all four
+                                                    slang-fenced names dispatched
+                                                    by no driver; changed=0 on
+                                                    canaries.sh AND ctcan2.sh,
+                                                    both corpora
+ (8) boundary                  616 src, MOVED 7,    616 src, MOVED 7, NO_OUTPUT 7,
+                               NO_OUTPUT 7,         MISSING-DIR 1 — THE SAME 7,
+                               MISSING-DIR 1        with the same line counts
+     movers vs fresh golden    1328->1184 (t45a)    1328->1184  REPRODUCED
+                               1165->1159           1165->1159  REPRODUCED
+                                591-> 585            591-> 585  REPRODUCED
+                                  76->  72             76->  72  REPRODUCED
+                                 214-> 210            214-> 210  REPRODUCED
+     uvm87 class-resolved      byte-identical       v87_a6_tdpick, v87_a7_tdchain,
+                                                    v87_a8_exotic, g87_a1_order,
+                                                    g87_a3_tpname, g87_a4_sd9ctl
+                                                    ALL BYTE-IDENTICAL
+     all 7 NO_OUTPUT symmetric asserted             CONFIRMED file by file: every
+                                                    one fails on BOTH binaries
+
+R0 (the head) — REPRODUCED EXACTLY.  rowheads over the seven row names:
+    pristine  SeqDriver/SimpleUVM/Scoreboard/MiniAmiq = 24 cmp lines, 1 head
+    patched   the same seven row-modes  = 176 cmp lines, 1 head
+    BuildUVMPkg 140 / Earlgrey 9743 & 33 / Rggen 122  UNCHANGED on both
+The pristine head IS `int_typespec (this_rsp_type)` at uvm_imps.svh:232:70-232:73
+— the `int` of `type IMP=int`, i.e. THE CLASS HEADER — which independently
+confirms the ROOT-ANCHOR half of the law.  The patched head is the new
+`hier_path (gp.m_byte_enable[i % ])` family.  24 -> 176 is the head OBJECT's
+decompile size, not a head count: HEADS STAYED AT 1 EVERYWHERE.
+
+CORPUS CENSUS (golden x pristine x patched, depth-keyed, SeqDriver):
+    331 golden type_parameter cells.  FIXED 18.  BROKEN 0.
+    CHANGED-STILL-WRONG 0 — the patch changes only cells it gets RIGHT.
+    146 untouched residues.
+
+=== 2. THE LAW, BROKEN ====================================================
+The shipped law reads:
+
+  "...it is NAMED for the typedef of the LAST PARAMETER of that chain
+   (in declaration order) with a candidate typedef..."
+
+THE ANCHOR HALF IS CORRECT and is independently confirmed above and by
+`v91_a4_winner.sv` (golden's object sits at the ROOT parameter's `int` in every
+cell).  THE NAMING HALF IS REFUTED.  The winner is the BYTE-WISE ALPHABETICALLY
+LAST candidate typedef NAME, and parameter order has nothing to do with it.
+
+`v91_a4_winner.sv` — nine cells, one golden, read both directions:
+
+  cell  written                          golden  param-order  name-order
+  d1    z_t on A, a_t on C                z_t     a_t  WRONG   z_t  right
+  d2    z_t on C, a_t on A                z_t     z_t  right   z_t  right
+  d3    a_t on A, z_t on C                z_t     z_t  right   z_t  right
+  d4    m_t on A, z_t on B, a_t on C      z_t     a_t  WRONG   z_t  right
+  d5    b_t on A, a_t on B                b_t     a_t  WRONG   b_t  right
+  d6    a_t on A, B_t on C                a_t     B_t  WRONG   a_t  right
+  d7    t2  on A, t10 on C                t2      t10  WRONG   t2   right
+  d8    z_t on A, a_t on B (2-param)      z_t     a_t  WRONG   z_t  right
+  d9    three independent roots           z_t     z_t  right   z_t  right
+
+SIX OF NINE CELLS REFUTE THE SHIPPED RULE.  Two of them also fix the COLLATION:
+  * d6 `B_t` (0x42) vs `a_t` (0x61) — golden takes `a_t`, so the compare is a
+    RAW BYTE compare, NOT case-folded.
+  * d7 `t10` vs `t2` — golden takes `t2`, so it is LEXICOGRAPHIC, NOT numeric.
+`std::string_view::operator<` is exactly that compare.
+
+WHY THE CORPUS COULD NOT SEE IT: UVM's three typedefs are `this_imp_type` <
+`this_req_type` < `this_rsp_type`, which sort in parameter order; and every cell
+of the implementer's own `g91_a1_grid.sv` names its typedefs `a_t`/`b_t`/`c_t`
+over parameters A/B/C, so the two rules AGREE on all 51 grid cells and all 24
+corpus cells.  The grid is self-confirming by construction.  `s_rev` in
+`v91_a3_order.sv` (typedef `z_t` on A, `a_t` on C) is the smallest counter-example
+and it fell out of a routine order-permutation sweep.
+
+NOTE this is NOT a pristine-right -> patched-wrong regression: on those six cells
+pristine emits an ANONYMOUS typespec, so pristine and the shipped patch BOTH
+disagree with golden and the acceptance judge sees no change.  The shipped patch
+is confidently wrong where it used to be blank.  The fix converts all six.
+
+=== 3. THE FIX ============================================================
+ONE predicate in `classTpGroupNc91` (src/TypeEmit.cpp), plus the law text on the
+declaration in include/UhdmExporter.h:
+
+    -   out.winner[root] = t->second;     // LAST parameter of the chain wins
+    +   if (auto& wslot = out.winner[root];
+    +       !wslot || wslot->name < t->second->name)
+    +       wslot = t->second;
+
+FIXED BINARY  /tmp/v91_bin/slang-uhdm.fix  07e9185068b6f754976cfda008a09987
+
+FULL BATTERY RE-RUN ON THE FIXED BINARY — every gate re-run, not inherited:
+  goldens                    23 PASS / 0 FAIL
+  u2r both modes             679/50/2; rows vs pristine 0/1462 (status AND dump);
+                             rows vs the SHIPPED patch  0/1462
+  u2r byteverify             0 movers / 1358
+  surelog                    histogram identical; rows 0/1588 all three ways;
+                             byteverify 9/956 — THE SAME NINE, 216 lines each
+  boundary                   616 sources, MOVED 7, NO_OUTPUT 7 — the SAME seven,
+                             the same line counts; and every one of the 609
+                             boundary dumps is BYTE-IDENTICAL, path-normalised,
+                             to the shipped patch's.  THE FIX MOVES NO BOUNDARY
+                             ARM AT ALL.
+  pins / canaries            SAME=10 MOVED=0; canaudit 33/0/0; changed=0
+  arms                       g91_a1_grid 719 (= shipped), v91_a1_kinds 1102
+                             (= shipped), v91_a2_scope 326 (= shipped),
+                             v91_a3_order 259 -> 249, v91_a4_winner 182 -> 124
+                             (dump-diff vs a fresh Surelog golden; lower better)
+  cell census, all arms      BROKEN=0 everywhere.  v91_a3_order 43/43 cells
+                             correct, v91_a4_winner 26/26 — both were short of
+                             that under the shipped patch.
+
+The fix is a STRICT IMPROVEMENT: byte-identical to the shipped patch wherever the
+two rules agree (which is the whole corpus and the whole boundary), strictly
+closer to golden where they disagree.
+
+REGRESSION METRIC on every boundary mover — golden-agreeing dump lines that
+PRISTINE had and the patched build LOST, span- and id-normalised:
+    t45a 0 lost / 18 gained;  g87_a2_sites 0 / 2;  v87_a1_defaults 0 / 1;
+    v83_a09_paramclass 0 / 1; sd10 v2_paramclass 0 / 1.
+NOTHING GOLDEN-AGREEING IS EVER LOST.
+
+=== 4. THE LAW AS IT NOW STANDS ==========================================
+A class holds ONE typespec per DEFAULT-CHAIN ROOT among its own type parameters.
+The object is built from the ROOT parameter's class-header default; it is NAMED
+for the BYTE-WISE ALPHABETICALLY LAST candidate typedef of the chain; and every
+member of the chain binds it — each type_parameter, and the FIRST candidate
+typedef of each member.  A typedef written with DIMENSIONS is an array_typespec
+OVER the parameter and is not a candidate; a local/protected typedef is not a
+candidate; a typedef-of-a-typedef CONSUMES its target.
+
+Independently re-confirmed by the verifier, each on a cell the implementer's
+grid does not carry (`v91_a1_kinds.sv`, `v91_a2_scope.sv`):
+  * chains 5 deep with the only typedef on the MIDDLE parameter (`c_chain5`)
+    and on the FIRST and LAST (`c_chain5b`) — correct.
+  * typedef-of-typedef 2 and 3 deep (`c_tdtd`, `c_tdtd3`) — correct; and
+    `c_tdtd2`, where consumption leaves a parameter with NO surviving candidate,
+    correctly stays ANONYMOUS exactly as golden does.
+  * `local` on the LAST typedef of a chain (`c_qmix`, golden `a_t`) and on the
+    FIRST (`c_qmix2`, golden `b_t`) — correct in both directions.
+  * kinds: integer / time / longint / shortreal / reg — all correct.
+  * scopes: $unit (`cu_unit`), a NESTED class (`c_outer::c_inner`), a derived
+    class with its OWN parameters (`c_pderi`), and a derived class whose base
+    specialization uses its own parameter (`c_pderi2`) — all correct.
+  * specializations: Surelog compiles a parameterised class ONCE, generically,
+    so partial (`c_p3 #(bit)`), full, int->class and class->int specializations
+    produce no separate type_parameter cells in golden either.  No divergence.
+
+=== 5. RANKED RESIDUES (measured here, NOT chased) ========================
+R-A  THE ALLOW-LIST IS NARROWER THAN GOLDEN.  Golden applies the SAME shared,
+     alphabetically-named object to kinds this law declines.  Measured in
+     `v91_a1_kinds.sv`, golden vs ours, all still ANONYMOUS on our side:
+       queue / dynamic / assoc / fixed-array defaults -> golden `array_typespec
+         ('b_t')`  (cells c_qu / c_dy / c_as / c_fx, 8 cells)
+       chandle  -> golden `chandle_typespec ('b_t')`  (2 cells)
+       UNPACKED struct -> golden `struct_typespec ('pv1::b_t')` (2 cells)
+     These are pure ADDITIONS to the allow-list in `classTpGroupNc91`; the law
+     and its winner rule already hold on them.  Cheapest remaining win.
+R-B  R2, NOW EXACTLY CHARACTERISED.  In `c_allsites` golden binds the shared
+     object at 19 sites and we bind at 13.  The six misses are ALL class
+     PROPERTIES and FUNCTION-STATIC LOCALS written with the PARAMETER NAME:
+       static A s_static;  rand A r_rand;  A p_arr[2][3];  A p_pubs;
+       local A p_loc;  and `static A l_stat;` inside a function.
+     FORMALS written as the parameter name (`e_fn::x`, `chain_ret::i`) ALREADY
+     bind, and every typedef-spelled site already binds.  So this is the
+     class-variable declaration path only, not "properties and locals" in
+     general — a sharper target than the implementer's R2.
+R-C  the new `hier_path` VpiName / `ref_obj` VpiFullName head (the implementer's
+     own #1) — two fields, one object, same rung on both sides.
+R-D  enum / packed-struct groups reach § 33's package-listing graph (the
+     implementer's R1); `c_enum` / `c_st` confirmed untouched and out of scope.
+R-E  classes declared inside a MODULE or an INTERFACE emit NO type_parameter at
+     all on our side (`v91_a2_scope.sv` cells `c_in_mod`, `c_in_iface`, 4 cells
+     absent). PRE-EXISTING, unrelated to this law, and unmoved by it.
+
+=== 6. OPS NOTES =========================================================
+* `bound91.sh` hard-codes `WD=/tmp/r10uvm91_bound` with a `rm -rf` and ignores an
+  inherited WD, so a second run of it CLOBBERS the first run's evidence.  The
+  verifier ran its own copy at /tmp/v91_bound and /tmp/v91_boundfix.  Recommend
+  `WD=${WD:-/tmp/..._bound}` before this driver is reused.
+* `sweep91.sh` defaults `REPO=/tmp/wt_r10uvm91` — the IMPLEMENTER'S worktree. A
+  verifier that runs it unmodified silently uses another agent's harness.  The
+  verifier used its own driver against its own pristine checkout, after
+  asserting scripts/verify_golden.py is identical in both worktrees.
+* Dump paths embed the workdir: a naive cmp of two boundary runs at different
+  paths reports EVERY file as differing.  All cross-run dump comparisons here
+  are path-normalised.
+* Scoreboard/default is the known ~50/50 COIN: its patched md5 came out
+  f8b0af6ede4e here against the implementer's 5572fae93172, with an IDENTICAL
+  pristine hash.  Order-blind (sorted dump) it moves EXACTLY 216 lines like the
+  other eight, so the attribution is unaffected — and the raw 308-line diff is
+  the coin, not the law.  Order-blind attribution is mandatory for this row.

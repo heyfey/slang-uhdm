@@ -1,0 +1,39 @@
+r10uvm91 — THE LADDER.  MEASUREMENT-ONLY; the official uhdm-cmp is the judge.
+Built from tools/probe/r10ladder1repro/ctladder.cpp -> /tmp/r10uvm91_ctladder.
+
+  /tmp/r10uvm91_ctladder <golden> <ours> --budget=2400
+
+Row: default/SeqDriver.  Golden = ~/.cache/slang-uhdm-goldens/b5b4389e30f948a6a29f.
+
+              rungs  stop      escalated  secs
+  PRISTINE     397   FIXPOINT      183    350.5
+  PATCHED      391   FIXPOINT      183    352.9
+
+BOTH ladders reach FIXPOINT — neither is a partial — and the total falls by
+EXACTLY 6.  That is the whole of this pass's claim, measured twice over:
+
+  FAM = int_typespec|VpiName|TEXT:this_rsp_type|this_req_type
+    PRISTINE  rungs 1, 2, 3, 4, 5, 6   (the six `uvm_*_imp` classes, in the
+                                        order Compare reaches them)
+    PATCHED   ABSENT.  `grep -c 'this_\(req\|rsp\|imp\)_type'` over the whole
+              patched ladder = 0.
+  6 -> 0, and no rung is created anywhere else: 397 - 6 = 391.
+
+THE NEW HEAD WAS ALREADY THERE, BEFORE ANY PATCH.  Pristine RUNG 7 is the
+patched RUNG 1, verbatim:
+
+  RUNG 7 (pristine) == RUNG 1 (patched)
+    KINDL=hier_path KINDR=hier_path KINDP=assignment FIELD=VpiName
+    FAM=hier_path|VpiName|TEXT:gp.m_byte_enable[i % ]|gp.m_byte_enable[i % gp…
+    L  hier_path(gp.m_byte_enable[i % ])
+         @uvm_tlm2_generic_payload.svh:464:22-464:67
+    R  hier_path(gp.m_byte_enable[i % gp.m_byte_enable_length])@:464:22-464:67
+    G= "gp.m_byte_enable[i % ]"   O= "gp.m_byte_enable[i % gp.m_byte_enable_length]"
+    PL … < assignment@464:13-464:67 < begin < if_else < begin < for_stmt
+       < begin < if_stmt   (uvm_tlm2_generic_payload.svh:459-471)
+
+so the official uhdm-cmp's 24 -> 176 cmp LINES is the NEXT RUNG being printed,
+not a regression: a cmp line count is the head object's decompile size, and a
+`hier_path` with a nested `bit_select` over a modulo `operation` decompiles to
+88 lines a side where an `int_typespec` decompiles to 6.  Heads stayed at 1 on
+every row-mode (`grep -c '^LHS:'`).

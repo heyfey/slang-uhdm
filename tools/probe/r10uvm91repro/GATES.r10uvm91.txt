@@ -1,0 +1,120 @@
+r10uvm91 — THE GATES.  Every number below was produced by a driver in this
+directory or by scripts/verify_golden.py / tests/check_goldens.sh, with
+SLANG_UHDM exported EXPLICITLY to the binary under test in every case.
+LHS is ALWAYS golden.  uhdm-cmp is the ONLY acceptance judge.
+
+(1) BUILD — both binaries, md5 taken SEPARATELY after each build, -j 2 only
+    /tmp/r10uvm91_bin/slang-uhdm.pris  98272853bd35367aef0e7064636c078b
+    /tmp/r10uvm91_bin/slang-uhdm.pat   c4b4917bd902599c8b8df857a031e09f
+    Both FROZEN at those immutable paths BEFORE the sweeps that produced the
+    numbers below, and EVERY sweep log echoes the md5 of the binary it ran:
+      /tmp/r10uvm91_sweep_pris_surelog.log  BIN=...pris md5=98272853bd35...
+      /tmp/r10uvm91_sweep_pat_surelog.log   BIN=...pat  md5=c4b4917bd902...
+      /tmp/r10uvm91_sweep_pris_u2r.log      BIN=...pris md5=98272853bd35...
+      /tmp/r10uvm91_sweep_pat_u2r.log       BIN=...pat  md5=c4b4917bd902...
+    cmds.txt BINARY-PATH audit (the PATH, not the substring `slang-uhdm`,
+    which also matches the golden cache dirs):
+      surelog sweeps    1523 hits of the tag's own path, 0 of the other's
+      uhdm2rtlil sweeps 1458 hits of the tag's own path, 0 of the other's
+
+(2) COMMITTED GOLDENS — tests/check_goldens.sh, SLANG_UHDM exported per binary
+    pristine  23 PASS
+    patched   23 PASS
+    /bin/false control   0 PASS  23 FAIL      <- the gate can fail
+
+(3) uhdm2rtlil CORPUS — verify_golden.py --corpus uhdm2rtlil --mode both --jobs 2
+    default   679 CMP_EQUAL  50 SLANG_REJECT  2 SURELOG_FAIL   (731)
+    testflags 679 CMP_EQUAL  50 SLANG_REJECT  2 SURELOG_FAIL   (731)
+    ct8rows vs the COMMITTED results/gate_uhdm2rtlil.csv (testflags-filtered):
+      PRISTINE  0 differing ROWS   <- BASELINE FIRST
+      PATCHED   0 differing ROWS
+    ct8rows PATCHED-vs-PRISTINE, BOTH modes, whole row incl. the dump column:
+      0 differing ROWS over 1462.  Dump histogram unchanged: default 187 differ
+      / 492 match / 52 blank; testflags 183 / 496 / 52.
+
+(4) SURELOG CORPUS — verify_golden.py --corpus surelog --mode both --jobs 2
+    1588 rows each binary.  GOLDEN_DEFER=[UNSET] echoed on every sweep.
+    default   470 CMP_EQUAL  11 CMP_NOTEQUAL  5 DEFERRED  283 SLANG_REJECT
+              25 SURELOG_FAIL
+    testflags 466 CMP_EQUAL   9 CMP_NOTEQUAL  5 DEFERRED  284 SLANG_REJECT
+              23 SURELOG_FAIL  3 NO_DATABASE  2 UNTRANSLATABLE  1 TIMEOUT
+              1 NO_UHDM
+    THE STATUS HISTOGRAM IS IDENTICAL ON BOTH BINARIES AND TO THE COMMITTED
+    BASELINE — in particular SLANG_REJECT did not move, so no rc=139 segfault is
+    hiding inside it.
+    ct8rows vs the COMMITTED results/golden_surelog.csv:
+      PRISTINE  0 differing ROWS over 1588   <- BASELINE FIRST
+      PATCHED   0 differing ROWS over 1588
+      PATCHED vs PRISTINE  0 differing ROWS over 1588
+    NO ROW WAS CONVERTED IN EITHER DIRECTION.  Earlgrey_0_1/testflags remains a
+    CMP_NOTEQUAL row, exactly as the standing brief says it is.  results/*.csv
+    were NEVER written.
+
+(5) BYTEVERIFY — SELFCHECK=1 and SELFCHECK1=1, PATH-SET assertion first
+    surelog     PATH_SETS_IDENTICAL (956 paths)   MOVERS 9 / 956
+      ./default/BuildUVMPkg-bf853d43    5ed93e32b0be -> f8d41e1dfbb4
+      ./default/MiniAmiq-544c7f61       798df551c81b -> e330f81e7172
+      ./default/Scoreboard-59431470     366f571b5813 -> 5572fae93172
+      ./default/SeqDriver-32af76aa      7cee906ffed9 -> 5d8189cd731b
+      ./default/SimpleUVM-1dc93a62      91f41b451c9e -> 869acad78800
+      ./testflags/BuildUVMPkg-bf853d43  5ed93e32b0be -> f8d41e1dfbb4
+      ./testflags/MiniAmiq-544c7f61     798df551c81b -> e330f81e7172
+      ./testflags/SeqDriver-32af76aa    8c8a82d8631e -> 27fc2a281dcc
+      ./testflags/SimpleUVM-1dc93a62    4eb6d11f5f92 -> 05e8b04cec98
+      SELFCHECK  955 / 956 flagged        (comparator sees a wholesale swap)
+      SELFCHECK1 10                        (9 real movers + 1 corrupted byte)
+    uhdm2rtlil  PATH_SETS_IDENTICAL (1358 paths)  MOVERS 0 / 1358
+      SELFCHECK  1357 / 1358 flagged      SELFCHECK1 1
+    EVERY MOVER NAMED AND ATTRIBUTED — PREDICT.r10uvm91.txt holds the BY-NAME
+    prediction made from PRISTINE bytes BEFORE this gate was read, and
+    CENSUS.r10uvm91.txt the per-object attribution.  Each of the 9 movers moves
+    EXACTLY 216 dump lines and every moved line is `int_typespec` /
+    `type_parameter` / `|vpiSigned` / `|vpiParent` / `|vpiName:this_r??_type` —
+    NOTHING ELSE.
+
+(6) NAMED PINS — pins91.sh, md5 of the DATABASE per name per mode
+    InterfaceModPort   default/testflags  59a365f3ce2c  SAME
+    BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+    YosysOldOr         default/testflags  d68e0796d62c  SAME
+    SVSwitch           default/testflags  4842211c4030  SAME   <- the brief's pin
+    YosysVerx          default/testflags  6ccda350c24a  SAME   <- the brief's pin
+    ---- pins SAME=10 MOVED=0 UNKNOWN-NAME=0
+
+(7) CANARIES — canaries.sh + ctcan2.sh, audited by canaudit.sh
+    canaudit.sh canaries.sh ctcan2.sh : audited=33 UNCOVERED=0 FENCE-BREACH=0
+      (the four slang-fenced names are dispatched by NO driver here)
+    canaries.sh  surelog csv : ok=56 changed=0 absent=0 unknown-names=8  (expected 8)
+    canaries.sh  u2r csv     : ok=9  changed=0 absent=0 unknown-names=27 (expected 27)
+    ctcan2.sh    surelog csv : ok=58 changed=0 unknown-patterns=1 (EXPECT_UNKNOWN=1) PASS
+    ctcan2.sh    u2r csv     : ok=1  changed=0 unknown-patterns=6 (EXPECT_UNKNOWN=6) PASS
+
+(8) BOUNDARY — bound91.sh, uvm77-90 + uvm33 + buvm3-13 + sd8-12, RECURSIVE
+    616 committed arm sources compiled with BOTH binaries, dump bytes compared.
+      MOVED 7   NO_OUTPUT 7   MISSING-DIR 1 (r10buvm14repro does not exist in
+      the tree; the brief's "buvm3-14" range is reported honestly, not padded)
+    * all 7 NO_OUTPUT fail on BOTH binaries, file by file — symmetric,
+      pre-existing.
+    * all 7 MOVED move TOWARD GOLDEN, each re-measured against a fresh Surelog
+      golden with arm91.sh (dump-diff-vs-golden BEFORE -> AFTER):
+        r10uvm33repro/t45a/dut.sv            1328 -> 1184   (-144)
+        r10uvm87repro/g87_a2_sites.sv        1165 -> 1159   (-6)
+        r10uvm87repro/v87_a1_defaults.sv      591 ->  585   (-6)
+        r10uvm83repro/v83_a09_paramclass.sv    76 ->   72   (-4)
+        r10sd10repro/vgrid10/v2_paramclass.sv 214 ->  210   (-4)
+        r10sd11repro/vgrid10/v2_paramclass.sv 214 ->  210   (-4)
+        r10sd12repro/vgrid10/v2_paramclass.sv 214 ->  210   (-4)
+      NOT ONE ARM MOVES AWAY FROM GOLDEN.
+    * the two uvm87 arms that move are uvm87's OWN DECLARED RESIDUE R1: the
+      moved cells are `g87_a2_sites`'s `c_int` and `v87_a1_defaults`'s `c8_87`,
+      both NON-CLASS type-parameter groups, which uvm87's README records as
+      "left alone on purpose".  EVERY CLASS-RESOLVED CELL IS BYTE-IDENTICAL —
+      uvm87's winner-table arms `v87_a6_tdpick`, `v87_a7_tdchain`,
+      `v87_a8_exotic`, `g87_a1_order`, `g87_a3_tpname` and its `g87_a4_sd9ctl`
+      (= r10sd9's `g7_typeparam_control`) DO NOT MOVE AT ALL.
+    * uvm82's type_parameter arms, buvm9/10's listing/alias arms and every
+      uvm88/89/90 arm are byte-identical.
+    * DRIVER FIX made here: v87bound.sh keyed its scratch dir on the source
+      BASENAME, and r10uvm33repro keeps THREE arms all named `dut.sv`
+      (t43a/ t44a/ t45a/) — two of the three were silently overwritten and
+      could never have been reported.  bound91.sh keys on the RELATIVE PATH.
+      Re-run after the fix: same 7 movers, and t43a / t44a confirmed UNMOVED.

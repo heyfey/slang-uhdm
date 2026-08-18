@@ -1,0 +1,59 @@
+r10uvm91 — THE INPUTS.  Everything a re-run needs, so no number rests on a
+binary or a path that cannot be rebuilt.
+
+REPO       /home/heyfey/git-repos/slang-uhdm, branch auto5h, BASE 4f68427
+WORKTREE   /tmp/wt_r10uvm91   (git worktree add /tmp/wt_r10uvm91 4f68427)
+BUILD      cmake -DCMAKE_BUILD_TYPE=Release -S /tmp/wt_r10uvm91 -B /tmp/wt_r10uvm91/build
+           cmake --build build -j 2      (md5sum taken SEPARATELY after each build)
+BINARIES   /tmp/r10uvm91_bin/slang-uhdm.pris  98272853bd35367aef0e7064636c078b
+           /tmp/r10uvm91_bin/slang-uhdm.pat   c4b4917bd902599c8b8df857a031e09f
+           BOTH FROZEN at those immutable paths before any sweep; every sweep's
+           workdir cmds.txt was grepped for the BINARY PATH afterwards, and both
+           sweep logs echo the md5 of the binary they actually ran.
+PATCH      /tmp/r10uvm91.patch = git diff vs 4f68427
+
+BASELINES  THE ONES IN MY OWN WORKTREE, /tmp/wt_r10uvm91 @ 4f68427:
+             results/golden_surelog.csv    1588 ROWS (both modes)
+             results/gate_uhdm2rtlil.csv    731 ROWS — TESTFLAGS ONLY, so the
+               fresh both-modes CSV is compared to it TESTFLAGS-FILTERED and the
+               DEFAULT half is compared PATCHED-vs-PRISTINE instead.  BOTH
+               comparisons are reported in GATES.r10uvm91.txt.
+           results/*.csv were READ ONLY.  NOTHING WAS PROMOTED.  NO ROW CONVERTED.
+           slang was NOT patched.  GOLDEN_DEFER read [UNSET] on every sweep.
+
+TOOLS      uhdm-cmp  ~/.local/bin/uhdm-cmp     (THE ONLY ACCEPTANCE JUDGE)
+           uhdm-dump ~/.local/bin/uhdm-dump
+           surelog   ~/git-repos/Surelog/build/bin/surelog   (arm goldens)
+           ct91cen   g++ -O2 -std=c++17 ct91cen.cpp -I ~/.local/include \
+                       -L ~/.local/lib64 -L ~/.local/lib -luhdm -lcapnp -lkj \
+                       -o /tmp/r10uvm91_ct91cen
+           ctladder  built from tools/probe/r10ladder1repro/ctladder.cpp, same
+                     flags -> /tmp/r10uvm91_ctladder.  MEASUREMENT-ONLY.
+
+SWEEPS     sweep91.sh <binary> <corpus> <tag>   (verify_golden.py --mode both
+           --jobs 2, my own --out/--workdir, SLANG_UHDM exported, GOLDEN_DEFER
+           echoed, cmds.txt grepped for the BINARY PATH afterwards)
+             /tmp/r10uvm91_{pris,pat}_surelog.csv      1588 rows each
+             /tmp/r10uvm91_{pris,pat}_uhdm2rtlil.csv   1462 rows each
+             workdirs /tmp/r10uvm91_wd_{pris,pat}_{surelog,uhdm2rtlil}
+           cmds.txt BINARY-PATH audit: 1523 hits of the tag's own binary path on
+           each surelog sweep, 1458 on each uhdm2rtlil sweep, 0 of the other's.
+
+CORPUS PATHS the arms and the decode read
+           uvm-1.2      ~/git-repos/Surelog/third_party/UVM/uvm-1.2/src
+           1800.2-2017  ~/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output
+           golden caches (read out of each row's OWN cmds.txt cache-hit line)
+             SeqDriver   ~/.cache/slang-uhdm-goldens/b5b4389e30f948a6a29f
+
+THE HEAD'S SOURCE SITE
+           uvm-1.2 src/tlm1/uvm_imps.svh:232-241 (and 243/254/265/276/287 — the
+           same shape six times), with `UVM_MS_IMP_COMMON` at
+           src/tlm1/uvm_tlm_imps.svh:214-226 supplying
+           `local this_req_type m_req_imp; local this_rsp_type m_rsp_imp;`.
+
+UHDM SOURCES the head is decoded FROM (~/git-repos/UHDM/build/generated/src)
+           scope.cpp      scope::Compare      — ... Variables ... Parameters ...
+                          Typespecs ...  (the order that makes `m_req_imp` the
+                          head and the type_parameters the rung behind it)
+           typespec.cpp   typespec::Compare   — VpiName, Typedef_alias, Instance
+           int_typespec.cpp int_typespec::Compare — Cast_to_expr, VpiSigned, Ranges
