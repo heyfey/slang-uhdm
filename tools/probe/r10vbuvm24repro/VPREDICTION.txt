@@ -1,0 +1,25 @@
+r10vbuvm24 — THE VERIFIER'S MOVER PREDICTION, written BEFORE byteverify ran.
+
+Instrument: vfence24.py (lexical superset over every source AND every file
+reachable from an include directory of each sweep cell that produced a
+database).  Recorded here so the byteverify result can be checked against a
+prediction rather than explained after the fact.
+
+uhdm2rtlil (1358 databases over the two modes): the lexical scan finds NO
+empty slot in any cell.  PREDICTED MOVERS: NONE.
+
+surelog (956 databases): the lexical SUPERSET is 30 cells.  Twenty-six of
+them are UVM-library `+incdir` reach only (the test never includes
+uvm_pkg.sv): BeginKeywords, GenerateUnnamed, InterfaceModPort, UnitElabBlock,
+YosysMarlann, YosysRiscv, YosysVerx, ApbSlave — those must NOT move, and
+InterfaceModPort/YosysVerx are protected canaries with pinned md5s.
+Three more are empty slots that are NOT subroutine-call arguments and must
+NOT move: ImplicitPorts2 (a module instance port list), SequenceInst (a
+sequence instance), SynthForeach (a foreach index list) — all CMP_EQUAL.
+
+PREDICTED MOVERS, BY NAME (9):
+  default/BuildUVMPkg   testflags/BuildUVMPkg
+  default/MiniAmiq      testflags/MiniAmiq
+  default/SeqDriver     testflags/SeqDriver
+  default/SimpleUVM     testflags/SimpleUVM
+  default/Scoreboard          (testflags/Scoreboard is SLANG_REJECT: no database)

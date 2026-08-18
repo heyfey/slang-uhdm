@@ -1,0 +1,64 @@
+r10buvm24 — THE MOVER PREDICTION, written from the PRISTINE sweeps of both
+corpora BEFORE the patched sweep existed.  Reproduce with fence24.py.
+
+THE POPULATION § emptyArgSlotIntZero24 CAN REACH is exactly "a subroutine call
+that WROTE an argument slot and left it EMPTY".  That is a LEXICAL property of
+the source, so the fence is ENUMERABLE rather than guessed: after comments and
+string literals are removed, an empty slot is `,` followed by `,` or `)`, or
+`(` followed by `,`.  (`()` — an empty ARGUMENT LIST — is not one; deleting a
+string literal instead of replacing it by a token turns `$display("%d", x)`
+into `(, x)` and floods the scan, which is why fence24.py substitutes a
+placeholder.)
+
+The scan is a deliberate SUPERSET: it also fires on an empty MODULE PORT
+CONNECTION, on a SEQUENCE-instance actual list and on a `foreach` index list,
+none of which is a `CallExpression` and none of which this law can touch.
+
+MEASURED over every source of both pristine sweeps
+(pristine md5 d35dfd84201d10e1e332201db22417fa; 2 981 cmds.txt lines, one
+binary path):
+
+  uhdm2rtlil   1 462 test-mode workdirs scanned, 0 unresolved sources.
+               EMPTY SLOTS: **0 test-modes**.  Not one call, port connection or
+               index list in that corpus writes an empty slot.
+               PREDICTED MOVERS: **NONE**, 0 of 1358.
+
+  surelog      1 573 test-mode workdirs scanned, 0 unresolved sources.
+               EMPTY SLOTS: 62 test-modes, which split THREE ways:
+
+                 9  CMP_NOTEQUAL — the UVM databases, 27 empty slots each
+                    (uvm_pkg.sv pp_output for BuildUVMPkg; the same 27 through
+                    uvm_component/mem/reg/reg_adapter/reg_block/reg_field/
+                    reg_indirect/report_server/sequence_library/vreg/vreg_field
+                    .svh for the other four):
+
+                      default/BuildUVMPkg  testflags/BuildUVMPkg
+                      default/MiniAmiq     testflags/MiniAmiq
+                      default/SeqDriver    testflags/SeqDriver
+                      default/SimpleUVM    testflags/SimpleUVM
+                      default/Scoreboard   (its testflags row is SLANG_REJECT)
+
+                 6  CMP_EQUAL — and NOT ONE of their empty slots is a
+                    subroutine-call argument, so all six are predicted NOT to
+                    move (each verified by reading the line):
+                      ImplicitPorts2  `dff u0 ( q,,clk);`      module PORT
+                      SequenceInst    `p_multiclock(negedge clk2, , ...)`
+                                                              SEQUENCE instance
+                      SynthForeach    `foreach(B[q, r, , s])`  index list
+                    (both modes each).
+
+                47  SLANG_REJECT — no database is produced at all, so no byte
+                    can move.  Their empty slots are OVM/VMM/UVM library text
+                    plus `$past(x,,,clock)` (LetExpr, SystemCall), a SYSTEM
+                    call, which no arm this pass touches reaches.
+
+               PREDICTED MOVERS: exactly the **9** named above.
+
+THE SOURCE SHAPES behind the 27 empty slots (uvm-1.2 / 1800.2 line numbers):
+  print_field_int(name, value, size, radix,, type_name)   uvm_component.svh
+  print_field_int(name, value, 32,, UVM_DEC, "int unsigned")  uvm_sequence_library
+  read(st, offset, tmp, path, map, parent,, extension, fname, lineno)
+                                                          uvm_vreg[_field].svh
+  write(st, offset, tmp, path, map, parent,, extension, fname, lineno)
+  stream.open_recorder(rm.get_name(),,rm.get_type_name())  uvm_report_server.svh
+                                                           (THE HEAD, :30186)

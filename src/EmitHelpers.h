@@ -3680,6 +3680,67 @@ inline std::span<const Expression* const> writtenArgs16(
     return all.subspan(0, std::min(writtenCallArgs16(call), all.size()));
 }
 
+// ------------------------------------------------- § emptyArgSlotIntZero24
+//
+// A WRITTEN-BUT-EMPTY positional argument slot (`f(a,,b)`, `f(a,b,)`) is NOT
+// the formal's default.  Surelog's by-position arm
+// (`CompileHelper::compileTfCallArguments`, `CompileHelper.cpp:4404`) mints a
+// FRESH constant for the empty node and never looks at the io_decl at all:
+//
+//     } else {                                   // Expression is InvalidNodeId
+//       constant* c = s.MakeConstant();
+//       c->VpiValue("INT:0");
+//       c->VpiDecompile("0");
+//       c->VpiSize(64);
+//       c->VpiConstType(vpiIntConst);
+//       fC->populateCoreMembers(argumentNode, argumentNode, c);
+//       arguments->push_back(c);
+//     }
+//
+// — no `VpiParent(call)` (the by-position arm sets that only on a compiled
+// expression), so the object is UNPARENTED and located at the EMPTY SLOT.
+// slang instead binds `formal->getDefaultValue()` for the same slot
+// (`CallExpression::bindArgs`), which is the DECLARATION's own expression, so
+// we cloned a `32'h0` / `""` / `E1` / `PAR24+1` / `help24(2)` where golden
+// holds `INT:0`.
+//
+// `callArgList24` is the written actual list; `emptyArgSlots24` returns, per
+// WRITTEN slot, the `EmptyArgumentSyntax` node that slot was left as (nullptr
+// for a written one).  It is deliberately ALL-OR-NOTHING and POSITIONAL-ONLY:
+// with ANY named association the written index is no longer the bound index,
+// and § namedTfArgsFormalSlots4 (which mints the SAME object without a span)
+// already owns that shape.  It returns false — leaving every caller's existing
+// behaviour untouched — when there is no invocation syntax, no argument list,
+// a named argument anywhere, or no empty slot at all.
+inline const syntax::ArgumentListSyntax* callArgList24(
+    const CallExpression& call) {
+    auto* isy = call.syntax
+                    ? call.syntax->as_if<syntax::InvocationExpressionSyntax>()
+                    : nullptr;
+    return isy ? isy->arguments : nullptr;
+}
+
+inline bool emptyArgSlots24(
+    const syntax::ArgumentListSyntax* al,
+    std::vector<const syntax::ArgumentSyntax*>& slots) {
+    slots.clear();
+    if (!al)
+        return false;
+    bool any = false;
+    for (auto* p : al->parameters) {
+        if (p->kind == syntax::SyntaxKind::NamedArgument) {
+            slots.clear();
+            return false;
+        }
+        bool e = p->kind == syntax::SyntaxKind::EmptyArgument;
+        any = any || e;
+        slots.push_back(e ? p : nullptr);
+    }
+    if (!any)
+        slots.clear();
+    return any;
+}
+
 // ---------------------------------------------------------------- named args
 //
 // § writtenCallArgs16's PREFIX is only correct while WRITTEN ORDER equals

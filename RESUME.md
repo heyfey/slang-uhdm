@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 17:40, HEAD = the earl69 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 18:05, HEAD = the buvm24 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,7 +182,7 @@ row-modes over 7 tests:
 |---|---|---|
 | SeqDriver×2, MiniAmiq×2 (uvm-1.2 tree) | 13 (depth) | a macro-expanded parenthesised statement delay `backtick-uvm_delay(stop_timeout)` → `#(stop_timeout)` in a class task (uvm_objection.svh:1260): golden delay_control spans the whole `#(…)` and carries a NAMELESS Delay ref_obj; ours shrinks to the argument span and emits no Delay (RHS <null>); pass uvm100 in flight (uvm99 landed: 50→13, a ranged inside set keeps only the LHS + the first member's first bound — Surelog's open_range_list parse) |
 | SimpleUVM×2, Scoreboard/default (uvm-1.2 tree) | 108 (depth) | before_export's vpiPrefix method_func_call in uvm_algorithmic_comparator::write (uvm99's R2; head_pat_default_SimpleUVM.cmp) — next UVM head after uvm100 |
-| BuildUVMPkg×2 (1800.2 pp_output tree) | 32 (depth) | an OMITTED middle argument filling a defaulted formal (`stream.open_recorder(a,,c)`, uvm_pkg.sv:30186 → `time open_time = 0` :24157): golden re-encodes the default at the call site as an UNPARENTED constant vpiConstType 7 (INT:0) where we clone the declaration's literal (ct 9); constant::Compare reads VpiConstType only; pass buvm24 in flight (buvm23 landed: 166→32, a '.' inside a bracket pair is not a path separator — receiver hier_path elements from the AST, index text = decompileHelper of the index object, EMPTY for calls/hier_paths) |
+| BuildUVMPkg×2 (1800.2 pp_output tree) | 56 (depth) | the foreach loop variable of a QUEUE of class handles (`foreach(uvm_deferred_init[idx])`, uvm_pkg.sv:9847 over `uvm_object_wrapper uvm_deferred_init[$]`): golden array_var with an unnamed array_typespec (typed from the ARRAY) vs ours class_var with class_typespec (typed from the ELEMENT) — VpiType, BaseClass::Compare's first test; pass buvm25 in flight (buvm24 landed: 32→56, a written-but-empty positional argument slot is a fresh unparented INT:0 sz 64 ct 7 constant whatever the default; the leading empty slot vanishes) |
 | Earlgrey_0_1/default | 50 (depth) | an ELAB port High_conn part_select bound `.addr_i(addr_i[BankAddrW-1:LsbAddrBit])` (flash_phy_rd.sv:143 in gen_bufs): golden KEEPS ref_obj BankAddrW → enum_const (a package parameter read) where we fold to UINT:16 sz 32 + int_typespec — the earl64-68 fold superfamily running the OTHER way (abstention law; 22 cells default / 12 testflags); pass earl70 in flight (earl69 landed: 216→50, the hier_path NAME is a function of Path_elems — decompileHelper per element; golden a fixed point over 3,673 DBs) |
 | Earlgrey_0_1/testflags | 50 (depth) | SAME head, identical cmp log (earl69) |
 | Rggen/default | 64 (depth) | the signed START_ADDRESS family (7 rows): the ELAB gen-scope localparam `bit [ADDRESS_WIDTH-1:0] START_ADDRESS = OFFSET_ADDRESS + ADDRESS_WIDTH'(BUS_BYTE_WIDTH * g)` (rggen_register_common.sv:33) — golden UINT:64 decompile `64` sz 7 vs ours decompile `-64` (a bit-vector fold with the MSB set rendered SIGNED); expr::Compare fails on VpiDecompile; R-A 810 rows / R-N3 103 golden-only ELAB hier_paths next; pass rgg18 in flight (rgg17 landed: 194→64, port-actual hier_path genvar-index elements fold to bit_select + INT constants and the name is decompileHelper of the folded elements) |
@@ -190,7 +190,7 @@ row-modes over 7 tests:
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 60 verifier fix-before-landing re-cuts (121 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 60 verifier fix-before-landing re-cuts (122 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

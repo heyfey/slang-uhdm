@@ -83,6 +83,37 @@ static const slang::ast::Expression* insideTrunc99(
     return first99;
 }
 
+// § emptyArgSlotIntZero24 (emit half, the placeholder object).  The object a
+// WRITTEN-BUT-EMPTY positional slot contributes is byte for byte
+// § namedTfArgsFormalSlots4's slot filler — Surelog mints it in the SAME
+// routine (`CompileHelper::compileTfCallArguments`), with ONE difference: the
+// by-position arm calls `populateCoreMembers(argumentNode, argumentNode, c)`,
+// so THIS one carries the empty slot's own zero-width SPAN while the
+// named-association one carries none.  Neither carries a vpiParent, and no
+// generated `Compare` reads either field — the judge-visible difference this
+// clears is `VpiConstType` 7 vs 9 (`constant::Compare` reads BaseClass's
+// VpiType/VpiName/VpiDefName, then expr's VpiDecompile / VpiSize / Typespec,
+// then VpiConstType ONLY; VpiValue is not compared).
+//
+// THE LEADING SLOT VANISHES.  Golden's `f3(,2,3)` has TWO arguments (`2`,
+// `3`), `f3(,,3)` has two (placeholder, `3`) and `f3(,,)` has two
+// placeholders, while `f3(1,,)` has THREE — measured on g24.sv:79/81/82/83 in
+// both views.  Surelog's argument-list parse simply yields no node for a
+// leading empty slot, so the whole list shifts left by one.
+UHDM::constant* UhdmExporter::emptySlotArg24(
+    const std::vector<const slang::syntax::ArgumentSyntax*>& slots, size_t i,
+    bool& handled) {
+    handled = false;
+    if (i >= slots.size() || !slots[i])
+        return nullptr;
+    handled = true;
+    if (i == 0)
+        return nullptr; // the LEADING empty slot contributes NOTHING
+    auto* c24 = namedSlotFiller4(s);
+    setLoc(c24, slots[i]->sourceRange());
+    return c24;
+}
+
 // § newArray11 — every reference under a `new[...]` array-allocation call is
 // NAME-ONLY in golden (`ref_obj (dyn)`, not `ref_obj (p::C::f::dyn)`), size
 // expression and copy source alike: Surelog compiles those arguments outside
@@ -13718,7 +13749,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
                             // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
                             std::vector<const Expression*> ob17;
+                            // § emptyArgSlotIntZero24 — a WRITTEN-BUT-EMPTY positional slot
+                            // (`f(a,,b)`) is Surelog's own `INT:0` placeholder, not the
+                            // formal's default that slang bound here; a LEADING empty slot
+                            // contributes nothing at all.  `es24` is EMPTY (and every lookup
+                            // below misses) unless this call wrote one.
+                            std::vector<const syntax::ArgumentSyntax*> es24;
+                            emptyArgSlots24(callArgList24(call), es24);
+                            size_t esi24 = 0;
                             for (auto arg17 : writtenArgsInOrder4(call, sub, ob17)) {
+                                bool eh24 = false;
+                                if (auto* ez24 = emptySlotArg24(es24, esi24++, eh24))
+                                    ma17->push_back(ez24);
+                                if (eh24)
+                                    continue;
                                 bool fs17 = forceConstParent;
                                 if (isLiteralExpr(*arg17))
                                     forceConstParent = true;
@@ -13830,10 +13874,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     pendingScopedCallBind26.push_back(
                                         {c26, &sub});
                                 auto* a26 = s.MakeAnyVec();
-                                for (auto arg26 : writtenArgs16(call))
+                                // § emptyArgSlotIntZero24 — see the arm below.
+                                std::vector<const syntax::ArgumentSyntax*> es24;
+                                emptyArgSlots24(callArgList24(call), es24);
+                                size_t esi24 = 0;
+                                for (auto arg26 : writtenArgs16(call)) {
+                                    bool eh24 = false;
+                                    if (auto* ez24 =
+                                            emptySlotArg24(es24, esi24++, eh24))
+                                        a26->push_back(ez24);
+                                    if (eh24)
+                                        continue;
                                     if (auto* e26 = emitExpr(*arg26, c26, prefix,
                                                              netMap))
                                         a26->push_back(e26);
+                                }
                                 if (!a26->empty())
                                     c26->Tf_call_args(a26);
                                 return c26;
@@ -13980,10 +14035,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // EVERY symbol class, and a NAMED-block local is
                             // the one golden still leaves bare.
                             CollArgBind15 cba69(collArgBindDepth15);
-                            for (auto arg69 : writtenArgs16(call))
+                            // § emptyArgSlotIntZero24 — see the arm below.
+                            std::vector<const syntax::ArgumentSyntax*> es24;
+                            emptyArgSlots24(callArgList24(call), es24);
+                            size_t esi24 = 0;
+                            for (auto arg69 : writtenArgs16(call)) {
+                                bool eh24 = false;
+                                if (auto* ez24 =
+                                        emptySlotArg24(es24, esi24++, eh24))
+                                    fargs69->push_back(ez24);
+                                if (eh24)
+                                    continue;
                                 if (auto* a69 =
                                         emitExpr(*arg69, fc69, prefix, netMap))
                                     fargs69->push_back(a69);
+                            }
                         }
                         if (!fargs69->empty())
                             fc69->Tf_call_args(fargs69);
@@ -14212,7 +14278,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
                             // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
                             std::vector<const Expression*> ob11a;
+                            // § emptyArgSlotIntZero24 — a WRITTEN-BUT-EMPTY positional slot
+                            // (`f(a,,b)`) is Surelog's own `INT:0` placeholder, not the
+                            // formal's default that slang bound here; a LEADING empty slot
+                            // contributes nothing at all.  `es24` is EMPTY (and every lookup
+                            // below misses) unless this call wrote one.
+                            std::vector<const syntax::ArgumentSyntax*> es24;
+                            emptyArgSlots24(callArgList24(call), es24);
+                            size_t esi24 = 0;
                             for (auto arg : writtenArgsInOrder4(call, sub, ob11a)) {
+                                bool eh24 = false;
+                                if (auto* ez24 = emptySlotArg24(es24, esi24++, eh24))
+                                    ma11->push_back(ez24);
+                                if (eh24)
+                                    continue;
                                 bool fs11 = forceConstParent;
                                 if (isLiteralExpr(*arg))
                                     forceConstParent = true;
@@ -14448,7 +14527,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
                             // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
                             std::vector<const Expression*> ob11b;
+                            // § emptyArgSlotIntZero24 — a WRITTEN-BUT-EMPTY positional slot
+                            // (`f(a,,b)`) is Surelog's own `INT:0` placeholder, not the
+                            // formal's default that slang bound here; a LEADING empty slot
+                            // contributes nothing at all.  `es24` is EMPTY (and every lookup
+                            // below misses) unless this call wrote one.
+                            std::vector<const syntax::ArgumentSyntax*> es24;
+                            emptyArgSlots24(callArgList24(call), es24);
+                            size_t esi24 = 0;
                             for (auto arg : writtenArgsInOrder4(call, sub, ob11b)) {
+                                bool eh24 = false;
+                                if (auto* ez24 = emptySlotArg24(es24, esi24++, eh24))
+                                    margs11->push_back(ez24);
+                                if (eh24)
+                                    continue;
                                 bool fs11 = forceConstParent;
                                 if (isLiteralExpr(*arg))
                                     forceConstParent = true;
@@ -14556,7 +14648,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
                         // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
                         std::vector<const Expression*> ob0;
+                        // § emptyArgSlotIntZero24 — a WRITTEN-BUT-EMPTY positional slot
+                        // (`f(a,,b)`) is Surelog's own `INT:0` placeholder, not the
+                        // formal's default that slang bound here; a LEADING empty slot
+                        // contributes nothing at all.  `es24` is EMPTY (and every lookup
+                        // below misses) unless this call wrote one.
+                        std::vector<const syntax::ArgumentSyntax*> es24;
+                        emptyArgSlots24(callArgList24(call), es24);
+                        size_t esi24 = 0;
                         for (auto arg : writtenArgsInOrder4(call, sub, ob0)) {
+                            bool eh24 = false;
+                            if (auto* ez24 = emptySlotArg24(es24, esi24++, eh24))
+                                margs0->push_back(ez24);
+                            if (eh24)
+                                continue;
                             bool fs0 = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -14617,7 +14722,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
                         // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
                         std::vector<const Expression*> ob2a;
+                        // § emptyArgSlotIntZero24 — a WRITTEN-BUT-EMPTY positional slot
+                        // (`f(a,,b)`) is Surelog's own `INT:0` placeholder, not the
+                        // formal's default that slang bound here; a LEADING empty slot
+                        // contributes nothing at all.  `es24` is EMPTY (and every lookup
+                        // below misses) unless this call wrote one.
+                        std::vector<const syntax::ArgumentSyntax*> es24;
+                        emptyArgSlots24(callArgList24(call), es24);
+                        size_t esi24 = 0;
                         for (auto arg : writtenArgsInOrder4(call, sub, ob2a)) {
+                            bool eh24 = false;
+                            if (auto* ez24 = emptySlotArg24(es24, esi24++, eh24))
+                                margs->push_back(ez24);
+                            if (eh24)
+                                continue;
                             bool fs2 = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -14709,7 +14827,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
                         // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
                         std::vector<const Expression*> obH;
+                        // § emptyArgSlotIntZero24 — a WRITTEN-BUT-EMPTY positional slot
+                        // (`f(a,,b)`) is Surelog's own `INT:0` placeholder, not the
+                        // formal's default that slang bound here; a LEADING empty slot
+                        // contributes nothing at all.  `es24` is EMPTY (and every lookup
+                        // below misses) unless this call wrote one.
+                        std::vector<const syntax::ArgumentSyntax*> es24;
+                        emptyArgSlots24(callArgList24(call), es24);
+                        size_t esi24 = 0;
                         for (auto arg : writtenArgsInOrder4(call, sub, obH)) {
+                            bool eh24 = false;
+                            if (auto* ez24 = emptySlotArg24(es24, esi24++, eh24))
+                                argsH->push_back(ez24);
+                            if (eh24)
+                                continue;
                             bool fsH = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -14768,7 +14899,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // WRITTEN actuals only — see the decoder in EmitHelpers.h for the ten
                         // arm cells (a1 C1-C11, a2 D1/E2) it was measured on.
                         std::vector<const Expression*> ob2b;
+                        // § emptyArgSlotIntZero24 — a WRITTEN-BUT-EMPTY positional slot
+                        // (`f(a,,b)`) is Surelog's own `INT:0` placeholder, not the
+                        // formal's default that slang bound here; a LEADING empty slot
+                        // contributes nothing at all.  `es24` is EMPTY (and every lookup
+                        // below misses) unless this call wrote one.
+                        std::vector<const syntax::ArgumentSyntax*> es24;
+                        emptyArgSlots24(callArgList24(call), es24);
+                        size_t esi24 = 0;
                         for (auto arg : writtenArgsInOrder4(call, sub, ob2b)) {
+                            bool eh24 = false;
+                            if (auto* ez24 = emptySlotArg24(es24, esi24++, eh24))
+                                margs->push_back(ez24);
+                            if (eh24)
+                                continue;
                             bool fs2 = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -15027,7 +15171,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // what was written.  This arm IS the no-link arm
                         // (§ classCallNoLink12: the callee is not in `subMap`),
                         // so it keeps the § writtenCallArgs16 prefix untouched.
+                        // § emptyArgSlotIntZero24 — a WRITTEN-BUT-EMPTY positional slot
+                        // (`f(a,,b)`) is Surelog's own `INT:0` placeholder, not the
+                        // formal's default that slang bound here; a LEADING empty slot
+                        // contributes nothing at all.  `es24` is EMPTY (and every lookup
+                        // below misses) unless this call wrote one.
+                        std::vector<const syntax::ArgumentSyntax*> es24;
+                        emptyArgSlots24(callArgList24(call), es24);
+                        size_t esi24 = 0;
                         for (auto arg : writtenArgs16(call)) {
+                            bool eh24 = false;
+                            if (auto* ez24 = emptySlotArg24(es24, esi24++, eh24))
+                                cargs->push_back(ez24);
+                            if (eh24)
+                                continue;
                             if (arg->kind == ExpressionKind::Assignment) {
                                 auto& ae0 = arg->as<AssignmentExpression>();
                                 if (ae0.right().kind ==
@@ -15067,7 +15224,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // link ("carry their ARGUMENTS but NO vpiFunction
                         // link"), and the slot filling is what golden does only
                         // for a call whose callee it RESOLVED.
+                        // § emptyArgSlotIntZero24 — a WRITTEN-BUT-EMPTY positional slot
+                        // (`f(a,,b)`) is Surelog's own `INT:0` placeholder, not the
+                        // formal's default that slang bound here; a LEADING empty slot
+                        // contributes nothing at all.  `es24` is EMPTY (and every lookup
+                        // below misses) unless this call wrote one.
+                        std::vector<const syntax::ArgumentSyntax*> es24;
+                        emptyArgSlots24(callArgList24(call), es24);
+                        size_t esi24 = 0;
                         for (auto arg : writtenArgs16(call)) {
+                            bool eh24 = false;
+                            if (auto* ez24 = emptySlotArg24(es24, esi24++, eh24))
+                                uargs->push_back(ez24);
+                            if (eh24)
+                                continue;
                             // Output args come wrapped as
                             // Assignment(lval, Empty) — unwrap as the bound
                             // path does.
@@ -15515,6 +15685,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // the corpus.
                 std::vector<bool> slots4;
                 bool haveSlots4 = linked4 && namedTfSlots4(call, sub, slots4);
+                // § emptyArgSlotIntZero24 — the POSITIONAL twin of the slot
+                // filling above, minted in the same Surelog routine: a slot
+                // the source WROTE but left EMPTY is `INT:0`, not the formal's
+                // default.  `es24` is empty (and every lookup misses) unless
+                // this call wrote one, and § namedTfArgsFormalSlots4 keeps the
+                // NAMED shape, which `emptyArgSlots24` refuses outright.
+                std::vector<const syntax::ArgumentSyntax*> es24;
+                emptyArgSlots24(callArgList24(call), es24);
                 for (auto arg : call.arguments()) {
                     if (haveSlots4) {
                         if (argIdx >= slots4.size())
@@ -15527,6 +15705,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     else if (argIdx >= nWritten9)
                         break;
+                    if (!haveSlots4) {
+                        bool eh24 = false;
+                        if (auto* ez24 = emptySlotArg24(es24, argIdx, eh24))
+                            args->push_back(ez24);
+                        if (eh24) {
+                            argIdx++;
+                            continue;
+                        }
+                    }
                     // Output args come wrapped as Assignment(lval, Empty).
                     if (arg->kind == ExpressionKind::Assignment) {
                         auto& ae = arg->as<AssignmentExpression>();
@@ -23157,12 +23344,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         for (size_t i4 : idx4)
                             ord4.push_back(ccall9.arguments()[i4]);
                 }
+                // § emptyArgSlotIntZero24, the CONSTRUCTOR arm.  A `new(...)`
+                // hangs its actual list on the NewClassExpression's own
+                // syntax, so the slot map is read from `nsy9->argList` rather
+                // than through `callArgList24`.  Measured on g24.sv:100
+                // (`bh = new(1,,3);`): golden's middle argument is the same
+                // unparented `INT:0`.
+                std::vector<const syntax::ArgumentSyntax*> es24;
+                if (ord4.empty())
+                    emptyArgSlots24(nsy9 ? nsy9->argList : nullptr, es24);
                 size_t ai9 = 0;
                 for (auto arg9 : ord4.empty()
                                      ? ccall9.arguments()
                                      : std::span<const Expression* const>(ord4)) {
                     if (ord4.empty() && ai9++ >= nw9)
                         break;
+                    if (ord4.empty()) {
+                        bool eh24 = false;
+                        if (auto* ez24 = emptySlotArg24(es24, ai9 - 1, eh24))
+                            nargs9->push_back(ez24);
+                        if (eh24)
+                            continue;
+                    }
                     bool fs9 = forceConstParent;
                     if (isLiteralExpr(*arg9))
                         forceConstParent = true;

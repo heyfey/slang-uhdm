@@ -71,6 +71,8 @@ struct IdentifierNameSyntax;
 // § emptyFnBodyEndLabelBegin65 — the `endfunction : <label>` clause; its NAME
 // TOKEN is the whole span of the empty-body `begin`.
 struct NamedBlockClauseSyntax;
+// § emptyArgSlotIntZero24 — a written actual slot, which may be EMPTY.
+struct ArgumentSyntax;
 } // namespace slang::syntax
 
 #include <uhdm/uhdm.h>
@@ -2001,6 +2003,22 @@ private:
     /// here are `hier_path -> ""` and `func_call / method_func_call -> ""`,
     /// which is why golden writes `m_streams[]` for
     /// `m_streams[ro.get_name()]`.
+    /// § emptyArgSlotIntZero24 — the object a WRITTEN-BUT-EMPTY positional
+    /// argument slot contributes.
+    ///
+    /// `slots` is § `emptyArgSlots24`'s per-written-slot map (see
+    /// `src/EmitHelpers.h` for the decode of Surelog's mint).  Returns the
+    /// placeholder `constant` (`INT:0`, `vpiSize 64`, `vpiDecompile "0"`,
+    /// `vpiConstType 7`, NO typespec, UNPARENTED, spanned at the empty slot)
+    /// when slot `i` was written empty and is not the FIRST slot; returns
+    /// nullptr with `handled` SET when slot `i` is the FIRST slot and empty
+    /// (Surelog's argument-list parse yields NO node for a LEADING empty slot,
+    /// so `f(,b,c)` has TWO arguments, measured on grid g24.sv:79/81/83);
+    /// returns nullptr with `handled` CLEAR for every other slot, which is
+    /// every call in the corpus that does not write an empty slot.
+    UHDM::constant* emptySlotArg24(
+        const std::vector<const slang::syntax::ArgumentSyntax*>& slots,
+        size_t i, bool& handled);
     std::string hpCompIdxDecompile23(const slang::ast::Expression& sel);
     /// § hpMixedIdxPkgFold34 / § hpIdxOpPrettyPrint92 — the text a hier_path
     /// component index contributes when the index object RENDERS AS ITSELF
