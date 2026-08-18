@@ -2574,9 +2574,23 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         }
                         if (wroteDir0 || !bareTy0) {
                             NetMap pmap;
+                            // § formalDefaultBindsLikeBody13, SITE 2 of 2.  A
+                            // `pure virtual` prototype is an IN-CLASS listing
+                            // and nothing else — the keyword exists only inside
+                            // a virtual class and it has no out-of-body form —
+                            // so the body window it is bound in is
+                            // classMethodNoBind = TRUE, unconditionally, and
+                            // the formals map stays empty because that silence
+                            // would swallow it anyway.  Arm v1 `v13::v_enumi`
+                            // (`pure virtual function int v_enumi(int v =
+                            // E13_B);`) is the cell: golden leaves the
+                            // enum_const BARE and we bound it.
+                            bool savedCMNB13p = classMethodNoBind;
+                            classMethodNoBind = true;
                             auto* pde =
                                 emitExpr(*dv0, nullptr,
                                          std::string(pt->VpiFullName()), pmap);
+                            classMethodNoBind = savedCMNB13p;
                             if (pde)
                                 pio->Expr((UHDM::expr*)pde);
                         }
@@ -3030,6 +3044,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         NetMap funcMap;
         if (info)
             funcMap = info->nets;
+        // § formalDefaultBindsLikeBody13 — the FORMALS-ONLY half of funcMap,
+        // filled in DECLARATION ORDER as each io_decl is built, and read by a
+        // later formal's DEFAULT VALUE (see the emission site below).  It is a
+        // second map rather than funcMap itself because funcMap starts life
+        // holding the enclosing module's NETS: golden binds those in a default
+        // value too (arm v2 `mf_net`/`mf_var`, `ifb_net`), but that is a
+        // POPULATION this pass measured at ZERO on both corpora and left
+        // deliberately (residue R1), and a map that carried them would move
+        // cells no census had predicted.
+        NetMap dvFormals13;
         TsCache ioTs;
 
         // A DPI-IMPORT prototype has no returnValVar; synthesize its Return
@@ -3748,8 +3772,151 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 if (!wroteDir9 && bareTyId30) {
                     // nothing to emit at all
                 } else {
-                    NetMap emptyMap;
-                    auto* de = emitExpr(*dv, nullptr, fullName, emptyMap);
+                    // § formalDefaultBindsLikeBody13 — A FORMAL'S DEFAULT
+                    // VALUE IS BOUND BY THE SAME BINDER WINDOW AS THE
+                    // SUBROUTINE'S OWN BODY.
+                    //
+                    // Surelog does not bind a default value when it compiles
+                    // it: CompileHelper::compileTfPortList (CompileStmt.cpp
+                    // :1824) calls compileExpression with the io_decl as the
+                    // parent and NO pexpr, so every name in it comes out an
+                    // unresolved ref_obj registered on the component's
+                    // getLateBinding() list.  UhdmWriter::lateBinding
+                    // (UhdmWriter.cpp:3293) then walks that ref's VpiParent
+                    // CHAIN in the WRITE phase — and the chain of a default
+                    // value's ref runs ref -> operation(s) -> io_decl ->
+                    // task_func, so the `uhdmfunction` / `uhdmtask` arm fires
+                    // and matches the name against `func->Io_decls()`,
+                    // `Variables()`, `Parameters()` and, one level up, the
+                    // enclosing module's nets.  THE FORMAL IT FINDS IS AN
+                    // io_decl OF THE SAME SUBROUTINE.
+                    //
+                    // Two of our cells were wrong, in OPPOSITE directions, and
+                    // both came from this one site emitting the expression
+                    // OUTSIDE the subroutine's binder window:
+                    //   * `NetMap emptyMap` meant a ref to an EARLIER FORMAL
+                    //     never had anything to bind — the head this pass
+                    //     owns (`io_decl(severity)` under
+                    //     `function(uvm_pkg::uvm_report)`, RHS <null>: the
+                    //     SINGULAR SafeCompare on `ref_obj::Actual_group()`,
+                    //     which is the only overload that can set m_failedLhs
+                    //     to an ELEMENT and leave m_failedRhs null);
+                    //   * classMethodNoBind was NOT in force here, so an ENUM
+                    //     CONSTANT in an IN-CLASS listing's default bound while
+                    //     golden left it bare — 74 cells on BuildUVMPkg alone.
+                    //
+                    // The window is the body's own, and nothing else:
+                    // classMethodNoBind (`classScope && !oob`) and
+                    // unitSubNoBind9 are set here exactly as
+                    // emitTaskFuncs sets them around `emitStmt(sub.getBody())`
+                    // below.  MEASURED, arm v1/v2, cell -> golden:
+                    //   package free function / task   `int b = a`  -> BIND
+                    //   module   function / task       `int b = a`  -> BIND
+                    //   INSTANTIATED interface fn      `int b = a`  -> BIND
+                    //   UNinstantiated MODULE fn       `int b = a`  -> BIND
+                    //   class OUT-OF-BODY definition   `int b = a`  -> BIND
+                    //   class IN-BODY method           `int b = a`  -> bare
+                    //   class extern PROTOTYPE listing `int v=E13_B`-> bare
+                    //   `pure virtual` prototype       `int v=E13_B`-> bare
+                    //   `$unit`-scope function         `int b = a`  -> bare
+                    // and the two fences that are NOT this law:
+                    //   UNinstantiated INTERFACE fn    `int b = a`  -> bare
+                    //     (Surelog never runs lateBinding on a component it
+                    //      never elaborates; the same shape in an
+                    //      UNinstantiated MODULE binds, so it is not a
+                    //      "definition view" rule -- residue R2)
+                    //   module/interface NET or VAR in a default -> golden
+                    //     BINDS and we do not (residue R1, population 0)
+                    //   module PARAMETER / localparam in a default -> golden
+                    //     leaves it BARE in a module and binds a folded
+                    //     `constant` in a package; we fold the ref away
+                    //     entirely (a ParamEmit family, residue R3)
+                    // A LATER formal is not reachable: naming one in a default
+                    // is not legal SV, the map is filled in declaration order,
+                    // and the corpus census found ZERO such cells.
+                    // THE ONE FENCE THE CORPUS ADDED, AND IT IS MEASURED, NOT
+                    // GUESSED: a WILDCARD-IMPORT CLONE binds NOTHING in a
+                    // default value.  MiniAmiq's golden holds both copies of
+                    // the same text and disagrees with itself about them —
+                    // `uvm_pkg::uvm_report` (the HOME copy) carries
+                    // `vpiActual -> io_decl(severity)` on both its `severity`
+                    // refs, and `svaunit_pkg::uvm_report` (the clone the
+                    // wildcard import materialises) carries none, on either
+                    // ref, in either view; SeqDriver says the same with
+                    // `adpcm_pkg::uvm_report`.  Surelog's clone is a
+                    // `clone_tree` copy made in the WRITE phase, so its refs
+                    // were never on the importing component's
+                    // `getLateBinding()` list and lateBinding never sees them.
+                    // Our clone already leaves the ENUM CONSTANTS of the same
+                    // expression bare, so this restores the clone to the one
+                    // behaviour it already had rather than inventing a new one:
+                    // 16 cells (MiniAmiq 4 + SeqDriver 4, x2 modes) that the
+                    // corpus census caught as pristine-right -> patched-wrong.
+                    NetMap noBind13;
+                    bool savedCMNB13 = classMethodNoBind;
+                    bool savedUSNB13 = unitSubNoBind9;
+                    // THE IN-CLASS LISTING (in-body method, `extern`
+                    // prototype): golden binds NOTHING in its default value.
+                    bool inClass13 = classScope && !oob;
+                    classMethodNoBind = inClass13;
+                    // THE `$unit` REACH, AND IT WALKS OUT THROUGH ANY
+                    // ENCLOSING CLASS (verifier arm a5 `gc5`).  Surelog never
+                    // revisits the compilation unit with a symbol table, so a
+                    // $unit-scope class's OUT-OF-BODY definition binds nothing
+                    // either — golden leaves `gc5::gx_earlier`'s `a`, its
+                    // `gx_call`'s `a` and its `gx_enumi`'s enum constant all
+                    // BARE, while a class declared in a MODULE or a PACKAGE
+                    // binds in its out-of-body definition (arm v2
+                    // `m13::cm13::cx_earlier`, arm a2 `pa2::pc2::p_x`).  The
+                    // one-level test this replaces read the SUBROUTINE's own
+                    // parent scope, which for an out-of-body definition is the
+                    // CLASS, so it missed every $unit class method.
+                    bool unitSub13 = false;
+                    {
+                        const Scope* usc13 = sub.getParentScope();
+                        while (usc13 &&
+                               (usc13->asSymbol().kind ==
+                                    SymbolKind::ClassType ||
+                                usc13->asSymbol().kind ==
+                                    SymbolKind::GenericClassDef))
+                            usc13 = usc13->asSymbol().getParentScope();
+                        unitSub13 = usc13 && usc13->asSymbol().kind ==
+                                                 SymbolKind::CompilationUnit;
+                    }
+                    unitSubNoBind9 = unitSub13;
+                    // THE MAP IS WITHHELD, not merely silenced, wherever
+                    // golden binds nothing — because `classMethodNoBind`'s
+                    // silence is LIFTED inside a call's argument list
+                    // (§ classArgBind12: the bind gate reads
+                    // `classMethodNoBind && classArgBindDepth12 == 0`), and a
+                    // default value may hold a call.  Withholding the formals
+                    // reproduces the pristine emitter cell for cell in exactly
+                    // the places golden is bare:
+                    //   * IN-CLASS listing — arm a3 measures SEVEN shapes that
+                    //     the silence alone let through (`r3(a)`, `r3b(a,a)`,
+                    //     `r3(r3(a))`, `r3(a+1)`, `helper(a)`, `int'(r3(a))`,
+                    //     `(a>0)?r3(a):0`) plus the `extern` PROTOTYPE
+                    //     listing's ELAB copy; a CONCAT argument (`r3({a,a})`)
+                    //     and a SYSTEM call (`$bits(a+1)`) never opened the
+                    //     window and were already right.
+                    //   * `$unit` reach — see unitSub13 above.
+                    //   * an IMPORT CLONE, and `importCopyTsInst` is the test
+                    //     that names ALL THREE clone paths.  The shipped
+                    //     `pkgImportCloneEmit` covers only the WILDCARD ones
+                    //     (ParamEmit's `wpkg9` arm and
+                    //     emitImportedPkgClassMethodClones); an EXPLICIT
+                    //     single-name `import p::f;` re-emits through the same
+                    //     emitTaskFuncs with `importCopyTsInst` set and
+                    //     `pkgImportCloneEmit` FALSE, and golden leaves that
+                    //     clone's default bare too (arm a4 `pe4::hf_earlier`,
+                    //     arm a5 `pex5::hf_earlier` + `pex5::ht_earlier`).
+                    bool noBindDv13 = inClass13 || unitSub13 ||
+                                      pkgImportCloneEmit || importCloneEmit ||
+                                      importCopyTsInst != nullptr;
+                    auto* de = emitExpr(*dv, nullptr, fullName,
+                                        noBindDv13 ? noBind13 : dvFormals13);
+                    classMethodNoBind = savedCMNB13;
+                    unitSubNoBind9 = savedUSNB13;
                     // § formalRealDefaultRawValue30 — the io_decl half of
                     // § classPropRealInitRawValue29: a REAL formal default's
                     // vpiValue is the SOURCE TEXT, not a `%f` rendering of the
@@ -3817,6 +3984,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 ios->push_back(io);
                 if (!classScope)
                     funcMap[arg] = io;
+                dvFormals13[arg] = io; // § formalDefaultBindsLikeBody13
                 si.argTs.push_back({nullptr, nullptr});
                 continue;
             }
@@ -4497,6 +4665,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // A class-method formal IS reachable from the body, but only an
             // if/case CONDITION ref actually binds it (classMethodNoBind).
             funcMap[arg] = io;
+            dvFormals13[arg] = io; // § formalDefaultBindsLikeBody13
             si.argTs.push_back({ts, bareImplicit ? (const void*)argTsyn : nullptr});
         }
         // § qualifiedLifetimeMethodLosesNamePortsBody46 attaches no formals for
