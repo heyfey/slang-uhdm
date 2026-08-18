@@ -283,6 +283,9 @@ error handler. It cannot change the database.
 
 ### 3.3 Measured baseline — GENERATED, do not hand-edit numbers
 
+> Regenerated 2026-08-17 (HEAD 89bfd8f). For the live state and how to carry
+> the campaign on, read **RESUME.md** and run `scripts/resume_survey.sh`.
+
 The authoritative numbers come from the committed per-test CSVs via
 `python3 scripts/accounting.py` (`--md` for this table). Prose and commit
 messages are narrative; when they disagree with this table, the table wins —
@@ -291,8 +294,8 @@ exists.
 
 | Corpus | Mode | Total | Status breakdown | Comparable | Equal |
 |---|---|---|---|---|---|
-| Surelog suite | default | 794 | CMP_EQUAL=465 SLANG_REJECT=284 CMP_NOTEQUAL=15 SURELOG_FAIL=25 DEFERRED=5 | 480 | 465 (96.9%) |
-| Surelog suite | testflags | 794 | CMP_EQUAL=461 SLANG_REJECT=286 CMP_NOTEQUAL=12 SURELOG_FAIL=23 UNTRANSLATABLE=2 DEFERRED=5 NO_DATABASE=3 TIMEOUT=1 NO_UHDM=1 | 473 | 461 (97.5%) |
+| Surelog suite | default | 794 | CMP_EQUAL=470 SLANG_REJECT=283 SURELOG_FAIL=25 CMP_NOTEQUAL=11 DEFERRED=5 | 481 | 470 (97.7%) |
+| Surelog suite | testflags | 794 | CMP_EQUAL=466 SLANG_REJECT=284 SURELOG_FAIL=23 CMP_NOTEQUAL=9 DEFERRED=5 NO_DATABASE=3 UNTRANSLATABLE=2 TIMEOUT=1 NO_UHDM=1 | 475 | 466 (98.1%) |
 | uhdm2rtlil | default | 731 | CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 | 679 | 679 (100.0%) |
 | uhdm2rtlil | testflags | 731 | CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 | 679 | 679 (100.0%) |
 
@@ -300,9 +303,10 @@ Denominator accounting (every excluded test is one of): `SLANG_REJECT`
 (out of scope, §2.5), `DEFERRED` (5 memory giants, §2.5b), `UNTRANSLATABLE`
 (unimplemented UHDM-relevant flags, §3.2, testflags only), `SURELOG_FAIL` /
 `NO_DATABASE` / `NO_UHDM` / `TIMEOUT` (golden side absent). Within
-`CMP_NOTEQUAL`, three suite tests are documented-unreachable
-(BuildUVMPkg/SeqDriver/SimpleUVM: Surelog precompiled-UVM PPCache include
-records not reproducible from source).
+`CMP_NOTEQUAL`, the four slang-fenced tests (out of scope) account for 8 of the
+row-modes; the rest are on active head chains (the old "documented-unreachable
+BuildUVMPkg/SeqDriver/SimpleUVM PPCache" claim is OBSOLETE since 2026-08-16 —
+r10uvm83 brought the UVM container wall from 1.45M cmp lines to 54; see RESUME.md).
 
 Byte identity (`dump=match`) is tracked on `CMP_EQUAL` rows only (phase-3
 metric; not-equal rows deliberately skip the dump).

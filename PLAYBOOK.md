@@ -1,5 +1,7 @@
 # CONVERGENCE PLAYBOOK — read this FIRST, before HANDOFF.md
 
+> **2026-08-17: START WITH `RESUME.md`** (canonical operator manual + `scripts/resume_survey.sh` for the live state). This file's METHOD is current; its numbers are phase-1 history.
+
 This document governs HOW to run the convergence campaign. HANDOFF.md records
 WHERE we are. If you read only one thing before working, read this.
 

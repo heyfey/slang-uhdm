@@ -1,5 +1,7 @@
 # HANDOFF — slang-uhdm convergence campaign
 
+> **2026-08-17: this file is a historical log. START WITH `RESUME.md`** (canonical operator manual; `scripts/resume_survey.sh` prints the live state).
+
 > **Phase 2 is now the target: see GOLDEN_EQUIVALENCE.md.** It supersedes the
 > scope section below. Two corrections that matter when reading this file:
 > the old harness covered 710 uhdm2rtlil tests (it skipped 24 multi-file dirs)
