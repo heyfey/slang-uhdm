@@ -1,0 +1,3 @@
+# r10rgg18 — the head AFTER the patch: uhdm-cmp golden vs ours on default:Rggen
+# produced ZERO output (0 cmp lines, 0 heads, exit 0).  This file is EMPTY on
+# purpose: an empty cmp log IS the evidence.  rowheads.sh reads it as 0/0.

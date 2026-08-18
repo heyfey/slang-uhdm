@@ -1,0 +1,39 @@
+# r10vrgg18 — WIDE 3-WAY BOUNDARY (vboundary18.sh), a COPY of the WHOLE
+# tools/probe tree from the PRISTINE worktree, .sv AND .v, subdirectories
+# included, NO path filter; plus one PLANTED positive control (_vposctl).
+# A=base  B=implementer's patch  C=verifier's fix.
+
+LISTED=3186  PROCESSED=3186  (asserted equal)
+NO_DATABASE on all three = 127     rc-ASYMMETRIC cells = 0
+cells where all three return a nonzero rc (symmetric, uncompilable arms) = 235
+DIFF_A_B = 5     DIFF_A_C = 5     ASYM = 0
+
+THE 5 MOVERS -- the SAME five for B and C, and B's dump == C's dump on every
+one of them (so the verifier's fix moves NOTHING the implementer's patch did
+not already move, and nothing extra):
+
+  ./_vposctl/v3_vrgg18.sv                     POSITIVE CONTROL (the gate can see)
+  ./r10earl55repro/a5_earl55.sv               pre-existing NE cell
+  ./r10earl55repro/v6_v55.sv                  pre-existing NE cell
+  ./r10rgg1repro/v3_vrgg1.sv                  pre-existing NE cell
+  ./r10vrgg11repro/cells/V4/instdiff/top.sv   pre-existing NE cell
+
+Each of the four pre-existing cells was rebuilt with a FRESH Surelog golden and
+scored slot-by-slot with a Compare-visible payload:
+
+  a5_earl55.sv      base->pat 0 TO-GOLDEN 0 AWAY 2 moved-still-wrong (93 right)
+  v6_v55.sv         base->pat 0 / 0 / 2 (50 right)
+  v3_vrgg1.sv       base->pat 0 / 0 / 3 (24 right)
+  V4/instdiff/top.sv base->pat 0 / 0 / 1 (44 right)
+  ... and base->fix is IDENTICAL on all four.
+
+**AWAY-FROM-GOLDEN = 0 on every boundary mover.**  The residue that owns them
+is the pre-existing one the implementer decoded (golden keeps the SOURCE
+encoding `1'b1` / `2'b10` / `8'hab`; `expr::Compare` fails on `VpiDecompile`
+before AND after).
+
+NOTE the implementer's boundary reported 8 movers over 3187 files.  Two of
+those are their own grid cells (absent from the pristine tree copied here) and
+two more (r10earl46repro/v46v_digits.sv, v46v_gaps.sv) are DUMP-IDENTICAL
+symbol-table shrinkage, which this gate normalises away rather than counting.
+The four SUBSTANTIVE movers are the same four.

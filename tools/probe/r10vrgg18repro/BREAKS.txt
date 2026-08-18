@@ -1,0 +1,39 @@
+# r10vrgg18 — THE TWO PRISTINE-RIGHT -> PATCHED-WRONG FAMILIES, verbatim from
+# the scorer (GOLDEN / BASE / PATCHED), cells/v1 and cells/v4, gen scope.
+
+*** AWAY_GOLDEN ***  ('PA_RHS', 'v1_vrgg18.gs[0].OVM')
+    G: constant VAL=INT:0 vpiSize=64 vpiConstType=7 vpiDecompile=0
+    B: constant VAL=INT:0 vpiSize=64 vpiConstType=7 vpiDecompile=0
+    P: constant VAL=INT:0 vpiSize=64 vpiConstType=7 vpiDecompile=18446744073709551616
+
+*** AWAY_GOLDEN ***  ('PA_RHS', 'v1_vrgg18.gs[0].OVS')
+    G: constant VAL=INT:0 vpiSize=64 vpiConstType=7 vpiDecompile=0
+    B: constant VAL=INT:0 vpiSize=64 vpiConstType=7 vpiDecompile=0
+    P: constant VAL=INT:0 vpiSize=64 vpiConstType=7 vpiDecompile=18446744073709551616
+
+    (field-level, same family: v1 gs[*].OVA and v4 i1/i2 gs[*].OV — golden and
+     base both write vpiDecompile 0, the patch writes 18446744073709551616.)
+
+*** AWAY_GOLDEN ***  ('PA_RHS', 'v1_vrgg18.gs[0].TRD')   and gs[1].TRD
+    G: constant VAL=UINT:52 vpiSize=8 vpiConstType=9 vpiDecompile=52
+    B: constant VAL=UINT:52 vpiSize=8 vpiConstType=9 vpiDecompile=52
+    P: constant VAL=UINT:4660 vpiSize=8 vpiConstType=9 vpiDecompile=4660
+*** AWAY_GOLDEN ***  ('PARAM', 'v1_vrgg18.gs[0].TRD')    and gs[1].TRD
+    G: VAL=UINT:52    B: VAL=UINT:52    P: VAL=UINT:4660
+
+SCORES (whole cell, base -> patched  |  base -> FIXED)
+  v1  TO_GOLDEN 30 / AWAY 6  ->  TO_GOLDEN 22 / AWAY 0
+  v2  TO_GOLDEN  4 / AWAY 0  ->  TO_GOLDEN  4 / AWAY 0
+  v3  TO_GOLDEN 10 / AWAY 0  ->  TO_GOLDEN 10 / AWAY 0
+  v4  TO_GOLDEN 12 / AWAY 0  ->  TO_GOLDEN 12 / AWAY 0   (8 moved-still-wrong -> 0)
+  a1  TO_GOLDEN 17 / AWAY 0  ->  IDENTICAL to patched (0 moved slots)
+  b1  TO_GOLDEN 20 / AWAY 0  ->  IDENTICAL to patched (0 moved slots)
+
+THE ONE IMPROVEMENT THE FIX GIVES UP, stated plainly:
+  localparam bit [3:0] T4  = 8'hFF;          // slang stores 15, golden reads 255
+  localparam bit [7:0] TRC = T4 + 8'(g);     // golden UINT:255 at g=0
+  base 15 (wrong) -> patched 255 (RIGHT) -> fixed 15 (wrong again, == base).
+  Surelog truncates the 16-bit T8 into 8 bits but does NOT truncate the 8-bit
+  literal into T4's 4-bit declaration; no measured rule separates the two, so
+  the guard REFUSES both rather than guess.  This is a residue, not a
+  regression: the fixed cell is byte-for-byte the pristine one.

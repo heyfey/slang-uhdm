@@ -1,0 +1,29 @@
+# r10rgg18 — DECODE of ALL 8 boundary movers (wide boundary, a COPY of the
+# WHOLE tools/probe tree, no path filter: files=3187 identical=3052 MOVERS=8
+# uncompilable=127 asymmetries=0).
+# Each mover was rebuilt with BOTH binaries, given a FRESH Surelog golden
+# (verify_golden.py's DEFAULT argv) and compared three ways.
+
+1-2. THIS PASS'S OWN GRID CELLS — the POSITIVE CONTROL (the gate can see):
+     r10rgg18repro/cells/a1/a1_rgg18.sv    26 -> 13 differing census keys, all TO GOLDEN
+     r10rgg18repro/cells/b1/b1_rgg18.v     12 ->  0 differing census keys
+
+3-4. DUMP-IDENTICAL (abandoned symbol-table entry only; see BYTEVERIFY.txt):
+     r10earl46repro/v46v_digits.sv   uhdm-dump 2929 lines, 0 differing
+     r10earl46repro/v46v_gaps.sv     uhdm-dump 6173 lines, 0 differing
+
+5-8. THE LAW'S SHAPE, on cells that were NOT cmp-equal before and are NOT
+     cmp-equal after — a DIFFERENT, PRE-EXISTING residue owns them (golden keeps
+     the SOURCE encoding where we render a decimal), so this is NOT a regression;
+     the magnitude is now right and the encoding is still the old residue:
+     r10earl55repro/a5_earl55.sv   gen_b[*].J = {1{1'b1}}
+        golden  dec 1'b1  BIN:1   ct 3 sz 1
+        base    dec -1    UINT:0  ct 9      <- 'UINT:-1' round-trips to 0
+        patched dec 1     UINT:1  ct 9
+     r10earl55repro/v6_v55.sv        same shape, same three readings
+     r10rgg1repro/v3_vrgg1.sv      gb[*].GP = (B1) ? E_B : E_A  (an enum)
+        golden  dec 2'b10 BIN:10  ct 3 sz 2 | base dec -2 UINT:0 | patched dec 2 UINT:2
+     r10vrgg11repro/cells/V4/instdiff/top.sv   g.JV = K, K = 8'hab
+        golden  dec 8'hab HEX:ab  ct 5 sz 8 | base dec -85 UINT:0 | patched dec 171 UINT:171
+     In all four, expr::Compare fails on VpiDecompile BEFORE and AFTER, so the
+     judge's verdict on those objects is unchanged.  0 asymmetries in the whole run.

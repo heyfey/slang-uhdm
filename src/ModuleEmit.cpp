@@ -12467,8 +12467,44 @@ UhdmExporter::genIfUnitMisevalFalse(const GenerateBlockSymbol& blk) {
 // RESET/seal nodes contribute their slang fold read UNSIGNED; anything
 // unevaluable sets ok=false and the caller falls back to the signed
 // rendering (the shipped behaviour, correct on every measured corpus cell).
+// § genLpFoldDigitsMathValue18 (r10rgg18) — THE DECIMAL RENDERING of a
+// mathFold46 value.  `std::to_string` has no `__int128` overload and the
+// values this prints legitimately exceed both int64 (the Rggen family's
+// 64-bit `bit [63:0]` folds) and uint64 (a signed intermediate), so the
+// digits are produced by hand.  `-2^127` cannot be negated in place, so the
+// magnitude is accumulated as an UNSIGNED __int128.
+static std::string i128dec18(__int128 v) {
+    bool neg18 = v < 0;
+    unsigned __int128 m18 = neg18 ? (unsigned __int128)0 - (unsigned __int128)v
+                                  : (unsigned __int128)v;
+    std::string d18;
+    do {
+        d18 += (char)('0' + (int)(m18 % 10));
+        m18 /= 10;
+    } while (m18);
+    if (neg18)
+        d18 += '-';
+    std::reverse(d18.begin(), d18.end());
+    return d18;
+}
+
+// § genLpFoldRefValueNotInitializer18v (r10vrgg18, the r10rgg18 VERIFIER) —
+// `strictRef18` makes the walk REFUSE (ok=false) whenever a parameter
+// reference's own STORED value is not the value its initializer folds to.
+// mathFold46 was built as a SIGN oracle, where recursing into a referenced
+// parameter's initializer is harmless; r10rgg18 promoted it to a VALUE, and
+// then the recursion prints the INITIALIZER where Surelog prints the
+// parameter.  MEASURED (cells/v1, gen scope, DEF and ELAB alike):
+//   localparam bit [7:0] T8  = 16'h1234;        // stored 8'h34 = 52
+//   localparam bit [7:0] TRD = T8 + 8'(g);      // golden UINT:52 / UINT:53
+// pristine wrote 52/53 (RIGHT — slang's ConstantValue IS the stored value);
+// the unguarded walk writes 4660/4661.  The guard is a REFUSAL, not a second
+// model: agreement is checked against BOTH readings of the stored bits (a
+// signed `int` holding 32'hC0000000 agrees on the UNSIGNED reading, which is
+// what keeps v1's SGA/SGB and the a1/b1 grid rows folding).
 static void mathFold46(slang::ast::Compilation& comp46, const Expression& e,
-                       bool& ok, __int128& out, int depth) {
+                       bool& ok, __int128& out, int depth,
+                       bool strictRef18 = false) {
     using slang::ast::ASTContext;
     using slang::ast::LookupLocation;
     if (!ok)
@@ -12508,7 +12544,7 @@ static void mathFold46(slang::ast::Compilation& comp46, const Expression& e,
         case ExpressionKind::Conversion: {
             auto& ce = e.as<ConversionExpression>();
             if (ce.isImplicit())
-                mathFold46(comp46, ce.operand(), ok, out, depth + 1);
+                mathFold46(comp46, ce.operand(), ok, out, depth + 1, strictRef18);
             else
                 leafU64(e);
             return;
@@ -12516,12 +12552,12 @@ static void mathFold46(slang::ast::Compilation& comp46, const Expression& e,
         case ExpressionKind::UnaryOp: {
             auto& ue = e.as<UnaryExpression>();
             if (ue.op == UnaryOperator::Minus) {
-                mathFold46(comp46, ue.operand(), ok, out, depth + 1);
+                mathFold46(comp46, ue.operand(), ok, out, depth + 1, strictRef18);
                 out = -out;
                 return;
             }
             if (ue.op == UnaryOperator::Plus) {
-                mathFold46(comp46, ue.operand(), ok, out, depth + 1);
+                mathFold46(comp46, ue.operand(), ok, out, depth + 1, strictRef18);
                 return;
             }
             leafU64(e);
@@ -12537,8 +12573,8 @@ static void mathFold46(slang::ast::Compilation& comp46, const Expression& e,
                 case BinaryOperator::Power:
                 case BinaryOperator::Add: {
                     __int128 l = 0, r = 0;
-                    mathFold46(comp46, be.left(), ok, l, depth + 1);
-                    mathFold46(comp46, be.right(), ok, r, depth + 1);
+                    mathFold46(comp46, be.left(), ok, l, depth + 1, strictRef18);
+                    mathFold46(comp46, be.right(), ok, r, depth + 1, strictRef18);
                     if (!ok)
                         return;
                     const __int128 CAP = ((__int128)1) << 100;
@@ -12605,14 +12641,48 @@ static void mathFold46(slang::ast::Compilation& comp46, const Expression& e,
                 return;
             }
             mathFold46(comp46, ccv.isTrue() ? co.left() : co.right(), ok, out,
-                       depth + 1);
+                       depth + 1, strictRef18);
             return;
         }
         case ExpressionKind::NamedValue: {
             auto& sy = e.as<NamedValueExpression>().symbol;
             if (sy.kind == SymbolKind::Parameter) {
                 if (auto* in = sy.as<ParameterSymbol>().getInitializer()) {
-                    mathFold46(comp46, *in, ok, out, depth + 1);
+                    __int128 pv18 = 0;
+                    bool pok18 = ok;
+                    mathFold46(comp46, *in, pok18, pv18, depth + 1, strictRef18);
+                    if (!pok18) {
+                        ok = false;
+                        return;
+                    }
+                    if (strictRef18) {
+                        // § genLpFoldRefValueNotInitializer18v — the reference
+                        // contributes the parameter's STORED value; the
+                        // initializer's fold is trusted only when nothing
+                        // truncated it on the way into the parameter.
+                        const ConstantValue& pcv18 =
+                            sy.as<ParameterSymbol>().getValue();
+                        if (!pcv18 || !pcv18.isInteger() ||
+                            pcv18.integer().hasUnknown()) {
+                            ok = false;
+                            return;
+                        }
+                        bool agree18 = false;
+                        SVInt pu18 = pcv18.integer();
+                        if (auto uu18 = pu18.as<uint64_t>())
+                            agree18 = ((__int128)*uu18 == pv18);
+                        if (!agree18) {
+                            SVInt psi18 = pcv18.integer();
+                            psi18.setSigned(true);
+                            if (auto ss18 = psi18.as<int64_t>())
+                                agree18 = ((__int128)*ss18 == pv18);
+                        }
+                        if (!agree18) {
+                            ok = false;
+                            return;
+                        }
+                    }
+                    out = pv18;
                     return;
                 }
             }
@@ -13239,6 +13309,88 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (realLp)
                 if (auto* ini9 = ps.getInitializer())
                     mulDivLp9 = genLpFoldSigned46(*ini9);
+            // § genLpFoldDigitsMathValue18 — THE LAW (r10rgg18; TWO call
+            // sites, the same two carriers § genLpFoldSignedStructural46
+            // owns).  THE DIGITS SURELOG WRITES ON A GEN-SCOPE LOCALPARAM
+            // FOLD ARE THE DECIMAL OF THE **MATHEMATICAL** FOLD VALUE —
+            // computed before any truncation to the declared width, with its
+            // OWN sign, and with the declared type's signedness IRRELEVANT.
+            // The prefix (INT/UINT + vpiConstType) is a SEPARATE decision and
+            // is NOT touched here: it stays § genLpFoldSignedStructural46's
+            // structural walk plus the `negSib9` arm.
+            //
+            // MEASURED on tools/probe/r10rgg18repro/cells/{a1,b1} against
+            // Surelog (17 gen-scope rows x 2 unrollings + 3 rows x 6
+            // gen-scope instances over 3 module instances), DEF and ELAB
+            // views alike:
+            //
+            //   bit [6:0]  A = OFF + 7'(BW*g),  OFF = 7'h40   golden UINT:64
+            //     -- the MSB of the declared width is set; the 7-bit bits read
+            //        -64 SIGNED, and that signed reading is what both carriers
+            //        used to print.  `UINT:-64` does not even survive a
+            //        round trip: UHDM's String2VpiValue (vpi_user.cpp:81)
+            //        parses the digits with parseUint64, fails, and stores 0 —
+            //        which is why the pristine dump reads `UINT:0` while the
+            //        decompile reads `-64`.  THIS IS THE PASS'S HEAD.
+            //   bit signed [6:0] B = same    golden UINT:64  (NOT INT:-64)
+            //   byte E = 8'hC0 + 8'(g)       golden UINT:192 (NOT INT:-64)
+            //     -- the DECLARED signedness does not reach the digits, and it
+            //        does not reach the prefix either.
+            //   bit [7:0] D / logic [7:0] J  golden UINT:192 / UINT:193
+            //   bit [3:0] K                  golden UINT:12  / UINT:13
+            //   bit [63:0] H = 64'hC000_0000_0000_0000 + 64'(g)
+            //                                golden UINT:13835058055282163712
+            //     -- past int64; the shipped `as<int64_t>()` reading cannot
+            //        express it at all.
+            //   bit [6:0] F = OFF + 7'd64    golden INT:128  (NOT 0)
+            //   bit [6:0] G1 = OFF + 7'(BW*g) + 7'd60  golden INT:124 / INT:128
+            //   [6:0] S = 0 - 1 + 65*g       golden INT:-1 / INT:64 / INT:129
+            //     -- the fold OVERFLOWS the declared width and golden keeps the
+            //        PRE-TRUNCATION value at `vpiSize` 7.  S is also the
+            //        NEGATIVE-SIBLING row: gs[0] is -1 (so the whole gen array
+            //        takes the INT prefix) while gs[1] is 64 — an INT prefix
+            //        with UNSIGNED digits, which is exactly why the sign of the
+            //        digits is the fold's own and not the prefix's.
+            //   integer L = -1 - g           golden INT:-1 / INT:-2
+            //   bit [6:0] N = 0 - 7'd64 + g  golden INT:-64 / INT:-63
+            //     -- a genuinely negative fold still reads negative.
+            //
+            // This SUBSUMES the F-1 correction r10earl46's verifier added to
+            // the constant arm ("when the prefix comes from the structural law
+            // and the math fold is non-negative, the digits stay unsigned"):
+            // that was the same law seen through one arm only.  Its two
+            // measured rows still hold — `32'hC0000000 * 1` folds to
+            // +3221225472 and prints INT:3221225472; `0 - 32'h40000000` folds
+            // to -1073741824 and prints INT:-1073741824.
+            //
+            // WHERE IT DOES NOT SPEAK: `mathFold46` sets ok=false on anything
+            // it cannot evaluate (a call, a leaf past 64 bits — the `bit
+            // [64:0]` grid row, which golden does not fold AT ALL), and every
+            // such cell keeps the shipped rendering byte for byte.
+            bool mok18 = false;
+            __int128 mv18 = 0;
+            if (auto* ini18 = ps.getInitializer()) {
+                mok18 = true;
+                mathFold46(comp, *ini18, mok18, mv18, 0, /*strictRef18=*/true);
+                // § genLpFoldWordFits18v (r10vrgg18, the r10rgg18 VERIFIER) —
+                // SURELOG'S `Value` IS A 64-BIT WORD, so a fold that does not
+                // FIT one is not a value Surelog can write and the 128-bit
+                // walk's answer must be dropped.  MEASURED (cells/v1 + v4,
+                // gen scope, DEF and ELAB alike):
+                //   localparam bit [63:0] OVM = 64'h8000_0000_0000_0000*64'd2;
+                //   localparam bit [63:0] OVS = 64'h4000_0000_0000_0000*64'd4;
+                //   localparam bit [63:0] OV  = 64'hFFFF_..._FFFF + 64'd1;
+                // golden writes vpiDecompile **0** on all three (the word
+                // wraps); pristine wrote 0 too (slang's ConstantValue wraps at
+                // the declared width) — the unguarded walk writes
+                // 18446744073709551616, an AWAY-FROM-GOLDEN move on the FIRST
+                // field expr::Compare reads.  The window is exactly the 64-bit
+                // word: golden's own largest measured fold,
+                // UINT:13835058055282163712 (v1 SGE / a1 H), is inside it.
+                if (mok18 && (mv18 > (__int128)UINT64_MAX ||
+                              mv18 < -(((__int128)1) << 63)))
+                    mok18 = false;
+            }
             // A gen-scope localparam initialized by a BIT- or PART-SELECT off a
             // PACKED base (localparam debug = AsyncOn[k]) takes the select
             // encoding Surelog gives every other select fold: BINARY at the
@@ -13267,6 +13419,15 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 up->VpiValue("BIN:" + selBits9);
             else if (cv.isInteger() && !cv.integer().hasUnknown()) {
                 bool neg = cv.integer().isSigned() && cv.integer().isNegative();
+                // § genLpFoldDigitsMathValue18 — CALL SITE 1 of 2 (the
+                // PARAMETER'S OWN VALUE).  `neg` above is the DECLARED type's
+                // reading of the truncated bits; the law says the fold's own
+                // sign decides, and it decides the PREFIX here as well as the
+                // digits (grid rows B `bit signed [6:0]` and E `byte`, both
+                // golden UINT on a value whose bits read negative).  When the
+                // walk cannot evaluate, `neg` stands exactly as shipped.
+                if (mok18)
+                    neg = mv18 < 0;
                 // § genLpFoldSignedIntReadsBitsSigned46 — WHEN THE FOLD IS
                 // INT-ENCODED THE DIGITS ARE THE **SIGNED** READING OF THE
                 // BITS, whatever the localparam's declared signedness.  The
@@ -13310,7 +13471,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     }
                 }
                 std::string digits;
-                if (signedDigits46) {
+                if (mok18) {
+                    // § genLpFoldDigitsMathValue18 — the fold's own decimal.
+                    digits = i128dec18(mv18);
+                }
+                else if (signedDigits46) {
                     SVInt sv9 = cv.integer();
                     sv9.setSigned(true);
                     digits = sv9.toString(LiteralBase::Decimal, false);
@@ -13501,6 +13666,16 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         svv.setSigned(true);
                         int64_t sv = svv.as<int64_t>().value_or(0);
                         std::string sd = std::to_string(sv);
+                        // § genLpFoldDigitsMathValue18 — CALL SITE 2 of 2 (the
+                        // PARAM_ASSIGN RHS CONSTANT, the object this pass's
+                        // cmp head sits on).  Same law, same answer as call
+                        // site 1: the digits are the MATHEMATICAL fold's own
+                        // decimal.  `sv` is deliberately LEFT as the signed
+                        // reading of the truncated bits — the `negSib9`
+                        // predicate below is a PREFIX decision and this pass
+                        // does not re-open it.
+                        if (mok18)
+                            sd = i128dec18(mv18);
                         c2->VpiDecompile(sd);
                         c2->VpiSize((int32_t)ps.getType().getBitWidth());
                         // Folds encode INT when ANY sibling instance of this
@@ -13578,10 +13753,20 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             // INT:3221225472).  gen_test4's negatives keep the
                             // signed rendering (math fold < 0), and positives
                             // render identically either way.
+                            // § genLpFoldDigitsMathValue18 (r10rgg18)
+                            // SUBSUMES this arm: `sd` is ALREADY the
+                            // mathematical fold's decimal whenever the walk
+                            // succeeds, so the unsigned re-render that used to
+                            // live here is a no-op.  It is kept ONLY for the
+                            // cells where the walk succeeded but the value does
+                            // not fit a uint64 read of the truncated bits —
+                            // there is now none, and the assertion of that is
+                            // the byte verifier.
                             bool mok46 = true;
                             __int128 mv46 = 0;
                             mathFold46(comp, *ps.getInitializer(), mok46, mv46, 0);
-                            if (mok46 && mv46 >= 0 && !cv.integer().hasUnknown()) {
+                            if (mok46 && mv46 >= 0 && !cv.integer().hasUnknown() &&
+                                !mok18) {
                                 if (auto uu46 = cv.integer().as<uint64_t>()) {
                                     sd = std::to_string(*uu46);
                                     c2->VpiDecompile(sd);

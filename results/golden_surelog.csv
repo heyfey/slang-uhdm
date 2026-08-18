@@ -1185,7 +1185,7 @@ ReturnVal,default,CMP_EQUAL,,,match
 ReturnVal,testflags,CMP_EQUAL,,,differ
 RewriteNonConstForLoopCond,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/RewriteNonConstForLoopCond/dut.sv:11:16: error: use of undeclared identifier 'cond',,
 RewriteNonConstForLoopCond,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/RewriteNonConstForLoopCond/dut.sv:11:16: error: use of undeclared identifier 'cond',,
-Rggen,default,CMP_NOTEQUAL,decompile:,,
+Rggen,default,CMP_EQUAL,,,differ
 Rggen,testflags,SURELOG_FAIL,[INF:UH0707] Elaborating UHDM...,,
 RiscV,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/RiscV/src/test/verilog/vscale_hex_tb.v:58:7: error: unknown system name '$vcdplusfile' [-Wu,,
 RiscV,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/RiscV/src/test/verilog/vscale_hex_tb.v:58:7: error: unknown system name '$vcdplusfile' [-Wu,,

@@ -1,0 +1,81 @@
+# r10rgg18 — GATES.  BASE 944257e.  results/*.csv READ ONLY (untouched).
+
+== (1) BOTH BINARIES BUILT, -j 2, md5 taken only after 'Built target' ==
+base  25800a0f4ddabd0e5e67b33ac532cd28  /tmp/r10rgg18_bin/slang-uhdm-base   (944257e, pristine)
+pat   8b6530321e3b03f0c813a166a5b5f2d1  /tmp/r10rgg18_bin/slang-uhdm-pat
+  RE-BUILD OF THE FINAL TREE reproduces the patched md5 EXACTLY:
+  8b6530321e3b03f0c813a166a5b5f2d1  build/slang-uhdm   <- the patch and the gated binary are the same object
+  Both binaries frozen chmod 555 BEFORE any sweep; every cmds.txt audited by BINARY PATH.
+
+== (2) GOLDENS (SLANG_UHDM exported EXPLICITLY to each binary) ==
+  base    PASS=23 FAIL=0
+  patched PASS=23 FAIL=0
+  /bin/false  PASS=0 FAIL=23      <- the negative control
+
+== (3) uhdm2rtlil, --mode both, 1462 rows ==
+  status histogram (patched): CMP_EQUAL 1358  SLANG_REJECT 100  SURELOG_FAIL 4
+  = 679 / 50 / 2 per mode.
+  ct18rows base-vs-patched (STATUS *and* DUMP column): rows_a=1462 rows_b=1462 DIFFERING=0
+  vs the COMMITTED results/gate_uhdm2rtlil.csv (testflags-only, 731 rows): DIFFERING=0
+
+== (4) surelog, --mode both, 1588 rows ==
+  ct18rows base-vs-patched: rows_a=1588 rows_b=1588 DIFFERING=1
+    ('Rggen','default')  A=('CMP_NOTEQUAL','')  ->  B=('CMP_EQUAL','differ')
+  vs the COMMITTED results/golden_surelog.csv: BASE 0 differing, PATCHED 1 differing (the same row).
+  THE ONE DIFFERING ROW IS A CONVERSION AND IS SAID LOUDLY (README s7).  results/*.csv NOT EDITED.
+  status histogram (patched): CMP_EQUAL 937  SLANG_REJECT 567  SURELOG_FAIL 48  CMP_NOTEQUAL 19
+                              DEFERRED 10  NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+  (base: CMP_EQUAL 936, CMP_NOTEQUAL 20.)
+
+== (5) BYTEVERIFY, SELFCHECK=1 — see BYTEVERIFY.txt ==
+  uhdm2rtlil : MOVERS 0 / 1358   selfcheck 1358/1358
+  surelog    : MOVERS 3 / 956    selfcheck  956/956  — all three named and attributed
+
+== CANARIES ==
+  canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0  (rc 0)
+  canaries.sh  surelog  vs COMMITTED results/golden_surelog.csv     : ok=52 changed=0 absent=0
+  canaries.sh  u2r      vs my own base sweep                        : ok=16 changed=0 absent=0
+  ctcan2.sh    surelog  vs COMMITTED baseline (EXPECT_UNKNOWN=1)    : ok=58 changed=0  PASS
+  ctcan2.sh    u2r      vs my own base sweep (EXPECT_UNKNOWN=6)     : ok=2  changed=0  PASS
+  database pins: SVSwitch 4842211c4030 (both modes)   YosysVerx 6ccda350c24a (both modes)
+  InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical base-vs-patched (byteverify).
+
+== ROW HEADS (official uhdm-cmp; a cmp line count is the head OBJECT's decompile size, NOT a metric) ==
+-- BASE
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default        108      1 cmp rc=255
+SimpleUVM      testflags      108      1 cmp rc=255
+Scoreboard     default        108      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         50      1 cmp rc=255
+MiniAmiq       testflags       50      1 cmp rc=255
+BuildUVMPkg    default         32      1 cmp rc=255
+BuildUVMPkg    testflags       32      1 cmp rc=255
+Earlgrey_0_1   default        216      1 cmp rc=255
+Earlgrey_0_1   testflags      216      1 cmp rc=255
+Rggen          default         64      1 cmp rc=255
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+-- PATCHED
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default        108      1 cmp rc=255
+SimpleUVM      testflags      108      1 cmp rc=255
+Scoreboard     default        108      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         50      1 cmp rc=255
+MiniAmiq       testflags       50      1 cmp rc=255
+BuildUVMPkg    default         32      1 cmp rc=255
+BuildUVMPkg    testflags       32      1 cmp rc=255
+Earlgrey_0_1   default        216      1 cmp rc=255
+Earlgrey_0_1   testflags      216      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+== BOUNDARY (wide, a COPY of the WHOLE tools/probe tree, no path filter, .sv and .v) ==
+-- files=3187 identical=3052 MOVERS=8 uncompilable=127 asymmetries=0
+  see BOUNDARY.txt for the file list and BOUNDARY_MOVERS_DECODE.txt for the attribution of all 8.

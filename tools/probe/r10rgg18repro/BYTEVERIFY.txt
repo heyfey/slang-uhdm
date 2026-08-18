@@ -1,0 +1,41 @@
+# r10rgg18 — BYTEVERIFY (SELFCHECK=1): every slang.uhdm of the BASE workdir
+# byte-compared with the PATCHED workdir's, both corpora, both modes.
+# The mover set was PREDICTED BY NAME from the PRISTINE databases FIRST
+# (PREDICT_db_*.txt, written before the patched sweeps existed).
+
+== uhdm2rtlil ==
+-- MOVERS 0 / 1358 identical=1358 missing-a-side=104 selfcheck=1358/1358
+  PREDICTED (negative-decompile gen-scope folds): 10 rows —
+    gen_test4, int_types, int_types_blk1, param_int_types, typedef_param (x2 modes).
+  ACTUAL: 0.  The prediction is a SUPERSET BY CONSTRUCTION and this is where it
+  shows: every one of those cells is a fold whose MATHEMATICS is negative
+  (int_types' 'localparam typ y = -1' and gen_test4's 'PREV = i-1'), so the new
+  law reproduces the shipped digits EXACTLY and no byte moves.  That is the
+  earl46 F-1 invariant holding, measured rather than asserted.
+
+== surelog ==
+-- MOVERS 3 / 956 identical=953 missing-a-side=617 selfcheck=956/956
+  MOVER default/Rggen-50ccbd70            <- THE TARGET.  Predicted: negdec=7.
+      The seven START_ADDRESS folds; the row CONVERTS to CMP_EQUAL.
+  MOVER default/LogicArrayParam-68073834  <- predicted only as a CANDIDATE (negdec=0)
+  MOVER testflags/LogicArrayParam-68073834
+      DUMP-IDENTICAL: uhdm-dump of base vs patched is 0 differing lines, and the
+      harness's own dump column is unchanged, so NO COMPARED FIELD MOVED and the
+      row stays CMP_EQUAL (ct18rows: this row is not among the differing ones).
+      DECODED: the file is 7 BYTES SMALLER and the ONLY string that disappears
+      from the capnp symbol table is "-1" —
+        strings(base) - strings(patched) = { "-1" }
+      LogicArrayParam is the BIT/PART-SELECT localparam (the 'selBits9' arm):
+      the constant's decompile is written from the fold and then OVERWRITTEN by
+      the BINARY select encoding, so the intermediate string is ABANDONED in the
+      symbol table and serialized.  The old intermediate was "-1"; the new one is
+      "1", which the table already held.  One fewer abandoned symbol = 7 fewer
+      bytes.  No object field on either side changed.
+
+  NOT MOVED, and worth naming because the campaign expects it: default/Scoreboard,
+  THE DOCUMENTED ~50/50 COIN, landed on the SAME face in both sweeps.
+
+== the two earl46 BOUNDARY movers are the SAME class ==
+  r10earl46repro/v46v_digits.sv and v46v_gaps.sv: bytes differ, uhdm-dump output
+  IDENTICAL (2929 and 6173 lines, 0 differing) — abandoned-symbol-table entries,
+  no compared field.

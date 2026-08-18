@@ -1,0 +1,54 @@
+# r10rgg18 — CENSUS of every param_assign in Rggen (both views), golden vs ours.
+# instrument: pacensus18.cpp (UhdmListener::listenDesign) + census18join.py (multiset join)
+
+== BASE (944257e)
+rows G=7552 O=7279 | shared keys 7275  DIFFERING shared keys 10  gold-only keys 68  ours-only keys 0
+FAMILIES among differing shared keys: 9
+----------------------------------------------------------------------------------------------------
+count 2 example key: ROOT=work@rggen	SCOPE=work@rggen.u_block_1.u_adapter.u_adapter_common	NAME=STATUS_WIDTH	PAAT=129:29-129:66
+  G: LK=parameter	LVAL=UINT:2	LSZ=0	LSGN=1	LTS=int_typespec/s	RK=constant	RAT=129:47-129:66	RHS=C{v=UINT:2,sz=32,ct=9,dec=2,ts=int_typespec/s}
+  O: LK=parameter	LVAL=	LSZ=0	LSGN=1	LTS=int_typespec/s	RK=constant	RAT=129:47-129:66	RHS=C{v=UINT:2,sz=32,ct=9,dec=2,ts=int_typespec/s}
+----------------------------------------------------------------------------------------------------
+count 1 example key: ROOT=work@rggen	SCOPE=work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[2].u_register.u_register_common.g_decoder[0]	NAME=START_ADDRESS	PAAT=33:43-34:93
+  G: LK=parameter	LVAL=UINT:72	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:72,sz=7,ct=9,dec=72,ts=bit_typespec/u[6:0]}
+  O: LK=parameter	LVAL=UINT:72	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:-56,sz=7,ct=9,dec=-56,ts=bit_typespec/u[6:0]}
+----------------------------------------------------------------------------------------------------
+count 1 example key: ROOT=work@rggen	SCOPE=work@rggen_adapter_common	NAME=STATUS_WIDTH	PAAT=129:29-129:66
+  G: LK=parameter	LVAL=UINT:2	LSZ=0	LSGN=1	LTS=int_typespec/s	RK=constant	RAT=129:47-129:66	RHS=C{v=UINT:2,sz=64,ct=9,dec=2,ts=int_typespec/s}
+  O: LK=parameter	LVAL=	LSZ=0	LSGN=1	LTS=int_typespec/s	RK=constant	RAT=129:47-129:66	RHS=C{v=UINT:2,sz=64,ct=9,dec=2,ts=int_typespec/s}
+----------------------------------------------------------------------------------------------------
+count 1 example key: ROOT=work@rggen	SCOPE=work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[1].u_register.u_register_common.g_decoder[0]	NAME=START_ADDRESS	PAAT=33:43-34:93
+  G: LK=parameter	LVAL=UINT:80	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:80,sz=7,ct=9,dec=80,ts=bit_typespec/u[6:0]}
+  O: LK=parameter	LVAL=UINT:80	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:-48,sz=7,ct=9,dec=-48,ts=bit_typespec/u[6:0]}
+----------------------------------------------------------------------------------------------------
+count 1 example key: ROOT=work@rggen	SCOPE=work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[2].u_register.u_register_common.g_decoder[0]	NAME=START_ADDRESS	PAAT=33:43-34:93
+  G: LK=parameter	LVAL=UINT:84	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:84,sz=7,ct=9,dec=84,ts=bit_typespec/u[6:0]}
+  O: LK=parameter	LVAL=UINT:84	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:-44,sz=7,ct=9,dec=-44,ts=bit_typespec/u[6:0]}
+----------------------------------------------------------------------------------------------------
+count 1 example key: ROOT=work@rggen	SCOPE=work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[0].u_register.u_register_common.g_decoder[0]	NAME=START_ADDRESS	PAAT=33:43-34:93
+  G: LK=parameter	LVAL=UINT:64	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:64,sz=7,ct=9,dec=64,ts=bit_typespec/u[6:0]}
+  O: LK=parameter	LVAL=UINT:64	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:-64,sz=7,ct=9,dec=-64,ts=bit_typespec/u[6:0]}
+----------------------------------------------------------------------------------------------------
+count 1 example key: ROOT=work@rggen	SCOPE=work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[0].u_register.u_register_common.g_decoder[0]	NAME=START_ADDRESS	PAAT=33:43-34:93
+  G: LK=parameter	LVAL=UINT:76	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:76,sz=7,ct=9,dec=76,ts=bit_typespec/u[6:0]}
+  O: LK=parameter	LVAL=UINT:76	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:-52,sz=7,ct=9,dec=-52,ts=bit_typespec/u[6:0]}
+----------------------------------------------------------------------------------------------------
+count 1 example key: ROOT=work@rggen	SCOPE=work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[1].u_register.u_register_common.g_decoder[0]	NAME=START_ADDRESS	PAAT=33:43-34:93
+  G: LK=parameter	LVAL=UINT:68	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:68,sz=7,ct=9,dec=68,ts=bit_typespec/u[6:0]}
+  O: LK=parameter	LVAL=UINT:68	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:-60,sz=7,ct=9,dec=-60,ts=bit_typespec/u[6:0]}
+----------------------------------------------------------------------------------------------------
+count 1 example key: ROOT=work@rggen	SCOPE=work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_1.u_register.u_register_common.g_decoder[0]	NAME=START_ADDRESS	PAAT=33:43-34:93
+  G: LK=parameter	LVAL=UINT:88	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:88,sz=7,ct=9,dec=88,ts=bit_typespec/u[6:0]}
+  O: LK=parameter	LVAL=UINT:88	LSZ=0	LSGN=0	LTS=bit_typespec/u[6:0]	RK=constant	RAT=33:59-34:93	RHS=C{v=UINT:-40,sz=7,ct=9,dec=-40,ts=bit_typespec/u[6:0]}
+
+== PATCHED
+rows G=7552 O=7279 | shared keys 7275  DIFFERING shared keys 3  gold-only keys 68  ours-only keys 0
+FAMILIES among differing shared keys: 2
+----------------------------------------------------------------------------------------------------
+count 2 example key: ROOT=work@rggen	SCOPE=work@rggen.u_block_1.u_adapter.u_adapter_common	NAME=STATUS_WIDTH	PAAT=129:29-129:66
+  G: LK=parameter	LVAL=UINT:2	LSZ=0	LSGN=1	LTS=int_typespec/s	RK=constant	RAT=129:47-129:66	RHS=C{v=UINT:2,sz=32,ct=9,dec=2,ts=int_typespec/s}
+  O: LK=parameter	LVAL=	LSZ=0	LSGN=1	LTS=int_typespec/s	RK=constant	RAT=129:47-129:66	RHS=C{v=UINT:2,sz=32,ct=9,dec=2,ts=int_typespec/s}
+----------------------------------------------------------------------------------------------------
+count 1 example key: ROOT=work@rggen	SCOPE=work@rggen_adapter_common	NAME=STATUS_WIDTH	PAAT=129:29-129:66
+  G: LK=parameter	LVAL=UINT:2	LSZ=0	LSGN=1	LTS=int_typespec/s	RK=constant	RAT=129:47-129:66	RHS=C{v=UINT:2,sz=64,ct=9,dec=2,ts=int_typespec/s}
+  O: LK=parameter	LVAL=	LSZ=0	LSGN=1	LTS=int_typespec/s	RK=constant	RAT=129:47-129:66	RHS=C{v=UINT:2,sz=64,ct=9,dec=2,ts=int_typespec/s}

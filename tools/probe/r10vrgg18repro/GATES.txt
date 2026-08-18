@@ -1,0 +1,75 @@
+# r10vrgg18 — ALL MANDATORY GATES, measured by the VERIFIER from fresh
+# worktrees at 944257e (/tmp/wt_vrgg18pris pristine, /tmp/wt_vrgg18 patched
+# + verifier fix).  Binaries frozen chmod 555 at /tmp/vrgg18_bin/ BEFORE any
+# sweep; SLANG_UHDM exported explicitly per binary; every cmds.txt audited by
+# binary PATH.
+
+(1) BUILD -- cmake --build build -j 2, md5 taken only after 'Built target'
+    base   25800a0f4ddabd0e5e67b33ac532cd28   (== implementer's)
+    pat    8b6530321e3b03f0c813a166a5b5f2d1   (== implementer's)
+    fix    8492f0b748082a8dacab01aa346ca8f1   (this verifier's fix)
+
+(2) GOLDEN DUMP TESTS (SLANG_UHDM exported explicitly to EACH binary)
+    base 23 PASS / 0 FAIL      pat 23/0      fix 23/0      /bin/false 0/23
+
+(3) uhdm2rtlil, --mode both
+    base 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL   (both modes)
+    pat  679/50/2   fix 679/50/2
+    ct8rows base-vs-pat  : 0 differing ROWS over 1462 (status AND dump)
+    ct8rows base-vs-fix  : 0 differing ROWS over 1462
+    committed gate_uhdm2rtlil.csv (testflags) histogram: identical
+    cmds.txt audit: 1458/1462 name /tmp/vrgg18_bin/slang-uhdm-base; the other 4
+      are the two SURELOG_FAIL tests x 2 modes (slang never ran).  0 cells
+      named any other binary.
+
+(4) surelog, --mode both
+    base vs COMMITTED results/golden_surelog.csv : 0 differing ROWS over 1588
+    base-vs-pat : EXACTLY 1 differing ROW -- THE CONVERSION
+        <  Rggen,default,CMP_NOTEQUAL,decompile:,,
+        >  Rggen,default,CMP_EQUAL,,,differ
+    base-vs-fix : the SAME single row.   pat-vs-fix : 0 differing ROWS.
+    CMP_NOTEQUAL default 11 -> 10 (testflags 9 unchanged); 20 -> 19 overall.
+    results/*.csv NOT edited.
+
+(5) BYTEVERIFY (SELFCHECK=1)
+    u2r  base-vs-pat 0 movers / 1358 (selfcheck 1358/1358)
+    u2r  base-vs-fix 0 movers / 1358
+    sl   base-vs-pat 4 mover FILES / 956 (selfcheck 956/956):
+           default/Rggen              -- the target
+           default/Scoreboard         -- the documented coin, row unchanged
+           default/LogicArrayParam    -- DUMP-IDENTICAL (0/3305 lines), -7 bytes
+           testflags/LogicArrayParam  -- DUMP-IDENTICAL (0/3556 lines), -7 bytes
+         (the implementer's report says "3"; the three ROW IDENTITIES are right,
+          the FILE count is 4.)
+    sl   base-vs-fix : the same 4.      sl pat-vs-fix : 0 movers / 956.
+
+    HEADS (tools/probe/r10uvm67repro/rowheads.sh)
+      base : SeqDriver 50/1 (x2 modes), SimpleUVM 108/1 (x2), Scoreboard 108/1,
+             MiniAmiq 50/1 (x2), BuildUVMPkg 32/1 (x2), Earlgrey_0_1 216/1 (x2),
+             Rggen default 64/1
+      pat/fix : IDENTICAL except  Rggen default 0 cmp lines 0 heads rc=0
+      HEAD_R0_BEFORE_default_Rggen.cmp reproduced byte-for-byte (id-normalised)
+      from this verifier's own base sweep.
+
+    CANARIES
+      canaudit.sh canaries.sh ctcan2.sh -> audited=29 UNCOVERED=0 FENCE-BREACH=0
+      canaries.sh surelog  pat 52 ok / 0 changed ; fix 52 ok / 0 changed
+      canaries.sh u2r      pat 16 ok / 0 changed ; fix 16 ok / 0 changed
+      ctcan2.sh  surelog 58 ok / 0 changed ; u2r 2 ok / 0 changed (both binaries)
+
+    CENSUS on the real targets (independent extractor, whole design, Compare-
+    visible payload, no span)
+      Rggen/default  base->pat : 7 TO GOLDEN, 0 AWAY, 0 MOVED-STILL-WRONG,
+                                 18660 unmoved-right
+      Rggen/default  base->fix : IDENTICAL (7 / 0 / 0);  pat->fix : 0 moved
+
+    BOUNDARY (see BOUNDARY.txt)
+      LISTED=3186 PROCESSED=3186 rc-ASYM=0 DIFF_A_B=5 DIFF_A_C=5
+      the same 5 cells for both binaries, B's dump == C's dump on all 5,
+      AWAY-FROM-GOLDEN = 0 on every one; one is a planted positive control.
+
+    Earlgrey_0_1: slang.uhdm is BYTE-IDENTICAL base vs patched AND base vs
+      fixed, in BOTH modes -- a stronger statement than a per-slot census.
+    Rggen/default whole-dump (path-normalised): base vs patched = 28 differing
+      lines = the 7 START_ADDRESS sites x (parameter value + param_assign
+      constant) x (vpiDecompile + vpiValue).  patched vs fixed = BYTE-IDENTICAL.
