@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 06:15, HEAD = the earl64 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 06:45, HEAD = the buvm19 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -181,7 +181,7 @@ row-modes over 7 tests:
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
 | SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | 54 | golden FOLDS `$bits(<expression>)` to a LOCATED constant (UINT:8) where we keep the sys_func_call — uvm_object_defines.svh:3364 `if (SIZE > 64)` in `uvm_record_field`; pass uvm95 in flight (uvm94 landed: 164→54, hier_path indexed_part_select base renders EMPTY) |
-| BuildUVMPkg×2 (1800.2 pp_output tree) | 17 | ours carries an EXTRA ref_typespec→unsupported_typespec on the ref_var of a FOREACH HEADER's array reference `foreach(m_object_references[i])` (uvm_pkg.sv:22452, assoc array of class handles) — golden's ref_var has no Typespec; pass buvm19 in flight (buvm18 landed: 84→17, package-param bare-typedef named clone) |
+| BuildUVMPkg×2 (1800.2 pp_output tree) | 152 (depth) | the RETURN typespec of `function uvm_bitstream_t uvm_packer::unpack_field` — golden a per-declaration NAMED clone (bare `uvm_bitstream_t`, alias → the shared package object, FOLDED bound INT:4095), ours the shared qualified object with the symbolic bound (buvm18's law at a subroutine-return site); pass buvm20 in flight (buvm19 landed: 17→152 depth, foreach array-ref typespec drop) |
 | Earlgrey_0_1/default | 17 | typespec-PRESENCE: we carry ref_typespec→int_typespec on the folded ips WIDTH constant `flash_ctrl_i.addr[0 +: BankAddrW]` (flash_phy.sv:133) where golden has none — 9 such cells + a 95-cell mirror family (golden HAS, we don't); pass earl65 in flight (earl64 landed: 64/28→17/17, both modes ONE object) |
 | Earlgrey_0_1/testflags | 17 | SAME head, identical cmp log (earl64) |
 | Rggen/default | 36 | a bit_select INDEX constant whose vpiDecompile keeps the GENVAR TEXT (`register_if[10+i]` block_0.sv:1748: ours `10+i`, golden `10`) — 25 objects incl. 24 hier_path port rows; R-A 810 rows (bare ref(WIDTH) in gen-scope range bounds) next; pass rgg14 in flight (rgg13 landed: 64→36, param-call-argument copy) |
@@ -189,7 +189,7 @@ row-modes over 7 tests:
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 51 verifier fix-before-landing re-cuts (102 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 52 verifier fix-before-landing re-cuts (103 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

@@ -9,6 +9,7 @@
 #include "EmitHelpers.h"
 
 #include <functional>
+#include <optional>
 
 namespace slang_uhdm {
 
@@ -59,6 +60,23 @@ struct NoFoldCtx58 {
     explicit NoFoldCtx58(int& d) : p(&d) { ++*p; }
     ~NoFoldCtx58() { --*p; }
 };
+
+// § foreachArraySelfSelectAssignDropsTs19 (r10buvm19) — RAII for the stack of
+// ENCLOSING STATEMENT LISTS.  Every list emitted by `case StatementKind::List`
+// is one of Surelog's `begin` / `named_begin` / `fork` / `named_fork` blocks
+// (the subroutine body is the outermost one), and those four are exactly the
+// ancestor kinds `UhdmWriter::lateTypedefBinding` scans for a declaration or
+// an assignment of a `foreach` header's array name.
+struct BlockAnc19 {
+    std::vector<const slang::ast::StatementList*>* p;
+    BlockAnc19(std::vector<const slang::ast::StatementList*>& v,
+               const slang::ast::StatementList& sl)
+        : p(&v) {
+        p->push_back(&sl);
+    }
+    ~BlockAnc19() { p->pop_back(); }
+};
+
 struct CondWindow5 {
     int* p;
     explicit CondWindow5(int& d) : p(&d) { ++*p; }
@@ -1033,6 +1051,102 @@ UHDM::any* UhdmExporter::emitCtorBody27(const Statement& slStmt,
     return ub;
 }
 
+// § foreachArraySelfSelectAssignDropsTs19 (r10buvm19) — decoded from
+// `UhdmWriter::lateTypedefBinding` (UhdmWriter.cpp:2573) and measured on
+// `grid19.sv` against Surelog.
+//
+// Surelog compiles a `foreach` header's ARRAY reference in
+// `CompileHelper::compileVariable` (CompileType.cpp:404): the name resolves to
+// no data type and no class, so it becomes a `ref_var` over a freshly minted
+// `unsupported_typespec` and is registered with `needLateTypedefBinding`.  In
+// the ELABORATED copy of a package — and ONLY there, `writePackage` calls
+// `lateTypedefBinding` under `if (elaborated)` (UhdmWriter.cpp:1301) — that
+// registration is redeemed: the writer walks the reference's own `VpiParent`
+// chain and, at each `begin` / `named_begin` / `fork` / `named_fork` ancestor,
+// looks for the name among the block's `Variables()`, then its `Parameters()`,
+// then — and this is the arm that reaches the corpus — among the block's own
+// DIRECT `Stmts()`, for an `assignment` whose `Lhs()->VpiName()` is that name:
+//
+//     if (lhs && lhs->VpiName() == name) {
+//       if (lhs->UhdmType() == uhdmref_var) continue;    // the BARE spelling
+//       if (lhs->UhdmType() == uhdmref_obj) continue;    // is skipped
+//       found = true;
+//       if (const ref_typespec* rt = lhs->Typespec()) tps = rt->Actual_typespec();
+//
+// A SELECT left-hand side (`a[i] = v;`) is a `bit_select`, so it is neither of
+// the two skipped kinds; it carries no typespec of its own, so `tps` stays
+// null; and the tail at UhdmWriter.cpp:3210 then does
+// `ex->Typespec(nullptr)` — the array reference loses its typespec ENTIRELY.
+//
+// This predicate answers exactly that question for the reference we are about
+// to emit.  Ancestors are scanned INNERMOST FIRST, and the walk stops at the
+// block that DECLARES the array, because Surelog checks a block's `Variables()`
+// before its `Stmts()` (grid cell `locsel19`: a subroutine local with a select
+// assignment in the same block keeps its real `array_typespec`).
+//
+// The BARE spelling of the LHS is required.  `this.a[i] = v;` and
+// `other.a[i] = v;` compile to a `hier_path` whose `VpiName` is the DOTTED
+// text, which never equals the array's name (grid cell `thissel19`: golden
+// KEEPS the typespec there).
+bool UhdmExporter::foreachSelfSelAssign19(const Symbol* arrSym) const {
+    if (!arrSym)
+        return false;
+    for (size_t i = blockAnc19.size(); i-- > 0;) {
+        const StatementList& sl = *blockAnc19[i];
+        // Surelog reads the block's Variables() first: a declaration of the
+        // name here wins over any assignment, and ends the walk.
+        for (auto st : sl.list)
+            if (st->kind == StatementKind::VariableDeclaration &&
+                &st->as<VariableDeclStatement>().symbol == arrSym)
+                return false;
+        for (auto st : sl.list) {
+            if (st->kind != StatementKind::ExpressionStatement)
+                continue;
+            auto& ex = st->as<ExpressionStatement>().expr;
+            if (ex.kind != ExpressionKind::Assignment)
+                continue;
+            const Expression* top = &ex.as<AssignmentExpression>().left();
+            const Expression* lhs = top;
+            // At least ONE select level: the bare name alone is the ref_obj /
+            // ref_var spelling Surelog skips.
+            bool sel19 = false;
+            while (lhs->kind == ExpressionKind::ElementSelect ||
+                   lhs->kind == ExpressionKind::RangeSelect) {
+                sel19 = true;
+                lhs = lhs->kind == ExpressionKind::ElementSelect
+                          ? &lhs->as<ElementSelectExpression>().value()
+                          : &lhs->as<RangeSelectExpression>().value();
+            }
+            if (!sel19 || lhs->getSymbolReference() != arrSym)
+                continue;
+            // Written BARE?  Surelog matches on `lhs->VpiName() == name`, and
+            // an explicit `this.` or `obj.` prefix compiles to a `hier_path`
+            // whose VpiName is the DOTTED text — which never equals the
+            // array's bare name (grid cell `thissel19`: golden KEEPS the
+            // typespec there, and `deep19`/`othersel19` pin the other two
+            // negatives).  slang leaves the inner NamedValue of a select
+            // WITHOUT a syntax node, so the test reads the OUTERMOST written
+            // node and peels the select layers off it.
+            const syntax::SyntaxNode* ls19 = top->syntax;
+            bool bare19 = false;
+            while (ls19) {
+                if (ls19->kind == syntax::SyntaxKind::ElementSelectExpression) {
+                    ls19 = &*ls19->as<syntax::ElementSelectExpressionSyntax>().left;
+                    continue;
+                }
+                bare19 = ls19->kind == syntax::SyntaxKind::IdentifierName ||
+                         ls19->kind == syntax::SyntaxKind::IdentifierSelectName;
+                break;
+            }
+            if (!bare19)
+                continue;
+            return true;
+        }
+    }
+    return false;
+}
+
+
 UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
@@ -1677,6 +1791,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     stmts->push_back(asn);
                 }
             };
+            // § foreachArraySelfSelectAssignDropsTs19 — a WRITTEN begin /
+            // named begin / fork / named fork is one of the four ancestor
+            // kinds Surelog's lateTypedefBinding scans; this case iterates
+            // its statement list itself instead of routing through
+            // `case StatementKind::List`, so the ancestor stack is pushed
+            // here too.
+            std::optional<BlockAnc19> ba19b;
+            if (body.kind == StatementKind::List)
+                ba19b.emplace(blockAnc19, body.as<StatementList>());
             if (body.kind == StatementKind::List) {
                 for (auto st : body.as<StatementList>().list) {
                     if (st->kind == StatementKind::VariableDeclaration) {
@@ -1868,6 +1991,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             }
             return f;
         }
+
         case StatementKind::ForeachLoop: {
             auto& fe = stmt.as<ForeachLoopStatement>();
             auto* fs = s.MakeForeach_stmt();
@@ -2086,6 +2210,67 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     if (k20 != SymbolKind::StatementBlock)
                         break;
                 }
+            // § foreachArraySelfSelectAssignDropsTs19 — in the ELABORATED
+            // package listing Surelog re-resolves the array reference through
+            // `lateTypedefBinding`, and an ancestor block that assigns the
+            // same name through a SELECT (`a[i] = v;`) makes it CLEAR the
+            // typespec instead of replacing it.  See foreachSelfSelAssign19
+            // above for the producer and the grid.  The HOME/VIEW gate is
+            // `pkgRetFoldHome86`: a package-homed subroutine (the package's
+            // own function/task or an out-of-body class-method definition
+            // written at package scope) in the ELABORATED copy, which is
+            // exactly the copy `writePackage` runs `lateTypedefBinding` over.
+            // The un-elaborated twin and every IN-BODY class method keep the
+            // unsupported_typespec (grid `none19` / `inbody19`).
+            //
+            // It fires whatever the array reference's typespec WOULD have
+            // been: the unsupported_typespec of a class property (`sel19`),
+            // the io_decl typespec of a formal (`formsel19`) and the real
+            // array_typespec of a package variable (`free19`) all go to
+            // NOTHING in golden.
+            // THE HOME/VIEW GATE.  `curSubPkgHome17 && !pkgDefViewBody9` is
+            // the HOME package's ELABORATED copy of a package-homed
+            // subroutine — the only copy `writePackage` runs
+            // `lateTypedefBinding` over (UhdmWriter.cpp:1301).  An IMPORT
+            // CLONE is EXCLUDED, and that exclusion is a MEASUREMENT, not a
+            // guess: MiniAmiq's `svaunit_pkg` wildcard-import copies of
+            // `uvm_phase::execute_phase` keep the `unsupported_typespec` in
+            // BOTH of the importer's views while `uvm_pkg`'s own elaborated
+            // copy loses it (r10buvm19cen rows quoted in the README § 6), and
+            // grid arm `imp19` reproduces that on 30 lines.  All three clone
+            // paths are named, as § `formalDefaultBindsLikeBody13` already
+            // had to: `pkgImportCloneEmit` covers only the WILDCARD ones.
+            //
+            // CLAUSE ADDED BY THE VERIFIER (r10vbuvm19), from a
+            // pristine-RIGHT -> patched-WRONG cell: a PACKAGE-LEVEL VARIABLE
+            // of the home package is NOT covered by this law, because
+            // golden's answer for one is CONTEXT-DEPENDENT.  Measured on
+            // `vg19j.sv` / `vg19k.sv` / `vg19l.sv`: when a MODULE or an
+            // INTERFACE writes `import p::*;`, Surelog's walk resolves the
+            // reference to the variable's real `array_typespec` (the
+            // `func->Instance()` -> `pack->Variables()` arm of
+            // `lateTypedefBinding`) instead of clearing it, from a package
+            // free function AND from a class method alike -- and pristine
+            // already matched golden EXACTLY there.  With no importer, or
+            // with a package-to-package import, or with an EXPLICIT named
+            // import, golden clears.  The emitter cannot see which of those
+            // holds from the subroutine it is emitting, so the safe reading
+            // is to leave every package-level variable alone: all 20 corpus
+            // cells this law moves are CLASS PROPERTIES
+            // (`m_object_references`, `m_executing_phases`), so the clause is
+            // INERT on both corpora, and formals / class properties /
+            // subroutine locals -- which are NOT context-dependent -- still
+            // convert (grid `formsel19`, `sel19`, `declouter19`).
+            const slang::ast::Scope* arrScope19 =
+                arrSym ? arrSym->getParentScope() : nullptr;
+            const bool pkgLevelVar19 =
+                arrScope19 &&
+                arrScope19->asSymbol().kind == SymbolKind::Package;
+            bool dropArrTs19 =
+                arrSym && !arrMember9 && !arrThis21 && curSubPkgHome17 &&
+                !pkgDefViewBody9 && !pkgImportCloneEmit && !importCloneEmit &&
+                importCopyTsInst == nullptr && !pkgLevelVar19 &&
+                foreachSelfSelAssign19(arrSym);
             if (arrSym && !arrMember9) {
                 auto* rv = s.MakeRef_var();
                 rv->VpiName(arrSym->name);
@@ -2104,10 +2289,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // dynamic AND fixed-size arrays alike — a module function's
                 // foreach still binds the real array_typespec (ClassVar,
                 // LocalScopeHierPath).
-                if (arrThis21) {
+                if (arrThis21 || dropArrTs19) {
                     // § classPropIterThisRefVar21: typespec-LESS (see the note
                     // at rv->Typespec below) — nothing to bind, nothing to
                     // defer, and in particular no pendingForeachArrayTs entry.
+                    // § foreachArraySelfSelectAssignDropsTs19 lands in the
+                    // same place, for the same reason: the edge must not
+                    // exist, so nothing may be minted or deferred for it.
                 }
                 else if (foreachUnres9) {
                     auto* uts = s.MakeUnsupported_typespec();
@@ -2156,7 +2344,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // unsupported_typespec: Surelog compiles the `this` handle
                 // select, finds no typespec for the selected member and binds
                 // nothing rather than minting the catch-all.
-                if (!arrThis21)
+                if (!arrThis21 && !dropArrTs19)
                     rv->Typespec(art);
                 fs->Variable(rv);
             }
@@ -3495,6 +3683,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // initializers become leading assignment stmts; two or more
             // effective stmts get an unnamed begin wrapper.
             auto& sl = stmt.as<StatementList>();
+            // § foreachArraySelfSelectAssignDropsTs19 — this list is one of
+            // Surelog's blocks; keep it on the ancestor stack for the whole
+            // time its statements are emitted (see foreachSelfSelAssign19).
+            BlockAnc19 ba19(blockAnc19, sl);
             // A CLASS CONSTRUCTOR body is not compiled by this arm's model at
             // all — see emitCtorBody27.
             if (tfBodyCtor27 && tfBodyStmt9 == (const void*)&stmt)

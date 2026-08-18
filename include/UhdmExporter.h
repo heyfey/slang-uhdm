@@ -22,6 +22,7 @@ class InstanceBodySymbol;
 class DefinitionSymbol;
 class Symbol;
 class Statement;
+class StatementList;
 class Expression;
 class MemberAccessExpression;
 class Type;
@@ -2787,6 +2788,18 @@ private:
     /// is the same window § `pkgRetTopExpr8` describes, and the same
     /// direct-statement-of-the-body test applies.
     bool pkgRetFoldHome86 = false;
+    /// § `foreachArraySelfSelectAssignDropsTs19` (r10buvm19) — the stack of
+    /// enclosing STATEMENT LISTS of the subroutine body currently being
+    /// emitted, innermost last.  Every entry is one of Surelog's
+    /// `begin` / `named_begin` / `fork` / `named_fork` blocks (the subroutine
+    /// body itself is the outermost), which is exactly the set of ancestors
+    /// `UhdmWriter::lateTypedefBinding` scans when it re-resolves a
+    /// `foreach` header's array reference in the ELABORATED package listing.
+    std::vector<const slang::ast::StatementList*> blockAnc19;
+    /// True when an ancestor block of `feStmt` assigns `arrSym`'s name
+    /// through a SELECT — the shape that makes Surelog CLEAR the array
+    /// reference's typespec (see StmtEmit.cpp's ForeachLoop arm).
+    bool foreachSelfSelAssign19(const slang::ast::Symbol* arrSym) const;
     // The package variables/nets of the package view currently being
     // emitted, by declaring symbol. A reference from one of that package's
     // own subroutines or class methods binds them (Surelog compiles those
