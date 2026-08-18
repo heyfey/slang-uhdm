@@ -1,0 +1,31 @@
+r10rgg11 — ATTRIBUTION OF THE SECOND BYTE MOVER, default/Scoreboard.
+(MEASUREMENT ONLY; the official uhdm-cmp is the judge.)
+
+byteverify (surelog corpus, 956 databases) reported TWO movers:
+  MOVER default/Rggen-50ccbd70/slang.uhdm       <- PREDICTED, the head
+  MOVER default/Scoreboard-59431470/slang.uhdm  <- THE COIN, proved below
+
+1. THE PATCHED BINARY REPRODUCES THE BASE ARTIFACT EXACTLY.
+   Both sweep command lines, run from the test's own directory:
+
+     base sweep artifact                       3dca26e5d323
+     patched sweep artifact                    98f016dc80e4
+     BASE   binary, 6 consecutive runs         3dca26e5d323 x6
+     PATCHED binary, 6 consecutive runs        3dca26e5d323 x6
+
+   The patched binary, run alone, lands on the BASE's exact bytes every time.
+
+2. THE TWO FACES DIFFER ONLY IN ORDER.
+   uhdm-dump of the two sweep artifacts, workdir- and id-normalised:
+
+     raw normalised diff                       92 lines
+     SORTED (order-blind) diff                 0 lines
+
+   Ninety-two lines, zero order-blind: exactly the documented svunit_pkg
+   `vpiTaskFunc` list ORDER flip (RESUME.md §9, "Scoreboard/default is a ~50/50
+   COIN per invocation ... ~92 dump lines").
+
+3. NOTHING THE JUDGE READS MOVED.
+   row gate  : Scoreboard/default CMP_NOTEQUAL, dump column unchanged (0
+               differing ROWS over 1588, status AND dump).
+   rowheads  : 176 cmp lines / 1 head BEFORE and AFTER.

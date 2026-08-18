@@ -1,0 +1,70 @@
+r10vrgg11 — GATE BATTERY ON THE VERIFIED (RE-CUT) BINARY
+BASE  binary md5 f8908264f24f59f9ca3c19826a244eae   (/tmp/vrgg11_bin/base_bin)
+PAT   binary md5 917997b9a0e23553ddba33dba679ca69   (/tmp/vrgg11_bin/pat_bin, the SHIPPED patch)
+FIX   binary md5 770190fe319045efe063b7d647a25d68   (/tmp/vrgg11_bin/fix_bin, SHIPPED + the re-cut gate)
+All three built -j 2 in my own worktrees, md5 taken only after 'Built target
+slang_uhdm', frozen chmod 555 before any sweep.  SLANG_UHDM exported explicitly
+per binary; EVERY cmds.txt audited by binary PATH (u2r 1458 refs, surelog 1523
+refs, 100% the intended binary, zero references to any other build).
+
+goldens        base 23 PASS / 0 FAIL   pat 23/0   FIX 23/0
+goldens neg    SLANG_UHDM=/bin/false -> 0 PASS / 23 FAIL   (control alive)
+
+uhdm2rtlil, both modes, FIX: 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL per mode
+  ct8rows vs committed results/gate_uhdm2rtlil.csv (testflags slice): 0 differing ROWS
+  ct8rows vs my own base sweep (BOTH modes, whole row incl. dump column): 0 differing ROWS
+  byteverify SELFCHECK=1: MOVERS 0 / 1358, PATH_SETS_IDENTICAL, selfcheck 1357/1358 flagged
+
+surelog, both modes, FIX:
+  ct8rows vs committed results/golden_surelog.csv: 0 differing ROWS over 1588
+  ct8rows vs my own base sweep: 0 differing ROWS
+  byteverify SELFCHECK=1: MOVERS 1 / 956 = default/Rggen ONLY  (base 75cbc159bf0b
+      -> fix ce1455e65bfe, byte-IDENTICAL to the shipped patch's Rggen database)
+  == exactly the mover set predicted in PREDICT_fix.txt, and nothing else;
+     the Scoreboard COIN did not flip in either of my runs.
+
+named-row heads (rowheads.sh, official uhdm-cmp, 1 head each):
+  SeqDriver 176/176  SimpleUVM 176/176  Scoreboard-default 176  MiniAmiq 176/176
+  BuildUVMPkg 31/31  Earlgrey_0_1 29/30  Rggen-default 36 -> 104 (new family)
+  (Scoreboard/testflags and Rggen/testflags are SKIP-NOFILE and COUNTED)
+
+canaries.sh surelog  ok=52 changed=0 absent=0     canaries.sh u2r  ok=8 changed=0 absent=0
+ctcan2.sh (EXPECT_UNKNOWN=1) ok=58 changed=0, unknown-patterns=1 (documented 2DFunctionArg)
+canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0, both self-tests live
+
+byte pins base vs FIX, both modes: SVSwitch 4842211c4030, YosysVerx 6ccda350c24a,
+  InterfaceModPort 59a365f3ce2c, BlackParrotComplex e3e354129d5a / 73a10e8217e5,
+  YosysOldOr d68e0796d62c -- ALL SAME.
+
+boundary, 38 precedent repro dirs, subdirectories included, fd-3 list,
+</dev/null on every child, PROCESSED asserted against LISTED:
+  base vs pat : LISTED=1202 PROCESSED=1202 identical=1097 MOVERS=7 uncompilable=98 asym=0
+  base vs FIX : LISTED=1202 PROCESSED=1202 identical=1097 MOVERS=7 uncompilable=98 asym=0
+  all 7 movers scored TOWARD golden on the whole normalised dump: 7 NET-BETTER, 0 worse,
+  0 golden line lost.
+positive control (this pass's own 25 cells): MOVERS=14/25, 13 NET-BETTER, 1 unchanged,
+  0 worse -- the comparator provably sees this pass's difference.
+
+adversarial grids, 505 cells, order-blind whole-dump multiset:
+  V1 150  FIX: HARD-REGRESSION 0  NET-WORSE 0  FIELD-LOST 0  NET-BETTER 108
+  V2 150  FIX: HARD-REGRESSION 0  NET-WORSE 0  FIELD-LOST 0  NET-BETTER  58
+  V3 180  FIX: HARD-REGRESSION 0  NET-WORSE 0  FIELD-LOST 0  NET-BETTER  18
+  V4  25  FIX: HARD-REGRESSION 0  NET-WORSE 0  FIELD-LOST 0  NET-BETTER  13
+  (the SHIPPED patch on the same cells: V2 NET-WORSE 16, FIELD-LOST 20)
+
+NO CORPUS ROW WAS CONVERTED.  results/*.csv was never written.
+
+SECTIONED WHOLE-DUMP DIFF, Rggen/default, base vs the fixed binary
+  1,580,412 dump lines a side; the ONLY difference is FOUR LINES at 141909,
+  inside uhdmtopModules (the ELAB section starts at 64195) — the High_conn
+  constant of port i_value on
+  work@rggen.u_block_0.g_register_2.g_bit_field_1.u_bit_field:
+     base  |vpiDecompile:171   |vpiSize:64 |UINT:171 |vpiConstType:9
+     fix   |vpiDecompile:8'hab |vpiSize:8  |HEX:ab   |vpiConstType:5
+  The DEF section (uhdmallModules, lines 2974-64194) is byte-identical, so the
+  law is ELAB-only as claimed.  The fixed binary's Rggen database is
+  byte-identical to the shipped patch's (ce1455e65bfe).
+
+NONDETERMINISM: Scoreboard/default was byte-identical in ALL THREE sweeps
+  (3dca26e5d323 for base, pat and fix), so the documented ~50/50 coin did not
+  flip in any of my runs and no order-blind attribution was needed.

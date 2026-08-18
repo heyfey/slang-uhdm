@@ -4777,6 +4777,16 @@ private:
         const slang::ast::ParameterSymbol* ps;
     };
     std::map<std::string, GenLpFoldInfo> genLpFoldByPath;
+    // § genLpPortConnValue11 — the SAME gen-scope localparam fold constants,
+    // keyed by the DECLARING ParameterSymbol instead of by path, so an
+    // instance PORT CONNECTION whose whole actual is that bare name can copy
+    // the parameter's own param_assign Rhs (VpiValue / VpiSize / VpiConstType
+    // / VpiDecompile) the way the MODULE-BODY arm already does through
+    // `elabParamPa`.  A loop-generate body gives every iteration its own
+    // ParameterSymbol, so the key is unambiguous; GENVARS are deliberately
+    // absent (they never reach the two fill sites), which is what keeps the
+    // 64-bit `genvarConnFold` law intact for `.idx(i)`.
+    std::map<const slang::ast::Symbol*, UHDM::param_assign*> genLpPaBySym11;
     // The elab (topView) assignment-pattern operation of each unpacked-array
     // param, so a gen-scope localparam that element-selects it can adopt the
     // matching operand constant (Surelog shares it).

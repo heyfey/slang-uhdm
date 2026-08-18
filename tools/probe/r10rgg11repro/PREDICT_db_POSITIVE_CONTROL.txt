@@ -1,0 +1,3 @@
+PREDICT default/Rggen ELAB|PORT|work@rggen.u_block_0.g_register_2.g_bit_field_1.u_bit_field|10|i_value  OURS=constant(UINT:171,sz=64,ct=9,dec=171)/LOC  GOLD=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+SKIP-NOFILE testflags/Rggen
+-- dirs-scanned=1 SKIP-NOFILE=1 FENCED-SKIP=0 PREDICTED-ROWS=1

@@ -1,0 +1,36 @@
+== GRID V1 : SHIPPED PATCH ==
+-- cells=150  HARD-REGRESSION=0 NET-WORSE=0 NET-BETTER=117 UNCHANGED=33 MISSING=0  (FIELD-LOST cells=0)
+== GRID V1 : WITH THE FIX ==
+-- fix cells=150 HARD-REGRESSION=0 NET-WORSE=0 NET-BETTER=108 UNCHANGED=42 FIELD-LOST-cells=0
+
+== GRID V2 : SHIPPED PATCH ==
+-- cells=150  HARD-REGRESSION=0 NET-WORSE=16 NET-BETTER=78 UNCHANGED=56 MISSING=0  (FIELD-LOST cells=20)
+NET-WORSE       genfor__bit8__cast__portplain                 basediff=58 patdiff=62
+NET-WORSE       genfor__bit8__expr__portplain                 basediff=43 patdiff=45
+NET-WORSE       genfor__bit8__oct8__portplain                 basediff=47 patdiff=51
+NET-WORSE       genfor__bit8__outerparam__portplain           basediff=52 patdiff=54
+NET-WORSE       genfor__bit8__paramexpr__portplain            basediff=43 patdiff=45
+NET-WORSE       genfor__untyped__cast__portplain              basediff=61 patdiff=63
+NET-WORSE       genfor__untyped__expr__portplain              basediff=53 patdiff=57
+NET-WORSE       genfor__untyped__oct8__portplain              basediff=72 patdiff=76
+NET-WORSE       genif__bit8__cast__portplain                  basediff=58 patdiff=62
+NET-WORSE       genif__bit8__expr__portplain                  basediff=43 patdiff=45
+NET-WORSE       genif__bit8__oct8__portplain                  basediff=47 patdiff=51
+NET-WORSE       genif__bit8__outerparam__portplain            basediff=52 patdiff=54
+NET-WORSE       genif__bit8__paramexpr__portplain             basediff=43 patdiff=45
+NET-WORSE       genif__untyped__cast__portplain               basediff=61 patdiff=63
+NET-WORSE       genif__untyped__expr__portplain               basediff=53 patdiff=57
+NET-WORSE       genif__untyped__oct8__portplain               basediff=72 patdiff=76
+== GRID V2 : WITH THE FIX ==
+-- fix cells=150 HARD-REGRESSION=0 NET-WORSE=0 NET-BETTER=58 UNCHANGED=92 FIELD-LOST-cells=0
+
+== GRID V3 : SHIPPED PATCH ==
+-- cells=180  HARD-REGRESSION=0 NET-WORSE=0 NET-BETTER=18 UNCHANGED=162 MISSING=0  (FIELD-LOST cells=0)
+== GRID V3 : WITH THE FIX ==
+-- fix cells=180 HARD-REGRESSION=0 NET-WORSE=0 NET-BETTER=18 UNCHANGED=162 FIELD-LOST-cells=0
+
+== GRID V4 : SHIPPED PATCH ==
+-- cells=25  HARD-REGRESSION=0 NET-WORSE=0 NET-BETTER=13 UNCHANGED=12 MISSING=0  (FIELD-LOST cells=0)
+== GRID V4 : WITH THE FIX ==
+-- fix cells=25 HARD-REGRESSION=0 NET-WORSE=0 NET-BETTER=13 UNCHANGED=12 FIELD-LOST-cells=0
+

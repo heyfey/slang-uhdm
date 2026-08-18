@@ -10461,6 +10461,35 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                      eit9 != elabParamPa.end() && eit9->second)
                                 src9 = any_cast<const UHDM::constant*>(
                                     eit9->second->Rhs());
+                            // § genLpPortConnValue11 — THE SAME LAW ONE
+                            // SCOPE DOWN.  A parameter declared in a GENERATE
+                            // BLOCK never reaches `elabParamPa` (gen scopes
+                            // build their param_assigns in emitGenScopes, not
+                            // in emitParameters), so a bare-name port actual
+                            // fell through to `emitExpr`'s `genvarConnFold`
+                            // arm and folded 64-bit UINT.  Golden treats the
+                            // two homes IDENTICALLY: the actual is a copy of
+                            // the parameter's own elaborated param_assign Rhs
+                            // — encoding, width and decompiled spelling —
+                            // relocated at the read site
+                            // (`clone_tree(param_ass->Rhs())` +
+                            // `populateCoreMembers(child, child, result)`,
+                            // Surelog CompileExpression.cpp:2866-2915).
+                            // Measured on GRID A (192 cells: 2 homes x 8
+                            // declared types x 12 initializers): golden's
+                            // port actual EQUALS its own ELAB param_assign
+                            // Rhs in 180 of 192 cells, and the 12 exceptions
+                            // are HOME-BLIND (the same 6 type/init cells in
+                            // both homes), so the home is provably not the
+                            // axis.  Keyed on the whole actual being the bare
+                            // name, which is why concats / casts / selects /
+                            // call arguments (a separate whole-expression
+                            // fold family, GRID B) are untouched.
+                            else if (auto git11 = genLpPaBySym11.find(&psym9);
+                                     git11 != genLpPaBySym11.end() &&
+                                     git11->second)
+                                src9 = any_cast<const UHDM::constant*>(
+                                    git11->second->Rhs());
                             if (src9) {
                                 auto* c9 = s.MakeConstant();
                                 c9->VpiParent(p);
@@ -13202,6 +13231,30 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         genLpConst[&gm] = c2;
                         genLpFoldByPath[fullName + "." +
                                         std::string(ps.name)] = {pa2, c2, &ps};
+                        // § genLpPortConnValue11 (see the map's declaration).
+                        // § genLpPortConnCopyableOnly11v (VERIFIER) — the copy
+                        // is only golden's answer where OUR OWN elab gen-scope
+                        // param_assign Rhs is golden's.  Measured on the
+                        // 26-initializer grid (r10vrgg11repro/GRID_V2, genif +
+                        // genfor x {bit[7:0], untyped}), golden's ELAB
+                        // param_assign Rhs — and with it the port actual —
+                        // KEEPS the source encoding for a HEX or BIN literal
+                        // (8'hab, 8'b1010_1011, 'hab, 8'shab, 8'hx, 8'bz,
+                        // 64'h…) and for a BASELESS decimal (171), but
+                        // RE-ENCODES an OCTAL literal (8'o253 -> UINT:171
+                        // ct 9 decompile "171") and a SIZED decimal (8'd171 ->
+                        // INT:171 ct 7 decompile "171"), which this
+                        // source-encoded constant does not do.  Copying those
+                        // two turned a port actual that the pristine 64-bit
+                        // `genvarConnFold` had RIGHT on VpiValue /
+                        // VpiConstType / VpiDecompile into one wrong on all
+                        // three (8'o253: base 3 of 4 Compare fields right ->
+                        // patched 1 of 4).  They stay on the pristine arm.
+                        if (v2.rfind("HEX:", 0) == 0 ||
+                            v2.rfind("BIN:", 0) == 0 ||
+                            (v2.rfind("OCT:", 0) != 0 &&
+                             raw2.find('\'') == std::string::npos))
+                            genLpPaBySym11[&ps] = pa2;
                     }
                     else if (cv.isInteger() && !cv.integer().hasUnknown()) {
                         // NON-literal init (localparam PREV = i-1): param_assign
@@ -13437,6 +13490,48 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         genLpConst[&gm] = c2;
                         genLpFoldByPath[fullName + "." +
                                         std::string(ps.name)] = {pa2, c2, &ps};
+                        // § genLpPortConnValue11 (see the map's declaration).
+                        // § genLpPortConnCopyableOnly11v (VERIFIER) — this
+                        // NON-literal arm renders the DIGITS as the SIGNED
+                        // reading of the bits unconditionally, so the constant
+                        // is the parameter's real value only when that reading
+                        // IS the value: either the bits are non-negative
+                        // ($clog2(300) -> 9, copied and EXACT), or the
+                        // MATHEMATICAL fold really is negative (-3, -8'sd3 ->
+                        // INT:-3, copied and EXACT).  An MSB-set POSITIVE fold
+                        // (8'(171), 8'h0a+8'ha1, BASE+1, PW) decompiles "-85"
+                        // here while golden's port actual is UINT:171 — copying
+                        // it turned 3 of 4 Compare fields from right to wrong,
+                        // so those keep the pristine 64-bit `genvarConnFold`
+                        // arm.  The math must be VERIFIED negative: unlike
+                        // the INT-prefix rule (F-1, earl46 verifier), "the
+                        // walk could not evaluate" is NOT a licence to copy
+                        // here — an explicit size cast `8'(171)` is exactly
+                        // that case, and golden's port actual for it is
+                        // UINT:171 (base 3 of 4 fields right, copy 1 of 4).
+                        // MEASURED refusals, both of them cells the pristine
+                        // 64-bit fold had RIGHT: an EXPLICIT SIZE CAST
+                        // (`localparam bit [7:0] IV = 8'(171)`) is signed
+                        // -85 to slang and therefore folds INT:-85 here,
+                        // while golden's port actual is UINT:171 — so a
+                        // cast never licenses the copy however the math
+                        // walk reads it; and "the walk could not evaluate"
+                        // is not a licence either (unlike the INT-prefix
+                        // rule, F-1/earl46, which lets the signed reading
+                        // stand).
+                        bool copy11v = sv >= 0;
+                        if (!copy11v)
+                            if (auto* ini11v = ps.getInitializer();
+                                ini11v &&
+                                stripImplicitConv(*ini11v).kind !=
+                                    ExpressionKind::Conversion) {
+                                bool mok11v = true;
+                                __int128 mv11v = 0;
+                                mathFold46(comp, *ini11v, mok11v, mv11v, 0);
+                                copy11v = mok11v && mv11v < 0;
+                            }
+                        if (copy11v)
+                            genLpPaBySym11[&ps] = pa2;
                     }
                 }
                 if (rt)

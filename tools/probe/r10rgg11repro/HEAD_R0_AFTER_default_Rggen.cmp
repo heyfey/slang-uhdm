@@ -1,0 +1,104 @@
+LHS:
+decompile:
+operation: , id:60675, line:66:10, endln:66:18
+|vpiParent:
+\_range: , id:60625, line:66:9, endln:66:21
+|vpiOpType:11
+|vpiOperand:
+\_func_call: (get_next_n), id:60626, line:66:10, endln:66:16
+  |vpiParent:
+  \_operation: , id:60675, line:66:10, endln:66:18
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer.next_data), id:60638
+    |vpiParent:
+    \_func_call: (get_next_n), id:60626, line:66:10, endln:66:16
+    |vpiFullName:work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer.next_data
+    |vpiActual:
+    \_int_typespec: , id:10266, line:64:15, endln:64:18
+  |vpiArgument:
+  \_constant: , id:60627, line:64:58, endln:64:68
+    |vpiParent:
+    \_func_call: (get_next_n), id:60626, line:66:10, endln:66:16
+    |vpiDecompile:0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010
+    |vpiSize:400
+    |BIN:0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010
+    |vpiTypespec:
+    \_ref_typespec: (work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer.next_data), id:60628
+      |vpiParent:
+      \_constant: , id:60627, line:64:58, endln:64:68
+      |vpiFullName:work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer.next_data
+      |vpiActual:
+      \_bit_typespec: , id:10205, line:51:37, endln:51:40
+    |vpiConstType:3
+  |vpiName:get_next_n
+  |vpiFunction:
+  \_function: (work@rggen_or_reducer.get_next_n), id:9968, line:51:3, endln:60:14
+|vpiOperand:
+\_constant: , id:60676, line:66:17, endln:66:18
+  |vpiParent:
+  \_operation: , id:60675, line:66:10, endln:66:18
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+operation: , id:60675, line:66:10, endln:66:18
+|vpiParent:
+\_range: , id:60625, line:66:9, endln:66:21
+|vpiOpType:11
+|vpiOperand:
+\_func_call: (get_next_n), id:60626, line:66:10, endln:66:16
+  |vpiParent:
+  \_operation: , id:60675, line:66:10, endln:66:18
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer.next_data), id:60638
+    |vpiParent:
+    \_func_call: (get_next_n), id:60626, line:66:10, endln:66:16
+    |vpiFullName:work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer.next_data
+    |vpiActual:
+    \_int_typespec: , id:10266, line:64:15, endln:64:18
+  |vpiArgument:
+  \_constant: , id:60627, line:64:58, endln:64:68
+    |vpiParent:
+    \_func_call: (get_next_n), id:60626, line:66:10, endln:66:16
+    |vpiDecompile:0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010
+    |vpiSize:400
+    |BIN:0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010
+    |vpiTypespec:
+    \_ref_typespec: (work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer.next_data), id:60628
+      |vpiParent:
+      \_constant: , id:60627, line:64:58, endln:64:68
+      |vpiFullName:work@rggen.u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer.next_data
+      |vpiActual:
+      \_bit_typespec: , id:10205, line:51:37, endln:51:40
+    |vpiConstType:3
+  |vpiName:get_next_n
+  |vpiFunction:
+  \_function: (work@rggen_or_reducer.get_next_n), id:9968, line:51:3, endln:60:14
+|vpiOperand:
+\_constant: , id:60676, line:66:17, endln:66:18
+  |vpiParent:
+  \_operation: , id:60675, line:66:10, endln:66:18
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+RHS:
+decompile:
+constant: , id:43191, line:66:10, endln:66:16
+|vpiParent:
+\_range: , id:43190, line:66:9, endln:66:21
+|vpiDecompile:0
+|vpiSize:64
+|INT:0
+|vpiConstType:7
+
+decompile:
+constant: , id:43191, line:66:10, endln:66:16
+|vpiParent:
+\_range: , id:43190, line:66:9, endln:66:21
+|vpiDecompile:0
+|vpiSize:64
+|INT:0
+|vpiConstType:7

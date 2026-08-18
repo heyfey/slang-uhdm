@@ -1,0 +1,25 @@
+== boundary movers scored TOWARD golden (whole normalised dump, order-blind) ==
+-- pat cells=7 HARD-REGRESSION=0 NET-WORSE=0 NET-BETTER=7 UNCHANGED=0 FIELD-LOST-cells=0
+  NET-BETTER      r10rgg10repro_cells_topgen__bit1__nz__portplain_top.sv basediff=43 patdiff=35
+  NET-BETTER      r10rgg10repro_cells_topgen__bit8__nz__portplain_top.sv basediff=10 patdiff=2
+  NET-BETTER      r10rgg10repro_cells_topgen__int__nz__portplain_top.sv basediff=48 patdiff=46
+  NET-BETTER      r10rgg10repro_vrgg10_cells_f1__portplain_top.sv basediff=10 patdiff=2
+  NET-BETTER      r10rgg10repro_vrgg10_cells_g8_deepnest_top.sv basediff=10 patdiff=2
+  NET-BETTER      r10rgg10repro_vrgg10_cells_g8_defonly_top.sv  basediff=10 patdiff=2
+  NET-BETTER      r10rgg10repro_vrgg10_cells_g8_recurse_top.sv  basediff=44 patdiff=20
+
+== positive control: this pass's own 25 cells ==
+-- pat cells=14 HARD-REGRESSION=0 NET-WORSE=0 NET-BETTER=13 UNCHANGED=1 FIELD-LOST-cells=0
+  NET-BETTER      _tmp_wt_vrgg11_tools_probe_r10vrgg11repro_cells_V4_deep3_top.sv basediff=10 patdiff=2
+  NET-BETTER      _tmp_wt_vrgg11_tools_probe_r10vrgg11repro_cells_V4_formal_wide_top.sv basediff=36 patdiff=28
+  NET-BETTER      _tmp_wt_vrgg11_tools_probe_r10vrgg11repro_cells_V4_gen_in_gen_inst_top.sv basediff=20 patdiff=4
+  NET-BETTER      _tmp_wt_vrgg11_tools_probe_r10vrgg11repro_cells_V4_genvar_plus_lp_top.sv basediff=20 patdiff=4
+  NET-BETTER      _tmp_wt_vrgg11_tools_probe_r10vrgg11repro_cells_V4_iface_gen_top.sv basediff=65 patdiff=57
+  NET-BETTER      _tmp_wt_vrgg11_tools_probe_r10vrgg11repro_cells_V4_inst1_top.sv basediff=10 patdiff=2
+  NET-BETTER      _tmp_wt_vrgg11_tools_probe_r10vrgg11repro_cells_V4_inst2_top.sv basediff=20 patdiff=4
+  NET-BETTER      _tmp_wt_vrgg11_tools_probe_r10vrgg11repro_cells_V4_inst3_top.sv basediff=30 patdiff=6
+  NET-BETTER      _tmp_wt_vrgg11_tools_probe_r10vrgg11repro_cells_V4_instdiff_top.sv basediff=78 patdiff=50
+  NET-BETTER      _tmp_wt_vrgg11_tools_probe_r10vrgg11repro_cells_V4_nonlit_init_top.sv basediff=4 patdiff=0
+  NET-BETTER      _tmp_wt_vrgg11_tools_probe_r10vrgg11repro_cells_V4_nonlit_prev_top.sv basediff=150 patdiff=132
+  NET-BETTER      _tmp_wt_vrgg11_tools_probe_r10vrgg11repro_cells_V4_outer_read_top.sv basediff=10 patdiff=2
+  NET-BETTER      _tmp_wt_vrgg11_tools_probe_r10vrgg11repro_cells_V4_shared_two_top.sv basediff=18 patdiff=2

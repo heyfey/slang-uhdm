@@ -1,0 +1,4 @@
+FIXED  /tmp/wt_r10rgg11/tools/probe/r10rgg11repro/cells/genfor__bit8__hex8__portplain/top.sv ELAB|PORT|work@top.g[0].u|0|i_value  GOLD=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC BASE=constant(UINT:171,sz=64,ct=9,dec=171)/LOC PAT=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+FIXED  /tmp/wt_r10rgg11/tools/probe/r10rgg11repro/cells/genif__bit8__hex8__portplain/top.sv ELAB|PORT|work@top.g.u|0|i_value  GOLD=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC BASE=constant(UINT:171,sz=64,ct=9,dec=171)/LOC PAT=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+FIXED  /tmp/wt_r10rgg11/tools/probe/r10rgg11repro/cells/genif__untyped__unsized__portplain/top.sv ELAB|PORT|work@top.g.u|0|i_value  GOLD=constant(UINT:171,sz=32,ct=9,dec=171)/LOC BASE=constant(UINT:171,sz=64,ct=9,dec=171)/LOC PAT=constant(UINT:171,sz=32,ct=9,dec=171)/LOC
+-- arms=14 OK=8 FIXED=3 BROKEN=0 STILL=4 NODB=0

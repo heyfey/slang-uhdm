@@ -1,0 +1,24 @@
+r10vrgg11 — MOVER PREDICTION FOR THE FIXED BINARY, filed BEFORE the fix sweeps
+were read (the base and patched sweeps were already measured).
+
+ARGUMENT (structural, not a guess):
+  The fix only ever WITHHOLDS entries from genLpPaBySym11.  For any database,
+  the fixed binary therefore emits either exactly what the SHIPPED PATCH emits
+  (entry kept) or exactly what the PRISTINE BASE emits (entry withheld).  Hence
+
+      movers(fix vs base)  is a SUBSET of  movers(pat vs base)
+
+  and movers(pat vs base) was MEASURED as:
+      uhdm2rtlil : 0 / 1358
+      surelog    : 1 / 956  =  default/Rggen  (md5 ce1455e65bfe -> 75cbc159bf0b)
+
+  Rggen's head parameter is `localparam bit [7:0] INITIAL_VALUE = 8'hab;` — an
+  IntegerLiteral whose VpiValue is HEX:ab, which the re-cut literal gate KEEPS.
+  So the entry survives and the row must still move.
+
+PREDICTED MOVER SET (exact, by name):
+  uhdm2rtlil  : NONE
+  surelog     : default/Rggen  ONLY
+PREDICTED ROW STATUS CHANGES: none (Rggen stays CMP_NOTEQUAL, dump column
+  unchanged); PREDICTED CONVERTED ROWS: ZERO.
+PREDICTED head: Rggen/default 36 cmp lines -> 104, 1 head, new family.
