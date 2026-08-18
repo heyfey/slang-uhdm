@@ -1,0 +1,122 @@
+r10earl68 — THE GOLDEN GRID for § genvarWholeCaRhsFold68.
+Every line below is SURELOG's own output (tscen68 on the golden .uhdm),
+spans normalised, judge fields only.  MEASUREMENT ONLY.
+
+== A. DISTANCE (a1_gv68): a genvar read as the WHOLE Rhs of an ELAB
+==    gen-scope cont_assign, 0/1/2/3 generate blocks from its loop.
+==    ALL FOUR FOLD.  Lhs = bit_select -> sz 64; Lhs = module net -> sz 8.
+TS ELAB a1_gv68.g_d0[1] CA_L22:12 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a1_gv68.g_d0[1] CA_L23:12 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:1 dec=1 ts=-
+TS ELAB a1_gv68.g_d1[1].b1 CA_L29:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a1_gv68.g_d1[1].b1 CA_L30:14 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:1 dec=1 ts=-
+TS ELAB a1_gv68.g_d2[1].b1.b2 CA_L38:16 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a1_gv68.g_d2[1].b1.b2 CA_L39:16 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:1 dec=1 ts=-
+TS ELAB a1_gv68.g_d3[1].b1.b2.b3 CA_L49:18 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a1_gv68.g_d3[1].b1.b2.b3 CA_L50:18 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:1 dec=1 ts=-
+
+== B. POSITION (a1_gv68 g_pos0/g_pos2): which positions golden reduces.
+==    A whole Rhs that is FULLY foldable -> ONE loc-less constant.
+==    A Rhs containing a NET -> nothing folds at all (reduce fails).
+TS ELAB a1_gv68.g_pos0[1] CA_L60:12 LHS ref_obj span=60:12-60:16 name=p_op actual=logic_var aval=- adec=- asz=0
+TS ELAB a1_gv68.g_pos0[1] CA_L60:12 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:2 dec=2 ts=-
+TS ELAB a1_gv68.g_pos0[1] CA_L61:12 LHS ref_obj span=61:12-61:17 name=p_cat actual=logic_var aval=- adec=- asz=0
+TS ELAB a1_gv68.g_pos0[1] CA_L61:12 RHS constant span=0:0-0:0 ct=3 sz=2 val=BIN:10 dec=- ts=-
+TS ELAB a1_gv68.g_pos0[1] CA_L62:12 LHS ref_obj span=62:12-62:18 name=p_tern actual=logic_var aval=- adec=- asz=0
+TS ELAB a1_gv68.g_pos0[1] CA_L62:12 RHS/op32[0] ref_obj span=62:22-62:23 name=i actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos0[1] CA_L62:12 RHS/op32[1] ref_obj span=62:26-62:29 name=din actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos0[1] CA_L62:12 RHS/op32[2]/op4[0] ref_obj span=62:33-62:36 name=din actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos0[1] CA_L63:12 LHS ref_obj span=63:12-63:17 name=p_idx actual=logic_var aval=- adec=- asz=0
+TS ELAB a1_gv68.g_pos0[1] CA_L63:12 RHS bit_select span=63:26-63:27 name=arr
+TS ELAB a1_gv68.g_pos0[1] CA_L63:12 RHS/idx ref_obj span=63:26-63:27 name=i actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos0[1] CA_L64:12 LHS ref_obj span=64:12-64:17 name=p_ips actual=logic_var aval=- adec=- asz=0
+TS ELAB a1_gv68.g_pos0[1] CA_L64:12 RHS/b ref_obj span=64:27-64:28 name=i actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos0[1] CA_L64:12 RHS indexed_part_select span=64:27-64:33 name=wide
+TS ELAB a1_gv68.g_pos0[1] CA_L64:12 RHS/w constant span=64:32-64:33 ct=9 sz=64 val=UINT:8 dec=8 ts=-
+TS ELAB a1_gv68.g_pos0[1] CA_L65:12 LHS ref_obj span=65:12-65:18 name=p_ipsm actual=logic_var aval=- adec=- asz=0
+TS ELAB a1_gv68.g_pos0[1] CA_L65:12 RHS/b/op25[0] ref_obj span=65:27-65:28 name=i actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos0[1] CA_L65:12 RHS/b/op25[1] constant span=65:29-65:30 ct=9 sz=64 val=UINT:2 dec=2 ts=-
+TS ELAB a1_gv68.g_pos0[1] CA_L65:12 RHS indexed_part_select span=65:27-65:35 name=wide
+TS ELAB a1_gv68.g_pos0[1] CA_L65:12 RHS/w constant span=65:34-65:35 ct=9 sz=64 val=UINT:8 dec=8 ts=-
+TS ELAB a1_gv68.g_pos0[1] CA_L66:12 LHS ref_obj span=66:12-66:18 name=p_cast actual=logic_var aval=- adec=- asz=0
+TS ELAB a1_gv68.g_pos0[1] CA_L66:12 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:1 dec=1 ts=-
+TS ELAB a1_gv68.g_pos0[1] CA_L67:12 LHS bit_select span=67:12-67:21 name=arr
+TS ELAB a1_gv68.g_pos0[1] CA_L67:12 LHS/idx/op24[0] ref_obj span=67:16-67:17 name=i actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos0[1] CA_L67:12 LHS/idx/op24[1] constant span=67:18-67:20 ct=9 sz=64 val=UINT:16 dec=16 ts=-
+TS ELAB a1_gv68.g_pos0[1] CA_L67:12 RHS ref_obj span=67:24-67:27 name=din actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos0[1] CA_L68:12 LHS ref_obj span=68:12-68:19 name=p_partl actual=logic_var aval=- adec=- asz=0
+TS ELAB a1_gv68.g_pos0[1] CA_L68:12 RHS/op24[0] ref_obj span=68:22-68:25 name=din actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos0[1] CA_L68:12 RHS/op24[1] ref_obj span=68:28-68:29 name=i actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos0[1] CA_L69:12 LHS ref_obj span=69:12-69:18 name=p_wide actual=logic_var aval=- adec=- asz=0
+TS ELAB a1_gv68.g_pos0[1] CA_L69:12 RHS bit_select span=69:26-69:27 name=din
+TS ELAB a1_gv68.g_pos0[1] CA_L69:12 RHS/idx ref_obj span=69:26-69:27 name=i actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos2[1].b1.b2 CA_L77:16 LHS ref_obj span=77:16-77:22 name=q_bare actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos2[1].b1.b2 CA_L77:16 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:1 dec=1 ts=-
+TS ELAB a1_gv68.g_pos2[1].b1.b2 CA_L78:16 LHS ref_obj span=78:16-78:20 name=q_op actual=logic_var aval=- adec=- asz=0
+TS ELAB a1_gv68.g_pos2[1].b1.b2 CA_L78:16 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:2 dec=2 ts=-
+TS ELAB a1_gv68.g_pos2[1].b1.b2 CA_L79:16 LHS ref_obj span=79:16-79:21 name=q_idx actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos2[1].b1.b2 CA_L79:16 RHS bit_select span=79:29-79:30 name=arr
+TS ELAB a1_gv68.g_pos2[1].b1.b2 CA_L79:16 RHS/idx ref_obj span=79:29-79:30 name=i actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos2[1].b1.b2 CA_L80:16 LHS ref_obj span=80:16-80:21 name=q_ips actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos2[1].b1.b2 CA_L80:16 RHS/b ref_obj span=80:30-80:31 name=i actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_pos2[1].b1.b2 CA_L80:16 RHS indexed_part_select span=80:30-80:36 name=wide
+TS ELAB a1_gv68.g_pos2[1].b1.b2 CA_L80:16 RHS/w constant span=80:35-80:36 ct=9 sz=64 val=UINT:8 dec=8 ts=-
+TS ELAB a1_gv68.g_pos2[1].b1.b2 CA_L81:16 LHS ref_obj span=81:16-81:21 name=q_cat actual=logic_var aval=- adec=- asz=0
+TS ELAB a1_gv68.g_pos2[1].b1.b2 CA_L81:16 RHS constant span=0:0-0:0 ct=3 sz=2 val=BIN:10 dec=- ts=-
+
+== C. NESTED LOOPS + LOCALPARAM CONTRAST (a1_gv68 g_ni/g_lp).
+TS ELAB a1_gv68.g_lp[1].b1 CA_L101:14 LHS ref_obj span=101:14-101:20 name=l_bare actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_lp[1].b1 CA_L101:14 RHS constant span=101:23-101:25 ct=9 sz=8 val=UINT:2 dec=2 ts=int_typespec tsspan=99:16-99:28
+TS ELAB a1_gv68.g_lp[1].b1 CA_L102:14 LHS ref_obj span=102:14-102:19 name=l_idx actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_lp[1].b1 CA_L102:14 RHS bit_select span=102:27-102:29 name=arr
+TS ELAB a1_gv68.g_lp[1].b1 CA_L102:14 RHS/idx constant span=102:27-102:29 ct=9 sz=32 val=UINT:2 dec=2 ts=int_typespec tsspan=99:16-99:28
+TS ELAB a1_gv68.g_ni[1].g_nj[0] CA_L90:14 LHS ref_obj span=90:14-90:18 name=n_ij actual=logic_var aval=- adec=- asz=0
+TS ELAB a1_gv68.g_ni[1].g_nj[1] CA_L90:14 LHS ref_obj span=90:14-90:18 name=n_ij actual=logic_var aval=- adec=- asz=0
+TS ELAB a1_gv68.g_ni[1].g_nj[0] CA_L90:14 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:1 dec=1 ts=- tsspan=-
+TS ELAB a1_gv68.g_ni[1].g_nj[1] CA_L90:14 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:2 dec=2 ts=- tsspan=-
+TS ELAB a1_gv68.g_ni[1].g_nj[0] CA_L91:14 LHS ref_obj span=91:14-91:17 name=n_i actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_ni[1].g_nj[1] CA_L91:14 LHS ref_obj span=91:14-91:17 name=n_i actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_ni[1].g_nj[0] CA_L91:14 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:1 dec=1 ts=- tsspan=-
+TS ELAB a1_gv68.g_ni[1].g_nj[1] CA_L91:14 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:1 dec=1 ts=- tsspan=-
+TS ELAB a1_gv68.g_ni[1].g_nj[0] CA_L92:14 LHS ref_obj span=92:14-92:17 name=n_j actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_ni[1].g_nj[1] CA_L92:14 LHS ref_obj span=92:14-92:17 name=n_j actual=- aval=- adec=- asz=-1
+TS ELAB a1_gv68.g_ni[1].g_nj[0] CA_L92:14 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:0 dec=0 ts=- tsspan=-
+TS ELAB a1_gv68.g_ni[1].g_nj[1] CA_L92:14 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:1 dec=1 ts=- tsspan=-
+TS ELAB a1_gv68.g_lp[1] PA_Pl PA constant span=99:34-99:39 ct=9 sz=32 val=UINT:2 dec=2 ts=int_typespec tsspan=99:16-99:28
+
+== D. THE ADJUSTSIZE LADDER (a2_lhs68): the Lhs decides the SIZE and MASKS
+==    the value.  Gen-local / interface-level / SELECT Lhs -> no adjust.
+TS ELAB a2_lhs68.g_k[1].b1 CA_L64:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a2_lhs68.g_k[1].b1 CA_L65:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a2_lhs68.g_k[1].b1 CA_L66:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a2_lhs68.g_k[1].b1 CA_L67:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a2_lhs68.g_k[1].b1 CA_L68:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a2_lhs68.g_w[10].b1.cbyte CA_L55:42 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:10 dec=10 ts=-
+TS ELAB a2_lhs68.g_w[11].b1.cbit6 CA_L56:42 RHS constant span=0:0-0:0 ct=9 sz=6 val=UINT:11 dec=11 ts=-
+TS ELAB a2_lhs68.g_w[2].b1.cs8 CA_L57:42 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:2 dec=2 ts=-
+TS ELAB a2_lhs68.g_w[3].b1.c8 CA_L48:42 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:3 dec=3 ts=-
+TS ELAB a2_lhs68.g_w[4].b1.c4 CA_L49:42 RHS constant span=0:0-0:0 ct=9 sz=4 val=UINT:4 dec=4 ts=-
+TS ELAB a2_lhs68.g_w[5].b1.c1 CA_L50:42 RHS constant span=0:0-0:0 ct=9 sz=1 val=UINT:1 dec=1 ts=-
+TS ELAB a2_lhs68.g_w[6].b1.c100 CA_L51:42 RHS constant span=0:0-0:0 ct=9 sz=100 val=UINT:6 dec=6 ts=-
+TS ELAB a2_lhs68.g_w[7].b1.cn8 CA_L52:42 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:7 dec=7 ts=-
+TS ELAB a2_lhs68.g_w[8].b1.cint CA_L53:42 RHS constant span=0:0-0:0 ct=9 sz=32 val=UINT:8 dec=8 ts=-
+TS ELAB a2_lhs68.g_w[9].b1.cinteg CA_L54:42 RHS constant span=0:0-0:0 ct=9 sz=32 val=UINT:9 dec=9 ts=-
+TS ELAB a2_lhs68.the_if.g_if[0].b1 CA_L12:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:0 dec=0 ts=-
+TS ELAB a2_lhs68.the_if.g_if[1].b1 CA_L12:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a2_lhs68.u_ch0.g_ch[0].b1 CA_L21:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:0 dec=0 ts=-
+TS ELAB a2_lhs68.u_ch0.g_ch[1].b1 CA_L21:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a2_lhs68.u_ch1.g_ch[0].b1 CA_L21:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:0 dec=0 ts=-
+TS ELAB a2_lhs68.u_ch1.g_ch[1].b1 CA_L21:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+
+== E. THE BINDVARIABLE LADDER (a3_bind68): module / gen-local / interface /
+==    port / unpacked-array element / real / parenthesised / net-decl-assign.
+TS ELAB a3_bind68.the_if.g_i[1] CA_L11:12 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a3_bind68.the_if.g_i[1] CA_L12:12 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a3_bind68.g_m[1].b1 CA_L26:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a3_bind68.g_m[1].b1 CA_L27:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a3_bind68.g_m[1].b1 CA_L28:14 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:1 dec=1 ts=-
+TS ELAB a3_bind68.g_m[1].b1 CA_L29:14 RHS constant span=0:0-0:0 ct=9 sz=4 val=UINT:1 dec=1 ts=-
+TS ELAB a3_bind68.g_m[1].b1 CA_L30:14 RHS constant span=0:0-0:0 ct=9 sz=4 val=UINT:1 dec=1 ts=-
+TS ELAB a3_bind68.g_m[1].b1 CA_L31:14 RHS constant span=0:0-0:0 ct=9 sz=64 val=UINT:1 dec=1 ts=-
+TS ELAB a3_bind68.g_m[1].b1 CA_L32:14 RHS constant span=0:0-0:0 ct=9 sz=32 val=UINT:1 dec=1 ts=-
+TS ELAB a3_bind68.g_m[1].b1 CA_L34:14 RHS constant span=0:0-0:0 ct=9 sz=8 val=UINT:1 dec=1 ts=-
+TS ELAB a3_bind68.g_m[1].b1 VAR_nda VE ref_obj span=33:25-33:26 name=i actual=- aval=- adec=- asz=-1

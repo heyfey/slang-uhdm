@@ -12691,6 +12691,91 @@ bool UhdmExporter::genLpFoldSigned46(const Expression& e, int depth) {
     }
 }
 
+// ---------------------------------------------------------------------------
+// § genvarWholeCaRhsFold68 (r10earl68) — the SIZE half of the whole-Rhs genvar
+// fold, decoded from Surelog, not guessed.
+//
+// `UhdmWriter::writeCont_assign` (UhdmWriter.cpp ~2244, the `simplified ==
+// false` arm) reduces the WHOLE Rhs of EVERY elaborated cont_assign through
+// `CompileHelper::reduceExpr`.  A bare genvar read reduces cleanly:
+// `CompileHelper::getValue` (CompileExpression.cpp ~966) answers
+// `instance->getValue(name)` with the unrolling's own `Value` and MINTS a
+// constant out of it -- `VpiValue`/`VpiDecompile`/`VpiConstType`/`VpiSize`
+// straight off the Value, and NO `populateCoreMembers` and NO typespec, which
+// is exactly why golden's constant is LOCATION-LESS and bare where earl67's
+// localparam fold carried the declaration's typespec.  The mint is
+// `vpiUIntConst` at size 64.
+//
+// Surelog then runs `CompileHelper::adjustSize(tps, ...)` on it, where `tps`
+// is the LHS's typespec *as `CompileHelper::bindVariable` finds it*.  The
+// scope-walking overload (CompileStmt.cpp:3089) switches on
+// function / task / begin / module_inst ONLY: there is no `uhdmgen_scope` case
+// and no `uhdminterface_inst` case, so it walks a gen_scope's parent chain
+// straight PAST every gen-local declaration and stops dead at an interface.
+// `adjustSize` on a UINT constant re-sizes it to `Bits(tps)` and MASKS the
+// value to that width (CompileHelper.cpp:3993).
+//
+// Hence the measured rule (arms a1_gv68 / a2_lhs68 / a3_bind68, golden):
+//   * Lhs is a plain ref to a net/variable of the enclosing MODULE body
+//       -> size = that declaration's width, value masked to it
+//         (`logic [7:0]` 8, `logic [3:0]` 4, `logic` 1 -- i=5 folds to UINT:1,
+//          `logic [99:0]` 100, a `wire` 8, `int`/`integer` 32, `byte` 8,
+//          `bit [5:0]` 6, a module PORT 4, `real` 32 (ExprEval.cpp:1304));
+//   * Lhs is gen-LOCAL, or lives in an INTERFACE body, or is any SELECT
+//     (bit_select / part_select / indexed_part_select / concat / struct
+//      member) -> bindVariable finds nothing, `adjustSize` returns at once
+//      and the Value's own 64-bit encoding survives.
+// The head's own Lhs, `idx_tree[Pa]`, is a bit_select: size 64.
+static int32_t caLhsAdjustSize68(const Expression& lhsExpr) {
+    auto& l = stripImplicitConv(lhsExpr);
+    if (l.kind != ExpressionKind::NamedValue)
+        return 64;
+    auto& sym = l.as<NamedValueExpression>().symbol;
+    if (sym.kind != SymbolKind::Net && sym.kind != SymbolKind::Variable)
+        return 64;
+    auto* ps = sym.getParentScope();
+    if (!ps || ps->asSymbol().kind != SymbolKind::InstanceBody)
+        return 64;
+    if (ps->asSymbol().as<InstanceBodySymbol>().getDefinition().definitionKind !=
+        DefinitionKind::Module)
+        return 64;
+    // r10v68 (verifier) — `adjustSize` can only size the constant when the
+    // DECLARATION Surelog wrote actually CARRIES a typespec; `tps == nullptr`
+    // makes it return at once and the Value's own 64-bit encoding survives.
+    // This emitter already decodes exactly which declarations Surelog leaves
+    // BARE (ModuleEmit ~908 `implicitNet` and ~7229 `bareImplicit`), so the
+    // size rule reuses those two predicates rather than re-deriving them:
+    //   * an IMPLICIT net (minted by NetlistElaboration from the assign
+    //     itself) prints no typespec;
+    //   * a bare `var d;` (no type keyword, no signing, no dimensions) has no
+    //     syntax for a typespec to span and Surelog emits none.
+    // Measured on golden (v10_bare68 / v11_d0): a module-level implicit net
+    // and a bare `var` both keep 64, while `logic l;` gives 1, `wire w;` gives
+    // 1 (a net's implicit type still spans its `wire` keyword) and
+    // `var logic [7:0]` / `var signed [7:0]` / `var [3:0]` give 8 / 8 / 4.
+    if (sym.kind == SymbolKind::Net && sym.as<NetSymbol>().isImplicit)
+        return 64;
+    if (hasBareImplicitType(sym))
+        return 64;
+    auto& t = sym.as<ValueSymbol>().getType();
+    // r10v68 (verifier) — the FLOATING kinds do NOT share one size.  Surelog's
+    // ElaborationStep signal dispatch has a `uhdmreal_typespec` branch but no
+    // `uhdmshort_real_typespec` one (the decode already committed at
+    // ModuleEmit ~7676): `real` becomes a real_var WITH a real_typespec, which
+    // `ExprEval::size` (ExprEval.cpp:1304) sizes at 32; `shortreal` becomes a
+    // short_real_var with NO Typespec() at all, so adjustSize returns at once
+    // and 64 survives; `realtime` becomes a time_var with a time_typespec,
+    // whose size is 64.  Measured on golden, declaration-order independent
+    // (v7_flt68): real 32, shortreal 64, realtime 64.  Sizing all three at 32
+    // moved two pristine-RIGHT distance-0 cells AWAY from golden.
+    if (auto& ct68 = t.getCanonicalType(); ct68.kind == SymbolKind::FloatingType)
+        return ct68.as<FloatingType>().floatKind == FloatingType::Real ? 32 : 64;
+    if (!t.isIntegral())
+        return 64;
+    auto bw = (int32_t)t.getBitWidth();
+    return bw > 0 ? bw : 64;
+}
+
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
                                  const std::string& prefix, NetMap& netMap) {
     // An instance whose parameter override reads a member-leftover struct
@@ -14549,10 +14634,38 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     rhs = lit0->second;
                 }
                 // The GENVAR ref folds to its iteration value: a LOC-LESS
-                // 64-bit UINT constant parented at the ca (Surelog). Real
+                // UINT constant parented at the ca (Surelog). Real
                 // block localparams (written `localparam`) are excluded.
+                // § genvarWholeCaRhsFold68 (r10earl68) — the declaring loop is
+                // ANY generate block on this block's own parent chain, not
+                // just this one.  Golden's fold is `writeCont_assign`'s
+                // WHOLE-Rhs `reduceExpr`, which reads the unrolling's genvar
+                // Value out of the instance and does not care how many
+                // generate blocks separate the read from the loop: measured on
+                // golden at distances 0, 1, 2 and 3 (a1_gv68 §A), in module
+                // bodies, in child instances and in interfaces alike.  The
+                // Earlgrey head is at DISTANCE 2 (`gen_level`'s `offset` read
+                // from inside `gen_leafs.gen_assign`), which is why the
+                // pre-existing distance-0 arm never reached it.  The walk
+                // STOPS at the first non-generate scope, so a module-body or
+                // package parameter can never be taken by mistake.
                 else if (rsym0.kind == SymbolKind::Parameter &&
-                         rsym0.getParentScope() == &blk &&
+                         rsym0.as<ParameterSymbol>().isFromGenvar() &&
+                         [&] {
+                             const Scope* ds = rsym0.getParentScope();
+                             if (!ds)
+                                 return false;
+                             for (const Scope* q = &blk; q;) {
+                                 if (q == ds)
+                                     return true;
+                                 auto& qs = q->asSymbol();
+                                 if (qs.kind != SymbolKind::GenerateBlock &&
+                                     qs.kind != SymbolKind::GenerateBlockArray)
+                                     return false;
+                                 q = qs.getParentScope();
+                             }
+                             return false;
+                         }() &&
                          ![&] {
                              for (auto q = rsym0.getSyntax(); q; q = q->parent)
                                  if (q->kind ==
@@ -14562,11 +14675,22 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                          }()) {
                     auto& gv = rsym0.as<ParameterSymbol>().getValue();
                     if (gv.isInteger() && !gv.integer().hasUnknown()) {
+                        // § genvarWholeCaRhsFold68 — Surelog's `adjustSize`
+                        // against the Lhs typespec `bindVariable` finds; see
+                        // caLhsAdjustSize68 for the decode.  64 = "no adjust".
+                        int32_t sz68 = caLhsAdjustSize68(ae.left());
                         auto* c = s.MakeConstant();
                         std::string dg =
                             gv.integer().toString(LiteralBase::Decimal, false);
+                        // adjustSize MASKS the value to the adjusted width
+                        // (`logic v1 = i` at i=5 is golden's `UINT:1`); at 64
+                        // and above there is nothing to mask off.
+                        if (sz68 < 64)
+                            if (auto uv68 = gv.integer().as<uint64_t>())
+                                dg = std::to_string(
+                                    *uv68 & ((1ULL << (uint32_t)sz68) - 1ULL));
                         c->VpiDecompile(dg);
-                        c->VpiSize(64);
+                        c->VpiSize(sz68);
                         c->VpiValue("UINT:" + dg);
                         c->VpiConstType(vpiUIntConst);
                         c->VpiParent(ca);

@@ -1,0 +1,124 @@
+r10earl68 — THE NEXT HEAD (R0), BOTH Earlgrey_0_1 MODES, measured on the
+PATCHED database (binary md5 54adbbaef787ad399de94ddbb9439f6d) against the
+immutable golden caches 00d4794526e44dc553f3 (default) and
+d7348d2d2fe67abe767b (testflags).  Pristine binary md5
+ce3e5a94c3727c249cad47a83ac70a62, BASE 3175257.
+
+earl67's R0 is CLEARED.  It was a VpiType head (constant vs ref_obj) on the
+singular `cont_assign::Compare(Rhs())` and it is gone in BOTH modes, on the
+same object, with the two AFTER cmp logs byte-identical:
+
+  cmp depth  default   32 -> 216 lines   (line count is HEAD DEPTH, never a
+             testflags 32 -> 216 lines    distance: the new head is a deeper
+                                          object, not a worse one)
+  heads      1 per run, both modes, before and after; the two BEFORE logs were
+             byte-identical (710148f51aa2…) and so are the two AFTER logs
+             (3dced0faef87…).
+
+  earl68 R0 (prim_arbiter_tree.sv:114:20 / rv_plic_target.sv:73:18, the WHOLE
+  Rhs `offset` of `assign idx_tree[Pa] = offset;`) — CLEARED, and with it the
+  whole 89-cell family in BOTH modes (whole-design census: 89 TO-GOLDEN,
+  0 AWAY-GOLDEN, 0 MOVED-WRONG, and those 89 are the ONLY cells that changed
+  anywhere in the database — 178 census lines = 89 x (ref removed / constant
+  added), per mode).
+
+=======================================================================
+R0 — Earlgrey_0_1, BOTH MODES, 216 cmp lines, 1 head
+=======================================================================
+
+  flash_phy_rd.sv:122:43-122:81, inside
+  top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0]
+  — a `hier_path` operand of the ELAB gen-scope cont_assign at 122:43-123:51:
+
+      LHS(golden): hier_path  id:311505  122:43-122:81
+                     |vpiName: read_buf[i].addr[7+:8]
+      RHS(ours)  : hier_path  id:253394  122:43-122:81
+                     |vpiName: read_buf[i].addr[FlashWordsW+:PageW]
+
+  HEAD DECODE (BaseClass.h + UHDM/build/generated/src/hier_path.cpp):
+  `hier_path::Compare` runs, in order, the VECTOR `SafeCompare(Path_elems())`,
+  the singular `SafeCompare(Root_value())`, and finally
+  `lhs->VpiName().compare(rhs->VpiName())`.  The two `Path_elems` vectors
+  agree ELEMENT FOR ELEMENT — same `bit_select(read_buf[i])` with the same
+  unbound `ref_obj(i)` index, same `indexed_part_select` with vpiConstantSelect
+  1 and BOTH bounds already folded to `UINT:7 sz 32` / `UINT:8 sz 32` with
+  matching `int_typespec` actuals at 38:13-38:16 and 14:13-14:16 — so the
+  failing field is the LAST one read, **VpiName**, and the MK line names the
+  `hier_path` on both sides (neither a `<null>` singular arm nor a vector size
+  mismatch).  Read the MK line, not the shape (RESUME §9).
+
+  > R0 (both modes): golden RE-RENDERS a `hier_path`'s VpiName/VpiFullName
+  > from the FOLDED bounds of its trailing `indexed_part_select`
+  > (`read_buf[i].addr[7+:8]`); we render the SOURCE spelling
+  > (`read_buf[i].addr[FlashWordsW+:PageW]`) even though both of our bound
+  > constants are already folded to the same 7 and 8.  This is the
+  > `decompileHelper` / `VpiName(path_name)` re-spelling in
+  > `CompileHelper::compileContinuousAssignment` (CompileHelper.cpp ~2470,
+  > `path_name += decompileHelper(sel)`), i.e. a NAME-RENDERING law, not a
+  > folding law: nothing about the objects differs, only the string the
+  > hier_path carries.  Note the genvar index `i` stays SYMBOLIC in that
+  > string on BOTH sides — only the part-select bounds are re-rendered.
+
+=======================================================================
+THE SUPERFAMILY, RE-RANKED ON THE PATCHED DATABASE
+("golden has a CONSTANT where we have a REF_OBJ at the same positional key")
+=======================================================================
+  default    227 cells before this pass  ->    138 after
+  testflags  401 cells before this pass  ->    312 after
+
+  rank  cells(def/tf)  sec   site  position       symbol             note
+  ---------------------------------------------------------------------------
+   R1      0 / 261     ELAB  CA    hp[0]/idx      i (GENVAR, inside  earl67's
+                                   under op75[]   a HIER_PATH)       R1
+   R2     87 /   0     ELAB  CA    op11[]         IDW, STIDW         operand
+   R3     32 /  32     ELAB  CA    op33[]         MioPeriphHasSleep… operand
+   R4     16 /  16     ELAB  HC    idx            N                  earl64 R5
+   R5      3 /   3     ELAB  HC    b              DataBitWidth       earl64 R5
+  ---------------------------------------------------------------------------
+  The GENVAR slice of the superfamily is now EXACTLY R1 (261 cells, testflags
+  only).  Every other remaining cell is a parameter/localparam read.
+
+=======================================================================
+RANKED AFTER R0
+=======================================================================
+R1  THE GENVAR HIER-PATH INDEX, testflags only, 261 cells.  MEASURED THIS PASS
+    and deliberately NOT taken: it is a DIFFERENT MINT from R0's.  Golden's
+    constant there is **LOCATED** (`span=111:26-111:27`, the index's own span)
+    `UINT sz 64` with no typespec, whereas R0's whole-Rhs mint is
+    **LOCATION-LESS**.  A located constant cannot come from
+    `writeCont_assign`'s `reduceExpr` mint (`CompileHelper::getValue` never
+    calls `populateCoreMembers`), so R1 is a COMPILE-TIME substitution on the
+    hier_path's select (`compileSelectExpression` / `decodeHierPath` with
+    Reduce::Yes), not this pass's law.  It needs its own decode and its own
+    call site (ExprEmit ~17630/17660, the hier_path bit_select arm).
+    The whole-design measurement that fences it: golden KEEPS the genvar ref
+    in 4,683 plain `CA/idx` bit-select indexes in the SAME database and folds
+    it in these 261 — the discriminator is being inside a `hier_path`, not
+    being a bit-select index (which is why rgg14's "a CA index keeps a genvar
+    ref" law is untouched by this pass).
+R2  THE OPERAND FOLDS (87 + 32 cells): `IDW`/`STIDW`/`MioPeriphHasSleepMode`
+    read as an OPERATION OPERAND inside an ELAB cont_assign.  Unchanged by
+    this pass; earl67's R2.
+R3  THE ELAB High_conn REMAINDER (19 cells): earl64's R5, unchanged.
+R4  THE WHOLE-Rhs REDUCES THIS PASS MEASURED AND DID NOT TAKE (arm-visible,
+    corpus-thin).  Golden's whole-Rhs `reduceExpr` succeeds for ANY fully
+    constant-foldable Rhs, not only a bare genvar, and mints ONE loc-less
+    constant sized by the same `adjustSize`:
+      * `assign p_cat  = {i[0], 1'b0};` -> one `BIN:10 sz 2` constant; we emit
+        a concat operation (a1_gv68 §C).
+      * `assign p_cast = W'(i);`        -> one `UINT sz 8` constant; we emit an
+        operation (plain view) or a LOCATED `UINT sz 64` (elab view).
+      * `assign l_bare = Pl;` (a gen-scope LOCALPARAM as the whole Rhs at
+        distance 1) -> golden folds to a copy of the localparam's constant
+        WITH its `int_typespec`, sized by adjustSize (`UINT:2 sz 8`); we keep
+        a ref.  This is earl64's § elabCaPortParamPaCopy64 one distance over
+        and is the natural companion to this pass.
+      * the whole-Rhs reduce that produced golden's 3 (default) / 2 (tf)
+        remaining `RHS` cells where golden has a constant and we have an
+        operation (`u_padctrl.gen_generic` `UINT:63 sz 8`,
+        `i_prim_ram_2p_async_adv` `BIN:1x39 sz 39`).
+    Each is a WHOLE-EXPRESSION reduce we do not perform (or perform one level
+    too early), the same shape earl64/66/67 ranked as their R4.
+R5  carried and unchanged: earl66's R2, earl64's R1 (based-override decompile
+    `"32'h2"` vs `"4'h2"`, 44 Earlgrey cells) and R2 (`UINT:-3`), earl61-63's
+    residues.
