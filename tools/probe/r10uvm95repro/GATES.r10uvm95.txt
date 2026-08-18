@@ -1,0 +1,126 @@
+r10uvm95 — THE GATE BATTERY (all run in this pass's own worktree /tmp/wt_r10uvm95,
+with both binaries FROZEN at immutable paths before any sweep)
+================================================================================
+
+BINARIES
+  pristine  /tmp/r10uvm95_pris.bin   md5 ef861f70d1a7148c51483314b2040a8c
+            (byte-identical to the MAIN TREE build at 286e327 — a reproducible
+             build, verified by md5 before any edit)
+  patched   /tmp/r10uvm95_pat.bin    md5 00778fc1d5a5aa221bd3f44852c61d7c
+  Every sweep exported SLANG_UHDM explicitly; every cmds.txt was audited to
+  name the frozen path, never the main-tree binary:
+    $ grep -o 'slang: *[^ ]*' <cell>/cmds.txt   ->  /tmp/r10uvm95_pat.bin
+
+GATE 1 — GOLDENS
+  patched   PASS=23 FAIL=0
+  pristine  PASS=23 FAIL=0
+  SLANG_UHDM=/bin/false  PASS=0 FAIL=23      (negative control)
+
+GATE 2 — uhdm2rtlil, 731 tests, BOTH modes
+  testflags  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  default    CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  ct8rows vs the COMMITTED results/gate_uhdm2rtlil.csv        PASS (0 differing rows)
+  ct8rows vs MY OWN pristine sweep, testflags                 PASS
+  ct8rows vs MY OWN pristine sweep, default                   PASS
+  byteverify SELFCHECK=1   MOVERS 0 / 1358, selfcheck 1357/1358 flagged
+
+GATE 3 — surelog, 794 tests, BOTH modes
+  default    CMP_EQUAL 470  CMP_NOTEQUAL 11  DEFERRED 5  SLANG_REJECT 283  SURELOG_FAIL 25
+  testflags  CMP_EQUAL 466  CMP_NOTEQUAL  9  DEFERRED 5  SLANG_REJECT 284  SURELOG_FAIL 23
+             NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+  identical to the pristine histogram in every cell.
+  ct8rows vs the COMMITTED results/golden_surelog.csv          PASS (0 of 1588)
+  ct8rows vs MY OWN pristine sweep                            PASS
+  NO ROW CONVERTED.  NO ROW REGRESSED.  results/*.csv untouched.
+  byteverify SELFCHECK=1   MOVERS 9 / 956, selfcheck 955/956 flagged
+    ./default/BuildUVMPkg-bf853d43     6f52b6c24224 <- 8f6e4e83f795
+    ./default/MiniAmiq-544c7f61        019a678a058e <- 570115767449
+    ./default/Scoreboard-59431470      add5834e0f96 <- e7b0c9b44b9a
+    ./default/SeqDriver-32af76aa       b30b11ed7c36 <- 3104506df6c5
+    ./default/SimpleUVM-1dc93a62       484e4445fb29 <- 2889822c0de2
+    ./testflags/BuildUVMPkg-bf853d43   6f52b6c24224 <- 8f6e4e83f795
+    ./testflags/MiniAmiq-544c7f61      019a678a058e <- 570115767449
+    ./testflags/SeqDriver-32af76aa     913b37bffb15 <- d7835202257e
+    ./testflags/SimpleUVM-1dc93a62     0e8ab883c5aa <- d7c9815a05b1
+  EXACTLY the 9 databases PREDICT.r10uvm95.txt named, from pristine evidence
+  alone, before the patched sweeps ran.
+
+  ATTRIBUTION (attr95.sh — id-stripped, workdir-normalised, SORTED, so the
+  reading is ORDER-BLIND; Scoreboard/default is the ~50/50 coin and shows the
+  SAME order-blind delta as SeqDriver, and nothing else):
+    SeqDriver / SimpleUVM / MiniAmiq (both modes), Scoreboard/default
+        ins=30 del=92   6 cells: a sys_func_call($bits) + its bit_select
+                        argument + the ref_obj index (92 lines) replaced by 6
+                        folded constants (30 lines)
+    BuildUVMPkg (both modes)
+        ins=45 del=140  9 cells, same shape
+    line kinds changed, and NOTHING else, in all nine:
+        OBJ  sys_func_call / bit_select / ref_obj / constant / method_func_call
+        ATTR vpiName vpiParent vpiFullName vpiSize vpiIndex vpiDecompile
+             vpiConstType vpiArgument UINT
+
+GATE 4 — THE WIDE BOUNDARY, BOTH VIEWS (bound95.sh)
+  LISTED=2868 FENCED_SKIPPED=0 PROCESSED=2868 MOVED=16 NO_OUTPUT_PAIRS=260
+  PROCESSED-ASSERT-OK   (fd-3 list, children </dev/null, subdirectories walked)
+  The 16 movers are 8 arm files x 2 views, and EVERY one is attributed:
+    5 x this pass's own new arms (g95_a0..a4)                   by construction
+    3 x r10uvm61repro's OWN arms — c4_edge, c5_select, v4_type — the arms of
+      the very family this pass refines.  Scored three-way against GOLDEN:
+        c4_edge   def 21 cells: OK 20 FIXED 1 BROKE 0 STILL 0
+                  elab            OK 14 FIXED 1 BROKE 0 STILL 6
+        c5_select def 22 cells: OK 10 FIXED 11 BROKE 0 STILL 1
+                  elab            OK  5 FIXED 11 BROKE 0 STILL 6
+        v4_type   def 17 cells: OK  9 FIXED 7 BROKE 0 STILL 1
+                  elab            OK  7 FIXED 7 BROKE 0 STILL 3
+      19 cells move TOWARD golden, ZERO away, in both views.
+    ZERO of the other 2860 pre-existing arm sources moved.
+  (260 NO_OUTPUT_PAIRS are SYMMETRIC — both binaries decline or crash on the
+  same source, including a handful of pre-existing segfaults; the gate exits 4
+  on any ASYMMETRIC_OUTPUT and reported none.)
+
+GATE 5 — CANARIES AND PINS
+  canaries.sh  surelog     ok=56 changed=0 absent=0
+  canaries.sh  uhdm2rtlil  ok=9  changed=0 absent=0
+  ctcan2.sh    surelog     PASS      ctcan2.sh uhdm2rtlil PASS
+  canaudit.sh  audited=33  UNCOVERED=0  FENCE-BREACH=0
+  pins95.sh    SAME=10 MOVED=0
+       InterfaceModPort 59a365f3ce2c both modes
+       BlackParrotComplex def e3e354129d5a / tf 73a10e8217e5
+       YosysOldOr d68e0796d62c both modes
+       SVSwitch 4842211c4030      YosysVerx 6ccda350c24a
+
+GATE 6 — THE ARMS, BOTH VIEWS  (three95.sh; golden is always LHS)
+  g95_a0_head       8 cells  OK  1 FIXED  7 BROKE 0 STILL 0   def AND elab
+                    pristine CMP_FAIL / 1 head / 54 cmp lines
+                    patched  PASS_CMP  / 0 heads               <- CONVERTS
+  g95_a1_classsel  42 cells  OK 17 FIXED 23 BROKE 0 STILL 2   def AND elab
+  g95_a2_modsel    25 cells  OK 13 FIXED 10 BROKE 0 STILL 2   def AND elab
+  g95_a3_order     37 cells  OK 28 FIXED  5 BROKE 0 STILL 4 (10 elab)
+  g95_a4_elemtype  14 cells  OK  9 FIXED  5 BROKE 0 STILL 0   def AND elab
+  g95_a5_oob       14 cells  OK  8 FIXED  0 BROKE 0 STILL 6 (7 elab)
+  ---------------------------------------------------------------
+  140 cells per view, 50 FIXED, **BROKE = 0**, rc=0 on every cell in both views.
+
+GATE 7 — THE CENSUS, BEFORE AND AFTER (join95.py over cen95.sh output)
+  surelog, 956 dbs        pristine   patched
+    SAME                       899       917
+    FOLD_G_KEEP_O               62         2     <- the target
+    KEEP_G_FOLD_O               15        15     <- untouched (R3)
+    VALUE                        4         4     <- untouched (R7)
+    OTHER                      246       246
+  (60 of the 62 became SAME; 42 of those left the census SCOPE entirely because
+   a folded macro-body cell no longer carries a call and its written text is
+   `SIZE`, not `$bits` — OUT_OF_SCOPE rose by exactly 42.)
+  uhdm2rtlil, 1358 dbs: FOLD_G_KEEP_O 0, KEEP_G_FOLD_O 0, VALUE 0, before AND after.
+
+HEADS  (rowheads.sh, DEPTH not distance, same base for both columns)
+  row              mode        pristine   patched
+  SeqDriver        def / tf      54 / 54    12 / 12
+  SimpleUVM        def / tf      54 / 54    12 / 12
+  Scoreboard       def           54         12
+  MiniAmiq         def / tf      54 / 54    12 / 12
+  BuildUVMPkg      def / tf      17 / 17    17 / 17   (unchanged head)
+  Earlgrey_0_1     def / tf      64 / 28    64 / 28   (byte-untouched)
+  Rggen            def           64         64        (byte-untouched)
+  The seven UVM row-modes share ONE new 12-line head, byte-identical after
+  id-stripping (md5 b9ae93ae0e1d on all seven).

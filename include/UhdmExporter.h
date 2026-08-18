@@ -1713,6 +1713,20 @@ private:
     // inherited members, `this.`/`super.`, handles, and parameter-dependent
     // widths — is on the definition in src/ExprEmit.cpp).
     bool bitsOwnClassPropFold61(const slang::ast::Expression& arg);
+    // § bitsOutOfBlockNoReduce95 — true inside a class method whose body is
+    // written OUT OF BLOCK (`extern` + `C::m`).  Surelog compiles such a body
+    // with `Reduce::No`, so EVERY arm of `compileBits` fails its
+    // `(reduce == Reduce::Yes)` guard and the bare `sys_func_call` survives —
+    // `$bits(byte)` and `$bits(int)` included.  See src/ExprEmit.cpp for the
+    // measured in-block/out-of-block twin grid and the corpus witness
+    // (`uvm_reg_block::check_data_width`'s `$bits(uvm_reg_data_t)`).
+    bool bitsOutOfBlock95() const;
+    // § bitsSelectIgnoredRootBits95 — the ROOT-DECLARATION width rule and the
+    // narrow set of cells it owns (a select-bearing argument, or a bare name
+    // whose type is real/shortreal/realtime/time).  See src/ExprEmit.cpp.
+    bool bitsRootWidth95Owns(const slang::ast::Expression* arg) const;
+    bool bitsRootWidth95Applies(const slang::ast::Expression* arg,
+                                std::optional<uint64_t>& out) const;
     // True when a declaration-bound SYNTAX tree reads a `$unit`-scope
     // parameter. Surelog never substitutes one, so such a bound stays an
     // unfolded operation in every view.

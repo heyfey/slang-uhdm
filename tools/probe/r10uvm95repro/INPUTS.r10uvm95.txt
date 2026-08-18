@@ -1,0 +1,17 @@
+r10uvm95 — INPUTS AND PROVENANCE
+================================
+base commit          286e327   (worktree /tmp/wt_r10uvm95, detached)
+pristine binary      /tmp/r10uvm95_pris.bin  ef861f70d1a7148c51483314b2040a8c
+                     == the main-tree build at 286e327 (reproducible build)
+patched binary       /tmp/r10uvm95_pat.bin   00778fc1d5a5aa221bd3f44852c61d7c
+pristine sweeps      /tmp/r10uvm95_wdpris/{sl,u2r}  + sl.csv u2r_tf.csv u2r_def.csv
+patched sweeps       /tmp/r10uvm95_wdpat/{sl,u2r}   + the same three CSVs
+censuses             /tmp/r10uvm95_cen/{sl,u2r}     (pristine)
+                     /tmp/r10uvm95_cenpat/sl        (patched)
+arm workdirs         /tmp/r10uvm95_armwd/<arm>_<def|elab>
+boundary workdir     /tmp/r10uvm95_bound   (log /tmp/r10uvm95_bound.log)
+golden generator     ~/git-repos/Surelog/build/bin/surelog -parse -nocache [-elabuhdm]
+judge                ~/git-repos/UHDM/build/bin/uhdm-cmp   (head on STDERR)
+baselines READ       results/gate_uhdm2rtlil.csv, results/golden_surelog.csv
+                     — READ ONLY, from THIS worktree; neither was edited.
+fenced tests         never dispatched; canaudit reports FENCE-BREACH=0.

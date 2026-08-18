@@ -1,0 +1,12 @@
+LHS:
+decompile:
+real_typespec: , id:313360, line:87:16, endln:87:20
+
+decompile:
+real_typespec: , id:313360, line:87:16, endln:87:20
+RHS:
+decompile:
+logic_typespec: , id:118178, line:87:16, endln:87:20
+
+decompile:
+logic_typespec: , id:118178, line:87:16, endln:87:20

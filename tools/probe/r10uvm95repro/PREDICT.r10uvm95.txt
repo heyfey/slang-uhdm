@@ -1,0 +1,72 @@
+r10uvm95 — MOVER PREDICTION, made from PRISTINE evidence ONLY
+============================================================
+Made BEFORE the patched sweeps finished; nothing below needed the patched
+binary or a patched database.  Two independent instruments:
+
+  (1) the PRISTINE type-query census  (cen95.sh + join95.py over the pristine
+      sweep workdir: ct95cen on each golden and on OUR pristine database,
+      joined on the span).  Every cell the law can FIX is a cell the census
+      already scores FOLD_G_KEEP_O.
+  (2) a SOURCE scan of both corpora + the UVM trees for the two shapes the
+      law owns: `$bits(<name>[` (a select-bearing argument) and a bare
+      `$bits(<real/shortreal/realtime/time name>)`.
+
+------------------------------------------------------------------- (1) ----
+FOLD_G_KEEP_O cells in the pristine census, surelog corpus (956 dbs):
+
+     10  default_BuildUVMPkg-bf853d43     uvm_pkg.sv 58045 58066 58275 58302
+     10  testflags_BuildUVMPkg-bf853d43              58412 58413 58415 58428
+                                                     58429 58431      (all G=8)
+      6  default_SeqDriver-32af76aa       uvm_object_defines.svh
+      6  testflags_SeqDriver-32af76aa       3364:13-29  3364:13-36
+      6  default_SimpleUVM-1dc93a62         3365:74-90  3365:84-107
+      6  testflags_SimpleUVM-1dc93a62       3367:78-94  3367:88-111
+      6  default_MiniAmiq-544c7f61                            (all G=8)
+      6  testflags_MiniAmiq-544c7f61
+      6  default_Scoreboard-59431470
+     --
+     62 cells / 9 databases
+
+uhdm2rtlil corpus (1358 dbs): FOLD_G_KEEP_O = 0, KEEP_G_FOLD_O = 0, VALUE = 0.
+
+------------------------------------------------------------------- (2) ----
+Every corpus source carrying `$bits(<name>[`, with the row status it belongs to:
+
+  Surelog/tests/SplitFile/amiq_eth_ve_top.v            114  SLANG_REJECT (no db)
+  third_party/tests/Zachjs/.../packed_array_shadow.sv   60  Zachjs SLANG_REJECT
+  third_party/tests/Icarus/ivltests/tern3.v              4  Icarus SLANG_REJECT
+  third_party/tests/Verilator/t_array_packed_sysfunct.v  4  Verilator SLANG_REJECT
+  third_party/tests/black-parrot/.../bsg_mesosync_input.v 2 no .sl owner
+  third_party/tests/ariane/.../addr_decode.sv            2  Ariane SURELOG_FAIL
+  Surelog/tests/BlackParrotComplex/dut.sv                1  CMP_EQUAL  <- CANARY
+  Surelog/tests/BitsArray/dut.sv                         1  CMP_EQUAL
+  third_party/tests/CoresSweRV{,MP}/.../dec_tlu_ctl.sv   1  SURELOG_FAIL/REJECT
+  uvm-1.2 tlm2/uvm_tlm2_generic_payload.svh              2  the 9 UVM databases
+  uvm-1.2 base/uvm_packer.svh, base/uvm_component.svh,
+          seq/uvm_sequencer_param_base.svh, base/uvm_transaction.svh,
+          reg/uvm_reg_block.svh                             the 9 UVM databases
+
+  uhdm2rtlil: exactly ONE site,
+  test/SizeOfGeneratedWireArray/dut.sv `$bits(gen_blk[0].z)` (CMP_EQUAL).
+
+The two CMP_EQUAL non-UVM cells were checked directly, pristine vs patched,
+BEFORE the sweeps:
+
+  BlackParrotComplex  `$bits(routing_matrix_p[0][i])`  root is a PARAMETER, so
+                      `srlgBitsFoldArg` already answers KEEP and neither the
+                      value nor the keep override is reached -> dump SAME
+  BitsArray           `$bits(fcoe_reserved_before_sof[0])` over `bit x[]`:
+                      root width 1 == the old select width 1 -> dump SAME
+  SizeOfGeneratedWireArray  `gen_blk[0].z` is a HierarchicalValue, not a select
+                      chain, and the call is already KEPT on both sides
+
+-------------------------------------------------------------- PREDICTION ---
+  surelog     MOVERS = 9 / 956, and exactly these names:
+                default/{SeqDriver,SimpleUVM,MiniAmiq,Scoreboard,BuildUVMPkg}
+                testflags/{SeqDriver,SimpleUVM,MiniAmiq,BuildUVMPkg}
+  uhdm2rtlil  MOVERS = 0 / 1358
+  canaries    InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical,
+              SVSwitch 4842211c4030, YosysVerx 6ccda350c24a
+  rows        NO row converts, NO row regresses (the 9 movers are all
+              CMP_NOTEQUAL before and after: each still carries the
+              KEEP_G_FOLD_O cell this pass deliberately does NOT ship)

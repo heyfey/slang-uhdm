@@ -2021,6 +2021,229 @@ static bool typeReadsClassParam61(const slang::ast::Type& type, int depth) {
     return false;
 }
 
+// § bitsSelectIgnoredRootBits95 — WHERE COMPILEBITS TAKES ITS TYPESPEC FROM.
+//
+// `CompileHelper::compileBits` (CompileExpression.cpp:4663) does NOT look at
+// the argument EXPRESSION.  For anything that is not a type keyword it walks
+//     Expression -> Primary -> Primary_literal -> StringConst
+// and hands that BARE NAME to `getTypespec`, whose `slStringConst` arm reads
+// the name and then only follows siblings that are THEMSELVES `StringConst`
+// (i.e. dotted member suffixes).  A bracket suffix is a `Constant_bit_select`
+// / `Part_select_range` node, NOT a StringConst, so it is never seen:
+//
+//     $bits(v32[3])       -> 32   (the whole `bit [31:0] v32`)
+//     $bits(v32[7:0])     -> 32
+//     $bits(pk4[i][3])    -> 32   (`bit [7:0] pk4 [4]`, the whole array)
+//     $bits(m_data[i])    ->  8   (`byte m_data []`, an UNSIZED dimension)
+//
+// and `Bits()` over that typespec multiplies the FIXED unpacked dimensions
+// while an UNSIZED one (`[]`, `[$]`, `[string]`) contributes exactly ONE.
+// Measured golden-side on a 42-cell class grid (g95_a1), a 25-cell module grid
+// (g95_a2) and a 14-cell element-type grid (g95_a4); the head
+// `uvm_object_defines.svh:3364` is the `$bits(m_data[i])` row.
+//
+// A DOTTED argument is a different road entirely (`paComplex_func_call` ->
+// `compileExpression` -> `hier_path` -> `decodeHierPath`), which DOES resolve
+// members and a trailing bit_select — that road is untouched here.
+//
+// Returns the root symbol when `arg` is a chain of ELEMENT/RANGE selects (any
+// depth, constant or variable index, possibly none) over a simple name, with
+// NO member access anywhere; null otherwise.
+static const slang::ast::Symbol* selChainRoot95(const slang::ast::Expression& arg0) {
+    using namespace slang::ast;
+    const Expression* e = &arg0;
+    while (true) {
+        auto& r = *e;
+        if (r.kind == ExpressionKind::Conversion &&
+            r.as<ConversionExpression>().isImplicit()) {
+            e = &r.as<ConversionExpression>().operand();
+            continue;
+        }
+        if (r.kind == ExpressionKind::ElementSelect) {
+            e = &r.as<ElementSelectExpression>().value();
+            continue;
+        }
+        if (r.kind == ExpressionKind::RangeSelect) {
+            e = &r.as<RangeSelectExpression>().value();
+            continue;
+        }
+        break;
+    }
+    if (e->kind == ExpressionKind::NamedValue)
+        return &e->as<NamedValueExpression>().symbol;
+    if (e->kind == ExpressionKind::HierarchicalValue)
+        return &e->as<HierarchicalValueExpression>().symbol;
+    return nullptr;
+}
+
+// § bitsSelectThenMemberKeeps95 — a SELECT below a member access kills the
+// fold.  `$bits(spa[1].hi)` and `$bits(sarr[i].hi)` are golden
+// `sys_func_call`s while `$bits(us.a[1])` (member THEN select) folds: the
+// dotted road's `decodeHierPath` cannot resolve a mid-path select.
+static bool bitsSelectThenMember95(const slang::ast::Expression& arg0) {
+    using namespace slang::ast;
+    bool sawMember = false;
+    const Expression* e = &arg0;
+    while (true) {
+        auto& r = *e;
+        if (r.kind == ExpressionKind::Conversion &&
+            r.as<ConversionExpression>().isImplicit()) {
+            e = &r.as<ConversionExpression>().operand();
+            continue;
+        }
+        if (r.kind == ExpressionKind::MemberAccess) {
+            sawMember = true;
+            e = &r.as<MemberAccessExpression>().value();
+            continue;
+        }
+        if (r.kind == ExpressionKind::ElementSelect) {
+            if (sawMember)
+                return true;
+            e = &r.as<ElementSelectExpression>().value();
+            continue;
+        }
+        if (r.kind == ExpressionKind::RangeSelect) {
+            if (sawMember)
+                return true;
+            e = &r.as<RangeSelectExpression>().value();
+            continue;
+        }
+        break;
+    }
+    return false;
+}
+
+// Surelog's `Bits()` over a DECLARED type, as measured (grid g95_a4):
+//   integral (incl. packed struct/union, enum, typedef alias)  -> bit width
+//   real, shortreal                                            -> 32
+//   realtime, time, string, chandle, class handle, event       -> NO ANSWER
+//   unpacked struct/union                                      -> bitstream
+//   unpacked dimensions: FIXED multiply, UNSIZED count as ONE
+// Returns false when Surelog has no answer — the `sys_func_call` survives.
+static bool srlgBitsRootWidth95(const slang::ast::Type& t0, uint64_t& out) {
+    using namespace slang::ast;
+    const Type* ct = &t0.getCanonicalType();
+    uint64_t mult = 1;
+    for (int guard = 0; guard < 16; guard++) {
+        if (ct->isUnpackedArray()) {
+            if (ct->kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                auto& fa = ct->as<FixedSizeUnpackedArrayType>();
+                uint64_t n = fa.range.width();
+                if (n == 0)
+                    return false;
+                mult *= n;
+            }
+            // Dynamic / queue / associative: an UNSIZED dimension is ONE.
+            auto* el = ct->getArrayElementType();
+            if (!el)
+                return false;
+            ct = &el->getCanonicalType();
+            continue;
+        }
+        break;
+    }
+    if (ct->isFloating()) {
+        // `realtime` has no answer; `real`/`shortreal` are 32.
+        if (ct->as<FloatingType>().floatKind == FloatingType::RealTime)
+            return false;
+        out = mult * 32;
+        return true;
+    }
+    if (ct->isIntegral()) {
+        // `time` KEEPS although slang sizes it (uvm61's F2 arm).
+        if (auto* pit = ct->as_if<PredefinedIntegerType>();
+            pit && pit->integerKind == PredefinedIntegerType::Time)
+            return false;
+        uint64_t w = ct->getBitWidth();
+        if (w == 0)
+            return false;
+        out = mult * w;
+        return true;
+    }
+    if (ct->isUnpackedStruct() || ct->isUnpackedUnion()) {
+        uint64_t w = ct->getBitstreamWidth();
+        if (w == 0)
+            return false;
+        out = mult * w;
+        return true;
+    }
+    return false;
+}
+
+// § bitsSelectIgnoredRootBits95 — WHICH CELLS THIS PASS OWNS.
+//
+// Deliberately NARROW, so that not one of the thousands of `$bits(<name>)`
+// folds already gated by `srlgBitsFoldArg` / `bitsOwnClassPropFold61` changes
+// value.  The root-declaration rule is applied only where it can differ from
+// what we emitted before:
+//   * the argument carries at least one SELECT over a simple name — the head's
+//     `$bits(m_data[i])`, and every `[i]` / `[m:n]` / `[i][j]` shape; or
+//   * the argument is a bare simple name whose type is one Surelog's `Bits()`
+//     answers DIFFERENTLY from slang: `real`/`shortreal` (32, not 64) and
+//     `realtime`/`time` (no answer at all — the call survives).
+// A bare integral name is untouched, in every view.
+bool UhdmExporter::bitsRootWidth95Owns(
+    const slang::ast::Expression* arg) const {
+    using namespace slang::ast;
+    if (!arg)
+        return false;
+    auto& a = stripImplicitConv(*arg);
+    const Symbol* rs = selChainRoot95(a);
+    if (!rs)
+        return false;
+    if (a.kind == ExpressionKind::ElementSelect ||
+        a.kind == ExpressionKind::RangeSelect)
+        return true;
+    const DeclaredType* dt = rs->getDeclaredType();
+    if (!dt)
+        return false;
+    auto& ct = dt->getType().getCanonicalType();
+    if (ct.isFloating())
+        return true;
+    if (auto* pit = ct.as_if<PredefinedIntegerType>();
+        pit && pit->integerKind == PredefinedIntegerType::Time)
+        return true;
+    return false;
+}
+
+// Surelog's answer for a cell this pass owns.  Returns false when `Bits()`
+// has none — the caller then keeps the `sys_func_call`.
+bool UhdmExporter::bitsRootWidth95Applies(
+    const slang::ast::Expression* arg,
+    std::optional<uint64_t>& out) const {
+    if (!bitsRootWidth95Owns(arg))
+        return false;
+    auto& a = stripImplicitConv(*arg);
+    const slang::ast::Symbol* rs = selChainRoot95(a);
+    const slang::ast::DeclaredType* dt = rs ? rs->getDeclaredType() : nullptr;
+    if (!dt)
+        return false;
+    uint64_t w = 0;
+    if (!srlgBitsRootWidth95(dt->getType(), w))
+        return false;
+    out = w;
+    return true;
+}
+
+// § bitsOutOfBlockNoReduce95 — a class method whose body is written OUT OF
+// BLOCK (`extern` prototype + `C::m`) compiles with `Reduce::No`, so EVERY
+// arm of `compileBits` fails its `(reduce == Reduce::Yes)` guard and the bare
+// `sys_func_call` survives — `$bits(byte)` and `$bits(int)` included, which is
+// what pins this to the reduce mode rather than to name resolution.  Measured
+// as a 10-cell in-block / out-of-block twin (grid g95_a5): in-block folds
+// byte/int/own-typedef/package-typedef/own-property, out-of-block folds NONE
+// of them, and `$clog2` / `2+3` / `P*2` behave identically on both sides.
+// The corpus witness is `uvm_reg_block::check_data_width`'s
+// `$bits(uvm_reg_data_t)` (uvm-1.2 `uvm_reg_block.svh:944`), which we folded
+// to 64 in all seven UVM row-modes and in BuildUVMPkg.
+bool UhdmExporter::bitsOutOfBlock95() const {
+    return currentSubSym &&
+           currentSubSym->outOfBlockIndex != slang::ast::SymbolIndex(0) &&
+           currentSubSym->getParentScope() &&
+           currentSubSym->getParentScope()->asSymbol().kind ==
+               slang::ast::SymbolKind::ClassType;
+}
+
 // § bitsOwnClassPropFold61 — the ONE place Surelog folds `$bits` that
 // `srlgBitsFoldArg` above deliberately refuses.
 //
@@ -2074,9 +2297,15 @@ bool UhdmExporter::bitsOwnClassPropFold61(const slang::ast::Expression& arg0) {
     if (!home || home->asSymbol().kind != SymbolKind::ClassType)
         return false;
     auto& arg = stripImplicitConv(arg0);
-    if (arg.kind != ExpressionKind::NamedValue)
+    // § bitsSelectIgnoredRootBits95 — a SELECT suffix is invisible to
+    // `compileBits`, so `$bits(m_data[i])` reaches this rule exactly like
+    // `$bits(m_data)` does (and answers with the ROOT's width, not the
+    // element's).  A member access anywhere still refuses: `this.m`/`super.m`
+    // are MemberAccess, and `sarr[i].hi` is golden's own sys_func_call.
+    const Symbol* rootSym95 = selChainRoot95(arg);
+    if (!rootSym95)
         return false;
-    auto& sym = arg.as<NamedValueExpression>().symbol;
+    auto& sym = *rootSym95;
     if (sym.kind != SymbolKind::ClassProperty)
         return false;
     // OWN class only.  An inherited member's parent scope is the BASE class,
@@ -2109,38 +2338,21 @@ bool UhdmExporter::bitsOwnClassPropFold61(const slang::ast::Expression& arg0) {
         return false;
     if (typeReadsClassParam61(dt->getType(), 0))
         return false;
-    // The WIDTH must come from slang's own type system, never from a guess.
-    // Integral covers packed vectors, enums, packed structs and typedef
-    // aliases of them; a fixed-size unpacked array folds to its bitstream
-    // width (c1 R7 `bit m_arr[4]` -> 4).
+    // The WIDTH must come from slang's own type system, never from a guess —
+    // and it is the width of the ROOT DECLARATION, never of the select
+    // (§ bitsSelectIgnoredRootBits95).  `srlgBitsRootWidth95` is the single
+    // transcription of Surelog's `Bits()`: fixed unpacked dimensions multiply,
+    // unsized ones count as one, `real`/`shortreal` are 32, and
+    // `time`/`realtime`/`string`/`chandle`/class handles have NO answer.
     //
-    // DELIBERATELY EXCLUDED, and this is an UNDER-FIRE I am declaring rather
-    // than papering over: `real`.  Golden folds `$bits(<real member>)` to
-    // UINT:32 (c4 R8 line 99) where the language and slang both say 64.  I
-    // cannot derive Surelog's 32 from slang's type system, and emitting 64
-    // would be a WRONG-VALUE over-fire — strictly worse than the
-    // sys_func_call we already emit.  `isIntegral()` excludes `real` and
-    // `string` together.
-    const Type* t = arg.type;
-    if (!t)
+    // uvm61 deliberately excluded `real` here as an "under-fire" it could not
+    // derive.  Grid g95_a4 derives it: golden's `Bits()` answers 32 for both
+    // `real` and `shortreal` (and `real ra[3]` -> 96), so the fold is now
+    // taken with Surelog's own value.  `realtime` and `time` still KEEP.
+    uint64_t w61 = 0;
+    if (!srlgBitsRootWidth95(dt->getType(), w61))
         return false;
-    // `time` KEEPS in golden (verifier F2, arm v4_type.sv line 47) although
-    // it IS integral in slang (64 bits) — while `integer` beside it FOLDS to
-    // UINT:32.  The verifier's decoded hypothesis: the two Surelog keeps
-    // (`time`, `realtime`) are exactly the two LRM alias types
-    // (time = bit[63:0], realtime = real); realtime is already excluded by
-    // isIntegral, time needs the explicit clause.
-    if (auto* pit61 = t->getCanonicalType().as_if<PredefinedIntegerType>();
-        pit61 && pit61->integerKind == PredefinedIntegerType::Time)
-        return false;
-    if (t->isIntegral())
-        return t->getBitWidth() > 0;
-    if (t->isUnpackedArray() && t->isFixedSize()) {
-        auto& el = *t->getArrayElementType();
-        if (el.isIntegral() && el.getBitWidth() > 0)
-            return t->getBitstreamWidth() > 0;
-    }
-    return false;
+    return true;
 }
 
 // A function that just hands one of its formals back (`f = inp;` /
@@ -16173,6 +16385,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 bitsKeep = false;
                 ownPropFold61 = true;
             }
+            // § bitsSelectIgnoredRootBits95 — THE KEEP HALF.  When
+            // `srlgBitsRootWidth95` has no answer for the ROOT declaration
+            // (`realtime`, `time`, `string`, `chandle`, a class handle), the
+            // `sys_func_call` survives — golden keeps `$bits(rt1)` and
+            // `$bits(t1)` where we folded both to 64.
+            {
+                std::optional<uint64_t> probe95;
+                const Expression* a95 =
+                    call.arguments().empty() ? nullptr : call.arguments()[0];
+                if (name == "$bits" && !bitsKeep && bitsRootWidth95Owns(a95) &&
+                    !bitsRootWidth95Applies(a95, probe95))
+                    bitsKeep = true;
+            }
+            // § bitsSelectThenMemberKeeps95 — a member access reached THROUGH
+            // a select (`spa[1].hi`) is golden's own sys_func_call: the dotted
+            // road's `decodeHierPath` cannot resolve a mid-path select.  This
+            // overrides `srlgBitsFoldArg`, which certifies only the ROOT.
+            if (name == "$bits" && !call.arguments().empty() &&
+                bitsSelectThenMember95(stripImplicitConv(*call.arguments()[0]))) {
+                bitsKeep = true;
+                ownPropFold61 = false;
+            }
+            // § bitsOutOfBlockNoReduce95 is DECODED BUT NOT SHIPPED — see
+            // `bitsOutOfBlock95` for the law and tools/probe/r10uvm95repro's
+            // README for why: golden splits it by package COPY (the def
+            // listing keeps, the top listing folds) and this pass has not
+            // decoded that split.  It is the next head (R0).
             if (name == "$bits" && !bitsKeep) {
                 bool localParamArg =
                     !call.arguments().empty() &&
@@ -16190,6 +16429,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // width so the fold decision and the fold agree
                 // (HierPathPackedStruct's `$bits(a.pair[0])`).
                 std::optional<uint64_t> staticBits9;
+                // § bitsSelectIgnoredRootBits95 — THE VALUE.  When the
+                // argument is a simple name under any number of selects,
+                // `compileBits` types the BARE NAME, so the answer is the
+                // ROOT declaration's width and the brackets contribute
+                // nothing: `$bits(v32[3])` is 32, `$bits(pk4[i][3])` is 32,
+                // `$bits(m_data[i])` over `byte m_data[]` is 8.  This
+                // supersedes BOTH the root-context `tryEval` (slang's answer,
+                // the select's width) and the member/select fallback below,
+                // for exactly the shapes it owns.
+                bitsRootWidth95Applies(
+                    call.arguments().empty() ? nullptr : call.arguments()[0],
+                    staticBits9);
                 // § bitsOwnClassPropFold61's VALUE.  The root-context
                 // `tryEval` above cannot answer for a class property — there
                 // is no instance to read — so it returns nothing and, without
@@ -16198,9 +16449,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // predicate that opened the gate supplies the width, and it
                 // has already certified the type integral-with-a-width or a
                 // fixed-size unpacked array.
-                if (!cv && ownPropFold61) {
+                // ...unless § bitsSelectIgnoredRootBits95 already answered
+                // (a select-bearing argument), whose value is the ROOT's.
+                if (!cv && !staticBits9 && ownPropFold61) {
+                    // The value is the ROOT DECLARATION's width, through the
+                    // SAME transcription of Surelog's `Bits()` that opened the
+                    // gate (§ bitsSelectIgnoredRootBits95): a select suffix is
+                    // invisible, a fixed unpacked dimension multiplies and an
+                    // UNSIZED one counts as ONE.  slang's own bitstream width
+                    // answers 0 for a dynamic array / queue / associative
+                    // array, where golden answers the ELEMENT width
+                    // (`byte m_data[]` -> 8, the head).
                     auto& a61 = stripImplicitConv(*call.arguments()[0]);
-                    if (a61.type->isIntegral())
+                    const Symbol* r61 = selChainRoot95(a61);
+                    const DeclaredType* d61 = r61 ? r61->getDeclaredType() : nullptr;
+                    uint64_t w61b = 0;
+                    if (d61 && srlgBitsRootWidth95(d61->getType(), w61b))
+                        staticBits9 = w61b;
+                    else if (a61.type->isIntegral())
                         staticBits9 = a61.type->getBitWidth();
                     else
                         staticBits9 = a61.type->getBitstreamWidth();

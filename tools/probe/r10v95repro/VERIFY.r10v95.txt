@@ -1,0 +1,154 @@
+r10v95 — ADVERSARIAL VERIFICATION of r10uvm95 (§ bitsSelectIgnoredRootBits95)
+=============================================================================
+VERDICT: ACCEPT (production surface byte-identical to /tmp/r10uvm95.patch;
+this verified patch adds ONLY documentation corrections to the pass README and
+this verifier directory).
+
+Everything below was rebuilt and re-measured from scratch at BASE 286e327 in
+/tmp/wt_v95 (patched) and /tmp/wt_v95pris (pristine).  Binaries frozen 555 at
+/tmp/v95_bin/{pat,pris}.bin BEFORE any sweep; SLANG_UHDM exported per binary;
+every cmds.txt audited by binary PATH.
+
+0. BUILD                     pat 00778fc1d5a5aa221bd3f44852c61d7c   (claim: same)
+                             pris ef861f70d1a7148c51483314b2040a8c  (claim: same)
+   compiler warnings: 20 pat / 20 pris -> the patch adds none.
+   bitsOutOfBlock95() is declared, defined and NEVER CALLED (grep): the R3
+   predicate really does ship uncalled, as stated.
+
+1. GOLDENS      patched 23 PASS / 0 FAIL ; pristine 23/0 ; SLANG_UHDM=/bin/false 0/23.
+
+2. uhdm2rtlil   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL, BOTH modes,
+                BOTH binaries.  cmds.txt audit: 1458/1462 name the frozen
+                binary; the 4 that do not are the 2 SURELOG_FAIL tests x 2 modes
+                (slang never ran).  ct8rows PASS vs the committed CSV and vs my
+                own pristine sweep, both modes (status AND dump).
+                SELFCHECK=1 byteverify: MOVERS 0 / 1358.
+
+3. surelog      470+11+5+283+25 (default) / 466+9+5+3+1+284+23+1+2 (testflags),
+                IDENTICAL cell-for-cell between the two binaries.
+                cmds.txt audit: 1523/1573 name the frozen binary; the other 50
+                are SURELOG_FAIL / NO_DATABASE cells.
+                ct8rows PASS on all 1588 rows vs the committed CSV, vs my own
+                pristine sweep, both modes.  NO ROW CONVERTED, NO ROW REGRESSED.
+                SELFCHECK=1 byteverify: MOVERS 9 / 956 — EXACTLY the nine
+                PREDICT.r10uvm95.txt named from pristine evidence alone.
+
+4. MOVER ATTRIBUTION (id-stripped, workdir-normalised, SORTED -> order-blind)
+                ins=30 / del=92 on each of the 7 UVM row-modes (6 cells);
+                ins=45 / del=140 on BuildUVMPkg x2 (9 cells).
+                EVERY changed line is one shape: sys_func_call($bits) + its
+                bit_select argument + the ref_obj index  ->  one constant.
+                Scoreboard/default (the ~50/50 coin) shows the SAME order-blind
+                delta as SeqDriver and nothing else.
+
+5. HEADS (official uhdm-cmp, rowheads.sh, my own sweeps)
+                SeqDriver/SimpleUVM/MiniAmiq def+tf and Scoreboard/def:
+                    pristine 54 -> patched 12   (7 row-modes)
+                BuildUVMPkg def+tf 17 -> 17 ; Earlgrey 64/28 -> 64/28 ;
+                Rggen/def 64 -> 64.
+                All seven patched heads byte-identical after id-stripping,
+                md5 b9ae93ae0e1d — the R0 the pass names:
+                    LHS golden real_typespec ,line:87:16 endln:87:20
+                    RHS ours   logic_typespec ,line:87:16 endln:87:20
+                (uvm_tlm2_time.svh:87, the vpiTypespec of a vpiCastOp).
+                The seven PRISTINE heads are likewise mutually identical
+                (md5 a506e48c254d under MY id-strip; the pass quotes
+                d50def21c86d under its own normalisation — cosmetic).
+
+6. CANARIES     canaries ok=52 changed=0 (surelog) and ok=8 changed=0 (u2r);
+                ctcan2 PASS / PASS ; canaudit audited=33 UNCOVERED=0
+                FENCE-BREACH=0 ; pins SAME=10 MOVED=0 with SVSwitch
+                4842211c4030 and YosysVerx 6ccda350c24a, InterfaceModPort /
+                BlackParrotComplex / YosysOldOr byte-identical.
+                The pass's copies of canaries.sh / canaudit.sh / ct8rows.sh /
+                ctcan2.sh / rowheads.sh / byteverify.sh were diffed against the
+                canonical originals: byte-identical to r10uvm94repro's
+                (the established, WIDENED lineage) — no weakening.
+                Named at-risk CMP_EQUAL rows re-checked by db md5:
+                BitsArray, BlackParrotComplex, SizeOfGeneratedWireArray — SAME.
+
+7. CENSUS (ct95cen + join95, re-run on MY sweeps)
+                surelog  pristine SAME 899  FOLD_G_KEEP_O 62  KEEP_G_FOLD_O 15
+                                            VALUE 4  OTHER 246
+                         patched  SAME 917  FOLD_G_KEEP_O  2  KEEP_G_FOLD_O 15
+                                            VALUE 4  OTHER 246
+                u2r      214 SAME / 2 OTHER, 0/0/0, IDENTICAL before and after.
+                => 60 cells TO-GOLDEN, 0 AWAY, 21 STILL.  The pass's README
+                table mis-transcribed the surelog SAME/VALUE/OTHER columns
+                (518/0/239); CENSUS.r10uvm95.txt always read 899/4/246.
+                CORRECTED in this verified patch.
+
+8. uvm92/93/94 LAWS
+                ct92cen golden-vs-golden over 1523 goldens:
+                    op-index hier_paths 10021, EXPM_Y 10036, EXPM_N 0.
+                The 9 mover diffs contain NO hier_path line at all, so the
+                uvm89/92/94 NAME-TEXT laws are untouched by construction.
+                uvm93's -elabuhdm crash lesson: RC_DIFF 0 over 2885 sources
+                x 2 views (below) — the patch introduces no new segfault, and
+                every arm was run in BOTH views.
+
+9. WIDE BOUNDARY (bound_v95.sh, from a COPY of tools/probe at /tmp/v95_probecopy;
+   no `*repro*` path filter, so 9 top-level arms bound95.sh silently skips are
+   included; fd-3 list, children </dev/null, rc recorded per cell)
+                LISTED=2885 FENCED_SKIPPED=0 PROCESSED=2885 PROCESSED-ASSERT-OK
+                MOVED=32 (16 files x 2 views)  ASYM=0  RC_DIFF=0
+                movers = 5 of the pass's own arms (a0..a4; a5_oob does NOT move,
+                confirming R3 is really unshipped), 8 of MY new arms, and
+                r10uvm61repro/{c4_edge,c5_select,v4_type}.sv.
+                ZERO of the other 2869 pre-existing arm sources moved.
+                Every diff hunk inspected: sys_func_call($bits) -> constant.
+                The three uvm61 arms scored three-way against REBUILT goldens:
+                    def  1 + 11 + 7 = 19 FIXED, 0 BROKE
+                    elab 1 + 11 + 7 = 19 FIXED, 0 BROKE
+
+10. MY OWN ADVERSARIAL ARMS (v95_b1..b11, ~250 candidate cells per view, BOTH
+    views, scored three-way against golden on the SPAN, plus a whole-dump
+    line-multiset score)
+        b1  argument kinds in a module (types, typedefs, packed/unpacked/
+            dynamic/queue/assoc/string/real/shortreal/realtime/time/chandle/
+            class-handle/enum/2-D/packed-multi-dim/100-bit vars, selects,
+            part-selects, member, member+select, select+member)  12 FIXED 0 BROKE
+        b2  CARRIERS: param init, net & var range bound, if condition,
+            operation, cast, assignment, $display arg, case item, generate-if,
+            gen-scope localparam                                  8 FIXED 0 BROKE
+        b3  HOMES: package fn/task, class in-block / OUT-OF-BLOCK / static,
+            interface fn, program, module fn/task/always_comb   11-12 FIXED 0 BROKE
+        b4  SIBLINGS $size $clog2 $high $low $left $right $dimensions
+            $unpacked_dimensions $increment                        2 FIXED 0 BROKE
+        b5  HIERARCHICAL, 3 instances                              0 FIXED 0 BROKE
+        b6  EXPRESSION args: concat, replication, casts, call, params,
+            >64-bit (80/128), X/Z literals, binary/unary/ternary   2 FIXED 0 BROKE
+        b7  MACRO BODY vs plain source                             0 FIXED 0 BROKE
+        b8  CLASS shapes: own / inherited / static / handle-qualified /
+            this. / super. / other-handle / select-then-member /
+            member-then-select / string / real / shortreal / realtime /
+            time / class handle                                    9 FIXED 0 BROKE
+        b9  EDGE: string & class-handle & enum arrays, typedef'd unpacked
+            arrays, jagged byte[2][], queue-of-queue, assoc[int], 3-D,
+            localparam arrays, module PORTS (in and out), cast size,
+            generate                                              11 FIXED 0 BROKE
+        b10 $unit scope, new[] size, constraint, foreach, 66/81/201-bit roots
+                                                                   4 FIXED 0 BROKE
+        b11 interface instance & MODPORT ports, function formals (input/ref),
+            package-qualified statics                              0 FIXED 0 BROKE
+        TOTAL: 0 BROKE in every arm, in BOTH views.  g95_a0_head.sv CONVERTS
+        (pristine CMP_FAIL 1 head 54 cmp lines -> patched PASS_CMP 0 heads) in
+        def AND -elabuhdm, reproduced independently.
+        Whole-dump three-way score: dG(patched) <= dG(pristine) on every arm
+        and on the real targets (SeqDriver/MiniAmiq/Scoreboard default); every
+        residual AWAY line is an aggregate line-KIND count artifact, not an
+        object-level regression (the span census is BROKE=0 throughout).
+
+11. THE ONE NEW FINDING — R8 in README.md, a QUALIFIED ROOT under a select.
+    Golden keeps `$bits(u_a.larr[1])`, `$bits(bi.blk[0])`, `$bits(p11::pk_vec[1])`
+    and `$bits(<a $unit-scope name>[i])` outright; pristine folded them with the
+    SELECT's width, patched folds them with the ROOT's width.  Wrong before and
+    wrong after — uhdm-cmp sees the same kind mismatch either way — so this is
+    NOT a pristine-right->patched-wrong and no fix was applied.  Corpus
+    population 0 (byteverify moved exactly the 9 predicted databases; the u2r
+    census is 0/0/0 before and after).  13 arm cells name it.
+
+REPRODUCING
+    three_v95.sh    PRI= PAT= MODE=def|elab ./three_v95.sh <arm.sv>
+    dumpscore_v95.sh <arm workdir>          (whole-dump TO_GOLDEN / AWAY)
+    bound_v95.sh    PRI= PAT= ROOT=<copy of tools/probe> ./bound_v95.sh

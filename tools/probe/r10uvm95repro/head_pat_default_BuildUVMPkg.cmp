@@ -1,0 +1,17 @@
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (uvm_pkg::uvm_packer::pack_object_with_meta::m_object_references), id:42704
+|vpiParent:
+\_ref_var: (uvm_pkg::uvm_packer::pack_object_with_meta::m_object_references), id:42703, line:22452:11, endln:22452:30
+|vpiFullName:uvm_pkg::uvm_packer::pack_object_with_meta::m_object_references
+|vpiActual:
+\_unsupported_typespec: (m_object_references), id:42705, line:22452:11, endln:22452:30
+
+decompile:
+ref_typespec: (uvm_pkg::uvm_packer::pack_object_with_meta::m_object_references), id:42704
+|vpiParent:
+\_ref_var: (uvm_pkg::uvm_packer::pack_object_with_meta::m_object_references), id:42703, line:22452:11, endln:22452:30
+|vpiFullName:uvm_pkg::uvm_packer::pack_object_with_meta::m_object_references
+|vpiActual:
+\_unsupported_typespec: (m_object_references), id:42705, line:22452:11, endln:22452:30
