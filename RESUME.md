@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-17 23:12, HEAD `89bfd8f`) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 00:25, HEAD `550bea2`) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,14 +182,14 @@ row-modes over 7 tests:
 |---|---|---|
 | SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | 176 | hier_path VpiName TEXT — `ExprEval::prettyPrint` operation index (`gp.m_byte_enable[i % ]`), pass uvm92 in flight |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 31 | dynamic-array `new[sz]` size argument bound by us, bare in golden, pass buvm16 in flight |
-| Earlgrey_0_1/default | 29 | port high_conn operation operand ref_obj golden UNBOUND, pass earl61 in flight |
-| Earlgrey_0_1/testflags | 30 | tagged_pattern member default `'0` re-typed (earl61 second target) |
+| Earlgrey_0_1/default | 19 | golden binds an Actual inside an ELAB assignment-pattern (op75) member value that we leave null: ref_obj `OpRead` → enum_const of a MODULE-LOCAL typedef enum (tlul_adapter_sram.sv:129-142), pass earl62 in flight (earl61 landed 550bea2: 29→19) |
+| Earlgrey_0_1/testflags | 37 | same cluster, one field over: member-select element `reqfifo_rdata.error` → typespec_member of the struct typespec (earl61: 30→37 depth, tlul_adapter_reg block now byte-identical to golden) |
 | Rggen/default | 36 | port-actual fold of a gen-scope localparam keeps the STORED Value shape (HEX:ab/8/ct5 vs our UINT:171/64), pass rgg11 in flight (rgg10 landed 5a76eab) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
-byte-identical to the control. Rate: 44 landings in the last 24 h, 0
-regressions, 46 verifier fix-before-landing re-cuts. Ladder lower bounds
+byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
+regressions, 47 verifier fix-before-landing re-cuts (90 landings total). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 
@@ -327,6 +327,10 @@ EXPECT_UNKNOWN=6 bash tools/probe/r10uvm67repro/ctcan2.sh results/gate_uhdm2rtli
 (cd tools/probe/r10<pass>repro && bash canaudit.sh canaries.sh ctcan2.sh | tail -1)               # PASS
 # protected DBs by name (md5 vs control): InterfaceModPort BlackParrotComplex YosysOldOr SAME; SVSwitch 4842211c4030; YosysVerx 6ccda350c24a
 git add <production files> tools/probe/r10<pass>repro [tools/probe/r10v<pass>repro]
+# DOCS RIDE IN THE LANDING COMMIT: if §3b of RESUME.md (or GOLDEN_EQUIVALENCE §3.3)
+# needs refreshing for this landing, edit it NOW and `git add` it with the patch —
+# NEVER a separate docs-only commit (user direction 2026-08-18: doc-only commits
+# corrupt the landing history; one commit == one landing).
 git commit -F - <<'EOF'
 block-3 groundwork: <family> pass N — § <law>, <what the head was and how it moved> — <the decoded model in one paragraph, the measurements (gates, movers, census, grid, boundary, heads), the residues>
 Co-Authored-By: <your model name> <noreply@…>
