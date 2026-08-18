@@ -1,0 +1,54 @@
+r10uvm93 MOVER ATTRIBUTION — every mover named, and every changed dump LINE accounted for.
+byteverify SELFCHECK=1, pristine b1a0447 (dc51b2b8) vs patched (fc58485a).
+
+  uhdm2rtlil : MOVERS 0 / 1358    (PATH_SETS_IDENTICAL, selfcheck 1357/1358)
+  surelog    : MOVERS 9 / 956     (PATH_SETS_IDENTICAL, selfcheck 955/956)
+
+The 9 are EXACTLY the set PREDICT.r10uvm93.txt named BEFORE the patched sweep.
+
+PATH-NORMALISED, ORDER-BLIND, ID-BLIND whole-dump diff per mover
+(sorted both sides -- Scoreboard/default is a ~50/50 coin, so only an order-blind
+read is attributable; object ids are stripped because minting renumbers them):
+  default_BuildUVMPkg-bf853d43        132 changed lines, 0 NOT a slice-size constant line
+  default_MiniAmiq-544c7f61            84 changed lines, 0 NOT a slice-size constant line
+  default_Scoreboard-59431470          84 changed lines, 0 NOT a slice-size constant line
+  default_SeqDriver-32af76aa           84 changed lines, 0 NOT a slice-size constant line
+  default_SimpleUVM-1dc93a62           84 changed lines, 0 NOT a slice-size constant line
+  testflags_BuildUVMPkg-bf853d43      132 changed lines, 0 NOT a slice-size constant line
+  testflags_MiniAmiq-544c7f61          84 changed lines, 0 NOT a slice-size constant line
+  testflags_SeqDriver-32af76aa         84 changed lines, 0 NOT a slice-size constant line
+  testflags_SimpleUVM-1dc93a62         84 changed lines, 0 NOT a slice-size constant line
+
+  84 = 14 cells x 6 lines   (removed: located \_constant:, |vpiDecompile:int, |UINT:0
+                             added:   loc-less \_constant:, |vpiDecompile:32, |UINT:32)
+ 132 = 22 cells x 6 lines   (18 bit->1, 4 byte->8, all located -> loc-less)
+
+BuildUVMPkg/default changed-line multiset (the whole 132, verbatim):
+       22 > \_constant: 
+        1 < \_constant: , line:58145:10, endln:58145:13
+        1 < \_constant: , line:58154:10, endln:58154:13
+        1 < \_constant: , line:58163:10, endln:58163:13
+        1 < \_constant: , line:58171:10, endln:58171:13
+        1 < \_constant: , line:58180:10, endln:58180:13
+        1 < \_constant: , line:58189:10, endln:58189:13
+        1 < \_constant: , line:58198:10, endln:58198:13
+        1 < \_constant: , line:58207:10, endln:58207:13
+        1 < \_constant: , line:58215:10, endln:58215:13
+        1 < \_constant: , line:58241:22, endln:58241:25
+        1 < \_constant: , line:58249:41, endln:58249:44
+        1 < \_constant: , line:58257:21, endln:58257:24
+        1 < \_constant: , line:58265:18, endln:58265:21
+        1 < \_constant: , line:58276:22, endln:58276:25
+        1 < \_constant: , line:58284:57, endln:58284:60
+        1 < \_constant: , line:58292:33, endln:58292:36
+        1 < \_constant: , line:58303:29, endln:58303:32
+        1 < \_constant: , line:58311:30, endln:58311:33
+        2 < \_constant: , line:76809:41, endln:76809:45
+        2 < \_constant: , line:76851:41, endln:76851:45
+       22 < |UINT:0
+       18 > |UINT:1
+        4 > |UINT:8
+       18 > |vpiDecompile:1
+        4 > |vpiDecompile:8
+       18 < |vpiDecompile:bit
+        4 < |vpiDecompile:byte

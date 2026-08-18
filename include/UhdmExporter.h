@@ -1856,6 +1856,29 @@ private:
     UHDM::expr* emitAssignDelay(const slang::syntax::TimingControlSyntax* dsyn,
                                 UHDM::BaseClass* parent);
     std::string rawText(slang::SourceRange range);
+    /// § streamSliceTypeBits93 -- how Surelog values a streaming
+    /// concatenation's `slice_size`.  `CompileHelper::compileExpression`
+    /// (CompileExpression.cpp, `paStreaming_concatenation`) splits the slice
+    /// size in two: a `simple_type` slice size goes to
+    /// `compileBits(..., Reduce::Yes)`, every other `constant_expression` to
+    /// `compileExpression`.  `compileBits` MINTS its answer -- a constant with
+    /// NO location, NO parent, `vpiSize` 64, `vpiConstType` `vpiUIntConst`,
+    /// and BOTH value and decompile the type's bit WIDTH -- and it recognises
+    /// only the integer keyword parse nodes (`paIntegerAtomType_*` /
+    /// `paIntVec_Type*`).  Everything else it hands to `getTypespec`, which
+    /// returns nothing for a `ps_type_identifier`, so EVERY user typedef and
+    /// EVERY bare identifier -- a parameter with a perfectly good value
+    /// included -- folds to ZERO.  `time`/`realtime`/`real`/`shortreal` do
+    /// reach `Bits()` but come back invalid and fall through to a bare `$bits`
+    /// `sys_func_call` with no arguments and no location.  Matching is
+    /// CASE-SENSITIVE and whole-token: `INT`, `Int`, `int_t`, `tint` are
+    /// identifiers, not `int` (measured, g93_a6_case.sv).
+    /// Returns the bit width (>= 0), `kStreamSliceBits` for the `$bits`
+    /// fallback, or `kStreamSliceNotType` when the token is not a simple_type
+    /// at all (leave the source-token emission alone).
+    static constexpr int kStreamSliceNotType = -1;
+    static constexpr int kStreamSliceBits = -2;
+    static int streamSliceTypeBits(const std::string& tok);
     /// § classMethodParensLessStepIsRefObj77 — did the author WRITE an argument
     /// list after the method-name token spanning `nameRng`?
     ///

@@ -1,0 +1,29 @@
+r10uvm93 CENSUS — golden vs OURS over the seven UVM row-modes + BuildUVMPkg (both modes),
+keyed on the streaming operation's slice-size operand shape, from the PRISTINE b1a0447
+control databases and the golden CACHE each row's own cmds.txt names.  cen93.sh/cen93.py.
+
+GOLDEN-vs-GOLDEN calibration: the same census over the SAME golden read twice is identical
+by construction (a pure text census of one file); the golden-vs-ours join below is a
+1:1 multiset over (stream direction, source line, operand shape).
+
+---- per row: the ONLY delta is the slice-size operand
+  SeqDriver  /default,testflags : 8 cells @3494 + 6 cells @3660 = 14
+  SimpleUVM  /default,testflags : 8 + 6 = 14
+  MiniAmiq   /default,testflags : 8 + 6 = 14
+  Scoreboard /default           : 8 + 6 = 14
+      golden  op0 = constant/NOLOC |vpiDecompile:32 |vpiSize:64 |UINT:32 |vpiConstType:9
+      ours    op0 = constant/LOC   |vpiDecompile:int|vpiSize:64 |UINT:0  |vpiConstType:9
+  BuildUVMPkg/default,testflags : 18 cells `bit` (golden 1) + 4 cells `byte` (golden 8) = 22
+      golden  op0 = constant/NOLOC |vpiDecompile:1  ... and |vpiDecompile:8
+      ours    op0 = constant/LOC   |vpiDecompile:bit ... and |vpiDecompile:byte  (both UINT:0)
+
+---- the UNSLICED streams agree in COUNT on every row (4 OP71 + 2 OP72 on the UVM rows,
+     6 OP71 on BuildUVMPkg); only their SPAN differs, which Compare does not read.
+
+---- NON-NUMERIC vpiDecompile census (all constants, not just streams): in OURS the
+     ONLY type-keyword-spelled constants are exactly these slice sizes --
+  BuildUVMPkg.default/testflags : 18 x decompile='bit' UINT:0 ; 4 x decompile='byte' UINT:0
+  MiniAmiq/Scoreboard/SeqDriver/SimpleUVM (both modes): 14 x decompile='int' UINT:0
+     golden has NO such family at all.  After the patch the family is EMPTY in ours
+     (re-censused on SeqDriver/default: 0 remaining) and the STREAMS section matches
+     golden except for the unsliced streams' spans.

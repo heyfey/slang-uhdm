@@ -1,0 +1,23 @@
+r10uvm93 BOUNDARY GATE — pristine b1a0447 (md5 dc51b2b8) vs patched (md5 fc58485a)
+  ROOT=/tmp/wt_r10uvm93/tools/probe  DIRS=uvm77..92, buvm3..16, sd8..12
+
+NO_OUTPUT 070_r10uvm83repro_v83_a15_reexport
+NO_OUTPUT 157_r10uvm90repro_g90_a3_arity
+NO_OUTPUT 219_r10buvm8repro_v5kinds8
+NO_OUTPUT 521_vgrid11_v2_param_owner
+NO_OUTPUT 525_vgrid11_v6_unit_scope
+NO_OUTPUT 616_vgrid11_v2_param_owner
+NO_OUTPUT 620_vgrid11_v6_unit_scope
+---- boundary LISTED=644 PROCESSED=644  MOVED=0  NO_OUTPUT=7
+
+Each NO_OUTPUT arm produced no database on EITHER binary (pre-existing, checked):
+  070_r10uvm83repro_v83_a15_reexport pris=NO pat=NO
+  157_r10uvm90repro_g90_a3_arity pris=NO pat=NO
+  219_r10buvm8repro_v5kinds8 pris=NO pat=NO
+  521_vgrid11_v2_param_owner pris=NO pat=NO
+  525_vgrid11_v6_unit_scope pris=NO pat=NO
+  616_vgrid11_v2_param_owner pris=NO pat=NO
+  620_vgrid11_v6_unit_scope pris=NO pat=NO
+
+POSITIVE CONTROL (proves the gate can SEE a moved cell):
+  MOVED 001_poscheck_g93_a1_slice  128 dump lines   (LISTED=1 PROCESSED=1 MOVED=1)

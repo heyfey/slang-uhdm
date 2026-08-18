@@ -1,0 +1,28 @@
+r10uvm93 INPUTS — everything this pass read or produced, by absolute path.
+
+BASE COMMIT           b1a0447
+worktree              /tmp/wt_r10uvm93            (the pass)
+worktree              /tmp/wt_r10uvm93_pris       (a SECOND checkout of b1a0447, pristine)
+pristine binary       /tmp/r10uvm93_pris_b1a0447.bin  md5 dc51b2b86d46f7e35e2e252c21d32988
+patched  binary       /tmp/r10uvm93_pat_fc58.bin      md5 fc58485a1f3c0403db1dbdb792ec6463
+                      (both chmod 555 BEFORE any sweep; every cmds.txt audited by PATH)
+
+NOTE ON CONTROLS: the master rotated /tmp/ctl_wd_*_b1a0447 and /tmp/pris_*.bin to c40ed40
+(Rggen pass 11) WHILE this pass was running, and the main-tree binary changed under it
+(0fdae25d, not the b1a0447 dc51b2b8).  This pass therefore built its OWN pristine b1a0447
+binary from a second worktree -- it reproduced md5 dc51b2b8 EXACTLY -- and ran its OWN
+pristine sweep, so every mover number below is b1a0447-vs-b1a0447+patch.  Status baselines
+are the committed results/*.csv IN THIS WORKTREE (b1a0447), which were never edited.
+
+sweeps                /tmp/r10uvm93_wd_pat   (patched)   /tmp/r10uvm93_wd_pris (pristine)
+arms                  /tmp/r10uvm93_arm/<relative-path-key>
+boundary              /tmp/r10uvm93_bound     positive control /tmp/r10uvm93_boundpos
+scratch               /tmp/r10uvm93_scr
+patch                 /tmp/r10uvm93.patch
+
+READ-ONLY references
+  golden               ~/.cache/slang-uhdm-goldens/<key>/golden.uhdm (each row's own cmds.txt names its key)
+  Surelog source       ~/git-repos/Surelog/src/DesignCompile/CompileExpression.cpp (3063-3121, 4663-4790)
+  Surelog grammar      ~/git-repos/Surelog/grammar/SV3_1aParser.g4 (992-996, 3154-3159)
+  UHDM Compare         ~/git-repos/UHDM/build/generated/src/{expr,constant}.cpp
+  UVM source           ~/git-repos/Surelog/third_party/UVM/uvm-1.2/src/macros/uvm_object_defines.svh:3494,3660

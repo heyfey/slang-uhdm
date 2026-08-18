@@ -1,0 +1,37 @@
+r10uvm93 PREDICTION — the mover set, named BEFORE the patched sweep, from the PRISTINE
+b1a0447 databases and a source scan of BOTH corpora.  pred93.sh + scan93 (source side).
+
+SOURCE SCAN (every *.sv/*.svh/*.v/*.vh under ~/git-repos/uhdm2rtlil/test,
+~/git-repos/Surelog/tests, ~/git-repos/Surelog/third_party/tests, ~/git-repos/Surelog/third_party/UVM)
+for '{ <</>> <token> {' — the NON-NUMERIC tokens are the only cells this law can touch:
+   237  'int'  Surelog/tests/SplitFile/amiq_eth_ve_top.v      -> row has NO slang.uhdm (cannot move)
+     7  'byte' Google/chapter-11 x2, Opentitan dv x3          -> none of those files is on any row's command line
+     4  'a'    Verilator/t_stream.v                           -> all four are inside COMMENTS
+     1  'AMT'  Verilator/t_stream3.v                          -> the Verilator row compiles NO sources
+     1  '%0d'  Verilator/t_stream3.v                          -> inside a $display format string
+    25  'bit'  UVM 1800.2-2017-1.0 (pp_output + macro bodies)
+     6  'int'  UVM uvm-1.2 (uvm_object_defines.svh, uvm_packer.svh)
+     4  'byte' UVM 1800.2-2017-1.0
+
+PRISTINE-DATABASE COUNT (constants whose vpiDecompile is an integral type keyword),
+over every row whose command line compiles uvm_pkg/1800.2 plus SplitFile:
+   22 default/BuildUVMPkg-bf853d43
+   14 default/MiniAmiq-544c7f61
+   14 default/Scoreboard-59431470
+   14 default/SeqDriver-32af76aa
+   14 default/SimpleUVM-1dc93a62
+   22 testflags/BuildUVMPkg-bf853d43
+   14 testflags/MiniAmiq-544c7f61
+   14 testflags/SeqDriver-32af76aa
+   14 testflags/SimpleUVM-1dc93a62
+
+   (every other candidate row has NO slang.uhdm in the control workdir and cannot move)
+
+PREDICTED MOVERS, BY NAME — surelog corpus, exactly 9 rows:
+   default/SeqDriver   14 cells      testflags/SeqDriver   14 cells
+   default/SimpleUVM   14 cells      testflags/SimpleUVM   14 cells
+   default/MiniAmiq    14 cells      testflags/MiniAmiq    14 cells
+   default/Scoreboard  14 cells      (Scoreboard/testflags has no database: SKIP-NOFILE)
+   default/BuildUVMPkg 22 cells      testflags/BuildUVMPkg 22 cells
+PREDICTED MOVERS — uhdm2rtlil corpus: NONE (no non-numeric slice size in the corpus,
+   no u2r row's command line names uvm_pkg.sv).

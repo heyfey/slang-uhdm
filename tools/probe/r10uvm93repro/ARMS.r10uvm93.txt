@@ -1,0 +1,23 @@
+r10uvm93 ARMS — golden(Surelog) vs pristine b1a0447 vs patched, one scratch dir per arm.
+  PRI=/tmp/r10uvm93_pris_b1a0447.bin (md5 dc51b2b8...)  PAT=/tmp/r10uvm93_pat_fc58.bin (md5 fc58485a...)
+
+== g93_a1_slice.sv  (16 slice_size forms x LHS/RHS-streaming x class/package/module/always_comb)
+   pris: CMP_FAIL heads=1 dumpdiff=339
+   pat : CMP_FAIL heads=1 dumpdiff=211   pris->pat moved 128 dump lines
+   remaining head = the NAMED residue '(WREN+2)': golden emits a LOCATED operation
+   (vpiOpType:24), we still emit a spelled constant.  Untouched by this pass.
+
+== g93_a2_edge.sv  (time / package-scoped typedef / macro-EXPANDED slice sizes / $bits siblings / generate / class-in-module)
+   pris: CMP_FAIL heads=1 dumpdiff=323
+   pat : CMP_FAIL heads=1 dumpdiff=284   pris->pat moved 51 dump lines
+   remaining head = the NAMED residue 'macro-ARGUMENT slice size': golden 32, ours 0
+   (rawText reads the macro BODY, so the token is the macro parameter name).
+   time -> $bits sys_func_call and pkg::typedef -> 0 both MATCH golden now.
+
+== g93_a6_case.sv  (INT/Int/int_t/tint/logic_t/BIT near-misses + real/shortreal)
+   pris: CMP_FAIL heads=1 dumpdiff=84
+   pat : PASS_CMP  heads=0 dumpdiff=40   pris->pat moved 48 dump lines
+   *** THIS ARM NOW PASSES THE OFFICIAL uhdm-cmp ***
+
+== a5 (uninstantiated module + generate block, the DEF-view emission path)
+   patched slice operands MATCH golden exactly (32 / 8 / located 7 / 16).

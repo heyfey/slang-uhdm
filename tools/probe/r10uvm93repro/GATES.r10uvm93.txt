@@ -1,0 +1,49 @@
+r10uvm93 GATES — every landing gate, run from /tmp/wt_r10uvm93 at BASE b1a0447.
+
+(1) BUILD both, md5 separately, -j 2 only
+    pristine (second worktree at b1a0447)  dc51b2b86d46f7e35e2e252c21d32988
+    patched                                fc58485a1f3c0403db1dbdb792ec6463
+    both frozen chmod 555 at /tmp/r10uvm93_{pris_b1a0447,pat_fc58}.bin BEFORE any sweep
+
+(2) GOLDENS  (SLANG_UHDM exported explicitly to the patched binary)
+    PASS 23   FAIL 0
+    negative control SLANG_UHDM=/bin/false -> FAIL 23
+
+(3) uhdm2rtlil, BOTH modes
+    testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    default   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    ct8rows vs results/gate_uhdm2rtlil.csv (committed, IN THIS WORKTREE): 0 differing rows
+      testflags base 52/183 differ/496 match  ->  fresh 52/183/496   PASS
+    ct8rows vs /tmp/ctl_u2r_def_c40ed40.csv (default): 0 differing rows PASS
+
+(4) surelog corpus --mode both, 1588 rows
+    ct8rows vs results/golden_surelog.csv (committed, IN THIS WORKTREE):
+      0 differing ROWS (status AND dump column)
+      default   470 CMP_EQUAL 11 CMP_NOTEQUAL 5 DEFERRED 283 SLANG_REJECT 25 SURELOG_FAIL
+      testflags 466 CMP_EQUAL  9 CMP_NOTEQUAL 5 DEFERRED   3 NO_DATABASE 1 NO_UHDM
+                284 SLANG_REJECT 23 SURELOG_FAIL 1 TIMEOUT 2 UNTRANSLATABLE
+    NO ROW CONVERTED.  results/*.csv NOT edited.
+
+(5) BYTEVERIFY SELFCHECK=1, pristine-b1a0447-vs-patched
+    uhdm2rtlil : PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358   selfcheck 1357/1358
+    surelog    : PATH_SETS_IDENTICAL (956)   MOVERS 9 / 956    selfcheck 955/956
+      the 9 are EXACTLY the predicted set (PREDICT.r10uvm93.txt), by name:
+        default/{SeqDriver,SimpleUVM,Scoreboard,MiniAmiq,BuildUVMPkg}
+        testflags/{SeqDriver,SimpleUVM,MiniAmiq,BuildUVMPkg}
+
+CANARIES
+    canaries.sh surelog   ok=52 changed=0 absent=0
+    canaries.sh u2r       ok=8  changed=0 absent=0
+    ctcan2 EXPECT_UNKNOWN=1 surelog  ok=58 changed=0  PASS
+    ctcan2 EXPECT_UNKNOWN=6 u2r      ok=1  changed=0  PASS
+    canaudit.sh canaries.sh ctcan2.sh  audited=33 UNCOVERED=0 FENCE-BREACH=0  PASS
+    protected DBs: InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical to the
+      pristine sweep (byteverify lists no such mover); SVSwitch md5 4842211c4030 (pin OK);
+      YosysVerx md5 6ccda350c24a (pin OK).
+
+BOUNDARY (see BOUND.r10uvm93.txt)
+    LISTED=644 PROCESSED=644 MOVED=0 NO_OUTPUT=7 (all 7 fail on BOTH binaries)
+    POSITIVE CONTROL: a deliberately-moved arm is reported MOVED (128 lines).
+
+BINARY AUDIT: every one of the 2981 cmds.txt in the patched sweep records
+    slang:   /tmp/r10uvm93_pat_fc58.bin      (2981 / 2981)

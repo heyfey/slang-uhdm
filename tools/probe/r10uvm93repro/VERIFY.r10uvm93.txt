@@ -1,0 +1,375 @@
+r10uvm93 — ADVERSARIAL VERIFICATION of § streamSliceTypeBits93
+VERDICT: ACCEPT-WITH-FIX.  Ship /tmp/r10uvm93.verified.patch (NOT the original).
+
+Everything below was measured by the verifier in its OWN worktrees
+(/tmp/wt_v93 patched, /tmp/wt_v93pris pristine, both `git worktree add ... b1a0447`),
+with binaries the verifier BUILT and FROZE itself.  The main tree had already
+drifted to 18340d0; nothing from it was used.
+
+================================================================================
+0. THE FIX (why this is ACCEPT-WITH-FIX and not ACCEPT)
+================================================================================
+The patch AS SHIPPED introduces a SEGFAULT on legal SystemVerilog.
+
+  minimal repro (v93_crash_min.sv):
+      module m1;
+        byte q[];
+        bit [63:0] f;
+        initial begin
+          { << real { q }} = f;
+        end
+      endmodule
+
+      pristine b1a0447   -elabuhdm  ->  rc=0, database written
+      r10uvm93 AS SHIPPED -elabuhdm ->  rc=139 SIGSEGV, NO database
+      verified patch      -elabuhdm ->  rc=0, database written
+
+  stack (gdb, binary fc58485a):
+      UHDM::ExprEval::reduceExpr
+      UHDM::UhdmAdjuster::updateParentWithReducedExpression
+      UHDM::VpiListener::listenSys_func_call
+      ... listenOperation <- listenAssignment <- listenBegin <- listenInitial
+      ... listenModule_inst <- listenDesign
+
+  ROOT CAUSE.  UHDM/templates/ExprEval.cpp:4389 handles
+  $bits/$size/$high/$low/$left/$right with
+
+      for (auto arg : *scall->Tf_call_args()) {
+
+  — an UNCONDITIONAL dereference.  The pass's new time/realtime/real/shortreal
+  branch emits a `$bits` sys_func_call with NO Tf_call_args (faithfully copying
+  Surelog's compileBits, which also leaves it null).  During `-elabuhdm` our
+  UhdmAdjuster walks every sys_func_call, and the null vector is dereferenced.
+  Surelog itself never survives its own UHDM elaboration of this shape (it dies
+  in the same place — that is why arm v93_a1_types.sv has NO elab golden), so
+  golden could never have exposed it.  The corpus cannot see it either: no
+  corpus source has a real/time slice size (verified by the source scan in §5),
+  and verify_golden.py records rc=139 as SLANG_REJECT wearing the last stderr
+  warning — so this would have landed as a silent landmine.
+
+  THE FIX (src/ExprEmit.cpp, 1 statement + comment):
+
+      sf->Tf_call_args(s.MakeAnyVec());     // EMPTY, non-null
+
+  It is JUDGE-INVISIBLE.  BaseClass.h's vector SafeCompare overload reports a
+  mismatch only when the NON-NULL side is NON-EMPTY:
+
+      } else if ((lhs != nullptr) && !lhs->empty() && (rhs == nullptr)) {
+      } else if ((lhs == nullptr) && (rhs != nullptr) && !rhs->empty()) {
+
+  so golden's null and our empty vector compare EQUAL.  Proven, not argued:
+  arm v93_c1_bitsfall.sv (real/realtime/shortreal/time slice sizes in package
+  function, class method x3, interface, module initial, always_comb and a
+  generate block) is CMP_FAIL on pristine and **CMP_EQUAL on the fixed binary**,
+  against the official uhdm-cmp.  And on both corpora the fixed binary's
+  databases are BYTE-IDENTICAL to the shipped patch's (§4).
+
+================================================================================
+1. REPRODUCTION OF EVERY HEADLINE NUMBER (bit-for-bit)
+================================================================================
+build (own worktrees, cmake Release, gcc-toolset-14, -j 2, md5 separately):
+    pristine b1a0447            dc51b2b86d46f7e35e2e252c21d32988   CLAIMED, REPRODUCED
+    r10uvm93 as shipped         fc58485a1f3c0403db1dbdb792ec6463   CLAIMED, REPRODUCED
+    verified (with the fix)     e07f79cc7e3eb2595bc8a704c2c8cfa1   new
+all three frozen chmod 555 at /tmp/v93_{pris_dc51,pat_fc58,fix_e07f}.bin
+BEFORE any sweep.
+
+patch hygiene: md5 137663f1cda71acb1755dc8f5a911097, 31 files, applies clean on
+a FRESH b1a0447 worktree, 0 conflict markers; surface = include/UhdmExporter.h +
+src/ExprEmit.cpp + tools/probe/r10uvm93repro/ ONLY (verified file-by-file);
+fence check over the four slang-fenced names = 0/0/0/0 (they are not
+spelled anywhere in this file, per the standing rule).
+results/*.csv untouched; no stray files; no `rm -rf` on shared scratch;
+no hard-coded foreign pass paths in the shipped drivers; no fenced test
+dispatched by any driver.
+
+gate                                     claimed            verifier measured
+-------------------------------------------------------------------------------
+goldens (patched)                        23 PASS / 0 FAIL   23 / 0          OK
+goldens (pristine)                       -                  23 / 0          OK
+goldens negative control /bin/false      23 FAIL            0 PASS / 23 FAIL OK
+u2r testflags                            679/50/2           679/50/2        OK
+u2r default                              679/50/2           679/50/2        OK
+u2r ct8rows vs committed baseline        0 differing rows   PASS            OK
+u2r ct8rows vs own pristine sweep        -                  PASS both modes OK
+surelog default   470 CMP_EQUAL 11 NE 5 DEF 283 REJ 25 SF   exact match     OK
+surelog testflags 466 CMP_EQUAL  9 NE 5 DEF 3 NO_DB 1 NO_UHDM
+                  284 REJ 23 SF 1 TIMEOUT 2 UNTRANSLATABLE  exact match     OK
+surelog ct8rows vs committed (status AND dump), 1588 rows
+                                         0 differing rows   PASS            OK
+surelog ct8rows vs own pristine sweep    -                  PASS            OK
+byteverify u2r     SELFCHECK=1           MOVERS 0/1358      0/1358, sc 1357 OK
+byteverify surelog SELFCHECK=1           MOVERS 9/956       9/956,  sc 955  OK
+NO ROW CONVERTED on either corpus; results/*.csv NOT edited.        CONFIRMED
+
+cmds.txt AUDIT (file-by-file, by binary PATH, not by the string "slang-uhdm"):
+    patched sweep : 1462 cmds.txt, 1458 name /tmp/v93_pat_fc58.bin,
+                    0 name the main-tree binary, 0 name any other .bin;
+                    the 4 without a binary are the 2 SURELOG_FAIL rp32_* tests
+                    x 2 modes.
+    pristine sweep: same shape, 1458 name /tmp/v93_pris_dc51.bin.
+    fixed sweep   : 1458 name /tmp/v93_fix_e07f.bin, 0 main-tree, 0 other.
+
+CANARIES / PINS (patched sweep vs committed baselines)
+    canaries surelog ok=52 changed=0 absent=0
+    canaries u2r     ok=8  changed=0 absent=0
+    ctcan2 EXPECT_UNKNOWN=1 surelog ok=58 changed=0  PASS
+    ctcan2 EXPECT_UNKNOWN=6 u2r     ok=1  changed=0  PASS
+    canaudit.sh canaries.sh ctcan2.sh: audited=33 UNCOVERED=0 FENCE-BREACH=0 PASS
+    protected databases, patched-vs-pristine md5 (both modes):
+      InterfaceModPort   59a365f3ce2c  SAME
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME
+      YosysOldOr         d68e0796d62c  SAME
+      SVSwitch           4842211c4030  SAME  == brief pin
+      YosysVerx          6ccda350c24a  SAME  == brief pin
+
+HEADS (rowheads.sh, verifier's own sweeps; HEADS=1 on every measured row)
+    row              mode        pristine   patched
+    SeqDriver        def/tf         28/28    164/164
+    SimpleUVM        def/tf         28/28    164/164
+    Scoreboard       default           28        164
+    MiniAmiq         def/tf         28/28    164/164
+    BuildUVMPkg      def/tf         29/29      29/29   (unchanged)
+    Earlgrey_0_1     def/tf         19/37      19/37   (unchanged)
+    Rggen            default           36         36   (unchanged)
+    Scoreboard/tf and Rggen/tf: SKIP-NOFILE (expected).
+    THE SEVEN-ROW-MODE UVM HEAD IS CLEARED.  Confirmed.
+
+================================================================================
+2. THE MOVER SET — PREDICTED BY NAME FROM PRISTINE DATABASES, THEN MEASURED
+================================================================================
+Prediction ran BEFORE the comparison, over all 956 PRISTINE surelog databases
+(v93predscan.sh): a database moves iff its dump carries a slice-size constant
+whose vpiDecompile is a simple_type keyword spelling.  Predicted, with cell
+counts:
+
+    default/BuildUVMPkg   22      testflags/BuildUVMPkg   22
+    default/MiniAmiq      14      testflags/MiniAmiq      14
+    default/Scoreboard    14      testflags/SeqDriver     14
+    default/SeqDriver     14      testflags/SimpleUVM     14
+    default/SimpleUVM     14
+    SCANNED=956, predicted movers = 9
+
+MEASURED by byteverify: exactly those 9 databases, no others.  Scoreboard has no
+testflags database (SLANG_REJECT), which is why it is 5+4 and not 5+5.
+
+ATTRIBUTION — path-normalised, id-blind, ORDER-BLIND (sorted dumps), so the
+Scoreboard/default COIN cannot fake or hide anything:
+
+    SeqDriver x2, SimpleUVM x2, MiniAmiq x2, Scoreboard/default :  84 lines each
+        = 14 cells x 6 lines: `\_constant: , line:N:N, endln:N:N` -> `\_constant: `,
+          vpiDecompile int -> 32, UINT:0 -> UINT:32
+    BuildUVMPkg x2                                              : 132 lines each
+        = 22 cells x 6 lines: 18 bit -> 1, 4 byte -> 8, all located -> loc-less
+
+    lines that are NOT a slice-size constant line, in each of the nine: 0.
+    (14x6=84 and 22x6=132 match the predicted cell counts exactly.)
+
+Independent corpus reachability scan (v93predict2.py) over both corpus roots and
+the UVM trees: every non-UVM test containing a type slice size is out of reach —
+SplitFile (237 `int` sites) SLANG_REJECT, Verilator (`a`, `AMT`) SLANG_REJECT,
+Opentitan (5 `byte`) SLANG_REJECT, Google (2 `byte`) SLANG_REJECT/TIMEOUT.  So
+the 9 are the complete reachable set, and no CMP_EQUAL row could move.
+
+================================================================================
+3. BREAKING THE LAW — golden re-measured from scratch, then the census
+================================================================================
+Golden (Surelog) was re-measured by the verifier on its OWN arms, not the
+pass's.  The decoded table REPRODUCES EXACTLY, including the claim most likely
+to be wrong (a bare PARAMETER folding to 0, not to its value):
+
+  v93_a1_types.sv   byte 8 | shortint 16 | int 32 | integer 32 | longint 64
+                    bit/logic/reg 1   -> MINTED constant, NOLOC, NO PARENT,
+                                         vpiSize 64, vpiConstType 9,
+                                         vpiDecompile == UINT == the width
+                    time/realtime/real/shortreal -> sys_func_call `$bits`,
+                                         NOLOC, no arguments
+                    both `<<` and `>>` behave identically
+  v93_a2_ident.sv   local typedef, bit typedef, UNPACKED-ARRAY typedef,
+                    pkg::t, pkg struct typedef, pkg enum typedef, wildcard-
+                    imported typedef, `parameter int WREN`, `localparam int LP`,
+                    `p2::PW`  -> ALL 0, NOLOC, no parent.  10/10.
+                    THE PARAMETER CLAIM IS CORRECT.
+  v93_a3_num.sv     `6` -> LOCATED constant 6; `32` -> LOCATED 32;
+                    `8'd4` -> LOCATED, vpiSize 8, vpiConstType 1 (NOT 64/9);
+                    `(WREN+2)` and `WREN + 2` -> LOCATED operation opType 24;
+                    absent -> ONE operand only.  All untouched by the patch.
+  v93_a4_case.sv    INT Int int_t tint BIT logic_t Time REAL byte_ integer2
+                    -> ALL 0.  Case-sensitive, whole-token.  10/10.
+  v93_a5_homes.sv   package function, package task, class method in-body,
+                    class method OUT-OF-BODY (C5::oob), STATIC class method,
+                    interface always_comb, program initial, $unit function,
+                    module always_comb / initial / function, generate-if block,
+                    generate-for block.  HOME IS NOT AN AXIS.  Confirmed.
+  v93_a6_sub.sv     1..3 instances of the same slice-bearing module: identical
+                    in every instance; DEF and ELAB.
+  v93_b1_ptype.sv   parameterised class member typedef (Cp#(W)::w_t), Cp#(4)::f_t,
+                    C16::f_t -> 0.
+  v93_b3_nest.sv    NESTED streams `{ << int { { >> byte { v } } } }` -> outer 32,
+                    inner 8, both correct.
+  v93_c1_bitsfall.sv the $bits fallback in 8 different homes -> CMP_EQUAL.
+
+Shapes that are NOT legal SV and therefore cannot be an axis (rejected by
+Surelog's parser or by slang, IDENTICALLY on both binaries):
+    `{ << logic [7:0] { v } }`, `{ << bit [3:0] { v } }`  -> SV syntax errors
+    `{ << string_typedef {...}}`, `{ << unpacked_typedef {...}}`,
+    `{ << undeclared {...}}`                              -> slang rejects, both
+    a streaming concat used as a plain operand              -> slang rejects, both
+
+OWNER-KEYED CENSUS with a Compare-visible payload (kind / LOC-NOLOC / the
+compared scalar fields), 26 arm-modes, every stream-op slice slot, three-way
+golden vs pristine vs patched:
+
+    TO-GOLDEN   197
+    AWAY          0     <-- NO pristine-right -> patched-wrong cell exists
+    STILL-RIGHT  17     (the numeric / operation / absent shapes, untouched)
+    STILL-WRONG  22
+
+The census is identical for the shipped binary and the verified binary.
+The only cells that CHANGED while staying wrong are the macro-ARGUMENT residue
+the pass disclosed (golden 32, pristine `T`, ours 0) — both wrong, and for a
+macro argument that is a TYPEDEF the patch actually reaches golden.
+(One apparent a5/elab "cell" is an artifact of the dump re-printing an
+out-of-body method body shallowly; the real cell moved TO-GOLDEN.)
+
+BOUNDARY — WIDER THAN THE PASS RAN IT.  The pass compiled 644 arms in the DEF
+view only.  The verifier compiled EVERY tools/probe/**/*.sv in the worktree,
+recursively, in BOTH views:
+
+    LISTED=2765  FENCED_SKIPPED=0  PROCESSED=2765  MOVED=<see below>
+    PROCESSED-ASSERT-OK   (fd-3 file list, every child </dev/null,
+                           subdirectory arms included, per-mode rc recorded,
+                           an asymmetric output counted as a MOVE)
+
+    shipped binary : MOVED=6 — all six are the pass's OWN arms
+                     (g93_a1_slice, g93_a2_edge, g93_a6_case), which must move —
+                     PLUS 2 ASYMMETRIC_OUTPUT: g93_a2_edge/elab and
+                     g93_a6_case/elab produced a database on PRISTINE and NONE
+                     on the patched binary.  THAT IS THE SEGFAULT OF §0.
+                     Every uvm77-92 / buvm3-16 / sd8-12 arm: byte-identical.
+    verified binary: see §4.
+
+uvm92's § hpIdxOpPrettyPrint92, uvm89's § hpTrailSelIdxDecompiled89 arms
+(rendersAsItself89 / selGroup89 / the ElementSelect chain arm, and the boundary
+mover v81h_lvbase), uvm91's R0 arms, uvm77-79's hier_path joint/mockup laws,
+buvm14's § builtinRecvMultiDimStepIsBitSelectChain14, uvm84/85's this./super.
+laws and every earlier vpiDecompile constant law: all inside the 2765 and all
+byte-identical in both views.
+
+================================================================================
+4. THE VERIFIED BINARY — the full battery re-run after the fix
+================================================================================
+verified binary e07f79cc7e3eb2595bc8a704c2c8cfa1, frozen chmod 555, own sweeps.
+
+    goldens                       23 PASS / 0 FAIL                        OK
+    u2r testflags / default       679/50/2  and  679/50/2                 OK
+    u2r ct8rows vs committed baseline and vs own pristine   PASS (both)   OK
+    surelog default   470/11/5/283/25          identical to baseline      OK
+    surelog testflags 466/9/5/3/1/284/23/1/2   identical to baseline      OK
+    surelog ct8rows vs committed (status AND dump, 1588 rows)  PASS       OK
+    surelog ct8rows vs own pristine sweep                     PASS        OK
+    NO ROW CONVERTED on either corpus; results/*.csv NOT edited.
+    cmds.txt audit: 1458 name /tmp/v93_fix_e07f.bin, 0 main-tree, 0 other.
+
+    byteverify u2r     fixed vs pristine       MOVERS 0 / 1358            OK
+    byteverify u2r     fixed vs shipped patch  MOVERS 0 / 1358            OK
+    byteverify surelog fixed vs pristine       MOVERS 9 / 956  (THE SAME 9)
+    byteverify surelog fixed vs shipped patch  MOVERS 1 / 956
+        the ONE is default/Scoreboard, the documented ~50/50 COIN:
+        ORDER-BLIND (sorted, path-normalised, id-blind) changed lines = 0,
+        order-sensitive diff = 92 lines — exactly the svunit_pkg vpiTaskFunc
+        list-order flip signature.  The other EIGHT databases are BYTE-IDENTICAL
+        to the shipped patch's, so the fix provably changes NOTHING the corpus
+        can reach.
+    SELFCHECK=1 on every byteverify run: 1357/1358 and 955/956.
+
+    canaries surelog ok=52 changed=0 | u2r ok=8 changed=0
+    ctcan2 surelog PASS | ctcan2 u2r PASS
+    canaudit audited=33 UNCOVERED=0 FENCE-BREACH=0 PASS
+    protected DB pins unchanged; SVSwitch 4842211c4030, YosysVerx 6ccda350c24a.
+    heads: identical to the shipped patch in all 12 measured row-modes
+           (seven UVM row-modes 28 -> 164, BuildUVMPkg 29, Earlgrey 19/37,
+            Rggen 36), HEADS=1 everywhere.
+
+    wide boundary, 2765 sources x DEF and ELAB, fixed vs pristine:
+        LISTED=2765 PROCESSED=2765 MOVED=6 PROCESSED-ASSERT-OK
+        all 6 are this pass's own arms, in both views;
+        ZERO ASYMMETRIC_OUTPUT (the segfault is gone);
+        every uvm77-92 / buvm3-16 / sd8-12 arm byte-identical in both views.
+    boundary null control (same binary both sides): MOVED=0 — the gate is not
+    stuck reporting movers; the 6 above are real.
+
+    arms, fixed binary vs pristine, official uhdm-cmp:
+        v93_a1_types.sv    CMP_FAIL -> CMP_EQUAL   (all 17 keyword forms)
+        v93_a4_case.sv     CMP_FAIL -> CMP_EQUAL   (10 near-miss identifiers)
+        v93_a6_sub.sv      CMP_FAIL -> CMP_EQUAL   (3 instances)
+        v93_a9b_sysfn.sv   CMP_FAIL -> CMP_EQUAL   ($bits/$size/$clog2/$typename
+                           with type AND variable arguments, int'(x)/t9'(x)
+                           casts, $bits case-item labels — the ONLY cmp failure
+                           in that arm was the slice size; the neighbouring
+                           families do not move)
+        v93_c1_bitsfall.sv CMP_FAIL -> CMP_EQUAL   (the SEGFAULTING shape,
+                           8 homes) — this arm is CMP_FAIL and CRASHING on the
+                           shipped patch in elab.
+
+================================================================================
+5. RANKED RESIDUES (all measured, none of them regressions)
+================================================================================
+R1  raw-text scan finds the WRONG `<<`.  `emitExpr` searches the whole streaming
+    expression's raw text for the first "<<" (then ">>"), so an inner shift in a
+    stream OPERAND captures the scan:
+        golden                          ours (pristine AND patched, identical)
+        { >> byte { v << 2 } }   8      LOCATED constant 2
+        { >> 8    { v << k } }   8      LOCATED constant k
+    PRE-EXISTING, unchanged by this pass, and the highest-value residue here
+    because it silently emits an operand token as a slice size.  Fix: find the
+    stream operator at the START of the expression (after the opening `{`),
+    never by an unanchored search.  Arm v93_b3_nest.sv.
+
+R2  macro-ARGUMENT slice size.  `rawText` reads the macro BODY, so the token is
+    the macro PARAMETER name.  golden 32 / pristine `T` / patched 0 — both wrong.
+    Disclosed by the pass.  Note the patch IMPROVES the sub-case where the macro
+    argument is a typedef (golden 0, patched 0).  Arm v93_a7_macro.sv.
+
+R3  a COMMENT between the type token and the stream `{` defeats the wholeSlice
+    test:  `{ << int /*c*/ { v } }` -> golden 32, ours `int` (pristine spelling).
+    And `{ << /*c*/ int { v } }` -> ours `/*c*/` (pre-existing).  Newlines and
+    tabs are handled correctly.  Arm v93_a8b_layout.sv.
+
+R4  parenthesised / compound slice size `(WREN+2)`, `WREN + 2` -> golden emits a
+    LOCATED operation, we still emit a spelled constant.  Disclosed by the pass;
+    untouched.  Arm v93_a3_num.sv.
+
+R5  sized numeric slice size `8'd4` -> golden vpiSize 8 / vpiConstType 1; we emit
+    vpiSize 64 / vpiConstType 9 with decompile `8'd4`.  PRE-EXISTING, untouched.
+    Arm v93_a3_num.sv.
+
+R6  UHDM UPSTREAM (not ours, not fixable here): ExprEval::reduceExpr dereferences
+    Tf_call_args() without a null check for $bits/$size/$high/$low/$left/$right.
+    Surelog trips it too — `surelog -elabuhdm` dies on a real/time slice size, so
+    no elaborated golden for that shape can exist.  Worth an upstream report.
+
+================================================================================
+6. R0 — CONFIRMED
+================================================================================
+All SEVEN UVM row-modes surface ONE head, 164 cmp lines, and the seven cmp logs
+are BYTE-IDENTICAL after stripping ids (md5 911a5b3a44ec).
+uvm_object_defines.svh:3674, the `uvm_unpack_intN` body:
+    LHS golden : hier_path: (packer.m_bits[+:32])  |vpiName:packer.m_bits[+:32]
+    RHS ours   : hier_path: (packer.m_bits[])      |vpiName:packer.m_bits[]
+The indexed_part_select's vpiWidthExpr (32) and vpiBaseExpr (packer.count) are
+already correct; only the rendered NAME text is short.  hier_path VpiName IS
+read by Compare, so this is a name-TEXT head — uvm92's ct92cen.cpp oracle
+pattern applies, as the pass says.  The co-occurring ref_obj vpiFullName split
+is dump-only.  CONFIRMED.
+
+================================================================================
+7. NOTE FOR THE MASTER
+================================================================================
+* The pass's BASE-DRIFT flag is correct and has gone further: the main tree is
+  now at 18340d0.  This verification used ONLY its own worktrees at b1a0447 and
+  binaries it built itself (the pristine md5 reproduced dc51b2b8 exactly).
+  RE-GATE AT THE NEW HEAD BEFORE LANDING.
+* LAND /tmp/r10uvm93.verified.patch, NOT /tmp/r10uvm93.patch.  The delta is one
+  statement in src/ExprEmit.cpp plus this file and the verifier's instruments
+  and arms under tools/probe/r10uvm93repro/ (all v93-prefixed).

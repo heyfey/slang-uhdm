@@ -1,0 +1,29 @@
+LHS:
+decompile:
+byte_var: (uvm_pkg::uvm_packer::get_packed_bytes::i), id:191859, line:22233:20, endln:22233:21
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_packer::get_packed_bytes), id:11223, line:22233:4, endln:22233:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_packer::get_packed_bytes::i), id:191860
+  |vpiParent:
+  \_byte_var: (uvm_pkg::uvm_packer::get_packed_bytes::i), id:191859, line:22233:20, endln:22233:21
+  |vpiFullName:uvm_pkg::uvm_packer::get_packed_bytes::i
+  |vpiActual:
+  \_byte_typespec: , id:11188, line:22226:49, endln:22226:62
+|vpiName:i
+|vpiFullName:uvm_pkg::uvm_packer::get_packed_bytes::i
+
+decompile:
+byte_var: (uvm_pkg::uvm_packer::get_packed_bytes::i), id:191859, line:22233:20, endln:22233:21
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_packer::get_packed_bytes), id:11223, line:22233:4, endln:22233:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_packer::get_packed_bytes::i), id:191860
+  |vpiParent:
+  \_byte_var: (uvm_pkg::uvm_packer::get_packed_bytes::i), id:191859, line:22233:20, endln:22233:21
+  |vpiFullName:uvm_pkg::uvm_packer::get_packed_bytes::i
+  |vpiActual:
+  \_byte_typespec: , id:11188, line:22226:49, endln:22226:62
+|vpiName:i
+|vpiFullName:uvm_pkg::uvm_packer::get_packed_bytes::i
+RHS: <null>
