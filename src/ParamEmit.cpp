@@ -12840,6 +12840,74 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     yc = rec.second;
                                     break;
                                 }
+                            // Y's OWN package-located typespec, stamped
+                            // with the package that declares it: the object
+                            // golden's elaborated Rhs ref points at, and the
+                            // stamp typespec::Compare reads (vpiInstance).
+                            //
+                            // § pkgUntypedYNoStamp60 (VERIFIER RE-CUT) — the
+                            // referring module copies Y's typespec EXACTLY AS
+                            // THE PACKAGE ITSELF EMITS IT, stamp included; it
+                            // does not mint a stamped one.  A package stamps a
+                            // param typespec iff the param is TYPED or is a
+                            // RANGED/SIGNED untyped one -- the rule already in
+                            // this file at the `inPackage && typedParam`
+                            // dispatch (`!typedParam && isRangedUntypedParam`
+                            // just above it).  A PLAIN untyped package member
+                            // (`localparam UA = 8;`) owns an UNSTAMPED
+                            // int_typespec, and golden's referring module
+                            // therefore has a NULL vpiInstance there.  MEASURED
+                            // on the verifier's vfa grid (19 package member
+                            // types x one typed module localparam each,
+                            // Surelog golden):
+                            //   localparam UA        = 8      -> Instance NULL
+                            //   localparam [11:0] UB          -> Instance pkg
+                            //   localparam signed [7:0] US    -> Instance pkg
+                            //   every WRITTEN type (int/byte/shortint/longint/
+                            //   integer/bit/logic/real/string/time/typedef/
+                            //   enum/struct/2-D packed)        -> Instance pkg
+                            // Stamping the plain-untyped row unconditionally was
+                            // a PRISTINE-RIGHT -> PATCHED-WRONG cell that the
+                            // implementer's own census could not see, because
+                            // its payload carried the typespec SPAN and the two
+                            // spans happened to agree -- the Instance flip was
+                            // filed under STILL-WRONG.  `typespec::Compare`
+                            // reads Instance and never reads a span, so the
+                            // census payload here is Compare-visible only.
+                            // The same declaration shape also decides the
+                            // typespec's own ANCHOR: makeParamTs(_, true) sends
+                            // an untyped member to the whole-declaration span,
+                            // where the package (and golden) anchor a ranged
+                            // untyped member at its packed range and a signed
+                            // one at the signing keyword.
+                            //
+                            // `yDeclShape=false` reproduces the PRE-EXISTING
+                            // ParameterFromPkg* arm byte-for-byte: that arm is
+                            // baseline behaviour, is reached only on a
+                            // pkgRefSrc HIT, and is not this pass's surface.
+                            auto pkgHomedYTs = [&](bool yDeclShape) -> UHDM::typespec* {
+                                auto& yps60 = ysym.as<ParameterSymbol>();
+                                bool yTyped60 = true, yStamp60 = true;
+                                if (yDeclShape) {
+                                    yTyped60 = false;
+                                    if (auto yd60 = yps60.getDeclaredType())
+                                        if (auto yt60 = yd60->getTypeSyntax())
+                                            yTyped60 =
+                                                yt60->kind !=
+                                                syntax::SyntaxKind::ImplicitType;
+                                    yStamp60 = yTyped60 ||
+                                               isRangedUntypedParam(yps60);
+                                }
+                                auto* yts = makeParamTs(yps60, yTyped60);
+                                if (yts && yStamp60 && ysym.getParentScope())
+                                    if (auto pit = pkgDefMap.find(
+                                            &ysym.getParentScope()
+                                                 ->asSymbol());
+                                        pit != pkgDefMap.end())
+                                        yts->Instance(
+                                            (UHDM::instance*)pit->second);
+                                return yts;
+                            };
                             if (ypa && yc && rhsRt) {
                                 auto* rc = (UHDM::constant*)rhs;
                                 rc->VpiValue(std::string(yc->VpiValue()));
@@ -12848,17 +12916,110 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 rc->VpiDecompile(
                                     std::string(yc->VpiDecompile()));
                                 rc->VpiParent(ypa);
-                                auto* yts = makeParamTs(
-                                    ysym.as<ParameterSymbol>(), true);
-                                if (ysym.getParentScope())
-                                    if (auto pit = pkgDefMap.find(
-                                            &ysym.getParentScope()
-                                                 ->asSymbol());
-                                        pit != pkgDefMap.end())
-                                        yts->Instance(
-                                            (UHDM::instance*)pit->second);
-                                rhsRt->Actual_typespec(yts);
+                                rhsRt->Actual_typespec(pkgHomedYTs(false));
                                 pkgRefFold = true;
+                            }
+                            // § pkgScopedParamRhsTs60 — the same law when Y is
+                            // NOT MATERIALIZED in this scope.  pkgRefSrc holds
+                            // only the params emitted in THIS scope's own loop,
+                            // i.e. the wildcard-IMPORT copies; a package
+                            // reached by EXPLICIT SCOPE ONLY (`dm::DataAddr`,
+                            // `top_pkg::TL_AIW` — dm_mem.sv and
+                            // tlul_socket_m1.sv import nothing at all) misses
+                            // and left the Rhs ref bound to the DECLARING
+                            // scope's own typespec, whose vpiInstance is null
+                            // where golden's is the package: the Earlgrey_0_1
+                            // /default head (`LHS: package dm  RHS: <null>`).
+                            // Only the TYPESPEC moves here.  The value fields
+                            // and the Rhs parent are NOT touched: the census
+                            // over the 14 corpus cells shows value, size,
+                            // constType and decompile already equal to golden
+                            // (uhdm-cmp walks past them into the typespec), and
+                            // Y's param_assign is not a parent this scope owns.
+                            // FENCE `!isImported`, MEASURED, NOT GUESSED: the
+                            // first cut of this arm omitted it and the 3-way
+                            // param_assign census reported AWAY-GOLDEN=293
+                            // while uhdm-cmp's head CLEARED -- the head-only
+                            // reading would have shipped a regression 20x the
+                            // size of the fix.  A module's MATERIALIZED
+                            // WILDCARD-IMPORT copy of a package parameter is
+                            // emitted with topView force-set (§ modDefImportShape)
+                            // and inPackage false, so it reaches here; and when
+                            // that package parameter's OWN initializer is a
+                            // reference to a THIRD package (flash_phy_pkg's
+                            // `localparam int NumBanks = flash_ctrl_pkg::NumBanks`,
+                            // alert_handler_reg_pkg <- alert_pkg, rstmgr_pkg <-
+                            // pwrmgr_pkg) golden keeps the typespec of the
+                            // package that DECLARES the copy, not the one the
+                            // value came from.  Only a parameter DECLARED IN
+                            // THIS SCOPE takes the source's typespec.
+                            // FENCE 2, also MEASURED, also a near-miss: Y
+                            // propagates its typespec ONLY IF Y's OWN package
+                            // param_assign folded to a CONSTANT.  A PACKAGE
+                            // does not fold an aggregate literal -- golden's
+                            // package listing keeps a CONCAT and a REPLICATION
+                            // Rhs as an `operation` (r10c9/b's "a package never
+                            // folds a replication in either view") -- and
+                            // exactly those members do NOT hand their typespec
+                            // to a module that references them.  v60e's grid,
+                            // golden, module `s_take` over one package member
+                            // per initializer shape:
+                            //   arith / ternary / literal / $clog2 / sized
+                            //   literal  -> the MEMBER's typespec  (pkg rows:
+                            //                                       constant)
+                            //   CONCAT   -> the MODULE's own       (pkg row:
+                            //                                       operation)
+                            //   REPLICATION -> the loc-less int_typespec
+                            //                                     (pkg row:
+                            //                                      operation)
+                            // Without this the wide boundary caught
+                            // r10earl55repro/a5_earl55.sv (`localparam logic
+                            // [0:0] K = pk5_55::PKW1;` with `PKW1 = {1{1'b1}}`)
+                            // moving from one wrong answer to a farther one,
+                            // and v60e's k_cat moving AWAY FROM GOLDEN outright.
+                            // The assignment-pattern kinds are denied on the
+                            // same ground (an aggregate literal a package keeps
+                            // as an operation); v60e's `k_ap` measures one.
+                            else if (!ypa && rhsRt && !isImported) {
+                                auto* yinit =
+                                    ysym.as<ParameterSymbol>().getInitializer();
+                                auto yk = ExpressionKind::Invalid;
+                                if (yinit) yk = stripImplicitConv(*yinit).kind;
+                                // § pkgYFoldNestedConcat60 (VERIFIER RE-CUT) —
+                                // the deny is NOT keyed on the TOP-LEVEL kind.
+                                // The real gate is "did the PACKAGE fold Y to a
+                                // constant"; a concat/replication ANYWHERE
+                                // BELOW an operator or a select stops that fold
+                                // just as a top-level one does.  MEASURED,
+                                // Surelog golden, verifier arm vff (one package
+                                // member per nesting shape, read as the
+                                // package's OWN elab param_assign Rhs kind):
+                                //   {a,b}          -> operation  module: NO
+                                //   {a,b} + 4'd1   -> operation  module: NO  <=
+                                //   4'd1 + {a,b}   -> operation  module: NO  <=
+                                //   {4{1'b1}} & F  -> operation  module: NO  <=
+                                //   {a,b}[1:0]     -> operation  module: NO  <=
+                                //   1 ? {a,b} : 0  -> CONSTANT   module: yes
+                                //   $bits({a,b})   -> CONSTANT   module: yes
+                                // The four marked rows are the ones the
+                                // top-level-kind test let through; `{a,b}+4'd1`
+                                // is a PRISTINE-RIGHT -> PATCHED-WRONG cell
+                                // (golden leaves the module's Rhs typespec
+                                // unstamped and module-local, the shipped patch
+                                // retargeted it to the package).  The two
+                                // FOLDING shapes are knowingly FORFEITED here:
+                                // denying them only reproduces baseline, while
+                                // allowing them costs a real regression, and
+                                // `containsPatternOrConcat` is the predicate
+                                // already in this file.
+                                bool yAggLit =
+                                    yk == ExpressionKind::Replication ||
+                                    (yinit &&
+                                     containsPatternOrConcat(*yinit));
+                                if (!yAggLit) {
+                                    rhsRt->Actual_typespec(pkgHomedYTs(true));
+                                    pkgRefFold = true;
+                                }
                             }
                         }
                     }

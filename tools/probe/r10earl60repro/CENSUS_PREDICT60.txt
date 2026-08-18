@@ -1,0 +1,63 @@
+r10earl60 — PREDICTION, written BEFORE the patched Earlgrey database existed.
+Binaries: pristine 1c9a7a008aa169fe12e76d954e146783,
+          patched  c73ce5a11c61f3702d4ac02c60dc4413.
+NOTE ADDED AT INTEGRATION, NOT A REWRITE OF THE PREDICTION: the patched binary
+went through TWO more revisions after this file was written -- f9a36902bd... when
+the 3-way census forced the `!isImported` fence (AWAY-GOLDEN=293) and
+7e7395f022... when the WIDE BOUNDARY forced the aggregate-literal fence.  The
+14-cell mover set predicted below is what the FINAL binary
+(7e7395f02206f9af44b770c8187ef79b) produced, TO-GOLDEN=14 AWAY-GOLDEN=0 in BOTH
+modes; the two intermediate binaries are recorded in README.md sections 5 and 8
+with the numbers that convicted them.  The prediction that Earlgrey_0_1/testflags
+would be UNCHANGED is REFUTED: its head cell was cleared by this same law
+(README section 7).
+
+LAW § pkgScopedParamRhsTs60 (ParamEmit.cpp, the ParameterFromPkg* arm): in the
+ELABORATED view a MODULE-scope parameter/localparam whose whole initializer is a
+bare reference to a PACKAGE parameter binds its folded param_assign Rhs
+constant's ref_typespec to THAT PACKAGE MEMBER's own typespec, stamped
+vpiInstance -> the declaring package -- ALSO when the package is reached by
+EXPLICIT SCOPE ONLY (pkgRefSrc miss), not just when a wildcard import
+materialized it into this scope.
+
+MOVER SET, Earlgrey_0_1/default, PREDICTED BY NAME (14 cells, from the pristine
+pacensus60 census; every one is an ELAB param_assign Rhs constant's
+vpiTypespec -> ref_typespec -> vpiActual):
+
+  work@top_earlgrey.u_dm_top.i_dm_mem          DataBaseAddr  dm_mem.sv:64:41-64:77
+        logic_typespec dm_mem.sv:64:14-64:40 (inst NULL)
+     -> logic_typespec dm_pkg.sv:34:14-34:26  (inst package dm)      <== THE HEAD
+  work@top_earlgrey.u_xbar_main.u_sm1_17 .. u_sm1_31  IDW  tlul_socket_m1.sv:72:27-72:50
+        int_typespec tlul_socket_m1.sv:72:14-72:26 (inst NULL)
+     -> int_typespec  top_pkg.sv:10:12-10:15  (inst package top_pkg)
+     exactly these 13 instance paths: u_sm1_17 u_sm1_18 u_sm1_19 u_sm1_20
+     u_sm1_23 u_sm1_24 u_sm1_25 u_sm1_26 u_sm1_27 u_sm1_28 u_sm1_29 u_sm1_30
+     u_sm1_31
+
+PREDICTED: TO-GOLDEN 14, AWAY-GOLDEN 0, STILL-WRONG 0 on this slot family.
+PREDICTED: 0 DEF cells move (the arm is gated `topView && !inPackage`).
+PREDICTED: the 11 GROUP-B cells (we bind a wildcard-imported package member's
+typespec where golden keeps the declaring scope's own: u_flash_erase_ctrl
+AddrW/PagesPerBank/WordsPerPage, u_flash_mp AllPagesW/MpRegions/NumBanks,
+u_rstmgr.i_lc_src/.i_sys_src PowerDomains, u_rv_timer N_HARTS/N_TIMERS,
+u_usbdev NEndpoints) are UNCHANGED -- the new arm only fires on a pkgRefSrc
+MISS and those all HIT.
+PREDICTED: Earlgrey_0_1/default head CLEARS; the next head is
+`LHS: <null>  RHS: logic_net(clk_i)@:11:16-11:21#238266`, which is what masking
+the head owner alone produced on the PRISTINE pair (tsinst60).
+PREDICTED: Earlgrey_0_1/testflags head 33 lines, UNCHANGED (its cell is a
+DEF-view range-bound ref_obj Actual, a different slot).
+
+BYTE-VERIFY MOVER SET, PREDICTED BY NAME:
+  surelog corpus (956 databases): EXACTLY the two Earlgrey_0_1 rows,
+      ./default/Earlgrey_0_1-71da2fd7 and ./testflags/Earlgrey_0_1-71da2fd7,
+      PLUS any database holding a module-scope typed param whose whole
+      initializer is a bare `pkg::name` reference where the package is NOT
+      wildcard-imported into that module.  Named after measurement, not before:
+      the arms prove the shape exists, so a nonzero count here is EXPECTED and
+      every path must be attributed.
+  uhdm2rtlil corpus (1358 databases): the same shape; nonzero permitted, every
+      path attributed.
+PREDICTED: 0 rows change CMP_EQUAL/CMP_NOTEQUAL status in either corpus in
+either mode (the head row Earlgrey_0_1 stays CMP_NOTEQUAL: 9 743 lines is HEAD
+DEPTH and the family below it is deep).

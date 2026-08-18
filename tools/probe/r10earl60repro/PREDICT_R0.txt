@@ -1,0 +1,94 @@
+r10earl60 — THE NEXT HEAD (R0), both Earlgrey_0_1 modes, measured on the PATCHED
+database (md5 7e7395f02206f9af44b770c8187ef79b) against the immutable golden
+caches 00d4794526e44dc553f3 (default) and d7348d2d2fe67abe767b (testflags).
+
+=======================================================================
+R0-DEFAULT — Earlgrey_0_1/default, 9 743 cmp lines -> 29, 1 head -> 1 head
+=======================================================================
+
+  LHS(golden): <null>
+  RHS(ours)  : logic_net (work@top_earlgrey.u_dm_top.dap.i_dmi_jtag_tap
+                          .i_tck_inv.clk_i)  id:238270  11:16-11:21
+
+`LHS: <null>` with a non-null RHS is the two-argument scalar
+`SafeCompare(lhs, rhs, ctx)` with lhs == nullptr (BaseClass.h:187) read the
+other way round: an edge golden leaves NULL and WE SET.  A vector SafeCompare
+would have set BOTH sides to the OWNER, so this is a SCALAR slot.
+
+DECODED, not guessed.  Census of every dump tag whose child is that logic_net,
+whole design:
+
+    tag            golden   ours
+    vpiActual         2       3      <== the extra edge
+    vpiNet            1       1
+    vpiParent         2       2
+
+and the third `vpiActual` is exactly one position, prim_clock_inverter.sv:18
+(`prim_clock_mux2 i_dft_tck_mux ( .clk0_i(~clk_i), … )` inside
+`prim_clock_inverter`'s `gen_scan` generate block):
+
+  port (clk0_i) 16:16-16:22   of  …i_tck_inv.gen_scan.i_dft_tck_mux
+    vpiHighConn
+    \_operation 18:16-18:22   vpiOpType 4 (unary ~)
+        vpiOperand
+        \_ref_obj  vpiName `clk_i`  18:17-18:22
+            golden: vpiFullName …i_dft_tck_mux.clk0_i.clk_i   NO vpiActual
+            ours  : vpiFullName …i_tck_inv.gen_scan.clk_i
+                    |vpiActual: -> logic_net (…i_tck_inv.clk_i) 11:16-11:21
+
+> R0-DEFAULT: **a PORT HIGHCONN whose expression is an OPERATION has its
+> OPERAND ref_obj left UNBOUND by golden; we bind its Actual_group to the
+> enclosing module's net.**  The fullnames differ too (golden names the operand
+> under the PORT, `<portFullName>.<name>`; we name it under the gen scope), but
+> `Compare` reads `VpiName` — `clk_i` on both sides — and never fullname, so the
+> ONLY compared difference is the pointer.
+
+NOTE THE DIRECTION, and note that it is the MIRROR of r10earl59's law: earl59
+ADDED a bind (a cont_assign Lhs in a nested gen scope with an OPERATION Rhs);
+this one must REMOVE a bind (a port HighConn OPERAND inside an operation).  The
+BARE-ref HighConn one port later (`.clk1_i(clk_i)` at 19:16-19:21) IS bound on
+both sides, so the gate is the enclosing OPERATION, not the gen scope and not
+the port.  Surelog's binder to read first is `UhdmWriter`'s high_conn path and
+`NetlistElaboration::high_conn_` (r10earl58's ground), NOT
+`writeCont_assign`.
+
+=======================================================================
+R0-TESTFLAGS — Earlgrey_0_1/testflags, 33 cmp lines -> 30, 1 head -> 1 head
+=======================================================================
+
+r10earl59's R0-testflags (the DEF-view range-bound `vpiActual` leak on
+`…u_dm_top.i_dm_mem.DbgAddressBits`) is CLEARED BY THIS PASS:
+`|vpiActual: -> parameter (…i_dm_mem.DbgAddressBits)` counts
+**golden 27 / pristine 28 / patched 27**.  The head therefore moved forward to a
+PRE-EXISTING cell:
+
+  LHS(golden): constant  132:18-132:20  UINT:0  vpiSize 3  vpiConstType 9
+               < operation 129:17-142:4
+  RHS(ours)  : constant  132:18-132:20  BIN:0   '0        vpiConstType 3
+
+tlul_adapter_sram.sv:132, inside the `tagged_pattern` / assignment-pattern block
+at 129:17-142:4.  Golden's DEF listing carries the SAME `'0 / vpiSize -1 / BIN:0
+/ constType 3` we do; only the ELABORATED copy is re-typed to a sized `UINT:0`
+of width 3.  This is the tagged_pattern family r10earl53's commit already names
+as the residual 464-object block, and the blast radius of this pass
+(107 diff lines, complete ADDED/REMOVED lists in README §6) contains no
+`tlul_adapter_sram` line, no `132:18` and no `BIN:0` — so it was MASKED behind
+the cleared cell, not created here.
+
+> R0-TESTFLAGS: **an ELABORATED assignment-pattern member default is re-typed to
+> the member's WIDTH (UINT:0, size 3, constType 9) while the DEF listing keeps
+> the unsized `'0` (BIN:0, constType 3); we keep the unsized form in both
+> views.**
+
+=======================================================================
+RANKED AFTER THESE TWO (all measured in this pass, see README §9)
+=======================================================================
+R1  the NAME-COLLISION misbind — 11 Earlgrey cells, arm v60b_earl60.sv (7 cells)
+R2  prim_flop_2sync ResetValue: golden operation + pkg struct_typespec, 1 cell
+R3  flash_erase_ctrl PageAddrMask/BankAddrMask: golden operation Rhs, 2 cells
+R4  3 kind/span-only cells (2 of them invisible to uhdm-cmp)
+R5  the UNTYPED localparam from a package — 0 corpus cells, arm v60a g7_untyped
+R6  the GEN-SCOPE localparam from a package — 0 corpus cells, arm v60c u3.g[*]
+R7  ELAB enum_typespec (dm::csr_reg_t) span, 1 cell, spans are not compared
+R8  the 1 742 weaklyReferenced-tail vpiInstance stamps — UNREACHABLE to
+    design::Compare (README §1).  DO NOT RE-TARGET THESE.
