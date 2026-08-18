@@ -1379,6 +1379,20 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             }
         }
     }
+    // § bareTdNameFirstWriterWins98 — BEFORE the ordinary share, because the
+    // whole point is that golden does NOT share the object the name resolves
+    // to.  Fires only where Surelog's `compileDatastructureTypespec` could not
+    // find the written name from the compiling component; the winner is the
+    // first declaration of that BARE name in `bindTypedefs_`'s `defs` order.
+    // A name declared by exactly ONE component is its own first writer, so this
+    // is the IDENTITY there (arm a2) — the fence is the rule itself.
+    if (declared && !bypassTypedefShare &&
+        declared->getType().kind == SymbolKind::TypeAlias)
+        if (const auto* w98 = fwWinner98(
+                declSymbol, declared->getType().as<TypeAliasType>(),
+                typeSynOverride))
+            if (auto* wts98 = fwWinnerTs98(*w98))
+                return wts98;
     // Typedef'd declarations share the typedef's typespec object; anonymous
     // enums build an unnamed, unlocated enum_typespec per declaration.
     if (declared) {
@@ -16947,6 +16961,273 @@ void UhdmExporter::collectTdClaims11(const Scope& sc, int group,
                     collectTdClaims11(spec.as<ClassType>(), 4, gk, depth + 1);
         }
     }
+}
+
+// ---------------------------------------------------------------------------
+// § bareTdNameFirstWriterWins98 — `ElaborationStep::bindTypedefs_`'s OTHER map.
+//
+// DECODED FROM SURELOG (~/git-repos/Surelog):
+//
+//   `CompileHelper::compileDatastructureTypespec`
+//   (src/DesignCompile/CompileType.cpp:722) resolves a written type NAME from
+//   the component being compiled with `component->getDataType(typeName)`.
+//   That is `DesignComponent::getDataType` (src/Design/DesignComponent.cpp:108)
+//   and it walks the LEXICAL PARENT SCOPE chain — `getParentScope()` — and
+//   NOTHING ELSE.  `ClassDefinition` has a base-class-walking lookup,
+//   `getBaseDataType` (src/Testbench/ClassDefinition.cpp:189), but its ONLY
+//   caller in the whole tree is `ElaborationStep::bindDataType_`
+//   (src/DesignCompile/ElaborationStep.cpp:907) — the VARIABLE binder.  The
+//   TYPESPEC path never asks it.  So an INHERITED typedef name written in a
+//   derived class body is NOT FOUND: `compileTypespec` falls through the
+//   class-definition and interface fallbacks to `CompileType.cpp:1053` and
+//   mints an `unsupported_typespec` carrying the written name, registering the
+//   reference with `component->needLateTypedefBinding(...)`.
+//
+//   `ElaborationStep::bindTypedefs_` (src/DesignCompile/ElaborationStep.cpp:102)
+//   then repairs it.  It builds ONE `defs` vector in this order —
+//     FileContents (`design->getAllFileContents()`),
+//     packages     (`getPackageDefinitions()`, a multimap keyed on the name),
+//     modules      (`getModuleDefinitions()`, keyed `lib@name`),
+//     programs,
+//     classes      (`getClassDefinitions()`, a multimap keyed on the
+//                   fully-qualified class name)
+//   — walks it once compiling each typedef's typespec, and fills
+//     `std::map<std::string, typespec*> specs`
+//   with `specs.emplace(typd->getName(), ts)` (:240, :265, :276).  `emplace`
+//   is FIRST-WRITER-WINS.  The three tail loops (:328 packages, :359 modules,
+//   :386 classes) then walk every component's `getLateTypedefBinding()` list,
+//   read the placeholder's name and swap in `specs.find(need)->second`.
+//
+//   A bare typedef name therefore has ONE design-wide meaning for every
+//   reference Surelog failed to resolve: the FIRST declaration of that name in
+//   `defs` order.  It is a Surelog bug; golden is the spec, bugs included.
+//
+// MEASURED ON GOLDEN (tools/probe/r10uvm98repro/g98_a*.sv, GRID.r10uvm98.txt):
+//   a1  `ccc98 extends bbb98` writing the INHERITED `this_type` as a formal, a
+//       return and a method local -> ALL THREE bind `p98a::aaa98`, the
+//       alphabetically first class declaring the name; `bbb98`'s OWN uses of
+//       the same name stay on `bbb98`.  The INT typedef `my_t` moves the same
+//       way (`bit` in the base, `int` in the winner) — the law is about the
+//       NAME, not the kind.
+//   a2  a name declared by exactly ONE class -> IDENTITY.  THE FENCE.
+//   a3  a PACKAGE-level and a $unit-level typedef of the same name beat every
+//       class (groups 1 and 0 precede group 4).
+//   a4  four classes declaring `rank_t`: the winner is `apk98::w9cls98`, the
+//       smallest FULLY-QUALIFIED class name design-wide, and the QUALIFIED
+//       spelling `q1base98#(int)::rank_t` right next to it stays CORRECT.
+//   a5  the second unresolved shape, NOT modelled here (residue R1): the
+//       class's OWN name written in an OUT-OF-BLOCK method definition, which
+//       Surelog compiles with the enclosing package as the component, mis-binds
+//       too, while the in-class prototype beside it does not.
+//
+// The claim table of § classScopedTdDeclTsUnsupported11 walks exactly the same
+// `defs` list; this one keys the same walk on the typedef's NAME instead of on
+// its target's slot, so the two share `collectTdClaims11`'s group numbering,
+// `surelogClassKey11` and the interface-class exclusion.
+void UhdmExporter::collectFwWinners98(const Scope& sc, int group,
+                                      const std::string& container, int depth) {
+    if (depth > 8)
+        return;
+    for (auto& mem : sc.members()) {
+        if (mem.kind == SymbolKind::TypeAlias) {
+            auto& al = mem.as<TypeAliasType>();
+            if (al.name.empty())
+                continue;
+            TdClaim11 k{group, container, std::string(al.name)};
+            auto it = fwWinners98.find(al.name);
+            if (it == fwWinners98.end())
+                fwWinners98.emplace(std::string(al.name), FwWin98{k, &al});
+            else if (k < it->second.key)
+                it->second = FwWin98{k, &al};
+            continue;
+        }
+        if (isIfaceClass11(mem))
+            continue;
+        if (mem.kind == SymbolKind::ClassType) {
+            collectFwWinners98(mem.as<ClassType>(), 4, surelogClassKey11(mem),
+                               depth + 1);
+            continue;
+        }
+        if (mem.kind == SymbolKind::GenericClassDef) {
+            const std::string gk = surelogClassKey11(mem);
+            auto& g = mem.as<GenericClassDefSymbol>();
+            // NEVER `getDefaultSpecialization` in a probe or a table — it MINTS
+            // a specialisation (pass 11's measured lesson).  Only the
+            // specialisations the design actually made.
+            for (auto& spec : g.specializations())
+                if (spec.kind == SymbolKind::ClassType)
+                    collectFwWinners98(spec.as<ClassType>(), 4, gk, depth + 1);
+        }
+    }
+}
+
+// V-FIX v98 — § modIfaceTdBeatsClassFirstWriter98v.
+//
+// `ElaborationStep::bindTypedefs_` builds `defs` as FileContents -> packages ->
+// MODULES (`design->getModuleDefinitions()`, a multimap keyed `lib@name` that
+// carries INTERFACES as well as modules) -> PROGRAMS -> classes, so ANY
+// module/interface/program-level typedef of the racing bare name is registered
+// in `specs` BEFORE every class and no class can ever win that name.
+//
+// The symbol walk above reaches only `comp.getRoot().topInstances`, which is
+// neither of the two shapes that matter:
+//   * an INSTANTIATED child module (arm v98_c22 `amod22v`), and
+//   * an UNINSTANTIATED INTERFACE (arm v98_c21 `aif21v`),
+// are both absent from it, and § bareTdNameFirstWriterWins98 then handed the
+// reference to the first CLASS instead.  MEASURED, both views:
+//   v98_c21/v98_c22  golden binds the inherited `wk2N_t` formal to the
+//       interface's / the child module's `int_typespec`, which carries the SAME
+//       judge-visible payload (kind + VpiName) as the base class's own typedef
+//       that PRISTINE already bound -- so pristine was RIGHT and the shipped
+//       law moved it to `bit_typespec` from `p2Nv::a2Nwin98v`:
+//       uhdm-cmp 57 -> 70 lines, the new head being exactly that mis-bind.
+//   v98_c3   with a module, a program and an interface all declaring the name,
+//       golden picks the INTERFACE (`work@if3v` < `work@sub3v`).
+//   v98_c24  a program named `aprg24v` LOSES to a module named `zmod24v`, so
+//       programs are a LATER group than modules/interfaces, exactly as `defs`
+//       orders them.
+//   v98_c25/v98_c26  a GENERATE-BLOCK typedef and a SUBROUTINE-LOCAL typedef
+//       inside a module are NOT candidates -- golden keeps the class winner --
+//       so only a DIRECT member of the declaration is registered here.
+//
+// Registered with `al == nullptr`: these declarations are SUPPRESSORS.  Winning
+// the name makes `fwWinner98` return null, which falls through to the pristine
+// behaviour -- the same NO-OP a `$unit` winner already takes (R4).  Binding to
+// the module's own typespec object would need the module typedef registry and
+// is deliberately not attempted here (residue).
+void UhdmExporter::collectFwModIfaceTds98v() {
+    auto scan = [&](auto&& self, const syntax::SyntaxNode& node) -> void {
+        if (node.kind == syntax::SyntaxKind::ModuleDeclaration ||
+            node.kind == syntax::SyntaxKind::InterfaceDeclaration ||
+            node.kind == syntax::SyntaxKind::ProgramDeclaration) {
+            auto& md = node.as<syntax::ModuleDeclarationSyntax>();
+            const int group =
+                node.kind == syntax::SyntaxKind::ProgramDeclaration ? 3 : 2;
+            const std::string container =
+                "work@" + std::string(md.header->name.valueText());
+            for (auto* mem : md.members) {
+                if (!mem || mem->kind != syntax::SyntaxKind::TypedefDeclaration)
+                    continue;
+                std::string tn(mem->as<syntax::TypedefDeclarationSyntax>()
+                                   .name.valueText());
+                if (tn.empty())
+                    continue;
+                TdClaim11 k{group, container, tn};
+                auto it = fwWinners98.find(tn);
+                if (it == fwWinners98.end())
+                    fwWinners98.emplace(tn, FwWin98{k, nullptr});
+                else if (k < it->second.key)
+                    it->second = FwWin98{k, nullptr};
+            }
+        }
+        for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+            if (auto* ch = node.childNode(i))
+                self(self, *ch);
+    };
+    for (auto& tree : comp.getSyntaxTrees())
+        scan(scan, tree->root());
+}
+
+void UhdmExporter::buildFwWinners98() {
+    if (fwWinners98Built)
+        return;
+    fwWinners98Built = true;
+    for (auto unit : comp.getCompilationUnits())
+        collectFwWinners98(*unit, 0, std::string(), 0);
+    for (auto pkg : comp.getPackages())
+        collectFwWinners98(*pkg, 1, std::string(pkg->name), 0);
+    for (auto inst : comp.getRoot().topInstances)
+        collectFwWinners98(inst->body, 2, std::string(inst->body.name), 0);
+    collectFwModIfaceTds98v();
+}
+
+bool UhdmExporter::lexReaches98(const Symbol& declSymbol,
+                               const Symbol& home) const {
+    auto same98 = [](const Symbol& a, const Symbol& b) {
+        if (&a == &b)
+            return true;
+        if (a.kind != SymbolKind::ClassType || b.kind != SymbolKind::ClassType)
+            return false;
+        auto* ga = a.as<ClassType>().genericClass;
+        auto* gb = b.as<ClassType>().genericClass;
+        return ga && ga == gb;
+    };
+    for (auto sc = declSymbol.getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope())
+        if (same98(sc->asSymbol(), home))
+            return true;
+    return false;
+}
+
+const TypeAliasType* UhdmExporter::fwWinner98(
+    const Symbol& declSymbol, const TypeAliasType& al,
+    const syntax::SyntaxNode* typeSynOverride) {
+    // (1) SPELLING.  Only a BARE identifier can be left unresolved: a
+    //     class-scoped spelling (`q1base98#(int)::rank_t`, arm a4 `qual`) goes
+    //     down `compileTypespec`'s class_scope arm and binds correctly.
+    const syntax::SyntaxNode* tsyn = typeSynOverride;
+    if (!tsyn)
+        if (auto* dt = declSymbol.getDeclaredType())
+            tsyn = dt->getTypeSyntax();
+    if (!tsyn)
+        return nullptr;
+    auto* nt98 = tsyn->as_if<syntax::NamedTypeSyntax>();
+    if (!nt98 || nt98->name->kind != syntax::SyntaxKind::IdentifierName)
+        return nullptr;
+    if (nt98->name->as<syntax::IdentifierNameSyntax>().identifier.valueText() !=
+        al.name)
+        return nullptr;
+    // (2) HOME.  Only a CLASS-nested typedef can be out of `getDataType`'s
+    //     reach — a package/$unit/module typedef IS on the lexical chain of
+    //     everything that can see it.  An interface class is not in the list
+    //     `bindTypedefs_` walks at all (vsd11).
+    auto* homeSc = al.getParentScope();
+    if (!homeSc || homeSc->asSymbol().kind != SymbolKind::ClassType)
+        return nullptr;
+    if (isIfaceClass11(homeSc->asSymbol()))
+        return nullptr;
+    // (3) REACH.  This is Surelog's condition, exactly: found on the LEXICAL
+    //     chain -> resolved -> nothing moves.  The declaring class itself, and
+    //     an enclosing class for a nested one, are both on that chain.
+    if (lexReaches98(declSymbol, homeSc->asSymbol()))
+        return nullptr;
+    // (4) FIRST-WRITER-WINS.
+    buildFwWinners98();
+    auto it = fwWinners98.find(al.name);
+    if (it == fwWinners98.end() || !it->second.al)
+        return nullptr;
+    const TypeAliasType* w = it->second.al;
+    if (w == &al)
+        return nullptr;
+    // ONE Surelog `TypeDef` per SOURCE DECLARATION however many specialisations
+    // slang elaborates (§ classNestedTdOneObjectPerSurelogTypedef97): two
+    // specialisations of one written typedef are the same declaration and can
+    // never be a move.
+    if (w->getSyntax() && w->getSyntax() == al.getSyntax())
+        return nullptr;
+    return w;
+}
+
+UHDM::typespec* UhdmExporter::fwWinnerTs98(const TypeAliasType& w) {
+    if (!typedefTs.count((const Symbol*)&w))
+        if (auto* osc = w.getParentScope();
+            osc && osc->asSymbol().kind == SymbolKind::ClassType) {
+            auto& ocl = osc->asSymbol().as<ClassType>();
+            auto* opsc = ocl.getParentScope();
+            if (opsc && (opsc->asSymbol().kind == SymbolKind::Package ||
+                         opsc->asSymbol().kind == SymbolKind::ClassType))
+                buildClassTypedefTs(ocl, std::string(ocl.name));
+        }
+    auto it = typedefTs.find((const Symbol*)&w);
+    if (it == typedefTs.end() || !it->second)
+        return nullptr;
+    // The def/elab choice the ordinary share makes one screen below: the
+    // ELABORATED object when the two agree in kind, the def one otherwise.
+    if (auto t9 = pkgTopTypedefTs.find((const void*)&w);
+        t9 != pkgTopTypedefTs.end() && t9->second &&
+        t9->second->UhdmType() == it->second->UhdmType())
+        return t9->second;
+    return it->second;
 }
 
 void UhdmExporter::buildTdClaims11() {

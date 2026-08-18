@@ -1,0 +1,64 @@
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 3767471 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 3767489 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 3770348 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 3770437 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 1899_r10uvm34repro_t46a_dut.sv/def 2 lines
+MOVED 1899_r10uvm34repro_t46a_dut.sv/elab 2 lines
+MOVED 1900_r10uvm35repro_t47a_dut.sv/def 20 lines
+MOVED 1900_r10uvm35repro_t47a_dut.sv/elab 20 lines
+MOVED 1901_r10uvm35repro_t47b_dut.sv/def 2 lines
+MOVED 1901_r10uvm35repro_t47b_dut.sv/elab 2 lines
+MOVED 1902_r10uvm35repro_t47c_dut.sv/def 2 lines
+MOVED 1902_r10uvm35repro_t47c_dut.sv/elab 2 lines
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 88175 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 88224 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 96462 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 96491 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 105721 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 105778 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 2382_r10uvm97repro_g97_a1_selftd.sv/def 8 lines
+MOVED 2382_r10uvm97repro_g97_a1_selftd.sv/elab 8 lines
+MOVED 2387_r10uvm98repro_g98_a1_inherit.sv/def 6 lines
+MOVED 2387_r10uvm98repro_g98_a1_inherit.sv/elab 11 lines
+MOVED 2389_r10uvm98repro_g98_a3_homes.sv/def 14 lines
+MOVED 2389_r10uvm98repro_g98_a3_homes.sv/elab 14 lines
+MOVED 2390_r10uvm98repro_g98_a4_order.sv/def 2 lines
+MOVED 2390_r10uvm98repro_g98_a4_order.sv/elab 2 lines
+MOVED 2391_r10uvm98repro_g98_a5_oob.sv/def 4 lines
+MOVED 2391_r10uvm98repro_g98_a5_oob.sv/elab 12 lines
+MOVED 2462_r10v97repro_v97_c1_mixedgroup.sv/def 11 lines
+MOVED 2462_r10v97repro_v97_c1_mixedgroup.sv/elab 11 lines
+MOVED 2465_r10v97repro_v97_c4_specparams.sv/def 11 lines
+MOVED 2465_r10v97repro_v97_c4_specparams.sv/elab 11 lines
+MOVED 2469_r10v97repro_v97_c8_counts.sv/def 22 lines
+MOVED 2469_r10v97repro_v97_c8_counts.sv/elab 22 lines
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 139704 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 139730 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 140845 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 140882 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 241298 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 241406 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 241614 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 241733 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 241971 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm98/tools/probe/r10uvm98repro/bound98.sh: line 26: 242069 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+RC_PAIRS_COMPARED=6160  RC_DIFF=0  ASYMMETRIC_OUTPUT=0
+LISTED=3080 FENCED_SKIPPED=0 PROCESSED=3080 MOVED=24 NO_OUTPUT_PAIRS=268
+PROCESSED-ASSERT-OK
+DONE
+
+======== SECOND RUN — the r10uvm98repro dir alone (arm a6 was written after
+======== the first run's tree copy was taken; a2, the FENCE, never moves).
+MOVED 0001_g98_a1_inherit.sv/def 6 lines
+MOVED 0001_g98_a1_inherit.sv/elab 11 lines
+MOVED 0003_g98_a3_homes.sv/def 14 lines
+MOVED 0003_g98_a3_homes.sv/elab 14 lines
+MOVED 0004_g98_a4_order.sv/def 2 lines
+MOVED 0004_g98_a4_order.sv/elab 2 lines
+MOVED 0005_g98_a5_oob.sv/def 4 lines
+MOVED 0005_g98_a5_oob.sv/elab 12 lines
+MOVED 0006_g98_a6_sites.sv/def 15 lines
+MOVED 0006_g98_a6_sites.sv/elab 17 lines
+RC_PAIRS_COMPARED=12  RC_DIFF=0  ASYMMETRIC_OUTPUT=0
+LISTED=6 FENCED_SKIPPED=0 PROCESSED=6 MOVED=10 NO_OUTPUT_PAIRS=0
+PROCESSED-ASSERT-OK

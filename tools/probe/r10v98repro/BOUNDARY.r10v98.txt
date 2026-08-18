@@ -1,0 +1,137 @@
+/tmp/v98_bound.sh: line 20: 3564897 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 3564986 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 3569248 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 3569310 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED f1899_r10uvm34repro_t46a_dut.sv/def 2 lines
+MOVED f1899_r10uvm34repro_t46a_dut.sv/elab 2 lines
+MOVED f1900_r10uvm35repro_t47a_dut.sv/def 20 lines
+MOVED f1900_r10uvm35repro_t47a_dut.sv/elab 20 lines
+MOVED f1901_r10uvm35repro_t47b_dut.sv/def 2 lines
+MOVED f1901_r10uvm35repro_t47b_dut.sv/elab 2 lines
+MOVED f1902_r10uvm35repro_t47c_dut.sv/def 2 lines
+MOVED f1902_r10uvm35repro_t47c_dut.sv/elab 2 lines
+/tmp/v98_bound.sh: line 20: 4040019 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4040069 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4049412 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4049479 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4059820 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4059900 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED f2382_r10uvm97repro_g97_a1_selftd.sv/def 8 lines
+MOVED f2382_r10uvm97repro_g97_a1_selftd.sv/elab 8 lines
+MOVED f2387_r10uvm98repro_g98_a1_inherit.sv/def 6 lines
+MOVED f2387_r10uvm98repro_g98_a1_inherit.sv/elab 11 lines
+MOVED f2389_r10uvm98repro_g98_a3_homes.sv/def 14 lines
+MOVED f2389_r10uvm98repro_g98_a3_homes.sv/elab 14 lines
+MOVED f2390_r10uvm98repro_g98_a4_order.sv/def 2 lines
+MOVED f2390_r10uvm98repro_g98_a4_order.sv/elab 2 lines
+MOVED f2391_r10uvm98repro_g98_a5_oob.sv/def 4 lines
+MOVED f2391_r10uvm98repro_g98_a5_oob.sv/elab 12 lines
+MOVED f2392_r10uvm98repro_g98_a6_sites.sv/def 15 lines
+MOVED f2392_r10uvm98repro_g98_a6_sites.sv/elab 17 lines
+MOVED f2463_r10v97repro_v97_c1_mixedgroup.sv/def 11 lines
+MOVED f2463_r10v97repro_v97_c1_mixedgroup.sv/elab 11 lines
+MOVED f2466_r10v97repro_v97_c4_specparams.sv/def 11 lines
+MOVED f2466_r10v97repro_v97_c4_specparams.sv/elab 11 lines
+MOVED f2470_r10v97repro_v97_c8_counts.sv/def 22 lines
+MOVED f2470_r10v97repro_v97_c8_counts.sv/elab 22 lines
+/tmp/v98_bound.sh: line 20: 4094314 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4094340 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4095399 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4095441 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4176959 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4177202 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4177613 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4177952 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4178337 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 4178576 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED d0628_r10sd10repro_vgrid10/def 10 lines
+MOVED d0628_r10sd10repro_vgrid10/elab 56 lines
+MOVED d0631_r10sd11repro_grid11/def 6 lines
+MOVED d0631_r10sd11repro_grid11/elab 14 lines
+MOVED d0638_r10sd11repro_vgrid10/def 10 lines
+MOVED d0638_r10sd11repro_vgrid10/elab 56 lines
+MOVED d0642_r10sd12repro_grid11/def 6 lines
+MOVED d0642_r10sd12repro_grid11/elab 14 lines
+MOVED d0650_r10sd12repro_vgrid10/def 10 lines
+MOVED d0650_r10sd12repro_vgrid10/elab 56 lines
+MOVED d0786_r10uvm34repro_t46a/def 2 lines
+MOVED d0786_r10uvm34repro_t46a/elab 2 lines
+MOVED d0787_r10uvm35repro_t47a/def 20 lines
+MOVED d0787_r10uvm35repro_t47a/elab 20 lines
+MOVED d0788_r10uvm35repro_t47b/def 2 lines
+MOVED d0788_r10uvm35repro_t47b/elab 2 lines
+MOVED d0789_r10uvm35repro_t47c/def 2 lines
+MOVED d0789_r10uvm35repro_t47c/elab 2 lines
+MOVED d0876_r10uvm75repro/def 18 lines
+MOVED d0876_r10uvm75repro/elab 12 lines
+MOVED d0877_r10uvm76repro/def 14 lines
+MOVED d0877_r10uvm76repro/elab 16 lines
+/tmp/v98_bound.sh: line 20: 238178 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 238290 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED d0889_r10uvm88repro/def 4 lines
+MOVED d0889_r10uvm88repro/elab 4 lines
+/tmp/v98_bound.sh: line 20: 243163 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 243261 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED d0901_r10uvm97repro/def 8 lines
+MOVED d0901_r10uvm97repro/elab 8 lines
+MOVED d0902_r10uvm98repro/def 41 lines
+MOVED d0902_r10uvm98repro/elab 56 lines
+/tmp/v98_bound.sh: line 20: 361510 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 361623 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 361840 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 361976 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 362198 Segmentation fault      "$PRI" $fl "$@" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v98_bound.sh: line 20: 362315 Segmentation fault      "$PAT" $fl "$@" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+FILES_LISTED=3081 FENCED_SKIPPED=0 FILES_PROCESSED=3081
+DIRS_LISTED=1397 DIRS_PROCESSED=1397
+RC_PAIRS_COMPARED=8956  RC_DIFF=0  ASYMMETRIC_OUTPUT=0
+MOVED=54 NO_OUTPUT_PAIRS=507
+PROCESSED-ASSERT-OK
+BOUNDFIXDONE
+== v98 VERIFIER — DIRECTORY-ARM three-way scores (every arm my boundary MOVED) ==
+golden(Surelog)=LHS; official uhdm-cmp per cell; census span-blind, Class_defn in the payload.
+
+r10sd10repro_vgrid10_def | pris rc=0 CMP_FAIL lines=17 | pat rc=0 CMP_FAIL lines=17
+  r10sd10repro_vgrid10_def   cells  115 OK   79 FIXED   0 BROKE   0 STILL   36 CHANGED-STILL   0
+r10sd10repro_vgrid10_elab | pris rc=0 CMP_FAIL lines=17 | pat rc=0 CMP_FAIL lines=17
+  r10sd10repro_vgrid10_elab  cells  117 OK   71 FIXED   0 BROKE   0 STILL   46 CHANGED-STILL   0
+r10sd11repro_grid11_def | pris rc=4 CMP_FAIL lines=92 | pat rc=4 CMP_FAIL lines=17
+  r10sd11repro_grid11_def    cells  120 OK   75 FIXED   2 BROKE   0 STILL   43 CHANGED-STILL   0
+r10sd11repro_grid11_elab | pris rc=4 CMP_FAIL lines=92 | pat rc=4 CMP_FAIL lines=17
+  r10sd11repro_grid11_elab   cells  124 OK   17 FIXED   0 BROKE   0 STILL  105 CHANGED-STILL   2
+r10sd11repro_vgrid10_def | pris rc=0 CMP_FAIL lines=17 | pat rc=0 CMP_FAIL lines=17
+  r10sd11repro_vgrid10_def   cells  115 OK   79 FIXED   0 BROKE   0 STILL   36 CHANGED-STILL   0
+r10sd11repro_vgrid10_elab | pris rc=0 CMP_FAIL lines=17 | pat rc=0 CMP_FAIL lines=17
+  r10sd11repro_vgrid10_elab  cells  117 OK   71 FIXED   0 BROKE   0 STILL   46 CHANGED-STILL   0
+r10sd12repro_grid11_def | pris rc=4 CMP_FAIL lines=92 | pat rc=4 CMP_FAIL lines=17
+  r10sd12repro_grid11_def    cells  120 OK   75 FIXED   2 BROKE   0 STILL   43 CHANGED-STILL   0
+r10sd12repro_grid11_elab | pris rc=4 CMP_FAIL lines=92 | pat rc=4 CMP_FAIL lines=17
+  r10sd12repro_grid11_elab   cells  124 OK   17 FIXED   0 BROKE   0 STILL  105 CHANGED-STILL   2
+r10sd12repro_vgrid10_def | pris rc=0 CMP_FAIL lines=17 | pat rc=0 CMP_FAIL lines=17
+  r10sd12repro_vgrid10_def   cells  115 OK   79 FIXED   0 BROKE   0 STILL   36 CHANGED-STILL   0
+r10sd12repro_vgrid10_elab | pris rc=0 CMP_FAIL lines=17 | pat rc=0 CMP_FAIL lines=17
+  r10sd12repro_vgrid10_elab  cells  117 OK   71 FIXED   0 BROKE   0 STILL   46 CHANGED-STILL   0
+r10uvm75repro_def | pris rc=0 CMP_FAIL lines=1480 | pat rc=0 CMP_FAIL lines=1480
+  r10uvm75repro_def          cells   28 OK   21 FIXED   0 BROKE   0 STILL    7 CHANGED-STILL   0
+r10uvm75repro_elab | pris rc=0 CMP_FAIL lines=2478 | pat rc=0 CMP_FAIL lines=2478
+  r10uvm75repro_elab         cells   39 OK   20 FIXED   0 BROKE   0 STILL   19 CHANGED-STILL   0
+r10uvm76repro_def | pris rc=0 CMP_FAIL lines=1752 | pat rc=0 CMP_FAIL lines=1752
+  r10uvm76repro_def          cells   30 OK   29 FIXED   0 BROKE   0 STILL    1 CHANGED-STILL   0
+r10uvm76repro_elab | pris rc=0 CMP_FAIL lines=2398 | pat rc=0 CMP_FAIL lines=2398
+  r10uvm76repro_elab         cells   32 OK   29 FIXED   0 BROKE   0 STILL    3 CHANGED-STILL   0
+r10uvm88repro_def | pris rc=0 CMP_FAIL lines=2516 | pat rc=0 CMP_FAIL lines=2516
+  r10uvm88repro_def          cells   28 OK   24 FIXED   0 BROKE   0 STILL    4 CHANGED-STILL   0
+r10uvm88repro_elab | pris rc=0 CMP_FAIL lines=2946 | pat rc=0 CMP_FAIL lines=2946
+  r10uvm88repro_elab         cells   28 OK   24 FIXED   0 BROKE   0 STILL    4 CHANGED-STILL   0
+r10uvm97repro_def | pris rc=0 CMP_FAIL lines=64 | pat rc=0 CMP_FAIL lines=64
+  r10uvm97repro_def          cells   47 OK   39 FIXED   2 BROKE   0 STILL    6 CHANGED-STILL   0
+r10uvm97repro_elab | pris rc=0 CMP_FAIL lines=64 | pat rc=0 CMP_FAIL lines=64
+  r10uvm97repro_elab         cells   50 OK   35 FIXED   2 BROKE   0 STILL   13 CHANGED-STILL   0
+
+== the ONE boundary cell where the VERIFIED binary moves and the shipped one does not ==
+d0889_r10uvm88repro (a DIRECTORY arm, 9 files) def+elab, 4 lines each:
+  the diff is a vpiTaskFunc LIST-ORDER flip of p3::base3::oob_base -- the documented
+  macro-buffer SourceLocation ordering COIN under slang's parallel parse.
+  PROOF: the PRISTINE binary alone, 5 runs on this arm: 8f67589c075e x4, 27b8cd3f9dc6 x1;
+         the VERIFIED binary, 5 runs: 8f67589c075e x2, 27b8cd3f9dc6 x3.
+  ORDER-BLIND diff pris vs verified: 0 lines in BOTH views.  NOT a mover.

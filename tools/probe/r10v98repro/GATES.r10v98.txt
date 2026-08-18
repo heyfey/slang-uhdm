@@ -1,0 +1,117 @@
+== gates, VERIFIED binary (fix.bin) and the reproduction of the shipped numbers ==
+
+-- binaries (built by the verifier from a fresh worktree at b924c9e)
+b1b9d074025933d9687f4f077f8bfa05  /tmp/v98_bin/fix.bin
+7cd93275a5d3314647139ffc911d1f6c  /tmp/v98_bin/pat.bin
+3546f230b2c6b009b563c45026e18d49  /tmp/v98_bin/pris.bin
+
+-- goldens 23/0 both, 0/23 for /bin/false
+pris PASS=23 FAIL=0
+pat  PASS=23 FAIL=0
+fix  PASS=23 FAIL=0
+/bin/false PASS=0 FAIL=23
+
+-- sweeps: status histograms (pris / pat / fix), both corpora, both modes
+pris u2r_tf   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+pris u2r_def  {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+pris sl       default/CMP_EQUAL=470 default/CMP_NOTEQUAL=11 default/DEFERRED=5 default/SLANG_REJECT=283 default/SURELOG_FAIL=25 testflags/CMP_EQUAL=466 testflags/CMP_NOTEQUAL=9 testflags/DEFERRED=5 testflags/NO_DATABASE=3 testflags/NO_UHDM=1 testflags/SLANG_REJECT=284 testflags/SURELOG_FAIL=23 testflags/TIMEOUT=1 testflags/UNTRANSLATABLE=2
+pat  u2r_tf   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+pat  u2r_def  {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+pat  sl       default/CMP_EQUAL=470 default/CMP_NOTEQUAL=11 default/DEFERRED=5 default/SLANG_REJECT=283 default/SURELOG_FAIL=25 testflags/CMP_EQUAL=466 testflags/CMP_NOTEQUAL=9 testflags/DEFERRED=5 testflags/NO_DATABASE=3 testflags/NO_UHDM=1 testflags/SLANG_REJECT=284 testflags/SURELOG_FAIL=23 testflags/TIMEOUT=1 testflags/UNTRANSLATABLE=2
+fix  u2r_tf   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+fix  u2r_def  {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+fix  sl       default/CMP_EQUAL=470 default/CMP_NOTEQUAL=11 default/DEFERRED=5 default/SLANG_REJECT=283 default/SURELOG_FAIL=25 testflags/CMP_EQUAL=466 testflags/CMP_NOTEQUAL=9 testflags/DEFERRED=5 testflags/NO_DATABASE=3 testflags/NO_UHDM=1 testflags/SLANG_REJECT=284 testflags/SURELOG_FAIL=23 testflags/TIMEOUT=1 testflags/UNTRANSLATABLE=2
+
+-- ct8rows (WHOLE ROW, status AND dump)
+results/gate_uhdm2rtlil.csv /tmp/v98_wd_fix/u2r_tf.csv         PASS: every row byte-identical to the committed baseline
+/tmp/v98_wd_pris/u2r_def.csv /tmp/v98_wd_fix/u2r_def.csv       PASS: every row byte-identical to the committed baseline
+results/golden_surelog.csv /tmp/v98_wd_fix/sl.csv              PASS: every row byte-identical to the committed baseline
+/tmp/v98_wd_pat/sl.csv /tmp/v98_wd_fix/sl.csv                  PASS: every row byte-identical to the committed baseline
+/tmp/v98_wd_pris/sl.csv /tmp/v98_wd_fix/sl.csv                 PASS: every row byte-identical to the committed baseline
+
+NO ROW CONVERTED: results/*.csv were READ ONLY, nothing promoted.
+
+-- byteverify SELFCHECK=1
+fix vs pris  u2r : MOVERS: 0 / 1358 SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged 
+fix vs pris  sl  : MOVERS: 9 / 956 SELFCHECK (every file vs one fixed file): 955 / 956 flagged 
+fix vs pat   sl  : MOVERS: 0 / 956 SELFCHECK (every file vs one fixed file): 955 / 956 flagged 
+fix vs pat   u2r : MOVERS: 0 / 1358 SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged 
+
+the NINE movers (fix vs pris), each also byte-identical to the shipped patch's:
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=47bf4497b2b6 pristine=a57b46782364
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=bb57a00be7d5 pristine=c817649e05bc
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=6eb30e613b9d pristine=b76fde2bd8f6
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=9cd2ec668a82 pristine=d4d6f6ddd226
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=72dbb5cf0271 pristine=e43444f5cb37
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=47bf4497b2b6 pristine=a57b46782364
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=bb57a00be7d5 pristine=c817649e05bc
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=3ce7204d58dd pristine=da2954c062bf
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=7a0d0018e51d pristine=298abdbe07a4
+
+-- heads (rowheads.sh, cmp lines DEPTH / heads)
+PRISTINE:
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default      99202      1 cmp rc=255
+SeqDriver      testflags    99202      1 cmp rc=255
+SimpleUVM      default      99106      1 cmp rc=255
+SimpleUVM      testflags    99106      1 cmp rc=255
+Scoreboard     default      99106      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default      99202      1 cmp rc=255
+MiniAmiq       testflags    99202      1 cmp rc=255
+BuildUVMPkg    default         52      1 cmp rc=255
+BuildUVMPkg    testflags       52      1 cmp rc=255
+Earlgrey_0_1   default         46      1 cmp rc=255
+Earlgrey_0_1   testflags       46      1 cmp rc=255
+Rggen          default         64      1 cmp rc=255
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+VERIFIED (fix):
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default        108      1 cmp rc=255
+SimpleUVM      testflags      108      1 cmp rc=255
+Scoreboard     default        108      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         50      1 cmp rc=255
+MiniAmiq       testflags       50      1 cmp rc=255
+BuildUVMPkg    default         52      1 cmp rc=255
+BuildUVMPkg    testflags       52      1 cmp rc=255
+Earlgrey_0_1   default         46      1 cmp rc=255
+Earlgrey_0_1   testflags       46      1 cmp rc=255
+Rggen          default         64      1 cmp rc=255
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+-- canary battery on the VERIFIED binary
+canaries sl : ---- canary rows: ok=56 changed=0 absent=0 unknown-names=8
+canaries u2r: ---- canary rows: ok=9 changed=0 absent=0 unknown-names=27
+ctcan2 sl   : PASS: every supplementary canary row is byte-identical to the baseline.
+ctcan2 u2r  : PASS: every supplementary canary row is byte-identical to the baseline.
+canaudit    : ---- audited=33  UNCOVERED=0  FENCE-BREACH=0 PASS: every brief-protected name and family is carried by a script that RUNS here. 
+
+NAME                 MODE      PRISTINE       PATCHED        VERDICT
+InterfaceModPort     default   59a365f3ce2c   59a365f3ce2c   SAME
+InterfaceModPort     testflags 59a365f3ce2c   59a365f3ce2c   SAME
+BlackParrotComplex   default   e3e354129d5a   e3e354129d5a   SAME
+BlackParrotComplex   testflags 73a10e8217e5   73a10e8217e5   SAME
+YosysOldOr           default   d68e0796d62c   d68e0796d62c   SAME
+YosysOldOr           testflags d68e0796d62c   d68e0796d62c   SAME
+SVSwitch             default   4842211c4030   4842211c4030   SAME
+SVSwitch             testflags 4842211c4030   4842211c4030   SAME
+YosysVerx            default   6ccda350c24a   6ccda350c24a   SAME
+YosysVerx            testflags 6ccda350c24a   6ccda350c24a   SAME
+---- pins SAME=10 MOVED=0 UNKNOWN-NAME=0
+
+-- determinism: the VERIFIED binary run 3x on one arm
+f1235458777ae3844ca7cbce38121c5d
+f1235458777ae3844ca7cbce38121c5d
+f1235458777ae3844ca7cbce38121c5d
+
+-- the a-priori PREDICTOR (pred98.cpp, rebuilt by the verifier, read from OUR
+   PRISTINE databases only) reproduces the pass's prediction exactly:
+   uhdm2rtlil: PREDICT 0 / 1358 databases can move
+   surelog   : PREDICT 9 / 956  -- default/{BuildUVMPkg,MiniAmiq,Scoreboard,SeqDriver,SimpleUVM}
+                                  testflags/{BuildUVMPkg,MiniAmiq,SeqDriver,SimpleUVM}
+   = EXACTLY the nine byteverify measured, zero unpredicted.

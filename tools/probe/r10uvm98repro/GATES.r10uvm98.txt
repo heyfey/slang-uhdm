@@ -1,0 +1,126 @@
+# r10uvm98 GATES — the full transcript.  LHS is ALWAYS golden.
+# pristine binary md5 3546f230b2c6b009b563c45026e18d49 (frozen chmod 555 at /tmp/r10uvm98_bin/pris.bin)
+# patched  binary md5 7cd93275a5d3314647139ffc911d1f6c (frozen chmod 555 at /tmp/r10uvm98_bin/pat.bin)
+
+==== (1) BUILD
+both binaries built -j 2, rc=0, md5s taken separately (above).
+
+==== (2) GOLDEN TESTS (SLANG_UHDM exported explicitly to EACH binary)
+pristine  PASS=23 FAIL=0
+patched   PASS=23 FAIL=0
+/bin/false PASS=0 FAIL=23   (negative control)
+
+==== (3) uhdm2rtlil, both modes, both binaries
+pristine tf 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+pristine df 679 / 50 / 2 ; patched tf 679 / 50 / 2 ; patched df 679 / 50 / 2
+cmds.txt audit: 1458 lines name /tmp/r10uvm98_bin/pris.bin, 1458 name pat.bin, nothing else.
+--- ct8rows patched-tf vs the COMMITTED baseline results/gate_uhdm2rtlil.csv
+baseline: 732 lines = 731 ROWS (the header is not a row)
+fresh   : 732 lines = 731 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  testflags  base:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  testflags  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  testflags  base:      52      183 differ     496 match 
+  testflags  fresh:      52      183 differ     496 match 
+PASS: every row byte-identical to the committed baseline
+--- ct8rows patched-tf vs MY OWN pristine sweep
+  testflags  base:      52      183 differ     496 match 
+  testflags  fresh:      52      183 differ     496 match 
+PASS: every row byte-identical to the committed baseline
+--- ct8rows patched-default vs MY OWN pristine sweep
+  default  base:      52      187 differ     492 match 
+  default  fresh:      52      187 differ     492 match 
+PASS: every row byte-identical to the committed baseline
+
+==== (4) surelog --mode both, both binaries
+--- ct8rows patched vs the COMMITTED baseline results/golden_surelog.csv
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     470 CMP_EQUAL      11 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     470 CMP_EQUAL      11 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      244 differ     226 match 
+  default  fresh:     324      244 differ     226 match 
+  testflags  base:     328      300 differ     166 match 
+  testflags  fresh:     328      300 differ     166 match 
+PASS: every row byte-identical to the committed baseline
+--- ct8rows patched vs MY OWN pristine sweep
+  testflags  base:     328      300 differ     166 match 
+  testflags  fresh:     328      300 differ     166 match 
+PASS: every row byte-identical to the committed baseline
+NO ROW CONVERTED.  results/*.csv were READ ONLY; nothing was promoted.
+
+==== (5) byteverify SELFCHECK=1
+--- uhdm2rtlil
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+--- surelog
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=47bf4497b2b6 pristine=a57b46782364
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=bb57a00be7d5 pristine=c817649e05bc
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=df3a4cacdb7d pristine=b76fde2bd8f6
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=9cd2ec668a82 pristine=d4d6f6ddd226
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=72dbb5cf0271 pristine=e43444f5cb37
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=47bf4497b2b6 pristine=a57b46782364
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=bb57a00be7d5 pristine=c817649e05bc
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=3ce7204d58dd pristine=da2954c062bf
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=7a0d0018e51d pristine=298abdbe07a4
+MOVERS: 9 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+==== (5b) EVERY MOVER ATTRIBUTED — whole-dump, path-normalised, id-stripped
+default/BuildUVMPkg-bf853d43/slang.uhdm  ORDERED=20  ORDER-BLIND=20
+default/MiniAmiq-544c7f61/slang.uhdm  ORDERED=22  ORDER-BLIND=22
+default/Scoreboard-59431470/slang.uhdm  ORDERED=114  ORDER-BLIND=22
+default/SeqDriver-32af76aa/slang.uhdm  ORDERED=62  ORDER-BLIND=22
+default/SimpleUVM-1dc93a62/slang.uhdm  ORDERED=22  ORDER-BLIND=22
+testflags/BuildUVMPkg-bf853d43/slang.uhdm  ORDERED=20  ORDER-BLIND=20
+testflags/MiniAmiq-544c7f61/slang.uhdm  ORDERED=22  ORDER-BLIND=22
+testflags/SeqDriver-32af76aa/slang.uhdm  ORDERED=62  ORDER-BLIND=22
+testflags/SimpleUVM-1dc93a62/slang.uhdm  ORDERED=22  ORDER-BLIND=22
+Scoreboard/default's ORDERED count is the KNOWN ~50/50 COIN; its ORDER-BLIND
+count is the law's share, 22, the same as every other mover.
+
+==== (6) CANARIES / ctcan2 / canaudit / PINS
+---- canary rows: ok=56 changed=0 absent=0 unknown-names=8
+---- canary rows: ok=9 changed=0 absent=0 unknown-names=27
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=1 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=33  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+NAME                 MODE      PRISTINE       PATCHED        VERDICT
+InterfaceModPort     default   59a365f3ce2c   59a365f3ce2c   SAME
+InterfaceModPort     testflags 59a365f3ce2c   59a365f3ce2c   SAME
+BlackParrotComplex   default   e3e354129d5a   e3e354129d5a   SAME
+BlackParrotComplex   testflags 73a10e8217e5   73a10e8217e5   SAME
+YosysOldOr           default   d68e0796d62c   d68e0796d62c   SAME
+YosysOldOr           testflags d68e0796d62c   d68e0796d62c   SAME
+SVSwitch             default   4842211c4030   4842211c4030   SAME
+SVSwitch             testflags 4842211c4030   4842211c4030   SAME
+YosysVerx            default   6ccda350c24a   6ccda350c24a   SAME
+YosysVerx            testflags 6ccda350c24a   6ccda350c24a   SAME
+---- pins SAME=10 MOVED=0 UNKNOWN-NAME=0
+
+==== (7) HEADS (rowheads.sh), pristine -> patched
+SeqDriver   default/testflags   99202 -> 50    1 head
+SimpleUVM   default/testflags   99106 -> 108   1 head
+MiniAmiq    default/testflags   99202 -> 50    1 head
+Scoreboard  default             99106 -> 108   1 head   (testflags SKIP-NOFILE, SLANG_REJECT)
+BuildUVMPkg default/testflags      52 -> 52    1 head   UNCHANGED
+Earlgrey_0_1 default/testflags     46 -> 46    1 head   UNCHANGED
+Rggen       default                64 -> 64    1 head   UNCHANGED  (testflags SKIP-NOFILE)
+
+==== (8) DETERMINISM — the winner table walks GenericClassDefSymbol::specializations(),
+an UNORDERED map, so the patched binary was run three times on SeqDriver:
+7a73ac1e62779043db5f0023fbaa93f2  x3, byte-identical.

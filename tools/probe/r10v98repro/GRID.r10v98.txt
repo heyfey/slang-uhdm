@@ -1,0 +1,1587 @@
+v98_c10_dut.sv_def | pris rc=4 FAIL heads=1 lines=17 | pat rc=4 FAIL heads=1 lines=17
+  v98_c10_dut.sv_def         cells    6 OK    3 FIXED   0 BROKE   0 STILL    3 CHANGED-STILL   0
+    STILL         p10v::m10base98v::own::x
+        G=['int_typespec|pw10_t@8:59-8:65']
+        P=['int_typespec|pw10_t@8:29-8:32']
+        Q=['int_typespec|pw10_t@8:29-8:32']
+    STILL         p10v::z10der98v::hot::x
+        G=['byte_typespec|pw10_t@9:57-9:63']
+        P=['int_typespec|pw10_t@8:29-8:32']
+        Q=['int_typespec|pw10_t@8:29-8:32']
+    STILL         pw10_t
+        G=['byte_typespec|pw10_t@3:9-3:13', 'int_typespec|pw10_t@8:29-8:32']
+        P=[]
+        Q=[]
+  v98_c10_dut.sv_def/NOSPAN  cells    6 OK    4 FIXED   0 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         p10v::z10der98v::hot::x
+        G=['byte_typespec|pw10_t']
+        P=['int_typespec|pw10_t']
+        Q=['int_typespec|pw10_t']
+    STILL         pw10_t
+        G=['byte_typespec|pw10_t', 'int_typespec|pw10_t']
+        P=[]
+        Q=[]
+v98_c10_dut.sv_elab | pris rc=4 FAIL heads=1 lines=17 | pat rc=4 FAIL heads=1 lines=17
+  v98_c10_dut.sv_elab        cells    6 OK    3 FIXED   0 BROKE   0 STILL    3 CHANGED-STILL   0
+    STILL         p10v::m10base98v::own::x
+        G=['int_typespec|pw10_t@8:59-8:65']
+        P=['int_typespec|pw10_t@8:29-8:32']
+        Q=['int_typespec|pw10_t@8:29-8:32']
+    STILL         p10v::z10der98v::hot::x
+        G=['byte_typespec|pw10_t@9:57-9:63']
+        P=['int_typespec|pw10_t@8:29-8:32']
+        Q=['int_typespec|pw10_t@8:29-8:32']
+    STILL         pw10_t
+        G=['byte_typespec|pw10_t@3:9-3:13', 'int_typespec|pw10_t@8:29-8:32']
+        P=[]
+        Q=[]
+  v98_c10_dut.sv_elab/NOSPAN cells    6 OK    4 FIXED   0 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         p10v::z10der98v::hot::x
+        G=['byte_typespec|pw10_t']
+        P=['int_typespec|pw10_t']
+        Q=['int_typespec|pw10_t']
+    STILL         pw10_t
+        G=['byte_typespec|pw10_t', 'int_typespec|pw10_t']
+        P=[]
+        Q=[]
+v98_c11_dut.sv_def | pris rc=0 FAIL heads=1 lines=123 | pat rc=0 FAIL heads=1 lines=123
+  v98_c11_dut.sv_def         cells    6 OK    4 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p11v::z11der98v::hot::x
+        G=['class_typespec|ch11_t@8:13-8:23|defn=p11v::payload11v']
+        P=['class_typespec|ch11_t@11:13-11:21|defn=p11v::other11v']
+        Q=['class_typespec|ch11_t@8:13-8:23|defn=p11v::payload11v']
+    STILL         p11v::z11der98v::ret
+        G=['class_typespec|ch11_t@8:13-8:23|defn=p11v::payload11v']
+        P=[]
+        Q=[]
+  v98_c11_dut.sv_def/NOSPAN  cells    6 OK    4 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p11v::z11der98v::hot::x
+        G=['class_typespec|ch11_t|defn=p11v::payload11v']
+        P=['class_typespec|ch11_t|defn=p11v::other11v']
+        Q=['class_typespec|ch11_t|defn=p11v::payload11v']
+    STILL         p11v::z11der98v::ret
+        G=['class_typespec|ch11_t|defn=p11v::payload11v']
+        P=[]
+        Q=[]
+v98_c11_dut.sv_elab | pris rc=0 FAIL heads=1 lines=123 | pat rc=0 FAIL heads=1 lines=123
+  v98_c11_dut.sv_elab        cells    6 OK    4 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p11v::z11der98v::hot::x
+        G=['class_typespec|ch11_t@8:13-8:23|defn=p11v::payload11v']
+        P=['class_typespec|ch11_t@11:13-11:21|defn=p11v::other11v']
+        Q=['class_typespec|ch11_t@8:13-8:23|defn=p11v::payload11v']
+    STILL         p11v::z11der98v::ret
+        G=['class_typespec|ch11_t@8:13-8:23|defn=p11v::payload11v']
+        P=[]
+        Q=[]
+  v98_c11_dut.sv_elab/NOSPAN cells    6 OK    4 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p11v::z11der98v::hot::x
+        G=['class_typespec|ch11_t|defn=p11v::payload11v']
+        P=['class_typespec|ch11_t|defn=p11v::other11v']
+        Q=['class_typespec|ch11_t|defn=p11v::payload11v']
+    STILL         p11v::z11der98v::ret
+        G=['class_typespec|ch11_t|defn=p11v::payload11v']
+        P=[]
+        Q=[]
+v98_c12_dut.sv_def | pris rc=0 FAIL heads=1 lines=24 | pat rc=0 FAIL heads=1 lines=24
+  v98_c12_dut.sv_def         cells    7 OK    5 FIXED   2 BROKE   0 STILL    0 CHANGED-STILL   0
+    FIXED         p12v::fam1der98v::h1::x
+        G=['int_typespec|cy12a_t@5:13-5:16']
+        P=['bit_typespec|cy12a_t@8:30-8:33']
+        Q=['int_typespec|cy12a_t@5:13-5:16']
+    FIXED         p12v::fam2der98v::h2::x
+        G=['int_typespec|cy12b_t@6:13-6:16']
+        P=['bit_typespec|cy12b_t@9:30-9:33']
+        Q=['int_typespec|cy12b_t@6:13-6:16']
+  v98_c12_dut.sv_def/NOSPAN  cells    7 OK    5 FIXED   2 BROKE   0 STILL    0 CHANGED-STILL   0
+    FIXED         p12v::fam1der98v::h1::x
+        G=['int_typespec|cy12a_t']
+        P=['bit_typespec|cy12a_t']
+        Q=['int_typespec|cy12a_t']
+    FIXED         p12v::fam2der98v::h2::x
+        G=['int_typespec|cy12b_t']
+        P=['bit_typespec|cy12b_t']
+        Q=['int_typespec|cy12b_t']
+v98_c12_dut.sv_elab | pris rc=0 FAIL heads=1 lines=24 | pat rc=0 FAIL heads=1 lines=24
+  v98_c12_dut.sv_elab        cells    7 OK    5 FIXED   2 BROKE   0 STILL    0 CHANGED-STILL   0
+    FIXED         p12v::fam1der98v::h1::x
+        G=['int_typespec|cy12a_t@5:13-5:16']
+        P=['bit_typespec|cy12a_t@8:30-8:33']
+        Q=['int_typespec|cy12a_t@5:13-5:16']
+    FIXED         p12v::fam2der98v::h2::x
+        G=['int_typespec|cy12b_t@6:13-6:16']
+        P=['bit_typespec|cy12b_t@9:30-9:33']
+        Q=['int_typespec|cy12b_t@6:13-6:16']
+  v98_c12_dut.sv_elab/NOSPAN cells    7 OK    5 FIXED   2 BROKE   0 STILL    0 CHANGED-STILL   0
+    FIXED         p12v::fam1der98v::h1::x
+        G=['int_typespec|cy12a_t']
+        P=['bit_typespec|cy12a_t']
+        Q=['int_typespec|cy12a_t']
+    FIXED         p12v::fam2der98v::h2::x
+        G=['int_typespec|cy12b_t']
+        P=['bit_typespec|cy12b_t']
+        Q=['int_typespec|cy12b_t']
+v98_c13_dut.sv_def | pris rc=0 FAIL heads=1 lines=193 | pat rc=0 FAIL heads=1 lines=193
+  v98_c13_dut.sv_def         cells   20 OK    7 FIXED   8 BROKE   0 STILL    4 CHANGED-STILL   1
+    STILL         p13v::m13base98v::own::x
+        G=['int_typespec|rs13_t@13:23-13:29']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['int_typespec|rs13_t@10:13-10:16']
+    STILL         p13v::m13base98v::s_base::rs13_t
+        G=['int_typespec|rs13_t@10:13-10:16']
+        P=[]
+        Q=[]
+    FIXED         p13v::z13der98v::f_cast::t
+        G=['bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    FIXED         p13v::z13der98v::f_dflt::x
+        G=['bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    FIXED         p13v::z13der98v::f_formal::x
+        G=['bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    STILL         p13v::z13der98v::f_hret
+        G=['class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v']
+        P=[]
+        Q=[]
+    FIXED         p13v::z13der98v::f_loc::l
+        G=['bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    FIXED         p13v::z13der98v::f_new::h
+        G=['class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v']
+        P=['class_typespec|ch13_t@11:13-11:21|defn=p13v::other13v']
+        Q=['class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v']
+    FIXED         p13v::z13der98v::f_out::x
+        G=['bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    FIXED         p13v::z13der98v::f_ref::x
+        G=['bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    FIXED         p13v::z13der98v::f_ret
+        G=['bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    CHANGED-STILL p13v::z14par98v::T
+        G=[]
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    STILL         rs13_t
+        G=['int_typespec|rs13_t@10:13-10:16']
+        P=[]
+        Q=[]
+  v98_c13_dut.sv_def/NOSPAN  cells   20 OK    8 FIXED   8 BROKE   0 STILL    3 CHANGED-STILL   1
+    STILL         p13v::m13base98v::s_base::rs13_t
+        G=['int_typespec|rs13_t']
+        P=[]
+        Q=[]
+    FIXED         p13v::z13der98v::f_cast::t
+        G=['bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    FIXED         p13v::z13der98v::f_dflt::x
+        G=['bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    FIXED         p13v::z13der98v::f_formal::x
+        G=['bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    STILL         p13v::z13der98v::f_hret
+        G=['class_typespec|ch13_t|defn=p13v::payload13v']
+        P=[]
+        Q=[]
+    FIXED         p13v::z13der98v::f_loc::l
+        G=['bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    FIXED         p13v::z13der98v::f_new::h
+        G=['class_typespec|ch13_t|defn=p13v::payload13v']
+        P=['class_typespec|ch13_t|defn=p13v::other13v']
+        Q=['class_typespec|ch13_t|defn=p13v::payload13v']
+    FIXED         p13v::z13der98v::f_out::x
+        G=['bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    FIXED         p13v::z13der98v::f_ref::x
+        G=['bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    FIXED         p13v::z13der98v::f_ret
+        G=['bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    CHANGED-STILL p13v::z14par98v::T
+        G=[]
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    STILL         rs13_t
+        G=['int_typespec|rs13_t']
+        P=[]
+        Q=[]
+v98_c13_dut.sv_elab | pris rc=0 FAIL heads=1 lines=193 | pat rc=0 FAIL heads=1 lines=193
+  v98_c13_dut.sv_elab        cells   20 OK    6 FIXED   6 BROKE   0 STILL    5 CHANGED-STILL   3
+    STILL         p13v::m13base98v::own::x
+        G=['int_typespec|rs13_t@13:23-13:29']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['int_typespec|rs13_t@10:13-10:16']
+    STILL         p13v::m13base98v::s_base
+        G=['int_typespec|rs13_t@10:13-10:16', 'int_typespec|rs13_t@10:13-10:16']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['int_typespec|rs13_t@10:13-10:16']
+    STILL         p13v::m13base98v::s_base::rs13_t
+        G=['int_typespec|rs13_t@10:13-10:16']
+        P=[]
+        Q=[]
+    CHANGED-STILL p13v::z13der98v::f_cast::t
+        G=['bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16', 'int_typespec|rs13_t@10:13-10:16', 'int_typespec|rs13_t@10:13-10:16', 'int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23']
+    FIXED         p13v::z13der98v::f_dflt::x
+        G=['bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    FIXED         p13v::z13der98v::f_formal::x
+        G=['bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    STILL         p13v::z13der98v::f_hret
+        G=['class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v']
+        P=[]
+        Q=[]
+    CHANGED-STILL p13v::z13der98v::f_loc::l
+        G=['bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16', 'int_typespec|rs13_t@10:13-10:16', 'int_typespec|rs13_t@10:13-10:16', 'int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23', 'bit_typespec|rs13_t@6:13-6:23']
+    FIXED         p13v::z13der98v::f_new::h
+        G=['class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v', 'class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v', 'class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v', 'class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v', 'class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v']
+        P=['class_typespec|ch13_t@11:13-11:21|defn=p13v::other13v', 'class_typespec|ch13_t@11:13-11:21|defn=p13v::other13v', 'class_typespec|ch13_t@11:13-11:21|defn=p13v::other13v', 'class_typespec|ch13_t@11:13-11:21|defn=p13v::other13v', 'class_typespec|ch13_t@11:13-11:21|defn=p13v::other13v']
+        Q=['class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v', 'class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v', 'class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v', 'class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v', 'class_typespec|ch13_t@7:13-7:23|defn=p13v::payload13v']
+    FIXED         p13v::z13der98v::f_out::x
+        G=['bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    FIXED         p13v::z13der98v::f_ref::x
+        G=['bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    FIXED         p13v::z13der98v::f_ret
+        G=['bit_typespec|rs13_t@6:13-6:23']
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    CHANGED-STILL p13v::z14par98v::T
+        G=[]
+        P=['int_typespec|rs13_t@10:13-10:16']
+        Q=['bit_typespec|rs13_t@6:13-6:23']
+    STILL         rs13_t
+        G=['int_typespec|rs13_t@10:13-10:16']
+        P=[]
+        Q=[]
+  v98_c13_dut.sv_elab/NOSPAN cells   20 OK    7 FIXED   6 BROKE   0 STILL    4 CHANGED-STILL   3
+    STILL         p13v::m13base98v::s_base
+        G=['int_typespec|rs13_t', 'int_typespec|rs13_t']
+        P=['int_typespec|rs13_t']
+        Q=['int_typespec|rs13_t']
+    STILL         p13v::m13base98v::s_base::rs13_t
+        G=['int_typespec|rs13_t']
+        P=[]
+        Q=[]
+    CHANGED-STILL p13v::z13der98v::f_cast::t
+        G=['bit_typespec|rs13_t', 'bit_typespec|rs13_t', 'bit_typespec|rs13_t', 'bit_typespec|rs13_t', 'bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t', 'int_typespec|rs13_t', 'int_typespec|rs13_t', 'int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t', 'bit_typespec|rs13_t', 'bit_typespec|rs13_t', 'bit_typespec|rs13_t']
+    FIXED         p13v::z13der98v::f_dflt::x
+        G=['bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    FIXED         p13v::z13der98v::f_formal::x
+        G=['bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    STILL         p13v::z13der98v::f_hret
+        G=['class_typespec|ch13_t|defn=p13v::payload13v']
+        P=[]
+        Q=[]
+    CHANGED-STILL p13v::z13der98v::f_loc::l
+        G=['bit_typespec|rs13_t', 'bit_typespec|rs13_t', 'bit_typespec|rs13_t', 'bit_typespec|rs13_t', 'bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t', 'int_typespec|rs13_t', 'int_typespec|rs13_t', 'int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t', 'bit_typespec|rs13_t', 'bit_typespec|rs13_t', 'bit_typespec|rs13_t']
+    FIXED         p13v::z13der98v::f_new::h
+        G=['class_typespec|ch13_t|defn=p13v::payload13v', 'class_typespec|ch13_t|defn=p13v::payload13v', 'class_typespec|ch13_t|defn=p13v::payload13v', 'class_typespec|ch13_t|defn=p13v::payload13v', 'class_typespec|ch13_t|defn=p13v::payload13v']
+        P=['class_typespec|ch13_t|defn=p13v::other13v', 'class_typespec|ch13_t|defn=p13v::other13v', 'class_typespec|ch13_t|defn=p13v::other13v', 'class_typespec|ch13_t|defn=p13v::other13v', 'class_typespec|ch13_t|defn=p13v::other13v']
+        Q=['class_typespec|ch13_t|defn=p13v::payload13v', 'class_typespec|ch13_t|defn=p13v::payload13v', 'class_typespec|ch13_t|defn=p13v::payload13v', 'class_typespec|ch13_t|defn=p13v::payload13v', 'class_typespec|ch13_t|defn=p13v::payload13v']
+    FIXED         p13v::z13der98v::f_out::x
+        G=['bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    FIXED         p13v::z13der98v::f_ref::x
+        G=['bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    FIXED         p13v::z13der98v::f_ret
+        G=['bit_typespec|rs13_t']
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    CHANGED-STILL p13v::z14par98v::T
+        G=[]
+        P=['int_typespec|rs13_t']
+        Q=['bit_typespec|rs13_t']
+    STILL         rs13_t
+        G=['int_typespec|rs13_t']
+        P=[]
+        Q=[]
+v98_c14_dut.sv_def | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c14_dut.sv_def         cells    9 OK    6 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         in14_t
+        G=['int_typespec|in14_t@4:29-4:32']
+        P=[]
+        Q=[]
+    STILL         p14v::m14base98v::own::x
+        G=['int_typespec|in14_t@4:59-4:65']
+        P=['int_typespec|in14_t@4:29-4:32']
+        Q=['int_typespec|in14_t@4:29-4:32']
+    FIXED         p14v::z14der98v::hot::x
+        G=['bit_typespec|in14_t@3:28-3:37']
+        P=['int_typespec|in14_t@4:29-4:32']
+        Q=['bit_typespec|in14_t@3:28-3:37']
+  v98_c14_dut.sv_def/NOSPAN  cells    9 OK    7 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         in14_t
+        G=['int_typespec|in14_t']
+        P=[]
+        Q=[]
+    FIXED         p14v::z14der98v::hot::x
+        G=['bit_typespec|in14_t']
+        P=['int_typespec|in14_t']
+        Q=['bit_typespec|in14_t']
+v98_c14_dut.sv_elab | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c14_dut.sv_elab        cells    9 OK    6 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         in14_t
+        G=['int_typespec|in14_t@4:29-4:32']
+        P=[]
+        Q=[]
+    STILL         p14v::m14base98v::own::x
+        G=['int_typespec|in14_t@4:59-4:65']
+        P=['int_typespec|in14_t@4:29-4:32']
+        Q=['int_typespec|in14_t@4:29-4:32']
+    FIXED         p14v::z14der98v::hot::x
+        G=['bit_typespec|in14_t@3:28-3:37']
+        P=['int_typespec|in14_t@4:29-4:32']
+        Q=['bit_typespec|in14_t@3:28-3:37']
+  v98_c14_dut.sv_elab/NOSPAN cells    9 OK    7 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         in14_t
+        G=['int_typespec|in14_t']
+        P=[]
+        Q=[]
+    FIXED         p14v::z14der98v::hot::x
+        G=['bit_typespec|in14_t']
+        P=['int_typespec|in14_t']
+        Q=['bit_typespec|in14_t']
+v98_c15_dut.sv_def | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c15_dut.sv_def         cells    8 OK    5 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         mike15v::Base15v::own::x
+        G=['int_typespec|mx15_t@12:57-12:63']
+        P=['int_typespec|mx15_t@12:27-12:30']
+        Q=['int_typespec|mx15_t@12:27-12:30']
+    FIXED         mike15v::Der15v::hot::x
+        G=['bit_typespec|mx15_t@4:27-4:36']
+        P=['int_typespec|mx15_t@12:27-12:30']
+        Q=['bit_typespec|mx15_t@4:27-4:36']
+    STILL         mx15_t
+        G=['int_typespec|mx15_t@12:27-12:30']
+        P=[]
+        Q=[]
+  v98_c15_dut.sv_def/NOSPAN  cells    8 OK    6 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         mike15v::Der15v::hot::x
+        G=['bit_typespec|mx15_t']
+        P=['int_typespec|mx15_t']
+        Q=['bit_typespec|mx15_t']
+    STILL         mx15_t
+        G=['int_typespec|mx15_t']
+        P=[]
+        Q=[]
+v98_c15_dut.sv_elab | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c15_dut.sv_elab        cells    8 OK    5 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         mike15v::Base15v::own::x
+        G=['int_typespec|mx15_t@12:57-12:63']
+        P=['int_typespec|mx15_t@12:27-12:30']
+        Q=['int_typespec|mx15_t@12:27-12:30']
+    FIXED         mike15v::Der15v::hot::x
+        G=['bit_typespec|mx15_t@4:27-4:36']
+        P=['int_typespec|mx15_t@12:27-12:30']
+        Q=['bit_typespec|mx15_t@4:27-4:36']
+    STILL         mx15_t
+        G=['int_typespec|mx15_t@12:27-12:30']
+        P=[]
+        Q=[]
+  v98_c15_dut.sv_elab/NOSPAN cells    8 OK    6 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         mike15v::Der15v::hot::x
+        G=['bit_typespec|mx15_t']
+        P=['int_typespec|mx15_t']
+        Q=['bit_typespec|mx15_t']
+    STILL         mx15_t
+        G=['int_typespec|mx15_t']
+        P=[]
+        Q=[]
+v98_c16_dut.v_def | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c16_dut.v_def          cells    6 OK    2 FIXED   0 BROKE   0 STILL    3 CHANGED-STILL   1
+    STILL         p16v::m16base98v::own::x
+        G=['int_typespec|vv16_t@4:59-4:65']
+        P=['int_typespec|vv16_t@4:29-4:32']
+        Q=['int_typespec|vv16_t@4:29-4:32']
+    CHANGED-STILL p16v::z16der98v::hot::x
+        G=['bit_typespec|vv16_t@3:28-3:31']
+        P=['int_typespec|vv16_t@4:29-4:32']
+        Q=['bit_typespec|vv16_t@3:28-3:37']
+    STILL         vv16_t
+        G=['int_typespec|vv16_t@4:29-4:32']
+        P=[]
+        Q=[]
+    STILL         work@top16v.z
+        G=['class_typespec|p16v::z16der98v@8:3-8:9|defn=p16v::z16der98v', 'class_typespec|p16v::z16der98v@8:3-8:9|defn=p16v::z16der98v', 'logic_net|work@top16v.z@8:19-8:20']
+        P=['class_typespec|p16v::z16der98v@8:3-8:9|defn=p16v::z16der98v', 'class_typespec|p16v::z16der98v@8:3-8:9|defn=p16v::z16der98v']
+        Q=['class_typespec|p16v::z16der98v@8:3-8:9|defn=p16v::z16der98v', 'class_typespec|p16v::z16der98v@8:3-8:9|defn=p16v::z16der98v']
+  v98_c16_dut.v_def/NOSPAN   cells    6 OK    3 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    FIXED         p16v::z16der98v::hot::x
+        G=['bit_typespec|vv16_t']
+        P=['int_typespec|vv16_t']
+        Q=['bit_typespec|vv16_t']
+    STILL         vv16_t
+        G=['int_typespec|vv16_t']
+        P=[]
+        Q=[]
+    STILL         work@top16v.z
+        G=['class_typespec|p16v::z16der98v|defn=p16v::z16der98v', 'class_typespec|p16v::z16der98v|defn=p16v::z16der98v', 'logic_net|work@top16v.z']
+        P=['class_typespec|p16v::z16der98v|defn=p16v::z16der98v', 'class_typespec|p16v::z16der98v|defn=p16v::z16der98v']
+        Q=['class_typespec|p16v::z16der98v|defn=p16v::z16der98v', 'class_typespec|p16v::z16der98v|defn=p16v::z16der98v']
+v98_c16_dut.v_elab | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c16_dut.v_elab         cells    6 OK    2 FIXED   0 BROKE   0 STILL    3 CHANGED-STILL   1
+    STILL         p16v::m16base98v::own::x
+        G=['int_typespec|vv16_t@4:59-4:65']
+        P=['int_typespec|vv16_t@4:29-4:32']
+        Q=['int_typespec|vv16_t@4:29-4:32']
+    CHANGED-STILL p16v::z16der98v::hot::x
+        G=['bit_typespec|vv16_t@3:28-3:31']
+        P=['int_typespec|vv16_t@4:29-4:32']
+        Q=['bit_typespec|vv16_t@3:28-3:37']
+    STILL         vv16_t
+        G=['int_typespec|vv16_t@4:29-4:32']
+        P=[]
+        Q=[]
+    STILL         work@top16v.z
+        G=['class_typespec|p16v::z16der98v@8:3-8:9|defn=p16v::z16der98v', 'class_typespec|p16v::z16der98v@8:3-8:9|defn=p16v::z16der98v', 'class_var|work@top16v.z@8:19-8:20', 'logic_net|work@top16v.z@8:19-8:20']
+        P=['class_typespec|p16v::z16der98v@8:3-8:9|defn=p16v::z16der98v', 'class_typespec|p16v::z16der98v@8:3-8:9|defn=p16v::z16der98v', 'class_var|work@top16v.z@8:19-8:20']
+        Q=['class_typespec|p16v::z16der98v@8:3-8:9|defn=p16v::z16der98v', 'class_typespec|p16v::z16der98v@8:3-8:9|defn=p16v::z16der98v', 'class_var|work@top16v.z@8:19-8:20']
+  v98_c16_dut.v_elab/NOSPAN  cells    6 OK    3 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    FIXED         p16v::z16der98v::hot::x
+        G=['bit_typespec|vv16_t']
+        P=['int_typespec|vv16_t']
+        Q=['bit_typespec|vv16_t']
+    STILL         vv16_t
+        G=['int_typespec|vv16_t']
+        P=[]
+        Q=[]
+    STILL         work@top16v.z
+        G=['class_typespec|p16v::z16der98v|defn=p16v::z16der98v', 'class_typespec|p16v::z16der98v|defn=p16v::z16der98v', 'class_var|work@top16v.z', 'logic_net|work@top16v.z']
+        P=['class_typespec|p16v::z16der98v|defn=p16v::z16der98v', 'class_typespec|p16v::z16der98v|defn=p16v::z16der98v', 'class_var|work@top16v.z']
+        Q=['class_typespec|p16v::z16der98v|defn=p16v::z16der98v', 'class_typespec|p16v::z16der98v|defn=p16v::z16der98v', 'class_var|work@top16v.z']
+v98_c17_dut.sv_def | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c17_dut.sv_def         cells    7 OK    3 FIXED   1 BROKE   0 STILL    3 CHANGED-STILL   0
+    STILL         nk17_t
+        G=['int_typespec|nk17_t@9:27-9:30']
+        P=[]
+        Q=[]
+    STILL         pv17v::zbase17v::own::x
+        G=['int_typespec|nk17_t@9:57-9:63']
+        P=['int_typespec|nk17_t@9:27-9:30']
+        Q=['int_typespec|nk17_t@9:27-9:30']
+    FIXED         pv17v::zder17v::hot::x
+        G=['bit_typespec|nk17_t@6:15-6:24']
+        P=['int_typespec|nk17_t@9:27-9:30']
+        Q=['bit_typespec|nk17_t@6:15-6:24']
+    STILL         work@top17v.b
+        G=['unsupported_typespec|pv17v::binner17v@14:3-14:21']
+        P=['class_typespec|pv17v::zouter17v::binner17v@14:3-14:21|defn=pv17v::zouter17v::binner17v', 'class_typespec|pv17v::zouter17v::binner17v@14:3-14:21|defn=pv17v::zouter17v::binner17v']
+        Q=['class_typespec|pv17v::zouter17v::binner17v@14:3-14:21|defn=pv17v::zouter17v::binner17v', 'class_typespec|pv17v::zouter17v::binner17v@14:3-14:21|defn=pv17v::zouter17v::binner17v']
+  v98_c17_dut.sv_def/NOSPAN  cells    7 OK    4 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         nk17_t
+        G=['int_typespec|nk17_t']
+        P=[]
+        Q=[]
+    FIXED         pv17v::zder17v::hot::x
+        G=['bit_typespec|nk17_t']
+        P=['int_typespec|nk17_t']
+        Q=['bit_typespec|nk17_t']
+    STILL         work@top17v.b
+        G=['unsupported_typespec|pv17v::binner17v']
+        P=['class_typespec|pv17v::zouter17v::binner17v|defn=pv17v::zouter17v::binner17v', 'class_typespec|pv17v::zouter17v::binner17v|defn=pv17v::zouter17v::binner17v']
+        Q=['class_typespec|pv17v::zouter17v::binner17v|defn=pv17v::zouter17v::binner17v', 'class_typespec|pv17v::zouter17v::binner17v|defn=pv17v::zouter17v::binner17v']
+v98_c17_dut.sv_elab | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c17_dut.sv_elab        cells    7 OK    3 FIXED   1 BROKE   0 STILL    3 CHANGED-STILL   0
+    STILL         nk17_t
+        G=['int_typespec|nk17_t@9:27-9:30']
+        P=[]
+        Q=[]
+    STILL         pv17v::zbase17v::own::x
+        G=['int_typespec|nk17_t@9:57-9:63']
+        P=['int_typespec|nk17_t@9:27-9:30']
+        Q=['int_typespec|nk17_t@9:27-9:30']
+    FIXED         pv17v::zder17v::hot::x
+        G=['bit_typespec|nk17_t@6:15-6:24']
+        P=['int_typespec|nk17_t@9:27-9:30']
+        Q=['bit_typespec|nk17_t@6:15-6:24']
+    STILL         work@top17v.b
+        G=['unsupported_typespec|pv17v::binner17v@14:3-14:21']
+        P=['class_typespec|pv17v::zouter17v::binner17v@14:3-14:21|defn=pv17v::zouter17v::binner17v', 'class_typespec|pv17v::zouter17v::binner17v@14:3-14:21|defn=pv17v::zouter17v::binner17v']
+        Q=['class_typespec|pv17v::zouter17v::binner17v@14:3-14:21|defn=pv17v::zouter17v::binner17v', 'class_typespec|pv17v::zouter17v::binner17v@14:3-14:21|defn=pv17v::zouter17v::binner17v']
+  v98_c17_dut.sv_elab/NOSPAN cells    7 OK    4 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         nk17_t
+        G=['int_typespec|nk17_t']
+        P=[]
+        Q=[]
+    FIXED         pv17v::zder17v::hot::x
+        G=['bit_typespec|nk17_t']
+        P=['int_typespec|nk17_t']
+        Q=['bit_typespec|nk17_t']
+    STILL         work@top17v.b
+        G=['unsupported_typespec|pv17v::binner17v']
+        P=['class_typespec|pv17v::zouter17v::binner17v|defn=pv17v::zouter17v::binner17v', 'class_typespec|pv17v::zouter17v::binner17v|defn=pv17v::zouter17v::binner17v']
+        Q=['class_typespec|pv17v::zouter17v::binner17v|defn=pv17v::zouter17v::binner17v', 'class_typespec|pv17v::zouter17v::binner17v|defn=pv17v::zouter17v::binner17v']
+v98_c18_dut.sv_def | pris rc=0 FAIL heads=1 lines=26 | pat rc=0 FAIL heads=1 lines=26
+  v98_c18_dut.sv_def         cells    5 OK    3 FIXED   0 BROKE   0 STILL    1 CHANGED-STILL   1
+    STILL         p18v::m18base98v::own::x
+        G=['class_typespec|cn18_t@6:59-6:65|defn=p18v::cn18_t']
+        P=['int_typespec|cn18_t@6:29-6:32']
+        Q=['int_typespec|cn18_t@6:29-6:32']
+    CHANGED-STILL p18v::z18der98v::hot::x
+        G=['class_typespec|cn18_t@7:57-7:63|defn=p18v::cn18_t']
+        P=['int_typespec|cn18_t@6:29-6:32']
+        Q=['bit_typespec|cn18_t@5:28-5:37']
+  v98_c18_dut.sv_def/NOSPAN  cells    5 OK    3 FIXED   0 BROKE   0 STILL    1 CHANGED-STILL   1
+    STILL         p18v::m18base98v::own::x
+        G=['class_typespec|cn18_t|defn=p18v::cn18_t']
+        P=['int_typespec|cn18_t']
+        Q=['int_typespec|cn18_t']
+    CHANGED-STILL p18v::z18der98v::hot::x
+        G=['class_typespec|cn18_t|defn=p18v::cn18_t']
+        P=['int_typespec|cn18_t']
+        Q=['bit_typespec|cn18_t']
+v98_c18_dut.sv_elab | pris rc=0 FAIL heads=1 lines=26 | pat rc=0 FAIL heads=1 lines=26
+  v98_c18_dut.sv_elab        cells    5 OK    3 FIXED   0 BROKE   0 STILL    1 CHANGED-STILL   1
+    STILL         p18v::m18base98v::own::x
+        G=['class_typespec|cn18_t@6:59-6:65|defn=p18v::cn18_t']
+        P=['int_typespec|cn18_t@6:29-6:32']
+        Q=['int_typespec|cn18_t@6:29-6:32']
+    CHANGED-STILL p18v::z18der98v::hot::x
+        G=['class_typespec|cn18_t@7:57-7:63|defn=p18v::cn18_t']
+        P=['int_typespec|cn18_t@6:29-6:32']
+        Q=['bit_typespec|cn18_t@5:28-5:37']
+  v98_c18_dut.sv_elab/NOSPAN cells    5 OK    3 FIXED   0 BROKE   0 STILL    1 CHANGED-STILL   1
+    STILL         p18v::m18base98v::own::x
+        G=['class_typespec|cn18_t|defn=p18v::cn18_t']
+        P=['int_typespec|cn18_t']
+        Q=['int_typespec|cn18_t']
+    CHANGED-STILL p18v::z18der98v::hot::x
+        G=['class_typespec|cn18_t|defn=p18v::cn18_t']
+        P=['int_typespec|cn18_t']
+        Q=['bit_typespec|cn18_t']
+v98_c19_dut.sv_def | pris rc=0 FAIL heads=1 lines=18 | pat rc=0 FAIL heads=1 lines=18
+  v98_c19_dut.sv_def         cells    9 OK    3 FIXED   1 BROKE   0 STILL    5 CHANGED-STILL   0
+    STILL         gk19_t
+        G=['int_typespec|gk19_t@7:29-7:32']
+        P=[]
+        Q=[]
+    STILL         p19v::m19base98v::own::x
+        G=['int_typespec|gk19_t@7:59-7:65']
+        P=['int_typespec|gk19_t@7:29-7:32']
+        Q=['int_typespec|gk19_t@7:29-7:32']
+    FIXED         p19v::z19der98v::hot::x
+        G=['bit_typespec|gk19_t@5:13-5:24']
+        P=['int_typespec|gk19_t@7:29-7:32']
+        Q=['bit_typespec|gk19_t@5:13-5:24']
+    STILL         work@top19v.s1
+        G=['class_typespec|a19win98v@12:3-12:12|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:3-12:12|defn=p19v::a19win98v']
+        P=['class_typespec|a19win98v@12:3-12:16|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:3-12:16|defn=p19v::a19win98v']
+        Q=['class_typespec|a19win98v@12:3-12:16|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:3-12:16|defn=p19v::a19win98v']
+    STILL         work@top19v.s2
+        G=['class_typespec|a19win98v@12:21-12:30|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:21-12:30|defn=p19v::a19win98v']
+        P=['class_typespec|a19win98v@12:21-12:34|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:21-12:34|defn=p19v::a19win98v']
+        Q=['class_typespec|a19win98v@12:21-12:34|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:21-12:34|defn=p19v::a19win98v']
+    STILL         work@top19v.s3
+        G=['class_typespec|a19win98v@12:39-12:48|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:39-12:48|defn=p19v::a19win98v']
+        P=['class_typespec|a19win98v@12:39-12:53|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:39-12:53|defn=p19v::a19win98v']
+        Q=['class_typespec|a19win98v@12:39-12:53|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:39-12:53|defn=p19v::a19win98v']
+  v98_c19_dut.sv_def/NOSPAN  cells    9 OK    7 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         gk19_t
+        G=['int_typespec|gk19_t']
+        P=[]
+        Q=[]
+    FIXED         p19v::z19der98v::hot::x
+        G=['bit_typespec|gk19_t']
+        P=['int_typespec|gk19_t']
+        Q=['bit_typespec|gk19_t']
+v98_c19_dut.sv_elab | pris rc=0 FAIL heads=1 lines=18 | pat rc=0 FAIL heads=1 lines=18
+  v98_c19_dut.sv_elab        cells    9 OK    3 FIXED   1 BROKE   0 STILL    5 CHANGED-STILL   0
+    STILL         gk19_t
+        G=['int_typespec|gk19_t@7:29-7:32']
+        P=[]
+        Q=[]
+    STILL         p19v::m19base98v::own::x
+        G=['int_typespec|gk19_t@7:59-7:65']
+        P=['int_typespec|gk19_t@7:29-7:32']
+        Q=['int_typespec|gk19_t@7:29-7:32']
+    FIXED         p19v::z19der98v::hot::x
+        G=['bit_typespec|gk19_t@5:13-5:24']
+        P=['int_typespec|gk19_t@7:29-7:32']
+        Q=['bit_typespec|gk19_t@5:13-5:24']
+    STILL         work@top19v.s1
+        G=['class_typespec|a19win98v@12:3-12:12|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:3-12:12|defn=p19v::a19win98v']
+        P=['class_typespec|a19win98v@12:3-12:16|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:3-12:16|defn=p19v::a19win98v']
+        Q=['class_typespec|a19win98v@12:3-12:16|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:3-12:16|defn=p19v::a19win98v']
+    STILL         work@top19v.s2
+        G=['class_typespec|a19win98v@12:21-12:30|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:21-12:30|defn=p19v::a19win98v']
+        P=['class_typespec|a19win98v@12:21-12:34|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:21-12:34|defn=p19v::a19win98v']
+        Q=['class_typespec|a19win98v@12:21-12:34|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:21-12:34|defn=p19v::a19win98v']
+    STILL         work@top19v.s3
+        G=['class_typespec|a19win98v@12:39-12:48|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:39-12:48|defn=p19v::a19win98v']
+        P=['class_typespec|a19win98v@12:39-12:53|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:39-12:53|defn=p19v::a19win98v']
+        Q=['class_typespec|a19win98v@12:39-12:53|defn=p19v::a19win98v', 'class_typespec|a19win98v@12:39-12:53|defn=p19v::a19win98v']
+  v98_c19_dut.sv_elab/NOSPAN cells    9 OK    7 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         gk19_t
+        G=['int_typespec|gk19_t']
+        P=[]
+        Q=[]
+    FIXED         p19v::z19der98v::hot::x
+        G=['bit_typespec|gk19_t']
+        P=['int_typespec|gk19_t']
+        Q=['bit_typespec|gk19_t']
+v98_c1_dut.sv_def | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c1_dut.sv_def          cells    9 OK    3 FIXED   0 BROKE   0 STILL    4 CHANGED-STILL   2
+    STILL         p98v::aaa98v::own_a::x
+        G=['int_typespec|rank_t@5:13-5:16']
+        P=['int_typespec|rank_t@6:13-6:19']
+        Q=['int_typespec|rank_t@6:13-6:19']
+    STILL         p98v::aaa98v::rank_t
+        G=['int_typespec|seed_t@5:13-5:16']
+        P=[]
+        Q=[]
+    STILL         p98v::bbb98v::own_b::x
+        G=['bit_typespec|rank_t@11:25-11:31']
+        P=['bit_typespec|rank_t@10:13-10:22']
+        Q=['bit_typespec|rank_t@10:13-10:22']
+    CHANGED-STILL p98v::ccc98v::hot_c::x
+        G=['int_typespec|rank_t@5:13-5:16']
+        P=['bit_typespec|rank_t@10:13-10:22']
+        Q=['int_typespec|rank_t@6:13-6:19']
+    CHANGED-STILL p98v::ccc98v::hot_l::loc
+        G=['int_typespec|rank_t@5:13-5:16']
+        P=['bit_typespec|rank_t@10:13-10:22']
+        Q=['int_typespec|rank_t@6:13-6:19']
+    STILL         rank_t
+        G=['bit_typespec|rank_t@10:13-10:22']
+        P=[]
+        Q=[]
+  v98_c1_dut.sv_def/NOSPAN   cells    9 OK    5 FIXED   2 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         p98v::aaa98v::rank_t
+        G=['int_typespec|seed_t']
+        P=[]
+        Q=[]
+    FIXED         p98v::ccc98v::hot_c::x
+        G=['int_typespec|rank_t']
+        P=['bit_typespec|rank_t']
+        Q=['int_typespec|rank_t']
+    FIXED         p98v::ccc98v::hot_l::loc
+        G=['int_typespec|rank_t']
+        P=['bit_typespec|rank_t']
+        Q=['int_typespec|rank_t']
+    STILL         rank_t
+        G=['bit_typespec|rank_t']
+        P=[]
+        Q=[]
+v98_c1_dut.sv_elab | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c1_dut.sv_elab         cells    9 OK    3 FIXED   0 BROKE   0 STILL    4 CHANGED-STILL   2
+    STILL         p98v::aaa98v::own_a::x
+        G=['int_typespec|rank_t@5:13-5:16']
+        P=['int_typespec|rank_t@6:13-6:19']
+        Q=['int_typespec|rank_t@6:13-6:19']
+    STILL         p98v::aaa98v::rank_t
+        G=['int_typespec|seed_t@5:13-5:16', 'int_typespec|seed_t@5:13-5:16']
+        P=[]
+        Q=[]
+    STILL         p98v::bbb98v::own_b::x
+        G=['bit_typespec|rank_t@11:25-11:31']
+        P=['bit_typespec|rank_t@10:13-10:22']
+        Q=['bit_typespec|rank_t@10:13-10:22']
+    CHANGED-STILL p98v::ccc98v::hot_c::x
+        G=['int_typespec|rank_t@5:13-5:16']
+        P=['bit_typespec|rank_t@10:13-10:22']
+        Q=['int_typespec|rank_t@6:13-6:19']
+    CHANGED-STILL p98v::ccc98v::hot_l::loc
+        G=['int_typespec|rank_t@5:13-5:16', 'int_typespec|rank_t@5:13-5:16', 'int_typespec|rank_t@5:13-5:16', 'int_typespec|rank_t@5:13-5:16', 'int_typespec|rank_t@5:13-5:16']
+        P=['bit_typespec|rank_t@10:13-10:22', 'bit_typespec|rank_t@10:13-10:22', 'bit_typespec|rank_t@10:13-10:22', 'bit_typespec|rank_t@10:13-10:22']
+        Q=['int_typespec|rank_t@6:13-6:19', 'int_typespec|rank_t@6:13-6:19', 'int_typespec|rank_t@6:13-6:19', 'int_typespec|rank_t@6:13-6:19']
+    STILL         rank_t
+        G=['bit_typespec|rank_t@10:13-10:22']
+        P=[]
+        Q=[]
+  v98_c1_dut.sv_elab/NOSPAN  cells    9 OK    5 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   1
+    STILL         p98v::aaa98v::rank_t
+        G=['int_typespec|seed_t', 'int_typespec|seed_t']
+        P=[]
+        Q=[]
+    FIXED         p98v::ccc98v::hot_c::x
+        G=['int_typespec|rank_t']
+        P=['bit_typespec|rank_t']
+        Q=['int_typespec|rank_t']
+    CHANGED-STILL p98v::ccc98v::hot_l::loc
+        G=['int_typespec|rank_t', 'int_typespec|rank_t', 'int_typespec|rank_t', 'int_typespec|rank_t', 'int_typespec|rank_t']
+        P=['bit_typespec|rank_t', 'bit_typespec|rank_t', 'bit_typespec|rank_t', 'bit_typespec|rank_t']
+        Q=['int_typespec|rank_t', 'int_typespec|rank_t', 'int_typespec|rank_t', 'int_typespec|rank_t']
+    STILL         rank_t
+        G=['bit_typespec|rank_t']
+        P=[]
+        Q=[]
+v98_c20_dut.sv_def | pris rc=0 FAIL heads=1 lines=56 | pat rc=0 FAIL heads=1 lines=56
+  v98_c20_dut.sv_def         cells    8 OK    5 FIXED   0 BROKE   0 STILL    3 CHANGED-STILL   0
+    STILL         mk20_t
+        G=['int_typespec|mk20_t@10:29-10:32']
+        P=[]
+        Q=[]
+    STILL         p20v::a20win98v::mk::v
+        G=['int_typespec|mk20_t@10:29-10:32']
+        P=[]
+        Q=[]
+    STILL         p20v::m20base98v::own::x
+        G=['int_typespec|mk20_t@10:59-10:65']
+        P=['int_typespec|mk20_t@10:29-10:32']
+        Q=['int_typespec|mk20_t@10:29-10:32']
+  v98_c20_dut.sv_def/NOSPAN  cells    8 OK    6 FIXED   0 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         mk20_t
+        G=['int_typespec|mk20_t']
+        P=[]
+        Q=[]
+    STILL         p20v::a20win98v::mk::v
+        G=['int_typespec|mk20_t']
+        P=[]
+        Q=[]
+v98_c20_dut.sv_elab | pris rc=0 FAIL heads=1 lines=56 | pat rc=0 FAIL heads=1 lines=56
+  v98_c20_dut.sv_elab        cells    8 OK    5 FIXED   0 BROKE   0 STILL    3 CHANGED-STILL   0
+    STILL         mk20_t
+        G=['int_typespec|mk20_t@10:29-10:32']
+        P=[]
+        Q=[]
+    STILL         p20v::a20win98v::mk::v
+        G=['int_typespec|mk20_t@10:29-10:32', 'int_typespec|mk20_t@10:29-10:32', 'int_typespec|mk20_t@10:29-10:32']
+        P=[]
+        Q=[]
+    STILL         p20v::m20base98v::own::x
+        G=['int_typespec|mk20_t@10:59-10:65']
+        P=['int_typespec|mk20_t@10:29-10:32']
+        Q=['int_typespec|mk20_t@10:29-10:32']
+  v98_c20_dut.sv_elab/NOSPAN cells    8 OK    6 FIXED   0 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         mk20_t
+        G=['int_typespec|mk20_t']
+        P=[]
+        Q=[]
+    STILL         p20v::a20win98v::mk::v
+        G=['int_typespec|mk20_t', 'int_typespec|mk20_t', 'int_typespec|mk20_t']
+        P=[]
+        Q=[]
+v98_c21_dut.sv_def | pris rc=0 FAIL heads=1 lines=57 | pat rc=0 FAIL heads=1 lines=57
+  v98_c21_dut.sv_def         cells    6 OK    5 FIXED   0 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         p21v::z21der98v::hot::x
+        G=['int_typespec|wk21_t@16:11-16:14']
+        P=['int_typespec|wk21_t@10:29-10:32']
+        Q=['int_typespec|wk21_t@10:29-10:32']
+  v98_c21_dut.sv_def/NOSPAN  cells    6 OK    6 FIXED   0 BROKE   0 STILL    0 CHANGED-STILL   0
+v98_c21_dut.sv_elab | pris rc=0 FAIL heads=1 lines=57 | pat rc=0 FAIL heads=1 lines=57
+  v98_c21_dut.sv_elab        cells    6 OK    5 FIXED   0 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         p21v::z21der98v::hot::x
+        G=['int_typespec|wk21_t@16:11-16:14']
+        P=['int_typespec|wk21_t@10:29-10:32']
+        Q=['int_typespec|wk21_t@10:29-10:32']
+  v98_c21_dut.sv_elab/NOSPAN cells    6 OK    6 FIXED   0 BROKE   0 STILL    0 CHANGED-STILL   0
+v98_c22_dut.sv_def | pris rc=0 FAIL heads=1 lines=57 | pat rc=0 FAIL heads=1 lines=57
+  v98_c22_dut.sv_def         cells    7 OK    6 FIXED   0 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         p22v::z22der98v::hot::x
+        G=['int_typespec|wk22_t@10:11-10:14']
+        P=['int_typespec|wk22_t@4:29-4:32']
+        Q=['int_typespec|wk22_t@4:29-4:32']
+  v98_c22_dut.sv_def/NOSPAN  cells    7 OK    7 FIXED   0 BROKE   0 STILL    0 CHANGED-STILL   0
+v98_c22_dut.sv_elab | pris rc=0 FAIL heads=1 lines=57 | pat rc=0 FAIL heads=1 lines=57
+  v98_c22_dut.sv_elab        cells    7 OK    6 FIXED   0 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         p22v::z22der98v::hot::x
+        G=['int_typespec|wk22_t@10:11-10:14']
+        P=['int_typespec|wk22_t@4:29-4:32']
+        Q=['int_typespec|wk22_t@4:29-4:32']
+  v98_c22_dut.sv_elab/NOSPAN cells    7 OK    7 FIXED   0 BROKE   0 STILL    0 CHANGED-STILL   0
+v98_c23_dut.sv_def | pris rc=0 FAIL heads=1 lines=101 | pat rc=0 FAIL heads=1 lines=101
+  v98_c23_dut.sv_def         cells    6 OK    4 FIXED   0 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         p23v::z23der98v::hot::x
+        G=['int_typespec|wk23_t@10:11-10:14']
+        P=['int_typespec|wk23_t@4:29-4:32']
+        Q=['int_typespec|wk23_t@4:29-4:32']
+    STILL         work@aprg23v.q
+        G=['int_typespec|wk23_t@10:11-10:14']
+        P=['int_typespec|wk23_t@10:11-10:14', 'logic_net|work@aprg23v.q@11:10-11:11']
+        Q=['int_typespec|wk23_t@10:11-10:14', 'logic_net|work@aprg23v.q@11:10-11:11']
+  v98_c23_dut.sv_def/NOSPAN  cells    6 OK    5 FIXED   0 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         work@aprg23v.q
+        G=['int_typespec|wk23_t']
+        P=['int_typespec|wk23_t', 'logic_net|work@aprg23v.q']
+        Q=['int_typespec|wk23_t', 'logic_net|work@aprg23v.q']
+v98_c23_dut.sv_elab | pris rc=0 FAIL heads=1 lines=101 | pat rc=0 FAIL heads=1 lines=101
+  v98_c23_dut.sv_elab        cells    6 OK    4 FIXED   0 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         p23v::z23der98v::hot::x
+        G=['int_typespec|wk23_t@10:11-10:14']
+        P=['int_typespec|wk23_t@4:29-4:32']
+        Q=['int_typespec|wk23_t@4:29-4:32']
+    STILL         work@aprg23v.q
+        G=['int_typespec|wk23_t@10:11-10:14']
+        P=['int_typespec|wk23_t@10:11-10:14', 'logic_net|work@aprg23v.q@11:10-11:11']
+        Q=['int_typespec|wk23_t@10:11-10:14', 'logic_net|work@aprg23v.q@11:10-11:11']
+  v98_c23_dut.sv_elab/NOSPAN cells    6 OK    5 FIXED   0 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         work@aprg23v.q
+        G=['int_typespec|wk23_t']
+        P=['int_typespec|wk23_t', 'logic_net|work@aprg23v.q']
+        Q=['int_typespec|wk23_t', 'logic_net|work@aprg23v.q']
+v98_c24_dut.sv_def | pris rc=0 FAIL heads=1 lines=32 | pat rc=0 FAIL heads=1 lines=32
+  v98_c24_dut.sv_def         cells    8 OK    6 FIXED   0 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         p24v::z24der98v::hot::x
+        G=['byte_typespec|wk24_t@17:11-17:15']
+        P=['int_typespec|wk24_t@6:29-6:32']
+        Q=['int_typespec|wk24_t@6:29-6:32']
+    STILL         work@aprg24v.q
+        G=['short_int_typespec|wk24_t@12:11-12:19']
+        P=['logic_net|work@aprg24v.q@13:10-13:11', 'short_int_typespec|wk24_t@12:11-12:19']
+        Q=['logic_net|work@aprg24v.q@13:10-13:11', 'short_int_typespec|wk24_t@12:11-12:19']
+  v98_c24_dut.sv_def/NOSPAN  cells    8 OK    6 FIXED   0 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         p24v::z24der98v::hot::x
+        G=['byte_typespec|wk24_t']
+        P=['int_typespec|wk24_t']
+        Q=['int_typespec|wk24_t']
+    STILL         work@aprg24v.q
+        G=['short_int_typespec|wk24_t']
+        P=['logic_net|work@aprg24v.q', 'short_int_typespec|wk24_t']
+        Q=['logic_net|work@aprg24v.q', 'short_int_typespec|wk24_t']
+v98_c24_dut.sv_elab | pris rc=0 FAIL heads=1 lines=32 | pat rc=0 FAIL heads=1 lines=32
+  v98_c24_dut.sv_elab        cells    8 OK    6 FIXED   0 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         p24v::z24der98v::hot::x
+        G=['byte_typespec|wk24_t@17:11-17:15']
+        P=['int_typespec|wk24_t@6:29-6:32']
+        Q=['int_typespec|wk24_t@6:29-6:32']
+    STILL         work@aprg24v.q
+        G=['short_int_typespec|wk24_t@12:11-12:19']
+        P=['logic_net|work@aprg24v.q@13:10-13:11', 'short_int_typespec|wk24_t@12:11-12:19']
+        Q=['logic_net|work@aprg24v.q@13:10-13:11', 'short_int_typespec|wk24_t@12:11-12:19']
+  v98_c24_dut.sv_elab/NOSPAN cells    8 OK    6 FIXED   0 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         p24v::z24der98v::hot::x
+        G=['byte_typespec|wk24_t']
+        P=['int_typespec|wk24_t']
+        Q=['int_typespec|wk24_t']
+    STILL         work@aprg24v.q
+        G=['short_int_typespec|wk24_t']
+        P=['logic_net|work@aprg24v.q', 'short_int_typespec|wk24_t']
+        Q=['logic_net|work@aprg24v.q', 'short_int_typespec|wk24_t']
+v98_c25_dut.sv_def | pris rc=0 FAIL heads=1 lines=55 | pat rc=0 FAIL heads=1 lines=55
+  v98_c25_dut.sv_def         cells    5 OK    3 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p25v::z25der98v::hot::x
+        G=['bit_typespec|wk25_t@4:29-4:38']
+        P=['int_typespec|wk25_t@5:29-5:32']
+        Q=['bit_typespec|wk25_t@4:29-4:38']
+    STILL         work@top25v.u.gblk25.s
+        G=['byte_typespec|wk25_t@12:13-12:17']
+        P=[]
+        Q=[]
+  v98_c25_dut.sv_def/NOSPAN  cells    5 OK    3 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p25v::z25der98v::hot::x
+        G=['bit_typespec|wk25_t']
+        P=['int_typespec|wk25_t']
+        Q=['bit_typespec|wk25_t']
+    STILL         work@top25v.u.gblk25.s
+        G=['byte_typespec|wk25_t']
+        P=[]
+        Q=[]
+v98_c25_dut.sv_elab | pris rc=0 FAIL heads=1 lines=66 | pat rc=0 FAIL heads=1 lines=55
+  v98_c25_dut.sv_elab        cells    5 OK    3 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p25v::z25der98v::hot::x
+        G=['bit_typespec|wk25_t@4:29-4:38']
+        P=['int_typespec|wk25_t@5:29-5:32']
+        Q=['bit_typespec|wk25_t@4:29-4:38']
+    STILL         work@top25v.u.gblk25.s
+        G=['byte_typespec|wk25_t@12:13-12:17', 'byte_typespec|wk25_t@12:13-12:17']
+        P=[]
+        Q=[]
+  v98_c25_dut.sv_elab/NOSPAN cells    5 OK    3 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p25v::z25der98v::hot::x
+        G=['bit_typespec|wk25_t']
+        P=['int_typespec|wk25_t']
+        Q=['bit_typespec|wk25_t']
+    STILL         work@top25v.u.gblk25.s
+        G=['byte_typespec|wk25_t', 'byte_typespec|wk25_t']
+        P=[]
+        Q=[]
+v98_c26_dut.sv_def | pris rc=0 FAIL heads=1 lines=56 | pat rc=0 FAIL heads=1 lines=56
+  v98_c26_dut.sv_def         cells    6 OK    3 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    FIXED         p26v::z26der98v::hot::x
+        G=['bit_typespec|wk26_t@4:29-4:38']
+        P=['int_typespec|wk26_t@5:29-5:32']
+        Q=['bit_typespec|wk26_t@4:29-4:38']
+    STILL         work@amod26v.f26.v
+        G=['bit_typespec|wk26_t@4:29-4:38']
+        P=[]
+        Q=[]
+    STILL         work@amod26v.r
+        G=[]
+        P=['logic_net|work@amod26v.r@15:7-15:8']
+        Q=['logic_net|work@amod26v.r@15:7-15:8']
+  v98_c26_dut.sv_def/NOSPAN  cells    6 OK    3 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    FIXED         p26v::z26der98v::hot::x
+        G=['bit_typespec|wk26_t']
+        P=['int_typespec|wk26_t']
+        Q=['bit_typespec|wk26_t']
+    STILL         work@amod26v.f26.v
+        G=['bit_typespec|wk26_t']
+        P=[]
+        Q=[]
+    STILL         work@amod26v.r
+        G=[]
+        P=['logic_net|work@amod26v.r']
+        Q=['logic_net|work@amod26v.r']
+v98_c26_dut.sv_elab | pris rc=0 FAIL heads=1 lines=66 | pat rc=0 FAIL heads=1 lines=56
+  v98_c26_dut.sv_elab        cells    7 OK    3 FIXED   1 BROKE   0 STILL    3 CHANGED-STILL   0
+    FIXED         p26v::z26der98v::hot::x
+        G=['bit_typespec|wk26_t@4:29-4:38']
+        P=['int_typespec|wk26_t@5:29-5:32']
+        Q=['bit_typespec|wk26_t@4:29-4:38']
+    STILL         work@amod26v.f26.v
+        G=['bit_typespec|wk26_t@4:29-4:38']
+        P=[]
+        Q=[]
+    STILL         work@amod26v.r
+        G=[]
+        P=['logic_net|work@amod26v.r@15:7-15:8']
+        Q=['logic_net|work@amod26v.r@15:7-15:8']
+    STILL         work@top26v.u.f26.v
+        G=['bit_typespec|wk26_t@4:29-4:38', 'bit_typespec|wk26_t@4:29-4:38']
+        P=[]
+        Q=[]
+  v98_c26_dut.sv_elab/NOSPAN cells    7 OK    3 FIXED   1 BROKE   0 STILL    3 CHANGED-STILL   0
+    FIXED         p26v::z26der98v::hot::x
+        G=['bit_typespec|wk26_t']
+        P=['int_typespec|wk26_t']
+        Q=['bit_typespec|wk26_t']
+    STILL         work@amod26v.f26.v
+        G=['bit_typespec|wk26_t']
+        P=[]
+        Q=[]
+    STILL         work@amod26v.r
+        G=[]
+        P=['logic_net|work@amod26v.r']
+        Q=['logic_net|work@amod26v.r']
+    STILL         work@top26v.u.f26.v
+        G=['bit_typespec|wk26_t', 'bit_typespec|wk26_t']
+        P=[]
+        Q=[]
+v98_c27_dut.sv_def | pris rc=0 FAIL heads=1 lines=75 | pat rc=0 FAIL heads=1 lines=75
+  v98_c27_dut.sv_def         cells    8 OK    6 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p27v::z27der98v::hot::x
+        G=['bit_typespec|wk27_t@4:29-4:38']
+        P=['int_typespec|wk27_t@5:29-5:32']
+        Q=['bit_typespec|wk27_t@4:29-4:38']
+    STILL         work@top27v.u.s.wk27_t
+        G=['byte_typespec|wk27_t@12:13-12:17']
+        P=[]
+        Q=[]
+  v98_c27_dut.sv_def/NOSPAN  cells    8 OK    6 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p27v::z27der98v::hot::x
+        G=['bit_typespec|wk27_t']
+        P=['int_typespec|wk27_t']
+        Q=['bit_typespec|wk27_t']
+    STILL         work@top27v.u.s.wk27_t
+        G=['byte_typespec|wk27_t']
+        P=[]
+        Q=[]
+v98_c27_dut.sv_elab | pris rc=0 FAIL heads=1 lines=66 | pat rc=0 FAIL heads=1 lines=75
+  v98_c27_dut.sv_elab        cells    8 OK    6 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p27v::z27der98v::hot::x
+        G=['bit_typespec|wk27_t@4:29-4:38']
+        P=['int_typespec|wk27_t@5:29-5:32']
+        Q=['bit_typespec|wk27_t@4:29-4:38']
+    STILL         work@top27v.u.s.wk27_t
+        G=['byte_typespec|wk27_t@12:13-12:17']
+        P=[]
+        Q=[]
+  v98_c27_dut.sv_elab/NOSPAN cells    8 OK    6 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p27v::z27der98v::hot::x
+        G=['bit_typespec|wk27_t']
+        P=['int_typespec|wk27_t']
+        Q=['bit_typespec|wk27_t']
+    STILL         work@top27v.u.s.wk27_t
+        G=['byte_typespec|wk27_t']
+        P=[]
+        Q=[]
+v98_c2_dut.sv_def | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c2_dut.sv_def          cells   11 OK    3 FIXED   4 BROKE   0 STILL    4 CHANGED-STILL   0
+    STILL         ek_t
+        G=['int_typespec|ek_t@11:13-11:16']
+        P=[]
+        Q=[]
+    STILL         q98v::m1base98v::ob::a
+        G=['int_typespec|ek_t@15:22-15:26']
+        P=['int_typespec|ek_t@11:13-11:16']
+        Q=['int_typespec|ek_t@11:13-11:16']
+    STILL         q98v::m1base98v::ob::b
+        G=['int_typespec|sk_t@15:30-15:34']
+        P=['int_typespec|sk_t@12:13-12:16']
+        Q=['int_typespec|sk_t@12:13-12:16']
+    FIXED         q98v::z1der98v::hot::a
+        G=['enum_typespec|ek_t@5:5-5:44']
+        P=['int_typespec|ek_t@11:13-11:16']
+        Q=['enum_typespec|ek_t@5:5-5:44']
+    FIXED         q98v::z1der98v::hot::b
+        G=['struct_typespec|sk_t@6:13-6:44']
+        P=['int_typespec|sk_t@12:13-12:16']
+        Q=['struct_typespec|sk_t@6:13-6:44']
+    FIXED         q98v::z1der98v::hot::d
+        G=['bit_typespec|fk_t@8:13-8:23']
+        P=['int_typespec|fk_t@14:13-14:16']
+        Q=['bit_typespec|fk_t@8:13-8:23']
+    FIXED         q98v::z1der98v::hotu::c
+        G=['array_typespec|uk_t@7:13-7:25']
+        P=['int_typespec|uk_t@13:13-13:16']
+        Q=['array_typespec|uk_t@7:13-7:25']
+    STILL         sk_t
+        G=['int_typespec|sk_t@12:13-12:16']
+        P=[]
+        Q=[]
+  v98_c2_dut.sv_def/NOSPAN   cells   11 OK    5 FIXED   4 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         ek_t
+        G=['int_typespec|ek_t']
+        P=[]
+        Q=[]
+    FIXED         q98v::z1der98v::hot::a
+        G=['enum_typespec|ek_t']
+        P=['int_typespec|ek_t']
+        Q=['enum_typespec|ek_t']
+    FIXED         q98v::z1der98v::hot::b
+        G=['struct_typespec|sk_t']
+        P=['int_typespec|sk_t']
+        Q=['struct_typespec|sk_t']
+    FIXED         q98v::z1der98v::hot::d
+        G=['bit_typespec|fk_t']
+        P=['int_typespec|fk_t']
+        Q=['bit_typespec|fk_t']
+    FIXED         q98v::z1der98v::hotu::c
+        G=['array_typespec|uk_t']
+        P=['int_typespec|uk_t']
+        Q=['array_typespec|uk_t']
+    STILL         sk_t
+        G=['int_typespec|sk_t']
+        P=[]
+        Q=[]
+v98_c2_dut.sv_elab | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c2_dut.sv_elab         cells   11 OK    3 FIXED   4 BROKE   0 STILL    4 CHANGED-STILL   0
+    STILL         ek_t
+        G=['int_typespec|ek_t@11:13-11:16']
+        P=[]
+        Q=[]
+    STILL         q98v::m1base98v::ob::a
+        G=['int_typespec|ek_t@15:22-15:26']
+        P=['int_typespec|ek_t@11:13-11:16']
+        Q=['int_typespec|ek_t@11:13-11:16']
+    STILL         q98v::m1base98v::ob::b
+        G=['int_typespec|sk_t@15:30-15:34']
+        P=['int_typespec|sk_t@12:13-12:16']
+        Q=['int_typespec|sk_t@12:13-12:16']
+    FIXED         q98v::z1der98v::hot::a
+        G=['enum_typespec|ek_t@5:5-5:44']
+        P=['int_typespec|ek_t@11:13-11:16']
+        Q=['enum_typespec|ek_t@5:5-5:44']
+    FIXED         q98v::z1der98v::hot::b
+        G=['struct_typespec|sk_t@6:13-6:44']
+        P=['int_typespec|sk_t@12:13-12:16']
+        Q=['struct_typespec|sk_t@6:13-6:44']
+    FIXED         q98v::z1der98v::hot::d
+        G=['bit_typespec|fk_t@8:13-8:23']
+        P=['int_typespec|fk_t@14:13-14:16']
+        Q=['bit_typespec|fk_t@8:13-8:23']
+    FIXED         q98v::z1der98v::hotu::c
+        G=['array_typespec|uk_t@7:13-7:25']
+        P=['int_typespec|uk_t@13:13-13:16']
+        Q=['array_typespec|uk_t@7:13-7:25']
+    STILL         sk_t
+        G=['int_typespec|sk_t@12:13-12:16']
+        P=[]
+        Q=[]
+  v98_c2_dut.sv_elab/NOSPAN  cells   11 OK    5 FIXED   4 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         ek_t
+        G=['int_typespec|ek_t']
+        P=[]
+        Q=[]
+    FIXED         q98v::z1der98v::hot::a
+        G=['enum_typespec|ek_t']
+        P=['int_typespec|ek_t']
+        Q=['enum_typespec|ek_t']
+    FIXED         q98v::z1der98v::hot::b
+        G=['struct_typespec|sk_t']
+        P=['int_typespec|sk_t']
+        Q=['struct_typespec|sk_t']
+    FIXED         q98v::z1der98v::hot::d
+        G=['bit_typespec|fk_t']
+        P=['int_typespec|fk_t']
+        Q=['bit_typespec|fk_t']
+    FIXED         q98v::z1der98v::hotu::c
+        G=['array_typespec|uk_t']
+        P=['int_typespec|uk_t']
+        Q=['array_typespec|uk_t']
+    STILL         sk_t
+        G=['int_typespec|sk_t']
+        P=[]
+        Q=[]
+v98_c3_dut.sv_def | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c3_dut.sv_def          cells   10 OK    6 FIXED   0 BROKE   0 STILL    4 CHANGED-STILL   0
+    STILL         p3v::mid3v::own::x
+        G=['int_typespec|rk3_t@6:23-6:28']
+        P=['int_typespec|rk3_t@5:13-5:16']
+        Q=['int_typespec|rk3_t@5:13-5:16']
+    STILL         p3v::zder3v::hot::x
+        G=['bit_typespec|rk3_t@22:11-22:21']
+        P=['int_typespec|rk3_t@5:13-5:16']
+        Q=['int_typespec|rk3_t@5:13-5:16']
+    STILL         rk3_t
+        G=['bit_typespec|rk3_t@13:11-13:20', 'bit_typespec|rk3_t@17:11-17:20', 'bit_typespec|rk3_t@22:11-22:21', 'int_typespec|rk3_t@5:13-5:16']
+        P=['bit_typespec|rk3_t@13:11-13:20', 'bit_typespec|rk3_t@17:11-17:20', 'bit_typespec|rk3_t@22:11-22:21']
+        Q=['bit_typespec|rk3_t@13:11-13:20', 'bit_typespec|rk3_t@17:11-17:20', 'bit_typespec|rk3_t@22:11-22:21']
+    STILL         work@prog3v.q
+        G=['bit_typespec|rk3_t@17:11-17:20']
+        P=['bit_typespec|rk3_t@17:11-17:20', 'logic_net|work@prog3v.q@18:9-18:10']
+        Q=['bit_typespec|rk3_t@17:11-17:20', 'logic_net|work@prog3v.q@18:9-18:10']
+  v98_c3_dut.sv_def/NOSPAN   cells   10 OK    7 FIXED   0 BROKE   0 STILL    3 CHANGED-STILL   0
+    STILL         p3v::zder3v::hot::x
+        G=['bit_typespec|rk3_t']
+        P=['int_typespec|rk3_t']
+        Q=['int_typespec|rk3_t']
+    STILL         rk3_t
+        G=['bit_typespec|rk3_t', 'bit_typespec|rk3_t', 'bit_typespec|rk3_t', 'int_typespec|rk3_t']
+        P=['bit_typespec|rk3_t', 'bit_typespec|rk3_t', 'bit_typespec|rk3_t']
+        Q=['bit_typespec|rk3_t', 'bit_typespec|rk3_t', 'bit_typespec|rk3_t']
+    STILL         work@prog3v.q
+        G=['bit_typespec|rk3_t']
+        P=['bit_typespec|rk3_t', 'logic_net|work@prog3v.q']
+        Q=['bit_typespec|rk3_t', 'logic_net|work@prog3v.q']
+v98_c3_dut.sv_elab | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c3_dut.sv_elab         cells   10 OK    6 FIXED   0 BROKE   0 STILL    4 CHANGED-STILL   0
+    STILL         p3v::mid3v::own::x
+        G=['int_typespec|rk3_t@6:23-6:28']
+        P=['int_typespec|rk3_t@5:13-5:16']
+        Q=['int_typespec|rk3_t@5:13-5:16']
+    STILL         p3v::zder3v::hot::x
+        G=['bit_typespec|rk3_t@22:11-22:21']
+        P=['int_typespec|rk3_t@5:13-5:16']
+        Q=['int_typespec|rk3_t@5:13-5:16']
+    STILL         rk3_t
+        G=['bit_typespec|rk3_t@13:11-13:20', 'bit_typespec|rk3_t@17:11-17:20', 'bit_typespec|rk3_t@22:11-22:21', 'int_typespec|rk3_t@5:13-5:16']
+        P=['bit_typespec|rk3_t@13:11-13:20', 'bit_typespec|rk3_t@17:11-17:20', 'bit_typespec|rk3_t@22:11-22:21']
+        Q=['bit_typespec|rk3_t@13:11-13:20', 'bit_typespec|rk3_t@17:11-17:20', 'bit_typespec|rk3_t@22:11-22:21']
+    STILL         work@prog3v.q
+        G=['bit_typespec|rk3_t@17:11-17:20']
+        P=['bit_typespec|rk3_t@17:11-17:20', 'logic_net|work@prog3v.q@18:9-18:10']
+        Q=['bit_typespec|rk3_t@17:11-17:20', 'logic_net|work@prog3v.q@18:9-18:10']
+  v98_c3_dut.sv_elab/NOSPAN  cells   10 OK    7 FIXED   0 BROKE   0 STILL    3 CHANGED-STILL   0
+    STILL         p3v::zder3v::hot::x
+        G=['bit_typespec|rk3_t']
+        P=['int_typespec|rk3_t']
+        Q=['int_typespec|rk3_t']
+    STILL         rk3_t
+        G=['bit_typespec|rk3_t', 'bit_typespec|rk3_t', 'bit_typespec|rk3_t', 'int_typespec|rk3_t']
+        P=['bit_typespec|rk3_t', 'bit_typespec|rk3_t', 'bit_typespec|rk3_t']
+        Q=['bit_typespec|rk3_t', 'bit_typespec|rk3_t', 'bit_typespec|rk3_t']
+    STILL         work@prog3v.q
+        G=['bit_typespec|rk3_t']
+        P=['bit_typespec|rk3_t', 'logic_net|work@prog3v.q']
+        Q=['bit_typespec|rk3_t', 'logic_net|work@prog3v.q']
+v98_c4_dut.sv_def | pris rc=0 FAIL heads=1 lines=590 | pat rc=0 FAIL heads=1 lines=590
+  v98_c4_dut.sv_def          cells    7 OK    4 FIXED   0 BROKE   0 STILL    3 CHANGED-STILL   0
+    STILL         ik4_t
+        G=['int_typespec|ik4_t@9:13-9:16']
+        P=[]
+        Q=[]
+    STILL         p4v::m4base98v::own::x
+        G=['int_typespec|ik4_t@10:23-10:28']
+        P=['int_typespec|ik4_t@9:13-9:16']
+        Q=['int_typespec|ik4_t@9:13-9:16']
+    STILL         p4v::z5uses98v::hotif::y
+        G=['unsupported_typespec|a4if98v::ik4_t@18:25-18:34']
+        P=['bit_typespec|ik4_t@5:13-5:22']
+        Q=['bit_typespec|ik4_t@5:13-5:22']
+  v98_c4_dut.sv_def/NOSPAN   cells    7 OK    5 FIXED   0 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         ik4_t
+        G=['int_typespec|ik4_t']
+        P=[]
+        Q=[]
+    STILL         p4v::z5uses98v::hotif::y
+        G=['unsupported_typespec|a4if98v::ik4_t']
+        P=['bit_typespec|ik4_t']
+        Q=['bit_typespec|ik4_t']
+v98_c4_dut.sv_elab | pris rc=0 FAIL heads=1 lines=590 | pat rc=0 FAIL heads=1 lines=590
+  v98_c4_dut.sv_elab         cells    7 OK    4 FIXED   0 BROKE   0 STILL    3 CHANGED-STILL   0
+    STILL         ik4_t
+        G=['int_typespec|ik4_t@9:13-9:16']
+        P=[]
+        Q=[]
+    STILL         p4v::m4base98v::own::x
+        G=['int_typespec|ik4_t@10:23-10:28']
+        P=['int_typespec|ik4_t@9:13-9:16']
+        Q=['int_typespec|ik4_t@9:13-9:16']
+    STILL         p4v::z5uses98v::hotif::y
+        G=['unsupported_typespec|a4if98v::ik4_t@18:25-18:34']
+        P=['bit_typespec|ik4_t@5:13-5:22']
+        Q=['bit_typespec|ik4_t@5:13-5:22']
+  v98_c4_dut.sv_elab/NOSPAN  cells    7 OK    5 FIXED   0 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         ik4_t
+        G=['int_typespec|ik4_t']
+        P=[]
+        Q=[]
+    STILL         p4v::z5uses98v::hotif::y
+        G=['unsupported_typespec|a4if98v::ik4_t']
+        P=['bit_typespec|ik4_t']
+        Q=['bit_typespec|ik4_t']
+v98_c5_dut.sv_def | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c5_dut.sv_def          cells    9 OK    5 FIXED   1 BROKE   0 STILL    3 CHANGED-STILL   0
+    STILL         p5v::m5base98v::own::x
+        G=['int_typespec|sh5_t@9:23-9:28']
+        P=['int_typespec|sh5_t@8:13-8:16']
+        Q=['int_typespec|sh5_t@8:13-8:16']
+    STILL         p5v::z5der98v::hot::x
+        G=['string_typespec|sh5_t@13:23-13:28']
+        P=[]
+        Q=[]
+    FIXED         p5v::z6der98v::hot2::x
+        G=['bit_typespec|sh5_t@5:13-5:22']
+        P=['int_typespec|sh5_t@8:13-8:16']
+        Q=['bit_typespec|sh5_t@5:13-5:22']
+    STILL         sh5_t
+        G=['int_typespec|sh5_t@8:13-8:16', 'string_typespec|sh5_t@12:13-12:19']
+        P=[]
+        Q=[]
+  v98_c5_dut.sv_def/NOSPAN   cells    9 OK    6 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         p5v::z5der98v::hot::x
+        G=['string_typespec|sh5_t']
+        P=[]
+        Q=[]
+    FIXED         p5v::z6der98v::hot2::x
+        G=['bit_typespec|sh5_t']
+        P=['int_typespec|sh5_t']
+        Q=['bit_typespec|sh5_t']
+    STILL         sh5_t
+        G=['int_typespec|sh5_t', 'string_typespec|sh5_t']
+        P=[]
+        Q=[]
+v98_c5_dut.sv_elab | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c5_dut.sv_elab         cells    9 OK    5 FIXED   1 BROKE   0 STILL    3 CHANGED-STILL   0
+    STILL         p5v::m5base98v::own::x
+        G=['int_typespec|sh5_t@9:23-9:28']
+        P=['int_typespec|sh5_t@8:13-8:16']
+        Q=['int_typespec|sh5_t@8:13-8:16']
+    STILL         p5v::z5der98v::hot::x
+        G=['string_typespec|sh5_t@13:23-13:28']
+        P=[]
+        Q=[]
+    FIXED         p5v::z6der98v::hot2::x
+        G=['bit_typespec|sh5_t@5:13-5:22']
+        P=['int_typespec|sh5_t@8:13-8:16']
+        Q=['bit_typespec|sh5_t@5:13-5:22']
+    STILL         sh5_t
+        G=['int_typespec|sh5_t@8:13-8:16', 'string_typespec|sh5_t@12:13-12:19']
+        P=[]
+        Q=[]
+  v98_c5_dut.sv_elab/NOSPAN  cells    9 OK    6 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         p5v::z5der98v::hot::x
+        G=['string_typespec|sh5_t']
+        P=[]
+        Q=[]
+    FIXED         p5v::z6der98v::hot2::x
+        G=['bit_typespec|sh5_t']
+        P=['int_typespec|sh5_t']
+        Q=['bit_typespec|sh5_t']
+    STILL         sh5_t
+        G=['int_typespec|sh5_t', 'string_typespec|sh5_t']
+        P=[]
+        Q=[]
+v98_c6_dut.sv_def | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c6_dut.sv_def          cells    8 OK    3 FIXED   1 BROKE   0 STILL    4 CHANGED-STILL   0
+    STILL         p6v::m6base98v::own::x
+        G=['int_typespec|qk6_t@8:23-8:28']
+        P=['int_typespec|qk6_t@7:13-7:16']
+        Q=['int_typespec|qk6_t@7:13-7:16']
+    FIXED         p6v::z6der98v::bare::x
+        G=['bit_typespec|qk6_t@4:13-4:22']
+        P=['int_typespec|qk6_t@7:13-7:16']
+        Q=['bit_typespec|qk6_t@4:13-4:22']
+    STILL         p6v::z6der98v::qual2::x
+        G=['unsupported_typespec|p6v::qk6_t@13:25-13:40']
+        P=['bit_typespec|qk6_t@4:13-4:22']
+        Q=['bit_typespec|qk6_t@4:13-4:22']
+    STILL         p6v::z6der98v::qual::x
+        G=['int_typespec|qk6_t@7:13-7:16']
+        P=['unsupported_typespec|m6base98v::qk6_t@12:24-12:41']
+        Q=['unsupported_typespec|m6base98v::qk6_t@12:24-12:41']
+    STILL         qk6_t
+        G=['int_typespec|qk6_t@7:13-7:16']
+        P=[]
+        Q=[]
+  v98_c6_dut.sv_def/NOSPAN   cells    8 OK    4 FIXED   1 BROKE   0 STILL    3 CHANGED-STILL   0
+    FIXED         p6v::z6der98v::bare::x
+        G=['bit_typespec|qk6_t']
+        P=['int_typespec|qk6_t']
+        Q=['bit_typespec|qk6_t']
+    STILL         p6v::z6der98v::qual2::x
+        G=['unsupported_typespec|p6v::qk6_t']
+        P=['bit_typespec|qk6_t']
+        Q=['bit_typespec|qk6_t']
+    STILL         p6v::z6der98v::qual::x
+        G=['int_typespec|qk6_t']
+        P=['unsupported_typespec|m6base98v::qk6_t']
+        Q=['unsupported_typespec|m6base98v::qk6_t']
+    STILL         qk6_t
+        G=['int_typespec|qk6_t']
+        P=[]
+        Q=[]
+v98_c6_dut.sv_elab | pris rc=0 FAIL heads=1 lines=17 | pat rc=0 FAIL heads=1 lines=17
+  v98_c6_dut.sv_elab         cells    8 OK    3 FIXED   1 BROKE   0 STILL    4 CHANGED-STILL   0
+    STILL         p6v::m6base98v::own::x
+        G=['int_typespec|qk6_t@8:23-8:28']
+        P=['int_typespec|qk6_t@7:13-7:16']
+        Q=['int_typespec|qk6_t@7:13-7:16']
+    FIXED         p6v::z6der98v::bare::x
+        G=['bit_typespec|qk6_t@4:13-4:22']
+        P=['int_typespec|qk6_t@7:13-7:16']
+        Q=['bit_typespec|qk6_t@4:13-4:22']
+    STILL         p6v::z6der98v::qual2::x
+        G=['unsupported_typespec|p6v::qk6_t@13:25-13:40']
+        P=['bit_typespec|qk6_t@4:13-4:22']
+        Q=['bit_typespec|qk6_t@4:13-4:22']
+    STILL         p6v::z6der98v::qual::x
+        G=['int_typespec|qk6_t@7:13-7:16']
+        P=['unsupported_typespec|m6base98v::qk6_t@12:24-12:41']
+        Q=['unsupported_typespec|m6base98v::qk6_t@12:24-12:41']
+    STILL         qk6_t
+        G=['int_typespec|qk6_t@7:13-7:16']
+        P=[]
+        Q=[]
+  v98_c6_dut.sv_elab/NOSPAN  cells    8 OK    4 FIXED   1 BROKE   0 STILL    3 CHANGED-STILL   0
+    FIXED         p6v::z6der98v::bare::x
+        G=['bit_typespec|qk6_t']
+        P=['int_typespec|qk6_t']
+        Q=['bit_typespec|qk6_t']
+    STILL         p6v::z6der98v::qual2::x
+        G=['unsupported_typespec|p6v::qk6_t']
+        P=['bit_typespec|qk6_t']
+        Q=['bit_typespec|qk6_t']
+    STILL         p6v::z6der98v::qual::x
+        G=['int_typespec|qk6_t']
+        P=['unsupported_typespec|m6base98v::qk6_t']
+        Q=['unsupported_typespec|m6base98v::qk6_t']
+    STILL         qk6_t
+        G=['int_typespec|qk6_t']
+        P=[]
+        Q=[]
+v98_c7_dut.sv_def | pris rc=0 FAIL heads=1 lines=958 | pat rc=0 FAIL heads=1 lines=958
+  v98_c7_dut.sv_def          cells   10 OK    5 FIXED   3 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         dp7_t
+        G=['int_typespec|dp7_t@7:27-7:30']
+        P=[]
+        Q=[]
+    STILL         p7v::l1_98v::own1::x
+        G=['int_typespec|dp7_t@7:57-7:62']
+        P=['int_typespec|dp7_t@7:27-7:30']
+        Q=['int_typespec|dp7_t@7:27-7:30']
+    FIXED         p7v::l2_98v::h2::x
+        G=['bit_typespec|dp7_t@6:27-6:36']
+        P=['int_typespec|dp7_t@7:27-7:30']
+        Q=['bit_typespec|dp7_t@6:27-6:36']
+    FIXED         p7v::l3_98v::h3::x
+        G=['bit_typespec|dp7_t@6:27-6:36']
+        P=['int_typespec|dp7_t@7:27-7:30']
+        Q=['bit_typespec|dp7_t@6:27-6:36']
+    FIXED         p7v::l4_98v::h4::x
+        G=['bit_typespec|dp7_t@6:27-6:36']
+        P=['int_typespec|dp7_t@7:27-7:30']
+        Q=['bit_typespec|dp7_t@6:27-6:36']
+  v98_c7_dut.sv_def/NOSPAN   cells   10 OK    6 FIXED   3 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         dp7_t
+        G=['int_typespec|dp7_t']
+        P=[]
+        Q=[]
+    FIXED         p7v::l2_98v::h2::x
+        G=['bit_typespec|dp7_t']
+        P=['int_typespec|dp7_t']
+        Q=['bit_typespec|dp7_t']
+    FIXED         p7v::l3_98v::h3::x
+        G=['bit_typespec|dp7_t']
+        P=['int_typespec|dp7_t']
+        Q=['bit_typespec|dp7_t']
+    FIXED         p7v::l4_98v::h4::x
+        G=['bit_typespec|dp7_t']
+        P=['int_typespec|dp7_t']
+        Q=['bit_typespec|dp7_t']
+v98_c7_dut.sv_elab | pris rc=0 FAIL heads=1 lines=958 | pat rc=0 FAIL heads=1 lines=958
+  v98_c7_dut.sv_elab         cells   10 OK    5 FIXED   3 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         dp7_t
+        G=['int_typespec|dp7_t@7:27-7:30']
+        P=[]
+        Q=[]
+    STILL         p7v::l1_98v::own1::x
+        G=['int_typespec|dp7_t@7:57-7:62']
+        P=['int_typespec|dp7_t@7:27-7:30']
+        Q=['int_typespec|dp7_t@7:27-7:30']
+    FIXED         p7v::l2_98v::h2::x
+        G=['bit_typespec|dp7_t@6:27-6:36']
+        P=['int_typespec|dp7_t@7:27-7:30']
+        Q=['bit_typespec|dp7_t@6:27-6:36']
+    FIXED         p7v::l3_98v::h3::x
+        G=['bit_typespec|dp7_t@6:27-6:36']
+        P=['int_typespec|dp7_t@7:27-7:30']
+        Q=['bit_typespec|dp7_t@6:27-6:36']
+    FIXED         p7v::l4_98v::h4::x
+        G=['bit_typespec|dp7_t@6:27-6:36']
+        P=['int_typespec|dp7_t@7:27-7:30']
+        Q=['bit_typespec|dp7_t@6:27-6:36']
+  v98_c7_dut.sv_elab/NOSPAN  cells   10 OK    6 FIXED   3 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         dp7_t
+        G=['int_typespec|dp7_t']
+        P=[]
+        Q=[]
+    FIXED         p7v::l2_98v::h2::x
+        G=['bit_typespec|dp7_t']
+        P=['int_typespec|dp7_t']
+        Q=['bit_typespec|dp7_t']
+    FIXED         p7v::l3_98v::h3::x
+        G=['bit_typespec|dp7_t']
+        P=['int_typespec|dp7_t']
+        Q=['bit_typespec|dp7_t']
+    FIXED         p7v::l4_98v::h4::x
+        G=['bit_typespec|dp7_t']
+        P=['int_typespec|dp7_t']
+        Q=['bit_typespec|dp7_t']
+v98_c8_dut.sv_def | pris rc=0 FAIL heads=1 lines=18 | pat rc=0 FAIL heads=1 lines=18
+  v98_c8_dut.sv_def          cells    8 OK    2 FIXED   1 BROKE   0 STILL    5 CHANGED-STILL   0
+    STILL         p8v::b8base98v::own::x
+        G=['int_typespec|pk8_t@7:23-7:28']
+        P=['int_typespec|pk8_t@6:13-6:16']
+        Q=['int_typespec|pk8_t@6:13-6:16']
+    FIXED         p8v::c8der98v::hot::x
+        G=['bit_typespec|pk8_t@4:27-4:36']
+        P=['int_typespec|pk8_t@6:13-6:16']
+        Q=['bit_typespec|pk8_t@4:27-4:36']
+    STILL         pk8_t
+        G=['int_typespec|pk8_t@6:13-6:16']
+        P=[]
+        Q=[]
+    STILL         work@top8v.a
+        G=['class_typespec|c8der98v@16:3-16:11|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:3-16:11|defn=p8v::c8der98v']
+        P=['class_typespec|c8der98v@16:3-16:15|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:3-16:15|defn=p8v::c8der98v']
+        Q=['class_typespec|c8der98v@16:3-16:15|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:3-16:15|defn=p8v::c8der98v']
+    STILL         work@top8v.b
+        G=['class_typespec|c8der98v@16:19-16:27|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:19-16:27|defn=p8v::c8der98v']
+        P=['class_typespec|c8der98v@16:19-16:31|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:19-16:31|defn=p8v::c8der98v']
+        Q=['class_typespec|c8der98v@16:19-16:31|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:19-16:31|defn=p8v::c8der98v']
+    STILL         work@top8v.c
+        G=['class_typespec|c8der98v@16:35-16:43|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:35-16:43|defn=p8v::c8der98v']
+        P=['class_typespec|c8der98v@16:35-16:47|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:35-16:47|defn=p8v::c8der98v']
+        Q=['class_typespec|c8der98v@16:35-16:47|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:35-16:47|defn=p8v::c8der98v']
+  v98_c8_dut.sv_def/NOSPAN   cells    8 OK    6 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p8v::c8der98v::hot::x
+        G=['bit_typespec|pk8_t']
+        P=['int_typespec|pk8_t']
+        Q=['bit_typespec|pk8_t']
+    STILL         pk8_t
+        G=['int_typespec|pk8_t']
+        P=[]
+        Q=[]
+v98_c8_dut.sv_elab | pris rc=0 FAIL heads=1 lines=18 | pat rc=0 FAIL heads=1 lines=18
+  v98_c8_dut.sv_elab         cells    8 OK    2 FIXED   1 BROKE   0 STILL    5 CHANGED-STILL   0
+    STILL         p8v::b8base98v::own::x
+        G=['int_typespec|pk8_t@7:23-7:28']
+        P=['int_typespec|pk8_t@6:13-6:16']
+        Q=['int_typespec|pk8_t@6:13-6:16']
+    FIXED         p8v::c8der98v::hot::x
+        G=['bit_typespec|pk8_t@4:27-4:36']
+        P=['int_typespec|pk8_t@6:13-6:16']
+        Q=['bit_typespec|pk8_t@4:27-4:36']
+    STILL         pk8_t
+        G=['int_typespec|pk8_t@6:13-6:16']
+        P=[]
+        Q=[]
+    STILL         work@top8v.a
+        G=['class_typespec|c8der98v@16:3-16:11|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:3-16:11|defn=p8v::c8der98v']
+        P=['class_typespec|c8der98v@16:3-16:15|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:3-16:15|defn=p8v::c8der98v']
+        Q=['class_typespec|c8der98v@16:3-16:15|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:3-16:15|defn=p8v::c8der98v']
+    STILL         work@top8v.b
+        G=['class_typespec|c8der98v@16:19-16:27|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:19-16:27|defn=p8v::c8der98v']
+        P=['class_typespec|c8der98v@16:19-16:31|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:19-16:31|defn=p8v::c8der98v']
+        Q=['class_typespec|c8der98v@16:19-16:31|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:19-16:31|defn=p8v::c8der98v']
+    STILL         work@top8v.c
+        G=['class_typespec|c8der98v@16:35-16:43|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:35-16:43|defn=p8v::c8der98v']
+        P=['class_typespec|c8der98v@16:35-16:47|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:35-16:47|defn=p8v::c8der98v']
+        Q=['class_typespec|c8der98v@16:35-16:47|defn=p8v::c8der98v', 'class_typespec|c8der98v@16:35-16:47|defn=p8v::c8der98v']
+  v98_c8_dut.sv_elab/NOSPAN  cells    8 OK    6 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    FIXED         p8v::c8der98v::hot::x
+        G=['bit_typespec|pk8_t']
+        P=['int_typespec|pk8_t']
+        Q=['bit_typespec|pk8_t']
+    STILL         pk8_t
+        G=['int_typespec|pk8_t']
+        P=[]
+        Q=[]
+v98_c9_dut.sv_def | pris rc=4 FAIL heads=1 lines=17 | pat rc=4 FAIL heads=1 lines=17
+  v98_c9_dut.sv_def          cells    9 OK    6 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         hm9_t
+        G=['int_typespec|hm9_t@13:28-13:31']
+        P=[]
+        Q=[]
+    STILL         p9v::m9base98v::own::x
+        G=['int_typespec|hm9_t@13:57-13:62']
+        P=['int_typespec|hm9_t@13:28-13:31']
+        Q=['int_typespec|hm9_t@13:28-13:31']
+    FIXED         p9v::z9der98v::hot::x
+        G=['bit_typespec|hm9_t@9:15-9:24']
+        P=['int_typespec|hm9_t@13:28-13:31']
+        Q=['bit_typespec|hm9_t@9:15-9:24']
+  v98_c9_dut.sv_def/NOSPAN   cells    9 OK    7 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         hm9_t
+        G=['int_typespec|hm9_t']
+        P=[]
+        Q=[]
+    FIXED         p9v::z9der98v::hot::x
+        G=['bit_typespec|hm9_t']
+        P=['int_typespec|hm9_t']
+        Q=['bit_typespec|hm9_t']
+v98_c9_dut.sv_elab | pris rc=4 FAIL heads=1 lines=17 | pat rc=4 FAIL heads=1 lines=17
+  v98_c9_dut.sv_elab         cells    9 OK    6 FIXED   1 BROKE   0 STILL    2 CHANGED-STILL   0
+    STILL         hm9_t
+        G=['int_typespec|hm9_t@13:28-13:31']
+        P=[]
+        Q=[]
+    STILL         p9v::m9base98v::own::x
+        G=['int_typespec|hm9_t@13:57-13:62']
+        P=['int_typespec|hm9_t@13:28-13:31']
+        Q=['int_typespec|hm9_t@13:28-13:31']
+    FIXED         p9v::z9der98v::hot::x
+        G=['bit_typespec|hm9_t@9:15-9:24']
+        P=['int_typespec|hm9_t@13:28-13:31']
+        Q=['bit_typespec|hm9_t@9:15-9:24']
+  v98_c9_dut.sv_elab/NOSPAN  cells    9 OK    7 FIXED   1 BROKE   0 STILL    1 CHANGED-STILL   0
+    STILL         hm9_t
+        G=['int_typespec|hm9_t']
+        P=[]
+        Q=[]
+    FIXED         p9v::z9der98v::hot::x
+        G=['bit_typespec|hm9_t']
+        P=['int_typespec|hm9_t']
+        Q=['bit_typespec|hm9_t']
+ARMS_LISTED=27 PROCESSED=27

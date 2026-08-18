@@ -1,0 +1,24 @@
+# r10uvm98 — the a-priori mover prediction, from OUR PRISTINE databases ALONE.
+# pred98 names every database in which some BARE typedef name has more than
+# one meaning; a database it does not name CANNOT move.  Run BEFORE the
+# patched sweep existed.
+
+== uhdm2rtlil (pristine workdir, 1358 databases) -- THE FENCE
+PREDICT: 0 / 1358 databases can move
+   reach check: 681 of those 1358 databases DO carry class_typespec-typed
+   sites (io_decl / variables / return), so the fence is NOT vacuous --
+   every bare typedef name in that corpus has exactly ONE meaning, so the
+   first writer IS the declaration the reference already resolves to.
+
+== surelog (pristine workdir, 956 databases)
+CANMOVE 26  default/BuildUVMPkg-bf853d43
+CANMOVE 28  default/MiniAmiq-544c7f61
+CANMOVE 28  default/Scoreboard-59431470
+CANMOVE 28  default/SeqDriver-32af76aa
+CANMOVE 28  default/SimpleUVM-1dc93a62
+CANMOVE 26  testflags/BuildUVMPkg-bf853d43
+CANMOVE 28  testflags/MiniAmiq-544c7f61
+CANMOVE 28  testflags/SeqDriver-32af76aa
+CANMOVE 28  testflags/SimpleUVM-1dc93a62
+PREDICT: 9 / 956 databases can move
+   reach check: 586 of the 956 carry class_typespec-typed sites.

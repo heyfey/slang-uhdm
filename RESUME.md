@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 15:35, HEAD = the earl68 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 15:50, HEAD = the uvm98 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -180,7 +180,7 @@ row-modes over 7 tests:
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | ~99k (depth: two whole class_defn objects) | an INHERITED typedef name `this_type` written in the derived socket classes: golden binds it to `uvm_algorithmic_comparator::this_type` (Surelog's bare-name FIRST-WRITER-WINS late bind), we to the correct `uvm_port_base::this_type` — 9 cells, fully decoded; pass uvm98 in flight (uvm97 landed: 17→99k depth, one class_typespec per Surelog typedef) |
+| SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | 50 / 108 (depth) | an inside-set RANGE member in the with-clause of an array locator method: uvm_domain.svh:199 `item.get_state() inside {[UVM_PHASE_STARTED:UVM_PHASE_CLEANUP]}` — golden's outer operation holds the bounds as bare ref_obj operands where we wrap them in an operation vpiOpType 37 (vpiListOp); pass uvm99 in flight (uvm98 landed: ~99k→50/108, bare-typedef-name FIRST-WRITER-WINS design-wide + the verifier's module/interface typedef suppressor) |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 166 (depth) | a hier_path split on the DOTS OF THE SOURCE TEXT inside a subscript: `m_streams[ro.get_name()].exists(…)` (uvm_pkg.sv:30163) — golden's first element is a bit_select whose index is the nested hier_path ro.get_name, ours two bogus ref_objs `m_streams[ro` / `get_name()]`; pass buvm23 in flight (buvm22 landed: 52→166 depth, unpacked-typedef return var kind) |
 | Earlgrey_0_1/default | 216 (depth) | a hier_path operand of an ELAB gen-scope cont_assign (flash_phy_rd.sv:122:43 `read_buf[i].addr[FlashWordsW+:PageW]`): golden's vpiName folds the PARAMETER bounds `read_buf[i].addr[7+:8]` while the genvar index stays spelled — plus earl68's R1: a genvar hier_path ELEMENT INDEX becomes a LOCATED UINT sz 64 no-typespec constant (261 cells, testflags only); pass earl69 in flight (earl68 landed: 32→216 depth, whole-Rhs bare-genvar fold loc-less UINT sz 64 + adjustSize typespec-PRESENCE size rule) |
 | Earlgrey_0_1/testflags | 216 (depth) | SAME head, identical cmp log (earl68) |
@@ -189,7 +189,7 @@ row-modes over 7 tests:
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 59 verifier fix-before-landing re-cuts (116 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 60 verifier fix-before-landing re-cuts (117 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

@@ -2889,6 +2889,47 @@ private:
     std::map<const slang::ast::Symbol*, TdClaim11> tdClaims11;
     bool tdClaims11Built = false;
     void buildTdClaims11();
+    // § bareTdNameFirstWriterWins98 — the OTHER map `ElaborationStep::bindTypedefs_`
+    // fills while it walks the SAME `defs` list: `specs`, keyed on the BARE
+    // typedef NAME with FIRST-WRITER-WINS `emplace`, and read back to repair
+    // every reference Surelog's class compile could not resolve.  One entry per
+    // bare name, the smallest (group, container, name) key that declares it,
+    // plus the declaration itself.  Built once, lazily, from the same walk.
+    struct FwWin98 {
+        TdClaim11 key;
+        const slang::ast::TypeAliasType* al = nullptr;
+    };
+    std::map<std::string, FwWin98, std::less<>> fwWinners98;
+    bool fwWinners98Built = false;
+    void buildFwWinners98();
+    /// V-FIX v98 — § modIfaceTdBeatsClassFirstWriter98v.  `bindTypedefs_`'s
+    /// `defs` list walks MODULES (`getModuleDefinitions()`, which carries
+    /// interfaces too) and PROGRAMS *before* the classes, so a module- or
+    /// interface-level typedef of the racing bare name is the first writer and
+    /// no class can win.  Those declarations are registered here as
+    /// SUPPRESSORS (`al == nullptr`), from the SYNTAX, because the symbol walk
+    /// above reaches only TOP instances: an instantiated child module and an
+    /// uninstantiated interface are both missing from it, and the law then
+    /// mis-bound the reference to the first CLASS.  MEASURED: only a DIRECT
+    /// member typedef of the declaration counts — a generate-block or
+    /// subroutine-local one is not in Surelog's `getTypeDefMap()` (arms
+    /// v98_c25/v98_c26 both keep the class winner in golden).
+    void collectFwModIfaceTds98v();
+    void collectFwWinners98(const slang::ast::Scope& sc, int group,
+                            const std::string& container, int depth);
+    /// Does Surelog's `DesignComponent::getDataType` (LEXICAL parents only,
+    /// never base classes) reach `home` from the scope `declSymbol` lives in?
+    bool lexReaches98(const slang::ast::Symbol& declSymbol,
+                      const slang::ast::Symbol& home) const;
+    /// The typedef this written reference ACTUALLY binds to in golden, or null
+    /// when Surelog resolved it correctly (the fence).
+    const slang::ast::TypeAliasType* fwWinner98(
+        const slang::ast::Symbol& declSymbol,
+        const slang::ast::TypeAliasType& al,
+        const slang::syntax::SyntaxNode* typeSynOverride);
+    /// The winner's own typespec object, built on demand, def/elab-chosen
+    /// exactly as the ordinary typedef share below does.
+    UHDM::typespec* fwWinnerTs98(const slang::ast::TypeAliasType& w);
     void collectTdClaims11(const slang::ast::Scope& sc, int group,
                            const std::string& container, int depth);
     /// Questions (2)+(3) alone: does this typedef LOSE the race for its

@@ -1,0 +1,59 @@
+== v98 VERIFIER CENSUS — owner-keyed, VIEW-GENERAL, NO SPAN, judge-read payload ==
+key   = the site's vpiFullName (dump-synthesised)
+value = <typespec kind>|<VpiName>[|defn=<Class_defn fullname>]  -- NO span, NO file
+
+-- CALIBRATION FIRST: golden(default) vs golden(testflags), same instrument
+  GOLDEN-vs-GOLDEN SeqDriver cells 6109 OK 6109 FIXED   0 BROKE   0 STILL    0 CHANGED-STILL   0
+  GOLDEN-vs-GOLDEN MiniAmiq  cells 6589 OK 6589 FIXED   0 BROKE   0 STILL    0 CHANGED-STILL   0
+
+-- THREE-WAY on the nine movers: golden / pristine / VERIFIED
+  SeqDriver_default          cells 6195 OK 4971 FIXED   8 BROKE   0 STILL 1216 CHANGED-STILL   0
+  SeqDriver_testflags        cells 6195 OK 4971 FIXED   8 BROKE   0 STILL 1216 CHANGED-STILL   0
+  SimpleUVM_default          cells 4259 OK 3927 FIXED   8 BROKE   0 STILL  324 CHANGED-STILL   0
+  SimpleUVM_testflags        cells 4259 OK 3927 FIXED   8 BROKE   0 STILL  324 CHANGED-STILL   0
+  MiniAmiq_default           cells 6681 OK 5371 FIXED   8 BROKE   0 STILL 1302 CHANGED-STILL   0
+  MiniAmiq_testflags         cells 6681 OK 5371 FIXED   8 BROKE   0 STILL 1302 CHANGED-STILL   0
+  Scoreboard_default         cells 4249 OK 3919 FIXED   8 BROKE   0 STILL  322 CHANGED-STILL   0
+  BuildUVMPkg_default        cells 4362 OK 4067 FIXED   8 BROKE   0 STILL  287 CHANGED-STILL   0
+  BuildUVMPkg_testflags      cells 4362 OK 4067 FIXED   8 BROKE   0 STILL  287 CHANGED-STILL   0
+
+-- the eight TO-GOLDEN cells (SeqDriver/default), the head's field
+    FIXED         uvm_pkg::uvm_tlm_b_initiator_socket::connect::provider
+        G=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+        P=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_port_base']
+        Q=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+    FIXED         uvm_pkg::uvm_tlm_b_passthrough_initiator_socket::connect::provider
+        G=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+        P=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_port_base']
+        Q=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+    FIXED         uvm_pkg::uvm_tlm_b_passthrough_target_socket::connect::provider
+        G=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+        P=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_port_base']
+        Q=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+    FIXED         uvm_pkg::uvm_tlm_b_target_socket::connect::provider
+        G=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+        P=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_port_base']
+        Q=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+--
+    FIXED         uvm_pkg::uvm_tlm_nb_initiator_socket::connect::provider
+        G=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+        P=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_port_base']
+        Q=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+    FIXED         uvm_pkg::uvm_tlm_nb_passthrough_initiator_socket::connect::provider
+        G=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+        P=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_port_base']
+        Q=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+    FIXED         uvm_pkg::uvm_tlm_nb_passthrough_target_socket::connect::provider
+        G=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+        P=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_port_base']
+        Q=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+    FIXED         uvm_pkg::uvm_tlm_nb_target_socket::connect::provider
+        G=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+        P=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_port_base']
+        Q=['class_typespec|adpcm_pkg::this_type|defn=uvm_pkg::uvm_algorithmic_comparator']
+
+-- mover attribution: whole-dump path-normalised id-stripped diff
+BuildUVMPkg/testflags ordered=20 orderblind=20
+SeqDriver/testflags   ordered=62 orderblind=22   (the known ~50/50 COIN)
+MiniAmiq/testflags    ordered=22 orderblind=22
+SimpleUVM/testflags   ordered=22 orderblind=22

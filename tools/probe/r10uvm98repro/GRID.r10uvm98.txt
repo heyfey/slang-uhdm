@@ -1,0 +1,554 @@
+# r10uvm98 GRID — three-way (golden=LHS / pristine / patched), both views.
+# FIELD=DEFN scores class_typespec::Compare's LAST field, the head's field.
+# FIELD=ALL scores the whole judged value (VpiName, Typedef_alias, Instance too).
+
+======== FIELD=DEFN
+g98_a1_inherit_def: pris=rc0/CMP_FAIL/heads1/lines253 pat=rc0/CMP_FAIL/heads1/lines253
+  g98_a1_inherit_def           [DEFN] CELLS  17  ALREADY-OK  12  FIXED   3  BROKE   0  STILL   2
+  FIXED       ('IODECL', 'p98a::ccc98::inh_formal::prov')
+      G=['p98a::aaa98']
+      P=['p98a::bbb98']
+      Q=['p98a::aaa98']
+  STILL       ('RETURN', 'p98a::ccc98::inh_ret')
+      G=['p98a::aaa98']
+      P=['p98a::bbb98']
+      Q=['p98a::bbb98']
+  FIXED       ('VAR', 'p98a::ccc98::inh_local::lm')
+      G=['int_typespec']
+      P=['bit_typespec']
+      Q=['int_typespec']
+  FIXED       ('VAR', 'p98a::ccc98::inh_local::lv')
+      G=['p98a::aaa98']
+      P=['p98a::bbb98']
+      Q=['p98a::aaa98']
+  STILL       ('VAR', 'p98a::ccc98::inh_ret')
+      G=['p98a::aaa98']
+      P=['p98a::bbb98']
+      Q=['p98a::bbb98']
+g98_a1_inherit_elab: pris=rc0/CMP_FAIL/heads1/lines253 pat=rc0/CMP_FAIL/heads1/lines253
+  g98_a1_inherit_elab          [DEFN] CELLS  17  ALREADY-OK  10  FIXED   2  BROKE   0  STILL   5
+  STILL       ('IODECL', 'p98a::aaa98::own_a::prov')
+      G=['p98a::aaa98']
+      P=['p98a::aaa98', 'p98a::aaa98']
+      Q=['p98a::aaa98', 'p98a::aaa98']
+  STILL       ('IODECL', 'p98a::bbb98::own_b::prov')
+      G=['p98a::bbb98']
+      P=['p98a::bbb98', 'p98a::bbb98']
+      Q=['p98a::bbb98', 'p98a::bbb98']
+  STILL       ('IODECL', 'p98a::ccc98::inh_formal::prov')
+      G=['p98a::aaa98']
+      P=['p98a::bbb98', 'p98a::bbb98', 'p98a::bbb98']
+      Q=['p98a::aaa98', 'p98a::aaa98', 'p98a::aaa98']
+  STILL       ('RETURN', 'p98a::ccc98::inh_ret')
+      G=['p98a::aaa98', 'p98a::aaa98']
+      P=['p98a::bbb98', 'p98a::bbb98', 'p98a::bbb98']
+      Q=['p98a::bbb98', 'p98a::bbb98', 'p98a::bbb98']
+  FIXED       ('VAR', 'p98a::ccc98::inh_local::lm')
+      G=['int_typespec', 'int_typespec', 'int_typespec']
+      P=['bit_typespec', 'bit_typespec', 'bit_typespec']
+      Q=['int_typespec', 'int_typespec', 'int_typespec']
+  FIXED       ('VAR', 'p98a::ccc98::inh_local::lv')
+      G=['p98a::aaa98', 'p98a::aaa98', 'p98a::aaa98']
+      P=['p98a::bbb98', 'p98a::bbb98', 'p98a::bbb98']
+      Q=['p98a::aaa98', 'p98a::aaa98', 'p98a::aaa98']
+  STILL       ('VAR', 'p98a::ccc98::inh_ret')
+      G=['p98a::aaa98']
+      P=['p98a::bbb98']
+      Q=['p98a::bbb98']
+g98_a2_fence_def: pris=rc0/CMP_FAIL/heads1/lines235 pat=rc0/CMP_FAIL/heads1/lines235
+  g98_a2_fence_def             [DEFN] CELLS   8  ALREADY-OK   8  FIXED   0  BROKE   0  STILL   0
+g98_a2_fence_elab: pris=rc0/CMP_FAIL/heads1/lines235 pat=rc0/CMP_FAIL/heads1/lines235
+  g98_a2_fence_elab            [DEFN] CELLS   8  ALREADY-OK   7  FIXED   0  BROKE   0  STILL   1
+  STILL       ('IODECL', 'p98b::zderv98::f::prov')
+      G=['p98b::zbase98']
+      P=['p98b::zbase98', 'p98b::zbase98', 'p98b::zbase98']
+      Q=['p98b::zbase98', 'p98b::zbase98', 'p98b::zbase98']
+g98_a3_homes_def: pris=rc4/CMP_FAIL/heads1/lines189 pat=rc4/CMP_FAIL/heads1/lines189
+  g98_a3_homes_def             [DEFN] CELLS   8  ALREADY-OK   6  FIXED   1  BROKE   0  STILL   1
+  FIXED       ('VAR', 'zpkg98::kderv98::uses::a')
+      G=['byte_typespec']
+      P=['zpkg98::kbase98']
+      Q=['byte_typespec']
+  STILL       ('VAR', 'zpkg98::kderv98::uses::b')
+      G=['int_typespec']
+      P=['short_int_typespec']
+      Q=['short_int_typespec']
+g98_a3_homes_elab: pris=rc4/CMP_FAIL/heads1/lines189 pat=rc4/CMP_FAIL/heads1/lines189
+  g98_a3_homes_elab            [DEFN] CELLS   8  ALREADY-OK   6  FIXED   1  BROKE   0  STILL   1
+  FIXED       ('VAR', 'zpkg98::kderv98::uses::a')
+      G=['byte_typespec', 'byte_typespec', 'byte_typespec']
+      P=['zpkg98::kbase98', 'zpkg98::kbase98', 'zpkg98::kbase98']
+      Q=['byte_typespec', 'byte_typespec', 'byte_typespec']
+  STILL       ('VAR', 'zpkg98::kderv98::uses::b')
+      G=['int_typespec', 'int_typespec', 'int_typespec']
+      P=['short_int_typespec', 'short_int_typespec', 'short_int_typespec']
+      Q=['short_int_typespec', 'short_int_typespec', 'short_int_typespec']
+g98_a4_order_def: pris=rc0/CMP_FAIL/heads1/lines461 pat=rc0/CMP_FAIL/heads1/lines461
+  g98_a4_order_def             [DEFN] CELLS  19  ALREADY-OK  17  FIXED   1  BROKE   0  STILL   1
+  FIXED       ('IODECL', 'cpk98::s3use98::bare::p')
+      G=['apk98::w9cls98']
+      P=['cpk98::q1base98']
+      Q=['apk98::w9cls98']
+  STILL       ('IODECL', 'cpk98::s3use98::qual::p')
+      G=['cpk98::q1base98']
+      P=['unsupported_typespec']
+      Q=['unsupported_typespec']
+g98_a4_order_elab: pris=rc0/CMP_FAIL/heads1/lines461 pat=rc0/CMP_FAIL/heads1/lines461
+  g98_a4_order_elab            [DEFN] CELLS  19  ALREADY-OK  15  FIXED   0  BROKE   0  STILL   4
+  STILL       ('IODECL', 'cpk98::s3use98::bare::p')
+      G=['apk98::w9cls98']
+      P=['cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98']
+      Q=['apk98::w9cls98', 'apk98::w9cls98', 'apk98::w9cls98']
+  STILL       ('IODECL', 'cpk98::s3use98::oob::p')
+      G=['cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98']
+      P=['cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98']
+      Q=['cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98']
+  STILL       ('IODECL', 'cpk98::s3use98::qual::p')
+      G=['cpk98::q1base98']
+      P=['unsupported_typespec', 'unsupported_typespec', 'unsupported_typespec']
+      Q=['unsupported_typespec', 'unsupported_typespec', 'unsupported_typespec']
+  STILL       ('IODECL', 'cpk98::s3use98::solo::p')
+      G=['cpk98::q1base98']
+      P=['cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98']
+      Q=['cpk98::q1base98', 'cpk98::q1base98', 'cpk98::q1base98']
+g98_a5_oob_def: pris=rc0/CMP_FAIL/heads1/lines341 pat=rc0/CMP_FAIL/heads1/lines341
+  g98_a5_oob_def               [DEFN] CELLS  18  ALREADY-OK  12  FIXED   2  BROKE   0  STILL   4
+  STILL       ('IODECL', 'epk98::b1own98::oob_cold::p')
+      G=['bit_typespec', 'int_typespec', 'int_typespec']
+      P=['bit_typespec', 'bit_typespec', 'bit_typespec']
+      Q=['bit_typespec', 'bit_typespec', 'bit_typespec']
+  STILL       ('IODECL', 'epk98::b1own98::oob_hot::p')
+      G=['epk98::a0win98', 'epk98::a0win98', 'epk98::b1own98']
+      P=['epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98']
+      Q=['epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98']
+  FIXED       ('IODECL', 'epk98::c2der98::st::p')
+      G=['epk98::a0win98']
+      P=['epk98::b1own98']
+      Q=['epk98::a0win98']
+  STILL       ('RETURN', 'epk98::c2der98::ret')
+      G=['epk98::a0win98']
+      P=['epk98::b1own98']
+      Q=['epk98::b1own98']
+  FIXED       ('VAR', 'epk98::c2der98::cast_it::h')
+      G=['epk98::a0win98']
+      P=['epk98::b1own98']
+      Q=['epk98::a0win98']
+  STILL       ('VAR', 'epk98::c2der98::ret')
+      G=['epk98::a0win98']
+      P=['epk98::b1own98']
+      Q=['epk98::b1own98']
+g98_a5_oob_elab: pris=rc0/CMP_FAIL/heads1/lines341 pat=rc0/CMP_FAIL/heads1/lines341
+  g98_a5_oob_elab              [DEFN] CELLS  18  ALREADY-OK   9  FIXED   1  BROKE   0  STILL   8
+  STILL       ('IODECL', 'epk98::b1own98::inbody_hot::p')
+      G=['epk98::b1own98']
+      P=['epk98::b1own98', 'epk98::b1own98']
+      Q=['epk98::b1own98', 'epk98::b1own98']
+  STILL       ('IODECL', 'epk98::b1own98::oob_cold::p')
+      G=['bit_typespec', 'int_typespec', 'int_typespec', 'int_typespec', 'int_typespec']
+      P=['bit_typespec', 'bit_typespec', 'bit_typespec', 'bit_typespec', 'bit_typespec', 'bit_typespec', 'bit_typespec']
+      Q=['bit_typespec', 'bit_typespec', 'bit_typespec', 'bit_typespec', 'bit_typespec', 'bit_typespec', 'bit_typespec']
+  STILL       ('IODECL', 'epk98::b1own98::oob_hot::p')
+      G=['epk98::a0win98', 'epk98::a0win98', 'epk98::a0win98', 'epk98::a0win98', 'epk98::b1own98']
+      P=['epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98']
+      Q=['epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98']
+  STILL       ('IODECL', 'epk98::c2der98::st::p')
+      G=['epk98::a0win98']
+      P=['epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98']
+      Q=['epk98::a0win98', 'epk98::a0win98', 'epk98::a0win98']
+  STILL       ('RETURN', 'epk98::c2der98::ret')
+      G=['epk98::a0win98', 'epk98::a0win98']
+      P=['epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98']
+      Q=['epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98']
+  STILL       ('VAR', 'epk98::b1own98::locals::lc')
+      G=['bit_typespec', 'bit_typespec', 'bit_typespec']
+      P=['bit_typespec', 'bit_typespec']
+      Q=['bit_typespec', 'bit_typespec']
+  STILL       ('VAR', 'epk98::b1own98::locals::lv')
+      G=['epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98']
+      P=['epk98::b1own98', 'epk98::b1own98']
+      Q=['epk98::b1own98', 'epk98::b1own98']
+  FIXED       ('VAR', 'epk98::c2der98::cast_it::h')
+      G=['epk98::a0win98', 'epk98::a0win98', 'epk98::a0win98', 'epk98::a0win98', 'epk98::a0win98']
+      P=['epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98', 'epk98::b1own98']
+      Q=['epk98::a0win98', 'epk98::a0win98', 'epk98::a0win98', 'epk98::a0win98', 'epk98::a0win98']
+  STILL       ('VAR', 'epk98::c2der98::ret')
+      G=['epk98::a0win98']
+      P=['epk98::b1own98']
+      Q=['epk98::b1own98']
+g98_a6_sites_def: pris=rc4/CMP_FAIL/heads1/lines555 pat=rc4/CMP_FAIL/heads1/lines555
+  g98_a6_sites_def             [DEFN] CELLS  20  ALREADY-OK  18  FIXED   2  BROKE   0  STILL   0
+  FIXED       ('IODECL', 'fpk98::c3use98::new::seed')
+      G=['fpk98::a1first98']
+      P=['fpk98::b2decl98']
+      Q=['fpk98::a1first98']
+  FIXED       ('VAR', 'fpk98::c3use98::t::v')
+      G=['fpk98::a1first98']
+      P=['fpk98::b2decl98']
+      Q=['fpk98::a1first98']
+g98_a6_sites_elab: pris=rc4/CMP_FAIL/heads1/lines583 pat=rc4/CMP_FAIL/heads1/lines583
+  g98_a6_sites_elab            [DEFN] CELLS  20  ALREADY-OK  16  FIXED   0  BROKE   0  STILL   4
+  STILL       ('IODECL', 'fpk98::b2decl98::mk::p')
+      G=['fpk98::b2decl98']
+      P=['fpk98::b2decl98', 'fpk98::b2decl98']
+      Q=['fpk98::b2decl98', 'fpk98::b2decl98']
+  STILL       ('IODECL', 'fpk98::c3use98::new::seed')
+      G=['fpk98::a1first98', 'fpk98::a1first98']
+      P=['fpk98::b2decl98', 'fpk98::b2decl98', 'fpk98::b2decl98']
+      Q=['fpk98::a1first98', 'fpk98::a1first98', 'fpk98::a1first98']
+  STILL       ('RETURN', 'fpk98::c3use98::new')
+      G=['fpk98::c3use98', 'fpk98::c3use98']
+      P=['fpk98::c3use98', 'fpk98::c3use98', 'fpk98::c3use98']
+      Q=['fpk98::c3use98', 'fpk98::c3use98', 'fpk98::c3use98']
+  STILL       ('VAR', 'fpk98::c3use98::t::v')
+      G=['fpk98::a1first98', 'fpk98::a1first98']
+      P=['fpk98::b2decl98', 'fpk98::b2decl98', 'fpk98::b2decl98']
+      Q=['fpk98::a1first98', 'fpk98::a1first98', 'fpk98::a1first98']
+======== FIELD=ALL
+g98_a1_inherit_def: pris=rc0/CMP_FAIL/heads1/lines253 pat=rc0/CMP_FAIL/heads1/lines253
+  g98_a1_inherit_def           [ALL] CELLS  17  ALREADY-OK   7  FIXED   1  BROKE   0  STILL   9
+  STILL       ('IODECL', 'p98a::aaa98::own_a::prov')
+      G=[('this_type', 'p98a::aaa98', '0', 'work@top98a')]
+      P=[('this_type', 'p98a::aaa98', '0', '-')]
+      Q=[('this_type', 'p98a::aaa98', '0', '-')]
+  STILL       ('IODECL', 'p98a::bbb98::own_b::prov')
+      G=[('this_type', 'p98a::bbb98', '0', 'work@top98a')]
+      P=[('this_type', 'p98a::bbb98', '0', '-')]
+      Q=[('this_type', 'p98a::bbb98', '0', '-')]
+  STILL       ('IODECL', 'p98a::ccc98::inh_formal::prov')
+      G=[('this_type', 'p98a::aaa98', '0', 'work@top98a')]
+      P=[('this_type', 'p98a::bbb98', '0', '-')]
+      Q=[('this_type', 'p98a::aaa98', '0', '-')]
+  STILL       ('LISTING', 'p98a::aaa98')
+      G=[('my_t', 'int_typespec', '0', '-'), ('this_type', 'p98a::aaa98', '0', 'work@top98a')]
+      P=[('my_t', 'int_typespec', '0', '-'), ('this_type', 'p98a::aaa98', '0', '-')]
+      Q=[('my_t', 'int_typespec', '0', '-'), ('this_type', 'p98a::aaa98', '0', '-')]
+  STILL       ('LISTING', 'p98a::bbb98')
+      G=[('my_t', 'bit_typespec', '0', '-'), ('this_type', 'p98a::bbb98', '0', 'work@top98a')]
+      P=[('my_t', 'bit_typespec', '0', '-'), ('this_type', 'p98a::bbb98', '0', '-')]
+      Q=[('my_t', 'bit_typespec', '0', '-'), ('this_type', 'p98a::bbb98', '0', '-')]
+  STILL       ('RETURN', 'p98a::ccc98::inh_ret')
+      G=[('this_type', 'p98a::aaa98', '0', 'work@top98a')]
+      P=[('', 'p98a::bbb98', '0', '-')]
+      Q=[('', 'p98a::bbb98', '0', '-')]
+  STILL       ('VAR', 'p98a::bbb98::own_m')
+      G=[('my_t', 'bit_typespec', '1', '-')]
+      P=[('my_t', 'bit_typespec', '0', '-')]
+      Q=[('my_t', 'bit_typespec', '0', '-')]
+  FIXED       ('VAR', 'p98a::ccc98::inh_local::lm')
+      G=[('my_t', 'int_typespec', '0', '-')]
+      P=[('my_t', 'bit_typespec', '0', '-')]
+      Q=[('my_t', 'int_typespec', '0', '-')]
+  STILL       ('VAR', 'p98a::ccc98::inh_local::lv')
+      G=[('this_type', 'p98a::aaa98', '0', 'work@top98a')]
+      P=[('this_type', 'p98a::bbb98', '0', '-')]
+      Q=[('this_type', 'p98a::aaa98', '0', '-')]
+  STILL       ('VAR', 'p98a::ccc98::inh_ret')
+      G=[('this_type', 'p98a::aaa98', '0', 'work@top98a')]
+      P=[('', 'p98a::bbb98', '0', '-')]
+      Q=[('', 'p98a::bbb98', '0', '-')]
+g98_a1_inherit_elab: pris=rc0/CMP_FAIL/heads1/lines253 pat=rc0/CMP_FAIL/heads1/lines253
+  g98_a1_inherit_elab          [ALL] CELLS  17  ALREADY-OK   7  FIXED   1  BROKE   0  STILL   9
+  STILL       ('IODECL', 'p98a::aaa98::own_a::prov')
+      G=[('this_type', 'p98a::aaa98', '0', 'work@top98a')]
+      P=[('this_type', 'p98a::aaa98', '0', '-'), ('this_type', 'p98a::aaa98', '0', '-')]
+      Q=[('this_type', 'p98a::aaa98', '0', '-'), ('this_type', 'p98a::aaa98', '0', '-')]
+  STILL       ('IODECL', 'p98a::bbb98::own_b::prov')
+      G=[('this_type', 'p98a::bbb98', '0', 'work@top98a')]
+      P=[('this_type', 'p98a::bbb98', '0', '-'), ('this_type', 'p98a::bbb98', '0', '-')]
+      Q=[('this_type', 'p98a::bbb98', '0', '-'), ('this_type', 'p98a::bbb98', '0', '-')]
+  STILL       ('IODECL', 'p98a::ccc98::inh_formal::prov')
+      G=[('this_type', 'p98a::aaa98', '0', 'work@top98a')]
+      P=[('this_type', 'p98a::bbb98', '0', '-'), ('this_type', 'p98a::bbb98', '0', '-'), ('this_type', 'p98a::bbb98', '0', '-')]
+      Q=[('this_type', 'p98a::aaa98', '0', '-'), ('this_type', 'p98a::aaa98', '0', '-'), ('this_type', 'p98a::aaa98', '0', '-')]
+  STILL       ('LISTING', 'p98a::aaa98')
+      G=[('my_t', 'int_typespec', '0', '-'), ('this_type', 'p98a::aaa98', '0', 'work@top98a')]
+      P=[('my_t', 'int_typespec', '0', '-'), ('this_type', 'p98a::aaa98', '0', '-')]
+      Q=[('my_t', 'int_typespec', '0', '-'), ('this_type', 'p98a::aaa98', '0', '-')]
+  STILL       ('LISTING', 'p98a::bbb98')
+      G=[('my_t', 'bit_typespec', '0', '-'), ('this_type', 'p98a::bbb98', '0', 'work@top98a')]
+      P=[('my_t', 'bit_typespec', '0', '-'), ('this_type', 'p98a::bbb98', '0', '-')]
+      Q=[('my_t', 'bit_typespec', '0', '-'), ('this_type', 'p98a::bbb98', '0', '-')]
+  STILL       ('RETURN', 'p98a::ccc98::inh_ret')
+      G=[('this_type', 'p98a::aaa98', '0', 'work@top98a'), ('this_type', 'p98a::aaa98', '0', 'work@top98a')]
+      P=[('', 'p98a::bbb98', '0', '-'), ('', 'p98a::bbb98', '0', '-'), ('', 'p98a::bbb98', '0', '-')]
+      Q=[('', 'p98a::bbb98', '0', '-'), ('', 'p98a::bbb98', '0', '-'), ('', 'p98a::bbb98', '0', '-')]
+  STILL       ('VAR', 'p98a::bbb98::own_m')
+      G=[('my_t', 'bit_typespec', '1', '-'), ('my_t', 'bit_typespec', '1', '-')]
+      P=[('my_t', 'bit_typespec', '0', '-'), ('my_t', 'bit_typespec', '0', '-')]
+      Q=[('my_t', 'bit_typespec', '0', '-'), ('my_t', 'bit_typespec', '0', '-')]
+  FIXED       ('VAR', 'p98a::ccc98::inh_local::lm')
+      G=[('my_t', 'int_typespec', '0', '-'), ('my_t', 'int_typespec', '0', '-'), ('my_t', 'int_typespec', '0', '-')]
+      P=[('my_t', 'bit_typespec', '0', '-'), ('my_t', 'bit_typespec', '0', '-'), ('my_t', 'bit_typespec', '0', '-')]
+      Q=[('my_t', 'int_typespec', '0', '-'), ('my_t', 'int_typespec', '0', '-'), ('my_t', 'int_typespec', '0', '-')]
+  STILL       ('VAR', 'p98a::ccc98::inh_local::lv')
+      G=[('this_type', 'p98a::aaa98', '0', 'work@top98a'), ('this_type', 'p98a::aaa98', '0', 'work@top98a'), ('this_type', 'p98a::aaa98', '0', 'work@top98a')]
+      P=[('this_type', 'p98a::bbb98', '0', '-'), ('this_type', 'p98a::bbb98', '0', '-'), ('this_type', 'p98a::bbb98', '0', '-')]
+      Q=[('this_type', 'p98a::aaa98', '0', '-'), ('this_type', 'p98a::aaa98', '0', '-'), ('this_type', 'p98a::aaa98', '0', '-')]
+  STILL       ('VAR', 'p98a::ccc98::inh_ret')
+      G=[('this_type', 'p98a::aaa98', '0', 'work@top98a')]
+      P=[('', 'p98a::bbb98', '0', '-')]
+      Q=[('', 'p98a::bbb98', '0', '-')]
+g98_a2_fence_def: pris=rc0/CMP_FAIL/heads1/lines235 pat=rc0/CMP_FAIL/heads1/lines235
+  g98_a2_fence_def             [ALL] CELLS   8  ALREADY-OK   6  FIXED   0  BROKE   0  STILL   2
+  STILL       ('IODECL', 'p98b::zderv98::f::prov')
+      G=[('sole_type', 'p98b::zbase98', '0', 'work@top98b')]
+      P=[('sole_type', 'p98b::zbase98', '0', '-')]
+      Q=[('sole_type', 'p98b::zbase98', '0', '-')]
+  STILL       ('LISTING', 'p98b::zbase98')
+      G=[('sole_int', 'int_typespec', '0', '-'), ('sole_type', 'p98b::zbase98', '0', 'work@top98b')]
+      P=[('sole_int', 'int_typespec', '0', '-'), ('sole_type', 'p98b::zbase98', '0', '-')]
+      Q=[('sole_int', 'int_typespec', '0', '-'), ('sole_type', 'p98b::zbase98', '0', '-')]
+g98_a2_fence_elab: pris=rc0/CMP_FAIL/heads1/lines235 pat=rc0/CMP_FAIL/heads1/lines235
+  g98_a2_fence_elab            [ALL] CELLS   8  ALREADY-OK   6  FIXED   0  BROKE   0  STILL   2
+  STILL       ('IODECL', 'p98b::zderv98::f::prov')
+      G=[('sole_type', 'p98b::zbase98', '0', 'work@top98b')]
+      P=[('sole_type', 'p98b::zbase98', '0', '-'), ('sole_type', 'p98b::zbase98', '0', '-'), ('sole_type', 'p98b::zbase98', '0', '-')]
+      Q=[('sole_type', 'p98b::zbase98', '0', '-'), ('sole_type', 'p98b::zbase98', '0', '-'), ('sole_type', 'p98b::zbase98', '0', '-')]
+  STILL       ('LISTING', 'p98b::zbase98')
+      G=[('sole_int', 'int_typespec', '0', '-'), ('sole_type', 'p98b::zbase98', '0', 'work@top98b')]
+      P=[('sole_int', 'int_typespec', '0', '-'), ('sole_type', 'p98b::zbase98', '0', '-')]
+      Q=[('sole_int', 'int_typespec', '0', '-'), ('sole_type', 'p98b::zbase98', '0', '-')]
+g98_a3_homes_def: pris=rc4/CMP_FAIL/heads1/lines189 pat=rc4/CMP_FAIL/heads1/lines189
+  g98_a3_homes_def             [ALL] CELLS   8  ALREADY-OK   5  FIXED   0  BROKE   0  STILL   3
+  STILL       ('LISTING', 'zpkg98::kbase98')
+      G=[('own98_t', 'logic_typespec', '0', '-'), ('pkgwin_t', 'zpkg98::kbase98', '0', 'work@mtop98c'), ('unit_t', 'short_int_typespec', '0', '-')]
+      P=[('own98_t', 'logic_typespec', '0', '-'), ('pkgwin_t', 'zpkg98::kbase98', '0', '-'), ('unit_t', 'short_int_typespec', '0', '-')]
+      Q=[('own98_t', 'logic_typespec', '0', '-'), ('pkgwin_t', 'zpkg98::kbase98', '0', '-'), ('unit_t', 'short_int_typespec', '0', '-')]
+  STILL       ('VAR', 'zpkg98::kderv98::uses::a')
+      G=[('apkg98::pkgwin_t', 'byte_typespec', '0', 'apkg98::')]
+      P=[('pkgwin_t', 'zpkg98::kbase98', '0', '-')]
+      Q=[('pkgwin_t', 'byte_typespec', '1', 'apkg98::')]
+  STILL       ('VAR', 'zpkg98::kderv98::uses::b')
+      G=[('unit_t', 'int_typespec', '1', '-')]
+      P=[('unit_t', 'short_int_typespec', '0', '-')]
+      Q=[('unit_t', 'short_int_typespec', '0', '-')]
+g98_a3_homes_elab: pris=rc4/CMP_FAIL/heads1/lines189 pat=rc4/CMP_FAIL/heads1/lines189
+  g98_a3_homes_elab            [ALL] CELLS   8  ALREADY-OK   5  FIXED   0  BROKE   0  STILL   3
+  STILL       ('LISTING', 'zpkg98::kbase98')
+      G=[('own98_t', 'logic_typespec', '0', '-'), ('pkgwin_t', 'zpkg98::kbase98', '0', 'work@mtop98c'), ('unit_t', 'short_int_typespec', '0', '-')]
+      P=[('own98_t', 'logic_typespec', '0', '-'), ('pkgwin_t', 'zpkg98::kbase98', '0', '-'), ('unit_t', 'short_int_typespec', '0', '-')]
+      Q=[('own98_t', 'logic_typespec', '0', '-'), ('pkgwin_t', 'zpkg98::kbase98', '0', '-'), ('unit_t', 'short_int_typespec', '0', '-')]
+  STILL       ('VAR', 'zpkg98::kderv98::uses::a')
+      G=[('apkg98::pkgwin_t', 'byte_typespec', '0', 'apkg98::'), ('apkg98::pkgwin_t', 'byte_typespec', '0', 'apkg98::'), ('apkg98::pkgwin_t', 'byte_typespec', '0', 'apkg98::')]
+      P=[('pkgwin_t', 'zpkg98::kbase98', '0', '-'), ('pkgwin_t', 'zpkg98::kbase98', '0', '-'), ('pkgwin_t', 'zpkg98::kbase98', '0', '-')]
+      Q=[('pkgwin_t', 'byte_typespec', '1', 'apkg98::'), ('pkgwin_t', 'byte_typespec', '1', 'apkg98::'), ('pkgwin_t', 'byte_typespec', '1', 'apkg98::')]
+  STILL       ('VAR', 'zpkg98::kderv98::uses::b')
+      G=[('unit_t', 'int_typespec', '1', '-'), ('unit_t', 'int_typespec', '1', '-'), ('unit_t', 'int_typespec', '1', '-')]
+      P=[('unit_t', 'short_int_typespec', '0', '-'), ('unit_t', 'short_int_typespec', '0', '-'), ('unit_t', 'short_int_typespec', '0', '-')]
+      Q=[('unit_t', 'short_int_typespec', '0', '-'), ('unit_t', 'short_int_typespec', '0', '-'), ('unit_t', 'short_int_typespec', '0', '-')]
+g98_a4_order_def: pris=rc0/CMP_FAIL/heads1/lines461 pat=rc0/CMP_FAIL/heads1/lines461
+  g98_a4_order_def             [ALL] CELLS  19  ALREADY-OK  11  FIXED   0  BROKE   0  STILL   8
+  STILL       ('IODECL', 'cpk98::s3use98::bare::p')
+      G=[('rank_t', 'apk98::w9cls98', '0', 'work@mtop98d')]
+      P=[('rank_t', 'cpk98::q1base98', '0', '-')]
+      Q=[('rank_t', 'apk98::w9cls98', '0', '-')]
+  STILL       ('IODECL', 'cpk98::s3use98::oob::p')
+      G=[('uniq98_t', 'cpk98::q1base98', '1', '-'), ('uniq98_t', 'cpk98::q1base98', '1', '-'), ('uniq98_t', 'cpk98::q1base98', '1', '-')]
+      P=[('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::')]
+      Q=[('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::')]
+  STILL       ('IODECL', 'cpk98::s3use98::qual::p')
+      G=[('rank_t', 'cpk98::q1base98', '0', 'work@mtop98d')]
+      P=[('q1base98::rank_t', 'unsupported_typespec', '0', '-')]
+      Q=[('q1base98::rank_t', 'unsupported_typespec', '0', '-')]
+  STILL       ('IODECL', 'cpk98::s3use98::solo::p')
+      G=[('uniq98_t', 'cpk98::q1base98', '1', '-')]
+      P=[('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::')]
+      Q=[('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::')]
+  STILL       ('LISTING', 'apk98::w9cls98')
+      G=[('rank_t', 'apk98::w9cls98', '0', 'work@mtop98d')]
+      P=[('rank_t', 'apk98::w9cls98', '0', '-')]
+      Q=[('rank_t', 'apk98::w9cls98', '0', '-')]
+  STILL       ('LISTING', 'bpk98::m2cls98')
+      G=[('rank_t', 'bpk98::m2cls98', '0', 'work@mtop98d')]
+      P=[('rank_t', 'bpk98::m2cls98', '0', '-')]
+      Q=[('rank_t', 'bpk98::m2cls98', '0', '-')]
+  STILL       ('LISTING', 'cpk98::q1base98')
+      G=[('rank_t', 'cpk98::q1base98', '0', 'work@mtop98d'), ('uniq98_t', 'cpk98::q1base98', '1', '-')]
+      P=[('rank_t', 'cpk98::q1base98', '0', '-'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::')]
+      Q=[('rank_t', 'cpk98::q1base98', '0', '-'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::')]
+  STILL       ('LISTING', 'cpk98::r2mid98')
+      G=[('rank_t', 'cpk98::r2mid98', '0', 'work@mtop98d')]
+      P=[('rank_t', 'cpk98::r2mid98', '0', '-')]
+      Q=[('rank_t', 'cpk98::r2mid98', '0', '-')]
+g98_a4_order_elab: pris=rc0/CMP_FAIL/heads1/lines461 pat=rc0/CMP_FAIL/heads1/lines461
+  g98_a4_order_elab            [ALL] CELLS  19  ALREADY-OK  11  FIXED   0  BROKE   0  STILL   8
+  STILL       ('IODECL', 'cpk98::s3use98::bare::p')
+      G=[('rank_t', 'apk98::w9cls98', '0', 'work@mtop98d')]
+      P=[('rank_t', 'cpk98::q1base98', '0', '-'), ('rank_t', 'cpk98::q1base98', '0', '-'), ('rank_t', 'cpk98::q1base98', '0', '-')]
+      Q=[('rank_t', 'apk98::w9cls98', '0', '-'), ('rank_t', 'apk98::w9cls98', '0', '-'), ('rank_t', 'apk98::w9cls98', '0', '-')]
+  STILL       ('IODECL', 'cpk98::s3use98::oob::p')
+      G=[('uniq98_t', 'cpk98::q1base98', '1', '-'), ('uniq98_t', 'cpk98::q1base98', '1', '-'), ('uniq98_t', 'cpk98::q1base98', '1', '-'), ('uniq98_t', 'cpk98::q1base98', '1', '-'), ('uniq98_t', 'cpk98::q1base98', '1', '-')]
+      P=[('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::')]
+      Q=[('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::')]
+  STILL       ('IODECL', 'cpk98::s3use98::qual::p')
+      G=[('rank_t', 'cpk98::q1base98', '0', 'work@mtop98d')]
+      P=[('q1base98::rank_t', 'unsupported_typespec', '0', '-'), ('q1base98::rank_t', 'unsupported_typespec', '0', '-'), ('q1base98::rank_t', 'unsupported_typespec', '0', '-')]
+      Q=[('q1base98::rank_t', 'unsupported_typespec', '0', '-'), ('q1base98::rank_t', 'unsupported_typespec', '0', '-'), ('q1base98::rank_t', 'unsupported_typespec', '0', '-')]
+  STILL       ('IODECL', 'cpk98::s3use98::solo::p')
+      G=[('uniq98_t', 'cpk98::q1base98', '1', '-')]
+      P=[('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::')]
+      Q=[('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::')]
+  STILL       ('LISTING', 'apk98::w9cls98')
+      G=[('rank_t', 'apk98::w9cls98', '0', 'work@mtop98d')]
+      P=[('rank_t', 'apk98::w9cls98', '0', '-')]
+      Q=[('rank_t', 'apk98::w9cls98', '0', '-')]
+  STILL       ('LISTING', 'bpk98::m2cls98')
+      G=[('rank_t', 'bpk98::m2cls98', '0', 'work@mtop98d')]
+      P=[('rank_t', 'bpk98::m2cls98', '0', '-')]
+      Q=[('rank_t', 'bpk98::m2cls98', '0', '-')]
+  STILL       ('LISTING', 'cpk98::q1base98')
+      G=[('rank_t', 'cpk98::q1base98', '0', 'work@mtop98d'), ('uniq98_t', 'cpk98::q1base98', '1', '-')]
+      P=[('rank_t', 'cpk98::q1base98', '0', '-'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::')]
+      Q=[('rank_t', 'cpk98::q1base98', '0', '-'), ('uniq98_t', 'cpk98::q1base98', '1', 'cpk98::')]
+  STILL       ('LISTING', 'cpk98::r2mid98')
+      G=[('rank_t', 'cpk98::r2mid98', '0', 'work@mtop98d')]
+      P=[('rank_t', 'cpk98::r2mid98', '0', '-')]
+      Q=[('rank_t', 'cpk98::r2mid98', '0', '-')]
+g98_a5_oob_def: pris=rc0/CMP_FAIL/heads1/lines341 pat=rc0/CMP_FAIL/heads1/lines341
+  g98_a5_oob_def               [ALL] CELLS  18  ALREADY-OK   7  FIXED   0  BROKE   0  STILL  11
+  STILL       ('IODECL', 'epk98::b1own98::inbody_hot::p')
+      G=[('hot98_t', 'epk98::b1own98', '0', 'work@mtop98e')]
+      P=[('hot98_t', 'epk98::b1own98', '0', '-')]
+      Q=[('hot98_t', 'epk98::b1own98', '0', '-')]
+  STILL       ('IODECL', 'epk98::b1own98::oob_cold::p')
+      G=[('cold98_t', 'bit_typespec', '1', '-'), ('cold98_t', 'int_typespec', '0', '-'), ('cold98_t', 'int_typespec', '0', '-')]
+      P=[('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-')]
+      Q=[('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-')]
+  STILL       ('IODECL', 'epk98::b1own98::oob_hot::p')
+      G=[('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e'), ('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e'), ('hot98_t', 'epk98::b1own98', '0', 'work@mtop98e')]
+      P=[('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+      Q=[('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+  STILL       ('IODECL', 'epk98::c2der98::st::p')
+      G=[('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e')]
+      P=[('hot98_t', 'epk98::b1own98', '0', '-')]
+      Q=[('hot98_t', 'epk98::a0win98', '0', '-')]
+  STILL       ('LISTING', 'epk98::a0win98')
+      G=[('cold98_t', 'int_typespec', '0', '-'), ('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e')]
+      P=[('cold98_t', 'int_typespec', '0', '-'), ('hot98_t', 'epk98::a0win98', '0', '-')]
+      Q=[('cold98_t', 'int_typespec', '0', '-'), ('hot98_t', 'epk98::a0win98', '0', '-')]
+  STILL       ('LISTING', 'epk98::b1own98')
+      G=[('cold98_t', 'bit_typespec', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', 'work@mtop98e')]
+      P=[('cold98_t', 'bit_typespec', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+      Q=[('cold98_t', 'bit_typespec', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+  STILL       ('RETURN', 'epk98::c2der98::ret')
+      G=[('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e')]
+      P=[('', 'epk98::b1own98', '0', '-')]
+      Q=[('', 'epk98::b1own98', '0', '-')]
+  STILL       ('VAR', 'epk98::b1own98::locals::lc')
+      G=[('cold98_t', 'bit_typespec', '1', '-')]
+      P=[('cold98_t', 'bit_typespec', '0', '-')]
+      Q=[('cold98_t', 'bit_typespec', '0', '-')]
+  STILL       ('VAR', 'epk98::b1own98::locals::lv')
+      G=[('hot98_t', 'epk98::b1own98', '0', 'work@mtop98e')]
+      P=[('hot98_t', 'epk98::b1own98', '0', '-')]
+      Q=[('hot98_t', 'epk98::b1own98', '0', '-')]
+  STILL       ('VAR', 'epk98::c2der98::cast_it::h')
+      G=[('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e')]
+      P=[('hot98_t', 'epk98::b1own98', '0', '-')]
+      Q=[('hot98_t', 'epk98::a0win98', '0', '-')]
+  STILL       ('VAR', 'epk98::c2der98::ret')
+      G=[('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e')]
+      P=[('', 'epk98::b1own98', '0', '-')]
+      Q=[('', 'epk98::b1own98', '0', '-')]
+g98_a5_oob_elab: pris=rc0/CMP_FAIL/heads1/lines341 pat=rc0/CMP_FAIL/heads1/lines341
+  g98_a5_oob_elab              [ALL] CELLS  18  ALREADY-OK   7  FIXED   0  BROKE   0  STILL  11
+  STILL       ('IODECL', 'epk98::b1own98::inbody_hot::p')
+      G=[('hot98_t', 'epk98::b1own98', '0', 'work@mtop98e')]
+      P=[('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+      Q=[('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+  STILL       ('IODECL', 'epk98::b1own98::oob_cold::p')
+      G=[('cold98_t', 'bit_typespec', '1', '-'), ('cold98_t', 'int_typespec', '0', '-'), ('cold98_t', 'int_typespec', '0', '-'), ('cold98_t', 'int_typespec', '0', '-'), ('cold98_t', 'int_typespec', '0', '-')]
+      P=[('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-')]
+      Q=[('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-')]
+  STILL       ('IODECL', 'epk98::b1own98::oob_hot::p')
+      G=[('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e'), ('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e'), ('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e'), ('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e'), ('hot98_t', 'epk98::b1own98', '0', 'work@mtop98e')]
+      P=[('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+      Q=[('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+  STILL       ('IODECL', 'epk98::c2der98::st::p')
+      G=[('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e')]
+      P=[('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+      Q=[('hot98_t', 'epk98::a0win98', '0', '-'), ('hot98_t', 'epk98::a0win98', '0', '-'), ('hot98_t', 'epk98::a0win98', '0', '-')]
+  STILL       ('LISTING', 'epk98::a0win98')
+      G=[('cold98_t', 'int_typespec', '0', '-'), ('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e')]
+      P=[('cold98_t', 'int_typespec', '0', '-'), ('hot98_t', 'epk98::a0win98', '0', '-')]
+      Q=[('cold98_t', 'int_typespec', '0', '-'), ('hot98_t', 'epk98::a0win98', '0', '-')]
+  STILL       ('LISTING', 'epk98::b1own98')
+      G=[('cold98_t', 'bit_typespec', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', 'work@mtop98e')]
+      P=[('cold98_t', 'bit_typespec', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+      Q=[('cold98_t', 'bit_typespec', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+  STILL       ('RETURN', 'epk98::c2der98::ret')
+      G=[('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e'), ('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e')]
+      P=[('', 'epk98::b1own98', '0', '-'), ('', 'epk98::b1own98', '0', '-'), ('', 'epk98::b1own98', '0', '-')]
+      Q=[('', 'epk98::b1own98', '0', '-'), ('', 'epk98::b1own98', '0', '-'), ('', 'epk98::b1own98', '0', '-')]
+  STILL       ('VAR', 'epk98::b1own98::locals::lc')
+      G=[('cold98_t', 'bit_typespec', '1', '-'), ('cold98_t', 'bit_typespec', '1', '-'), ('cold98_t', 'bit_typespec', '1', '-')]
+      P=[('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-')]
+      Q=[('cold98_t', 'bit_typespec', '0', '-'), ('cold98_t', 'bit_typespec', '0', '-')]
+  STILL       ('VAR', 'epk98::b1own98::locals::lv')
+      G=[('hot98_t', 'epk98::b1own98', '0', 'work@mtop98e'), ('hot98_t', 'epk98::b1own98', '0', 'work@mtop98e'), ('hot98_t', 'epk98::b1own98', '0', 'work@mtop98e')]
+      P=[('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+      Q=[('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+  STILL       ('VAR', 'epk98::c2der98::cast_it::h')
+      G=[('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e'), ('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e'), ('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e'), ('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e'), ('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e')]
+      P=[('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-'), ('hot98_t', 'epk98::b1own98', '0', '-')]
+      Q=[('hot98_t', 'epk98::a0win98', '0', '-'), ('hot98_t', 'epk98::a0win98', '0', '-'), ('hot98_t', 'epk98::a0win98', '0', '-'), ('hot98_t', 'epk98::a0win98', '0', '-'), ('hot98_t', 'epk98::a0win98', '0', '-')]
+  STILL       ('VAR', 'epk98::c2der98::ret')
+      G=[('hot98_t', 'epk98::a0win98', '0', 'work@mtop98e')]
+      P=[('', 'epk98::b1own98', '0', '-')]
+      Q=[('', 'epk98::b1own98', '0', '-')]
+g98_a6_sites_def: pris=rc4/CMP_FAIL/heads1/lines555 pat=rc4/CMP_FAIL/heads1/lines555
+  g98_a6_sites_def             [ALL] CELLS  20  ALREADY-OK  14  FIXED   2  BROKE   0  STILL   4
+  STILL       ('IODECL', 'fpk98::b2decl98::mk::p')
+      G=[('spec98_t', 'fpk98::b2decl98', '0', 'work@mhome98')]
+      P=[('spec98_t', 'fpk98::b2decl98', '0', '-')]
+      Q=[('spec98_t', 'fpk98::b2decl98', '0', '-')]
+  FIXED       ('IODECL', 'fpk98::c3use98::new::seed')
+      G=[('spec98_t', 'fpk98::a1first98', '1', '-')]
+      P=[('spec98_t', 'fpk98::b2decl98', '0', '-')]
+      Q=[('spec98_t', 'fpk98::a1first98', '1', '-')]
+  STILL       ('LISTING', 'fpk98::a1first98')
+      G=[('fwd98_t', 'fpk98::a1first98', '0', 'work@mhome98'), ('spec98_t', 'fpk98::a1first98', '1', '-')]
+      P=[('fwd98_t', 'fpk98::a1first98', '0', '-'), ('spec98_t', 'fpk98::a1first98', '1', '-')]
+      Q=[('fwd98_t', 'fpk98::a1first98', '0', '-'), ('spec98_t', 'fpk98::a1first98', '1', '-')]
+  STILL       ('LISTING', 'fpk98::b2decl98')
+      G=[('spec98_t', 'fpk98::b2decl98', '0', 'work@mhome98')]
+      P=[('spec98_t', 'fpk98::b2decl98', '0', '-')]
+      Q=[('spec98_t', 'fpk98::b2decl98', '0', '-')]
+  STILL       ('LISTING', 'work@mhome98::d4mod98')
+      G=[('fwd98_t', 'fpk98::a1first98', '0', 'work@mhome98'), ('fwd98_t', 'int_typespec', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', 'work@mhome98'), ('spec98_t', 'work@mhome98::d4mod98', '0', '-')]
+      P=[('fwd98_t', 'fpk98::a1first98', '0', '-'), ('fwd98_t', 'int_typespec', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', '-'), ('spec98_t', 'work@mhome98::d4mod98', '0', '-')]
+      Q=[('fwd98_t', 'fpk98::a1first98', '0', '-'), ('fwd98_t', 'int_typespec', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', '-'), ('spec98_t', 'work@mhome98::d4mod98', '0', '-')]
+  FIXED       ('VAR', 'fpk98::c3use98::t::v')
+      G=[('spec98_t', 'fpk98::a1first98', '1', '-')]
+      P=[('spec98_t', 'fpk98::b2decl98', '0', '-')]
+      Q=[('spec98_t', 'fpk98::a1first98', '1', '-')]
+g98_a6_sites_elab: pris=rc4/CMP_FAIL/heads1/lines583 pat=rc4/CMP_FAIL/heads1/lines583
+  g98_a6_sites_elab            [ALL] CELLS  20  ALREADY-OK  13  FIXED   0  BROKE   0  STILL   7
+  STILL       ('IODECL', 'fpk98::b2decl98::mk::p')
+      G=[('spec98_t', 'fpk98::b2decl98', '0', 'work@mhome98')]
+      P=[('spec98_t', 'fpk98::b2decl98', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', '-')]
+      Q=[('spec98_t', 'fpk98::b2decl98', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', '-')]
+  STILL       ('IODECL', 'fpk98::c3use98::new::seed')
+      G=[('spec98_t', 'fpk98::a1first98', '1', '-'), ('spec98_t', 'fpk98::a1first98', '1', '-')]
+      P=[('spec98_t', 'fpk98::b2decl98', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', '-')]
+      Q=[('spec98_t', 'fpk98::a1first98', '1', '-'), ('spec98_t', 'fpk98::a1first98', '1', '-'), ('spec98_t', 'fpk98::a1first98', '1', '-')]
+  STILL       ('LISTING', 'fpk98::a1first98')
+      G=[('fwd98_t', 'fpk98::a1first98', '0', 'work@mhome98'), ('spec98_t', 'fpk98::a1first98', '1', '-')]
+      P=[('fwd98_t', 'fpk98::a1first98', '0', '-'), ('spec98_t', 'fpk98::a1first98', '1', '-')]
+      Q=[('fwd98_t', 'fpk98::a1first98', '0', '-'), ('spec98_t', 'fpk98::a1first98', '1', '-')]
+  STILL       ('LISTING', 'fpk98::b2decl98')
+      G=[('spec98_t', 'fpk98::b2decl98', '0', 'work@mhome98')]
+      P=[('spec98_t', 'fpk98::b2decl98', '0', '-')]
+      Q=[('spec98_t', 'fpk98::b2decl98', '0', '-')]
+  STILL       ('LISTING', 'work@mhome98::d4mod98')
+      G=[('fwd98_t', 'fpk98::a1first98', '0', 'work@mhome98'), ('fwd98_t', 'fpk98::a1first98', '0', 'work@mhome98'), ('fwd98_t', 'int_typespec', '0', '-'), ('fwd98_t', 'int_typespec', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', 'work@mhome98'), ('spec98_t', 'fpk98::b2decl98', '0', 'work@mhome98'), ('spec98_t', 'work@mhome98::d4mod98', '0', '-'), ('spec98_t', 'work@mhome98::d4mod98', '0', '-')]
+      P=[('fwd98_t', 'fpk98::a1first98', '0', '-'), ('fwd98_t', 'fpk98::a1first98', '0', '-'), ('fwd98_t', 'int_typespec', '0', '-'), ('fwd98_t', 'int_typespec', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', '-'), ('spec98_t', 'work@mhome98::d4mod98', '0', '-'), ('spec98_t', 'work@mhome98::d4mod98', '0', '-')]
+      Q=[('fwd98_t', 'fpk98::a1first98', '0', '-'), ('fwd98_t', 'fpk98::a1first98', '0', '-'), ('fwd98_t', 'int_typespec', '0', '-'), ('fwd98_t', 'int_typespec', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', '-'), ('spec98_t', 'work@mhome98::d4mod98', '0', '-'), ('spec98_t', 'work@mhome98::d4mod98', '0', '-')]
+  STILL       ('RETURN', 'fpk98::c3use98::new')
+      G=[('', 'fpk98::c3use98', '0', '-'), ('', 'fpk98::c3use98', '0', '-')]
+      P=[('', 'fpk98::c3use98', '0', '-'), ('', 'fpk98::c3use98', '0', '-'), ('', 'fpk98::c3use98', '0', '-')]
+      Q=[('', 'fpk98::c3use98', '0', '-'), ('', 'fpk98::c3use98', '0', '-'), ('', 'fpk98::c3use98', '0', '-')]
+  STILL       ('VAR', 'fpk98::c3use98::t::v')
+      G=[('spec98_t', 'fpk98::a1first98', '1', '-'), ('spec98_t', 'fpk98::a1first98', '1', '-')]
+      P=[('spec98_t', 'fpk98::b2decl98', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', '-'), ('spec98_t', 'fpk98::b2decl98', '0', '-')]
+      Q=[('spec98_t', 'fpk98::a1first98', '1', '-'), ('spec98_t', 'fpk98::a1first98', '1', '-'), ('spec98_t', 'fpk98::a1first98', '1', '-')]
