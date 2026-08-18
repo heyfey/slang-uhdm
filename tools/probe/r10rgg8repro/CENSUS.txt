@@ -1,0 +1,44 @@
+r10rgg8 — CENSUS.txt: the cont_assign census that decided this pass.
+
+cacensus walks EVERY cont_assign in a database, both views (DEF uhdmallModules
++ uhdmallInterfaces, ELAB uhdmtopModules), keyed (view, instance path,
+line:col, Lhs name) and reports the SHAPE of vpiRhs.  VpiFile is NOT in the
+key: our databases leave it unset on cont_assign objects while golden's carries
+the path, and Compare reads neither a file nor a span — keying on it reported
+all 7620 rows as differing and hid the one that mattered.
+
+rows: golden 7620   base 7620   patched 7620
+
+==== CALIBRATION: golden vs golden (two runs of cacensus on the SAME golden)
+0 differing rows.
+
+==== golden vs BASE — 4 differing rows
+3376c3376
+< ELAB	work@rggen.u_block_0.g_register_2.u_register.u_register_common	68:11	write_data	constant(ct=7,sz=64,INT:0,dec=0)@0:0
+---
+> ELAB	work@rggen.u_block_0.g_register_2.u_register.u_register_common	68:11	write_data	operation(op=32,n=3)
+3615c3615
+< ELAB	work@rggen.u_block_0.g_register_4.u_register.u_register_common	68:11	write_data	constant(ct=7,sz=64,INT:0,dec=0)@0:0
+---
+> ELAB	work@rggen.u_block_0.g_register_4.u_register.u_register_common	68:11	write_data	operation(op=32,n=3)
+4627c4627
+< ELAB	work@rggen.u_block_0.u_adapter.u_adapter_common	40:11	inside_range	constant(ct=3,sz=1,BIN:1,dec=1)@55:14
+---
+> ELAB	work@rggen.u_block_0.u_adapter.u_adapter_common	40:11	inside_range	func_call(pre_decode)/args=1[hier_path]@40:27
+7445c7445
+< ELAB	work@rggen.u_block_1.u_adapter.u_adapter_common	40:11	inside_range	constant(ct=3,sz=1,BIN:1,dec=1)@55:14
+---
+> ELAB	work@rggen.u_block_1.u_adapter.u_adapter_common	40:11	inside_range	func_call(pre_decode)/args=1[hier_path]@40:27
+
+==== golden vs PATCHED — 2 differing rows, 0 golden-only, 0 ours-only
+3376c3376
+< ELAB	work@rggen.u_block_0.g_register_2.u_register.u_register_common	68:11	write_data	constant(ct=7,sz=64,INT:0,dec=0)@0:0
+---
+> ELAB	work@rggen.u_block_0.g_register_2.u_register.u_register_common	68:11	write_data	operation(op=32,n=3)
+3615c3615
+< ELAB	work@rggen.u_block_0.g_register_4.u_register.u_register_common	68:11	write_data	constant(ct=7,sz=64,INT:0,dec=0)@0:0
+---
+> ELAB	work@rggen.u_block_0.g_register_4.u_register.u_register_common	68:11	write_data	operation(op=32,n=3)
+
+The two that remain are the NEXT head (R0): a cont-assign whose Rhs is a
+constant-predicate TERNARY, which golden folds to a LOC-LESS constant.

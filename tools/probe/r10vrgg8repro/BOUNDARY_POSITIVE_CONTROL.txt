@@ -1,0 +1,14 @@
+r10vrgg8 — the boundary comparator's POSITIVE CONTROL.
+
+BOUNDARY.txt reports 0 MOVERS over 488 files of rgg1/2/5/6/7 + vrgg2..7.  A
+comparator that cannot see a change would report the same 0.  The SAME script,
+same two binaries, run over this pass's own cell directories (where the law is
+DESIGNED to fire), reported:
+
+  -- LISTED=810 PROCESSED=810 identical=532 MOVERS=180 uncompilable=98 asymmetries=0
+
+  180 movers = 77 in tools/probe/r10rgg8repro/cells (the implementer's 129 golden
+               cells) + 103 in the verifier's own cell tree.
+  0 movers   outside those two cell directories.
+
+So the instrument sees changes; the boundary's zero is a measurement.

@@ -1,0 +1,2 @@
+SITE	default	Rggen	[rgg8] SITE /home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sv-rtl/rggen_adapter_common.sv:40:27 callee=pre_decode lit=/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sv-rtl/rggen_adapter_common.sv:55:14
+-- dispatched=29 SKIPPED-NO-CANDIDATE=1536 FENCED=8 NORUN=0 NO-CMDS=0 rows-with-sites=1 distinct-sites=1

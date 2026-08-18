@@ -1,0 +1,93 @@
+r10vrgg8 — THE FIVE MANDATORY GATES ON THE VERIFIED BINARY, AS RUN.
+BASE COMMIT f3c36d9.  results/*.csv READ ONLY and untouched.  NO ROW CONVERTED.
+GOLDEN_DEFER unset throughout.
+
+(1) BOTH BINARIES BUILT IN MY OWN WORKTREE (/tmp/wt_vrgg8*, -j 2), md5 separately
+      base      /tmp/vrgg8_base_bin  ccf0476c397439cd36d208398d4fc306
+        == the implementer's base md5, reproduced bit-for-bit
+      shipped   /tmp/vrgg8_pat_bin   9d1b1f56b6a2a6bf2e2de83a43fc9236
+        == the implementer's patched md5, reproduced bit-for-bit
+      VERIFIED  /tmp/vrgg8_fix_bin   8e61361fa060105dce8566d84505f215
+    Three DISTINCT md5s, all frozen (chmod 555) at those immutable paths BEFORE
+    any sweep; every sweep exported SLANG_UHDM explicitly to the named binary.
+
+(2) GOLDENS, SLANG_UHDM exported EXPLICITLY per binary
+      base      PASS=23 FAIL=0
+      shipped   PASS=23 FAIL=0
+      VERIFIED  PASS=23 FAIL=0
+      NEGATIVE CONTROL  SLANG_UHDM=/bin/false  PASS=0 FAIL=23
+
+(3) uhdm2rtlil, --mode both, --jobs 2, my own --out/--workdir
+      base      679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL per mode
+      VERIFIED  679 / 50 / 2 per mode
+      ct8rows committed results/gate_uhdm2rtlil.csv -> MY BASE      : 0 differing ROWS / 731
+      ct8rows committed results/gate_uhdm2rtlil.csv -> MY VERIFIED  : 0 differing ROWS / 731
+      ct8rows MY BASE -> MY VERIFIED (both modes, whole row incl. dump)
+                                                                    : 0 differing ROWS / 1462
+      byteverify SELFCHECK=1 : selfcheck identical=1358 MOVERS=0
+                               real run identical=1358 MOVERS=0
+      sitescan (VERIFIED binary, verify_golden's OWN recorded argv, 66 candidate
+      rows): dispatched=66 rows-with-sites=0 distinct-sites=0
+
+(4) surelog, --mode both, --jobs 2, my own --out/--workdir
+      ct8rows committed results/golden_surelog.csv -> MY BASE     : 0 differing ROWS / 1588
+      ct8rows committed results/golden_surelog.csv -> MY VERIFIED : 0 differing ROWS / 1588
+      ct8rows MY BASE -> MY VERIFIED                              : 0 differing ROWS / 1588
+      every per-mode status and dump histogram identical:
+        default   470 CMP_EQUAL / 11 CMP_NOTEQUAL / 5 DEFERRED /
+                  283 SLANG_REJECT / 25 SURELOG_FAIL
+        testflags 466 / 9 / 5 / 3 NO_DATABASE / 1 NO_UHDM / 284 SLANG_REJECT /
+                  23 SURELOG_FAIL / 1 TIMEOUT / 2 UNTRANSLATABLE
+      NO ROW WAS CONVERTED.  default:Rggen is CMP_NOTEQUAL before and after and
+      its row text is byte-identical; its HEAD moved 66 -> 122 cmp lines, 1 head,
+      and the head file is BYTE-IDENTICAL to the implementer's HEAD_R0_AFTER
+      (same object id 353520).
+      sitescan (VERIFIED binary, 29 candidate rows; FENCED=8 skipped by
+      name-hash and counted):
+        dispatched=29 rows-with-sites=1 distinct-sites=1
+        SITE default Rggen rggen_adapter_common.sv:40:27 callee=pre_decode
+                           lit=rggen_adapter_common.sv:55:14
+
+(5) BYTEVERIFY, surelog corpus, SELFCHECK=1
+      selfcheck (base vs base) identical=956 MOVERS=0
+      real run                 identical=955 MOVERS=1
+        MOVER default/Rggen — PREDICTED BY NAME in PREDICT.txt from PRISTINE
+                              base databases before the sweep was scored.
+                              vattrib8.sh (order-blind): base run1 vs base run2
+                              IDENTICAL, base vs verified DIFFER.  ATTRIBUTED.
+      NOTE the shipped binary's run also moved default/Scoreboard; vattrib8.sh
+      showed TWO RUNS OF THE BASE BINARY differ on it and base-run2's dump is
+      byte-identical to the patched run's — THE DOCUMENTED ~50/50 COIN, not
+      attributable.  This run of the verified binary did not flip it, which is
+      further evidence of the same.
+
+BOUNDARY (fd-3 list, </dev/null children, PROCESSED asserted)
+      rgg1/2/5/6/7 + vrgg2..7:
+        LISTED=488 PROCESSED=488 identical=394 MOVERS=0 uncompilable=94
+        asymmetries=0   PROCESSED-ASSERT OK
+      POSITIVE CONTROL: the same script over the two cell trees reports 180
+      MOVERS (see BOUNDARY_POSITIVE_CONTROL.txt).
+
+CANARIES
+      canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0
+      canaries surelog : ok=52 changed=0 absent=0 unknown-names=7 (expected)
+      canaries u2r     : ok=8  changed=0 absent=0 unknown-names=25 (expected)
+      ctcan2 surelog (EXPECT_UNKNOWN=1) : ok=58 changed=0 absent=0
+      ctcan2 u2r     (EXPECT_UNKNOWN=6) : ok=1  changed=0 absent=0
+      BYTE PINS, base -> verified, both modes, ALL IDENTICAL:
+        InterfaceModPort   59a365f3ce2c    BlackParrotComplex e3e354129d5a / 73a10e8217e5
+        YosysOldOr         d68e0796d62c    SVSwitch           4842211c4030 (== brief PIN)
+        YosysVerx          6ccda350c24a (== brief PIN)
+
+GRID (real Surelog 1.86, 206 cells = implementer's 129 + verifier's 77)
+      SHIPPED  binary: BROKEN=17  FIXED=93  STILL=69  OK=1120  NOGOLD=4  CRASH=3
+      VERIFIED binary: BROKEN=0   FIXED=96  STILL=69  OK=1176  NOGOLD=4  CRASH=0
+      implementer's 129 alone, VERIFIED: FIXED=69 OK=754 BROKEN=0 STILL=43
+      (== the implementer's own headline, unchanged by the fixes)
+
+CENSUS (Rggen, whole database, both views)
+      rows 7620 on every side; golden-vs-golden 0 differing (calibration)
+      golden vs base     : 4 differing, 0 golden-only, 0 ours-only
+      golden vs VERIFIED : 2 differing, 0 golden-only, 0 ours-only
+      the residual 2 are exactly the next head (rggen_register_common.sv:68:11
+      write_data, the constant-predicate ternary).

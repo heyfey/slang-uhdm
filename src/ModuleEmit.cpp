@@ -19757,6 +19757,187 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         CallFold cfr = (topView && !typedefRet && !sgnFormal9)
                            ? constCallFold(stripImplicitConv(ae.right()))
                            : CallFold{};
+        // ================= § srlgUnvaluedActualLitRetFold8 (r10rgg8) =======
+        //
+        // THE LAW.  Surelog's `UhdmWriter::writeCont_assign` reduces every
+        // ELABORATED cont_assign RHS it has not already simplified
+        // (UhdmWriter.cpp, the trailing `if (simplified == false)` arm), and
+        // for a user function call that reduction is `ExprEval::evalFunc`,
+        // which EXECUTES THE BODY.  An actual it cannot value simply leaves
+        // the formal unset — it is NOT an error — so a function whose EXECUTED
+        // path never reads that formal still returns a value, and the RHS is
+        // replaced by the RETURNED LITERAL'S OWN OBJECT.  The folded constant
+        // therefore carries the RETURN LITERAL's source location, not the call
+        // site's: Rggen's `assign inside_range = pre_decode(bus_if.address);`
+        // (rggen_adapter_common.sv:40) folds to the `return '1;` at 55:14.
+        //
+        // The arm is picked against the module DEFINITION's parameter values
+        // (see srlgCondValueFromDefaults8) — an instance override does not
+        // reach the reduction.
+        //
+        // WHAT MAY BE UNVALUED, and it is the ACTUAL's shape that decides,
+        // because `evalFunc` reduces every actual first and a reduction that
+        // POISONS `invalidValue` discards the whole result.  Measured on real
+        // Surelog, one read position per cell:
+        //
+        //   actual shape                      cell                golden
+        //   plain name (net/port/var)         a_lit1, c_net_actual  FOLDS
+        //   constant                          c_allconst_actual     FOLDS
+        //   operation / concat / const select  c_select_actual      FOLDS
+        //   nested user call                  h_callarg             FOLDS
+        //   iface-port member, MODPORT port   h_modport,h_mp_noports,
+        //                                     h_full, and Rggen     FOLDS
+        //   iface-port member, PLAIN port     c_hierpath_actual,
+        //                                     h_intlhs, h_ifparam   KEEPS
+        //   struct-member of a port           h_struct              KEEPS
+        //   submodule net (u_s.q)             h_submod              KEEPS
+        //   select with a NON-CONSTANT index  h_arr                 KEEPS
+        //
+        // h_intlhs vs h_mp_noports differ ONLY by the modport and split, so
+        // the modport is the isolated discriminator, not the interface.
+        //
+        // The gate below is CLOSED by default: an actual whose shape was not
+        // measured to fold refuses the whole call.  A missed fold is a
+        // residue; a wrong fold would be a regression.
+        std::set<const Symbol*> unvalued8;
+        if (!cfr && topView && !typedefRet && !sgnFormal9) {
+            auto& rc8 = stripImplicitConv(ae.right());
+            if (rc8.kind == ExpressionKind::Call &&
+                !rc8.as<CallExpression>().isSystemCall()) {
+                auto& call8 = rc8.as<CallExpression>();
+                auto sp8 = std::get_if<const SubroutineSymbol*>(&call8.subroutine);
+                auto args8 = call8.arguments();
+                // The dotted base of a hierarchical actual, resolved in THIS
+                // module body: a modport-restricted interface port is the one
+                // hierarchical form Surelog's decodeHierPath values.
+                auto modportBase8 = [&](const Expression& a) {
+                    std::string raw = rawText(a.sourceRange);
+                    auto dot = raw.find('.');
+                    if (dot == std::string::npos)
+                        return false;
+                    auto* bs8 = body.find(raw.substr(0, dot));
+                    return bs8 && bs8->kind == SymbolKind::InterfacePort &&
+                           !bs8->as<InterfacePortSymbol>().modport.empty();
+                };
+                std::function<bool(const Expression&)> reducible8 =
+                    [&](const Expression& a0) -> bool {
+                    auto& a = stripImplicitConv(a0);
+                    switch (a.kind) {
+                        case ExpressionKind::IntegerLiteral:
+                        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+                        case ExpressionKind::NamedValue:
+                            return true;
+                        case ExpressionKind::Call:
+                            return !a.as<CallExpression>().isSystemCall();
+                        case ExpressionKind::UnaryOp:
+                            return reducible8(a.as<UnaryExpression>().operand());
+                        case ExpressionKind::BinaryOp:
+                            return reducible8(a.as<BinaryExpression>().left()) &&
+                                   reducible8(a.as<BinaryExpression>().right());
+                        case ExpressionKind::Concatenation: {
+                            for (auto* op8 : a.as<ConcatenationExpression>().operands())
+                                if (!reducible8(*op8))
+                                    return false;
+                            return true;
+                        }
+                        case ExpressionKind::ElementSelect: {
+                            auto& es8 = a.as<ElementSelectExpression>();
+                            ASTContext cx8(comp.getRoot(), LookupLocation::max);
+                            return reducible8(es8.value()) &&
+                                   (bool)cx8.tryEval(es8.selector());
+                        }
+                        case ExpressionKind::RangeSelect: {
+                            auto& rs8 = a.as<RangeSelectExpression>();
+                            ASTContext cx8(comp.getRoot(), LookupLocation::max);
+                            return reducible8(rs8.value()) &&
+                                   (bool)cx8.tryEval(rs8.left()) &&
+                                   (bool)cx8.tryEval(rs8.right());
+                        }
+                        case ExpressionKind::HierarchicalValue:
+                        case ExpressionKind::MemberAccess:
+                            return modportBase8(a);
+                        default:
+                            return false;
+                    }
+                };
+                // r10vrgg8 FIX 6 — WHOSE FUNCTION IS IT?
+                // A call reached through an interface instance (a modport
+                // `import`, `bus_if.pre(bus_if.address)`) is not a `func_call`
+                // on golden AT ALL — it is a `hier_path`, and cell v8_ctx_iffunc
+                // was pristine-right -> patched-wrong: base emitted golden's
+                // hier_path, the patch replaced it with a folded constant.  The
+                // callee must be declared in THIS instance body (a generate
+                // block inside it counts), in a PACKAGE (cells e_pkgfunc,
+                // e_pkgfunc_import, v8_ctx_pkgfn_arg all fold) or in the
+                // compilation unit.  Any other instance body is refused.
+                auto ownCallee8 = [&](const SubroutineSymbol& sub8) {
+                    for (auto sc8 = sub8.getParentScope(); sc8;
+                         sc8 = sc8->asSymbol().getParentScope()) {
+                        auto& ss8 = sc8->asSymbol();
+                        if (&ss8 == (const Symbol*)&body)
+                            return true;
+                        if (ss8.kind == SymbolKind::Package ||
+                            ss8.kind == SymbolKind::CompilationUnit)
+                            return true;
+                        if (ss8.kind == SymbolKind::InstanceBody)
+                            return false;
+                    }
+                    return false;
+                };
+                // ...and the call must be written as a PLAIN name.  Golden
+                // emits a `hier_path`, never a `func_call`, for any DOTTED
+                // callee — `bus_if.pre(...)` through a modport import
+                // (v8_ctx_iffunc) and `g.f(...)` into a generate block
+                // (v8_fn_in_genblk); both were pristine-right -> patched-wrong.
+                // A package-scoped `p::pf(...)` carries `::`, not `.`, and folds
+                // (v8_ctx_pkgfn_arg), so cutting at the opening paren and
+                // looking for a dot separates them exactly.
+                std::string ct8 = rawText(rc8.sourceRange);
+                auto par8 = ct8.find('(');
+                bool dotted8 = ct8.substr(0, par8 == std::string::npos ? ct8.size() : par8)
+                                   .find('.') != std::string::npos;
+                if (sp8 && *sp8 && !args8.empty() && !dotted8 && ownCallee8(**sp8) &&
+                    args8.size() == (*sp8)->getArguments().size()) {
+                    bool ok8 = true;
+                    bool any8 = false;
+                    auto formals8 = (*sp8)->getArguments();
+                    ASTContext cx8(comp.getRoot(), LookupLocation::max);
+                    for (size_t i8 = 0; i8 < args8.size() && ok8; i8++) {
+                        auto& al8 = stripImplicitConv(*args8[i8]);
+                        if (al8.kind == ExpressionKind::IntegerLiteral)
+                            continue;   // the pre-existing all-constant path
+                        if (!reducible8(al8)) {
+                            ok8 = false;
+                            break;
+                        }
+                        unvalued8.insert(formals8[i8]);
+                        any8 = true;
+                    }
+                    if (ok8 && any8) {
+                        unvaluedFormals8 = &unvalued8;
+                        cfr = constCallFold(rc8);
+                        unvaluedFormals8 = nullptr;
+                        // MEASUREMENT HOOK (env-gated, off by default): the
+                        // probe binary enumerates every FIRING SITE over a
+                        // whole corpus from an otherwise pristine emission.
+                        if (cfr && !cfr.param && cfr.lit &&
+                            getenv("SLANG_UHDM_RGG8_SITES")) {
+                            auto sl8 = ae.right().sourceRange.start();
+                            auto ll8 = cfr.lit->sourceRange.start();
+                            fprintf(stderr,
+                                    "[rgg8] SITE %s:%u:%u callee=%s lit=%s:%u:%u\n",
+                                    std::string(sm->getFileName(sl8)).c_str(),
+                                    (unsigned)sm->getLineNumber(sl8),
+                                    (unsigned)sm->getColumnNumber(sl8),
+                                    std::string((*sp8)->name).c_str(),
+                                    std::string(sm->getFileName(ll8)).c_str(),
+                                    (unsigned)sm->getLineNumber(ll8),
+                                    (unsigned)sm->getColumnNumber(ll8));
+                        }
+                    }
+                }
+            }
+        }
         const Expression* constFnRet = (cfr && !cfr.param) ? cfr.lit : nullptr;
         // Calls with args still fold when evaluable: a LOC-LESS constant
         // shaped by the result type (signed int -> INT/vpiIntConst).
@@ -20930,6 +21111,38 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             forceConstParent = true;
             rhs = emitExpr(*constFnRet, ca, prefix, netMap);
             forceConstParent = false;
+            // § srlgUnvaluedActualLitRetFold8 — THE UNBASED-UNSIZED REWRITE.
+            // `ExprEval::evalFunc` ends by masking the returned constant to the
+            // FUNCTION RETURN TYPE's width, and for a `vpiBinaryConst` it keeps
+            // the binary form: `return '1;` comes out as `width` ones, size
+            // `width`, decompile = the same bit string, NOT the `'1` slang
+            // emits (size -1, decompile `'1`).  Measured over the 8 cells
+            // L_u1_{lg,v8,it,bt} / L_u0_{lg,v8,it,bt}: the width is the RETURN
+            // TYPE's (1 / 8 / 32 / 1), never the assignment target's — every
+            // one of those cells assigns to the same 32-bit net.
+            // r10vrgg8 FIX 7 — the width rewrite is only defined for an
+            // INTEGRAL return type.  Cell v8_realret (`function automatic real`
+            // returning `'1`) took `getBitWidth() == 64` and emitted a 64-bit
+            // BIN constant where golden has 32; base kept the call.  Refusing
+            // restores base's shape instead of shipping a knowingly wrong value.
+            if (cfr.unbased8 && cfr.directSub && rhs &&
+                cfr.directSub->getReturnType().isIntegral() &&
+                rhs->UhdmType() == UHDM::uhdmconstant) {
+                auto w8 = cfr.directSub->getReturnType().getBitWidth();
+                if (w8 > 0 && w8 <= 4096) {
+                    auto lv8 = constFnRet->as<UnbasedUnsizedIntegerLiteral>()
+                                   .getLiteralValue();
+                    // r10vrgg8 FIX 5 (second half): four-state-safe.  With
+                    // the `isUnknown()` guard upstream `lv8` is 0 or 1 here;
+                    // read `.value` so it stays that way if the guard moves.
+                    std::string bits8((size_t)w8, lv8.value == 1 ? '1' : '0');
+                    auto* c8 = (UHDM::constant*)rhs;
+                    c8->VpiSize((int32_t)w8);
+                    c8->VpiValue("BIN:" + bits8);
+                    c8->VpiDecompile(bits8);
+                    c8->VpiConstType(vpiBinaryConst);
+                }
+            }
             // Bare-decimal folds size at the LHS type width.
             if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
                 rawText(constFnRet->sourceRange).find('\'') == std::string::npos)
@@ -22754,6 +22967,30 @@ UhdmExporter::CallFold UhdmExporter::resolveConstExpr(const Expression& e) {
         r.lit = &l;
         return r;
     }
+    // § srlgUnvaluedActualLitRetFold8 — an UNBASED-UNSIZED literal (`'1`, `'0`)
+    // is a fold bottom too, and it is the ONE Rggen needs: `pre_decode`'s else
+    // arm is `return '1;`.  Admitted only inside the unvalued-actual replay so
+    // no pre-existing fold law changes shape.
+    if (unvaluedFormals8 &&
+        l.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+        auto lv = l.as<UnbasedUnsizedIntegerLiteral>().getLiteralValue();
+        // `'x` / `'z` are NOT fold bottoms (never measured; never guessed).
+        //
+        // r10vrgg8 FIX 5 — the shipped guard was `lv != logic_t(0) &&
+        // lv != logic_t(1)`, and `logic_t::operator!=` is FOUR-STATE: for `'x`
+        // it returns x, whose `explicit operator bool` is
+        // `!isUnknown() && value != 0` == FALSE.  The guard therefore never
+        // fired, `'x` and `'z` became fold bottoms, and the width rewrite below
+        // (`lv8 == logic_t(1) ? '1' : '0'`, four-state in the same way) turned
+        // both into a SILENT `BIN:0`: cell v8_xlit was pristine-right ->
+        // patched-wrong (golden keeps the call), and v8_zlit turned golden's
+        // `BIN:Z` into `BIN:0`.  Test the state, not the comparison.
+        if (lv.isUnknown())
+            return r;
+        r.lit = &l;
+        r.unbased8 = true;
+        return r;
+    }
     if (l.kind == ExpressionKind::NamedValue) {
         auto& sym = l.as<NamedValueExpression>().symbol;
         if (sym.kind == SymbolKind::Parameter) {
@@ -22803,6 +23040,155 @@ static bool subWritesNonLocal(const SubroutineSymbol& sub) {
     return impure;
 }
 
+
+// ---------------------------------------------------------------------------
+// § srlgUnvaluedActualLitRetFold8 (r10rgg8) — THE DEFINITION-DEFAULT ARM PICK.
+//
+// Surelog reduces an elaborated cont_assign RHS in `UhdmWriter::writeCont_assign`
+// and passes the module DEFINITION (`DesignComponent* mod`) as the value scope,
+// so `ExprEval::evalFunc` executes the body against the DEFINITION'S OWN
+// parameter values.  An INSTANCE OVERRIDE NEVER REACHES IT.  Measured on real
+// Surelog, one read position per cell:
+//
+//   cell            declaration      instance      golden arm   golden RHS
+//   f_pd0           PD = 0           (none)        else         constant '1
+//   f_pd1           PD = 1           (none)        if (reads)   func_call KEPT
+//   f_override1     PD = 0           .PD(1)        else         constant '1
+//   f_override0     PD = 1           .PD(0)        if (reads)   func_call KEPT
+//   f_split         PD = 0           .PD(0)/.PD(1) else / else  constant '1 BOTH
+//
+// f_override0 is the cell that makes this NECESSARY: reading the INSTANCE value
+// there folds a cont_assign golden leaves alone.
+//
+// The default is read from the DECLARATION, because slang's ParameterSymbol in
+// an overridden instance body already carries the override in `getValue()`.
+// `defaultValSyntax` is the `DeclaratorSyntax` the declaration wrote; only a
+// SIMPLE INTEGER LITERAL default is accepted — anything else bails and the
+// whole fold is refused (a residue, never a wrong arm).
+static bool parseSimpleIntLit8(std::string_view t, uint64_t& out) {
+    // r10vrgg8 FIX 8 — A BARE UNSIZED DECIMAL, AND NOTHING ELSE.
+    // The shipped parser also accepted `'0`/`'1` and any based form whose base
+    // was b/d/o.  Measured against real Surelog, on one module with only the
+    // parameter's DECLARATION DEFAULT changed and the same `if (A) <reads> else
+    // return '1;` body (cells v8_cond_*):
+    //
+    //   bit A = 0      FOLDS      int A = 32'd0    KEEPS
+    //   byte A = 0     FOLDS      bit A = 1'b0     KEEPS
+    //   longint A = 0  FOLDS      int A = 1'b0     KEEPS
+    //                             longint A = 64'd0 KEEPS
+    //                             int A = 4'h0     KEEPS
+    //                             int A = '0       KEEPS
+    //
+    // The declared TYPE is irrelevant (byte / bit / longint all fold); what
+    // decides is whether the literal is written BARE.  `64'd0` and `4'h0` were
+    // pristine-right -> patched-wrong.  Rggen's own site is
+    // `parameter bit PRE_DECODE = 0` — bare — so the head is untouched.
+    while (!t.empty() && (t.front() == ' ' || t.front() == '\t' || t.front() == '\n'))
+        t.remove_prefix(1);
+    while (!t.empty() && (t.back() == ' ' || t.back() == '\t' || t.back() == '\n'))
+        t.remove_suffix(1);
+    if (t.empty())
+        return false;
+    uint64_t v = 0;
+    for (char c : t) {
+        if (c == '_')
+            continue;
+        if (c < '0' || c > '9')
+            return false;   // a sign, a base, an apostrophe, a name: REFUSED
+        v = v * 10u + (uint64_t)(c - '0');
+    }
+    out = v;
+    return true;
+}
+
+bool UhdmExporter::srlgDefaultParamValue8(const Symbol& sym, uint64_t& out) {
+    if (sym.kind != SymbolKind::Parameter)
+        return false;
+    auto& ps = sym.as<ParameterSymbol>();
+    // r10vrgg8 FIX 2 — THE DECLARATION'S OWN LITERAL, AND NOTHING ELSE.
+    //
+    // The shipped predicate fell back to `ps.getValue()` for any parameter that
+    // slang does not mark `isOverridden()`, and that value is the INSTANCE's
+    // whenever the parameter DERIVES from an overridden one, or is retargeted
+    // by a `defparam`.  Measured against real Surelog, golden KEEPS the call at
+    // every one of those (all were pristine-right -> patched-wrong):
+    //
+    //   cell                declaration                instance   golden
+    //   v8_lpderived        localparam int B = A;      #(.A(0))   KEEPS
+    //   v8_paramderived     parameter  int B = A;      #(.A(0))   KEEPS
+    //   v8_deriv2           B = A; C = B;              #(.A(0))   KEEPS
+    //   v8_lpderived_inv    A = 0; localparam B = A;   #(.A(1))   KEEPS
+    //   v8_defparam         parameter int A = 1;       defparam 0 KEEPS
+    //   v8_lparm_derived    A = 0; localparam B = A;   (none)     KEEPS
+    //   v8_parm_expr        parameter int A = 1 - 1;   (none)     KEEPS
+    //   v8_lparm_lit        localparam int B = 0;      (none)     FOLDS
+    //
+    // The last two rows are the law: it is not the OVERRIDE that decides, it is
+    // whether the DECLARATION wrote a SIMPLE LITERAL.  `v8_lparm_derived` and
+    // `v8_parm_expr` have no override anywhere and golden still refuses, so the
+    // `getValue()` fallback was reading a value Surelog never has.  Read the
+    // declarator's own initializer TEXT, require a simple literal, and refuse
+    // otherwise — a refusal costs a residue, a wrong arm costs a regression.
+    const syntax::DeclaratorSyntax* dcl8 = nullptr;
+    if (auto* d1 = ps.defaultValSyntax;
+        d1 && d1->kind == syntax::SyntaxKind::Declarator)
+        dcl8 = &d1->as<syntax::DeclaratorSyntax>();
+    else if (auto* d2 = ps.getSyntax();
+             d2 && d2->kind == syntax::SyntaxKind::Declarator)
+        // A BODY parameter / localparam never gets `defaultValSyntax` (only
+        // ParameterBuilder's header path sets it); `setFromDeclarator` does set
+        // the symbol's syntax on both paths.
+        dcl8 = &d2->as<syntax::DeclaratorSyntax>();
+    if (!dcl8 || !dcl8->initializer)
+        return false;
+    return parseSimpleIntLit8(rawText(dcl8->initializer->expr->sourceRange()), out);
+}
+
+bool UhdmExporter::srlgCondValueFromDefaults8(const Expression& e, uint64_t& out) {
+    // r10vrgg8 FIX 3 — LEAVES ONLY.  The shipped evaluator reduced unary and
+    // binary operators with plain `uint64_t` arithmetic, which disagrees with
+    // SystemVerilog on SIGNEDNESS and on WIDTH, and — measured — disagrees with
+    // Surelog even where the arithmetic is right.  Golden, one read per cell:
+    //
+    //   cell            condition            our uint64   SV       golden
+    //   v8_signedcond   (A - 1) < 0  A=0     false        TRUE     KEEPS
+    //   v8_widthcond    (A + 2'd1)   A=2'd3  4 (true)     0        KEEPS
+    //   v8_cond_eqlit   A == 3       A=2     false        false    KEEPS
+    //   v8_cond_addlit  (A+1) == 3   A=2     true         true     KEEPS
+    //
+    // The first two were pristine-right -> patched-wrong outright.  The last two
+    // are the decisive pair: the arithmetic AGREES with SystemVerilog and golden
+    // STILL keeps the call, so an operator in the condition is simply outside
+    // what Surelog's reduction accepts here — the folds it does grant
+    // (v8_shiftcond, v8_divcond) are left as residues rather than guessed at.
+    // A LITERAL condition (cells e_pkgfunc / e_pkgfunc_import: `if (1'b0)`) and
+    // a BARE parameter read (Rggen's `if (PRE_DECODE)`, f_pd0/f_pd1/f_override*,
+    // v8_lparm_lit) are the only two shapes measured to fold, and they are the
+    // only two shapes accepted.
+    auto& l = stripImplicitConv(e);
+    switch (l.kind) {
+        case ExpressionKind::IntegerLiteral: {
+            auto v = l.as<IntegerLiteral>().getValue().as<uint64_t>();
+            if (!v)
+                return false;
+            out = *v;
+            return true;
+        }
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral: {
+            auto& u = l.as<UnbasedUnsizedIntegerLiteral>();
+            auto lv = u.getLiteralValue();
+            if (lv.isUnknown())
+                return false;
+            out = lv.value ? 1u : 0u;
+            return true;
+        }
+        case ExpressionKind::NamedValue:
+            return srlgDefaultParamValue8(l.as<NamedValueExpression>().symbol, out);
+        default:
+            return false;
+    }
+}
+
 UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
     CallFold none;
     if (expr.kind != ExpressionKind::Call || expr.as<CallExpression>().isSystemCall())
@@ -22813,6 +23199,35 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
         return none;
     if (subWritesNonLocal(**subp))
         return none;
+    // § srlgUnvaluedActualLitRetFold8 — the two REFUSALS the golden grid
+    // measured for the unvalued-actual replay, both of them Surelog's own:
+    //   * a RECURSIVE function (cell b_recursion: golden keeps the call);
+    //   * a function whose body declares a LOCALPARAM (cell b_localparam:
+    //     golden keeps the call — the same `const_func_block_var` bail
+    //     r10rgg7 measured for a parameter initializer).
+    // Both are checked only in the new territory so no existing fold moves.
+    struct ReplayFrame8 {
+        std::set<const SubroutineSymbol*>* st;
+        const SubroutineSymbol* sub;
+        ~ReplayFrame8() { if (st) st->erase(sub); }
+    } frame8{nullptr, nullptr};
+    if (unvaluedFormals8) {
+        if (!foldReplayStack8.insert(*subp).second)
+            return none;
+        // r10vrgg8 FIX 1 — SET THE GUARD'S MEMBERS, NEVER ASSIGN A TEMPORARY.
+        // `frame8 = ReplayFrame8{&foldReplayStack8, *subp}` copy-assigns a
+        // PRVALUE whose destructor runs at the end of that very statement and
+        // ERASES the entry again, so the recursion guard never held: a
+        // self-recursive callee re-entered `constCallFold` forever and the
+        // binary SEGFAULTED on legal SV (cells v8_recurse, v8_recurse_uncond
+        // and v8_deadrec, whose recursive branch is dead at the only instance).
+        frame8.st = &foldReplayStack8;
+        frame8.sub = *subp;
+        for (auto& mem8 : (*subp)->members())
+            if (mem8.kind == SymbolKind::Parameter ||
+                mem8.kind == SymbolKind::TypeParameter)
+                return none;
+    }
     std::map<const Symbol*, CallFold> env;
     // Formals bound to assignment patterns of literals (element-select
     // resolution follows the selected element back to its source literal).
@@ -22840,6 +23255,24 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
                     if (!allLit)
                         return none;
                     patEnv[formals[i]] = &al;
+                }
+                // § srlgUnvaluedActualLitRetFold8 — the NEW territory.  An
+                // actual the caller declared UNVALUED binds the formal to an
+                // EMPTY fold: the replay then poisons on the FIRST READ of
+                // that formal and only on it, which is exactly what Surelog's
+                // `setValueInInstance`-less formal does inside `evalFunc`.
+                else if (unvaluedFormals8 &&
+                         unvaluedFormals8->count(formals[i])) {
+                    env[formals[i]] = CallFold{};
+                }
+                // ...and inside a NESTED call, an actual that is itself a read
+                // of an already-unvalued name (cell b_nested_call_arg:
+                // `return g(address)` folds because `g` ignores its formal).
+                else if (unvaluedFormals8 &&
+                         al.kind == ExpressionKind::NamedValue &&
+                         env.count(&al.as<NamedValueExpression>().symbol) &&
+                         !env[&al.as<NamedValueExpression>().symbol]) {
+                    env[formals[i]] = CallFold{};
                 }
                 else
                     return none;
@@ -22888,6 +23321,14 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
             std::set<const Symbol*> ls;
             collectLhsSyms(ax.left(), ls);
             if (ls.count((const Symbol*)(*subp)->returnValVar))
+                w = true;
+            // § srlgUnvaluedActualLitRetFold8 — in the new territory an
+            // UNMODELLED statement that writes ANY name poisons, not just one
+            // that writes the return variable.  A `case` that refines a LOCAL
+            // (`result`) which a later `return result;` reads would otherwise
+            // fold the STALE pre-case literal, and the replay would be
+            // confidently wrong instead of silent.
+            if (unvaluedFormals8 && !ls.empty())
                 w = true;
             vis.visitDefault(ax);
         }));
@@ -22945,6 +23386,32 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
         }
         if (st.kind == StatementKind::Block)
             return findFold(st.as<BlockStatement>().body);
+        // § srlgUnvaluedActualLitRetFold8 — a CONSTANT-CONDITION `if`/`else`
+        // executes ONE arm.  The condition is read against the module
+        // DEFINITION's parameter values (srlgCondValueFromDefaults8), never
+        // the instance's; a condition that does not reduce falls through to
+        // the writesRetVar poison below, exactly as before this pass.
+        if (unvaluedFormals8 && st.kind == StatementKind::Conditional) {
+            auto& cs = st.as<ConditionalStatement>();
+            bool known = !cs.conditions.empty();
+            bool taken = true;
+            for (auto& cnd : cs.conditions) {
+                uint64_t cv = 0;
+                if (cnd.pattern || !srlgCondValueFromDefaults8(*cnd.expr, cv)) {
+                    known = false;
+                    break;
+                }
+                if (!cv)
+                    taken = false;
+            }
+            if (known) {
+                if (taken)
+                    return findFold(cs.ifTrue);
+                if (cs.ifFalse)
+                    return findFold(*cs.ifFalse);
+                return CallFold{};   // no else arm: the function returns nothing
+            }
+        }
         if (st.kind == StatementKind::ForLoop) {
             // A search loop that returns on its first iteration folds to that
             // return (straight-line, one iteration). Loops whose body has no
@@ -22966,11 +23433,56 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
                 return false;
             };
             auto& fl = st.as<ForLoopStatement>();
+            // r10vrgg8 FIX 4 — THE LOOP HEADER MUST BE SELF-CONTAINED.
+            // `b_loop_ret` (`for (int i = 0; i < 4; i++) return '1;`) FOLDS on
+            // golden, but `v8_loop_parambound`, the same body with the bound
+            // written as a module parameter (`i < N`), KEEPS — the same refusal
+            // `b_read_param` measured for a parameter read in the body.  The
+            // shipped law folded it from the first iteration and was
+            // pristine-right -> patched-wrong.  In the new territory a header
+            // that reads any name declared OUTSIDE the subroutine poisons.
+            if (unvaluedFormals8) {
+                bool foreign8 = false;
+                auto chk8 = [&](const Expression* e8) {
+                    if (!e8 || foreign8)
+                        return;
+                    e8->visit(makeVisitor([&](auto& vis, const NamedValueExpression& nv8) {
+                        bool inSub8 = false;
+                        for (auto sc8 = nv8.symbol.getParentScope(); sc8;
+                             sc8 = sc8->asSymbol().getParentScope())
+                            if (&sc8->asSymbol() == (const Symbol*)*subp) {
+                                inSub8 = true;
+                                break;
+                            }
+                        if (!inSub8)
+                            foreign8 = true;
+                        vis.visitDefault(nv8);
+                    }));
+                };
+                for (auto* ie8 : fl.initializers)
+                    chk8(ie8);
+                chk8(fl.stopExpr);
+                for (auto* se8 : fl.steps)
+                    chk8(se8);
+                if (foreign8) {
+                    poisoned = true;
+                    return CallFold{};
+                }
+            }
             if (hasReturn(fl.body)) {
                 CallFold f = findFold(fl.body);
                 f.terminal = true; // the loop body executed a return
                 return f;
             }
+            // § srlgUnvaluedActualLitRetFold8 — A LOOP WITH NO RETURN IS NOT A
+            // NO-OP.  The straight-line replay does not iterate, so a loop that
+            // ACCUMULATES into the return variable (`encode |= v[i] ? ... : '0;`,
+            // `func_loop[i] = x[WIDTH-1-i];`) leaves the pre-loop literal
+            // standing and the fold would be a WRONG VALUE.  In the new
+            // territory that poisons; the old all-constant path keeps its
+            // measured behaviour untouched.
+            if (unvaluedFormals8)
+                poisoned = true;
             return CallFold{};
         }
         if (writesRetVar(st))
@@ -22980,6 +23492,36 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
     CallFold r = findFold((*subp)->getBody());
     if (poisoned)
         return none;
+    // § srlgUnvaluedActualLitRetFold8 — THE TERMINAL-RETURN REQUIREMENT.
+    // In the new territory the replay must have EXECUTED a `return <literal>`.
+    // An ACCUMULATOR body (`f = 0;` then a loop or a case that refines it) is
+    // refused, because the straight-line replay does not run the refinement and
+    // the accumulated literal is not the function's value.  Measured on real
+    // Surelog: uhdm2rtlil's `function_loop`, `func_forloop_onehot`,
+    // `function_mixed` and `many_functions` all have that shape, golden KEEPS
+    // the call at all four, and without this clause all four folded.
+    if (unvaluedFormals8 && !r.terminal)
+        return none;
+    // § srlgUnvaluedActualLitRetFold8 — THE HEX REFUSAL.  `ExprEval::evalFunc`
+    // ends by masking the returned constant to the return type's width with
+    // `get_value(invalidValue, c)`, and `get_value` POISONS on a `HEX:`-encoded
+    // value: the whole reduction is then discarded and the call is kept.
+    // Measured over 64 cells (literal x return type): `8'h2a`, `4'h5` and
+    // `32'hdead` are the ONLY literal forms golden refuses, and they refuse in
+    // ALL FOUR return types, while `'1 '0 0 1 3 42 1'b1 8'd42 8'b101010 8'sd3
+    // 1'd0 2'b11` all fold.
+    if (unvaluedFormals8 && r && r.lit) {
+        std::string t = rawText(r.lit->sourceRange);
+        auto q = t.find('\'');
+        if (q != std::string::npos) {
+            std::string_view sfx(t);
+            sfx.remove_prefix(q + 1);
+            if (!sfx.empty() && (sfx.front() == 's' || sfx.front() == 'S'))
+                sfx.remove_prefix(1);
+            if (!sfx.empty() && (sfx.front() == 'h' || sfx.front() == 'H'))
+                return none;
+        }
+    }
     if (r)
         r.directSub = *subp;
     return r;

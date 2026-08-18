@@ -1,0 +1,46 @@
+r10rgg8 — THE PREDICTION, filed from PRISTINE databases BEFORE the patched
+binary was swept.  BASE COMMIT f3c36d9.  base binary md5 ccf0476c397439cd36d208398d4fc306.
+
+WHAT THE LAW CAN TOUCH
+  § srlgUnvaluedActualLitRetFold8 changes exactly one slot: the vpiRhs of an
+  ELABORATED cont_assign whose RHS the BASE binary emitted as a `func_call`.
+  Nothing else in the exporter is reachable from the edit (`unvaluedFormals8`
+  is null everywhere except that one call site, and every new clause in
+  `constCallFold` / `resolveConstExpr` is guarded on it).
+
+THE UPPER BOUND, read off the BASE sweeps' own databases (predict.py, no binary
+dispatched, the four slang-fenced rows skipped by name-hash and counted):
+    surelog corpus    948 databases   1407 candidate sites
+    uhdm2rtlil corpus 1358 databases   100 candidate sites
+  95 distinct (mode,row) pairs hold at least one candidate site.
+
+THE CALLEE CENSUS over those 1507 sites (top families):
+    257 get_sw_update   257 get_hw_update   250 get_next_value
+    114 carry_save_add   64 prim_cipher_pkg::sbox4_64bit
+     64 prim_cipher_pkg::perm_64bit   64 carry_save_get   64 aes_mul2
+     44+44 get_mask   32 aes_mul4   16 mix_col   16 gray2dec  16 conv_endian
+     ... 2 pre_decode  1 get_local_address
+  EVERY ONE of those families computes its result FROM its arguments, so the
+  straight-line replay reads an unvalued formal and refuses.  `pre_decode` is
+  the only callee in either corpus whose value is independent of its argument
+  under the definition's own parameter values.
+
+PREDICTED FIRING SITES (by name, before any patched run):
+    surelog/default/Rggen  rggen_adapter_common.sv:40:27  pre_decode  x2
+        work@rggen.u_block_0.u_adapter.u_adapter_common
+        work@rggen.u_block_1.u_adapter.u_adapter_common
+    NOWHERE ELSE, either corpus, either mode.
+
+PREDICTED MOVERS (byteverify, databases whose bytes change):
+    surelog   : default/Rggen  ... and NOTHING else except the documented
+                ~50/50 COIN row default/Scoreboard, which differs between two
+                runs of the SAME binary (r10rgg7 § attrib7 re-measured it).
+    uhdm2rtlil: NONE.
+
+PREDICTED ROW MOVES (uhdm-cmp status):
+    NONE.  Rggen/default is CMP_NOTEQUAL before and after (its head moves on,
+    it does not clear); every other row keeps its status and its dump column.
+
+PREDICTED HEAD:  surelog default:Rggen  66 cmp lines / 1 head  ->  a DIFFERENT
+    family, with the `rggen_adapter_common.sv:55:14` constant gone from the
+    disagreement.

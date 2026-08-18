@@ -1,0 +1,23 @@
+r10vrgg8 — THE MOVER PREDICTION, filed from PRISTINE BASE databases BEFORE the
+verified binary's sweeps were scored.  No binary was dispatched to produce it:
+predict.py reads the databases MY OWN BASE sweep already wrote and enumerates
+every ELABORATED cont_assign whose vpiRhs the base binary emitted as a
+`func_call` — the only object § srlgUnvaluedActualLitRetFold8 can move.
+The four slang-fenced rows are skipped by NAME-HASH and COUNTED, never spelled.
+
+  surelog corpus : databases=948  SITES=1407  SCANFAIL=0  FENCED-SKIPPED=8
+                   candidate ROWS = 29
+  uhdm2rtlil     : databases=1358 SITES=100   SCANFAIL=0  FENCED-SKIPPED=0
+                   candidate ROWS = 66
+
+PREDICTED MOVER SET, BY NAME (surelog, the corpus that can move):
+  default/Earlgrey_0_1        default/FSMFunction        default/FuncArgDirection
+  default/FuncArgs            default/FuncIoTypespec     default/FuncReturnRange
+  default/FuncSideEffect      default/FuncStruct         default/MacroArgDefaultSpaces
+  default/PackFuncParent      default/Rggen              default/Scr1SvTests
+  default/YosysBigSimAes      default/YosysOldOpen       default/YosysRiscv
+  + the 14 testflags twins (Rggen has no comparable testflags row)
+
+PREDICTION: at most these rows move; the law's ONE intended site is
+default/Rggen (rggen_adapter_common.sv:40:27 -> the `return '1;` at 55:14), so
+default/Rggen is predicted to move and everything else is predicted NOT to.

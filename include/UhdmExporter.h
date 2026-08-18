@@ -3601,10 +3601,41 @@ private:
         // True when this fold came from an executed return (so an enclosing
         // straight-line list must stop, not fall through to a later return).
         bool terminal = false;
+        // § srlgUnvaluedActualLitRetFold8 — the bottom literal is UNBASED and
+        // UNSIZED (`'1` / `'0`), so the emitted constant has to be REWRITTEN to
+        // the FUNCTION RETURN TYPE's width in Surelog's binary form (see the
+        // rewrite at the cont-assign RHS site).
+        bool unbased8 = false;
         explicit operator bool() const { return lit || param; }
     };
     CallFold constCallFold(const slang::ast::Expression& expr);
     CallFold resolveConstExpr(const slang::ast::Expression& expr);
+    // ---- § srlgUnvaluedActualLitRetFold8 (r10rgg8) ------------------------
+    // Surelog's `UhdmWriter::writeCont_assign` trailing `if (simplified ==
+    // false)` arm reduces EVERY elaborated cont_assign RHS, and for a user
+    // function call that reduction runs `ExprEval::evalFunc`, which EXECUTES
+    // the body.  An actual it cannot value leaves the formal unset; if the
+    // executed path never reads that formal the function still returns, and
+    // the cont_assign RHS is REPLACED by the returned literal's own object —
+    // carrying the RETURN LITERAL's source location, not the call site's.
+    //
+    // When non-null, this set names the formals whose actual is NOT constant:
+    // `constCallFold` binds them to an EMPTY fold (so any read of one poisons
+    // the replay exactly as Surelog's unvalued formal does) instead of
+    // refusing the whole call.  Null everywhere except the ELAB cont-assign
+    // RHS site that owns the law.
+    const std::set<const slang::ast::Symbol*>* unvaluedFormals8 = nullptr;
+    // The straight-line replay's `if`/`else` arm choice, and the ONE fact that
+    // decides it: Surelog evaluates the call against the module DEFINITION's
+    // OWN parameter values, so an INSTANCE OVERRIDE DOES NOT REACH IT.
+    // Measured on golden (cells f_override0 / f_override1): a `PD` whose
+    // declaration says 1 and whose instance says 0 takes the `if` arm anyway,
+    // and vice versa.  Returns false when no default value can be read.
+    bool srlgDefaultParamValue8(const slang::ast::Symbol& sym, uint64_t& out);
+    bool srlgCondValueFromDefaults8(const slang::ast::Expression& e, uint64_t& out);
+    // Recursion guard for the replay (measured: golden REFUSES a recursive
+    // function, cell b_recursion).
+    std::set<const slang::ast::SubroutineSymbol*> foldReplayStack8;
     bool pkgTopEmit = false;
     // § pkgRetTopCallArgFormalTs8 (r10buvm8).  True only while emitting the
     // EXPRESSION of a `return` that is a DIRECT statement of a PACKAGE-scope

@@ -1,0 +1,110 @@
+r10rgg8 — THE FIVE MANDATORY GATES, AS RUN.  BASE COMMIT f3c36d9.
+results/*.csv was READ ONLY and is untouched.  NO ROW WAS CONVERTED.
+
+(1) BOTH BINARIES BUILT IN MY OWN WORKTREE (/tmp/wt_r10rgg8, -j 2), md5 separately
+      base     /tmp/r10rgg8_base_bin   ccf0476c397439cd36d208398d4fc306
+      patched  /tmp/r10rgg8_pat_bin    9d1b1f56b6a2a6bf2e2de83a43fc9236
+    Two DISTINCT md5s.  Both frozen at those immutable paths BEFORE any sweep;
+    every sweep's cmds.txt was audited to name the intended binary
+    (`grep -c r10rgg8_pat_bin .../cmds.txt` == 1 on the row measured by hand).
+
+(2) GOLDENS.  SLANG_UHDM exported EXPLICITLY to each binary (verify_golden.py and
+    tests/check_goldens.sh both fall back to the MAIN-TREE build otherwise).
+      base     PASS=23 FAIL=0
+      patched  PASS=23 FAIL=0
+      NEGATIVE CONTROL  SLANG_UHDM=/bin/false  PASS=0 FAIL=23
+    The negative control is what proves the 23/0 was a measurement.
+
+(3) uhdm2rtlil, --mode both, --jobs 2, my own --out/--workdir
+      base     679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL per mode
+      patched  679 / 50 / 2 per mode
+      ct8rows  committed results/gate_uhdm2rtlil.csv -> MY BASE (testflags half)
+                                        : 0 differing ROWS over 731
+      ct8rows  committed results/gate_uhdm2rtlil.csv -> MY PATCHED (testflags)
+                                        : 0 differing ROWS over 731
+      ct8rows  MY BASE -> MY PATCHED (both modes, whole row incl. dump column)
+                                        : 0 differing ROWS over 1462
+      dump column unchanged: default 187 differ / 492 match, testflags 183 / 496,
+      base and patched alike.
+      byteverify SELFCHECK=1 : selfcheck identical=1358 MOVERS=0;
+                               real run identical=1358 MOVERS=0
+      sitescan (patched binary, verify_golden's OWN recorded argv, only the 66
+      rows that hold a candidate site): rows-with-sites=0, distinct-sites=0.
+
+(4) surelog, --mode both, --jobs 2, my own --out/--workdir
+      ct8rows  committed results/golden_surelog.csv -> MY BASE
+                                        : 0 differing ROWS over 1588
+               (no pre-existing row move at this base commit)
+      ct8rows  committed results/golden_surelog.csv -> MY PATCHED
+                                        : 0 differing ROWS over 1588
+      ct8rows  MY BASE -> MY PATCHED    : 0 differing ROWS over 1588
+      every per-mode status and dump histogram identical:
+        default   470 CMP_EQUAL / 11 CMP_NOTEQUAL / 5 DEFERRED /
+                  283 SLANG_REJECT / 25 SURELOG_FAIL
+        testflags 466 / 9 / 5 / 3 NO_DATABASE / 1 NO_UHDM / 284 SLANG_REJECT /
+                  23 SURELOG_FAIL / 1 TIMEOUT / 2 UNTRANSLATABLE
+      NO ROW WAS CONVERTED.  default:Rggen is CMP_NOTEQUAL before and after and
+      its row text is byte-identical; its HEAD moved (see § 6 of README.md).
+      sitescan (patched binary, only the 29 rows holding a candidate site;
+      FENCED=8 workdir entries skipped by name-hash and counted):
+        rows-with-sites=1  distinct-sites=1
+        SITE default Rggen rggen_adapter_common.sv:40:27 callee=pre_decode
+                           lit=rggen_adapter_common.sv:55:14
+
+(5) BYTEVERIFY, surelog corpus, SELFCHECK=1
+      selfcheck (base vs base) identical=956 MOVERS=0
+      real run                 identical=954 MOVERS=2
+        MOVER default/Rggen       — PREDICTED BY NAME in PREDICT.txt before the
+                                    patched sweep ran.  attrib8.sh: base run1 vs
+                                    base run2 IDENTICAL (no coin here), base vs
+                                    patched DIFFER.  ATTRIBUTED TO THIS PASS.
+        MOVER default/Scoreboard  — THE DOCUMENTED ~50/50 COIN.  attrib8.sh:
+                                    base run1 vs base run2 DIFFER, and base run1
+                                    vs patched run1 are BYTE-IDENTICAL.  NOT
+                                    ATTRIBUTABLE TO THE PATCH.
+      POSITIVE CONTROL that the comparator can see a change at all: the same
+      boundary comparator over this pass's own 129 cells reports 77 MOVERS.
+
+CANARIES
+      canaudit.sh canaries.sh ctcan2.sh :
+        audited=29  UNCOVERED=0  FENCE-BREACH=0, both self-tests live.
+      canaries.sh  surelog csv : ok=52 changed=0 absent=0 unknown-names=7 (expected 7)
+      canaries.sh  u2r csv     : ok=8  changed=0 absent=0 unknown-names=25 (expected)
+      ctcan2.sh    surelog (EXPECT_UNKNOWN=1) : ok=58 changed=0 absent=0
+      ctcan2.sh    u2r     (EXPECT_UNKNOWN=6) : ok=1  changed=0 absent=0
+      BYTE PINS, base -> patched, both modes:
+        InterfaceModPort   59a365f3ce2c -> 59a365f3ce2c   byte-identical
+        BlackParrotComplex e3e354129d5a / 73a10e8217e5    byte-identical
+        YosysOldOr         d68e0796d62c -> d68e0796d62c   byte-identical
+        SVSwitch           4842211c4030  == the brief's PIN
+        YosysVerx          6ccda350c24a  == the brief's PIN
+
+BOUNDARY (every cont-assign / func-call fold law this pass could touch)
+      boundary.sh over r10rgg1/2/5/6/7 + r10vrgg2/3/4/5/6/7 repro directories,
+      SUBDIRECTORY arms included (`find`, not a top-level glob):
+        files=488  identical=394  MOVERS=0  uncompilable=94  asymmetries=0
+      Every uncompilable file is uncompilable on BOTH binaries (rc 3/3).
+      POSITIVE CONTROL, same script, this pass's own cells: files=129
+        identical=50  MOVERS=77  uncompilable=2  asymmetries=0
+      — so a "0 MOVERS" reading above is not the driver failing to look.
+
+THE MEASUREMENT-ONLY LADDER (r10ladder1's ctladder; NOT a judge)
+      Rggen/default   rungs 92 -> 90, stop=FIXPOINT on both sides,
+                      escalated=0 ref_joins=0 nofield=0.
+      family census   18 families -> 17, and EXACTLY ONE family moves:
+                        constant|VpiType|KIND:constant>func_call   2 -> 0
+      No other family moves a single rung.
+
+THE GRID (129 cells, REAL SURELOG as golden)
+      score.py, base vs patched : FIXED 69  OK 754  BROKEN 0  STILL 43
+      NODB=0 (every cell produced a golden database);
+      NOSLANG=4 = 2 cells x 2 binaries, both rejected by SLANG ITSELF on the
+      base binary and the patched one alike (b_outformal, e_classmethod).
+
+THE CENSUS (cacensus, every cont_assign in Rggen, both views)
+      rows                     7620 on golden, 7620 on ours
+      golden vs golden         0 differing rows  (the calibration)
+      golden vs BASE           4 differing rows
+      golden vs PATCHED        2 differing rows, 0 golden-only, 0 ours-only
+      the 2 that remain are the NEXT head's family (a constant-predicate
+      ternary), not this law's.
