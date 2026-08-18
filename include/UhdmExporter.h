@@ -2199,6 +2199,18 @@ private:
     /// used.
     const slang::ast::FormalArgumentSymbol* elabCallFormal(
         const slang::ast::ParameterSymbol& ps);
+    /// § genLpPaCallArgCopy13 (r10rgg13).  The elaborated `param_assign` Rhs
+    /// CONSTANT of @a ps, when a call argument that is the bare name @a ps at
+    /// position @a argIdx of @a sub must be a COPY of it rather than a fresh
+    /// constant minted from the parameter's value and typed by the formal.
+    /// Null when the copy does not apply.  The law, Surelog's mechanism and
+    /// the three gate clauses are documented at the definition in ExprEmit.cpp.
+    UHDM::constant* paCallArgCopySrc13(const slang::ast::ParameterSymbol& ps,
+                                       const slang::ast::SubroutineSymbol& sub,
+                                       size_t argIdx);
+    /// § genLpPaCallArgCopy13, gate clause (2) — @a arg's FORMAL is a predefined
+    /// integer type.  The same test the formal-ts arm spells as `intFormal`.
+    static bool argIntFormal13(const slang::ast::Expression* arg);
 
     slang::ast::Compilation& comp;
     // Lazily built by elabInvoked(); empty optional = not yet scanned.

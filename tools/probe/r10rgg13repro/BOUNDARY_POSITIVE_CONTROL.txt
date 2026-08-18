@@ -1,0 +1,2 @@
+MOVER /tmp/wt_r10rgg13/tools/probe/r10rgg13repro/cells/pc1/top.sv
+-- files=5 identical=4 MOVERS=1 uncompilable=0 asymmetries=0

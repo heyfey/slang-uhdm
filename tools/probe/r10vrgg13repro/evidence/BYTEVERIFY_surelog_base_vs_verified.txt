@@ -1,0 +1,6 @@
+==== SELFCHECK: base vs base (MUST be 0 movers)
+-- identical=956 MOVERS=0 only-in-A=0 only-in-B=0
+==== base vs patched
+MOVER default/Rggen-50ccbd70/slang.uhdm
+MOVER default/Scoreboard-59431470/slang.uhdm
+-- identical=954 MOVERS=2 only-in-A=0 only-in-B=0

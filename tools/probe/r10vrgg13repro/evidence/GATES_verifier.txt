@@ -1,0 +1,17 @@
+== md5 (after 'Built target slang_uhdm', both frozen chmod 555)
+cddfb450fab71ea1d2820f0f2366ad7f  /tmp/vrgg13_bin/slang-uhdm-base
+02e1ee388232ba895cb220d77873e879  /tmp/vrgg13_bin/slang-uhdm-pat
+4269caa03e161001eccea6ca93867988  /tmp/vrgg13_bin/slang-uhdm-fix
+
+== goldens (SLANG_UHDM exported explicitly to EACH binary)
+base PASS=23 FAIL=0 ; patched PASS=23 FAIL=0 ; VERIFIED PASS=23 FAIL=0 ; /bin/false PASS=0 FAIL=23
+
+== cmds.txt audit by BINARY PATH (not the substring 'slang-uhdm')
+slw_base 1523/1573 name slang-uhdm-base, slw_pat 1523/1573 name slang-uhdm-pat,
+u2rw_base 1458/1462 name slang-uhdm-base, u2rw_pat 1458/1462 name slang-uhdm-pat;
+the remainder are SURELOG_FAIL/UNTRANSLATABLE/NO_UHDM rows with no slang line at all,
+and NO cmds.txt anywhere names a binary outside /tmp/vrgg13_bin/.
+
+== byte pins, base vs patched, BOTH modes
+SVSwitch 4842211c4030 SAME ; YosysVerx 6ccda350c24a SAME ;
+InterfaceModPort 59a365f3ce2c SAME ; BlackParrotComplex e3e354129d5a/73a10e8217e5 SAME ; YosysOldOr d68e0796d62c SAME

@@ -5799,6 +5799,165 @@ bool UhdmExporter::genLpOneHopUp58(const Symbol& sym) {
 // one-hop gen-scope parameter (the whole-design census below enumerates the
 // family), so this pass claims the ONE position its corpus actually holds and
 // leaves the rest as ranked, arm-measured residues (README R1-R4).
+// ---------------------------------------------------------------------------
+// § genLpPaCallArgCopy13 (r10rgg13) — THE ARGUMENT of a MULTIDIMENSIONAL
+// parameter's `param_assign` Rhs func_call is a COPY of the read parameter's
+// own elaborated `param_assign` Rhs constant, not a fresh constant minted from
+// the parameter's VALUE.
+//
+// SURELOG'S MECHANISM, read at CompileExpression.cpp:2856-2910.  The identifier
+// branch of `compileExpression` does, in this order:
+//     if ((reduce == Reduce::Yes) && instance) sval = instance->getValue(name);
+//     if (sval == nullptr || !sval->isValid()) {           // <-- THE CLONE ARM
+//        ... for each param_assign of inst->getNetlist():
+//        if ((reduce == Reduce::Yes) ||
+//            (param_ass->Rhs() && param_ass->Rhs()->UhdmType() == uhdmconstant))
+//          if (substituteAssignedValue(param_ass->Rhs(), compileDesign)) {
+//            result = UHDM::clone_tree(param_ass->Rhs(), &elaboratorContext);
+//            result->VpiParent(param_ass);
+//            fC->populateCoreMembers(child, child, result);
+//     } else {                                             // <-- THE VALUE ARM
+//        c->VpiValue(sval->uhdmValue()); c->VpiDecompile(sval->decompiledValue());
+//        c->VpiConstType(sval->vpiValType()); c->VpiSize(sval->getSize());
+//     }
+// A MULTIDIMENSIONAL parameter's initializer is compiled with `Reduce::No`
+// (`CompileHelper::isMultidimensional` gates the reduce — the same fact
+// `elabMdimParamInit` already models for the enclosing initializer), so `sval`
+// is never fetched, the CLONE ARM is the one that runs, and the argument is the
+// DECLARATION constant verbatim, re-spanned at the identifier.  With
+// `Reduce::Yes` — a single-packed-dimension initializer — `getValue` answers and
+// the VALUE ARM runs instead.  THAT IS THE WHOLE AXIS, and it is why the gate's
+// first clause is `elabMdimParamInit` and not something about the callee.
+//
+// WHY IT CANNOT BE A VALUE-BUILT CONSTANT WHERE IT FIRES (the alternative the
+// head allows on a single `int` row and grid A refutes on 24 cells):
+// `LValue::uhdmValue()` has no `HEX:` case at all (Value.cpp:880-921 —
+// Hexadecimal falls into the `INT:` default) and `LValue::vpiValType()` maps
+// Hexadecimal to `vpiIntConst`, so the VALUE ARM could never produce golden's
+// `HEX:03 sz 32 ct 5` for `#(.P(8'h03))`, nor its `BIN:0101 sz 4 ct 3` for
+// `#(.P(4'b0101))`.  The declaration constant can and does — measured on grid A,
+// every one of its 24 cells x 6 override shapes.
+//
+// THE GATE, four clauses, each of them measured and each of them named by a
+// corpus row that would otherwise move:
+//
+//   (1) `elabMdimParamInit` — Reduce::No, above.  THE FENCE IS
+//       `uhdm2rtlil/func_upto`, CMP_EQUAL in both modes with 1024 rows of this
+//       exact shape: `localparam [HI:LO] C_CONST = F(A_CONST, B_CONST)` is
+//       SINGLE-dimension, its call still survives (ExprEval refuses the body),
+//       and golden's actuals there are VALUE-arm constants wearing the FORMAL's
+//       `logic_typespec` — which is what we already emit, field for field.
+//       `uhdm2rtlil/const_func_block_var` is the second such row.
+//   (2) the argument's formal must be a PREDEFINED INTEGER type
+//       (`argIntFormal13`).  THE POSITION RESTRICTION IS OURS, exactly as
+//       § genLpUseFoldParentScope47's and § elabVarRangeCallScopeDecl12's were.
+//       Golden's copy also carries a typespec, and WHICH typespec is not uniform:
+//       Rggen's copy wears the PARAMETER's own `int_typespec` (3:13) while
+//       `Surelog/FuncInModule`'s wears the FORMAL's (10:55) — both `int_typespec`,
+//       so `typespec::Compare` cannot tell them apart and neither can the judge.
+//       For a NON-integer formal they are different KINDS (grid A: golden
+//       `int_typespec`, ours `bit_typespec` / `logic_typespec`), so the value
+//       copy alone cannot make such a row right, and retargeting the typespec is
+//       exactly what func_upto proves is wrong.  Those cells therefore stay on
+//       the side they were on before this pass and are filed as a ranked
+//       residue; `int` is the only formal type this corpus holds here.
+//   (3) the parameter must have an ELABORATED `param_assign` in THIS instance
+//       (`elabParamPa` is this exporter's model of `inst->getNetlist()->
+//       param_assigns()`) whose Rhs IS a constant — the literal text of
+//       Surelog's own guard.  A GEN-SCOPE-homed or PACKAGE-homed `param_assign`
+//       reads a different netlist and golden does NOT substitute there: measured
+//       on grid B, `genif__*` / `genfor__*` / `pkg__*` keep a bare `ref(P)` in
+//       golden in all twelve cells.  `elabParamPa` holds module-instance
+//       parameters only, so those homes cannot enter this arm.
+//   (4) the callee's formal at this position must not be BARE-IMPLICIT.  That is
+//       the window § elabCallFormal (ParamEmit.cpp ~13342) already owns: it
+//       re-binds the PARAMETER'S OWN Rhs constant to such a formal and re-runs
+//       `adjustSize` on it, so copying that Rhs would carry a value this exporter
+//       rewrote for a different law.  Grid A's four `funtyp__*` cells are the
+//       witness (our `P` there is `HEX:07 sz 1` where golden's is `HEX:07 sz 32`);
+//       the arm stays on the side it was on in exactly those cells.
+//
+//   (5) THE SOURCE PARAMETER'S OWN INITIALIZER MUST NOT CONTAIN A SUBROUTINE
+//       CALL (`paramInitCallFold13`).  ADDED BY THE VERIFIER (r10vrgg13), on a
+//       measured pristine-right -> patched-wrong cell.  Surelog's clone arm
+//       copies `param_ass->Rhs()`, so the copy is only a faithful model of
+//       golden's when OUR OWN `param_assign` Rhs for that parameter is the one
+//       golden has.  For a parameter whose initializer is itself a USER
+//       CONST-CALL that this exporter FOLDS, our Rhs constant is the product of
+//       a DIFFERENT law (the ExprEval-producer encoding: `localparam int S =
+//       sym(P)` gives us `BIN:0..010 ct 3 sz 32`) where golden's is a plain
+//       `UINT:2 ct 9` — so the copy would carry that unrelated law's error into
+//       an argument the pre-existing UINT fold happened to get RIGHT.
+//       MEASURED, arm `cells/vg1` (= r10vrgg13's `g_symbolic_rhs_param`):
+//         golden  ARG const(UINT:2, sz 32, ct 9)  parented at S's param_assign
+//         base    ARG const(UINT:2, sz 32, ct 9)  <- RIGHT on every compared field
+//         patched ARG const(BIN:0..010, sz 32, ct 3)  <- BROKEN, 2 census rows
+//       The clause is CONSERVATIVE in the other direction: a source parameter
+//       whose declaration default is a call but whose instance override is a
+//       literal simply keeps the pre-existing fold (a STILL, never a break).
+//       Rggen's `N` and Surelog/FuncInModule's `N` are override/literal-valued
+//       and are unaffected — re-measured, head 64 -> 36 and the 22-line dump
+//       diff are unchanged by this clause.
+namespace {
+// Any subroutine CALL anywhere inside an initializer expression.
+struct ParamInitCallScan13
+    : public slang::ast::ASTVisitor<ParamInitCallScan13,
+                                    slang::ast::VisitFlags::Expressions> {
+    bool found = false;
+    void handle(const slang::ast::CallExpression& ce) {
+        found = true;
+        visitDefault(ce);
+    }
+};
+}  // namespace
+
+static bool paramInitCallFold13(const slang::ast::ParameterSymbol& ps) {
+    const slang::ast::Expression* init = ps.getInitializer();
+    if (!init)
+        return false;
+    ParamInitCallScan13 scan;
+    init->visit(scan);
+    return scan.found;
+}
+
+// Returns the SOURCE constant to copy from, or null when the copy does not
+// apply — in which case the caller's pre-existing fold runs unchanged.
+UHDM::constant* UhdmExporter::paCallArgCopySrc13(
+    const slang::ast::ParameterSymbol& ps,
+    const slang::ast::SubroutineSymbol& sub, size_t argIdx) {
+    auto it = elabParamPa.find(&ps);
+    if (it == elabParamPa.end() || !it->second)
+        return nullptr;
+    UHDM::param_assign* pa = it->second;
+    if (!pa->Rhs() || pa->Rhs()->UhdmType() != UHDM::uhdmconstant)
+        return nullptr;
+    // Gate clause (5), r10vrgg13 — see the header above.
+    if (paramInitCallFold13(ps))
+        return nullptr;
+    auto formals = sub.getArguments();
+    if (argIdx < formals.size() && formals[argIdx]) {
+        const slang::ast::DeclaredType* fd =
+            formals[argIdx]->getDeclaredType().get();
+        const syntax::SyntaxNode* fs =
+            fd ? (const syntax::SyntaxNode*)fd->getTypeSyntax() : nullptr;
+        if (fs && fs->kind == syntax::SyntaxKind::ImplicitType &&
+            fs->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+            !fs->as<syntax::ImplicitTypeSyntax>().signing.valid())
+            return nullptr;
+    }
+    return (UHDM::constant*)pa->Rhs();
+}
+
+// § genLpPaCallArgCopy13, gate clause (2).  The same test the formal-ts arm
+// further down spells as `intFormal`: for a call argument slang's `arg->type`
+// IS the formal's type.  Hoisted here because the copy decision is made
+// hundreds of lines before `intFormal` is in scope.
+bool UhdmExporter::argIntFormal13(const slang::ast::Expression* arg) {
+    return arg && arg->type &&
+           arg->type->getCanonicalType().kind ==
+               slang::ast::SymbolKind::PredefinedIntegerType;
+}
+
 UHDM::constant* UhdmExporter::genLpOneHopBoundOpFold58(
     const Expression& e, UHDM::any* parent, const std::string& prefix) {
     auto& le = stripImplicitConv(e);
@@ -14358,6 +14517,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     c9->VpiValue("BIN:" + bits9);
                                     c9->VpiConstType(vpiBinaryConst);
                                     }
+                                }
+                                else if (auto* sc13 =
+                                             elabMdimParamInit &&
+                                                     argIntFormal13(arg)
+                                                 ? paCallArgCopySrc13(psy9, sub,
+                                                                      argIdx)
+                                                 : nullptr) {
+                                    // § genLpPaCallArgCopy13 — THE COPY.  See
+                                    // paCallArgCopySrc13() for the law, the
+                                    // gate and the measurements; here we only
+                                    // carry the four fields `constant::Compare`
+                                    // reads across, exactly as
+                                    // `UHDM::clone_tree(param_ass->Rhs())`
+                                    // does in Surelog's
+                                    // CompileExpression.cpp:2880-2883, and then
+                                    // re-span the copy at the IDENTIFIER
+                                    // (`populateCoreMembers(child, child,
+                                    // result)`), which `setLoc` below already
+                                    // does.
+                                    c9->VpiValue(std::string(sc13->VpiValue()));
+                                    c9->VpiSize(sc13->VpiSize());
+                                    c9->VpiConstType(sc13->VpiConstType());
+                                    c9->VpiDecompile(
+                                        std::string(sc13->VpiDecompile()));
+                                    // THE TYPESPEC IS DELIBERATELY LEFT TO THE
+                                    // FORMAL-TS LAW BELOW — see the definition
+                                    // of paCallArgCopySrc13() for the two
+                                    // corpus measurements that forbid moving it.
                                 }
                                 else {
                                     std::string dg9 = pv9.integer().toString(

@@ -1,0 +1,194 @@
+r10rgg13 — THE RGGEN CENSUS, three-way (golden / base / patched), 42,307 keys.
+acensus13 keys: ARG (call arguments inside param_assign Rhs), PA, PORT, CA, RANGE;
+views DEF / ELAB / PKG.  LHS IS ALWAYS GOLDEN.
+
+====================================================================================================
+ALL PRINTED COLUMNS (incl. the Compare-INVISIBLE vpiParent and typespec LOCATION)
+{'OK': 41057, 'STILL': 1228, 'FIXED': 11, 'MOVED-STILL-WRONG': 11}
+-- BROKEN: 0
+-- FIXED: 11
+   ELAB|PA|u_block_0.g_register_11.g[0].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/P:param_assign@62:33/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[0].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/P:param_assign@62:33/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[0].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/P:param_assign@62:33/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[0].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/P:param_assign@62:33/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[1].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/P:param_assign@62:33/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[1].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/P:param_assign@62:33/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[1].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/P:param_assign@62:33/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[1].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/P:param_assign@62:33/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+   ELAB|PA|u_block_0.g_register_12.u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/P:param_assign@62:33/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+   ELAB|PA|u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/P:param_assign@62:33/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+   ELAB|PA|u_block_0.g_register_8.u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/P:param_assign@62:33/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/P:param_assign@62:33/T:<none>']
+-- MOVED-STILL-WRONG: 11
+   ELAB|ARG|u_block_0.g_register_11.g[0].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/P:param_assign@3:17/T:int_typespec@3:13']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+   ELAB|ARG|u_block_0.g_register_11.g[0].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/P:param_assign@3:17/T:int_typespec@3:13']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+   ELAB|ARG|u_block_0.g_register_11.g[0].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/P:param_assign@3:17/T:int_typespec@3:13']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+   ELAB|ARG|u_block_0.g_register_11.g[0].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/P:param_assign@3:17/T:int_typespec@3:13']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+   ELAB|ARG|u_block_0.g_register_11.g[1].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/P:param_assign@3:17/T:int_typespec@3:13']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+   ELAB|ARG|u_block_0.g_register_11.g[1].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/P:param_assign@3:17/T:int_typespec@3:13']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+   ELAB|ARG|u_block_0.g_register_11.g[1].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/P:param_assign@3:17/T:int_typespec@3:13']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+   ELAB|ARG|u_block_0.g_register_11.g[1].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/P:param_assign@3:17/T:int_typespec@3:13']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+   ELAB|ARG|u_block_0.g_register_12.u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/P:param_assign@3:17/T:int_typespec@3:13']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+   ELAB|ARG|u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/P:param_assign@3:17/T:int_typespec@3:13']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+   ELAB|ARG|u_block_0.g_register_8.u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/P:param_assign@3:17/T:int_typespec@3:13']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/P:func_call@62:47/T:int_typespec@8:55']
+
+====================================================================================================
+COMPARE-VISIBLE FIELDS ONLY (--cmpvis: what uhdm-cmp can see)
+{'OK': 41439, 'STILL': 846, 'FIXED': 22}
+-- BROKEN: 0
+-- FIXED: 22
+   ELAB|ARG|u_block_0.g_register_11.g[0].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/T:int_typespec']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+   ELAB|ARG|u_block_0.g_register_11.g[0].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/T:int_typespec']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+   ELAB|ARG|u_block_0.g_register_11.g[0].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/T:int_typespec']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+   ELAB|ARG|u_block_0.g_register_11.g[0].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/T:int_typespec']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+   ELAB|ARG|u_block_0.g_register_11.g[1].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/T:int_typespec']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+   ELAB|ARG|u_block_0.g_register_11.g[1].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/T:int_typespec']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+   ELAB|ARG|u_block_0.g_register_11.g[1].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/T:int_typespec']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+   ELAB|ARG|u_block_0.g_register_11.g[1].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/T:int_typespec']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+   ELAB|ARG|u_block_0.g_register_12.u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/T:int_typespec']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+   ELAB|ARG|u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/T:int_typespec']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+   ELAB|ARG|u_block_0.g_register_8.u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST|fc:get_sub_n_list|0
+     G= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+     B= ['const(UINT:2,sz=32,ct=9,dec=2)/T:int_typespec']
+     P= ['const(INT:2,sz=32,ct=7,dec=2)/T:int_typespec']
+   ELAB|PA|u_block_0.g_register_11.g[0].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[0].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[0].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[0].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[1].g[0].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[1].g[1].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[1].g[2].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+   ELAB|PA|u_block_0.g_register_11.g[1].g[3].u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+   ELAB|PA|u_block_0.g_register_12.u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+   ELAB|PA|u_block_0.g_register_6.u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+   ELAB|PA|u_block_0.g_register_8.u_register.u_register_common.u_read_data_mux.g.u_reducer|SUB_N_LIST
+     G= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+     B= ['fcall:get_sub_n_list(const(UINT:2,sz=32,ct=9,dec=2))/T:<none>']
+     P= ['fcall:get_sub_n_list(const(INT:2,sz=32,ct=7,dec=2))/T:<none>']
+-- MOVED-STILL-WRONG: 0
+

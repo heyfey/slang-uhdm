@@ -1,0 +1,28 @@
+r10rgg13 — WHY `default/Scoreboard` IS A BYTEVERIFY MOVER AND WHY IT IS NOT THIS PATCH
+======================================================================================
+RESUME §9 records `Scoreboard/default` as a ~50/50 COIN per invocation (the
+svunit_pkg `vpiTaskFunc` list ORDER flip / macro-buffer SourceLocation ordering
+under slang's parallel parse; up to four pristine hashes seen).  The landing
+sweep pair listed it, so it is PROVED here rather than asserted.
+
+Command (verbatim from the sweep's own cmds.txt, run in
+/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard):
+
+  <bin> +incdir+.+.../uvm-1.2/src/+.../svunit_base \
+        .../uvm_pkg.sv .../svunit_pkg.sv design.sv testbench.sv --single-unit -o <out>
+
+  BASE run 1: 3bfa612c78c8f2d308e8545745d464d6
+  BASE run 2: 019c490b53a2bffcf4692052d4651092
+  BASE run 3: 3bfa612c78c8f2d308e8545745d464d6
+  BASE run 4: 64250f1cb8309a68e2f7c20f1c6e7395     <-- the PATCHED SWEEP's hash
+  PAT  run 1: 3bfa612c78c8f2d308e8545745d464d6     <-- the BASE SWEEP's hash
+  PAT  run 2: 64250f1cb8309a68e2f7c20f1c6e7395
+  PAT  run 3: 3bfa612c78c8f2d308e8545745d464d6
+  PAT  run 4: 3bfa612c78c8f2d308e8545745d464d6
+
+  sweep pair: base wrote 3bfa612c..., patched wrote 64250f1c...
+
+THE BASE BINARY ALONE PRODUCES THREE DISTINCT HASHES, INCLUDING THE ONE THE
+PATCHED SWEEP WROTE, AND THE PATCHED BINARY PRODUCES THE ONE THE BASE SWEEP
+WROTE.  The row's status, detail and dump column are unchanged in both corpora
+row gates (0 differing ROWS), and its head count is unchanged (28 -> 28).

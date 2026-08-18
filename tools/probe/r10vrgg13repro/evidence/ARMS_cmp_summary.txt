@@ -1,0 +1,192 @@
+a_bare__bare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_bare__bitN def base=64/1 pat=64/1 | elab base=64/1 pat=64/1
+a_bare__bitsgn def base=60/1 pat=60/1 | elab base=60/1 pat=60/1
+a_bare__byte def base=20/1 pat=20/1 | elab base=20/1 pat=20/1
+a_bare__int def base=64/1 pat=0/0 | elab base=64/1 pat=0/0  <<< CMPDELTA def 64->0  <<< CMPDELTA elab 64->0
+a_bare__integer def base=20/1 pat=20/1 | elab base=20/1 pat=20/1
+a_bare__logicN def base=58/1 pat=58/1 | elab base=58/1 pat=58/1
+a_bare__longint def base=20/1 pat=20/1 | elab base=20/1 pat=20/1
+a_bare__sgnbare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_bare__shortint def base=20/1 pat=20/1 | elab base=20/1 pat=20/1
+NONZERO-RC a_bare__tdint b=4 p=4 bE=4 pE=4
+a_bare__tdint def base=32/1 pat=32/1 | elab base=32/1 pat=32/1
+a_bare__tdvec def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_cast__bare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_cast__bitN def base=54/1 pat=54/1 | elab base=54/1 pat=54/1
+a_cast__bitsgn def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_cast__byte def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_cast__int def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_cast__integer def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_cast__logicN def base=54/1 pat=54/1 | elab base=54/1 pat=54/1
+a_cast__longint def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_cast__sgnbare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_cast__shortint def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+NONZERO-RC a_cast__tdint b=4 p=4 bE=4 pE=4
+a_cast__tdint def base=32/1 pat=32/1 | elab base=32/1 pat=32/1
+a_cast__tdvec def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_concat__bare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_concat__bitN def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_concat__bitsgn def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_concat__byte def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_concat__int def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_concat__integer def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_concat__logicN def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_concat__longint def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_concat__sgnbare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_concat__shortint def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+NONZERO-RC a_concat__tdint b=4 p=4 bE=4 pE=4
+a_concat__tdint def base=32/1 pat=32/1 | elab base=32/1 pat=32/1
+a_concat__tdvec def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_expr__bare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_expr__bitN def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_expr__bitsgn def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_expr__byte def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_expr__int def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_expr__integer def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_expr__logicN def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_expr__longint def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_expr__sgnbare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_expr__shortint def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+NONZERO-RC a_expr__tdint b=4 p=4 bE=4 pE=4
+a_expr__tdint def base=32/1 pat=32/1 | elab base=32/1 pat=32/1
+a_expr__tdvec def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_lit__bare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_lit__bitN def base=50/1 pat=50/1 | elab base=50/1 pat=50/1
+a_lit__bitsgn def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_lit__byte def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_lit__int def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_lit__integer def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_lit__logicN def base=50/1 pat=50/1 | elab base=50/1 pat=50/1
+a_lit__longint def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_lit__sgnbare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_lit__shortint def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+NONZERO-RC a_lit__tdint b=4 p=4 bE=4 pE=4
+a_lit__tdint def base=32/1 pat=32/1 | elab base=32/1 pat=32/1
+a_lit__tdvec def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_lparam__bare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_lparam__bitN def base=64/1 pat=64/1 | elab base=64/1 pat=64/1
+a_lparam__bitsgn def base=64/1 pat=60/1 | elab base=64/1 pat=60/1  <<< CMPDELTA def 64->60  <<< CMPDELTA elab 64->60
+a_lparam__byte def base=64/1 pat=20/1 | elab base=64/1 pat=20/1  <<< CMPDELTA def 64->20  <<< CMPDELTA elab 64->20
+a_lparam__int def base=64/1 pat=0/0 | elab base=64/1 pat=0/0  <<< CMPDELTA def 64->0  <<< CMPDELTA elab 64->0
+a_lparam__integer def base=64/1 pat=20/1 | elab base=64/1 pat=20/1  <<< CMPDELTA def 64->20  <<< CMPDELTA elab 64->20
+a_lparam__logicN def base=64/1 pat=64/1 | elab base=64/1 pat=64/1
+a_lparam__longint def base=64/1 pat=20/1 | elab base=64/1 pat=20/1  <<< CMPDELTA def 64->20  <<< CMPDELTA elab 64->20
+a_lparam__sgnbare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_lparam__shortint def base=64/1 pat=20/1 | elab base=64/1 pat=20/1  <<< CMPDELTA def 64->20  <<< CMPDELTA elab 64->20
+NONZERO-RC a_lparam__tdint b=4 p=4 bE=4 pE=4
+a_lparam__tdint def base=32/1 pat=32/1 | elab base=32/1 pat=32/1
+a_lparam__tdvec def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_neg__bare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_neg__bitN def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_neg__bitsgn def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_neg__byte def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_neg__int def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_neg__integer def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_neg__logicN def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_neg__longint def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_neg__sgnbare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_neg__shortint def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+NONZERO-RC a_neg__tdint b=4 p=4 bE=4 pE=4
+a_neg__tdint def base=32/1 pat=32/1 | elab base=32/1 pat=32/1
+a_neg__tdvec def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_nest__bare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_nest__bitN def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_nest__bitsgn def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_nest__byte def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_nest__int def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_nest__integer def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_nest__logicN def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_nest__longint def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_nest__sgnbare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_nest__shortint def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+NONZERO-RC a_nest__tdint b=4 p=4 bE=4 pE=4
+a_nest__tdint def base=32/1 pat=32/1 | elab base=32/1 pat=32/1
+a_nest__tdvec def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_repl__bare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_repl__bitN def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_repl__bitsgn def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_repl__byte def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_repl__int def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_repl__integer def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_repl__logicN def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_repl__longint def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_repl__sgnbare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_repl__shortint def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+NONZERO-RC a_repl__tdint b=4 p=4 bE=4 pE=4
+a_repl__tdint def base=32/1 pat=32/1 | elab base=32/1 pat=32/1
+a_repl__tdvec def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_sel__bare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_sel__bitN def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_sel__bitsgn def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_sel__byte def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_sel__int def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_sel__integer def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_sel__logicN def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_sel__longint def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+a_sel__sgnbare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_sel__shortint def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+NONZERO-RC a_sel__tdint b=4 p=4 bE=4 pE=4
+a_sel__tdint def base=32/1 pat=32/1 | elab base=32/1 pat=32/1
+a_sel__tdvec def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_sysfn__bare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_sysfn__bitN def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_sysfn__bitsgn def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_sysfn__byte def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_sysfn__int def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_sysfn__integer def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_sysfn__logicN def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_sysfn__longint def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_sysfn__sgnbare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_sysfn__shortint def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+NONZERO-RC a_sysfn__tdint b=4 p=4 bE=4 pE=4
+a_sysfn__tdint def base=32/1 pat=32/1 | elab base=32/1 pat=32/1
+a_sysfn__tdvec def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_tern__bare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_tern__bitN def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_tern__bitsgn def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_tern__byte def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_tern__int def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_tern__integer def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_tern__logicN def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_tern__longint def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+a_tern__sgnbare def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+a_tern__shortint def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+NONZERO-RC a_tern__tdint b=4 p=4 bE=4 pE=4
+a_tern__tdint def base=32/1 pat=32/1 | elab base=32/1 pat=32/1
+a_tern__tdvec def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+b_class def base=18/1 pat=18/1 | elab base=18/1 pat=18/1
+b_genscope def base=38/1 pat=38/1 | elab base=38/1 pat=38/1
+b_genscope_outerparam def base=76/1 pat=76/1 | elab base=76/1 pat=76/1
+b_ifacehome def base=64/1 pat=0/0 | elab base=64/1 pat=0/0  <<< CMPDELTA def 64->0  <<< CMPDELTA elab 64->0
+b_localparam def base=64/1 pat=0/0 | elab base=64/1 pat=0/0  <<< CMPDELTA def 64->0  <<< CMPDELTA elab 64->0
+b_pkghome def base=64/1 pat=64/1 | elab base=64/1 pat=64/1
+b_pkgparam def base=36/1 pat=36/1 | elab base=36/1 pat=36/1
+b_portparam def base=64/1 pat=0/0 | elab base=64/1 pat=0/0  <<< CMPDELTA def 64->0  <<< CMPDELTA elab 64->0
+b_unitparam def base=50/1 pat=50/1 | elab base=50/1 pat=50/1
+c_classstatic def base=38/1 pat=38/1 | elab base=38/1 pat=38/1
+c_default_arg def base=64/1 pat=0/0 | elab base=64/1 pat=0/0  <<< CMPDELTA def 64->0  <<< CMPDELTA elab 64->0
+c_named_inorder def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+c_named_reordered def base=17/1 pat=17/1 | elab base=17/1 pat=17/1
+c_pkgfn def base=273/1 pat=273/1 | elab base=303/1 pat=303/1
+c_twoargs def base=64/1 pat=0/0 | elab base=64/1 pat=0/0  <<< CMPDELTA def 64->0  <<< CMPDELTA elab 64->0
+c_unitfn def base=64/1 pat=0/0 | elab base=64/1 pat=0/0  <<< CMPDELTA def 64->0  <<< CMPDELTA elab 64->0
+d_barefirst_collision def base=64/1 pat=64/1 | elab base=64/1 pat=64/1
+d_barelast_collision def base=64/1 pat=64/1 | elab base=64/1 pat=64/1
+d_rangedformal_collision def base=64/1 pat=64/1 | elab base=64/1 pat=64/1
+e_1d def base=64/1 pat=64/1 | elab base=64/1 pat=64/1
+e_3d def base=64/1 pat=0/0 | elab base=64/1 pat=0/0  <<< CMPDELTA def 64->0  <<< CMPDELTA elab 64->0
+e_typedef2d def base=116/1 pat=116/1 | elab base=116/1 pat=116/1
+e_typedefvec_extradim def base=74/1 pat=74/1 | elab base=74/1 pat=74/1
+e_unpacked def base=78/1 pat=78/1 | elab base=78/1 pat=78/1
+NODB f_contassign baserc=4 patrc=4
+f_portactual def base=60/1 pat=60/1 | elab base=64/1 pat=64/1
+f_rangebound def base=0/0 pat=0/0 | elab base=0/0 pat=0/0
+g_negative def base=64/1 pat=64/1 | elab base=64/1 pat=64/1
+g_nested_inst def base=64/1 pat=64/1 | elab base=64/1 pat=64/1
+g_paramtype_arg def base=64/1 pat=0/0 | elab base=64/1 pat=0/0  <<< CMPDELTA def 64->0  <<< CMPDELTA elab 64->0
+g_realparam_arg def base=46/1 pat=46/1 | elab base=50/1 pat=50/1
+g_stringparam def base=64/1 pat=64/1 | elab base=64/1 pat=64/1
+g_symbolic_rhs_param def base=64/1 pat=64/1 | elab base=64/1 pat=64/1
+g_threeinst def base=64/1 pat=0/0 | elab base=64/1 pat=0/0  <<< CMPDELTA def 64->0  <<< CMPDELTA elab 64->0
+g_unsized def base=64/1 pat=64/1 | elab base=64/1 pat=64/1
+-- cells=178 NODB=1 NONZERO-RC=12

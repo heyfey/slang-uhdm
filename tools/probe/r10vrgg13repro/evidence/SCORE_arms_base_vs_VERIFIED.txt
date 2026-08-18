@@ -1,0 +1,777 @@
+MOVED-STILL-WRONG a_bare__bitsgn ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:bit_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:bit_typespec"]
+MOVED-STILL-WRONG a_bare__bitsgn ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+   B=['const(UINT:5,sz=32,ct=9,dec=5)/T:bit_typespec']
+   P=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:bit_typespec"]
+MOVED-STILL-WRONG a_bare__bitsgn ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+   B=['const(UINT:7,sz=32,ct=9,dec=7)/T:bit_typespec']
+   P=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:bit_typespec"]
+FIXED a_bare__bitsgn ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED a_bare__bitsgn ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+   B=['fcall:flp(const(UINT:5,sz=32,ct=9,dec=5))/T:<none>']
+   P=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+FIXED a_bare__bitsgn ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+   B=['fcall:flp(const(UINT:7,sz=32,ct=9,dec=7))/T:<none>']
+   P=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+MOVED-STILL-WRONG a_bare__byte ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:byte_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:byte_typespec"]
+MOVED-STILL-WRONG a_bare__byte ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+   B=['const(UINT:5,sz=32,ct=9,dec=5)/T:byte_typespec']
+   P=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:byte_typespec"]
+MOVED-STILL-WRONG a_bare__byte ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+   B=['const(UINT:7,sz=32,ct=9,dec=7)/T:byte_typespec']
+   P=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:byte_typespec"]
+FIXED a_bare__byte ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED a_bare__byte ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+   B=['fcall:flp(const(UINT:5,sz=32,ct=9,dec=5))/T:<none>']
+   P=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+FIXED a_bare__byte ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+   B=['fcall:flp(const(UINT:7,sz=32,ct=9,dec=7))/T:<none>']
+   P=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+FIXED a_bare__int ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED a_bare__int ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+   B=['const(UINT:5,sz=32,ct=9,dec=5)/T:int_typespec']
+   P=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+FIXED a_bare__int ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+   B=['const(UINT:7,sz=32,ct=9,dec=7)/T:int_typespec']
+   P=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+FIXED a_bare__int ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED a_bare__int ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+   B=['fcall:flp(const(UINT:5,sz=32,ct=9,dec=5))/T:<none>']
+   P=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+FIXED a_bare__int ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+   B=['fcall:flp(const(UINT:7,sz=32,ct=9,dec=7))/T:<none>']
+   P=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+MOVED-STILL-WRONG a_bare__integer ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:integer_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:integer_typespec"]
+MOVED-STILL-WRONG a_bare__integer ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+   B=['const(UINT:5,sz=32,ct=9,dec=5)/T:integer_typespec']
+   P=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:integer_typespec"]
+MOVED-STILL-WRONG a_bare__integer ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+   B=['const(UINT:7,sz=32,ct=9,dec=7)/T:integer_typespec']
+   P=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:integer_typespec"]
+FIXED a_bare__integer ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED a_bare__integer ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+   B=['fcall:flp(const(UINT:5,sz=32,ct=9,dec=5))/T:<none>']
+   P=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+FIXED a_bare__integer ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+   B=['fcall:flp(const(UINT:7,sz=32,ct=9,dec=7))/T:<none>']
+   P=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+MOVED-STILL-WRONG a_bare__longint ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:long_int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:long_int_typespec"]
+MOVED-STILL-WRONG a_bare__longint ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+   B=['const(UINT:5,sz=32,ct=9,dec=5)/T:long_int_typespec']
+   P=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:long_int_typespec"]
+MOVED-STILL-WRONG a_bare__longint ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+   B=['const(UINT:7,sz=32,ct=9,dec=7)/T:long_int_typespec']
+   P=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:long_int_typespec"]
+FIXED a_bare__longint ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED a_bare__longint ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+   B=['fcall:flp(const(UINT:5,sz=32,ct=9,dec=5))/T:<none>']
+   P=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+FIXED a_bare__longint ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+   B=['fcall:flp(const(UINT:7,sz=32,ct=9,dec=7))/T:<none>']
+   P=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+MOVED-STILL-WRONG a_bare__shortint ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:short_int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:short_int_typespec"]
+MOVED-STILL-WRONG a_bare__shortint ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+   B=['const(UINT:5,sz=32,ct=9,dec=5)/T:short_int_typespec']
+   P=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:short_int_typespec"]
+MOVED-STILL-WRONG a_bare__shortint ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+   B=['const(UINT:7,sz=32,ct=9,dec=7)/T:short_int_typespec']
+   P=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:short_int_typespec"]
+FIXED a_bare__shortint ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED a_bare__shortint ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+   B=['fcall:flp(const(UINT:5,sz=32,ct=9,dec=5))/T:<none>']
+   P=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+FIXED a_bare__shortint ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+   B=['fcall:flp(const(UINT:7,sz=32,ct=9,dec=7))/T:<none>']
+   P=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+FIXED a_bare__tdint ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED a_bare__tdint ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+   B=['const(UINT:5,sz=32,ct=9,dec=5)/T:int_typespec']
+   P=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+FIXED a_bare__tdint ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+   B=['const(UINT:7,sz=32,ct=9,dec=7)/T:int_typespec']
+   P=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+FIXED a_bare__tdint ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED a_bare__tdint ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+   B=['fcall:flp(const(UINT:5,sz=32,ct=9,dec=5))/T:<none>']
+   P=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+FIXED a_bare__tdint ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+   B=['fcall:flp(const(UINT:7,sz=32,ct=9,dec=7))/T:<none>']
+   P=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+MOVED-STILL-WRONG a_lparam__bitsgn ELAB|ARG|work@top.u1|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:bit_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:bit_typespec"]
+MOVED-STILL-WRONG a_lparam__bitsgn ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:bit_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:bit_typespec"]
+MOVED-STILL-WRONG a_lparam__bitsgn ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:bit_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:bit_typespec"]
+MOVED-STILL-WRONG a_lparam__bitsgn ELAB|ARG|work@top.u4|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:bit_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:bit_typespec"]
+MOVED-STILL-WRONG a_lparam__bitsgn ELAB|ARG|work@top.u5|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:bit_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:bit_typespec"]
+MOVED-STILL-WRONG a_lparam__bitsgn ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:bit_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:bit_typespec"]
+FIXED a_lparam__bitsgn ELAB|PA|work@top.u1|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__bitsgn ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__bitsgn ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__bitsgn ELAB|PA|work@top.u4|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__bitsgn ELAB|PA|work@top.u5|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__bitsgn ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+MOVED-STILL-WRONG a_lparam__byte ELAB|ARG|work@top.u1|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:byte_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:byte_typespec"]
+MOVED-STILL-WRONG a_lparam__byte ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:byte_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:byte_typespec"]
+MOVED-STILL-WRONG a_lparam__byte ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:byte_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:byte_typespec"]
+MOVED-STILL-WRONG a_lparam__byte ELAB|ARG|work@top.u4|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:byte_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:byte_typespec"]
+MOVED-STILL-WRONG a_lparam__byte ELAB|ARG|work@top.u5|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:byte_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:byte_typespec"]
+MOVED-STILL-WRONG a_lparam__byte ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:byte_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:byte_typespec"]
+FIXED a_lparam__byte ELAB|PA|work@top.u1|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__byte ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__byte ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__byte ELAB|PA|work@top.u4|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__byte ELAB|PA|work@top.u5|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__byte ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__int ELAB|ARG|work@top.u1|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED a_lparam__int ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED a_lparam__int ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED a_lparam__int ELAB|ARG|work@top.u4|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED a_lparam__int ELAB|ARG|work@top.u5|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED a_lparam__int ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED a_lparam__int ELAB|PA|work@top.u1|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__int ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__int ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__int ELAB|PA|work@top.u4|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__int ELAB|PA|work@top.u5|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__int ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+MOVED-STILL-WRONG a_lparam__integer ELAB|ARG|work@top.u1|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:integer_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:integer_typespec"]
+MOVED-STILL-WRONG a_lparam__integer ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:integer_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:integer_typespec"]
+MOVED-STILL-WRONG a_lparam__integer ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:integer_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:integer_typespec"]
+MOVED-STILL-WRONG a_lparam__integer ELAB|ARG|work@top.u4|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:integer_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:integer_typespec"]
+MOVED-STILL-WRONG a_lparam__integer ELAB|ARG|work@top.u5|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:integer_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:integer_typespec"]
+MOVED-STILL-WRONG a_lparam__integer ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:integer_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:integer_typespec"]
+FIXED a_lparam__integer ELAB|PA|work@top.u1|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__integer ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__integer ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__integer ELAB|PA|work@top.u4|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__integer ELAB|PA|work@top.u5|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__integer ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+MOVED-STILL-WRONG a_lparam__longint ELAB|ARG|work@top.u1|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:long_int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:long_int_typespec"]
+MOVED-STILL-WRONG a_lparam__longint ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:long_int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:long_int_typespec"]
+MOVED-STILL-WRONG a_lparam__longint ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:long_int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:long_int_typespec"]
+MOVED-STILL-WRONG a_lparam__longint ELAB|ARG|work@top.u4|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:long_int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:long_int_typespec"]
+MOVED-STILL-WRONG a_lparam__longint ELAB|ARG|work@top.u5|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:long_int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:long_int_typespec"]
+MOVED-STILL-WRONG a_lparam__longint ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:long_int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:long_int_typespec"]
+FIXED a_lparam__longint ELAB|PA|work@top.u1|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__longint ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__longint ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__longint ELAB|PA|work@top.u4|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__longint ELAB|PA|work@top.u5|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__longint ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+MOVED-STILL-WRONG a_lparam__shortint ELAB|ARG|work@top.u1|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:short_int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:short_int_typespec"]
+MOVED-STILL-WRONG a_lparam__shortint ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:short_int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:short_int_typespec"]
+MOVED-STILL-WRONG a_lparam__shortint ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:short_int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:short_int_typespec"]
+MOVED-STILL-WRONG a_lparam__shortint ELAB|ARG|work@top.u4|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:short_int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:short_int_typespec"]
+MOVED-STILL-WRONG a_lparam__shortint ELAB|ARG|work@top.u5|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:short_int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:short_int_typespec"]
+MOVED-STILL-WRONG a_lparam__shortint ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:short_int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:short_int_typespec"]
+FIXED a_lparam__shortint ELAB|PA|work@top.u1|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__shortint ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__shortint ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__shortint ELAB|PA|work@top.u4|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__shortint ELAB|PA|work@top.u5|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__shortint ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__tdint ELAB|ARG|work@top.u1|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED a_lparam__tdint ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED a_lparam__tdint ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED a_lparam__tdint ELAB|ARG|work@top.u4|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED a_lparam__tdint ELAB|ARG|work@top.u5|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED a_lparam__tdint ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED a_lparam__tdint ELAB|PA|work@top.u1|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__tdint ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__tdint ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__tdint ELAB|PA|work@top.u4|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__tdint ELAB|PA|work@top.u5|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED a_lparam__tdint ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED b_ifacehome ELAB|ARG|work@top.u2|LI|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED b_ifacehome ELAB|PA|work@top.u2|LI
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED b_localparam ELAB|ARG|work@top.u1|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED b_localparam ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED b_localparam ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED b_localparam ELAB|ARG|work@top.u4|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED b_localparam ELAB|ARG|work@top.u5|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED b_localparam ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED b_localparam ELAB|PA|work@top.u1|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED b_localparam ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED b_localparam ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED b_localparam ELAB|PA|work@top.u4|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED b_localparam ELAB|PA|work@top.u5|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED b_localparam ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED b_portparam ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED b_portparam ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+   B=['const(UINT:5,sz=32,ct=9,dec=5)/T:int_typespec']
+   P=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+FIXED b_portparam ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+   B=['const(UINT:7,sz=32,ct=9,dec=7)/T:int_typespec']
+   P=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+FIXED b_portparam ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED b_portparam ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+   B=['fcall:flp(const(UINT:5,sz=32,ct=9,dec=5))/T:<none>']
+   P=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+FIXED b_portparam ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+   B=['fcall:flp(const(UINT:7,sz=32,ct=9,dec=7))/T:<none>']
+   P=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+FIXED c_default_arg ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED c_default_arg ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+MOVED-STILL-WRONG c_named_inorder ELAB|ARG|work@top.u1|LP|fc:flp|1
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:<none>']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:<none>"]
+MOVED-STILL-WRONG c_named_inorder ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:<none>']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:<none>"]
+MOVED-STILL-WRONG c_named_inorder ELAB|ARG|work@top.u2|LP|fc:flp|1
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:<none>']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:<none>"]
+FIXED c_named_inorder ELAB|PA|work@top.u1|LP
+   G=["fcall:flp(const(UINT:2,sz=32,ct=9,dec=2),const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:2,sz=32,ct=9,dec=2),const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(UINT:2,sz=32,ct=9,dec=2),const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED c_named_inorder ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03),const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3),const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03),const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+MOVED-STILL-WRONG c_named_reordered ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:<none>']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:<none>"]
+MOVED-STILL-WRONG c_named_reordered ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03),const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3),const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03),const(UINT:6,sz=32,ct=9,dec=6))/T:<none>"]
+FIXED c_pkgfn ELAB|ARG|work@top.u2|LP|fc:pk::pflp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED c_pkgfn ELAB|PA|work@top.u2|LP
+   G=["fcall:pk::pflp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:pk::pflp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:pk::pflp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED c_twoargs ELAB|ARG|work@top.u1|LP|fc:flp|1
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED c_twoargs ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED c_twoargs ELAB|ARG|work@top.u2|LP|fc:flp|1
+   G=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+   B=['const(UINT:6,sz=32,ct=9,dec=6)/T:int_typespec']
+   P=["const(BIN:0110,sz=4,ct=3,dec=4'b0110)/T:int_typespec"]
+FIXED c_twoargs ELAB|PA|work@top.u1|LP
+   G=["fcall:flp(const(UINT:2,sz=32,ct=9,dec=2),const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:2,sz=32,ct=9,dec=2),const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(UINT:2,sz=32,ct=9,dec=2),const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED c_twoargs ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03),const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3),const(UINT:6,sz=32,ct=9,dec=6))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03),const(BIN:0110,sz=4,ct=3,dec=4'b0110))/T:<none>"]
+FIXED c_unitfn ELAB|ARG|work@top.u2|LP|fc:uflp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED c_unitfn ELAB|PA|work@top.u2|LP
+   G=["fcall:uflp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:uflp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:uflp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED d_barefirst_collision ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED d_barefirst_collision ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED d_barelast_collision ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED d_barelast_collision ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED d_rangedformal_collision ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED d_rangedformal_collision ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED e_3d ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED e_3d ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED e_typedef2d ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED e_typedef2d ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+MOVED-STILL-WRONG e_typedefvec_extradim ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=[]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+MOVED-STILL-WRONG e_typedefvec_extradim ELAB|PA|work@top.u2|LP
+   G=["const(BIN:00000000..[68]..00000011,sz=64,ct=3,dec=64'b00000000..[68]..00000011)/T:logic_typespec"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED g_negative ELAB|ARG|work@top.u1|LP|fc:flp|0
+   G=['const(INT:-3,sz=32,ct=7,dec=-3)/T:int_typespec']
+   B=['const(UINT:-3,sz=32,ct=9,dec=-3)/T:int_typespec']
+   P=['const(INT:-3,sz=32,ct=7,dec=-3)/T:int_typespec']
+FIXED g_negative ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=['const(INT:-3,sz=32,ct=7,dec=-3)/T:int_typespec']
+   B=['const(UINT:-3,sz=32,ct=9,dec=-3)/T:int_typespec']
+   P=['const(INT:-3,sz=32,ct=7,dec=-3)/T:int_typespec']
+FIXED g_negative ELAB|PA|work@top.u1|LP
+   G=['fcall:flp(const(INT:-3,sz=32,ct=7,dec=-3))/T:<none>']
+   B=['fcall:flp(const(UINT:-3,sz=32,ct=9,dec=-3))/T:<none>']
+   P=['fcall:flp(const(INT:-3,sz=32,ct=7,dec=-3))/T:<none>']
+FIXED g_negative ELAB|PA|work@top.u2|LP
+   G=['fcall:flp(const(INT:-3,sz=32,ct=7,dec=-3))/T:<none>']
+   B=['fcall:flp(const(UINT:-3,sz=32,ct=9,dec=-3))/T:<none>']
+   P=['fcall:flp(const(INT:-3,sz=32,ct=7,dec=-3))/T:<none>']
+MOVED-STILL-WRONG g_nested_inst ELAB|ARG|work@top.u2.u|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=32'h03)/T:int_typespec"]
+MOVED-STILL-WRONG g_nested_inst ELAB|PA|work@top.u2.u|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=32'h03))/T:<none>"]
+FIXED g_paramtype_arg ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED g_paramtype_arg ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED g_stringparam ELAB|ARG|work@top.u2|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED g_stringparam ELAB|PA|work@top.u2|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED g_threeinst ELAB|ARG|work@top.u3|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED g_threeinst ELAB|ARG|work@top.u4|LP|fc:flp|0
+   G=["const(HEX:A,sz=32,ct=5,dec=32'hA)/T:int_typespec"]
+   B=['const(UINT:10,sz=32,ct=9,dec=10)/T:int_typespec']
+   P=["const(HEX:A,sz=32,ct=5,dec=32'hA)/T:int_typespec"]
+FIXED g_threeinst ELAB|ARG|work@top.u6|LP|fc:flp|0
+   G=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+   B=['const(UINT:5,sz=32,ct=9,dec=5)/T:int_typespec']
+   P=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+FIXED g_threeinst ELAB|ARG|work@top.u7|LP|fc:flp|0
+   G=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+   B=['const(UINT:7,sz=32,ct=9,dec=7)/T:int_typespec']
+   P=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+FIXED g_threeinst ELAB|PA|work@top.u3|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+FIXED g_threeinst ELAB|PA|work@top.u4|LP
+   G=["fcall:flp(const(HEX:A,sz=32,ct=5,dec=32'hA))/T:<none>"]
+   B=['fcall:flp(const(UINT:10,sz=32,ct=9,dec=10))/T:<none>']
+   P=["fcall:flp(const(HEX:A,sz=32,ct=5,dec=32'hA))/T:<none>"]
+FIXED g_threeinst ELAB|PA|work@top.u6|LP
+   G=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+   B=['fcall:flp(const(UINT:5,sz=32,ct=9,dec=5))/T:<none>']
+   P=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+FIXED g_threeinst ELAB|PA|work@top.u7|LP
+   G=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+   B=['fcall:flp(const(UINT:7,sz=32,ct=9,dec=7))/T:<none>']
+   P=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+-- FIXED=140 MOVED-STILL-WRONG=54 OK=10521 STILL=1215 TOTAL=11930

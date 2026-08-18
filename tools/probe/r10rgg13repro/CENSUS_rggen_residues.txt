@@ -1,0 +1,87 @@
+r10rgg13 — RGGEN RESIDUES AFTER THE PATCH, Compare-visible fields only.
+Total differing census keys: 846 (was 1250 with all columns / 868 Compare-visible at base).
+
+   305 ('ELAB', 'RANGE', 'op11[ref(WIDTH),const(', 'const(INT:3,sz=64,ct=7')
+   ex: ELAB|RANGE|u_block_1.g_register_file_2.g[0].g_register_file_0.g_register_0.g[1].g[2].g_bit_field_2.g[0].u_bit_field.bit_field_if|logic_var:read_mask|TS|0|L
+     G= ['op11[ref(WIDTH),const(UINT:1,sz=64,ct=9,dec=1)]']
+     P= ['const(INT:3,sz=64,ct=7,dec=3)']
+   223 ('ELAB', 'RANGE', 'op11[ref(WIDTH),const(', 'const(INT:1,sz=64,ct=7')
+   ex: ELAB|RANGE|u_block_0.g_register_0.g_bit_field_5.u_bit_field.bit_field_if|logic_var:read_mask|TS|0|L
+     G= ['op11[ref(WIDTH),const(UINT:1,sz=64,ct=9,dec=1)]']
+     P= ['const(INT:1,sz=64,ct=7,dec=1)']
+   212 ('ELAB', 'RANGE', 'op11[ref(WIDTH),const(', 'const(INT:7,sz=64,ct=7')
+   ex: ELAB|RANGE|u_block_0.g_register_11.g[0].g[1].g_bit_field_0.g[2].u_bit_field.bit_field_if|logic_var:write_data|TS|0|L
+     G= ['op11[ref(WIDTH),const(UINT:1,sz=64,ct=9,dec=1)]']
+     P= ['const(INT:7,sz=64,ct=7,dec=7)']
+    44 ('ELAB', 'RANGE', 'op11[ref(BUS_BYTE_WIDT', 'const(INT:3,sz=64,ct=7')
+   ex: ELAB|RANGE|u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_1.u_register.u_register_common.register_if|logic_var:strobe|TS|0|L
+     G= ['op11[ref(BUS_BYTE_WIDTH),const(UINT:1,sz=64,ct=9,dec=1)]']
+     P= ['const(INT:3,sz=64,ct=7,dec=3)']
+    24 ('ELAB', 'RANGE', 'op11[ref(WIDTH),const(', 'const(INT:0,sz=64,ct=7')
+   ex: ELAB|RANGE|u_block_1.g_register_file_2.g[0].g_register_file_0.g_register_1.g_bit_field_0.g[1].u_bit_field.bit_field_if|logic_var:write_mask|TS|0|L
+     G= ['op11[ref(WIDTH),const(UINT:1,sz=64,ct=9,dec=1)]']
+     P= ['const(INT:0,sz=64,ct=7,dec=0)']
+    12 ('ELAB', 'PORT', 'hier(register_if[19].v', 'hier(register_if[6+7*i')
+   ex: ELAB|PORT|u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[1].g_bit_field_2.g[0].u_bit_field|5|i_sw_write_enable
+     G= ['hier(register_if[19].value[0+:1])/T:<none>']
+     P= ['hier(register_if[6+7*i+6].value[0 + 1 * l+:1])/T:<none>']
+    12 ('ELAB', 'PORT', 'hier(register_if[12].v', 'hier(register_if[6+7*i')
+   ex: ELAB|PORT|u_block_1.g_register_file_2.g[0].g_register_file_0.g_register_0.g[1].g[0].g_bit_field_2.g[0].u_bit_field|5|i_sw_write_enable
+     G= ['hier(register_if[12].value[0+:1])/T:<none>']
+     P= ['hier(register_if[6+7*i+6].value[0 + 1 * l+:1])/T:<none>']
+     1 ('ELAB', 'PA', '<absent>', 'const(UINT:1,sz=32,ct=')
+   ex: ELAB|PA|u_block_0.g_register_15.u_register.bus_if|RGGEN_ACCESS_NON_POSTED_BIT
+     G= []
+     P= ['const(UINT:1,sz=32,ct=9,dec=1)/T:int_typespec']
+     1 ('ELAB', 'PA', '<absent>', 'const(UINT:0,sz=32,ct=')
+   ex: ELAB|PA|u_block_0.g_register_15.u_register.bus_if|RGGEN_ACCESS_DATA_BIT
+     G= []
+     P= ['const(UINT:0,sz=32,ct=9,dec=0)/T:int_typespec']
+     1 ('ELAB', 'PA', 'const(BIN:0,sz=2,ct=3,', 'const(BIN:0,sz=64,ct=3')
+   ex: ELAB|PA|u_block_0.g_register_13.g_bit_field_1.u_bit_field|INITIAL_VALUE
+     G= ["const(BIN:0,sz=2,ct=3,dec='b0)/T:bit_typespec"]
+     P= ["const(BIN:0,sz=64,ct=3,dec='b0)/T:bit_typespec"]
+     1 ('ELAB', 'RANGE', 'op11[ref(ADDRESS_WIDTH', 'const(INT:15,sz=64,ct=')
+   ex: ELAB|RANGE|u_block_0.u_adapter.u_adapter_common.bus_if|logic_var:address|TS|0|L
+     G= ['op11[ref(ADDRESS_WIDTH),const(UINT:1,sz=64,ct=9,dec=1)]']
+     P= ['const(INT:15,sz=64,ct=7,dec=15)']
+     1 ('ELAB', 'PA', 'const(UINT:84,sz=7,ct=', 'const(UINT:-44,sz=7,ct')
+   ex: ELAB|PA|u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[2].u_register.u_register_common.g_decoder[0]|START_ADDRESS
+     G= ['const(UINT:84,sz=7,ct=9,dec=84)/T:bit_typespec']
+     P= ['const(UINT:-44,sz=7,ct=9,dec=-44)/T:bit_typespec']
+     1 ('ELAB', 'PA', '<absent>', 'const(UINT:32,sz=32,ct')
+   ex: ELAB|PA|u_block_0.g_register_15.u_register.bus_if|BUS_WIDTH
+     G= []
+     P= ['const(UINT:32,sz=32,ct=9,dec=32)/T:int_typespec']
+     1 ('ELAB', 'PA', 'const(UINT:76,sz=7,ct=', 'const(UINT:-52,sz=7,ct')
+   ex: ELAB|PA|u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[0].u_register.u_register_common.g_decoder[0]|START_ADDRESS
+     G= ['const(UINT:76,sz=7,ct=9,dec=76)/T:bit_typespec']
+     P= ['const(UINT:-52,sz=7,ct=9,dec=-52)/T:bit_typespec']
+     1 ('ELAB', 'PA', '<absent>', 'const(UINT:8,sz=32,ct=')
+   ex: ELAB|PA|u_block_0.g_register_15.u_register.bus_if|ADDRESS_WIDTH
+     G= []
+     P= ['const(UINT:8,sz=32,ct=9,dec=8)/T:int_typespec']
+     1 ('ELAB', 'PA', 'const(UINT:80,sz=7,ct=', 'const(UINT:-48,sz=7,ct')
+   ex: ELAB|PA|u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[1].u_register.u_register_common.g_decoder[0]|START_ADDRESS
+     G= ['const(UINT:80,sz=7,ct=9,dec=80)/T:bit_typespec']
+     P= ['const(UINT:-48,sz=7,ct=9,dec=-48)/T:bit_typespec']
+     1 ('ELAB', 'PA', 'const(UINT:88,sz=7,ct=', 'const(UINT:-40,sz=7,ct')
+   ex: ELAB|PA|u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_1.u_register.u_register_common.g_decoder[0]|START_ADDRESS
+     G= ['const(UINT:88,sz=7,ct=9,dec=88)/T:bit_typespec']
+     P= ['const(UINT:-40,sz=7,ct=9,dec=-40)/T:bit_typespec']
+     1 ('ELAB', 'PA', 'const(UINT:64,sz=7,ct=', 'const(UINT:-64,sz=7,ct')
+   ex: ELAB|PA|u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[0].u_register.u_register_common.g_decoder[0]|START_ADDRESS
+     G= ['const(UINT:64,sz=7,ct=9,dec=64)/T:bit_typespec']
+     P= ['const(UINT:-64,sz=7,ct=9,dec=-64)/T:bit_typespec']
+     1 ('ELAB', 'PA', 'const(UINT:72,sz=7,ct=', 'const(UINT:-56,sz=7,ct')
+   ex: ELAB|PA|u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[2].u_register.u_register_common.g_decoder[0]|START_ADDRESS
+     G= ['const(UINT:72,sz=7,ct=9,dec=72)/T:bit_typespec']
+     P= ['const(UINT:-56,sz=7,ct=9,dec=-56)/T:bit_typespec']
+     1 ('ELAB', 'PA', 'const(UINT:68,sz=7,ct=', 'const(UINT:-60,sz=7,ct')
+   ex: ELAB|PA|u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[1].u_register.u_register_common.g_decoder[0]|START_ADDRESS
+     G= ['const(UINT:68,sz=7,ct=9,dec=68)/T:bit_typespec']
+     P= ['const(UINT:-60,sz=7,ct=9,dec=-60)/T:bit_typespec']
+     1 ('ELAB', 'RANGE', 'op11[ref(ADDRESS_WIDTH', 'const(INT:6,sz=64,ct=7')
+   ex: ELAB|RANGE|u_block_1.u_adapter.u_adapter_common.bus_if|logic_var:address|TS|0|L
+     G= ['op11[ref(ADDRESS_WIDTH),const(UINT:1,sz=64,ct=9,dec=1)]']
+     P= ['const(INT:6,sz=64,ct=7,dec=6)']

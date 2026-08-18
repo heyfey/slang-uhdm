@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 05:25, HEAD = the uvm94 landing, the 100th) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 05:50, HEAD = the rgg13 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -184,12 +184,12 @@ row-modes over 7 tests:
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 17 | ours carries an EXTRA ref_typespec→unsupported_typespec on the ref_var of a FOREACH HEADER's array reference `foreach(m_object_references[i])` (uvm_pkg.sv:22452, assoc array of class handles) — golden's ref_var has no Typespec; pass buvm19 in flight (buvm18 landed: 84→17, package-param bare-typedef named clone) |
 | Earlgrey_0_1/default | 64 (depth) | ELAB constant ENCODING of a folded parameter read as a size-cast operand `DepthW'(Depth)` (prim_fifo_sync.sv:72, i_bank_sequence_fifo): golden INT:2 ct 7, ours UINT:2 ct 9 — instance-dependent (the parameter's own override encoding); pass earl64 in flight (earl63 landed: § constCallFoldAdjustSize63) |
 | Earlgrey_0_1/testflags | 28 (depth) | ELAB high_conn literal: the 0 base of `host_addr_i[0 +: BankAddrW]` (flash_phy.sv:128) golden UINT:0 ct 9, ours INT:0 ct 7 (DEF copy already UINT) — earl64 target B (earl63: 64→28) |
-| Rggen/default | 64 (depth) | the ARGUMENT constant of a param_assign Rhs func_call `get_sub_n_list(N)` (rggen_or_reducer.sv:62): golden INT:2 ct 7 typed by N's own param_assign/int_typespec (§ genLpPortConnValue11 in a third position), ours UINT:2 ct 9 typed by the formal — 11 rows; next family R-A 810 rows (bare ref(WIDTH) kept in ELAB range bounds); pass rgg13 in flight (rgg12 landed: 104→64 depth, symbolic-call bound + currentScope-stale fix) |
+| Rggen/default | 36 | a bit_select INDEX constant whose vpiDecompile keeps the GENVAR TEXT (`register_if[10+i]` block_0.sv:1748: ours `10+i`, golden `10`) — 25 objects incl. 24 hier_path port rows; R-A 810 rows (bare ref(WIDTH) in gen-scope range bounds) next; pass rgg14 in flight (rgg13 landed: 64→36, param-call-argument copy) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 50 verifier fix-before-landing re-cuts (100 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 51 verifier fix-before-landing re-cuts (101 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

@@ -1,0 +1,29 @@
+== GRID A — ALL census rows, ALL printed columns (incl. the Compare-INVISIBLE vpiParent and typespec LOCATION)
+-- FIXED=3 MOVED-STILL-WRONG=3 OK=3636 STILL=322 TOTAL=3964
+
+== GRID A — ALL census rows, COMPARE-VISIBLE fields only (--cmpvis: what uhdm-cmp can see)
+FIXED fint__bare ELAB|ARG|work@top.u_bin|LP|fc:flp|0
+   G=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+   B=['const(UINT:5,sz=32,ct=9,dec=5)/T:int_typespec']
+   P=["const(BIN:0101,sz=4,ct=3,dec=4'b0101)/T:int_typespec"]
+FIXED fint__bare ELAB|ARG|work@top.u_def|LP|fc:flp|0
+   G=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+   B=['const(UINT:7,sz=32,ct=9,dec=7)/T:int_typespec']
+   P=["const(HEX:07,sz=32,ct=5,dec=32'h07)/T:int_typespec"]
+FIXED fint__bare ELAB|ARG|work@top.u_hex|LP|fc:flp|0
+   G=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+   B=['const(UINT:3,sz=32,ct=9,dec=3)/T:int_typespec']
+   P=["const(HEX:03,sz=32,ct=5,dec=8'h03)/T:int_typespec"]
+FIXED fint__bare ELAB|PA|work@top.u_bin|LP
+   G=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+   B=['fcall:flp(const(UINT:5,sz=32,ct=9,dec=5))/T:<none>']
+   P=["fcall:flp(const(BIN:0101,sz=4,ct=3,dec=4'b0101))/T:<none>"]
+FIXED fint__bare ELAB|PA|work@top.u_def|LP
+   G=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+   B=['fcall:flp(const(UINT:7,sz=32,ct=9,dec=7))/T:<none>']
+   P=["fcall:flp(const(HEX:07,sz=32,ct=5,dec=32'h07))/T:<none>"]
+FIXED fint__bare ELAB|PA|work@top.u_hex|LP
+   G=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+   B=['fcall:flp(const(UINT:3,sz=32,ct=9,dec=3))/T:<none>']
+   P=["fcall:flp(const(HEX:03,sz=32,ct=5,dec=8'h03))/T:<none>"]
+-- FIXED=6 OK=3789 STILL=169 TOTAL=3964

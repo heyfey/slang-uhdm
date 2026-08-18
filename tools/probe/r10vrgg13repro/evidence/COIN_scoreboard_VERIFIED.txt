@@ -1,0 +1,10 @@
+== BASE binary, 6 repeats of Scoreboard/default
+      6 3bfa612c78c8f2d308e8545745d464d6
+== PATCHED binary, 6 repeats
+      5 3bfa612c78c8f2d308e8545745d464d6
+      1 64250f1cb8309a68e2f7c20f1c6e7395
+== the two SWEEP databases
+3bfa612c78c8f2d308e8545745d464d6  /tmp/vrgg13_slw_base/default/Scoreboard-59431470/slang.uhdm
+ec98da8d71df333cc7eb7ecf6b47015d  /tmp/vrgg13_slw_pat/default/Scoreboard-59431470/slang.uhdm
+== uhdm-dump, 1099524 lines a side: raw diff 172 lines, ORDER-BLIND (sorted, ids stripped) diff 0 lines
+VERDICT: Scoreboard/default is the documented COIN.  The PATCHED binary reproduces the BASE sweep's exact hash in 5 of 6 runs, and the order-blind dump diff is EMPTY.
