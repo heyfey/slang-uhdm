@@ -1548,6 +1548,41 @@ static bool newArraySubScopeSym16(const slang::ast::Symbol& sym) {
     return hk == SymbolKind::Package || hk == SymbolKind::CompilationUnit;
 }
 
+// § incDecStmtOperandBinds21 — THE SYMBOL HALF of the inc/dec statement window.
+// Surelog's eager binder (`CompileHelper::bindVariable`, CompileStmt.cpp:3089)
+// reads only `Variables()` and `Io_decls()` of the `uhdmfunction` / `uhdmtask`
+// / `uhdmbegin` scopes on the walk, so exactly two symbol classes can be found:
+// a FORMAL and a SUBROUTINE-SCOPE local.  Measured on g21b.sv / g21c.sv:
+//   * `prop_sc++` — a class PROPERTY — golden BARE (no class scope is ever
+//     inspected; class properties reach the write phase through the never-run
+//     class late-binding list)
+//   * `aa[EA]++` — an ENUM CONSTANT index — golden BARE (an EnumValue is not a
+//     variable at all, and this kind test is what keeps it out)
+//   * `begin : nb int nbl; nbl++; end` — a NAMED-block local — golden BARE: a
+//     labelled block serialises as `uhdmnamed_begin`, which is NOT one of the
+//     scopes bindVariable inspects, so its own locals are invisible while the
+//     enclosing function's formals (`aa[s]++` in the same block) still bind.
+//     The identical exclusion § collArgNamedBlkLocalNoBind15 measured.
+static bool incDecBindSym21(const slang::ast::Symbol& sym) {
+    using slang::ast::SymbolKind;
+    if (sym.kind == SymbolKind::FormalArgument)
+        return true;
+    if (sym.kind != SymbolKind::Variable)
+        return false;
+    const slang::ast::Scope* sc = sym.getParentScope();
+    while (sc) {
+        auto& ss = sc->asSymbol();
+        if (ss.kind == SymbolKind::StatementBlock) {
+            if (!ss.name.empty())
+                return false;          // a NAMED block's local: golden BARE
+            sc = ss.getParentScope();
+            continue;
+        }
+        return ss.kind == SymbolKind::Subroutine;
+    }
+    return false;
+}
+
 static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     dst->VpiLineNo(src->VpiLineNo());
     dst->VpiColumnNo(src->VpiColumnNo());
@@ -10532,11 +10567,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // and newArraySubScopeSym16 above for the symbol half.
                 bool newArrayArgNoBind16 =
                     newArrayArgDepth16 > 0 && newArraySubScopeSym16(nv.symbol);
+                // § incDecStmtOperandBinds21 — the EXCEPTION term.  An
+                // increment/decrement STATEMENT's simple-name operand / select
+                // index binds its formal or subroutine local even inside an
+                // in-body class method or a `$unit`-scope subroutine, because
+                // Surelog's `case paInc_or_dec_expression:` hands the enclosing
+                // scope object straight to `compileExpression` as `pexpr` and
+                // the EAGER `bindVariable` walk succeeds there and nowhere else
+                // in those bodies.  See incDecStmtPos21 / incDecBindElig21 in
+                // UhdmExporter.h for the full decode and every measured cell;
+                // the eligible-set construction (ExprEmit's inc/dec arm) is what
+                // keeps the select BASE, a compound index, an enum constant and
+                // a member path out, and incDecBindSym21 keeps class properties
+                // and named-block locals out.
+                bool incDecOperandBind21 =
+                    !incDecBindElig21.empty() &&
+                    std::find(incDecBindElig21.begin(), incDecBindElig21.end(),
+                              (const void*)&expr) != incDecBindElig21.end() &&
+                    incDecBindSym21(nv.symbol);
                 if (((classMethodNoBind && classArgBindDepth12 == 0) ||
                      unitSubNoBind9 || ctrlBodyNoBind28 ||
                      recvCallArgNoBind52 || collArgNamedBlkNoBind15 ||
                      newArrayArgNoBind16) &&
-                    !superNewFormal28) {
+                    !superNewFormal28 && !incDecOperandBind21) {
                     // Class-method body outside an if/case condition, or a
                     // `$unit`-scope subroutine body: no actual of any kind
                     // (see classMethodNoBind / unitSubNoBind9).
@@ -11663,8 +11716,64 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (opType == vpiPostIncOp || opType == vpiPreIncOp ||
                 opType == vpiPostDecOp || opType == vpiPreDecOp)
                 lvIncDecTarget84 = true;
+            // § incDecStmtOperandBinds21 — CONSUME the statement-position token
+            // and name the EXACT expressions it makes bindable.  The token is
+            // cleared before descending, so a nested inc/dec (`a[b++]++` is not
+            // legal SV, but a call argument inside the operand could hold one)
+            // never inherits the window.
+            //
+            // The eligible set is the measured shape and nothing wider
+            // (g21c.sv, golden):
+            //   * the whole operand when it is a SIMPLE NAME  — `s++`, `lc++`
+            //   * the simple-name INDEX of each ElementSelect step, walking
+            //     down the chain — `aa[s]++`, `prop_2d[s][t]++` (BOTH indices)
+            //   * NEVER the select BASE: `la[s]++` binds `s` and leaves `la`
+            //     bare even though `la` is a body local
+            //   * NEVER a compound index (`aa[ce21'(s)]++`), a RangeSelect base
+            //     (`pvec[s+:2]++`) or a member path (`prop_st.a++`) — all
+            //     golden-bare, so the walk stops at anything else.
+            bool tok21 = incDecStmtPos21;
+            incDecStmtPos21 = false;
+            bool armed21 = false;
+            if (tok21 && (opType == vpiPostIncOp || opType == vpiPreIncOp ||
+                          opType == vpiPostDecOp || opType == vpiPreDecOp)) {
+                incDecBindElig21.clear();
+                const Expression* cur21 = &stripImplicitConv(ue.operand());
+                if (cur21->kind == ExpressionKind::NamedValue) {
+                    incDecBindElig21.push_back((const void*)cur21);
+                }
+                else {
+                    while (cur21->kind == ExpressionKind::ElementSelect) {
+                        auto& es21 = cur21->as<ElementSelectExpression>();
+                        const Expression* ix21 =
+                            &stripImplicitConv(es21.selector());
+                        if (ix21->kind == ExpressionKind::NamedValue)
+                            incDecBindElig21.push_back((const void*)ix21);
+                        cur21 = &stripImplicitConv(es21.value());
+                    }
+                    // THE BASE MUST BE A PLAIN NAME.  A select on a MEMBER PATH
+                    // (`hnd.h_arr[s]++`) serialises as a `hier_path`, and golden
+                    // leaves ITS index bare in an in-body class method — cell
+                    // `s_objidx` of g21c.sv, a measured PRISTINE-RIGHT ->
+                    // patched-WRONG over-fire of the first cut of this gate.
+                    // (The same text in a PACKAGE free function DOES bind —
+                    // uvm-1.2's `seed_map.count[type_id]++`, uvm_pkg.sv:8694 —
+                    // which is the package late-binding list rescuing it, not
+                    // the eager statement bind, so it is out of this window.)
+                    // `this.prop_arr[s]++` needs no test of its own: golden and
+                    // ours both collapse it to a `hier_path` that carries no
+                    // index reference at all.
+                    if (cur21->kind != ExpressionKind::NamedValue)
+                        incDecBindElig21.clear();
+                }
+                armed21 = !incDecBindElig21.empty();
+                if (!armed21)
+                    incDecBindElig21.clear();
+            }
             if (auto* e = emitExpr(ue.operand(), op, prefix, netMap))
                 operands->push_back(e);
+            if (armed21)
+                incDecBindElig21.clear();
             lvIncDecTarget84 = lvSaved84;
             suppressConstParent = savedS;
             forceConstParent = savedF;

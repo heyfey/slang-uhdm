@@ -24,6 +24,15 @@ struct CtrlBody28 {
     ~CtrlBody28() { --*p; }
 };
 
+// V-FIX vbuvm21 — § incDecOpaqueCarrier21.  The same shape for the DELAY /
+// WAIT carriers an inc/dec statement may not bind through; see
+// incDecOpaqueDepth21 in UhdmExporter.h for the decode and every measured cell.
+struct IncDecOpaque21 {
+    int* p;
+    explicit IncDecOpaque21(int& d) : p(&d) { ++*p; }
+    ~IncDecOpaque21() { --*p; }
+};
+
 // § blockLocalSameCtrlDepthArgBinds57 — records, for the whole time a
 // STATEMENT BLOCK is being emitted, the ctrlBodyDepth28 at which that block
 // was ENTERED.  The reference binder then asks whether a candidate symbol's
@@ -1260,6 +1269,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // "#1 t;" / "always #5 clk = !clk;": a delay_control whose
                     // Stmt is the delayed statement.
                     auto* dc = emitDelayControl(timing, parent, &prefix);
+                    // V-FIX vbuvm21 — § incDecOpaqueCarrier21: Surelog never
+                    // parents this delay_control before compiling the delayed
+                    // statement, so an inc/dec statement under it stays BARE.
+                    IncDecOpaque21 op21(incDecOpaqueDepth21);
                     if (auto* inner = emitStmt(timed.stmt, dc, prefix, netMap))
                         dc->Stmt(inner);
                     return dc;
@@ -1278,7 +1291,33 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             if (es.expr.kind == ExpressionKind::Call ||
                 es.expr.kind == ExpressionKind::Invalid)
                 callStmtContext = true;
+            // § incDecStmtOperandBinds21 — THE STATEMENT-POSITION TOKEN.
+            // Surelog's `case paInc_or_dec_expression:` hands the ENCLOSING
+            // scope object straight to compileExpression as `pexpr`, so the
+            // eager `bindVariable` walk reaches the subroutine and binds; every
+            // other statement form interposes a node whose VpiParent is still
+            // null at that moment (see incDecStmtPos21 in UhdmExporter.h).
+            // The token is raised ONLY here (statement position — `r = a[s]++;`
+            // is golden-bare) and ONLY outside a control body
+            // (ctrlBodyDepth28 == 0 — an `if`/loop/`case` arm is golden-bare;
+            // a plain or named `begin` and a `fork` arm do NOT raise §28's
+            // depth, and golden binds through them).
+            {
+                const Expression& ie21 = stripImplicitConv(es.expr);
+                if (ie21.kind == ExpressionKind::UnaryOp &&
+                    ctrlBodyDepth28 == 0 &&
+                    // V-FIX vbuvm21 — § incDecOpaqueCarrier21
+                    incDecOpaqueDepth21 == 0) {
+                    using UO21 = slang::ast::UnaryOperator;
+                    auto op21 = ie21.as<UnaryExpression>().op;
+                    if (op21 == UO21::Postincrement ||
+                        op21 == UO21::Postdecrement ||
+                        op21 == UO21::Preincrement || op21 == UO21::Predecrement)
+                        incDecStmtPos21 = true;
+                }
+            }
             auto* r = emitExpr(es.expr, parent, prefix, netMap);
+            incDecStmtPos21 = false;
             callStmtContext = false;
             return r;
         }
@@ -3995,6 +4034,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             setLoc(w, stmt.sourceRange);
             if (auto* c = emitExpr(ws.cond, w, prefix, netMap))
                 w->VpiCondition(c);
+            // V-FIX vbuvm21 — § incDecOpaqueCarrier21: Surelog compiles the
+            // guarded statement under an UNPARENTED wait_stmt, so an inc/dec
+            // statement it guards stays BARE.
+            IncDecOpaque21 op21(incDecOpaqueDepth21);
             if (auto* inner = emitStmt(ws.stmt, w, prefix, netMap))
                 w->VpiStmt(inner);
             return w;

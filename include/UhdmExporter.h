@@ -2428,6 +2428,109 @@ private:
     // call ARGUMENTS bind too (this comment used to list them as unbound);
     // see classArgBindDepth12 just below for the boundaries.
     bool classMethodNoBind = false;
+    // ============ § incDecStmtOperandBinds21 — THE LAW (r10buvm21) ============
+    // AN INCREMENT/DECREMENT **STATEMENT** BINDS ITS OPERAND'S SIMPLE NAMES,
+    // inside the very in-body class method where classMethodNoBind otherwise
+    // silences everything.  The corpus head was uvm-1.2's
+    //   function void incr_severity_count(uvm_severity severity);
+    //     m_severity_count[severity]++;                 // uvm_pkg.sv:30001:22
+    // where golden's index `ref_obj` carries `vpiActual -> io_decl(severity)`
+    // and ours carried none (uhdm-cmp's SINGULAR `ref_obj::Actual_group`
+    // arm, BaseClass.h:190, LHS=the io_decl / RHS=<null>).
+    //
+    // THE DECODED PRODUCER (Surelog, read not guessed).  A reference is bound
+    // EAGERLY at compile time by `CompileHelper::bindVariable`
+    // (src/DesignCompile/CompileStmt.cpp:3089), which walks the *pexpr* it is
+    // handed up its `VpiParent` chain and inspects only `uhdmfunction` /
+    // `uhdmtask` / `uhdmbegin` / `uhdmmodule_inst` scopes, reading their
+    // `Variables()` and `Io_decls()`.  Every UHDM statement node gets its own
+    // `VpiParent` only at the END of `CompileHelper::compileStmt`
+    // (`stmt->VpiParent(pstmt)`, CompileStmt.cpp:1084) — i.e. AFTER its
+    // children are compiled — so from inside an `if` / loop / `case` arm, or
+    // from inside an assignment / return / call argument, that walk hits a
+    // NULL parent and finds nothing.  The one statement form that hands the
+    // ENCLOSING scope object straight through as `pexpr` is
+    //   case VObjectType::paInc_or_dec_expression:
+    //       stmt = compileExpression(component, fC, the_stmt, compileDesign,
+    //                                Reduce::No, pstmt, instance);
+    // (CompileStmt.cpp:222) — no intermediate node at all — so an inc/dec
+    // STATEMENT written directly in the body (or in a plain/named `begin`, or
+    // in a `fork` arm, all of which pass their own already-parented scope
+    // object down) finds the subroutine and binds.  When the eager bind fails
+    // the ref goes on the component's LATE-binding list, and for an IN-BODY
+    // class method that list is never processed —
+    // `UhdmWriter.cpp:1067`'s `lateBinding(s, classDef, c)` is COMMENTED OUT
+    // (buvm17 § 4 found the same line for typedefs) — which is exactly why the
+    // rest of an in-body method stays bare while an OUT-OF-BODY method and a
+    // package free function, compiled in the PACKAGE, bind everywhere.
+    //
+    // MEASURED ON GOLDEN, g21.sv / g21b.sv / g21c.sv (cell -> golden):
+    //   BINDS  `aa[s]++` sole body statement, in-body class method     (head)
+    //   BINDS  `--`, `++` prefix, `aa[s]--`                 (opTypes 62/63/64/65)
+    //   BINDS  inside `begin`, `begin begin`, `begin : lbl`, `fork ... join`
+    //   BINDS  `s++` on a bare formal, `lc++` on a body LOCAL
+    //   BINDS  every array kind: assoc-by-enum / -int / -string, queue,
+    //          dynamic, fixed, 2-D (`prop_2d[s][t]++` binds BOTH indices)
+    //   BINDS  every direction (input/output/inout/ref), static, virtual, task
+    //   BINDS  a class homed in a package / a module / `$unit`; and a `$unit`
+    //          FREE function's index and local bind too (uf_inc / uf_inc_loc)
+    //   bare   under `if` / `while` / `for` / `repeat` / `forever` /
+    //          `do-while` / `case` item  (ctrlBodyDepth28 > 0)
+    //   bare   in EXPRESSION position (`r = aa[s]++;`)
+    //   bare   the SELECT BASE itself, even when it is a local or a formal
+    //          (`la[s]++` binds `s`, never `la`)
+    //   bare   a class PROPERTY (`prop_sc++`), an ENUM CONSTANT index
+    //          (`aa[EA]++`), a COMPOUND index (`aa[ce21'(s)]++`), a member
+    //          path (`prop_st.a++`), an indexed PART-select base
+    //          (`pvec[s+:2]++`), and a NAMED-BLOCK local (`nbl++` in
+    //          `begin : nb`, whose `named_begin` bindVariable never inspects —
+    //          the same exclusion § collArgNamedBlkLocalNoBind15 measured)
+    //
+    // DIRECTION: ADD (a vpiActual that was absent).  SITE: the NamedValue
+    // reference gate in ExprEmit.cpp, as an EXCEPTION term beside
+    // § superNewFormalBinds28 — it lifts classMethodNoBind AND unitSubNoBind9
+    // (the `$unit` cells above are measured golden-BOUND) for exactly the
+    // expressions listed in incDecBindElig21 and nothing else.
+    //
+    // `incDecStmtPos21` is the STATEMENT-POSITION token: StmtEmit.cpp raises it
+    // for an ExpressionStatement whose expression is an inc/dec unary op AND
+    // only at ctrlBodyDepth28 == 0; ExprEmit.cpp's inc/dec arm CONSUMES it
+    // (clears it before descending) so a nested inc/dec never inherits it.
+    bool incDecStmtPos21 = false;
+    // V-FIX vbuvm21 — § incDecOpaqueCarrier21 — the CARRIER EXCLUSIONS the
+    // shipped law was missing.  Depth of statement carriers that Surelog
+    // compiles WITHOUT parenting first, so the eager `bindVariable` walk from
+    // an inc/dec statement inside them dead-ends and golden stays BARE:
+    //   * a DELAY control (`#1 a[s]++;`) — `compileProceduralTimingControlStmt`
+    //     (CompileHelper.cpp:3016) makes its `delay_control` and passes it as
+    //     `pstmt` to `compileStmt` WITHOUT ever setting `dc->VpiParent`;
+    //   * a WAIT statement (`wait (c) a[s]++;`) — `paWait_statement`
+    //     (CompileStmt.cpp:720) makes its `wait_stmt`, compiles the guarded
+    //     statement under it, and only then is the wait itself parented.
+    // An EVENT control is the OPPOSITE and stays transparent:
+    // `compileEventControlStmt` (CompileStmt.cpp:1374) runs
+    // `event->VpiParent(pstmt);` BEFORE `compileStmt`, so the walk reaches the
+    // subroutine — measured golden-BOUND for `@(ev)`, `@(posedge clk)`,
+    // `@(a or posedge b)` and `@(ev) begin … end` (v4timing.sv).
+    // Measured golden-BARE, all eleven, in the DEFAULT view (v4timing.sv):
+    //   `#1 a[s]++;`  `#0 a[s]++;`  `#1 begin a[s]++; end`
+    //   `begin #1 a[s]++; end`  `fork #1 a[s]++; join`
+    //   `@(ev) #1 a[s]++;`  `#1 @(ev) a[s]++;`
+    //   `wait (c) a[s]++;`  `wait (c) begin a[s]++; end`
+    //   `begin wait (c) a[s]++; end`  `@(ev) wait (c) a[s]++;`
+    // — i.e. ONE such carrier ANYWHERE on the chain blocks the bind, which is
+    // why this is a DEPTH and not a flag.  The official judge convicts the
+    // ungated version: on `wait (p1) aa[s]++;` and on `#1 aa[s]++;` in an
+    // in-body class method, `uhdm-cmp` reads 0 lines (EQUAL) for the pristine
+    // binary and 29 lines with the head `LHS: <null>` / `RHS: io_decl (s)`
+    // (the mirror singular `ref_obj::Actual_group` arm — OURS carrying an
+    // actual golden does not) for the ungated patched one.
+    int incDecOpaqueDepth21 = 0;
+    // The exact Expression nodes the consumed token makes eligible: the whole
+    // operand when it is a simple name, otherwise the simple-name INDEX of each
+    // ElementSelect step — never the base, never a compound index.  Pointers
+    // into slang's AST, live only for the duration of one operand emission.
+    std::vector<const void*> incDecBindElig21;
     // § classArgBind12 — depth of USER-subroutine call ARGUMENT nesting.
     // Non-zero suspends classMethodNoBind for reference ACTUALS only: a class
     // method's `sink(f)` / `o.om(loc)` DO bind their io_decl / local var
