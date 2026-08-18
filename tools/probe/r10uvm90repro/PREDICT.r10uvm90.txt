@@ -1,0 +1,119 @@
+r10uvm90 — THE MOVER PREDICTION, made from PRISTINE (and GOLDEN) bytes ONLY,
+BEFORE byteverify.sh was run.  LHS is ALWAYS golden.
+
+WHY A TWO-STAGE PREDICTION.  The law can only ever turn a NULL Tf_call_args
+vector into a populated one -- when constructorCall is already a
+CallExpression the arm is byte-for-byte what it was -- so stage 1 lists every
+argument-less new/super.new object in the pristine databases (the CANDIDATE
+set) and stage 2 keeps only those golden gives a POPULATED vector.
+
+STAGE 1 — pred90.sh over the 956 pristine surelog databases
+-- databases read: 956
+-- rows with >=1 NULL-arg new/super.new: 17
+-- predicted mover OBJECTS: 2165
+-- total objects (sum): 2165
+
+  candidate rows, by NARGS=-1 object count:
+    default	MiniAmiq-544c7f61	303
+    testflags	MiniAmiq-544c7f61	303
+    default	SeqDriver-32af76aa	268
+    testflags	SeqDriver-32af76aa	268
+    default	SimpleUVM-1dc93a62	214
+    testflags	SimpleUVM-1dc93a62	214
+    default	Scoreboard-59431470	204
+    default	BuildUVMPkg-bf853d43	184
+    testflags	BuildUVMPkg-bf853d43	184
+    default	SVSwitch-db796243	7
+    testflags	SVSwitch-db796243	7
+    default	ClassTypeParam-4fada276	2
+    testflags	ClassMini-2cdd3db1	2
+    testflags	ClassTypeParam-4fada276	2
+    default	ClassMini-2cdd3db1	1
+    default	ClassParamAsParam-0b630489	1
+    testflags	ClassParamAsParam-0b630489	1
+
+STAGE 2 — pred90b.sh, the same rows joined against GOLDEN (ARGS-NULL-OURS)
+    default	BuildUVMPkg-bf853d43	ARGS-NULL-OURS=26	-- AGREE=585  ARGS-DIFFER=44  ARGS-NULL-OURS=26  OURS-ONLY=2
+    default	ClassMini-2cdd3db1	ARGS-NULL-OURS=0	-- AGREE=1
+    default	ClassParamAsParam-0b630489	ARGS-NULL-OURS=0	-- AGREE=1
+    default	ClassTypeParam-4fada276	ARGS-NULL-OURS=0	-- AGREE=2
+    default	MiniAmiq-544c7f61	ARGS-NULL-OURS=26	-- AGREE=660  ARGS-DIFFER=151  ARGS-NULL-OURS=26  GOLDEN-ONLY=20  OURS-ONLY=8
+    default	Scoreboard-59431470	ARGS-NULL-OURS=26	-- AGREE=488  ARGS-DIFFER=112  ARGS-NULL-OURS=26  OURS-ONLY=4
+    default	SeqDriver-32af76aa	ARGS-NULL-OURS=26	-- AGREE=618  ARGS-DIFFER=146  ARGS-NULL-OURS=26  GOLDEN-ONLY=20  OURS-ONLY=8
+    default	SimpleUVM-1dc93a62	ARGS-NULL-OURS=26	-- AGREE=490  ARGS-DIFFER=112  ARGS-NULL-OURS=26  OURS-ONLY=4
+    default	SVSwitch-db796243	ARGS-NULL-OURS=0	-- AGREE=14
+    testflags	BuildUVMPkg-bf853d43	ARGS-NULL-OURS=26	-- AGREE=585  ARGS-DIFFER=44  ARGS-NULL-OURS=26  OURS-ONLY=2
+    testflags	ClassMini-2cdd3db1	ARGS-NULL-OURS=0	-- AGREE=2
+    testflags	ClassParamAsParam-0b630489	ARGS-NULL-OURS=0	-- AGREE=1
+    testflags	ClassTypeParam-4fada276	ARGS-NULL-OURS=0	-- AGREE=2
+    testflags	MiniAmiq-544c7f61	ARGS-NULL-OURS=26	-- AGREE=660  ARGS-DIFFER=151  ARGS-NULL-OURS=26  GOLDEN-ONLY=20  OURS-ONLY=8
+    testflags	SeqDriver-32af76aa	ARGS-NULL-OURS=26	-- AGREE=618  ARGS-DIFFER=146  ARGS-NULL-OURS=26  GOLDEN-ONLY=20  OURS-ONLY=8
+    testflags	SimpleUVM-1dc93a62	ARGS-NULL-OURS=26	-- AGREE=490  ARGS-DIFFER=112  ARGS-NULL-OURS=26  OURS-ONLY=4
+    testflags	SVSwitch-db796243	ARGS-NULL-OURS=0	-- AGREE=14
+    -- predicted MOVER OBJECTS: 234
+    -- predicted MOVER ROWS:    9
+
+THE PREDICTED MOVER ROWS, BY NAME (9):
+    default/BuildUVMPkg-bf853d43
+    default/MiniAmiq-544c7f61
+    default/Scoreboard-59431470
+    default/SeqDriver-32af76aa
+    default/SimpleUVM-1dc93a62
+    testflags/BuildUVMPkg-bf853d43
+    testflags/MiniAmiq-544c7f61
+    testflags/SeqDriver-32af76aa
+    testflags/SimpleUVM-1dc93a62
+
+THE PREDICTED NON-MOVERS among the candidates (4 rows, 12 objects), each one
+a row whose argument-less new objects AGREE with golden already:
+    default/ClassMini-2cdd3db1
+    default/ClassParamAsParam-0b630489
+    default/ClassTypeParam-4fada276
+    default/SVSwitch-db796243
+    testflags/ClassMini-2cdd3db1
+    testflags/ClassParamAsParam-0b630489
+    testflags/ClassTypeParam-4fada276
+    testflags/SVSwitch-db796243
+
+THE PREDICTED MOVER OBJECTS, BY OWNER NAME (26 per row-mode, identical set
+in every one of the 9 rows) -- the CLUSTERS.vladder1.md F13 family:
+    function:uvm_pkg::uvm_analysis_imp::new
+    function:uvm_pkg::uvm_blocking_get_imp::new
+    function:uvm_pkg::uvm_blocking_get_peek_imp::new
+    function:uvm_pkg::uvm_blocking_master_imp::new
+    function:uvm_pkg::uvm_blocking_peek_imp::new
+    function:uvm_pkg::uvm_blocking_put_imp::new
+    function:uvm_pkg::uvm_blocking_slave_imp::new
+    function:uvm_pkg::uvm_blocking_transport_imp::new
+    function:uvm_pkg::uvm_get_imp::new
+    function:uvm_pkg::uvm_get_peek_imp::new
+    function:uvm_pkg::uvm_master_imp::new
+    function:uvm_pkg::uvm_nonblocking_get_imp::new
+    function:uvm_pkg::uvm_nonblocking_get_peek_imp::new
+    function:uvm_pkg::uvm_nonblocking_master_imp::new
+    function:uvm_pkg::uvm_nonblocking_peek_imp::new
+    function:uvm_pkg::uvm_nonblocking_put_imp::new
+    function:uvm_pkg::uvm_nonblocking_slave_imp::new
+    function:uvm_pkg::uvm_nonblocking_transport_imp::new
+    function:uvm_pkg::uvm_peek_imp::new
+    function:uvm_pkg::uvm_put_imp::new
+    function:uvm_pkg::uvm_seq_item_pull_imp::new
+    function:uvm_pkg::uvm_slave_imp::new
+    function:uvm_pkg::uvm_tlm_b_transport_imp::new
+    function:uvm_pkg::uvm_tlm_nb_transport_bw_imp::new
+    function:uvm_pkg::uvm_tlm_nb_transport_fw_imp::new
+    function:uvm_pkg::uvm_transport_imp::new
+
+OUTCOME (gate 5): byteverify.sh found EXACTLY those 9 databases, by name, and
+no others; 0 / 1358 on the uhdm2rtlil corpus.  The 4 predicted non-movers did
+not move.  PREDICTION CONFIRMED.
+
+THE PREDICTION UNDERCOUNTED THE OBJECTS, AND SAYING SO IS THE POINT.  The
+attribution (CENSUS.r10uvm90.txt) found ONE MORE KEY per database that the
+ARGS-NULL-OURS class cannot see, because it was ARGS-DIFFER on both sides:
+uvm_pkg::uvm_class_pair::create's bare new(name), where it is the FORMAL'S
+DEFAULT VALUE (null -> int) that fails to convert.  It moves in ALL NINE movers.
+So the DATABASE prediction was exact (9 rows, by name, no others) and the OBJECT
+count is 26 + 1 = 27 per database = 243, not the 234 predicted.  A prediction
+that is right about which files move and 4% short on how much moves inside them
+is reported as both numbers, not as the flattering one.

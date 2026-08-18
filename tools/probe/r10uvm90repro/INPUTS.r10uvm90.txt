@@ -1,0 +1,94 @@
+r10uvm90 — THE INPUTS.  Everything a re-run needs, so no number rests on a
+binary or a path that cannot be rebuilt.
+
+REPO       /home/heyfey/git-repos/slang-uhdm, branch auto5h, BASE 862e367
+WORKTREE   /tmp/wt_r10uvm90   (git worktree add /tmp/wt_r10uvm90 862e367)
+BUILD      cmake -DCMAKE_BUILD_TYPE=Release -S /tmp/wt_r10uvm90 -B /tmp/wt_r10uvm90/build
+           cmake --build build -j 2      (md5sum taken SEPARATELY after each build)
+BINARIES   /tmp/r10uvm90_bin/slang-uhdm.pris  f6124d1901dc9a59a83fb895e944aec2
+           /tmp/r10uvm90_bin/slang-uhdm.pat   2a42b1f01586fdf19cc61b1ff48bfafc
+PATCH      /tmp/r10uvm90.patch = git diff vs 862e367
+
+BASELINES  THE ONES IN MY OWN WORKTREE, /tmp/wt_r10uvm90 @ 862e367:
+             results/golden_surelog.csv    1588 ROWS (both modes)
+             results/gate_uhdm2rtlil.csv    731 ROWS — TESTFLAGS ONLY, so the
+               fresh both-modes CSV is compared to it TESTFLAGS-FILTERED and the
+               DEFAULT half is compared PATCHED-vs-PRISTINE instead.  BOTH
+               comparisons are reported.
+           results/*.csv were READ ONLY.  NOTHING WAS PROMOTED.  NO ROW CONVERTED.
+           slang was NOT patched.  GOLDEN_DEFER read [UNSET] on every sweep.
+
+TOOLS      uhdm-cmp  ~/.local/bin/uhdm-cmp     (THE ONLY ACCEPTANCE JUDGE)
+           uhdm-dump ~/.local/bin/uhdm-dump
+           surelog   ~/git-repos/Surelog/build/bin/surelog   (arm goldens)
+           ct90cen   g++ -O2 -std=c++17 ct90cen.cpp -I ~/.local/include \
+                       -L ~/.local/lib64 -L ~/.local/lib -luhdm -lcapnp -lkj \
+                       -o /tmp/r10uvm90_ct90cen
+           ctladder  built from tools/probe/r10ladder1repro/ctladder.cpp, same
+                     flags -> /tmp/r10uvm90_ctladder.  MEASUREMENT-ONLY.
+
+SWEEPS     sweep90.sh <binary> <corpus> <tag>  (verify_golden.py --mode both
+           --jobs 2, my own --out/--workdir, SLANG_UHDM exported, GOLDEN_DEFER
+           echoed, cmds.txt grepped for the BINARY PATH afterwards)
+             /tmp/r10uvm90_{pris,pat}_surelog.csv      1588 rows each
+             /tmp/r10uvm90_{pris,pat}_uhdm2rtlil.csv   1462 rows each
+             workdirs /tmp/r10uvm90_wd_{pris,pat}_{surelog,uhdm2rtlil}
+           cmds.txt BINARY-PATH audit: 1523 hits of the binary's own path on the
+           surelog sweeps, 1458 on the uhdm2rtlil sweeps, per tag.
+
+CORPUS PATHS the arms and the decode read
+           uvm-1.2      ~/git-repos/Surelog/third_party/UVM/uvm-1.2/src
+           1800.2-2017  ~/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output
+           golden caches (read out of each row's OWN cmds.txt cache-hit line)
+             SeqDriver     ~/.cache/slang-uhdm-goldens/b5b4389e30f948a6a29f
+             BuildUVMPkg   ~/.cache/slang-uhdm-goldens/1d1c5ee1fda0267f8ebb
+             Scoreboard    ~/.cache/slang-uhdm-goldens/614374ccbb97c7ff9446
+
+SLANG SOURCES the law is decoded FROM (~/git-repos/slang)
+           source/ast/expressions/CallExpression.cpp:306   CallExpression::fromArgs
+                       -- builds the call, THEN wraps: badExpr(comp, result)
+           source/ast/expressions/CallExpression.cpp:200   CallExpression::bindArgs
+                       -- :274-280 pushes every bound arg even when `bad`
+           source/ast/expressions/AssignmentExpressions.cpp:668-699
+                       NewClassExpression::fromSyntax -- stores whatever fromArgs
+                       returned; the NewClass node survives
+           source/ast/expressions/AssignmentExpressions.cpp  resolveNewClassTarget
+                       -- the SuperKeyword branch, which SKIPS the isAbstract /
+                       isInterface refusals and is NOT the failing step
+
+UHDM SOURCES the HEAD is decoded FROM
+           ~/.local/include/uhdm/BaseClass.h:202  SafeCompare, the VECTOR
+                       overload: lhs non-empty + rhs NULL sets m_failedLhs to the
+                       OWNER and leaves m_failedRhs unset -> "RHS: <null>"
+           ~/git-repos/UHDM/build/generated/src/tf_call.cpp:87  tf_call::Compare
+                       -- Scope, then Tf_call_args (the vector), then VpiName
+           ~/git-repos/UHDM/build/generated/src/method_func_call.cpp:81
+                       method_func_call::Compare -- VpiUserDefn, Prefix, With,
+                       Function (no argument field of its own)
+
+CORPUS SITES the law moves
+           uvm-1.2  src/tlm1/uvm_tlm_imps.svh:205-211   UVM_IMP_COMMON
+           uvm-1.2  src/tlm1/uvm_tlm_imps.svh:212-226   UVM_MS_IMP_COMMON
+           uvm-1.2  src/base/uvm_port_base.svh:196,232  the base class + its new
+           uvm-1.2  src/base/uvm_pair.svh (uvm_class_pair::create)  the SECOND
+                    sub-shape: a FORMAL DEFAULT (`null`) that fails to convert
+
+DRIVERS IN THIS DIRECTORY
+  ct90cen.cpp   the `new`/`super.new` ARGUMENT census (default: NARGS<=0 only;
+                --all: every row).  Per object: OWNER, NAME, NARGS (-1 = the
+                VECTOR IS NULL), first-argument span, and per argument
+                kind[:name]@span[*bound|*bare].
+  join90.py     golden-vs-ours multiset join keyed (OWNER, NAME), classified
+                AGREE / ARGS-NULL-OURS / ARGS-NULL-GOLDEN / ARGS-DIFFER /
+                GOLDEN-ONLY / OURS-ONLY
+  three90.sh    the GOLDEN / PRISTINE / PATCHED table for ONE arm workdir
+  arm90.sh      one arm: Surelog golden + BOTH binaries in ONE scratch dir
+  pred90.sh     THE MOVER PREDICTOR, pristine bytes only (the CANDIDATE set)
+  pred90b.sh    the prediction SHARPENED against golden (never against patched)
+  attr90.sh     per-mover attribution: the three-way join + a whole-dump
+                pristine-vs-patched diff with an ADDED/REMOVED kind histogram
+  sweep90.sh / ct8rows.sh / byteverify.sh / pins90.sh / rowheads.sh
+  bound90.sh        the NAMED boundary gate (625 sources)
+  boundwide90.sh    the WIDE boundary gate (ALL 2303 arm sources, 188 dirs)
+  canaries.sh / ctcan2.sh / canaudit.sh   (carried forward unchanged)
+  rowladders90.sh   ctladder over named rows (MEASUREMENT-ONLY)

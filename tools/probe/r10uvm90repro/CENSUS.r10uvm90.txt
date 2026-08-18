@@ -1,0 +1,140 @@
+r10uvm90 — THE CENSUS.  LHS is ALWAYS golden.  MEASUREMENT-ONLY.
+
+==============================================================================
+A. GOLDEN vs GOLDEN, THE CALIBRATION, RUN FIRST
+==============================================================================
+The two UVM trees hold the SAME 26 classes.  In uvm-1.2 the UVM_IMP_COMMON
+macro is UNEXPANDED (Surelog expands it internally, and the super.new
+method_func_call carries NO span at all -- 0:0-0:0); in 1800.2-2017 pp_output
+the text is ALREADY EXPANDED and every token has a real line.  If the macro
+were the axis of this head the two goldens would disagree.  They do not:
+
+  SeqDriver golden   (uvm-1.2, macro NOT expanded)   26 objects:
+     26     NARGS=5  ref_obj:name*bound>ref_obj:imp*bound>ref_obj:UVM_IMPLEMENTATION*bare>constant>constant
+  BuildUVMPkg golden (1800.2 pp_output, ALREADY expanded)   26 objects:
+     26     NARGS=5  ref_obj:name*bound>ref_obj:imp*bound>ref_obj:UVM_IMPLEMENTATION*bare>constant>constant
+
+  ONE class, spans included, all four readings:
+    uvm-1.2 GOLDEN :
+      function:uvm_pkg::uvm_blocking_get_imp::new	208:16-208:20#0	super.new	NARGS=5	ref_obj:name@208:16-208:20*bound>ref_obj:imp@208:22-208:25*bound>ref_obj:UVM_IMPLEMENTATION@208:27-208:45*bare>constant@208:47-208:48>constant@208:50-208:51
+    uvm-1.2 OURS(pat):
+      function:uvm_pkg::uvm_blocking_get_imp::new	208:16-208:20#0	super.new	NARGS=5	ref_obj:name@208:16-208:20*bound>ref_obj:imp@208:22-208:25*bound>ref_obj:UVM_IMPLEMENTATION@208:27-208:45*bare>constant@208:47-208:48>constant@208:50-208:51
+    1800.2  GOLDEN :
+      function:uvm_pkg::uvm_blocking_get_imp::new	46240:16-46240:20#0	super.new	NARGS=5	ref_obj:name@46240:16-46240:20*bound>ref_obj:imp@46240:22-46240:25*bound>ref_obj:UVM_IMPLEMENTATION@46240:27-46240:45*bare>constant@46240:47-46240:48>constant@46240:50-46240:51
+    1800.2  OURS(pat):
+      function:uvm_pkg::uvm_blocking_get_imp::new	46240:16-46240:20#0	super.new	NARGS=5	ref_obj:name@46240:16-46240:20*bound>ref_obj:imp@46240:22-46240:25*bound>ref_obj:UVM_IMPLEMENTATION@46240:27-46240:45*bare>constant@46240:47-46240:48>constant@46240:50-46240:51
+
+  VERDICT: the macro is NOT the axis, the 0:0 span of the call is NOT the axis,
+  and the space in 'super.new (' is NOT the axis.  The axis is the BIND.
+
+==============================================================================
+B. THE NARGS HISTOGRAM, GOLDEN vs OURS (SeqDriver/default, 790 vs 793 objects)
+==============================================================================
+  golden:
+    297     NARGS=1
+    238     NARGS=-1
+    122     NARGS=2
+     94     NARGS=5
+     20     NARGS=3
+     19     NARGS=4
+  ours PRISTINE:
+    296     NARGS=1
+    268     NARGS=-1
+    122     NARGS=2
+     68     NARGS=5
+     20     NARGS=3
+     19     NARGS=4
+  ours PATCHED:
+    297     NARGS=1
+    241     NARGS=-1
+    122     NARGS=2
+     94     NARGS=5
+     20     NARGS=3
+     19     NARGS=4
+
+  GOLDEN CARRIES 238 ARGUMENT-LESS new/super.new OBJECTS OF ITS OWN, and we
+  agreed with it on every one of them BEFORE this pass.  That is the negative
+  control this law needs: the gate is NOT 'always emit arguments'.
+  Ours goes 268 -> 241 NULL vectors against golden's 238, the 5-argument bucket
+  goes 68 -> 94 which is EXACTLY golden's number, and the 1-argument bucket goes
+  296 -> 297, also EXACTLY golden's.  The residual 3 NULL vectors are NOT a miss
+  of this law: ours holds 793 new/super.new objects to golden's 790, and the
+  extra ones are the OURS-ONLY class of the join -- objects golden does not have
+  at all, which no argument law can reach.  Saying '238, exactly golden' would
+  have been one subtraction too flattering.
+
+==============================================================================
+C. PER-MOVER ATTRIBUTION (attr90.sh) — the join classes and the dump
+==============================================================================
+  join90.py classes, golden vs PRISTINE -> golden vs PATCHED:
+
+  ROW                    AGREE       ARGS-DIFFER ARGS-NULL-OURS  OTHER (unchanged)
+  default/SeqDriver     618->644    146->146    26->0     G-ONLY 20, O-ONLY 8
+  testflags/SeqDriver   618->644    146->146    26->0     G-ONLY 20, O-ONLY 8
+  default/SimpleUVM     490->516    112->112    26->0     O-ONLY 4
+  testflags/SimpleUVM   490->516    112->112    26->0     O-ONLY 4
+  default/Scoreboard    488->514    112->112    26->0     O-ONLY 4
+  default/MiniAmiq      660->686    151->151    26->0     G-ONLY 20, O-ONLY 8
+  testflags/MiniAmiq    660->686    151->151    26->0     G-ONLY 20, O-ONLY 8
+  default/BuildUVMPkg   585->613     44-> 42    26->0     O-ONLY 2
+  testflags/BuildUVMPkg 585->613     44-> 42    26->0     O-ONLY 2
+
+  ARGS-NULL-OURS goes to ZERO in every mover.  NO class gets WORSE anywhere:
+  ARGS-DIFFER never rises, GOLDEN-ONLY and OURS-ONLY never move.
+
+  THE OBJECT COUNT, measured key by key rather than read off the class totals:
+  27 KEYS change content in EVERY ONE of the nine databases -- the 26
+  uvm_pkg::uvm_*_imp::new super.new calls plus uvm_pkg::uvm_class_pair::create --
+  and the uvm_class_pair KEY holds TWO objects, which is why BuildUVMPkg's AGREE
+  rises by 28 OBJECTS while only 27 KEYS moved.  In BuildUVMPkg all 27 become
+  EXACTLY golden; in the seven uvm-1.2 rows 26 do and uvm_class_pair::create's
+  differs from golden in its SPAN alone (414:21 vs 418:21), which uhdm-cmp does
+  not judge.  243 objects over 9 databases.
+
+  WHOLE-DUMP PRISTINE vs PATCHED, ids stripped and paths normalised, then
+  compared ORDER-BLIND (sorted) -- because the Scoreboard task_func ORDER flip
+  is a ~50/50 COIN and a positional diff cannot be attributed:
+    default_BuildUVMPkg-bf853d43  added=994  removed=0
+    default_MiniAmiq-544c7f61  added=994  removed=0
+    default_Scoreboard-59431470  added=994  removed=0
+    default_SeqDriver-32af76aa  added=994  removed=0
+    default_SimpleUVM-1dc93a62  added=994  removed=0
+    testflags_BuildUVMPkg-bf853d43  added=994  removed=0
+    testflags_MiniAmiq-544c7f61  added=994  removed=0
+    testflags_SeqDriver-32af76aa  added=994  removed=0
+    testflags_SimpleUVM-1dc93a62  added=994  removed=0
+
+  EVERY MOVER IS A PURE ADDITION: 994 dump lines added, 0 removed, nine times.
+  (The POSITIONAL diff shows 13 apparent removals on SeqDriver and 96 on
+  MiniAmiq; both are alignment noise -- uhdm-dump prints a shared typespec
+  subtree at its FIRST visit, and a new argument ref_obj changes which visit
+  that is.  The line MULTISET proves it: the uvm_hdl_data_t logic_typespec
+  block appears 27 times in BOTH dumps.)
+
+  ADDED-line kind histogram (SeqDriver/default, the same on all nine):
+        132 |vpiParent
+        131 |vpiArgument
+        131 method_func_call
+         80 |vpiName
+         80 |vpiFullName
+         79 ref_obj
+         53 |vpiActual
+         52 |vpiSize
+         52 |vpiDecompile
+         52 |vpiConstType
+         52 |UINT
+         52 io_decl
+         52 constant
+          3 logic_typespec
+
+==============================================================================
+D. THE SECOND SUB-SHAPE, found by the attribution and NOT by the brief
+==============================================================================
+  uvm_pkg::uvm_class_pair::create — a BARE new(name), wrapped because the
+  FORMAL'S DEFAULT VALUE (null) cannot convert to int in the default
+  specialization of uvm_class_pair #(type T1=int, T2=int):
+    G  NARGS=-1 - | NARGS=1 ref_obj:name@414:21-414:25*bare
+    P  NARGS=-1 - | NARGS=-1 -
+    A  NARGS=-1 - | NARGS=1 ref_obj:name@418:21-418:25*bare
+  cmp does not judge spans, so A matches G.  1 such site in SeqDriver,
+  2 in BuildUVMPkg (its ARGS-DIFFER 44 -> 42).

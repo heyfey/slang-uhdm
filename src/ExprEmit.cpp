@@ -19752,8 +19752,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* mfc = s.MakeMethod_func_call();
             mfc->VpiName(nce.isSuperClass ? "super.new" : "new");
             mfc->VpiParent(parent);
-            if (auto* cc9 = nce.constructorCall();
-                cc9 && cc9->kind == ExpressionKind::Call) {
+            // NOTE § invalidCtorCallArgsUnwrap90 (emit half).  GATE: the
+            // NewClassExpression's `constructorCall` is an `InvalidExpression`
+            // whose CHILD is the `CallExpression`.  DIRECTION: read the
+            // arguments off that child exactly as a clean bind is read; nothing
+            // else about the arm changes.
+            //
+            // WHY IT EXISTS.  `CallExpression::fromArgs`
+            // (slang/source/ast/expressions/CallExpression.cpp:306) BUILDS the
+            // CallExpression first, from `bindArgs`' `boundArgs` — a vector
+            // that is filled for EVERY formal whether or not the actual
+            // converted (`bindArgs` sets its `bad` flag and pushes the
+            // expression anyway, :274-280) — and only then wraps it:
+            //     auto result = comp.emplace<CallExpression>(...);
+            //     if (bad) return badExpr(comp, result);
+            // `badExpr(comp, result)` is an `InvalidExpression` WITH `result`
+            // as its child, so the whole bound argument list is still there,
+            // one indirection away.  `NewClassExpression::fromSyntax`
+            // (AssignmentExpressions.cpp:684-698) stores whatever fromArgs
+            // returned, so the NewClass node itself survives — which is why
+            // this arm already emitted the `method_func_call`, and emitted it
+            // with NO ARGUMENTS AT ALL.
+            //
+            // THE CORPUS SITE is uvm-1.2 `src/tlm1/uvm_tlm_imps.svh:205-211`,
+            // macro `UVM_IMP_COMMON(MASK,TYPE_NAME,IMP)`:
+            //     function new (string name, IMP imp);
+            //       super.new (name, imp, UVM_IMPLEMENTATION, 1, 1);
+            // In the DEFAULT specialization of every `uvm_*_imp` class the type
+            // parameter `IMP` is `int`, so the second actual is an `int` handed
+            // to `uvm_port_base::new`'s `uvm_component parent` formal —
+            // slang's `Expression::bindArgument` refuses it, `bad` goes true,
+            // and the call is wrapped.  Diagnostics are suppressed inside a
+            // generic class's default specialization, so the database builds
+            // and the five arguments vanish SILENTLY.  Surelog never
+            // type-checks the construct and emits all five.
+            const Expression* cc9 = nce.constructorCall();
+            if (cc9 && cc9->kind == ExpressionKind::Invalid)
+                cc9 = cc9->as<InvalidExpression>().child;
+            if (cc9 && cc9->kind == ExpressionKind::Call) {
                 auto* nargs9 = s.MakeAnyVec();
                 // § superNewFormalBinds28 — a `super.new` argument list is a
                 // binding window for the constructor's own FORMALS only.

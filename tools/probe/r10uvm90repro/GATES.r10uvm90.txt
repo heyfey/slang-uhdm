@@ -1,0 +1,123 @@
+r10uvm90 — THE GATES.  Every number below was produced by a driver in this
+directory or by scripts/verify_golden.py / tests/check_goldens.sh, with
+SLANG_UHDM exported EXPLICITLY to the binary under test in every case.
+LHS is ALWAYS golden.  uhdm-cmp is the ONLY acceptance judge.
+
+(1) BUILD — both binaries, md5 taken SEPARATELY after each build, -j 2 only
+    /tmp/r10uvm90_bin/slang-uhdm.pris  f6124d1901dc9a59a83fb895e944aec2
+    /tmp/r10uvm90_bin/slang-uhdm.pat   2a42b1f01586fdf19cc61b1ff48bfafc
+    Both binaries FROZEN at those immutable paths BEFORE any sweep, and every
+    sweep's own workdir cmds.txt was grepped for the BINARY PATH afterwards
+    (not the substring `slang-uhdm`, which also matches the golden cache dirs):
+      surelog sweeps    1523 hits of the tag's own path, 0 of the other's
+      uhdm2rtlil sweeps 1458 hits of the tag's own path, 0 of the other's
+
+(2) COMMITTED GOLDENS — tests/check_goldens.sh, SLANG_UHDM exported per binary
+    pristine  23 PASS  0 FAIL
+    patched   23 PASS  0 FAIL
+    /bin/false control   0 PASS  23 FAIL      <- the gate can fail
+
+(3) uhdm2rtlil CORPUS — verify_golden.py --corpus uhdm2rtlil --mode both --jobs 2
+    default   679 CMP_EQUAL  50 SLANG_REJECT  2 SURELOG_FAIL   (731)
+    testflags 679 CMP_EQUAL  50 SLANG_REJECT  2 SURELOG_FAIL   (731)
+    ct8rows vs the COMMITTED results/gate_uhdm2rtlil.csv (testflags-filtered):
+      PRISTINE  0 differing ROWS   <- BASELINE FIRST
+      PATCHED   0 differing ROWS
+    ct8rows PATCHED-vs-PRISTINE, BOTH modes, whole row incl. the dump column:
+      0 differing ROWS.  Dump histogram unchanged: default 187 differ / 492
+      match / 52 blank; testflags 183 / 496 / 52.
+
+(4) SURELOG CORPUS — verify_golden.py --corpus surelog --mode both --jobs 2
+    1588 rows each binary.  GOLDEN_DEFER=[UNSET] on every sweep.
+    default   470 CMP_EQUAL  11 CMP_NOTEQUAL  5 DEFERRED  283 SLANG_REJECT
+              25 SURELOG_FAIL
+    testflags 466 CMP_EQUAL   9 CMP_NOTEQUAL  5 DEFERRED  284 SLANG_REJECT
+              23 SURELOG_FAIL  3 NO_DATABASE  2 UNTRANSLATABLE  1 TIMEOUT
+              1 NO_UHDM
+    THE STATUS HISTOGRAM IS IDENTICAL ON BOTH BINARIES AND TO THE COMMITTED
+    BASELINE — in particular SLANG_REJECT did not move, so no rc=139 segfault is
+    hiding inside it.
+    ct8rows vs the COMMITTED results/golden_surelog.csv:
+      PRISTINE  0 differing ROWS over 1588   <- BASELINE FIRST
+      PATCHED   0 differing ROWS over 1588
+      PATCHED vs PRISTINE  0 differing ROWS over 1588
+    NO ROW WAS CONVERTED IN EITHER DIRECTION.  Earlgrey_0_1/testflags remains a
+    CMP_NOTEQUAL row, exactly as the standing brief says it is.  results/*.csv
+    were NEVER written.
+
+(5) BYTEVERIFY — SELFCHECK=1 and SELFCHECK1=1, PATH-SET assertion first
+    surelog     PATH_SETS_IDENTICAL (956 paths)   MOVERS 9 / 956
+      ./default/BuildUVMPkg-bf853d43   10c21385a8ab -> 43284ffd0b58
+      ./default/MiniAmiq-544c7f61      6352a00a909a -> a07ee45d0974
+      ./default/Scoreboard-59431470    3c77f091742c -> bdf71a11c06b
+      ./default/SeqDriver-32af76aa     83d521924324 -> ec65535a80e9
+      ./default/SimpleUVM-1dc93a62     dfc61d7ec733 -> 40148fa8896d
+      ./testflags/BuildUVMPkg-bf853d43 10c21385a8ab -> 43284ffd0b58
+      ./testflags/MiniAmiq-544c7f61    6352a00a909a -> a07ee45d0974
+      ./testflags/SeqDriver-32af76aa   7bdb4e996cc7 -> 85e1ca3ce645
+      ./testflags/SimpleUVM-1dc93a62   f5c60b3c13b7 -> 6301a9e78241
+      SELFCHECK  955 / 956 flagged        (comparator sees a wholesale swap)
+      SELFCHECK1 10                        (9 real movers + 1 corrupted byte)
+    uhdm2rtlil  PATH_SETS_IDENTICAL (1358 paths)  MOVERS 0 / 1358
+      SELFCHECK  1357 / 1358 flagged
+    EVERY MOVER NAMED AND ATTRIBUTED — see PREDICT.r10uvm90.txt for the BY-NAME
+    prediction made from PRISTINE bytes BEFORE this gate was read, and
+    CENSUS.r10uvm90.txt for the per-object attribution.
+
+(6) NAMED PINS — pins90.sh, md5 of the DATABASE per name per mode
+    InterfaceModPort   default/testflags  59a365f3ce2c  SAME
+    BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+    YosysOldOr         default/testflags  d68e0796d62c  SAME
+    SVSwitch           default/testflags  4842211c4030  SAME   <- the brief's pin
+    YosysVerx          default/testflags  6ccda350c24a  SAME   <- the brief's pin
+    ---- pins SAME=10 MOVED=0 UNKNOWN-NAME=0
+    On the uhdm2rtlil workdirs all five are legitimately UNKNOWN-NAME (they are
+    surelog-corpus rows) and pins90.sh EXITS 4 rather than report 0 pins as green.
+
+(7) CANARIES — canaries.sh + ctcan2.sh, audited by canaudit.sh
+    canaudit.sh canaries.sh ctcan2.sh : audited=33 UNCOVERED=0 FENCE-BREACH=0
+      (the four slang-fenced names are dispatched by NO driver here)
+    canaries.sh  surelog csv : ok=56 changed=0 absent=0 unknown-names=8  (expected 8)
+    canaries.sh  u2r csv     : ok=9  changed=0 absent=0 unknown-names=27 (expected 27)
+    ctcan2.sh    surelog csv : ok=58 changed=0 absent=0 unknown-patterns=1 (expected 1)
+    ctcan2.sh    u2r csv     : ok=1  changed=0 absent=0 unknown-patterns=6 (expected 6)
+
+(8) BOUNDARY GATES — SUBDIRECTORY arms compiled, list read on fd 3, children
+    </dev/null, PROCESSED asserted against LISTED
+    bound90.sh (the fence the brief NAMES: r10uvm27/28/55/66, r10svs3,
+      uvm77-89, buvm3-12, sd8-12)
+        LISTED=625 PROCESSED=625  MOVED=0  NO_OUTPUT=6
+        (the 6 are NO_OUTPUT on BOTH binaries and therefore cannot move)
+    boundwide90.sh (ALL 2303 arm sources in ALL 188 probe directories, because
+      this law sits in the SHARED NewClass arm)
+        LISTED=2303 PROCESSED=2303  MOVED=2  NO_OUTPUT=121
+        the 2 MOVED are this pass's OWN arms:
+          1988_r10uvm90repro_g90_a1_witness  38 dump lines
+          1989_r10uvm90repro_g90_a2_shapes   89 dump lines
+
+(9) HEADS — rowheads.sh, ONE head per run asserted with grep -c '^LHS:'
+    (every row below printed HEADS=1)
+    TEST         MODE      PRISTINE  PATCHED
+    SeqDriver    default        89        24
+    SeqDriver    testflags      89        24
+    SimpleUVM    default        89        24
+    SimpleUVM    testflags      89        24
+    Scoreboard   default        89        24
+    MiniAmiq     default        89        24
+    MiniAmiq     testflags      89        24
+    BuildUVMPkg  default        29        29     (head unchanged; 28 objects moved)
+    BuildUVMPkg  testflags      29        29     (head unchanged; 28 objects moved)
+    Earlgrey_0_1 default      9743      9743     (byte-identical database)
+    Earlgrey_0_1 testflags      33        33     (byte-identical database)
+    Rggen        default        66        66     (byte-identical database)
+    Scoreboard/testflags and Rggen/testflags print SKIP-NOFILE and are COUNTED,
+    and the REASON was read out of the CSV rather than assumed:
+      Scoreboard,testflags,SLANG_REJECT  (`error: use of undeclared identifier
+        'my_scoreboard'` -- testbench.sv:12:3; no slang.uhdm is produced, so
+        there is nothing to compare.  Its golden.uhdm DOES exist.)
+      Rggen,testflags,SURELOG_FAIL       (Surelog itself fails elaborating UHDM;
+        the golden cache directory has NO golden.uhdm at all.)
+    Both are at BASELINE on both binaries (gate 4) and neither is attributed here.
+    The Scoreboard/default ~50/50 task_func-ORDER COIN the standing brief warns
+    about is respected: every Scoreboard claim in this pass is ORDER-BLIND (the
+    census join is a MULTISET join, and the dump attribution is a `sort`ed diff).

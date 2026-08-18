@@ -1,0 +1,97 @@
+r10uvm90 — THE ARMS.  Every cell is read off a Surelog GOLDEN built in the
+SAME scratch directory as both binaries' outputs (arm90.sh), so uhdm-dump's
+absolute paths are identical across the three reads.  LHS IS ALWAYS GOLDEN.
+
+arm90.sh <src>      golden + pristine + patched, one scratch dir
+three90.sh <wd>     the GOLDEN / PRISTINE / PATCHED argument table (ct90cen)
+
+==============================================================================
+a1  g90_a1_witness.sv — THE HEAD, REPRODUCED IN MINIATURE
+==============================================================================
+  w1imp   #(type T=int, type IMP=int) extends w1base #(w1ifb #(T,T))
+            function new (string name, IMP imp);
+              super.new (name, imp, W1_IMPLEMENTATION, 1, 1);   <- THE HEAD
+  w1ok    the same text with IMP defaulting to the class the formal wants
+  w1plain no type parameter at all
+  w1space the same call written 'super.new(' with NO SPACE
+
+  THE FIRST CUT OF THIS ARM INSTANTIATED w1imp AND MEASURED NOTHING:
+  slang-uhdm REFUSED the file with
+    error: value of type 'IMP' (aka 'int') cannot be assigned to type 'w1comp'
+  which is the diagnostic the corpus never shows, because it is SUPPRESSED
+  inside a generic class's DEFAULT specialization.  The instantiation was
+  removed and the cell then measured.  That refusal is the arm's own proof
+  of the mechanism, and it is why the arm carries a comment saying so.
+
+  PRISTINE cmp: 1 head, and it is byte-for-byte the corpus head:
+    LHS method_func_call (super.new) with 5 vpiArgument   RHS: <null>
+  PRISTINE dump, the same object, PRESENT and ARGUMENT-LESS:
+    \_method_func_call: (super.new)   |vpiParent: begin   |vpiName:super.new
+
+  three90.sh verdict:
+    OWNER                              GOLDEN    PRIS      PAT       VERDICT
+    function:work@w1imp::new           NARGS=5   NARGS=-1  NARGS=5   FIXED
+       G ref_obj:name@35:16-35:20*bound>ref_obj:imp@35:22-35:25*bound>ref_obj:W1_IMPLEMENTATION@35:27-35:44*bare>constant@35:46-35:47>constant@35:49-35:50
+       P -
+       A ref_obj:name@35:16-35:20*bound>ref_obj:imp@35:22-35:25*bound>ref_obj:W1_IMPLEMENTATION@35:27-35:44*bare>constant@35:46-35:47>constant@35:49-35:50
+    -- AGREE=3 FIXED=1 BROKE=0 STILL-WRONG=0
+
+==============================================================================
+a2  g90_a2_shapes.sv — EVERY REACHABLE WRAP SHAPE, AND THE CONTROLS
+==============================================================================
+  b1  type-mismatched POSITIONAL actual (int -> class handle)   THE HEAD SHAPE
+  b4  a BARE new(...) whose TARGET binds but whose ACTUAL does not
+  b6  a mismatched actual that is an EXPRESSION (imp + 1), not an identifier
+  b7  INTENDED as 'a mismatch on the LAST actual' AND IT IS NOT ONE: the actual
+      is an int and so is the formal, so slang binds it and the cell AGREES on
+      both binaries.  It is left in the arm, and named here as what it is, rather
+      than quietly recounted as a control that was designed on purpose.
+  b8  CONTROL: a GENERIC class whose super.new binds cleanly
+  b9  CONTROL: NON-generic, everything binds
+  b10 CONTROL: a PORT-LESS constructor — § constructorBodyElementShift27 eats
+      its first body element on BOTH sides, so this cell must NOT gain a call
+
+  whole-arm cmp: PRISTINE CMP_FAIL (1 head) -> PATCHED **PASS_CMP** (0 heads)
+
+  three90.sh verdict:
+    OWNER                              GOLDEN    PRIS      PAT       VERDICT
+    function:work@w2b1::new            NARGS=4   NARGS=-1  NARGS=4   FIXED
+       G ref_obj:name@39:16-39:20*bound>ref_obj:imp@39:22-39:25*bound>constant@39:27-39:28>constant@39:30-39:31
+       P -
+       A ref_obj:name@39:16-39:20*bound>ref_obj:imp@39:22-39:25*bound>constant@39:27-39:28>constant@39:30-39:31
+    function:work@w2b4::new            NARGS=2   NARGS=-1  NARGS=2   FIXED
+       G ref_obj:name@49:13-49:17*bare>ref_obj:imp@49:19-49:22*bare
+       P -
+       A ref_obj:name@49:13-49:17*bare>ref_obj:imp@49:19-49:22*bare
+    function:work@w2b6::new            NARGS=4   NARGS=-1  NARGS=4   FIXED
+       G ref_obj:name@58:16-58:20*bound>operation@58:22-58:29>constant@58:31-58:32>constant@58:34-58:35
+       P -
+       A ref_obj:name@58:16-58:20*bound>operation@58:22-58:29>constant@58:31-58:32>constant@58:34-58:35
+    -- AGREE=3 FIXED=3 BROKE=0 STILL-WRONG=0
+
+  READ b4's row: golden's arguments there are *bare (no vpiActual) where b1's
+  are *bound.  We reproduce BOTH, because the unwrap changes nothing about how
+  an argument is emitted -- § superNewFormalBinds28 still decides the binding
+  window, and it is opened only for isSuperClass.
+  READ b6's row: golden emits an OPERATION object for 'imp + 1', not a ref, and
+  so do we -- an argument shape the syntax-reading § invalidNewCallFromSyntax55
+  arm would have had to NOTE as unsupported and DROP.  Reading the BOUND CHILD
+  instead of the SYNTAX is what buys that, and it is the reason this pass did not
+  extend § 55's predicate to the scoped 'super.new' form the way that pass's own
+  comment invited ("they stay unsupported rather than be guessed at").
+
+==============================================================================
+a3  g90_a3_arity.sv — THE REFUTATION.  EXPECTED TO PRODUCE NOTHING.
+==============================================================================
+  too few arguments / too many arguments / an argument that does not exist are
+  NOT suppressed in a generic class's default specialization.  Both binaries
+  REFUSE this file:
+    g90_a3_arity.sv:23:5: error: too few arguments for 'new'; expected 4 but 1 were provided
+    g90_a3_arity.sv:32:5: error: too many arguments for 'new'; expected 4 but 6 were provided
+    g90_a3_arity.sv:41:42: error: argument 'nosuch' does not exist in 'new'
+    -> NO_OUTPUT on BOTH binaries.
+
+  CONSEQUENCE, and it is a gate on the law rather than a curiosity: no database
+  in either corpus can contain an arity-wrapped constructor call, so the ONLY
+  InvalidExpression-wrapped call the unwrap can ever reach is a CONVERSION
+  failure -- the population the census measured and the movers confirm.

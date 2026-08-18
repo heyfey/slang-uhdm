@@ -1,0 +1,123 @@
+r10uvm90 — THE LADDERS.  ctladder (tools/probe/r10ladder1repro/ctladder.cpp,
+built to /tmp/r10uvm90_ctladder) is a MULTI-HEAD comparator and is
+MEASUREMENT-ONLY: it masks a disagreement and re-runs the OFFICIAL Compare, so
+it can enumerate the rungs BEHIND the head uhdm-cmp stops at.  uhdm-cmp remains
+the sole acceptance judge and none of these numbers is an acceptance claim.
+LHS is ALWAYS golden.  MAX=20000 BUDGET=900.
+
+SUMMARY (rowladders90.sh)
+  === pris
+  MODE      TEST             RUNGS STOP                   MAXVIS     SECS
+  default   SeqDriver          429 FIXPOINT           40231/317210    374.5  rc=0
+  default   BuildUVMPkg        165 FIXPOINT           32131/183142     38.9  rc=0
+  -- laddered=2  SKIP-NOFILE=0  UNKNOWN-NAME=0
+  === pat
+  MODE      TEST             RUNGS STOP                   MAXVIS     SECS
+  default   SeqDriver          402 FIXPOINT           40362/317210    401.0  rc=0
+  default   BuildUVMPkg        139 FIXPOINT           32236/183142     35.6  rc=0
+  -- laddered=2  SKIP-NOFILE=0  UNKNOWN-NAME=0
+
+==============================================================================
+default/SeqDriver — RUNGS 429 -> 402
+==============================================================================
+  PRISTINE families (top 12 of 78):
+        135 <null>|<lhs-null>|EXTRA-OURS
+         28 constant|VpiSize|INT:G<O
+         27 method_func_call|<rhs-null>|MISSING-OURS
+         16 typespec_member|<rhs-null>|MISSING-OURS
+         16 struct_var|<rhs-null>|MISSING-OURS
+         14 constant|VpiDecompile|TEXT:#|int
+         11 ref_typespec|<rhs-null>|MISSING-OURS
+         11 enum_const|<rhs-null>|MISSING-OURS
+          9 logic_net|<rhs-null>|MISSING-OURS
+          8 constant|VpiDecompile|TEXT:"UVM.#.#"|"UVM-#.#"
+          7 string_var|<rhs-null>|MISSING-OURS
+          7 logic_typespec|VpiName|O-EXTRA-PREFIX(uvm_pkg::)
+  PATCHED families (top 12 of 77):
+        135 <null>|<lhs-null>|EXTRA-OURS
+         28 constant|VpiSize|INT:G<O
+         16 typespec_member|<rhs-null>|MISSING-OURS
+         16 struct_var|<rhs-null>|MISSING-OURS
+         14 constant|VpiDecompile|TEXT:#|int
+         11 ref_typespec|<rhs-null>|MISSING-OURS
+         11 enum_const|<rhs-null>|MISSING-OURS
+          9 logic_net|<rhs-null>|MISSING-OURS
+          8 constant|VpiDecompile|TEXT:"UVM.#.#"|"UVM-#.#"
+          7 string_var|<rhs-null>|MISSING-OURS
+          7 logic_typespec|VpiName|O-EXTRA-PREFIX(uvm_pkg::)
+          6 unsupported_typespec|VpiType|KIND:unsupported_typespec>class_typespec
+  THIS PASS'S FAMILY, method_func_call|<rhs-null>|MISSING-OURS:
+    pristine 27 rungs -> patched 0 rungs
+
+==============================================================================
+default/BuildUVMPkg — RUNGS 165 -> 139
+==============================================================================
+  PRISTINE families (top 12 of 38):
+         26 method_func_call|<rhs-null>|MISSING-OURS
+         26 bit_typespec|VpiType|KIND:bit_typespec>int_typespec
+         25 <null>|<lhs-null>|EXTRA-OURS
+         16 constant|VpiDecompile|TEXT:#|bit
+         10 constant|VpiType|KIND:constant>sys_func_call
+          9 io_decl|<rhs-null>|MISSING-OURS
+          6 int_typespec|VpiName|TEXT:this_rsp_type|this_req_type
+          5 unsupported_typespec|VpiType|KIND:unsupported_typespec>class_typespec
+          3 int_typespec|VpiName|O-EMPTY
+          3 function|<rhs-null>|MISSING-OURS
+          3 enum_const|VpiDecompile|TEXT:# << #|#<<#
+          2 ref_typespec|<rhs-null>|MISSING-OURS
+  PATCHED families (top 12 of 37):
+         26 bit_typespec|VpiType|KIND:bit_typespec>int_typespec
+         25 <null>|<lhs-null>|EXTRA-OURS
+         16 constant|VpiDecompile|TEXT:#|bit
+         10 constant|VpiType|KIND:constant>sys_func_call
+          9 io_decl|<rhs-null>|MISSING-OURS
+          6 int_typespec|VpiName|TEXT:this_rsp_type|this_req_type
+          5 unsupported_typespec|VpiType|KIND:unsupported_typespec>class_typespec
+          3 int_typespec|VpiName|O-EMPTY
+          3 function|<rhs-null>|MISSING-OURS
+          3 enum_const|VpiDecompile|TEXT:# << #|#<<#
+          2 ref_typespec|<rhs-null>|MISSING-OURS
+          2 real_typespec|VpiType|KIND:real_typespec>logic_typespec
+  THIS PASS'S FAMILY, method_func_call|<rhs-null>|MISSING-OURS:
+    pristine 26 rungs -> patched 0 rungs
+
+READ THE LADDER'S OWN LABEL FOR THIS FAMILY, because it is half right and the
+half that is right is the one this pass's decode turned on:
+  RUNG	1	r=1	vis=14405	masklvl=0	masked=12	cands=64	KINDL=method_func_call	KINDR=<null>	KINDP=begin	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=method_func_call|<rhs-null>|MISSING-OURS	FAM2=method_func_call|<rhs-null>
+     L  method_func_call(super.new)@:0:0-0:0#252492
+     R  <null>
+     G= -   O= -
+     PL method_func_call(super.new)@:0:0-0:0#252492 < begin@:0:0-0:0#252491 < function(new)@uvm_tlm_imps.svh:207:3-211:14#252482 < class_defn(uvm_blocking_get_imp)@uvm_imps.svh:100:1-104:9#141 < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1 < design(work@top_tb)@:0:0-0:0#325863
+     PR -
+     MK method_func_call(super.new)@:0:0-0:0#252492
+  RUNG	2	r=1	vis=14507	masklvl=0	masked=12	cands=64	KINDL=method_func_call	KINDR=<null>	KINDP=begin	FIELD=<rhs-null>	SHAPE=MISSING-OURS	FAM=method_func_call|<rhs-null>|MISSING-OURS	FAM2=method_func_call|<rhs-null>
+
+  FIELD=<rhs-null> is EXACTLY the truth (the Tf_call_args VECTOR is null on our
+  side); SHAPE=MISSING-OURS is the label that made three passes read the head as
+  a missing OBJECT.  The MK line names the method_func_call itself, and the PL
+  chain is the head r10uvm89 recorded verbatim:
+    method_func_call(super.new)@:0:0-0:0 < begin@:0:0-0:0
+      < function(new)@uvm_tlm_imps.svh:207:3-211:14
+      < class_defn(uvm_blocking_get_imp)@uvm_imps.svh:100:1-104:9
+      < package(uvm_pkg) < design
+
+THE LADDER'S RUNG COUNT AND THE CENSUS AGREE INDEPENDENTLY: ctladder finds 27
+rungs of this family on default/SeqDriver, and ct90cen finds 27 objects whose
+argument multiset changes there (26 uvm_*_imp::new + uvm_class_pair::create).
+Two instruments, two mechanisms, one number.
+
+AND THE TOTALS SAY THE SAME THING WITHOUT LOOKING AT THE FAMILY AT ALL:
+  default/SeqDriver     429 -> 402 rungs = 27 REMOVED, 0 ADDED
+  default/BuildUVMPkg   165 -> 139 rungs = 26 REMOVED, 0 ADDED
+Every other family's rung count is IDENTICAL before and after -- read the two
+top-12 tables above line by line: 135/28/16/16/14/11/11/9/8/7/7 on SeqDriver and
+26/25/16/10/9/6/5/3/3/3/2 on BuildUVMPkg are unchanged, and the only movement in
+the whole ladder is this pass's family going to zero.  NO RUNG WAS ADDED
+ANYWHERE.
+
+ONE HONEST ASYMMETRY: on BuildUVMPkg the census counts 27 CHANGED KEYS but the
+ladder removes 26 RUNGS.  The 27th is uvm_class_pair::create, which was
+ARGS-DIFFER (not <rhs-null>) on both sides and converges to golden -- ctladder's
+masked traversal did not carry a rung for it on this row, so it cannot show up in
+this subtraction.  The census sees it; the ladder does not.  Both numbers are
+reported rather than the one that lines up.
