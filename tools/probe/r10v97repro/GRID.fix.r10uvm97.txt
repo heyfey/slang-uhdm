@@ -1,0 +1,296 @@
+v97_c1_mixedgroup_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  v97_c1_mixedgroup_def      CELLS   4  ALREADY-OK   3  FIXED   0  BROKE   0  STILL   1
+  STILL       ALIASED|-|nn97c1|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(nn97c1)', 'p97c1::tgt97c1', '-')]
+      Q=[('<empty>->class_typespec(nn97c1)', 'p97c1::tgt97c1', '-')]
+v97_c1_mixedgroup_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  v97_c1_mixedgroup_elab     CELLS   5  ALREADY-OK   4  FIXED   0  BROKE   0  STILL   1
+  STILL       ALIASED|-|nn97c1|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(nn97c1)', 'p97c1::tgt97c1', '-')]
+      Q=[('<empty>->class_typespec(nn97c1)', 'p97c1::tgt97c1', '-')]
+v97_c2_dupbase_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  v97_c2_dupbase_def         CELLS   4  ALREADY-OK   3  FIXED   1  BROKE   0  STILL   0
+  FIXED       ALIASED|-|nn97c2|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(nn97c2)', 'p97c2::tgt97c2', '-')]
+      Q=[]
+v97_c2_dupbase_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  v97_c2_dupbase_elab        CELLS   5  ALREADY-OK   4  FIXED   1  BROKE   0  STILL   0
+  FIXED       ALIASED|-|nn97c2|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(nn97c2)', 'p97c2::tgt97c2', '-')]
+      Q=[]
+v97_c3_twotd_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  v97_c3_twotd_def           CELLS   5  ALREADY-OK   3  FIXED   1  BROKE   0  STILL   1
+  FIXED       ALIASED|-|aa97c3|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(aa97c3)', 'p97c3::tgt97c3', '-')]
+      Q=[]
+  STILL       ALIASED|-|bb97c3|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(aa97c3)', 'p97c3::tgt97c3', '-')]
+      Q=[('<empty>->class_typespec(aa97c3)', 'p97c3::tgt97c3', '-')]
+v97_c3_twotd_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  v97_c3_twotd_elab          CELLS   6  ALREADY-OK   4  FIXED   1  BROKE   0  STILL   1
+  FIXED       ALIASED|-|aa97c3|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(aa97c3)', 'p97c3::tgt97c3', '-')]
+      Q=[]
+  STILL       ALIASED|-|bb97c3|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(aa97c3)', 'p97c3::tgt97c3', '-')]
+      Q=[('<empty>->class_typespec(aa97c3)', 'p97c3::tgt97c3', '-')]
+v97_c4_specparams_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  v97_c4_specparams_def      CELLS   4  ALREADY-OK   3  FIXED   0  BROKE   0  STILL   1
+  STILL       ALIASED|-|nn97c4|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(nn97c4)', 'p97c4::tgt97c4', '-')]
+      Q=[('<empty>->class_typespec(nn97c4)', 'p97c4::tgt97c4', '-')]
+v97_c4_specparams_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  v97_c4_specparams_elab     CELLS   5  ALREADY-OK   4  FIXED   0  BROKE   0  STILL   1
+  STILL       ALIASED|-|nn97c4|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(nn97c4)', 'p97c4::tgt97c4', '-')]
+      Q=[('<empty>->class_typespec(nn97c4)', 'p97c4::tgt97c4', '-')]
+v97_c5_homes_def: pris=rc0/CMP_FAIL/heads1/lines4628 pat=rc0/CMP_FAIL/heads1/lines4628
+  v97_c5_homes_def           CELLS   6  ALREADY-OK   3  FIXED   0  BROKE   0  STILL   3
+  STILL       LISTING|work@icls97c5|this_type97c5|class_typespec
+      G=[('-', 'work@icls97c5', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|work@pg97c5::gcls97c5|this_type97c5|class_typespec
+      G=[('-', 'work@pg97c5::gcls97c5', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|work@top97c5::mcls97c5|this_type97c5|class_typespec
+      G=[('-', 'work@top97c5::mcls97c5', '-')]
+      P=[]
+      Q=[]
+v97_c5_homes_elab: pris=rc0/CMP_FAIL/heads1/lines5314 pat=rc0/CMP_FAIL/heads1/lines5314
+  v97_c5_homes_elab          CELLS   6  ALREADY-OK   3  FIXED   0  BROKE   0  STILL   3
+  STILL       LISTING|work@icls97c5|this_type97c5|class_typespec
+      G=[('-', 'work@icls97c5', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|work@pg97c5::gcls97c5|this_type97c5|class_typespec
+      G=[('-', 'work@pg97c5::gcls97c5', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|work@top97c5::mcls97c5|this_type97c5|class_typespec
+      G=[('-', 'work@top97c5::mcls97c5', '-'), ('-', 'work@top97c5::mcls97c5', '-')]
+      P=[]
+      Q=[]
+/tmp/v97_armrun.sh: line 29: 293880 Aborted                 "$CEN" pris.uhdm > pris.cen 2> /dev/null
+/tmp/v97_armrun.sh: line 30: 293891 Aborted                 "$CEN" pat.uhdm > pat.cen 2> /dev/null
+v97_c6_kinds_def: pris=NO_OUTPUT(rc=3) pat=NO_OUTPUT(rc=3)
+  v97_c6_kinds_def           CELLS  12  ALREADY-OK   0  FIXED   0  BROKE   0  STILL  12
+  STILL       LISTING|p97c6::kinds97c6|td_en97c6|enum_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_int97c6|int_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_nest97c6|unsupported_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_oth97c6|class_typespec
+      G=[('-', 'p97c6::oth97c6', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_spec97c6|class_typespec
+      G=[('-', 'p97c6::gen97c6', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_speci97c6|class_typespec
+      G=[('<empty>->class_typespec(td_spec97c6)', 'p97c6::gen97c6', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_st97c6|struct_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_td97c6|int_typespec
+      G=[('<empty>->int_typespec(td_int97c6)', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_tp97c6|int_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_vec97c6|bit_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|this_type97c6|class_typespec
+      G=[('-', 'p97c6::kinds97c6', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|work@process|state|enum_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+/tmp/v97_armrun.sh: line 29: 294331 Aborted                 "$CEN" pris.uhdm > pris.cen 2> /dev/null
+/tmp/v97_armrun.sh: line 30: 294340 Aborted                 "$CEN" pat.uhdm > pat.cen 2> /dev/null
+v97_c6_kinds_elab: pris=NO_OUTPUT(rc=3) pat=NO_OUTPUT(rc=3)
+  v97_c6_kinds_elab          CELLS  13  ALREADY-OK   0  FIXED   0  BROKE   0  STILL  13
+  STILL       ALIASED|p97c6::kinds97c6|td_speci97c6|class_typespec
+      G=[('<empty>->class_typespec(td_spec97c6)', 'p97c6::gen97c6', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_en97c6|enum_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_int97c6|int_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_nest97c6|unsupported_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_oth97c6|class_typespec
+      G=[('-', 'p97c6::oth97c6', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_spec97c6|class_typespec
+      G=[('-', 'p97c6::gen97c6', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_speci97c6|class_typespec
+      G=[('<empty>->class_typespec(td_spec97c6)', 'p97c6::gen97c6', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_st97c6|struct_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_td97c6|int_typespec
+      G=[('<empty>->int_typespec(td_int97c6)', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_tp97c6|int_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|td_vec97c6|bit_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|p97c6::kinds97c6|this_type97c6|class_typespec
+      G=[('-', 'p97c6::kinds97c6', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|work@process|state|enum_typespec
+      G=[('-', '-', '-')]
+      P=[]
+      Q=[]
+v97_c7_usesites_def: pris=rc0/CMP_FAIL/heads1/lines26 pat=rc0/CMP_FAIL/heads1/lines26
+  v97_c7_usesites_def        CELLS   3  ALREADY-OK   2  FIXED   1  BROKE   0  STILL   0
+  FIXED       ALIASED|-|this_type97c7|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(this_type97c7)', 'p97c7::base97c7', '-')]
+      Q=[]
+v97_c7_usesites_elab: pris=rc0/CMP_FAIL/heads1/lines26 pat=rc0/CMP_FAIL/heads1/lines26
+  v97_c7_usesites_elab       CELLS   3  ALREADY-OK   2  FIXED   1  BROKE   0  STILL   0
+  FIXED       ALIASED|-|this_type97c7|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(this_type97c7)', 'p97c7::base97c7', '-')]
+      Q=[]
+v97_c8_counts_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  v97_c8_counts_def          CELLS   5  ALREADY-OK   4  FIXED   1  BROKE   0  STILL   0
+  FIXED       ALIASED|-|this_type97c8|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(this_type97c8)', 'p97c8::three97c8', '-'), ('<empty>->class_typespec(this_type97c8)', 'p97c8::three97c8', '-'), ('<empty>->class_typespec(this_type97c8)', 'p97c8::two97c8', '-')]
+      Q=[]
+v97_c8_counts_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  v97_c8_counts_elab         CELLS   5  ALREADY-OK   4  FIXED   1  BROKE   0  STILL   0
+  FIXED       ALIASED|-|this_type97c8|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(this_type97c8)', 'p97c8::three97c8', '-'), ('<empty>->class_typespec(this_type97c8)', 'p97c8::three97c8', '-'), ('<empty>->class_typespec(this_type97c8)', 'p97c8::two97c8', '-')]
+      Q=[]
+v97_c9_pkganchor_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  v97_c9_pkganchor_def       CELLS   3  ALREADY-OK   2  FIXED   0  BROKE   0  STILL   1
+  STILL       ALIASED|-|nn97c9|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(p97c9::anchor97c9)', 'p97c9::tgt97c9', 'p97c9')]
+      Q=[('<empty>->class_typespec(p97c9::anchor97c9)', 'p97c9::tgt97c9', 'p97c9')]
+v97_c9_pkganchor_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  v97_c9_pkganchor_elab      CELLS   4  ALREADY-OK   3  FIXED   0  BROKE   0  STILL   1
+  STILL       ALIASED|-|nn97c9|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(p97c9::anchor97c9)', 'p97c9::tgt97c9', 'p97c9')]
+      Q=[('<empty>->class_typespec(p97c9::anchor97c9)', 'p97c9::tgt97c9', 'p97c9')]
+v97_ca_samename_def: pris=rc0/CMP_FAIL/heads1/lines684 pat=rc0/CMP_FAIL/heads1/lines684
+  v97_ca_samename_def        CELLS   3  ALREADY-OK   1  FIXED   0  BROKE   0  STILL   2
+  STILL       LISTING|work@m1_97ca::dup97ca|n97ca|class_typespec
+      G=[('-', 'work@m1_97ca::tgt97ca', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|work@m2_97ca::dup97ca|n97ca|class_typespec
+      G=[('-', 'work@m2_97ca::tgt97ca', '-')]
+      P=[]
+      Q=[]
+v97_ca_samename_elab: pris=rc0/CMP_FAIL/heads1/lines708 pat=rc0/CMP_FAIL/heads1/lines708
+  v97_ca_samename_elab       CELLS   3  ALREADY-OK   1  FIXED   0  BROKE   0  STILL   2
+  STILL       LISTING|work@m1_97ca::dup97ca|n97ca|class_typespec
+      G=[('-', 'work@m1_97ca::tgt97ca', '-'), ('-', 'work@m1_97ca::tgt97ca', '-')]
+      P=[]
+      Q=[]
+  STILL       LISTING|work@m2_97ca::dup97ca|n97ca|class_typespec
+      G=[('-', 'work@m2_97ca::tgt97ca', '-'), ('-', 'work@m2_97ca::tgt97ca', '-')]
+      P=[]
+      Q=[]
+g97_a1_selftd_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a1_selftd_def          CELLS   4  ALREADY-OK   3  FIXED   1  BROKE   0  STILL   0
+  FIXED       ALIASED|-|this_type|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(this_type)', 'p97a::port97a', '-')]
+      Q=[]
+g97_a1_selftd_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a1_selftd_elab         CELLS   4  ALREADY-OK   3  FIXED   1  BROKE   0  STILL   0
+  FIXED       ALIASED|-|this_type|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(this_type)', 'p97a::port97a', '-')]
+      Q=[]
+g97_a2_realgroup_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a2_realgroup_def       CELLS   5  ALREADY-OK   5  FIXED   0  BROKE   0  STILL   0
+g97_a2_realgroup_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a2_realgroup_elab      CELLS   7  ALREADY-OK   7  FIXED   0  BROKE   0  STILL   0
+g97_a3_kinds_def: pris=rc0/CMP_FAIL/heads1/lines64 pat=rc0/CMP_FAIL/heads1/lines64
+  g97_a3_kinds_def           CELLS   6  ALREADY-OK   6  FIXED   0  BROKE   0  STILL   0
+g97_a3_kinds_elab: pris=rc0/CMP_FAIL/heads1/lines64 pat=rc0/CMP_FAIL/heads1/lines64
+  g97_a3_kinds_elab          CELLS   6  ALREADY-OK   6  FIXED   0  BROKE   0  STILL   0
+g97_a4_plainclass_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a4_plainclass_def      CELLS   7  ALREADY-OK   5  FIXED   2  BROKE   0  STILL   0
+  FIXED       ALIASED|-|oth97d|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(oth97d)', 's97d::plain97d', '-')]
+      Q=[]
+  FIXED       ALIASED|-|spec97d|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(spec97d)', 's97d::gen97d', '-')]
+      Q=[]
+g97_a4_plainclass_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a4_plainclass_elab     CELLS   8  ALREADY-OK   6  FIXED   2  BROKE   0  STILL   0
+  FIXED       ALIASED|-|oth97d|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(oth97d)', 's97d::plain97d', '-')]
+      Q=[]
+  FIXED       ALIASED|-|spec97d|class_typespec
+      G=[]
+      P=[('<empty>->class_typespec(spec97d)', 's97d::gen97d', '-')]
+      Q=[]
+g97_a5_samename_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a5_samename_def        CELLS   3  ALREADY-OK   3  FIXED   0  BROKE   0  STILL   0
+g97_a5_samename_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a5_samename_elab       CELLS   4  ALREADY-OK   3  FIXED   0  BROKE   0  STILL   1
+  STILL       ALIASED|work@m2_97e::dup97e|n97e|class_typespec
+      G=[('<empty>->class_typespec(n97e)', 'work@tgt97e', '-')]
+      P=[('<empty>->class_typespec(n97e)', 'work@tgt97e', '-'), ('<empty>->class_typespec(n97e)', 'work@tgt97e', '-')]
+      Q=[('<empty>->class_typespec(n97e)', 'work@tgt97e', '-'), ('<empty>->class_typespec(n97e)', 'work@tgt97e', '-')]

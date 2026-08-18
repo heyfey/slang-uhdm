@@ -1,0 +1,10 @@
+PREDICT default/BuildUVMPkg-bf853d43  cells=1
+PREDICT default/MiniAmiq-544c7f61  cells=1
+PREDICT default/Scoreboard-59431470  cells=1
+PREDICT default/SeqDriver-32af76aa  cells=1
+PREDICT default/SimpleUVM-1dc93a62  cells=1
+PREDICT testflags/BuildUVMPkg-bf853d43  cells=1
+PREDICT testflags/MiniAmiq-544c7f61  cells=1
+PREDICT testflags/SeqDriver-32af76aa  cells=1
+PREDICT testflags/SimpleUVM-1dc93a62  cells=1
+PREDICTED 9 / 956 databases

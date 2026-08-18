@@ -1,0 +1,45 @@
+/tmp/v97_bound.sh: line 26: 393519 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 393537 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 395633 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 395651 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 1887_r10uvm35repro_t47a_dut.sv/def 14 lines
+MOVED 1887_r10uvm35repro_t47a_dut.sv/elab 14 lines
+/tmp/v97_bound.sh: line 26: 796528 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 796568 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 804128 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 804167 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 810158 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 810206 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 2369_r10uvm97repro_g97_a1_selftd.sv/def 7 lines
+MOVED 2369_r10uvm97repro_g97_a1_selftd.sv/elab 7 lines
+MOVED 2372_r10uvm97repro_g97_a4_plainclass.sv/def 7 lines
+MOVED 2372_r10uvm97repro_g97_a4_plainclass.sv/elab 7 lines
+/tmp/v97_bound.sh: line 26: 831950 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 831989 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 833063 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 833103 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 918644 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 918754 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 918973 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 919106 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 919346 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 919457 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 952100 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 952155 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 952308 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 952353 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 952510 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 952554 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 952712 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 952766 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 953084 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bound.sh: line 26: 953129 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 3037_v97_verifier_arms_v97_c2_dupbase.sv/def 7 lines
+MOVED 3037_v97_verifier_arms_v97_c2_dupbase.sv/elab 7 lines
+MOVED 3042_v97_verifier_arms_v97_c7_usesites.sv/def 7 lines
+MOVED 3042_v97_verifier_arms_v97_c7_usesites.sv/elab 7 lines
+MOVED 3043_v97_verifier_arms_v97_c8_counts.sv/def 21 lines
+MOVED 3043_v97_verifier_arms_v97_c8_counts.sv/elab 21 lines
+RC_PAIRS_COMPARED=6090  RC_DIFF=0  ASYMMETRIC_OUTPUT=0
+LISTED=3045 FENCED_SKIPPED=0 PROCESSED=3045 MOVED=12 NO_OUTPUT_PAIRS=273
+PROCESSED-ASSERT-OK

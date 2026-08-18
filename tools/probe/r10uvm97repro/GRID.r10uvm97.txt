@@ -1,0 +1,49 @@
+=== GRID (three-way: golden / pristine / patched), both views ===
+g97_a1_selftd_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a1_selftd_def      CELLS   4  ALREADY-OK   3  FIXED   1  BROKE   0  STILL   0
+  FIXED       ALIASED|-|this_type|class_typespec
+      G=[]
+      P=[('ALIAS', 'p97a::port97a', '-')]
+      Q=[]
+g97_a1_selftd_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a1_selftd_elab     CELLS   4  ALREADY-OK   3  FIXED   1  BROKE   0  STILL   0
+  FIXED       ALIASED|-|this_type|class_typespec
+      G=[]
+      P=[('ALIAS', 'p97a::port97a', '-')]
+      Q=[]
+g97_a2_realgroup_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a2_realgroup_def   CELLS   5  ALREADY-OK   5  FIXED   0  BROKE   0  STILL   0
+g97_a2_realgroup_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a2_realgroup_elab  CELLS   7  ALREADY-OK   7  FIXED   0  BROKE   0  STILL   0
+g97_a3_kinds_def: pris=rc0/CMP_FAIL/heads1/lines64 pat=rc0/CMP_FAIL/heads1/lines64
+  g97_a3_kinds_def       CELLS   6  ALREADY-OK   6  FIXED   0  BROKE   0  STILL   0
+g97_a3_kinds_elab: pris=rc0/CMP_FAIL/heads1/lines64 pat=rc0/CMP_FAIL/heads1/lines64
+  g97_a3_kinds_elab      CELLS   6  ALREADY-OK   6  FIXED   0  BROKE   0  STILL   0
+g97_a4_plainclass_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a4_plainclass_def  CELLS   7  ALREADY-OK   5  FIXED   2  BROKE   0  STILL   0
+  FIXED       ALIASED|-|oth97d|class_typespec
+      G=[]
+      P=[('ALIAS', 's97d::plain97d', '-')]
+      Q=[]
+  FIXED       ALIASED|-|spec97d|class_typespec
+      G=[]
+      P=[('ALIAS', 's97d::gen97d', '-')]
+      Q=[]
+g97_a4_plainclass_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a4_plainclass_elab CELLS   8  ALREADY-OK   6  FIXED   2  BROKE   0  STILL   0
+  FIXED       ALIASED|-|oth97d|class_typespec
+      G=[]
+      P=[('ALIAS', 's97d::plain97d', '-')]
+      Q=[]
+  FIXED       ALIASED|-|spec97d|class_typespec
+      G=[]
+      P=[('ALIAS', 's97d::gen97d', '-')]
+      Q=[]
+g97_a5_samename_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a5_samename_def    CELLS   3  ALREADY-OK   3  FIXED   0  BROKE   0  STILL   0
+g97_a5_samename_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g97_a5_samename_elab   CELLS   4  ALREADY-OK   3  FIXED   0  BROKE   0  STILL   1
+  STILL       ALIASED|work@m2_97e::dup97e|n97e|class_typespec
+      G=[('ALIAS', 'work@tgt97e', '-')]
+      P=[('ALIAS', 'work@tgt97e', '-'), ('ALIAS', 'work@tgt97e', '-')]
+      Q=[('ALIAS', 'work@tgt97e', '-'), ('ALIAS', 'work@tgt97e', '-')]

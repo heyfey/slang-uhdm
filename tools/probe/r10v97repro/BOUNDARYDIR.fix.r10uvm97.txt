@@ -1,0 +1,21 @@
+MOVED 0841_r10uvm35repro_t47a/def 14 lines
+MOVED 0841_r10uvm35repro_t47a/elab 14 lines
+MOVED 0950_r10uvm75repro/def 14 lines
+MOVED 0950_r10uvm75repro/elab 8 lines
+MOVED 0951_r10uvm76repro/def 10 lines
+MOVED 0951_r10uvm76repro/elab 18 lines
+/tmp/v97_bounddir.sh: line 24: 1508591 Segmentation fault      "$PRI" $fl $leaves -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bounddir.sh: line 24: 1508609 Segmentation fault      "$PAT" $fl $leaves -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 0963_r10uvm88repro/elab 4 lines
+/tmp/v97_bounddir.sh: line 24: 1509743 Segmentation fault      "$PRI" $fl $leaves -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bounddir.sh: line 24: 1509761 Segmentation fault      "$PAT" $fl $leaves -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 0976_r10uvm97repro/def 14 lines
+MOVED 0976_r10uvm97repro/elab 14 lines
+/tmp/v97_bounddir.sh: line 24: 1550991 Segmentation fault      "$PRI" $fl $leaves -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bounddir.sh: line 24: 1551009 Segmentation fault      "$PAT" $fl $leaves -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bounddir.sh: line 24: 1551081 Segmentation fault      "$PRI" $fl $leaves -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bounddir.sh: line 24: 1551099 Segmentation fault      "$PAT" $fl $leaves -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/v97_bounddir.sh: line 24: 1551326 Segmentation fault      "$PRI" $fl $leaves -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/v97_bounddir.sh: line 24: 1551461 Segmentation fault      "$PAT" $fl $leaves -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+DIRS_LISTED=1476 EMPTY=104 PROCESSED=1372 RC_DIFF=0 ASYM=0 MOVED=9 NO_OUTPUT_PAIRS=239
+PROCESSED-ASSERT-OK

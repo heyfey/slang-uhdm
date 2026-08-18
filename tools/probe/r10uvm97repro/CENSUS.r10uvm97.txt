@@ -1,0 +1,18 @@
+PRISTINE (956 surelog databases)
+  dbs with DIFF: 9   keys same: 5275   DIFF cells: 41
+default/BuildUVMPkg-bf853d43             same   195  DIFF    1
+default/MiniAmiq-544c7f61                same  1242  DIFF    9
+default/Scoreboard-59431470              same   217  DIFF    1
+default/SeqDriver-32af76aa               same   584  DIFF    9
+default/SimpleUVM-1dc93a62               same   217  DIFF    1
+testflags/BuildUVMPkg-bf853d43           same   195  DIFF    1
+testflags/MiniAmiq-544c7f61              same  1242  DIFF    9
+testflags/SeqDriver-32af76aa             same   584  DIFF    9
+testflags/SimpleUVM-1dc93a62             same   217  DIFF    1
+
+PATCHED (956 surelog databases)
+  dbs with DIFF: 4   keys same: 5275   DIFF cells: 32
+default/MiniAmiq-544c7f61                same  1242  DIFF    8
+default/SeqDriver-32af76aa               same   584  DIFF    8
+testflags/MiniAmiq-544c7f61              same  1242  DIFF    8
+testflags/SeqDriver-32af76aa             same   584  DIFF    8

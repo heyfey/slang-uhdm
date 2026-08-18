@@ -1,0 +1,60 @@
+LHS:
+decompile:
+class_defn: (uvm_pkg::uvm_algorithmic_comparator), id:224, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/comps/uvm_algorithmic_comparator.svh, line:68:1, endln:134:9
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiName:uvm_algorithmic_comparator
+|vpiFullName:uvm_pkg::uvm_algorithmic_comparator
+|vpiVariables:
+\_string_var: (uvm_pkg::uvm_algorithmic_comparator::type_name), id:321234, line:72:23, endln:72:32
+  |vpiParent:
+  \_class_defn: (uvm_pkg::uvm_algorithmic_comparator), id:224, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/comps/uvm_algorithmic_comparator.svh, line:68:1, endln:134:9
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_algorithmic_comparator::type_name), id:321235
+    |vpiParent:
+    \_string_var: (uvm_pkg::uvm_algorithmic_comparator::type_name), id:321234, line:72:23, endln:72:32
+    |vpiFullName:uvm_pkg::uvm_algorithmic_comparator::type_name
+    |vpiActual:
+    \_string_typespec: , id:321232, line:72:16, endln:72:22
+  |vpiName:type_name
+  |vpiFullName:uvm_pkg::uvm_algorithmic_comparator::type_name
+  |vpiConstantVariable:1
+  |vpiVisibility:1
+  |vpiExpr:
+  \_constant: , id:321233, line:72:35, endln:72:91
+    |vpiParent:
+    \_string_var: (uvm_pkg::uvm_algorithmic_comparator::type_name), id:321234, line:72:23, endln:72:32
+    |vpiDecompile:"uvm_algorithmic_comparator #(BEFORE,AFTER,TRANSFORMER)"
+    |vpiSize:432
+    |STRING:uvm_algorithmic_comparator #(BEFORE,AFTER,TRANSFORMER)
+    |vpiConstType:6
+|vpiVariables:
+\_class_var: (uvm_pkg::uvm_algorithmic_comparator::before_export), id:321237, line:88:41, endln:88:54
+  |vpiParent:
+  \_class_defn: (uvm_pkg::uvm_algorithmic_comparator), id:224, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/comps/uvm_algorithmic_comparator.svh, line:68:1, endln:134:9
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_algorithmic_comparator::before_export), id:321238
+    |vpiParent:
+    \_class_var: (uvm_pkg::uvm_algorithmic_comparator::before_export), id:321237, line:88:41, endln:88:54
+    |vpiFullName:uvm_pkg::uvm_algorithmic_comparator::before_export
+    |vpiActual:
+    \_class_typespec: (uvm_analysis_imp), id:321236, line:88:3, endln:88:19
+  |vpiName:before_export
+  |vpiFullName:uvm_pkg::uvm_algorithmic_comparator::before_export
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_class_var: (uvm_pkg::uvm_algorithmic_comparator::after_export), id:321240, line:97:32, endln:97:44
+  |vpiParent:
+  \_class_defn: (uvm_pkg::uvm_algorithmic_comparator), id:224, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/comps/uvm_algorithmic_comparator.svh, line:68:1, endln:134:9
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_algorithmic_comparator::after_export), id:321241
+    |vpiParent:
+    \_class_var: (uvm_pkg::uvm_algorithmic_comparator::after_export), id:321240, line:97:32, endln:97:44
+    |vpiFullName:uvm_pkg::uvm_algorithmic_comparator::after_export
+    |vpiActual:
+    \_class_typespec: (uvm_analysis_export), id:321239, line:97:3, endln:97:22
+  |vpiName:after_export
+  |vpiFullName:uvm_pkg::uvm_algorithmic_comparator::after_export
+  |vpiAutomatic:1
+  |vpiVisibility:1

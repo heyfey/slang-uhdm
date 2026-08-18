@@ -4482,6 +4482,15 @@ private:
         UHDM::class_typespec* ts = nullptr;
         const void* key = nullptr;               // GENERIC class, else the
                                                  // target ClassType itself
+        // § classNestedTdOneObjectPerSurelogTypedef97 — the DECLARING class's
+        // GENERIC class (the ClassType itself when it is not a specialization).
+        // (declKey, name) is Surelog's TypeDef identity: a parameterized class
+        // is compiled ONCE, so N specializations of one written typedef are ONE
+        // group member, not N.  Keyed on the POINTER, never on the
+        // `surelogClassKey54` string — two classes sharing a name in two
+        // modules both spell `work@<cls>` and golden groups them for real
+        // (arm `g97_a5_samename.sv`).
+        const void* declKey = nullptr;
     };
     std::vector<ClassNestedTd54> classNestedTd54;
     // Dedup by OBJECT: buildClassTypedefTs can be re-entered for the same

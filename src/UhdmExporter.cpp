@@ -3482,9 +3482,62 @@ void UhdmExporter::drainClassNestedTdGroups54() {
                                  return x.owner < y.owner;
                              return x.name < y.name;
                          });
+        // NOTE § classNestedTdOneObjectPerSurelogTypedef97 — ONE GROUP MEMBER
+        // PER SOURCE DECLARATION.  Surelog compiles a parameterized class ONCE,
+        // generically: a `ClassDefinition`'s `TypeDefMap` is a
+        // `std::map<std::string, TypeDef*>`, so `typedef port #(IF) this_type;`
+        // written inside `class port #(type IF)` is exactly ONE `TypeDef` and
+        // `ElaborationStep::bindTypedefs_` gives it exactly ONE typespec —
+        // whatever the number of specializations the design instantiates.
+        // slang, which elaborates a parameterized class ONCE PER
+        // SPECIALIZATION, hands us one `TypeAliasType` per specialization, so
+        // the collector above pushes the SAME source declaration N times and
+        // the group then aliased copies 2..N to copy 1.  Golden has nothing to
+        // alias them to, so `typespec::Compare`'s `Typedef_alias` walk names
+        // ours with `LHS: <null>` — the cmp head of all seven UVM row-modes at
+        // 65468af (`uvm-1.2 base/uvm_port_base.svh:199`).
+        //
+        // GATE: the identity is the DECLARING class's GENERIC class (the
+        // ClassType itself when it is not a specialization) plus the typedef's
+        // own name — never the `surelogClassKey54` STRING.  Arm
+        // `g97_a5_samename.sv` REFUTES the string key: two classes both named
+        // `dup97e`, one per module, both spell `work@dup97e`, and golden gives
+        // their same-named typedefs a REAL group (a base plus an aliased
+        // clone) that a string-keyed dedup would silently drop.
+        //
+        // GATE, second half — § classNestedTdDupCopiesFollowTheirDeclaration97v
+        // (the VERIFIER's re-cut).  The duplicate identity decides ONLY (a) how
+        // many members the group really has and (b) whether a member is a copy
+        // of the BASE's own declaration.  It must NOT drop copies of a
+        // NON-base declaration from the alias loop: golden has ONE object for
+        // that declaration and it IS aliased, while we have N copies and
+        // NOTHING says which of them the class's vpiTypedef listing and its use
+        // sites will read.  Dropping all but one un-aliased the LISTED copy and
+        // turned a PASSING database into a failing one on purpose-built golden
+        // — arms `v97_c1_mixedgroup.sv` / `v97_c4_specparams.sv`, official
+        // uhdm-cmp PASS -> 1 head / 17 lines, BOTH views, before this half
+        // existed.  So: count DISTINCT declarations for the size test, skip
+        // only the copies of the BASE's declaration, and alias every copy of
+        // every other one exactly as pass 54 did.
+        std::set<std::pair<const void*, std::string>> decl97;
+        for (size_t i54 : idx54) {
+            auto& e54 = classNestedTd54[i54];
+            decl97.insert({e54.declKey, e54.name});
+        }
+        // A group that is ONE declaration wearing N specializations is not a
+        // group at all: golden gives its single object no alias (arm a1, and
+        // one cell in each of the census's nine disagreeing databases).
+        if (decl97.size() < 2)
+            continue;
         auto* bts54 = classNestedTd54[idx54[0]].ts;
+        const void* bDecl97 = classNestedTd54[idx54[0]].declKey;
+        const std::string bName97 = classNestedTd54[idx54[0]].name;
         for (size_t j = 1; j < idx54.size(); j++) {
             auto& m54 = classNestedTd54[idx54[j]];
+            // A SECOND COPY of the BASE's own written declaration — the head's
+            // shape.  Golden has one object there and it carries no alias.
+            if (m54.declKey == bDecl97 && m54.name == bName97)
+                continue;
             if (m54.ts == bts54 || m54.ts->Typedef_alias())
                 continue;
             m54.ts->VpiLineNo(bts54->VpiLineNo());
@@ -3668,7 +3721,13 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                 auto* gcN54 = ct.as<ClassType>().genericClass;
                 classNestedTd54.push_back(
                     {surelogClassKey54(cls), std::string(ta.name), cts,
-                     gcN54 ? (const void*)gcN54 : (const void*)&ct});
+                     gcN54 ? (const void*)gcN54 : (const void*)&ct,
+                     // § classNestedTdOneObjectPerSurelogTypedef97 — the
+                     // DECLARING side's identity: one Surelog TypeDef per
+                     // (generic class, typedef name), however many
+                     // specializations slang elaborates.
+                     cls.genericClass ? (const void*)cls.genericClass
+                                      : (const void*)&cls});
             }
             // § classRepresentativeSkipsTypeParamAlias25 — see the header.
             // `typedef REQ req_type;` resolves, in the specialization slang

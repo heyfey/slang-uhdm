@@ -1,0 +1,17 @@
+LHS:
+decompile:
+ref_typespec: (p97c1::zzz97c1::nn97c1), id:126
+|vpiParent:
+\_class_typespec: (nn97c1), id:125, line:10:13, endln:10:20
+|vpiFullName:p97c1::zzz97c1::nn97c1
+|vpiActual:
+\_class_typespec: (nn97c1), id:124, line:10:13, endln:10:20
+
+decompile:
+ref_typespec: (p97c1::zzz97c1::nn97c1), id:126
+|vpiParent:
+\_class_typespec: (nn97c1), id:125, line:10:13, endln:10:20
+|vpiFullName:p97c1::zzz97c1::nn97c1
+|vpiActual:
+\_class_typespec: (nn97c1), id:124, line:10:13, endln:10:20
+RHS: <null>

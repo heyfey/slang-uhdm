@@ -1,0 +1,17 @@
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (uvm_pkg::uvm_port_base::this_type), id:298130
+|vpiParent:
+\_class_typespec: (adpcm_pkg::this_type), id:112685, line:199:11, endln:199:24
+|vpiFullName:uvm_pkg::uvm_port_base::this_type
+|vpiActual:
+\_class_typespec: (adpcm_pkg::this_type), id:52512, line:199:11, endln:199:24
+
+decompile:
+ref_typespec: (uvm_pkg::uvm_port_base::this_type), id:298130
+|vpiParent:
+\_class_typespec: (adpcm_pkg::this_type), id:112685, line:199:11, endln:199:24
+|vpiFullName:uvm_pkg::uvm_port_base::this_type
+|vpiActual:
+\_class_typespec: (adpcm_pkg::this_type), id:52512, line:199:11, endln:199:24

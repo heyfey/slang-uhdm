@@ -1,0 +1,10 @@
+MOVED 1863_r10uvm35repro_t47a_dut.sv/def 14 lines
+MOVED 1863_r10uvm35repro_t47a_dut.sv/elab 14 lines
+MOVED 2344_r10uvm97repro_g97_a1_selftd.sv/def 7 lines
+MOVED 2344_r10uvm97repro_g97_a1_selftd.sv/elab 7 lines
+MOVED 2347_r10uvm97repro_g97_a4_plainclass.sv/def 7 lines
+MOVED 2347_r10uvm97repro_g97_a4_plainclass.sv/elab 7 lines
+RC_PAIRS_COMPARED=5916
+LISTED=2958 FENCED_SKIPPED=0 PROCESSED=2958 MOVED=6 NO_OUTPUT_PAIRS=262
+PROCESSED-ASSERT-OK
+DONE

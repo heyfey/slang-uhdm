@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 10:20, HEAD = the buvm21 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 10:50, HEAD = the uvm97 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -180,7 +180,7 @@ row-modes over 7 tests:
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | 17 | `typedef uvm_port_base #(IF) this_type;` (uvm_port_base.svh:199): golden's class_typespec leaves the slot EMPTY, we fill a self-referential ref_typespec (this_type → the same class_typespec); pass uvm97 in flight (uvm96 landed: 12→17, cast-target keyword typespec kinds) |
+| SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | ~99k (depth: two whole class_defn objects) | an INHERITED typedef name `this_type` written in the derived socket classes: golden binds it to `uvm_algorithmic_comparator::this_type` (Surelog's bare-name FIRST-WRITER-WINS late bind), we to the correct `uvm_port_base::this_type` — 9 cells, fully decoded; pass uvm98 in flight (uvm97 landed: 17→99k depth, one class_typespec per Surelog typedef) |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 52 (depth) | the function RETURN VARIABLE of `virtual function queue_of_element get_elements()` (uvm_pkg.sv:28181; a typedef'd QUEUE return): golden ref_var, ours logic_var — same typespec payload, only the KIND differs; pass buvm22 in flight (buvm21 landed: 29→52 depth, ++/-- statement operand binds) |
 | Earlgrey_0_1/default | 46 (depth) | ELAB gen-scope cont_assign bit-select INDEX naming a gen-scope LOCALPARAM `req_tree[C0]` (prim_arbiter_tree.sv:142): golden folds to INT:1 sz32 with a located int_typespec, ours an UNBOUND ref_obj — 1,995-cell family (C0/C1/Pa) inside a 2,222-cell superfamily; pass earl67 in flight (earl66 landed: 36→46 depth, ELAB High_conn enum-const fold) |
 | Earlgrey_0_1/testflags | 46 (depth) | SAME head, identical cmp log (earl66) |
@@ -189,7 +189,7 @@ row-modes over 7 tests:
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 57 verifier fix-before-landing re-cuts (110 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 58 verifier fix-before-landing re-cuts (111 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

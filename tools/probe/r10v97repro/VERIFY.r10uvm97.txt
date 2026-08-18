@@ -1,0 +1,192 @@
+r10uvm97 ADVERSARIAL VERIFICATION — § classNestedTdOneObjectPerSurelogTypedef97
+VERDICT: ACCEPT WITH FIX.  The shipped patch turned a PASSING database into a
+FAILING one on legal, purpose-built SystemVerilog (official uhdm-cmp, BOTH
+views).  The verifier decoded the cause, re-cut the gate, re-measured every
+headline number, and ships /tmp/r10uvm97.verified.patch.
+
+Everything below was re-measured in /tmp/wt_v97 (patch + verifier re-cut) and
+/tmp/wt_v97pris (pristine), both FRESH worktrees at 65468af, both binaries
+built by the verifier, -j 2, md5 taken separately, frozen chmod 555 BEFORE any
+sweep.
+
+0. REPRODUCIBILITY OF THE BINARIES (bit-for-bit)
+   pristine            52288f8c72dbd24e0e0fac2f130f1dfa  <- IDENTICAL to the implementer's
+   implementer-patched 06be7ee0142fe96780b0b631282dee00  <- IDENTICAL to the implementer's
+   verifier-fixed      3e5ba5672cbfe718db8a556d1e1fc843
+   /tmp/r10uvm97.patch md5 da3dc48e0dd7307b7e860f7d0295c15e, 2042 lines,
+   applies CLEAN on a fresh 65468af worktree (0 conflicts).  Surface audit:
+   production = include/UhdmExporter.h + src/UhdmExporter.cpp ONLY, probe =
+   tools/probe/r10uvm97repro/ ONLY, results/*.csv untouched.  Fence check over
+   the whole patch: 0 / 0 / 0 / 0.
+
+1. THE DEFECT (pristine-right -> patched-wrong, OFFICIAL uhdm-cmp)
+   Arms tools/probe/r10v97repro/v97_c1_mixedgroup.sv and v97_c4_specparams.sv:
+
+     v97_c1_mixedgroup_def   pris = rc0 / PASS_CMP / 0 heads / 0 lines
+                             pat  = rc0 / CMP_FAIL / 1 head  / 17 lines
+     v97_c1_mixedgroup_elab  pris = rc0 / PASS_CMP        pat = CMP_FAIL 1 head 17 lines
+     v97_c4_specparams_def   pris = rc0 / PASS_CMP        pat = CMP_FAIL 1 head 17 lines
+     v97_c4_specparams_elab  pris = rc0 / PASS_CMP        pat = CMP_FAIL 1 head 17 lines
+
+   The head (head_c1_patched_def.cmp) is `RHS: <null>` on
+   typespec::Compare's Typedef_alias — the MIRROR of the head the pass removes:
+
+     LHS  ref_typespec: (p97c1::zzz97c1::nn97c1)      <- golden HAS the alias
+     RHS: <null>                                      <- ours no longer does
+
+   Census rows, same arm, key SITE|OWNER|NAME|KIND (never ID, never SPAN):
+     G  LISTING package:p97c1  p97c1::zzz97c1  nn97c1  class_typespec  ALIAS -> #124
+     P  LISTING package:p97c1  p97c1::zzz97c1  nn97c1  class_typespec  ALIAS -> #7
+     Q  LISTING package:p97c1  p97c1::zzz97c1  nn97c1  class_typespec  -   (and its
+        span reverts from the base's 10:13-10:20 to its own 15:13-15:20)
+
+   MECHANISM.  The drain's group is keyed on the TARGET class; a member is a
+   (declaring class, typedef name) pair.  The shipped gate dedups members on
+   (generic declaring class, name) and DROPS every duplicate before the alias
+   loop.  When the duplicated declaration is NOT the group's base — a real
+   cross-class group whose clone member is a parameterized class with N live
+   specializations — golden still has ONE object for that declaration and it IS
+   aliased, while we have N copies and nothing says which of them the class's
+   vpiTypedef LISTING and its use sites read.  In c1 the copy that survived the
+   dedup is the UNREACHABLE one and the LISTED one lost its alias.
+
+2. THE FIX (minimal, in the same block)
+   § classNestedTdDupCopiesFollowTheirDeclaration97v.  The duplicate identity
+   now decides only (a) the group's real member count and (b) whether a member
+   is a copy of the BASE's own declaration:
+     * count DISTINCT (declKey, name) pairs; < 2  => the group is one
+       declaration wearing N specializations, skip it entirely (this is the
+       pass's head fix, unchanged);
+     * inside the alias loop skip only the members that share the BASE's
+       (declKey, name) — golden has one object there and it carries no alias;
+     * every copy of every OTHER declaration is aliased exactly as pass 54 did.
+   Diff: 6 lines of code (one std::set, one size test, one skip) + comment.
+
+3. AFTER THE FIX — arms, 30 runs (10 verifier arms + the pass's 5, both views)
+   BROKE 0 everywhere.  c1 and c4 back to PASS_CMP on BOTH binaries.
+   The pass's own wins are all preserved:
+     g97_a1_selftd   def/elab  FIXED 1  BROKE 0  STILL 0
+     g97_a4_plainclass def/elab FIXED 2 BROKE 0  STILL 0
+     g97_a2_realgroup def CELLS 5 all ALREADY-OK; elab CELLS 7 all ALREADY-OK
+     g97_a3_kinds    def/elab  6 cells ALREADY-OK (its 64-line head byte-unchanged)
+     g97_a5_samename def all OK; elab STILL 1 (pre-existing, byte-unchanged)
+   Verifier arms that the law SHOULD move, and does:
+     v97_c2_dupbase   def/elab FIXED 1 (the duplicate set IS the base)
+     v97_c3_twotd     def/elab FIXED 1 STILL 1
+     v97_c7_usesites  def/elab FIXED 1
+     v97_c8_counts    def/elab FIXED 1 (1 / 2 / 3 specializations in one db)
+   Verifier arms that it must NOT move, and does not:
+     v97_c5_homes, v97_c6_kinds, v97_c9_pkganchor, v97_ca_samename — BROKE 0.
+   An independently written arm from an EARLIER pass, r10uvm35repro/t47a/dut.sv,
+   scores FIXED 1 / BROKE 0 / STILL 0 in both views = TO-GOLDEN.
+
+4. GATES, re-run by the verifier on the FIXED binary (and on the implementer's
+   patched binary, which reproduced every one of its headline numbers)
+   goldens     fixed 23/0   patched 23/0   pristine 23/0   /bin/false 0/23
+   u2r         testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+               default   679 / 50 / 2          (fixed, patched AND pristine)
+               ct8rows vs committed results/gate_uhdm2rtlil.csv  PASS 0 rows
+               ct8rows vs the PRISTINE sweep, both modes         PASS 0 rows
+   surelog     --mode both, IDENTICAL histogram on all three binaries:
+               default   470 CMP_EQUAL / 11 CMP_NOTEQUAL / 5 DEFERRED /
+                         283 SLANG_REJECT / 25 SURELOG_FAIL
+               testflags 466 / 9 / 5 / 3 NO_DATABASE / 1 NO_UHDM / 284 /
+                         23 / 1 TIMEOUT / 2 UNTRANSLATABLE
+               ct8rows vs committed results/golden_surelog.csv:
+                         0 differing ROWS over 1588 (status AND dump)
+               ct8rows pristine-vs-fixed and patched-vs-fixed: 0 differing rows
+               NO ROW CONVERTED.  results/*.csv READ ONLY, nothing promoted.
+   byteverify SELFCHECK=1
+               u2r      PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358   selfcheck 1357/1358
+                        (fixed AND patched)
+               surelog  PATH_SETS_IDENTICAL (956)   MOVERS 9 / 956    selfcheck 955/956
+                        default/{BuildUVMPkg,MiniAmiq,Scoreboard,SeqDriver,SimpleUVM}
+                        testflags/{BuildUVMPkg,MiniAmiq,SeqDriver,SimpleUVM}
+               PREDICTED FIRST from the PRISTINE databases only:
+                        surelog 9 / 956, u2r 0 / 1358 — the same nine, zero
+                        unpredicted movers, on BOTH the patched and the fixed
+                        binary.  All nine were already CMP_NOTEQUAL rows.
+               Each mover's path-normalised, id-stripped whole-dump diff is
+               EXACTLY 7 lines, ordered AND order-blind — the removed
+               |vpiTypedefAlias: and its 6-line ref_typespec block — except
+               Scoreboard/default: 127 ordered / 7 order-blind (the known coin).
+               8 of the 9 fixed-binary databases are BYTE-IDENTICAL to the
+               implementer's patched ones; the 9th is Scoreboard/default, the coin.
+   census      ct97cen over all 956 surelog databases, key (SITE, OWNER, NAME,
+               KIND), multiset, golden-vs-ours:
+                 PRISTINE   same 5275   DIFF 41   dbs 9
+                 PATCHED    same 5275   DIFF 32   dbs 4
+                 FIXED      same 5275   DIFF 32   dbs 4
+               `same` unchanged on both => over-fire 0 on the corpus.
+   rowheads    pristine 17 lines / 1 head on all seven UVM row-modes;
+               patched AND fixed 99,202 (SeqDriver, MiniAmiq) / 99,106
+               (SimpleUVM, Scoreboard-default), 1 head.
+               BuildUVMPkg 29/1, Earlgrey_0_1 36/1, Rggen/default 36/1 —
+               byte-unchanged on all three binaries.
+   canaries    surelog ok=56 changed=0 absent=0; u2r ok=9 changed=0 absent=0
+               ctcan2 PASS x2; canaudit audited=33 UNCOVERED=0 FENCE-BREACH=0
+   pins        InterfaceModPort 59a365f3ce2c SAME; BlackParrotComplex
+               e3e354129d5a / 73a10e8217e5 SAME; YosysOldOr d68e0796d62c SAME;
+               SVSwitch 4842211c4030; YosysVerx 6ccda350c24a.
+               pins SAME=10 MOVED=0 UNKNOWN-NAME=0.
+   cmds.txt    every sweep workdir audited BY BINARY PATH: the u2r/surelog
+               patched dirs name /tmp/v97_pat.bin, the pristine dirs
+               /tmp/v97_pris.bin, the fixed dirs /tmp/v97_fix.bin; 0 cells name
+               the main-tree binary.
+
+5. THE BOUNDARY, WIDER THAN THE IMPLEMENTER'S
+   bound97.sh carries `-path '*repro*'` and `-name '*.sv'`, contrary to the
+   claim in GATES.r10uvm97.txt that it has no path filter — it never compiled
+   the 59 `.v` files or the non-repro `.sv` under tools/probe.
+   The verifier re-ran from a COPY of the WHOLE tools/probe tree, NO path
+   filter, `.sv` AND `.v`, plus the verifier's own arms, per-file and
+   per-directory, fd-3 list, children </dev/null, PROCESSED asserted, rc
+   recorded per cell, both views, pristine vs FIXED:
+     PER-FILE  LISTED=3045 FENCED_SKIPPED=0 PROCESSED=3045 PROCESSED-ASSERT-OK
+               RC_PAIRS_COMPARED=6090  RC_DIFF=0  ASYMMETRIC_OUTPUT=0
+               MOVED=12 = 4 (the pass's own g97_a1 / g97_a4 x 2 views)
+                        + 6 (the verifier's own c2 / c7 / c8 x 2 views)
+                        + 2 (r10uvm35repro/t47a/dut.sv, 14 lines, both views,
+                             scored three-way TO-GOLDEN: FIXED 1 BROKE 0 STILL 0)
+     PER-DIR   see BOUNDARYDIR.fix.r10uvm97.txt
+
+6. MEASURED FINDINGS ABOUT THE PASS'S OWN INSTRUMENTS (for the next operator)
+   * ct97cen's SITE=ALIASED rows can name objects that are UNREACHABLE from the
+     design root: they live in Serializer::AllObjects but not in the dump tree,
+     so uhdm-dump and uhdm-cmp never see them.  Arm v97_c3_twotd loses one such
+     alias under the fix and its two whole dumps stay BYTE-IDENTICAL (835 lines
+     each, diff empty) while the census reports FIXED 1.  A census cell on an
+     ALIASED row is therefore NOT evidence of a judge-visible move; only the
+     LISTING rows and the corpus whole-dump diff are.
+   * The pass's five arms a1/a2/a4/a5 all PASS the official uhdm-cmp on BOTH
+     binaries: the object they move is unreachable there too.  The law's only
+     judge-visible evidence is the nine corpus databases (where R0's mis-bind
+     makes the duplicate reachable) — the README should say so.
+
+7. THE PER-DIRECTORY BOUNDARY (every *repro* directory compiled as ONE arm)
+     DIRS_LISTED=1476 EMPTY=104 PROCESSED=1372 PROCESSED-ASSERT-OK
+     RC_DIFF=0  ASYMMETRIC_OUTPUT=0  MOVED=9  NO_OUTPUT_PAIRS=239
+   Every one of the nine attributed:
+     r10uvm35repro/t47a  def+elab  14 lines  -> the law.  Three-way score
+                                   FIXED 1 / BROKE 0 / STILL 0, PASS_CMP on
+                                   both binaries = TO-GOLDEN.
+     r10uvm97repro       def+elab  14 lines  -> the law (a1 + a4 in one arm).
+                                   Three-way FIXED 3 / BROKE 0 / STILL 0 (def),
+                                   FIXED 3 / BROKE 0 / STILL 1 (elab, the
+                                   pre-existing a5 cell); cmp lines 64 -> 64,
+                                   1 head, byte-identical on both binaries.
+     r10uvm75repro       def 14 / elab 8     -> NOT the law: ORDER-BLIND diff 0,
+     r10uvm76repro       def 10 / elab 18       official cmp identical on both
+     r10uvm88repro       elab 4                 binaries (1480/2478, 1752/2398,
+                                                2516/2946 lines, 1 head each),
+                                                census ALL ALREADY-OK.
+                                   PROVED a COIN, not a mover: the SAME PRISTINE
+                                   binary run four times on r10uvm75repro's file
+                                   set gives FOUR different dumps
+                                   (5a017ff70e14 / 14075a3bb606 / 0cf46409bd11 /
+                                   b01a1694b592), pairwise ordered diffs 14 / 16
+                                   / 12 lines — the vpiTaskFunc list-order flip
+                                   RESUME.md §9 names.  A per-directory gate
+                                   that reports these as movers without the
+                                   same-binary control would convict the patch
+                                   of three regressions it did not cause.
