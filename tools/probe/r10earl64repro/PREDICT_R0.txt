@@ -1,0 +1,134 @@
+r10earl64 — THE NEXT HEAD (R0), BOTH Earlgrey_0_1 modes, measured on the
+PATCHED database (binary md5 4c8f746b97c20c0cf7f42fe7aea84a59) against the
+immutable golden caches 00d4794526e44dc553f3 (default) and
+d7348d2d2fe67abe767b (testflags).  Pristine binary md5
+8b517a26897fe03b5073146ba00305f0, BASE 315980a.
+
+earl63's TWO R0s are BOTH CLEARED, and for the first time in this family the
+two modes CONVERGE ONTO ONE OBJECT:
+
+  cmp depth  default   64 -> 17 lines
+             testflags 28 -> 17 lines
+  heads      1 per run, both modes, before and after.
+  the two AFTER logs are byte-identical apart from nothing — same object,
+  same ids (255924 / 255925 / 763), same fields.
+
+  earl63 R0-default  (prim_fifo_sync.sv:72:53, the folded `Depth` operand of
+                      `DepthW'(Depth)` in gen_normal_fifo) — CLEARED, and with
+                      it ALL 127 copies of that cell across top_earlgrey
+                      (87 of them were wrong; the census says 0 remain).
+  earl63 R0-testflags (flash_phy.sv:128:32, the `0` base of
+                      `host_addr_i[0 +: BankAddrW]`) — CLEARED, and with it
+                      all 4 conn-base cells in the design.
+
+=======================================================================
+R0 — Earlgrey_0_1, BOTH MODES, 17 cmp lines, 1 head
+=======================================================================
+
+  flash_phy.sv:133 (lowrisc_ip_flash_ctrl_0.1/rtl), the port connection of
+  `flash_phy_core i_core` inside gen_for/named_begin `gen_flash_banks`:
+
+      .addr_i(flash_ctrl_i.addr[0 +: BankAddrW]),
+
+  the constant at 133:38-133:47 is the WIDTH expression `BankAddrW` of the
+  indexed_part_select (a folded read of
+  `flash_ctrl_pkg.sv:19  localparam int BankAddrW = PageW + WordW;` = 16):
+
+      LHS(golden): <null>              -- golden's constant has NO Typespec
+      RHS(ours)  : ref_typespec  id:255925
+                     |vpiParent -> constant id:255924  133:38-133:47
+                     |vpiFullName work@top_earlgrey.u_flash_eflash.gen_flash_banks[0]
+                     |vpiActual  -> int_typespec id:763  19:14-19:17
+
+  HEAD DECODE (BaseClass.h + UHDM/build/generated/src/expr.cpp): `expr::Compare`
+  runs `SafeCompare(lhs->Typespec(), rhs->Typespec(), context)` — the SINGULAR
+  overload — and the `(lhs == nullptr) && (rhs != nullptr)` arm sets
+  `m_failedRhs = rhs` and returns -1.  So `LHS: <null>` + a full RHS means
+  **we carry a ref_typespec on a constant where golden carries none**; the
+  constant's own decompile / size / value / consttype all AGREE (both
+  `UINT:16` size 32 `"16"`).  This is NOT a value-encoding head at all — it is
+  a TYPESPEC-PRESENCE head, the first one this family has produced.
+
+  IT IS PRE-EXISTING, NOT INTRODUCED.  The whole-design `excen64` census counts
+  the family "same four constant fields, golden ts absent, ours int_typespec"
+  at **9 cells in the pristine database and the same 9 in the patched one**,
+  default and testflags alike — byte for byte the same cells.  earl63's heads
+  were simply in front of it.
+
+  THE FAMILY, keyed (owner instance, port, positional route) — all of them
+  bounds of an indexed part select inside an ELAB port High_conn whose bound
+  is a folded MODULE-PARAMETER read:
+
+      u_flash_ctrl.u_flash_mp        HC_req_addr_i  /b   UINT:8  size 32
+      u_flash_ctrl.u_flash_mp        HC_req_addr_i  /w   UINT:9  size 32
+      u_flash_ctrl.u_flash_mp        HC_req_bk_i    /b   UINT:16 size 32
+      u_flash_ctrl.u_flash_mp        HC_req_bk_i    /w   UINT:1  size 32
+      u_flash_ctrl.u_flash_erase_ctrl HC_op_addr_i  /hp[2]/w  UINT:17 size 32
+      u_flash_eflash.gen_flash_banks[0].i_core  HC_addr_i /hp[1]/w  UINT:16   <- THE HEAD
+      u_flash_eflash.gen_flash_banks[1].i_core  HC_addr_i /hp[1]/w  UINT:16
+      (+2 more of the same shape)
+
+  AND THE MIRROR FAMILY IS THE BIGGER ONE — over the WHOLE design (cont_assign
+  leaves included, not just High_conn) the census counts, in BOTH modes
+  identically: **9 cells where OURS carries a typespec and golden does not**
+  (this head's family) and **95 cells where GOLDEN carries one and ours does
+  not**, with every other constant field equal — e.g.
+  `u_rv_timer.gen_harts[0].u_intr_hw HC_reg2hw_intr_test_q_i /w` (`UINT:1`
+  size 32) and `u_xbar_main.u_sm1_26.gen_idrouting[1] CA_L236:12
+  …/hp[1]/w` (66 cells).  So the rule is CONTEXT-DEPENDENT and must be decoded, not applied uniformly:
+  the census must key on what the bound READS (a package localparam vs a module
+  parameter vs a hier_path member width), on whether the select sits directly
+  under the High_conn or under a hier_path element, and on the owner scope
+  (module body vs gen scope).  Do NOT "fix" it by dropping the typespec.
+
+> R0 (both modes): our ELAB port-High_conn indexed-part-select BOUND constant
+> carries a ref_typespec -> int_typespec where golden's carries none — 9 cells
+> this way and 95 the other way, and the discriminator is unmeasured.
+
+=======================================================================
+RANKED AFTER R0 (all measured in this pass; README §3, §5)
+=======================================================================
+R1  THE BASED-OVERRIDE DECOMPILE SPELLING of our own `param_assign` Rhs.
+    `#(.Depth(DReqDepth))` with `parameter bit [3:0] DReqDepth = 4'h2` is
+    golden `HEX:2 size 32 decompile "4'h2"` and ours `"32'h2"` — 42 Depth rows
+    in Earlgrey, and now 44 READ-SITE cells too, because § elabCaPortParamPaCopy64
+    faithfully copies our own wrong spelling.  `ct` and `vpiSize` are right;
+    only `VpiDecompile` (which the judge DOES read) is not.  The same defect in
+    BIN form is `gA_earl64`'s `i_bin` (`"0010"` vs `"4'b0010"`, 6 cells) — but
+    note Earlgrey's own BIN rows are already RIGHT (`4'b0010`, 64 of them), so
+    the bug is in the HEX/decimal-width branch of the override renderer, not in
+    BIN.  Highest-value next fix in this family: it is 44 Earlgrey cells for a
+    one-branch change and it CANNOT regress anything the copy touches.
+R2  THE NEGATIVE OVERRIDE VALUE of our own `param_assign` Rhs:
+    `#(.P(-3))` against a typed integral parameter is golden `INT:-3` at the
+    declared width and ours the malformed `UINT:-3` (byte/shortint/longint/
+    integer/logic signed) or a masked `UINT:13` / `UINT:253` (logic [3:0],
+    bit [7:0]).  20 cells in `gA2_earl64`; zero Earlgrey reach measured.
+    `srlgAdjustSize`'s UINT arm bails on a `-` in the digits, which is how the
+    malformed value survives.
+R3  THE MISSING FOLD in the FOR-GENERATE home.  `gA_earl64`'s `g_for` cells
+    (48 of them, golden folds all 48 and we fold none) keep a bare `ref_obj` where golden folds the parameter read
+    exactly the way § elabCaPortParamPaCopy64 now does in the if-generate home.
+    `genCaLhsParamFold` is armed for a non-loop gen block only; the loop body
+    goes to `genCaLoopParamFold`, which folds solely in SELECT-BOUND positions.
+    This is the same law, one home over, and it is the biggest single
+    TO-GOLDEN reservoir the grids saw.
+R4  THE WHOLE-RHS REDUCE of an ELAB cont_assign.  Surelog's
+    `UhdmWriter::writeCont_assign` reduces the whole Rhs first and, when that
+    yields a constant, replaces the Rhs with it after `adjustSize` against the
+    LHS typespec; only when the reduce FAILS does it fall back to substituting
+    the operands (which is the arm this pass models).  We never do the first
+    half: `gA_earl64` L17/L18 (`{P}` / `P + P`), `gB_earl64`'s literal actual,
+    `r10earl59repro/v59w2_shapes59` and `r10rgg9repro/cells/c_gen` all show
+    golden with ONE constant Rhs and us with the operation.  Decoded here, not
+    implemented: it changes the SHAPE of the Rhs, so it needs its own pass.
+R5  THE HIGH_CONN INDEX / WIDTH FOLDS still missing or extra — the 81 (tf) /
+    90 (def) differing High_conn cells the census lists after this pass, of
+    which the biggest buckets are `G: constant UINT size 64 | O: ref_obj`
+    (9 + 9 cells, `u_spi_device.u_rxf_ctrl` / `u_txf_ctrl` bit-select indices)
+    and `G: ref_obj | O: constant UINT size 32 int_typespec` (8 cells,
+    `gen_bufs[N].i_rd_buf HC_addr_i /r`).
+R6  carried from earl63 and unchanged here: its R1 (the untyped half of
+    § constCallFoldAdjustSize63), R2 (the gen-scope localparam home), R3 (the
+    ranged-untyped home), R4 (golden's fold VALUE differing from slang's), R5
+    (`return 8'hab;` not folded at all), and earl62/earl61's R1-R7.

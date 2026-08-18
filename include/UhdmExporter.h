@@ -2921,6 +2921,26 @@ private:
     // Bind `rt` to `p`'s elab typespec, or park it until that clone exists.
     void bindOrParkParamTs(const slang::ast::ParameterSymbol& p,
                            UHDM::ref_typespec* rt);
+    // § elabCaPortParamPaCopy64 — run an ALREADY-EMITTED constant that was
+    // copied verbatim out of a parameter's own elaborated `param_assign` Rhs
+    // back through Surelog's `CompileHelper::adjustSize` CONSUMER stage
+    // against that parameter's OWN declared typespec, in place.  This is the
+    // second half of § constCallFoldAdjustSize63's {producer, consumer}
+    // pipeline, applied where the CONSUMER is a READ SITE rather than the
+    // declaration: an overridden port parameter's `param_assign` Rhs keeps the
+    // OVERRIDE ACTUAL's own width (`#(.Depth(SeqFifoDepth))` -> `INT:2` at
+    // size 4), and Surelog re-adjusts it to the parameter's declared width
+    // when it substitutes the value into an expression (`INT:2` at size 32),
+    // while a BIN override keeps its narrow width under an `int` target.
+    // TYPED INTEGRAL parameters of width 1..64 only; false (and `c`
+    // untouched) for anything else, which is the fence that keeps every
+    // untyped / enum / struct / >64-bit read on its existing arm.
+    // Returns true and fills the four Compare-visible fields when `p` is a
+    // typed integral target of width 1..64; false (outputs untouched) when the
+    // fence rejects it, which is the caller's signal to keep its old arm.
+    bool adjustCopiedParamConst64(const slang::ast::ParameterSymbol& p,
+                                  const UHDM::constant* src, std::string& val,
+                                  int32_t& ct, int32_t& size, std::string& dec);
     // The constant Surelog substitutes for a reference to an ENUM MEMBER
     // inside a PACKAGE struct-pattern parameter: the member's OWN literal
     // form (an implicit member -> INT at the enum base width; `= 4'h6` ->

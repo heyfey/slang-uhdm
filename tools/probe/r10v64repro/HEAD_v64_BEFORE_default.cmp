@@ -1,0 +1,64 @@
+LHS:
+decompile:
+constant: , id:989528, line:72:53, endln:72:58
+|vpiParent:
+\_operation: , id:989525, line:72:45, endln:72:59
+|vpiDecompile:2
+|vpiSize:32
+|INT:2
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.i_bank_sequence_fifo.gen_normal_fifo), id:989529
+  |vpiParent:
+  \_constant: , id:989528, line:72:53, endln:72:58
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.i_bank_sequence_fifo.gen_normal_fifo
+  |vpiActual:
+  \_int_typespec: , id:989530, line:12:13, endln:12:25
+|vpiConstType:7
+
+decompile:
+constant: , id:989528, line:72:53, endln:72:58
+|vpiParent:
+\_operation: , id:989525, line:72:45, endln:72:59
+|vpiDecompile:2
+|vpiSize:32
+|INT:2
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.i_bank_sequence_fifo.gen_normal_fifo), id:989529
+  |vpiParent:
+  \_constant: , id:989528, line:72:53, endln:72:58
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.i_bank_sequence_fifo.gen_normal_fifo
+  |vpiActual:
+  \_int_typespec: , id:989530, line:12:13, endln:12:25
+|vpiConstType:7
+RHS:
+decompile:
+constant: , id:250058, line:72:53, endln:72:58
+|vpiParent:
+\_operation: , id:250054, line:72:45, endln:72:59
+|vpiDecompile:2
+|vpiSize:32
+|UINT:2
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.i_bank_sequence_fifo.gen_normal_fifo), id:250059
+  |vpiParent:
+  \_constant: , id:250058, line:72:53, endln:72:58
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.i_bank_sequence_fifo.gen_normal_fifo
+  |vpiActual:
+  \_int_typespec: , id:250060, line:12:13, endln:12:25
+|vpiConstType:9
+
+decompile:
+constant: , id:250058, line:72:53, endln:72:58
+|vpiParent:
+\_operation: , id:250054, line:72:45, endln:72:59
+|vpiDecompile:2
+|vpiSize:32
+|UINT:2
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.i_bank_sequence_fifo.gen_normal_fifo), id:250059
+  |vpiParent:
+  \_constant: , id:250058, line:72:53, endln:72:58
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.i_bank_sequence_fifo.gen_normal_fifo
+  |vpiActual:
+  \_int_typespec: , id:250060, line:12:13, endln:12:25
+|vpiConstType:9

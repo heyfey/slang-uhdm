@@ -9482,7 +9482,46 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // `6'b000000` / bit_typespec, not UINT:0 /
                         // int_typespec).  Port params keep their existing
                         // shape — they have an elabParamConst twin.
-                        if (!bare8 && !elabParamConst.count(&nv.symbol))
+                        // § elabCaPortParamPaCopy64 (r10earl64) — THE PORT
+                        // PARAMETER HALF, which the `!elabParamConst.count`
+                        // fence above used to exclude.  Golden treats an
+                        // OVERRIDDEN PORT PARAMETER exactly like the module
+                        // localparam: the read site gets that instance's own
+                        // `param_assign` Rhs constant, encoding and decompiled
+                        // spelling and all — only the WIDTH is re-decided,
+                        // because Surelog re-runs `CompileHelper::adjustSize`
+                        // against the parameter's DECLARED typespec on the
+                        // substituted value.  Measured on golden over ALL 127
+                        // `gen_normal_fifo` copies of `prim_fifo_sync.sv:72`
+                        // `DepthW'(Depth)` in top_earlgrey: golden's fold is
+                        // BIN `4'b0010` at size 4 (64 instances, `.Depth(
+                        // HReqDepth[i*4+:4])`), HEX `4'h2` at size 32 (22,
+                        // `.Depth(DReqDepth)`), UINT at size 32 (40) and INT:2
+                        // at size 32 (1, `.Depth(SeqFifoDepth)` — the head),
+                        // i.e. exactly each instance's own `Depth`
+                        // `param_assign` Rhs run through `adjustSize` against
+                        // `parameter int unsigned Depth`; we minted one flat
+                        // `UINT` decimal at the declared width for all 127.
+                        // The adjust is applied ONLY on this new port-param
+                        // path — a localparam's `param_assign` Rhs has already
+                        // been through the same consumer at its declaration,
+                        // so re-running it there would be a no-op that this
+                        // pass declines to prove.
+                        const bool ovPort64 =
+                            elabParamConst.count(&nv.symbol) != 0;
+                        std::string av64, ad64;
+                        int32_t act64 = 0, asz64 = 0;
+                        bool ovOk64 = !ovPort64;
+                        if (ovPort64)
+                            if (auto pitA64 = elabParamPa.find(&nv.symbol);
+                                pitA64 != elabParamPa.end() && pitA64->second)
+                                if (auto* prA64 = pitA64->second->Rhs();
+                                    prA64 &&
+                                    prA64->UhdmType() == UHDM::uhdmconstant)
+                                    ovOk64 = adjustCopiedParamConst64(
+                                        ps8, (const UHDM::constant*)prA64,
+                                        av64, act64, asz64, ad64);
+                        if (!bare8 && ovOk64)
                             if (auto pit7 = elabParamPa.find(&nv.symbol);
                                 pit7 != elabParamPa.end() && pit7->second)
                                 if (auto* pr7 = pit7->second->Rhs();
@@ -9490,11 +9529,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     pr7->UhdmType() == UHDM::uhdmconstant) {
                                     auto* src7 = (UHDM::constant*)pr7;
                                     auto* c7 = s.MakeConstant();
-                                    c7->VpiDecompile(src7->VpiDecompile());
-                                    c7->VpiSize(src7->VpiSize());
+                                    c7->VpiDecompile(
+                                        ovPort64 ? ad64
+                                                 : std::string(
+                                                       src7->VpiDecompile()));
+                                    c7->VpiSize(ovPort64 ? asz64
+                                                         : src7->VpiSize());
                                     c7->VpiValue(
-                                        std::string(src7->VpiValue()));
-                                    c7->VpiConstType(src7->VpiConstType());
+                                        ovPort64
+                                            ? av64
+                                            : std::string(src7->VpiValue()));
+                                    c7->VpiConstType(ovPort64
+                                                         ? act64
+                                                         : src7->VpiConstType());
                                     c7->VpiParent(parent);
                                     setLoc(c7, expr.sourceRange);
                                     auto* rt7 = s.MakeRef_typespec();
@@ -18083,8 +18130,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             LiteralBase::Decimal, false);
                         c9->VpiDecompile(d9);
                         c9->VpiSize(64);
-                        c9->VpiValue("INT:" + d9);
-                        c9->VpiConstType(vpiIntConst);
+                        // § connIpsBareBaseUint64 (r10earl64) — THE MIRROR OF
+                        // THE WIDTH RULE FOUR LINES DOWN.  A base WRITTEN as a
+                        // BARE (unsized) decimal literal is not reduced at all
+                        // by Surelog: it keeps the unsized decimal literal's
+                        // own encoding, `vpiUIntConst` at 64 bits, exactly as
+                        // our own DEF-view copy already emits it.  Only a
+                        // COMPUTED base (a genvar/parameter expression, `i*4`)
+                        // goes through the reduce and comes back
+                        // `vpiIntConst` at 64.  Measured on golden: every
+                        // `[0 +: W]` conn base in top_earlgrey is `UINT:0`
+                        // ct 9 (flash_phy.sv:128 `.host_addr_i(host_addr_i[0
+                        // +: BankAddrW])` in `gen_flash_banks`, and
+                        // prim_secded's `.d_o(...)` under
+                        // `gen_secded_39_32`), while every `[i*4 +: W]` base
+                        // is `INT` ct 7 — four cells, all four wrong before
+                        // this line and all four right after.  Sized bases
+                        // (`32'd0`, `'h0`) never reach this arm at all and
+                        // keep their written encoding.
+                        bool bareB9 = false;
+                        if (stripImplicitConv(rs.left()).kind ==
+                            ExpressionKind::IntegerLiteral) {
+                            std::string bw9(rawText(
+                                stripImplicitConv(rs.left()).sourceRange));
+                            bareB9 = bw9.find('\'') == std::string::npos;
+                        }
+                        c9->VpiValue((bareB9 ? "UINT:" : "INT:") + d9);
+                        c9->VpiConstType(bareB9 ? vpiUIntConst : vpiIntConst);
                         auto st9 = rs.left().sourceRange.start();
                         // Span = the FIRST source token of the base expr
                         // (the `i` of i*W), regardless of digit count.

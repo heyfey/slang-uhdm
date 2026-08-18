@@ -1,0 +1,6 @@
+r10earl47repro cells 961 {'STILL-RIGHT': 919, 'STILL-WRONG': 39, 'TO-GOLDEN': 3}
+r10earl56repro cells 1151 {'STILL-RIGHT': 1121, 'TO-GOLDEN': 2, 'STILL-WRONG': 28}
+r10earl57repro cells 170 {'STILL-RIGHT': 169, 'STILL-WRONG': 1}
+r10earl64repro cells 1741 {'TO-GOLDEN': 148, 'STILL-RIGHT': 1458, 'STILL-WRONG': 109, 'MOVED-WRONG': 26}
+r10rgg9repro/cells/c_gen cells 7 {'STILL-WRONG': 4, 'MOVED-WRONG': 1, 'STILL-RIGHT': 2}
+r10vrgg9repro/cells/v_genif cells 6 {'STILL-WRONG': 3, 'STILL-RIGHT': 2, 'MOVED-WRONG': 1}

@@ -3399,6 +3399,68 @@ bool srlgEncFromConst(const UHDM::constant* c0, SrlgOvEnc& e) {
 
 }  // namespace
 
+// § elabCaPortParamPaCopy64 — the CONSUMER half of the read-site value
+// substitution.  See the declaration in UhdmExporter.h for the law; this is
+// the TYPED-INTEGRAL classification (clsParam8's typed branch, which is a
+// lambda local to emitParameters) plus srlgAdjustSize, run over a constant
+// that was already copied verbatim out of the parameter's own elaborated
+// param_assign Rhs.
+bool UhdmExporter::adjustCopiedParamConst64(const ParameterSymbol& p,
+                                            const UHDM::constant* src,
+                                            std::string& val, int32_t& ct,
+                                            int32_t& size, std::string& dec) {
+    if (!src)
+        return false;
+    // TYPED only (fence F-A1): an untyped / ranged-untyped parameter's read
+    // keeps whatever arm it is on today.
+    auto dt64 = p.getDeclaredType();
+    if (!dt64)
+        return false;
+    auto ty64 = dt64->getTypeSyntax();
+    if (!ty64 || ty64->kind == syntax::SyntaxKind::ImplicitType)
+        return false;
+    auto& ct64 = p.getType().getCanonicalType();
+    // Fence F-A2: no enum / struct / union / real / >64-bit targets — their
+    // own arms own the encoding (the same fence F3 § constCallFoldAdjustSize63
+    // carries).
+    if (!ct64.isIntegral() || ct64.isEnum())
+        return false;
+    const int32_t w64 = (int32_t)p.getType().getBitWidth();
+    if (w64 <= 0 || w64 > 64)
+        return false;
+    SrlgTsK k64 = SrlgTsK::Other;
+    if (ct64.kind == SymbolKind::PredefinedIntegerType)
+        k64 = ct64.as<PredefinedIntegerType>().integerKind ==
+                      PredefinedIntegerType::Int
+                  ? SrlgTsK::Int
+                  : SrlgTsK::Other;
+    else if (ct64.kind == SymbolKind::ScalarType)
+        k64 = ct64.as<ScalarType>().scalarKind == ScalarType::Bit
+                  ? SrlgTsK::Bit
+                  : SrlgTsK::Logic;
+    else if (ct64.kind == SymbolKind::PackedArrayType) {
+        const Type* el64 = &ct64.as<PackedArrayType>()
+                                .elementType.getCanonicalType();
+        while (el64->kind == SymbolKind::PackedArrayType)
+            el64 = &el64->as<PackedArrayType>().elementType.getCanonicalType();
+        k64 = (el64->kind == SymbolKind::ScalarType &&
+               el64->as<ScalarType>().scalarKind == ScalarType::Bit)
+                  ? SrlgTsK::Bit
+                  : SrlgTsK::Logic;
+    }
+    else
+        return false;  // struct/union/typedef vector: other arms own it
+    SrlgOvEnc e64;
+    if (!srlgEncFromConst(src, e64))
+        return false;
+    srlgAdjustSize(e64, k64, ct64.isSigned(), w64);
+    val = srlgOvValue(e64);
+    ct = e64.ct;
+    size = e64.size;
+    dec = e64.dec;
+    return true;
+}
+
 void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::string& prefix,
                                   NetMap& netMap, bool topView, DefInfo* di, bool inPackage,
                                   bool topShareTs, bool funcScope) {

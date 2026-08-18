@@ -1,0 +1,11 @@
+r10earl47repro/b1_earl47.sv cells 117 {'TO-GOLDEN': 3, 'STILL-RIGHT': 111, 'STILL-WRONG': 3}
+r10earl56repro/v4_contexts56.sv cells 77 {'STILL-RIGHT': 73, 'TO-GOLDEN': 2, 'STILL-WRONG': 2}
+r10earl57repro/a1_earl57.sv cells 12 {'STILL-RIGHT': 11, 'STILL-WRONG': 1}
+r10earl59repro/v59w2_shapes59.sv cells 169 {'STILL-WRONG': 17, 'STILL-RIGHT': 151, 'MOVED-WRONG': 1}
+r10earl59repro/v59w3_ports59.sv cells 171 {'STILL-RIGHT': 167, 'STILL-WRONG': 4}
+r10earl61repro/v1_v61.sv cells 261 {'STILL-RIGHT': 254, 'TO-GOLDEN': 1, 'STILL-WRONG': 6}
+r10earl64repro/gA2_earl64.sv cells 642 {'STILL-RIGHT': 484, 'TO-GOLDEN': 122, 'MOVED-WRONG': 20, 'STILL-WRONG': 16}
+r10earl64repro/gA_earl64.sv cells 844 {'STILL-RIGHT': 753, 'MOVED-WRONG': 6, 'STILL-WRONG': 67, 'TO-GOLDEN': 18}
+r10earl64repro/gB_earl64.sv cells 255 {'STILL-WRONG': 26, 'STILL-RIGHT': 221, 'TO-GOLDEN': 8}
+r10rgg9repro/cells/c_gen/dut.sv cells 7 {'STILL-WRONG': 4, 'MOVED-WRONG': 1, 'STILL-RIGHT': 2}
+r10vrgg9repro/cells/v_genif/dut.sv cells 6 {'MOVED-WRONG': 1, 'STILL-RIGHT': 2, 'STILL-WRONG': 3}
