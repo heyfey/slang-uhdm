@@ -2238,6 +2238,137 @@ static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub,
     return enc;
 }
 
+// ---------------------------------------------------------------------------
+// § constCallFoldAdjustSize63 — THE PRODUCER HALF.
+//
+// Surelog reduces a const-function call with UHDM's `ExprEval`, and the
+// constant that reduction hands back is encoded by the arm that produced it,
+// NOT by the parameter it is about to initialise:
+//
+//   {a,b}        vpiConcatOp        BIN at the CONCAT's own width
+//   {N{x}}       vpiMultiConcatOp   BIN at the REPLICATION's own width, and the
+//                                   producer attaches an INT_TYPESPEC, so the
+//                                   consumer's adjustSize only CLAMPS the size
+//   c ? t : f    vpiConditionOp     INT at 64 (whatever the branches are)
+//   a == b …     comparison         BIN at ONE bit
+//   a - b, a*b,
+//   a/b, a%b     sub/mult/div/mod   INT at 64 — predefined-integer return only
+//   -a           unary minus        INT at 64 — predefined-integer return only
+//   $signed(a)                      INT at ONE bit (measured: u_sgn / u_asgn /
+//                                   u_b8s all read vpiSize 1 in golden)
+//   x[h:l], x[i] part/bit select    BIN at the SELECT's width (§ selCallBin)
+//   everything else                 UINT
+//
+// and the LOGICAL operators (`&&`, `||`) are NOT in the boolean-BIN set —
+// golden reads `return v && 1` as UINT:1 size 64, where a COMPARISON body
+// reads BIN:1 size 1 (probe f5_earl63 u_aand vs u_acmp, both forms).
+//
+// The ASSIGNMENT form (`f = <expr>;`) and the RETURN form (`return <expr>;`)
+// measure BYTE-IDENTICAL in golden for every shape above (f5_earl63 pairs all
+// twelve), so both are classified here; `constCallEncoding` above only ever
+// classified the return form for ternaries and selects, which is why the
+// general arm keeps its own (narrower, separately measured) model.
+struct ConstCallProd63 {
+    int32_t ct = vpiUIntConst;  // the PRODUCER's vpiConstType
+    int32_t size = 64;          // the PRODUCER's vpiSize
+    bool intTs = false;         // producer carries an int_typespec (replication)
+};
+
+static ConstCallProd63 constCallProducer63(const SubroutineSymbol& sub) {
+    ConstCallProd63 p;
+    auto width63 = [](const Expression& e) -> int32_t {
+        return (e.type && e.type->isIntegral() && e.type->getBitWidth() > 0 &&
+                e.type->getBitWidth() <= 64)
+                   ? (int32_t)e.type->getBitWidth()
+                   : 0;
+    };
+    auto classify63 = [&](const Expression& rhs) {
+        auto& se = stripImplicitConv(rhs);
+        p = ConstCallProd63{};
+        switch (se.kind) {
+            case ExpressionKind::Concatenation:
+            case ExpressionKind::Replication: {
+                int32_t cw = width63(se);
+                if (cw <= 0)
+                    return;
+                p.ct = vpiBinaryConst;
+                p.size = cw;
+                p.intTs = se.kind == ExpressionKind::Replication;
+                return;
+            }
+            case ExpressionKind::ConditionalOp:
+                p.ct = vpiIntConst;
+                p.size = 64;
+                return;
+            case ExpressionKind::BinaryOp: {
+                auto bop = se.as<BinaryExpression>().op;
+                if (OpInfo::isComparison(bop)) {
+                    p.ct = vpiBinaryConst;
+                    p.size = 1;
+                    return;
+                }
+                if (sub.getReturnType().isPredefinedInteger() &&
+                    (bop == BinaryOperator::Subtract ||
+                     bop == BinaryOperator::Multiply ||
+                     bop == BinaryOperator::Divide ||
+                     bop == BinaryOperator::Mod)) {
+                    p.ct = vpiIntConst;
+                    p.size = 64;
+                }
+                return;
+            }
+            case ExpressionKind::UnaryOp:
+                if (se.as<UnaryExpression>().op == UnaryOperator::Minus &&
+                    sub.getReturnType().isPredefinedInteger()) {
+                    p.ct = vpiIntConst;
+                    p.size = 64;
+                }
+                return;
+            case ExpressionKind::RangeSelect:
+            case ExpressionKind::ElementSelect: {
+                const Expression* b0 =
+                    se.kind == ExpressionKind::RangeSelect
+                        ? &se.as<RangeSelectExpression>().value()
+                        : &se.as<ElementSelectExpression>().value();
+                if (!se.type || !se.type->isIntegral() || !b0->type ||
+                    !b0->type->isIntegral())
+                    return;
+                int32_t sw = width63(se);
+                if (sw <= 0)
+                    return;
+                p.ct = vpiBinaryConst;
+                p.size = sw;
+                return;
+            }
+            case ExpressionKind::Call: {
+                auto& ce = se.as<CallExpression>();
+                if (ce.isSystemCall() && ce.getSubroutineName() == "$signed") {
+                    p.ct = vpiIntConst;
+                    p.size = 1;
+                }
+                return;
+            }
+            default:
+                return;
+        }
+    };
+    sub.getBody().visit(
+        makeVisitor([&](auto& v, const AssignmentExpression& a) {
+            auto& lhs = a.left();
+            if (sub.returnValVar && lhs.kind == ExpressionKind::NamedValue &&
+                &lhs.as<NamedValueExpression>().symbol ==
+                    (const Symbol*)sub.returnValVar)
+                classify63(a.right());
+            v.visitDefault(a);
+        }));
+    sub.getBody().visit(makeVisitor([&](auto& v, const ReturnStatement& r) {
+        if (r.expr)
+            classify63(*r.expr);
+        v.visitDefault(r);
+    }));
+    return p;
+}
+
 // A bare typespec of a predefined integer type, located at the declaring
 // symbol's type keyword. Surelog's copy carries no vpiSigned (the io_decl /
 // local typespec it hands back is the unsigned-looking one) — PreprocFunc.
@@ -10749,13 +10880,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             auto iv9 = pv9.integer();
                             // Surelog's 64-bit fold model (srlgFold) beats the
                             // LRM value where a sign-extended `>>` is in play.
+                            bool srlgFolded63 = false;
                             if (hasSignExtendedShift(*csub9) ||
                                 hasStaticLocalInit(*csub9)) {
                                 SrlgFold sf9;
                                 if (auto wv9 = sf9.call(
                                         *csub9,
-                                        icc9.as<CallExpression>().arguments()))
+                                        icc9.as<CallExpression>().arguments())) {
                                     iv9 = SVInt(64, (uint64_t)*wv9, false);
+                                    srlgFolded63 = true;
+                                }
                             }
                             // § selCallBin — the RETURN-shape encoding is read
                             // up front: a select-returning body overrides the
@@ -10795,8 +10929,187 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 }
                                 rhs = c9;
                             }
-                            // An explicitly-TYPED integral localparam
-                            // (localparam int unsigned M = F(..)) folds at the
+                            // § constCallFoldAdjustSize63 — AN
+                            // EXPLICITLY-TYPED INTEGRAL PARAMETER WHOSE
+                            // INITIALIZER IS A FOLDABLE USER CONST-CALL TAKES
+                            // THE ExprEval PRODUCER's ENCODING RUN THROUGH
+                            // `CompileHelper::adjustSize` AGAINST ITS OWN
+                            // DECLARED TYPESPEC — the very same {producer,
+                            // consumer} pipeline § paramInitAdjustSizeElab52
+                            // already runs for a literal-originated
+                            // initializer.  We ran NEITHER half here: this arm
+                            // used to re-encode the parameter's own masked
+                            // value as BIN at the declared width
+                            // unconditionally.
+                            //
+                            // THE HEAD IT OWNS (earl62's R0, both Earlgrey
+                            // modes): `localparam int Aw = vbits(Depth)` in the
+                            // parameter port list of prim_ram_1p_adv.sv:32,
+                            // elaborated as work@top_earlgrey.u_ram1p_ram_main
+                            // with Depth = 16384.  `vbits` is prim_util.svh's
+                            // `function automatic integer vbits(integer value);
+                            // return (value == 1) ? 1 : $clog2(value);` — a
+                            // TERNARY body, so the producer is `INT:14` and the
+                            // `int` target's adjustSize keeps the digits and
+                            // takes the target width: golden INT:14, ct 7,
+                            // vpiSize 32, vpiDecompile "14".  We wrote
+                            // BIN:00000000000000000000000000001110, ct 3,
+                            // decompile "32'b…1110" — SAME slot, SAME size,
+                            // SAME typespec chain, a pure VALUE-ENCODING
+                            // difference (expr::Compare reaches VpiDecompile
+                            // first, then VpiSize, then Typespec, and
+                            // constant::Compare adds VpiConstType last).
+                            //
+                            // MEASURED, 4 grids over 6 homes (probe
+                            // g_{port,body,genif}_{F,S} + f2/f3/f4/f5_earl63):
+                            // the producer's encoding is decided by the
+                            // FUNCTION BODY (constCallProducer63) and the size
+                            // by the PARAMETER, never the other way round —
+                            //   int      Aw   = vbits(16384)     INT:14  sz 32
+                            //   byte     Aw   = vbits(16384)     INT:14  sz 8
+                            //   bit      Aw   = vbits(16384)     INT:14  sz 1
+                            //   longint  Aw   = vbits(16384)     INT:14  sz 64
+                            //   int      L    = loop(4)          UINT:4  sz 32
+                            //   bit      L    = loop(4)          UINT:0  sz 1
+                            //                                    (UINT MASKS)
+                            //   int      S    = sel(300)         BIN     sz 8
+                            //                                    (§ selCallBin)
+                            //   int      C    = cat_body()       INT:-85 sz 32
+                            //                                    (BIN, MSB set,
+                            //                                     signed `int`)
+                            //   int      R    = repl_body()      BIN     sz 8
+                            //                                    (int_typespec:
+                            //                                     size CLAMP)
+                            //   logic[3:0] R  = repl_body()      BIN 8 digits
+                            //                                    at vpiSize 4
+                            //   logic[3:0] C  = cat_body()       BIN TRUNCATED
+                            //                                    to 4 digits
+                            // — i.e. exactly srlgAdjustSize's four arms.
+                            //
+                            // FENCES.  (F1) TYPED ONLY: an UNTYPED localparam
+                            // keeps the general arm below, which is separately
+                            // measured (PreprocFunc's `localparam log2RATIO =
+                            // log2(RATIO)` and its formal-argument typespec
+                            // ride there); the untyped half of this same law is
+                            // measured and RANKED, not shipped.  (F2) a
+                            // RANGED-UNTYPED param never reaches here — its own
+                            // arm above owns it, and golden gives it an
+                            // int_typespec-like consumer (r4_cat keeps 8 digits
+                            // at vpiSize 4 where `logic [3:0]` truncates to 4),
+                            // which this model does not carry.  (F3) enums,
+                            // structs and > 64-bit targets are excluded: their
+                            // own arms own the encoding.
+                            // (F4) EVERY ARGUMENT MUST BE INTEGRAL.  An
+                            // UNPACKED-ARRAY actual is the one shape where
+                            // Surelog's fold is NOT the Value pipeline this law
+                            // models, and the discriminator is the ARGUMENT,
+                            // not the body: ArrayExprFuncArg's
+                            // `localparam int unsigned MAX_VADDR =
+                            // MAX_VADDR_CNT(VADDR, CNT)` reads golden
+                            // BIN:…101 vpiSize 32 when `VADDR` is itself
+                            // `ASSIGN_VADDR()` (an unreduced const-call
+                            // producing the unpacked array) and UINT:5 when the
+                            // very same source declares `VADDR` as the literal
+                            // pattern `'{3,5,4}` — a FOUR-CELL ABLATION on that
+                            // one file (probe cells abl_a..abl_d: argument
+                            // shape flips it, removing the generate-if reads
+                            // does not).  Both corpus rows of ArrayExprFuncArg
+                            // were CMP_EQUAL before this pass and the BIN arm
+                            // below is what earns them, so any call with a
+                            // non-integral actual keeps that arm.
+                            else if (typedParam && wantTs &&
+                                     !isRangedUntypedParam(ps) &&
+                                     ps.getType().getCanonicalType().isIntegral() &&
+                                     !ps.getType().getCanonicalType().isEnum() &&
+                                     ps.getType().getBitWidth() > 0 &&
+                                     ps.getType().getBitWidth() <= 64 &&
+                                     [&] {
+                                         for (auto* a63 :
+                                              icc9.as<CallExpression>()
+                                                  .arguments())
+                                             if (!a63->type ||
+                                                 !a63->type->isIntegral())
+                                                 return false;
+                                         return true;
+                                     }()) {
+                                ConstCallProd63 pr63 =
+                                    constCallProducer63(*csub9);
+                                // The PRODUCER's value is the CALL's own — the
+                                // function's return-typed result — not the
+                                // parameter's, which slang has already masked
+                                // to the declared type: `bit [7:0] X =
+                                // neg(300)` reads golden INT:-300 at vpiSize 8,
+                                // a value the 8-bit parameter cannot hold
+                                // (f3_earl63 t_b8_neg / t_b8_sub).
+                                slang::SVInt pv63 = iv9;
+                                if (!srlgFolded63) {
+                                    ASTContext cx63(comp.getRoot(),
+                                                    LookupLocation::max);
+                                    ConstantValue cvc63 = cx63.tryEval(icc9);
+                                    if (cvc63 && cvc63.isInteger() &&
+                                        !cvc63.integer().hasUnknown() &&
+                                        cvc63.integer().getBitWidth() > 0 &&
+                                        cvc63.integer().getBitWidth() <= 64)
+                                        pv63 = cvc63.integer();
+                                }
+                                SrlgOvEnc e63;
+                                e63.ct = pr63.ct;
+                                e63.size = pr63.size;
+                                if (pr63.ct == vpiBinaryConst) {
+                                    auto wv63 = pv63.resize(
+                                        (slang::bitwidth_t)pr63.size);
+                                    std::string bits63;
+                                    for (int32_t i63 = pr63.size - 1; i63 >= 0;
+                                         i63--)
+                                        bits63 += wv63[i63] == slang::logic_t(1)
+                                                      ? '1'
+                                                      : '0';
+                                    e63.dg = bits63;
+                                }
+                                else {
+                                    slang::SVInt dv63 = pv63;
+                                    dv63.setSigned(pr63.ct == vpiIntConst);
+                                    e63.dg =
+                                        dv63.toString(LiteralBase::Decimal,
+                                                      false);
+                                }
+                                SrlgTsK tk63;
+                                bool tsg63;
+                                int32_t tw63;
+                                clsParam8(ps, init, tk63, tsg63, tw63);
+                                if (tw63 <= 0)
+                                    tw63 = (int32_t)ps.getType().getBitWidth();
+                                if (pr63.intTs) {
+                                    // vpiMultiConcatOp's int_typespec arm:
+                                    // `c->VpiSize(min(orig, target))`, digits
+                                    // untouched, no sign extension.
+                                    e63.size = std::min(e63.size, tw63);
+                                }
+                                else {
+                                    srlgAdjustSize(e63, tk63, tsg63, tw63);
+                                }
+                                srlgOvRender(e63);
+                                auto* c8 = s.MakeConstant();
+                                c8->VpiDecompile(e63.dec);
+                                c8->VpiSize(e63.size);
+                                c8->VpiValue(srlgOvValue(e63));
+                                c8->VpiConstType(e63.ct);
+                                c8->VpiParent(pa);
+                                setLoc(c8, icc9.sourceRange);
+                                auto* rt8 = s.MakeRef_typespec();
+                                std::string tsPfx8 = prefix;
+                                if (tsPfx8.size() >= 2 &&
+                                    tsPfx8.compare(tsPfx8.size() - 2, 2, "::") == 0)
+                                    tsPfx8.resize(tsPfx8.size() - 2);
+                                rt8->VpiFullName(tsPfx8);
+                                rt8->VpiParent(c8);
+                                c8->Typespec(rt8);
+                                rhsRt = rt8;
+                                rhs = c8;
+                            }
+                            // An explicitly-TYPED integral localparam whose
+                            // const-call takes an UNPACKED-ARRAY argument
+                            // (§ constCallFoldAdjustSize63 F4) folds at the
                             // PARAM's width, BIN-encoded (evalFunc hands back
                             // the masked bit vector) and carrying the param's
                             // own typespec ref — ArrayExprFuncArg MAX_VADDR.

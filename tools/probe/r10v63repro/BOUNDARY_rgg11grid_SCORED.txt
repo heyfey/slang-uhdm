@@ -1,0 +1,25 @@
+pt11/mod__bit1__call__portplain/top.sv cells=6 TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=1 STILL-RIGHT=5 STILL-WRONG=0
+  MOVED-WRONG ELAB work@top L10:18 IV
+      G=('func_call', 'name=f8')
+      P=('constant', 'ct=9', 'sz=8', 'dec=1')
+      Q=('constant', 'ct=9', 'sz=1', 'dec=1')
+pt11/mod__bit32__call__portplain/top.sv cells=6 TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=1 STILL-RIGHT=5 STILL-WRONG=0
+  MOVED-WRONG ELAB work@top L10:25 IV
+      G=('func_call', 'name=f8')
+      P=('constant', 'ct=9', 'sz=8', 'dec=171')
+      Q=('constant', 'ct=9', 'sz=32', 'dec=171')
+pt11/mod__byte__call__portplain/top.sv cells=6 TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=1 STILL-RIGHT=5 STILL-WRONG=0
+  MOVED-WRONG ELAB work@top L10:19 IV
+      G=('func_call', 'name=f8')
+      P=('constant', 'ct=3', 'sz=8', "dec=8'b10101011")
+      Q=('constant', 'ct=9', 'sz=8', 'dec=171')
+pt11/mod__int__call__portplain/top.sv cells=6 TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=1 STILL-RIGHT=5 STILL-WRONG=0
+  MOVED-WRONG ELAB work@top L10:18 IV
+      G=('func_call', 'name=f8')
+      P=('constant', 'ct=3', 'sz=32', "dec=32'b00000000000000000000000010101011")
+      Q=('constant', 'ct=9', 'sz=32', 'dec=171')
+pt11/mod__sbit8__call__portplain/top.sv cells=6 TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=1 STILL-RIGHT=5 STILL-WRONG=0
+  MOVED-WRONG ELAB work@top L10:31 IV
+      G=('func_call', 'name=f8')
+      P=('constant', 'ct=9', 'sz=8', 'dec=-85')
+      Q=('constant', 'ct=9', 'sz=8', 'dec=171')

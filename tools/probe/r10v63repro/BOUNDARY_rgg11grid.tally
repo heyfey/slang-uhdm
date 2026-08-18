@@ -1,0 +1,10 @@
+PROCESSED=516 identical=1022 DIFFERING=10 no_output=0
+
+r10v63 NOTE — the 5 differing cells (x2 views) are all `mod__<type>__call__portplain`,
+i.e. the MODULE-home typed localparam whose initializer IS a const-call: the law's
+own family and its own axis of this grid.  Every genif / genfor / pkg home and every
+non-`call` initializer (including the PORTTABLE_V2 bit8/untyped genif cells) is
+BYTE-IDENTICAL.  Scored against golden: 30 cells, TO-GOLDEN 0, AWAY-GOLDEN 0,
+field regressions kind/dec/sz/ct = 0/0/0/0.  At the PORT ACTUAL itself golden emits
+an UNFOLDED func_call while BOTH binaries fold to a constant — wrong before and
+after, at the `kind` field, so no regression and no improvement (rgg11's own residue).

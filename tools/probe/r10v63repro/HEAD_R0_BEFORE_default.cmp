@@ -1,0 +1,64 @@
+LHS:
+decompile:
+constant: , id:303406, line:32:41, endln:32:53
+|vpiParent:
+\_param_assign: , id:303405, line:32:18, endln:32:53
+|vpiDecompile:14
+|vpiSize:32
+|INT:14
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_ram1p_ram_main), id:303407
+  |vpiParent:
+  \_constant: , id:303406, line:32:41, endln:32:53
+  |vpiFullName:work@top_earlgrey.u_ram1p_ram_main
+  |vpiActual:
+  \_int_typespec: , id:148742, line:32:14, endln:32:17
+|vpiConstType:7
+
+decompile:
+constant: , id:303406, line:32:41, endln:32:53
+|vpiParent:
+\_param_assign: , id:303405, line:32:18, endln:32:53
+|vpiDecompile:14
+|vpiSize:32
+|INT:14
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_ram1p_ram_main), id:303407
+  |vpiParent:
+  \_constant: , id:303406, line:32:41, endln:32:53
+  |vpiFullName:work@top_earlgrey.u_ram1p_ram_main
+  |vpiActual:
+  \_int_typespec: , id:148742, line:32:14, endln:32:17
+|vpiConstType:7
+RHS:
+decompile:
+constant: , id:246741, line:32:41, endln:32:53
+|vpiParent:
+\_param_assign: , id:246740, line:32:18, endln:32:53
+|vpiDecompile:32'b00000000000000000000000000001110
+|vpiSize:32
+|BIN:00000000000000000000000000001110
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_ram1p_ram_main), id:246742
+  |vpiParent:
+  \_constant: , id:246741, line:32:41, endln:32:53
+  |vpiFullName:work@top_earlgrey.u_ram1p_ram_main
+  |vpiActual:
+  \_int_typespec: , id:51874, line:32:14, endln:32:17
+|vpiConstType:3
+
+decompile:
+constant: , id:246741, line:32:41, endln:32:53
+|vpiParent:
+\_param_assign: , id:246740, line:32:18, endln:32:53
+|vpiDecompile:32'b00000000000000000000000000001110
+|vpiSize:32
+|BIN:00000000000000000000000000001110
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_ram1p_ram_main), id:246742
+  |vpiParent:
+  \_constant: , id:246741, line:32:41, endln:32:53
+  |vpiFullName:work@top_earlgrey.u_ram1p_ram_main
+  |vpiActual:
+  \_int_typespec: , id:51874, line:32:14, endln:32:17
+|vpiConstType:3

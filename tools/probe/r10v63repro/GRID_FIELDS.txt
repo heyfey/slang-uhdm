@@ -1,0 +1,16 @@
+v1_types_def FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=0  | fixes kind=0 dec=39 sz=36 ct=30
+v1_types_elab FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=0  | fixes kind=0 dec=39 sz=36 ct=30
+v2_bodies_def FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=1  | fixes kind=0 dec=157 sz=50 ct=142
+v2_bodies_elab FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=1  | fixes kind=0 dec=157 sz=50 ct=142
+v3_homes_def FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=0  | fixes kind=0 dec=14 sz=7 ct=14
+v3_homes_elab FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=0  | fixes kind=0 dec=14 sz=7 ct=14
+v4_values_def FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=2  | fixes kind=0 dec=19 sz=4 ct=22
+v4_values_elab FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=2  | fixes kind=0 dec=19 sz=4 ct=22
+v5_argfence_def FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=0  | fixes kind=0 dec=6 sz=0 ct=8
+v5_argfence_elab FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=0  | fixes kind=0 dec=6 sz=0 ct=8
+v6_class_def FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=0  | fixes kind=0 dec=2 sz=0 ct=2
+v6_class_elab FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=0  | fixes kind=0 dec=2 sz=0 ct=2
+v7_over_def FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=0  | fixes kind=0 dec=12 sz=7 ct=12
+v7_over_elab FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=0  | fixes kind=0 dec=12 sz=7 ct=12
+v8_hard_def FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=0  | fixes kind=0 dec=22 sz=6 ct=22
+v8_hard_elab FIELD-REGRESSIONS kind=0 dec=0 sz=0 ct=0  | fixes kind=0 dec=22 sz=6 ct=22

@@ -1,0 +1,122 @@
+r10earl63 — THE NEXT HEAD (R0), BOTH Earlgrey_0_1 modes, measured on the PATCHED
+database (md5 63fb95ea530aa509f87781a7aa62736c) against the immutable golden
+caches 00d4794526e44dc553f3 (default) and d7348d2d2fe67abe767b (testflags).
+Pristine binary md5 453ceefaa6b1d6b1eb8d3ad81d4e0012, BASE 18340d0.
+
+earl62's R0 — the param_assign Rhs constant of `localparam int Aw =
+vbits(Depth)` in the parameter port list of prim_ram_1p_adv.sv:32, elaborated as
+work@top_earlgrey.u_ram1p_ram_main (Depth = 16384) — is CLEARED in BOTH modes:
+golden INT:14 / ct 7 / "14" / size 32 is now what we write, byte for byte.
+The two modes have SPLIT again onto two different objects.
+
+  cmp depth  default   64 -> 64 lines (a DIFFERENT head; the logs differ)
+             testflags 64 -> 28 lines
+  heads      1 per run, both modes, before and after.
+
+=======================================================================
+R0-default — Earlgrey_0_1 / default, 64 cmp lines, 1 head
+=======================================================================
+
+  prim_fifo_sync.sv:72 (lowrisc_prim_all_0.1/rtl), inside gen_scope_array
+  `gen_normal_fifo`, cont_assign at 72:12:
+
+      assign depth = (full)                 ? DepthW'(Depth) :
+                     (wptr_msb == rptr_msb) ? DepthW'(wptr_value) - … ;
+
+  the constant at 72:53-72:58 is the folded `Depth` operand of the SIZE CAST
+  `DepthW'(Depth)` (operation 72:45 inside operation 72:20 inside the
+  cont_assign), owner instance
+  work@top_earlgrey.u_flash_eflash.i_bank_sequence_fifo.gen_normal_fifo:
+
+      LHS(golden): constant  id:989528  72:53-72:58
+                     vpiDecompile "2"  vpiSize 32  INT:2   vpiConstType 7
+                     vpiTypespec -> ref_typespec -> int_typespec 12:13-12:25
+      RHS(ours)  : constant  id:250058  72:53-72:58
+                     vpiDecompile "2"  vpiSize 32  UINT:2  vpiConstType 9
+                     (same typespec shape)
+
+  SAME slot, SAME decompile, SAME size, SAME typespec chain — `expr::Compare`
+  passes VpiDecompile, VpiSize and Typespec and `constant::Compare` fails on
+  VpiConstType alone.  This is the SAME value-encoding family this pass
+  decoded, one carrier further out: an INT-vs-UINT fold, now on a CONT_ASSIGN
+  size-cast operand rather than a param_assign Rhs.
+
+  THE DISCRIMINATOR IS THE INSTANCE, NOT THE SPAN: `cfind63 <golden> 72 53`
+  finds golden constants at that very span with UINT:2 (id 127916, another
+  prim_fifo_sync instance) AND with INT:2 (id 989528, this one).  Decode WHICH
+  instance parameterisation makes Surelog's reduce sign the fold before writing
+  any code — the census must be keyed on the instance, not on the line.
+
+> R0-default: the elaborated cont_assign fold of `DepthW'(Depth)` inside
+> prim_fifo_sync's gen_normal_fifo is INT in golden and UINT in ours, in SOME
+> instances only.  `srlgArithFoldSigned` / `§ foldSigned9` is the sibling model;
+> the size cast is the new element.
+
+=======================================================================
+R0-testflags — Earlgrey_0_1 / testflags, 28 cmp lines, 1 head
+=======================================================================
+
+  flash_phy.sv:128 (lowrisc_ip_flash_ctrl_0.1/rtl), port connection of
+  `flash_phy_core i_core` inside gen_for/named_begin `gen_flash_banks`:
+
+      .host_addr_i(host_addr_i[0 +: BankAddrW]),
+
+  the constant at 128:32-128:33 is the BASE expression `0` of the
+  indexed_part_select:
+
+      LHS(golden): constant  id:308999  128:32-128:33  (no vpiParent printed)
+                     vpiDecompile "0"  vpiSize 64  UINT:0  vpiConstType 9
+      RHS(ours)  : constant  id:255901  128:32-128:33
+                     vpiDecompile "0"  vpiSize 64  INT:0   vpiConstType 7
+
+  Again decompile and size agree and only vpiConstType fails — but in the
+  OPPOSITE direction from R0-default (golden UINT, ours INT).
+
+  ALREADY MEASURED HERE (`cfind63 <ours> 128 32`): our DEF-listing copy of that
+  same base constant is UINT:0 ct 9 — i.e. RIGHT — and only the two ELABORATED
+  copies (ids 44174, 44952, under the gen_for) are INT:0.  Golden's DEF copy
+  (id 15635) is UINT:0 too and its ELAB copies (48049, 48877) stay UINT:0.  So
+  the defect is an ELAB-ONLY re-encoding of an indexed-part-select BASE inside a
+  port High_conn, and the DEF path already models it correctly — start from the
+  arm that re-emits the elaborated high_conn (earl57 R-A / § connOperandOwnScopeBind61
+  own the neighbouring laws) and read the DEF arm's encoding, which is golden's.
+
+> R0-testflags: our ELABORATED copy of a `[0 +: W]` base constant in a port
+> high_conn is vpiIntConst where golden (and our own DEF copy) is vpiUIntConst.
+
+=======================================================================
+RANKED AFTER R0 (all measured in this pass; README §5)
+=======================================================================
+R1  the UNTYPED half of § constCallFoldAdjustSize63.  The producer model this
+    pass decoded is correct for untyped localparams too and the general arm does
+    not run it: measured misses are `localparam U = f()` where f's body is a
+    CONCAT (golden BIN at the concat width, ours UINT at 64), a REPLICATION
+    (same), a COMPARISON (golden BIN:1 size 1, ours UINT:1 size 64), a UNARY
+    MINUS or `-`/`*`/`/` return (golden INT, ours UINT), `$signed` (golden INT
+    size 1) and a `bit`-vector return with a $clog2 body (golden size 64, ours
+    the return width).  33 cells over f2/f3/f4/f5_earl63.  NOT shipped because
+    the general arm also carries PreprocFunc's formal-argument typespec rule and
+    the RepeatStmt `function [31:0] pow2` negative control, which want their own
+    verification pass.
+R2  the GEN-SCOPE homes.  A localparam declared inside a generate block never
+    reaches this arm at all (g_genif_F: 54 cells still wrong, all of them the
+    same encodings this law fixes in the module body and the parameter port
+    list).  Its own arm computes a decimal UINT/INT and is already right for
+    `+`-shaped and loop-shaped bodies; it misses the ternary (INT) and the
+    select (BIN at the select width).
+R3  the RANGED-UNTYPED home (`localparam [31:0] X = f(..)`) — fence F2.  Golden
+    obeys the same producer model but its CONSUMER is not `logic`: r4_cat keeps
+    8 BIN digits at vpiSize 4 where `logic [3:0]` truncates to 4 digits, i.e.
+    Surelog gives it the int_typespec arm.  3 cells in g_port_F.
+R4  the VALUE, not the encoding: 65 cells over the wide boundary's 33 movers are
+    MOVED-WRONG because golden's fold VALUE differs from slang's (Surelog's
+    64-bit ExprEval model, `SrlgFold`'s domain).  They were wrong before this
+    pass too; the pass makes their SHAPE right (UINT + decimal decompile) and
+    leaves the digits wrong.
+R5  `localparam int X = f()` where f's body is `return 8'hab;`: golden does not
+    fold the call at all (the ELAB param_assign Rhs stays a func_call); we fold.
+    One cell (f2_earl63 i_i_hex).
+R6  carried from earl62/earl61 and unchanged here: earl62's R1 (gen-scope
+    cont_assign reading a module-local enum constant), R2 (`en_t` ELAB typedef
+    copy), R3 (unpacked array of a module-local struct typedef), and earl61's
+    R1-R7.
