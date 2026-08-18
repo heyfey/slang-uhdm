@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 16:35, HEAD = the rgg17 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 17:25, HEAD = the uvm99 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -180,7 +180,8 @@ row-modes over 7 tests:
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | 50 / 108 (depth) | an inside-set RANGE member in the with-clause of an array locator method: uvm_domain.svh:199 `item.get_state() inside {[UVM_PHASE_STARTED:UVM_PHASE_CLEANUP]}` — golden's outer operation holds the bounds as bare ref_obj operands where we wrap them in an operation vpiOpType 37 (vpiListOp); pass uvm99 in flight (uvm98 landed: ~99k→50/108, bare-typedef-name FIRST-WRITER-WINS design-wide + the verifier's module/interface typedef suppressor) |
+| SeqDriver×2, MiniAmiq×2 (uvm-1.2 tree) | 13 (depth) | a macro-expanded parenthesised statement delay `backtick-uvm_delay(stop_timeout)` → `#(stop_timeout)` in a class task (uvm_objection.svh:1260): golden delay_control spans the whole `#(…)` and carries a NAMELESS Delay ref_obj; ours shrinks to the argument span and emits no Delay (RHS <null>); pass uvm100 in flight (uvm99 landed: 50→13, a ranged inside set keeps only the LHS + the first member's first bound — Surelog's open_range_list parse) |
+| SimpleUVM×2, Scoreboard/default (uvm-1.2 tree) | 108 (depth) | before_export's vpiPrefix method_func_call in uvm_algorithmic_comparator::write (uvm99's R2; head_pat_default_SimpleUVM.cmp) — next UVM head after uvm100 |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 32 (depth) | an OMITTED middle argument filling a defaulted formal (`stream.open_recorder(a,,c)`, uvm_pkg.sv:30186 → `time open_time = 0` :24157): golden re-encodes the default at the call site as an UNPARENTED constant vpiConstType 7 (INT:0) where we clone the declaration's literal (ct 9); constant::Compare reads VpiConstType only; pass buvm24 in flight (buvm23 landed: 166→32, a '.' inside a bracket pair is not a path separator — receiver hier_path elements from the AST, index text = decompileHelper of the index object, EMPTY for calls/hier_paths) |
 | Earlgrey_0_1/default | 216 (depth) | a hier_path operand of an ELAB gen-scope cont_assign (flash_phy_rd.sv:122:43 `read_buf[i].addr[FlashWordsW+:PageW]`): golden's vpiName folds the PARAMETER bounds `read_buf[i].addr[7+:8]` while the genvar index stays spelled — plus earl68's R1: a genvar hier_path ELEMENT INDEX becomes a LOCATED UINT sz 64 no-typespec constant (261 cells, testflags only); pass earl69 in flight (earl68 landed: 32→216 depth, whole-Rhs bare-genvar fold loc-less UINT sz 64 + adjustSize typespec-PRESENCE size rule) |
 | Earlgrey_0_1/testflags | 216 (depth) | SAME head, identical cmp log (earl68) |
@@ -189,7 +190,7 @@ row-modes over 7 tests:
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 60 verifier fix-before-landing re-cuts (119 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 60 verifier fix-before-landing re-cuts (120 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

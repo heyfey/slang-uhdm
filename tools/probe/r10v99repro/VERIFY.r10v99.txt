@@ -1,0 +1,241 @@
+r10v99 VERIFY TRANSCRIPT — adversarial verification of r10uvm99, BASE 40a0097
+pristine md5 213ee8e1cada6a1013f277e4f7f7c8d2   patched md5 73e9b33d1cd399d1ef0cc60d2292cc00 (both rebuilt by the verifier, frozen chmod 555)
+
+== (0) patch hygiene
+  md5 6e9bcd6f59e2705bebef9f8844f47f34, applies clean on a FRESH 40a0097 worktree, 0 conflict markers
+  surface: src/ExprEmit.cpp + tools/probe/r10uvm99repro/ only (34 files); fence check 0/0/0/0
+
+== (1) goldens
+  pristine PASS=23 FAIL=0 ; patched PASS=23 FAIL=0 ; /bin/false PASS=0 FAIL=23
+
+== (2) cmds.txt audited BY BINARY PATH
+  sl_pris  1573 cmds.txt files, 1523 slang: lines, ALL /tmp/v99_pris.bin
+  sl_pat   1573 cmds.txt files, 1523 slang: lines, ALL /tmp/v99_pat.bin
+  u2r_pris 1462 cmds.txt files, 1458 slang: lines, ALL /tmp/v99_pris.bin
+  u2r_pat  1462 cmds.txt files, 1458 slang: lines, ALL /tmp/v99_pat.bin
+  (no main-tree binary reached any sweep)
+
+== (3) status histograms
+  -- surelog pristine
+    [default] {'CMP_EQUAL': 470, 'SLANG_REJECT': 283, 'SURELOG_FAIL': 25, 'CMP_NOTEQUAL': 11, 'DEFERRED': 5}
+    [testflags] {'CMP_EQUAL': 466, 'SLANG_REJECT': 284, 'SURELOG_FAIL': 23, 'CMP_NOTEQUAL': 9, 'DEFERRED': 5, 'NO_DATABASE': 3, 'UNTRANSLATABLE': 2, 'TIMEOUT': 1, 'NO_UHDM': 1}
+  -- surelog patched
+    [default] {'CMP_EQUAL': 470, 'SLANG_REJECT': 283, 'SURELOG_FAIL': 25, 'CMP_NOTEQUAL': 11, 'DEFERRED': 5}
+    [testflags] {'CMP_EQUAL': 466, 'SLANG_REJECT': 284, 'SURELOG_FAIL': 23, 'CMP_NOTEQUAL': 9, 'DEFERRED': 5, 'NO_DATABASE': 3, 'UNTRANSLATABLE': 2, 'TIMEOUT': 1, 'NO_UHDM': 1}
+  -- u2r testflags pristine {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  -- u2r testflags patched {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  -- u2r default pristine {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  -- u2r default patched {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  CSV byte-comparison pristine vs patched: sl IDENTICAL, u2r_tf IDENTICAL, u2r_def IDENTICAL
+
+== (4) ct8rows — NO ROW CONVERTED
+  u2r tf  vs committed baseline : PASS
+  u2r tf  vs verifier pristine  : PASS
+  u2r def vs verifier pristine  : PASS
+  surelog vs committed baseline : PASS   (1588 rows)
+  surelog vs verifier pristine  : PASS
+  surelog PRISTINE vs committed : PASS   (baseline-first control)
+
+== (5) byteverify SELFCHECK=1
+  u2r     : PATH_SETS_IDENTICAL (1358) MOVERS 0/1358, selfcheck 1357/1358
+  surelog : PATH_SETS_IDENTICAL (956)  MOVERS 9/956,  selfcheck 955/956
+  the nine, by name: {default,testflags}/{BuildUVMPkg,MiniAmiq,SeqDriver,SimpleUVM} + default/Scoreboard
+  all nine were ALREADY CMP_NOTEQUAL rows in the committed baseline (no CMP_EQUAL row moved)
+  per-mover whole-dump path-normalised id-stripped diff:
+    default_BuildUVMPkg-bf853d43_slang.uhdm ordered=17 order_blind=17
+    default_MiniAmiq-544c7f61_slang.uhdm ordered=17 order_blind=17
+    default_Scoreboard-59431470_slang.uhdm ordered=17 order_blind=17
+    default_SeqDriver-32af76aa_slang.uhdm ordered=17 order_blind=17
+    default_SimpleUVM-1dc93a62_slang.uhdm ordered=17 order_blind=17
+    testflags_BuildUVMPkg-bf853d43_slang.uhdm ordered=17 order_blind=17
+    testflags_MiniAmiq-544c7f61_slang.uhdm ordered=17 order_blind=17
+    testflags_SeqDriver-32af76aa_slang.uhdm ordered=17 order_blind=17
+    testflags_SimpleUVM-1dc93a62_slang.uhdm ordered=17 order_blind=17
+  the 17 lines (SeqDriver/default, representative):
+    468426,468428d468425
+    <                     \_operation: , line:199:63, endln:199:100
+    <                     \_operation: , line:199:63, endln:199:100
+    <                 \_operation: , line:199:63, endln:199:100
+    559129,559130c559126
+    <                   \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), line:199:82, endln:199:99
+    <                   \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), line:199:64, endln:199:81
+    ---
+    >                 \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), line:199:64, endln:199:81
+    1041077,1041078c1041073
+    <                     |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP
+    <                     |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    ---
+    >                   |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    1298512d1298506
+    <                     |vpiName:UVM_PHASE_CLEANUP
+    1298897c1298891
+    <                     |vpiName:UVM_PHASE_STARTED
+    ---
+    >                   |vpiName:UVM_PHASE_STARTED
+    1331540,1331541d1331533
+    <                   |vpiOperand:
+    <                   |vpiOperand:
+    1367053d1367044
+    <                   |vpiOpType:37
+    1429461,1429462d1429451
+    <                     |vpiParent:
+    <                     |vpiParent:
+
+== (6) canaries / ctcan2 / canaudit / pins
+  surelog canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  u2r     canary rows: ok=8  changed=0 absent=0 unknown-names=25
+  ctcan2 surelog: PASS   ctcan2 u2r: PASS
+  canaudit: audited=33 UNCOVERED=0 FENCE-BREACH=0  PASS
+  pins: SAME=10 MOVED=0 UNKNOWN-NAME=0
+    InterfaceModPort  default/testflags 59a365f3ce2c  SAME
+    BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+    YosysOldOr        default/testflags d68e0796d62c  SAME
+    SVSwitch          default/testflags 4842211c4030  SAME
+    YosysVerx         default/testflags 6ccda350c24a  SAME
+
+== (7) heads (rowheads.sh, verifier sweeps, DEPTH not distance)
+  TEST           MODE       PRISTINE  PATCHED
+  SeqDriver      default          50       13
+  SeqDriver      testflags        50       13
+  SimpleUVM      default         108      108   (head byte-identical)
+  SimpleUVM      testflags       108      108
+  Scoreboard     default         108      108
+  MiniAmiq       default          50       13
+  MiniAmiq       testflags        50       13
+  BuildUVMPkg    default/tf      166      166
+  Earlgrey_0_1   default/tf      216      216
+  Rggen          default         194      194
+  (Scoreboard/testflags + Rggen/testflags SKIP-NOFILE, expected)
+  committed head artifacts: head_pat_default_SeqDriver.cmp, head_pris_default_SeqDriver.cmp,
+  head_pat_default_SimpleUVM.cmp — all three BYTE-IDENTICAL to the verifier's re-measured heads.
+
+== (8) determinism
+  patched binary x3 on SeqDriver -> byte-identical (e6884c8c2bf2a06c7a74a04ab87a8a73 x3 in the verifier workdir)
+  pristine binary x3 on the r10uvm75repro DIRECTORY arm -> 12 lines flip run-to-run (the documented coin)
+
+== (9) census (vcen99.py, SPAN-FREE payload, uhdm-dump tree)
+  calibration golden-vs-golden SeqDriver default vs testflags: 51 rows each, 0 differing lines
+  default/SeqDriver-32af76aa         [MULTISET] cells   49  ALREADY-OK   46  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+  default/SeqDriver-32af76aa         [SET     ] cells   49  ALREADY-OK   46  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+  default/SimpleUVM-1dc93a62         [MULTISET] cells   47  ALREADY-OK   45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+  default/SimpleUVM-1dc93a62         [SET     ] cells   47  ALREADY-OK   45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+  default/MiniAmiq-544c7f61          [MULTISET] cells   56  ALREADY-OK   53  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+  default/MiniAmiq-544c7f61          [SET     ] cells   56  ALREADY-OK   53  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+  default/Scoreboard-59431470        [MULTISET] cells   47  ALREADY-OK   45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+  default/Scoreboard-59431470        [SET     ] cells   47  ALREADY-OK   45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+  default/BuildUVMPkg-bf853d43       [MULTISET] cells   13  ALREADY-OK   11  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+  default/BuildUVMPkg-bf853d43       [SET     ] cells   13  ALREADY-OK   11  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+  testflags/SeqDriver-32af76aa       [MULTISET] cells   49  ALREADY-OK   46  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+  testflags/SeqDriver-32af76aa       [SET     ] cells   49  ALREADY-OK   46  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+  testflags/SimpleUVM-1dc93a62       [MULTISET] cells   47  ALREADY-OK   45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+  testflags/SimpleUVM-1dc93a62       [SET     ] cells   47  ALREADY-OK   45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+  testflags/MiniAmiq-544c7f61        [MULTISET] cells   56  ALREADY-OK   53  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+  testflags/MiniAmiq-544c7f61        [SET     ] cells   56  ALREADY-OK   53  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+  testflags/BuildUVMPkg-bf853d43     [MULTISET] cells   13  ALREADY-OK   11  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+  testflags/BuildUVMPkg-bf853d43     [SET     ] cells   13  ALREADY-OK   11  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+
+== (10) the adversarial grid (7 verifier arms x 2 views x 2 scorings) — BROKE 0 in all 28 runs
+  v99_b1_shapes_def STILL-unchanged(P==Q)=4  STILL-MOVED=0  BROKE=0
+  v99_b1_shapes_elab STILL-unchanged(P==Q)=4  STILL-MOVED=0  BROKE=0
+  v99_b2_homes_def STILL-unchanged(P==Q)=2  STILL-MOVED=3  BROKE=0
+  v99_b2_homes_elab STILL-unchanged(P==Q)=22  STILL-MOVED=18  BROKE=0
+  v99_b3_fence_def STILL-unchanged(P==Q)=1  STILL-MOVED=0  BROKE=0
+  v99_b3_fence_elab STILL-unchanged(P==Q)=2  STILL-MOVED=0  BROKE=0
+  v99_b4_deep_def STILL-unchanged(P==Q)=0  STILL-MOVED=0  BROKE=0
+  v99_b4_deep_elab STILL-unchanged(P==Q)=37  STILL-MOVED=11  BROKE=0
+  v99_b5_conv_def STILL-unchanged(P==Q)=6  STILL-MOVED=0  BROKE=0
+  v99_b5_conv_elab STILL-unchanged(P==Q)=6  STILL-MOVED=0  BROKE=0
+  v99_b6_paren_def STILL-unchanged(P==Q)=10  STILL-MOVED=0  BROKE=0
+  v99_b6_paren_elab STILL-unchanged(P==Q)=10  STILL-MOVED=0  BROKE=0
+  v99_b7_order_def STILL-unchanged(P==Q)=0  STILL-MOVED=0  BROKE=0
+  v99_b7_order_elab STILL-unchanged(P==Q)=0  STILL-MOVED=6  BROKE=0
+  (STILL-unchanged = P==Q; STILL-MOVED = both differ from golden but patched moved TOWARD it;
+   every STILL-MOVED cell was inspected — none moved away from golden)
+  uhdm-cmp verdicts per arm/view (pristine -> patched):
+    v99_b1_shapes_def  CMP_FAIL/58L -> CMP_FAIL/144L
+    v99_b1_shapes_elab  CMP_FAIL/58L -> CMP_FAIL/144L
+    v99_b2_homes_def  CMP_FAIL/1608L -> CMP_FAIL/1498L
+    v99_b2_homes_elab  CMP_FAIL/1792L -> CMP_FAIL/1682L
+    v99_b3_fence_def  CMP_FAIL/17L -> CMP_FAIL/17L
+    v99_b3_fence_elab  CMP_FAIL/17L -> CMP_FAIL/17L
+    v99_b4_deep_def  CMP_FAIL/104L -> PASS_CMP
+    v99_b4_deep_elab  CMP_FAIL/104L -> PASS_CMP
+    v99_b5_conv_def  CMP_FAIL/1449L -> CMP_FAIL/1449L
+    v99_b5_conv_elab  CMP_FAIL/1449L -> CMP_FAIL/1449L
+    v99_b6_paren_def  CMP_FAIL/156L -> CMP_FAIL/156L
+    v99_b6_paren_elab  CMP_FAIL/156L -> CMP_FAIL/156L
+    v99_b7_order_def  CMP_FAIL/36L -> CMP_FAIL/36L
+    v99_b7_order_elab  CMP_FAIL/36L -> CMP_FAIL/36L
+
+== (11) wide boundary (vbound.sh, COPY of tools/probe, no path filter, .sv+.v, fd-3, </dev/null, both views)
+  MOVED FILE F2364_r10uvm92repro_v92_b1_break.sv/def 50 lines
+  MOVED FILE F2364_r10uvm92repro_v92_b1_break.sv/elab 70 lines
+  MOVED FILE F2411_r10uvm99repro_g99_a10_other.sv/def 46 lines
+  MOVED FILE F2411_r10uvm99repro_g99_a10_other.sv/elab 64 lines
+  MOVED FILE F2412_r10uvm99repro_g99_a1_ifcond.sv/def 92 lines
+  MOVED FILE F2412_r10uvm99repro_g99_a1_ifcond.sv/elab 144 lines
+  MOVED FILE F2413_r10uvm99repro_g99_a2_proc.sv/def 182 lines
+  MOVED FILE F2413_r10uvm99repro_g99_a2_proc.sv/elab 254 lines
+  MOVED FILE F2416_r10uvm99repro_g99_a5_with.sv/def 249 lines
+  MOVED FILE F2416_r10uvm99repro_g99_a5_with.sv/elab 349 lines
+  MOVED FILE F2417_r10uvm99repro_g99_a6_assert.sv/def 46 lines
+  MOVED FILE F2417_r10uvm99repro_g99_a6_assert.sv/elab 64 lines
+  MOVED FILE F2418_r10uvm99repro_g99_a7_shapes.sv/def 109 lines
+  MOVED FILE F2418_r10uvm99repro_g99_a7_shapes.sv/elab 145 lines
+  MOVED FILE F2419_r10uvm99repro_g99_a8_class.sv/def 69 lines
+  MOVED FILE F2419_r10uvm99repro_g99_a8_class.sv/elab 105 lines
+  FILE_ARMS: LISTED=3182 FENCED_SKIPPED=0 PROCESSED=3182 MOVED=16 NO_OUTPUT_PAIRS=270 RC_PAIRS=6364 RC_DIFF=0 ASYM=0
+  FILE-PROCESSED-ASSERT-OK
+  MOVED DIR D0889_r10uvm75repro/def 16 lines
+  MOVED DIR D0889_r10uvm75repro/elab 14 lines
+  MOVED DIR D0890_r10uvm76repro/def 20 lines
+  MOVED DIR D0890_r10uvm76repro/elab 18 lines
+  MOVED DIR D0909_r10uvm92repro/def 50 lines
+  MOVED DIR D0916_r10uvm99repro/def 793 lines
+  MOVED DIR D0916_r10uvm99repro/elab 1125 lines
+  DIR_ARMS: LISTED=1438 PROCESSED=1438 MOVED=7 NO_OUTPUT_PAIRS=239 RC_PAIRS=2876 RC_DIFF=0 ASYM=0
+  DONE
+  EXIT=0
+  the two extra DIRECTORY movers are the documented nondeterminism, not this patch:
+    D0889_r10uvm75repro/def  ordered=16 order_blind=0
+    D0889_r10uvm75repro/elab ordered=14 order_blind=0
+    D0890_r10uvm76repro/def  ordered=20 order_blind=0
+    D0890_r10uvm76repro/elab ordered=18 order_blind=0
+    control: PRISTINE binary alone, 3 runs on D0889 -> 12 lines flip every pairing
+    D0909_r10uvm92repro/def  ordered=50 order_blind=50  == the v92_b1_break.sv contribution
+  v92_b1_break.sv three-way vs golden, both views: CMP_FAIL->CMP_FAIL, head 18 lines BYTE-IDENTICAL,
+    census FIXED 2 BROKE 0, sorted vpiName/vpiFullName/hier_path extraction 0 lines moved.
+
+== (12) R1a evidence — a PARENTHESISED compound first bound is a PRIMARY in golden (v99_b6_paren.sv)
+  g  work@mub6@16:9-16:35	n=2|ref_obj(work@mub6.t61)[] , op24{constant()[4]|constant()[1]}
+  g  work@mub6@18:9-18:33	n=4|ref_obj(work@mub6.t62)[] , constant()[4] , unsupported_expr()[] , constant()[1]
+  g  work@mub6@20:9-20:34	n=2|ref_obj(work@mub6.t63)[] , op1{constant()[4]}
+  g  work@mub6@22:9-22:42	n=2|ref_obj(work@mub6.t64)[] , op32{ref_obj(work@mub6.sel6)[]|constant()[1]|constant()[2]}
+  g  work@mub6@24:9-24:37	n=2|ref_obj(work@mub6.t65)[] , op24{constant()[4]|constant()[1]}
+  g  work@mub6@26:9-26:35	n=2|ref_obj(work@mub6.t66)[] , constant()[4]
+  pris  work@mub6@16:9-16:35	n=2|ref_obj(work@mub6.t61)[] , op37{op24{constant()[4]|constant()[1]}|constant()[20]}
+  pris  work@mub6@18:9-18:33	n=2|ref_obj(work@mub6.t62)[] , op37{op24{constant()[4]|constant()[1]}|constant()[20]}
+  pris  work@mub6@20:9-20:34	n=2|ref_obj(work@mub6.t63)[] , op37{op1{constant()[4]}|constant()[20]}
+  pris  work@mub6@22:9-22:42	n=2|ref_obj(work@mub6.t64)[] , op37{op32{ref_obj(work@mub6.sel6)[]|constant()[1]|constant()[2]}|constant()[20]}
+  pris  work@mub6@24:9-24:37	n=2|ref_obj(work@mub6.t65)[] , op37{op24{constant()[4]|constant()[1]}|constant()[20]}
+  pris  work@mub6@26:9-26:35	n=2|ref_obj(work@mub6.t66)[] , op37{constant()[4]|op11{constant()[20]|constant()[1]}}
+  pat  work@mub6@16:9-16:35	n=2|ref_obj(work@mub6.t61)[] , op37{op24{constant()[4]|constant()[1]}|constant()[20]}
+  pat  work@mub6@18:9-18:33	n=2|ref_obj(work@mub6.t62)[] , op37{op24{constant()[4]|constant()[1]}|constant()[20]}
+  pat  work@mub6@20:9-20:34	n=2|ref_obj(work@mub6.t63)[] , op37{op1{constant()[4]}|constant()[20]}
+  pat  work@mub6@22:9-22:42	n=2|ref_obj(work@mub6.t64)[] , op37{op32{ref_obj(work@mub6.sel6)[]|constant()[1]|constant()[2]}|constant()[20]}
+  pat  work@mub6@24:9-24:37	n=2|ref_obj(work@mub6.t65)[] , op37{op24{constant()[4]|constant()[1]}|constant()[20]}
+  pat  work@mub6@26:9-26:35	n=2|ref_obj(work@mub6.t66)[] , constant()[4]
+  -> patched == pristine on all four parenthesised shapes: a MISSED FIX, never a regression.
+
+== (13) R1b evidence — a UNARY first bound DUPLICATES, it does not splice an unsupported_expr
+  v99_b1_shapes.sv:41  y inside {[-9:-2]}
+    G = n=3| ref_obj(zz1) , op1{constant 9} , constant 9
+    P = Q = n=2| ref_obj(zz1) , op37{op1{9}|op1{2}}      (unchanged by the patch)
+
+== (14) corpus reach of R1/R1a: MEASURED NONE
+  uhdm2rtlil: zero ranged inside sets over all 731 tests (grep) -> byteverify 0/1358 is not vacuous
+              (OneInside and GenIfInside carry inside expressions; both are range-free)
+  surelog   : the nine movers all move at exactly ONE site, uvm_domain.svh:199, both bounds bare enum primaries
+
+VERDICT: ACCEPT.  Production surface unchanged by the verifier.
+The only verifier edit is a comment correction in r10uvm99repro/bound99.sh (it runs PER-FILE arms only).

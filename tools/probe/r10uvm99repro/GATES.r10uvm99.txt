@@ -1,0 +1,115 @@
+r10uvm99 GATES — BASE 40a0097, worktree /tmp/wt_r10uvm99
+pristine binary md5 213ee8e1cada6a1013f277e4f7f7c8d2 (frozen /tmp/r10uvm99_pris.bin, chmod 555)
+patched  binary md5 73e9b33d1cd399d1ef0cc60d2292cc00 (frozen /tmp/r10uvm99_pat.bin,  chmod 555)
+
+== (1) goldens, per binary, SLANG_UHDM exported explicitly
+  /tmp/r10uvm99_pris.bin PASS=23 FAIL=0
+  /tmp/r10uvm99_pat.bin PASS=23 FAIL=0
+  /bin/false PASS=0 FAIL=23  (negative control)
+
+== (2) cmds.txt audited by BINARY PATH (not by the string slang-uhdm)
+  prisl:    1523 slang:   /tmp/r10uvm99_pris.bin 
+  pasl:    1523 slang:   /tmp/r10uvm99_pat.bin 
+  priu2r:    1458 slang:   /tmp/r10uvm99_pris.bin 
+  pau2r:    1458 slang:   /tmp/r10uvm99_pat.bin 
+
+== (3) status histograms
+-- surelog pristine
+  [default] 794 tests
+    CMP_EQUAL: 470
+    SLANG_REJECT: 283
+    SURELOG_FAIL: 25
+    CMP_NOTEQUAL: 11
+    DEFERRED: 5
+  
+  [testflags] 794 tests
+    CMP_EQUAL: 466
+    SLANG_REJECT: 284
+    SURELOG_FAIL: 23
+    CMP_NOTEQUAL: 9
+    DEFERRED: 5
+    NO_DATABASE: 3
+    UNTRANSLATABLE: 2
+    TIMEOUT: 1
+    NO_UHDM: 1
+-- surelog patched
+  [default] 794 tests
+    CMP_EQUAL: 470
+    SLANG_REJECT: 283
+    SURELOG_FAIL: 25
+    CMP_NOTEQUAL: 11
+    DEFERRED: 5
+  
+  [testflags] 794 tests
+    CMP_EQUAL: 466
+    SLANG_REJECT: 284
+    SURELOG_FAIL: 23
+    CMP_NOTEQUAL: 9
+    DEFERRED: 5
+    NO_DATABASE: 3
+    UNTRANSLATABLE: 2
+    TIMEOUT: 1
+    NO_UHDM: 1
+-- u2r testflags patched
+  [testflags] 731 tests
+    CMP_EQUAL: 679
+    SLANG_REJECT: 50
+    SURELOG_FAIL: 2
+-- u2r default patched
+  [default] 731 tests
+    CMP_EQUAL: 679
+    SLANG_REJECT: 50
+    SURELOG_FAIL: 2
+  CSV byte-comparison pristine vs patched:
+    sl IDENTICAL
+    u2r_tf IDENTICAL
+    u2r_def IDENTICAL
+
+== (4) ct8rows — NO ROW CONVERTED, nothing promoted
+  u2r tf  vs committed baseline: PASS: every row byte-identical to the committed baseline
+  u2r tf  vs my pristine sweep : PASS: every row byte-identical to the committed baseline
+  u2r def vs my pristine sweep : PASS: every row byte-identical to the committed baseline
+  surelog vs committed baseline: PASS: every row byte-identical to the committed baseline
+  surelog vs my pristine sweep : PASS: every row byte-identical to the committed baseline
+
+== (5) byteverify SELFCHECK=1
+  databases: patched=1358 pristine=1358
+  PATH_SETS_IDENTICAL (1358 paths)
+  MOVERS: 0 / 1358
+  SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+  databases: patched=956 pristine=956
+  PATH_SETS_IDENTICAL (956 paths)
+  MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=a29284ec3620 pristine=a0005cc3d642
+  MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=9763a1a2eb41 pristine=04af2a4e218c
+  MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=c55ffb0153bd pristine=22f8aed885d1
+  MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=214814ec27a3 pristine=56f5a11127f8
+  MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=f2867e1acf7a pristine=6f60ae71b66a
+  MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=a29284ec3620 pristine=a0005cc3d642
+  MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=9763a1a2eb41 pristine=04af2a4e218c
+  MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=116f57e1a714 pristine=2f01e362dd5f
+  MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=8993287ff58d pristine=d8baec2fa01d
+  MOVERS: 9 / 956
+  SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+== (6) canaries / ctcan2 / canaudit / pins
+  surelog ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  u2r     ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+  surelog PASS: every supplementary canary row is byte-identical to the baseline.
+  u2r     PASS: every supplementary canary row is byte-identical to the baseline.
+  ---- audited=33  UNCOVERED=0  FENCE-BREACH=0
+  PASS: every brief-protected name and family is carried by a script that RUNS here.
+  NAME                 MODE      PRISTINE       PATCHED        VERDICT
+  InterfaceModPort     default   59a365f3ce2c   59a365f3ce2c   SAME
+  InterfaceModPort     testflags 59a365f3ce2c   59a365f3ce2c   SAME
+  BlackParrotComplex   default   e3e354129d5a   e3e354129d5a   SAME
+  BlackParrotComplex   testflags 73a10e8217e5   73a10e8217e5   SAME
+  YosysOldOr           default   d68e0796d62c   d68e0796d62c   SAME
+  YosysOldOr           testflags d68e0796d62c   d68e0796d62c   SAME
+  SVSwitch             default   4842211c4030   4842211c4030   SAME
+  SVSwitch             testflags 4842211c4030   4842211c4030   SAME
+  YosysVerx            default   6ccda350c24a   6ccda350c24a   SAME
+  YosysVerx            testflags 6ccda350c24a   6ccda350c24a   SAME
+  ---- pins SAME=10 MOVED=0 UNKNOWN-NAME=0
+
+== (7) determinism — patched binary x3 on SeqDriver
+  214814ec27a344553bc42989020b5e64 x3 (byte-identical; matches the sweep database)

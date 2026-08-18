@@ -35,6 +35,54 @@ static UHDM::constant* namedSlotFiller4(UHDM::Serializer& s) {
     return c4;
 }
 
+// § insideSetFirstRangeTruncates99 — the gate for the `inside` set truncation.
+// Returns the ONE expression Surelog's `paINSIDE` arm actually compiles when
+// the open-range list forced the Open_range_list parse (some member is a
+// `[a:b]` range), or nullptr when the pristine full flatten is what golden
+// produces (no range member) or when the shape is the UNMODELLED splice (the
+// first bound is not a primary, so Surelog's `Child()` walk descends INTO it).
+//
+//   {[A:B]}          -> A          {4, [6:8], 11} -> 4
+//   {[LO:HI]}        -> LO         {q[0], [2:3]}  -> q[0]
+//   {[a+1:b]}        -> nullptr (UNMODELLED: golden splices a, `+`, 1)
+//   {1, 2}  {x}      -> nullptr (no range member: golden flattens, as we do)
+static const slang::ast::Expression* insideTrunc99(
+    const slang::ast::InsideExpression& ie99) {
+    auto rl99 = ie99.rangeList();
+    if (rl99.empty())
+        return nullptr;
+    bool anyRange99 = false;
+    for (auto* m99 : rl99)
+        if (m99->kind == ExpressionKind::ValueRange) {
+            anyRange99 = true;
+            break;
+        }
+    if (!anyRange99)
+        return nullptr;
+    const slang::ast::Expression* first99 = rl99[0];
+    if (first99->kind == ExpressionKind::ValueRange)
+        first99 = &first99->as<slang::ast::ValueRangeExpression>().left();
+    // Surelog reaches the operand as `fC->Child(<that Expression node>)`: a
+    // PRIMARY has exactly one child and compiles whole, anything else has the
+    // operator token plus its own operands and gets spliced instead.
+    switch (first99->kind) {
+        case ExpressionKind::Invalid:
+        case ExpressionKind::UnaryOp:
+        case ExpressionKind::BinaryOp:
+        case ExpressionKind::ConditionalOp:
+        case ExpressionKind::Inside:
+        case ExpressionKind::Assignment:
+        case ExpressionKind::Dist:
+        case ExpressionKind::MinTypMax:
+        case ExpressionKind::TaggedUnion:
+        case ExpressionKind::ValueRange:
+            return nullptr;
+        default:
+            break;
+    }
+    return first99;
+}
+
 // § newArray11 — every reference under a `new[...]` array-allocation call is
 // NAME-ONLY in golden (`ref_obj (dyn)`, not `ref_obj (p::C::f::dyn)`), size
 // expression and copy source alike: Surelog compiles those arguments outside
@@ -22387,6 +22435,38 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         case ExpressionKind::Inside: {
             // a inside {A, B, ...}: an operation (vpiInsideOp) whose operands
             // are the LHS followed by the flattened set members.
+            //
+            // § insideSetFirstRangeTruncates99 — THE SET IS TRUNCATED TO ITS
+            // FIRST MEMBER'S FIRST PRIMARY THE MOMENT ANY MEMBER IS A `[a:b]`
+            // RANGE.  Surelog's `CompileHelper::compileExpression`
+            // (src/DesignCompile/CompileExpression.cpp:2339) has ONE arm for
+            // `paINSIDE`, written for the parse it names in its own comment --
+            // Expression -> Primary -> Concatenation -- and it reaches the set
+            // members as `fC->Child(fC->Child(rval))` then walks that node's
+            // SIBLINGS.  Two different parses reach it
+            // (`SV3_1aParser.g4:3525`, `expression INSIDE OPEN_CURLY
+            // open_range_list CLOSE_CURLY`):
+            //
+            //   * NO member is a range -> `{...}` parses as a Concatenation, so
+            //     `Child(Child(rval))` IS that Concatenation and the walk
+            //     yields EVERY member, each compiled whole.  Our pristine
+            //     flatten already matches; nothing here changes.
+            //   * SOME member is a range -> `{...}` parses as an
+            //     `Open_range_list` of `Value_range`s, so `Child(Child(rval))`
+            //     is the FIRST Value_range's FIRST Expression and the walk
+            //     yields only THAT expression's children.  When that first
+            //     expression is a PRIMARY it has exactly one child, so the
+            //     inside operation ends up with exactly TWO operands: the LHS
+            //     and the first member's first bound.  Every later member, and
+            //     the range's upper bound, are DROPPED.
+            //
+            // It is a Surelog bug; golden is the spec, bugs included.  A first
+            // bound that is NOT a primary (`[a+1:b]`) makes Surelog splice that
+            // expression's own sub-nodes -- and an `unsupported_expr` for the
+            // operator token -- into the operand list; that shape is NOT
+            // modelled here, and such a set keeps the pristine emission (a
+            // no-op, never a wrong operand list).  Measured on golden in
+            // tools/probe/r10uvm99repro (arms a1/a2/a5/a6/a7/a8, both views).
             auto& ie = expr.as<InsideExpression>();
             auto* op = s.MakeOperation();
             op->VpiOpType(vpiInsideOp);
@@ -22395,9 +22475,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* operands = s.MakeAnyVec();
             if (auto* l = emitExpr(ie.left(), op, prefix, netMap))
                 operands->push_back(l);
-            for (auto* rle : ie.rangeList())
-                if (auto* e = emitExpr(*rle, op, prefix, netMap))
+            const slang::ast::Expression* trunc99 = insideTrunc99(ie);
+            if (trunc99) {
+                if (auto* e = emitExpr(*trunc99, op, prefix, netMap))
                     operands->push_back(e);
+            }
+            else {
+                for (auto* rle : ie.rangeList())
+                    if (auto* e = emitExpr(*rle, op, prefix, netMap))
+                        operands->push_back(e);
+            }
             op->Operands(operands);
             return op;
         }

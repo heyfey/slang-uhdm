@@ -1,0 +1,93 @@
+r10uvm99 CENSUS — golden(LHS) vs pristine vs patched, INSIDE/LISTOP cells
+
+  default/SeqDriver-32af76aa         [MULTISET] cells    49  ALREADY-OK    46  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    1
+  default/SeqDriver-32af76aa         [SET     ] cells    49  ALREADY-OK    46  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    1
+    TO-GOLDEN   ('INSIDE', 'find@199:38-199:101')
+        G=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+        P=['n=2|hier_path(item.get_state)@199:38-199:54 , op37@199:63-199:100{ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99}']
+        Q=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+    TO-GOLDEN   ('LISTOP', 'find@199:63-199:100')
+        G=[]
+        P=['n=2|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99']
+        Q=[]
+  testflags/SeqDriver-32af76aa       [MULTISET] cells    49  ALREADY-OK    46  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    1
+  testflags/SeqDriver-32af76aa       [SET     ] cells    49  ALREADY-OK    46  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    1
+    TO-GOLDEN   ('INSIDE', 'find@199:38-199:101')
+        G=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+        P=['n=2|hier_path(item.get_state)@199:38-199:54 , op37@199:63-199:100{ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99}']
+        Q=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+    TO-GOLDEN   ('LISTOP', 'find@199:63-199:100')
+        G=[]
+        P=['n=2|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99']
+        Q=[]
+  default/SimpleUVM-1dc93a62         [MULTISET] cells    47  ALREADY-OK    45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    0
+  default/SimpleUVM-1dc93a62         [SET     ] cells    47  ALREADY-OK    45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    0
+    TO-GOLDEN   ('INSIDE', 'find@199:38-199:101')
+        G=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+        P=['n=2|hier_path(item.get_state)@199:38-199:54 , op37@199:63-199:100{ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99}']
+        Q=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+    TO-GOLDEN   ('LISTOP', 'find@199:63-199:100')
+        G=[]
+        P=['n=2|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99']
+        Q=[]
+  testflags/SimpleUVM-1dc93a62       [MULTISET] cells    47  ALREADY-OK    45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    0
+  testflags/SimpleUVM-1dc93a62       [SET     ] cells    47  ALREADY-OK    45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    0
+    TO-GOLDEN   ('INSIDE', 'find@199:38-199:101')
+        G=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+        P=['n=2|hier_path(item.get_state)@199:38-199:54 , op37@199:63-199:100{ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99}']
+        Q=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+    TO-GOLDEN   ('LISTOP', 'find@199:63-199:100')
+        G=[]
+        P=['n=2|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99']
+        Q=[]
+  default/MiniAmiq-544c7f61          [MULTISET] cells    56  ALREADY-OK    53  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    1
+  default/MiniAmiq-544c7f61          [SET     ] cells    56  ALREADY-OK    53  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    1
+    TO-GOLDEN   ('INSIDE', 'find@199:38-199:101')
+        G=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+        P=['n=2|hier_path(item.get_state)@199:38-199:54 , op37@199:63-199:100{ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99}']
+        Q=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+    TO-GOLDEN   ('LISTOP', 'find@199:63-199:100')
+        G=[]
+        P=['n=2|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99']
+        Q=[]
+  testflags/MiniAmiq-544c7f61        [MULTISET] cells    56  ALREADY-OK    53  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    1
+  testflags/MiniAmiq-544c7f61        [SET     ] cells    56  ALREADY-OK    53  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    1
+    TO-GOLDEN   ('INSIDE', 'find@199:38-199:101')
+        G=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+        P=['n=2|hier_path(item.get_state)@199:38-199:54 , op37@199:63-199:100{ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99}']
+        Q=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+    TO-GOLDEN   ('LISTOP', 'find@199:63-199:100')
+        G=[]
+        P=['n=2|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99']
+        Q=[]
+  default/Scoreboard-59431470        [MULTISET] cells    47  ALREADY-OK    45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    0
+  default/Scoreboard-59431470        [SET     ] cells    47  ALREADY-OK    45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    0
+    TO-GOLDEN   ('INSIDE', 'find@199:38-199:101')
+        G=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+        P=['n=2|hier_path(item.get_state)@199:38-199:54 , op37@199:63-199:100{ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99}']
+        Q=['n=2|hier_path(item.get_state)@199:38-199:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81']
+    TO-GOLDEN   ('LISTOP', 'find@199:63-199:100')
+        G=[]
+        P=['n=2|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@199:64-199:81 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@199:82-199:99']
+        Q=[]
+  default/BuildUVMPkg-bf853d43       [MULTISET] cells    13  ALREADY-OK    11  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    0
+  default/BuildUVMPkg-bf853d43       [SET     ] cells    13  ALREADY-OK    11  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    0
+    TO-GOLDEN   ('INSIDE', 'find@35470:38-35470:101')
+        G=['n=2|hier_path(item.get_state)@35470:38-35470:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@35470:64-35470:81']
+        P=['n=2|hier_path(item.get_state)@35470:38-35470:54 , op37@35470:63-35470:100{ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@35470:64-35470:81|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@35470:82-35470:99}']
+        Q=['n=2|hier_path(item.get_state)@35470:38-35470:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@35470:64-35470:81']
+    TO-GOLDEN   ('LISTOP', 'find@35470:63-35470:100')
+        G=[]
+        P=['n=2|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@35470:64-35470:81 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@35470:82-35470:99']
+        Q=[]
+  testflags/BuildUVMPkg-bf853d43     [MULTISET] cells    13  ALREADY-OK    11  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    0
+  testflags/BuildUVMPkg-bf853d43     [SET     ] cells    13  ALREADY-OK    11  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL    0
+    TO-GOLDEN   ('INSIDE', 'find@35470:38-35470:101')
+        G=['n=2|hier_path(item.get_state)@35470:38-35470:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@35470:64-35470:81']
+        P=['n=2|hier_path(item.get_state)@35470:38-35470:54 , op37@35470:63-35470:100{ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@35470:64-35470:81|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@35470:82-35470:99}']
+        Q=['n=2|hier_path(item.get_state)@35470:38-35470:54 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@35470:64-35470:81']
+    TO-GOLDEN   ('LISTOP', 'find@35470:63-35470:100')
+        G=[]
+        P=['n=2|ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED)@35470:64-35470:81 , ref_obj(uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP)@35470:82-35470:99']
+        Q=[]
+CENSUSDONE

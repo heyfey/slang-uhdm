@@ -1,0 +1,635 @@
+r10uvm99 GRID — three-way golden(LHS)/pristine/patched, both views
+pristine md5 213ee8e1cada6a1013f277e4f7f7c8d2   patched md5 73e9b33d1cd399d1ef0cc60d2292cc00
+
+g99_a10_other_def: pris=rc0/CMP_FAIL/heads1/lines58 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a10_other_def        [MULTISET] CELLS   9  ALREADY-OK   5  FIXED   4  BROKE   0  STILL   0
+  g99_a10_other_def        [SET     ] CELLS   9  ALREADY-OK   5  FIXED   4  BROKE   0  STILL   0
+  FIXED       ('INSIDE', 'work@omega99.w1@28:12-28:36')
+      G=['n=2|op24@28:13-28:20{ref_obj(work@omega99.w1.av)@28:13-28:15|ref_obj(work@omega99.w1.bv)@28:18-28:20} , constant()@28:31-28:32']
+      P=['n=2|op24@28:13-28:20{ref_obj(work@omega99.w1.av)@28:13-28:15|ref_obj(work@omega99.w1.bv)@28:18-28:20} , op37@28:30-28:35{constant()@28:31-28:32|constant()@28:33-28:34}']
+      Q=['n=2|op24@28:13-28:20{ref_obj(work@omega99.w1.av)@28:13-28:15|ref_obj(work@omega99.w1.bv)@28:18-28:20} , constant()@28:31-28:32']
+  FIXED       ('INSIDE', 'work@omega99.w2@31:14-31:31')
+      G=['n=2|ref_obj(work@omega99.w2.av)@31:14-31:16 , constant()@31:26-31:27']
+      P=['n=2|ref_obj(work@omega99.w2.av)@31:14-31:16 , op37@31:25-31:30{constant()@31:26-31:27|constant()@31:28-31:29}']
+      Q=['n=2|ref_obj(work@omega99.w2.av)@31:14-31:16 , constant()@31:26-31:27']
+  FIXED       ('LISTOP', 'work@omega99.w1@28:30-28:35')
+      G=[]
+      P=['n=2|constant()@28:31-28:32 , constant()@28:33-28:34']
+      Q=[]
+  FIXED       ('LISTOP', 'work@omega99.w2@31:25-31:30')
+      G=[]
+      P=['n=2|constant()@31:26-31:27 , constant()@31:28-31:29']
+      Q=[]
+g99_a10_other_elab: pris=rc0/CMP_FAIL/heads1/lines58 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a10_other_elab       [MULTISET] CELLS   9  ALREADY-OK   5  FIXED   4  BROKE   0  STILL   0
+  g99_a10_other_elab       [SET     ] CELLS   9  ALREADY-OK   5  FIXED   4  BROKE   0  STILL   0
+  FIXED       ('INSIDE', 'work@omega99.w1@28:12-28:36')
+      G=['n=2|op24@28:13-28:20{ref_obj(work@omega99.w1.av)@28:13-28:15|ref_obj(work@omega99.w1.bv)@28:18-28:20} , constant()@28:31-28:32']
+      P=['n=2|op24@28:13-28:20{ref_obj(work@omega99.w1.av)@28:13-28:15|ref_obj(work@omega99.w1.bv)@28:18-28:20} , op37@28:30-28:35{constant()@28:31-28:32|constant()@28:33-28:34}']
+      Q=['n=2|op24@28:13-28:20{ref_obj(work@omega99.w1.av)@28:13-28:15|ref_obj(work@omega99.w1.bv)@28:18-28:20} , constant()@28:31-28:32']
+  FIXED       ('INSIDE', 'work@omega99.w2@31:14-31:31')
+      G=['n=2|ref_obj(work@omega99.w2.av)@31:14-31:16 , constant()@31:26-31:27']
+      P=['n=2|ref_obj(work@omega99.w2.av)@31:14-31:16 , op37@31:25-31:30{constant()@31:26-31:27|constant()@31:28-31:29}']
+      Q=['n=2|ref_obj(work@omega99.w2.av)@31:14-31:16 , constant()@31:26-31:27']
+  FIXED       ('LISTOP', 'work@omega99.w1@28:30-28:35')
+      G=[]
+      P=['n=2|constant()@28:31-28:32 , constant()@28:33-28:34']
+      Q=[]
+  FIXED       ('LISTOP', 'work@omega99.w2@31:25-31:30')
+      G=[]
+      P=['n=2|constant()@31:26-31:27 , constant()@31:28-31:29']
+      Q=[]
+g99_a1_ifcond_def: pris=rc0/CMP_FAIL/heads1/lines58 pat=rc0/CMP_FAIL/heads1/lines188
+  g99_a1_ifcond_def        [MULTISET] CELLS  13  ALREADY-OK   3  FIXED   8  BROKE   0  STILL   2
+  g99_a1_ifcond_def        [SET     ] CELLS  13  ALREADY-OK   3  FIXED   8  BROKE   0  STILL   2
+  FIXED       ('INSIDE', 'work@zeta99.k1@7:9-7:26')
+      G=['n=2|ref_obj(work@zeta99.k1.wv)@7:9-7:11 , constant()@7:21-7:22']
+      P=['n=2|ref_obj(work@zeta99.k1.wv)@7:9-7:11 , op37@7:20-7:25{constant()@7:21-7:22|constant()@7:23-7:24}']
+      Q=['n=2|ref_obj(work@zeta99.k1.wv)@7:9-7:11 , constant()@7:21-7:22']
+  FIXED       ('INSIDE', 'work@zeta99.k2@11:9-11:33')
+      G=['n=2|ref_obj(work@zeta99.k2.wv)@11:9-11:11 , constant()@11:20-11:21']
+      P=['n=4|ref_obj(work@zeta99.k2.wv)@11:9-11:11 , constant()@11:20-11:21 , op37@11:23-11:28{constant()@11:24-11:25|constant()@11:26-11:27} , constant()@11:30-11:32']
+      Q=['n=2|ref_obj(work@zeta99.k2.wv)@11:9-11:11 , constant()@11:20-11:21']
+  FIXED       ('INSIDE', 'work@zeta99.k3@15:9-15:30')
+      G=['n=2|ref_obj(work@zeta99.k3.wv)@15:9-15:11 , ref_obj(work@zeta99.k3.LOB)@15:21-15:24']
+      P=['n=2|ref_obj(work@zeta99.k3.wv)@15:9-15:11 , op37@15:20-15:29{ref_obj(work@zeta99.k3.LOB)@15:21-15:24|ref_obj(work@zeta99.k3.HIB)@15:25-15:28}']
+      Q=['n=2|ref_obj(work@zeta99.k3.wv)@15:9-15:11 , ref_obj(work@zeta99.k3.LOB)@15:21-15:24']
+  FIXED       ('INSIDE', 'work@zeta99.k4@19:9-19:26')
+      G=['n=2|ref_obj(work@zeta99.k4.wv)@19:9-19:11 , constant()@19:21-19:22']
+      P=['n=2|ref_obj(work@zeta99.k4.wv)@19:9-19:11 , op37@19:20-19:25{constant()@19:21-19:22|constant()@19:23-19:24}']
+      Q=['n=2|ref_obj(work@zeta99.k4.wv)@19:9-19:11 , constant()@19:21-19:22']
+  STILL       ('INSIDE', 'work@zeta99.k8@35:9-35:32')
+      G=['n=4|ref_obj(work@zeta99.k8.wv)@35:9-35:11 , ref_obj(work@zeta99.k8.pv)@35:21-35:23 , unsupported_expr()@35:23-35:24 , constant()@35:24-35:25']
+      P=['n=2|ref_obj(work@zeta99.k8.wv)@35:9-35:11 , op37@35:20-35:31{op24@35:21-35:25{ref_obj(work@zeta99.k8.pv)@35:21-35:23|constant()@35:24-35:25}|op24@35:26-35:30{ref_obj(work@zeta99.k8.pv)@35:26-35:28|constant()@35:29-35:30}}']
+      Q=['n=2|ref_obj(work@zeta99.k8.wv)@35:9-35:11 , op37@35:20-35:31{op24@35:21-35:25{ref_obj(work@zeta99.k8.pv)@35:21-35:23|constant()@35:24-35:25}|op24@35:26-35:30{ref_obj(work@zeta99.k8.pv)@35:26-35:28|constant()@35:29-35:30}}']
+  FIXED       ('LISTOP', 'work@zeta99.k1@7:20-7:25')
+      G=[]
+      P=['n=2|constant()@7:21-7:22 , constant()@7:23-7:24']
+      Q=[]
+  FIXED       ('LISTOP', 'work@zeta99.k2@11:23-11:28')
+      G=[]
+      P=['n=2|constant()@11:24-11:25 , constant()@11:26-11:27']
+      Q=[]
+  FIXED       ('LISTOP', 'work@zeta99.k3@15:20-15:29')
+      G=[]
+      P=['n=2|ref_obj(work@zeta99.k3.LOB)@15:21-15:24 , ref_obj(work@zeta99.k3.HIB)@15:25-15:28']
+      Q=[]
+  FIXED       ('LISTOP', 'work@zeta99.k4@19:20-19:25')
+      G=[]
+      P=['n=2|constant()@19:21-19:22 , constant()@19:23-19:24']
+      Q=[]
+  STILL       ('LISTOP', 'work@zeta99.k8@35:20-35:31')
+      G=[]
+      P=['n=2|op24@35:21-35:25{ref_obj(work@zeta99.k8.pv)@35:21-35:23|constant()@35:24-35:25} , op24@35:26-35:30{ref_obj(work@zeta99.k8.pv)@35:26-35:28|constant()@35:29-35:30}']
+      Q=['n=2|op24@35:21-35:25{ref_obj(work@zeta99.k8.pv)@35:21-35:23|constant()@35:24-35:25} , op24@35:26-35:30{ref_obj(work@zeta99.k8.pv)@35:26-35:28|constant()@35:29-35:30}']
+g99_a1_ifcond_elab: pris=rc0/CMP_FAIL/heads1/lines58 pat=rc0/CMP_FAIL/heads1/lines188
+  g99_a1_ifcond_elab       [MULTISET] CELLS  13  ALREADY-OK   3  FIXED   8  BROKE   0  STILL   2
+  g99_a1_ifcond_elab       [SET     ] CELLS  13  ALREADY-OK   3  FIXED   8  BROKE   0  STILL   2
+  FIXED       ('INSIDE', 'work@zeta99.k1@7:9-7:26')
+      G=['n=2|ref_obj(work@zeta99.k1.wv)@7:9-7:11 , constant()@7:21-7:22']
+      P=['n=2|ref_obj(work@zeta99.k1.wv)@7:9-7:11 , op37@7:20-7:25{constant()@7:21-7:22|constant()@7:23-7:24}']
+      Q=['n=2|ref_obj(work@zeta99.k1.wv)@7:9-7:11 , constant()@7:21-7:22']
+  FIXED       ('INSIDE', 'work@zeta99.k2@11:9-11:33')
+      G=['n=2|ref_obj(work@zeta99.k2.wv)@11:9-11:11 , constant()@11:20-11:21']
+      P=['n=4|ref_obj(work@zeta99.k2.wv)@11:9-11:11 , constant()@11:20-11:21 , op37@11:23-11:28{constant()@11:24-11:25|constant()@11:26-11:27} , constant()@11:30-11:32']
+      Q=['n=2|ref_obj(work@zeta99.k2.wv)@11:9-11:11 , constant()@11:20-11:21']
+  FIXED       ('INSIDE', 'work@zeta99.k3@15:9-15:30')
+      G=['n=2|ref_obj(work@zeta99.k3.wv)@15:9-15:11 , ref_obj(work@zeta99.k3.LOB)@15:21-15:24']
+      P=['n=2|ref_obj(work@zeta99.k3.wv)@15:9-15:11 , op37@15:20-15:29{ref_obj(work@zeta99.k3.LOB)@15:21-15:24|ref_obj(work@zeta99.k3.HIB)@15:25-15:28}']
+      Q=['n=2|ref_obj(work@zeta99.k3.wv)@15:9-15:11 , ref_obj(work@zeta99.k3.LOB)@15:21-15:24']
+  FIXED       ('INSIDE', 'work@zeta99.k4@19:9-19:26')
+      G=['n=2|ref_obj(work@zeta99.k4.wv)@19:9-19:11 , constant()@19:21-19:22']
+      P=['n=2|ref_obj(work@zeta99.k4.wv)@19:9-19:11 , op37@19:20-19:25{constant()@19:21-19:22|constant()@19:23-19:24}']
+      Q=['n=2|ref_obj(work@zeta99.k4.wv)@19:9-19:11 , constant()@19:21-19:22']
+  STILL       ('INSIDE', 'work@zeta99.k8@35:9-35:32')
+      G=['n=4|ref_obj(work@zeta99.k8.wv)@35:9-35:11 , ref_obj(work@zeta99.k8.pv)@35:21-35:23 , unsupported_expr()@35:23-35:24 , constant()@35:24-35:25']
+      P=['n=2|ref_obj(work@zeta99.k8.wv)@35:9-35:11 , op37@35:20-35:31{op24@35:21-35:25{ref_obj(work@zeta99.k8.pv)@35:21-35:23|constant()@35:24-35:25}|op24@35:26-35:30{ref_obj(work@zeta99.k8.pv)@35:26-35:28|constant()@35:29-35:30}}']
+      Q=['n=2|ref_obj(work@zeta99.k8.wv)@35:9-35:11 , op37@35:20-35:31{op24@35:21-35:25{ref_obj(work@zeta99.k8.pv)@35:21-35:23|constant()@35:24-35:25}|op24@35:26-35:30{ref_obj(work@zeta99.k8.pv)@35:26-35:28|constant()@35:29-35:30}}']
+  FIXED       ('LISTOP', 'work@zeta99.k1@7:20-7:25')
+      G=[]
+      P=['n=2|constant()@7:21-7:22 , constant()@7:23-7:24']
+      Q=[]
+  FIXED       ('LISTOP', 'work@zeta99.k2@11:23-11:28')
+      G=[]
+      P=['n=2|constant()@11:24-11:25 , constant()@11:26-11:27']
+      Q=[]
+  FIXED       ('LISTOP', 'work@zeta99.k3@15:20-15:29')
+      G=[]
+      P=['n=2|ref_obj(work@zeta99.k3.LOB)@15:21-15:24 , ref_obj(work@zeta99.k3.HIB)@15:25-15:28']
+      Q=[]
+  FIXED       ('LISTOP', 'work@zeta99.k4@19:20-19:25')
+      G=[]
+      P=['n=2|constant()@19:21-19:22 , constant()@19:23-19:24']
+      Q=[]
+  STILL       ('LISTOP', 'work@zeta99.k8@35:20-35:31')
+      G=[]
+      P=['n=2|op24@35:21-35:25{ref_obj(work@zeta99.k8.pv)@35:21-35:23|constant()@35:24-35:25} , op24@35:26-35:30{ref_obj(work@zeta99.k8.pv)@35:26-35:28|constant()@35:29-35:30}']
+      Q=['n=2|op24@35:21-35:25{ref_obj(work@zeta99.k8.pv)@35:21-35:23|constant()@35:24-35:25} , op24@35:26-35:30{ref_obj(work@zeta99.k8.pv)@35:26-35:28|constant()@35:29-35:30}']
+g99_a2_proc_def: pris=rc0/CMP_FAIL/heads1/lines58 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a2_proc_def          [MULTISET] CELLS  16  ALREADY-OK   0  FIXED  15  BROKE   0  STILL   1
+  g99_a2_proc_def          [SET     ] CELLS  16  ALREADY-OK   0  FIXED  16  BROKE   0  STILL   0
+  FIXED       ('INSIDE', '-@6:18-6:45')
+      G=['n=2|ref_obj(work@omicron99.pin99)@6:18-6:23 , constant()@6:33-6:37']
+      P=['n=2|ref_obj(work@omicron99.pin99)@6:18-6:23 , op37@6:32-6:44{constant()@6:33-6:37|constant()@6:38-6:43}']
+      Q=['n=2|ref_obj(work@omicron99.pin99)@6:18-6:23 , constant()@6:33-6:37']
+  FIXED       ('INSIDE', '-@7:17-7:49')
+      G=['n=2|ref_obj(work@omicron99.pin99)@7:17-7:22 , constant()@7:31-7:35']
+      P=['n=3|ref_obj(work@omicron99.pin99)@7:17-7:22 , constant()@7:31-7:35 , op37@7:37-7:48{constant()@7:38-7:42|constant()@7:43-7:47}']
+      Q=['n=2|ref_obj(work@omicron99.pin99)@7:17-7:22 , constant()@7:31-7:35']
+  FIXED       ('INSIDE', '-@8:23-8:49')
+      G=['n=2|ref_obj(work@omicron99.pin99)@8:23-8:28 , constant()@8:38-8:42']
+      P=['n=2|ref_obj(work@omicron99.pin99)@8:23-8:28 , op37@8:37-8:48{constant()@8:38-8:42|constant()@8:43-8:47}']
+      Q=['n=2|ref_obj(work@omicron99.pin99)@8:23-8:28 , constant()@8:38-8:42']
+  FIXED       ('INSIDE', 'work@omicron99.fn99@17:13-17:30')
+      G=['n=2|ref_obj(work@omicron99.fn99.uv)@17:13-17:15 , constant()@17:25-17:26']
+      P=['n=2|ref_obj(work@omicron99.fn99.uv)@17:13-17:15 , op37@17:24-17:29{constant()@17:25-17:26|constant()@17:27-17:28}']
+      Q=['n=2|ref_obj(work@omicron99.fn99.uv)@17:13-17:15 , constant()@17:25-17:26']
+  FIXED       ('INSIDE', 'work@omicron99.tsk99@13:9-13:26')
+      G=['n=2|ref_obj(work@omicron99.tsk99.uv)@13:9-13:11 , constant()@13:21-13:22']
+      P=['n=2|ref_obj(work@omicron99.tsk99.uv)@13:9-13:11 , op37@13:20-13:25{constant()@13:21-13:22|constant()@13:23-13:24}']
+      Q=['n=2|ref_obj(work@omicron99.tsk99.uv)@13:9-13:11 , constant()@13:21-13:22']
+  FIXED       ('INSIDE', 'work@omicron99.tsk99@14:12-14:29')
+      G=['n=2|ref_obj(work@omicron99.tsk99.uv)@14:12-14:14 , constant()@14:24-14:25']
+      P=['n=2|ref_obj(work@omicron99.tsk99.uv)@14:12-14:14 , op37@14:23-14:28{constant()@14:24-14:25|constant()@14:26-14:27}']
+      Q=['n=2|ref_obj(work@omicron99.tsk99.uv)@14:12-14:14 , constant()@14:24-14:25']
+  FIXED       ('INSIDE', 'work@omicron99@10:9-10:35')
+      G=['n=2|ref_obj(work@omicron99.pin99)@10:9-10:14 , constant()@10:24-10:28']
+      P=['n=2|ref_obj(work@omicron99.pin99)@10:9-10:14 , op37@10:23-10:34{constant()@10:24-10:28|constant()@10:29-10:33}']
+      Q=['n=2|ref_obj(work@omicron99.pin99)@10:9-10:14 , constant()@10:24-10:28']
+  FIXED       ('INSIDE', 'work@omicron99@21:9-21:36')
+      G=['n=2|ref_obj(work@omicron99.pin99)@21:9-21:14 , constant()@21:24-21:28']
+      P=['n=2|ref_obj(work@omicron99.pin99)@21:9-21:14 , op37@21:23-21:35{constant()@21:24-21:28|constant()@21:29-21:34}']
+      Q=['n=2|ref_obj(work@omicron99.pin99)@21:9-21:14 , constant()@21:24-21:28']
+  FIXED       ('LISTOP', '-@6:32-6:44')
+      G=[]
+      P=['n=2|constant()@6:33-6:37 , constant()@6:38-6:43']
+      Q=[]
+  FIXED       ('LISTOP', '-@7:37-7:48')
+      G=[]
+      P=['n=2|constant()@7:38-7:42 , constant()@7:43-7:47']
+      Q=[]
+  FIXED       ('LISTOP', '-@8:37-8:48')
+      G=[]
+      P=['n=2|constant()@8:38-8:42 , constant()@8:43-8:47']
+      Q=[]
+  FIXED       ('LISTOP', 'work@omicron99.fn99@17:24-17:29')
+      G=[]
+      P=['n=2|constant()@17:25-17:26 , constant()@17:27-17:28']
+      Q=[]
+  FIXED       ('LISTOP', 'work@omicron99.tsk99@13:20-13:25')
+      G=[]
+      P=['n=2|constant()@13:21-13:22 , constant()@13:23-13:24']
+      Q=[]
+  FIXED       ('LISTOP', 'work@omicron99.tsk99@14:23-14:28')
+      G=[]
+      P=['n=2|constant()@14:24-14:25 , constant()@14:26-14:27']
+      Q=[]
+  FIXED       ('LISTOP', 'work@omicron99@10:23-10:34')
+      G=[]
+      P=['n=2|constant()@10:24-10:28 , constant()@10:29-10:33']
+      Q=[]
+  FIXED       ('LISTOP', 'work@omicron99@21:23-21:35')
+      G=[]
+      P=['n=2|constant()@21:24-21:28 , constant()@21:29-21:34']
+      Q=[]
+g99_a2_proc_elab: pris=rc0/CMP_FAIL/heads1/lines58 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a2_proc_elab         [MULTISET] CELLS  16  ALREADY-OK   0  FIXED  15  BROKE   0  STILL   1
+  g99_a2_proc_elab         [SET     ] CELLS  16  ALREADY-OK   0  FIXED  16  BROKE   0  STILL   0
+  FIXED       ('INSIDE', '-@6:18-6:45')
+      G=['n=2|ref_obj(work@omicron99.pin99)@6:18-6:23 , constant()@6:33-6:37']
+      P=['n=2|ref_obj(work@omicron99.pin99)@6:18-6:23 , op37@6:32-6:44{constant()@6:33-6:37|constant()@6:38-6:43}']
+      Q=['n=2|ref_obj(work@omicron99.pin99)@6:18-6:23 , constant()@6:33-6:37']
+  FIXED       ('INSIDE', '-@7:17-7:49')
+      G=['n=2|ref_obj(work@omicron99.pin99)@7:17-7:22 , constant()@7:31-7:35']
+      P=['n=3|ref_obj(work@omicron99.pin99)@7:17-7:22 , constant()@7:31-7:35 , op37@7:37-7:48{constant()@7:38-7:42|constant()@7:43-7:47}']
+      Q=['n=2|ref_obj(work@omicron99.pin99)@7:17-7:22 , constant()@7:31-7:35']
+  FIXED       ('INSIDE', '-@8:23-8:49')
+      G=['n=2|ref_obj(work@omicron99.pin99)@8:23-8:28 , constant()@8:38-8:42']
+      P=['n=2|ref_obj(work@omicron99.pin99)@8:23-8:28 , op37@8:37-8:48{constant()@8:38-8:42|constant()@8:43-8:47}']
+      Q=['n=2|ref_obj(work@omicron99.pin99)@8:23-8:28 , constant()@8:38-8:42']
+  FIXED       ('INSIDE', 'work@omicron99.fn99@17:13-17:30')
+      G=['n=2|ref_obj(work@omicron99.fn99.uv)@17:13-17:15 , constant()@17:25-17:26']
+      P=['n=2|ref_obj(work@omicron99.fn99.uv)@17:13-17:15 , op37@17:24-17:29{constant()@17:25-17:26|constant()@17:27-17:28}']
+      Q=['n=2|ref_obj(work@omicron99.fn99.uv)@17:13-17:15 , constant()@17:25-17:26']
+  FIXED       ('INSIDE', 'work@omicron99.tsk99@13:9-13:26')
+      G=['n=2|ref_obj(work@omicron99.tsk99.uv)@13:9-13:11 , constant()@13:21-13:22']
+      P=['n=2|ref_obj(work@omicron99.tsk99.uv)@13:9-13:11 , op37@13:20-13:25{constant()@13:21-13:22|constant()@13:23-13:24}']
+      Q=['n=2|ref_obj(work@omicron99.tsk99.uv)@13:9-13:11 , constant()@13:21-13:22']
+  FIXED       ('INSIDE', 'work@omicron99.tsk99@14:12-14:29')
+      G=['n=2|ref_obj(work@omicron99.tsk99.uv)@14:12-14:14 , constant()@14:24-14:25']
+      P=['n=2|ref_obj(work@omicron99.tsk99.uv)@14:12-14:14 , op37@14:23-14:28{constant()@14:24-14:25|constant()@14:26-14:27}']
+      Q=['n=2|ref_obj(work@omicron99.tsk99.uv)@14:12-14:14 , constant()@14:24-14:25']
+  FIXED       ('INSIDE', 'work@omicron99@10:9-10:35')
+      G=['n=2|ref_obj(work@omicron99.pin99)@10:9-10:14 , constant()@10:24-10:28']
+      P=['n=2|ref_obj(work@omicron99.pin99)@10:9-10:14 , op37@10:23-10:34{constant()@10:24-10:28|constant()@10:29-10:33}']
+      Q=['n=2|ref_obj(work@omicron99.pin99)@10:9-10:14 , constant()@10:24-10:28']
+  FIXED       ('INSIDE', 'work@omicron99@21:9-21:36')
+      G=['n=2|ref_obj(work@omicron99.pin99)@21:9-21:14 , constant()@21:24-21:28']
+      P=['n=2|ref_obj(work@omicron99.pin99)@21:9-21:14 , op37@21:23-21:35{constant()@21:24-21:28|constant()@21:29-21:34}']
+      Q=['n=2|ref_obj(work@omicron99.pin99)@21:9-21:14 , constant()@21:24-21:28']
+  FIXED       ('LISTOP', '-@6:32-6:44')
+      G=[]
+      P=['n=2|constant()@6:33-6:37 , constant()@6:38-6:43']
+      Q=[]
+  FIXED       ('LISTOP', '-@7:37-7:48')
+      G=[]
+      P=['n=2|constant()@7:38-7:42 , constant()@7:43-7:47']
+      Q=[]
+  FIXED       ('LISTOP', '-@8:37-8:48')
+      G=[]
+      P=['n=2|constant()@8:38-8:42 , constant()@8:43-8:47']
+      Q=[]
+  FIXED       ('LISTOP', 'work@omicron99.fn99@17:24-17:29')
+      G=[]
+      P=['n=2|constant()@17:25-17:26 , constant()@17:27-17:28']
+      Q=[]
+  FIXED       ('LISTOP', 'work@omicron99.tsk99@13:20-13:25')
+      G=[]
+      P=['n=2|constant()@13:21-13:22 , constant()@13:23-13:24']
+      Q=[]
+  FIXED       ('LISTOP', 'work@omicron99.tsk99@14:23-14:28')
+      G=[]
+      P=['n=2|constant()@14:24-14:25 , constant()@14:26-14:27']
+      Q=[]
+  FIXED       ('LISTOP', 'work@omicron99@10:23-10:34')
+      G=[]
+      P=['n=2|constant()@10:24-10:28 , constant()@10:29-10:33']
+      Q=[]
+  FIXED       ('LISTOP', 'work@omicron99@21:23-21:35')
+      G=[]
+      P=['n=2|constant()@21:24-21:28 , constant()@21:29-21:34']
+      Q=[]
+g99_a3_constr_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a3_constr_def        [MULTISET] CELLS   0  ALREADY-OK   0  FIXED   0  BROKE   0  STILL   0
+  g99_a3_constr_def        [SET     ] CELLS   0  ALREADY-OK   0  FIXED   0  BROKE   0  STILL   0
+g99_a3_constr_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a3_constr_elab       [MULTISET] CELLS   0  ALREADY-OK   0  FIXED   0  BROKE   0  STILL   0
+  g99_a3_constr_elab       [SET     ] CELLS   0  ALREADY-OK   0  FIXED   0  BROKE   0  STILL   0
+g99_a4_caseins_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a4_caseins_def       [MULTISET] CELLS   7  ALREADY-OK   7  FIXED   0  BROKE   0  STILL   0
+  g99_a4_caseins_def       [SET     ] CELLS   7  ALREADY-OK   7  FIXED   0  BROKE   0  STILL   0
+g99_a4_caseins_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a4_caseins_elab      [MULTISET] CELLS   7  ALREADY-OK   7  FIXED   0  BROKE   0  STILL   0
+  g99_a4_caseins_elab      [SET     ] CELLS   7  ALREADY-OK   7  FIXED   0  BROKE   0  STILL   0
+g99_a5_with_def: pris=rc0/CMP_FAIL/heads1/lines58 pat=rc0/CMP_FAIL/heads1/lines17
+  g99_a5_with_def          [MULTISET] CELLS  22  ALREADY-OK   0  FIXED  22  BROKE   0  STILL   0
+  g99_a5_with_def          [SET     ] CELLS  22  ALREADY-OK   0  FIXED  22  BROKE   0  STILL   0
+  FIXED       ('INSIDE', 'find@12:36-12:57')
+      G=['n=2|hier_path(itx.fa)@12:36-12:42 , constant()@12:52-12:53']
+      P=['n=2|hier_path(itx.fa)@12:36-12:42 , op37@12:51-12:56{constant()@12:52-12:53|constant()@12:54-12:55}']
+      Q=['n=2|hier_path(itx.fa)@12:36-12:42 , constant()@12:52-12:53']
+  FIXED       ('INSIDE', 'find@17:36-17:58')
+      G=['n=2|ref_obj(work@epsilon99::mfind::jtx)@17:36-17:39 , constant()@17:48-17:49']
+      P=['n=3|ref_obj(work@epsilon99::mfind::jtx)@17:36-17:39 , constant()@17:48-17:49 , op37@17:51-17:57{constant()@17:52-17:53|constant()@17:54-17:56}']
+      Q=['n=2|ref_obj(work@epsilon99::mfind::jtx)@17:36-17:39 , constant()@17:48-17:49']
+  FIXED       ('INSIDE', 'find@28:33-28:51')
+      G=['n=2|ref_obj(work@zeta99b.ktx)@28:33-28:36 , constant()@28:46-28:47']
+      P=['n=2|ref_obj(work@zeta99b.ktx)@28:33-28:36 , op37@28:45-28:50{constant()@28:46-28:47|constant()@28:48-28:49}']
+      Q=['n=2|ref_obj(work@zeta99b.ktx)@28:33-28:36 , constant()@28:46-28:47']
+  FIXED       ('INSIDE', 'find_first@14:42-14:63')
+      G=['n=2|hier_path(itx.fa)@14:42-14:48 , constant()@14:58-14:59']
+      P=['n=2|hier_path(itx.fa)@14:42-14:48 , op37@14:57-14:62{constant()@14:58-14:59|constant()@14:60-14:61}']
+      Q=['n=2|hier_path(itx.fa)@14:42-14:48 , constant()@14:58-14:59']
+  FIXED       ('INSIDE', 'find_index@13:42-13:66')
+      G=['n=2|hier_path(itx.fb)@13:42-13:48 , constant()@13:57-13:58']
+      P=['n=3|hier_path(itx.fb)@13:42-13:48 , constant()@13:57-13:58 , op37@13:60-13:65{constant()@13:61-13:62|constant()@13:63-13:64}']
+      Q=['n=2|hier_path(itx.fb)@13:42-13:48 , constant()@13:57-13:58']
+  FIXED       ('INSIDE', 'find_index@16:42-16:60')
+      G=['n=2|ref_obj(work@epsilon99::mfind::jtx)@16:42-16:45 , constant()@16:55-16:56']
+      P=['n=2|ref_obj(work@epsilon99::mfind::jtx)@16:42-16:45 , op37@16:54-16:59{constant()@16:55-16:56|constant()@16:57-16:58}']
+      Q=['n=2|ref_obj(work@epsilon99::mfind::jtx)@16:42-16:45 , constant()@16:55-16:56']
+  FIXED       ('INSIDE', 'find_last@15:41-15:62')
+      G=['n=2|hier_path(itx.fa)@15:41-15:47 , constant()@15:57-15:58']
+      P=['n=2|hier_path(itx.fa)@15:41-15:47 , op37@15:56-15:61{constant()@15:57-15:58|constant()@15:59-15:60}']
+      Q=['n=2|hier_path(itx.fa)@15:41-15:47 , constant()@15:57-15:58']
+  FIXED       ('INSIDE', 'max@20:35-20:53')
+      G=['n=2|ref_obj(work@epsilon99::mfind::jtx)@20:35-20:38 , constant()@20:48-20:49']
+      P=['n=2|ref_obj(work@epsilon99::mfind::jtx)@20:35-20:38 , op37@20:47-20:52{constant()@20:48-20:49|constant()@20:50-20:51}']
+      Q=['n=2|ref_obj(work@epsilon99::mfind::jtx)@20:35-20:38 , constant()@20:48-20:49']
+  FIXED       ('INSIDE', 'min@19:35-19:53')
+      G=['n=2|ref_obj(work@epsilon99::mfind::jtx)@19:35-19:38 , constant()@19:48-19:49']
+      P=['n=2|ref_obj(work@epsilon99::mfind::jtx)@19:35-19:38 , op37@19:47-19:52{constant()@19:48-19:49|constant()@19:50-19:51}']
+      Q=['n=2|ref_obj(work@epsilon99::mfind::jtx)@19:35-19:38 , constant()@19:48-19:49']
+  FIXED       ('INSIDE', 'sum@18:36-18:54')
+      G=['n=2|ref_obj(work@epsilon99::mfind::jtx)@18:36-18:39 , constant()@18:49-18:50']
+      P=['n=2|ref_obj(work@epsilon99::mfind::jtx)@18:36-18:39 , op37@18:48-18:53{constant()@18:49-18:50|constant()@18:51-18:52}']
+      Q=['n=2|ref_obj(work@epsilon99::mfind::jtx)@18:36-18:39 , constant()@18:49-18:50']
+  FIXED       ('INSIDE', 'unique@21:38-21:56')
+      G=['n=2|ref_obj(work@epsilon99::mfind::jtx)@21:38-21:41 , constant()@21:51-21:52']
+      P=['n=2|ref_obj(work@epsilon99::mfind::jtx)@21:38-21:41 , op37@21:50-21:55{constant()@21:51-21:52|constant()@21:53-21:54}']
+      Q=['n=2|ref_obj(work@epsilon99::mfind::jtx)@21:38-21:41 , constant()@21:51-21:52']
+  FIXED       ('LISTOP', 'find@12:51-12:56')
+      G=[]
+      P=['n=2|constant()@12:52-12:53 , constant()@12:54-12:55']
+      Q=[]
+  FIXED       ('LISTOP', 'find@17:51-17:57')
+      G=[]
+      P=['n=2|constant()@17:52-17:53 , constant()@17:54-17:56']
+      Q=[]
+  FIXED       ('LISTOP', 'find@28:45-28:50')
+      G=[]
+      P=['n=2|constant()@28:46-28:47 , constant()@28:48-28:49']
+      Q=[]
+  FIXED       ('LISTOP', 'find_first@14:57-14:62')
+      G=[]
+      P=['n=2|constant()@14:58-14:59 , constant()@14:60-14:61']
+      Q=[]
+  FIXED       ('LISTOP', 'find_index@13:60-13:65')
+      G=[]
+      P=['n=2|constant()@13:61-13:62 , constant()@13:63-13:64']
+      Q=[]
+  FIXED       ('LISTOP', 'find_index@16:54-16:59')
+      G=[]
+      P=['n=2|constant()@16:55-16:56 , constant()@16:57-16:58']
+      Q=[]
+  FIXED       ('LISTOP', 'find_last@15:56-15:61')
+      G=[]
+      P=['n=2|constant()@15:57-15:58 , constant()@15:59-15:60']
+      Q=[]
+  FIXED       ('LISTOP', 'max@20:47-20:52')
+      G=[]
+      P=['n=2|constant()@20:48-20:49 , constant()@20:50-20:51']
+      Q=[]
+  FIXED       ('LISTOP', 'min@19:47-19:52')
+      G=[]
+      P=['n=2|constant()@19:48-19:49 , constant()@19:50-19:51']
+      Q=[]
+  FIXED       ('LISTOP', 'sum@18:48-18:53')
+      G=[]
+      P=['n=2|constant()@18:49-18:50 , constant()@18:51-18:52']
+      Q=[]
+  FIXED       ('LISTOP', 'unique@21:50-21:55')
+      G=[]
+      P=['n=2|constant()@21:51-21:52 , constant()@21:53-21:54']
+      Q=[]
+g99_a5_with_elab: pris=rc0/CMP_FAIL/heads1/lines58 pat=rc0/CMP_FAIL/heads1/lines17
+  g99_a5_with_elab         [MULTISET] CELLS  25  ALREADY-OK   0  FIXED  15  BROKE   0  STILL  10
+  g99_a5_with_elab         [SET     ] CELLS  25  ALREADY-OK   0  FIXED  16  BROKE   0  STILL   9
+  STILL       ('INSIDE', '-@12:36-12:57')
+      G=[]
+      P=['n=2|hier_path(itx.fa)@12:36-12:42 , op-@12:51-12:56{}']
+      Q=['n=2|hier_path(itx.fa)@12:36-12:42 , constant()@12:52-12:53']
+  STILL       ('INSIDE', '-@18:36-18:54')
+      G=['n=2|ref_obj(work@epsilon99::mfind::jtx)@18:36-18:39 , constant()@18:49-18:50']
+      P=[]
+      Q=[]
+  FIXED       ('INSIDE', 'find@12:36-12:57')
+      G=['n=2|hier_path(itx.fa)@12:36-12:42 , constant()@12:52-12:53']
+      P=['n=2|hier_path(itx.fa)@12:36-12:42 , op37@12:51-12:56{constant()@12:52-12:53|constant()@12:54-12:55}']
+      Q=['n=2|hier_path(itx.fa)@12:36-12:42 , constant()@12:52-12:53']
+  STILL       ('INSIDE', 'find@17:36-17:58')
+      G=['n=2|ref_obj(work@epsilon99::mfind::dyn99::jtx)@17:36-17:39 , constant()@17:48-17:49', 'n=2|ref_obj(work@epsilon99::mfind::jtx)@17:36-17:39 , constant()@17:48-17:49']
+      P=['n=3|ref_obj(work@epsilon99::mfind::jtx)@17:36-17:39 , constant()@17:48-17:49 , op37@17:51-17:57{constant()@17:52-17:53|constant()@17:54-17:56}']
+      Q=['n=2|ref_obj(work@epsilon99::mfind::jtx)@17:36-17:39 , constant()@17:48-17:49']
+  STILL       ('INSIDE', 'find@28:33-28:51')
+      G=['n=2|ref_obj(work@zeta99b.ktx)@28:33-28:36 , constant()@28:46-28:47', 'n=2|ref_obj(work@zeta99b.mq99.ktx)@28:33-28:36 , constant()@28:46-28:47']
+      P=['n=2|ref_obj(work@zeta99b.ktx)@28:33-28:36 , op37@28:45-28:50{constant()@28:46-28:47|constant()@28:48-28:49}']
+      Q=['n=2|ref_obj(work@zeta99b.ktx)@28:33-28:36 , constant()@28:46-28:47']
+  FIXED       ('INSIDE', 'find_first@14:42-14:63')
+      G=['n=2|hier_path(itx.fa)@14:42-14:48 , constant()@14:58-14:59']
+      P=['n=2|hier_path(itx.fa)@14:42-14:48 , op37@14:57-14:62{constant()@14:58-14:59|constant()@14:60-14:61}']
+      Q=['n=2|hier_path(itx.fa)@14:42-14:48 , constant()@14:58-14:59']
+  FIXED       ('INSIDE', 'find_index@13:42-13:66')
+      G=['n=2|hier_path(itx.fb)@13:42-13:48 , constant()@13:57-13:58']
+      P=['n=3|hier_path(itx.fb)@13:42-13:48 , constant()@13:57-13:58 , op37@13:60-13:65{constant()@13:61-13:62|constant()@13:63-13:64}']
+      Q=['n=2|hier_path(itx.fb)@13:42-13:48 , constant()@13:57-13:58']
+  STILL       ('INSIDE', 'find_index@16:42-16:60')
+      G=['n=2|ref_obj(work@epsilon99::mfind::dyn99::jtx)@16:42-16:45 , constant()@16:55-16:56', 'n=2|ref_obj(work@epsilon99::mfind::jtx)@16:42-16:45 , constant()@16:55-16:56']
+      P=['n=2|ref_obj(work@epsilon99::mfind::jtx)@16:42-16:45 , op37@16:54-16:59{constant()@16:55-16:56|constant()@16:57-16:58}']
+      Q=['n=2|ref_obj(work@epsilon99::mfind::jtx)@16:42-16:45 , constant()@16:55-16:56']
+  FIXED       ('INSIDE', 'find_last@15:41-15:62')
+      G=['n=2|hier_path(itx.fa)@15:41-15:47 , constant()@15:57-15:58']
+      P=['n=2|hier_path(itx.fa)@15:41-15:47 , op37@15:56-15:61{constant()@15:57-15:58|constant()@15:59-15:60}']
+      Q=['n=2|hier_path(itx.fa)@15:41-15:47 , constant()@15:57-15:58']
+  STILL       ('INSIDE', 'max@20:35-20:53')
+      G=['n=2|ref_obj(work@epsilon99::mfind::dyn99::jtx)@20:35-20:38 , constant()@20:48-20:49', 'n=2|ref_obj(work@epsilon99::mfind::jtx)@20:35-20:38 , constant()@20:48-20:49']
+      P=['n=2|ref_obj(work@epsilon99::mfind::jtx)@20:35-20:38 , op37@20:47-20:52{constant()@20:48-20:49|constant()@20:50-20:51}']
+      Q=['n=2|ref_obj(work@epsilon99::mfind::jtx)@20:35-20:38 , constant()@20:48-20:49']
+  STILL       ('INSIDE', 'min@19:35-19:53')
+      G=['n=2|ref_obj(work@epsilon99::mfind::dyn99::jtx)@19:35-19:38 , constant()@19:48-19:49', 'n=2|ref_obj(work@epsilon99::mfind::jtx)@19:35-19:38 , constant()@19:48-19:49']
+      P=['n=2|ref_obj(work@epsilon99::mfind::jtx)@19:35-19:38 , op37@19:47-19:52{constant()@19:48-19:49|constant()@19:50-19:51}']
+      Q=['n=2|ref_obj(work@epsilon99::mfind::jtx)@19:35-19:38 , constant()@19:48-19:49']
+  STILL       ('INSIDE', 'sum@18:36-18:54')
+      G=['n=2|ref_obj(work@epsilon99::mfind::dyn99::jtx)@18:36-18:39 , constant()@18:49-18:50']
+      P=['n=2|ref_obj(work@epsilon99::mfind::jtx)@18:36-18:39 , op37@18:48-18:53{constant()@18:49-18:50|constant()@18:51-18:52}']
+      Q=['n=2|ref_obj(work@epsilon99::mfind::jtx)@18:36-18:39 , constant()@18:49-18:50']
+  STILL       ('INSIDE', 'unique@21:38-21:56')
+      G=['n=2|ref_obj(work@epsilon99::mfind::dyn99::jtx)@21:38-21:41 , constant()@21:51-21:52', 'n=2|ref_obj(work@epsilon99::mfind::jtx)@21:38-21:41 , constant()@21:51-21:52']
+      P=['n=2|ref_obj(work@epsilon99::mfind::jtx)@21:38-21:41 , op37@21:50-21:55{constant()@21:51-21:52|constant()@21:53-21:54}']
+      Q=['n=2|ref_obj(work@epsilon99::mfind::jtx)@21:38-21:41 , constant()@21:51-21:52']
+  FIXED       ('LISTOP', '-@12:51-12:56')
+      G=[]
+      P=['n=2|constant()@12:52-12:53 , constant()@12:54-12:55']
+      Q=[]
+  FIXED       ('LISTOP', 'find@12:51-12:56')
+      G=[]
+      P=['n=2|constant()@12:52-12:53 , constant()@12:54-12:55']
+      Q=[]
+  FIXED       ('LISTOP', 'find@17:51-17:57')
+      G=[]
+      P=['n=2|constant()@17:52-17:53 , constant()@17:54-17:56']
+      Q=[]
+  FIXED       ('LISTOP', 'find@28:45-28:50')
+      G=[]
+      P=['n=2|constant()@28:46-28:47 , constant()@28:48-28:49']
+      Q=[]
+  FIXED       ('LISTOP', 'find_first@14:57-14:62')
+      G=[]
+      P=['n=2|constant()@14:58-14:59 , constant()@14:60-14:61']
+      Q=[]
+  FIXED       ('LISTOP', 'find_index@13:60-13:65')
+      G=[]
+      P=['n=2|constant()@13:61-13:62 , constant()@13:63-13:64']
+      Q=[]
+  FIXED       ('LISTOP', 'find_index@16:54-16:59')
+      G=[]
+      P=['n=2|constant()@16:55-16:56 , constant()@16:57-16:58']
+      Q=[]
+  FIXED       ('LISTOP', 'find_last@15:56-15:61')
+      G=[]
+      P=['n=2|constant()@15:57-15:58 , constant()@15:59-15:60']
+      Q=[]
+  FIXED       ('LISTOP', 'max@20:47-20:52')
+      G=[]
+      P=['n=2|constant()@20:48-20:49 , constant()@20:50-20:51']
+      Q=[]
+  FIXED       ('LISTOP', 'min@19:47-19:52')
+      G=[]
+      P=['n=2|constant()@19:48-19:49 , constant()@19:50-19:51']
+      Q=[]
+  FIXED       ('LISTOP', 'sum@18:48-18:53')
+      G=[]
+      P=['n=2|constant()@18:49-18:50 , constant()@18:51-18:52']
+      Q=[]
+  FIXED       ('LISTOP', 'unique@21:50-21:55')
+      G=[]
+      P=['n=2|constant()@21:51-21:52 , constant()@21:53-21:54']
+      Q=[]
+g99_a6_assert_def: pris=rc0/CMP_FAIL/heads1/lines58 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a6_assert_def        [MULTISET] CELLS   4  ALREADY-OK   0  FIXED   4  BROKE   0  STILL   0
+  g99_a6_assert_def        [SET     ] CELLS   4  ALREADY-OK   0  FIXED   4  BROKE   0  STILL   0
+  FIXED       ('INSIDE', 'work@eta99.p_rng99@7:22-7:42')
+      G=['n=2|ref_obj(work@eta99.p_rng99.val99)@7:22-7:27 , constant()@7:37-7:38']
+      P=['n=2|ref_obj(work@eta99.p_rng99.val99)@7:22-7:27 , op37@7:36-7:41{constant()@7:37-7:38|constant()@7:39-7:40}']
+      Q=['n=2|ref_obj(work@eta99.p_rng99.val99)@7:22-7:27 , constant()@7:37-7:38']
+  FIXED       ('INSIDE', 'work@eta99@4:13-4:33')
+      G=['n=2|ref_obj(work@eta99.val99)@4:13-4:18 , constant()@4:28-4:29']
+      P=['n=2|ref_obj(work@eta99.val99)@4:13-4:18 , op37@4:27-4:32{constant()@4:28-4:29|constant()@4:30-4:31}']
+      Q=['n=2|ref_obj(work@eta99.val99)@4:13-4:18 , constant()@4:28-4:29']
+  FIXED       ('LISTOP', 'work@eta99.p_rng99@7:36-7:41')
+      G=[]
+      P=['n=2|constant()@7:37-7:38 , constant()@7:39-7:40']
+      Q=[]
+  FIXED       ('LISTOP', 'work@eta99@4:27-4:32')
+      G=[]
+      P=['n=2|constant()@4:28-4:29 , constant()@4:30-4:31']
+      Q=[]
+g99_a6_assert_elab: pris=rc0/CMP_FAIL/heads1/lines58 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a6_assert_elab       [MULTISET] CELLS   4  ALREADY-OK   0  FIXED   4  BROKE   0  STILL   0
+  g99_a6_assert_elab       [SET     ] CELLS   4  ALREADY-OK   0  FIXED   4  BROKE   0  STILL   0
+  FIXED       ('INSIDE', 'work@eta99.p_rng99@7:22-7:42')
+      G=['n=2|ref_obj(work@eta99.p_rng99.val99)@7:22-7:27 , constant()@7:37-7:38']
+      P=['n=2|ref_obj(work@eta99.p_rng99.val99)@7:22-7:27 , op37@7:36-7:41{constant()@7:37-7:38|constant()@7:39-7:40}']
+      Q=['n=2|ref_obj(work@eta99.p_rng99.val99)@7:22-7:27 , constant()@7:37-7:38']
+  FIXED       ('INSIDE', 'work@eta99@4:13-4:33')
+      G=['n=2|ref_obj(work@eta99.val99)@4:13-4:18 , constant()@4:28-4:29']
+      P=['n=2|ref_obj(work@eta99.val99)@4:13-4:18 , op37@4:27-4:32{constant()@4:28-4:29|constant()@4:30-4:31}']
+      Q=['n=2|ref_obj(work@eta99.val99)@4:13-4:18 , constant()@4:28-4:29']
+  FIXED       ('LISTOP', 'work@eta99.p_rng99@7:36-7:41')
+      G=[]
+      P=['n=2|constant()@7:37-7:38 , constant()@7:39-7:40']
+      Q=[]
+  FIXED       ('LISTOP', 'work@eta99@4:27-4:32')
+      G=[]
+      P=['n=2|constant()@4:28-4:29 , constant()@4:30-4:31']
+      Q=[]
+g99_a7_shapes_def: pris=rc0/CMP_FAIL/heads1/lines104 pat=rc0/CMP_FAIL/heads1/lines178
+  g99_a7_shapes_def        [MULTISET] CELLS  14  ALREADY-OK   4  FIXED   8  BROKE   0  STILL   2
+  g99_a7_shapes_def        [SET     ] CELLS  14  ALREADY-OK   4  FIXED   8  BROKE   0  STILL   2
+  FIXED       ('INSIDE', 'work@iota99.h1@13:12-13:31')
+      G=['n=2|ref_obj(work@iota99.h1.zv)@13:12-13:14 , constant()@13:24-13:26']
+      P=['n=2|ref_obj(work@iota99.h1.zv)@13:12-13:14 , op37@13:23-13:30{constant()@13:24-13:26|constant()@13:27-13:29}']
+      Q=['n=2|ref_obj(work@iota99.h1.zv)@13:12-13:14 , constant()@13:24-13:26']
+  STILL       ('INSIDE', 'work@iota99.h3@19:12-19:41')
+      G=['n=3|ref_obj(work@iota99.h3.zv)@19:12-19:14 , ref_obj(work@iota99.h3.nn99)@19:24-19:28 , constant()@19:29-19:30']
+      P=['n=2|ref_obj(work@iota99.h3.zv)@19:12-19:14 , op37@19:23-19:40{op25@19:24-19:30{ref_obj(work@iota99.h3.nn99)@19:24-19:28|constant()@19:29-19:30}|op24@19:33-19:39{ref_obj(work@iota99.h3.mm99)@19:33-19:37|constant()@19:38-19:39}}']
+      Q=['n=2|ref_obj(work@iota99.h3.zv)@19:12-19:14 , op37@19:23-19:40{op25@19:24-19:30{ref_obj(work@iota99.h3.nn99)@19:24-19:28|constant()@19:29-19:30}|op24@19:33-19:39{ref_obj(work@iota99.h3.mm99)@19:33-19:37|constant()@19:38-19:39}}']
+  FIXED       ('INSIDE', 'work@iota99.h5@25:12-25:38')
+      G=['n=2|ref_obj(work@iota99.h5.zv)@25:12-25:14 , bit_select(work@iota99.h5.aq99)@25:28-25:29']
+      P=['n=3|ref_obj(work@iota99.h5.zv)@25:12-25:14 , bit_select(work@iota99.h5.aq99)@25:28-25:29 , op37@25:32-25:37{constant()@25:33-25:34|constant()@25:35-25:36}']
+      Q=['n=2|ref_obj(work@iota99.h5.zv)@25:12-25:14 , bit_select(work@iota99.h5.aq99)@25:28-25:29']
+  FIXED       ('INSIDE', 'work@iota99.h8@34:13-34:30')
+      G=['n=2|ref_obj(work@iota99.h8.zv)@34:13-34:15 , constant()@34:25-34:26']
+      P=['n=2|ref_obj(work@iota99.h8.zv)@34:13-34:15 , op37@34:24-34:29{constant()@34:25-34:26|constant()@34:27-34:28}']
+      Q=['n=2|ref_obj(work@iota99.h8.zv)@34:13-34:15 , constant()@34:25-34:26']
+  FIXED       ('INSIDE', 'work@iota99.h8@34:36-34:53')
+      G=['n=2|ref_obj(work@iota99.h8.zv)@34:36-34:38 , constant()@34:48-34:49']
+      P=['n=2|ref_obj(work@iota99.h8.zv)@34:36-34:38 , op37@34:47-34:52{constant()@34:48-34:49|constant()@34:50-34:51}']
+      Q=['n=2|ref_obj(work@iota99.h8.zv)@34:36-34:38 , constant()@34:48-34:49']
+  FIXED       ('LISTOP', 'work@iota99.h1@13:23-13:30')
+      G=[]
+      P=['n=2|constant()@13:24-13:26 , constant()@13:27-13:29']
+      Q=[]
+  STILL       ('LISTOP', 'work@iota99.h3@19:23-19:40')
+      G=[]
+      P=['n=2|op25@19:24-19:30{ref_obj(work@iota99.h3.nn99)@19:24-19:28|constant()@19:29-19:30} , op24@19:33-19:39{ref_obj(work@iota99.h3.mm99)@19:33-19:37|constant()@19:38-19:39}']
+      Q=['n=2|op25@19:24-19:30{ref_obj(work@iota99.h3.nn99)@19:24-19:28|constant()@19:29-19:30} , op24@19:33-19:39{ref_obj(work@iota99.h3.mm99)@19:33-19:37|constant()@19:38-19:39}']
+  FIXED       ('LISTOP', 'work@iota99.h5@25:32-25:37')
+      G=[]
+      P=['n=2|constant()@25:33-25:34 , constant()@25:35-25:36']
+      Q=[]
+  FIXED       ('LISTOP', 'work@iota99.h8@34:24-34:29')
+      G=[]
+      P=['n=2|constant()@34:25-34:26 , constant()@34:27-34:28']
+      Q=[]
+  FIXED       ('LISTOP', 'work@iota99.h8@34:47-34:52')
+      G=[]
+      P=['n=2|constant()@34:48-34:49 , constant()@34:50-34:51']
+      Q=[]
+g99_a7_shapes_elab: pris=rc0/CMP_FAIL/heads1/lines104 pat=rc0/CMP_FAIL/heads1/lines178
+  g99_a7_shapes_elab       [MULTISET] CELLS  14  ALREADY-OK   4  FIXED   8  BROKE   0  STILL   2
+  g99_a7_shapes_elab       [SET     ] CELLS  14  ALREADY-OK   4  FIXED   8  BROKE   0  STILL   2
+  FIXED       ('INSIDE', 'work@iota99.h1@13:12-13:31')
+      G=['n=2|ref_obj(work@iota99.h1.zv)@13:12-13:14 , constant()@13:24-13:26']
+      P=['n=2|ref_obj(work@iota99.h1.zv)@13:12-13:14 , op37@13:23-13:30{constant()@13:24-13:26|constant()@13:27-13:29}']
+      Q=['n=2|ref_obj(work@iota99.h1.zv)@13:12-13:14 , constant()@13:24-13:26']
+  STILL       ('INSIDE', 'work@iota99.h3@19:12-19:41')
+      G=['n=3|ref_obj(work@iota99.h3.zv)@19:12-19:14 , ref_obj(work@iota99.h3.nn99)@19:24-19:28 , constant()@19:29-19:30']
+      P=['n=2|ref_obj(work@iota99.h3.zv)@19:12-19:14 , op37@19:23-19:40{op25@19:24-19:30{ref_obj(work@iota99.h3.nn99)@19:24-19:28|constant()@19:29-19:30}|op24@19:33-19:39{ref_obj(work@iota99.h3.mm99)@19:33-19:37|constant()@19:38-19:39}}']
+      Q=['n=2|ref_obj(work@iota99.h3.zv)@19:12-19:14 , op37@19:23-19:40{op25@19:24-19:30{ref_obj(work@iota99.h3.nn99)@19:24-19:28|constant()@19:29-19:30}|op24@19:33-19:39{ref_obj(work@iota99.h3.mm99)@19:33-19:37|constant()@19:38-19:39}}']
+  FIXED       ('INSIDE', 'work@iota99.h5@25:12-25:38')
+      G=['n=2|ref_obj(work@iota99.h5.zv)@25:12-25:14 , bit_select(work@iota99.h5.aq99)@25:28-25:29']
+      P=['n=3|ref_obj(work@iota99.h5.zv)@25:12-25:14 , bit_select(work@iota99.h5.aq99)@25:28-25:29 , op37@25:32-25:37{constant()@25:33-25:34|constant()@25:35-25:36}']
+      Q=['n=2|ref_obj(work@iota99.h5.zv)@25:12-25:14 , bit_select(work@iota99.h5.aq99)@25:28-25:29']
+  FIXED       ('INSIDE', 'work@iota99.h8@34:13-34:30')
+      G=['n=2|ref_obj(work@iota99.h8.zv)@34:13-34:15 , constant()@34:25-34:26']
+      P=['n=2|ref_obj(work@iota99.h8.zv)@34:13-34:15 , op37@34:24-34:29{constant()@34:25-34:26|constant()@34:27-34:28}']
+      Q=['n=2|ref_obj(work@iota99.h8.zv)@34:13-34:15 , constant()@34:25-34:26']
+  FIXED       ('INSIDE', 'work@iota99.h8@34:36-34:53')
+      G=['n=2|ref_obj(work@iota99.h8.zv)@34:36-34:38 , constant()@34:48-34:49']
+      P=['n=2|ref_obj(work@iota99.h8.zv)@34:36-34:38 , op37@34:47-34:52{constant()@34:48-34:49|constant()@34:50-34:51}']
+      Q=['n=2|ref_obj(work@iota99.h8.zv)@34:36-34:38 , constant()@34:48-34:49']
+  FIXED       ('LISTOP', 'work@iota99.h1@13:23-13:30')
+      G=[]
+      P=['n=2|constant()@13:24-13:26 , constant()@13:27-13:29']
+      Q=[]
+  STILL       ('LISTOP', 'work@iota99.h3@19:23-19:40')
+      G=[]
+      P=['n=2|op25@19:24-19:30{ref_obj(work@iota99.h3.nn99)@19:24-19:28|constant()@19:29-19:30} , op24@19:33-19:39{ref_obj(work@iota99.h3.mm99)@19:33-19:37|constant()@19:38-19:39}']
+      Q=['n=2|op25@19:24-19:30{ref_obj(work@iota99.h3.nn99)@19:24-19:28|constant()@19:29-19:30} , op24@19:33-19:39{ref_obj(work@iota99.h3.mm99)@19:33-19:37|constant()@19:38-19:39}']
+  FIXED       ('LISTOP', 'work@iota99.h5@25:32-25:37')
+      G=[]
+      P=['n=2|constant()@25:33-25:34 , constant()@25:35-25:36']
+      Q=[]
+  FIXED       ('LISTOP', 'work@iota99.h8@34:24-34:29')
+      G=[]
+      P=['n=2|constant()@34:25-34:26 , constant()@34:27-34:28']
+      Q=[]
+  FIXED       ('LISTOP', 'work@iota99.h8@34:47-34:52')
+      G=[]
+      P=['n=2|constant()@34:48-34:49 , constant()@34:50-34:51']
+      Q=[]
+g99_a8_class_def: pris=rc0/CMP_FAIL/heads1/lines58 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a8_class_def         [MULTISET] CELLS   4  ALREADY-OK   0  FIXED   4  BROKE   0  STILL   0
+  g99_a8_class_def         [SET     ] CELLS   4  ALREADY-OK   0  FIXED   4  BROKE   0  STILL   0
+  FIXED       ('INSIDE', 'kappa99_pkg::lam99::chk@6:11-6:28')
+      G=['n=2|ref_obj(kappa99_pkg::lam99::chk::qv)@6:11-6:13 , constant()@6:23-6:24']
+      P=['n=2|ref_obj(kappa99_pkg::lam99::chk::qv)@6:11-6:13 , op37@6:22-6:27{constant()@6:23-6:24|constant()@6:25-6:26}']
+      Q=['n=2|ref_obj(kappa99_pkg::lam99::chk::qv)@6:11-6:13 , constant()@6:23-6:24']
+  FIXED       ('INSIDE', 'kappa99_pkg::lam99::oob@12:12-12:29')
+      G=['n=2|ref_obj(kappa99_pkg::lam99::oob::qv)@12:12-12:14 , constant()@12:24-12:25']
+      P=['n=2|ref_obj(kappa99_pkg::lam99::oob::qv)@12:12-12:14 , op37@12:23-12:28{constant()@12:24-12:25|constant()@12:26-12:27}']
+      Q=['n=2|ref_obj(kappa99_pkg::lam99::oob::qv)@12:12-12:14 , constant()@12:24-12:25']
+  FIXED       ('LISTOP', 'kappa99_pkg::lam99::chk@6:22-6:27')
+      G=[]
+      P=['n=2|constant()@6:23-6:24 , constant()@6:25-6:26']
+      Q=[]
+  FIXED       ('LISTOP', 'kappa99_pkg::lam99::oob@12:23-12:28')
+      G=[]
+      P=['n=2|constant()@12:24-12:25 , constant()@12:26-12:27']
+      Q=[]
+g99_a8_class_elab: pris=rc0/CMP_FAIL/heads1/lines58 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a8_class_elab        [MULTISET] CELLS   4  ALREADY-OK   0  FIXED   3  BROKE   0  STILL   1
+  g99_a8_class_elab        [SET     ] CELLS   4  ALREADY-OK   0  FIXED   3  BROKE   0  STILL   1
+  FIXED       ('INSIDE', 'kappa99_pkg::lam99::chk@6:11-6:28')
+      G=['n=2|ref_obj(kappa99_pkg::lam99::chk::qv)@6:11-6:13 , constant()@6:23-6:24']
+      P=['n=2|ref_obj(kappa99_pkg::lam99::chk::qv)@6:11-6:13 , op37@6:22-6:27{constant()@6:23-6:24|constant()@6:25-6:26}']
+      Q=['n=2|ref_obj(kappa99_pkg::lam99::chk::qv)@6:11-6:13 , constant()@6:23-6:24']
+  STILL       ('INSIDE', 'kappa99_pkg::lam99::oob@12:12-12:29')
+      G=['n=2|ref_obj(kappa99_pkg::lam99::oob::qv)@12:12-12:14 , constant()@12:24-12:25', 'n=2|ref_obj(work@mu99.oob.qv)@12:12-12:14 , constant()@12:24-12:25']
+      P=['n=2|ref_obj(kappa99_pkg::lam99::oob::qv)@12:12-12:14 , op37@12:23-12:28{constant()@12:24-12:25|constant()@12:26-12:27}']
+      Q=['n=2|ref_obj(kappa99_pkg::lam99::oob::qv)@12:12-12:14 , constant()@12:24-12:25']
+  FIXED       ('LISTOP', 'kappa99_pkg::lam99::chk@6:22-6:27')
+      G=[]
+      P=['n=2|constant()@6:23-6:24 , constant()@6:25-6:26']
+      Q=[]
+  FIXED       ('LISTOP', 'kappa99_pkg::lam99::oob@12:23-12:28')
+      G=[]
+      P=['n=2|constant()@12:24-12:25 , constant()@12:26-12:27']
+      Q=[]
+g99_a9_fence_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a9_fence_def         [MULTISET] CELLS  10  ALREADY-OK   9  FIXED   0  BROKE   0  STILL   1
+  g99_a9_fence_def         [SET     ] CELLS  10  ALREADY-OK  10  FIXED   0  BROKE   0  STILL   0
+g99_a9_fence_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g99_a9_fence_elab        [MULTISET] CELLS  10  ALREADY-OK   9  FIXED   0  BROKE   0  STILL   1
+  g99_a9_fence_elab        [SET     ] CELLS  10  ALREADY-OK  10  FIXED   0  BROKE   0  STILL   0
