@@ -1413,6 +1413,26 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             }
             return it->second;
         }
+        // § defBodyTypedefSiteShare62 — the symbol-keyed map missed.  When the
+        // declared type is a module-local TYPEDEF, the miss means only that
+        // this signal lives in a DIFFERENT SPECIALIZATION of the module whose
+        // def listing built the typespec (slang mints one `TypeAliasType` per
+        // specialization; Surelog compiles the typedef once per DEFINITION).
+        // Golden hands every instance the def's object, so hand it over here
+        // instead of falling through to a bare vector typespec.
+        //   Earlgrey `tlul_adapter_sram`: `req_t reqfifo_wdata, reqfifo_rdata;`
+        //   and `rsp_t rspfifo_wdata, rspfifo_rdata;` read `struct_typespec`
+        //   id 191248 / 191254 in golden's def listing and in ALL NINE
+        //   elaborated instances, while we gave the first instance the struct
+        //   and the other eight a nameless `logic_typespec` (32 cells).
+        if (!bypassTypedefShare &&
+            declared->getType().kind == SymbolKind::TypeAlias) {
+            if (auto* tsyn62 = declared->getType().getSyntax()) {
+                if (auto sit62 = typedefTsSite62.find(tsyn62);
+                    sit62 != typedefTsSite62.end())
+                    return sit62->second;
+            }
+        }
         // NOTE § classTdTopOnlyShare50 — a CLASS-HANDLE typedef is listed in the
         // ELABORATED package view ONLY (`else if (topView)` at
         // src/ParamEmit.cpp:18999, the arm that fills `pkgClassTd9` at
@@ -10983,6 +11003,21 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
         ts->VpiName(ta.name);
         ((UHDM::typespec*)ts)->Instance(m);
         typedefTs[&ta] = ts;
+        // § defBodyTypedefSiteShare62 — record the SAME object under the
+        // typedef's declaration syntax node, which every specialization of
+        // this module shares.  Only this listing (the definition's) writes
+        // here, and only the first writer wins, so the object handed out is
+        // always the DEF's — exactly what Surelog's per-DesignComponent
+        // DataTypeMap gives every instance.
+        if (auto* tsyn62 = ta.getSyntax()) {
+            typedefTsSite62.emplace(tsyn62, ts);
+            if (ct.kind == SymbolKind::EnumType)
+                for (auto& ev62 : ct.as<EnumType>().values())
+                    if (auto* esyn62 = ev62.getSyntax())
+                        if (auto eit62 = enumConstMap.find(&ev62);
+                            eit62 != enumConstMap.end())
+                            enumConstSite62.emplace(esyn62, eit62->second);
+        }
         info.typedefs.push_back(ts);
         tds->push_back(ts);
     }

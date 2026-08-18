@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 01:50, HEAD = the rgg11 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 02:15, HEAD = the earl62 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,14 +182,14 @@ row-modes over 7 tests:
 |---|---|---|
 | SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | 28 | a constant Surelog reduced to a TYPE WIDTH (loc-less, decompile `32`/UINT:32) where we carry the type spelling (`int`, UINT:0) at uvm_object_defines.svh:3494 (`{ << int {…}}` streaming slice_size / `$bits(int)`), pass uvm93 in flight (uvm92 landed: 176→28) |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 29 | FOREACH loop-variable refs in the OOB `uvm_packer::get_packed_bytes` (uvm_pkg.sv:22234/22238): golden's ELAB copy binds them to the foreach byte_var, DEF copy bare, ours bare in both — pass buvm17 in flight (buvm16 landed: 31→29) |
-| Earlgrey_0_1/default | 19 | golden binds an Actual inside an ELAB assignment-pattern (op75) member value that we leave null: ref_obj `OpRead` → enum_const of a MODULE-LOCAL typedef enum (tlul_adapter_sram.sv:129-142), pass earl62 in flight (earl61 landed 550bea2: 29→19) |
-| Earlgrey_0_1/testflags | 37 | same cluster, one field over: member-select element `reqfifo_rdata.error` → typespec_member of the struct typespec (earl61: 30→37 depth, tlul_adapter_reg block now byte-identical to golden) |
+| Earlgrey_0_1/default | 64 (depth) | param_assign Rhs CONSTANT of `localparam int Aw = vbits(Depth)` (prim_ram_1p_adv.sv:32, port-list localparam, user-function initializer): golden INT:14 ct 7 `14`, ours BIN ct 3 `32'b…1110` — a value-ENCODING law (sibling of rgg11 R-B); pass earl63 in flight (earl62 landed: 19→64) |
+| Earlgrey_0_1/testflags | 64 (depth) | SAME head, identical cmp log — the two Earlgrey modes share one head for the first time (earl62: 37→64) |
 | Rggen/default | 104 (depth) | an UNREDUCED user function call inside a packed range bound: rggen_or_reducer.sv:66 `logic [NEXT_N-1:0]…` with `localparam int NEXT_N = get_next_n(SUB_N_LIST)` — golden keeps `get_next_n(<400-bit BIN>) - 1` unevaluated, we fold to INT:0; pass rgg12 in flight (rgg11 landed: 36→104 depth, whole-dump diff = 4 lines) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 49 verifier fix-before-landing re-cuts (93 landings total). Ladder lower bounds
+regressions, 49 verifier fix-before-landing re-cuts (94 landings total). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

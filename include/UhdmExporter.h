@@ -3419,6 +3419,22 @@ private:
     std::set<UHDM::task_func*> tfShells;
     // Typedef typespecs shared across views; enum consts for value refs.
     std::map<const slang::ast::Symbol*, UHDM::typespec*> typedefTs;
+    // § defBodyTypedefSiteShare62 (r10earl62) — the SAME two registries keyed
+    // on the typedef DECLARATION SYNTAX NODE instead of the slang symbol.
+    // Surelog compiles a module's typedefs ONCE per DEFINITION (the
+    // DesignComponent's DataTypeMap, written by `UhdmWriter::writeDataTypes`)
+    // and every elaborated instance's `Typespecs()` lists THOSE SAME OBJECTS,
+    // whatever its parameterization — measured on Earlgrey's
+    // `tlul_adapter_sram`: golden's `enum_typespec req_op_e` is id 191242 and
+    // its `struct_typespec req_t` id 191248 in the def listing AND in all NINE
+    // elaborated instances.  slang mints a fresh `TypeAliasType` /
+    // `EnumValueSymbol` per SPECIALIZATION, so the symbol-keyed maps above
+    // resolve only for the one body that produced the def view; these two
+    // recover the rest.  Populated in `emitTypedefs` ONLY (module/interface
+    // definition listings), first writer wins, so package / class / gen-scope
+    // typedefs are out of reach by construction.
+    std::map<const slang::syntax::SyntaxNode*, UHDM::typespec*> typedefTsSite62;
+    std::map<const slang::syntax::SyntaxNode*, UHDM::any*> enumConstSite62;
     /// § sharedTdRefNoRestamp9 — WHICH shared-typedef cell @a ts falls in.  See
     /// `sharedTypedefTsRef9` below for the law.  The five values exist because
     /// the law does NOT claim the whole (scope x kind) grid, and every fence

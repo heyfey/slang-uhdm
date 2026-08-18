@@ -1,0 +1,79 @@
+r10earl62 — THE NEXT HEAD (R0), BOTH Earlgrey_0_1 modes, measured on the PATCHED
+database (md5 bea968278278c25e502eda308f26723f) against the immutable golden
+caches 00d4794526e44dc553f3 (default) and d7348d2d2fe67abe767b (testflags).
+
+BOTH heads of this pass CLEARED and BOTH modes landed on ONE SHARED head: the
+two cmp logs are `cmp -s` IDENTICAL (64 lines, 1 head each).  For the first
+time in this family the default and testflags rows are on the same object.
+
+=======================================================================
+R0 — Earlgrey_0_1, BOTH MODES (default 19 -> 64 lines, testflags 37 -> 64)
+=======================================================================
+
+  LHS(golden): constant  id:303406  32:41-32:53
+                 < param_assign id:303405 32:18-32:53
+                 vpiDecompile "14"   vpiSize 32   INT:14   vpiConstType 7
+                 vpiTypespec -> ref_typespec (work@top_earlgrey.u_ram1p_ram_main)
+                                -> int_typespec 32:14-32:17
+  RHS(ours)  : constant  id:246741  32:41-32:53
+                 < param_assign id:246740 32:18-32:53
+                 vpiDecompile "32'b00000000000000000000000000001110"
+                 vpiSize 32   BIN:00000000000000000000000000001110
+                 vpiConstType 3
+                 (same ref_typespec shape, its own int_typespec)
+
+Both sides are the SAME slot (`expr::Compare` reaches VpiDecompile first, then
+VpiSize, then the typespec), so this is a VALUE-ENCODING difference, not a
+missing or extra object: sizes agree at 32, the typespec chain agrees.
+
+DECODED SITE (named, not guessed):
+  prim_ram_1p_adv.sv:32 — `localparam int Aw = vbits(Depth)` in the parameter
+  port list of `prim_ram_1p_adv`, elaborated as
+  `work@top_earlgrey.u_ram1p_ram_main` with `Depth = 16384`, so the value is 14.
+
+> R0: **a localparam whose initializer is a USER FUNCTION CALL folds, in golden,
+> to a plain DECIMAL `UINT`/`INT` constant carrying the digits as its
+> vpiDecompile (`INT:14`, ct 7, "14"); we keep the call's BINARY return
+> encoding at the declared width (`BIN:…1110`, ct 3, "32'b…1110").**  The
+> discriminator to establish first is whether the rule is the FUNCTION-CALL
+> initializer's or every reduced localparam's — measure a grid of localparam
+> initializers (literal / arithmetic / $clog2 / user function / package
+> function / parameter-dependent) in a parameter PORT LIST vs a module BODY,
+> DEF vs ELAB, and read `vpiConstType` + `vpiDecompile` + `vpiSize` on each.
+> `CompileHelper::reduceExpr` + `adjustSize` on the Surelog side; ours is the
+> ParamEmit localparam-fold path.
+
+Count evidence, whole database, DIRECT .uhdm read (never uhdm-dump — Earlgrey's
+dump is >1 GB and takes hours):
+  the pass's own censuses report ZERO remaining cells in the two families it
+  owns (cont_assign reference Actuals and signal typespecs, both modes,
+  TO-GOLDEN 10/14/64/64 with AWAY-GOLDEN 0 and STILL-WRONG 0), so the whole
+  residue is in OTHER families; this constant is the first one the walk reaches.
+
+=======================================================================
+RANKED AFTER R0 (all measured in this pass, README §5)
+=======================================================================
+R1  a GEN-SCOPE cont_assign reading a MODULE-LOCAL enum constant still binds
+    nothing for us where golden binds the enum_const (g3 arm row (m),
+    `L71:14 … ref_obj:CB_`).  It is the ONE cell of grid C this pass did not
+    move: the reference never reaches the deferred `pendingEnumRefs` queue, so
+    the site-keyed recovery cannot see it — an earlier arm in ExprEmit's
+    NamedValue chain claims it.  Find that arm first; do not widen the
+    recovery blindly (§ genCaEnumConstNoBind21 is a MEASURED-NEGATIVE
+    precedent for exactly this shape).
+R2  the `en_t` count on earl59's v59w2 arm: golden 11, pristine 9, patched 10.
+    One further ELAB copy of a module-local ENUM typedef is still ours-fresh
+    where golden shares the def object — the enum half of this pass's law has
+    one uncovered site (an `enum_var`'s OWN typespec, not the typedef listing).
+R3  an UNPACKED ARRAY of a module-local struct typedef (`c_t varr [0:1]`) is
+    MISSING ENTIRELY from the second specialization's `Variables()` on our
+    side, where golden lists it with an `array_typespec` (g3 arm, TS diff).
+    PRE-EXISTING (pristine and patched alike) and unrelated to the binder.
+R4  carried from earl61 and unchanged here: the func_call HighConn ARGUMENT
+    (earl61 R1), the gen-scope INSTANCE ARRAY with no elaborated ports
+    (earl61 R2), the nested named-member pattern fold (earl61 R3), the
+    gen-scope high_conn operand naming a param/enum (earl61 R4), the
+    declaration-initializer carrier of § patFlatUnsizedMemberWidth61
+    (earl61 R5), the module-scope high_conn TARGET (earl61 R6, cosmetic and
+    invisible to design::Compare), the a2_earl54 instance-array shortfall
+    (earl61 R7).

@@ -5883,9 +5883,36 @@ UHDM::design* UhdmExporter::exportDesign() {
 
     // Bind enum-value refs whose enum_const was only materialized in the
     // deferred typespec pass (anonymous enums).
-    for (auto& [ref, sym] : pendingEnumRefs)
-        if (auto eit = enumConstMap.find(sym); eit != enumConstMap.end())
+    for (auto& [ref, sym] : pendingEnumRefs) {
+        if (auto eit = enumConstMap.find(sym); eit != enumConstMap.end()) {
             ref->Actual_group(eit->second);
+            continue;
+        }
+        // § defBodyTypedefSiteShare62 — the reference reads a MODULE-LOCAL
+        // enum constant from an instance whose specialization is not the one
+        // that produced the def listing, so the symbol-keyed map cannot see
+        // it.  Surelog compiles the module's `typedef enum` ONCE per
+        // DEFINITION and hands EVERY instance that one `enum_const` object, so
+        // the declaration SITE is the right key.  This is the same recovery
+        // `pendingEnumIdxRefs` already makes below by (name, location); it is
+        // done here on the shared declarator SYNTAX NODE, which is exact.
+        //   Earlgrey `tlul_adapter_sram`: `OpRead` / `OpWrite` in the module's
+        //   own cont_assigns bind `enum_const` in all nine of golden's
+        //   elaborated instances and bound in exactly one of ours (40 cells
+        //   over 5 keys), while the imported `tlul_pkg::AccessAck` beside them
+        //   — ONE package symbol for every specialization — always bound.
+        // FENCE: `enumConstSite62` is written only by `emitTypedefs`, i.e.
+        // only for a MODULE/INTERFACE definition's own `typedef enum`; a
+        // package, class or gen-scope enum never enters it, and an ANONYMOUS
+        // enum (no typedef) is out of reach too.  Refs that golden leaves bare
+        // never arrive here: the § enumNoBind13 / § genCaEnumConstNoBind21 /
+        // LAW-C arms return earlier in the chain.
+        if (auto* esyn62 = sym->getSyntax()) {
+            if (auto sit62 = enumConstSite62.find(esyn62);
+                sit62 != enumConstSite62.end() && sit62->second)
+                ref->Actual_group(sit62->second);
+        }
+    }
     pendingEnumRefs.clear();
 
     // A foreach_stmt's iterated-array ref binds the array's OWN array_typespec.
