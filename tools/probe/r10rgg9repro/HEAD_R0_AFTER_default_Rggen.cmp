@@ -1,0 +1,76 @@
+LHS:
+decompile:
+logic_typespec: , id:36547
+|vpiRange:
+\_range: , id:36549
+  |vpiParent:
+  \_logic_typespec: , id:36547
+  |vpiLeftRange:
+  \_constant: , id:36550
+    |UINT:7
+  |vpiRightRange:
+  \_constant: , id:36551
+    |UINT:0
+
+decompile:
+logic_typespec: , id:36547
+|vpiRange:
+\_range: , id:36549
+  |vpiParent:
+  \_logic_typespec: , id:36547
+  |vpiLeftRange:
+  \_constant: , id:36550
+    |UINT:7
+  |vpiRightRange:
+  \_constant: , id:36551
+    |UINT:0
+RHS:
+decompile:
+bit_typespec: , id:253794, line:450:18, endln:450:27
+|vpiParent:
+\_ref_typespec: (work@rggen.u_block_0.g_register_2.g_bit_field_1.INITIAL_VALUE), id:28070
+|vpiRange:
+\_range: , id:253795, line:450:22, endln:450:27
+  |vpiParent:
+  \_bit_typespec: , id:253794, line:450:18, endln:450:27
+  |vpiLeftRange:
+  \_constant: , id:253796, line:450:23, endln:450:24
+    |vpiParent:
+    \_range: , id:253795, line:450:22, endln:450:27
+    |vpiDecompile:7
+    |vpiSize:64
+    |UINT:7
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:253797, line:450:25, endln:450:26
+    |vpiParent:
+    \_range: , id:253795, line:450:22, endln:450:27
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+bit_typespec: , id:253794, line:450:18, endln:450:27
+|vpiParent:
+\_ref_typespec: (work@rggen.u_block_0.g_register_2.g_bit_field_1.INITIAL_VALUE), id:28070
+|vpiRange:
+\_range: , id:253795, line:450:22, endln:450:27
+  |vpiParent:
+  \_bit_typespec: , id:253794, line:450:18, endln:450:27
+  |vpiLeftRange:
+  \_constant: , id:253796, line:450:23, endln:450:24
+    |vpiParent:
+    \_range: , id:253795, line:450:22, endln:450:27
+    |vpiDecompile:7
+    |vpiSize:64
+    |UINT:7
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:253797, line:450:25, endln:450:26
+    |vpiParent:
+    \_range: , id:253795, line:450:22, endln:450:27
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9

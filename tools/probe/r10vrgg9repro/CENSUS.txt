@@ -1,0 +1,18 @@
+=== r10vrgg9 CENSUS — Rggen whole-database cont_assign census (cacensus9, both views)
+golden: ~/.cache/slang-uhdm-goldens/6fc99d8f4119ff55b3e1/golden.uhdm
+rows compared: 7620
+
+golden vs BASE   : 2 differing rows
+< ELAB	work@rggen.u_block_0.g_register_2.u_register.u_register_common	68:11	write_data	constant(ct=7,sz=64,INT:0,dec=0)@0:0[LOCLESS]
+> ELAB	work@rggen.u_block_0.g_register_2.u_register.u_register_common	68:11	write_data	operation(op=32,n=3)[ref_obj:WRITABLE|op34|const(ct=3,sz=-1,BIN:0)]
+< ELAB	work@rggen.u_block_0.g_register_4.u_register.u_register_common	68:11	write_data	constant(ct=7,sz=64,INT:0,dec=0)@0:0[LOCLESS]
+> ELAB	work@rggen.u_block_0.g_register_4.u_register.u_register_common	68:11	write_data	operation(op=32,n=3)[ref_obj:WRITABLE|op34|const(ct=3,sz=-1,BIN:0)]
+
+golden vs PATCHED: 0 differing rows
+golden vs VERIFIED: 0 differing rows
+(the two extra diff-sides in the raw diff are the tool's trailing 'rows=7620'
+ line, which it prints without a newline separator; both sides carry it.)
+
+Rggen slang.uhdm patched vs verified: BYTE-IDENTICAL
+official uhdm-cmp head (rowheads.sh, Rggen default, one comparable mode):
+  base 122 cmp lines / 1 head   pat 76 / 1 head   ver 76 / 1 head

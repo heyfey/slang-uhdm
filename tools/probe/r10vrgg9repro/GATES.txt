@@ -1,0 +1,82 @@
+=== r10vrgg9 GATES — all legs, frozen binaries, SLANG_UHDM exported per binary
+binaries: base cd92f3869af2f23de95eb3aef497b361 (== implementer's)
+          pat  04b4e446c8a31bd2decfd49767a37ed4 (== implementer's)
+          ver  4753a25ff9cbc08080235072560a7e92 (base + implementer patch + F1)
+
+-- (1) goldens
+base PASS=23 FAIL=0 / pat PASS=23 FAIL=0 / ver PASS=23 FAIL=0 / SLANG_UHDM=/bin/false PASS=0 FAIL=23
+
+-- (2) uhdm2rtlil, --mode both, 1462 rows
+  700/731
+  725/731
+
+[default] 731 tests
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+
+[testflags] 731 tests
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+
+-- (3) surelog, --mode both, 1588 rows
+  SURELOG_FAIL: 25
+  CMP_NOTEQUAL: 11
+  DEFERRED: 5
+
+[testflags] 794 tests
+  CMP_EQUAL: 466
+  SLANG_REJECT: 284
+  SURELOG_FAIL: 23
+  CMP_NOTEQUAL: 9
+  DEFERRED: 5
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+
+-- ROW GATES (whole row, status AND dump column)
+### u2r: committed results/gate_uhdm2rtlil.csv vs base (testflags rows)
+baseline: 732 lines = 731 ROWS (the header is not a row)
+fresh   : 732 lines = 731 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+### u2r: base vs pat
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+### u2r: base vs ver
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+### surelog: committed results/golden_surelog.csv vs base
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+### surelog: base vs pat
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+### surelog: base vs ver
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+### surelog: pat vs ver
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+
+-- BYTE MOVERS (whole databases)
+surelog base->pat: 956 dbs, 1 mover = default/Rggen
+surelog base->ver: 956 dbs, 2 movers = default/Rggen + default/Scoreboard
+surelog pat->ver : 956 dbs, 1 mover = default/Scoreboard
+   Scoreboard ATTRIBUTED ORDER-BLIND: sorted whole-dump diff = 0 lines;
+   serial re-runs (4x base, 2x ver) all md5 44c0ee47c8e6702e12dcd2998fd962bb;
+   the sweep-run flip is the DOCUMENTED parallel-parse coin, not the fix.
+uhdm2rtlil base->pat: 1358 dbs, 0 movers
+uhdm2rtlil base->ver: 1358 dbs, 0 movers
+
+-- CANARIES
+canaudit: audited=29 UNCOVERED=0 FENCE-BREACH=0 (self-tests live)
+canaries surelog base->ver: ok=52 changed=0 absent=0
+canaries u2r     base->ver: ok=16 changed=0 absent=0
+ctcan2   surelog base->ver: ok=58 changed=0 absent=0
+byte-identical base vs ver, both modes: InterfaceModPort BlackParrotComplex
+   YosysOldOr SVSwitch YosysVerx FuncInModule
+pins (md5 of slang.uhdm, first 12): SVSwitch 4842211c4030  YosysVerx 6ccda350c24a  -- INTACT
+FuncInModule CMP_EQUAL on both corpora, dump column unchanged

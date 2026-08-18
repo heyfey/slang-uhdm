@@ -20379,10 +20379,256 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                         }
             }
         }
+        // ============ § srlgCondOpInstValueTernFold9 (r10rgg9) =============
+        //
+        // THE LAW.  Surelog's `UhdmWriter::writeCont_assign` reduces every
+        // ELABORATED cont_assign RHS it has not already simplified (the
+        // trailing `if (simplified == false)` arm — the same arm
+        // § ifaceDotEnumConstFold1 and § srlgUnvaluedActualLitRetFold8
+        // transcribed), and it passes `netlist->getParent()` — THE MODULE
+        // INSTANCE — as the value scope.  `CompileHelper::getValue` consults
+        // `instance->getValue(name)` FIRST, so unlike r10rgg8's `evalFunc`
+        // (which executes a body against the module DEFINITION and never sees
+        // an override) THIS reduction reads the INSTANCE's OWN parameter
+        // values.  r10rgg8's clause 1 does NOT transfer, and the grid says so:
+        //   p_ov10  declaration `P = 1`, instance `.P(0)`  -> golden FOLDS
+        //   p_ov01  declaration `P = 0`, instance `.P(1)`  -> golden KEEPS
+        //   p_split / p_three / c_deep / c_headshape       -> split PER INSTANCE
+        // Rggen's head is the same shape: `parameter bit WRITABLE = 1`, and
+        // only the two instances overridden to 0 fold.
+        //
+        // `ExprEval::reduceExpr`'s `vpiConditionOp` arm then mints
+        //     constant  VpiValue("INT:" + val)  VpiSize(64)
+        //               VpiConstType(vpiIntConst)   and NO LOCATION,
+        // where `val` is `get_value()` of the TAKEN arm's reduction.  The 64
+        // survives because `adjustSize(tps, ...)` on the next line is a no-op
+        // when `tps` is null — which is exactly the LHS shapes this pass
+        // claims (an unpacked-array bit_select like the head's
+        // `write_data[0]`, a part-select, a concat, an interface member).  A
+        // PLAIN ref_obj LHS instead takes writeCont's earlier
+        // `lhs->UhdmType() == uhdmref_obj` branch, where the same constant IS
+        // adjusted to the target width (cell l_plainnet: `INT:0` size 8) —
+        // already modelled by § elabCaTernaryFoldIntConst22, already right,
+        // and deliberately left alone here.
+        //
+        // The DEF view NEVER folds: 14/14 DEF rows on the grid keep the
+        // operation, `p_decl0` (declaration value 0) included.
+        //
+        // The OPERAND GATE is `ExprEval::reduceExpr`'s `constantOperands`
+        // loop, and it inspects ALL THREE operands, the UNTAKEN arm included:
+        // a `constant`, an `operation` / `func_call` / `sys_func_call` /
+        // `bit_select` / `hier_path` / `var_select` / `enum_var` passes
+        // unchecked, a `ref_obj` passes only if its name HAS A VALUE, and
+        // anything else abandons the whole reduce.  Cells `l_vecbit`
+        // (`vec[0] = (P) ? sig : '0`, P = 0, taken arm constant) and
+        // `l_plainnet1` are the isolating pair — golden KEEPS both because
+        // the arm that is NOT taken is a bare signal reference; Rggen's own
+        // lines 61-63 and 65 are the corpus instances of the same refusal.
+        // § elabCaTernaryNoFoldSigRefBranch22 (r10earl22) already carries the
+        // bare-signal half of this rule for the plain-LHS path; the whitelist
+        // below is the whole loop, transcribed CLOSED so an operand shape
+        // that was not measured refuses rather than folds.
+        //
+        // NOT CLAIMED, measured and named (see README § RESIDUES): an arm
+        // wider than 64 bits or carrying x/z, where `get_value` poisons and
+        // golden installs THE ARM'S OWN CONSTANT OBJECT instead (a_over64,
+        // a_xz); a string arm (a_str -> INT:24930); a port high-conn
+        // (c_port); a var-decl init (c_varinit); a param initializer
+        // (c_paraminit, owned by other laws).
+        std::optional<int64_t> ternFold9;
+        // ...and the OTHER outcome of the same arm: when `get_value` POISONS
+        // on the reduced taken arm (above 64 bits, or an x/z bit under
+        // `strict = true`), ExprEval does `result = the_val` and writeCont
+        // installs THE ARM'S OWN CONSTANT OBJECT — its own encoding, its own
+        // width, its own location (cells a_over64 `72'h1_0000_0000_0000_0000`
+        // -> HEX sz 72 @8:36, a_xz `4'bxx01` -> BIN:xx01 sz 4 @8:36).  Only a
+        // LITERAL leaf is claimed: a poisoning PARAMETER read would install
+        // the parameter's own constant, which is not the object our emitter
+        // mints for a `ref_obj` operand.
+        const Expression* ternArm9 = nullptr;
+        if (topView && shareWithDef && defInfo &&
+            myIdx < defInfo->contAssigns.size() && !unbasedShareRhs &&
+            !caReuseParamConst9 && !sysFold && !plainLhs && !dottedLhs &&
+            !ifaceDotFresh && !callIdxLhs && !selLitLhs && !callFold &&
+            !elabReadNoValue9) {
+            ASTContext tctx9(comp.getRoot(), LookupLocation::max);
+            // ExprEval::reduceExpr's `constantOperands` loop, one arm per
+            // UHDM operand kind it accepts.
+            auto operandOk9 = [&](const Expression& e0) {
+                auto& e9 = stripImplicitConv(e0);
+                switch (e9.kind) {
+                    case ExpressionKind::IntegerLiteral:
+                    case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+                    case ExpressionKind::StringLiteral:
+                    case ExpressionKind::RealLiteral:
+                    case ExpressionKind::TimeLiteral:
+                        return true;   // constant
+                    case ExpressionKind::UnaryOp:
+                    case ExpressionKind::BinaryOp:
+                    case ExpressionKind::ConditionalOp:
+                    case ExpressionKind::Concatenation:
+                    case ExpressionKind::Replication:
+                    case ExpressionKind::Conversion:
+                        return true;   // operation
+                    case ExpressionKind::Call:
+                        return true;   // func_call / sys_func_call
+                    case ExpressionKind::ElementSelect:
+                        return true;   // bit_select / var_select
+                    case ExpressionKind::HierarchicalValue:
+                    case ExpressionKind::MemberAccess:
+                        return true;   // hier_path
+                    case ExpressionKind::NamedValue: {
+                        // a ref_obj passes ONLY when getValue() finds a value:
+                        // a parameter / localparam / enum constant / genvar
+                        // has one, a net or a variable does not.
+                        auto k9 = e9.as<NamedValueExpression>().symbol.kind;
+                        if (k9 != SymbolKind::Parameter &&
+                            k9 != SymbolKind::EnumValue &&
+                            k9 != SymbolKind::Specparam &&
+                            k9 != SymbolKind::Genvar)
+                            return false;
+                        return (bool)tctx9.tryEval(e9);
+                    }
+                    default:
+                        return false;  // part_select, patterns, everything else
+                }
+            };
+            // ============ vrgg9 FIX (§ srlgCondOpSysFuncEvalable9) ==========
+            //
+            // THE SHIPPED PREDICATE FOLDS WHATEVER **SLANG** CAN EVALUATE.
+            // Golden folds only what **SURELOG's `ExprEval`** can evaluate,
+            // and `ExprEval` implements a SMALL, CLOSED set of system
+            // functions.  When the reduce of the value-producing operand
+            // hands back a `sys_func_call` instead of a `constant`,
+            // `reduceExpr` ABANDONS and THE WHOLE OPERATION SURVIVES — a
+            // THIRD outcome the shipped law did not model (it modelled only
+            // "folds to INT" and "get_value poisons on a reduced constant, so
+            // the arm's own object is installed").
+            //
+            // MEASURED on real Surelog (r10vrgg9repro/cells3, cells4):
+            //   IMPLEMENTED, golden FOLDS:   $clog2 $bits $size $high $low
+            //                                $left $right
+            //   NOT implemented, golden KEEPS THE OPERATION:
+            //     $countones $onehot $onehot0 $isunknown $dimensions
+            //     $unpacked_dimensions $increment $rtoi $ceil $sqrt
+            //   FOLDS BUT WITH A DIFFERENT VALUE than slang computes:
+            //     $signed  (`$signed(4'b1111)` golden INT:-7, slang -1)
+            //     $unsigned(`$unsigned(-1)`    golden INT:-1, slang 4294967295)
+            //   -> both EXCLUDED: refusing reproduces the base binary, while
+            //      folding mints a constant golden provably disagrees with.
+            //
+            // The guard is DEEP, because the reduce is: `$countones(x) + 1`,
+            // `{1'b0, $countones(x)}` and `int'($ceil(3.2))` all keep the
+            // operation on golden (cells y_arm_op_cnt / y_arm_cat_cnt /
+            // y_ceil), and a PREDICATE that is a `$countones` keeps it too
+            // (y_pred_cnt).  It is applied in `leafValue9`, which is the one
+            // place a VALUE is taken — every nested predicate and the final
+            // taken arm.  It is NOT applied to `operandOk9`: golden's
+            // `constantOperands` accepts a `sys_func_call` OPERAND unchecked,
+            // and an UNTAKEN `$countones` arm folds on golden (y_untk_cnt).
+            //
+            // The list is CLOSED: a system function nobody measured refuses.
+            auto srlgSysEvalable9 = [&](const Expression& e0) {
+                bool ok = true;
+                stripImplicitConv(e0).visit(makeVisitor(
+                    [&](auto& v9, const CallExpression& ce9) {
+                        if (ce9.isSystemCall()) {
+                            auto n9 = ce9.getSubroutineName();
+                            if (n9 != "$clog2" && n9 != "$bits" &&
+                                n9 != "$size" && n9 != "$high" &&
+                                n9 != "$low" && n9 != "$left" &&
+                                n9 != "$right")
+                                ok = false;
+                        }
+                        v9.visitDefault(ce9);
+                    }));
+                return ok;
+            };
+            // `get_value(invalidValue, expr)` — the int64 the reducer reads
+            // out of a reduced constant.  It POISONS above 64 bits and on an
+            // x/z bit (strict = true), and this pass refuses both rather than
+            // model the arm-object install golden does there.
+            auto leafValue9 =
+                [&](const Expression& e0) -> std::optional<int64_t> {
+                auto& e9 = stripImplicitConv(e0);
+                // vrgg9: the reduce must be one SURELOG can do (see above).
+                if (!srlgSysEvalable9(e9))
+                    return std::nullopt;
+                // Surelog's reducer never sees slang's PROPAGATED width for an
+                // unbased-unsized literal: the UHDM operand is the source
+                // object (`BIN:0` / `BIN:1`, vpiSize -1) and get_value reads
+                // ONE bit.  `'1` folds to INT:1, never to the conditional
+                // type's all-ones (cells a_u0 / a_u1 / a_true_u0).
+                if (e9.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                    auto lv9 = e9.as<UnbasedUnsizedIntegerLiteral>().getLiteralValue();
+                    if (lv9 == slang::logic_t(0))
+                        return (int64_t)0;
+                    if (lv9 == slang::logic_t(1))
+                        return (int64_t)1;
+                    return std::nullopt;   // 'x / 'z
+                }
+                ConstantValue cv9 = tctx9.tryEval(e9);
+                if (!cv9 || !cv9.isInteger())
+                    return std::nullopt;
+                auto iv9 = cv9.integer();
+                if (iv9.hasUnknown() || iv9.getBitWidth() > 64)
+                    return std::nullopt;
+                // A NEGATED leaf keeps Surelog's SIGNED (INT) encoding even
+                // when slang's sibling-propagated type made the folded value
+                // unsigned — ExprEval's vpiMinusOp arm mints `INT:-1` size 64.
+                // (§ elabCaTernaryFoldIntConst22 carries the same clause; cell
+                // a_neg is the control: without it `-1` folds to 4294967295.)
+                if (e9.kind == ExpressionKind::UnaryOp &&
+                    e9.as<UnaryExpression>().op == UnaryOperator::Minus)
+                    iv9.setSigned(true);
+                if (iv9.isSigned()) {
+                    if (auto s9 = iv9.as<int64_t>())
+                        return *s9;
+                    return std::nullopt;
+                }
+                if (auto u9 = iv9.as<uint64_t>())
+                    return (int64_t)*u9;
+                return std::nullopt;
+            };
+            const Expression* sel9 = &stripImplicitConv(ae.right());
+            bool sawTern9 = false;
+            bool ok9 = true;
+            for (int g9 = 0;
+                 g9 < 32 && sel9->kind == ExpressionKind::ConditionalOp; ++g9) {
+                auto& co9 = sel9->as<ConditionalExpression>();
+                if (co9.conditions.size() != 1 || co9.conditions[0].pattern) {
+                    ok9 = false;
+                    break;
+                }
+                if (!operandOk9(*co9.conditions[0].expr) ||
+                    !operandOk9(co9.left()) || !operandOk9(co9.right())) {
+                    ok9 = false;
+                    break;
+                }
+                auto pv9 = leafValue9(*co9.conditions[0].expr);
+                if (!pv9) {
+                    ok9 = false;
+                    break;
+                }
+                sawTern9 = true;
+                sel9 = &stripImplicitConv(*pv9 ? co9.left() : co9.right());
+            }
+            if (ok9 && sawTern9 && sel9->kind != ExpressionKind::ConditionalOp) {
+                ternFold9 = leafValue9(*sel9);
+                if (!ternFold9 &&
+                    sel9->kind == ExpressionKind::IntegerLiteral) {
+                    ConstantValue av9 = tctx9.tryEval(*sel9);
+                    if (av9 && av9.isInteger() &&
+                        (av9.integer().hasUnknown() ||
+                         av9.integer().getBitWidth() > 64))
+                        ternArm9 = sel9;
+                }
+            }
+        }
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             !unbasedShareRhs && !caReuseParamConst9 && !sysFold &&
             ((!plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs && !selLitLhs &&
-              !callFold) ||
+              !callFold && !ternFold9 && !ternArm9) ||
              (plainLhs &&
               !containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
               !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs &&
@@ -20531,6 +20777,23 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             continue;
         }
         UHDM::any* rhs = nullptr;
+        // § srlgCondOpInstValueTernFold9 (r10rgg9) — the reducer's OWN
+        // constant: `INT:<get_value of the taken arm>`, vpiSize 64,
+        // vpiConstType vpiIntConst, and NO LOCATION (`s.MakeConstant()` in
+        // ExprEval's vpiConditionOp arm never gets one, and the `tps`-null
+        // `adjustSize` on writeCont's next line leaves the 64 alone).
+        if (ternFold9) {
+            std::string dg9 = std::to_string(*ternFold9);
+            auto* c9t = s.MakeConstant();
+            c9t->VpiDecompile(dg9);
+            c9t->VpiSize(64);
+            c9t->VpiValue("INT:" + dg9);
+            c9t->VpiConstType(vpiIntConst);
+            c9t->VpiParent(ca);
+            rhs = c9t;
+        }
+        else if (ternArm9)
+            rhs = emitExpr(*ternArm9, ca, prefix, netMap);
         // A PACKAGE-scoped enum const RHS folds to a LOCATED digits-constant in
         // BOTH views; a module-local one folds loc-less in the top view only.
         bool pkgEnumRhs = false;

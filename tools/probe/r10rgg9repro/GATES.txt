@@ -1,0 +1,175 @@
+# r10rgg9 — GATES.txt: every mandatory gate leg, verbatim
+
+BASE COMMIT 0168d0a.  Worktree /tmp/wt_r10rgg9.  results/*.csv READ ONLY.
+base    binary /tmp/r10rgg9_base_bin  md5 cd92f3869af2f23de95eb3aef497b361
+patched binary /tmp/r10rgg9_pat_bin2  md5 04b4e446c8a31bd2decfd49767a37ed4
+Both built with cmake --build ... -j 2; md5s taken separately; both frozen
+chmod 555 at immutable paths BEFORE any sweep.
+
+== (1) BUILD ==
+  base    : clean, 100% Built target slang_uhdm
+  patched : clean, 100% Built target slang_uhdm
+
+== (2) GOLDENS ==
+  SLANG_UHDM=/tmp/r10rgg9_pat_bin2 ./tests/check_goldens.sh  -> PASS=23 FAIL=0
+  SLANG_UHDM=/tmp/r10rgg9_base_bin ./tests/check_goldens.sh  -> PASS=23 FAIL=0
+  SLANG_UHDM=/bin/false            ./tests/check_goldens.sh  -> PASS=0  FAIL=23
+  (SLANG_UHDM exported EXPLICITLY on each leg: check_goldens.sh silently
+   falls back to the main-tree build otherwise.)
+
+== (3) uhdm2rtlil, --mode both ==
+  binary audit of every cmds.txt:
+    base       1458 slang:   /tmp/r10rgg9_base_bin
+    patched    1458 slang:   /tmp/r10rgg9_pat_bin2
+  patched status histogram: 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL per mode
+  rc=139 occurrences in the patched sweep: 0
+
+  ct9rows  committed results/gate_uhdm2rtlil.csv -> MY BASE (testflags half)
+    baseline: 732 lines = 731 ROWS (the header is not a row)
+    fresh   : 732 lines = 731 ROWS
+    ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+    ---- per-mode STATUS histogram (baseline -> fresh)
+      testflags  base:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+      testflags  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+    ---- per-mode DUMP-column histogram (baseline -> fresh)
+      testflags  base:      52      183 differ     496 match 
+      testflags  fresh:      52      183 differ     496 match 
+    PASS: every row byte-identical to the committed baseline
+  ct9rows  committed results/gate_uhdm2rtlil.csv -> MY PATCHED (testflags half)
+    baseline: 732 lines = 731 ROWS (the header is not a row)
+    fresh   : 732 lines = 731 ROWS
+    ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+    ---- per-mode STATUS histogram (baseline -> fresh)
+      testflags  base:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+      testflags  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+    ---- per-mode DUMP-column histogram (baseline -> fresh)
+      testflags  base:      52      183 differ     496 match 
+      testflags  fresh:      52      183 differ     496 match 
+    PASS: every row byte-identical to the committed baseline
+  ct9rows  MY BASE -> MY PATCHED (BOTH modes, whole row incl. dump column)
+    baseline: 1463 lines = 1462 ROWS (the header is not a row)
+    fresh   : 1463 lines = 1462 ROWS
+    ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+    ---- per-mode STATUS histogram (baseline -> fresh)
+      default  base:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+      default  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+      testflags  base:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+      testflags  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+    ---- per-mode DUMP-column histogram (baseline -> fresh)
+      default  base:      52      187 differ     492 match 
+      default  fresh:      52      187 differ     492 match 
+      testflags  base:      52      183 differ     496 match 
+      testflags  fresh:      52      183 differ     496 match 
+    PASS: every row byte-identical to the committed baseline
+
+== (4) surelog, --mode both ==
+  binary audit of every cmds.txt:
+    base       1523 slang:   /tmp/r10rgg9_base_bin
+    patched    1523 slang:   /tmp/r10rgg9_pat_bin2
+  ct9rows  committed results/golden_surelog.csv -> MY BASE
+    baseline: 1589 lines = 1588 ROWS (the header is not a row)
+    fresh   : 1589 lines = 1588 ROWS
+    ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+    ---- per-mode STATUS histogram (baseline -> fresh)
+      default  base:     470 CMP_EQUAL      11 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+      default  fresh:     470 CMP_EQUAL      11 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+      testflags  base:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+      testflags  fresh:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+    ---- per-mode DUMP-column histogram (baseline -> fresh)
+      default  base:     324      244 differ     226 match 
+      default  fresh:     324      244 differ     226 match 
+      testflags  base:     328      300 differ     166 match 
+      testflags  fresh:     328      300 differ     166 match 
+    PASS: every row byte-identical to the committed baseline
+  ct9rows  committed results/golden_surelog.csv -> MY PATCHED
+    baseline: 1589 lines = 1588 ROWS (the header is not a row)
+    fresh   : 1589 lines = 1588 ROWS
+    ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+    ---- per-mode STATUS histogram (baseline -> fresh)
+      default  base:     470 CMP_EQUAL      11 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+      default  fresh:     470 CMP_EQUAL      11 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+      testflags  base:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+      testflags  fresh:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+    ---- per-mode DUMP-column histogram (baseline -> fresh)
+      default  base:     324      244 differ     226 match 
+      default  fresh:     324      244 differ     226 match 
+      testflags  base:     328      300 differ     166 match 
+      testflags  fresh:     328      300 differ     166 match 
+    PASS: every row byte-identical to the committed baseline
+  ct9rows  MY BASE -> MY PATCHED
+    baseline: 1589 lines = 1588 ROWS (the header is not a row)
+    fresh   : 1589 lines = 1588 ROWS
+    ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+    ---- per-mode STATUS histogram (baseline -> fresh)
+      default  base:     470 CMP_EQUAL      11 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+      default  fresh:     470 CMP_EQUAL      11 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+      testflags  base:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+      testflags  fresh:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+    ---- per-mode DUMP-column histogram (baseline -> fresh)
+      default  base:     324      244 differ     226 match 
+      default  fresh:     324      244 differ     226 match 
+      testflags  base:     328      300 differ     166 match 
+      testflags  fresh:     328      300 differ     166 match 
+    PASS: every row byte-identical to the committed baseline
+
+  NO CORPUS ROW WAS CONVERTED.  Rggen stays CMP_NOTEQUAL and
+  results/*.csv is untouched.
+
+== (5) BYTEVERIFY, SELFCHECK=1, both corpora ==
+    uhdm2rtlil  ==== SELFCHECK: base vs base (MUST be 0 movers)
+    uhdm2rtlil  -- identical=1358 MOVERS=0 only-in-A=0 only-in-B=0
+    uhdm2rtlil  ==== base vs patched
+    uhdm2rtlil  -- identical=1358 MOVERS=0 only-in-A=0 only-in-B=0
+    surelog     ==== SELFCHECK: base vs base (MUST be 0 movers)
+    surelog     -- identical=956 MOVERS=0 only-in-A=0 only-in-B=0
+    surelog     ==== base vs patched
+    surelog     MOVER default/Rggen-50ccbd70/slang.uhdm
+    surelog     -- identical=955 MOVERS=1 only-in-A=0 only-in-B=0
+
+  PREDICTION, filed from GOLDEN + PRISTINE base databases with NO patched
+  binary involved (predict9.py, upper bound from cand9.py):
+    -- corpus=uhdm2rtlil scanned=1358 PREDICTED-ROWS=0 PREDICTED-NAMES=0 fenced-skipped=0 no-golden=0
+    -- NAMES: 
+    -- corpus=surelog scanned=36 PREDICTED-ROWS=2 PREDICTED-NAMES=1 fenced-skipped=8 no-golden=0 non-candidate-skipped=1528
+    -- NAMES: Rggen
+  MEASURED: uhdm2rtlil 0 movers / 1358 databases; surelog 1 mover / 956,
+  and it is default/Rggen — THE PREDICTED NAME, the only one.
+
+  ATTRIBUTION of the single mover (cacensus9 over both databases):
+    3376c3376
+    < ELAB	work@rggen.u_block_0.g_register_2.u_register.u_register_common	68:11	write_data	operation(op=32,n=3)[ref_obj:WRITABLE|op34|const(ct=3,sz=-1,BIN:0)]
+    ---
+    > ELAB	work@rggen.u_block_0.g_register_2.u_register.u_register_common	68:11	write_data	constant(ct=7,sz=64,INT:0,dec=0)@0:0[LOCLESS]
+    3615c3615
+    < ELAB	work@rggen.u_block_0.g_register_4.u_register.u_register_common	68:11	write_data	operation(op=32,n=3)[ref_obj:WRITABLE|op34|const(ct=3,sz=-1,BIN:0)]
+    ---
+    > ELAB	work@rggen.u_block_0.g_register_4.u_register.u_register_common	68:11	write_data	constant(ct=7,sz=64,INT:0,dec=0)@0:0[LOCLESS]
+    ...and the patched census then agrees with GOLDEN on all 7620 rows.
+
+== CANARIES ==
+    ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+    PASS: every brief-protected name and family is carried by a script that RUNS here.
+    surelog  ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+    u2r      ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+    ---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+    PASS: every supplementary canary row is byte-identical to the baseline.
+    byte pins (patched sweep):  SVSwitch 4842211c4030   YosysVerx 6ccda350c24a
+    InterfaceModPort / BlackParrotComplex / YosysOldOr: byte-identical to base
+    (byteverify: 955 of 956 databases identical, the 956th is Rggen)
+
+== BOUNDARIES ==
+    -- files=694 identical=594 MOVERS=3 uncompilable=97 asymmetries=0
+    MOVER /tmp/wt_r10rgg9/tools/probe/r10rgg1repro/c1_rgg1.sv
+    MOVER /tmp/wt_r10rgg9/tools/probe/r10rgg1repro/v3_vrgg1.sv
+    MOVER /tmp/wt_r10rgg9/tools/probe/r10rgg1repro/v6_vrgg1.sv
+    206 of those files are r10rgg8repro/cells + r10vrgg8repro/cells (the
+    brief's 206-cell grid); 10 are UNCOMPILABLE by BOTH binaries (rc 3/3,
+    symmetric, counted), the other 196 are BYTE-IDENTICAL, so that grid's
+    FIXED 96 / BROKEN 0 / CRASH 0 cannot have moved.
+    Every uncompilable pair is rc 3/3 — 0 occurrences of rc=139.
+    The 3 movers are r10rgg1's OWN ternary cells (its named residue R3).
+
+== ARM rc AUDIT (grid cells) ==
+    -- cells=57 SEGFAULTS(rc=139)=0
+         57 base_rc=0 pat_rc=0
+          1 cells=57 SEGFAULTS(rc=139)=0

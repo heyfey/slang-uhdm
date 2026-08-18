@@ -1,0 +1,29 @@
+# r10rgg9 — CENSUS.txt: the whole-database cont_assign census of Rggen
+
+MEASUREMENT ONLY. cacensus9 reads ONE database; the join is a plain diff.
+LHS IS ALWAYS GOLDEN.
+
+golden : /home/heyfey/.cache/slang-uhdm-goldens/6fc99d8f4119ff55b3e1/golden.uhdm
+base   : /tmp/r10rgg9_base_bin  (md5 cd92f3869af2f23de95eb3aef497b361)
+patched: /tmp/r10rgg9_pat_bin2  (md5 04b4e446c8a31bd2decfd49767a37ed4)
+
+rows censused (DEF + ELAB, every cont_assign in the database): 7620
+
+== golden vs BASE : 2 differing rows ==
+3376c3376
+< ELAB	work@rggen.u_block_0.g_register_2.u_register.u_register_common	68:11	write_data	constant(ct=7,sz=64,INT:0,dec=0)@0:0[LOCLESS]
+---
+> ELAB	work@rggen.u_block_0.g_register_2.u_register.u_register_common	68:11	write_data	operation(op=32,n=3)[ref_obj:WRITABLE|op34|const(ct=3,sz=-1,BIN:0)]
+3615c3615
+< ELAB	work@rggen.u_block_0.g_register_4.u_register.u_register_common	68:11	write_data	constant(ct=7,sz=64,INT:0,dec=0)@0:0[LOCLESS]
+---
+> ELAB	work@rggen.u_block_0.g_register_4.u_register.u_register_common	68:11	write_data	operation(op=32,n=3)[ref_obj:WRITABLE|op34|const(ct=3,sz=-1,BIN:0)]
+
+== golden vs PATCHED : 0 differing rows ==
+(no output = every one of the 7620 rows agrees)
+
+== golden-vs-golden CALIBRATION ==
+The Rggen re-run was OOM-killed on a loaded machine, so the calibration was
+taken on the GRID instead: real Surelog re-run over all 57 cells into a
+second output tree, 261 rows, 0 differing. The instrument is order-blind
+and deterministic.

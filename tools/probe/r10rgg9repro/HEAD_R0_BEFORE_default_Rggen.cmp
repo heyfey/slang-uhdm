@@ -1,0 +1,122 @@
+LHS:
+decompile:
+constant: , id:353520
+|vpiParent:
+\_cont_assign: , id:353521, line:68:11, endln:68:78
+|vpiDecompile:0
+|vpiSize:64
+|INT:0
+|vpiConstType:7
+
+decompile:
+constant: , id:353520
+|vpiParent:
+\_cont_assign: , id:353521, line:68:11, endln:68:78
+|vpiDecompile:0
+|vpiSize:64
+|INT:0
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:10621, line:68:29, endln:68:78
+|vpiParent:
+\_cont_assign: , id:10620, line:68:11, endln:68:78
+|vpiOpType:32
+|vpiOperand:
+\_ref_obj: (work@rggen_register_common.WRITABLE), id:10622, line:68:30, endln:68:38
+  |vpiParent:
+  \_operation: , id:10621, line:68:29, endln:68:78
+  |vpiName:WRITABLE
+  |vpiFullName:work@rggen_register_common.WRITABLE
+|vpiOperand:
+\_operation: , id:10623, line:68:42, endln:68:73
+  |vpiParent:
+  \_operation: , id:10621, line:68:29, endln:68:78
+  |vpiOpType:34
+  |vpiOperand:
+  \_ref_obj: (work@rggen_register_common.WORDS), id:10624, line:68:43, endln:68:48
+    |vpiParent:
+    \_operation: , id:10623, line:68:42, endln:68:73
+    |vpiName:WORDS
+    |vpiFullName:work@rggen_register_common.WORDS
+  |vpiOperand:
+  \_operation: , id:10625, line:68:48, endln:68:72
+    |vpiParent:
+    \_operation: , id:10623, line:68:42, endln:68:73
+    |vpiOpType:33
+    |vpiOperand:
+    \_hier_path: (register_if.write_data), id:10626, line:68:49, endln:68:71
+      |vpiParent:
+      \_operation: , id:10625, line:68:48, endln:68:72
+      |vpiActual:
+      \_ref_obj: (register_if), id:10627, line:68:49, endln:68:60
+        |vpiParent:
+        \_hier_path: (register_if.write_data), id:10626, line:68:49, endln:68:71
+        |vpiName:register_if
+      |vpiActual:
+      \_ref_obj: (work@rggen_register_common.write_data), id:10628, line:68:61, endln:68:71
+        |vpiParent:
+        \_hier_path: (register_if.write_data), id:10626, line:68:49, endln:68:71
+        |vpiName:write_data
+        |vpiFullName:work@rggen_register_common.write_data
+      |vpiName:register_if.write_data
+|vpiOperand:
+\_constant: , id:10629, line:68:76, endln:68:78
+  |vpiParent:
+  \_operation: , id:10621, line:68:29, endln:68:78
+  |vpiDecompile:'0
+  |vpiSize:-1
+  |BIN:0
+  |vpiConstType:3
+
+decompile:
+operation: , id:10621, line:68:29, endln:68:78
+|vpiParent:
+\_cont_assign: , id:10620, line:68:11, endln:68:78
+|vpiOpType:32
+|vpiOperand:
+\_ref_obj: (work@rggen_register_common.WRITABLE), id:10622, line:68:30, endln:68:38
+  |vpiParent:
+  \_operation: , id:10621, line:68:29, endln:68:78
+  |vpiName:WRITABLE
+  |vpiFullName:work@rggen_register_common.WRITABLE
+|vpiOperand:
+\_operation: , id:10623, line:68:42, endln:68:73
+  |vpiParent:
+  \_operation: , id:10621, line:68:29, endln:68:78
+  |vpiOpType:34
+  |vpiOperand:
+  \_ref_obj: (work@rggen_register_common.WORDS), id:10624, line:68:43, endln:68:48
+    |vpiParent:
+    \_operation: , id:10623, line:68:42, endln:68:73
+    |vpiName:WORDS
+    |vpiFullName:work@rggen_register_common.WORDS
+  |vpiOperand:
+  \_operation: , id:10625, line:68:48, endln:68:72
+    |vpiParent:
+    \_operation: , id:10623, line:68:42, endln:68:73
+    |vpiOpType:33
+    |vpiOperand:
+    \_hier_path: (register_if.write_data), id:10626, line:68:49, endln:68:71
+      |vpiParent:
+      \_operation: , id:10625, line:68:48, endln:68:72
+      |vpiActual:
+      \_ref_obj: (register_if), id:10627, line:68:49, endln:68:60
+        |vpiParent:
+        \_hier_path: (register_if.write_data), id:10626, line:68:49, endln:68:71
+        |vpiName:register_if
+      |vpiActual:
+      \_ref_obj: (work@rggen_register_common.write_data), id:10628, line:68:61, endln:68:71
+        |vpiParent:
+        \_hier_path: (register_if.write_data), id:10626, line:68:49, endln:68:71
+        |vpiName:write_data
+        |vpiFullName:work@rggen_register_common.write_data
+      |vpiName:register_if.write_data
+|vpiOperand:
+\_constant: , id:10629, line:68:76, endln:68:78
+  |vpiParent:
+  \_operation: , id:10621, line:68:29, endln:68:78
+  |vpiDecompile:'0
+  |vpiSize:-1
+  |BIN:0
+  |vpiConstType:3
