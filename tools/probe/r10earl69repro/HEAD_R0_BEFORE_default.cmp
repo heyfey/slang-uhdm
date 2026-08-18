@@ -1,0 +1,216 @@
+LHS:
+decompile:
+hier_path: (read_buf[i].addr[7+:8]), id:311505, line:122:43, endln:122:81
+|vpiParent:
+\_operation: , id:311515, line:122:43, endln:123:51
+|vpiActual:
+\_bit_select: (read_buf[i]), id:311507, line:122:43, endln:122:51
+  |vpiParent:
+  \_hier_path: (read_buf[i].addr[7+:8]), id:311505, line:122:43, endln:122:81
+  |vpiName:read_buf
+  |vpiFullName:read_buf[i]
+  |vpiIndex:
+  \_ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].i), id:311506, line:122:52, endln:122:53
+    |vpiParent:
+    \_hier_path: (read_buf[i].addr[7+:8]), id:311505, line:122:43, endln:122:81
+    |vpiName:i
+    |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].i
+|vpiActual:
+\_indexed_part_select: (read_buf[i].addr[7+:8]), id:311508, line:122:55, endln:122:80
+  |vpiParent:
+  \_hier_path: (read_buf[i].addr[7+:8]), id:311505, line:122:43, endln:122:81
+  |vpiName:addr
+  |vpiFullName:read_buf[i].addr[7+:8]
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_constant: , id:311509, line:122:60, endln:122:71
+    |vpiParent:
+    \_param_assign: , id:309147, line:38:17, endln:38:56
+    |vpiDecompile:7
+    |vpiSize:32
+    |UINT:7
+    |vpiTypespec:
+    \_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd), id:311510
+      |vpiParent:
+      \_constant: , id:311509, line:122:60, endln:122:71
+      |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd
+      |vpiActual:
+      \_int_typespec: , id:311511, line:38:13, endln:38:16
+    |vpiConstType:9
+  |vpiWidthExpr:
+  \_constant: , id:311512, line:122:75, endln:122:80
+    |vpiParent:
+    \_param_assign: , id:309117, line:14:17, endln:14:53
+    |vpiDecompile:8
+    |vpiSize:32
+    |UINT:8
+    |vpiTypespec:
+    \_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd), id:311513
+      |vpiParent:
+      \_constant: , id:311512, line:122:75, endln:122:80
+      |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd
+      |vpiActual:
+      \_int_typespec: , id:311514, line:14:13, endln:14:16
+    |vpiConstType:9
+|vpiName:read_buf[i].addr[7+:8]
+
+decompile:
+hier_path: (read_buf[i].addr[7+:8]), id:311505, line:122:43, endln:122:81
+|vpiParent:
+\_operation: , id:311515, line:122:43, endln:123:51
+|vpiActual:
+\_bit_select: (read_buf[i]), id:311507, line:122:43, endln:122:51
+  |vpiParent:
+  \_hier_path: (read_buf[i].addr[7+:8]), id:311505, line:122:43, endln:122:81
+  |vpiName:read_buf
+  |vpiFullName:read_buf[i]
+  |vpiIndex:
+  \_ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].i), id:311506, line:122:52, endln:122:53
+    |vpiParent:
+    \_hier_path: (read_buf[i].addr[7+:8]), id:311505, line:122:43, endln:122:81
+    |vpiName:i
+    |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].i
+|vpiActual:
+\_indexed_part_select: (read_buf[i].addr[7+:8]), id:311508, line:122:55, endln:122:80
+  |vpiParent:
+  \_hier_path: (read_buf[i].addr[7+:8]), id:311505, line:122:43, endln:122:81
+  |vpiName:addr
+  |vpiFullName:read_buf[i].addr[7+:8]
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_constant: , id:311509, line:122:60, endln:122:71
+    |vpiParent:
+    \_param_assign: , id:309147, line:38:17, endln:38:56
+    |vpiDecompile:7
+    |vpiSize:32
+    |UINT:7
+    |vpiTypespec:
+    \_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd), id:311510
+      |vpiParent:
+      \_constant: , id:311509, line:122:60, endln:122:71
+      |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd
+      |vpiActual:
+      \_int_typespec: , id:311511, line:38:13, endln:38:16
+    |vpiConstType:9
+  |vpiWidthExpr:
+  \_constant: , id:311512, line:122:75, endln:122:80
+    |vpiParent:
+    \_param_assign: , id:309117, line:14:17, endln:14:53
+    |vpiDecompile:8
+    |vpiSize:32
+    |UINT:8
+    |vpiTypespec:
+    \_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd), id:311513
+      |vpiParent:
+      \_constant: , id:311512, line:122:75, endln:122:80
+      |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd
+      |vpiActual:
+      \_int_typespec: , id:311514, line:14:13, endln:14:16
+    |vpiConstType:9
+|vpiName:read_buf[i].addr[7+:8]
+RHS:
+decompile:
+hier_path: (read_buf[i].addr[FlashWordsW+:PageW]), id:253394, line:122:43, endln:122:81
+|vpiParent:
+\_operation: , id:253393, line:122:43, endln:123:51
+|vpiActual:
+\_bit_select: (read_buf[i]), id:253395, line:122:43, endln:122:51
+  |vpiParent:
+  \_hier_path: (read_buf[i].addr[FlashWordsW+:PageW]), id:253394, line:122:43, endln:122:81
+  |vpiName:read_buf
+  |vpiFullName:read_buf[i]
+  |vpiIndex:
+  \_ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].i), id:253396, line:122:52, endln:122:53
+    |vpiParent:
+    \_hier_path: (read_buf[i].addr[FlashWordsW+:PageW]), id:253394, line:122:43, endln:122:81
+    |vpiName:i
+    |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].i
+|vpiActual:
+\_indexed_part_select: (read_buf[i].addr[FlashWordsW+:PageW]), id:253397, line:122:55, endln:122:80
+  |vpiParent:
+  \_hier_path: (read_buf[i].addr[FlashWordsW+:PageW]), id:253394, line:122:43, endln:122:81
+  |vpiName:addr
+  |vpiFullName:read_buf[i].addr[FlashWordsW+:PageW]
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_constant: , id:253399, line:122:60, endln:122:71
+    |vpiDecompile:7
+    |vpiSize:32
+    |UINT:7
+    |vpiTypespec:
+    \_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].read_buf[i].addr[FlashWordsW+:PageW]), id:253400
+      |vpiParent:
+      \_constant: , id:253399, line:122:60, endln:122:71
+      |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].read_buf[i].addr[FlashWordsW+:PageW]
+      |vpiActual:
+      \_int_typespec: , id:42721, line:38:13, endln:38:16
+    |vpiConstType:9
+  |vpiWidthExpr:
+  \_constant: , id:253401, line:122:75, endln:122:80
+    |vpiDecompile:8
+    |vpiSize:32
+    |UINT:8
+    |vpiTypespec:
+    \_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0]), id:253402
+      |vpiParent:
+      \_constant: , id:253401, line:122:75, endln:122:80
+      |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0]
+      |vpiActual:
+      \_int_typespec: , id:961, line:14:13, endln:14:16
+    |vpiConstType:9
+|vpiName:read_buf[i].addr[FlashWordsW+:PageW]
+
+decompile:
+hier_path: (read_buf[i].addr[FlashWordsW+:PageW]), id:253394, line:122:43, endln:122:81
+|vpiParent:
+\_operation: , id:253393, line:122:43, endln:123:51
+|vpiActual:
+\_bit_select: (read_buf[i]), id:253395, line:122:43, endln:122:51
+  |vpiParent:
+  \_hier_path: (read_buf[i].addr[FlashWordsW+:PageW]), id:253394, line:122:43, endln:122:81
+  |vpiName:read_buf
+  |vpiFullName:read_buf[i]
+  |vpiIndex:
+  \_ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].i), id:253396, line:122:52, endln:122:53
+    |vpiParent:
+    \_hier_path: (read_buf[i].addr[FlashWordsW+:PageW]), id:253394, line:122:43, endln:122:81
+    |vpiName:i
+    |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].i
+|vpiActual:
+\_indexed_part_select: (read_buf[i].addr[FlashWordsW+:PageW]), id:253397, line:122:55, endln:122:80
+  |vpiParent:
+  \_hier_path: (read_buf[i].addr[FlashWordsW+:PageW]), id:253394, line:122:43, endln:122:81
+  |vpiName:addr
+  |vpiFullName:read_buf[i].addr[FlashWordsW+:PageW]
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_constant: , id:253399, line:122:60, endln:122:71
+    |vpiDecompile:7
+    |vpiSize:32
+    |UINT:7
+    |vpiTypespec:
+    \_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].read_buf[i].addr[FlashWordsW+:PageW]), id:253400
+      |vpiParent:
+      \_constant: , id:253399, line:122:60, endln:122:71
+      |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0].read_buf[i].addr[FlashWordsW+:PageW]
+      |vpiActual:
+      \_int_typespec: , id:42721, line:38:13, endln:38:16
+    |vpiConstType:9
+  |vpiWidthExpr:
+  \_constant: , id:253401, line:122:75, endln:122:80
+    |vpiDecompile:8
+    |vpiSize:32
+    |UINT:8
+    |vpiTypespec:
+    \_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0]), id:253402
+      |vpiParent:
+      \_constant: , id:253401, line:122:75, endln:122:80
+      |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_match[0]
+      |vpiActual:
+      \_int_typespec: , id:961, line:14:13, endln:14:16
+    |vpiConstType:9
+|vpiName:read_buf[i].addr[FlashWordsW+:PageW]

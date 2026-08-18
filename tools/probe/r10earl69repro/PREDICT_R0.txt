@@ -1,0 +1,140 @@
+r10earl69 — THE NEXT HEAD (R0), BOTH Earlgrey_0_1 MODES, measured on the
+PATCHED database (binary md5 15e3eb1ceb30c1fcfcbc2b322f8b1cd0) against the
+immutable golden caches 00d4794526e44dc553f3 (default) and
+d7348d2d2fe67abe767b (testflags).  Pristine binary md5
+32bbd68862ba4da0bb03f6700bdf0241, BASE a621c25.
+
+earl68's R0 is CLEARED, in BOTH modes, on the same object, and the whole
+152-cell family with it.
+
+  cmp depth  default   216 -> 50 lines   (line count is HEAD DEPTH, never a
+             testflags 216 -> 50 lines    distance)
+  heads      1 per run, both modes, before and after; the two BEFORE logs are
+             byte-identical (3dced0faef87…, and identical to earl68's committed
+             AFTER logs) and so are the two AFTER logs (f2ea546b727b…).
+
+  earl68's R0 — flash_phy_rd.sv:122:43, the hier_path
+  `read_buf[i].addr[FlashWordsW+:PageW]` vs golden's `read_buf[i].addr[7+:8]` —
+  CLEARED.  Whole-design hier_path NAME census, per mode: 12,330 cells,
+  152 TO-GOLDEN, 0 AWAY-GOLDEN, 0 MOVED-WRONG, and those 152 are the ONLY
+  hier_path cells that changed anywhere in the database (304 census diff lines
+  = 152 x (before / after)); the whole-EXPRESSION census (tscen69, 162,259
+  cells) diffs to ZERO lines, i.e. no object moved at all — only names.
+
+=======================================================================
+R0 — Earlgrey_0_1, BOTH MODES, 50 cmp lines, 1 head
+=======================================================================
+
+  flash_phy_rd.sv:143:22-143:31, inside
+  top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0]
+  .i_rd_buf — the port High_conn of `addr_i`:
+
+      for (genvar i = 0; i < NumBuf; i++) begin: gen_bufs
+        flash_phy_rd_buffers i_rd_buf (
+          ...
+          .addr_i(addr_i[BankAddrW-1:LsbAddrBit]),      // <-- the head
+
+      LHS(golden): ref_obj  id:311951  143:22-143:31
+                     |vpiName: BankAddrW
+                     |vpiActual -> enum_const (BankAddrW) id:990327
+      RHS(ours)  : constant id:253844  143:22-143:31
+                     |vpiDecompile:16 |vpiSize:32 |UINT:16 |vpiConstType:9
+                     |vpiTypespec -> ref_typespec -> int_typespec 24:13-24:16
+
+  HEAD DECODE (BaseClass.h + UHDM/build/generated/src/operation.cpp).  Both
+  sides are the FIRST operand of the `-` operation at 143:22-143:33 (the LEFT
+  bound of the part_select in the port actual).  They are NON-NULL and of
+  DIFFERENT `UhdmType`, so `BaseClass::Compare`'s VpiType test fails first and
+  BaseClass.h's `(lhs != nullptr) && (rhs != nullptr)` arm names BOTH sides in
+  full — neither a `<null>` singular arm nor a vector size mismatch.  Read the
+  MK line, not the shape (RESUME §9).
+
+  > R0 (both modes): this is the SUPERFAMILY EARL64-68 RANKED, RUNNING THE
+  > OTHER WAY.  Golden does NOT fold `BankAddrW` inside a port-actual
+  > part_select bound — it keeps a `ref_obj` and binds it to an `enum_const`
+  > (Surelog's binding for a package parameter read reached through
+  > `NetlistElaboration::high_conn_`) — while WE fold it to a located
+  > `UINT:16 sz 32` constant carrying the package parameter's `int_typespec`.
+  > Every earlier pass in this family had golden folding and us keeping a ref;
+  > this one is the mirror, so it is an ABSTENTION law, not a folding law, and
+  > it needs the High_conn decode (earl64/65/66's READMEs name the laws that
+  > own those shapes) before any code.
+
+=======================================================================
+THE TWO SUPERFAMILIES, RE-MEASURED ON THE PATCHED DATABASE
+(positional-key multiset join of tscen69 censuses, golden vs ours)
+=======================================================================
+  A. "golden has a REF_OBJ where we have a CONSTANT"  (the NEW head)
+       default    22 cells      testflags  12 cells
+       rank  cells(def/tf)  sec   site  position   symbol
+        R0      8 /  0      ELAB  HC    op11[]     BankAddrW   <-- THE HEAD
+        R0b     8 /  8      ELAB  HC    r          (part_select right bound)
+        R0c     6 /  4      ELAB  CA    op11[]
+
+  B. "golden has a CONSTANT where we have a REF_OBJ"  (earl64-68's family,
+     UNCHANGED by this pass — this pass moved no object at all)
+       default   138 cells     testflags 312 cells
+       rank  cells(def/tf)  sec   site  position   symbol
+        R1      0 / 261      ELAB  CA   hp[0]/idx  i (GENVAR inside a HIER_PATH)
+        R2     87 /   0      ELAB  CA   op11[]     IDW, STIDW
+        R3     32 /  32      ELAB  CA   op33[]     MioPeriphHasSleepMode
+        R4     16 /  16      ELAB  HC   idx        N
+        R5      3 /   3      ELAB  HC   b          DataBitWidth
+
+=======================================================================
+RANKED AFTER R0
+=======================================================================
+R1  THE GENVAR HIER-PATH ELEMENT INDEX, 261 cells, testflags.  earl68's R1,
+    MEASURED AGAIN THIS PASS and again not taken — but this pass CHANGES ITS
+    COST.  Golden's cell is `tl_h_i[0].a_valid` (tlul_socket_m1.sv:109, inside
+    the `'{...}` assignment pattern of a gen-scope cont_assign) with a LOCATED
+    `constant UINT:0 sz 64` and NO typespec as the bit_select index; ours is
+    `tl_h_i[i].a_valid` with a `ref_obj` bound to the gen-scope parameter.
+    Because § hpNameBareIdxFold69 now derives the NAME FROM THE OBJECT, R1 is
+    a PURE OBJECT FIX: mint the located constant and the 264 stale names
+    (`tl_h_i[i].a_*` -> `tl_h_i[N].a_*`, measured in this pass's own hier_path
+    census as STILL-WRONG) follow for free, with no name code at all.
+    The negative control is unchanged and large: golden KEEPS the genvar ref in
+    4,683 plain `CA/idx` bit-select indexes (rgg14's law).  The call site is
+    ExprEmit's hier_path bit_select arm; the discriminator earl68 measured is
+    being INSIDE A HIER_PATH, and this pass adds a second: the 261 sit under an
+    ASSIGNMENT PATTERN (`RHS/op75[]/tp:<member>`), which is where Surelog
+    re-compiles the operand with the unrolling's instance.
+R2  THE OPERAND FOLDS (87 + 32 cells): `IDW`/`STIDW`/`MioPeriphHasSleepMode`
+    read as an OPERATION OPERAND inside an ELAB cont_assign.  earl67's R2,
+    earl68's R2, unchanged.
+R3  THE ELAB High_conn REMAINDER (19 cells: 16 `idx` + 3 `b`): earl64's R5,
+    unchanged.
+R4  THE WHOLE-Rhs REDUCES earl68 measured and did not take (concat, cast, a
+    gen-scope LOCALPARAM as the whole Rhs).  Unchanged.
+R5  THE hier_path NAME RESIDUES THIS PASS MEASURED AND DID NOT TAKE — all of
+    them OPERATION rows of `decompileHelper`, i.e. `ExprEval::prettyPrint`,
+    which is a second closed dispatch needing its own census (uvm92's lesson):
+      * `tl_h_i[i].a_source[IDW - 1-:1]` vs golden `[8 - 1-:1]` — golden folds
+        the parameter INSIDE the operation and leaves the operation unfolded;
+        we leave the whole operation spelled (32 cells default / 264 tf in the
+        hier_path census, all with ELEMS already differing);
+      * `st[i].a[QP:QP - 4]` (arm a2 cell) — same shape one operand over;
+      * the 698 golden cells where UHDM's POST-EXPORT
+        `ElaboratorContext`/`UhdmAdjuster` replaced an operation with a folded
+        constant and did NOT re-render the name.  Those are NOT a defect on our
+        side: we reproduce them exactly, and § hpNameBareIdxFold69 is
+        deliberately blind to them (it only rewrites a BARE IDENTIFIER).
+R6  THE NEGATIVE-GENVAR BLOCK-NAME WRAP (r10v68's verifier R1) — untouched and
+    unreachable by this pass: it is a gen-block NAMING residue with no
+    hier_path cell in this pass's family, and the whole-expression census
+    (tscen69, 162,259 cells per mode) diffs to zero lines, so no object of any
+    kind moved.
+R7  A PRE-EXISTING TYPE-CONFUSION READ this pass DISCOVERED (not introduced,
+    not fixed): `src/TypeEmit.cpp:10345`, `buildUnpackedArrayTypedefTs`, does
+    `ct.as<FixedSizeUnpackedArrayType>()` UNCHECKED.  For
+    `typedef C22 ka_cls_t[string];` the canonical type is an
+    `AssociativeArrayType`, so `fua.range.width()` reads whatever bytes sit at
+    that offset and the `array_typespec` range comes out as a garbage
+    constant (`22198457` on one binary, `22186169` on another, differing by
+    exactly 0x3000).  Stable per binary and per source; moves only with the
+    BINARY.  Witness `tools/probe/r10buvm22repro/g22.sv` lines 68-72.  Corpus
+    population zero.
+R8  carried and unchanged: earl66's R2, earl64's R1 (based-override decompile
+    `"32'h2"` vs `"4'h2"`, 44 Earlgrey cells) and R2 (`UINT:-3`), earl61-63's
+    residues, the 464-object tagged_pattern block.

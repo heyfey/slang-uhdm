@@ -2999,6 +2999,228 @@ static void hpIdxBaseHierPathEmpty94(UHDM::hier_path* hp) {
     }
 }
 
+// § hpNameBareIdxFold69 — `decompileHelper`'s CONSTANT row, applied to a
+// hier_path NAME once its Path_elems exist.
+//
+// THE LAW, decoded from Surelog and measured on golden.  Surelog does NOT
+// spell a hier_path's `VpiName` from the source text.  It builds it in
+// `CompileHelper::compileSelectExpression` (CompileExpression.cpp:1376-1546)
+// by appending, per path element, that element's NAME plus the bracket text
+// `CompileHelper::decompileHelper` (CompileHelper.cpp:2544) renders FROM THE
+// ELEMENT OBJECT.  That dispatch is closed:
+//
+//     constant             -> VpiDecompile           "7"
+//     ref_obj              -> VpiName                "i"
+//     operation            -> ExprEval::prettyPrint  "8 - 1"
+//     bit_select           -> "[" + (its constant | ref_obj | operation) + "]"
+//     part_select          -> "[l:r]"
+//     indexed_part_select  -> "[b+:w]" / "[b-:w]"
+//     var_select           -> the concatenation of its exprs
+//     EVERYTHING ELSE      -> ""
+//
+// So the NAME is a FUNCTION OF THE OBJECTS: a select bound the compiler
+// REDUCED carries its VALUE in the name, and one that stayed a reference
+// carries its identifier.  This emitter composed the name from the SOURCE
+// SPELLING instead, which is why the pass's head
+//
+//     golden  hier_path  read_buf[i].addr[7+:8]
+//     ours    hier_path  read_buf[i].addr[FlashWordsW+:PageW]
+//
+// differed in `VpiName` ALONE (`hier_path::Compare` reads Path_elems, then
+// Root_value, then VpiName — and both sides' `indexed_part_select` bounds are
+// already the SAME folded `UINT:7` / `UINT:8` constants, so VpiName is the
+// only field left).  Note what the same law says about the GENVAR in that
+// name: `read_buf[i]`'s index is still a `ref_obj` on both sides, so `i` stays
+// SPELLED — the parameters fold because their OBJECTS are constants, not
+// because a gen scope folds everything.
+//
+// CALIBRATION (the whole golden cache, 3,673 databases, 267,547 hier_paths):
+// golden's `VpiName` equals this renderer's output in 266,849 of them.  The
+// 698 exceptions are ALL one shape — the name carries an OPERATION's text
+// (`SubAW - 1`, `7 - i`, `9 - 1`, `$clog2(64) - 1`, `byte_lane * 8`) while the
+// object is a folded constant — because UHDM's POST-EXPORT
+// `ElaboratorContext`/`UhdmAdjuster` (uhdm_main.cpp, `--elabuhdm` only)
+// replaces those objects AFTER the name was composed and never re-renders it.
+// The same pass runs on our side, after this emitter, so those cells are out
+// of reach here by construction; the gate below keeps them out of reach by
+// rule as well.
+//
+// THE GATE.  This helper implements ONLY the `constant` row, and only where
+// the text now in the bracket group is a SINGLE UNQUALIFIED IDENTIFIER.  It
+// walks the name in lockstep with the elements and rewrites nothing else:
+//   * a group is never added, removed or emptied, so the bracket-PRESENCE
+//     laws (§ hpTrailSelIdxDecompiled89's A/B convention,
+//     § hpMidSelIdxDecompiled79's empty-string rows, § hpIdxBaseHierPathEmpty94)
+//     are untouched — `pend_req[].mask` and `mem_q[[k]].sbe.rd` keep their text
+//     because "" and "[k]" are not identifiers;
+//   * a group holding an OPERATION's text is never touched, which is exactly
+//     the 698 golden cells above;
+//   * a QUALIFIED `pkg::P` read is not an identifier here either, matching the
+//     measured "a qualified read keeps its text" rule;
+//   * ANY parse mismatch between the name and the elements aborts the whole
+//     rewrite for that object (fail-closed).
+// Measured consequence: golden is a FIXED POINT of this rewrite in every one
+// of the 3,673 cached golden databases.
+static bool hpBareIdent69(const std::string& t) {
+    if (t.empty() || !(isalpha((unsigned char)t[0]) || t[0] == '_'))
+        return false;
+    for (char c : t)
+        if (!(isalnum((unsigned char)c) || c == '_' || c == '$'))
+            return false;
+    return true;
+}
+
+static size_t hpGrpEnd69(const std::string& n, size_t i) {
+    int d = 0;
+    for (size_t k = i; k < n.size(); k++) {
+        if (n[k] == '[')
+            d++;
+        else if (n[k] == ']') {
+            if (--d == 0)
+                return k + 1;
+        }
+    }
+    return std::string::npos;
+}
+
+static std::string hpConstDec69(const UHDM::any* e) {
+    if (!e || e->UhdmType() != UHDM::uhdmconstant)
+        return {};
+    return std::string(((const UHDM::constant*)e)->VpiDecompile());
+}
+
+static void hpNameBareIdxFold69(UHDM::hier_path* hp) {
+    if (!hp || !hp->Path_elems() || hp->Path_elems()->empty())
+        return;
+    const std::string old(hp->VpiName());
+    if (old.empty() || old.find('[') == std::string::npos)
+        return;
+    std::string out;
+    size_t i = 0;
+    bool first = true;
+    // The running prefixes: an element's own VpiFullName is the name text up
+    // to and including that element (Surelog builds both from one string), so
+    // an element whose fullname is EXACTLY the old prefix is re-stamped with
+    // the new one and any other fullname is left alone.
+    std::vector<std::pair<UHDM::ref_obj*, std::pair<std::string, std::string>>>
+        fns;
+    for (auto* e : *hp->Path_elems()) {
+        if (!e)
+            return;
+        std::string nm(e->VpiName());
+        if (!nm.empty()) {
+            if (!first) {
+                if (i >= old.size() || old[i] != '.')
+                    return;
+                out += '.';
+                i++;
+            }
+            if (old.compare(i, nm.size(), nm) != 0)
+                return;
+            out += nm;
+            i += nm.size();
+        }
+        first = false;
+        auto t = e->UhdmType();
+        int ngrp;
+        if (t == UHDM::uhdmref_obj)
+            ngrp = 0;
+        else if (t == UHDM::uhdmbit_select || t == UHDM::uhdmpart_select ||
+                 t == UHDM::uhdmindexed_part_select)
+            ngrp = 1;
+        else if (t == UHDM::uhdmvar_select) {
+            auto* vs = (const UHDM::var_select*)e;
+            ngrp = vs->Exprs() ? (int)vs->Exprs()->size() : 0;
+        }
+        else
+            return;  // a kind decompileHelper has no row for: abstain entirely
+        for (int g = 0; g < ngrp; g++) {
+            if (i >= old.size() || old[i] != '[')
+                return;
+            size_t end = hpGrpEnd69(old, i);
+            if (end == std::string::npos)
+                return;
+            std::string inner = old.substr(i + 1, end - i - 2);
+            std::string neu = inner;
+            if (t == UHDM::uhdmbit_select) {
+                std::string d =
+                    hpConstDec69(((const UHDM::bit_select*)e)->VpiIndex());
+                if (!d.empty() && hpBareIdent69(inner))
+                    neu = d;
+            }
+            else if (t == UHDM::uhdmvar_select) {
+                auto* vs = (const UHDM::var_select*)e;
+                std::string d = hpConstDec69((*vs->Exprs())[(size_t)g]);
+                if (!d.empty() && hpBareIdent69(inner))
+                    neu = d;
+            }
+            else {
+                bool ips = t == UHDM::uhdmindexed_part_select;
+                size_t sp = std::string::npos, splen = 0;
+                int d2 = 0;
+                for (size_t k = 0; k < inner.size(); k++) {
+                    char c = inner[k];
+                    if (c == '[')
+                        d2++;
+                    else if (c == ']')
+                        d2--;
+                    else if (!d2) {
+                        if (ips && (c == '+' || c == '-') &&
+                            k + 1 < inner.size() && inner[k + 1] == ':') {
+                            sp = k;
+                            splen = 2;
+                            break;
+                        }
+                        if (!ips && c == ':') {
+                            sp = k;
+                            splen = 1;
+                            break;
+                        }
+                    }
+                }
+                if (sp != std::string::npos) {
+                    std::string L = inner.substr(0, sp);
+                    std::string S = inner.substr(sp, splen);
+                    std::string R = inner.substr(sp + splen);
+                    const UHDM::any* lo =
+                        ips ? (const UHDM::any*)((const UHDM::indexed_part_select*)e)
+                                  ->Base_expr()
+                            : (const UHDM::any*)((const UHDM::part_select*)e)
+                                  ->Left_range();
+                    const UHDM::any* ro =
+                        ips ? (const UHDM::any*)((const UHDM::indexed_part_select*)e)
+                                  ->Width_expr()
+                            : (const UHDM::any*)((const UHDM::part_select*)e)
+                                  ->Right_range();
+                    std::string dl = hpConstDec69(lo), dr = hpConstDec69(ro);
+                    if (!dl.empty() && hpBareIdent69(L))
+                        L = dl;
+                    if (!dr.empty() && hpBareIdent69(R))
+                        R = dr;
+                    neu = L + S + R;
+                }
+            }
+            out += '[';
+            out += neu;
+            out += ']';
+            i = end;
+        }
+        // ref_obj / bit_select / part_select / indexed_part_select /
+        // var_select all derive from `ref_obj`, which is where VpiFullName
+        // lives; anything else was rejected above.
+        if (auto* ro = any_cast<UHDM::ref_obj*>(e))
+            fns.push_back({ro, {old.substr(0, i), out}});
+    }
+    if (i != old.size() || out == old)
+        return;
+    hp->VpiName(out);
+    if (hp->VpiFullName() == old)
+        hp->VpiFullName(out);
+    for (auto& f : fns)
+        if (f.first->VpiFullName() == f.second.first)
+            f.first->VpiFullName(f.second.second);
+}
+
 // § concatIdxDecompile29 — the SELECT-element classifier.  Walks a select chain
 // down to its base and reports how many element-select levels sit above that
 // base, so the three measured select renderings can be told apart:
@@ -4781,6 +5003,9 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
         rm->VpiParent(hp);
         elems->push_back(rm);
         hp->Path_elems(elems);
+        // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+        // the compiler REDUCED by its VALUE, not by its spelling.
+        hpNameBareIdxFold69(hp);
         return hp;
     }
     auto* elems = s.MakeAnyVec();
@@ -4909,6 +5134,9 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
         elems->push_back(r);
     }
     hp->Path_elems(elems);
+    // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+    // the compiler REDUCED by its VALUE, not by its spelling.
+    hpNameBareIdxFold69(hp);
     return hp;
 }
 
@@ -5551,6 +5779,9 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         }
     }
     hp->Path_elems(elems);
+    // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+    // the compiler REDUCED by its VALUE, not by its spelling.
+    hpNameBareIdxFold69(hp);
     return hp;
 }
 
@@ -5698,6 +5929,9 @@ UHDM::hier_path* UhdmExporter::emitThisPathSelectErased(const Expression& expr,
         elems->push_back(r);
     }
     hp->Path_elems(elems);
+    // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+    // the compiler REDUCED by its VALUE, not by its spelling.
+    hpNameBareIdxFold69(hp);
     return hp;
 }
 
@@ -7445,6 +7679,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto* elems = s.MakeAnyVec();
                     elems->push_back(lhs);
                     hp->Path_elems(elems);
+                    // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                    // the compiler REDUCED by its VALUE, not by its spelling.
+                    hpNameBareIdxFold69(hp);
                     lhs->VpiParent(hp);
                     ((UHDM::ref_obj*)lhs)->Actual_group(nullptr);
                 }
@@ -13927,6 +14164,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 mkRef11(segs11[i11].name, segs11[i11].nameRng);
                             mkRef11(std::string(sub.name), mSpan11);
                             hp11->Path_elems(el11);
+                            // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                            // the compiler REDUCED by its VALUE, not by its spelling.
+                            hpNameBareIdxFold69(hp11);
                             return hp11;
                         }
                         auto* mfc11 = s.MakeMethod_func_call();
@@ -14168,6 +14408,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             setLoc(rq11, mNm11);
                             elems11->push_back(rq11);
                             hp11->Path_elems(elems11);
+                            // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                            // the compiler REDUCED by its VALUE, not by its spelling.
+                            hpNameBareIdxFold69(hp11);
                             return hp11;
                         }
                         auto* mfc11 = s.MakeMethod_func_call();
@@ -14219,6 +14462,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             mfc11->Tf_call_args(margs11);
                         elems11->push_back(mfc11);
                         hp11->Path_elems(elems11);
+                        // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                        // the compiler REDUCED by its VALUE, not by its spelling.
+                        hpNameBareIdxFold69(hp11);
                         return hp11;
                     }
                     if (callStmtCtx0 && deepRecv11 && segs11.size() > 1) {
@@ -14283,6 +14529,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             setLoc(rq0, mNm0);
                             elems0->push_back(rq0);
                             hp0->Path_elems(elems0);
+                            // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                            // the compiler REDUCED by its VALUE, not by its spelling.
+                            hpNameBareIdxFold69(hp0);
                             return hp0;
                         }
                         auto* mfc0 = s.MakeMethod_func_call();
@@ -14319,6 +14568,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             mfc0->Tf_call_args(margs0);
                         elems0->push_back(mfc0);
                         hp0->Path_elems(elems0);
+                        // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                        // the compiler REDUCED by its VALUE, not by its spelling.
+                        hpNameBareIdxFold69(hp0);
                         // § hierCallArgTakesBase39 — remember that THIS
                         // two-element hier_path is a CLASS-method call, so the
                         // design-final pass can hand its arguments the base's
@@ -14469,6 +14721,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             mfcH->Tf_call_args(argsH);
                         elemsH->push_back(mfcH);
                         hpH->Path_elems(elemsH);
+                        // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                        // the compiler REDUCED by its VALUE, not by its spelling.
+                        hpNameBareIdxFold69(hpH);
                         return hpH;
                     }
                 }
@@ -16932,6 +17187,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                    SourceRange(mStart9, mStart9 + name.size()));
                             elems->push_back(rq9);
                             hp->Path_elems(elems);
+                            // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                            // the compiler REDUCED by its VALUE, not by its spelling.
+                            hpNameBareIdxFold69(hp);
                             return hp;
                         }
                         auto* mfc = s.MakeMethod_func_call();
@@ -17027,6 +17285,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             mfc->Tf_call_args(margs);
                         elems->push_back(mfc);
                         hp->Path_elems(elems);
+                        // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                        // the compiler REDUCED by its VALUE, not by its spelling.
+                        hpNameBareIdxFold69(hp);
                         return hp;
                     }
                 }
@@ -17760,6 +18021,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
                 hp->Path_elems(elems);
+                // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                // the compiler REDUCED by its VALUE, not by its spelling.
+                hpNameBareIdxFold69(hp);
                 return hp;
             }
             // Nested element selects (unpacked arrays) flatten to a
@@ -17889,6 +18153,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             elems->push_back(vs);
                         }
                         hp->Path_elems(elems);
+                        // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                        // the compiler REDUCED by its VALUE, not by its spelling.
+                        hpNameBareIdxFold69(hp);
                         return hp;
                     }
                 }
@@ -18034,6 +18301,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         hp->Path_elems(elems);
                         // § hpIdxBaseHierPathEmpty94 — decompileHelper has NO hier_path row.
                         hpIdxBaseHierPathEmpty94(hp);
+                        // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                        // the compiler REDUCED by its VALUE, not by its spelling.
+                        hpNameBareIdxFold69(hp);
                         return hp;
                     }
                 }
@@ -18621,6 +18891,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     hp->Path_elems(elems);
                     // § hpIdxBaseHierPathEmpty94 — decompileHelper has NO hier_path row.
                     hpIdxBaseHierPathEmpty94(hp);
+                    // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                    // the compiler REDUCED by its VALUE, not by its spelling.
+                    hpNameBareIdxFold69(hp);
                     return hp;
                 }
             }
@@ -18837,6 +19110,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     hp->Path_elems(elems);
                     // § hpIdxBaseHierPathEmpty94 — decompileHelper has NO hier_path row.
                     hpIdxBaseHierPathEmpty94(hp);
+                    // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                    // the compiler REDUCED by its VALUE, not by its spelling.
+                    hpNameBareIdxFold69(hp);
                     return hp;
                 }
             }
@@ -19535,6 +19811,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         hp->Path_elems(elems);
                         // § hpIdxBaseHierPathEmpty94 — decompileHelper has NO hier_path row.
                         hpIdxBaseHierPathEmpty94(hp);
+                        // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+                        // the compiler REDUCED by its VALUE, not by its spelling.
+                        hpNameBareIdxFold69(hp);
                         return hp;
                     }
                 }
@@ -20034,6 +20313,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             hp->Path_elems(elems);
             // § hpIdxBaseHierPathEmpty94 — decompileHelper has NO hier_path row.
             hpIdxBaseHierPathEmpty94(hp);
+            // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+            // the compiler REDUCED by its VALUE, not by its spelling.
+            hpNameBareIdxFold69(hp);
             return hp;
         }
         case ExpressionKind::SimpleAssignmentPattern: {
@@ -22430,6 +22712,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             hp->Path_elems(elems);
             // § hpIdxBaseHierPathEmpty94 — decompileHelper has NO hier_path row.
             hpIdxBaseHierPathEmpty94(hp);
+            // § hpNameBareIdxFold69 — decompileHelper renders a select bound
+            // the compiler REDUCED by its VALUE, not by its spelling.
+            hpNameBareIdxFold69(hp);
             return hp;
         }
         case ExpressionKind::Inside: {
