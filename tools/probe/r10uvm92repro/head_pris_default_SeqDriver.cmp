@@ -1,0 +1,176 @@
+LHS:
+decompile:
+hier_path: (gp.m_byte_enable[i % ]), id:309650, line:464:22, endln:464:67
+|vpiParent:
+\_assignment: , id:309648, line:464:13, endln:464:67
+|vpiActual:
+\_ref_obj: (gp), id:309651, line:464:22, endln:464:24
+  |vpiParent:
+  \_hier_path: (gp.m_byte_enable[i % ]), id:309650, line:464:22, endln:464:67
+  |vpiName:gp
+|vpiActual:
+\_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable), id:309657, line:464:39, endln:464:66
+  |vpiParent:
+  \_hier_path: (gp.m_byte_enable[i % ]), id:309650, line:464:22, endln:464:67
+  |vpiName:m_byte_enable
+  |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable
+  |vpiIndex:
+  \_operation: , id:309653, line:464:39, endln:464:66
+    |vpiParent:
+    \_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable), id:309657, line:464:39, endln:464:66
+    |vpiOpType:13
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::i), id:309652, line:464:39, endln:464:40
+      |vpiParent:
+      \_operation: , id:309653, line:464:39, endln:464:66
+      |vpiName:i
+      |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::i
+    |vpiOperand:
+    \_hier_path: (gp.m_byte_enable_length), id:309654, line:464:43, endln:464:66
+      |vpiParent:
+      \_operation: , id:309653, line:464:39, endln:464:66
+      |vpiActual:
+      \_ref_obj: (gp), id:309655, line:464:43, endln:464:45
+        |vpiParent:
+        \_hier_path: (gp.m_byte_enable_length), id:309654, line:464:43, endln:464:66
+        |vpiName:gp
+      |vpiActual:
+      \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::m_byte_enable_length), id:309656, line:464:46, endln:464:66
+        |vpiParent:
+        \_hier_path: (gp.m_byte_enable_length), id:309654, line:464:43, endln:464:66
+        |vpiName:m_byte_enable_length
+        |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::m_byte_enable_length
+      |vpiName:gp.m_byte_enable_length
+|vpiName:gp.m_byte_enable[i % ]
+
+decompile:
+hier_path: (gp.m_byte_enable[i % ]), id:309650, line:464:22, endln:464:67
+|vpiParent:
+\_assignment: , id:309648, line:464:13, endln:464:67
+|vpiActual:
+\_ref_obj: (gp), id:309651, line:464:22, endln:464:24
+  |vpiParent:
+  \_hier_path: (gp.m_byte_enable[i % ]), id:309650, line:464:22, endln:464:67
+  |vpiName:gp
+|vpiActual:
+\_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable), id:309657, line:464:39, endln:464:66
+  |vpiParent:
+  \_hier_path: (gp.m_byte_enable[i % ]), id:309650, line:464:22, endln:464:67
+  |vpiName:m_byte_enable
+  |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable
+  |vpiIndex:
+  \_operation: , id:309653, line:464:39, endln:464:66
+    |vpiParent:
+    \_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable), id:309657, line:464:39, endln:464:66
+    |vpiOpType:13
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::i), id:309652, line:464:39, endln:464:40
+      |vpiParent:
+      \_operation: , id:309653, line:464:39, endln:464:66
+      |vpiName:i
+      |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::i
+    |vpiOperand:
+    \_hier_path: (gp.m_byte_enable_length), id:309654, line:464:43, endln:464:66
+      |vpiParent:
+      \_operation: , id:309653, line:464:39, endln:464:66
+      |vpiActual:
+      \_ref_obj: (gp), id:309655, line:464:43, endln:464:45
+        |vpiParent:
+        \_hier_path: (gp.m_byte_enable_length), id:309654, line:464:43, endln:464:66
+        |vpiName:gp
+      |vpiActual:
+      \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::m_byte_enable_length), id:309656, line:464:46, endln:464:66
+        |vpiParent:
+        \_hier_path: (gp.m_byte_enable_length), id:309654, line:464:43, endln:464:66
+        |vpiName:m_byte_enable_length
+        |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % ]::m_byte_enable::m_byte_enable_length
+      |vpiName:gp.m_byte_enable_length
+|vpiName:gp.m_byte_enable[i % ]
+RHS:
+decompile:
+hier_path: (gp.m_byte_enable[i % gp.m_byte_enable_length]), id:114608, line:464:22, endln:464:67
+|vpiParent:
+\_assignment: , id:114606, line:464:13, endln:464:67
+|vpiActual:
+\_ref_obj: (gp), id:114609, line:464:22, endln:464:24
+  |vpiParent:
+  \_hier_path: (gp.m_byte_enable[i % gp.m_byte_enable_length]), id:114608, line:464:22, endln:464:67
+  |vpiName:gp
+|vpiActual:
+\_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % gp.m_byte_enable_length]::m_byte_enable), id:114610, line:464:39, endln:464:66
+  |vpiParent:
+  \_hier_path: (gp.m_byte_enable[i % gp.m_byte_enable_length]), id:114608, line:464:22, endln:464:67
+  |vpiName:m_byte_enable
+  |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % gp.m_byte_enable_length]::m_byte_enable
+  |vpiIndex:
+  \_operation: , id:114611, line:464:39, endln:464:66
+    |vpiParent:
+    \_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % gp.m_byte_enable_length]::m_byte_enable), id:114610, line:464:39, endln:464:66
+    |vpiOpType:13
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_compare::i), id:114612, line:464:39, endln:464:40
+      |vpiParent:
+      \_operation: , id:114611, line:464:39, endln:464:66
+      |vpiName:i
+      |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::i
+    |vpiOperand:
+    \_hier_path: (gp.m_byte_enable_length), id:114613, line:464:43, endln:464:66
+      |vpiParent:
+      \_operation: , id:114611, line:464:39, endln:464:66
+      |vpiActual:
+      \_ref_obj: (gp), id:114614, line:464:43, endln:464:45
+        |vpiParent:
+        \_hier_path: (gp.m_byte_enable_length), id:114613, line:464:43, endln:464:66
+        |vpiName:gp
+      |vpiActual:
+      \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_compare::m_byte_enable_length), id:114615, line:464:46, endln:464:66
+        |vpiParent:
+        \_hier_path: (gp.m_byte_enable_length), id:114613, line:464:43, endln:464:66
+        |vpiName:m_byte_enable_length
+        |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::m_byte_enable_length
+      |vpiName:gp.m_byte_enable_length
+|vpiName:gp.m_byte_enable[i % gp.m_byte_enable_length]
+
+decompile:
+hier_path: (gp.m_byte_enable[i % gp.m_byte_enable_length]), id:114608, line:464:22, endln:464:67
+|vpiParent:
+\_assignment: , id:114606, line:464:13, endln:464:67
+|vpiActual:
+\_ref_obj: (gp), id:114609, line:464:22, endln:464:24
+  |vpiParent:
+  \_hier_path: (gp.m_byte_enable[i % gp.m_byte_enable_length]), id:114608, line:464:22, endln:464:67
+  |vpiName:gp
+|vpiActual:
+\_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % gp.m_byte_enable_length]::m_byte_enable), id:114610, line:464:39, endln:464:66
+  |vpiParent:
+  \_hier_path: (gp.m_byte_enable[i % gp.m_byte_enable_length]), id:114608, line:464:22, endln:464:67
+  |vpiName:m_byte_enable
+  |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % gp.m_byte_enable_length]::m_byte_enable
+  |vpiIndex:
+  \_operation: , id:114611, line:464:39, endln:464:66
+    |vpiParent:
+    \_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_compare::gp.m_byte_enable[i % gp.m_byte_enable_length]::m_byte_enable), id:114610, line:464:39, endln:464:66
+    |vpiOpType:13
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_compare::i), id:114612, line:464:39, endln:464:40
+      |vpiParent:
+      \_operation: , id:114611, line:464:39, endln:464:66
+      |vpiName:i
+      |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::i
+    |vpiOperand:
+    \_hier_path: (gp.m_byte_enable_length), id:114613, line:464:43, endln:464:66
+      |vpiParent:
+      \_operation: , id:114611, line:464:39, endln:464:66
+      |vpiActual:
+      \_ref_obj: (gp), id:114614, line:464:43, endln:464:45
+        |vpiParent:
+        \_hier_path: (gp.m_byte_enable_length), id:114613, line:464:43, endln:464:66
+        |vpiName:gp
+      |vpiActual:
+      \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_compare::m_byte_enable_length), id:114615, line:464:46, endln:464:66
+        |vpiParent:
+        \_hier_path: (gp.m_byte_enable_length), id:114613, line:464:43, endln:464:66
+        |vpiName:m_byte_enable_length
+        |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::m_byte_enable_length
+      |vpiName:gp.m_byte_enable_length
+|vpiName:gp.m_byte_enable[i % gp.m_byte_enable_length]

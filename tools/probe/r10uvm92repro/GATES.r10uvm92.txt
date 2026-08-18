@@ -1,0 +1,144 @@
+r10uvm92 — THE GATES.  All five mandatory gates, RUN, with their controls.
+GOLDEN_DEFER read [UNSET] on every sweep.  results/*.csv were READ ONLY.
+NOTHING WAS PROMOTED.  NO ROW CONVERTED.  slang was NOT patched.
+Baselines are the ones IN MY OWN WORKTREE, /tmp/wt_r10uvm92 @ b623cad
+(results/golden_surelog.csv = 1588 rows both modes; results/gate_uhdm2rtlil.csv
+= 731 TESTFLAGS-ONLY rows).
+
+(1) BUILD — ONE worktree (/tmp/wt_r10uvm92 @ b623cad), -j 2, md5 taken
+    SEPARATELY after each build
+      PRISTINE  /tmp/r10uvm92_bin/slang-uhdm.pris  778f81f72906a319d33af57c32849bc6
+      PATCHED   /tmp/r10uvm92_bin/slang-uhdm.pat   24b21f18fb9659db0ad6879a7a8f4ab5
+    CROSS-CHECK that the PRISTINE binary really is the committed base: its
+    surelog sweep reproduces the committed CSV with 0 differing rows over all
+    1588 (gate 4 below), and its uhdm2rtlil sweep reproduces the committed
+    testflags gate CSV with 0 differing rows over 731.
+    BUILD-RACE NOTE: a stale `BUILD_FINISHED` marker in a REUSED log file once
+    made a waiter freeze the PREVIOUS binary (60f3bf77…).  Caught by comparing
+    the md5 against the known-stale value before freezing; the log is now
+    deleted before each build and the waiter asserts the md5 CHANGED.
+
+(2) GOLDENS — tests/check_goldens.sh, SLANG_UHDM exported EXPLICITLY to each
+      PATCHED                23 PASS / 0 FAIL
+      PRISTINE               23 PASS / 0 FAIL
+      SLANG_UHDM=/bin/false   0 PASS / 23 FAIL   <- the negative control: the
+                                                    harness really does read
+                                                    SLANG_UHDM (it defaults to
+                                                    the MAIN-TREE binary)
+
+(3) uhdm2rtlil — verify_golden.py --corpus uhdm2rtlil --mode both --jobs 2, my
+    own --out/--workdir; cmds.txt grepped for the BINARY PATH afterwards (not
+    the substring `slang-uhdm`, which also matches `slang-uhdm-goldens/...`)
+      PATCHED  [default]   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+               [testflags] 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+      PRISTINE  identical histograms, both modes
+      cmds.txt: 1458 lines naming /tmp/r10uvm92_bin/slang-uhdm.pat
+      ct8rows PATCHED  (testflags-filtered) vs results/gate_uhdm2rtlil.csv:
+               731 ROWS, 0 differing ROWS
+      ct8rows PRISTINE (testflags-filtered) vs the same baseline: 0 differing ROWS
+      ct8rows PATCHED vs PRISTINE, BOTH MODES, all 1462 rows: 0 differing ROWS
+      byteverify PAT vs PRIS: 1358 paths, PATH_SETS_IDENTICAL, MOVERS 0 / 1358
+               — EXACTLY what PREDICT.r10uvm92.txt said (pred92.sh over the 1358
+               PRISTINE databases found ZERO cells this law can reach)
+               SELFCHECK=1  1357 / 1358 flagged (the comparator can see)
+      canaries.sh  ok=18 changed=0 absent=0 unknown-names=27 (expected 27)
+      ctcan2.sh    ok=2  changed=0 absent=0 unknown-patterns=6 (EXPECT_UNKNOWN=6)
+      pins92.sh    UNKNOWN-NAME=5 and the script REFUSES TO REPORT — the five
+               pinned names are SURELOG-corpus rows, so the u2r run is
+               legitimately vacuous and is recorded as such rather than quoted
+               as a pass; the surelog run below is the one that measures them.
+
+(4) surelog — verify_golden.py --corpus surelog --mode both --jobs 2
+      PATCHED  [default]   470 CMP_EQUAL / 11 CMP_NOTEQUAL / 5 DEFERRED /
+                           283 SLANG_REJECT / 25 SURELOG_FAIL
+               [testflags] 466 CMP_EQUAL / 9 CMP_NOTEQUAL / 5 DEFERRED /
+                           3 NO_DATABASE / 1 NO_UHDM / 284 SLANG_REJECT /
+                           23 SURELOG_FAIL / 1 TIMEOUT / 2 UNTRANSLATABLE
+      PRISTINE  identical histograms, both modes
+      cmds.txt: 1523 lines naming /tmp/r10uvm92_bin/slang-uhdm.pat
+      ct8rows PATCHED  vs results/golden_surelog.csv:  1588 ROWS,
+               0 differing ROWS, status AND dump histograms identical
+      ct8rows PRISTINE vs results/golden_surelog.csv:  0 differing ROWS
+      ct8rows PATCHED  vs PRISTINE:                    0 differing ROWS
+      **NO ROW CONVERTED.  NO ROW REGRESSED.**  Earlgrey_0_1/testflags is a
+      CMP_NOTEQUAL row in the baseline and stays one; the 11 + 9 CMP_NOTEQUAL
+      counts are unchanged.
+      canaries.sh  ok=56 changed=0 absent=0 unknown-names=8 (expected 8)
+                   [run BOTH vs the pristine both-modes CSV and vs the COMMITTED
+                    baseline; identical readings]
+      ctcan2.sh    ok=58 changed=0 absent=0 unknown-patterns=1 (EXPECT_UNKNOWN=1)
+      canaudit.sh  33 audited, 0 UNCOVERED, 0 FENCE-BREACH
+      pins92.sh    SAME=10 MOVED=0 UNKNOWN-NAME=0
+                   InterfaceModPort / BlackParrotComplex / YosysOldOr
+                   byte-identical; SVSwitch 4842211c4030; YosysVerx 6ccda350c24a
+
+(5) BYTES — byteverify.sh, surelog corpus
+      PATH_SETS_IDENTICAL (956 paths).  MOVERS: **9 / 956**
+        default/SeqDriver-32af76aa      a553478774d5 -> f14f26514fa1
+        default/SimpleUVM-1dc93a62      869acad78800 -> cebbbefcc5f8
+        default/Scoreboard-59431470     5572fae93172 -> 7d85b9fb8bb8
+        default/MiniAmiq-544c7f61       e330f81e7172 -> 180e550961c2
+        default/BuildUVMPkg-bf853d43    8e637b7a952d -> 0e51ee8188e3
+        testflags/SeqDriver-32af76aa    27fc2a281dcc -> 9bc3bd1ba296
+        testflags/SimpleUVM-1dc93a62    05e8b04cec98 -> 9115064572c0
+        testflags/MiniAmiq-544c7f61     e330f81e7172 -> 180e550961c2
+        testflags/BuildUVMPkg-bf853d43  8e637b7a952d -> 0e51ee8188e3
+      **EXACTLY THE 9 PREDICT.r10uvm92.txt NAMED**, and the three databases it
+      named as PREDICTED-BUT-NOT-REACHABLE — Earlgrey_0_1 x2 (R2) and
+      Rggen-default (R3) — are BYTE-IDENTICAL, as predicted.
+      SELFCHECK=1   955 / 956 flagged (the comparator can see)
+      SELFCHECK1=1  10 flagged = 1 corrupted + the 9 real movers
+
+    ATTRIBUTION — attr92.sh, ORDER-BLIND (the MOVER RULE: attribute only
+    order-blind; a positional diff also reports every permutation, and on
+    SeqDriver the typespecs `uvm_reg_addr_t` / `uvm_reg_data_t` simply SWAP
+    places, which is emitter ORDER and not this law):
+      SeqDriver    111 hier_path / 37 vpiName / 2 bit_select / 1 vpiFullName
+      SimpleUVM     57 /  19 / 2 / 1
+      Scoreboard    57 /  19 / 2 / 1
+      MiniAmiq     120 /  40 / 6 / 3
+      BuildUVMPkg   54 /  18 / 0 / 0
+    FOUR LINE KINDS ONLY, and INSERTIONS == DELETIONS on every one: no object
+    is created or destroyed, exactly as a NAME-TEXT law must read.
+
+    SELF-CHECK ON THE PATCHED DATABASES — `ct92cen --op` recomputes
+    `decompileHelper o ExprEval::prettyPrint` on the PATCHED tree with the REAL
+    UHDM function and compares it to the name the patched database carries:
+      SeqDriver EXPM_Y=47 EXPM_N=0     SimpleUVM  EXPM_Y=25 EXPM_N=0
+      Scoreboard EXPM_Y=25 EXPM_N=0    MiniAmiq   EXPM_Y=50 EXPM_N=0
+      BuildUVMPkg EXPM_Y=26 EXPM_N=0
+      Earlgrey_0_1 EXPM_Y=142 EXPM_N=29  (R2)   Rggen EXPM_Y=941 EXPM_N=24 (R3)
+    and the GOLDEN-vs-PATCHED join reads **DIFF=0** on all five moved rows, with
+    the NAME MULTISETS byte-identical to golden on SeqDriver / SimpleUVM /
+    Scoreboard / MiniAmiq (BuildUVMPkg has one pre-existing EXTRA-OURS object,
+    `rw.value[idx][8 * i+:8]`, present identically in pristine).
+
+(6) BOUNDARY — bound92.sh over every arm source of uvm77-91, buvm3-15, sd8-12
+      LISTED=619 PROCESSED=619 MOVED=7 NO_OUTPUT=7
+      NO_OUTPUT is SYMMETRIC: all 7 fail on BOTH binaries (checked file by file).
+      Every MOVED arm was then run through SURELOG and judged against golden by
+      bmove92.sh:  **TOTAL FIXED=10  TOTAL BROKE=0**
+        019 r10uvm79 c2_idxkind        FIXED 1  (iarr[ + 1].f)
+        020 r10uvm79 v79v1_idxkind     FIXED 3  (iarr[].f, iarr[ + 1].f, iarr[-].f)
+        024 r10uvm79 v79v5_deep        FIXED 1  (l[i ?  : k].f)
+        028 r10uvm80 c3_deepjoint      FIXED 1  (iarr[ > 0 ?  : ].f)
+        036 r10uvm81 c3_deepjoint81    FIXED 1  (iarr[ > 0 ?  : ].f)
+        046 r10uvm81 v81e_joint        FIXED 2  (iarr[ + ].f, sarr[ + ].f)
+        153 r10uvm89 g89_a1_idxkind    FIXED 1  (hh.apat['{,}])
+      EVERY BOUNDARY MOVER MOVES TOWARD GOLDEN.
+      **THE GATE ALSO REFUTED THE LAW ONCE, BEFORE IT LANDED**: an earlier build
+      moved r10buvm6repro's `v5_hierpathparent.sv` two cells the WRONG WAY --
+      golden and PRISTINE both write `t[$ - 1].f` and `ih.t[$ - 1].f`, the model
+      wrote `t[ - 1].f`.  `ExpressionKind::UnboundedLiteral` was missing from the
+      constant row.  Fixed; that arm is no longer a mover.
+
+(7) ARMS — three92.sh, golden vs pristine vs patched
+      g92_a1_ppgrid   cells=99 ALREADY-OK=20 FIXED=78 BROKE=0 STILL-WRONG=1
+      g92_a2_ppkinds  cells=37 ALREADY-OK=13 FIXED=22 BROKE=0 STILL-WRONG=2
+      g92_a3_recv     cells=13 ALREADY-OK=4  FIXED=8  BROKE=0 STILL-WRONG=1
+
+(8) HEADS — rowheads.sh, the OFFICIAL uhdm-cmp
+      SeqDriver/SimpleUVM/Scoreboard/MiniAmiq  176 -> 28 cmp lines, HEADS 1 -> 1
+      BuildUVMPkg 29 -> 29,  Earlgrey_0_1 29/30 -> 29/30,  Rggen 76 -> 76
+      The head `hier_path(gp.m_byte_enable[i % ])` VpiName is GONE; the new head
+      is a `constant` vpiDecompile (R0, see LADDERS.r10uvm92.txt).

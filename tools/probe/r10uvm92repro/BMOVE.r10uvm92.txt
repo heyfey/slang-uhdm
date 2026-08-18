@@ -1,0 +1,26 @@
+===== 019_r10uvm79repro_c2_idxkind
+FIXED  |24:9-24:28            G=iarr[ + 1].f
+-- cells=12 ALREADY-OK=11 FIXED=1 BROKE=0 STILL-WRONG=0
+===== 020_r10uvm79repro_v79v1_idxkind
+FIXED  |32:9-32:24            G=iarr[].f
+FIXED  |34:9-34:28            G=iarr[ + 1].f
+FIXED  |35:9-35:25            G=iarr[-].f
+-- cells=17 ALREADY-OK=14 FIXED=3 BROKE=0 STILL-WRONG=0
+===== 024_r10uvm79repro_v79v5_deep
+FIXED  |13:9-13:29            G=l[i ?  : k].f
+-- cells=9 ALREADY-OK=8 FIXED=1 BROKE=0 STILL-WRONG=0
+===== 028_r10uvm80repro_c3_deepjoint
+FIXED  |21:9-21:47            G=iarr[ > 0 ?  : ].f
+-- cells=8 ALREADY-OK=7 FIXED=1 BROKE=0 STILL-WRONG=0
+===== 036_r10uvm81repro_c3_deepjoint81
+FIXED  |25:9-25:47            G=iarr[ > 0 ?  : ].f
+-- cells=15 ALREADY-OK=14 FIXED=1 BROKE=0 STILL-WRONG=0
+===== 046_r10uvm81repro_v81e_joint
+FIXED  |56:9-56:40            G=iarr[ + ].f
+FIXED  |84:9-84:34            G=sarr[ + ].f
+-- cells=9 ALREADY-OK=7 FIXED=2 BROKE=0 STILL-WRONG=0
+===== 153_r10uvm89repro_g89_a1_idxkind
+FIXED  |75:7-75:29            G=hh.apat['{,}]
+STILL  |119:13-119:37         G=hh.amap[].nm                             pris=hh.amap[gn()].nm.len               pat=hh.amap[gn()].nm.len
+-- cells=43 ALREADY-OK=41 FIXED=1 BROKE=0 STILL-WRONG=1
+---- moved arms measured=7  TOTAL FIXED=10  TOTAL BROKE=0

@@ -1985,6 +1985,21 @@ private:
                               bool aggregateAbstain34 = false);
     std::string rawTextPkgFold(slang::SourceRange range,
                                const std::vector<PkgFoldSub>& subs);
+    /// § hpIdxOpPrettyPrint92 — the text an OPERATION index contributes to a
+    /// hier_path NAME.  `decompileHelper`'s OPERATION row (§ uvm79/89's first
+    /// closed dispatch) hands the object to UHDM's `ExprEval::prettyPrint`
+    /// (`UHDM/templates/ExprEval.cpp:949`), a SECOND closed dispatch with its
+    /// own `default: break` on BOTH levels -- the object kind AND, inside an
+    /// operation, the `vpiOpType`.  This models it over the slang AST.
+    ///
+    /// APPENDS to `out`.  Returns FALSE to ABSTAIN -- an operand whose source
+    /// text this build cannot recover -- and the caller then keeps its own
+    /// raw-text rendering, byte for byte as before.  `pf` may be null (the
+    /// site does not fold package parameters).  `out` is left in an
+    /// unspecified state on abstain, so callers render into a scratch string.
+    bool ppIdxText92(const slang::ast::Expression& e,
+                     const std::vector<PkgFoldSub>* pf, int depth,
+                     std::string& out);
     /// The node's text as the PREPROCESSED token stream reads it: outside a
     /// macro this is `rawText(syn.sourceRange())`, inside one it is the
     /// node's own tokens concatenated (which already carry the substituted

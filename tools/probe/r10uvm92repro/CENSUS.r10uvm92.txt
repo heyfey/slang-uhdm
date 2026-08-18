@@ -1,0 +1,84 @@
+r10uvm92 — THE CENSUS.  Run FIRST, GOLDEN-vs-GOLDEN before GOLDEN-vs-OURS, and
+run over BOTH corpora before a line of code was written.  MEASUREMENT-ONLY.
+
+=============================================================================
+1. GOLDEN-vs-GOLDEN — THE DECODE AS AN ORACLE  (gvg92.sh)
+=============================================================================
+`ct92cen` LINKS THE REAL `UHDM::ExprEval::prettyPrint` and transcribes
+`CompileHelper::decompileHelper`, applies the composition to every path element
+of a golden database's OWN tree, and compares the result to the bracket text
+that database's hier_path NAME actually carries.  EXPM=Y is a per-object proof.
+
+  corpus       goldens   op-index hier_paths   EXPM_Y   EXPM_N   refuting goldens
+  surelog       1523          10021            10036       0            0
+  uhdm2rtlil    1458           1840             1844       0            0
+
+11,880 cells over 2,981 golden databases, ZERO exceptions.
+(EXPM counts CELLS, the hier_path column counts OBJECTS; a path can carry two.)
+
+THREE CENSUS BUGS were found getting there, each of which PRINTED AS A
+REFUTATION and none of which was one -- recorded because "the instrument was
+wrong" is the reading a pass must not silently discard:
+  * a component name matched INSIDE a longer one: `memory` in `i_memory_tb`
+    (Scr1SvTests, a CMP_EQUAL row) and `data` in `data_o` (Ariane2024);
+  * a SECOND-DIMENSION element carries NO VpiName at all
+    (`rw.value[idx][i0 * 8+:8]`, BuildUVMPkg/Monitor/Opentitan/CoresSweRV);
+  * a greedy scrape handed the FIRST element BOTH bracket groups.
+The scraper now walks a CURSOR, requires BOTH component boundaries, and consumes
+exactly the number of groups the element's own decompileHelper row emits.
+
+=============================================================================
+2. GOLDEN-vs-OURS, PRISTINE  (cen92.sh + cenjoin92.py)
+=============================================================================
+Keyed on the SPAN (our hier_paths do not always carry a VpiFile) x the NAME
+multiset.  `pred` = our name with each bracket replaced by `prettyPrint` of OUR
+OWN TREE; `REACHED-BY-PP` means that prediction IS golden's name.
+
+surelog corpus -- the ONLY 11 test names with an operation-index hier_path:
+
+  row-mode                     keys  SAME  DIFF  REACHED-BY-PP  RESIDUE
+  default/testflags BitSelectExpr      1     1     0        -        -   <- CMP_EQUAL
+  default/testflags CarryAdd           2     2     0        -        -   <- CMP_EQUAL
+  default/testflags GenScopeHierPath3  3     3     0        -        -   <- CMP_EQUAL
+  default/testflags Scr1SvTests        4     4     0        -        -   <- CMP_EQUAL
+  default SeqDriver                   16     4     8        8        0
+  default SimpleUVM                   16     4     8        8        0
+  default Scoreboard                  16     4     8        8        0
+  default MiniAmiq                    19     4    11       11        0
+  default BuildUVMPkg                 14     4     9        9        0
+  default Earlgrey_0_1                31    29     2        0        2   <- R2 + R3
+  default Rggen                       12    11     0        -        -
+
+  * THE FOUR CMP_EQUAL ROWS ARE ALREADY BYTE-IDENTICAL TO GOLDEN on every cell:
+      sram_otp_key_o[2 - 2].nonce                 STAGE[i - 1].C
+      steps[step].outer[i].inner[j - 1].temp      steps[PREV].outer[LAST_START + j].val
+      steps[step].outer[i].inner[CHUNK - 1].temp  i_memory_tb.memory[start + 3]
+      exu_queue.imm[SCR1_CSR_ADDR_WIDTH - 1:0]
+    -- so this law must REPRODUCE them exactly, and the byte gate is what proves
+    it did.
+  * REACHED-BY-PP = 100%, RESIDUE = 0 on every UVM row.
+
+uhdm2rtlil corpus -- 1358 databases, the ONLY 14 test names with an
+operation-index hier_path (carryadd, ExpressionInIndex, gen_test5,
+iface_arr_struct_field_partsel, iface_ff_genvar_partsel, iface_scalar_localparam,
+iface_struct_field_partsel, jeras_tcb_gpio, jeras_union, rotate, rp32_r5p_alu,
+rp32_r5p_bru, rp32_r5p_mdu, rp32_r5p_wbu):  SAME on EVERY key, DIFF=0.
+Their texts, which the model must reproduce byte for byte:
+      bus.adr[2 + 2 - 1:0]        bus.wdt[GW - 1:0]        ctl.i_i[5 - 1:0]
+      netgen[i - 1].in            op.imm_11_0[6 - 1:0]     sram_otp_key_o[2 - 0].nonce
+      sub.adr[ADR - 1:]           sub.req.adr[ADR - 1:]    sub.req.wdt[i * 8+:8]
+      sub.req_dly[0].adr[$clog2(BYT) - 1:0]                sub.src[i * 8+:8]
+      steps[...][LAST_START + j].val                       STAGE[i - 1].C
+  NOTE `sub.adr[ADR - 1:]` -- an EMPTY right range.  It is why the RANGE-SELECT
+  hier_path arm is left alone (README R2).
+
+=============================================================================
+3. THE OPERAND-KIND KEY, golden, both corpora
+=============================================================================
+Every OPK combination the two corpora contain, with the operator:
+  ref_obj,constant      + - * %       ref_obj,ref_obj        +
+  constant,constant     -             ref_obj,hier_path      + %      -> EMPTY
+  ref_obj,func_call     -   -> EMPTY  sys_func_call,constant -
+  constant,operation(*) +             hier_path,ref_obj      -        -> EMPTY
+  ref_obj,operation(*)  +             concat with a hier_path operand -> `{1'b1,}`
+and the arms add the 24 kinds neither corpus contains.

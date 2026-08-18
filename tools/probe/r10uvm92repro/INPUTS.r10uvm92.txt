@@ -1,0 +1,63 @@
+r10uvm92 — THE INPUTS.  Everything a re-run needs, so no number in this
+directory rests on a binary or a path that cannot be rebuilt.
+
+REPO       /home/heyfey/git-repos/slang-uhdm, branch auto5h, BASE b623cad
+WORKTREE   /tmp/wt_r10uvm92   (git worktree add /tmp/wt_r10uvm92 b623cad)
+BUILD      cmake -DCMAKE_BUILD_TYPE=Release -S /tmp/wt_r10uvm92 -B /tmp/wt_r10uvm92/build
+           cmake --build build -j 2       (md5sum taken SEPARATELY after each build)
+BINARIES   /tmp/r10uvm92_bin/slang-uhdm.pris  778f81f72906a319d33af57c32849bc6
+           /tmp/r10uvm92_bin/slang-uhdm.pat   24b21f18fb9659db0ad6879a7a8f4ab5
+PATCH      /tmp/r10uvm92.patch = git diff vs b623cad
+
+BASELINES  THE ONES IN MY OWN WORKTREE, /tmp/wt_r10uvm92 @ b623cad:
+             results/golden_surelog.csv    1588 ROWS (both modes)
+             results/gate_uhdm2rtlil.csv    731 ROWS — TESTFLAGS ONLY, so a
+               both-modes fresh CSV is compared to it TESTFLAGS-FILTERED and the
+               DEFAULT half is compared PATCHED-vs-PRISTINE instead.  Both
+               comparisons are reported.
+           results/*.csv were READ ONLY.  NOTHING WAS PROMOTED.  NO ROW CONVERTED.
+           slang was NOT patched.  GOLDEN_DEFER read [UNSET] on every sweep.
+
+TOOLS      uhdm-cmp  ~/.local/bin/uhdm-cmp      (THE ONLY ACCEPTANCE JUDGE)
+           uhdm-dump ~/.local/bin/uhdm-dump
+           surelog   ~/git-repos/Surelog/build/bin/surelog   (arm goldens)
+           ct92cen   g++ -O2 -std=c++17 ct92cen.cpp -I ~/.local/include \
+                       -L ~/.local/lib64 -L ~/.local/lib -luhdm -lcapnp -lkj \
+                       -o /tmp/r10uvm92_ct92cen
+             ct92cen LINKS THE REAL `UHDM::ExprEval::prettyPrint` and transcribes
+             `CompileHelper::decompileHelper`, so its EXP column is the decode
+             itself applied to the database's OWN tree — the census is an oracle,
+             not a re-statement of the hypothesis.
+
+SWEEPS     sweep92.sh <binary> <corpus> <tag>  (verify_golden.py --mode both
+           --jobs 2, my own --out/--workdir, SLANG_UHDM exported, GOLDEN_DEFER
+           echoed, cmds.txt grepped for the BINARY PATH afterwards)
+             /tmp/r10uvm92_{pris,pat}_surelog.csv      1588 rows each
+             /tmp/r10uvm92_{pris,pat}_uhdm2rtlil.csv   1462 rows each
+             workdirs /tmp/r10uvm92_wd_{pris,pat}_{surelog,uhdm2rtlil}
+
+CORPUS PATHS the arms and the decode read
+           uvm-1.2      ~/git-repos/Surelog/third_party/UVM/uvm-1.2/src
+           1800.2-2017  ~/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output
+           SeqDriver golden cache
+                        ~/.cache/slang-uhdm-goldens/b5b4389e30f948a6a29f/golden.uhdm
+
+SURELOG / UHDM SOURCES the law is decoded FROM
+           Surelog src/DesignCompile/CompileHelper.cpp:2544  decompileHelper --
+                        the FIRST closed dispatch (uvm79/uvm89's law); its
+                        OPERATION row is `eval.prettyPrint(sel)`
+           UHDM templates/ExprEval.cpp:949   ExprEval::prettyPrint -- the SECOND
+                        closed dispatch, with `default: break` on BOTH levels.
+                        BYTE-IDENTICAL in ~/git-repos/UHDM and
+                        ~/git-repos/UHDM-1.84 (diff of the two bodies: no output)
+           UHDM templates/ExprEval.cpp:1234-1262  the part_select /
+                        indexed_part_select / var_select / ref_obj rows
+
+ARMS       g92_a3_recv.sv     the METHOD-CALL RECEIVER site (SITE 3), receiver
+                              depth 1/2/3 x operation and non-operation indices
+           g92_a1_ppgrid.sv   45 operators x 27 operand kinds x MID/TRAIL x
+                              LVAL 0/1/2 x five scopes, 105 golden hier_paths
+           g92_a2_ppkinds.sv  the 36 cells a1 cannot reach (assignment patterns,
+                              streaming, ->/<->, literal spellings, class
+                              localparams, statics, $bits/$size/$urandom,
+                              nested replication, escaped identifiers)

@@ -1,0 +1,180 @@
+r10uvm92 — THE ADVERSARIAL VERIFICATION.  MEASUREMENT-ONLY.
+Verifier worktrees /tmp/wt_v92 (patched+fix) and /tmp/wt_v92pris (pristine),
+both fresh at b623cad.  slang NOT patched.  results/*.csv READ ONLY.
+NOTHING PROMOTED.  NO ROW CONVERTED.  GOLDEN_DEFER [UNSET] on every sweep.
+
+BINARIES, built by the verifier, -j 2, md5 taken SEPARATELY after each build:
+  PRISTINE  /tmp/v92_bin/slang-uhdm.pris  778f81f72906a319d33af57c32849bc6
+  SHIPPED   /tmp/v92_bin/slang-uhdm.pat   24b21f18fb9659db0ad6879a7a8f4ab5
+  VERIFIED  /tmp/v92_bin/slang-uhdm.fix   4a26f4f665f602f631b754641e291b60
+The first two REPRODUCE THE IMPLEMENTER'S md5s BIT FOR BIT.
+
+=============================================================================
+THE REFUTATION — prettyPrint's `var_select` ROW WAS TRANSCRIBED AND NOT WRITTEN
+=============================================================================
+`UHDM::ExprEval::prettyPrint` (ExprEval.cpp:1237) has a `var_select` row:
+
+    case uhdmvar_select:
+      out << vs->VpiName();
+      for (e : vs->Exprs()) { out << "["; prettyPrint(e); out << "]"; }
+
+It is the ONLY object kind in the whole dispatch that RE-EMITS BRACKETS.  It
+appears in the shipped pass's header table AND in its README table, and it was
+NOT in `ppIdxText92`.  Every multi-dimensional select operand therefore fell to
+`default: return true` and rendered EMPTY -- or, when the OUTER level was a
+range, as the bare `l:r` of a part_select Surelog never built.
+
+THE BOUNDARY, measured on GOLDEN (arm `v92_b2_varsel.sv`), select chain over a
+PLAIN IDENTIFIER:
+    ONE level, ElementSelect   `one_d[2]`, `pv[5]`        bit_select    -> ""
+    ONE level, RangeSelect     `pv[7:4]`                  part_select   -> `7:4`
+    TWO OR MORE levels         `two_d[1][2]`  `uv[1][7:4]`  `pk3[1][2][3]`
+                                                          VAR_SELECT    -> the
+                                                                           WHOLE
+                                                                           TEXT
+Packed and unpacked behave the SAME.  Over a MEMBER ACCESS base it is a
+hier_path at EVERY depth and renders EMPTY, at one level and at three.
+Each `Exprs()` entry is itself prettyPrinted, so an inner range keeps its `l:r`
+and an inner operand with no row renders EMPTY INSIDE ITS OWN BRACKETS
+(golden `two_d[1][]` for `two_d[1][bb.q]`).
+
+THIRTEEN PRISTINE-RIGHT -> PATCHED-WRONG CELLS on legal SV, all found before
+this verification ended, none reachable from either corpus:
+  golden  bb.bin[n + two_d[1][2]]          shipped  bb.bin[n + ]
+  golden  bb.bin[n + uv[1][7:4]]           shipped  bb.bin[n + 7:4]
+  golden  nest.slot[k + varr[1][3:0]]      shipped  nest.slot[k + 3:0]
+  golden  nn.slot[z + marr[1][3]]          shipped  nn.slot[z + ]
+  golden  bb.bin[n + $clog2(two_d[1][2])]  shipped  bb.bin[n + $clog2()]
+  golden  bb.bin[-two_d[1][2]]             shipped  bb.bin[-]
+  ... (10 in arm b2, 3 in arm b1)
+FIXED by the verifier in `ppIdxText92`: the ElementSelect and RangeSelect arms
+are merged, the chain depth picks the object kind, and the var_select row is
+written.  47th precedent.
+
+WHY THE ORACLE DID NOT CATCH IT: `ct92cen` LINKS the real
+`ExprEval::prettyPrint`.  Its EXPM_Y proof validates the transcription of
+`decompileHelper` against golden -- it never compares the PRODUCTION C++
+transcription of prettyPrint to the real one.  The gap between the oracle and
+the emitter is exactly where this defect lived.
+
+=============================================================================
+EVERY HEADLINE NUMBER, REPRODUCED
+=============================================================================
+GOLDENS      pat 23/0   pris 23/0   fix 23/0   SLANG_UHDM=/bin/false 0/23
+uhdm2rtlil   pris/pat/fix all [default] 679 CMP_EQUAL / 50 SLANG_REJECT /
+             2 SURELOG_FAIL, [testflags] identical; cmds.txt 1458 lines naming
+             the binary under test and NO other slang-uhdm binary
+             ct8rows vs results/gate_uhdm2rtlil.csv: 0 differing ROWS (pat, pris, fix)
+             ct8rows fix-vs-pris over all 1462 rows: 0 differing ROWS
+surelog      pris/pat/fix all [default] 470 CMP_EQUAL / 11 CMP_NOTEQUAL /
+             5 DEFERRED / 283 SLANG_REJECT / 25 SURELOG_FAIL
+             [testflags] 466/9/5/3 NO_DATABASE/1 NO_UHDM/284/23/1 TIMEOUT/
+             2 UNTRANSLATABLE; cmds.txt 1523 lines
+             ct8rows vs results/golden_surelog.csv: 0 differing ROWS over 1588
+             (pat, pris, fix), and fix-vs-pat 0 differing ROWS
+             NO ROW CONVERTED, NONE REGRESSED.
+HEADS        rowheads.sh, pris -> pat AND pris -> fix:
+             SeqDriver x2 / SimpleUVM x2 / Scoreboard-default / MiniAmiq x2
+               176 -> 28 cmp lines, heads 1 -> 1  (SEVEN ROW-MODES)
+             BuildUVMPkg x2 29 -> 29, Earlgrey_0_1 29/30, Rggen 76 unchanged
+             head_pat_default_SeqDriver.cmp and head_pris_default_SeqDriver.cmp
+             reproduce BYTE-IDENTICALLY.  R0 = constant vpiDecompile 32 vs int.
+BYTES        surelog  9 movers / 956, the same 5 tests x modes; u2r 0 / 1358
+             fix-vs-pat  0 / 956 and 0 / 1358 -- the verifier fix is
+             CORPUS-NEUTRAL, it moves not one database byte
+             SELFCHECK 955/956 and 1357/1358; SELFCHECK1 = 10 and 1
+ATTRIBUTION  order-blind (sorted multiset of dump lines, LC_ALL=C):
+             insertions == deletions on ALL NINE movers, and only FOUR line
+             kinds move -- hier_path, vpiName, bit_select, vpiFullName.
+             No object is created or destroyed.
+             BuildUVMPkg 72/72 (54 hier_path + 18 vpiName = 18 objects/mode)
+             MiniAmiq 169/169, SeqDriver 151/151, Scoreboard 79/79,
+             SimpleUVM 79/79
+CENJOIN      op-index census, golden vs FIX, on the five moved rows:
+             SeqDriver 16 keys SAME=12 DIFF=0, SimpleUVM 16/12/0,
+             Scoreboard 16/12/0, MiniAmiq 19/15/0, BuildUVMPkg 14/13/0.
+             Earlgrey_0_1 31 keys SAME=29 DIFF=2 -- R2/R3, unchanged.
+             Every ONLY-GOLDEN/ONLY-OURS key is the SAME NAME at a different
+             SPAN (macro line mapping) -- verified by name, not assumed.
+GOLDEN-vs-GOLDEN  ct92cen rebuilt by the verifier and re-run:
+             surelog     goldens=1523  op-index hier_paths=10021
+                         EXPM_Y=10036  EXPM_N=0  refuting goldens=0
+             uhdm2rtlil  goldens=1458  op-index hier_paths=1840
+                         EXPM_Y=1844   EXPM_N=0  refuting goldens=0
+             11 880 cells over 2 981 goldens, zero exceptions.  CONFIRMED.
+BOUNDARY     bound92.sh, PRIS vs FIX: LISTED=619 PROCESSED=619 MOVED=7
+             NO_OUTPUT=7 -- the SAME SEVEN NAMES the shipped patch moved.
+             The verifier fix adds NO boundary mover.
+             All 7 judged against Surelog: FIXED=10, BROKE=0.
+             r10buvm6repro's fenced `t[$ - 1].f` arm is NOT a mover.
+ARMS         implementer's, re-run with the FIX binary:
+             a1 78 FIXED / 0 BROKE, a2 22 / 0, a3 8 / 0 -- as shipped.
+             verifier's: b1 34/0, b2 9/0 (arm now cmp-CLEAN, 0 lines, 0 heads),
+             b3 16/0, b4 7/0.
+             Span-blind name-set check, PATCHED-name-not-in-GOLDEN:
+             b2 = 0, a2 = 0, a1 = 1 (R1), a3 = 1 (R4), b3 = 0, b1 = 9 (R1/R5/R6)
+CANARIES     surelog 56/0/0/8 and 58/0/0/1; u2r 18/0/0/27 and 2/0/0/6
+             canaudit 33 audited, 0 UNCOVERED, 0 FENCE-BREACH
+PINS         SAME=10 MOVED=0 on the surelog workdir; SVSwitch 4842211c4030,
+             YosysVerx 6ccda350c24a, InterfaceModPort/BlackParrotComplex/
+             YosysOldOr byte-identical.  On the u2r workdir pins92.sh REFUSES
+             TO REPORT (UNKNOWN-NAME=5) -- recorded as vacuous, not as a pass.
+
+=============================================================================
+RESIDUES, RANKED (all measured, none a regression)
+=============================================================================
+R5 (NEW, biggest)  decompileHelper's OWN var_select row, at the site where the
+   multi-dim select IS the component select rather than an OPERAND:
+     golden `mm.two.grid[k + 1][m - 1]`, both binaries `mm.two.grid[k+1][m-1]`
+     golden `mm.two.grid[k][ + 1]`      (the empty-operand law, inside dim 2)
+     golden `mesh[1].gv`                (a 2-D member-access hier_path DROPS
+                                         its second index)
+     golden `hh.bag[[1][2]]`            (a var_select as the WHOLE index)
+   Four cells in arm b1, three in b3/b4.  Corpus 0.  Same second dispatch, a
+   DIFFERENT first-dispatch row -- the natural next pass.
+R6 (NEW)  `inside` with a RANGE element.  Surelog's own COMPILER drops the
+   upper bound: for `k inside {[1:4]}` AND for `k inside {[1:4], 9}` golden
+   builds operands = [k, constant 1] and names both `k inside {1}`.  This is a
+   TREE fact, not a text fact, so a NAME law cannot reach it.  Pristine dropped
+   the whole bracket group, the patch emits `{}` / `{,9}`: both differ from
+   golden, so it is NOT a regression, and keeping the group is the RIGHT
+   direction (golden keeps it).  Corpus 0.
+R1  the `pkg::P` / `pkg::ENUM` fold at the TRAILING site (SITE 2 hands the
+   model a null fold table): golden `[k + 9]` / `[k + 7]` / `{2{{k}}}`,
+   ours `[k + zed::PZ]` / `[k + zed::GREEN]` / `{zed::QZ{{k}}}`.
+   Three cells in b1, one in a1.  Corpus 0.
+R2  the range-select hier_path arm, deliberately untouched (it reproduces the
+   CMP_EQUAL u2r row `sub.adr[ADR - 1:]`).  Earlgrey 29 objects at one span.
+R3  the elaborated-index fold (Rggen, 24; uvm89's R4).
+R4  a `bit_select` index at the receiver site (`items[[i]].gv`).  Corpus 0.
+
+VERDICT: the law is RIGHT and the decode is PROVEN; the shipped transcription
+was INCOMPLETE by exactly one row and is now complete.
+
+R7 (NEW, tiny)  an UNBASED-UNSIZED `z`/`x` digit is UPPERCASED in Surelog's
+   decompile: golden `jj.slot[n + 'Z]` for the source `'z`.  A SIZED literal is
+   NOT (`4'bxz01`, `4'dX` both agree).  PRISTINE AND PATCHED ARE IDENTICALLY
+   WRONG here, so it is not a regression and it is deliberately NOT fixed: the
+   rule is one arm cell wide and this campaign does not land unproven
+   normalisations.  Arm b5 L28.  Corpus 0.
+
+ARMS ADDED BY THE VERIFIER (all in this directory, run with v92arm.sh +
+v92cmp.py; LHS is always golden, BROKE = pristine-right -> patched-wrong):
+  v92_b1_break.sv    88 cells  34 FIXED  0 BROKE  -- operators, operand kinds,
+     2-D indices, parens, comments, multi-line, MID/TRAIL, LVAL, macro, module
+     and package scopes, inside{}, replication, casts, wildcard ops
+  v92_b2_varsel.sv   25 cells   9 FIXED  0 BROKE  -- THE var_select BOUNDARY.
+     Found 10 of the 13 BROKE cells.  The arm is now cmp-CLEAN (0 lines, 0 heads).
+  v92_b3_recv.sv     28 cells  16 FIXED  0 BROKE  -- SITE 3 receivers, macro
+     indices, nested calls, controls
+  v92_b4_fixedge.sv  16 cells   7 FIXED  0 BROKE  -- the EDGES of the verifier's
+     own fix: package-parameter arrays as a var_select base (NOT folded, and the
+     fix does not fold them), macro-sourced 2-D selects, var_select inside
+     var_select, packed 2-D with operation indices
+  v92_b5_lit.sv      30 cells   9 FIXED  0 BROKE  -- literal spellings: base
+     characters upper and lower, separators, internal blanks, x/z, unbased,
+     signed, strings with `_` and blanks inside a string concat, unary vs binary
+     xnor, pre/post increment, deep parens with comments
+NOTE `<->` (LogicalEquivalence) is an UNSUPPORTED CONSTRUCT in this emitter, so
+`ppBinTok92`'s `LogicalEquivalence -> "=="` row is unreachable today.  Recorded,
+not changed.

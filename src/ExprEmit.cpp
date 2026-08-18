@@ -2270,7 +2270,23 @@ static void stampCloneTreeInstance(UHDM::typespec* ts, UHDM::instance* inst,
 // equals.  It is a FILE-STATIC and not a lambda because BOTH hier_path-name
 // sites read it (`emitMixedHierPath` and the single-dim `chain` arm of the
 // ElementSelect case), and two copies of a closed dispatch list would drift.
+static bool isPpOperation92(const slang::ast::Expression& e);
 static bool rendersAsItself89(const slang::ast::Expression& e) {
+    // § hpIdxOpPrettyPrint92 — VERIFIER FIX to uvm89's list, from ONE source of
+    // truth.  decompileHelper's bit_select row keeps its brackets for a
+    // CONSTANT, a REF_OBJ **or an OPERATION** index, so every kind that becomes
+    // a UHDM `operation` renders as itself here whatever its TEXT comes out as
+    // -- and `Inside` and `Streaming` are operations (vpiInsideOp,
+    // vpiStreamLROp).  uvm89 listed both as "no row" and therefore DROPPED the
+    // whole bracket group; golden keeps it.  Arm a1 c38, TRAILING rvalue:
+    //     oo = hh.aidx[i inside {1,2}];
+    //       golden  hh.aidx[i inside {1,2}]      ours (pristine)  hh.aidx
+    // `Streaming` rides the same predicate for consistency and is provably
+    // INERT: slang rejects a bare streaming concatenation in an index
+    // ("streaming operator can only be used in an assignment or bit-stream cast
+    // argument"), so no index expression can ever reach it.
+    if (isPpOperation92(e))
+        return true;
     switch (e.kind) {
         case slang::ast::ExpressionKind::ElementSelect:
         case slang::ast::ExpressionKind::RangeSelect:
@@ -2278,8 +2294,6 @@ static bool rendersAsItself89(const slang::ast::Expression& e) {
         case slang::ast::ExpressionKind::Call:
         case slang::ast::ExpressionKind::NewClass:
         case slang::ast::ExpressionKind::NewArray:
-        case slang::ast::ExpressionKind::Streaming:
-        case slang::ast::ExpressionKind::Inside:
             return false;
         default:
             return true;
@@ -2628,6 +2642,539 @@ std::string UhdmExporter::concatIdxText(const Expression& sel) {
     if (!idxDecompile(s9, out))
         return {};
     return out;
+}
+
+// ============================================================================
+// § hpIdxOpPrettyPrint92 — SURELOG'S **SECOND** CLOSED DISPATCH.
+//
+// § hpMidSelIdxDecompiled79 / § hpTrailSelIdxDecompiled89 decoded the FIRST:
+// `CompileHelper::decompileHelper` (CompileHelper.cpp:2544) renders the index
+// of every component select of a hier_path NAME by switching on the index
+// OBJECT's UHDM type, with no `else`.  Its OPERATION row is
+//
+//     } else if (sel->UhdmType() == uhdmoperation) {
+//         path_name.append(eval.prettyPrint(sel));
+//
+// and `UHDM::ExprEval::prettyPrint` (UHDM/templates/ExprEval.cpp:949, BYTE
+// IDENTICAL in the installed 1.84 and in HEAD) is a second closed dispatch
+// with a `default: break` on BOTH levels — the OBJECT kind, and inside an
+// operation the `vpiOpType`.  Everything it has no row for renders as the
+// EMPTY STRING, and the operator text and its SPACING around that empty
+// operand SURVIVE.  That is the head:
+//
+//     uvm_tlm2_generic_payload.svh:464
+//       rhs_be = gp.m_byte_enable[i % gp.m_byte_enable_length];
+//     LHS golden  hier_path (gp.m_byte_enable[i % ])      <- `%` KEPT, operand
+//     RHS ours    hier_path (gp.m_byte_enable[i % gp.m_byte_enable_length])
+//                                                            GONE, spaces KEPT
+//
+// THE DISPATCH, transcribed from ExprEval.cpp and then MEASURED on golden:
+//
+//   OBJECT kind                     text
+//   ------------------------------  ------------------------------------------
+//   constant                        VpiDecompile          `4`  `8'hFF`
+//   parameter / enum_const          VpiValue, ':'-trimmed
+//   ref_obj                         VpiName               `i`  `PK92`
+//   sys_func_call                   name "(" args ")" , ","-joined, NO space
+//   part_select                     "l:r"        <- NO brackets of its own
+//   indexed_part_select             "b+:w" / "b-:w"           likewise
+//   var_select                      name + "[" expr "]" per expr
+//   operation                       the operator table below
+//   EVERYTHING ELSE                 ""   <- hier_path, bit_select, func_call,
+//                                           method_func_call, tagged_pattern
+//
+//   vpiOpType                       text
+//   ------------------------------  ------------------------------------------
+//   the 12 UNARY ops                token + op0            NO space   `-i` `~&w`
+//   the 27 BINARY ops               op0 " " token " " op1  SPACED     `i + 1`
+//   vpiConditionOp                  op0 " ? " op1 " : " op2
+//   vpiConcatOp                     "{" ops "}"   ","-joined, NO space
+//   vpiAssignmentPatternOp          "'{" ops "}"        likewise
+//   vpiMultiConcatOp                "{" mult "{" op "}}"
+//   vpiInsideOp                     op0 " inside {" rest "}"
+//   vpiEventOrOp / Posedge/Negedge  " or " / "posedge " / "negedge "
+//   vpiPostIncOp / vpiPostDecOp     op0 "++" / op0 "--"
+//   EVERYTHING ELSE                 ""   <- vpiCastOp, vpiWildEqOp,
+//                                           vpiWildNeqOp, vpiStreamLROp/RLOp,
+//                                           vpiMultiAssignmentPatternOp, ...
+//
+// THREE consequences the raw source text does NOT have, and all three are the
+// corpus's actual damage:
+//   * an operand with no row renders EMPTY but its OPERATOR SURVIVES:
+//     `i % gp.m_byte_enable_length` -> `i % `, `copy.checks_details.size() - 1`
+//     -> ` - 1`;
+//   * every binary operator is SPACED whatever the source wrote:
+//     `m_fields[idx-1]` -> `m_fields[idx - 1]` (buvm14's R5, 20 BuildUVMPkg
+//     rows) — and every UNARY one is NOT (`-i`, never `- i`);
+//   * PARENTHESES ARE GONE.  prettyPrint never emits one and never consults
+//     precedence, so `(i+j)*2` and `i+j*2` BOTH render `i + j * 2` and
+//     `((i + j) * (2 - i)) / 3` renders `i + j * 2 - i / 3`.
+//
+// MEASURED, GOLDEN, arm `g92_a1_ppgrid.sv` — 105 bracket-carrying hier_paths,
+// 45 operators x 27 operand kinds x MID/TRAIL x LVAL 0/1/2 x five scopes
+// (class in-body, class out-of-body, package function, module initial, struct
+// path).  `ct92cen` computes `ExprEval::prettyPrint` on the database's OWN
+// tree and compares it to the bracket text the NAME carries: **105 of 105
+// PPM=Y on golden**, and joined against OUR pristine tree **97 of 98 cells
+// agree** — i.e. OUR OPERATION TREE WAS ALREADY RIGHT and only the NAME TEXT
+// was the source's raw spelling.  The 98th is `q92::PK92`, a package-parameter
+// FOLD that this pass does not own (§ hpMixedIdxPkgFold34, residue R3 below).
+// Arm `g92_a2_ppkinds.sv` adds the 36 cells a1 could not reach (assignment
+// patterns, streaming, `->`/`<->`, literal spellings, class localparams,
+// statics, `$bits`/`$size`/`$urandom`, nested replication, escaped
+// identifiers): 34 of 36, the two exceptions named in the README.
+//
+// THE OPERAND KINDS THAT RENDER EMPTY, each measured on golden (a1 d03-d27,
+// a2 k18-k26) and each present in the corpus:
+//     MemberAccess      `oo.f`, `gp.m_byte_enable_length`, `bb.CLSLP92`  -> hier_path
+//     ElementSelect     `ii[j]`                                         -> bit_select
+//     Call, non-system  `mg()`, `fn92(j)`, `bb.q.size()`, `bb.m2(i,j)`  -> func_call
+//     explicit cast     `int'(i)`, `int'(cc)`                    -> operation vpiCastOp
+// and the two that do NOT, which is why the gate is the OBJECT KIND and not
+// "the operand is compound":
+//     RangeSelect over a PLAIN identifier  `pkw[3:0]` -> `3:0`, `pkw[2+:3]` -> `2+:3`
+//     system call                          `$clog2(64)`, `$urandom()`, `$size(,1)`
+// The RangeSelect row is gated on § hpMidSelIdxSelectIsBitSelectV79's OWN
+// test: a select written over a MEMBER ACCESS (`dmi_req_i.addr[3:0]`) is a
+// UHDM **hier_path**, not a part_select, so it renders EMPTY — that is
+// Earlgrey's `abstractauto_q.autoexecprogbuf[{1'b1,}]`, a cell golden and we
+// ALREADY agree on and which this model must not break.
+//
+// ABSTAIN: a leaf whose `rawText` comes back empty (a range this build cannot
+// recover, e.g. a rewritten macro origin) returns FALSE and the caller keeps
+// its pristine raw-text rendering.  The model never guesses a spelling.
+// ============================================================================
+
+// The slang kinds that become a UHDM `operation`.  This is BOTH "the text
+// renders through prettyPrint" AND "the bracket group survives convention B"
+// (`decompileHelper`'s bit_select row emits its own brackets for a CONSTANT,
+// REF_OBJ or OPERATION index and nothing otherwise), which is why
+// § hpTrailSelIdxDecompiled89's `rendersAsItself89` reads it too.
+// slang inserts a ConversionExpression of kind **Explicit** with NO syntax node
+// of its own when it converts an operand of a STRING concatenation
+// (OperatorExpressions.cpp:1979, `makeImplicit(..., ConversionKind::Explicit,
+// ...)`), so `stripImplicitConv` -- which tests `isImplicit()` -- leaves it
+// standing and a model that treats every Conversion as a vpiCastOp renders
+// `{s,"x"}` as `{s,}`.  Surelog never sees such a node: only a cast WRITTEN in
+// the source becomes a UHDM operation, and only a written one carries a
+// `syntax` pointer (`makeImplicit` builds its node with the OPERAND's own
+// source range and never sets one).  So the transparent set is
+// "implicit, OR explicit-with-no-syntax", and `int'(i)` -- which golden renders
+// EMPTY (a1 c45) -- keeps its own arm.
+static const Expression& stripConv92(const Expression& e0) {
+    const Expression* p = &e0;
+    while (p->kind == ExpressionKind::Conversion) {
+        auto& cv = p->as<ConversionExpression>();
+        if (!cv.isImplicit() && p->syntax != nullptr)
+            break;
+        p = &cv.operand();
+    }
+    return *p;
+}
+
+static bool isPpOperation92(const slang::ast::Expression& e0) {
+    const Expression& e = stripConv92(e0);
+    switch (e.kind) {
+        case ExpressionKind::BinaryOp:
+        case ExpressionKind::UnaryOp:
+        case ExpressionKind::ConditionalOp:
+        case ExpressionKind::Concatenation:
+        case ExpressionKind::Replication:
+        case ExpressionKind::Inside:
+        case ExpressionKind::Streaming:
+        case ExpressionKind::SimpleAssignmentPattern:
+        case ExpressionKind::StructuredAssignmentPattern:
+        case ExpressionKind::ReplicatedAssignmentPattern:
+            return true;
+        // An EXPLICIT cast is a UHDM operation too (vpiCastOp) -- it has no
+        // prettyPrint row, so its text is EMPTY while its BRACKETS survive
+        // (a1 c45: golden `hh.aidx[]` for `hh.aidx[int'(i)]`).
+        case ExpressionKind::Conversion:
+            return true;
+        default:
+            return false;
+    }
+}
+
+// The BINARY table, `ExprEval.cpp:1017-1082`.  A row this table does not carry
+// is an operator prettyPrint has no row for, and the WHOLE operation renders
+// empty (a1 c39/c40: `i==?j` and `i!=?j` are golden's `hh.aidx[]`).
+static const char* ppBinTok92(slang::ast::BinaryOperator op) {
+    using B = slang::ast::BinaryOperator;
+    switch (op) {
+        case B::Add: return "+";
+        case B::Subtract: return "-";
+        case B::Multiply: return "*";
+        case B::Divide: return "/";
+        case B::Mod: return "%";
+        case B::Power: return "**";
+        case B::BinaryAnd: return "&";
+        case B::BinaryOr: return "|";
+        case B::BinaryXor: return "^";
+        // The two XNOR spellings are NOT the same string, and the asymmetry is
+        // in Surelog's own two tables: BINARY `vpiBitXNorOp` is "^~" and UNARY
+        // `vpiUnaryXNorOp` is "~^".  Golden, a1 c14 vs c35: `i~^3` renders
+        // `i ^~ 3` and `~^pkw` renders `~^pkw`.
+        case B::BinaryXnor: return "^~";
+        case B::Equality: return "==";
+        case B::Inequality: return "!=";
+        case B::CaseEquality: return "===";
+        case B::CaseInequality: return "!==";
+        case B::GreaterThan: return ">";
+        case B::GreaterThanEqual: return ">=";
+        case B::LessThan: return "<";
+        case B::LessThanEqual: return "<=";
+        case B::LogicalAnd: return "&&";
+        case B::LogicalOr: return "||";
+        case B::LogicalShiftLeft: return "<<";
+        case B::LogicalShiftRight: return ">>";
+        case B::ArithmeticShiftLeft: return "<<<";
+        case B::ArithmeticShiftRight: return ">>>";
+        case B::LogicalImplication: return "->";
+        // `<->` is not a vpi op of its own: Surelog compiles it to vpiEqOp, so
+        // golden renders `i <-> j` as `i == j` (a2 k07).
+        case B::LogicalEquivalence: return "==";
+        // vpiWildEqOp / vpiWildNeqOp have NO prettyPrint row (a2 c39/c40).
+        case B::WildcardEquality:
+        case B::WildcardInequality: return nullptr;
+    }
+    return nullptr;
+}
+
+// The UNARY table, `ExprEval.cpp:990-1014`.  NO space after the token.
+static const char* ppUnTok92(slang::ast::UnaryOperator op) {
+    using U = slang::ast::UnaryOperator;
+    switch (op) {
+        case U::Plus: return "+";
+        case U::Minus: return "-";
+        case U::LogicalNot: return "!";
+        case U::BitwiseNot: return "~";
+        case U::BitwiseAnd: return "&";
+        case U::BitwiseNand: return "~&";
+        case U::BitwiseOr: return "|";
+        case U::BitwiseNor: return "~|";
+        case U::BitwiseXor: return "^";
+        case U::BitwiseXnor: return "~^";
+        case U::Preincrement: return "++";
+        case U::Predecrement: return "--";
+        // vpiPostIncOp / vpiPostDecOp are SUFFIXES; the caller handles them.
+        case U::Postincrement:
+        case U::Postdecrement: return nullptr;
+    }
+    return nullptr;
+}
+
+bool UhdmExporter::ppIdxText92(const Expression& e0,
+                               const std::vector<PkgFoldSub>* pf, int depth,
+                               std::string& out) {
+    if (depth > 24)
+        return false;
+    const Expression& e = stripConv92(e0);
+    auto rec = [&](const Expression& x) { return ppIdxText92(x, pf, depth + 1, out); };
+    // A `constant`'s vpiDecompile and a `ref_obj`'s vpiName are both the
+    // WRITTEN spelling, with two normalisations Surelog's own lexer applies:
+    // a based literal loses its `_` separators and internal spaces
+    // (a2 k11: `32'h0000_00FF` is golden's `32'h000000FF`), and an ESCAPED
+    // identifier loses its leading `\` and trailing blank (a2 k36: golden
+    // names `\odd[name] ` as `odd[name]`).  `pf` carries § hpMixedIdxPkgFold34
+    // -- a PACKAGE parameter has already been substituted by its value at the
+    // point Surelog decompiles -- and is spliced PER LEAF by source offset, so
+    // a compound index keeps its operator structure (`arr2[PkgLp-1]` is
+    // `8 - 1`, never `7`).
+    auto leaf = [&](const Expression& lf, bool literal) -> bool {
+        std::string t = pf ? rawTextPkgFold(lf.sourceRange, *pf)
+                           : rawText(lf.sourceRange);
+        if (t.empty())
+            return false;  // ABSTAIN: no recoverable spelling
+        if (literal && lf.kind != ExpressionKind::StringLiteral)
+            t = stripSep(t);
+        if (!t.empty() && t.front() == '\\') {
+            t.erase(t.begin());
+            while (!t.empty() && std::isspace((unsigned char)t.back()))
+                t.pop_back();
+        }
+        out += t;
+        return true;
+    };
+    switch (e.kind) {
+        // ---- UHDM `constant` -> VpiDecompile ------------------------------
+        case ExpressionKind::IntegerLiteral:
+        case ExpressionKind::RealLiteral:
+        case ExpressionKind::TimeLiteral:
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+        case ExpressionKind::NullLiteral:
+        // `$` in a queue bound (`t[$-1]`) is a CONSTANT whose vpiDecompile is
+        // `$`.  It was MISSING from this list, and the BOUNDARY GATE caught it
+        // before this landed: r10buvm6repro's fenced arm `v5_hierpathparent.sv`
+        // writes `t[$-1].f` and `ih.t[$-1].f`, golden names them `t[$ - 1].f`
+        // and `ih.t[$ - 1].f`, PRISTINE WAS ALREADY RIGHT, and the model
+        // without this row wrote `t[ - 1].f`.  Two pristine-right ->
+        // patched-wrong cells, refuted and fixed BEFORE landing.
+        case ExpressionKind::UnboundedLiteral:
+        case ExpressionKind::StringLiteral:
+            return leaf(e, /*literal=*/true);
+        // ---- UHDM `ref_obj` -> VpiName (or a folded package parameter) -----
+        // A HIERARCHICAL read is grouped here and NOT with MemberAccess: it is
+        // the one operand kind neither arm reaches, so it keeps the pristine
+        // raw-text rendering rather than being guessed EMPTY (README R4).
+        case ExpressionKind::NamedValue:
+        case ExpressionKind::HierarchicalValue:
+            return leaf(e, /*literal=*/false);
+        // ---- the operator table -------------------------------------------
+        case ExpressionKind::BinaryOp: {
+            auto& b = e.as<BinaryExpression>();
+            const char* tok = ppBinTok92(b.op);
+            if (!tok)
+                return true;  // no row: the WHOLE operation renders empty
+            if (!rec(b.left()))
+                return false;
+            out += ' ';
+            out += tok;
+            out += ' ';
+            return rec(b.right());
+        }
+        case ExpressionKind::UnaryOp: {
+            auto& u = e.as<UnaryExpression>();
+            if (u.op == slang::ast::UnaryOperator::Postincrement ||
+                u.op == slang::ast::UnaryOperator::Postdecrement) {
+                if (!rec(u.operand()))
+                    return false;
+                out += (u.op == slang::ast::UnaryOperator::Postincrement) ? "++" : "--";
+                return true;
+            }
+            const char* tok = ppUnTok92(u.op);
+            if (!tok)
+                return true;
+            out += tok;
+            return rec(u.operand());
+        }
+        case ExpressionKind::ConditionalOp: {
+            auto& c = e.as<ConditionalExpression>();
+            // prettyPrint reads Operands()[0..2]; a slang `?:` written with a
+            // pattern or a comma-separated condition list has no vpiConditionOp
+            // shape to model, so it ABSTAINS rather than guessing.
+            if (c.conditions.size() != 1 || c.conditions[0].pattern)
+                return false;
+            if (!rec(*c.conditions[0].expr))
+                return false;
+            out += " ? ";
+            if (!rec(c.left()))
+                return false;
+            out += " : ";
+            return rec(c.right());
+        }
+        case ExpressionKind::Concatenation: {
+            auto& cc = e.as<ConcatenationExpression>();
+            out += '{';
+            bool first = true;
+            for (auto* op : cc.operands()) {
+                if (!first)
+                    out += ',';
+                first = false;
+                if (!rec(*op))
+                    return false;
+            }
+            out += '}';
+            return true;
+        }
+        case ExpressionKind::Replication: {
+            // vpiMultiConcatOp: "{" mult "{" op "}}", and `op` is ITSELF the
+            // concatenation, so `{3{i}}` is golden's `{3{{i}}}` (a1 c37) and
+            // `{2{{3{i}}}}` is `{2{{{3{{i}}}}}}` (a2 k33).
+            auto& r = e.as<ReplicationExpression>();
+            out += '{';
+            if (!rec(r.count()))
+                return false;
+            out += '{';
+            if (!rec(r.concat()))
+                return false;
+            out += "}}";
+            return true;
+        }
+        case ExpressionKind::Inside: {
+            auto& in = e.as<InsideExpression>();
+            if (!rec(in.left()))
+                return false;
+            out += " inside {";
+            bool first = true;
+            for (auto* r : in.rangeList()) {
+                if (!first)
+                    out += ',';
+                first = false;
+                if (!rec(*r))
+                    return false;
+            }
+            out += '}';
+            return true;
+        }
+        case ExpressionKind::SimpleAssignmentPattern: {
+            // vpiAssignmentPatternOp, POSITIONAL: the operands are the values
+            // themselves and they render (a2 k02, golden `'{3,4}`).
+            auto& ap = e.as<SimpleAssignmentPatternExpression>();
+            out += "'{";
+            bool first = true;
+            for (auto* el : ap.elements()) {
+                if (!first)
+                    out += ',';
+                first = false;
+                if (!rec(*el))
+                    return false;
+            }
+            out += '}';
+            return true;
+        }
+        case ExpressionKind::StructuredAssignmentPattern: {
+            // vpiAssignmentPatternOp, NAMED: Surelog wraps every member in a
+            // `tagged_pattern`, which prettyPrint has NO row for, so only the
+            // COMMAS survive -- golden `'{,}` for `'{hi:1, lo:2}` (a2 k01,
+            // and uvm89's own residue cell `hh.apat['{a:1,b:2}]`).
+            auto& ap = e.as<StructuredAssignmentPatternExpression>();
+            out += "'{";
+            for (size_t i = 1; i < ap.elements().size(); i++)
+                out += ',';
+            out += '}';
+            return true;
+        }
+        // ---- UHDM `part_select` / `indexed_part_select` / `var_select` ------
+        // A select chain over a PLAIN IDENTIFIER is one of THREE objects, and
+        // the DEPTH of the chain picks which -- over a MEMBER ACCESS it is a
+        // UHDM hier_path at every depth and renders EMPTY
+        // (§ hpMidSelIdxSelectIsBitSelectV79's measurement, and Earlgrey's
+        // `autoexecprogbuf[{1'b1,}]` is the corpus witness):
+        //
+        //   ONE level, ElementSelect   `one_d[2]`      bit_select     -> ""
+        //   ONE level, RangeSelect     `pv[7:4]`       part_select    -> `7:4`
+        //                              `pv[2+:4]`      indexed_ps     -> `2+:4`
+        //   TWO OR MORE levels         `two_d[1][2]`   VAR_SELECT     -> the
+        //                              `uv[1][7:4]`                      WHOLE
+        //                              `pk3[1][2][3]`                    TEXT
+        //
+        // § hpIdxOpPrettyPrint92 VERIFIER FIX.  `ExprEval::prettyPrint`'s
+        // `var_select` row (`ExprEval.cpp:1237`) is
+        //     out << vs->VpiName();
+        //     for each e in vs->Exprs():  out << "[";  prettyPrint(e);  out << "]";
+        // -- the ONLY object kind in the whole dispatch that re-emits BRACKETS
+        // of its own.  It was in this pass's transcribed table and NOT in its
+        // code, so every multi-dimensional select operand rendered EMPTY (or,
+        // when the OUTER level was a range, as the bare `l:r` of a part_select
+        // that Surelog never built).  TEN pristine-right -> patched-wrong cells
+        // in arm b2 and THREE in arm b1, on legal SV that both corpora happen
+        // not to contain: golden `bb.bin[n + two_d[1][2]]`, patched
+        // `bb.bin[n + ]`; golden `nn.slot[z + marr[1][3]]`, patched
+        // `nn.slot[z + ]`; golden `nest.slot[k + varr[1][3:0]]`, patched
+        // `nest.slot[k + 3:0]`.  Packed and unpacked behave the SAME
+        // (`pk2[1][2]`, `pk3[1][2][3]`), and each `Exprs()` entry is itself
+        // prettyPrinted, so an inner range keeps its `l:r`
+        // (`uv[1][7:4]`, `uv[1][3+:4]`) and an inner operand with no row
+        // renders EMPTY INSIDE ITS OWN BRACKETS (golden `two_d[1][]` for
+        // `two_d[1][bb.q]`).
+        case ExpressionKind::ElementSelect:
+        case ExpressionKind::RangeSelect: {
+            // The chain, OUTERMOST FIRST.
+            std::vector<const Expression*> lv92;
+            const Expression* b = &e;
+            for (;;) {
+                if (b->kind == ExpressionKind::ElementSelect) {
+                    lv92.push_back(b);
+                    b = &stripImplicitConv(
+                        b->as<ElementSelectExpression>().value());
+                }
+                else if (b->kind == ExpressionKind::RangeSelect) {
+                    lv92.push_back(b);
+                    b = &stripImplicitConv(
+                        b->as<RangeSelectExpression>().value());
+                }
+                else
+                    break;
+            }
+            if (b->kind != ExpressionKind::NamedValue)
+                return true;  // hier_path: no row
+            // The `l:r` / `b+:w` / `b-:w` body of a part_select or an
+            // indexed_part_select -- NO brackets of its own; a var_select adds
+            // them, a bare one at the top level has none.
+            auto rng92 = [&](const RangeSelectExpression& rs) -> bool {
+                if (!rec(rs.left()))
+                    return false;
+                switch (rs.getSelectionKind()) {
+                    case RangeSelectionKind::Simple: out += ':'; break;
+                    case RangeSelectionKind::IndexedUp: out += "+:"; break;
+                    case RangeSelectionKind::IndexedDown: out += "-:"; break;
+                }
+                return rec(rs.right());
+            };
+            if (lv92.size() == 1) {
+                if (e.kind == ExpressionKind::ElementSelect)
+                    return true;  // bit_select: no row
+                return rng92(e.as<RangeSelectExpression>());
+            }
+            if (!leaf(*b, /*literal=*/false))
+                return false;
+            for (size_t n92 = lv92.size(); n92-- > 0;) {
+                const Expression* l92 = lv92[n92];
+                out += '[';
+                if (l92->kind == ExpressionKind::ElementSelect) {
+                    if (!rec(l92->as<ElementSelectExpression>().selector()))
+                        return false;
+                }
+                else if (!rng92(l92->as<RangeSelectExpression>()))
+                    return false;
+                out += ']';
+            }
+            return true;
+        }
+        // ---- UHDM `sys_func_call` -> name "(" args ")" ----------------------
+        // A NON-system call is a func_call / method_func_call, which has NO
+        // prettyPrint row (a1 d09-d11, a2 k25/k26, and MiniAmiq's corpus cell
+        // `copy.checks_details[copy.checks_details.size() - 1]` -> `[ - 1]`).
+        case ExpressionKind::Call: {
+            auto& ce = e.as<CallExpression>();
+            // slang calls a BUILT-IN ARRAY/STRING METHOD a "system call" too
+            // (`bb.q.size()`, `q.exists(k)`), but Surelog builds those as
+            // `method_func_call`, which prettyPrint has NO row for -- golden
+            // renders `bb.dyn[i + bb.q.size()]` as `[i + ]` (a2 k25), and the
+            // corpus says the same in MiniAmiq
+            // (`copy.checks_details[copy.checks_details.size() - 1]` ->
+            // `[ - 1]`).  Only a name that actually STARTS WITH `$` is a UHDM
+            // `sys_func_call`.
+            std::string_view sysNm92 = ce.getSubroutineName();
+            if (!ce.isSystemCall() || sysNm92.empty() || sysNm92.front() != '$')
+                return true;
+            // `$bits` on an own class property is FOLDED to a constant before
+            // the name is decompiled (§ bitsOwnClassPropFold61, whose predicate
+            // is reused here so the NAME and the emitted INDEX OBJECT can never
+            // disagree); every other type query stays a sys_func_call.
+            if (sysNm92 == "$bits" && ce.arguments().size() == 1 &&
+                bitsOwnClassPropFold61(*ce.arguments()[0])) {
+                const Type& t61 = *ce.arguments()[0]->type;
+                if (t61.getBitWidth() == 0)
+                    return false;
+                out += std::to_string(t61.getBitWidth());
+                return true;
+            }
+            out += sysNm92;
+            out += '(';
+            bool first = true;
+            for (auto* a : ce.arguments()) {
+                if (!first)
+                    out += ',';
+                first = false;
+                if (!rec(*a))
+                    return false;
+            }
+            out += ')';
+            return true;
+        }
+        // ---- everything else: NO ROW -> the empty string --------------------
+        // MemberAccess (hier_path) -- a SINGLE-level ElementSelect over a plain
+        // identifier is a bit_select and is handled by the select arm above, an
+        // EXPLICIT cast / streaming / replicated assignment pattern (vpiCastOp,
+        // vpiStreamLROp, vpiMultiAssignmentPatternOp -- all in ExprEval's
+        // commented-out tail, i.e. `default: break`), and every unmodelled
+        // kind.  The BRACKETS still survive, because they come from
+        // decompileHelper's bit_select row, not from this text.
+        default:
+            return true;
+    }
 }
 
 // § macroExpandedText tail — the SELECT BASE's spelling cut out of the whole
@@ -3824,6 +4371,22 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             return ci29;
         std::vector<PkgFoldSub> pf34;
         collectPkgParamFolds(selExpr, pf34, /*aggregateAbstain34=*/true);
+        // § hpIdxOpPrettyPrint92 — SITE 1 of 2.  An index that becomes a UHDM
+        // OPERATION is decompiled by `ExprEval::prettyPrint`, NOT by its raw
+        // source text: the operators are SPACED, the parentheses are GONE, and
+        // an operand prettyPrint has no row for renders EMPTY while its
+        // operator survives (`i % gp.m_byte_enable_length` -> `i % `).  The
+        // § concatIdxDecompile29 gate above runs FIRST and keeps a TOP-LEVEL
+        // concatenation on its own separately-measured renderer -- that is
+        // Earlgrey's `autoexecprogbuf[{1'b1,}]`, which golden and we already
+        // agree on byte for byte.  `spaceIdxOps` stays for every NON-operation
+        // index (it is a no-op on a bare identifier or literal) and is the
+        // rendering the model falls back to when it ABSTAINS.
+        if (isPpOperation92(selExpr)) {
+            std::string pp92;
+            if (ppIdxText92(selExpr, &pf34, 0, pp92))
+                return pp92;
+        }
         return spaceIdxOps(rawTextPkgFold(selExpr.sourceRange, pf34));
     };
 
@@ -12288,6 +12851,63 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (!callStmtCtx0 && deepRecv11) {
                         auto& recvE11 = *call.thisClass();
                         std::string recvTx11 = rawText(recvE11.sourceRange);
+                        // § hpIdxOpPrettyPrint92 — SITE 3 of 3.  A METHOD-CALL
+                        // RECEIVER path (`m_fields[idx-1].get_lsb_pos()`) is
+                        // named HERE, from the receiver's RAW TEXT, and it is
+                        // the same hier_path NAME the same two Surelog
+                        // dispatches build: golden writes
+                        // `m_fields[idx - 1].get_lsb_pos`.  This is buvm14's
+                        // residue R5 (`fields[fld_idx - 1].get_lsb_pos`, 20
+                        // BuildUVMPkg rows) and MiniAmiq's
+                        // `sva_details[sva_details.size() - 1].get_sva_state`
+                        // -> golden `sva_details[ - 1].get_sva_state`, where a
+                        // built-in method operand renders EMPTY and the ` - 1`
+                        // survives.
+                        //
+                        // `segs11` above is ALREADY the decomposition this
+                        // needs -- one segment per path component with its
+                        // ElementSelect selector -- so the name is rebuilt from
+                        // the SAME segments the path ELEMENTS are emitted from
+                        // and the two cannot drift.  THREE guards:
+                        //   * it fires only when some segment's index really is
+                        //     a UHDM operation (`any92`), so a receiver this
+                        //     law cannot reach keeps its raw text BYTE FOR BYTE;
+                        //   * a NON-operation index keeps its own raw text, so
+                        //     `q[i].f()` is untouched;
+                        //   * any segment whose text cannot be recovered
+                        //     ABSTAINS the whole rebuild.
+                        {
+                            std::string rb92;
+                            bool ok92 = !segs11.empty(), any92 = false;
+                            for (auto& sg92 : segs11) {
+                                if (!rb92.empty())
+                                    rb92 += ".";
+                                rb92 += sg92.name;
+                                if (!sg92.idx)
+                                    continue;
+                                if (isPpOperation92(*sg92.idx)) {
+                                    std::string ip92;
+                                    if (!ppIdxText92(*sg92.idx, nullptr, 0,
+                                                     ip92)) {
+                                        ok92 = false;
+                                        break;
+                                    }
+                                    rb92 += "[" + ip92 + "]";
+                                    any92 = true;
+                                }
+                                else {
+                                    std::string rw92 =
+                                        rawText(sg92.idx->sourceRange);
+                                    if (rw92.empty()) {
+                                        ok92 = false;
+                                        break;
+                                    }
+                                    rb92 += "[" + rw92 + "]";
+                                }
+                            }
+                            if (ok92 && any92)
+                                recvTx11 = rb92;
+                        }
                         std::string dotted11 =
                             recvTx11 + "." + std::string(sub.name);
                         auto* hp11 = s.MakeHier_path();
@@ -15582,6 +16202,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                         comp, importedParamDefTs);
                          !red9.empty())
                     idxTxt9 = red9;
+                // § hpIdxOpPrettyPrint92 — SITE 2 of 2, AND THE HEAD'S OWN
+                // SITE.  `gp.m_byte_enable[i % gp.m_byte_enable_length]` is a
+                // TRAILING select on a member of a plain base, so it is named
+                // HERE and not in `emitMixedHierPath`.  This site does NOT fold
+                // package parameters (§ hpMixedIdxPkgFold34 was applied to the
+                // mixed builder only), so the model is handed a null table and
+                // the leaves keep this site's own raw text -- README R3.
+                else if (isPpOperation92(es.selector())) {
+                    std::string pp92;
+                    if (ppIdxText92(es.selector(), nullptr, 0, pp92))
+                        idxTxt9 = pp92;
+                }
                 // § hpTrailSelIdxDecompiled89 — SITE 2 of 2, AND THE HEAD'S OWN
                 // SITE.  `obj.member[<index>]` with NO further path component and
                 // NO select on the base is built HERE, not in
@@ -15666,7 +16298,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (sx89.kind == ExpressionKind::ElementSelect) {
                                 const Expression& i89 = stripImplicitConv(
                                     sx89.as<ElementSelectExpression>().selector());
-                                if (rendersAsItself89(i89))
+                                // § hpIdxOpPrettyPrint92 — decompileHelper's
+                                // OWN bit_select row (CompileHelper.cpp:2558)
+                                // renders `"[" + prettyPrint(index) + "]"` for
+                                // an OPERATION index, the same second dispatch.
+                                std::string ppb92;
+                                if (isPpOperation92(i89) &&
+                                    ppIdxText92(i89, nullptr, 0, ppb92))
+                                    in89 = "[" + ppb92 + "]";
+                                else if (rendersAsItself89(i89))
                                     in89 = "[" + spaceIdxOps(selName(
                                                rawText(i89.sourceRange))) + "]";
                             }

@@ -1,0 +1,41 @@
+r10uvm92 — THE HEADS, measured with the OFFICIAL uhdm-cmp through
+tools/probe/r10uvm67repro/rowheads.sh (LHS is ALWAYS golden; heads counted with
+`grep -c '^LHS:'` anchored at column 0).  MEASUREMENT-ONLY.
+
+BASELINE (pristine, /tmp/r10uvm92_wd_pris_surelog)
+  TEST           MODE      CMPLINES  HEADS
+  SeqDriver      default        176      1
+  SeqDriver      testflags      176      1
+  SimpleUVM      default        176      1
+  SimpleUVM      testflags      176      1
+  Scoreboard     default        176      1
+  MiniAmiq       default        176      1
+  MiniAmiq       testflags      176      1
+  BuildUVMPkg    default         29      1
+  BuildUVMPkg    testflags       29      1
+  Earlgrey_0_1   default         29      1
+  Earlgrey_0_1   testflags       30      1
+  Rggen          default         76      1
+  (Scoreboard/testflags and Rggen/testflags are SKIP-NOFILE -- SLANG_REJECT and
+   SURELOG_FAIL rows respectively; they are COUNTED, not hidden.)
+
+THE HEAD THAT CLOSED
+  LHS golden  hier_path (gp.m_byte_enable[i % ]), id:309650, line:464:22-464:67
+                |vpiParent: \_assignment: line:464:13-464:67
+  RHS ours    hier_path (gp.m_byte_enable[i % gp.m_byte_enable_length])
+  FIELD VpiName   SHAPE TEXT
+
+R0 — THE NEW HEAD, for the next pass
+  LHS golden  constant: , id:309934
+                |vpiDecompile:32   |vpiSize:64  |UINT:32  |vpiConstType:9
+  RHS ours    constant: , id:114883, line:3494:11, endln:3494:14
+                |vpiDecompile:int  |vpiSize:64  |UINT:0   |vpiConstType:9
+  FIELD vpiDecompile / UINT.  Golden holds the WIDTH 32 where we hold the
+  spelling `int`: a `$bits`-shaped or type-width-shaped constant that Surelog
+  has already reduced and we have not.  ONE head on all seven row-modes; the cmp
+  line count is 28 because a `constant` decompiles to 14 lines a side where a
+  `hier_path` over a nested bit_select decompiles to 88.
+
+A cmp line count is the HEAD OBJECT's decompile size, so 176 -> 28 is NOT a
+"regression of 148 lines": the heads stayed at 1 on every row-mode and the
+hier_path family is gone from the comparison entirely.

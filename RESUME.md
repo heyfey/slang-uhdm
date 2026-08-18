@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 01:05, HEAD = the buvm16 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 01:30, HEAD = the uvm92 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -180,7 +180,7 @@ row-modes over 7 tests:
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | 176 | hier_path VpiName TEXT — `ExprEval::prettyPrint` operation index (`gp.m_byte_enable[i % ]`), pass uvm92 in flight |
+| SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | 28 | a constant Surelog reduced to a TYPE WIDTH (loc-less, decompile `32`/UINT:32) where we carry the type spelling (`int`, UINT:0) at uvm_object_defines.svh:3494 (`{ << int {…}}` streaming slice_size / `$bits(int)`), pass uvm93 in flight (uvm92 landed: 176→28) |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 29 | FOREACH loop-variable refs in the OOB `uvm_packer::get_packed_bytes` (uvm_pkg.sv:22234/22238): golden's ELAB copy binds them to the foreach byte_var, DEF copy bare, ours bare in both — pass buvm17 in flight (buvm16 landed: 31→29) |
 | Earlgrey_0_1/default | 19 | golden binds an Actual inside an ELAB assignment-pattern (op75) member value that we leave null: ref_obj `OpRead` → enum_const of a MODULE-LOCAL typedef enum (tlul_adapter_sram.sv:129-142), pass earl62 in flight (earl61 landed 550bea2: 29→19) |
 | Earlgrey_0_1/testflags | 37 | same cluster, one field over: member-select element `reqfifo_rdata.error` → typespec_member of the struct typespec (earl61: 30→37 depth, tlul_adapter_reg block now byte-identical to golden) |
@@ -189,7 +189,7 @@ row-modes over 7 tests:
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 47 verifier fix-before-landing re-cuts (90 landings total). Ladder lower bounds
+regressions, 48 verifier fix-before-landing re-cuts (92 landings total). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

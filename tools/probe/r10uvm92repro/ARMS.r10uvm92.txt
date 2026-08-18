@@ -1,0 +1,100 @@
+r10uvm92 — THE ARMS.  Every cell read off GOLDEN (Surelog) first; the two
+binaries are then run on the SAME source in the SAME scratch dir so uhdm-dump's
+absolute paths are identical across the three reads.  LHS is ALWAYS golden.
+
+  arm                 cells  ALREADY-OK  FIXED  BROKE  STILL-WRONG
+  g92_a1_ppgrid.sv      99       20        78     0        1
+  g92_a2_ppkinds.sv     37       13        22     0        2
+  g92_a3_recv.sv        13        4         8     0        1
+
+BROKE = a cell PRISTINE got RIGHT and the patch gets WRONG.  Zero on all three.
+
+-----------------------------------------------------------------------------
+a1 — THE OPERATOR AND OPERAND GRID (105 golden bracket-carrying hier_paths)
+-----------------------------------------------------------------------------
+OPERATORS, golden, TRAIL rvalue, `hh.aidx[<expr>]`, source spelling -> golden:
+  i+7      -> [i + 7]        i-7    -> [i - 7]      i*3   -> [i * 3]
+  i/2      -> [i / 2]        i%9    -> [i % 9]      i**2  -> [i ** 2]
+  i<<1     -> [i << 1]       i>>1   -> [i >> 1]     i<<<1 -> [i <<< 1]
+  i>>>1    -> [i >>> 1]      i&3    -> [i & 3]      i|3   -> [i | 3]
+  i^3      -> [i ^ 3]        i~^3   -> [i ^~ 3]  <- BINARY xnor is `^~`
+  i&&j     -> [i && j]       i||j   -> [i || j]     i==j  -> [i == j]
+  i!=j     -> [i != j]       i===j  -> [i === j]    i!==j -> [i !== j]
+  i>j      -> [i > j]        i>=j   -> [i >= j]     i<j   -> [i < j]
+  i<=j     -> [i <= j]       i?j:k  -> [i ? j : k]
+  -i -> [-i]   +i -> [+i]   !i -> [!i]   ~i -> [~i]        <- UNARY: NO space
+  &pkw -> [&pkw]  ~&pkw -> [~&pkw]  |pkw -> [|pkw]  ~|pkw -> [~|pkw]
+  ^pkw -> [^pkw]  ~^pkw -> [~^pkw]                  <- UNARY xnor is `~^`
+  {i,j}    -> [{i,j}]        {3{i}} -> [{3{{i}}}]   <- the concat is re-wrapped
+  i inside {1,2} -> [i inside {1,2}]                <- uvm89 DROPPED this group
+  i==?j -> []   i!=?j -> []   int'(i) -> []         <- no prettyPrint row
+  i+j*2 -> [i + j * 2]   (i+j)*2 -> [i + j * 2]     <- PARENTHESES ARE GONE
+  i  +  7 -> [i + 7]     i+j*2-k -> [i + j * 2 - k]
+
+OPERAND KINDS, golden, one operator (`+`):
+  i+j            -> [i + j]        4+5           -> [4 + 5]   <- NOT folded
+  i+oo.f         -> [i + ]         oo.f+oo.deep  -> [ + ]     <- hier_path EMPTY
+  i+this.j       -> [i + ]         i+hh.pk       -> [i + ]
+  i+ii[j]        -> [i + ]                                    <- bit_select EMPTY
+  i+pkw[3:0]     -> [i + 3:0]      i+pkw[2+:3]   -> [i + 2+:3]<- NO brackets
+  i+fn92(j)      -> [i + ]         i+mg()        -> [i + ]    <- func_call EMPTY
+  i+hh.hg()      -> [i + ]         i+$clog2(64)  -> [i + $clog2(64)]
+  i+PK92         -> [i + PK92]     i+q92::PK92   -> [i + 6]   <- R1, NOT fixed
+  i+RED92        -> [i + RED92]    i+int'(cc)    -> [i + ]
+  i+{i,j}        -> [i + {i,j}]    {oo.f,i}      -> [{,i}]
+  oo.f?i:j       -> [ ? i : j]     i?oo.f:j      -> [i ?  : j]
+  -oo.f          -> [-]            -mg()         -> [-]
+  i+(oo.f*2)     -> [i +  * 2]                    <- the * and its spaces SURVIVE
+
+POSITION x LVAL, the head's own operand shape, all four positions:
+  MID rvalue / MID LVALUE / TRAIL LVALUE / TRAIL rvalue / TRAIL condition /
+  TRAIL call-argument, and the same six with plain operands: 14 cells, all
+  golden `[i + ]` or `[i + 2]` -- POSITION-INDEPENDENT, exactly as prettyPrint
+  is a pure text function of the OBJECT.
+SCOPES: class in-body, class out-of-body (`u92::oob`), package function, module
+  initial over a struct path -- 12 more cells, all the same.
+
+-----------------------------------------------------------------------------
+a2 — THE ARMS a1 CANNOT REACH
+-----------------------------------------------------------------------------
+  '{hi:1, lo:2} -> ['{,}]      <- NAMED pattern: tagged_pattern operands EMPTY
+  '{3, 4}       -> ['{3,4}]    <- POSITIONAL pattern: operands render
+  int'({>>{w}}) -> []          int'({<<{w}}) -> []
+  i -> j        -> [i -> j]    i <-> j -> [i == j]  <- Surelog maps <-> to vpiEqOp
+  i+8'hFF       -> [i + 8'hFF] i+32'h0000_00FF -> [i + 32'h000000FF] <- `_` stripped
+  i+'1 -> [i + '1]             i+2'bx1 -> [i + 2'bx1]
+  {s,"tail"}    -> [{s,"tail"}]<- STRING literal in a STRING concat: the cell
+                                  that refuted the first model (`{s,}`)
+  i+PARAM92 -> [i + PARAM92]   i+LOCAL92 -> [i + LOCAL92]
+  i+bb.CLSLP92 -> [i + ]       <- a CLASS localparam read is a hier_path
+  i+bag92::stat92 -> [i + bag92::stat92]
+  i+int'(ONE92) -> [i + ]      i+ee -> [i + ee]
+  i+$bits(w) -> [i + 32]       <- FOLDED (§ bitsOwnClassPropFold61 reused)
+  i+$size(bb.arr,1) -> [i + $size(,1)]   <- the hier_path ARGUMENT renders EMPTY
+  i+$urandom() -> [i + $urandom()]
+  i+bb.q.size() -> [i + ]      <- a BUILT-IN METHOD is a method_func_call
+  i+bb.m2(i,j) -> [i + ]
+  i+j*2-i/3 -> [i + j * 2 - i / 3]   ((i+j)*(2-i))/3 -> [i + j * 2 - i / 3]
+  i?(j?1:2):3 -> [i ? j ? 1 : 2 : 3]  -(i+j) -> [-i + j]
+  {i,oo.f,j} -> [{i,,j}]       {(2+1){j}} -> [{2 + 1{{j}}}]
+  {2{{3{i}}}} -> [{2{{{3{{i}}}}}}]
+  i?bb.m0():j -> [i ?  : j]    (i>j)==(j>i) -> [i > j == j > i]
+  i+\odd[name] -> [i + odd[name]]   <- the ESCAPE and its trailing blank go
+  i%bb.m0() -> [i % ]          i%bb.w -> [i % ]   <- THE HEAD's exact shape
+
+-----------------------------------------------------------------------------
+a3 — THE METHOD-CALL RECEIVER SITE (SITE 3)
+-----------------------------------------------------------------------------
+  items[i-1].gv()            -> items[i - 1].gv        <- the corpus shape
+  items[i%3].gv()            -> items[i % 3].gv
+  items[items.size()-1].gv() -> items[ - 1].gv         <- MiniAmiq's own cell
+  items[i+md.one.fld].gv()   -> items[i + ].gv
+  md.arr[i-1].gv()           -> md.arr[i - 1].gv       <- depth 2
+  md.arr[i-1].gw(3)          -> md.arr[i - 1].gw       <- with an argument
+  items[i*2].bm()            -> items[i * 2].bm        <- inherited method
+  items[i>0?i:0].gv()        -> items[i > 0 ? i : 0].gv
+  items[{2'b0,2'b1}].gv()    -> items[{2'b0,2'b1}].gv
+  CONTROLS that must NOT move, and do not:
+  items[i].gv() -> items[i].gv     items[2].gv() -> items[2].gv
+  md.arr[i].gv() -> md.arr[i].gv
+  RESIDUE (R4): items[plain[i]].gv() -> golden items[[i]].gv, ours unchanged.

@@ -1,0 +1,38 @@
+r10uvm92 — THE MOVER PREDICTION, made from PRISTINE BYTES ALONE and written
+BEFORE the byte gate was run against the final binary.
+
+THE PREDICATE IS INTRINSIC.  `ct92cen --op` computes, on the database's OWN
+tree, `decompileHelper` composed with the REAL `UHDM::ExprEval::prettyPrint`,
+and prints EXPM=Y when the hier_path NAME already agrees with it.  No golden and
+no patched binary is read.  `pred92.sh <pristine workdir>`:
+
+  uhdm2rtlil   databases=1358   PREDICTED MOVERS=0    moved cells=0
+  surelog      databases=956    PREDICTED MOVERS=12   moved cells=329
+
+    cells=37  default/SeqDriver-32af76aa        cells=37  testflags/SeqDriver
+    cells=40  default/MiniAmiq-544c7f61         cells=40  testflags/MiniAmiq
+    cells=19  default/SimpleUVM-1dc93a62        cells=19  testflags/SimpleUVM
+    cells=19  default/Scoreboard-59431470
+    cells=18  default/BuildUVMPkg-bf853d43      cells=18  testflags/BuildUVMPkg
+    cells=29  default/Earlgrey_0_1-71da2fd7     cells=29  testflags/Earlgrey_0_1
+    cells=24  default/Rggen-50ccbd70
+
+OF THOSE 12, THREE ARE **NOT REACHABLE** BY THIS LAW, and they are named here
+rather than discovered afterwards:
+
+  * Earlgrey_0_1 x2, all 29 cells at ONE span -- `tl_h_i[i].a_source[0+:IDW-STIDW]`.
+    That name is built by the RANGE-SELECT hier_path arm (ExprEmit.cpp ~16894),
+    which renders `l:r` from ONE source span and is DELIBERATELY UNTOUCHED
+    (README R2): splitting it would regress `sub.adr[ADR - 1:]`, an empty right
+    range on a CMP_EQUAL uhdm2rtlil row.
+  * Rggen-default, all 24 cells at ONE span --
+    `register_if[6+7*i+6].value[0 + 1 * l+:1]`.  The residual there is the
+    ELABORATED-INDEX FOLD (`l` vs `0`), uvm89's residue R4 -- a DIFFERENT
+    mechanism, not a text-rendering one (README R3).
+
+SO THE BYTE GATE IS PREDICTED TO READ:
+
+  uhdm2rtlil   0 movers / 1358
+  surelog      9 movers / 956 -- SeqDriver x2, SimpleUVM x2, Scoreboard-default,
+                                MiniAmiq x2, BuildUVMPkg x2
+                                (Earlgrey_0_1 x2 and Rggen-default BYTE-IDENTICAL)
