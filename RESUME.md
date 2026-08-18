@@ -184,7 +184,7 @@ row-modes over 7 tests:
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 31 | dynamic-array `new[sz]` size argument bound by us, bare in golden, pass buvm16 in flight |
 | Earlgrey_0_1/default | 29 | port high_conn operation operand ref_obj golden UNBOUND, pass earl61 in flight |
 | Earlgrey_0_1/testflags | 30 | tagged_pattern member default `'0` re-typed (earl61 second target) |
-| Rggen/default | 76 | gen-scope localparam typespec shape (loc-less logic_typespec, stripped range constants), pass rgg10 in flight |
+| Rggen/default | 36 | port-actual fold of a gen-scope localparam keeps the STORED Value shape (HEX:ab/8/ct5 vs our UINT:171/64), pass rgg11 in flight (rgg10 landed 5a76eab) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
