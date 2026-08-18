@@ -1,0 +1,54 @@
+r10buvm16 — MOVER PREDICTION, made from the PRISTINE censuses ONLY, BEFORE the
+patched sweep results or byteverify were read.
+
+METHOD.  § newArrayArgNoBind16 removes an Actual_group; it can therefore only
+change a database in which OUR pristine output BINDS a SUBROUTINE-SCOPE name
+inside a dynamic-array `new[...]` argument (par=NONE), in a routine whose home
+is a PACKAGE or the compilation unit.  Every such row in the pristine census,
+both corpora, is listed below; everywhere else the ref is already BARE and the
+law is a no-op.
+
+PREDICTED MOVER DATABASES — 9, and no others:
+  default/BuildUVMPkg   default/MiniAmiq   default/Scoreboard
+  default/SeqDriver     default/SimpleUVM
+  testflags/BuildUVMPkg testflags/MiniAmiq testflags/SeqDriver
+  testflags/SimpleUVM
+(testflags/Scoreboard is SLANG_REJECT — no database exists to move.)
+
+PREDICTED SITES, per database:
+  BuildUVMPkg (uvm_pkg.sv, the 1800.2 pp_output flattening — OUT-OF-BODY
+  methods of classes in `uvm_pkg`):
+    22232:13  stream = new[sz]                       (get_packed_bytes)
+    22249:13  stream = new[sz]                       (get_packed_ints)
+    22266:13  stream = new[sz]                       (get_packed_longints)
+    76197:16  local_addr = new[ceil(n_bytes,bus_width)]   2 refs
+    76250:11  addr = new[local_addr.size()](local_addr)   copy-source ref
+  MiniAmiq / Scoreboard / SeqDriver / SimpleUVM (uvm-1.2 sources, the same
+  out-of-body methods of `uvm_pkg` classes):
+    uvm_reg_map.svh 1427:20  local_addr = new[n]
+    uvm_reg_map.svh 1467:14  addr = new[local_addr.size()](local_addr)
+    uvm_reg_map.svh 1491:17  addr = new[n + sys_addr.size()](addr)
+    uvm_object.svh   488:11  new[sz]
+    uvm_sequence_library.svh 509:10  new[sz]
+
+NOT PREDICTED, and why:
+  * uhdm2rtlil, ALL 1358 databases: the corpus contains exactly FOUR `new`
+    census rows and every one of them is the zero-argument class form
+    `new()` in `OneThis`.  There is no dynamic-array `new[...]` anywhere in
+    uhdm2rtlil, so ZERO movers.
+  * uvm_packer.svh:475 `m_packed_size` — ours binds it, but it is a CLASS
+    PROPERTY, not a subroutine-scope name, so the symbol half of the gate
+    refuses it and the ref stays bound.
+  * every other dynamic-array `new[...]` in the surelog corpus — MiniAmiq's
+    28, SimpleUVM/SeqDriver/Scoreboard's 23 each, SVSwitch's 2 — sits in an
+    IN-BODY class method, where § classMethodNoBind already leaves the ref
+    bare.  Firing there changes nothing.
+
+WHAT THE MOVE IS WORTH, PREDICTED:
+  * BuildUVMPkg: golden has exactly TWO copies of each site, BOTH unparented
+    and BOTH bare, so all 5 sites become byte-correct.
+  * MiniAmiq / Scoreboard / SeqDriver / SimpleUVM: golden has FOUR copies —
+    two unparented DEF copies (bare) and two copies PARENTED TO THE ASSIGNMENT
+    whose refs golden binds.  Only the two DEF copies become correct; the
+    elaborated pair keeps a pre-existing disagreement that is about the CALL'S
+    PARENT, not about this law (residue R2).

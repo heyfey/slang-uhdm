@@ -1489,6 +1489,64 @@ struct RecvCallArg52 {
     explicit RecvCallArg52(int& d) : p(&d), saved(d) { d = d + 1; }
     ~RecvCallArg52() { *p = saved; }
 };
+// § newArrayArgNoBind16 — the DYNAMIC-ARRAY `new[...]` ARGUMENT window (see
+// newArrayArgDepth16 in UhdmExporter.h for the producer decode).  A SILENCER,
+// raised around the size expression and the copy source of the NewArray arm and
+// read by ONE disjunct of the bind gate.
+struct NewArrayArg16 {
+    int* p;
+    int saved;
+    explicit NewArrayArg16(int& d) : p(&d), saved(d) { d = d + 1; }
+    ~NewArrayArg16() { *p = saved; }
+};
+// § newArrayArgNoBind16 — the SYMBOL half of the gate.  True for a name whose
+// DECLARING SCOPE is a subroutine (a formal, a body local, a block local, a
+// loop iterator) AND whose subroutine's HOME is a package, a class or the
+// compilation unit.  Everything else answers false: a class PROPERTY, a PACKAGE
+// or MODULE variable, and any local of a routine that lives in a module
+// instance.  Statement blocks are walked THROUGH, named or not, because
+// golden leaves a named-block local under a `new[...]` bare exactly like an
+// unnamed one (a2 p14) — the § collArgNamedBlkLocalNoBind15 split does not
+// apply here, since here NOTHING in the routine binds.
+static bool newArraySubScopeSym16(const slang::ast::Symbol& sym) {
+    using slang::ast::SymbolKind;
+    if (sym.kind != SymbolKind::Variable && sym.kind != SymbolKind::FormalArgument &&
+        sym.kind != SymbolKind::Iterator)
+        return false;
+    const slang::ast::Scope* sc = sym.getParentScope();
+    bool inSub = false;
+    while (sc) {
+        auto& ss = sc->asSymbol();
+        // Statement blocks (named or not), the subroutine itself and any class
+        // the subroutine is a method of are all walked THROUGH: what decides is
+        // the DEFINITION the whole chain finally hangs off.
+        if (ss.kind == SymbolKind::StatementBlock ||
+            ss.kind == SymbolKind::ClassType ||
+            ss.kind == SymbolKind::GenericClassDef) {
+            sc = ss.getParentScope();
+            continue;
+        }
+        if (ss.kind == SymbolKind::Subroutine) {
+            inSub = true;
+            sc = ss.getParentScope();
+            continue;
+        }
+        break;
+    }
+    if (!inSub || !sc)
+        return false;
+    // THE HOME MUST BE A PACKAGE OR THE COMPILATION UNIT.  A class whose home
+    // is a MODULE is the counter-witness that forced this walk to keep going
+    // past `ClassType`: a3 cells r24/r25 are an OUT-OF-BODY method of a class
+    // declared INSIDE `module top3_16`, and golden binds both its local and its
+    // formal to `logic_net (work@top3_16.<name>)` — the elaborated module's
+    // implicit net — so there is no bare copy anywhere for the law to match.
+    // Cells r40-r45 (a module function, a module initial block) are the same
+    // story one level out.  a2, which has no module at all, is the shape this
+    // law owns and every one of its 18 cells is bare in golden.
+    auto hk = sc->asSymbol().kind;
+    return hk == SymbolKind::Package || hk == SymbolKind::CompilationUnit;
+}
 
 static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     dst->VpiLineNo(src->VpiLineNo());
@@ -9163,9 +9221,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             !dsym15.name.empty();
                     }
                 }
+                // § newArrayArgNoBind16 — inside a dynamic-array `new[...]`
+                // argument list, a SUBROUTINE-SCOPE name takes no actual.  See
+                // newArrayArgDepth16 in UhdmExporter.h for the producer decode
+                // and newArraySubScopeSym16 above for the symbol half.
+                bool newArrayArgNoBind16 =
+                    newArrayArgDepth16 > 0 && newArraySubScopeSym16(nv.symbol);
                 if (((classMethodNoBind && classArgBindDepth12 == 0) ||
                      unitSubNoBind9 || ctrlBodyNoBind28 ||
-                     recvCallArgNoBind52 || collArgNamedBlkNoBind15) &&
+                     recvCallArgNoBind52 || collArgNamedBlkNoBind15 ||
+                     newArrayArgNoBind16) &&
                     !superNewFormal28) {
                     // Class-method body outside an if/case condition, or a
                     // `$unit`-scope subroutine body: no actual of any kind
@@ -20025,6 +20090,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             mfc->VpiName("new");
             setLoc(mfc, expr.sourceRange);
             auto* nargs = s.MakeAnyVec();
+            // § newArrayArgNoBind16 — the window covers BOTH arguments and
+            // everything nested in them (operations, nested calls, selects):
+            // Surelog compiles the whole list with the UNPARENTED `fcall` as
+            // pexpr, so the bind walk is dead for the entire subtree, not just
+            // for a bare size ref.  a2 p07/p08/p09 are the three measured
+            // nestings (operation operands, a nested func_call's own argument,
+            // the copy source).
+            NewArrayArg16 naw16(newArrayArgDepth16);
             {
                 bool fs9 = forceConstParent;
                 if (isLiteralExpr(nae.sizeExpr()))

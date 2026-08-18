@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 00:25, HEAD `550bea2`) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 01:05, HEAD = the buvm16 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -181,7 +181,7 @@ row-modes over 7 tests:
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
 | SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | 176 | hier_path VpiName TEXT — `ExprEval::prettyPrint` operation index (`gp.m_byte_enable[i % ]`), pass uvm92 in flight |
-| BuildUVMPkg×2 (1800.2 pp_output tree) | 31 | dynamic-array `new[sz]` size argument bound by us, bare in golden, pass buvm16 in flight |
+| BuildUVMPkg×2 (1800.2 pp_output tree) | 29 | FOREACH loop-variable refs in the OOB `uvm_packer::get_packed_bytes` (uvm_pkg.sv:22234/22238): golden's ELAB copy binds them to the foreach byte_var, DEF copy bare, ours bare in both — pass buvm17 in flight (buvm16 landed: 31→29) |
 | Earlgrey_0_1/default | 19 | golden binds an Actual inside an ELAB assignment-pattern (op75) member value that we leave null: ref_obj `OpRead` → enum_const of a MODULE-LOCAL typedef enum (tlul_adapter_sram.sv:129-142), pass earl62 in flight (earl61 landed 550bea2: 29→19) |
 | Earlgrey_0_1/testflags | 37 | same cluster, one field over: member-select element `reqfifo_rdata.error` → typespec_member of the struct typespec (earl61: 30→37 depth, tlul_adapter_reg block now byte-identical to golden) |
 | Rggen/default | 36 | port-actual fold of a gen-scope localparam keeps the STORED Value shape (HEX:ab/8/ct5 vs our UINT:171/64), pass rgg11 in flight (rgg10 landed 5a76eab) |

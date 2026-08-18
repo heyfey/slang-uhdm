@@ -2351,6 +2351,51 @@ private:
     // blkLocalSameCtrlDepth57 already encodes the same exclusion
     // (`!declSym.name.empty()` -> refuse) for § controlBodyNoBind28's carve-out.
     int collArgBindDepth15 = 0;
+    // § newArrayArgNoBind16 (r10buvm16) — depth of DYNAMIC-ARRAY `new[...]`
+    // ARGUMENT nesting: the size expression and, for the copy form
+    // `new[n](src)`, the source too, plus everything nested inside either.
+    //
+    // DECODED FROM THE PRODUCER, NOT GUESSED.  Surelog's
+    // CompileHelper::compileBlockingAssignment (CompileHelper.cpp:4483-4498)
+    // has TWO `new` arms and they differ in ONE line:
+    //
+    //   paDynamic_array_new      `d = new[n]` / `new[n](src)`
+    //       method_func_call* fcall = s.MakeMethod_func_call();
+    //       fC->populateCoreMembers(...);          // <- span, but
+    //       fcall->VpiName("new");                 // <- NO VpiParent
+    //       ... compileTfCallArguments(..., fcall, ...)
+    //
+    //   the CLASS form               `h = new(args)`
+    //       fcall->VpiName("new");
+    //       fcall->VpiParent(assign);              // <- PARENTED
+    //       ... compileTfCallArguments(..., fcall, ...)
+    //
+    // The arguments of both are compiled with the `fcall` as `pexpr`, and
+    // `CompileHelper::bindVariable` (CompileStmt.cpp:3089) resolves a name by
+    // WALKING THAT pexpr's VpiParent CHAIN, matching `Variables()` then
+    // `Io_decls()` on the first `uhdmfunction` / `uhdmtask` / `uhdmbegin` it
+    // reaches.  From the dynamic-array `fcall` that chain is EMPTY, so the walk
+    // finds nothing, the ref goes onto `needLateBinding`, and
+    // `UhdmWriter::lateBinding` (UhdmWriter.cpp:3294) walks `ref->VpiParent()`
+    // — which is the same unparented `fcall` — and finds nothing either.
+    // EVERY SUBROUTINE-SCOPE NAME UNDER A `new[...]` THEREFORE STAYS BARE.
+    // The class form is parented to the assignment, so its arguments bind
+    // normally, which is why `new(args)` and `super.new(args)` are untouched.
+    //
+    // WHAT STILL BINDS, and why the gate is a SYMBOL-SCOPE test and not a
+    // blanket silence: a PACKAGE variable under the same `new[...]` IS bound in
+    // golden (a2 cells p05/p32/p42), because it never goes through
+    // `bindVariable` at all — `compileExpression` resolves a component-scope
+    // name directly against the package before the pexpr walk is reached.
+    //
+    // THE HOME GUARD.  A subroutine whose home is a MODULE is excluded, because
+    // Surelog's ELABORATION invents an implicit net in the module for each name
+    // the walk failed to resolve and binds the ref to THAT (a1 cells u10/u11 —
+    // golden `logic_net (work@top16.rloc16)`), so those refs are not bare in
+    // golden and the law must not reach them.  Package / class / $unit homes
+    // have no such elaborated module to hang a net on: a2 (a package and
+    // NOTHING else, exactly BuildUVMPkg's shape) shows all 18 of them bare.
+    int newArrayArgDepth16 = 0;
     // § classInBodyRecvCallArgNoBind52 — depth of RECEIVER-QUALIFIED call
     // ARGUMENT nesting, i.e. a call rendered as the two-or-more element
     // `hier_path{ref_obj recv…, method_func_call m}` shape that EXPRESSION
