@@ -16178,7 +16178,136 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     UHDM::typespec* its = nullptr;
     bool sharedAggTs = false;
     bool sgn = ps.getType().getCanonicalType().isSigned();
-    if (typedParam) {
+    // § pkgParamBareTdNamedClone18 -- decoded in tools/probe/r10buvm18repro.
+    //
+    // A parameter/localparam HOMED IN A PACKAGE and declared with the BARE
+    // name of a typedef homed in THAT SAME package does NOT take the untyped
+    // int_typespec default.  Surelog mints a per-declaration NAMED CLONE of
+    // the typedef's own typespec (VpiName = the typedef's BARE name),
+    // carrying a `Typedef_alias` ref back to THIS VIEW's shared typedef
+    // object and instanced at THIS VIEW's package.  `typespec::Compare` reads
+    // VpiType, then VpiName, then Typedef_alias, then Instance -- every field
+    // this arm sets is one the judge reads.
+    //
+    // Measured on golden over a declared-type x home x initializer x
+    // parameter/localparam x DEF/ELAB grid (`grid.sv` + `gridcen18.sh` in the
+    // probe dir): the INITIALIZER SHAPE ((1<<k) / plain literal / sized
+    // literal / another parameter of the same typedef / an expression / a
+    // cast / a concat) and the parameter-vs-localparam keyword are BOTH
+    // IRRELEVANT -- every one of them clones -- and BOTH package listings
+    // clone.  What is NOT irrelevant is how the type is WRITTEN: a
+    // PACKAGE-QUALIFIED reference (`gp::bflag_t`) SHARES the package's
+    // typedef object with NO clone and NO alias (grid rows `work@m` MP / MB /
+    // ML, sharing fan-out 19), so this arm demands the bare identifier form.
+    //
+    // The clone's packed-range bound follows § pkgTdRangeViewFold18 exactly
+    // (`pkgTdOwnDefView`): the symbolic bound operation survives ONLY in the
+    // typedef's own home-package DEF listing, and every other view carries
+    // the reduced constant.  That is measured on this very head --
+    // `uvm_field_flag_t` is `bit [UVM_FIELD_FLAG_RESERVED_BITS-1 : 0]`, and
+    // golden's DEF clone keeps the `-` operation while its ELAB clone (the
+    // object the head names) folds to INT:27 at the leftmost leaf.
+    //
+    // GATED to bit / int / byte shared typespecs.  A LOGIC typedef already
+    // has its own arm below (in the PackedArrayType branch) whose module-side
+    // laws this pass does not touch, and enum / struct typedefs SHARE the
+    // package object with no alias at all (grid rows P_E / P_S), which the
+    // arms below already do.
+    const TypeAliasType* bareTd18 = nullptr;
+    if (typedParam)
+        if (auto d18 = ps.getDeclaredType())
+            bareTd18 = pkgHomedTdAlias18(d18->getType());
+    if (bareTd18) {
+        const Scope* phs18 = ps.getParentScope();
+        bool sameHome18 = phs18 &&
+                          phs18->asSymbol().kind == SymbolKind::Package &&
+                          bareTd18->getParentScope() == phs18;
+        // WRITTEN bare: `uvm_field_flag_t`, not `uvm_pkg::uvm_field_flag_t`.
+        bool writtenBare18 = false;
+        if (auto tsyn18 = ps.getDeclaredType()->getTypeSyntax())
+            if (tsyn18->kind == syntax::SyntaxKind::NamedType)
+                writtenBare18 =
+                    tsyn18->as<syntax::NamedTypeSyntax>().name->kind ==
+                    syntax::SyntaxKind::IdentifierName;
+        // EMITTED IN ITS OWN PACKAGE'S LISTING.  A materialized WILDCARD-IMPORT
+        // copy of a package parameter is re-listed MODULE-side while
+        // `getParentScope()` still names the origin package, and golden's copy
+        // there aliases a SECOND, BARE-NAMED clone rather than the qualified
+        // shared object (grid rows `work@mi` P_SHIFT ... : golden
+        // `alias->bit_typespec(bflag_t)`, this arm would write
+        // `alias->bit_typespec(gp::bflag_t)`).  That is the shape the LOGIC arm
+        // below already models with its `tdHome9` second clone, it is a
+        // DIFFERENT law, and it is left untouched here -- measured as residue
+        // R2, so the context test is the same one the logic arm uses: the ref
+        // prefix must start with the parameter's own package name.
+        bool ownPkgListing18 =
+            sameHome18 &&
+            syntaxRefPrefix.rfind(std::string(phs18->asSymbol().name), 0) == 0;
+        if (sameHome18 && writtenBare18 && ownPkgListing18) {
+            // Which LISTING this clone belongs to picks both the shared
+            // object it aliases (golden's DEF clone aliases the DEF listing's
+            // typedef object, its ELAB clone the ELAB one) and whether the
+            // bound folds.
+            // `pkgParamOwnDefView`, not `pkgTdOwnDefView`: the DEF listing's
+            // package parameters are built by the DEFERRED drain
+            // (`drainDefParamTs`), which runs after `emitPackage` has restored
+            // `curPkgEmitSym` and hands the "which listing am I" signal over
+            // through `paramTsOwnPkgDefView` -- a signal only
+            // `pkgParamOwnDefView` reads.  Keyed on the typedef predicate
+            // instead, every DEF-listing clone folded a bound golden keeps
+            // symbolic (measured: all 27 `uvm_field_flag_t` DEF clones).
+            // The parameter and the typedef share a home here (sameHome18), so
+            // the two predicates mean the same thing wherever both are valid.
+            bool ownDef18 = pkgParamOwnDefView(ps);
+            UHDM::typespec* shared18 = nullptr;
+            if (!ownDef18)
+                if (auto t18 = pkgTopTypedefTs.find((const void*)bareTd18);
+                    t18 != pkgTopTypedefTs.end())
+                    shared18 = t18->second;
+            if (!shared18)
+                if (auto t18 = typedefTs.find((const Symbol*)bareTd18);
+                    t18 != typedefTs.end())
+                    shared18 = t18->second;
+            UHDM::UHDM_OBJECT_TYPE sk18 =
+                shared18 ? shared18->UhdmType() : UHDM::uhdmdesign;
+            if (shared18 && (sk18 == UHDM::uhdmbit_typespec ||
+                             sk18 == UHDM::uhdmint_typespec ||
+                             sk18 == UHDM::uhdmbyte_typespec)) {
+                const syntax::SyntaxNode* tgt18 = nullptr;
+                if (auto asyn18 = bareTd18->getSyntax())
+                    if (asyn18->kind == syntax::SyntaxKind::TypedefDeclaration)
+                        tgt18 = asyn18->as<syntax::TypedefDeclarationSyntax>()
+                                    .type;
+                bool savedBy18 = bypassTypedefShare;
+                bool savedTf18 = tfContext;
+                bypassTypedefShare = true;
+                tfContext = ownDef18;
+                auto* cl18 = makeTypespec(*bareTd18, tgt18);
+                tfContext = savedTf18;
+                bypassTypedefShare = savedBy18;
+                if (cl18 && cl18->UhdmType() == sk18) {
+                    cl18->VpiName(bareTd18->name);
+                    auto* art18 = s.MakeRef_typespec();
+                    art18->VpiFullName(
+                        syntaxRefPrefix.empty()
+                            ? std::string(bareTd18->name)
+                            : syntaxRefPrefix + "::" +
+                                  std::string(bareTd18->name));
+                    art18->VpiParent(cl18);
+                    art18->Actual_typespec(shared18);
+                    cl18->Typedef_alias(art18);
+                    auto& im18 = ownDef18 ? pkgDefMap : pkgTopMap;
+                    if (auto pit18 = im18.find((const void*)&phs18->asSymbol());
+                        pit18 != im18.end())
+                        cl18->Instance(pit18->second);
+                    its = cl18;
+                    if (tgt18)
+                        tr = tgt18->sourceRange();
+                }
+            }
+        }
+    }
+    if (typedParam && !its) {
         auto& ct = ps.getType().getCanonicalType();
         if (ct.kind == SymbolKind::PredefinedIntegerType) {
             switch (ct.as<PredefinedIntegerType>().integerKind) {
