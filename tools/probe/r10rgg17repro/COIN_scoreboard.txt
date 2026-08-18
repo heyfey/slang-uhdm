@@ -1,0 +1,9 @@
+# r10rgg17 — default/Scoreboard is NONDETERMINISTIC PER INVOCATION on BOTH
+# binaries, so its appearance in the byteverify mover list is the documented
+# COIN and not this patch.  Six runs of each binary on the row's own command
+# line (cwd = Surelog/third_party/tests/Scoreboard), md5 prefixes:
+
+base ['c0d96865', 'fac72e76', '3e1c7201', '3e1c7201', '3e1c7201', '3e1c7201']
+pat  ['3e1c7201', '3e1c7201', '7e1133fd', '3e1c7201', '3e1c7201', '3e1c7201']
+
+FOUR distinct faces from the BASE binary alone; the two lists SHARE 3e1c7201.

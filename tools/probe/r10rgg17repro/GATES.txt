@@ -1,0 +1,74 @@
+r10rgg17 — THE MANDATORY GATES, verbatim results.  BASE COMMIT f969774.
+SLANG_UHDM was exported EXPLICITLY to the named binary on every leg and every
+cmds.txt was audited BY BINARY PATH.  results/*.csv was READ ONLY.
+
+(1) BUILD, -j 2, md5 taken only after `Built target`
+      base    c140b82036818ac7f5ca2058b47ca85b
+      patched 57d0f4f1daf23cf4f0b27b6e061f7c65
+
+(2) GOLDENS
+      base    PASS=23 FAIL=0
+      patched PASS=23 FAIL=0
+      SLANG_UHDM=/bin/false (negative control)  PASS=0 FAIL=23
+
+(3) uhdm2rtlil, --mode both
+      status histogram, per mode, BASE and PATCHED identical:
+        CMP_EQUAL 679   SLANG_REJECT 50   SURELOG_FAIL 2
+      rows patched vs my own BASE sweep     0 differing / 1462 (status AND dump)
+      rows patched vs results/gate_uhdm2rtlil.csv (testflags)
+                                            0 differing / 731
+      byteverify SELFCHECK=1                MOVERS 0 / 1358, selfcheck 1358/1358
+      PREDICTED movers, from PRISTINE databases, BEFORE the patched sweep: 0
+      instrument REACH: 40 of 1358 databases carry a port-parented hier_path
+        (124 objects); 0 carry this pass's object shape.
+
+(4) surelog, --mode both
+      status histogram, BASE and PATCHED identical:
+        CMP_EQUAL 936  CMP_NOTEQUAL 20  SLANG_REJECT 567  SURELOG_FAIL 48
+        DEFERRED 10  NO_DATABASE 3  UNTRANSLATABLE 2  NO_UHDM 1  TIMEOUT 1
+      rows patched vs my own BASE sweep     0 differing / 1588
+      rows patched vs results/golden_surelog.csv
+                                            0 differing / 1588
+      byteverify SELFCHECK=1                MOVERS 2 / 956, selfcheck 956/956
+        default/Rggen        PREDICTED BY NAME (PREDICT_db_surelog.txt)
+        default/Scoreboard   THE DOCUMENTED COIN (COIN_scoreboard.txt)
+      PREDICTED movers, from PRISTINE databases, BEFORE the patched sweep: 1
+        (default/Rggen, 24 objects)
+      instrument REACH: 25 of 956 databases carry a port-parented hier_path
+        (12,445 objects); ONLY Rggen carries this pass's object shape (24).
+
+      NO CORPUS ROW WAS CONVERTED.  Rggen/default stays CMP_NOTEQUAL on a
+      DIFFERENT head, and results/*.csv was NOT edited.
+
+(5) CANARIES
+      canaries.sh  surelog     ok=52 changed=0 absent=0
+      canaries.sh  uhdm2rtlil  ok=8  changed=0 absent=0
+      ctcan2.sh    surelog     ok=58 changed=0 absent=0   PASS
+      ctcan2.sh    uhdm2rtlil  ok=1  changed=0 absent=0   PASS
+      canaudit.sh canaries.sh ctcan2.sh
+                               audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+      protected databases, base vs patched md5:
+        InterfaceModPort     59a365f3ce2c  SAME (both modes)
+        BlackParrotComplex   e3e354129d5a / 73a10e8217e5  SAME (both modes)
+        YosysOldOr           d68e0796d62c  SAME (both modes)
+        SVSwitch             4842211c4030  PIN HELD
+        YosysVerx            6ccda350c24a  PIN HELD
+
+      NOTE ON ctcan2 + THE COMMITTED CSV.  results/gate_uhdm2rtlil.csv is
+      TESTFLAGS-ONLY and LF-terminated.  A testflags slice written with
+      python's csv.writer DEFAULTS TO \r\n, and ctcan2's awk then reports
+      `2DFunctionArg  CMP_EQUAL/match -> CMP_EQUAL/match  CHANGED` — two
+      identical-looking strings differing by one \r.  It fires on the BASE
+      slice too, so it is a LINE-ENDING artifact and not a mover; re-writing
+      the slice with LF gives ok=1 changed=0.  (r10rgg14 recorded the same
+      trap for its own tfslice14.sh.)
+
+(6) cmds.txt audit BY BINARY PATH
+      u2r base 1458/1462 carry the intended binary, 4 have no `slang:` line
+      u2r pat  1458/1462                                  4
+      sl  base 1523/1573                                 50
+      sl  pat  1523/1573                                 50
+      OTHER-BINARY: 0 in all four workdirs.
+
+(7) rowheads.sh, the seven named rows, base vs patched
+      identical everywhere EXCEPT  Rggen/default  194 -> 64 cmp lines, 1 head.

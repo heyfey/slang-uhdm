@@ -18861,6 +18861,281 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     std::string baseDotted = rawTextExpr(rs.value());
                     if (baseDotted.empty())
                         baseDotted = selBaseText(rawTextExpr(expr));
+                    // -----------------------------------------------------
+                    // § hpConnElemIdxFold17 — § genvarIdxFoldRerender14's
+                    // encoding law, carried into THE HIER_PATH BUILDER.
+                    //
+                    // r10rgg14 proved that in the ELABORATED view an instance
+                    // PORT CONNECTION actual whose select index READS A GENVAR
+                    // collapses to ONE `constant` carrying the reduction
+                    // (`ExprEval::reduceExpr`): the decompile is re-rendered
+                    // with `std::to_string`, the size is 64, the const type is
+                    // the reduction's own (a `*` / `/` / `-` / unary minus on
+                    // the spine gives `vpiIntConst`, a pure add/identifier
+                    // chain `vpiUIntConst`), and the SPAN is the expression
+                    // node's FIRST CHILD — for a binary operation its LEFT
+                    // OPERAND.  That pass implemented it for the interface
+                    // instance-array connection `.register_if(register_if[E])`
+                    // only, because the hier_path case is STRUCTURAL: the
+                    // element has to STOP being a flat `ref_obj` named after
+                    // the raw text and BECOME a `bit_select` with a folded
+                    // index.  This is that case.
+                    //
+                    // `block_1.sv:356:42`,
+                    // `.i_sw_write_enable (register_if[6+7*i+6].value[0+1*l+:1])`
+                    // inside `for (l...)` inside `if (1) begin : g_bit_field_2`
+                    // inside a genvar-`i` loop.  GOLDEN (24 objects in Rggen):
+                    //
+                    //   hier_path  vpiName `register_if[12].value[0+:1]`
+                    //     [0] bit_select vpiName register_if
+                    //                    vpiIndex constant INT:12 sz64 ct7
+                    //                             decompile "12" @356:54-59
+                    //                             (the span of `6+7*i`, the
+                    //                              LEFT operand of the outer +)
+                    //     [1] indexed_part_select vpiName value
+                    //                    Base = constant INT:0 sz64 ct7 @356:69-70
+                    //                    Width = constant UINT:1 sz64 ct9
+                    //
+                    // OURS, pristine: `[0]` is a `ref_obj` named
+                    // `register_if[6+7*i+6]` spanning the whole element text
+                    // and `[1]`'s Base is the UNFOLDED `+`-operation tree.
+                    // `hier_path::Compare` reads `basetype expr::Compare` ->
+                    // `BaseClass::Compare` -> **VpiName** BEFORE it ever walks
+                    // `Path_elems`, so the head is reported ON THE HIER_PATH
+                    // with `VpiName` as the failing field; the element shapes
+                    // are the next three failures behind it.
+                    //
+                    // THE NAME is Surelog's `decompileHelper` (CompileHelper
+                    // .cpp:2544) applied to the FOLDED elements and
+                    // concatenated by `compileSelectExpression`
+                    // (CompileExpression.cpp:5547/5586): a bit_select renders
+                    // `"[" + its constant's VpiDecompile + "]"`, an
+                    // indexed_part_select `"[" + base + "+:" + width + "]"`.
+                    // That is why golden reads `register_if[12].value[0+:1]`
+                    // with NO spaces while our unfolded render carries the
+                    // `prettyPrint` spacing of the operation it kept.
+                    //
+                    // THE GATE, deliberately narrow:
+                    //   * `genvarConnFold && elabConnEmit21` — an ELABORATED
+                    //     instance PORT CONNECTION actual, and nothing else.
+                    //     `genvarConnFold` is already disarmed for the child's
+                    //     own body and re-armed for the actual only
+                    //     (§ genConnIdxFoldConnOnly21), which is what keeps a
+                    //     gen-scope CONT-ASSIGN out: r10rgg14 measured that
+                    //     `assign register_if[i].write_data = ...` inside an
+                    //     unrolled generate body KEEPS its `ref_obj` index in
+                    //     golden (45 objects, both sides already equal).
+                    //   * the component index READS A GENVAR
+                    //     (`srlgIdxHasGenvar14`) — a bare-parameter index is
+                    //     r10rgg11's declaration-constant copy at the
+                    //     parameter's OWN size, a different law (rgg14's R-B),
+                    //     and is left untouched.
+                    //   * `srlgRedCt14` must model the whole expression; every
+                    //     node it has no row for (`%`, `**`, `^`, calls,
+                    //     ternaries, based literals) returns 0 and ABSTAINS.
+                    //   * the VALUE is never computed by a second evaluator:
+                    //     for the element index it is READ OFF THE RESOLVED
+                    //     PATH (slang already bound `register_if[6+7*i+6]` to
+                    //     one `InstanceSymbol`, and its slot in the enclosing
+                    //     `InstanceArraySymbol` IS the index — `range.lower()
+                    //     + k`, r10vrgg14's descending-array fix included);
+                    //     for the part-select BASE it is `tryEval` of the
+                    //     BOUND expression, the same call the sibling
+                    //     `genvarConnFold` arm below already makes.
+                    // Anything that does not resolve leaves the pre-existing
+                    // bytes exactly as they were.
+                    struct Fold17 {
+                        bool ok = false;
+                        std::string txt;       // the folded decompile
+                        int32_t ct = 0;
+                        SourceRange span{};
+                    };
+                    std::vector<std::string> compRaw17;  // the component texts as written
+                    std::vector<std::string> compTxt17;  // per component, "" = unchanged
+                    std::vector<Fold17> compFold17;
+                    Fold17 baseFold17;
+                    bool anyFold17 = false;
+                    if (genvarConnFold && elabConnEmit21 &&
+                        baseDotted.find('.') != std::string::npos) {
+                        auto es17 = rs.value().sourceRange.start();
+                        // The component split, on the RAW text, so every
+                        // offset below indexes the SOURCE.
+                        std::vector<std::pair<std::string, size_t>> cp17;
+                        for (size_t st = 0; st <= baseDotted.size();) {
+                            auto dot = baseDotted.find('.', st);
+                            if (dot == std::string::npos)
+                                dot = baseDotted.size();
+                            cp17.emplace_back(baseDotted.substr(st, dot - st), st);
+                            if (dot == baseDotted.size())
+                                break;
+                            st = dot + 1;
+                        }
+                        compTxt17.assign(cp17.size(), std::string());
+                        compFold17.assign(cp17.size(), Fold17{});
+                        for (auto& [cn17, co17] : cp17)
+                            compRaw17.push_back(cn17);
+                        // The index SYNTAX, found by SOURCE OFFSET under the
+                        // expression's own syntax tree.  A hierarchical
+                        // reference's element select is consumed by slang's
+                        // LOOKUP and never becomes an AST expression, so the
+                        // syntax is the only place the written index survives.
+                        const slang::syntax::SyntaxNode* root17 =
+                            expr.syntax ? (const slang::syntax::SyntaxNode*)expr.syntax
+                                        : (const slang::syntax::SyntaxNode*)
+                                              rs.value().syntax;
+                        auto findIdxSyn17 =
+                            [&](SourceLocation want)
+                            -> const slang::syntax::ExpressionSyntax* {
+                            const slang::syntax::ExpressionSyntax* got = nullptr;
+                            std::function<void(const slang::syntax::SyntaxNode&)> w =
+                                [&](const slang::syntax::SyntaxNode& n) {
+                                    if (got)
+                                        return;
+                                    if (n.kind == slang::syntax::SyntaxKind::BitSelect) {
+                                        const slang::syntax::ExpressionSyntax* ie =
+                                            n.as<slang::syntax::BitSelectSyntax>().expr;
+                                        if (ie && ie->sourceRange().start() == want) {
+                                            got = ie;
+                                            return;
+                                        }
+                                    }
+                                    for (size_t i = 0, c = n.getChildCount(); i < c; i++)
+                                        if (auto* ch = n.childNode(i))
+                                            w(*ch);
+                                };
+                            if (root17)
+                                w(*root17);
+                            return got;
+                        };
+                        // The resolved array slot of a hierarchical path
+                        // component (r10rgg14's rule, verifier fix included).
+                        const HierarchicalValueExpression* hve17 =
+                            bb->kind == ExpressionKind::HierarchicalValue
+                                ? &bb->as<HierarchicalValueExpression>()
+                                : nullptr;
+                        // MEASURED (arm `cells/g1`, debug dump): the resolved
+                        // path of `arr[E].value` is THREE elements —
+                        // `InstanceArray(arr)`, the ELEMENT `Instance`, and the
+                        // `Variable`.  **The element carries an EMPTY name**, so
+                        // it is matched by its PARENT ARRAY's name, never by its
+                        // own; a name test on the element silently matched
+                        // nothing and the whole law abstained.
+                        auto slotOf17 = [&](const Symbol* sy,
+                                            std::string_view bn) -> long long {
+                            if (!sy)
+                                return -1;
+                            auto* psc = sy->getParentScope();
+                            if (!psc ||
+                                psc->asSymbol().kind != SymbolKind::InstanceArray)
+                                return -1;
+                            auto& ia = psc->asSymbol().as<InstanceArraySymbol>();
+                            if (ia.name != bn)
+                                return -1;
+                            for (size_t k = 0; k < ia.elements.size(); k++)
+                                if (ia.elements[k] == sy)
+                                    // r10vrgg14's fix: slang fills `elements`
+                                    // ASCENDING from `range.lower()` whatever
+                                    // the declared direction, so the slot is
+                                    // `lower() + k`, never `left +- k`.
+                                    return (long long)ia.range.lower() + (long long)k;
+                            return -1;
+                        };
+                        auto slotFor17 = [&](std::string_view bn) -> long long {
+                            if (!hve17)
+                                return -1;
+                            // Fallback: walk up from the referenced value to
+                            // the enclosing instance-array element.
+                            for (const Scope* sc = hve17->symbol.getParentScope();
+                                 sc; sc = sc->asSymbol().getParentScope()) {
+                                auto& ss = sc->asSymbol();
+                                if (ss.kind != SymbolKind::InstanceBody)
+                                    continue;
+                                const InstanceSymbol* pi =
+                                    ss.as<InstanceBodySymbol>().parentInstance;
+                                if (pi) {
+                                    long long v = slotOf17(pi, bn);
+                                    if (v >= 0)
+                                        return v;
+                                }
+                            }
+                            return -1;
+                        };
+                        // MID components only: the trailing one carries the
+                        // part-select this arm builds separately.
+                        for (size_t ci = 0; ci + 1 < cp17.size(); ci++) {
+                            auto& [cn17, co17] = cp17[ci];
+                            auto lb17 = cn17.find('[');
+                            if (lb17 == std::string::npos || cn17.empty() ||
+                                cn17.back() != ']')
+                                continue;
+                            if (cn17.find('[', lb17 + 1) != std::string::npos)
+                                continue;   // multi-dim: unmeasured, abstain
+                            std::string idxTxt17 =
+                                cn17.substr(lb17 + 1, cn17.size() - lb17 - 2);
+                            if (idxTxt17.empty() ||
+                                idxTxt17.find_first_not_of("0123456789") ==
+                                    std::string::npos)
+                                continue;   // already a literal: unchanged
+                            auto* isyn17 = findIdxSyn17(es17 + co17 + lb17 + 1);
+                            if (!isyn17)
+                                continue;
+                            // The genvar lives in the INSTANTIATING generate
+                            // block, not in the interface the path ends in.
+                            // `connGenScope61` is that block — it is set by the
+                            // same guard that arms `elabConnEmit21` around the
+                            // actual (§ connOperandOwnScopeBind61) — and
+                            // `Scope::lookupName` walks upward from it, so an
+                            // OUTER loop's genvar (`i` here) resolves too.
+                            if (!connGenScope61 ||
+                                !srlgIdxHasGenvar14(*isyn17, connGenScope61))
+                                continue;
+                            int32_t ct17 = srlgRedCt14(*isyn17);
+                            if (!ct17)
+                                continue;
+                            long long v17 = slotFor17(cn17.substr(0, lb17));
+                            if (v17 < 0)
+                                continue;
+                            compFold17[ci].ok = true;
+                            compFold17[ci].txt = std::to_string(v17);
+                            compFold17[ci].ct = ct17;
+                            compFold17[ci].span = srlgFoldSpan14(*isyn17);
+                            compTxt17[ci] = cn17.substr(0, lb17) + "[" +
+                                            compFold17[ci].txt + "]";
+                            anyFold17 = true;
+                        }
+                        // The INDEXED part-select's BASE, same law.
+                        if (anyFold17 &&
+                            rs.getSelectionKind() != RangeSelectionKind::Simple) {
+                            const slang::syntax::ExpressionSyntax* bsyn17 =
+                                rs.left().syntax;
+                            if (bsyn17 && connGenScope61 &&
+                                srlgIdxHasGenvar14(*bsyn17, connGenScope61)) {
+                                if (int32_t bct17 = srlgRedCt14(*bsyn17)) {
+                                    ASTContext bcx17(comp.getRoot(),
+                                                     LookupLocation::max);
+                                    if (auto bv17 = bcx17.tryEval(rs.left());
+                                        bv17 && bv17.isInteger() &&
+                                        !bv17.integer().hasUnknown()) {
+                                        baseFold17.ok = true;
+                                        baseFold17.txt =
+                                            bv17.integer().toString(
+                                                LiteralBase::Decimal, false);
+                                        baseFold17.ct = bct17;
+                                        baseFold17.span = srlgFoldSpan14(*bsyn17);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    auto mkFoldConst17 = [&](const Fold17& f) -> UHDM::constant* {
+                        auto* c = s.MakeConstant();
+                        c->VpiDecompile(f.txt);
+                        c->VpiSize(64);
+                        c->VpiValue((f.ct == vpiIntConst ? "INT:" : "UINT:") + f.txt);
+                        c->VpiConstType(f.ct);
+                        setLoc(c, f.span);
+                        return c;   // UNPARENTED, as golden's is
+                    };
                     if (baseDotted.find('.') != std::string::npos) {
                         // Surelog's decompiler renders the part-select NAME from
                         // the bound exprs: binary operators get surrounding
@@ -18932,6 +19207,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 selName(std::string(
                                     rawText(rs.right().sourceRange))) +
                                 "]";
+                        // § hpConnElemIdxFold17 — the NAME, re-rendered from
+                        // the FOLDED elements exactly as Surelog's
+                        // decompileHelper concatenation builds it.  Nothing is
+                        // rebuilt unless something actually folded, so every
+                        // pre-existing cell keeps its bytes.
+                        if (anyFold17) {
+                            std::string bd17;
+                            for (size_t ci = 0; ci < compRaw17.size(); ci++)
+                                bd17 += (ci ? "." : "") + (compTxt17[ci].empty()
+                                                               ? compRaw17[ci]
+                                                               : compTxt17[ci]);
+                            if (rs.getSelectionKind() == RangeSelectionKind::Simple)
+                                selText = selName(bd17) + "[" +
+                                          renderBound9(rs.left()) + ":" +
+                                          renderBound9(rs.right()) + "]";
+                            else
+                                selText =
+                                    selName(bd17) + "[" +
+                                    (baseFold17.ok
+                                         ? baseFold17.txt
+                                         : spaceOps9(selName(std::string(
+                                               rawText(rs.left().sourceRange))))) +
+                                    (rs.getSelectionKind() ==
+                                             RangeSelectionKind::IndexedUp
+                                         ? "+:"
+                                         : "-:") +
+                                    (wf9.ok ? wf9.text
+                                            : selName(std::string(rawText(
+                                                  rs.right().sourceRange)))) +
+                                    "]";
+                        }
                         auto* hp = s.MakeHier_path();
                         hp->VpiName(selText);
                         hp->VpiFullName(selText);
@@ -18982,8 +19288,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             }
                             compSel.assign(revs.rbegin(), revs.rend());
                         }
+                        std::string dottedSoFar17;
                         for (size_t ci = 0; ci + 1 < comps.size(); ci++) {
                             auto& [cn, co] = comps[ci];
+                            // § hpConnElemIdxFold17 — the FOLDED element: a
+                            // `bit_select` named by the array base, carrying the
+                            // reduction as an UNPARENTED constant (golden prints
+                            // no vpiParent on it), spanning the base-name token
+                            // while the constant spans the reduced expression's
+                            // FIRST CHILD.  The fullname is Surelog's running
+                            // `the_name` — the folded path so far.
+                            if (ci < compFold17.size() && compFold17[ci].ok) {
+                                std::string bn17 = cn.substr(0, cn.find('['));
+                                dottedSoFar17 += (ci ? "." : "") + compTxt17[ci];
+                                auto* bs17 = s.MakeBit_select();
+                                bs17->VpiName(bn17);
+                                bs17->VpiFullName(dottedSoFar17);
+                                bs17->VpiParent(hp);
+                                setLoc(bs17, SourceRange(exprStart + co,
+                                                         exprStart + co + bn17.size()));
+                                bs17->VpiIndex(mkFoldConst17(compFold17[ci]));
+                                elems->push_back(bs17);
+                                continue;
+                            }
+                            dottedSoFar17 += (ci ? "." : "") + cn;
                             // An indexed component (a[0]) is a bit_select.
                             auto lb2 = cn.find('[');
                             auto rb2 = cn.find(']');
@@ -19116,7 +19444,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (stripImplicitConv(rs.left()).kind !=
                                 ExpressionKind::NamedValue)
                                 bPfx9 += "." + lastName;
-                            if (auto* b2 = emitExpr(rs.left(), ips2, bPfx9,
+                            // § hpConnElemIdxFold17 — the BASE of the trailing
+                            // indexed part-select folds by the SAME law as the
+                            // element index above (`0+1*l` -> INT:0 / INT:1,
+                            // sz 64, ct 7, spanning the `0`).
+                            if (baseFold17.ok)
+                                ips2->Base_expr(mkFoldConst17(baseFold17));
+                            else if (auto* b2 = emitExpr(rs.left(), ips2, bPfx9,
                                                     netMap))
                                 ips2->Base_expr((UHDM::expr*)b2);
                             suppressConstParent = isLiteralExpr(rs.right());

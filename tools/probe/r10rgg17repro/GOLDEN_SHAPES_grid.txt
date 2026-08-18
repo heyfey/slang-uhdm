@@ -1,0 +1,235 @@
+# r10rgg17 — the GOLDEN grid, and the three-way score (golden / base / patched).
+# Every row is one hier_path key; the payload is the Compare-visible one.
+
+===== cell g1 — golden shapes (port actuals, ELAB and DEF listing both)
+PAR=port:d	AT=23:19-23:41	||	HPNAME=arr[0].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{UINT:0,sz64,ct9,d=0}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=23:19-23:41	||	HPNAME=arr[1].value[1+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{UINT:1,sz64,ct9,d=1}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=23:19-23:41	||	HPNAME=arr[i].value[0 + 1 * i+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=R{i}}	E1=indexed_part_select|IPS{value,cs1,t1,b=O24(C{UINT:0,sz64,ct9,d=0},O25(C{UINT:1,sz64,ct9,d=1},R{i})),w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=25:19-25:39	||	HPNAME=arr[3 + i].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=O24(C{UINT:3,sz64,ct9,d=3},R{i})}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=25:19-25:39	||	HPNAME=arr[3].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{UINT:3,sz64,ct9,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=25:19-25:39	||	HPNAME=arr[4].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{UINT:4,sz64,ct9,d=4}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=27:19-27:47	||	HPNAME=arr[12].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=27:19-27:47	||	HPNAME=arr[19].value[1+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:19,sz64,ct7,d=19}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=27:19-27:47	||	HPNAME=arr[6 + 7 * i + 6].value[0 + 1 * i+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=O24(O24(C{UINT:6,sz64,ct9,d=6},O25(C{UINT:7,sz64,ct9,d=7},R{i})),C{UINT:6,sz64,ct9,d=6})}	E1=indexed_part_select|IPS{value,cs1,t1,b=O24(C{UINT:0,sz64,ct9,d=0},O25(C{UINT:1,sz64,ct9,d=1},R{i})),w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=29:19-29:39	||	HPNAME=arr[2].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{UINT:2,sz64,ct9,d=2}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=29:19-29:39	||	HPNAME=arr[3].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{UINT:3,sz64,ct9,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=29:19-29:39	||	HPNAME=arr[P + i].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=O24(R{P},R{i})}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=31:19-31:37	||	HPNAME=arr[2].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{UINT:2,sz32,ct9,d=2}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=31:19-31:37	||	HPNAME=arr[2].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{UINT:2,sz32,ct9,d=2}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=31:19-31:37	||	HPNAME=arr[P].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=R{P}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=33:19-33:38	||	HPNAME=arr[3].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{UINT:3,sz32,ct9,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=33:19-33:38	||	HPNAME=arr[3].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{UINT:3,sz32,ct9,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=33:19-33:38	||	HPNAME=arr[LP].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=R{LP}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=35:19-35:37	||	HPNAME=arr[7].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{UINT:7,sz64,ct9,d=7}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=35:19-35:37	||	HPNAME=arr[7].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{UINT:7,sz64,ct9,d=7}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=35:19-35:37	||	HPNAME=arr[7].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{UINT:7,sz64,ct9,d=7}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=37:21-37:37	||	HPNAME=arr[2 + 3 * i].value	RV=-	NEL=2	E0=bit_select|BS{arr,i=O24(C{UINT:2,sz64,ct9,d=2},O25(C{UINT:3,sz64,ct9,d=3},R{i}))}	E1=ref_obj|R{value}
+PAR=port:d	AT=37:21-37:37	||	HPNAME=arr[2].value	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:2,sz64,ct7,d=2}}	E1=ref_obj|R{value}
+PAR=port:d	AT=37:21-37:37	||	HPNAME=arr[5].value	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:5,sz64,ct7,d=5}}	E1=ref_obj|R{value}
+PAR=port:d	AT=39:20-39:39	||	HPNAME=arr[2 + 3 * i].value[3]	RV=-	NEL=2	E0=bit_select|BS{arr,i=O24(C{UINT:2,sz64,ct9,d=2},O25(C{UINT:3,sz64,ct9,d=3},R{i}))}	E1=bit_select|BS{value,i=C{UINT:3,sz64,ct9,d=3}}
+PAR=port:d	AT=39:20-39:39	||	HPNAME=arr[2].value[3]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:2,sz64,ct7,d=2}}	E1=bit_select|BS{value,i=C{UINT:3,sz64,ct9,d=3}}
+PAR=port:d	AT=39:20-39:39	||	HPNAME=arr[5].value[3]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:5,sz64,ct7,d=5}}	E1=bit_select|BS{value,i=C{UINT:3,sz64,ct9,d=3}}
+PAR=port:d	AT=41:20-41:41	||	HPNAME=arr[2 + 3 * i].value[3:0]	RV=-	NEL=2	E0=bit_select|BS{arr,i=O24(C{UINT:2,sz64,ct9,d=2},O25(C{UINT:3,sz64,ct9,d=3},R{i}))}	E1=part_select|PS{value,cs1,l=C{UINT:3,sz64,ct9,d=3},r=C{UINT:0,sz64,ct9,d=0}}
+PAR=port:d	AT=41:20-41:41	||	HPNAME=arr[2].value[3:0]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:2,sz64,ct7,d=2}}	E1=part_select|PS{value,cs1,l=C{UINT:3,sz64,ct9,d=3},r=C{UINT:0,sz64,ct9,d=0}}
+PAR=port:d	AT=41:20-41:41	||	HPNAME=arr[5].value[3:0]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:5,sz64,ct7,d=5}}	E1=part_select|PS{value,cs1,l=C{UINT:3,sz64,ct9,d=3},r=C{UINT:0,sz64,ct9,d=0}}
+PAR=port:d	AT=43:20-43:42	||	HPNAME=arr[2 + 3 * i].value[3-:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=O24(C{UINT:2,sz64,ct9,d=2},O25(C{UINT:3,sz64,ct9,d=3},R{i}))}	E1=indexed_part_select|IPS{value,cs1,t2,b=C{UINT:3,sz64,ct9,d=3},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=43:20-43:42	||	HPNAME=arr[2].value[3-:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:2,sz64,ct7,d=2}}	E1=indexed_part_select|IPS{value,cs1,t2,b=C{UINT:3,sz64,ct9,d=3},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=43:20-43:42	||	HPNAME=arr[5].value[3-:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:5,sz64,ct7,d=5}}	E1=indexed_part_select|IPS{value,cs1,t2,b=C{UINT:3,sz64,ct9,d=3},w=C{UINT:4,sz64,ct9,d=4}}
+
+===== cell g2 — golden shapes (port actuals, ELAB and DEF listing both)
+PAR=port:d	AT=21:17-21:34	||	HPNAME=up[3].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{up,i=C{UINT:3,sz64,ct9,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=21:17-21:34	||	HPNAME=up[3].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{up,i=C{UINT:3,sz64,ct9,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=25:19-25:41	||	HPNAME=dn[12 + 2 * i].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{dn,i=O24(C{UINT:12,sz64,ct9,d=12},O25(C{UINT:2,sz64,ct9,d=2},R{i}))}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=25:19-25:41	||	HPNAME=dn[12].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{dn,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=25:19-25:41	||	HPNAME=dn[14].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{dn,i=C{INT:14,sz64,ct7,d=14}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=27:19-27:39	||	HPNAME=dn[10 + i].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{dn,i=O24(C{UINT:10,sz64,ct9,d=10},R{i})}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=27:19-27:39	||	HPNAME=dn[10].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{dn,i=C{UINT:10,sz64,ct9,d=10}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=27:19-27:39	||	HPNAME=dn[11].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{dn,i=C{UINT:11,sz64,ct9,d=11}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=29:19-29:41	||	HPNAME=up[12 + 2 * i].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{up,i=O24(C{UINT:12,sz64,ct9,d=12},O25(C{UINT:2,sz64,ct9,d=2},R{i}))}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=29:19-29:41	||	HPNAME=up[12].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{up,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=29:19-29:41	||	HPNAME=up[14].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{up,i=C{INT:14,sz64,ct7,d=14}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=31:19-31:38	||	HPNAME=sarr[2 + 3 * i].f[0+:4]	RV=-	NEL=2	E0=bit_select|BS{sarr,i=O24(C{UINT:2,sz64,ct9,d=2},O25(C{UINT:3,sz64,ct9,d=3},R{i}))}	E1=indexed_part_select|IPS{f,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=31:19-31:38	||	HPNAME=sarr[2].f[0+:4]	RV=array_net	NEL=2	E0=bit_select|BS{sarr,i=C{INT:2,sz64,ct7,d=2}}	E1=indexed_part_select|IPS{f,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=31:19-31:38	||	HPNAME=sarr[5].f[0+:4]	RV=array_net	NEL=2	E0=bit_select|BS{sarr,i=C{INT:5,sz64,ct7,d=5}}	E1=indexed_part_select|IPS{f,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+
+===== cell g3 — golden shapes (port actuals, ELAB and DEF listing both)
+PAR=port:d	AT=18:19-18:41	||	HPNAME=arr[13].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:13,sz64,ct7,d=13}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=18:19-18:41	||	HPNAME=arr[6 + 7 * i].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=O24(C{UINT:6,sz64,ct9,d=6},O25(C{UINT:7,sz64,ct9,d=7},R{i}))}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=18:19-18:41	||	HPNAME=arr[6].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:6,sz64,ct7,d=6}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=22:23-22:51	||	HPNAME=arr[12].value[0+:1]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:1,sz64,ct9,d=1}}
+PAR=port:d	AT=22:23-22:51	||	HPNAME=arr[12].value[1+:1]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:1,sz64,ct9,d=1}}
+PAR=port:d	AT=22:23-22:51	||	HPNAME=arr[19].value[0+:1]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:19,sz64,ct7,d=19}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:1,sz64,ct9,d=1}}
+PAR=port:d	AT=22:23-22:51	||	HPNAME=arr[19].value[1+:1]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:19,sz64,ct7,d=19}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:1,sz64,ct9,d=1}}
+PAR=port:d	AT=24:23-24:45	||	HPNAME=arr[0].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:0,sz64,ct7,d=0}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=24:23-24:45	||	HPNAME=arr[1].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:1,sz64,ct7,d=1}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=24:23-24:45	||	HPNAME=arr[2].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:2,sz64,ct7,d=2}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+PAR=port:d	AT=24:23-24:45	||	HPNAME=arr[3].value[0+:4]	RV=-	NEL=2	E0=bit_select|BS{arr,i=C{INT:3,sz64,ct7,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+
+===== cell g1 — SCORE (all hier_paths)
+FIXED 12 BROKEN 0 STILL-WRONG 8 STILL-RIGHT 13 keys 33
+--------------------------------------------------------------------------------
+23:19-23:41 FIXED
+  G: HPNAME=arr[0].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:0,sz64,ct9,d=0}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[0].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:0,sz64,ct9,d=0}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+41:20-41:41 FIXED
+  G: HPNAME=arr[2].value[3:0]	NEL=2	E0=bit_select|BS{arr,i=C{INT:2,sz64,ct7,d=2}}	E1=part_select|PS{value,cs1,l=C{UINT:3,sz64,ct9,d=3},r=C{UINT:0,sz64,ct9,d=0}}
+  P: HPNAME=arr[2].value[3:0]	NEL=2	E0=bit_select|BS{arr,i=C{INT:2,sz64,ct7,d=2}}	E1=part_select|PS{value,cs1,l=C{UINT:3,sz64,ct9,d=3},r=C{UINT:0,sz64,ct9,d=0}}
+--------------------------------------------------------------------------------
+43:20-43:42 FIXED
+  G: HPNAME=arr[2].value[3-:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:2,sz64,ct7,d=2}}	E1=indexed_part_select|IPS{value,cs1,t2,b=C{UINT:3,sz64,ct9,d=3},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[2].value[3-:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:2,sz64,ct7,d=2}}	E1=indexed_part_select|IPS{value,cs1,t2,b=C{UINT:3,sz64,ct9,d=3},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+25:19-25:39 FIXED
+  G: HPNAME=arr[3].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:3,sz64,ct9,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[3].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:3,sz64,ct9,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+27:19-27:47 FIXED
+  G: HPNAME=arr[12].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[12].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+29:19-29:39 FIXED
+  G: HPNAME=arr[2].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:2,sz64,ct9,d=2}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[2].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:2,sz64,ct9,d=2}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+31:19-31:37 STILL-WRONG
+  G: HPNAME=arr[2].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:2,sz32,ct9,d=2}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[P].value[0+:4]	NEL=2	E0=ref_obj|R{arr[P]}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+33:19-33:38 STILL-WRONG
+  G: HPNAME=arr[3].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:3,sz32,ct9,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[LP].value[0+:4]	NEL=2	E0=ref_obj|R{arr[LP]}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+37:21-37:37 STILL-WRONG
+  G: HPNAME=arr[2].value	NEL=2	E0=bit_select|BS{arr,i=C{INT:2,sz64,ct7,d=2}}	E1=ref_obj|R{value}
+  P: HPNAME=arr[2 + 3 * i].value	NEL=2	E0=bit_select|BS{arr,i=O24(C{UINT:2,sz64,ct9,d=2},O25(C{UINT:3,sz64,ct9,d=3},R{i}))}	E1=ref_obj|R{value}
+--------------------------------------------------------------------------------
+39:20-39:39 STILL-WRONG
+  G: HPNAME=arr[2].value[3]	NEL=2	E0=bit_select|BS{arr,i=C{INT:2,sz64,ct7,d=2}}	E1=bit_select|BS{value,i=C{UINT:3,sz64,ct9,d=3}}
+  P: HPNAME=arr[2 + 3 * i].value[3]	NEL=2	E0=ref_obj|R{arr[2+3*i]}	E1=bit_select|BS{value,i=C{UINT:3,sz64,ct9,d=3}}
+--------------------------------------------------------------------------------
+23:19-23:41 FIXED
+  G: HPNAME=arr[1].value[1+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:1,sz64,ct9,d=1}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[1].value[1+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:1,sz64,ct9,d=1}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+41:20-41:41 FIXED
+  G: HPNAME=arr[5].value[3:0]	NEL=2	E0=bit_select|BS{arr,i=C{INT:5,sz64,ct7,d=5}}	E1=part_select|PS{value,cs1,l=C{UINT:3,sz64,ct9,d=3},r=C{UINT:0,sz64,ct9,d=0}}
+  P: HPNAME=arr[5].value[3:0]	NEL=2	E0=bit_select|BS{arr,i=C{INT:5,sz64,ct7,d=5}}	E1=part_select|PS{value,cs1,l=C{UINT:3,sz64,ct9,d=3},r=C{UINT:0,sz64,ct9,d=0}}
+--------------------------------------------------------------------------------
+43:20-43:42 FIXED
+  G: HPNAME=arr[5].value[3-:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:5,sz64,ct7,d=5}}	E1=indexed_part_select|IPS{value,cs1,t2,b=C{UINT:3,sz64,ct9,d=3},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[5].value[3-:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:5,sz64,ct7,d=5}}	E1=indexed_part_select|IPS{value,cs1,t2,b=C{UINT:3,sz64,ct9,d=3},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+25:19-25:39 FIXED
+  G: HPNAME=arr[4].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:4,sz64,ct9,d=4}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[4].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:4,sz64,ct9,d=4}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+27:19-27:47 FIXED
+  G: HPNAME=arr[19].value[1+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:19,sz64,ct7,d=19}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[19].value[1+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:19,sz64,ct7,d=19}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+29:19-29:39 FIXED
+  G: HPNAME=arr[3].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:3,sz64,ct9,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[3].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:3,sz64,ct9,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+31:19-31:37 STILL-WRONG
+  G: HPNAME=arr[2].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:2,sz32,ct9,d=2}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[P].value[0+:4]	NEL=2	E0=ref_obj|R{arr[P]}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+33:19-33:38 STILL-WRONG
+  G: HPNAME=arr[3].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{UINT:3,sz32,ct9,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[LP].value[0+:4]	NEL=2	E0=ref_obj|R{arr[LP]}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+37:21-37:37 STILL-WRONG
+  G: HPNAME=arr[5].value	NEL=2	E0=bit_select|BS{arr,i=C{INT:5,sz64,ct7,d=5}}	E1=ref_obj|R{value}
+  P: HPNAME=arr[2 + 3 * i].value	NEL=2	E0=bit_select|BS{arr,i=O24(C{UINT:2,sz64,ct9,d=2},O25(C{UINT:3,sz64,ct9,d=3},R{i}))}	E1=ref_obj|R{value}
+--------------------------------------------------------------------------------
+39:20-39:39 STILL-WRONG
+  G: HPNAME=arr[5].value[3]	NEL=2	E0=bit_select|BS{arr,i=C{INT:5,sz64,ct7,d=5}}	E1=bit_select|BS{value,i=C{UINT:3,sz64,ct9,d=3}}
+  P: HPNAME=arr[2 + 3 * i].value[3]	NEL=2	E0=ref_obj|R{arr[2+3*i]}	E1=bit_select|BS{value,i=C{UINT:3,sz64,ct9,d=3}}
+
+===== cell g2 — SCORE (all hier_paths)
+FIXED 6 BROKEN 0 STILL-WRONG 2 STILL-RIGHT 6 keys 14
+--------------------------------------------------------------------------------
+25:19-25:41 FIXED
+  G: HPNAME=dn[12].value[0+:4]	NEL=2	E0=bit_select|BS{dn,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=dn[12].value[0+:4]	NEL=2	E0=bit_select|BS{dn,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+27:19-27:39 FIXED
+  G: HPNAME=dn[10].value[0+:4]	NEL=2	E0=bit_select|BS{dn,i=C{UINT:10,sz64,ct9,d=10}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=dn[10].value[0+:4]	NEL=2	E0=bit_select|BS{dn,i=C{UINT:10,sz64,ct9,d=10}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+29:19-29:41 FIXED
+  G: HPNAME=up[12].value[0+:4]	NEL=2	E0=bit_select|BS{up,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=up[12].value[0+:4]	NEL=2	E0=bit_select|BS{up,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+31:19-31:38 STILL-WRONG
+  G: HPNAME=sarr[2].f[0+:4]	RV=array_net	NEL=2	E0=bit_select|BS{sarr,i=C{INT:2,sz64,ct7,d=2}}	E1=indexed_part_select|IPS{f,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=sarr[2+3*i].f[0+:4]	RV=array_net	NEL=2	E0=ref_obj|R{sarr[2+3*i]}	E1=indexed_part_select|IPS{f,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+25:19-25:41 FIXED
+  G: HPNAME=dn[14].value[0+:4]	NEL=2	E0=bit_select|BS{dn,i=C{INT:14,sz64,ct7,d=14}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=dn[14].value[0+:4]	NEL=2	E0=bit_select|BS{dn,i=C{INT:14,sz64,ct7,d=14}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+27:19-27:39 FIXED
+  G: HPNAME=dn[11].value[0+:4]	NEL=2	E0=bit_select|BS{dn,i=C{UINT:11,sz64,ct9,d=11}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=dn[11].value[0+:4]	NEL=2	E0=bit_select|BS{dn,i=C{UINT:11,sz64,ct9,d=11}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+29:19-29:41 FIXED
+  G: HPNAME=up[14].value[0+:4]	NEL=2	E0=bit_select|BS{up,i=C{INT:14,sz64,ct7,d=14}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=up[14].value[0+:4]	NEL=2	E0=bit_select|BS{up,i=C{INT:14,sz64,ct7,d=14}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+31:19-31:38 STILL-WRONG
+  G: HPNAME=sarr[5].f[0+:4]	RV=array_net	NEL=2	E0=bit_select|BS{sarr,i=C{INT:5,sz64,ct7,d=5}}	E1=indexed_part_select|IPS{f,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=sarr[2+3*i].f[0+:4]	RV=array_net	NEL=2	E0=ref_obj|R{sarr[2+3*i]}	E1=indexed_part_select|IPS{f,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+
+===== cell g3 — SCORE (all hier_paths)
+FIXED 10 BROKEN 0 STILL-WRONG 2 STILL-RIGHT 4 keys 16
+--------------------------------------------------------------------------------
+29:17-29:39 STILL-WRONG
+  G: HPNAME=arr[6 + 7 * i].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=O24(C{UINT:6,sz64,ct9,d=6},O25(C{UINT:7,sz64,ct9,d=7},R{i}))}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[6+7*i].value[0+:4]	NEL=2	E0=ref_obj|R{arr[6+7*i]}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+22:23-22:51 FIXED
+  G: HPNAME=arr[12].value[0+:1]	NEL=2	E0=bit_select|BS{arr,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:1,sz64,ct9,d=1}}
+  P: HPNAME=arr[12].value[0+:1]	NEL=2	E0=bit_select|BS{arr,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:1,sz64,ct9,d=1}}
+--------------------------------------------------------------------------------
+24:23-24:45 FIXED
+  G: HPNAME=arr[0].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:0,sz64,ct7,d=0}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[0].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:0,sz64,ct7,d=0}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+22:23-22:51 FIXED
+  G: HPNAME=arr[12].value[1+:1]	NEL=2	E0=bit_select|BS{arr,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:1,sz64,ct9,d=1}}
+  P: HPNAME=arr[12].value[1+:1]	NEL=2	E0=bit_select|BS{arr,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:1,sz64,ct9,d=1}}
+--------------------------------------------------------------------------------
+24:23-24:45 FIXED
+  G: HPNAME=arr[1].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:1,sz64,ct7,d=1}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[1].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:1,sz64,ct7,d=1}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+18:19-18:41 FIXED
+  G: HPNAME=arr[6].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:6,sz64,ct7,d=6}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[6].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:6,sz64,ct7,d=6}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+29:17-29:39 STILL-WRONG
+  G: HPNAME=arr[6 + 7 * i].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=O24(C{UINT:6,sz64,ct9,d=6},O25(C{UINT:7,sz64,ct9,d=7},R{i}))}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[6+7*i].value[0+:4]	NEL=2	E0=ref_obj|R{arr[6+7*i]}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+22:23-22:51 FIXED
+  G: HPNAME=arr[19].value[0+:1]	NEL=2	E0=bit_select|BS{arr,i=C{INT:19,sz64,ct7,d=19}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:1,sz64,ct9,d=1}}
+  P: HPNAME=arr[19].value[0+:1]	NEL=2	E0=bit_select|BS{arr,i=C{INT:19,sz64,ct7,d=19}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:1,sz64,ct9,d=1}}
+--------------------------------------------------------------------------------
+24:23-24:45 FIXED
+  G: HPNAME=arr[2].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:2,sz64,ct7,d=2}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[2].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:2,sz64,ct7,d=2}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+22:23-22:51 FIXED
+  G: HPNAME=arr[19].value[1+:1]	NEL=2	E0=bit_select|BS{arr,i=C{INT:19,sz64,ct7,d=19}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:1,sz64,ct9,d=1}}
+  P: HPNAME=arr[19].value[1+:1]	NEL=2	E0=bit_select|BS{arr,i=C{INT:19,sz64,ct7,d=19}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:1,sz64,ct9,d=1}}
+--------------------------------------------------------------------------------
+24:23-24:45 FIXED
+  G: HPNAME=arr[3].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:3,sz64,ct7,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[3].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:3,sz64,ct7,d=3}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+--------------------------------------------------------------------------------
+18:19-18:41 FIXED
+  G: HPNAME=arr[13].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:13,sz64,ct7,d=13}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}
+  P: HPNAME=arr[13].value[0+:4]	NEL=2	E0=bit_select|BS{arr,i=C{INT:13,sz64,ct7,d=13}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{UINT:0,sz64,ct9,d=0},w=C{UINT:4,sz64,ct9,d=4}}

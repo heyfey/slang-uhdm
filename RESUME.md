@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 16:20, HEAD = the buvm23 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 16:35, HEAD = the rgg17 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -184,12 +184,12 @@ row-modes over 7 tests:
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 32 (depth) | an OMITTED middle argument filling a defaulted formal (`stream.open_recorder(a,,c)`, uvm_pkg.sv:30186 → `time open_time = 0` :24157): golden re-encodes the default at the call site as an UNPARENTED constant vpiConstType 7 (INT:0) where we clone the declaration's literal (ct 9); constant::Compare reads VpiConstType only; pass buvm24 in flight (buvm23 landed: 166→32, a '.' inside a bracket pair is not a path separator — receiver hier_path elements from the AST, index text = decompileHelper of the index object, EMPTY for calls/hier_paths) |
 | Earlgrey_0_1/default | 216 (depth) | a hier_path operand of an ELAB gen-scope cont_assign (flash_phy_rd.sv:122:43 `read_buf[i].addr[FlashWordsW+:PageW]`): golden's vpiName folds the PARAMETER bounds `read_buf[i].addr[7+:8]` while the genvar index stays spelled — plus earl68's R1: a genvar hier_path ELEMENT INDEX becomes a LOCATED UINT sz 64 no-typespec constant (261 cells, testflags only); pass earl69 in flight (earl68 landed: 32→216 depth, whole-Rhs bare-genvar fold loc-less UINT sz 64 + adjustSize typespec-PRESENCE size rule) |
 | Earlgrey_0_1/testflags | 216 (depth) | SAME head, identical cmp log (earl68) |
-| Rggen/default | 194 (depth) | block_1.sv:356 `.i_sw_write_enable (register_if[6+7*i+6].value[0+1*l+:1])` — golden's port actual is a hier_path whose FIRST element is a bit_select with a FOLDED vpiIndex (INT:12); we emit a plain ref_obj plus a second element (48 objects vs golden 24 over 24 rows; Path_elems VECTOR container names the hier_path); R-A 810 rows / R-B 7 signed START_ADDRESS rows / R-N2 SeqDriver adpcm_if modport next; pass rgg17 in flight (rgg16 landed: 683→194 depth, interface-port view param_assigns only when the actual is found by NAME among the instantiating scope's sub-instances — a generate block is its own scope) |
+| Rggen/default | 64 (depth) | the signed START_ADDRESS family (7 rows): the ELAB gen-scope localparam `bit [ADDRESS_WIDTH-1:0] START_ADDRESS = OFFSET_ADDRESS + ADDRESS_WIDTH'(BUS_BYTE_WIDTH * g)` (rggen_register_common.sv:33) — golden UINT:64 decompile `64` sz 7 vs ours decompile `-64` (a bit-vector fold with the MSB set rendered SIGNED); expr::Compare fails on VpiDecompile; R-A 810 rows / R-N3 103 golden-only ELAB hier_paths next; pass rgg18 in flight (rgg17 landed: 194→64, port-actual hier_path genvar-index elements fold to bit_select + INT constants and the name is decompileHelper of the folded elements) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 60 verifier fix-before-landing re-cuts (118 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 60 verifier fix-before-landing re-cuts (119 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

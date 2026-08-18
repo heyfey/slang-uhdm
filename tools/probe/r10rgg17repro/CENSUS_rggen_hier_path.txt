@@ -1,0 +1,35 @@
+# r10rgg17 — the hier_path census, golden vs OURS, whole Rggen database
+# (view/scope/owner/port/span key; Compare-visible payload; NEVER a fullname)
+
+## BASE (pristine, f969774)
+shared keys 6422 DIFFERING shared keys 24 gold-only keys 103 ours-only keys 0
+FAMILIES among differing shared keys: 4
+
+shared keys 77 DIFFERING shared keys 24 gold-only keys 0 ours-only keys 0
+FAMILIES among differing shared keys: 4
+----------------------------------------------------------------------------------------------------
+count 6 example key: ROOT=work@rggen	SCOPE=work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[2].g_bit_field_2.g[1].u_bit_field	OWN=module_inst:work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[2].g_bit_field_2.g[1].u_bit_field	PAR=port:i_sw_write_enable	AT=356:42-356:78
+  G: HPNAME=*	HPDEF=	HPDEC=	HPSZ=0	RV=-	NEL=2	E0=bit_select|BS{register_if,i=C{INT:19,sz64,ct7,d=19}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:1,sz64,ct9,d=1}}
+  O: HPNAME=*	HPDEF=	HPDEC=	HPSZ=0	RV=-	NEL=2	E0=ref_obj|R{register_if[6+7*i+6]}	E1=indexed_part_select|IPS{value,cs1,t1,b=O24(C{UINT:0,sz64,ct9,d=0},O25(C{UINT:1,sz64,ct9,d=1},C{UINT:1,sz64,ct9,d=1})),w=C{UINT:1,sz64,ct9,d=1}}
+----------------------------------------------------------------------------------------------------
+count 6 example key: ROOT=work@rggen	SCOPE=work@rggen.u_block_1.g_register_file_2.g[0].g_register_file_0.g_register_0.g[0].g[0].g_bit_field_2.g[1].u_bit_field	OWN=module_inst:work@rggen.u_block_1.g_register_file_2.g[0].g_register_file_0.g_register_0.g[0].g[0].g_bit_field_2.g[1].u_bit_field	PAR=port:i_sw_write_enable	AT=356:42-356:78
+  G: HPNAME=*	HPDEF=	HPDEC=	HPSZ=0	RV=-	NEL=2	E0=bit_select|BS{register_if,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:1,sz64,ct7,d=1},w=C{UINT:1,sz64,ct9,d=1}}
+  O: HPNAME=*	HPDEF=	HPDEC=	HPSZ=0	RV=-	NEL=2	E0=ref_obj|R{register_if[6+7*i+6]}	E1=indexed_part_select|IPS{value,cs1,t1,b=O24(C{UINT:0,sz64,ct9,d=0},O25(C{UINT:1,sz64,ct9,d=1},C{UINT:1,sz64,ct9,d=1})),w=C{UINT:1,sz64,ct9,d=1}}
+----------------------------------------------------------------------------------------------------
+count 6 example key: ROOT=work@rggen	SCOPE=work@rggen.u_block_1.g_register_file_2.g[0].g_register_file_0.g_register_0.g[0].g[1].g_bit_field_2.g[0].u_bit_field	OWN=module_inst:work@rggen.u_block_1.g_register_file_2.g[0].g_register_file_0.g_register_0.g[0].g[1].g_bit_field_2.g[0].u_bit_field	PAR=port:i_sw_write_enable	AT=356:42-356:78
+  G: HPNAME=*	HPDEF=	HPDEC=	HPSZ=0	RV=-	NEL=2	E0=bit_select|BS{register_if,i=C{INT:12,sz64,ct7,d=12}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:1,sz64,ct9,d=1}}
+  O: HPNAME=*	HPDEF=	HPDEC=	HPSZ=0	RV=-	NEL=2	E0=ref_obj|R{register_if[6+7*i+6]}	E1=indexed_part_select|IPS{value,cs1,t1,b=O24(C{UINT:0,sz64,ct9,d=0},O25(C{UINT:1,sz64,ct9,d=1},C{UINT:0,sz64,ct9,d=0})),w=C{UINT:1,sz64,ct9,d=1}}
+----------------------------------------------------------------------------------------------------
+count 6 example key: ROOT=work@rggen	SCOPE=work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[1].g_bit_field_2.g[0].u_bit_field	OWN=module_inst:work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[1].g_bit_field_2.g[0].u_bit_field	PAR=port:i_sw_write_enable	AT=356:42-356:78
+  G: HPNAME=*	HPDEF=	HPDEC=	HPSZ=0	RV=-	NEL=2	E0=bit_select|BS{register_if,i=C{INT:19,sz64,ct7,d=19}}	E1=indexed_part_select|IPS{value,cs1,t1,b=C{INT:0,sz64,ct7,d=0},w=C{UINT:1,sz64,ct9,d=1}}
+  O: HPNAME=*	HPDEF=	HPDEC=	HPSZ=0	RV=-	NEL=2	E0=ref_obj|R{register_if[6+7*i+6]}	E1=indexed_part_select|IPS{value,cs1,t1,b=O24(C{UINT:0,sz64,ct9,d=0},O25(C{UINT:1,sz64,ct9,d=1},C{UINT:0,sz64,ct9,d=0})),w=C{UINT:1,sz64,ct9,d=1}}
+
+## PATCHED
+shared keys 6422 DIFFERING shared keys 0 gold-only keys 103 ours-only keys 0
+FAMILIES among differing shared keys: 0
+shared keys 77 DIFFERING shared keys 0 gold-only keys 0 ours-only keys 0
+FAMILIES among differing shared keys: 0
+
+## CALIBRATION golden vs a FRESH surelog -parse (md5 98176c6e44638c913a47fd319fa3729f both)
+shared keys 6525 DIFFERING shared keys 0 gold-only keys 0 ours-only keys 0
+FAMILIES among differing shared keys: 0

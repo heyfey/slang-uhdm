@@ -1,0 +1,1848 @@
+830308c830308
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+830312c830312
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[12]), line:356:42, endln:356:53
+830314,830315c830314,830322
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[12]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:12
+>                                               |vpiSize:64
+>                                               |INT:12
+>                                               |vpiConstType:7
+830317c830324
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[12].value[0+:1]), line:356:63, endln:356:77
+830319c830326
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+830321c830328
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[12].value[0+:1]
+830325,830357c830332,830336
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:0
+<                                                   |vpiSize:64
+<                                                   |UINT:0
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:0
+>                                               |vpiSize:64
+>                                               |INT:0
+>                                               |vpiConstType:7
+830364c830343
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[12].value[0+:1]
+833058c833037
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+833062c833041
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[12]), line:356:42, endln:356:53
+833064,833065c833043,833051
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[12]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:12
+>                                               |vpiSize:64
+>                                               |INT:12
+>                                               |vpiConstType:7
+833067c833053
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[12].value[1+:1]), line:356:63, endln:356:77
+833069c833055
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+833071c833057
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[12].value[1+:1]
+833075,833107c833061,833065
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:1
+>                                               |vpiSize:64
+>                                               |INT:1
+>                                               |vpiConstType:7
+833114c833072
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[12].value[1+:1]
+852138c852096
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+852142c852100
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[12]), line:356:42, endln:356:53
+852144,852145c852102,852110
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[12]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:12
+>                                               |vpiSize:64
+>                                               |INT:12
+>                                               |vpiConstType:7
+852147c852112
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[12].value[0+:1]), line:356:63, endln:356:77
+852149c852114
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+852151c852116
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[12].value[0+:1]
+852155,852187c852120,852124
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:0
+<                                                   |vpiSize:64
+<                                                   |UINT:0
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:0
+>                                               |vpiSize:64
+>                                               |INT:0
+>                                               |vpiConstType:7
+852194c852131
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[12].value[0+:1]
+854888c854825
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+854892c854829
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[12]), line:356:42, endln:356:53
+854894,854895c854831,854839
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[12]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:12
+>                                               |vpiSize:64
+>                                               |INT:12
+>                                               |vpiConstType:7
+854897c854841
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[12].value[1+:1]), line:356:63, endln:356:77
+854899c854843
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+854901c854845
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[12].value[1+:1]
+854905,854937c854849,854853
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:1
+>                                               |vpiSize:64
+>                                               |INT:1
+>                                               |vpiConstType:7
+854944c854860
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[12].value[1+:1]
+873968c873884
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+873972c873888
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[12]), line:356:42, endln:356:53
+873974,873975c873890,873898
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[12]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:12
+>                                               |vpiSize:64
+>                                               |INT:12
+>                                               |vpiConstType:7
+873977c873900
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[12].value[0+:1]), line:356:63, endln:356:77
+873979c873902
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+873981c873904
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[12].value[0+:1]
+873985,874017c873908,873912
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:0
+<                                                   |vpiSize:64
+<                                                   |UINT:0
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:0
+>                                               |vpiSize:64
+>                                               |INT:0
+>                                               |vpiConstType:7
+874024c873919
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[12].value[0+:1]
+876718c876613
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+876722c876617
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[12]), line:356:42, endln:356:53
+876724,876725c876619,876627
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[12]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:12
+>                                               |vpiSize:64
+>                                               |INT:12
+>                                               |vpiConstType:7
+876727c876629
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[12].value[1+:1]), line:356:63, endln:356:77
+876729c876631
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+876731c876633
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[12].value[1+:1]
+876735,876767c876637,876641
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:1
+>                                               |vpiSize:64
+>                                               |INT:1
+>                                               |vpiConstType:7
+876774c876648
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[12].value[1+:1]
+895824c895698
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+895828c895702
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[12]), line:356:42, endln:356:53
+895830,895831c895704,895712
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[12]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:12
+>                                               |vpiSize:64
+>                                               |INT:12
+>                                               |vpiConstType:7
+895833c895714
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[12].value[0+:1]), line:356:63, endln:356:77
+895835c895716
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+895837c895718
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[12].value[0+:1]
+895841,895873c895722,895726
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:0
+<                                                   |vpiSize:64
+<                                                   |UINT:0
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:0
+>                                               |vpiSize:64
+>                                               |INT:0
+>                                               |vpiConstType:7
+895880c895733
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[12].value[0+:1]
+898574c898427
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+898578c898431
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[12]), line:356:42, endln:356:53
+898580,898581c898433,898441
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[12]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:12
+>                                               |vpiSize:64
+>                                               |INT:12
+>                                               |vpiConstType:7
+898583c898443
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[12].value[1+:1]), line:356:63, endln:356:77
+898585c898445
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+898587c898447
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[12].value[1+:1]
+898591,898623c898451,898455
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:1
+>                                               |vpiSize:64
+>                                               |INT:1
+>                                               |vpiConstType:7
+898630c898462
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[12].value[1+:1]
+917654c917486
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+917658c917490
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[12]), line:356:42, endln:356:53
+917660,917661c917492,917500
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[12]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:12
+>                                               |vpiSize:64
+>                                               |INT:12
+>                                               |vpiConstType:7
+917663c917502
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[12].value[0+:1]), line:356:63, endln:356:77
+917665c917504
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+917667c917506
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[12].value[0+:1]
+917671,917703c917510,917514
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:0
+<                                                   |vpiSize:64
+<                                                   |UINT:0
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:0
+>                                               |vpiSize:64
+>                                               |INT:0
+>                                               |vpiConstType:7
+917710c917521
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[12].value[0+:1]
+920404c920215
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+920408c920219
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[12]), line:356:42, endln:356:53
+920410,920411c920221,920229
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[12]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:12
+>                                               |vpiSize:64
+>                                               |INT:12
+>                                               |vpiConstType:7
+920413c920231
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[12].value[1+:1]), line:356:63, endln:356:77
+920415c920233
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+920417c920235
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[12].value[1+:1]
+920421,920453c920239,920243
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:1
+>                                               |vpiSize:64
+>                                               |INT:1
+>                                               |vpiConstType:7
+920460c920250
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[12].value[1+:1]
+939484c939274
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+939488c939278
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[12]), line:356:42, endln:356:53
+939490,939491c939280,939288
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[12]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:12
+>                                               |vpiSize:64
+>                                               |INT:12
+>                                               |vpiConstType:7
+939493c939290
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[12].value[0+:1]), line:356:63, endln:356:77
+939495c939292
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[12].value[0+:1]), line:356:42, endln:356:78
+939497c939294
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[12].value[0+:1]
+939501,939533c939298,939302
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:0
+<                                                   |vpiSize:64
+<                                                   |UINT:0
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:0
+>                                               |vpiSize:64
+>                                               |INT:0
+>                                               |vpiConstType:7
+939540c939309
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[12].value[0+:1]
+942234c942003
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+942238c942007
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[12]), line:356:42, endln:356:53
+942240,942241c942009,942017
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[12]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:12
+>                                               |vpiSize:64
+>                                               |INT:12
+>                                               |vpiConstType:7
+942243c942019
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[12].value[1+:1]), line:356:63, endln:356:77
+942245c942021
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[12].value[1+:1]), line:356:42, endln:356:78
+942247c942023
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[12].value[1+:1]
+942251,942283c942027,942031
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:1
+>                                               |vpiSize:64
+>                                               |INT:1
+>                                               |vpiConstType:7
+942290c942038
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[12].value[1+:1]
+973929c973677
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+973933c973681
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[19]), line:356:42, endln:356:53
+973935,973936c973683,973691
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[19]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:19
+>                                               |vpiSize:64
+>                                               |INT:19
+>                                               |vpiConstType:7
+973938c973693
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[19].value[0+:1]), line:356:63, endln:356:77
+973940c973695
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+973942c973697
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[19].value[0+:1]
+973946,973978c973701,973705
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:0
+<                                                   |vpiSize:64
+<                                                   |UINT:0
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:0
+>                                               |vpiSize:64
+>                                               |INT:0
+>                                               |vpiConstType:7
+973985c973712
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[19].value[0+:1]
+976679c976406
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+976683c976410
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[19]), line:356:42, endln:356:53
+976685,976686c976412,976420
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[19]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:19
+>                                               |vpiSize:64
+>                                               |INT:19
+>                                               |vpiConstType:7
+976688c976422
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[19].value[1+:1]), line:356:63, endln:356:77
+976690c976424
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+976692c976426
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[19].value[1+:1]
+976696,976728c976430,976434
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:1
+>                                               |vpiSize:64
+>                                               |INT:1
+>                                               |vpiConstType:7
+976735c976441
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[19].value[1+:1]
+995759c995465
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+995763c995469
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[19]), line:356:42, endln:356:53
+995765,995766c995471,995479
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[19]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:19
+>                                               |vpiSize:64
+>                                               |INT:19
+>                                               |vpiConstType:7
+995768c995481
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[19].value[0+:1]), line:356:63, endln:356:77
+995770c995483
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+995772c995485
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[19].value[0+:1]
+995776,995808c995489,995493
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:0
+<                                                   |vpiSize:64
+<                                                   |UINT:0
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:0
+>                                               |vpiSize:64
+>                                               |INT:0
+>                                               |vpiConstType:7
+995815c995500
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[19].value[0+:1]
+998509c998194
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+998513c998198
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[19]), line:356:42, endln:356:53
+998515,998516c998200,998208
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[19]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:19
+>                                               |vpiSize:64
+>                                               |INT:19
+>                                               |vpiConstType:7
+998518c998210
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[19].value[1+:1]), line:356:63, endln:356:77
+998520c998212
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+998522c998214
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[19].value[1+:1]
+998526,998558c998218,998222
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:1
+>                                               |vpiSize:64
+>                                               |INT:1
+>                                               |vpiConstType:7
+998565c998229
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[19].value[1+:1]
+1017589c1017253
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+1017593c1017257
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[19]), line:356:42, endln:356:53
+1017595,1017596c1017259,1017267
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[19]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:19
+>                                               |vpiSize:64
+>                                               |INT:19
+>                                               |vpiConstType:7
+1017598c1017269
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[19].value[0+:1]), line:356:63, endln:356:77
+1017600c1017271
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+1017602c1017273
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[19].value[0+:1]
+1017606,1017638c1017277,1017281
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:0
+<                                                   |vpiSize:64
+<                                                   |UINT:0
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:0
+>                                               |vpiSize:64
+>                                               |INT:0
+>                                               |vpiConstType:7
+1017645c1017288
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[19].value[0+:1]
+1020339c1019982
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+1020343c1019986
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[19]), line:356:42, endln:356:53
+1020345,1020346c1019988,1019996
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[19]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:19
+>                                               |vpiSize:64
+>                                               |INT:19
+>                                               |vpiConstType:7
+1020348c1019998
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[19].value[1+:1]), line:356:63, endln:356:77
+1020350c1020000
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+1020352c1020002
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[19].value[1+:1]
+1020356,1020388c1020006,1020010
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:1
+>                                               |vpiSize:64
+>                                               |INT:1
+>                                               |vpiConstType:7
+1020395c1020017
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[19].value[1+:1]
+1039445c1039067
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+1039449c1039071
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[19]), line:356:42, endln:356:53
+1039451,1039452c1039073,1039081
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[19]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:19
+>                                               |vpiSize:64
+>                                               |INT:19
+>                                               |vpiConstType:7
+1039454c1039083
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[19].value[0+:1]), line:356:63, endln:356:77
+1039456c1039085
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+1039458c1039087
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[19].value[0+:1]
+1039462,1039494c1039091,1039095
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:0
+<                                                   |vpiSize:64
+<                                                   |UINT:0
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:0
+>                                               |vpiSize:64
+>                                               |INT:0
+>                                               |vpiConstType:7
+1039501c1039102
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[19].value[0+:1]
+1042195c1041796
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+1042199c1041800
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[19]), line:356:42, endln:356:53
+1042201,1042202c1041802,1041810
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[19]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:19
+>                                               |vpiSize:64
+>                                               |INT:19
+>                                               |vpiConstType:7
+1042204c1041812
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[19].value[1+:1]), line:356:63, endln:356:77
+1042206c1041814
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+1042208c1041816
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[19].value[1+:1]
+1042212,1042244c1041820,1041824
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:1
+>                                               |vpiSize:64
+>                                               |INT:1
+>                                               |vpiConstType:7
+1042251c1041831
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[19].value[1+:1]
+1061275c1060855
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+1061279c1060859
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[19]), line:356:42, endln:356:53
+1061281,1061282c1060861,1060869
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[19]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:19
+>                                               |vpiSize:64
+>                                               |INT:19
+>                                               |vpiConstType:7
+1061284c1060871
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[19].value[0+:1]), line:356:63, endln:356:77
+1061286c1060873
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+1061288c1060875
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[19].value[0+:1]
+1061292,1061324c1060879,1060883
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:0
+<                                                   |vpiSize:64
+<                                                   |UINT:0
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:0
+>                                               |vpiSize:64
+>                                               |INT:0
+>                                               |vpiConstType:7
+1061331c1060890
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[19].value[0+:1]
+1064025c1063584
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+1064029c1063588
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[19]), line:356:42, endln:356:53
+1064031,1064032c1063590,1063598
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[19]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:19
+>                                               |vpiSize:64
+>                                               |INT:19
+>                                               |vpiConstType:7
+1064034c1063600
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[19].value[1+:1]), line:356:63, endln:356:77
+1064036c1063602
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+1064038c1063604
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[19].value[1+:1]
+1064042,1064074c1063608,1063612
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:1
+>                                               |vpiSize:64
+>                                               |INT:1
+>                                               |vpiConstType:7
+1064081c1063619
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[19].value[1+:1]
+1083105c1082643
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+1083109c1082647
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[19]), line:356:42, endln:356:53
+1083111,1083112c1082649,1082657
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[19]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:19
+>                                               |vpiSize:64
+>                                               |INT:19
+>                                               |vpiConstType:7
+1083114c1082659
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[19].value[0+:1]), line:356:63, endln:356:77
+1083116c1082661
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[19].value[0+:1]), line:356:42, endln:356:78
+1083118c1082663
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[19].value[0+:1]
+1083122,1083154c1082667,1082671
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:0
+<                                                   |vpiSize:64
+<                                                   |UINT:0
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:0
+>                                               |vpiSize:64
+>                                               |INT:0
+>                                               |vpiConstType:7
+1083161c1082678
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[19].value[0+:1]
+1085855c1085372
+<                                         \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                         \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+1085859c1085376
+<                                           \_ref_obj: (register_if[6+7*i+6]), line:356:42, endln:356:62
+---
+>                                           \_bit_select: (register_if[19]), line:356:42, endln:356:53
+1085861,1085862c1085378,1085386
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+<                                             |vpiName:register_if[6+7*i+6]
+---
+>                                             \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+>                                             |vpiName:register_if
+>                                             |vpiFullName:register_if[19]
+>                                             |vpiIndex:
+>                                             \_constant: , line:356:54, endln:356:59
+>                                               |vpiDecompile:19
+>                                               |vpiSize:64
+>                                               |INT:19
+>                                               |vpiConstType:7
+1085864c1085388
+<                                           \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+---
+>                                           \_indexed_part_select: (register_if[19].value[1+:1]), line:356:63, endln:356:77
+1085866c1085390
+<                                             \_hier_path: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:42, endln:356:78
+---
+>                                             \_hier_path: (register_if[19].value[1+:1]), line:356:42, endln:356:78
+1085868c1085392
+<                                             |vpiFullName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                             |vpiFullName:register_if[19].value[1+:1]
+1085872,1085904c1085396,1085400
+<                                             \_operation: , line:356:69, endln:356:74
+<                                               |vpiParent:
+<                                               \_indexed_part_select: (register_if[6+7*i+6].value[0 + 1 * l+:1]), line:356:63, endln:356:77
+<                                               |vpiOpType:24
+<                                               |vpiOperand:
+<                                               \_constant: , line:356:69, endln:356:70
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiDecompile:0
+<                                                 |vpiSize:64
+<                                                 |UINT:0
+<                                                 |vpiConstType:9
+<                                               |vpiOperand:
+<                                               \_operation: , line:356:71, endln:356:74
+<                                                 |vpiParent:
+<                                                 \_operation: , line:356:69, endln:356:74
+<                                                 |vpiOpType:25
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:71, endln:356:72
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+<                                                 |vpiOperand:
+<                                                 \_constant: , line:356:73, endln:356:74
+<                                                   |vpiParent:
+<                                                   \_operation: , line:356:71, endln:356:74
+<                                                   |vpiDecompile:1
+<                                                   |vpiSize:64
+<                                                   |UINT:1
+<                                                   |vpiConstType:9
+---
+>                                             \_constant: , line:356:69, endln:356:70
+>                                               |vpiDecompile:1
+>                                               |vpiSize:64
+>                                               |INT:1
+>                                               |vpiConstType:7
+1085911c1085407
+<                                           |vpiName:register_if[6+7*i+6].value[0 + 1 * l+:1]
+---
+>                                           |vpiName:register_if[19].value[1+:1]

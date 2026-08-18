@@ -1,0 +1,7 @@
+== uhdm2rtlil, base vs patched workdirs, SELFCHECK=1
+-- MOVERS 0 / 1358 identical=1358 missing-a-side=104 selfcheck=1358/1358
+
+== surelog, base vs patched workdirs, SELFCHECK=1
+MOVER default/Rggen-50ccbd70        <- PREDICTED BY NAME (PREDICT_db_surelog.txt)
+MOVER default/Scoreboard-59431470   <- THE DOCUMENTED COIN, proved in COIN_scoreboard.txt
+-- MOVERS 2 / 956 identical=954 missing-a-side=617 selfcheck=956/956

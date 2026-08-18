@@ -1,0 +1,2 @@
+scanned=956 predicted=1
+PREDICT	default	Rggen-50ccbd70	24

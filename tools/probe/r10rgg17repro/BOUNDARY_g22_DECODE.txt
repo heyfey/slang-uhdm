@@ -1,0 +1,35 @@
+# r10rgg17 — the FOURTH boundary mover, decoded.  It is NOT this pass's law.
+
+MOVER tools/probe/r10buvm22repro/g22.sv — 6 differing dump lines, all of them
+the SAME field of three objects at g22.sv:70:28, which is
+
+    typedef C22 ka_cls_t[string];        // an ASSOCIATIVE array
+
+  base    |vpiDecompile:22186169   |UINT:22186169
+  patched |vpiDecompile:22202553   |UINT:22202553
+  GOLDEN   emits NO range here at all — it emits a string_typespec.
+
+SOURCE: src/TypeEmit.cpp:10345, buildUnpackedArrayTypedefTs()
+    auto& fua = ct.as<FixedSizeUnpackedArrayType>();     // UNCHECKED downcast
+and then :10429  mkB(fua.range.width(), szSyn).
+For a `[string]` dimension the canonical type is an AssociativeArrayType, so
+`fua.range` is a TYPE-CONFUSED read of memory belonging to another type — the
+number printed is whatever lies there.  BOTH SIDES ARE WRONG and neither is
+closer to golden; the patch only perturbs the allocation history that decides
+the garbage.
+
+CONTROLS RUN:
+ * three UNRELATED binaries (r10rgg16 base 2d41c4ca, r10rgg16 pat 1a26bbc9,
+   r10rgg17 base c140b820) all print 22186169 — so it is not merely "any
+   rebuild moves it";
+ * a LAYOUT-ONLY control build (an unused noinline function appended to
+   src/ExprEmit.cpp; binary md5 f506ed15f240bd0c632f3983b0d94b67, semantics
+   identical) ALSO prints 22186169 — so it is not pure link layout either;
+ * it is DETERMINISTIC per binary (three runs each, identical md5).
+
+CORPUS REACH: ZERO.  0 byte movers over 1358 uhdm2rtlil databases and, over
+956 surelog databases, only Rggen (predicted) and the Scoreboard coin.
+
+RECORDED AS RESIDUE R-N6.  This pass does NOT fix it: it is a different family
+in a different file, and taking it here would widen the blast radius of a pass
+whose head is elsewhere.

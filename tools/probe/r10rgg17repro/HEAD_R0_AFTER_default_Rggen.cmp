@@ -1,0 +1,64 @@
+LHS:
+decompile:
+constant: , id:300581, line:33:59, endln:34:93
+|vpiParent:
+\_param_assign: , id:300580, line:33:43, endln:34:93
+|vpiDecompile:64
+|vpiSize:7
+|UINT:64
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[0].u_register.u_register_common.g_decoder[0]), id:300582
+  |vpiParent:
+  \_constant: , id:300581, line:33:59, endln:34:93
+  |vpiFullName:work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[0].u_register.u_register_common.g_decoder[0]
+  |vpiActual:
+  \_bit_typespec: , id:300534, line:33:19, endln:33:42
+|vpiConstType:9
+
+decompile:
+constant: , id:300581, line:33:59, endln:34:93
+|vpiParent:
+\_param_assign: , id:300580, line:33:43, endln:34:93
+|vpiDecompile:64
+|vpiSize:7
+|UINT:64
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[0].u_register.u_register_common.g_decoder[0]), id:300582
+  |vpiParent:
+  \_constant: , id:300581, line:33:59, endln:34:93
+  |vpiFullName:work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[0].u_register.u_register_common.g_decoder[0]
+  |vpiActual:
+  \_bit_typespec: , id:300534, line:33:19, endln:33:42
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:199687, line:33:59, endln:34:93
+|vpiParent:
+\_param_assign: , id:199686, line:33:43, endln:34:93
+|vpiDecompile:-64
+|vpiSize:7
+|UINT:0
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[0].u_register.u_register_common.g_decoder[0]), id:199688
+  |vpiParent:
+  \_constant: , id:199687, line:33:59, endln:34:93
+  |vpiFullName:work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[0].u_register.u_register_common.g_decoder[0]
+  |vpiActual:
+  \_bit_typespec: , id:256485, line:33:19, endln:33:42
+|vpiConstType:9
+
+decompile:
+constant: , id:199687, line:33:59, endln:34:93
+|vpiParent:
+\_param_assign: , id:199686, line:33:43, endln:34:93
+|vpiDecompile:-64
+|vpiSize:7
+|UINT:0
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[0].u_register.u_register_common.g_decoder[0]), id:199688
+  |vpiParent:
+  \_constant: , id:199687, line:33:59, endln:34:93
+  |vpiFullName:work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[0].g[0].u_register.u_register_common.g_decoder[0]
+  |vpiActual:
+  \_bit_typespec: , id:256485, line:33:19, endln:33:42
+|vpiConstType:9
