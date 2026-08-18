@@ -367,6 +367,55 @@ bool UhdmExporter::refVarLocalNoBind5(const slang::ast::Symbol& sym,
 // different object — and has ZERO corpus population, so it is left to
 // § deepRecvCall11 and ranked as a residue.  The `NamedValue` test below
 // excludes it structurally rather than by a comment.
+//
+// § retNameRecvCollapseArgsBindLikeBody15 — AND ITS ARGUMENTS BIND EXACTLY LIKE
+// ANY OTHER CALL'S.
+//
+// COLLAPSING the call was only half the shape.  Both arms below built the
+// `func_call` and then emitted the METHOD's arguments with NO
+// § classArgBind12 window open, so every argument ref inside an IN-BODY class
+// method came out BARE where golden carries a `vpiActual`.  That was the
+// BuildUVMPkg head after buvm14 — `uvm_pkg.sv:23233` `get_link.set(lhs, rhs);`
+// inside `static function uvm_cause_effect_link get_link(uvm_object lhs,
+// uvm_object rhs, string name="ce_link")`, where golden binds `lhs` to
+// `io_decl(lhs) < function(uvm_pkg::uvm_cause_effect_link::get_link)` and ours
+// bound nothing (`ref_obj::Compare` reads `Actual_group` through the SINGULAR
+// `SafeCompare`, whose lhs!=null/rhs==null arm sets `m_failedLhs` to the VALUE,
+// which is why the cmp log's RHS really is `<null>` — verified against the
+// pristine log, not carried forward from a brief).
+//
+// DECODED FROM THE PRODUCER.  Surelog's `compileTfCall` resolves the dotted
+// invocation by its FIRST identifier, finds the FUNCTION (`getTaskFunc(name)`),
+// and then compiles the argument list with `compileTfCallArguments(..., call,
+// ...)` — i.e. with the FUNC_CALL as `pexpr`.  `CompileHelper::bindVariable`
+// (CompileStmt.cpp:3089) walks that `pexpr`'s `VpiParent` chain and, on reaching
+// `uhdmfunction`/`uhdmtask`/`uhdmbegin`, matches `Variables()` then `Io_decls()`
+// BY NAME.  A collapsed call's arguments therefore sit in exactly the same bind
+// window as an ordinary call's — the window this emitter already models as
+// § classArgBind12.  Nothing about the collapse is special.
+//
+// THE WINDOW IS THE WHOLE LAW: no new gate is added, and the three existing
+// silences keep their cells.  MEASURED on a1_collargs15.sv / a2_collbuiltin15.sv
+// (cell -> golden, and Q == golden on every one):
+//   c10/c30 formal args, collapsed, depth 0, non-static AND static  -> BIND
+//   c11/c31 body local, same                                        -> BIND
+//   c40     UNNAMED-BLOCK local at the same ctrl depth (§ 57/§ 64)   -> BIND
+//   c14     the argument is itself a CALL: the NESTED call's own arg -> BIND
+//   c12     a CLASS PROPERTY                                        -> bare
+//   c13     a PACKAGE variable (§ pkgVarBindsOnlyThroughInstance88)  -> bare
+//   c19/c32 the SAME collapsed call inside an `if`-begin
+//           (§ controlBodyNoBind28, ctrlBodyDepth28 > 0)            -> bare
+//   c16/c17/c20/c41 the UNCOLLAPSED controls in the same bodies      -> unchanged
+//   c01/c02 a PACKAGE free function (si=1, no classMethodNoBind)     -> unchanged
+//   c60/c61 an OUT-OF-BODY method (§ 69 gate (b): no collapse)       -> unchanged
+// The if-begin cells are the DISCRIMINATOR: a law written as "a collapsed call's
+// arguments always bind" over-fires there, and the corpus population that would
+// have caught it is `uvm_tr_database.svh:157` `open_stream.m_do_open(this,
+// scope, type_name);` and `uvm_tr_stream.svh:343` `open_recorder.m_do_open(...)`
+// — both nested inside `if (…) begin`, both BARE in golden.  They stay bare
+// because § controlBodyNoBind28 is a separate disjunct that the window does not
+// lift for a FORMAL (`blkLocalSameCtrlDepth57` admits only block/subroutine
+// LOCALS, `sym.kind == SymbolKind::Variable`).
 // § classMethodParensLessStepIsRefObj77 — the WRITTEN-PARENS probe.  The
 // header carries the law and the two refuted alternatives; this is the walk.
 bool UhdmExporter::methodParensWritten77(SourceRange nameRng,
@@ -1371,6 +1420,17 @@ struct ClassArgBind12 {
     int saved;
     explicit ClassArgBind12(int& d) : p(&d), saved(d) { d = d + 1; }
     ~ClassArgBind12() { *p = saved; }
+};
+// § collArgNamedBlkLocalNoBind15 (VERIFIER FIX) — the § retNameRecvCollapse69
+// COLLAPSED-call argument window.  It is raised ALONGSIDE ClassArgBind12 at the
+// two § 69 sites and read by ONE disjunct of the bind gate, so the only cells it
+// can move are cells § retNameRecvCollapseArgsBindLikeBody15 itself opened.  See
+// collArgBindDepth15 in UhdmExporter.h for the measured table.
+struct CollArgBind15 {
+    int* p;
+    int saved;
+    explicit CollArgBind15(int& d) : p(&d), saved(d) { d = d + 1; }
+    ~CollArgBind15() { *p = saved; }
 };
 // § superNewFormalBinds28 — the `super.new(...)` argument window.  Kept as a
 // separate counter from ClassArgBind12 because the two admit DIFFERENT symbol
@@ -9075,9 +9135,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // binds all nine of its arguments.
                 bool recvCallArgNoBind52 =
                     curSubClassScope9 && !curSubOob9 && recvCallArgDepth52 > 0;
+                // § collArgNamedBlkLocalNoBind15 (VERIFIER FIX, r10buvm15).
+                // GATE: an IN-BODY class method (curSubClassScope9 &&
+                // !curSubOob9), inside a § retNameRecvCollapse69 COLLAPSED
+                // call's argument window (collArgBindDepth15 > 0), referring to
+                // a Variable whose DECLARING SCOPE is a NAMED statement block.
+                // DIRECTION: SUPPRESS.  Without it § 69's new window binds a
+                // named-block local that golden leaves bare — v5_named15.sv
+                // cells n20 and n31, both PRISTINE-RIGHT and PATCHED-WRONG.
+                // The three guards are each a MEASURED cell, not a hedge:
+                //   * collArgBindDepth15 > 0 — a package function's identical
+                //     named block IS bound by golden (n50), and an ORDINARY
+                //     call's named-block local is a SEPARATE, PRE-EXISTING
+                //     residue (n21/n33: golden bare, PRISTINE already bound),
+                //     which this pass deliberately does not move.
+                //   * the class guard — n40/n41 show an OUT-OF-BODY method
+                //     binds the same shape.
+                //   * the NAME test — n10/n30 show an UNNAMED block's local,
+                //     at the same depths and in the same window, DOES bind.
+                bool collArgNamedBlkNoBind15 = false;
+                if (collArgBindDepth15 > 0 && curSubClassScope9 &&
+                    !curSubOob9 && nv.symbol.kind == SymbolKind::Variable) {
+                    if (auto* dsc15 = nv.symbol.getParentScope()) {
+                        auto& dsym15 = dsc15->asSymbol();
+                        collArgNamedBlkNoBind15 =
+                            dsym15.kind == SymbolKind::StatementBlock &&
+                            !dsym15.name.empty();
+                    }
+                }
                 if (((classMethodNoBind && classArgBindDepth12 == 0) ||
                      unitSubNoBind9 || ctrlBodyNoBind28 ||
-                     recvCallArgNoBind52) &&
+                     recvCallArgNoBind52 || collArgNamedBlkNoBind15) &&
                     !superNewFormal28) {
                     // Class-method body outside an if/case condition, or a
                     // `$unit`-scope subroutine body: no actual of any kind
@@ -11852,10 +11940,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             sit69 != subMap.end())
                             fc69->Function((UHDM::function*)sit69->second.tf);
                         auto* fargs69 = s.MakeAnyVec();
-                        for (auto arg69 : writtenArgs16(call))
-                            if (auto* a69 =
-                                    emitExpr(*arg69, fc69, prefix, netMap))
-                                fargs69->push_back(a69);
+                        {
+                            // § retNameRecvCollapseArgsBindLikeBody15 — SITE 1
+                            // of 2 (the USER class-method arm).  See the decode
+                            // at the § 69 header: a COLLAPSED call's arguments
+                            // are an ORDINARY § classArgBind12 argument list and
+                            // this arm never opened the window, so `lhs`/`rhs`
+                            // in `get_link.set(lhs, rhs);` came out BARE where
+                            // golden binds them to the ENCLOSING function's own
+                            // io_decls.
+                            ClassArgBind12 cab69(classArgBindDepth12);
+                            // § collArgNamedBlkLocalNoBind15 (VERIFIER FIX):
+                            // the window above lifts classMethodNoBind for
+                            // EVERY symbol class, and a NAMED-block local is
+                            // the one golden still leaves bare.
+                            CollArgBind15 cba69(collArgBindDepth15);
+                            for (auto arg69 : writtenArgs16(call))
+                                if (auto* a69 =
+                                        emitExpr(*arg69, fc69, prefix, netMap))
+                                    fargs69->push_back(a69);
+                        }
                         if (!fargs69->empty())
                             fc69->Tf_call_args(fargs69);
                         return fc69;
@@ -14250,10 +14354,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (auto sit0 = subMap.find(&fsub0); sit0 != subMap.end())
                         fc0->Function((UHDM::function*)sit0->second.tf);
                     auto* fargs = s.MakeAnyVec();
-                    for (size_t ai = 1; ai < call.arguments().size(); ai++)
-                        if (auto* a2 = emitExpr(*call.arguments()[ai], fc0,
-                                                prefix, netMap))
-                            fargs->push_back(a2);
+                    {
+                        // § retNameRecvCollapseArgsBindLikeBody15 — SITE 2 of 2
+                        // (the BUILT-IN method arm).  The same window
+                        // § builtinMethodArgBinds28 already gives an
+                        // UNCOLLAPSED built-in method call's arguments four
+                        // hundred lines below; the collapsed twin had none.
+                        ClassArgBind12 cab0(classArgBindDepth12);
+                        // § collArgNamedBlkLocalNoBind15 (VERIFIER FIX) — see
+                        // SITE 1; the same one-symbol-class carve-out.
+                        CollArgBind15 cba0(collArgBindDepth15);
+                        for (size_t ai = 1; ai < call.arguments().size(); ai++)
+                            if (auto* a2 = emitExpr(*call.arguments()[ai], fc0,
+                                                    prefix, netMap))
+                                fargs->push_back(a2);
+                    }
                     if (!fargs->empty())
                         fc0->Tf_call_args(fargs);
                     return fc0;

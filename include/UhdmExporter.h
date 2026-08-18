@@ -2330,6 +2330,27 @@ private:
     // arguments never enter (`$display("%0d", f)` binds nothing) and a
     // CONCATENATION operand leaves it (`sink({f, loc})` binds neither).
     int classArgBindDepth12 = 0;
+    // § collArgNamedBlkLocalNoBind15 (VERIFIER FIX, r10buvm15) — depth of
+    // § retNameRecvCollapse69 COLLAPSED-CALL argument nesting.  It exists ONLY
+    // so the gate can tell the window § retNameRecvCollapseArgsBindLikeBody15
+    // newly opens from the § classArgBind12 windows that were already open, and
+    // it suppresses exactly ONE symbol class inside it: a Variable declared in a
+    // NAMED statement block, inside an IN-BODY class method.  MEASURED on
+    // v5_named15.sv against Surelog golden:
+    //   n20 `nb15: begin int nloc; mk.one(nloc); end`  golden BARE  (suppress)
+    //   n31 the same local read from an inner UNNAMED begin  golden BARE
+    //   n10/n30 an UNNAMED-block local, same depths          golden BOUND
+    //   n23 a FORMAL and n25 a BODY local in the named block golden BOUND
+    //   n50 the SAME named-block shape in a PACKAGE function golden BOUND
+    //       — which is why the class guard is in the gate and not assumed
+    //   n40 the same shape in an OUT-OF-BODY method          golden BOUND
+    // Surelog's CompileHelper::bindVariable walks the pexpr's VpiParent chain
+    // and only ever inspects `uhdmbegin` / `uhdmfunction` / `uhdmtask` scopes;
+    // a NAMED block serializes as `uhdmnamed_begin`, so its locals are never
+    // found, while the enclosing function's formals and body locals still are.
+    // blkLocalSameCtrlDepth57 already encodes the same exclusion
+    // (`!declSym.name.empty()` -> refuse) for § controlBodyNoBind28's carve-out.
+    int collArgBindDepth15 = 0;
     // § classInBodyRecvCallArgNoBind52 — depth of RECEIVER-QUALIFIED call
     // ARGUMENT nesting, i.e. a call rendered as the two-or-more element
     // `hier_path{ref_obj recv…, method_func_call m}` shape that EXPRESSION
