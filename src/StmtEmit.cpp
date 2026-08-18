@@ -2520,11 +2520,51 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // drilled element var, 283 `array_var vs <null>` rows appeared
                 // — golden binds the array_var object in the body exactly as
                 // it binds an int_var.
-                return (lv->UhdmType() == UHDM::uhdmint_var ||
-                        lv->UhdmType() == UHDM::uhdmarray_var || assocIdx19 ||
-                        res22)
-                           ? lv
-                           : nullptr;
+                // § foreachElabLoopVarAnyKindBinds17 — AND SO DOES EVERY
+                // OTHER RESOLVED KIND.  The producer has no kind test at all:
+                // `UhdmWriter::lateBinding`'s foreach arm
+                // (UhdmWriter.cpp:3522) binds `ref->Actual_group((expr*)var)`
+                // for every `vpiLoopVars` entry whose name matches, refusing
+                // only `uhdmref_var` / `uhdmref_obj` — and a loop variable
+                // stops being a `ref_var` exactly when
+                // `lateTypedefBinding` -> `swapForSpecifiedVar`
+                // (UhdmWriter.cpp:2490) has swapped it for the variable
+                // `getSimpleVarFromTypespec` makes out of the iterated array's
+                // typespec, which `writePackage` does only `if (elaborated)`
+                // (UhdmWriter.cpp:1301-1304).  That IS the def/elab split the
+                // § foreachLoopVarObjs9 note describes, and the kind list was
+                // only ever a proxy for it.
+                //
+                // The pass-9 objection above ("161 string_var, 99 bit_var and
+                // 56 logic_var refs golden leaves alone") was a LISTING
+                // disagreement, not a binding one, and passes 19-22 closed it:
+                // measured at 72931ce, the foreach census joins BuildUVMPkg,
+                // SeqDriver, MiniAmiq, SimpleUVM and Scoreboard with only
+                // 3 / 22 / 2 / 2 / 4 `lv=` listing differences over 773-1458
+                // sites each, and every site this widening moves lists the
+                // SAME object kind on both sides.  The kinds golden binds and
+                // we did not are byte_var, long_int_var, bit_var, string_var,
+                // class_var and struct_var — 28 references in BuildUVMPkg,
+                // 15 in each of the four UVM rows.
+                //
+                // THE WIDENING IS GATED ON A PACKAGE HOME (curSubPkgHome17),
+                // and the counter-witness that narrowed it is arm a2's PROGRAM
+                // function: `writePackage` is the only writer that runs
+                // `lateTypedefBinding` on an elaborated listing, so a program-
+                // (and interface-) homed foreach keeps an unresolved `ref_var`
+                // loop variable in golden and binds NOTHING, while WE list a
+                // resolved one (residue R3) — ungated, this bound where golden
+                // is bare.  A MODULE home is unaffected either way: its
+                // references take ExprEmit's `implicitNetModule` arm and bind
+                // the implicit net.  The kinds pass 9/19-22 already registered
+                // keep binding wherever they did, so no cell this pass does not
+                // name can move.
+                if (!curSubPkgHome17 &&
+                    !(lv->UhdmType() == UHDM::uhdmint_var ||
+                      lv->UhdmType() == UHDM::uhdmarray_var || assocIdx19 ||
+                      res22))
+                    return nullptr;
+                return lv;
             };
             // § foreachLoopVarObjs9 — a body reference to a foreach LOOP
             // VARIABLE binds the object the loop lists in vpiLoopVars, but

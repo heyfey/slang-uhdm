@@ -5696,6 +5696,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // the fold in both of the importer's views, because golden's clone is
         // a copy of the elaborated object (arm a4).
         bool savedPRF86 = pkgRetFoldHome86;
+        bool savedPKH17 = curSubPkgHome17;
         {
             bool homePkg86 = pkgScope && !classScope;
             if (!homePkg86 && classScope && oob)
@@ -5703,6 +5704,11 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     homePkg86 = hp86->UhdmType() == UHDM::uhdmpackage;
             pkgRetFoldHome86 =
                 homePkg86 && !(pkgDefViewBody9 && !pkgImportCloneEmit);
+            // § foreachElabLoopVarAnyKindBinds17's home half (see
+            // UhdmExporter.h) — the SAME home test, without the view clause:
+            // the def twin lists an unresolved `ref_var` loop variable and so
+            // registers nothing anyway.
+            curSubPkgHome17 = homePkg86;
         }
         auto* savedBodyStmt9 = tfBodyStmt9;
         bool savedBodyIo9 = tfBodyTfItems9;
@@ -5852,6 +5858,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 setLoc(eb65, ebn65->name.range());
                 body = eb65;
             }
+        curSubPkgHome17 = savedPKH17;
         classMethodNoBind = savedCMNB;
         curSubClassScope9 = savedSCS9;
         curSubOob9 = savedSOB9;

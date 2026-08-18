@@ -2614,6 +2614,19 @@ private:
     // classMethodNoBind, which if/case CONDITIONS toggle off mid-body.
     bool curSubClassScope9 = false;
     bool curSubOob9 = false;
+    // § foreachElabLoopVarAnyKindBinds17 — the HOME half of that law: the
+    // subroutine being emitted is homed in a PACKAGE (the package's own
+    // function/task, or an OUT-OF-BODY class-method definition whose class is
+    // declared in a package), which is the one home where Surelog's
+    // `writePackage` runs `lateTypedefBinding` on the elaborated listing and
+    // so hands `lateBinding` a loop variable that is no longer a `ref_var`.
+    // The same test `pkgRetFoldHome86` computes for its own window; kept
+    // separate because that one also carries a VIEW clause.  A module home
+    // binds the implicit net instead (ExprEmit's `implicitNetModule` arm), a
+    // `$unit` home binds nothing, and a PROGRAM / INTERFACE home is a golden
+    // `ref_var` listing we do not reproduce (residue R3) -- arm a2 measures
+    // all four.
+    bool curSubPkgHome17 = false;
     // § externProtoInBodyCallBinds12 — the CALLEE-LINK half of the law the two
     // flags above describe, and the half that was MISSING.  The comment above
     // is right that a class body resolves only that class's own declarations
