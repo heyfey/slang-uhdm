@@ -1,0 +1,37 @@
+r10uvm96 — INPUTS AND HOW TO REPRODUCE EVERY NUMBER
+===================================================
+base commit        f5765f1  (worktree /tmp/wt_r10uvm96, branch detached)
+pristine binary    build of f5765f1, md5 ebb6af4f6705b88b4993b8386627b634
+                   (byte-equal to the main tree's build/slang-uhdm at f5765f1 —
+                    verified by md5 before any edit, so the "pristine" side of
+                    every comparison below is the campaign's own binary)
+patched binary     md5 cb884aa0dcaca50c4c339de2f1fe2089
+judge              ~/git-repos/UHDM/build/bin/uhdm-cmp  (LHS is ALWAYS golden)
+golden             Surelog ~/git-repos/Surelog/build/bin/surelog, and for the
+                   corpus rows the harness's own golden cache (read out of each
+                   cell's cmds.txt, never guessed)
+baselines          results/gate_uhdm2rtlil.csv and results/golden_surelog.csv
+                   AS COMMITTED IN THIS WORKTREE (the /tmp/ctl_*_f5765f1.csv
+                   control set was rotated away by the master mid-pass when the
+                   main tree advanced to f7cc5ad; the worktree copies are the
+                   ones used, and they are READ ONLY — nothing was promoted)
+
+build              cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
+                     -DCMAKE_CXX_COMPILER=/opt/rh/gcc-toolset-14/root/usr/bin/c++
+                   cmake --build build -j 2        (-j 2 ONLY; md5 separately)
+
+census tool        g++ -O2 -std=c++17 ct96cen.cpp -I ~/.local/include \
+                     -L ~/.local/lib64 -L ~/.local/lib -luhdm -lcapnp -lkj \
+                     -o /tmp/r10uvm96_ct96cen
+census over a wd   ./cen96.sh <verify_golden workdir> <outdir>
+join one cell      python3 join96.py <cell>.g <cell>.o <tag>
+three-way arm      PAT=... PRI=... MODE=def|elab ./three96.sh <arm.sv>
+wide boundary      PRI=... PAT=... ROOT=<copy of tools/probe> BWD=... ./bound96.sh
+named pins         ./pins96.sh <patched sweep wd> <pristine sweep wd>
+row heads          ./rowheads.sh <sweep wd> <outdir> SeqDriver SimpleUVM Scoreboard MiniAmiq BuildUVMPkg Earlgrey_0_1 Rggen
+
+arms               g96_a1_keywords.sv  the keyword table, one home, one carrier
+                   g96_a2_homes.sv     one keyword, every home and carrier
+                   g96_a3_operands.sv  one keyword, every operand shape
+                   g96_a4_typedefs.sv  NEGATIVE: typedef targets must NOT move
+                   g96_a5_head.sv      the head, minimised (PASSES uhdm-cmp)

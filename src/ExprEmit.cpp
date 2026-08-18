@@ -11866,6 +11866,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                  sm->getLineNumber(lr.end()),
                                                  sm->getColumnNumber(lr.end()), "",
                                                  nullptr, prefix, expr.type});
+                        // § castTargetKeywordTypespecKind96 — carry the WRITTEN
+                        // keyword to the drain (the computed type cannot tell
+                        // `time'` from `int'`, nor `realtime'` from `real'`).
+                        pendingCastTs.back().castLeftSyn = cesyn.left;
                         op->Typespec(rt0);
                         deferredCast = true;
                     }
@@ -12755,7 +12759,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             if (!cts) {
                 auto& ct = expr.type->getCanonicalType();
-                if (ct.kind == SymbolKind::PredefinedIntegerType &&
+                // § castTargetKeywordTypespecKind96 — the WRITTEN keyword, not
+                // the computed type, picks the kind (EmitHelpers.h carries the
+                // decoded table and the golden cells it was measured on).  The
+                // helper answers only for the keywords this fallback used to
+                // collapse (real / shortreal / realtime / time / integer /
+                // longint / shortint); every other target falls through to the
+                // arms below exactly as before.
+                if (effCastSyn &&
+                    effCastSyn->kind == syntax::SyntaxKind::CastExpression)
+                    cts = castKeywordTypespec96(
+                        s,
+                        effCastSyn->as<syntax::CastExpressionSyntax>()
+                            .left->kind,
+                        ct.isSigned());
+                if (cts) {
+                    // Bound by the keyword table; the shared span/instance
+                    // stamps below still apply.
+                }
+                else if (ct.kind == SymbolKind::PredefinedIntegerType &&
                     ct.as<PredefinedIntegerType>().integerKind ==
                         PredefinedIntegerType::Byte) {
                     auto* bts = s.MakeByte_typespec();

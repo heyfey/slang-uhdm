@@ -3645,6 +3645,14 @@ private:
         // package-scope cast, or a module-view copy of an imported param's
         // init) — stamped as vpiInstance at drain.
         UHDM::instance* pkgInst = nullptr;
+        // The cast target AS WRITTEN.  § castTargetKeywordTypespecKind96:
+        // Surelog picks the typespec kind from the KEYWORD NODE, so the drain
+        // needs the written node, not just the computed type (`castType` alone
+        // cannot tell `time'` from `int'`, nor `realtime'` from `real'`).  The
+        // NODE (not its `SyntaxKind`) is stored because this header carries
+        // forward declarations only.  It sits LAST so the existing positional
+        // aggregate initialisers at the three push sites keep their meaning.
+        const slang::syntax::SyntaxNode* castLeftSyn = nullptr;
     };
     std::vector<PendingCastTs> pendingCastTs;
     // A cast to a packed-ARRAY-of-struct typedef: the fresh per-cast clone

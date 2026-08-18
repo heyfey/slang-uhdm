@@ -1,0 +1,117 @@
+r10uvm96 CENSUS — the cast-target typespec census, golden vs OURS (PRISTINE ebb6af4f6705), both corpora.
+tool: ct96cen.cpp + join96.py ; key = cast operation SPAN + OWNER vpiFullName ; judged = (typespec KIND, ref_typespec VpiName)
+
+== uhdm2rtlil, 1358 databases (both modes)
+   DIFF lines total: 8
+   golden cast-target KIND histogram:
+    592      logic_typespec
+    478      integer_typespec
+    334      int_typespec
+    302      struct_typespec
+    192      byte_typespec
+     56      enum_typespec
+      6      unsupported_typespec
+      4      union_typespec
+      4      packed_array_typespec
+   golden cast-target KIND x WRITTEN TEXT (short texts only):
+    288      int_typespec  <int>
+    268      integer_typespec  <3>
+    252      logic_typespec  <logic signed>
+    216      logic_typespec  <logic [2:0]>
+    192      byte_typespec  <byte>
+     42      int_typespec  <SRC-EMPTY>
+     32      struct_typespec  <op32_i_t>
+     32      integer_typespec  <9>
+     30      integer_typespec  <32>
+     28      integer_typespec  <4>
+     24      integer_typespec  <2>
+     24      integer_typespec  <1>
+     16      struct_typespec  <op32_u_t>
+     16      struct_typespec  <op32_s_t>
+     16      struct_typespec  <op32_j_t>
+     16      struct_typespec  <op32_b_t>
+     16      logic_typespec  <logic>
+     14      logic_typespec  <logic [1:0]>
+     12      integer_typespec  <8>
+      8      integer_typespec  <P + 1>
+   ALL DIFF lines:
+     default_static_cast_simple-a59f5b9a	DIFF	28:17-28:30	module_inst:work@top	G=[]	O=[logic_typespec#<empty>x2]	SRC=SRC?
+     default_static_cast_simple-a59f5b9a	DIFF	29:17-29:30	module_inst:work@top	G=[]	O=[logic_typespec#<empty>x2]	SRC=SRC?
+     default_static_cast_simple-a59f5b9a	DIFF	32:17-32:28	module_inst:work@top	G=[]	O=[logic_typespec#<empty>x2]	SRC=SRC?
+     default_static_cast_simple-a59f5b9a	DIFF	33:17-33:28	module_inst:work@top	G=[]	O=[logic_typespec#<empty>x2]	SRC=SRC?
+     testflags_static_cast_simple-a59f5b9a	DIFF	28:17-28:30	module_inst:work@top	G=[]	O=[logic_typespec#<empty>x2]	SRC=SRC?
+     testflags_static_cast_simple-a59f5b9a	DIFF	29:17-29:30	module_inst:work@top	G=[]	O=[logic_typespec#<empty>x2]	SRC=SRC?
+     testflags_static_cast_simple-a59f5b9a	DIFF	32:17-32:28	module_inst:work@top	G=[]	O=[logic_typespec#<empty>x2]	SRC=SRC?
+     testflags_static_cast_simple-a59f5b9a	DIFF	33:17-33:28	module_inst:work@top	G=[]	O=[logic_typespec#<empty>x2]	SRC=SRC?
+
+== surelog, 956 databases (both modes)
+   DIFF lines total: 1126
+   golden cast-target KIND histogram:
+   2935      int_typespec
+   1086      integer_typespec
+    489      enum_typespec
+    447      logic_typespec
+    136      bit_typespec
+    121      struct_typespec
+     63      unsupported_typespec
+     52      string_typespec
+     18      real_typespec
+      5      union_typespec
+   DIFF families (G-multiset vs O-multiset):
+    288      G=[int_typespecx2]  O=[int_typespecx4]
+    136      G=[int_typespecx1]  O=[int_typespecx4]
+    127      G=[logic_typespecx2]  O=[logic_typespecx4]
+    119      G=[int_typespecx1]  O=[int_typespecx2]
+     62      G=[]  O=[<noref>#-x2]
+     52      G=[]  O=[int_typespecx2]
+     48      G=[int_typespecx1]  O=[]
+     40      G=[enum_typespecx1]  O=[]
+     39      G=[]  O=[logic_typespecx2]
+     36      G=[]  O=[enum_typespecx1]
+     26      G=[enum_typespecx2]  O=[]
+     18      G=[real_typespecx1]  O=[logic_typespecx1]
+     17      G=[]  O=[int_typespecx1]
+     12      G=[]  O=[integer_typespecx1]
+     10      G=[]  O=[enum_typespecx2]
+      9      G=[unsupported_typespecx2]  O=[enum_typespecx2]
+      9      G=[]  O=[logic_typespecx1]
+      8      G=[]  O=[enum_typespecx4]
+      8      G=[int_typespecx2]  O=[int_typespecx8]
+      8      G=[integer_typespecx3]  O=[integer_typespecx2]
+      8      G=[integer_typespecx32]  O=[]
+      8      G=[integer_typespecx1]  O=[]
+      8      G=[enum_typespecx2]  O=[enum_typespecx4]
+      4      G=[int_typespecx1]  O=[int_typespecx8]
+      4      G=[int_typespecx1]  O=[int_typespecx3]
+      4      G=[integer_typespecx2]  O=[]
+      4      G=[enum_typespecx1 | unsupported_typespecx1]  O=[enum_typespecx2]
+      3      G=[]  O=[integer_typespecx2]
+      2      G=[unsupported_typespecx1]  O=[]
+      2      G=[struct_typespecx7]  O=[]
+      2      G=[integer_typespecx2]  O=[integer_typespecx5]
+      2      G=[integer_typespecx2]  O=[integer_typespecx3]
+      1      G=[int_typespecx2]  O=[int_typespecx1]
+      1      G=[integer_typespecx2]  O=[integer_typespecx4]
+      1      G=[integer_typespecx1]  O=[integer_typespecx2]
+
+== THE ONLY CAST-TARGET *KIND* DISAGREEMENT OF THE KEYWORD FAMILY IN EITHER CORPUS: 18 cells, real -> logic
+   default_BuildUVMPkg-bf853d43	DIFF	57204:16-57204:29	function:uvm_pkg::uvm_time::to_m_res	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   default_BuildUVMPkg-bf853d43	DIFF	57222:21-57222:34	function:uvm_pkg::uvm_time::get_realtime	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   default_MiniAmiq-544c7f61	DIFF	104:21-104:34	function:uvm_pkg::uvm_tlm_time::get_realtime	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   default_MiniAmiq-544c7f61	DIFF	87:16-87:29	function:uvm_pkg::uvm_tlm_time::to_m_res	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   default_Scoreboard-59431470	DIFF	104:21-104:34	function:uvm_pkg::uvm_tlm_time::get_realtime	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   default_Scoreboard-59431470	DIFF	87:16-87:29	function:uvm_pkg::uvm_tlm_time::to_m_res	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   default_SeqDriver-32af76aa	DIFF	104:21-104:34	function:uvm_pkg::uvm_tlm_time::get_realtime	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   default_SeqDriver-32af76aa	DIFF	87:16-87:29	function:uvm_pkg::uvm_tlm_time::to_m_res	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   default_SimpleUVM-1dc93a62	DIFF	104:21-104:34	function:uvm_pkg::uvm_tlm_time::get_realtime	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   default_SimpleUVM-1dc93a62	DIFF	87:16-87:29	function:uvm_pkg::uvm_tlm_time::to_m_res	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   testflags_BuildUVMPkg-bf853d43	DIFF	57204:16-57204:29	function:uvm_pkg::uvm_time::to_m_res	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   testflags_BuildUVMPkg-bf853d43	DIFF	57222:21-57222:34	function:uvm_pkg::uvm_time::get_realtime	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   testflags_MiniAmiq-544c7f61	DIFF	104:21-104:34	function:uvm_pkg::uvm_tlm_time::get_realtime	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   testflags_MiniAmiq-544c7f61	DIFF	87:16-87:29	function:uvm_pkg::uvm_tlm_time::to_m_res	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   testflags_SeqDriver-32af76aa	DIFF	104:21-104:34	function:uvm_pkg::uvm_tlm_time::get_realtime	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   testflags_SeqDriver-32af76aa	DIFF	87:16-87:29	function:uvm_pkg::uvm_tlm_time::to_m_res	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   testflags_SimpleUVM-1dc93a62	DIFF	104:21-104:34	function:uvm_pkg::uvm_tlm_time::get_realtime	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+   testflags_SimpleUVM-1dc93a62	DIFF	87:16-87:29	function:uvm_pkg::uvm_tlm_time::to_m_res	G=[real_typespec#<empty>x1]	O=[logic_typespec#<empty>x1]	SRC=real
+
+== POST-PATCH (cb884aa0dcac), the 9 moved databases re-censused: 'G=[real_typespec' disagreements remaining = 0

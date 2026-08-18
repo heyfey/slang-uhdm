@@ -1,0 +1,109 @@
+r10uvm96 GRID — measured ON GOLDEN (Surelog -parse -nocache, and -elabuhdm for the elab view)
+then scored three-way (golden / pristine ebb6af4f6705 / patched cb884aa0dcac) by three96.sh.
+ALREADY-OK = pristine already equalled golden ; FIXED = pristine differed, patched equals golden ;
+BROKE = pristine equalled golden, patched does not (MUST BE 0) ; STILL = both differ.
+
+g96_a1_keywords_def: pris=rc4/CMP_FAIL/heads1/lines12 pat=rc4/CMP_FAIL/heads1/lines12
+   FIXED       11:14-11:22|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       12:14-12:27|shortreal              G=short_real_typespec    PRI=logic_typespec         PAT=short_real_typespec
+   FIXED       13:14-13:26|realtime               G=time_typespec          PRI=logic_typespec         PAT=time_typespec
+   FIXED       14:14-14:22|time                   G=time_typespec          PRI=int_typespec           PAT=time_typespec
+   FIXED       16:14-16:25|integer                G=integer_typespec       PRI=int_typespec           PAT=integer_typespec
+   FIXED       17:14-17:25|longint                G=long_int_typespec      PRI=int_typespec           PAT=long_int_typespec
+   FIXED       18:14-18:26|shortint               G=short_int_typespec     PRI=int_typespec           PAT=short_int_typespec
+   STILL       24:14-24:24|string                 G=string_typespec        PRI=integer_typespec       PAT=integer_typespec
+   STILL       25:14-25:24|SRC?                   G=<none>                 PRI=<noref>                PAT=<noref>
+   STILL       26:14-26:26|SRC?                   G=<none>                 PRI=<noref>                PAT=<noref>
+   CELLS 16  ALREADY-OK 6  FIXED 7  BROKE 0  STILL 3
+g96_a1_keywords_elab: pris=rc4/CMP_FAIL/heads1/lines12 pat=rc4/CMP_FAIL/heads1/lines12
+   FIXED       11:14-11:22|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       12:14-12:27|shortreal              G=short_real_typespec;short_real_typespec PRI=logic_typespec;logic_typespec PAT=short_real_typespec;short_real_typespec
+   FIXED       13:14-13:26|realtime               G=time_typespec;time_typespec PRI=logic_typespec;logic_typespec PAT=time_typespec;time_typespec
+   FIXED       14:14-14:22|time                   G=time_typespec;time_typespec PRI=int_typespec;int_typespec PAT=time_typespec;time_typespec
+   FIXED       16:14-16:25|integer                G=integer_typespec;integer_typespec PRI=int_typespec;int_typespec PAT=integer_typespec;integer_typespec
+   FIXED       17:14-17:25|longint                G=long_int_typespec;long_int_typespec PRI=int_typespec;int_typespec PAT=long_int_typespec;long_int_typespec
+   FIXED       18:14-18:26|shortint               G=short_int_typespec;short_int_typespec PRI=int_typespec;int_typespec PAT=short_int_typespec;short_int_typespec
+   STILL       24:14-24:24|string                 G=string_typespec;string_typespec PRI=integer_typespec;integer_typespec PAT=integer_typespec;integer_typespec
+   STILL       25:14-25:24|SRC?                   G=<none>                 PRI=<noref>                PAT=<noref>
+   STILL       26:14-26:26|SRC?                   G=<none>                 PRI=<noref>                PAT=<noref>
+   CELLS 16  ALREADY-OK 6  FIXED 7  BROKE 0  STILL 3
+g96_a2_homes_def: pris=rc0/CMP_FAIL/heads1/lines20 pat=rc0/CMP_FAIL/heads1/lines29
+   FIXED       12:16-12:29|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       16:11-16:24|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       20:14-20:27|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       23:23-23:36|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       26:11-26:24|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       30:12-30:25|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       39:12-39:25|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       42:10-42:23|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       45:10-45:19|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       46:14-46:23|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       47:11-47:20|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       49:20-49:29|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   CELLS 12  ALREADY-OK 0  FIXED 12  BROKE 0  STILL 0
+g96_a2_homes_elab: pris=rc0/CMP_FAIL/heads1/lines20 pat=rc0/CMP_FAIL/heads1/lines1506
+   FIXED       12:16-12:29|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       16:11-16:24|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   STILL       20:14-20:27|real                   G=real_typespec          PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       23:23-23:36|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       26:11-26:24|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       30:12-30:25|real                   G=real_typespec;real_typespec;real_typespec;real_typespec;real_typespec PRI=logic_typespec;logic_typespec;logic_typespec;logic_typespec;logic_typespec PAT=real_typespec;real_typespec;real_typespec;real_typespec;real_typespec
+   FIXED       39:12-39:25|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       42:10-42:23|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       45:10-45:19|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       46:14-46:23|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   STILL       47:11-47:20|real                   G=real_typespec          PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       49:20-49:29|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   CELLS 12  ALREADY-OK 0  FIXED 10  BROKE 0  STILL 2
+g96_a3_operands_def: pris=rc0/CMP_FAIL/heads1/lines12 pat=rc0/PASS_CMP/heads0/lines0
+   FIXED       17:11-17:21|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       18:11-18:19|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       19:11-19:19|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       20:11-20:21|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       21:11-21:22|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       22:11-22:24|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       23:11-23:25|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       24:11-24:24|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       25:11-25:23|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       26:11-26:22|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       27:11-27:24|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       28:11-28:34|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       29:11-29:25|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       30:11-30:27|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       31:11-31:35|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       32:11-32:29|shortreal              G=short_real_typespec    PRI=logic_typespec         PAT=short_real_typespec
+   FIXED       33:11-33:27|realtime               G=time_typespec          PRI=logic_typespec         PAT=time_typespec
+   CELLS 18  ALREADY-OK 1  FIXED 17  BROKE 0  STILL 0
+g96_a3_operands_elab: pris=rc0/CMP_FAIL/heads1/lines12 pat=rc0/PASS_CMP/heads0/lines0
+   FIXED       17:11-17:21|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       18:11-18:19|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       19:11-19:19|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       20:11-20:21|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       21:11-21:22|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       22:11-22:24|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       23:11-23:25|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       24:11-24:24|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       25:11-25:23|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       26:11-26:22|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       27:11-27:24|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       28:11-28:34|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       29:11-29:25|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       30:11-30:27|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       31:11-31:35|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       32:11-32:29|shortreal              G=short_real_typespec;short_real_typespec PRI=logic_typespec;logic_typespec PAT=short_real_typespec;short_real_typespec
+   FIXED       33:11-33:27|realtime               G=time_typespec;time_typespec PRI=logic_typespec;logic_typespec PAT=time_typespec;time_typespec
+   CELLS 18  ALREADY-OK 1  FIXED 17  BROKE 0  STILL 0
+g96_a4_typedefs_def: pris=rc0/CMP_FAIL/heads1/lines32 pat=rc0/CMP_FAIL/heads1/lines32
+   STILL       24:11-24:22|realtime               G=time_typespec          PRI=real_typespec          PAT=real_typespec
+   CELLS 8  ALREADY-OK 7  FIXED 0  BROKE 0  STILL 1
+g96_a4_typedefs_elab: pris=rc0/CMP_FAIL/heads1/lines32 pat=rc0/CMP_FAIL/heads1/lines32
+   STILL       24:11-24:22|realtime               G=time_typespec;time_typespec PRI=real_typespec;real_typespec PAT=real_typespec;real_typespec
+   CELLS 8  ALREADY-OK 7  FIXED 0  BROKE 0  STILL 1
+g96_a5_head_def: pris=rc0/CMP_FAIL/heads1/lines12 pat=rc0/PASS_CMP/heads0/lines0
+   FIXED       12:16-12:29|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   FIXED       15:21-15:34|real                   G=real_typespec          PRI=logic_typespec         PAT=real_typespec
+   CELLS 2  ALREADY-OK 0  FIXED 2  BROKE 0  STILL 0
+g96_a5_head_elab: pris=rc0/CMP_FAIL/heads1/lines12 pat=rc0/PASS_CMP/heads0/lines0
+   FIXED       12:16-12:29|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   FIXED       15:21-15:34|real                   G=real_typespec;real_typespec PRI=logic_typespec;logic_typespec PAT=real_typespec;real_typespec
+   CELLS 2  ALREADY-OK 0  FIXED 2  BROKE 0  STILL 0

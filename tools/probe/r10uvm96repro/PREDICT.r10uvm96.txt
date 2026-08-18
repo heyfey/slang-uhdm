@@ -1,0 +1,31 @@
+r10uvm96 — THE MOVER PREDICTION, MADE FROM PRISTINE DATABASES BEFORE THE PATCH
+==============================================================================
+Made from `cen96.sh` + `join96.py` over the f5765f1 control workdirs
+(/tmp/ctl_wd_{sl,u2r}_f5765f1, binary md5 ebb6af4f6705b88b4993b8386627b634),
+i.e. from PRISTINE databases only.  No patched binary existed yet.
+
+The census found EXACTLY 18 cast cells in either corpus where golden's cast
+target typespec KIND and ours disagree in the KEYWORD family, and every one is
+`real` -> golden real_typespec / ours logic_typespec.  They sit in 9 databases,
+two cells each (uvm-1.2 tlm2/uvm_tlm2_time.svh 87:16 and 104:21; the same two
+macro-free lines land at uvm_pkg.sv 57204:16 and 57222:21 in BuildUVMPkg's
+1800.2 pp_output).
+
+PREDICTED MOVERS (by name, 9 of 956 surelog databases):
+    default/BuildUVMPkg      testflags/BuildUVMPkg
+    default/MiniAmiq         testflags/MiniAmiq
+    default/SeqDriver        testflags/SeqDriver
+    default/SimpleUVM        testflags/SimpleUVM
+    default/Scoreboard       (testflags/Scoreboard produces NO database at all
+                              — no golden, no slang.uhdm — so it cannot move)
+PREDICTED MOVERS in uhdm2rtlil: NONE (0 of 1358).  The u2r corpus contains ZERO
+`real'` / `shortreal'` / `realtime'` casts (grep over every .sv/.svh/.v in
+~/git-repos/uhdm2rtlil/test finds none) and its golden cast targets are only
+int / byte / logic / size / typedef / struct / enum.
+
+PREDICTED SHAPE OF EACH MOVE: exactly 8 uhdm-dump lines per database —
+2 casts x (the in-tree copy + the design's top-level typespec listing) x
+(one line removed, one added), and NOTHING else.
+
+THE u2r FENCE THE BRIEF ASKED FOR: there is no u2r CMP_EQUAL row carrying our
+logic_typespec on a `real` cast, because there is no `real` cast in u2r at all.

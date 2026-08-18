@@ -1239,6 +1239,72 @@ inline bool isTypeSyntaxKind(syntax::SyntaxKind k) {
     }
 }
 
+// § castTargetKeywordTypespecKind96 (r10uvm96) — AN EXPLICIT CAST'S TARGET
+// TYPESPEC KIND IS A PURE FUNCTION OF THE KEYWORD WRITTEN LEFT OF THE `'`.
+//
+// Surelog's cast arm (CompileExpression.cpp:2636, `paCast`/`paConstant_cast`)
+// hands the casting-type node straight to `CompileHelper::compileTypespec`,
+// whose keyword cases (CompileType.cpp:1480) funnel into
+// `compileBuiltinTypespec` (CompileType.cpp:1126) — a switch on the PARSE NODE,
+// never on any computed type.  Measured cell-by-cell on purpose-built golden
+// (`g96_a1_keywords.sv`, one `$display(<kw>'(q))` per keyword):
+//
+//   real       -> real_typespec          shortreal -> short_real_typespec
+//   realtime   -> time_typespec          time      -> time_typespec
+//   integer    -> integer_typespec       longint   -> long_int_typespec
+//   shortint   -> short_int_typespec     int       -> int_typespec
+//   byte       -> byte_typespec          bit       -> bit_typespec
+//   logic/reg  -> logic_typespec         string    -> string_typespec
+//   N'         -> integer_typespec (the size-cast road, INT:<N>)
+//
+// `compileBuiltinTypespec` opens with `bool isSigned = true` and only an
+// explicit `unsigned` clears it, so the five INTEGER ATOMS carry vpiSigned:1
+// while real / shortreal / time / realtime / bit / logic carry NO signedness at
+// all — measured in the golden's own top-level typespec listing.
+//
+// Our two cast-typespec mint sites (ExprEmit's fallback and ModuleEmit's
+// deferred `pendingCastTs` drain) keyed on the SLANG TYPE instead, which
+// collapses every `PredefinedIntegerType` onto `int_typespec` and every
+// non-integral keyword onto the catch-all `logic_typespec`.  This helper
+// restores the WRITTEN-KEYWORD dispatch for exactly the kinds that collapse;
+// it returns nullptr for every other syntax kind so the callers' existing arms
+// (int / byte / bit / logic / reg / string / size / typedef / struct / enum,
+// all already equal to golden across both corpora) are reached UNCHANGED.
+inline UHDM::typespec* castKeywordTypespec96(UHDM::Serializer& s,
+                                             syntax::SyntaxKind k,
+                                             bool srcSigned) {
+    switch (k) {
+        case syntax::SyntaxKind::RealType:
+            return s.MakeReal_typespec();
+        case syntax::SyntaxKind::ShortRealType:
+            return s.MakeShort_real_typespec();
+        // `realtime` and `time` are ONE typespec kind in Surelog: the
+        // `paNonIntType_RealTime` case (CompileType.cpp:2041) and the
+        // `paIntegerAtomType_Time` case both mint `time_typespec`, neither
+        // stamping signedness.
+        case syntax::SyntaxKind::RealTimeType:
+        case syntax::SyntaxKind::TimeType:
+            return s.MakeTime_typespec();
+        case syntax::SyntaxKind::IntegerType: {
+            auto* t = s.MakeInteger_typespec();
+            t->VpiSigned(srcSigned);
+            return t;
+        }
+        case syntax::SyntaxKind::LongIntType: {
+            auto* t = s.MakeLong_int_typespec();
+            t->VpiSigned(srcSigned);
+            return t;
+        }
+        case syntax::SyntaxKind::ShortIntType: {
+            auto* t = s.MakeShort_int_typespec();
+            t->VpiSigned(srcSigned);
+            return t;
+        }
+        default:
+            return nullptr;
+    }
+}
+
 // True when the instance's connection list is positional (ordered).
 inline bool hasOrderedConns(const InstanceSymbol& inst) {
     auto syn = inst.getSyntax();

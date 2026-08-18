@@ -17366,7 +17366,18 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         if (pc.castType) {
             auto& ct = pc.castType->getCanonicalType();
             UHDM::typespec* tts;
-            if (ct.kind == SymbolKind::PredefinedIntegerType) {
+            // § castTargetKeywordTypespecKind96 — the WRITTEN keyword picks the
+            // kind (EmitHelpers.h carries the table); the helper answers only
+            // for the keywords this drain used to collapse onto int_typespec /
+            // logic_typespec, so every other target keeps its arm below.
+            if (auto* kts96 = castKeywordTypespec96(
+                    s,
+                    pc.castLeftSyn ? pc.castLeftSyn->kind
+                                   : syntax::SyntaxKind::Unknown,
+                    ct.isSigned())) {
+                tts = kts96;
+            }
+            else if (ct.kind == SymbolKind::PredefinedIntegerType) {
                 auto ik = ct.as<PredefinedIntegerType>().integerKind;
                 if (ik == PredefinedIntegerType::Byte) {
                     auto* bts2 = s.MakeByte_typespec();

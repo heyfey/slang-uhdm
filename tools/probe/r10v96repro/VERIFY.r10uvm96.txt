@@ -1,0 +1,168 @@
+r10uvm96 ADVERSARIAL VERIFICATION — § castTargetKeywordTypespecKind96
+VERDICT: ACCEPT (no pristine-right -> patched-wrong found on legal SV; no fix needed).
+Everything below was re-measured in /tmp/wt_v96 (patched) and /tmp/wt_v96pris
+(pristine), both fresh worktrees at f5765f1, both binaries built by the verifier.
+
+0. REPRODUCIBILITY OF THE BINARIES (bit-for-bit)
+   pristine md5 ebb6af4f6705b88b4993b8386627b634   <- IDENTICAL to the implementer's
+   patched  md5 cb884aa0dcaca50c4c339de2f1fe2089   <- IDENTICAL to the implementer's
+   Both -j 2, 0 errors, frozen chmod 555 at /tmp/v96_{pris,pat}.bin before any sweep.
+   The patch also applies --check CLEAN on the CURRENT main-tree HEAD f7cc5ad.
+   Surface audit: production = include/UhdmExporter.h src/EmitHelpers.h src/ExprEmit.cpp
+   src/ModuleEmit.cpp + tools/probe/r10uvm96repro/ ONLY.  results/*.csv untouched
+   (git diff vs f5765f1 over results/ = 0 lines).  Fence check: 0 hits for any of the
+   four slang-fenced names in the whole patch.  No hard-coded shared scratch
+   (both `rm -rf` targets are pass-prefixed and env-overridable).
+
+1. GATES (all mandatory, re-run by the verifier)
+   goldens  patched 23/0 | pristine 23/0 | SLANG_UHDM=/bin/false 0/23
+   u2r      testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL  (patched AND pristine)
+            default   679 / 50 / 2                                       (patched AND pristine)
+            ct8rows vs the worktree's committed results/gate_uhdm2rtlil.csv: PASS 0 differing rows
+            ct8rows pristine-vs-patched, both modes: PASS 0 differing rows (status AND dump)
+            cmds.txt audit BY BINARY PATH: 1458/1458 name /tmp/v96_pat.bin (patched sweep),
+            1458/1458 name /tmp/v96_pris.bin (pristine sweep), 0 name any other binary.
+   surelog  --mode both, patched AND pristine, IDENTICAL histograms:
+            936 CMP_EQUAL / 20 CMP_NOTEQUAL / 10 DEFERRED / 3 NO_DATABASE / 1 NO_UHDM /
+            567 SLANG_REJECT / 48 SURELOG_FAIL / 1 TIMEOUT / 2 UNTRANSLATABLE  (1588 rows)
+            ct8rows vs committed results/golden_surelog.csv: PASS 0 differing rows over 1588
+            ct8rows pristine-vs-patched:                     PASS 0 differing rows
+            NO ROW CONVERTED.  results/*.csv NOT touched.
+   byteverify SELFCHECK=1
+            u2r     PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358   selfcheck 1357/1358 flagged
+            surelog PATH_SETS_IDENTICAL (956)   MOVERS 9 / 956    selfcheck 955/956 flagged
+            the nine are EXACTLY the nine PREDICT.r10uvm96.txt named before the patched
+            binary existed.  Each mover scored field-by-field against the REBUILT golden:
+            8 dump lines, ORDERED == ORDER-BLIND == 8 (so Scoreboard/default's coin did
+            not flip), every line a typespec KIND line, 0 non-typespec lines,
+            logic_typespec -> real_typespec at 87:16 / 104:21 (57204:16 / 57222:21 in
+            BuildUVMPkg's pp_output).  Golden at those spans IS real_typespec, and the
+            Compare-visible ref VpiName is <empty> on all three sides => TO-GOLDEN.
+   pins     InterfaceModPort/BlackParrotComplex/YosysOldOr SAME; SVSwitch 4842211c4030;
+            YosysVerx 6ccda350c24a.  pins SAME=10 MOVED=0 UNKNOWN-NAME=0.
+   canaries ok=56 changed=0 (surelog) / ok=9 changed=0 (u2r) with the pass's own copies,
+            which are BYTE-IDENTICAL to r10uvm95repro's (verified by diff);
+            ctcan2 PASS x2; canaudit audited=33 UNCOVERED=0 FENCE-BREACH=0.
+   rowheads all seven live UVM row-modes 12 -> 17 cmp lines, 1 head, and the new head is
+            exactly the R0 the implementer names (ref_typespec uvm_port_base::this_type,
+            LHS <null>).  BuildUVMPkg 152/1 unchanged.  Earlgrey 17/1 and Rggen 36/1
+            unchanged.
+
+2. THE BOUNDARY, WIDER THAN THE IMPLEMENTER'S
+   The implementer's bound96.sh DOES carry a path filter (-path '*repro*', .sv only),
+   contrary to its README.  The verifier re-ran from a COPY of the whole tools/probe
+   tree with NO path filter and .sv AND .v:
+     PER-FILE   LISTED=2996 PROCESSED=2996 PROCESSED-ASSERT-OK RC_PAIRS_COMPARED=5992
+                RC_DIFF=0 ASYMMETRIC=0 MOVED=22
+                = 8 (the pass's four moving arms x 2 views)
+                + 12 (the verifier's own six moving arms x 2 views)
+                +  2 (r10v63repro/v4_values.sv `return integer'(v-1);`, int_typespec ->
+                      integer_typespec; golden there IS integer_typespec => TO-GOLDEN,
+                      and that arm's uhdm-cmp output is byte-identical, 40 lines/1 head).
+                EVERY prior-pass arm directory is INERT: r10uvm92repro(8 files)
+                r10uvm93repro(16) r10uvm94repro(4) r10uvm95repro(6) r10v95repro(11)
+                r10uvm89repro(2) r10buvm14repro(1) r10uvm77repro(9) r10uvm84repro(23)
+                r10uvm85repro(23) — 0 moved cells each, so uvm92-95's laws, arms and
+                oracles hold by construction (identical databases).
+     PER-DIRECTORY (the implementer ran none) LISTED=1366 PROCESSED=1366
+                RC_DIFF=0 ASYMMETRIC=0 MOVED=8 = the two pass arm dirs x 2 views
+                + r10uvm75repro and r10uvm76repro x 2 views, which are the KNOWN
+                vpiTaskFunc ORDER COIN: order-blind diff 0, and the PRISTINE binary
+                flips against ITSELF by 14-16 lines on the same arm across three runs.
+
+3. THE LAW, RE-DERIVED FROM SURELOG SOURCE (not from the write-up)
+   CompileExpression.cpp:2636 paCast/paConstant_cast -> Simple_type = Child(Casting_type)
+   -> compileTypespec; CompileType.cpp:1480 funnels the keyword cases into
+   compileBuiltinTypespec (CompileType.cpp:1126), which opens `bool isSigned = true`
+   and clears it only on an explicit paSigning_Unsigned.  Read in the source:
+   paIntegerAtomType_Time -> MakeTime_typespec with NO VpiSigned; paNonIntType_RealTime
+   (CompileType.cpp:2041) -> MakeTime_typespec; paNonIntType_Real -> MakeReal_typespec;
+   paNonIntType_ShortReal -> MakeShort_real_typespec; paPrimary_literal(non-StringConst)
+   -> integer_typespec INT:N; paSigning_* -> a $signed/$unsigned sys_func_call, NO cast
+   operation.  The implementer's table is CORRECT in every row.
+   Signing note: `integer unsigned'(v)` is NOT legal casting_type (Surelog: syntax error,
+   "no viable alternative"), so ct.isSigned() can only be true on the five integer atoms
+   in legal SV — the helper's VpiSigned(srcSigned) is right for every reachable cell.
+
+4. BREAKING THE LAW — 9 fresh verifier arms, both views, 18 arm-runs
+   v96_a1_targets   30 cast cells: every keyword + N' + parameter-N' + enum/struct/union/
+                    typedef-of-each/class handles                ALREADY-OK 21 FIXED  7 BROKE 0
+   v96_a2_carriers  22 cells: return / assignment / operation operand / call arg /
+                    condition / case expr / case item / concat / replication / ternary /
+                    param init / range bound                      ALREADY-OK  3 FIXED 16 BROKE 0 (def)
+   v96_a3_homes     17 cells: class in-body / OOB / static, package fn + task, module fn/
+                    task/initial/always_comb/always@*, interface, program, generate,
+                    $unit                                          ALREADY-OK  0 FIXED 15 BROKE 0 (def)
+   v96_a4_operands  22 cells: bare var/param/int lit/real lit/bit-sel/part-sel/indexed
+                    part-sel/unpacked elem/member/call/concat/operation/nested cast/
+                    ternary, x real+shortreal+longint+time+realtime+shortint
+                                                                   ALREADY-OK  1 FIXED 21 BROKE 0
+                    -> PASS_CMP on the patched binary in BOTH views (pristine CMP_FAIL)
+   v96_a5_insts     THREE instances of one cast-bearing module     FIXED 5 BROKE 0
+   v96_a6_exotic    string/chandle/class/parameterized-class/typedef-string casts —
+                    the NEGATIVE arm: the two databases are BYTE-IDENTICAL (0 diff lines)
+   v96_a7_signed    parameter-typed T'/TT', parameter-N', $signed/$unsigned operands
+                                                                   FIXED 5 BROKE 0
+   v96_a8_folds     CONSTANT FOLDS of every moving keyword in params/localparams/case
+                    items/range bounds/replication counts, negative and overflowing
+                                                                   FIXED 14 BROKE 0 (def)
+   v96_a9_signing   `integer unsigned'` etc — Surelog SYNTAX ERROR, out of scope; both
+                    binaries rc 0, delta is typespec kinds only, no crash.
+   BROKE = 0 in ALL 18 runs.
+
+   INSTRUMENT DEFECT FOUND in the implementer's three96.sh: its key is
+   (operation SPAN, SRCTEXT), and SRCTEXT is "SRC?" on OUR side whenever the typespec
+   carries no file — so a golden row and our row for the SAME cell land in DIFFERENT
+   buckets and the cell can only ever score STILL, never BROKE.  The verifier re-scored
+   every arm with a SPAN-ONLY key and a Compare-visible payload (kind, ref VpiName),
+   classifying TO-GOLDEN / AWAY / STILL-CLOSER / STILL-FARTHER (score_v96.py):
+     28 arm dirs: TO-GOLDEN 236  ALREADY-OK 102  STILL 30  STILL-CLOSER 20
+                  AWAY 0  STILL-FARTHER 0.
+
+5. BLAST RADIUS IS WIDER THAN "KIND" — AND EVERY EXTRA CELL IS TO-GOLDEN
+   The write-up says only the typespec KIND moves.  Measured by whole-dump diff over
+   28 arm databases, three cells move something else, all three TO-GOLDEN:
+     a) v96_a2_carriers elab, `integer'(1)` as a CASE ITEM: the folded constant's
+        vpiSize 64 -> 32.  Golden = 32.
+     b) v96_a8_folds  elab, `integer'(2)` as a REPLICATION COUNT: vpiSize 64 -> 32.
+        Golden = 32.
+     c) v96_a8_folds  elab, `time'(4)` as a CASE ITEM: pristine FOLDED it to a constant,
+        patched keeps the cast OPERATION.  Golden keeps the OPERATION.
+   i.e. the cast typespec kind feeds our constant-fold, so the fix also corrects two
+   fold shapes/widths.  On the real corpora this never fires: the 9 movers' diffs are
+   0 non-typespec lines.
+
+6. OWNER-KEYED CORPUS CENSUS, Compare-visible payload (kind + ref VpiName),
+   key = (cast operation SPAN, owner vpiFullName), MULTISET, golden/pristine/patched
+   built from the verifier's own three sweeps (cen3_v96.sh + cenjoin_v96.py):
+     surelog     956 dbs  5352 golden cast cells:
+                 ALREADY-OK 2938  TO-GOLDEN 18  STILL 1108  AWAY 0  STILL-FARTHER 0
+                 all 18 TO-GOLDEN are (logic_typespec,<empty>) -> (real_typespec,<empty>)
+     uhdm2rtlil 1358 dbs  1968 golden cast cells:
+                 ALREADY-OK 1748  TO-GOLDEN 0  STILL 8  AWAY 0  STILL-FARTHER 0
+   The implementer's census numbers (1968 / 0 and 5352 / 18) REPRODUCE exactly.
+   The claim "no u2r CMP_EQUAL row carries our logic_typespec on a real cast" is
+   confirmed from the other side: u2r's cast cells never move at all (byteverify 0/1358).
+
+7. RESIDUES, RANKED (all pre-existing and byte-unchanged by this patch)
+   R4 cast-operation MULTIPLICITY — 1108 census keys, by far the biggest family.
+      Top shapes: g=2/ours=4 x424 and g=1/ours=4 x136 (both Earlgrey gen_scope owners),
+      g=1/ours=2 x120 (package owners).  DEF+ELAB+per-import clone counting.
+   R5 enum vs unsupported_typespec on `uvm_severity'(...)` — 13 keys (9 pure + 4 mixed),
+      BuildUVMPkg/SeqDriver m__uvm_report_dpi.
+   R2 `string'(x)` at MODULE scope -> ours integer_typespec, golden string_typespec
+      (StringType is absent from isTypeSyntaxKind, so the landed
+      § stringCastKeepsStringTypespec26 arm is unreachable there).  CONFIRMED in
+      v96_a6_exotic (identical on both binaries).
+   R3 `signed'`/`unsigned'` -> golden a $signed/$unsigned sys_func_call with no cast op,
+      ours a cast operation with <noref>.  CONFIRMED in v96_a6_exotic.
+   R1 `typedef realtime rtime_t; rtime_t'(q)` -> golden time_typespec, ours real_typespec
+      (the typedef road, not the keyword road).  CONFIRMED: g96_a4_typedefs is byte-
+      identical on both binaries.
+
+8. NITS FOR THE MASTER (none blocking)
+   - bound96.sh's header says "no path filter"; it filters -path '*repro*' and .sv only.
+     The verifier's filter-free run supersedes it and is clean.
+   - g96_a1_keywords.sv is slang-REJECTED (rc 4) on BOTH binaries; the grid still scores
+     it because a database is still written.  Symmetric, but the README does not say so.
+   - the README's "kind only" framing understates the blast radius (see 5).
