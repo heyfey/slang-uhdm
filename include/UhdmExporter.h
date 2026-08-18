@@ -2863,6 +2863,40 @@ private:
     // same source expression is emitted as TWO objects, so a view-split fold
     // rule is expressible here and nowhere else.
     bool elabConnEmit21 = false;
+    // § connOperandOwnScopeBind61 — the GENERATE BLOCK that IMMEDIATELY
+    // encloses the instantiation whose ELABORATED port HighConn is being
+    // emitted, or null when that instantiation sits at module scope.
+    //
+    // Surelog compiles a port connection expression with
+    // `compileExpression(parent_comp, …, pexpr=nullptr, instance=PARENT
+    // instance)` (NetlistElaboration::high_conn_) and binds the WHOLE
+    // expression's actual only when it is a bare `ref_obj`, through
+    // `bind_net_`, which walks the hierarchy.  Every NESTED reference is left
+    // to `CompileHelper::bindVariable(component, ValuedComponentI* instance,
+    // name)` (CompileStmt.cpp:3062), which searches `instance->getNetlist()`'s
+    // `nets()` then `variables()` AND NOTHING ELSE — no parent walk.  For a
+    // module-scope instantiation that netlist is the module instance's, so the
+    // module's own ports/signals bind; for a gen-scope instantiation it is the
+    // GENERATE BLOCK's netlist, which holds only that block's own
+    // declarations, so an outer name binds NOTHING (`UhdmWriter::lateBinding`
+    // never rescues it either: its parent walk handles design/function/task/
+    // for/foreach/gen_for/begin/named_begin/fork, and a HighConn operand's
+    // chain is ref -> operation -> port -> module_inst).
+    //
+    // MODE SPLIT, and it is what makes this safe to leave UNGATED.  Under
+    // `-elabuhdm` the GOLDEN's ELABORATED copy IS bound and its UNBOUND copy is
+    // the weaklyReferenced TAIL -- so this rule looks INVERTED there.  It is
+    // not: `uhdm_main.cpp` runs UHDM's OWN `ElaboratorListener` under
+    // `--elabuhdm`, exactly as Surelog does, and that listener re-binds the
+    // clone by name against the elaborated scope stack, so leaving the
+    // reference null HERE costs nothing in that view.  V-FIX v61, MEASURED with
+    // an ELAB-section owner-keyed census (arms g1/g2/g3 + v1/v2/v5/v6, AND
+    // Earlgrey_0_1/testflags over 19 163 port-HighConn keys): under
+    // `--elabuhdm` TO-GOLDEN 0 / AWAY-GOLDEN 0 -- not one cell moves.  The same
+    // census in the PLAIN view moves 14 Earlgrey cells, every one of them ONTO
+    // golden.  If a future pass stops running the ElaboratorListener, this rule
+    // needs an explicit non-elab gate.
+    const slang::ast::Scope* connGenScope61 = nullptr;
     // Parameter-init contexts keep name-token-only sys call spans.
     bool inParamInit = false;
     // § castDefaultPatternConcat — the constant ExprEmit's `T'{default:X}`

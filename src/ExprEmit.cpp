@@ -9542,6 +9542,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                              return i;
                          }();
                          it != netMap.end() &&
+                         // § connOperandOwnScopeBind61 — a NESTED reference
+                         // inside an ELABORATED port HighConn expression binds
+                         // only what the instantiation's OWN scope declares.
+                         // At module scope that is the whole module, so this
+                         // never fires; inside a generate block it is that
+                         // block alone, and an outer name (the enclosing
+                         // module's port/net/var, an OUTER gen block's local)
+                         // stays UNBOUND.  The TOP-LEVEL actual is exempt: its
+                         // parent is the `port` itself and Surelog binds it
+                         // through `bind_net_`, which does walk the hierarchy.
+                         // Measured, golden, arms g1/g2/g3:
+                         //   gen_i's `.a(ol & om)` naming gen_o's locals -> —
+                         //   gen_i's `.a(il & il)` naming its OWN locals -> bound
+                         //   gf[i]'s `.a(fl & clk)` -> fl bound, clk —
+                         //   module scope `.a(ml & clk)` -> BOTH bound
+                         !(elabConnEmit21 && connGenScope61 &&
+                           !(parent && parent->UhdmType() == UHDM::uhdmport) &&
+                           nv.symbol.getParentScope() != connGenScope61) &&
                          // ELAB gen-scope CA RHS refs nested inside a select
                          // INDEX stay UNBOUND: Surelog names them under the
                          // select base (work@m.genblk1[0].man_rdt.rsp_off),
@@ -18149,6 +18167,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             op->Typespec(frt9);
                         }
                         auto* fops9 = s.MakeAnyVec();
+                        // § patFlatUnsizedMemberWidth61 — which operands the
+                        // flatten RE-TYPED, so the size walk below knows they
+                        // are valuable constants now (see the law there).
+                        std::vector<bool> retyped61(slots9.size(), false);
                         for (size_t i9 = 0; i9 < slots9.size(); i9++) {
                             auto* mrt9 = (*mems9)[i9]->Typespec();
                             this->patFlatTs =
@@ -18187,9 +18209,87 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // value is the UNMEASURED HALF (no witness row
                                 // varies it), so it keeps the old shape until
                                 // one does.
-                                if (ap.defaultSetter &&
-                                    slots9[i9] == ap.defaultSetter &&
-                                    e9->UhdmType() == UHDM::uhdmconstant &&
+                                // § patFlatUnsizedMemberWidth61 (r10earl61) —
+                                // THE OTHER HALF, and the SCOPE note above is
+                                // now MEASURED and WRONG: the rule is not the
+                                // `default:` fill's, it is EVERY member value
+                                // that is an UNSIZED literal.  Surelog's
+                                // `UHDM::ExprEval::flattenPatternAssignments`
+                                // (ExprEval.cpp ~890) tests the tagged_pattern's
+                                // `Pattern()` alone — `constant && VpiSize() ==
+                                // -1` — and knows nothing about which key put
+                                // it there; a slot filled from `default:` is a
+                                // CLONE of that same tagged_pattern, which is
+                                // why the default half worked.  It then reads
+                                // `get_uvalue`: 1 -> the member-width MASK,
+                                // 0 -> 0, and NOTHING ELSE is re-typed.
+                                //   b1_earl61.sv, ELAB, LHS(golden) first, on
+                                //   {3,1,8,16}-bit members:
+                                //     `w3:'1`  UINT:7  sz 3  dec 7   / ours BIN:1
+                                //     `w1:'x`  UINT:0  sz 1  dec 0   / ours BIN:X
+                                //     `w16:'0` UINT:0  sz 16 dec 0   / ours BIN:0 sz -1
+                                //     `w8:8'h00` HEX 8'h00 sz 8      -- UNTOUCHED
+                                //       on both sides (a SIZED literal is not
+                                //       VpiSize()==-1)
+                                //     the `'0` inside a member's TERNARY arm
+                                //       (`w8:(clk)?v8:'0`) stays BIN `'0`
+                                //       sz -1 on both sides -- the test is on
+                                //       the member value ITSELF, never a
+                                //       constant nested inside it
+                                // `'x`/`'z` ARE re-typed, to 0 -- but NOT
+                                // for the reason r10earl61 first wrote down.
+                                // V-FIX v61 (MEASURED, ExprEval.h:99):
+                                // `get_uvalue(bool&, const expr*, bool strict
+                                // = true)` DEFAULTS `strict` TO TRUE and the
+                                // flatten's call `get_uvalue(invalidValue, c)`
+                                // takes that default, so `invalidValue` IS set
+                                // on `'x`.  The reason the arm still claims
+                                // them is that `flattenPatternAssignments`
+                                // NEVER READS `invalidValue`: it branches on
+                                // `uval` alone, and `NumUtils::parseBinary`
+                                // fails on the X digit leaving `result` at its
+                                // initialised 0 -- so `'x` lands in the
+                                // `uval == 0` arm.  Same behaviour, different
+                                // mechanism; a future pass that widens this to
+                                // a caller which DOES consult `invalidValue`
+                                // must not carry the old sentence over.  That
+                                // is why the old `!fb9.isUnknown()` guard goes.
+                                // LANDMINE, MEASURED AND NOT TOUCHED HERE
+                                // (v7_v61.sv, PRE-EXISTING -- pristine and
+                                // patched byte-identical): golden's all-ones
+                                // fill is `NumUtils::getMask(size)`, which
+                                // SATURATES AT 64 BITS.  On a 128-bit member
+                                // `'{default: '1}` golden writes
+                                // `UINT:18446744073709551615` AT vpiSize 128,
+                                // where `SVInt::setAllOnes()` below yields the
+                                // full 128-bit value.  Reachable TODAY through
+                                // the UNFENCED `default:` half; do not widen
+                                // the >64-bit reach without clamping to
+                                // `getMask`.
+                                // CORPUS: tlul_adapter_sram.sv:132
+                                // `d_param : '0` (and :138 `d_user : '0`) --
+                                // the Earlgrey head in BOTH modes after
+                                // § connOperandOwnScopeBind61.
+                                // FENCED to the CONT_ASSIGN carrier
+                                // (`patFlatAdjust`, set only at ModuleEmit's
+                                // module-level CA site) for the NAMED half.
+                                // The DECLARATION-INITIALIZER carrier reaches
+                                // this same arm with `patFlatAdjust` false, and
+                                // there is NO GOLDEN WITNESS for it: Surelog
+                                // models `t61_t dv = '{...};` in a module body
+                                // as a struct_NET with no Expr at all
+                                // (b2_earl61.sv E1), so the arm's own shape
+                                // already diverges and the widening would be
+                                // unmeasured.  b2's 3-way line-multiset says
+                                // TO-GOLDEN 8 / AWAY-GOLDEN 0 with the fence
+                                // OFF as well, so this is caution, not a
+                                // convicted regression -- RANKED, not taken.
+                                // The `default:` half below keeps its
+                                // pre-existing (unfenced) reach untouched.
+                                if (e9->UhdmType() == UHDM::uhdmconstant &&
+                                    (patFlatAdjust ||
+                                     (ap.defaultSetter &&
+                                      slots9[i9] == ap.defaultSetter)) &&
                                     stripImplicitConv(*slots9[i9]).kind ==
                                         ExpressionKind::
                                             UnbasedUnsizedIntegerLiteral) {
@@ -18200,11 +18300,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     int64_t fw9 = surelogTsBits(
                                         fields9[i9]->getDeclaredType()
                                             ->getType());
-                                    if (!fb9.isUnknown() && fw9 > 0 &&
-                                        fw9 <= 4096) {
+                                    // `'x`/`'z` fold to 0 on the CA carrier
+                                    // (measured, b1 D2 `w1:'x` -> UINT:0 sz 1);
+                                    // the `default:` half keeps its landed
+                                    // known-only reach so nothing outside the
+                                    // new witness moves.
+                                    if (fw9 > 0 && fw9 <= 4096 &&
+                                        (patFlatAdjust || !fb9.isUnknown())) {
                                         slang::SVInt fv9(
                                             (slang::bitwidth_t)fw9, 0, false);
-                                        if (fb9.value)
+                                        if (!fb9.isUnknown() && fb9.value)
                                             fv9.setAllOnes();
                                         std::string fd9 = fv9.toString(
                                             LiteralBase::Decimal, false);
@@ -18213,6 +18318,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         fc9->VpiValue("UINT:" + fd9);
                                         fc9->VpiConstType(vpiUIntConst);
                                         fc9->VpiDecompile(fd9);
+                                        retyped61[i9] = true;
                                     }
                                 }
                                 fops9->push_back(e9);
@@ -18257,6 +18363,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // is-a-constant test broke at the cast and left
                                 // be_i unsized, which was the qi27 head after
                                 // laws 1-3.
+                                // § patFlatUnsizedMemberWidth61 — an operand
+                                // the flatten already re-typed is a plain sized
+                                // UINT constant by the time Surelog's reduce
+                                // reaches it, so the walk carries on past it
+                                // even where the WRITTEN expression is
+                                // unvaluable (`'x`).  b1 D2 `'{w3:'1, w1:'x,
+                                // w8:8'h00, w16:0}`: golden sizes ALL FOUR
+                                // (3/1/8/16) where the slang-side test alone
+                                // stops at `'x` and leaves w16 at 64.
+                                if (retyped61[i9])
+                                    continue;
                                 ASTContext vctx9(comp.getRoot(),
                                                  LookupLocation::max);
                                 auto vv9 = vctx9.tryEval(*slots9[i9]);

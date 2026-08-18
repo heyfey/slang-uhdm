@@ -1,0 +1,102 @@
+r10earl61 — THE NEXT HEAD (R0), BOTH Earlgrey_0_1 modes, measured on the PATCHED
+database (md5 aca646e465c56158a17fff77248fa848) against the immutable golden
+caches 00d4794526e44dc553f3 (default) and d7348d2d2fe67abe767b (testflags).
+
+Both heads of this pass CLEARED and BOTH modes moved onto the SAME NEW FAMILY:
+an ELABORATED assignment-pattern member value in `tlul_adapter_sram.sv` whose
+reference golden BINDS and we leave NULL.  Direction is the MIRROR of this
+pass's law A: there we removed a bind golden does not make, here we must ADD one
+golden does.
+
+=======================================================================
+R0-DEFAULT — Earlgrey_0_1/default, 29 cmp lines -> 19, 1 head -> 1 head
+=======================================================================
+
+  LHS(golden): enum_const (OpRead)  id:191246  49:5-49:11
+                 < enum_typespec (req_op_e) 47:3-51:15
+                 INT:1  vpiDecompile 1  vpiSize 2
+  RHS(ours)  : <null>
+
+`RHS: <null>` with a non-null LHS is the two-argument scalar
+`SafeCompare(lhs, rhs, ctx)` with rhs == nullptr (BaseClass.h:187): an edge
+golden SETS and we leave NULL.  A vector SafeCompare would have set BOTH sides
+to the OWNER, so this is a SCALAR slot.
+
+DECODED, not guessed.  The OWNER is named by the sectioned block extract of the
+assignment pattern at `tlul_adapter_sram.sv:129:17-142:4` (README §7): after
+this pass the block's ONLY residual vs golden, in EVERY one of the 10 elaborated
+copies, is
+
+    tagged/flattened member `d_opcode` (131:18-131:85), the vpiCondition of the
+    op32 ternary `(d_valid && reqfifo_rdata.op != OpRead) ? … : …`
+      \_ref_obj `OpRead`
+          golden: |vpiActual: -> enum_const (OpRead) 49:5-49:11
+          ours  : NO vpiActual
+
+> R0-DEFAULT: **inside an ELABORATED cont_assign assignment-pattern member value,
+> a reference to a MODULE-LOCAL enum constant carries `vpiActual -> enum_const`
+> in golden and carries none for us.**  Note the CONTRAST with the landed
+> gen-scope enum laws (§ genCaEnumBindsSelectOnly22 / § genCaEnumLhsGenLocalBinds23):
+> this is a MODULE-level cont_assign, and the reference sits under an op75, not
+> under a plain Rhs — so the existing arms' gates do not reach it.  The typedef
+> lives in the MODULE (`typedef enum logic [1:0] {OpWrite, OpRead, OpUnknown}
+> req_op_e;` at :47), not in a package.
+
+  Count evidence for the next pass, whole dump, default mode:
+    `\_enum_const: (OpRead)` print lines   golden 43   ours 11
+    `\_struct_typespec: (req_t)`           golden 43   ours 31
+  — i.e. the family is the per-instance materialization of a module-local
+  typedef, not a single edge.
+
+=======================================================================
+R0-TESTFLAGS — Earlgrey_0_1/testflags, 30 cmp lines -> 37, 1 head -> 1 head
+=======================================================================
+
+  LHS(golden): typespec_member (error)  id:191252  55:33-55:38
+                 < struct_typespec (req_t) 53:11-58:4
+                 vpiTypespec -> ref_typespec (req_t.error) -> logic_typespec
+                 55:5-55:10, vpiRefFile tlul_adapter_sram.sv:55:5-55:10
+  RHS(ours)  : <null>
+
+The SAME family one field over: the pattern's member values reach
+`reqfifo_rdata.<member>` through a hier_path / member select whose element
+golden binds to the struct's `typespec_member` and we leave null.  The pristine
+block extract already showed exactly these edges MISSING on our side for
+members `op` (54:33), `size` (56:33), `source` (57:33) and `data` (61:24), so
+`error` is simply the first one the walk reaches after this pass.
+
+> R0-TESTFLAGS: **a member-select element inside an ELABORATED assignment-pattern
+> member value binds `vpiActual -> typespec_member` of the selected struct's
+> typespec in golden; we bind nothing.**
+
+BOTH R0s are ONE cluster: "golden binds an Actual inside an ELAB op75 member
+value that we leave null" — enum_const in one mode, typespec_member in the
+other.  A single pass that models the assignment-pattern member value's
+reference binding should clear both.
+
+=======================================================================
+RANKED AFTER THESE TWO (all measured in this pass, README §9)
+=======================================================================
+R1  the func_call HighConn ARGUMENT: golden BINDS the argument ref at module
+    scope and leaves it unbound in a gen scope; we bind NEITHER (g1 row 16,
+    the only residual of grid A at module scope).  Opposite direction to law A,
+    same slot.
+R2  a gen-scope INSTANCE ARRAY (`k i_arr[2:0](...)` inside a generate block)
+    emits NO elaborated ports at all on our side (g2 arm B4: golden has 3
+    elements x 2 ports, we have none).
+R3  a NESTED assignment pattern written as a NAMED member value folds to a
+    single constant for us where golden keeps the inner op75 with member-width
+    UINT operands (b1 arm D4 — now b1's head).
+R4  a gen-scope high_conn operand naming a module PARAMETER or an ENUM CONSTANT:
+    golden FOLDS the whole operand to a constant, we keep a ref (g2 arm B2).
+R5  the DECLARATION-INITIALIZER carrier of law B (`patFlatAdjust` false) —
+    deliberately fenced out here for want of a witness (b2 arm E1); Surelog
+    models `t61_t dv = '{…};` in a module body as a struct_NET with no Expr,
+    so the carrier needs its own decode first.
+R6  the module-scope high_conn operand TARGET: golden binds the DEF module's
+    net (`work@m_mod61.clk`), we bind the elaborated instance net
+    (`work@g1.u1.clk`) — same VpiType and VpiName, so INVISIBLE to
+    design::Compare.  Cosmetic; do not spend a pass on it.
+R7  the a2_earl54 instance-array shortfall: golden carries THREE
+    `vpiActual -> sel` edges under the module-scope instance array's connection
+    operation (60:39) and we carry two — PRE-EXISTING, unchanged by this pass.

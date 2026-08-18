@@ -1,0 +1,87 @@
+r10earl61 — PREDICTION, written BEFORE the byte verifier ran and before the
+patched corpus sweeps were re-run with the FINAL binary.
+
+Binaries: pristine  7c1e02d417e28bb042669ec578e7a74a
+          patched-1 8c7a508942f1fb0fe4c026109b1ab9f9  (law A only)
+          patched-2 7272028debee7e4b7b29a2ce15453503  (law A + law B unfenced)
+          patched   aca646e465c56158a17fff77248fa848  (FINAL: A + B fenced to
+                                                       the cont_assign carrier)
+
+=====================================================================
+LAW A — § connOperandOwnScopeBind61   (ExprEmit netMap bind + ModuleEmit flag)
+=====================================================================
+In the ELABORATED view a NESTED reference inside a port HighConn expression
+(anything below the top-level actual: an operation's operand, a select's index,
+a call argument) binds its `Actual_group` ONLY to what the instantiation's OWN
+scope declares.  At module scope that is the whole module body, so nothing
+changes; inside a GENERATE BLOCK it is THAT BLOCK ALONE, and an outer name — the
+enclosing module's port/net/var, or an OUTER generate block's local — stays
+UNBOUND.  The TOP-LEVEL actual is exempt (Surelog binds it through `bind_net_`,
+which walks the hierarchy).
+
+MOVER SET, PREDICTED BY NAME.
+
+  Earlgrey_0_1/default — EXACTLY 16 ref_obj `vpiActual` edges REMOVED, no other
+  change, in these ELAB port HighConns (instance / formal / operand):
+
+    …u_dm_top.dap.i_dmi_jtag_tap.i_tck_inv.gen_scan.i_dft_tck_mux
+        clk0_i  operand clk_i                                    <== THE HEAD
+    …u_spi_device.u_clk_spi.<gen>.i_dft_tck_mux  clk0_i  operand clk_i
+    …u_flash_eflash.gen_flash_banks[0..1].i_core
+        host_req_i  operands host_req_i, host_bank_sel           (2 x 2)
+    …u_flash_eflash.gen_flash_banks[0..1].i_core.i_rd  (rdy_o operands, 4 x 2)
+    …u_flash_ctrl / flash_phy  ctrl_bank_sel, host_bank_sel      (2 each)
+
+  i.e. the removed targets are, by name:
+    logic_net i_tck_inv.clk_i (1), u_clk_spi.clk_i (1),
+    gen_flash_banks[0].i_core.i_rd.rdy_o (4), gen_flash_banks[1]…rdy_o (4),
+    u_flash_eflash.host_req_i (2), flash_phy.host_bank_sel (2),
+    flash_phy.ctrl_bank_sel (2)   = 16.
+
+  PREDICTED Earlgrey_0_1/default: TO-GOLDEN 16, AWAY-GOLDEN 0, STILL-WRONG 0 on
+  the port-HighConn `Actual_group` slot; head 29 cmp lines -> the tagged_pattern
+  cell (LAW B's), 1 head throughout.
+  PREDICTED Earlgrey_0_1/testflags: the COMPARE-REACHABLE (DEF+ELAB) census is
+  UNCHANGED — under `-elabuhdm` UHDM's own ElaboratorListener re-binds the
+  elaborated clone, and golden's ELAB copy IS bound there (its UNBOUND copy is
+  the weaklyReferenced TAIL original, which is where our 16 edges disappear
+  from).  So testflags moves 16 TAIL edges TO-GOLDEN and nothing the judge sees.
+
+  Corpus-wide: every database holding a module instantiated INSIDE a generate
+  block whose port actual is a composite expression naming something declared
+  OUTSIDE that block.  Nonzero expected; every path must be attributed.
+
+=====================================================================
+LAW B — § patFlatUnsizedMemberWidth61   (ExprEmit pattern-flatten arm)
+=====================================================================
+On the CONT_ASSIGN carrier, an assignment-pattern member value written as an
+UNSIZED literal (`'0`, `'1`, `'x`, `'z`) is re-typed to the MEMBER's own width:
+`vpiSize` = member bits, `UINT:<0 or mask>`, `vpiConstType` 9, decompile the
+decimal digits.  `'x`/`'z` fold to 0.  A SIZED literal, a bare decimal, and any
+constant nested INSIDE a member value (a ternary arm) are untouched.  This is
+the other half of the landed § patFlatDefaultFillMemberWidth27, whose "the
+default setter only" scope note is hereby refuted by measurement.
+
+MOVER SET, PREDICTED BY NAME.
+  Earlgrey_0_1, BOTH modes: tlul_adapter_sram.sv:129-142 `assign tl_o = '{…}`,
+  members `d_param : '0` (132:18, width 3) and `d_user : '0` (138:18, width 16),
+  in EVERY elaborated instance of tlul_adapter_sram (the dump carries 9 of them:
+  u_dm_top.tl_adapter_device_mem, u_tl_adapter_rom, u_tl_adapter_sram_flash_ctrl
+  and the other six) = 18 constants per mode.
+  PREDICTED: Earlgrey_0_1/default head 36 -> CLEARED; testflags head 30 ->
+  CLEARED; both move to the SAME next cell.
+  Corpus-wide: every database with a struct-typed `assign x = '{… : '0 …}`.
+  Nonzero expected; every path attributed.
+
+=====================================================================
+NOT PREDICTED TO MOVE (fences, each with the witness that cut it)
+=====================================================================
+  * the DECLARATION-INITIALIZER carrier of a struct pattern (`patFlatAdjust`
+    false) — b2_earl61.sv E1; Surelog models `t61_t dv = '{…};` in a module body
+    as a struct_NET WITH NO Expr, so there is no golden witness.  b2 byte-
+    identical pristine vs patched is the assertion.
+  * struct PARAMETERS (`parameter t61_t MP = '{…}`) — ParamEmit's own arm, not
+    this one.  b2 E2.
+  * PROCEDURAL assignments and PORT-CONNECTION pattern actuals — b2 E4/E5.
+  * every module-scope port HighConn operand — LAW A's gate is null there.
+  * the `default:` fill's landed reach — unchanged, `'x` still excluded there.

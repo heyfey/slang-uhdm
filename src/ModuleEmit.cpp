@@ -1647,6 +1647,21 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
 // alike) and its LowConn is anchored at amod's actual too.  The DEF view
 // (ref_module) keeps the honest per-instance connections.  Returns the
 // instance whose connections the ELAB port emission must read.  UnitElabBlock.
+// § connOperandOwnScopeBind61 -- the GENERATE BLOCK that IMMEDIATELY encloses
+// `inst`, or null when the instantiation sits at module scope.  The
+// instance-ARRAY wrapper of `k i_arr[2:0](...)` is skipped: Surelog's parent
+// ModuleInstance for every element is still the generate block, and the golden
+// leaves every element's HighConn operands unbound (grid g2 arm B4).
+// See the law at UhdmExporter.h's connGenScope61.
+static const Scope* connGenBlockScope61(const InstanceSymbol& inst) {
+    const Scope* sc = inst.getParentScope();
+    while (sc && sc->asSymbol().kind == SymbolKind::InstanceArray)
+        sc = sc->asSymbol().getParentScope();
+    if (sc && sc->asSymbol().kind == SymbolKind::GenerateBlock)
+        return sc;
+    return nullptr;
+}
+
 static const InstanceSymbol& elabConnDonor(const InstanceSymbol& inst) {
     auto* isyn = inst.getSyntax();
     if (!isyn || isyn->kind != syntax::SyntaxKind::HierarchicalInstance)
@@ -9878,6 +9893,21 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         }
                         ~ElabConnGuard21() { f = saved; }
                     } elabConnGuard21(elabConnEmit21);
+                    // § connOperandOwnScopeBind61 — record the GENERATE BLOCK
+                    // that immediately encloses THIS instantiation (skipping
+                    // the instance-array wrapper of `k i_arr[2:0](...)`), or
+                    // null at module scope.  Read by emitExpr's netMap bind:
+                    // see the law at the field declaration in UhdmExporter.h.
+                    struct ConnGenScopeGuard61 {
+                        const Scope*& f;
+                        const Scope* saved;
+                        ConnGenScopeGuard61(const Scope*& fl, const Scope* v)
+                            : f(fl), saved(fl) {
+                            f = v;
+                        }
+                        ~ConnGenScopeGuard61() { f = saved; }
+                    } connGenScopeGuard61(connGenScope61,
+                                          connGenBlockScope61(inst));
                     // § genConnIdxFoldConnOnly21 — re-arm the gen-scope conn
                     // fold for the ACTUAL only (see the disarm at the top of
                     // emitInstance).
