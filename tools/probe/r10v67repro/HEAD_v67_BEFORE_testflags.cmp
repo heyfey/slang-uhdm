@@ -1,0 +1,46 @@
+LHS:
+decompile:
+constant: , id:310350, line:142:34, endln:142:36
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[0].gen_level[0].gen_nodes.req_tree), id:310353, line:142:34, endln:142:36
+|vpiDecompile:1
+|vpiSize:32
+|INT:1
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[0].gen_level[0].gen_nodes.req_tree), id:310351
+  |vpiParent:
+  \_constant: , id:310350, line:142:34, endln:142:36
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[0].gen_level[0].gen_nodes.req_tree
+  |vpiActual:
+  \_int_typespec: , id:310352, line:105:20, endln:105:32
+|vpiConstType:7
+
+decompile:
+constant: , id:310350, line:142:34, endln:142:36
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[0].gen_level[0].gen_nodes.req_tree), id:310353, line:142:34, endln:142:36
+|vpiDecompile:1
+|vpiSize:32
+|INT:1
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[0].gen_level[0].gen_nodes.req_tree), id:310351
+  |vpiParent:
+  \_constant: , id:310350, line:142:34, endln:142:36
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[0].gen_level[0].gen_nodes.req_tree
+  |vpiActual:
+  \_int_typespec: , id:310352, line:105:20, endln:105:32
+|vpiConstType:7
+RHS:
+decompile:
+ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[0].gen_level[0].gen_nodes.C0), id:251945, line:142:34, endln:142:36
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[0].gen_level[0].gen_nodes.req_tree), id:251944, line:142:34, endln:142:36
+|vpiName:C0
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[0].gen_level[0].gen_nodes.C0
+
+decompile:
+ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[0].gen_level[0].gen_nodes.C0), id:251945, line:142:34, endln:142:36
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[0].gen_level[0].gen_nodes.req_tree), id:251944, line:142:34, endln:142:36
+|vpiName:C0
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[0].gen_level[0].gen_nodes.C0

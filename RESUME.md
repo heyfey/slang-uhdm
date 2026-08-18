@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-18 11:20, HEAD = the rgg15 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-18 11:45, HEAD = the earl67 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 470/481 comparable
 equal (11 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,14 +182,14 @@ row-modes over 7 tests:
 |---|---|---|
 | SeqDriver×2, SimpleUVM×2, Scoreboard/default, MiniAmiq×2 (ONE shared chain, uvm-1.2 tree) | ~99k (depth: two whole class_defn objects) | an INHERITED typedef name `this_type` written in the derived socket classes: golden binds it to `uvm_algorithmic_comparator::this_type` (Surelog's bare-name FIRST-WRITER-WINS late bind), we to the correct `uvm_port_base::this_type` — 9 cells, fully decoded; pass uvm98 in flight (uvm97 landed: 17→99k depth, one class_typespec per Surelog typedef) |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 52 (depth) | the function RETURN VARIABLE of `virtual function queue_of_element get_elements()` (uvm_pkg.sv:28181; a typedef'd QUEUE return): golden ref_var, ours logic_var — same typespec payload, only the KIND differs; pass buvm22 in flight (buvm21 landed: 29→52 depth, ++/-- statement operand binds) |
-| Earlgrey_0_1/default | 46 (depth) | ELAB gen-scope cont_assign bit-select INDEX naming a gen-scope LOCALPARAM `req_tree[C0]` (prim_arbiter_tree.sv:142): golden folds to INT:1 sz32 with a located int_typespec, ours an UNBOUND ref_obj — 1,995-cell family (C0/C1/Pa) inside a 2,222-cell superfamily; pass earl67 in flight (earl66 landed: 36→46 depth, ELAB High_conn enum-const fold) |
-| Earlgrey_0_1/testflags | 46 (depth) | SAME head, identical cmp log (earl66) |
+| Earlgrey_0_1/default | 32 | a BARE GENVAR read as the whole Rhs of an ELAB gen-scope cont_assign `assign idx_tree[Pa] = offset;` (prim_arbiter_tree.sv:114): golden reduces it to a loc-less UINT sz64 constant (no typespec), we keep a ref_obj — 89 cells (+261 testflags twin in hier_path element indices); superfamily 2,222→227; pass earl68 in flight (earl67 landed: 46→32, gen-scope localparam CA-index one-hop fold) |
+| Earlgrey_0_1/testflags | 32 | SAME head, identical cmp log (earl67) |
 | Rggen/default | 683 (depth) | a SPURIOUS interface_inst we emit under a MODPORT interface port of rggen_external_register (block_0.sv:2289 `.bus_if(register_15_bus_if)`) where golden has none — the four extra-ours census keys; R-A 810 rows / R-B 7 signed START_ADDRESS rows / R-C 24 hier_path port rows next; pass rgg16 in flight (rgg15 landed: 64→683 depth, unbased '0 override sized to the formal + default span) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 58 verifier fix-before-landing re-cuts (112 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 58 verifier fix-before-landing re-cuts (113 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

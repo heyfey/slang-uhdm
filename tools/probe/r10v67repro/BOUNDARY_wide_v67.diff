@@ -1,0 +1,16 @@
+plain r10earl47repro/a2_earl47.sv
+elab r10earl47repro/a2_earl47.sv
+plain r10earl56repro/a1_earl56.sv
+elab r10earl56repro/a1_earl56.sv
+plain r10earl56repro/a2_earl56.sv
+elab r10earl56repro/a2_earl56.sv
+plain r10earl56repro/a4_earl56.sv
+elab r10earl56repro/a4_earl56.sv
+plain r10earl58repro/a1_earl58.sv
+elab r10earl58repro/a1_earl58.sv
+plain r10earl67repro/a1_tree67.sv
+elab r10earl67repro/a1_tree67.sv
+plain r10earl67repro/a2_types67.sv
+elab r10earl67repro/a2_types67.sv
+plain r10earl67repro/a3_calls67.sv
+elab r10earl67repro/a3_calls67.sv

@@ -1,0 +1,32 @@
+LHS:
+decompile:
+constant: , id:990154
+|vpiParent:
+\_cont_assign: , id:990155, line:114:20, endln:114:42
+|vpiDecompile:0
+|vpiSize:64
+|UINT:0
+|vpiConstType:9
+
+decompile:
+constant: , id:990154
+|vpiParent:
+\_cont_assign: , id:990155, line:114:20, endln:114:42
+|vpiDecompile:0
+|vpiSize:64
+|UINT:0
+|vpiConstType:9
+RHS:
+decompile:
+ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[2].gen_level[0].gen_leafs.gen_assign.offset), id:252319, line:114:36, endln:114:42
+|vpiParent:
+\_cont_assign: , id:252318, line:114:20, endln:114:42
+|vpiName:offset
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[2].gen_level[0].gen_leafs.gen_assign.offset
+
+decompile:
+ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[2].gen_level[0].gen_leafs.gen_assign.offset), id:252319, line:114:36, endln:114:42
+|vpiParent:
+\_cont_assign: , id:252318, line:114:20, endln:114:42
+|vpiName:offset
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.gen_tree[2].gen_level[0].gen_leafs.gen_assign.offset

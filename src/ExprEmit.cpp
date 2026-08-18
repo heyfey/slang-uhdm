@@ -17913,6 +17913,66 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 idxPrefix = joinRef(prefix, nv.symbol.name);
                 idxRescoped = true;
             }
+            // § genLpBitSelIdxOneHopFold67 — CALL SITE 5 of 5 of
+            // § genLpUseFoldParentScope47 (the law and its one-hop
+            // measurement live at genLpUseFoldBound47).  The four landed call
+            // sites are SELECT BOUNDS (part_select left/right,
+            // indexed_part_select base/width); earl47 deliberately left the
+            // BIT-SELECT INDEX out ("the SELECT BOUND restriction is this
+            // pass's, not golden's") and it is the whole of r10earl66's R0:
+            // 1,995 Earlgrey_0_1 cells, `req_tree[C0]` in
+            // prim_arbiter_tree.sv:142 with `C0` a `localparam int unsigned`
+            // of the ENCLOSING `gen_level` block.
+            //
+            // MEASURED on a1_tree67.sv (golden, both Earlgrey modes'
+            // instantiation shape, all unrollings): at ONE hop golden folds
+            // the index to the localparam's own value carrying its LOCATED
+            // declaration typespec (`constant INT:1 sz 32 ct 7`,
+            // `int_typespec` at the `int unsigned` of the declaration) in the
+            // Rhs AND in the Lhs of an ELAB gen-scope cont_assign, directly
+            // and under a concatenation / replication; at distance 0 (the
+            // same gen block), at distance 2 and 3, for a GENVAR, for a
+            // MODULE-body localparam and for a PACKAGE parameter in the very
+            // same position it keeps the reference.  That is exactly the
+            // one-hop predicate `genLpUseFoldBound47` already implements, so
+            // this is a CALL SITE and not a new rule.
+            //
+            // `inGenScopeCa67` is the fence: an ELAB port High_conn folds the
+            // same index WITHOUT a typespec (`constant INT:0 sz 32 ct 7,
+            // ts=-`; arm cell `.o(idx_tree[Pa])`) — the position x view split
+            // § connIpsPkgParamBoundNoTs65 measured — and `expr::Compare`
+            // walks `Typespec()`, so folding there with a typespec would mint
+            // a NEW head where none exists.  Restricting to the gen-scope
+            // cont_assign leaves every other position on its pristine arm.
+            //
+            // The USER-CALL-ARGUMENT depth is the SECOND fence, and it was
+            // found by building the gate without it (arm `a2_types67.sv`, cell
+            // `assign c_arg = |{w[Ku], f2(w[Ku] ? w : ~w)};`): golden KEEPS an
+            // UNBOUND `ref_obj` at a one-hop gen-scope localparam read inside
+            // a tf_call ARGUMENT LIST, in BOTH views, while folding the very
+            // same `w[Ku]` one operand to its left.  Un-fenced the gate scored
+            // 2 pristine-RIGHT -> patched-WRONG cells per view.  This is the
+            // r10v66 verifier's § connCallArgKeepsEnumRef66v in a new dress
+            // and it has the same mechanism: `compileTfCallArguments`
+            // (Surelog CompileHelper.cpp:4340) compiles each argument with
+            // `pexpr = call`, and the identifier arm under a non-null `pexpr`
+            // binds through `bindVariable` and never reaches the `getValue`
+            // substitution that mints the constant.
+            //
+            // A SYSTEM call's argument is NOT fenced: arm `a3_calls67.sv`
+            // measures golden FOLDING `$signed({15'b0, w[Ku]})`'s index while
+            // it keeps the reference in `lf({15'b0, w[Ku]})` and in a call
+            // nested inside a call — the same split
+            // § genCaSysCallArgBinds22 / § genProcParamFoldQualCallArg20
+            // already carry for the process fold at ExprEmit ~9570, so the
+            // test is the USER-call depth (`callArgDepth` minus
+            // `sysCallArgDepth22`), never a plain `callArgDepth == 0`.
+            if (inGenScopeCa67 && !genvarConnFold &&
+                callArgDepth - sysCallArgDepth22 == 0)
+                if (auto* if67 = genLpUseFoldBound47(es.selector(), prefix)) {
+                    bs->VpiIndex(if67);
+                    return bs;
+                }
             if (idxRescoped)
                 selIdxScopeDepth++;
             // An ELAB gen-scope CA fold inside this index scopes its typespec

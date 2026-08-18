@@ -14503,6 +14503,16 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 continue;
             }
             auto& ae = assign.as<AssignmentExpression>();
+            // § genLpBitSelIdxOneHopFold67 — this iteration emits an ELAB
+            // gen-scope cont_assign; the flag spans BOTH its Lhs and its Rhs
+            // (golden folds a one-hop gen-scope localparam bit-select index on
+            // either side) and is cleared on every exit from the iteration.
+            struct GenCaGuard67 {
+                bool& f;
+                bool saved;
+                explicit GenCaGuard67(bool& fl) : f(fl), saved(fl) { f = true; }
+                ~GenCaGuard67() { f = saved; }
+            } genCaGuard67(inGenScopeCa67);
             auto* ca = s.MakeCont_assign();
             ca->VpiParent(gs);
             // A comma-list continuous assign gives EVERY cont_assign the whole

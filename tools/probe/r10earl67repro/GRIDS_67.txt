@@ -1,0 +1,98 @@
+r10earl67 — THE GRID, MEASURED ON GOLDEN (Surelog -parse -nobuiltin -nocache
+-d uhdm), ELABORATED view.  LHS is always golden.  Arms a1_tree67.sv,
+a2_types67.sv, a3_calls67.sv; every row reproduced on EVERY unrolling of every
+gen array in the arm (a1: 2 levels x 1-2 offsets; a2: 3; a3: 2).
+
+=====================================================================
+A. DISTANCE — where the localparam is declared relative to the READ
+=====================================================================
+The read is `w[Ku]` (a bit_select INDEX) in an ELAB gen-scope cont_assign.
+
+  distance   declaration home            golden's index object
+  --------   ------------------------    -------------------------------------
+  0          the SAME gen block          ref_obj, UNBOUND        (a1 d0_idx)
+  1          the ENCLOSING gen block     constant + the localparam's own
+                                         LOCATED declaration typespec  <-- R0
+  2          two gen blocks up           ref_obj, UNBOUND        (a1 d2_idx)
+  3          three gen blocks up         ref_obj, UNBOUND        (a1 d3_idx)
+  1 (genvar) the enclosing for-generate  ref_obj, UNBOUND        (a1 h_gv)
+  module     the module body             ref_obj, UNBOUND        (a1 h_mlp)
+  package    a package parameter         ref_obj                 (a1 h_pkg)
+  child      the child instance's own
+             port parameter              ref_obj, UNBOUND        (a1 u_sub PP)
+
+This is EXACTLY § genLpUseFoldParentScope47's ONE-HOP predicate, re-measured
+five passes later on a second design shape.
+
+=====================================================================
+B. POSITION — at ONE hop, in an ELAB gen-scope cont_assign
+=====================================================================
+  position                         golden      ours (pristine)   ours (patched)
+  ------------------------------   ---------   ---------------   --------------
+  bit_select INDEX, Rhs            CONSTANT    ref_obj           CONSTANT  <-- R0
+  bit_select INDEX, Lhs            CONSTANT    ref_obj           CONSTANT
+  bit_select INDEX under a concat  CONSTANT    ref_obj           CONSTANT
+  bit_select INDEX under a repl.   CONSTANT    ref_obj           CONSTANT
+  indexed_part_select BASE         CONSTANT    CONSTANT (=)      unchanged
+  part_select LEFT / RIGHT         CONSTANT    CONSTANT (=)      unchanged
+  operation operand inside an
+    INDEX (`w[Ku + 1]`)            CONSTANT    (whole index pre-folded)  residue
+  ternary PREDICATE operand        CONSTANT    (whole ternary pre-folded) residue
+  bare Rhs (`Ku[0]`)               whole select reduced to one constant  residue
+
+=====================================================================
+C. THE CALL-ARGUMENT FENCE (a3_calls67.sv, and a2's `c_arg` cell)
+=====================================================================
+  spelling                              golden        patched
+  -----------------------------------   -----------   ---------------
+  outside any call            (L23,L28)  CONSTANT      CONSTANT   ok
+  BARE user call argument     (L24)      ref_obj       ref_obj    ok
+  argument of a call inside
+    a call                    (L27)      ref_obj       ref_obj    ok
+  SYSTEM call argument
+    (`$signed(…)`)            (L26)      CONSTANT      CONSTANT   ok
+  package-QUALIFIED call      (L25)      golden reduces the WHOLE call to one
+                                         constant; no cell at the key — left on
+                                         the pristine arm
+
+=====================================================================
+D. DECLARED TYPE and RHS SHAPE at one hop (a2_types67.sv, bit-select index)
+=====================================================================
+  declaration                     golden's folded constant
+  -----------------------------   -----------------------------------------
+  localparam int unsigned Ku      ct 9 UINT sz 32  int_typespec  signed=0
+  localparam int          Ks      ct 9 UINT sz 32  int_typespec  signed=1
+  localparam logic [3:0]  Kl      ct 9 UINT sz  4  logic_typespec
+  localparam bit   [3:0]  Kb      ct 9 UINT sz  4  bit_typespec
+  localparam              Kn      ct 9 UINT sz 32  int_typespec  signed=0
+  localparam integer      Ki      ct 9 UINT sz 32  integer_typespec signed=1
+  localparam int unsigned Klit=2  ct 9 UINT sz 32  int_typespec  (literal init)
+  localparam int unsigned Kdep    ct 9 UINT sz 32  int_typespec  (init from
+                                                   another localparam)
+All eight are reproduced field-for-field by the patched binary (28 TO-GOLDEN,
+0 AWAY-GOLDEN, 0 MOVED-WRONG, both views).
+
+NOTE on Earlgrey's own head: `prim_arbiter_tree.sv:105` declares
+`localparam int unsigned C0 = Base1 + 2*offset;` and golden's folded constant
+is `INT:1 vpiConstType 7 sz 32` — vpiIntConst, NOT the UINT the arm's
+`int unsigned` gives.  The two are not in conflict: the ENCODING is inherited
+from the localparam's OWN param_assign Rhs constant (which our emitter already
+builds — § genLpFoldSignedStructural46 makes it INT there because the
+initializer is structurally signed), and the fold is a COPY of that constant,
+never a re-derivation.  a1_tree67.sv reproduces the INT spelling on golden and
+on the patched binary alike, cell for cell, at every unrolling.
+
+=====================================================================
+E. NEIGHBOURING SITES the gate deliberately does NOT reach (a2)
+=====================================================================
+  site                                    golden      patched = pristine
+  -------------------------------------   ---------   ------------------
+  ELAB port High_conn bit-select index    CONSTANT,   unchanged (folding
+    (`.co(y[g])` / `.ci(w[Ku])`)          NO typespec  here with a typespec
+                                                       would MINT a new head:
+                                                       expr::Compare walks
+                                                       Typespec())
+  param_assign Rhs (`localparam c_pa`)    CONSTANT    unchanged
+  variable/net declaration initializer    ref_obj     unchanged
+  always_comb body                        --          unchanged
+  function body                           --          unchanged

@@ -1,0 +1,120 @@
+r10earl67 — THE NEXT HEAD (R0), BOTH Earlgrey_0_1 MODES, measured on the
+PATCHED database (binary md5 ddf27fe553b2aeb4852d73f8de32abba) against the
+immutable golden caches 00d4794526e44dc553f3 (default) and
+d7348d2d2fe67abe767b (testflags).  Pristine binary md5
+560a8eb9f2b4afcb5ea7f4e48a732169, BASE 502642d.
+
+earl66's R0 is CLEARED.  It was a VpiType head (constant vs ref_obj) on the
+singular `bit_select::Compare(VpiIndex)` and it is gone in BOTH modes, on the
+same object, with the two AFTER cmp logs byte-identical:
+
+  cmp depth  default   46 -> 32 lines    (line count is HEAD DEPTH, never a
+             testflags 46 -> 32 lines     distance)
+  heads      1 per run, both modes, before and after; the two AFTER logs are
+             byte-identical (HEAD_R0_AFTER_default.cmp ==
+             HEAD_R0_AFTER_testflags.cmp, md5 710148f51aa2…), as the two
+             BEFORE logs were (d0da4ae6b027…).
+
+  earl66 R0 (prim_arbiter_tree.sv:142:34-142:36, `req_tree[C0]`, the bit-select
+  INDEX inside …gen_tree[0].gen_level[0].gen_nodes) — CLEARED, and with it the
+  WHOLE 1,995-cell family (whole-design census, both modes: 1,995 TO-GOLDEN,
+  0 AWAY-GOLDEN, 0 MOVED-WRONG, and those 1,995 are the ONLY cells that changed
+  anywhere in the database).
+
+=======================================================================
+R0 — Earlgrey_0_1, BOTH MODES, 32 cmp lines, 1 head
+=======================================================================
+
+  prim_arbiter_tree.sv:114:20-114:42, inside
+  gen_flash_banks[0].i_core.i_rd.i_valid_random.gen_normal_case.
+  gen_tree[2].gen_level[0].gen_leafs.gen_assign — the WHOLE Rhs of the
+  ELABORATED cont_assign `assign idx_tree[Pa] = offset;`:
+
+      LHS(golden): constant  id:990154   NO LOCATION AT ALL
+                     |vpiParent -> cont_assign (114:20-114:42)
+                     |vpiDecompile:0  |vpiSize:64  |UINT:0  |vpiConstType:9
+                     (no typespec)
+      RHS(ours)  : ref_obj (…gen_leafs.gen_assign.offset) id:252319
+                     114:36-114:42  |vpiName:offset   (the GENVAR of the
+                     enclosing `gen_level` for-generate; no vpiActual)
+
+  HEAD DECODE (BaseClass.h + UHDM/build/generated/src/cont_assign.cpp):
+  `cont_assign::Compare` runs the singular `SafeCompare(Rhs(), Rhs())`; both
+  operands are non-null with DIFFERENT `UhdmType`, so `BaseClass::Compare`'s
+  type test fails first and BaseClass.h:188's `(lhs != nullptr) && (rhs !=
+  nullptr)` arm names BOTH sides in full — the same MK shape earl65 and earl66
+  had, one family further down the ladder.  Note that golden's constant is
+  LOCATION-LESS and carries NO typespec: it is a MINTED reduction, not a copy
+  of any declaration's constant, which is the opposite mint from the one this
+  pass just landed.
+
+  > R0 (both modes): in an ELABORATED gen-scope cont_assign whose Rhs is a
+  > BARE GENVAR read, golden REDUCES the whole Rhs to a location-less
+  > `constant vpiUIntConst sz 64` carrying no typespec, and we keep a
+  > `ref_obj` to the genvar.  89 cells this shape, both modes.
+
+=======================================================================
+THE SUPERFAMILY, RE-RANKED ON THE PATCHED DATABASE
+("golden has a CONSTANT where we have a REF_OBJ at the same positional key")
+=======================================================================
+  default    2,222 cells before this pass  ->    227 after
+  testflags  2,396 cells before this pass  ->    401 after
+
+  rank  cells(def/tf)  sec   site  position  symbol             note
+  ------------------------------------------------------------------------
+   R0     89 /  89     ELAB  CA    RHS       offset (GENVAR)    THE NEW HEAD;
+                                                                whole-Rhs
+                                                                reduce, minted
+                                                                location-less
+   R1a    87 /   0     ELAB  CA    op11[]    IDW, STIDW         operand fold
+   R1b    32 /  32     ELAB  CA    op33[]    MioPeriphHasSleep… operand fold
+   R1c    16 /  16     ELAB  HC    idx       N                  earl64 R5
+   R1d     3 /   3     ELAB  HC    b         DataBitWidth       earl64 R5
+   R1e     0 / 261     ELAB  CA    hp[]/idx  i (GENVAR, inside  testflags only;
+                                             a HIER_PATH)       golden folds to
+                                                                UINT sz 64,
+                                                                no typespec
+  ------------------------------------------------------------------------
+  EVERY remaining cell is a parameter/localparam/GENVAR read; the ENUM-CONSTANT
+  slice stayed empty (earl66) and the gen-scope-localparam BIT-SELECT-INDEX
+  slice is now empty too.  The two GENVAR rows (R0 and R1e) are 89 + 261 = 350
+  of the 628 remaining cells across the two modes: **the genvar-read fold is
+  the next law to decode**, and R0 and R1e are the same mint (location-less
+  UINT sz 64, no typespec) at two positions.
+
+=======================================================================
+RANKED AFTER R0
+=======================================================================
+R1  THE GENVAR HIER-PATH INDEX (R1e above), testflags only, 261 cells: the
+    same location-less `UINT sz 64` mint one position over, in a `hier_path`
+    element's bit-select index inside an ELAB gen-scope cont_assign
+    (`u_xbar_main.u_sm1_17.gen_host_fifo[n]`, tlul_socket_1n.sv:96/105/108…).
+    It is emitted by a DIFFERENT code path from R0's (the hier_path bit_select
+    at ExprEmit ~17630/17660, not the plain ElementSelect arm), so it needs its
+    own call site even once R0's law is decoded.
+R2  THE OPERAND FOLDS (R1a/R1b), 87 + 32 cells: `IDW`/`STIDW`/
+    `MioPeriphHasSleepMode` read as an OPERATION OPERAND inside an ELAB
+    cont_assign, where golden folds and we keep a ref.  These are MODULE-body
+    localparams and package parameters, not gen-scope ones, so
+    § genLpUseFoldParentScope47's one-hop predicate cannot reach them —
+    earl64's R4 whole-Rhs reduce is the model to finish first.
+R3  THE ELAB High_conn REMAINDER (R1c/R1d), 19 cells: earl64's R5, unchanged
+    by this pass.  Fold WITHOUT a typespec here (§ connIpsPkgParamBoundNoTs65
+    and this pass's arm cell `.o(idx_tree[Pa])`) — the position x view split is
+    now measured on both sides and is the reason this pass's gate carries
+    `inGenScopeCa67`.
+R4  THE POSITIONS THIS PASS MEASURED AND DID NOT TAKE, all inside an ELAB
+    gen-scope cont_assign at ONE hop, all arm-visible and corpus-invisible
+    (fence scan: 0 cells in either corpus):
+      * an operand of an OPERATION that is itself a bit-select INDEX
+        (`w[Ku + 1]`): golden keeps the operation and folds the operand; we
+        pre-fold the WHOLE index to one constant.
+      * a TERNARY PREDICATE operand (`(Ku > 0) ? … : …`): golden keeps the
+        ternary and folds the operand; we pre-fold the whole ternary away.
+      * a bare `Ku[0]`: golden reduces the whole select to one constant at the
+        INITIALIZER's span.
+    Each is a WHOLE-EXPRESSION reduce we perform one level too early, the same
+    shape earl64/earl66 ranked as their R4.
+R5  carried and unchanged: earl66's R2 (our enum_const's own encoding), earl64's
+    R1 (based-override decompile `"32'h2"` vs `"4'h2"`, 44 Earlgrey cells) and
+    R2 (`UINT:-3`), and earl61-63's residues.

@@ -1,0 +1,2 @@
+1 default/rp32_r5p_mouse_soc_simple_top-04e89b64/slang.uhdm
+1 testflags/rp32_r5p_mouse_soc_simple_top-04e89b64/slang.uhdm

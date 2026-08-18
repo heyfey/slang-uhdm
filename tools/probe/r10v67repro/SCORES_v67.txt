@@ -1,0 +1,25 @@
+r10v67 (ADVERSARIAL VERIFIER of r10earl67) — ARM SCORES
+3-way multiset join golden/pristine/patched, payload = judge fields only,
+span/tsspan/afn stripped (nospan67.sh).  Binaries frozen 555:
+  pristine 560a8eb9f2b4afcb5ea7f4e48a732169   patched ddf27fe553b2aeb4852d73f8de32abba
+
+ARM v1_shapes67 o     : cells 170 {'TO-GOLDEN': 16, 'STILL-RIGHT': 124, 'STILL-WRONG': 16, 'MOVED-WRONG': 14}
+ARM v1_shapes67 oe    : cells 170 {'STILL-WRONG': 19, 'STILL-RIGHT': 121, 'TO-GOLDEN': 16, 'MOVED-WRONG': 14}
+ARM v2_pos67 o     : cells 166 {'STILL-RIGHT': 144, 'STILL-WRONG': 12, 'TO-GOLDEN': 10}
+ARM v2_pos67 oe    : cells 166 {'TO-GOLDEN': 10, 'STILL-RIGHT': 137, 'STILL-WRONG': 19}
+ARM v3_homes67 o     : cells 160 {'TO-GOLDEN': 20, 'STILL-RIGHT': 140}
+ARM v3_homes67 oe    : cells 160 {'STILL-WRONG': 20, 'STILL-RIGHT': 120, 'TO-GOLDEN': 20}
+ARM v4_calls67 o     : cells 186 {'STILL-RIGHT': 172, 'STILL-WRONG': 6, 'TO-GOLDEN': 8}
+ARM v4_calls67 oe    : cells 190 {'STILL-RIGHT': 129, 'STILL-WRONG': 53, 'MOVED-WRONG': 2, 'TO-GOLDEN': 6}
+ARM v5_edge67 o     : cells 157 {'STILL-RIGHT': 115, 'TO-GOLDEN': 12, 'STILL-WRONG': 30}
+ARM v5_edge67 oe    : cells 162 {'TO-GOLDEN': 12, 'STILL-RIGHT': 103, 'STILL-WRONG': 47}
+BOUNDARY-MOVER a2_earl47 o     : cells 437 {'STILL-RIGHT': 407, 'STILL-WRONG': 24, 'TO-GOLDEN': 6}
+BOUNDARY-MOVER a2_earl47 oe    : cells 443 {'STILL-RIGHT': 353, 'STILL-WRONG': 84, 'TO-GOLDEN': 6}
+BOUNDARY-MOVER a1_earl56 o     : cells 210 {'STILL-RIGHT': 205, 'STILL-WRONG': 4, 'TO-GOLDEN': 1}
+BOUNDARY-MOVER a1_earl56 oe    : cells 219 {'STILL-RIGHT': 157, 'STILL-WRONG': 61, 'TO-GOLDEN': 1}
+BOUNDARY-MOVER a2_earl56 o     : cells 108 {'STILL-RIGHT': 105, 'TO-GOLDEN': 1, 'STILL-WRONG': 2}
+BOUNDARY-MOVER a2_earl56 oe    : cells 110 {'STILL-RIGHT': 91, 'STILL-WRONG': 18, 'TO-GOLDEN': 1}
+BOUNDARY-MOVER a4_earl56 o     : cells 81 {'STILL-RIGHT': 77, 'STILL-WRONG': 3, 'TO-GOLDEN': 1}
+BOUNDARY-MOVER a4_earl56 oe    : cells 81 {'STILL-RIGHT': 72, 'STILL-WRONG': 8, 'TO-GOLDEN': 1}
+BOUNDARY-MOVER a1_earl58 o     : cells 1111 {'STILL-RIGHT': 929, 'STILL-WRONG': 172, 'TO-GOLDEN': 8, 'MOVED-WRONG': 2}
+BOUNDARY-MOVER a1_earl58 oe    : cells 1193 {'STILL-WRONG': 516, 'STILL-RIGHT': 667, 'TO-GOLDEN': 8, 'MOVED-WRONG': 2}

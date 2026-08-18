@@ -3509,6 +3509,14 @@ private:
     int selIdxScopeDepth = 0;
     // True while emitting an elaborated gen-scope cont_assign RHS.
     bool inGenScopeCaRhs = false;
+    // § genLpBitSelIdxOneHopFold67 — true for the WHOLE of an ELAB gen-scope
+    // cont_assign's expression emission (Lhs and Rhs alike), where
+    // `inGenScopeCaRhs` covers only the Rhs.  It is the fence on
+    // § genLpUseFoldParentScope47's fifth call site (the bit-select INDEX):
+    // golden folds a ONE-HOP gen-scope localparam index to a typed constant
+    // HERE, and folds the same index WITHOUT a typespec in an ELAB port
+    // High_conn — see the call site in ExprEmit.cpp.
+    bool inGenScopeCa67 = false;
     // § genCaSysCallArgBinds22 — nesting depth inside a SYSTEM function
     // call's argument list ($signed/$unsigned/...).  callArgDepth counts user
     // calls too and this law is measured only for system ones.
