@@ -17504,6 +17504,180 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                              mb9.as<GenerateBlockArraySymbol>().entries)
                             scanCa9(*e9);
                     }
+                    // § genLpPortConnRead10 — AN INSTANCE PORT CONNECTION IS A
+                    // READ TOO, AND A PARAMETER OVERRIDE IS NOT.  Surelog's
+                    // `CompileHelper::getObject` (CompileExpression.cpp:305)
+                    // resolves a NAME to its `param_assign`, takes
+                    // `passign->Rhs()` — THE SHARED DECLARATION CONSTANT — and,
+                    // when the enclosing ModuleInstance has a value for that
+                    // name, calls `setRange(constant, value)`
+                    // (CompileHelper.cpp:5417), which REPLACES that constant's
+                    // typespec IN PLACE with a fresh LOC-LESS logic_typespec
+                    // whose bounds are bare `UINT:<l>`/`UINT:<r>` constants.
+                    // PORT connections are compiled by NetlistElaboration WITH
+                    // the instance and take that path; parameter OVERRIDES go
+                    // through `ExprBuilder::evalExpr` and never do.
+                    // Rggen block_0 is the natural experiment — two adjacent
+                    // bit-field blocks, one localparam apiece:
+                    //   g_bit_field_0  `.INITIAL_VALUE (INITIAL_VALUE)` (param
+                    //                  override)  -> golden keeps bit_typespec
+                    //   g_bit_field_1  `.i_value       (INITIAL_VALUE)` (port)
+                    //                  -> golden BARE loc-less logic_typespec
+                    // and grid B (320 cells, 4 homes x 5 types x 2 values x 8
+                    // read kinds) says the flip is home-blind and value-blind:
+                    // portplain/portpos/portcat/ca/caexpr -> BARE,
+                    // none/pov/portcast -> the declaration typespec.
+                    // The BARE NAME counts only after IMPLICIT conversions are
+                    // stripped: an EXPLICIT size cast `.i_value(8'(IV))` is
+                    // golden-LOCATED (grid B `portcast`, all 8 cells).
+                    else if (mb9.kind == SymbolKind::Instance ||
+                             mb9.kind == SymbolKind::InstanceArray) {
+                        std::function<void(const Symbol&)> doInst9 =
+                            [&](const Symbol& im9) {
+                                if (caRead9)
+                                    return;
+                                if (im9.kind == SymbolKind::InstanceArray) {
+                                    for (auto* el9 :
+                                         im9.as<InstanceArraySymbol>().elements)
+                                        if (el9)
+                                            doInst9(*el9);
+                                    return;
+                                }
+                                if (im9.kind != SymbolKind::Instance)
+                                    return;
+                                auto& ci9 = im9.as<InstanceSymbol>();
+                                // § detachedInstNoConns — a def-only instance
+                                // has no parent scope and asking it for
+                                // connections segfaults.
+                                if (!ci9.getParentScope())
+                                    return;
+                                for (auto* pc9 : ci9.getPortConnections()) {
+                                    if (!pc9 || caRead9)
+                                        continue;
+                                    auto* pe9 = pc9->getExpression();
+                                    if (!pe9)
+                                        continue;
+                                    auto& be9 = stripImplicitConv(*pe9);
+                                    if (be9.kind ==
+                                            ExpressionKind::NamedValue &&
+                                        &be9.as<NamedValueExpression>()
+                                                .symbol ==
+                                            (const Symbol*)gl.ps) {
+                                        caRead9 = true;
+                                        continue;
+                                    }
+                                    // A SELECT of the parameter inside the
+                                    // connection reads it too (grid B
+                                    // `portcat`: `.i_value({4'h0, IV[3:0]})`
+                                    // is golden-BARE) -- EXCEPT under a USER
+                                    // function/task call argument.
+                                    // § genLpCallArgSelBlocks10v (verifier).
+                                    // Surelog compiles a user call's argument
+                                    // as an OBJECT only when the argument IS
+                                    // the select (or another such call);
+                                    // wrap it in anything -- concat,
+                                    // replication, cast, unary/binary op,
+                                    // ternary -- and the argument is folded
+                                    // through the value path instead, which
+                                    // never reaches `getObject`, so the
+                                    // declaration typespec SURVIVES.  A
+                                    // SYSTEM call does not block: its operands
+                                    // compile in place.  MEASURED on a 43-cell
+                                    // sub-grid (vrgg10 grid6+grid7):
+                                    //   golden BARE   f8(IV[3:0]),
+                                    //     h2(8'h0,IV[3:0]), f8(g8(IV[3:0])),
+                                    //     8'(f8(IV[3:0])), $clog2({4'h0,IV[3:0]}),
+                                    //     $bits(IV[3:0]), $signed(IV[3:0]),
+                                    //     {f8(8'h0),IV[3:0]}
+                                    //   golden DECL   f8({4'h0,IV[3:0]}),
+                                    //     f8(8'(IV[3:0])), f8(IV[3:0]+1),
+                                    //     f8(~IV[3:0]), f8({2{IV[3:0]}}),
+                                    //     f8(1'b1?IV[3:0]:4'h0),
+                                    //     f8(g8({4'h0,IV[3:0]})),
+                                    //     h2(8'h0,{4'h0,IV[3:0]})
+                                    // Without this the patch bound the bare
+                                    // clone where the PRISTINE base was RIGHT.
+                                    auto isPsSel9 = [&](const Expression& x9) {
+                                        auto& s9 = stripImplicitConv(x9);
+                                        const Expression* bs9 = nullptr;
+                                        if (s9.kind ==
+                                            ExpressionKind::ElementSelect)
+                                            bs9 = &s9.as<ElementSelectExpression>()
+                                                       .value();
+                                        else if (s9.kind ==
+                                                 ExpressionKind::RangeSelect)
+                                            bs9 = &s9.as<RangeSelectExpression>()
+                                                       .value();
+                                        if (!bs9)
+                                            return false;
+                                        auto& b0 = stripImplicitConv(*bs9);
+                                        return b0.kind ==
+                                                   ExpressionKind::NamedValue &&
+                                               &b0.as<NamedValueExpression>()
+                                                       .symbol ==
+                                                   (const Symbol*)gl.ps;
+                                    };
+                                    std::function<void(const Expression&)>
+                                        walk9 = [&](const Expression& x9) {
+                                            if (caRead9)
+                                                return;
+                                            auto& s9 = stripImplicitConv(x9);
+                                            if (isPsSel9(s9)) {
+                                                caRead9 = true;
+                                                return;
+                                            }
+                                            if (s9.kind ==
+                                                ExpressionKind::Call) {
+                                                auto& ce9 =
+                                                    s9.as<CallExpression>();
+                                                bool sys9 = ce9.isSystemCall();
+                                                for (auto* a9 :
+                                                     ce9.arguments()) {
+                                                    if (!a9 || caRead9)
+                                                        continue;
+                                                    if (sys9) {
+                                                        walk9(*a9);
+                                                        continue;
+                                                    }
+                                                    auto& as9 =
+                                                        stripImplicitConv(*a9);
+                                                    if (isPsSel9(as9)) {
+                                                        caRead9 = true;
+                                                        return;
+                                                    }
+                                                    if (as9.kind ==
+                                                        ExpressionKind::Call)
+                                                        walk9(as9);
+                                                }
+                                                return;
+                                            }
+                                            s9.visit(makeVisitor(
+                                                [&](auto&,
+                                                    const CallExpression& c9) {
+                                                    walk9(c9);
+                                                },
+                                                [&](auto& v9,
+                                                    const ElementSelectExpression&
+                                                        e9) {
+                                                    if (isPsSel9(e9))
+                                                        caRead9 = true;
+                                                    else
+                                                        v9.visitDefault(e9);
+                                                },
+                                                [&](auto& v9,
+                                                    const RangeSelectExpression&
+                                                        r9) {
+                                                    if (isPsSel9(r9))
+                                                        caRead9 = true;
+                                                    else
+                                                        v9.visitDefault(r9);
+                                                }));
+                                        };
+                                    walk9(*pe9);
+                                }
+                            };
+                        doInst9(mb9);
+                    }
                 }
             };
             if (auto* psc9 = gl.ps->getParentScope())

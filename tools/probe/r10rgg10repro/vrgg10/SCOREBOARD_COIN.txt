@@ -1,0 +1,22 @@
+vrgg10 — Scoreboard/default is a COIN, re-measured ORDER-BLIND by the verifier.
+
+Six alternating runs of the SAME command line (read out of the base workdir's
+own cmds.txt), base and fix binaries interleaved so neither goes first
+systematically:
+
+  base run1 366f571b5813      fix run1 366f571b5813
+  base run2 366f571b5813      fix run2 366f571b5813
+  base run3 93089c7a372b      fix run3 366f571b5813
+  base run4 366f571b5813      fix run4 366f571b5813
+  base run5 366f571b5813      fix run5 93089c7a372b
+  base run6 93089c7a372b      fix run6 93089c7a372b
+
+The BASE binary alone produces BOTH faces (366f571b / 93089c7a) on its own
+command line; so does the FIX binary.  Sweep artifacts:
+  base sweep : 366f571b5813
+  patch sweep: 93089c7a372b   <- one of the two faces the BASE produces
+  fix sweep  : (landed on the base's face; byteverify shows 1 mover, Rggen only)
+
+VERDICT: the r10rgg10 report's attribution of the Scoreboard mover to the
+COIN, not to the patch, is CONFIRMED — independently and order-blind.
+Row status, dump column and head (24 cmp lines / 1 head) unchanged throughout.

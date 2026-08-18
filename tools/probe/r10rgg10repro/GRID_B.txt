@@ -1,0 +1,555 @@
+HOME        TYPE     VAL   READ       GOLDEN C class
+childbody   bit1     nz    both       DECL-BIT
+childbody   bit1     nz    ca         DECL-BIT
+childbody   bit1     nz    caexpr     DECL-BIT
+childbody   bit1     nz    none       DECL-BIT
+childbody   bit1     nz    portcast   DECL-BIT
+childbody   bit1     nz    portplain  DECL-BIT
+childbody   bit1     nz    pov        DECL-BIT
+childbody   bit1     zero  both       DECL-BIT
+childbody   bit1     zero  ca         DECL-BIT
+childbody   bit1     zero  caexpr     DECL-BIT
+childbody   bit1     zero  none       DECL-BIT
+childbody   bit1     zero  portcast   DECL-BIT
+childbody   bit1     zero  portplain  DECL-BIT
+childbody   bit1     zero  pov        DECL-BIT
+childbody   bit8     nz    both       BARE-LOGIC
+childbody   bit8     nz    ca         BARE-LOGIC
+childbody   bit8     nz    caexpr     BARE-LOGIC
+childbody   bit8     nz    none       DECL-BIT
+childbody   bit8     nz    portcast   DECL-BIT
+childbody   bit8     nz    portcat    BARE-LOGIC
+childbody   bit8     nz    portplain  BARE-LOGIC
+childbody   bit8     nz    pov        DECL-BIT
+childbody   bit8     zero  both       BARE-LOGIC
+childbody   bit8     zero  ca         BARE-LOGIC
+childbody   bit8     zero  caexpr     BARE-LOGIC
+childbody   bit8     zero  none       DECL-BIT
+childbody   bit8     zero  portcast   DECL-BIT
+childbody   bit8     zero  portcat    BARE-LOGIC
+childbody   bit8     zero  portplain  BARE-LOGIC
+childbody   bit8     zero  pov        DECL-BIT
+childbody   bit8par  nz    both       BARE-LOGIC
+childbody   bit8par  nz    ca         BARE-LOGIC
+childbody   bit8par  nz    caexpr     BARE-LOGIC
+childbody   bit8par  nz    none       DECL-BIT
+childbody   bit8par  nz    portcast   DECL-BIT
+childbody   bit8par  nz    portcat    BARE-LOGIC
+childbody   bit8par  nz    portplain  BARE-LOGIC
+childbody   bit8par  nz    pov        DECL-BIT
+childbody   bit8par  zero  both       BARE-LOGIC
+childbody   bit8par  zero  ca         BARE-LOGIC
+childbody   bit8par  zero  caexpr     BARE-LOGIC
+childbody   bit8par  zero  none       DECL-BIT
+childbody   bit8par  zero  portcast   DECL-BIT
+childbody   bit8par  zero  portcat    BARE-LOGIC
+childbody   bit8par  zero  portplain  BARE-LOGIC
+childbody   bit8par  zero  pov        DECL-BIT
+childbody   int      nz    both       DECL-INT
+childbody   int      nz    ca         DECL-INT
+childbody   int      nz    caexpr     DECL-INT
+childbody   int      nz    none       DECL-INT
+childbody   int      nz    portcast   DECL-INT
+childbody   int      nz    portcat    DECL-INT
+childbody   int      nz    portplain  DECL-INT
+childbody   int      nz    pov        DECL-INT
+childbody   int      zero  both       DECL-INT
+childbody   int      zero  ca         DECL-INT
+childbody   int      zero  caexpr     DECL-INT
+childbody   int      zero  none       DECL-INT
+childbody   int      zero  portcast   DECL-INT
+childbody   int      zero  portcat    DECL-INT
+childbody   int      zero  portplain  DECL-INT
+childbody   int      zero  pov        DECL-INT
+childbody   logic8   nz    both       BARE-LOGIC
+childbody   logic8   nz    ca         BARE-LOGIC
+childbody   logic8   nz    caexpr     BARE-LOGIC
+childbody   logic8   nz    none       DECL-LOGIC
+childbody   logic8   nz    portcast   DECL-LOGIC
+childbody   logic8   nz    portcat    BARE-LOGIC
+childbody   logic8   nz    portplain  BARE-LOGIC
+childbody   logic8   nz    pov        DECL-LOGIC
+childbody   logic8   zero  both       BARE-LOGIC
+childbody   logic8   zero  ca         BARE-LOGIC
+childbody   logic8   zero  caexpr     BARE-LOGIC
+childbody   logic8   zero  none       DECL-LOGIC
+childbody   logic8   zero  portcast   DECL-LOGIC
+childbody   logic8   zero  portcat    BARE-LOGIC
+childbody   logic8   zero  portplain  BARE-LOGIC
+childbody   logic8   zero  pov        DECL-LOGIC
+childgen    bit1     nz    both       DECL-BIT
+childgen    bit1     nz    ca         DECL-BIT
+childgen    bit1     nz    caexpr     DECL-BIT
+childgen    bit1     nz    none       DECL-BIT
+childgen    bit1     nz    portcast   DECL-BIT
+childgen    bit1     nz    portplain  DECL-BIT
+childgen    bit1     nz    pov        DECL-BIT
+childgen    bit1     zero  both       DECL-BIT
+childgen    bit1     zero  ca         DECL-BIT
+childgen    bit1     zero  caexpr     DECL-BIT
+childgen    bit1     zero  none       DECL-BIT
+childgen    bit1     zero  portcast   DECL-BIT
+childgen    bit1     zero  portplain  DECL-BIT
+childgen    bit1     zero  pov        DECL-BIT
+childgen    bit8     nz    both       BARE-LOGIC
+childgen    bit8     nz    ca         BARE-LOGIC
+childgen    bit8     nz    caexpr     BARE-LOGIC
+childgen    bit8     nz    none       DECL-BIT
+childgen    bit8     nz    portcast   DECL-BIT
+childgen    bit8     nz    portcat    BARE-LOGIC
+childgen    bit8     nz    portplain  BARE-LOGIC
+childgen    bit8     nz    pov        DECL-BIT
+childgen    bit8     zero  both       BARE-LOGIC
+childgen    bit8     zero  ca         BARE-LOGIC
+childgen    bit8     zero  caexpr     BARE-LOGIC
+childgen    bit8     zero  none       DECL-BIT
+childgen    bit8     zero  portcast   DECL-BIT
+childgen    bit8     zero  portcat    BARE-LOGIC
+childgen    bit8     zero  portplain  BARE-LOGIC
+childgen    bit8     zero  pov        DECL-BIT
+childgen    bit8par  nz    both       BARE-LOGIC
+childgen    bit8par  nz    ca         BARE-LOGIC
+childgen    bit8par  nz    caexpr     BARE-LOGIC
+childgen    bit8par  nz    none       DECL-BIT
+childgen    bit8par  nz    portcast   DECL-BIT
+childgen    bit8par  nz    portcat    BARE-LOGIC
+childgen    bit8par  nz    portplain  BARE-LOGIC
+childgen    bit8par  nz    pov        DECL-BIT
+childgen    bit8par  zero  both       BARE-LOGIC
+childgen    bit8par  zero  ca         BARE-LOGIC
+childgen    bit8par  zero  caexpr     BARE-LOGIC
+childgen    bit8par  zero  none       DECL-BIT
+childgen    bit8par  zero  portcast   DECL-BIT
+childgen    bit8par  zero  portcat    BARE-LOGIC
+childgen    bit8par  zero  portplain  BARE-LOGIC
+childgen    bit8par  zero  pov        DECL-BIT
+childgen    int      nz    both       DECL-INT
+childgen    int      nz    ca         DECL-INT
+childgen    int      nz    caexpr     DECL-INT
+childgen    int      nz    none       DECL-INT
+childgen    int      nz    portcast   DECL-INT
+childgen    int      nz    portcat    DECL-INT
+childgen    int      nz    portplain  DECL-INT
+childgen    int      nz    pov        DECL-INT
+childgen    int      zero  both       DECL-INT
+childgen    int      zero  ca         DECL-INT
+childgen    int      zero  caexpr     DECL-INT
+childgen    int      zero  none       DECL-INT
+childgen    int      zero  portcast   DECL-INT
+childgen    int      zero  portcat    DECL-INT
+childgen    int      zero  portplain  DECL-INT
+childgen    int      zero  pov        DECL-INT
+childgen    logic8   nz    both       BARE-LOGIC
+childgen    logic8   nz    ca         BARE-LOGIC
+childgen    logic8   nz    caexpr     BARE-LOGIC
+childgen    logic8   nz    none       DECL-LOGIC
+childgen    logic8   nz    portcast   DECL-LOGIC
+childgen    logic8   nz    portcat    BARE-LOGIC
+childgen    logic8   nz    portplain  BARE-LOGIC
+childgen    logic8   nz    pov        DECL-LOGIC
+childgen    logic8   zero  both       BARE-LOGIC
+childgen    logic8   zero  ca         BARE-LOGIC
+childgen    logic8   zero  caexpr     BARE-LOGIC
+childgen    logic8   zero  none       DECL-LOGIC
+childgen    logic8   zero  portcast   DECL-LOGIC
+childgen    logic8   zero  portcat    BARE-LOGIC
+childgen    logic8   zero  portplain  BARE-LOGIC
+childgen    logic8   zero  pov        DECL-LOGIC
+topbody     bit1     nz    both       DECL-BIT
+topbody     bit1     nz    ca         DECL-BIT
+topbody     bit1     nz    caexpr     DECL-BIT
+topbody     bit1     nz    none       DECL-BIT
+topbody     bit1     nz    portcast   DECL-BIT
+topbody     bit1     nz    portplain  DECL-BIT
+topbody     bit1     nz    pov        DECL-BIT
+topbody     bit1     zero  both       DECL-BIT
+topbody     bit1     zero  ca         DECL-BIT
+topbody     bit1     zero  caexpr     DECL-BIT
+topbody     bit1     zero  none       DECL-BIT
+topbody     bit1     zero  portcast   DECL-BIT
+topbody     bit1     zero  portplain  DECL-BIT
+topbody     bit1     zero  pov        DECL-BIT
+topbody     bit8     nz    both       BARE-LOGIC
+topbody     bit8     nz    ca         BARE-LOGIC
+topbody     bit8     nz    caexpr     BARE-LOGIC
+topbody     bit8     nz    none       DECL-BIT
+topbody     bit8     nz    portcast   DECL-BIT
+topbody     bit8     nz    portcat    BARE-LOGIC
+topbody     bit8     nz    portplain  BARE-LOGIC
+topbody     bit8     nz    pov        DECL-BIT
+topbody     bit8     zero  both       BARE-LOGIC
+topbody     bit8     zero  ca         BARE-LOGIC
+topbody     bit8     zero  caexpr     BARE-LOGIC
+topbody     bit8     zero  none       DECL-BIT
+topbody     bit8     zero  portcast   DECL-BIT
+topbody     bit8     zero  portcat    BARE-LOGIC
+topbody     bit8     zero  portplain  BARE-LOGIC
+topbody     bit8     zero  pov        DECL-BIT
+topbody     bit8par  nz    both       BARE-LOGIC
+topbody     bit8par  nz    ca         BARE-LOGIC
+topbody     bit8par  nz    caexpr     BARE-LOGIC
+topbody     bit8par  nz    none       DECL-BIT
+topbody     bit8par  nz    portcast   DECL-BIT
+topbody     bit8par  nz    portcat    BARE-LOGIC
+topbody     bit8par  nz    portplain  BARE-LOGIC
+topbody     bit8par  nz    pov        DECL-BIT
+topbody     bit8par  zero  both       BARE-LOGIC
+topbody     bit8par  zero  ca         BARE-LOGIC
+topbody     bit8par  zero  caexpr     BARE-LOGIC
+topbody     bit8par  zero  none       DECL-BIT
+topbody     bit8par  zero  portcast   DECL-BIT
+topbody     bit8par  zero  portcat    BARE-LOGIC
+topbody     bit8par  zero  portplain  BARE-LOGIC
+topbody     bit8par  zero  pov        DECL-BIT
+topbody     int      nz    both       DECL-INT
+topbody     int      nz    ca         DECL-INT
+topbody     int      nz    caexpr     DECL-INT
+topbody     int      nz    none       DECL-INT
+topbody     int      nz    portcast   DECL-INT
+topbody     int      nz    portcat    DECL-INT
+topbody     int      nz    portplain  DECL-INT
+topbody     int      nz    pov        DECL-INT
+topbody     int      zero  both       DECL-INT
+topbody     int      zero  ca         DECL-INT
+topbody     int      zero  caexpr     DECL-INT
+topbody     int      zero  none       DECL-INT
+topbody     int      zero  portcast   DECL-INT
+topbody     int      zero  portcat    DECL-INT
+topbody     int      zero  portplain  DECL-INT
+topbody     int      zero  pov        DECL-INT
+topbody     logic8   nz    both       BARE-LOGIC
+topbody     logic8   nz    ca         BARE-LOGIC
+topbody     logic8   nz    caexpr     BARE-LOGIC
+topbody     logic8   nz    none       DECL-LOGIC
+topbody     logic8   nz    portcast   DECL-LOGIC
+topbody     logic8   nz    portcat    BARE-LOGIC
+topbody     logic8   nz    portplain  BARE-LOGIC
+topbody     logic8   nz    pov        DECL-LOGIC
+topbody     logic8   zero  both       BARE-LOGIC
+topbody     logic8   zero  ca         BARE-LOGIC
+topbody     logic8   zero  caexpr     BARE-LOGIC
+topbody     logic8   zero  none       DECL-LOGIC
+topbody     logic8   zero  portcast   DECL-LOGIC
+topbody     logic8   zero  portcat    BARE-LOGIC
+topbody     logic8   zero  portplain  BARE-LOGIC
+topbody     logic8   zero  pov        DECL-LOGIC
+topgen      bit1     nz    both       DECL-BIT
+topgen      bit1     nz    ca         DECL-BIT
+topgen      bit1     nz    caexpr     DECL-BIT
+topgen      bit1     nz    none       DECL-BIT
+topgen      bit1     nz    portcast   DECL-BIT
+topgen      bit1     nz    portplain  DECL-BIT
+topgen      bit1     nz    pov        DECL-BIT
+topgen      bit1     zero  both       DECL-BIT
+topgen      bit1     zero  ca         DECL-BIT
+topgen      bit1     zero  caexpr     DECL-BIT
+topgen      bit1     zero  none       DECL-BIT
+topgen      bit1     zero  portcast   DECL-BIT
+topgen      bit1     zero  portplain  DECL-BIT
+topgen      bit1     zero  pov        DECL-BIT
+topgen      bit8     nz    both       BARE-LOGIC
+topgen      bit8     nz    ca         BARE-LOGIC
+topgen      bit8     nz    caexpr     BARE-LOGIC
+topgen      bit8     nz    none       DECL-BIT
+topgen      bit8     nz    portcast   DECL-BIT
+topgen      bit8     nz    portcat    BARE-LOGIC
+topgen      bit8     nz    portplain  BARE-LOGIC
+topgen      bit8     nz    pov        DECL-BIT
+topgen      bit8     zero  both       BARE-LOGIC
+topgen      bit8     zero  ca         BARE-LOGIC
+topgen      bit8     zero  caexpr     BARE-LOGIC
+topgen      bit8     zero  none       DECL-BIT
+topgen      bit8     zero  portcast   DECL-BIT
+topgen      bit8     zero  portcat    BARE-LOGIC
+topgen      bit8     zero  portplain  BARE-LOGIC
+topgen      bit8     zero  pov        DECL-BIT
+topgen      bit8par  nz    both       BARE-LOGIC
+topgen      bit8par  nz    ca         BARE-LOGIC
+topgen      bit8par  nz    caexpr     BARE-LOGIC
+topgen      bit8par  nz    none       DECL-BIT
+topgen      bit8par  nz    portcast   DECL-BIT
+topgen      bit8par  nz    portcat    BARE-LOGIC
+topgen      bit8par  nz    portplain  BARE-LOGIC
+topgen      bit8par  nz    pov        DECL-BIT
+topgen      bit8par  zero  both       BARE-LOGIC
+topgen      bit8par  zero  ca         BARE-LOGIC
+topgen      bit8par  zero  caexpr     BARE-LOGIC
+topgen      bit8par  zero  none       DECL-BIT
+topgen      bit8par  zero  portcast   DECL-BIT
+topgen      bit8par  zero  portcat    BARE-LOGIC
+topgen      bit8par  zero  portplain  BARE-LOGIC
+topgen      bit8par  zero  pov        DECL-BIT
+topgen      int      nz    both       DECL-INT
+topgen      int      nz    ca         DECL-INT
+topgen      int      nz    caexpr     DECL-INT
+topgen      int      nz    none       DECL-INT
+topgen      int      nz    portcast   DECL-INT
+topgen      int      nz    portcat    DECL-INT
+topgen      int      nz    portplain  DECL-INT
+topgen      int      nz    pov        DECL-INT
+topgen      int      zero  both       DECL-INT
+topgen      int      zero  ca         DECL-INT
+topgen      int      zero  caexpr     DECL-INT
+topgen      int      zero  none       DECL-INT
+topgen      int      zero  portcast   DECL-INT
+topgen      int      zero  portcat    DECL-INT
+topgen      int      zero  portplain  DECL-INT
+topgen      int      zero  pov        DECL-INT
+topgen      logic8   nz    both       BARE-LOGIC
+topgen      logic8   nz    ca         BARE-LOGIC
+topgen      logic8   nz    caexpr     BARE-LOGIC
+topgen      logic8   nz    none       DECL-LOGIC
+topgen      logic8   nz    portcast   DECL-LOGIC
+topgen      logic8   nz    portcat    BARE-LOGIC
+topgen      logic8   nz    portplain  BARE-LOGIC
+topgen      logic8   nz    pov        DECL-LOGIC
+topgen      logic8   zero  both       BARE-LOGIC
+topgen      logic8   zero  ca         BARE-LOGIC
+topgen      logic8   zero  caexpr     BARE-LOGIC
+topgen      logic8   zero  none       DECL-LOGIC
+topgen      logic8   zero  portcast   DECL-LOGIC
+topgen      logic8   zero  portcat    BARE-LOGIC
+topgen      logic8   zero  portplain  BARE-LOGIC
+topgen      logic8   zero  pov        DECL-LOGIC
+
+cells measured=312   ours!=golden rows=80
+  childbody__bit8__nz__both               
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childbody__bit8__nz__portplain          
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childbody__bit8__zero__both             
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childbody__bit8__zero__portplain        
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childbody__bit8par__nz__both            
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childbody__bit8par__nz__portplain       
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childbody__bit8par__zero__both          
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childbody__bit8par__zero__portplain     
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childbody__logic8__nz__both             
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childbody__logic8__nz__portplain        
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childbody__logic8__zero__both           
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childbody__logic8__zero__portplain      
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__bit8__nz__both                
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__bit8__nz__portcat             
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__bit8__nz__portplain           
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__bit8__zero__both              
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__bit8__zero__portcat           
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__bit8__zero__portplain         
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__bit8par__nz__both             
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__bit8par__nz__ca               
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__bit8par__nz__caexpr           
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__bit8par__nz__none             
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__bit8par__nz__portcast         
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__bit8par__nz__portcat          
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__bit8par__nz__portplain        
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__bit8par__nz__pov              
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__bit8par__zero__both           
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__bit8par__zero__ca             
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__bit8par__zero__caexpr         
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__bit8par__zero__none           
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__bit8par__zero__portcast       
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__bit8par__zero__portcat        
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__bit8par__zero__portplain      
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__bit8par__zero__pov            
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__logic8__nz__both              
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__logic8__nz__portcat           
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__logic8__nz__portplain         
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  childgen__logic8__zero__both            
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__logic8__zero__portcat         
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  childgen__logic8__zero__portplain       
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topbody__bit8__nz__both                 
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topbody__bit8__nz__portplain            
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topbody__bit8__zero__both               
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topbody__bit8__zero__portplain          
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topbody__bit8par__nz__both              
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topbody__bit8par__nz__portplain         
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topbody__bit8par__zero__both            
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topbody__bit8par__zero__portplain       
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topbody__logic8__nz__both               
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topbody__logic8__nz__portplain          
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topbody__logic8__zero__both             
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topbody__logic8__zero__portplain        
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__bit8__nz__both                  
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__bit8__nz__portcat               
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__bit8__nz__portplain             
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__bit8__zero__both                
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__bit8__zero__portcat             
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__bit8__zero__portplain           
+     G: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__bit8par__nz__both               
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__bit8par__nz__ca                 
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__bit8par__nz__caexpr             
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__bit8par__nz__none               
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__bit8par__nz__portcast           
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__bit8par__nz__portcat            
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__bit8par__nz__portplain          
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__bit8par__nz__pov                
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__bit8par__zero__both             
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__bit8par__zero__ca               
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__bit8par__zero__caexpr           
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__bit8par__zero__none             
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__bit8par__zero__portcast         
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__bit8par__zero__portcat          
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__bit8par__zero__portplain        
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__bit8par__zero__pov              
+     G: lp=0 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__logic8__nz__both                
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__logic8__nz__portcat             
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__logic8__nz__portplain           
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:ab,sz=8,ct=5,dec=8'hab)/LOC
+  topgen__logic8__zero__both              
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__logic8__zero__portcat           
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+  topgen__logic8__zero__portplain         
+     G: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC
+     O: lp=1 P=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} C=logic_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]} RHS=constant(HEX:00,sz=8,ct=5,dec=8'h00)/LOC

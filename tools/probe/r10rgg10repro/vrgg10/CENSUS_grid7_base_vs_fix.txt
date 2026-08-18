@@ -1,0 +1,21 @@
+a_selbare                FIXED    rows=3 fixed=1 broken=0
+b_selcat                 SAME     rows=4 fixed=0 broken=0
+c_selcast                SAME     rows=4 fixed=0 broken=0
+d_seladd                 SAME     rows=4 fixed=0 broken=0
+e_selunary               SAME     rows=4 fixed=0 broken=0
+f_selternary             SAME     rows=4 fixed=0 broken=0
+g_selrepl                SAME     rows=4 fixed=0 broken=0
+h_selarg2                FIXED    rows=3 fixed=1 broken=0
+i_selarg2cat             SAME     rows=4 fixed=0 broken=0
+j_syscat                 FIXED    rows=3 fixed=1 broken=0
+k_syscast                FIXED    rows=3 fixed=1 broken=0
+l_nestcallcat            SAME     rows=4 fixed=0 broken=0
+m_catcallsel             SKIP-NOFILE
+n_barename_incall_cat    FIXED    rows=4 fixed=1 broken=0
+o_selcat_and_ca          SAME     rows=3 fixed=0 broken=0
+p_castcat                FIXED    rows=3 fixed=1 broken=0
+q_catcat                 FIXED    rows=3 fixed=1 broken=0
+r_ternarycat             FIXED    rows=3 fixed=1 broken=0
+s_callcatnosel           SAME     rows=4 fixed=0 broken=0
+t_selcatunder2           SAME     rows=4 fixed=0 broken=0
+== TOTAL BREAK CELLS=0

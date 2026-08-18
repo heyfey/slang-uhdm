@@ -1,0 +1,26 @@
+SKIP-NOFILE Ariane/default (g=/home/heyfey/.cache/slang-uhdm-goldens/2269d4fc2942b49c143f/golden.uhdm)
+SKIP-NOFILE Ariane/testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/50841f777812dbf95b5a/golden.uhdm)
+SKIP-NOFILE Ariane2024/default (g=/home/heyfey/.cache/slang-uhdm-goldens/d68a9bc8a36a67940c6a/golden.uhdm)
+SKIP-NOFILE AzadiRTL/default (g=/home/heyfey/.cache/slang-uhdm-goldens/c77d0d9cb5cb409e24ff/golden.uhdm)
+SKIP-NOFILE AzadiRTL/testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/ace171a9eb66c0dfa78d/golden.uhdm)
+SKIP-NOFILE Earlgrey/default (g=/home/heyfey/.cache/slang-uhdm-goldens/e428f1941aa3a8a725b3/golden.uhdm)
+SKIP-NOFILE Earlgrey/testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/6835065aa4585e2a4907/golden.uhdm)
+SKIP-NOFILE Ibex/default (g=/home/heyfey/.cache/slang-uhdm-goldens/e33981a97423bdd43b6b/golden.uhdm)
+SKIP-NOFILE Ibex/testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/2175746050c0a188d7cc/golden.uhdm)
+SKIP-NOFILE IncompTitan/default (g=/home/heyfey/.cache/slang-uhdm-goldens/525e8f8b98d8c8cc1c90/golden.uhdm)
+SKIP-NOFILE IncompTitan/testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/4b4a39ea7354f572a75e/golden.uhdm)
+SKIP-NOFILE Opentitan/default (g=/home/heyfey/.cache/slang-uhdm-goldens/28702e63e140ca2878ac/golden.uhdm)
+SKIP-NOFILE Opentitan/testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/908dc775db9c19953682/golden.uhdm)
+PREDICT Rggen/default gen_scope ELAB|work@rggen.u_block_0.g_register_2.g_bit_field_1|gen_scope|INITIAL_VALUE
+   golden logic_typespec/LOCLESS{[UINT:7/bare/LL:UINT:0/bare/LL]}
+   ours   bit_typespec/LOC{[UINT:7/LOC[sz=64,ct=9,dec=7]:UINT:0/LOC[sz=64,ct=9,dec=0]]}
+SKIP-NOFILE Rggen/testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+SKIP-NOFILE Tnoc/default (g=/home/heyfey/.cache/slang-uhdm-goldens/86228cae26c4133efea8/golden.uhdm)
+SKIP-NOFILE Tnoc/testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/21657a6d067179f53a8b/golden.uhdm)
+SKIP-NOFILE Unisim/default (g=/home/heyfey/.cache/slang-uhdm-goldens/a9c7a40d147658361e49/golden.uhdm)
+SKIP-NOFILE Unisim/testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/0fe26b4b89bd08ad4a63/golden.uhdm)
+SKIP-NOFILE YosysIce40/default (g=/home/heyfey/.cache/slang-uhdm-goldens/c4596589ec26353f0c2f/golden.uhdm)
+SKIP-NOFILE YosysIce40/testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/c0d7d49cb756af29a544/golden.uhdm)
+SKIP-NOFILE YosysTests/default (g=/home/heyfey/.cache/slang-uhdm-goldens/4f960e5460525b5cb393/golden.uhdm)
+SKIP-NOFILE YosysTests/testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/e7d3ff0f393c1fefafa6/golden.uhdm)
+-- tests-scanned=31 PREDICTED-ROWS=1 SKIP-NOFILE=22 UNKNOWN=0

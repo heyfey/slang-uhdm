@@ -1,0 +1,19 @@
+== surelog corpus CANDIDATES: 15 tests ==
+  Ariane                           CACHE_START_ADDR,CachedAddrBeg,CachedAddrEnd,DRAM_BASE,RdAmoTxId,TlbOffset
+  Ariane2024                       RdAmoTxId
+  AzadiRTL                         DReqDepth,DReqPass,DRspDepth,DRspPass,HReqDepth,HReqPass,HRspDepth,HRspPass
+  BitSelect                        AlertAsyncOn
+  Earlgrey                         DReqDepth,DReqPass,DRspDepth,DRspPass,HReqDepth,HReqPass,HRspDepth,HRspPass
+  EarlgreyPackParam                AlertAsyncOn,AsyncOn
+  ElabCParam                       DReqDepth
+  Ibex                             RESVAL
+  IncompTitan                      AlertAsyncOn,DReqDepth,DReqPass,DRspDepth,DRspPass,HReqDepth,HReqPass,HRspDepth
+  Opentitan                        DReqDepth,DReqPass,DRspDepth,DRspPass,HReqDepth,HReqPass,HRspDepth,HRspPass
+  Rggen                            BASE_ADDRESS,DEFAULT_READ_DATA,DLL_INITIAL_VALUE,DLM_INITIAL_VALUE,INITIAL_VALUE,REGISTER_10_BIT_FIELD_1_INITIAL_VALUE,START_ADDRESS
+  Tnoc                             ACTIVE_PORTS,ERROR_DATA,ID_X,ID_Y,LAST_POINTER
+  Unisim                           BISC_MULTI_FREQ_EN_REG,BYPASS_REG,CASCADE_REG,CONTROL_DLY_TEST_EN_REG,CTL_PTP_TRANSPCLK_MODE_REG,CTL_RX_BURSTMAX_REG,CTL_RX_CHAN_EXT_REG,CTL_RX_CHECK_ACK_REG
+  YosysIce40                       BARREL_SHIFTER,CATCH_ILLINSN,CATCH_MISALIGN,COMPRESSED_ISA,ENABLE_COUNTERS,ENABLE_COUNTERS64,ENABLE_DIV,ENABLE_FAST_MUL
+  YosysTests                       BARREL_SHIFTER,CATCH_ILLINSN,CATCH_MISALIGN,COMPRESSED_ISA,ENABLE_COUNTERS,ENABLE_COUNTERS64,ENABLE_DIV,ENABLE_FAST_MUL
+== uhdm2rtlil corpus CANDIDATES: 2 tests ==
+  ParameterRangeUsingDot           PartInvDefault
+  rp32                             GPR_ADR,IFU_MSK,IFU_RST

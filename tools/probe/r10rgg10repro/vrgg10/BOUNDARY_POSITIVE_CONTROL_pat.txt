@@ -1,0 +1,4 @@
+MOVER /tmp/vrgg10_poscells/f1__portcallsel/top.sv
+MOVER /tmp/vrgg10_poscells/f1__portplain/top.sv
+MOVER /tmp/vrgg10_poscells/f1__portsel/top.sv
+-- files=7 identical=4 MOVERS=3 uncompilable=0 asymmetries=0

@@ -1,0 +1,24 @@
+cacallbare               SAME     rows=3 fixed=0 broken=0
+cacallsel                SAME     rows=4 fixed=0 broken=0
+callbarename             SAME     rows=3 fixed=0 broken=0
+callconcat2              FIXED    rows=3 fixed=1 broken=0
+callnested               FIXED    rows=3 fixed=1 broken=0
+callplusout              FIXED    rows=3 fixed=1 broken=0
+callselbare              FIXED    rows=3 fixed=1 broken=0
+callselbit               FIXED    rows=3 fixed=1 broken=0
+callselcat               SAME     rows=4 fixed=0 broken=0
+callselplusplain         FIXED    rows=4 fixed=1 broken=0
+callundercast            FIXED    rows=3 fixed=1 broken=0
+castundercall            SAME     rows=4 fixed=0 broken=0
+povcall                  SAME     rows=3 fixed=0 broken=0
+povsel                   SAME     rows=3 fixed=0 broken=0
+povsel2                  SAME     rows=3 fixed=0 broken=0
+seladd                   FIXED    rows=3 fixed=1 broken=0
+seldouble                FIXED    rows=3 fixed=1 broken=0
+selplain                 FIXED    rows=3 fixed=1 broken=0
+selrepl                  FIXED    rows=3 fixed=1 broken=0
+selternary               FIXED    rows=3 fixed=1 broken=0
+syscallbits              FIXED    rows=3 fixed=1 broken=0
+syscallsel               FIXED    rows=3 fixed=1 broken=0
+syscallsigned            FIXED    rows=3 fixed=1 broken=0
+== TOTAL BREAK CELLS=0

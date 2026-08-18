@@ -1,0 +1,11 @@
+arrrange                 SAME     rows=6 fixed=0 broken=0
+bindport                 SAME     rows=4 fixed=0 broken=0
+deepnest                 FIXED    rows=3 fixed=1 broken=0
+defonly                  FIXED    rows=3 fixed=1 broken=0
+forwide                  FIXED    rows=17 fixed=8 broken=0
+ifacegen2                SAME     rows=3 fixed=0 broken=0
+ifaceportinst            FIXED    rows=4 fixed=1 broken=0
+recurse                  FIXED    rows=11 fixed=3 broken=0
+unknowninst              FIXED    rows=3 fixed=1 broken=0
+wide                     FIXED    rows=10 fixed=3 broken=0
+== TOTAL BREAK CELLS=0

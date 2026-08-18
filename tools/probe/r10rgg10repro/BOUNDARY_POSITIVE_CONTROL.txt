@@ -1,0 +1,3 @@
+MOVER /tmp/wt_r10rgg10/tools/probe/r10rgg10repro/cells/childgen__logic8__nz__portcat/top.sv
+MOVER /tmp/wt_r10rgg10/tools/probe/r10rgg10repro/cells/topgen__bit8__nz__portplain/top.sv
+-- files=12 identical=10 MOVERS=2 uncompilable=0 asymmetries=0

@@ -1,0 +1,53 @@
+# vrgg10 — the CALL-ARGUMENT clause § genLpCallArgSelBlocks10v, MEASURED
+# LHS is always golden(Surelog).  The head's own field: the ELAB gen-scope
+# param_assign Rhs constant's ref_typespec ACTUAL, for the localparam IV.
+# 'logic_typespec:' with no location = golden's BARE loc-less rewrite.
+
+===== grid7 (the call-argument boundary)
+CELL                   GOLDEN                                     BASE(pristine)                             r10rgg10 PATCH                             VERIFIED FIX
+a_selbare              logic_typespec:                            bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            logic_typespec:
+b_selcat               bit_typespec: , line:23:16, endln:23:25    bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            bit_typespec: , line:23:16, endln:23:25
+c_selcast              bit_typespec: , line:23:16, endln:23:25    bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            bit_typespec: , line:23:16, endln:23:25
+d_seladd               bit_typespec: , line:23:16, endln:23:25    bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            bit_typespec: , line:23:16, endln:23:25
+e_selunary             bit_typespec: , line:23:16, endln:23:25    bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            bit_typespec: , line:23:16, endln:23:25
+f_selternary           bit_typespec: , line:23:16, endln:23:25    bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            bit_typespec: , line:23:16, endln:23:25
+g_selrepl              bit_typespec: , line:23:16, endln:23:25    bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            bit_typespec: , line:23:16, endln:23:25
+h_selarg2              logic_typespec:                            bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            logic_typespec:
+i_selarg2cat           bit_typespec: , line:23:16, endln:23:25    bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            bit_typespec: , line:23:16, endln:23:25
+j_syscat               logic_typespec:                            bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            logic_typespec:
+k_syscast              logic_typespec:                            bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            logic_typespec:
+l_nestcallcat          bit_typespec: , line:23:16, endln:23:25    bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            bit_typespec: , line:23:16, endln:23:25
+m_catcallsel           NOFILE                                     bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            logic_typespec:
+n_barename_incall_cat  logic_typespec:                            bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            logic_typespec:
+o_selcat_and_ca        logic_typespec:                            logic_typespec:                            logic_typespec:                            logic_typespec:
+p_castcat              logic_typespec:                            bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            logic_typespec:
+q_catcat               logic_typespec:                            bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            logic_typespec:
+r_ternarycat           logic_typespec:                            bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            logic_typespec:
+s_callcatnosel         bit_typespec: , line:23:16, endln:23:25    bit_typespec: , line:23:16, endln:23:25    bit_typespec: , line:23:16, endln:23:25    bit_typespec: , line:23:16, endln:23:25
+t_selcatunder2         bit_typespec: , line:23:16, endln:23:25    bit_typespec: , line:23:16, endln:23:25    logic_typespec:                            bit_typespec: , line:23:16, endln:23:25
+
+===== grid6 (call/cast/override neighbourhood)
+CELL                   GOLDEN                                     BASE(pristine)                             r10rgg10 PATCH                             VERIFIED FIX
+cacallbare             logic_typespec: , line:19:43, endln:19:54  logic_typespec:                            logic_typespec:                            logic_typespec:
+cacallsel              bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:                            logic_typespec:
+callbarename           logic_typespec: , line:19:43, endln:19:54  bit_typespec: , line:22:16, endln:22:25    bit_typespec: , line:22:16, endln:22:25    bit_typespec: , line:22:16, endln:22:25
+callconcat2            logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+callnested             logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+callplusout            logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+callselbare            logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+callselbit             logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+callselcat             bit_typespec: , line:22:16, endln:22:25    bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            bit_typespec: , line:22:16, endln:22:25
+callselplusplain       logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+callundercast          logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+castundercall          bit_typespec: , line:22:16, endln:22:25    bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            bit_typespec: , line:22:16, endln:22:25
+povcall                logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    bit_typespec: , line:22:16, endln:22:25    bit_typespec: , line:22:16, endln:22:25
+povsel                 logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    bit_typespec: , line:22:16, endln:22:25    bit_typespec: , line:22:16, endln:22:25
+povsel2                logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    bit_typespec: , line:22:16, endln:22:25    bit_typespec: , line:22:16, endln:22:25
+seladd                 logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+seldouble              logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+selplain               logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+selrepl                logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+selternary             logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+syscallbits            logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+syscallsel             logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
+syscallsigned          logic_typespec:                            bit_typespec: , line:22:16, endln:22:25    logic_typespec:                            logic_typespec:
