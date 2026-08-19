@@ -1,0 +1,25 @@
+TO-GOLDEN	/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_config_db.svh:224:12
+  G=['name=w;blocking=1']
+  P=['name=;blocking=1']
+  Q=['name=w;blocking=1']
+TO-GOLDEN	/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_objection.svh:1276:7
+  G=['name=m_events;blocking=1']
+  P=['name=;blocking=1']
+  Q=['name=m_events;blocking=1']
+TO-GOLDEN	/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_objection.svh:679:7
+  G=['name=m_events;blocking=1']
+  P=['name=;blocking=1']
+  Q=['name=m_events;blocking=1']
+TO-GOLDEN	/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_objection.svh:832:8
+  G=['name=m_events;blocking=1']
+  P=['name=;blocking=1']
+  Q=['name=m_events;blocking=1']
+TO-GOLDEN	/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_objection.svh:850:8
+  G=['name=m_events;blocking=1']
+  P=['name=;blocking=1']
+  Q=['name=m_events;blocking=1']
+TO-GOLDEN	/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_objection.svh:870:8
+  G=['name=m_events;blocking=1']
+  P=['name=;blocking=1']
+  Q=['name=m_events;blocking=1']
+COUNTS STILL-RIGHT=3 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=0

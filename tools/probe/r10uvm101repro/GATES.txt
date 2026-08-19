@@ -1,0 +1,33 @@
+r10uvm101 full frozen-binary gates on base 9a9b70d7
+
+Candidate binary md5: 9ae62f2d6a19f72cf5cb259847914b9a
+Build: Release, -j2. Sweeps: --jobs 2, --timeout 180.
+
+check_goldens: 23 PASS, 0 FAIL.
+
+Surelog: 1588 rows; whole-row status+dump diff against base controls = 0.
+uhdm2rtlil default: 731 rows, 679 CMP_EQUAL; whole-row diff = 0.
+uhdm2rtlil testflags: 731 rows, 679 CMP_EQUAL; whole-row diff = 0.
+
+Surelog database path sets: 956 == 956.
+Exact movers (9):
+  default BuildUVMPkg, MiniAmiq, Scoreboard, SeqDriver, SimpleUVM
+  testflags BuildUVMPkg, MiniAmiq, SeqDriver, SimpleUVM
+Comparator selfcheck: 955 / 956 flagged.
+
+uhdm2rtlil database path sets: 1358 == 1358; movers=0.
+Comparator selfcheck: 1357 / 1358 flagged.
+
+Official selected heads, default/testflags:
+  SeqDriver 17/17, one head each
+  MiniAmiq 348/348, one head each
+  SimpleUVM 108/108, one head each
+  BuildUVMPkg 72/72, one head each
+  Earlgrey 46/46, one head each
+  Scoreboard default 108/one; testflags has no comparable golden
+  Rggen default 0/zero; testflags has no comparable golden
+
+Canaries: Surelog ok=52 changed=0 absent=0; uhdm2rtlil ok=16 changed=0 absent=0.
+Supplementary canaries: Surelog ok=58 changed=0 absent=0; uhdm2rtlil ok=2 changed=0 absent=0.
+Named pins: SAME=10 MOVED=0 UNKNOWN=0.
+Canary audit: audited=29 UNCOVERED=0 FENCE-BREACH=0.

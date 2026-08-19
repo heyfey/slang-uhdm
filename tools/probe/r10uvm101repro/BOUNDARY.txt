@@ -1,0 +1,27 @@
+r10uvm101 exhaustive boundary
+
+Earlier fixed-source boundary on base 3570e2da:
+  per-file LISTED=3244 PROCESSED=3244 MOVED=6 NO_OUTPUT=274
+  RC_PAIRS=6488 RC_DIFF=0 ASYM=0
+  movers are exactly g101_a1/a2/a3 in default and elaborated views.
+
+  per-directory LISTED=1468 PROCESSED=1468 MOVED=8 NO_OUTPUT=241
+  RC_PAIRS=2936 RC_DIFF=0 ASYM=0
+  substantive movers are the r10uvm101 directory in both views.  The other six
+  are r10buvm9, r10uvm75, and r10uvm76 in both views; ID-normalized sorted dump
+  diffs are zero for every one.
+
+Fresh ship-candidate boundary after rebasing to 9a9b70d7, including the added
+Earlgrey probe sources:
+  per-file LISTED=3251 PROCESSED=3251 MOVED=6 NO_OUTPUT=274
+  RC_PAIRS=6502 RC_DIFF=0 ASYM=0
+  movers are exactly g101_a1/a2/a3 in default and elaborated views.
+
+  per-directory LISTED=1470 PROCESSED=1470 MOVED=6 NO_OUTPUT=241
+  RC_PAIRS=2940 RC_DIFF=0 ASYM=0
+  substantive movers are the r10uvm101 directory in both views.  The other four
+  are r10uvm75 and r10uvm76 in both views; ID-normalized sorted dump diffs are
+  zero for every one.
+
+No Earlgrey source, unrelated probe source, return code, or output-presence
+cell moved.

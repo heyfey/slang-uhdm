@@ -1,0 +1,15 @@
+r10uvm101 adversarial grid, pristine base 9a9b70d7 vs frozen candidate
+
+g101_a1_paths.sv default: STILL-RIGHT=2 TO-GOLDEN=9 AWAY-GOLDEN=0 STILL-WRONG=0
+g101_a1_paths.sv elab:    STILL-RIGHT=2 TO-GOLDEN=9 AWAY-GOLDEN=0 STILL-WRONG=0
+g101_a2_nonblocking.sv default: STILL-RIGHT=0 TO-GOLDEN=7 AWAY-GOLDEN=0 STILL-WRONG=0
+g101_a2_nonblocking.sv elab:    STILL-RIGHT=0 TO-GOLDEN=7 AWAY-GOLDEN=0 STILL-WRONG=0
+g101_a3_tokens.sv default: STILL-RIGHT=1 TO-GOLDEN=5 AWAY-GOLDEN=0 STILL-WRONG=0
+g101_a3_tokens.sv elab:    STILL-RIGHT=1 TO-GOLDEN=5 AWAY-GOLDEN=0 STILL-WRONG=0
+
+Totals across both views: TO-GOLDEN=42, AWAY-GOLDEN=0, STILL-WRONG=0.
+
+Coverage includes bare targets; class, array, interface and hierarchical
+paths; blocking and untimed/timed nonblocking triggers; this, escaped
+identifiers, $root, and unsupported token bases.  The $root adversarial control
+caused the final Identifier/ThisKeyword guard.

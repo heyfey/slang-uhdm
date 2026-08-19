@@ -1,0 +1,21 @@
+TO-GOLDEN	/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:17992:12
+  G=['name=w;blocking=1']
+  P=['name=;blocking=1']
+  Q=['name=w;blocking=1']
+TO-GOLDEN	/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:42118:7
+  G=['name=m_events;blocking=1']
+  P=['name=;blocking=1']
+  Q=['name=m_events;blocking=1']
+TO-GOLDEN	/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:42282:8
+  G=['name=m_events;blocking=1']
+  P=['name=;blocking=1']
+  Q=['name=m_events;blocking=1']
+TO-GOLDEN	/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:42313:8
+  G=['name=m_events;blocking=1']
+  P=['name=;blocking=1']
+  Q=['name=m_events;blocking=1']
+TO-GOLDEN	/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:42346:8
+  G=['name=m_events;blocking=1']
+  P=['name=;blocking=1']
+  Q=['name=m_events;blocking=1']
+COUNTS STILL-RIGHT=4 TO-GOLDEN=5 AWAY-GOLDEN=0 STILL-WRONG=0

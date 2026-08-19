@@ -1981,25 +1981,62 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             return df;
         }
         // An event TRIGGER (`-> output_eof;`) is an event_stmt carrying the
-        // event's NAME only: Surelog leaves vpiNamedEvent unset and stamps
-        // vpiBlocking for the `->` form (`->>` is the non-blocking one).
-        // We emitted nothing at all, which dropped the whole statement from
-        // its begin block (YosysBigSimSoft bench.v:115).
+        // event's NAME only: Surelog leaves vpiNamedEvent unset.  We once
+        // emitted nothing at all, which dropped the whole statement from its
+        // begin block (YosysBigSimSoft bench.v:115).
+        //
+        // § eventTriggerSyntaxBaseName101 — Surelog compiles the syntax node
+        // immediately following the trigger token and copies that expression's
+        // VpiName onto the event_stmt (CompileStmt.cpp:814-827).  Therefore a
+        // dotted / selected path is named for its FIRST WRITTEN TOKEN only:
+        // `->m_events[obj].all_dropped` is `m_events`, `->this.e` is `this`,
+        // and a bare `->e` is `e`.  Read the name syntax's token instead of the
+        // bound leaf symbol; this also preserves escaped identifiers and real
+        // hierarchical instance paths, whose AST is a leaf HierarchicalValue.
+        //
+        // For `->> <timing> e`, the immediate sibling is the TIMING node.
+        // Surelog's compileExpression rejects it and the event_stmt stays
+        // nameless.  Its trigger-type test also misses the grammar token and
+        // stamps vpiBlocking on BOTH spellings.  Both behaviours are measured
+        // in tools/probe/r10uvm101repro/g101_a2_nonblocking.sv.
         case StatementKind::EventTrigger: {
             auto& es9 = stmt.as<EventTriggerStatement>();
             auto* ev9 = s.MakeEvent_stmt();
             ev9->VpiParent(parent);
             setLoc(ev9, stmt.sourceRange);
-            auto& tg9 = stripImplicitConv(es9.target);
-            const Symbol* tsym9 = nullptr;
-            if (tg9.kind == ExpressionKind::NamedValue)
-                tsym9 = &tg9.as<NamedValueExpression>().symbol;
-            else if (tg9.kind == ExpressionKind::ArbitrarySymbol)
-                tsym9 = tg9.as<ArbitrarySymbolExpression>().symbol;
-            if (tsym9)
-                ev9->VpiName(tsym9->name);
-            if (!es9.isNonBlocking)
-                ev9->VpiBlocking(true);
+            if (!es9.timing) {
+                std::string name9;
+                if (stmt.syntax &&
+                    syntax::EventTriggerStatementSyntax::isKind(
+                        stmt.syntax->kind)) {
+                    auto& syn9 =
+                        stmt.syntax->as<syntax::EventTriggerStatementSyntax>();
+                    auto tok9 = syn9.name->getFirstToken();
+                    // `$root.a.e` is accepted by the grammar but rejected by
+                    // Surelog's expression compiler, leaving the name empty.
+                    // `super.e` is rejected by its parser.  The two supported
+                    // base-token forms are an identifier (escaped identifiers
+                    // have this token kind too) and `this`.
+                    if (!tok9.isMissing() &&
+                        (tok9.kind == parsing::TokenKind::Identifier ||
+                         tok9.kind == parsing::TokenKind::ThisKeyword))
+                        name9 = tok9.valueText();
+                }
+                // Synthesized statements have no syntax.  Preserve the old
+                // direct-symbol fallback for them; a written path always has
+                // syntax and takes the token path above.
+                if (name9.empty() && !stmt.syntax) {
+                    auto& tg9 = stripImplicitConv(es9.target);
+                    if (tg9.kind == ExpressionKind::NamedValue)
+                        name9 = tg9.as<NamedValueExpression>().symbol.name;
+                    else if (tg9.kind == ExpressionKind::ArbitrarySymbol)
+                        name9 =
+                            tg9.as<ArbitrarySymbolExpression>().symbol->name;
+                }
+                if (!name9.empty())
+                    ev9->VpiName(name9);
+            }
+            ev9->VpiBlocking(true);
             return ev9;
         }
         case StatementKind::ProceduralAssign: {
