@@ -1,0 +1,19 @@
+r10vbuvm25 full boundary over a copy of the whole tools/probe tree
+
+mode  view   processed/listed  identical  movers  uncompilable  asymmetries
+file  def       3224/3224         3093       2        129            0
+file  elab      3224/3224         3083       2        139            0
+dir   def       1459/1459         1334       3        122            0
+dir   elab      1459/1459         1329       3        127            0
+
+File-mode movers are exactly the two positive controls:
+  r10buvm25repro/g25.sv
+  r10vbuvm25repro/vg25.sv
+
+Directory-mode semantic movers are those same two directories.  The third
+directory mover is r10uvm88repro; sorted/order-blind dumps differ by 0 lines
+in both views, so it is the established parallel-parse ordering coin.
+
+The list rode fd 3, children read /dev/null, scratch was keyed by relative
+path, every rc was recorded, and PROCESSED == LISTED was asserted.  There are
+no asymmetric rejects and no earlier semantic arm movement.

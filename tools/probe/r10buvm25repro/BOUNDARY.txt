@@ -1,0 +1,15 @@
+r10buvm25 full boundary over a COPY of the whole tools/probe tree.
+Every .sv and .v arm was compiled by both frozen binaries.  The file list
+rode fd 3, children read /dev/null, rc was recorded, scratch was keyed by
+relative path, and PROCESSED == LISTED was asserted.
+
+  mode  view   processed/listed  differ  reject pristine/patched
+  file  def       3223/3223         1          132/132
+  file  elab      3223/3223         1          142/142
+  dir   def       1458/1458         3          115/115
+  dir   elab      1458/1458         3          120/120
+
+The sole semantic difference is r10buvm25repro/g25.sv, the positive control.
+The two extra directory-mode differences are the established r10uvm75repro
+and r10uvm76repro parallel-parse coins; both have order-blind diff 0.
+There were no asymmetric rejects and no earlier law arm moved semantically.

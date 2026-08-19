@@ -1,0 +1,49 @@
+r10vbuvm25 final gate record
+
+Independent builds (-j 2):
+  pristine fc895cc8a86aea2fdee0d952693f94d3
+  implementer patch 3c54685b8c8289c786f3a75078ead3ea
+  verifier final 563dea6c67dd56ee5029bbd9d71a2ed5
+
+Golden dumps: PASS=23 FAIL=0.
+/bin/false negative control: PASS=0 FAIL=23.
+
+Full frozen-binary sweeps (--jobs 2; 2981 cmds.txt paths audited per binary):
+  surelog: 936 CMP_EQUAL, 20 CMP_NOTEQUAL, 10 DEFERRED, 3 NO_DATABASE,
+           1 NO_UHDM, 567 SLANG_REJECT, 48 SURELOG_FAIL, 1 TIMEOUT,
+           2 UNTRANSLATABLE
+  u2r tf:  679 CMP_EQUAL, 50 SLANG_REJECT, 2 SURELOG_FAIL
+  u2r def: 679 CMP_EQUAL, 50 SLANG_REJECT, 2 SURELOG_FAIL
+
+Whole-row status+dump gates, final vs pristine:
+  surelog both: PASS, 0 differing rows
+  u2r testflags: PASS, 0 differing rows
+  u2r default: PASS, 0 differing rows
+
+Byte attribution:
+  surelog PATH_SETS_IDENTICAL; exactly two movers:
+    default/BuildUVMPkg
+    testflags/BuildUVMPkg
+  MOVERS 2/956; SELFCHECK 955/956
+  u2r PATH_SETS_IDENTICAL; MOVERS 0/1358; SELFCHECK 1357/1358
+
+Nine-row foreach census:
+  pristine 9301 agree / 64 differ
+  final    9303 agree / 62 differ
+  BuildUVMPkg each mode 769/4 -> 770/3; all other rows unchanged
+
+Official heads:
+  BuildUVMPkg default/testflags 56 -> 72, one head each
+  SeqDriver 13/13, SimpleUVM 108/108, Scoreboard 108/-,
+  MiniAmiq 13/13, Earlgrey_0_1 50/50, Rggen 64/- unchanged
+
+Canaries:
+  primary surelog ok=52 changed=0; u2r ok=8 changed=0
+  supplementary PASS twice; canaudit PASS
+
+Protected databases (unchanged from pristine):
+  InterfaceModPort 59a365f3ce2c both modes
+  BlackParrotComplex e3e354129d5a / 73a10e8217e5
+  YosysOldOr d68e0796d62c both modes
+  SVSwitch 4842211c4030 both modes, pin hit
+  YosysVerx 6ccda350c24a both modes, pin hit

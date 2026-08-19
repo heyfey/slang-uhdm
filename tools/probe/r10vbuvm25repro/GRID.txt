@@ -1,0 +1,31 @@
+r10vbuvm25 grid record (golden is LHS)
+
+Golden-vs-golden calibration:
+  implementer g25 BuildUVMPkg-style census: 773/773 agree, 0 differ
+  verifier vg25 default database:           43/43 agree, 0 differ
+
+Implementer g25 reproduced independently:
+  database   pristine agree/differ   final agree/differ
+  default          34 / 16                 38 / 12
+  elab             75 / 48                 87 / 36
+  aggregate       109                      125
+  movement: 16 compare-visible objects to golden, 0 away
+
+Verifier vg25 adversarial matrix:
+  default: pristine 27 agree / 16 differ / 43 golden sites
+           final    33 agree / 10 differ / 43 golden sites
+  elab:    pristine 56 agree / 41 differ
+           final    72 agree / 25 differ
+
+Six distinct source cells move in each view, covering:
+  - class element typedef in a direct queue
+  - parameterized class specialization in a direct queue
+  - abstract class in a direct queue
+  - package task over a direct dynamic array
+  - foreign-package imported class in a direct queue
+  - foreign-package class typedef in a direct dynamic array
+
+Every mover is to golden.  No pristine-right cell moves away after the fix.
+Container typedefs, package-qualified references, nested dimensions, omitted
+dimensions, class members, compilation-unit/module/interface/program homes
+and the def package copies retain their pristine shapes.

@@ -1,0 +1,31 @@
+r10buvm25 foreach loop-variable census (golden is LHS, ours is RHS)
+
+Calibration, golden vs itself:
+  BuildUVMPkg/default  agree=773 differ=0 sites=773/773
+
+Whole nine-row UVM family, pristine:
+  row                    agree  differ  sites
+  BuildUVMPkg/default      769       4    773
+  BuildUVMPkg/testflags    769       4    773
+  SeqDriver/default       1342       3   1345
+  SeqDriver/testflags     1342       3   1345
+  SimpleUVM/default        735       2    737
+  SimpleUVM/testflags      735       2    737
+  MiniAmiq/default        1436      22   1458
+  MiniAmiq/testflags      1436      22   1458
+  Scoreboard/default       737       2    739
+  TOTAL                   9301      64   9365
+
+Patched:
+  BuildUVMPkg/default      770       3    773
+  BuildUVMPkg/testflags    770       3    773
+  every other row is byte-identical in this census
+  TOTAL                   9303      62   9365
+
+The two improved cells are exactly uvm_pkg::uvm_init at line 9847, loop
+variable idx, view ELABPKG:
+  golden   array_var | array_typespec unnamed, loc-less
+  pristine class_var | class_typespec uvm_object_wrapper
+  patched  array_var | array_typespec unnamed, loc-less
+
+No site or multiset member disappeared; no previously matching cell broke.

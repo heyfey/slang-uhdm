@@ -1,0 +1,31 @@
+r10buvm25 g25.sv golden grid (golden is LHS, ours is RHS)
+
+All four compilers returned rc=0 in each run:
+  Surelog default / Surelog -elabuhdm
+  pristine default / pristine --elabuhdm
+  patched default / patched --elabuhdm
+
+The grid varies:
+  home: package free function, package class in-body and out-of-body,
+        package formal/local, module function
+  container: queue, dynamic, fixed unpacked, associative
+  element: direct and typedef class, int and typedef int, string, packed
+           struct, packed union, enum, byte, bit, real, time
+  view: default and elaborated
+
+                          pristine             patched
+  default objects       agree 34 diff 16     agree 38 diff 12
+  elaborated objects    agree 75 diff 48     agree 87 diff 36
+  combined             agree 109 diff 64    agree 125 diff 48
+
+Exactly 16 objects moved and all 16 moved to golden:
+  default: 4 (direct class queue/dynamic/fixed + typedef-class queue)
+  elab:    12 copies of the same four sites
+
+Pristine-vs-patched census:
+  default  agree=46 differ=4,  no site-only member
+  elab     agree=111 differ=12, no site-only member
+
+Every int/string/aggregate/enum/scalar, associative, class-property, formal,
+local and module counter-cell stayed byte-identical.  There are zero
+pristine-right -> patched-wrong cells.

@@ -2667,6 +2667,63 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             res22 = true;
                         }
                     }
+                // § foreachPkgClassArrayVar25 — in the HOME package's
+                // ELABORATED listing, a BARE foreach over a package-level
+                // queue / dynamic / fixed array of class handles lists an
+                // array_var whose typespec is a FRESH, unnamed
+                // array_typespec.  It is typed from the ARRAY, not from the
+                // ELEMENT.  This is the literal
+                // getSimpleVarFromTypespec(indexTypespec) path in Surelog's
+                // UhdmWriter::swapForSpecifiedVar (UhdmWriter.cpp:2546-2548):
+                // CompileType.cpp:219-233 maps a non-associative
+                // array_typespec to array_var and mints the unnamed
+                // array_typespec.  The package's DEF twin is still the
+                // unresolved ref_var; class properties, formals, subroutine
+                // locals, dotted arrays and associative arrays remain under
+                // the older gates above and below.
+                //
+                // Golden grid g25.sv measures direct class-handle queue,
+                // dynamic and fixed arrays against int / string / aggregate
+                // / associative counter-cells in both views.  Corpus head:
+                // uvm_object_wrapper uvm_deferred_init[$] at :8507, iterated
+                // bare in uvm_init at :9847.
+                //
+                // Verifier grid vg25 additionally pins two exclusions: a
+                // typedef of the CONTAINER is retained as a class_typespec by
+                // Surelog, and a package-qualified written reference takes
+                // its int_var fallback.  Canonical element aliases are still
+                // in-law when the queue / array declaration itself is direct.
+                if (!lv && arrSym && !arrMember9 && curSubPkgHome17 &&
+                    !pkgDefViewBody9 && arrBase &&
+                    arrBase->kind == syntax::SyntaxKind::IdentifierName) {
+                    const Scope* as25 = arrSym->getParentScope();
+                    if (as25 &&
+                        as25->asSymbol().kind == SymbolKind::Package) {
+                        if (auto* dt25 = arrSym->getDeclaredType();
+                            dt25 && dt25->getType().kind !=
+                                        SymbolKind::TypeAlias) {
+                            const Type& ct25 =
+                                dt25->getType().getCanonicalType();
+                            const Type* el25 = nullptr;
+                            if (ct25.kind == SymbolKind::QueueType)
+                                el25 = &ct25.as<QueueType>().elementType;
+                            else if (ct25.kind ==
+                                     SymbolKind::DynamicArrayType)
+                                el25 =
+                                    &ct25.as<DynamicArrayType>().elementType;
+                            else if (ct25.kind ==
+                                     SymbolKind::FixedSizeUnpackedArrayType)
+                                el25 = &ct25.as<FixedSizeUnpackedArrayType>()
+                                            .elementType;
+                            if (el25 &&
+                                el25->getCanonicalType().kind ==
+                                    SymbolKind::ClassType) {
+                                lts = s.MakeArray_typespec();
+                                lv = s.MakeArray_var();
+                            }
+                        }
+                    }
+                }
                 if (!lv)
                     lts = (arrSym && !foreachUnres9) ? makeTypespec(*arrSym)
                                                      : nullptr;

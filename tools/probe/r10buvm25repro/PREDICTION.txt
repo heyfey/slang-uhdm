@@ -1,0 +1,30 @@
+r10buvm25 mover prediction — written from the pristine database census
+BEFORE the patched full-corpus sweep completed.
+
+LHS is golden; RHS is ours.  Measurement only.
+
+The exact production gate is:
+  * HOME package ELABORATED copy;
+  * bare iterated symbol declared directly in that package;
+  * queue, dynamic array, or fixed unpacked array;
+  * canonical element kind ClassType.
+
+A pristine census scanned every slang.uhdm in the pass-owned controls:
+  surelog: 956 databases
+  uhdm2rtlil: 1358 databases
+  total: 2314 databases
+
+The compare-visible superset (ELABPKG class_var loop variable, ref_var array
+reference whose actual typespec is array_typespec) contained 65 cells, all in
+the UVM nine.  Requiring a function directly under a package — the emitted
+shape of the production gate, rather than a class_defn descendant — leaves
+exactly TWO cells:
+
+  default/BuildUVMPkg  uvm_pkg::uvm_init | line 9847 | idx
+  testflags/BuildUVMPkg  uvm_pkg::uvm_init | line 9847 | idx
+
+PREDICTED ROW MOVERS:
+  surelog: default/BuildUVMPkg, testflags/BuildUVMPkg
+  uhdm2rtlil: NONE
+
+No CMP_EQUAL row is inside the predicted fence.
