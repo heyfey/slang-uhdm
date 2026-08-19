@@ -1,0 +1,6 @@
+plain tools/probe/r10earl70repro
+elab tools/probe/r10earl70repro
+plain tools/probe/r10uvm75repro
+elab tools/probe/r10uvm75repro
+plain tools/probe/r10uvm76repro
+elab tools/probe/r10uvm76repro

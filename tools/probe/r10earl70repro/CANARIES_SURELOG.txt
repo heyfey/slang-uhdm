@@ -1,0 +1,63 @@
+  InterfaceModPort               default   OK      CMP_EQUAL/differ
+  InterfaceModPort               testflags OK      CMP_EQUAL/differ
+  BlackParrotComplex             default   OK      CMP_EQUAL/differ
+  BlackParrotComplex             testflags OK      CMP_EQUAL/differ
+  InterfaceBinding               default   OK      CMP_EQUAL/match
+  InterfaceBinding               testflags OK      CMP_EQUAL/match
+  InterfaceModExp                default   OK      CMP_EQUAL/match
+  InterfaceModExp                testflags OK      CMP_EQUAL/match
+  BindHierPath                   default   OK      CMP_EQUAL/match
+  BindHierPath                   testflags OK      CMP_EQUAL/match
+  EnumConcat                     default   OK      CMP_EQUAL/match
+  EnumConcat                     testflags OK      CMP_EQUAL/match
+  LowMemPkg                      default   OK      CMP_EQUAL/match
+  LowMemPkg                      testflags OK      SURELOG_FAIL/
+  paramod_genscope_child         -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  issue326_packed_mem            -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  assignment-pattern             -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  hier_path                      -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  MultirangesStartNotFromZero    -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  genscope_cells                 -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  genvar_loop_decl_3             -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  ClassExtends                   default   OK      CMP_EQUAL/differ
+  ClassExtends                   testflags OK      CMP_EQUAL/differ
+  FuncStruct                     default   OK      CMP_EQUAL/differ
+  FuncStruct                     testflags OK      CMP_EQUAL/differ
+  FuncStructVal                  default   OK      CMP_EQUAL/differ
+  FuncStructVal                  testflags OK      CMP_EQUAL/differ
+  FuncIoTypespec                 default   OK      CMP_EQUAL/differ
+  FuncIoTypespec                 testflags OK      CMP_EQUAL/differ
+  Scr1SvTests                    default   OK      CMP_EQUAL/differ
+  Scr1SvTests                    testflags OK      CMP_EQUAL/differ
+  BasicOh                        default   OK      CMP_EQUAL/differ
+  BasicOh                        testflags OK      CMP_EQUAL/differ
+  Earlgrey_0_1                   default   OK      CMP_NOTEQUAL/
+  Earlgrey_0_1                   testflags OK      CMP_NOTEQUAL/
+  YosysOldOr                     default   OK      CMP_EQUAL/differ
+  YosysOldOr                     testflags OK      CMP_EQUAL/differ
+  YosysBigSimReed                default   OK      CMP_EQUAL/differ
+  YosysBigSimReed                testflags OK      CMP_EQUAL/differ
+  YosysOldOpen                   default   OK      CMP_EQUAL/differ
+  YosysOldOpen                   testflags OK      CMP_EQUAL/differ
+  ClassParamAsParam              default   OK      CMP_EQUAL/differ
+  ClassParamAsParam              testflags OK      CMP_EQUAL/differ
+  ClassTypeParam                 default   OK      CMP_EQUAL/differ
+  ClassTypeParam                 testflags OK      CMP_EQUAL/differ
+  SVSwitch                       default   OK      CMP_EQUAL/differ
+  SVSwitch                       testflags OK      CMP_EQUAL/differ
+  SimpleConstraint               default   OK      CMP_EQUAL/differ
+  SimpleConstraint               testflags OK      CMP_EQUAL/differ
+  ApbSlave                       default   OK      CMP_EQUAL/differ
+  ApbSlave                       testflags OK      CMP_EQUAL/differ
+  SimpleUVM                      default   OK      CMP_NOTEQUAL/
+  SimpleUVM                      testflags OK      CMP_NOTEQUAL/
+  SeqDriver                      default   OK      CMP_NOTEQUAL/
+  SeqDriver                      testflags OK      CMP_NOTEQUAL/
+  BuildUVMPkg                    default   OK      CMP_NOTEQUAL/
+  BuildUVMPkg                    testflags OK      CMP_NOTEQUAL/
+  Scoreboard                     default   OK      CMP_NOTEQUAL/
+  Scoreboard                     testflags OK      SLANG_REJECT/
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+NOTE: 7 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.

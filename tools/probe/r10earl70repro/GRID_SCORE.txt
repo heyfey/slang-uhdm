@@ -1,0 +1,24 @@
+G1_PLAIN
+cells 3274 {'STILL-RIGHT': 2731, 'STILL-WRONG': 479, 'TO-GOLDEN': 64}
+  TO-GOLDEN TS design(work@top_earl70)/module_inst(work@top_earl70)/module_inst(i_m1)/gen_scope_array(gf_BLP[0])/gen_scope/module_inst(i_gen_BLP) HC_p4_L18:16 HC/l/op11[0] | G ref_obj name=BLP actual=enum_const aval=UINT:16 adec=16 asz=32 | P ref_obj name=BLP actual=enum_const aval=UINT:16 adec=16 asz=32
+  TO-GOLDEN TS design(work@top_earl70)/module_inst(work@top_earl70)/module_inst(i_m1)/gen_scope_array(gf_BLP[0])/gen_scope/module_inst(i_gen_BLP) HC_p4_L18:16 HC/l/op11[0] | G ref_obj name=BLP actual=enum_const aval=UINT:16 adec=16 asz=32 | P ref_obj name=BLP actual=enum_const aval=UINT:16 adec=16 asz=32
+G1_ELAB
+cells 4993 {'STILL-RIGHT': 2584, 'STILL-WRONG': 2345, 'TO-GOLDEN': 64}
+  TO-GOLDEN TS design(work@top_earl70)/module_inst(work@top_earl70)/module_inst(i_m1)/gen_scope_array(gf_APR[1])/gen_scope/module_inst(i_gen_APR) HC_p4_L18:16 HC/l/op11[0] | G ref_obj name=APR actual=enum_const aval=UINT:16 adec=16 asz=32 | P ref_obj name=APR actual=enum_const aval=UINT:16 adec=16 asz=32
+  TO-GOLDEN TS design(work@top_earl70)/module_inst(work@top_earl70)/module_inst(i_m1)/gen_scope_array(gf_APR[1])/gen_scope/module_inst(i_gen_APR) HC_p4_L18:16 HC/l/op11[0] | G ref_obj name=APR actual=enum_const aval=UINT:16 adec=16 asz=32 | P ref_obj name=APR actual=enum_const aval=UINT:16 adec=16 asz=32
+G2_PLAIN
+cells 714 {'STILL-RIGHT': 468, 'STILL-WRONG': 198, 'TO-GOLDEN': 48}
+  TO-GOLDEN TS design(work@qtop_earl70)/module_inst(work@qtop_earl70)/module_inst(i_q1)/gen_scope_array(gout[0])/gen_scope/gen_scope_array(gin[1])/gen_scope/module_inst(i_gn) HC_p0_L13:16 HC/l/op11[0] | G ref_obj name=QP actual=enum_const aval=UINT:16 adec=16 asz=32 | P ref_obj name=QP actual=enum_const aval=UINT:16 adec=16 asz=32
+  TO-GOLDEN TS design(work@qtop_earl70)/module_inst(work@qtop_earl70)/module_inst(i_q1)/gen_scope_array(gout[0])/gen_scope/gen_scope_array(gin[1])/gen_scope/module_inst(i_gn) HC_p0_L13:16 HC/l/op11[0] | G ref_obj name=QP actual=enum_const aval=UINT:16 adec=16 asz=32 | P ref_obj name=QP actual=enum_const aval=UINT:16 adec=16 asz=32
+G2_ELAB
+cells 1078 {'STILL-WRONG': 590, 'STILL-RIGHT': 440, 'TO-GOLDEN': 48}
+  TO-GOLDEN TS design(work@qtop_earl70)/module_inst(work@qtop_earl70)/module_inst(i_q1)/gen_scope_array(gout[1])/gen_scope/gen_scope_array(gin[0])/gen_scope/module_inst(i_gn) HC_p0_L13:16 HC/l/op11[0] | G ref_obj name=QP actual=enum_const aval=UINT:16 adec=16 asz=32 | P ref_obj name=QP actual=enum_const aval=UINT:16 adec=16 asz=32
+  TO-GOLDEN TS design(work@qtop_earl70)/module_inst(work@qtop_earl70)/module_inst(i_q1)/gen_scope_array(gout[1])/gen_scope/gen_scope_array(gin[0])/gen_scope/module_inst(i_gn) HC_p0_L13:16 HC/l/op11[0] | G ref_obj name=QP actual=enum_const aval=UINT:16 adec=16 asz=32 | P ref_obj name=QP actual=enum_const aval=UINT:16 adec=16 asz=32
+G3_PLAIN
+cells 636 {'STILL-RIGHT': 432, 'STILL-WRONG': 116, 'TO-GOLDEN': 88}
+  TO-GOLDEN TS design(work@etop_earl70)/module_inst(work@etop_earl70)/module_inst(i_e1)/gen_scope_array(eg[0])/gen_scope/module_inst(i_e) HC_r5_L23:37 HC/l/op11[0] | G ref_obj name=EOCT actual=enum_const aval=UINT:31 adec=31 asz=8 | P ref_obj name=EOCT actual=enum_const aval=UINT:31 adec=31 asz=8
+  TO-GOLDEN TS design(work@etop_earl70)/module_inst(work@etop_earl70)/module_inst(i_e1)/gen_scope_array(eg[0])/gen_scope/module_inst(i_e) HC_r5_L23:37 HC/l/op11[0] | G ref_obj name=EOCT actual=enum_const aval=UINT:31 adec=31 asz=8 | P ref_obj name=EOCT actual=enum_const aval=UINT:31 adec=31 asz=8
+G3_ELAB
+cells 941 {'STILL-RIGHT': 429, 'STILL-WRONG': 424, 'TO-GOLDEN': 88}
+  TO-GOLDEN TS design(work@etop_earl70)/module_inst(work@etop_earl70)/module_inst(i_e1)/gen_scope_array(eg[1])/gen_scope/module_inst(i_e) HC_r5_L23:37 HC/l/op11[0] | G ref_obj name=EOCT actual=enum_const aval=UINT:31 adec=31 asz=8 | P ref_obj name=EOCT actual=enum_const aval=UINT:31 adec=31 asz=8
+  TO-GOLDEN TS design(work@etop_earl70)/module_inst(work@etop_earl70)/module_inst(i_e1)/gen_scope_array(eg[1])/gen_scope/module_inst(i_e) HC_r5_L23:37 HC/l/op11[0] | G ref_obj name=EOCT actual=enum_const aval=UINT:31 adec=31 asz=8 | P ref_obj name=EOCT actual=enum_const aval=UINT:31 adec=31 asz=8

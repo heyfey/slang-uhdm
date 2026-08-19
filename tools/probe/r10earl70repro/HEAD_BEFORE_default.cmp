@@ -1,0 +1,50 @@
+LHS:
+decompile:
+ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].i_rd_buf.addr_i.addr_i.BankAddrW), id:311951, line:143:22, endln:143:31
+|vpiParent:
+\_operation: , id:311952, line:143:22, endln:143:33
+|vpiName:BankAddrW
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].i_rd_buf.addr_i.addr_i.BankAddrW
+|vpiActual:
+\_enum_const: (BankAddrW), id:990327
+
+decompile:
+ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].i_rd_buf.addr_i.addr_i.BankAddrW), id:311951, line:143:22, endln:143:31
+|vpiParent:
+\_operation: , id:311952, line:143:22, endln:143:33
+|vpiName:BankAddrW
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].i_rd_buf.addr_i.addr_i.BankAddrW
+|vpiActual:
+\_enum_const: (BankAddrW), id:990327
+RHS:
+decompile:
+constant: , id:253844, line:143:22, endln:143:31
+|vpiParent:
+\_operation: , id:253842, line:143:22, endln:143:33
+|vpiDecompile:16
+|vpiSize:32
+|UINT:16
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].addr_i), id:253845
+  |vpiParent:
+  \_constant: , id:253844, line:143:22, endln:143:31
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].addr_i
+  |vpiActual:
+  \_int_typespec: , id:42681, line:24:13, endln:24:16
+|vpiConstType:9
+
+decompile:
+constant: , id:253844, line:143:22, endln:143:31
+|vpiParent:
+\_operation: , id:253842, line:143:22, endln:143:33
+|vpiDecompile:16
+|vpiSize:32
+|UINT:16
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].addr_i), id:253845
+  |vpiParent:
+  \_constant: , id:253844, line:143:22, endln:143:31
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].addr_i
+  |vpiActual:
+  \_int_typespec: , id:42681, line:24:13, endln:24:16
+|vpiConstType:9

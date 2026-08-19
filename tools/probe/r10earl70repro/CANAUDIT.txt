@@ -1,0 +1,38 @@
+== brief-protected NAMES ==
+  InterfaceModPort       covered by: canaries.sh:NAMES
+  BlackParrotComplex     covered by: canaries.sh:NAMES ctcan2.sh:EXACT ctcan2.sh:PREFIX(Black)
+  YosysBigSimReed        covered by: canaries.sh:NAMES
+  YosysOldOpen           covered by: canaries.sh:NAMES
+  YosysOldOr             covered by: canaries.sh:NAMES
+  SVSwitch               covered by: canaries.sh:NAMES
+  TypespecExpr           covered by: ctcan2.sh:EXACT
+  ClogCast               covered by: ctcan2.sh:EXACT
+  2DFunctionArg          covered by: ctcan2.sh:EXACT
+  PartSelect4            covered by: ctcan2.sh:EXACT
+  ClassParamAsParam      covered by: canaries.sh:NAMES
+  ClassTypeParam         covered by: canaries.sh:NAMES
+  SimpleConstraint       covered by: canaries.sh:NAMES
+  ApbSlave               covered by: canaries.sh:NAMES
+  InterfaceBinding       covered by: canaries.sh:NAMES
+  InterfaceModExp        covered by: canaries.sh:NAMES
+  BindHierPath           covered by: canaries.sh:NAMES
+  EnumConcat             covered by: canaries.sh:NAMES
+  LowMemPkg              covered by: canaries.sh:NAMES
+  Scr1SvTests            covered by: canaries.sh:NAMES
+  BasicOh                covered by: canaries.sh:NAMES
+  ClassExtends           covered by: canaries.sh:NAMES
+  FuncStruct             covered by: canaries.sh:NAMES
+  FuncStructVal          covered by: canaries.sh:NAMES
+  FuncIoTypespec         covered by: canaries.sh:NAMES
+  Earlgrey_0_1           covered by: canaries.sh:NAMES
+== brief-named FAMILIES ==
+  EvalFunc*              covered by: ctcan2.sh:PREFIX
+  ParamFile*             covered by: ctcan2.sh:PREFIX
+  Black*                 covered by: ctcan2.sh:PREFIX
+== SLANG-FENCED names: must appear in NO driver here ==
+  [fenced-1]          not dispatched by any driver (OK)
+  [fenced-2]           not dispatched by any driver (OK)
+  [fenced-3]         not dispatched by any driver (OK)
+  [fenced-4]               not dispatched by any driver (OK)
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.

@@ -1,0 +1,10 @@
+SIGNAL rc=139 A elab tools/probe/r10uvm84repro
+SIGNAL rc=139 B elab tools/probe/r10uvm84repro
+SIGNAL rc=139 A elab tools/probe/r10uvm92repro
+SIGNAL rc=139 B elab tools/probe/r10uvm92repro
+SIGNAL rc=139 A elab tools/probe/r10vrgg8repro/cells/v8_recurse
+SIGNAL rc=139 B elab tools/probe/r10vrgg8repro/cells/v8_recurse
+SIGNAL rc=139 A elab tools/probe/r10vrgg8repro/cells/v8_recurse_mutual
+SIGNAL rc=139 B elab tools/probe/r10vrgg8repro/cells/v8_recurse_mutual
+SIGNAL rc=139 A elab tools/probe/r10vrgg8repro/cells/v8_recurse_uncond
+SIGNAL rc=139 B elab tools/probe/r10vrgg8repro/cells/v8_recurse_uncond

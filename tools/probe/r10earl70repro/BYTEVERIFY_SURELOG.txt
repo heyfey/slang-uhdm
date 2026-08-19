@@ -1,0 +1,6 @@
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=c99a7791b9ed pristine=a5fcbdc1da49
+MOVER ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=8ebd8379f8ac pristine=4a2fc8b351e9
+MOVERS: 2 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged

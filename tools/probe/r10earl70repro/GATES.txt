@@ -1,0 +1,62 @@
+r10earl70 frozen-binary gate record
+BASE efb12c5a4f60d79d538c6f92c68bb3125eaad404
+pristine /tmp/r10earl70_pristine.bin md5 7c3806fb1091b41a13b4e9017b6cb64a
+sweep-patched /tmp/r10earl70_revised.bin md5 560d2e1af44deabc08f684b49ac8cb3f
+build parallelism -j2; sweep parallelism --jobs 2
+
+GATE 1 — full frozen pristine vs patched sweeps
+surelog pristine: 1588 rows (794 default, 794 testflags)
+surelog patched:  1588 rows (794 default, 794 testflags)
+surelog row/status/dump parity: PASS, every row identical
+uhdm2rtlil pristine default:   731 rows
+uhdm2rtlil patched default:    731 rows
+uhdm2rtlil pristine testflags: 731 rows
+uhdm2rtlil patched testflags:  731 rows
+uhdm2rtlil row/status/dump parity: PASS, every row identical in both modes
+command audit: PASS; cmds.txt names the frozen pristine/patched binaries
+
+GATE 2 — committed baseline parity
+patched surelog vs results/golden_surelog.csv: PASS
+patched uhdm2rtlil testflags vs results/gate_uhdm2rtlil.csv: PASS
+
+GATE 3 — official comparison heads and byte movers
+Earlgrey default:   50 lines / 1 head -> 46 lines / 1 head
+Earlgrey testflags: 50 lines / 1 head -> 46 lines / 1 head
+original BankAddrW head: cleared
+new R0: LsbAddrBit direct right bound, deliberately outside shipped slice
+surelog byte path set: 956 == 956; exact movers 2
+  ./default/Earlgrey_0_1-71da2fd7/slang.uhdm
+  ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+surelog comparator selfcheck: 955 / 956 flagged
+uhdm2rtlil byte path set: 1358 == 1358; movers 0
+uhdm2rtlil comparator selfcheck: 1357 / 1358 flagged
+
+GATE 4 — tests, controls, canaries, and fence audit
+check_goldens patched: rc=0, PASS=23, FAIL=0
+check_goldens /bin/false control: rc=1, PASS=0, FAIL=23
+canaries surelog: ok=52 changed=0 absent=0 unknown-names=7 (expected)
+canaries uhdm2rtlil: ok=8 changed=0 absent=0 unknown-names=25 (expected)
+ctcan2 surelog: ok=58 changed=0 absent=0 unknown-patterns=1, PASS
+ctcan2 uhdm2rtlil: ok=1 changed=0 absent=0 unknown-patterns=6, PASS
+canaudit: audited=29 UNCOVERED=0 FENCE-BREACH=0, PASS
+
+GATE 5 — protected bytes and external pins
+InterfaceModPort default/testflags: 59a365f3ce2c8d0b336a78811e70d816
+BlackParrotComplex default: e3e354129d5a7ef226b3dd8c6f359a28
+BlackParrotComplex testflags: 73a10e8217e52843f9789c2bff877dca
+YosysOldOr default/testflags: d68e0796d62c1e30a2a545011449bd84
+protected pristine-to-patched byte movers: 0
+SVSwitch pin default/testflags: 4842211c40304b44fbb046201ec0287e
+YosysVerx pin default/testflags: 6ccda350c24a83cebc9ca4a7b6e505cf
+
+EXHAUSTIVE BOUNDARY
+per-file list: 3154 .sv files
+  identical=6032 DIFFERING=6 no_output=270
+  differences=g1/g2/g3 in plain+elab; all are positive controls
+per-directory list: 1449 unique directories
+  identical=2659 DIFFERING=6 no_output=233
+  substantive differences=this reproducer plain+elab
+  four other differences are pre-existing Task_funcs order only; normalized
+  sorted diffs are empty
+signals: 20 per-file and 10 per-directory entries, every one symmetric A/B
+boundary verdict: PASS; no new crash/timeout and no non-golden substantive mover

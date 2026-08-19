@@ -1,0 +1,37 @@
+  InterfaceModPort               -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  BlackParrotComplex             -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  InterfaceBinding               -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  InterfaceModExp                -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  BindHierPath                   -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  EnumConcat                     testflags OK      CMP_EQUAL/differ
+  LowMemPkg                      -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  paramod_genscope_child         testflags OK      CMP_EQUAL/match
+  issue326_packed_mem            testflags OK      CMP_EQUAL/match
+  assignment-pattern             testflags OK      CMP_EQUAL/differ
+  hier_path                      testflags OK      CMP_EQUAL/differ
+  MultirangesStartNotFromZero    testflags OK      CMP_EQUAL/differ
+  genscope_cells                 testflags OK      CMP_EQUAL/differ
+  genvar_loop_decl_3             testflags OK      CMP_EQUAL/differ
+  ClassExtends                   -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  FuncStruct                     -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  FuncStructVal                  -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  FuncIoTypespec                 -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  Scr1SvTests                    -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  BasicOh                        -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  Earlgrey_0_1                   -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  YosysOldOr                     -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  YosysBigSimReed                -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  YosysOldOpen                   -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  ClassParamAsParam              -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  ClassTypeParam                 -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  SVSwitch                       -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  SimpleConstraint               -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  ApbSlave                       -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  SimpleUVM                      -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  SeqDriver                      -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  BuildUVMPkg                    -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  Scoreboard                     -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+NOTE: 25 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.

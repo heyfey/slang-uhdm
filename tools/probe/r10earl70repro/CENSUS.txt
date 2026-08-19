@@ -1,0 +1,12 @@
+CORPUS_CALIB_DEFAULT
+cells 521401 {'STILL-RIGHT': 521401}
+CORPUS_DEFAULT
+cells 531489 {'STILL-RIGHT': 508206, 'STILL-WRONG': 23251, 'TO-GOLDEN': 32}
+  TO-GOLDEN TS design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[1])/gen_scope/module_inst(i_core)/module_inst(i_rd)/gen_scope_array(gen_bufs[2])/gen_scope/module_inst(i_rd_buf) HC_addr_i_L28:30 HC/l/op11[0] | G ref_obj name=BankAddrW actual=enum_const aval=UINT:16 adec=16 asz=32 | P ref_obj name=BankAddrW actual=enum_const aval=UINT:16 adec=16 asz=32
+  TO-GOLDEN TS design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[1])/gen_scope/module_inst(i_core)/module_inst(i_rd)/gen_scope_array(gen_bufs[2])/gen_scope/module_inst(i_rd_buf) HC_addr_i_L28:30 HC/l/op11[0] | G ref_obj name=BankAddrW actual=enum_const aval=UINT:16 adec=16 asz=32 | P ref_obj name=BankAddrW actual=enum_const aval=UINT:16 adec=16 asz=32
+CORPUS_CALIB_TF
+cells 799038 {'STILL-RIGHT': 799038}
+CORPUS_TF
+cells 811229 {'STILL-WRONG': 40820, 'STILL-RIGHT': 770377, 'TO-GOLDEN': 32}
+  TO-GOLDEN TS design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[0])/gen_scope/module_inst(i_core)/module_inst(i_rd)/gen_scope_array(gen_bufs[0])/gen_scope/module_inst(i_rd_buf) HC_addr_i_L28:30 HC/l/op11[0] | G ref_obj name=BankAddrW actual=enum_const aval=UINT:16 adec=16 asz=32 | P ref_obj name=BankAddrW actual=enum_const aval=UINT:16 adec=16 asz=32
+  TO-GOLDEN TS design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[0])/gen_scope/module_inst(i_core)/module_inst(i_rd)/gen_scope_array(gen_bufs[0])/gen_scope/module_inst(i_rd_buf) HC_addr_i_L28:30 HC/l/op11[0] | G ref_obj name=BankAddrW actual=enum_const aval=UINT:16 adec=16 asz=32 | P ref_obj name=BankAddrW actual=enum_const aval=UINT:16 adec=16 asz=32

@@ -1,0 +1,6 @@
+plain tools/probe/r10earl70repro/g1_earl70.sv
+elab tools/probe/r10earl70repro/g1_earl70.sv
+plain tools/probe/r10earl70repro/g2_earl70.sv
+elab tools/probe/r10earl70repro/g2_earl70.sv
+plain tools/probe/r10earl70repro/g3_enc70.sv
+elab tools/probe/r10earl70repro/g3_enc70.sv

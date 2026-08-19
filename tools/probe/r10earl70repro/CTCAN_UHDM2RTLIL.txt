@@ -1,0 +1,11 @@
+== exact names canaries.sh does NOT carry ==
+  TypespecExpr                       -         UNKNOWN-PATTERN (no row in EITHER csv, either mode)
+  ClogCast                           -         UNKNOWN-PATTERN (no row in EITHER csv, either mode)
+  2DFunctionArg                      testflags OK       CMP_EQUAL/match
+  PartSelect4                        -         UNKNOWN-PATTERN (no row in EITHER csv, either mode)
+== families canaries.sh does NOT carry (prefix match) ==
+  EvalFunc*                          -         UNKNOWN-PATTERN (prefix matched NOTHING in either csv)
+  ParamFile*                         -         UNKNOWN-PATTERN (prefix matched NOTHING in either csv)
+  Black*                             -         UNKNOWN-PATTERN (prefix matched NOTHING in either csv)
+---- ctcan2 rows: ok=1 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.

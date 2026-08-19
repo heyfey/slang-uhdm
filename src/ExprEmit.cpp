@@ -8992,6 +8992,203 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(ref, expr.sourceRange);
                     return ref;
                 }
+                // § connPsOpBoundOuterScopeKeepsRef70 (r10earl70) — THE
+                // POSITIVE SUBTRACTION-OPERAND SLICE of the mirror of the
+                // earl64-68 superfamily.  Inside an ELABORATED port `High_conn`
+                // of an instantiation that sits IN A GENERATE BLOCK, a package
+                // parameter inside a PART-SELECT BOUND operation is NOT
+                // substituted: golden keeps the `ref_obj` and
+                // binds it to a FRESH loc-less `enum_const` carrying that
+                // parameter's own value — the same per-reference clone
+                // § genNestedScopePkgParamNoFold24 mints one arm above.  Every
+                // earlier pass of this family had golden folding and us keeping
+                // a ref; this one is an ABSTENTION law.
+                //
+                // THE HEAD (Earlgrey_0_1, BOTH modes, 50 cmp lines, 1 head, at
+                // efb12c5) — flash_phy_rd.sv:143:22-143:31 in
+                // `top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd
+                // .gen_bufs[0].i_rd_buf`, the `addr_i` High_conn
+                // `.addr_i(addr_i[BankAddrW-1:LsbAddrBit])` of
+                // `flash_phy_rd_buffers i_rd_buf` instantiated inside
+                // `for (genvar i = 0; i < NumBuf; i++) begin: gen_bufs`:
+                //   LHS(golden) ref_obj  143:22-143:31 |vpiName:BankAddrW
+                //               |vpiActual -> enum_const (BankAddrW)
+                //   RHS(ours)   constant 143:22-143:31 |vpiDecompile:16
+                //               |vpiSize:32 |UINT:16 |ct 9 |vpiTypespec ->
+                //               ref_typespec -> int_typespec 24:13-24:16
+                // Both are the FIRST operand of the `-` operation at
+                // 143:22-143:33 (the LEFT bound of the part_select), non-null
+                // and of DIFFERENT UhdmType, so `BaseClass::Compare`'s VpiType
+                // test fails first and names BOTH sides (read the MK line, not
+                // the shape — RESUME §9).  `BankAddrW` and `LsbAddrBit` are
+                // `parameter int` in flash_phy_pkg (24:13 / 42:13), read
+                // through `import flash_phy_pkg::*` in flash_phy_rd's header.
+                //
+                // WHERE IT COMES FROM IN SURELOG, decoded not guessed.
+                // `NetlistElaboration::high_conn_`
+                // (src/DesignCompile/NetlistElaboration.cpp:854) re-compiles the
+                // actual with `compileExpression(parent_comp, …, Reduce::Yes,
+                // pexpr=p, instance=parent)` (lines 1094-1096).  At a gen-scope
+                // instantiation that lookup does not substitute the bare
+                // package name, so the `ref_obj` survives the reduce.  Later,
+                // `UhdmWriter::lateBinding`
+                // (src/DesignCompile/UhdmWriter.cpp:3952) then answers it with
+                // `mod->getValue(name)` and MINTS the `enum_const` this arm
+                // reproduces:
+                //     enum_const* c = s.MakeEnum_const();
+                //     c->VpiName(name); c->VpiValue(value->uhdmValue());
+                //     c->VpiDecompile(value->decompiledValue());
+                //     c->VpiSize(value->getSize()); ref->Actual_group(c);
+                // A MODULE-scope name gets no value there either, which is why
+                // golden leaves THOSE refs UNBOUND — the exact mirror of
+                // § connOperandOwnScopeBind61's binder law, one symbol class
+                // over.
+                //
+                // THE GRID, measured on GOLDEN (`g1_earl70.sv` 7 origins x 2
+                // homes x 7 select positions, `g2_earl70.sv` the qualifier and
+                // the generate containers).  ELAB port High_conn:
+                //   home        symbol origin              part-select BOUND
+                //   module body pkg param / pkg localparam FOLDS (located ts)
+                //   module body module param / localparam  FOLDS (located ts)
+                //   module body pkg ENUM MEMBER            ref -> enum_const
+                //                                         (§ …Fold66's carve-out)
+                //   gen-for /   pkg param, pkg localparam  ref -> enum_const
+                //   gen-if /    module param / localparam  ref, UNBOUND
+                //   nested gen  OUTER gen block's local    ref, UNBOUND
+                //               the block's OWN localparam FOLDS (located ts)
+                //               genvar                     ref, UNBOUND
+                //   any home    a QUALIFIED `pkg::P` read  FOLDS
+                // and EVERY OTHER POSITION folds in EVERY home — the ips BASE
+                // and WIDTH, the bit-select INDEX, a bare actual, an operation
+                // operand — as do all four `cont_assign` controls in the very
+                // same generate scope.  A module-scope INSTANCE ARRAY folds
+                // like a module-scope instantiation; one inside a gen-for keeps
+                // the ref like its single-instance twin.
+                //
+                // THE SHIPPED SLICE is narrower than that golden family: an
+                // unqualified, NONNEGATIVE package parameter that is an
+                // immediate OPERATION operand of a simple part-select bound.
+                // The inherited broad cut was refuted on its own grid: direct
+                // right bounds created 104/112 extra module-parameter bindings
+                // in g1/g2, and negative `ENEG+8` created 8 pristine-right ->
+                // patched-wrong root folds in g3.  With the guards below, g1
+                // moves 64 cells to golden, g2 moves 48, and g3 moves 88, with
+                // AWAY-GOLDEN=0 and MOVED-WRONG=0.  The corpus slice is exactly
+                // 32 `BankAddrW` cells per mode; direct `LsbAddrBit` is the
+                // next head, not claimed here.
+                //
+                // THE ENCODING of the clone, measured over 11 nonnegative forms
+                // (`g3_enc70.sv`, one package parameter per form, all read as
+                // the same bound in the same gen-for):
+                //   parameter int P = 16          UINT:16  "16"          sz 32
+                //   parameter     P = 16          UINT:16  "16"          sz 64
+                //   parameter int P = 8+8         UINT:16  "16"          sz 32
+                //   parameter int P = $clog2(32)  UINT:5   "5"           sz 32
+                //   parameter longint P = 40      UINT:40  "40"          sz 64
+                //   parameter [11:0] P = 12'h5A0  HEX:5A0  "12'h5A0"     sz 12
+                //   parameter [7:0]  P = 8'b1010… BIN:1010… "8'b10100001" sz 8
+                //   parameter [7:0]  P = 8'o37    UINT:31  "31"          sz 8
+                //   parameter [7:0]  P = 8'd21    INT:21   "21"          sz 8
+                //   parameter int    P = 12'h5A0  HEX:5A0  "32'h5A0"     sz 32
+                //   parameter        P = 12'h5A0  HEX:5A0  "12'h5A0"     sz 12
+                // i.e. only a HEX or BINARY init keeps its base (Surelog's
+                // ExprBuilder stores those as based values); an OCTAL init
+                // comes back as the plain UINT decimal and a BASED-DECIMAL init
+                // as INT — which is where law 24's copy of this encoder would
+                // have been wrong, so this arm does not share it (RESUME §9's
+                // no-premature-extraction rule keeps the two apart until the
+                // corpus is converged).  The DECOMPILE of a based value is
+                // re-rendered at the CLONE's size, not at the literal's
+                // (`parameter int P = 12'h5A0` -> `32'h5A0`), and the size is
+                // the parameter's own declared width except for a bare untyped
+                // parameter with an UNSIZED init, which is Surelog's 64.
+                //
+                // VERIFIER RECUT: the parent operation is specifically a
+                // SUBTRACTION.  An adversarial all-operator grid found that
+                // XOR, unary-plus, and bitwise-negation bounds gain extra
+                // elaborated refs bound to the importing module parameter;
+                // golden folds those copies.  Subtraction was remeasured for
+                // both operand orders, both bound positions, nested forms,
+                // and negative/positive enclosing results with zero regressions.
+                if (elabConnEmit21 && connGenScope61 && inPsRangeBound &&
+                    parent && parent->UhdmType() == UHDM::uhdmoperation &&
+                    ((UHDM::operation*)parent)->VpiOpType() == vpiSubOp &&
+                    // § argWrittenQualIsSyntaxKind33's discriminator, not a text
+                    // test: `\a::b ` is ONE escaped identifier whose NAME holds
+                    // `::` and a macro-written `pkg::P` is a real ScopedName.
+                    !(expr.syntax
+                          ? expr.syntax->kind == syntax::SyntaxKind::ScopedName
+                          : rawText(expr.sourceRange).find("::") !=
+                                std::string::npos)) {
+                    auto& cv70 = psym.getValue();
+                    if (cv70.isInteger() && !cv70.integer().hasUnknown() &&
+                        !cv70.integer().isNegative()) {
+                        // The clone's SIZE: the parameter's own declared width,
+                        // except a BARE untyped parameter (implicit type, no
+                        // packed dimensions) whose init carries no `'` — an
+                        // unsized decimal, which Surelog values at 64.
+                        bool implicit70 = false, ranged70 = false;
+                        if (auto d70 = psym.getDeclaredType())
+                            if (auto t70 = d70->getTypeSyntax();
+                                t70 &&
+                                t70->kind == syntax::SyntaxKind::ImplicitType) {
+                                implicit70 = true;
+                                ranged70 = !t70->as<syntax::ImplicitTypeSyntax>()
+                                                .dimensions.empty();
+                            }
+                        std::string raw70;
+                        if (auto* pini70 = psym.getInitializer()) {
+                            auto& lit70 = stripImplicitConv(*pini70);
+                            if (lit70.kind == ExpressionKind::IntegerLiteral)
+                                raw70 = std::string(rawText(lit70.sourceRange));
+                        }
+                        size_t tick70 = raw70.find('\'');
+                        int32_t sz70 =
+                            (implicit70 && !ranged70 &&
+                             tick70 == std::string::npos)
+                                ? 64
+                                : (int32_t)psym.getType().getBitWidth();
+                        std::string dg70 =
+                            cv70.integer().toString(LiteralBase::Decimal, false);
+                        // Negative values are refused above: binding ENEG in
+                        // `ENEG+8` makes a later path fold the whole operation,
+                        // while golden binds only after its reduction window.
+                        // That timing law is R2.
+                        std::string val70 =
+                            (!dg70.empty() && dg70[0] == '-' ? "INT:" : "UINT:") +
+                            dg70;
+                        std::string dec70 = dg70;
+                        if (tick70 != std::string::npos) {
+                            size_t bp70 = tick70 + 1;
+                            if (bp70 < raw70.size() &&
+                                (raw70[bp70] == 's' || raw70[bp70] == 'S'))
+                                bp70++;
+                            char b70 = bp70 < raw70.size()
+                                           ? (char)tolower(raw70[bp70])
+                                           : 'd';
+                            std::string d270 = stripSep(raw70.substr(bp70 + 1));
+                            if (b70 == 'h' || b70 == 'b') {
+                                val70 = std::string(b70 == 'h' ? "HEX:" : "BIN:") + d270;
+                                dec70 = std::to_string(sz70) + "'" + b70 + d270;
+                            } else if (b70 == 'd') {
+                                // A based DECIMAL init comes back INT, not DEC.
+                                val70 = "INT:" + dg70;
+                            }
+                            // A based OCTAL init keeps the default UINT decimal.
+                        }
+                        auto* ec70 = s.MakeEnum_const();
+                        ec70->VpiName(std::string(nv.symbol.name));
+                        ec70->VpiValue(val70);
+                        ec70->VpiDecompile(dec70);
+                        ec70->VpiSize(sz70);
+                        ec70->VpiParent(ref);
+                        ref->Actual_group(ec70);
+                        ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                        ref->VpiParent(parent);
+                        setLoc(ref, expr.sourceRange);
+                        return ref;
+                    }
+                }
                 auto& cv = psym.getValue();
                 if (cv.isInteger() && !cv.integer().hasUnknown()) {
                     auto* c = s.MakeConstant();

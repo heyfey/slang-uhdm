@@ -1,0 +1,66 @@
+== exact names canaries.sh does NOT carry ==
+  TypespecExpr                       default   OK       CMP_EQUAL/match
+  TypespecExpr                       testflags OK       CMP_EQUAL/differ
+  ClogCast                           default   OK       CMP_EQUAL/match
+  ClogCast                           testflags OK       CMP_EQUAL/match
+  2DFunctionArg                      -         UNKNOWN-PATTERN (no row in EITHER csv, either mode)
+  PartSelect4                        default   OK       CMP_EQUAL/differ
+  PartSelect4                        testflags OK       CMP_EQUAL/differ
+== families canaries.sh does NOT carry (prefix match) ==
+  -- EvalFunc* : 5 name(s)
+  EvalFunc                           default   OK       CMP_EQUAL/differ
+  EvalFunc                           testflags OK       CMP_EQUAL/differ
+  EvalFuncArray                      default   OK       SLANG_REJECT/
+  EvalFuncArray                      testflags OK       SLANG_REJECT/
+  EvalFuncCont                       default   OK       CMP_EQUAL/match
+  EvalFuncCont                       testflags OK       CMP_EQUAL/match
+  EvalFuncNamed                      default   OK       CMP_EQUAL/differ
+  EvalFuncNamed                      testflags OK       CMP_EQUAL/differ
+  EvalFuncPack                       default   OK       SLANG_REJECT/
+  EvalFuncPack                       testflags OK       SLANG_REJECT/
+  -- ParamFile* : 4 name(s)
+  ParamFile                          default   OK       CMP_EQUAL/match
+  ParamFile                          testflags OK       CMP_EQUAL/match
+  ParamFileMacro                     default   OK       SURELOG_FAIL/
+  ParamFileMacro                     testflags OK       SURELOG_FAIL/
+  ParamFileNoTop                     default   OK       CMP_EQUAL/match
+  ParamFileNoTop                     testflags OK       SLANG_REJECT/
+  ParamFileOverr                     default   OK       CMP_EQUAL/match
+  ParamFileOverr                     testflags OK       CMP_EQUAL/match
+  -- Black* : 17 name(s)
+  BlackBePipeInt                     default   OK       CMP_EQUAL/differ
+  BlackBePipeInt                     testflags OK       CMP_EQUAL/differ
+  BlackBox                           default   OK       CMP_EQUAL/match
+  BlackBox                           testflags OK       CMP_EQUAL/differ
+  BlackBoxInst                       default   OK       CMP_EQUAL/match
+  BlackBoxInst                       testflags OK       CMP_EQUAL/differ
+  BlackBoxInstTop                    default   OK       CMP_EQUAL/match
+  BlackBoxInstTop                    testflags OK       CMP_EQUAL/match
+  BlackboxMissingDef                 default   OK       SLANG_REJECT/
+  BlackboxMissingDef                 testflags OK       SLANG_REJECT/
+  BlackBoxMod                        default   OK       CMP_EQUAL/match
+  BlackBoxMod                        testflags OK       CMP_EQUAL/match
+  BlackBoxSubMod                     default   OK       CMP_EQUAL/match
+  BlackBoxSubMod                     testflags OK       CMP_EQUAL/match
+  BlackConst                         default   OK       CMP_EQUAL/differ
+  BlackConst                         testflags OK       CMP_EQUAL/differ
+  BlackParrot                        default   OK       SURELOG_FAIL/
+  BlackParrot                        testflags OK       SURELOG_FAIL/
+  BlackParrotComplex                 default   OK       CMP_EQUAL/differ
+  BlackParrotComplex                 testflags OK       CMP_EQUAL/differ
+  BlackParrotConf                    default   OK       SLANG_REJECT/
+  BlackParrotConf                    testflags OK       SLANG_REJECT/
+  BlackParrotMuteErrors              default   OK       SLANG_REJECT/
+  BlackParrotMuteErrors              testflags OK       SLANG_REJECT/
+  BlackParrotParam                   default   OK       SLANG_REJECT/
+  BlackParrotParam                   testflags OK       SLANG_REJECT/
+  BlackParrotSkipParam               default   OK       CMP_EQUAL/differ
+  BlackParrotSkipParam               testflags OK       CMP_EQUAL/differ
+  BlackParrotStructParam             default   OK       SLANG_REJECT/
+  BlackParrotStructParam             testflags OK       SLANG_REJECT/
+  BlackUcode                         default   OK       SURELOG_FAIL/
+  BlackUcode                         testflags OK       SURELOG_FAIL/
+  BlackUnicore                       default   OK       SURELOG_FAIL/
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
