@@ -1,0 +1,21 @@
+MOVED FILE F1829_r10uvm100repro_g100_a1_modtask.sv/def 63 lines
+MOVED FILE F1829_r10uvm100repro_g100_a1_modtask.sv/elab 126 lines
+MOVED FILE F1830_r10uvm100repro_g100_a2_class.sv/def 63 lines
+MOVED FILE F1830_r10uvm100repro_g100_a2_class.sv/elab 126 lines
+MOVED FILE F1831_r10uvm100repro_g100_a3_macro.sv/def 35 lines
+MOVED FILE F1831_r10uvm100repro_g100_a3_macro.sv/elab 70 lines
+MOVED FILE F1832_r10uvm100repro_g100_a4_homes.sv/def 81 lines
+MOVED FILE F1832_r10uvm100repro_g100_a4_homes.sv/elab 137 lines
+MOVED FILE F1834_r10uvm100repro_g100_a6_corpus.v/def 23 lines
+MOVED FILE F1834_r10uvm100repro_g100_a6_corpus.v/elab 46 lines
+FILE_ARMS: LISTED=3209 FENCED_SKIPPED=0 PROCESSED=3209 MOVED=10 NO_OUTPUT_PAIRS=270 RC_PAIRS=6418 RC_DIFF=0 ASYM=0
+FILE-PROCESSED-ASSERT-OK
+MOVED DIR D0711_r10uvm100repro/def 265 lines
+MOVED DIR D0711_r10uvm100repro/elab 505 lines
+MOVED DIR D0894_r10uvm75repro/def 16 lines
+MOVED DIR D0894_r10uvm75repro/elab 18 lines
+MOVED DIR D0895_r10uvm76repro/def 12 lines
+MOVED DIR D0895_r10uvm76repro/elab 18 lines
+MOVED DIR D0907_r10uvm88repro/def 4 lines
+DIR_ARMS: LISTED=1453 PROCESSED=1453 MOVED=7 NO_OUTPUT_PAIRS=239 RC_PAIRS=2906 RC_DIFF=0 ASYM=0
+DONE

@@ -392,13 +392,68 @@ UHDM::delay_control* UhdmExporter::emitDelayControl(const TimingControl& tc,
         //     delay_control itself is parented;
         //   INTRA-ASSIGNMENT delay (`a <= #Tp d;`) records NOTHING — no
         //     vpiDelay string, no Delay() ref (YosysOldSpi's 51 `<= #Tp`).
-        // A PARENTHESISED value also shrinks the delay_control span to the
-        // expression inside the parens (`#(Tp+1)` -> 6:12-6:16).
+        //
+        // § parenStmtDelayNamelessRef100 — THE LAW.  A PARENTHESISED delay
+        // value splits by the very same POSITION axis, and the split is four
+        // lines of Surelog:
+        //
+        //   `CompileHelper::compileProceduralTimingControlStmt`
+        //   (src/DesignCompile/CompileHelper.cpp:3032-3044) reads
+        //   `IntConst = fC->Child(Delay_control)` and
+        //   `value = fC->SymName(IntConst)`; on `value[0] != '#'` it mints
+        //       ref_obj{ VpiName(value); VpiParent(pstmt);
+        //                populateCoreMembers(IntConst, IntConst, ref) }
+        //   as `dc->Delay(ref)`, and then spans the delay_control with
+        //   `populateCoreMembers(Delay_control, Delay_control, dc)` — the
+        //   WHOLE `#…` node, parens included.
+        //   For `POUND OPEN_PARENS mintypmax_expression CLOSE_PARENS`
+        //   (grammar/SV3_1aParser.g4:2424-2426) that child is the
+        //   `mintypmax_expression` NODE, which carries NO symbol name, so
+        //   `value` is EMPTY: the ref is minted NAMELESS and spans the
+        //   parenthesised value alone.
+        //
+        //   `CompileHelper::compileDelayControl` (:3085) and the
+        //   intra-assignment arm (:4559-4567) instead span the delay_control
+        //   with `fC->Child(Delay_control)` — the value alone — and never
+        //   mint a ref at all.
+        //
+        // Measured on golden, module task + module initial + module always,
+        // NO macro involved.  Line numbers are the committed arm
+        // tools/probe/r10uvm100repro/g100_a1_modtask.sv, so every cell here is
+        // re-measurable:
+        //    7 statement  `#(Tp)`     dc  7:5-7:10   ref <nameless>  7:7-7:9
+        //    8 statement  `#(Tp+1)`   dc  8:5-8:12   ref <nameless>  8:7-8:11
+        //    9 statement  `#Tp`       dc  9:5-9:8    ref `Tp`        9:5-9:8
+        //   10 statement  `#5`        dc 10:5-10:7   vpiDelay `#5`,  no ref
+        //   11 statement  `#(5)`      dc 11:5-11:9   ref <nameless> 11:7-11:8
+        //   12 statement  `#1ns`      dc 12:5-12:9   vpiDelay `#1`,  no ref
+        //   13 statement  `#(1ns)`    dc 13:5-13:11  ref <nameless> 13:7-13:10
+        //   14 statement  `#(Tp*2+1)` dc 14:5-14:14  ref <nameless> 14:7-14:13
+        //   26 always     `#(Tp)`     dc 26:10-26:15 ref <nameless> 26:12-26:14
+        //   20 intra      `#(Tp)`     dc 20:12-20:14 no string, no ref  <- shrink
+        //   21 intra      `#Tp`       dc 21:10-21:13 no string, no ref
+        //   22 intra      `#(Tp+1)`   dc 22:12-22:16 no string, no ref
+        //   23 intra      `#9`        dc 23:10-23:12 vpiDelay `#9`,  no ref
+        //   24 intra      `#(9)`      dc 24:12-24:13 no string, no ref
+        // The `#(Tp+1) -> 6:12-6:16` shrink this comment used to claim for
+        // every position is the INTRA-ASSIGNMENT cell (line 22 here); in
+        // STATEMENT position golden keeps the whole `#(…)` and adds the
+        // NAMELESS ref.
         if (raw[numStart] == '(') {
             size_t close = raw.find_last_of(')');
-            if (close != std::string::npos && close > numStart + 1)
-                setLoc(dc, SourceRange(dr.start() + numStart + 1,
-                                       dr.start() + close));
+            if (close != std::string::npos && close > numStart + 1) {
+                SourceRange inner(dr.start() + numStart + 1,
+                                  dr.start() + close);
+                if (stmtRefPrefix) {
+                    auto* ref = s.MakeRef_obj();
+                    ref->VpiParent(parent);
+                    setLoc(ref, inner);
+                    dc->Delay(ref);
+                }
+                else {
+                    setLoc(dc, inner);
+                }
+            }
         }
         else if (stmtRefPrefix) {
             std::string name = raw.substr(numStart);

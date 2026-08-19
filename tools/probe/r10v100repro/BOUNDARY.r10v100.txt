@@ -1,0 +1,8 @@
+r10v100 wide boundary summary
+FILE_ARMS LISTED=3213 PROCESSED=3213 MOVED=18 NO_OUTPUT_PAIRS=270 RC_PAIRS=6426 RC_DIFF=0 ASYM=0
+FILE movers: own g100 a1,a2,a3,a4,a6 and v100 b1,b2,b3,b4, both views; no non-own mover
+DIR_ARMS LISTED=1454 PROCESSED=1454 MOVED=10 NO_OUTPUT_PAIRS=239 RC_PAIRS=2908 RC_DIFF=0 ASYM=0
+DIR own movers: r10uvm100 and r10v100, both views
+DIR non-own coins: r10buvm9, r10uvm75, r10uvm76, both views; ORDER_BLIND=0 and DELAY_LINES=0 each
+r10buvm9 fresh-golden score: default cmp logs byte-identical; elaborated cmp logs ID-normalized byte-identical
+PROCESSED ASSERTS OK; verdict ACCEPT

@@ -1,0 +1,23 @@
+r10uvm100 — attribution of the NON-OWN per-DIRECTORY boundary movers
+(dbound100.sh, per-DIRECTORY half; the per-FILE half has NO non-own mover).
+
+All three are compiled three-way here: golden (Surelog, LHS) / pristine / patched,
+whole directory, both views, children </dev/null.
+
+  arm                  view  uhdm-cmp head              whole-dump delta
+  r10uvm75repro        def   BYTE-IDENTICAL (1 head)    ORDERED=12  ORDER-BLIND=0  delay_control lines=0
+  r10uvm75repro        elab  BYTE-IDENTICAL (1 head)    ORDERED=16  ORDER-BLIND=0  delay_control lines=0
+  r10uvm76repro        def   BYTE-IDENTICAL (1 head)    ORDERED=14  ORDER-BLIND=0  delay_control lines=0
+  r10uvm76repro        elab  BYTE-IDENTICAL (1 head)    ORDERED=16  ORDER-BLIND=0  delay_control lines=0
+  r10uvm88repro        def   BYTE-IDENTICAL (1 head)    ORDERED=4   ORDER-BLIND=0  delay_control lines=0
+  r10uvm88repro        elab  BYTE-IDENTICAL (1 head)    ORDERED=4   ORDER-BLIND=0  delay_control lines=0
+
+VERDICT: **ORDER-BLIND = 0 on all six cells** — the delta is a REORDERING of a
+`vpiTaskFunc` list and nothing else (the known nondeterminism family: macro-buffer
+SourceLocation ordering under slang's parallel parse; RESUME.md §9). NOT this
+law: not one `delay_control` line moves, and the uhdm-cmp head is byte-identical
+pristine vs patched in every cell.
+
+The mover SET itself flickers between runs (dbound100.sh flagged r10uvm88repro
+in `def` only, while a standalone re-run moved `elab` too, both ORDER-BLIND=0),
+which is itself the signature of the coin rather than of an emitter change.

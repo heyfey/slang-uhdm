@@ -1,0 +1,276 @@
+r10uvm100 GRID — three-way arm scorer (golden=LHS / pristine / patched), both views.
+pristine md5 4e93b58c9954e569b670437ae459cc7a   patched md5 59f45b74fd50c43b16b4b0a1c958f72c
+
+g100_a1_modtask_def: pris=rc0/CMP_FAIL/heads1/lines13 pat=rc0/PASS_CMP/heads0/lines0
+  g100_a1_modtask_def      [MULTISET] CELLS  18  ALREADY-OK  11  FIXED   7  BROKE   0  STILL   0
+  g100_a1_modtask_def      [SET     ] CELLS  18  ALREADY-OK  11  FIXED   7  BROKE   0  STILL   0
+  FIXED       ('', 'statement STMT assignment@26:16-26:25')
+      G=['dcspan=26:10-26:15 str=- ref=ref_obj/<nameless>/26:12-26:14/actual=n']
+      P=['dcspan=26:12-26:14 str=- ref=-']
+      Q=['dcspan=26:10-26:15 str=- ref=ref_obj/<nameless>/26:12-26:14/actual=n']
+  FIXED       ('work@m1a', 'statement STMT assignment@17:11-17:16')
+      G=['dcspan=17:5-17:10 str=- ref=ref_obj/<nameless>/17:7-17:9/actual=n']
+      P=['dcspan=17:7-17:9 str=- ref=-']
+      Q=['dcspan=17:5-17:10 str=- ref=ref_obj/<nameless>/17:7-17:9/actual=n']
+  FIXED       ('work@m1a.tk', 'statement STMT assignment@11:10-11:15')
+      G=['dcspan=11:5-11:9 str=- ref=ref_obj/<nameless>/11:7-11:8/actual=n']
+      P=['dcspan=11:7-11:8 str=- ref=-']
+      Q=['dcspan=11:5-11:9 str=- ref=ref_obj/<nameless>/11:7-11:8/actual=n']
+  FIXED       ('work@m1a.tk', 'statement STMT assignment@13:12-13:17')
+      G=['dcspan=13:5-13:11 str=- ref=ref_obj/<nameless>/13:7-13:10/actual=n']
+      P=['dcspan=13:7-13:10 str=- ref=-']
+      Q=['dcspan=13:5-13:11 str=- ref=ref_obj/<nameless>/13:7-13:10/actual=n']
+  FIXED       ('work@m1a.tk', 'statement STMT assignment@14:15-14:20')
+      G=['dcspan=14:5-14:14 str=- ref=ref_obj/<nameless>/14:7-14:13/actual=n']
+      P=['dcspan=14:7-14:13 str=- ref=-']
+      Q=['dcspan=14:5-14:14 str=- ref=ref_obj/<nameless>/14:7-14:13/actual=n']
+  FIXED       ('work@m1a.tk', 'statement STMT assignment@7:11-7:16')
+      G=['dcspan=7:5-7:10 str=- ref=ref_obj/<nameless>/7:7-7:9/actual=n']
+      P=['dcspan=7:7-7:9 str=- ref=-']
+      Q=['dcspan=7:5-7:10 str=- ref=ref_obj/<nameless>/7:7-7:9/actual=n']
+  FIXED       ('work@m1a.tk', 'statement STMT assignment@8:13-8:18')
+      G=['dcspan=8:5-8:12 str=- ref=ref_obj/<nameless>/8:7-8:11/actual=n']
+      P=['dcspan=8:7-8:11 str=- ref=-']
+      Q=['dcspan=8:5-8:12 str=- ref=ref_obj/<nameless>/8:7-8:11/actual=n']
+g100_a2_class_def: pris=rc0/CMP_FAIL/heads1/lines13 pat=rc0/CMP_FAIL/heads1/lines878
+  g100_a2_class_def        [MULTISET] CELLS   9  ALREADY-OK   4  FIXED   5  BROKE   0  STILL   0
+  g100_a2_class_def        [SET     ] CELLS   9  ALREADY-OK   4  FIXED   5  BROKE   0  STILL   0
+  FIXED       ('p2a::c2a::oob', 'statement STMT assignment@26:11-26:16')
+      G=['dcspan=26:5-26:10 str=- ref=ref_obj/<nameless>/26:7-26:9/actual=n']
+      P=['dcspan=26:7-26:9 str=- ref=-']
+      Q=['dcspan=26:5-26:10 str=- ref=ref_obj/<nameless>/26:7-26:9/actual=n']
+  FIXED       ('p2a::c2a::run', 'statement STMT assignment@12:7-12:12')
+      G=['dcspan=11:7-11:22 str=- ref=ref_obj/<nameless>/11:9-11:21/actual=n']
+      P=['dcspan=11:9-11:21 str=- ref=-']
+      Q=['dcspan=11:7-11:22 str=- ref=ref_obj/<nameless>/11:9-11:21/actual=n']
+  FIXED       ('p2a::c2a::run', 'statement STMT assignment@17:9-17:14')
+      G=['dcspan=16:9-16:24 str=- ref=ref_obj/<nameless>/16:11-16:23/actual=n']
+      P=['dcspan=16:11-16:23 str=- ref=-']
+      Q=['dcspan=16:9-16:24 str=- ref=ref_obj/<nameless>/16:11-16:23/actual=n']
+  FIXED       ('p2a::c2a::run::nb', 'statement STMT assignment@20:22-20:27')
+      G=['dcspan=20:9-20:21 str=- ref=ref_obj/<nameless>/20:11-20:20/actual=n']
+      P=['dcspan=20:11-20:20 str=- ref=-']
+      Q=['dcspan=20:9-20:21 str=- ref=ref_obj/<nameless>/20:11-20:20/actual=n']
+  FIXED       ('p2a::pk2', 'statement STMT assignment@30:11-30:21')
+      G=['dcspan=30:5-30:10 str=- ref=ref_obj/<nameless>/30:7-30:9/actual=n']
+      P=['dcspan=30:7-30:9 str=- ref=-']
+      Q=['dcspan=30:5-30:10 str=- ref=ref_obj/<nameless>/30:7-30:9/actual=n']
+g100_a3_macro_def: pris=rc0/CMP_FAIL/heads1/lines13 pat=rc0/CMP_FAIL/heads1/lines82
+  g100_a3_macro_def        [MULTISET] CELLS   3  ALREADY-OK   0  FIXED   2  BROKE   0  STILL   1
+  g100_a3_macro_def        [SET     ] CELLS   3  ALREADY-OK   0  FIXED   2  BROKE   0  STILL   1
+  FIXED       ('work@m3a', 'nonstatement OWNER begin@19:11-26:6')
+      G=['dcspan=20:5-20:11 str=- ref=ref_obj/<nameless>/20:7-20:10/actual=n']
+      P=['dcspan=20:7-20:10 str=- ref=-']
+      Q=['dcspan=20:5-20:11 str=- ref=ref_obj/<nameless>/20:7-20:10/actual=n']
+  FIXED       ('work@m3a', 'nonstatement OWNER begin@22:10-25:8')
+      G=['dcspan=23:7-23:13 str=- ref=ref_obj/<nameless>/23:9-23:12/actual=n']
+      P=['dcspan=23:9-23:12 str=- ref=-']
+      Q=['dcspan=23:7-23:13 str=- ref=ref_obj/<nameless>/23:9-23:12/actual=n']
+  STILL       ('work@m3a.tk3', 'nonstatement OWNER begin@11:5-11:12')
+      G=['dcspan=10:5-10:9 str=- ref=ref_obj/<nameless>/10:7-10:8/actual=n', 'dcspan=12:5-12:13 str=- ref=ref_obj/<nameless>/12:7-12:12/actual=n', 'dcspan=14:5-14:7 str=- ref=ref_obj/t/14:5-14:7/actual=n', 'dcspan=16:5-16:9 str=- ref=ref_obj/<nameless>/16:7-16:8/actual=n']
+      P=['dcspan=10:7-10:8 str=- ref=-', 'dcspan=12:7-12:12 str=- ref=-', 'dcspan=14:5-14:7 str=- ref=ref_obj/T;//actual=n', 'dcspan=16:7-16:8 str=- ref=-']
+      Q=['dcspan=10:5-10:9 str=- ref=ref_obj/<nameless>/10:7-10:8/actual=n', 'dcspan=12:5-12:13 str=- ref=ref_obj/<nameless>/12:7-12:12/actual=n', 'dcspan=14:5-14:7 str=- ref=ref_obj/T;//actual=n', 'dcspan=16:5-16:9 str=- ref=ref_obj/<nameless>/16:7-16:8/actual=n']
+g100_a4_homes_def: pris=rc0/CMP_FAIL/heads1/lines13 pat=rc0/CMP_FAIL/heads1/lines33
+  g100_a4_homes_def        [MULTISET] CELLS   9  ALREADY-OK   2  FIXED   7  BROKE   0  STILL   0
+  g100_a4_homes_def        [SET     ] CELLS   9  ALREADY-OK   2  FIXED   7  BROKE   0  STILL   0
+  FIXED       ('', 'statement STMT assignment@32:25-32:33')
+      G=['dcspan=32:19-32:24 str=- ref=ref_obj/<nameless>/32:21-32:23/actual=n']
+      P=['dcspan=32:21-32:23 str=- ref=-']
+      Q=['dcspan=32:19-32:24 str=- ref=ref_obj/<nameless>/32:21-32:23/actual=n']
+  FIXED       ('p4a::pt4', 'statement STMT assignment@7:11-7:22')
+      G=['dcspan=7:5-7:10 str=- ref=ref_obj/<nameless>/7:7-7:9/actual=n']
+      P=['dcspan=7:7-7:9 str=- ref=-']
+      Q=['dcspan=7:5-7:10 str=- ref=ref_obj/<nameless>/7:7-7:9/actual=n']
+  FIXED       ('work@if4a.it4', 'statement STMT assignment@14:10-14:16')
+      G=['dcspan=14:5-14:9 str=- ref=ref_obj/<nameless>/14:7-14:8/actual=n']
+      P=['dcspan=14:7-14:8 str=- ref=-']
+      Q=['dcspan=14:5-14:9 str=- ref=ref_obj/<nameless>/14:7-14:8/actual=n']
+  FIXED       ('work@m4a', 'statement STMT assignment@29:22-29:33')
+      G=['dcspan=29:16-29:21 str=- ref=ref_obj/<nameless>/29:18-29:20/actual=n']
+      P=['dcspan=29:18-29:20 str=- ref=-']
+      Q=['dcspan=29:16-29:21 str=- ref=ref_obj/<nameless>/29:18-29:20/actual=n']
+  FIXED       ('work@m4a', 'statement STMT assignment@30:30-30:41')
+      G=['dcspan=30:20-30:29 str=- ref=ref_obj/<nameless>/30:22-30:28/actual=n']
+      P=['dcspan=30:22-30:28 str=- ref=-']
+      Q=['dcspan=30:20-30:29 str=- ref=ref_obj/<nameless>/30:22-30:28/actual=n']
+  FIXED       ('work@m4a.g4', 'statement STMT assignment@35:21-35:27')
+      G=['dcspan=35:15-35:20 str=- ref=ref_obj/<nameless>/35:17-35:19/actual=n']
+      P=['dcspan=35:17-35:19 str=- ref=-']
+      Q=['dcspan=35:15-35:20 str=- ref=ref_obj/<nameless>/35:17-35:19/actual=n']
+  FIXED       ('work@pg4a', 'statement STMT assignment@20:10-20:16')
+      G=['dcspan=20:5-20:9 str=- ref=ref_obj/<nameless>/20:7-20:8/actual=n']
+      P=['dcspan=20:7-20:8 str=- ref=-']
+      Q=['dcspan=20:5-20:9 str=- ref=ref_obj/<nameless>/20:7-20:8/actual=n']
+g100_a5_net_def: pris=rc0/CMP_FAIL/heads1/lines38 pat=rc0/CMP_FAIL/heads1/lines38
+  g100_a5_net_def          [MULTISET] CELLS   0  ALREADY-OK   0  FIXED   0  BROKE   0  STILL   0
+  g100_a5_net_def          [SET     ] CELLS   0  ALREADY-OK   0  FIXED   0  BROKE   0  STILL   0
+g100_a6_corpus_def: pris=rc0/CMP_FAIL/heads1/lines13 pat=rc0/PASS_CMP/heads0/lines0
+  g100_a6_corpus_def       [MULTISET] CELLS   2  ALREADY-OK   0  FIXED   2  BROKE   0  STILL   0
+  g100_a6_corpus_def       [SET     ] CELLS   2  ALREADY-OK   0  FIXED   2  BROKE   0  STILL   0
+  FIXED       ('work@m6a', 'nonstatement OWNER begin@9:11-17:6')
+      G=['dcspan=11:5-11:9 str=- ref=ref_obj/<nameless>/11:7-11:8/actual=n', 'dcspan=15:5-15:13 str=- ref=ref_obj/<nameless>/15:7-15:12/actual=n']
+      P=['dcspan=11:7-11:8 str=- ref=-', 'dcspan=15:7-15:12 str=- ref=-']
+      Q=['dcspan=11:5-11:9 str=- ref=ref_obj/<nameless>/11:7-11:8/actual=n', 'dcspan=15:5-15:13 str=- ref=ref_obj/<nameless>/15:7-15:12/actual=n']
+  FIXED       ('work@m6a', 'statement STMT assignment@14:5-14:13')
+      G=['dcspan=13:5-13:9 str=- ref=ref_obj/<nameless>/13:7-13:8/actual=n']
+      P=['dcspan=13:7-13:8 str=- ref=-']
+      Q=['dcspan=13:5-13:9 str=- ref=ref_obj/<nameless>/13:7-13:8/actual=n']
+g100_a7_fence_def: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g100_a7_fence_def        [MULTISET] CELLS   9  ALREADY-OK   9  FIXED   0  BROKE   0  STILL   0
+  g100_a7_fence_def        [SET     ] CELLS   9  ALREADY-OK   9  FIXED   0  BROKE   0  STILL   0
+g100_a1_modtask_elab: pris=rc0/CMP_FAIL/heads1/lines13 pat=rc0/PASS_CMP/heads0/lines0
+  g100_a1_modtask_elab     [MULTISET] CELLS  18  ALREADY-OK  11  FIXED   7  BROKE   0  STILL   0
+  g100_a1_modtask_elab     [SET     ] CELLS  18  ALREADY-OK  11  FIXED   7  BROKE   0  STILL   0
+  FIXED       ('', 'statement STMT assignment@26:16-26:25')
+      G=['dcspan=26:10-26:15 str=- ref=ref_obj/<nameless>/26:12-26:14/actual=n']
+      P=['dcspan=26:12-26:14 str=- ref=-']
+      Q=['dcspan=26:10-26:15 str=- ref=ref_obj/<nameless>/26:12-26:14/actual=n']
+  FIXED       ('work@m1a', 'statement STMT assignment@17:11-17:16')
+      G=['dcspan=17:5-17:10 str=- ref=ref_obj/<nameless>/17:7-17:9/actual=n']
+      P=['dcspan=17:7-17:9 str=- ref=-']
+      Q=['dcspan=17:5-17:10 str=- ref=ref_obj/<nameless>/17:7-17:9/actual=n']
+  FIXED       ('work@m1a.tk', 'statement STMT assignment@11:10-11:15')
+      G=['dcspan=11:5-11:9 str=- ref=ref_obj/<nameless>/11:7-11:8/actual=n']
+      P=['dcspan=11:7-11:8 str=- ref=-']
+      Q=['dcspan=11:5-11:9 str=- ref=ref_obj/<nameless>/11:7-11:8/actual=n']
+  FIXED       ('work@m1a.tk', 'statement STMT assignment@13:12-13:17')
+      G=['dcspan=13:5-13:11 str=- ref=ref_obj/<nameless>/13:7-13:10/actual=n']
+      P=['dcspan=13:7-13:10 str=- ref=-']
+      Q=['dcspan=13:5-13:11 str=- ref=ref_obj/<nameless>/13:7-13:10/actual=n']
+  FIXED       ('work@m1a.tk', 'statement STMT assignment@14:15-14:20')
+      G=['dcspan=14:5-14:14 str=- ref=ref_obj/<nameless>/14:7-14:13/actual=n']
+      P=['dcspan=14:7-14:13 str=- ref=-']
+      Q=['dcspan=14:5-14:14 str=- ref=ref_obj/<nameless>/14:7-14:13/actual=n']
+  FIXED       ('work@m1a.tk', 'statement STMT assignment@7:11-7:16')
+      G=['dcspan=7:5-7:10 str=- ref=ref_obj/<nameless>/7:7-7:9/actual=n']
+      P=['dcspan=7:7-7:9 str=- ref=-']
+      Q=['dcspan=7:5-7:10 str=- ref=ref_obj/<nameless>/7:7-7:9/actual=n']
+  FIXED       ('work@m1a.tk', 'statement STMT assignment@8:13-8:18')
+      G=['dcspan=8:5-8:12 str=- ref=ref_obj/<nameless>/8:7-8:11/actual=n']
+      P=['dcspan=8:7-8:11 str=- ref=-']
+      Q=['dcspan=8:5-8:12 str=- ref=ref_obj/<nameless>/8:7-8:11/actual=n']
+g100_a2_class_elab: pris=rc0/CMP_FAIL/heads1/lines13 pat=rc0/CMP_FAIL/heads1/lines934
+  g100_a2_class_elab       [MULTISET] CELLS  13  ALREADY-OK   2  FIXED   3  BROKE   0  STILL   8
+  g100_a2_class_elab       [SET     ] CELLS  13  ALREADY-OK   4  FIXED   5  BROKE   0  STILL   4
+  FIXED       ('p2a::c2a::oob', 'statement STMT assignment@26:11-26:16')
+      G=['dcspan=26:5-26:10 str=- ref=ref_obj/<nameless>/26:7-26:9/actual=n']
+      P=['dcspan=26:7-26:9 str=- ref=-']
+      Q=['dcspan=26:5-26:10 str=- ref=ref_obj/<nameless>/26:7-26:9/actual=n']
+  FIXED       ('p2a::c2a::run', 'statement STMT assignment@12:7-12:12')
+      G=['dcspan=11:7-11:22 str=- ref=ref_obj/<nameless>/11:9-11:21/actual=n']
+      P=['dcspan=11:9-11:21 str=- ref=-']
+      Q=['dcspan=11:7-11:22 str=- ref=ref_obj/<nameless>/11:9-11:21/actual=n']
+  FIXED       ('p2a::c2a::run', 'statement STMT assignment@17:9-17:14')
+      G=['dcspan=16:9-16:24 str=- ref=ref_obj/<nameless>/16:11-16:23/actual=n']
+      P=['dcspan=16:11-16:23 str=- ref=-']
+      Q=['dcspan=16:9-16:24 str=- ref=ref_obj/<nameless>/16:11-16:23/actual=n']
+  FIXED       ('p2a::c2a::run::nb', 'statement STMT assignment@20:22-20:27')
+      G=['dcspan=20:9-20:21 str=- ref=ref_obj/<nameless>/20:11-20:20/actual=n']
+      P=['dcspan=20:11-20:20 str=- ref=-']
+      Q=['dcspan=20:9-20:21 str=- ref=ref_obj/<nameless>/20:11-20:20/actual=n']
+  FIXED       ('p2a::pk2', 'statement STMT assignment@30:11-30:21')
+      G=['dcspan=30:5-30:10 str=- ref=ref_obj/<nameless>/30:7-30:9/actual=n']
+      P=['dcspan=30:7-30:9 str=- ref=-']
+      Q=['dcspan=30:5-30:10 str=- ref=ref_obj/<nameless>/30:7-30:9/actual=n']
+  STILL       ('work@m2a.oob', 'statement STMT assignment@26:11-26:16')
+      G=['dcspan=26:5-26:10 str=- ref=ref_obj/<nameless>/26:7-26:9/actual=n']
+      P=[]
+      Q=[]
+  STILL       ('work@m2a.oob', 'statement STMT assignment@27:9-27:14')
+      G=['dcspan=27:5-27:8 str=- ref=ref_obj/t2/27:5-27:8/actual=y']
+      P=[]
+      Q=[]
+  STILL       ('work@m2a.pk2', 'statement STMT assignment@30:11-30:21')
+      G=['dcspan=30:5-30:10 str=- ref=ref_obj/<nameless>/30:7-30:9/actual=n']
+      P=[]
+      Q=[]
+  STILL       ('work@m2a.pk2', 'statement STMT assignment@31:9-31:18')
+      G=['dcspan=31:5-31:8 str=- ref=ref_obj/t3/31:5-31:8/actual=y']
+      P=[]
+      Q=[]
+g100_a3_macro_elab: pris=rc0/CMP_FAIL/heads1/lines13 pat=rc0/CMP_FAIL/heads1/lines86
+  g100_a3_macro_elab       [MULTISET] CELLS   3  ALREADY-OK   0  FIXED   2  BROKE   0  STILL   1
+  g100_a3_macro_elab       [SET     ] CELLS   3  ALREADY-OK   0  FIXED   2  BROKE   0  STILL   1
+  FIXED       ('work@m3a', 'nonstatement OWNER begin@19:11-26:6')
+      G=['dcspan=20:5-20:11 str=- ref=ref_obj/<nameless>/20:7-20:10/actual=n']
+      P=['dcspan=20:7-20:10 str=- ref=-']
+      Q=['dcspan=20:5-20:11 str=- ref=ref_obj/<nameless>/20:7-20:10/actual=n']
+  FIXED       ('work@m3a', 'nonstatement OWNER begin@22:10-25:8')
+      G=['dcspan=23:7-23:13 str=- ref=ref_obj/<nameless>/23:9-23:12/actual=n']
+      P=['dcspan=23:9-23:12 str=- ref=-']
+      Q=['dcspan=23:7-23:13 str=- ref=ref_obj/<nameless>/23:9-23:12/actual=n']
+  STILL       ('work@m3a.tk3', 'nonstatement OWNER begin@11:5-11:12')
+      G=['dcspan=10:5-10:9 str=- ref=ref_obj/<nameless>/10:7-10:8/actual=n', 'dcspan=12:5-12:13 str=- ref=ref_obj/<nameless>/12:7-12:12/actual=n', 'dcspan=14:5-14:7 str=- ref=ref_obj/t/14:5-14:7/actual=y', 'dcspan=16:5-16:9 str=- ref=ref_obj/<nameless>/16:7-16:8/actual=n']
+      P=['dcspan=10:7-10:8 str=- ref=-', 'dcspan=12:7-12:12 str=- ref=-', 'dcspan=14:5-14:7 str=- ref=ref_obj/T;//actual=n', 'dcspan=16:7-16:8 str=- ref=-']
+      Q=['dcspan=10:5-10:9 str=- ref=ref_obj/<nameless>/10:7-10:8/actual=n', 'dcspan=12:5-12:13 str=- ref=ref_obj/<nameless>/12:7-12:12/actual=n', 'dcspan=14:5-14:7 str=- ref=ref_obj/T;//actual=n', 'dcspan=16:5-16:9 str=- ref=ref_obj/<nameless>/16:7-16:8/actual=n']
+g100_a4_homes_elab: pris=rc0/CMP_FAIL/heads1/lines13 pat=rc0/CMP_FAIL/heads1/lines29
+  g100_a4_homes_elab       [MULTISET] CELLS  13  ALREADY-OK   1  FIXED   8  BROKE   0  STILL   4
+  g100_a4_homes_elab       [SET     ] CELLS  13  ALREADY-OK   2  FIXED   9  BROKE   0  STILL   2
+  FIXED       ('', 'statement STMT assignment@32:25-32:33')
+      G=['dcspan=32:19-32:24 str=- ref=ref_obj/<nameless>/32:21-32:23/actual=n']
+      P=['dcspan=32:21-32:23 str=- ref=-']
+      Q=['dcspan=32:19-32:24 str=- ref=ref_obj/<nameless>/32:21-32:23/actual=n']
+  FIXED       ('', 'statement STMT assignment@7:11-7:22')
+      G=['dcspan=7:5-7:10 str=- ref=ref_obj/<nameless>/7:7-7:9/actual=n']
+      P=['dcspan=7:7-7:9 str=- ref=-']
+      Q=['dcspan=7:5-7:10 str=- ref=ref_obj/<nameless>/7:7-7:9/actual=n']
+  FIXED       ('p4a::pt4', 'nonstatement OWNER ?')
+      G=['dcspan=7:5-7:10 str=- ref=-']
+      P=['dcspan=7:7-7:9 str=- ref=-']
+      Q=['dcspan=7:5-7:10 str=- ref=-']
+  FIXED       ('p4a::pt4', 'statement STMT assignment@7:11-7:22')
+      G=['dcspan=7:5-7:10 str=- ref=ref_obj/<nameless>/7:7-7:9/actual=n']
+      P=['dcspan=7:7-7:9 str=- ref=-']
+      Q=['dcspan=7:5-7:10 str=- ref=ref_obj/<nameless>/7:7-7:9/actual=n']
+  FIXED       ('work@if4a.it4', 'statement STMT assignment@14:10-14:16')
+      G=['dcspan=14:5-14:9 str=- ref=ref_obj/<nameless>/14:7-14:8/actual=n']
+      P=['dcspan=14:7-14:8 str=- ref=-']
+      Q=['dcspan=14:5-14:9 str=- ref=ref_obj/<nameless>/14:7-14:8/actual=n']
+  FIXED       ('work@m4a', 'statement STMT assignment@29:22-29:33')
+      G=['dcspan=29:16-29:21 str=- ref=ref_obj/<nameless>/29:18-29:20/actual=n']
+      P=['dcspan=29:18-29:20 str=- ref=-']
+      Q=['dcspan=29:16-29:21 str=- ref=ref_obj/<nameless>/29:18-29:20/actual=n']
+  FIXED       ('work@m4a', 'statement STMT assignment@30:30-30:41')
+      G=['dcspan=30:20-30:29 str=- ref=ref_obj/<nameless>/30:22-30:28/actual=n']
+      P=['dcspan=30:22-30:28 str=- ref=-']
+      Q=['dcspan=30:20-30:29 str=- ref=ref_obj/<nameless>/30:22-30:28/actual=n']
+  FIXED       ('work@m4a.g4', 'statement STMT assignment@35:21-35:27')
+      G=['dcspan=35:15-35:20 str=- ref=ref_obj/<nameless>/35:17-35:19/actual=n']
+      P=['dcspan=35:17-35:19 str=- ref=-']
+      Q=['dcspan=35:15-35:20 str=- ref=ref_obj/<nameless>/35:17-35:19/actual=n']
+  STILL       ('work@m4a.pt4', 'statement STMT assignment@7:11-7:22')
+      G=['dcspan=7:5-7:10 str=- ref=ref_obj/<nameless>/7:7-7:9/actual=n']
+      P=[]
+      Q=[]
+  STILL       ('work@m4a.pt4', 'statement STMT assignment@8:9-8:20')
+      G=['dcspan=8:5-8:8 str=- ref=ref_obj/t4/8:5-8:8/actual=y']
+      P=[]
+      Q=[]
+  FIXED       ('work@pg4a', 'statement STMT assignment@20:10-20:16')
+      G=['dcspan=20:5-20:9 str=- ref=ref_obj/<nameless>/20:7-20:8/actual=n']
+      P=['dcspan=20:7-20:8 str=- ref=-']
+      Q=['dcspan=20:5-20:9 str=- ref=ref_obj/<nameless>/20:7-20:8/actual=n']
+g100_a5_net_elab: pris=rc0/CMP_FAIL/heads1/lines38 pat=rc0/CMP_FAIL/heads1/lines38
+  g100_a5_net_elab         [MULTISET] CELLS   0  ALREADY-OK   0  FIXED   0  BROKE   0  STILL   0
+  g100_a5_net_elab         [SET     ] CELLS   0  ALREADY-OK   0  FIXED   0  BROKE   0  STILL   0
+g100_a6_corpus_elab: pris=rc0/CMP_FAIL/heads1/lines13 pat=rc0/PASS_CMP/heads0/lines0
+  g100_a6_corpus_elab      [MULTISET] CELLS   2  ALREADY-OK   0  FIXED   2  BROKE   0  STILL   0
+  g100_a6_corpus_elab      [SET     ] CELLS   2  ALREADY-OK   0  FIXED   2  BROKE   0  STILL   0
+  FIXED       ('work@m6a', 'nonstatement OWNER begin@9:11-17:6')
+      G=['dcspan=11:5-11:9 str=- ref=ref_obj/<nameless>/11:7-11:8/actual=n', 'dcspan=15:5-15:13 str=- ref=ref_obj/<nameless>/15:7-15:12/actual=n']
+      P=['dcspan=11:7-11:8 str=- ref=-', 'dcspan=15:7-15:12 str=- ref=-']
+      Q=['dcspan=11:5-11:9 str=- ref=ref_obj/<nameless>/11:7-11:8/actual=n', 'dcspan=15:5-15:13 str=- ref=ref_obj/<nameless>/15:7-15:12/actual=n']
+  FIXED       ('work@m6a', 'statement STMT assignment@14:5-14:13')
+      G=['dcspan=13:5-13:9 str=- ref=ref_obj/<nameless>/13:7-13:8/actual=n']
+      P=['dcspan=13:7-13:8 str=- ref=-']
+      Q=['dcspan=13:5-13:9 str=- ref=ref_obj/<nameless>/13:7-13:8/actual=n']
+g100_a7_fence_elab: pris=rc0/PASS_CMP/heads0/lines0 pat=rc0/PASS_CMP/heads0/lines0
+  g100_a7_fence_elab       [MULTISET] CELLS   9  ALREADY-OK   9  FIXED   0  BROKE   0  STILL   0
+  g100_a7_fence_elab       [SET     ] CELLS   9  ALREADY-OK   9  FIXED   0  BROKE   0  STILL   0
+
+FENCE BYTE-IDENTITY (whole dump, banner line excluded — the harness's own rule):
+  g100_a5_net_def pris=f08eb8d873d2 pat=f08eb8d873d2 SAME
+  g100_a5_net_elab pris=dd81a77ffa05 pat=dd81a77ffa05 SAME
+  g100_a7_fence_def pris=e9ebc96d364d pat=e9ebc96d364d SAME
+  g100_a7_fence_elab pris=cee9b6db09ad pat=cee9b6db09ad SAME
+  g100_a1_modtask_def pris=ca71546c2faa pat=f5f1f14b1fb0 MOVED

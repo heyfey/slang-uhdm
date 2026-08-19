@@ -1,0 +1,13 @@
+LHS:
+decompile:
+ref_obj: (uvm_pkg::uvm_test_done_objection::all_dropped), id:306155, line:1260:15, endln:1260:27
+|vpiParent:
+\_begin: (uvm_pkg::uvm_test_done_objection::all_dropped), id:306145, line:1257:11, endln:1264:14
+|vpiFullName:uvm_pkg::uvm_test_done_objection::all_dropped
+
+decompile:
+ref_obj: (uvm_pkg::uvm_test_done_objection::all_dropped), id:306155, line:1260:15, endln:1260:27
+|vpiParent:
+\_begin: (uvm_pkg::uvm_test_done_objection::all_dropped), id:306145, line:1257:11, endln:1264:14
+|vpiFullName:uvm_pkg::uvm_test_done_objection::all_dropped
+RHS: <null>

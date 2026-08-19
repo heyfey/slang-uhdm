@@ -1,0 +1,15 @@
+r10v100 durable gate summary (official tools only for acceptance)
+BASE e30c5b4
+BIN pristine 4e93b58c9954e569b670437ae459cc7a
+BIN patched  59f45b74fd50c43b16b4b0a1c958f72c
+goldens pristine 23/0 patched 23/0 negative-control 0/23
+surelog rows pristine-vs-patched PASS 1588/1588; patched-vs-baseline PASS
+u2r rows testflags patched-vs-baseline PASS; pristine-vs-patched PASS both modes
+u2r movers 0/1358 selfcheck 1357/1358
+surelog movers 9/956 selfcheck 955/956; exactly predicted set
+canaries surelog ok=56 changed=0; u2r ok=9 changed=0
+ctcan2 PASS both; canaudit PASS
+heads: SeqDriver 13->26 x2; MiniAmiq 13->26 x2; SimpleUVM 108->108 x2;
+Scoreboard/default 108->108; BuildUVMPkg 32->32 x2; Earlgrey 216->216 x2;
+Rggen/default 64->64
+verdict ACCEPT; production fix by verifier: none
