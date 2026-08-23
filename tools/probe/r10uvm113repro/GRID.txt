@@ -1,0 +1,62 @@
+r10uvm113 GRID — the four purpose-built goldens, golden vs PRISTINE vs PATCHED.
+score113.py; the cell is (view, container, owner chain, call name, call kind)
+and the value is the callee shape.  AWAY-GOLDEN is the number that must be 0.
+
+##### g113_a
+STILL-WRONG         DEF		module_inst:/class_defn:Cmod/function:above	omega	func_call	G=function|omega|module_inst:	PRIS=<null>	PAT=<null>
+STILL-WRONG         DEF	imp1	package:imp1/function:Coob::oob	rho	func_call	G=<absent>	PRIS=function|rho|package:imp1	PAT=function|rho|package:imp1
+STILL-WRONG         DEF	imp1	package:imp1/function:Coob::oobStat	sigma	func_call	G=<absent>	PRIS=function|sigma|package:imp1	PAT=function|sigma|package:imp1
+STILL-WRONG         DEF	imp1	package:imp1/function:pkgBody	rho	func_call	G=<absent>	PRIS=function|rho|package:home	PAT=function|rho|package:home
+STILL-WRONG         DEF	imp1	package:imp1/function:pkgBody	sigma	func_call	G=<absent>	PRIS=function|sigma|package:home	PAT=function|sigma|package:home
+TO-GOLDEN           DEF	work@Cunit	class_defn:work@Cunit/function:above	rho	func_call	G=function|rho|package:home	PRIS=<null>	PAT=function|rho|package:home
+TO-GOLDEN           ELAB	home	package:home/class_defn:Cin/function:above	rho	func_call	G=function|rho|package:home	PRIS=<null>	PAT=function|rho|package:home
+STILL-WRONG         ELAB	home	package:home/class_defn:Cin/function:below	rho	func_call	G=function|rho|package:home	PRIS=function|rho|class_defn:Cin	PAT=function|rho|class_defn:Cin
+TO-GOLDEN           ELAB	home	package:home/class_defn:Cin/function:stat	sigma	func_call	G=function|sigma|package:home	PRIS=<null>	PAT=function|sigma|package:home
+STILL-WRONG         ELAB	home	package:home/class_defn:Cin/task:callsTau	tau	func_call	G=<absent>	PRIS=<null>	PAT=<null>
+STILL-WRONG         ELAB	home	package:home/class_defn:Cin/task:callsTau	tau	task_call	G=task|tau|package:home	PRIS=<absent>	PAT=<absent>
+STILL-WRONG         ELAB	home	package:home/class_defn:Coob/function:oob	rho	func_call	G=<absent>	PRIS=function|rho|package:home	PAT=function|rho|package:home
+STILL-WRONG         ELAB	home	package:home/class_defn:Coob/function:oobStat	sigma	func_call	G=<absent>	PRIS=function|sigma|package:home	PAT=function|sigma|package:home
+STILL-WRONG         ELAB	home	package:home/function:pkgBody	rho	func_call	G=<absent>	PRIS=function|rho|package:home	PAT=function|rho|package:home
+STILL-WRONG         ELAB	home	package:home/function:pkgBody	sigma	func_call	G=<absent>	PRIS=function|sigma|package:home	PAT=function|sigma|package:home
+CHANGED-STILL-WRONG ELAB	imp1	package:imp1/class_defn:Cimp/function:above	rho	func_call	G=function|rho|package:home	PRIS=<null>	PAT=function|rho|package:imp1
+STILL-WRONG         ELAB	imp1	package:imp1/function:Coob::oob	rho	func_call	G=<absent>	PRIS=function|rho|package:imp1	PAT=function|rho|package:imp1
+STILL-WRONG         ELAB	imp1	package:imp1/function:Coob::oobStat	sigma	func_call	G=<absent>	PRIS=function|sigma|package:imp1	PAT=function|sigma|package:imp1
+STILL-WRONG         ELAB	imp1	package:imp1/function:pkgBody	rho	func_call	G=<absent>	PRIS=function|rho|package:home	PAT=function|rho|package:home
+STILL-WRONG         ELAB	imp1	package:imp1/function:pkgBody	sigma	func_call	G=<absent>	PRIS=function|sigma|package:home	PAT=function|sigma|package:home
+STILL-WRONG         ELAB	imp2	package:imp2/class_defn:Cimp2/function:first	sigma	func_call	G=function|sigma|package:home	PRIS=<null>	PAT=<null>
+STILL-WRONG         ELAB	imp2	package:imp2/class_defn:Cimp2/function:second	sigma	func_call	G=function|sigma|package:home	PRIS=<null>	PAT=<null>
+SCORE g113_a  TO-GOLDEN=3  ALREADY-RIGHT=36  AWAY-GOLDEN=0  STILL-WRONG=18  CHANGED-STILL-WRONG=1
+##### g113_b
+TO-GOLDEN           ELAB	pb	package:pb/class_defn:Kw/function:upper	alpha	func_call	G=function|alpha|package:pb	PRIS=<null>	PAT=function|alpha|package:pb
+TO-GOLDEN           ELAB	pb	package:pb/class_defn:Kx/function:c1	gamma	func_call	G=function|gamma|package:pb	PRIS=<null>	PAT=function|gamma|package:pb
+TO-GOLDEN           ELAB	pb	package:pb/class_defn:Kx/function:c2	gamma	func_call	G=function|gamma|package:pb	PRIS=<null>	PAT=function|gamma|package:pb
+STILL-WRONG         ELAB	pb	package:pb/class_defn:Ky/function:oob	delta	func_call	G=<absent>	PRIS=function|delta|package:pb	PAT=function|delta|package:pb
+SCORE g113_b  TO-GOLDEN=3  ALREADY-RIGHT=10  AWAY-GOLDEN=0  STILL-WRONG=1  CHANGED-STILL-WRONG=0
+##### g113_c
+TO-GOLDEN           ELAB	homec	package:homec/class_defn:Cinc/function:above	rho	func_call	G=function|rho|package:homec	PRIS=<null>	PAT=function|rho|package:homec
+STILL-WRONG         ELAB	homec	package:homec/class_defn:Cinc/function:below	rho	func_call	G=function|rho|package:homec	PRIS=function|rho|class_defn:Cinc	PAT=function|rho|class_defn:Cinc
+SCORE g113_c  TO-GOLDEN=1  ALREADY-RIGHT=1  AWAY-GOLDEN=0  STILL-WRONG=1  CHANGED-STILL-WRONG=0
+##### g113_d
+STILL-WRONG         DEF		module_inst:/class_defn:Kmod/function:upper	mu	func_call	G=function|mu|module_inst:	PRIS=<null>	PAT=<null>
+TO-GOLDEN           ELAB	hb	package:hb/class_defn:Kpkg/function:upper	nu	func_call	G=function|nu|package:hb	PRIS=<null>	PAT=function|nu|package:hb
+SCORE g113_d  TO-GOLDEN=1  ALREADY-RIGHT=4  AWAY-GOLDEN=0  STILL-WRONG=1  CHANGED-STILL-WRONG=0
+
+TOTAL over the four arms: TO-GOLDEN=8 ALREADY-RIGHT=51 AWAY-GOLDEN=0
+
+The STILL-WRONG rows are pre-existing and PRIS==PAT in every one:
+ * G=<absent> rows — objects WE emit that golden does not (our extra ELAB
+   clone of an out-of-body method, imp1's extra package listing).  Structure,
+   not binding; untouched here.
+ * the g113_c 'below' cell — residue R-unitimp113.
+ * the g113_d Kmod cell — residue R-mod113.
+ * g113_a's Cin::callsTau — golden emits a task_call, we emit a func_call
+   (a kind question, not a binding one); and imp2::Cimp2's two sigma calls,
+   where the EXPLICIT single-symbol import is not on pkgFreeSubForName72's
+   wildcard road (R-expimp113).
+ * g113_a's Cmod::above — R-mod113 again, module enclosure.
+
+The ONE CHANGED-STILL-WRONG cell (imp1::Cimp::above -> rho) is R-clone113:
+pristine bound nothing, we now bind the importer's wildcard-import CLONE where
+golden binds the HOME function.  Clone and home share one VpiName and the clone
+is a clone_tree of the home, so the cell is invisible to Compare — uvm111's
+R-tf111 family, reached from a new site.

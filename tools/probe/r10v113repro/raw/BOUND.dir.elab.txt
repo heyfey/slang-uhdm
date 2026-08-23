@@ -1,0 +1,22 @@
+== boundary gate: MODE=dir VIEW=elab  1509 arms under /tmp/v113_probecopy
+rm: refusing to remove '.' or '..' directory: skipping '/tmp/v113_bound_dir_elab/.'
+/tmp/wt_v113/tools/probe/r10uvm113repro/bound113.sh: line 66: 3093128 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_v113/tools/probe/r10uvm113repro/bound113.sh: line 66: 3093146 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_v113/tools/probe/r10uvm113repro/bound113.sh: line 66: 3093660 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_v113/tools/probe/r10uvm113repro/bound113.sh: line 66: 3093678 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_v113/tools/probe/r10uvm113repro/bound113.sh: line 66: 3095780 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_v113/tools/probe/r10uvm113repro/bound113.sh: line 66: 3095798 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_v113/tools/probe/r10uvm113repro/bound113.sh: line 66: 3116911 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_v113/tools/probe/r10uvm113repro/bound113.sh: line 66: 3116929 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_v113/tools/probe/r10uvm113repro/bound113.sh: line 66: 3116955 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_v113/tools/probe/r10uvm113repro/bound113.sh: line 66: 3116973 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_v113/tools/probe/r10uvm113repro/bound113.sh: line 66: 3116999 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_v113/tools/probe/r10uvm113repro/bound113.sh: line 66: 3117017 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+PROCESSED=1509 LISTED=1509 DIFFER=6 PRIS_REJECT=124 PATCHED_REJECT=124
+-- differing arms:
+./r10uvm113repro
+./r10uvm75repro
+./r10uvm76repro
+./r10uvm88repro
+./r10v109repro
+./r10v113repro

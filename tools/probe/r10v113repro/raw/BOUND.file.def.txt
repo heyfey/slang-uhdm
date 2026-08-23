@@ -1,0 +1,11 @@
+== boundary gate: MODE=file VIEW=def  3491 arms under /tmp/v113_probecopy
+PROCESSED=3491 LISTED=3491 DIFFER=8 PRIS_REJECT=133 PATCHED_REJECT=133
+-- differing arms:
+./r10uvm113repro/g113_a.sv
+./r10uvm113repro/g113_b.sv
+./r10uvm113repro/g113_c.sv
+./r10uvm113repro/g113_d.sv
+./r10v113repro/v113_ctx.sv
+./r10v113repro/v113_imp.sv
+./r10v113repro/v113_inh.sv
+./r10v113repro/v113_ord.sv

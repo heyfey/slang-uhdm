@@ -1,0 +1,48 @@
+r10uvm113 PREDICTION — the mover set named BY NAME from PRISTINE databases,
+before the patched sweep ran.  pred113 evaluates the patched arm's own
+predicate; predall113.sh runs it over a whole verify_golden workdir.
+
+== surelog corpus (956 pristine databases, /tmp control workdir at b494676)
+PREDICT 3 testflags/MiniAmiq-544c7f61
+PREDICT 3 testflags/SeqDriver-32af76aa
+PREDICT 3 testflags/BuildUVMPkg-bf853d43
+PREDICT 3 testflags/SimpleUVM-1dc93a62
+PREDICT 3 default/MiniAmiq-544c7f61
+PREDICT 3 default/SeqDriver-32af76aa
+PREDICT 3 default/BuildUVMPkg-bf853d43
+PREDICT 3 default/SimpleUVM-1dc93a62
+PREDICT 3 default/Scoreboard-59431470
+SCANNED 956
+
+== uhdm2rtlil corpus (1358 pristine databases)
+SCANNED 1358
+
+PREDICTED MOVER SET: the nine UVM row-modes, 3 cells each, and NOTHING ELSE.
+  default/{SeqDriver,SimpleUVM,Scoreboard,MiniAmiq,BuildUVMPkg}
+  testflags/{SeqDriver,SimpleUVM,MiniAmiq,BuildUVMPkg}
+  (Scoreboard/testflags has no golden -> no database)
+
+== the three cells, identical in every one of the nine
+CELL	PKG	uvm_pkg	uvm_report_object::uvm_report	uvm_process_report_message
+CELL	PKG	uvm_pkg	uvm_sequence_item::set_id_info	uvm_report_fatal
+CELL	PKG	uvm_pkg	uvm_sequence_item::uvm_report	uvm_process_report_message
+CELLS 3
+MAYBE 0
+
+== MEASURED (byteverify.sh SELFCHECK=1, patched vs pristine workdirs)
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=03528d61eeea pristine=93c25b16d6d9
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=adf4d643da4b pristine=8a0e2ecaa4a8
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1b4e30bf7cf9 pristine=508bcd0b88c0
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=6624c3d0905d pristine=52feebcd4c45
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=99fa633eb28a pristine=86e968ac62e8
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=03528d61eeea pristine=93c25b16d6d9
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=adf4d643da4b pristine=8a0e2ecaa4a8
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=a8fbcb79d450 pristine=95c291c77098
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=8729b7b1c7bd pristine=bcd91e2aaed3
+MOVERS: 9 / 956
+-- uhdm2rtlil:
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358

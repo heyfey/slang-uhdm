@@ -1,0 +1,81 @@
+r10uvm113 GATES — the whole landing battery, run in the pass's own worktree
+/tmp/wt_r10uvm113 at BASE b494676, with BOTH binaries FROZEN (chmod 555)
+before any sweep and SLANG_UHDM exported explicitly to each.
+
+(1) BUILD
+  pristine  md5 0488d7b62f80e7aecab313abd9320510   (identical to the b494676
+            main-tree binary that produced the control workdirs)
+  patched   md5 938cc55348808381f3d31c0dacfc7d64
+  A later comment-only edit to the patch was rebuilt and re-hashed: still
+  938cc553…, so every gate below still describes the committed source.
+  No new 'unsupported constructs' line on SimpleUVM: both binaries print
+  exactly 'system method call: size' and exit rc=4.
+
+(2) GOLDEN TESTS
+  SLANG_UHDM=<patched> tests/check_goldens.sh   PASS=23 FAIL=0
+  SLANG_UHDM=/bin/false (negative control)      PASS=0  FAIL=23
+
+(3) uhdm2rtlil, both modes (verify_golden.py --jobs 2, own --out/--workdir)
+  testflags {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  default   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  ct8rows vs results/gate_uhdm2rtlil.csv        PASS (0 differing rows)
+  ct8rows vs /tmp control (b494676) testflags   PASS
+  ct8rows vs /tmp control (b494676) default     PASS
+  every cmds.txt names ONE binary: /tmp/r10uvm113_scratch/pat113.bin
+
+(4) surelog corpus, --mode both (1588 comparable rows)
+  {'CMP_EQUAL': 937, 'SLANG_REJECT': 567, 'SURELOG_FAIL': 48, 'NO_DATABASE': 3, 'CMP_NOTEQUAL': 19, 'UNTRANSLATABLE': 2, 'DEFERRED': 10, 'TIMEOUT': 1, 'NO_UHDM': 1}
+  ct8rows vs results/golden_surelog.csv         PASS (0 differing rows)
+  ct8rows vs /tmp control (b494676)             PASS
+  NO conversion is claimed: CMP_NOTEQUAL stays 19, results/*.csv untouched.
+
+(5) BYTE MOVERS — predicted BY NAME first (PREDICTION.txt), then measured
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=03528d61eeea pristine=93c25b16d6d9
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=adf4d643da4b pristine=8a0e2ecaa4a8
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1b4e30bf7cf9 pristine=508bcd0b88c0
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=6624c3d0905d pristine=52feebcd4c45
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=99fa633eb28a pristine=86e968ac62e8
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=03528d61eeea pristine=93c25b16d6d9
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=adf4d643da4b pristine=8a0e2ecaa4a8
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=a8fbcb79d450 pristine=95c291c77098
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=8729b7b1c7bd pristine=bcd91e2aaed3
+MOVERS: 9 / 956
+  -- uhdm2rtlil:
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+  SELFCHECK (every file vs one fixed file): 955/956 and 1357/1358 flagged
+  -- attribution, ORDER-BLIND (sorted, path-normalised dumps), all nine:
+     removed=0  added=6  =  three |vpiFunction: edges, naming
+     uvm_pkg::uvm_report_fatal once and uvm_pkg::uvm_process_report_message
+     twice.  Nothing else moved in any of the nine, Scoreboard/default (the
+     ~50/50 coin) included.
+
+(6) HEADS (rowheads.sh, official uhdm-cmp; CMPLINES / HEADS)
+  row            mode        pristine   patched
+  SimpleUVM      default      565 / 1    56 / 1
+  SimpleUVM      testflags    565 / 1    56 / 1
+  Scoreboard     default      565 / 1    56 / 1
+  SeqDriver      both          32 / 1    32 / 1
+  MiniAmiq       both          32 / 1    32 / 1
+  BuildUVMPkg    both          47 / 1    47 / 1
+  Earlgrey_0_1   both          36 / 1    36 / 1
+  Rggen          default        0 / 0     0 / 0
+  (Scoreboard/testflags and Rggen/testflags: SKIP-NOFILE, expected)
+
+(7) CANARIES
+  canaries.sh surelog     ok=52 changed=0 absent=0
+  canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+  ctcan2.sh   surelog     PASS   (EXPECT_UNKNOWN=1)
+  ctcan2.sh   uhdm2rtlil  PASS   (EXPECT_UNKNOWN=6)
+  canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0
+  protected databases, patched md5 vs pristine md5:
+    InterfaceModPort   default+testflags  59a365f3ce2c  SAME
+    BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+    YosysOldOr         default+testflags  d68e0796d62c  SAME
+    SVSwitch           4842211c4030  (the pin)
+    YosysVerx          6ccda350c24a  (the pin)
+
+(8) BOUNDARY — see BOUNDARY.acquittal.txt

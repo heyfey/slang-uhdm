@@ -1,0 +1,70 @@
+r10uvm113 SCORE — the NINE UVM databases, golden vs pristine vs patched.
+cen113.py joins two ct113cen censuses of every reachable tf_call -> callee
+binding; the cell is (view, container, owner chain, call name, call kind)
+and the value is the callee SHAPE the judge can see.
+
+##### AGGREGATE over the nine row-modes
+-- PRISTINE
+   DIFF       8226
+   ONLY-G     294
+   ONLY-O     211
+   OURS-NULL  27
+   SAME       144430
+-- PATCHED
+   DIFF       8226
+   ONLY-G     294
+   ONLY-O     211
+   SAME       144457
+
+   OURS-NULL 27 -> 0, SAME 144430 -> 144457 (+27).
+   DIFF / ONLY-G / ONLY-O unchanged to the unit: 8226 / 294 / 211.
+   TO-GOLDEN 27, AWAY-GOLDEN 0, STILL-WRONG 0 on the head's family.
+
+##### the three cells, per row-mode (identical in all nine)
+CELL	BuildUVMPkg/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_report_object/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	BuildUVMPkg/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:set_id_info	uvm_report_fatal	-	func_call	G=function|uvm_report_fatal|package:uvm_pkg	O=<null>
+CELL	BuildUVMPkg/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	BuildUVMPkg/testflags	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_report_object/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	BuildUVMPkg/testflags	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:set_id_info	uvm_report_fatal	-	func_call	G=function|uvm_report_fatal|package:uvm_pkg	O=<null>
+CELL	BuildUVMPkg/testflags	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	MiniAmiq/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_report_object/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	MiniAmiq/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:set_id_info	uvm_report_fatal	-	func_call	G=function|uvm_report_fatal|package:uvm_pkg	O=<null>
+CELL	MiniAmiq/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	MiniAmiq/testflags	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_report_object/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	MiniAmiq/testflags	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:set_id_info	uvm_report_fatal	-	func_call	G=function|uvm_report_fatal|package:uvm_pkg	O=<null>
+CELL	MiniAmiq/testflags	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	Scoreboard/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_report_object/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	Scoreboard/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:set_id_info	uvm_report_fatal	-	func_call	G=function|uvm_report_fatal|package:uvm_pkg	O=<null>
+CELL	Scoreboard/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	SeqDriver/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_report_object/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	SeqDriver/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:set_id_info	uvm_report_fatal	-	func_call	G=function|uvm_report_fatal|package:uvm_pkg	O=<null>
+CELL	SeqDriver/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	SeqDriver/testflags	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_report_object/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	SeqDriver/testflags	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:set_id_info	uvm_report_fatal	-	func_call	G=function|uvm_report_fatal|package:uvm_pkg	O=<null>
+CELL	SeqDriver/testflags	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	SimpleUVM/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_report_object/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	SimpleUVM/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:set_id_info	uvm_report_fatal	-	func_call	G=function|uvm_report_fatal|package:uvm_pkg	O=<null>
+CELL	SimpleUVM/default	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	SimpleUVM/testflags	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_report_object/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+CELL	SimpleUVM/testflags	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:set_id_info	uvm_report_fatal	-	func_call	G=function|uvm_report_fatal|package:uvm_pkg	O=<null>
+CELL	SimpleUVM/testflags	OURS-NULL	ELAB	uvm_pkg	package:uvm_pkg/class_defn:uvm_sequence_item/function:uvm_report	uvm_process_report_message	-	func_call	G=function|uvm_process_report_message|package:uvm_pkg	O=<null>
+
+##### per row-mode counts, PRISTINE then PATCHED
+-- BuildUVMPkg.default PRIS: COUNT=BuildUVMPkg/default=DIFF=13 COUNT=BuildUVMPkg/default=ONLY-G=16 COUNT=BuildUVMPkg/default=ONLY-O=16 COUNT=BuildUVMPkg/default=OURS-NULL=3 COUNT=BuildUVMPkg/default=SAME=12998 
+-- BuildUVMPkg.default PAT : COUNT=BuildUVMPkg/default=DIFF=13 COUNT=BuildUVMPkg/default=ONLY-G=16 COUNT=BuildUVMPkg/default=ONLY-O=16 COUNT=BuildUVMPkg/default=SAME=13001 
+-- BuildUVMPkg.testflags PRIS: COUNT=BuildUVMPkg/testflags=DIFF=13 COUNT=BuildUVMPkg/testflags=ONLY-G=16 COUNT=BuildUVMPkg/testflags=ONLY-O=16 COUNT=BuildUVMPkg/testflags=OURS-NULL=3 COUNT=BuildUVMPkg/testflags=SAME=12998 
+-- BuildUVMPkg.testflags PAT : COUNT=BuildUVMPkg/testflags=DIFF=13 COUNT=BuildUVMPkg/testflags=ONLY-G=16 COUNT=BuildUVMPkg/testflags=ONLY-O=16 COUNT=BuildUVMPkg/testflags=SAME=13001 
+-- MiniAmiq.default PRIS: COUNT=MiniAmiq/default=DIFF=2090 COUNT=MiniAmiq/default=ONLY-G=64 COUNT=MiniAmiq/default=ONLY-O=40 COUNT=MiniAmiq/default=OURS-NULL=3 COUNT=MiniAmiq/default=SAME=20324 
+-- MiniAmiq.default PAT : COUNT=MiniAmiq/default=DIFF=2090 COUNT=MiniAmiq/default=ONLY-G=64 COUNT=MiniAmiq/default=ONLY-O=40 COUNT=MiniAmiq/default=SAME=20327 
+-- MiniAmiq.testflags PRIS: COUNT=MiniAmiq/testflags=DIFF=2090 COUNT=MiniAmiq/testflags=ONLY-G=64 COUNT=MiniAmiq/testflags=ONLY-O=40 COUNT=MiniAmiq/testflags=OURS-NULL=3 COUNT=MiniAmiq/testflags=SAME=20324 
+-- MiniAmiq.testflags PAT : COUNT=MiniAmiq/testflags=DIFF=2090 COUNT=MiniAmiq/testflags=ONLY-G=64 COUNT=MiniAmiq/testflags=ONLY-O=40 COUNT=MiniAmiq/testflags=SAME=20327 
+-- Scoreboard.default PRIS: COUNT=Scoreboard/default=DIFF=6 COUNT=Scoreboard/default=ONLY-G=10 COUNT=Scoreboard/default=ONLY-O=15 COUNT=Scoreboard/default=OURS-NULL=3 COUNT=Scoreboard/default=SAME=12948 
+-- Scoreboard.default PAT : COUNT=Scoreboard/default=DIFF=6 COUNT=Scoreboard/default=ONLY-G=10 COUNT=Scoreboard/default=ONLY-O=15 COUNT=Scoreboard/default=SAME=12951 
+-- SeqDriver.default PRIS: COUNT=SeqDriver/default=DIFF=2001 COUNT=SeqDriver/default=ONLY-G=52 COUNT=SeqDriver/default=ONLY-O=27 COUNT=SeqDriver/default=OURS-NULL=3 COUNT=SeqDriver/default=SAME=19521 
+-- SeqDriver.default PAT : COUNT=SeqDriver/default=DIFF=2001 COUNT=SeqDriver/default=ONLY-G=52 COUNT=SeqDriver/default=ONLY-O=27 COUNT=SeqDriver/default=SAME=19524 
+-- SeqDriver.testflags PRIS: COUNT=SeqDriver/testflags=DIFF=2001 COUNT=SeqDriver/testflags=ONLY-G=52 COUNT=SeqDriver/testflags=ONLY-O=27 COUNT=SeqDriver/testflags=OURS-NULL=3 COUNT=SeqDriver/testflags=SAME=19521 
+-- SeqDriver.testflags PAT : COUNT=SeqDriver/testflags=DIFF=2001 COUNT=SeqDriver/testflags=ONLY-G=52 COUNT=SeqDriver/testflags=ONLY-O=27 COUNT=SeqDriver/testflags=SAME=19524 
+-- SimpleUVM.default PRIS: COUNT=SimpleUVM/default=DIFF=6 COUNT=SimpleUVM/default=ONLY-G=10 COUNT=SimpleUVM/default=ONLY-O=15 COUNT=SimpleUVM/default=OURS-NULL=3 COUNT=SimpleUVM/default=SAME=12898 
+-- SimpleUVM.default PAT : COUNT=SimpleUVM/default=DIFF=6 COUNT=SimpleUVM/default=ONLY-G=10 COUNT=SimpleUVM/default=ONLY-O=15 COUNT=SimpleUVM/default=SAME=12901 
+-- SimpleUVM.testflags PRIS: COUNT=SimpleUVM/testflags=DIFF=6 COUNT=SimpleUVM/testflags=ONLY-G=10 COUNT=SimpleUVM/testflags=ONLY-O=15 COUNT=SimpleUVM/testflags=OURS-NULL=3 COUNT=SimpleUVM/testflags=SAME=12898 
+-- SimpleUVM.testflags PAT : COUNT=SimpleUVM/testflags=DIFF=6 COUNT=SimpleUVM/testflags=ONLY-G=10 COUNT=SimpleUVM/testflags=ONLY-O=15 COUNT=SimpleUVM/testflags=SAME=12901 

@@ -1,0 +1,199 @@
+-- v113_ctx.sv view=default  sur=rc=0 pris=rc=0 pat=rc=0
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:defArgCall	defarg	func_call	G=function|defarg|package:qctx	PRIS=<null>	PAT=function|defarg|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:inCast	Wren	func_call	G=function|Wren|package:qctx	PRIS=<null>	PAT=function|Wren|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:inConcat	Wren	func_call	G=function|Wren|package:qctx	PRIS=<null>	PAT=function|Wren|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:inConcat	spool	func_call	G=function|spool|package:qctx	PRIS=<null>	PAT=function|spool|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:inForeach	Wren	func_call	G=function|Wren|package:qctx	PRIS=<null>	PAT=function|Wren|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:inWith	Wren	func_call	G=function|Wren|package:qctx	PRIS=<null>	PAT=function|Wren|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:inbody	Wren	func_call	G=function|Wren|package:qctx	PRIS=<null>	PAT=function|Wren|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:new	Wren	func_call	G=function|Wren|package:qctx	PRIS=<null>	PAT=function|Wren|package:qctx
+STILL-WRONG         ELAB	qctx	package:qctx/class_defn:Mesh/function:oobm	spool	func_call	G=<absent>	PRIS=function|spool|package:qctx	PAT=function|spool|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:recurCall	recur	func_call	G=function|recur|package:qctx	PRIS=<null>	PAT=function|recur|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:statm	spool	func_call	G=function|spool|package:qctx	PRIS=<null>	PAT=function|spool|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/task:inTask	Wren	func_call	G=function|Wren|package:qctx	PRIS=<null>	PAT=function|Wren|package:qctx
+STILL-WRONG         ELAB	qctx	package:qctx/class_defn:Mesh/task:taskBeside	Drain	func_call	G=<absent>	PRIS=<null>	PAT=<null>
+STILL-WRONG         ELAB	qctx	package:qctx/class_defn:Mesh/task:taskBeside	Drain	task_call	G=task|Drain|package:qctx	PRIS=<absent>	PAT=<absent>
+SCORE v113_ctx/default  TO-GOLDEN=11  ALREADY-RIGHT=10  AWAY-GOLDEN=0  STILL-WRONG=3  CHANGED-STILL-WRONG=0
+-- v113_ctx.sv view=elab  sur=rc=0 pris=rc=0 pat=rc=0
+STILL-WRONG         ELAB	qctx	package:qctx/class_defn:Mesh/function:afterInbody	Wren	func_call	G=<absent>	PRIS=function|Wren|class_defn:Mesh	PAT=function|Wren|class_defn:Mesh
+STILL-WRONG         ELAB	qctx	package:qctx/class_defn:Mesh/function:afterStat	spool	func_call	G=<absent>	PRIS=function|spool|class_defn:Mesh	PAT=function|spool|class_defn:Mesh
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:defArgCall	defarg	func_call	G=function|defarg|package:qctx	PRIS=<null>	PAT=function|defarg|class_defn:Mesh
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:defArgCall	defarg	func_call	G=<absent>	PRIS=function|defarg|class_defn:Mesh	PAT=function|defarg|package:qctx
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:inCast	Wren	func_call	G=function|Wren|package:qctx	PRIS=<null>	PAT=function|Wren|class_defn:Mesh
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:inCast	Wren	func_call	G=<absent>	PRIS=function|Wren|class_defn:Mesh	PAT=function|Wren|package:qctx
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:inConcat	Wren	func_call	G=function|Wren|package:qctx	PRIS=<null>	PAT=function|Wren|class_defn:Mesh
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:inConcat	Wren	func_call	G=<absent>	PRIS=function|Wren|class_defn:Mesh	PAT=function|Wren|package:qctx
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:inConcat	spool	func_call	G=function|spool|package:qctx	PRIS=<null>	PAT=function|spool|class_defn:Mesh
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:inConcat	spool	func_call	G=<absent>	PRIS=function|spool|class_defn:Mesh	PAT=function|spool|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:inForeach	Wren	func_call	G=function|Wren|class_defn:Mesh	PRIS=<null>	PAT=function|Wren|class_defn:Mesh
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:inForeach	Wren	func_call	G=function|Wren|package:qctx	PRIS=function|Wren|class_defn:Mesh	PAT=function|Wren|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:inWith	Wren	func_call	G=function|Wren|class_defn:Mesh	PRIS=<null>	PAT=function|Wren|class_defn:Mesh
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:inWith	Wren	func_call	G=function|Wren|package:qctx	PRIS=function|Wren|class_defn:Mesh	PAT=function|Wren|package:qctx
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:inbody	Wren	func_call	G=function|Wren|package:qctx	PRIS=<null>	PAT=function|Wren|class_defn:Mesh
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:inbody	Wren	func_call	G=<absent>	PRIS=function|Wren|class_defn:Mesh	PAT=function|Wren|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:new	Wren	func_call	G=function|Wren|class_defn:Mesh	PRIS=<null>	PAT=function|Wren|class_defn:Mesh
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/function:new	Wren	func_call	G=function|Wren|package:qctx	PRIS=function|Wren|class_defn:Mesh	PAT=function|Wren|package:qctx
+STILL-WRONG         ELAB	qctx	package:qctx/class_defn:Mesh/function:oobm	spool	func_call	G=<absent>	PRIS=function|spool|class_defn:Mesh	PAT=function|spool|class_defn:Mesh
+STILL-WRONG         ELAB	qctx	package:qctx/class_defn:Mesh/function:oobm	spool	func_call	G=<absent>	PRIS=function|spool|package:qctx	PAT=function|spool|package:qctx
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:recurCall	recur	func_call	G=function|recur|package:qctx	PRIS=<null>	PAT=function|recur|class_defn:Mesh
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:recurCall	recur	func_call	G=<absent>	PRIS=function|recur|class_defn:Mesh	PAT=function|recur|package:qctx
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:statm	spool	func_call	G=function|spool|package:qctx	PRIS=<null>	PAT=function|spool|class_defn:Mesh
+CHANGED-STILL-WRONG ELAB	qctx	package:qctx/class_defn:Mesh/function:statm	spool	func_call	G=<absent>	PRIS=function|spool|class_defn:Mesh	PAT=function|spool|package:qctx
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/task:inTask	Wren	func_call	G=function|Wren|class_defn:Mesh	PRIS=<null>	PAT=function|Wren|class_defn:Mesh
+TO-GOLDEN           ELAB	qctx	package:qctx/class_defn:Mesh/task:inTask	Wren	func_call	G=function|Wren|package:qctx	PRIS=function|Wren|class_defn:Mesh	PAT=function|Wren|package:qctx
+STILL-WRONG         ELAB	qctx	package:qctx/class_defn:Mesh/task:taskBeside	Drain	func_call	G=<absent>	PRIS=<null>	PAT=<null>
+STILL-WRONG         ELAB	qctx	package:qctx/class_defn:Mesh/task:taskBeside	Drain	task_call	G=task|Drain|package:qctx	PRIS=<absent>	PAT=<absent>
+STILL-WRONG         ELAB	work@tb_ctx	module_inst:work@tb_ctx/function:oobm	spool	func_call	G=<absent>	PRIS=function|spool|module_inst:work	PAT=function|spool|module_inst:work
+SCORE v113_ctx/elab  TO-GOLDEN=8  ALREADY-RIGHT=20  AWAY-GOLDEN=0  STILL-WRONG=7  CHANGED-STILL-WRONG=14
+-- v113_inh.sv view=default  sur=rc=0 pris=rc=0 pat=rc=0
+TO-GOLDEN           ELAB	rinh	package:rinh/class_defn:Base0/function:fromBase	Bolt	func_call	G=function|Bolt|package:rinh	PRIS=<null>	PAT=function|Bolt|package:rinh
+TO-GOLDEN           ELAB	rinh	package:rinh/class_defn:Outer/function:ocall	Yarn	func_call	G=function|Yarn|package:rinh	PRIS=<null>	PAT=function|Yarn|package:rinh
+TO-GOLDEN           ELAB	rinh	package:rinh/class_defn:PBase/function:pcall	cinder	func_call	G=function|cinder|package:rinh	PRIS=<null>	PAT=function|cinder|package:rinh
+SCORE v113_inh/default  TO-GOLDEN=3  ALREADY-RIGHT=11  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+-- v113_inh.sv view=elab  sur=rc=0 pris=rc=0 pat=rc=0
+CHANGED-STILL-WRONG ELAB	rinh	package:rinh/class_defn:Base0/function:fromBase	Bolt	func_call	G=function|Bolt|package:rinh	PRIS=<null>	PAT=function|Bolt|class_defn:Base0
+CHANGED-STILL-WRONG ELAB	rinh	package:rinh/class_defn:Base0/function:fromBase	Bolt	func_call	G=<absent>	PRIS=function|Bolt|class_defn:Base0	PAT=function|Bolt|package:rinh
+STILL-WRONG         ELAB	rinh	package:rinh/class_defn:Deriv0/function:callsInherited	Bolt	func_call	G=function|Bolt|package:rinh	PRIS=function|Bolt|class_defn:Base0	PAT=function|Bolt|class_defn:Base0
+STILL-WRONG         ELAB	rinh	package:rinh/class_defn:Deriv0/function:callsInherited	Bolt	func_call	G=<absent>	PRIS=function|Bolt|class_defn:Base0	PAT=function|Bolt|class_defn:Base0
+STILL-WRONG         ELAB	rinh	package:rinh/class_defn:Deriv0/function:callsInherited	Bolt	func_call	G=<absent>	PRIS=function|Bolt|package:rinh	PAT=function|Bolt|package:rinh
+STILL-WRONG         ELAB	rinh	package:rinh/class_defn:Deriv0/function:callsSuper	Bolt	method_func_call	G=<absent>	PRIS=function|Bolt|class_defn:Base0	PAT=function|Bolt|class_defn:Base0
+STILL-WRONG         ELAB	rinh	package:rinh/class_defn:Deriv0/function:callsThis	Bolt	method_func_call	G=<absent>	PRIS=function|Bolt|class_defn:Base0	PAT=function|Bolt|class_defn:Base0
+STILL-WRONG         ELAB	rinh	package:rinh/class_defn:Outer/class_defn:Inner/function:icall	Yarn	func_call	G=function|Yarn|package:rinh	PRIS=function|Yarn|class_defn:Outer	PAT=function|Yarn|class_defn:Outer
+STILL-WRONG         ELAB	rinh	package:rinh/class_defn:Outer/class_defn:Inner/function:icall	Yarn	func_call	G=<absent>	PRIS=function|Yarn|class_defn:Outer	PAT=function|Yarn|class_defn:Outer
+STILL-WRONG         ELAB	rinh	package:rinh/class_defn:Outer/class_defn:Inner/function:icall	Yarn	func_call	G=<absent>	PRIS=function|Yarn|class_defn:Outer	PAT=function|Yarn|class_defn:Outer
+STILL-WRONG         ELAB	rinh	package:rinh/class_defn:Outer/class_defn:Inner/function:icall	Yarn	func_call	G=<absent>	PRIS=function|Yarn|package:rinh	PAT=function|Yarn|package:rinh
+CHANGED-STILL-WRONG ELAB	rinh	package:rinh/class_defn:Outer/function:ocall	Yarn	func_call	G=function|Yarn|package:rinh	PRIS=<null>	PAT=function|Yarn|class_defn:Outer
+CHANGED-STILL-WRONG ELAB	rinh	package:rinh/class_defn:Outer/function:ocall	Yarn	func_call	G=<absent>	PRIS=function|Yarn|class_defn:Outer	PAT=function|Yarn|package:rinh
+CHANGED-STILL-WRONG ELAB	rinh	package:rinh/class_defn:PBase/function:pcall	cinder	func_call	G=function|cinder|package:rinh	PRIS=<null>	PAT=function|cinder|class_defn:PBase
+CHANGED-STILL-WRONG ELAB	rinh	package:rinh/class_defn:PBase/function:pcall	cinder	func_call	G=<absent>	PRIS=function|cinder|class_defn:PBase	PAT=function|cinder|package:rinh
+STILL-WRONG         ELAB	rinh	package:rinh/class_defn:PDeriv/function:dcall	cinder	func_call	G=function|cinder|package:rinh	PRIS=function|cinder|class_defn:PBase	PAT=function|cinder|class_defn:PBase
+STILL-WRONG         ELAB	rinh	package:rinh/class_defn:PDeriv/function:dcall	cinder	func_call	G=<absent>	PRIS=function|cinder|class_defn:PBase	PAT=function|cinder|class_defn:PBase
+STILL-WRONG         ELAB	rinh	package:rinh/class_defn:PDeriv/function:dcall	cinder	func_call	G=<absent>	PRIS=function|cinder|package:rinh	PAT=function|cinder|package:rinh
+STILL-WRONG         ELAB	rinh	package:rinh/class_defn:Shadow/function:scall	rinh::cinder	func_call	G=<absent>	PRIS=function|cinder|package:rinh	PAT=function|cinder|package:rinh
+SCORE v113_inh/elab  TO-GOLDEN=0  ALREADY-RIGHT=15  AWAY-GOLDEN=0  STILL-WRONG=13  CHANGED-STILL-WRONG=6
+-- v113_enc.sv view=default  sur=rc=0 pris=rc=0 pat=rc=0
+STILL-WRONG         ?	<noview>	class_defn:PrCls/function:callsPr	prFree	func_call	G=function|prFree|program:	PRIS=<null>	PAT=<null>
+STILL-WRONG         DEF		module_inst:/class_defn:ModCls/function:callsMod	modFree	func_call	G=function|modFree|module_inst:	PRIS=<null>	PAT=<null>
+STILL-WRONG         DEF	work@IfCls	class_defn:work@IfCls/function:callsIf	ifFree	func_call	G=<null>	PRIS=<absent>	PAT=<absent>
+STILL-WRONG         DEF	work@UnitCls	class_defn:work@UnitCls/function:callsUnit	unitFree	func_call	G=function|unitFree|design:work	PRIS=<null>	PAT=<null>
+SCORE v113_enc/default  TO-GOLDEN=0  ALREADY-RIGHT=3  AWAY-GOLDEN=0  STILL-WRONG=4  CHANGED-STILL-WRONG=0
+-- v113_enc.sv view=elab  sur=rc=0 pris=rc=0 pat=rc=0
+STILL-WRONG         ?	<noview>	class_defn:PrCls/function:callsPr	prFree	func_call	G=function|prFree|class_defn:PrCls	PRIS=<null>	PAT=<null>
+STILL-WRONG         ?	<noview>	class_defn:PrCls/function:callsPr	prFree	func_call	G=function|prFree|program:	PRIS=function|prFree|class_defn:PrCls	PAT=function|prFree|class_defn:PrCls
+STILL-WRONG         DEF		module_inst:/class_defn:ModCls/function:callsMod	modFree	func_call	G=function|modFree|class_defn:ModCls	PRIS=<null>	PAT=<null>
+STILL-WRONG         DEF		module_inst:/class_defn:ModCls/function:callsMod	modFree	func_call	G=function|modFree|module_inst:	PRIS=function|modFree|class_defn:ModCls	PAT=function|modFree|class_defn:ModCls
+STILL-WRONG         DEF	work@IfCls	class_defn:work@IfCls/function:callsIf	ifFree	func_call	G=<null>	PRIS=<absent>	PAT=<absent>
+STILL-WRONG         DEF	work@IfCls	class_defn:work@IfCls/function:callsIf	ifFree	func_call	G=function|ifFree|class_defn:work	PRIS=<absent>	PAT=<absent>
+STILL-WRONG         DEF	work@UnitCls	class_defn:work@UnitCls/function:callsUnit	unitFree	func_call	G=function|unitFree|class_defn:work	PRIS=<null>	PAT=<null>
+STILL-WRONG         DEF	work@UnitCls	class_defn:work@UnitCls/function:callsUnit	unitFree	func_call	G=function|unitFree|design:work	PRIS=function|unitFree|class_defn:work	PAT=function|unitFree|class_defn:work
+STILL-WRONG         ELAB	work@tb_enc	module_inst:work@tb_enc/class_defn:ModCls/function:callsMod	modFree	func_call	G=<absent>	PRIS=function|modFree|class_defn:ModCls	PAT=function|modFree|class_defn:ModCls
+STILL-WRONG         ELAB	work@tb_enc	module_inst:work@tb_enc/class_defn:ModCls/function:callsMod	modFree	func_call	G=<absent>	PRIS=function|modFree|class_defn:ModCls	PAT=function|modFree|class_defn:ModCls
+STILL-WRONG         ELAB	work@tb_enc	module_inst:work@tb_enc/class_defn:ModCls/function:callsMod	modFree	func_call	G=<absent>	PRIS=function|modFree|class_defn:ModCls	PAT=function|modFree|class_defn:ModCls
+SCORE v113_enc/elab  TO-GOLDEN=0  ALREADY-RIGHT=5  AWAY-GOLDEN=0  STILL-WRONG=11  CHANGED-STILL-WRONG=0
+-- v113_imp.sv view=default  sur=rc=0 pris=rc=0 pat=rc=0
+CHANGED-STILL-WRONG ELAB	himp1	package:himp1/class_defn:C1/function:above	Pivot	func_call	G=function|Pivot|package:hsrc	PRIS=<null>	PAT=function|Pivot|package:himp1
+STILL-WRONG         ELAB	himp1	package:himp1/class_defn:C1/function:below	Pivot	func_call	G=function|Pivot|package:hsrc	PRIS=function|Pivot|class_defn:C1	PAT=function|Pivot|class_defn:C1
+STILL-WRONG         ELAB	himp2	package:himp2/class_defn:C2/function:first	quill	func_call	G=function|quill|package:hsrc	PRIS=<null>	PAT=<null>
+STILL-WRONG         ELAB	himp2	package:himp2/class_defn:C2/function:second	quill	func_call	G=function|quill|package:hsrc	PRIS=function|quill|class_defn:C2	PAT=function|quill|class_defn:C2
+SCORE v113_imp/default  TO-GOLDEN=0  ALREADY-RIGHT=2  AWAY-GOLDEN=0  STILL-WRONG=3  CHANGED-STILL-WRONG=1
+-- v113_imp.sv view=elab  sur=rc=0 pris=rc=0 pat=rc=0
+CHANGED-STILL-WRONG ELAB	himp1	package:himp1/class_defn:C1/function:above	Pivot	func_call	G=function|Pivot|package:hsrc	PRIS=<null>	PAT=function|Pivot|package:himp1
+STILL-WRONG         ELAB	himp1	package:himp1/class_defn:C1/function:above	Pivot	func_call	G=<absent>	PRIS=function|Pivot|package:hsrc	PAT=function|Pivot|package:hsrc
+STILL-WRONG         ELAB	himp1	package:himp1/class_defn:C1/function:below	Pivot	func_call	G=function|Pivot|package:hsrc	PRIS=function|Pivot|class_defn:C1	PAT=function|Pivot|class_defn:C1
+STILL-WRONG         ELAB	himp1	package:himp1/class_defn:C1/function:below	Pivot	func_call	G=<absent>	PRIS=function|Pivot|package:hsrc	PAT=function|Pivot|package:hsrc
+STILL-WRONG         ELAB	himp2	package:himp2/class_defn:C2/function:first	quill	func_call	G=function|quill|package:hsrc	PRIS=<null>	PAT=<null>
+STILL-WRONG         ELAB	himp2	package:himp2/class_defn:C2/function:first	quill	func_call	G=<absent>	PRIS=function|quill|package:himp2	PAT=function|quill|package:himp2
+STILL-WRONG         ELAB	himp2	package:himp2/class_defn:C2/function:second	quill	func_call	G=function|quill|package:hsrc	PRIS=function|quill|class_defn:C2	PAT=function|quill|class_defn:C2
+STILL-WRONG         ELAB	himp2	package:himp2/class_defn:C2/function:second	quill	func_call	G=<absent>	PRIS=function|quill|package:himp2	PAT=function|quill|package:himp2
+SCORE v113_imp/elab  TO-GOLDEN=0  ALREADY-RIGHT=4  AWAY-GOLDEN=0  STILL-WRONG=7  CHANGED-STILL-WRONG=1
+-- v113_ord.sv view=default  sur=rc=0 pris=rc=0 pat=rc=0
+TO-GOLDEN           ELAB	sord	package:sord/class_defn:Early/function:upper	Latch	func_call	G=function|Latch|package:sord	PRIS=<null>	PAT=function|Latch|package:sord
+TO-GOLDEN           ELAB	sord	package:sord/class_defn:ProtoLate/function:caller	Gasket	func_call	G=function|Gasket|package:sord	PRIS=<null>	PAT=function|Gasket|package:sord
+TO-GOLDEN           ELAB	sord	package:sord/class_defn:PureLate/function:caller	Sprocket	func_call	G=function|Sprocket|package:sord	PRIS=<null>	PAT=function|Sprocket|package:sord
+TO-GOLDEN           ELAB	sord	package:sord/class_defn:VirtLate/function:caller	Ratchet	func_call	G=function|Ratchet|package:sord	PRIS=<null>	PAT=function|Ratchet|package:sord
+TO-GOLDEN           ELAB	sord2	package:sord2/class_defn:Early2/function:upper	Latch2	func_call	G=function|Latch2|package:sord2	PRIS=<null>	PAT=function|Latch2|package:sord2
+TO-GOLDEN           ELAB	sord2	package:sord2/class_defn:ProtoLate2/function:caller	Gasket2	func_call	G=function|Gasket2|package:sord2	PRIS=<null>	PAT=function|Gasket2|package:sord2
+SCORE v113_ord/default  TO-GOLDEN=6  ALREADY-RIGHT=8  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+-- v113_ord.sv view=elab  sur=rc=0 pris=rc=0 pat=rc=0
+STILL-WRONG         ELAB	sord	package:sord/class_defn:Early/function:lower	Latch	func_call	G=<absent>	PRIS=function|Latch|class_defn:Early	PAT=function|Latch|class_defn:Early
+STILL-WRONG         ELAB	sord	package:sord/class_defn:Early/function:plain	Trough	func_call	G=<absent>	PRIS=function|Trough|package:sord	PAT=function|Trough|package:sord
+CHANGED-STILL-WRONG ELAB	sord	package:sord/class_defn:Early/function:upper	Latch	func_call	G=function|Latch|package:sord	PRIS=<null>	PAT=function|Latch|class_defn:Early
+CHANGED-STILL-WRONG ELAB	sord	package:sord/class_defn:Early/function:upper	Latch	func_call	G=<absent>	PRIS=function|Latch|class_defn:Early	PAT=function|Latch|package:sord
+CHANGED-STILL-WRONG ELAB	sord	package:sord/class_defn:ProtoLate/function:caller	Gasket	func_call	G=function|Gasket|package:sord	PRIS=<null>	PAT=function|Gasket|class_defn:ProtoLate
+CHANGED-STILL-WRONG ELAB	sord	package:sord/class_defn:ProtoLate/function:caller	Gasket	func_call	G=<absent>	PRIS=function|Gasket|class_defn:ProtoLate	PAT=function|Gasket|package:sord
+CHANGED-STILL-WRONG ELAB	sord	package:sord/class_defn:PureLate/function:caller	Sprocket	func_call	G=function|Sprocket|package:sord	PRIS=<null>	PAT=function|Sprocket|class_defn:PureLate
+CHANGED-STILL-WRONG ELAB	sord	package:sord/class_defn:PureLate/function:caller	Sprocket	func_call	G=<absent>	PRIS=function|Sprocket|class_defn:PureLate	PAT=function|Sprocket|package:sord
+CHANGED-STILL-WRONG ELAB	sord	package:sord/class_defn:VirtLate/function:caller	Ratchet	func_call	G=function|Ratchet|package:sord	PRIS=<null>	PAT=function|Ratchet|class_defn:VirtLate
+CHANGED-STILL-WRONG ELAB	sord	package:sord/class_defn:VirtLate/function:caller	Ratchet	func_call	G=<absent>	PRIS=function|Ratchet|class_defn:VirtLate	PAT=function|Ratchet|package:sord
+STILL-WRONG         ELAB	sord2	package:sord2/class_defn:Early2/function:lower	Latch2	func_call	G=<absent>	PRIS=function|Latch2|class_defn:Early2	PAT=function|Latch2|class_defn:Early2
+CHANGED-STILL-WRONG ELAB	sord2	package:sord2/class_defn:Early2/function:upper	Latch2	func_call	G=function|Latch2|package:sord2	PRIS=<null>	PAT=function|Latch2|class_defn:Early2
+CHANGED-STILL-WRONG ELAB	sord2	package:sord2/class_defn:Early2/function:upper	Latch2	func_call	G=<absent>	PRIS=function|Latch2|class_defn:Early2	PAT=function|Latch2|package:sord2
+CHANGED-STILL-WRONG ELAB	sord2	package:sord2/class_defn:ProtoLate2/function:caller	Gasket2	func_call	G=function|Gasket2|package:sord2	PRIS=<null>	PAT=function|Gasket2|class_defn:ProtoLate2
+CHANGED-STILL-WRONG ELAB	sord2	package:sord2/class_defn:ProtoLate2/function:caller	Gasket2	func_call	G=<absent>	PRIS=function|Gasket2|class_defn:ProtoLate2	PAT=function|Gasket2|package:sord2
+SCORE v113_ord/elab  TO-GOLDEN=0  ALREADY-RIGHT=13  AWAY-GOLDEN=0  STILL-WRONG=3  CHANGED-STILL-WRONG=12
+-- v113_ctl.sv view=default  sur=rc=0 pris=rc=0 pat=rc=0
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inCaseExpr	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=<null>	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inCaseItem	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=<null>	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inForBound	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=<null>	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inIfBody	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=<null>	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inIfCond	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=<null>	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inNestedBlk	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=<null>	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inRepeat	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=<null>	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inTernary	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=<null>	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inTernary	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=<null>	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inWhile	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=<null>	PAT=function|Hasp|package:tctl
+STILL-WRONG         ELAB	tctl	package:tctl/class_defn:Cage/task:inDelay	Wedge	func_call	G=<absent>	PRIS=<null>	PAT=<null>
+STILL-WRONG         ELAB	tctl	package:tctl/class_defn:Cage/task:inDelay	Wedge	task_call	G=task|Wedge|package:tctl	PRIS=<absent>	PAT=<absent>
+STILL-WRONG         ELAB	tctl	package:tctl/class_defn:Cage/task:inEventCtl	Wedge	func_call	G=<absent>	PRIS=<null>	PAT=<null>
+STILL-WRONG         ELAB	tctl	package:tctl/class_defn:Cage/task:inEventCtl	Wedge	task_call	G=task|Wedge|package:tctl	PRIS=<absent>	PAT=<absent>
+SCORE v113_ctl/default  TO-GOLDEN=10  ALREADY-RIGHT=1  AWAY-GOLDEN=0  STILL-WRONG=4  CHANGED-STILL-WRONG=0
+-- v113_ctl.sv view=elab  sur=rc=0 pris=rc=0 pat=rc=0
+CHANGED-STILL-WRONG ELAB	tctl	package:tctl/class_defn:Cage/function:inCaseExpr	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=<null>	PAT=function|Hasp|class_defn:Cage
+CHANGED-STILL-WRONG ELAB	tctl	package:tctl/class_defn:Cage/function:inCaseExpr	Hasp	func_call	G=<absent>	PRIS=function|Hasp|class_defn:Cage	PAT=function|Hasp|package:tctl
+CHANGED-STILL-WRONG ELAB	tctl	package:tctl/class_defn:Cage/function:inCaseItem	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=<null>	PAT=function|Hasp|class_defn:Cage
+CHANGED-STILL-WRONG ELAB	tctl	package:tctl/class_defn:Cage/function:inCaseItem	Hasp	func_call	G=<absent>	PRIS=function|Hasp|class_defn:Cage	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inForBound	Hasp	func_call	G=function|Hasp|class_defn:Cage	PRIS=<null>	PAT=function|Hasp|class_defn:Cage
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inForBound	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=function|Hasp|class_defn:Cage	PAT=function|Hasp|package:tctl
+CHANGED-STILL-WRONG ELAB	tctl	package:tctl/class_defn:Cage/function:inIfBody	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=<null>	PAT=function|Hasp|class_defn:Cage
+CHANGED-STILL-WRONG ELAB	tctl	package:tctl/class_defn:Cage/function:inIfBody	Hasp	func_call	G=<absent>	PRIS=function|Hasp|class_defn:Cage	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inIfCond	Hasp	func_call	G=function|Hasp|class_defn:Cage	PRIS=<null>	PAT=function|Hasp|class_defn:Cage
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inIfCond	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=function|Hasp|class_defn:Cage	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inNestedBlk	Hasp	func_call	G=function|Hasp|class_defn:Cage	PRIS=<null>	PAT=function|Hasp|class_defn:Cage
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inNestedBlk	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=function|Hasp|class_defn:Cage	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inRepeat	Hasp	func_call	G=function|Hasp|class_defn:Cage	PRIS=<null>	PAT=function|Hasp|class_defn:Cage
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inRepeat	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=function|Hasp|class_defn:Cage	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inTernary	Hasp	func_call	G=function|Hasp|class_defn:Cage	PRIS=<null>	PAT=function|Hasp|class_defn:Cage
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inTernary	Hasp	func_call	G=function|Hasp|class_defn:Cage	PRIS=<null>	PAT=function|Hasp|class_defn:Cage
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inTernary	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=function|Hasp|class_defn:Cage	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inTernary	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=function|Hasp|class_defn:Cage	PAT=function|Hasp|package:tctl
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inWhile	Hasp	func_call	G=function|Hasp|class_defn:Cage	PRIS=<null>	PAT=function|Hasp|class_defn:Cage
+TO-GOLDEN           ELAB	tctl	package:tctl/class_defn:Cage/function:inWhile	Hasp	func_call	G=function|Hasp|package:tctl	PRIS=function|Hasp|class_defn:Cage	PAT=function|Hasp|package:tctl
+STILL-WRONG         ELAB	tctl	package:tctl/class_defn:Cage/task:inDelay	Wedge	func_call	G=<absent>	PRIS=<null>	PAT=<null>
+STILL-WRONG         ELAB	tctl	package:tctl/class_defn:Cage/task:inDelay	Wedge	task_call	G=task|Wedge|package:tctl	PRIS=<absent>	PAT=<absent>
+STILL-WRONG         ELAB	tctl	package:tctl/class_defn:Cage/task:inEventCtl	Wedge	func_call	G=<absent>	PRIS=<null>	PAT=<null>
+STILL-WRONG         ELAB	tctl	package:tctl/class_defn:Cage/task:inEventCtl	Wedge	task_call	G=task|Wedge|package:tctl	PRIS=<absent>	PAT=<absent>
+SCORE v113_ctl/elab  TO-GOLDEN=14  ALREADY-RIGHT=4  AWAY-GOLDEN=0  STILL-WRONG=4  CHANGED-STILL-WRONG=6
+-- v113_top.sv view=default  sur=rc=0 pris=rc=0 pat=rc=0
+TO-GOLDEN           ELAB	utop	package:utop/class_defn:Span/function:lift	Girder	func_call	G=function|Girder|package:utop	PRIS=<null>	PAT=function|Girder|package:utop
+SCORE v113_top/default  TO-GOLDEN=1  ALREADY-RIGHT=2  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+-- v113_top.sv view=elab  sur=rc=0 pris=rc=0 pat=rc=0
+STILL-WRONG         ELAB	utop	package:utop/class_defn:Span/function:drop	Girder	func_call	G=<absent>	PRIS=function|Girder|class_defn:Span	PAT=function|Girder|class_defn:Span
+CHANGED-STILL-WRONG ELAB	utop	package:utop/class_defn:Span/function:lift	Girder	func_call	G=function|Girder|package:utop	PRIS=<null>	PAT=function|Girder|class_defn:Span
+CHANGED-STILL-WRONG ELAB	utop	package:utop/class_defn:Span/function:lift	Girder	func_call	G=<absent>	PRIS=function|Girder|class_defn:Span	PAT=function|Girder|package:utop
+SCORE v113_top/elab  TO-GOLDEN=0  ALREADY-RIGHT=5  AWAY-GOLDEN=0  STILL-WRONG=1  CHANGED-STILL-WRONG=2
+-- v113_dpi.sv view=default  sur=rc=4 pris=rc=4 pat=rc=4
+TO-GOLDEN           ELAB	vexo	package:vexo/class_defn:Cov/function:new	Louver	func_call	G=function|Louver|package:vexo	PRIS=<null>	PAT=function|Louver|package:vexo
+TO-GOLDEN           ELAB	vexo	package:vexo/class_defn:Cov/function:sampleIt	Louver	func_call	G=function|Louver|package:vexo	PRIS=<null>	PAT=function|Louver|package:vexo
+TO-GOLDEN           ELAB	vexo	package:vexo/class_defn:Dpi/function:callsDpi	Flange	func_call	G=function|Flange|package:vexo	PRIS=<null>	PAT=function|Flange|package:vexo
+TO-GOLDEN           ELAB	vexo	package:vexo/class_defn:Par/function:pcall	Trunnion	func_call	G=function|Trunnion|package:vexo	PRIS=<null>	PAT=function|Trunnion|package:vexo
+SCORE v113_dpi/default  TO-GOLDEN=4  ALREADY-RIGHT=5  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+-- v113_dpi.sv view=elab  sur=rc=4 pris=rc=4 pat=rc=4
+TO-GOLDEN           ELAB	vexo	package:vexo/class_defn:Cov/function:new	Louver	func_call	G=function|Louver|class_defn:Cov	PRIS=<null>	PAT=function|Louver|class_defn:Cov
+TO-GOLDEN           ELAB	vexo	package:vexo/class_defn:Cov/function:new	Louver	func_call	G=function|Louver|package:vexo	PRIS=function|Louver|class_defn:Cov	PAT=function|Louver|package:vexo
+CHANGED-STILL-WRONG ELAB	vexo	package:vexo/class_defn:Cov/function:sampleIt	Louver	func_call	G=function|Louver|package:vexo	PRIS=<null>	PAT=function|Louver|class_defn:Cov
+CHANGED-STILL-WRONG ELAB	vexo	package:vexo/class_defn:Cov/function:sampleIt	Louver	func_call	G=<absent>	PRIS=function|Louver|class_defn:Cov	PAT=function|Louver|package:vexo
+TO-GOLDEN           ELAB	vexo	package:vexo/class_defn:Dpi/function:callsDpi	Flange	func_call	G=function|Flange|class_defn:Dpi	PRIS=<null>	PAT=function|Flange|class_defn:Dpi
+TO-GOLDEN           ELAB	vexo	package:vexo/class_defn:Dpi/function:callsDpi	Flange	func_call	G=function|Flange|package:vexo	PRIS=function|Flange|class_defn:Dpi	PAT=function|Flange|package:vexo
+CHANGED-STILL-WRONG ELAB	vexo	package:vexo/class_defn:Par/function:pcall	Trunnion	func_call	G=function|Trunnion|package:vexo	PRIS=<null>	PAT=function|Trunnion|class_defn:Par
+CHANGED-STILL-WRONG ELAB	vexo	package:vexo/class_defn:Par/function:pcall	Trunnion	func_call	G=<absent>	PRIS=function|Trunnion|class_defn:Par	PAT=function|Trunnion|package:vexo
+SCORE v113_dpi/elab  TO-GOLDEN=4  ALREADY-RIGHT=10  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=4

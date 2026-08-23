@@ -1,0 +1,46 @@
+PREDICT	./default/BuildUVMPkg-bf853d43/slang.uhdm	cells=3	objs=3
+  CELL	uvm_pkg|uvm_report_object::uvm_report|uvm_process_report_message	n=1
+  CELL	uvm_pkg|uvm_sequence_item::set_id_info|uvm_report_fatal	n=1
+  CELL	uvm_pkg|uvm_sequence_item::uvm_report|uvm_process_report_message	n=1
+--
+PREDICT	./default/MiniAmiq-544c7f61/slang.uhdm	cells=3	objs=3
+  CELL	uvm_pkg|uvm_report_object::uvm_report|uvm_process_report_message	n=1
+  CELL	uvm_pkg|uvm_sequence_item::set_id_info|uvm_report_fatal	n=1
+  CELL	uvm_pkg|uvm_sequence_item::uvm_report|uvm_process_report_message	n=1
+--
+PREDICT	./default/Scoreboard-59431470/slang.uhdm	cells=3	objs=3
+  CELL	uvm_pkg|uvm_report_object::uvm_report|uvm_process_report_message	n=1
+  CELL	uvm_pkg|uvm_sequence_item::set_id_info|uvm_report_fatal	n=1
+  CELL	uvm_pkg|uvm_sequence_item::uvm_report|uvm_process_report_message	n=1
+--
+PREDICT	./default/SimpleUVM-1dc93a62/slang.uhdm	cells=3	objs=3
+  CELL	uvm_pkg|uvm_report_object::uvm_report|uvm_process_report_message	n=1
+  CELL	uvm_pkg|uvm_sequence_item::set_id_info|uvm_report_fatal	n=1
+  CELL	uvm_pkg|uvm_sequence_item::uvm_report|uvm_process_report_message	n=1
+--
+PREDICT	./default/SeqDriver-32af76aa/slang.uhdm	cells=3	objs=3
+  CELL	uvm_pkg|uvm_report_object::uvm_report|uvm_process_report_message	n=1
+  CELL	uvm_pkg|uvm_sequence_item::set_id_info|uvm_report_fatal	n=1
+  CELL	uvm_pkg|uvm_sequence_item::uvm_report|uvm_process_report_message	n=1
+--
+PREDICT	./testflags/BuildUVMPkg-bf853d43/slang.uhdm	cells=3	objs=3
+  CELL	uvm_pkg|uvm_report_object::uvm_report|uvm_process_report_message	n=1
+  CELL	uvm_pkg|uvm_sequence_item::set_id_info|uvm_report_fatal	n=1
+  CELL	uvm_pkg|uvm_sequence_item::uvm_report|uvm_process_report_message	n=1
+--
+PREDICT	./testflags/MiniAmiq-544c7f61/slang.uhdm	cells=3	objs=3
+  CELL	uvm_pkg|uvm_report_object::uvm_report|uvm_process_report_message	n=1
+  CELL	uvm_pkg|uvm_sequence_item::set_id_info|uvm_report_fatal	n=1
+  CELL	uvm_pkg|uvm_sequence_item::uvm_report|uvm_process_report_message	n=1
+--
+PREDICT	./testflags/SimpleUVM-1dc93a62/slang.uhdm	cells=3	objs=3
+  CELL	uvm_pkg|uvm_report_object::uvm_report|uvm_process_report_message	n=1
+  CELL	uvm_pkg|uvm_sequence_item::set_id_info|uvm_report_fatal	n=1
+  CELL	uvm_pkg|uvm_sequence_item::uvm_report|uvm_process_report_message	n=1
+--
+PREDICT	./testflags/SeqDriver-32af76aa/slang.uhdm	cells=3	objs=3
+  CELL	uvm_pkg|uvm_report_object::uvm_report|uvm_process_report_message	n=1
+  CELL	uvm_pkg|uvm_sequence_item::set_id_info|uvm_report_fatal	n=1
+  CELL	uvm_pkg|uvm_sequence_item::uvm_report|uvm_process_report_message	n=1
+PREDICT-on-GOLDEN over 1516 surelog goldens + 1458 uhdm2rtlil goldens + 18 grid goldens: 0
+NOMOVE rows (surelog goldens): 1516

@@ -1,0 +1,1018 @@
+golden objs=188084 ours objs=183307
+HEAD r=1
+  LHS: function(uvm_report_fatal)@uvm_globals.svh:236:1-249:12#805
+  RHS: <null>
+POOL objects with a singular tf-edge == head-LHS: 143
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_factory.svh:887:5-887:99#4462
+     parent: func_call(uvm_report_fatal)@uvm_factory.svh:887:5-887:99#4462
+      < begin()@uvm_factory.svh:886:20-888:6#4461
+      < if_stmt()@uvm_factory.svh:886:3-888:6#4460
+      < begin()@uvm_factory.svh:889:3-896:6#4456
+      < function(register)@uvm_factory.svh:884:1-925:12#488
+      < class_defn(uvm_default_factory)@uvm_factory.svh:330:1-494:9#15
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:170#11508
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:170#11508
+      < if_stmt()@uvm_message_defines.svh:165:6-166:171#11507
+      < begin()@uvm_message_defines.svh:164:4-167:7#11502
+      < if_stmt()@uvm_phase.svh:836:3-167:7#11501
+      < begin()@uvm_phase.svh:834:3-834:36#11472
+      < function(add)@uvm_phase.svh:829:1-994:12#585
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:208#11548
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:208#11548
+      < if_stmt()@uvm_message_defines.svh:165:6-166:209#11547
+      < begin()@uvm_message_defines.svh:164:4-167:7#11542
+      < if_stmt()@uvm_phase.svh:842:5-167:7#11541
+      < begin()@uvm_phase.svh:839:75-845:6#11526
+      < if_stmt()@uvm_phase.svh:839:3-845:6#11525
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:210#11593
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:210#11593
+      < if_stmt()@uvm_message_defines.svh:165:6-166:211#11592
+      < begin()@uvm_message_defines.svh:164:4-167:7#11587
+      < if_stmt()@uvm_phase.svh:850:5-167:7#11586
+      < begin()@uvm_phase.svh:847:79-853:6#11571
+      < if_stmt()@uvm_phase.svh:847:3-853:6#11570
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:209#11638
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:209#11638
+      < if_stmt()@uvm_message_defines.svh:165:6-166:210#11637
+      < begin()@uvm_message_defines.svh:164:4-167:7#11632
+      < if_stmt()@uvm_phase.svh:858:5-167:7#11631
+      < begin()@uvm_phase.svh:855:77-861:6#11616
+      < if_stmt()@uvm_phase.svh:855:3-861:6#11615
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:211#11669
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:211#11669
+      < if_stmt()@uvm_message_defines.svh:165:6-166:212#11668
+      < begin()@uvm_message_defines.svh:164:4-167:7#11663
+      < if_stmt()@uvm_phase.svh:863:3-167:7#11662
+      < begin()@uvm_phase.svh:834:3-834:36#11472
+      < function(add)@uvm_phase.svh:829:1-994:12#585
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:209#11695
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:209#11695
+      < if_stmt()@uvm_message_defines.svh:165:6-166:210#11694
+      < begin()@uvm_message_defines.svh:164:4-167:7#11689
+      < if_stmt()@uvm_phase.svh:867:3-167:7#11688
+      < begin()@uvm_phase.svh:834:3-834:36#11472
+      < function(add)@uvm_phase.svh:829:1-994:12#585
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:175#12051
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:175#12051
+      < if_stmt()@uvm_message_defines.svh:165:6-167:176#12050
+      < begin()@uvm_message_defines.svh:164:4-168:7#12045
+      < begin()@uvm_phase.svh:967:47-970:8#12044
+      < if_stmt()@uvm_phase.svh:967:5-970:8#12043
+      < begin()@uvm_phase.svh:966:57-980:6#12037
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:212#12288
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:212#12288
+      < if_stmt()@uvm_message_defines.svh:165:6-166:213#12287
+      < begin()@uvm_message_defines.svh:164:4-167:7#12282
+      < if_stmt()@uvm_phase.svh:1041:3-167:7#12281
+      < begin()@uvm_phase.svh:1036:3-1036:16#12247
+      < function(get_domain)@uvm_phase.svh:1034:1-1043:12#589
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:154#13707
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:154#13707
+      < if_stmt()@uvm_message_defines.svh:165:6-167:155#13706
+      < begin()@uvm_message_defines.svh:164:4-168:7#13701
+      < begin()@uvm_phase.svh:1476:39-1492:22#13624
+      < if_else()@uvm_phase.svh:1476:19-1509:22#13623
+      < begin()@uvm_phase.svh:1470:46-1512:19#13578
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:166#13800
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:166#13800
+      < if_stmt()@uvm_message_defines.svh:165:6-167:167#13799
+      < begin()@uvm_message_defines.svh:164:4-168:7#13794
+      < begin()@uvm_phase.svh:1493:24-1509:22#13717
+      < if_else()@uvm_phase.svh:1476:19-1509:22#13623
+      < begin()@uvm_phase.svh:1470:46-1512:19#13578
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:198#14936
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:198#14936
+      < if_stmt()@uvm_message_defines.svh:165:6-166:199#14935
+      < begin()@uvm_message_defines.svh:164:4-167:7#14930
+      < begin()@uvm_phase.svh:1882:26-1884:6#14929
+      < if_else()@uvm_phase.svh:1882:3-1926:6#14928
+      < function(sync)@uvm_phase.svh:1879:1-1927:12#615
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:186#14955
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:186#14955
+      < if_stmt()@uvm_message_defines.svh:165:6-166:187#14954
+      < begin()@uvm_message_defines.svh:164:4-167:7#14949
+      < begin()@uvm_phase.svh:1885:28-1887:6#14948
+      < if_else()@uvm_phase.svh:1885:8-1926:6#14947
+      < if_else()@uvm_phase.svh:1882:3-1926:6#14928
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:208#14975
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:208#14975
+      < if_stmt()@uvm_message_defines.svh:165:6-166:209#14974
+      < begin()@uvm_message_defines.svh:164:4-167:7#14969
+      < begin()@uvm_phase.svh:1888:33-1890:6#14968
+      < if_else()@uvm_phase.svh:1888:8-1926:6#14967
+      < if_else()@uvm_phase.svh:1885:8-1926:6#14947
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:200#14998
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:200#14998
+      < if_stmt()@uvm_message_defines.svh:165:6-166:201#14997
+      < begin()@uvm_message_defines.svh:164:4-167:7#14992
+      < begin()@uvm_phase.svh:1891:49-1893:6#14991
+      < if_else()@uvm_phase.svh:1891:8-1926:6#14990
+      < if_else()@uvm_phase.svh:1888:8-1926:6#14967
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:200#15207
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:200#15207
+      < if_stmt()@uvm_message_defines.svh:165:6-166:201#15206
+      < begin()@uvm_message_defines.svh:164:4-167:7#15201
+      < begin()@uvm_phase.svh:1936:26-1938:6#15200
+      < if_else()@uvm_phase.svh:1936:3-1974:6#15199
+      < function(unsync)@uvm_phase.svh:1933:1-1975:12#616
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:188#15226
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:188#15226
+      < if_stmt()@uvm_message_defines.svh:165:6-166:189#15225
+      < begin()@uvm_message_defines.svh:164:4-167:7#15220
+      < begin()@uvm_phase.svh:1938:32-1940:6#15219
+      < if_else()@uvm_phase.svh:1938:12-1974:6#15218
+      < if_else()@uvm_phase.svh:1936:3-1974:6#15199
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:210#15246
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:210#15246
+      < if_stmt()@uvm_message_defines.svh:165:6-166:211#15245
+      < begin()@uvm_message_defines.svh:164:4-167:7#15240
+      < begin()@uvm_phase.svh:1940:37-1942:6#15239
+      < if_else()@uvm_phase.svh:1940:12-1974:6#15238
+      < if_else()@uvm_phase.svh:1938:12-1974:6#15218
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#15269
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#15269
+      < if_stmt()@uvm_message_defines.svh:165:6-166:203#15268
+      < begin()@uvm_message_defines.svh:164:4-167:7#15263
+      < begin()@uvm_phase.svh:1942:53-1944:6#15262
+      < if_else()@uvm_phase.svh:1942:12-1974:6#15261
+      < if_else()@uvm_phase.svh:1940:12-1974:6#15238
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:148#15580
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:148#15580
+      < if_stmt()@uvm_message_defines.svh:165:6-166:149#15579
+      < begin()@uvm_message_defines.svh:164:4-167:7#15574
+      < begin()@uvm_phase.svh:2031:20-2038:8#15558
+      < if_else()@uvm_phase.svh:2031:5-2043:8#15557
+      < begin()@uvm_phase.svh:2029:18-2044:6#15548
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_root.svh:465:7-466:86#16290
+     parent: func_call(uvm_report_fatal)@uvm_root.svh:465:7-466:86#16290
+      < begin()@uvm_root.svh:464:43-468:8#16289
+      < if_stmt()@uvm_root.svh:464:5-468:8#16288
+      < begin()@uvm_root.svh:460:24-478:6#16269
+      < if_stmt()@uvm_root.svh:460:3-478:6#16268
+      < begin()@uvm_root.svh:403:3-403:51#16141
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_root.svh:475:7-476:66#16320
+     parent: func_call(uvm_report_fatal)@uvm_root.svh:475:7-476:66#16320
+      < begin()@uvm_root.svh:472:31-477:8#16308
+      < if_stmt()@uvm_root.svh:472:5-477:8#16307
+      < begin()@uvm_root.svh:460:24-478:6#16269
+      < if_stmt()@uvm_root.svh:460:3-478:6#16268
+      < begin()@uvm_root.svh:403:3-403:51#16141
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_root.svh:481:5-486:74#16334
+     parent: func_call(uvm_report_fatal)@uvm_root.svh:481:5-486:74#16334
+      < begin()@uvm_root.svh:480:30-488:6#16333
+      < if_stmt()@uvm_root.svh:480:3-488:6#16332
+      < begin()@uvm_root.svh:403:3-403:51#16141
+      < task(run_test)@uvm_root.svh:400:1-519:8#633
+      < class_defn(uvm_root)@uvm_root.svh:71:1-301:9#109
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-169:165#18044
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-169:165#18044
+      < if_stmt()@uvm_message_defines.svh:165:6-169:166#18043
+      < begin()@uvm_message_defines.svh:164:4-170:7#18038
+      < if_stmt()@uvm_root.svh:1066:3-170:7#18037
+      < begin()@uvm_root.svh:1061:3-1064:7#17965
+      < task(run_phase)@uvm_root.svh:1055:1-1071:8#652
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:820:5-820:95#24148
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:820:5-820:95#24148
+      < begin()@uvm_sequencer_base.svh:804:46-821:6#24085
+      < if_stmt()@uvm_sequencer_base.svh:804:3-821:6#24084
+      < begin()@uvm_sequencer_base.svh:742:3-742:28#23853
+      < function(m_choose_next_request)@uvm_sequencer_base.svh:740:1-870:12#829
+      < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9#236
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:861:7-863:52#24269
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:861:7-863:52#24269
+      < begin()@uvm_sequencer_base.svh:860:40-864:8#24268
+      < if_stmt()@uvm_sequencer_base.svh:860:5-864:8#24267
+      < begin()@uvm_sequencer_base.svh:854:42-866:6#24249
+      < if_stmt()@uvm_sequencer_base.svh:854:3-866:6#24248
+      < begin()@uvm_sequencer_base.svh:742:3-742:28#23853
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:868:3-868:87#24278
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:868:3-868:87#24278
+      < begin()@uvm_sequencer_base.svh:742:3-742:28#23853
+      < function(m_choose_next_request)@uvm_sequencer_base.svh:740:1-870:12#829
+      < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9#236
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+      < design(work@top)@:0:0-0:0#194978
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:274#24410
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:274#24410
+      < if_stmt()@uvm_message_defines.svh:165:6-166:275#24409
+      < begin()@uvm_message_defines.svh:164:4-167:7#24404
+      < begin()@uvm_sequencer_base.svh:929:89-931:27#24403
+      < if_stmt()@uvm_sequencer_base.svh:929:24-931:27#24402
+      < begin()@uvm_sequencer_base.svh:927:26-932:24#24396
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:961:7-964:66#24452
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:961:7-964:66#24452
+      < begin()@uvm_sequencer_base.svh:960:41-965:8#24451
+      < if_stmt()@uvm_sequencer_base.svh:960:5-965:8#24450
+      < begin()@uvm_sequencer_base.svh:959:40-967:6#24444
+      < if_stmt()@uvm_sequencer_base.svh:959:3-967:6#24443
+      < begin()@uvm_sequencer_base.svh:969:3-974:6#24436
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:970:5-973:80#24476
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:970:5-973:80#24476
+      < begin()@uvm_sequencer_base.svh:969:52-974:6#24475
+      < if_stmt()@uvm_sequencer_base.svh:969:3-974:6#24474
+      < begin()@uvm_sequencer_base.svh:969:3-974:6#24436
+      < function(m_get_seq_item_priority)@uvm_sequencer_base.svh:957:1-976:12#832
+      < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9#236
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1015:5-1015:78#24548
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1015:5-1015:78#24548
+      < begin()@uvm_sequencer_base.svh:1014:22-1016:6#24547
+      < if_stmt()@uvm_sequencer_base.svh:1014:3-1016:6#24546
+      < begin()@uvm_sequencer_base.svh:1014:3-1016:6#24537
+      < function(is_child)@uvm_sequencer_base.svh:1010:1-1030:12#835
+      < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9#236
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1019:5-1019:79#24557
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1019:5-1019:79#24557
+      < begin()@uvm_sequencer_base.svh:1018:23-1020:6#24556
+      < if_stmt()@uvm_sequencer_base.svh:1018:3-1020:6#24555
+      < begin()@uvm_sequencer_base.svh:1014:3-1016:6#24537
+      < function(is_child)@uvm_sequencer_base.svh:1010:1-1030:12#835
+      < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9#236
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1058:5-1059:60#24643
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1058:5-1059:60#24643
+      < if_stmt()@uvm_sequencer_base.svh:1057:3-1059:61#24642
+      < begin()@uvm_sequencer_base.svh:1055:3-1055:17#24629
+      < task(wait_for_grant)@uvm_sequencer_base.svh:1051:1-1097:8#837
+      < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9#236
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1125:5-1126:70#24801
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1125:5-1126:70#24801
+      < if_stmt()@uvm_sequencer_base.svh:1124:3-1126:71#24800
+      < begin()@uvm_sequencer_base.svh:1128:5-1134:8#24796
+      < function(is_blocked)@uvm_sequencer_base.svh:1122:1-1136:12#839
+      < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9#236
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1146:5-1147:68#24849
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1146:5-1147:68#24849
+      < if_stmt()@uvm_sequencer_base.svh:1145:3-1147:69#24848
+      < begin()@uvm_sequencer_base.svh:1145:3-1147:69#24840
+      < function(has_lock)@uvm_sequencer_base.svh:1142:1-1155:12#840
+      < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9#236
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1168:5-1169:68#24899
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1168:5-1169:68#24899
+      < if_stmt()@uvm_sequencer_base.svh:1167:3-1169:69#24898
+      < begin()@uvm_sequencer_base.svh:1165:3-1165:32#24885
+      < task(m_lock_req)@uvm_sequencer_base.svh:1163:1-1195:8#841
+      < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9#236
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1205:5-1206:72#24971
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1205:5-1206:72#24971
+      < begin()@uvm_sequencer_base.svh:1204:29-1207:6#24970
+      < if_stmt()@uvm_sequencer_base.svh:1204:3-1207:6#24969
+      < begin()@uvm_sequencer_base.svh:1209:3-1223:6#24965
+      < function(m_unlock_req)@uvm_sequencer_base.svh:1203:1-1224:12#842
+      < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9#236
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1650:9-1651:64#25981
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1650:9-1651:64#25981
+      < begin()@uvm_sequencer_base.svh:1649:7-1652:10#25980
+      < if_stmt()@uvm_sequencer_base.svh:1647:5-1652:10#25979
+      < begin()@uvm_sequencer_base.svh:1604:3-1604:51#25826
+      < task(start_default_sequence)@uvm_sequencer_base.svh:1602:1-1666:8#865
+      < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9#236
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1655:7-1655:76#25992
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1655:7-1655:76#25992
+      < begin()@uvm_sequencer_base.svh:1654:24-1656:8#25991
+      < if_stmt()@uvm_sequencer_base.svh:1654:5-1656:8#25990
+      < begin()@uvm_sequencer_base.svh:1604:3-1604:51#25826
+      < task(start_default_sequence)@uvm_sequencer_base.svh:1602:1-1666:8#865
+      < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9#236
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1713:7-1715:31#26157
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_base.svh:1713:7-1715:31#26157
+      < begin()@uvm_sequencer_base.svh:1712:3-1716:6#26156
+      < if_stmt()@uvm_sequencer_base.svh:1709:3-1716:6#26155
+      < begin()@uvm_sequencer_base.svh:1696:3-1696:42#26082
+      < function(get_sequence)@uvm_sequencer_base.svh:1694:1-1722:12#867
+      < class_defn(uvm_sequencer_base)@uvm_sequencer_base.svh:41:1-482:9#236
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:273:5-273:78#26287
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:273:5-273:78#26287
+      < begin()@uvm_sequencer_param_base.svh:272:29-274:6#26286
+      < if_stmt()@uvm_sequencer_param_base.svh:272:3-274:6#26285
+      < begin()@uvm_sequencer_param_base.svh:272:3-274:6#26277
+      < function(send_request)@uvm_sequencer_param_base.svh:267:1-304:12#874
+      < class_defn(uvm_sequencer_param_base)@uvm_sequencer_param_base.svh:31:1-215:9#239
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:277:5-277:87#26298
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:277:5-277:87#26298
+      < begin()@uvm_sequencer_param_base.svh:276:52-278:6#26297
+      < if_stmt()@uvm_sequencer_param_base.svh:276:3-278:6#26296
+      < begin()@uvm_sequencer_param_base.svh:272:3-274:6#26277
+      < function(send_request)@uvm_sequencer_param_base.svh:267:1-304:12#874
+      < class_defn(uvm_sequencer_param_base)@uvm_sequencer_param_base.svh:31:1-215:9#239
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:292:5-292:98#26342
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:292:5-292:98#26342
+      < begin()@uvm_sequencer_param_base.svh:291:12-293:6#26341
+      < if_else()@uvm_sequencer_param_base.svh:281:3-293:6#26309
+      < begin()@uvm_sequencer_param_base.svh:272:3-274:6#26277
+      < function(send_request)@uvm_sequencer_param_base.svh:267:1-304:12#874
+      < class_defn(uvm_sequencer_param_base)@uvm_sequencer_param_base.svh:31:1-215:9#239
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:298:5-298:190#26365
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:298:5-298:190#26365
+      < begin()@uvm_sequencer_param_base.svh:297:41-299:6#26364
+      < if_stmt()@uvm_sequencer_param_base.svh:297:3-299:6#26363
+      < begin()@uvm_sequencer_param_base.svh:272:3-274:6#26277
+      < function(send_request)@uvm_sequencer_param_base.svh:267:1-304:12#874
+      < class_defn(uvm_sequencer_param_base)@uvm_sequencer_param_base.svh:31:1-215:9#239
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:314:5-314:71#26386
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:314:5-314:71#26386
+      < begin()@uvm_sequencer_param_base.svh:313:18-315:6#26385
+      < if_stmt()@uvm_sequencer_param_base.svh:313:3-315:6#26384
+      < begin()@uvm_sequencer_param_base.svh:313:3-315:6#26375
+      < function(put_response)@uvm_sequencer_param_base.svh:310:1-344:12#875
+      < class_defn(uvm_sequencer_param_base)@uvm_sequencer_param_base.svh:31:1-215:9#239
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:323:5-323:88#26402
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:323:5-323:88#26402
+      < begin()@uvm_sequencer_param_base.svh:321:34-326:6#26401
+      < if_stmt()@uvm_sequencer_param_base.svh:321:3-326:6#26400
+      < begin()@uvm_sequencer_param_base.svh:313:3-315:6#26375
+      < function(put_response)@uvm_sequencer_param_base.svh:310:1-344:12#875
+      < class_defn(uvm_sequencer_param_base)@uvm_sequencer_param_base.svh:31:1-215:9#239
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:354:5-354:86#26454
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_param_base.svh:354:5-354:86#26454
+      < begin()@uvm_sequencer_param_base.svh:353:28-355:6#26453
+      < if_stmt()@uvm_sequencer_param_base.svh:353:3-355:6#26452
+      < begin()@uvm_sequencer_param_base.svh:353:3-355:6#26443
+      < function(analysis_write)@uvm_sequencer_param_base.svh:350:1-357:12#876
+      < class_defn(uvm_sequencer_param_base)@uvm_sequencer_param_base.svh:31:1-215:9#239
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer.svh:285:5-286:92#26787
+     parent: func_call(uvm_report_fatal)@uvm_sequencer.svh:285:5-286:92#26787
+      < begin()@uvm_sequencer.svh:284:35-287:6#26786
+      < if_else()@uvm_sequencer.svh:284:3-290:6#26785
+      < begin()@uvm_sequencer.svh:281:3-281:31#26768
+      < function(item_done)@uvm_sequencer.svh:277:1-298:12#890
+      < class_defn(uvm_sequencer)@uvm_sequencer.svh:30:1-139:9#240
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:178#27358
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:178#27358
+      < if_stmt()@uvm_message_defines.svh:165:6-167:179#27357
+      < begin()@uvm_message_defines.svh:164:4-168:7#27352
+      < begin()@uvm_sequence_library.svh:643:28-647:6#27351
+      < if_stmt()@uvm_sequence_library.svh:643:3-647:6#27350
+      < begin()@uvm_sequence_library.svh:641:3-641:51#27335
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:231#27671
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:231#27671
+      < if_stmt()@uvm_message_defines.svh:165:6-166:232#27670
+      < begin()@uvm_message_defines.svh:164:4-167:7#27665
+      < begin()@uvm_sequence_library.svh:730:16-733:10#27664
+      < case_item()@uvm_sequence_library.svh:730:7-733:10#27663
+      < case_stmt()@uvm_sequence_library.svh:667:5-734:13#27447
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:216#28434
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:216#28434
+      < if_stmt()@uvm_message_defines.svh:165:6-166:217#28433
+      < begin()@uvm_message_defines.svh:164:4-167:7#28428
+      < begin()@uvm_reg_backdoor.svh:252:1-252:2#28427
+      < task(wait_for_change)@uvm_reg_backdoor.svh:251:1-253:8#915
+      < class_defn(uvm_reg_backdoor)@uvm_reg_backdoor.svh:37:1-234:27#290
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:206#28616
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:206#28616
+      < if_stmt()@uvm_message_defines.svh:165:6-166:207#28615
+      < begin()@uvm_message_defines.svh:164:4-167:7#28610
+      < begin()@uvm_reg_backdoor.svh:329:1-329:2#28609
+      < task(write)@uvm_reg_backdoor.svh:328:1-330:8#919
+      < class_defn(uvm_reg_backdoor)@uvm_reg_backdoor.svh:37:1-234:27#290
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:210#28644
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:210#28644
+      < if_stmt()@uvm_message_defines.svh:165:6-166:211#28643
+      < begin()@uvm_message_defines.svh:164:4-167:7#28638
+      < begin()@uvm_reg_backdoor.svh:345:1-345:2#28637
+      < function(read_func)@uvm_reg_backdoor.svh:344:1-347:12#921
+      < class_defn(uvm_reg_backdoor)@uvm_reg_backdoor.svh:37:1-234:27#290
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:190#29367
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:190#29367
+      < if_stmt()@uvm_message_defines.svh:165:6-166:191#29366
+      < begin()@uvm_message_defines.svh:164:4-167:7#29361
+      < begin()@uvm_reg_field.svh:1050:4-1078:11#29200
+      < function(XpredictX)@uvm_reg_field.svh:1045:1-1082:23#936
+      < class_defn(uvm_reg_field)@uvm_reg_field.svh:39:1-780:24#291
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:179#32177
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:179#32177
+      < if_stmt()@uvm_message_defines.svh:165:6-166:180#32176
+      < begin()@uvm_message_defines.svh:164:4-167:7#32171
+      < begin()@uvm_reg_field.svh:1979:3-1979:15#32170
+      < function(clone)@uvm_reg_field.svh:1977:1-1980:12#963
+      < class_defn(uvm_reg_field)@uvm_reg_field.svh:39:1-780:24#291
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:175#34308
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:175#34308
+      < if_stmt()@uvm_message_defines.svh:165:6-166:176#34307
+      < begin()@uvm_message_defines.svh:164:4-167:7#34302
+      < if_stmt()@uvm_message_defines.svh:163:4-167:7#34301
+      < begin()@uvm_reg.svh:1213:4-1213:12#34271
+      < function(add_field)@uvm_reg.svh:1211:1-1266:23#987
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:177#39919
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:177#39919
+      < if_stmt()@uvm_message_defines.svh:165:6-166:178#39918
+      < begin()@uvm_message_defines.svh:164:4-167:7#39913
+      < begin()@uvm_reg.svh:3069:3-3069:15#39912
+      < function(clone)@uvm_reg.svh:3067:1-3070:12#1058
+      < class_defn(uvm_reg)@uvm_reg.svh:37:9-1161:18#294
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:177#39938
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:177#39938
+      < if_stmt()@uvm_message_defines.svh:165:6-166:178#39937
+      < begin()@uvm_message_defines.svh:164:4-167:7#39932
+      < function(do_copy)@uvm_reg.svh:3074:1-3076:12#1059
+      < class_defn(uvm_reg)@uvm_reg.svh:37:9-1161:18#294
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:200#40543
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:200#40543
+      < if_stmt()@uvm_message_defines.svh:165:6-166:201#40542
+      < begin()@uvm_message_defines.svh:164:4-167:7#40537
+      < begin()@uvm_reg_file.svh:452:4-452:14#40536
+      < function(convert2string)@uvm_reg_file.svh:450:1-453:28#1075
+      < class_defn(uvm_reg_file)@uvm_reg_file.svh:34:9-219:23#298
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:186#40570
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:186#40570
+      < if_stmt()@uvm_message_defines.svh:165:6-166:187#40569
+      < begin()@uvm_message_defines.svh:164:4-167:7#40564
+      < begin()@uvm_reg_file.svh:468:3-468:15#40563
+      < function(clone)@uvm_reg_file.svh:466:1-469:12#1077
+      < class_defn(uvm_reg_file)@uvm_reg_file.svh:34:9-219:23#298
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:186#40589
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:186#40589
+      < if_stmt()@uvm_message_defines.svh:165:6-166:187#40588
+      < begin()@uvm_message_defines.svh:164:4-167:7#40583
+      < function(do_copy)@uvm_reg_file.svh:473:1-475:12#1078
+      < class_defn(uvm_reg_file)@uvm_reg_file.svh:34:9-219:23#298
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:183#42175
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:183#42175
+      < if_stmt()@uvm_message_defines.svh:165:6-166:184#42174
+      < begin()@uvm_message_defines.svh:164:4-167:7#42169
+      < if_stmt()@uvm_message_defines.svh:163:4-167:7#42168
+      < begin()@uvm_vreg.svh:793:4-793:12#42136
+      < function(add_field)@uvm_vreg.svh:791:1-847:23#1106
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:182#45179
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:182#45179
+      < if_stmt()@uvm_message_defines.svh:165:6-166:183#45178
+      < begin()@uvm_message_defines.svh:164:4-167:7#45173
+      < if_stmt()@uvm_mem.svh:964:4-167:7#45172
+      < begin()@uvm_mem.svh:967:4-967:22#45168
+      < function(configure)@uvm_mem.svh:961:1-990:23#1142
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:176#49565
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:176#49565
+      < if_stmt()@uvm_message_defines.svh:165:6-166:177#49564
+      < begin()@uvm_message_defines.svh:164:4-167:7#49559
+      < begin()@uvm_mem.svh:2362:3-2362:15#49558
+      < function(clone)@uvm_mem.svh:2360:1-2363:12#1199
+      < class_defn(uvm_mem)@uvm_mem.svh:40:1-923:18#305
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:176#49584
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:176#49584
+      < if_stmt()@uvm_message_defines.svh:165:6-166:177#49583
+      < begin()@uvm_message_defines.svh:164:4-167:7#49578
+      < function(do_copy)@uvm_mem.svh:2367:1-2369:12#1200
+      < class_defn(uvm_mem)@uvm_mem.svh:40:1-923:18#305
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:167#51905
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:167#51905
+      < if_stmt()@uvm_message_defines.svh:165:6-167:168#51904
+      < begin()@uvm_message_defines.svh:164:4-168:7#51899
+      < begin()@uvm_reg_map.svh:1390:15-1394:7#51898
+      < if_stmt()@uvm_reg_map.svh:1390:4-1394:7#51897
+      < begin()@uvm_reg_map.svh:1378:4-1378:42#51829
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:152#51996
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:152#51996
+      < if_stmt()@uvm_message_defines.svh:165:6-167:153#51995
+      < begin()@uvm_message_defines.svh:164:4-168:7#51990
+      < begin()@uvm_reg_map.svh:1413:22-1417:7#51989
+      < if_stmt()@uvm_reg_map.svh:1413:4-1417:7#51988
+      < begin()@uvm_reg_map.svh:1407:4-1407:24#51946
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:183#53235
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:183#53235
+      < if_stmt()@uvm_message_defines.svh:165:6-167:184#53234
+      < begin()@uvm_message_defines.svh:164:4-168:7#53229
+      < if_stmt()@uvm_reg_map.svh:1724:5-168:7#53228
+      < begin()@uvm_reg_map.svh:1722:35-1729:6#53210
+      < if_else()@uvm_reg_map.svh:1722:3-1747:6#53209
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:185#53288
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:185#53288
+      < if_stmt()@uvm_message_defines.svh:165:6-167:186#53287
+      < begin()@uvm_message_defines.svh:164:4-168:7#53282
+      < if_stmt()@uvm_reg_map.svh:1732:5-168:7#53281
+      < begin()@uvm_reg_map.svh:1730:40-1737:6#53263
+      < if_else()@uvm_reg_map.svh:1730:8-1747:6#53262
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:182#53341
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:182#53341
+      < if_stmt()@uvm_message_defines.svh:165:6-167:183#53340
+      < begin()@uvm_message_defines.svh:164:4-168:7#53335
+      < if_stmt()@uvm_reg_map.svh:1740:5-168:7#53334
+      < begin()@uvm_reg_map.svh:1738:42-1747:6#53316
+      < if_stmt()@uvm_reg_map.svh:1738:8-1747:6#53315
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:209#54046
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:209#54046
+      < if_stmt()@uvm_message_defines.svh:165:6-166:210#54045
+      < begin()@uvm_message_defines.svh:164:4-167:7#54040
+      < if_stmt()@uvm_reg_map.svh:1932:7-167:7#54039
+      < begin()@uvm_reg_map.svh:1924:26-1967:8#54013
+      < foreach_stmt()@uvm_reg_map.svh:1924:5-1924:12#54006
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:209#54593
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:209#54593
+      < if_stmt()@uvm_message_defines.svh:165:6-166:210#54592
+      < begin()@uvm_message_defines.svh:164:4-167:7#54587
+      < if_stmt()@uvm_reg_map.svh:2071:7-167:7#54586
+      < begin()@uvm_reg_map.svh:2060:26-2113:8#54538
+      < foreach_stmt()@uvm_reg_map.svh:2060:5-2060:12#54531
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:271#55143
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:271#55143
+      < if_stmt()@uvm_message_defines.svh:165:6-166:272#55142
+      < begin()@uvm_message_defines.svh:164:4-167:7#55137
+      < begin()@uvm_message_defines.svh:164:4-167:7#55130
+      < function(check_data_width)@uvm_reg_block.svh:943:1-949:12#1251
+      < class_defn(uvm_reg_block)@uvm_reg_block.svh:38:9-932:24#309
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:275#55512
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:275#55512
+      < if_stmt()@uvm_message_defines.svh:165:6-166:276#55511
+      < begin()@uvm_message_defines.svh:164:4-167:7#55506
+      < begin()@uvm_reg_block.svh:1092:26-1094:10#55505
+      < if_stmt()@uvm_reg_block.svh:1092:7-1094:10#55504
+      < begin()@uvm_reg_block.svh:1083:29-1119:7#55481
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:180#58618
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:180#58618
+      < if_stmt()@uvm_message_defines.svh:165:6-166:181#58617
+      < begin()@uvm_message_defines.svh:164:4-167:7#58612
+      < begin()@uvm_reg_block.svh:2173:3-2173:15#58611
+      < function(clone)@uvm_reg_block.svh:2171:1-2174:12#1314
+      < class_defn(uvm_reg_block)@uvm_reg_block.svh:38:9-932:24#309
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:180#58637
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:180#58637
+      < if_stmt()@uvm_message_defines.svh:165:6-166:181#58636
+      < begin()@uvm_message_defines.svh:164:4-167:7#58631
+      < function(do_copy)@uvm_reg_block.svh:2178:1-2180:12#1315
+      < class_defn(uvm_reg_block)@uvm_reg_block.svh:38:9-932:24#309
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_component.svh:1751:7-1752:77#59020
+     parent: func_call(uvm_report_fatal)@uvm_component.svh:1751:7-1752:77#59020
+      < if_stmt()@uvm_component.svh:1750:5-1752:78#59019
+      < begin()@uvm_component.svh:1745:3-1760:6#58996
+      < begin()@:0:0-0:0#58959
+      < function(new)@uvm_component.svh:1728:1-1816:12#58949
+      < class_defn(uvm_component)@uvm_component.svh:60:9-1710:25#108
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_component.svh:1754:7-1758:33#59031
+     parent: func_call(uvm_report_fatal)@uvm_component.svh:1754:7-1758:33#59031
+      < begin()@uvm_component.svh:1753:44-1759:8#59030
+      < if_stmt()@uvm_component.svh:1753:5-1759:8#59029
+      < begin()@uvm_component.svh:1745:3-1760:6#58996
+      < begin()@:0:0-0:0#58959
+      < function(new)@uvm_component.svh:1728:1-1816:12#58949
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:197#59073
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:197#59073
+      < if_stmt()@uvm_message_defines.svh:165:6-166:198#59072
+      < begin()@uvm_message_defines.svh:164:4-167:7#59067
+      < begin()@uvm_component.svh:1767:22-1769:6#59066
+      < if_stmt()@uvm_component.svh:1767:3-1769:6#59065
+      < begin()@:0:0-0:0#58959
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:154#59158
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:154#59158
+      < if_stmt()@uvm_message_defines.svh:165:6-166:155#59157
+      < begin()@uvm_message_defines.svh:164:4-167:7#59152
+      < begin()@uvm_component.svh:1779:24-1784:8#59141
+      < if_else()@uvm_component.svh:1779:5-169:7#59140
+      < begin()@uvm_component.svh:1778:65-1791:6#59136
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-168:170#59172
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-168:170#59172
+      < if_stmt()@uvm_message_defines.svh:165:6-168:171#59171
+      < begin()@uvm_message_defines.svh:164:4-169:7#59166
+      < if_else()@uvm_component.svh:1779:5-169:7#59140
+      < begin()@uvm_component.svh:1778:65-1791:6#59136
+      < if_stmt()@uvm_component.svh:1778:3-1791:6#59135
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_analysis_port.svh:148:10-148:133#121207
+     parent: func_call(uvm_report_fatal)@uvm_analysis_port.svh:148:10-148:133#121207
+      < if_stmt()@uvm_analysis_port.svh:147:7-148:134#121206
+      < begin()@uvm_analysis_port.svh:145:43-150:8#121197
+      < for_stmt()@uvm_analysis_port.svh:145:5-145:8#121185
+      < begin()@uvm_analysis_port.svh:145:5-150:8#121179
+      < function(write)@uvm_analysis_port.svh:143:3-151:14#121176
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_analysis_port.svh:75:9-75:132#121323
+     parent: func_call(uvm_report_fatal)@uvm_analysis_port.svh:75:9-75:132#121323
+      < if_stmt()@uvm_analysis_port.svh:74:7-75:133#121322
+      < begin()@uvm_analysis_port.svh:72:43-77:8#121313
+      < for_stmt()@uvm_analysis_port.svh:72:5-72:8#121301
+      < begin()@uvm_analysis_port.svh:72:5-77:8#121295
+      < function(write)@uvm_analysis_port.svh:70:3-78:14#121292
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#121662
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#121662
+      < if_stmt()@uvm_message_defines.svh:165:6-166:203#121661
+      < begin()@uvm_message_defines.svh:164:4-167:7#121656
+      < if_stmt()@uvm_resource_specializations.svh:49:5-167:7#121655
+      < begin()@uvm_resource_specializations.svh:48:5-48:87#121640
+      < function(get_by_name)@uvm_resource_specializations.svh:46:3-46:9#121626
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#121705
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#121705
+      < if_stmt()@uvm_message_defines.svh:165:6-166:203#121704
+      < begin()@uvm_message_defines.svh:164:4-167:7#121699
+      < if_stmt()@uvm_resource_specializations.svh:58:5-167:7#121698
+      < begin()@uvm_resource_specializations.svh:57:5-57:86#121683
+      < function(get_by_type)@uvm_resource_specializations.svh:54:3-54:9#121672
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:192#123149
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:192#123149
+      < if_stmt()@uvm_message_defines.svh:165:6-166:193#123148
+      < begin()@uvm_message_defines.svh:164:4-167:7#123143
+      < case_item()@uvm_bottomup_phase.svh:90:9-167:7#123142
+      < case_stmt()@uvm_bottomup_phase.svh:71:7-92:14#123085
+      < begin()@uvm_bottomup_phase.svh:70:38-93:8#123083
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:206#123473
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:206#123473
+      < if_stmt()@uvm_message_defines.svh:165:6-166:207#123472
+      < begin()@uvm_message_defines.svh:164:4-167:7#123467
+      < if_stmt()@uvm_pair.svh:163:5-167:7#123466
+      < begin()@uvm_pair.svh:163:5-167:7#123457
+      < function(do_copy)@uvm_pair.svh:161:3-167:14#123453
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#123669
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#123669
+      < if_stmt()@uvm_message_defines.svh:165:6-166:203#123668
+      < begin()@uvm_message_defines.svh:164:4-167:7#123663
+      < if_stmt()@uvm_resource_specializations.svh:49:5-167:7#123662
+      < begin()@uvm_resource_specializations.svh:48:5-48:92#123647
+      < function(get_by_name)@uvm_resource_specializations.svh:46:3-46:9#123633
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#123712
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#123712
+      < if_stmt()@uvm_message_defines.svh:165:6-166:203#123711
+      < begin()@uvm_message_defines.svh:164:4-167:7#123706
+      < if_stmt()@uvm_resource_specializations.svh:58:5-167:7#123705
+      < begin()@uvm_resource_specializations.svh:57:5-57:91#123690
+      < function(get_by_type)@uvm_resource_specializations.svh:54:3-54:9#123679
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:171#123907
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:171#123907
+      < if_stmt()@uvm_message_defines.svh:165:6-166:172#123906
+      < begin()@uvm_message_defines.svh:164:4-167:7#123901
+      < if_stmt()@uvm_callback.svh:532:7-167:7#123900
+      < begin()@uvm_callback.svh:509:25-534:8#123854
+      < if_stmt()@uvm_callback.svh:509:5-534:8#123853
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:206#125483
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:206#125483
+      < if_stmt()@uvm_message_defines.svh:165:6-166:207#125482
+      < begin()@uvm_message_defines.svh:164:4-167:7#125477
+      < if_stmt()@uvm_pair.svh:100:5-167:7#125476
+      < begin()@uvm_pair.svh:100:5-167:7#125467
+      < function(do_copy)@uvm_pair.svh:98:3-98:10#125463
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_registry.svh:122:7-122:48#127815
+     parent: func_call(uvm_report_fatal)@uvm_registry.svh:122:7-122:48#127815
+      < begin()@uvm_registry.svh:116:30-123:8#127783
+      < if_stmt()@uvm_registry.svh:116:5-123:8#127782
+      < begin()@uvm_registry.svh:111:5-111:53#127736
+      < function(create)@uvm_registry.svh:109:3-109:9#127723
+      < class_defn(uvm_component_registry)@uvm_registry.svh:51:1-173:9#18
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_builtin.svh:198:7-198:107#131498
+     parent: func_call(uvm_report_fatal)@uvm_sequence_builtin.svh:198:7-198:107#131498
+      < if_stmt()@uvm_sequence_builtin.svh:196:5-198:108#131497
+      < begin()@uvm_sequence_builtin.svh:195:20-202:6#131492
+      < repeat()@uvm_sequence_builtin.svh:195:3-195:9#131490
+      < begin()@uvm_sequence_builtin.svh:182:3-182:36#131462
+      < task(body)@uvm_sequence_builtin.svh:179:1-205:8#131461
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_factory.svh:866:7-866:110#131895
+     parent: func_call(uvm_report_fatal)@uvm_factory.svh:866:7-866:110#131895
+      < begin()@uvm_factory.svh:865:28-867:8#131894
+      < if_stmt()@uvm_factory.svh:865:5-867:8#131893
+      < begin()@:0:0-0:0#131889
+      < function(new)@uvm_factory.svh:861:3-873:14#131871
+      < class_defn(uvm_factory_override)@uvm_factory.svh:853:1-874:9#17
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:201#133760
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:201#133760
+      < if_stmt()@uvm_message_defines.svh:165:6-166:202#133759
+      < begin()@uvm_message_defines.svh:164:4-167:7#133754
+      < if_stmt()@uvm_resource_specializations.svh:49:5-167:7#133753
+      < begin()@uvm_resource_specializations.svh:48:5-48:80#133738
+      < function(get_by_name)@uvm_resource_specializations.svh:46:3-46:9#133724
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:201#133803
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:201#133803
+      < if_stmt()@uvm_message_defines.svh:165:6-166:202#133802
+      < begin()@uvm_message_defines.svh:164:4-167:7#133797
+      < if_stmt()@uvm_resource_specializations.svh:58:5-167:7#133796
+      < begin()@uvm_resource_specializations.svh:57:5-57:79#133781
+      < function(get_by_type)@uvm_resource_specializations.svh:54:3-54:9#133770
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#139460
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#139460
+      < if_stmt()@uvm_message_defines.svh:165:6-166:203#139459
+      < begin()@uvm_message_defines.svh:164:4-167:7#139454
+      < if_stmt()@uvm_resource_specializations.svh:49:5-167:7#139453
+      < begin()@uvm_resource_specializations.svh:48:5-48:87#139438
+      < function(get_by_name)@uvm_resource_specializations.svh:46:3-46:9#139424
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#139503
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#139503
+      < if_stmt()@uvm_message_defines.svh:165:6-166:203#139502
+      < begin()@uvm_message_defines.svh:164:4-167:7#139497
+      < if_stmt()@uvm_resource_specializations.svh:58:5-167:7#139496
+      < begin()@uvm_resource_specializations.svh:57:5-57:86#139481
+      < function(get_by_type)@uvm_resource_specializations.svh:54:3-54:9#139470
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_registry.svh:265:7-265:48#139959
+     parent: func_call(uvm_report_fatal)@uvm_registry.svh:265:7-265:48#139959
+      < begin()@uvm_registry.svh:259:30-266:8#139927
+      < if_stmt()@uvm_registry.svh:259:5-266:8#139926
+      < begin()@uvm_registry.svh:253:5-253:53#139881
+      < function(create)@uvm_registry.svh:250:3-250:9#139867
+      < class_defn(uvm_object_registry)@uvm_registry.svh:189:1-316:9#19
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_objection.svh:548:7-549:82#141010
+     parent: func_call(uvm_report_fatal)@uvm_objection.svh:548:7-549:82#141010
+      < begin()@uvm_objection.svh:545:69-551:8#141006
+      < if_stmt()@uvm_objection.svh:545:5-551:8#141005
+      < begin()@uvm_objection.svh:545:5-551:8#140989
+      < function(m_drop)@uvm_objection.svh:535:3-607:14#140970
+      < class_defn(uvm_objection)@uvm_objection.svh:62:1-1102:9#112
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_objection.svh:557:9-558:84#141042
+     parent: func_call(uvm_report_fatal)@uvm_objection.svh:557:9-558:84#141042
+      < begin()@uvm_objection.svh:554:73-560:10#141038
+      < if_stmt()@uvm_objection.svh:554:7-560:10#141037
+      < begin()@uvm_objection.svh:553:28-562:8#141026
+      < if_stmt()@uvm_objection.svh:553:5-562:8#141025
+      < begin()@uvm_objection.svh:545:5-551:8#140989
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_port_base.svh:116:7-116:69#145156
+     parent: func_call(uvm_report_fatal)@uvm_port_base.svh:116:7-116:69#145156
+      < if_stmt()@uvm_port_base.svh:115:5-116:70#145155
+      < begin()@:0:0-0:0#145148
+      < function(new)@uvm_port_base.svh:113:3-118:14#145136
+      < class_defn(uvm_port_component)@uvm_port_base.svh:109:1-157:9#136
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_push_driver.svh:75:5-77:61#145875
+     parent: func_call(uvm_report_fatal)@uvm_push_driver.svh:75:5-77:61#145875
+      < if_stmt()@uvm_push_driver.svh:74:5-77:62#145874
+      < function(check_port_connections)@uvm_push_driver.svh:73:3-78:14#145868
+      < class_defn(uvm_push_driver)@uvm_push_driver.svh:39:1-95:9#229
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+      < design(work@top)@:0:0-0:0#194978
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_push_driver.svh:86:5-86:97#145895
+     parent: func_call(uvm_report_fatal)@uvm_push_driver.svh:86:5-86:97#145895
+      < task(put)@uvm_push_driver.svh:85:3-87:10#145892
+      < class_defn(uvm_push_driver)@uvm_push_driver.svh:39:1-95:9#229
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+      < design(work@top)@:0:0-0:0#194978
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_builtin.svh:89:7-89:104#146446
+     parent: func_call(uvm_report_fatal)@uvm_sequence_builtin.svh:89:7-89:104#146446
+      < if_stmt()@uvm_sequence_builtin.svh:87:5-89:105#146445
+      < begin()@uvm_sequence_builtin.svh:86:32-91:6#146440
+      < if_else()@uvm_sequence_builtin.svh:86:3-93:33#146439
+      < begin()@uvm_sequence_builtin.svh:86:3-93:33#146429
+      < task(body)@uvm_sequence_builtin.svh:84:1-104:8#146428
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_builtin.svh:99:7-99:103#146480
+     parent: func_call(uvm_report_fatal)@uvm_sequence_builtin.svh:99:7-99:103#146480
+      < if_stmt()@uvm_sequence_builtin.svh:97:5-99:104#146479
+      < begin()@uvm_sequence_builtin.svh:96:20-101:6#146474
+      < repeat()@uvm_sequence_builtin.svh:96:3-96:9#146472
+      < begin()@uvm_sequence_builtin.svh:86:3-93:33#146429
+      < task(body)@uvm_sequence_builtin.svh:84:1-104:8#146428
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:175#152844
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:175#152844
+      < if_stmt()@uvm_message_defines.svh:165:6-166:176#152843
+      < begin()@uvm_message_defines.svh:164:4-167:7#152838
+      < if_stmt()@uvm_reg_item.svh:214:5-167:7#152837
+      < begin()@uvm_reg_item.svh:214:5-167:7#152828
+      < function(do_copy)@uvm_reg_item.svh:212:3-212:10#152824
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:186#155885
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:186#155885
+      < if_stmt()@uvm_message_defines.svh:165:6-166:187#155884
+      < begin()@uvm_message_defines.svh:164:4-167:7#155879
+      < if_stmt()@uvm_reg_predictor.svh:145:5-167:7#155878
+      < begin()@uvm_reg_predictor.svh:144:6-144:24#155866
+      < function(write)@uvm_reg_predictor.svh:142:3-142:10#155863
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:183#156818
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:183#156818
+      < if_stmt()@uvm_message_defines.svh:165:6-167:184#156817
+      < begin()@uvm_message_defines.svh:164:4-168:7#156812
+      < begin()@uvm_reg_sequence.svh:132:30-135:8#156811
+      < if_stmt()@uvm_reg_sequence.svh:132:5-135:8#156810
+      < begin()@uvm_reg_sequence.svh:136:5-142:8#156806
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:190#156915
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:190#156915
+      < if_stmt()@uvm_message_defines.svh:165:6-166:191#156914
+      < begin()@uvm_message_defines.svh:164:4-167:7#156909
+      < if_stmt()@uvm_reg_sequence.svh:172:5-167:7#156908
+      < begin()@uvm_reg_sequence.svh:172:5-167:7#156897
+      < task(do_reg_item)@uvm_reg_sequence.svh:170:3-191:10#156893
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:193#156933
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:193#156933
+      < if_stmt()@uvm_message_defines.svh:165:6-166:194#156932
+      < begin()@uvm_message_defines.svh:164:4-167:7#156927
+      < if_stmt()@uvm_reg_sequence.svh:174:5-167:7#156926
+      < begin()@uvm_reg_sequence.svh:172:5-167:7#156897
+      < task(do_reg_item)@uvm_reg_sequence.svh:170:3-191:10#156893
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:188#159657
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:188#159657
+      < if_stmt()@uvm_message_defines.svh:165:6-166:189#159656
+      < begin()@uvm_message_defines.svh:164:4-167:7#159651
+      < if_stmt()@uvm_reg_adapter.svh:224:5-167:7#159650
+      < begin()@uvm_reg_adapter.svh:222:5-222:16#159638
+      < function(bus2reg)@uvm_reg_adapter.svh:218:3-218:10#159632
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_root.svh:259:13-259:83#168705
+     parent: func_call(uvm_report_fatal)@uvm_root.svh:259:13-259:83#168705
+      < begin()@uvm_root.svh:258:54-260:14#168704
+      < if_stmt()@uvm_root.svh:258:11-260:14#168703
+      < begin()@uvm_root.svh:255:7-261:10#168688
+      < begin()@uvm_root.svh:252:41-262:8#168683
+      < if_stmt()@uvm_root.svh:252:5-262:8#168682
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence.svh:73:7-73:75#169557
+     parent: func_call(uvm_report_fatal)@uvm_sequence.svh:73:7-73:75#169557
+      < begin()@uvm_sequence.svh:72:30-74:8#169556
+      < if_stmt()@uvm_sequence.svh:72:5-74:8#169555
+      < begin()@uvm_sequence.svh:72:5-74:8#169548
+      < function(send_request)@uvm_sequence.svh:69:3-79:14#169540
+      < class_defn(uvm_sequence)@uvm_sequence.svh:33:9-147:9#243
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence.svh:76:7-76:93#169567
+     parent: func_call(uvm_report_fatal)@uvm_sequence.svh:76:7-76:93#169567
+      < begin()@uvm_sequence.svh:75:37-77:8#169566
+      < if_stmt()@uvm_sequence.svh:75:5-77:8#169565
+      < begin()@uvm_sequence.svh:72:5-74:8#169548
+      < function(send_request)@uvm_sequence.svh:69:3-79:14#169540
+      < class_defn(uvm_sequence)@uvm_sequence.svh:33:9-147:9#243
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence.svh:95:7-95:106#169585
+     parent: func_call(uvm_report_fatal)@uvm_sequence.svh:95:7-95:106#169585
+      < if_stmt()@uvm_sequence.svh:94:5-95:107#169584
+      < begin()@uvm_sequence.svh:96:5-96:49#169579
+      < function(get_current_item)@uvm_sequence.svh:93:3-97:14#169576
+      < class_defn(uvm_sequence)@uvm_sequence.svh:33:9-147:9#243
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence.svh:133:7-133:87#169627
+     parent: func_call(uvm_report_fatal)@uvm_sequence.svh:133:7-133:87#169627
+      < begin()@uvm_sequence.svh:132:42-134:8#169626
+      < if_stmt()@uvm_sequence.svh:132:5-134:8#169625
+      < begin()@uvm_sequence.svh:132:5-134:8#169617
+      < function(put_response)@uvm_sequence.svh:130:3-130:10#169613
+      < class_defn(uvm_sequence)@uvm_sequence.svh:33:9-147:9#243
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:267:7-268:70#169734
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:267:7-268:70#169734
+      < begin()@uvm_sequence_base.svh:266:76-269:8#169733
+      < if_stmt()@uvm_sequence_base.svh:266:5-269:8#169732
+      < begin()@uvm_sequence_base.svh:264:5-264:50#169718
+      < task(start)@uvm_sequence_base.svh:258:3-397:10#169702
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:276:7-278:69#169758
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:276:7-278:69#169758
+      < begin()@uvm_sequence_base.svh:275:29-279:8#169757
+      < if_stmt()@uvm_sequence_base.svh:275:5-279:8#169756
+      < begin()@uvm_sequence_base.svh:264:5-264:50#169718
+      < task(start)@uvm_sequence_base.svh:258:3-397:10#169702
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:760:7-761:88#170284
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:760:7-761:88#170284
+      < if_stmt()@uvm_sequence_base.svh:759:5-761:89#170283
+      < begin()@uvm_sequence_base.svh:758:5-758:26#170272
+      < task(wait_for_relevant)@uvm_sequence_base.svh:756:3-763:10#170271
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:782:7-782:75#170306
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:782:7-782:75#170306
+      < if_stmt()@uvm_sequence_base.svh:781:5-782:76#170305
+      < begin()@uvm_sequence_base.svh:781:5-782:76#170294
+      < task(lock)@uvm_sequence_base.svh:777:3-785:10#170290
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:802:9-802:73#170327
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:802:9-802:73#170327
+      < begin()@uvm_sequence_base.svh:801:32-803:10#170326
+      < if_stmt()@uvm_sequence_base.svh:801:7-803:10#170325
+      < begin()@uvm_sequence_base.svh:800:28-805:8#170321
+      < if_else()@uvm_sequence_base.svh:800:5-808:8#170320
+      < task(grab)@uvm_sequence_base.svh:799:3-809:10#170313
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:821:9-821:75#170352
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:821:9-821:75#170352
+      < begin()@uvm_sequence_base.svh:820:32-822:10#170351
+      < if_stmt()@uvm_sequence_base.svh:820:7-822:10#170350
+      < begin()@uvm_sequence_base.svh:819:28-824:8#170346
+      < if_else()@uvm_sequence_base.svh:819:5-826:8#170345
+      < function(unlock)@uvm_sequence_base.svh:818:3-827:14#170338
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:965:7-967:43#170520
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:965:7-967:43#170520
+      < begin()@uvm_sequence_base.svh:964:22-969:8#170519
+      < if_stmt()@uvm_sequence_base.svh:964:5-969:8#170518
+      < begin()@uvm_sequence_base.svh:964:5-969:8#170509
+      < task(start_item)@uvm_sequence_base.svh:959:3-1004:10#170497
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:972:7-974:69#170533
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:972:7-974:69#170533
+      < begin()@uvm_sequence_base.svh:971:26-976:8#170532
+      < if_stmt()@uvm_sequence_base.svh:971:5-976:8#170531
+      < begin()@uvm_sequence_base.svh:964:5-969:8#170509
+      < task(start_item)@uvm_sequence_base.svh:959:3-1004:10#170497
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:985:9-985:150#170562
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:985:9-985:150#170562
+      < begin()@uvm_sequence_base.svh:984:27-987:8#170561
+      < if_stmt()@uvm_sequence_base.svh:984:5-987:8#170560
+      < begin()@uvm_sequence_base.svh:964:5-969:8#170509
+      < task(start_item)@uvm_sequence_base.svh:959:3-1004:10#170497
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:1023:9-1023:81#170631
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:1023:9-1023:81#170631
+      < begin()@uvm_sequence_base.svh:1022:28-1024:8#170630
+      < if_stmt()@uvm_sequence_base.svh:1022:5-1024:8#170629
+      < begin()@uvm_sequence_base.svh:1020:5-1020:38#170615
+      < task(finish_item)@uvm_sequence_base.svh:1015:3-1036:10#170606
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:1054:7-1054:76#170672
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:1054:7-1054:76#170672
+      < begin()@uvm_sequence_base.svh:1053:30-1055:8#170671
+      < if_stmt()@uvm_sequence_base.svh:1053:5-1055:8#170670
+      < begin()@uvm_sequence_base.svh:1056:5-1056:67#170666
+      < task(wait_for_grant)@uvm_sequence_base.svh:1052:3-1057:10#170656
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:1069:9-1069:76#170695
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:1069:9-1069:76#170695
+      < begin()@uvm_sequence_base.svh:1068:30-1070:10#170694
+      < if_stmt()@uvm_sequence_base.svh:1068:5-1070:10#170693
+      < begin()@uvm_sequence_base.svh:1071:5-1071:58#170689
+      < function(send_request)@uvm_sequence_base.svh:1067:3-1067:10#170681
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:1090:9-1090:81#170716
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:1090:9-1090:81#170716
+      < begin()@uvm_sequence_base.svh:1089:30-1091:10#170715
+      < if_stmt()@uvm_sequence_base.svh:1089:5-1091:10#170714
+      < begin()@uvm_sequence_base.svh:1092:5-1092:58#170710
+      < task(wait_for_item_done)@uvm_sequence_base.svh:1088:3-1093:10#170704
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:1305:7-1307:31#171029
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:1305:7-1307:31#171029
+      < begin()@uvm_sequence_base.svh:1304:96-1308:8#171028
+      < if_stmt()@uvm_sequence_base.svh:1304:5-1308:8#171027
+      < begin()@uvm_sequence_base.svh:1294:5-1294:23#170949
+      < function(get_sequence)@uvm_sequence_base.svh:1292:3-1311:14#170941
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:1327:7-1328:91#171100
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:1327:7-1328:91#171100
+      < begin()@uvm_sequence_base.svh:1326:96-1329:8#171099
+      < if_stmt()@uvm_sequence_base.svh:1326:5-1329:8#171098
+      < begin()@uvm_sequence_base.svh:1321:5-1321:29#171044
+      < task(do_sequence_kind)@uvm_sequence_base.svh:1319:3-1337:10#171040
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_base.svh:1350:7-1351:89#171179
+     parent: func_call(uvm_report_fatal)@uvm_sequence_base.svh:1350:7-1351:89#171179
+      < begin()@uvm_sequence_base.svh:1349:92-1352:8#171178
+      < if_stmt()@uvm_sequence_base.svh:1349:5-1352:8#171177
+      < begin()@uvm_sequence_base.svh:1346:5-1346:53#171133
+      < function(get_sequence_by_name)@uvm_sequence_base.svh:1344:3-1355:14#171125
+      < class_defn(uvm_sequence_base)@uvm_sequence_base.svh:134:1-1403:9#242
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequence_item.svh:151:7-151:92#171386
+     parent: func_call(uvm_report_fatal)@uvm_sequence_item.svh:151:7-151:92#171386
+      < begin()@uvm_sequence_item.svh:150:23-152:8#171385
+      < if_stmt()@uvm_sequence_item.svh:150:5-152:8#171384
+      < begin()@uvm_sequence_item.svh:153:5-153:56#171380
+      < function(set_id_info)@uvm_sequence_item.svh:149:3-155:14#171376
+      < class_defn(uvm_sequence_item)@uvm_sequence_item.svh:37:1-497:9#234
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_sequencer_analysis_fifo.svh:35:7-35:103#172457
+     parent: func_call(uvm_report_fatal)@uvm_sequencer_analysis_fifo.svh:35:7-35:103#172457
+      < if_stmt()@uvm_sequencer_analysis_fifo.svh:34:5-35:104#172456
+      < begin()@uvm_sequencer_analysis_fifo.svh:36:5-36:37#172452
+      < function(write)@uvm_sequencer_analysis_fifo.svh:33:3-37:14#172449
+      < class_defn(uvm_sequencer_analysis_fifo)@uvm_sequencer_analysis_fifo.svh:23:1-38:9#238
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#174833
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#174833
+      < if_stmt()@uvm_message_defines.svh:165:6-166:203#174832
+      < begin()@uvm_message_defines.svh:164:4-167:7#174827
+      < if_stmt()@uvm_resource_specializations.svh:49:5-167:7#174826
+      < begin()@uvm_resource_specializations.svh:48:5-48:83#174811
+      < function(get_by_name)@uvm_resource_specializations.svh:46:3-46:9#174797
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#174876
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:202#174876
+      < if_stmt()@uvm_message_defines.svh:165:6-166:203#174875
+      < begin()@uvm_message_defines.svh:164:4-167:7#174870
+      < if_stmt()@uvm_resource_specializations.svh:58:5-167:7#174869
+      < begin()@uvm_resource_specializations.svh:57:5-57:82#174854
+      < function(get_by_type)@uvm_resource_specializations.svh:54:3-54:9#174843
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:185#175147
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:185#175147
+      < if_stmt()@uvm_message_defines.svh:165:6-166:186#175146
+      < begin()@uvm_message_defines.svh:164:4-167:7#175141
+      < case_item()@uvm_task_phase.svh:127:9-167:7#175140
+      < case_stmt()@uvm_task_phase.svh:104:7-129:14#175069
+      < begin()@uvm_task_phase.svh:103:38-130:8#175067
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:152#179150
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:152#179150
+      < if_stmt()@uvm_message_defines.svh:165:6-167:153#179149
+      < begin()@uvm_message_defines.svh:164:4-168:7#179144
+      < if_stmt()@uvm_tlm2_generic_payload.svh:513:5-168:7#179143
+      < begin()@uvm_tlm2_generic_payload.svh:513:5-168:7#179134
+      < function(do_pack)@uvm_tlm2_generic_payload.svh:511:3-532:14#179130
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:171#179175
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-167:171#179175
+      < if_stmt()@uvm_message_defines.svh:165:6-167:172#179174
+      < begin()@uvm_message_defines.svh:164:4-168:7#179169
+      < if_stmt()@uvm_tlm2_generic_payload.svh:517:5-168:7#179168
+      < begin()@uvm_tlm2_generic_payload.svh:513:5-168:7#179134
+      < function(do_pack)@uvm_tlm2_generic_payload.svh:511:3-532:14#179130
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:253#182720
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:253#182720
+      < if_stmt()@uvm_message_defines.svh:165:6-166:254#182719
+      < begin()@uvm_message_defines.svh:164:4-167:7#182714
+      < begin()@uvm_tlm2_time.svh:126:24-129:10#182713
+      < if_stmt()@uvm_tlm2_time.svh:126:7-129:10#182712
+      < begin()@uvm_tlm2_time.svh:126:7-129:10#182685
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:253#182779
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:253#182779
+      < if_stmt()@uvm_message_defines.svh:165:6-166:254#182778
+      < begin()@uvm_message_defines.svh:164:4-167:7#182773
+      < begin()@uvm_tlm2_time.svh:152:24-155:10#182772
+      < if_stmt()@uvm_tlm2_time.svh:152:7-155:10#182771
+      < begin()@uvm_tlm2_time.svh:152:7-155:10#182744
+  CAND func_call::Function          func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:190#183132
+     parent: func_call(uvm_report_fatal)@uvm_message_defines.svh:166:8-166:190#183132
+      < if_stmt()@uvm_message_defines.svh:165:6-166:191#183131
+      < begin()@uvm_message_defines.svh:164:4-167:7#183126
+      < case_item()@uvm_topdown_phase.svh:89:11-167:7#183125
+      < case_stmt()@uvm_topdown_phase.svh:66:9-91:16#183048
+      < begin()@uvm_topdown_phase.svh:65:38-92:8#183046
+POOL masked -> head MOVES (r=1 LHS=function(uvm_process_report_message)@uvm_globals.svh:259:1-267:12#806 RHS=<null>)
+
+OWNER (verified alone): func_call(uvm_report_fatal)@uvm_sequence_item.svh:151:7-151:92#171386   FIELD=func_call::Function
+  parent chain:
+      func_call(uvm_report_fatal)@uvm_sequence_item.svh:151:7-151:92#171386
+      < begin()@uvm_sequence_item.svh:150:23-152:8#171385
+      < if_stmt()@uvm_sequence_item.svh:150:5-152:8#171384
+      < begin()@uvm_sequence_item.svh:153:5-153:56#171380
+      < function(set_id_info)@uvm_sequence_item.svh:149:3-155:14#171376
+      < class_defn(uvm_sequence_item)@uvm_sequence_item.svh:37:1-497:9#234
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+      < design(work@top)@:0:0-0:0#194978
+  next head after masking it: r=1 LHS=function(uvm_process_report_message)@uvm_globals.svh:259:1-267:12#806 RHS=<null>

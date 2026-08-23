@@ -16685,7 +16685,54 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 ((UHDM::func_call*)fc0)->Function(p12->second);
                                 protoBound12 = true;
                             }
-                        if (inheritedCall72 && !protoBound12)
+                        // § classOwnLateMethodBindsPkgFn113 — THE WIDENING.
+                        // § inheritedNameBindsPkgFn72 fired only when the
+                        // callee's class DIFFERS from the caller's (or the
+                        // caller is out-of-body).  A method of the CALLER'S
+                        // OWN class DECLARED BELOW the caller reaches this
+                        // no-link arm too — `subMap` holds only what this view
+                        // has emitted so far — and it was left with NO
+                        // vpiFunction at all, where golden binds the package
+                        // free function of that name.
+                        //
+                        // Surelog: `CompileHelper::getTaskFunc`
+                        // (src/DesignCompile/CompileExpression.cpp:349) is ONE
+                        // walk with no notion of "inherited": for a `::`-less
+                        // name it scans the CURRENT component's own
+                        // `getTask_funcs()`, then its parents, then the file
+                        // contents, then the PACKAGES.  Surelog compiles a
+                        // class body single-pass, so at the call site the
+                        // class listing holds only the methods declared ABOVE
+                        // it; a name declared BELOW misses the class scan
+                        // exactly as an inherited name does, and the SAME walk
+                        // carries on to the package.  Whether the missed
+                        // method is inherited or the caller's own sibling is
+                        // invisible to that walk, so the fall-back must not
+                        // ask.
+                        //
+                        // Measured (g113_b.sv, golden): one class `Kw`, one
+                        // package free function `pb::alpha`, two callers — the
+                        // one written ABOVE `Kw::alpha` binds `pb::alpha`, the
+                        // one written BELOW it binds `Kw::alpha`.  `Kz::early`
+                        // is the negative cell: with NO package function of
+                        // that name golden leaves the call unbound, and so do
+                        // we.  In uvm-1.2 the same shape is the
+                        // cmp head: `uvm_sequence_item::set_id_info` (:149)
+                        // calls `uvm_report_fatal` while the class's own
+                        // `uvm_report_fatal` is declared at :422, and
+                        // `uvm_{report_object,sequence_item}::uvm_report` call
+                        // `uvm_process_report_message` while their own method
+                        // of that name is declared further down.
+                        //
+                        // The gate is the ARM, not a new predicate: reaching
+                        // here already means an UNQUALIFIED call from a class
+                        // method whose callee this view has not emitted.
+                        // `qualCall9` is re-read so an explicitly scoped
+                        // `C::m()` can never fall out to a package function of
+                        // the same base name.
+                        bool classLateOrInherited113 =
+                            currentSubSym && curSubClassScope9 && !qualCall9;
+                        if (classLateOrInherited113 && !protoBound12)
                             if (auto* fb72 =
                                     pkgFreeSubForName72(currentSubSym, sub.name))
                                 if (auto f72 = subMap.find(fb72);

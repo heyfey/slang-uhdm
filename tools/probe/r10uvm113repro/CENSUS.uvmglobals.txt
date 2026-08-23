@@ -1,0 +1,40 @@
+r10uvm113 CENSUS.uvmglobals — every call to a uvm_globals.svh FREE SUBROUTINE,
+nine UVM row-modes, golden vs OUR PRISTINE database.  Cell =
+(view, container, caller owner chain, call name, call kind); value = the
+callee SHAPE (kind|name|parentkind:parentname).  Spans are NOT in the key:
+the two producers disagree about macro-expansion locations and Compare reads
+no span (README §2).
+
+BuildUVMPkg.default    ONLY-O=4  OURS-NULL=3  SAME=2576
+BuildUVMPkg.testflags  ONLY-O=4  OURS-NULL=3  SAME=2576
+MiniAmiq.default       DIFF=2040  ONLY-G=2  OURS-NULL=3  SAME=2722
+MiniAmiq.testflags     DIFF=2040  ONLY-G=2  OURS-NULL=3  SAME=2722
+Scoreboard.default     OURS-NULL=3  SAME=2676
+SeqDriver.default      DIFF=1951  OURS-NULL=3  SAME=2723
+SeqDriver.testflags    DIFF=1951  OURS-NULL=3  SAME=2723
+SimpleUVM.default      OURS-NULL=3  SAME=2685
+SimpleUVM.testflags    OURS-NULL=3  SAME=2685
+
+TOTAL over the nine  DIFF=7982  ONLY-G=4  ONLY-O=8  OURS-NULL=27  SAME=24088
+
+non-SAME by callee name:
+   uvm_is_match                 DIFF       96
+   uvm_process_report_message   OURS-NULL  18
+   uvm_report_enabled           DIFF       3418
+   uvm_report_enabled           ONLY-G     2
+   uvm_report_enabled           ONLY-O     4
+   uvm_report_error             DIFF       1636
+   uvm_report_fatal             DIFF       660
+   uvm_report_fatal             OURS-NULL  9
+   uvm_report_info              DIFF       876
+   uvm_report_info              ONLY-G     2
+   uvm_report_info              ONLY-O     4
+   uvm_report_warning           DIFF       1128
+   uvm_split_string             DIFF       72
+   uvm_string_to_action         DIFF       16
+   uvm_string_to_severity       DIFF       48
+   uvm_wait_for_nba_region      DIFF       32
+
+READING:  OURS-NULL 27 = the head family (3 cells x 9 row-modes), and it is
+the ONLY column this pass moves; it goes to 0.  DIFF 7982 is uvm111 R-tf111
+(golden binds the HOME object, we bind the importer clone) — untouched.

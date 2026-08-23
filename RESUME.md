@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-23 15:40, HEAD = the uvm112 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-23 16:30, HEAD = the uvm113 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -184,8 +184,8 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 |---|---|---|
 | SeqDriver×2 (uvm-1.2 tree) | 62 (depth) | golden folds the `32-1` of `typedef bit [`UVM_REG_CVR_WIDTH-1:0] uvm_reg_cvr_t;` (uvm-1.2 reg/uvm_reg_model.svh:105:14-105:22; the macro expands to 32) into ONE constant INT:31 sz 64 ct 7 spanning the LEFT operand's text (105:15-105:17); ours keeps the subtract operation (vpiOpType 11) over UINT:32 / UINT:1 — a TYPEDEF PACKED-RANGE bound fold (NOT buvm30's package-return window: a typespec range in a package); the same head in MiniAmiq; pass uvm114 next (uvm112 landed: 32→62, a class-typedef clone's specialization is overwritten by the group base's — ASCII-first declaring class, total clone) |
 | MiniAmiq×2 (uvm-1.2 tree) | 62 (depth) | identical to SeqDriver's head (ids aside) — the uvm_reg_cvr_t typedef range fold; uvm114 clears both |
-| SimpleUVM×2 (uvm-1.2 tree) | 565 (depth) | the SAME head as Scoreboard/default (ids aside): a SINGULAR null arm — golden's object is `function uvm_pkg::uvm_report_fatal` (uvm_pkg.sv:236-249, parent = the package; the 565 lines print the whole function incl its `method_func_call` at :247 and a local `top`), ours `<null>` — some object's singular function link (a func_call's vpiFunction? measure which owner reaches it) that golden binds to the package function and we leave unbound; pass uvm113 next (buvm30 landed: 42→565, the written `-<literal>` inside a package-section return folds at any depth with Surelog's get_value model) |
-| Scoreboard/default (uvm-1.2 tree) | 565 (depth) | identical to SimpleUVM's head — the unbound link to `function uvm_pkg::uvm_report_fatal`; uvm113 clears both |
+| SimpleUVM×2 (uvm-1.2 tree) | 56 (depth) | `process p;` at uvm_globals.svh:262 (in uvm_process_report_message's begin): golden a ref_var → unsupported_typespec (process) — Surelog does not model the built-in process class — ours a class_var → class_typespec (process); the same unsupported-typespec family as § oobClassTypeParamLocalUnsupported105; same head in Scoreboard/default; pass uvm115 next (uvm113 landed: 565→56, a bare call in a class method body that misses the already-emitted listing binds the enclosing package's free subroutine — own sibling declared below included) |
+| Scoreboard/default (uvm-1.2 tree) | 56 (depth) | identical to SimpleUVM's head — the `process p;` ref_var/unsupported_typespec cell; uvm115 clears both |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 47 (depth) | `protected int seqs_distrib[string] = '{default:0};` (uvm_pkg.sv:56269, uvm_sequence_library): golden's int_var carries an assignment-pattern operation (vpiOpType 75, 56269:42-56269:54) whose operand is a `tagged_pattern` with pattern constant UINT:0 and a ref_typespec → a string_typespec named `default` (56269:44-56269:51); ours emits NO expression for the associative-array `'{default:0}` initializer (RHS `<null>`); pass buvm31 next (buvm30 landed: 42→47) |
 | Earlgrey_0_1×2 (both modes, byte-identical cmp logs) | 36 (depth) | an OVER-FOLD: `for (int i = 0; i < WidthMultiple; i++)` (flash_phy_core.sv:191:27-191:40, the for-loop condition inside the gen-scope always_comb of gen_prog_data) — golden keeps a ref_obj named WidthMultiple with the GEN-SCOPE-prefixed fullname (…i_core.gen_prog_data.WidthMultiple) bound to an enum_const (WidthMultiple = flash_phy_pkg.sv:34, wildcard-imported); ours folds to UINT:2; golden refuses the substitution inside a generate-scope process's for-statement AND every loop control expression (earl75 + its verifier's a2_loops75.sv) while the module body folds; pass earl76 queued (earl75 landed: 17→36, a gen-scope process fold stamps the folded parameter's declared typespec — the missing inProcessEmit flag, not a missing rule) |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
@@ -193,7 +193,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 67 verifier fix-before-landing re-cuts (148 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 68 verifier fix-before-landing re-cuts (149 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

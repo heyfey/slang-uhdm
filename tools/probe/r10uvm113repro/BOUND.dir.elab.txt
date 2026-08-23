@@ -1,0 +1,20 @@
+== boundary gate: MODE=dir VIEW=elab  1508 arms under /tmp/r10uvm113_probecopy2
+rm: refusing to remove '.' or '..' directory: skipping '/tmp/r10uvm113_bound2_dir_elab/.'
+tools/probe/r10uvm113repro/bound113.sh: line 66: 1859722 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+tools/probe/r10uvm113repro/bound113.sh: line 66: 1859766 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+tools/probe/r10uvm113repro/bound113.sh: line 66: 1861318 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+tools/probe/r10uvm113repro/bound113.sh: line 66: 1861394 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+tools/probe/r10uvm113repro/bound113.sh: line 66: 1868020 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+tools/probe/r10uvm113repro/bound113.sh: line 66: 1868067 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+tools/probe/r10uvm113repro/bound113.sh: line 66: 1909560 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+tools/probe/r10uvm113repro/bound113.sh: line 66: 1909672 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+tools/probe/r10uvm113repro/bound113.sh: line 66: 1909797 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+tools/probe/r10uvm113repro/bound113.sh: line 66: 1909918 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+tools/probe/r10uvm113repro/bound113.sh: line 66: 1910047 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+tools/probe/r10uvm113repro/bound113.sh: line 66: 1910155 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+PROCESSED=1508 LISTED=1508 DIFFER=4 PRIS_REJECT=124 PATCHED_REJECT=124
+-- differing arms:
+./r10uvm113repro
+./r10uvm75repro
+./r10uvm76repro
+./r10v109repro
