@@ -1,0 +1,49 @@
+r10v102 adversarial arm grid — pris(9ae62f2d) vs ship(4e1d739b) vs fresh Surelog golden
+scorer: score102.py  (multiset, view-general, order/depth-blind, NO span, NO file)
+payload: parameter VpiName + typespec presence/kind (+local/signed/value tag);
+         param_assign Lhs name + Rhs constant vpiDecompile/vpiSize/vpiConstType/value/typespec
+PROJ=ts column = the declaration-typespec axis this pass claims
+
+ARM                VIEW  BYTES            errP_full  errS_full    errP_ts    errS_ts AWAY_ts
+a01_basic          def   MOVED                    8          4          4          0 0
+a01_basic          elab  MOVED                    8          4          4          0 0
+b01_shapes         def   MOVED                   16          4         12          0 0
+b01_shapes         elab  MOVED                   16          4         12          0 0
+b02_xz             def   IDENTICAL               24         24          0          0 0
+b02_xz             elab  IDENTICAL               24         24          0          0 0
+b03_sized          def   IDENTICAL                0          0          0          0 0
+b03_sized          elab  IDENTICAL                0          0          0          0 0
+b04_misc           def   IDENTICAL               10         10          0          0 0
+b04_misc           elab  IDENTICAL               10         10          0          0 0
+b05_refcast        def   MOVED                   20         12          8          0 0
+b05_refcast        elab  MOVED                   20         12          8          0 0
+b06_typed          def   IDENTICAL                6          6          0          0 0
+b06_typed          elab  IDENTICAL                6          6          0          0 0
+b07_local          def   MOVED                   28         16         12          0 0
+b07_local          elab  MOVED                   28         16         12          0 0
+c01_homes          def   MOVED                   50         36         26         12 0
+c01_homes          elab  MOVED                   50         36         26         12 0
+c02_class          def   IDENTICAL               18         18          8          8 0
+c02_class          elab  IDENTICAL               18         18          8          8 0
+c03_func           def   IDENTICAL                4          4          2          2 0
+c03_func           elab  IDENTICAL               10         10          6          6 0
+c04_unit           def   MOVED                    8          4          4          0 0
+c04_unit           elab  MOVED                    8          4          4          0 0
+d01_override       def   MOVED                   40         32         20          8 0
+d01_override       elab  MOVED                   40         32         20          8 0
+d02_inst3          def   MOVED                   32         16         16          0 0
+d02_inst3          elab  MOVED                   32         16         16          0 0
+e01_cast           def   MOVED                   16          8          8          0 0
+e01_cast           elab  MOVED                   16          8          8          0 0
+e02_macro          def   MOVED                   24         12         12          0 0
+e02_macro          elab  MOVED                   24         12         12          0 0
+e03_spec           def   IDENTICAL                4          4          2          2 0
+e03_spec           elab  IDENTICAL                4          4          2          2 0
+e04_portdef        def   MOVED                   24         16         12          4 0
+e04_portdef        elab  MOVED                   24         16         12          4 0
+e05_iface_mp       def   MOVED                   32         22         16          6 0
+e05_iface_mp       elab  MOVED                   32         22         16          6 0
+g102               def   MOVED                  288        204        134         50 0
+g102               elab  MOVED                  288        204        134         50 0
+g102_neg           def   IDENTICAL               20         20          6          6 0
+g102_neg           elab  IDENTICAL               26         26         10         10 0

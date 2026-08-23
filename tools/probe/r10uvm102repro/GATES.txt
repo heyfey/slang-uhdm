@@ -1,0 +1,38 @@
+r10uvm102 final frozen-binary gates on base ecdded75
+
+Candidate binary MD5: 4e1d739b21bf097f2c21e66889b765b6
+Build: Release, -j2. Sweeps: --jobs 2, --timeout 180.
+
+check_goldens: 23 PASS, 0 FAIL.
+
+Surelog: 1588 rows; whole-row CSV diff against ecdded75 controls = 0.
+  default:   CMP_EQUAL=471 SLANG_REJECT=283 SURELOG_FAIL=25
+             CMP_NOTEQUAL=10 DEFERRED=5
+  testflags: CMP_EQUAL=466 SLANG_REJECT=284 SURELOG_FAIL=23
+             CMP_NOTEQUAL=9 DEFERRED=5 NO_DATABASE=3
+             UNTRANSLATABLE=2 TIMEOUT=1 NO_UHDM=1
+
+uhdm2rtlil default: 731 rows, 679 CMP_EQUAL; whole-row diff = 0.
+uhdm2rtlil testflags: 731 rows, 679 CMP_EQUAL; whole-row diff = 0.
+
+Surelog byte movers: 9 / 956, exact predicted UVM set.
+uhdm2rtlil byte movers: 0 / 1358.
+
+Canaries:
+  Surelog: ok=56 changed=0 absent=0 unknown=8
+  uhdm2rtlil: ok=18 changed=0 absent=0 unknown=27
+Supplementary canaries:
+  Surelog: ok=58 changed=0 absent=0 unknown-patterns=1
+  uhdm2rtlil: ok=2 changed=0 absent=0 unknown-patterns=6
+Canary audit: audited=33 uncovered=0 fence-breach=0.
+Named pins: SAME=10 MOVED=0 UNKNOWN=0.
+
+Official protected heads, default/testflags:
+  SeqDriver 64/64, one head each (was 17/17)
+  MiniAmiq 348/348, one head each
+  SimpleUVM 108/108, one head each
+  BuildUVMPkg 72/72, one head each
+  Earlgrey 46/46, one head each
+  Scoreboard default 108/one; testflags has no database
+  Rggen default 0/zero; testflags has no database
+

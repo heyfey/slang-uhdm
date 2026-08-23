@@ -1,0 +1,22 @@
+r10uvm102 whole-corpus census
+
+Surelog database path sets: pristine=956 ship=956, symmetric difference=0.
+Exact byte movers (9):
+  default:   BuildUVMPkg MiniAmiq Scoreboard SeqDriver SimpleUVM
+  testflags: BuildUVMPkg MiniAmiq SeqDriver SimpleUVM
+
+Deduplicated parameter objects moved to golden by the declaration predicate:
+  default:   BuildUVMPkg=1 MiniAmiq=52 Scoreboard=8 SeqDriver=24 SimpleUVM=8
+             total=93
+  testflags: BuildUVMPkg=1 MiniAmiq=52 SeqDriver=24 SimpleUVM=8
+             total=85
+  total=178, AWAY_GOLDEN=0, MOVED_WRONG=0.
+
+A fresh full-tree traversal (which revisits shared objects through multiple
+UHDM edges) sees 460 comparator-visible TO_GOLDEN occurrences and likewise
+zero AWAY_GOLDEN / MOVED_WRONG occurrences.  The per-row traversal counts are
+preserved in the validation workspace census summary.
+
+uhdm2rtlil database path sets: pristine=1358 ship=1358, symmetric difference=0.
+Byte movers: 0.
+

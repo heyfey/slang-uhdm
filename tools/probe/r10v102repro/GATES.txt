@@ -1,0 +1,66 @@
+r10v102 verifier gates — re-run from scratch on base ecdded75
+=============================================================
+binaries built by the verifier, Release, -j 2, frozen chmod 555 before any sweep
+  pristine /tmp/v102_bin/pris.bin  md5 9ae62f2d6a19f72cf5cb259847914b9a
+  ship     /tmp/v102_bin/ship.bin  md5 4e1d739b21bf097f2c21e66889b765b6   (claim reproduced)
+
+check_goldens (SLANG_UHDM=ship)          PASS=23  FAIL=0
+check_goldens (SLANG_UHDM=/bin/false)    PASS=0   FAIL=23      negative control
+
+cmds.txt audit by BINARY PATH
+  surelog     1573 cmds.txt, 1523 slang: lines, 1523 = /tmp/v102_bin/ship.bin
+  uhdm2rtlil  1462 cmds.txt, 1458 slang: lines, 1458 = /tmp/v102_bin/ship.bin
+
+ct8rows (status AND dump column)
+  surelog     vs results/golden_surelog.csv        PASS  (0 differing rows / 1588)
+  surelog     vs /tmp control at ecdded75          PASS
+  u2r tf      vs results/gate_uhdm2rtlil.csv       PASS  (0 differing rows / 731)
+  u2r tf      vs control                           PASS
+  u2r default vs control                           PASS
+  NO row converted; the 10 default / 9 testflags CMP_NOTEQUAL rows are unchanged.
+
+status histograms
+  surelog default    CMP_EQUAL 471  CMP_NOTEQUAL 10  SLANG_REJECT 283  SURELOG_FAIL 25  DEFERRED 5
+  surelog testflags  CMP_EQUAL 466  CMP_NOTEQUAL  9  SLANG_REJECT 284  SURELOG_FAIL 23  DEFERRED 5
+                     NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+  u2r default        CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  u2r testflags      CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+
+byteverify SELFCHECK=1
+  surelog     PATH_SETS_IDENTICAL (956)   MOVERS 9/956    SELFCHECK 955/956 flagged
+  uhdm2rtlil  PATH_SETS_IDENTICAL (1358)  MOVERS 0/1358   SELFCHECK 1357/1358 flagged
+  the nine were PREDICTED BY NAME from pristine state before the sweep (README §3):
+    default   BuildUVMPkg MiniAmiq Scoreboard SeqDriver SimpleUVM
+    testflags BuildUVMPkg MiniAmiq            SeqDriver SimpleUVM
+
+rowheads (LHS always golden; counts are cmp lines / heads)
+  TEST          MODE       BEFORE      AFTER
+  SeqDriver     default     17/1       64/1
+  SeqDriver     testflags   17/1       64/1
+  SimpleUVM     both       108/1      108/1     text identical (id-normalised)
+  Scoreboard    default    108/1      108/1     text identical
+  MiniAmiq      both       348/1      348/1     text identical
+  BuildUVMPkg   both        72/1       72/1     text identical
+  Earlgrey_0_1  both        46/1       46/1     text identical
+  Rggen         default      0/0        0/0
+  (Scoreboard/testflags and Rggen/testflags: SKIP-NOFILE, expected)
+
+canaries.sh (r10uvm100repro copy)
+  surelog     ok=56 changed=0 absent=0 unknown-names=8
+  u2r tf      ok=9  changed=0 absent=0 unknown-names=27
+  u2r default ok=9  changed=0 absent=0 unknown-names=27
+canaries.sh (r10uvm52repro copy, the one RESUME §6 names)
+  surelog     ok=52 changed=0 absent=0 unknown-names=7
+  u2r tf      ok=8  changed=0 absent=0 unknown-names=25
+ctcan2.sh   surelog ok=58 changed=0 PASS;  u2r tf ok=1 PASS;  u2r default ok=1 PASS
+canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+
+named pins (md5 of slang.uhdm vs the ecdded75 control) — SAME=10 MOVED=0
+  InterfaceModPort   default/testflags 59a365f3ce2c
+  BlackParrotComplex default e3e354129d5a   testflags 73a10e8217e5
+  YosysOldOr         default/testflags d68e0796d62c
+  SVSwitch           default/testflags 4842211c4030   (brief pin matches)
+  YosysVerx          default/testflags 6ccda350c24a   (brief pin matches)
+
+patch fence check (the four brief-fenced test names, checked by name, not spelled here) — 0 hits each
+patch surface: src/ParamEmit.cpp + tools/probe/r10uvm102repro/ ONLY; no results/*.csv edit

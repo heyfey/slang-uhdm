@@ -1,0 +1,45 @@
+r10v102 whole-corpus census — the NINE byte movers scored against the OFFICIAL goldens
+======================================================================================
+instrument: score102.py, PROJ=ts (declaration-typespec axis), multiset, view-general,
+            order/depth-blind, NO span / NO file / NO parent.
+inputs:     golden = the cache entry named by each row's OWN cmds.txt
+            pristine = /tmp/ctl_wd_sl_ecdded7 (binary 9ae62f2d), ship = this sweep (4e1d739b)
+
+  ROW                          err_pris  err_ship   TO_GOLDEN keys  AWAY_GOLDEN
+  default/BuildUVMPkg                 4         0                2            0
+  default/MiniAmiq                 2314      2074               12            0
+  default/Scoreboard                466       418               12            0
+  default/SeqDriver                1070       926               12            0
+  default/SimpleUVM                 736       688               12            0
+  testflags/BuildUVMPkg               4         0                2            0
+  testflags/MiniAmiq               2314      2074               12            0
+  testflags/SeqDriver              1070       926               12            0
+  testflags/SimpleUVM               736       688               12            0
+  -------------------------------------------------------------------------------
+  TOTAL                                                                       0 AWAY
+
+Every mover moves toward golden on the axis the pass claims; not one cell moves away.
+BuildUVMPkg reaches ZERO declaration-typespec error (its only candidate is UVM_RADIX).
+The residual error on the other rows is the RHS/value surface this pass does not touch
+(README §5, R2/R3) plus the unrelated pre-existing UVM residues.
+
+Attribution of the byte moves (attr102.sh: path- and id-normalised, SORTED whole-dump
+diff, therefore order-blind — Scoreboard/default is the ~50/50 coin and is attributed,
+not assumed):
+
+  every changed line in all nine databases is the removal of a
+      parameter -> ref_typespec -> int_typespec
+  from uvm_pkg::UVM_ALL_ON / UVM_DEFAULT / UVM_FLAGS_ON (uvm_object_globals.svh:180-182)
+  and uvm_pkg::UVM_RADIX (uvm_object_globals.svh:99), together with that int_typespec's
+  own range and bound constants; plus a GAIN of top-level "\_ref_typespec:" lines in the
+  dump's weaklyReferenced tail, because the ref object is still minted and merely not
+  attached — unreachable to the judge.
+
+  default/Scoreboard order-blind diff: 88 lines, all of them the law's.
+  default/SeqDriver  order-blind diff: 440 lines; the only GAINED lines (8 + 8 headers)
+                     are the weaklyReferenced tail.
+
+uhdm2rtlil: PATH_SETS_IDENTICAL (1358), byte movers 0/1358 — and a source-level scan of
+the whole uhdm2rtlil corpus finds NO untyped-unranged parameter with an unsized based
+literal (the single candidate, rp32/hamster/r5p_hamster.sv:44, is typed AND ranged), so
+zero is the PREDICTED result, not an unexplained absence.

@@ -1,0 +1,34 @@
+r10v102 wide boundary — verifier's own, built from a COPY of tools/probe with NO path filter
+============================================================================================
+universe: 3267 .sv/.v sources in 1472 directories (tools/probe @ ecdded75
+          + r10uvm102repro + this verifier's arms); 1841 of the sources live in
+          SUBDIRECTORIES (sd8-12 keep 347 there, rgg18 keeps both of its arms there).
+method:   both FROZEN binaries in the same worker; DEF (--single-unit) and ELAB
+          (--single-unit --elabuhdm); source list on fd 3; every child </dev/null;
+          scratch keyed on the RELATIVE path; rc recorded per cell; PROCESSED asserted.
+
+per-FILE       LISTED=3267 PROCESSED=3267  PROCESSED_ASSERT OK
+               IDENTICAL=6246  MOVED=20  NO_OUTPUT=268  RC_DIFF=0  ASYM=0
+per-DIRECTORY  LISTED=1472 PROCESSED=1472  PROCESSED_ASSERT OK
+               IDENTICAL=2691  MOVED=4   NO_OUTPUT=249  RC_DIFF=0  ASYM=0
+
+per-FILE movers (20 cells = 10 sources x 2 views) — ALL positive sources:
+  ./r10earl_repro/h.sv                 def elab   (pre-existing; scored below)
+  ./r10uvm102repro/g102.sv             def elab   (the pass's positive source)
+  ./r10v102arms/{a01_basic,b01_shapes,b05_refcast,b07_local,
+                 c01_homes,c04_unit,d01_override,d02_inst3}.sv  def elab
+per-DIRECTORY movers (4 cells): ./r10uvm102repro, ./r10v102arms — both views.
+No order-only movers were observed anywhere (this boundary is serial and both
+sides are produced in the same worker, so there is no stale-dump artefact).
+
+r10earl_repro/h.sv scored against a FRESH Surelog golden, both views:
+  TS axis err_pris=8 -> err_ship=0, TO_GOLDEN=4 objects, AWAY_GOLDEN=0
+  the movers are PU='h3 (package) and MU='h3 (module header) — untyped, unranged;
+  the ten typed/ranged siblings in the SAME file (PH PB PD PO MH MB MD MO MI MW)
+  do not move.  An arm that TESTS, not one that merely agrees.
+
+named boundaries — byte-identical in BOTH views, sources actually reached:
+  uvm97 5   uvm98 6   uvm89 2   uvm77/78/79 9/8/8   buvm14 1   buvm3 4   buvm15 9
+  uvm82 7   uvm91 5   uvm84/85 23/23   earl46/67/68 4/3/3
+  rgg18 2 (both in a subdirectory)   sd8/9/10/11/12 37/44/68/90/108 (all in subdirectories)
+positive control: the verifier's own arms MOVE, proving the gate can see.

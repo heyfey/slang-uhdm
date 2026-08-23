@@ -1,0 +1,26 @@
+r10uvm102 fresh-pair exhaustive boundary
+
+Every arm generated pristine and ship databases fresh in the same worker.
+Both producers used the same source list, view, working directory, and builtin
+policy.  This removes the concurrency-sensitive stale-dump artifact observed
+in the first attribution pass.
+
+Per-file:
+  directories/sources=3252, arms=6504
+  IDENTICAL=6226 MOVED=4 NO_OUTPUT=274 RC_DIFF=0 ASYM=0
+  movers are exactly both views of:
+    F0480 tools/probe/r10earl_repro/h.sv
+    F1848 tools/probe/r10uvm102repro/g102.sv
+  Fresh Surelog scoring puts all eight changed parameter objects to golden.
+
+Per-directory:
+  directories=1471, arms=2942
+  IDENTICAL=2693 MOVED=8 NO_OUTPUT=241 RC_DIFF=0 ASYM=0
+  semantic movers: r10uvm102repro default + elab
+  order-only movers: r10buvm9repro, r10uvm75repro, r10uvm76repro,
+                    each default + elab
+  Every order-only mover has a zero-line sorted dump diff.
+
+The separate negative grid (added after the frozen boundary source universe)
+is byte-identical pristine-to-ship in both views.
+

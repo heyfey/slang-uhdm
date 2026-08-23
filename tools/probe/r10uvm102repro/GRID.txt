@@ -1,0 +1,27 @@
+r10uvm102 final adversarial grid
+
+Positive g102.sv, each of default and --elabuhdm:
+  parameter objects: STILL_RIGHT=14 TO_GOLDEN=38 AWAY=0 MOVED_WRONG=0 STILL_WRONG=1
+  param_assign RHS:  STILL_RIGHT=6  TO_GOLDEN=0  AWAY=0 MOVED_WRONG=0 STILL_WRONG=47
+  combined:          STILL_RIGHT=20 TO_GOLDEN=38 AWAY=0 MOVED_WRONG=0 STILL_WRONG=48
+
+The 38 movers cover package parameters/localparams, package-import copies,
+class parameters, module header/body parameters, and materialized module
+copies for unsized 'b, 'o, and 'h literals.  Sized b/o/h, sized and unsized
+decimal, plain decimal, unbased '0, explicit int/logic types, and written
+ranges are controls.
+
+Negative g102_neg.sv, pristine versus ship:
+  default: byte-identical UHDM database
+  elab:    byte-identical UHDM database
+
+Negative arms: explicit signed/unsigned implicit declarations, written range,
+unknown 'bx, function-local localparam, and an overridden parameter.
+
+Historical tools/probe/r10earl_repro/h.sv, fresh Surelog three-way score:
+  default: TO_GOLDEN=4 AWAY=0 MOVED_WRONG=0
+  elab:    TO_GOLDEN=4 AWAY=0 MOVED_WRONG=0
+
+The remaining g102 official comparator head is the deliberately unclaimed
+sized-decimal RHS reference at source line 9; it is unchanged from pristine.
+

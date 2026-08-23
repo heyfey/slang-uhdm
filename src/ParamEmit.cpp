@@ -3926,6 +3926,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // MEMORY_INTERFACE states; fsm's 3'b001 and param_test's 8'hAA keep
         // their int_typespec).
         bool decBasedInit = false;
+        // § implicitUnsizedBasedNoTs102 — an UNTYPED parameter initialized by
+        // an UNSIZED binary/octal/hex literal (`'b101`, `'o17`, or `'h1a`) has
+        // no declaration typespec in Surelog.  Its param_assign Rhs is left on
+        // the existing view-specific path: package/definition copies and
+        // elaborated module copies do not have one common reference shape.
+        // A sized literal (`3'b101`) still infers an int_typespec; decimal-
+        // based literals remain on the distinct decBasedInit path below.
+        // Explicitly typed and ranged declarations keep their declared types.
+        bool unsizedBasedInit = false;
         // A NON-decimal based literal with an explicit WIDTH (3'bxxx): the
         // declaration's width is known even when the VALUE has x/z bits, so
         // Surelog still mints the implicit int_typespec. Only a
@@ -3941,6 +3950,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (bp0 < rawL0.size() &&
                         (rawL0[bp0] == 's' || rawL0[bp0] == 'S'))
                         bp0++;
+                    unsizedBasedInit =
+                        tk0 == 0 && bp0 < rawL0.size() &&
+                        std::string("bBoOhH").find(rawL0[bp0]) !=
+                            std::string::npos;
                     decBasedInit = bp0 < rawL0.size() &&
                                    (rawL0[bp0] == 'd' || rawL0[bp0] == 'D');
                     sizedBasedInit =
@@ -3980,9 +3993,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
         }
         bool typedParam = false;
+        bool implicitSigning102 = false;
         if (auto declared = ps.getDeclaredType()) {
-            if (auto tsyn = declared->getTypeSyntax())
+            if (auto tsyn = declared->getTypeSyntax()) {
                 typedParam = tsyn->kind != syntax::SyntaxKind::ImplicitType;
+                if (!typedParam)
+                    implicitSigning102 =
+                        tsyn->as<syntax::ImplicitTypeSyntax>().signing.valid();
+            }
         }
         // An imported param's type syntax may not resolve from the importing
         // module; fall back to a definite integral kind (int/scalar/vector).
@@ -4574,7 +4592,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // view of it carries a typespec. The ref is still built (the
             // param_assign Rhs's own typespec, which the DEF view KEEPS, is
             // derived alongside it) -- it is simply not attached.
-            if (!cliOv)
+            bool implicitUnsizedBasedNoTs102 =
+                unsizedBasedInit && !typedParam && !isRangedUntypedParam(ps) &&
+                !implicitSigning102 && !overridden && !funcScope;
+            if (!cliOv && !implicitUnsizedBasedNoTs102)
                 up->Typespec(prt);
         }
         // An UNPACKED-ARRAY param (int X [1:0]) is not isIntegral, so the
