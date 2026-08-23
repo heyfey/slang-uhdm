@@ -1,0 +1,69 @@
+# r10vbuvm27 WIDE BOUNDARY — a COPY of tools/probe, NO path filter, .sv AND .v,
+# recursive (subdirectory arms), fd-3 list, children </dev/null, rc per cell,
+# PROCESSED asserted, DEF and ELAB, both binaries.
+
+== A. pristine vs the IMPLEMENTER'S patched binary (tools/probe at 4c36d4b + r10buvm27repro)
+LISTED=3291 FENCED_SKIPPED=0 PROCESSED=3291 MOVED=10 NO_OUTPUT_PAIRS=274
+PROCESSED-ASSERT-OK
+FINISHED
+   movers:
+     MOVED r10buvm27repro/ast27.sv/def raw=36 orderblind=36 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/ast27.sv/elab raw=64 orderblind=64 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/g27_a0_head.sv/def raw=32 orderblind=32 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/g27_a0_head.sv/elab raw=66 orderblind=66 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/g27_a_leftmost.sv/def raw=102 orderblind=102 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/g27_a_leftmost.sv/elab raw=226 orderblind=220 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/g27_b_shapes.sv/def raw=941 orderblind=925 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/g27_b_shapes.sv/elab raw=2601 orderblind=2565 rc_pris=0 rc_pat=0
+     MOVED r10v95repro/v95_b6_exprargs.sv/def raw=108 orderblind=108 rc_pris=0 rc_pat=0
+     MOVED r10v95repro/v95_b6_exprargs.sv/elab raw=186 orderblind=186 rc_pris=0 rc_pat=0
+   (the implementer's own BOUNDARY artifact says LISTED=3290 MOVED=8 — its listing
+    missed r10buvm27repro/ast27.sv, its own arm, 2 cells.  The number is 10.)
+
+== B. pristine vs the VERIFIED (fixed) binary, over the tree this patch ships
+LISTED=3302 FENCED_SKIPPED=0 PROCESSED=3302 MOVED=30 NO_OUTPUT_PAIRS=274
+PROCESSED-ASSERT-OK
+FINISHED
+   movers:
+     MOVED r10buvm27repro/ast27.sv/def raw=36 orderblind=36 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/ast27.sv/elab raw=64 orderblind=64 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/g27_a0_head.sv/def raw=32 orderblind=32 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/g27_a0_head.sv/elab raw=66 orderblind=66 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/g27_a_leftmost.sv/def raw=102 orderblind=102 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/g27_a_leftmost.sv/elab raw=226 orderblind=220 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/g27_b_shapes.sv/def raw=941 orderblind=925 rc_pris=0 rc_pat=0
+     MOVED r10buvm27repro/g27_b_shapes.sv/elab raw=2601 orderblind=2565 rc_pris=0 rc_pat=0
+     MOVED r10v95repro/v95_b6_exprargs.sv/def raw=108 orderblind=108 rc_pris=0 rc_pat=0
+     MOVED r10v95repro/v95_b6_exprargs.sv/elab raw=186 orderblind=186 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_a_homes.sv/def raw=576 orderblind=552 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_a_homes.sv/elab raw=972 orderblind=948 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_b_types.sv/def raw=522 orderblind=522 rc_pris=4 rc_pat=4
+     MOVED r10vbuvm27repro/v27_b_types.sv/elab raw=1036 orderblind=1018 rc_pris=4 rc_pat=4
+     MOVED r10vbuvm27repro/v27_c_shapes.sv/def raw=299 orderblind=299 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_c_shapes.sv/elab raw=618 orderblind=618 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_d_pos.sv/def raw=511 orderblind=503 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_d_pos.sv/elab raw=1068 orderblind=1054 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_f_gen.sv/def raw=313 orderblind=293 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_f_gen.sv/elab raw=430 orderblind=408 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_g1_gen.sv/def raw=118 orderblind=118 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_g1_gen.sv/elab raw=171 orderblind=171 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_g2_gencarriers.sv/def raw=36 orderblind=36 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_g2_gencarriers.sv/elab raw=58 orderblind=58 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_g3_ifgen.sv/def raw=311 orderblind=291 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_g3_ifgen.sv/elab raw=460 orderblind=438 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_g4_genforms.sv/def raw=82 orderblind=82 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_g4_genforms.sv/elab raw=113 orderblind=113 rc_pris=0 rc_pat=0
+     MOVED r10vbuvm27repro/v27_h_types2.sv/def raw=290 orderblind=290 rc_pris=4 rc_pat=4
+     MOVED r10vbuvm27repro/v27_h_types2.sv/elab raw=570 orderblind=558 rc_pris=4 rc_pat=4
+
+== every mover SCORED against a rebuilt golden, field by field, view-general:
+   r10buvm27repro/*        -> ARMS.r10vbuvm27.txt, BROKE 0, FIXED 1/6/40
+   r10v95repro/v95_b6_*    -> ARMS.r10vbuvm27.txt, BROKE 0, FIXED 7
+   r10vbuvm27repro/*       -> ARMS.r10vbuvm27.txt, BROKE 0 in EVERY arm, both views
+   r10buvm27repro/ast27.sv is a parse-tree probe with no golden expectation;
+   its cells are the same $bits(<select> op x) shapes measured in g27_a_leftmost.
+
+== NOT MOVED, and that is the point: 3272 of 3302 sources, including every
+   buvm3-26, uvm82-105, sd8-12, earl and rgg arm.  NO_OUTPUT_PAIRS=274 are
+   sources neither binary compiles standalone (fragments/include bodies), and
+   the count is IDENTICAL for both binaries (no ASYMMETRIC_OUTPUT cell).

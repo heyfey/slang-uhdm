@@ -2432,6 +2432,137 @@ bool UhdmExporter::bitsRootWidth95Applies(
     return true;
 }
 
+// § genBlockBitsNoLeftmostFold27v (r10vbuvm27, the ADVERSARIAL VERIFIER'S
+// FENCE) — SURELOG NEVER FOLDS `$bits` INSIDE A GENERATE BLOCK.
+//
+// Measured golden-side on four written generate forms (`for`-generate,
+// `if`-generate, `case`-generate, a bare `generate begin : b … end` block) and
+// on every statement carrier inside one (`assign`, `initial`, `always`, a
+// function body declared in the block), in a MODULE and in an INTERFACE:
+// Surelog keeps the `sys_func_call` in EVERY generate-scope copy, while the
+// SAME text one line outside the block folds
+// (`tools/probe/r10vbuvm27repro/v27_f_gen.sv`, cells f01…f12).  A module
+// INSTANTIATED inside a generate block is not affected — its own body folds —
+// so the test is LEXICAL, which is why it is asked of the syntax tree and not
+// of the instance path.
+//
+// The pristine emitter already keeps every `$bits(<binary>)` there (a binary
+// argument always set `bitsKeep`), so without this fence §
+// binOpLeftmostSelectBits27 would turn a cell that AGREED with golden into one
+// that disagrees.  This is the narrowest possible fence: it suppresses only
+// the substitution, restoring pristine behaviour inside generate blocks and
+// changing nothing outside them.  (Golden also keeps the SINGLE-argument
+// `$bits(<select>)` there, which we still over-fold — that is PRE-EXISTING,
+// left untouched, and recorded as residue R-GENFOLD.)
+static bool inGenerateBlock27v(const slang::ast::Expression& arg0) {
+    using namespace slang::syntax;
+    const SyntaxNode* n = arg0.syntax;
+    for (int guard = 0; n && guard < 256; guard++, n = n->parent) {
+        switch (n->kind) {
+            case SyntaxKind::GenerateRegion:
+            case SyntaxKind::GenerateBlock:
+            case SyntaxKind::LoopGenerate:
+            case SyntaxKind::IfGenerate:
+            case SyntaxKind::CaseGenerate:
+                return true;
+            default:
+                break;
+        }
+    }
+    return false;
+}
+
+// § binOpLeftmostSelectBits27 — `compileBits` TYPES AN EXPRESSION ARGUMENT BY
+// ITS LEFTMOST OPERAND, AND ONLY WHEN THAT OPERAND CARRIES A SELECT.
+//
+// `CompileHelper::compileBits` (Surelog CompileExpression.cpp:4663-4724) never
+// looks at the argument as an expression.  Its default branch takes exactly
+// THREE `Child()` hops from the argument `Expression` node and hands whatever
+// lands there to `getTypespec`:
+//
+//     NodeId Primary        = fC->Child(Expression);
+//     NodeId Primary_literal= fC->Child(Primary);
+//     NodeId StringConst    = fC->Child(Primary_literal);   // typeSpecId
+//
+// Surelog's parse tree (`surelog -d ast`, verified on this pass's own AST
+// dump) makes those three hops land on a DIFFERENT node kind per written
+// shape.  For a BINARY expression `L op R` the argument node's first child is
+// the LEFT OPERAND'S OWN `Expression` node, so the three hops walk one level
+// deeper into `L` than they do for a bare argument:
+//
+//   written            hop1        hop2             hop3 = typeSpecId
+//   -----------------  ----------  ---------------  --------------------------
+//   x                  Primary     Primary_literal  StringConst(x)      FOLD
+//   x[i] / x.m         Primary     Complex_func_call  (hop2 is taken)    FOLD
+//   x op y             Expression  Primary          Primary_literal     KEEP
+//   x[i] op y          Expression  Primary          Complex_func_call   FOLD
+//   3'd1 op y          Expression  Primary          Primary_literal     KEEP
+//   (x[i]) op y        Expression  Primary          Primary_literal     KEEP
+//   ~x[i] op y         (unary; never reaches a Complex_func_call)       KEEP
+//   x[i] op y op z     Expression  Expression       Primary             KEEP
+//   {x[i], y}          Primary     Concatenation    (the concat branch)
+//
+// `getTypespec`'s `paComplex_func_call` arm then compiles that leftmost
+// operand and takes its ROOT NAME's typespec — the SAME answer §
+// `bitsSelectIgnoredRootBits95` already transcribes for a bare
+// `$bits(<select chain>)`.  So golden's `$bits(m_data[i] & be)` is golden's
+// `$bits(m_data[i])`: 8, not the 8-bit width of the bit-and, and
+// `$bits(pk4[i] & be)` over `logic [7:0] pk4 [4]` is 32, not 8.
+//
+// Measured golden-side on grid `g27_b_shapes.sv` (28 leftmost-operand shapes x
+// class in-block / class out-of-block / package function / module initial /
+// cont_assign / localparam / parameter / if-condition / index / call argument,
+// DEF and ELAB): every cell whose leftmost operand is a select chain folds to
+// the ROOT's width; every cell whose leftmost operand is a bare name, a
+// literal, a parenthesis, a unary, a nested binary, a call, `this.`/handle-
+// qualified or a member-then-select KEEPS the `sys_func_call`.
+//
+// Returns that leftmost operand when the rule fires, null otherwise.  The
+// caller then treats `$bits(<binary>)` as `$bits(<leftmost operand>)`, which
+// is literally what `compileBits` does.
+//
+// FENCED BY § genBlockBitsNoLeftmostFold27v (above): Surelog folds NO `$bits`
+// inside a generate block, so the substitution must not fire there.
+//
+// TWO GUARDS, each a golden cell:
+//   * at least one SELECT — a bare name on the left (`be & dyn[i]`) lands on a
+//     `Primary_literal` and KEEPS (grid cell b17);
+//   * the operand must START AT THE ARGUMENT'S OWN FIRST CHARACTER — any
+//     wrapper node (a parenthesis, a cast, a unary, a nested binary) inserts a
+//     level and pushes the walk off the `Complex_func_call` (cells b18/b19/
+//     b20).  slang's AST makes parentheses transparent, so the source offset
+//     is what carries the distinction.
+static const slang::ast::Expression* binOpLeftmostSelect27(
+    const slang::ast::Expression& arg0) {
+    using namespace slang::ast;
+    const Expression& a = stripImplicitConv(arg0);
+    const Expression* l = nullptr;
+    if (a.kind == ExpressionKind::BinaryOp)
+        l = &a.as<BinaryExpression>().left();
+    else if (a.kind == ExpressionKind::ConditionalOp) {
+        auto& ce = a.as<ConditionalExpression>();
+        if (ce.conditions.size() != 1 || ce.conditions[0].pattern)
+            return nullptr;
+        l = ce.conditions[0].expr;
+    }
+    if (!l)
+        return nullptr;
+    const Expression& ls = stripImplicitConv(*l);
+    if (ls.kind != ExpressionKind::ElementSelect &&
+        ls.kind != ExpressionKind::RangeSelect)
+        return nullptr;
+    if (!selChainRoot95(ls))
+        return nullptr;
+    if (!a.sourceRange.start() || !ls.sourceRange.start())
+        return nullptr;
+    if (ls.sourceRange.start() != a.sourceRange.start())
+        return nullptr;
+    // § genBlockBitsNoLeftmostFold27v — the generate-block fence (see above).
+    if (inGenerateBlock27v(arg0) || inGenerateBlock27v(a))
+        return nullptr;
+    return &ls;
+}
+
 // § bitsOutOfBlockNoReduce95 — a class method whose body is written OUT OF
 // BLOCK (`extern` prototype + `C::m`) compiles with `Reduce::No`, so EVERY
 // arm of `compileBits` fails its `(reduce == Reduce::Yes)` guard and the bare
@@ -18147,9 +18278,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Surelog keeps it a sys_func_call when the argument is an
             // expression ($bits(~x)) or a parameter ($bits(P), override-
             // dependent).
+            // § binOpLeftmostSelectBits27 — THE SUBSTITUTION.  Surelog's
+            // `compileBits` types `$bits(<binary or ternary expression>)` by
+            // the expression's LEFTMOST OPERAND when that operand carries a
+            // select, and by NOTHING AT ALL otherwise.  So the whole decision
+            // below — Surelog's def-compile fold test, the class-property
+            // rule, the package-copy gate, the root-width value and the keep
+            // half — runs on that leftmost operand, exactly as if the source
+            // had written `$bits(<leftmost operand>)`.  When the rule does not
+            // fire, `bitsArg27` IS the written argument and nothing changes.
+            const Expression* bitsArg27 =
+                call.arguments().empty() ? nullptr : call.arguments()[0];
+            if (name == "$bits" && bitsArg27)
+                if (const Expression* l27 = binOpLeftmostSelect27(*bitsArg27))
+                    bitsArg27 = l27;
             bool bitsKeep = false;
             if (!call.arguments().empty()) {
-                auto& a0 = *call.arguments()[0];
+                auto& a0 = *bitsArg27;
                 bitsKeep = a0.kind == ExpressionKind::UnaryOp ||
                            a0.kind == ExpressionKind::BinaryOp ||
                            a0.kind == ExpressionKind::ConditionalOp ||
@@ -18208,7 +18353,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // still keeping `$bits(t)` in the package's own def listing.
             bool ownPropFold61 = false;
             if (name == "$bits" && !call.arguments().empty() &&
-                bitsOwnClassPropFold61(*call.arguments()[0])) {
+                bitsOwnClassPropFold61(*bitsArg27)) {
                 bitsKeep = false;
                 ownPropFold61 = true;
             }
@@ -18219,8 +18364,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // `$bits(t1)` where we folded both to 64.
             {
                 std::optional<uint64_t> probe95;
-                const Expression* a95 =
-                    call.arguments().empty() ? nullptr : call.arguments()[0];
+                const Expression* a95 = bitsArg27;
                 if (name == "$bits" && !bitsKeep && bitsRootWidth95Owns(a95) &&
                     !bitsRootWidth95Applies(a95, probe95))
                     bitsKeep = true;
@@ -18230,7 +18374,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // road's `decodeHierPath` cannot resolve a mid-path select.  This
             // overrides `srlgBitsFoldArg`, which certifies only the ROOT.
             if (name == "$bits" && !call.arguments().empty() &&
-                bitsSelectThenMember95(stripImplicitConv(*call.arguments()[0]))) {
+                bitsSelectThenMember95(stripImplicitConv(*bitsArg27))) {
                 bitsKeep = true;
                 ownPropFold61 = false;
             }
@@ -18242,10 +18386,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (name == "$bits" && !bitsKeep) {
                 bool localParamArg =
                     !call.arguments().empty() &&
-                    call.arguments()[0]->kind == ExpressionKind::NamedValue &&
-                    call.arguments()[0]
-                            ->as<NamedValueExpression>()
-                            .symbol.kind == SymbolKind::Parameter;
+                    bitsArg27->kind == ExpressionKind::NamedValue &&
+                    bitsArg27->as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter;
                 ASTContext qctx(comp.getRoot(), LookupLocation::max);
                 auto cv = qctx.tryEval(expr);
                 // Root-context evaluation is slang's answer, not Surelog's:
@@ -18265,9 +18408,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // supersedes BOTH the root-context `tryEval` (slang's answer,
                 // the select's width) and the member/select fallback below,
                 // for exactly the shapes it owns.
-                bitsRootWidth95Applies(
-                    call.arguments().empty() ? nullptr : call.arguments()[0],
-                    staticBits9);
+                bitsRootWidth95Applies(bitsArg27, staticBits9);
                 // § bitsOwnClassPropFold61's VALUE.  The root-context
                 // `tryEval` above cannot answer for a class property — there
                 // is no instance to read — so it returns nothing and, without
@@ -18287,7 +18428,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // answers 0 for a dynamic array / queue / associative
                     // array, where golden answers the ELEMENT width
                     // (`byte m_data[]` -> 8, the head).
-                    auto& a61 = stripImplicitConv(*call.arguments()[0]);
+                    auto& a61 = stripImplicitConv(*bitsArg27);
                     const Symbol* r61 = selChainRoot95(a61);
                     const DeclaredType* d61 = r61 ? r61->getDeclaredType() : nullptr;
                     uint64_t w61b = 0;
@@ -18299,7 +18440,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         staticBits9 = a61.type->getBitstreamWidth();
                 }
                 if (!cv && !staticBits9 && !call.arguments().empty()) {
-                    auto& a9 = stripImplicitConv(*call.arguments()[0]);
+                    auto& a9 = stripImplicitConv(*bitsArg27);
                     if ((a9.kind == ExpressionKind::MemberAccess ||
                          a9.kind == ExpressionKind::ElementSelect ||
                          a9.kind == ExpressionKind::RangeSelect) &&

@@ -1,0 +1,348 @@
+OTHER          default_BlackParrotSkipParam-3af7cd97    4:32-4:51                                      G=CALL:$clog2                        O=CALL:$clog2;CONST:10
+OTHER          default_BuildUVMPkg-bf853d43             22229:36-22229:41                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22234:39-22234:44                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22235:17-22235:22                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22235:32-22235:37                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22237:17-22237:22                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22237:32-22237:37                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22237:50-22237:55                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22237:73-22237:78                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22237:98-22237:103                             G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22246:36-22246:41                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22251:39-22251:44                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22252:17-22252:22                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22252:31-22252:36                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22254:17-22254:22                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22254:31-22254:36                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22254:48-22254:53                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22254:70-22254:75                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22254:94-22254:99                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22263:36-22263:41                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22268:39-22268:44                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22269:17-22269:22                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22269:35-22269:40                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22271:110-22271:115                            G=CALL:$bits;CONST:64                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22271:17-22271:22                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22271:35-22271:40                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22271:56-22271:61                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22271:82-22271:87                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22340:22-22340:27                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22341:15-22341:20                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22351:22-22351:27                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22352:15-22352:20                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22362:22-22362:27                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22363:15-22363:20                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22555:34-22555:39                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22583:53-22583:58                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22583:79-22583:84                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22594:34-22594:39                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22622:53-22622:58                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22622:78-22622:83                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22860:34-22860:39                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22886:26-22886:31                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22886:45-22886:50                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22897:34-22897:39                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22923:26-22923:31                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             22923:44-22923:49                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_BuildUVMPkg-bf853d43             51338:19-51339:43                              G=CALL:$bits                         O=<none>
+VALUE          default_BuildUVMPkg-bf853d43             58248:20-58248:36                              G=CONST:0                            O=CONST:32
+VALUE          default_BuildUVMPkg-bf853d43             58283:20-58283:44                              G=CONST:0                            O=CONST:32
+KEEP_G_FOLD_O  default_BuildUVMPkg-bf853d43             78222:17-78222:38                              G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+KEEP_G_FOLD_O  default_BuildUVMPkg-bf853d43             82730:10-82731:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  default_BuildUVMPkg-bf853d43             82735:61-82736:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  default_BuildUVMPkg-bf853d43             82742:61-82743:48                              G=CALL:$bits                         O=CONST:32
+OTHER          default_HighLow-57c53371                 10:22-10:31                                    G=CALL:$right                        O=CALL:$right;CONST:1
+OTHER          default_HighLow-57c53371                 7:21-7:29                                      G=CALL:$high                         O=CALL:$high;CONST:2
+OTHER          default_HighLow-57c53371                 8:20-8:27                                      G=CALL:$low                          O=CALL:$low;CONST:1
+OTHER          default_HighLow-57c53371                 9:21-9:29                                      G=CALL:$left                         O=CALL:$left;CONST:2
+OTHER          default_MiniAmiq-544c7f61                3494:33-3494:38                                G=CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_MiniAmiq-544c7f61                731:34-731:39                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_MiniAmiq-544c7f61                752:47-752:52                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_MiniAmiq-544c7f61                752:73-752:78                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_MiniAmiq-544c7f61                763:34-763:39                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_MiniAmiq-544c7f61                784:47-784:52                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_MiniAmiq-544c7f61                784:72-784:77                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+KEEP_G_FOLD_O  default_MiniAmiq-544c7f61                944:17-944:38                                  G=CALL:$bits;CONST:64;CONST:64;CONST:64 O=CONST:64;CONST:64;CONST:64;CONST:64
+OTHER          default_MiniAmiq-544c7f61                949:34-949:39                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_MiniAmiq-544c7f61                966:26-966:31                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_MiniAmiq-544c7f61                966:45-966:50                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_MiniAmiq-544c7f61                968:26-968:31                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_MiniAmiq-544c7f61                968:45-968:50                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_MiniAmiq-544c7f61                979:34-979:39                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_MiniAmiq-544c7f61                996:26-996:31                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_MiniAmiq-544c7f61                996:44-996:49                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_MiniAmiq-544c7f61                998:26-998:31                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_MiniAmiq-544c7f61                998:44-998:49                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_NonSynthError-c1658dc4           4:15-4:20                                      G=CALL:$size;CALL:$size              O=<none>
+OTHER          default_NonSynthError-c1658dc4           4:15-4:25                                      G=<none>                             O=CALL:$size;CALL:$size
+OTHER          default_Scoreboard-59431470              3494:33-3494:38                                G=CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_Scoreboard-59431470              731:34-731:39                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_Scoreboard-59431470              752:47-752:52                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_Scoreboard-59431470              752:73-752:78                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_Scoreboard-59431470              763:34-763:39                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_Scoreboard-59431470              784:47-784:52                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_Scoreboard-59431470              784:72-784:77                                  G=CALL:$bits;CONST:32                O=<none>
+KEEP_G_FOLD_O  default_Scoreboard-59431470              944:17-944:38                                  G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+OTHER          default_Scoreboard-59431470              949:34-949:39                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_Scoreboard-59431470              966:26-966:31                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_Scoreboard-59431470              966:45-966:50                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_Scoreboard-59431470              968:26-968:31                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_Scoreboard-59431470              968:45-968:50                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_Scoreboard-59431470              979:34-979:39                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_Scoreboard-59431470              996:26-996:31                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_Scoreboard-59431470              996:44-996:49                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_Scoreboard-59431470              998:26-998:31                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_Scoreboard-59431470              998:44-998:49                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_SeqDriver-32af76aa               3494:33-3494:38                                G=CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_SeqDriver-32af76aa               731:34-731:39                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_SeqDriver-32af76aa               752:47-752:52                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_SeqDriver-32af76aa               752:73-752:78                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_SeqDriver-32af76aa               763:34-763:39                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_SeqDriver-32af76aa               784:47-784:52                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_SeqDriver-32af76aa               784:72-784:77                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+KEEP_G_FOLD_O  default_SeqDriver-32af76aa               944:17-944:38                                  G=CALL:$bits;CONST:64;CONST:64;CONST:64 O=CONST:64;CONST:64;CONST:64;CONST:64
+OTHER          default_SeqDriver-32af76aa               949:34-949:39                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_SeqDriver-32af76aa               966:26-966:31                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_SeqDriver-32af76aa               966:45-966:50                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_SeqDriver-32af76aa               968:26-968:31                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_SeqDriver-32af76aa               968:45-968:50                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          default_SeqDriver-32af76aa               979:34-979:39                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_SeqDriver-32af76aa               996:26-996:31                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_SeqDriver-32af76aa               996:44-996:49                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_SeqDriver-32af76aa               998:26-998:31                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_SeqDriver-32af76aa               998:44-998:49                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_SimpleUVM-1dc93a62               3494:33-3494:38                                G=CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          default_SimpleUVM-1dc93a62               731:34-731:39                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_SimpleUVM-1dc93a62               752:47-752:52                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_SimpleUVM-1dc93a62               752:73-752:78                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_SimpleUVM-1dc93a62               763:34-763:39                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_SimpleUVM-1dc93a62               784:47-784:52                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_SimpleUVM-1dc93a62               784:72-784:77                                  G=CALL:$bits;CONST:32                O=<none>
+KEEP_G_FOLD_O  default_SimpleUVM-1dc93a62               944:17-944:38                                  G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+OTHER          default_SimpleUVM-1dc93a62               949:34-949:39                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_SimpleUVM-1dc93a62               966:26-966:31                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_SimpleUVM-1dc93a62               966:45-966:50                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_SimpleUVM-1dc93a62               968:26-968:31                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_SimpleUVM-1dc93a62               968:45-968:50                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          default_SimpleUVM-1dc93a62               979:34-979:39                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_SimpleUVM-1dc93a62               996:26-996:31                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_SimpleUVM-1dc93a62               996:44-996:49                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_SimpleUVM-1dc93a62               998:26-998:31                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          default_SimpleUVM-1dc93a62               998:44-998:49                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BlackConst-043847d0            112:34-112:50                                  G=<none>                             O=CALL:$clog2
+OTHER          testflags_BlackConst-043847d0            113:35-113:52                                  G=<none>                             O=CALL:$clog2
+OTHER          testflags_BlackConst-043847d0            35:35-35:52                                    G=<none>                             O=CALL:$clog2
+OTHER          testflags_BlackConst-043847d0            76:34-76:50                                    G=<none>                             O=CALL:$clog2
+OTHER          testflags_BlackConst-043847d0            77:35-77:52                                    G=<none>                             O=CALL:$clog2
+OTHER          testflags_BlackConst-043847d0            90:34-90:50                                    G=<none>                             O=CALL:$clog2
+OTHER          testflags_BlackConst-043847d0            91:34-91:51                                    G=<none>                             O=CALL:$clog2
+OTHER          testflags_BlackParrotSkipParam-3af7cd97  4:32-4:51                                      G=CALL:$clog2                        O=CALL:$clog2;CONST:10
+OTHER          testflags_BuildUVMPkg-bf853d43           22229:36-22229:41                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22234:39-22234:44                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22235:17-22235:22                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22235:32-22235:37                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22237:17-22237:22                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22237:32-22237:37                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22237:50-22237:55                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22237:73-22237:78                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22237:98-22237:103                             G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22246:36-22246:41                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22251:39-22251:44                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22252:17-22252:22                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22252:31-22252:36                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22254:17-22254:22                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22254:31-22254:36                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22254:48-22254:53                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22254:70-22254:75                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22254:94-22254:99                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22263:36-22263:41                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22268:39-22268:44                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22269:17-22269:22                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22269:35-22269:40                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22271:110-22271:115                            G=CALL:$bits;CONST:64                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22271:17-22271:22                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22271:35-22271:40                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22271:56-22271:61                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22271:82-22271:87                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22340:22-22340:27                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22341:15-22341:20                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22351:22-22351:27                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22352:15-22352:20                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22362:22-22362:27                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22363:15-22363:20                              G=CALL:$bits;CONST:64                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22555:34-22555:39                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22583:53-22583:58                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22583:79-22583:84                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22594:34-22594:39                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22622:53-22622:58                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22622:78-22622:83                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22860:34-22860:39                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22886:26-22886:31                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22886:45-22886:50                              G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22897:34-22897:39                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22923:26-22923:31                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           22923:44-22923:49                              G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_BuildUVMPkg-bf853d43           51338:19-51339:43                              G=CALL:$bits                         O=<none>
+VALUE          testflags_BuildUVMPkg-bf853d43           58248:20-58248:36                              G=CONST:0                            O=CONST:32
+VALUE          testflags_BuildUVMPkg-bf853d43           58283:20-58283:44                              G=CONST:0                            O=CONST:32
+KEEP_G_FOLD_O  testflags_BuildUVMPkg-bf853d43           78222:17-78222:38                              G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+KEEP_G_FOLD_O  testflags_BuildUVMPkg-bf853d43           82730:10-82731:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  testflags_BuildUVMPkg-bf853d43           82735:61-82736:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  testflags_BuildUVMPkg-bf853d43           82742:61-82743:48                              G=CALL:$bits                         O=CONST:32
+OTHER          testflags_ClogCast-50aaa9ab              38:25-38:40                                    G=CALL:$clog2                        O=CALL:$clog2;CALL:$clog2
+OTHER          testflags_Earlgrey_0_1-71da2fd7          104:29-104:42                                  G=CALL:$high                         O=CALL:$high;CALL:$high
+OTHER          testflags_Earlgrey_0_1-71da2fd7          107:53-107:66                                  G=CALL:$high                         O=CALL:$high;CALL:$high
+OTHER          testflags_Earlgrey_0_1-71da2fd7          257:33-257:44                                  G=CALL:$bits;CONST:4                 O=CALL:$bits;CALL:$bits;CONST:4
+OTHER          testflags_Earlgrey_0_1-71da2fd7          305:54-305:77                                  G=CALL:$clog2                        O=CALL:$clog2;CALL:$clog2
+OTHER          testflags_Earlgrey_0_1-71da2fd7          362:35-362:56                                  G=CALL:$clog2                        O=CALL:$clog2;CALL:$clog2
+OTHER          testflags_Earlgrey_0_1-71da2fd7          417:38-417:61                                  G=CALL:$clog2                        O=CALL:$clog2;CALL:$clog2
+OTHER          testflags_Earlgrey_0_1-71da2fd7          52:24-52:39                                    G=CALL:$clog2                        O=CALL:$clog2;CALL:$clog2
+OTHER          testflags_Earlgrey_0_1-71da2fd7          72:27-72:45                                    G=CALL:$clog2                        O=CALL:$clog2;CALL:$clog2
+OTHER          testflags_EvalFuncCont-fa2a22e2          31:11-31:19                                    G=CALL:$bits;CONST:4                 O=CALL:$bits;CALL:$bits;CONST:4
+OTHER          testflags_ExprEvalBits-7b7bf894          3:24-3:36                                      G=<none>                             O=CALL:$bits;CONST:32
+OTHER          testflags_ExprReductionBits-e080279f     3:24-3:36                                      G=<none>                             O=CALL:$bits;CONST:32
+OTHER          testflags_GenScopeHierPath2-16e4235e     24:22-24:35                                    G=CALL:$bits;CALL:$bits              O=CALL:$bits;CALL:$bits;CALL:$bits
+OTHER          testflags_HighLow-57c53371               10:22-10:31                                    G=CALL:$right                        O=CALL:$right;CONST:1
+OTHER          testflags_HighLow-57c53371               7:21-7:29                                      G=CALL:$high                         O=CALL:$high;CONST:2
+OTHER          testflags_HighLow-57c53371               8:20-8:27                                      G=CALL:$low                          O=CALL:$low;CONST:1
+OTHER          testflags_HighLow-57c53371               9:21-9:29                                      G=CALL:$left                         O=CALL:$left;CONST:2
+OTHER          testflags_LateBindingFuncArg-2c3fcdbe    5:24-5:36                                      G=CALL:$bits;CALL:$bits              O=CALL:$bits;CALL:$bits;CONST:32
+OTHER          testflags_MiniAmiq-544c7f61              3494:33-3494:38                                G=CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              731:34-731:39                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              752:47-752:52                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              752:73-752:78                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              763:34-763:39                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              784:47-784:52                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              784:72-784:77                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+KEEP_G_FOLD_O  testflags_MiniAmiq-544c7f61              944:17-944:38                                  G=CALL:$bits;CONST:64;CONST:64;CONST:64 O=CONST:64;CONST:64;CONST:64;CONST:64
+OTHER          testflags_MiniAmiq-544c7f61              949:34-949:39                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              966:26-966:31                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              966:45-966:50                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              968:26-968:31                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              968:45-968:50                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              979:34-979:39                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              996:26-996:31                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              996:44-996:49                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              998:26-998:31                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_MiniAmiq-544c7f61              998:44-998:49                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_NonSynthError-c1658dc4         4:15-4:20                                      G=CALL:$size;CALL:$size              O=<none>
+OTHER          testflags_NonSynthError-c1658dc4         4:15-4:25                                      G=<none>                             O=CALL:$size;CALL:$size
+OTHER          testflags_SeqDriver-32af76aa             3494:33-3494:38                                G=CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             731:34-731:39                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             752:47-752:52                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             752:73-752:78                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             763:34-763:39                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             784:47-784:52                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             784:72-784:77                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+KEEP_G_FOLD_O  testflags_SeqDriver-32af76aa             944:17-944:38                                  G=CALL:$bits;CONST:64;CONST:64;CONST:64 O=CONST:64;CONST:64;CONST:64;CONST:64
+OTHER          testflags_SeqDriver-32af76aa             949:34-949:39                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             966:26-966:31                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             966:45-966:50                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             968:26-968:31                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             968:45-968:50                                  G=CALL:$bits;CONST:8;CONST:8;CONST:8 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             979:34-979:39                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             996:26-996:31                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             996:44-996:49                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             998:26-998:31                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_SeqDriver-32af76aa             998:44-998:49                                  G=CALL:$bits;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             3494:33-3494:38                                G=CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32;CONST:32 O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             731:34-731:39                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             752:47-752:52                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             752:73-752:78                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             763:34-763:39                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             784:47-784:52                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             784:72-784:77                                  G=CALL:$bits;CONST:32                O=<none>
+KEEP_G_FOLD_O  testflags_SimpleUVM-1dc93a62             944:17-944:38                                  G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+OTHER          testflags_SimpleUVM-1dc93a62             949:34-949:39                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             966:26-966:31                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             966:45-966:50                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             968:26-968:31                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             968:45-968:50                                  G=CALL:$bits;CONST:8                 O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             979:34-979:39                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             996:26-996:31                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             996:44-996:49                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             998:26-998:31                                  G=CALL:$bits;CONST:32                O=<none>
+OTHER          testflags_SimpleUVM-1dc93a62             998:44-998:49                                  G=CALL:$bits;CONST:32                O=<none>
+--- totals ---
+OUT_OF_SCOPE     153123
+OUT_OF_SCOPE_DIFF 17687
+SAME             919
+OTHER            246
+KEEP_G_FOLD_O    15
+VALUE            4
+--- per test ---
+    46  OTHER	default_BuildUVMPkg-bf853d43
+    46  OTHER	testflags_BuildUVMPkg-bf853d43
+    17  OTHER	default_MiniAmiq-544c7f61
+    17  OTHER	default_Scoreboard-59431470
+    17  OTHER	default_SeqDriver-32af76aa
+    17  OTHER	default_SimpleUVM-1dc93a62
+    17  OTHER	testflags_MiniAmiq-544c7f61
+    17  OTHER	testflags_SeqDriver-32af76aa
+    17  OTHER	testflags_SimpleUVM-1dc93a62
+     8  OTHER	testflags_Earlgrey_0_1-71da2fd7
+     7  OTHER	testflags_BlackConst-043847d0
+     4  KEEP_G_FOLD_O	default_BuildUVMPkg-bf853d43
+     4  OTHER	default_HighLow-57c53371
+     4  KEEP_G_FOLD_O	testflags_BuildUVMPkg-bf853d43
+     4  OTHER	testflags_HighLow-57c53371
+     2  VALUE	default_BuildUVMPkg-bf853d43
+     2  OTHER	default_NonSynthError-c1658dc4
+     2  VALUE	testflags_BuildUVMPkg-bf853d43
+     2  OTHER	testflags_NonSynthError-c1658dc4
+     1  OTHER	default_BlackParrotSkipParam-3af7cd97
+     1  KEEP_G_FOLD_O	default_MiniAmiq-544c7f61
+     1  KEEP_G_FOLD_O	default_Scoreboard-59431470
+     1  KEEP_G_FOLD_O	default_SeqDriver-32af76aa
+     1  KEEP_G_FOLD_O	default_SimpleUVM-1dc93a62
+     1  OTHER	testflags_BlackParrotSkipParam-3af7cd97
+     1  OTHER	testflags_ClogCast-50aaa9ab
+     1  OTHER	testflags_EvalFuncCont-fa2a22e2
+     1  OTHER	testflags_ExprEvalBits-7b7bf894
+     1  OTHER	testflags_ExprReductionBits-e080279f
+     1  OTHER	testflags_GenScopeHierPath2-16e4235e
+     1  OTHER	testflags_LateBindingFuncArg-2c3fcdbe
+     1  KEEP_G_FOLD_O	testflags_MiniAmiq-544c7f61
+     1  KEEP_G_FOLD_O	testflags_SeqDriver-32af76aa
+     1  KEEP_G_FOLD_O	testflags_SimpleUVM-1dc93a62
+--- shapes ---
+  1346  OOS | G=CONST:1 | O=<none>
+  1213  OOS | G=CONST:0 | O=<none>
+   793  OOS | G=<none> | O=CONST:1
+   737  OOS | G=CONST:1;CONST:1;CONST:1;CONST:1 | O=<none>
+   711  OOS | G=CONST:0;CONST:0 | O=CONST:0;CONST:0;CONST:0
+   709  OOS | G=<none> | O=CONST:1;CONST:1;CONST:1;CONST:1
+   664  OOS | G=CONST:1;CONST:1 | O=<none>
+   605  OOS | G=<none> | O=CONST:1;CONST:1
+   518  OOS | G=CONST:0;CONST:0;CONST:0;CONST:0 | O=CONST:0;CONST:0;CONST:0;CONST:0;CONST:0
+   344  OOS | G=CONST:1;CONST:1 | O=CONST:1;CONST:1;CONST:1
+   278  OOS | G=CONST:1;CONST:1;CONST:1;CONST:1 | O=CONST:1;CONST:1;CONST:1;CONST:1;CONST:1
+   184  OOS | G=CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1 | O=<none>
+   141  OOS | G=<none> | O=CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1
+   128  OOS | G=CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0 | O=CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0
+   127  OOS | G=CONST:0;CONST:0;CONST:0 | O=CONST:0;CONST:0
+   126  OOS | G=<none> | O=CONST:1;CONST:1;CONST:1;CONST:1;CONST:1
+   102  OOS | G=CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0 | O=CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0
+   102  OOS | G=CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9 | O=CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9
+    96  OOS | G=CONST:1;CONST:1;CONST:1;CONST:1;CONST:1 | O=<none>
+    88  OOS | G=CONST:1;CONST:1;CONST:1 | O=<none>
+    84  OOS | G=CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0 | O=CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0
+    82  OOS | G=<none> | O=CONST:1;CONST:1;CONST:1
+    77  OOS | G=CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0 | O=CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0
+    76  OOS | G=CONST:7;CONST:7;CONST:7;CONST:7;CONST:7;CONST:7;CONST:7;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9 | O=CONST:7;CONST:7;CONST:7;CONST:7;CONST:7;CONST:7;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9;CONST:9
+    75  OOS | G=<none> | O=CONST:0;CONST:0
+    67  OOS | G=CONST:0;CONST:0 | O=<none>
+    65  OOS | G=<none> | O=CONST:32;CONST:32
+    64  OOS | G=<none> | O=CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1
+    63  OOS | G=<none> | O=CONST:8;CONST:8
+    59  OOS | G=<none> | O=CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1;CONST:1
+    58  OOS | G=CONST:1 | O=CONST:1;CONST:1
+    53  OOS | G=CONST:1;CONST:1;CONST:1 | O=CONST:1;CONST:1
+    53  OOS | G=CONST:0 | O=CONST:0;CONST:0
+    52  OOS | G=CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11 | O=CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11
+    50  OTHER | G=CALL:$bits;CONST:8 | O=<none> | ARG=byte_var CARR=operation
+    50  OTHER | G=CALL:$bits;CONST:32 | O=<none> | ARG=int_var CARR=operation
+    50  OOS | G=CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0 | O=CONST:0;CONST:0;CONST:0;CONST:0;CONST:0;CONST:0
+    50  OOS | G=CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11 | O=CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11;CONST:11
+    49  OOS | G=CONST:63 | O=<none>
+    48  OOS | G=CONST:0;CONST:0;CONST:0 | O=CONST:0;CONST:0;CONST:0;CONST:0

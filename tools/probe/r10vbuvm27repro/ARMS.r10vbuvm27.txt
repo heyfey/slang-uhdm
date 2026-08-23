@@ -1,0 +1,579 @@
+# r10vbuvm27 ARMS — four-way (golden / pristine / implementer-patched / fixed), BOTH VIEWS.
+# golden(Surelog) is ALWAYS the LHS.  BROKE = pristine agreed with golden and the
+# binary under test does not.  BROKE must be 0 for the shipped binary.
+
+=== v27_a_homes / def ===
+v27_a_homes_def: pris=rc0/CMP_FAIL/heads1/lines2386 pat=rc0/CMP_FAIL/heads1/lines2386 fix=rc0/CMP_FAIL/heads1/lines2386
+  15:11-15:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  16:11-16:29      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  27:11-27:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  41:9-41:28       pat=FIXED      fix=FIXED      G=CALL:$bits;CONST:8           PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CONST:8           FIX=CALL:$bits;CONST:8
+  42:9-42:28       pat=FIXED      fix=FIXED      G=CALL:$bits;CONST:32          PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CONST:32
+  47:9-47:28       pat=FIXED      fix=FIXED      G=CALL:$bits;CONST:8           PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CONST:8           FIX=CALL:$bits;CONST:8
+  58:12-58:33      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  60:16-60:37      pat=STILL      fix=STILL      G=CONST:32                     PRI=<none>                       PAT=<none>                       FIX=<none>
+  68:16-68:36      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  6:23-6:24        pat=STILL      fix=STILL      G=CONST:4;CONST:4;CONST:4;CONST:4 PRI=<none>                       PAT=<none>                       FIX=<none>
+  79:15-79:35      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32            PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  79:26-79:27      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1              PAT=<none>                       FIX=<none>
+  80:24-80:46      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  80:35-80:36      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  81:24-81:46      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  81:35-81:36      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  83:12-83:32      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  86:10-86:30      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  89:10-89:31      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  91:21-91:42      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  97:19-97:42      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits
+  TOTALS fix:ALREADY-OK=23  fix:FIXED=18  fix:STILL=2  pat:ALREADY-OK=22  pat:BROKE=1  pat:FIXED=18  pat:STILL=2
+=== v27_a_homes / elab ===
+v27_a_homes_elab: pris=rc0/CMP_FAIL/heads1/lines2590 pat=rc0/CMP_FAIL/heads1/lines2590 fix=rc0/CMP_FAIL/heads1/lines2590
+  15:11-15:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  16:11-16:29      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  27:11-27:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  31:9-31:27       pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  32:9-32:27       pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  33:9-33:22       pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  36:9-36:27       pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  41:9-41:28       pat=FIXED      fix=FIXED      G=CALL:$bits;CALL:$bits;CONST:8 PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CONST:8 FIX=CALL:$bits;CALL:$bits;CONST:8
+  42:9-42:28       pat=FIXED      fix=FIXED      G=CALL:$bits;CALL:$bits;CONST:32 PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CONST:32 FIX=CALL:$bits;CALL:$bits;CONST:32
+  47:9-47:28       pat=FIXED      fix=FIXED      G=CALL:$bits;CALL:$bits;CONST:8 PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CONST:8 FIX=CALL:$bits;CALL:$bits;CONST:8
+  58:12-58:33      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  60:16-60:37      pat=STILL      fix=STILL      G=CONST:32                     PRI=<none>                       PAT=<none>                       FIX=<none>
+  68:16-68:36      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  6:23-6:24        pat=STILL      fix=STILL      G=CONST:4;CONST:4;CONST:4;CONST:4 PRI=<none>                       PAT=<none>                       FIX=<none>
+  79:15-79:35      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32            PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  79:26-79:27      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1              PAT=<none>                       FIX=<none>
+  80:24-80:46      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  80:35-80:36      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  81:24-81:46      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  81:35-81:36      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  83:12-83:32      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  86:10-86:30      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  89:10-89:31      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  91:21-91:42      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  97:19-97:42      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  TOTALS fix:ALREADY-OK=19  fix:FIXED=18  fix:STILL=6  pat:ALREADY-OK=18  pat:BROKE=1  pat:FIXED=18  pat:STILL=6
+=== v27_b_types / def ===
+v27_b_types_def: pris=rc4/CMP_FAIL/heads1/lines7154 pat=rc4/CMP_FAIL/heads1/lines6410 fix=rc4/CMP_FAIL/heads1/lines6410
+  32:11-32:32      pat=FIXED      fix=FIXED      G=CONST:4                      PRI=CALL:$bits                   PAT=CONST:4                      FIX=CONST:4
+  33:11-33:32      pat=FIXED      fix=FIXED      G=CONST:3                      PRI=CALL:$bits                   PAT=CONST:3                      FIX=CONST:3
+  34:11-34:33      pat=FIXED      fix=FIXED      G=CONST:130                    PRI=CALL:$bits                   PAT=CONST:130                    FIX=CONST:130
+  35:11-35:32      pat=FIXED      fix=FIXED      G=CONST:24                     PRI=CALL:$bits                   PAT=CONST:24                     FIX=CONST:24
+  37:11-37:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  38:11-38:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  39:11-39:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  40:11-40:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  41:11-41:33      pat=FIXED      fix=FIXED      G=CONST:24                     PRI=CALL:$bits                   PAT=CONST:24                     FIX=CONST:24
+  42:11-42:32      pat=FIXED      fix=FIXED      G=CONST:16                     PRI=CALL:$bits                   PAT=CONST:16                     FIX=CONST:16
+  43:11-43:32      pat=FIXED      fix=FIXED      G=CONST:6                      PRI=CALL:$bits                   PAT=CONST:6                      FIX=CONST:6
+  44:11-44:33      pat=FIXED      fix=FIXED      G=CONST:96                     PRI=CALL:$bits                   PAT=CONST:96                     FIX=CONST:96
+  45:11-45:31      pat=FIXED      fix=FIXED      G=CONST:64                     PRI=CALL:$bits                   PAT=CONST:64                     FIX=CONST:64
+  48:11-48:34      pat=FIXED      fix=FIXED      G=CONST:48                     PRI=CALL:$bits                   PAT=CONST:48                     FIX=CONST:48
+  48:24-48:25      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  49:11-49:34      pat=FIXED      fix=FIXED      G=CONST:24                     PRI=CALL:$bits                   PAT=CONST:24                     FIX=CONST:24
+  TOTALS fix:ALREADY-OK=32  fix:FIXED=16  pat:ALREADY-OK=32  pat:FIXED=16
+=== v27_b_types / elab ===
+v27_b_types_elab: pris=rc4/CMP_FAIL/heads1/lines7758 pat=rc4/CMP_FAIL/heads1/lines6874 fix=rc4/CMP_FAIL/heads1/lines6874
+  32:11-32:32      pat=FIXED      fix=FIXED      G=CONST:4                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:4                      FIX=CONST:4
+  33:11-33:32      pat=FIXED      fix=FIXED      G=CONST:3                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:3                      FIX=CONST:3
+  34:11-34:33      pat=FIXED      fix=FIXED      G=CONST:130                    PRI=CALL:$bits;CALL:$bits        PAT=CONST:130                    FIX=CONST:130
+  35:11-35:32      pat=FIXED      fix=FIXED      G=CONST:24                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:24                     FIX=CONST:24
+  37:11-37:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  38:11-38:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  39:11-39:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  40:11-40:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  41:11-41:33      pat=FIXED      fix=FIXED      G=CONST:24                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:24                     FIX=CONST:24
+  42:11-42:32      pat=FIXED      fix=FIXED      G=CONST:16                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:16                     FIX=CONST:16
+  43:11-43:32      pat=FIXED      fix=FIXED      G=CONST:6                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:6                      FIX=CONST:6
+  44:11-44:33      pat=FIXED      fix=FIXED      G=CONST:96                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:96                     FIX=CONST:96
+  45:11-45:31      pat=FIXED      fix=FIXED      G=CONST:64                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:64                     FIX=CONST:64
+  48:11-48:34      pat=FIXED      fix=FIXED      G=CONST:48                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:48                     FIX=CONST:48
+  48:24-48:25      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  49:11-49:34      pat=FIXED      fix=FIXED      G=CONST:24                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:24                     FIX=CONST:24
+  TOTALS fix:ALREADY-OK=32  fix:FIXED=16  pat:ALREADY-OK=32  pat:FIXED=16
+=== v27_c_shapes / def ===
+v27_c_shapes_def: pris=rc0/CMP_FAIL/heads1/lines64 pat=rc0/CMP_FAIL/heads1/lines64 fix=rc0/CMP_FAIL/heads1/lines64
+  16:11-16:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  21:11-21:36      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  27:11-27:34      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  31:11-31:29      pat=STILL      fix=STILL      G=CALL:$bits                   PRI=CONST:16                     PAT=CONST:16                     FIX=CONST:16
+  31:18-31:19      pat=STILL      fix=STILL      G=CONST:2                      PRI=<none>                       PAT=<none>                       FIX=<none>
+  36:11-36:28      pat=STILL      fix=STILL      G=CONST:4                      PRI=CALL:$bits                   PAT=CALL:$bits                   FIX=CALL:$bits
+  38:11-38:34      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  38:26-38:27      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:4                      PAT=<none>                       FIX=<none>
+  39:11-39:34      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  39:26-39:27      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:4                      PAT=<none>                       FIX=<none>
+  40:11-40:32      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  40:24-40:25      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  45:11-45:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  46:11-46:29      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  TOTALS fix:ALREADY-OK=27  fix:FIXED=11  fix:STILL=3  pat:ALREADY-OK=27  pat:FIXED=11  pat:STILL=3
+=== v27_c_shapes / elab ===
+v27_c_shapes_elab: pris=rc0/CMP_FAIL/heads1/lines64 pat=rc0/CMP_FAIL/heads1/lines64 fix=rc0/CMP_FAIL/heads1/lines64
+  16:11-16:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  17:11-17:31      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  18:11-18:33      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  19:11-19:34      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  20:11-20:36      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  21:11-21:36      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  22:11-22:29      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  23:11-23:30      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  24:11-24:30      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  25:11-25:33      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  26:11-26:35      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  27:11-27:34      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  28:11-28:34      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  29:11-29:36      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  31:11-31:29      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CONST:16                     PAT=CONST:16                     FIX=CONST:16
+  31:18-31:19      pat=STILL      fix=STILL      G=CONST:2                      PRI=<none>                       PAT=<none>                       FIX=<none>
+  32:11-32:38      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  33:11-33:27      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  34:11-34:33      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  35:11-35:34      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  36:11-36:28      pat=STILL      fix=STILL      G=CONST:4                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  37:11-37:32      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  38:11-38:34      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32                     FIX=CONST:32
+  38:26-38:27      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:4                      PAT=<none>                       FIX=<none>
+  39:11-39:34      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32                     FIX=CONST:32
+  39:26-39:27      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:4                      PAT=<none>                       FIX=<none>
+  40:11-40:32      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  40:24-40:25      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  41:11-41:39      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  41:17-41:38      pat=STILL      fix=STILL      G=<none>                       PRI=CONST:0                      PAT=CONST:0                      FIX=CONST:0
+  45:11-45:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  46:11-46:29      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32                     FIX=CONST:32
+  TOTALS fix:ALREADY-OK=10  fix:FIXED=11  fix:STILL=21  pat:ALREADY-OK=10  pat:FIXED=11  pat:STILL=21
+=== v27_d_pos / def ===
+v27_d_pos_def: pris=rc0/CMP_FAIL/heads1/lines76 pat=rc0/CMP_FAIL/heads1/lines76 fix=rc0/CMP_FAIL/heads1/lines76
+  12:13-12:31      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  17:9-17:27       pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  20:13-20:31      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  21:16-21:34      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  22:15-22:33      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  23:12-23:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  24:16-24:34      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  25:11-25:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  26:18-26:36      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  27:27-27:45      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  28:15-28:33      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  29:23-29:41      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  30:16-30:34      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  46:24-46:46      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  46:35-46:36      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  49:13-49:35      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32            PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  49:24-49:25      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1              PAT=<none>                       FIX=<none>
+  9:35-9:56        pat=STILL      fix=STILL      G=CONST:32                     PRI=CALL:$bits                   PAT=CALL:$bits                   FIX=CALL:$bits
+  9:45-9:46        pat=STILL      fix=STILL      G=<none>                       PRI=CONST:0                      PAT=CONST:0                      FIX=CONST:0
+  TOTALS fix:ALREADY-OK=29  fix:FIXED=17  fix:STILL=2  pat:ALREADY-OK=29  pat:FIXED=17  pat:STILL=2
+=== v27_d_pos / elab ===
+v27_d_pos_elab: pris=rc0/CMP_FAIL/heads1/lines84 pat=rc0/CMP_FAIL/heads1/lines84 fix=rc0/CMP_FAIL/heads1/lines84
+  12:13-12:31      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  17:9-17:27       pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  20:13-20:31      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  21:16-21:34      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  22:15-22:33      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  23:12-23:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  24:16-24:34      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  25:11-25:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  26:18-26:36      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  27:27-27:45      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  28:15-28:33      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  29:23-29:41      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  30:16-30:34      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  46:24-46:46      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  46:35-46:36      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  49:13-49:35      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32            PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  49:24-49:25      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1              PAT=<none>                       FIX=<none>
+  9:35-9:56        pat=STILL      fix=STILL      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CALL:$bits        FIX=CALL:$bits;CALL:$bits
+  9:45-9:46        pat=STILL      fix=STILL      G=<none>                       PRI=CONST:0                      PAT=CONST:0                      FIX=CONST:0
+  TOTALS fix:ALREADY-OK=29  fix:FIXED=17  fix:STILL=2  pat:ALREADY-OK=29  pat:FIXED=17  pat:STILL=2
+=== v27_e_inst / def ===
+v27_e_inst_def: pris=rc0/CMP_FAIL/heads1/lines132 pat=rc0/CMP_FAIL/heads1/lines132 fix=rc0/CMP_FAIL/heads1/lines132
+  TOTALS fix:ALREADY-OK=12  pat:ALREADY-OK=12
+=== v27_e_inst / elab ===
+v27_e_inst_elab: pris=rc0/CMP_FAIL/heads1/lines132 pat=rc0/CMP_FAIL/heads1/lines132 fix=rc0/CMP_FAIL/heads1/lines132
+  TOTALS fix:ALREADY-OK=12  pat:ALREADY-OK=12
+=== v27_f_gen / def ===
+v27_f_gen_def: pris=rc0/CMP_FAIL/heads1/lines98 pat=rc0/CMP_FAIL/heads1/lines110 fix=rc0/CMP_FAIL/heads1/lines110
+  12:18-12:39      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits
+  12:28-12:29      pat=STILL      fix=STILL      G=CONST:1;CONST:1;CONST:1      PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  14:16-14:37      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  14:26-14:27      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  21:15-21:36      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32;CONST:32   PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32;CONST:32   FIX=CONST:32;CONST:32;CONST:32
+  21:25-21:26      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1;CONST:1      PAT=<none>                       FIX=<none>
+  35:17-35:38      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CONST:32;CONST:32 FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  35:27-35:28      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1;CONST:1      PRI=CONST:1;CONST:1;CONST:1      PAT=CONST:1                      FIX=CONST:1;CONST:1;CONST:1
+  36:18-36:39      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32;CONST:32   FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  36:28-36:29      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1;CONST:1      PRI=CONST:1;CONST:1;CONST:1      PAT=<none>                       FIX=CONST:1;CONST:1;CONST:1
+  37:24-37:45      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32;CONST:32   FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  37:34-37:35      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1;CONST:1      PRI=CONST:1;CONST:1;CONST:1      PAT=<none>                       FIX=CONST:1;CONST:1;CONST:1
+  38:31-38:52      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits
+  38:41-38:42      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  39:22-39:44      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CONST:32;CONST:32 FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  46:17-46:38      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CALL:$bits
+  46:27-46:28      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=CONST:1                      FIX=CONST:1;CONST:1
+  51:19-51:40      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CALL:$bits
+  51:29-51:30      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=CONST:1                      FIX=CONST:1;CONST:1
+  57:19-57:40      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CALL:$bits
+  57:29-57:30      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=CONST:1                      FIX=CONST:1;CONST:1
+  62:21-62:42      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32;CONST:32;CONST:32 FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  62:31-62:32      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1;CONST:1;CONST:1 PRI=CONST:1;CONST:1;CONST:1;CONST:1 PAT=<none>                       FIX=CONST:1;CONST:1;CONST:1;CONST:1
+  68:15-68:36      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32            PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  68:25-68:26      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1              PAT=<none>                       FIX=<none>
+  70:10-70:31      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  70:20-70:21      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  TOTALS fix:ALREADY-OK=36  fix:FIXED=8  fix:STILL=2  pat:ALREADY-OK=19  pat:BROKE=17  pat:FIXED=8  pat:STILL=2
+=== v27_f_gen / elab ===
+v27_f_gen_elab: pris=rc0/CMP_FAIL/heads1/lines102 pat=rc0/CMP_FAIL/heads1/lines110 fix=rc0/CMP_FAIL/heads1/lines110
+  12:18-12:39      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits
+  12:28-12:29      pat=STILL      fix=STILL      G=CONST:1;CONST:1;CONST:1      PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  14:16-14:37      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  14:26-14:27      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  21:15-21:36      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32;CONST:32   PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32;CONST:32   FIX=CONST:32;CONST:32;CONST:32
+  21:25-21:26      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1;CONST:1      PAT=<none>                       FIX=<none>
+  35:17-35:38      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CONST:32;CONST:32 FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  35:27-35:28      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1;CONST:1      PRI=CONST:1;CONST:1;CONST:1      PAT=CONST:1                      FIX=CONST:1;CONST:1;CONST:1
+  36:18-36:39      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32;CONST:32   FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  36:28-36:29      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1;CONST:1      PRI=CONST:1;CONST:1;CONST:1      PAT=<none>                       FIX=CONST:1;CONST:1;CONST:1
+  37:24-37:45      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32;CONST:32   FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  37:34-37:35      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1;CONST:1      PRI=CONST:1;CONST:1;CONST:1      PAT=<none>                       FIX=CONST:1;CONST:1;CONST:1
+  38:31-38:52      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  38:41-38:42      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  39:22-39:44      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CONST:32;CONST:32 FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  46:17-46:38      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  46:27-46:28      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=CONST:1                      FIX=CONST:1;CONST:1
+  51:19-51:40      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  51:29-51:30      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=CONST:1                      FIX=CONST:1;CONST:1
+  57:19-57:40      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  57:29-57:30      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=CONST:1                      FIX=CONST:1;CONST:1
+  62:21-62:42      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32;CONST:32;CONST:32 FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  62:31-62:32      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1;CONST:1;CONST:1 PRI=CONST:1;CONST:1;CONST:1;CONST:1 PAT=<none>                       FIX=CONST:1;CONST:1;CONST:1;CONST:1
+  68:15-68:36      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32            PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  68:25-68:26      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1              PAT=<none>                       FIX=<none>
+  70:10-70:31      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  70:20-70:21      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  TOTALS fix:ALREADY-OK=36  fix:FIXED=8  fix:STILL=2  pat:ALREADY-OK=19  pat:BROKE=17  pat:FIXED=8  pat:STILL=2
+=== v27_g1_gen / def ===
+v27_g1_gen_def: pris=rc0/CMP_FAIL/heads1/lines80 pat=rc0/CMP_FAIL/heads1/lines58 fix=rc0/CMP_FAIL/heads1/lines58
+  12:20-12:43      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits
+  13:20-13:35      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CONST:32;CONST:32            PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  14:20-14:42      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits
+  14:31-14:32      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  15:20-15:34      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CONST:32;CONST:32            PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  15:31-15:32      pat=STILL      fix=STILL      G=CONST:1;CONST:1              PRI=<none>                       PAT=<none>                       FIX=<none>
+  20:18-20:40      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CALL:$bits
+  20:29-20:30      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=CONST:1                      FIX=CONST:1;CONST:1
+  21:18-21:32      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CONST:32;CONST:8             PAT=CONST:32;CONST:8             FIX=CONST:32;CONST:8
+  21:29-21:30      pat=STILL      fix=STILL      G=CONST:1;CONST:1              PRI=<none>                       PAT=<none>                       FIX=<none>
+  25:20-25:21      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  25:9-25:31       pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  6:15-6:37        pat=FIXED      fix=FIXED      G=CONST:32;CONST:32            PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  6:26-6:27        pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1              PAT=<none>                       FIX=<none>
+  TOTALS fix:ALREADY-OK=14  fix:FIXED=4  fix:STILL=5  pat:ALREADY-OK=9  pat:BROKE=5  pat:FIXED=4  pat:STILL=5
+=== v27_g1_gen / elab ===
+v27_g1_gen_elab: pris=rc0/CMP_FAIL/heads1/lines80 pat=rc0/CMP_FAIL/heads1/lines58 fix=rc0/CMP_FAIL/heads1/lines58
+  12:20-12:43      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  13:20-13:35      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CONST:32;CONST:32            PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  14:20-14:42      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  14:31-14:32      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  15:20-15:34      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CONST:32;CONST:32            PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  15:31-15:32      pat=STILL      fix=STILL      G=CONST:1;CONST:1              PRI=<none>                       PAT=<none>                       FIX=<none>
+  20:18-20:40      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  20:29-20:30      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=CONST:1                      FIX=CONST:1;CONST:1
+  21:18-21:32      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CONST:32;CONST:8             PAT=CONST:32;CONST:8             FIX=CONST:32;CONST:8
+  21:29-21:30      pat=STILL      fix=STILL      G=CONST:1;CONST:1              PRI=<none>                       PAT=<none>                       FIX=<none>
+  25:20-25:21      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  25:9-25:31       pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  6:15-6:37        pat=FIXED      fix=FIXED      G=CONST:32;CONST:32            PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  6:26-6:27        pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1              PAT=<none>                       FIX=<none>
+  TOTALS fix:ALREADY-OK=14  fix:FIXED=4  fix:STILL=5  pat:ALREADY-OK=9  pat:BROKE=5  pat:FIXED=4  pat:STILL=5
+=== v27_g2_gencarriers / def ===
+v27_g2_gencarriers_def: pris=rc0/CMP_FAIL/heads1/lines80 pat=rc0/CMP_FAIL/heads1/lines64 fix=rc0/CMP_FAIL/heads1/lines64
+  12:19-12:41      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits
+  12:30-12:31      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  13:20-13:42      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits
+  13:31-13:32      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  14:26-14:48      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits
+  14:37-14:38      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  15:33-15:55      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits
+  15:44-15:45      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  20:10-20:32      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  20:21-20:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  TOTALS fix:ALREADY-OK=15  fix:FIXED=2  pat:ALREADY-OK=7  pat:BROKE=8  pat:FIXED=2
+=== v27_g2_gencarriers / elab ===
+v27_g2_gencarriers_elab: pris=rc0/CMP_FAIL/heads1/lines80 pat=rc0/CMP_FAIL/heads1/lines64 fix=rc0/CMP_FAIL/heads1/lines64
+  12:19-12:41      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  12:30-12:31      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  13:20-13:42      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  13:31-13:32      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  14:26-14:48      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  14:37-14:38      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  15:33-15:55      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  15:44-15:45      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  20:10-20:32      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  20:21-20:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  TOTALS fix:ALREADY-OK=15  fix:FIXED=2  pat:ALREADY-OK=7  pat:BROKE=8  pat:FIXED=2
+=== v27_g3_ifgen / def ===
+v27_g3_ifgen_def: pris=rc0/CMP_FAIL/heads1/lines98 pat=rc0/CMP_FAIL/heads1/lines110 fix=rc0/CMP_FAIL/heads1/lines110
+  10:15-10:36      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  10:25-10:26      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  16:15-16:36      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32;CONST:32   PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32;CONST:32   FIX=CONST:32;CONST:32;CONST:32
+  16:25-16:26      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1;CONST:1      PAT=<none>                       FIX=<none>
+  26:15-26:36      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32            PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  26:25-26:26      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1              PAT=<none>                       FIX=<none>
+  30:31-30:50      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  30:41-30:42      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  8:18-8:39        pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits
+  8:28-8:29        pat=STILL      fix=STILL      G=CONST:1;CONST:1;CONST:1      PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  TOTALS fix:ALREADY-OK=13  fix:FIXED=8  fix:STILL=2  pat:ALREADY-OK=13  pat:FIXED=8  pat:STILL=2
+=== v27_g3_ifgen / elab ===
+v27_g3_ifgen_elab: pris=rc0/CMP_FAIL/heads1/lines102 pat=rc0/CMP_FAIL/heads1/lines110 fix=rc0/CMP_FAIL/heads1/lines110
+  10:15-10:36      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  10:25-10:26      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  16:15-16:36      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32;CONST:32   PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32;CONST:32   FIX=CONST:32;CONST:32;CONST:32
+  16:25-16:26      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1;CONST:1      PAT=<none>                       FIX=<none>
+  26:15-26:36      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32            PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  26:25-26:26      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1              PAT=<none>                       FIX=<none>
+  30:31-30:50      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32                     FIX=CONST:32
+  30:41-30:42      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  8:18-8:39        pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CALL:$bits;CALL:$bits
+  8:28-8:29        pat=STILL      fix=STILL      G=CONST:1;CONST:1;CONST:1      PRI=CONST:1;CONST:1              PAT=<none>                       FIX=CONST:1;CONST:1
+  TOTALS fix:ALREADY-OK=13  fix:FIXED=8  fix:STILL=2  pat:ALREADY-OK=13  pat:FIXED=8  pat:STILL=2
+=== v27_g4_genforms / def ===
+v27_g4_genforms_def: pris=rc0/CMP_FAIL/heads1/lines98 pat=rc0/CMP_FAIL/heads1/lines90 fix=rc0/CMP_FAIL/heads1/lines13
+  14:19-14:40      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32;CONST:32;CONST:32 FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  14:29-14:30      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1;CONST:1;CONST:1 PRI=CONST:1;CONST:1;CONST:1;CONST:1 PAT=<none>                       FIX=CONST:1;CONST:1;CONST:1;CONST:1
+  20:19-20:40      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CALL:$bits
+  20:29-20:30      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=CONST:1                      FIX=CONST:1;CONST:1
+  23:14-23:35      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32            PRI=CALL:$bits;CALL:$bits        PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  23:24-23:25      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1              PAT=<none>                       FIX=<none>
+  8:20-8:41        pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CALL:$bits
+  8:30-8:31        pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=CONST:1                      FIX=CONST:1;CONST:1
+  TOTALS fix:ALREADY-OK=16  fix:FIXED=2  pat:ALREADY-OK=10  pat:BROKE=6  pat:FIXED=2
+=== v27_g4_genforms / elab ===
+v27_g4_genforms_elab: pris=rc0/CMP_FAIL/heads1/lines98 pat=rc0/CMP_FAIL/heads1/lines94 fix=rc0/CMP_FAIL/heads1/lines13
+  14:19-14:40      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32;CONST:32;CONST:32 FIX=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits
+  14:29-14:30      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1;CONST:1;CONST:1 PRI=CONST:1;CONST:1;CONST:1;CONST:1 PAT=<none>                       FIX=CONST:1;CONST:1;CONST:1;CONST:1
+  20:19-20:40      pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  20:29-20:30      pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=CONST:1                      FIX=CONST:1;CONST:1
+  23:14-23:35      pat=FIXED      fix=FIXED      G=CONST:32;CONST:32            PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32;CONST:32            FIX=CONST:32;CONST:32
+  23:24-23:25      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1;CONST:1              PAT=<none>                       FIX=<none>
+  8:20-8:41        pat=BROKE      fix=ALREADY-OK G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  8:30-8:31        pat=BROKE      fix=ALREADY-OK G=CONST:1;CONST:1              PRI=CONST:1;CONST:1              PAT=CONST:1                      FIX=CONST:1;CONST:1
+  TOTALS fix:ALREADY-OK=16  fix:FIXED=2  pat:ALREADY-OK=10  pat:BROKE=6  pat:FIXED=2
+=== v27_h_types2 / def ===
+v27_h_types2_def: pris=rc4/CMP_FAIL/heads1/lines3618 pat=rc4/CMP_FAIL/heads1/lines3198 fix=rc4/CMP_FAIL/heads1/lines3198
+  19:11-19:33      pat=FIXED      fix=FIXED      G=CONST:36                     PRI=CALL:$bits                   PAT=CONST:36                     FIX=CONST:36
+  20:11-20:33      pat=FIXED      fix=FIXED      G=CONST:64                     PRI=CALL:$bits                   PAT=CONST:64                     FIX=CONST:64
+  21:11-21:32      pat=FIXED      fix=FIXED      G=CONST:15                     PRI=CALL:$bits                   PAT=CONST:15                     FIX=CONST:15
+  22:11-22:32      pat=FIXED      fix=FIXED      G=CONST:1                      PRI=CALL:$bits                   PAT=CONST:1                      FIX=CONST:1
+  22:20-22:21      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  23:11-23:30      pat=STILL      fix=STILL      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  24:11-24:36      pat=FIXED      fix=FIXED      G=CONST:192                    PRI=CALL:$bits                   PAT=CONST:192                    FIX=CONST:192
+  24:25-24:26      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  24:28-24:29      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:2                      PAT=<none>                       FIX=<none>
+  25:11-25:31      pat=FIXED      fix=FIXED      G=CONST:16                     PRI=CALL:$bits                   PAT=CONST:16                     FIX=CONST:16
+  25:21-25:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:7                      PAT=<none>                       FIX=<none>
+  25:23-25:24      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  26:11-26:31      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  29:11-29:23      pat=STILL      fix=STILL      G=CONST:32                     PRI=CONST:8                      PAT=CONST:8                      FIX=CONST:8
+  TOTALS fix:ALREADY-OK=19  fix:FIXED=12  fix:STILL=2  pat:ALREADY-OK=19  pat:FIXED=12  pat:STILL=2
+=== v27_h_types2 / elab ===
+v27_h_types2_elab: pris=rc4/CMP_FAIL/heads1/lines4030 pat=rc4/CMP_FAIL/heads1/lines3542 fix=rc4/CMP_FAIL/heads1/lines3542
+  19:11-19:33      pat=FIXED      fix=FIXED      G=CONST:36                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:36                     FIX=CONST:36
+  20:11-20:33      pat=FIXED      fix=FIXED      G=CONST:64                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:64                     FIX=CONST:64
+  21:11-21:32      pat=FIXED      fix=FIXED      G=CONST:15                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:15                     FIX=CONST:15
+  22:11-22:32      pat=FIXED      fix=FIXED      G=CONST:1                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:1                      FIX=CONST:1
+  22:20-22:21      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  23:11-23:30      pat=STILL      fix=STILL      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  24:11-24:36      pat=FIXED      fix=FIXED      G=CONST:192                    PRI=CALL:$bits;CALL:$bits        PAT=CONST:192                    FIX=CONST:192
+  24:25-24:26      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  24:28-24:29      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:2                      PAT=<none>                       FIX=<none>
+  25:11-25:31      pat=FIXED      fix=FIXED      G=CONST:16                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:16                     FIX=CONST:16
+  25:21-25:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:7                      PAT=<none>                       FIX=<none>
+  25:23-25:24      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  26:11-26:31      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  29:11-29:23      pat=STILL      fix=STILL      G=CONST:32                     PRI=CONST:8                      PAT=CONST:8                      FIX=CONST:8
+  TOTALS fix:ALREADY-OK=19  fix:FIXED=12  fix:STILL=2  pat:ALREADY-OK=19  pat:FIXED=12  pat:STILL=2
+--- implementer's own arms + the uvm95 verifier arm, under the FIXED binary ---
+=== g27_a0_head / def ===
+g27_a0_head_def: pris=rc0/CMP_FAIL/heads1/lines76 pat=rc0/PASS_CMP/heads0/lines0 fix=rc0/PASS_CMP/heads0/lines0
+  34:44-34:65      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  TOTALS fix:ALREADY-OK=8  fix:FIXED=1  pat:ALREADY-OK=8  pat:FIXED=1
+=== g27_a0_head / elab ===
+g27_a0_head_elab: pris=rc0/CMP_FAIL/heads1/lines88 pat=rc0/PASS_CMP/heads0/lines0 fix=rc0/PASS_CMP/heads0/lines0
+  34:44-34:65      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  TOTALS fix:ALREADY-OK=8  fix:FIXED=1  pat:ALREADY-OK=8  pat:FIXED=1
+=== g27_a_leftmost / def ===
+g27_a_leftmost_def: pris=rc0/CMP_FAIL/heads1/lines64 pat=rc0/CMP_FAIL/heads1/lines64 fix=rc0/CMP_FAIL/heads1/lines64
+  32:11-32:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  32:21-32:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  34:11-34:29      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  34:21-34:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  35:11-35:29      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  35:21-35:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  45:11-45:25      pat=STILL      fix=STILL      G=CALL:$bits                   PRI=CONST:16                     PAT=CONST:16                     FIX=CONST:16
+  45:18-45:19      pat=STILL      fix=STILL      G=CONST:2                      PRI=<none>                       PAT=<none>                       FIX=<none>
+  47:11-47:28      pat=STILL      fix=STILL      G=CONST:4                      PRI=CALL:$bits                   PAT=CALL:$bits                   FIX=CALL:$bits
+  TOTALS fix:ALREADY-OK=35  fix:FIXED=6  fix:STILL=3  pat:ALREADY-OK=35  pat:FIXED=6  pat:STILL=3
+=== g27_a_leftmost / elab ===
+g27_a_leftmost_elab: pris=rc0/CMP_FAIL/heads1/lines64 pat=rc0/CMP_FAIL/heads1/lines64 fix=rc0/CMP_FAIL/heads1/lines64
+  32:11-32:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  32:21-32:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  34:11-34:29      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  34:21-34:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  35:11-35:29      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  35:21-35:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  45:11-45:25      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CONST:16                     PAT=CONST:16                     FIX=CONST:16
+  45:18-45:19      pat=STILL      fix=STILL      G=CONST:2                      PRI=<none>                       PAT=<none>                       FIX=<none>
+  47:11-47:28      pat=STILL      fix=STILL      G=CONST:4                      PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CALL:$bits        FIX=CALL:$bits;CALL:$bits
+  TOTALS fix:ALREADY-OK=35  fix:FIXED=6  fix:STILL=3  pat:ALREADY-OK=35  pat:FIXED=6  pat:STILL=3
+=== g27_b_shapes / def ===
+g27_b_shapes_def: pris=rc0/CMP_FAIL/heads1/lines122 pat=rc0/CMP_FAIL/heads1/lines122 fix=rc0/CMP_FAIL/heads1/lines122
+  0:0-0:0          pat=STILL      fix=STILL      G=CONST:64                     PRI=CONST:16                     PAT=CONST:16                     FIX=CONST:16
+  103:15-103:35    pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  103:26-103:27    pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  103:38-103:58    pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  103:49-103:50    pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  104:24-104:46    pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  104:35-104:36    pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  105:24-105:45    pat=STILL      fix=STILL      G=CONST:4                      PRI=CALL:$bits                   PAT=CALL:$bits                   FIX=CALL:$bits
+  106:24-106:46    pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  106:35-106:36    pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  108:10-108:31    pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  109:10-109:30    pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  109:21-109:22    pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  110:10-110:29    pat=STILL      fix=STILL      G=CONST:4                      PRI=CALL:$bits                   PAT=CALL:$bits                   FIX=CALL:$bits
+  112:9-112:30     pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  113:15-113:35    pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  113:26-113:27    pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  29:11-29:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  30:11-30:27      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  31:11-31:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  32:11-32:29      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  33:11-33:31      pat=FIXED      fix=FIXED      G=CONST:48                     PRI=CALL:$bits                   PAT=CONST:48                     FIX=CONST:48
+  33:23-33:24      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  34:11-34:29      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  34:21-34:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  35:11-35:31      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  35:21-35:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:7                      PAT=<none>                       FIX=<none>
+  35:23-35:24      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  36:11-36:32      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  36:24-36:25      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:4                      PAT=<none>                       FIX=<none>
+  37:11-37:28      pat=STILL      fix=STILL      G=CONST:4                      PRI=CALL:$bits                   PAT=CALL:$bits                   FIX=CALL:$bits
+  38:11-38:30      pat=STILL      fix=STILL      G=CONST:3                      PRI=CALL:$bits                   PAT=CALL:$bits                   FIX=CALL:$bits
+  44:11-44:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  49:11-49:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  50:11-50:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  51:11-51:34      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  52:11-52:30      pat=STILL      fix=STILL      G=CALL:$bits                   PRI=CONST:16                     PAT=CONST:16                     FIX=CONST:16
+  53:11-53:32      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  53:24-53:25      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  59:11-59:23      pat=STILL      fix=STILL      G=CONST:4                      PRI=CALL:$bits                   PAT=CALL:$bits                   FIX=CALL:$bits
+  60:11-60:25      pat=STILL      fix=STILL      G=CONST:3                      PRI=CALL:$bits                   PAT=CALL:$bits                   FIX=CALL:$bits
+  63:23-63:41      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  64:14-64:32      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  66:12-66:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  67:16-67:34      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  77:9-77:14       pat=STILL      fix=STILL      G=CALL:$bits;CONST:8           PRI=<none>                       PAT=<none>                       FIX=<none>
+  77:9-77:20       pat=STILL      fix=STILL      G=<none>                       PRI=CONST:8;CONST:8              PAT=CONST:8;CONST:8              FIX=CONST:8;CONST:8
+  86:9-86:28       pat=FIXED      fix=FIXED      G=CALL:$bits;CONST:8           PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CONST:8           FIX=CALL:$bits;CONST:8
+  87:20-87:21      pat=FIXED      fix=FIXED      G=CONST:3                      PRI=CONST:3;CONST:3              PAT=CONST:3                      FIX=CONST:3
+  87:9-87:28       pat=FIXED      fix=FIXED      G=CALL:$bits;CONST:32          PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CONST:32          FIX=CALL:$bits;CONST:32
+  TOTALS fix:ALREADY-OK=35  fix:FIXED=40  fix:STILL=10  pat:ALREADY-OK=35  pat:FIXED=40  pat:STILL=10
+=== g27_b_shapes / elab ===
+g27_b_shapes_elab: pris=rc0/CMP_FAIL/heads1/lines122 pat=rc0/CMP_FAIL/heads1/lines122 fix=rc0/CMP_FAIL/heads1/lines122
+  0:0-0:0          pat=STILL      fix=STILL      G=CONST:64                     PRI=CONST:16                     PAT=CONST:16                     FIX=CONST:16
+  103:15-103:35    pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  103:26-103:27    pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  103:38-103:58    pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  103:49-103:50    pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  104:24-104:46    pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  104:35-104:36    pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  105:24-105:45    pat=STILL      fix=STILL      G=CONST:4                      PRI=CALL:$bits                   PAT=CALL:$bits                   FIX=CALL:$bits
+  106:24-106:46    pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits                   PAT=CONST:32                     FIX=CONST:32
+  106:35-106:36    pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  108:10-108:31    pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  109:10-109:30    pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  109:21-109:22    pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  110:10-110:29    pat=STILL      fix=STILL      G=CONST:4                      PRI=CALL:$bits;CALL:$bits        PAT=CALL:$bits;CALL:$bits        FIX=CALL:$bits;CALL:$bits
+  112:9-112:30     pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  113:15-113:35    pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:32                     FIX=CONST:32
+  113:26-113:27    pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  29:11-29:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  30:11-30:27      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  31:11-31:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  32:11-32:29      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32                     FIX=CONST:32
+  33:11-33:31      pat=FIXED      fix=FIXED      G=CONST:48                     PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:48                     FIX=CONST:48
+  33:23-33:24      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  34:11-34:29      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32                     FIX=CONST:32
+  34:21-34:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:3                      PAT=<none>                       FIX=<none>
+  35:11-35:31      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32                     FIX=CONST:32
+  35:21-35:22      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:7                      PAT=<none>                       FIX=<none>
+  35:23-35:24      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  36:11-36:32      pat=FIXED      fix=FIXED      G=CONST:32                     PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:32                     FIX=CONST:32
+  36:24-36:25      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:4                      PAT=<none>                       FIX=<none>
+  37:11-37:28      pat=STILL      fix=STILL      G=CONST:4                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  38:11-38:30      pat=STILL      fix=STILL      G=CONST:3                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  44:11-44:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  49:11-49:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  50:11-50:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  51:11-51:34      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  52:11-52:30      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits;CALL:$bits PRI=CONST:16                     PAT=CONST:16                     FIX=CONST:16
+  53:11-53:32      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  53:24-53:25      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  59:11-59:23      pat=STILL      fix=STILL      G=CONST:4                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  60:11-60:25      pat=STILL      fix=STILL      G=CONST:3                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CALL:$bits FIX=CALL:$bits;CALL:$bits;CALL:$bits
+  63:23-63:41      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  64:14-64:32      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  66:12-66:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  67:16-67:34      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits;CALL:$bits PAT=CONST:8                      FIX=CONST:8
+  77:9-77:14       pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits;CONST:8 PRI=<none>                       PAT=<none>                       FIX=<none>
+  77:9-77:20       pat=STILL      fix=STILL      G=<none>                       PRI=CONST:8;CONST:8              PAT=CONST:8;CONST:8              FIX=CONST:8;CONST:8
+  86:9-86:28       pat=FIXED      fix=FIXED      G=CALL:$bits;CALL:$bits;CONST:8 PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CONST:8 FIX=CALL:$bits;CALL:$bits;CONST:8
+  87:20-87:21      pat=FIXED      fix=FIXED      G=CONST:3                      PRI=CONST:3;CONST:3              PAT=CONST:3                      FIX=CONST:3
+  87:9-87:28       pat=FIXED      fix=FIXED      G=CALL:$bits;CALL:$bits;CONST:32 PRI=CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits;CALL:$bits PAT=CALL:$bits;CALL:$bits;CONST:32 FIX=CALL:$bits;CALL:$bits;CONST:32
+  TOTALS fix:ALREADY-OK=35  fix:FIXED=40  fix:STILL=10  pat:ALREADY-OK=35  pat:FIXED=40  pat:STILL=10
+=== v95_b6_exprargs / def ===
+v95_b6_exprargs_def: pris=rc0/CMP_FAIL/heads1/lines68 pat=rc0/CMP_FAIL/heads1/lines68 fix=rc0/CMP_FAIL/heads1/lines68
+  16:13-16:28      pat=STILL      fix=STILL      G=CALL:$bits                   PRI=CONST:46                     PAT=CONST:46                     FIX=CONST:46
+  17:13-17:27      pat=STILL      fix=STILL      G=CALL:$bits                   PRI=CONST:12                     PAT=CONST:12                     FIX=CONST:12
+  17:20-17:21      pat=STILL      fix=STILL      G=CONST:2                      PRI=<none>                       PAT=<none>                       FIX=<none>
+  18:13-18:26      pat=STILL      fix=STILL      G=CALL:$bits                   PRI=CONST:8                      PAT=CONST:8                      FIX=CONST:8
+  19:13-19:28      pat=STILL      fix=STILL      G=CALL:$bits                   PRI=CONST:32                     PAT=CONST:32                     FIX=CONST:32
+  20:13-20:25      pat=STILL      fix=STILL      G=CALL:$bits                   PRI=CONST:32                     PAT=CONST:32                     FIX=CONST:32
+  20:22-20:23      pat=STILL      fix=STILL      G=CONST:3                      PRI=<none>                       PAT=<none>                       FIX=<none>
+  26:13-26:32      pat=STILL      fix=STILL      G=CALL:$bits                   PRI=CONST:8                      PAT=CONST:8                      FIX=CONST:8
+  27:13-27:25      pat=STILL      fix=STILL      G=CALL:$bits                   PRI=CONST:8                      PAT=CONST:8                      FIX=CONST:8
+  28:13-28:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  28:22-28:23      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  29:13-29:30      pat=FIXED      fix=FIXED      G=CONST:24                     PRI=CALL:$bits                   PAT=CONST:24                     FIX=CONST:24
+  29:22-29:23      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  33:13-33:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits                   PAT=CONST:8                      FIX=CONST:8
+  33:22-33:23      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  33:27-33:28      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  35:13-35:31      pat=STILL      fix=STILL      G=CALL:$bits                   PRI=CONST:6                      PAT=CONST:6                      FIX=CONST:6
+  TOTALS fix:ALREADY-OK=40  fix:FIXED=7  fix:STILL=10  pat:ALREADY-OK=40  pat:FIXED=7  pat:STILL=10
+=== v95_b6_exprargs / elab ===
+v95_b6_exprargs_elab: pris=rc0/CMP_FAIL/heads1/lines68 pat=rc0/CMP_FAIL/heads1/lines68 fix=rc0/CMP_FAIL/heads1/lines68
+  16:13-16:28      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CONST:46                     PAT=CONST:46                     FIX=CONST:46
+  17:13-17:27      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CONST:12                     PAT=CONST:12                     FIX=CONST:12
+  17:20-17:21      pat=STILL      fix=STILL      G=CONST:2                      PRI=<none>                       PAT=<none>                       FIX=<none>
+  18:13-18:26      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CONST:8                      PAT=CONST:8                      FIX=CONST:8
+  19:13-19:28      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CONST:32                     PAT=CONST:32                     FIX=CONST:32
+  20:13-20:25      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CONST:32                     PAT=CONST:32                     FIX=CONST:32
+  20:22-20:23      pat=STILL      fix=STILL      G=CONST:3                      PRI=<none>                       PAT=<none>                       FIX=<none>
+  21:13-21:22      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CONST:32 PAT=CALL:$bits;CALL:$bits;CONST:32 FIX=CALL:$bits;CALL:$bits;CONST:32
+  22:13-22:22      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CALL:$bits;CALL:$bits;CONST:32 PAT=CALL:$bits;CALL:$bits;CONST:32 FIX=CALL:$bits;CALL:$bits;CONST:32
+  26:13-26:32      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CONST:8                      PAT=CONST:8                      FIX=CONST:8
+  27:13-27:25      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CONST:8                      PAT=CONST:8                      FIX=CONST:8
+  28:13-28:30      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  28:22-28:23      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  29:13-29:30      pat=FIXED      fix=FIXED      G=CONST:24                     PRI=CALL:$bits;CALL:$bits        PAT=CONST:24                     FIX=CONST:24
+  29:22-29:23      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  33:13-33:29      pat=FIXED      fix=FIXED      G=CONST:8                      PRI=CALL:$bits;CALL:$bits        PAT=CONST:8                      FIX=CONST:8
+  33:22-33:23      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:0                      PAT=<none>                       FIX=<none>
+  33:27-33:28      pat=FIXED      fix=FIXED      G=<none>                       PRI=CONST:1                      PAT=<none>                       FIX=<none>
+  35:13-35:31      pat=STILL      fix=STILL      G=CALL:$bits;CALL:$bits        PRI=CONST:6                      PAT=CONST:6                      FIX=CONST:6
+  TOTALS fix:ALREADY-OK=38  fix:FIXED=7  fix:STILL=12  pat:ALREADY-OK=38  pat:FIXED=7  pat:STILL=12

@@ -1,0 +1,38 @@
+r10buvm27 — INPUTS AND PROVENANCE.  MEASUREMENT ONLY.
+
+BASE                4c36d4b (worktree /tmp/wt_r10buvm27, `git worktree add`)
+slang               NOT PATCHED (out of scope)
+results/*.csv       READ ONLY; nothing promoted; no row converted
+GOLDEN_DEFER        unset throughout
+
+binaries (frozen chmod 555 BEFORE any sweep; SLANG_UHDM exported explicitly to
+each; every cmds.txt audited by BINARY PATH):
+  pristine  /tmp/r10buvm27_pris.bin  e9a8db733bb9a47e21953a189e23696e
+  patched   /tmp/r10buvm27_pat.bin   1f1aeb7efc0e9d743d3ace3c07f71f13
+
+sweeps (scripts/verify_golden.py --jobs 2, this pass's OWN --out/--workdir;
+no shared /tmp/ctl_wd_* control was read):
+  pristine  /tmp/r10buvm27_wd_pris/{sl,u2r,u2rtf}
+  patched   /tmp/r10buvm27_wd_pat/{sl,u2r,u2rtf}
+
+judge      ~/git-repos/UHDM/build/bin/uhdm-cmp          (head to STDERR; every
+           cmp log captured 2>&1 and every head counted `grep -c '^LHS:'`)
+dumper     ~/git-repos/UHDM/build/bin/uhdm-dump
+golden     ~/git-repos/Surelog/build/bin/surelog
+
+sources read for the decode:
+  Surelog  src/DesignCompile/CompileExpression.cpp
+             CompileHelper::compileBits            4663-4790
+             CompileHelper::getTypespec            4391-4662
+             CompileHelper::Bits(const any*)       4298-4364
+             the paSystem_task_names / paSubroutine_call / paDollar_keyword
+             dispatch arms                         2409, 3184, 5127
+  UHDM     templates/ExprEval.cpp  ExprEval::size  1270-1595
+           build/generated/src/{tf_call,method_func_call}.cpp  Compare
+           include/uhdm/BaseClass.h                SafeCompare overloads
+  ours     src/ExprEmit.cpp  the $bits emission block and uvm95's helpers
+
+fenced tests: NEVER dispatched, never spelled in any artifact here.
+  canaudit.sh canaries.sh ctcan2.sh  ->  audited=33 UNCOVERED=0 FENCE-BREACH=0
+  bound27.sh                         ->  FENCED_SKIPPED=0 (no arm bears a
+                                         fenced name), PROCESSED-ASSERT-OK

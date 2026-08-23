@@ -1,0 +1,101 @@
+r10buvm27 — THE GATE BATTERY, run in the pass worktree /tmp/wt_r10buvm27 at
+BASE 4c36d4b.  MEASUREMENT ONLY; the official uhdm-cmp and
+scripts/verify_golden.py are the authorities.  LHS is ALWAYS golden.
+
+(1) BUILD.  cmake Release, -j 2, gcc-toolset-14, CMAKE_PREFIX_PATH=~/.local.
+    pristine (4c36d4b, no edit)  md5 e9a8db733bb9a47e21953a189e23696e
+                                 frozen chmod 555 at /tmp/r10buvm27_pris.bin
+    patched                      md5 1f1aeb7efc0e9d743d3ace3c07f71f13
+                                 frozen chmod 555 at /tmp/r10buvm27_pat.bin
+    Both binaries were frozen BEFORE any sweep and every sweep exported
+    SLANG_UHDM explicitly to the frozen path.
+
+(2) GOLDENS.   SLANG_UHDM=<patched>  PASS 23 / FAIL 0
+               SLANG_UHDM=<pristine> PASS 23 / FAIL 0
+               SLANG_UHDM=/bin/false PASS  0 / FAIL 23   (negative control)
+
+(3) uhdm2rtlil, BOTH MODES, 731 tests each.
+      testflags  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+      default    CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    ct8rows (WHOLE ROW, dump column included):
+      results/gate_uhdm2rtlil.csv  vs patched testflags   PASS, 0 differing rows
+      pristine testflags           vs patched testflags   PASS, 0 differing rows
+      pristine default             vs patched default     PASS, 0 differing rows
+    byteverify SELFCHECK=1:  testflags 0/679, default 0/679  -> 0 / 1358.
+
+(4) surelog corpus, --mode both, 794 tests per mode, 956 comparable databases.
+      default    CMP_EQUAL 471  CMP_NOTEQUAL 10  SLANG_REJECT 283
+                 SURELOG_FAIL 25  DEFERRED 5
+      testflags  CMP_EQUAL 466  CMP_NOTEQUAL  9  SLANG_REJECT 284
+                 SURELOG_FAIL 23  DEFERRED 5  NO_DATABASE 3
+                 UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+      totals 937 CMP_EQUAL / 19 CMP_NOTEQUAL, IDENTICAL to pristine.
+    ct8rows:
+      results/golden_surelog.csv vs patched   PASS, 0 differing rows over 1588
+      pristine                   vs patched   PASS, 0 differing rows
+    NO CORPUS ROW CONVERTED; results/*.csv were READ ONLY and NOTHING was
+    promoted.  (This pass's own arm g27_a0_head.sv DOES convert — said out
+    loud in the README.)
+
+(5) byteverify SELFCHECK=1, surelog:  MOVERS 3 / 956
+      default/BuildUVMPkg-bf853d43     PREDICTED BY NAME (PREDICT.r10buvm27)
+      testflags/BuildUVMPkg-bf853d43   PREDICTED BY NAME
+      default/Scoreboard-59431470      the documented ~50/50 COIN:
+                                       92 raw dump lines, ORDER-BLIND 0 lines
+    SELFCHECK negative control: 955/956 flagged (surelog), 678/679 (u2r).
+
+(6) HEADS (rowheads.sh, patched workdir; DEPTH not distance):
+      TEST          MODE       PRISTINE   PATCHED
+      SeqDriver     def/tf       64/64      64/64   (1 head)
+      SimpleUVM     def/tf       22/22      22/22   (1 head)
+      Scoreboard    def          22         22      (1 head)
+      MiniAmiq      def/tf     348/348    348/348   (1 head)
+      BuildUVMPkg   def/tf       76/76      32/32   (1 head)   <-- CLEARED
+      Earlgrey_0_1  def/tf       46/46      46/46   (1 head)
+      Rggen         def           0          0      (0 heads, PASS_CMP)
+      (Scoreboard/testflags and Rggen/testflags print SKIP-NOFILE, expected.)
+    BuildUVMPkg's two modes are byte-identical to each other before
+    (md5 0f7013a40fb6e761208de1ca0fee3c2d) and after
+    (md5 c8959ae94a5c768e14dc450e000e3426).
+
+(7) CANARIES.
+      canaries.sh  surelog     ok=56 changed=0 absent=0   (pristine: ok=56 changed=0)
+      canaries.sh  uhdm2rtlil  ok=9  changed=0 absent=0   (pristine: ok=9  changed=0)
+      ctcan2.sh    surelog     PASS   (EXPECT_UNKNOWN=1)
+      ctcan2.sh    uhdm2rtlil  PASS   (EXPECT_UNKNOWN=6)
+      canaudit.sh canaries.sh ctcan2.sh  (run from this directory)
+                   audited=33 UNCOVERED=0 FENCE-BREACH=0  PASS
+      pins27.sh    InterfaceModPort / BlackParrotComplex / YosysOldOr SAME in
+                   both modes; SVSwitch 4842211c4030; YosysVerx 6ccda350c24a.
+                   pins SAME=10 MOVED=0 UNKNOWN-NAME=0.
+
+(8) WIDE BOUNDARY (bound27.sh, a COPY of tools/probe at
+    /tmp/r10buvm27_probecopy, NO path filter, .sv AND .v, DEF and ELAB,
+    fd-3 file list, children </dev/null):
+      LISTED=3290 FENCED_SKIPPED=0 PROCESSED=3290 MOVED=8 NO_OUTPUT_PAIRS=274
+      PROCESSED-ASSERT-OK
+    The 8 movers, all scored against golden with three27.sh:
+      g27_a0_head.sv          def 32 / elab 66 lines   FIXED 1  BROKE 0
+      g27_a_leftmost.sv       def 102 / elab 226       FIXED 3  BROKE 0
+      g27_b_shapes.sv         def 941 / elab 2601      FIXED 27 BROKE 0
+      r10v95repro/v95_b6_exprargs.sv  def 108 / elab 186
+                                                       FIXED 3  BROKE 0
+    r10v95repro/v95_b6_exprargs.sv is ANOTHER PASS's adversarial arm and it is
+    the pass's positive control in situ: the gate SAW a mover it did not
+    author, and that mover is three cells moving TOWARD golden
+    ($bits(bd[0] & be) -> 8, $bits(ba[1] & be) -> 24, $bits(bd[0] + 1) -> 8)
+    with nothing moving away.  NO_OUTPUT_PAIRS are arms neither binary
+    compiles (symmetric, pre-existing).
+
+(9) CENSUS, golden vs ours, ct27cen + join27, over EVERY database of both
+    corpora, before and after.
+                       surelog 956 DBs          uhdm2rtlil 1358 DBs
+                       pristine   patched       pristine   patched
+      SAME                 917       919            214       214
+      FOLD_G_KEEP_O          2         0              0         0
+      KEEP_G_FOLD_O         15        15              0         0
+      VALUE                  4         4              0         0
+      OTHER                246       246              2         2
+      OUT_OF_SCOPE_DIFF  17687     17687           1070      1070
+    The 2 FOLD_G_KEEP_O cells were THE HEAD (uvm_pkg.sv:58066:84-105, both
+    modes) and they are gone.  Nothing else moved in either direction.

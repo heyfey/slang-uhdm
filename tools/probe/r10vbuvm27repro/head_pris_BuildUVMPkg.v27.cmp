@@ -1,0 +1,76 @@
+LHS:
+decompile:
+constant: , id:178827, line:58066:84, endln:58066:105
+|vpiParent:
+\_method_func_call: (compare_field_int), id:178806, line:58066:24, endln:58066:41
+|vpiDecompile:8
+|vpiSize:64
+|UINT:8
+|vpiConstType:9
+
+decompile:
+constant: , id:178827, line:58066:84, endln:58066:105
+|vpiParent:
+\_method_func_call: (compare_field_int), id:178806, line:58066:24, endln:58066:41
+|vpiDecompile:8
+|vpiSize:64
+|UINT:8
+|vpiConstType:9
+RHS:
+decompile:
+sys_func_call: ($bits), id:111474, line:58066:84, endln:58066:105
+|vpiParent:
+\_method_func_call: (compare_field_int), id:111461, line:58066:24, endln:58066:41
+|vpiArgument:
+\_operation: , id:111475, line:58066:90, endln:58066:104
+  |vpiParent:
+  \_sys_func_call: ($bits), id:111474, line:58066:84, endln:58066:105
+  |vpiOpType:28
+  |vpiOperand:
+  \_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_compare::m_data), id:111476, line:58066:97, endln:58066:98
+    |vpiParent:
+    \_operation: , id:111475, line:58066:90, endln:58066:104
+    |vpiName:m_data
+    |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::m_data
+    |vpiIndex:
+    \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_compare::i), id:111477, line:58066:97, endln:58066:98
+      |vpiParent:
+      \_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_compare::m_data), id:111476, line:58066:97, endln:58066:98
+      |vpiName:i
+      |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::i
+  |vpiOperand:
+  \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_compare::be), id:111478, line:58066:102, endln:58066:104
+    |vpiParent:
+    \_operation: , id:111475, line:58066:90, endln:58066:104
+    |vpiName:be
+    |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::be
+|vpiName:$bits
+
+decompile:
+sys_func_call: ($bits), id:111474, line:58066:84, endln:58066:105
+|vpiParent:
+\_method_func_call: (compare_field_int), id:111461, line:58066:24, endln:58066:41
+|vpiArgument:
+\_operation: , id:111475, line:58066:90, endln:58066:104
+  |vpiParent:
+  \_sys_func_call: ($bits), id:111474, line:58066:84, endln:58066:105
+  |vpiOpType:28
+  |vpiOperand:
+  \_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_compare::m_data), id:111476, line:58066:97, endln:58066:98
+    |vpiParent:
+    \_operation: , id:111475, line:58066:90, endln:58066:104
+    |vpiName:m_data
+    |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::m_data
+    |vpiIndex:
+    \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_compare::i), id:111477, line:58066:97, endln:58066:98
+      |vpiParent:
+      \_bit_select: (uvm_pkg::uvm_tlm_generic_payload::do_compare::m_data), id:111476, line:58066:97, endln:58066:98
+      |vpiName:i
+      |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::i
+  |vpiOperand:
+  \_ref_obj: (uvm_pkg::uvm_tlm_generic_payload::do_compare::be), id:111478, line:58066:102, endln:58066:104
+    |vpiParent:
+    \_operation: , id:111475, line:58066:90, endln:58066:104
+    |vpiName:be
+    |vpiFullName:uvm_pkg::uvm_tlm_generic_payload::do_compare::be
+|vpiName:$bits

@@ -1,0 +1,48 @@
+r10buvm27 — MOVER PREDICTION, MADE FROM THE PRISTINE DATABASES BEFORE THE
+PATCHED SWEEPS.  MEASUREMENT ONLY.
+
+METHOD.  § binOpLeftmostSelectBits27 can only change a cell where OUR pristine
+database already holds a `sys_func_call ($bits)` whose single argument is an
+`operation` — anything else is untouched by construction.  `ct27cen` prints
+that sub-shape as `operation[op<VpiOpType>/<first operand kind>]`, so the
+predicate "this pass can reach the cell" is a grep:
+
+    CALL \t $bits \t operation[op<not 33/34>/<bit_select|part_select|
+                                indexed_part_select|var_select>]
+
+(op33 = vpiConcatOp, op34 = vpiMultiConcatOp — the concatenation branch of
+`compileBits`, a different road; a leading `ref_obj` means the leftmost operand
+is a bare name, which golden KEEPS.)
+
+SURELOG CORPUS (956 pristine databases) — every `$bits`-over-an-operation cell:
+
+      2  :17:36-22:7            $bits  operation[op33/ref_obj]   BitsInGenBlock
+      2  :58066:84-58066:105    $bits  operation[op28/bit_select] BuildUVMPkg
+
+  reachable by the rule: 1 cell x 2 databases.
+  PREDICTED MOVERS:  default/BuildUVMPkg-bf853d43
+                     testflags/BuildUVMPkg-bf853d43
+  PREDICTED NON-MOVERS incl. BitsInGenBlock (a CONCAT argument, op33, and a
+  CMP_EQUAL row in both modes — the fence).
+
+UHDM2RTLIL CORPUS (1358 pristine databases) — every type-query-over-an-
+operation cell:
+
+      2  :36:29-36:48   $clog2  operation[op24/ref_obj]   for_loop_nonconst_bound
+      2  :6:15-6:28     $clog2  operation[op24/ref_obj]   (submodule)
+      2  :8:20-8:32     $bits   operation[op4/ref_obj]    BitsCallOnExpression
+
+  `$clog2` is not `$bits` (the substitution is gated on the NAME); op4 is
+  vpiBitNegOp, a UNARY, whose leading operand is a bare `ref_obj`.
+  PREDICTED MOVERS: NONE.  Both u2r rows above are CMP_EQUAL and are the fence.
+
+OBSERVED (byteverify, SELFCHECK=1):
+  surelog     3 / 956 : the 2 PREDICTED, plus default/Scoreboard — the
+                        documented ~50/50 svunit_pkg vpiTaskFunc-order COIN
+                        (92 raw dump lines, ORDER-BLIND diff 0 lines).
+  uhdm2rtlil  0 / 1358 (testflags 0/679 + default 0/679), as predicted.
+
+The two predicted movers' whole-dump diff is 32 lines each, in both modes, and
+is ORDER-BLIND-32 as well: one `sys_func_call ($bits)` subtree at
+uvm_pkg.sv:58066:84-105 replaced by one `constant UINT:8`.  Nothing else in
+either database moved.

@@ -1,0 +1,36 @@
+# r10vbuvm27 CENSUS — ct27cen over all 956 surelog databases, golden vs ours,
+# joined by join27.py.  MEASUREMENT-ONLY.  Reproduces the implementer's table.
+
+== PRISTINE ==
+--- totals ---
+OUT_OF_SCOPE     153123
+OUT_OF_SCOPE_DIFF 17687
+SAME             917
+OTHER            246
+KEEP_G_FOLD_O    15
+VALUE            4
+FOLD_G_KEEP_O    2
+--- per test ---
+    46  OTHER	default_BuildUVMPkg-bf853d43
+
+== IMPLEMENTER'S PATCH ==
+--- totals ---
+OUT_OF_SCOPE     153123
+OUT_OF_SCOPE_DIFF 17687
+SAME             919
+OTHER            246
+KEEP_G_FOLD_O    15
+VALUE            4
+--- per test ---
+    46  OTHER	default_BuildUVMPkg-bf853d43
+    46  OTHER	testflags_BuildUVMPkg-bf853d43
+
+== the two FOLD_G_KEEP_O cells that WERE the head (pristine) ==
+FOLD_G_KEEP_O  default_BuildUVMPkg-bf853d43             58066:84-58066:105                             G=CONST:8                            O=CALL:$bits
+FOLD_G_KEEP_O  testflags_BuildUVMPkg-bf853d43           58066:84-58066:105                             G=CONST:8                            O=CALL:$bits
+FOLD_G_KEEP_O    2
+     1  FOLD_G_KEEP_O	default_BuildUVMPkg-bf853d43
+     1  FOLD_G_KEEP_O	testflags_BuildUVMPkg-bf853d43
+
+== the FIXED binary is byte-identical to the patched one over both corpora,
+   so its census is the PATCHED column above (byteverify fix-vs-pat: 0/956, 0/1358).

@@ -1,0 +1,31 @@
+MOVED 0074_r10buvm27repro_g27_a0_head.sv/def 32 lines
+MOVED 0074_r10buvm27repro_g27_a0_head.sv/elab 66 lines
+MOVED 0075_r10buvm27repro_g27_a_leftmost.sv/def 102 lines
+MOVED 0075_r10buvm27repro_g27_a_leftmost.sv/elab 226 lines
+MOVED 0076_r10buvm27repro_g27_b_shapes.sv/def 941 lines
+MOVED 0076_r10buvm27repro_g27_b_shapes.sv/elab 2601 lines
+bound27.sh: line 35: 2789075 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 2789216 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 2793100 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 2793184 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3315289 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3315328 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3322518 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3322547 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3330831 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3330883 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 2567_r10v95repro_v95_b6_exprargs.sv/def 108 lines
+MOVED 2567_r10v95repro_v95_b6_exprargs.sv/elab 186 lines
+bound27.sh: line 35: 3361817 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3361835 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3362404 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3362436 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3454666 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3454837 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3455179 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3455409 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3455879 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound27.sh: line 35: 3456092 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+LISTED=3290 FENCED_SKIPPED=0 PROCESSED=3290 MOVED=8 NO_OUTPUT_PAIRS=274
+PROCESSED-ASSERT-OK
+RC=0

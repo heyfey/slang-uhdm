@@ -1,0 +1,184 @@
+# r10vbuvm27 GATES — every number re-measured from a FRESH 4c36d4b by the verifier.
+# LHS is ALWAYS golden.  MEASUREMENT-ONLY; the judge is the official uhdm-cmp.
+
+## binaries (built here, -j 2, md5 taken separately, frozen chmod 555 BEFORE any sweep)
+e9a8db733bb9a47e21953a189e23696e  /tmp/vbuvm27_bin/pris.bin
+1f1aeb7efc0e9d743d3ace3c07f71f13  /tmp/vbuvm27_bin/pat.bin
+9053d04684a79cd879ba8647d992eca0  /tmp/vbuvm27_bin/fix.bin
+  pris.bin  = 4c36d4b unpatched            (implementer's pin e9a8db73... HIT)
+  pat.bin   = 4c36d4b + /tmp/r10buvm27.patch (implementer's pin 1f1aeb7e... HIT)
+  fix.bin   = pat + section genBlockBitsNoLeftmostFold27v
+
+## 2. golden dump tests (SLANG_UHDM exported explicitly PER BINARY)
+  pris  PASS=23 FAIL=0
+  pat   PASS=23 FAIL=0
+  fix   PASS=23 FAIL=0
+  /bin/false (negative control) PASS=0 FAIL=23
+
+## cmds.txt binary audit (file by file)
+  sl_pris: cmds.txt=1573 with-slang-line=1523 distinct-binaries='/tmp/vbuvm27_bin/pris.bin ' main-tree-mentions=0
+  sl_pat: cmds.txt=1573 with-slang-line=1523 distinct-binaries='/tmp/vbuvm27_bin/pat.bin ' main-tree-mentions=0
+  sl_fix: cmds.txt=1573 with-slang-line=1523 distinct-binaries='/tmp/vbuvm27_bin/fix.bin ' main-tree-mentions=0
+  u2r_pris: cmds.txt=1462 with-slang-line=1458 distinct-binaries='/tmp/vbuvm27_bin/pris.bin ' main-tree-mentions=0
+  u2r_pat: cmds.txt=1462 with-slang-line=1458 distinct-binaries='/tmp/vbuvm27_bin/pat.bin ' main-tree-mentions=0
+  u2r_fix: cmds.txt=1462 with-slang-line=1458 distinct-binaries='/tmp/vbuvm27_bin/fix.bin ' main-tree-mentions=0
+
+## 3+4. sweep status histograms
+  --- sl_pris
+     ('default', 'CMP_EQUAL') 471
+     ('default', 'CMP_NOTEQUAL') 10
+     ('default', 'DEFERRED') 5
+     ('default', 'SLANG_REJECT') 283
+     ('default', 'SURELOG_FAIL') 25
+     ('testflags', 'CMP_EQUAL') 466
+     ('testflags', 'CMP_NOTEQUAL') 9
+     ('testflags', 'DEFERRED') 5
+     ('testflags', 'NO_DATABASE') 3
+     ('testflags', 'NO_UHDM') 1
+     ('testflags', 'SLANG_REJECT') 284
+     ('testflags', 'SURELOG_FAIL') 23
+     ('testflags', 'TIMEOUT') 1
+     ('testflags', 'UNTRANSLATABLE') 2
+  --- sl_pat
+     ('default', 'CMP_EQUAL') 471
+     ('default', 'CMP_NOTEQUAL') 10
+     ('default', 'DEFERRED') 5
+     ('default', 'SLANG_REJECT') 283
+     ('default', 'SURELOG_FAIL') 25
+     ('testflags', 'CMP_EQUAL') 466
+     ('testflags', 'CMP_NOTEQUAL') 9
+     ('testflags', 'DEFERRED') 5
+     ('testflags', 'NO_DATABASE') 3
+     ('testflags', 'NO_UHDM') 1
+     ('testflags', 'SLANG_REJECT') 284
+     ('testflags', 'SURELOG_FAIL') 23
+     ('testflags', 'TIMEOUT') 1
+     ('testflags', 'UNTRANSLATABLE') 2
+  --- sl_fix
+     ('default', 'CMP_EQUAL') 471
+     ('default', 'CMP_NOTEQUAL') 10
+     ('default', 'DEFERRED') 5
+     ('default', 'SLANG_REJECT') 283
+     ('default', 'SURELOG_FAIL') 25
+     ('testflags', 'CMP_EQUAL') 466
+     ('testflags', 'CMP_NOTEQUAL') 9
+     ('testflags', 'DEFERRED') 5
+     ('testflags', 'NO_DATABASE') 3
+     ('testflags', 'NO_UHDM') 1
+     ('testflags', 'SLANG_REJECT') 284
+     ('testflags', 'SURELOG_FAIL') 23
+     ('testflags', 'TIMEOUT') 1
+     ('testflags', 'UNTRANSLATABLE') 2
+  --- u2r_tf_pris
+     ('testflags', 'CMP_EQUAL') 679
+     ('testflags', 'SLANG_REJECT') 50
+     ('testflags', 'SURELOG_FAIL') 2
+  --- u2r_tf_pat
+     ('testflags', 'CMP_EQUAL') 679
+     ('testflags', 'SLANG_REJECT') 50
+     ('testflags', 'SURELOG_FAIL') 2
+  --- u2r_tf_fix
+     ('testflags', 'CMP_EQUAL') 679
+     ('testflags', 'SLANG_REJECT') 50
+     ('testflags', 'SURELOG_FAIL') 2
+  --- u2r_def_pris
+     ('default', 'CMP_EQUAL') 679
+     ('default', 'SLANG_REJECT') 50
+     ('default', 'SURELOG_FAIL') 2
+  --- u2r_def_pat
+     ('default', 'CMP_EQUAL') 679
+     ('default', 'SLANG_REJECT') 50
+     ('default', 'SURELOG_FAIL') 2
+  --- u2r_def_fix
+     ('default', 'CMP_EQUAL') 679
+     ('default', 'SLANG_REJECT') 50
+     ('default', 'SURELOG_FAIL') 2
+
+## ct8rows (WHOLE-ROW, status AND dump column)
+  golden_surelog.csv -> sl_fix.csv: ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides) ; PASS: every row byte-identical to the committed baseline
+  sl_pris.csv -> sl_fix.csv: ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides) ; PASS: every row byte-identical to the committed baseline
+  sl_pat.csv -> sl_fix.csv: ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides) ; PASS: every row byte-identical to the committed baseline
+  gate_uhdm2rtlil.csv -> u2r_tf_fix.csv: ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides) ; PASS: every row byte-identical to the committed baseline
+  u2r_tf_pris.csv -> u2r_tf_fix.csv: ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides) ; PASS: every row byte-identical to the committed baseline
+  u2r_def_pris.csv -> u2r_def_fix.csv: ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides) ; PASS: every row byte-identical to the committed baseline
+
+## 5. byteverify SELFCHECK=1
+  surelog fix vs pris:
+    PATH_SETS_IDENTICAL (956 paths)
+    MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=2a1ec1218331 pristine=4ec9100ec306
+    MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=2a1ec1218331 pristine=4ec9100ec306
+    MOVERS: 2 / 956
+    SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+  surelog fix vs PATCHED:
+    PATH_SETS_IDENTICAL (956 paths)
+    MOVERS: 0 / 956
+  u2r fix vs pris:
+    PATH_SETS_IDENTICAL (1358 paths)
+    MOVERS: 0 / 1358
+    SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+  u2r fix vs PATCHED:
+    PATH_SETS_IDENTICAL (1358 paths)
+    MOVERS: 0 / 1358
+
+## 6. rowheads (cmp lines / heads)
+  PRISTINE:
+    TEST           MODE      CMPLINES  HEADS NOTE
+    SeqDriver      default         64      1 cmp rc=255
+    SeqDriver      testflags       64      1 cmp rc=255
+    SimpleUVM      default         22      1 cmp rc=255
+    SimpleUVM      testflags       22      1 cmp rc=255
+    Scoreboard     default         22      1 cmp rc=255
+    Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+    MiniAmiq       default        348      1 cmp rc=255
+    MiniAmiq       testflags      348      1 cmp rc=255
+    BuildUVMPkg    default         76      1 cmp rc=255
+    BuildUVMPkg    testflags       76      1 cmp rc=255
+    Earlgrey_0_1   default         46      1 cmp rc=255
+    Earlgrey_0_1   testflags       46      1 cmp rc=255
+    Rggen          default          0      0 cmp rc=0
+    Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+    -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+  FIXED:
+    TEST           MODE      CMPLINES  HEADS NOTE
+    SeqDriver      default         64      1 cmp rc=255
+    SeqDriver      testflags       64      1 cmp rc=255
+    SimpleUVM      default         22      1 cmp rc=255
+    SimpleUVM      testflags       22      1 cmp rc=255
+    Scoreboard     default         22      1 cmp rc=255
+    Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+    MiniAmiq       default        348      1 cmp rc=255
+    MiniAmiq       testflags      348      1 cmp rc=255
+    BuildUVMPkg    default         32      1 cmp rc=255
+    BuildUVMPkg    testflags       32      1 cmp rc=255
+    Earlgrey_0_1   default         46      1 cmp rc=255
+    Earlgrey_0_1   testflags       46      1 cmp rc=255
+    Rggen          default          0      0 cmp rc=0
+    Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+    -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+  head cmp md5:
+    0f7013a40fb6e761208de1ca0fee3c2d  /tmp/vbuvm27_heads_pris/BuildUVMPkg.default.cmp
+    0f7013a40fb6e761208de1ca0fee3c2d  /tmp/vbuvm27_heads_pris/BuildUVMPkg.testflags.cmp
+    c8959ae94a5c768e14dc450e000e3426  /tmp/vbuvm27_heads_pat/BuildUVMPkg.default.cmp
+    c8959ae94a5c768e14dc450e000e3426  /tmp/vbuvm27_heads_pat/BuildUVMPkg.testflags.cmp
+    c8959ae94a5c768e14dc450e000e3426  /tmp/vbuvm27_heads_fix/BuildUVMPkg.default.cmp
+    c8959ae94a5c768e14dc450e000e3426  /tmp/vbuvm27_heads_fix/BuildUVMPkg.testflags.cmp
+
+## 7. canaries / ctcan2 / canaudit / pins (FIXED binary)
+  sl  ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  u2r ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+  sl  PASS: every supplementary canary row is byte-identical to the baseline.
+  u2r PASS: every supplementary canary row is byte-identical to the baseline.
+  ---- audited=33  UNCOVERED=0  FENCE-BREACH=0
+  PASS: every brief-protected name and family is carried by a script that RUNS here.
+  NAME                 MODE      PRISTINE       PATCHED        VERDICT
+  InterfaceModPort     default   59a365f3ce2c   59a365f3ce2c   SAME
+  InterfaceModPort     testflags 59a365f3ce2c   59a365f3ce2c   SAME
+  BlackParrotComplex   default   e3e354129d5a   e3e354129d5a   SAME
+  BlackParrotComplex   testflags 73a10e8217e5   73a10e8217e5   SAME
+  YosysOldOr           default   d68e0796d62c   d68e0796d62c   SAME
+  YosysOldOr           testflags d68e0796d62c   d68e0796d62c   SAME
+  SVSwitch             default   4842211c4030   4842211c4030   SAME
+  SVSwitch             testflags 4842211c4030   4842211c4030   SAME
+  YosysVerx            default   6ccda350c24a   6ccda350c24a   SAME
+  YosysVerx            testflags 6ccda350c24a   6ccda350c24a   SAME
+  ---- pins SAME=10 MOVED=0 UNKNOWN-NAME=0
