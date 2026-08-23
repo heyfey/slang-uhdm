@@ -1,0 +1,73 @@
+r10v104 WIDE BOUNDARY — verifier's own run, PRISTINE (4e1d739b21bf097f2c21e668
+89b765b6) vs VERIFIED (93d5c5762be7c95b487f734fff14a8a2), from a COPY of
+tools/probe, NO path filter, `.sv` AND `.v`, recursive, BOTH views (def and
+-elabuhdm), file/directory list read on fd 3, children `</dev/null`, PROCESSED
+asserted, scratch keyed on the RELATIVE path, rc recorded per cell.
+Driver: vbound104.sh — it reports the UNSORTED and the ORDER-BLIND (sorted)
+diff for every moving cell, so an ordering coin is separated from a real mover
+in the same pass instead of needing a re-run.
+
+PER-FILE half (copy frozen before r10v104repro existed)
+  LISTED=3279  FENCED_SKIPPED=0  PROCESSED=3279  PROCESSED-ASSERT-OK
+  RC_PAIRS=6558  RC_DIFF=0  ASYM=0  NO_OUTPUT_PAIRS=274 (symmetric refusals)
+  MOVED=10, all five files identified:
+    0068_r10buvm22repro_g22.sv          def 12 / elab 12   NOT THIS LAW (R-assoc)
+    1850_r10uvm104repro_g104_a1_sep.sv  def 120/ elab 120  positive control
+    1851_..._g104_a2_shapes.sv          def 56 / elab 56   positive control
+    1852_..._g104_a3_ctx.v              def 60 / elab 60   positive control
+    1855_..._g104_a6_repeat.sv          def 36 / elab 36   positive control
+  g104_a4_args.sv, g104_a5_fence.sv and g104_a7_outside.v do NOT move — the
+  three fences (macro with formals, no-paste stringification, paste outside a
+  string) hold as per-file arms in both views.
+
+PER-DIRECTORY half (copy taken AFTER r10v104repro was added, so the verifier's
+own fourteen arms are inside it as a second positive control)
+  DIRS LISTED=1474  PROCESSED=1474  PROCESSED-ASSERT-OK
+  RC_PAIRS=2948  RC_DIFF=0  ASYM=0  NO_OUTPUT_PAIRS=241
+  MOVED=12 over SIX directories:
+    0017_r10buvm22repro   def 12/12   elab 12/12    NOT THIS LAW (R-assoc)
+    0720_r10uvm104repro   def 272/272 elab 272/272  positive control
+    0933_r10v104repro     def 584/596 elab 584/596  positive control (this dir)
+    0903_r10uvm75repro    def 10/0    elab 16/0     COIN
+    0904_r10uvm76repro    def 14/0    elab 16/0     COIN
+    0916_r10uvm88repro    def 4/0     elab 4/0      COIN
+  (unsorted/sorted).  Every sorted count of 0 is an ORDER-ONLY difference.
+
+THE THREE COINS, proven directly, not asserted
+  r10uvm75repro and r10uvm76repro flip on the PRISTINE binary alone: three
+  pristine runs of each give pairwise unsorted diffs of 16/16/14 and 8/16/12
+  lines with the sorted diff 0 every time.
+  r10uvm88repro is the interesting one — the implementer's boundary did not
+  report it at all, because a single run only sees one face.  Eleven pristine
+  runs of that directory give ONE dump (7cc4e3d8665976d3), but SIX runs of the
+  verified binary give TWO: five 7cc4e3d8665976d3 and one 1b9b5de5cc110a10.
+  The two faces differ by the position of one `\_function: (p3::base3::
+  oob_base), line:15:3` entry in a `vpiTaskFunc` list — the documented
+  macro-buffer SourceLocation ordering flip under slang's parallel parse, the
+  same coin that makes Scoreboard/default ~50/50.  ORDER-BLIND: 0.
+  Lesson for the standing gate: a boundary cell that moves with sorted=0 must
+  be re-run on ONE binary before it is called a mover, and a single-run
+  boundary can miss such a cell entirely.
+
+r10buvm22repro/g22.sv IS NOT THIS LAW — re-derived independently
+  * `grep -c '`' g22.sv` = 0.  With no backtick there is no macro location, so
+    `SourceManager::isMacroLoc` is false for every literal and
+    `surelogPasteDotString` returns on its first line.  The law's code cannot
+    execute in this file.
+  * The 12 lines are three `vpiDecompile:`/`UINT:` pairs whose value goes
+    22235321 -> 22363513 (and 22234465 -> 22362657), inside the range of the
+    `array_typespec` built for the ASSOCIATIVE typedefs at g22.sv:70-72
+    (`typedef C22 ka_cls_t[string];`, `typedef int ka_int_t[string];`,
+    `typedef int ka_str_t[int];`).
+  * `UhdmExporter::buildUnpackedArrayTypedefTs` (src/TypeEmit.cpp:10359) does
+    an UNCHECKED `ct.as<FixedSizeUnpackedArrayType>()`.  slang's `as<>` is a
+    static_cast in Release, so for an `AssociativeArrayType` the `indexType`
+    POINTER bits are read as the array's `ConstantRange` and `fua.range.width()`
+    (src/TypeEmit.cpp:10443) emits an address-derived number.  The delta between
+    the two binaries, 128192, is a difference of two static addresses — which is
+    why it is deterministic per binary and ASLR-invariant, and why ANY code-size
+    change re-reports this cell.
+  * Corpus-invisible: uhdm2rtlil byteverify 0/1358, and all seven surelog movers
+    have 0 non-string lines.
+  RANKED RESIDUE (R-assoc).  Pre-existing; the r10uvm104 patch does not touch
+  TypeEmit.cpp.

@@ -1,0 +1,19 @@
+MOVED D0017_r10buvm22repro/def 12 lines
+MOVED D0017_r10buvm22repro/elab 12 lines
+MOVED D0720_r10uvm104repro/def 272 lines
+MOVED D0720_r10uvm104repro/elab 272 lines
+MOVED D0903_r10uvm75repro/def 16 lines
+MOVED D0903_r10uvm75repro/elab 18 lines
+MOVED D0904_r10uvm76repro/def 14 lines
+MOVED D0904_r10uvm76repro/elab 14 lines
+dbound104.sh: line 26: 1543913 Segmentation fault      "$PRI" $fl "${src[@]}" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+dbound104.sh: line 26: 1543952 Segmentation fault      "$PAT" $fl "${src[@]}" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+dbound104.sh: line 26: 1545995 Segmentation fault      "$PRI" $fl "${src[@]}" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+dbound104.sh: line 26: 1546013 Segmentation fault      "$PAT" $fl "${src[@]}" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+dbound104.sh: line 26: 1605419 Segmentation fault      "$PRI" $fl "${src[@]}" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+dbound104.sh: line 26: 1605514 Segmentation fault      "$PAT" $fl "${src[@]}" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+dbound104.sh: line 26: 1605604 Segmentation fault      "$PRI" $fl "${src[@]}" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+dbound104.sh: line 26: 1605642 Segmentation fault      "$PAT" $fl "${src[@]}" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+dbound104.sh: line 26: 1605735 Segmentation fault      "$PRI" $fl "${src[@]}" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+dbound104.sh: line 26: 1605770 Segmentation fault      "$PAT" $fl "${src[@]}" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+DIRS_LISTED=1473 PROCESSED=1473 MOVED=8 RC_DIFF=0 ASYM=0 NO_OUTPUT=241

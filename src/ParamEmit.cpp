@@ -4392,8 +4392,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                              std::to_string(srlgTimeLitVal(rawText(
                                  stripImplicitConv(*defaultInit).sourceRange))));
             // String params carry a STRING:<text> value.
-            if (defaultInit && literalInit && cv.isString())
-                up->VpiValue("STRING:" + cv.str());
+            // § macroPasteDotText104 — a value stringified by a macro whose
+            // body pastes around a single character reads that character as a
+            // `.` in Surelog; the parameter's own value carries the same text
+            // as its param_assign Rhs constant.
+            if (defaultInit && literalInit && cv.isString()) {
+                std::string sv104(cv.str());
+                auto& il104 = stripImplicitConv(*defaultInit);
+                if (il104.kind == ExpressionKind::StringLiteral)
+                    if (auto d104 = surelogPasteDotString(il104, sv104))
+                        sv104 = *d104;
+                up->VpiValue("STRING:" + sv104);
+            }
             // The value mirrors the INIT LITERAL's kind, not the param type:
             // a REAL literal keeps REAL:%f even on an integral param (p1);
             // an INT literal keeps UINT even on a real param (p3) — realexpr.

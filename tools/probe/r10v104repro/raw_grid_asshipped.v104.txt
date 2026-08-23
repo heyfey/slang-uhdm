@@ -1,0 +1,67 @@
+v10_empty.sv.def               AWAY       TO-GOLDEN=24   AWAY=12   STILL=12
+        AWAY-NEW-WRONG  'STRING:.11' x4
+        AWAY-NEW-WRONG  'STRING:11.' x4
+        AWAY-NEW-WRONG  'vpiDecompile:".11"' x2
+        AWAY-NEW-WRONG  'vpiDecompile:"11."' x2
+v10_empty.sv.elab              AWAY       TO-GOLDEN=24   AWAY=12   STILL=12
+        AWAY-NEW-WRONG  'STRING:.11' x4
+        AWAY-NEW-WRONG  'STRING:11.' x4
+        AWAY-NEW-WRONG  'vpiDecompile:".11"' x2
+        AWAY-NEW-WRONG  'vpiDecompile:"11."' x2
+v11_uvmreal.sv.def             OK         TO-GOLDEN=48   AWAY=0    STILL=0
+v11_uvmreal.sv.elab            OK         TO-GOLDEN=48   AWAY=0    STILL=0
+v12_seps.sv.def                OK         TO-GOLDEN=120  AWAY=0    STILL=0
+v12_seps.sv.elab               OK         TO-GOLDEN=120  AWAY=0    STILL=0
+v13_argnofml.sv.def            AWAY       TO-GOLDEN=12   AWAY=12   STILL=6
+        AWAY-NEW-WRONG  'STRING:x.tail' x4
+        AWAY-NEW-WRONG  'vpiDecompile:"x.tail"' x2
+        AWAY-LOST-GOOD  'STRING:x-tail' x4
+        AWAY-LOST-GOOD  'vpiDecompile:"x-tail"' x2
+v13_argnofml.sv.elab           AWAY       TO-GOLDEN=12   AWAY=12   STILL=6
+        AWAY-NEW-WRONG  'STRING:x.tail' x4
+        AWAY-NEW-WRONG  'vpiDecompile:"x.tail"' x2
+        AWAY-LOST-GOOD  'STRING:x-tail' x4
+        AWAY-LOST-GOOD  'vpiDecompile:"x-tail"' x2
+v1_pastecount.sv.def           OK         TO-GOLDEN=48   AWAY=0    STILL=0
+v1_pastecount.sv.elab          OK         TO-GOLDEN=48   AWAY=0    STILL=0
+v2_args_coincide.sv.def        AWAY       TO-GOLDEN=0    AWAY=36   STILL=0
+        AWAY-NEW-WRONG  'STRING:A.B)' x4
+        AWAY-NEW-WRONG  'STRING:a.b' x4
+        AWAY-NEW-WRONG  'STRING:aa(.,.)' x4
+        AWAY-NEW-WRONG  'vpiDecompile:"A.B)"' x2
+        AWAY-NEW-WRONG  'vpiDecompile:"a.b"' x2
+        AWAY-NEW-WRONG  'vpiDecompile:"aa(.,.)"' x2
+        AWAY-LOST-GOOD  'STRING:A(B)' x4
+        AWAY-LOST-GOOD  'STRING:a-b' x4
+        AWAY-LOST-GOOD  'STRING:aa(V,I)' x4
+        AWAY-LOST-GOOD  'vpiDecompile:"A(B)"' x2
+        AWAY-LOST-GOOD  'vpiDecompile:"a-b"' x2
+        AWAY-LOST-GOOD  'vpiDecompile:"aa(V,I)"' x2
+v2_args_coincide.sv.elab       AWAY       TO-GOLDEN=0    AWAY=36   STILL=0
+        AWAY-NEW-WRONG  'STRING:A.B)' x4
+        AWAY-NEW-WRONG  'STRING:a.b' x4
+        AWAY-NEW-WRONG  'STRING:aa(.,.)' x4
+        AWAY-NEW-WRONG  'vpiDecompile:"A.B)"' x2
+        AWAY-NEW-WRONG  'vpiDecompile:"a.b"' x2
+        AWAY-NEW-WRONG  'vpiDecompile:"aa(.,.)"' x2
+        AWAY-LOST-GOOD  'STRING:A(B)' x4
+        AWAY-LOST-GOOD  'STRING:a-b' x4
+        AWAY-LOST-GOOD  'STRING:aa(V,I)' x4
+        AWAY-LOST-GOOD  'vpiDecompile:"A(B)"' x2
+        AWAY-LOST-GOOD  'vpiDecompile:"a-b"' x2
+        AWAY-LOST-GOOD  'vpiDecompile:"aa(V,I)"' x2
+v3_ifdef.sv.def                OK         TO-GOLDEN=24   AWAY=0    STILL=0
+v3_ifdef.sv.elab               OK         TO-GOLDEN=24   AWAY=0    STILL=0
+v4_nested.sv.def               OK         TO-GOLDEN=72   AWAY=0    STILL=0
+v4_nested.sv.elab              OK         TO-GOLDEN=72   AWAY=0    STILL=0
+v5_triple.sv.def               OK         TO-GOLDEN=36   AWAY=0    STILL=18
+v5_triple.sv.elab              OK         TO-GOLDEN=36   AWAY=0    STILL=18
+v6_ctx.sv.def                  OK         TO-GOLDEN=116  AWAY=0    STILL=6
+v6_ctx.sv.elab                 OK         TO-GOLDEN=116  AWAY=0    STILL=6
+v7_esc.sv.def                  OK         TO-GOLDEN=32   AWAY=0    STILL=8
+v7_esc.sv.elab                 OK         TO-GOLDEN=32   AWAY=0    STILL=8
+v8_plain.sv.def                OK         TO-GOLDEN=8    AWAY=0    STILL=0
+v8_plain.sv.elab               OK         TO-GOLDEN=8    AWAY=0    STILL=0
+v9_ambig.sv.def                OK         TO-GOLDEN=24   AWAY=0    STILL=24
+v9_ambig.sv.elab               OK         TO-GOLDEN=24   AWAY=0    STILL=24
+ARMS-WITH-AWAY 6

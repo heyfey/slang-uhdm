@@ -1,0 +1,68 @@
+r10uvm104 BOUNDARY — wide, from a COPY of tools/probe, NO path filter,
+.sv AND .v, recursive, BOTH views (def and -elabuhdm), rc recorded per cell,
+file list read on fd 3 with children </dev/null, PROCESSED asserted, scratch
+keyed on the RELATIVE path.  Both halves were run.
+
+PER-FILE half (bound104.sh)
+  LISTED=3277  FENCED_SKIPPED=0  PROCESSED=3277  PROCESSED-ASSERT-OK
+  RC_PAIRS_COMPARED=6554  RC_DIFF=0  ASYMMETRIC_OUTPUT=0
+  NO_OUTPUT_PAIRS=274 (both sides refuse — symmetric)
+  MOVED=8:
+    0068_r10buvm22repro_g22.sv          def, elab   12 lines   NOT THIS LAW
+    1850_r10uvm104repro_g104_a1_sep.sv  def, elab  120 lines   positive control
+    1851_r10uvm104repro_g104_a2_shapes  def, elab   56 lines   positive control
+    1852_r10uvm104repro_g104_a3_ctx.v   def, elab   60 lines   positive control
+  Two arms (g104_a6_repeat.sv, g104_a7_outside.v) were written after this
+  copy was frozen; they were run as per-file arms separately against the same
+  two frozen binaries — a6 moves 36 lines in both views (positive control),
+  a7 is byte-identical in both views — and both are covered by the
+  per-directory half below and by the GRID.
+
+PER-DIRECTORY half (dbound104.sh) — a law that only fires across files is not
+invisible; every directory holding at least one source is one arm carrying all
+of its sources.
+  DIRS_LISTED=1473  PROCESSED=1473  RC_DIFF=0  ASYM=0  NO_OUTPUT=241
+  MOVED=8 over four directories:
+    D0017_r10buvm22repro   def 12  elab 12   NOT THIS LAW (see below)
+    D0720_r10uvm104repro   def 272 elab 272  positive control (this pass's arms)
+    D0903_r10uvm75repro    def 16  elab 18   NONDETERMINISM COIN
+    D0904_r10uvm76repro    def 14  elab 14   NONDETERMINISM COIN
+
+POSITIVE CONTROL.  The gate can see: D0720 / arms 1850-1852 are deliberately
+moved cells and both halves report them.
+
+D0903 / D0904 ARE COINS, NOT MOVERS.  The PRISTINE binary alone flips these
+two arms run to run: four pristine runs of D0903 give unsorted dump diffs of
+16, 10 and 16 lines against each other while the ORDER-BLIND (sorted) diff is
+0 every time.  Pristine-vs-patched sorted diff is 0 for both directories.  The
+flipping lines are `vpiTaskFunc` list ORDER — the known macro-buffer
+SourceLocation ordering under slang's parallel parse (the same coin that makes
+Scoreboard/default ~50/50).  Attributed ORDER-BLIND, as the standing law
+requires.
+
+D0017 / 0068 r10buvm22repro/g22.sv IS PRE-EXISTING AND PROVABLY NOT THIS LAW.
+  * g22.sv contains ZERO backtick characters — no macro, no `` `" ``
+    stringification.  `surelogPasteDotString` returns immediately unless
+    `SourceManager::isMacroLoc` is true for the literal's start, which cannot
+    happen in a file with no macros, and the ParamEmit call site is additionally
+    gated on a StringLiteral initializer.  The law's code cannot execute here.
+  * The 12 moving lines are three `UINT:`/`vpiDecompile:` pairs inside the
+    `vpiRightRange` sub-operation of the `array_typespec` for the ASSOCIATIVE
+    typedefs at g22.sv:70-72 (`typedef C22 ka_cls_t[string];` and siblings).
+  * `UhdmExporter::buildUnpackedArrayTypedefTs` (src/TypeEmit.cpp:10359) does
+    an UNCHECKED `ct.as<FixedSizeUnpackedArrayType>()`.  For an
+    `AssociativeArrayType` that reinterprets the type's `indexType` POINTER
+    bits as the array's `ConstantRange`, so `fua.range.width()` at
+    src/TypeEmit.cpp:10443 is an address-derived number (22235321 pristine,
+    22363513 patched).
+  * It is deterministic per binary (three runs each, identical) and
+    ASLR-invariant, which is what a DIFFERENCE OF TWO STATIC ADDRESSES looks
+    like: it therefore shifts with ANY change to the binary's layout, and this
+    pass's 255 added lines are such a change.
+  * It is corpus-invisible: uhdm2rtlil byteverify 0/1358, and the Surelog
+    corpus's 7 movers are all string-text movers with 0 non-string lines.
+  RANKED RESIDUE for a future pass — an unchecked `as<>` in
+  `buildUnpackedArrayTypedefTs` that reads a pointer as a range whenever a
+  typedef names an associative array.  It is a latent emitter bug that the wide
+  boundary exposes and that any code-size change will keep re-reporting until
+  the cast is guarded.

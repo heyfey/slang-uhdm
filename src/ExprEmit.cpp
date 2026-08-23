@@ -10,6 +10,7 @@
 #include <cctype>
 #include <cerrno>
 #include <cstdlib>
+#include <regex>
 
 #include "EmitHelpers.h"
 
@@ -7064,6 +7065,250 @@ int UhdmExporter::streamSliceTypeBits(const std::string& tok) {
 }
 
 // § hierSelPkgParamFold — rawText with those substitutions spliced in.
+// § macroPasteDotText104 -- see the declaration in UhdmExporter.h for the
+// Surelog producer (`SV3_1aPpTreeShapeListener::enterString`, the `"``.``"`
+// regex whose `.` is an unescaped wildcard) and the measured separator matrix.
+//
+// The transform is applied to the macro DEFINITION text, not to our expanded
+// value: Surelog runs its two regexes BEFORE it expands the macros inside the
+// stringification, so the text it rewrites is exactly the source characters
+// between the `` `" `` delimiters.  We read those characters back through the
+// SourceManager, replay the regex, and then map each rewritten character onto
+// the position it occupies in slang's already-expanded value.
+//
+// The mapping BAILS -- leaving our text untouched -- on anything it cannot
+// prove: a body whose literal characters do not line up with the value (a
+// macro WITH ARGUMENTS has had its formals substituted before Surelog's regex
+// runs, so the definition text no longer describes the value), an alignment
+// the left-to-right and right-to-left walks disagree on, an unterminated
+// stringification.  A bail is always the pristine rendering.
+std::optional<std::string> UhdmExporter::surelogPasteDotString(
+    const Expression& expr, const std::string& inner) {
+    auto loc = expr.sourceRange.start();
+    if (loc == SourceLocation::NoLocation || !sm->isMacroLoc(loc))
+        return std::nullopt;
+    auto oloc = sm->getFullyOriginalLoc(loc);
+    if (oloc == SourceLocation::NoLocation || sm->isMacroLoc(oloc))
+        return std::nullopt;
+    auto text = sm->getSourceText(oloc.buffer());
+    size_t o0 = oloc.offset();
+    if (o0 + 2 > text.size() || text.compare(o0, 2, "`\"") != 0)
+        return std::nullopt;
+
+    // § macroPasteDotText104 FENCE -- a macro that takes FORMAL ARGUMENTS.
+    // `PreprocessFile::evaluateMacro_` substitutes the formals, consuming the
+    // token pastes that touch one (../Surelog/src/SourceCompile/PreprocessFile.cpp:919-931),
+    // BEFORE `enterString`'s regex ever runs -- so for such a macro the
+    // definition text is NOT the text the regex sees, and replaying the regex
+    // on it invents dots golden does not have.  Measured on golden (r10v104
+    // arms v2/v13, both views): `define SEP(a,b) `"a``-``b`" invoked as
+    // `SEP(a,b) renders `a-b`, `define PAIR(A,B) `"A``(``B``)`" invoked as
+    // `PAIR(A,B) renders `A(B)`, and `define TAG3(x) `"x``-``tail`" invoked as
+    // `TAG3(x) renders `x-tail` -- every one of them WITHOUT a dot, because the
+    // pastes were consumed by the substitution.  The alignment walk cannot see
+    // that: when the actual argument text happens to match the formal's own
+    // name the definition text lines up byte-for-byte with the value and the
+    // walk agrees.  So the enclosing `define is inspected directly and a macro
+    // with a formal list bails to the pristine rendering.
+    //
+    // Residue (golden-vs-ours, unchanged from pristine): a paste window inside
+    // an argument-bearing macro that touches NO formal -- `define TAG(x)
+    // `"pre``-``post_``x`" -- IS dotted by golden (`pre.post_zz`) and is not
+    // modelled here.  No corpus source has that shape.
+    {
+        size_t ds = text.rfind("`define", o0);
+        if (ds == std::string_view::npos)
+            return std::nullopt;
+        // The `define must ENCLOSE the literal: any newline in between has to
+        // be a line continuation, else this is some earlier, unrelated define.
+        for (size_t k = ds; k < o0; k++) {
+            if (text[k] != '\n')
+                continue;
+            size_t b = k;
+            if (b > ds && text[b - 1] == '\r')
+                b--;
+            if (b == ds || text[b - 1] != '\\')
+                return std::nullopt;
+        }
+        size_t p104 = ds + 7;
+        while (p104 < o0 && (text[p104] == ' ' || text[p104] == '\t'))
+            p104++;
+        size_t ns104 = p104;
+        while (p104 < o0 &&
+               (isalnum((unsigned char)text[p104]) || text[p104] == '_' ||
+                text[p104] == '$'))
+            p104++;
+        if (p104 == ns104 || (p104 < text.size() && text[p104] == '('))
+            return std::nullopt;
+    }
+
+    // Find the stringification's closing `" , stepping over the escaped-quote
+    // form `\`" (which is content, not a terminator).
+    size_t i = o0 + 2, close = std::string_view::npos;
+    while (i + 1 < text.size()) {
+        if (text.compare(i, 4, "`\\`\"") == 0) {
+            i += 4;
+            continue;
+        }
+        if (text.compare(i, 2, "`\"") == 0) {
+            close = i;
+            break;
+        }
+        if (text[i] == '\n')
+            return std::nullopt;  // unterminated on this line: not modelled
+        i++;
+    }
+    if (close == std::string_view::npos)
+        return std::nullopt;
+    std::string body(text.substr(o0 + 2, close - (o0 + 2)));
+
+    // Surelog's two replacements, in Surelog's order.  The dash rule is dead
+    // (the wildcard rule has already consumed every ``-``); it is kept so the
+    // model reads as the producer does.
+    static const std::regex dotRe104("``.``");
+    static const std::regex dashRe104("``-``");
+    std::string applied = std::regex_replace(body, dotRe104, ".");
+    applied = std::regex_replace(applied, dashRe104, "-");
+    if (applied == body)
+        return std::nullopt;  // no paste shape the regex matches: byte-identical
+
+    // Parse the body into macro references, paste operators and literal
+    // characters, remembering each literal's byte offset in `body`.
+    struct It104 {
+        int kind;  // 0 = literal, 1 = paste, 2 = macro reference
+        char c;
+        size_t off;
+    };
+    std::vector<It104> items;
+    for (size_t j = 0; j < body.size();) {
+        if (body.compare(j, 4, "`\\`\"") == 0) {
+            items.push_back({0, '\\', j});
+            items.push_back({0, '"', j});
+            j += 4;
+            continue;
+        }
+        if (body.compare(j, 2, "``") == 0) {
+            items.push_back({1, 0, j});
+            j += 2;
+            continue;
+        }
+        if (body[j] == '`' && j + 1 < body.size() &&
+            (isalpha((unsigned char)body[j + 1]) || body[j + 1] == '_')) {
+            size_t k = j + 1;
+            while (k < body.size() &&
+                   (isalnum((unsigned char)body[k]) || body[k] == '_' ||
+                    body[k] == '$'))
+                k++;
+            items.push_back({2, 0, j});
+            j = k;
+            continue;
+        }
+        items.push_back({0, body[j], j});
+        j++;
+    }
+
+    // Walk the items against the expanded value.  A macro reference has an
+    // unknown expansion length, so it is skipped to the next literal RUN; the
+    // run is anchored greedily.  The same walk is then run RIGHT-TO-LEFT and
+    // the two must agree on every literal's position: a body whose literal
+    // runs can be aligned two different ways is not provable and bails.
+    auto walk104 = [&](bool fwd) -> std::vector<size_t> {
+        std::vector<size_t> lp(items.size(), std::string::npos);
+        if (fwd) {
+            size_t pos = 0;
+            for (size_t idx = 0; idx < items.size(); idx++) {
+                if (items[idx].kind == 1)
+                    continue;
+                if (items[idx].kind == 0) {
+                    if (pos >= inner.size() || inner[pos] != items[idx].c)
+                        return {};
+                    lp[idx] = pos++;
+                    continue;
+                }
+                std::string run;
+                for (size_t j = idx + 1; j < items.size() && items[j].kind != 2;
+                     j++)
+                    if (items[j].kind == 0)
+                        run += items[j].c;
+                if (run.empty())
+                    continue;
+                size_t k = inner.find(run, pos);
+                if (k == std::string::npos)
+                    return {};
+                pos = k;
+            }
+            // A body that ends in a literal must have consumed the whole value.
+            for (size_t idx = items.size(); idx-- > 0;) {
+                if (items[idx].kind == 1)
+                    continue;
+                if (items[idx].kind == 0 && pos != inner.size())
+                    return {};
+                break;
+            }
+            return lp;
+        }
+        size_t pos = inner.size();
+        for (size_t idx = items.size(); idx-- > 0;) {
+            if (items[idx].kind == 1)
+                continue;
+            if (items[idx].kind == 0) {
+                if (pos == 0 || inner[pos - 1] != items[idx].c)
+                    return {};
+                lp[idx] = --pos;
+                continue;
+            }
+            std::string run;
+            for (size_t j = idx; j-- > 0 && items[j].kind != 2;)
+                if (items[j].kind == 0)
+                    run.insert(run.begin(), items[j].c);
+            if (run.empty())
+                continue;
+            if (pos < run.size())
+                return {};
+            size_t k = inner.rfind(run, pos - run.size());
+            if (k == std::string::npos)
+                return {};
+            pos = k + run.size();
+        }
+        for (size_t idx = 0; idx < items.size(); idx++) {
+            if (items[idx].kind == 1)
+                continue;
+            if (items[idx].kind == 0 && pos != 0)
+                return {};
+            break;
+        }
+        return lp;
+    };
+    std::vector<size_t> litPos = walk104(true);
+    std::vector<size_t> litRev = walk104(false);
+    if (litPos.empty() || litPos != litRev)
+        return std::nullopt;
+
+    // Replay the wildcard regex for its MATCH POSITIONS (regex_replace only
+    // hands back the rewritten text) and rewrite the aligned characters.
+    std::string out = inner;
+    bool moved = false;
+    for (auto it = std::sregex_iterator(body.begin(), body.end(), dotRe104);
+         it != std::sregex_iterator(); ++it) {
+        size_t coff = (size_t)it->position(0) + 2;
+        size_t idx = items.size();
+        for (size_t j = 0; j < items.size(); j++)
+            if (items[j].kind == 0 && items[j].off == coff) {
+                idx = j;
+                break;
+            }
+        if (idx == items.size() || litPos[idx] == std::string::npos)
+            return std::nullopt;
+        if (out[litPos[idx]] != '.') {
+            out[litPos[idx]] = '.';
+            moved = true;
+        }
+    }
+    if (!moved)
+        return std::nullopt;
+    return out;
+}
+
 std::string UhdmExporter::rawTextPkgFold(SourceRange range,
                                          const std::vector<PkgFoldSub>& subs) {
     std::string base = rawText(range);
@@ -12809,6 +13054,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (inner.size() >= 2 && inner.front() == '"' &&
                     inner.back() == '"')
                     inner = inner.substr(1, inner.size() - 2);
+                // § macroPasteDotText104 — Surelog collapses `` X `` to a `.`
+                // before it expands the macros inside a stringification.
+                if (auto dot104 = surelogPasteDotString(expr, inner))
+                    inner = *dot104;
                 raw = "\"" + inner + "\"";
             }
             else

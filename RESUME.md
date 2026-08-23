@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-23 06:25, HEAD = the earl71 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-23 07:00, HEAD = the uvm104 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -180,7 +180,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2 (uvm-1.2 tree) | 64 (depth) | the param_assign Rhs of `uvm_revision` (uvm_version.svh:31 `backtick-UVM_VERSION_STRING`): golden STRING `UVM.1.2` vs ours `UVM-1.2` — a preprocessor stringification law (Surelog renders the backtick-backtick-minus join as `.`); expr::VpiDecompile (uvm102 landed: 17→64, untyped unsized-based parameter declarations carry no typespec; before it Codex's uvm100 parenthesised statement delays and uvm101 event trigger names) |
+| SeqDriver×2 (uvm-1.2 tree) | 60 (depth) | the param_assign Rhs of `parameter UVM_RADIX = backtick-hf000000` (uvm_object_globals.svh:99): golden vpiSize -1 + a DANGLING ref_typespec vs ours 32 + int_typespec — the Rhs half of uvm102's unsized-based-literal law; pass uvm106 in flight (uvm104 landed: 64→60, Surelog's enterString regex "``.``" is an unescaped wildcard — every paste·X·paste window in a macro stringification becomes '.'; the verifier fenced argument-bearing macros) |
 | MiniAmiq×2 (uvm-1.2 tree) | 348 (depth) | uvm101's residue (the deeper mismatch exposed after its event-statement head cleared; tools/probe/r10uvm101repro/raw/head_MiniAmiq_default.cmp) — unassigned, next UVM slot |
 | SimpleUVM×2, Scoreboard/default (uvm-1.2 tree) | 22 (depth) | a variable typed by the enclosing class's OWN type parameter inside an OUT-OF-BODY method (`REQ param_t;`, uvm_sequencer_param_base.svh:270): golden leaves an unsupported_typespec named REQ (Surelog compiles the out-of-body method with the package as component; no late binding repairs a type-parameter name) where we resolve REQ's default class_typespec — VpiType; pass uvm105 in flight (uvm103 landed: 108→22, an Invalid shell is not a position — the call inside stays the STATEMENT) |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 76 (depth) | a folded `$bits(m_data[i] & be)` call argument (uvm_pkg.sv:58066, uvm_tlm_generic_payload::do_compare): golden constant UINT:8 sz 64 parented at the method_func_call vs our sys_func_call — VpiType; pass buvm27 in flight (buvm26 landed: 72→76, a dropped call on a SUBSCRIPTED receiver keeps its call: expression position → hier_path [bit_select, method_func_call]; statement position → the subscript is never read) |
@@ -191,7 +191,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 61 verifier fix-before-landing re-cuts (131 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 62 verifier fix-before-landing re-cuts (132 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

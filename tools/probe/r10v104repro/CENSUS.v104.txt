@@ -1,0 +1,45 @@
+r10v104 CENSUS — per-SLOT, owner-keyed, on the REAL targets.
+Instrument: vcen104.py.  LHS is ALWAYS golden (the golden cache entry named by
+each row's own cmds.txt).
+
+KEY      (owner object kind, owner SPAN, dump DEPTH, field) for every
+         `|STRING:` and `|vpiDecompile:` line.  Text deliberately OUT of the
+         key; depth IN it (a slot-keyed census is blind below the slot).
+PAYLOAD  the value TEXT — Compare-visible: `expr::Compare` reads VpiDecompile
+         first (../UHDM/build/generated/src/expr.cpp:90), and `STRING:` is its
+         dump-side twin.  No span in the payload.
+JOIN     collections.Counter multiset per key, never a last-writer dict.
+VERDICT  per KEY: how many payloads matched golden BEFORE vs AFTER.  More after
+         = TO-GOLDEN, FEWER AFTER = AWAY.  This is strictly stronger than a
+         totals-based `max(0, ours_only_after - ours_only_before)`: a slot that
+         matched golden before and does not after is reported even when another
+         slot's fix balances the totals — which is exactly how the arm-v13
+         regression hid from a count-only verdict.
+CALIB    golden-vs-golden on the corpus is byte-identical by construction (one
+         immutable cache entry per (Surelog binary, dir, argv)).  On the grid,
+         Surelog run twice per arm gives 0 differing cells.
+
+ROW                     TO-GOLDEN   AWAY   STILL-WRONG   UNCHANGED-MATCHED
+SeqDriver/default            36       0        21784           46578
+SeqDriver/testflags          36       0        21784           46578
+SimpleUVM/default            10       0        10822           27654
+SimpleUVM/testflags          10       0        10822           27654
+Scoreboard/default           10       0        10560           27797
+MiniAmiq/default             46       0        22410           47923
+MiniAmiq/testflags           46       0        22410           47923
+BuildUVMPkg/default           0       0         2494           34866
+                            ---      --
+                            194       0
+
+194 cells to golden, 0 away — the implementer's table reproduced exactly with a
+stricter classifier.  Measured against the AS-SHIPPED binary; the VERIFIED
+binary's databases are byte-identical to it on all 956 surelog databases
+(byteverify md5s match one for one), so the same table holds for the shipped
+patch.
+
+BuildUVMPkg has no cell and does not move: 1800.2-2017-1.0 writes its version
+as a plain string literal.  Its `uvm_printer_defines.svh:512,577,598,624,642`
+DO carry `` ``,`` `` windows inside a `` `" `` — but inside macros WITH FORMALS,
+which the verified fence bails on outright; with the as-shipped binary they
+happened not to fire because the invocations' argument text differs from the
+formal names (see GRID.v104.txt and README.md).

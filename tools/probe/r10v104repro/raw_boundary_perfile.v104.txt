@@ -1,0 +1,13 @@
+MOVED 0068_r10buvm22repro_g22.sv/def unsorted=12 sorted=12
+MOVED 0068_r10buvm22repro_g22.sv/elab unsorted=12 sorted=12
+MOVED 1850_r10uvm104repro_g104_a1_sep.sv/def unsorted=120 sorted=120
+MOVED 1850_r10uvm104repro_g104_a1_sep.sv/elab unsorted=120 sorted=120
+MOVED 1851_r10uvm104repro_g104_a2_shapes.sv/def unsorted=56 sorted=56
+MOVED 1851_r10uvm104repro_g104_a2_shapes.sv/elab unsorted=56 sorted=56
+MOVED 1852_r10uvm104repro_g104_a3_ctx.v/def unsorted=60 sorted=60
+MOVED 1852_r10uvm104repro_g104_a3_ctx.v/elab unsorted=60 sorted=60
+MOVED 1855_r10uvm104repro_g104_a6_repeat.sv/def unsorted=36 sorted=36
+MOVED 1855_r10uvm104repro_g104_a6_repeat.sv/elab unsorted=36 sorted=36
+MODE=file LISTED=3279 FENCED_SKIPPED=0 PROCESSED=3279 MOVED=10 NO_OUTPUT_PAIRS=274
+RC_PAIRS=6558 RC_DIFF=0 ASYM=0
+PROCESSED-ASSERT-OK

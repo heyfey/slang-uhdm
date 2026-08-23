@@ -1,0 +1,78 @@
+r10v104 VERIFIER GRID — golden(Surelog) vs PRISTINE vs the binary under test,
+fourteen arms, BOTH views (def and -elabuhdm).  LHS is ALWAYS golden.
+
+Driver: vgrid104.sh.  Unlike the implementer's grid104.sh it scores the WHOLE
+uhdm-dump (path-normalised, order-blind) as well as the narrow
+`STRING:`/`vpiDecompile:` multiset, and records rc for all three tools per
+cell, so a collateral move in any other field cannot hide behind a clean
+string score.
+
+Scorer: score104.py — per-VALUE classification against golden.  A count-only
+verdict is NOT enough: arm v13 has 24 unmatched string cells before AND after
+the as-shipped patch (so grid104.sh reads "SAME") while one cell went
+TO-GOLDEN and another went AWAY.  The scorer reports AWAY-NEW-WRONG (a wrong
+value the patch invented) and AWAY-LOST-GOOD (a golden value the patch stopped
+producing) by name.
+
+RESULT AGAINST THE AS-SHIPPED BINARY (md5 9863427bed3676bf6826d2d1ed21d935):
+  6 of 28 arm/view cells report AWAY.  Two arms are real
+  pristine-right -> patched-wrong regressions on legal SV:
+
+  v2_args_coincide.sv   def+elab   AWAY=36 per view, TO-GOLDEN=0
+      `define PAIR(A,B) `"A``(``B``)`"   invoked `PAIR(A,B)
+          golden A(B)      pristine A(B)      as-shipped A.B)
+      `define AA(V,I)   `"aa(``V``,``I``)`" invoked `AA(V,I)
+          golden aa(V,I)   pristine aa(V,I)   as-shipped aa(.,.)
+      `define SEP(a,b)  `"a``-``b`"       invoked `SEP(a,b)
+          golden a-b       pristine a-b       as-shipped a.b
+      (the same macros invoked `PAIR(int,bit) / `SEP(xx,yy) bail by luck)
+  v13_argnofml.sv       def+elab   AWAY=12 per view
+      `define TAG3(x)   `"x``-``tail`"   invoked `TAG3(x)
+          golden x-tail    pristine x-tail    as-shipped x.tail
+
+  The third flagged arm, v10_empty.sv, is NOT a regression: golden renders an
+  empty macro reference inside a stringification as the literal token
+  `@@EMPTY_MACRO@@` (`@@EMPTY_MACRO@@.11`), pristine gives `-11` and the patch
+  gives `.11`.  Pristine matched NONE of golden's five values, so no slot went
+  right -> wrong; the separator half moved toward golden and the
+  empty-macro-rendering half is an untouched pre-existing gap.
+
+RESULT AGAINST THE VERIFIED BINARY (md5 93d5c5762be7c95b487f734fff14a8a2):
+  AWAY = 0 on every arm and view except the v10 empty-macro slots described
+  above.  v2 and v13 are BYTE-IDENTICAL to pristine (the only dump line that
+  differs is the dump's own filename header).
+
+ARM                    VIEW   VERIFIED-BINARY VERDICT
+v1_pastecount.sv       both   CLEARED     0/1/2/3/4 paste windows in one string
+v2_args_coincide.sv    both   BOTH-EQUAL  THE REGRESSION ARM (fence now holds)
+v3_ifdef.sv            both   CLEARED     `ifdef / `ifndef: the TAKEN branch's
+                                          text is the one rewritten
+v4_nested.sv           both   CLEARED     macro nesting 1..3 deep, and a
+                                          stringification reached through 3
+                                          wrapper macros
+v5_triple.sv           both   TO-GOLDEN   ``` at start/middle/end CLEARED;
+                                          runs of 4/5/6 backticks bail (STILL,
+                                          pre-existing: pristine already wrong)
+v6_ctx.sv              both   TO-GOLDEN   $unit / package / module / class x
+                                          parameter, localparam, Rhs, $display,
+                                          $sformatf, case item, concatenation,
+                                          3 instances
+v7_esc.sv              both   TO-GOLDEN   `\`" escaped quotes in four positions
+                                          (R-esc STILL, pre-existing)
+v8_plain.sv            both   CLEARED     identifier pastes outside a string,
+                                          a plain string beside a
+                                          stringification in one macro body
+v9_ambig.sv            both   TO-GOLDEN   expansions that themselves contain
+                                          the separator: the two-walk agreement
+                                          test bails, never mis-anchors
+v10_empty.sv           both   TO-GOLDEN   empty macro refs (see above)
+v11_uvmreal.sv         both   CLEARED     the real uvm-1.2 / uvm-1.1d /
+                                          ovm-2.1.2 / svaunit shapes standalone
+v12_seps.sv            both   CLEARED     11 more separators: . space _ Z $ !
+                                          % & < = TAB
+v13_argnofml.sv        both   SAME        arg-bearing macros, window on and off
+                                          a formal (fence now holds)
+v14_crossmacro.sv      both   TO-GOLDEN   an arg-LESS stringification invoked
+                                          from inside an arg-BEARING macro
+                                          (fires, correctly); a multi-line
+                                          `define with args (bails)

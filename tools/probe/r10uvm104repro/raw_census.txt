@@ -1,0 +1,40 @@
+== default/SeqDriver-32af76aa
+CELLS golden=68398 pristine=61881 patched=61881
+PRISTINE agree=46578 golden_only=21820 ours_only=15303
+PATCHED  agree=46614 golden_only=21784 ours_only=15267
+TO-GOLDEN=36 AWAY=0 STILL=21784
+== default/SimpleUVM-1dc93a62
+CELLS golden=38486 pristine=36623 patched=36623
+PRISTINE agree=27654 golden_only=10832 ours_only=8969
+PATCHED  agree=27664 golden_only=10822 ours_only=8959
+TO-GOLDEN=10 AWAY=0 STILL=10822
+== default/Scoreboard-59431470
+CELLS golden=38367 pristine=36744 patched=36744
+PRISTINE agree=27797 golden_only=10570 ours_only=8947
+PATCHED  agree=27807 golden_only=10560 ours_only=8937
+TO-GOLDEN=10 AWAY=0 STILL=10560
+== default/MiniAmiq-544c7f61
+CELLS golden=70379 pristine=63498 patched=63498
+PRISTINE agree=47923 golden_only=22456 ours_only=15575
+PATCHED  agree=47969 golden_only=22410 ours_only=15529
+TO-GOLDEN=46 AWAY=0 STILL=22410
+== testflags/SeqDriver-32af76aa
+CELLS golden=68398 pristine=61881 patched=61881
+PRISTINE agree=46578 golden_only=21820 ours_only=15303
+PATCHED  agree=46614 golden_only=21784 ours_only=15267
+TO-GOLDEN=36 AWAY=0 STILL=21784
+== testflags/SimpleUVM-1dc93a62
+CELLS golden=38486 pristine=36623 patched=36623
+PRISTINE agree=27654 golden_only=10832 ours_only=8969
+PATCHED  agree=27664 golden_only=10822 ours_only=8959
+TO-GOLDEN=10 AWAY=0 STILL=10822
+== testflags/MiniAmiq-544c7f61
+CELLS golden=70379 pristine=63498 patched=63498
+PRISTINE agree=47923 golden_only=22456 ours_only=15575
+PATCHED  agree=47969 golden_only=22410 ours_only=15529
+TO-GOLDEN=46 AWAY=0 STILL=22410
+== default/BuildUVMPkg-bf853d43
+CELLS golden=37360 pristine=35873 patched=35873
+PRISTINE agree=34866 golden_only=2494 ours_only=1007
+PATCHED  agree=34866 golden_only=2494 ours_only=1007
+TO-GOLDEN=0 AWAY=0 STILL=2494

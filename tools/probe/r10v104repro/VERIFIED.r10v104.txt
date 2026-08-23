@@ -1,0 +1,29 @@
+r10v104 — VERDICT: ACCEPT WITH FIX.  Ship /tmp/r10uvm104.verified.patch.
+
+REPRODUCED BIT-FOR-BIT from the verifier's own worktrees at 91a158a, its own
+builds, its own frozen binaries, its own sweeps:
+  pristine binary md5   4e1d739b21bf097f2c21e66889b765b6
+  as-shipped binary md5 9863427bed3676bf6826d2d1ed21d935   <- implementer's claim
+  head SeqDriver 64 -> 60 both modes, everything else unchanged, 1 head/run
+  surelog 0 differing rows over 1588; u2r 679/50/2, 0 differing rows
+  byteverify surelog 7/956 (predicted by name first), u2r 0/1358
+  census 194 cells TO-GOLDEN, 0 AWAY, over 8 row/mode pairs
+  canaries ok=52/ok=8 changed=0, ctcan2 PASS x2, canaudit audited=33
+    UNCOVERED=0 FENCE-BREACH=0, SVSwitch 4842211c4030, YosysVerx 6ccda350c24a
+  boundary per-file 3279/3279 RC_DIFF 0 ASYM 0
+
+DEFECT FOUND AND FIXED (pristine-right -> patched-wrong on legal SV):
+  the "macro with arguments always bails" fence was a coincidence, not a fence.
+  `define SEP(a,b) `"a``-``b`"  invoked  `SEP(a,b)
+      golden a-b     pristine a-b     as-shipped a.b
+  `define PAIR(A,B) `"A``(``B``)`" invoked `PAIR(A,B)
+      golden A(B)    pristine A(B)    as-shipped A.B)
+  `define TAG3(x) `"x``-``tail`"  invoked  `TAG3(x)
+      golden x-tail  pristine x-tail  as-shipped x.tail
+  36 + 12 cells AWAY per view.  FIX: `surelogPasteDotString` reads the enclosing
+  `define out of the buffer (asserting it encloses the `" ) and bails when the
+  macro name is immediately followed by '(' .
+  verified binary md5 93d5c5762be7c95b487f734fff14a8a2 — applies to a FRESH
+  91a158a and rebuilds to that same md5; its databases are BYTE-IDENTICAL to
+  the as-shipped binary's on all 956 surelog and 1358 u2r databases, so the
+  fence costs nothing on the corpus and every gate above still holds.

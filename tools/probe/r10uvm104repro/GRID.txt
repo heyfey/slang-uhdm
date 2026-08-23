@@ -1,0 +1,104 @@
+r10uvm104 GRID — golden(Surelog) vs pristine vs patched, seven arms, BOTH views
+(def and -elabuhdm), .sv AND .v.  Driver: grid104.sh.  Score: the multiset of
+`STRING:` and `vpiDecompile:` values in the uhdm-dump (what expr::Compare reads
+first, plus the dump-only value, so a half-modelled object cannot hide).
+Calibration: calib104.sh runs Surelog TWICE per arm — golden-vs-golden is 0
+cells on all 7 arms x 2 views.
+
+ARM                    VIEW  VERDICT    DETAIL
+g104_a1_sep.sv         def   CLEARED    pris_unmatched=120 pat_unmatched=0
+g104_a1_sep.sv         elab  CLEARED    pris_unmatched=120 pat_unmatched=0
+g104_a2_shapes.sv      def   TO-GOLDEN  pris_unmatched=60  pat_unmatched=4
+g104_a2_shapes.sv      elab  TO-GOLDEN  pris_unmatched=60  pat_unmatched=4
+g104_a3_ctx.v          def   CLEARED    pris_unmatched=60  pat_unmatched=0
+g104_a3_ctx.v          elab  CLEARED    pris_unmatched=60  pat_unmatched=0
+g104_a4_args.sv        def   BOTH-EQUAL pris_unmatched=0   pat_unmatched=0
+g104_a4_args.sv        elab  BOTH-EQUAL pris_unmatched=0   pat_unmatched=0
+g104_a5_fence.sv       def   BOTH-EQUAL pris_unmatched=0   pat_unmatched=0
+g104_a5_fence.sv       elab  BOTH-EQUAL pris_unmatched=0   pat_unmatched=0
+g104_a6_repeat.sv      def   CLEARED    pris_unmatched=36  pat_unmatched=0
+g104_a6_repeat.sv      elab  CLEARED    pris_unmatched=36  pat_unmatched=0
+g104_a7_outside.v      def   BOTH-EQUAL pris_unmatched=0   pat_unmatched=0
+g104_a7_outside.v      elab  BOTH-EQUAL pris_unmatched=0   pat_unmatched=0
+
+--------------------------------------------------------------------------
+ARM 1 — the SEPARATOR matrix.  `define S_X `"`N``X```MA``.```MI```"` with
+N=ABC, MA=1, MI=2 and X one of  -  _  .  :  /  x  7  ,  *  +  <space> .
+GOLDEN gives `ABC.1.2` for EVERY ONE of the eleven.  Two negative controls in
+the same package: `` `"`N-`MA.`MI`" `` (no paste) stays `ABC-1.2` and
+`` `"hello world`" `` stays `hello world`.  This is the whole law: the
+character between two pastes is not preserved, not deleted — it is REPLACED
+BY A DOT, because Surelog's replacement pattern is the string "``.``" used as
+an ECMAScript REGEX and its `.` is an unescaped wildcard.
+
+ARM 2 — the SHAPE matrix.  What the regex does NOT match:
+  `"`Q-`R.`T`"          0 pastes                      ABC-1.2    unchanged
+  `"`Q``-`R`"           paste, char, ONE backtick     ABC-1      unchanged
+  `"`Q``--```R`"        TWO characters between        ABC--1     unchanged
+  `"`Q``ab```R`"        TWO characters between        ABCab1     unchanged
+  `"``-`Q`"             paste at the string START     -ABC       unchanged
+  `"`Q-``    `"         paste at the string END       "ABC- "    unchanged
+  `"`Q``-`R``.`T`"      pastes abut MACRO REFS only   ABC-1.2    unchanged
+and what it does:
+  `"`Q``-``R`"          bare word after the paste     ABC.R
+  `"pre``-``post`"      no macro at all               pre.post
+  `"xx``-``yy`"         no macro at all               xx.yy
+  `"`Q``-```R``.```T``-```Q```"   three matches       ABC.1.2.ABC
+RESIDUE (4 of the 4 unmatched cells, both views): the ESCAPED-QUOTE arm
+`` `"q`\`"`Q``-```R`\`"z`" `` — golden `q\"ABC.1\"z`, ours `q"ABC-1"z`.  Ours
+loses the BACKSLASH, which is a PRE-EXISTING difference of the `` `\`" ``
+rendering (present in the pristine build, independent of this law); the
+alignment therefore cannot match the body's literal `\` against our `"` and
+correctly bails.  No corpus source uses `` `\`" `` inside a stringification.
+
+ARM 3 — the CONTEXT matrix (a `.v` file).  The same `` `"`ZN``:```ZM`" `` used
+as a package parameter, a package localparam, a module parameter, a module
+localparam, an assignment Rhs, a `$display` argument and a case item: golden
+renders `QRS.9` in ALL SEVEN, and so do we.  The transform is a PREPROCESSOR
+rewrite, so it is context-free and mode-free — def and -elabuhdm agree.
+
+ARM 4 — the FENCE, macros WITH ARGUMENTS.  `` `"A``(``B`")`" `` and
+`` `"aa(``V``,``I``)`" `` are the 1800.2 `uvm_printer_defines.svh:124,577,642`
+shapes.  Surelog substitutes the FORMALS first (PreprocessFile.cpp:919-931
+consumes the pastes that touch a formal), so nothing is left for the regex and
+golden pastes them normally — as slang already does.  Pristine and patched are
+BOTH equal to golden here.
+
+CORRECTION (verifier r10v104, arms v2_args_coincide / v13_argnofml, both
+views).  This arm passes for the WRONG REASON, and the parenthetical it
+originally carried — "the definition text still names the formals, so the
+alignment mismatches on the first literal and bails" — is FALSE.  The
+alignment mismatches only because `PAIR(int,bit)` / `AA(byte,shortint)` pass
+argument text that differs from the formal NAMES.  Invoke the very same macros
+as `` `PAIR(A,B) ``, `` `AA(V,I) `` or `` `SEP(a,b) `` — legal SV — and the
+definition text lines up byte-for-byte with the value, both walks agree, and
+the as-shipped model wrote `A.B)`, `aa(.,.)` and `a.b` where golden (and the
+pristine build) have `A(B)`, `aa(V,I)` and `a-b`: 36 cells AWAY-FROM-GOLDEN
+per view, a pristine-right -> patched-wrong regression.  `` `define TAG3(x)
+`"x``-``tail`" `` invoked as `` `TAG3(x) `` is the same defect with a single
+formal (golden `x-tail`, as-shipped `x.tail`).  The verifier's fix reads the
+enclosing `` `define `` and bails on any macro that carries a formal list; the
+arms then go byte-identical to pristine.  Residue: a paste window inside an
+argument-bearing macro that touches NO formal — `` `define TAG(x)
+`"pre``-``post_``x`" `` — IS dotted by golden (`pre.post_zz`) and is not
+modelled.  No corpus source has that shape.
+
+ARM 5 — the u2r FENCE.  `` `define STRINGIFY(x) `"x`" `` (uhdm2rtlil
+`array_assign`, `typedef_param`) and `` `"typ doesn't have expected size
+width`" `` (`int_types`): stringifications with NO paste.  BOTH-EQUAL — these
+rows are CMP_EQUAL today and stay byte-identical.
+
+ARM 6 — REPEATED separators, the real ovm-2.1.2 and uvm-1.1d shapes.
+  `"`VN``-```VMA``.```VMI``.```VFX`"   ->  OVM.2.1.2   (was OVM-2.1.2)
+  `"`UN``-```UMA``.```UMI`UFX`"        ->  UVM.1.1d    (was UVM-1.1d)
+  `"`VN``-```VMA``-```VMI``-```VFX`"   ->  OVM.2.1.2
+  `"`VN``.```VMA``.```VMI``.```VFX`"   ->  OVM.2.1.2
+The first two put the SAME character between two different paste pairs, so a
+single-anchor alignment is ambiguous; the model resolves it by requiring the
+left-to-right and the right-to-left walk to agree on every literal position.
+CLEARED in both views.
+
+ARM 7 — pastes OUTSIDE a stringification (`fld_``a``_end`, `a``_``b`, the
+`uvm_packer.svh` / `ovm_object_defines.svh` identifier-building shapes) plus a
+plain backtick-free string.  BOTH-EQUAL: Surelog's regex lives in the STRING
+listener, so identifier pastes never see it, and neither does the model.

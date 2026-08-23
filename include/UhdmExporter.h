@@ -1890,6 +1890,58 @@ private:
     UHDM::expr* emitAssignDelay(const slang::syntax::TimingControlSyntax* dsyn,
                                 UHDM::BaseClass* parent);
     std::string rawText(slang::SourceRange range);
+    /// § macroPasteDotText104 -- Surelog's preprocessor turns the single
+    /// character between two token-paste operators into a `.` inside a
+    /// stringification.
+    ///
+    /// `SV3_1aPpTreeShapeListener::enterString`
+    /// (Surelog `src/SourceCompile/SV3_1aPpTreeShapeListener.cpp:958-971`)
+    /// fires for EVERY `STRING` token whose content holds a backtick -- which,
+    /// after `PreprocessFile::evaluateMacro_` has rewritten the body's
+    /// `` `" `` delimiters to plain quotes (`PreprocessFile.cpp:859-860`) and
+    /// re-preprocessed the body, is exactly a `` `"..." `` stringification.
+    /// Before expanding the macros inside it, the listener runs
+    ///
+    ///     static const std::regex backtick_dot_re("``.``");
+    ///     static const std::regex backtick_dash_re("``-``");
+    ///     stringData = std::regex_replace(stringData, backtick_dot_re, ".");
+    ///     stringData = std::regex_replace(stringData, backtick_dash_re, "-");
+    ///
+    /// The `.` in the FIRST pattern is an unescaped ECMAScript WILDCARD, so
+    /// `` ``X`` `` collapses to a literal `.` for EVERY single character X --
+    /// `-`, `_`, `:`, `/`, `,`, a space, a letter, a digit.  The second
+    /// (dash-preserving) regex is dead code: the first one has already eaten
+    /// every `` ``-`` ``.  Measured on golden, one package of parameters per
+    /// separator: `` `"`N``-```MA``.```MI```" `` and its `_ . : / x 7 ,` and
+    /// space siblings ALL decompile `ABC.1.2`.
+    ///
+    /// The match needs two backticks on BOTH sides and exactly ONE character
+    /// between them: `` `N``-`MA `` (paste, char, macro reference) and
+    /// `` `N``--```MA `` (two characters) are left alone, which is why
+    /// uvm-1.2's `UVM_VERSION_STRING` -- written `` ``-``` `` and `` ``.``` ``,
+    /// i.e. paste + char + paste + macro reference -- is the shape that moves.
+    ///
+    /// A macro that takes FORMAL ARGUMENTS is fenced out entirely: Surelog
+    /// substitutes the formals (consuming the pastes that touch one) BEFORE
+    /// `enterString` runs, so its definition text is not the text the regex
+    /// sees.  Measured on golden (verifier r10v104, arms v2/v13, both views):
+    /// `define SEP(a,b) `"a``-``b`" invoked as `SEP(a,b) renders `a-b`, and
+    /// `define TAG3(x) `"x``-``tail`" invoked as `TAG3(x) renders `x-tail` --
+    /// no dot.  The alignment walk CANNOT see that (when the actual argument
+    /// text coincides with the formal's own name the definition text lines up
+    /// byte-for-byte and both walks agree), so the enclosing `define is
+    /// inspected directly.
+    ///
+    /// Returns the Surelog rendering of `inner` (the string's contents without
+    /// its quotes) when the literal came from a macro stringification whose
+    /// definition text holds such a sequence, else `std::nullopt`.  Every other
+    /// macro-derived string -- `` `"typ doesn't have expected size width`" ``
+    /// in u2r `int_types`, `` `"x`" `` in `array_assign`/`typedef_param`, and
+    /// every paste shape the regex does not match -- is left byte-identical.
+    /// The rendering never changes the string's LENGTH (one character in, one
+    /// character out), so `vpiSize` follows the text with no separate rule.
+    std::optional<std::string> surelogPasteDotString(
+        const slang::ast::Expression& expr, const std::string& inner);
     /// § streamSliceTypeBits93 -- how Surelog values a streaming
     /// concatenation's `slice_size`.  `CompileHelper::compileExpression`
     /// (CompileExpression.cpp, `paStreaming_concatenation`) splits the slice

@@ -1,0 +1,112 @@
+r10v104 GATES — every headline number of r10uvm104 re-measured by the verifier
+from its OWN worktrees (/tmp/wt_v104 patched, /tmp/wt_v104pris pristine, both
+`git worktree add` at 91a158a), its OWN builds, its OWN frozen binaries and its
+OWN sweep workdirs.  results/*.csv was only ever READ.
+
+BINARIES (chmod 555 BEFORE any sweep; md5 taken separately from the build)
+  pristine  4e1d739b21bf097f2c21e66889b765b6   (91a158a, clean)
+  as-shipped 9863427bed3676bf6826d2d1ed21d935  (91a158a + /tmp/r10uvm104.patch)
+  verified  93d5c5762be7c95b487f734fff14a8a2   (as-shipped + the formal-list fence)
+  The as-shipped md5 REPRODUCES the implementer's claim bit-for-bit.
+  Both builds clean: 0 lines matching ' error '.
+
+GATE 1 BUILD            both trees build at -j 2, md5s above.
+GATE 2 GOLDENS          as-shipped PASS 23 / FAIL 0;  verified PASS 23 / FAIL 0;
+                        negative control SLANG_UHDM=/bin/false -> PASS 0 / FAIL 23.
+GATE 3 uhdm2rtlil       testflags status histogram 679 CMP_EQUAL / 50 SLANG_REJECT
+                        / 2 SURELOG_FAIL for BOTH the as-shipped and the verified
+                        binary.  ct8rows (WHOLE ROW, status AND dump column):
+                          committed results/gate_uhdm2rtlil.csv vs as-shipped  PASS
+                          committed                            vs verified    PASS
+                          own pristine (tf and def)            vs as-shipped  PASS
+                          own pristine (tf and def)            vs verified    PASS
+                        byteverify SELFCHECK=1  MOVERS 0 / 1358 for both, path
+                        sets identical, selfcheck flags 1357/1358.
+                        cmds.txt audit: the ONLY `slang:` path in all 1462 files
+                        is the frozen binary under test (the 4 files that name no
+                        slang binary are the 2 SURELOG_FAIL tests x 2 modes,
+                        where Surelog produced no golden and slang never ran).
+GATE 4 surelog          --mode both, 1588 rows.  ct8rows:
+                          committed results/golden_surelog.csv vs as-shipped  PASS
+                          committed                            vs verified    PASS
+                          own pristine                         vs as-shipped  PASS
+                          own pristine                         vs verified    PASS
+                          as-shipped                           vs verified    PASS
+                        0 differing rows in every comparison.  NO ROW CONVERTS —
+                        SeqDriver stays CMP_NOTEQUAL and results/*.csv is
+                        untouched.  Status histogram (verified): 937 CMP_EQUAL,
+                        567 SLANG_REJECT, 48 SURELOG_FAIL, 19 CMP_NOTEQUAL,
+                        10 DEFERRED, 3 NO_DATABASE, 2 UNTRANSLATABLE, 1 TIMEOUT,
+                        1 NO_UHDM — identical to pristine, so no rc=139 segfault
+                        is hiding inside a SLANG_REJECT.
+                        cmds.txt audit: the ONLY `slang:` path in all 1573 files
+                        is the frozen binary under test.
+GATE 5 BYTEVERIFY       surelog SELFCHECK=1: MOVERS 7 / 956 for the as-shipped
+                        binary AND 7 / 956 for the verified binary, with
+                        IDENTICAL per-database hashes — the fence costs nothing
+                        on the corpus.
+                        PREDICTED BY NAME FIRST, from the PRISTINE databases,
+                        before either patched sweep: a byte-grep of all 956
+                        pristine slang.uhdm for `UVM-1.2` / `UVM-1.1d` /
+                        `OVM-2.1.2` / `SVAUNIT-3.2` names exactly
+                          default   MiniAmiq Scoreboard SeqDriver SimpleUVM
+                          testflags MiniAmiq            SeqDriver SimpleUVM
+                        byteverify found exactly those seven.
+                        TRAP FOUND HERE.  Of the four probes only `UVM-1.2`
+                        matches as raw bytes; a grep for `SVAUNIT-3.2` finds
+                        NOTHING even though MiniAmiq really does carry that
+                        cell (its mover diff shows 1 `STRING:` + 1
+                        `vpiDecompile:` pair `SVAUNIT-3.2` -> `SVAUNIT.3.2`).
+                        A `.uhdm` is capnp-PACKED: MiniAmiq stores the text as
+                        `"SVAUNIT\x1f-3.2"`, with a packing control byte inside
+                        the literal run.  A byte-grep a-priori predictor is
+                        therefore only sound for payloads short enough to sit
+                        inside one packed word; here the prediction was complete
+                        only because `UVM-1.2` occurs in all seven databases.
+                        Predict with several probes, or predict from the DUMP.
+                        ATTRIBUTION, order-blind (both dumps sorted, workdir
+                        path normalised), attr104.sh:
+                          MiniAmiq   def 92  tf 92   non-string lines 0
+                          Scoreboard def 20          non-string lines 0
+                          SeqDriver  def 72  tf 72   non-string lines 0
+                          SimpleUVM  def 20  tf 20   non-string lines 0
+CANARIES                as-shipped and verified alike:
+                          canaries.sh surelog  ok=52 changed=0 absent=0
+                          canaries.sh u2r      ok=8  changed=0 absent=0
+                          ctcan2 surelog PASS, ctcan2 u2r PASS
+                          canaudit.sh canaries.sh ctcan2.sh -> audited=33
+                            UNCOVERED=0 FENCE-BREACH=0
+                        Protected databases by md5 (pristine -> under test):
+                          InterfaceModPort  59a365f3ce2c  SAME (both modes)
+                          BlackParrotComplex e3e354129d5a / 73a10e8217e5 SAME
+                          YosysOldOr        d68e0796d62c  SAME (both modes)
+                          SVSwitch          4842211c4030  PIN HOLDS
+                          YosysVerx         6ccda350c24a  PIN HOLDS
+HEADS (rowheads.sh, DEPTH not distance, one `^LHS:` per run everywhere)
+                        pristine   SeqDriver 64/64  SimpleUVM 108/108
+                                   Scoreboard 108/- MiniAmiq 348/348
+                                   BuildUVMPkg 72/72 Earlgrey_0_1 46/46 Rggen 0/-
+                        as-shipped SeqDriver 60/60, everything else unchanged
+                        verified   SeqDriver 60/60, everything else unchanged
+                        SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags
+                        is expected.  The cleared head is the `constant` at
+                        31:33-31:42 under `param_assign` 31:18-31:42, golden
+                        vpiDecompile:"UVM.1.2" vs ours "UVM-1.2", both
+                        vpiSize:56, both vpiConstType:6 — reproduced byte for
+                        byte.  The new 60-line head is the R0 the pass names:
+                        `constant` 99:23-99:32, decompile 'hf000000 AGREES,
+                        golden vpiSize:-1 vs ours 32, and golden's ref_typespec
+                        carries no vpiActual while ours does.
+CENSUS                  vcen104.py, PER-SLOT (key = owner kind + owner span +
+                        dump DEPTH + field; payload = the Compare-visible value
+                        text; multiset Counter join).  A slot that matched
+                        golden before and does not after is AWAY even when the
+                        totals balance — the failure mode the implementer's
+                        `max(0, ours_only_after - ours_only_before)` cannot see.
+                          SeqDriver   def/tf  TO-GOLDEN 36 / 36  AWAY 0
+                          SimpleUVM   def/tf  TO-GOLDEN 10 / 10  AWAY 0
+                          Scoreboard  def     TO-GOLDEN 10       AWAY 0
+                          MiniAmiq    def/tf  TO-GOLDEN 46 / 46  AWAY 0
+                          BuildUVMPkg def     TO-GOLDEN  0       AWAY 0
+                        194 cells to golden, 0 away — the implementer's table
+                        reproduced exactly, with a stricter classifier.

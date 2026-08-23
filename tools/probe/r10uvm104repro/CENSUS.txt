@@ -1,0 +1,67 @@
+r10uvm104 CENSUS — golden-vs-ours over every string-valued object of the UVM
+databases.  LHS is ALWAYS golden.  Instrument: cen104.py, driven over the
+uhdm-dump of (golden cache entry, pristine slang.uhdm, patched slang.uhdm).
+
+KEY.  (object kind, owner span, dump DEPTH, field) for every `|STRING:` and
+`|vpiDecompile:` line, with the TEXT deliberately OUT of the key so a cell
+whose text changed stays ONE matched key carrying two different values instead
+of becoming a pair of orphans.  Depth is IN the key so a cell cannot hide
+under a slot (earl56's 107-cell lesson).  Values are joined as a MULTISET
+(collections.Counter, never a last-writer dict).
+
+CALIBRATION.  Golden-vs-golden on the corpus is byte-identical by construction
+(the golden cache serves one immutable file per (Surelog binary, dir, argv)).
+On the GRID, calib104.sh runs Surelog twice per arm into two output dirs:
+0 differing cells on all 7 arms x 2 views.
+
+                          agree            golden_only   ours_only
+ROW                    pristine  patched   pris  patch   pris  patch   TO-GOLDEN AWAY
+SeqDriver/default        46578    46614   21820  21784  15303  15267        36     0
+SeqDriver/testflags      46578    46614   21820  21784  15303  15267        36     0
+SimpleUVM/default        27654    27664   10832  10822   8969   8959        10     0
+SimpleUVM/testflags      27654    27664   10832  10822   8969   8959        10     0
+Scoreboard/default       27797    27807   10570  10560   8947   8937        10     0
+MiniAmiq/default         47923    47969   22456  22410  15575  15529        46     0
+MiniAmiq/testflags       47923    47969   22456  22410  15575  15529        46     0
+BuildUVMPkg/default      34866    34866    2494   2494   1007   1007         0     0
+
+TO-GOLDEN 194 cells over the seven moving rows.  AWAY 0 in every row.  STILL is
+the row's `golden_only` after the patch and is dominated by residues that have
+nothing to do with this law (SeqDriver 21784, MiniAmiq 22410).
+
+BuildUVMPkg has NO CELL and does not move.  Its golden is the 1800.2-2017-1.0
+tree, whose `src/base/uvm_version.svh:30` writes
+`parameter string UVM_VERSION_STRING = "Accellera:1800.2-2017:UVM:1.0";` — a
+PLAIN string literal.  1800.2's `macros/uvm_version_defines.svh` defines only
+`UVM_VERSION` and `UVM_POST_VERSION_1_1`; it has no `` `" `` stringification at
+all, so the Accellera release simply does not carry the paste shape.  (Its
+`macros/uvm_printer_defines.svh:124,577,642` DO paste inside a `` `" ``, but
+around macro FORMALS — see GRID arm 4 — and are consumed by argument
+substitution before Surelog's regex runs.)
+
+THE SOURCE-SCAN A-PRIORI PREDICTOR.  `ugrep -rnoP '``.``'` over both corpora
+and the UVM trees returns 0 hits in uhdm2rtlil, 9 in Surelog/tests, 61 in
+Surelog/third_party/tests and 47 in the UVM trees.  Of those, the ones that sit
+INSIDE a `` `" `` stringification and are NOT adjacent to a macro formal are
+exactly five files:
+  UVM/uvm-1.2/src/macros/uvm_version_defines.svh:92,94
+  UVM/uvm-1.1d/src/macros/uvm_version_defines.svh:45,47
+  UVM/ovm-2.1.2/src/macros/ovm_version_defines.svh:43,45
+  UVM/svaunit/sv/svaunit_version_defines.svh:31
+  UVM/svaunit_cp/sv/svaunit_version_defines.svh:31
+Intersecting that with each control's cmds.txt and with the PRISTINE databases
+(a byte grep of every slang.uhdm for the pre-images `UVM-1.2`, `UVM-1.1d`,
+`OVM-2.1.2`, `SVAUNIT-3.2`) named SEVEN database rows before the patch was
+built: sl default {MiniAmiq, Scoreboard, SeqDriver, SimpleUVM} and sl testflags
+{MiniAmiq, SeqDriver, SimpleUVM}, and ZERO in uhdm2rtlil.  byteverify found
+exactly those seven and no others.
+
+PER-DATABASE ATTRIBUTION (path-normalised, ORDER-BLIND sorted-dump diff, so
+Scoreboard/default's ~50/50 vpiTaskFunc coin cannot be mistaken for the law):
+  default/MiniAmiq     92 lines: 38 STRING UVM-1.2 -> UVM.1.2, 6 decompile,
+                                  1 STRING SVAUNIT-3.2 -> SVAUNIT.3.2,
+                                  1 decompile;  NON-STRING LINES 0
+  default/Scoreboard   20 lines:  8 STRING + 2 decompile;  NON-STRING LINES 0
+  default/SeqDriver    72 lines: 28 STRING + 6 decompile;  NON-STRING LINES 0
+Every moving line in every moving database is a `STRING:`/`vpiDecompile:` line
+whose only change is one `-` becoming a `.`.

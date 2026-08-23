@@ -1,0 +1,15 @@
+MOVED 0017_r10buvm22repro/def unsorted=12 sorted=12
+MOVED 0017_r10buvm22repro/elab unsorted=12 sorted=12
+MOVED 0720_r10uvm104repro/def unsorted=272 sorted=272
+MOVED 0720_r10uvm104repro/elab unsorted=272 sorted=272
+MOVED 0903_r10uvm75repro/def unsorted=10 sorted=0
+MOVED 0903_r10uvm75repro/elab unsorted=16 sorted=0
+MOVED 0904_r10uvm76repro/def unsorted=14 sorted=0
+MOVED 0904_r10uvm76repro/elab unsorted=16 sorted=0
+MOVED 0916_r10uvm88repro/def unsorted=4 sorted=0
+MOVED 0916_r10uvm88repro/elab unsorted=4 sorted=0
+MOVED 0933_r10v104repro/def unsorted=584 sorted=596
+MOVED 0933_r10v104repro/elab unsorted=584 sorted=596
+MODE=dir LISTED=1474 FENCED_SKIPPED=0 PROCESSED=1474 MOVED=12 NO_OUTPUT_PAIRS=241
+RC_PAIRS=2948 RC_DIFF=0 ASYM=0
+PROCESSED-ASSERT-OK
