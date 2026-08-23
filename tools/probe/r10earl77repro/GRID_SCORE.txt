@@ -1,0 +1,118 @@
+r10earl77 GRID SCORE -- 3-way (golden / pristine / patched), BOTH views,
+judge-visible fields only.  score77.py keys on the CELL IDENTITY and
+carries the object kind AND the port's Low_conn in the PAYLOAD; a payload
+field left in the key turns one moved cell into a phantom
+NOGOLD-MOVED/AWAY-GOLDEN pair (RESUME 9's census trap -- measured here:
+with LOWCONN in the key this grid read 20 TO-GOLDEN + 20 NOGOLD-MOVED
+and 8 MOVED-WRONG that do not exist).
+
+===== g1_portkind77 -- PORT census (cen77)
+-- default view
+TO-GOLDEN      20
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    12
+NOGOLD-MOVED   0
+NOGOLD-SAME    0
+SAME           248
+-- --elabuhdm view
+TO-GOLDEN      20
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    12
+NOGOLD-MOVED   0
+NOGOLD-SAME    0
+SAME           248
+===== g1_portkind77 -- WHOLE-SIGNAL census (sig77)
+-- default view
+TO-GOLDEN      20
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    12
+NOGOLD-MOVED   0
+NOGOLD-SAME    0
+SAME           568
+-- --elabuhdm view
+TO-GOLDEN      20
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    12
+NOGOLD-MOVED   0
+NOGOLD-SAME    0
+SAME           568
+
+===== g2_portkw77 -- PORT census (cen77)
+-- default view
+TO-GOLDEN      6
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    0
+NOGOLD-MOVED   0
+NOGOLD-SAME    0
+SAME           30
+-- --elabuhdm view
+TO-GOLDEN      6
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    0
+NOGOLD-MOVED   0
+NOGOLD-SAME    0
+SAME           30
+===== g2_portkw77 -- WHOLE-SIGNAL census (sig77)
+-- default view
+TO-GOLDEN      6
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    0
+NOGOLD-MOVED   0
+NOGOLD-SAME    0
+SAME           49
+-- --elabuhdm view
+TO-GOLDEN      6
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    0
+NOGOLD-MOVED   0
+NOGOLD-SAME    0
+SAME           49
+
+===== g3_body77 -- PORT census (cen77)
+-- default view
+TO-GOLDEN      1
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    0
+NOGOLD-MOVED   0
+NOGOLD-SAME    0
+SAME           3
+-- --elabuhdm view
+TO-GOLDEN      1
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    0
+NOGOLD-MOVED   0
+NOGOLD-SAME    0
+SAME           3
+===== g3_body77 -- WHOLE-SIGNAL census (sig77)
+-- default view
+TO-GOLDEN      1
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    1
+NOGOLD-MOVED   0
+NOGOLD-SAME    0
+SAME           24
+-- --elabuhdm view
+TO-GOLDEN      1
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    1
+NOGOLD-MOVED   0
+NOGOLD-SAME    0
+SAME           24
+
+STILL-WRONG on g1 = the TWO pre-existing residues named R2/R3 in
+README.md: i_/o_pkgvecdim (packed dimensions written on a scoped
+typedef -- golden packed_array_var, ours logic_net, BOTH directions,
+unchanged by this law) and i_/o_impstruct in the UNDRIVEN instance.
+STILL-WRONG on g3 = R1, the interface-port twin (0 corpus cells).

@@ -1,0 +1,71 @@
+r10earl77 -- ADJUDICATION of every arm the boundary walks report as DIFFERING.
+
+The wide walk compares the PATCHED and PRISTINE binaries against each other
+(workdir-normalised whole-dump byte compare).  Every arm it flags is then
+scored 3-WAY against GOLDEN with score77.py (port census) and sigscore77.py
+(whole-signal census), in BOTH views.
+
+== WIDE (per file): PROCESSED=3540 identical=6782 DIFFERING=10 no_output=288 ==
+
+  plain/elab  r10earl77repro/g1_portkind77.sv   THIS PASS'S GRID
+      port census, both views: TO-GOLDEN 20  AWAY-GOLDEN 0  MOVED-WRONG 0
+      signal census, both views: same, SAME 568
+      STILL-WRONG 12 = the pre-existing residues R2 (i_/o_pkgvecdim, 5
+      instances x 2 directions) and R3 (i_/o_impstruct in the UNDRIVEN
+      instance).  Both read identically on the PRISTINE binary.
+
+  plain/elab  r10earl77repro/g2_portkw77.sv     THIS PASS'S BOUNDARY GRID
+      port census, both views: TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0
+      STILL-WRONG 0 -- every cell of this arm now matches golden, including
+      INOUT, wire-qualified, var-qualified, NON-ANSI and the interface-port
+      control.
+
+  plain/elab  r10earl77repro/g3_body77.sv       THIS PASS'S NEGATIVE CONTROL
+      signal census, both views: TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0
+      The ONE moved cell is the module PORT `b_in`.  NOT ONE body declaration
+      moved (plain / wire / var, module and interface), and the program's
+      ports did not move.  STILL-WRONG 1 = R1, the interface INPUT port twin,
+      which reads the same on the pristine binary.
+
+  plain/elab  r10earl43repro/a1_earl43.sv       EARLIER-PASS ARM
+      `module leaft43 (input p43::word43_t p_i, ...)` -- this law's exact
+      shape.  port census: TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0
+      STILL-WRONG 0; the cell is work@top43.u_c11/p_i, logic_net -> logic_var,
+      golden logic_var.  Signal census agrees in both views.
+
+  plain/elab  r10earl44repro/a1_earl44.sv       EARLIER-PASS ARM
+      `module leaft44 (input p44::word44_t p_i, ...)` -- same shape.
+      port census: TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0;
+      the cell is work@top44.u_q6/p_i.  Signal census agrees in both views.
+      NOTE this arm exists to fence the SCOPED-vs-BARE written form for
+      § 43's cell, and that fence HOLDS: the bare-written cells on the same
+      arm did not move.
+
+  rc histogram: rc=0 13078, rc=3 552, rc=4 506, rc=139 24.
+  Every rc=139 pairs A with B on the SAME cell (12 cells x 2 sides) -- the
+  pre-existing elab segfaults, on BOTH binaries.  No new crash, no new
+  timeout.
+
+== DIR (per directory): PROCESSED=1516 identical=2768 DIFFERING=12 no_output=252 ==
+
+  plain/elab  r10earl77repro    this pass's three grids, compiled as one unit
+  plain/elab  r10earl43repro    the earlier-pass arm above
+  plain/elab  r10earl44repro    the earlier-pass arm above
+      -- all six adjudicated in the WIDE section: TO-GOLDEN, AWAY-GOLDEN 0,
+         MOVED-WRONG 0.
+
+  plain/elab  r10uvm75repro     THE PER-INVOCATION ORDERING COIN
+  plain/elab  r10uvm76repro     THE PER-INVOCATION ORDERING COIN
+  plain/elab  r10v109repro      THE PER-INVOCATION ORDERING COIN
+      raw dump lines differing / lines differing once BOTH dumps are SORTED:
+        r10uvm75repro plain 14 / 0      elab 12 / 0
+        r10uvm76repro plain 12 / 0      elab 16 / 0
+        r10v109repro  plain 24 / 0      elab 20 / 0
+      NEUTRAL CONTROL: the PRISTINE binary run TWICE on r10uvm75repro's own
+      directory differs from ITSELF by 20 raw lines and 0 sorted lines.  These
+      three arms are the documented macro-buffer SourceLocation ordering coin
+      (RESUME 9), not this law: order-blind, nothing moves.
+
+  rc histogram: rc=0 5358, rc=3 492, rc=4 202, rc=139 12.
+  Every rc=139 pairs A with B (6 cells x 2 sides) -- the pre-existing elab
+  segfaults on BOTH binaries.  No new crash, no new timeout.

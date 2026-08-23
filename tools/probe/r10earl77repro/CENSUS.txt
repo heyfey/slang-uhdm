@@ -1,0 +1,106 @@
+r10earl77 CENSUS -- Earlgrey_0_1, BOTH modes, BOTH databases.
+
+INSTRUMENTS: cen77 (every module_inst PORT: direction, port typespec,
+the Nets/Variables/Array_nets entry that backs it, the port's Low_conn)
+and sig77 (EVERY Nets/Variables/Array_nets entry of every module_inst,
+gen_scope and interface_inst -- a port-keyed census is structurally blind
+to a BODY signal that moves, and the head is a Nets/Variables SIZE
+mismatch, so the whole-signal census is the arbiter).
+
+CALIBRATION, golden-vs-golden FIRST: the two censuses produce the same
+key set on both sides -- cen77 21809 rows on golden and 21809 on ours
+(default); sig77 41055 and 41055.  Our port objects carry an EMPTY
+VpiFile (a pre-existing campaign residue), so the LOC field is dropped
+from the cen77 key; nothing else needed normalising.
+
+== 1. THE WHOLE DESIGN, PRISTINE vs GOLDEN (sig77, deduped) ==
+DEFAULT: 41055 keys, exactly FOUR divergent cells.
+TESTFLAGS: the same four (the rest of the testflags delta is the
+pre-existing DEF+ELAB double listing, earl75 R3, on BOTH binaries).
+
+15046c15046
+< module_inst|work@top_earlgrey.u_flash_ctrl.u_flash_mp|region_cfgs_i|VAR|packed_array_var
+---
+> module_inst|work@top_earlgrey.u_flash_ctrl.u_flash_mp|region_cfgs_i|NET|packed_array_net
+18693c18693
+< module_inst|work@top_earlgrey.u_hmac.u_sha2.u_pad|fifo_rdata|NET|struct_net
+---
+> module_inst|work@top_earlgrey.u_hmac.u_sha2.u_pad|fifo_rdata|VAR|struct_var
+29956c29956
+< module_inst|work@top_earlgrey.u_spi_device.u_fwmode|tx_data_i|VAR|logic_var
+---
+> module_inst|work@top_earlgrey.u_spi_device.u_fwmode|tx_data_i|NET|logic_net
+32564c32564
+< module_inst|work@top_earlgrey.u_usbdev.i_usbdev_iomux|sys_reg2hw_config_i|NET|struct_net
+---
+> module_inst|work@top_earlgrey.u_usbdev.i_usbdev_iomux|sys_reg2hw_config_i|VAR|struct_var
+
+Only the THIRD is this law's.  The other three are named as residues
+R2/R3 in README.md and are NOT touched (see section 3).
+
+== 2. THE BOUNDARY: golden's port-kind grid over the WHOLE design ==
+(elaborated instances only; DIR x port-typespec KIND x whether the
+typespec NAME is scoped/bare/anonymous x the backing object)
+
+  11511 DIR=IN	logic_typespec	anon	BACK=NET:logic_net
+   6529 DIR=OUT	logic_typespec	anon	BACK=NET:logic_net
+    360 DIR=IN	struct_typespec	scoped	BACK=VAR:struct_var
+    342 DIR=OUT	struct_typespec	scoped	BACK=VAR:struct_var
+    100 DIR=INOUT	logic_typespec	anon	BACK=NET:logic_net
+     87 DIR=IN	enum_typespec	scoped	BACK=VAR:enum_var
+     51 DIR=IN	struct_typespec	scoped	BACK=NET:struct_net
+     45 DIR=OUT	enum_typespec	scoped	BACK=VAR:enum_var
+     40 DIR=OUT	struct_typespec	scoped	BACK=NET:struct_net
+     26 DIR=OUT	struct_typespec	scoped	BACK=VAR:array_var
+     26 DIR=IN	struct_typespec	scoped	BACK=VAR:array_var
+     23 DIR=IN	logic_typespec	anon	BACK=ANET:array_net
+      5 DIR=OUT	logic_typespec	anon	BACK=ANET:array_net
+      5 DIR=IN	packed_array_typespec	anon	BACK=VAR:packed_array_var
+      4 DIR=OUT	packed_array_typespec	anon	BACK=VAR:packed_array_var
+      2 DIR=IN	packed_array_typespec	anon	BACK=NET:packed_array_net
+      2 DIR=IN	logic_typespec	bare	BACK=NET:logic_net
+      2 DIR=IN	enum_typespec	scoped	BACK=VAR:array_var
+      1 DIR=OUT	logic_typespec	scoped	BACK=VAR:logic_var
+      1 DIR=OUT	logic_typespec	bare	BACK=NET:logic_net
+      1 DIR=IN	logic_typespec	scoped	BACK=VAR:logic_var
+
+READ THE THREE logic_typespec ROWS: a SCOPED name is a VAR in BOTH
+directions (2 cells, 1 IN + 1 OUT); a BARE name is a NET in both (3
+cells); an ANONYMOUS one is a NET (18140 + 100 inout).  The IN half of
+the scoped pair is the head; the OUT half we already emitted correctly.
+
+The five named-logic_typespec cells, golden:
+DEF=work@sha2_pad|PORT=shaf_rdata|DIR=OUT|TS=logic_typespec/sha_word_t|BACK=NET:logic_net|LOWCONN=ref_obj->logic_net|INST=work@top_earlgrey.u_hmac.u_sha2.u_pad
+DEF=work@sha2_pad|PORT=wipe_v|DIR=IN|TS=logic_typespec/sha_word_t|BACK=NET:logic_net|LOWCONN=ref_obj->logic_net|INST=work@top_earlgrey.u_hmac.u_sha2.u_pad
+DEF=work@sha2|PORT=wipe_v|DIR=IN|TS=logic_typespec/sha_word_t|BACK=NET:logic_net|LOWCONN=ref_obj->logic_net|INST=work@top_earlgrey.u_hmac.u_sha2
+DEF=work@spi_fwmode|PORT=rx_data_o|DIR=OUT|TS=logic_typespec/spi_device_pkg::spi_byte_t|BACK=VAR:logic_var|LOWCONN=ref_obj->logic_var|INST=work@top_earlgrey.u_spi_device.u_fwmode
+DEF=work@spi_fwmode|PORT=tx_data_i|DIR=IN|TS=logic_typespec/spi_device_pkg::spi_byte_t|BACK=VAR:logic_var|LOWCONN=ref_obj->logic_var|INST=work@top_earlgrey.u_spi_device.u_fwmode
+
+== 3. PATCHED vs GOLDEN (sig77 3-way, deduped, judge-visible fields) ==
+-- default
+TO-GOLDEN      1
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    3
+NOGOLD-MOVED   0
+NOGOLD-SAME    0
+SAME           40758
+  TO-GOLDEN     module_inst|work@top_earlgrey.u_spi_device.u_fwmode|tx_data_i pris=['NET|logic_net'] patc=['VAR|logic_var'] gold=['VAR|logic_var']
+-- testflags
+TO-GOLDEN      1
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+STILL-WRONG    3
+NOGOLD-MOVED   0
+NOGOLD-SAME    2
+SAME           40758
+  TO-GOLDEN     module_inst|work@top_earlgrey.u_spi_device.u_fwmode|tx_data_i pris=['NET|logic_net'] patc=['VAR|logic_var'] gold=['VAR|logic_var']
+
+== 4. THE PORT CENSUS AFTER THE PATCH (cen77, default) ==
+golden vs patched, whole design -- 3 rows left, all three PRE-EXISTING:
+< DEF=work@flash_mp|PORT=region_cfgs_i|DIR=IN|TS=packed_array_typespec/<anon>|BACK=VAR:packed_array_var|LOWCONN=ref_obj->packed_array_var|INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+> DEF=work@flash_mp|PORT=region_cfgs_i|DIR=IN|TS=packed_array_typespec/<anon>|BACK=NET:packed_array_net|LOWCONN=ref_obj->packed_array_net|INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+< DEF=work@sha2_pad|PORT=fifo_rdata|DIR=IN|TS=struct_typespec/hmac_pkg::sha_fifo_t|BACK=NET:struct_net|LOWCONN=ref_obj->struct_net|INST=work@top_earlgrey.u_hmac.u_sha2.u_pad
+> DEF=work@sha2_pad|PORT=fifo_rdata|DIR=IN|TS=struct_typespec/hmac_pkg::sha_fifo_t|BACK=VAR:struct_var|LOWCONN=ref_obj->struct_var|INST=work@top_earlgrey.u_hmac.u_sha2.u_pad
+< DEF=work@usbdev_iomux|PORT=sys_reg2hw_config_i|DIR=IN|TS=struct_typespec/usbdev_reg_pkg::usbdev_reg2hw_phy_config_reg_t|BACK=NET:struct_net|LOWCONN=ref_obj->struct_net|INST=work@top_earlgrey.u_usbdev.i_usbdev_iomux
+> DEF=work@usbdev_iomux|PORT=sys_reg2hw_config_i|DIR=IN|TS=struct_typespec/usbdev_reg_pkg::usbdev_reg2hw_phy_config_reg_t|BACK=VAR:struct_var|LOWCONN=ref_obj->struct_var|INST=work@top_earlgrey.u_usbdev.i_usbdev_iomux

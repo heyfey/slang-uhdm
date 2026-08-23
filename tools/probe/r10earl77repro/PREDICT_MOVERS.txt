@@ -1,0 +1,153 @@
+r10earl77 MOVER PREDICTION -- made from the PRISTINE databases BEFORE the
+patched sweep was launched, in three stages.
+
+STAGE 1 (SOURCE, fencescan77.sh): every corpus test whose source spells a
+PORT whose written type is a SCOPED package type name.  A database-side
+predictor keys on the typespec we ALREADY emit and is blind to a port
+whose typespec we render anonymously; the source scan is not.  30 tests
+over BOTH corpora.  The four slang-fenced tests are never dispatched
+(FENCED= is empty in that script and canaudit asserts no driver here
+names them).
+
+SRC-CANDIDATE 1 BindStmt2
+SRC-CANDIDATE 1 ConstPort
+SRC-CANDIDATE 1 HierPathPackedArrayNet
+SRC-CANDIDATE 2 Kmac
+SRC-CANDIDATE 1 NonAnsiPort
+SRC-CANDIDATE 1 PackedEnumPort
+SRC-CANDIDATE 1 PackFunc
+SRC-CANDIDATE 1 PackStructField
+SRC-CANDIDATE 1 PortComplex
+SRC-CANDIDATE 1 TypedefPack
+SRC-CANDIDATE 67 ariane
+SRC-CANDIDATE 35 Ariane2024
+SRC-CANDIDATE 49 AzadiRTL
+SRC-CANDIDATE 81 Earlgrey_0_1
+SRC-CANDIDATE 128 Earlgrey_nexysvideo
+SRC-CANDIDATE 81 Earlgrey_Verilator_0_1
+SRC-CANDIDATE 128 Earlgrey_Verilator_01_05_21
+SRC-CANDIDATE 13 Ibex
+SRC-CANDIDATE 125 IncompTitan
+SRC-CANDIDATE 87 Opentitan
+SRC-CANDIDATE 2 Verilator
+SRC-CANDIDATE 11 wav-lpddr-hw
+SRC-CANDIDATE 1 Zachjs
+SRC-CANDIDATE 1 EnumInPackage
+SRC-CANDIDATE 1 iface_gen_delay_struct
+SRC-CANDIDATE 1 MultipleNets
+SRC-CANDIDATE 1 nested_struct
+SRC-CANDIDATE 1 PatternAssignmentOfStructParam
+SRC-CANDIDATE 1 StructInPackage
+SRC-CANDIDATE 1 VarPassedTo2Submodules
+
+STAGE 2 (PRISTINE DATABASES, predict77.sh): a database can move only if
+it already holds a PORT backed by a NET whose port typespec carries a
+SCOPED name.  73 database rows / 36 distinct tests.
+
+CANDIDATE 1 psl/default/AssignmentPatternInAssignmentPattern-a164dc05/slang.uhdm
+CANDIDATE 2 psl/default/BitsHierPath-92ad681c/slang.uhdm
+CANDIDATE 2 psl/default/ConstPort-0b36e20a/slang.uhdm
+CANDIDATE 435 psl/default/Earlgrey_0_1-71da2fd7/slang.uhdm
+CANDIDATE 2 psl/default/Kmac-937a7db9/slang.uhdm
+CANDIDATE 2 psl/default/MultiPort-7ecffdd2/slang.uhdm
+CANDIDATE 4 psl/default/NonAnsiPort-ef6c3d00/slang.uhdm
+CANDIDATE 4 psl/default/PackageTypeParam-820b2a1a/slang.uhdm
+CANDIDATE 2 psl/default/PackDataType-5c209172/slang.uhdm
+CANDIDATE 1 psl/default/PackedArrayHighConn-d5f4ff29/slang.uhdm
+CANDIDATE 4 psl/default/PackStructField-fbdfa489/slang.uhdm
+CANDIDATE 2 psl/default/PortComplex-6017d612/slang.uhdm
+CANDIDATE 1 psl/default/Rggen-50ccbd70/slang.uhdm
+CANDIDATE 2 psl/default/StructArrayNet-a1e045d3/slang.uhdm
+CANDIDATE 1 psl/default/TypedefPack-aaf01c51/slang.uhdm
+CANDIDATE 1 psl/testflags/AssignmentPatternInAssignmentPattern-a164dc05/slang.uhdm
+CANDIDATE 2 psl/testflags/BitsHierPath-92ad681c/slang.uhdm
+CANDIDATE 2 psl/testflags/ConstPort-0b36e20a/slang.uhdm
+CANDIDATE 455 psl/testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+CANDIDATE 2 psl/testflags/Kmac-937a7db9/slang.uhdm
+CANDIDATE 2 psl/testflags/MultiPort-7ecffdd2/slang.uhdm
+CANDIDATE 4 psl/testflags/NonAnsiPort-ef6c3d00/slang.uhdm
+CANDIDATE 4 psl/testflags/PackageTypeParam-820b2a1a/slang.uhdm
+CANDIDATE 2 psl/testflags/PackDataType-5c209172/slang.uhdm
+CANDIDATE 1 psl/testflags/PackedArrayHighConn-d5f4ff29/slang.uhdm
+CANDIDATE 4 psl/testflags/PackStructField-fbdfa489/slang.uhdm
+CANDIDATE 2 psl/testflags/PortComplex-6017d612/slang.uhdm
+CANDIDATE 2 psl/testflags/StructArrayNet-a1e045d3/slang.uhdm
+CANDIDATE 1 psl/testflags/TypedefPack-aaf01c51/slang.uhdm
+CANDIDATE 3 pu2r/default/EnumInPackage-b7bdc66c/slang.uhdm
+CANDIDATE 4 pu2r/default/iface_field_partsel-a0a830ab/slang.uhdm
+CANDIDATE 2 pu2r/default/iface_gen_delay_struct-26f4d863/slang.uhdm
+CANDIDATE 1 pu2r/default/ImportTypeOfPort-a1e9d5cd/slang.uhdm
+CANDIDATE 1 pu2r/default/ModuleUsingStuctInput-4cfeef71/slang.uhdm
+CANDIDATE 3 pu2r/default/MultipleNets-fe5491d6/slang.uhdm
+CANDIDATE 1 pu2r/default/NestedPatternPassedAsPort-ada9b373/slang.uhdm
+CANDIDATE 4 pu2r/default/nested_struct-0e0c67c8/slang.uhdm
+CANDIDATE 1 pu2r/default/NestedStructArrayParameterInitializedByPatternPassedAsPort-4e1a3bac/slang.uhdm
+CANDIDATE 1 pu2r/default/PackageCast-4d72becb/slang.uhdm
+CANDIDATE 4 pu2r/default/PatternAssignmentOfStructParam-b4052ff0/slang.uhdm
+CANDIDATE 1 pu2r/default/rp32_r5p_alu-c9c477ec/slang.uhdm
+CANDIDATE 1 pu2r/default/rp32_r5p_bru-aad2f09e/slang.uhdm
+CANDIDATE 1 pu2r/default/rp32_r5p_mdu-0de6e8a4/slang.uhdm
+CANDIDATE 1 pu2r/default/rp32_r5p_wbu-ad685a2e/slang.uhdm
+CANDIDATE 2 pu2r/default/rsp_gen_minimal-d4e049b1/slang.uhdm
+CANDIDATE 8 pu2r/default/simple_package-bb959c27/slang.uhdm
+CANDIDATE 1 pu2r/default/StructArrayParameterInitializedByPatternPassedAsPort-56baeba6/slang.uhdm
+CANDIDATE 4 pu2r/default/StructInPackage-8c66dff2/slang.uhdm
+CANDIDATE 1 pu2r/default/TypedefEnum-50165e8a/slang.uhdm
+CANDIDATE 1 pu2r/default/TypedefInModulePort-53f0166f/slang.uhdm
+CANDIDATE 1 pu2r/default/VarPassedTo2Submodules-e6c6340e/slang.uhdm
+CANDIDATE 3 pu2r/testflags/EnumInPackage-b7bdc66c/slang.uhdm
+CANDIDATE 4 pu2r/testflags/iface_field_partsel-a0a830ab/slang.uhdm
+CANDIDATE 2 pu2r/testflags/iface_gen_delay_struct-26f4d863/slang.uhdm
+CANDIDATE 1 pu2r/testflags/ImportTypeOfPort-a1e9d5cd/slang.uhdm
+CANDIDATE 1 pu2r/testflags/ModuleUsingStuctInput-4cfeef71/slang.uhdm
+CANDIDATE 3 pu2r/testflags/MultipleNets-fe5491d6/slang.uhdm
+CANDIDATE 1 pu2r/testflags/NestedPatternPassedAsPort-ada9b373/slang.uhdm
+CANDIDATE 4 pu2r/testflags/nested_struct-0e0c67c8/slang.uhdm
+CANDIDATE 1 pu2r/testflags/NestedStructArrayParameterInitializedByPatternPassedAsPort-4e1a3bac/slang.uhdm
+CANDIDATE 1 pu2r/testflags/PackageCast-4d72becb/slang.uhdm
+CANDIDATE 4 pu2r/testflags/PatternAssignmentOfStructParam-b4052ff0/slang.uhdm
+CANDIDATE 1 pu2r/testflags/rp32_r5p_alu-c9c477ec/slang.uhdm
+CANDIDATE 1 pu2r/testflags/rp32_r5p_bru-aad2f09e/slang.uhdm
+CANDIDATE 1 pu2r/testflags/rp32_r5p_mdu-0de6e8a4/slang.uhdm
+CANDIDATE 1 pu2r/testflags/rp32_r5p_wbu-ad685a2e/slang.uhdm
+CANDIDATE 2 pu2r/testflags/rsp_gen_minimal-d4e049b1/slang.uhdm
+CANDIDATE 8 pu2r/testflags/simple_package-bb959c27/slang.uhdm
+CANDIDATE 1 pu2r/testflags/StructArrayParameterInitializedByPatternPassedAsPort-56baeba6/slang.uhdm
+CANDIDATE 4 pu2r/testflags/StructInPackage-8c66dff2/slang.uhdm
+CANDIDATE 1 pu2r/testflags/TypedefEnum-50165e8a/slang.uhdm
+CANDIDATE 1 pu2r/testflags/TypedefInModulePort-53f0166f/slang.uhdm
+CANDIDATE 1 pu2r/testflags/VarPassedTo2Submodules-e6c6340e/slang.uhdm
+
+STAGE 3 (REFUTATION BY ARM): the law's arm in makeVar is reached only
+after the enum, bit, struct, real, string, chandle and class arms have
+declined, so the port typespec MUST be a logic_typespec.  Restricting
+stage 2 to logic_typespec refutes 65 of the 73 rows and leaves EIGHT:
+
+STAGE3 6 psl/default/Earlgrey_0_1-71da2fd7/slang.uhdm
+STAGE3 1 psl/default/PackedArrayHighConn-d5f4ff29/slang.uhdm
+STAGE3 6 psl/testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+STAGE3 1 psl/testflags/PackedArrayHighConn-d5f4ff29/slang.uhdm
+STAGE3 1 pu2r/default/ImportTypeOfPort-a1e9d5cd/slang.uhdm
+STAGE3 1 pu2r/default/TypedefInModulePort-53f0166f/slang.uhdm
+STAGE3 1 pu2r/testflags/ImportTypeOfPort-a1e9d5cd/slang.uhdm
+STAGE3 1 pu2r/testflags/TypedefInModulePort-53f0166f/slang.uhdm
+
+STAGE 4 (REFUTATION BY VIEW): of those eight, SEVEN are DEFINITION
+listings (INST=work@<defname>, i.e. the module DEF view), which golden
+also emits as a net and which this law does not touch -- it changes only
+the ELABORATED instance emission.  Exactly ONE elaborated cell remains:
+
+  work@top_earlgrey.u_spi_device.u_fwmode / tx_data_i  (Earlgrey_0_1)
+
+PREDICTION: exactly TWO databases move, Earlgrey_0_1/default and
+Earlgrey_0_1/testflags.  PackedArrayHighConn, ImportTypeOfPort and
+TypedefInModulePort are predicted NOT to move.
+
+OUTCOME (byteverify, SELFCHECK=1):
+  surelog    MOVERS 3 / 956  -- Earlgrey_0_1/default, Earlgrey_0_1/testflags
+             (both PREDICTED) and Scoreboard/default, the documented
+             per-invocation ORDER coin: 170 raw dump lines differ and
+             ZERO once both dumps are sorted (order-blind attribution,
+             RESUME 9).
+  uhdm2rtlil MOVERS 0 / 1358 -- PackedArrayHighConn, ImportTypeOfPort and
+             TypedefInModulePort did not move, as predicted.

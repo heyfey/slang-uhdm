@@ -1,0 +1,20 @@
+r10earl77 -- WHY THE "BEFORE" HEAD LOG IS TRUNCATED HERE.
+
+The head this pass clears is a `module_inst` VECTOR SIZE MISMATCH, and
+`BaseClass::SafeCompare`'s vector overload prints the WHOLE OWNER on both
+sides: 11,664 cmp lines (default) / 11,404 (testflags), ONE head each, all of
+it one `module_inst` decompile.  A cmp line count is the head's decompile
+DEPTH, never a distance.  Only the first 40 lines are kept
+(HEAD_BEFORE_{default,testflags}.head40.cmp); the DECODE is
+HEAD_BEFORE_vectors_{golden,ours}.txt, produced by
+`tools/probe/r10earl76repro/mvec76.cpp` (earl76's committed instrument, reused
+unchanged) run as
+
+  mvec76 <db.uhdm> work@top_earlgrey.u_spi_device.u_fwmode --names
+
+on the golden cache entry and on this pass's own pristine database.  The two
+files differ in exactly two rows -- `Nets 17/18`, `Variables 11/10` -- and one
+signal, `tx_data_i`, which is a `logic_var` in golden's `Variables` and a
+`logic_net` in our `Nets`.  Reproduced on THIS pass's own pristine build
+(md5 ce2ee168dd84bf64e3e6bb9aed5b82e7, the main tree's own binary at a1da916),
+not carried forward from earl76's write-up.

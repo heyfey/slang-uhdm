@@ -1,0 +1,10 @@
+plain r10earl43repro/a1_earl43.sv
+elab r10earl43repro/a1_earl43.sv
+plain r10earl44repro/a1_earl44.sv
+elab r10earl44repro/a1_earl44.sv
+plain r10earl77repro/g1_portkind77.sv
+elab r10earl77repro/g1_portkind77.sv
+plain r10earl77repro/g2_portkw77.sv
+elab r10earl77repro/g2_portkw77.sv
+plain r10earl77repro/g3_body77.sv
+elab r10earl77repro/g3_body77.sv

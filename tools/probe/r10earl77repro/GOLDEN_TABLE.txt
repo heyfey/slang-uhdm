@@ -1,0 +1,94 @@
+r10earl77 GOLDEN TABLE -- the purpose-built port-kind grid.
+Golden = Surelog.  PRISTINE = a1da916.  PATCHED = a1da916 + this law.
+Elaborated instances only (the DEFINITION listing is a NET on every row,
+on both sides, and this law does not touch it).
+
+===== g1_portkind77.sv -- 20 written type shapes x {input, output},
+===== the leaf instantiated FIVE times: two driven (u_c1/u_c2), one
+===== UNDRIVEN (u_c3), and two inside a generate-for (gb77[0], gb77[1]).
+
+PORT           DIR    TYPESPEC                       GOLDEN                 PRISTINE               PATCHED                VERDICT
+i_bare         IN     logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+i_impenum      IN     enum_typespec/p77::e_t         VAR:enum_var           VAR:enum_var           VAR:enum_var           same
+i_impstruct    IN     struct_typespec/p77::st_t      NET:struct_net         NET:struct_net         NET:struct_net         same
+i_impvec       IN     logic_typespec/v8_t            NET:logic_net          NET:logic_net          NET:logic_net          same
+i_logicsc      IN     logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+i_logicvec     IN     logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+i_pkgbit       IN     bit_typespec/p77::b8_t         VAR:bit_var            VAR:bit_var            VAR:bit_var            same
+i_pkgenum      IN     enum_typespec/p77::e_t         VAR:enum_var           VAR:enum_var           VAR:enum_var           same
+i_pkgmulti     IN     logic_typespec/p77::m_t        VAR:logic_var          NET:logic_net          VAR:logic_var          TO-GOLDEN
+i_pkgpw        IN     logic_typespec/p77::pw_t       VAR:logic_var          NET:logic_net          VAR:logic_var          TO-GOLDEN
+i_pkgscalar    IN     logic_typespec/p77::s1_t       VAR:logic_var          NET:logic_net          VAR:logic_var          TO-GOLDEN
+i_pkgstruct    IN     struct_typespec/p77::st_t      NET:struct_net         NET:struct_net         NET:struct_net         same
+i_pkgvec       IN     logic_typespec/p77::v8_t       VAR:logic_var          NET:logic_net          VAR:logic_var          TO-GOLDEN
+i_pkgvecdim    IN     logic_typespec/p77::v8_t       VAR:packed_array_var   NET:logic_net          NET:logic_net          DIFFERS
+i_regvec       IN     logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+i_unitvec      IN     logic_typespec/u8_t            NET:logic_net          NET:logic_net          NET:logic_net          same
+i_varpkgvec    IN     logic_typespec/p77::v8_t       VAR:logic_var          VAR:logic_var          VAR:logic_var          same
+i_varvec       IN     logic_typespec/<anon>          VAR:logic_var          VAR:logic_var          VAR:logic_var          same
+i_wiresc       IN     logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+i_wirevec      IN     logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+o_bare         OUT    logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+o_impenum      OUT    enum_typespec/p77::e_t         VAR:enum_var           VAR:enum_var           VAR:enum_var           same
+o_impstruct    OUT    struct_typespec/p77::st_t      NET:struct_net         NET:struct_net         NET:struct_net         same
+o_impvec       OUT    logic_typespec/v8_t            NET:logic_net          NET:logic_net          NET:logic_net          same
+o_logicsc      OUT    logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+o_logicvec     OUT    logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+o_pkgbit       OUT    bit_typespec/p77::b8_t         VAR:bit_var            VAR:bit_var            VAR:bit_var            same
+o_pkgenum      OUT    enum_typespec/p77::e_t         VAR:enum_var           VAR:enum_var           VAR:enum_var           same
+o_pkgmulti     OUT    logic_typespec/p77::m_t        VAR:logic_var          VAR:logic_var          VAR:logic_var          same
+o_pkgpw        OUT    logic_typespec/p77::pw_t       VAR:logic_var          VAR:logic_var          VAR:logic_var          same
+o_pkgscalar    OUT    logic_typespec/p77::s1_t       VAR:logic_var          VAR:logic_var          VAR:logic_var          same
+o_pkgstruct    OUT    struct_typespec/p77::st_t      NET:struct_net         NET:struct_net         NET:struct_net         same
+o_pkgvec       OUT    logic_typespec/p77::v8_t       VAR:logic_var          VAR:logic_var          VAR:logic_var          same
+o_pkgvecdim    OUT    logic_typespec/p77::v8_t       VAR:packed_array_var   NET:logic_net          NET:logic_net          DIFFERS
+o_regvec       OUT    logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+o_unitvec      OUT    logic_typespec/u8_t            NET:logic_net          NET:logic_net          NET:logic_net          same
+o_varpkgvec    OUT    logic_typespec/p77::v8_t       VAR:logic_var          VAR:logic_var          VAR:logic_var          same
+o_varvec       OUT    logic_typespec/<anon>          VAR:logic_var          VAR:logic_var          VAR:logic_var          same
+o_wiresc       OUT    logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+o_wirevec      OUT    logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+
+===== g2_portkw77.sv -- the keyword / direction / style boundary:
+===== wire-qualified, var-qualified, INOUT, NON-ANSI, interface port.
+
+PORT           DIR    TYPESPEC                       GOLDEN                 PRISTINE               PATCHED                VERDICT
+g_logicio      INOUT  logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+g_plainio      INOUT  logic_typespec/q77::v8_t       VAR:logic_var          NET:logic_net          VAR:logic_var          TO-GOLDEN
+g_wireio       INOUT  logic_typespec/q77::v8_t       VAR:logic_var          NET:logic_net          VAR:logic_var          TO-GOLDEN
+g_wirevecio    INOUT  logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+k_plainin      IN     logic_typespec/q77::v8_t       VAR:logic_var          NET:logic_net          VAR:logic_var          TO-GOLDEN
+k_plainout     OUT    logic_typespec/q77::v8_t       VAR:logic_var          VAR:logic_var          VAR:logic_var          same
+k_varin        IN     logic_typespec/q77::v8_t       VAR:logic_var          VAR:logic_var          VAR:logic_var          same
+k_varout       OUT    logic_typespec/q77::v8_t       VAR:logic_var          VAR:logic_var          VAR:logic_var          same
+k_wirein       IN     logic_typespec/q77::v8_t       VAR:logic_var          NET:logic_net          VAR:logic_var          TO-GOLDEN
+k_wireout      OUT    logic_typespec/q77::v8_t       VAR:logic_var          NET:logic_net          VAR:logic_var          TO-GOLDEN
+na_barein      IN     logic_typespec/<anon>          NET:logic_net          NET:logic_net          NET:logic_net          same
+na_impin       IN     logic_typespec/v8_t            NET:logic_net          NET:logic_net          NET:logic_net          same
+na_locin       IN     logic_typespec/loc77_t         NET:logic_net          NET:logic_net          NET:logic_net          same
+na_locout      OUT    logic_typespec/loc77_t         NET:logic_net          NET:logic_net          NET:logic_net          same
+na_pkgin       IN     logic_typespec/q77::v8_t       VAR:logic_var          VAR:logic_var          VAR:logic_var          same
+na_pkgout      OUT    logic_typespec/q77::v8_t       VAR:logic_var          VAR:logic_var          VAR:logic_var          same
+p_if           INOUT  interface_typespec/mp          <none>                 <none>                 <none>                 same
+p_pkgin        IN     logic_typespec/q77::v8_t       VAR:logic_var          NET:logic_net          VAR:logic_var          TO-GOLDEN
+
+===== g3_body77.sv -- the NEGATIVE control: BODY declarations of the
+===== same scoped typedef in every keyword form, plus an interface and
+===== a program.  Only the module PORT b_in moves.
+
+OWNER|SIGNAL                                         GOLDEN           PRISTINE         PATCHED
+interface_inst|work@topr77.u_if|if_body_plain        VAR|logic_var    VAR|logic_var    VAR|logic_var
+interface_inst|work@topr77.u_if|if_body_var          VAR|logic_var    VAR|logic_var    VAR|logic_var
+interface_inst|work@topr77.u_if|if_body_wire         NET|logic_net    NET|logic_net    NET|logic_net
+interface_inst|work@topr77.u_if|if_in                VAR|logic_var    NET|logic_net    NET|logic_net  <-- STILL-WRONG (R1)
+interface_inst|work@topr77.u_if|if_out               VAR|logic_var    VAR|logic_var    VAR|logic_var
+module_inst|work@topr77.u_b|b_in                     VAR|logic_var    NET|logic_net    VAR|logic_var  <-- TO-GOLDEN
+module_inst|work@topr77.u_b|b_logic                  VAR|logic_var    VAR|logic_var    VAR|logic_var
+module_inst|work@topr77.u_b|b_out                    VAR|logic_var    VAR|logic_var    VAR|logic_var
+module_inst|work@topr77.u_b|b_plain                  VAR|logic_var    VAR|logic_var    VAR|logic_var
+module_inst|work@topr77.u_b|b_var                    VAR|logic_var    VAR|logic_var    VAR|logic_var
+module_inst|work@topr77.u_b|b_wire                   NET|logic_net    NET|logic_net    NET|logic_net
+module_inst|work@topr77|a                            NET|logic_net/VAR|logic_var NET|logic_net/VAR|logic_var NET|logic_net/VAR|logic_var
+module_inst|work@topr77|b                            NET|logic_net/VAR|logic_var NET|logic_net/VAR|logic_var NET|logic_net/VAR|logic_var
+module_inst|work@topr77|c                            NET|logic_net/VAR|logic_var NET|logic_net/VAR|logic_var NET|logic_net/VAR|logic_var
+module_inst|work@topr77|d                            NET|logic_net/VAR|logic_var NET|logic_net/VAR|logic_var NET|logic_net/VAR|logic_var

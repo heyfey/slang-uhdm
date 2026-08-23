@@ -5062,11 +5062,46 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     // to Surelog even though slang models it as an inout NET (EmitHelpers
     // ansiDirectionlessVarPort).
     bool dirlessVarPort = portBacked && ansiDirectionlessVarPort(internal);
+    // § pkgScopedPortAnyDirVar77 — a port whose written type is a SCOPED
+    // package type name (`pkg::T`, T a packed logic vector) backs a VARIABLE
+    // in EVERY direction, not only in the one slang models as a variable.
+    //
+    // DECODE (Surelog `NetlistElaboration::elabSignal`, the `isNet` ladder):
+    // `CompileHelper::getSignalType` hands the port's `Signal` the WRITTEN
+    // form as its `m_type`, and a `pkg::T` spelling is `paClass_scope`; the
+    // ladder's `(subnettype == paClass_scope)` arm sets `isNet = false`
+    // outright, and the direction override right below it only fires for
+    // `paIntVec_TypeLogic` (a bare `logic`/`reg` port), so it never takes a
+    // scoped-typedef port back.  DIRECTION IS NOT IN THE RULE AT ALL: golden
+    // makes `input`, `output` and `inout` alike variables, with the `wire`
+    // keyword written or not, in ANSI and non-ANSI style
+    // (`g2_portkw77.sv`: k_wirein/k_wireout/k_plainin/k_plainout/k_varin/
+    //  k_varout/g_plainio/g_wireio/na_pkgin/na_pkgout are ALL logic_var).
+    //
+    // slang models the LRM rule instead — an `input`/`inout` port is a NET
+    // whatever its data type, an `output` with a data type is a Variable — so
+    // the pre-existing `internal.kind == SymbolKind::Variable` test let only
+    // the OUTPUT half of the shape through and net-ified every input.  That
+    // asymmetry is the whole of Earlgrey's `u_fwmode` head: `output
+    // spi_device_pkg::spi_byte_t rx_data_o` was already a logic_var while
+    // `input spi_device_pkg::spi_byte_t tx_data_i` was a logic_net.
+    //
+    // THE TWO FENCES, both measured on golden before this was written:
+    //  * the name must be SPELLED SCOPED — `pkgAliasPort` already drops a
+    //    plain `IdentifierName`, and golden keeps an IMPORTED bare typedef
+    //    (`import pkg::*; input v8_t x`), a `$unit` typedef and a MODULE-LOCAL
+    //    typedef port a NET in both directions (g1's i_impvec/i_unitvec, g2's
+    //    na_impin/na_locin/na_locout, and Earlgrey's own `sha_word_t` ports);
+    //  * only a PORT-BACKED symbol takes the arm — a body `wire pkg::T w;`
+    //    keeps the net path it already had.
+    // The struct arm above returns null for a 4-state `pkg::struct_t` port and
+    // golden agrees (struct_net in both directions), so this does not reach it.
+    bool pkgScopedPort77 = portBacked && pkgAliasPort;
     if ((!portBacked || hasBodyDecl(internal) || pkgAliasPort || typeParamPort ||
          ansiVarKeywordPort(internal) || dirlessVarPort) &&
         !regDecl &&
         (internal.kind == SymbolKind::Variable || typeParamPort ||
-         dirlessVarPort) &&
+         dirlessVarPort || pkgScopedPort77) &&
         ct.kind != SymbolKind::PredefinedIntegerType && ct.isIntegral() && ct.isFourState()) {
         auto* v = s.MakeLogic_var();
         v->VpiVisibility(1);

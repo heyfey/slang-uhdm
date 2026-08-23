@@ -1,0 +1,90 @@
+LHS:
+decompile:
+constant: , id:999647
+|vpiDecompile:111111111111111111111111111111111111111
+|vpiSize:39
+|BIN:111111111111111111111111111111111111111
+|vpiTypespec:
+\_ref_typespec: , id:999649
+  |vpiParent:
+  \_constant: , id:999647
+  |vpiActual:
+  \_int_typespec: , id:999648
+|vpiConstType:3
+
+decompile:
+constant: , id:999647
+|vpiDecompile:111111111111111111111111111111111111111
+|vpiSize:39
+|BIN:111111111111111111111111111111111111111
+|vpiTypespec:
+\_ref_typespec: , id:999649
+  |vpiParent:
+  \_constant: , id:999647
+  |vpiActual:
+  \_int_typespec: , id:999648
+|vpiConstType:3
+RHS:
+decompile:
+operation: , id:292129, line:171:24, endln:171:42
+|vpiParent:
+\_cont_assign: , id:292128, line:171:12, endln:171:42
+|vpiOpType:34
+|vpiOperand:
+\_constant: , id:292131, line:171:25, endln:171:35
+  |vpiParent:
+  \_operation: , id:292129, line:171:24, endln:171:42
+  |vpiDecompile:39
+  |vpiSize:32
+  |UINT:39
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded), id:292132
+    |vpiParent:
+    \_constant: , id:292131, line:171:25, endln:171:35
+    |vpiFullName:work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded
+    |vpiActual:
+    \_int_typespec: , id:758693, line:76:14, endln:76:17
+  |vpiConstType:9
+|vpiOperand:
+\_operation: , id:292133, line:171:35, endln:171:41
+  |vpiParent:
+  \_operation: , id:292129, line:171:24, endln:171:42
+  |vpiOpType:33
+  |vpiOperand:
+  \_constant: , id:292134, line:171:36, endln:171:40
+    |vpiDecompile:1'b1
+    |vpiSize:1
+    |BIN:1
+    |vpiConstType:3
+
+decompile:
+operation: , id:292129, line:171:24, endln:171:42
+|vpiParent:
+\_cont_assign: , id:292128, line:171:12, endln:171:42
+|vpiOpType:34
+|vpiOperand:
+\_constant: , id:292131, line:171:25, endln:171:35
+  |vpiParent:
+  \_operation: , id:292129, line:171:24, endln:171:42
+  |vpiDecompile:39
+  |vpiSize:32
+  |UINT:39
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded), id:292132
+    |vpiParent:
+    \_constant: , id:292131, line:171:25, endln:171:35
+    |vpiFullName:work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded
+    |vpiActual:
+    \_int_typespec: , id:758693, line:76:14, endln:76:17
+  |vpiConstType:9
+|vpiOperand:
+\_operation: , id:292133, line:171:35, endln:171:41
+  |vpiParent:
+  \_operation: , id:292129, line:171:24, endln:171:42
+  |vpiOpType:33
+  |vpiOperand:
+  \_constant: , id:292134, line:171:36, endln:171:40
+    |vpiDecompile:1'b1
+    |vpiSize:1
+    |BIN:1
+    |vpiConstType:3

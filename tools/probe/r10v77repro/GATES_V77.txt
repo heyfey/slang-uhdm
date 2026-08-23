@@ -1,0 +1,88 @@
+r10v77 -- THE VERIFIER'S OWN GATE RUN.  Every number below was measured in
+fresh worktrees at a1da916 (/tmp/wt_v77pris pristine, /tmp/wt_v77 patched),
+with binaries the verifier built and froze itself.  results/*.csv READ ONLY
+and untouched; NO ROW CONVERTED.
+
+== (1) BUILD (both -j 2, frozen chmod 555 BEFORE any sweep) ==
+pristine  a1da916                       ce2ee168dd84bf64e3e6bb9aed5b82e7
+patched   a1da916 + r10earl77.patch     437c2360d71540af5544456b41a33167
+  Both md5s reproduce the pass's GATES.txt EXACTLY.
+  NOTE: the pass README's "byte for byte the main tree's own build/slang-uhdm"
+  was true at a1da916; the main tree has since advanced (its binary today is
+  c7c8fb93c856c9eb9bc57b534f9d770a).  The pristine md5 is what reproduces.
+
+== (2) GOLDENS (SLANG_UHDM exported explicitly per binary) ==
+patched     PASS=23 FAIL=0
+pristine    PASS=23 FAIL=0
+/bin/false  PASS=0  FAIL=23     (negative control)
+
+== (3) uhdm2rtlil, BOTH modes, both binaries ==
+CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 in all four sweeps.
+ct8rows committed baseline vs patched (tf)     : 0 differing ROWS
+ct8rows committed baseline vs MY pristine (tf) : 0 differing ROWS
+ct8rows MY pristine vs patched, testflags      : 0 differing ROWS
+ct8rows MY pristine vs patched, default        : 0 differing ROWS
+
+== (4) surelog corpus, --mode both, both binaries ==
+ct8rows committed baseline (1588 rows) vs patched : 0 differing ROWS
+ct8rows committed baseline vs MY pristine         : 0 differing ROWS
+ct8rows MY pristine vs patched                    : 0 differing ROWS
+status histograms IDENTICAL: default 471 EQ / 10 NE / 5 DEF / 283 REJ / 25 SF;
+testflags 466 EQ / 9 NE / 5 DEF / 3 NO_DB / 1 NO_UHDM / 284 REJ / 23 SF /
+1 TIMEOUT / 2 UNTRANSLATABLE.  NO ROW CONVERTED.
+
+== BINARY-PATH AUDIT, every cmds.txt file-by-file ==
+surelog patched  1573 files, 1523 name /tmp/v77_bin/patched,  50 have no
+                 slang: line (SURELOG_FAIL/NO_DATABASE/TIMEOUT rows)
+surelog pristine 1573 files, 1523 name /tmp/v77_bin/pristine, 50 without
+u2r     patched  1462 files, 1458 name /tmp/v77_bin/patched,   4 without
+u2r     pristine 1462 files, 1458 name /tmp/v77_bin/pristine,  4 without
+MAIN-TREE binary named in 0 of the 6070 files.
+
+== (5) BYTE MOVERS, SELFCHECK=1 ==
+u2r      MOVERS 0 / 1358   SELFCHECK 1357/1358 flagged
+surelog  MOVERS 3 /  956   SELFCHECK  955/956  flagged
+  Earlgrey_0_1/default    pris dd7409c8b813 -> adc797a71bdc  (PREDICTED)
+  Earlgrey_0_1/testflags  pris 05adcb77cebe -> 83c7465d3ddc  (PREDICTED)
+  Scoreboard/default      pris 9d76ba00f7a3 -> 1b4e30bf7cf9  (THE COIN)
+  Scoreboard attribution, TWO independent controls:
+    * order-blind: 92 raw dump lines differ, 0 once both dumps are sorted;
+    * NULL CONTROL: the PRISTINE binary run three times on the same sources
+      gives 1b4e30bf7cf9 / 9d76ba00f7a3 / 1b4e30bf7cf9 -- it differs from
+      ITSELF, and BOTH observed sweep hashes are pristine faces.
+  (The pass reported 170 raw lines; the raw count is a per-invocation property
+   of the coin, not a durable number.  Order-blind is 0 either way.)
+
+== HEADS (rowheads.sh on MY OWN workdirs) ==
+                     pristine        patched
+SeqDriver   def/tf   62/1  62/1      62/1  62/1
+SimpleUVM   def/tf   56/1  56/1      56/1  56/1
+Scoreboard  def      56/1            56/1
+MiniAmiq    def/tf   62/1  62/1      62/1  62/1
+BuildUVMPkg def/tf   47/1  47/1      47/1  47/1
+Earlgrey    default  11664/1         90/1
+Earlgrey    testflags 11404/1        90/1
+Rggen       default  0/0             0/0
+The two 90-line after-logs are id-normalised IDENTICAL to the pass's
+committed HEAD_AFTER_{default,testflags}.cmp, and differ from each other by
+exactly 16 id-only lines -- ONE R0, as claimed.
+
+== CANARIES / PROTECTED ==
+surelog canary rows ok=52 changed=0 ; u2r ok=8 changed=0
+ctcan2 surelog PASS ; ctcan2 u2r PASS
+canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+InterfaceModPort/BlackParrotComplex/YosysOldOr byte-identical both modes;
+SVSwitch 4842211c4030 ; YosysVerx 6ccda350c24a -- both on their pins.
+
+== BOUNDARY (verifier's own run, probe copy + the 6 arms below) ==
+WIDE PROCESSED=3546 identical=6784 DIFFERING=20 no_output=288
+DIR  PROCESSED=1517 identical=2768 DIFFERING=14 no_output=252
+rc histograms: wide rc=0 13098 / rc=3 552 / rc=4 510 / rc=139 24;
+               dir  rc=0  5358 / rc=3 492 / rc=4 206 / rc=139 12.
+EVERY rc=139 PAIRS A with B (12 wide pairs, 6 dir pairs) -- no new crash.
+A/B rc ASYMMETRY: 0 of 7092 wide cells and 0 of 3034 dir cells (the walker's
+own tally cannot see an asymmetric failure; this check closes that hole).
+WIDE differing = the pass's 5 arm files x 2 views + the verifier's 5 x 2.
+DIR-only differing r10uvm75repro / r10uvm76repro / r10v109repro: 0 sorted
+lines AND a pristine-vs-itself null control differs by 14 / 8 / 16 raw lines
+with 0 sorted -- the documented ordering coin, not the law.

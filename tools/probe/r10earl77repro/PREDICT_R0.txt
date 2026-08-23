@@ -1,0 +1,50 @@
+r10earl77 -- THE NEXT HEAD (R0), named for the pass that follows this one.
+
+Both Earlgrey_0_1 modes end this pass at 90 cmp lines with ONE head each, and
+the two logs are IDENTICAL apart from object ids (16 id-only lines).  So there
+is ONE R0, not two.
+
+R0-default  == R0-testflags
+------------------------------------------------------------------------
+  prim_ram_2p_async_adv.sv:171   assign a_wmask_d = {TotalWidth{1'b1}};
+  in work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv
+     .gen_secded          (a GENERATE-IF block: `if (EnableParity == 0 &&
+                           EnableECC) begin : gen_secded`, line 160)
+
+  LHS (golden)  constant   (LOC-LESS)
+                |vpiDecompile:111111111111111111111111111111111111111
+                |vpiSize:39
+                |BIN:111111111111111111111111111111111111111
+                |vpiConstType:3            (vpiBinaryConst)
+                |vpiTypespec -> ref_typespec -> int_typespec
+
+  RHS (ours)    operation  171:24-171:42
+                |vpiParent -> cont_assign 171:12-171:42
+                |vpiOpType:34             (vpiMultiConcatOp)
+                |vpiOperand -> constant 171:25-171:35  UINT:39 sz 32
+                                 (TotalWidth, correctly folded)
+                |vpiOperand -> operation 171:35-171:41 opType 33
+                                 |vpiOperand -> constant 1'b1 BIN:1 sz 1
+
+WHICH ARM.  `BaseClass::Compare` tests VpiType first and names BOTH sides, so
+the failing field is the object KIND and no value field is ever reached: golden
+FOLDS the replication, we do not.  This is an UNDER-fold -- the fix must
+perform a fold, not adjust an encoding.  `TotalWidth` itself is already folded
+correctly on our side (UINT:39, the left operand), so what is missing is the
+replication fold ITSELF, in a gen-scope module-body cont_assign.
+
+THE FAMILY IT BELONGS TO.  Gen-scope `cont_assign` RHS folding is exactly the
+region earl68's § genvarWholeCaRhsFold68 and earl72's R1 measured; the campaign
+also carries a standing replication-fold blocker (`ReplicationPassedToInstance`)
+in the typespec-linkage cluster.  The next pass should measure the whole
+replication family on golden -- module body vs gen-scope, cont_assign vs
+procedural vs port actual vs parameter initialiser, `{N{1'b1}}` vs `{N{expr}}`
+vs a nested replication -- before touching any fold, because the same encoder
+serves all of them.
+
+FIRST-MEASURE INSTRUCTIONS.  Reproduce with
+  bash tools/probe/r10uvm67repro/rowheads.sh <workdir> <outdir> Earlgrey_0_1
+on your own pristine build; the head is 90 lines and readable in full
+(HEAD_AFTER_{default,testflags}.cmp here are the verbatim logs).  Unlike the
+head THIS pass cleared, it is NOT a whole-`module_inst` decompile, so no vector
+decode is needed.

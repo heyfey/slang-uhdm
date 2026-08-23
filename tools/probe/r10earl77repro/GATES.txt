@@ -1,0 +1,150 @@
+r10earl77 GATES -- every number, in the order RESUME 6 runs them.
+BASE a1da916.  results/*.csv was READ ONLY and is UNTOUCHED; NO ROW WAS
+CONVERTED (Earlgrey_0_1 stays CMP_NOTEQUAL in both modes -- the head
+moved, the row did not).
+
+== (1) BUILD ==
+pristine (a1da916, this worktree)      ce2ee168dd84bf64e3e6bb9aed5b82e7
+  == the MAIN TREE's own build/slang-uhdm at a1da916, byte for byte.
+patched  (a1da916 + this law)          437c2360d71540af5544456b41a33167
+Both built -j 2 and frozen chmod 555 at /tmp paths BEFORE any sweep.
+
+== (2) GOLDENS ==
+patched   PASS=23 FAIL=0
+pristine  PASS=23 FAIL=0
+/bin/false PASS=0 FAIL=23   (negative control)
+SLANG_UHDM exported explicitly to EACH binary.
+
+== (3) uhdm2rtlil, both modes ==
+pu2r_tf    SLANG_REJECT=50 SURELOG_FAIL=2 CMP_EQUAL=679 
+qu2r_tf    SLANG_REJECT=50 SURELOG_FAIL=2 CMP_EQUAL=679 
+pu2r_def   SLANG_REJECT=50 SURELOG_FAIL=2 CMP_EQUAL=679 
+qu2r_def   SLANG_REJECT=50 SURELOG_FAIL=2 CMP_EQUAL=679 
+-- 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL in BOTH modes.
+ct8rows vs the COMMITTED baseline (results/gate_uhdm2rtlil.csv):
+PASS: every row byte-identical to the committed baseline
+ct8rows vs MY OWN pristine sweep, testflags:
+PASS: every row byte-identical to the committed baseline
+ct8rows vs MY OWN pristine sweep, default:
+PASS: every row byte-identical to the committed baseline
+
+== (4) surelog corpus, --mode both ==
+psl:
+  default/CMP_EQUAL=471
+  default/CMP_NOTEQUAL=10
+  default/DEFERRED=5
+  default/SLANG_REJECT=283
+  default/SURELOG_FAIL=25
+  testflags/CMP_EQUAL=466
+  testflags/CMP_NOTEQUAL=9
+  testflags/DEFERRED=5
+  testflags/NO_DATABASE=3
+  testflags/NO_UHDM=1
+  testflags/SLANG_REJECT=284
+  testflags/SURELOG_FAIL=23
+  testflags/TIMEOUT=1
+  testflags/UNTRANSLATABLE=2
+qsl:
+  default/CMP_EQUAL=471
+  default/CMP_NOTEQUAL=10
+  default/DEFERRED=5
+  default/SLANG_REJECT=283
+  default/SURELOG_FAIL=25
+  testflags/CMP_EQUAL=466
+  testflags/CMP_NOTEQUAL=9
+  testflags/DEFERRED=5
+  testflags/NO_DATABASE=3
+  testflags/NO_UHDM=1
+  testflags/SLANG_REJECT=284
+  testflags/SURELOG_FAIL=23
+  testflags/TIMEOUT=1
+  testflags/UNTRANSLATABLE=2
+-- the two status histograms are IDENTICAL.
+ct8rows vs the COMMITTED baseline (results/golden_surelog.csv), 1588 rows:
+PASS: every row byte-identical to the committed baseline
+ct8rows vs MY OWN pristine sweep:
+PASS: every row byte-identical to the committed baseline
+
+== BINARY-PATH AUDIT of EVERY cmds.txt ==
+surelog patched:  1573 files, binaries named:
+    slang:   /tmp/r10earl77_bin/patched
+surelog pristine: 1573 files, binaries named:
+    slang:   /tmp/r10earl77_bin/pristine
+u2r patched:      1462 files, binaries named:
+    slang:   /tmp/r10earl77_bin/patched
+u2r pristine:     1462 files, binaries named:
+    slang:   /tmp/r10earl77_bin/pristine
+-- 0 name the MAIN-TREE binary.
+
+== (5) BYTE MOVERS, SELFCHECK=1 ==
+  u2r     databases: patched=1358 pristine=1358
+  u2r     PATH_SETS_IDENTICAL (1358 paths)
+  u2r     MOVERS: 0 / 1358
+  u2r     SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+  surelog databases: patched=956 pristine=956
+  surelog PATH_SETS_IDENTICAL (956 paths)
+  surelog MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=adc797a71bdc pristine=dd7409c8b813
+  surelog MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1ab9d1346850 pristine=9d76ba00f7a3
+  surelog MOVER ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=83c7465d3ddc pristine=05adcb77cebe
+  surelog MOVERS: 3 / 956
+  surelog SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+  Scoreboard/default is the documented ~50/50 ORDER coin: 170 raw dump
+  lines differ, ZERO once both dumps are sorted (order-blind, RESUME 9).
+  The other two movers are the PREDICTED Earlgrey databases.
+
+== HEADS of every named row ==
+PRISTINE:
+  TEST           MODE      CMPLINES  HEADS NOTE
+  SeqDriver      default         62      1 cmp rc=255
+  SeqDriver      testflags       62      1 cmp rc=255
+  SimpleUVM      default         56      1 cmp rc=255
+  SimpleUVM      testflags       56      1 cmp rc=255
+  Scoreboard     default         56      1 cmp rc=255
+  Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+  MiniAmiq       default         62      1 cmp rc=255
+  MiniAmiq       testflags       62      1 cmp rc=255
+  BuildUVMPkg    default         47      1 cmp rc=255
+  BuildUVMPkg    testflags       47      1 cmp rc=255
+  Earlgrey_0_1   default      11664      1 cmp rc=255
+  Earlgrey_0_1   testflags    11404      1 cmp rc=255
+  Rggen          default          0      0 cmp rc=0
+  Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+  -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+PATCHED:
+  TEST           MODE      CMPLINES  HEADS NOTE
+  SeqDriver      default         62      1 cmp rc=255
+  SeqDriver      testflags       62      1 cmp rc=255
+  SimpleUVM      default         56      1 cmp rc=255
+  SimpleUVM      testflags       56      1 cmp rc=255
+  Scoreboard     default         56      1 cmp rc=255
+  Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+  MiniAmiq       default         62      1 cmp rc=255
+  MiniAmiq       testflags       62      1 cmp rc=255
+  BuildUVMPkg    default         47      1 cmp rc=255
+  BuildUVMPkg    testflags       47      1 cmp rc=255
+  Earlgrey_0_1   default         90      1 cmp rc=255
+  Earlgrey_0_1   testflags       90      1 cmp rc=255
+  Rggen          default          0      0 cmp rc=0
+  Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+  -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+== CANARIES ==
+  surelog ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  u2r     ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+  ctcan2 surelog: PASS: every supplementary canary row is byte-identical to the baseline.
+  ctcan2 u2r:     PASS: every supplementary canary row is byte-identical to the baseline.
+  canaudit: ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+  canaudit: PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+== PROTECTED DATABASES (md5, pristine vs patched) ==
+  InterfaceModPort     default   pris=59a365f3ce2c patched=59a365f3ce2c SAME
+  InterfaceModPort     testflags pris=59a365f3ce2c patched=59a365f3ce2c SAME
+  BlackParrotComplex   default   pris=e3e354129d5a patched=e3e354129d5a SAME
+  BlackParrotComplex   testflags pris=73a10e8217e5 patched=73a10e8217e5 SAME
+  YosysOldOr           default   pris=d68e0796d62c patched=d68e0796d62c SAME
+  YosysOldOr           testflags pris=d68e0796d62c patched=d68e0796d62c SAME
+  SVSwitch             default   pris=4842211c4030 patched=4842211c4030 SAME
+  SVSwitch             testflags pris=4842211c4030 patched=4842211c4030 SAME
+  YosysVerx            default   pris=6ccda350c24a patched=6ccda350c24a SAME
+  YosysVerx            testflags pris=6ccda350c24a patched=6ccda350c24a SAME
+  SVSwitch on its pin 4842211c4030; YosysVerx on its pin 6ccda350c24a.

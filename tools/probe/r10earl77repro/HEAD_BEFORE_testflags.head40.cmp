@@ -1,0 +1,40 @@
+LHS:
+decompile:
+module_inst: work@spi_fwmode (work@top_earlgrey.u_spi_device.u_fwmode), id:997978, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_spi_device_0.1/rtl/spi_device.sv, line:330:3, endln:359:5
+|vpiParent:
+\_module_inst: work@spi_device (work@top_earlgrey.u_spi_device), id:997525, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey.sv, line:528:3, endln:552:5
+|vpiName:u_fwmode
+|vpiFullName:work@top_earlgrey.u_spi_device.u_fwmode
+|vpiVariables:
+\_enum_var: (work@top_earlgrey.u_spi_device.u_fwmode.mode_i), id:348645, line:22:37, endln:22:43
+  |vpiParent:
+  \_module_inst: work@spi_fwmode (work@top_earlgrey.u_spi_device.u_fwmode), id:997978, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_spi_device_0.1/rtl/spi_device.sv, line:330:3, endln:359:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_spi_device.u_fwmode.mode_i), id:348646
+    |vpiParent:
+    \_enum_var: (work@top_earlgrey.u_spi_device.u_fwmode.mode_i), id:348645, line:22:37, endln:22:43
+    |vpiFullName:work@top_earlgrey.u_spi_device.u_fwmode.mode_i
+    |vpiActual:
+    \_enum_typespec: (spi_device_pkg::spi_mode_e), id:40855, line:11:3, endln:16:16
+  |vpiName:mode_i
+  |vpiFullName:work@top_earlgrey.u_spi_device.u_fwmode.mode_i
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@top_earlgrey.u_spi_device.u_fwmode.rx_data_o), id:348657, line:27:37, endln:27:46
+  |vpiParent:
+  \_module_inst: work@spi_fwmode (work@top_earlgrey.u_spi_device.u_fwmode), id:997978, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_spi_device_0.1/rtl/spi_device.sv, line:330:3, endln:359:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_spi_device.u_fwmode.rx_data_o), id:348658
+    |vpiParent:
+    \_logic_var: (work@top_earlgrey.u_spi_device.u_fwmode.rx_data_o), id:348657, line:27:37, endln:27:46
+    |vpiFullName:work@top_earlgrey.u_spi_device.u_fwmode.rx_data_o
+    |vpiActual:
+    \_logic_typespec: (spi_byte_t), id:348653, line:22:11, endln:22:22
+  |vpiName:rx_data_o
+  |vpiFullName:work@top_earlgrey.u_spi_device.u_fwmode.rx_data_o
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@top_earlgrey.u_spi_device.u_fwmode.tx_data_i), id:348669, line:31:37, endln:31:46
+  |vpiParent:
+  \_module_inst: work@spi_fwmode (work@top_earlgrey.u_spi_device.u_fwmode), id:997978, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_spi_device_0.1/rtl/spi_device.sv, line:330:3, endln:359:5
+  |vpiTypespec:
