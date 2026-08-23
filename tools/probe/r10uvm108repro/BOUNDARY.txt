@@ -1,0 +1,41 @@
+r10uvm108 WIDE BOUNDARY -- pristine 3fee2780 vs shipped 5d8db7c5, from a COPY
+of tools/probe with NO path filter, .sv AND .v, recursive, BOTH views, rc per
+cell, list on fd 3, children </dev/null, PROCESSED asserted, scratch keyed on
+the RELATIVE path.  PER-FILE half in 4 shards + PER-DIRECTORY half.
+
+---- per-file shard 00
+LISTED=905 PROCESSED=905 MOVED=0 NO_OUTPUT_PAIRS=52 RC_PAIRS=1810 RC_DIFF=0 ASYM=0
+PROCESSED-ASSERT-OK
+---- per-file shard 01
+LISTED=757 PROCESSED=757 MOVED=0 NO_OUTPUT_PAIRS=66 RC_PAIRS=1514 RC_DIFF=0 ASYM=0
+PROCESSED-ASSERT-OK
+---- per-file shard 02
+MOVED 00175_r10svs9repro_a2_base.sv/def unsorted=4 sorted=4
+MOVED 00175_r10svs9repro_a2_base.sv/elab unsorted=4 sorted=4
+MOVED 00186_r10svs9repro_v4_more.sv/def unsorted=6 sorted=6
+MOVED 00186_r10svs9repro_v4_more.sv/elab unsorted=6 sorted=6
+MOVED 00221_r10uvm108repro_a1_shapes.sv/def unsorted=26 sorted=26
+MOVED 00221_r10uvm108repro_a1_shapes.sv/elab unsorted=4 sorted=4
+MOVED 00222_r10uvm108repro_a2_ctx.sv/def unsorted=36 sorted=36
+MOVED 00222_r10uvm108repro_a2_ctx.sv/elab unsorted=2 sorted=2
+MOVED 00223_r10uvm108repro_a3_homes.sv/def unsorted=8 sorted=8
+MOVED 00223_r10uvm108repro_a3_homes.sv/elab unsorted=2 sorted=2
+MOVED 00224_r10uvm108repro_a4_bound.sv/def unsorted=18 sorted=18
+MOVED 00224_r10uvm108repro_a4_bound.sv/elab unsorted=10 sorted=10
+MOVED 00225_r10uvm108repro_a5_hier.sv/def unsorted=4 sorted=4
+LISTED=901 PROCESSED=901 MOVED=13 NO_OUTPUT_PAIRS=39 RC_PAIRS=1802 RC_DIFF=0 ASYM=0
+PROCESSED-ASSERT-OK
+---- per-file shard 03
+LISTED=805 PROCESSED=805 MOVED=0 NO_OUTPUT_PAIRS=117 RC_PAIRS=1610 RC_DIFF=0 ASYM=0
+PROCESSED-ASSERT-OK
+
+---- per-directory half
+MOVED 0728_r10uvm108repro/def unsorted=92 sorted=92
+MOVED 0728_r10uvm108repro/elab unsorted=18 sorted=18
+MOVED 0911_r10uvm75repro/def unsorted=16 sorted=0
+MOVED 0911_r10uvm75repro/elab unsorted=10 sorted=0
+MOVED 0912_r10uvm76repro/def unsorted=14 sorted=0
+MOVED 0912_r10uvm76repro/elab unsorted=12 sorted=0
+MODE=dir LISTED=1487 FENCED_SKIPPED=0 PROCESSED=1487 MOVED=6 NO_OUTPUT_PAIRS=243
+RC_PAIRS=2974 RC_DIFF=0 ASYM=0
+PROCESSED-ASSERT-OK

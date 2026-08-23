@@ -12034,8 +12034,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     std::find(incDecBindElig21.begin(), incDecBindElig21.end(),
                               (const void*)&expr) != incDecBindElig21.end() &&
                     incDecBindSym21(nv.symbol);
-                if (((classMethodNoBind && classArgBindDepth12 == 0) ||
-                     unitSubNoBind9 || ctrlBodyNoBind28 ||
+                // § evCtrlOperandBinds108 — READER 2 of 2, the EXCEPTION
+                // term.  An EVENT CONTROL's expression is compiled by Surelog
+                // with the ALREADY-PARENTED event_control as its `pexpr`
+                // (CompileStmt.cpp:1376-1382), so the eager `bindVariable`
+                // walk reaches the enclosing task/function/begin and binds a
+                // local or a formal even inside an in-body class method where
+                // everything else is bare.  The corpus cell is uvm-1.2
+                // uvm_sequence_base.svh:762 `@e;` in `virtual task
+                // wait_for_relevant()`, whose golden `vpiActual` is the
+                // task-local `logic_var e` declared at :757; the same term
+                // carries `@(ev)`, `@(posedge sig)`, both operands of
+                // `@(a or b)` and an `iff` condition (arm a1 c05..c09, c13..
+                // c15, c19, c20).  It lifts ONLY the two silences the walk
+                // actually defeats — `classMethodNoBind` and
+                // § controlBodyNoBind28 — and it is the token, not this term,
+                // that keeps a control body, a delay/wait carrier and a
+                // named-block local out; `unitSubNoBind9`,
+                // § classInBodyRecvCallArgNoBind52, § collArgNamedBlkLocalNoBind15
+                // and § newArrayArgNoBind16 stay in force because an event
+                // control cannot sit inside any of their windows.
+                bool evCtrlOperandBind108 =
+                    evCtrlBindPos108 && evCtrlBindSym108(nv.symbol);
+                if (((((classMethodNoBind && classArgBindDepth12 == 0) ||
+                       ctrlBodyNoBind28) &&
+                      !evCtrlOperandBind108) ||
+                     unitSubNoBind9 ||
                      recvCallArgNoBind52 || collArgNamedBlkNoBind15 ||
                      newArrayArgNoBind16) &&
                     !superNewFormal28 && !incDecOperandBind21) {

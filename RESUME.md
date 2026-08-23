@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-23 10:30, HEAD = the uvm107 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-23 11:45, HEAD = the uvm108 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -180,7 +180,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2 (uvm-1.2 tree) | 29 (depth) | `@waiter.trigger;` (uvm_config_db.svh:294): golden binds the event control's ref_obj to the task-local `m_uvm_waiter waiter` class_var (:273); ours carries a name and no vpiActual — the singular ref_obj::Actual_group, a narrow bind in the event-control path (the sibling reference at :289 binds); pass uvm108 in flight (uvm106 landed: 60→29, an unsized based literal parameter's Rhs keeps vpiSize -1 with a DANGLING ref_typespec; signed-based literals fenced) |
+| SeqDriver×2 (uvm-1.2 tree) | 46 (depth) | `gp.m_byte_enable = new [nbytes];` (uvm_reg_adapter.svh:195, uvm_reg_tlm_adapter::reg2bus): golden's assignment::Lhs is a plain ref_obj named `gp` spanning 195:6-195:22; ours a hier_path (gp.m_byte_enable) over the same span with two unbound elements — a receiver-collapse KIND divergence; pass uvm110 next (uvm108 landed: 29→46, an event-control operand binds through bindVariable's four-scope climb; the event_control/wait_stmt/event_stmt family closes on the nine UVM DBs) |
 | MiniAmiq×2 (uvm-1.2 tree) | 348 (depth) | uvm101's residue (the deeper mismatch exposed after its event-statement head cleared; tools/probe/r10uvm101repro/raw/head_MiniAmiq_default.cmp) — unassigned, next UVM slot |
 | SimpleUVM×2 (uvm-1.2 tree) | 17 (depth) | the MIRROR of uvm107's head: an implicit wire WE mint and golden does not — `logic_net work@top.rsp_export` @uvm_sequencer.svh:228 (LHS <null>): a class property named as the BASE of a hier_path inside an out-of-body body never joins Surelog's pool (compileComplexFuncCall builds a bare name-only ref) while our § classPropRefs takes it; 16 cells, one predicate; pass uvm109 in flight (uvm107 landed: a ref_var DECLARATION is invisible to Surelog's late binder, so an unbound out-of-body local read gets an implicit top-module wire; Scoreboard's R-B cleared with it) |
 | Scoreboard/default (uvm-1.2 tree) | 42 (depth) | golden folds a written `-1` into one signed INT constant where we keep a unary MINUS over 1 (uvm_sequencer_base.svh:529:23) — a mask removal (uvm107's R-C); open UVM target |
@@ -192,7 +192,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 64 verifier fix-before-landing re-cuts (139 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 64 verifier fix-before-landing re-cuts (140 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

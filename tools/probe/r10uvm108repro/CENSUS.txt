@@ -1,0 +1,43 @@
+r10uvm108 CENSUS -- every event_control / wait_stmt / event_stmt operand in the
+NINE UVM databases, both modes, LHS always golden.  cen108.py reads the
+uhdm-dump TREE (so no row can name an object the judge cannot reach) and PROJ=1
+projects each row onto the JUDGE-VISIBLE axes only: object KIND, the LEAF of
+any name (uhdm-dump SYNTHESISES vpiFullName from the parent chain and no
+generated Compare reads it), and the PRESENCE + KIND + LEAF of a vpiActual;
+spans are dropped (no Compare reads VpiFile/line/col).
+
+---- CALIBRATION golden-vs-golden (default vs testflags), projected
+  SeqDriver AGREE=110 DIFFERKEYS=0 LHSONLY=0 RHSONLY=0
+  SimpleUVM AGREE=72 DIFFERKEYS=0 LHSONLY=0 RHSONLY=0
+  MiniAmiq AGREE=105 DIFFERKEYS=0 LHSONLY=0 RHSONLY=0
+  BuildUVMPkg AGREE=68 DIFFERKEYS=0 LHSONLY=0 RHSONLY=0
+
+---- CARRIER COUNTS (rows per database; golden and ours agree on every carrier)
+  g_BuildUVMPkg_default        total= 68 EVCTRL=13 WAITSTM=45 EVSTMT=10
+  g_BuildUVMPkg_testflags      total= 68 EVCTRL=13 WAITSTM=45 EVSTMT=10
+  g_MiniAmiq_default           total=105 EVCTRL=14 WAITSTM=82 EVSTMT= 9
+  g_MiniAmiq_testflags         total=105 EVCTRL=14 WAITSTM=82 EVSTMT= 9
+  g_Scoreboard_default         total= 71 EVCTRL=16 WAITSTM=46 EVSTMT= 9
+  g_SeqDriver_default          total=110 EVCTRL=19 WAITSTM=82 EVSTMT= 9
+  g_SeqDriver_testflags        total=110 EVCTRL=19 WAITSTM=82 EVSTMT= 9
+  g_SimpleUVM_default          total= 72 EVCTRL=17 WAITSTM=46 EVSTMT= 9
+  g_SimpleUVM_testflags        total= 72 EVCTRL=17 WAITSTM=46 EVSTMT= 9
+
+---- GOLDEN vs OURS (pristine), projected
+  SeqDriver/default AGREE=108 DIFFERKEYS=2 LHSONLY=0 RHSONLY=0
+  SimpleUVM/default AGREE=70 DIFFERKEYS=2 LHSONLY=0 RHSONLY=0
+  Scoreboard/default AGREE=69 DIFFERKEYS=2 LHSONLY=0 RHSONLY=0
+  MiniAmiq/default AGREE=103 DIFFERKEYS=2 LHSONLY=0 RHSONLY=0
+  BuildUVMPkg/default AGREE=66 DIFFERKEYS=2 LHSONLY=0 RHSONLY=0
+  SeqDriver/testflags AGREE=108 DIFFERKEYS=2 LHSONLY=0 RHSONLY=0
+  SimpleUVM/testflags AGREE=70 DIFFERKEYS=2 LHSONLY=0 RHSONLY=0
+  MiniAmiq/testflags AGREE=103 DIFFERKEYS=2 LHSONLY=0 RHSONLY=0
+  BuildUVMPkg/testflags AGREE=66 DIFFERKEYS=2 LHSONLY=0 RHSONLY=0
+
+---- the differing keys, all of them
+      2   DIFFER EVCTRL uvm_pkg::uvm_config_db::wait_modified@18064:5-18064:20
+      7   DIFFER EVCTRL uvm_pkg::uvm_config_db::wait_modified@294:5-294:20
+      2   DIFFER EVCTRL uvm_pkg::uvm_sequence_base::wait_for_relevant@55341:5-55341:7
+      7   DIFFER EVCTRL uvm_pkg::uvm_sequence_base::wait_for_relevant@762:5-762:7
+
+18 cells = 2 per database x 9 databases; nothing else in the family differs.

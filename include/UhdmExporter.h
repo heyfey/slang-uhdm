@@ -1197,6 +1197,21 @@ private:
                                 UHDM::BaseClass* parent,
                                 const std::string& argPfx, NetMap& netMap,
                                 bool bind);
+    // § evCtrlOperandBinds108 — the SYMBOL half of the window: true for a name
+    // Surelog's `bindVariable` switch can actually reach from an event
+    // control, i.e. a SUBROUTINE local / formal / iterator, or a local of an
+    // UNNAMED statement block (a NAMED one serialises as `uhdmnamed_begin`,
+    // which that switch has no case for — arm a2 d04).
+    static bool evCtrlBindSym108(const slang::ast::Symbol& sym);
+    // § evCtrlOperandBinds108 — evCtrlBindSym108 plus the MODULE-scope half
+    // (a module's own net or variable, read from a module process or task);
+    // interfaces and programs are fenced out, each on a measured golden cell.
+    bool evCtrlBindEligible108(const slang::ast::Symbol& sym) const;
+    // § evCtrlOperandBinds108 — the BASE of a parens-less dotted event path
+    // (`waiter.trigger`, `bag11.slots[0].trigger`): the symbol of the leftmost
+    // NamedValue, or null when the spine bottoms out in anything else.
+    static const slang::ast::Symbol* evCtrlPathBaseSym108(
+        const slang::ast::Expression& e);
     UHDM::any* emitEventExpr(const slang::ast::TimingControl& tc, UHDM::BaseClass* parent,
                              const std::string& prefix, NetMap& netMap);
     // "#5", "#10ns", "#dly": Surelog's delay_control. Sets VpiDelay to the
@@ -2785,6 +2800,89 @@ private:
     // uvm_scope_stack::get's `if (v != "" && ...)`, the head of the whole
     // Scoreboard/SimpleUVM package-listing residue, must stay bare.
     int ctrlBodyDepth28 = 0;
+    // ======= § evCtrlOperandBinds108 — THE LAW (r10uvm108) =======
+    // AN EVENT CONTROL'S EXPRESSION IS A BINDING WINDOW, inside the very
+    // in-body class method where `classMethodNoBind` otherwise silences
+    // everything, and the parens-less DOTTED form (§ parensLessEventPathBaseRef9,
+    // StmtEmit.cpp) binds its BASE the same way.
+    //
+    // THE CORPUS HEAD, uvm-1.2 base/uvm_config_db.svh, inside
+    //   static task wait_modified(uvm_component cntxt, string inst_name,
+    //                             string field_name);
+    //     m_uvm_waiter waiter;                                     // :273
+    //     ...
+    //     @waiter.trigger;                                         // :294
+    // where golden's event_control `vpiCondition` is ONE `ref_obj` named
+    // `waiter`, spanning the whole dotted text, carrying
+    // `vpiActual -> class_var (…::wait_modified::waiter)`, and ours carried the
+    // same object with NO actual — uhdm-cmp's SINGULAR `ref_obj::Actual_group`
+    // arm (BaseClass.h:190), LHS = golden's class_var / `RHS: <null>`.
+    //
+    // THE DECODED PRODUCER (Surelog, read not guessed).
+    // `CompileHelper::compileEventControlStmt` (CompileStmt.cpp:1360) does
+    //     UHDM::event_control* event = s.MakeEvent_control();
+    //     event->VpiParent(pstmt);                               // :1376
+    //     if (Event_expression)
+    //       if (any* exp = compileExpression(component, fC, Event_expression,
+    //                                        compileDesign, Reduce::No, event))
+    //         event->VpiCondition(exp);                          // :1379-1382
+    // — the event_control is PARENTED BEFORE its expression is compiled and is
+    // handed down as that expression's `pexpr`.  So the EAGER
+    // `CompileHelper::bindVariable` walk (CompileStmt.cpp:3089, reached from
+    // CompileExpression.cpp:5775/5799) climbs event_control -> the enclosing
+    // begin / task / function / module_inst and reads their `Variables()`,
+    // `Io_decls()` and (module only) `Nets()`.  Everything the law admits and
+    // everything it refuses falls straight out of that switch: it has cases for
+    // `uhdmfunction`, `uhdmtask`, `uhdmbegin` and `uhdmmodule_inst` and for
+    // NOTHING else, so a class PROPERTY, a STATIC property, a NAMED block's own
+    // local (`uhdmnamed_begin`) and a package-scope name read from an in-body
+    // class method are all missed, go on the late-binding list, and that list is
+    // never processed for an in-body class method (§ pkgVarBindsOnlyThroughInstance88).
+    // An event control is the OPPOSITE of the § incDecOpaqueCarrier21 carriers:
+    // a `delay_control` and a `wait_stmt` are compiled BEFORE they are parented,
+    // so a walk from inside them dead-ends, while an event control is
+    // transparent — the same fact UhdmExporter.h's incDecOpaqueDepth21 comment
+    // already records from the other side.
+    //
+    // MEASURED ON GOLDEN (r10uvm108repro a1_shapes/a2_ctx/a3_homes/a4_bound,
+    // both views; cell -> golden):
+    //   BINDS  `@kk01.trigger` parens-less dotted, task local          (a1 c01)
+    //   BINDS  `@mm03.trigger.triggered` three deep                    (a1 c03)
+    //   BINDS  `@bag11.slots[0].trigger` indexed MID-path              (a1 c11)
+    //   BINDS  `@ev05` / `@(ev06)` a bare local event                  (a1 c05/c06)
+    //   BINDS  `@(posedge sig07)` the edge operand                     (a1 c07)
+    //   BINDS  `@(first08 or second08)` BOTH list operands             (a1 c08)
+    //   BINDS  `@(ww13.trigger iff gate13)` the iff condition, twice   (a1 c13)
+    //   BINDS  `@lv14` a plain non-event local                         (a1 c14)
+    //   BINDS  `@arg19.trigger` / `@arg20` a FORMAL                    (a1 c19/c20)
+    //   BINDS  an unnamed `begin`, a NAMED block reading the TASK's local,
+    //          an unnamed block's OWN local, a `fork` arm, a static task, a
+    //          plain task, an out-of-body method, a package free task, a
+    //          module task/initial/always, a child instance      (a2 d02/d03/
+    //          d05/d10/d13/d14/d15/d16/d17/d18, a3 e12..e18, a4 f01..f10,f12)
+    //   bare   a CLASS PROPERTY (`@propEvent`, `@propHandle.trigger`) and a
+    //          STATIC property                                (a1 c16/c17/c18,
+    //                                                          a3 e06/e07)
+    //   bare   a PACKAGE-scope name read from an IN-BODY class method
+    //                                                          (a1 c12, a3 e05)
+    //   bare   a NAMED block's OWN local                               (a2 d04)
+    //   bare   one control body deeper — `if` / `forever` / `for` / `case`
+    //                                                    (a2 d06/d07/d08/d09)
+    //   bare   under a DELAY carrier and under a WAIT-statement carrier
+    //                                                          (a2 d11/d12)
+    //   bare   the PARENTHESISED dotted form, which stays a `hier_path` with
+    //          unbound elements on both sides             (a1 c02/c04/c09, a3 e09)
+    //   bare   a PROGRAM-scope name read from a program body           (a4 f11)
+    //
+    // DIRECTION: ADD (a vpiActual that was absent).  SITES: StmtEmit.cpp's
+    // event-control statement arm raises this token around the event
+    // EXPRESSION only (never around the guarded statement), and only at
+    // `ctrlBodyDepth28 == 0 && incDecOpaqueDepth21 == 0`; the two readers are
+    // § parensLessEventPathBaseRef9's hand-built ref_obj (StmtEmit.cpp) and the
+    // NamedValue reference gate (ExprEmit.cpp), where it is an EXCEPTION term
+    // beside § incDecStmtOperandBinds21 and lifts `classMethodNoBind` /
+    // § controlBodyNoBind28 for exactly the symbols `evCtrlBindSym108` admits.
+    bool evCtrlBindPos108 = false;
     // § blockLocalSameCtrlDepthArgBinds57 — the ONE carve-out from
     // § controlBodyNoBind28, measured on r10uvm57repro/b1..b4 (see that
     // README's cell tables; every cell below names its arm and line).

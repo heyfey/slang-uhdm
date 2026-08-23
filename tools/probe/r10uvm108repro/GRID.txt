@@ -1,0 +1,107 @@
+RC a1_shapes_sv.def surelog=0 pris=0 ship=0 golden=<repro>/run/a1_shapes_sv.def/slpp_all/surelog.uhdm
+RC a1_shapes_sv.elab surelog=0 pris=0 ship=0 golden=<repro>/run/a1_shapes_sv.elab/slpp_all/surelog.uhdm
+  TO_GOLDEN EVCTRL sh108_pkg::shapes108::c01_dotted@30:7-30:20
+  TO_GOLDEN EVCTRL sh108_pkg::shapes108::c05_bare@57:7-57:12
+  TO_GOLDEN EVCTRL sh108_pkg::shapes108::c06_bareparen@63:7-63:14
+  TO_GOLDEN EVCTRL sh108_pkg::shapes108::c07_edge@69:7-69:23
+  TO_GOLDEN EVCTRL sh108_pkg::shapes108::c08_or@75:7-75:29
+  TO_GOLDEN EVCTRL sh108_pkg::shapes108::c09_mixed@83:7-83:30
+  TO_GOLDEN EVCTRL sh108_pkg::shapes108::c11_index@95:7-95:30
+  LATERAL   EVCTRL sh108_pkg::shapes108::c13_iff@108:7-108:33
+    G ['operation()@.{vpiOperand:operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(trigger)@.[ACT=-],elem:ref_obj(ww13)@.[ACT=-]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]}']
+    P ['operation()@.{vpiOperand:operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(trigger)@.[ACT=-],elem:ref_obj(ww13)@.[ACT=-]},vpiOperand:ref_obj(gate13)@.[ACT=-]},vpiOperand:ref_obj(gate13)@.[ACT=-]}']
+    S ['operation()@.{vpiOperand:operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(trigger)@.[ACT=-],elem:ref_obj(ww13)@.[ACT=-]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=-]}']
+  TO_GOLDEN EVCTRL sh108_pkg::shapes108::c14_var@114:7-114:12
+  TO_GOLDEN EVCTRL sh108_pkg::shapes108::c15_varparen@120:7-120:14
+  TO_GOLDEN EVCTRL sh108_pkg::shapes108::c19_formal@141:7-141:21
+  TO_GOLDEN EVCTRL sh108_pkg::shapes108::c20_formalev@146:7-146:13
+a1_shapes_sv.def SAME=6 TO_GOLDEN=11 AWAY=0 LATERAL=1 STILL=2
+  LATERAL   EVCTRL sh108_pkg::shapes108::c09_mixed@83:7-83:30
+    G ['operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(hh09)@.[ACT=-],elem:ref_obj(trigger)@.[ACT=-]},vpiOperand:ref_obj(ev09)@.[ACT=logic_var(ev09)@.]}', 'operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(hh09)@.[ACT=class_var(hh09)@.],elem:ref_obj(trigger)@.[ACT=named_event(trigger)@.]},vpiOperand:ref_obj(ev09)@.[ACT=logic_var(ev09)@.]}']
+    P ['operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(hh09)@.[ACT=-],elem:ref_obj(trigger)@.[ACT=-]},vpiOperand:ref_obj(ev09)@.[ACT=-]}', 'operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(hh09)@.[ACT=class_var(hh09)@.],elem:ref_obj(trigger)@.[ACT=named_event(trigger)@.]},vpiOperand:ref_obj(ev09)@.[ACT=logic_var(ev09)@.]}', 'operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(hh09)@.[ACT=class_var(hh09)@.],elem:ref_obj(trigger)@.[ACT=named_event(trigger)@.]},vpiOperand:ref_obj(ev09)@.[ACT=logic_var(ev09)@.]}']
+    S ['operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(hh09)@.[ACT=-],elem:ref_obj(trigger)@.[ACT=-]},vpiOperand:ref_obj(ev09)@.[ACT=logic_var(ev09)@.]}', 'operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(hh09)@.[ACT=class_var(hh09)@.],elem:ref_obj(trigger)@.[ACT=named_event(trigger)@.]},vpiOperand:ref_obj(ev09)@.[ACT=logic_var(ev09)@.]}', 'operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(hh09)@.[ACT=class_var(hh09)@.],elem:ref_obj(trigger)@.[ACT=named_event(trigger)@.]},vpiOperand:ref_obj(ev09)@.[ACT=logic_var(ev09)@.]}']
+  LATERAL   EVCTRL sh108_pkg::shapes108::c13_iff@108:7-108:33
+    G ['operation()@.{vpiOperand:operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(trigger)@.[ACT=-],elem:ref_obj(ww13)@.[ACT=-]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]}', 'operation()@.{vpiOperand:operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(trigger)@.[ACT=named_event(trigger)@.],elem:ref_obj(ww13)@.[ACT=class_var(ww13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]}']
+    P ['operation()@.{vpiOperand:operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(trigger)@.[ACT=-],elem:ref_obj(ww13)@.[ACT=-]},vpiOperand:ref_obj(gate13)@.[ACT=-]},vpiOperand:ref_obj(gate13)@.[ACT=-]}', 'operation()@.{vpiOperand:operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(trigger)@.[ACT=named_event(trigger)@.],elem:ref_obj(ww13)@.[ACT=class_var(ww13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]}', 'operation()@.{vpiOperand:operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(trigger)@.[ACT=named_event(trigger)@.],elem:ref_obj(ww13)@.[ACT=class_var(ww13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]}']
+    S ['operation()@.{vpiOperand:operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(trigger)@.[ACT=-],elem:ref_obj(ww13)@.[ACT=-]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=-]}', 'operation()@.{vpiOperand:operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(trigger)@.[ACT=named_event(trigger)@.],elem:ref_obj(ww13)@.[ACT=class_var(ww13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]}', 'operation()@.{vpiOperand:operation()@.{vpiOperand:hier_path(trigger)@.{elem:ref_obj(trigger)@.[ACT=named_event(trigger)@.],elem:ref_obj(ww13)@.[ACT=class_var(ww13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]},vpiOperand:ref_obj(gate13)@.[ACT=bit_var(gate13)@.]}']
+a1_shapes_sv.elab SAME=6 TO_GOLDEN=0 AWAY=0 LATERAL=2 STILL=12
+RC a2_ctx_sv.def surelog=0 pris=0 ship=0 golden=<repro>/run/a2_ctx_sv.def/slpp_all/surelog.uhdm
+RC a2_ctx_sv.elab surelog=0 pris=0 ship=0 golden=<repro>/run/a2_ctx_sv.elab/slpp_all/surelog.uhdm
+  TO_GOLDEN EVCTRL cx108_pkg::ctx108::d01_top@17:7-17:18
+  TO_GOLDEN EVCTRL cx108_pkg::ctx108::d02_begin@24:9-24:20
+  TO_GOLDEN EVCTRL cx108_pkg::ctx108::d03_named::lbl03@32:9-32:20
+  TO_GOLDEN EVCTRL cx108_pkg::ctx108::d05_beginown@48:9-48:20
+  TO_GOLDEN EVCTRL cx108_pkg::ctx108::d10_fork@86:9-86:20
+  TO_GOLDEN EVCTRL cx108_pkg::ctx108::d13_evcar@107:14-107:25
+  TO_GOLDEN EVCTRL cx108_pkg::ctx108::d13_evcar@107:7-107:13
+  TO_GOLDEN EVCTRL cx108_pkg::ctx108::d14_static@113:7-113:18
+  TO_GOLDEN EVCTRL cx108_pkg::ctx108::d15_plain@119:7-119:18
+  TO_GOLDEN EVCTRL cx108_pkg::ctx108::d16_oob@150:5-150:16
+  TO_GOLDEN EVCTRL cx108_pkg::ctx108::d17_afterassign@130:7-130:18
+  TO_GOLDEN EVCTRL cx108_pkg::ctx108::d18_second@138:7-138:12
+  TO_GOLDEN EVCTRL cx108_pkg::ctx108::d18_second@139:7-139:18
+  TO_GOLDEN EVCTRL cx108_pkg::d16_free@145:5-145:16
+  TO_GOLDEN EVCTRL work@cx108_top.d23_modtask@177:5-177:16
+  TO_GOLDEN EVCTRL work@cx108_top@163:5-163:16
+a2_ctx_sv.def SAME=10 TO_GOLDEN=16 AWAY=0 LATERAL=0 STILL=0
+  TO_GOLDEN EVCTRL work@cx108_top@163:5-163:16
+a2_ctx_sv.elab SAME=24 TO_GOLDEN=1 AWAY=0 LATERAL=0 STILL=4
+RC a3_homes_sv.def surelog=0 pris=0 ship=0 golden=<repro>/run/a3_homes_sv.def/slpp_all/surelog.uhdm
+RC a3_homes_sv.elab surelog=0 pris=0 ship=0 golden=<repro>/run/a3_homes_sv.elab/slpp_all/surelog.uhdm
+  TO_GOLDEN EVCTRL hm108_pkg::e03_ownlocal@25:5-25:16
+  TO_GOLDEN EVCTRL hm108_pkg::reader108::e08_local@58:7-58:18
+  TO_GOLDEN EVCTRL work@hm108_top.e14_modtok@97:5-97:18
+a3_homes_sv.def SAME=13 TO_GOLDEN=3 AWAY=0 LATERAL=0 STILL=5
+  TO_GOLDEN EVCTRL work@hm108_top.e14_modtok@97:5-97:18
+a3_homes_sv.elab SAME=12 TO_GOLDEN=1 AWAY=0 LATERAL=0 STILL=10
+RC a4_bound_sv.def surelog=0 pris=0 ship=0 golden=<repro>/run/a4_bound_sv.def/slpp_all/surelog.uhdm
+RC a4_bound_sv.elab surelog=0 pris=0 ship=0 golden=<repro>/run/a4_bound_sv.elab/slpp_all/surelog.uhdm
+  TO_GOLDEN EVCTRL ?@24:10-24:24
+  TO_GOLDEN EVCTRL ?@50:10-50:24
+  LATERAL   EVCTRL f13_unitlocal@88:3-88:14
+    G []
+    P ['ref_obj(jj13)@.[ACT=-]']
+    S ['ref_obj(jj13)@.[ACT=class_var(jj13)@.]']
+  TO_GOLDEN EVCTRL work@bd108_child.f07_kid@53:5-53:19
+  TO_GOLDEN EVCTRL work@bd108_iface.f10_iflocal@69:5-69:16
+  TO_GOLDEN EVCTRL work@bd108_prog.f12_proglocal@81:5-81:16
+  TO_GOLDEN EVCTRL work@bd108_top.f03_modtask@28:5-28:19
+  TO_GOLDEN EVCTRL work@bd108_top.f05_loc@39:5-39:16
+  TO_GOLDEN EVCTRL work@bd108_top@20:5-20:19
+a4_bound_sv.def SAME=1 TO_GOLDEN=8 AWAY=0 LATERAL=1 STILL=3
+  TO_GOLDEN EVCTRL ?@24:10-24:24
+  TO_GOLDEN EVCTRL ?@50:10-50:24
+  LATERAL   EVCTRL work@bd108_child.f07_kid@53:5-53:19
+    G ['ref_obj(kidCell)@.[ACT=logic_net(kidCell)@.]']
+    P ['ref_obj(kidCell)@.[ACT=-]', 'ref_obj(kidCell)@.[ACT=class_var(kidCell)@.]']
+    S ['ref_obj(kidCell)@.[ACT=class_var(kidCell)@.]', 'ref_obj(kidCell)@.[ACT=logic_net(kidCell)@.]']
+  TO_GOLDEN EVCTRL work@bd108_top.f03_modtask@28:5-28:19
+  TO_GOLDEN EVCTRL work@bd108_top@20:5-20:19
+a4_bound_sv.elab SAME=6 TO_GOLDEN=4 AWAY=0 LATERAL=1 STILL=3
+RC a5_hier_sv.def surelog=0 pris=0 ship=0 golden=<repro>/run/a5_hier_sv.def/slpp_all/surelog.uhdm
+RC a5_hier_sv.elab surelog=0 pris=0 ship=0 golden=<repro>/run/a5_hier_sv.elab/slpp_all/surelog.uhdm
+  TO_GOLDEN EVCTRL work@hr108_watch::g02_vifformal@38:5-38:14
+  TO_GOLDEN EVCTRL work@hr108_watch::g03_viflocal@44:5-44:14
+a5_hier_sv.def SAME=5 TO_GOLDEN=2 AWAY=0 LATERAL=0 STILL=3
+a5_hier_sv.elab SAME=7 TO_GOLDEN=0 AWAY=0 LATERAL=0 STILL=3
+
+---- ADDITIVE-ONLY ATTRIBUTION (whole dump, ids and the workdir prefix normalised)
+  a1_shapes/def removed=0 added=26
+  a1_shapes/elab removed=0 added=4
+  a2_ctx/def removed=0 added=36
+  a2_ctx/elab removed=0 added=2
+  a3_homes/def removed=0 added=8
+  a3_homes/elab removed=0 added=2
+  a4_bound/def removed=0 added=18
+  a4_bound/elab removed=0 added=10
+  a5_hier/def removed=0 added=4
+  a5_hier/elab removed=0 added=0
+
+  LATERAL/STILL cells are COPY-COUNT and DUMP-ABBREVIATION artefacts, not law
+  cells: (a) in the elab views we emit one class copy more than golden does
+  (pre-existing: the pristine binary has the same extra copy), and (b) a1 c13's
+  iff condition object is SHARED between the inner and the outer op on our side
+  and uhdm-dump prints a revisited object with no fields, so the census reads the
+  second occurrence as ACT=- -- the raw dump shows the shared object DOES carry
+  the actual, and the official judge agrees (a1/def head loses its vpiActual gap
+  and keeps only the pre-existing vpiAutomatic:1 one).

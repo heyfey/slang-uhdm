@@ -541,6 +541,105 @@ UHDM::delay_control* UhdmExporter::emitDelayControl(const TimingControl& tc,
 // located at, in every cell of every arm.  So a spelling that made our span
 // disagree with golden's (a3 g1's escaped identifier) disagrees by exactly the
 // same amount after this change as before it.
+// § evCtrlOperandBinds108 — the SYMBOL half.  Surelog's `bindVariable`
+// (CompileStmt.cpp:3089) has cases for EXACTLY four scope kinds — uhdmfunction,
+// uhdmtask, uhdmbegin and uhdmmodule_inst — and reads their `Variables()`,
+// `Io_decls()` and (module only) `Nets()`.  A name whose DECLARING scope is the
+// subroutine itself or an UNNAMED statement block inside it is therefore found;
+// a NAMED block serialises as `uhdmnamed_begin`, for which that switch has no
+// case at all (arm a2 d04, golden BARE, against a2 d03/d05 golden BOUND).  A
+// class PROPERTY, a STATIC property and a package-scope name are in no such
+// listing (a1 c16/c17/c18, a1 c12, a3 e05/e06/e07 — all golden BARE); they are
+// refused here rather than left to the netMap lookup, so this predicate is the
+// whole subroutine-side gate.
+bool UhdmExporter::evCtrlBindSym108(const slang::ast::Symbol& sym) {
+    using slang::ast::SymbolKind;
+    if (sym.kind != SymbolKind::Variable &&
+        sym.kind != SymbolKind::FormalArgument &&
+        sym.kind != SymbolKind::Iterator)
+        return false;
+    const slang::ast::Scope* sc = sym.getParentScope();
+    if (!sc)
+        return false;
+    auto& ss = sc->asSymbol();
+    if (ss.kind == SymbolKind::StatementBlock)
+        return ss.name.empty();
+    return ss.kind == SymbolKind::Subroutine;
+}
+
+// § evCtrlOperandBinds108 — the whole SYMBOL gate for READER 1 (the
+// parens-less dotted base).  Two admissible homes, one per case of Surelog's
+// `bindVariable` switch that an event control can actually reach:
+//   * a SUBROUTINE local / formal / unnamed-block local (uhdmfunction /
+//     uhdmtask / uhdmbegin) — evCtrlBindSym108 above;
+//   * a MODULE-scope net or variable (uhdmmodule_inst reads Variables() then
+//     Nets()) — arms a2 d20, a3 e14, a4 f01/f02/f03/f06/f07, all golden BOUND.
+// DEFINITION KIND IS THE FENCE, and it is measured, not assumed: a PROGRAM
+// serialises as `uhdmprogram` and golden leaves `@progCell.fired;` in a program
+// initial BARE (a4 f11), and an INTERFACE serialises as `uhdminterface_inst`,
+// where golden's `@ifCell.fired` binds the ELABORATED instance's class_var
+// through a different (late-binding) route than this one (a4 f08/f09 — left as
+// a residue rather than approximated from the wrong listing, and a3 e20's bare
+// `@ifEvent` in an interface task is golden-BARE, so the two halves of an
+// interface do not even agree with each other).
+bool UhdmExporter::evCtrlBindEligible108(const slang::ast::Symbol& sym) const {
+    using slang::ast::SymbolKind;
+    if (evCtrlBindSym108(sym))
+        return true;
+    if (sym.kind != SymbolKind::Variable && sym.kind != SymbolKind::Net)
+        return false;
+    const slang::ast::Scope* sc = sym.getParentScope();
+    if (!sc || sc->asSymbol().kind != SymbolKind::InstanceBody)
+        return false;
+    return sc->asSymbol()
+               .as<slang::ast::InstanceBodySymbol>()
+               .getDefinition()
+               .definitionKind == slang::ast::DefinitionKind::Module;
+}
+
+// § evCtrlOperandBinds108 — the BASE of a parens-less dotted event path.  The
+// spine is walked exactly as § parensLessEventPathBaseRef9 walks the SYNTAX,
+// but on the AST, so the answer is a SYMBOL: `waiter.trigger` -> `waiter`,
+// `bag11.slots[0].trigger` -> `bag11` (arm a1 c11, where golden collapses a
+// MID-path index too), `mm03.trigger.triggered` -> `mm03` (a1 c03).  Anything
+// that does not bottom out in a NamedValue (`this.` / `$root.` / an escaped
+// keyword base) answers null and stays unbound, which is what golden does with
+// them (a1 c10).
+const slang::ast::Symbol* UhdmExporter::evCtrlPathBaseSym108(
+    const slang::ast::Expression& e) {
+    using slang::ast::ExpressionKind;
+    const slang::ast::Expression* cur = &e;
+    for (int g = 0; g < 16 && cur; g++) {
+        switch (cur->kind) {
+            case ExpressionKind::MemberAccess:
+                cur = &cur->as<slang::ast::MemberAccessExpression>().value();
+                continue;
+            case ExpressionKind::ElementSelect:
+                cur = &cur->as<slang::ast::ElementSelectExpression>().value();
+                continue;
+            case ExpressionKind::RangeSelect:
+                cur = &cur->as<slang::ast::RangeSelectExpression>().value();
+                continue;
+            case ExpressionKind::NamedValue:
+                return &cur->as<slang::ast::NamedValueExpression>().symbol;
+            default:
+                // A HIERARCHICAL path (`@top.e;`, Google chapter-15
+                // 15.5.2--named-event-wait.sv:21, `@top.toplevel_event`,
+                // Icarus ivltests/pr572.v:33) is deliberately NOT handled: for
+                // it slang hands us ONE HierarchicalValueExpression whose
+                // `symbol` is the LEAF (`e`), while the object
+                // § parensLessEventPathBaseRef9 mints is named for the BASE
+                // (`top`), so binding that symbol would attach the wrong
+                // actual to the right name.  Golden agrees that the cell stays
+                // bare -- Surelog's `bindVariable` looks the BASE name up in
+                // Variables()/Io_decls()/Nets(), and a module INSTANCE is in
+                // none of those listings (arm a5 g05/g06).
+                return nullptr;
+        }
+    }
+    return nullptr;
+}
+
 const slang::syntax::IdentifierNameSyntax* UhdmExporter::parensLessEventPathBase9(
     const TimingControl& tc) const {
     // (1) THE PARENS-LESS FORM.  `@(x)` is EventControlWithExpression.
@@ -688,6 +787,27 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
                         r9->VpiFullName(joinRef(prefix, nm9));
                         r9->VpiParent(parent);
                         setLoc(r9, sec.expr.sourceRange);
+                        // § evCtrlOperandBinds108 — READER 1 of 2.  This object
+                        // is minted here rather than by the reference emitter,
+                        // so it has never carried a `vpiActual` at all, in ANY
+                        // scope: the corpus head `@waiter.trigger;`
+                        // (uvm_config_db.svh:294) and every module / package /
+                        // out-of-body cell of arms a2-a4 were bare on our side
+                        // and bound on golden's.  The token carries the window
+                        // (see evCtrlBindPos108 in UhdmExporter.h); the symbol
+                        // side is `evCtrlBindSym108` for a subroutine-scope name
+                        // and, outside a class body, the ordinary netMap entry
+                        // for a module-scope one — which is exactly the pair of
+                        // listings Surelog's `bindVariable` reads.
+                        if (evCtrlBindPos108) {
+                            if (const auto* bsym108 =
+                                    evCtrlPathBaseSym108(sec.expr)) {
+                                if (auto it108 = netMap.find(bsym108);
+                                    it108 != netMap.end() &&
+                                    evCtrlBindEligible108(*bsym108))
+                                    r9->Actual_group(it108->second);
+                            }
+                        }
                         return r9;
                     }
                     return emitExpr(sec.expr, parent, prefix, netMap);
@@ -1313,7 +1433,27 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         // 16:18 `always @(v[L-2:0] or en)`) while it FOLDS in
                         // the statement the same `always` carries (v7 15:55).
                         NoFoldCtx58 nf58ev(procNoFoldCtx58);
-                        if (auto* cond = emitEventExpr(timing, ec, prefix, netMap))
+                        // § evCtrlOperandBinds108 — THE SOLE RAISE.  Surelog
+                        // parents the `event_control` BEFORE compiling its
+                        // expression and hands the event_control down as that
+                        // expression's `pexpr` (CompileStmt.cpp:1376-1382), so
+                        // the eager `bindVariable` walk reaches the enclosing
+                        // subroutine.  It reaches it only from the TOP of a
+                        // body — an `if`/loop/`case` arm's own statement is not
+                        // parented yet (§ controlBodyNoBind28, arm a2
+                        // d06/d07/d08/d09 golden BARE) — and only when no
+                        // § incDecOpaqueCarrier21 carrier is on the chain (a2
+                        // d11 `#1 @kk11.fired`, d12 `wait (guard) @ll12.fired`,
+                        // both golden BARE).  An event control is itself
+                        // TRANSPARENT: a2 d13's `@pre13 @mm13.fired` binds BOTH.
+                        // The token covers the EXPRESSION only; the guarded
+                        // statement below is emitted outside it.
+                        const bool evSave108 = evCtrlBindPos108;
+                        evCtrlBindPos108 =
+                            ctrlBodyDepth28 == 0 && incDecOpaqueDepth21 == 0;
+                        auto* cond = emitEventExpr(timing, ec, prefix, netMap);
+                        evCtrlBindPos108 = evSave108;
+                        if (cond)
                             ec->VpiCondition(cond);
                     }
                     if (auto* inner = emitStmt(timed.stmt, ec, prefix, netMap))

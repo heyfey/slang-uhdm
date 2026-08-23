@@ -1,0 +1,68 @@
+r10uvm108 MOVER PREDICTION -- made from the PRISTINE workdir's cmds.txt plus the
+transitive `include closure (pred108.py), BEFORE the shipped binary's databases
+existed.  A test can move only if its closure holds a file with a parens-less
+DOTTED event control (READER 1) or a CLASS BODY containing an event control
+(READER 2).  The set is an UPPER BOUND: it does not model the window, so a site
+inside a control body (UVMSwitch/OVMSwitch/SVSwitch's `repeat (4) @ x.clock;`,
+Monitor's `@_if.cb;` inside `forever`) is listed and does not move.
+
+uhdm2rtlil: DOT=0 in EVERY file of the corpus and exactly one file with a class
+and an event control (hello-uvm/dut.sv, whose `always @(posedge a)` is at MODULE
+scope, so the gate never silenced it) -> PREDICTED 0 MOVERS.  MEASURED 0 / 1358.
+
+surelog candidate tests (upper bound), from pred108.py:
+  default    AmiqEth                DOT=1 CLSEV=30
+  default    AmiqSimpleTestSuite    DOT=1 CLSEV=29
+  default    ApbSlave               DOT=0 CLSEV=2
+  default    BuildOVMPkg            DOT=0 CLSEV=10
+  default    BuildUVMPkg            DOT=1 CLSEV=12
+  default    ClassFsm               DOT=0 CLSEV=1
+  default    Driver                 DOT=1 CLSEV=16
+  default    Ibex                   DOT=1 CLSEV=11
+  default    IbexGoogle             DOT=1 CLSEV=11
+  default    MiniAmiq               DOT=1 CLSEV=11
+  default    Monitor                DOT=2 CLSEV=16
+  default    OVMSwitch              DOT=1 CLSEV=27
+  default    Opentitan              DOT=1 CLSEV=12
+  default    Scoreboard             DOT=1 CLSEV=13
+  default    SeqDriver              DOT=1 CLSEV=14
+  default    SimpleClass1           DOT=1 CLSEV=11
+  default    SimpleInterface        DOT=1 CLSEV=11
+  default    SimpleOVM              DOT=0 CLSEV=10
+  default    SimpleUVM              DOT=1 CLSEV=13
+  default    SimpleVMM              DOT=12 CLSEV=12
+  default    UVMNestedSeq           DOT=1 CLSEV=15
+  default    UVMSwitch              DOT=2 CLSEV=25
+  default    UnitAmiqEth            DOT=1 CLSEV=21
+  default    UnitClass              DOT=0 CLSEV=2
+  testflags  AmiqEth                DOT=1 CLSEV=30
+  testflags  AmiqSimpleTestSuite    DOT=1 CLSEV=29
+  testflags  ApbSlave               DOT=0 CLSEV=2
+  testflags  BuildOVMPkg            DOT=0 CLSEV=10
+  testflags  BuildUVMPkg            DOT=1 CLSEV=12
+  testflags  ClassFsm               DOT=0 CLSEV=1
+  testflags  Driver                 DOT=1 CLSEV=16
+  testflags  Ibex                   DOT=1 CLSEV=11
+  testflags  IbexGoogle             DOT=1 CLSEV=11
+  testflags  MiniAmiq               DOT=1 CLSEV=11
+  testflags  Monitor                DOT=2 CLSEV=16
+  testflags  OVMSwitch              DOT=1 CLSEV=27
+  testflags  Opentitan              DOT=1 CLSEV=12
+  testflags  Scoreboard             DOT=1 CLSEV=13
+  testflags  SeqDriver              DOT=1 CLSEV=14
+  testflags  SimpleClass1           DOT=1 CLSEV=11
+  testflags  SimpleInterface        DOT=1 CLSEV=11
+  testflags  SimpleOVM              DOT=0 CLSEV=10
+  testflags  SimpleUVM              DOT=1 CLSEV=13
+  testflags  SimpleVMM              DOT=12 CLSEV=12
+  testflags  UVMNestedSeq           DOT=1 CLSEV=15
+  testflags  UVMSwitch              DOT=2 CLSEV=25
+  testflags  UnitAmiqEth            DOT=1 CLSEV=21
+  testflags  UnitClass              DOT=0 CLSEV=2
+
+KNOWN GAP: a test driven by `-f filelist` (SVSwitch) has no source token in
+cmds.txt, so pred108.py cannot open its closure; SVSwitch was checked by hand
+(Environemnt.sv:63 `repeat (4) @ input_intf.clock;` -- inside a control body)
+and its md5 pin 4842211c4030 held on both modes.
+
+MEASURED MOVERS: 9 / 956, the nine UVM databases, all inside the candidate set.
