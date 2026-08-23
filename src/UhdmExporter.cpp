@@ -3237,8 +3237,30 @@ bool UhdmExporter::emitClassTdSpecParams1(
 // is what ComputeFullName reads, and golden gives every clone its own
 // `<owner>::<td>::T` spelling.
 void UhdmExporter::copyClassTdSpecParams1(UHDM::class_typespec* dst,
-                                          UHDM::class_typespec* base) {
-    if (!dst || !base || dst == base || dst->Parameters() || !base->Parameters())
+                                          UHDM::class_typespec* base,
+                                          bool overwrite1) {
+    if (!dst || !base || dst == base || !base->Parameters())
+        return;
+    // NOTE § classTdCloneSpecOverridesOwnArgs112 — THE CLONE HALF IS TOTAL.
+    // Surelog's `ElaborationStep::bindTypedefs_` gives a group's later typedefs
+    // `clone_tree` of the BASE's typespec (ElaborationStep.cpp:194-201): the
+    // clone's OWN `#(...)` text never reaches the database.  The 2026-08 cut of
+    // this law refused a destination that already had Parameters, on the
+    // reading that such a member is "the b22 base/base case where both members'
+    // own text agrees anyway".  That reading is FALSE whenever the group's
+    // members specialize the SAME foreign generic with DIFFERENT arguments,
+    // which is exactly what the two `uvm_*_registry` groups do: SeqDriver's
+    // `adpcm_pkg::adpcm_sequencer::type_id`, `::adpcm_test::type_id` (group
+    // `uvm_component_registry`, base `adpcm_pkg::adpcm_driver`) and
+    // `::adpcm_tx_seq::type_id` (group `uvm_object_registry`, base
+    // `adpcm_pkg::adpcm_seq_item`) each fired their OWN foreign-home gate and
+    // so kept T bound to their own class, where golden binds the BASE's.
+    // The corpus reach is 13 cells, predicted a priori from PRISTINE databases
+    // by tools/probe/r10uvm112repro/pred112.py: those three plus MiniAmiq's ten
+    // `svaunit_*::type_id` clones (base `svaunit_base` / `svaunit_base_sequence`).
+    // SimpleUVM, Scoreboard and BuildUVMPkg have none, and the whole
+    // uhdm2rtlil corpus (1358 rows, every database dumped and screened) has none.
+    if (dst->Parameters() && !overwrite1)
         return;
     auto* params1 = s.MakeAnyVec();
     auto* pas1 = s.MakeParam_assignVec();
@@ -3558,11 +3580,26 @@ void UhdmExporter::drainClassNestedTdGroups54() {
             // the BASE's specialization, not its own `#(...)`: grid cell b22's
             // `pb::wb::tidb` binds T to `ub`, and SeqDriver's 60 `type_id` /
             // `this_type` clones all bind T to `adpcm_seq_item` (@440) or
-            // `adpcm_driver` (@468).  A clone whose own gate already fired (its
-            // written args ARE foreign-concrete) keeps what it has --
-            // copyClassTdSpecParams1 refuses a non-empty destination -- which is
-            // the b22 base/base case where both members' own text agrees anyway.
-            copyClassTdSpecParams1(m54.ts, bts54);
+            // `adpcm_driver` (@468).
+            //
+            // ~~A clone whose own gate already fired (its written args ARE
+            // foreign-concrete) keeps what it has -- copyClassTdSpecParams1
+            // refuses a non-empty destination -- which is the b22 base/base
+            // case where both members' own text agrees anyway.~~  **STRUCK BY
+            // r10uvm112.**  b22's two members share an argument, so the
+            // refusal was invisible there; it is NOT the general case.  When a
+            // group's members specialize the same foreign generic with
+            // DIFFERENT arguments the refusal leaves the clone wearing its own
+            // `#(...)`, which `clone_tree` never produces -- SeqDriver's
+            // 32-line head, and ten more cells in MiniAmiq.
+            // § classTdCloneSpecOverridesOwnArgs112 — OVERWRITE.  A clone in
+            // this group is `clone_tree` of the base, so the base's
+            // specialization REPLACES whatever the clone's own `#(...)` text
+            // produced.  Only a member that reached here is touched: the base
+            // itself and every copy of the base's own declaration are skipped
+            // above, and a member that already carried an alias never enters
+            // the loop.
+            copyClassTdSpecParams1(m54.ts, bts54, /*overwrite1=*/true);
         }
     }
 }

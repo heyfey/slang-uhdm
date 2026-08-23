@@ -1,0 +1,87 @@
+r10v112 — RAW GATE LOG (verifier, independent worktrees at d4d4642)
+===================================================================
+binaries frozen chmod 555 BEFORE any sweep
+  pristine  /tmp/…/v112pris.bin  af17c942bc7afeaaf6a78678eadcafcd
+  patched   /tmp/…/v112ship.bin  231b37ef82337f352d35919add9a9a10
+  (both rebuilt from source by the verifier; md5s match the implementer's)
+
+(1) goldens  SLANG_UHDM exported explicitly to EACH binary
+      patched   PASS=23 FAIL=0
+      pristine  PASS=23 FAIL=0
+      /bin/false PASS=0 FAIL=23           (negative control)
+
+(2) uhdm2rtlil, own sweeps, both binaries, both modes
+      testflags  679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL   (both binaries)
+      default    679 / 50 / 2                                       (both binaries)
+      ct8rows  results/gate_uhdm2rtlil.csv vs patched tf   PASS
+      ct8rows  own pristine tf  vs patched tf              PASS
+      ct8rows  own pristine def vs patched def             PASS
+      byteverify SELFCHECK=1  tf  MOVERS 0/679  selfcheck 678/679  PATH_SETS_IDENTICAL
+      byteverify SELFCHECK=1  def MOVERS 0/679  selfcheck 678/679  PATH_SETS_IDENTICAL
+      cmds.txt audit  731 per dir x4; 729 name the frozen binary, 2 name none
+                      (the two SURELOG_FAIL rows); no other slang binary anywhere
+
+(3) surelog corpus, own sweeps, both binaries, --mode both
+      patched  default 471 EQ /283 REJ /25 SF /10 NE /5 DEF
+               testflags 466 EQ /284 REJ /23 SF /9 NE /5 DEF /3 NODB /2 UNTR /1 TMO /1 NOUHDM
+      pristine IDENTICAL, cell for cell
+      ct8rows  results/golden_surelog.csv vs patched   PASS  (1588 rows, status AND dump)
+      ct8rows  own pristine            vs patched      PASS
+      NO CONVERSION CLAIMED; results/*.csv not touched by the patch (0 hunks)
+      cmds.txt audit  1573 per dir; 1523 name the frozen binary, 50 name none
+
+(4) byteverify surelog SELFCHECK=1     MOVERS 5/956, selfcheck 955/956
+      default/Scoreboard    unsorted=92 SORTED=0   -> the documented COIN
+      default/SeqDriver     unsorted=24 SORTED=24  -> predicted
+      testflags/SeqDriver   unsorted=24 SORTED=24  -> predicted
+      default/MiniAmiq      unsorted=80 SORTED=80  -> predicted
+      testflags/MiniAmiq    unsorted=80 SORTED=80  -> predicted
+      => 4 CONTENT movers, every one named a priori by pred112.py on MY
+         pristine dumps (3 + 10 = 13 cells)
+
+(5) heads (rowheads.sh, own workdirs)
+                    pristine        patched
+      SeqDriver     32 / 1 head     62 / 1 head   (head OBJECT changed: the
+                                                   written -1 fold at 105:15)
+      SimpleUVM     42              42
+      Scoreboard    42 (default)    42
+      MiniAmiq      348             348           (cmp byte-identical)
+      BuildUVMPkg   42              42
+      Earlgrey_0_1  36              36
+      Rggen         0               0
+      the four committed head_*.cmp files are byte-identical to these
+
+(6) census (v112cen.py, independently written, span-free, order-blind,
+    payload = (typespec KIND, typespec NAME), containment metric)
+      SeqDriver default   TO-GOLDEN 3 AWAY 0 STILL-WRONG 0 STILL-RIGHT 167
+      SeqDriver testflags TO-GOLDEN 3 AWAY 0 STILL-WRONG 0 STILL-RIGHT 167
+      MiniAmiq  default   TO-GOLDEN 10 AWAY 0 STILL-WRONG 0 STILL-RIGHT 168
+      MiniAmiq  testflags TO-GOLDEN 10 AWAY 0 STILL-WRONG 0 STILL-RIGHT 168
+
+(7) canaries
+      canaries.sh sl   ok=52 changed=0 absent=0
+      canaries.sh u2r  ok=8  changed=0 absent=0
+      ctcan2 sl  ok=58 changed=0 unknown=1   PASS
+      ctcan2 u2r ok=1  changed=0 unknown=6   PASS
+      canaudit (from r10uvm112repro) audited=29 UNCOVERED=0 FENCE-BREACH=0
+      protected DBs, both modes:
+        InterfaceModPort  59a365f3ce2c  SAME
+        BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME
+        YosysOldOr        d68e0796d62c  SAME
+        SVSwitch          4842211c4030  PIN OK
+        YosysVerx         6ccda350c24a  PIN OK
+
+(8) wide boundary, COPY of tools/probe, no path filter, .sv and .v, both views
+      MODE=file LISTED=3469 PROCESSED=3469 MOVED=12 RC_PAIRS=6938 RC_DIFF=0 ASYM=0 PROCESSED-ASSERT-OK
+      MODE=dir  LISTED=1505 PROCESSED=1505 MOVED=12 RC_PAIRS=3010 RC_DIFF=0 ASYM=0 PROCESSED-ASSERT-OK
+      6 files move: a6, a7, a9, a10 (this pass's own),
+                    r10sd1repro/grid/b22_foreign_two.sv  TO-GOLDEN 1 / AWAY 0
+                    r10uvm54repro/a1/dut.sv              3 cells, kind AND span onto golden
+      3 dirs report sorted=0 and are proved order-nondeterministic per run
+      (same binary twice: unsorted 12 / 14 / 18, sorted 0)
+
+(9) adversarial arms — see README.md §3.  18 sources, 20 runs, both views,
+    official uhdm-cmp as judge, rc recorded per cell.  11 convert FAIL->PASS,
+    0 regress, 0 AWAY-GOLDEN cells anywhere.
+
+VERDICT: ACCEPT AS SHIPPED.

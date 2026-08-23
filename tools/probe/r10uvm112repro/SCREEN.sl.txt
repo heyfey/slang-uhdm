@@ -1,0 +1,34 @@
+### default/MiniAmiq-544c7f61/slang.uhdm
+PREDICT default/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_concurrent_assertion_details -> base=svaunit_base_sequence  refs=1
+PREDICT default/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_concurrent_assertion_info -> base=svaunit_base_sequence  refs=1
+PREDICT default/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_immediate_assertion_details -> base=svaunit_base_sequence  refs=1
+PREDICT default/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_immediate_assertion_info -> base=svaunit_base_sequence  refs=1
+PREDICT default/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_reporter -> base=svaunit_base_sequence  refs=1
+PREDICT default/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_sequence_test -> base=svaunit_base  refs=1
+PREDICT default/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_sequencer -> base=svaunit_base  refs=1
+PREDICT default/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_test -> base=svaunit_base  refs=1
+PREDICT default/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_test_suite -> base=svaunit_base  refs=1
+PREDICT default/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_vpi_wrapper -> base=svaunit_base_sequence  refs=1
+PREDICT-TOTAL default/MiniAmiq-544c7f61/slang.uhdm cells=10 refs=10
+### default/SeqDriver-32af76aa/slang.uhdm
+PREDICT default/SeqDriver-32af76aa/slang.uhdm owner=type_id base=adpcm_pkg::type_id formal=T ours=adpcm_sequencer -> base=adpcm_driver  refs=1
+PREDICT default/SeqDriver-32af76aa/slang.uhdm owner=type_id base=adpcm_pkg::type_id formal=T ours=adpcm_test -> base=adpcm_driver  refs=1
+PREDICT default/SeqDriver-32af76aa/slang.uhdm owner=type_id base=adpcm_pkg::type_id formal=T ours=adpcm_tx_seq -> base=adpcm_seq_item  refs=1
+PREDICT-TOTAL default/SeqDriver-32af76aa/slang.uhdm cells=3 refs=3
+### testflags/MiniAmiq-544c7f61/slang.uhdm
+PREDICT testflags/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_concurrent_assertion_details -> base=svaunit_base_sequence  refs=1
+PREDICT testflags/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_concurrent_assertion_info -> base=svaunit_base_sequence  refs=1
+PREDICT testflags/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_immediate_assertion_details -> base=svaunit_base_sequence  refs=1
+PREDICT testflags/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_immediate_assertion_info -> base=svaunit_base_sequence  refs=1
+PREDICT testflags/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_reporter -> base=svaunit_base_sequence  refs=1
+PREDICT testflags/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_sequence_test -> base=svaunit_base  refs=1
+PREDICT testflags/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_sequencer -> base=svaunit_base  refs=1
+PREDICT testflags/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_test -> base=svaunit_base  refs=1
+PREDICT testflags/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_test_suite -> base=svaunit_base  refs=1
+PREDICT testflags/MiniAmiq-544c7f61/slang.uhdm owner=type_id base=svaunit_pkg::type_id formal=T ours=svaunit_vpi_wrapper -> base=svaunit_base_sequence  refs=1
+PREDICT-TOTAL testflags/MiniAmiq-544c7f61/slang.uhdm cells=10 refs=10
+### testflags/SeqDriver-32af76aa/slang.uhdm
+PREDICT testflags/SeqDriver-32af76aa/slang.uhdm owner=type_id base=adpcm_pkg::type_id formal=T ours=adpcm_sequencer -> base=adpcm_driver  refs=1
+PREDICT testflags/SeqDriver-32af76aa/slang.uhdm owner=type_id base=adpcm_pkg::type_id formal=T ours=adpcm_test -> base=adpcm_driver  refs=1
+PREDICT testflags/SeqDriver-32af76aa/slang.uhdm owner=type_id base=adpcm_pkg::type_id formal=T ours=adpcm_tx_seq -> base=adpcm_seq_item  refs=1
+PREDICT-TOTAL testflags/SeqDriver-32af76aa/slang.uhdm cells=3 refs=3

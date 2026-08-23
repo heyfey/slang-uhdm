@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-23 14:55, HEAD = the buvm30 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-23 15:40, HEAD = the uvm112 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,8 +182,8 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2 (uvm-1.2 tree) | 32 (depth) | class_typespec::Compare VpiName under the ref_typespec `adpcm_pkg::adpcm_sequencer::type_id::T` (the `uvm_component_utils(adpcm_sequencer)` expansion, macro line uvm_object_defines.svh:468:35 `typedef uvm_component_registry #(T,`"S`") type_id;`): golden's actual class_typespec is named `adpcm_driver` (468:35-468:65, class_defn adpcm_pkg::adpcm_driver — the PREVIOUS expansion's typespec, a Surelog macro-location reuse; golden is the spec, bugs included) with parent = the ref_typespec; ours `adpcm_sequencer` (468:35-468:59) with parent = the type_parameter; pass uvm112 next (uvm110 landed: 46→32, a dotted dynamic-array-new lvalue takes a base-only ref_obj over the whole lvalue span) |
-| MiniAmiq×2 (uvm-1.2 tree) | 32 (depth) | the SAME family as SeqDriver's head: class_typespec::Compare VpiName under the ref_typespec `svaunit_pkg::svaunit_concurrent_assertion_details::type_id::T` (macro line uvm_object_defines.svh:440:31, the object-registry macro): golden names `svaunit_base_sequence` (a PREVIOUS expansion's class), ours the owning class; uvm112 (in flight) now heads FOUR row-modes (SeqDriver×2, MiniAmiq×2); (uvm111 landed: 348→32 at HEAD — a package-variable initializer's `C::m()` call binds the C::m vpiTaskFunc listing entry of the package VIEW it lives in; uvm110's dotted-new law had already cleared the intermediate 46-line `gp` head) |
+| SeqDriver×2 (uvm-1.2 tree) | 62 (depth) | golden folds the `32-1` of `typedef bit [`UVM_REG_CVR_WIDTH-1:0] uvm_reg_cvr_t;` (uvm-1.2 reg/uvm_reg_model.svh:105:14-105:22; the macro expands to 32) into ONE constant INT:31 sz 64 ct 7 spanning the LEFT operand's text (105:15-105:17); ours keeps the subtract operation (vpiOpType 11) over UINT:32 / UINT:1 — a TYPEDEF PACKED-RANGE bound fold (NOT buvm30's package-return window: a typespec range in a package); the same head in MiniAmiq; pass uvm114 next (uvm112 landed: 32→62, a class-typedef clone's specialization is overwritten by the group base's — ASCII-first declaring class, total clone) |
+| MiniAmiq×2 (uvm-1.2 tree) | 62 (depth) | identical to SeqDriver's head (ids aside) — the uvm_reg_cvr_t typedef range fold; uvm114 clears both |
 | SimpleUVM×2 (uvm-1.2 tree) | 565 (depth) | the SAME head as Scoreboard/default (ids aside): a SINGULAR null arm — golden's object is `function uvm_pkg::uvm_report_fatal` (uvm_pkg.sv:236-249, parent = the package; the 565 lines print the whole function incl its `method_func_call` at :247 and a local `top`), ours `<null>` — some object's singular function link (a func_call's vpiFunction? measure which owner reaches it) that golden binds to the package function and we leave unbound; pass uvm113 next (buvm30 landed: 42→565, the written `-<literal>` inside a package-section return folds at any depth with Surelog's get_value model) |
 | Scoreboard/default (uvm-1.2 tree) | 565 (depth) | identical to SimpleUVM's head — the unbound link to `function uvm_pkg::uvm_report_fatal`; uvm113 clears both |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 47 (depth) | `protected int seqs_distrib[string] = '{default:0};` (uvm_pkg.sv:56269, uvm_sequence_library): golden's int_var carries an assignment-pattern operation (vpiOpType 75, 56269:42-56269:54) whose operand is a `tagged_pattern` with pattern constant UINT:0 and a ref_typespec → a string_typespec named `default` (56269:44-56269:51); ours emits NO expression for the associative-array `'{default:0}` initializer (RHS `<null>`); pass buvm31 next (buvm30 landed: 42→47) |
@@ -193,7 +193,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 67 verifier fix-before-landing re-cuts (147 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 67 verifier fix-before-landing re-cuts (148 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

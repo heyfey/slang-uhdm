@@ -1,0 +1,83 @@
+r10uvm112 WIDE BOUNDARY — § classTdCloneSpecOverridesOwnArgs112
+==============================================================
+Driver : bnd112.sh, from a COPY of tools/probe (/tmp/…/probecopy), NO path
+         filter, .sv AND .v, recursive, BOTH views, rc per cell, list on fd 3,
+         children </dev/null, PROCESSED asserted, scratch keyed on the
+         RELATIVE path.
+Binaries: PRI = pristine af17c942bc7afeaaf6a78678eadcafcd
+          PAT = patched  231b37ef82337f352d35919add9a9a10
+
+PER-FILE HALF
+  MODE=file LISTED=3486 FENCED_SKIPPED=0 PROCESSED=3486 MOVED=28
+  RC_PAIRS=6972 RC_DIFF=0 ASYM=0
+  PROCESSED-ASSERT-OK
+  (NO_OUTPUT_PAIRS=282 — files neither binary compiles standalone; both
+   produce nothing, symmetrically.  A handful of pre-existing SEGFAULTS occur
+   on BOTH binaries identically; RC_DIFF=0 proves the symmetry.)
+
+THE 28 MOVED CELLS = 14 FILES x 2 VIEWS, EVERY ONE ACCOUNTED FOR
+----------------------------------------------------------------
+(A) THIS PASS'S OWN ARMS — 4 files, plus 8 files that are Surelog's own
+    `slpp_all/lib/work/` copies of those same four, snapshotted from this
+    pass's run/ scratch:
+      a6_sortbase.sv   a7_twogroups.sv   a9_diffnames.sv   a10_sameargs.sv
+    All measured against golden in §4 of README.md: DIFF 2/3/1/0 -> 0/0/0/0.
+
+(B) EARLIER-PASS ARMS — 2 files.  Both RE-MEASURED AGAINST GOLDEN, and both
+    move TOWARD it.  These are the arms of the two laws this pass amends.
+
+  (B1) r10sd1repro/grid/b22_foreign_two.sv  — § classTdSpecParamsForeignHome1
+       `pb::wb::tidb::T`   pristine = wb        patched = ub
+       golden              = {baseb, ub}       (baseb = the generic's own
+                                                `type T = baseb` default entry)
+       tg112.py: TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0   (def and elab)
+       NOTE: the parent law's README ALREADY states "cell b22's `pb::wb::tidb`
+       binds T to `ub`".  Golden was documented correctly; the emitter did not
+       achieve it, because of the refusal this pass removes.  b22 is the cell
+       the struck comment cited as its justification, and b22 refutes it.
+
+  (B2) r10uvm54repro/a1/dut.sv — § classNestedClassTdGroupNoAnchor54
+       THREE cells, and the actuals here are UNNAMED BUILTIN typespecs, not
+       class ones — so the law is not class-specific:
+         r54::b_owner54::td_aaa54::T  int  @71:18 -> byte      @77:18
+         r54::c_owner54::t_bbb54::T   int  @83:18 -> short_int @84:18
+         zbb54::aa54::n_z54::T        byte @98:18 -> int       @91:18
+       GOLDEN: byte @77:18-77:22, short_int @84:18-84:26, int @91:18-91:21.
+       All three land on golden EXACTLY — kind AND span — where the pristine
+       binary had all three wrong.  `VpiType` is the FIRST field every
+       generated Compare reads, so these are JUDGE-VISIBLE cells.
+
+  Not in this snapshot: sub5/ (created after the probecopy was taken).  It is
+  scored in README.md §4: 1 DIFF -> 0, both views.
+
+CONCLUSION
+  Only cells this law names move.  The two earlier-pass arms that move are
+  re-measured against golden and BOTH move toward it — four extra correct
+  cells (b22 x1, uvm54 x3) that no corpus row exercises.
+
+PER-DIRECTORY HALF
+  MODE=dir LISTED=1523 FENCED_SKIPPED=0 PROCESSED=1523 MOVED=27
+  RC_PAIRS=3046 RC_DIFF=0 ASYM=0
+  PROCESSED-ASSERT-OK
+
+  ATTRIBUTED ORDER-BLIND (`sorted=` is the diff of the SORTED dumps):
+
+  REAL CONTENT MOVES (sorted > 0) — 10 directories:
+    r10uvm112repro (this pass's own arm dir)  sorted=56 / 315
+    the 8 slpp_all/lib/work copies of a6/a7/a9/a10 (same arms)
+    r10uvm54repro/a1                          sorted=18 / 129
+      -> the same three builtin-typespec cells as the per-file half, all
+         landing on golden exactly.  Measured above.
+
+  ORDER-ONLY, sorted=0 IN EVERY CELL — NOT THIS LAW:
+    r10uvm75repro   def unsorted=18 sorted=0   elab unsorted=12 sorted=0
+    r10uvm76repro   def unsorted=12 sorted=0   elab unsorted=16 sorted=0
+    r10uvm88repro   def unsorted=4  sorted=0
+    r10v109repro    def unsorted=24 sorted=0   elab unsorted=28 sorted=0
+  The two dumps are IDENTICAL AS MULTISETS; only the emission ORDER differs.
+  That is the documented per-run nondeterminism (macro-buffer SourceLocation
+  ordering under slang's parallel parse, RESUME.md §9), not a content change.
+  Independently confirmed by re-running r10uvm75repro / r10uvm76repro by hand:
+  pristine and patched dumps come out BYTE-IDENTICAL; r10uvm88repro's only
+  difference is a two-line `vpiTaskFunc` / `function` order flip.
+  This is precisely why the standing rule attributes ORDER-BLIND.

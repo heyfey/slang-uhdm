@@ -5014,8 +5014,15 @@ private:
     // takes `clone_tree` of the BASE, so it carries the BASE's specialization
     // verbatim -- not the one its own `#(...)` text would give (measured on
     // grid cell b22 and on all 60 UVM `type_id` clones).
+    // § classTdCloneSpecOverridesOwnArgs112 — `overwrite1` is what makes the
+    // clone half TOTAL.  `clone_tree` copies the BASE wholesale, so a clone
+    // that ALSO has a specialization of its own must LOSE it; refusing a
+    // non-empty destination left SeqDriver's `adpcm_sequencer` / `adpcm_test`
+    // / `adpcm_tx_seq` `type_id` typedefs binding T to THEIR OWN class where
+    // golden binds the BASE's (`adpcm_driver` / `adpcm_seq_item`).
     void copyClassTdSpecParams1(UHDM::class_typespec* dst,
-                                UHDM::class_typespec* base);
+                                UHDM::class_typespec* base,
+                                bool overwrite1 = false);
     // Class-scope `parameter` / `localparam` / `parameter type` declarations:
     // vpiParameter + vpiParamAssign on the class_defn.
     void emitClassParameters(const slang::ast::ClassType& cls, UHDM::class_defn* cd,
