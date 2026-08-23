@@ -1,0 +1,65 @@
+r10earl74 — EARLGREY RANGE-BOUND CENSUS (rngcen74, direct .uhdm reader;
+Earlgrey's uhdm-dump is >1 GB and is NEVER produced).  Both modes.
+
+== default: golden vs PRISTINE ==
+shared range cells 90076 DIFFERING 23018 {'OTHER': 23009, 'CT/TAG-ONLY': 9}
+x6
+  G:sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+  O:sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+x3
+  G:sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+  O:sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:9 dec=9} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+
+== default: golden vs PATCHED ==
+shared range cells 90076 DIFFERING 23009 {'OTHER': 23009}
+
+== default: 3-way ==
+{'UNCHANGED-EQ': 67058, 'TO-GOLDEN': 9, 'UNCHANGED-NE': 23009}
+
+== testflags: golden vs PRISTINE ==
+shared range cells 90191 DIFFERING 23022 {'OTHER': 23009, 'CT/TAG-ONLY': 13}
+== testflags: golden vs PATCHED ==
+shared range cells 90191 DIFFERING 23009 {'OTHER': 23009}
+== testflags: 3-way ==
+{'UNCHANGED-EQ': 67169, 'TO-GOLDEN': 13, 'UNCHANGED-NE': 23009}
+
+== THE NINE (default), with their OWNER CHAINS, before the patch ==
+KEY design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_ctrl)/module_inst(u_flash_mp)/array_var(region_end)
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:9 dec=9} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+KEY design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_ctrl)/module_inst(u_flash_mp)/array_var(region_end)
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:9 dec=9} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+KEY design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_ctrl)/module_inst(u_flash_mp)/array_var(region_end)
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:9 dec=9} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+KEY design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[0])/gen_scope/module_inst(i_core)/module_inst(i_flash)/gen_scope_array(gen_generic)/gen_scope/module_inst(u_impl_generic)/module_inst(u_mem)/gen_scope_array(gen_generic)/gen_scope/module_inst(u_impl_generic)/array_var(mem)
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+KEY design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[0])/gen_scope/module_inst(i_core)/module_inst(i_flash)/gen_scope_array(gen_generic)/gen_scope/module_inst(u_impl_generic)/module_inst(u_mem)/gen_scope_array(gen_generic)/gen_scope/module_inst(u_impl_generic)/array_var(mem)
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+KEY design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[0])/gen_scope/module_inst(i_core)/module_inst(i_flash)/gen_scope_array(gen_generic)/gen_scope/module_inst(u_impl_generic)/module_inst(u_mem)/gen_scope_array(gen_generic)/gen_scope/module_inst(u_impl_generic)/array_var(mem)
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+KEY design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[1])/gen_scope/module_inst(i_core)/module_inst(i_flash)/gen_scope_array(gen_generic)/gen_scope/module_inst(u_impl_generic)/module_inst(u_mem)/gen_scope_array(gen_generic)/gen_scope/module_inst(u_impl_generic)/array_var(mem)
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+KEY design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[1])/gen_scope/module_inst(i_core)/module_inst(i_flash)/gen_scope_array(gen_generic)/gen_scope/module_inst(u_impl_generic)/module_inst(u_mem)/gen_scope_array(gen_generic)/gen_scope/module_inst(u_impl_generic)/array_var(mem)
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+KEY design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[1])/gen_scope/module_inst(i_core)/module_inst(i_flash)/gen_scope_array(gen_generic)/gen_scope/module_inst(u_impl_generic)/module_inst(u_mem)/gen_scope_array(gen_generic)/gen_scope/module_inst(u_impl_generic)/array_var(mem)
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+
+== param_assign census (pacen74): NOTHING moved there ==
+-- golden vs pristine:
+keys G=11863 O=11852 shared_cells=28655 DIFFERING=182 gold_only=3242 ours_only=2153
+Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+BrokenPipeError: [Errno 32] Broken pipe
+-- golden vs patched:
+keys G=11863 O=11852 shared_cells=28655 DIFFERING=182 gold_only=3242 ours_only=2153
+Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+BrokenPipeError: [Errno 32] Broken pipe
+-- pristine vs patched:
+keys G=11852 O=11852 shared_cells=30808 DIFFERING=0 gold_only=0 ours_only=0

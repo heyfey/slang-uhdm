@@ -1,0 +1,45 @@
+r10earl74 — BOUNDARY ADJUDICATION.  A COPY of tools/probe with NO path filter,
+.sv and .v at ANY depth, both views, both frozen binaries, workdir-normalised
+whole-dump byte compare; the file list is read on fd 3, children </dev/null,
+PROCESSED is asserted and every cell records its rc.
+
+WIDE, per file      : PROCESSED=3380 identical=6478 DIFFERING=6  no_output=276
+DIR,  per directory : PROCESSED=1491 identical=2727 DIFFERING=11 no_output=244
+
+Every rc=139 pairs A with B (wide: 12 + 12; dir: 6 + 6) — the pre-existing
+--elabuhdm segfaults, on BOTH binaries.  No new crash, no new timeout.
+
+THREE SOURCES MOVED IN THE WIDE WALK (x2 views = 6 cells):
+
+1. r10earl74repro/g1_dims74.sv  — THIS PASS'S OWN GRID.  The walk's positive
+   control that it can see.  3-way census, both views:
+       TO-GOLDEN 159 / AWAY-GOLDEN 0 / MOVED-WRONG 0 / STILL-WRONG 43
+   (GRID_SCORE.txt; the 43 are the four families the law abstains on, listed
+   in README §3.)
+
+2. r10vearl73repro/v6_v73.sv    — r10earl73's VERIFIER arm, moved TOWARD golden.
+   3-way census, both views:  TO-GOLDEN 6 / AWAY-GOLDEN 0 / MOVED-WRONG 0.
+   The two objects are
+       module_inst(u_arr)/array_var(mem)   golden INT:128 ct 7 <- ours UINT:128
+       module_inst(u_arr2)/array_var(mem)  golden INT:512 ct 7 <- ours UINT:512
+   i.e. exactly this law's shape, already present in an earlier pass's arm.
+
+3. r10buvm22repro/g22.sv        — NOT THIS LAW.  See NEUTRAL.txt: with the law
+   short-circuited at run time the file STILL differs from pristine, and the
+   whole difference is the associative-array dimension bound's garbage number
+   (22383993 -> 22392217), which tracks the BINARY'S ALLOCATION LAYOUT.  This
+   is r10earl73's R5, reproduced exactly.
+
+THE DIR WALK ADDS THREE MORE, ALL ORDER COINS (raw lines / lines after sorting
+both dumps):
+   r10uvm75repro  plain 16/0   elab 18/0
+   r10uvm76repro  plain 14/0   elab 16/0
+   r10uvm88repro               elab  4/0
+— the documented `design::Task_funcs` list-ORDER coin: ZERO lines once both
+dumps are sorted, so no content moved.
+
+THE NAMED BOUNDARIES HOLD.  § genCaNestedModuleLhsOpRhsBinds59's binder-mirror
+arms, the port High_conn laws' arms (r10earl61…69repro, r10v6*repro other than
+r10vearl73repro above), the assignment-pattern / tagged_pattern arms, the
+r10rgg14/16/17/18 arms and every uvm/buvm arm except the g22 allocation
+artifact are byte-identical between the two binaries in both views.

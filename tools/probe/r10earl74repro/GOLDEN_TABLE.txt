@@ -1,0 +1,116 @@
+r10earl74 — THE LAW TEST ON GOLDEN (law74.py over g1_dims74.sv, Surelog -parse
+-nobuiltin -nocache).  Every size-form unpacked dimension bound that has a
+param_assign for its sizing parameter in the SAME instance, with the bound's
+(vpiConstType, value tag) next to that param_assign's.
+
+h_lit_sz         [Llit          ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_mul_sz         [Lmul          ] bound ct=7 INT sz=32 val=512 | param_assign ct=7 INT sz=32 val=512  INHERIT
+h_div_sz         [Ldiv          ] bound ct=7 INT sz=32 val=128 | param_assign ct=7 INT sz=32 val=128  INHERIT
+h_sub_sz         [Lsub          ] bound ct=7 INT sz=32 val=254 | param_assign ct=7 INT sz=32 val=254  INHERIT
+h_add_sz         [Ladd          ] bound ct=9 UINT sz=32 val=258 | param_assign ct=9 UINT sz=32 val=258  INHERIT
+h_mod_sz         [Lmod          ] bound ct=7 INT sz=32 val=4 | param_assign ct=7 INT sz=32 val=4  INHERIT
+h_pow_sz         [Lpow          ] bound ct=7 INT sz=32 val=4 | param_assign ct=7 INT sz=32 val=4  INHERIT
+h_shl_sz         [Lshl          ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_shr_sz         [Lshr          ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_band_sz        [Lband         ] bound ct=9 UINT sz=32 val=256 | param_assign ct=9 UINT sz=32 val=256  INHERIT
+h_clog_sz        [Lclog         ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_ref_sz         [Lref          ] bound ct=9 UINT sz=32 val=256 | param_assign ct=9 UINT sz=32 val=256  INHERIT
+h_tern_sz        [Ltern         ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_cast_sz        [Lcast         ] bound ct=9 UINT sz=32 val=128 | param_assign ct=9 UINT sz=32 val=128  INHERIT
+h_umul_sz        [Lumul         ] bound ct=7 INT sz=64 val=512 | param_assign ct=7 INT sz=64 val=512  INHERIT
+h_ulit_sz        [Lulit         ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_qpm_sz         [?             ] bound ct=7 INT sz=32 val=8 | param_assign -  no-pa
+h_qpp_sz         [?             ] bound ct=9 UINT sz=32 val=8 | param_assign -  no-pa
+h_qpc_sz         [?             ] bound ct=9 UINT sz=32 val=8 | param_assign -  no-pa
+h_wpm_sz         [PM            ] bound ct=7 INT sz=32 val=8 | param_assign ct=7 INT sz=32 val=8  INHERIT
+h_wpp_sz         [PP            ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_wpu_sz         [PU            ] bound ct=7 INT sz=64 val=8 | param_assign ct=7 INT sz=32 val=8  INHERIT
+h_lit_net        [Llit          ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_mul_net        [Lmul          ] bound ct=7 INT sz=32 val=512 | param_assign ct=7 INT sz=32 val=512  INHERIT
+h_div_net        [Ldiv          ] bound ct=7 INT sz=32 val=128 | param_assign ct=7 INT sz=32 val=128  INHERIT
+h_sub_net        [Lsub          ] bound ct=7 INT sz=32 val=254 | param_assign ct=7 INT sz=32 val=254  INHERIT
+h_add_net        [Ladd          ] bound ct=9 UINT sz=32 val=258 | param_assign ct=9 UINT sz=32 val=258  INHERIT
+h_mod_net        [Lmod          ] bound ct=7 INT sz=32 val=4 | param_assign ct=7 INT sz=32 val=4  INHERIT
+h_pow_net        [Lpow          ] bound ct=7 INT sz=32 val=4 | param_assign ct=7 INT sz=32 val=4  INHERIT
+h_shl_net        [Lshl          ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_shr_net        [Lshr          ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_band_net       [Lband         ] bound ct=9 UINT sz=32 val=256 | param_assign ct=9 UINT sz=32 val=256  INHERIT
+h_clog_net       [Lclog         ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_ref_net        [Lref          ] bound ct=9 UINT sz=32 val=256 | param_assign ct=9 UINT sz=32 val=256  INHERIT
+h_tern_net       [Ltern         ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_cast_net       [Lcast         ] bound ct=9 UINT sz=32 val=128 | param_assign ct=9 UINT sz=32 val=128  INHERIT
+h_umul_net       [Lumul         ] bound ct=7 INT sz=64 val=512 | param_assign ct=7 INT sz=64 val=512  INHERIT
+h_ulit_net       [Lulit         ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_qpm_net        [?             ] bound ct=7 INT sz=32 val=8 | param_assign -  no-pa
+h_qpp_net        [?             ] bound ct=9 UINT sz=32 val=8 | param_assign -  no-pa
+h_qpc_net        [?             ] bound ct=9 UINT sz=32 val=8 | param_assign -  no-pa
+h_wpm_net        [PM            ] bound ct=7 INT sz=32 val=8 | param_assign ct=7 INT sz=32 val=8  INHERIT
+h_wpp_net        [PP            ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+h_wpu_net        [PU            ] bound ct=7 INT sz=64 val=8 | param_assign ct=7 INT sz=32 val=8  INHERIT
+g_Gmul_sz        [Gmul          ] bound ct=7 INT sz=32 val=512 | param_assign ct=7 INT sz=32 val=512  INHERIT
+g_Gadd_sz        [Gadd          ] bound ct=9 UINT sz=32 val=258 | param_assign ct=9 UINT sz=32 val=258  INHERIT
+g_Gclog_sz       [Gclog         ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+g_Ggv_sz         [Ggv           ] bound ct=7 INT sz=32 val=4 | param_assign ct=7 INT sz=32 val=4  INHERIT
+g_Ggvs_sz        [Ggvs          ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+n_mul_sz         [Nmul          ] bound ct=7 INT sz=32 val=512 | param_assign ct=7 INT sz=32 val=512  INHERIT
+n_add_sz         [Nadd          ] bound ct=9 UINT sz=32 val=258 | param_assign ct=9 UINT sz=32 val=258  INHERIT
+g_Ggv_sz         [Ggv           ] bound ct=7 INT sz=32 val=8 | param_assign ct=7 INT sz=32 val=8  INHERIT
+g_Ggvs_sz        [Ggvs          ] bound ct=9 UINT sz=32 val=9 | param_assign ct=9 UINT sz=32 val=9  INHERIT
+w_mul            [A * B         ] bound ct=7 INT sz=64 val=512 | param_assign -  no-pa
+w_div            [A / B         ] bound ct=7 INT sz=64 val=128 | param_assign -  no-pa
+w_sub            [A - B         ] bound ct=7 INT sz=64 val=254 | param_assign -  no-pa
+w_add            [A + B         ] bound ct=9 UINT sz=32 val=258 | param_assign -  no-pa
+w_shl            [B << 2        ] bound ct=9 UINT sz=64 val=8 | param_assign -  no-pa
+w_clog           [$clog2(A)     ] bound ct=9 UINT sz=64 val=8 | param_assign -  no-pa
+w_ref            [A             ] bound ct=9 UINT sz=32 val=256 | param_assign ct=9 UINT sz=32 val=256  INHERIT
+w_lit            [8             ] bound ct=9 UINT sz=64 val=8 | param_assign -  no-pa
+w_lmul           [LM            ] bound ct=7 INT sz=32 val=512 | param_assign ct=7 INT sz=32 val=512  INHERIT
+w_ladd           [LA            ] bound ct=9 UINT sz=32 val=258 | param_assign ct=9 UINT sz=32 val=258  INHERIT
+w_lclog          [LC            ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+w_plit           [?             ] bound ct=9 UINT sz=32 val=8 | param_assign -  no-pa
+w_pmul           [?             ] bound ct=7 INT sz=32 val=8 | param_assign -  no-pa
+s_sz             [D             ] bound ct=7 INT sz=64 val=512 | param_assign ct=7 INT sz=32 val=512  INHERIT
+s_2d             [?             ] bound ct=7 INT sz=64 val=512 | param_assign -  no-pa
+s_2d             [?             ] bound ct=9 UINT sz=64 val=2 | param_assign -  no-pa
+pin_i            [?             ] bound ct=7 INT sz=64 val=512 | param_assign -  no-pa
+s_net            [D             ] bound ct=7 INT sz=64 val=512 | param_assign ct=7 INT sz=32 val=512  INHERIT
+s_sz             [D             ] bound ct=7 INT sz=64 val=128 | param_assign ct=7 INT sz=32 val=128  INHERIT
+s_2d             [?             ] bound ct=7 INT sz=64 val=128 | param_assign -  no-pa
+pin_i            [?             ] bound ct=7 INT sz=64 val=128 | param_assign -  no-pa
+s_net            [D             ] bound ct=7 INT sz=64 val=128 | param_assign ct=7 INT sz=32 val=128  INHERIT
+s_sz             [D             ] bound ct=7 INT sz=64 val=254 | param_assign ct=7 INT sz=32 val=254  INHERIT
+s_2d             [?             ] bound ct=7 INT sz=64 val=254 | param_assign -  no-pa
+pin_i            [?             ] bound ct=7 INT sz=64 val=254 | param_assign -  no-pa
+s_net            [D             ] bound ct=7 INT sz=64 val=254 | param_assign ct=7 INT sz=32 val=254  INHERIT
+s_sz             [D             ] bound ct=9 UINT sz=32 val=258 | param_assign ct=9 UINT sz=32 val=258  INHERIT
+s_2d             [?             ] bound ct=9 UINT sz=32 val=258 | param_assign -  no-pa
+pin_i            [?             ] bound ct=9 UINT sz=32 val=258 | param_assign -  no-pa
+s_net            [D             ] bound ct=9 UINT sz=32 val=258 | param_assign ct=9 UINT sz=32 val=258  INHERIT
+s_sz             [D             ] bound ct=9 UINT sz=64 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+s_2d             [?             ] bound ct=9 UINT sz=64 val=8 | param_assign -  no-pa
+pin_i            [?             ] bound ct=9 UINT sz=64 val=8 | param_assign -  no-pa
+s_net            [D             ] bound ct=9 UINT sz=64 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+s_sz             [D             ] bound ct=9 UINT sz=32 val=256 | param_assign ct=9 UINT sz=32 val=256  INHERIT
+s_2d             [?             ] bound ct=9 UINT sz=32 val=256 | param_assign -  no-pa
+pin_i            [?             ] bound ct=9 UINT sz=32 val=256 | param_assign -  no-pa
+s_net            [D             ] bound ct=9 UINT sz=32 val=256 | param_assign ct=9 UINT sz=32 val=256  INHERIT
+s_sz             [D             ] bound ct=7 INT sz=32 val=512 | param_assign ct=7 INT sz=32 val=512  INHERIT
+s_2d             [?             ] bound ct=7 INT sz=32 val=512 | param_assign -  no-pa
+pin_i            [?             ] bound ct=7 INT sz=32 val=512 | param_assign -  no-pa
+s_net            [D             ] bound ct=7 INT sz=32 val=512 | param_assign ct=7 INT sz=32 val=512  INHERIT
+s_sz             [D             ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+s_2d             [?             ] bound ct=9 UINT sz=32 val=8 | param_assign -  no-pa
+pin_i            [?             ] bound ct=9 UINT sz=32 val=8 | param_assign -  no-pa
+s_net            [D             ] bound ct=9 UINT sz=32 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+s_sz             [D             ] bound ct=7 INT sz=32 val=8 | param_assign ct=7 INT sz=32 val=8  INHERIT
+s_2d             [?             ] bound ct=7 INT sz=32 val=8 | param_assign -  no-pa
+pin_i            [?             ] bound ct=7 INT sz=32 val=8 | param_assign -  no-pa
+s_net            [D             ] bound ct=7 INT sz=32 val=8 | param_assign ct=7 INT sz=32 val=8  INHERIT
+c_m              [CM            ] bound ct=7 INT sz=32 val=512 | param_assign ct=7 INT sz=32 val=512  INHERIT
+c_a              [CA            ] bound ct=9 UINT sz=32 val=258 | param_assign ct=9 UINT sz=32 val=258  INHERIT
+c_l              [8             ] bound ct=9 UINT sz=64 val=8 | param_assign -  no-pa
+m_sz             [MD            ] bound ct=7 INT sz=32 val=512 | param_assign ct=7 INT sz=32 val=512  INHERIT
+m_sz             [MD            ] bound ct=9 UINT sz=32 val=258 | param_assign ct=9 UINT sz=32 val=258  INHERIT
+m_sz             [MD            ] bound ct=9 UINT sz=64 val=8 | param_assign ct=9 UINT sz=32 val=8  INHERIT
+
+SIZE-FORM BOUNDS WITH A param_assign IN THE SAME INSTANCE: 74, ENCODING INHERITED: 74, DIFFERS: 0  (no param_assign: 35)

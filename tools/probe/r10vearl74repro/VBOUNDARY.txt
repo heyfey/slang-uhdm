@@ -1,0 +1,59 @@
+r10vearl74 — BOUNDARY ADJUDICATION.  Both walks run from a COPY of
+tools/probe (never the worktree), NO path filter, .sv AND .v, ANY depth,
+BOTH views, file list read on fd 3, children </dev/null, PROCESSED
+asserted against the list, rc recorded per cell.
+A = FIXED binary, B = pristine, unless stated otherwise.
+
+WIDE (per file)  PROCESSED=3382 (LISTED=3382) identical=6478 DIFFERING=10 no_output=276
+DIR  (per dir)   PROCESSED=1491 (LISTED=1491) identical=2726 DIFFERING=12 no_output=244
+rc histograms: wide rc=0 12486 / rc=3 528 / rc=4 490 / rc=139 24
+               dir  rc=0  5282 / rc=3 476 / rc=4 194 / rc=139 12
+Every rc=139 pairs A with B on the SAME file and view (12 files wide, 6
+dirs); no new crash, no new timeout.
+
+The list is 2 files longer than the implementer's because this verifier's
+grids va1_v74.sv and va2_v74.sv were staged into the COPY as POSITIVE
+CONTROLS (they live in tools/probe/r10vearl74repro/ in the tree; the walk
+names them under r10earl74repro/ only because that is where they were staged
+in the scratch copy).
+
+WIDE movers, adjudicated one by one:
+  r10earl74repro/g1_dims74.sv   the pass's own grid — positive control.
+  r10earl74repro/va1_v74.sv     THIS VERIFIER's grid A — positive control
+                                (and the arm that convicted the shipped patch).
+  r10earl74repro/va2_v74.sv     THIS VERIFIER's grid B — positive control.
+  r10vearl73repro/v6_v73.sv     an EARLIER pass's arm carrying this law's
+                                shape: re-measured against a REBUILT golden,
+                                6 cells TO-GOLDEN, 0 AWAY, on the FULL
+                                judge-visible payload, in BOTH views
+                                (42/42 agreement after).
+  r10buvm22repro/g22.sv         NOT this law.  The whole difference is 12
+                                lines carrying ONE number, the bound of the
+                                ASSOCIATIVE array 'typedef C22 ka_cls_t[string];'
+                                (g22.sv:70): 22383993 -> 22392217, vpiConstType
+                                9 on BOTH sides.  This law never touches digits,
+                                only (ct, tag).  Two pristine runs of the same
+                                file are byte-identical, so it is not a coin —
+                                it is an allocation-count-dependent garbage
+                                value that shifts with ANY code change
+                                (r10earl73's R5, reproduced).  SHIPPED and FIXED
+                                produce the SAME g22 output (0 lines).
+
+DIR movers add three, all pure ORDER coins — 0 lines once BOTH dumps are
+sorted (the documented design::Task_funcs list-order flip):
+  r10uvm75repro  plain raw=18 order-blind=0 | elab raw=18 order-blind=0
+  r10uvm76repro  plain raw=14 order-blind=0 | elab raw=16 order-blind=0
+  r10uvm88repro  plain raw=4  order-blind=0 | elab raw=4  order-blind=0
+and repeat the three real ones (r10earl74repro, r10vearl73repro,
+r10buvm22repro), whose order-blind counts are NON-zero, i.e. real content.
+
+SHIPPED vs FIXED, the SAME WIDE WALK with A=shipped and B=fixed:
+  PROCESSED=3382 identical=6486 DIFFERING=2 no_output=276
+  and the 2 are va1_v74.sv in its two views — the arm that convicted the
+  shipped patch, and NOTHING ELSE in the whole probe tree.  The fix is a
+  one-shape change.
+
+NAMED BOUNDARIES held byte-identical: earl59's binder mirror
+(r10earl59repro), the port High_conn arms (earl57/64/65/66), the
+assignment-pattern / tagged_pattern arms (earl61), rgg14/16/17/18, and
+every uvm/buvm arm except the three order coins above.

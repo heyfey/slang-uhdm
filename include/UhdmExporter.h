@@ -656,6 +656,12 @@ private:
     // design-final.
     std::vector<std::pair<UHDM::ref_typespec*, UHDM::parameter*>>
         castFoldTsFix9;
+    // § dimBoundInheritsParamEnc74 — (the folded size-form dimension bound
+    // constant, the parameter it substitutes).  The bound is emitted BEFORE
+    // that instance body's own param_assigns exist (measured: `R10E23_DIMDBG`
+    // reports `inh=0` for every gen-scope local and every second instance of a
+    // definition), so the encoding is inherited design-final.
+    std::vector<std::pair<UHDM::constant*, std::string>> dimBoundEncFix74;
     // § cloneStmtHomeVarRef17 — the HOME subroutine symbol each of those
     // clones was re-emitted from.  A clone body's STATEMENT references split
     // BY KIND: a reference to one of the body's own FORMALS binds the clone's

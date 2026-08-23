@@ -1,0 +1,28 @@
+r10earl74 — NEUTRAL-BINARY CONTROL.
+
+A third binary was built from the PATCHED source with the law short-circuited at
+its two application points (`inhCt74` forced to 0 in TypeEmit's arm, and the
+design-final `dimBoundEncFix74` vector cleared before the drain loop in
+UhdmExporter).  It is semantically the pristine binary while still allocating
+everything the patch allocates.  The temporary edit was reverted afterwards and
+the reverted source was REBUILT and confirmed byte-identical to the patched
+binary that ran every gate.
+
+Re-running the three sources the wide boundary reported as moved, NEUTRAL vs
+PRISTINE, workdir-normalised whole-dump byte compare, both views:
+
+   NEUTRAL == PRISTINE   r10vearl73repro/v6_v73.sv     plain and elab
+   NEUTRAL == PRISTINE   r10earl74repro/g1_dims74.sv   plain and elab
+   NEUTRAL != PRISTINE   r10buvm22repro/g22.sv         plain and elab (12 lines)
+
+So v6_v73 and g1_dims74 moved BECAUSE THE LAW FIRED, and g22 did not: its 12
+lines are entirely
+
+   |vpiDecompile:22392217   vs   |vpiDecompile:22383993
+   |UINT:22392217           vs   |UINT:22383993
+
+the right bound of the range on `typedef C22 ka_cls_t[string];` / `ka_int_t` /
+`ka_str_t`, where golden writes `STRING:associative` / vpiConstType 6 with a
+string_typespec and we write an operation over a number in the tens of millions
+that is stable for a given binary and moves for any other.  r10earl73's R5,
+carried forward unchanged.

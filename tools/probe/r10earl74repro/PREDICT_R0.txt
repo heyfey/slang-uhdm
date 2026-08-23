@@ -1,0 +1,59 @@
+r10earl74 — PREDICTED MOVERS, read from the PRISTINE databases BEFORE the
+patched sweeps existed.
+
+§ dimBoundInheritsParamEnc74 can only ever rewrite the (vpiConstType, value
+tag) of the FIRST operand of a size-form unpacked dimension bound — the
+`constant` inside `range(Left = UINT:0/64, Right = operation(vpiSubOp,
+[<constant>, INT:1/64]))` — and it rewrites it to the encoding of the
+param_assign of the parameter that sized the dimension.  A database can move
+ONLY IF it already contains such a bound whose (ct, tag) differs from that of a
+param_assign Rhs constant in an enclosing scope.
+
+STAGE 1 — inhchk74, run on each PRISTINE database ALONE.  It matches a bound to
+a param_assign on the DECOMPILE DIGITS, because the sizing parameter's NAME is
+not recorded in the database; that makes it a deliberate OVER-approximation.
+
+  uhdm2rtlil: 1358 databases scanned, ZERO flagged.
+              -> "no uhdm2rtlil database can move"; any u2r byte mover would be
+                 an AWAY-golden regression.
+  surelog:     956 databases scanned, THREE flagged --
+                 default/Earlgrey_0_1     30 candidates
+                 testflags/Earlgrey_0_1   34 candidates
+                 default/Rggen            99 candidates
+              (the four slang-fenced tests are never dispatched here: this only
+               READS databases a sweep already produced, and none of the four is
+               named.)
+
+STAGE 2 — read the source of every stage-1 hit.
+
+  Earlgrey_0_1: 9 of the candidates are REAL --
+        6 x `.../u_impl_generic/array_var(mem)` under gen_flash_banks[0] and
+            [1], `prim_generic_ram_1p.sv:31 logic [Width-1:0] mem [Depth]`
+        3 x `u_flash_ctrl/u_flash_mp/array_var(region_end)`,
+            `flash_mp.sv:54 logic [AllPagesW-1:0] region_end[TotalRegions]`
+      and they are exactly the 9 (ct,tag)-only disagreements rngcen74 finds
+      against golden.  The remaining 21 are `prim_keccak.sv:248
+      `localparam logic [63:0] RC [24]`` -- a LITERAL `[24]` dimension whose
+      digits coincide with the same scope's `localparam int MaxRound =
+      12 + 2*L` (INT:24).  Golden writes UINT:24 on that bound and so do we.
+      Verified unmoved: the PATCHED database still reports those same 21
+      candidates and none of the 9.
+
+  Rggen/default: REFUTED, the same way.  All 99 are
+      `rggen_register_common.sv:57-59 logic [DATA_WIDTH-1:0] write_mask[2];`
+      (and `write_data`, `read_mask`) -- a LITERAL `[2]` dimension whose digits
+      coincide with the same instance's `localparam int WORDS = DATA_WIDTH /
+      BUS_WIDTH` (INT:2).  Golden's bound there is UINT:2 size 64 while the
+      WORDS param_assign is INT:2 size 32.
+
+  A LITERAL size never reaches the param-sized arm at all (it is guarded on
+  `sizeSyn->kind != IntegerLiteralExpression`), so no record is made and
+  nothing can move.  Both stage-1 false positives are of that one shape.
+
+PREDICTED MOVER SET:  default/Earlgrey_0_1 and testflags/Earlgrey_0_1, and
+                      NOTHING ELSE, in either corpus.
+
+OBSERVED (SELFCHECK=1 byteverify.sh):
+  uhdm2rtlil  MOVERS 0 / 1358
+  surelog     MOVERS 2 / 956 -- default/Earlgrey_0_1 and testflags/Earlgrey_0_1
+  (the Scoreboard/default per-invocation coin did not flip this run)

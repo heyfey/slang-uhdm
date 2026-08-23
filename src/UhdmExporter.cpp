@@ -6266,6 +6266,109 @@ UHDM::design* UhdmExporter::exportDesign() {
     for (auto& [rt9, up9] : castFoldTsFix9)
         if (rt9 && up9 && !rt9->Actual_typespec() && up9->Typespec())
             rt9->Actual_typespec(up9->Typespec()->Actual_typespec());
+    // § dimBoundInheritsParamEnc74 — A FOLDED SIZE-FORM DIMENSION BOUND
+    // CARRIES THE `vpiConstType` AND VALUE TAG OF THE `param_assign` OF THE
+    // PARAMETER IT SUBSTITUTED, READ OUT OF THE NEAREST ENCLOSING SCOPE.
+    //
+    // This is Surelog's own loop.  `CompileHelper::compileRanges`
+    // (~/git-repos/Surelog/src/DesignCompile/CompileExpression.cpp:4038-4155)
+    // rewrites `[N]` to `range(UINT:0/64, vpiSubOp(<N>, INT:1/64))` and builds
+    // `<N>` with `compileExpression(... Reduce::Yes, instance ...)`.  For a
+    // parameter name that lands in `CompileHelper::getValue` (same file,
+    // :871-1120), which mints the operand from `instance->getValue(name)`
+    // (:966-981) — the SAME `Value` object `NetlistElaboration::elab_parameters_`
+    // (src/DesignCompile/NetlistElaboration.cpp:429-432) stamps into that
+    // parameter's `param_assign` Rhs — and, failing that, WALKS THE INSTANCE
+    // CHAIN OUTWARD looking in `netlist->param_assigns()` for a `param_assign`
+    // whose `Lhs()->VpiName()` is the name and CLONES its Rhs (:986-1024).
+    // Either way the bound's encoding IS the param_assign's.
+    //
+    // ONLY the encoding.  The param_assign copy has
+    // `CompileHelper::adjustSize` run over it afterwards
+    // (NetlistElaboration.cpp:448) and the bound copy does not, which is why
+    // the bound's SIZE is often not the param_assign's (measured: golden's
+    // `s_sz [D]` bound is size 64 where its `param_assign` is size 32) and why
+    // every size arm in `buildUnpackedRanges` — § dimFoldOverriddenParam23,
+    // § dimFoldOverrideChainWidth26, § dimFoldReducedTypedWidth26 — stands
+    // untouched.
+    //
+    // Deferred to design-final because an array declaration is emitted before
+    // its own instance body's `param_assigns` exist, and because the ELAB
+    // instance and gen-scope producers live in ModuleEmit, not ParamEmit, so
+    // `paramRhsObj` never sees them (`R10E74_ENCDBG` reports `elab=0 def=0`
+    // for every instance parameter and every gen-scope localparam).  Reading
+    // the EMITTED param_assign instead of a symbol map is also what makes the
+    // rule per-INSTANCE by construction.
+    static const bool dimEncDbg74 = getenv("R10E74_ENCDBG");
+    for (auto& [bc74, pn74] : dimBoundEncFix74) {
+        if (!bc74 || pn74.empty())
+            continue;
+        // The bound must be one of the two DECIMAL encodings; a based/binary
+        // bound keeps whatever its own law gave it.
+        int32_t bct74 = bc74->VpiConstType();
+        if (bct74 != vpiIntConst && bct74 != vpiUIntConst)
+            continue;
+        std::string bv74(bc74->VpiValue());
+        auto bcl74 = bv74.find(':');
+        if (bcl74 == std::string::npos)
+            continue;
+        const UHDM::constant* src74 = nullptr;
+        // r10vearl74 FIX — THE OUTWARD WALK MUST NOT CROSS AN INSTANCE
+        // BOUNDARY.  The walk resolves BY NAME, so once it leaves the
+        // declaration's own instance body it can land on an unrelated
+        // same-named `param_assign` in the PARENT instance and overwrite an
+        // encoding that was already right.  Measured (verifier grid A,
+        // `va1_v74.sv`): `module vq74; logic [3:0] q_pm [vpk74::PM];` with
+        // `vpk74::PM = 4 * 2` is `INT:8` on golden in EVERY instance of
+        // `vq74` — but under a parent that carries its own
+        // `localparam int PM = 4 + 4` (`UINT:8`, same value, other tag) the
+        // unbounded walk stamped `UINT:8`, 6 range cells per view,
+        // pristine-RIGHT -> patched-WRONG.  Golden cannot do this: SystemVerilog
+        // name resolution stops at the module body, and a package parameter is
+        // not on the instance chain at all (Surelog's own outward walk,
+        // CompileExpression.cpp:986-1024, is only the FALLBACK after
+        // `instance->getValue(name)` has already answered with the package's
+        // value).  So check each enclosing scope and STOP at the first
+        // `instance` — module_inst / interface_inst / program / package /
+        // udp_defn.  `gen_scope` and `gen_scope_array` are LEXICAL, sit below
+        // that boundary and are still walked, which is exactly what the
+        // gen-scope and multi-instance families this law was written for need.
+        // When the walk finds nothing the emit-time value stands, and for a
+        // package parameter that value is the package's own.
+        for (const UHDM::any* up74 = bc74->VpiParent();
+             up74 && !src74; up74 = up74->VpiParent()) {
+            auto* sc74 = any_cast<const UHDM::scope*>(up74);
+            if (!sc74)
+                continue;
+            if (auto* pas74 = sc74->Param_assigns())
+                for (auto* pa74 : *pas74) {
+                    if (!pa74 || !pa74->Lhs() ||
+                        pa74->Lhs()->VpiName() != pn74)
+                        continue;
+                    if (auto* rh74 = pa74->Rhs();
+                        rh74 && rh74->UhdmType() == UHDM::uhdmconstant)
+                        src74 = (const UHDM::constant*)rh74;
+                    break;
+                }
+            if (any_cast<const UHDM::instance*>(up74))
+                break;
+        }
+        if (dimEncDbg74)
+            fprintf(stderr, "ENC74 par=%s bound=%s src=%s\n", pn74.c_str(),
+                    bv74.c_str(),
+                    src74 ? std::string(src74->VpiValue()).c_str() : "-");
+        if (!src74)
+            continue;
+        int32_t pct74 = src74->VpiConstType();
+        if (pct74 != vpiIntConst && pct74 != vpiUIntConst)
+            continue;
+        std::string pv74(src74->VpiValue());
+        auto pcl74 = pv74.find(':');
+        if (pcl74 == std::string::npos)
+            continue;
+        bc74->VpiConstType(pct74);
+        bc74->VpiValue(pv74.substr(0, pcl74 + 1) + bv74.substr(bcl74 + 1));
+    }
     // Elab param_assign Rhs ts refs -> the def parameter's FINAL typespec.
     // Dead last: every deferred def-view typespec rebind is done by now.
     drainShareDefParamTs();

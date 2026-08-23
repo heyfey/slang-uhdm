@@ -1,0 +1,102 @@
+r10earl74 — GRID SCORE (g1_dims74.sv, 3-way: golden / pristine / patched).
+score74.py over every RANGE cell rngcen74 reaches, BOTH views.
+
+== DEF view (no --elabuhdm) ==
+{'UNCHANGED-EQ': 1950, 'UNCHANGED-NE': 43, 'TO-GOLDEN': 159}
+--- STILL-WRONG (top 25 keys)
+ x6 logic_typespec
+   G sz=0 L/op11[0]{ct=7 sz=32 val=INT:8 dec=8} L/op11[1]{ct=9 sz=64 val=UINT:1 dec=1} R{ct=9 sz=64 val=UINT:0 dec=0}
+   Q sz=0 L/op11[0]{ct=9 sz=32 val=UINT:8 dec=8} L/op11[1]{ct=9 sz=64 val=UINT:1 dec=1} R{ct=9 sz=64 val=UINT:0 dec=0}
+ x3 module_inst(work@top74)/module_inst(u_home)/array_net(h_cast_net)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:128 dec=128} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:128 dec=128} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(work@top74)/module_inst(u_home)/array_var(h_cast_sz)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:128 dec=128} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:128 dec=128} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(work@top74)/module_inst(u_ovr)/array_var(w_clog)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:8 dec=8} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:8 dec=8} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(work@top74)/module_inst(u_ovr)/array_var(w_div)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=64 val=INT:128 dec=128} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:128 dec=128} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(work@top74)/module_inst(u_ovr)/array_var(w_mul)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=64 val=INT:512 dec=512} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:512 dec=512} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(work@top74)/module_inst(u_ovr)/array_var(w_shl)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:8 dec=8} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:8 dec=8} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(work@top74)/module_inst(u_ovr)/array_var(w_sub)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=64 val=INT:254 dec=254} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:254 dec=254} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(u_ovr)/module_inst(u_add)/array_net(pin_i)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(u_ovr)/module_inst(u_add)/array_net(s_net)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(u_ovr)/module_inst(u_add)/array_var(s_2d)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:2 dec=2} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(u_ovr)/module_inst(u_add)/array_var(s_2d)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:2 dec=2} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(u_ovr)/module_inst(u_add)/array_var(s_sz)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x1 array_typespec(s_td_t)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R{ct=7 sz=64 val=INT:127 dec=127}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ref_obj:D} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+
+== ELAB view (--elabuhdm) ==
+{'UNCHANGED-EQ': 1950, 'UNCHANGED-NE': 43, 'TO-GOLDEN': 159}
+--- STILL-WRONG (top 25 keys)
+ x6 logic_typespec
+   G sz=0 L/op11[0]{ct=7 sz=32 val=INT:8 dec=8} L/op11[1]{ct=9 sz=64 val=UINT:1 dec=1} R{ct=9 sz=64 val=UINT:0 dec=0}
+   Q sz=0 L/op11[0]{ct=9 sz=32 val=UINT:8 dec=8} L/op11[1]{ct=9 sz=64 val=UINT:1 dec=1} R{ct=9 sz=64 val=UINT:0 dec=0}
+ x3 module_inst(work@top74)/module_inst(u_home)/array_net(h_cast_net)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:128 dec=128} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:128 dec=128} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(work@top74)/module_inst(u_home)/array_var(h_cast_sz)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:128 dec=128} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:128 dec=128} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(work@top74)/module_inst(u_ovr)/array_var(w_clog)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:8 dec=8} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:8 dec=8} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(work@top74)/module_inst(u_ovr)/array_var(w_div)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=64 val=INT:128 dec=128} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:128 dec=128} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(work@top74)/module_inst(u_ovr)/array_var(w_mul)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=64 val=INT:512 dec=512} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:512 dec=512} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(work@top74)/module_inst(u_ovr)/array_var(w_shl)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:8 dec=8} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:8 dec=8} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(work@top74)/module_inst(u_ovr)/array_var(w_sub)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=64 val=INT:254 dec=254} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:254 dec=254} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(u_ovr)/module_inst(u_add)/array_net(pin_i)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(u_ovr)/module_inst(u_add)/array_net(s_net)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(u_ovr)/module_inst(u_add)/array_var(s_2d)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:2 dec=2} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(u_ovr)/module_inst(u_add)/array_var(s_2d)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:2 dec=2} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x3 module_inst(u_ovr)/module_inst(u_add)/array_var(s_sz)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=64 val=UINT:258 dec=258} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+ x1 array_typespec(s_td_t)
+   G sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R{ct=7 sz=64 val=INT:127 dec=127}
+   Q sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ref_obj:D} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+
+== the law test, ours BEFORE and AFTER ==
+-- pristine, ELAB:
+
+SIZE-FORM BOUNDS WITH A param_assign IN THE SAME INSTANCE: 74, ENCODING INHERITED: 44, DIFFERS: 30  (no param_assign: 37)
+-- patched, ELAB:
+
+SIZE-FORM BOUNDS WITH A param_assign IN THE SAME INSTANCE: 74, ENCODING INHERITED: 74, DIFFERS: 0  (no param_assign: 39)

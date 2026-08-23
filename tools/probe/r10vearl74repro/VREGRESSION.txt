@@ -1,0 +1,84 @@
+r10vearl74 — THE ONE REGRESSION, AND THE FIX.
+
+WHAT BROKE
+  The shipped /tmp/r10earl74.patch resolves the sizing parameter of a
+  size-form dimension bound BY NAME, in a design-final pass that walks the
+  bound's own VpiParent chain OUTWARD with no limit
+  (src/UhdmExporter.cpp, § dimBoundInheritsParamEnc74).  Once that walk leaves
+  the declaration's own instance body it can land on an UNRELATED
+  same-named param_assign in a PARENT instance and overwrite an encoding that
+  was already correct.
+
+  MINIMAL REPRODUCER (va1_v74.sv, legal SystemVerilog, Surelog rc=0, slang
+  rc=0):
+
+      package vpk74;
+        localparam int PM = 4 * 2;    // golden INT:8   ct 7
+        localparam int PA = 4 + 4;    // golden UINT:8  ct 9
+      endpackage
+
+      module vq74 ();
+        logic [3:0] q_pm [vpk74::PM];   // golden's bound: INT:8, ALWAYS
+        logic [3:0] q_pa [vpk74::PA];   // golden's bound: UINT:8, ALWAYS
+      endmodule
+
+      module vtrap74 ();
+        localparam int PM = 4 + 4;    // UINT:8 — SAME VALUE, OTHER TAG
+        localparam int PA = 4 * 2;    // INT:8
+        vq74   u_q   ();
+        vmid74 u_mid ();              // vmid74 instantiates vq74 one hop deeper
+      endmodule
+
+  MEASURED, per view (vmsjoin74.py, multiset join per owner key, judge fields
+  only, golden rebuilt by Surelog for this file):
+
+      SHIPPED   TO-GOLDEN 24   AWAY-GOLDEN 6    <-- pristine-RIGHT -> patched-WRONG
+      FIXED     TO-GOLDEN 33   AWAY-GOLDEN 0    <-- 162 / 162 cells agree
+
+      design(work@vtop74)/.../u_trap/u_q/array_var(q_pm)          x3
+      design(work@vtop74)/.../u_trap/u_mid/u_q/array_var(q_pm)    x3
+        G  R/op11[0]{ct=7 val=INT:8}
+        P  R/op11[0]{ct=7 val=INT:8}      pristine was RIGHT
+        Q  R/op11[0]{ct=9 val=UINT:8}     shipped patch is WRONG
+
+  The identical instances of vq74 under vctl74 (no colliding parent) answer
+  INT:8 on all three binaries, so the arm is TESTING, not agreeing: only the
+  collision moves it.
+
+WHY GOLDEN CANNOT DO THIS
+  SystemVerilog name resolution for `vpk74::PM` stops at the package; the
+  module body above is not consulted, and a package parameter is not on the
+  instance chain at all.  Surelog's own outward walk
+  (CompileExpression.cpp:986-1024) is only the FALLBACK after
+  `instance->getValue(name)` (:966-981) has already answered — and for a
+  package parameter it answers with the package's value.  Golden prints INT:8
+  for q_pm under the colliding parent and under the clean one alike; the corpus
+  agrees (the Earlgrey rows this law was written for are module-body and
+  gen-scope locals, all INSIDE the instance).
+
+THE FIX (src/UhdmExporter.cpp, 1 statement + its restructuring)
+  Check each enclosing scope's Param_assigns, then STOP at the first
+  `instance` — module_inst / interface_inst / program / package / udp_defn.
+  `gen_scope` and `gen_scope_array` are lexical, sit BELOW that boundary, and
+  are still walked, so every gen-scope and multi-instance family the law was
+  written for is untouched.  When the walk finds nothing, the emit-time value
+  stands, and for a package parameter that value is the package's own.
+
+WHAT THE FIX COSTS
+  Nothing measurable.
+    implementer's grid g1_dims74.sv   159 TO-GOLDEN / 0 AWAY / 43 STILL, both
+                                      views, IDENTICAL to the shipped patch
+    law74.py on our own output        44/74 -> 74/74, the number golden scores
+    grid B va2_v74.sv                 249 TO-GOLDEN / 0 AWAY, both views,
+                                      IDENTICAL to the shipped patch
+    Earlgrey head                     36 -> 17 cmp lines, one head, both modes,
+                                      VHEAD_AFTER_*.cmp byte-identical to the
+                                      implementer's committed HEAD_AFTER_*.cmp
+    Earlgrey range census             9 (default) and 13 (testflags) cells
+                                      TO-GOLDEN, 0 AWAY, 0 MOVED-WRONG
+    both corpora                      0 differing rows; the two binaries emit
+                                      BYTE-IDENTICAL databases everywhere
+                                      (vcross74: 0 divergence candidates over
+                                      1358 u2r databases, 2 over 956 surelog
+                                      databases, both refuted by running the
+                                      shipped binary on the row itself)

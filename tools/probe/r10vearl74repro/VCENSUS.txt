@@ -1,0 +1,50 @@
+r10vearl74 — CENSUSES.  Direct .uhdm readers; Earlgrey's uhdm-dump is
+>1 GB and was never produced.  MEASUREMENT ONLY.
+
+=== Earlgrey range-bound census, OWNER-KEYED, Compare-visible payload ===
+vcen74 (this verifier's reader: ct / size / value / decompile / TYPESPEC
+PRESENCE, keyed on the parent chain, NO span), scored as a multiset join
+per owner key, golden vs pristine vs FIXED, both modes.
+-- default, (ct, value tag)
+fields=ct {'golden_cells': 97567, 'ours_cells': 95155, 'agreeP': 90040, 'agreeQ': 90049, 'TO-GOLDEN': 9}
+-- default, typespec presence
+fields=ts {'golden_cells': 97567, 'ours_cells': 95155, 'agreeP': 90043, 'agreeQ': 90043}
+-- default, bound size
+fields=sz {'golden_cells': 97567, 'ours_cells': 95155, 'agreeP': 89977, 'agreeQ': 89977}
+-- testflags, (ct, value tag)
+fields=ct {'golden_cells': 97682, 'ours_cells': 95270, 'agreeP': 90151, 'agreeQ': 90164, 'TO-GOLDEN': 13}
+-- testflags, typespec presence
+fields=ts {'golden_cells': 97682, 'ours_cells': 95270, 'agreeP': 90158, 'agreeQ': 90158}
+-- testflags, bound size
+fields=sz {'golden_cells': 97682, 'ours_cells': 95270, 'agreeP': 90092, 'agreeQ': 90092}
+
+=== the implementer's own rngcen74 + rgjoin74/score74, reproduced ===
+-- default golden vs PRISTINE
+shared range cells 90076 DIFFERING 23018 {'OTHER': 23009, 'CT/TAG-ONLY': 9}
+-- default golden vs FIXED   
+shared range cells 90076 DIFFERING 23009 {'OTHER': 23009}
+-- default 3-way            
+{'UNCHANGED-EQ': 67058, 'TO-GOLDEN': 9, 'UNCHANGED-NE': 23009}
+-- testflags golden vs PRISTINE
+shared range cells 90191 DIFFERING 23022 {'OTHER': 23009, 'CT/TAG-ONLY': 13}
+-- testflags golden vs FIXED   
+shared range cells 90191 DIFFERING 23009 {'OTHER': 23009}
+-- testflags 3-way            
+{'UNCHANGED-EQ': 67169, 'TO-GOLDEN': 13, 'UNCHANGED-NE': 23009}
+
+=== Earlgrey param_assign census (pacen74), pristine vs FIXED, default ===
+30808 cells on each side, BYTE-IDENTICAL: the law moves no param_assign.
+
+=== SHIPPED vs FIXED are the SAME DATABASE on both corpora ===
+vcross74 (this verifier's reader) flags every size-form bound whose
+outward walk answers DIFFERENTLY with and without the instance-boundary
+stop -- i.e. every cell on which the shipped patch and the fix CAN differ.
+  uhdm2rtlil pristine databases: scanned 1358, flagged 0.
+  surelog    pristine databases: scanned  956, flagged 2 (both Earlgrey).
+Both Earlgrey candidates are digit-match false positives, proved by
+running the SHIPPED binary on the row itself:
+  Earlgrey/default   shipped ebeb06d8385ca17bec7282915455ef98 = fixed
+  Earlgrey/testflags shipped 819970577a6179ab9e7f3abda20b246c = fixed
+So every corpus number in this file holds for the shipped patch too, and
+the fix is corpus-NEUTRAL: it changes only the name-collision shape, which
+no test in either corpus contains.

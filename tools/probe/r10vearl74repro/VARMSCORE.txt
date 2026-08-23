@@ -1,0 +1,73 @@
+r10vearl74 — ADVERSARIAL ARM SCORES.  MEASUREMENT ONLY; the official
+uhdm-cmp is the judge.  Scored with vmsjoin74.py, a MULTISET join per
+owner key (a sorted-list pairing re-pairs a two-dimension array_var when
+one of its bounds moves and manufactures a phantom AWAY-GOLDEN — that is
+how the four 's_2d' 'AWAY' cells in the first pass of grid B were
+explained away; the multiset join reports 0).
+Payload = the JUDGE-VISIBLE fields only (ct / value tag / size / typespec
+presence), NO span; span PRESENCE is scored separately because golden's
+folded bound here is LOC-LESS.
+
+PRIS = 9eacde42bc0cbeb98b1c8c33855b4e33 (3dba439)
+SHIPPED = 43ce65509e867ddc34386fa7a5dc4ece (/tmp/r10earl74.patch)
+FIXED   = 615df008da93feb8712e0c4283cdcbf3 (this verifier's fix)
+
+=== grid A  va1_v74.sv — NAME COLLISION (the regression) ===
+--- SHIPPED, DEF view
+fields=ct {'golden_cells': 162, 'ours_cells': 162, 'agreeP': 129, 'agreeQ': 147, 'TO-GOLDEN': 24, 'AWAY-GOLDEN': 6}
+--- AWAY-GOLDEN
+ x3 design(work@vtop74)/module_inst(work@vtop74)/module_inst(u_trap)/module_inst(u_mid)/module_inst(u_q)/array_var(q_pm)
+   G x3 L{ct=9 val=UINT:0} R/op11[0]{ct=7 val=INT:8} R/op11[1]{ct=7 val=INT:1}
+   P x3 L{ct=9 val=UINT:0} R/op11[0]{ct=7 val=INT:8} R/op11[1]{ct=7 val=INT:1}
+   Q x3 L{ct=9 val=UINT:0} R/op11[0]{ct=9 val=UINT:8} R/op11[1]{ct=7 val=INT:1}
+ x3 design(work@vtop74)/module_inst(work@vtop74)/module_inst(u_trap)/module_inst(u_q)/array_var(q_pm)
+   G x3 L{ct=9 val=UINT:0} R/op11[0]{ct=7 val=INT:8} R/op11[1]{ct=7 val=INT:1}
+   P x3 L{ct=9 val=UINT:0} R/op11[0]{ct=7 val=INT:8} R/op11[1]{ct=7 val=INT:1}
+   Q x3 L{ct=9 val=UINT:0} R/op11[0]{ct=9 val=UINT:8} R/op11[1]{ct=7 val=INT:1}
+--- SHIPPED, ELAB view
+fields=ct {'golden_cells': 162, 'ours_cells': 172, 'agreeP': 129, 'agreeQ': 147, 'TO-GOLDEN': 24, 'AWAY-GOLDEN': 6}
+--- FIXED, DEF view
+fields=ct {'golden_cells': 162, 'ours_cells': 162, 'agreeP': 129, 'agreeQ': 162, 'TO-GOLDEN': 33}
+--- FIXED, ELAB view
+fields=ct {'golden_cells': 162, 'ours_cells': 172, 'agreeP': 129, 'agreeQ': 162, 'TO-GOLDEN': 33}
+
+=== grid B  va2_v74.sv — every SHAPE x OPERATOR x HOME x instance count ===
+--- SHIPPED DEF
+fields=ct {'golden_cells': 2598, 'ours_cells': 2451, 'agreeP': 2024, 'agreeQ': 2273, 'TO-GOLDEN': 249}
+--- SHIPPED ELAB
+fields=ct {'golden_cells': 2598, 'ours_cells': 2511, 'agreeP': 2024, 'agreeQ': 2273, 'TO-GOLDEN': 249}
+--- FIXED DEF
+fields=ct {'golden_cells': 2598, 'ours_cells': 2451, 'agreeP': 2024, 'agreeQ': 2273, 'TO-GOLDEN': 249}
+--- FIXED ELAB
+fields=ct {'golden_cells': 2598, 'ours_cells': 2511, 'agreeP': 2024, 'agreeQ': 2273, 'TO-GOLDEN': 249}
+--- FIXED ELAB, typespec presence
+fields=ts {'golden_cells': 2598, 'ours_cells': 2511, 'agreeP': 2393, 'agreeQ': 2393}
+--- FIXED ELAB, bound SIZE
+fields=sz {'golden_cells': 2598, 'ours_cells': 2511, 'agreeP': 2282, 'agreeQ': 2282}
+--- FIXED ELAB, SPAN PRESENCE (scored on its own)
+fields=loc {'golden_cells': 2598, 'ours_cells': 2511, 'agreeP': 21, 'agreeQ': 21}
+
+=== the implementer's own grid g1_dims74.sv, with the FIX in ===
+--- score74.py (implementer's scorer), DEF then ELAB
+{'UNCHANGED-EQ': 1950, 'UNCHANGED-NE': 43, 'TO-GOLDEN': 159}
+{'UNCHANGED-EQ': 1950, 'UNCHANGED-NE': 43, 'TO-GOLDEN': 159}
+--- law74.py: golden / pristine / FIXED
+SIZE-FORM BOUNDS WITH A param_assign IN THE SAME INSTANCE: 74, ENCODING INHERITED: 74, DIFFERS: 0  (no param_assign: 35)
+SIZE-FORM BOUNDS WITH A param_assign IN THE SAME INSTANCE: 74, ENCODING INHERITED: 44, DIFFERS: 30  (no param_assign: 37)
+SIZE-FORM BOUNDS WITH A param_assign IN THE SAME INSTANCE: 74, ENCODING INHERITED: 74, DIFFERS: 0  (no param_assign: 39)
+
+=== r10vearl73repro/v6_v73.sv — the earlier-pass arm that moves ===
+fields=all {'golden_cells': 42, 'ours_cells': 42, 'agreeP': 36, 'agreeQ': 42, 'TO-GOLDEN': 6}
+
+=== grid C  va3_v74.sv — SHADOWING INSIDE ONE INSTANCE ===
+(a gen-scope localparam shadowing a module-level one of the same name, both
+ a foldable and a cast initializer; the hypothesised residue of the fixed
+ walk — REFUTED, the gen-scope's own param_assign is always found first)
+--- SHIPPED DEF
+fields=ct {'golden_cells': 66, 'ours_cells': 66, 'agreeP': 54, 'agreeQ': 66, 'TO-GOLDEN': 12}
+--- SHIPPED ELAB
+fields=ct {'golden_cells': 66, 'ours_cells': 74, 'agreeP': 54, 'agreeQ': 66, 'TO-GOLDEN': 12}
+--- FIXED DEF
+fields=ct {'golden_cells': 66, 'ours_cells': 66, 'agreeP': 54, 'agreeQ': 66, 'TO-GOLDEN': 12}
+--- FIXED ELAB
+fields=ct {'golden_cells': 66, 'ours_cells': 74, 'agreeP': 54, 'agreeQ': 66, 'TO-GOLDEN': 12}
