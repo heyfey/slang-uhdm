@@ -1,0 +1,99 @@
+r10uvm115 — THE GOLDEN GRID, verbatim cells.  MEASUREMENT ONLY; the official
+uhdm-cmp and scripts/verify_golden.py are the judges.  LHS is ALWAYS golden
+(Surelog); RHS is ALWAYS ours.  Every cell was built by grid115.sh in BOTH
+views (`def` and `--elabuhdm` / `-elabuhdm`), every command echoed with its own
+rc into the workdir's cmds.txt, and censused by ct115cen.
+
+ARMS
+  g115_a.sv  the CONTEXT grid  — a `process` / `semaphore` / `mailbox`
+             declaration in every position: package function body, two vars in
+             one body, a task, an IN-BODY class method, an OUT-OF-BODY class
+             method, a class PROPERTY, a package VARIABLE, a module VARIABLE,
+             a module `initial` block.
+  g115_b.sv  the CONTROL       — a USER class named `process`, a USER class
+             named `semaphore`, and a package with `typedef int process;`.
+  g115_d.sv  the GENERATE-SCOPE arm — written AFTER the boundary gate caught
+             this pass moving r10uvm77's committed arm v77x4_scope.sv AWAY from
+             golden: a plain module `initial` local, a module TASK local, a
+             module FUNCTION local, a NAMED for-generate `initial` local, its
+             nested `begin`, a generate-block TASK local and that task's nested
+             `begin`, a NAMED if-generate and an UNNAMED if-generate.
+  g115_c.sv  the SPELLING/POSITION grid — `std::process`, a local WITH an
+             initialiser in a nested `else begin`, a `fork` body local, fixed /
+             queue / dynamic ARRAYS of the builtin, an in-body and an
+             out-of-body class method, TWO declarators on one declaration, a
+             FORMAL and a RETURN type, a module `initial` local and a module
+             TASK local.
+
+GOLDEN'S ANSWER, and what we emitted BEFORE and AFTER
+(`ref_var`/`class_var`/`io_decl` + the ACTUAL typespec kind + its VpiName +
+its vpiInstance; "=" means the patched build now equals golden)
+
+| arm / cell                                     | written        | GOLDEN                                        | ours BEFORE                         | AFTER |
+|---|---|---|---|---|
+| a `p`   package function body local            | `process`      | ref_var + unsupported `process` @p115         | class_var + class_typespec `process`| =     |
+| a `p1`,`p2` two locals, one body               | `process`      | ref_var + unsupported `process` @p115         | class_var + class_typespec          | =     |
+| a `sem` a SEMAPHORE body local                 | `semaphore`    | ref_var + unsupported `semaphore` @p115       | class_var + class_typespec          | =     |
+| a `mbx` a MAILBOX body local                   | `mailbox`      | ref_var + unsupported `mailbox` @p115         | class_var + class_typespec          | =     |
+| a `tp`  package TASK body local                | `process`      | ref_var + unsupported `process` @p115         | class_var + class_typespec          | =     |
+| a `op`  OUT-OF-BODY class method body local    | `process`      | ref_var + unsupported `process` @p115         | class_var + class_typespec (unnamed, no inst) | = |
+| a `mp`  IN-BODY class method body local        | `process`      | **class_var + UNNAMED class_typespec** (vpiClassDefn -> work@process) | SAME | SAME — the law is FENCED OUT of this cell |
+| a `prop` class PROPERTY                        | `process`      | class_var + class_typespec `process`          | SAME                                | SAME  |
+| a `pkgvar` PACKAGE variable                    | `process`      | class_var + class_typespec `process` @p115    | SAME                                | SAME  |
+| a `mvar`,`msem` MODULE variables               | `process`/`semaphore` | class_var + class_typespec, no inst    | SAME                                | SAME  |
+| a `ip`  module `initial` block local           | `process`      | ref_var + unsupported `process`, NO instance  | class_var + class_typespec          | =     |
+| c `bp`  bare spelling beside a scoped one      | `process`      | ref_var + unsupported `process` @s115         | class_var + class_typespec          | =     |
+| c `sp`  the SCOPED spelling                    | `std::process` | **class_var + unsupported `std::process` @s115** | class_var + class_typespec `std::process` | UNCHANGED — residue R3, the law is FENCED to the bare spelling |
+| c `ip`  local in a nested `begin`              | `process`      | ref_var + unsupported `process` @s115         | class_var + class_typespec          | =     |
+| c `jp`  local WITH an INITIALISER in `else begin` (parent = `assignment`) | `process` | ref_var + unsupported `process` @s115 | class_var + class_typespec | = |
+| c `fp`  FORK body local                        | `process`      | ref_var + unsupported `process` @s115         | class_var + class_typespec          | =     |
+| c `t1`,`t2` two declarators, one declaration   | `process`      | ref_var + unsupported `process` @s115 EACH    | class_var + class_typespec each     | =     |
+| c `kp`  IN-BODY class method body local        | `process`      | class_var + UNNAMED class_typespec            | SAME                                | SAME  |
+| c `kq`  OUT-OF-BODY class method body local    | `process`      | ref_var + unsupported `process` @s115         | class_var + class_typespec (unnamed)| =     |
+| c `mt`  MODULE TASK body local                 | `process`      | ref_var + unsupported `process`, NO instance  | class_var + class_typespec          | =     |
+| c `mp`  MODULE `initial` body local            | `process`      | ref_var + unsupported `process`, NO instance  | class_var + class_typespec          | =     |
+| c `afix[2]`,`aq[$]`,`adyn[]` ARRAY body locals | `process`      | ref_var + unsupported `process` @s115 ON THE ELEMENT | class_var + logic_/class_typespec on the element | UNCHANGED — residue R4 |
+| c `retform` RETURN variable                    | `process`      | ref_var + unsupported `process` @s115         | class_var + class_typespec (unnamed)| UNCHANGED — residue R5 |
+| c `arg`  FORMAL (`io_decl`)                    | `process`      | io_decl + unsupported `process` @s115         | io_decl + class_typespec `process`  | UNCHANGED — residue R5 |
+| b `p`,`s`,`mp` USER classes NAMED `process` / `semaphore` | user class | resolves normally (class_var + class_typespec) | SAME | SAME — the whole database is BYTE-IDENTICAL before and after, both views |
+| b `p`   a package `typedef int process;`       | typedef        | int                                           | SAME                                | SAME  |
+| d `ip`  PLAIN module `initial` local           | `process`      | ref_var + unsupported, NO instance — **BOTH VIEWS** | class_var + class_typespec    | =     |
+| d `tp`  module TASK local, `fp` module FUNCTION local | `process` | ref_var + unsupported — **BOTH VIEWS**        | class_var + class_typespec          | =     |
+| d `gp`  for-generate `initial` local           | `process`      | **class_var + class_typespec `process`** (ELAB only) | SAME                         | SAME — FENCED, see below |
+| d `gnp` its NESTED `begin`                     | `process`      | **class_var + class_typespec**                | SAME                                | SAME  |
+| d `gtp` generate-block TASK local, `gtn` that task's nested `begin` | `process` | **class_var + class_typespec** | SAME                       | SAME  |
+| d `ifp` NAMED if-generate `initial` local      | `process`      | **DEF view: ref_var + unsupported; ELAB view: class_var + class_typespec** | class_var + class_typespec in BOTH | = in BOTH |
+| d `unp` UNNAMED if-generate `initial` local    | `process`      | **DEF view: ref_var + unsupported; ELAB view: class_var + class_typespec** | class_var + class_typespec in BOTH | = in BOTH |
+
+THE GENERATE-SCOPE CONJUNCT, and the arm that forced it.
+`g115_d.sv` cells `ifp` / `unp` are the decisive pair: golden gives the SAME
+declaration `ref_var + unsupported_typespec` in the module's DEF listing and
+`class_var + class_typespec 'process'` in the ELABORATED listing.  That is the
+phase-order law one phase further down — a generate scope's content is built
+during ELABORATION, after `Builtin::addBuiltinClasses`, while the DEF listing
+compiles the generate construct in the module pass (and holds `gen_if` /
+`named_begin`, never a `gen_scope`).  The gate needs no view flag: a `gen_scope`
+on the parent chain IS the elaborated generate scope.  r10uvm77's committed arm
+v77x4_scope.sv cell (5) is that cell, and the BOUNDARY GATE convicted a first
+cut that moved it away.  With the conjunct in, arm d agrees with golden on
+every one of its process cells in both views, and v77x4_scope /
+r10oth7repro's c3_bounds move only TOWARD golden (11 -> 5 and 16 -> 10
+differing cells, 0 regressions).
+
+THE SECOND CONJUNCT — golden binds NO `ref_obj` to a `ref_var` local.
+Measured on golden's own dump (arm a `fn115` / `fn115b`, and every corpus
+site): `p = process::self();` has an UNBOUND `ref_obj` Lhs on golden's side
+while the SIBLING declarations `cs` / `top` (real design classes) ARE bound.
+Decoded: `UhdmWriter::lateBinding` (UhdmWriter.cpp:3294) refuses every
+candidate whose kind is `uhdmref_var` — the test appears eight times in that
+one function (:3315, :3324, :3335, :3344, :3387, :3397, :3418, :3426).  Our
+emitter inherits the refusal for free once the declaration IS a `ref_var`:
+measured over SimpleUVM's 16 family REF cells, 15 now match golden EXACTLY
+(both views) where 5 did before.
+
+THE -nobuiltin CONTROL (measured, `surelog -nobuiltin` + `slang-uhdm
+--nobuiltin` on g115_c.sv): golden's IN-BODY class-method local `kp` becomes
+`ref_var + unsupported_typespec 'process'` there too — which is the phase-order
+law running with `Builtin::addBuiltinClasses` switched OFF, and is the direct
+experimental confirmation of the decode.  We keep `class_var` in that mode
+(residue R2, zero corpus witnesses in either corpus).

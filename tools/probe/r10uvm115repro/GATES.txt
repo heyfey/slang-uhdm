@@ -1,0 +1,127 @@
+r10uvm115 GATES — the whole landing battery, run in the pass's own worktree
+/tmp/wt_r10uvm115 at BASE 8a4b59a, with BOTH binaries FROZEN (chmod 555)
+before any sweep and SLANG_UHDM exported explicitly to each.  MEASUREMENT
+ONLY; the official uhdm-cmp and scripts/verify_golden.py are the judges.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+(1) BUILD
+  pristine  md5 61228316cb53458c749fc64dec6df028  — IDENTICAL to the 8a4b59a
+            main-tree build/slang-uhdm, byte for byte
+  patched   md5 22a4739a000c9e1ec68f2a3c1cad4fc0
+  Both frozen to immutable paths BEFORE any sweep; every cmds.txt audited by
+  BINARY PATH below.
+
+(2) GOLDEN TESTS
+  SLANG_UHDM=<patched>  tests/check_goldens.sh   PASS=23 FAIL=0
+  SLANG_UHDM=<pristine> tests/check_goldens.sh   PASS=23 FAIL=0
+  SLANG_UHDM=/bin/false (negative control)       PASS=0  FAIL=23
+
+(3) uhdm2rtlil, both modes (verify_golden.py --jobs 2, own --out/--workdir)
+  testflags {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  default   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  ct8rows vs results/gate_uhdm2rtlil.csv           PASS (0 differing rows)
+  ct8rows vs this pass's OWN pristine, testflags   PASS
+  ct8rows vs this pass's OWN pristine, default     PASS
+  every one of the 1458 cmds.txt names ONE binary:
+      /tmp/r10uvm115_scratch/pat115e.bin
+
+(4) surelog corpus, --mode both (1588 comparable rows)
+  {'CMP_EQUAL': 937, 'SLANG_REJECT': 567, 'SURELOG_FAIL': 48, 'NO_DATABASE': 3,
+   'CMP_NOTEQUAL': 19, 'UNTRANSLATABLE': 2, 'DEFERRED': 10, 'TIMEOUT': 1,
+   'NO_UHDM': 1}
+  ct8rows vs results/golden_surelog.csv            PASS (0 differing rows)
+  ct8rows vs this pass's OWN pristine              PASS
+  every one of the 1523 cmds.txt names ONE binary:
+      /tmp/r10uvm115_scratch/pat115e.bin
+  NO conversion is claimed: CMP_NOTEQUAL stays 19; results/*.csv untouched.
+  (The pristine sweep of this worktree reproduced the same histogram, which is
+  how the "0 differing rows" reading is anchored to THIS build and not to a
+  carried-forward baseline.)
+
+(5) BYTE MOVERS — predicted BY NAME first (PREDICTION.txt), then measured
+  -- surelog:
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm    patched=7b642ae347aa pristine=03528d61eeea
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm       patched=73a2a2a5f021 pristine=c7d74e7097a4
+MOVER ./default/Scoreboard-59431470/slang.uhdm     patched=97e24417b804 pristine=1b4e30bf7cf9
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm      patched=b4cb7aa5a98c pristine=a0d57c5191d9
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm      patched=61fbb8cc5a38 pristine=99fa633eb28a
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=7b642ae347aa pristine=03528d61eeea
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm     patched=73a2a2a5f021 pristine=c7d74e7097a4
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm    patched=3a82bb4a4624 pristine=980dfd175562
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm    patched=637fd95947fc pristine=8729b7b1c7bd
+MOVERS: 9 / 956
+  -- uhdm2rtlil:
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+  SELFCHECK (every file vs one fixed file): 955/956 and 1357/1358 flagged
+  The nine are EXACTLY the nine PREDICTION.txt named from PRISTINE databases
+  before the patched sweep ran; the uhdm2rtlil ZERO was predicted too.
+
+  -- ATTRIBUTION, ORDER-BLIND (sorted, path-normalised, id-stripped dumps),
+     all nine, by scoreall115.sh + score115.py against GOLDEN:
+        IDENTITY LINES MOVED  1644
+        TOWARD GOLDEN         1644
+        AWAY   GOLDEN            0
+     per database: BuildUVMPkg 140, MiniAmiq 246, Scoreboard 108,
+     SeqDriver 260, SimpleUVM 122 (x2 modes; Scoreboard default only).
+     Scoreboard/default is the ~50/50 COIN and is scored order-blind, by
+     multiset COUNTS, so a flip reads as zero.
+  -- the changed lines are ONLY: class_var -> ref_var, class_typespec ->
+     unsupported_typespec (+ its vpiName / vpiInstance), the dropped
+     vpiClassDefn edges, the six ref_obj bindings golden also drops, and the
+     two IMPLICIT NETS golden also has (work@top.phase_runner_proc x2,
+     work@top.m_reg_process x4 — counts identical to golden's).
+
+(6) THE FAMILY CENSUS (fence115.sh + ct115cen + fence115.py)
+  surelog     PRISTINE FAMILY 140 / MIRROR 0   ->  PATCHED FAMILY 32 / MIRROR 0
+  uhdm2rtlil  PRISTINE FAMILY   0 / MIRROR 0   ->  PATCHED FAMILY  0 / MIRROR 0
+  The 32 are the SAME 32 rows the pristine fence already carried (an
+  import-copy LISTING multiplicity: golden lists a body local under BOTH the
+  subroutine and the begin inside svaunit_pkg / adpcm_pkg, we list it once —
+  counted directly, 34 golden rows vs 27 ours, before AND after).  All 108
+  real cells went to golden.  OTHERDIF 18 before and 18 after, byte-identical
+  rows (the array-of-process class-PROPERTY element typespec SPAN, residue R7).
+
+(7) HEADS (rowheads.sh, official uhdm-cmp; CMPLINES / HEADS)
+  row            mode        pristine   patched
+  SimpleUVM      default      56 / 1     17 / 1   (a NEW head, a NEW object)
+  SimpleUVM      testflags    56 / 1     17 / 1
+  Scoreboard     default      56 / 1     60 / 1   (a NEW head, a NEW FAMILY)
+  SeqDriver      default      62 / 1     62 / 1   head log BYTE-IDENTICAL
+  SeqDriver      testflags    62 / 1     62 / 1
+  MiniAmiq       default      62 / 1     62 / 1   head log BYTE-IDENTICAL
+  MiniAmiq       testflags    62 / 1     62 / 1
+  BuildUVMPkg    default      47 / 1     47 / 1   head log BYTE-IDENTICAL
+  BuildUVMPkg    testflags    47 / 1     47 / 1
+  Earlgrey_0_1   default      36 / 1     36 / 1   head log BYTE-IDENTICAL
+  Earlgrey_0_1   testflags    36 / 1     36 / 1
+  Rggen          default       0 / 0      0 / 0   CMP_EQUAL both
+  (SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is expected —
+   those goldens are not in the cache; the driver COUNTS them.)
+
+(8) CANARIES
+  canaries.sh  surelog     ok=52 changed=0 absent=0
+  canaries.sh  uhdm2rtlil  ok=8  changed=0 absent=0
+  EXPECT_UNKNOWN=1 ctcan2.sh surelog     PASS
+  EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil  PASS
+  canaudit.sh canaries.sh ctcan2.sh      audited=29 UNCOVERED=0 FENCE-BREACH=0
+  PROTECTED DATABASES, md5 (first 12) pristine vs patched:
+    InterfaceModPort    59a365f3ce2c == 59a365f3ce2c
+    BlackParrotComplex  73a10e8217e5 == 73a10e8217e5
+    YosysOldOr          d68e0796d62c == d68e0796d62c
+    SVSwitch            4842211c4030 == 4842211c4030   (the brief's pin)
+    YosysVerx           6ccda350c24a == 6ccda350c24a   (the brief's pin)
+  The four slang-fenced tests are NEVER dispatched by anything here; their
+  names are deliberately NOT spelled in this file, because canaudit.sh greps
+  every non-README file of this directory for them and exits 6 on a hit.
+  canaudit.sh itself carries the list; it is the authority, and it reports
+  FENCE-BREACH=0.  (r10v115-VERIFIER FIX: as shipped this file DID spell the
+  four names, so `bash canaudit.sh canaries.sh ctcan2.sh` run from this
+  directory — the standing rules' own invocation — reported FENCE-BREACH=4 and
+  exited 6, contradicting the number claimed right here.)
+
+(9) THE BOUNDARY GATE — see BOUNDARY.txt for the four runs and the NULL
+  CONTROL that separates emitter nondeterminism from the patch.

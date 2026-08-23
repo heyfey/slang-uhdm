@@ -5221,6 +5221,27 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 if (!hasInit && !pkgScope)
                     if (auto tsyn0 = fmv.getDeclaredType()->getTypeSyntax())
                         namedTypeLocal = tsyn0->kind == syntax::SyntaxKind::NamedType;
+                // § builtinClassLocalUnsupportedBeforeClassPhase115 — the law
+                // is in UhdmExporter.h with its Surelog citations.  Computed
+                // HERE, ahead of the typespec, because the FOURTH conjunct is
+                // a NEGATIVE one this site owns: an IN-BODY class method's
+                // body local is compiled in Surelog's LATER class pass, sees
+                // the registered builtin and keeps `class_var` + an UNNAMED
+                // `class_typespec` — which is already ours (grid cell `kp`,
+                // both views, byte-identical on both sides).  `classScope &&
+                // !oob` is exactly that case; it is the same pair
+                // § pkgVarBindsOnlyThroughInstance88 reads for
+                // `inBodyClassMethod88` and the same pair that leaves `tsInst`
+                // null, so the gate and the instance can never drift apart.
+                // ...and the VIEW conjunct: a GENERATE SCOPE's subroutine is
+                // built during ELABORATION, after the builtin classes are
+                // registered, so its body local RESOLVES (grid cell `gtp`, a
+                // generate-block TASK).  `genScope` is `m->UhdmType() ==
+                // uhdmgen_scope` — the DEF listing builds no gen_scope at all.
+                const std::string_view stdBi115 =
+                    (genScope || (classScope && !oob))
+                        ? std::string_view{}
+                        : builtinStdClassToken115(fmv.getDeclaredType());
                 // A VECTOR-typedef block-local binds a fresh NAMED clone (at
                 // the typedef target syntax, with a Typedef_alias ref to the
                 // shared typedef and its own unfolded ranges) instead of the
@@ -5402,7 +5423,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // resolved in the home PACKAGE and carry it, an in-class
                 // method's carry nothing. tsInst already encodes exactly that
                 // (ApbSlave svunit_testsuite::report's pass_cnt/success_str).
-                if (tsInst && !sharedClassTypedef9 && !foreignSharedTs(fmv, vts)) {
+                // § builtinClassLocalUnsupportedBeforeClassPhase115 — when the
+                // law fires this `vts` is DISCARDED (the binding below takes a
+                // freshly minted unsupported_typespec instead), and stamping a
+                // possibly SHARED class_typespec on the way out would be a
+                // visible side effect on an object this declaration no longer
+                // owns.  Skipping the stamp keeps the change to the two fields
+                // the law names.
+                if (tsInst && stdBi115.empty() && !sharedClassTypedef9 &&
+                    !foreignSharedTs(fmv, vts)) {
                     vts->Instance(importCopyTsInst ? importCopyTsInst : tsInst);
                     if (importCopyTsInst && importCopyTsCollect)
                         importCopyTsCollect->push_back(vts);
@@ -5428,6 +5457,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // registered and no on-demand build happened) and it OVER-FIRED
                 // on the bare spelling (grid `g5` `v_inherited_bare`: golden
                 // `ref_var`, the proxy's `class_var`).
+                // § builtinClassLocalUnsupportedBeforeClassPhase115 — the KIND
+                // half: `compileVariable`'s final arm (CompileType.cpp:421).
+                // Ahead of § classTdLocalVarKindFollowsCompileOrder10 because
+                // that law reasons about a class-nested TYPEDEF's compile
+                // order, and this declaration names no typedef at all.
+                if (!v && !stdBi115.empty())
+                    v = s.MakeRef_var();
                 if (!v)
                     switch (classTdLocalVarKind10(fmv)) {
                         case TdLocalVarKind10::ClassVar:
@@ -5593,7 +5629,29 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                     oobTpLoc105 = {};
                             }
                     }
-                if (!oobTpLoc105.empty()) {
+                // § builtinClassLocalUnsupportedBeforeClassPhase115 — the
+                // TYPESPEC half.  Only the KIND, the NAME and the INSTANCE
+                // move; the variable's own span, parent, full name and
+                // vpiAutomatic stay exactly where the surrounding laws put
+                // them.  The instance is the one every other typespec of this
+                // subroutine takes (`tsInst` — the declaring PACKAGE for a
+                // package function and for an out-of-body method, NOTHING for
+                // a module), and an explicit-import COPY keeps the HOME
+                // package and joins the def/elab re-point list, exactly as the
+                // discarded class_typespec did three dozen lines up.
+                if (!stdBi115.empty()) {
+                    auto* uts115 = s.MakeUnsupported_typespec();
+                    uts115->VpiName(stdBi115);
+                    setLoc(uts115,
+                           fmv.getDeclaredType()->getTypeSyntax()->sourceRange());
+                    if (auto* ui115 = importCopyTsInst ? importCopyTsInst
+                                                       : tsInst)
+                        uts115->Instance(ui115);
+                    if (importCopyTsInst && importCopyTsCollect)
+                        importCopyTsCollect->push_back(uts115);
+                    vrt->Actual_typespec(uts115);
+                }
+                else if (!oobTpLoc105.empty()) {
                     auto* uts105 = s.MakeUnsupported_typespec();
                     uts105->VpiName(oobTpLoc105);
                     setLoc(uts105,

@@ -1,0 +1,21 @@
+v115_a.sv
+  SHAPES the implementer's grid never tested: $unit free function, package-local typedef of the builtin, STATIC in-body method, OUT-OF-BODY STATIC method, mailbox #(int), NAMED blocks, PROGRAM initial/task, INTERFACE initial/function, always @(*), always_comb, named initial block.
+
+v115_b.sv
+  USE SITES: process::self() as an initialiser / assignment Rhs / condition / argument, p.status()/p.kill()/p.await(), fixed array / queue / dynamic array of handles.
+
+v115_c.sv
+  A MODULE INSTANTIATED INSIDE A GENERATE BLOCK - the elaborated instance's UHDM parent chain runs through a gen_scope that inGenScopeChain115 walks, but the module body is compiled in Surelog's MODULE pass. The suspected under-fire; REFUTED by measurement.
+
+v115_d.sv
+  THE CONTROL: user classes NAMED process / semaphore / mailbox in a package, used from a package function and a module initial.
+
+v115_e.sv
+  CLASSES IN OTHER HOMES: a class declared inside a MODULE (in-body and out-of-body methods), a NESTED class, and for-loop / case-item / while / fork block items in both a class in-body method and a module initial.
+
+v115_f.sv
+  GENERATE SCOPES AT DEPTH: a nested for-generate, a generate-block TASK, a FORK inside a nested generate, an if-generate inside a for-generate, plus a non-generate CONTROL cell.
+
+v115_g.sv
+  THE MIRROR HUNT: virtual class, abstract class, parameterised class (in-body and out-of-body methods) - places the predicate could over-reach.
+

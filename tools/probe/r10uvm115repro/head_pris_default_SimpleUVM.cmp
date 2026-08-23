@@ -1,0 +1,56 @@
+LHS:
+decompile:
+ref_var: (uvm_pkg::uvm_process_report_message::p), id:22646, line:262:11, endln:262:12
+|vpiParent:
+\_begin: (uvm_pkg::uvm_process_report_message), id:22634, line:261:3, endln:261:24
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_process_report_message::p), id:22647
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_process_report_message::p), id:22646, line:262:11, endln:262:12
+  |vpiFullName:uvm_pkg::uvm_process_report_message::p
+  |vpiActual:
+  \_unsupported_typespec: (process), id:22645, line:262:3, endln:262:10
+|vpiName:p
+|vpiFullName:uvm_pkg::uvm_process_report_message::p
+
+decompile:
+ref_var: (uvm_pkg::uvm_process_report_message::p), id:22646, line:262:11, endln:262:12
+|vpiParent:
+\_begin: (uvm_pkg::uvm_process_report_message), id:22634, line:261:3, endln:261:24
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_process_report_message::p), id:22647
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_process_report_message::p), id:22646, line:262:11, endln:262:12
+  |vpiFullName:uvm_pkg::uvm_process_report_message::p
+  |vpiActual:
+  \_unsupported_typespec: (process), id:22645, line:262:3, endln:262:10
+|vpiName:p
+|vpiFullName:uvm_pkg::uvm_process_report_message::p
+RHS:
+decompile:
+class_var: (uvm_pkg::uvm_process_report_message::p), id:5462, line:262:11, endln:262:12
+|vpiParent:
+\_begin: (uvm_pkg::uvm_process_report_message), id:5464, line:261:3, endln:261:24
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_process_report_message::p), id:5463
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_process_report_message::p), id:5462, line:262:11, endln:262:12
+  |vpiFullName:uvm_pkg::uvm_process_report_message::p
+  |vpiActual:
+  \_class_typespec: (process), id:5461, line:262:3, endln:262:10
+|vpiName:p
+|vpiFullName:uvm_pkg::uvm_process_report_message::p
+
+decompile:
+class_var: (uvm_pkg::uvm_process_report_message::p), id:5462, line:262:11, endln:262:12
+|vpiParent:
+\_begin: (uvm_pkg::uvm_process_report_message), id:5464, line:261:3, endln:261:24
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_process_report_message::p), id:5463
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_process_report_message::p), id:5462, line:262:11, endln:262:12
+  |vpiFullName:uvm_pkg::uvm_process_report_message::p
+  |vpiActual:
+  \_class_typespec: (process), id:5461, line:262:3, endln:262:10
+|vpiName:p
+|vpiFullName:uvm_pkg::uvm_process_report_message::p

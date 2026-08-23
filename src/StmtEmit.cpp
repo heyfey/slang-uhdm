@@ -1851,9 +1851,36 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         blockMap[&bm] = av0;
                         continue;
                     }
+                    // § builtinClassLocalUnsupportedBeforeClassPhase115,
+                    // SITE 2 of 2 — the BLOCK-ITEM local (`begin` / named
+                    // `begin` / `fork` arm / loop body / case item, and a
+                    // module `initial` / `always` body).  Same law, same
+                    // Surelog mechanism, same negative conjunct: an IN-BODY
+                    // class method's body is compiled in the LATER class pass
+                    // and keeps `class_var` + an UNNAMED `class_typespec`.
+                    // `inBodyClassMethod88` is the SAME `classScope && !oob`
+                    // pair the subroutine site reads, live for the whole of
+                    // this method's body emission.  Grid cells: `fp` (fork),
+                    // `ip` (nested begin), `jp` (a WITH-INITIALISER local in an
+                    // `else begin` — the corpus's uvm_component:3612 shape),
+                    // `mp` (a module `initial` body local).
+                    // ...and the VIEW conjunct: in the ELABORATED listing a
+                    // generate scope's content is built after Surelog has
+                    // registered the builtin classes, so a generate-block local
+                    // RESOLVES there (grid cells `gp`, `gnp`, `ifp`, `unp`) and
+                    // degrades in the module's DEF listing, which builds
+                    // `gen_if` / `named_begin` and no `gen_scope` at all.
+                    const std::string_view stdBi115 =
+                        (inBodyClassMethod88 || inGenScopeProc ||
+                         inGenScopeChain115(b))
+                            ? std::string_view{}
+                            : builtinStdClassToken115(bm.getDeclaredType());
                     if (vlogHiddenTy) {
                         v = s.MakeRef_var();
                         vlogHiddenBlockVars.insert(&bm);
+                    }
+                    else if (!stdBi115.empty()) {
+                        v = s.MakeRef_var();
                     }
                     else {
                         v = makeEnumArrayVar(ts, bfull, b);
@@ -1900,7 +1927,38 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // body).  Same law, same three questions; grid11 `g3`
                     // `blk3::l_blk` is the cell that scores this site on its
                     // own.
-                    if (auto* uts11 = makeScopedTdUnsupTs11(bm)) {
+                    // § builtinClassLocalUnsupportedBeforeClassPhase115 — the
+                    // TYPESPEC half.  The instance is `pkgScopeInst`, the very
+                    // pointer § scopedTdUnsupTsHomePkgInstance83 uses one
+                    // branch below: the home package for an out-of-body class
+                    // method, a package free subroutine's own package, and NULL
+                    // in a module — which is exactly golden's answer for the
+                    // module `initial` / module task cells (`mp`, `mt`).
+                    //
+                    // ...with `importCopyTsInst` ahead of it, which that older
+                    // law's site does NOT carry because it has no import-copy
+                    // witness and this one does: inside an explicit-import
+                    // COPY the placeholder keeps the HOME package.  MEASURED —
+                    // golden reads `@uvm_pkg` for
+                    // `svaunit_pkg::uvm_component::m_apply_verbosity_settings`
+                    // and `adpcm_pkg::…` alike, and a first cut that used the
+                    // bare `pkgScopeInst` here wrote the IMPORTING package into
+                    // exactly those four databases (8 AWAY-GOLDEN identity
+                    // lines, caught by scoreall115.sh before any claim).
+                    if (!stdBi115.empty()) {
+                        auto* uts115 = s.MakeUnsupported_typespec();
+                        uts115->VpiName(stdBi115);
+                        setLoc(uts115,
+                               bm.getDeclaredType()->getTypeSyntax()->sourceRange());
+                        if (auto* ui115 = importCopyTsInst
+                                              ? importCopyTsInst
+                                              : pkgScopeInst)
+                            uts115->Instance(ui115);
+                        if (importCopyTsInst && importCopyTsCollect)
+                            importCopyTsCollect->push_back(uts115);
+                        rt->Actual_typespec(uts115);
+                    }
+                    else if (auto* uts11 = makeScopedTdUnsupTs11(bm)) {
                         // § scopedTdUnsupTsHomePkgInstance83, the BLOCK-ITEM
                         // twin of the subroutine-body site in TaskFuncEmit.cpp
                         // (that site carries the law).  `pkgScopeInst` is the

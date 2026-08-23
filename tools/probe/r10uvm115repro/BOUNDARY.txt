@@ -1,0 +1,78 @@
+r10uvm115 BOUNDARY GATE — the wide acquittal.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); this gate compares OUR pristine against OUR
+patched build over a COPY of the WHOLE probe tree (no path filter), in both
+MODEs and both VIEWs, and then re-measures every arm that moves AGAINST GOLDEN.
+
+Root: a COPY of tools/probe (3531 .sv/.v arms; 1514 directories).
+Binaries: pristine 61228316cb53458c749fc64dec6df028
+          patched  22a4739a000c9e1ec68f2a3c1cad4fc0
+
+  run                       PROCESSED  LISTED  DIFFER  PRIS_REJ  PATCHED_REJ
+  MODE=file VIEW=def             3531    3531       5       138          138
+  MODE=file VIEW=elab            3531    3531       5       150          150
+  MODE=dir  VIEW=def             1514    1514       7       118          118
+  MODE=dir  VIEW=elab            1514    1514       6       124          124
+  NULL CONTROL (SAME binary both sides)
+  MODE=dir  VIEW=def             1514    1514       3       118          118
+  MODE=dir  VIEW=elab            1514    1514       3       124          124
+
+PROCESSED == LISTED in every run; rejects are SYMMETRIC in every run (no arm is
+accepted by one binary and refused by the other).
+
+MODE=file, both views — the SAME five arms:
+
+  ./r10uvm115repro/g115_a.sv     this pass's own context grid
+  ./r10uvm115repro/g115_c.sv     this pass's own spelling/position grid
+  ./r10uvm115repro/g115_d.sv     this pass's own generate-scope grid
+  ./r10oth7repro/c3_bounds.sv    an EARLIER pass's arm — `mailbox` in a package
+                                 function, a module function, an initial block
+                                 and at module scope
+  ./r10uvm77repro/v77x4_scope.sv an EARLIER pass's arm — `process` in an
+                                 in-body method, a task, an out-of-body method,
+                                 a package function and a GENERATE block
+
+  ./r10uvm115repro/g115_b.sv — the CONTROL arm (a USER class named `process`, a
+  USER `semaphore`, a `typedef int process;`) — does NOT appear: its database is
+  BYTE-IDENTICAL before and after, in both views.
+
+RE-MEASURED AGAINST GOLDEN (grid115.sh + ct115cen, both views, cells differing
+from golden):
+
+  arm                            PRISTINE   PATCHED   REGRESSIONS
+  g115_a.sv                            29         3             0
+  g115_b.sv  (control)                  2         2             0
+  g115_c.sv                            33        15             0
+  g115_d.sv                            14         4             0
+  r10oth7repro/c3_bounds.sv            16        10             0
+  r10uvm77repro/v77x4_scope.sv         11         5             0
+
+  Every arm that moves moves TOWARD golden; no cell that agreed with golden
+  before disagrees after.  The cells still differing are the recorded residues
+  R3/R4/R5 plus pre-existing listing-count differences that this pass does not
+  touch (`work@semaphore::get`/`put` keyCount, `work@mailbox::new` bound, the
+  `d1_outer::d1_inner` / `d7_outer::d7_inner` scoped-typedef cells of § 11's
+  own family, and v77x4's own `x4c::oob` RET / `pkgfn` residues).
+
+MODE=dir — the extra directories are EMITTER NONDETERMINISM, not the patch.
+
+  The NULL CONTROL (the SAME pristine binary on BOTH sides) already reports
+  ./r10uvm75repro, ./r10uvm76repro and ./r10v109repro as differing, in both
+  views.  ./r10uvm88repro appears in the patched dir/def run and not in dir/elab
+  (and the reverse in an earlier run of the same battery) — the flip-flop
+  signature.  It was convicted directly:
+
+    * its diff is a single `vpiTaskFunc` LIST-ORDER move of
+      `\_function: (p3::base3::oob_base)`, nothing else;
+    * NO file in that directory contains the token `process`, `semaphore` or
+      `mailbox`, so the law cannot reach it;
+    * eight runs of the PRISTINE binary alone over that directory produce TWO
+      distinct dumps, and adding four PATCHED runs produces NO THIRD dump — the
+      patched binary's output set is exactly the pristine binary's.
+
+  That is RESUME §9's documented `vpiTaskFunc` list-order flip (macro-buffer
+  SourceLocation ordering under slang's parallel parse), reproduced here with
+  the patch out of the picture.
+
+  Removing those four, MODE=dir agrees with MODE=file exactly: ./r10oth7repro,
+  ./r10uvm115repro and ./r10uvm77repro — the same three directories the five
+  file-mode arms live in.

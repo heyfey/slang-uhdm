@@ -1,0 +1,57 @@
+===== BOUND2.dir.def.txt
+== boundary gate: MODE=dir VIEW=def  1514 arms under /tmp/r10uvm115_scratch/probecopy
+rm: refusing to remove '.' or '..' directory: skipping '/tmp/r10uvm115_scratch/b2.dir.def/.'
+PROCESSED=1514 LISTED=1514 DIFFER=7 PRIS_REJECT=118 PATCHED_REJECT=118
+-- differing arms:
+./r10oth7repro
+./r10uvm115repro
+./r10uvm75repro
+./r10uvm76repro
+./r10uvm77repro
+./r10uvm88repro
+./r10v109repro
+===== BOUND2.dir.elab.txt
+== boundary gate: MODE=dir VIEW=elab  1514 arms under /tmp/r10uvm115_scratch/probecopy
+rm: refusing to remove '.' or '..' directory: skipping '/tmp/r10uvm115_scratch/b2.dir.elab/.'
+PROCESSED=1514 LISTED=1514 DIFFER=6 PRIS_REJECT=124 PATCHED_REJECT=124
+-- differing arms:
+./r10oth7repro
+./r10uvm115repro
+./r10uvm75repro
+./r10uvm76repro
+./r10uvm77repro
+./r10v109repro
+===== BOUND2.file.def.txt
+== boundary gate: MODE=file VIEW=def  3531 arms under /tmp/r10uvm115_scratch/probecopy
+PROCESSED=3531 LISTED=3531 DIFFER=5 PRIS_REJECT=138 PATCHED_REJECT=138
+-- differing arms:
+./r10oth7repro/c3_bounds.sv
+./r10uvm115repro/g115_a.sv
+./r10uvm115repro/g115_c.sv
+./r10uvm115repro/g115_d.sv
+./r10uvm77repro/v77x4_scope.sv
+===== BOUND2.file.elab.txt
+== boundary gate: MODE=file VIEW=elab  3531 arms under /tmp/r10uvm115_scratch/probecopy
+PROCESSED=3531 LISTED=3531 DIFFER=5 PRIS_REJECT=150 PATCHED_REJECT=150
+-- differing arms:
+./r10oth7repro/c3_bounds.sv
+./r10uvm115repro/g115_a.sv
+./r10uvm115repro/g115_c.sv
+./r10uvm115repro/g115_d.sv
+./r10uvm77repro/v77x4_scope.sv
+===== BOUND2.null.dir.def.txt
+== boundary gate: MODE=dir VIEW=def  1514 arms under /tmp/r10uvm115_scratch/probecopy
+rm: refusing to remove '.' or '..' directory: skipping '/tmp/r10uvm115_scratch/b2null.dir.def/.'
+PROCESSED=1514 LISTED=1514 DIFFER=3 PRIS_REJECT=118 PATCHED_REJECT=118
+-- differing arms:
+./r10uvm75repro
+./r10uvm76repro
+./r10v109repro
+===== BOUND2.null.dir.elab.txt
+== boundary gate: MODE=dir VIEW=elab  1514 arms under /tmp/r10uvm115_scratch/probecopy
+rm: refusing to remove '.' or '..' directory: skipping '/tmp/r10uvm115_scratch/b2null.dir.elab/.'
+PROCESSED=1514 LISTED=1514 DIFFER=3 PRIS_REJECT=124 PATCHED_REJECT=124
+-- differing arms:
+./r10uvm75repro
+./r10uvm76repro
+./r10v109repro

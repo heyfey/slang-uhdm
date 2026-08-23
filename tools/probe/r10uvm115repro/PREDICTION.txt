@@ -1,0 +1,49 @@
+r10uvm115 — THE MOVER PREDICTION, written from PRISTINE databases ONLY, BEFORE
+the patched sweep.  MEASUREMENT ONLY; the official uhdm-cmp and
+scripts/verify_golden.py are the judges.  LHS is ALWAYS golden (Surelog);
+RHS is ALWAYS ours.
+
+Instrument: fence115.sh + ct115cen + fence115.py over BOTH pristine sweep
+workdirs (956 surelog databases, 1358 uhdm2rtlil databases).  Row files:
+PREDICTION.fence_pristine_surelog.tsv, PREDICTION.fence_pristine_uhdm2rtlil.tsv.
+
+FAMILY cells (golden holds `unsupported_typespec` on a declaration in the
+builtin-class family and we do not):
+
+    surelog     140 cells in  9 databases
+    uhdm2rtlil    0 cells in  0 databases
+  MIRROR (we hold the placeholder and golden does not — a WIDENING): 0 / 0.
+
+THE NINE DATABASES THAT MUST MOVE, BY NAME:
+
+    default/BuildUVMPkg-bf853d43     10 cells
+    default/MiniAmiq-544c7f61        24
+    default/Scoreboard-59431470       8
+    default/SeqDriver-32af76aa       24
+    default/SimpleUVM-1dc93a62        8
+    testflags/BuildUVMPkg-bf853d43   10
+    testflags/MiniAmiq-544c7f61      24
+    testflags/SeqDriver-32af76aa     24
+    testflags/SimpleUVM-1dc93a62      8
+
+EVERY OTHER DATABASE OF BOTH CORPORA MUST BE BYTE-IDENTICAL:
+  947 / 956 surelog and 1358 / 1358 uhdm2rtlil.
+
+THE FIVE SITES, all written `process`, identical in every one of the nine
+(uvm-1.2 line numbers; BuildUVMPkg names them at its pp_output lines):
+
+  base/uvm_globals.svh:262    uvm_process_report_message          process p;
+                                                                  <- THE HEAD
+  base/uvm_root.svh:411       uvm_root::run_test          process phase_runner_proc;
+  reg/uvm_reg.svh:2976        uvm_reg::XatomicX           process m_reg_process;
+  base/uvm_component.svh:3612 uvm_component::m_apply_verbosity_settings
+                                                          process p = process::self();
+  base/uvm_component.svh:3366 uvm_component::m_set_cl_msg_args    process p_;
+
+  (BuildUVMPkg: 9683 / 38875 / 68683 / 41441 / 41140.)
+
+`semaphore` and `mailbox`: golden treats them IDENTICALLY (grid cells `sem`,
+`mbx`, `msem` in g115_a.sv, both views) but the corpus contains ZERO cells of
+either, in either corpus — so no widening is claimed on them; the shared
+predicate covers them because the GATE is the `std`-package identity and not a
+name list, and the boundary arms are the only witnesses.

@@ -1,0 +1,17 @@
+LHS:
+decompile:
+logic_net: (work@top.p), id:197762, line:263:3, endln:263:4
+|vpiParent:
+\_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiName:p
+|vpiFullName:work@top.p
+|vpiNetType:1
+
+decompile:
+logic_net: (work@top.p), id:197762, line:263:3, endln:263:4
+|vpiParent:
+\_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiName:p
+|vpiFullName:work@top.p
+|vpiNetType:1
+RHS: <null>

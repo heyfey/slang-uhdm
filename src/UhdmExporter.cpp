@@ -2929,6 +2929,39 @@ bool UhdmExporter::isBuiltinStdClass(const Type& ct) {
     return false;
 }
 
+// § builtinClassLocalUnsupportedBeforeClassPhase115 — the predicate; the law,
+// its Surelog citations and the three conjuncts are in UhdmExporter.h.
+std::string_view UhdmExporter::builtinStdClassToken115(const DeclaredType* dt) {
+    if (!dt)
+        return {};
+    // Conjunct 1 — slang's `std` builtin class, and NOTHING else.  The kind
+    // test inside isBuiltinStdClass is also conjunct 3: an array declaration's
+    // type is an array type, so it never reaches the ClassType arm.
+    if (!isBuiltinStdClass(dt->getType()))
+        return {};
+    // Conjunct 2 — the BARE spelling.  golden's `std::process` cell keeps
+    // class_var, so the scoped name is not this law's.
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return {};
+    auto& nt = tsyn->as<syntax::NamedTypeSyntax>();
+    if (!nt.name || nt.name->kind != syntax::SyntaxKind::IdentifierName)
+        return {};
+    auto tok = nt.name->as<syntax::IdentifierNameSyntax>().identifier;
+    if (!tok.valid())
+        return {};
+    return tok.valueText();
+}
+
+// § builtinClassLocalUnsupportedBeforeClassPhase115, the view conjunct; the
+// law and its grid are in UhdmExporter.h.
+bool UhdmExporter::inGenScopeChain115(const UHDM::any* o) {
+    for (int d = 0; o && d < 300; ++d, o = o->VpiParent())
+        if (o->UhdmType() == UHDM::uhdmgen_scope)
+            return true;
+    return false;
+}
+
 // The specialization carried by a class_typespec (see the header note).
 void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType& cls,
                                      const std::string& prefix) {

@@ -46,6 +46,7 @@ class GenerateBlockArraySymbol;
 class TypeAliasType;
 class PrimitiveSymbol;
 class LetDeclSymbol;
+class DeclaredType;
 } // namespace slang::ast
 
 namespace slang {
@@ -4641,6 +4642,79 @@ private:
     // classes (mailbox / semaphore / process / ...): walk its parent scopes and
     // stop at the first Package / CompilationUnit / InstanceBody.
     static bool isBuiltinStdClass(const slang::ast::Type& ct);
+    // § builtinClassLocalUnsupportedBeforeClassPhase115 — THE PREDICATE.
+    //
+    // > Surelog registers its builtin `process` / `semaphore` / `mailbox`
+    // > class definitions (`Builtin::addBuiltinClasses`, Builtin.cpp:291-395,
+    // > parsed out of an in-memory `builtin.sv`) into the DESIGN's class map
+    // > under their SIMPLE names — but only AFTER packages, modules and
+    // > programs are compiled (`CompileDesign.cpp:358-361`, between the
+    // > module/program pass at :350-356 and the class pass at :385-388).  A
+    // > declaration compiled in that EARLIER pass — a package or module
+    // > subroutine's BODY LOCAL, and an OUT-OF-BODY class method's body local,
+    // > which is a package-level `paFunction_declaration` (§ 105) — therefore
+    // > resolves the written name against a design that does not hold it yet:
+    // > `CompileHelper::compileVariable` (CompileType.cpp:335-435) finds no
+    // > `getDataType`, no `getClassDefinition`, and a `ts` that
+    // > `compileDatastructureTypespec`'s catch-all (CompileType.cpp:1051-1055)
+    // > has already degraded to an `unsupported_typespec` NAMED for the WRITTEN
+    // > TOKEN and SPANNED over it — so the declaration takes the final
+    // > `ref_var` arm (CompileType.cpp:421-431).  `needLateTypedefBinding`
+    // > never repairs it: the repair map holds TYPEDEFS only
+    // > (ElaborationStep.cpp:102-148).  The placeholder's `vpiInstance` is
+    // > `component->getUhdmInstance()` (CompileType.cpp:2135-2136) — the
+    // > declaring PACKAGE, and NOTHING for a module.
+    //
+    // An IN-BODY class method's body local is compiled in the LATER class
+    // pass, sees the builtin, and takes the `cl` arm (CompileType.cpp:360-382):
+    // `class_var` + an UNNAMED `class_typespec` carrying
+    // `vpiClassDefn -> work@process` — which is ALREADY what we emit, measured
+    // on grid cell `kp` in both views.  Package / module VARIABLES and class
+    // PROPERTIES are not compiled by `compileVariable` at all and keep a NAMED
+    // `class_typespec` — also already ours (grid `pkgvar` / `mvar` / `prop`).
+    //
+    // Returns the WRITTEN TOKEN when the law applies to @a dt, else an empty
+    // view.  THREE conjuncts, each with its own measured grid cell:
+    //   1. the declared type IS one of slang's `std` builtin classes
+    //      (`isBuiltinStdClass`, the SAME gate
+    //      § builtinClassTsLinksBuiltinFileDefn7 uses) — a USER class or
+    //      typedef merely NAMED `process` lives in a compilation unit and is
+    //      untouched (control arm g115_b);
+    //   2. the type is written as a BARE `IdentifierName` — the SCOPED
+    //      spelling `std::process` keeps `class_var` in golden and only its
+    //      typespec degrades (grid cell `sp`), a DIFFERENT shape this law must
+    //      not claim;
+    //   3. the declaration is not an ARRAY — golden puts the placeholder on
+    //      the ELEMENT `ref_var` there (grid cells `afix`/`aq`/`adyn`), which
+    //      is not this site.  The kind test alone enforces it: an array
+    //      declaration's type is an array type, not a ClassType.
+    static std::string_view builtinStdClassToken115(
+        const slang::ast::DeclaredType* dt);
+    // § builtinClassLocalUnsupportedBeforeClassPhase115, THE VIEW CONJUNCT.
+    //
+    // > A GENERATE SCOPE's content is built during ELABORATION — AFTER
+    // > `Builtin::addBuiltinClasses` — so in the ELABORATED listing a
+    // > generate-block declaration RESOLVES: `class_var` + a NAMED
+    // > `class_typespec`.  The SAME declaration in the module's DEF listing,
+    // > where the generate construct is still a `gen_if` / `named_begin`
+    // > compiled in the module pass, degrades like every other.  It is the same
+    // > phase-order law one phase further down.
+    //
+    // MEASURED on g115_d.sv, both views, eight positions: golden gives
+    // `ref_var + unsupported` to a PLAIN module `initial` local, a module TASK
+    // local and a module FUNCTION local in BOTH views, and to an if-generate
+    // local in the DEF view — but `class_var + class_typespec 'process'` to
+    // every generate-scope local in the ELABORATED view (`gp` for-generate
+    // `initial`, `gnp` its nested `begin`, `gtp` a generate-block TASK, `ifp`
+    // if-generate, `unp` UNNAMED if-generate).  r10uvm77's committed arm
+    // v77x4_scope.sv cell (5) is exactly that cell, and the boundary gate
+    // caught this pass moving it AWAY before any claim was made.
+    //
+    // The test needs no view flag: the DEF listing does not build `gen_scope`
+    // objects at all (it keeps `gen_if` / `gen_for` / `named_begin`), so a
+    // `gen_scope` ANYWHERE on the parent chain IS the elaborated generate
+    // scope.
+    static bool inGenScopeChain115(const UHDM::any* o);
     // --builtins: mirror Surelog's default (no -nobuiltin) content.
     bool builtins = false;
     std::string builtinFilePath;
