@@ -1,0 +1,71 @@
+r10uvm103 — THE GOLDEN GRID.  MEASUREMENT ONLY; LHS is ALWAYS golden (Surelog),
+RHS is ALWAYS ours.  Three arms, both views (`def` and `-elabuhdm`/`--elabuhdm`),
+scored as a MULTISET of census rows so a change in MULTIPLICITY cannot hide.
+Every command and its rc is in the arm's own <workdir>/cmds.txt.
+
+  grid103.sh g103_a1.sv <pristine> <patched> <wd> <cen>
+  grid103.sh g103_a2.sv ...
+  grid103.sh g103_a3.sv ...
+
+== a1 — 44 cells: 2/3/4 components x statement/expression x void-function/task
+        carrier x class in-body / out-of-body / package function / module
+        function / module initial x this. / super. / index-in-base /
+        index-in-middle / no-parens / void'(...)   ALL ARGUMENTS BINDABLE
+
+  DEF view   golden-vs-pristine 1 differing cell   golden-vs-patched 1  (UNCHANGED)
+  ELAB view  golden-vs-pristine 46 lines          golden-vs-patched 46  (UNCHANGED,
+             and pristine-vs-patched 0 — this arm does not move at all)
+
+  The single differing cell is `super.bm.one.lvoid(77)` (residue R-S below).
+  EVERYTHING ELSE ALREADY AGREED: our emitter has modelled Surelog's
+  compileTfCall collapse for 3+ components since before this pass.
+
+  GOLDEN's answer, read off the two Surelog runs (statement position):
+    a.b(x)          -> method_func_call `b`,  prefix ref_obj `a`,  ARGUMENT KEPT
+    a.b.c(x)        -> method_func_call `b`,  prefix ref_obj `a`,  NO ARGUMENT
+    a.b.c.d(x)      -> method_func_call `b`,  prefix ref_obj `a`,  NO ARGUMENT
+    a[0].b.c(x)     -> method_func_call `b`,  prefix ref_obj `a` (subscript
+                       dropped, spanned to the `[`), NO ARGUMENT
+    a.b[1].c(x)     -> method_func_call `b`,  prefix ref_obj `a`,  ARGUMENT = the
+                       INDEX `1` (Surelog reads the argument list at
+                       Sibling(second name), which here is that Constant_bit_select)
+    this.a.b(x)     -> method_func_call `this`, prefix STRING constant "this"
+    super.a.b(x)    -> method_func_call `super`, prefix STRING constant "super"
+    void'(a.b.c(x)) -> identical to a.b.c(x); the cast disappears
+    a task carrier is the same method_func_call — there is no method_task_call here
+  EXPRESSION position, every component count: a `hier_path` over one element per
+  component with a trailing method_func_call that KEEPS its arguments.
+
+== a2 — the HEAD's own shape: a 3-component dotted call statement inside a
+        PARAMETERISED class whose transformer type parameter defaults to a
+        NON-CLASS, so the argument's inner call cannot bind
+
+  DEF view   golden-vs-pristine 3 differing cells  golden-vs-patched 0   CLEARED
+  ELAB view  golden-vs-pristine 8 lines            golden-vs-patched 4   (the
+             residue is our extra ELAB copy of the class body, a pre-existing
+             family: every SHAPE matches, only the multiplicity differs)
+
+== a3 — THE DISCRIMINATOR, isolated.  Every statement is a dotted method call;
+        the only axis that varies is whether an ARGUMENT binds.
+
+  DEF view   golden-vs-pristine 11 differing cells golden-vs-patched 1
+  ELAB view  golden-vs-pristine 20 lines           golden-vs-patched 8
+
+  cell    written form                       pristine        patched
+  G2ok    el.put(31)                         agrees          agrees
+  G3ok    bo.slot.put(32)                    agrees          agrees
+  G4ok    cr.bx.slot.put(33)                 agrees          agrees
+  G2bad   el.put(tp.conv(kk))                hier_path       FIXED (mfc `put`,
+                                                             prefix `el`, the
+                                                             `tp.conv` argument
+                                                             KEPT, byte-identical
+                                                             to golden's subtree)
+  G3bad   bo.slot.put(tp.conv(kk))           hier_path       FIXED (mfc `slot`,
+                                                             prefix `bo`, NO
+                                                             argument, and the
+                                                             stray `tp.conv`
+                                                             hier_path is gone)
+  G4bad   cr.bx.slot.put(tp.conv(kk))        hier_path       FIXED
+  G3mem   bo.slot.put(tp.fld)                hier_path       FIXED
+  G3exp   ... + tp.conv(kk) in an expression agrees          agrees (untouched)
+  G3rcv   tp.bx.slot.put(34)                 bare ref_obj    still wrong (R-R)

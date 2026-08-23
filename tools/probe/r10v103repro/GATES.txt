@@ -1,0 +1,137 @@
+r10v103 — THE VERIFIER'S OWN GATE BATTERY, re-run from scratch on BASE
+ecdded75 in the verifier's own worktrees.  The official uhdm-cmp and
+scripts/verify_golden.py are the only judges.  Build: Release, -j 2, the two
+builds SEQUENTIAL.  Sweeps: --jobs 2, the verifier's OWN --out/--workdir,
+SLANG_UHDM exported to each frozen binary, every cmds.txt audited BY PATH.
+
+(1) BUILD BOTH, md5 SEPARATELY
+    pristine  9ae62f2d6a19f72cf5cb259847914b9a   (built at /tmp/wt_v103pris)
+    patched   345863eda3e6135f471565542c866c9f   (built at /tmp/wt_v103)
+    Both reproduce the IMPLEMENTER's md5s exactly from a different worktree
+    path, so the build is deterministic and path-independent.
+    Frozen chmod 555 under /tmp/v103_bin/{pris,pat}.bin.
+    NOTE: the MAIN TREE binary at this moment is 4e1d739b21bf097f2c21e66889b765b6,
+    built from a DIRTY tree (uvm102's in-flight src/ParamEmit.cpp) — it is NOT an
+    ecdded75 binary and was never used.
+
+(2) GOLDEN DUMP TESTS, SLANG_UHDM exported explicitly to EACH binary
+    patched    23 PASS / 0 FAIL
+    pristine   23 PASS / 0 FAIL
+    /bin/false  0 PASS / 23 FAIL     (negative control: the harness can fail)
+
+(3) uhdm2rtlil, BOTH MODES
+    ct8rows patched testflags vs results/gate_uhdm2rtlil.csv   PASS (byte-identical)
+    ct8rows pristine testflags vs the same baseline            PASS
+    ct8rows pristine default  vs patched default               PASS
+    cmds.txt audit: 1462 files per sweep, 1458 slang invocations, and the ONLY
+      slang binary named is /tmp/v103_bin/pat.bin (resp. pris.bin).  The 4
+      cmds.txt with no slang line are the two SURELOG_FAIL tests in both modes.
+    byteverify SELFCHECK=1: PATH_SETS_IDENTICAL (1358), MOVERS 0 / 1358,
+      SELFCHECK 1357 / 1358 flagged (the instrument can see).
+
+(4) surelog corpus, --mode both
+    ct8rows patched  vs results/golden_surelog.csv   PASS, 0 differing rows / 1588
+    ct8rows pristine vs results/golden_surelog.csv   PASS, 0 differing rows / 1588
+    ct8rows pristine vs patched                      PASS
+    NO ROW CONVERTED.  Status histogram, IDENTICAL pristine and patched:
+      default   CMP_EQUAL 471  SLANG_REJECT 283  SURELOG_FAIL 25  CMP_NOTEQUAL 10  DEFERRED 5
+      testflags CMP_EQUAL 466  SLANG_REJECT 284  SURELOG_FAIL 23  CMP_NOTEQUAL  9  DEFERRED 5
+                NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+    cmds.txt audit: 1573 files per sweep, 1523 slang invocations, only
+      /tmp/v103_bin/pat.bin (resp. pris.bin).
+
+(5) byteverify SELFCHECK=1, surelog
+    PATH_SETS_IDENTICAL (956), MOVERS 9 / 956, SELFCHECK 955 / 956 flagged.
+    The nine are EXACTLY the nine the implementer predicted BY NAME:
+      default/{BuildUVMPkg,MiniAmiq,Scoreboard,SeqDriver,SimpleUVM}
+      testflags/{BuildUVMPkg,MiniAmiq,SeqDriver,SimpleUVM}
+    ORDER-BLIND ATTRIBUTION (dump, workdir path normalised, `id:` stripped,
+    SORTED, then indentation stripped so a pure re-parenting shows as nothing):
+      8 uvm-1.2 databases   64 changed lines, source lines 131 / 720 / 725 ONLY
+      2 BuildUVMPkg rows    76 changed lines, source lines
+                            14069 14070 14073 14076 14077 14088 14125 50754 ONLY
+      Scoreboard/default's sorted diff is LINE-FOR-LINE IDENTICAL to
+      SimpleUVM's, so the vpiTaskFunc COIN contributed nothing.
+      No other object in any database changed.
+
+    HEADS (rowheads.sh, official uhdm-cmp, `grep -c '^LHS:'`)
+      row-mode                        pristine   patched   heads
+      SimpleUVM  default / testflags    108        22        1     R0 CUT
+      Scoreboard default                108        22        1     R0 CUT
+      SeqDriver  default / testflags     17        17        1     unchanged
+      MiniAmiq   default / testflags    348       348        1     unchanged
+      BuildUVMPkg default / testflags    72        72        1     unchanged
+      Earlgrey_0_1 default / testflags   46        46        1     unchanged
+      Rggen      default                  0         0        0     still CMP_EQUAL
+      (SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is expected.)
+      The verifier's own cmp logs are BYTE-IDENTICAL (ids stripped) to the three
+      committed head_*.cmp files.
+
+    CANARIES
+      canaries.sh surelog     ok=52 changed=0 absent=0
+      canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+      ctcan2.sh EXPECT_UNKNOWN=1 (sl) / 6 (u2r)          PASS / PASS
+      canaudit.sh canaries.sh ctcan2.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+      protected databases, patched vs pristine, BOTH MODES:
+        InterfaceModPort   SAME     BlackParrotComplex SAME     YosysOldOr SAME
+        SVSwitch  4842211c4030  PIN HELD
+        YosysVerx 6ccda350c24a  PIN HELD
+
+(6) THE FOSSIL, re-enumerated with a freshly built r10uvm103cen
+    golden-vs-golden CALIBRATION FIRST
+      surelog   1562 goldens named, 46 absent (SURELOG_FAIL / NO_DATABASE),
+                322 533 HPCALL rows, HPCALL POS=STMT = 0
+      u2r       1460 goldens, 20 HPCALL rows, HPCALL POS=STMT = 0
+    OURS
+      surelog   pristine 29 rows / 9 DBs  ->  patched 0 rows / 0 DBs
+                the 9-database set is IDENTICAL to the committed
+                PREDICTION.fence_pristine_surelog.tsv and to the byteverify
+                mover set
+      u2r       pristine 0 / 0            ->  patched 0 / 0
+
+(7) BOUNDARY GATE, a COPY of the WHOLE probe tree, NO path filter, .sv AND .v,
+    BOTH views, BOTH modes.  Children </dev/null, list on fd 3, PROCESSED
+    asserted, scratch keyed on the RELATIVE path.
+      MODE=file VIEW=def   PROCESSED=3259 LISTED=3259 DIFFER=10 REJECT 132/132
+      MODE=file VIEW=elab  PROCESSED=3259 LISTED=3259 DIFFER=10 REJECT 142/142
+      MODE=dir  VIEW=def   PROCESSED=1472 LISTED=1472 DIFFER=5  REJECT 115/115
+      MODE=dir  VIEW=elab  PROCESSED=1472 LISTED=1472 DIFFER=5  REJECT 120/120
+      NO ASYMMETRIC REJECT in any of the four runs.
+    THE DIFFERING UNITS, every one attributed:
+      r10uvm103repro/g103_a2.sv, g103_a3.sv        the implementer's own arms
+      r10v103repro/arms/v103_b1..b5.sv, c3, c4, c5 the VERIFIER's own arms
+                                                   (c1 and c2 are byte-identical
+                                                    between the binaries — the
+                                                    two negative controls)
+      r10uvm59repro/a1_witness.sv, a2_position.sv, vcells/d10_argstmt.sv
+          SCORED AGAINST A FRESH GOLDEN, both views: TOGOLD, AWAY=0 in all six
+          cells.  § typeParamScopedCallRef59's own object is intact — e.g.
+          a1_witness/elab `arg_pos::Tregistry::get` goes 2 -> 1 where GOLDEN
+          holds 1; a2_position/elab 20 -> 19 where golden holds 19;
+          d10_argstmt/elab 2 -> 1 where golden holds 1.
+      NOTE arms/v103_c5_slots.sv was written AFTER the four whole-tree runs
+      above (which therefore listed 3259 files / 1472 dirs, not 3260 / 1472).
+      It was boundary-checked on its own, MODE=file, BOTH views, together with
+      the other nine verifier arms: PROCESSED=10 LISTED=10 DIFFER=8
+      PRIS_REJECT=0 PATCHED_REJECT=0, the eight being b1..b5, c3, c4, c5 —
+      c1 and c2 byte-identical, the two negative controls.  No arm outside this
+      directory is affected by its existence.
+
+      r10uvm75repro, r10uvm76repro   (dir mode only)  NOT THIS PASS.
+          sorted dumps IDENTICAL between the binaries, and FOUR PRISTINE RUNS of
+          r10uvm75repro's directory give FOUR different raw dump hashes
+          (7fb25c651852 / fb4ad2eabfc4 / caab2001d4cd / 1651bb1aa43f) that all
+          sort to ONE hash (f68c1dd03555) — the known parallel-parse
+          vpiTaskFunc ordering coin.
+
+(8) DIRECTION, owner-keyed census with a Compare-visible payload, WHOLE DATABASE
+    SimpleUVM 1183 owners  SAME 808 STILL 373 TOGOLD 0 AWAY 0 MOVED? 2
+    BuildUVMPkg 1264       SAME 885 STILL 375 TOGOLD 3 AWAY 0 MOVED? 1
+    MiniAmiq 1384          SAME 764 STILL 618 TOGOLD 0 AWAY 0 MOVED? 2
+    SeqDriver 1183         SAME 636 STILL 545 TOGOLD 0 AWAY 0 MOVED? 2
+    Scoreboard 1198        SAME 825 STILL 371 TOGOLD 0 AWAY 0 MOVED? 2
+    Every MOVED?/TOGOLD owner read out in full and confirmed toward golden;
+    uvm_algorithmic_comparator::write is BYTE-IDENTICAL to golden's subtree.
+
+(9) THE ADVERSARIAL GRID, 10 arms x 2 views, scored against fresh goldens
+    AWAY = 0 in every arm, in every view.  See README.md §3.

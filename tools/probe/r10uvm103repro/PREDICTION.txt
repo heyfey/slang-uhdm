@@ -1,0 +1,39 @@
+r10uvm103 — THE FENCE, ENUMERATED FROM THE PRISTINE DATABASES BEFORE THE
+PATCHED SWEEP EXISTED.  MEASUREMENT ONLY.
+
+THE FOSSIL.  The law can only reach a call that our emitter built in
+EXPRESSION shape while it stood in a STATEMENT slot.  That shape is a
+`hier_path` whose last `Path_elem` is a call, occupying a statement slot
+(`FAM=HPCALL POS=STMT` in `r10uvm103cen.cpp`).
+
+CALIBRATION FIRST (golden vs golden), `goldcen103.sh`:
+  surelog corpus     1 562 distinct goldens named by the control's cmds.txt
+                     (46 cache entries absent = SURELOG_FAIL / NO_DATABASE rows)
+                     322 533 HPCALL rows      HPCALL POS=STMT = 0
+  uhdm2rtlil corpus  1 460 distinct goldens
+                          20 HPCALL rows      HPCALL POS=STMT = 0
+  -> golden NEVER holds this shape.  The fossil is exact.
+
+PREDICTED MOVERS, by name, from the PRISTINE control workdirs (`fence103.sh`):
+  uhdm2rtlil  1 358 databases scanned   0 rows / 0 databases   -> NONE
+  surelog       956 databases scanned  29 rows / 9 databases   -> THESE NINE
+
+    default/BuildUVMPkg    testflags/BuildUVMPkg
+    default/MiniAmiq       testflags/MiniAmiq
+    default/SeqDriver      testflags/SeqDriver
+    default/SimpleUVM      testflags/SimpleUVM
+    default/Scoreboard     (Scoreboard's testflags row is SLANG_REJECT)
+
+THREE SOURCE SITES, all of them a statement-position dotted call one of whose
+ARGUMENTS reads or calls through a handle typed by an unspecialised type
+parameter:
+
+  uvm-1.2 comps/uvm_algorithmic_comparator.svh:131   3 components  (THE HEAD)
+      comp.before_export.write( m_transformer.transform( b ) )
+  uvm-1.2 base/uvm_misc.svh:720 and :725             2 components
+      comp.uvm_report_fatal(   ... TYPE::type_name ... )
+      comp.uvm_report_warning( ... TYPE::type_name ... )
+  1800.2 pp_output/uvm_pkg.sv:14073 / :14088 / :14125 / :50754  (the same two
+      families in the pre-processed tree: uvm_registry_common's
+      factory.set_type_override_by_type / set_inst_override_by_type /
+      set_type_alias with a `Tregistry::get` argument, and the :131 twin)

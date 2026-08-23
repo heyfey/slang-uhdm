@@ -1,0 +1,108 @@
+LHS:
+decompile:
+method_func_call: (before_export), id:121142, line:131:10, endln:131:23
+|vpiParent:
+\_function: (uvm_pkg::uvm_algorithmic_comparator::write), id:121139, line:130:3, endln:132:14
+|vpiName:before_export
+|vpiPrefix:
+\_ref_obj: (uvm_pkg::uvm_algorithmic_comparator::write::comp), id:121143, line:131:5, endln:131:9
+  |vpiParent:
+  \_method_func_call: (before_export), id:121142, line:131:10, endln:131:23
+  |vpiName:comp
+  |vpiFullName:uvm_pkg::uvm_algorithmic_comparator::write::comp
+
+decompile:
+method_func_call: (before_export), id:121142, line:131:10, endln:131:23
+|vpiParent:
+\_function: (uvm_pkg::uvm_algorithmic_comparator::write), id:121139, line:130:3, endln:132:14
+|vpiName:before_export
+|vpiPrefix:
+\_ref_obj: (uvm_pkg::uvm_algorithmic_comparator::write::comp), id:121143, line:131:5, endln:131:9
+  |vpiParent:
+  \_method_func_call: (before_export), id:121142, line:131:10, endln:131:23
+  |vpiName:comp
+  |vpiFullName:uvm_pkg::uvm_algorithmic_comparator::write::comp
+RHS:
+decompile:
+hier_path: (comp.before_export.write), id:6353, line:131:5, endln:131:29
+|vpiParent:
+\_function: (uvm_pkg::uvm_algorithmic_comparator::write), id:6349, line:130:3, endln:132:14
+|vpiActual:
+\_ref_obj: (comp), id:6354, line:131:5, endln:131:9
+  |vpiParent:
+  \_hier_path: (comp.before_export.write), id:6353, line:131:5, endln:131:29
+  |vpiName:comp
+|vpiActual:
+\_ref_obj: (before_export), id:6355, line:131:10, endln:131:23
+  |vpiParent:
+  \_hier_path: (comp.before_export.write), id:6353, line:131:5, endln:131:29
+  |vpiName:before_export
+|vpiActual:
+\_method_func_call: (write), id:6356, line:131:24, endln:131:29
+  |vpiParent:
+  \_hier_path: (comp.before_export.write), id:6353, line:131:5, endln:131:29
+  |vpiArgument:
+  \_hier_path: (m_transformer.transform), id:6357, line:131:31, endln:131:59
+    |vpiParent:
+    \_method_func_call: (write), id:6356, line:131:24, endln:131:29
+    |vpiActual:
+    \_ref_obj: (m_transformer), id:6358, line:131:31, endln:131:44
+      |vpiParent:
+      \_hier_path: (m_transformer.transform), id:6357, line:131:31, endln:131:59
+      |vpiName:m_transformer
+    |vpiActual:
+    \_method_func_call: (transform), id:6359, line:131:45, endln:131:54
+      |vpiParent:
+      \_hier_path: (m_transformer.transform), id:6357, line:131:31, endln:131:59
+      |vpiArgument:
+      \_ref_obj: (uvm_pkg::uvm_algorithmic_comparator::write::m_transformer.transform::b), id:6360, line:131:56, endln:131:57
+        |vpiParent:
+        \_method_func_call: (transform), id:6359, line:131:45, endln:131:54
+        |vpiName:b
+        |vpiFullName:uvm_pkg::uvm_algorithmic_comparator::write::m_transformer.transform::b
+      |vpiName:transform
+    |vpiName:m_transformer.transform
+  |vpiName:write
+|vpiName:comp.before_export.write
+
+decompile:
+hier_path: (comp.before_export.write), id:6353, line:131:5, endln:131:29
+|vpiParent:
+\_function: (uvm_pkg::uvm_algorithmic_comparator::write), id:6349, line:130:3, endln:132:14
+|vpiActual:
+\_ref_obj: (comp), id:6354, line:131:5, endln:131:9
+  |vpiParent:
+  \_hier_path: (comp.before_export.write), id:6353, line:131:5, endln:131:29
+  |vpiName:comp
+|vpiActual:
+\_ref_obj: (before_export), id:6355, line:131:10, endln:131:23
+  |vpiParent:
+  \_hier_path: (comp.before_export.write), id:6353, line:131:5, endln:131:29
+  |vpiName:before_export
+|vpiActual:
+\_method_func_call: (write), id:6356, line:131:24, endln:131:29
+  |vpiParent:
+  \_hier_path: (comp.before_export.write), id:6353, line:131:5, endln:131:29
+  |vpiArgument:
+  \_hier_path: (m_transformer.transform), id:6357, line:131:31, endln:131:59
+    |vpiParent:
+    \_method_func_call: (write), id:6356, line:131:24, endln:131:29
+    |vpiActual:
+    \_ref_obj: (m_transformer), id:6358, line:131:31, endln:131:44
+      |vpiParent:
+      \_hier_path: (m_transformer.transform), id:6357, line:131:31, endln:131:59
+      |vpiName:m_transformer
+    |vpiActual:
+    \_method_func_call: (transform), id:6359, line:131:45, endln:131:54
+      |vpiParent:
+      \_hier_path: (m_transformer.transform), id:6357, line:131:31, endln:131:59
+      |vpiArgument:
+      \_ref_obj: (uvm_pkg::uvm_algorithmic_comparator::write::m_transformer.transform::b), id:6360, line:131:56, endln:131:57
+        |vpiParent:
+        \_method_func_call: (transform), id:6359, line:131:45, endln:131:54
+        |vpiName:b
+        |vpiFullName:uvm_pkg::uvm_algorithmic_comparator::write::m_transformer.transform::b
+      |vpiName:transform
+    |vpiName:m_transformer.transform
+  |vpiName:write
+|vpiName:comp.before_export.write

@@ -1,0 +1,103 @@
+r10uvm103 — THE GATE BATTERY.  The OFFICIAL `uhdm-cmp` and
+`scripts/verify_golden.py` are the only judges below.  Build: Release, -j 2.
+Sweeps: --jobs 2, my OWN --out/--workdir, `SLANG_UHDM` exported to the frozen
+patched binary and every cmds.txt audited BY PATH.
+
+(1) BUILD BOTH, md5 SEPARATELY
+    pristine  9ae62f2d6a19f72cf5cb259847914b9a  — reproduces the main tree's
+              build/slang-uhdm at ecdded75 BYTE FOR BYTE
+    patched   345863eda3e6135f471565542c866c9f
+    both frozen `chmod 555` under /tmp/r10uvm103_bin/
+
+(2) GOLDEN DUMP TESTS, SLANG_UHDM exported explicitly to EACH binary
+    patched   PASS 23  FAIL 0
+    pristine  PASS 23  FAIL 0
+    /bin/false PASS 0  FAIL 23      (negative control: the harness can fail)
+
+(3) uhdm2rtlil, BOTH MODES, ct8rows (status AND dump column)
+    testflags vs results/gate_uhdm2rtlil.csv   PASS, every row byte-identical
+    testflags vs /tmp control CSV              PASS
+    default   vs /tmp control CSV              PASS
+    cmds.txt audit: the ONLY slang binary named anywhere in the workdir is
+    /tmp/r10uvm103_bin/pat.bin
+    byteverify SELFCHECK=1: PATH_SETS_IDENTICAL (1358), MOVERS 0 / 1358,
+    SELFCHECK 1357/1358 flagged (the instrument can see)
+
+(4) surelog corpus, --mode both, ct8rows
+    vs results/golden_surelog.csv   PASS, 0 differing rows over 1588
+    vs /tmp control CSV             PASS
+    NO ROW CONVERTED.  Status histogram unchanged:
+      default   CMP_EQUAL 471  SLANG_REJECT 283  SURELOG_FAIL 25  CMP_NOTEQUAL 10  DEFERRED 5
+      testflags CMP_EQUAL 466  SLANG_REJECT 284  SURELOG_FAIL 23  CMP_NOTEQUAL  9  DEFERRED 5
+                NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+    cmds.txt audit: only /tmp/r10uvm103_bin/pat.bin
+
+(5) byteverify SELFCHECK=1, surelog
+    PATH_SETS_IDENTICAL (956), MOVERS 9 / 956, SELFCHECK 955/956 flagged.
+    The 9 movers are EXACTLY the 9 PREDICTED BY NAME in PREDICTION.txt, no more.
+    ATTRIBUTION, order-blind (whole dump path-normalised, ids stripped, SORTED —
+    so the Scoreboard/default COIN contributes nothing):
+      every mover's changed lines carry ONLY the fence's source lines —
+      uvm-1.2 131 / 171 / 172 / 236 / 237 / 720 / 721 / 723 / 725 / 726 / 728
+      (the last two families are the macro-expanded `uvm_file`/`uvm_line`
+      arguments of the 720 and 725 calls), and in the pp_output tree
+      14069 / 14070 / 14073 / 14076 / 14077 / 14088 / 14125 / 50754.
+      No other object in any database changed.
+    The ARGUMENTS of the moved calls are byte-identical before and after
+    (measured directly at uvm_misc.svh:720): only the CARRIER changed.
+
+    HEADS (rowheads.sh, official uhdm-cmp, `grep -c '^LHS:'`)
+      row-mode                        pristine   patched   heads
+      SimpleUVM  default / testflags    108        22        1     R0 CUT
+      Scoreboard default                108        22        1     R0 CUT
+      SeqDriver  default / testflags     17        17        1     unchanged
+      MiniAmiq   default / testflags    348       348        1     unchanged
+      BuildUVMPkg default / testflags    72        72        1     unchanged
+      Earlgrey_0_1 default / testflags   46        46        1     unchanged
+      Rggen      default                  0         0        0     still CMP_EQUAL
+      (SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is expected)
+
+    CANARIES
+      canaries.sh surelog     ok=52 changed=0 absent=0
+      canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+      ctcan2.sh EXPECT_UNKNOWN=1 (sl) / 6 (u2r)   PASS / PASS
+      canaudit.sh canaries.sh ctcan2.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+      protected databases, md5 vs the control:
+        InterfaceModPort  SAME (both modes)
+        BlackParrotComplex SAME (both modes)
+        YosysOldOr        SAME (both modes)
+        SVSwitch          4842211c4030  (both modes)  PIN HELD
+        YosysVerx         6ccda350c24a  (both modes)  PIN HELD
+
+(6) THE FOSSIL IS RETIRED.  Re-running fence103.sh on the PATCHED workdirs:
+      surelog     0 rows / 0 databases   (was 29 / 9)
+      uhdm2rtlil  0 rows / 0 databases   (was  0 / 0)
+
+(7) BOUNDARY GATE (bound103.sh), a COPY of the WHOLE probe tree, NO path filter,
+    .sv AND .v, BOTH views, BOTH modes.  Children get </dev/null, the arm list
+    rides fd 3, PROCESSED is asserted against LISTED, scratch is keyed on the
+    RELATIVE path.
+      MODE=file VIEW=def    PROCESSED=3254 LISTED=3254 DIFFER=5
+      MODE=file VIEW=elab   PROCESSED=3254 LISTED=3254 DIFFER=5
+      MODE=dir  VIEW=def    PROCESSED=1471 LISTED=1471 DIFFER=4
+      MODE=dir  VIEW=elab   PROCESSED=1471 LISTED=1471 DIFFER=4
+      no ASYMMETRIC REJECT in any of the four runs.
+    THE DIFFERING UNITS, every one attributed:
+      ./r10uvm103repro/g103_a2.sv, ./r10uvm103repro/g103_a3.sv
+          THIS PASS'S OWN ARMS — the POSITIVE CONTROL that the gate can see.
+      ./r10uvm59repro/a1_witness.sv, a2_position.sv, vcells/d10_argstmt.sv
+          the law's population: a statement-position `factory.note(Tregistry::get, nm)`
+          whose argument slang refused to bind.  SCORED AGAINST GOLDEN:
+            a1_witness  def 4 -> 0   elab 8 -> 2
+            a2_position def 2 -> 0   elab 3 -> 1
+            d10_argstmt def 2 -> 0   elab 4 -> 2
+          ALL THREE MOVED TO GOLDEN.  § typeParamScopedCallRef59's OWN object —
+          the bare `T::get` / `Tregistry::get` ref_obj, its VpiName, VpiFullName
+          and span — is BYTE-IDENTICAL before and after; only its carrier moved,
+          and d10_argstmt's whole statement subtree is now byte-identical to
+          golden's, argument binding included.
+      ./r10uvm75repro, ./r10uvm76repro  (dir mode only)
+          NOT THIS PASS.  ORDER-BLIND (sorted dumps) pristine and patched are
+          the SAME hash for both.  FOUR PRISTINE RUNS of r10uvm75repro's
+          directory produce FOUR DIFFERENT dumps that all SORT to one hash —
+          the known parallel-parse `vpiTaskFunc` ordering coin.

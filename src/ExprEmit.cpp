@@ -24134,8 +24134,47 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (auto* r14 = emitDroppedCall14(*cs14, parent, prefix,
                                                       netMap, stmtCtx14))
                         return r14;
-            if (iv2.child)
-                return emitExpr(*iv2.child, parent, prefix, netMap);
+            // § invalidShellKeepsStmtPos103 — AN `Invalid` NODE IS A SHELL,
+            // NOT A POSITION.  slang wraps the WHOLE expression of a statement
+            // in a bad-expression shell when any part of it fails to bind — in
+            // this corpus, an ARGUMENT that reads or calls through a handle
+            // whose type is an unspecialised type PARAMETER
+            // (`comp.before_export.write( m_transformer.transform(b) )`,
+            // uvm-1.2 comps/uvm_algorithmic_comparator.svh:131, where
+            // `TRANSFORMER` defaults to `int`).  The call inside the shell is
+            // still the STATEMENT, and Surelog — which never binds anything
+            // here — compiles it through `compileTfCall` exactly as it does an
+            // argument-clean one.  Clearing `callStmtContext` above (which the
+            // arm must do, so the shell's own sub-expressions are not mistaken
+            // for statements) lowered that call to EXPRESSION position and our
+            // emitter built the expression-position `hier_path` receiver chain
+            // instead of the statement-position `method_func_call`+`vpiPrefix`.
+            //
+            // MEASURED, arm g103_a3 (`bo.slot.put(tp.conv(kk))` and its 2- and
+            // 4-component twins, one axis: whether the argument binds):
+            //   G2ok/G3ok/G4ok  bindable argument   golden mfc, ours mfc  (agree)
+            //   G2bad           unbindable, 2 comps golden `mfc put` prefix
+            //                                       `el`, argument KEPT
+            //   G3bad/G4bad     unbindable, 3/4     golden `mfc slot`/`mfc bx`
+            //                                       prefix `bo`/`cr`, NO argument
+            //   G3mem           unbindable member   same as G3bad
+            // — i.e. golden's answer does not depend on the argument at all,
+            // which is what makes the shell, and only the shell, the defect.
+            //
+            // The flag is restored ONLY for a child that is itself a `Call` (or
+            // another shell, which re-enters this arm and re-decides), so no
+            // other expression kind can see a statement flag it never saw
+            // before; and it is cleared again on the way out, exactly as the
+            // Call arm does.
+            if (iv2.child) {
+                if (stmtCtx14 &&
+                    (iv2.child->kind == ExpressionKind::Call ||
+                     iv2.child->kind == ExpressionKind::Invalid))
+                    callStmtContext = true;
+                auto* r103 = emitExpr(*iv2.child, parent, prefix, netMap);
+                callStmtContext = false;
+                return r103;
+            }
             // NOTE § invalidNewCallFromSyntax55 (emit half).  GATE:
             // `sourceIsNewClassExpr55` — an Invalid node with NO child whose
             // syntax is a bare-`new` NewClassExpression (see that predicate for
