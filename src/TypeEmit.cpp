@@ -5442,6 +5442,41 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                     cl0->VpiColumnNo(shb->VpiColumnNo());
                     cl0->VpiEndLineNo(shb->VpiEndLineNo());
                     cl0->VpiEndColumnNo(shb->VpiEndColumnNo());
+                    // § enumBaseTdCloneElabRanges114 (r10uvm114, see the
+                    // header) — the clone copies the typespec of the VIEW it
+                    // is built in, so only the HOME package's own DEF typedef
+                    // listing keeps the bound's operation tree.  An IMPORT
+                    // CLONE folds in BOTH of the importing package's views
+                    // (`importCloneEmit`), exactly as § negLitPkgRetFold86's
+                    // arm a4 measured for a subroutine clone: golden's clone
+                    // is a copy of the ELABORATED object.  That is the whole
+                    // corpus population — when another package wildcard-
+                    // imports the enum's home package the import-clone build
+                    // is the object every later listing shares, and the home
+                    // package's TOP view is never built at all (measured:
+                    // `g114_f_twopkg.sv` records two builds, tdEmit=1
+                    // topEmit=0 twice, the second with impClone=1, and its
+                    // enum object is the one ALLPKG(importer) / both TOPPKGs /
+                    // ALLMOD / TOPMOD all list).
+                    // `sharedAliasTs` hands back the DEF object whenever the
+                    // TOP-view listing has not been emitted yet, so the
+                    // re-point is deferred to design-final.
+                    {
+                        static const bool ebRecDbg114 =
+                            getenv("R10U114_ENUMBASEDBG");
+                        if (ebRecDbg114)
+                            fprintf(stderr,
+                                    "ENUMBASE114 rec base=%s tdEmit=%d "
+                                    "topEmit=%d topView=%d impClone=%d "
+                                    "pkgImpClone=%d\n",
+                                    std::string(et.baseType.name).c_str(),
+                                    (int)inPkgTypedefEmit, (int)pkgTopEmit,
+                                    (int)pkgEmitTopView, (int)importCloneEmit,
+                                    (int)pkgImportCloneEmit);
+                    }
+                    if (!(inPkgTypedefEmit && !pkgTopEmit) || importCloneEmit)
+                        enumBaseTdClone114.emplace_back(
+                            cl0, (const void*)&et.baseType);
                     // § enumBaseTdAliasClone10 (r10buvm10) — THE CLONE IS A
                     // LAW-S CLONE AND CARRIES ITS Typedef_alias.
                     //

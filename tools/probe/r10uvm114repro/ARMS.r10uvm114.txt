@@ -1,0 +1,18 @@
+# r10uvm114 — ARM SCORES.  For every purpose-built golden: the number of
+# enum-base listing rows (enumls114: every package/module Typespecs entry that
+# is an enum_typespec, with its Base_typespec actual's fold state) that DIFFER
+# from golden's, before and after.  Every arm is NON-INCREASING.
+
+ARM                    PRISTINE  PATCHED   what it separates
+g114_a_pkghome                0        0   19_bound_shapes_in_a_PACKAGE (the CONTROL: already golden)
+g114_b_modhome                0        0   the_same_shapes_in_a_MODULE_and_a_CLASS (Reduce::No, must not move)
+g114_c_clspkg                 0        0   class-in-package_typedefs_+_an_out-of-body_method's_locals
+g114_d_unit                   0        0   $unit_typedefs_(Reduce::Yes_hardcoded)_+_a_program
+g114_e_enumbase               0        0   enum_over_a_NAMED_typedef_base,_ONE_package (already golden)
+g114_f_twopkg                30        0   the_SeqDriver_topology:_a_SECOND_package_imports_the_first
+g114_g_split                 10        0   the_two_candidate_causes_separated_(2nd_package_vs_a_class)
+g114_h_ops                  120       20   thirteen_TOP-LEVEL_bound_OPERATORS_in_the_failing_topology
+
+# g114_h_ops's residual 20 rows are the two FENCED operators (% and **),
+# where our own elaborated listing writes UINT/ct 9 and golden writes INT/ct 7
+# — residue R1, a different law.  See GOLDEN_TABLE.r10uvm114.txt section C.

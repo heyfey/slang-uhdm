@@ -1,0 +1,33 @@
+# r10uvm114 — MOVER ATTRIBUTION, order-blind.
+#
+# uhdm-dump cannot see this law in the PLAIN view: the pass re-points a
+# `Ranges()` pointer at an EXISTING range vector, and the dump renders that
+# vector from its other holder either way.  The attribution instrument is
+# therefore `enumls114` — every package/module `Typespecs` entry that is an
+# `enum_typespec`, with its `Base_typespec` actual's fold state — which reads
+# exactly the field uhdm-cmp failed on.
+#
+## SeqDriver (both modes): ONE object changed, in five listing rows
+   ALLMOD()                enum=uvm_pkg::uvm_coverage_model_e  OP -> FOLD
+   ALLPKG(adpcm_pkg)       enum=uvm_pkg::uvm_coverage_model_e  OP -> FOLD
+   TOPMOD(work@top_tb)     enum=uvm_pkg::uvm_coverage_model_e  OP -> FOLD
+   TOPPKG(adpcm_pkg)       enum=uvm_pkg::uvm_coverage_model_e  OP -> FOLD
+   TOPPKG(uvm_pkg)         enum=uvm_pkg::uvm_coverage_model_e  OP -> FOLD
+   ALLPKG(uvm_pkg)         enum=uvm_pkg::uvm_coverage_model_e  OP -> OP   (unchanged)
+   -> the patched table is IDENTICAL to golden's, row for row (0 differing).
+#
+## MiniAmiq (both modes): the SAME object, three listing rows
+   ALLPKG(svaunit_pkg)     enum=uvm_pkg::uvm_coverage_model_e  OP -> FOLD
+   TOPPKG(svaunit_pkg)     enum=uvm_pkg::uvm_coverage_model_e  OP -> FOLD
+   TOPPKG(uvm_pkg)         enum=uvm_pkg::uvm_coverage_model_e  OP -> FOLD
+   ALLPKG(uvm_pkg)         enum=uvm_pkg::uvm_coverage_model_e  OP -> OP   (unchanged)
+   -> patched table IDENTICAL to golden's (0 differing).
+#
+## Scoreboard/default: THE COIN, not this law.
+   enumls114 diff patched-vs-pristine : 0 rows
+   uhdm-dump path-normalised ORDER-BLIND diff (both dumps sorted) : 0 lines
+   -> the ~50/50 svunit_pkg vpiTaskFunc ORDER flip RESUME §9 documents.
+#
+## BuildUVMPkg / SimpleUVM: did not move, and did not need to —
+   their elaborated enum object was ALREADY folded, and their enum tables are
+   byte-identical to golden's before and after (0 differing rows).

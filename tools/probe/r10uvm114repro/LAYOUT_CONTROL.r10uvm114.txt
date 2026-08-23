@@ -1,0 +1,32 @@
+# r10uvm114 — LAYOUT CONTROL for residue R2 (the two boundary cells on
+# tools/probe/r10buvm22repro/g22.sv).  MEASUREMENT ONLY.
+#
+# THE CELL.  `g22.sv:71  typedef int ka_int_t[string];` — an ASSOCIATIVE array
+# typedef.  Golden emits ONE range for it (`STRING:associative`).  We emit that
+# one AND a spurious second `array_typespec` carrying a size-form range
+#     range(UINT:0 , OP11(constant UINT:<n> sz 64 ct 9 , constant INT:1 ct 7))
+# spanning 71:28-71:34 (`[string]`).  Golden has no such range on either side,
+# so the cell is WRONG before and after; only <n> moves.
+#
+# THE CONTROL.  Three binaries, built from the same tree with -j 2:
+#
+#   binary                                             md5           <n>
+#   pristine  (beaf889 verbatim)                a35d64cf49c6f7c5e73a4b8242f09a00  22400409  0x155cd99
+#   layout-A  (this pass's HEADER member only,
+#              both behaviour files reverted)   a0e45f7167549babc3af341ed86f43b8  22400409  0x155cd99
+#   layout-B  (ALL of this pass's code present,
+#              both call sites guarded by an
+#              UNSET env var -> behaviour OFF)  eb18ae8d138de1d3743acb9fe6dd011b  22404569  0x155ddd9
+#   patched   (this pass as shipped)            32a268cd140594ede3f01bbaf8c5d26d  22404505  0x155dd99
+#
+# layout-B's ENUM TABLE on g22.sv is byte-identical to the pristine binary's
+# (enumls114 diff: 0 rows) — it does nothing this law does — and its <n> moved
+# anyway.  Adding the member alone (layout-A) did not move it; adding the CODE
+# did.  <n> is therefore an ADDRESS rendered as a decimal, tracking the
+# binary's static layout, and it is deterministic per binary across repeated
+# runs and independent of the working directory (measured 3x each).
+#
+# CONCLUSION: the two g22 boundary cells are NOT attributable to
+# § enumBaseTdCloneElabRanges114.  Any patch that changes the emitter's code
+# size moves them, and the cell is equally wrong on both sides of every one of
+# these four binaries.

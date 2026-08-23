@@ -1,0 +1,22 @@
+# r10uvm114 — BYTE MOVERS, patched vs this pass's own pristine sweep
+# byteverify.sh SELFCHECK=1, both corpora.
+#
+#   uhdm2rtlil : MOVERS 0 / 1358   (PATH_SETS_IDENTICAL, SELFCHECK 1357/1358)
+#   surelog    : MOVERS 5 / 956    (PATH_SETS_IDENTICAL, SELFCHECK  955/956)
+#
+# Every one of the five was named in PREDICT.r10uvm114.txt before the patched
+# sweep ran.
+#
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm     PREDICTED  law
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm    PREDICTED  law
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm   PREDICTED  law
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  PREDICTED  law
+MOVER ./default/Scoreboard-59431470/slang.uhdm   PREDICTED  COIN (see ATTR)
+#
+# The predictor also named BuildUVMPkg, SimpleUVM, Scoreboard/testflags,
+# BlackBePipeInt, InterfArrayBind, ImportBinding,
+# AssignmentPatternInAssignmentPattern, EnumConstConcat, UnionCast (surelog)
+# and rp32_r5p_{alu,bru,mdu,wbu}, jeras_union, ModuleUsingStuctInput
+# (uhdm2rtlil).  None moved: the predictor is a SUPERSET that applies neither
+# the def-package-listing view test nor the %/** fence, and in those databases
+# the elaborated enum object was already folded (or the fence refused).

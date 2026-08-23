@@ -5405,6 +5405,55 @@ private:
     // Package TypeAlias -> its TOP-view typespec (interfaces that import it
     // re-parent/list the SHARED object).
     std::map<const void*, UHDM::typespec*> pkgTopTypedefTs;
+    /// § `enumBaseTdCloneElabRanges114` (r10uvm114) — THE PER-USE CLONE OF AN
+    /// ENUM'S NAMED VECTOR-TYPEDEF BASE COPIES THE TYPESPEC OF THE VIEW IT IS
+    /// BEING BUILT IN, SO ITS RANGE BOUNDS ARE THE ELABORATED (FOLDED) ONES
+    /// EVERYWHERE EXCEPT IN THE DEF-PACKAGE TYPEDEF LISTING.
+    ///
+    /// Surelog compiles a package TWICE (`FunctorCompilePackage`,
+    /// CompilePackage.cpp:63/68): the elaborated `Package` with `Reduce::Yes`
+    /// and its `getUnElabPackage()` twin with `Reduce::No`.  A package's own
+    /// `paData_declaration` passes THAT reduce straight down
+    /// (CompilePackage.cpp:263 -> `compileDataDeclaration` ->
+    /// `compileTypeDef`, CompileHelper.cpp:2278/501 -> `compileTypespec` ->
+    /// `compileRanges`), and `compileRanges`' explicit-range arm
+    /// (CompileExpression.cpp:4006-4025) runs `reduceExpr` over BOTH bounds
+    /// and puts the results back into the `range` when `reduce == Reduce::Yes`.
+    /// A MODULE (CompileModule.cpp:653/1130), a PROGRAM (CompileProgram.cpp:301)
+    /// and a CLASS BODY (CompileClass.cpp:294) hardcode `Reduce::No`; a `$unit`
+    /// FileContent (CompileFileContent.cpp:104) hardcodes `Reduce::Yes`.
+    ///
+    /// So a package vector typedef has TWO objects — the unelab one with the
+    /// bound's operation tree and the elaborated one with ONE folded constant —
+    /// and `compileDatastructureTypespec`'s `SimpleType` arm, which
+    /// `clone_tree`s that object for every named-type USE (§ `enumBaseTdAlias-
+    /// Clone10`'s clone, CompileType.cpp ~882-896 and ~1319 for an enum base),
+    /// copies whichever object its own view holds.  Measured on golden
+    /// (`g114_e_enumbase.sv`, `g114_f_twopkg.sv`, `g114_h_ops.sv`, and
+    /// SeqDriver/MiniAmiq's `uvm_coverage_model_e`): the ONLY enum base that
+    /// keeps the operation is the one in the DEF package's own typedef
+    /// listing; the module-context clone, the elaborated package's and every
+    /// import clone hold the folded constant.
+    ///
+    /// We build that clone by copying the object `sharedAliasTs` hands back,
+    /// which is the DEF-view object whenever the TOP-view listing has not been
+    /// emitted yet — and it has not when ANOTHER PACKAGE wildcard-imports the
+    /// enum's home package (`g114_g_split.sv` separates the two halves: with a
+    /// second importing package the module clone came out symbolic, without
+    /// one it came out folded).  The fix is deferred to design-final for
+    /// exactly that reason, and it re-points the clone at the TOP-view
+    /// listing object's OWN ranges rather than recomputing a fold, so a bound
+    /// our elaborated listing deliberately left symbolic (§ `elabUnitMiseval-
+    /// NoFold` and its family) is never folded here either.
+    ///
+    /// Each entry is (the clone, the base TypeAlias symbol).  Recorded unless
+    /// the clone is being built for the HOME package's own DEF typedef listing
+    /// — `inPkgTypedefEmit && !pkgTopEmit && !importCloneEmit`, the view test
+    /// the WRITTEN-base branch one level below in `buildEnumTs` already uses
+    /// for its own fold, widened by the `importCloneEmit` clause because
+    /// golden's import clone is a copy of the ELABORATED object (the same rule
+    /// § `negLitPkgRetFold86`'s arm a4 measured for a subroutine clone).
+    std::vector<std::pair<UHDM::typespec*, const void*>> enumBaseTdClone114;
     // Name -> the int_typespec of a parameter DECLARED in the package view
     // currently being emitted. A package-scope PARENTHESIZED size cast
     // (`(dev_addr_width_gp)'('h0_0000)`) does not mint its own cast typespec:

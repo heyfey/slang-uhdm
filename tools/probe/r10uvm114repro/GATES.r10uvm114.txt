@@ -1,0 +1,84 @@
+# r10uvm114 — THE FULL GATE BATTERY.  BASE beaf889.
+# pristine binary md5 a35d64cf49c6f7c5e73a4b8242f09a00 (byte-identical to the
+# main tree's build at beaf889); patched binary md5 32a268cd140594ede3f01bbaf8c5d26d.
+# Both frozen chmod 555 BEFORE any sweep; every cmds.txt audited BY BINARY PATH.
+
+(1) BUILD              both binaries built -j 2, md5s taken separately.  OK
+
+(2) GOLDEN DUMP TESTS  SLANG_UHDM exported explicitly to EACH binary
+      patched   : PASS=23 FAIL=0
+      pristine  : PASS=23 FAIL=0
+      /bin/false: PASS=0  FAIL=23      (negative control)
+
+(3) uhdm2rtlil
+      testflags : CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2   (== pristine)
+      default   : CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2   (== pristine)
+      ct8rows vs results/gate_uhdm2rtlil.csv        : 0 differing ROWS  PASS
+      ct8rows vs this pass's pristine testflags CSV : 0 differing ROWS  PASS
+      ct8rows vs this pass's pristine default   CSV : 0 differing ROWS  PASS
+      cmds.txt binary audit: every file names /tmp/r10uvm114_pat.bin
+
+(4) surelog  --mode both
+      default   : CMP_EQUAL 471 / SLANG_REJECT 283 / SURELOG_FAIL 25 /
+                  CMP_NOTEQUAL 10 / DEFERRED 5                      (== pristine)
+      testflags : CMP_EQUAL 466 / SLANG_REJECT 284 / SURELOG_FAIL 23 /
+                  CMP_NOTEQUAL 9 / DEFERRED 5 / NO_DATABASE 3 /
+                  UNTRANSLATABLE 2 / TIMEOUT 1 / NO_UHDM 1          (== pristine)
+      ct8rows vs results/golden_surelog.csv : 0 differing ROWS over 1588  PASS
+      ct8rows vs this pass's pristine CSV   : 0 differing ROWS           PASS
+      NO ROW CONVERTED.  results/*.csv untouched.
+      cmds.txt binary audit: every file names /tmp/r10uvm114_pat.bin
+
+(5) BYTEVERIFY  SELFCHECK=1
+      uhdm2rtlil : PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358  SELFCHECK 1357/1358
+      surelog    : PATH_SETS_IDENTICAL (956)   MOVERS 5 / 956   SELFCHECK  955/956
+      all five PREDICTED BY NAME from the pristine databases before the sweep
+      (PREDICT.r10uvm114.txt) and attributed line by line (ATTR.r10uvm114.txt);
+      Scoreboard/default is the COIN (order-blind sorted-dump diff = 0 lines).
+
+(6) HEADS  rowheads.sh, official uhdm-cmp, this pass's own sweep workdirs
+      TEST          MODE       pristine -> patched
+      SeqDriver     default        62   ->  47   NEW HEAD (head object CHANGED)
+      SeqDriver     testflags      62   ->  47   NEW HEAD
+      MiniAmiq      default        62   ->  60   NEW HEAD
+      MiniAmiq      testflags      62   ->  60   NEW HEAD
+      SimpleUVM     default       565   -> 565   log byte-identical
+      SimpleUVM     testflags     565   -> 565   log byte-identical
+      Scoreboard    default       565   -> 565   log byte-identical
+      BuildUVMPkg   default        47   ->  47   log byte-identical
+      BuildUVMPkg   testflags      47   ->  47   log byte-identical
+      Earlgrey_0_1  default        36   ->  36   log byte-identical
+      Earlgrey_0_1  testflags      36   ->  36   log byte-identical
+      Rggen         default         0   ->   0   still cmp-equal
+      (SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is expected.)
+      Every log has exactly one `^LHS:`.
+
+(7) CANARIES
+      canaries.sh surelog    : ok=52 changed=0 absent=0
+      canaries.sh uhdm2rtlil : ok=8  changed=0 absent=0
+      ctcan2.sh   surelog    (EXPECT_UNKNOWN=1) : PASS
+      ctcan2.sh   uhdm2rtlil (EXPECT_UNKNOWN=6) : PASS
+      canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0
+      protected databases, md5 patched vs pristine, both modes:
+        InterfaceModPort   59a365f3ce2c  SAME
+        BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME
+        YosysOldOr         d68e0796d62c  SAME
+        SVSwitch           4842211c4030  PIN MATCHED
+        YosysVerx          6ccda350c24a  PIN MATCHED
+
+(8) WIDE BOUNDARY  every .sv/.v under a COPY of tools/probe at any depth,
+    both views, both frozen binaries, workdir-normalised dump byte-compare,
+    list on fd 3, children </dev/null
+      PROCESSED=3535 (== LISTED)  identical=6778  DIFFERING=4  no_output=288
+      rc histogram: rc=0 13058, rc=3 552, rc=4 506, rc=139 24
+      all 24 rc=139 cells occur on BOTH binaries (12 arms x 2) — pre-existing.
+      The four differing cells:
+        elab r10uvm114repro/g114_f_twopkg.sv   this pass's own arm  (POSITIVE CONTROL)
+        elab r10uvm114repro/g114_h_ops.sv      this pass's own arm  (POSITIVE CONTROL)
+        plain r10buvm22repro/g22.sv            residue R2 — see LAYOUT_CONTROL
+        elab  r10buvm22repro/g22.sv            residue R2 — see LAYOUT_CONTROL
+      SENSITIVITY NOTE: in the PLAIN view uhdm-dump cannot see this law at all
+      (it re-points a Ranges pointer at an existing vector, which the dump
+      renders from its other holder either way) — which is why this pass's own
+      plain-view arms do not appear, and why the mover attribution uses
+      enumls114 rather than the dump.

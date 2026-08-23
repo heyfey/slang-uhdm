@@ -1,0 +1,61 @@
+# r10uvm114 — WHAT GOLDEN DOES, measured, never assumed.
+# Surelog: ~/git-repos/Surelog/build/bin/surelog -parse -nobuiltin -nocache -sv
+# Instruments: tscen114 (every range bound under every typespec), pkgls114
+# (package Typespecs listings), enumls114 (enum bases per view), tdclone114
+# (per-use clones + their referencing context), owner114 (who HOLDS a range).
+
+## A. WHERE A TYPESPEC RANGE BOUND FOLDS AT ALL  (g114_a..d)
+   home of the typedef        DEF view      ELAB / module view
+   package                    operation     ONE folded constant
+   $unit (CompileFileContent) folded        folded          (Reduce::Yes hardcoded)
+   module                     operation     operation       (Reduce::No hardcoded)
+   class (in pkg or in mod)   operation     operation       (Reduce::No hardcoded)
+   program                    operation     operation       (Reduce::No hardcoded)
+   a literal bound `[7:0]`    UINT:7 ct 9 — untouched in every home and view
+
+## B. THE FOLDED CONSTANT'S SPAN = THE LEFT OPERAND'S OWN TEXT  (g114_a, g114_h)
+   `32-1`            -> INT:31 @ the `32`
+   `Span-1`          -> INT:11 @ the `Span`
+   `Span*2-1`        -> INT:23 @ the `Span*2`
+   `(Span*2)-1`      -> INT:23 @ the `(Span*2)`      parentheses INCLUDED
+   `$clog2(Span)-1`  -> INT:3  @ the `$clog2(Span)`
+   `Half+Span-1`     -> INT:17 @ the `Half+Span`
+   `2**Lift`         -> INT:64 @ the `2`
+   Decoded: CompileExpression.cpp:3661 stamps a loc-less reduced result with
+   `populateCoreMembers(child, child, result)`, and `child` is the expression
+   node's FIRST CHILD.
+
+## C. THE PER-OPERATOR ENCODER  (g114_h_ops.sv, Reach=12, Lift=6, size 64 in all)
+   written      opType            golden        our elaborated listing
+   Reach-1      11 vpiSubOp       INT:11  ct 7  same
+   Reach+1      24 vpiAddOp       UINT:13 ct 9  same
+   Reach*2      25 vpiMultOp      INT:24  ct 7  same
+   Reach/2      12 vpiDivOp       INT:6   ct 7  same
+   Reach%7      13 vpiModOp       INT:5   ct 7  UINT:5  ct 9   <-- R1, FENCED
+   Reach<<1     22 vpiLShiftOp    UINT:24 ct 9  same
+   Reach>>1     23 vpiRShiftOp    UINT:6  ct 9  same
+   Reach&15     28 vpiBitAndOp    UINT:12 ct 9  same
+   Reach|1      29 vpiBitOrOp     UINT:13 ct 9  same
+   2**Lift      43 vpiPowerOp     INT:64  ct 7  UINT:64 ct 9   <-- R1, FENCED
+   `WIDE114-1   11 (macro)        INT:31  ct 7  same
+   Lift+Reach-1 11 over 24        INT:17  ct 7  same
+   [7:0]        (no operator)     UINT:7  ct 9  same
+
+## D. THE ENUM-BASE CLONE, PER VIEW  (g114_e/f/g/h + SeqDriver/MiniAmiq)
+   view holding the enum object                     golden base bound
+   the HOME package's own DEF typedef listing       operation   <- the ONLY one
+   the home package's ELABORATED listing            folded
+   an IMPORTING package's listing (both its views)  folded
+   the module's materialized-import listing         folded
+   a module-LOCAL typedef+enum (the control)        operation in every view
+
+## E. THE DISTINGUISHER FOR OUR PRISTINE FAILURE  (g114_g_split.sv)
+   arm                                   pristine module-context base   golden
+   one package, module imports it        FOLD                           FOLD
+   one package WITH a class              FOLD                           FOLD
+   a SECOND package imports the first    OP                             FOLD
+   With a second importing package the home package's TOP-view enum build
+   never happens (`R10U114_ENUMBASEDBG=1`: two builds, `topEmit=0` both times,
+   the second `importCloneEmit=1`), so the object every later listing shares is
+   an import clone built while `sharedAliasTs` still answered with the DEF
+   object.  That is why the fix is DESIGN-FINAL.

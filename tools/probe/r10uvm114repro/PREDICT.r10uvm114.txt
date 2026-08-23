@@ -1,0 +1,41 @@
+# r10uvm114 — a-priori mover prediction, run on the PRISTINE databases
+# BEFORE the patched sweep (pred114.cpp: an enum_typespec whose base holds an
+# operation bound AND a same-named same-span folded twin exists).  SUPERSET:
+# it applies neither the def-package-listing view test nor the %/** fence.
+
+## surelog corpus
+testflags/BlackBePipeInt-2987e0d2 movers=1
+testflags/SeqDriver-32af76aa movers=2
+testflags/InterfArrayBind-eb928480 movers=1
+testflags/MiniAmiq-544c7f61 movers=2
+testflags/ImportBinding-41f441df movers=1
+testflags/AssignmentPatternInAssignmentPattern-a164dc05 movers=1
+testflags/EnumConstConcat-55d4a47e movers=1
+testflags/BuildUVMPkg-bf853d43 movers=3
+testflags/SimpleUVM-1dc93a62 movers=1
+testflags/UnionCast-e8973dee movers=4
+default/BlackBePipeInt-2987e0d2 movers=1
+default/MiniAmiq-544c7f61 movers=2
+default/SeqDriver-32af76aa movers=2
+default/InterfArrayBind-eb928480 movers=1
+default/ImportBinding-41f441df movers=1
+default/AssignmentPatternInAssignmentPattern-a164dc05 movers=1
+default/EnumConstConcat-55d4a47e movers=1
+default/BuildUVMPkg-bf853d43 movers=3
+default/SimpleUVM-1dc93a62 movers=1
+default/Scoreboard-59431470 movers=1
+default/UnionCast-e8973dee movers=4
+
+## uhdm2rtlil corpus
+testflags/rp32_r5p_bru-aad2f09e movers=12
+testflags/ModuleUsingStuctInput-4cfeef71 movers=1
+testflags/jeras_union-31d30c1d movers=4
+testflags/rp32_r5p_wbu-ad685a2e movers=12
+testflags/rp32_r5p_alu-c9c477ec movers=12
+testflags/rp32_r5p_mdu-0de6e8a4 movers=12
+default/rp32_r5p_bru-aad2f09e movers=12
+default/ModuleUsingStuctInput-4cfeef71 movers=1
+default/jeras_union-31d30c1d movers=4
+default/rp32_r5p_wbu-ad685a2e movers=12
+default/rp32_r5p_alu-c9c477ec movers=12
+default/rp32_r5p_mdu-0de6e8a4 movers=12

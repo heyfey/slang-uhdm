@@ -6406,6 +6406,84 @@ UHDM::design* UhdmExporter::exportDesign() {
         bc74->VpiConstType(pct74);
         bc74->VpiValue(pv74.substr(0, pcl74 + 1) + bv74.substr(bcl74 + 1));
     }
+    // § enumBaseTdCloneElabRanges114 (r10uvm114, decoded in the header) — an
+    // enum's NAMED VECTOR-TYPEDEF base is a per-use `clone_tree` of the
+    // typedef object OF THE VIEW being compiled, so outside the DEF-package
+    // typedef listing it carries the ELABORATED (folded) bounds.  Design-final
+    // because `buildEnumTs` runs before the TOP-view package listing exists
+    // whenever another package wildcard-imports the enum's home package.
+    //
+    // The clone is re-pointed at the TOP-view listing object's OWN ranges — it
+    // is NOT re-folded here — so a bound our elaborated listing deliberately
+    // left symbolic stays symbolic, and the two objects cannot disagree.
+    // FOUR fences, each one a refusal to move a cell this pass did not
+    // measure: the top object must be the SAME typespec kind, the two range
+    // vectors must have the SAME length, the swap happens only when the
+    // clone's bounds hold an `operation` that the top object's do not, and the
+    // top-level bound operator must not be `%` or `**` (see below).
+    static const bool ebDbg114 = getenv("R10U114_ENUMBASEDBG");
+    if (ebDbg114)
+        fprintf(stderr, "ENUMBASE114 recorded=%zu topReg=%zu\n",
+                enumBaseTdClone114.size(), pkgTopTypedefTs.size());
+    for (auto& [cl114, td114] : enumBaseTdClone114) {
+        if (!cl114 || !td114)
+            continue;
+        auto tit114 = pkgTopTypedefTs.find(td114);
+        if (tit114 == pkgTopTypedefTs.end() || !tit114->second ||
+            tit114->second == cl114)
+            continue;
+        UHDM::typespec* top114 = tit114->second;
+        if (top114->UhdmType() != cl114->UhdmType())
+            continue;
+        auto rangesOf114 = [](UHDM::typespec* t) -> UHDM::VectorOfrange* {
+            if (t->UhdmType() == UHDM::uhdmbit_typespec)
+                return ((UHDM::bit_typespec*)t)->Ranges();
+            if (t->UhdmType() == UHDM::uhdmlogic_typespec)
+                return ((UHDM::logic_typespec*)t)->Ranges();
+            return nullptr;
+        };
+        auto* curR114 = rangesOf114(cl114);
+        auto* topR114 = rangesOf114(top114);
+        if (!curR114 || !topR114 || curR114 == topR114 ||
+            curR114->size() != topR114->size() || curR114->empty())
+            continue;
+        auto hasOp114 = [](UHDM::VectorOfrange* rv) {
+            for (auto* r : *rv)
+                for (auto* b : {r->Left_expr(), r->Right_expr()})
+                    if (b && b->UhdmType() == UHDM::uhdmoperation)
+                        return true;
+            return false;
+        };
+        if (!hasOp114(curR114) || hasOp114(topR114))
+            continue;
+        // FOURTH FENCE (residue R1) — the two TOP-LEVEL bound operators where
+        // our own ELABORATED listing object's encoder already disagrees with
+        // golden: `%` (vpiModOp) and `**` (vpiPowerOp) fold to `INT:` /
+        // vpiIntConst on golden and to `UINT:` / vpiUIntConst here
+        // (`g114_h_ops.sv`, the thirteen-operator table; the other eleven
+        // agree).  Repairing that encoder is a different law; this pass
+        // REFUSES to spread it, so no cell it moves can end up wrong in a new
+        // way.  Only the TOP-LEVEL operator is read — a `%` or `**` NESTED
+        // under a `-` folds through vpiSubOp's arm and is not fenced.
+        bool badEnc114 = false;
+        for (auto* r : *curR114)
+            for (auto* b : {r->Left_expr(), r->Right_expr()})
+                if (b && b->UhdmType() == UHDM::uhdmoperation) {
+                    int32_t ot114 = ((UHDM::operation*)b)->VpiOpType();
+                    if (ot114 == vpiModOp || ot114 == vpiPowerOp)
+                        badEnc114 = true;
+                }
+        if (badEnc114)
+            continue;
+        if (ebDbg114)
+            fprintf(stderr, "ENUMBASE114 clone=%s top=%s dims=%zu\n",
+                    std::string(cl114->VpiName()).c_str(),
+                    std::string(top114->VpiName()).c_str(), curR114->size());
+        if (cl114->UhdmType() == UHDM::uhdmbit_typespec)
+            ((UHDM::bit_typespec*)cl114)->Ranges(topR114);
+        else
+            ((UHDM::logic_typespec*)cl114)->Ranges(topR114);
+    }
     // Elab param_assign Rhs ts refs -> the def parameter's FINAL typespec.
     // Dead last: every deferred def-view typespec rebind is done by now.
     drainShareDefParamTs();

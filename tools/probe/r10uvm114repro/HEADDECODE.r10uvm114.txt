@@ -1,0 +1,35 @@
+# r10uvm114 — HEAD DECODE, SeqDriver/default at beaf889.
+# owner114 <db> <rangeid>: every object that HOLDS the head's range in its
+# Ranges() vector.  Sharing is invisible to VpiParent, and uhdm-cmp prints
+# the constant's OWN vpiParent — which is NOT the object the walk failed on.
+
+## GOLDEN, holders of range 28217 (the head constant 28218's range)
+HOLDER bit_ts kind=bit_typespec id=28216 name=uvm_reg_cvr_t @105:10-105:22 parent=-(-)
+
+## OURS, holders of range 653 (the head operation 654's range)
+HOLDER bit_ts kind=bit_typespec id=652    name=uvm_pkg::uvm_reg_cvr_t @105:10-105:22 parent=package(uvm_pkg)
+HOLDER bit_ts kind=bit_typespec id=703    name=uvm_reg_cvr_t          @105:10-105:22 parent=-(-)
+HOLDER bit_ts kind=bit_typespec id=3571   name=uvm_reg_cvr_t          @105:10-105:22 parent=-(-)
+HOLDER bit_ts kind=bit_typespec id=297868 name=uvm_reg_cvr_t          @105:10-105:22 parent=-(-)
+
+# tdclone114 <db> uvm_reg_cvr_t: the REFERENCING CONTEXT of each clone.
+# The single cell that disagrees:
+#   ref 3573  ctx=design(work@top_tb)/module_inst(work@top_tb)/enum_typespec(uvm_pkg::uvm_coverage_model_e)
+#     golden -> bit_typespec 28216, own range 28217, L = C{INT:31 ct 7 @105:15-105:17}
+#     ours   -> bit_typespec 3571,  SHARES range 653, L = OP11(UINT:32, UINT:1)
+# and the one that AGREES (the DEF package listing, which must stay symbolic):
+#   ref 705   ctx=design(work@top_tb)/package(uvm_pkg)/enum_typespec(uvm_pkg::uvm_coverage_model_e)
+#     golden -> bit_typespec 87267, own range 87268, L = OP11
+#     ours   -> bit_typespec 703,   SHARES range 653, L = OP11
+
+# pkgls114 and alias114: the package Typespecs listings and the Typedef_alias
+# chains agree object for object on both sides —
+#   ALLPKG(uvm_pkg) OP  /  ALLPKG(adpcm_pkg) FOLD  /  TOPPKG(uvm_pkg) FOLD  /  TOPPKG(adpcm_pkg) FOLD
+# on golden AND on ours — which is what rules the listing itself out.
+
+# mutfold114: folding range 653 alone in a RESTORED copy of our own database
+# moves the official head to another object; a restore/save round trip with
+# nothing folded reproduces the 31-line stderr head byte for byte.
+
+# tdclone114 object counts, name carrying uvm_reg_cvr_t:  golden 158, ours 38
+# (residue R3: golden clone_trees per use, we share one object per view).
