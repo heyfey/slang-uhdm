@@ -1,0 +1,16 @@
+===== GOLDEN b2 (surelog -parse -nobuiltin -nocache -sv -mt 0 -mp 0)
+CALL DEF  pkg=v111b2home#14 var=home_v2 call=Zed2::mk2 fn=#15 fn.name=Zed2::mk2 fn.parent=Zed2::mk2#14
+LIST DEF  pkg=v111b2home#14 tf=Zed2::mk2 #15 parent=v111b2home#14
+CALL DEF  pkg=v111b2impa#28 var=home_v2 call=Zed2::mk2 fn=#29 fn.name=Zed2::mk2 fn.parent=Zed2::mk2#28
+CALL DEF  pkg=v111b2impa#28 var=a_v2 call=Zed2::mk2 fn=#29 fn.name=Zed2::mk2 fn.parent=Zed2::mk2#28
+LIST DEF  pkg=v111b2impa#28 tf=Zed2::mk2 #29 parent=v111b2impa#28
+CALL DEF  pkg=v111b2impb#41 var=home_v2 call=Zed2::mk2 fn=#42 fn.name=Zed2::mk2 fn.parent=Zed2::mk2#41
+LIST DEF  pkg=v111b2impb#41 tf=Zed2::mk2 #42 parent=v111b2impb#41
+CALL DEF  pkg=v111b2expl#50 var=e_v2 call=Zed2::mk2 fn=#7 fn.name=mk2 fn.parent=mk2#2
+CALL TOP  pkg=v111b2home#1 var=home_v2 call=Zed2::mk2 fn=#7 fn.name=mk2 fn.parent=mk2#2
+CALL TOP  pkg=v111b2impa#3 var=home_v2 call=Zed2::mk2 fn=#22 fn.name=Zed2::mk2 fn.parent=Zed2::mk2#3
+CALL TOP  pkg=v111b2impa#3 var=a_v2 call=Zed2::mk2 fn=#22 fn.name=Zed2::mk2 fn.parent=Zed2::mk2#3
+LIST TOP  pkg=v111b2impa#3 tf=Zed2::mk2 #22 parent=v111b2impa#3
+CALL TOP  pkg=v111b2impb#4 var=home_v2 call=Zed2::mk2 fn=#35 fn.name=Zed2::mk2 fn.parent=Zed2::mk2#4
+LIST TOP  pkg=v111b2impb#4 tf=Zed2::mk2 #35 parent=v111b2impb#4
+CALL TOP  pkg=v111b2expl#5 var=e_v2 call=Zed2::mk2 fn=#7 fn.name=mk2 fn.parent=mk2#2

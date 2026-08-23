@@ -1,0 +1,14 @@
+===== GOLDEN b4 (surelog -parse -nobuiltin -nocache -sv -mt 0 -mp 0)
+CALL DEF  pkg=v111b4p#12 var=p_v4 call=Par4::pmk4 fn=#13 fn.name=Par4::pmk4 fn.parent=Par4::pmk4#12
+CALL DEF  pkg=v111b4p#12 var=u_v4 call=Unitk4::umk4 fn=#33 fn.name=Unitk4::umk4 fn.parent=Unitk4::umk4#95
+LIST DEF  pkg=v111b4p#12 tf=Par4::pmk4 #13 parent=v111b4p#12
+CALL DEF  pkg=v111b4w#26 var=p_v4 call=Par4::pmk4 fn=#27 fn.name=Par4::pmk4 fn.parent=Par4::pmk4#26
+CALL DEF  pkg=v111b4w#26 var=u_v4 call=Unitk4::umk4 fn=#33 fn.name=Unitk4::umk4 fn.parent=Unitk4::umk4#95
+CALL DEF  pkg=v111b4w#26 var=wp_v4 call=Par4::pmk4 fn=#27 fn.name=Par4::pmk4 fn.parent=Par4::pmk4#26
+LIST DEF  pkg=v111b4w#26 tf=Par4::pmk4 #27 parent=v111b4w#26
+CALL TOP  pkg=v111b4p#2 var=p_v4 call=Par4::pmk4 fn=#5 fn.name=pmk4 fn.parent=pmk4#3
+CALL TOP  pkg=v111b4p#2 var=u_v4 call=Unitk4::umk4 fn=#33 fn.name=Unitk4::umk4 fn.parent=Unitk4::umk4#95
+CALL TOP  pkg=v111b4w#4 var=p_v4 call=Par4::pmk4 fn=#20 fn.name=Par4::pmk4 fn.parent=Par4::pmk4#4
+CALL TOP  pkg=v111b4w#4 var=u_v4 call=Unitk4::umk4 fn=#33 fn.name=Unitk4::umk4 fn.parent=Unitk4::umk4#95
+CALL TOP  pkg=v111b4w#4 var=wp_v4 call=Par4::pmk4 fn=#20 fn.name=Par4::pmk4 fn.parent=Par4::pmk4#4
+LIST TOP  pkg=v111b4w#4 tf=Par4::pmk4 #20 parent=v111b4w#4

@@ -1,0 +1,46 @@
+r10uvm111 SCORE — the nine UVM databases, golden vs pristine vs patched.
+score111.py classifies every package-variable-initializer 'C::m()' cell.
+
+##### SeqDriver/default
+TO-GOLDEN     DEF  adpcm_pkg      uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+TO-GOLDEN     DEF  uvm_pkg        uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+TO-GOLDEN     TOP  adpcm_pkg      uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+ALREADY-RIGHT TOP  uvm_pkg        uvm_top    uvm_root::get    G=CLASSM   PRIS=CLASSM   PAT=CLASSM
+SCORE tests=4 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=0 ALREADY-RIGHT=1
+##### SimpleUVM/default
+TO-GOLDEN     DEF  uvm_pkg        uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+ALREADY-RIGHT TOP  uvm_pkg        uvm_top    uvm_root::get    G=CLASSM   PRIS=CLASSM   PAT=CLASSM
+SCORE tests=2 TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0 ALREADY-RIGHT=1
+##### Scoreboard/default
+TO-GOLDEN     DEF  uvm_pkg        uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+ALREADY-RIGHT TOP  uvm_pkg        uvm_top    uvm_root::get    G=CLASSM   PRIS=CLASSM   PAT=CLASSM
+SCORE tests=2 TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0 ALREADY-RIGHT=1
+##### MiniAmiq/default
+TO-GOLDEN     DEF  svaunit_pkg    uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+TO-GOLDEN     DEF  uvm_pkg        uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+TO-GOLDEN     TOP  svaunit_pkg    uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+ALREADY-RIGHT TOP  uvm_pkg        uvm_top    uvm_root::get    G=CLASSM   PRIS=CLASSM   PAT=CLASSM
+SCORE tests=4 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=0 ALREADY-RIGHT=1
+##### BuildUVMPkg/default
+SCORE tests=0 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0 ALREADY-RIGHT=0
+##### SeqDriver/testflags
+TO-GOLDEN     DEF  adpcm_pkg      uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+TO-GOLDEN     DEF  uvm_pkg        uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+TO-GOLDEN     TOP  adpcm_pkg      uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+ALREADY-RIGHT TOP  uvm_pkg        uvm_top    uvm_root::get    G=CLASSM   PRIS=CLASSM   PAT=CLASSM
+SCORE tests=4 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=0 ALREADY-RIGHT=1
+##### SimpleUVM/testflags
+TO-GOLDEN     DEF  uvm_pkg        uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+ALREADY-RIGHT TOP  uvm_pkg        uvm_top    uvm_root::get    G=CLASSM   PRIS=CLASSM   PAT=CLASSM
+SCORE tests=2 TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0 ALREADY-RIGHT=1
+##### MiniAmiq/testflags
+TO-GOLDEN     DEF  svaunit_pkg    uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+TO-GOLDEN     DEF  uvm_pkg        uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+TO-GOLDEN     TOP  svaunit_pkg    uvm_top    uvm_root::get    G=PKGLIST  PRIS=CLASSM   PAT=PKGLIST
+ALREADY-RIGHT TOP  uvm_pkg        uvm_top    uvm_root::get    G=CLASSM   PRIS=CLASSM   PAT=CLASSM
+SCORE tests=4 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=0 ALREADY-RIGHT=1
+##### BuildUVMPkg/testflags
+SCORE tests=0 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0 ALREADY-RIGHT=0
+
+TOTAL over the nine databases: 22 cells, TO-GOLDEN=15, ALREADY-RIGHT=7,
+AWAY-GOLDEN=0, STILL-WRONG=0.

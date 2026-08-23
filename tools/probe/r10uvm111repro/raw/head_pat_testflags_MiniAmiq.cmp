@@ -1,0 +1,46 @@
+LHS:
+decompile:
+ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), id:303147, line:195:6, endln:195:22
+|vpiParent:
+\_assignment: , id:303146, line:195:6, endln:195:37
+|vpiName:gp
+|vpiFullName:uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp
+
+decompile:
+ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), id:303147, line:195:6, endln:195:22
+|vpiParent:
+\_assignment: , id:303146, line:195:6, endln:195:37
+|vpiName:gp
+|vpiFullName:uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp
+RHS:
+decompile:
+hier_path: (gp.m_byte_enable), id:87639, line:195:6, endln:195:22
+|vpiParent:
+\_assignment: , id:87638, line:195:6, endln:195:37
+|vpiActual:
+\_ref_obj: (gp), id:87640, line:195:9, endln:195:22
+  |vpiParent:
+  \_hier_path: (gp.m_byte_enable), id:87639, line:195:6, endln:195:22
+  |vpiName:gp
+|vpiActual:
+\_ref_obj: (m_byte_enable), id:87641, line:195:9, endln:195:22
+  |vpiParent:
+  \_hier_path: (gp.m_byte_enable), id:87639, line:195:6, endln:195:22
+  |vpiName:m_byte_enable
+|vpiName:gp.m_byte_enable
+
+decompile:
+hier_path: (gp.m_byte_enable), id:87639, line:195:6, endln:195:22
+|vpiParent:
+\_assignment: , id:87638, line:195:6, endln:195:37
+|vpiActual:
+\_ref_obj: (gp), id:87640, line:195:9, endln:195:22
+  |vpiParent:
+  \_hier_path: (gp.m_byte_enable), id:87639, line:195:6, endln:195:22
+  |vpiName:gp
+|vpiActual:
+\_ref_obj: (m_byte_enable), id:87641, line:195:9, endln:195:22
+  |vpiParent:
+  \_hier_path: (gp.m_byte_enable), id:87639, line:195:6, endln:195:22
+  |vpiName:m_byte_enable
+|vpiName:gp.m_byte_enable

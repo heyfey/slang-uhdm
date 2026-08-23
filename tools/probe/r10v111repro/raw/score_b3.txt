@@ -1,0 +1,13 @@
+===== SCORE b3  golden / pristine 93fc148b / patched 5df0ffc5
+TO-GOLDEN          DEF  v111b3a        a_v3           Cc3::deep3       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b3a        b_v3           Cc3::deep3       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b3a        c_v3           Cc3::deep3       G=PKGLIST,PKGLIST        PRIS=CLASSM,CLASSM          PAT=PKGLIST,PKGLIST
+TO-GOLDEN          DEF  v111b3b        b_v3           Cc3::deep3       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b3b        c_v3           Cc3::deep3       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b3c        c_v3           Cc3::deep3       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b3a        a_v3           Cc3::deep3       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b3a        b_v3           Cc3::deep3       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b3a        c_v3           Cc3::deep3       G=PKGLIST,PKGLIST        PRIS=CLASSM,CLASSM          PAT=PKGLIST,PKGLIST
+TO-GOLDEN          TOP  v111b3b        b_v3           Cc3::deep3       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b3b        c_v3           Cc3::deep3       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+SCORE cells=12 TO-GOLDEN=11 AWAY-GOLDEN=0 STILL-WRONG=0 ALREADY-RIGHT=1

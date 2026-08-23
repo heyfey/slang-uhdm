@@ -4888,6 +4888,18 @@ private:
     void emitImportedPkgClassMethodClones(const slang::ast::PackageSymbol& pkg,
                                           const std::string& prefix,
                                           UHDM::package* target);
+    // § pkgVarInitCmViewClone111 — WHICH object a PACKAGE-SCOPE VARIABLE
+    // INITIALIZER's scope-resolved `C::m()` call binds.  Surelog resolves it
+    // with `CompileHelper::getTaskFunc` (CompileExpression.cpp:349), whose
+    // FIRST hit is a linear VpiName scan of the CURRENT component's own
+    // `getTask_funcs()` — and a package's listing holds one `C::m` entry per
+    // out-of-body class-method definition it OWNS (emitPackageClassMethodClones)
+    // and one per method every package it WILDCARD-IMPORTS owns
+    // (emitImportedPkgClassMethodClones).  So the call binds THE LISTING ENTRY
+    // OF THE VIEW BEING WRITTEN, not the class_defn's method, and it falls back
+    // to the class method exactly where that view carries no such entry.
+    // Applied per package VIEW, DESIGN-FINAL, right after drainScopedCallBind26.
+    void bindPkgVarInitClassMethodClones111(UHDM::package* pv);
     // One PACKAGE-scope data declaration that is NOT a net (see the net/var
     // split documented at the call site in emitPackage): appends the matching
     // variables object to `out`, or appends nothing for a shape that is not

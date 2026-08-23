@@ -1,0 +1,20 @@
+===== GOLDEN b3 (surelog -parse -nobuiltin -nocache -sv -mt 0 -mp 0)
+CALL DEF  pkg=v111b3c#12 var=c_v3 call=Cc3::deep3 fn=#13 fn.name=Cc3::deep3 fn.parent=Cc3::deep3#12
+LIST DEF  pkg=v111b3c#12 tf=Cc3::deep3 #13 parent=v111b3c#12
+CALL DEF  pkg=v111b3b#26 var=c_v3 call=Cc3::deep3 fn=#27 fn.name=Cc3::deep3 fn.parent=Cc3::deep3#26
+CALL DEF  pkg=v111b3b#26 var=b_v3 call=Cc3::deep3 fn=#27 fn.name=Cc3::deep3 fn.parent=Cc3::deep3#26
+LIST DEF  pkg=v111b3b#26 tf=Cc3::deep3 #27 parent=v111b3b#26
+CALL DEF  pkg=v111b3a#41 var=c_v3 call=Cc3::deep3 fn=#42 fn.name=Cc3::deep3 fn.parent=Cc3::deep3#41
+CALL DEF  pkg=v111b3a#41 var=b_v3 call=Cc3::deep3 fn=#42 fn.name=Cc3::deep3 fn.parent=Cc3::deep3#41
+CALL DEF  pkg=v111b3a#41 var=c_v3 call=Cc3::deep3 fn=#42 fn.name=Cc3::deep3 fn.parent=Cc3::deep3#41
+CALL DEF  pkg=v111b3a#41 var=a_v3 call=Cc3::deep3 fn=#42 fn.name=Cc3::deep3 fn.parent=Cc3::deep3#41
+LIST DEF  pkg=v111b3a#41 tf=Cc3::deep3 #42 parent=v111b3a#41
+CALL TOP  pkg=v111b3c#1 var=c_v3 call=Cc3::deep3 fn=#5 fn.name=deep3 fn.parent=deep3#2
+CALL TOP  pkg=v111b3b#3 var=c_v3 call=Cc3::deep3 fn=#20 fn.name=Cc3::deep3 fn.parent=Cc3::deep3#3
+CALL TOP  pkg=v111b3b#3 var=b_v3 call=Cc3::deep3 fn=#20 fn.name=Cc3::deep3 fn.parent=Cc3::deep3#3
+LIST TOP  pkg=v111b3b#3 tf=Cc3::deep3 #20 parent=v111b3b#3
+CALL TOP  pkg=v111b3a#4 var=c_v3 call=Cc3::deep3 fn=#33 fn.name=Cc3::deep3 fn.parent=Cc3::deep3#4
+CALL TOP  pkg=v111b3a#4 var=b_v3 call=Cc3::deep3 fn=#33 fn.name=Cc3::deep3 fn.parent=Cc3::deep3#4
+CALL TOP  pkg=v111b3a#4 var=c_v3 call=Cc3::deep3 fn=#33 fn.name=Cc3::deep3 fn.parent=Cc3::deep3#4
+CALL TOP  pkg=v111b3a#4 var=a_v3 call=Cc3::deep3 fn=#33 fn.name=Cc3::deep3 fn.parent=Cc3::deep3#4
+LIST TOP  pkg=v111b3a#4 tf=Cc3::deep3 #33 parent=v111b3a#4

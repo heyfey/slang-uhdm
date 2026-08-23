@@ -1,0 +1,57 @@
+===== GOLDEN b5 (surelog -parse -nobuiltin -nocache -sv -mt 0 -mp 0)
+CALL DEF  pkg=v111b5p#195 var=t5 call=Sh5::mk5 fn=#196 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#195
+CALL DEF  pkg=v111b5p#195 var=t5 call=Sh5::mk5b fn=#197 fn.name=Sh5::mk5b fn.parent=Sh5::mk5b#195
+CALL DEF  pkg=v111b5p#195 var=c5 call=Sh5::mk5 fn=#196 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#195
+CALL DEF  pkg=v111b5p#195 var=a5 call=Sh5::mk5b fn=#197 fn.name=Sh5::mk5b fn.parent=Sh5::mk5b#195
+CALL DEF  pkg=v111b5p#195 var=<param_assign> call=Sh5::mk5 fn=#196 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#195
+CALL DEF  pkg=v111b5p#195 var=<param_assign> call=Sh5::mk5 fn=#196 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#195
+CALL DEF  pkg=v111b5p#195 var=<param_assign> call=Sh5::mk5b fn=#197 fn.name=Sh5::mk5b fn.parent=Sh5::mk5b#195
+LIST DEF  pkg=v111b5p#195 tf=Sh5::mk5 #196 parent=v111b5p#195
+LIST DEF  pkg=v111b5p#195 tf=Sh5::mk5b #197 parent=v111b5p#195
+CALL DEF  pkg=v111b5w#268 var=t5 call=Sh5::mk5 fn=#287 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#268
+CALL DEF  pkg=v111b5w#268 var=t5 call=Sh5::mk5b fn=#291 fn.name=Sh5::mk5b fn.parent=Sh5::mk5b#268
+CALL DEF  pkg=v111b5w#268 var=c5 call=Sh5::mk5 fn=#287 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#268
+CALL DEF  pkg=v111b5w#268 var=a5 call=Sh5::mk5b fn=#291 fn.name=Sh5::mk5b fn.parent=Sh5::mk5b#268
+CALL DEF  pkg=v111b5w#268 var=w5 call=Sh5::mk5 fn=#287 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#268
+CALL DEF  pkg=v111b5w#268 var=<param_assign> call=Sh5::mk5 fn=#5 fn.name=mk5 fn.parent=mk5#2
+CALL DEF  pkg=v111b5w#268 var=<param_assign> call=Sh5::mk5 fn=#5 fn.name=mk5 fn.parent=mk5#2
+CALL DEF  pkg=v111b5w#268 var=<param_assign> call=Sh5::mk5b fn=#6 fn.name=mk5b fn.parent=mk5b#2
+LIST DEF  pkg=v111b5w#268 tf=Sh5::mk5 #287 parent=v111b5w#268
+LIST DEF  pkg=v111b5w#268 tf=Sh5::mk5b #291 parent=v111b5w#268
+CALL DEF  pkg=v111b5s#332 var=t5 call=Sh5::mk5 fn=#351 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#332
+CALL DEF  pkg=v111b5s#332 var=t5 call=Sh5::mk5b fn=#355 fn.name=Sh5::mk5b fn.parent=Sh5::mk5b#332
+CALL DEF  pkg=v111b5s#332 var=c5 call=Sh5::mk5 fn=#351 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#332
+CALL DEF  pkg=v111b5s#332 var=a5 call=Sh5::mk5b fn=#355 fn.name=Sh5::mk5b fn.parent=Sh5::mk5b#332
+CALL DEF  pkg=v111b5s#332 var=q5 call=Sh5::mk5 fn=#351 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#332
+CALL DEF  pkg=v111b5s#332 var=<param_assign> call=Sh5::mk5 fn=#5 fn.name=mk5 fn.parent=mk5#2
+CALL DEF  pkg=v111b5s#332 var=<param_assign> call=Sh5::mk5 fn=#5 fn.name=mk5 fn.parent=mk5#2
+CALL DEF  pkg=v111b5s#332 var=<param_assign> call=Sh5::mk5b fn=#6 fn.name=mk5b fn.parent=mk5b#2
+LIST DEF  pkg=v111b5s#332 tf=Sh5::mk5 #351 parent=v111b5s#332
+LIST DEF  pkg=v111b5s#332 tf=Sh5::mk5b #355 parent=v111b5s#332
+CALL TOP  pkg=v111b5p#1 var=t5 call=Sh5::mk5 fn=#5 fn.name=mk5 fn.parent=mk5#2
+CALL TOP  pkg=v111b5p#1 var=t5 call=Sh5::mk5b fn=#6 fn.name=mk5b fn.parent=mk5b#2
+CALL TOP  pkg=v111b5p#1 var=c5 call=Sh5::mk5 fn=#5 fn.name=mk5 fn.parent=mk5#2
+CALL TOP  pkg=v111b5p#1 var=a5 call=Sh5::mk5b fn=#6 fn.name=mk5b fn.parent=mk5b#2
+CALL TOP  pkg=v111b5p#1 var=<param_assign> call=Sh5::mk5 fn=#5 fn.name=mk5 fn.parent=mk5#2
+CALL TOP  pkg=v111b5p#1 var=<param_assign> call=Sh5::mk5 fn=#5 fn.name=mk5 fn.parent=mk5#2
+CALL TOP  pkg=v111b5p#1 var=<param_assign> call=Sh5::mk5b fn=#6 fn.name=mk5b fn.parent=mk5b#2
+CALL TOP  pkg=v111b5w#3 var=t5 call=Sh5::mk5 fn=#258 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#3
+CALL TOP  pkg=v111b5w#3 var=t5 call=Sh5::mk5b fn=#262 fn.name=Sh5::mk5b fn.parent=Sh5::mk5b#3
+CALL TOP  pkg=v111b5w#3 var=c5 call=Sh5::mk5 fn=#258 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#3
+CALL TOP  pkg=v111b5w#3 var=a5 call=Sh5::mk5b fn=#262 fn.name=Sh5::mk5b fn.parent=Sh5::mk5b#3
+CALL TOP  pkg=v111b5w#3 var=w5 call=Sh5::mk5 fn=#258 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#3
+CALL TOP  pkg=v111b5w#3 var=<param_assign> call=Sh5::mk5 fn=#5 fn.name=mk5 fn.parent=mk5#2
+CALL TOP  pkg=v111b5w#3 var=<param_assign> call=Sh5::mk5 fn=#5 fn.name=mk5 fn.parent=mk5#2
+CALL TOP  pkg=v111b5w#3 var=<param_assign> call=Sh5::mk5b fn=#6 fn.name=mk5b fn.parent=mk5b#2
+LIST TOP  pkg=v111b5w#3 tf=Sh5::mk5 #258 parent=v111b5w#3
+LIST TOP  pkg=v111b5w#3 tf=Sh5::mk5b #262 parent=v111b5w#3
+CALL TOP  pkg=v111b5s#4 var=t5 call=Sh5::mk5 fn=#315 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#4
+CALL TOP  pkg=v111b5s#4 var=t5 call=Sh5::mk5b fn=#319 fn.name=Sh5::mk5b fn.parent=Sh5::mk5b#4
+CALL TOP  pkg=v111b5s#4 var=c5 call=Sh5::mk5 fn=#315 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#4
+CALL TOP  pkg=v111b5s#4 var=a5 call=Sh5::mk5b fn=#319 fn.name=Sh5::mk5b fn.parent=Sh5::mk5b#4
+CALL TOP  pkg=v111b5s#4 var=q5 call=Sh5::mk5 fn=#315 fn.name=Sh5::mk5 fn.parent=Sh5::mk5#4
+CALL TOP  pkg=v111b5s#4 var=<param_assign> call=Sh5::mk5 fn=#5 fn.name=mk5 fn.parent=mk5#2
+CALL TOP  pkg=v111b5s#4 var=<param_assign> call=Sh5::mk5 fn=#5 fn.name=mk5 fn.parent=mk5#2
+CALL TOP  pkg=v111b5s#4 var=<param_assign> call=Sh5::mk5b fn=#6 fn.name=mk5b fn.parent=mk5b#2
+LIST TOP  pkg=v111b5s#4 tf=Sh5::mk5 #315 parent=v111b5s#4
+LIST TOP  pkg=v111b5s#4 tf=Sh5::mk5b #319 parent=v111b5s#4

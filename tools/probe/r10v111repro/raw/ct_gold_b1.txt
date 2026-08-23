@@ -1,0 +1,36 @@
+===== GOLDEN b1 (surelog -parse -nobuiltin -nocache -sv -mt 0 -mp 0)
+CALL DEF  pkg=v111b1p#57 var=c_plain call=Kls1::fplain fn=#58 fn.name=Kls1::fplain fn.parent=Kls1::fplain#57
+CALL DEF  pkg=v111b1p#57 var=c_locals call=Kls1::flocals fn=#59 fn.name=Kls1::flocals fn.parent=Kls1::flocals#57
+CALL DEF  pkg=v111b1p#57 var=c_begin call=Kls1::fbegin fn=#60 fn.name=Kls1::fbegin fn.parent=Kls1::fbegin#57
+CALL DEF  pkg=v111b1p#57 var=c_ret call=Kls1::fret fn=#61 fn.name=Kls1::fret fn.parent=Kls1::fret#57
+CALL DEF  pkg=v111b1p#57 var=c_vec call=Kls1::fvec fn=#62 fn.name=Kls1::fvec fn.parent=Kls1::fvec#57
+LIST DEF  pkg=v111b1p#57 tf=Kls1::fplain #58 parent=v111b1p#57
+LIST DEF  pkg=v111b1p#57 tf=Kls1::flocals #59 parent=v111b1p#57
+LIST DEF  pkg=v111b1p#57 tf=Kls1::fbegin #60 parent=v111b1p#57
+LIST DEF  pkg=v111b1p#57 tf=Kls1::fret #61 parent=v111b1p#57
+LIST DEF  pkg=v111b1p#57 tf=Kls1::fvec #62 parent=v111b1p#57
+CALL DEF  pkg=v111b1w#145 var=c_plain call=Kls1::fplain fn=#146 fn.name=Kls1::fplain fn.parent=Kls1::fplain#145
+CALL DEF  pkg=v111b1w#145 var=c_locals call=Kls1::flocals fn=#150 fn.name=Kls1::flocals fn.parent=Kls1::flocals#145
+CALL DEF  pkg=v111b1w#145 var=c_begin call=Kls1::fbegin fn=#167 fn.name=Kls1::fbegin fn.parent=Kls1::fbegin#145
+CALL DEF  pkg=v111b1w#145 var=c_ret call=Kls1::fret fn=#172 fn.name=Kls1::fret fn.parent=Kls1::fret#145
+CALL DEF  pkg=v111b1w#145 var=c_vec call=Kls1::fvec fn=#175 fn.name=Kls1::fvec fn.parent=Kls1::fvec#145
+LIST DEF  pkg=v111b1w#145 tf=Kls1::fplain #146 parent=v111b1w#145
+LIST DEF  pkg=v111b1w#145 tf=Kls1::flocals #150 parent=v111b1w#145
+LIST DEF  pkg=v111b1w#145 tf=Kls1::fbegin #167 parent=v111b1w#145
+LIST DEF  pkg=v111b1w#145 tf=Kls1::fret #172 parent=v111b1w#145
+LIST DEF  pkg=v111b1w#145 tf=Kls1::fvec #175 parent=v111b1w#145
+CALL TOP  pkg=v111b1p#1 var=c_plain call=Kls1::fplain fn=#4 fn.name=fplain fn.parent=fplain#2
+CALL TOP  pkg=v111b1p#1 var=c_locals call=Kls1::flocals fn=#5 fn.name=flocals fn.parent=flocals#2
+CALL TOP  pkg=v111b1p#1 var=c_begin call=Kls1::fbegin fn=#6 fn.name=fbegin fn.parent=fbegin#2
+CALL TOP  pkg=v111b1p#1 var=c_ret call=Kls1::fret fn=#7 fn.name=fret fn.parent=fret#2
+CALL TOP  pkg=v111b1p#1 var=c_vec call=Kls1::fvec fn=#8 fn.name=fvec fn.parent=fvec#2
+CALL TOP  pkg=v111b1w#3 var=c_plain call=Kls1::fplain fn=#110 fn.name=Kls1::fplain fn.parent=Kls1::fplain#3
+CALL TOP  pkg=v111b1w#3 var=c_locals call=Kls1::flocals fn=#114 fn.name=Kls1::flocals fn.parent=Kls1::flocals#3
+CALL TOP  pkg=v111b1w#3 var=c_begin call=Kls1::fbegin fn=#131 fn.name=Kls1::fbegin fn.parent=Kls1::fbegin#3
+CALL TOP  pkg=v111b1w#3 var=c_ret call=Kls1::fret fn=#136 fn.name=Kls1::fret fn.parent=Kls1::fret#3
+CALL TOP  pkg=v111b1w#3 var=c_vec call=Kls1::fvec fn=#139 fn.name=Kls1::fvec fn.parent=Kls1::fvec#3
+LIST TOP  pkg=v111b1w#3 tf=Kls1::fplain #110 parent=v111b1w#3
+LIST TOP  pkg=v111b1w#3 tf=Kls1::flocals #114 parent=v111b1w#3
+LIST TOP  pkg=v111b1w#3 tf=Kls1::fbegin #131 parent=v111b1w#3
+LIST TOP  pkg=v111b1w#3 tf=Kls1::fret #136 parent=v111b1w#3
+LIST TOP  pkg=v111b1w#3 tf=Kls1::fvec #139 parent=v111b1w#3

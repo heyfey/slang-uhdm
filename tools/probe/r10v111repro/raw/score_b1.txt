@@ -1,0 +1,17 @@
+===== SCORE b1  golden / pristine 93fc148b / patched 5df0ffc5
+TO-GOLDEN          DEF  v111b1p        c_begin        Kls1::fbegin     G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b1p        c_locals       Kls1::flocals    G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b1p        c_plain        Kls1::fplain     G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b1p        c_ret          Kls1::fret       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b1p        c_vec          Kls1::fvec       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b1w        c_begin        Kls1::fbegin     G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b1w        c_locals       Kls1::flocals    G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b1w        c_plain        Kls1::fplain     G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b1w        c_ret          Kls1::fret       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b1w        c_vec          Kls1::fvec       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b1w        c_begin        Kls1::fbegin     G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b1w        c_locals       Kls1::flocals    G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b1w        c_plain        Kls1::fplain     G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b1w        c_ret          Kls1::fret       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b1w        c_vec          Kls1::fvec       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+SCORE cells=20 TO-GOLDEN=15 AWAY-GOLDEN=0 STILL-WRONG=0 ALREADY-RIGHT=5

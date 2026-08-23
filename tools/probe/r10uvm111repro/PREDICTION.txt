@@ -1,0 +1,22 @@
+r10uvm111 PREDICTION — the A-PRIORI mover set, read off the PRISTINE databases
+with pred111 BEFORE the patched sweep ran.  pred111 evaluates the law's own
+predicate, so a 0-cell database cannot move.
+
+surelog corpus (956 databases scanned):
+3 testflags/MiniAmiq-544c7f61
+3 testflags/SeqDriver-32af76aa
+1 testflags/SimpleUVM-1dc93a62
+3 default/MiniAmiq-544c7f61
+3 default/SeqDriver-32af76aa
+1 default/SimpleUVM-1dc93a62
+1 default/Scoreboard-59431470
+SCANNED 956
+
+uhdm2rtlil corpus (1358 databases scanned):
+SCANNED 1358
+
+=> PREDICTED MOVERS, BY NAME: MiniAmiq{default,testflags} 3 cells each,
+   SeqDriver{default,testflags} 3 each, SimpleUVM{default,testflags} 1 each,
+   Scoreboard/default 1.  Seven databases, fifteen cells, uhdm2rtlil none.
+MEASURED (byteverify vs a pristine control sweep of the same base):
+   surelog MOVERS 7/956 — exactly those seven; uhdm2rtlil MOVERS 0/1358.

@@ -1,0 +1,11 @@
+===== SCORE b2  golden / pristine 93fc148b / patched 5df0ffc5
+TO-GOLDEN          DEF  v111b2home     home_v2        Zed2::mk2        G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b2impa     a_v2           Zed2::mk2        G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b2impa     home_v2        Zed2::mk2        G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b2impb     home_v2        Zed2::mk2        G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+STILL-WRONG        DEF  v111b2qual     q_v2           v111b2home::mk2  G=-                      PRIS=CLASSM                 PAT=CLASSM
+TO-GOLDEN          TOP  v111b2impa     a_v2           Zed2::mk2        G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b2impa     home_v2        Zed2::mk2        G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b2impb     home_v2        Zed2::mk2        G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+STILL-WRONG        TOP  v111b2qual     q_v2           v111b2home::mk2  G=-                      PRIS=CLASSM                 PAT=CLASSM
+SCORE cells=12 TO-GOLDEN=7 AWAY-GOLDEN=0 STILL-WRONG=2 ALREADY-RIGHT=3

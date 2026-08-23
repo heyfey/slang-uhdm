@@ -1,0 +1,14 @@
+===== SCORE b7  golden / pristine 93fc148b / patched 5df0ffc5
+TO-GOLDEN          DEF  v111b7p        a7             Alpha7::shared7  G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b7p        b7             Beta7::shared7   G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+STILL-WRONG        DEF  v111b7p        c7             AliasA7::shared7 G=-                      PRIS=CLASSM                 PAT=CLASSM
+TO-GOLDEN          DEF  v111b7w        a7             Alpha7::shared7  G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b7w        b7             Beta7::shared7   G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+STILL-WRONG        DEF  v111b7w        c7             AliasA7::shared7 G=-                      PRIS=CLASSM                 PAT=CLASSM
+TO-GOLDEN          DEF  v111b7w        wb7            Beta7::shared7   G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+STILL-WRONG        TOP  v111b7p        c7             AliasA7::shared7 G=-                      PRIS=CLASSM                 PAT=CLASSM
+TO-GOLDEN          TOP  v111b7w        a7             Alpha7::shared7  G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b7w        b7             Beta7::shared7   G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+STILL-WRONG        TOP  v111b7w        c7             AliasA7::shared7 G=-                      PRIS=CLASSM                 PAT=CLASSM
+TO-GOLDEN          TOP  v111b7w        wb7            Beta7::shared7   G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+SCORE cells=14 TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=4 ALREADY-RIGHT=2

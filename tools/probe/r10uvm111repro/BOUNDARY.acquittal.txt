@@ -1,0 +1,47 @@
+r10uvm111 — BOUNDARY GATE and the ACQUITTAL of every differing arm.
+
+bound111.sh (a verbatim copy of r10uvm109repro/bound109.sh) compiled a COPY of
+the WHOLE probe tree with both binaries, in four combinations:
+
+  MODE=file VIEW=def   PROCESSED=3434 LISTED=3434 DIFFER=1  REJECTS 132/132
+  MODE=file VIEW=elab  PROCESSED=3434 LISTED=3434 DIFFER=1  REJECTS 144/144
+  MODE=dir  VIEW=def   PROCESSED=1499 LISTED=1499 DIFFER=4  REJECTS 117/117
+  MODE=dir  VIEW=elab  PROCESSED=1499 LISTED=1499 DIFFER=5  REJECTS 123/123
+
+No asymmetric reject in any run (PRIS_REJECT == PATCHED_REJECT, asym.txt absent).
+
+POSITIVE CONTROL — the gate can see this law.  Re-run over a tree holding only
+this pass's own arm:
+  MODE=file VIEW=def  PROCESSED=1 LISTED=1 DIFFER=1  -> ./r10uvm111repro/g111_a.sv
+and the eight changed dump lines are in raw/posctl_g111_a.diff.
+
+ARM 1 — ./r10buvm22repro/g22.sv  (all four combinations)
+  The whole diff is three constants:
+      |vpiDecompile:22392217 / |UINT:22392217   ->  22396313   (twice)
+      |vpiDecompile:22391361 / |UINT:22391361   ->  22395457
+  They are the right bound of an ASSOCIATIVE-array (`[string]`) typedef range,
+  and they carry an ADDRESS, not a value.  Three measurements acquit the law:
+   (a) the law is provably INERT on this arm — pred111 reads CELLS 0 off the
+       pristine database, and a LAW-SWITCHABLE control binary (the patched
+       sources with the one rebind guarded by an env var) produces BYTE-
+       IDENTICAL dumps with the law ON and OFF;
+   (b) the value is DETERMINISTIC per binary (pristine run twice: identical)
+       but tracks the BINARY: pristine 22392217, patched 22396313, and the
+       law-switchable THIRD binary 22396313 in both of its modes — a 4096-byte
+       (one page) shift, i.e. binary layout;
+   (c) it reaches no corpus row: 0 differing rows on both corpora, uhdm2rtlil
+       MOVERS 0/1358, and the only surelog movers are the seven databases this
+       pass predicted BY NAME.
+  RESIDUE R-addr111 records the underlying defect; it is NOT this pass's.
+
+ARMS 2-5 — ./r10uvm75repro, ./r10uvm76repro, ./r10uvm88repro, ./r10v109repro
+  (MODE=dir only; each diff is a REORDERING of `vpiTaskFunc` entries that come
+  from DIFFERENT source files).  Every one of them is NONDETERMINISTIC UNDER
+  THE PRISTINE BINARY ALONE — the known parallel-parse SourceLocation ordering
+  trap (RESUME.md §9 "Emitter nondeterminism"):
+      r10uvm75repro  4 pristine runs -> 4 distinct dump hashes
+      r10uvm76repro  3 pristine runs -> 3 distinct dump hashes
+      r10v109repro   3 pristine runs -> 3 distinct dump hashes
+      r10uvm88repro  3 pristine runs -> 2 distinct dump hashes
+  A single-file (MODE=file) run of the same trees differs on none of them,
+  which is what makes the cross-buffer comparison the cause.

@@ -22266,6 +22266,100 @@ void UhdmExporter::emitPackageClassMethodClones(const PackageSymbol& pkg,
     pkgClassTfCloneCtors = false;
 }
 
+// § pkgVarInitCmViewClone111 — a PACKAGE-SCOPE VARIABLE INITIALIZER's
+// scope-resolved `C::m()` call binds THE `C::m` LISTING ENTRY OF THE VIEW
+// BEING WRITTEN, and only falls back to the class_defn's method where that
+// view carries no such entry.
+//
+// PRODUCER.  `CompileHelper::getTaskFunc` (Surelog
+// src/DesignCompile/CompileExpression.cpp:349) resolves a call name in this
+// order: (1) if the name contains `::`, treat the head as a PACKAGE name —
+// `design->getPackage("uvm_root")` is null for a CLASS, so a `C::m` spelling
+// falls straight through; (2) walk the current component and its parents,
+// linear-scanning `comp->getTask_funcs()` for `tf->VpiName() == name`.  A
+// package's own listing entry for an out-of-body class-method definition is
+// named `C::m` verbatim (UhdmWriter.cpp:1237-1274), and
+// `CompileHelper::importPackage` (CompileHelper.cpp:299-330) `clone_tree`s the
+// whole imported listing into the importer when `inPackage` is true — so step
+// (2) hits the CURRENT PACKAGE'S OWN COPY, home-owned or import-cloned, before
+// anything else.
+//
+// THE GOLDEN TABLE (`ct111id`, one row per package view of the nine UVM
+// databases; `uvm_top`'s `uvm_root::get()` is the only `C::m` call any package
+// variable or parameter initializer carries in either corpus):
+//
+//   VIEW  package        golden binds                       has `C::m` entry?
+//   DEF   uvm_pkg (home) uvm_pkg's own DEF listing entry     yes
+//   DEF   importer       the importer's DEF import-clone     yes
+//   TOP   importer       the importer's TOP import-clone     yes
+//   TOP   uvm_pkg (home) the class_defn's method `get`       NO
+//
+// The fourth row is not an exception, it is the same rule: the ELABORATED home
+// package lists class_defns instead of `C::m` clones
+// (§ emitPackageClassMethodClones), so the scan misses and the binding stays
+// on the class method — which is what we already emitted everywhere.
+//
+// FENCE.  Only a func_call that is ALREADY bound to a CLASS_DEFN-parented
+// method moves, and only onto an entry whose VpiName is the call's name
+// EXACTLY.  A free-function call keeps its binding (its clone and its home
+// share one VpiName, so the cell is invisible to Compare anyway, and the
+// § collectPkgTfListing family already decided that question); a call the
+// emitter left unbound stays unbound.  The memory "naming is context-dependent
+// — do not uniformly fix pkg::pkg:: names" is respected: no NAME is written
+// here at all, only a link is re-pointed, and only at this one site.
+//
+// PLACEMENT.  DESIGN-FINAL, immediately after `drainScopedCallBind26()`
+// (UhdmExporter.cpp).  A `C::m()` written in a package-scope variable
+// initializer is emitted before the package has any task_func at all, so
+// § classScopeCallOfOutOfBodyMethodIsFuncCall26 DEFERS the link and makes it —
+// to the class_defn's method — only at the end of the run.  Placed inside
+// emitPackage instead, this pass moved the ONE cell that happens to be bound at
+// emission (the importer's ELABORATED view) and found `Function() == nullptr`
+// on the other three; that measurement is what pins it here.
+void UhdmExporter::bindPkgVarInitClassMethodClones111(UHDM::package* pv) {
+    if (!pv || !pv->Task_funcs() || !pv->Variables())
+        return;
+    // This view's `C::m` listing entries, FIRST WRITER WINS (the listing is
+    // deduplicated by name upstream; a second entry would be a bug elsewhere,
+    // and picking the first keeps this pass from choosing between them).
+    std::map<std::string, UHDM::function*> byName111;
+    for (auto* tf : *pv->Task_funcs()) {
+        if (!tf || tf->UhdmType() != UHDM::uhdmfunction)
+            continue;
+        std::string n111(tf->VpiName());
+        if (n111.find("::") == std::string::npos)
+            continue;
+        byName111.emplace(std::move(n111), (UHDM::function*)tf);
+    }
+    if (byName111.empty())
+        return;
+    std::function<void(UHDM::any*)> walk111 = [&](UHDM::any* n) {
+        if (!n)
+            return;
+        if (n->UhdmType() == UHDM::uhdmfunc_call) {
+            auto* fc = (UHDM::func_call*)n;
+            const UHDM::function* cur = fc->Function();
+            if (cur && cur->VpiParent() &&
+                cur->VpiParent()->UhdmType() == UHDM::uhdmclass_defn) {
+                auto it111 = byName111.find(std::string(fc->VpiName()));
+                if (it111 != byName111.end() && it111->second != cur)
+                    fc->Function(it111->second);
+            }
+            if (auto* as = fc->Tf_call_args())
+                for (auto* a : *as)
+                    walk111(a);
+            return;
+        }
+        if (n->UhdmType() == UHDM::uhdmoperation)
+            if (auto* os = ((UHDM::operation*)n)->Operands())
+                for (auto* o : *os)
+                    walk111(o);
+    };
+    for (auto* v : *pv->Variables())
+        if (v)
+            walk111(v->Expr());
+}
+
 // See the header (§ pkgTfSeq9): the package Task_funcs listing key.
 bool UhdmExporter::pkgTfListingLess(const UHDM::BaseClass* a,
                                     const UHDM::BaseClass* b) {

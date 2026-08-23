@@ -1,0 +1,11 @@
+(NOTE: 0 symmetric pristine+patched SEGFAULT lines removed for readability; PRIS_REJECT == PATCHED_REJECT below proves the symmetry)
+== boundary gate: MODE=dir VIEW=def  1501 arms under /tmp/v111_scratch/probecopy
+rm: refusing to remove '.' or '..' directory: skipping '/tmp/v111_scratch/bnd_dir_def/.'
+PROCESSED=1501 LISTED=1501 DIFFER=6 PRIS_REJECT=117 PATCHED_REJECT=117
+-- differing arms:
+./r10buvm22repro
+./r10uvm111repro
+./r10uvm75repro
+./r10uvm76repro
+./r10v109repro
+./r10v111repro/arms

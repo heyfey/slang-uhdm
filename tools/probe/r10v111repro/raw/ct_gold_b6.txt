@@ -1,0 +1,10 @@
+===== GOLDEN b6 (surelog -parse -nobuiltin -nocache -sv -mt 0 -mp 0)
+CALL DEF  pkg=v111b6p#11 var=h_v6 call=Six6::mk6 fn=#12 fn.name=Six6::mk6 fn.parent=Six6::mk6#11
+LIST DEF  pkg=v111b6p#11 tf=Six6::mk6 #12 parent=v111b6p#11
+CALL DEF  pkg=v111b6w#25 var=h_v6 call=Six6::mk6 fn=#26 fn.name=Six6::mk6 fn.parent=Six6::mk6#25
+CALL DEF  pkg=v111b6w#25 var=w_v6 call=Six6::mk6 fn=#26 fn.name=Six6::mk6 fn.parent=Six6::mk6#25
+LIST DEF  pkg=v111b6w#25 tf=Six6::mk6 #26 parent=v111b6w#25
+CALL TOP  pkg=v111b6p#1 var=h_v6 call=Six6::mk6 fn=#4 fn.name=mk6 fn.parent=mk6#2
+CALL TOP  pkg=v111b6w#3 var=h_v6 call=Six6::mk6 fn=#19 fn.name=Six6::mk6 fn.parent=Six6::mk6#3
+CALL TOP  pkg=v111b6w#3 var=w_v6 call=Six6::mk6 fn=#19 fn.name=Six6::mk6 fn.parent=Six6::mk6#3
+LIST TOP  pkg=v111b6w#3 tf=Six6::mk6 #19 parent=v111b6w#3

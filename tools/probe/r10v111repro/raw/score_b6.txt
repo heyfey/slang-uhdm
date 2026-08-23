@@ -1,0 +1,7 @@
+===== SCORE b6  golden / pristine 93fc148b / patched 5df0ffc5
+TO-GOLDEN          DEF  v111b6p        h_v6           Six6::mk6        G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b6w        h_v6           Six6::mk6        G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          DEF  v111b6w        w_v6           Six6::mk6        G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b6w        h_v6           Six6::mk6        G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+TO-GOLDEN          TOP  v111b6w        w_v6           Six6::mk6        G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+SCORE cells=6 TO-GOLDEN=5 AWAY-GOLDEN=0 STILL-WRONG=0 ALREADY-RIGHT=1

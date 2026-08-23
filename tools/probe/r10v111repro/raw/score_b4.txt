@@ -1,0 +1,11 @@
+===== SCORE b4  golden / pristine 93fc148b / patched 5df0ffc5
+TO-GOLDEN          DEF  v111b4p        p_v4           Par4::pmk4       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+STILL-WRONG        DEF  v111b4p        u_v4           Unitk4::umk4     G=PKGLIST                PRIS=CLASSM                 PAT=CLASSM
+TO-GOLDEN          DEF  v111b4w        p_v4           Par4::pmk4       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+STILL-WRONG        DEF  v111b4w        u_v4           Unitk4::umk4     G=PKGLIST                PRIS=CLASSM                 PAT=CLASSM
+TO-GOLDEN          DEF  v111b4w        wp_v4          Par4::pmk4       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+STILL-WRONG        TOP  v111b4p        u_v4           Unitk4::umk4     G=PKGLIST                PRIS=CLASSM                 PAT=CLASSM
+TO-GOLDEN          TOP  v111b4w        p_v4           Par4::pmk4       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+STILL-WRONG        TOP  v111b4w        u_v4           Unitk4::umk4     G=PKGLIST                PRIS=CLASSM                 PAT=CLASSM
+TO-GOLDEN          TOP  v111b4w        wp_v4          Par4::pmk4       G=PKGLIST                PRIS=CLASSM                 PAT=PKGLIST
+SCORE cells=10 TO-GOLDEN=5 AWAY-GOLDEN=0 STILL-WRONG=4 ALREADY-RIGHT=1

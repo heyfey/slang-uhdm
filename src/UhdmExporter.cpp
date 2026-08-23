@@ -6377,6 +6377,16 @@ UHDM::design* UhdmExporter::exportDesign() {
     drainBodyOpArgTs();
     // Deferred `Class::f()` -> out-of-body task_func links (§ ...26).
     drainScopedCallBind26();
+    // § pkgVarInitCmViewClone111 — IMMEDIATELY AFTER that drain: a package
+    // variable initializer's `C::m()` binds the `C::m` listing entry of the
+    // package VIEW it lives in, where that view has one.  The drain above is
+    // what puts the class_defn's method there in the first place, so this pass
+    // cannot run before it (measured: three of the four golden cells are
+    // deferred calls and only the fourth is bound at emission).
+    for (auto* pv111 : {d->AllPackages(), d->TopPackages()})
+        if (pv111)
+            for (auto* p111 : *pv111)
+                bindPkgVarInitClassMethodClones111(p111);
     // LAW S: a package SCALAR typedef is BARE at every variable-like binding.
     // Dead last — after every deferred typespec rebind above, so no later pass
     // can put a qualified object back.

@@ -1,0 +1,12 @@
+(NOTE: 24 symmetric pristine+patched SEGFAULT lines removed for readability; PRIS_REJECT == PATCHED_REJECT below proves the symmetry)
+== boundary gate: MODE=file VIEW=elab  3441 arms under /tmp/v111_scratch/probecopy
+PROCESSED=3441 LISTED=3441 DIFFER=8 PRIS_REJECT=144 PATCHED_REJECT=144
+-- differing arms:
+./r10buvm22repro/g22.sv
+./r10uvm111repro/g111_a.sv
+./r10v111repro/arms/v111_b1.sv
+./r10v111repro/arms/v111_b2.sv
+./r10v111repro/arms/v111_b3.sv
+./r10v111repro/arms/v111_b4.sv
+./r10v111repro/arms/v111_b5.sv
+./r10v111repro/arms/v111_b6.sv

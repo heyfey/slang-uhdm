@@ -1,0 +1,20 @@
+===== GOLDEN b7 (surelog -parse -nobuiltin -nocache -sv -mt 0 -mp 0)
+CALL DEF  pkg=v111b7p#31 var=a7 call=Alpha7::shared7 fn=#32 fn.name=Alpha7::shared7 fn.parent=Alpha7::shared7#31
+CALL DEF  pkg=v111b7p#31 var=b7 call=Beta7::shared7 fn=#33 fn.name=Beta7::shared7 fn.parent=Beta7::shared7#31
+LIST DEF  pkg=v111b7p#31 tf=Alpha7::shared7 #32 parent=v111b7p#31
+LIST DEF  pkg=v111b7p#31 tf=Beta7::shared7 #33 parent=v111b7p#31
+LIST DEF  pkg=v111b7p#31 tf=Ctor7::new #46 parent=v111b7p#31
+CALL DEF  pkg=v111b7w#73 var=a7 call=Alpha7::shared7 fn=#74 fn.name=Alpha7::shared7 fn.parent=Alpha7::shared7#73
+CALL DEF  pkg=v111b7w#73 var=b7 call=Beta7::shared7 fn=#78 fn.name=Beta7::shared7 fn.parent=Beta7::shared7#73
+CALL DEF  pkg=v111b7w#73 var=wb7 call=Beta7::shared7 fn=#78 fn.name=Beta7::shared7 fn.parent=Beta7::shared7#73
+LIST DEF  pkg=v111b7w#73 tf=Alpha7::shared7 #74 parent=v111b7w#73
+LIST DEF  pkg=v111b7w#73 tf=Beta7::shared7 #78 parent=v111b7w#73
+LIST DEF  pkg=v111b7w#73 tf=Ctor7::new #82 parent=v111b7w#73
+CALL TOP  pkg=v111b7p#1 var=a7 call=Alpha7::shared7 fn=#6 fn.name=shared7 fn.parent=shared7#2
+CALL TOP  pkg=v111b7p#1 var=b7 call=Beta7::shared7 fn=#7 fn.name=shared7 fn.parent=shared7#3
+CALL TOP  pkg=v111b7w#5 var=a7 call=Alpha7::shared7 fn=#56 fn.name=Alpha7::shared7 fn.parent=Alpha7::shared7#5
+CALL TOP  pkg=v111b7w#5 var=b7 call=Beta7::shared7 fn=#60 fn.name=Beta7::shared7 fn.parent=Beta7::shared7#5
+CALL TOP  pkg=v111b7w#5 var=wb7 call=Beta7::shared7 fn=#60 fn.name=Beta7::shared7 fn.parent=Beta7::shared7#5
+LIST TOP  pkg=v111b7w#5 tf=Alpha7::shared7 #56 parent=v111b7w#5
+LIST TOP  pkg=v111b7w#5 tf=Beta7::shared7 #60 parent=v111b7w#5
+LIST TOP  pkg=v111b7w#5 tf=Ctor7::new #64 parent=v111b7w#5

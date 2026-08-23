@@ -1,0 +1,76 @@
+r10uvm111 GRID — § pkgVarInitCmViewClone111 on a PURPOSE-BUILT SURELOG GOLDEN
+arm: g111_a.sv (42 lines).  surelog -parse -nobuiltin -nocache -sv -mt 0 -mp 0
+ct111id rows: CALL <view> pkg=<pkg>#<id> var=<v> call=<C::m> fn=#<id> fn.name=<VpiName>
+shape: PKGLIST = fn.name is the FULL 'C::m' (the package's own listing entry)
+       CLASSM  = fn.name is 'm' only  (the class_defn's method)
+
+=== GOLDEN (Surelog)
+CALL DEF  pkg=hpk111#24 var=rooted111 call=Cee111::mk111 fn=#25 fn.name=Cee111::mk111 fn.parent=Cee111::mk111#24
+CALL DEF  pkg=hpk111#24 var=second111 call=Cee111::other111 fn=#26 fn.name=Cee111::other111 fn.parent=#24
+LIST DEF  pkg=hpk111#24 tf=Cee111::mk111 #25 parent=hpk111#24
+LIST DEF  pkg=hpk111#24 tf=Cee111::other111 #26 parent=hpk111#24
+CALL DEF  pkg=imp111#59 var=rooted111 call=Cee111::mk111 fn=#60 fn.name=Cee111::mk111 fn.parent=Cee111::mk111#59
+CALL DEF  pkg=imp111#59 var=second111 call=Cee111::other111 fn=#64 fn.name=Cee111::other111 fn.parent=#59
+LIST DEF  pkg=imp111#59 tf=Cee111::mk111 #60 parent=imp111#59
+LIST DEF  pkg=imp111#59 tf=Cee111::other111 #64 parent=imp111#59
+CALL DEF  pkg=exp111#77 var=viaexp111 call=Cee111::mk111 fn=#5 fn.name=mk111 fn.parent=mk111#2
+CALL TOP  pkg=hpk111#1 var=rooted111 call=Cee111::mk111 fn=#5 fn.name=mk111 fn.parent=mk111#2
+CALL TOP  pkg=hpk111#1 var=second111 call=Cee111::other111 fn=#6 fn.name=other111 fn.parent=other111#2
+CALL TOP  pkg=imp111#3 var=rooted111 call=Cee111::mk111 fn=#44 fn.name=Cee111::mk111 fn.parent=Cee111::mk111#3
+CALL TOP  pkg=imp111#3 var=second111 call=Cee111::other111 fn=#48 fn.name=Cee111::other111 fn.parent=#3
+LIST TOP  pkg=imp111#3 tf=Cee111::mk111 #44 parent=imp111#3
+LIST TOP  pkg=imp111#3 tf=Cee111::other111 #48 parent=imp111#3
+CALL TOP  pkg=exp111#4 var=viaexp111 call=Cee111::mk111 fn=#5 fn.name=mk111 fn.parent=mk111#2
+
+=== PRISTINE (24e9fad, md5 93fc148b1c9dc9aa639cbf959631ce6c)
+CALL DEF  pkg=hpk111#2 var=rooted111 call=Cee111::mk111 fn=#57 fn.name=mk111 fn.parent=mk111#45
+CALL DEF  pkg=hpk111#2 var=second111 call=Cee111::other111 fn=#64 fn.name=other111 fn.parent=other111#45
+LIST DEF  pkg=hpk111#2 tf=Cee111::mk111 #76 parent=hpk111#2
+LIST DEF  pkg=hpk111#2 tf=Cee111::other111 #83 parent=hpk111#2
+CALL DEF  pkg=imp111#12 var=rooted111 call=Cee111::mk111 fn=#57 fn.name=mk111 fn.parent=mk111#45
+CALL DEF  pkg=imp111#12 var=second111 call=Cee111::other111 fn=#64 fn.name=other111 fn.parent=other111#45
+LIST DEF  pkg=imp111#12 tf=Cee111::mk111 #111 parent=imp111#12
+LIST DEF  pkg=imp111#12 tf=Cee111::other111 #118 parent=imp111#12
+CALL DEF  pkg=exp111#28 var=viaexp111 call=Cee111::mk111 fn=#57 fn.name=mk111 fn.parent=mk111#45
+CALL TOP  pkg=hpk111#35 var=rooted111 call=Cee111::mk111 fn=#57 fn.name=mk111 fn.parent=mk111#45
+CALL TOP  pkg=hpk111#35 var=second111 call=Cee111::other111 fn=#64 fn.name=other111 fn.parent=other111#45
+CALL TOP  pkg=imp111#95 var=rooted111 call=Cee111::mk111 fn=#57 fn.name=mk111 fn.parent=mk111#45
+CALL TOP  pkg=imp111#95 var=second111 call=Cee111::other111 fn=#64 fn.name=other111 fn.parent=other111#45
+LIST TOP  pkg=imp111#95 tf=Cee111::mk111 #130 parent=imp111#95
+LIST TOP  pkg=imp111#95 tf=Cee111::other111 #137 parent=imp111#95
+CALL TOP  pkg=exp111#149 var=viaexp111 call=Cee111::mk111 fn=#57 fn.name=mk111 fn.parent=mk111#45
+
+=== PATCHED (md5 5df0ffc52b0d66620fac5947732f279e)
+CALL DEF  pkg=hpk111#2 var=rooted111 call=Cee111::mk111 fn=#76 fn.name=Cee111::mk111 fn.parent=Cee111::mk111#2
+CALL DEF  pkg=hpk111#2 var=second111 call=Cee111::other111 fn=#83 fn.name=Cee111::other111 fn.parent=#2
+LIST DEF  pkg=hpk111#2 tf=Cee111::mk111 #76 parent=hpk111#2
+LIST DEF  pkg=hpk111#2 tf=Cee111::other111 #83 parent=hpk111#2
+CALL DEF  pkg=imp111#12 var=rooted111 call=Cee111::mk111 fn=#111 fn.name=Cee111::mk111 fn.parent=Cee111::mk111#12
+CALL DEF  pkg=imp111#12 var=second111 call=Cee111::other111 fn=#118 fn.name=Cee111::other111 fn.parent=#12
+LIST DEF  pkg=imp111#12 tf=Cee111::mk111 #111 parent=imp111#12
+LIST DEF  pkg=imp111#12 tf=Cee111::other111 #118 parent=imp111#12
+CALL DEF  pkg=exp111#28 var=viaexp111 call=Cee111::mk111 fn=#57 fn.name=mk111 fn.parent=mk111#45
+CALL TOP  pkg=hpk111#35 var=rooted111 call=Cee111::mk111 fn=#57 fn.name=mk111 fn.parent=mk111#45
+CALL TOP  pkg=hpk111#35 var=second111 call=Cee111::other111 fn=#64 fn.name=other111 fn.parent=other111#45
+CALL TOP  pkg=imp111#95 var=rooted111 call=Cee111::mk111 fn=#130 fn.name=Cee111::mk111 fn.parent=Cee111::mk111#95
+CALL TOP  pkg=imp111#95 var=second111 call=Cee111::other111 fn=#137 fn.name=Cee111::other111 fn.parent=#95
+LIST TOP  pkg=imp111#95 tf=Cee111::mk111 #130 parent=imp111#95
+LIST TOP  pkg=imp111#95 tf=Cee111::other111 #137 parent=imp111#95
+CALL TOP  pkg=exp111#149 var=viaexp111 call=Cee111::mk111 fn=#57 fn.name=mk111 fn.parent=mk111#45
+
+TEN GOLDEN CELLS, ALL REPRODUCED:
+  DEF hpk111 rooted111  PKGLIST   pristine CLASSM   patched PKGLIST   TO-GOLDEN
+  DEF hpk111 second111  PKGLIST   pristine CLASSM   patched PKGLIST   TO-GOLDEN
+  DEF imp111 rooted111  PKGLIST   pristine CLASSM   patched PKGLIST   TO-GOLDEN
+  DEF imp111 second111  PKGLIST   pristine CLASSM   patched PKGLIST   TO-GOLDEN
+  TOP imp111 rooted111  PKGLIST   pristine CLASSM   patched PKGLIST   TO-GOLDEN
+  TOP imp111 second111  PKGLIST   pristine CLASSM   patched PKGLIST   TO-GOLDEN
+  TOP hpk111 rooted111  CLASSM    pristine CLASSM   patched CLASSM    ALREADY-RIGHT
+  TOP hpk111 second111  CLASSM    pristine CLASSM   patched CLASSM    ALREADY-RIGHT
+  DEF exp111 viaexp111  CLASSM    pristine CLASSM   patched CLASSM    ALREADY-RIGHT (EXPLICIT import: no C::m listing entry)
+  TOP exp111 viaexp111  CLASSM    pristine CLASSM   patched CLASSM    ALREADY-RIGHT
+  => 6 TO-GOLDEN, 4 ALREADY-RIGHT, 0 AWAY-GOLDEN, 0 STILL-WRONG
+
+official uhdm-cmp on the arm (LHS=golden RHS=ours): pristine 4614 lines / 1 head,
+patched 4614 lines / 1 head — the arm's own head is an UNRELATED pre-existing
+difference and the law does not make it worse.

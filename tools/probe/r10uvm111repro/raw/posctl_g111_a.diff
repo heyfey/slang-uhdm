@@ -1,0 +1,16 @@
+206c206
+<       \_function: (hpk111::Cee111::mk111), line:14:3, endln:16:14
+---
+>       \_function: (imp111::Cee111::mk111), line:14:3, endln:16:14
+235c235
+<       \_function: (hpk111::Cee111::other111), line:17:3, endln:19:14
+---
+>       \_function: (imp111::Cee111::other111), line:17:3, endln:19:14
+704c704
+<       \_function: (hpk111::Cee111::mk111), line:14:3, endln:16:14
+---
+>       \_function: (imp111::Cee111::mk111), line:14:3, endln:16:14
+733c733
+<       \_function: (hpk111::Cee111::other111), line:17:3, endln:19:14
+---
+>       \_function: (imp111::Cee111::other111), line:17:3, endln:19:14
