@@ -1,0 +1,29 @@
+LHS:
+decompile:
+class_var: (uvm_pkg::uvm_config_db::wait_modified::waiter), id:259090, line:273:18, endln:273:24
+|vpiParent:
+\_begin: (uvm_pkg::uvm_config_db::wait_modified), id:259075, line:272:5, endln:272:39
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_config_db::wait_modified::waiter), id:259092
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_config_db::wait_modified::waiter), id:259090, line:273:18, endln:273:24
+  |vpiFullName:uvm_pkg::uvm_config_db::wait_modified::waiter
+  |vpiActual:
+  \_class_typespec: , id:259091, line:273:5, endln:273:17
+|vpiName:waiter
+|vpiFullName:uvm_pkg::uvm_config_db::wait_modified::waiter
+
+decompile:
+class_var: (uvm_pkg::uvm_config_db::wait_modified::waiter), id:259090, line:273:18, endln:273:24
+|vpiParent:
+\_begin: (uvm_pkg::uvm_config_db::wait_modified), id:259075, line:272:5, endln:272:39
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_config_db::wait_modified::waiter), id:259092
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_config_db::wait_modified::waiter), id:259090, line:273:18, endln:273:24
+  |vpiFullName:uvm_pkg::uvm_config_db::wait_modified::waiter
+  |vpiActual:
+  \_class_typespec: , id:259091, line:273:5, endln:273:17
+|vpiName:waiter
+|vpiFullName:uvm_pkg::uvm_config_db::wait_modified::waiter
+RHS: <null>

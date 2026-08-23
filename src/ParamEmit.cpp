@@ -3940,6 +3940,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // Surelog still mints the implicit int_typespec. Only a
         // width-INDETERMINATE unknown init ('x / 'z) goes bare.
         bool sizedBasedInit = false;
+        // § unsizedBasedParamRhsSize106 — the SIZE half of the same family, and
+        // it is base-BLIND: Surelog's implicit-type derivation attaches nothing
+        // for a DECIMAL-based literal either (`case vpiDecConst: break;`,
+        // CompileHelper.cpp:3801), so `'d13` keeps size -1 exactly like `'h1a`.
+        // The `'b0 / 'b1 / 'B0 / 'B1` grammar tokens are EXCLUDED: they carry
+        // size 0, not -1 (paNumber_Tickb0/Tickb1 hard-code it), so Surelog's
+        // `if (c->VpiSize() != -1)` arm DOES mint their int_typespec and their
+        // Rhs constant behaves like a sized literal (measured on golden:
+        // `parameter E_TB0 = 'b0` -> size 0, ts int_typespec, in every view).
+        bool unsizedAnyBaseInit106 = false;
         if (defaultInit) {
             auto& dl0 = stripImplicitConv(*defaultInit);
             if (dl0.kind == ExpressionKind::IntegerLiteral) {
@@ -3959,6 +3969,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     sizedBasedInit =
                         tk0 > 0 && !decBasedInit && bp0 < rawL0.size() &&
                         std::string("bBoOhH").find(rawL0[bp0]) !=
+                            std::string::npos;
+                    bool tickBinDigit106 =
+                        rawL0.size() == 3 && tk0 == 0 &&
+                        (rawL0[1] == 'b' || rawL0[1] == 'B') &&
+                        (rawL0[2] == '0' || rawL0[2] == '1');
+                    unsizedAnyBaseInit106 =
+                        tk0 == 0 && !tickBinDigit106 && bp0 < rawL0.size() &&
+                        std::string("bBoOhHdD").find(rawL0[bp0]) !=
                             std::string::npos;
                 }
             }
@@ -13760,6 +13778,46 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             rhsRt = rtD9;
         }
         passigns->push_back(pa);
+        // § unsizedBasedParamRhsSize106 — record this Rhs for the design-final
+        // fix-up.  The predicate is the DECLARATION's shape (untyped, unranged,
+        // no explicit `signed`/`unsigned` keyword, default = an unsized based
+        // literal); whether the emitted constant STILL renders as that literal
+        // is re-checked in the drain, so an override that folded to a plain
+        // decimal (`#(.P('hF))` -> `15`) is left exactly as it was.
+        if (unsizedAnyBaseInit106 && !typedParam && !isRangedUntypedParam(ps) &&
+            !implicitSigning102 && pa->Rhs() &&
+            pa->Rhs()->UhdmType() == UHDM::uhdmconstant) {
+            std::string pfx106 = prefix;
+            if (pfx106.size() >= 2 &&
+                pfx106.compare(pfx106.size() - 2, 2, "::") == 0)
+                pfx106.resize(pfx106.size() - 2);
+            // A SIGNED-based literal ('sh1a / 'sb101 / 'sd13) is FENCED OFF
+            // ENTIRELY, both halves.  It is the one unsized shape whose
+            // constant carries a typespec of its OWN -- Surelog's
+            // signed-literal rule mints a signed int_typespec on the literal
+            // (replayed in emitExpr) -- so `if (ts)` in
+            // CompileHelper.cpp:3888 DOES fire for it and the elaborated copy
+            // is re-sized from that typespec.  Measured on golden
+            // (`a8_toponly.sv`, a module that is a top): `parameter P_HEX =
+            // 'h1a` gets vpiSize -1 in the elaborated copy while its neighbour
+            // `parameter P_SHEX = 'sh1a` gets 32, and the definition copies
+            // keep the literal's int_typespec where the unsigned ones carry a
+            // dangling reference.  Applying either half to the signed shape
+            // moved three cells AWAY from golden on `r10v102repro/b01_shapes.sv`
+            // in both views before this fence went in.
+            bool signedBase106 = false;
+            if (auto& dlS = stripImplicitConv(*defaultInit);
+                dlS.kind == ExpressionKind::IntegerLiteral) {
+                std::string rawS = rawTextLit(dlS);
+                signedBase106 = rawS.size() > 1 && rawS[0] == '\'' &&
+                                (rawS[1] == 's' || rawS[1] == 'S');
+            }
+            if (!signedBase106)
+                unsizedRhs106.push_back({(UHDM::constant*)pa->Rhs(),
+                                         (!defViewOrig9 && !inPackage) ||
+                                             funcScope,
+                                         pfx106});
+        }
         // DEF-view aggregate-typedef params (typedef struct/union/enum T; then
         // parameter T P) defer their ts binding past emitTypedefs so they can
         // SHARE the named typedef typespec (drainDefParamTs).
@@ -18343,6 +18401,69 @@ void UhdmExporter::drainShareDefParamTs() {
 // typespec now that emitTypedefs has populated typedefTs. The shared object
 // keeps its own parent/instance. Falls back to a fresh makeParamTs when the
 // typedef wasn't materialized (mirrors the non-deferred path).
+// § unsizedBasedParamRhsSize106 — DESIGN-FINAL.
+//
+// Surelog compiles a parameter's default into a REDUCED CONSTANT and only then
+// derives the parameter's implicit type from it
+// (`CompileHelper.cpp:3795-3840`).  For `vpiHexConst` / `vpiOctConst` /
+// `vpiBinaryConst` that derivation is gated on `if (c->VpiSize() != -1)`, and
+// for `vpiDecConst` it does not exist at all, so an UNSIZED based literal
+// leaves `ts == nullptr`.  Two consequences follow at
+// `CompileHelper.cpp:3884-3909`, and both are what this drain reproduces:
+//
+//   * `int32_t size = c->VpiSize();` ... `if (ts) { ... size = Bits(ts); }` ...
+//     `c->VpiSize(size);` — with no typespec the width is never re-derived, so
+//     the constant keeps the literal's own size, **-1, in every view**: the
+//     definition listing, the package top listing, a materialized import copy
+//     and the elaborated instance alike.  (A SIZED literal, an explicitly
+//     typed or ranged declaration, and the `'b0`/`'b1` grammar tokens all have
+//     a typespec and are re-sized; they are excluded by the record predicate.)
+//   * `if (rhs->Typespec() == nullptr) { mint ref_typespec; ->Actual_typespec(ts); }`
+//     — the reference is minted unconditionally and then handed a NULL actual,
+//     so the Rhs constant carries a ref_typespec with **no vpiActual**.  The
+//     elaborated instance copies (and function-local parameters) are rebuilt by
+//     the netlist elaborator instead, which attaches nothing at all.
+//
+// `expr::Compare` reads VpiDecompile, then VpiSize, then the typespec
+// (`expr.cpp:90-100`), and `ref_typespec::Compare` recurses into
+// `Actual_typespec` — so both halves are judge-visible and must move together.
+void UhdmExporter::drainUnsizedBasedRhs106() {
+    for (auto& r : unsizedRhs106) {
+        auto* c = r.c;
+        if (!c)
+            continue;
+        // Re-check that the emitted constant STILL renders as an unsized based
+        // literal: an override actual, a fold or a re-render in the elaborated
+        // view produces a different constant (`15`, `32'hf000000`) that
+        // Surelog sizes from its own type, and those cells are left alone.
+        std::string_view dec = c->VpiDecompile();
+        if (dec.size() < 2 || dec[0] != '\'')
+            continue;
+        size_t bp = 1;
+        if (dec[bp] == 's' || dec[bp] == 'S')
+            bp++;
+        if (bp >= dec.size() ||
+            std::string("bBoOhHdD").find(dec[bp]) == std::string::npos)
+            continue;
+        if (c->VpiSize() == 0)  // the 'b0 / 'b1 grammar tokens
+            continue;
+        c->VpiSize(-1);
+        if (r.dropTs) {
+            c->Typespec(nullptr);
+            continue;
+        }
+        if (auto* rt = c->Typespec()) {
+            rt->Actual_typespec(nullptr);
+            continue;
+        }
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(r.tsFullName);
+        rt->VpiParent(c);
+        c->Typespec(rt);
+    }
+    unsizedRhs106.clear();
+}
+
 void UhdmExporter::drainDefParamTs() {
     for (auto& pd : pendingDefParamTs) {
         UHDM::typespec* its = nullptr;

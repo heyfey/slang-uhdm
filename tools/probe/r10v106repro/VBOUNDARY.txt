@@ -1,0 +1,82 @@
+r10v106 — VERIFIER BOUNDARY (wide, from a COPY of tools/probe with NO path filter)
+
+Instrument v106bnd.sh: recursive find over .sv AND .v, list read on fd 3, children
+</dev/null, scratch keyed on the RELATIVE path, PROCESSED asserted, rc recorded per
+cell, BOTH views, per-FILE and per-DIRECTORY halves.  Copy at /tmp/v106_bndsrc.
+
+  half        LISTED  PROCESSED  MOVED  RC_DIFF  NOOUT  ASYM
+  file_def      3337       3337     34        0    132     0
+  file_elab     3337       3337     34        0    142     0
+  dir_def       1481       1480      5        0    125     0
+  dir_elab      1481       1480      4        0    130     0
+  (the per-DIR halves list 1481 and process 1480: the missing entry is the probe ROOT
+   directory itself, run by hand — pris_rc=3 ship_rc=3, no database on EITHER binary,
+   MOVED=0, in both views.  Its seven root-level .sv files ARE covered per-file.)
+
+POSITIVE CONTROL: a previously non-moving file (r10buvm10repro/vadv10/vb_homes.sv)
+with one planted 'parameter ZZ106 = <unsized hex>' becomes a mover
+(pris f8f93d4dc29e vs ship 9cbfaa907846).  The gate can SEE.
+
+PER-FILE MOVERS (34, identical set in both views) — every one a parameter arm:
+  r10earl_repro/h.sv
+  r10uvm102repro/g102_neg.sv
+  r10uvm102repro/g102.sv
+  r10uvm106repro/a1_bases.sv
+  r10uvm106repro/a3_homes.sv
+  r10uvm106repro/a4_over.sv
+  r10uvm106repro/a5_ctx.sv
+  r10uvm106repro/a6_edge.sv
+  r10uvm106repro/a7_more.sv
+  r10uvm106repro/a7v_more.v
+  r10uvm106repro/a8_toponly.sv
+  r10v102repro/a01_basic.sv
+  r10v102repro/b02_xz.sv
+  r10v102repro/b05_refcast.sv
+  r10v102repro/b07_local.sv
+  r10v102repro/c01_homes.sv
+  r10v102repro/c03_func.sv
+  r10v102repro/c04_unit.sv
+  r10v102repro/d01_override.sv
+  r10v102repro/d02_inst3.sv
+  r10v102repro/e01_cast.sv
+  r10v102repro/e02_macro.sv
+  r10v102repro/e04_portdef.sv
+  r10v102repro/e05_iface_mp.sv
+  r10v106repro/b01_bases.sv
+  r10v106repro/b02_decl.sv
+  r10v106repro/b03_homes.sv
+  r10v106repro/b04_over.sv
+  r10v106repro/b05_ctx.sv
+  r10v106repro/b06_import.sv
+  r10v106repro/b07_deep.sv
+  r10v106repro/b08v_v2001.v
+  r10v106repro/b09_macro.sv
+  r10v106repro/b10_uvmish.sv
+
+PER-DIR MOVERS: def {r10uvm102repro r10uvm106repro r10uvm88repro r10v102repro r10v106repro}
+                elab {r10uvm102repro r10uvm106repro r10v102repro r10v106repro}
+  r10uvm88repro is NOT a mover.  Its ORDER-BLIND (sorted, id-/path-normalised)
+  dumps are IDENTICAL on both binaries (f0f77737bd83 == f0f77737bd83); the
+  directory is emitter-NONDETERMINISTIC per invocation (three fresh runs gave
+  2a8f55005133 / 88c90b47808b / a8f7e73a3bda, pris == ship inside every run).
+  It appears in DEF only and in no per-file cell.
+
+  NOTE on the method: many parameter arms are themselves byte-nondeterministic
+  per invocation on BOTH binaries (b01_bases.sv: three ship runs gave three
+  hashes, three pristine runs gave three more), so a raw byte-hash boundary can
+  only over-report, never under-report.  All 34 per-file movers were therefore
+  re-tested ORDER-BLIND (sorted, id-/path-normalised dumps): all 34 are REAL,
+  0 are ordering noise.  The order-blind dump of the ship binary IS stable
+  across runs (three runs of b01 DEF: 4330b45e8e8c three times), which is why
+  the census and the attribution are keyed that way.
+
+THREE-WAY SCORING of all 34 movers against a FRESH Surelog golden, both views
+(68 arm-view cells), whole payload AND all seven field projections:
+  AWAY_LOST_GOOD = 0 in every cell, every projection.
+
+WHOLE-DUMP DIRECTIONAL ATTRIBUTION (order-blind, id-/path-normalised) of the arms:
+  the ONLY lines ADDED by the patch are |vpiSize:-1 and, where the drain MINTS a
+  reference, \_ref_typespec: (<scope>) + |vpiTypespec: + |vpiParent: + |vpiFullName:.
+  Everything else is REMOVED: |vpiSize:32, the ex-actual int_typespec objects with
+  their [31:0] \_range: and INT:31/INT:0 bounds, the |vpiActual: edges and the
+  dropped references.  No net, var, process, operation or port line moves anywhere.

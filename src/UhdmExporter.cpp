@@ -6810,6 +6810,15 @@ UHDM::design* UhdmExporter::exportDesign() {
     // passes included) has to have run.  It only ever fills a null
     // Actual_group on a reference named `this` and appends one net.
     thisImplicitNetBoth38(d);
+    // § unsizedBasedParamRhsSize106 — AFTER the pinned tail, and it cannot
+    // disturb it: it writes only VpiSize and the vpiTypespec REFERENCE of
+    // param_assign Rhs CONSTANTS, and none of the four tail passes above reads
+    // either (§ 54 writes class_typespec spans, § 24 / § 23 / § 45 rewrite
+    // package and class LISTINGS, § 38 fills a null Actual_group on refs named
+    // `this` and appends one net).  Running last is what makes the width and
+    // typespec final: the many per-view paths that re-size a copied constant
+    // have all run by now.
+    drainUnsizedBasedRhs106();
     return d;
 }
 

@@ -1,0 +1,42 @@
+r10v106 — VERIFIER GRID (10 adversarial arms x 2 views, golden vs pristine vs ship)
+
+Instrument: v106run.sh (fresh Surelog golden + both FROZEN binaries in the same
+worker, DEF (-parse) and ELAB (-parse -elabuhdm), rc recorded per cell) and
+v106cen.py — an INDEPENDENT, SPAN-FREE and PATH-FREE multiset census keyed on
+(root listing edge, FULL scope-name chain, parameter name) over EVERY param_assign
+AND every parameter object.  Payload: Rhs kind + vpiSize + vpiConstType + value tag
++ vpiDecompile + Rhs typespec SHAPE (none/DANGLING/<actual kind>[range]) + the Lhs
+parameter's typespec shape.  FIELD=<sz|ts|lts|dec|ct|val|kind> projects the payload
+onto ONE Compare-visible field so a per-field regression cannot hide inside a
+whole-payload LATERAL.
+
+GOLDEN-vs-GOLDEN CALIBRATION (two independent Surelog runs):
+  b01_bases.sv  DEF : 0 differing cells over 365 keys
+  b03_homes.sv  ELAB: 0 differing cells over 121 keys
+
+WHOLE-PAYLOAD:
+V106CEN b01_bases.sv.def: TO_GOLDEN=98 AWAY_LOST_GOOD=0 LATERAL=24 STILL_WRONG=144 keys=384
+V106CEN b01_bases.sv.elab: TO_GOLDEN=98 AWAY_LOST_GOOD=0 LATERAL=24 STILL_WRONG=144 keys=384
+V106CEN b02_decl.sv.def: TO_GOLDEN=8 AWAY_LOST_GOOD=0 LATERAL=2 STILL_WRONG=23 keys=211
+V106CEN b02_decl.sv.elab: TO_GOLDEN=8 AWAY_LOST_GOOD=0 LATERAL=2 STILL_WRONG=23 keys=211
+V106CEN b03_homes.sv.def: TO_GOLDEN=25 AWAY_LOST_GOOD=0 LATERAL=1 STILL_WRONG=33 keys=111
+V106CEN b03_homes.sv.elab: TO_GOLDEN=25 AWAY_LOST_GOOD=0 LATERAL=2 STILL_WRONG=39 keys=131
+V106CEN b04_over.sv.def: TO_GOLDEN=36 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG=34 keys=129
+V106CEN b04_over.sv.elab: TO_GOLDEN=36 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG=34 keys=129
+V106CEN b05_ctx.sv.def: TO_GOLDEN=11 AWAY_LOST_GOOD=0 LATERAL=2 STILL_WRONG=41 keys=101
+V106CEN b05_ctx.sv.elab: TO_GOLDEN=11 AWAY_LOST_GOOD=0 LATERAL=2 STILL_WRONG=44 keys=102
+V106CEN b06_import.sv.def: TO_GOLDEN=12 AWAY_LOST_GOOD=0 LATERAL=6 STILL_WRONG=36 keys=66
+V106CEN b06_import.sv.elab: TO_GOLDEN=14 AWAY_LOST_GOOD=0 LATERAL=7 STILL_WRONG=37 keys=70
+V106CEN b07_deep.sv.def: TO_GOLDEN=20 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG=19 keys=78
+V106CEN b07_deep.sv.elab: TO_GOLDEN=20 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG=19 keys=78
+V106CEN b08v_v2001.v.def: TO_GOLDEN=21 AWAY_LOST_GOOD=0 LATERAL=2 STILL_WRONG=19 keys=77
+V106CEN b08v_v2001.v.elab: TO_GOLDEN=23 AWAY_LOST_GOOD=0 LATERAL=3 STILL_WRONG=28 keys=101
+V106CEN b09_macro.sv.def: TO_GOLDEN=31 AWAY_LOST_GOOD=0 LATERAL=8 STILL_WRONG=12 keys=91
+V106CEN b09_macro.sv.elab: TO_GOLDEN=31 AWAY_LOST_GOOD=0 LATERAL=8 STILL_WRONG=12 keys=91
+V106CEN b10_uvmish.sv.def: TO_GOLDEN=8 AWAY_LOST_GOOD=0 LATERAL=2 STILL_WRONG=5 keys=26
+V106CEN b10_uvmish.sv.elab: TO_GOLDEN=8 AWAY_LOST_GOOD=0 LATERAL=2 STILL_WRONG=5 keys=27
+
+AWAY_LOST_GOOD = 0 in EVERY arm, EVERY view, on the whole payload AND on each of
+the seven single-field projections (sz ts lts dec ct val kind) — measured, not asserted.
+
+rc per cell: surelog=0 pris=0 ship=0 in all 20 cells; no arm changed acceptance.

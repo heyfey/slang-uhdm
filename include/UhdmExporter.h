@@ -440,6 +440,21 @@ private:
     };
     std::vector<PendingDefParamTs> pendingDefParamTs;
     void drainDefParamTs();
+    // § unsizedBasedParamRhsSize106 — the param_assign Rhs constant of an
+    // UNTYPED, UNRANGED, non-explicitly-signed parameter whose default is an
+    // UNSIZED BASED literal ('h / 'b / 'o / 'd, signed or not, known or x/z).
+    // Surelog derives no implicit typespec for such a parameter
+    // (§ implicitUnsizedBasedNoTs102), so the reduced constant keeps the
+    // literal's own size (-1) in EVERY view and its typespec REFERENCE is
+    // left unresolved.  Recorded here and applied design-final so the many
+    // per-view width/typespec paths that run later cannot overwrite it.
+    struct UnsizedRhs106 {
+        UHDM::constant* c;
+        bool dropTs;              // elaborated instance / function-local: no ts
+        std::string tsFullName;   // dump-only name for a minted dangling ref
+    };
+    std::vector<UnsizedRhs106> unsizedRhs106;
+    void drainUnsizedBasedRhs106();
     // ELAB aggregate (struct/union) param typespec clone, keyed by
     // (definition, param name). Surelog emits ONE clone per struct/union
     // param, parented at the ELAB ref and instanced at the typedef's package;

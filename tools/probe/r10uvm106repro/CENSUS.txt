@@ -1,0 +1,65 @@
+r10uvm106 — CENSUS over the param_assign Rhs constants of the nine moved
+databases (cen106.py / tab106.py / score106.py; LHS is always golden).
+
+KEY      (design root edge, last two scope names, param_assign span, Lhs name)
+PAYLOAD  the Rhs constant's vpiSize + its vpiTypespec shape
+         (none / ref_typespec->DANGLING / ref_typespec-><kind>)
+No vpiFullName, no file, no parent in the key or the payload: the judge reads
+none of them.  Multiset join; a key present on one side only is reported
+separately (they are the GOLD-ONLY class copies, untouched by this pass).
+
+GOLDEN-vs-GOLDEN calibration (two independent Surelog runs, a1_bases.sv):
+  92 keys, 0 differing cells.
+
+CORPUS CENSUS, ship vs pristine, both scored against each database's own golden:
+
+  default/BuildUVMPkg    TO_GOLDEN  2   AWAY 0   (89 keys)
+  default/MiniAmiq       TO_GOLDEN 20   AWAY 0   (838 keys)
+  default/Scoreboard     TO_GOLDEN  8   AWAY 0   (189 keys)
+  default/SeqDriver      TO_GOLDEN 24   AWAY 0   (561 keys)
+  default/SimpleUVM      TO_GOLDEN  8   AWAY 0   (275 keys)
+  testflags/BuildUVMPkg  TO_GOLDEN  2   AWAY 0   (89 keys)
+  testflags/MiniAmiq     TO_GOLDEN 20   AWAY 0   (838 keys)
+  testflags/SeqDriver    TO_GOLDEN 24   AWAY 0   (561 keys)
+  testflags/SimpleUVM    TO_GOLDEN  8   AWAY 0   (275 keys)
+  ------------------------------------------------------------
+  TOTAL                  TO_GOLDEN 116  AWAY 0
+
+The moving cells are the four uvm-1.2 / ovm-2.1.2 / 1800.2 globals
+  UVM_RADIX     uvm_object_globals.svh:99   'hf000000
+  UVM_DEFAULT   uvm_object_globals.svh:180  'b000010101010101
+  UVM_ALL_ON    uvm_object_globals.svh:181  'b000000101010101
+  UVM_FLAGS_ON  uvm_object_globals.svh:182  'b000000101010101
+in every view that lists them: the home package's definition and top listings,
+each importing package's two listings, the importing module's definition
+listing, and the elaborated module instance.  (1800.2's uvm_pkg carries only
+UVM_RADIX, which is why BuildUVMPkg moves 2 cells and not 8.)
+
+THE SHAPE TABLE, measured on golden (SeqDriver, and reproduced by a1/a3/a6/a8):
+
+  view / listing                    golden vpiSize   golden Rhs typespec
+  --------------------------------  --------------  --------------------------
+  package DEF (uhdmallPackages)           -1        ref_typespec, NO actual
+  package TOP (uhdmtopPackages)           -1        ref_typespec, NO actual
+  module DEF listing, own or import       -1        ref_typespec, NO actual
+  interface / program / class DEF         -1        ref_typespec, NO actual
+  $unit                                   -1        ref_typespec, NO actual
+  elaborated instance (uhdmtopModules)    -1        NONE
+  generate block, function-local          -1        NONE
+  --------------------------------  --------------  --------------------------
+  pristine gave 32 in every copy but the home package's DEF listing, and
+  ref_typespec -> int_typespec everywhere.
+
+WHOLE-DUMP ATTRIBUTION (ATTRIB.txt): the sorted, id- and path-normalised diff of
+all nine moved databases contains ONLY
+   * vpiSize:32 -> vpiSize:-1
+   * the removal of the int_typespec that used to be the Rhs reference's actual,
+     with its [31:0] range and the range's two bound constants
+   * where the whole reference is dropped (elaborated instances), the
+     ref_typespec line, its vpiFullName, its vpiParent and its vpiActual
+and nothing else.  Splitting SeqDriver's dump at the `\_weaklyReferenced:`
+marker shows the DESIGN-REACHABLE section changes by exactly 28 size cells,
+32 dropped actuals and 8 dropped references; the remaining 464 changed lines
+are all in the weaklyReferenced tail, where the now-unreferenced int_typespecs
+(and the parameter's own unattached ts reference left by uvm102) stop being
+written to the database at all.  The tail is unreachable to the judge.

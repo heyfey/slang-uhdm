@@ -1,0 +1,45 @@
+r10v106 — VERIFIER CENSUS + ATTRIBUTION on the REAL targets (the nine moved databases)
+
+Owner-keyed multiset census (v106cen.py, span-free, path-free, FULL scope chain)
+golden vs pristine vs ship, goldens taken from each row's OWN cmds.txt cache entry:
+
+  db                      TO_GOLDEN  AWAY_LOST_GOOD  LATERAL  STILL_WRONG  keys
+  default/BuildUVMPkg             2               0        0            7   221
+  default/MiniAmiq                8               0        4         1407  1533
+  default/Scoreboard              8               0        0          279   476
+  default/SeqDriver              16               0        4          781   972
+  default/SimpleUVM               8               0        0          458   654
+  testflags/BuildUVMPkg           2               0        0            7   221
+  testflags/MiniAmiq              8               0        4         1407  1533
+  testflags/Scoreboard            0               0        0          474   474   (unmoved)
+  testflags/SeqDriver            16               0        4          781   972
+  testflags/SimpleUVM             8               0        0          458   654
+  TOTAL TO_GOLDEN 68 keys, AWAY_LOST_GOOD 0.
+
+All 16 LATERAL keys were opened one by one.  Every one is the SAME shape:
+  UVM_RADIX / UVM_ALL_ON / UVM_DEFAULT / UVM_FLAGS_ON in top_tb (SeqDriver) and in
+  svaunit_vpi_interface (MiniAmiq) — the Rhs constant goes ALL THE WAY to golden
+  (sz 32 -> -1, int_typespec -> DANGLING) while the Lhs PARAMETER keeps the
+  int_typespec golden does not have.  That Lhs cell is uvm102's R1 and is
+  UNCHANGED by this patch.  No LATERAL hides a per-field regression.
+
+WHOLE-DUMP DIRECTIONAL ATTRIBUTION (sorted, id-/path-normalised — order-blind)
+
+  SeqDriver/default   1816976 -> 1816408 lines, 624 changed
+    ADDED  : 28 x |vpiSize:-1     <- and NOTHING else
+    REMOVED: 28 x |vpiSize:32; the int_typespec objects at 99:1, 180:1, 181:1, 182:1
+             (26 lines each) with their 48 \_range: / 32 INT:31 / 32 INT:0 bounds;
+             40 |vpiActual: edges; 16 ref_typespec (work@top_tb) and 4 each of
+             ref_typespec (work@top_tb.UVM_{RADIX,ALL_ON,DEFAULT,FLAGS_ON}).
+
+  Scoreboard/default (the ~50/50 COIN) 1099484 -> 1099380 lines, 112 changed
+    ADDED  : 4 x |vpiSize:-1     <- and NOTHING else
+    REMOVED: 4 x |vpiSize:32 + the same four int_typespecs (6 lines each here) with
+             8 \_range: / 8 INT:31 / 8 INT:0 / 8 |vpiActual: / 16 \_constant:.
+    Attributed ORDER-BLIND, never assumed.
+
+OFFICIAL-JUDGE VALIDATION of the census moves (uhdm-cmp, the sole acceptance judge):
+  SeqDriver both modes 60 -> 29 cmp lines, ONE head each; the pristine head IS the
+  UVM_RADIX Rhs constant (golden vpiSize -1 + a ref_typespec with no vpiActual,
+  ours vpiSize 32 + ref_typespec -> int_typespec) — reproduced from the verifier's
+  own pristine sweep, not carried forward.

@@ -1,0 +1,67 @@
+r10uvm106 — WIDE BOUNDARY (bnd106.sh, both halves, run on the SHIPPED binary)
+
+Source universe: a COPY of the whole tools/probe tree with NO path filter,
+.sv AND .v, recursive.  Both frozen binaries run in DEF and ELAB on every cell,
+the file list is read on fd 3, every child gets </dev/null, the scratch
+directory is keyed on the RELATIVE path (r10uvm33repro keeps three dut.sv), rc
+is recorded and compared per cell, and PROCESSED is asserted against LISTED.
+
+  PER-FILE       LISTED=3326  PROCESSED=3326  PROCESSED-ASSERT-OK
+                 MOVED=46  NO_OUTPUT_PAIRS=274  RC_PAIRS=6652
+                 RC_DIFF=0  ASYM=0
+  PER-DIRECTORY  LISTED=1480  PROCESSED=1480  PROCESSED-ASSERT-OK
+                 MOVED=10  NO_OUTPUT_PAIRS=243  RC_PAIRS=2960
+                 RC_DIFF=0  ASYM=0
+
+No return-code asymmetry and no output-presence asymmetry anywhere: the segfaults
+this tree already contains (274 no-output pairs) happen identically on both
+binaries.
+
+PER-FILE MOVERS — 46 cells over 23 files, and every one is a parameter arm:
+
+  this pass's own arms (positive controls, 8 files x 2 views = 16 cells)
+      a1_bases a3_homes a4_over a5_ctx a6_edge a7_more a7v_more.v
+      (+ a8_toponly, added after the tree copy and run as its own cell:
+       MOVED in both views, rc 0 both binaries, TO_GOLDEN 14 / AWAY 0)
+      a2_typed does NOT move — the typed fence is byte-exact.
+  r10uvm102repro/g102.sv, g102_neg.sv          (the declaration half's arms)
+  r10v102repro/ a01_basic b02_xz b05_refcast b07_local c01_homes c03_func
+                c04_unit d01_override d02_inst3 e01_cast e02_macro e04_portdef
+                e05_iface_mp                    (the same family's verifier arms)
+      b03_sized, b04_misc, b06_typed do NOT move.
+  r10earl_repro/h.sv — the ONE pre-existing probe source outside the parameter
+      family that the law touches, and it is an arm that TESTS rather than
+      agrees: its untyped `PU = 'h3` / `MU = 'h3` move (4 cells to golden per
+      view, 0 away) while its ten `logic [7:0]` / `int` / `logic [15:0]`
+      siblings in the same file are controls and do not move.
+
+EVERY moved non-arm file was then scored THREE-WAY against a fresh Surelog
+golden (run106.sh + score106.py, PROJ=szts, both views):
+
+  a01_basic  TO_GOLDEN  2  AWAY 0      c04_unit     TO_GOLDEN  2  AWAY 0
+  b02_xz     TO_GOLDEN  8  AWAY 0      d01_override TO_GOLDEN  6  AWAY 0
+  b05_refcast TO_GOLDEN 4  AWAY 0      d02_inst3    TO_GOLDEN  8  AWAY 0
+  b07_local  TO_GOLDEN  6  AWAY 0      e01_cast     TO_GOLDEN  4  AWAY 0
+  c01_homes  TO_GOLDEN  7  AWAY 0      e02_macro    TO_GOLDEN  6  AWAY 0
+  g102       TO_GOLDEN 38  AWAY 0      e04_portdef  TO_GOLDEN  5  AWAY 0
+  g102_neg   TO_GOLDEN  2  AWAY 0      e05_iface_mp TO_GOLDEN  6  AWAY 0
+  h.sv       TO_GOLDEN  4  AWAY 0      b01_shapes   0 moved, 0 away
+  c03_func   0 to golden, 0 away, 1-2 LATERAL cells (see R-func106)
+
+  b01_shapes.sv is the arm that CONVICTED the first draft of this pass: with the
+  signed-literal shapes inside the law it moved three cells AWAY from golden in
+  both views (golden gives a signed unsized literal's elaborated Rhs vpiSize 32,
+  not -1).  With the signed fence in place the file is byte-identical again.
+
+PER-DIRECTORY MOVERS — 10 cells over 5 directories:
+  r10uvm102repro, r10uvm106repro, r10v102repro  — the parameter arms, sorted
+      diffs large (the law), same cells as per-file.
+  r10uvm75repro, r10uvm76repro — ORDER-ONLY: the sorted (order-blind) diff is
+      0 lines in all four cells while the unsorted one is 4..18 lines, and the
+      unsorted counts differ between two runs of the same pair of binaries.
+      A pre-existing emission-order coin, not a semantic move.
+
+Named boundaries (uvm89, uvm77/78/79, buvm14, buvm3, buvm15, uvm82, uvm91,
+uvm84/85, uvm92..uvm105, earl46/67/68, rgg18, sd8-12) are all inside the
+per-file and per-directory universes above and none of them moved: the only
+directories that moved are the five named here.

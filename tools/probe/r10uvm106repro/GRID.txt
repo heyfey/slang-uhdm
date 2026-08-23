@@ -1,0 +1,87 @@
+r10uvm106 — GRID (golden vs pristine vs ship, nine arms x two views)
+
+Instrument: run106.sh builds a FRESH Surelog golden and runs BOTH frozen
+binaries in the same worker, DEF (-parse) and ELAB (-parse -elabuhdm), rc
+recorded per cell; score106.py is an order-blind, depth-blind multiset
+comparator over param_assign cells keyed (root edge, scope chain, Lhs name).
+PROJ=szts projects the payload onto THIS pass's axes: the Rhs constant's
+vpiSize and the presence/actual of its vpiTypespec.
+
+GOLDEN-vs-GOLDEN CALIBRATION: two independent Surelog runs of a1_bases.sv,
+92 keys, 0 differing cells.  The instrument reports nothing on noise.
+
+PROJ=szts (the pass's own axes):
+SCORE a1_bases_sv.def: TO_GOLDEN=45 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=19 keys=92
+SCORE a1_bases_sv.elab: TO_GOLDEN=45 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=19 keys=92
+SCORE a2_typed_sv.def: TO_GOLDEN=0 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=1 keys=40
+SCORE a2_typed_sv.elab: TO_GOLDEN=0 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=1 keys=40
+SCORE a3_homes_sv.def: TO_GOLDEN=14 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=5 keys=22
+SCORE a3_homes_sv.elab: TO_GOLDEN=14 AWAY_LOST_GOOD=0 LATERAL=1 STILL_WRONG_UNCHANGED=6 keys=24
+SCORE a4_over_sv.def: TO_GOLDEN=8 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=4 keys=12
+SCORE a4_over_sv.elab: TO_GOLDEN=8 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=4 keys=12
+SCORE a5_ctx_sv.def: TO_GOLDEN=2 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=1 keys=5
+SCORE a5_ctx_sv.elab: TO_GOLDEN=2 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=1 keys=5
+SCORE a6_edge_sv.def: TO_GOLDEN=44 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=32 keys=81
+SCORE a6_edge_sv.elab: TO_GOLDEN=51 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=29 keys=85
+SCORE a7_more_sv.def: TO_GOLDEN=33 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=3 keys=42
+SCORE a7_more_sv.elab: TO_GOLDEN=33 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=3 keys=42
+SCORE a7v_more_v.def: TO_GOLDEN=5 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=3 keys=9
+SCORE a7v_more_v.elab: TO_GOLDEN=5 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=3 keys=9
+SCORE a8_toponly_sv.def: TO_GOLDEN=14 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=1 keys=26
+SCORE a8_toponly_sv.elab: TO_GOLDEN=14 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=1 keys=26
+
+WHOLE-CELL payload (size, const type, value tag, decompile, Rhs ts, Lhs ts):
+SCORE a1_bases_sv.def: TO_GOLDEN=36 AWAY_LOST_GOOD=0 LATERAL=9 STILL_WRONG_UNCHANGED=19 keys=92
+SCORE a1_bases_sv.elab: TO_GOLDEN=36 AWAY_LOST_GOOD=0 LATERAL=9 STILL_WRONG_UNCHANGED=19 keys=92
+SCORE a2_typed_sv.def: TO_GOLDEN=0 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=4 keys=40
+SCORE a2_typed_sv.elab: TO_GOLDEN=0 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=4 keys=40
+SCORE a3_homes_sv.def: TO_GOLDEN=13 AWAY_LOST_GOOD=0 LATERAL=1 STILL_WRONG_UNCHANGED=7 keys=22
+SCORE a3_homes_sv.elab: TO_GOLDEN=13 AWAY_LOST_GOOD=0 LATERAL=2 STILL_WRONG_UNCHANGED=8 keys=24
+SCORE a4_over_sv.def: TO_GOLDEN=8 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=4 keys=12
+SCORE a4_over_sv.elab: TO_GOLDEN=8 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=4 keys=12
+SCORE a5_ctx_sv.def: TO_GOLDEN=2 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=1 keys=5
+SCORE a5_ctx_sv.elab: TO_GOLDEN=2 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=1 keys=5
+SCORE a6_edge_sv.def: TO_GOLDEN=36 AWAY_LOST_GOOD=0 LATERAL=8 STILL_WRONG_UNCHANGED=32 keys=81
+SCORE a6_edge_sv.elab: TO_GOLDEN=43 AWAY_LOST_GOOD=0 LATERAL=8 STILL_WRONG_UNCHANGED=29 keys=85
+SCORE a7_more_sv.def: TO_GOLDEN=27 AWAY_LOST_GOOD=0 LATERAL=6 STILL_WRONG_UNCHANGED=3 keys=42
+SCORE a7_more_sv.elab: TO_GOLDEN=27 AWAY_LOST_GOOD=0 LATERAL=6 STILL_WRONG_UNCHANGED=3 keys=42
+SCORE a7v_more_v.def: TO_GOLDEN=5 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=3 keys=9
+SCORE a7v_more_v.elab: TO_GOLDEN=5 AWAY_LOST_GOOD=0 LATERAL=0 STILL_WRONG_UNCHANGED=3 keys=9
+SCORE a8_toponly_sv.def: TO_GOLDEN=13 AWAY_LOST_GOOD=0 LATERAL=1 STILL_WRONG_UNCHANGED=3 keys=26
+SCORE a8_toponly_sv.elab: TO_GOLDEN=13 AWAY_LOST_GOOD=0 LATERAL=1 STILL_WRONG_UNCHANGED=3 keys=26
+
+The LATERAL cells (both projections) are cells that were wrong before AND after:
+they are the parameter DECLARATION's own typespec on materialized import copies
+(§ implicitUnsizedBasedNoTs102 does not reach them — uvm102's R1) and, in
+a3_homes/a8_toponly, the elaborated re-render of `parameter signed`/`unsigned`
+declarations, which this pass fences off entirely.  No cell that matched golden
+before this patch fails to match after it, in any arm or view.
+
+The nine arms, and what each one TESTS (not merely agrees with):
+  a1_bases    every literal form on one untyped package parameter — 'h 'h0 'b
+              'o 'd, signed 'sh 'sb 'so 'sd, unknown 'hx 'bz 'hz 'ox, SIZED
+              32'h / 3'b / 3'bx, plain decimal, an expression, a parenthesised
+              literal, a reference to another parameter, '0, and localparams;
+              read back in four root edges (allModules/allPackages/topModules/
+              topPackages) through a wildcard import.
+  a2_typed    the FENCE: int / logic [7:0] / bit signed [15:0] / byte / string /
+              signed / unsigned / [3:0] / integer declarations with the SAME
+              unsized inits.  BYTE-IDENTICAL in both views — the typed shapes
+              never enter the law.
+  a3_homes    every home: $unit, package, interface, program, module body,
+              module header, generate block, generate-FOR block, function,
+              class.
+  a4_over     overrides — named #(.O_P('hF)), positional #('hAB,'b11), defparam,
+              and two DEFAULTED instances of the same overridable module.
+  a5_ctx      the parameter used as a CAST SIZE, and a class parameter port.
+  a6_edge     the 'b0/'b1/'B0/'B1 grammar tokens (size 0, NOT -1 — the fence),
+              digit-separator underscores, an uppercase 'HF, macro-defined
+              literals, a 19-digit hex, and a package parameter imported into a
+              CLASS in another package (the UVM shape).
+  a7_more     multi-declarator lists (parameter A='h1, B='h2, C='b11), a '?'
+              digit, module ports, a modport interface, an instance override,
+              a replication, and a parameter used as a vector width.
+  a7v_more.v  the Verilog-2001 spelling, in a .v file.
+  a8_toponly  parameters in a module that IS a top (never instantiated) — the
+              arm that convicted the first draft: golden re-sizes a SIGNED
+              based literal there (32) while leaving the unsigned ones at -1.

@@ -1,0 +1,83 @@
+r10uvm106 — GATES (every number measured on the SHIPPED binary in this pass's
+own worktree /tmp/wt_r10uvm106 at base e0e27de; both binaries frozen chmod 555
+BEFORE any sweep; every cmds.txt audited by binary PATH).
+
+BINARIES
+  pristine (fresh build of e0e27de)   md5 b1c4919c02bf45794c87932d75829197
+                                      == the accepted control binary for e0e27de
+  ship     (this patch on e0e27de)    md5 2e2acdf4360432680eadd18077ebe998
+
+GATE 1 — build both, -j 2, Release.  Both DONE_0, no new warnings in the
+         touched TUs.
+
+GATE 2 — golden dump tests (SLANG_UHDM exported explicitly to EACH binary)
+         ship            PASS=23 FAIL=0
+         /bin/false      PASS=0  FAIL=23      (negative control)
+
+GATE 3 — uhdm2rtlil, both modes, 731 rows each
+         status histogram (BOTH modes, ship): CMP_EQUAL 679  SLANG_REJECT 50
+                                              SURELOG_FAIL 2
+         cmds.txt audit: 1462 files, 1458 `slang:` lines, ALL the ship binary
+         ct8rows vs results/gate_uhdm2rtlil.csv          PASS (0 differing rows)
+         ct8rows vs this pass's own pristine testflags    PASS
+         ct8rows vs this pass's own pristine default      PASS
+         byteverify SELFCHECK=1:  MOVERS 0 / 1358,  PATH_SETS_IDENTICAL,
+                                  SELFCHECK 1357/1358 flagged
+
+GATE 4 — surelog corpus, --mode both, 1588 rows
+         status histogram (ship)
+           default   CMP_EQUAL 471  CMP_NOTEQUAL 10  SLANG_REJECT 283
+                     SURELOG_FAIL 25  DEFERRED 5
+           testflags CMP_EQUAL 466  CMP_NOTEQUAL  9  SLANG_REJECT 284
+                     SURELOG_FAIL 23  DEFERRED 5  NO_DATABASE 3
+                     UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+         cmds.txt audit: 1523 `slang:` lines, ALL the ship binary
+         ct8rows vs results/golden_surelog.csv            PASS (0 differing rows,
+                                                          status AND dump)
+         ct8rows vs this pass's own pristine sweep        PASS
+         NO ROW CONVERTS.  results/*.csv is untouched.
+
+GATE 5 — byteverify SELFCHECK=1, surelog: MOVERS 9 / 956, PATH_SETS_IDENTICAL,
+         SELFCHECK 955/956 flagged.  All nine were PREDICTED BY NAME from the
+         PRISTINE sweep before the ship sweep ran (see PREDICT below), and every
+         changed line in every one is attributed to the law (ATTRIB.txt).
+           default:   BuildUVMPkg  MiniAmiq  Scoreboard  SeqDriver  SimpleUVM
+           testflags: BuildUVMPkg  MiniAmiq             SeqDriver  SimpleUVM
+         Scoreboard/default is the ~50/50 coin: its move is attributed by the
+         ORDER-BLIND (sorted, id- and path-normalised) whole-dump diff, which is
+         68 lines and ALL of them the law's.
+
+PREDICT (a-priori, from pristine state only — scan106.py + pred106.py)
+  Source scan for the declaration shape (untyped, unranged, no explicit
+  signed/unsigned keyword, default = an unsized based literal 'b/'o/'h/'d,
+  excluding the 'b0/'b1 grammar tokens):
+        uhdm2rtlil corpus:  0 files          -> 0 movers predicted, 0 observed
+        surelog corpus:    21 files, 51 declarations
+  Resolving each database's OWN cmds.txt source list + +incdir+ roots and
+  following `include TRANSITIVELY names 40 candidate rows; intersecting with the
+  rows that actually produce a database leaves exactly the nine above.  The
+  black-parrot, ariane, NyuziProcessor and wav-lpddr files that carry the shape
+  are reachable only from SLANG_REJECT / SURELOG_FAIL rows, which is why the
+  BlackParrotComplex canary is untouched.
+
+CANARIES
+  canaries.sh (r10uvm52 copy) surelog     ok=52 changed=0 absent=0
+  canaries.sh uhdm2rtlil testflags        ok=8  changed=0 absent=0
+  canaries.sh uhdm2rtlil default (vs this pass's own default control)
+                                          ok=8  changed=0 absent=0
+  ctcan2 surelog (EXPECT_UNKNOWN=1)       PASS
+  ctcan2 u2r testflags (EXPECT_UNKNOWN=6) PASS
+  ctcan2 u2r default vs own control       PASS
+  canaudit.sh canaries.sh ctcan2.sh       audited=29 UNCOVERED=0 FENCE-BREACH=0
+  named pins, pristine -> ship            SAME=10 MOVED=0
+     InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical,
+     SVSwitch 4842211c4030, YosysVerx 6ccda350c24a
+
+HEADS (rowheads.sh, pristine -> ship; counts are DEPTH, not distance)
+  SeqDriver     60 -> 29   BOTH modes, ONE head each   <-- the target, cleared
+  SimpleUVM     22 -> 22   Scoreboard 22 -> 22 (default; testflags has no DB)
+  MiniAmiq     348 -> 348  BuildUVMPkg 76 -> 76
+  Earlgrey_0_1  17 -> 17   Rggen 0 -> 0 (default; testflags has no DB)
+  Every unchanged head was also compared TEXTUALLY (id-normalised diff of the
+  cmp output): all ten are byte-identical to pristine.  A head COUNT that holds
+  is not proof the head held.

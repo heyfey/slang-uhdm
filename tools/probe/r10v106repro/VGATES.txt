@@ -1,0 +1,55 @@
+r10v106 — VERIFIER GATES (independently reproduced at base e0e27de in /tmp/wt_v106{,pris}; both binaries frozen chmod 555 before any sweep; every cmds.txt audited by binary PATH)
+
+BINARIES (rebuilt by the verifier from scratch, -j 2, Release)
+  pristine e0e27de   md5 b1c4919c02bf45794c87932d75829197   (== the pass's claim)
+  ship     +patch     md5 2e2acdf4360432680eadd18077ebe998   (== the pass's claim, bit-for-bit)
+  patch md5 8df9ff32b15bb8aee08e52ebf56c3218, 2194 lines; applies clean on a FRESH e0e27de AND on HEAD 6c74d2aa (0 conflict markers, 3 production files + tools/probe/r10uvm106repro/)
+  the four slang-fenced test names: 0 hits anywhere in the patch; results/*.csv untouched
+
+GATE 2 — golden dump tests
+  ship PASS=23 FAIL=0 ; /bin/false PASS=0 FAIL=23 ; pristine PASS=23
+
+GATE 3 — uhdm2rtlil 731 rows x 2 modes
+  ship + pristine histograms BOTH modes: CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  cmds.txt audit: 1462 files / 1458 slang: lines, ALL /tmp/v106_bin/{pris,ship}.bin respectively
+  ct8rows vs results/gate_uhdm2rtlil.csv                PASS (0 differing rows)
+  ct8rows vs the verifier's own pristine testflags       PASS
+  ct8rows vs the verifier's own pristine default         PASS
+  byteverify SELFCHECK=1: MOVERS 0/1358, PATH_SETS_IDENTICAL, SELFCHECK 1357/1358
+
+GATE 4 — surelog 1588 rows
+  default   CMP_EQUAL 471 CMP_NOTEQUAL 10 DEFERRED 5 SLANG_REJECT 283 SURELOG_FAIL 25
+  testflags CMP_EQUAL 466 CMP_NOTEQUAL  9 DEFERRED 5 NO_DATABASE 3 NO_UHDM 1 SLANG_REJECT 284 SURELOG_FAIL 23 TIMEOUT 1 UNTRANSLATABLE 2
+  (identical pristine vs ship)
+  cmds.txt audit: 1573 files / 1523 slang: lines, ALL the intended binary
+  ct8rows vs results/golden_surelog.csv   PASS (0 differing ROWS, status AND dump)
+  ct8rows vs the verifier's own pristine  PASS
+  NO ROW CONVERTS.
+
+GATE 5 — byteverify SELFCHECK=1, surelog: MOVERS 9/956, PATH_SETS_IDENTICAL, SELFCHECK 955/956
+  default:   BuildUVMPkg MiniAmiq Scoreboard SeqDriver SimpleUVM
+  testflags: BuildUVMPkg MiniAmiq            SeqDriver SimpleUVM
+  A-PRIORI PREDICTION, made from the PRISTINE databases ONLY (pred106v.py: any
+  param_assign Rhs constant whose vpiDecompile is an unsigned unsized based
+  literal and that carries vpiSize != -1 or a bound vpiActual):
+    default   9 candidates: BuildUVMPkg Earlgrey_0_1 MiniAmiq Scoreboard
+                            Scr1SvTests SeqDriver SimpleUVM Value4States YosysOldOpen
+    testflags 8 candidates: the same minus Scoreboard
+  Every observed mover is in the predicted set; NO unpredicted database moved.
+  The four predicted-but-unmoved (Earlgrey_0_1 Scr1SvTests Value4States YosysOldOpen)
+  carry the shape only under typed/ranged/signed declarations the pass fences off;
+  all four stay byte-identical and CMP-unchanged.
+
+CANARIES
+  canaries.sh surelog ok=52 changed=0 absent=0 ; u2r testflags ok=8 changed=0 absent=0
+  ctcan2 surelog PASS ; ctcan2 u2r PASS
+  canaudit.sh canaries.sh ctcan2.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0 (run from this dir AND from r10uvm106repro)
+  named pins pristine->ship: SAME=10 MOVED=0
+    InterfaceModPort 59a365f3ce2c / BlackParrotComplex e3e354129d5a(def) 73a10e8217e5(tf)
+    YosysOldOr d68e0796d62c / SVSwitch 4842211c4030 / YosysVerx 6ccda350c24a
+
+HEADS (rowheads.sh; DEPTH, not distance)
+  SeqDriver 60 -> 29 BOTH modes, ONE head each
+  SimpleUVM 22->22  Scoreboard 22->22(default)  MiniAmiq 348->348
+  BuildUVMPkg 76->76  Earlgrey_0_1 17->17  Rggen 0->0
+  Every unchanged head is TEXTUALLY identical (id-/path-normalised diff = 0 lines).
