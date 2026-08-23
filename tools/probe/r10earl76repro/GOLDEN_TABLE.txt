@@ -1,0 +1,186 @@
+r10earl76 — THE GOLDEN TABLE (goldtbl76.py on g1_gsfor76.sv; symbol NB, the
+wildcard-imported `parameter int NB = 4` of package g76p).
+ref+ec = ref_obj bound to a fresh loc-less enum_const; ref = UNBOUND ref_obj;
+const = a fold.  Golden / pristine(b494676) / patched.
+
+HOME               POS      SPAN           GOLDEN     PRISTINE   PATCHED   
+gen:gen_b          dow:c    72:64-72:66    ref+ec     const      ref+ec    
+gen:gen_b          for:b    64:59-64:61    ref+ec     const      ref+ec    
+gen:gen_b          for:c    64:32-64:34    ref+ec     const      ref+ec    
+gen:gen_b          for:c    88:29-88:31    ref+ec     const      ref+ec    
+gen:gen_b          for:i    64:20-64:22    ref+ec     const      ref+ec    
+gen:gen_b          for:n    64:44-64:46    ref+ec     const      ref+ec    
+gen:gen_b          rpt:c    76:15-76:17    ref+ec     const      ref+ec    
+gen:gen_b          whl:c    68:18-68:20    ref+ec     const      ref+ec    
+gen:gen_c[0]       for:b    96:59-96:61    ref+ec     const      ref+ec    
+gen:gen_c[0]       for:c    96:32-96:34    ref+ec     const      ref+ec    
+gen:gen_c[0]       for:i    96:20-96:22    ref+ec     const      ref+ec    
+gen:gen_c[0]       for:n    96:44-96:46    ref+ec     const      ref+ec    
+gen:gen_c[0]       rpt:c    97:15-97:17    ref+ec     const      ref+ec    
+gen:gen_c[1]       for:b    96:59-96:61    ref+ec     const      ref+ec    
+gen:gen_c[1]       for:c    96:32-96:34    ref+ec     const      ref+ec    
+gen:gen_c[1]       for:i    96:20-96:22    ref+ec     const      ref+ec    
+gen:gen_c[1]       for:n    96:44-96:46    ref+ec     const      ref+ec    
+gen:gen_c[1]       rpt:c    97:15-97:17    ref+ec     const      ref+ec    
+gen:gen_d          for:b    105:48-105:50  ref+ec     const      ref+ec    
+gen:gen_d          for:c    105:27-105:29  ref+ec     const      ref+ec    
+gen:gen_e          for:b    113:47-113:49  ref+ec     const      ref+ec    
+gen:gen_e          for:c    113:27-113:29  ref+ec     const      ref+ec    
+gen:gen_e          rpt:c    114:15-114:17  ref+ec     const      ref+ec    
+gen:gen_f          for:b    123:45-123:47  ref+ec     const      const     
+gen:gen_f          for:c    123:27-123:29  ref+ec     const      const     
+gen:gen_f          rpt:c    124:15-124:17  ref+ec     const      const     
+gen:gen_g          for:b    136:49-136:51  ref+ec     ref+ec     ref+ec    
+gen:gen_g          for:c    136:29-136:31  ref+ec     ref+ec     ref+ec    
+modbody            cs:ci    83:9-83:11     ref        ref        ref       
+modbody            dow:b    72:27-72:29    ref        ref        ref       
+modbody            dow:c    72:64-72:66    ref        ref        ref       
+modbody            fe:b     77:35-77:37    ref        ref        ref       
+modbody            for:b    105:48-105:50  ref        ref        ref       
+modbody            for:b    113:47-113:49  ref        ref        ref       
+modbody            for:b    136:49-136:51  ref        ref        ref       
+modbody            for:b    64:59-64:61    ref        ref        ref       
+modbody            for:b    96:59-96:61    ref        ref        ref       
+modbody            for:c    105:27-105:29  ref        ref        ref       
+modbody            for:c    113:27-113:29  ref        ref        ref       
+modbody            for:c    136:29-136:31  ref        ref        ref       
+modbody            for:c    64:32-64:34    ref        ref        ref       
+modbody            for:c    88:29-88:31    ref        ref        ref       
+modbody            for:c    96:32-96:34    ref        ref        ref       
+modbody            for:i    64:20-64:22    ref        ref        ref       
+modbody            for:i    96:20-96:22    ref        ref        ref       
+modbody            for:n    64:44-64:46    ref        ref        ref       
+modbody            for:n    96:44-96:46    ref        ref        ref       
+modbody            if:c     81:11-81:13    ref        ref        ref       
+modbody            plain    86:18-86:20    ref        ref        ref       
+modbody            rpt:b    76:30-76:32    ref        ref        ref       
+modbody            rpt:c    114:15-114:17  ref        ref        ref       
+modbody            rpt:c    76:15-76:17    ref        ref        ref       
+modbody            rpt:c    97:15-97:17    ref        ref        ref       
+modbody            whl:b    68:39-68:41    ref        ref        ref       
+modbody            whl:c    68:18-68:20    ref        ref        ref       
+
+================================================================
+ROW A — THE MODULE-BODY CONTROL (g1_gsfor76.sv lines 24-51).  Golden FOLDS every
+position, including the whole for statement and every loop control, and NOTHING
+MOVES: golden == pristine == patched on all 81 cells.
+
+POS      SPAN           GOLDEN       PRISTINE     PATCHED     
+plain    25:5-25:7      ref?         ref?         ref?        
+plain    25:10-25:12    const        const        const       
+for:b    26:46-26:48    ref?         ref?         ref?        
+for:b    26:51-26:53    ref?         ref?         ref?        
+for:b    26:57-26:59    const        const        const       
+for:b    26:60-26:64    const        const        const       
+for:c    26:26-26:27    ref?         ref?         ref?        
+for:c    26:30-26:32    const        const        const       
+for:i    26:18-26:20    const        const        const       
+for:i    26:23-26:24    const        const        const       
+for:n    26:34-26:35    ref?         ref?         ref?        
+for:n    26:38-26:39    ref?         ref?         ref?        
+for:n    26:42-26:44    const        const        const       
+plain    29:12-29:13    ref?         ref?         ref?        
+plain    29:16-29:17    const        const        const       
+plain    29:19-29:21    ref?         ref?         ref?        
+plain    29:24-29:26    const        const        const       
+whl:b    30:26-30:28    ref?         ref?         ref?        
+whl:b    30:31-30:33    ref?         ref?         ref?        
+whl:b    30:37-30:39    const        const        const       
+whl:b    30:40-30:44    const        const        const       
+whl:b    30:48-30:49    ref?         ref?         ref?        
+whl:b    30:52-30:53    ref?         ref?         ref?        
+whl:b    30:56-30:57    const        const        const       
+whl:c    30:12-30:13    ref?         ref?         ref?        
+whl:c    30:16-30:18    const        const        const       
+plain    33:12-33:13    ref?         ref?         ref?        
+plain    33:16-33:17    const        const        const       
+plain    33:19-33:21    ref?         ref?         ref?        
+plain    33:24-33:26    const        const        const       
+dow:b    34:14-34:16    ref?         ref?         ref?        
+dow:b    34:19-34:21    ref?         ref?         ref?        
+dow:b    34:25-34:27    const        const        const       
+dow:b    34:28-34:32    const        const        const       
+dow:b    34:36-34:37    ref?         ref?         ref?        
+dow:b    34:40-34:41    ref?         ref?         ref?        
+dow:b    34:44-34:45    const        const        const       
+dow:c    34:58-34:59    ref?         ref?         ref?        
+dow:c    34:62-34:64    const        const        const       
+plain    37:5-37:7      ref?         ref?         ref?        
+plain    37:10-37:12    const        const        const       
+rpt:b    38:17-38:19    ref?         ref?         ref?        
+rpt:b    38:22-38:24    ref?         ref?         ref?        
+rpt:b    38:28-38:30    const        const        const       
+rpt:b    38:31-38:35    const        const        const       
+rpt:c    38:13-38:15    const        const        const       
+fe:b     39:22-39:24    ref?         ref?         ref?        
+fe:b     39:27-39:29    ref?         ref?         ref?        
+fe:b     39:33-39:35    const        const        const       
+fe:b     39:36-39:40    const        const        const       
+plain    42:5-42:7      ref?         ref?         ref?        
+plain    42:10-42:12    const        const        const       
+if:c     43:9-43:11     const        const        const       
+if:c     43:14-43:15    const        const        const       
+plain    43:17-43:19    ref?         ref?         ref?        
+plain    43:22-43:24    ref?         ref?         ref?        
+plain    43:27-43:28    const        const        const       
+cs:ci    45:15-45:17    ref?         ref?         ref?        
+cs:ci    45:20-45:22    ref?         ref?         ref?        
+cs:ci    45:25-45:26    const        const        const       
+cs:ci    45:7-45:9      const        const        const       
+cs:ci    45:12-45:13    const        const        const       
+cs:ci    46:16-46:18    ref?         ref?         ref?        
+cs:ci    46:21-46:23    ref?         ref?         ref?        
+cs:ci    46:26-46:27    const        const        const       
+cs:c     44:11-44:13    ref?         ref?         ref?        
+plain    48:5-48:7      ref?         ref?         ref?        
+plain    48:10-48:12    ref?         ref?         ref?        
+plain    48:16-48:18    const        const        const       
+plain    48:19-48:23    const        const        const       
+for:b    50:36-50:38    ref?         ref?         ref?        
+for:b    50:41-50:43    ref?         ref?         ref?        
+for:b    50:46-50:47    const        const        const       
+for:c    50:23-50:24    ref?         ref?         ref?        
+for:c    50:27-50:29    const        const        const       
+for:i    50:20-50:21    const        const        const       
+for:n    50:31-50:32    ref?         ref?         ref?        
+for:c    49:21-49:22    ref?         ref?         ref?        
+for:c    49:25-49:26    const        const        const       
+for:i    49:18-49:19    const        const        const       
+for:n    49:28-49:29    ref?         ref?         ref?        
+
+================================================================
+THE ORIGIN TABLE (g2_orig76.sv, a for-loop CONDITION in a gen-scope always_comb,
+gen scope at depth 1).  GOLDEN:
+
+span=43:29-43:31  | kind=ref_obj name=NB def=- act=enum_const actname=NB actval=UINT:4 actdec=4 actsz=32
+span=44:29-44:31  | kind=ref_obj name=ND def=- act=enum_const actname=ND actval=INT:4 actdec=4 actsz=32
+span=45:29-45:31  | kind=ref_obj name=NS def=- act=enum_const actname=NS actval=UINT:4 actdec=4 actsz=32
+span=46:29-46:31  | kind=ref_obj name=NM def=- act=enum_const actname=NM actval=INT:6 actdec=6 actsz=32
+span=47:29-47:31  | kind=ref_obj name=NG def=- act=enum_const actname=NG actval=UINT:4 actdec=4 actsz=32
+span=48:29-48:31  | kind=ref_obj name=NX def=- act=enum_const actname=NX actval=UINT:6 actdec=6 actsz=32
+span=49:29-49:31  | kind=ref_obj name=NU def=- act=enum_const actname=NU actval=UINT:5 actdec=5 actsz=64
+span=50:29-50:31  | kind=ref_obj name=TB def=- act=enum_const actname=TB actval=HEX:A5 actdec=8'hA5 actsz=8
+span=51:29-51:31  | kind=ref_obj name=NL def=- act=enum_const actname=NL actval=UINT:40 actdec=40 actsz=64
+span=52:29-52:37  | kind=constant ct=9 sz=32 val=UINT:7 dec=7 ts=- tsname=- tsdef=- tssgn=-1 rtname=-
+span=53:29-53:31  | kind=ref_obj name=QX def=- act=enum_const actname=QX actval=UINT:9 actdec=9 actsz=32
+span=54:29-54:31  | kind=ref_obj name=MP def=- act=<null> actname=- actval=- actdec=- actsz=-1
+span=55:29-55:31  | kind=ref_obj name=ML def=- act=<null> actname=- actval=- actdec=- actsz=-1
+span=56:29-56:31  | kind=ref_obj name=GL def=- act=<null> actname=- actval=- actdec=- actsz=-1
+span=57:29-57:31  | kind=ref_obj name=NR def=- act=enum_const actname=NR actval=INT:1 actdec=1 actsz=32
+span=58:29-58:31  | kind=ref_obj name=NN def=- act=enum_const actname=NN actval=INT:5 actdec=5 actsz=32
+span=59:29-59:31  | kind=ref_obj name=NP def=- act=enum_const actname=NP actval=INT:8 actdec=8 actsz=32
+span=60:29-60:31  | kind=ref_obj name=NW def=- act=enum_const actname=NW actval=INT:7 actdec=7 actsz=32
+span=70:27-70:29  | kind=ref_obj name=NB def=- act=enum_const actname=NB actval=UINT:4 actdec=4 actsz=32
+span=71:27-71:28  | kind=ref_obj name=g def=- act=<null> actname=- actval=- actdec=- actsz=-1
+span=71:31-71:32  | kind=constant ct=9 sz=64 val=UINT:2 dec=2 ts=- tsname=- tsdef=- tssgn=-1 rtname=-
+span=72:27-72:29  | kind=ref_obj name=MP def=- act=<null> actname=- actval=- actdec=- actsz=-1
+
+READ:  a package parameter (wildcard-imported OR explicitly single-imported)
+binds a fresh enum_const; a QUALIFIED g76q::QA read FOLDS; a module parameter,
+a module localparam, a gen-scope localparam and a genvar keep an UNBOUND ref.
+The enum_const's SIZE is the parameter's declared width (32 for parameter int,
+8 for bit [7:0], 64 for an UNTYPED or longint parameter) and its DECOMPILE keeps
+a based literal's base (8'hA5).  Its VpiValue prefix is INT: for a parameter whose
+initialiser Surelog evaluated to a SIGNED Value (8/2, 2*3, 9%4, 9-4, 2**3,
+(2*3)+1) and UINT: otherwise (a literal, 3+1, $clog2(16), a cross-package copy)
+-- and VpiValue is the ONE enum_const field no generated Compare reads.

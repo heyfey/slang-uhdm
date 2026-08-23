@@ -1,0 +1,48 @@
+r10earl76 — ARMS.txt: every boundary arm that differs between the two frozen binaries,
+and its verdict.  MEASUREMENT ONLY.
+
+WIDE (per file): PROCESSED=3484 identical=6680 DIFFERING=10 no_output=278
+
+  r10earl76repro/g1_gsfor76.sv   (plain + elab)  THIS PASS'S POSITION GRID — the
+      positive control.  default view: TO-GOLDEN 23, AWAY-GOLDEN 0, MOVED-WRONG 0,
+      MOVED-SIDEWAYS 0, NOGOLD-MOVED 0.  (GRID_SCORE.txt, GOLDEN_TABLE.txt.)
+
+  r10earl76repro/g2_orig76.sv    (plain + elab)  THIS PASS'S ORIGIN GRID — the
+      positive control for the origin gate.  JUDGED default: TO-GOLDEN 16, every
+      other bucket 0.  The QUALIFIED read g76q::QA, the module parameter, the module
+      localparam, the gen-scope localparam and the genvar do not move.
+
+  r10earl75repro/g1_gsproc75.sv  (plain + elab)  AN EARLIER PASS'S ARM carrying this
+      law's shape: earl75's own row B_P11, 'for (int k = 0; k < NB; k++)' in a
+      gen-scope always_comb, x3 instances.  earl75 named it as its R0's ready-made
+      positive control.  TO-GOLDEN 3, AWAY-GOLDEN 0, MOVED-WRONG 0, both views.
+
+  r10v75repro/a2_loops75.sv      (plain + elab)  THE VERIFIER'S V-R1 ARM, which is
+      what named the loop-CONTROL half of this region.  TO-GOLDEN 5, AWAY-GOLDEN 0,
+      MOVED-WRONG 0: the for CONDITION, the for BODY, the while CONDITION, the
+      do-while CONDITION and the repeat COUNT in gen_b — and its MODULE-BODY twin
+      module a2body does not move at all.
+
+  r10buvm22repro/g22.sv          (plain + elab)  NOT THIS LAW, convicted by a NEUTRAL
+      control.  A third binary was built with the arm behind a runtime switch:
+        PRISTINE vs NEUTRAL(arm OFF)  : 12 lines differ
+        PRISTINE vs NEUTRAL(arm ON)   : 12 lines differ
+        NEUTRAL(OFF) vs NEUTRAL(ON)   : 0 lines differ
+        PRISTINE vs PATCHED           : 12 lines differ
+      i.e. the arm makes NO difference on this file; the 12 lines are the
+      associative-array bound's allocation-tracking garbage number at g22.sv:70
+      ('typedef C22 ka_cls_t[string];'), earl74's R5, which shifts with any build
+      change.  earl74 convicted the same arm the same way.
+
+DIR (per directory): PROCESSED=1508 identical=2754 DIFFERING=12 no_output=250
+  r10earl75repro, r10v75repro, r10buvm22repro   the same four arms as above.
+  r10uvm75repro, r10uvm76repro, r10v109repro    THE DOCUMENTED PER-INVOCATION
+      ORDERING COIN.  Raw dump lines differ (18/12, 16/16, 24/22) and ORDER-BLIND
+      (both dumps sorted) the difference is 0 on all six cells.  The NEUTRAL control
+      settles it without reference to the patched binary at all: the PRISTINE binary
+      alone, run three times on r10v109repro, differs from itself by 20-24 raw lines
+      and by 0 once sorted — the identical signature.
+  r10earl76repro itself does NOT appear in the dir walk: g1_gsfor76.sv and
+      g2_orig76.sv both declare a package g76p, so the whole-directory unit is a
+      duplicate-definition error and produces no output on either binary (no_output).
+      The per-file WIDE walk is what covers this pass's own grids.

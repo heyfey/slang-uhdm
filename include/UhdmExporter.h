@@ -5718,6 +5718,43 @@ private:
     // survives in the init, the condition, the increments and the body alike
     // (repro r10rggen7repro/t9.sv puts one parameter in all five positions).
     int procForAllDepth9 = 0;
+    // § genScopeProcLoopCtrlNoFold76 (r10earl76) — depth of a LOOP CONTROL
+    // EXPRESSION: a `while` condition, a `do…while` condition or a `repeat`
+    // COUNT.  Surelog's `compileStmt` compiles each of those three with
+    // `compileExpression(component, fC, cond, compileDesign, Reduce::No,
+    // <the loop stmt>)` and NO `instance`
+    // (~/git-repos/Surelog/src/DesignCompile/CompileStmt.cpp:665, :683, :701),
+    // while the loop BODY is compiled by `compileStmt(..., instance, ...)` and
+    // keeps it — so inside a generate scope, whose own DesignComponent holds
+    // none of the module's import-materialized parameters, a package-parameter
+    // read in the CONTROL survives as a `ref_obj` and the same read one line
+    // into the BODY folds.  `procForAllDepth9` is the for-statement's twin of
+    // this counter (`compileForLoop` receives no instance for ANY of its four
+    // parts, header and body alike).  DELIBERATELY NOT the loop body: golden
+    // FOLDS in the `while`, `do…while`, `repeat` and `foreach` bodies
+    // (measured, g1_gsfor76.sv rows B_P6/B_P8/B_P10/B_P11).
+    // CORRECTION, V-v76: the `forever` body is NOT in that list, and the
+    // reason is not the `forever`.  The first cut of this comment named
+    // `forever` without building one — g1_gsfor76.sv contains none.
+    // r10v76repro/a5_ctrl76.sv and a8_init76.sv build the region out and the
+    // discriminator is the PROCEDURE KIND:
+    //   gen-scope `always_comb` / `always @(posedge)` / bare `always`
+    //       -> golden FOLDS everywhere outside the for statement and the
+    //          three loop controls (and stamps an int_typespec);
+    //   gen-scope `initial` and `final`
+    //       -> golden REFUSES at EVERY position in the body: a plain
+    //          statement, an `if` condition, a one-statement `initial x = NB`,
+    //          a `forever` body (plain and `@(posedge)`-controlled) and a
+    //          delay-controlled `#5 x = x + NB;`.
+    // So a gen-scope `initial`/`final` body is a WHOLE FURTHER no-fold
+    // container, one this law does not model; the instance must be null a
+    // level above `compileStmt` for those two procedure kinds
+    // (`compileStmt`'s paFOREVER arm at CompileStmt.cpp:513 passes `instance`
+    // through, so the null cannot originate there).  BOTH binaries fold in all
+    // seven measured cells, so it is an UNDER-fire — a residue (V-R1), never a
+    // regression — and 0 corpus cells.  This counter deliberately does not
+    // reach it: extending the region is the next pass's measurement.
+    int procLoopCtrlDepth76 = 0;
     // True while emitting a CONCURRENT ASSERTION body (§ genProcParamFold):
     // a gen-scope assertion's property arguments keep their references where
     // an always body folds them.

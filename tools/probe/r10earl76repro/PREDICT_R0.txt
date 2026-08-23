@@ -1,0 +1,43 @@
+r10earl76 — MOVER PREDICTION, made from the PRISTINE databases BEFORE the patched
+sweep existed (predict76.sh).  MEASUREMENT ONLY.
+
+STAGE 1 (over-approximation: a constant in a gen-scope process on a for/loop-control route)
+CANDIDATE 8 /tmp/r10earl76_wk/slP/default/BasicOh-87b55f9d/slang.uhdm
+CANDIDATE 192 /tmp/r10earl76_wk/slP/default/Earlgrey_0_1-71da2fd7/slang.uhdm
+CANDIDATE 26 /tmp/r10earl76_wk/slP/default/Rggen-50ccbd70/slang.uhdm
+CANDIDATE 16 /tmp/r10earl76_wk/slP/testflags/BasicOh-87b55f9d/slang.uhdm
+CANDIDATE 440 /tmp/r10earl76_wk/slP/testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+SL: scanned=956 flagged=5
+CANDIDATE 20 /tmp/r10earl76_wk/u2rP/default/for_decl_shadow-5115c73d/slang.uhdm
+CANDIDATE 8 /tmp/r10earl76_wk/u2rP/default/hier_path-fac7ae4e/slang.uhdm
+CANDIDATE 20 /tmp/r10earl76_wk/u2rP/testflags/for_decl_shadow-5115c73d/slang.uhdm
+CANDIDATE 8 /tmp/r10earl76_wk/u2rP/testflags/hier_path-fac7ae4e/slang.uhdm
+U2R: scanned=1358 flagged=4
+
+STAGE 2 (refute by SOURCE: no package import anywhere in the test)
+  REFUTED  BasicOh (default, testflags)   -- third_party/tests/oh has no package import
+  REFUTED  for_decl_shadow (default, testflags) -- uhdm2rtlil/test/for_decl_shadow has none
+  KEEP     Earlgrey_0_1 (default, testflags)
+  KEEP     Rggen (default)
+  KEEP     hier_path (default, testflags)
+
+STAGE 3 (refute by the flagged constants' own SHAPE: a package-parameter fold is a
+SIZED constant at the parameter's declared width; a bare unsized loop bound is sz=64)
+  Rggen/default   : all 26 flagged cells are 'ct=9 sz=64' -- unsized loop bounds -> REFUTED
+  hier_path/both  : the 8 flagged cells are 'ct=9 sz=64', and dut.sv's PMPNumChan /
+                    PMPNumRegions are MODULE parameters, so the
+                    'scope->kind == Package' branch is never entered -> REFUTED
+
+PREDICTION: exactly TWO databases move — Earlgrey_0_1/default and Earlgrey_0_1/testflags.
+
+MEASURED (byteverify.sh, SELFCHECK=1, my own pristine sweep vs my own patched sweep):
+  uhdm2rtlil : PATH_SETS_IDENTICAL (1358 paths), MOVERS 0 / 1358
+  surelog    : PATH_SETS_IDENTICAL (956 paths),  MOVERS 3 / 956
+     ./default/Earlgrey_0_1-71da2fd7/slang.uhdm    PREDICTED
+     ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  PREDICTED
+     ./default/Scoreboard-59431470/slang.uhdm      THE DOCUMENTED COIN, convicted by a
+        NEUTRAL control that never touches the patched binary: the PRISTINE binary run
+        three times on the Scoreboard sources lands on 508bcd0b88c0 all three times —
+        the hash the PATCHED sweep produced — while the PRISTINE sweep produced
+        0069d49f0350; the two dumps differ by 92 raw lines and by 0 once sorted
+        (the svunit_pkg vpiTaskFunc list-ORDER flip, RESUME §9).

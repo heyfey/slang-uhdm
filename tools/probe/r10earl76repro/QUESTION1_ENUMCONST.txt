@@ -1,0 +1,21 @@
+r10earl76 — QUESTION 1: WHAT IS GOLDEN'S enum_const (ecprobe76 on the Earlgrey golden, default mode)
+
+$ ecprobe76 <golden.uhdm> WidthMultiple
+EC name=WidthMultiple val=INT:2 dec=2 sz=32 span=-:0:0-0:0 binders=1 parent=design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[0])/gen_scope/module_inst(i_core)/gen_scope_array(gen_prog_data)/gen_scope/always/begin/for_stmt/operation/ref_obj(WidthMultiple)
+EC name=WidthMultiple val=INT:2 dec=2 sz=32 span=-:0:0-0:0 binders=1 parent=design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[1])/gen_scope/module_inst(i_core)/gen_scope_array(gen_prog_data)/gen_scope/always/begin/for_stmt/operation/ref_obj(WidthMultiple)
+RB ref=WidthMultiple full=work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.gen_prog_data.WidthMultiple span=flash_phy_core.sv:191:27-191:40 -> ec name=WidthMultiple val=INT:2 sz=32 ecspan=-:0:0-0:0 ecparent=design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[0])/gen_scope/module_inst(i_core)/gen_scope_array(gen_prog_data)/gen_scope/always/begin/for_stmt/operation/ref_obj(WidthMultiple) binders=1 refparent=design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[0])/gen_scope/module_inst(i_core)/gen_scope_array(gen_prog_data)/gen_scope/always/begin/for_stmt/operation
+RB ref=WidthMultiple full=work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.gen_prog_data.WidthMultiple span=flash_phy_core.sv:191:27-191:40 -> ec name=WidthMultiple val=INT:2 sz=32 ecspan=-:0:0-0:0 ecparent=design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[1])/gen_scope/module_inst(i_core)/gen_scope_array(gen_prog_data)/gen_scope/always/begin/for_stmt/operation/ref_obj(WidthMultiple) binders=1 refparent=design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[1])/gen_scope/module_inst(i_core)/gen_scope_array(gen_prog_data)/gen_scope/always/begin/for_stmt/operation
+TOTAL enum_const=3578 bound-distinct=1638
+
+READ: the object is a LOC-LESS per-reference CLONE.  Its VpiParent is the
+ref_obj that binds it (so the chain printed above is the ref's chain, and the
+object lives nowhere in the package / instance / gen-scope tree); binders=1
+for each of the two, one per gen_flash_banks instance; VpiName WidthMultiple,
+VpiValue INT:2, VpiDecompile 2, VpiSize 32.  The whole design holds 3578
+enum_const objects of which 1638 are bound; exactly TWO are WidthMultiple and
+each serves exactly ONE reference — no sharing across the refused folds.
+
+enum_const::Compare (UHDM/build/generated/src/enum_const.cpp) reads
+  BaseClass::Compare  -> VpiType / VpiName / VpiDefName
+  VpiName, VpiDecompile, VpiSize
+and NEVER VpiValue: the INT:/UINT: prefix is COMPARE-INVISIBLE.

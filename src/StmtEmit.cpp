@@ -86,6 +86,20 @@ struct BlockAnc19 {
     ~BlockAnc19() { p->pop_back(); }
 };
 
+// § genScopeProcLoopCtrlNoFold76 — RAII depth for a LOOP CONTROL EXPRESSION
+// (`while` / `do…while` condition, `repeat` count).  Wrapped around the
+// CONDITION only, never the body: Surelog passes the instance to the body's
+// `compileStmt` and not to the control's `compileExpression`, and golden folds
+// in the `while` / `do…while` / `repeat` / `foreach` BODY of an `always`-family
+// process.  (V-v76: inside a gen-scope `initial` or `final` golden refuses at
+// EVERY position instead — a whole further container this law does not model,
+// under-fired by both binaries alike; V-R1, 0 corpus cells.)
+struct LoopCtrl76 {
+    int* p;
+    explicit LoopCtrl76(int& d) : p(&d) { ++*p; }
+    ~LoopCtrl76() { --*p; }
+};
+
 struct CondWindow5 {
     int* p;
     explicit CondWindow5(int& d) : p(&d) { ++*p; }
@@ -2211,8 +2225,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             r->VpiParent(parent);
             setLoc(r, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 6));
             suppressConstParent = true;
-            if (auto* c = emitExpr(rl.count, r, prefix, netMap))
-                r->VpiCondition((UHDM::expr*)c);
+            {   // § genScopeProcLoopCtrlNoFold76 — the repeat COUNT
+                LoopCtrl76 lc76(procLoopCtrlDepth76);
+                if (auto* c = emitExpr(rl.count, r, prefix, netMap))
+                    r->VpiCondition((UHDM::expr*)c);
+            }
             suppressConstParent = false;
             {
                 CtrlBody28 cb28(ctrlBodyDepth28);
@@ -2227,8 +2244,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             w->VpiParent(parent);
             // Keyword-only span ("while").
             setLoc(w, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 5));
-            if (auto* c = emitExpr(wl.cond, w, prefix, netMap))
-                w->VpiCondition((UHDM::expr*)c);
+            {   // § genScopeProcLoopCtrlNoFold76 — the while CONDITION
+                LoopCtrl76 lc76(procLoopCtrlDepth76);
+                if (auto* c = emitExpr(wl.cond, w, prefix, netMap))
+                    w->VpiCondition((UHDM::expr*)c);
+            }
             {
                 CtrlBody28 cb28(ctrlBodyDepth28);
                 if (auto* b = emitStmt(wl.body, w, prefix, netMap))
@@ -2241,8 +2261,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto* w = s.MakeDo_while();
             w->VpiParent(parent);
             setLoc(w, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 2));
-            if (auto* c = emitExpr(dw.cond, w, prefix, netMap))
-                w->VpiCondition((UHDM::expr*)c);
+            {   // § genScopeProcLoopCtrlNoFold76 — the do-while CONDITION
+                LoopCtrl76 lc76(procLoopCtrlDepth76);
+                if (auto* c = emitExpr(dw.cond, w, prefix, netMap))
+                    w->VpiCondition((UHDM::expr*)c);
+            }
             {
                 CtrlBody28 cb28(ctrlBodyDepth28);
                 if (auto* b = emitStmt(dw.body, w, prefix, netMap))

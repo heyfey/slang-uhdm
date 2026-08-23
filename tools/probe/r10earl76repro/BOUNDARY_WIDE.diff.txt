@@ -1,0 +1,10 @@
+plain r10buvm22repro/g22.sv
+elab r10buvm22repro/g22.sv
+plain r10earl75repro/g1_gsproc75.sv
+elab r10earl75repro/g1_gsproc75.sv
+plain r10earl76repro/g1_gsfor76.sv
+elab r10earl76repro/g1_gsfor76.sv
+plain r10earl76repro/g2_orig76.sv
+elab r10earl76repro/g2_orig76.sv
+plain r10v75repro/a2_loops75.sv
+elab r10v75repro/a2_loops75.sv

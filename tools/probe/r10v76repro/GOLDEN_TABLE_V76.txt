@@ -1,0 +1,109 @@
+r10v76 — WHAT GOLDEN (real Surelog) ACTUALLY DOES, measured cell by cell.
+`ref+ec` = a ref_obj bound to a fresh loc-less enum_const (a REFUSAL);
+`const`  = a folded constant;  `ts` = whether golden stamps an int_typespec.
+
+================ 1. THE IMPORT SITE  (a3, a6, a7 — THE LAW'S MISSING FENCE)
+
+The read is always the same: an unqualified package parameter in the CONDITION
+of a `for` inside a gen-scope `always_comb` (plus a `repeat` COUNT twin).
+
+  where the providing import is declared          golden   arm
+  ----------------------------------------------  -------  -----------------
+  MODULE BODY      `import p::*;`                  ref+ec   a3 (control), a7 gb_a
+  MODULE HEADER    `module m import p::*; #(...)`  ref+ec   a7 gh_a
+  MODULE BODY      `import p::P;`  (explicit)      ref+ec   a6 gz_a
+  GENERATE BLOCK   `import p::*;`                  const+ts a3 gi_a
+  GENERATE BLOCK   `import p::P;`  (explicit)      const+ts a3 gi_d
+  MODULE **AND** GENERATE BLOCK, same package      const+ts a6 gx_a
+  module imports p, GEN BLOCK imports q:
+        the read of p's P                          ref+ec   a6 gy_a
+        the read of q's Q                          const+ts a6 gy_a
+  module header imports p, GEN BLOCK imports q:
+        the read of p's P                          ref+ec   a7 gn_a
+        the read of q's Q                          const+ts a7 gn_a
+  inside the PROCESS's own begin block             const+ts a3 gi_b
+  COMPILATION UNIT (`$unit`) only                  const+ts a3 gu_a
+  QUALIFIED `p::P`, any of the above               const     a3 gi_c, gi_ee
+
+  THE RULE: the INNERMOST PROVIDER decides.  Golden refuses exactly when NO
+  scope between the read and the module body provides the name AND the module
+  body itself does.  That is the predicate V-FIX v76 (a) implements.  It is
+  also consistent with the implementer's own decode — a generate block IS its
+  own DesignComponent, so an import ON it materialises the parameter INTO its
+  `param_assigns` with `VpiImported()` set and the COMPONENT-level arm of
+  CompileExpression.cpp:2915-2977 fires there too.
+
+  As shipped, the patch refused in all SIX `const` rows above: a KIND flip
+  (`constant` -> `ref_obj`) on the first field BaseClass::Compare tests, from a
+  state that differed from golden only by the missing int_typespec.
+
+================ 2. THE HOME  (a1, a7)
+
+  home                                   golden   note
+  -------------------------------------  -------  ---------------------------
+  module gen-if / gen-for                ref+ec   the law's own home
+  INTERFACE gen-if / gen-for             ref+ec   golden builds a real gen_scope
+  gen-for nested inside a gen-if         ref+ec   law 24 already owned it
+  nested gen at depth 3                  ref+ec   law 24
+  a for inside a WHILE BODY              ref+ec   the for region, any nesting
+  a while inside a FOR BODY (cond+body)  ref+ec   the for region swallows it
+  a TASK declared in a generate block    ref+ec   still folds here — R1
+  three instances of the same module     ref+ec   one CLONE per instance
+  PROGRAM gen-if                         const+ts golden emits NO gen_scope at
+                                                  all under a `program`; the
+                                                  block's `initial` is hoisted
+                                                  into the program body and the
+                                                  substitution happens.
+                                                  V-FIX v76 (c) fences it.
+
+================ 3. THE PROCEDURE KIND  (a5, a8 — A WHOLE CONTAINER THE LAW
+                    DOES NOT COVER; both binaries are WRONG the same way, so
+                    it is a residue, V-R1, not a regression)
+
+  gen-scope process     position                      golden    ours (both bins)
+  --------------------  ----------------------------  --------  ----------------
+  always_comb           plain statement               const+ts  const+ts   OK
+  always @(posedge clk) body statement                const+ts  const+ts   OK
+  always (no event ctl) body statement                const+ts  const+ts   OK
+  always_comb           case EXPRESSION `case (NB)`   const+ts  const (no ts)
+  INITIAL               plain statement               ref+ec    const   WRONG
+  INITIAL               `if` condition                ref+ec    const   WRONG
+  INITIAL               one-statement `initial x = NB`ref+ec    const   WRONG
+  INITIAL               forever body, plain           ref+ec    const   WRONG
+  INITIAL               forever body, `@(posedge)`    ref+ec    const   WRONG
+  INITIAL               `#5 x = x + NB;`              ref+ec    const   WRONG
+  FINAL                 body statement                ref+ec    const   WRONG
+
+  The implementer's comment "golden FOLDS in the `while`, `do…while`,
+  `repeat`, `foreach` and `forever` bodies" names `forever` WITHOUT HAVING
+  BUILT ONE — g1_gsfor76.sv contains no `forever` at all — and it is FALSE.
+  The real discriminator is the PROCEDURE KIND: a gen-scope `initial` or
+  `final` refuses EVERYWHERE in its body, an `always`-family process refuses
+  only in the for statement and the loop controls.  7 cells on a8, 0 corpus.
+
+================ 4. THE VALUE  (a4, a5)
+
+  package parameter                        golden dec / size   ours BEFORE fix
+  ---------------------------------------  ------------------  ---------------
+  `parameter bit [7:0] H8 = 8'hA5`         8'hA5     / 8       8'hA5      OK
+  `parameter bit [7:0] B8 = 8'b10100001`   8'b10100001 / 8     same       OK
+  `parameter bit [95:0] W96 = 96'hDEAD…`   96'hDEAD… / 96      same       OK
+  `parameter          UBIG = 64'hFFFF…`    64'hFFFF… / 64      same       OK
+  `parameter bit [7:0] D8  = 8'd12`        12        / 8       8'd12    WRONG
+  `parameter byte      DS8 = 8'sd12`       12        / 8       8'sd12   WRONG
+  `parameter shortint  SI  = 16'sd300`     300       / 16      16'sd300 WRONG
+  `parameter longint   BIG = 64'd4294967296` 4294967296 / 64   64'd…    WRONG
+  `parameter bit [7:0] O8  = 8'o17`        15        / 8       8'o17    WRONG
+  `parameter int  NEG  = -5` / `NEG2=3-8`  -5        / 32      -5         OK
+  `parameter longint BIGN = -64'sd5`       -5        / 64      -5         OK
+  `parameter int  SH = 1 << 3`             8         / 32      8          OK
+  `parameter v76e_t EP = E7` (enum-typed)  7         / 32      7          OK
+  2-hop / 3-hop derived chains             6 / 9     / 32      same       OK
+  `parameter int CST = int'(7.0)`          UNBOUND ref         ec 7     V-R3
+  `parameter real RP` / `string SP`        (isInteger()==false; both binaries
+                                            leave the ref unbound)      V-R3
+
+  `enum_const::Compare` reads VpiName, VpiDecompile and VpiSize and NEVER
+  VpiValue — so the five WRONG rows are JUDGE-VISIBLE (VpiDecompile) while the
+  INT:/UINT: prefix split the implementer records as R2 is not.  V-FIX v76 (b)
+  drops `d` and `o` from the based-literal branch; `h` and `b` keep it.

@@ -1,0 +1,32 @@
+r10earl76 — THE CORPUS CENSUS (cscen76 read straight off the two Earlgrey .uhdm;
+Earlgrey's uhdm-dump is >1 GB and was NEVER produced).
+
+CALIBRATED GOLDEN-VS-GOLDEN FIRST:
+  default   182545 keys, ALL STILL-RIGHT
+  testflags 247637 keys, ALL STILL-RIGHT
+
+GOLDEN vs PRISTINE(b494676) vs PATCHED, whole design, both modes:
+  default  ALL-FIELDS : keys 185773 {'STILL-RIGHT': 179700, 'STILL-WRONG': 6069, 'TO-GOLDEN': 2, 'MOVED-SIDEWAYS': 2}
+  default  JUDGED     : keys 185773 {'STILL-RIGHT': 179700, 'STILL-WRONG': 6069, 'TO-GOLDEN': 4}
+  testflags  ALL-FIELDS : keys 249393 {'STILL-RIGHT': 242106, 'STILL-WRONG': 7283, 'TOWARD-NOT-EQUAL': 2, 'MOVED-WRONG': 2}
+  testflags  JUDGED     : keys 249393 {'STILL-RIGHT': 242106, 'STILL-WRONG': 7283, 'TO-GOLDEN': 4}
+
+EVERY CELL THAT MOVED, BY NAME (there are FOUR per mode and no others):
+  -- default
+  MOVED-SIDEWAYS /gen_scope_array(gen_prog_data)/gen_scope~always~AL2_L189:5~ST/s[1]/for:c/op20[1]~gd=2~ga=2~ELAB~span=191:27-191:40 | G/O {'kind=ref_obj name=WidthMultiple def=- act=enum_const actnam
+  MOVED-SIDEWAYS /gen_scope_array(gen_prog_data)/gen_scope~always~AL2_L189:5~ST/s[1]/for:c/op20[1]~gd=2~ga=2~ELAB~span=191:27-191:40 | G/O {'kind=ref_obj name=WidthMultiple def=- act=enum_const actnam
+  TO-GOLDEN /gen_scope_array(gen_prog_data)/gen_scope~always~AL2_L189:5~ST/s[1]/for:b/s[0]/if:c/op14[0]/w~gd=2~ga=2~ELAB~span=192:25-192:33 | G/O {'kind=ref_obj name=WordSelW def=- act=enum_const actn
+  TO-GOLDEN /gen_scope_array(gen_prog_data)/gen_scope~always~AL2_L189:5~ST/s[1]/for:b/s[0]/if:c/op14[0]/w~gd=2~ga=2~ELAB~span=192:25-192:33 | G/O {'kind=ref_obj name=WordSelW def=- act=enum_const actn
+  -- testflags
+  MOVED-WRONG /gen_scope_array(gen_prog_data)/gen_scope~always~AL2_L189:5~ST/s[1]/for:c/op20[1]~gd=2~ga=2~ELAB~span=191:27-191:40 | G/O {'kind=ref_obj name=WidthMultiple def=- act=enum_const actname=W
+  MOVED-WRONG /gen_scope_array(gen_prog_data)/gen_scope~always~AL2_L189:5~ST/s[1]/for:c/op20[1]~gd=2~ga=2~ELAB~span=191:27-191:40 | G/O {'kind=ref_obj name=WidthMultiple def=- act=enum_const actname=W
+  TOWARD-NOT-EQUAL /gen_scope_array(gen_prog_data)/gen_scope~always~AL2_L189:5~ST/s[1]/for:b/s[0]/if:c/op14[0]/w~gd=2~ga=2~ELAB~span=192:25-192:33 | G/O {'kind=ref_obj name=WordSelW def=- act=enum_con
+  TOWARD-NOT-EQUAL /gen_scope_array(gen_prog_data)/gen_scope~always~AL2_L189:5~ST/s[1]/for:b/s[0]/if:c/op14[0]/w~gd=2~ga=2~ELAB~span=192:25-192:33 | G/O {'kind=ref_obj name=WordSelW def=- act=enum_con
+
+READ:  gen_flash_banks[0] and [1], both inside gen_prog_data's always_comb,
+       flash_phy_core.sv:191:27-191:40 (WidthMultiple, the for CONDITION) and
+       :192:25-192:33 (WordSelW, the indexed-part-select WIDTH of an if condition
+       inside the for BODY).  JUDGED: TO-GOLDEN 4, AWAY-GOLDEN 0, MOVED-WRONG 0,
+       MOVED-SIDEWAYS 0, NOGOLD-MOVED 0, in BOTH modes.  The ALL-FIELDS labels on
+       the two WidthMultiple cells are the enum_const VpiValue prefix (golden INT:2,
+       ours UINT:2) that enum_const::Compare does not read.

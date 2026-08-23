@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-23 16:30, HEAD = the uvm113 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-23 17:10, HEAD = the earl76 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -187,13 +187,13 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | SimpleUVM×2 (uvm-1.2 tree) | 56 (depth) | `process p;` at uvm_globals.svh:262 (in uvm_process_report_message's begin): golden a ref_var → unsupported_typespec (process) — Surelog does not model the built-in process class — ours a class_var → class_typespec (process); the same unsupported-typespec family as § oobClassTypeParamLocalUnsupported105; same head in Scoreboard/default; pass uvm115 next (uvm113 landed: 565→56, a bare call in a class method body that misses the already-emitted listing binds the enclosing package's free subroutine — own sibling declared below included) |
 | Scoreboard/default (uvm-1.2 tree) | 56 (depth) | identical to SimpleUVM's head — the `process p;` ref_var/unsupported_typespec cell; uvm115 clears both |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 47 (depth) | `protected int seqs_distrib[string] = '{default:0};` (uvm_pkg.sv:56269, uvm_sequence_library): golden's int_var carries an assignment-pattern operation (vpiOpType 75, 56269:42-56269:54) whose operand is a `tagged_pattern` with pattern constant UINT:0 and a ref_typespec → a string_typespec named `default` (56269:44-56269:51); ours emits NO expression for the associative-array `'{default:0}` initializer (RHS `<null>`); pass buvm31 next (buvm30 landed: 42→47) |
-| Earlgrey_0_1×2 (both modes, byte-identical cmp logs) | 36 (depth) | an OVER-FOLD: `for (int i = 0; i < WidthMultiple; i++)` (flash_phy_core.sv:191:27-191:40, the for-loop condition inside the gen-scope always_comb of gen_prog_data) — golden keeps a ref_obj named WidthMultiple with the GEN-SCOPE-prefixed fullname (…i_core.gen_prog_data.WidthMultiple) bound to an enum_const (WidthMultiple = flash_phy_pkg.sv:34, wildcard-imported); ours folds to UINT:2; golden refuses the substitution inside a generate-scope process's for-statement AND every loop control expression (earl75 + its verifier's a2_loops75.sv) while the module body folds; pass earl76 queued (earl75 landed: 17→36, a gen-scope process fold stamps the folded parameter's declared typespec — the missing inProcessEmit flag, not a missing rule) |
+| Earlgrey_0_1×2 | 11,664 / 11,404 (depth; a whole module_inst printed) | VECTOR SIZE MISMATCH on module_inst work@top_earlgrey.u_spi_device.u_fwmode: golden Nets 17 / Variables 11, ours Nets 18 / Variables 10 — the one object is `tx_data_i` (spi_fwmode.sv:31 `input spi_device_pkg::spi_byte_t tx_data_i`), a logic_var in golden and a logic_net in ours; NOT input alone, NOT typedef alone (`output …spi_byte_t rx_data_o` logic_var in both, `input …spi_mode_e mode_i` enum_var in both) — the input-port variable-kind law for a package-typedef'd VECTOR type; pass earl77 next (earl76 landed: 36→11,664, no fold in a gen-scope process's for statement or loop-control expressions — import-site-fenced, program-fenced, 'h/'b decompile only) |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 68 verifier fix-before-landing re-cuts (149 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 69 verifier fix-before-landing re-cuts (150 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

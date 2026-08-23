@@ -1,0 +1,3 @@
+r10earl76 — HEAD_AFTER, the FIRST 400 lines only.
+The new head is a whole module_inst decompile (11664 lines default / 11404 testflags,
+1 head each); the full logs are reproducible with earl76.sh and the frozen binary.

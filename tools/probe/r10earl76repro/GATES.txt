@@ -1,0 +1,70 @@
+r10earl76 — GATES.  Base b494676.  Binaries built -j 2 and FROZEN (chmod 555)
+before any sweep; every cmds.txt audited by binary PATH.
+
+(1) BUILD
+  pristine  /tmp/r10earl76_pris.bin     md5 0488d7b62f80e7aecab313abd9320510
+            == the main tree's own build/slang-uhdm at b494676, byte for byte
+  patched   /tmp/r10earl76_patched.bin  md5 34cf9797d54de8af35fab279daffa696
+  (a third, ARM-DISABLABLE binary was built for the boundary's neutral control and
+   the source was then restored: the rebuild reproduces 34cf9797... exactly.)
+
+(2) GOLDENS   pristine PASS=23 FAIL=0 | patched PASS=23 FAIL=0 | SLANG_UHDM=/bin/false FAIL=23 PASS=0
+  (SLANG_UHDM exported explicitly to each binary.)
+
+(3) uhdm2rtlil   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL in BOTH modes.
+  ct8rows vs the committed results/gate_uhdm2rtlil.csv : PASS, every row byte-identical
+  ct8rows vs MY OWN pristine sweep, testflags           : PASS, 0 differing rows
+  ct8rows vs MY OWN pristine sweep, default             : PASS, 0 differing rows
+
+(4) surelog --mode both, 1588 rows.  0 differing rows against the committed
+  results/golden_surelog.csv AND against my own pristine sweep.  NO ROW CONVERTED;
+  results/*.csv was READ-ONLY and is untouched.  Status histograms identical
+  (5-way default, 9-way testflags):
+    default   CMP_EQUAL 471  CMP_NOTEQUAL 10  DEFERRED 5  SLANG_REJECT 283  SURELOG_FAIL 25
+    testflags CMP_EQUAL 466  CMP_NOTEQUAL  9  DEFERRED 5  NO_DATABASE 3  NO_UHDM 1
+              SLANG_REJECT 284  SURELOG_FAIL 23  TIMEOUT 1  UNTRANSLATABLE 2
+  Earlgrey_0_1 stays CMP_NOTEQUAL in both modes (the head moved, the row did not convert).
+
+  cmds.txt AUDIT (by binary PATH, not by the string 'slang-uhdm'):
+    u2rP 1462 cmds  main-tree=0  pris=1458  patched=0
+    u2rQ 1462 cmds  main-tree=0  pris=0     patched=1458
+    slP  1573 cmds  main-tree=0  pris=1523  patched=0
+    slQ  1573 cmds  main-tree=0  pris=0     patched=1523
+    (the remainder are rows where slang was never invoked: SURELOG_FAIL / NO_DATABASE.)
+
+(5) BYTE MOVERS, SELFCHECK=1, my pristine sweep vs my patched sweep
+    uhdm2rtlil  MOVERS 0 / 1358   (PATH_SETS_IDENTICAL, SELFCHECK 1357/1358 flagged)
+    surelog     MOVERS 3 / 956    (PATH_SETS_IDENTICAL, SELFCHECK 955/956 flagged)
+      2 = the PREDICTED Earlgrey databases; 1 = Scoreboard/default, the documented
+      coin, convicted by a neutral control (PREDICT_R0.txt).
+
+CANARIES
+  canaries.sh surelog : ok=52 changed=0 absent=0
+  canaries.sh u2r     : ok=8  changed=0 absent=0
+  ctcan2.sh   surelog : PASS   ctcan2.sh u2r : PASS
+  canaudit.sh         : audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+PROTECTED DATABASES (patched sweep vs my pristine sweep, both modes)
+  InterfaceModPort  59a365f3ce2c  SAME
+  BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+  YosysOldOr        d68e0796d62c  SAME
+  SVSwitch          4842211c4030  ON PIN
+  YosysVerx         6ccda350c24a  ON PIN
+
+NAMED-ROW HEADS (rowheads.sh, pristine -> patched)
+  SeqDriver    32/1 -> 32/1        SimpleUVM   565/1 -> 565/1
+  Scoreboard   565/1 -> 565/1      MiniAmiq     32/1 -> 32/1
+  BuildUVMPkg  47/1 -> 47/1        Rggen         0/0 -> 0/0
+  Earlgrey_0_1 default   36/1 -> 11664/1
+  Earlgrey_0_1 testflags 36/1 -> 11404/1
+  (a cmp LINE COUNT is the head's decompile DEPTH, never a distance; the head OBJECT
+   changed from a ref_obj/constant pair to a whole module_inst — see R0.)
+
+BOUNDARY  (a COPY of tools/probe, no path filter, .sv and .v at ANY depth, both views,
+both frozen binaries, workdir-normalised dump byte-compare; list on fd 3, children
+</dev/null, PROCESSED asserted, every cell records rc).  THE FOUR SLANG-FENCED TESTS
+ARE NEVER DISPATCHED: the list is filtered and 0 files matched the fence regex.
+  WIDE  PROCESSED=3484 identical=6680 DIFFERING=10 no_output=278
+  DIR   PROCESSED=1508 identical=2754 DIFFERING=12 no_output=250
+  every rc=139 pairs A with B (wide 12+12, dir 6+6) — the pre-existing elab segfaults
+  on BOTH binaries.  No new crash, no new timeout.  ARMS.txt adjudicates each one.

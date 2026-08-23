@@ -1,0 +1,79 @@
+r10v76 — THE ADVERSARIAL GRIDS AND THEIR SCORES.  MEASUREMENT ONLY; the
+official ~/git-repos/UHDM/build/bin/uhdm-cmp remains the sole acceptance judge.
+Every cell: Surelog golden vs the frozen PRISTINE b494676 binary vs the frozen
+VERIFIED binary, both views, censused with r10earl76repro/cscen76 + norm76.sh
+and scored with r10earl76repro/score76.py (--judged = the fields
+enum_const::Compare / constant::Compare / ref_obj::Compare actually read).
+
+ARMS (all eight are NEW here; g1/g2/g1_gsproc75/a2_loops75 are the
+implementer's, re-run unchanged against the verified binary):
+
+  a1_homes76.sv  homes g1 never builds: an INTERFACE gen-if and gen-for, a
+                 PROGRAM gen-if, a gen-FOR inside a gen-IF, a TASK declared in
+                 a generate block, a NESTED gen at depth 3, a for inside a
+                 while body, a while inside a for body, and THREE instances of
+                 the same module.
+  a2_pos76.sv    positions g1 leaves unmeasured: the CASE EXPRESSION, a
+                 multi-var for init, a depth-3 nested for, an if/else branch, a
+                 call ARGUMENT, a SELECT INDEX, an ASSIGNMENT PATTERN, a
+                 step-only read, and a FOREVER body — each with its MODULE-BODY
+                 twin.
+  a3_imp76.sv    THE IMPORT SITE: the import on the GENERATE BLOCK, inside the
+                 PROCESS's own begin block, an EXPLICIT import on the gen
+                 block, a QUALIFIED read, and a COMPILATION-UNIT import.
+  a4_val76.sv    values: NEGATIVE, 64-bit, 96-bit, a 2-hop and a 3-hop derived
+                 chain, an ENUM-typed parameter, a SHIFT, a CAST, byte /
+                 shortint / longint declared types, and the non-integer
+                 (real / string) parameters the encoder's isInteger() drops.
+  a5_ctrl76.sv   the FOREVER body (plain and event-controlled), a DELAY
+                 statement, a bare `always`, `always @(posedge)`, and the
+                 DECIMAL / OCTAL / HEX / BINARY based-literal decompile grid.
+  a6_impx76.sv   the import-site CORNERS: module AND gen block import the same
+                 package; module imports p, gen block imports q, both read;
+                 an EXPLICIT single import on the module.
+  a7_hdrimp76.sv the MODULE-HEADER import (`module m import p::*; #(...)`) —
+                 the corpus's own shape — beside the body form and a gen-block
+                 import that must still fold.
+  a8_init76.sv   a PLAIN statement, an `if` condition and a one-statement
+                 `initial` in a gen-scope `initial`, a gen-scope `final`, and a
+                 bare gen-scope `always`.
+
+SCORES, DEFAULT VIEW, --judged (golden | pristine | VERIFIED):
+
+  arm              keys  STILL-RIGHT  STILL-WRONG  TO-GOLDEN  AWAY  MOVED-WRONG  SIDEWAYS  NOGOLD-MOVED
+  a1_homes76        409          350           42         17     0            0         0             0
+  a2_pos76          258          246            5          7     0            0         0             0
+  a3_imp76          194          159           35          0     0            0         0             0
+  a4_val76          373          303           55         14     0            0         1             0
+  a5_ctrl76         185          172            6          7     0            0         0             0
+  a6_impx76          90           82            6          2     0            0         0             0
+  a7_hdrimp76        94           88            3          3     0            0         0             0
+  a8_init76          55           48            7          0     0            0         0             0
+  g1_gsfor76        415          387            5         23     0            0         0             0
+  g2_orig76         557          494           47         16     0            0         0             0
+  g1_gsproc75       842          814           25          3     0            0         0             0
+  a2_loops75        179          173            1          5     0            0         0             0
+
+  TO-GOLDEN total 97.  AWAY-GOLDEN 0, MOVED-WRONG 0, NOGOLD-MOVED 0 on every
+  arm.  The single MOVED-SIDEWAYS is a4's `parameter int CST = int'(7.0)`:
+  golden leaves the ref UNBOUND (Surelog cannot evaluate the cast) and we bind
+  an enum_const 7 — V-R3, a value-model residue, not this law's.
+
+  The implementer's four arms score EXACTLY the numbers its README claims
+  (23 / 16 / 3 / 5), unchanged by the verifier's fix.
+
+BEFORE THE FIX (the frozen /tmp binary built from the shipped patch), the same
+arms read:  a3_imp76 MOVED-SIDEWAYS 6, a6_impx76 MOVED-SIDEWAYS 6 (three of
+them the same shape), a4_val76 MOVED-SIDEWAYS 6 / TO-GOLDEN 9, a1_homes76
+NOGOLD-MOVED 2.  All fourteen are gone.
+
+ELAB VIEW (`--elabuhdm`): every arm reads TOWARD-NOT-EQUAL on the cells that
+moved and 0 AWAY-GOLDEN / 0 MOVED-WRONG, EXCEPT two pre-existing artefacts,
+both true of the PRISTINE binary as well:
+  * an INTERFACE gen scope re-points the fresh `enum_const` at a shared
+    `constant` (a1, 5 cells) — the ref's own VpiType now matches golden where
+    the pristine binary had a `constant` there, so it is no worse, but it is
+    not right either.  V-R4.
+  * a4's CST key carries FOUR payloads (the DEF listing's ref and the
+    elaborated one at one key — earl75's R3 duplicate-listing) and scores
+    MOVED-WRONG 1 for that reason alone.

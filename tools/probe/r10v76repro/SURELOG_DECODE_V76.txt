@@ -1,0 +1,53 @@
+r10v76 — THE IMPLEMENTER'S SURELOG DECODE, RE-READ FROM THE SOURCE.
+
+VERIFIED, verbatim (~/git-repos/Surelog/src/DesignCompile/CompileStmt.cpp):
+
+  :662  case VObjectType::paREPEAT:
+          compileExpression(component, fC, cond, compileDesign, Reduce::No,
+                            repeat)                       <-- NO instance
+          compileStmt(component, fC, rstmt, compileDesign, Reduce::No,
+                      repeat, instance, muteErrors)       <-- instance KEPT
+  :680  case VObjectType::paWHILE:   the same two calls, while_st
+  :697  case VObjectType::paDO:      the same two calls, do_while
+  :829  case VObjectType::paFOR:
+          compileForLoop(component, fC, the_stmt, compileDesign, pstmt)
+                                                          <-- NO instance arg
+  :2822 UHDM::any* CompileHelper::compileForLoop(DesignComponent*,
+          const FileContent*, NodeId, CompileDesign*, bool muteErrors)
+          — the signature has no `instance` parameter at all, so all four
+          parts of a for statement lose it, header AND body.
+
+  So the implementer's line references and its reading of them are CORRECT,
+  and they predict the measured `for:i / for:c / for:n / for:b / whl:c /
+  dow:c / rpt:c` refusals and the `whl:b / dow:b / rpt:b / fe:b` folds exactly.
+
+REFUTED BY MEASUREMENT — the decode does NOT predict these, and the README
+asserts the opposite of two of them:
+
+  :513  case VObjectType::paFOREVER:
+          compileStmt(component, fC, item, compileDesign, Reduce::No,
+                      forever, instance, muteErrors)      <-- instance KEPT
+        …and yet golden REFUSES in a `forever` body (r10v76repro/a5_ctrl76.sv
+        rows gc_a and gc_b).  a8_init76.sv resolves the contradiction: it is
+        not the `forever`.  A gen-scope `initial` (and a gen-scope `final`)
+        refuses at EVERY position in its body — a plain statement, an `if`
+        condition, a one-statement `initial`, a delay-controlled statement —
+        while a gen-scope `always_comb` / `always @(posedge)` / bare `always`
+        folds outside the loop region.  The instance the process is compiled
+        with is therefore null for `initial`/`final` and non-null for the
+        `always` family, one level ABOVE compileStmt.  V-R1.
+
+  CompileExpression.cpp:2915-2977, the COMPONENT-level getParam_assigns() arm
+        that fires on `parameter::VpiImported()`: the implementer reads it
+        right but draws the wrong boundary from it.  A GENERATE BLOCK is its
+        own DesignComponent — so an `import` written ON the generate block
+        materialises the package parameter into THAT component and the arm
+        fires there, and golden FOLDS.  Measured in six configurations
+        (GOLDEN_TABLE_V76.txt §1).  V-FIX v76 (a).
+
+  UhdmWriter.cpp:3952 `lateBinding` minting the enum_const from
+        `mod->getValue(name)`: verified in shape (loc-less, per-reference,
+        VpiName / VpiValue / VpiDecompile / VpiSize), but `value->
+        decompiledValue()` is NOT the written source text for every base — it
+        is the plain decimal for `'d` and `'o` and the written text only for
+        `'h` and `'b`.  V-FIX v76 (b).

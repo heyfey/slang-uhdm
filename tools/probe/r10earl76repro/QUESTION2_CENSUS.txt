@@ -1,0 +1,27 @@
+r10earl76 — QUESTION 2: THE REFUSAL REGION, censused over BOTH Earlgrey databases x BOTH modes
+cscen76 + norm76.sh + score76.py.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+
+CALIBRATION, golden-vs-golden FIRST (required by RESUME §9):
+keys 182545 {'STILL-RIGHT': 182545}
+keys 247637 {'STILL-RIGHT': 247637}
+
+CELL COUNTS (deduped, normalised):
+  default  golden=183690  pristine=183758  patched=183758
+  testflags  golden=281258  pristine=279746  patched=279750
+
+EVERY CELL IN EITHER Earlgrey DATABASE WHERE GOLDEN HAS A ref_obj AND WE HAVE A constant
+(the over-fold), split by position — the answer to question 2 is TEN cells per mode, of
+which FOUR are in a gen-scope PROCESS and all four are inside the FOR STATEMENT:
+
+  default:
+    2 x  gen_prog_data/always/ST/s[1]/for:c/op20[1]          flash_phy_core.sv:191:27-191:40  WidthMultiple
+    2 x  gen_prog_data/always/ST/s[1]/for:b/s[0]/if:c/op14[0]/w
+                                                             flash_phy_core.sv:192:25-192:33  WordSelW
+    6 x  NOT a process — gen-scope cont_assign / port High_conn cells of other families
+  testflags: the same four, plus six gen_lut cont_assign cells (LfsrDw / GAL_XOR_LUT_OFF)
+
+and there is NOT ONE cell anywhere in either database where WE keep a ref_obj and golden
+folds inside that region.
+
+MODULE-BODY TWIN: golden FOLDS every one of the fifteen positions in a module-body process
+(g1_gsfor76.sv row A, GOLDEN_TABLE.txt) — the law is gen-scope-only, and row A does not move.

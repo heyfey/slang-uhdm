@@ -1,0 +1,33 @@
+r10earl76 — GRID SCORE (score76.py, order-free MULTISET distance; the pass's own
+grids plus the two earlier passes' grids the law reaches).  Golden = LHS always.
+
+ALL-FIELDS = every payload token scored, including the enum_const's VpiValue.
+JUDGED     = the same with `actval=` dropped, because enum_const::Compare reads
+             VpiType / VpiName / VpiDefName / VpiDecompile / VpiSize and NEVER
+             VpiValue.  BOTH numbers are reported; the difference is exactly the
+             INT:/UINT: prefix residue named in the README.
+
+== g1_gsfor76.sv
+   default  ALL    : keys 415 {'STILL-RIGHT': 387, 'TO-GOLDEN': 23, 'STILL-WRONG': 5}
+   default  JUDGED : keys 415 {'STILL-RIGHT': 387, 'TO-GOLDEN': 23, 'STILL-WRONG': 5}
+   elab     JUDGED : keys 496 {'STILL-RIGHT': 306, 'STILL-WRONG': 167, 'TOWARD-NOT-EQUAL': 23}
+== g2_orig76.sv
+   default  ALL    : keys 557 {'STILL-WRONG': 47, 'STILL-RIGHT': 494, 'MOVED-SIDEWAYS': 6, 'TO-GOLDEN': 10}
+   default  JUDGED : keys 557 {'STILL-RIGHT': 494, 'TO-GOLDEN': 16, 'STILL-WRONG': 47}
+   elab     JUDGED : keys 619 {'STILL-RIGHT': 445, 'STILL-WRONG': 158, 'TOWARD-NOT-EQUAL': 16}
+== r10earl75repro/g1_gsproc75.sv
+   default  ALL    : keys 842 {'STILL-RIGHT': 814, 'STILL-WRONG': 25, 'TO-GOLDEN': 3}
+   default  JUDGED : keys 842 {'STILL-RIGHT': 814, 'STILL-WRONG': 25, 'TO-GOLDEN': 3}
+   elab     JUDGED : keys 1019 {'STILL-RIGHT': 548, 'STILL-WRONG': 468, 'TOWARD-NOT-EQUAL': 3}
+== r10v75repro/a2_loops75.sv
+   default  ALL    : keys 179 {'STILL-RIGHT': 173, 'TO-GOLDEN': 5, 'STILL-WRONG': 1}
+   default  JUDGED : keys 179 {'STILL-RIGHT': 173, 'TO-GOLDEN': 5, 'STILL-WRONG': 1}
+   elab     JUDGED : keys 226 {'STILL-RIGHT': 138, 'STILL-WRONG': 83, 'TOWARD-NOT-EQUAL': 5}
+
+READ: TO-GOLDEN 23 / 16 / 3 / 5 with AWAY-GOLDEN 0, MOVED-WRONG 0, MOVED-SIDEWAYS 0
+and NOGOLD-MOVED 0 on every arm in the DEFAULT view.  In the --elabuhdm view the
+same cells read TOWARD-NOT-EQUAL because that view emits BOTH the DEF listing's ref
+and the elaborated one at the same key while golden has only one (earl75's R3,
+pre-existing: it is why the elab STILL-WRONG counts are large on every arm and on
+the pristine binary alike).  No bucket other than TO-GOLDEN / TOWARD-NOT-EQUAL is
+ever non-zero.

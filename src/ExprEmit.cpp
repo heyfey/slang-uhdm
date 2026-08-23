@@ -9990,6 +9990,314 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(ref, expr.sourceRange);
                     return ref;
                 }
+                // § genScopeProcLoopCtrlNoFold76 (r10earl76) — THE THIRD
+                // NO-FOLD CONTAINER OF THE SAME FAMILY, and it is a POSITION,
+                // not a nesting depth: inside an ELABORATED generate scope's
+                // PROCESS, an UNQUALIFIED (wildcard- or explicitly imported)
+                // package-parameter read that stands inside the FOR STATEMENT
+                // (header AND body, at any nesting) or inside a LOOP CONTROL
+                // EXPRESSION (a `while` condition, a `do…while` condition, a
+                // `repeat` count) is NOT substituted — PROVIDED the `import`
+                // that makes the bare name visible is the MODULE BODY's OWN
+                // (fence (c) below: put that import on the GENERATE BLOCK, or
+                // leave it at `$unit`, and golden FOLDS instead).  Golden keeps
+                // the
+                // gen-scope-named `ref_obj` and binds it to a FRESH loc-less
+                // `enum_const` carrying the parameter's value — the SAME
+                // per-reference clone § genNestedScopePkgParamNoFold24 mints
+                // one arm above, and the same producer is reused here.
+                //
+                // THE HEAD (Earlgrey_0_1, BOTH modes, 36 cmp lines, 1 head,
+                // byte-identical across the two modes, at b494676 —
+                // r10earl75's R0):
+                //   flash_phy_core.sv:191  for (int i = 0; i < WidthMultiple; i++)
+                //                                              ^^^^^^^^^^^^^ 191:27-191:40
+                //   in top_earlgrey.u_flash_eflash.gen_flash_banks[0|1]
+                //      .i_core.gen_prog_data
+                //   LHS(golden) ref_obj (…gen_prog_data.WidthMultiple)
+                //               |vpiParent operation 191:23-191:40
+                //               |vpiActual -> enum_const (WidthMultiple),
+                //                             LOC-LESS, INT:2, dec "2", sz 32,
+                //                             VpiParent = the ref itself,
+                //                             ONE binder (a per-reference clone)
+                //   RHS(ours)   constant  |vpiDecompile:2 |vpiSize:32 |UINT:2
+                //                         |vpiConstType:9
+                // `basetype_t::Compare` fails on VpiType — the object KIND —
+                // before `expr::Compare` reaches any value field, so this is an
+                // OVER-FOLD, not a mis-encoding.  `WidthMultiple` is
+                // flash_phy_pkg.sv:34 `parameter int WidthMultiple = DataWidth
+                // / BusWidth;`, read through `module flash_phy_core import
+                // flash_phy_pkg::*;`.
+                //
+                // WHY SURELOG REFUSES, decoded from the source and then
+                // measured.  `CompileHelper::compileForLoop`
+                // (~/git-repos/Surelog/src/DesignCompile/CompileStmt.cpp:2822)
+                // compiles ALL FOUR parts of a for statement — the init RHS
+                // (:2877, :2919), the CONDITION (:2932), the STEP (:2954) and
+                // the BODY (:2976) — with `Reduce::No` and NO `instance`; it is
+                // never handed one (`compileStmt` calls it at :830 without the
+                // instance argument).  The three loop CONTROLS do the same one
+                // level up: `compileExpression(component, fC, cond,
+                // compileDesign, Reduce::No, <repeat|while_st|do_while>)` at
+                // :665, :683 and :701, while each loop's BODY is compiled by
+                // `compileStmt(..., instance, muteErrors)` and keeps the
+                // instance.  Under `Reduce::No` with `instance == nullptr` the
+                // ONLY substitution left in `compileExpression` is the
+                // COMPONENT-level `getParam_assigns()` arm
+                // (CompileExpression.cpp:2915-2977), which fires when
+                // `paramFromPackage` — i.e. when the `parameter`'s
+                // `VpiImported()` is non-empty.  A module's `import pkg::*`
+                // MATERIALIZES the package parameter into the MODULE's
+                // param_assigns with that flag set, which is why the
+                // byte-identical statement in the MODULE BODY folds; a
+                // generate block is its own DesignComponent and its
+                // param_assigns hold only the block's own localparams, so
+                // `result` stays null, the `ref_obj` is minted and
+                // `component->needLateBinding(ref)` is called.
+                // `UhdmWriter::lateBinding` (UhdmWriter.cpp:3952) then answers
+                // a PACKAGE name with `mod->getValue(name)` and mints exactly
+                // this `enum_const`:
+                //     enum_const* c = s.MakeEnum_const();
+                //     c->VpiName(name); c->VpiValue(value->uhdmValue());
+                //     c->VpiDecompile(value->decompiledValue());
+                //     c->VpiSize(value->getSize()); ref->Actual_group(c);
+                // and leaves a MODULE-scope name UNBOUND — which is why the
+                // origin table below binds package names and only those.
+                //
+                // THE GOLDEN TABLE (g1_gsfor76.sv, 15 positions x 7 homes;
+                // g2_orig76.sv, 18 origins x 3 homes).  In a gen-scope process
+                // golden REFUSES in: for INIT rhs, for CONDITION, for STEP, for
+                // BODY, a NESTED for, the `while` condition, the `do…while`
+                // condition and the `repeat` COUNT — and FOLDS in: the `while`,
+                // `do…while`, `repeat`, `foreach` bodies, an `if` condition, a
+                // `case` item and its body, and a plain statement.  Every one
+                // of those eight refusals reproduces in an `always_comb`, an
+                // `always_ff`, an `initial`, a gen-`if` block and a gen-`for`
+                // block alike, and the MODULE BODY folds all fifteen.  ORIGIN:
+                // a package parameter (wildcard-imported OR explicitly
+                // single-imported) binds an enum_const; a QUALIFIED `pkg::P`
+                // read FOLDS (the negative control this arm's `::` test
+                // carries); a module parameter, a module localparam, a
+                // gen-scope localparam and a genvar keep an UNBOUND ref — all
+                // four already correct in the pristine binary and untouched
+                // here, because this whole branch is under
+                // `scope->asSymbol().kind == Package`.
+                //
+                // THE ENCODER IS § genNestedScopePkgParamNoFold24's, copied
+                // INLINE and not extracted (RESUME §9's no-premature-extraction
+                // rule: the copies of this family differ in gate-verified ways
+                // and stay apart until the corpus is converged).  Its one
+                // measured divergence is COMPARE-INVISIBLE and PRE-EXISTING:
+                // `enum_const::Compare`
+                // (UHDM/build/generated/src/enum_const.cpp) reads VpiType,
+                // VpiName, VpiDefName, VpiDecompile and VpiSize and NEVER
+                // VpiValue, and golden writes `INT:` where Surelog's
+                // `Value::uhdmValue()` saw a signed `Value` — measured on
+                // g2_orig76.sv: `8/2`, `2*3`, `9%4`, `9-4`, `2**3` and
+                // `(2*3)+1` come back `INT:`, while a literal, `3+1`,
+                // `$clog2(16)` and a cross-package copy come back `UINT:`.
+                // Law 24's own nested-gen arm already carries that same
+                // divergence at HEAD (measured side by side on this arm), so
+                // this law adds no residue of its own.
+                //
+                // THREE FENCES, every one convicted on a grid against real
+                // Surelog before it was written:
+                //  (a) the LOOP BODIES stay folded (`procLoopCtrlDepth76` wraps
+                //      the CONTROL only) — golden folds in the `while`,
+                //      `do…while`, `repeat` and `foreach` bodies OF AN
+                //      `always`-FAMILY PROCESS.  (V-v76: inside a gen-scope
+                //      `initial` or `final` golden REFUSES at every position,
+                //      the `forever` body and a delay-controlled statement
+                //      among them — a further container this law does not
+                //      model and both binaries under-fire alike; V-R1, not a
+                //      fence, 0 corpus cells.)
+                //  (b) a QUALIFIED read is untouched (the `::` test, the same
+                //      discriminator law 24 and § defGenPkgParamFoldQual19
+                //      carry).
+                //  (c) V-FIX v76 (a) — THE IMPORT SITE, and it is the fence the
+                //      first cut of this law was missing.  The decode above says
+                //      the refusal happens because "a generate block is its own
+                //      DesignComponent and its param_assigns hold only the
+                //      block's own localparams" — so when the `import` that
+                //      makes the bare name visible sits ON THE GENERATE BLOCK
+                //      (or anywhere INSIDE the module other than the module
+                //      body), Surelog's COMPONENT-level `getParam_assigns()`
+                //      arm DOES fire for the generate block and GOLDEN FOLDS.
+                //      Measured against real Surelog on r10v76repro/a3_imp76.sv
+                //      and a6_impx76.sv, NINE configurations, all agreeing:
+                //        module `import p::*`, gen block none        -> REFUSE
+                //        module `import p::P` (explicit), none       -> REFUSE
+                //        module none, GEN BLOCK `import p::*`        -> FOLD
+                //        module none, GEN BLOCK `import p::P`        -> FOLD
+                //        module `import p::*` AND gen block too      -> FOLD
+                //        module `import p::*`, gen block `import q::*`,
+                //            read of p's P                           -> REFUSE
+                //            read of q's Q                           -> FOLD
+                //        module none, import inside the PROCESS block-> FOLD
+                //        module none, `$unit`-level `import p::*`    -> FOLD
+                //      i.e. THE INNERMOST PROVIDER DECIDES: fire only when no
+                //      scope between the read and the module body provides the
+                //      name AND the module body itself does.  A `$unit` import
+                //      is OUTSIDE the module body and therefore folds, which is
+                //      why the test is `bodyImports76`, not "no import found".
+                //      Without this fence the arm turns golden's `constant` into
+                //      a `ref_obj` — a VpiType flip, the first field
+                //      `BaseClass::Compare` tests — in all four FOLD rows.
+                //      (0 corpus incidence either way: flash_phy_core carries a
+                //      MODULE-HEADER `import flash_phy_pkg::*;` and its gen
+                //      blocks carry none, so the head's four cells still fire —
+                //      re-measured, still TO-GOLDEN 4 / AWAY 0.)
+                bool bodyImports76 = false;
+                if (inGenScopeProc && currentGenBlkScope && scope) {
+                    auto provides76 =
+                        [&](const slang::ast::Scope& sc76) {
+                            for (auto& mm76 : sc76.members()) {
+                                if (mm76.kind == SymbolKind::WildcardImport) {
+                                    if (mm76.as<WildcardImportSymbol>()
+                                            .packageName ==
+                                        scope->asSymbol().name)
+                                        return true;
+                                } else if (mm76.kind ==
+                                           SymbolKind::ExplicitImport) {
+                                    auto& ei76 =
+                                        mm76.as<ExplicitImportSymbol>();
+                                    if (ei76.importName == nv.symbol.name &&
+                                        ei76.packageName ==
+                                            scope->asSymbol().name)
+                                        return true;
+                                }
+                            }
+                            return false;
+                        };
+                    const slang::ast::Scope* sc76 = currentGenBlkScope;
+                    bool innerImports76 = false;
+                    while (sc76 &&
+                           sc76->asSymbol().kind != SymbolKind::InstanceBody) {
+                        if (provides76(*sc76)) {
+                            innerImports76 = true;
+                            break;
+                        }
+                        sc76 = sc76->asSymbol().getParentScope();
+                    }
+                    if (!innerImports76 && sc76 &&
+                        sc76->asSymbol().kind == SymbolKind::InstanceBody) {
+                        bodyImports76 = provides76(*sc76);
+                        // V-FIX v76 (c) — A PROGRAM IS NOT A HOME OF THIS LAW.
+                        // Surelog does not give a program's generate block its
+                        // own DesignComponent at all: golden emits NO
+                        // `gen_scope_array` under a `program` and hoists the
+                        // block's `initial` straight into the program body,
+                        // where the substitution DOES happen — measured on
+                        // r10v76repro/a1_homes76.sv rows gp_a (a for CONDITION
+                        // and a `repeat` COUNT), golden `constant UINT:4` with
+                        // an `int_typespec`.  We emit the gen_scope (a
+                        // pre-existing structural divergence of its own, V-R3),
+                        // and without this test the arm additionally flipped
+                        // those two folds to `ref_obj`.  `if`/`for` generate
+                        // constructs ARE legal program items
+                        // (`program_generate_item`, IEEE 1800 A.1.7), so this
+                        // is legal SV, not a rejected shape.  An INTERFACE is
+                        // NOT fenced: golden builds a real gen_scope there and
+                        // refuses exactly as in a module (a1 rows gi_a/gi_b).
+                        if (sc76->asSymbol()
+                                .as<slang::ast::InstanceBodySymbol>()
+                                .getDefinition()
+                                .definitionKind ==
+                            slang::ast::DefinitionKind::Program)
+                            bodyImports76 = false;
+                    }
+                }
+                if (inGenScopeProc && !defGenProcessEmit && !inLhs &&
+                    !inParamInit && !currentTf && bodyImports76 &&
+                    (procForAllDepth9 > 0 || procLoopCtrlDepth76 > 0) &&
+                    rawText(expr.sourceRange).find("::") ==
+                        std::string::npos) {
+                    auto& cvL = psym.getValue();
+                    if (cvL.isInteger() && !cvL.integer().hasUnknown()) {
+                        std::string dgL =
+                            cvL.integer().toString(LiteralBase::Decimal, false);
+                        std::string decL = dgL, valL = "UINT:" + dgL;
+                        // A BASED-literal init keeps its base encoding
+                        // (g2_orig76.sv row TB: `parameter bit [7:0] TB =
+                        // 8'hA5` -> HEX:A5, decompile `8'hA5`, size 8) — BUT
+                        // ONLY FOR HEX AND BINARY.  V-FIX v76 (b): golden's
+                        // `enum_const` for a DECIMAL- or OCTAL-based literal
+                        // carries the PLAIN DECIMAL value, not the written
+                        // text, and `enum_const::Compare`
+                        // (UHDM/build/generated/src/enum_const.cpp) READS
+                        // VpiDecompile — so the based spelling is a
+                        // JUDGE-VISIBLE divergence, not an invisible one like
+                        // the INT:/UINT: prefix.  Measured on
+                        // r10v76repro/a5_ctrl76.sv, one gen-scope for
+                        // CONDITION per row, golden / ours-before-this-fix:
+                        //   8'd12                  ->  12          / 8'd12
+                        //   8'sd12  (byte)         ->  12          / 8'sd12
+                        //   16'sd300 (shortint)    ->  300         / 16'sd300
+                        //   64'd4294967296         ->  4294967296  / 64'd...
+                        //   8'o17                  ->  15   UINT:15/ 8'o17
+                        //   8'hA5                  ->  8'hA5  HEX:A5  (same)
+                        //   8'b10100001            ->  8'b10100001 BIN: (same)
+                        //   96'hDEAD…              ->  96'hDEAD…    (same)
+                        // So `d` and `o` fall through to the plain-decimal
+                        // default below and only `h` / `b` take this branch.
+                        // The SIZE is unaffected (the declared width in every
+                        // row).  0 corpus incidence: the head's two package
+                        // parameters are `DataWidth / BusWidth` expressions,
+                        // not based literals — this only ever fires on an arm.
+                        if (auto* piL = psym.getInitializer()) {
+                            auto& litL = stripImplicitConv(*piL);
+                            if (litL.kind == ExpressionKind::IntegerLiteral) {
+                                std::string rawL(rawText(litL.sourceRange));
+                                if (auto tL = rawL.find('\'');
+                                    tL != std::string::npos) {
+                                    size_t bpL = tL + 1;
+                                    if (bpL < rawL.size() &&
+                                        (rawL[bpL] == 's' || rawL[bpL] == 'S'))
+                                        bpL++;
+                                    char bL = bpL < rawL.size()
+                                                  ? (char)tolower(rawL[bpL])
+                                                  : 'd';
+                                    std::string dg2L =
+                                        stripSep(rawL.substr(bpL + 1));
+                                    const char* pfxL = nullptr;
+                                    switch (bL) {
+                                        case 'b': pfxL = "BIN:"; break;
+                                        case 'h': pfxL = "HEX:"; break;
+                                        // 'o' and 'd' DELIBERATELY ABSENT —
+                                        // V-FIX v76 (b) above.
+                                        default: break;
+                                    }
+                                    if (pfxL) {
+                                        valL = std::string(pfxL) + dg2L;
+                                        decL = stripSep(rawL);
+                                    }
+                                }
+                            }
+                        }
+                        // An UNTYPED package parameter's clone is SIXTY-FOUR
+                        // bits (law 24's wc24 measurement; re-measured here on
+                        // g2_orig76.sv rows NU `parameter NU = 5` -> sz 64 and
+                        // NL `parameter longint NL = 40` -> sz 64).
+                        bool typedL = false;
+                        if (auto dL = psym.getDeclaredType())
+                            if (auto tsL = dL->getTypeSyntax())
+                                typedL = tsL->kind !=
+                                         syntax::SyntaxKind::ImplicitType;
+                        auto* ecL = s.MakeEnum_const();
+                        ecL->VpiName(std::string(nv.symbol.name));
+                        ecL->VpiDecompile(decL);
+                        ecL->VpiValue(valL);
+                        ecL->VpiSize(typedL
+                                         ? (int32_t)psym.getType().getBitWidth()
+                                         : 64);
+                        ecL->VpiParent(ref);
+                        ref->Actual_group(ecL);
+                    }
+                    ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                    ref->VpiParent(parent);
+                    setLoc(ref, expr.sourceRange);
+                    return ref;
+                }
                 // § connPsOpBoundOuterScopeKeepsRef70 (r10earl70) — THE
                 // POSITIVE SUBTRACTION-OPERAND SLICE of the mirror of the
                 // earl64-68 superfamily.  Inside an ELABORATED port `High_conn`

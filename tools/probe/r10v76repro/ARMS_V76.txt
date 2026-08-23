@@ -1,0 +1,50 @@
+r10v76 — BOUNDARY ADJUDICATION.  Every arm that differs between the frozen
+pristine b494676 binary and the frozen VERIFIED binary, and its verdict.
+MEASUREMENT ONLY.
+
+WIDE (per file): PROCESSED=3491 identical=6682 DIFFERING=22 no_output=278
+
+  THE LAW'S OWN ARMS — all scored against REBUILT Surelog goldens, judge-fields
+  payload, no span:  (GRIDS.txt carries the table)
+    r10earl76repro/g1_gsfor76.sv  plain+elab   TO-GOLDEN 23, AWAY 0
+    r10earl76repro/g2_orig76.sv   plain+elab   TO-GOLDEN 16, AWAY 0
+    r10earl75repro/g1_gsproc75.sv plain+elab   TO-GOLDEN  3, AWAY 0
+    r10v75repro/a2_loops75.sv     plain+elab   TO-GOLDEN  5, AWAY 0
+    r10v76repro/a1_homes76.sv     plain+elab   TO-GOLDEN 17, AWAY 0
+    r10v76repro/a2_pos76.sv       plain+elab   TO-GOLDEN  7, AWAY 0
+    r10v76repro/a4_val76.sv       plain+elab   TO-GOLDEN 14, AWAY 0
+    r10v76repro/a5_ctrl76.sv      plain+elab   TO-GOLDEN  7, AWAY 0
+    r10v76repro/a6_impx76.sv      plain+elab   TO-GOLDEN  2, AWAY 0
+    r10v76repro/a7_hdrimp76.sv    plain+elab   TO-GOLDEN  3, AWAY 0
+  r10v76repro/a3_imp76.sv and a8_init76.sv do NOT appear: with the verified
+  fence the import-site arm no longer fires on a3 at all, and a8 is an
+  under-fire region both binaries treat identically.  a3 DID differ before the
+  fix (6 cells, all AWAY from golden) — that is what the fix removes.
+
+  r10buvm22repro/g22.sv  plain+elab  NOT THIS LAW, convicted by a control that
+    needs no third build: the SHIPPED binary and the VERIFIED binary — which
+    differ in exactly this law's arm — produce BYTE-IDENTICAL dumps here
+    (0 lines), while each differs from the pristine binary by the SAME 12
+    lines.  Those 12 lines are three occurrences of one number,
+    22404505/22400409 and 22403649/22399553, the associative-array bound's
+    allocation-tracking garbage number at g22.sv:70
+    (`typedef C22 ka_cls_t[string];`) — earl74's R5, which shifts with any
+    build change.  earl74 and r10earl76 convicted the same arm the same way.
+
+DIR (per directory): PROCESSED=1509 identical=2754 DIFFERING=14 no_output=250
+  r10earl76repro does not appear (g1 and g2 both declare package g76p, so the
+    whole-directory unit is a duplicate-definition error on both binaries —
+    no_output; the per-file WIDE walk covers those grids).
+  r10earl75repro, r10v75repro, r10v76repro, r10buvm22repro — the same arms as
+    above, already adjudicated.
+  r10uvm75repro, r10uvm76repro, r10v109repro — THE DOCUMENTED PER-INVOCATION
+    ORDERING COIN.  raw 14/16, 10/20, 18/16 lines; ORDER-BLIND (both dumps
+    sorted) 0 on all six cells.  NEUTRAL CONTROL, no patched binary involved:
+    the PRISTINE binary alone, run three times on r10v109repro, differs from
+    itself by 14 and 16 raw lines and by 0 sorted — the identical signature.
+
+SIGNALS: every rc=139 pairs A with B (WIDE 12 keys x2, DIR 6 keys x2, 0
+unpaired).  All are `elab`-view segfaults present on BOTH binaries:
+r10buvm8repro (2), r10uvm84repro, r10uvm87repro, r10uvm92repro,
+r10vbuvm19repro (2), r10vbuvm28repro (2), r10vrgg8repro/cells (3).
+No new crash, no new timeout.

@@ -1,0 +1,6 @@
+CANDIDATE 8 /tmp/r10earl76_wk/slP/default/BasicOh-87b55f9d/slang.uhdm
+CANDIDATE 192 /tmp/r10earl76_wk/slP/default/Earlgrey_0_1-71da2fd7/slang.uhdm
+CANDIDATE 26 /tmp/r10earl76_wk/slP/default/Rggen-50ccbd70/slang.uhdm
+CANDIDATE 16 /tmp/r10earl76_wk/slP/testflags/BasicOh-87b55f9d/slang.uhdm
+CANDIDATE 440 /tmp/r10earl76_wk/slP/testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+SL: scanned=956 flagged=5

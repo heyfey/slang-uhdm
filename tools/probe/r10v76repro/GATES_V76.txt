@@ -1,0 +1,122 @@
+r10v76 — GATES, RUN TWICE: once to REPRODUCE the implementer's shipped patch
+bit for bit, once on the VERIFIED binary.  Base b494676.  Binaries built -j 2
+in the verifier's OWN worktrees and FROZEN (chmod 555) before any sweep; every
+cmds.txt audited by binary PATH; results/*.csv READ ONLY and untouched; no row
+converted.
+
+(0) BINARIES (all built by the verifier, from source, in /tmp/wt_v76*)
+    pristine b494676                 0488d7b62f80e7aecab313abd9320510
+        == the implementer's claimed pristine md5, and == the main tree's own
+           build at b494676
+    the SHIPPED patch, unmodified    34cf9797d54de8af35fab279daffa696
+        == the implementer's claimed patched md5, EXACTLY
+    the VERIFIED patch               8712a16593e58109e339eceee9aa770f
+        (the final comment-only correction rebuilds to the SAME md5, so every
+         number below stands for the shipped source)
+
+(1) GOLDENS   pristine 23/0 | shipped 23/0 | verified 23/0 | SLANG_UHDM=/bin/false 0/23
+    SLANG_UHDM exported explicitly to each binary.
+
+(2) uhdm2rtlil, both modes, all three binaries: 679 CMP_EQUAL / 50 SLANG_REJECT
+    / 2 SURELOG_FAIL.  ct8rows whole-row (status AND dump column):
+      committed results/gate_uhdm2rtlil.csv vs shipped   PASS 0 differing rows
+      committed results/gate_uhdm2rtlil.csv vs verified  PASS 0 differing rows
+      my pristine vs shipped, testflags and default      PASS 0 / PASS 0
+      my pristine vs verified, testflags and default     PASS 0 / PASS 0
+
+(3) surelog --mode both, 1588 rows:
+      committed results/golden_surelog.csv vs shipped    PASS 0 differing rows
+      committed results/golden_surelog.csv vs verified   PASS 0 differing rows
+      my pristine vs shipped / vs verified               PASS 0 / PASS 0
+      shipped vs verified                                PASS 0 differing rows
+    Status histograms identical in every pairing:
+      default   CMP_EQUAL 471  CMP_NOTEQUAL 10  DEFERRED 5  SLANG_REJECT 283
+                SURELOG_FAIL 25
+      testflags CMP_EQUAL 466  CMP_NOTEQUAL  9  DEFERRED 5  NO_DATABASE 3
+                NO_UHDM 1  SLANG_REJECT 284  SURELOG_FAIL 23  TIMEOUT 1
+                UNTRANSLATABLE 2
+    Earlgrey_0_1 stays CMP_NOTEQUAL in both modes: the head moved, the row did
+    not convert.  NO ROW CONVERTED anywhere.
+
+    cmds.txt AUDIT, by binary PATH (never by the string "slang-uhdm"):
+      u2r  1462 cmds each sweep; main-tree 0 in all three; 1458 name the
+           sweep's own frozen binary and 0 name either other binary
+      sl   1573 cmds each sweep; main-tree 0 in all three; 1523 name the
+           sweep's own frozen binary and 0 name either other binary
+
+(4) BYTE MOVERS, SELFCHECK=1
+      u2r   shipped vs pristine   MOVERS 0 / 1358  (PATH_SETS_IDENTICAL)
+      u2r   verified vs pristine  MOVERS 0 / 1358
+      sl    shipped vs pristine   MOVERS 3 / 956
+              ./default/Earlgrey_0_1-71da2fd7    PREDICTED
+              ./testflags/Earlgrey_0_1-71da2fd7  PREDICTED
+              ./default/Scoreboard-59431470      THE COIN, convicted below
+      sl    verified vs pristine  MOVERS 2 / 956  (the two Earlgrey databases;
+              the coin did not flip on this run)
+      sl    verified vs shipped   MOVERS 1 / 956  (Scoreboard/default only) —
+              i.e. THE VERIFIER'S FIX CHANGES NOT ONE BYTE OF THE CORPUS: the
+              two Earlgrey databases are byte-identical between the shipped and
+              the verified binary (default dd7409c8b813, testflags
+              05adcb77cebe), and an md5 sweep of all 956 surelog databases
+              names exactly one difference, the coin.
+
+    THE SCOREBOARD/default COIN, convicted without reference to any patch:
+      uhdm-dump path-normalised, pristine sweep vs shipped sweep:
+          92 raw lines differ, 0 once both dumps are SORTED (order-blind)
+      the PRISTINE binary alone, run three times on the same sources:
+          run1 508bcd0b88c0   run2 0069d49f0350   run3 508bcd0b88c0
+      i.e. the pristine binary lands on BOTH sweep hashes by itself.
+
+(5) NAMED-ROW HEADS (rowheads.sh; a cmp LINE COUNT is the head's decompile
+    DEPTH, never a distance)
+      pristine -> shipped == pristine -> verified, identical in every row:
+      SeqDriver 32/1 -> 32/1        SimpleUVM   565/1 -> 565/1
+      Scoreboard 565/1 -> 565/1     MiniAmiq     32/1 -> 32/1
+      BuildUVMPkg 47/1 -> 47/1      Rggen         0/0 -> 0/0
+      Earlgrey_0_1 default   36/1 -> 11664/1
+      Earlgrey_0_1 testflags 36/1 -> 11404/1
+    The 36-line pristine head is BYTE-IDENTICAL to the committed
+    r10earl76repro/HEAD_BEFORE_default.cmp (diff 0) and the default and
+    testflags logs are byte-identical to each other, exactly as claimed.
+    The new head is the claimed R0: module_inst
+    work@top_earlgrey.u_spi_device.u_fwmode, both modes, 1 head each.
+
+(6) CANARIES / PROTECTED DATABASES (verified binary)
+      canaries.sh surelog ok=52 changed=0 absent=0
+      canaries.sh u2r     ok=8  changed=0 absent=0
+      ctcan2.sh surelog PASS   ctcan2.sh u2r PASS
+      canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0
+      InterfaceModPort 59a365f3ce2c SAME (both modes)
+      BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5 SAME
+      YosysOldOr d68e0796d62c SAME (both modes)
+      SVSwitch 4842211c4030 ON PIN     YosysVerx 6ccda350c24a ON PIN
+
+(7) THE EARLGREY CENSUS, verified binary, both modes (cscen76 read straight
+    off the .uhdm; Earlgrey's uhdm-dump is never produced)
+      CALIBRATION golden-vs-golden: default 182545 keys ALL STILL-RIGHT,
+                                    testflags 247637 keys ALL STILL-RIGHT
+      default   JUDGED keys 185773 {STILL-RIGHT 179700, STILL-WRONG 6069,
+                                    TO-GOLDEN 4}
+      testflags JUDGED keys 249393 {STILL-RIGHT 242106, STILL-WRONG 7283,
+                                    TO-GOLDEN 4}
+      AWAY-GOLDEN 0, MOVED-WRONG 0, MOVED-SIDEWAYS 0, NOGOLD-MOVED 0 in both.
+      The four are gen_flash_banks[0] and [1] x WidthMultiple
+      (flash_phy_core.sv:191:27-191:40, the for CONDITION) and WordSelW
+      (:192:25-192:33), exactly the implementer's four.
+      ALL-FIELDS reproduces the implementer's labels too (the INT:/UINT:
+      prefix that enum_const::Compare does not read).
+
+(8) BOUNDARY, verified binary vs pristine.  A COPY of tools/probe, NO path
+    filter, .sv and .v at ANY depth, both views, list on fd 3, children
+    </dev/null, PROCESSED asserted, rc recorded per cell.  THE FOUR
+    SLANG-FENCED TESTS ARE NEVER DISPATCHED: the fence regex matched 0 of the
+    3491 files.
+      WIDE  PROCESSED=3491 identical=6682 DIFFERING=22 no_output=278
+      DIR   PROCESSED=1509 identical=2754 DIFFERING=14 no_output=250
+      (the implementer measured 3484/10 and 1508/12 on the same tree without
+       this verifier's eight arms; 3484+7 files = 3491 and 1508+1 dirs = 1509,
+       and the extra differing cells are exactly the verifier's own six moving
+       arms x 2 views + r10v76repro x 2 views.)
+      Every rc=139 pairs A with B — 12 keys x2 wide, 6 keys x2 dir, 0 unpaired.
+      Pre-existing elab segfaults on BOTH binaries.  No new crash, no timeout.
+      Adjudication: ARMS_V76.txt.

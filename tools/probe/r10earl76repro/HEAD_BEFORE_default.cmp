@@ -1,0 +1,36 @@
+LHS:
+decompile:
+ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.gen_prog_data.WidthMultiple), id:313370, line:191:27, endln:191:40
+|vpiParent:
+\_operation: , id:313369, line:191:23, endln:191:40
+|vpiName:WidthMultiple
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.gen_prog_data.WidthMultiple
+|vpiActual:
+\_enum_const: (WidthMultiple), id:990653
+
+decompile:
+ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.gen_prog_data.WidthMultiple), id:313370, line:191:27, endln:191:40
+|vpiParent:
+\_operation: , id:313369, line:191:23, endln:191:40
+|vpiName:WidthMultiple
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.gen_prog_data.WidthMultiple
+|vpiActual:
+\_enum_const: (WidthMultiple), id:990653
+RHS:
+decompile:
+constant: , id:256102, line:191:27, endln:191:40
+|vpiParent:
+\_operation: , id:256099, line:191:23, endln:191:40
+|vpiDecompile:2
+|vpiSize:32
+|UINT:2
+|vpiConstType:9
+
+decompile:
+constant: , id:256102, line:191:27, endln:191:40
+|vpiParent:
+\_operation: , id:256099, line:191:23, endln:191:40
+|vpiDecompile:2
+|vpiSize:32
+|UINT:2
+|vpiConstType:9

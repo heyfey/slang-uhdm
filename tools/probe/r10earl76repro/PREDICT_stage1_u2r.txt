@@ -1,0 +1,5 @@
+CANDIDATE 20 /tmp/r10earl76_wk/u2rP/default/for_decl_shadow-5115c73d/slang.uhdm
+CANDIDATE 8 /tmp/r10earl76_wk/u2rP/default/hier_path-fac7ae4e/slang.uhdm
+CANDIDATE 20 /tmp/r10earl76_wk/u2rP/testflags/for_decl_shadow-5115c73d/slang.uhdm
+CANDIDATE 8 /tmp/r10earl76_wk/u2rP/testflags/hier_path-fac7ae4e/slang.uhdm
+U2R: scanned=1358 flagged=4
