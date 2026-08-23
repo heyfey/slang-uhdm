@@ -1694,6 +1694,107 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             return id31;
         return {};
     };
+    // § oobClassTypeParamLocalUnsupported105 — THE BODY-LOCAL HALF OF
+    // § oobParamClassTypeParamFormalUnsupported31, decoded from Surelog and
+    // measured on golden in both views.
+    //
+    // > A subroutine DEFINED OUT OF BODY is compiled with the enclosing
+    // > PACKAGE (or `$unit`, or the module) as the component
+    // > (`CompilePackage.cpp:213` hands `m_package` to `compileFunction`;
+    // > `CompileStmt.cpp:2692`'s `paClass_scope` arm only RENAMES the function
+    // > `cls::meth` and never switches the scope).  The class's own type
+    // > parameters are therefore not on that component's lexical chain, so a
+    // > BODY LOCAL written as a bare `REQ` falls through
+    // > `CompileHelper::compileDatastructureTypespec`'s catch-all
+    // > (`CompileType.cpp:1053`) to an `unsupported_typespec` carrying the
+    // > WRITTEN name, stamped with the component's instance
+    // > (`CompileType.cpp:2135-2136`) — the DECLARING PACKAGE, and NOTHING when
+    // > the class's home is `$unit` or a module.  `ElaborationStep::
+    // > bindTypedefs_` repairs such a placeholder ONLY from its design-wide
+    // > `specs` map (`ElaborationStep.cpp:328-357`), which is filled from
+    // > TYPEDEFS ALONE — a type PARAMETER is never in it, so the placeholder is
+    // > PERMANENT.
+    //
+    // The predicate is § 31's, unchanged and SHARED (`oobClassTypeParamName31`
+    // below), plus ONE guard this arm measured and § 31 never had to:
+    //
+    //   g105_a3 `s105` — a package that ALSO declares a TYPEDEF of the same
+    //   simple name as the class's type parameter.  Golden RESOLVES the
+    //   out-of-body local to THAT TYPEDEF (`int_typespec 'T105COLLIDE'`), not
+    //   to a placeholder and not to the parameter's default — because the
+    //   package's own type table answers first.  So a name the class's HOME
+    //   SCOPE CHAIN can answer with a typedef is NOT this law's.
+    //
+    // The whole grid, read off golden (LHS) in both views, `def` and `elab`:
+    //   OUT-OF-BODY body local, the class's OWN parameter  (a1 `xo_t`)
+    //                                          -> unsupported 'T'  @p105
+    //   ...defaulted from another parameter    (a1 `xo_u`, `type U = T`)
+    //                                          -> unsupported 'U'  @p105
+    //   ...defaulted to an INT                 (a1 `xo_w`, `type W = int`)
+    //                                          -> unsupported 'W'  @p105
+    //     (the DEFAULT's kind is irrelevant — we emitted `int_typespec` there)
+    //   ...in a task / a static method / a void method / a method with a
+    //      RETURN type (a1 `to_t`, `so_t`, `zo_t`, `yo_t`)  -> all unsupported
+    //   ...WITH AN INITIALISER (a3 `xo_init`)   -> unsupported 'XT' @x105
+    //   ...two methods of one class (a3 `wo_1`/`wo_2`) -> ONE OBJECT EACH
+    //   ...an INHERITED parameter, out-of-body (a2 `do_t`) -> unsupported @q105
+    //   ...the class's home is `$unit` (a2 `uo_t`) or a MODULE (a2 `mo_t`)
+    //                                          -> unsupported, NO vpiInstance
+    //   ...the SPECIALISED copy in a module (a1 TOPMOD) / an IMPORTER package's
+    //      copy (the corpus: MiniAmiq's `svaunit_pkg`) -> unsupported, and the
+    //      instance stays the DECLARING package
+    //   IN-BODY body local, same parameter (a1 `lo_t`, a2 `ib_u`)
+    //                                          -> RESOLVED (`class_typespec`)
+    //   OUT-OF-BODY local typed by a TYPEDEF OF the parameter (a1 `xo_td`)
+    //                                          -> RESOLVED, named `my_t`
+    //   OUT-OF-BODY local of a plain class / a plain typedef / an int
+    //      (a1 `xo_cls`, `xo_pln`, a2 `po_c`, `po_i`)      -> RESOLVED
+    //   OUT-OF-BODY local whose RANGE names a VALUE parameter (a2 `vo_v`)
+    //                                          -> RESOLVED (`logic_typespec`)
+    //   OUT-OF-BODY local shadowed by a package typedef (a3 `so_c`)
+    //                                          -> RESOLVED to the TYPEDEF
+    //
+    // MEASURED AND DELIBERATELY NOT MODELLED (each a residue of this pass, all
+    // with ZERO corpus reach — the fence over both pristine corpora found no
+    // site):
+    //   * the ARRAY spellings (a3 `uo_fix`/`uo_q`/`uo_dyn`): golden puts the
+    //     placeholder on the ELEMENT `ref_var`, a different emission site;
+    //   * the SCOPED spelling `c::T` as a local (a3 `vo_scoped`) or as an
+    //     out-of-body RETURN type (a1 `oob_ret`, which is the only spelling
+    //     slang accepts there): golden degrades those too, named with the
+    //     written text;
+    //   * an out-of-body NESTED-BLOCK local (`begin REQ l_oob2; ... end`,
+    //     r10uvm87repro/v87_a3_oob.sv): golden degrades it exactly like a
+    //     top-level body local, but our block-item declarations are emitted at
+    //     a different site, which this branch does not reach.
+    //
+    // The guard walks the class's own SCOPE CHAIN and then every PACKAGE and
+    // COMPILATION UNIT the compilation holds, because Surelog's `specs` map is
+    // DESIGN-WIDE and keyed by the BARE name: arm a3's `t105` puts the
+    // colliding typedef in a package `t105` does NOT import, and golden STILL
+    // repairs the placeholder from it (`int_typespec 't105other::T105FAR'`).
+    // The walk runs ONLY when the law is about to fire — an out-of-body local
+    // written as a type parameter, six sites in the whole UVM tree — so it
+    // never becomes a per-declaration cost.
+    auto oobTpLocalShadowedByTd105 = [&](std::string_view id105) -> bool {
+        auto isTd105 = [&](const Scope* sc105) {
+            if (!sc105)
+                return false;
+            const Symbol* f105 = sc105->find(id105);
+            return f105 != nullptr && f105->kind == SymbolKind::TypeAlias;
+        };
+        for (auto sc105 = body.asSymbol().getParentScope(); sc105;
+             sc105 = sc105->asSymbol().getParentScope())
+            if (isTd105(sc105))
+                return true;
+        for (auto* pk105 : comp.getPackages())
+            if (isTd105(pk105))
+                return true;
+        for (auto* cu105 : comp.getCompilationUnits())
+            if (isTd105(cu105))
+                return true;
+        return false;
+    };
     // § baseClassTypeParamFormalUnsupported34 — the SAME catch-all,
     // one scope over.
     //
@@ -5466,7 +5567,46 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // BINDING and nothing else: the variable's own class, span and
                 // parent are § classTdLocalVarKindFollowsCompileOrder10's and
                 // are already golden-exact.
-                if (auto* uts11 = makeScopedTdUnsupTs11(fmv)) {
+                // § oobClassTypeParamLocalUnsupported105 — see the law
+                // and its whole grid at the lambda above.  Only the KIND, the
+                // NAME and the INSTANCE move; the variable's own class, span
+                // and parent stay § classTdLocalVarKindFollowsCompileOrder10's.
+                // FENCED to the SCALAR spelling: an array local's placeholder
+                // lives on the ELEMENT `ref_var`, which is not this site.
+                std::string_view oobTpLoc105;
+                if (oob)
+                    if (auto* ldt105 = fmv.getDeclaredType()) {
+                        auto& lct105 =
+                            ldt105->getType().getCanonicalType();
+                        bool arr105 =
+                            lct105.kind ==
+                                SymbolKind::FixedSizeUnpackedArrayType ||
+                            lct105.kind == SymbolKind::QueueType ||
+                            lct105.kind == SymbolKind::DynamicArrayType ||
+                            lct105.kind == SymbolKind::AssociativeArrayType;
+                        if (!arr105)
+                            if (auto* lsyn105 = ldt105->getTypeSyntax()) {
+                                oobTpLoc105 =
+                                    oobClassTypeParamName31(lsyn105);
+                                if (!oobTpLoc105.empty() &&
+                                    oobTpLocalShadowedByTd105(oobTpLoc105))
+                                    oobTpLoc105 = {};
+                            }
+                    }
+                if (!oobTpLoc105.empty()) {
+                    auto* uts105 = s.MakeUnsupported_typespec();
+                    uts105->VpiName(oobTpLoc105);
+                    setLoc(uts105,
+                           fmv.getDeclaredType()->getTypeSyntax()->sourceRange());
+                    // The package the CLASS is DECLARED in, exactly as
+                    // § 31's formals take it (`oobDeclPkg31`), so an
+                    // IMPORTER's copy still reads `@uvm_pkg` and a
+                    // `$unit`/module home reads NOTHING.
+                    if (auto* ui105 = oobDeclPkg31 ? oobDeclPkg31 : tsInst)
+                        uts105->Instance(ui105);
+                    vrt->Actual_typespec(uts105);
+                }
+                else if (auto* uts11 = makeScopedTdUnsupTs11(fmv)) {
                     // § scopedTdUnsupTsHomePkgInstance83 — THE WALL.  This
                     // placeholder takes the SAME `vpiInstance` the RESOLVED
                     // typespec of this very declaration takes two dozen lines up:

@@ -1,0 +1,54 @@
+AGREE_BOTH	82
+TO-GOLDEN	15
+AWAY	0
+STILL	30
+MOVED-WRONG	0
+MULT-CHANGED	0
+MISS	0
+EXTRA	0
+--- detail
+TO-GOLDEN | def DEFPKG OOB - w105::cw105::wf1 80:8-80:12 wo_1 | G= {('unsupported_typespec', 'WT', 'w105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'w105')}
+TO-GOLDEN | def DEFPKG OOB - w105::cw105::wf2 83:8-83:12 wo_2 | G= {('unsupported_typespec', 'WT', 'w105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'w105')}
+TO-GOLDEN | def DEFPKG OOB - x105::cx105::xf 93:8-93:15 xo_init | G= {('unsupported_typespec', 'XT', 'x105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'XT', 'x105')}
+TO-GOLDEN | def ELABPKG IB - w105::cw105::wf1 80:8-80:12 wo_1 | G= {('unsupported_typespec', 'WT', 'w105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'w105')}
+TO-GOLDEN | def ELABPKG IB - w105::cw105::wf2 83:8-83:12 wo_2 | G= {('unsupported_typespec', 'WT', 'w105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'w105')}
+TO-GOLDEN | def ELABPKG IB - x105::cx105::xf 93:8-93:15 xo_init | G= {('unsupported_typespec', 'XT', 'x105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'XT', 'x105')}
+TO-GOLDEN | elab DEFPKG OOB - w105::cw105::wf1 80:8-80:12 wo_1 | G= {('unsupported_typespec', 'WT', 'w105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'w105')}
+TO-GOLDEN | elab DEFPKG OOB - w105::cw105::wf2 83:8-83:12 wo_2 | G= {('unsupported_typespec', 'WT', 'w105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'w105')}
+TO-GOLDEN | elab DEFPKG OOB - x105::cx105::xf 93:8-93:15 xo_init | G= {('unsupported_typespec', 'XT', 'x105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'XT', 'x105')}
+TO-GOLDEN | elab ELABPKG IB - w105::cw105::wf1 80:8-80:12 wo_1 | G= {('unsupported_typespec', 'WT', 'w105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'w105')}
+TO-GOLDEN | elab ELABPKG IB - w105::cw105::wf2 83:8-83:12 wo_2 | G= {('unsupported_typespec', 'WT', 'w105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'w105')}
+TO-GOLDEN | elab ELABPKG IB - x105::cx105::xf 93:8-93:15 xo_init | G= {('unsupported_typespec', 'XT', 'x105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'XT', 'x105')}
+TO-GOLDEN | elab TOPMOD IB - w105::cw105::wf1 80:8-80:12 wo_1 | G= {('unsupported_typespec', 'WT', 'w105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'w105')}
+TO-GOLDEN | elab TOPMOD IB - w105::cw105::wf2 83:8-83:12 wo_2 | G= {('unsupported_typespec', 'WT', 'w105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'w105')}
+TO-GOLDEN | elab TOPMOD IB - x105::cx105::xf 93:8-93:15 xo_init | G= {('unsupported_typespec', 'XT', 'x105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'XT', 'x105')}
+STILL | def DEFPKG OOB - s105::cs105::sf 25:18-25:22 so_c | G= {('int_typespec', 'T105COLLIDE', 's105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def DEFPKG OOB - t105::ct105::tf 39:14-39:18 to_c | G= {('int_typespec', 't105other::T105FAR', 't105other')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def DEFPKG OOB - u105c::cu105::ud 57:9-57:15 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def DEFPKG OOB - u105c::cu105::ufix 51:9-51:15 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('logic_typespec', '-', 'u105c')} | PAT= {('logic_typespec', '-', 'u105c')}
+STILL | def DEFPKG OOB - u105c::cu105::uq 54:9-54:13 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def DEFPKG OOB - v105::cv105::vf 68:16-68:25 vo_scoped | G= {('unsupported_typespec', 'cv105::VT', 'v105')} | PRIS= {('class_typespec', 'cv105::VT', 'v105')} | PAT= {('class_typespec', 'cv105::VT', 'v105')}
+STILL | def ELABPKG IB - s105::cs105::sf 25:18-25:22 so_c | G= {('int_typespec', 'T105COLLIDE', 's105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def ELABPKG IB - t105::ct105::tf 39:14-39:18 to_c | G= {('int_typespec', 't105other::T105FAR', 't105other')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def ELABPKG IB - u105c::cu105::ud 57:9-57:15 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def ELABPKG IB - u105c::cu105::ufix 51:9-51:15 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('logic_typespec', '-', 'u105c')} | PAT= {('logic_typespec', '-', 'u105c')}
+STILL | def ELABPKG IB - u105c::cu105::uq 54:9-54:13 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def ELABPKG IB - v105::cv105::vf 68:16-68:25 vo_scoped | G= {('unsupported_typespec', 'cv105::VT', 'v105')} | PRIS= {('class_typespec', 'cv105::VT', 'v105')} | PAT= {('class_typespec', 'cv105::VT', 'v105')}
+STILL | elab DEFPKG OOB - s105::cs105::sf 25:18-25:22 so_c | G= {('int_typespec', 'T105COLLIDE', 's105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab DEFPKG OOB - t105::ct105::tf 39:14-39:18 to_c | G= {('int_typespec', 't105other::T105FAR', 't105other')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab DEFPKG OOB - u105c::cu105::ud 57:9-57:15 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab DEFPKG OOB - u105c::cu105::ufix 51:9-51:15 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('logic_typespec', '-', 'u105c')} | PAT= {('logic_typespec', '-', 'u105c')}
+STILL | elab DEFPKG OOB - u105c::cu105::uq 54:9-54:13 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab DEFPKG OOB - v105::cv105::vf 68:16-68:25 vo_scoped | G= {('unsupported_typespec', 'cv105::VT', 'v105')} | PRIS= {('class_typespec', 'cv105::VT', 'v105')} | PAT= {('class_typespec', 'cv105::VT', 'v105')}
+STILL | elab ELABPKG IB - s105::cs105::sf 25:18-25:22 so_c | G= {('int_typespec', 'T105COLLIDE', 's105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab ELABPKG IB - t105::ct105::tf 39:14-39:18 to_c | G= {('int_typespec', 't105other::T105FAR', 't105other')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab ELABPKG IB - u105c::cu105::ud 57:9-57:15 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab ELABPKG IB - u105c::cu105::ufix 51:9-51:15 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('logic_typespec', '-', 'u105c')} | PAT= {('logic_typespec', '-', 'u105c')}
+STILL | elab ELABPKG IB - u105c::cu105::uq 54:9-54:13 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab ELABPKG IB - v105::cv105::vf 68:16-68:25 vo_scoped | G= {('unsupported_typespec', 'cv105::VT', 'v105')} | PRIS= {('class_typespec', 'cv105::VT', 'v105')} | PAT= {('class_typespec', 'cv105::VT', 'v105')}
+STILL | elab TOPMOD IB - s105::cs105::sf 25:18-25:22 so_c | G= {('int_typespec', 'T105COLLIDE', 's105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab TOPMOD IB - t105::ct105::tf 39:14-39:18 to_c | G= {('int_typespec', 't105other::T105FAR', 't105other')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab TOPMOD IB - u105c::cu105::ud 57:9-57:15 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab TOPMOD IB - u105c::cu105::ufix 51:9-51:15 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('logic_typespec', '-', 'u105c')} | PAT= {('logic_typespec', '-', 'u105c')}
+STILL | elab TOPMOD IB - u105c::cu105::uq 54:9-54:13 - | G= {('unsupported_typespec', 'UT', 'u105c')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab TOPMOD IB - v105::cv105::vf 68:16-68:25 vo_scoped | G= {('unsupported_typespec', 'cv105::VT', 'v105')} | PRIS= {('class_typespec', 'cv105::VT', 'v105')} | PAT= {('class_typespec', 'cv105::VT', 'v105')}

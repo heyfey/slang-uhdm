@@ -1,0 +1,64 @@
+AGREE_BOTH	51
+TO-GOLDEN	20
+AWAY	0
+STILL	17
+MOVED-WRONG	0
+MULT-CHANGED	0
+MISS	10
+EXTRA	8
+--- detail
+TO-GOLDEN | def DEFPKG OOB - p87x::o87::mf 16:9-16:14 l_oob | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | def DEFPKG OOB - p87x::o87::mr 24:9-24:12 l_r | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | def DEFPKG OOB - p87x::o87::mt 20:9-20:15 l_oobt | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | def DEFPKG OOB - p87x::o87::new 28:9-28:15 l_ctor | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | def ELABPKG IB - p87x::o87::mf 16:9-16:14 l_oob | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | def ELABPKG IB - p87x::o87::mr 24:9-24:12 l_r | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | def ELABPKG IB - p87x::o87::mt 20:9-20:15 l_oobt | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | def ELABPKG IB - p87x::o87::new 28:9-28:15 l_ctor | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | elab DEFPKG OOB - p87x::o87::mf 16:9-16:14 l_oob | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | elab DEFPKG OOB - p87x::o87::mr 24:9-24:12 l_r | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | elab DEFPKG OOB - p87x::o87::mt 20:9-20:15 l_oobt | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | elab DEFPKG OOB - p87x::o87::new 28:9-28:15 l_ctor | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | elab ELABPKG IB - p87x::o87::mf 16:9-16:14 l_oob | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | elab ELABPKG IB - p87x::o87::mr 24:9-24:12 l_r | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | elab ELABPKG IB - p87x::o87::mt 20:9-20:15 l_oobt | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | elab ELABPKG IB - p87x::o87::new 28:9-28:15 l_ctor | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | elab TOPMOD IB - p87x::o87::mf 16:9-16:14 l_oob | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | elab TOPMOD IB - p87x::o87::mr 24:9-24:12 l_r | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | elab TOPMOD IB - p87x::o87::mt 20:9-20:15 l_oobt | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+TO-GOLDEN | elab TOPMOD IB - p87x::o87::new 28:9-28:15 l_ctor | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x')}
+STILL | def DEFPKG OOB - p87x::o87::mf 17:15-17:21 l_oob2 | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def DEFPKG OOB - p87x::o87::mr 23:12-23:20 - | G= {('unsupported_typespec', 'o87::REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def ELABPKG IB - p87x::o87::mf 15:29-15:30 a | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('unsupported_typespec', 'REQ', 'p87x'), ('class_typespec', 'b87', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x'), ('class_typespec', 'b87', '-')}
+STILL | def ELABPKG IB - p87x::o87::mf 17:15-17:21 l_oob2 | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def ELABPKG IB - p87x::o87::mr 23:12-23:20 - | G= {('unsupported_typespec', 'o87::REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def ELABPKG IB - p87x::o87::mt 19:20-19:21 a | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('unsupported_typespec', 'REQ', 'p87x'), ('class_typespec', 'b87', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x'), ('class_typespec', 'b87', '-')}
+STILL | def ELABPKG IB - p87x::o87::new 27:25-27:26 - | G= {('class_typespec', '-', '-')} | PRIS= {('class_typespec', 'p87x::o87', '-'), ('class_typespec', '-', '-')} | PAT= {('class_typespec', 'p87x::o87', '-'), ('class_typespec', '-', '-')}
+STILL | def ELABPKG IB - p87x::o87::new 27:25-27:26 a | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('unsupported_typespec', 'REQ', 'p87x'), ('class_typespec', 'b87', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x'), ('class_typespec', 'b87', '-')}
+STILL | elab DEFPKG OOB - p87x::o87::mf 17:15-17:21 l_oob2 | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab DEFPKG OOB - p87x::o87::mr 23:12-23:20 - | G= {('unsupported_typespec', 'o87::REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab ELABPKG IB - p87x::o87::mf 15:29-15:30 a | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('unsupported_typespec', 'REQ', 'p87x'), ('class_typespec', 'b87', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x'), ('class_typespec', 'b87', '-')}
+STILL | elab ELABPKG IB - p87x::o87::mf 17:15-17:21 l_oob2 | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab ELABPKG IB - p87x::o87::mr 23:12-23:20 - | G= {('unsupported_typespec', 'o87::REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab ELABPKG IB - p87x::o87::mt 19:20-19:21 a | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('unsupported_typespec', 'REQ', 'p87x'), ('class_typespec', 'b87', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x'), ('class_typespec', 'b87', '-')}
+STILL | elab ELABPKG IB - p87x::o87::new 27:25-27:26 - | G= {('class_typespec', '-', '-')} | PRIS= {('class_typespec', 'p87x::o87', '-'), ('class_typespec', '-', '-')} | PAT= {('class_typespec', 'p87x::o87', '-'), ('class_typespec', '-', '-')}
+STILL | elab ELABPKG IB - p87x::o87::new 27:25-27:26 a | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('unsupported_typespec', 'REQ', 'p87x'), ('class_typespec', 'b87', '-')} | PAT= {('unsupported_typespec', 'REQ', 'p87x'), ('class_typespec', 'b87', '-')}
+STILL | elab TOPMOD IB - p87x::o87::mf 17:15-17:21 l_oob2 | G= {('unsupported_typespec', 'REQ', 'p87x')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+MISS | def ELABPKG IB - p87x::o87::mf 6:33-6:34 a | G= {('class_typespec', 'rsp_t', '-')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - p87x::o87::mr 8:21-8:29 - | G= {('unsupported_typespec', 'o87::REQ', '-')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - p87x::o87::mt 7:24-7:25 a | G= {('class_typespec', 'rsp_t', '-')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - p87x::o87::new 0:0-0:0 - | G= {('class_typespec', 'p87x::o87', '-')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - p87x::o87::new 9:29-9:30 a | G= {('class_typespec', 'rsp_t', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p87x::o87::mf 6:33-6:34 a | G= {('class_typespec', 'rsp_t', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p87x::o87::mr 8:21-8:29 - | G= {('unsupported_typespec', 'o87::REQ', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p87x::o87::mt 7:24-7:25 a | G= {('class_typespec', 'rsp_t', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p87x::o87::new 0:0-0:0 - | G= {('class_typespec', 'p87x::o87', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p87x::o87::new 9:29-9:30 a | G= {('class_typespec', 'rsp_t', '-')} | PRIS= None | PAT= None
+EXTRA | def DEFPKG - - - 28:9-28:15 l_ctor | G= None | PRIS= {('class_typespec', 'b87', 'p87x')} | PAT= {('class_typespec', 'b87', 'p87x')}
+EXTRA | def ELABPKG - - - 28:9-28:15 l_ctor | G= None | PRIS= {('class_typespec', 'b87', 'p87x')} | PAT= {('class_typespec', 'b87', 'p87x')}
+EXTRA | def OTHER - - - 4:20-4:23 REQ | G= None | PRIS= {('class_typespec', 'b87', '-')} | PAT= {('class_typespec', 'b87', '-')}
+EXTRA | def OTHER - - - 4:36-4:39 RSP | G= None | PRIS= {('class_typespec', 'b87', '-')} | PAT= {('class_typespec', 'b87', '-')}
+EXTRA | elab DEFPKG - - - 28:9-28:15 l_ctor | G= None | PRIS= {('class_typespec', 'b87', 'p87x')} | PAT= {('class_typespec', 'b87', 'p87x')}
+EXTRA | elab ELABPKG - - - 28:9-28:15 l_ctor | G= None | PRIS= {('class_typespec', 'b87', 'p87x')} | PAT= {('class_typespec', 'b87', 'p87x')}
+EXTRA | elab OTHER - - - 4:20-4:23 REQ | G= None | PRIS= {('class_typespec', 'b87', '-')} | PAT= {('class_typespec', 'b87', '-')}
+EXTRA | elab OTHER - - - 4:36-4:39 RSP | G= None | PRIS= {('class_typespec', 'b87', '-')} | PAT= {('class_typespec', 'b87', '-')}

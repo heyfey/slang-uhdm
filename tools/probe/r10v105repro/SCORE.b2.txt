@@ -1,0 +1,24 @@
+AGREE_BOTH	50
+TO-GOLDEN	0
+AWAY	0
+STILL	0
+MOVED-WRONG	15
+MULT-CHANGED	0
+MISS	0
+EXTRA	0
+--- detail
+MOVED-WRONG | def DEFPKG OOB - pcls_b2::ccls_b2::f 47:13-47:17 xo_c | G= {('int_typespec', 'CCLS_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CCLS_B2', 'pcls_b2')}
+MOVED-WRONG | def DEFPKG OOB - pifc_b2::cifc_b2::f 29:13-29:17 xo_i | G= {('int_typespec', 'CIFC_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CIFC_B2', 'pifc_b2')}
+MOVED-WRONG | def DEFPKG OOB - pmod_b2::cmod_b2::f 14:13-14:17 xo_m | G= {('int_typespec', 'CMOD_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CMOD_B2', 'pmod_b2')}
+MOVED-WRONG | def ELABPKG IB - pcls_b2::ccls_b2::f 47:13-47:17 xo_c | G= {('int_typespec', 'CCLS_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CCLS_B2', 'pcls_b2')}
+MOVED-WRONG | def ELABPKG IB - pifc_b2::cifc_b2::f 29:13-29:17 xo_i | G= {('int_typespec', 'CIFC_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CIFC_B2', 'pifc_b2')}
+MOVED-WRONG | def ELABPKG IB - pmod_b2::cmod_b2::f 14:13-14:17 xo_m | G= {('int_typespec', 'CMOD_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CMOD_B2', 'pmod_b2')}
+MOVED-WRONG | elab DEFPKG OOB - pcls_b2::ccls_b2::f 47:13-47:17 xo_c | G= {('int_typespec', 'CCLS_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CCLS_B2', 'pcls_b2')}
+MOVED-WRONG | elab DEFPKG OOB - pifc_b2::cifc_b2::f 29:13-29:17 xo_i | G= {('int_typespec', 'CIFC_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CIFC_B2', 'pifc_b2')}
+MOVED-WRONG | elab DEFPKG OOB - pmod_b2::cmod_b2::f 14:13-14:17 xo_m | G= {('int_typespec', 'CMOD_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CMOD_B2', 'pmod_b2')}
+MOVED-WRONG | elab ELABPKG IB - pcls_b2::ccls_b2::f 47:13-47:17 xo_c | G= {('int_typespec', 'CCLS_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CCLS_B2', 'pcls_b2')}
+MOVED-WRONG | elab ELABPKG IB - pifc_b2::cifc_b2::f 29:13-29:17 xo_i | G= {('int_typespec', 'CIFC_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CIFC_B2', 'pifc_b2')}
+MOVED-WRONG | elab ELABPKG IB - pmod_b2::cmod_b2::f 14:13-14:17 xo_m | G= {('int_typespec', 'CMOD_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CMOD_B2', 'pmod_b2')}
+MOVED-WRONG | elab TOPMOD IB - pcls_b2::ccls_b2::f 47:13-47:17 xo_c | G= {('int_typespec', 'CCLS_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CCLS_B2', 'pcls_b2')}
+MOVED-WRONG | elab TOPMOD IB - pifc_b2::cifc_b2::f 29:13-29:17 xo_i | G= {('int_typespec', 'CIFC_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CIFC_B2', 'pifc_b2')}
+MOVED-WRONG | elab TOPMOD IB - pmod_b2::cmod_b2::f 14:13-14:17 xo_m | G= {('int_typespec', 'CMOD_B2', '-')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CMOD_B2', 'pmod_b2')}

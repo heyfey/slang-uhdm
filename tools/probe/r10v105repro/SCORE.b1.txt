@@ -1,0 +1,59 @@
+AGREE_BOTH	69
+TO-GOLDEN	40
+AWAY	0
+STILL	4
+MOVED-WRONG	0
+MULT-CHANGED	0
+MISS	2
+EXTRA	4
+--- detail
+TO-GOLDEN | def DEFPKG OOB - pb1::c3_b1::qm 71:8-71:12 xo_q | G= {('unsupported_typespec', 'QT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'QT', 'pb1')}
+TO-GOLDEN | def DEFPKG OOB - pb1::ce_b1::em 26:8-26:12 xo_e | G= {('unsupported_typespec', 'ET', 'pb1')} | PRIS= {('enum_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'ET', 'pb1')}
+TO-GOLDEN | def DEFPKG OOB - pb1::cs_b1::sm 18:8-18:12 xo_s | G= {('unsupported_typespec', 'ST', 'pb1')} | PRIS= {('logic_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'ST', 'pb1')}
+TO-GOLDEN | def DEFPKG OOB - pb1::ct_b1::tm 34:8-34:13 xo_tt | G= {('unsupported_typespec', 'TT', 'pb1')} | PRIS= {('int_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'TT', 'pb1')}
+TO-GOLDEN | def DEFPKG OOB - pb1::cv_b1::lm 50:8-50:12 xo_l | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | def DEFPKG OOB - pb1::cv_b1::pm 47:8-47:12 xo_p | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | def DEFPKG OOB - pb1::cv_b1::vm 44:8-44:12 xo_v | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | def DEFPKG OOB - pb1::cw_b1::wm 63:14-63:18 xo_w | G= {('unsupported_typespec', 'WT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'pb1')}
+TO-GOLDEN | def ELABPKG IB - pb1::c3_b1::qm 71:8-71:12 xo_q | G= {('unsupported_typespec', 'QT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'QT', 'pb1')}
+TO-GOLDEN | def ELABPKG IB - pb1::ce_b1::em 26:8-26:12 xo_e | G= {('unsupported_typespec', 'ET', 'pb1')} | PRIS= {('enum_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'ET', 'pb1')}
+TO-GOLDEN | def ELABPKG IB - pb1::cs_b1::sm 18:8-18:12 xo_s | G= {('unsupported_typespec', 'ST', 'pb1')} | PRIS= {('logic_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'ST', 'pb1')}
+TO-GOLDEN | def ELABPKG IB - pb1::ct_b1::tm 34:8-34:13 xo_tt | G= {('unsupported_typespec', 'TT', 'pb1')} | PRIS= {('int_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'TT', 'pb1')}
+TO-GOLDEN | def ELABPKG IB - pb1::cv_b1::lm 50:8-50:12 xo_l | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | def ELABPKG IB - pb1::cv_b1::pm 47:8-47:12 xo_p | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | def ELABPKG IB - pb1::cv_b1::vm 44:8-44:12 xo_v | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | def ELABPKG IB - pb1::cw_b1::wm 63:14-63:18 xo_w | G= {('unsupported_typespec', 'WT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'pb1')}
+TO-GOLDEN | elab DEFPKG OOB - pb1::c3_b1::qm 71:8-71:12 xo_q | G= {('unsupported_typespec', 'QT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'QT', 'pb1')}
+TO-GOLDEN | elab DEFPKG OOB - pb1::ce_b1::em 26:8-26:12 xo_e | G= {('unsupported_typespec', 'ET', 'pb1')} | PRIS= {('enum_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'ET', 'pb1')}
+TO-GOLDEN | elab DEFPKG OOB - pb1::cs_b1::sm 18:8-18:12 xo_s | G= {('unsupported_typespec', 'ST', 'pb1')} | PRIS= {('logic_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'ST', 'pb1')}
+TO-GOLDEN | elab DEFPKG OOB - pb1::ct_b1::tm 34:8-34:13 xo_tt | G= {('unsupported_typespec', 'TT', 'pb1')} | PRIS= {('int_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'TT', 'pb1')}
+TO-GOLDEN | elab DEFPKG OOB - pb1::cv_b1::lm 50:8-50:12 xo_l | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | elab DEFPKG OOB - pb1::cv_b1::pm 47:8-47:12 xo_p | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | elab DEFPKG OOB - pb1::cv_b1::vm 44:8-44:12 xo_v | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | elab DEFPKG OOB - pb1::cw_b1::wm 63:14-63:18 xo_w | G= {('unsupported_typespec', 'WT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'pb1')}
+TO-GOLDEN | elab ELABPKG IB - pb1::c3_b1::qm 71:8-71:12 xo_q | G= {('unsupported_typespec', 'QT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'QT', 'pb1')}
+TO-GOLDEN | elab ELABPKG IB - pb1::ce_b1::em 26:8-26:12 xo_e | G= {('unsupported_typespec', 'ET', 'pb1')} | PRIS= {('enum_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'ET', 'pb1')}
+TO-GOLDEN | elab ELABPKG IB - pb1::cs_b1::sm 18:8-18:12 xo_s | G= {('unsupported_typespec', 'ST', 'pb1')} | PRIS= {('logic_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'ST', 'pb1')}
+TO-GOLDEN | elab ELABPKG IB - pb1::ct_b1::tm 34:8-34:13 xo_tt | G= {('unsupported_typespec', 'TT', 'pb1')} | PRIS= {('int_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'TT', 'pb1')}
+TO-GOLDEN | elab ELABPKG IB - pb1::cv_b1::lm 50:8-50:12 xo_l | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | elab ELABPKG IB - pb1::cv_b1::pm 47:8-47:12 xo_p | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | elab ELABPKG IB - pb1::cv_b1::vm 44:8-44:12 xo_v | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | elab ELABPKG IB - pb1::cw_b1::wm 63:14-63:18 xo_w | G= {('unsupported_typespec', 'WT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'pb1')}
+TO-GOLDEN | elab TOPMOD IB - pb1::c3_b1::qm 71:8-71:12 xo_q | G= {('unsupported_typespec', 'QT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'QT', 'pb1')}
+TO-GOLDEN | elab TOPMOD IB - pb1::ce_b1::em 26:8-26:12 xo_e | G= {('unsupported_typespec', 'ET', 'pb1')} | PRIS= {('enum_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'ET', 'pb1')}
+TO-GOLDEN | elab TOPMOD IB - pb1::cs_b1::sm 18:8-18:12 xo_s | G= {('unsupported_typespec', 'ST', 'pb1')} | PRIS= {('logic_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'ST', 'pb1')}
+TO-GOLDEN | elab TOPMOD IB - pb1::ct_b1::tm 34:8-34:13 xo_tt | G= {('unsupported_typespec', 'TT', 'pb1')} | PRIS= {('int_typespec', '-', 'pb1')} | PAT= {('unsupported_typespec', 'TT', 'pb1')}
+TO-GOLDEN | elab TOPMOD IB - pb1::cv_b1::lm 50:8-50:12 xo_l | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | elab TOPMOD IB - pb1::cv_b1::pm 47:8-47:12 xo_p | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | elab TOPMOD IB - pb1::cv_b1::vm 44:8-44:12 xo_v | G= {('unsupported_typespec', 'VT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pb1')}
+TO-GOLDEN | elab TOPMOD IB - pb1::cw_b1::wm 63:14-63:18 xo_w | G= {('unsupported_typespec', 'WT', 'pb1')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'WT', 'pb1')}
+STILL | def ELABPKG - - - 30:22-30:24 TT | G= {('int_typespec', 'tdint_b1_t', 'pb1')} | PRIS= {('int_typespec', 'pb1::tdint_b1_t', 'pb1')} | PAT= {('int_typespec', 'pb1::tdint_b1_t', 'pb1')}
+STILL | def ELABPKG IB - pb1::cs_b1::sm_ib 15:31-15:35 ib_s | G= {('struct_typespec', 'pb1::st_b1_t', 'pb1')} | PRIS= {('logic_typespec', '-', '-')} | PAT= {('logic_typespec', '-', '-')}
+STILL | elab ELABPKG - - - 30:22-30:24 TT | G= {('int_typespec', 'tdint_b1_t', 'pb1')} | PRIS= {('int_typespec', 'pb1::tdint_b1_t', 'pb1')} | PAT= {('int_typespec', 'pb1::tdint_b1_t', 'pb1')}
+STILL | elab ELABPKG IB - pb1::cs_b1::sm_ib 15:31-15:35 ib_s | G= {('struct_typespec', 'pb1::st_b1_t', 'pb1')} | PRIS= {('logic_typespec', '-', '-')} | PAT= {('logic_typespec', '-', '-')}
+MISS | def DEFMOD - - - 8:39-8:40 a | G= {('logic_typespec', '-', 'pb1')} | PRIS= None | PAT= None
+MISS | elab DEFMOD - - - 8:39-8:40 a | G= {('logic_typespec', '-', 'pb1')} | PRIS= None | PAT= None
+EXTRA | def OTHER - - - 67:22-67:24 QT | G= None | PRIS= {('class_typespec', 'dbase3', '-'), ('class_typespec', 'dbase1', '-'), ('class_typespec', 'dbase2', '-')} | PAT= {('class_typespec', 'dbase3', '-'), ('class_typespec', 'dbase1', '-'), ('class_typespec', 'dbase2', '-')}
+EXTRA | def TOPMOD - - - 8:39-8:40 a | G= None | PRIS= {('logic_typespec', '-', 'pb1')} | PAT= {('logic_typespec', '-', 'pb1')}
+EXTRA | elab OTHER - - - 67:22-67:24 QT | G= None | PRIS= {('class_typespec', 'dbase3', '-'), ('class_typespec', 'dbase1', '-'), ('class_typespec', 'dbase2', '-')} | PAT= {('class_typespec', 'dbase3', '-'), ('class_typespec', 'dbase1', '-'), ('class_typespec', 'dbase2', '-')}
+EXTRA | elab TOPMOD - - - 8:39-8:40 a | G= None | PRIS= {('logic_typespec', '-', 'pb1')} | PAT= {('logic_typespec', '-', 'pb1')}

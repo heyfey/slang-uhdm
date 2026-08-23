@@ -1,0 +1,22 @@
+LHS:
+decompile:
+unsupported_typespec: (REQ), id:26278, line:270:3, endln:270:6
+|vpiName:REQ
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+
+decompile:
+unsupported_typespec: (REQ), id:26278, line:270:3, endln:270:6
+|vpiName:REQ
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+RHS:
+decompile:
+class_typespec: , id:104934, line:270:3, endln:270:6
+|vpiClassDefn:
+\_class_defn: (uvm_pkg::uvm_sequence_item), id:98565, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/seq/uvm_sequence_item.svh, line:37:1, endln:497:9
+
+decompile:
+class_typespec: , id:104934, line:270:3, endln:270:6
+|vpiClassDefn:
+\_class_defn: (uvm_pkg::uvm_sequence_item), id:98565, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/seq/uvm_sequence_item.svh, line:37:1, endln:497:9

@@ -1,0 +1,39 @@
+AGREE_BOTH	64
+TO-GOLDEN	30
+AWAY	0
+STILL	0
+MOVED-WRONG	0
+MULT-CHANGED	0
+MISS	0
+EXTRA	0
+--- detail
+TO-GOLDEN | def DEFPKG OOB - pv_b6::sh_b6::sm 25:9-25:13 sh_l | G= {('unsupported_typespec', 'SHT', 'pv_b6')} | PRIS= {('int_typespec', '-', 'pv_b6')} | PAT= {('unsupported_typespec', 'SHT', 'pv_b6')}
+TO-GOLDEN | def DEFPKG OOB - pv_b6::sh_b6::sm2 28:9-28:14 sh_l2 | G= {('unsupported_typespec', 'SHT', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'SHT', 'pv_b6')}
+TO-GOLDEN | def DEFPKG OOB - pv_b6::t3_b6::t3 36:14-36:17 b_l | G= {('unsupported_typespec', 'B', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'B', 'pv_b6')}
+TO-GOLDEN | def DEFPKG OOB - pv_b6::t3_b6::t3 36:21-36:24 c_l | G= {('unsupported_typespec', 'C', 'pv_b6')} | PRIS= {('int_typespec', '-', 'pv_b6')} | PAT= {('unsupported_typespec', 'C', 'pv_b6')}
+TO-GOLDEN | def DEFPKG OOB - pv_b6::t3_b6::t3 36:7-36:10 a_l | G= {('unsupported_typespec', 'A', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'A', 'pv_b6')}
+TO-GOLDEN | def DEFPKG OOB - pv_b6::vc_b6::vm 12:8-12:12 vo_v | G= {('unsupported_typespec', 'VT', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pv_b6')}
+TO-GOLDEN | def ELABPKG IB - pv_b6::sh_b6::sm 25:9-25:13 sh_l | G= {('unsupported_typespec', 'SHT', 'pv_b6')} | PRIS= {('int_typespec', '-', 'pv_b6')} | PAT= {('unsupported_typespec', 'SHT', 'pv_b6')}
+TO-GOLDEN | def ELABPKG IB - pv_b6::sh_b6::sm2 28:9-28:14 sh_l2 | G= {('unsupported_typespec', 'SHT', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'SHT', 'pv_b6')}
+TO-GOLDEN | def ELABPKG IB - pv_b6::t3_b6::t3 36:14-36:17 b_l | G= {('unsupported_typespec', 'B', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'B', 'pv_b6')}
+TO-GOLDEN | def ELABPKG IB - pv_b6::t3_b6::t3 36:21-36:24 c_l | G= {('unsupported_typespec', 'C', 'pv_b6')} | PRIS= {('int_typespec', '-', 'pv_b6')} | PAT= {('unsupported_typespec', 'C', 'pv_b6')}
+TO-GOLDEN | def ELABPKG IB - pv_b6::t3_b6::t3 36:7-36:10 a_l | G= {('unsupported_typespec', 'A', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'A', 'pv_b6')}
+TO-GOLDEN | def ELABPKG IB - pv_b6::vc_b6::vm 12:8-12:12 vo_v | G= {('unsupported_typespec', 'VT', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pv_b6')}
+TO-GOLDEN | elab DEFPKG OOB - pv_b6::sh_b6::sm 25:9-25:13 sh_l | G= {('unsupported_typespec', 'SHT', 'pv_b6')} | PRIS= {('int_typespec', '-', 'pv_b6')} | PAT= {('unsupported_typespec', 'SHT', 'pv_b6')}
+TO-GOLDEN | elab DEFPKG OOB - pv_b6::sh_b6::sm2 28:9-28:14 sh_l2 | G= {('unsupported_typespec', 'SHT', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'SHT', 'pv_b6')}
+TO-GOLDEN | elab DEFPKG OOB - pv_b6::t3_b6::t3 36:14-36:17 b_l | G= {('unsupported_typespec', 'B', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'B', 'pv_b6')}
+TO-GOLDEN | elab DEFPKG OOB - pv_b6::t3_b6::t3 36:21-36:24 c_l | G= {('unsupported_typespec', 'C', 'pv_b6')} | PRIS= {('int_typespec', '-', 'pv_b6')} | PAT= {('unsupported_typespec', 'C', 'pv_b6')}
+TO-GOLDEN | elab DEFPKG OOB - pv_b6::t3_b6::t3 36:7-36:10 a_l | G= {('unsupported_typespec', 'A', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'A', 'pv_b6')}
+TO-GOLDEN | elab DEFPKG OOB - pv_b6::vc_b6::vm 12:8-12:12 vo_v | G= {('unsupported_typespec', 'VT', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pv_b6')}
+TO-GOLDEN | elab ELABPKG IB - pv_b6::sh_b6::sm 25:9-25:13 sh_l | G= {('unsupported_typespec', 'SHT', 'pv_b6')} | PRIS= {('int_typespec', '-', 'pv_b6')} | PAT= {('unsupported_typespec', 'SHT', 'pv_b6')}
+TO-GOLDEN | elab ELABPKG IB - pv_b6::sh_b6::sm2 28:9-28:14 sh_l2 | G= {('unsupported_typespec', 'SHT', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'SHT', 'pv_b6')}
+TO-GOLDEN | elab ELABPKG IB - pv_b6::t3_b6::t3 36:14-36:17 b_l | G= {('unsupported_typespec', 'B', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'B', 'pv_b6')}
+TO-GOLDEN | elab ELABPKG IB - pv_b6::t3_b6::t3 36:21-36:24 c_l | G= {('unsupported_typespec', 'C', 'pv_b6')} | PRIS= {('int_typespec', '-', 'pv_b6')} | PAT= {('unsupported_typespec', 'C', 'pv_b6')}
+TO-GOLDEN | elab ELABPKG IB - pv_b6::t3_b6::t3 36:7-36:10 a_l | G= {('unsupported_typespec', 'A', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'A', 'pv_b6')}
+TO-GOLDEN | elab ELABPKG IB - pv_b6::vc_b6::vm 12:8-12:12 vo_v | G= {('unsupported_typespec', 'VT', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pv_b6')}
+TO-GOLDEN | elab TOPMOD IB - pv_b6::sh_b6::sm 25:9-25:13 sh_l | G= {('unsupported_typespec', 'SHT', 'pv_b6')} | PRIS= {('int_typespec', '-', 'pv_b6')} | PAT= {('unsupported_typespec', 'SHT', 'pv_b6')}
+TO-GOLDEN | elab TOPMOD IB - pv_b6::sh_b6::sm2 28:9-28:14 sh_l2 | G= {('unsupported_typespec', 'SHT', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'SHT', 'pv_b6')}
+TO-GOLDEN | elab TOPMOD IB - pv_b6::t3_b6::t3 36:14-36:17 b_l | G= {('unsupported_typespec', 'B', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'B', 'pv_b6')}
+TO-GOLDEN | elab TOPMOD IB - pv_b6::t3_b6::t3 36:21-36:24 c_l | G= {('unsupported_typespec', 'C', 'pv_b6')} | PRIS= {('int_typespec', '-', 'pv_b6')} | PAT= {('unsupported_typespec', 'C', 'pv_b6')}
+TO-GOLDEN | elab TOPMOD IB - pv_b6::t3_b6::t3 36:7-36:10 a_l | G= {('unsupported_typespec', 'A', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'A', 'pv_b6')}
+TO-GOLDEN | elab TOPMOD IB - pv_b6::vc_b6::vm 12:8-12:12 vo_v | G= {('unsupported_typespec', 'VT', 'pv_b6')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'VT', 'pv_b6')}

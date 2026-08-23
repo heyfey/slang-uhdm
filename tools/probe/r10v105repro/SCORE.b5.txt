@@ -1,0 +1,40 @@
+AGREE_BOTH	58
+TO-GOLDEN	14
+AWAY	0
+STILL	5
+MOVED-WRONG	0
+MULT-CHANGED	0
+MISS	2
+EXTRA	10
+--- detail
+TO-GOLDEN | def DEFPKG OOB - cons_b5::cprod_b5::pf 55:8-55:14 prod_l | G= {('unsupported_typespec', 'PT', 'prod_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'PT', 'prod_b5')}
+TO-GOLDEN | def DEFPKG OOB - ctor_b5::cctor_b5::m 34:8-34:14 meth_l | G= {('unsupported_typespec', 'CT', 'ctor_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CT', 'ctor_b5')}
+TO-GOLDEN | def DEFPKG OOB - prod_b5::cprod_b5::pf 55:8-55:14 prod_l | G= {('unsupported_typespec', 'PT', 'prod_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'PT', 'prod_b5')}
+TO-GOLDEN | def ELABPKG IB - ctor_b5::cctor_b5::m 34:8-34:14 meth_l | G= {('unsupported_typespec', 'CT', 'ctor_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CT', 'ctor_b5')}
+TO-GOLDEN | def ELABPKG IB - prod_b5::cprod_b5::pf 55:8-55:14 prod_l | G= {('unsupported_typespec', 'PT', 'prod_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'PT', 'prod_b5')}
+TO-GOLDEN | def ELABPKG OOB - cons_b5::cprod_b5::pf 55:8-55:14 prod_l | G= {('unsupported_typespec', 'PT', 'prod_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'PT', 'prod_b5')}
+TO-GOLDEN | elab DEFPKG OOB - cons_b5::cprod_b5::pf 55:8-55:14 prod_l | G= {('unsupported_typespec', 'PT', 'prod_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'PT', 'prod_b5')}
+TO-GOLDEN | elab DEFPKG OOB - ctor_b5::cctor_b5::m 34:8-34:14 meth_l | G= {('unsupported_typespec', 'CT', 'ctor_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CT', 'ctor_b5')}
+TO-GOLDEN | elab DEFPKG OOB - prod_b5::cprod_b5::pf 55:8-55:14 prod_l | G= {('unsupported_typespec', 'PT', 'prod_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'PT', 'prod_b5')}
+TO-GOLDEN | elab ELABPKG IB - ctor_b5::cctor_b5::m 34:8-34:14 meth_l | G= {('unsupported_typespec', 'CT', 'ctor_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CT', 'ctor_b5')}
+TO-GOLDEN | elab ELABPKG IB - prod_b5::cprod_b5::pf 55:8-55:14 prod_l | G= {('unsupported_typespec', 'PT', 'prod_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'PT', 'prod_b5')}
+TO-GOLDEN | elab ELABPKG OOB - cons_b5::cprod_b5::pf 55:8-55:14 prod_l | G= {('unsupported_typespec', 'PT', 'prod_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'PT', 'prod_b5')}
+TO-GOLDEN | elab TOPMOD IB - ctor_b5::cctor_b5::m 34:8-34:14 meth_l | G= {('unsupported_typespec', 'CT', 'ctor_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CT', 'ctor_b5')}
+TO-GOLDEN | elab TOPMOD OOB - cons_b5::cprod_b5::pf 55:8-55:14 prod_l | G= {('unsupported_typespec', 'PT', 'prod_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'PT', 'prod_b5')}
+STILL | def DEFPKG OOB - late_b5::clate_b5::lf 44:13-44:19 late_l | G= {('int_typespec', 'far_b5::LATE_B5', 'far_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def ELABPKG IB - late_b5::clate_b5::lf 44:13-44:19 late_l | G= {('int_typespec', 'far_b5::LATE_B5', 'far_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab DEFPKG OOB - late_b5::clate_b5::lf 44:13-44:19 late_l | G= {('int_typespec', 'far_b5::LATE_B5', 'far_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab ELABPKG IB - late_b5::clate_b5::lf 44:13-44:19 late_l | G= {('int_typespec', 'far_b5::LATE_B5', 'far_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab TOPMOD IB - late_b5::clate_b5::lf 44:13-44:19 late_l | G= {('int_typespec', 'far_b5::LATE_B5', 'far_b5')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+MISS | def OTHER OOB - cun_b5::uf 21:10-21:16 uo_far | G= {('unsupported_typespec', 'UB5FAR', '-')} | PRIS= None | PAT= None
+MISS | elab OTHER OOB - cun_b5::uf 21:10-21:16 uo_far | G= {('unsupported_typespec', 'UB5FAR', '-')} | PRIS= None | PAT= None
+EXTRA | def DEFCLASS IB - work@cun_b5::uf 21:10-21:16 uo_far | G= None | PRIS= {('class_typespec', 'dun_b5', '-')} | PAT= {('class_typespec', 'dun_b5', '-')}
+EXTRA | def DEFPKG - - - 31:8-31:14 ctor_l | G= None | PRIS= {('class_typespec', 'dctor_b5', 'ctor_b5')} | PAT= {('class_typespec', 'dctor_b5', 'ctor_b5')}
+EXTRA | def DEFPKG OOB - ctor_b5::cctor_b5::new 31:8-31:14 ctor_l | G= None | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CT', 'ctor_b5')}
+EXTRA | def ELABPKG - - - 31:8-31:14 ctor_l | G= None | PRIS= {('class_typespec', 'dctor_b5', 'ctor_b5')} | PAT= {('class_typespec', 'dctor_b5', 'ctor_b5')}
+EXTRA | def ELABPKG IB - ctor_b5::cctor_b5::new 31:8-31:14 ctor_l | G= None | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CT', 'ctor_b5')}
+EXTRA | elab DEFCLASS IB - work@cun_b5::uf 21:10-21:16 uo_far | G= None | PRIS= {('class_typespec', 'dun_b5', '-')} | PAT= {('class_typespec', 'dun_b5', '-')}
+EXTRA | elab DEFPKG - - - 31:8-31:14 ctor_l | G= None | PRIS= {('class_typespec', 'dctor_b5', 'ctor_b5')} | PAT= {('class_typespec', 'dctor_b5', 'ctor_b5')}
+EXTRA | elab DEFPKG OOB - ctor_b5::cctor_b5::new 31:8-31:14 ctor_l | G= None | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CT', 'ctor_b5')}
+EXTRA | elab ELABPKG - - - 31:8-31:14 ctor_l | G= None | PRIS= {('class_typespec', 'dctor_b5', 'ctor_b5')} | PAT= {('class_typespec', 'dctor_b5', 'ctor_b5')}
+EXTRA | elab ELABPKG IB - ctor_b5::cctor_b5::new 31:8-31:14 ctor_l | G= None | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'CT', 'ctor_b5')}

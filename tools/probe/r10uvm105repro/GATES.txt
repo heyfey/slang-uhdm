@@ -1,0 +1,145 @@
+r10uvm105 — THE GATE BATTERY.  The OFFICIAL `uhdm-cmp` and
+`scripts/verify_golden.py` are the only judges below.  Build: Release, -j 2.
+Sweeps: --jobs 2, MY OWN --out/--workdir, `SLANG_UHDM` exported to the frozen
+binary and every cmds.txt audited BY PATH.  LHS is ALWAYS golden.
+
+(1) BUILD BOTH, md5 SEPARATELY
+    pristine  9bfe3c01602ee7e873484f3974ec8348  — reproduces the main tree's
+              build/slang-uhdm at 50c3880 BYTE FOR BYTE
+    patched   f238285deb8f75aded1396f9ca6273ae
+    both frozen `chmod 555` under /tmp/r10uvm105_bin/
+    (the patched build recompiled exactly one TU: src/TaskFuncEmit.cpp)
+
+(2) GOLDEN DUMP TESTS, SLANG_UHDM exported explicitly to EACH binary
+    patched    PASS 23  FAIL 0
+    pristine   PASS 23  FAIL 0
+    /bin/false PASS  0  FAIL 23      (negative control: the harness can fail)
+
+(3) uhdm2rtlil, BOTH MODES, ct8rows (status AND dump column)
+    testflags vs results/gate_uhdm2rtlil.csv     PASS, every row byte-identical
+    testflags vs MY OWN pristine sweep CSV       PASS
+    default   vs MY OWN pristine sweep CSV       PASS
+    cmds.txt audit: the ONLY slang binary named anywhere in the workdir is
+      /tmp/r10uvm105_bin/pat.bin
+    byteverify SELFCHECK=1: PATH_SETS_IDENTICAL (1358), MOVERS 0 / 1358,
+      SELFCHECK 1357/1358 flagged (the instrument can see)
+
+(4) surelog corpus, --mode both, ct8rows
+    vs results/golden_surelog.csv   PASS, 0 differing rows over 1588
+    vs MY OWN pristine sweep CSV    PASS
+    NO ROW CONVERTED.  Status histogram, patched, IDENTICAL to pristine:
+      default   CMP_EQUAL 471  SLANG_REJECT 283  SURELOG_FAIL 25  CMP_NOTEQUAL 10  DEFERRED 5
+      testflags CMP_EQUAL 466  SLANG_REJECT 284  SURELOG_FAIL 23  CMP_NOTEQUAL  9  DEFERRED 5
+                NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+    cmds.txt audit: only /tmp/r10uvm105_bin/pat.bin
+
+(5) byteverify SELFCHECK=1, surelog
+    PATH_SETS_IDENTICAL (956), MOVERS 9 / 956, SELFCHECK 955/956 flagged.
+    The 9 movers are EXACTLY the 9 PREDICTED BY NAME in PREDICTION.txt, no more:
+      {default,testflags}/{SeqDriver,SimpleUVM,MiniAmiq,BuildUVMPkg}
+      default/Scoreboard
+    ATTRIBUTION, ORDER-BLIND (attrib105.sh: whole dump, path-normalised, object
+    ids stripped, SORTED — so the Scoreboard/default COIN contributes nothing):
+      SimpleUVM  def/tf, Scoreboard def, BuildUVMPkg def/tf   108 changed lines
+      SeqDriver  def/tf, MiniAmiq def/tf                      216 changed lines
+      and in EVERY one of the nine the changed lines are ONLY
+        24 (resp. 48) `< class_typespec`  ->  `> unsupported_typespec`
+        12 (resp. 24) `< |vpiClassDefn:` + `< class_defn`
+                      ->  `> |vpiInstance:` + `> package`
+        the `> |vpiName:REQ` / `> |vpiName:RSP` lines
+      naming ONLY the six fence source lines
+        164 / 207 / 270 / 278 / 351 / 754 (uvm-1.2), plus the 28 / 37 lines of
+        the package and class_defn they point AT
+        (BuildUVMPkg: 53993 / 54074 / 54356 / 54397 / 54468 / 56929, plus
+         7351 / 51683).
+      NO OTHER OBJECT IN ANY DATABASE CHANGED.
+
+    HEADS (rowheads.sh, official uhdm-cmp, `grep -c '^LHS:'`)
+      row-mode                        pristine   patched   heads
+      SimpleUVM  default / testflags     22        17        1   R0 CLEARED, new head
+      Scoreboard default                 22        29        1   R0 CLEARED, mask removed
+      SeqDriver  default / testflags     64        64        1   unchanged (uvm104's row)
+      MiniAmiq   default / testflags    348       348        1   unchanged
+      BuildUVMPkg default / testflags     72        72        1   unchanged
+      Earlgrey_0_1 default / testflags    46        46        1   unchanged
+      Rggen      default                   0         0        0   still CMP_EQUAL
+      (SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is expected)
+
+(6) CANARIES
+    canaries.sh  surelog     ok=52 changed=0 absent=0
+    canaries.sh  uhdm2rtlil  ok=8  changed=0 absent=0
+    EXPECT_UNKNOWN=1 ctcan2.sh surelog     PASS
+    EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil  PASS
+    canaudit.sh canaries.sh ctcan2.sh      PASS
+    PROTECTED DATABASES, md5 of slang.uhdm, pristine vs patched, both modes:
+      InterfaceModPort   59a365f3ce2c  SAME
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME
+      YosysOldOr         d68e0796d62c  SAME
+      SVSwitch           4842211c4030  SAME  (matches the pinned value)
+      YosysVerx          6ccda350c24a  SAME  (matches the pinned value)
+
+(7) BOUNDARY GATE (bound105.sh), a COPY of the WHOLE probe tree, NO path filter,
+    .sv AND .v, BOTH views, BOTH modes.  Children get </dev/null, the arm list
+    rides fd 3, PROCESSED is asserted against LISTED, scratch is keyed on the
+    RELATIVE path.
+      MODE=file VIEW=def    PROCESSED=3288 LISTED=3288 DIFFER=6  REJECT 132/132
+      MODE=file VIEW=elab   PROCESSED=3288 LISTED=3288 DIFFER=6  REJECT 142/142
+      MODE=dir  VIEW=def    PROCESSED=1475 LISTED=1475 DIFFER=5  REJECT 115/115
+      MODE=dir  VIEW=elab   PROCESSED=1475 LISTED=1475 DIFFER=5  REJECT 120/120
+      no ASYMMETRIC REJECT in any of the four runs (every reject is symmetric,
+      the segfaulting arms included).
+    THE DIFFERING UNITS, EVERY ONE ATTRIBUTED:
+      ./r10uvm105repro/g105_a1.sv, g105_a2.sv, g105_a3.sv
+          THIS PASS'S OWN ARMS — the POSITIVE CONTROL that the gate can see.
+      ./r10uvm58repro/a6_extern.sv          the law's population on legal SV.
+          SCORED AGAINST GOLDEN (grid105.sh, both views): 8 LOCAL cells
+          KIND -> AGREE, 0 AWAY.  Its 2 RET cells stay KIND (residue R-SCOPED).
+      ./r10uvm87repro/v87_a3_oob.sv         the law's population on legal SV.
+          SCORED AGAINST GOLDEN: 40 LOCAL cells KIND -> AGREE, 0 AWAY.
+          What is LEFT is measured, not assumed: `l_oob2`, an out-of-body
+          NESTED-BLOCK local (residue R-BLK, a different emission site), and the
+          `o87::REQ` return type (residue R-SCOPED).
+      ./r10buvm22repro/g22.sv               NOT THIS LAW — a PRE-EXISTING
+          POINTER LEAK.  The whole diff is six lines, all of them the VALUE of
+          two constants inside an ASSOCIATIVE-array typedef's range
+          (`typedef C22 ka_cls_t[string];`, g22.sv:70/71):
+            pristine  UINT:22235321 / 22234465
+            patched   UINT:22239417 / 22238561
+          Both binaries are non-PIE, and `nm` resolves BOTH numbers to the SAME
+          static object at the SAME offset — `slang::ast::builtins::Builtins::
+          Instance + 1337` in each binary; the .bss simply sits one page (4096)
+          higher in the patched one.  The values are DETERMINISTIC across
+          repeated runs of each binary (3 runs each, identical), and the arm's
+          diff contains NO typespec line at all, so the law did not fire there.
+          A raw pointer is being written into a constant's UINT value; recorded
+          as residue R-PTR.
+      ./r10uvm75repro, ./r10uvm76repro  (MODE=dir only)  NOT THIS LAW — the
+          pre-existing `vpiTaskFunc` LIST-ORDER coin (RESUME §9).  PROVED, not
+          assumed: the PRISTINE binary alone gives a DIFFERENT dump on runs 1/2/3
+          of the same arm, and the ORDER-BLIND (sorted) diff of pristine vs
+          patched is 0 LINES for both directories.
+      ./r10uvm87repro is a symmetric BOTH-REJECT in MODE=dir (its arms declare
+          colliding packages), which is why it appears only in MODE=file.
+
+(8) GOLDEN-VS-GOLDEN CALIBRATION FIRST (goldcen105.sh)
+    Over the five UVM tests that carry both modes, the two goldens are
+    independent Surelog runs of the same design:
+      calibrated pairs 5, pairs that differ 1, EXPM_N = 3 rows
+      (Scoreboard: a TPARAM pair and one TOPMOD class_var — NONE in this law's
+       family, so EXPM_N = 0 for the family every number here is read against).
+    Over the WHOLE surelog corpus the same script reports 686/755 pairs
+    differing: for most tests the `testflags` command line is a DIFFERENT
+    DESIGN.  That number calibrates nothing here and the script says so.
+
+(9) THE CENSUS, GOLDEN vs OURS, over the NINE databases (r10uvm105cen +
+    unsup105.py, family REQ/RSP, SITE=LOCAL)
+      database                  PRISTINE                  PATCHED
+      SimpleUVM  def / tf       KIND 12                   AGREE 12
+      Scoreboard def            KIND 12                   AGREE 12
+      BuildUVMPkg def / tf      KIND 12                   AGREE 12
+      SeqDriver  def / tf       KIND 24  MISS 12          AGREE 24  MISS 12
+      MiniAmiq   def / tf       KIND 24  MISS 12          AGREE 24  MISS 12
+    TO-GOLDEN 156 objects, AWAY 0, STILL 48 (the MISS rows — golden's extra
+    import-copy multiplicity, residue R-M, which was MISS before as well).
+    ZERO `EXTRA`, `NAME` and `INST` rows anywhere: every object we emit in this
+    family now carries golden's KIND, golden's NAME and golden's vpiInstance.

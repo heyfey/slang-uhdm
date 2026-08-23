@@ -1,0 +1,54 @@
+r10uvm105 — THE FENCE, WRITTEN FROM PRISTINE DATABASES ONLY, BEFORE THE PATCHED
+BINARY WAS SWEPT.  MEASUREMENT ONLY; the official uhdm-cmp and
+scripts/verify_golden.py are the judges.  LHS is ALWAYS golden.
+
+INSTRUMENT: fence105.sh <sweep workdir> <cen bin> <out.tsv>, run over MY OWN
+pristine sweep workdirs (built with the frozen pristine binary
+md5 9bfe3c01602ee7e873484f3974ec8348, whose cmds.txt name no other binary).
+
+WHAT IT ENUMERATES.  Every site where golden holds an `unsupported_typespec` on
+a SUBROUTINE-BODY LOCAL and we do not, split by the census's own `TP` lines
+(every class type-parameter name in the same database):
+   HIT    the placeholder's name IS a class type parameter — the sites
+          § oobClassTypeParamLocalUnsupported105 moves.  A database with none
+          MUST NOT move; one with at least one MUST.
+   OTHER  the same shape for a name that is NOT a type parameter — `process`,
+          `uvm_reg_field_cb_iter`, `uvm_cmdline_parsed_arg_t`,
+          `m_verbosity_setting`, `sva_info`, `index`, `actions`, … — a
+          DIFFERENT family (residue R-P), untouched by this pass and listed so
+          the fence can never be mistaken for it.
+
+  corpus       measured  SKIP  OTHER sites          HIT sites  DBs that MUST move
+  surelog          956    617  220 in 9 databases          54                   9
+  uhdm2rtlil      1358    104    0 in 0 databases           0    0  <- the predicted NONE
+
+THE NINE DATABASES, BY NAME:
+  default/BuildUVMPkg-bf853d43     testflags/BuildUVMPkg-bf853d43
+  default/MiniAmiq-544c7f61        testflags/MiniAmiq-544c7f61
+  default/SeqDriver-32af76aa       testflags/SeqDriver-32af76aa
+  default/SimpleUVM-1dc93a62       testflags/SimpleUVM-1dc93a62
+  default/Scoreboard-59431470      (testflags/Scoreboard is SLANG_REJECT — no
+                                    database on our side, so it cannot move)
+
+THE SIX SITES, identical in every one of them (uvm-1.2):
+  seq/uvm_sequencer.svh:164            uvm_sequencer::stop_sequences     REQ t;
+  seq/uvm_sequencer.svh:207            uvm_sequencer::get_next_item      REQ req_item;
+  seq/uvm_sequencer.svh:278            uvm_sequencer::item_done          REQ t;
+  seq/uvm_sequence_library.svh:754     uvm_sequence_library::execute     REQ req_item;
+  seq/uvm_sequencer_param_base.svh:270 …::send_request                   REQ param_t;  <- THE HEAD
+  seq/uvm_sequencer_param_base.svh:351 …::analysis_write                 RSP response;
+BuildUVMPkg names the same six at its pp_output line numbers 53993 / 54074 /
+54356 / 54397 / 54468 / 56929.
+
+COPIES PER DATABASE (golden, and therefore the object count that must move):
+  SimpleUVM, Scoreboard, BuildUVMPkg   2 copies per site  -> 12 objects
+  SeqDriver, MiniAmiq                  4 copies per site  -> 24 objects
+                                       (golden holds 6; the two we do not emit
+                                        are the pre-existing import-copy
+                                        multiplicity residue R-M)
+  TOTAL PREDICTED: 156 objects over 9 databases, 0 over uhdm2rtlil.
+
+VERDICT AFTER THE SWEEP (see GATES.txt): byteverify reported MOVERS 9 / 956 on
+surelog and 0 / 1358 on uhdm2rtlil — exactly this list, no more; and the
+order-blind whole-dump attribution of every one of the nine names ONLY these six
+source lines.

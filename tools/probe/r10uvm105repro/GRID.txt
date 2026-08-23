@@ -1,0 +1,792 @@
+r10uvm105 — THE GOLDEN GRID, cell by cell, BOTH VIEWS.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Built by grid105.sh: three databases per view (golden / pristine / patched),
+every command echoed with its own rc into <workdir>/cmds.txt.
+
+Columns: SITE VIEW OOB OWNER NAME LC TYPESPEC-KIND TYPESPEC-NAME INSTANCE
+
+================ ARM g105_a1.sv ================
+---- cmds.txt rc audit:
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o ga1/g_def g105_a1.sv
+rc=4 /tmp/r10uvm105_bin/pris.bin g105_a1.sv -o ga1/a_def.uhdm
+rc=4 /tmp/r10uvm105_bin/pat.bin g105_a1.sv -o ga1/b_def.uhdm
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o ga1/g_elab g105_a1.sv
+rc=4 /tmp/r10uvm105_bin/pris.bin g105_a1.sv --elabuhdm -o ga1/a_elab.uhdm
+rc=4 /tmp/r10uvm105_bin/pat.bin g105_a1.sv --elabuhdm -o ga1/b_elab.uhdm
+
+---- VIEW=def  GOLDEN
+FORMAL  DEFCLASS  IB   work@mailbox::new                  bound       3:23-3:28    int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::get                keyCount    63:18-63:26  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::new                keyCount    57:22-57:30  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::put                keyCount    60:18-60:26  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::try_get            keyCount    66:30-66:38  int_typespec           -                      -
+FORMAL  DEFPKG    OOB  p105::c105::oob_all                fa          55:39-55:41  unsupported_typespec   T                      p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_all                fb          55:51-55:53  unsupported_typespec   U                      p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_all                fc          55:63-55:65  unsupported_typespec   W                      p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_all                fd          56:42-56:44  class_typespec         my_t                   -
+FORMAL  DEFPKG    OOB  p105::c105::oob_all                fe          56:58-56:60  class_typespec         d105a                  p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_all                ff          57:48-57:50  int_typespec           plain105_t             p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_ret                fa          69:42-69:44  unsupported_typespec   T                      p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_stat               fa          82:40-82:42  unsupported_typespec   T                      p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_task               fa          78:31-78:33  unsupported_typespec   T                      p105
+FORMAL  ELABPKG   IB   p105::c105::ib_all                 fa          27:35-27:37  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::ib_all                 fb          27:47-27:49  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::ib_all                 fc          27:59-27:61  int_typespec           -                      -
+FORMAL  ELABPKG   IB   p105::c105::ib_all                 fd          28:38-28:40  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::ib_all                 fe          28:54-28:56  class_typespec         d105a                  -
+FORMAL  ELABPKG   IB   p105::c105::ib_all                 ff          28:75-28:77  int_typespec           plain105_t             p105
+FORMAL  ELABPKG   IB   p105::c105::ib_ret                 fa          39:31-39:33  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fa          45:43-45:45  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fa          55:39-55:41  unsupported_typespec   T                      p105
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fb          45:55-45:57  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fb          55:51-55:53  unsupported_typespec   U                      p105
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fc          45:67-45:69  int_typespec           -                      -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fc          55:63-55:65  unsupported_typespec   W                      p105
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fd          46:46-46:48  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fd          56:42-56:44  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fe          46:62-46:64  class_typespec         d105a                  -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fe          56:58-56:60  class_typespec         d105a                  p105
+FORMAL  ELABPKG   IB   p105::c105::oob_all                ff          47:52-47:54  int_typespec           plain105_t             p105
+FORMAL  ELABPKG   IB   p105::c105::oob_all                ff          57:48-57:50  int_typespec           plain105_t             p105
+FORMAL  ELABPKG   IB   p105::c105::oob_ret                fa          48:43-48:45  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_ret                fa          69:42-69:44  unsupported_typespec   T                      p105
+FORMAL  ELABPKG   IB   p105::c105::oob_stat               fa          51:50-51:52  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_stat               fa          82:40-82:42  unsupported_typespec   T                      p105
+FORMAL  ELABPKG   IB   p105::c105::oob_task               fa          50:44-50:46  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_task               fa          78:31-78:33  unsupported_typespec   T                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_cls      62:16-62:22  class_typespec         -                      -
+LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_pln      63:16-63:22  int_typespec           plain105_t             p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_t        58:16-58:20  unsupported_typespec   T                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_td       61:16-61:21  class_typespec         my_t                   -
+LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_u        59:16-59:20  unsupported_typespec   U                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_w        60:16-60:20  unsupported_typespec   W                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_loc                zo_t        75:16-75:20  unsupported_typespec   T                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_stat               so_t        83:16-83:20  unsupported_typespec   T                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_task               to_t        79:16-79:20  unsupported_typespec   T                      p105
+LOCAL   ELABPKG   IB   p105::c105::ib_all                 lo_cls      33:18-33:24  class_typespec         -                      -
+LOCAL   ELABPKG   IB   p105::c105::ib_all                 lo_pln      34:18-34:24  int_typespec           plain105_t             p105
+LOCAL   ELABPKG   IB   p105::c105::ib_all                 lo_t        29:18-29:22  class_typespec         my_t                   -
+LOCAL   ELABPKG   IB   p105::c105::ib_all                 lo_td       32:18-32:23  class_typespec         my_t                   -
+LOCAL   ELABPKG   IB   p105::c105::ib_all                 lo_u        30:18-30:22  class_typespec         my_t                   -
+LOCAL   ELABPKG   IB   p105::c105::ib_all                 lo_w        31:18-31:22  int_typespec           -                      -
+LOCAL   ELABPKG   IB   p105::c105::ib_ret                 r_t         40:9-40:12   class_typespec         my_t                   -
+LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_cls      62:16-62:22  class_typespec         -                      -
+LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_pln      63:16-63:22  int_typespec           plain105_t             p105
+LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_t        58:16-58:20  unsupported_typespec   T                      p105
+LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_td       61:16-61:21  class_typespec         my_t                   -
+LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_u        59:16-59:20  unsupported_typespec   U                      p105
+LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_w        60:16-60:20  unsupported_typespec   W                      p105
+LOCAL   ELABPKG   IB   p105::c105::oob_loc                zo_t        75:16-75:20  unsupported_typespec   T                      p105
+LOCAL   ELABPKG   IB   p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+LOCAL   ELABPKG   IB   p105::c105::oob_stat               so_t        83:16-83:20  unsupported_typespec   T                      p105
+LOCAL   ELABPKG   IB   p105::c105::oob_task               to_t        79:16-79:20  unsupported_typespec   T                      p105
+PROP    ELABPKG   -    -                                  dx          9:22-9:24    int_typespec           -                      -
+PROP    ELABPKG   -    -                                  ex          10:22-10:24  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  pr_cls      23:17-23:23  class_typespec         d105a                  -
+PROP    ELABPKG   -    -                                  pr_pln      24:17-24:23  int_typespec           plain105_t             p105
+PROP    ELABPKG   -    -                                  pr_t        19:17-19:21  class_typespec         my_t                   -
+PROP    ELABPKG   -    -                                  pr_td       22:17-22:22  class_typespec         my_t                   -
+PROP    ELABPKG   -    -                                  pr_u        20:17-20:21  class_typespec         my_t                   -
+PROP    ELABPKG   -    -                                  pr_w        21:17-21:21  int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::new                  -           3:23-3:28    class_typespec         -                      -
+RET     DEFCLASS  IB   work@mailbox::num                  -           6:14-6:17    int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::try_get              -           18:14-18:17  int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::try_peek             -           24:14-24:17  int_typespec           -                      -
+RET     DEFCLASS  IB   work@process::self                 -           34:21-34:28  class_typespec         -                      -
+RET     DEFCLASS  IB   work@process::status               -           37:14-37:19  enum_typespec          state                  -
+RET     DEFCLASS  IB   work@semaphore::new                -           57:22-57:30  class_typespec         -                      -
+RET     DEFCLASS  IB   work@semaphore::try_get            -           66:14-66:17  int_typespec           -                      -
+RET     DEFPKG    OOB  p105::c105::oob_ret                -           69:12-69:19  unsupported_typespec   c105::T                p105
+RET     ELABPKG   IB   p105::c105::ib_all                 -           27:14-27:19  class_typespec         -                      -
+RET     ELABPKG   IB   p105::c105::ib_ret                 -           39:14-39:15  class_typespec         my_t                   -
+RET     ELABPKG   IB   p105::c105::oob_ret                -           48:21-48:22  class_typespec         my_t                   -
+RET     ELABPKG   IB   p105::c105::oob_ret                -           69:12-69:19  unsupported_typespec   c105::T                p105
+TPARAM  ELABPKG   -    -                                  T           14:21-14:22  class_typespec         my_t                   -
+TPARAM  ELABPKG   -    -                                  U           14:37-14:38  class_typespec         my_t                   -
+TPARAM  ELABPKG   -    -                                  W           14:49-14:50  int_typespec           -                      -
+VAR     TOPMOD    -    -                                  h_gen       91:26-91:31  class_typespec         c105                   -
+VAR     TOPMOD    -    -                                  h_spec      90:26-90:32  class_typespec         c105                   -
+---- VIEW=def  OURS (pristine) vs OURS (patched): rows that DIFFER
+    42c42
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_t        58:16-58:20  class_typespec         -                      -
+    ---
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_t        58:16-58:20  unsupported_typespec   T                      p105
+    44,49c44,49
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_u        59:16-59:20  class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_w        60:16-60:20  int_typespec           -                      p105
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_loc                zo_t        75:16-75:20  class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_ret                yo_t        70:7-70:11   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_stat               so_t        83:16-83:20  class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_task               to_t        79:16-79:20  class_typespec         -                      -
+    ---
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_u        59:16-59:20  unsupported_typespec   U                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_w        60:16-60:20  unsupported_typespec   W                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_loc                zo_t        75:16-75:20  unsupported_typespec   T                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_stat               so_t        83:16-83:20  unsupported_typespec   T                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_task               to_t        79:16-79:20  unsupported_typespec   T                      p105
+    59c59
+    < LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_t        58:16-58:20  class_typespec         -                      -
+    ---
+    > LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_t        58:16-58:20  unsupported_typespec   T                      p105
+    61,66c61,66
+    < LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_u        59:16-59:20  class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_w        60:16-60:20  int_typespec           -                      p105
+    < LOCAL   ELABPKG   IB   p105::c105::oob_loc                zo_t        75:16-75:20  class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_ret                yo_t        70:7-70:11   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_stat               so_t        83:16-83:20  class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_task               to_t        79:16-79:20  class_typespec         -                      -
+    ---
+    > LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_u        59:16-59:20  unsupported_typespec   U                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_w        60:16-60:20  unsupported_typespec   W                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_loc                zo_t        75:16-75:20  unsupported_typespec   T                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_stat               so_t        83:16-83:20  unsupported_typespec   T                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_task               to_t        79:16-79:20  unsupported_typespec   T                      p105
+
+---- VIEW=elab  GOLDEN
+FORMAL  DEFCLASS  IB   work@mailbox::new                  bound       3:23-3:28    int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::get                keyCount    63:18-63:26  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::new                keyCount    57:22-57:30  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::put                keyCount    60:18-60:26  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::try_get            keyCount    66:30-66:38  int_typespec           -                      -
+FORMAL  DEFPKG    OOB  p105::c105::oob_all                fa          55:39-55:41  unsupported_typespec   T                      p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_all                fb          55:51-55:53  unsupported_typespec   U                      p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_all                fc          55:63-55:65  unsupported_typespec   W                      p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_all                fd          56:42-56:44  class_typespec         my_t                   -
+FORMAL  DEFPKG    OOB  p105::c105::oob_all                fe          56:58-56:60  class_typespec         d105a                  p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_all                ff          57:48-57:50  int_typespec           plain105_t             p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_ret                fa          69:42-69:44  unsupported_typespec   T                      p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_stat               fa          82:40-82:42  unsupported_typespec   T                      p105
+FORMAL  DEFPKG    OOB  p105::c105::oob_task               fa          78:31-78:33  unsupported_typespec   T                      p105
+FORMAL  ELABPKG   IB   p105::c105::ib_all                 fa          27:35-27:37  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::ib_all                 fb          27:47-27:49  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::ib_all                 fc          27:59-27:61  int_typespec           -                      -
+FORMAL  ELABPKG   IB   p105::c105::ib_all                 fd          28:38-28:40  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::ib_all                 fe          28:54-28:56  class_typespec         d105a                  -
+FORMAL  ELABPKG   IB   p105::c105::ib_all                 ff          28:75-28:77  int_typespec           plain105_t             p105
+FORMAL  ELABPKG   IB   p105::c105::ib_ret                 fa          39:31-39:33  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fa          45:43-45:45  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fa          55:39-55:41  unsupported_typespec   T                      p105
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fb          45:55-45:57  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fb          55:51-55:53  unsupported_typespec   U                      p105
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fc          45:67-45:69  int_typespec           -                      -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fc          55:63-55:65  unsupported_typespec   W                      p105
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fd          46:46-46:48  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fd          56:42-56:44  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fe          46:62-46:64  class_typespec         d105a                  -
+FORMAL  ELABPKG   IB   p105::c105::oob_all                fe          56:58-56:60  class_typespec         d105a                  p105
+FORMAL  ELABPKG   IB   p105::c105::oob_all                ff          47:52-47:54  int_typespec           plain105_t             p105
+FORMAL  ELABPKG   IB   p105::c105::oob_all                ff          57:48-57:50  int_typespec           plain105_t             p105
+FORMAL  ELABPKG   IB   p105::c105::oob_ret                fa          48:43-48:45  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_ret                fa          69:42-69:44  unsupported_typespec   T                      p105
+FORMAL  ELABPKG   IB   p105::c105::oob_stat               fa          51:50-51:52  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_stat               fa          82:40-82:42  unsupported_typespec   T                      p105
+FORMAL  ELABPKG   IB   p105::c105::oob_task               fa          50:44-50:46  class_typespec         my_t                   -
+FORMAL  ELABPKG   IB   p105::c105::oob_task               fa          78:31-78:33  unsupported_typespec   T                      p105
+FORMAL  TOPMOD    IB   p105::c105::oob_all                fa          55:39-55:41  unsupported_typespec   T                      p105
+FORMAL  TOPMOD    IB   p105::c105::oob_all                fb          55:51-55:53  unsupported_typespec   U                      p105
+FORMAL  TOPMOD    IB   p105::c105::oob_all                fc          55:63-55:65  unsupported_typespec   W                      p105
+FORMAL  TOPMOD    IB   p105::c105::oob_all                fd          56:42-56:44  class_typespec         my_t                   -
+FORMAL  TOPMOD    IB   p105::c105::oob_all                fe          56:58-56:60  class_typespec         d105a                  p105
+FORMAL  TOPMOD    IB   p105::c105::oob_all                ff          57:48-57:50  int_typespec           plain105_t             p105
+FORMAL  TOPMOD    IB   p105::c105::oob_ret                fa          69:42-69:44  unsupported_typespec   T                      p105
+FORMAL  TOPMOD    IB   p105::c105::oob_stat               fa          82:40-82:42  unsupported_typespec   T                      p105
+FORMAL  TOPMOD    IB   p105::c105::oob_task               fa          78:31-78:33  unsupported_typespec   T                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_cls      62:16-62:22  class_typespec         -                      -
+LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_pln      63:16-63:22  int_typespec           plain105_t             p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_t        58:16-58:20  unsupported_typespec   T                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_td       61:16-61:21  class_typespec         my_t                   -
+LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_u        59:16-59:20  unsupported_typespec   U                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_w        60:16-60:20  unsupported_typespec   W                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_loc                zo_t        75:16-75:20  unsupported_typespec   T                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_stat               so_t        83:16-83:20  unsupported_typespec   T                      p105
+LOCAL   DEFPKG    OOB  p105::c105::oob_task               to_t        79:16-79:20  unsupported_typespec   T                      p105
+LOCAL   ELABPKG   IB   p105::c105::ib_all                 lo_cls      33:18-33:24  class_typespec         -                      -
+LOCAL   ELABPKG   IB   p105::c105::ib_all                 lo_pln      34:18-34:24  int_typespec           plain105_t             p105
+LOCAL   ELABPKG   IB   p105::c105::ib_all                 lo_t        29:18-29:22  class_typespec         my_t                   -
+LOCAL   ELABPKG   IB   p105::c105::ib_all                 lo_td       32:18-32:23  class_typespec         my_t                   -
+LOCAL   ELABPKG   IB   p105::c105::ib_all                 lo_u        30:18-30:22  class_typespec         my_t                   -
+LOCAL   ELABPKG   IB   p105::c105::ib_all                 lo_w        31:18-31:22  int_typespec           -                      -
+LOCAL   ELABPKG   IB   p105::c105::ib_ret                 r_t         40:9-40:12   class_typespec         my_t                   -
+LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_cls      62:16-62:22  class_typespec         -                      -
+LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_pln      63:16-63:22  int_typespec           plain105_t             p105
+LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_t        58:16-58:20  unsupported_typespec   T                      p105
+LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_td       61:16-61:21  class_typespec         my_t                   -
+LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_u        59:16-59:20  unsupported_typespec   U                      p105
+LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_w        60:16-60:20  unsupported_typespec   W                      p105
+LOCAL   ELABPKG   IB   p105::c105::oob_loc                zo_t        75:16-75:20  unsupported_typespec   T                      p105
+LOCAL   ELABPKG   IB   p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+LOCAL   ELABPKG   IB   p105::c105::oob_stat               so_t        83:16-83:20  unsupported_typespec   T                      p105
+LOCAL   ELABPKG   IB   p105::c105::oob_task               to_t        79:16-79:20  unsupported_typespec   T                      p105
+LOCAL   TOPMOD    IB   p105::c105::oob_all                xo_cls      62:16-62:22  class_typespec         -                      -
+LOCAL   TOPMOD    IB   p105::c105::oob_all                xo_pln      63:16-63:22  int_typespec           plain105_t             p105
+LOCAL   TOPMOD    IB   p105::c105::oob_all                xo_t        58:16-58:20  unsupported_typespec   T                      p105
+LOCAL   TOPMOD    IB   p105::c105::oob_all                xo_td       61:16-61:21  class_typespec         my_t                   -
+LOCAL   TOPMOD    IB   p105::c105::oob_all                xo_u        59:16-59:20  unsupported_typespec   U                      p105
+LOCAL   TOPMOD    IB   p105::c105::oob_all                xo_w        60:16-60:20  unsupported_typespec   W                      p105
+LOCAL   TOPMOD    IB   p105::c105::oob_loc                zo_t        75:16-75:20  unsupported_typespec   T                      p105
+LOCAL   TOPMOD    IB   p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+LOCAL   TOPMOD    IB   p105::c105::oob_stat               so_t        83:16-83:20  unsupported_typespec   T                      p105
+LOCAL   TOPMOD    IB   p105::c105::oob_task               to_t        79:16-79:20  unsupported_typespec   T                      p105
+PROP    ELABPKG   -    -                                  dx          9:22-9:24    int_typespec           -                      -
+PROP    ELABPKG   -    -                                  ex          10:22-10:24  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  pr_cls      23:17-23:23  class_typespec         d105a                  -
+PROP    ELABPKG   -    -                                  pr_pln      24:17-24:23  int_typespec           plain105_t             p105
+PROP    ELABPKG   -    -                                  pr_t        19:17-19:21  class_typespec         my_t                   -
+PROP    ELABPKG   -    -                                  pr_td       22:17-22:22  class_typespec         my_t                   -
+PROP    ELABPKG   -    -                                  pr_u        20:17-20:21  class_typespec         my_t                   -
+PROP    ELABPKG   -    -                                  pr_w        21:17-21:21  int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::new                  -           3:23-3:28    class_typespec         -                      -
+RET     DEFCLASS  IB   work@mailbox::num                  -           6:14-6:17    int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::try_get              -           18:14-18:17  int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::try_peek             -           24:14-24:17  int_typespec           -                      -
+RET     DEFCLASS  IB   work@process::self                 -           34:21-34:28  class_typespec         -                      -
+RET     DEFCLASS  IB   work@process::status               -           37:14-37:19  enum_typespec          state                  -
+RET     DEFCLASS  IB   work@semaphore::new                -           57:22-57:30  class_typespec         -                      -
+RET     DEFCLASS  IB   work@semaphore::try_get            -           66:14-66:17  int_typespec           -                      -
+RET     DEFPKG    OOB  p105::c105::oob_ret                -           69:12-69:19  unsupported_typespec   c105::T                p105
+RET     ELABPKG   IB   p105::c105::ib_all                 -           27:14-27:19  class_typespec         -                      -
+RET     ELABPKG   IB   p105::c105::ib_ret                 -           39:14-39:15  class_typespec         my_t                   -
+RET     ELABPKG   IB   p105::c105::oob_ret                -           48:21-48:22  class_typespec         my_t                   -
+RET     ELABPKG   IB   p105::c105::oob_ret                -           69:12-69:19  unsupported_typespec   c105::T                p105
+TPARAM  ELABPKG   -    -                                  T           14:21-14:22  class_typespec         my_t                   -
+TPARAM  ELABPKG   -    -                                  U           14:37-14:38  class_typespec         my_t                   -
+TPARAM  ELABPKG   -    -                                  W           14:49-14:50  int_typespec           -                      -
+VAR     TOPMOD    -    -                                  h_gen       91:26-91:31  class_typespec         c105                   -
+VAR     TOPMOD    -    -                                  h_spec      90:26-90:32  class_typespec         c105                   -
+---- VIEW=elab  OURS (pristine) vs OURS (patched): rows that DIFFER
+    92,93c92,93
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_t        58:16-58:20  class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_t        58:16-58:20  class_typespec         -                      -
+    ---
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_t        58:16-58:20  unsupported_typespec   T                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_t        58:16-58:20  unsupported_typespec   T                      p105
+    96,108c96,108
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_u        59:16-59:20  class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_u        59:16-59:20  class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_w        60:16-60:20  int_typespec           -                      p105
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_w        60:16-60:20  int_typespec           -                      p105
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_loc                zo_t        75:16-75:20  class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_loc                zo_t        75:16-75:20  class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_ret                yo_t        70:7-70:11   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_ret                yo_t        70:7-70:11   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_ret                yo_t        70:7-70:11   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_stat               so_t        83:16-83:20  class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_stat               so_t        83:16-83:20  class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_task               to_t        79:16-79:20  class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  p105::c105::oob_task               to_t        79:16-79:20  class_typespec         -                      -
+    ---
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_u        59:16-59:20  unsupported_typespec   U                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_u        59:16-59:20  unsupported_typespec   U                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_w        60:16-60:20  unsupported_typespec   W                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_all                xo_w        60:16-60:20  unsupported_typespec   W                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_loc                zo_t        75:16-75:20  unsupported_typespec   T                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_loc                zo_t        75:16-75:20  unsupported_typespec   T                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_stat               so_t        83:16-83:20  unsupported_typespec   T                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_stat               so_t        83:16-83:20  unsupported_typespec   T                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_task               to_t        79:16-79:20  unsupported_typespec   T                      p105
+    > LOCAL   DEFPKG    OOB  p105::c105::oob_task               to_t        79:16-79:20  unsupported_typespec   T                      p105
+    134,135c134,135
+    < LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_t        58:16-58:20  class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_t        58:16-58:20  class_typespec         -                      -
+    ---
+    > LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_t        58:16-58:20  unsupported_typespec   T                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_t        58:16-58:20  unsupported_typespec   T                      p105
+    138,150c138,150
+    < LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_u        59:16-59:20  class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_u        59:16-59:20  class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_w        60:16-60:20  int_typespec           -                      p105
+    < LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_w        60:16-60:20  int_typespec           -                      p105
+    < LOCAL   ELABPKG   IB   p105::c105::oob_loc                zo_t        75:16-75:20  class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_loc                zo_t        75:16-75:20  class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_ret                yo_t        70:7-70:11   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_ret                yo_t        70:7-70:11   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_ret                yo_t        70:7-70:11   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_stat               so_t        83:16-83:20  class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_stat               so_t        83:16-83:20  class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_task               to_t        79:16-79:20  class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   p105::c105::oob_task               to_t        79:16-79:20  class_typespec         -                      -
+    ---
+    > LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_u        59:16-59:20  unsupported_typespec   U                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_u        59:16-59:20  unsupported_typespec   U                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_w        60:16-60:20  unsupported_typespec   W                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_all                xo_w        60:16-60:20  unsupported_typespec   W                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_loc                zo_t        75:16-75:20  unsupported_typespec   T                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_loc                zo_t        75:16-75:20  unsupported_typespec   T                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_stat               so_t        83:16-83:20  unsupported_typespec   T                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_stat               so_t        83:16-83:20  unsupported_typespec   T                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_task               to_t        79:16-79:20  unsupported_typespec   T                      p105
+    > LOCAL   ELABPKG   IB   p105::c105::oob_task               to_t        79:16-79:20  unsupported_typespec   T                      p105
+    153c153
+    < LOCAL   TOPMOD    IB   p105::c105::oob_all                xo_t        58:16-58:20  class_typespec         -                      -
+    ---
+    > LOCAL   TOPMOD    IB   p105::c105::oob_all                xo_t        58:16-58:20  unsupported_typespec   T                      p105
+    155,161c155,161
+    < LOCAL   TOPMOD    IB   p105::c105::oob_all                xo_u        59:16-59:20  class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   p105::c105::oob_all                xo_w        60:16-60:20  int_typespec           -                      p105
+    < LOCAL   TOPMOD    IB   p105::c105::oob_loc                zo_t        75:16-75:20  class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   p105::c105::oob_ret                yo_t        70:7-70:11   class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   p105::c105::oob_ret                yo_t        70:7-70:11   class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   p105::c105::oob_stat               so_t        83:16-83:20  class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   p105::c105::oob_task               to_t        79:16-79:20  class_typespec         -                      -
+    ---
+    > LOCAL   TOPMOD    IB   p105::c105::oob_all                xo_u        59:16-59:20  unsupported_typespec   U                      p105
+    > LOCAL   TOPMOD    IB   p105::c105::oob_all                xo_w        60:16-60:20  unsupported_typespec   W                      p105
+    > LOCAL   TOPMOD    IB   p105::c105::oob_loc                zo_t        75:16-75:20  unsupported_typespec   T                      p105
+    > LOCAL   TOPMOD    IB   p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+    > LOCAL   TOPMOD    IB   p105::c105::oob_ret                yo_t        70:7-70:11   unsupported_typespec   T                      p105
+    > LOCAL   TOPMOD    IB   p105::c105::oob_stat               so_t        83:16-83:20  unsupported_typespec   T                      p105
+    > LOCAL   TOPMOD    IB   p105::c105::oob_task               to_t        79:16-79:20  unsupported_typespec   T                      p105
+
+---- unsupported-typespec join, GOLDEN vs PRISTINE:
+    KIND   LOCAL   IB   ELABPKG   22
+    KIND   LOCAL   OOB  DEFPKG    22
+    AGREE  FORMAL  IB   ELABPKG   18
+    AGREE  FORMAL  OOB  DEFPKG    18
+    KIND   LOCAL   IB   TOPMOD    8
+    AGREE  FORMAL  IB   TOPMOD    6
+    MISS   LOCAL   IB   ELABPKG   6
+    MISS   LOCAL   IB   TOPMOD    6
+    MISS   LOCAL   OOB  DEFPKG    6
+    KIND   RET     IB   ELABPKG   2
+    KIND   RET     OOB  DEFPKG    2
+---- unsupported-typespec join, GOLDEN vs PATCHED:
+    AGREE  LOCAL   IB   ELABPKG   22
+    AGREE  LOCAL   OOB  DEFPKG    22
+    AGREE  FORMAL  IB   ELABPKG   18
+    AGREE  FORMAL  OOB  DEFPKG    18
+    AGREE  LOCAL   IB   TOPMOD    8
+    AGREE  FORMAL  IB   TOPMOD    6
+    MISS   LOCAL   IB   ELABPKG   6
+    MISS   LOCAL   IB   TOPMOD    6
+    MISS   LOCAL   OOB  DEFPKG    6
+    KIND   RET     IB   ELABPKG   2
+    KIND   RET     OOB  DEFPKG    2
+
+================ ARM g105_a2.sv ================
+---- cmds.txt rc audit:
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o ga2/g_def g105_a2.sv
+rc=4 /tmp/r10uvm105_bin/pris.bin g105_a2.sv -o ga2/a_def.uhdm
+rc=4 /tmp/r10uvm105_bin/pat.bin g105_a2.sv -o ga2/b_def.uhdm
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o ga2/g_elab g105_a2.sv
+rc=4 /tmp/r10uvm105_bin/pris.bin g105_a2.sv --elabuhdm -o ga2/a_elab.uhdm
+rc=4 /tmp/r10uvm105_bin/pat.bin g105_a2.sv --elabuhdm -o ga2/b_elab.uhdm
+
+---- VIEW=def  GOLDEN
+FORMAL  DEFCLASS  IB   work@mailbox::new                  bound       3:23-3:28    int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::get                keyCount    63:18-63:26  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::new                keyCount    57:22-57:30  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::put                keyCount    60:18-60:26  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::try_get            keyCount    66:30-66:38  int_typespec           -                      -
+LOCAL   DEFCLASS  IB   work@u105::uf_ib                   ib_u        17:29-17:33  class_typespec         du105                  -
+LOCAL   DEFMOD    OOB  work@top105a.m105::mf              mo_i        70:9-70:13   int_typespec           -                      -
+LOCAL   DEFMOD    OOB  work@top105a.m105::mf              mo_t        69:9-69:13   unsupported_typespec   MT                     -
+LOCAL   DEFPKG    OOB  q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+LOCAL   DEFPKG    OOB  q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+LOCAL   DEFPKG    OOB  q105::plain105::pmeth              po_c        48:11-48:15  class_typespec         -                      -
+LOCAL   DEFPKG    OOB  q105::plain105::pmeth              po_i        49:11-49:15  int_typespec           -                      q105
+LOCAL   DEFPKG    OOB  q105::vpar105::vmeth               vo_v        57:21-57:25  logic_typespec         -                      q105
+LOCAL   ELABPKG   IB   q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+LOCAL   ELABPKG   IB   q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+LOCAL   ELABPKG   IB   q105::deri105::dmeth_ib            di_t        37:34-37:38  unsupported_typespec   BT                     -
+LOCAL   ELABPKG   IB   q105::plain105::pmeth              po_c        48:11-48:15  class_typespec         -                      -
+LOCAL   ELABPKG   IB   q105::plain105::pmeth              po_i        49:11-49:15  int_typespec           -                      q105
+LOCAL   ELABPKG   IB   q105::vpar105::vmeth               vo_v        57:21-57:25  logic_typespec         -                      q105
+LOCAL   OTHER     OOB  u105::uf                           uo_i        21:8-21:12   int_typespec           -                      -
+LOCAL   OTHER     OOB  u105::uf                           uo_t        20:8-20:12   unsupported_typespec   UT                     -
+PARAM   ELABPKG   -    -                                  WID         53:23-53:26  int_typespec           -                      -
+PROP    DEFCLASS  -    -                                  ux          14:18-14:20  int_typespec           -                      -
+PROP    DEFMOD    -    -                                  mx          64:20-64:22  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  b_prop      28:14-28:20  class_typespec         bq105                  -
+PROP    ELABPKG   -    -                                  bx          26:20-26:22  int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::new                  -           3:23-3:28    class_typespec         -                      -
+RET     DEFCLASS  IB   work@mailbox::num                  -           6:14-6:17    int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::try_get              -           18:14-18:17  int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::try_peek             -           24:14-24:17  int_typespec           -                      -
+RET     DEFCLASS  IB   work@process::self                 -           34:21-34:28  class_typespec         -                      -
+RET     DEFCLASS  IB   work@process::status               -           37:14-37:19  enum_typespec          state                  -
+RET     DEFCLASS  IB   work@semaphore::new                -           57:22-57:30  class_typespec         -                      -
+RET     DEFCLASS  IB   work@semaphore::try_get            -           66:14-66:17  int_typespec           -                      -
+TPARAM  DEFCLASS  -    -                                  UT          15:19-15:21  class_typespec         du105                  -
+TPARAM  DEFMOD    -    -                                  MT          65:21-65:23  class_typespec         dm105                  -
+TPARAM  ELABPKG   -    -                                  BT          27:24-27:26  class_typespec         bq105                  -
+VAR     TOPMOD    -    -                                  hd          74:20-74:22  class_typespec         deri105                -
+VAR     TOPMOD    -    -                                  hm          77:20-77:22  class_typespec         m105                   -
+VAR     TOPMOD    -    -                                  hp          75:20-75:22  class_typespec         plain105               -
+VAR     TOPMOD    -    -                                  hu          73:20-73:22  class_typespec         u105                   -
+VAR     TOPMOD    -    -                                  hv          76:20-76:22  class_typespec         vpar105                -
+---- VIEW=def  OURS (pristine) vs OURS (patched): rows that DIFFER
+    7c7
+    < LOCAL   DEFCLASS  IB   work@u105::uf                      uo_t        20:8-20:12   class_typespec         du105                  -
+    ---
+    > LOCAL   DEFCLASS  IB   work@u105::uf                      uo_t        20:8-20:12   unsupported_typespec   UT                     -
+    9,10c9,10
+    < LOCAL   DEFPKG    OOB  q105::base105::bmeth               bo_t        32:8-32:12   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  q105::deri105::dmeth               do_t        40:8-40:12   class_typespec         -                      -
+    ---
+    > LOCAL   DEFPKG    OOB  q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+    > LOCAL   DEFPKG    OOB  q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+    14,15c14,15
+    < LOCAL   ELABPKG   IB   q105::base105::bmeth               bo_t        32:8-32:12   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   q105::deri105::dmeth               do_t        40:8-40:12   class_typespec         -                      -
+    ---
+    > LOCAL   ELABPKG   IB   q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+    > LOCAL   ELABPKG   IB   q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+
+---- VIEW=elab  GOLDEN
+FORMAL  DEFCLASS  IB   work@mailbox::new                  bound       3:23-3:28    int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::get                keyCount    63:18-63:26  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::new                keyCount    57:22-57:30  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::put                keyCount    60:18-60:26  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::try_get            keyCount    66:30-66:38  int_typespec           -                      -
+LOCAL   DEFCLASS  IB   work@u105::uf_ib                   ib_u        17:29-17:33  class_typespec         du105                  -
+LOCAL   DEFMOD    IB   q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+LOCAL   DEFMOD    IB   q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+LOCAL   DEFMOD    IB   q105::plain105::pmeth              po_c        48:11-48:15  class_typespec         -                      -
+LOCAL   DEFMOD    IB   q105::plain105::pmeth              po_i        49:11-49:15  int_typespec           -                      q105
+LOCAL   DEFMOD    IB   q105::vpar105::vmeth               vo_v        57:21-57:25  logic_typespec         -                      q105
+LOCAL   DEFMOD    OOB  work@top105a.m105::mf              mo_i        70:9-70:13   int_typespec           -                      -
+LOCAL   DEFMOD    OOB  work@top105a.m105::mf              mo_t        69:9-69:13   unsupported_typespec   MT                     -
+LOCAL   DEFPKG    OOB  q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+LOCAL   DEFPKG    OOB  q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+LOCAL   DEFPKG    OOB  q105::plain105::pmeth              po_c        48:11-48:15  class_typespec         -                      -
+LOCAL   DEFPKG    OOB  q105::plain105::pmeth              po_i        49:11-49:15  int_typespec           -                      q105
+LOCAL   DEFPKG    OOB  q105::vpar105::vmeth               vo_v        57:21-57:25  logic_typespec         -                      q105
+LOCAL   ELABPKG   IB   q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+LOCAL   ELABPKG   IB   q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+LOCAL   ELABPKG   IB   q105::deri105::dmeth_ib            di_t        37:34-37:38  unsupported_typespec   BT                     -
+LOCAL   ELABPKG   IB   q105::plain105::pmeth              po_c        48:11-48:15  class_typespec         -                      -
+LOCAL   ELABPKG   IB   q105::plain105::pmeth              po_i        49:11-49:15  int_typespec           -                      q105
+LOCAL   ELABPKG   IB   q105::vpar105::vmeth               vo_v        57:21-57:25  logic_typespec         -                      q105
+LOCAL   OTHER     OOB  u105::uf                           uo_i        21:8-21:12   int_typespec           -                      -
+LOCAL   OTHER     OOB  u105::uf                           uo_t        20:8-20:12   unsupported_typespec   UT                     -
+LOCAL   TOPMOD    IB   q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+LOCAL   TOPMOD    IB   q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+LOCAL   TOPMOD    IB   q105::plain105::pmeth              po_c        48:11-48:15  class_typespec         -                      -
+LOCAL   TOPMOD    IB   q105::plain105::pmeth              po_i        49:11-49:15  int_typespec           -                      q105
+LOCAL   TOPMOD    IB   q105::vpar105::vmeth               vo_v        57:21-57:25  logic_typespec         -                      q105
+LOCAL   TOPMOD    OOB  work@top105a.m105::mf              mo_i        70:9-70:13   int_typespec           -                      -
+LOCAL   TOPMOD    OOB  work@top105a.m105::mf              mo_t        69:9-69:13   unsupported_typespec   MT                     -
+PARAM   ELABPKG   -    -                                  WID         53:23-53:26  int_typespec           -                      -
+PROP    DEFCLASS  -    -                                  ux          14:18-14:20  int_typespec           -                      -
+PROP    DEFMOD    -    -                                  mx          64:20-64:22  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  b_prop      28:14-28:20  class_typespec         bq105                  -
+PROP    ELABPKG   -    -                                  bx          26:20-26:22  int_typespec           -                      -
+PROP    TOPMOD    -    -                                  mx          64:20-64:22  int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::new                  -           3:23-3:28    class_typespec         -                      -
+RET     DEFCLASS  IB   work@mailbox::num                  -           6:14-6:17    int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::try_get              -           18:14-18:17  int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::try_peek             -           24:14-24:17  int_typespec           -                      -
+RET     DEFCLASS  IB   work@process::self                 -           34:21-34:28  class_typespec         -                      -
+RET     DEFCLASS  IB   work@process::status               -           37:14-37:19  enum_typespec          state                  -
+RET     DEFCLASS  IB   work@semaphore::new                -           57:22-57:30  class_typespec         -                      -
+RET     DEFCLASS  IB   work@semaphore::try_get            -           66:14-66:17  int_typespec           -                      -
+TPARAM  DEFCLASS  -    -                                  UT          15:19-15:21  class_typespec         du105                  -
+TPARAM  ELABPKG   -    -                                  BT          27:24-27:26  class_typespec         bq105                  -
+TPARAM  TOPMOD    -    -                                  MT          65:21-65:23  class_typespec         dm105                  -
+VAR     TOPMOD    -    -                                  hd          74:20-74:22  class_typespec         deri105                -
+VAR     TOPMOD    -    -                                  hm          77:20-77:22  class_typespec         m105                   -
+VAR     TOPMOD    -    -                                  hp          75:20-75:22  class_typespec         plain105               -
+VAR     TOPMOD    -    -                                  hu          73:20-73:22  class_typespec         u105                   -
+VAR     TOPMOD    -    -                                  hv          76:20-76:22  class_typespec         vpar105                -
+---- VIEW=elab  OURS (pristine) vs OURS (patched): rows that DIFFER
+    13,14c13,14
+    < LOCAL   DEFCLASS  IB   work@u105::uf                      uo_t        20:8-20:12   class_typespec         du105                  -
+    < LOCAL   DEFCLASS  IB   work@u105::uf                      uo_t        20:8-20:12   class_typespec         du105                  -
+    ---
+    > LOCAL   DEFCLASS  IB   work@u105::uf                      uo_t        20:8-20:12   unsupported_typespec   UT                     -
+    > LOCAL   DEFCLASS  IB   work@u105::uf                      uo_t        20:8-20:12   unsupported_typespec   UT                     -
+    17,18c17,18
+    < LOCAL   DEFMOD    IB   q105::base105::bmeth               bo_t        32:8-32:12   class_typespec         -                      -
+    < LOCAL   DEFMOD    IB   q105::deri105::dmeth               do_t        40:8-40:12   class_typespec         -                      -
+    ---
+    > LOCAL   DEFMOD    IB   q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+    > LOCAL   DEFMOD    IB   q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+    22,25c22,25
+    < LOCAL   DEFPKG    OOB  q105::base105::bmeth               bo_t        32:8-32:12   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  q105::base105::bmeth               bo_t        32:8-32:12   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  q105::deri105::dmeth               do_t        40:8-40:12   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  q105::deri105::dmeth               do_t        40:8-40:12   class_typespec         -                      -
+    ---
+    > LOCAL   DEFPKG    OOB  q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+    > LOCAL   DEFPKG    OOB  q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+    > LOCAL   DEFPKG    OOB  q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+    > LOCAL   DEFPKG    OOB  q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+    32,36c32,36
+    < LOCAL   ELABPKG   IB   q105::base105::bmeth               bo_t        32:8-32:12   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   q105::base105::bmeth               bo_t        32:8-32:12   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   q105::deri105::dmeth               do_t        40:8-40:12   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   q105::deri105::dmeth               do_t        40:8-40:12   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   q105::deri105::dmeth               do_t        40:8-40:12   class_typespec         -                      -
+    ---
+    > LOCAL   ELABPKG   IB   q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+    > LOCAL   ELABPKG   IB   q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+    > LOCAL   ELABPKG   IB   q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+    > LOCAL   ELABPKG   IB   q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+    > LOCAL   ELABPKG   IB   q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+    46,53c46,53
+    < LOCAL   TOPMOD    IB   q105::base105::bmeth               bo_t        32:8-32:12   class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   q105::base105::bmeth               bo_t        32:8-32:12   class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   q105::base105::bmeth               bo_t        32:8-32:12   class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   q105::base105::bmeth               bo_t        32:8-32:12   class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   q105::deri105::dmeth               do_t        40:8-40:12   class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   q105::deri105::dmeth               do_t        40:8-40:12   class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   q105::deri105::dmeth               do_t        40:8-40:12   class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   q105::deri105::dmeth               do_t        40:8-40:12   class_typespec         -                      -
+    ---
+    > LOCAL   TOPMOD    IB   q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+    > LOCAL   TOPMOD    IB   q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+    > LOCAL   TOPMOD    IB   q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+    > LOCAL   TOPMOD    IB   q105::base105::bmeth               bo_t        32:8-32:12   unsupported_typespec   BT                     q105
+    > LOCAL   TOPMOD    IB   q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+    > LOCAL   TOPMOD    IB   q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+    > LOCAL   TOPMOD    IB   q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+    > LOCAL   TOPMOD    IB   q105::deri105::dmeth               do_t        40:8-40:12   unsupported_typespec   BT                     q105
+
+---- unsupported-typespec join, GOLDEN vs PRISTINE:
+    KIND   LOCAL   IB   ELABPKG   10
+    KIND   LOCAL   IB   TOPMOD    8
+    KIND   LOCAL   OOB  DEFPKG    6
+    MISS   LOCAL   IB   DEFMOD    6
+    MISS   LOCAL   IB   TOPMOD    4
+    KIND   LOCAL   IB   DEFMOD    2
+    MISS   LOCAL   OOB  DEFMOD    2
+    MISS   LOCAL   OOB  DEFPKG    2
+    MISS   LOCAL   OOB  OTHER     2
+    MISS   LOCAL   OOB  TOPMOD    2
+    MISS   LOCAL   IB   ELABPKG   1
+---- unsupported-typespec join, GOLDEN vs PATCHED:
+    AGREE  LOCAL   IB   TOPMOD    8
+    AGREE  LOCAL   IB   ELABPKG   7
+    AGREE  LOCAL   OOB  DEFPKG    6
+    MISS   LOCAL   IB   DEFMOD    6
+    MISS   LOCAL   IB   TOPMOD    4
+    EXTRA  LOCAL   IB   DEFCLASS  3
+    KIND   LOCAL   IB   ELABPKG   3
+    AGREE  LOCAL   IB   DEFMOD    2
+    MISS   LOCAL   OOB  DEFMOD    2
+    MISS   LOCAL   OOB  DEFPKG    2
+    MISS   LOCAL   OOB  OTHER     2
+    MISS   LOCAL   OOB  TOPMOD    2
+    MISS   LOCAL   IB   ELABPKG   1
+
+================ ARM g105_a3.sv ================
+---- cmds.txt rc audit:
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o ga3/g_def g105_a3.sv
+rc=4 /tmp/r10uvm105_bin/pris.bin g105_a3.sv -o ga3/a_def.uhdm
+rc=4 /tmp/r10uvm105_bin/pat.bin g105_a3.sv -o ga3/b_def.uhdm
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o ga3/g_elab g105_a3.sv
+rc=4 /tmp/r10uvm105_bin/pris.bin g105_a3.sv --elabuhdm -o ga3/a_elab.uhdm
+rc=4 /tmp/r10uvm105_bin/pat.bin g105_a3.sv --elabuhdm -o ga3/b_elab.uhdm
+
+---- VIEW=def  GOLDEN
+FORMAL  DEFCLASS  IB   work@mailbox::new                  bound       3:23-3:28    int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::get                keyCount    63:18-63:26  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::new                keyCount    57:22-57:30  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::put                keyCount    60:18-60:26  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::try_get            keyCount    66:30-66:38  int_typespec           -                      -
+LOCAL   DEFPKG    OOB  s105::cs105::sf                    so_c        25:18-25:22  int_typespec           T105COLLIDE            s105
+LOCAL   DEFPKG    OOB  t105::ct105::tf                    to_c        39:14-39:18  int_typespec           t105other::T105FAR     t105other
+LOCAL   DEFPKG    OOB  u105c::cu105::ud                   -           57:9-57:15   unsupported_typespec   UT                     u105c
+LOCAL   DEFPKG    OOB  u105c::cu105::ud                   uo_dyn      57:9-57:15   array_typespec         -                      -
+LOCAL   DEFPKG    OOB  u105c::cu105::ufix                 -           51:9-51:15   unsupported_typespec   UT                     u105c
+LOCAL   DEFPKG    OOB  u105c::cu105::ufix                 uo_fix      51:9-51:15   array_typespec         -                      -
+LOCAL   DEFPKG    OOB  u105c::cu105::uq                   -           54:9-54:13   unsupported_typespec   UT                     u105c
+LOCAL   DEFPKG    OOB  u105c::cu105::uq                   uo_q        54:9-54:13   array_typespec         -                      -
+LOCAL   DEFPKG    OOB  v105::cv105::vf                    vo_pkgtd    69:19-69:27  class_typespec         v105::v105_td          v105
+LOCAL   DEFPKG    OOB  v105::cv105::vf                    vo_scoped   68:16-68:25  unsupported_typespec   cv105::VT              v105
+LOCAL   DEFPKG    OOB  w105::cw105::wf1                   wo_1        80:8-80:12   unsupported_typespec   WT                     w105
+LOCAL   DEFPKG    OOB  w105::cw105::wf2                   wo_2        83:8-83:12   unsupported_typespec   WT                     w105
+LOCAL   DEFPKG    OOB  x105::cx105::xf                    xo_init     93:8-93:15   unsupported_typespec   XT                     x105
+LOCAL   ELABPKG   IB   s105::cs105::sf                    so_c        25:18-25:22  int_typespec           T105COLLIDE            s105
+LOCAL   ELABPKG   IB   t105::ct105::tf                    to_c        39:14-39:18  int_typespec           t105other::T105FAR     t105other
+LOCAL   ELABPKG   IB   u105c::cu105::ud                   -           57:9-57:15   unsupported_typespec   UT                     u105c
+LOCAL   ELABPKG   IB   u105c::cu105::ud                   uo_dyn      57:9-57:15   array_typespec         -                      -
+LOCAL   ELABPKG   IB   u105c::cu105::ufix                 -           51:9-51:15   unsupported_typespec   UT                     u105c
+LOCAL   ELABPKG   IB   u105c::cu105::ufix                 uo_fix      51:9-51:15   array_typespec         -                      -
+LOCAL   ELABPKG   IB   u105c::cu105::uq                   -           54:9-54:13   unsupported_typespec   UT                     u105c
+LOCAL   ELABPKG   IB   u105c::cu105::uq                   uo_q        54:9-54:13   array_typespec         -                      -
+LOCAL   ELABPKG   IB   v105::cv105::vf                    vo_pkgtd    69:19-69:27  class_typespec         v105::v105_td          v105
+LOCAL   ELABPKG   IB   v105::cv105::vf                    vo_scoped   68:16-68:25  unsupported_typespec   cv105::VT              v105
+LOCAL   ELABPKG   IB   w105::cw105::wf1                   wo_1        80:8-80:12   unsupported_typespec   WT                     w105
+LOCAL   ELABPKG   IB   w105::cw105::wf2                   wo_2        83:8-83:12   unsupported_typespec   WT                     w105
+LOCAL   ELABPKG   IB   x105::cx105::xf                    xo_init     93:8-93:15   unsupported_typespec   XT                     x105
+PROP    ELABPKG   -    -                                  sx          19:20-19:22  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  tx          34:20-34:22  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  ux          44:21-44:23  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  vx          62:20-62:22  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  wx          74:20-74:22  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  xx          88:20-88:22  int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::new                  -           3:23-3:28    class_typespec         -                      -
+RET     DEFCLASS  IB   work@mailbox::num                  -           6:14-6:17    int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::try_get              -           18:14-18:17  int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::try_peek             -           24:14-24:17  int_typespec           -                      -
+RET     DEFCLASS  IB   work@process::self                 -           34:21-34:28  class_typespec         -                      -
+RET     DEFCLASS  IB   work@process::status               -           37:14-37:19  enum_typespec          state                  -
+RET     DEFCLASS  IB   work@semaphore::new                -           57:22-57:30  class_typespec         -                      -
+RET     DEFCLASS  IB   work@semaphore::try_get            -           66:14-66:17  int_typespec           -                      -
+TPARAM  ELABPKG   -    -                                  T105COLLIDE 21:22-21:33  class_typespec         ds105                  -
+TPARAM  ELABPKG   -    -                                  T105FAR     35:22-35:29  class_typespec         dt105                  -
+TPARAM  ELABPKG   -    -                                  UT          45:22-45:24  class_typespec         du105c                 -
+TPARAM  ELABPKG   -    -                                  VT          64:22-64:24  class_typespec         dv105                  -
+TPARAM  ELABPKG   -    -                                  WT          75:22-75:24  class_typespec         dw105                  -
+TPARAM  ELABPKG   -    -                                  XT          89:22-89:24  class_typespec         dx105                  -
+VAR     TOPMOD    -    -                                  h_s         100:9-100:12 class_typespec         cs105                  -
+VAR     TOPMOD    -    -                                  h_t         100:20-100:23 class_typespec         ct105                  -
+VAR     TOPMOD    -    -                                  h_u         100:31-100:34 class_typespec         cu105                  -
+VAR     TOPMOD    -    -                                  h_v         100:42-100:45 class_typespec         cv105                  -
+VAR     TOPMOD    -    -                                  h_w         100:53-100:56 class_typespec         cw105                  -
+VAR     TOPMOD    -    -                                  h_x         100:64-100:67 class_typespec         cx105                  -
+---- VIEW=def  OURS (pristine) vs OURS (patched): rows that DIFFER
+    16,18c16,18
+    < LOCAL   DEFPKG    OOB  w105::cw105::wf1                   wo_1        80:8-80:12   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  w105::cw105::wf2                   wo_2        83:8-83:12   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  x105::cx105::xf                    xo_init     93:8-93:15   class_typespec         -                      -
+    ---
+    > LOCAL   DEFPKG    OOB  w105::cw105::wf1                   wo_1        80:8-80:12   unsupported_typespec   WT                     w105
+    > LOCAL   DEFPKG    OOB  w105::cw105::wf2                   wo_2        83:8-83:12   unsupported_typespec   WT                     w105
+    > LOCAL   DEFPKG    OOB  x105::cx105::xf                    xo_init     93:8-93:15   unsupported_typespec   XT                     x105
+    29,31c29,31
+    < LOCAL   ELABPKG   IB   w105::cw105::wf1                   wo_1        80:8-80:12   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   w105::cw105::wf2                   wo_2        83:8-83:12   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   x105::cx105::xf                    xo_init     93:8-93:15   class_typespec         -                      -
+    ---
+    > LOCAL   ELABPKG   IB   w105::cw105::wf1                   wo_1        80:8-80:12   unsupported_typespec   WT                     w105
+    > LOCAL   ELABPKG   IB   w105::cw105::wf2                   wo_2        83:8-83:12   unsupported_typespec   WT                     w105
+    > LOCAL   ELABPKG   IB   x105::cx105::xf                    xo_init     93:8-93:15   unsupported_typespec   XT                     x105
+
+---- VIEW=elab  GOLDEN
+FORMAL  DEFCLASS  IB   work@mailbox::new                  bound       3:23-3:28    int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::get                keyCount    63:18-63:26  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::new                keyCount    57:22-57:30  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::put                keyCount    60:18-60:26  int_typespec           -                      -
+FORMAL  DEFCLASS  IB   work@semaphore::try_get            keyCount    66:30-66:38  int_typespec           -                      -
+LOCAL   DEFPKG    OOB  s105::cs105::sf                    so_c        25:18-25:22  int_typespec           T105COLLIDE            s105
+LOCAL   DEFPKG    OOB  t105::ct105::tf                    to_c        39:14-39:18  int_typespec           t105other::T105FAR     t105other
+LOCAL   DEFPKG    OOB  u105c::cu105::ud                   -           57:9-57:15   unsupported_typespec   UT                     u105c
+LOCAL   DEFPKG    OOB  u105c::cu105::ud                   uo_dyn      57:9-57:15   array_typespec         -                      -
+LOCAL   DEFPKG    OOB  u105c::cu105::ufix                 -           51:9-51:15   unsupported_typespec   UT                     u105c
+LOCAL   DEFPKG    OOB  u105c::cu105::ufix                 uo_fix      51:9-51:15   array_typespec         -                      -
+LOCAL   DEFPKG    OOB  u105c::cu105::uq                   -           54:9-54:13   unsupported_typespec   UT                     u105c
+LOCAL   DEFPKG    OOB  u105c::cu105::uq                   uo_q        54:9-54:13   array_typespec         -                      -
+LOCAL   DEFPKG    OOB  v105::cv105::vf                    vo_pkgtd    69:19-69:27  class_typespec         v105::v105_td          v105
+LOCAL   DEFPKG    OOB  v105::cv105::vf                    vo_scoped   68:16-68:25  unsupported_typespec   cv105::VT              v105
+LOCAL   DEFPKG    OOB  w105::cw105::wf1                   wo_1        80:8-80:12   unsupported_typespec   WT                     w105
+LOCAL   DEFPKG    OOB  w105::cw105::wf2                   wo_2        83:8-83:12   unsupported_typespec   WT                     w105
+LOCAL   DEFPKG    OOB  x105::cx105::xf                    xo_init     93:8-93:15   unsupported_typespec   XT                     x105
+LOCAL   ELABPKG   IB   s105::cs105::sf                    so_c        25:18-25:22  int_typespec           T105COLLIDE            s105
+LOCAL   ELABPKG   IB   t105::ct105::tf                    to_c        39:14-39:18  int_typespec           t105other::T105FAR     t105other
+LOCAL   ELABPKG   IB   u105c::cu105::ud                   -           57:9-57:15   unsupported_typespec   UT                     u105c
+LOCAL   ELABPKG   IB   u105c::cu105::ud                   uo_dyn      57:9-57:15   array_typespec         -                      -
+LOCAL   ELABPKG   IB   u105c::cu105::ufix                 -           51:9-51:15   unsupported_typespec   UT                     u105c
+LOCAL   ELABPKG   IB   u105c::cu105::ufix                 uo_fix      51:9-51:15   array_typespec         -                      -
+LOCAL   ELABPKG   IB   u105c::cu105::uq                   -           54:9-54:13   unsupported_typespec   UT                     u105c
+LOCAL   ELABPKG   IB   u105c::cu105::uq                   uo_q        54:9-54:13   array_typespec         -                      -
+LOCAL   ELABPKG   IB   v105::cv105::vf                    vo_pkgtd    69:19-69:27  class_typespec         v105::v105_td          v105
+LOCAL   ELABPKG   IB   v105::cv105::vf                    vo_scoped   68:16-68:25  unsupported_typespec   cv105::VT              v105
+LOCAL   ELABPKG   IB   w105::cw105::wf1                   wo_1        80:8-80:12   unsupported_typespec   WT                     w105
+LOCAL   ELABPKG   IB   w105::cw105::wf2                   wo_2        83:8-83:12   unsupported_typespec   WT                     w105
+LOCAL   ELABPKG   IB   x105::cx105::xf                    xo_init     93:8-93:15   unsupported_typespec   XT                     x105
+LOCAL   TOPMOD    IB   s105::cs105::sf                    so_c        25:18-25:22  int_typespec           T105COLLIDE            s105
+LOCAL   TOPMOD    IB   t105::ct105::tf                    to_c        39:14-39:18  int_typespec           t105other::T105FAR     t105other
+LOCAL   TOPMOD    IB   u105c::cu105::ud                   -           57:9-57:15   unsupported_typespec   UT                     u105c
+LOCAL   TOPMOD    IB   u105c::cu105::ud                   uo_dyn      57:9-57:15   array_typespec         -                      -
+LOCAL   TOPMOD    IB   u105c::cu105::ufix                 -           51:9-51:15   unsupported_typespec   UT                     u105c
+LOCAL   TOPMOD    IB   u105c::cu105::ufix                 uo_fix      51:9-51:15   array_typespec         -                      -
+LOCAL   TOPMOD    IB   u105c::cu105::uq                   -           54:9-54:13   unsupported_typespec   UT                     u105c
+LOCAL   TOPMOD    IB   u105c::cu105::uq                   uo_q        54:9-54:13   array_typespec         -                      -
+LOCAL   TOPMOD    IB   v105::cv105::vf                    vo_pkgtd    69:19-69:27  class_typespec         v105::v105_td          v105
+LOCAL   TOPMOD    IB   v105::cv105::vf                    vo_scoped   68:16-68:25  unsupported_typespec   cv105::VT              v105
+LOCAL   TOPMOD    IB   w105::cw105::wf1                   wo_1        80:8-80:12   unsupported_typespec   WT                     w105
+LOCAL   TOPMOD    IB   w105::cw105::wf2                   wo_2        83:8-83:12   unsupported_typespec   WT                     w105
+LOCAL   TOPMOD    IB   x105::cx105::xf                    xo_init     93:8-93:15   unsupported_typespec   XT                     x105
+PROP    ELABPKG   -    -                                  sx          19:20-19:22  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  tx          34:20-34:22  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  ux          44:21-44:23  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  vx          62:20-62:22  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  wx          74:20-74:22  int_typespec           -                      -
+PROP    ELABPKG   -    -                                  xx          88:20-88:22  int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::new                  -           3:23-3:28    class_typespec         -                      -
+RET     DEFCLASS  IB   work@mailbox::num                  -           6:14-6:17    int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::try_get              -           18:14-18:17  int_typespec           -                      -
+RET     DEFCLASS  IB   work@mailbox::try_peek             -           24:14-24:17  int_typespec           -                      -
+RET     DEFCLASS  IB   work@process::self                 -           34:21-34:28  class_typespec         -                      -
+RET     DEFCLASS  IB   work@process::status               -           37:14-37:19  enum_typespec          state                  -
+RET     DEFCLASS  IB   work@semaphore::new                -           57:22-57:30  class_typespec         -                      -
+RET     DEFCLASS  IB   work@semaphore::try_get            -           66:14-66:17  int_typespec           -                      -
+TPARAM  ELABPKG   -    -                                  T105COLLIDE 21:22-21:33  class_typespec         ds105                  -
+TPARAM  ELABPKG   -    -                                  T105FAR     35:22-35:29  class_typespec         dt105                  -
+TPARAM  ELABPKG   -    -                                  UT          45:22-45:24  class_typespec         du105c                 -
+TPARAM  ELABPKG   -    -                                  VT          64:22-64:24  class_typespec         dv105                  -
+TPARAM  ELABPKG   -    -                                  WT          75:22-75:24  class_typespec         dw105                  -
+TPARAM  ELABPKG   -    -                                  XT          89:22-89:24  class_typespec         dx105                  -
+VAR     TOPMOD    -    -                                  h_s         100:9-100:12 class_typespec         cs105                  -
+VAR     TOPMOD    -    -                                  h_t         100:20-100:23 class_typespec         ct105                  -
+VAR     TOPMOD    -    -                                  h_u         100:31-100:34 class_typespec         cu105                  -
+VAR     TOPMOD    -    -                                  h_v         100:42-100:45 class_typespec         cv105                  -
+VAR     TOPMOD    -    -                                  h_w         100:53-100:56 class_typespec         cw105                  -
+VAR     TOPMOD    -    -                                  h_x         100:64-100:67 class_typespec         cx105                  -
+---- VIEW=elab  OURS (pristine) vs OURS (patched): rows that DIFFER
+    31,36c31,36
+    < LOCAL   DEFPKG    OOB  w105::cw105::wf1                   wo_1        80:8-80:12   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  w105::cw105::wf1                   wo_1        80:8-80:12   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  w105::cw105::wf2                   wo_2        83:8-83:12   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  w105::cw105::wf2                   wo_2        83:8-83:12   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  x105::cx105::xf                    xo_init     93:8-93:15   class_typespec         -                      -
+    < LOCAL   DEFPKG    OOB  x105::cx105::xf                    xo_init     93:8-93:15   class_typespec         -                      -
+    ---
+    > LOCAL   DEFPKG    OOB  w105::cw105::wf1                   wo_1        80:8-80:12   unsupported_typespec   WT                     w105
+    > LOCAL   DEFPKG    OOB  w105::cw105::wf1                   wo_1        80:8-80:12   unsupported_typespec   WT                     w105
+    > LOCAL   DEFPKG    OOB  w105::cw105::wf2                   wo_2        83:8-83:12   unsupported_typespec   WT                     w105
+    > LOCAL   DEFPKG    OOB  w105::cw105::wf2                   wo_2        83:8-83:12   unsupported_typespec   WT                     w105
+    > LOCAL   DEFPKG    OOB  x105::cx105::xf                    xo_init     93:8-93:15   unsupported_typespec   XT                     x105
+    > LOCAL   DEFPKG    OOB  x105::cx105::xf                    xo_init     93:8-93:15   unsupported_typespec   XT                     x105
+    57,62c57,62
+    < LOCAL   ELABPKG   IB   w105::cw105::wf1                   wo_1        80:8-80:12   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   w105::cw105::wf1                   wo_1        80:8-80:12   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   w105::cw105::wf2                   wo_2        83:8-83:12   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   w105::cw105::wf2                   wo_2        83:8-83:12   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   x105::cx105::xf                    xo_init     93:8-93:15   class_typespec         -                      -
+    < LOCAL   ELABPKG   IB   x105::cx105::xf                    xo_init     93:8-93:15   class_typespec         -                      -
+    ---
+    > LOCAL   ELABPKG   IB   w105::cw105::wf1                   wo_1        80:8-80:12   unsupported_typespec   WT                     w105
+    > LOCAL   ELABPKG   IB   w105::cw105::wf1                   wo_1        80:8-80:12   unsupported_typespec   WT                     w105
+    > LOCAL   ELABPKG   IB   w105::cw105::wf2                   wo_2        83:8-83:12   unsupported_typespec   WT                     w105
+    > LOCAL   ELABPKG   IB   w105::cw105::wf2                   wo_2        83:8-83:12   unsupported_typespec   WT                     w105
+    > LOCAL   ELABPKG   IB   x105::cx105::xf                    xo_init     93:8-93:15   unsupported_typespec   XT                     x105
+    > LOCAL   ELABPKG   IB   x105::cx105::xf                    xo_init     93:8-93:15   unsupported_typespec   XT                     x105
+    73,75c73,75
+    < LOCAL   TOPMOD    IB   w105::cw105::wf1                   wo_1        80:8-80:12   class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   w105::cw105::wf2                   wo_2        83:8-83:12   class_typespec         -                      -
+    < LOCAL   TOPMOD    IB   x105::cx105::xf                    xo_init     93:8-93:15   class_typespec         -                      -
+    ---
+    > LOCAL   TOPMOD    IB   w105::cw105::wf1                   wo_1        80:8-80:12   unsupported_typespec   WT                     w105
+    > LOCAL   TOPMOD    IB   w105::cw105::wf2                   wo_2        83:8-83:12   unsupported_typespec   WT                     w105
+    > LOCAL   TOPMOD    IB   x105::cx105::xf                    xo_init     93:8-93:15   unsupported_typespec   XT                     x105
+
+---- unsupported-typespec join, GOLDEN vs PRISTINE:
+    KIND   LOCAL   IB   ELABPKG   21
+    KIND   LOCAL   OOB  DEFPKG    21
+    MISS   LOCAL   IB   ELABPKG   11
+    MISS   LOCAL   IB   TOPMOD    11
+    KIND   LOCAL   IB   TOPMOD    7
+    MISS   LOCAL   OOB  DEFPKG    7
+---- unsupported-typespec join, GOLDEN vs PATCHED:
+    KIND   LOCAL   IB   ELABPKG   12
+    KIND   LOCAL   OOB  DEFPKG    12
+    MISS   LOCAL   IB   ELABPKG   11
+    MISS   LOCAL   IB   TOPMOD    11
+    AGREE  LOCAL   IB   ELABPKG   9
+    AGREE  LOCAL   OOB  DEFPKG    9
+    MISS   LOCAL   OOB  DEFPKG    7
+    KIND   LOCAL   IB   TOPMOD    4
+    AGREE  LOCAL   IB   TOPMOD    3

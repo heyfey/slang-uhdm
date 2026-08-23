@@ -1,0 +1,46 @@
+AGREE_BOTH	50
+TO-GOLDEN	20
+AWAY	0
+STILL	11
+MOVED-WRONG	0
+MULT-CHANGED	0
+MISS	4
+EXTRA	2
+--- detail
+TO-GOLDEN | def DEFPKG OOB - pu_b4::cu_b4::argm 48:8-48:12 xo_a | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | def DEFPKG OOB - pu_b4::cu_b4::retm 42:8-42:12 xo_r | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | def DEFPKG OOB - pu_b4::cu_b4::sm 38:8-38:13 xo_st | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | def DEFPKG OOB - pu_b4::cu_b4::um 29:18-29:22 xo_u | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | def ELABPKG IB - pu_b4::cu_b4::argm 48:8-48:12 xo_a | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | def ELABPKG IB - pu_b4::cu_b4::retm 42:8-42:12 xo_r | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | def ELABPKG IB - pu_b4::cu_b4::sm 38:8-38:13 xo_st | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | def ELABPKG IB - pu_b4::cu_b4::um 29:18-29:22 xo_u | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | elab DEFPKG OOB - pu_b4::cu_b4::argm 48:8-48:12 xo_a | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | elab DEFPKG OOB - pu_b4::cu_b4::retm 42:8-42:12 xo_r | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | elab DEFPKG OOB - pu_b4::cu_b4::sm 38:8-38:13 xo_st | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | elab DEFPKG OOB - pu_b4::cu_b4::um 29:18-29:22 xo_u | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | elab ELABPKG IB - pu_b4::cu_b4::argm 48:8-48:12 xo_a | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | elab ELABPKG IB - pu_b4::cu_b4::retm 42:8-42:12 xo_r | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | elab ELABPKG IB - pu_b4::cu_b4::sm 38:8-38:13 xo_st | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | elab ELABPKG IB - pu_b4::cu_b4::um 29:18-29:22 xo_u | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | elab TOPMOD IB - pu_b4::cu_b4::argm 48:8-48:12 xo_a | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | elab TOPMOD IB - pu_b4::cu_b4::retm 42:8-42:12 xo_r | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | elab TOPMOD IB - pu_b4::cu_b4::sm 38:8-38:13 xo_st | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+TO-GOLDEN | elab TOPMOD IB - pu_b4::cu_b4::um 29:18-29:22 xo_u | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4')}
+STILL | def DEFPKG OOB - pu_b4::cu_b4::retm 41:12-41:21 - | G= {('unsupported_typespec', 'cu_b4::UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def DEFPKG OOB - pu_b4::cu_b4::um 30:18-30:27 xo_nested | G= {('unsupported_typespec', 'UT::inner_t', 'pu_b4')} | PRIS= {('int_typespec', 'inner_t', '-')} | PAT= {('int_typespec', 'inner_t', '-')}
+STILL | def ELABPKG IB - pu_b4::cu_b4::argm 47:38-47:39 a | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('unsupported_typespec', 'UT', 'pu_b4'), ('class_typespec', 'du_b4', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4'), ('class_typespec', 'du_b4', '-')}
+STILL | def ELABPKG IB - pu_b4::cu_b4::retm 41:12-41:21 - | G= {('unsupported_typespec', 'cu_b4::UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def ELABPKG IB - pu_b4::cu_b4::um 30:18-30:27 xo_nested | G= {('unsupported_typespec', 'UT::inner_t', 'pu_b4')} | PRIS= {('int_typespec', 'inner_t', '-')} | PAT= {('int_typespec', 'inner_t', '-')}
+STILL | elab DEFPKG OOB - pu_b4::cu_b4::retm 41:12-41:21 - | G= {('unsupported_typespec', 'cu_b4::UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab DEFPKG OOB - pu_b4::cu_b4::um 30:18-30:27 xo_nested | G= {('unsupported_typespec', 'UT::inner_t', 'pu_b4')} | PRIS= {('int_typespec', 'inner_t', '-')} | PAT= {('int_typespec', 'inner_t', '-')}
+STILL | elab ELABPKG IB - pu_b4::cu_b4::argm 47:38-47:39 a | G= {('unsupported_typespec', 'UT', 'pu_b4')} | PRIS= {('unsupported_typespec', 'UT', 'pu_b4'), ('class_typespec', 'du_b4', '-')} | PAT= {('unsupported_typespec', 'UT', 'pu_b4'), ('class_typespec', 'du_b4', '-')}
+STILL | elab ELABPKG IB - pu_b4::cu_b4::retm 41:12-41:21 - | G= {('unsupported_typespec', 'cu_b4::UT', 'pu_b4')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab ELABPKG IB - pu_b4::cu_b4::um 30:18-30:27 xo_nested | G= {('unsupported_typespec', 'UT::inner_t', 'pu_b4')} | PRIS= {('int_typespec', 'inner_t', '-')} | PAT= {('int_typespec', 'inner_t', '-')}
+STILL | elab TOPMOD IB - pu_b4::cu_b4::um 30:18-30:27 xo_nested | G= {('unsupported_typespec', 'UT::inner_t', 'pu_b4')} | PRIS= {('int_typespec', 'inner_t', '-')} | PAT= {('int_typespec', 'inner_t', '-')}
+MISS | def ELABPKG IB - pu_b4::cu_b4::argm 20:40-20:41 a | G= {('class_typespec', 'du_b4', '-')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - pu_b4::cu_b4::retm 19:21-19:23 - | G= {('class_typespec', 'du_b4', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - pu_b4::cu_b4::argm 20:40-20:41 a | G= {('class_typespec', 'du_b4', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - pu_b4::cu_b4::retm 19:21-19:23 - | G= {('class_typespec', 'du_b4', '-')} | PRIS= None | PAT= None
+EXTRA | def OTHER - - - 15:22-15:24 UT | G= None | PRIS= {('class_typespec', 'eu_b4', '-')} | PAT= {('class_typespec', 'eu_b4', '-')}
+EXTRA | elab OTHER - - - 15:22-15:24 UT | G= None | PRIS= {('class_typespec', 'eu_b4', '-')} | PAT= {('class_typespec', 'eu_b4', '-')}

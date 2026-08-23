@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-23 08:05, HEAD = the buvm27 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-23 08:10, HEAD = the uvm105 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,7 +182,8 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 |---|---|---|
 | SeqDriver×2 (uvm-1.2 tree) | 60 (depth) | the param_assign Rhs of `parameter UVM_RADIX = backtick-hf000000` (uvm_object_globals.svh:99): golden vpiSize -1 + a DANGLING ref_typespec vs ours 32 + int_typespec — the Rhs half of uvm102's unsized-based-literal law; pass uvm106 in flight (uvm104 landed: 64→60, Surelog's enterString regex "``.``" is an unescaped wildcard — every paste·X·paste window in a macro stringification becomes '.'; the verifier fenced argument-bearing macros) |
 | MiniAmiq×2 (uvm-1.2 tree) | 348 (depth) | uvm101's residue (the deeper mismatch exposed after its event-statement head cleared; tools/probe/r10uvm101repro/raw/head_MiniAmiq_default.cmp) — unassigned, next UVM slot |
-| SimpleUVM×2, Scoreboard/default (uvm-1.2 tree) | 22 (depth) | a variable typed by the enclosing class's OWN type parameter inside an OUT-OF-BODY method (`REQ param_t;`, uvm_sequencer_param_base.svh:270): golden leaves an unsupported_typespec named REQ (Surelog compiles the out-of-body method with the package as component; no late binding repairs a type-parameter name) where we resolve REQ's default class_typespec — VpiType; pass uvm105 in flight (uvm103 landed: 108→22, an Invalid shell is not a position — the call inside stays the STATEMENT) |
+| SimpleUVM×2 (uvm-1.2 tree) | 17 (depth) | golden mints an IMPLICIT NET in the top module for a name an out-of-body body could not bind (`logic_net work@top.param_t`, uvm_sequencer_param_base.svh:290 `m_last_req_push_front(param_t)`) vs our RHS <null> — module_inst::Nets; the knock-on of uvm105's own mechanism (§ fnLocalParamRangeNet family); next UVM slot (uvm105 landed: 22→17/29, an out-of-body method's body local typed by the class's own type parameter is an unsupported_typespec named after the written token, instanced at the declaring package) |
+| Scoreboard/default (uvm-1.2 tree) | 29 (depth) | `LHS: <null>` vs our ref_var param_t under the body begin — golden's begin does not hold it: a body-local parenting/listing law one level deeper (uvm105's R-B) |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 32 (depth) | a dynamic-array `new [$bits(m_command)]` size (uvm_pkg.sv:58248/:58283): golden mints constant UINT:0 in the new[] size slot (Surelog resolves nothing inside a dynamic-array new size) where we fold the enum variable's 32 — a pure VALUE head (uvm95's R7); pass buvm28 in flight (buvm27 landed: 76→32, compileBits types an expression argument by its LEFTMOST operand only when that operand carries a select; the verifier fenced generate blocks, where Surelog folds no $bits at all) |
 | Earlgrey_0_1/default | 64 (depth) | a parameter-port ACTUAL value ENCODING miss: `.WordsPerPage(WordsPerPage / WidthMultiple)` (flash_phy_core.sv:215 → prim_flash.sv:16 `parameter int`): golden INT:128 ct 7 vs ours UINT:128 ct 9 — earl71's R3 promoted (Surelog's adjustSize/ExprEval signedness rule); pass earl73 in flight (earl72 landed: 17→64, writeCont_assign clone_tree keeps the DEF fold's typespec in ELAB copies when the Rhs is an operation — a one-line gate) |
 | Earlgrey_0_1/testflags | 64 (depth) | SAME head, identical cmp log (earl72) |
@@ -191,7 +192,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 63 verifier fix-before-landing re-cuts (134 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 63 verifier fix-before-landing re-cuts (135 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

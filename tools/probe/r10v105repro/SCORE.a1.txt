@@ -1,0 +1,102 @@
+AGREE_BOTH	116
+TO-GOLDEN	35
+AWAY	0
+STILL	32
+MOVED-WRONG	0
+MULT-CHANGED	0
+MISS	20
+EXTRA	6
+--- detail
+TO-GOLDEN | def DEFPKG OOB - p105::c105::oob_all 58:16-58:20 xo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | def DEFPKG OOB - p105::c105::oob_all 59:16-59:20 xo_u | G= {('unsupported_typespec', 'U', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'U', 'p105')}
+TO-GOLDEN | def DEFPKG OOB - p105::c105::oob_all 60:16-60:20 xo_w | G= {('unsupported_typespec', 'W', 'p105')} | PRIS= {('int_typespec', '-', 'p105')} | PAT= {('unsupported_typespec', 'W', 'p105')}
+TO-GOLDEN | def DEFPKG OOB - p105::c105::oob_loc 75:16-75:20 zo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | def DEFPKG OOB - p105::c105::oob_ret 70:7-70:11 yo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | def DEFPKG OOB - p105::c105::oob_stat 83:16-83:20 so_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | def DEFPKG OOB - p105::c105::oob_task 79:16-79:20 to_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | def ELABPKG IB - p105::c105::oob_all 58:16-58:20 xo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | def ELABPKG IB - p105::c105::oob_all 59:16-59:20 xo_u | G= {('unsupported_typespec', 'U', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'U', 'p105')}
+TO-GOLDEN | def ELABPKG IB - p105::c105::oob_all 60:16-60:20 xo_w | G= {('unsupported_typespec', 'W', 'p105')} | PRIS= {('int_typespec', '-', 'p105')} | PAT= {('unsupported_typespec', 'W', 'p105')}
+TO-GOLDEN | def ELABPKG IB - p105::c105::oob_loc 75:16-75:20 zo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | def ELABPKG IB - p105::c105::oob_ret 70:7-70:11 yo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | def ELABPKG IB - p105::c105::oob_stat 83:16-83:20 so_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | def ELABPKG IB - p105::c105::oob_task 79:16-79:20 to_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab DEFPKG OOB - p105::c105::oob_all 58:16-58:20 xo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab DEFPKG OOB - p105::c105::oob_all 59:16-59:20 xo_u | G= {('unsupported_typespec', 'U', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'U', 'p105')}
+TO-GOLDEN | elab DEFPKG OOB - p105::c105::oob_all 60:16-60:20 xo_w | G= {('unsupported_typespec', 'W', 'p105')} | PRIS= {('int_typespec', '-', 'p105')} | PAT= {('unsupported_typespec', 'W', 'p105')}
+TO-GOLDEN | elab DEFPKG OOB - p105::c105::oob_loc 75:16-75:20 zo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab DEFPKG OOB - p105::c105::oob_ret 70:7-70:11 yo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab DEFPKG OOB - p105::c105::oob_stat 83:16-83:20 so_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab DEFPKG OOB - p105::c105::oob_task 79:16-79:20 to_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab ELABPKG IB - p105::c105::oob_all 58:16-58:20 xo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab ELABPKG IB - p105::c105::oob_all 59:16-59:20 xo_u | G= {('unsupported_typespec', 'U', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'U', 'p105')}
+TO-GOLDEN | elab ELABPKG IB - p105::c105::oob_all 60:16-60:20 xo_w | G= {('unsupported_typespec', 'W', 'p105')} | PRIS= {('int_typespec', '-', 'p105')} | PAT= {('unsupported_typespec', 'W', 'p105')}
+TO-GOLDEN | elab ELABPKG IB - p105::c105::oob_loc 75:16-75:20 zo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab ELABPKG IB - p105::c105::oob_ret 70:7-70:11 yo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab ELABPKG IB - p105::c105::oob_stat 83:16-83:20 so_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab ELABPKG IB - p105::c105::oob_task 79:16-79:20 to_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab TOPMOD IB - p105::c105::oob_all 58:16-58:20 xo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab TOPMOD IB - p105::c105::oob_all 59:16-59:20 xo_u | G= {('unsupported_typespec', 'U', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'U', 'p105')}
+TO-GOLDEN | elab TOPMOD IB - p105::c105::oob_all 60:16-60:20 xo_w | G= {('unsupported_typespec', 'W', 'p105')} | PRIS= {('int_typespec', '-', 'p105')} | PAT= {('unsupported_typespec', 'W', 'p105')}
+TO-GOLDEN | elab TOPMOD IB - p105::c105::oob_loc 75:16-75:20 zo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab TOPMOD IB - p105::c105::oob_ret 70:7-70:11 yo_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab TOPMOD IB - p105::c105::oob_stat 83:16-83:20 so_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+TO-GOLDEN | elab TOPMOD IB - p105::c105::oob_task 79:16-79:20 to_t | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'T', 'p105')}
+STILL | def DEFPKG OOB - p105::c105::oob_all 56:42-56:44 fd | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', 'p105')}
+STILL | def DEFPKG OOB - p105::c105::oob_all 61:16-61:21 xo_td | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', 'p105')}
+STILL | def DEFPKG OOB - p105::c105::oob_ret 69:12-69:19 - | G= {('unsupported_typespec', 'c105::T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def ELABPKG - - - 22:17-22:22 pr_td | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', 'p105')}
+STILL | def ELABPKG IB - p105::c105::ib_all 32:18-32:23 lo_td | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', 'p105')}
+STILL | def ELABPKG IB - p105::c105::oob_all 55:39-55:41 fa | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')} | PAT= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')}
+STILL | def ELABPKG IB - p105::c105::oob_all 55:51-55:53 fb | G= {('unsupported_typespec', 'U', 'p105')} | PRIS= {('unsupported_typespec', 'U', 'p105'), ('class_typespec', 'd105a', '-')} | PAT= {('unsupported_typespec', 'U', 'p105'), ('class_typespec', 'd105a', '-')}
+STILL | def ELABPKG IB - p105::c105::oob_all 55:63-55:65 fc | G= {('unsupported_typespec', 'W', 'p105')} | PRIS= {('unsupported_typespec', 'W', 'p105'), ('int_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'W', 'p105'), ('int_typespec', '-', '-')}
+STILL | def ELABPKG IB - p105::c105::oob_all 56:42-56:44 fd | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', '-'), ('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', '-'), ('class_typespec', 'my_t', 'p105')}
+STILL | def ELABPKG IB - p105::c105::oob_all 56:58-56:60 fe | G= {('class_typespec', 'd105a', 'p105')} | PRIS= {('class_typespec', 'd105a', 'p105'), ('class_typespec', 'd105a', '-')} | PAT= {('class_typespec', 'd105a', 'p105'), ('class_typespec', 'd105a', '-')}
+STILL | def ELABPKG IB - p105::c105::oob_all 61:16-61:21 xo_td | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', 'p105')}
+STILL | def ELABPKG IB - p105::c105::oob_ret 69:12-69:19 - | G= {('unsupported_typespec', 'c105::T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | def ELABPKG IB - p105::c105::oob_ret 69:42-69:44 fa | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')} | PAT= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')}
+STILL | def ELABPKG IB - p105::c105::oob_stat 82:40-82:42 fa | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')} | PAT= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')}
+STILL | def ELABPKG IB - p105::c105::oob_task 78:31-78:33 fa | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')} | PAT= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')}
+STILL | elab DEFPKG OOB - p105::c105::oob_all 56:42-56:44 fd | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', 'p105')}
+STILL | elab DEFPKG OOB - p105::c105::oob_all 61:16-61:21 xo_td | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', 'p105')}
+STILL | elab DEFPKG OOB - p105::c105::oob_ret 69:12-69:19 - | G= {('unsupported_typespec', 'c105::T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab ELABPKG - - - 22:17-22:22 pr_td | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', 'p105')}
+STILL | elab ELABPKG IB - p105::c105::ib_all 32:18-32:23 lo_td | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', 'p105')}
+STILL | elab ELABPKG IB - p105::c105::oob_all 55:39-55:41 fa | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')} | PAT= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')}
+STILL | elab ELABPKG IB - p105::c105::oob_all 55:51-55:53 fb | G= {('unsupported_typespec', 'U', 'p105')} | PRIS= {('unsupported_typespec', 'U', 'p105'), ('class_typespec', 'd105a', '-')} | PAT= {('unsupported_typespec', 'U', 'p105'), ('class_typespec', 'd105a', '-')}
+STILL | elab ELABPKG IB - p105::c105::oob_all 55:63-55:65 fc | G= {('unsupported_typespec', 'W', 'p105')} | PRIS= {('unsupported_typespec', 'W', 'p105'), ('int_typespec', '-', '-')} | PAT= {('unsupported_typespec', 'W', 'p105'), ('int_typespec', '-', '-')}
+STILL | elab ELABPKG IB - p105::c105::oob_all 56:42-56:44 fd | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', '-'), ('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', '-'), ('class_typespec', 'my_t', 'p105')}
+STILL | elab ELABPKG IB - p105::c105::oob_all 56:58-56:60 fe | G= {('class_typespec', 'd105a', 'p105')} | PRIS= {('class_typespec', 'd105a', 'p105'), ('class_typespec', 'd105a', '-')} | PAT= {('class_typespec', 'd105a', 'p105'), ('class_typespec', 'd105a', '-')}
+STILL | elab ELABPKG IB - p105::c105::oob_all 61:16-61:21 xo_td | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', 'p105')}
+STILL | elab ELABPKG IB - p105::c105::oob_ret 69:12-69:19 - | G= {('unsupported_typespec', 'c105::T', 'p105')} | PRIS= {('class_typespec', '-', '-')} | PAT= {('class_typespec', '-', '-')}
+STILL | elab ELABPKG IB - p105::c105::oob_ret 69:42-69:44 fa | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')} | PAT= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')}
+STILL | elab ELABPKG IB - p105::c105::oob_stat 82:40-82:42 fa | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')} | PAT= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')}
+STILL | elab ELABPKG IB - p105::c105::oob_task 78:31-78:33 fa | G= {('unsupported_typespec', 'T', 'p105')} | PRIS= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')} | PAT= {('class_typespec', 'my_t', '-'), ('unsupported_typespec', 'T', 'p105')}
+STILL | elab TOPMOD IB - p105::c105::oob_all 56:42-56:44 fd | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', 'p105')}
+STILL | elab TOPMOD IB - p105::c105::oob_all 61:16-61:21 xo_td | G= {('class_typespec', 'my_t', '-')} | PRIS= {('class_typespec', 'my_t', 'p105')} | PAT= {('class_typespec', 'my_t', 'p105')}
+MISS | def ELABPKG IB - p105::c105::oob_all 45:43-45:45 fa | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - p105::c105::oob_all 45:55-45:57 fb | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - p105::c105::oob_all 45:67-45:69 fc | G= {('int_typespec', '-', '-')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - p105::c105::oob_all 46:46-46:48 fd | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - p105::c105::oob_all 46:62-46:64 fe | G= {('class_typespec', 'd105a', '-')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - p105::c105::oob_all 47:52-47:54 ff | G= {('int_typespec', 'plain105_t', 'p105')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - p105::c105::oob_ret 48:21-48:22 - | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - p105::c105::oob_ret 48:43-48:45 fa | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - p105::c105::oob_stat 51:50-51:52 fa | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+MISS | def ELABPKG IB - p105::c105::oob_task 50:44-50:46 fa | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p105::c105::oob_all 45:43-45:45 fa | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p105::c105::oob_all 45:55-45:57 fb | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p105::c105::oob_all 45:67-45:69 fc | G= {('int_typespec', '-', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p105::c105::oob_all 46:46-46:48 fd | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p105::c105::oob_all 46:62-46:64 fe | G= {('class_typespec', 'd105a', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p105::c105::oob_all 47:52-47:54 ff | G= {('int_typespec', 'plain105_t', 'p105')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p105::c105::oob_ret 48:21-48:22 - | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p105::c105::oob_ret 48:43-48:45 fa | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p105::c105::oob_stat 51:50-51:52 fa | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+MISS | elab ELABPKG IB - p105::c105::oob_task 50:44-50:46 fa | G= {('class_typespec', 'my_t', '-')} | PRIS= None | PAT= None
+EXTRA | def OTHER - - - 14:21-14:22 T | G= None | PRIS= {('class_typespec', 'e105a', '-')} | PAT= {('class_typespec', 'e105a', '-')}
+EXTRA | def OTHER - - - 14:37-14:38 U | G= None | PRIS= {('class_typespec', 'e105a', '-')} | PAT= {('class_typespec', 'e105a', '-')}
+EXTRA | def OTHER - - - 14:49-14:50 W | G= None | PRIS= {('int_typespec', '-', '-')} | PAT= {('int_typespec', '-', '-')}
+EXTRA | elab OTHER - - - 14:21-14:22 T | G= None | PRIS= {('class_typespec', 'e105a', '-')} | PAT= {('class_typespec', 'e105a', '-')}
+EXTRA | elab OTHER - - - 14:37-14:38 U | G= None | PRIS= {('class_typespec', 'e105a', '-')} | PAT= {('class_typespec', 'e105a', '-')}
+EXTRA | elab OTHER - - - 14:49-14:50 W | G= None | PRIS= {('int_typespec', '-', '-')} | PAT= {('int_typespec', '-', '-')}
