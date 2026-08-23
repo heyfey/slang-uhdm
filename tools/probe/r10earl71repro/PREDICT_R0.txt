@@ -1,0 +1,20 @@
+r10earl71 — PREDICTED MOVERS, read from the PRISTINE databases BEFORE the
+patched sweeps were scored (predict71.sh's candidate shape: an ELAB port
+High_conn plain part_select DIRECT bound, census path exactly HC/l or HC/r,
+emitted as a CONSTANT by the pristine binary, inside a chain containing a
+gen_scope).  Validated on d1_earl71 first: 360 candidates in the pristine
+arm, 144 golden ref->enum_const twins.
+
+uhdm2rtlil, 1358 pristine databases scanned : 0 databases carry a candidate
+surelog,    956 pristine databases scanned  :
+CAND 40 default/Earlgrey_0_1-71da2fd7/slang.uhdm
+CAND 120 testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+
+=> predicted mover set = exactly
+     default/Earlgrey_0_1-71da2fd7/slang.uhdm
+     testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+   and NOTHING in uhdm2rtlil.
+
+MEASURED (byteverify SELFCHECK=1): surelog 3/956 movers = those two plus
+default/Scoreboard-59431470, which is the known per-invocation COIN
+(order-blind normalised dump diff = 0 lines); uhdm2rtlil 0/1358.

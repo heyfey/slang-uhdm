@@ -1,0 +1,36 @@
+r10earl71 VERIFIER — arm scores (score71.py, 3-way keyed multiset join, NK=4,
+judge-visible payload: span / typespec span / actual fullname stripped; tsname KEPT).
+
+ARM            VIEW  COUNTS
+v1_shapes71    o     cells 1115 {'STILL-RIGHT': 924, 'TO-GOLDEN': 104, 'STILL-WRONG': 87}
+v1_shapes71    oe    cells 1635 {'STILL-RIGHT': 868, 'STILL-WRONG': 559, 'TO-GOLDEN': 104, 'MOVED-WRONG': 104}
+v2_origins71   o     cells 3266 {'STILL-RIGHT': 1138, 'STILL-WRONG': 2016, 'TO-GOLDEN': 112}
+v2_origins71   oe    cells 4337 {'STILL-RIGHT': 1150, 'STILL-WRONG': 2963, 'TO-GOLDEN': 112, 'MOVED-WRONG': 112}
+v3_enc71       o     cells 1042 {'STILL-RIGHT': 775, 'TO-GOLDEN': 96, 'STILL-WRONG': 139, 'MOVED-WRONG': 32}
+v3_enc71       oe    cells 1648 {'STILL-RIGHT': 773, 'STILL-WRONG': 619, 'MOVED-WRONG': 160, 'TO-GOLDEN': 96}
+v4_homes71     o     cells 665 {'TO-GOLDEN': 72, 'STILL-RIGHT': 551, 'STILL-WRONG': 42}
+v4_homes71     oe    cells 1155 {'STILL-RIGHT': 542, 'STILL-WRONG': 469, 'TO-GOLDEN': 72, 'MOVED-WRONG': 72}
+v5_edges71     o     cells 866 {'STILL-RIGHT': 649, 'STILL-WRONG': 81, 'TO-GOLDEN': 128, 'MOVED-WRONG': 8}
+v5_edges71     oe    cells 1392 {'STILL-RIGHT': 647, 'TO-GOLDEN': 128, 'MOVED-WRONG': 144, 'STILL-WRONG': 473}
+d1_earl71      o     cells 4130 {'STILL-RIGHT': 3461, 'STILL-WRONG': 557, 'TO-GOLDEN': 112}
+d1_earl71      oe    cells 6134 {'STILL-WRONG': 2695, 'STILL-RIGHT': 3215, 'TO-GOLDEN': 112, 'MOVED-WRONG': 112}
+d2_earl71      o     cells 3989 {'STILL-RIGHT': 3129, 'STILL-WRONG': 764, 'TO-GOLDEN': 96}
+d2_earl71      oe    cells 6548 {'STILL-RIGHT': 3075, 'STILL-WRONG': 3281, 'TO-GOLDEN': 96, 'MOVED-WRONG': 96}
+d3_earl71      o     cells 1814 {'TO-GOLDEN': 240, 'STILL-RIGHT': 1380, 'STILL-WRONG': 194}
+d3_earl71      oe    cells 3026 {'STILL-RIGHT': 1342, 'TO-GOLDEN': 240, 'MOVED-WRONG': 240, 'STILL-WRONG': 1204}
+g1_earl70      o     cells 3274 {'STILL-RIGHT': 2795, 'STILL-WRONG': 375, 'TO-GOLDEN': 104}
+g1_earl70      oe    cells 4993 {'STILL-RIGHT': 2648, 'STILL-WRONG': 2137, 'TO-GOLDEN': 104, 'MOVED-WRONG': 104}
+g2_earl70      o     cells 714 {'STILL-RIGHT': 516, 'TO-GOLDEN': 112, 'STILL-WRONG': 86}
+g2_earl70      oe    cells 1078 {'STILL-WRONG': 366, 'STILL-RIGHT': 488, 'TO-GOLDEN': 112, 'MOVED-WRONG': 112}
+g3_enc70       o     cells 636 {'STILL-RIGHT': 520, 'STILL-WRONG': 28, 'TO-GOLDEN': 88}
+g3_enc70       oe    cells 941 {'STILL-RIGHT': 517, 'STILL-WRONG': 248, 'TO-GOLDEN': 88, 'MOVED-WRONG': 88}
+v1_axes70      o     cells 2034 {'STILL-WRONG': 289, 'STILL-RIGHT': 1665, 'TO-GOLDEN': 80}
+v1_axes70      oe    cells 3242 {'STILL-RIGHT': 1637, 'STILL-WRONG': 1445, 'TO-GOLDEN': 80, 'MOVED-WRONG': 80}
+
+SPAN-PRESENCE payload (span coordinates collapsed to LOC/NOLOC, scored separately
+because golden's minted enum_const is LOC-LESS):
+v1_shapes71    span  cells 1115 {'STILL-WRONG': 87, 'STILL-RIGHT': 924, 'TO-GOLDEN': 104}
+v2_origins71   span  cells 3266 {'STILL-WRONG': 2016, 'STILL-RIGHT': 1138, 'TO-GOLDEN': 112}
+v3_enc71       span  cells 1042 {'STILL-RIGHT': 775, 'STILL-WRONG': 139, 'TO-GOLDEN': 96, 'MOVED-WRONG': 32}
+v4_homes71     span  cells 665 {'STILL-RIGHT': 551, 'TO-GOLDEN': 72, 'STILL-WRONG': 42}
+v5_edges71     span  cells 866 {'STILL-RIGHT': 649, 'TO-GOLDEN': 128, 'STILL-WRONG': 81, 'MOVED-WRONG': 8}

@@ -18,6 +18,98 @@
 
 namespace slang_uhdm {
 
+// § pkgParamValueIsUnsigned71 (r10earl71) — WHICH package parameters this
+// pass may mint a locless `enum_const` for, decided by the ENCODING Surelog
+// stores for the parameter, not by the read site.
+//
+// `UhdmWriter::lateBinding` (Surelog src/DesignCompile/UhdmWriter.cpp:3951-3960)
+// copies `mod->getValue(name)`, and that value is
+// `ExprBuilder::fromVpiValue(rhs->VpiValue(), rhs->VpiSize())` over the
+// param_assign Rhs CONSTANT — which UHDM's `ExprEval::reduceExpr` produced.
+// That reducer types its result PER OPERATOR, not per value
+// (Surelog third_party/UHDM/templates/ExprEval.cpp):
+//   vpiAddOp/vpiPlusOp   :3160-3205  UINT iff BOTH operand constants are
+//                                    themselves unsigned, else INT
+//   vpiSubOp :3343  vpiMultOp :3379  vpiDivOp :3703  vpiModOp :3663  always INT
+//   shifts :3242-3299, bitwise AND/OR                 always UINT
+//   $clog2 :4564                                      always UINT
+//   a comparison                     :6085            INT:-1, whatever operand
+//   bitwise XOR                                       NO value at all — golden
+//                                                     leaves the ref UNBOUND
+// Measured on golden over 25 init shapes (`d3_earl71.sv`, one package
+// parameter per shape read as the same gen-for direct bound): `8+8` UINT:16 but
+// `8*2` INT:16, `A-4` INT, `A/2` INT, `A%7` INT, `A>3` INT:-1, `-A+30` INT:10,
+// `A>>1` / `A<<0` / `A&31` / `A|0` / `$clog2(A)` / a ternary / a bare or
+// cross-package read all UINT, and `A^0` with NO actual at all.
+//
+// This pass's encoder writes `UINT:` for every nonnegative value (law 70's
+// encoder, kept byte-for-byte), so it may only claim the shapes above that
+// Surelog also stores unsigned.  Everything else keeps the pristine fold — a
+// cell that was already wrong stays wrong rather than becoming wrongly bound,
+// which is exactly the class law 70's verifier refused.  Correct INT encoding
+// is ranked, not claimed.
+static bool pkgParamValueIsUnsigned71(const slang::ast::ParameterSymbol& ps,
+                                      int depth);
+static bool pkgParamExprIsUnsigned71(const slang::ast::Expression& e0,
+                                     int depth) {
+    if (depth > 8)
+        return false;
+    const Expression& e = stripImplicitConv(e0);
+    switch (e.kind) {
+        case ExpressionKind::IntegerLiteral:
+            return true;
+        case ExpressionKind::NamedValue: {
+            auto& sym = e.as<NamedValueExpression>().symbol;
+            if (sym.kind != SymbolKind::Parameter)
+                return false;
+            return pkgParamValueIsUnsigned71(sym.as<ParameterSymbol>(),
+                                             depth + 1);
+        }
+        case ExpressionKind::Conversion:
+            return pkgParamExprIsUnsigned71(
+                e.as<ConversionExpression>().operand(), depth + 1);
+        case ExpressionKind::BinaryOp: {
+            auto& b = e.as<BinaryExpression>();
+            switch (b.op) {
+                case BinaryOperator::LogicalShiftLeft:
+                case BinaryOperator::LogicalShiftRight:
+                case BinaryOperator::ArithmeticShiftLeft:
+                case BinaryOperator::ArithmeticShiftRight:
+                case BinaryOperator::BinaryAnd:
+                case BinaryOperator::BinaryOr:
+                    return true;
+                case BinaryOperator::Add:
+                    return pkgParamExprIsUnsigned71(b.left(), depth + 1) &&
+                           pkgParamExprIsUnsigned71(b.right(), depth + 1);
+                default:
+                    return false;
+            }
+        }
+        case ExpressionKind::ConditionalOp: {
+            auto& c = e.as<ConditionalExpression>();
+            return pkgParamExprIsUnsigned71(c.left(), depth + 1) &&
+                   pkgParamExprIsUnsigned71(c.right(), depth + 1);
+        }
+        case ExpressionKind::Call: {
+            auto& ce = e.as<CallExpression>();
+            if (!ce.isSystemCall())
+                return false;
+            std::string_view nm = ce.getSubroutineName();
+            return nm == "$clog2" || nm == "$bits";
+        }
+        default:
+            return false;
+    }
+}
+static bool pkgParamValueIsUnsigned71(const slang::ast::ParameterSymbol& ps,
+                                      int depth) {
+    if (depth > 8)
+        return false;
+    if (auto* init = ps.getInitializer())
+        return pkgParamExprIsUnsigned71(*init, depth);
+    return false;
+}
+
 // § namedTfArgsFormalSlots4 (emit half, the placeholder object).  The slot a
 // NAMED-argument func_call / task_call leaves for an UNWRITTEN formal is NOT
 // that formal's declared default: it is a bare `INT:0`, whatever the formal's
@@ -9110,9 +9202,83 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // golden folds those copies.  Subtraction was remeasured for
                 // both operand orders, both bound positions, nested forms,
                 // and negative/positive enclosing results with zero regressions.
+                // § genScopeConnPsDirectBoundKeepsRef71 (r10earl71) — THE
+                // DIRECT-BOUND SLICE of the same abstention, the head
+                // § connPsOpBoundOuterScopeKeepsRef70 deliberately left open.
+                //
+                // THE HEAD (Earlgrey_0_1, BOTH modes, 46 cmp lines, 1 head, at
+                // ecdded75) — flash_phy_rd.sv:143:34-143:44, the RIGHT bound of
+                // the very same `.addr_i(addr_i[BankAddrW-1:LsbAddrBit])` whose
+                // LEFT-bound operand law 70 landed:
+                //   LHS(golden) ref_obj 143:34-143:44 |vpiName:LsbAddrBit
+                //               |vpiParent part_select addr_i 143:15-143:45
+                //               |vpiActual -> enum_const (LsbAddrBit), locless
+                //   RHS(ours)   constant 143:34-143:44 |vpiDecompile:1
+                //               |vpiSize:32 |UINT:1 |ct 9 |vpiTypespec ->
+                //               ref_typespec -> the package int_typespec
+                // `part_select::Compare` walks Right_range through
+                // `BaseClass::SafeCompare`, whose VpiType test fails first and
+                // names both sides (RESUME §9's head-decode rule).
+                //
+                // WHY THE BOUND POSITION IS NOT THE AXIS, decoded from Surelog
+                // and then measured.  `CompileHelper::compilePartSelectRange`
+                // (src/DesignCompile/CompileExpression.cpp:4240-4249) compiles
+                // BOTH ranges of a plain `paConstant_range` part_select with
+                // **Reduce::No**, whatever the caller's reduce is — which is
+                // why the ips base/width and the bit-select index (compiled
+                // with the caller's `reduce`, :4261-4270) fold in the same
+                // High_conn while a part-select bound does not.  Under
+                // Reduce::No the only substitution left is the one at
+                // CompileExpression.cpp:2861-2915: the name is looked up in
+                // **`instance->getNetlist()->param_assigns()` of THAT instance
+                // alone** — no parent walk, unlike `ModuleInstance::getValue`
+                // (src/Design/ModuleInstance.cpp:132-181, which does climb).
+                // At an instantiation inside a generate scope the instance IS
+                // the gen scope, whose netlist carries only the gen block's OWN
+                // localparams, so every outer name survives as a `ref_obj`;
+                // `UhdmWriter::lateBinding` (UhdmWriter.cpp:3951-3960) then
+                // answers a PACKAGE name with `mod->getValue(name)` and mints
+                // the locless `enum_const`, and leaves a module-scope name
+                // unbound.
+                //
+                // THE GRID, measured on GOLDEN (`d1_earl71.sv` nine package
+                // parameter RHS SHAPES x two homes x eight select positions;
+                // `d2_earl71.sv` six symbol origins x twelve bound spellings x
+                // module / gen-for / gen-if / nested-gen homes).  In an ELAB
+                // port High_conn, plain part-select BOUND, gen-scope home:
+                //   package parameter / package localparam  ref -> enum_const
+                //   package ENUM MEMBER                     ref -> enum_const
+                //   module parameter / module localparam    ref, UNBOUND
+                //   an OUTER gen block's localparam         ref, UNBOUND
+                //   genvar                                  ref, UNBOUND
+                //   the block's OWN localparam              FOLDS
+                // and in a MODULE-BODY home every one of them folds except the
+                // enum member.  THE RHS SHAPE IS NOT AN AXIS: a literal, a
+                // cross-package read, `$clog2` of a literal, `$clog2` of a
+                // derived parameter (Earlgrey's own `LsbAddrBit`), a quotient
+                // of two cross-package parameters, a ternary and a subtraction
+                // all measure identically (d1, 4128 golden cells).
+                //
+                // THIS PASS SHIPS ONLY the package-parameter DIRECT bound (and
+                // keeps law 70's subtraction operand): the module-scope and
+                // outer-gen-scope UNBOUND-ref classes and the own-localparam
+                // FOLD are inverted in our emitter today and are ranked as R1
+                // and R2, not claimed here.  Law 70's own negative control
+                // stands — its refuted broad cut bound MODULE parameters to a
+                // fresh enum_const, which this arm cannot do, since the whole
+                // branch is under `scope->asSymbol().kind == Package`.
                 if (elabConnEmit21 && connGenScope61 && inPsRangeBound &&
-                    parent && parent->UhdmType() == UHDM::uhdmoperation &&
-                    ((UHDM::operation*)parent)->VpiOpType() == vpiSubOp &&
+                    parent &&
+                    ((parent->UhdmType() == UHDM::uhdmoperation &&
+                      ((UHDM::operation*)parent)->VpiOpType() == vpiSubOp) ||
+                     parent->UhdmType() == UHDM::uhdmpart_select) &&
+                    // The DIRECT bound is the only position this pass adds, and
+                    // it is the one that reaches parameters whose stored value
+                    // is NOT unsigned — § pkgParamValueIsUnsigned71 refuses
+                    // those, leaving law 70's operand slice exactly as it
+                    // landed.
+                    (parent->UhdmType() != UHDM::uhdmpart_select ||
+                     pkgParamValueIsUnsigned71(psym, 0)) &&
                     // § argWrittenQualIsSyntaxKind33's discriminator, not a text
                     // test: `\a::b ` is ONE escaped identifier whose NAME holds
                     // `::` and a macro-written `pkg::P` is a real ScopedName.

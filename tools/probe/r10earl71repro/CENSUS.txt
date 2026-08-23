@@ -1,0 +1,18 @@
+r10earl71 — CORPUS CENSUS (tscen71 whole-database listener census, judge-visible
+payload only: span, typespec span, and the actual's fullname stripped).
+
+Golden-vs-golden CALIBRATION first (RESUME §9):
+  default   cells 521401 {'STILL-RIGHT': 521401}
+  testflags cells 799038 {'STILL-RIGHT': 799038}
+
+Earlgrey_0_1 golden / pristine / patched, 3-way keyed MULTISET join:
+  default   cells 531489 {'STILL-RIGHT': 508238, 'STILL-WRONG': 23219, 'TO-GOLDEN': 32}
+  testflags cells 811229 {'STILL-RIGHT': 770409, 'STILL-WRONG': 40756, 'TO-GOLDEN': 64}
+
+Every changed cell, both modes, is the SAME shape (direct-reader diff of the
+pristine and patched censuses; NEVER a whole-dump diff on Earlgrey):
+< TS design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[0])/gen_scope/module_inst(i_core)/module_inst(i_rd)/gen_scope_array(gen_bufs[0])/gen_scope/module_inst(i_rd_buf) HC_addr_i_L28:30 HC/r constant span=-:143:34-143:44 ct=9 sz=32 val=UINT:1 dec=1 ts=int_typespec tsname=- tssgn=1
+< TS design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[0])/gen_scope/module_inst(i_core)/module_inst(i_rd)/gen_scope_array(gen_bufs[0])/gen_scope/module_inst(i_rd_buf) HC_addr_i_L28:30 HC/r constant span=-:143:34-143:44 ct=9 sz=32 val=UINT:1 dec=1 ts=int_typespec tsname=- tssgn=1
+  default   64 changed census lines = 32 cells; testflags 128 = 64 cells.
+  All of them are HC_addr_i_L28:30 HC/r in gen_flash_banks[0..1] > i_core >
+  i_rd > gen_bufs[0..3] > i_rd_buf.  0 lines match anything else.

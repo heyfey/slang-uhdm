@@ -1,0 +1,14 @@
+plain r10earl70repro/g1_earl70.sv
+elab r10earl70repro/g1_earl70.sv
+plain r10earl70repro/g2_earl70.sv
+elab r10earl70repro/g2_earl70.sv
+plain r10earl70repro/g3_enc70.sv
+elab r10earl70repro/g3_enc70.sv
+plain r10earl71repro/d1_earl71.sv
+elab r10earl71repro/d1_earl71.sv
+plain r10earl71repro/d2_earl71.sv
+elab r10earl71repro/d2_earl71.sv
+plain r10earl71repro/d3_earl71.sv
+elab r10earl71repro/d3_earl71.sv
+plain r10vearl70repro/v1_axes70.sv
+elab r10vearl70repro/v1_axes70.sv

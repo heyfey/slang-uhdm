@@ -1,0 +1,46 @@
+LHS:
+decompile:
+ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].i_rd_buf.addr_i.addr_i.LsbAddrBit), id:311954, line:143:34, endln:143:44
+|vpiParent:
+\_part_select: addr_i (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].i_rd_buf.addr_i.addr_i), id:311950, line:143:15, endln:143:45
+|vpiName:LsbAddrBit
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].i_rd_buf.addr_i.addr_i.LsbAddrBit
+|vpiActual:
+\_enum_const: (LsbAddrBit), id:990328
+
+decompile:
+ref_obj: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].i_rd_buf.addr_i.addr_i.LsbAddrBit), id:311954, line:143:34, endln:143:44
+|vpiParent:
+\_part_select: addr_i (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].i_rd_buf.addr_i.addr_i), id:311950, line:143:15, endln:143:45
+|vpiName:LsbAddrBit
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].i_rd_buf.addr_i.addr_i.LsbAddrBit
+|vpiActual:
+\_enum_const: (LsbAddrBit), id:990328
+RHS:
+decompile:
+constant: , id:253847, line:143:34, endln:143:44
+|vpiDecompile:1
+|vpiSize:32
+|UINT:1
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].addr_i), id:253848
+  |vpiParent:
+  \_constant: , id:253847, line:143:34, endln:143:44
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].addr_i
+  |vpiActual:
+  \_int_typespec: , id:42731, line:42:13, endln:42:16
+|vpiConstType:9
+
+decompile:
+constant: , id:253847, line:143:34, endln:143:44
+|vpiDecompile:1
+|vpiSize:32
+|UINT:1
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].addr_i), id:253848
+  |vpiParent:
+  \_constant: , id:253847, line:143:34, endln:143:44
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_bufs[0].addr_i
+  |vpiActual:
+  \_int_typespec: , id:42731, line:42:13, endln:42:16
+|vpiConstType:9

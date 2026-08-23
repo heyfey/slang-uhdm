@@ -1,0 +1,74 @@
+r10earl71 — GOLDEN GRID SCORES (score71.py, 3-way keyed multiset join,
+judge-visible payload only: span / typespec span / actual fullname stripped).
+'plain' = our default serialization, 'elab' = --elabuhdm.
+
+ARM            VIEW  COUNTS
+d1_earl71      plain cells 4130 {'STILL-RIGHT': 3461, 'TO-GOLDEN': 112, 'STILL-WRONG': 557}
+d1_earl71      elab  cells 6134 {'STILL-RIGHT': 3215, 'STILL-WRONG': 2695, 'TO-GOLDEN': 112, 'MOVED-WRONG': 112}
+d2_earl71      plain cells 3989 {'STILL-RIGHT': 3129, 'STILL-WRONG': 764, 'TO-GOLDEN': 96}
+d2_earl71      elab  cells 6548 {'STILL-RIGHT': 3075, 'STILL-WRONG': 3281, 'TO-GOLDEN': 96, 'MOVED-WRONG': 96}
+d3_earl71      plain cells 1814 {'STILL-RIGHT': 1380, 'TO-GOLDEN': 240, 'STILL-WRONG': 194}
+d3_earl71      elab  cells 3026 {'STILL-RIGHT': 1342, 'STILL-WRONG': 1204, 'TO-GOLDEN': 240, 'MOVED-WRONG': 240}
+g1_earl70      plain cells 3274 {'STILL-RIGHT': 2795, 'STILL-WRONG': 375, 'TO-GOLDEN': 104}
+g1_earl70      elab  cells 4993 {'STILL-WRONG': 2137, 'STILL-RIGHT': 2648, 'TO-GOLDEN': 104, 'MOVED-WRONG': 104}
+g2_earl70      plain cells 714 {'STILL-RIGHT': 516, 'TO-GOLDEN': 112, 'STILL-WRONG': 86}
+g2_earl70      elab  cells 1078 {'STILL-RIGHT': 488, 'STILL-WRONG': 366, 'TO-GOLDEN': 112, 'MOVED-WRONG': 112}
+g3_enc70       plain cells 636 {'STILL-RIGHT': 520, 'STILL-WRONG': 28, 'TO-GOLDEN': 88}
+g3_enc70       elab  cells 941 {'STILL-RIGHT': 517, 'STILL-WRONG': 248, 'TO-GOLDEN': 88, 'MOVED-WRONG': 88}
+
+AWAY-GOLDEN = 0 and MOVED-WRONG = 0 in every PLAIN view.
+
+THE elab-view MOVED-WRONG COUNT IS A CENSUS ARTIFACT, not a judge regression,
+and it is exactly equal to TO-GOLDEN in every arm.  Under --elabuhdm our
+database carries BOTH the plain listing's copy and the elaborated copy under
+one census key (8 copies where golden has 4); the second set is the
+weaklyReferenced TAIL that uhdm-cmp cannot reach (RESUME §9), and the
+multiset join pads it against <none>.  The OFFICIAL judge on the same arm
+moves the right way in BOTH views (g3_enc70, uhdm-cmp total lines):
+  golden vs pristine plain 10802 -> golden vs patched plain 10692
+  golden vs pristine elab  10553 -> golden vs patched elab  10443
+
+OFFICIAL uhdm-cmp on EVERY arm (total cmp lines, golden vs ours; the arms are
+purpose-built grids, so they are far from equal — the DIRECTION is the point,
+and no arm gets worse in either view):
+d1_earl71    plain  47640 ->  47500   elab  46947 ->  46807
+d2_earl71    plain  41735 ->  41615   elab  40465 ->  40345
+d3_earl71    plain  31191 ->  30891   elab  31624 ->  31324
+g1_earl70    plain  38346 ->  38216   elab  38216 ->  38086
+g2_earl70    plain  10222 ->  10082   elab   9829 ->   9689
+g3_enc70     plain  10802 ->  10692   elab  10553 ->  10443
+
+d3_earl71 — THE GOLDEN ENCODING TABLE the abstention had to respect.  One
+package parameter per INIT SHAPE, all read as the same gen-for DIRECT bound
+`sig[63:X]`; the column is golden's minted enum_const:
+
+  parameter int A1  = 20                UINT:20 sz32      claimed
+  parameter int A2  = 8+8               UINT:16 sz32      claimed
+  parameter int A3  = 8*2               INT:16  sz32      REFUSED
+  parameter int A4  = 40/2              INT:20  sz32      REFUSED
+  parameter int A5  = A1                UINT:20 sz32      claimed
+  parameter int A6  = A1+4              UINT:24 sz32      claimed
+  parameter int A7  = A1-4              INT:16  sz32      REFUSED
+  parameter int A8  = A1*1              INT:20  sz32      REFUSED
+  parameter int A9  = A1/2              INT:10  sz32      REFUSED
+  parameter int A10 = A1%7              INT:6   sz32      REFUSED
+  parameter int A11 = A1>>1             UINT:10 sz32      claimed
+  parameter int A12 = A1<<0             UINT:20 sz32      claimed
+  parameter int A13 = $clog2(A1)        UINT:5  sz32      claimed  <- the HEAD's shape
+  parameter int A14 = A1==1 ? 1 : 2     UINT:2  sz32      claimed
+  parameter int A15 = pz::ZA            UINT:10 sz32      claimed
+  parameter int A16 = pz::ZA+1          UINT:11 sz32      claimed
+  parameter int A17 = (A1)              UINT:20 sz32      claimed
+  parameter int A18 = A1 > 3            INT:-1  sz32      REFUSED
+  parameter int A19 = -A1+30            INT:10  sz32      REFUSED
+  parameter     A20 = 20                UINT:20 sz64      claimed
+  parameter int A21 = A6                UINT:24 sz32      claimed
+  localparam int A22 = A1-4             INT:16  sz32      REFUSED
+  parameter int A23 = A1 & 31           UINT:20 sz32      claimed
+  parameter int A24 = A1 | 0            UINT:20 sz32      claimed
+  parameter int A25 = A1 ^ 0            NO ACTUAL AT ALL  REFUSED
+
+The REFUSED rows keep the pristine fold: already-wrong cells stay wrong instead
+of becoming wrongly bound (240 of the 434 non-STILL-RIGHT d3 cells move; the
+194 that stay are exactly those nine shapes).  Correct INT/`no value` encoding
+is ranked as a residue, not claimed.
