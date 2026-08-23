@@ -1,0 +1,135 @@
+r10uvm109 - THE GOLDEN GRID, cell by cell, BOTH VIEWS.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Built by grid109.sh; every command and its own rc is in each workdir's cmds.txt.
+NOTE: Surelog exits rc=4 on the -elabuhdm run of a1 (six UH0725 'Unresolved
+hierarchical reference' notes for the arm's deliberate prop.member cells) and
+still WRITES the database, which is why every cell records its own rc and the
+elab tables below are read off a real golden, not a missing file.
+
+PRISTINE = d83fbe712080e876c9593794cf77dc23   PATCHED = d670fdc96cb334ec05997d1e67651b70
+
+================ THE HEADLINE: golden's IMPLICIT WIRES per arm, per view
+--- a1 / def
+  golden  : work@top109.bareReadF work@top109.callArgP work@top109.condV work@top109.lhsPlainS work@top109.newArrC work@top109.plainAsgD work@top109.retW work@top109.rhsPlainT work@top109.sysArgU 
+  pristine: work@top109.bareReadF work@top109.callArgP work@top109.condV work@top109.lhsPlainS work@top109.newArrC work@top109.newLhsA work@top109.newLhsArgB work@top109.plainAsgD work@top109.retW work@top109.rhsPlainT work@top109.sysArgU 
+  patched : work@top109.bareReadF work@top109.callArgP work@top109.condV work@top109.lhsPlainS work@top109.newArrC work@top109.plainAsgD work@top109.retW work@top109.rhsPlainT work@top109.sysArgU 
+--- a1 / elab
+  golden  : work@top109.bareReadF work@top109.callArgP work@top109.condV work@top109.lhsPlainS work@top109.newArrC work@top109.plainAsgD work@top109.retW work@top109.rhsPlainT work@top109.sysArgU 
+  pristine: work@top109.bareReadF work@top109.callArgP work@top109.condV work@top109.lhsPlainS work@top109.newArrC work@top109.newLhsA work@top109.newLhsArgB work@top109.plainAsgD work@top109.retW work@top109.rhsPlainT work@top109.sysArgU 
+  patched : work@top109.bareReadF work@top109.callArgP work@top109.condV work@top109.lhsPlainS work@top109.newArrC work@top109.plainAsgD work@top109.retW work@top109.rhsPlainT work@top109.sysArgU 
+--- a2 / def
+  golden  : work@top2.basePlainY work@top2.paramPlainH 
+  pristine: work@top2.baseNewX work@top2.basePlainY work@top2.copyNewA work@top2.ctorArgB work@top2.paramNewG work@top2.paramPlainH work@top2.statNewF 
+  patched : work@top2.basePlainY work@top2.paramPlainH 
+--- a2 / elab
+  golden  : work@top2.basePlainY work@top2.paramPlainH 
+  pristine: work@top2.baseNewX work@top2.basePlainY work@top2.copyNewA work@top2.ctorArgB work@top2.paramNewG work@top2.paramPlainH work@top2.statNewF 
+  patched : work@top2.basePlainY work@top2.paramPlainH 
+--- a3 / def
+  golden  : work@kid3.plainSet2 
+  pristine: work@kid3.plainSet2 work@kid3.slotNew1 work@topA3.plainSet2 work@topA3.slotNew1 work@topB3.plainSet2 work@topB3.slotNew1 
+  patched : work@kid3.plainSet2 work@topA3.plainSet2 work@topB3.plainSet2 
+--- a3 / elab
+  golden  : work@kid3.plainSet2 
+  pristine: work@kid3.plainSet2 work@kid3.slotNew1 work@topA3.plainSet2 work@topA3.slotNew1 work@topB3.plainSet2 work@topB3.slotNew1 
+  patched : work@kid3.plainSet2 work@topA3.plainSet2 work@topB3.plainSet2 
+
+================ EVERY DISAGREEING CELL (cells109.py), NET then REF
+a1/def NET: cells=11 agree-everywhere=9 TO-GOLDEN=2 AWAY=0 STILL=0
+  TO-GOLDEN DEFMOD|work@top109|newLhsA               golden=- pristine={'logic_net': 1} patched=-
+  TO-GOLDEN DEFMOD|work@top109|newLhsArgB            golden=- pristine={'logic_net': 1} patched=-
+a1/def REF: cells=62 agree-everywhere=60 TO-GOLDEN=2 AWAY=0 STILL=0
+  TO-GOLDEN ELABPKG|IB|pk109::Gadget::oob_new_lhs|newLhsA golden={'NONE/NEWLHS': 1} pristine={'logic_net/NEWLHS': 1} patched={'NONE/NEWLHS': 1}
+  TO-GOLDEN ELABPKG|IB|pk109::Gadget::oob_new_lhs|newLhsArgB golden={'NONE/NEWLHS': 1} pristine={'logic_net/NEWLHS': 1} patched={'NONE/NEWLHS': 1}
+a1/elab NET: cells=11 agree-everywhere=9 TO-GOLDEN=2 AWAY=0 STILL=0
+  TO-GOLDEN DEFMOD|work@top109|newLhsA               golden=- pristine={'logic_net': 1} patched=-
+  TO-GOLDEN DEFMOD|work@top109|newLhsArgB            golden=- pristine={'logic_net': 1} patched=-
+a1/elab REF: cells=90 agree-everywhere=56 TO-GOLDEN=0 AWAY=0 STILL=32
+  STILL     DEFMOD|-|-|g9                            golden={'NONE/NEWLHS': 1, 'NONE': 7} pristine={'NONE/NEWLHS': 1, 'NONE': 7, 'class_var': 3} patched={'NONE/NEWLHS': 1, 'NONE': 7, 'class_var': 3}
+  STILL     DEFPKG|OOB|pk109::Gadget::oob_asg_lhs|dotLhsE golden={'NONE': 1} pristine={'NONE': 2} patched={'NONE': 2}
+  STILL     DEFPKG|OOB|pk109::Gadget::oob_asg_lhs|fld golden={'NONE': 1} pristine={'NONE': 2} patched={'NONE': 2}
+  STILL     DEFPKG|OOB|pk109::Gadget::oob_asg_lhs|lhsPlainS golden={'NONE': 1} pristine={'NONE': 2} patched={'NONE': 2}
+  STILL     DEFPKG|OOB|pk109::Gadget::oob_asg_lhs|plainAsgD golden={'NONE': 1} pristine={'NONE': 2} patched={'NONE': 2}
+  STILL     DEFPKG|OOB|pk109::Gadget::oob_calls|chainCallL golden={'NONE': 2} pristine={'NONE': 3} patched={'NONE': 3}
+  STILL     DEFPKG|OOB|pk109::Gadget::oob_calls|stmtCallJ golden={'NONE': 2} pristine={'NONE': 3} patched={'NONE': 3}
+  STILL     ELABPKG|IB|pk109::Gadget::in_body_read|ibOnlyZ golden={'NONE': 3, 'int_var': 3} pristine={'NONE': 3, 'int_var': 6} patched={'NONE': 3, 'int_var': 6}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_args|callArgMemQ golden={'class_var': 3, 'NONE': 2} pristine={'class_var': 3, 'NONE': 4} patched={'class_var': 3, 'NONE': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_args|callArgP golden={'int_var': 3, 'logic_net': 2} pristine={'int_var': 3, 'logic_net': 4} patched={'int_var': 3, 'logic_net': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_args|fld   golden={'NONE': 2, 'int_var': 3} pristine={'NONE': 3, 'int_var': 4} patched={'NONE': 3, 'int_var': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_args|sysArgU golden={'int_var': 3, 'logic_net': 2} pristine={'int_var': 3, 'logic_net': 4} patched={'int_var': 3, 'logic_net': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_asg_lhs|dotLhsE golden={'class_var': 3, 'NONE': 2} pristine={'class_var': 3, 'NONE': 4} patched={'class_var': 3, 'NONE': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_asg_lhs|fld golden={'NONE': 2, 'int_var': 3} pristine={'NONE': 3, 'int_var': 4} patched={'NONE': 3, 'int_var': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_asg_lhs|lhsPlainS golden={'int_var': 3, 'logic_net': 2} pristine={'int_var': 3, 'logic_net': 4} patched={'int_var': 3, 'logic_net': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_asg_lhs|plainAsgD golden={'class_var': 3, 'logic_net': 2} pristine={'class_var': 3, 'logic_net': 4} patched={'class_var': 3, 'logic_net': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_calls|chainCallL golden={'class_var': 3, 'NONE': 2} pristine={'class_var': 6, 'NONE': 8} patched={'class_var': 6, 'NONE': 8}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_calls|condV golden={'int_var': 3, 'logic_net': 2} pristine={'int_var': 3, 'logic_net': 4} patched={'int_var': 3, 'logic_net': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_calls|exprCallK golden={'class_var': 3, 'NONE': 2} pristine={'class_var': 3, 'NONE': 4} patched={'class_var': 3, 'NONE': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_calls|stmtCallJ golden={'class_var': 3, 'NONE': 2} pristine={'class_var': 6, 'NONE': 8} patched={'class_var': 6, 'NONE': 8}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_new_lhs|newArrC golden={'array_var': 3, 'logic_net': 2} pristine={'array_var': 3, 'logic_net': 4} patched={'array_var': 3, 'logic_net': 4}
+  OTHER     ELABPKG|IB|pk109::Gadget::oob_new_lhs|newLhsA golden={'class_var/NEWLHS': 1, 'class_var': 2, 'NONE': 2} pristine={'logic_net/NEWLHS': 1, 'class_var': 2, 'logic_net': 4} patched={'class_var/NEWLHS': 1, 'class_var': 2, 'NONE': 4}
+  OTHER     ELABPKG|IB|pk109::Gadget::oob_new_lhs|newLhsArgB golden={'class_var/NEWLHS': 1, 'class_var': 2, 'NONE': 2} pristine={'logic_net/NEWLHS': 1, 'class_var': 2, 'logic_net': 4} patched={'class_var/NEWLHS': 1, 'class_var': 2, 'NONE': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_reads|bareReadF golden={'class_var': 7, 'logic_net': 4} pristine={'class_var': 3, 'logic_net': 4} patched={'class_var': 3, 'logic_net': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_reads|chainReadH golden={'class_var': 7, 'NONE': 4} pristine={'class_var': 3, 'NONE': 4} patched={'class_var': 3, 'NONE': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_reads|fld  golden={'NONE': 13, 'int_var': 20} pristine={'NONE': 9, 'int_var': 12} patched={'NONE': 9, 'int_var': 12}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_reads|hh   golden={'NONE': 3, 'class_var': 8} pristine={'NONE': 3, 'class_var': 4} patched={'NONE': 3, 'class_var': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_reads|k9   golden={'int_var': 132} pristine={'int_var': 84} patched={'int_var': 84}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_reads|loc9 golden={'class_var': 11} pristine={'class_var': 7} patched={'class_var': 7}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_reads|memReadG golden={'class_var': 7, 'NONE': 4} pristine={'class_var': 3, 'NONE': 4} patched={'class_var': 3, 'NONE': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_reads|rhsPlainT golden={'int_var': 7, 'logic_net': 4} pristine={'int_var': 3, 'logic_net': 4} patched={'int_var': 3, 'logic_net': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_reads|this golden={'NONE': 1, 'class_defn': 10} pristine={'NONE': 1, 'class_defn': 6} patched={'NONE': 1, 'class_defn': 6}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_reads|thisMemR golden={'int_var': 7, 'NONE': 4} pristine={'int_var': 3, 'NONE': 4} patched={'int_var': 3, 'NONE': 4}
+  STILL     ELABPKG|IB|pk109::Gadget::oob_ret|retW   golden={'int_var': 3, 'logic_net': 2} pristine={'int_var': 3, 'logic_net': 4} patched={'int_var': 3, 'logic_net': 4}
+a2/def NET: cells=7 agree-everywhere=2 TO-GOLDEN=5 AWAY=0 STILL=0
+  TO-GOLDEN DEFMOD|work@top2|baseNewX                golden=- pristine={'logic_net': 1} patched=-
+  TO-GOLDEN DEFMOD|work@top2|copyNewA                golden=- pristine={'logic_net': 1} patched=-
+  TO-GOLDEN DEFMOD|work@top2|ctorArgB                golden=- pristine={'logic_net': 1} patched=-
+  TO-GOLDEN DEFMOD|work@top2|paramNewG               golden=- pristine={'logic_net': 1} patched=-
+  TO-GOLDEN DEFMOD|work@top2|statNewF                golden=- pristine={'logic_net': 1} patched=-
+a2/def REF: cells=35 agree-everywhere=26 TO-GOLDEN=5 AWAY=0 STILL=3
+  STILL     DEFCLASS|IB|work@UnitScoped9::uset|uHome4 golden=- pristine={'NONE': 1} patched={'NONE': 1}
+  STILL     DEFPKG|OOB|box2::DerivedKit::dset|copyNewA golden={'NONE/NEWLHS': 1} pristine={'NONE': 1} patched={'NONE': 1}
+  TO-GOLDEN ELABPKG|IB|box2::BaseKit::bset|baseNewX  golden={'NONE/NEWLHS': 1} pristine={'logic_net/NEWLHS': 1} patched={'NONE/NEWLHS': 1}
+  TO-GOLDEN ELABPKG|IB|box2::DerivedKit::dset|baseNewX golden={'NONE/NEWLHS': 1} pristine={'logic_net/NEWLHS': 1} patched={'NONE/NEWLHS': 1}
+  OTHER     ELABPKG|IB|box2::DerivedKit::dset|copyNewA golden={'NONE/NEWLHS': 1} pristine={'logic_net': 1} patched={'NONE': 1}
+  TO-GOLDEN ELABPKG|IB|box2::DerivedKit::dset|ctorArgB golden={'NONE/NEWLHS': 1} pristine={'logic_net/NEWLHS': 1} patched={'NONE/NEWLHS': 1}
+  TO-GOLDEN ELABPKG|IB|box2::DerivedKit::dset|statNewF golden={'NONE/NEWLHS': 1} pristine={'logic_net/NEWLHS': 1} patched={'NONE/NEWLHS': 1}
+  TO-GOLDEN ELABPKG|IB|box2::ParamKit::pset|paramNewG golden={'NONE/NEWLHS': 1} pristine={'logic_net/NEWLHS': 1} patched={'NONE/NEWLHS': 1}
+  STILL     OTHER|OOB|UnitScoped9::uset|uHome4       golden={'NONE': 1} pristine=- patched=-
+a2/elab NET: cells=7 agree-everywhere=2 TO-GOLDEN=5 AWAY=0 STILL=0
+  TO-GOLDEN DEFMOD|work@top2|baseNewX                golden=- pristine={'logic_net': 1} patched=-
+  TO-GOLDEN DEFMOD|work@top2|copyNewA                golden=- pristine={'logic_net': 1} patched=-
+  TO-GOLDEN DEFMOD|work@top2|ctorArgB                golden=- pristine={'logic_net': 1} patched=-
+  TO-GOLDEN DEFMOD|work@top2|paramNewG               golden=- pristine={'logic_net': 1} patched=-
+  TO-GOLDEN DEFMOD|work@top2|statNewF                golden=- pristine={'logic_net': 1} patched=-
+a2/elab REF: cells=51 agree-everywhere=38 TO-GOLDEN=5 AWAY=0 STILL=8
+  STILL     DEFCLASS|IB|work@UnitScoped9::uset|uHome4 golden=- pristine={'NONE': 1, 'int_var': 1} patched={'NONE': 1, 'int_var': 1}
+  STILL     DEFMOD|-|-|d2                            golden={'NONE/NEWLHS': 1, 'NONE': 3} pristine={'NONE/NEWLHS': 1, 'NONE': 3, 'class_var': 3} patched={'NONE/NEWLHS': 1, 'NONE': 3, 'class_var': 3}
+  STILL     DEFMOD|-|-|p2                            golden={'NONE/NEWLHS': 1, 'NONE': 1} pristine={'NONE/NEWLHS': 1, 'NONE': 1, 'class_var': 1} patched={'NONE/NEWLHS': 1, 'NONE': 1, 'class_var': 1}
+  STILL     DEFMOD|-|-|u2                            golden={'NONE/NEWLHS': 1, 'NONE': 1} pristine={'NONE/NEWLHS': 1, 'NONE': 1, 'class_var': 1} patched={'NONE/NEWLHS': 1, 'NONE': 1, 'class_var': 1}
+  STILL     DEFPKG|OOB|box2::DerivedKit::dset|copyNewA golden={'NONE/NEWLHS': 1, 'NONE': 1} pristine={'NONE': 2} patched={'NONE': 2}
+  TO-GOLDEN ELABPKG|IB|box2::BaseKit::bset|baseNewX  golden={'class_var/NEWLHS': 1, 'class_var': 1} pristine={'logic_net/NEWLHS': 1, 'class_var': 1} patched={'class_var/NEWLHS': 1, 'class_var': 1}
+  TO-GOLDEN ELABPKG|IB|box2::DerivedKit::dset|baseNewX golden={'class_var/NEWLHS': 1, 'class_var': 2} pristine={'logic_net/NEWLHS': 1, 'class_var': 2} patched={'class_var/NEWLHS': 1, 'class_var': 2}
+  STILL     ELABPKG|IB|box2::DerivedKit::dset|copyNewA golden={'class_var/NEWLHS': 1, 'class_var': 2} pristine={'class_var': 3} patched={'class_var': 3}
+  TO-GOLDEN ELABPKG|IB|box2::DerivedKit::dset|ctorArgB golden={'class_var/NEWLHS': 1, 'class_var': 2} pristine={'logic_net/NEWLHS': 1, 'class_var': 2} patched={'class_var/NEWLHS': 1, 'class_var': 2}
+  TO-GOLDEN ELABPKG|IB|box2::DerivedKit::dset|statNewF golden={'class_var/NEWLHS': 1, 'class_var': 2} pristine={'logic_net/NEWLHS': 1, 'class_var': 2} patched={'class_var/NEWLHS': 1, 'class_var': 2}
+  STILL     ELABPKG|IB|box2::DerivedKit::inbody_new|ibNewE golden={'NONE/NEWLHS': 1, 'class_var': 1} pristine={'NONE/NEWLHS': 1, 'class_var': 2} patched={'NONE/NEWLHS': 1, 'class_var': 2}
+  TO-GOLDEN ELABPKG|IB|box2::ParamKit::pset|paramNewG golden={'class_var/NEWLHS': 1, 'class_var': 1} pristine={'logic_net/NEWLHS': 1, 'class_var': 1} patched={'class_var/NEWLHS': 1, 'class_var': 1}
+  STILL     OTHER|OOB|UnitScoped9::uset|uHome4       golden={'NONE': 1} pristine=- patched=-
+a3/def NET: cells=6 agree-everywhere=1 TO-GOLDEN=3 AWAY=0 STILL=2
+  TO-GOLDEN DEFMOD|work@kid3|slotNew1                golden=- pristine={'logic_net': 1} patched=-
+  STILL     DEFMOD|work@topA3|plainSet2              golden=- pristine={'logic_net': 1} patched={'logic_net': 1}
+  TO-GOLDEN DEFMOD|work@topA3|slotNew1               golden=- pristine={'logic_net': 1} patched=-
+  STILL     DEFMOD|work@topB3|plainSet2              golden=- pristine={'logic_net': 1} patched={'logic_net': 1}
+  TO-GOLDEN DEFMOD|work@topB3|slotNew1               golden=- pristine={'logic_net': 1} patched=-
+a3/def REF: cells=10 agree-everywhere=9 TO-GOLDEN=1 AWAY=0 STILL=0
+  TO-GOLDEN ELABPKG|IB|zoo3::Rack3::arrange|slotNew1 golden={'NONE/NEWLHS': 1} pristine={'logic_net/NEWLHS': 1} patched={'NONE/NEWLHS': 1}
+a3/elab NET: cells=6 agree-everywhere=1 TO-GOLDEN=3 AWAY=0 STILL=2
+  TO-GOLDEN DEFMOD|work@kid3|slotNew1                golden=- pristine={'logic_net': 1} patched=-
+  STILL     DEFMOD|work@topA3|plainSet2              golden=- pristine={'logic_net': 1} patched={'logic_net': 1}
+  TO-GOLDEN DEFMOD|work@topA3|slotNew1               golden=- pristine={'logic_net': 1} patched=-
+  STILL     DEFMOD|work@topB3|plainSet2              golden=- pristine={'logic_net': 1} patched={'logic_net': 1}
+  TO-GOLDEN DEFMOD|work@topB3|slotNew1               golden=- pristine={'logic_net': 1} patched=-
+a3/elab REF: cells=16 agree-everywhere=13 TO-GOLDEN=1 AWAY=0 STILL=2
+  STILL     DEFMOD|-|-|r3                            golden={'NONE/NEWLHS': 1, 'NONE': 1} pristine={'NONE/NEWLHS': 1, 'NONE': 1, 'class_var': 1} patched={'NONE/NEWLHS': 1, 'NONE': 1, 'class_var': 1}
+  STILL     DEFMOD|-|-|ra3                           golden={'NONE/NEWLHS': 1, 'NONE': 1} pristine={'NONE/NEWLHS': 1, 'NONE': 1, 'class_var': 1} patched={'NONE/NEWLHS': 1, 'NONE': 1, 'class_var': 1}
+  TO-GOLDEN ELABPKG|IB|zoo3::Rack3::arrange|slotNew1 golden={'class_var/NEWLHS': 1, 'class_var': 1} pristine={'logic_net/NEWLHS': 1, 'class_var': 1} patched={'class_var/NEWLHS': 1, 'class_var': 1}

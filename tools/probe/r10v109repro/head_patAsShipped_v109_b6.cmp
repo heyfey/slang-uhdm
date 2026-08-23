@@ -1,0 +1,17 @@
+LHS:
+decompile:
+logic_net: (work@topb6.idxKappa6), id:150, line:14:11, endln:14:20
+|vpiParent:
+\_module_inst: work@topb6 (work@topb6), id:146, file:/tmp/v109_arms/v109_b6.sv, line:18:1, endln:21:10
+|vpiName:idxKappa6
+|vpiFullName:work@topb6.idxKappa6
+|vpiNetType:1
+
+decompile:
+logic_net: (work@topb6.idxKappa6), id:150, line:14:11, endln:14:20
+|vpiParent:
+\_module_inst: work@topb6 (work@topb6), id:146, file:/tmp/v109_arms/v109_b6.sv, line:18:1, endln:21:10
+|vpiName:idxKappa6
+|vpiFullName:work@topb6.idxKappa6
+|vpiNetType:1
+RHS: <null>

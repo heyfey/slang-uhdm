@@ -1,0 +1,8 @@
+== boundary gate: MODE=dir VIEW=def  1493 arms under /tmp/r10uvm109_probecopy
+rm: refusing to remove '.' or '..' directory: skipping '/tmp/r10uvm109_bound_dd/.'
+PROCESSED=1493 LISTED=1493 DIFFER=4 PRIS_REJECT=116 PATCHED_REJECT=116
+-- differing arms:
+./r10uvm109repro
+./r10uvm75repro
+./r10uvm76repro
+./r10v107repro

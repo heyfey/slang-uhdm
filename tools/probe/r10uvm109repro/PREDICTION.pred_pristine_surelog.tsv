@@ -1,0 +1,5 @@
+MAY-MOVE	default	SeqDriver-32af76aa	wide=16	exact=16
+MAY-MOVE	default	SimpleUVM-1dc93a62	wide=16	exact=16
+MAY-MOVE	testflags	SeqDriver-32af76aa	wide=16	exact=16
+MAY-MOVE	testflags	SimpleUVM-1dc93a62	wide=16	exact=16
+OUTER	testflags	SimplifyHierPath-46b9e612	wide=1	exact=0

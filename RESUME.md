@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-23 12:10, HEAD = the earl74 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-23 12:35, HEAD = the uvm109 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,7 +182,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 |---|---|---|
 | SeqDriver×2 (uvm-1.2 tree) | 46 (depth) | `gp.m_byte_enable = new [nbytes];` (uvm_reg_adapter.svh:195, uvm_reg_tlm_adapter::reg2bus): golden's assignment::Lhs is a plain ref_obj named `gp` spanning 195:6-195:22; ours a hier_path (gp.m_byte_enable) over the same span with two unbound elements — a receiver-collapse KIND divergence; pass uvm110 next (uvm108 landed: 29→46, an event-control operand binds through bindVariable's four-scope climb; the event_control/wait_stmt/event_stmt family closes on the nine UVM DBs) |
 | MiniAmiq×2 (uvm-1.2 tree) | 348 (depth) | uvm101's residue (the deeper mismatch exposed after its event-statement head cleared; tools/probe/r10uvm101repro/raw/head_MiniAmiq_default.cmp) — unassigned, next UVM slot |
-| SimpleUVM×2 (uvm-1.2 tree) | 17 (depth) | the MIRROR of uvm107's head: an implicit wire WE mint and golden does not — `logic_net work@top.rsp_export` @uvm_sequencer.svh:228 (LHS <null>): a class property named as the BASE of a hier_path inside an out-of-body body never joins Surelog's pool (compileComplexFuncCall builds a bare name-only ref) while our § classPropRefs takes it; 16 cells, one predicate; pass uvm109 in flight (uvm107 landed: a ref_var DECLARATION is invisible to Surelog's late binder, so an unbound out-of-body local read gets an implicit top-module wire; Scoreboard's R-B cleared with it) |
+| SimpleUVM×2 (uvm-1.2 tree) | 42 (depth) | the SAME head as Scoreboard/default (ids aside): golden folds the written `-1` of `return (end_time == -1);` (uvm_transaction.svh:529:23) into one signed INT constant where we keep a unary MINUS over UINT:1 — ONE law (buvm30 in flight) now heads FIVE row-modes (SimpleUVM×2, Scoreboard/default, BuildUVMPkg×2); (uvm109 landed: 17→42, a class property that is the BASE of a `= new` lvalue in an out-of-body body never joins Surelog's late-binding pool, so no implicit top wire; the verifier made the fence per element — a select index inside the same lvalue still joins) |
 | Scoreboard/default (uvm-1.2 tree) | 42 (depth) | golden folds a written `-1` into one signed INT constant where we keep a unary MINUS over 1 (uvm_transaction.svh:529:23, `return (end_time == -1);` in uvm_transaction::is_active — the same statement as BuildUVMPkg's head; buvm30 in flight clears both) — a mask removal (uvm107's R-C); open UVM target |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 42 (depth) | golden folds a written `-1` into one signed INT constant (sz 64, ct 7) where we keep a unary MINUS operation over UINT:1 — uvm_pkg.sv:32186:23 `return (end_time == -1);` in uvm_transaction::is_active; the SAME law as Scoreboard/default's 42-line head (uvm_transaction.svh:529:23): one pass clears both — buvm30 next (buvm29 landed: 17→42, a WRITTEN cast over a streaming concatenation keeps its cast op; buvm29's own R0 `REQ param_t;` ref_var over unsupported_typespec at uvm_pkg.sv:53993 is no longer the first head at this base — re-measure after the fold lands) |
 | Earlgrey_0_1×2 (both modes, byte-identical cmp logs) | 17 (depth) | golden puts a ref_typespec on the folded REPLICATION-COUNT constant of `prog_data_packed = {DataWidth{1'b1}};` (flash_phy_core.sv:190:27-190:36, inside generate block gen_prog_data of top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core): fullname = the owning INSTANCE, actual = the int_typespec of `parameter int DataWidth` at flash_phy_pkg.sv:17:13-17:16; ours emits none — the same family as earl72's R1 (gen-scope cont_assign fold typespec, 174 cells), hypothesis ONE law; pass earl75 next (earl74 landed: 36→17, a size-form dimension bound inherits the vpiConstType/tag of the sizing parameter's param_assign; the verifier bounded the outward walk at the first instance) |
@@ -191,7 +191,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 65 verifier fix-before-landing re-cuts (142 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 66 verifier fix-before-landing re-cuts (143 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

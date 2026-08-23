@@ -1,0 +1,65 @@
+r10v109 - THE BOUNDARY GATE, run from a COPY of the WHOLE probe tree with NO
+path filter (.sv AND .v), in BOTH views, MODE=file and MODE=dir.
+Instrument: tools/probe/r10uvm109repro/bound109.sh (arm list on fd 3, children
+</dev/null, PROCESSED asserted against LISTED, scratch keyed on the RELATIVE
+path, uhdm-dump banner normalised).  MEASUREMENT ONLY.
+
+ROOT = a copy of tools/probe from the verifier's worktree, i.e. the 3397 arms
+the pass's own boundary saw PLUS this directory's nine committed arms at the
+time of the run (v109_b1, _b2, _b2n, _b3, _b4, _b5, _b6, _b7, _b8).
+v109_b9.sv and v109_b10.sv were written after this run and are measured
+arm-wise instead (GRID.v109.txt).
+
+======== A. PRISTINE vs THE PATCH AS SHIPPED  (d83f... vs d670...)
+  file/def   PROCESSED=3406 LISTED=3406 DIFFER=11 PRIS_REJECT=132 PATCHED_REJECT=132
+  file/elab  PROCESSED=3406 LISTED=3406 DIFFER=11 PRIS_REJECT=144 PATCHED_REJECT=144
+  dir /def   PROCESSED=1494 LISTED=1494 DIFFER=5  PRIS_REJECT=116 PATCHED_REJECT=116
+  dir /elab  PROCESSED=1494 LISTED=1494 DIFFER=5  PRIS_REJECT=122 PATCHED_REJECT=122
+  ASYMMETRIC REJECTS: 0 in all four.  No FATAL.
+  Rejects are BIT-FOR-BIT the implementer's 132/144/116/122.
+
+  file mode, the ELEVEN differing arms, both views (identical sets):
+    r10uvm109repro/g109_a1.sv   the pass's own      TO-GOLDEN
+    r10uvm109repro/g109_a2.sv   the pass's own      TO-GOLDEN
+    r10uvm109repro/g109_a3.sv   the pass's own      TO-GOLDEN
+    r10v107repro/v107_b2.sv     uvm107's verifier's `= new` corners arm
+                                TO-GOLDEN in BOTH views (def logic_net -> NONE =
+                                golden NONE; elab logic_net -> class_var =
+                                golden class_var)
+    r10v109repro/v109_b1.sv     *** AWAY-GOLDEN: idxKappa, idxOmega LOST
+    r10v109repro/v109_b6.sv     *** AWAY-GOLDEN: idxKappa6 LOST (and it is the HEAD)
+    r10v109repro/v109_b7.sv     *** AWAY-GOLDEN: idxKappa7 LOST
+    r10v109repro/v109_b2.sv     correct (plainNewPsi TO-GOLDEN)
+    r10v109repro/v109_b3.sv     correct (6/6 ref cells TO-GOLDEN, span to golden)
+    r10v109repro/v109_b4.sv     correct (six `= new` control contexts TO-GOLDEN)
+    r10v109repro/v109_b5.sv     correct (law 75/76/107 neighbours untouched)
+
+  dir mode, the FIVE differing directories, both views:
+    r10uvm109repro   this pass's own arms
+    r10v107repro     the v107_b2 cell, TO-GOLDEN
+    r10v109repro     this directory's arms
+    r10uvm75repro    ORDER COIN: raw 14 (def) / order-blind 0
+    r10uvm76repro    ORDER COIN: raw 18 (def) / order-blind 0
+      -- neither is a mover: their CONTENT is byte-identical between the binaries
+         (RESUME section 9's vpiTaskFunc order flip under slang's parallel parse).
+
+======== B. PRISTINE vs THE VERIFIED BINARY  (d83f... vs 1a97...)
+  file/def   PROCESSED=3406 LISTED=3406 DIFFER=8 PRIS_REJECT=132 PATCHED_REJECT=132
+  file/elab  PROCESSED=3406 LISTED=3406 DIFFER=8 PRIS_REJECT=144 PATCHED_REJECT=144
+  dir /def   PROCESSED=1494 LISTED=1494 DIFFER=5 PRIS_REJECT=116 PATCHED_REJECT=116
+  dir /elab  PROCESSED=1494 LISTED=1494 DIFFER=5 PRIS_REJECT=122 PATCHED_REJECT=122
+  ASYMMETRIC REJECTS: 0 in all four.
+
+  The differing set is a STRICT SUBSET of A: the three arms that were
+  AWAY-GOLDEN under the shipped patch (v109_b1, _b6, _b7) are now
+  BYTE-IDENTICAL to pristine, and nothing new appears.  dir mode still lists
+  r10uvm75repro / r10uvm76repro with order-blind 0 (the same COIN, raw 16 / 20
+  in this run - the raw count varies per run, which is what a coin does).
+
+======== C. WHAT DID NOT MOVE, in all eight runs
+  Every uvm89/92/94/95 hier_path NAME-TEXT arm, the uvm77-79 and uvm82-91
+  joint/mockup arms, buvm3-15 (incl. buvm14's prettyPrint spacing), buvm18/20's
+  class-typespec arms, buvm23/24, sd8-12's SUBDIRECTORY arms, uvm84/85's
+  this./super. arms, uvm97/98's typedef arms, uvm99's method-call arms,
+  uvm103/105/107's arms, and every bind-window law (buvm13/15/28/57/64/88,
+  classArgBind12, sections 75/76/107) are byte-identical.

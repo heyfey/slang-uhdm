@@ -1,0 +1,36 @@
+span default/BuildUVMPkg  cells=39609  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=39609  golden-only-keys=837 ours-only-keys=662
+nospan default/BuildUVMPkg  cells=17028  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=17028  golden-only-keys=112 ours-only-keys=31
+nets default/BuildUVMPkg  cells=0  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=0  golden-only-keys=0 ours-only-keys=0
+  NETS default/BuildUVMPkg      golden=0    OURS-ONLY 0 -> 0  GOLDEN-ONLY 0 -> 0 (IDENTICAL)
+span default/MiniAmiq  cells=65921  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=65921  golden-only-keys=4385 ours-only-keys=4093
+nospan default/MiniAmiq  cells=29385  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=29385  golden-only-keys=195 ours-only-keys=78
+nets default/MiniAmiq  cells=0  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=0  golden-only-keys=0 ours-only-keys=0
+  NETS default/MiniAmiq         golden=0    OURS-ONLY 0 -> 0  GOLDEN-ONLY 0 -> 0 (IDENTICAL)
+span default/Scoreboard  cells=38268  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=38268  golden-only-keys=2448 ours-only-keys=2327
+nospan default/Scoreboard  cells=17664  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=17664  golden-only-keys=110 ours-only-keys=34
+nets default/Scoreboard  cells=4  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=4  golden-only-keys=0 ours-only-keys=0
+  NETS default/Scoreboard       golden=4    OURS-ONLY 0 -> 0  GOLDEN-ONLY 0 -> 0 (IDENTICAL)
+span default/SeqDriver  cells=64256  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=64240  golden-only-keys=4286 ours-only-keys=3970
+nospan default/SeqDriver  cells=28430  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=28414  golden-only-keys=190 ours-only-keys=60
+nets default/SeqDriver  cells=150  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=150  golden-only-keys=8 ours-only-keys=1
+  NETS default/SeqDriver        golden=158  OURS-ONLY 10 -> 1  GOLDEN-ONLY 8 -> 8 (IDENTICAL)
+span default/SimpleUVM  cells=38156  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=38140  golden-only-keys=2428 ours-only-keys=2306
+nospan default/SimpleUVM  cells=17556  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=17540  golden-only-keys=110 ours-only-keys=34
+nets default/SimpleUVM  cells=149  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=149  golden-only-keys=8 ours-only-keys=2
+  NETS default/SimpleUVM        golden=157  OURS-ONLY 11 -> 2  GOLDEN-ONLY 8 -> 8 (IDENTICAL)
+span testflags/BuildUVMPkg  cells=39609  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=39609  golden-only-keys=837 ours-only-keys=662
+nospan testflags/BuildUVMPkg  cells=17028  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=17028  golden-only-keys=112 ours-only-keys=31
+nets testflags/BuildUVMPkg  cells=0  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=0  golden-only-keys=0 ours-only-keys=0
+  NETS testflags/BuildUVMPkg    golden=0    OURS-ONLY 0 -> 0  GOLDEN-ONLY 0 -> 0 (IDENTICAL)
+span testflags/MiniAmiq  cells=65921  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=65921  golden-only-keys=4385 ours-only-keys=4093
+nospan testflags/MiniAmiq  cells=29385  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=29385  golden-only-keys=195 ours-only-keys=78
+nets testflags/MiniAmiq  cells=0  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=0  golden-only-keys=0 ours-only-keys=0
+  NETS testflags/MiniAmiq       golden=0    OURS-ONLY 0 -> 0  GOLDEN-ONLY 0 -> 0 (IDENTICAL)
+span testflags/SeqDriver  cells=64256  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=64240  golden-only-keys=4286 ours-only-keys=3970
+nospan testflags/SeqDriver  cells=28430  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=28414  golden-only-keys=190 ours-only-keys=60
+nets testflags/SeqDriver  cells=150  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=150  golden-only-keys=8 ours-only-keys=1
+  NETS testflags/SeqDriver      golden=158  OURS-ONLY 10 -> 1  GOLDEN-ONLY 8 -> 8 (IDENTICAL)
+span testflags/SimpleUVM  cells=38156  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=38140  golden-only-keys=2428 ours-only-keys=2306
+nospan testflags/SimpleUVM  cells=17556  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=17540  golden-only-keys=110 ours-only-keys=34
+nets testflags/SimpleUVM  cells=149  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=149  golden-only-keys=8 ours-only-keys=2
+  NETS testflags/SimpleUVM      golden=157  OURS-ONLY 11 -> 2  GOLDEN-ONLY 8 -> 8 (IDENTICAL)

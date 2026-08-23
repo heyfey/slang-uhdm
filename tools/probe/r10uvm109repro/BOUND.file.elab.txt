@@ -1,0 +1,31 @@
+== boundary gate: MODE=file VIEW=elab  3397 arms under /tmp/r10uvm109_probecopy
+bound109.sh: line 66: 1447878 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound109.sh: line 66: 1448216 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound109.sh: line 66: 1457201 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound109.sh: line 66: 1457697 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound109.sh: line 66: 1848119 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound109.sh: line 66: 1848137 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound109.sh: line 66: 1849843 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound109.sh: line 66: 1849861 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound109.sh: line 66: 1851230 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound109.sh: line 66: 1851248 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound109.sh: line 66: 1865495 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound109.sh: line 66: 1865513 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound109.sh: line 66: 1865736 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound109.sh: line 66: 1865754 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound109.sh: line 66: 1868346 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound109.sh: line 66: 1868384 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound109.sh: line 66: 1868790 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound109.sh: line 66: 1868817 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound109.sh: line 66: 1892387 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound109.sh: line 66: 1892405 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound109.sh: line 66: 1892429 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound109.sh: line 66: 1892447 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound109.sh: line 66: 1892471 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound109.sh: line 66: 1892489 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+PROCESSED=3397 LISTED=3397 DIFFER=4 PRIS_REJECT=144 PATCHED_REJECT=144
+-- differing arms:
+./r10uvm109repro/g109_a1.sv
+./r10uvm109repro/g109_a2.sv
+./r10uvm109repro/g109_a3.sv
+./r10v107repro/v107_b2.sv

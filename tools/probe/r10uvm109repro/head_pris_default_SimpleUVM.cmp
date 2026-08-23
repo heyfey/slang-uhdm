@@ -1,0 +1,17 @@
+LHS: <null>
+RHS:
+decompile:
+logic_net: (work@top.rsp_export), id:179187, line:228:3, endln:228:13
+|vpiParent:
+\_module_inst: work@top (work@top), id:178851, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiName:rsp_export
+|vpiFullName:work@top.rsp_export
+|vpiNetType:1
+
+decompile:
+logic_net: (work@top.rsp_export), id:179187, line:228:3, endln:228:13
+|vpiParent:
+\_module_inst: work@top (work@top), id:178851, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiName:rsp_export
+|vpiFullName:work@top.rsp_export
+|vpiNetType:1

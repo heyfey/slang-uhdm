@@ -1,0 +1,182 @@
+r10uvm109 - SCORE over the NINE UVM databases (score109.py), three keyings.
+MEASUREMENT ONLY.  LHS is ALWAYS golden; RHS is ALWAYS ours.
+  span    key = (view, oob, owner, LINE:COL span, name)
+  nospan  key = (view, oob, owner, name)   -- a macro-expanded UVM reference
+          does not carry the same line on both sides
+  nets    key = (view, owner module, implicit-wire NAME); a net's span is never
+          read by any generated Compare, so the NAME is its whole identity
+
+======== SCORE_KEY=span
+default/BuildUVMPkg  cells=39609  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=39609  golden-only-keys=837 ours-only-keys=662
+default/MiniAmiq  cells=65921  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=65921  golden-only-keys=4385 ours-only-keys=4093
+default/Scoreboard  cells=38268  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=38268  golden-only-keys=2448 ours-only-keys=2327
+default/SeqDriver  cells=64256  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=64240  golden-only-keys=4286 ours-only-keys=3970
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::new 1800:3-1800:13 event_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::clear_hdl_path 2150:5-2150:21 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::configure 984:7-984:10 mam : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::new 951:4-951:20 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_phase::new 817:5-817:15 m_end_node : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::clear_hdl_path 1355:5-1355:21 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new 1178:4-1178:12 m_atomic : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new 1183:4-1183:20 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::clear_hdl_path 1971:5-1971:19 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::new 956:4-956:18 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::clear_hdl_path 266:5-266:19 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::new 230:4-230:18 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::new 152:3-152:18 seq_item_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new 228:3-228:13 rsp_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new 229:3-229:24 sqr_rsp_analysis_fifo : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new 231:3-231:13 m_req_fifo : {'logic_net': 1} -> {'NONE': 1}
+default/SimpleUVM  cells=38156  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=38140  golden-only-keys=2428 ours-only-keys=2306
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::new 1800:3-1800:13 event_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::clear_hdl_path 2150:5-2150:21 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::configure 984:7-984:10 mam : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::new 951:4-951:20 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_phase::new 817:5-817:15 m_end_node : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::clear_hdl_path 1355:5-1355:21 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new 1178:4-1178:12 m_atomic : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new 1183:4-1183:20 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::clear_hdl_path 1971:5-1971:19 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::new 956:4-956:18 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::clear_hdl_path 266:5-266:19 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::new 230:4-230:18 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::new 152:3-152:18 seq_item_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new 228:3-228:13 rsp_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new 229:3-229:24 sqr_rsp_analysis_fifo : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new 231:3-231:13 m_req_fifo : {'logic_net': 1} -> {'NONE': 1}
+testflags/BuildUVMPkg  cells=39609  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=39609  golden-only-keys=837 ours-only-keys=662
+testflags/MiniAmiq  cells=65921  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=65921  golden-only-keys=4385 ours-only-keys=4093
+testflags/SeqDriver  cells=64256  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=64240  golden-only-keys=4286 ours-only-keys=3970
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::new 1800:3-1800:13 event_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::clear_hdl_path 2150:5-2150:21 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::configure 984:7-984:10 mam : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::new 951:4-951:20 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_phase::new 817:5-817:15 m_end_node : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::clear_hdl_path 1355:5-1355:21 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new 1178:4-1178:12 m_atomic : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new 1183:4-1183:20 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::clear_hdl_path 1971:5-1971:19 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::new 956:4-956:18 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::clear_hdl_path 266:5-266:19 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::new 230:4-230:18 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::new 152:3-152:18 seq_item_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new 228:3-228:13 rsp_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new 229:3-229:24 sqr_rsp_analysis_fifo : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new 231:3-231:13 m_req_fifo : {'logic_net': 1} -> {'NONE': 1}
+testflags/SimpleUVM  cells=38156  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=38140  golden-only-keys=2428 ours-only-keys=2306
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::new 1800:3-1800:13 event_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::clear_hdl_path 2150:5-2150:21 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::configure 984:7-984:10 mam : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::new 951:4-951:20 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_phase::new 817:5-817:15 m_end_node : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::clear_hdl_path 1355:5-1355:21 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new 1178:4-1178:12 m_atomic : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new 1183:4-1183:20 m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::clear_hdl_path 1971:5-1971:19 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::new 956:4-956:18 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::clear_hdl_path 266:5-266:19 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::new 230:4-230:18 hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::new 152:3-152:18 seq_item_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new 228:3-228:13 rsp_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new 229:3-229:24 sqr_rsp_analysis_fifo : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new 231:3-231:13 m_req_fifo : {'logic_net': 1} -> {'NONE': 1}
+
+======== SCORE_KEY=nospan
+default/BuildUVMPkg  cells=17028  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=17028  golden-only-keys=112 ours-only-keys=31
+default/MiniAmiq  cells=29385  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=29385  golden-only-keys=195 ours-only-keys=78
+default/Scoreboard  cells=17664  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=17664  golden-only-keys=110 ours-only-keys=34
+default/SeqDriver  cells=28430  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=28414  golden-only-keys=190 ours-only-keys=60
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::new - event_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::clear_hdl_path - m_hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::configure - mam : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::new - m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_phase::new - m_end_node : {'logic_net': 1, 'NONE': 1} -> {'NONE': 2}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::clear_hdl_path - m_hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new - m_atomic : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new - m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::clear_hdl_path - hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::new - hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::clear_hdl_path - hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::new - hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::new - seq_item_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new - m_req_fifo : {'logic_net': 1, 'NONE': 1} -> {'NONE': 2}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new - rsp_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new - sqr_rsp_analysis_fifo : {'logic_net': 1, 'NONE': 1} -> {'NONE': 2}
+default/SimpleUVM  cells=17556  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=17540  golden-only-keys=110 ours-only-keys=34
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::new - event_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::clear_hdl_path - m_hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::configure - mam : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::new - m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_phase::new - m_end_node : {'logic_net': 1, 'NONE': 1} -> {'NONE': 2}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::clear_hdl_path - m_hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new - m_atomic : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new - m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::clear_hdl_path - hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::new - hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::clear_hdl_path - hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::new - hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::new - seq_item_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new - m_req_fifo : {'logic_net': 1, 'NONE': 1} -> {'NONE': 2}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new - rsp_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new - sqr_rsp_analysis_fifo : {'logic_net': 1, 'NONE': 1} -> {'NONE': 2}
+testflags/BuildUVMPkg  cells=17028  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=17028  golden-only-keys=112 ours-only-keys=31
+testflags/MiniAmiq  cells=29385  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=29385  golden-only-keys=195 ours-only-keys=78
+testflags/SeqDriver  cells=28430  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=28414  golden-only-keys=190 ours-only-keys=60
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::new - event_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::clear_hdl_path - m_hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::configure - mam : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::new - m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_phase::new - m_end_node : {'logic_net': 1, 'NONE': 1} -> {'NONE': 2}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::clear_hdl_path - m_hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new - m_atomic : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new - m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::clear_hdl_path - hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::new - hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::clear_hdl_path - hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::new - hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::new - seq_item_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new - m_req_fifo : {'logic_net': 1, 'NONE': 1} -> {'NONE': 2}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new - rsp_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new - sqr_rsp_analysis_fifo : {'logic_net': 1, 'NONE': 1} -> {'NONE': 2}
+testflags/SimpleUVM  cells=17556  TO-GOLDEN=16  AWAY=0  STILL-DIFFERENT=0  UNMOVED=17540  golden-only-keys=110 ours-only-keys=34
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::new - event_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::clear_hdl_path - m_hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::configure - mam : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_mem::new - m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_phase::new - m_end_node : {'logic_net': 1, 'NONE': 1} -> {'NONE': 2}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::clear_hdl_path - m_hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new - m_atomic : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg::new - m_hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::clear_hdl_path - hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_block::new - hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::clear_hdl_path - hdl_paths_pool : {'logic_net': 1, 'NONE': 2} -> {'NONE': 3}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_reg_file::new - hdl_paths_pool : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::new - seq_item_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new - m_req_fifo : {'logic_net': 1, 'NONE': 1} -> {'NONE': 2}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new - rsp_export : {'logic_net': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::new - sqr_rsp_analysis_fifo : {'logic_net': 1, 'NONE': 1} -> {'NONE': 2}
+
+======== SCORE_KEY=nets
+default/BuildUVMPkg  cells=0  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=0  golden-only-keys=0 ours-only-keys=0
+default/MiniAmiq  cells=0  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=0  golden-only-keys=0 ours-only-keys=0
+default/Scoreboard  cells=4  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=4  golden-only-keys=0 ours-only-keys=0
+default/SeqDriver  cells=150  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=150  golden-only-keys=8 ours-only-keys=1
+default/SimpleUVM  cells=149  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=149  golden-only-keys=8 ours-only-keys=2
+testflags/BuildUVMPkg  cells=0  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=0  golden-only-keys=0 ours-only-keys=0
+testflags/MiniAmiq  cells=0  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=0  golden-only-keys=0 ours-only-keys=0
+testflags/SeqDriver  cells=150  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=150  golden-only-keys=8 ours-only-keys=1
+testflags/SimpleUVM  cells=149  TO-GOLDEN=0  AWAY=0  STILL-DIFFERENT=0  UNMOVED=149  golden-only-keys=8 ours-only-keys=2
+
+
+======== THE NET-NAME SURPLUS, measured directly (a vanished key is one-sided
+         and therefore NOT scored above; this table is the arbiter)
+         implicit wires = logic_net, vpiNetType 1, parented at a module_inst
+  default/BuildUVMPkg      golden=0    OURS-ONLY 0 -> 0   GOLDEN-ONLY 0 -> 0 (IDENTICAL)
+  default/MiniAmiq         golden=0    OURS-ONLY 0 -> 0   GOLDEN-ONLY 0 -> 0 (IDENTICAL)
+  default/Scoreboard       golden=4    OURS-ONLY 0 -> 0   GOLDEN-ONLY 0 -> 0 (IDENTICAL)
+  default/SeqDriver        golden=158  OURS-ONLY 10 -> 1   GOLDEN-ONLY 8 -> 8 (IDENTICAL)
+  default/SimpleUVM        golden=157  OURS-ONLY 11 -> 2   GOLDEN-ONLY 8 -> 8 (IDENTICAL)
+  testflags/BuildUVMPkg    golden=0    OURS-ONLY 0 -> 0   GOLDEN-ONLY 0 -> 0 (IDENTICAL)
+  testflags/MiniAmiq       golden=0    OURS-ONLY 0 -> 0   GOLDEN-ONLY 0 -> 0 (IDENTICAL)
+  testflags/SeqDriver      golden=158  OURS-ONLY 10 -> 1   GOLDEN-ONLY 8 -> 8 (IDENTICAL)
+  testflags/SimpleUVM      golden=157  OURS-ONLY 11 -> 2   GOLDEN-ONLY 8 -> 8 (IDENTICAL)

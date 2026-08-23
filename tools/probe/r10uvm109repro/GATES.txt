@@ -1,0 +1,123 @@
+r10uvm109 - THE GATE BATTERY.  MEASUREMENT ONLY except where the official
+uhdm-cmp / scripts/verify_golden.py are named; those two ARE the judges.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE 5011fd9.  Worktree /tmp/wt_r10uvm109.  Both binaries built -j 2, md5 taken
+separately, both frozen chmod 555 BEFORE any sweep:
+
+  PRISTINE  d83fbe712080e876c9593794cf77dc23   /tmp/r10uvm109_bin/pris.bin
+  PATCHED   d670fdc96cb334ec05997d1e67651b70   /tmp/r10uvm109_bin/pat.bin
+
+(1) BUILD.  cmake --build build -j 2, rc=0 for both.  md5s above.
+
+(2) GOLDENS, SLANG_UHDM exported explicitly to EACH binary.
+      patched   : PASS=23  FAIL=0
+      pristine  : PASS=23  FAIL=0
+      /bin/false: PASS=0   FAIL=23     (the negative control)
+
+(3) uhdm2rtlil, both modes, both binaries.
+      testflags : 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+      default   : 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+      ct8rows  results/gate_uhdm2rtlil.csv  vs patched tf   -> PASS
+      ct8rows  pristine tf                  vs patched tf   -> PASS
+      ct8rows  pristine def                 vs patched def  -> PASS
+      ct8rows  results/gate_uhdm2rtlil.csv  vs pristine tf  -> PASS
+      => 0 rows differ, status AND dump, in every comparison.
+
+(4) surelog, --mode both, both binaries.  IDENTICAL histograms:
+      937 CMP_EQUAL / 567 SLANG_REJECT / 48 SURELOG_FAIL / 19 CMP_NOTEQUAL /
+       10 DEFERRED / 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+      ct8rows  results/golden_surelog.csv vs patched   -> PASS
+      ct8rows  pristine                   vs patched   -> PASS
+      ct8rows  results/golden_surelog.csv vs pristine  -> PASS
+      => 0 differing rows over 1588.  NO ROW CONVERTED; results/*.csv READ ONLY.
+
+    cmds.txt BINARY AUDIT, by PATH (not by the string "slang-uhdm", which also
+    matches slang-uhdm-goldens/):
+      patched  surelog 1573 cmds.txt, ONE distinct slang path: /tmp/r10uvm109_bin/pat.bin
+      patched  u2r     1462 cmds.txt, ONE distinct slang path: /tmp/r10uvm109_bin/pat.bin
+      pristine surelog + u2r          ONE distinct slang path: /tmp/r10uvm109_bin/pris.bin
+
+(5) BYTE VERIFIER, SELFCHECK=1.
+      surelog    MOVERS 5 / 956    SELFCHECK 955 / 956 flagged  PATH_SETS_IDENTICAL
+      uhdm2rtlil MOVERS 0 / 1358   SELFCHECK 1357 / 1358 flagged PATH_SETS_IDENTICAL
+
+    THE FIVE, EVERY ONE NAMED AND ATTRIBUTED (ATTRIB.movers.txt, order-blind):
+      default/SimpleUVM     PREDICTED  95 order-blind lines, the law's family only
+      testflags/SimpleUVM   PREDICTED  95 order-blind lines, the law's family only
+      default/SeqDriver     PREDICTED  95 order-blind lines, the law's family only
+      testflags/SeqDriver   PREDICTED  95 order-blind lines, the law's family only
+      default/Scoreboard    THE COIN    0 order-blind lines (raw 92) - RESUME section 9's
+                                        vpiTaskFunc ORDER flip, not a mover of this law
+    The predictor named exactly the four, from OUR SIDE ALONE, before the patched
+    binary existed (PREDICTION.txt).
+
+(6) HEADS (rowheads.sh, the SAME instrument on both sweeps).
+      SeqDriver    default/testflags  29 -> 29   head text byte-identical
+      SimpleUVM    default/testflags  17 -> 42   NEW head = uvm107's R-C
+      Scoreboard   default            42 -> 42
+      MiniAmiq     default/testflags 348 -> 348
+      BuildUVMPkg  default/testflags  17 -> 17
+      Earlgrey_0_1 default/testflags  36 -> 36
+      Rggen        default              0 ->  0  (CMP_EQUAL)
+      SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags, as expected.
+      SimpleUVM's new head is byte-identical (object ids aside) to
+      Scoreboard/default's: ONE residue now heads THREE rows.
+
+(7) CANARIES.
+      canaries.sh surelog : ok=52 changed=0 absent=0
+      canaries.sh u2r     : ok=8  changed=0 absent=0
+      ctcan2.sh   surelog : PASS   ctcan2.sh u2r : PASS
+      canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+
+    PROTECTED DATABASES, by md5 of slang.uhdm, patched vs pristine:
+      InterfaceModPort   default/testflags  SAME
+      BlackParrotComplex default/testflags  SAME
+      YosysOldOr         default/testflags  SAME
+      SVSwitch           default/testflags  SAME  4842211c4030   (the pinned value)
+      YosysVerx          default/testflags  SAME  6ccda350c24a   (the pinned value)
+
+(8) BOUNDARY, from a COPY of the WHOLE probe tree with NO path filter, .sv and
+    .v, in BOTH views, MODE=file and MODE=dir.
+      file/def   PROCESSED=3397 LISTED=3397 DIFFER=4 PRIS_REJECT=132 PATCHED_REJECT=132
+      file/elab  PROCESSED=3397 LISTED=3397 DIFFER=4 PRIS_REJECT=144 PATCHED_REJECT=144
+      dir /def   PROCESSED=1493 LISTED=1493 DIFFER=4 PRIS_REJECT=116 PATCHED_REJECT=116
+      dir /elab  PROCESSED=1493 LISTED=1493 DIFFER=4 PRIS_REJECT=122 PATCHED_REJECT=122
+      Rejects SYMMETRIC in all four runs; no FATAL, no ASYMMETRIC REJECT.
+
+    file mode, the four differing arms, ATTRIBUTED against a FRESH golden
+    (ATTRIB.file.txt): g109_a1 / g109_a2 / g109_a3 are this pass's own, and
+      r10v107repro/v107_b2.sv  - uvm107's verifier's `= new` corners arm, whose
+        `plain = new(v)` at 41:5 is a CLASS-PROPERTY `= new` lvalue.  Attributed
+        TO-GOLDEN in BOTH views (def: golden NONE, pristine logic_net, patched
+        NONE; elab: golden class_var, pristine logic_net, patched class_var).
+      TOTAL over all differing arms, both views: TO-GOLDEN 16 cells, AWAY 0.
+
+    dir mode, the four differing directories:
+      r10uvm109repro  this pass's own arms (order-blind 88 def / 94 elab, and the
+                      content is EXCLUSIVELY \_logic_net + its five children,
+                      |vpiActual and the class_var golden binds instead)
+      r10v107repro    the same v107_b2 cell, 2 lines, TO-GOLDEN
+      r10uvm75repro   ORDER COIN: raw 12 lines, ORDER-BLIND 0.  PROVED PRE-EXISTING:
+      r10uvm76repro   ORDER COIN: raw 16/14 lines, ORDER-BLIND 0.
+        Twelve runs of the PRISTINE binary alone on r10uvm75repro/dir produce
+        TWELVE DIFFERENT dumps - RESUME section 9's vpiTaskFunc order flip under
+        slang's parallel parse.  Neither is a mover; both laws' CONTENT is
+        byte-identical between the binaries.
+
+    => the uvm89/92/94/95 hier_path name-text arms, the uvm77-79 / uvm82-91
+       joint-and-mockup arms, buvm3-15 / buvm14's prettyPrint arms, sd8-12's
+       subdirectory arms, uvm84/85's this./super. arms and every bind-window law
+       (buvm13/15/28/57/64/88, classArgBind12, sections 75/76/107) are BYTE-IDENTICAL
+       in all four runs.  The only cells that move are the ones this pass's law names.
+
+(9) CALIBRATION, DONE FIRST (goldcen109.sh): golden-vs-golden over the five UVM
+    tests that have both modes - 5 pairs calibrated, 0 SKIP, 0 pairs DIFFER,
+    EXPM_N = 0.  Every golden-vs-ours number in this pass is read against zero
+    expected mismatch.
+
+(10) FENCE CHECK over the four slang-fenced names: 0 hits in the production diff
+     and 0 files in tools/probe/r10uvm109repro/ (canaudit.sh excluded, as the
+     rule allows).  GOLDEN_DEFER unset throughout.  No git stash was used.
+     results/gate_uhdm2rtlil.csv and results/golden_surelog.csv were never
+     written.

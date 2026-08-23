@@ -1,0 +1,105 @@
+r10v109 - THE VERIFIER'S GATE BATTERY.  MEASUREMENT ONLY except the official
+uhdm-cmp and scripts/verify_golden.py, which ARE the judges.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE 5011fd9.  THREE binaries, each built here with `cmake --build build -j 2`
+(rc=0), md5 taken separately, each COPIED and frozen `chmod 555` BEFORE any
+sweep, and every sweep audited by BINARY PATH:
+
+  PRISTINE       d83fbe712080e876c9593794cf77dc23  /tmp/v109_bin/pris.bin
+  PATCHED (as shipped, /tmp/r10uvm109.patch)
+                 d670fdc96cb334ec05997d1e67651b70  /tmp/v109_bin/pat.bin
+  VERIFIED (this directory's fix)
+                 1a97bb04167eb58517943971e183b1c8  /tmp/v109_bin/fix.bin
+
+The first two md5s are BIT-FOR-BIT the implementer's.  The patch applied clean
+to a FRESH 5011fd9 worktree and the re-extracted diff is md5-identical to
+/tmp/r10uvm109.patch.
+
+(1) GOLDENS, SLANG_UHDM exported explicitly to EACH binary.
+      pristine  PASS=23 FAIL=0
+      patched   PASS=23 FAIL=0
+      verified  PASS=23 FAIL=0
+      /bin/false PASS=0 FAIL=23        (the negative control)
+
+(2) uhdm2rtlil, both modes, all three binaries: 731 rows each,
+      679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL.
+    ct8rows (status AND dump column), all PASS:
+      gate_uhdm2rtlil.csv vs patched tf / vs pristine tf / vs verified tf
+      pristine tf vs patched tf, pristine def vs patched def
+      pristine tf vs verified tf, pristine def vs verified def
+
+(3) surelog, --mode both, all three binaries: 1588 rows each,
+      937 CMP_EQUAL / 567 SLANG_REJECT / 48 SURELOG_FAIL / 19 CMP_NOTEQUAL /
+       10 DEFERRED / 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+    ct8rows: golden_surelog.csv vs patched, vs pristine, vs verified -> PASS;
+             pristine vs patched, pristine vs verified, patched vs verified -> PASS.
+    => 0 differing ROWS over 1588 in every comparison.  NO ROW CONVERTED.
+       results/gate_uhdm2rtlil.csv and results/golden_surelog.csv NEVER written.
+
+    cmds.txt BINARY AUDIT, by PATH (not by the string "slang-uhdm", which also
+    matches slang-uhdm-goldens/):
+      surelog     1573 cmds.txt per sweep, ONE distinct slang path each
+      uhdm2rtlil  1462 cmds.txt per sweep, ONE distinct slang path each
+
+(4) BYTE VERIFIER, SELFCHECK=1.
+      patched  vs pristine  surelog MOVERS 4 / 956    u2r MOVERS 0 / 1358
+      verified vs pristine  surelog MOVERS 5 / 956    u2r MOVERS 0 / 1358
+      verified vs patched   surelog MOVERS 1 / 956    u2r MOVERS 0 / 1358
+    PATH_SETS_IDENTICAL and SELFCHECK 955/956 resp. 1357/1358 in every run.
+
+    ATTRIBUTION, order-blind (sorted, path- and id-normalised uhdm-dump):
+      default/SimpleUVM    95 lines, ALL REMOVALS: 9 logic_net x 7 + 16 |vpiActual x 2
+      testflags/SimpleUVM  95, identical content
+      default/SeqDriver    95, identical content (work@top_tb)
+      testflags/SeqDriver  95, identical content
+      default/Scoreboard   raw 92, ORDER-BLIND 0 -- the documented vpiTaskFunc COIN.
+        It flipped between pristine and VERIFIED in this session and did NOT flip
+        between pristine and PATCHED; pristine-vs-patched, pristine-vs-verified and
+        patched-vs-verified are all order-blind 0 on that database.
+      The four law databases are BYTE-IDENTICAL between patched and verified:
+      the verifier's fix has ZERO corpus reach.
+
+(5) HEADS (rowheads.sh, same instrument on both sweeps).
+      SeqDriver    default/testflags  29 -> 29   head text BYTE-IDENTICAL
+      SimpleUVM    default/testflags  17 -> 42   NEW head
+      Scoreboard   default            42 -> 42   BYTE-IDENTICAL
+      MiniAmiq     default/testflags 348 -> 348  BYTE-IDENTICAL
+      BuildUVMPkg  default/testflags  17 -> 17   BYTE-IDENTICAL
+      Earlgrey_0_1 default/testflags  36 -> 36   BYTE-IDENTICAL
+      Rggen        default              0 ->  0  (CMP_EQUAL)
+      SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags, as expected.
+      The pristine SimpleUVM head is byte-identical to the shipped
+      head_pris_default_SimpleUVM.cmp; the new SimpleUVM head is byte-identical
+      (object ids aside) to Scoreboard/default's -- R0 confirmed.
+
+(6) CANARIES.
+      canaries.sh surelog : ok=52 changed=0 absent=0   (patched and verified)
+      canaries.sh u2r     : ok=8  changed=0 absent=0   (patched and verified)
+      ctcan2.sh surelog PASS, ctcan2.sh u2r PASS       (patched and verified)
+      canaudit.sh canaries.sh ctcan2.sh : PASS
+    PROTECTED DATABASES, md5 of slang.uhdm, patched vs pristine, both modes:
+      InterfaceModPort SAME, BlackParrotComplex SAME, YosysOldOr SAME,
+      SVSwitch SAME 4842211c4030, YosysVerx SAME 6ccda350c24a  (the pinned values)
+
+(7) FENCE and PREDICTOR, re-run on the verifier's own PRISTINE sweep:
+      fence109 surelog     MEASURED=956  SKIP=617 HIT=64 RISK=0
+      fence109 uhdm2rtlil  MEASURED=1358 SKIP=104 HIT=0  RISK=0
+      pred109  surelog     MEASURED=956  WITH-WIDE-SHAPE=5 MAY-MOVE=4
+                           (the 5th is testflags/SimplifyHierPath, wide=1 exact=0,
+                            and it did not move)
+      pred109  uhdm2rtlil  MEASURED=1358 WITH-WIDE-SHAPE=0 MAY-MOVE=0
+    NOTE: both instruments select on the census column NEWLHS / PAR==hier_path,
+    which only the FIRST path element carries.  They are BLIND to the population
+    the shipped predicate actually broke (see README section 2).
+
+(8) NINE UVM DATABASES, score109.py, reproduced:
+      SCORE_KEY=span    64 TO-GOLDEN / 0 AWAY / 0 STILL over 454,152 cells
+      SCORE_KEY=nospan  64 TO-GOLDEN / 0 AWAY / 0 STILL
+      NET-NAME SURPLUS  SimpleUVM OURS-ONLY 11 -> 2, SeqDriver 10 -> 1,
+                        GOLDEN-ONLY 8 -> 8 IDENTICAL on both.
+      SimpleUVM's two remaining ours-only wires, by name: clp, top (R-CLP, R-TOPNET).
+
+(9) NO git stash was used.  GOLDEN_DEFER unset throughout.  The four
+    slang-fenced names appear nowhere in the production diff or in this
+    directory.  Builds were -j 2 only; no binary was rebuilt while a sweep ran.

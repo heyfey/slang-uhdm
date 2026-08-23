@@ -532,6 +532,88 @@ static bool lhsOfWrittenNewAsg107(const slang::syntax::SyntaxNode* sn) {
     return false;
 }
 
+// § classPropNewLhsNoHoist109 — THE `= new` LHS OF A CLASS PROPERTY NEVER JOINS
+// SURELOG'S LATE-BINDING POOL.  TRUE when this expression is (inside) the LEFT
+// side of a WRITTEN assignment whose RIGHT side is a CLASS `new` construction
+// (`p = new()`, `p = new(a, b)`, and the COPY form `p = new src`).
+//
+// Surelog compiles that lvalue through `CompileHelper::compileBlockingAssignment`'s
+// own `= new ...` arm (Surelog src/DesignCompile/CompileHelper.cpp:4531-4554),
+// which hands `compileExpression` a `paHierarchical_identifier` node; the
+// hier_path builder it lands in (src/DesignCompile/CompileExpression.cpp:1372-1384)
+// mints the path's FIRST element as a bare name-only `ref_obj` — `VpiName` and
+// `VpiFullName` and nothing else — and NEVER calls `component->needLateBinding`
+// on it, where every ordinary `ref_obj` road does
+// (CompileExpression.cpp:2984-3000, :5768-5786, :5794-5809).  A reference that
+// never enters `DesignComponent::m_needLateBinding`
+// (Surelog include/Surelog/Design/DesignComponent.h:189-193) is never walked by
+// `UhdmWriter::lateBinding` (UhdmWriter.cpp:3294-3296), so the implicit-wire
+// mint at UhdmWriter.cpp:3982-4004 can never fire for it: golden's class-property
+// `= new` lvalues carry NO vpiActual and the hoisting module carries NO wire.
+//
+// `= new[n]` is NOT in the family and MUST NOT be fenced: the dynamic-array
+// form takes the ordinary lvalue road and golden DOES mint its wire (arm a1
+// cell 03 `newArrC = new[3]`, golden `logic_net` @66:5 in `work@top109`), which
+// is why this predicate is not § `lhsOfWrittenNewAsg107` (that one, written for
+// the `ref_var`-local family where the array form is unreachable, fences both).
+//
+// V-FIX v109 (verifier) — THE FENCE IS THE lvalue's BASE NAME, NOT EVERY NAME
+// WRITTEN INSIDE THE lvalue.  Surelog's `= new` arm keeps only the path's FIRST
+// element out of the pool; a SELECT INDEX inside that lvalue
+// (`slotArr[idxKappa] = new(1);`) is compiled by the ordinary
+// `compileExpression` road, which DOES call `needLateBinding`, so golden mints
+// the index's implicit wire and binds it.  Measured on `v109_b1.sv` /
+// `v109_b6.sv` / `v109_b7.sv`, both views: golden and the PRISTINE binary both
+// carry `logic_net(work@topb1.idxKappa)@30:13` and `…idxOmega@31:13`, and a
+// predicate that fenced every name under the lvalue dropped both — the official
+// uhdm-cmp then named the missing wire as the HEAD of `v109_b6.sv`
+// (`LHS logic_net(work@topb6.idxKappa6)@14:11 / RHS: <null>`), pristine-RIGHT ->
+// patched-WRONG.  `newLhsBase109` walks DOWN the written lvalue through element
+// selects, member accesses and parentheses and answers the base name; only that
+// node is fenced.
+static const slang::syntax::SyntaxNode* newLhsBase109(
+    const slang::syntax::SyntaxNode* n) {
+    for (int d = 0; n && d < 64; ++d) {
+        switch (n->kind) {
+            case syntax::SyntaxKind::ElementSelectExpression:
+                n = static_cast<const slang::syntax::SyntaxNode*>(
+                    n->as<syntax::ElementSelectExpressionSyntax>().left);
+                break;
+            case syntax::SyntaxKind::MemberAccessExpression:
+                n = static_cast<const slang::syntax::SyntaxNode*>(
+                    n->as<syntax::MemberAccessExpressionSyntax>().left);
+                break;
+            case syntax::SyntaxKind::ParenthesizedExpression:
+                n = static_cast<const slang::syntax::SyntaxNode*>(
+                    n->as<syntax::ParenthesizedExpressionSyntax>().expression);
+                break;
+            default:
+                return n;
+        }
+    }
+    return n;
+}
+static bool classNewAsgLhs109(const slang::syntax::SyntaxNode* sn) {
+    for (const slang::syntax::SyntaxNode* n = sn; n && n->parent;
+         n = n->parent) {
+        const slang::syntax::SyntaxNode* p = n->parent;
+        if (p->kind != syntax::SyntaxKind::AssignmentExpression &&
+            p->kind != syntax::SyntaxKind::NonblockingAssignmentExpression)
+            continue;
+        const auto& be = p->as<syntax::BinaryExpressionSyntax>();
+        if (static_cast<const slang::syntax::SyntaxNode*>(be.left) != n)
+            return false;   // we came up the RIGHT side: not an lvalue here
+        auto rk = be.right->kind;
+        if (rk != syntax::SyntaxKind::NewClassExpression &&
+            rk != syntax::SyntaxKind::CopyClassExpression)
+            return false;
+        // V-FIX v109: only the lvalue's BASE NAME leaves the pool.
+        return newLhsBase109(
+                   static_cast<const slang::syntax::SyntaxNode*>(be.left)) == sn;
+    }
+    return false;
+}
+
 bool UhdmExporter::oobRefVarLocalHoistNet107(const slang::ast::Symbol& sym,
                                              const UHDM::any* declObj,
                                              bool bind5,
@@ -12760,7 +12842,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // error_count@91:5 running@150:3 test_count@151:3).
             if (inClassBodyEmit && !ref->Actual_group()) {
                 auto* csc9 = nv.symbol.getParentScope();
-                if (csc9 && csc9->asSymbol().kind == SymbolKind::ClassType) {
+                // § classPropNewLhsNoHoist109 — ...EXCEPT when the property is
+                // the LHS of a `= new` CLASS construction.  Surelog builds THAT
+                // lvalue as a hier_path element that never enters the
+                // late-binding pool, so golden mints no wire and binds nothing;
+                // hoisting it minted an implicit wire golden has not.  Sixteen
+                // cells in SimpleUVM, and the head of both its rows.
+                if (csc9 && csc9->asSymbol().kind == SymbolKind::ClassType &&
+                    !classNewAsgLhs109(expr.syntax)) {
                     const Symbol* hp9 = nullptr;
                     if (auto* ps9 = csc9->asSymbol().getParentScope();
                         ps9 && ps9->asSymbol().kind == SymbolKind::Package)

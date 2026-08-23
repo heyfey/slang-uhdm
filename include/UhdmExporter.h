@@ -5270,6 +5270,33 @@ private:
     // hoists the class then binds each to a module net of that name, minting
     // an implicit wire at the FIRST reference when the module declares none
     // (ApbSlave success/error_count/running/test_count).
+    //
+    // § classPropNewLhsNoHoist109 — ONE syntactic position of such a name is
+    // NOT in the pool: the LHS of a `= new` CLASS construction (`p = new()`,
+    // `p = new(a)`, `p = new src`).  Surelog compiles that lvalue through
+    // `CompileHelper::compileBlockingAssignment`'s `= new ...` arm
+    // (CompileHelper.cpp:4531-4554), which hands `compileExpression` a
+    // `paHierarchical_identifier` and lands in the hier_path builder
+    // (CompileExpression.cpp:1372-1384): the path's first element is minted as
+    // a name-only `ref_obj` and `needLateBinding` is never called on it, where
+    // every ordinary `ref_obj` road does call it (CompileExpression.cpp:2984-3000,
+    // :5768-5786, :5794-5809).  Out of the pool means out of
+    // `UhdmWriter::lateBinding`'s walk (UhdmWriter.cpp:3294-3296), so the
+    // implicit-wire mint (UhdmWriter.cpp:3982-4004) never fires: golden binds
+    // nothing and the hoisting module carries NO wire of that name.  The
+    // dynamic-array form `= new[n]` is NOT in the family — it takes the
+    // ordinary lvalue road and golden DOES mint (grid arm a1 cell 03).  The
+    // predicate lives at the push site, `classNewAsgLhs109` in ExprEmit.cpp.
+    //
+    // V-FIX v109 (verifier) — the rule is PER ELEMENT, not per lvalue.  Only the
+    // path's FIRST element leaves the pool; a SELECT INDEX written inside the
+    // same lvalue (`slotArr[idxKappa] = new(1);`) is compiled by the ordinary
+    // `compileExpression` road, which DOES call `needLateBinding`, so golden
+    // mints that index's wire and binds it.  Measured on
+    // tools/probe/r10v109repro/v109_b1.sv / _b6 / _b7 / _b9 / _b10, both views —
+    // a predicate that fenced every name under the lvalue lost those wires and
+    // the official uhdm-cmp named one as the HEAD.  `classNewAsgLhs109` now
+    // fences only `newLhsBase109(lhs)`.
     struct ClassPropRef {
         UHDM::ref_obj* ref;
         std::string name;

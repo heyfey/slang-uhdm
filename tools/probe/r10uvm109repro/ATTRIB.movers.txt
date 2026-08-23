@@ -1,0 +1,56 @@
+r10uvm109 - ORDER-BLIND ATTRIBUTION of every byte mover.  MEASUREMENT ONLY.
+Whole uhdm-dump, object ids and workdir normalised away, BOTH SIDES SORTED
+(RESUME section 9: Scoreboard/default is a ~50/50 vpiTaskFunc ORDER COIN, so only
+an order-blind read may attribute it).
+
+PRISTINE d83fbe712080e876c9593794cf77dc23   PATCHED d670fdc96cb334ec05997d1e67651b70
+
+######## default/Scoreboard-59431470   order-blind lines = 0
+  => 0 order-blind lines: the vpiTaskFunc ORDER COIN, NOT a mover of this law
+
+######## default/SimpleUVM-1dc93a62   order-blind lines = 95
+       25 \_logic_net
+        9 \_module_inst
+       16 |vpiActual
+        9 |vpiFullName
+        9 |vpiName
+        9 |vpiNet
+        9 |vpiNetType
+        9 |vpiParent
+
+######## default/SeqDriver-32af76aa   order-blind lines = 95
+       25 \_logic_net
+        9 \_module_inst
+       16 |vpiActual
+        9 |vpiFullName
+        9 |vpiName
+        9 |vpiNet
+        9 |vpiNetType
+        9 |vpiParent
+
+######## testflags/SimpleUVM-1dc93a62   order-blind lines = 95
+       25 \_logic_net
+        9 \_module_inst
+       16 |vpiActual
+        9 |vpiFullName
+        9 |vpiName
+        9 |vpiNet
+        9 |vpiNetType
+        9 |vpiParent
+
+######## testflags/SeqDriver-32af76aa   order-blind lines = 95
+       25 \_logic_net
+        9 \_module_inst
+       16 |vpiActual
+        9 |vpiFullName
+        9 |vpiName
+        9 |vpiNet
+        9 |vpiNetType
+        9 |vpiParent
+
+NO OTHER OBJECT KIND APPEARS IN ANY OF THE FIVE.
+
+Arithmetic per mover: 9 removed implicit wires x 7 lines each
+(|vpiNet, \_logic_net, |vpiParent, \_module_inst, |vpiName, |vpiFullName,
+|vpiNetType) = 63, plus 16 references x 2 lines (|vpiActual, \_logic_net) = 32,
+= 95 content lines exactly.  (25 \_logic_net = 9 net declarations + 16 actuals.)

@@ -1,0 +1,196 @@
+======== v109_b1
+-- view=def   cmp lines: PRIS=2084 PAT(shipped)=17 FIX=2084
+  work@topb1|ctlSigma                    G=36:5-36:13     PRIS=36:5-36:13     PATSHIP=36:5-36:13     FIX=36:5-36:13     
+  work@topb1|ctlTau                      G=35:14-35:20    PRIS=35:14-35:20    PATSHIP=35:14-35:20    FIX=35:14-35:20    
+  work@topb1|dynBag                      G=37:5-37:11     PRIS=37:5-37:11     PATSHIP=37:5-37:11     FIX=37:5-37:11     
+  work@topb1|idxKappa                    G=30:13-30:21    PRIS=30:13-30:21    PATSHIP=.              FIX=30:13-30:21    <<< SHIPPED AWAY-GOLDEN
+  work@topb1|idxLambda                   G=37:28-37:37    PRIS=37:28-37:37    PATSHIP=37:28-37:37    FIX=37:28-37:37    
+  work@topb1|idxOmega                    G=31:13-31:21    PRIS=31:13-31:21    PATSHIP=.              FIX=31:13-31:21    <<< SHIPPED AWAY-GOLDEN
+-- view=elab   cmp lines: PRIS=2434 PAT(shipped)=17 FIX=2434
+  work@topb1|ctlSigma                    G=36:5-36:13     PRIS=36:5-36:13     PATSHIP=36:5-36:13     FIX=36:5-36:13     
+  work@topb1|ctlTau                      G=35:14-35:20    PRIS=35:14-35:20    PATSHIP=35:14-35:20    FIX=35:14-35:20    
+  work@topb1|dynBag                      G=37:5-37:11     PRIS=37:5-37:11     PATSHIP=37:5-37:11     FIX=37:5-37:11     
+  work@topb1|idxKappa                    G=30:13-30:21    PRIS=30:13-30:21    PATSHIP=.              FIX=30:13-30:21    <<< SHIPPED AWAY-GOLDEN
+  work@topb1|idxLambda                   G=37:28-37:37    PRIS=37:28-37:37    PATSHIP=37:28-37:37    FIX=37:28-37:37    
+  work@topb1|idxOmega                    G=31:13-31:21    PRIS=31:13-31:21    PATSHIP=.              FIX=31:13-31:21    <<< SHIPPED AWAY-GOLDEN
+======== v109_b6
+-- view=def   cmp lines: PRIS=540 PAT(shipped)=17 FIX=540
+  work@topb6|idxKappa6                   G=14:11-14:20    PRIS=14:11-14:20    PATSHIP=.              FIX=14:11-14:20    <<< SHIPPED AWAY-GOLDEN
+-- view=elab   cmp lines: PRIS=620 PAT(shipped)=17 FIX=620
+  work@topb6|idxKappa6                   G=14:11-14:20    PRIS=14:11-14:20    PATSHIP=.              FIX=14:11-14:20    <<< SHIPPED AWAY-GOLDEN
+======== v109_b7
+-- view=def   cmp lines: PRIS=20 PAT(shipped)=20 FIX=20
+  work@topb7|idxKappa7                   G=14:11-14:20    PRIS=14:11-14:20    PATSHIP=.              FIX=14:11-14:20    <<< SHIPPED AWAY-GOLDEN
+-- view=elab   cmp lines: PRIS=20 PAT(shipped)=20 FIX=20
+  work@topb7|idxKappa7                   G=14:11-14:20    PRIS=14:11-14:20    PATSHIP=.              FIX=14:11-14:20    <<< SHIPPED AWAY-GOLDEN
+======== v109_b8
+-- view=def   cmp lines: PRIS=20 PAT(shipped)=20 FIX=20
+  work@topb8|idxKappa8                   G=14:11-14:20    PRIS=14:11-14:20    PATSHIP=14:11-14:20    FIX=14:11-14:20    
+-- view=elab   cmp lines: PRIS=20 PAT(shipped)=20 FIX=20
+  work@topb8|idxKappa8                   G=14:11-14:20    PRIS=14:11-14:20    PATSHIP=14:11-14:20    FIX=14:11-14:20    
+======== v109_b9
+-- view=def   cmp lines: PRIS=17 PAT(shipped)=17 FIX=784
+  work@topb9|argOnlyChi                  G=19:31-19:41    PRIS=19:31-19:41    PATSHIP=19:31-19:41    FIX=19:31-19:41    
+  work@topb9|bothIdxPsi                  G=18:13-18:23    PRIS=18:13-18:23    PATSHIP=18:31-18:41    FIX=18:13-18:23    <<< SHIPPED AWAY-GOLDEN
+  work@topb9|selfNewUpsilon              G=.              PRIS=19:5-19:19     PATSHIP=.              FIX=.              
+-- view=elab   cmp lines: PRIS=17 PAT(shipped)=17 FIX=948
+  work@topb9|argOnlyChi                  G=19:31-19:41    PRIS=19:31-19:41    PATSHIP=19:31-19:41    FIX=19:31-19:41    
+  work@topb9|bothIdxPsi                  G=18:13-18:23    PRIS=18:13-18:23    PATSHIP=18:31-18:41    FIX=18:13-18:23    <<< SHIPPED AWAY-GOLDEN
+  work@topb9|selfNewUpsilon              G=.              PRIS=19:5-19:19     PATSHIP=.              FIX=.              
+======== v109_b10
+-- view=def   cmp lines: PRIS=29 PAT(shipped)=17 FIX=1504
+  work@topbA|callIdxRho                  G=27:16-27:26    PRIS=27:16-27:26    PATSHIP=.              FIX=27:16-27:26    <<< SHIPPED AWAY-GOLDEN
+  work@topbA|castIdxTau                  G=28:15-28:25    PRIS=28:15-28:25    PATSHIP=.              FIX=28:15-28:25    <<< SHIPPED AWAY-GOLDEN
+  work@topbA|plainCtlA                   G=29:5-29:14     PRIS=29:5-29:14     PATSHIP=29:5-29:14     FIX=29:5-29:14     
+-- view=elab   cmp lines: PRIS=1822 PAT(shipped)=17 FIX=1822
+  work@topbA|callIdxRho                  G=27:16-27:26    PRIS=27:16-27:26    PATSHIP=.              FIX=27:16-27:26    <<< SHIPPED AWAY-GOLDEN
+  work@topbA|castIdxTau                  G=28:15-28:25    PRIS=28:15-28:25    PATSHIP=.              FIX=28:15-28:25    <<< SHIPPED AWAY-GOLDEN
+  work@topbA|plainCtlA                   G=29:5-29:14     PRIS=29:5-29:14     PATSHIP=29:5-29:14     FIX=29:5-29:14     
+======== v109_b2
+-- view=def   cmp lines: PRIS=17 PAT(shipped)=644 FIX=644
+  work@topb2|inhPlainChi                 G=31:5-31:16     PRIS=31:5-31:16     PATSHIP=31:5-31:16     FIX=31:5-31:16     
+  work@topb2|plainNewPsi                 G=.              PRIS=29:5-29:16     PATSHIP=.              FIX=.              
+-- view=elab   cmp lines: PRIS=17 PAT(shipped)=822 FIX=822
+  work@topb2|inhPlainChi                 G=31:5-31:16     PRIS=31:5-31:16     PATSHIP=31:5-31:16     FIX=31:5-31:16     
+  work@topb2|plainNewPsi                 G=.              PRIS=29:5-29:16     PATSHIP=.              FIX=.              
+======== v109_b3
+-- view=def   cmp lines: PRIS=17 PAT(shipped)=1324 FIX=1324
+  work@topb3|firstNewAlpha               G=32:21-32:34    PRIS=24:5-24:18     PATSHIP=32:21-32:34    FIX=32:21-32:34    
+  work@topb3|firstReadBeta               G=25:22-25:35    PRIS=25:22-25:35    PATSHIP=25:22-25:35    FIX=25:22-25:35    
+  work@topb3|shadowDelta                 G=43:8-43:19     PRIS=43:8-43:19     PATSHIP=43:8-43:19     FIX=43:8-43:19     
+  work@topb3|shadowGamma                 G=42:8-42:19     PRIS=42:8-42:19     PATSHIP=42:8-42:19     FIX=42:8-42:19     
+-- view=elab   cmp lines: PRIS=17 PAT(shipped)=1850 FIX=1850
+  work@topb3|firstNewAlpha               G=32:21-32:34    PRIS=24:5-24:18     PATSHIP=32:21-32:34    FIX=32:21-32:34    
+  work@topb3|firstReadBeta               G=25:22-25:35    PRIS=25:22-25:35    PATSHIP=25:22-25:35    FIX=25:22-25:35    
+  work@topb3|shadowDelta                 G=43:8-43:19     PRIS=43:8-43:19     PATSHIP=43:8-43:19     FIX=43:8-43:19     
+  work@topb3|shadowGamma                 G=42:8-42:19     PRIS=42:8-42:19     PATSHIP=42:8-42:19     FIX=42:8-42:19     
+======== v109_b4
+-- view=def   cmp lines: PRIS=17 PAT(shipped)=2140 FIX=2140
+  work@kidb4|caseNewEta                  G=.              PRIS=32:10-32:20    PATSHIP=.              FIX=.              
+  work@kidb4|ctlNu4                      G=31:11-31:17    PRIS=31:11-31:17    PATSHIP=31:11-31:17    FIX=31:11-31:17    
+  work@kidb4|forkNewZeta                 G=.              PRIS=29:7-29:18     PATSHIP=.              FIX=.              
+  work@kidb4|ifNewOmi                    G=.              PRIS=41:23-41:31    PATSHIP=.              FIX=.              
+  work@kidb4|loopNewIota                 G=.              PRIS=27:7-27:18     PATSHIP=.              FIX=.              
+  work@kidb4|readNu5                     G=41:9-41:16     PRIS=41:9-41:16     PATSHIP=41:9-41:16     FIX=41:9-41:16     
+  work@kidb4|whileNewUps                 G=.              PRIS=38:7-38:18     PATSHIP=.              FIX=.              
+  work@topb4a|caseNewEta                 G=.              PRIS=32:10-32:20    PATSHIP=.              FIX=.              
+  work@topb4a|ctlNu4                     G=.              PRIS=31:11-31:17    PATSHIP=31:11-31:17    FIX=31:11-31:17      [FIX still != golden]
+  work@topb4a|forkNewZeta                G=.              PRIS=29:7-29:18     PATSHIP=.              FIX=.              
+  work@topb4a|ifNewOmi                   G=.              PRIS=41:23-41:31    PATSHIP=.              FIX=.              
+  work@topb4a|loopNewIota                G=.              PRIS=27:7-27:18     PATSHIP=.              FIX=.              
+  work@topb4a|readNu5                    G=.              PRIS=41:9-41:16     PATSHIP=41:9-41:16     FIX=41:9-41:16       [FIX still != golden]
+  work@topb4a|whileNewUps                G=.              PRIS=38:7-38:18     PATSHIP=.              FIX=.              
+  work@topb4b|caseNewEta                 G=.              PRIS=32:10-32:20    PATSHIP=.              FIX=.              
+  work@topb4b|ctlNu4                     G=.              PRIS=31:11-31:17    PATSHIP=31:11-31:17    FIX=31:11-31:17      [FIX still != golden]
+  work@topb4b|forkNewZeta                G=.              PRIS=29:7-29:18     PATSHIP=.              FIX=.              
+  work@topb4b|ifNewOmi                   G=.              PRIS=41:23-41:31    PATSHIP=.              FIX=.              
+  work@topb4b|loopNewIota                G=.              PRIS=27:7-27:18     PATSHIP=.              FIX=.              
+  work@topb4b|readNu5                    G=.              PRIS=41:9-41:16     PATSHIP=41:9-41:16     FIX=41:9-41:16       [FIX still != golden]
+  work@topb4b|whileNewUps                G=.              PRIS=38:7-38:18     PATSHIP=.              FIX=.              
+  work@topb4c|dummy4                     G=67:8-67:14     PRIS=67:8-67:14     PATSHIP=67:8-67:14     FIX=67:8-67:14     
+-- view=elab   cmp lines: PRIS=2230 PAT(shipped)=2196 FIX=2196
+  work@kidb4|caseNewEta                  G=.              PRIS=32:10-32:20    PATSHIP=.              FIX=.              
+  work@kidb4|ctlNu4                      G=31:11-31:17    PRIS=31:11-31:17    PATSHIP=31:11-31:17    FIX=31:11-31:17    
+  work@kidb4|forkNewZeta                 G=.              PRIS=29:7-29:18     PATSHIP=.              FIX=.              
+  work@kidb4|ifNewOmi                    G=.              PRIS=41:23-41:31    PATSHIP=.              FIX=.              
+  work@kidb4|loopNewIota                 G=.              PRIS=27:7-27:18     PATSHIP=.              FIX=.              
+  work@kidb4|readNu5                     G=41:9-41:16     PRIS=41:9-41:16     PATSHIP=41:9-41:16     FIX=41:9-41:16     
+  work@kidb4|whileNewUps                 G=.              PRIS=38:7-38:18     PATSHIP=.              FIX=.              
+  work@topb4a|caseNewEta                 G=.              PRIS=32:10-32:20    PATSHIP=.              FIX=.              
+  work@topb4a|ctlNu4                     G=.              PRIS=31:11-31:17    PATSHIP=31:11-31:17    FIX=31:11-31:17      [FIX still != golden]
+  work@topb4a|forkNewZeta                G=.              PRIS=29:7-29:18     PATSHIP=.              FIX=.              
+  work@topb4a|ifNewOmi                   G=.              PRIS=41:23-41:31    PATSHIP=.              FIX=.              
+  work@topb4a|loopNewIota                G=.              PRIS=27:7-27:18     PATSHIP=.              FIX=.              
+  work@topb4a|readNu5                    G=.              PRIS=41:9-41:16     PATSHIP=41:9-41:16     FIX=41:9-41:16       [FIX still != golden]
+  work@topb4a|whileNewUps                G=.              PRIS=38:7-38:18     PATSHIP=.              FIX=.              
+  work@topb4b|caseNewEta                 G=.              PRIS=32:10-32:20    PATSHIP=.              FIX=.              
+  work@topb4b|ctlNu4                     G=.              PRIS=31:11-31:17    PATSHIP=31:11-31:17    FIX=31:11-31:17      [FIX still != golden]
+  work@topb4b|forkNewZeta                G=.              PRIS=29:7-29:18     PATSHIP=.              FIX=.              
+  work@topb4b|ifNewOmi                   G=.              PRIS=41:23-41:31    PATSHIP=.              FIX=.              
+  work@topb4b|loopNewIota                G=.              PRIS=27:7-27:18     PATSHIP=.              FIX=.              
+  work@topb4b|readNu5                    G=.              PRIS=41:9-41:16     PATSHIP=41:9-41:16     FIX=41:9-41:16       [FIX still != golden]
+  work@topb4b|whileNewUps                G=.              PRIS=38:7-38:18     PATSHIP=.              FIX=.              
+  work@topb4c|dummy4                     G=67:8-67:14     PRIS=67:8-67:14     PATSHIP=67:8-67:14     FIX=67:8-67:14     
+======== v109_b5
+-- view=def   cmp lines: PRIS=17 PAT(shipped)=2352 FIX=2352
+  work@topb5|E_ALPHA5                    G=40:21-40:29    PRIS=40:21-40:29    PATSHIP=40:21-40:29    FIX=40:21-40:29    
+  work@topb5|enumNewKapa                 G=.              PRIS=29:5-29:16     PATSHIP=.              FIX=.              
+  work@topb5|item                        G=30:30-30:34    PRIS=30:30-30:34    PATSHIP=30:30-30:34    FIX=30:30-30:34    
+  work@topb5|modeSel5                    G=40:9-40:17     PRIS=40:9-40:17     PATSHIP=40:9-40:17     FIX=40:9-40:17     
+  work@topb5|plainCtl5                   G=36:17-36:26    PRIS=36:17-36:26    PATSHIP=36:17-36:26    FIX=36:17-36:26    
+  work@topb5|refNewSigma                 G=.              PRIS=35:5-35:16     PATSHIP=.              FIX=.              
+-- view=elab   cmp lines: PRIS=17 PAT(shipped)=3250 FIX=3250
+  work@topb5|E_ALPHA5                    G=40:21-40:29    PRIS=40:21-40:29    PATSHIP=40:21-40:29    FIX=40:21-40:29    
+  work@topb5|enumNewKapa                 G=.              PRIS=29:5-29:16     PATSHIP=.              FIX=.              
+  work@topb5|item                        G=30:30-30:34    PRIS=30:30-30:34    PATSHIP=30:30-30:34    FIX=30:30-30:34    
+  work@topb5|modeSel5                    G=40:9-40:17     PRIS=40:9-40:17     PATSHIP=40:9-40:17     FIX=40:9-40:17     
+  work@topb5|plainCtl5                   G=36:17-36:26    PRIS=36:17-36:26    PATSHIP=36:17-36:26    FIX=36:17-36:26    
+  work@topb5|refNewSigma                 G=.              PRIS=35:5-35:16     PATSHIP=.              FIX=.              
+======== g109_a1
+-- view=def   cmp lines: PRIS=17 PAT(shipped)=5578 FIX=5578
+  work@top109|bareReadF                  G=80:12-80:21    PRIS=80:12-80:21    PATSHIP=80:12-80:21    FIX=80:12-80:21    
+  work@top109|callArgP                   G=101:12-101:20  PRIS=101:12-101:20  PATSHIP=101:12-101:20  FIX=101:12-101:20  
+  work@top109|condV                      G=95:9-95:14     PRIS=95:9-95:14     PATSHIP=95:9-95:14     FIX=95:9-95:14     
+  work@top109|lhsPlainS                  G=73:5-73:14     PRIS=73:5-73:14     PATSHIP=73:5-73:14     FIX=73:5-73:14     
+  work@top109|newArrC                    G=66:5-66:12     PRIS=66:5-66:12     PATSHIP=66:5-66:12     FIX=66:5-66:12     
+  work@top109|newLhsA                    G=.              PRIS=64:5-64:12     PATSHIP=.              FIX=.              
+  work@top109|newLhsArgB                 G=.              PRIS=65:5-65:15     PATSHIP=.              FIX=.              
+  work@top109|plainAsgD                  G=71:5-71:14     PRIS=71:5-71:14     PATSHIP=71:5-71:14     FIX=71:5-71:14     
+  work@top109|retW                       G=109:12-109:16  PRIS=109:12-109:16  PATSHIP=109:12-109:16  FIX=109:12-109:16  
+  work@top109|rhsPlainT                  G=86:17-86:26    PRIS=86:17-86:26    PATSHIP=86:17-86:26    FIX=86:17-86:26    
+  work@top109|sysArgU                    G=103:21-103:28  PRIS=103:21-103:28  PATSHIP=103:21-103:28  FIX=103:21-103:28  
+-- view=elab   cmp lines: PRIS=17 PAT(shipped)=7262 FIX=7262
+  work@top109|bareReadF                  G=80:12-80:21    PRIS=80:12-80:21    PATSHIP=80:12-80:21    FIX=80:12-80:21    
+  work@top109|callArgP                   G=101:12-101:20  PRIS=101:12-101:20  PATSHIP=101:12-101:20  FIX=101:12-101:20  
+  work@top109|condV                      G=95:9-95:14     PRIS=95:9-95:14     PATSHIP=95:9-95:14     FIX=95:9-95:14     
+  work@top109|lhsPlainS                  G=73:5-73:14     PRIS=73:5-73:14     PATSHIP=73:5-73:14     FIX=73:5-73:14     
+  work@top109|newArrC                    G=66:5-66:12     PRIS=66:5-66:12     PATSHIP=66:5-66:12     FIX=66:5-66:12     
+  work@top109|newLhsA                    G=.              PRIS=64:5-64:12     PATSHIP=.              FIX=.              
+  work@top109|newLhsArgB                 G=.              PRIS=65:5-65:15     PATSHIP=.              FIX=.              
+  work@top109|plainAsgD                  G=71:5-71:14     PRIS=71:5-71:14     PATSHIP=71:5-71:14     FIX=71:5-71:14     
+  work@top109|retW                       G=109:12-109:16  PRIS=109:12-109:16  PATSHIP=109:12-109:16  FIX=109:12-109:16  
+  work@top109|rhsPlainT                  G=86:17-86:26    PRIS=86:17-86:26    PATSHIP=86:17-86:26    FIX=86:17-86:26    
+  work@top109|sysArgU                    G=103:21-103:28  PRIS=103:21-103:28  PATSHIP=103:21-103:28  FIX=103:21-103:28  
+======== g109_a2
+-- view=def   cmp lines: PRIS=17 PAT(shipped)=174 FIX=174
+  work@top2|baseNewX                     G=.              PRIS=51:5-51:13     PATSHIP=.              FIX=.              
+  work@top2|basePlainY                   G=52:5-52:15     PRIS=52:5-52:15     PATSHIP=52:5-52:15     FIX=52:5-52:15     
+  work@top2|copyNewA                     G=.              PRIS=57:5-57:13     PATSHIP=.              FIX=.              
+  work@top2|ctorArgB                     G=.              PRIS=58:5-58:13     PATSHIP=.              FIX=.              
+  work@top2|paramNewG                    G=.              PRIS=68:5-68:14     PATSHIP=.              FIX=.              
+  work@top2|paramPlainH                  G=69:5-69:16     PRIS=69:5-69:16     PATSHIP=69:5-69:16     FIX=69:5-69:16     
+  work@top2|statNewF                     G=.              PRIS=61:5-61:13     PATSHIP=.              FIX=.              
+-- view=elab   cmp lines: PRIS=178 PAT(shipped)=178 FIX=178
+  work@top2|baseNewX                     G=.              PRIS=51:5-51:13     PATSHIP=.              FIX=.              
+  work@top2|basePlainY                   G=52:5-52:15     PRIS=52:5-52:15     PATSHIP=52:5-52:15     FIX=52:5-52:15     
+  work@top2|copyNewA                     G=.              PRIS=57:5-57:13     PATSHIP=.              FIX=.              
+  work@top2|ctorArgB                     G=.              PRIS=58:5-58:13     PATSHIP=.              FIX=.              
+  work@top2|paramNewG                    G=.              PRIS=68:5-68:14     PATSHIP=.              FIX=.              
+  work@top2|paramPlainH                  G=69:5-69:16     PRIS=69:5-69:16     PATSHIP=69:5-69:16     FIX=69:5-69:16     
+  work@top2|statNewF                     G=.              PRIS=61:5-61:13     PATSHIP=.              FIX=.              
+======== g109_a3
+-- view=def   cmp lines: PRIS=17 PAT(shipped)=518 FIX=518
+  work@kid3|plainSet2                    G=17:5-17:14     PRIS=17:5-17:14     PATSHIP=17:5-17:14     FIX=17:5-17:14     
+  work@kid3|slotNew1                     G=.              PRIS=16:5-16:13     PATSHIP=.              FIX=.              
+  work@topA3|plainSet2                   G=.              PRIS=17:5-17:14     PATSHIP=17:5-17:14     FIX=17:5-17:14       [FIX still != golden]
+  work@topA3|slotNew1                    G=.              PRIS=16:5-16:13     PATSHIP=.              FIX=.              
+  work@topB3|plainSet2                   G=.              PRIS=17:5-17:14     PATSHIP=17:5-17:14     FIX=17:5-17:14       [FIX still != golden]
+  work@topB3|slotNew1                    G=.              PRIS=16:5-16:13     PATSHIP=.              FIX=.              
+-- view=elab   cmp lines: PRIS=522 PAT(shipped)=526 FIX=526
+  work@kid3|plainSet2                    G=17:5-17:14     PRIS=17:5-17:14     PATSHIP=17:5-17:14     FIX=17:5-17:14     
+  work@kid3|slotNew1                     G=.              PRIS=16:5-16:13     PATSHIP=.              FIX=.              
+  work@topA3|plainSet2                   G=.              PRIS=17:5-17:14     PATSHIP=17:5-17:14     FIX=17:5-17:14       [FIX still != golden]
+  work@topA3|slotNew1                    G=.              PRIS=16:5-16:13     PATSHIP=.              FIX=.              
+  work@topB3|plainSet2                   G=.              PRIS=17:5-17:14     PATSHIP=17:5-17:14     FIX=17:5-17:14       [FIX still != golden]
+  work@topB3|slotNew1                    G=.              PRIS=16:5-16:13     PATSHIP=.              FIX=.              
+======== v107_b2
+-- view=def   cmp lines: PRIS=17 PAT(shipped)=17 FIX=17
+  work@topb2|d2                          G=.              PRIS=67:8-67:10     PATSHIP=67:8-67:10     FIX=67:8-67:10       [FIX still != golden]
+  work@topb2|n                           G=48:15-48:16    PRIS=.              PATSHIP=.              FIX=.                [FIX still != golden]
+  work@topb2|plain                       G=32:5-32:10     PRIS=32:5-32:10     PATSHIP=32:5-32:10     FIX=32:5-32:10     
+  work@topb2|v                           G=32:13-32:14    PRIS=32:13-32:14    PATSHIP=32:13-32:14    FIX=32:13-32:14    
+-- view=elab   cmp lines: PRIS=1339 PAT(shipped)=1339 FIX=1339
+  work@topb2|d2                          G=.              PRIS=67:8-67:10     PATSHIP=67:8-67:10     FIX=67:8-67:10       [FIX still != golden]
+  work@topb2|n                           G=48:15-48:16    PRIS=.              PATSHIP=.              FIX=.                [FIX still != golden]
+  work@topb2|plain                       G=32:5-32:10     PRIS=32:5-32:10     PATSHIP=32:5-32:10     FIX=32:5-32:10     
+  work@topb2|v                           G=32:13-32:14    PRIS=32:13-32:14    PATSHIP=32:13-32:14    FIX=32:13-32:14    
