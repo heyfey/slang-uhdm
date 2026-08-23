@@ -1,0 +1,28 @@
+== ./r10buvm5repro/a1_refvarbind.sv
+   TO-GOLDEN ELABPKG IB p5::own5::p9_5 125:20-125:22 v5 : pris={'ref_var': 1, 'class_var': 1} pat={'NONE': 1, 'class_var': 1} golden={'NONE': 1, 'class_var': 1}
+   -> TO-GOLDEN=1 AWAY=0 OTHER=0
+== ./r10buvm9repro/w1v_pkgclsts.sv
+   -> TO-GOLDEN=0 AWAY=0 OTHER=0
+== ./r10buvm9repro/w4v_imports.sv
+   OTHER     ELABPKG IB w4b::bk::f4 36:53-36:54 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'ref_var': 3}
+   -> TO-GOLDEN=0 AWAY=0 OTHER=1
+== ./r10buvm9repro/w7v_pkgclsts2.sv
+   -> TO-GOLDEN=0 AWAY=0 OTHER=0
+== ./r10uvm105repro/g105_a1.sv
+   -> TO-GOLDEN=0 AWAY=0 OTHER=0
+== ./r10uvm107repro/g107_a1.sv
+   TO-GOLDEN ELABPKG IB p107::c107::oob_deep 81:14-81:15 v : pris={'NONE': 1, 'ref_var': 1} pat={'logic_net': 1, 'ref_var': 1} golden={'logic_net': 1, 'ref_var': 1}
+   TO-GOLDEN ELABPKG IB p107::c107::oob_recvexpr 57:15-57:16 v : pris={'ref_var': 1, 'class_var': 1} pat={'logic_net': 1, 'class_var': 1} golden={'logic_net': 1, 'class_var': 1}
+   TO-GOLDEN ELABPKG IB p107::c107::oob_recvexpr 59:15-59:16 v : pris={'ref_var': 1, 'class_var': 1} pat={'logic_net': 1, 'class_var': 1} golden={'logic_net': 1, 'class_var': 1}
+   TO-GOLDEN ELABPKG IB p107::c107::oob_recvexpr 60:14-60:15 v : pris={'NONE': 1, 'ref_var': 1} pat={'logic_net': 1, 'ref_var': 1} golden={'logic_net': 1, 'ref_var': 1}
+   -> TO-GOLDEN=4 AWAY=0 OTHER=0
+== ./r10uvm107repro/g107_a3.sv
+   -> TO-GOLDEN=0 AWAY=0 OTHER=0
+== ./r10uvm76repro/v76d_defarg.sv
+   -> TO-GOLDEN=0 AWAY=0 OTHER=0
+== ./r10uvm87repro/v87_a3_oob.sv
+   -> TO-GOLDEN=0 AWAY=0 OTHER=0
+== ./r10v105repro/v105_b4.sv
+   -> TO-GOLDEN=0 AWAY=0 OTHER=0
+== ./r10v105repro/v105_b6.sv
+   -> TO-GOLDEN=0 AWAY=0 OTHER=0

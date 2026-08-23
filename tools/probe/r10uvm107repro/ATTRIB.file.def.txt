@@ -1,0 +1,53 @@
+== ./r10buvm5repro/a1_refvarbind.sv
+   TO-GOLDEN ELABPKG IB p5::own5::p9_5 125:20-125:22 v5 : pris={'ref_var': 1} pat={'NONE': 1} golden={'NONE': 1}
+   -> TO-GOLDEN=1 AWAY=0 OTHER=0
+== ./r10buvm9repro/w1v_pkgclsts.sv
+   TO-GOLDEN ELABPKG IB w1p::w1k::f1 32:54-32:55 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB w1p::w1k::f11 36:56-36:57 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB w1p::w1k::f12 37:65-37:66 w : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB w1p::w1k::f2 33:36-33:37 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB w1p::w1k::f3 34:41-34:42 r : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB w1p::w1k::f3 34:58-34:59 r : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   -> TO-GOLDEN=6 AWAY=0 OTHER=0
+== ./r10buvm9repro/w4v_imports.sv
+   TO-GOLDEN ELABPKG IB w4b::bk::f4 36:53-36:54 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   -> TO-GOLDEN=1 AWAY=0 OTHER=0
+== ./r10buvm9repro/w7v_pkgclsts2.sv
+   TO-GOLDEN ELABPKG IB w7p::w7k::g4 27:54-27:55 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB w7p::w7k::g5 28:54-28:55 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB w7p::w7k::g6 29:54-29:55 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   -> TO-GOLDEN=3 AWAY=0 OTHER=0
+== ./r10uvm105repro/g105_a1.sv
+   TO-GOLDEN ELABPKG IB p105::c105::oob_ret 71:12-71:16 yo_t : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   -> TO-GOLDEN=1 AWAY=0 OTHER=0
+== ./r10uvm107repro/g107_a1.sv
+   TO-GOLDEN ELABPKG IB p107::c107::oob_asg 87:5-87:6 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB p107::c107::oob_asg 88:13-88:14 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB p107::c107::oob_deep 80:18-80:19 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB p107::c107::oob_deep 81:14-81:15 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB p107::c107::oob_recvexpr 57:15-57:16 v : pris={'ref_var': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB p107::c107::oob_recvexpr 59:15-59:16 v : pris={'ref_var': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB p107::c107::oob_recvexpr 60:14-60:15 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   -> TO-GOLDEN=7 AWAY=0 OTHER=0
+== ./r10uvm107repro/g107_a3.sv
+   TO-GOLDEN ELABPKG IB r107::holder107::deep107 19:14-19:16 e1 : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB r107::holder107::deep107 20:14-20:16 e1 : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB r107::holder107::deeptask107 26:14-26:16 t1 : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   -> TO-GOLDEN=3 AWAY=0 OTHER=0
+== ./r10uvm76repro/v76d_defarg.sv
+   TO-GOLDEN ELABPKG IB p76v::c76::oobf 13:15-13:18 loc : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   -> TO-GOLDEN=1 AWAY=0 OTHER=0
+== ./r10uvm87repro/v87_a3_oob.sv
+   TO-GOLDEN ELABPKG IB p87x::o87::mf 17:23-17:29 l_oob2 : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB p87x::o87::mf 17:32-17:37 l_oob : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB p87x::o87::mr 25:12-25:15 l_r : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB p87x::o87::mt 21:5-21:11 l_oobt : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   OTHER     ELABPKG IB p87x::o87::new 29:5-29:11 l_ctor : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_var': 1}
+   -> TO-GOLDEN=4 AWAY=0 OTHER=1
+== ./r10v105repro/v105_b4.sv
+   TO-GOLDEN ELABPKG IB pu_b4::cu_b4::argm 49:5-49:9 xo_a : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG IB pu_b4::cu_b4::retm 44:12-44:16 xo_r : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   -> TO-GOLDEN=2 AWAY=0 OTHER=0
+== ./r10v105repro/v105_b6.sv
+   TO-GOLDEN ELABPKG IB pv_b6::t3_b6::t3 38:22-38:25 c_l : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   -> TO-GOLDEN=1 AWAY=0 OTHER=0

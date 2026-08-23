@@ -1,0 +1,34 @@
+== boundary gate: MODE=file VIEW=elab  3347 arms under /tmp/r10uvm107_scratch/probecopy
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3403346 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3403476 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3406132 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3406215 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3631334 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3631392 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3635082 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3635119 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3638370 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3638409 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3663783 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3663811 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3664283 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3664323 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3716357 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3716475 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3716586 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3716723 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3716856 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm107/tools/probe/r10uvm107repro/bound107.sh: line 66: 3716974 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+PROCESSED=3347 LISTED=3347 DIFFER=11 PRIS_REJECT=142 PATCHED_REJECT=142
+-- differing arms:
+./r10buvm5repro/a1_refvarbind.sv
+./r10buvm9repro/w1v_pkgclsts.sv
+./r10buvm9repro/w4v_imports.sv
+./r10buvm9repro/w7v_pkgclsts2.sv
+./r10uvm105repro/g105_a1.sv
+./r10uvm107repro/g107_a1.sv
+./r10uvm107repro/g107_a3.sv
+./r10uvm76repro/v76d_defarg.sv
+./r10uvm87repro/v87_a3_oob.sv
+./r10v105repro/v105_b4.sv
+./r10v105repro/v105_b6.sv

@@ -1,0 +1,14 @@
+== boundary gate: MODE=file VIEW=def  3347 arms under /tmp/r10uvm107_scratch/probecopy
+PROCESSED=3347 LISTED=3347 DIFFER=11 PRIS_REJECT=132 PATCHED_REJECT=132
+-- differing arms:
+./r10buvm5repro/a1_refvarbind.sv
+./r10buvm9repro/w1v_pkgclsts.sv
+./r10buvm9repro/w4v_imports.sv
+./r10buvm9repro/w7v_pkgclsts2.sv
+./r10uvm105repro/g105_a1.sv
+./r10uvm107repro/g107_a1.sv
+./r10uvm107repro/g107_a3.sv
+./r10uvm76repro/v76d_defarg.sv
+./r10uvm87repro/v87_a3_oob.sv
+./r10v105repro/v105_b4.sv
+./r10v105repro/v105_b6.sv

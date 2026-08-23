@@ -484,6 +484,81 @@ bool UhdmExporter::refVarLocalNoBind5(const slang::ast::Symbol& sym,
     return !(sameDepth && window);
 }
 
+// § oobRefVarLocalHoistNet107 — the predicate.  See UhdmExporter.h for the
+// law, its Surelog decode (UhdmWriter.cpp:3294 / :3982-4004,
+// CompileHelper.cpp:190-193, CompileModule.cpp:571-581) and the thirteen
+// measured corpus cells.  TRUE means: do NOT bind the declaration; hand the
+// reference to the hoisted-net pool instead.
+//
+// The four structural conditions are § refVarLocalWindowBinds5's own (a
+// `ref_var` DECLARATION OBJECT, a plain subroutine/statement-block LOCAL, not
+// the function return name), because this law is that law's other half: it
+// says where the reference goes when § 5 refuses to bind it.  What is added:
+//   * `inClassBodyEmit` + `classBodyHomePkg75` — the pool only exists for an
+//     OUT-OF-BODY method body of a PACKAGE class, which is the only body a
+//     module can hoist (emitImportArtifacts / bindHoistedClassPropRefs);
+//   * the USER-CLASS-RECEIVER disjunct, § 5's own residue R1.
+// § oobRefVarLocalHoistNet107 — THE `= new` FENCE.  True when this expression
+// is (inside) the LEFT side of a WRITTEN assignment whose RIGHT side is a
+// `new` construction.  Surelog compiles THAT lvalue through
+// `CompileHelper::compileBlockingAssignment`'s own `= new ...` arm
+// (src/DesignCompile/CompileHelper.cpp:4533-4557), which hands
+// `compileExpression` a `paHierarchical_identifier` node and therefore builds a
+// **hier_path** around the reference — and a hier_path ELEMENT binds NOTHING
+// (arm a1 cell oob_ret 104:12, golden NONE on both sides).  Every OTHER
+// assignment lvalue is a plain `ref_obj` and DOES take the wire (arm a1 cells
+// oob_asg 87:5 / 88:13, verifier arm v105_b4 `argm` 49:5).
+//
+// MEASURED, verifier arm `r10v105repro/v105_b4.sv`, the two cells that made
+// this fence necessary (both were AWAY without it):
+//   32:5 `xo_u = new();`  golden NONE  (its ref_obj's vpiParent is hier_path)
+//   43:5 `xo_r = new();`  golden NONE  (same)
+//   44:12 `return xo_r;`  golden logic_net  — the SAME local, one line later
+//   49:5 `xo_a = a;`      golden logic_net  — the same shape, ordinary RHS
+static bool lhsOfWrittenNewAsg107(const slang::syntax::SyntaxNode* sn) {
+    for (const slang::syntax::SyntaxNode* n = sn; n && n->parent;
+         n = n->parent) {
+        const slang::syntax::SyntaxNode* p = n->parent;
+        if (p->kind != syntax::SyntaxKind::AssignmentExpression &&
+            p->kind != syntax::SyntaxKind::NonblockingAssignmentExpression)
+            continue;
+        const auto& be = p->as<syntax::BinaryExpressionSyntax>();
+        if (static_cast<const slang::syntax::SyntaxNode*>(be.left) != n)
+            return false;   // we came up the RIGHT side: not an lvalue here
+        auto rk = be.right->kind;
+        return rk == syntax::SyntaxKind::NewClassExpression ||
+               rk == syntax::SyntaxKind::NewArrayExpression;
+    }
+    return false;
+}
+
+bool UhdmExporter::oobRefVarLocalHoistNet107(const slang::ast::Symbol& sym,
+                                             const UHDM::any* declObj,
+                                             bool bind5,
+                                             const slang::ast::Expression& e) const {
+    if (!inClassBodyEmit || !classBodyHomePkg75)
+        return false;
+    if (lhsOfWrittenNewAsg107(e.syntax))
+        return false;
+    if (!declObj || declObj->UhdmType() != UHDM::uhdmref_var)
+        return false;
+    if (!currentSubSym || sym.kind != SymbolKind::Variable)
+        return false;
+    if (funcRetSym && &sym == funcRetSym)
+        return false;
+    auto* declScope = sym.getParentScope();
+    if (!declScope)
+        return false;
+    switch (declScope->asSymbol().kind) {
+        case SymbolKind::StatementBlock:
+        case SymbolKind::Subroutine:
+            break;
+        default:
+            return false;
+    }
+    return !bind5 || recvUserMethodArgDepth107 > 0;
+}
+
 // § retNameRecvCollapse69 — WHEN A METHOD CALL'S RECEIVER IS THE ENCLOSING
 // FUNCTION'S OWN RETURN VARIABLE, SURELOG RESOLVES THE RECEIVER TO THE FUNCTION
 // AND SWALLOWS THE METHOD.
@@ -1649,6 +1724,16 @@ struct ClassArgBindOff12 {
     int saved;
     explicit ClassArgBindOff12(int& d) : p(&d), saved(d) { d = 0; }
     ~ClassArgBindOff12() { *p = saved; }
+};
+// § oobRefVarLocalHoistNet107 — the USER-CLASS-RECEIVER call-argument window.
+// Raised at ONE site (the `call.thisClass()` arm that renders a
+// `method_func_call` with a `vpiPrefix` ref for a real `SubroutineSymbol`) and
+// read by ONE predicate.  See recvUserMethodArgDepth107 in UhdmExporter.h.
+struct RecvUserMethodArg107 {
+    int* p;
+    int saved;
+    explicit RecvUserMethodArg107(int& d) : p(&d), saved(d) { d = d + 1; }
+    ~RecvUserMethodArg107() { *p = saved; }
 };
 // § classInBodyRecvCallArgNoBind52 — the RECEIVER-QUALIFIED call-argument
 // window (see recvCallArgDepth52 in UhdmExporter.h).  It is a SILENCER, the
@@ -12398,6 +12483,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // Both are pristine-RIGHT -> patched-WRONG, and both come
                     // back with this one line moved back out.
                     bool bind5 = !refVarLocalNoBind5(nv.symbol, it->second);
+                    // § oobRefVarLocalHoistNet107 — a `ref_var` local the late
+                    // binder cannot see falls through to the module-level
+                    // search, which MINTS an implicit wire in the hoisting
+                    // module (Surelog UhdmWriter.cpp:3982-4004).  The pool and
+                    // the mint are § classPropRefs' own, so the net lands in
+                    // the def-view module's `vpiNet` list at this FIRST
+                    // reference's span and every later reference of the same
+                    // name shares it.
+                    if (oobRefVarLocalHoistNet107(nv.symbol, it->second,
+                                                  bind5, expr)) {
+                        classPropRefs.push_back({ref, std::string(nv.symbol.name),
+                                                 expr.sourceRange,
+                                                 classBodyHomePkg75});
+                        bind5 = false;
+                    }
                     if (bind5)
                         ref->Actual_group(it->second);
                     // Whole ref: may be re-pointed to a select object if this
@@ -15619,6 +15719,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // `if (h.um52(f) == 0)`: golden NONE, ours bound
                         // before this law).  GATE: in-body class method.
                         RecvCallArg52 rca52(recvCallArgDepth52);
+                        // § oobRefVarLocalHoistNet107 — THE ONLY SITE that
+                        // raises this counter: a CLASS-RECEIVER call in
+                        // EXPRESSION position.  Arm a1 reads all four
+                        // spellings off ONE golden and only this one moves:
+                        //   47:16 `plain_take(v)`   stmt, receiver-less -> ref_var
+                        //   52:12 `s.take(v)`       stmt, receiver      -> ref_var
+                        //   66:18 `qv.push_back(v)` stmt, BUILT-IN      -> ref_var
+                        //   57:15 `if (s.ask(v) == 0)` EXPRESSION       -> logic_net
+                        // Surelog compiles the expression form through
+                        // `compileComplexFuncCall`, which builds the
+                        // `method_func_call` under a hier_path and never
+                        // parents it before compiling the arguments, so
+                        // `CompileHelper::bindVariable`'s walk up
+                        // `pexpr->VpiParent()` dead-ends and the reference
+                        // lands in the late-binding pool.  Corpus cells:
+                        // `m_req_fifo.try_put(param_t)` @297:26 and
+                        // `m_req_fifo.try_get(t)` @284:26 — § 5's own residue R1.
+                        RecvUserMethodArg107 rum107(recvUserMethodArgDepth107);
                         // § writtenCallArgs16 — only the actuals WRITTEN at
                         // the call site; a defaulted formal is slang's, not
                         // Surelog's.

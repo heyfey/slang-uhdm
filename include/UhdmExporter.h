@@ -2654,6 +2654,20 @@ private:
     // arguments never enter (`$display("%0d", f)` binds nothing) and a
     // CONCATENATION operand leaves it (`sink({f, loc})` binds neither).
     int classArgBindDepth12 = 0;
+    // § oobRefVarLocalHoistNet107 — depth of the argument list of a
+    // ONE-NAME-RECEIVER CLASS-METHOD call in EXPRESSION position
+    // (`if (recv.m(a) == 0)`), the arm that renders a two-element `hier_path`
+    // over the receiver ref and a `method_func_call`.  It is NOT raised for
+    // the STATEMENT-position form of the same call, for a BUILT-IN method
+    // (`q.push_back(x)`, § builtinMethodArgBinds28's arm), for `super.m(...)`,
+    // for `this.m(...)` or for a receiver-less call: arm a1 measures all four
+    // against ONE golden and only the expression form binds the hoisted net.
+    // Surelog compiles that form through `compileComplexFuncCall`, which never
+    // parents the call before compiling its arguments, so
+    // `CompileHelper::bindVariable`'s walk up `pexpr->VpiParent()` dead-ends
+    // and the reference lands in the late-binding pool.  Read by exactly one
+    // predicate.
+    int recvUserMethodArgDepth107 = 0;
     // § collArgNamedBlkLocalNoBind15 (VERIFIER FIX, r10buvm15) — depth of
     // § retNameRecvCollapse69 COLLAPSED-CALL argument nesting.  It exists ONLY
     // so the gate can tell the window § retNameRecvCollapseArgsBindLikeBody15
@@ -4345,6 +4359,69 @@ private:
     // and a gate written blind here would have been unmeasurable.
     bool refVarLocalNoBind5(const slang::ast::Symbol& sym,
                             const UHDM::any* declObj) const;
+    // § oobRefVarLocalHoistNet107 (r10uvm107) — THE LAW.
+    //
+    //   A `ref_var` DECLARATION is invisible to Surelog's late binder.
+    //   `UhdmWriter::lateBinding` (Surelog src/DesignCompile/UhdmWriter.cpp
+    //   :3294) walks the reference's `VpiParent` chain and, in EVERY scope arm
+    //   it knows (`uhdmfunction` :3383/:3394, `uhdmtask` :3446/:3456,
+    //   `uhdmbegin` :3554, `uhdmnamed_begin`, `uhdmfork_stmt`,
+    //   `uhdmnamed_fork`, and the package `Variables()` arms), SKIPS a
+    //   candidate whose object is a `ref_var`:
+    //       `if (decl->UhdmType() == uhdmref_var) continue;`
+    //   So a reference to such a local that reached the late-binding pool can
+    //   never bind its own declaration.  It falls all the way through to the
+    //   MODULE-LEVEL search at the tail of the same function, and when nothing
+    //   there answers either, Surelog MINTS AN IMPLICIT WIRE
+    //   (`UhdmWriter.cpp:3982-4004`: `logic_net`, `VpiName(name)`,
+    //   `VpiParent(m)`, the REFERENCE's span, `VpiNetType` from the design
+    //   element's `m_defaultNetType`) in the module that is being written, and
+    //   binds the reference to it.
+    //
+    //   WHICH MODULE.  `lateBinding(s, mod, m)` runs over
+    //   `mod->getLateBinding()`, and a module that IMPORTS a package inherits
+    //   the package's whole unbound-reference list:
+    //   `CompileHelper::importPackage` copies it wholesale
+    //   (`src/DesignCompile/CompileHelper.cpp:190-193`, "Incomplete
+    //   bindings"), and `CompileModule.cpp:571-581` feeds every
+    //   `paPackage_import_item` IN THE FILE — a file-scope `import uvm_pkg::*;`
+    //   included — to that call for the module.  So SimpleUVM's `work@top`
+    //   receives uvm_pkg's unbound references and mints their wires.  That is
+    //   the SAME pool our § classPropRefs / § withIterRefBindsHoistNet75 /
+    //   § classEnumConstBindsHoistNet76 already model, one symbol class wider.
+    //
+    //   WHICH REFERENCES.  Exactly the ones Surelog's COMPILE-TIME
+    //   `CompileHelper::bindVariable` (CompileStmt.cpp:3089) failed on, which
+    //   is what § refVarLocalWindowBinds5 already models -- so the gate is
+    //   `!bind5` -- PLUS the USER-CLASS-RECEIVER call argument
+    //   (`recvUserMethodArgDepth107`), which § 5's own RESIDUE R1 names as the
+    //   cell it knowingly gets wrong (`if (port5.try5(v5) == 0)`, uvm_pkg
+    //   54020 / 54474 = `send_request`'s 297:26 and `item_done`'s 284:26).
+    //
+    // MEASURED, SimpleUVM/default, golden vs ours, every `ref_var` local cell
+    // in the whole database (name-and-span-keyed join, § 8 of the README):
+    //   param_t @290:27 `m_last_req_push_front(param_t)` d1 -> golden NET  <- THE HEAD
+    //   param_t @297:26 `m_req_fifo.try_put(param_t)`    d0 -> golden NET
+    //   t       @171:31 `m_req_fifo.try_get(t)`          d1 -> golden NET
+    //   t       @284:26 `m_req_fifo.try_get(t)`          d0 -> golden NET
+    //   req_item@764:17 `!$cast(req_item, obj)`          d1 -> golden NET
+    //   setting @3411:35 `m_time_settings.push_back(setting)`   -> golden NET
+    //   setting @3425:44 `m_verbosity_settings.push_back(...)`  -> golden NET
+    //   param_t @281:13 `$cast(param_t, t)`              d0 -> golden ref_var
+    //   response@353:14 `!$cast(response, t)`            d0 -> golden ref_var
+    //   response@356:16 `put_response(response)`         d0 -> golden ref_var
+    //   t       @3493:40 `m_uvm_applied_cl_action.push_back(t)` -> golden ref_var
+    //   t       @3564:35 `m_uvm_applied_cl_sev.push_back(t)`    -> golden ref_var
+    //   port    @741:20  `m_add_list(port)`              d0 -> golden ref_var
+    // The last six are the FENCE: a `$cast`/system-call argument, a
+    // RECEIVER-LESS user call and a BUILT-IN method argument all keep § 5's
+    // binding, and the two `push_back` cells are why the new depth counter is
+    // raised at the user-receiver arm ALONE.
+    // The `= new` FENCE and its four measured cells live at the definition
+    // (src/ExprEmit.cpp, `lhsOfWrittenNewAsg107`).
+    bool oobRefVarLocalHoistNet107(const slang::ast::Symbol& sym,
+                                   const UHDM::any* declObj, bool bind5,
+                                   const slang::ast::Expression& e) const;
     std::optional<std::set<const slang::ast::Expression*>> memberLeakAsgs;
     // Scope for resolving identifiers inside a pkg-function's return/arg TYPE
     // ranges (logic [PARAM-1:0]) — SL binds such refs to the pkg param's

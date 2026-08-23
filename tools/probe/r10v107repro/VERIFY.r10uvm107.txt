@@ -1,0 +1,124 @@
+r10v107 — THE GATE BATTERY, RE-RUN INDEPENDENTLY BY THE VERIFIER.
+BASE 6c74d2a, fresh worktrees /tmp/wt_v107 (patched) + /tmp/wt_v107pris.
+MEASUREMENT-ONLY probes; the official uhdm-cmp and scripts/verify_golden.py are
+the judges.  LHS is ALWAYS golden; RHS is ALWAYS ours.
+
+(0) PATCH AUDIT
+    fence check over the four slang-fenced names (canaudit.sh's own list) = 0 hits each
+    results/*.csv touched: 0        files outside the declared surface: 0
+    git apply -3 on a fresh 6c74d2a: rc 0, 0 conflict markers
+    git apply -3 --check on the CURRENT main-tree HEAD 3dba439f: rc 0
+
+(1) BUILD BOTH, -j 2, md5 SEPARATELY, FREEZE (chmod 555) BEFORE ANY SWEEP
+    pristine 26fbd8c01ce0de4b3e257726f388de86   (= the implementer's)
+    patched  3ed8227a2c636825cfefc1da571ab59d   (= the implementer's)
+    cmds.txt audited BY BINARY PATH: surelog 1573 files/sweep, u2r 1460
+    files/sweep, exactly ONE distinct slang path per sweep and it is mine.
+
+(2) GOLDENS, SLANG_UHDM exported explicitly to EACH binary
+    patched  PASS=23 FAIL=0     pristine PASS=23 FAIL=0
+    SLANG_UHDM=/bin/false  PASS=0 FAIL=23   (negative control)
+
+(3) uhdm2rtlil, BOTH MODES, both binaries, run in ISOLATION
+    679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL in every one of the four.
+    ct8rows committed-vs-PAT(tf) PASS; PRIS-vs-PAT(tf) PASS;
+            PRIS-vs-PAT(def)     PASS; committed-vs-PRIS(tf) PASS.
+    NOTE: the transient SLANG_REJECT the pass recorded for
+    ClogOfParamOfInstanceInitializedByStructMember did NOT reproduce; my sweeps
+    were run alone.  Memory pressure, not the patch — confirmed.
+
+(4) surelog corpus, --mode both, both binaries
+    default   471 EQ / 283 REJ / 25 SL_FAIL / 10 NE / 5 DEF
+    testflags 466 EQ / 284 REJ / 23 SL_FAIL /  9 NE / 5 DEF / 3 NO_DB /
+              2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+    IDENTICAL for pristine and patched.
+    ct8rows committed-vs-PAT PASS; PRIS-vs-PAT PASS; committed-vs-PRIS PASS.
+    0 differing rows over 1588, status AND dump.  NO ROW CONVERTED.
+
+(5) BYTE MOVERS, SELFCHECK=1
+    surelog     MOVERS 9 / 956    SELFCHECK 955/956   PATH_SETS_IDENTICAL
+    uhdm2rtlil  MOVERS 0 / 1358   SELFCHECK 1357/1358 PATH_SETS_IDENTICAL
+    the nine = {default,testflags}/{SimpleUVM,SeqDriver,MiniAmiq,BuildUVMPkg}
+               + default/Scoreboard  — all PREDICTED (fence 4 must-move ⊂
+               measured 9 ⊂ predictor 11; u2r fence 0, predictor 0, measured 0).
+    ORDER-BLIND ATTRIBUTION, re-done from scratch:
+      SimpleUVM x2, SeqDriver x2 : 42 lines — 4 new \_logic_net
+        (param_t@290:27, req_item@764:17, setting@3411:35, t@171:31) with their
+        |vpiName |vpiFullName |vpiNetType |vpiParent |vpiNet children,
+        5 |vpiActual, minus 2 \_ref_var actuals.
+      Scoreboard, MiniAmiq x2, BuildUVMPkg x2 : 4 lines — 2 |vpiActual +
+        2 \_ref_var.
+      NO other object kind in any of the nine.
+    NET-LEVEL (not reported by the pass): SimpleUVM/default work@top logic_net
+      name+span sets — golden 192, pristine 183, patched 187; the 4 gained are
+      exactly the 4 above and golden holds ALL FOUR at the same name and span;
+      nets ours has that golden lacks: 34 before, 34 after.
+
+(6) PROTECTED CANARIES
+    InterfaceModPort / BlackParrotComplex / YosysOldOr  md5 SAME, both modes
+    SVSwitch 4842211c4030 (pin)   YosysVerx 6ccda350c24a (pin)   both modes
+    canaries.sh surelog ok=52 changed=0 absent=0
+    canaries.sh u2r     ok=8  changed=0 absent=0
+    ctcan2 EXPECT_UNKNOWN=1 surelog PASS;  EXPECT_UNKNOWN=6 u2r PASS
+    canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+(7) rowheads.sh, pristine workdir THEN patched workdir
+    SeqDriver     60 / 60   ->  60 / 60     1 head each
+    SimpleUVM     17 / 17   ->  17 / 17     1 head each, a DIFFERENT OBJECT:
+        pristine LHS logic_net (work@top.param_t) @290:27 / RHS <null>
+        patched  LHS <null> / RHS logic_net (work@top.rsp_export) @228:3
+    Scoreboard/default 29 -> 42             1 head, a DIFFERENT OBJECT:
+        pristine RHS ref_var (uvm_pkg::uvm_sequencer_param_base::send_request
+                              ::param_t)      <- uvm105's R-B, CLEARED
+        patched  LHS constant @529:23 |vpiDecompile:-1 |INT:-1  vs our
+                 operation @529:23 |vpiOpType:1        <- a new family
+    MiniAmiq 348/348, BuildUVMPkg 32/32, Earlgrey_0_1 64/64 unchanged
+    Rggen default 0 heads (CMP_EQUAL) unchanged
+    measured=12 SKIP-NOFILE=2 UNKNOWN-NAME=0
+    The three committed head_*.cmp files are byte-identical to mine (ids aside).
+
+(8) BOUNDARY GATE — a COPY of the whole probe tree, NO path filter, .sv AND .v,
+    fd-3 arm list, children </dev/null, PROCESSED asserted, rc per cell
+      MODE=file VIEW=def   PROCESSED=3347 LISTED=3347 DIFFER=11
+                           PRIS_REJECT=132 PATCHED_REJECT=132
+      MODE=file VIEW=elab  PROCESSED=3347 LISTED=3347 DIFFER=11
+                           PRIS_REJECT=142 PATCHED_REJECT=142
+      MODE=dir  VIEW=def   PROCESSED=1485 LISTED=1485 DIFFER=8
+                           PRIS_REJECT=116 PATCHED_REJECT=116
+      MODE=dir  VIEW=elab  PROCESSED=1485 LISTED=1485 DIFFER=8
+                           PRIS_REJECT=121 PATCHED_REJECT=121
+    No ASYMMETRIC REJECT anywhere.  The file-mode ELEVEN are the SAME arms in
+    BOTH views and the SAME eleven the pass named.
+    ATTRIBUTED against a FRESH Surelog golden per arm:
+      def : TO-GOLDEN=30 AWAY=0 OTHER=1   (v87_a3_oob.sv's constructor, R-CTOR)
+      elab: TO-GOLDEN=5  AWAY=0 OTHER=1   (w4v_imports.sv's ELAB copy COUNT)
+    DIR mode is 8, not the 7 the pass reported.  The extra directory,
+    r10uvm88repro, is a PRE-EXISTING COIN: raw diff 6 lines that move one
+    \_function (p3::base3::oob_base) and its |vpiTaskFunc: inside a Task_funcs
+    vector; ORDER-BLIND diff 0 lines; and the PRISTINE binary ALONE produces two
+    different dumps in 20 runs of the same command (18 / 2).  r10uvm75repro is
+    order-blind 0 here too.  Across every differing dir the order-blind content
+    is EXCLUSIVELY \_logic_net / |vpiActual / |vpiNet|Name|FullName|NetType|
+    Parent / \_module_inst / \_ref_var.
+
+(9) THE PASS'S OWN GRID, re-built here (g107_a1/a2/a3, both views, all rc=0)
+    a1: my census reads 32 ELABPKG cells; patched agrees with golden on 25,
+        pristine on 18; the 7 that moved all moved TO GOLDEN; the 7 still
+        disagreeing are class_var/array_var MULTIPLICITY on the RECEIVER refs
+        (s, qv), identical in both binaries.
+    a2: byte-identical between the two binaries, both views.
+    a3: R-MULTI, reproduced.
+
+(10) THE HEAD'S FAMILY, nine UVM databases, score107.py
+     TO-GOLDEN 38   AWAY 0   STILL-DIFFERENT 0
+     SimpleUVM x2 = 7, SeqDriver x2 = 7, Scoreboard = 2, MiniAmiq x2 = 2,
+     BuildUVMPkg x2 = 2.  454,152 scored reference cells.
+
+(11) THE VERIFIER'S OWN TWELVE ARMS (README.md §3), both views, all rc=0
+     TOTAL TO-GOLDEN 35   AWAY 0   across v107_b1..b12.
+     v107_b3 proves NOTHING outside an out-of-body package-class method body
+     moves (in-body method, package function, module initial/always, generate,
+     interface, program).
+     v107_b12 proves a ZERO-TOP design ends NONE on both sides, matching golden.
+     The STILL cells in v107_b5/b9/b10 are README.md §4's characterised hole,
+     proved PRE-EXISTING by v107_b11.

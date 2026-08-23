@@ -1,0 +1,36 @@
+=== arm a1 VIEW=def (ELABPKG)
+  ct_userarg       109:16-109:17  G=class_var   pris=class_var   pat=class_var   ok
+  ct_userarg       110:12-110:13  G=class_var   pris=class_var   pat=class_var   ok
+  oob_asg          87:5-87:6      G=logic_net   pris=NONE        pat=logic_net   ok
+  oob_asg          88:13-88:14    G=logic_net   pris=NONE        pat=logic_net   ok
+  oob_builtinarg   66:18-66:19    G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_cond         93:9-93:10     G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_deep         80:18-80:19    G=logic_net   pris=NONE        pat=logic_net   ok
+  oob_deep         81:14-81:15    G=logic_net   pris=NONE        pat=logic_net   ok
+  oob_recvarg      52:12-52:13    G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_recvcall     99:11-99:12    G=NONE        pris=NONE        pat=NONE        ok
+  oob_recvexpr     57:15-57:16    G=logic_net   pris=ref_var     pat=logic_net   ok
+  oob_recvexpr     59:15-59:16    G=logic_net   pris=ref_var     pat=logic_net   ok
+  oob_recvexpr     60:14-60:15    G=logic_net   pris=NONE        pat=logic_net   ok
+  oob_ret          104:12-104:13  G=NONE        pris=NONE        pat=NONE        ok
+  oob_sysarg       71:15-71:16    G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_sysarg       73:16-73:17    G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_userarg      47:16-47:17    G=ref_var     pris=ref_var     pat=ref_var     ok
+=== arm a1 VIEW=elab (ELABPKG)
+  ct_userarg       109:16-109:17  G=class_var   pris=class_var   pat=class_var   ok
+  ct_userarg       110:12-110:13  G=class_var   pris=class_var   pat=class_var   ok
+  oob_asg          87:5-87:6      G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_asg          88:13-88:14    G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_builtinarg   66:18-66:19    G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_cond         93:9-93:10     G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_deep         80:18-80:19    G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_deep         81:14-81:15    G=logic_net ref_var  pris=NONE ref_var  pat=logic_net ref_var  ok
+  oob_recvarg      52:12-52:13    G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_recvcall     99:11-99:12    G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_recvexpr     57:15-57:16    G=class_var logic_net  pris=class_var ref_var  pat=class_var logic_net  ok
+  oob_recvexpr     59:15-59:16    G=class_var logic_net  pris=class_var ref_var  pat=class_var logic_net  ok
+  oob_recvexpr     60:14-60:15    G=logic_net ref_var  pris=NONE ref_var  pat=logic_net ref_var  ok
+  oob_ret          104:12-104:13  G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_sysarg       71:15-71:16    G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_sysarg       73:16-73:17    G=ref_var     pris=ref_var     pat=ref_var     ok
+  oob_userarg      47:16-47:17    G=ref_var     pris=ref_var     pat=ref_var     ok

@@ -1,0 +1,119 @@
+r10uvm107 — THE GATE BATTERY, run from the pass worktree at BASE 6c74d2a.
+MEASUREMENT-ONLY probes; the official uhdm-cmp and scripts/verify_golden.py are
+the judges.  LHS is ALWAYS golden; RHS is ALWAYS ours.
+
+(1) BUILD BOTH, MD5 SEPARATELY, FREEZE BEFORE ANY SWEEP  (-j 2 only)
+    pristine  26fbd8c01ce0de4b3e257726f388de86   -- reproduces the MAIN TREE's
+              build/slang-uhdm at 6c74d2a BYTE FOR BYTE
+    patched   3ed8227a2c636825cfefc1da571ab59d
+    Both copied to immutable (chmod 555) paths before the first sweep, and every
+    cmds.txt in every sweep workdir was audited BY BINARY PATH afterwards:
+      pristine sweeps -> one distinct `slang:` path, the pristine copy
+      patched  sweeps -> one distinct `slang:` path, the patched copy
+
+(2) GOLDEN REGRESSION TESTS (SLANG_UHDM exported explicitly to each binary)
+    tests/check_goldens.sh          PASS=23  FAIL=0
+    SLANG_UHDM=/bin/false           FAIL=23        (the negative control)
+
+(3) uhdm2rtlil, BOTH MODES
+    baseline FIRST (pristine binary, my own workdir):
+      ct8rows.sh results/gate_uhdm2rtlil.csv <pristine tf>   PASS
+    patched:
+      ct8rows.sh results/gate_uhdm2rtlil.csv <patched tf>    PASS   (0 differing rows)
+      ct8rows.sh <pristine def>          <patched def>       PASS   (0 differing rows)
+    status AND dump column identical on all 731 rows x 2 modes.
+    NOTE one TRANSIENT: a first patched run of the testflags sweep, launched
+    CONCURRENTLY with the surelog sweep and four boundary runs on a 15 GB
+    machine, recorded ClogOfParamOfInstanceInitializedByStructMember as
+    SLANG_REJECT with a slang crash-handler stack.  Re-run alone it is
+    CMP_EQUAL/differ, byte-identical to the baseline row, and the whole sweep
+    re-run in isolation shows PASS.  Memory pressure, not the patch.
+
+(4) surelog corpus, --mode both
+    baseline FIRST: ct8rows.sh results/golden_surelog.csv <pristine>  PASS
+    patched:        ct8rows.sh results/golden_surelog.csv <patched>   PASS
+                    ct8rows.sh <pristine>                 <patched>   PASS
+    0 differing rows over 1588.  NO ROW CONVERTED; results/*.csv READ ONLY.
+    status histogram unchanged: 937 CMP_EQUAL / 567 SLANG_REJECT /
+    48 SURELOG_FAIL / 19 CMP_NOTEQUAL / 10 DEFERRED / 3 NO_DATABASE /
+    2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM.
+
+(5) BYTE MOVERS, SELFCHECK=1
+    surelog     MOVERS 9 / 956    SELFCHECK 955/956 flagged  PATH_SETS_IDENTICAL
+    uhdm2rtlil  MOVERS 0 / 1358   SELFCHECK 1357/1358        PATH_SETS_IDENTICAL
+    The nine, BY NAME (all PREDICTED, see PREDICTION.txt):
+      {default,testflags}/{SimpleUVM,SeqDriver,MiniAmiq,BuildUVMPkg}
+      default/Scoreboard
+    ORDER-BLIND ATTRIBUTION (whole dump, path-normalised, sorted):
+      SimpleUVM  x2   42 lines: 11 \_logic_net, 5 |vpiActual, and the
+                      |vpiNet/|vpiName/|vpiFullName/|vpiNetType/|vpiParent
+                      children of the four new wires
+      SeqDriver  x2   42 lines: identical shape
+      Scoreboard      4 lines: 2 |vpiActual + 2 \_ref_var (two references
+                      LOSING a binding golden does not have)
+      MiniAmiq   x2   4 lines: identical shape
+      BuildUVMPkg x2  4 lines: identical shape
+    NO other object kind appears in any mover's diff.
+
+(6) PROTECTED CANARIES (by name, md5 of the database)
+      InterfaceModPort    SAME (both modes)
+      BlackParrotComplex  SAME (both modes)
+      YosysOldOr          SAME (both modes)
+      SVSwitch            4842211c4030   (the pinned value, both modes)
+      YosysVerx           6ccda350c24a   (the pinned value, both modes)
+    canaries.sh   surelog     ok=52 changed=0 absent=0
+    canaries.sh   uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2.sh     EXPECT_UNKNOWN=1 surelog     PASS
+    ctcan2.sh     EXPECT_UNKNOWN=6 uhdm2rtlil  PASS
+    canaudit.sh   audited=29  UNCOVERED=0  FENCE-BREACH=0
+
+(7) rowheads.sh over the patched sweep workdir
+      SeqDriver     default/testflags   60 / 60   1 head each
+      SimpleUVM     default/testflags   17 / 17   1 head each   (a NEW head)
+      Scoreboard    default             42        1 head        (a NEW head)
+      MiniAmiq      default/testflags  348 / 348  1 head each
+      BuildUVMPkg   default/testflags   32 / 32   1 head each
+      Earlgrey_0_1  default/testflags   64 / 64   1 head each
+      Rggen         default               0       0 heads (CMP_EQUAL)
+    measured=12  SKIP-NOFILE=2 (Scoreboard/testflags is SLANG_REJECT and
+    Rggen/testflags produces no slang database) UNKNOWN-NAME=0
+
+(8) THE BOUNDARY GATE — a COPY of the WHOLE probe tree, NO path filter,
+    .sv AND .v, BOTH binaries, all four runs
+      MODE=file VIEW=def    PROCESSED=3347 LISTED=3347 DIFFER=11
+      MODE=file VIEW=elab   PROCESSED=3347 LISTED=3347 DIFFER=11
+      MODE=dir  VIEW=def    PROCESSED=1485 LISTED=1485 DIFFER=7
+      MODE=dir  VIEW=elab   PROCESSED=1485 LISTED=1485 DIFFER=7
+    No ASYMMETRIC REJECT in any run; PRIS_REJECT == PATCHED_REJECT everywhere.
+
+    FILE-mode arms, ATTRIBUTED against a FRESH Surelog golden per arm
+    (attrib107.sh, VIEW=def then VIEW=elab):
+      def : TO-GOLDEN=30  AWAY=0  OTHER=1
+      elab: TO-GOLDEN=5   AWAY=0  OTHER=1
+      the eleven arms: r10buvm5repro/a1_refvarbind.sv (§ refVarLocalWindow-
+      Binds5's OWN arm, its residue R1 cell), r10buvm9repro/{w1v_pkgclsts,
+      w4v_imports,w7v_pkgclsts2}.sv, r10uvm105repro/g105_a1.sv,
+      r10uvm107repro/{g107_a1,g107_a3}.sv, r10uvm76repro/v76d_defarg.sv,
+      r10uvm87repro/v87_a3_oob.sv, r10v105repro/{v105_b4,v105_b6}.sv.
+      The def OTHER is v87_a3_oob.sv's CONSTRUCTOR cell (README R-CTOR); the
+      elab OTHER is w4v_imports.sv's ELAB copy COUNT (README R-ELABMULT).
+
+    DIR-mode arms: the SIX directories that hold those eleven files, plus
+      r10uvm75repro — which is a COIN, not a mover: the same binary produces
+      THREE different dumps in three runs (pristine AND patched), and the
+      ORDER-BLIND diff of its pristine and patched dumps is ZERO lines.
+      The other six order-blind diffs contain ONLY \_logic_net / |vpiActual /
+      |vpiNet / |vpiName / |vpiFullName / |vpiNetType / |vpiParent lines.
+
+(9) THE GOLDEN GRID (arm a1, both views, 17 reference positions)
+      pristine 10 / 17 cells agree with golden
+      patched  17 / 17, 0 away          -- GRID.txt has the table
+    arm a2 (the hoisting-shape negative control) is BYTE-IDENTICAL between the
+    two binaries in both views.
+    arm a3 (the owner grid) shows residue R-MULTI, pre-existing and inherited.
+
+(10) THE HEAD'S FAMILY, nine UVM databases, name-and-span-keyed multiset join
+     over EVERY ref_obj in each database (score107.py, 464,000 reference cells):
+       TO-GOLDEN 38   AWAY 0   STILL-DIFFERENT 0
+     per database: SimpleUVM x2 = 7, SeqDriver x2 = 7, Scoreboard = 2,
+     MiniAmiq x2 = 2, BuildUVMPkg x2 = 2.

@@ -1,0 +1,10 @@
+default/SimpleUVM order-blind-lines=42  kinds:      11 \_logic_net;      5 |vpiActual;      4 |vpiParent;      4 |vpiNetType;      4 |vpiNet;      4 |vpiName;      4 |vpiFullName;      4 \_module_inst;
+testflags/SimpleUVM order-blind-lines=42  kinds:      11 \_logic_net;      5 |vpiActual;      4 |vpiParent;      4 |vpiNetType;      4 |vpiNet;      4 |vpiName;      4 |vpiFullName;      4 \_module_inst;
+default/SeqDriver order-blind-lines=42  kinds:      11 \_logic_net;      5 |vpiActual;      4 |vpiParent;      4 |vpiNetType;      4 |vpiNet;      4 |vpiName;      4 |vpiFullName;      4 \_module_inst;
+testflags/SeqDriver order-blind-lines=42  kinds:      11 \_logic_net;      5 |vpiActual;      4 |vpiParent;      4 |vpiNetType;      4 |vpiNet;      4 |vpiName;      4 |vpiFullName;      4 \_module_inst;
+default/Scoreboard order-blind-lines=4  kinds:       2 |vpiActual;      2 \_ref_var;
+default/MiniAmiq order-blind-lines=4  kinds:       2 |vpiActual;      2 \_ref_var;
+testflags/MiniAmiq order-blind-lines=4  kinds:       2 |vpiActual;      2 \_ref_var;
+default/BuildUVMPkg order-blind-lines=4  kinds:       2 |vpiActual;      2 \_ref_var;
+testflags/BuildUVMPkg order-blind-lines=4  kinds:       2 |vpiActual;      2 \_ref_var;
+ATTRIBDONE

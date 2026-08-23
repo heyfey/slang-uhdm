@@ -1,0 +1,50 @@
+r10uvm107 — THE PREDICTION, written from PRISTINE databases BEFORE the patched
+sweeps ran.  MEASUREMENT ONLY.  LHS is ALWAYS golden; RHS is ALWAYS ours.
+
+Two independent instruments, one exact in each direction:
+
+1. fence107.sh — the MUST-MOVE set.  Every reference where golden carries a
+   `logic_net` vpiActual, ours does not, and the name is a `ref_var` LOCAL of
+   the same owner in OUR OWN database.
+
+     surelog     956 measured / 617 SKIP  ->  HIT 28 sites in  4 databases
+     uhdm2rtlil 1358 measured / 104 SKIP  ->  HIT  0 sites in  0 databases
+
+   The four, BY NAME:
+     default/SimpleUVM   testflags/SimpleUVM
+     default/SeqDriver   testflags/SeqDriver
+   The seven SITES, identical in each (uvm-1.2 line:col):
+     seq/uvm_sequencer.svh:171:31              stop_sequences   m_req_fifo.try_get(t)
+     seq/uvm_sequencer.svh:284:26              item_done        m_req_fifo.try_get(t)
+     seq/uvm_sequencer_param_base.svh:290:27   send_request     m_last_req_push_front(param_t)   <- THE HEAD
+     seq/uvm_sequencer_param_base.svh:297:26   send_request     m_req_fifo.try_put(param_t)
+     seq/uvm_sequence_library.svh:764:17       execute          !$cast(req_item, obj)
+     base/uvm_component.svh:3411:35            m_set_cl_verb    m_time_settings.push_back(setting)
+     base/uvm_component.svh:3425:44            m_set_cl_verb    m_verbosity_settings.push_back(setting)
+
+2. pred107.sh — the MAY-MOVE (upper bound), read from OUR SIDE ALONE: a database
+   can only move if it holds a reference that names a `ref_var` local of an
+   OUT-OF-BODY task/func, currently carries NONE or the declaration, and is not
+   a hier_path element.
+
+     surelog    -> 11 candidate databases
+     uhdm2rtlil ->  0 candidate databases   (the predicted NONE)
+
+   The eleven, BY NAME:
+     {default,testflags}/SimpleUVM  {default,testflags}/SeqDriver
+     {default,testflags}/MiniAmiq   {default,testflags}/BuildUVMPkg
+     default/Scoreboard             {default,testflags}/ApbSlave
+
+MEASURED AFTERWARDS (SELFCHECK=1 byteverify.sh, patched vs pristine sweep
+workdirs, both corpora):
+
+     surelog     MOVERS 9 / 956     uhdm2rtlil  MOVERS 0 / 1358
+
+   The nine are the nine UVM databases: {default,testflags} x {SimpleUVM,
+   SeqDriver, MiniAmiq, BuildUVMPkg} and default/Scoreboard.  They are a SUBSET
+   of the eleven predicted and a SUPERSET of the four the fence required.
+   `{default,testflags}/ApbSlave` did NOT move: its two candidate sites are
+   RECEIVER-LESS depth-0 call arguments, which the golden grid (arm a1 cell
+   `oob_userarg` 47:16) says golden binds to the DECLARATION — so the law
+   correctly leaves them alone.  Every other database in both corpora is
+   byte-identical.

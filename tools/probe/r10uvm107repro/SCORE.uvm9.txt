@@ -1,0 +1,47 @@
+default/SimpleUVM  cells=38156  TO-GOLDEN=7  AWAY=0  STILL-DIFFERENT=0  UNMOVED=38149  golden-only-keys=2428 ours-only-keys=2306
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::m_set_cl_verb 3411:35-3411:42 setting : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::m_set_cl_verb 3425:44-3425:51 setting : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequence_library::execute 764:17-764:25 req_item : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::item_done 284:26-284:27 t : {'ref_var': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::stop_sequences 171:31-171:32 t : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::send_request 290:27-290:34 param_t : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::send_request 297:26-297:33 param_t : {'ref_var': 1} -> {'logic_net': 1}
+testflags/SimpleUVM  cells=38156  TO-GOLDEN=7  AWAY=0  STILL-DIFFERENT=0  UNMOVED=38149  golden-only-keys=2428 ours-only-keys=2306
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::m_set_cl_verb 3411:35-3411:42 setting : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::m_set_cl_verb 3425:44-3425:51 setting : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequence_library::execute 764:17-764:25 req_item : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::item_done 284:26-284:27 t : {'ref_var': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::stop_sequences 171:31-171:32 t : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::send_request 290:27-290:34 param_t : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::send_request 297:26-297:33 param_t : {'ref_var': 1} -> {'logic_net': 1}
+default/SeqDriver  cells=64256  TO-GOLDEN=7  AWAY=0  STILL-DIFFERENT=0  UNMOVED=64249  golden-only-keys=4286 ours-only-keys=3970
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::m_set_cl_verb 3411:35-3411:42 setting : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::m_set_cl_verb 3425:44-3425:51 setting : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequence_library::execute 764:17-764:25 req_item : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::item_done 284:26-284:27 t : {'ref_var': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::stop_sequences 171:31-171:32 t : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::send_request 290:27-290:34 param_t : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::send_request 297:26-297:33 param_t : {'ref_var': 1} -> {'logic_net': 1}
+testflags/SeqDriver  cells=64256  TO-GOLDEN=7  AWAY=0  STILL-DIFFERENT=0  UNMOVED=64249  golden-only-keys=4286 ours-only-keys=3970
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::m_set_cl_verb 3411:35-3411:42 setting : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_component::m_set_cl_verb 3425:44-3425:51 setting : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequence_library::execute 764:17-764:25 req_item : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::item_done 284:26-284:27 t : {'ref_var': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::stop_sequences 171:31-171:32 t : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::send_request 290:27-290:34 param_t : {'NONE': 1} -> {'logic_net': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::send_request 297:26-297:33 param_t : {'ref_var': 1} -> {'logic_net': 1}
+default/Scoreboard  cells=38268  TO-GOLDEN=2  AWAY=0  STILL-DIFFERENT=0  UNMOVED=38266  golden-only-keys=2448 ours-only-keys=2327
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::item_done 284:26-284:27 t : {'ref_var': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::send_request 297:26-297:33 param_t : {'ref_var': 1} -> {'NONE': 1}
+default/MiniAmiq  cells=65921  TO-GOLDEN=2  AWAY=0  STILL-DIFFERENT=0  UNMOVED=65919  golden-only-keys=4385 ours-only-keys=4093
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::item_done 284:26-284:27 t : {'ref_var': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::send_request 297:26-297:33 param_t : {'ref_var': 1} -> {'NONE': 1}
+testflags/MiniAmiq  cells=65921  TO-GOLDEN=2  AWAY=0  STILL-DIFFERENT=0  UNMOVED=65919  golden-only-keys=4385 ours-only-keys=4093
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::item_done 284:26-284:27 t : {'ref_var': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::send_request 297:26-297:33 param_t : {'ref_var': 1} -> {'NONE': 1}
+default/BuildUVMPkg  cells=39609  TO-GOLDEN=2  AWAY=0  STILL-DIFFERENT=0  UNMOVED=39607  golden-only-keys=837 ours-only-keys=662
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::item_done 54474:26-54474:27 t : {'ref_var': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::send_request 54020:26-54020:33 param_t : {'ref_var': 1} -> {'NONE': 1}
+testflags/BuildUVMPkg  cells=39609  TO-GOLDEN=2  AWAY=0  STILL-DIFFERENT=0  UNMOVED=39607  golden-only-keys=837 ours-only-keys=662
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer::item_done 54474:26-54474:27 t : {'ref_var': 1} -> {'NONE': 1}
+   TO-GOLDEN ELABPKG IB uvm_pkg::uvm_sequencer_param_base::send_request 54020:26-54020:33 param_t : {'ref_var': 1} -> {'NONE': 1}
