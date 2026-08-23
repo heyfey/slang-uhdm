@@ -1,0 +1,51 @@
+r10buvm29 — WIDE BOUNDARY GATE  (bound29.sh; MEASUREMENT ONLY)
+
+  PRI=/tmp/r10buvm29_pris.bin PAT=/tmp/r10buvm29_pat.bin \
+  ROOT=/tmp/r10buvm29_probecopy BWD=/tmp/r10buvm29_bound ./bound29.sh
+
+ROOT is a COPY of tools/probe (plus this pass's own arms) — NOT the main tree.
+NO PATH FILTER, BOTH suffixes (.sv AND .v), SUBDIRECTORY arms included, the
+file list read on fd 3 with every child `</dev/null`, PROCESSED asserted equal
+to LISTED, both views per file.
+
+  LISTED=3400  FENCED_SKIPPED=0  PROCESSED=3400  MOVED=15  NO_OUTPUT_PAIRS=276
+  PROCESSED-ASSERT-OK
+
+ALL 15 MOVERS, ATTRIBUTED
+
+  14 are THIS PASS'S OWN ARMS and buvm28's two cast grids — the built-in
+  POSITIVE CONTROLS that prove the gate can see:
+
+    r10buvm28repro/g28_a0_head.sv        def 42   elab 80    <- buvm28's R0 arm,
+        `m_command = g28_command_e'({ << bit { __array }});` plus TWO BARE
+        streams in the same file that do NOT move
+    r10buvm28repro/g28_c_castr0.sv       def 170  elab 186   <- buvm28's R0 grid
+    r10buvm29repro/g29_a_slices.sv       def 470  elab 530
+    r10buvm29repro/g29_b_targets.sv      def 516  elab 564
+    r10buvm29repro/g29_c_carriers.sv     def 354  elab 658
+    r10buvm29repro/g29_e_homes.sv        def 518  elab 1016
+    r10buvm29repro/g29_f_head.sv         def 92   elab 130
+
+    g29_d_fence.sv — THE FENCE ARM — DOES NOT APPEAR.  Byte-identical on both
+    binaries in BOTH views, and it PASSES the official uhdm-cmp on both.
+
+  1 was NOT predicted by name and is attributed here:
+
+    r10uvm92repro/g92_a2_ppkinds.sv      def 64   (elab: NO OUTPUT on EITHER
+                                                   binary, see below)
+    Lines 50 and 52 of that arm are
+        oo = bb.dyn[int'({>>{w}})];
+        oo = bb.dyn[int'({<<{w}})];
+    — two WRITTEN casts over streaming concatenations, sitting in an INDEX.
+    They are the law, in a carrier `g29_c_carriers.sv` also covers.  Scored
+    three-way against purpose-built golden:
+        g92_a2/def  CELLS 5  ALREADY-OK 1  FIXED 4  BROKE 0  STILL 0
+    and the arm's residual uhdm-cmp head (16 lines, an unrelated pre-existing
+    object) is BYTE-IDENTICAL between pristine and patched.  A TO-GOLDEN move.
+
+NO_OUTPUT_PAIRS=276 are files where NEITHER binary produced a database —
+symmetric.  g92_a2_ppkinds.sv/elab is one of them: BOTH binaries exit rc=139
+(SIGSEGV) and Surelog itself exits rc=4.  That is buvm28's pre-existing
+R-ELABSEG residue, unchanged by this pass.  (verify_golden.py would have
+recorded that rc=139 as SLANG_REJECT wearing the last stderr warning; the arm
+runner records rc explicitly so it cannot hide.)

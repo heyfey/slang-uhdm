@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-23 11:45, HEAD = the uvm108 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-23 11:50, HEAD = the buvm29 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -184,7 +184,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | MiniAmiq×2 (uvm-1.2 tree) | 348 (depth) | uvm101's residue (the deeper mismatch exposed after its event-statement head cleared; tools/probe/r10uvm101repro/raw/head_MiniAmiq_default.cmp) — unassigned, next UVM slot |
 | SimpleUVM×2 (uvm-1.2 tree) | 17 (depth) | the MIRROR of uvm107's head: an implicit wire WE mint and golden does not — `logic_net work@top.rsp_export` @uvm_sequencer.svh:228 (LHS <null>): a class property named as the BASE of a hier_path inside an out-of-body body never joins Surelog's pool (compileComplexFuncCall builds a bare name-only ref) while our § classPropRefs takes it; 16 cells, one predicate; pass uvm109 in flight (uvm107 landed: a ref_var DECLARATION is invisible to Surelog's late binder, so an unbound out-of-body local read gets an implicit top-module wire; Scoreboard's R-B cleared with it) |
 | Scoreboard/default (uvm-1.2 tree) | 42 (depth) | golden folds a written `-1` into one signed INT constant where we keep a unary MINUS over 1 (uvm_sequencer_base.svh:529:23) — a mask removal (uvm107's R-C); open UVM target |
-| BuildUVMPkg×2 (1800.2 pp_output tree) | 17 (depth) | a CAST over a STREAMING CONCATENATION (`uvm_tlm_command_e'({ << bit { __array }})`, uvm_pkg.sv:58249/:58284): golden keeps the cast operation (vpiOpType 67) with the target enum_typespec as its vpiTypespec; we drop the cast and emit the bare stream op (vpiOpType 72) — expr::Typespec reads first; 4 cells, BuildUVMPkg only; pass buvm29 in flight (buvm28 landed: 32→17, an enum with no base type is ZERO bits wide to Surelog — ExprEval::size leaves bits 0 without invalidValue; the verifier gated the substitution to the sites that already mint a constant) |
+| BuildUVMPkg×2 (1800.2 pp_output tree) | 42 (depth) | golden folds a written `-1` into one signed INT constant (sz 64, ct 7) where we keep a unary MINUS operation over UINT:1 — uvm_pkg.sv:32186:23 `return (end_time == -1);` in uvm_transaction::is_active; the SAME law as Scoreboard/default's 42-line head (uvm_sequencer_base.svh:529:23): one pass clears both — buvm30 next (buvm29 landed: 17→42, a WRITTEN cast over a streaming concatenation keeps its cast op; buvm29's own R0 `REQ param_t;` ref_var over unsupported_typespec at uvm_pkg.sv:53993 is no longer the first head at this base — re-measure after the fold lands) |
 | Earlgrey_0_1/default | 36 (depth) | a folded parameter substituted into an UNPACKED-ARRAY DIMENSION does not inherit its param_assign's encoding: `logic [Width-1:0] mem [Depth];` (prim_generic_ram_1p.sv:31, Depth = WordsPerBank 32768) golden INT:32768 ct 7 vs ours UINT ct 9 while our Depth param_assign is already INT — an INHERITANCE rule at the array-var range carrier (9 (ct,tag) range disagreements, 3 inverted); pass earl74 in flight (earl73 landed: 64→36, an instantiation parameter's elaborated value tag follows the ACTUAL's top operator through ExprEval::reduceExpr, digits = the 64-bit fold, size = the formal's width) |
 | Earlgrey_0_1/testflags | 36 (depth) | SAME head, identical cmp log (earl73) |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
@@ -192,7 +192,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 64 verifier fix-before-landing re-cuts (140 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 64 verifier fix-before-landing re-cuts (141 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

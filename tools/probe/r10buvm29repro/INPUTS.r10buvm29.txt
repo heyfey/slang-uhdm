@@ -1,0 +1,34 @@
+r10buvm29 — INPUTS AND PINS  (measurement only; uhdm-cmp is the judge)
+
+BASE COMMIT            d71c34e8
+worktree               /tmp/wt_r10buvm29   (git worktree add, detached at d71c34e)
+production surface     src/ExprEmit.cpp ONLY — ONE predicate widened, 0 deletions
+probe surface          tools/probe/r10buvm29repro/ ONLY
+deliverable            /tmp/r10buvm29.patch (git diff vs d71c34e)
+
+BINARIES (frozen chmod 555 BEFORE any sweep; every cmds.txt audited by PATH)
+  pristine   /tmp/r10buvm29_pris.bin   md5 c0544c563e6f68b1f43072e5d4db5476
+             (byte-identical to the campaign control /tmp/pris_c054.bin —
+              the worktree build reproduces d71c34e exactly)
+  patched    /tmp/r10buvm29_pat.bin    md5 3f5cdd274ec4e3bead38f22eb6d08085
+  builds     cmake --build build -j 2  (never while a sweep ran)
+
+SWEEP WORKDIRS (this pass's OWN — no shared /tmp/ctl_wd_* was read)
+  pristine   /tmp/r10buvm29_wdP/{sl,u2r}   sl.csv u2r_tf.csv u2r_def.csv
+  patched    /tmp/r10buvm29_wdA/{sl,u2r}   sl.csv u2r_tf.csv u2r_def.csv
+  SLANG_UHDM exported explicitly per binary; cmds.txt audit:
+    pristine  2981/2981 slang lines name /tmp/r10buvm29_pris.bin, 0 name any other binary
+    patched   2981/2981 slang lines name /tmp/r10buvm29_pat.bin,  0 name any other binary
+  databases  surelog 956, uhdm2rtlil 1358
+
+BASELINES USED (READ-ONLY, the copies IN THIS WORKTREE)
+  /tmp/wt_r10buvm29/results/golden_surelog.csv
+  /tmp/wt_r10buvm29/results/gate_uhdm2rtlil.csv
+  Nothing in results/ was edited.  NO ROW WAS CONVERTED and NOTHING WAS
+  PROMOTED (this pass's two moving databases are BuildUVMPkg, a
+  CMP_NOTEQUAL row before and after).
+
+STATUS HISTOGRAMS (identical pristine and patched)
+  surelog   937 CMP_EQUAL  567 SLANG_REJECT  48 SURELOG_FAIL  19 CMP_NOTEQUAL
+            10 DEFERRED  3 NO_DATABASE  2 UNTRANSLATABLE  1 TIMEOUT  1 NO_UHDM
+  u2r       679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL, BOTH modes

@@ -1,0 +1,56 @@
+r10buvm29 — CORPUS CENSUS  (ct29cen.cpp + join29.py; MEASUREMENT ONLY)
+
+WHAT IS COUNTED.  ct29cen walks the design roots with UhdmListener — the
+REACHABLE objects, not the whole serializer arena (the arena's weakly
+referenced DEF-phase clones doubled every elaborated-view cell and made the
+first scoreboard read STILL where uhdm-cmp read PASS) — and emits one row per
+`operation` whose VpiOpType is vpiCastOp (67), vpiStreamLROp (71) or
+vpiStreamRLOp (72):
+
+    line:col-endline:endcol  OP  TS  NOPND  OPNDS  PARENT  OWNER
+
+TS is the judged field: `Typespec()` -> `ref_typespec` -> `Actual_typespec`
+kind (expr::Compare reads VpiDecompile, VpiSize, Typespec — in that order —
+before operation::Compare ever reaches VpiOpType).  The span is a READING
+column only: no generated Compare reads VpiFile / VpiLineNo / VpiColumnNo.
+join29.py joins golden against ours as a MULTISET on (line, owner) — keys
+COLLIDE across DEF/ELAB clones and a last-writer dict drops rows.
+
+PRISTINE, made BEFORE the patch — THIS IS THE MOVER PREDICTION
+
+  corpus      dbs    dbs with a       golden CAST-      MISSING    FALSE    golden BARE
+                     golden stream    OVER-STREAM       -CAST      -CAST    streams
+  surelog     956    11               4                 4          0        196
+  uhdm2rtlil  1358   10               0                 0          0        24
+
+  The FOUR golden cast-over-stream cells sit in exactly TWO databases:
+      default_BuildUVMPkg-bf853d43     casts=2 missing=2 false=0
+      testflags_BuildUVMPkg-bf853d43   casts=2 missing=2 false=0
+  = uvm_pkg.sv:58249 and :58284, x two modes.  PREDICTED MOVER SET: those two
+  databases and nothing else, in either corpus.
+
+PATCHED
+
+  corpus      dbs    CAST-OVER-STREAM  MISSING-CAST  FALSE-CAST  BARE streams
+  surelog     956    4                 0             0           196
+
+  MISSING-CAST 4 -> 0.  FALSE-CAST stays 0 (the patch never invents a cast).
+  BARE-STREAM 196 unchanged — the fence held.
+
+SOURCE-SIDE CONFIRMATION (independent of the databases)
+
+  grep -rnE "'\s*\(\s*\{\s*(<<|>>)" over every .sv/.svh/.v of both corpora:
+    Surelog/third_party/tests/Verilator/t_stream.v:95-99   5 sites, 4'({<<{..}})
+    UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:58249, :58284
+    UVM/1800.2-2017-1.0/src/macros/uvm_packer_defines.svh:211  (the macro body
+        those two are expanded from: `VAR = TYPE'({ << bit { __array }}); \`)
+    uhdm2rtlil: NONE.
+
+  The five Verilator sites cannot reach our emitter at all: slang REJECTS a
+  SIZE cast over a streaming concatenation outright —
+    "cannot change width or signedness of non-integral expression
+     (type is 'void')"
+  — for a fixed-size operand too, so `t_stream` is SLANG_REJECT and out of
+  scope.  uvm_pkg.sv:58249/:58284 are therefore the ONLY written-cast-over-a-
+  stream cells in either corpus, which is what the database census measured
+  independently.

@@ -1,0 +1,53 @@
+r10buvm29 — MOVER PREDICTION, MADE FROM PRISTINE DATABASES BEFORE THE PATCHED
+SWEEP, AND THE MEASURED RESULT.
+
+PREDICTION (join29.py over the PRISTINE census of all 956 + 1358 databases;
+see CENSUS.r10buvm29.txt).  The law fires exactly where GOLDEN carries an
+`operation` with VpiOpType 67 whose sole operand is an `operation` with
+VpiOpType 71/72.  The census found FOUR such cells, in TWO databases:
+
+    surelog/default/BuildUVMPkg-bf853d43     2 cells, both MISSING in ours
+    surelog/testflags/BuildUVMPkg-bf853d43   2 cells, both MISSING in ours
+    uhdm2rtlil: ZERO cells in 1358 databases.
+
+  PREDICTED BYTE MOVERS BY NAME:  default/BuildUVMPkg and testflags/BuildUVMPkg.
+  PREDICTED ELSEWHERE:            none, either corpus, either mode.
+  PREDICTED STATUS CHANGES:       none (BuildUVMPkg is CMP_NOTEQUAL either way).
+
+MEASURED (SELFCHECK=1 byteverify.sh, patched workdir vs THIS PASS'S OWN
+pristine workdir — no shared control directory was read)
+
+  surelog     databases: patched=956  pristine=956   PATH_SETS_IDENTICAL
+              MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm
+                      patched=93fa77493972 pristine=861b8d9cf5c1
+              MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm
+                      patched=93fa77493972 pristine=861b8d9cf5c1
+              MOVERS: 2 / 956
+              SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+  uhdm2rtlil  databases: patched=1358 pristine=1358  PATH_SETS_IDENTICAL
+              MOVERS: 0 / 1358
+              SELFCHECK: 1357 / 1358 flagged
+
+  EXACTLY THE PREDICTED SET.  No coin flip: Scoreboard/default (the ~50/50
+  svunit_pkg vpiTaskFunc-order coin) is byte-identical here, as are all nine
+  other UVM databases.
+
+WHAT MOVED INSIDE THE TWO DATABASES (whole-dump, workdir-path-normalised)
+
+  1 077 712 dump lines pristine -> 1 077 736 patched: +24 lines, 84 diff
+  lines total, and every one of them is at uvm_pkg.sv:58249 or :58284.  The
+  RHS of each assignment changes from the bare stream operation
+
+      \_operation: , line:58249:46, endln:58249:55   |vpiOpType:72
+
+  to golden's cast wrapping it
+
+      \_operation: , line:58249:17, endln:58249:58
+        |vpiTypespec: \_ref_typespec: (uvm_pkg::uvm_tlm_generic_payload::do_unpack)
+            |vpiActual: \_enum_typespec: (uvm_pkg::uvm_tlm_command_e)
+        |vpiOpType:67
+        |vpiOperand: \_operation: , line:58249:46, endln:58249:55 |vpiOpType:72
+
+  The cast operation's span, 58249:17-58249:58, is golden's span EXACTLY
+  (compare head_pris_BuildUVMPkg.cmp, which prints golden's operation
+  id:179325 at line:58249:17, endln:58249:58).

@@ -1,0 +1,75 @@
+r10buvm29 — ARMS, THREE-WAY (golden / pristine / patched), BOTH VIEWS
+three29.sh + four29.py.  MEASUREMENT ONLY; uhdm-cmp is the judge.
+four29.py keys on (line, OP, owner) and scores the JUDGED shape
+(OP, target-typespec kind, operand count, operand kinds, parent) — never the
+span, which no generated Compare reads.  SPAN-ONLY counts cells that agree on
+every judged field and differ only in a span (see R-STREAMSPAN).
+
+arm/view                cmp PRI          cmp PAT          cells scoreboard
+-----------------------------------------------------------------------------
+g29_a_slices/def        16   FAIL        50   FAIL        23  OK 2  FIXED 20  BROKE 0  STILL 1  SPAN-ONLY 10
+g29_a_slices/elab       16   FAIL        58   FAIL        23  OK 2  FIXED 20  BROKE 0  STILL 1  SPAN-ONLY 10
+g29_b_targets/def       62   FAIL        62   FAIL        24  OK 0  FIXED 24  BROKE 0  STILL 0  SPAN-ONLY 12
+g29_b_targets/elab      62   FAIL        62   FAIL        24  OK 0  FIXED 24  BROKE 0  STILL 0  SPAN-ONLY 12
+g29_c_carriers/def      16   FAIL        54   FAIL        16  OK 1  FIXED 15  BROKE 0  STILL 0  SPAN-ONLY 8
+g29_c_carriers/elab     16   FAIL         0   PASS_CMP    16  OK 1  FIXED 15  BROKE 0  STILL 0  SPAN-ONLY 8
+g29_d_fence/def          0   PASS_CMP     0   PASS_CMP     9  OK 9  FIXED 0   BROKE 0  STILL 0  SPAN-ONLY 1
+g29_d_fence/elab         0   PASS_CMP     0   PASS_CMP    13  OK 13 FIXED 0   BROKE 0  STILL 0  SPAN-ONLY 2
+g29_e_homes/def         16   FAIL         0   PASS_CMP    20  OK 0  FIXED 20  BROKE 0  STILL 0  SPAN-ONLY 10
+g29_e_homes/elab        16   FAIL         0   PASS_CMP    24  OK 0  FIXED 24  BROKE 0  STILL 0  SPAN-ONLY 12
+g29_f_head/def          16   FAIL         0   PASS_CMP     4  OK 0  FIXED 4   BROKE 0  STILL 0  SPAN-ONLY 2
+g29_f_head/elab         16   FAIL         0   PASS_CMP     4  OK 0  FIXED 4   BROKE 0  STILL 0  SPAN-ONLY 2
+g92_a2_ppkinds/def      16   FAIL        16   FAIL         5  OK 1  FIXED 4   BROKE 0  STILL 0  SPAN-ONLY 0
+                        (r10uvm92's arm — the boundary's one unpredicted mover)
+
+TOTAL over the 13 scored arm-views:  FIXED 174   BROKE 0   STILL 2
+
+SAID OUT LOUD, AS THE BRIEF REQUIRES: five arm-views PASS THE OFFICIAL
+uhdm-cmp with the patch where PRISTINE FAILS with R0's 16-line head —
+  g29_f_head  (THE HEAD, MINIMISED)   def AND elab
+  g29_e_homes (every home the head could live in)  def AND elab
+  g29_c_carriers/elab
+Nothing was promoted; no results/*.csv row was touched; NO CORPUS ROW WAS
+CONVERTED (BuildUVMPkg is CMP_NOTEQUAL before and after).
+
+THE FENCE ARM, g29_d_fence.sv: PASS_CMP on BOTH binaries in BOTH views,
+ALREADY-OK on all 9 (def) / 13 (elab) cells, and it does not appear in the
+3400-file boundary gate.  It carries every bare-stream shape the corpus has:
+`{<<{val}}` as a function return, `{<< 8 {x, y}}` / `{>> 8 {x, y}}` in a
+continuous assign, `{<< 2 {i[3:0], 4'h1}}` in an always_comb, `{<<{i}}` with
+no slice size, `{<< bit { __a }}` over a dynamic array, and `{<< {i}}` in an
+initial block.  slang wraps EVERY one of those in a NON-implicit
+ConversionExpression (ConversionKind::StreamingConcat / BitstreamCast), so a
+patch keyed on the slang conversion instead of the WRITTEN `'` lights the
+whole arm up.  This one does not.
+
+RESIDUES THE ARMS MEASURED AND LEFT (all pre-existing, all byte-identical
+between pristine and patched except where FIXED is claimed above)
+
+* R-STREAMSPAN — the stream operation's own span, 57 SPAN-ONLY cells.
+  Surelog gives the stream operation the span of the INNER `{...}` node:
+  `fC->populateCoreMembers(Stream_concatenation, Stream_concatenation,
+  operation)` (Surelog CompileExpression.cpp:3096).  We compute it as
+  (first operand start - 1) .. (last operand end + 1), which coincides with
+  the inner braces ONLY when no whitespace separates a brace from an operand
+  — true of every bare-stream site in either corpus (`{<<{val}}`,
+  `{<< 8 {x, y}}`), false of `{ << bit { __array }}`.  INVISIBLE TO THE JUDGE
+  (no generated Compare reads VpiLineNo/VpiColumnNo): g29_f_head PASSES cmp
+  with the span still off by one on each end.  Deliberately NOT shipped —
+  fixing it would move the bare-stream bytes of 21 corpus databases for zero
+  judged effect.
+* R-NESTCAST — `i1 = int'(int'(v1))`, arm A's control, STILL 1 in both views.
+  Golden emits TWO nested cast operations; we collapse to one.  PRE-EXISTING
+  and unrelated to streams (the NESTED-cast-over-a-STREAM cell,
+  `int'(ze'({ << bit { __a }}))` in g29_c_carriers, IS fixed by this pass —
+  both casts now appear).
+* arm B's residual 62-line head is the packed-struct class property's
+  `struct_var` typespec, BYTE-IDENTICAL between pristine and patched.
+* arm C/def's residual 54-line head is a `begin`-block variables VECTOR
+  (`LHS: <null>`, ours carries an element golden lacks) — a DEF-view block
+  shape that R0 was masking; pre-existing, and arm C/elab PASSES.
+* slang REJECTS a SIZE cast over a streaming concatenation
+  (`N'({<<{x}})` -> "cannot change width or signedness of non-integral
+  expression (type is 'void')") even for a fixed-size operand.  That is why
+  arm B carries no size-cast cell and why Verilator/t_stream.v's five
+  `4'({ << {4'b0001}})` sites are out of scope.

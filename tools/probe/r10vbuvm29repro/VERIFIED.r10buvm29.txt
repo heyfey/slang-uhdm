@@ -1,0 +1,295 @@
+r10buvm29 — ADVERSARIAL VERIFICATION RECORD.  MEASUREMENT ONLY; the official
+~/git-repos/UHDM/build/bin/uhdm-cmp (through scripts/verify_golden.py) is the
+sole acceptance judge.  slang was NOT patched.  results/*.csv were READ ONLY.
+NOTHING was promoted and NO CORPUS ROW WAS CONVERTED.
+
+VERDICT: ACCEPT AS SHIPPED.  /tmp/r10buvm29.patch's production hunk is correct
+and no pristine-right -> patched-wrong cell was found on legal SystemVerilog.
+
+=========================== 1. INDEPENDENT REBUILD ===========================
+Fresh worktrees at d71c34e:  /tmp/wt_vbuvm29pris (pristine), /tmp/wt_vbuvm29
+(patch applied with `git apply -3`, rc 0, 0 conflict markers).
+Fence check on the patch: the four slang-fenced names appear 0 times.
+Patch surface: src/ExprEmit.cpp + tools/probe/r10buvm29repro/ ONLY; 0 hunks
+under results/.
+
+  BUILD (cmake --build build -j 2, md5 taken separately, both frozen chmod 555
+  at immutable paths BEFORE any sweep)
+    pristine  /tmp/vbuvm29_pris.bin  c0544c563e6f68b1f43072e5d4db5476
+    patched   /tmp/vbuvm29_pat.bin   3f5cdd274ec4e3bead38f22eb6d08085
+  BOTH md5s REPRODUCE THE IMPLEMENTER'S EXACTLY.
+
+=============================== 2. GATE BATTERY ==============================
+(2) GOLDENS, SLANG_UHDM exported explicitly per binary
+      patched  PASS 23 FAIL 0     pristine PASS 23 FAIL 0
+      SLANG_UHDM=/bin/false -> PASS 0 FAIL 23   (negative control)
+(3) uhdm2rtlil, testflags AND default, my own sweeps for BOTH binaries
+      679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL in all four sweeps
+      ct8rows committed results/gate_uhdm2rtlil.csv vs patched tf : 0 rows
+      ct8rows my pristine tf  vs patched tf                       : 0 rows
+      ct8rows my pristine def vs patched def                      : 0 rows
+      SELFCHECK=1 byteverify  MOVERS 0 / 1358  (SELFCHECK 1357/1358)
+(4) surelog, --mode both, my own sweeps for BOTH binaries
+      937 CMP_EQUAL / 567 SLANG_REJECT / 48 SURELOG_FAIL / 19 CMP_NOTEQUAL /
+      10 DEFERRED / 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+      — histogram IDENTICAL pristine and patched, and identical to the
+      implementer's.
+      ct8rows committed results/golden_surelog.csv vs patched : 0 rows
+      ct8rows committed vs my pristine                        : 0 rows
+      ct8rows my pristine vs patched                          : 0 rows
+      NO ROW CONVERTED.  results/*.csv untouched.
+    CMDS.TXT AUDIT BY BINARY PATH (not by the string "slang-uhdm", which also
+    matches the goldens cache):
+      patched  workdirs: 2981/2981 `slang:` lines name /tmp/vbuvm29_pat.bin,
+                         0 name the main-tree binary, 0 name any other binary
+      pristine workdirs: 2981/2981 name /tmp/vbuvm29_pris.bin, 0 others
+(5) BYTEVERIFY SELFCHECK=1, surelog:  MOVERS 4 / 956  (SELFCHECK 955/956)
+      ./default/BuildUVMPkg-bf853d43    93fa77493972 <- 861b8d9cf5c1  PREDICTED
+      ./testflags/BuildUVMPkg-bf853d43  93fa77493972 <- 861b8d9cf5c1  PREDICTED
+      ./default/SeqDriver-32af76aa      d56268425141 <- 54bc7331e8bc  NOT PREDICTED
+      ./testflags/SeqDriver-32af76aa    e5d99e56f86c <- f12d365cbef1  NOT PREDICTED
+    The implementer reported 2/956.  IT IS 4/956 — see §5.
+
+HEADS (rowheads.sh over my own workdirs; every md5 matches the implementer's)
+    SeqDriver    default    29 -> 29   f34002df1542 -> f34002df1542  SAME
+    SeqDriver    testflags  29 -> 29   b021028c2539 -> b021028c2539  SAME
+    SimpleUVM    default    17 -> 17   499e6b0695c2 -> 499e6b0695c2  SAME
+    SimpleUVM    testflags  17 -> 17   405b972422c4 -> 405b972422c4  SAME
+    Scoreboard   default    29 -> 29   bee235fb2b9e -> bee235fb2b9e  SAME
+    MiniAmiq     both      348 -> 348  1c55af0c1712 -> 1c55af0c1712  SAME
+    BuildUVMPkg  default    17 -> 29   4b761630ccd5 -> 834eea13faf5  MOVED
+    BuildUVMPkg  testflags  17 -> 29   4b761630ccd5 -> 834eea13faf5  MOVED
+    Earlgrey_0_1 both       64 -> 64   64fbe6f6fe54 -> 64fbe6f6fe54  SAME
+    Rggen        default     0 ->  0   PASS both
+    measured=12  SKIP-NOFILE=2 (Scoreboard/tf, Rggen/tf — expected)
+    ONE head per run everywhere.  My pristine BuildUVMPkg head is BYTE-IDENTICAL
+    to the committed head_pris_BuildUVMPkg.cmp, and my patched head to
+    head_pat_BuildUVMPkg.cmp.
+
+CANARIES / PINS / FENCE
+    pins29.sh  SAME=10 MOVED=0 UNKNOWN-NAME=0
+      InterfaceModPort 59a365f3ce2c, BlackParrotComplex e3e354129d5a/73a10e8217e5,
+      YosysOldOr d68e0796d62c, SVSwitch 4842211c4030, YosysVerx 6ccda350c24a
+    canaries.sh surelog  ok=56 changed=0 absent=0 unknown-names=8
+    canaries.sh u2r/tf   ok=9  changed=0 absent=0 unknown-names=27
+      (the implementer's GATES file says ok=52 / ok=8; those numbers do NOT
+       come out of the canaries.sh they shipped — see §5.  changed=0 either way,
+       which is the gate.)
+    EXPECT_UNKNOWN=1 ctcan2.sh surelog  ok=58 changed=0  PASS
+    EXPECT_UNKNOWN=6 ctcan2.sh u2r      ok=1  changed=0  PASS
+    canaudit.sh canaries.sh ctcan2.sh   audited=33 UNCOVERED=0 FENCE-BREACH=0
+    The four slang-fenced tests were never dispatched and are spelled in no
+    artifact in this directory.
+
+============================= 3. HEAD, RE-DECODED ============================
+Read from MY OWN pristine cmp log, not carried forward, and cross-read against
+the generated sources:
+  ~/git-repos/UHDM/build/generated/src/expr.cpp:83   expr::Compare order =
+      VpiDecompile, VpiSize, SafeCompare(Typespec)
+  ~/git-repos/UHDM/build/generated/src/operation.cpp:98  operation::Compare
+      calls basetype_t::Compare (= expr::Compare) BEFORE VpiOpType.
+So a missing `Typespec` on the RHS operation is reached BEFORE VpiOpType, and
+SafeCompare's SINGULAR overload with rhs == nullptr prints `RHS: <null>`.
+The implementer's decode is CORRECT: the judge never reports "67 vs 72".
+
+PER-DATABASE CENSUS of the moving row (ct29cen, listener walk):
+  default/BuildUVMPkg   golden CAST-over-STREAM 2 | pristine 0 | patched 2
+  testflags/BuildUVMPkg  ditto  => MISSING-CAST 4 -> 0, as claimed.
+  The two patched rows are BYTE-IDENTICAL to golden's, SPANS INCLUDED:
+    58249:17-58249:58  CAST  ref/enum_typespec  1  operation<72>  assignment
+    58284:25-58284:74  CAST  ref/enum_typespec  1  operation<72>  assignment
+
+WHOLE-DUMP, workdir-path-normalised, default/BuildUVMPkg:
+  1077711 -> 1077735 lines (+24), 84 diff sides.  Every diff side is inside the
+  two new cast subtrees at uvm_pkg.sv:58249 and :58284; four of them quote the
+  TARGET enum typespec's own declaration span (:57531 and :57558), which is part
+  of the new cast subtree.  (The implementer wrote "every one at :58249/:58284";
+  strictly, four name the referenced enum typespec's declaration line.)
+
+NEW R0 reproduces byte-for-byte: BuildUVMPkg 29 lines, one head, both modes
+byte-identical, `LHS: <null>` — the SINGULAR mirror, OURS carrying a `ref_var`
+(uvm_pkg::uvm_sequencer_param_base::send_request::param_t) over an
+`unsupported_typespec (REQ)`, parented to the `begin` at :53995.
+
+============================ 4. THE FENCE, RE-FOUND ==========================
+Independent source grep over BOTH corpora (uhdm2rtlil/test, Surelog/tests,
+Surelog/third_party/tests, and the whole Surelog/third_party/UVM tree — the
+uvm-1.2 / uvm-1.1d / ovm / vmm / svunit trees INCLUDED, which the implementer's
+grep did not cover):
+    "'\s*\(\s*\{\s*(<<|>>)"  finds EXACTLY
+      uvm_pkg.sv:58249, uvm_pkg.sv:58284, uvm_packer_defines.svh:211 (the macro
+      body they expand from), and Verilator/t_stream.v:95-99.
+    489 source lines in the two corpora contain a streaming concatenation; only
+    those 8 put a written cast in front of one.
+R-SIZECASTSTREAM re-measured on BOTH binaries: t_stream.v is rejected identically
+("cannot change width or signedness of non-integral expression (type is 'void')",
+rc=3 on pristine AND patched), so its five sites are out of scope and the patch
+does not change that.
+
+============================== 5. WHAT I FOUND ==============================
+A. MOVER COUNT WRONG: 4/956, not 2/956.  `default/SeqDriver-32af76aa` and
+   `testflags/SeqDriver-32af76aa` also move, and are named in neither the
+   prediction nor the report.  ATTRIBUTED AND CLEARED:
+     * DETERMINISTIC, not a coin: 13 pristine runs (7 serial + 6 concurrent
+       under 6-way load) all give 54bc7331e8bc; 7 patched runs all give
+       d56268425141.
+     * The whole-dump diff is 40 sides out of 1 816 431 lines, and the SORTED
+       dumps are BYTE-IDENTICAL: a pure ARENA-ORDER FLIP of two objects,
+       `bit_typespec (uvm_reg_data_t)` (uvm_reg_model.svh:59) and
+       `bit_typespec (uvm_reg_addr_t)` (:73), in the flat typespec tail.
+     * ct29cen over the SeqDriver databases: the CAST/STREAM census is
+       byte-identical between the binaries (101 rows, md5 28a8c875bae0) — the
+       law changed NO node there.
+     * Judge-invisible today: the SeqDriver head cmp logs are byte-identical
+       between the binaries in BOTH modes, and the rows are byte-identical.
+       Golden's own first occurrence orders addr_t before data_t, i.e. the
+       PATCHED order.
+   This is the known SourceLocation-across-macro-buffers ordering hazard
+   (RESUME.md §9), pinned stable per binary rather than per run.
+B. CANARY COUNTS WRONG: the shipped canaries.sh yields ok=56 (surelog) and
+   ok=9 (u2r/testflags), not the reported 52 and 8, in either argument order.
+   changed=0 absent=0 in every case, so the gate itself holds; the stated
+   numbers look carried forward from an earlier pass's canary list.
+C. "every one of them is at :58249 or :58284" — four of the 84 diff sides name
+   the target enum typespec's own declaration span (:57531, :57558).  Cosmetic.
+D. BOUNDARY listing size differs: my copy of tools/probe lists 3388 .sv/.v
+   files (3381 at d71c34e + this pass's 6 arms + 1 of mine at the time of the
+   run); the implementer reported LISTED=3400.  MOVED and NO_OUTPUT_PAIRS agree
+   where they can (NO_OUTPUT_PAIRS=276 exactly).
+NONE of A-D is a correctness defect and NONE changes the verdict.
+
+======================= 6. ADVERSARIAL ARMS (MINE) ==========================
+22 arm-views, three-way (golden / pristine / patched), BOTH views, rc recorded
+for every invocation.  Scored by the official uhdm-cmp AND by a VIEW-GENERAL,
+DEPTH-BLIND multiset comparator over normalised uhdm-dump text (vnorm29.py:
+object ids, absolute paths and line:col spans dropped — exactly the fields no
+generated Compare reads).
+
+  arm                     what it varies                       PRI -> PAT (def / elab)
+  gv29_a_shapes      stream shape: with-range, nested stream,   16 -> PASS / 16 -> PASS
+                     PARAMETER slice size, typedef'd keyword
+                     slice size, queue source, two dynamic
+                     members, width-matched fixed source,
+                     `this.`-qualified property
+  gv29_b_positions   cont-assign, PORT ACTUAL, case expr AND    16 -> PASS / 16 -> PASS
+                     case ITEM, ternary arms, for-init, while
+                     cond, $display arg, NAMED call arg,
+                     DEFAULT FORMAL value, '{default:} initialiser,
+                     foreach body
+  gv29_c_homes       interface, program, package static method, 16 -> 60 / 16 -> 60
+                     class in a module, generate-if, generate-
+                     for, always_ff, final
+  gv29_d_controls    NEGATIVE: casts over concat / replication  62 -> 62 / 62 -> 62
+                     / call / part-select / bit-select / literal
+                     / array element / nested cast / enum /
+                     packed struct; BARE streams in 8 carriers
+                     INCLUDING streaming ASSIGNMENT TARGETS
+                     ({<<bit{a}} = x) and with-ranges;
+                     signed'/unsigned'; $cast
+  gv29_e_targets     packed union, 2-D packed vector, signed    314 -> 314 / 314 -> 314
+                     vector typedef, cross-package SCOPED enum,
+                     longint, time
+  gv29_f_macro       the head's REAL provenance: the cast text  16 -> 20 / 16 -> 20
+                     comes from a `define MACRO body, in a
+                     PARAMETERIZED class, OOB method, 3 instances
+  gv29_g_tdname      CONTROL for the typedef-name residue: the  62 -> 62 / 62 -> 62
+                     same targets cast over a NON-stream
+  gv29_h_genident    DEF-view generate-block cast whose target  16 -> PASS / 16 -> PASS
+                     is a bare IMPORTED typedef identifier
+                     (the defGenProcessEmit road), + generate-for
+  gv29_i1/i2/i3      1, 2 and 3 instances of one module         16 -> PASS / 16 -> PASS (x3)
+                     carrying the cast
+
+  * 14 of the 22 arm-views go PRISTINE-FAIL -> PATCHED-PASS the OFFICIAL
+    uhdm-cmp.  ZERO go the other way.
+  * gv29_d_controls and gv29_g_tdname (the two pure-control arms, ~45 control
+    cells between them) are WHOLE-DUMP BYTE-IDENTICAL between the binaries in
+    BOTH views: the fence holds exactly.
+  * DEPTH-BLIND AWAY-GOLDEN is 0 on every arm except gv29_f_macro (1) and
+    gv29_h_genident (6); both are accounted for in §7 and neither is a
+    pristine-right -> patched-wrong cell (h_genident's patched database is
+    judged EQUAL by uhdm-cmp).
+  * INSTANCE COUNTING IS EXACT: with 1/2/3 instances the patched CAST-node
+    count matches golden in both views (def 1/1/1; elab 2/3/4) — the ELAB
+    pendingCastTs deferral mints one cast per instance clone, no duplication
+    and no loss.
+
+  I also re-ran the implementer's own six arms three-way in both views and
+  reproduce their claims exactly: g29_f_head and g29_e_homes PASS in both views,
+  g29_c_carriers passes in elab, and g29_d_fence PASSES on BOTH binaries in BOTH
+  views.  Depth-blind AWAY-GOLDEN is 0 on all 12 of their arm-views.
+
+======================= 7. RESIDUES THIS VERIFICATION FOUND ==================
+R-CASTTDNAME  A cast whose TARGET is a package-level VECTOR typedef gets the
+   package-qualified name (`ve29::sv_t`, `ve29::two_d`) where golden names the
+   same typespec bare (`sv_t`, `two_d`); enum and packed-union targets agree.
+   PRE-EXISTING and PROVEN so by gv29_g_tdname, which casts the identical
+   targets over a NON-stream and shows pristine already doing it.  Newly REACHED
+   at stream sites, not introduced.  Corpus population 0 (BuildUVMPkg's targets
+   are enums, which agree).
+R-CASTTYPEPARAM  A cast whose target is a class TYPE PARAMETER (`T'({<<bit{x}})`
+   in an OOB method of `class gp #(type T)`): golden emits
+   `unsupported_typespec (T)`, we resolve the specialization and emit a
+   `logic_typespec`.  This is gv29_f_macro's 20-line patched head; PRISTINE
+   FAILS EARLIER at the same expression (the missing ref_typespec), so it is a
+   residue newly reached.  Corpus population 0 — uvm_pkg's pp_output expands
+   the macro with concrete enum names.
+R-DEFFORMALCASTPARENT  A cast over a stream used as a DEFAULT FORMAL VALUE
+   (`function g(int x = int'({<<bit{...}}))`) emits its operation with NO
+   vpiParent and gives the ref_typespec the FUNCTION's prefix
+   (`work@vb29.g`) where golden uses the FORMAL's (`work@vb29.g.x`).  Both
+   fields are judge-invisible (no generated Compare reads VpiParent or
+   VpiFullName) and gv29_b_positions PASSES uhdm-cmp with them wrong.
+R-WITHRANGECAST  slang REJECTS a bit-stream cast over a WITH-RANGED stream
+   (`int'({<<bit{a with [0:3]}})` — "streaming concatenation cannot be converted
+   to type 'int'") and over any fixed-size stream whose width does not match the
+   target.  Not a defect of ours; recorded so a future pass does not build an
+   arm out of shapes slang will not compile.
+R-STREAMSPAN, R-NESTCAST, R-SIZECASTSTREAM (the implementer's) all re-measured
+   and confirmed as stated; R-SIZECASTSTREAM verified on both binaries.
+
+============================ 8. BOUNDARY (WIDE) =============================
+vbound29.sh: a COPY of tools/probe, NO path filter, `.sv` AND `.v`,
+subdirectories included, file list on fd 3, every child `</dev/null`, rc
+recorded per cell, PROCESSED asserted, sharded 6 ways.
+
+    LISTED=3388  PROCESSED=3388  MOVED=25  NO_OUTPUT_PAIRS=276
+    PROCESSED-ASSERT-OK
+
+  25 movers = 10 of this pass's own arms + 10 of MINE + 4 from r10buvm28repro's
+  cast grids (built-in positive controls) + 1 external:
+    r10uvm92repro/g92_a2_ppkinds.sv/def — `oo = bb.dyn[int'({>>{w}})]`, the law
+    in an INDEX.  Scored three-way against purpose-built golden:
+    depth-blind TO-GOLDEN 4, AWAY-GOLDEN 0, and the arm's cmp log is
+    BYTE-IDENTICAL between the binaries.  A to-golden move.  (Its elab view is
+    rc=139 on BOTH binaries — the pre-existing R-ELABSEG, unchanged.)
+  r10buvm28repro/g28_a0_head.sv goes PRISTINE-FAIL(16) -> PATCHED-PASS in BOTH
+  views: a bonus clearance of buvm28's own head arm.
+  g29_d_fence.sv does NOT appear among the movers, in either view.
+  DEPTH-BLIND AWAY-GOLDEN is 0 on every scored boundary mover.
+
+============================== 9. REPRODUCE ================================
+  PRI=/tmp/vbuvm29_pris.bin PAT=/tmp/vbuvm29_pat.bin MODE=def|elab \
+      VWD=<dir> ./vthree29.sh <arm.sv>
+  PRI=.. PAT=.. ./vrunall29.sh <arm.sv> ...        # both views + dump delta
+  python3 vnorm29.py G.dump PRI.dump PAT.dump [--nodepth] [-v]
+  PRI=.. PAT=.. ROOT=<copy of tools/probe> BWD=.. SHARDS=6 ./vbound29.sh
+
+===================== 10. NEIGHBOURING LAWS RE-ASSERTED =====================
+uvm92's name-text oracle (`ct92cen --op`, EXPM_N must be 0) run on EVERY
+database this patch moves, both binaries:
+    default/BuildUVMPkg    hier_path=7746  brk=996  with-op-index=26
+                           EXPM_Y=26 EXPM_N=0 rows=26   pristine AND patched
+    testflags/BuildUVMPkg   identical
+    default/SeqDriver      hier_path=13680 brk=1921 with-op-index=47
+                           EXPM_Y=47 EXPM_N=0 rows=47   pristine AND patched
+    testflags/SeqDriver     identical
+uvm96's § castTargetKeywordTypespecKind96 (the cast-target keyword table) is
+re-asserted with a STREAM operand by gv29_e_targets: golden's target typespec
+KINDS — union / logic / bit / enum / long_int / time — are reproduced EXACTLY
+by the patched census, spans included, 6/6.
+buvm16's § newArrayArgNoBind16, buvm17/19/25's foreach laws, buvm23/24/26's
+argument-slot laws, buvm27/28's $bits laws and uvm95's bits-select law are all
+carried by the wide boundary: their arms live under tools/probe and NONE of
+them moved (the only movers are this pass's arms, mine, buvm28's cast grids and
+the one to-golden index cell in r10uvm92repro).

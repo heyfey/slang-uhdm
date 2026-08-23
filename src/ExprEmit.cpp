@@ -13602,9 +13602,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                  effCastSyn->kind != syntax::SyntaxKind::CastExpression))
                 return emitExpr(stripImplicitConv(conv.operand()), parent, prefix,
                                 netMap);
-            // A cast around a streaming concat is dropped (Surelog emits the
-            // stream operation directly).
-            if (stripImplicitConv(conv.operand()).kind == ExpressionKind::Streaming)
+            // § castOverStreamKeepsCast29 — a conversion around a streaming
+            // concatenation is dropped ONLY when it is COMPILER-INSERTED.
+            //
+            // slang builds a NON-implicit ConversionExpression for a bare
+            // stream in an assignment-like context too
+            // (`ConversionKind::StreamingConcat` / `BitstreamCast`;
+            // `isImplicit()` is `conversionKind < StreamingConcat`, so those
+            // reach this arm), and for THOSE Surelog emits the stream
+            // operation alone — that is every `{<< 8 {x, y}}` in the corpus.
+            // But a WRITTEN `T'({ << bit {x} })` is an ordinary cast to
+            // Surelog: `CompileHelper::compileExpression`'s `paCast` arm
+            // (CompileExpression.cpp:2636) never inspects the operand, so it
+            // mints the `vpiCastOp` operation with its target typespec and
+            // hangs the stream under it as the sole operand.  Dropping the
+            // written cast lost the `vpiTypespec` that `expr::Compare` reads
+            // before `operation::Compare` ever reaches `VpiOpType`
+            // (uvm_pkg.sv:58249 / :58284 — r10buvm28's R0).
+            //
+            // The WRITTEN `'` is the whole distinguisher: keep the cast when
+            // and only when this conversion carries `CastExpression` syntax.
+            if (stripImplicitConv(conv.operand()).kind == ExpressionKind::Streaming &&
+                (!effCastSyn ||
+                 effCastSyn->kind != syntax::SyntaxKind::CastExpression))
                 return emitExpr(stripImplicitConv(conv.operand()), parent, prefix,
                                 netMap);
             // Explicit cast: operation(vpiCastOp) with a typespec ref.
