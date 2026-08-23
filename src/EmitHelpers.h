@@ -581,6 +581,37 @@ inline bool assocIdxIsTypeParam51(const Type& idx) {
     return syn && syn->kind == syntax::SyntaxKind::TypeAssignment;
 }
 
+// § assocPropPatternInitRidesElem31, CLAUSE (3)'s GATE — the predicate that
+// decides WHICH direct constant operand of an unsized array's declaration
+// initializer takes the ELEMENT width.  Clause (3) says "wherever emitExpr
+// left the bare-decimal DEFAULT of 64", and this is that condition written
+// out, because `VpiSize() == 64` alone is NOT it: a literal the source WROTE
+// 64 bits wide (`64'd9`) and a REAL constant (`shortreal r[] = '{1.0}`) also
+// arrive at 64, and golden keeps BOTH at 64 — Surelog's
+// `compileAssignmentPattern` sizes only the constants that had no written
+// width.  Measured against Surelog on the verifier's arms
+// tools/probe/r10vbuvm31repro/{gv31a1,gv31a7,gv31a8}.sv:
+//   int  d[]  = '{64'd9, 64'd8}   golden 64 / 64      (WRITTEN width kept)
+//   int  q[$] = '{9, 64'd4}       golden 32 / 64      (mixed, per operand)
+//   byte b[]  = '{64'd9}          golden 64           (NOT the element width)
+//   int  c[]  = {1, 64'd9}        golden 32 / 64      (concatenation, same)
+//   shortreal s[] = '{1.0, 2.0}   golden 64 / 64      (real, NOT 32)
+//   int  d[]  = '{1, 2, 3}        golden 32 32 32     (bare decimal -> element)
+//   bit [2:0] j[] = '{1, 2, 3}    golden  3  3  3
+// so the gate is: an UNSIGNED-INTEGER constant (`vpiUIntConst`, which is what
+// emitExpr stamps on a bare decimal and never on a based literal or a real)
+// still carrying the default 64, whose decompile has no base tick.  Without
+// it the resize walks onto `64'd9` and shrinks a field golden had right.
+inline bool bareDecimalDefault64_31(const UHDM::any* o) {
+    if (!o || o->UhdmType() != UHDM::uhdmconstant)
+        return false;
+    const auto* c = (const UHDM::constant*)o;
+    if (c->VpiSize() != 64 || c->VpiConstType() != vpiUIntConst)
+        return false;
+    return std::string_view(c->VpiDecompile()).find('\'') ==
+           std::string_view::npos;
+}
+
 // A declaration whose type is named through an explicit `other_pkg::T`
 // qualification: the shared typespec belongs to THAT package and every
 // vpiInstance / span stamp made while emitting the USING package must leave it

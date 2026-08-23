@@ -623,13 +623,72 @@ void UhdmExporter::emitClassPropInit29(const PendingPropInit29& pi) {
     // (t39c: `{"ab","cd"}` -> operation#33 over raw string constants,
     // `'{default:0}` -> operation#75 over a tagged_pattern).  Only an
     // operation is accepted, so a shape that folds elsewhere stays off.
+    //
+    // § assocPropPatternInitRidesElem31 — THE UNSIZED-ARRAY CARRIER'S THREE
+    // EXTRA CLAUSES.  When the property is a DYNAMIC / QUEUE / ASSOCIATIVE
+    // array (`pi.elem` non-null; see the push site in emitClassDefn), golden's
+    // object is not one `vpiExpr` on the array_var but ONE operation that
+    //   (1) is PARENTED AT THE vpiReg ELEMENT variable, not at the array_var;
+    //   (2) hangs off BOTH the array_var's and the ELEMENT's `vpiExpr` — the
+    //       SAME object, exactly as § fixedClassPropIsArrayVar6 already does
+    //       for a fixed array and as TypeEmit's `emitDynArrayVar` already does
+    //       for a module/package-scope concatenation; and
+    //   (3) has its DIRECT constant operands sized at the ELEMENT width where
+    //       emitExpr leaves the bare-decimal default of 64.
+    // Clause (2) is the COMPARED one: `variables::Compare` reads `Expr()` and
+    // `array_var::Compare` walks `Variables()`, so the element's missing
+    // `vpiExpr` first-fails the whole array_var.  THAT WAS THE HEAD — the
+    // BuildUVMPkg and SeqDriver 47-line `uvm_sequence_library::seqs_distrib`
+    // (`protected int seqs_distrib[string] = '{default:0}`) head at base
+    // 265eea9 printed golden's `operation` 75 as LHS against `RHS: <null>`,
+    // and its `vpiParent` in the head text is the `int_var`, not the
+    // array_var, which is clause (1) written out.
+    //
+    // DECODED FROM THE PRODUCER, not guessed.  Surelog compiles the class-body
+    // initializer in `ElaborationStep::exprFromAssign_`
+    // (src/DesignCompile/ElaborationStep.cpp:1574) with `Reduce::No`, so
+    // NOTHING folds; `makeVar_` then sets `var->Expr(assignExp)` on the
+    // element (:2097) and `array_var->Expr(assignExp)` on the wrapper (:2289)
+    // over the SAME object, whose `VpiParent` was last written by the element
+    // arm.  The pattern tree itself is `CompileHelper::
+    // compileAssignmentPattern` (CompileExpression.cpp:3671): op 75, one
+    // `tagged_pattern` per keyed item, and a key with NO `Constant_primary`
+    // child mints the `string_typespec` named `"default"` at the KEY span
+    // (:3796) — which is the shape ExprEmit's default-setter arm already
+    // builds byte for byte, so no new object kind is invented here.
+    //
+    // CLAUSE (3)'s WIDTH IS THE ELEMENT'S, MEASURED, and it is fenced to
+    // DIRECT constant operands that emitExpr left at the BARE-DECIMAL default
+    // (`bareDecimalDefault64_31`, EmitHelpers.h — read its measurement table):
+    // a literal the source wrote 64 bits wide (`int d[] = '{64'd9}`) and a
+    // real constant keep golden's 64, and only an unsized decimal takes the
+    // element width.  Without that gate the resize shrank `64'd9` to 32 and
+    // broke a field the base commit already had right (verifier r10vbuvm31,
+    // arm gv31a7: four class-property cells golden==pristine,
+    // patched!=golden).  Arm a2 reads golden `int cs_dyn[] =
+    // '{1,2,3}` -> three size-32 constants, `byte cb_dyn[] = '{1,2}` -> size
+    // 8, `int cc_dyn[] = {6,7,8}` (concat, op 33) -> size 32, and
+    // `'{3{2}}` (op 76) -> the COUNT operand 32 with the nested concat's own
+    // operand left at 64.  A TAGGED operand is not a constant, so
+    // `'{default:0}` keeps golden's 64 for free — which is what the corpus
+    // head needs.
     if (ic.kind == ExpressionKind::Concatenation ||
         ic.kind == ExpressionKind::SimpleAssignmentPattern ||
         ic.kind == ExpressionKind::StructuredAssignmentPattern ||
         ic.kind == ExpressionKind::ReplicatedAssignmentPattern) {
-        if (auto* e27 = emitExpr(ic, pi.var, pi.pfn, nm29))
-            if (e27->UhdmType() == UHDM::uhdmoperation)
+        UHDM::any* pat31 = pi.elem ? (UHDM::any*)pi.elem : (UHDM::any*)pi.var;
+        if (auto* e27 = emitExpr(ic, pat31, pi.pfn, nm29))
+            if (e27->UhdmType() == UHDM::uhdmoperation) {
+                if (pi.elem) {
+                    if (pi.elemW > 0)
+                        if (auto* os31 = ((UHDM::operation*)e27)->Operands())
+                            for (auto* o31 : *os31)
+                                if (bareDecimalDefault64_31(o31))
+                                    ((UHDM::expr*)o31)->VpiSize(pi.elemW);
+                    pi.elem->Expr((UHDM::expr*)e27);
+                }
                 pi.var->Expr((UHDM::expr*)e27);
+            }
         return;
     }
     // § typeParamScopedCallRef59 — CALL SITE 2 of 2.  A class-property
@@ -1335,8 +1394,16 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                 else
                     lateInit29.push_back({av, &cp, pfn});
             }
+            // § assocPropPatternInitRidesElem31 — a DYNAMIC / QUEUE /
+            // ASSOCIATIVE property carries its declaration initializer on BOTH
+            // carriers, so the deferred record names the vpiReg ELEMENT (and
+            // its width) beside the array_var.  `fixedElem6` never reaches
+            // here (its pattern arm is emitted inline above and its
+            // non-pattern initializer takes the push one line up), which is
+            // why the element fields are set at THIS push and nowhere else.
             else if (cp.getInitializer())
-                lateInit29.push_back({av, &cp, pfn});
+                lateInit29.push_back({av, &cp, pfn, reg,
+                                      (int32_t)et->getBitWidth()});
             vars->push_back(av);
             continue;
         }

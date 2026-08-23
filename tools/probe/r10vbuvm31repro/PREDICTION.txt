@@ -1,0 +1,34 @@
+r10vbuvm31 (VERIFIER) — MOVER PREDICTION FOR THE VERIFIED BINARY
+Written from the PRISTINE + GOLDEN corpus censuses only; no patched or
+verified database was read.  Two producers:
+  A  the law (§ assocPropPatternInitRidesElem31) — golden's unsized
+     array_var carries an operation and OUR array_var or its vpiReg
+     element does not; restricted to test-modes where WE HAVE a database
+     (a golden-only test cannot move).
+  B  the verifier's gate (bareDecimalDefault64_31) — OUR pristine
+     unsized array_var already carries an operation one of whose DIRECT
+     constant operands has a WRITTEN width in its decompile that the old
+     unconditional resize overwrote.  Scanned over OUR OWN databases;
+     it needs no golden side.
+
+== surelog (956 of our databases)
+A: 9 test-modes
+     default/BuildUVMPkg-bf853d43       56269:18     seqs_distrib
+     default/MiniAmiq-544c7f61          192:18       seqs_distrib
+     default/Scoreboard-59431470        192:18       seqs_distrib
+     default/SeqDriver-32af76aa         192:18       seqs_distrib
+     default/SimpleUVM-1dc93a62         192:18       seqs_distrib
+     testflags/BuildUVMPkg-bf853d43     56269:18     seqs_distrib
+     testflags/MiniAmiq-544c7f61        192:18       seqs_distrib
+     testflags/SeqDriver-32af76aa       192:18       seqs_distrib
+     testflags/SimpleUVM-1dc93a62       192:18       seqs_distrib
+B: 0 test-modes  (measured: no database of ours holds an unsized-array
+   initializer with a written-width direct constant operand)
+
+== uhdm2rtlil (1358 of our databases)
+A: 0 test-modes
+B: 0 test-modes  (measured: no database of ours holds an unsized-array
+   initializer with a written-width direct constant operand)
+
+PREDICTED MOVER SET, verified vs pristine = the A rows above and nothing else.
+PREDICTED MOVER SET, verified vs PATCHED  = EMPTY in both corpora (B is empty).

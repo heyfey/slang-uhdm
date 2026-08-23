@@ -22938,6 +22938,45 @@ bool UhdmExporter::emitPkgArrayVar(const Symbol& vs, UHDM::instance* up,
         auto* rv = s.MakeVariablesVec();
         rv->push_back(reg);
         av->Variables(rv);
+        // § assocPropPatternInitRidesElem31, THE PACKAGE HALF — the third and
+        // last carrier of the same law.  A package-scope dynamic / queue /
+        // associative variable with an ASSIGNMENT-PATTERN or CONCATENATION
+        // initializer carries ONE operation on BOTH the array_var's and the
+        // element's `vpiExpr`, parented at the ELEMENT, with the operation's
+        // DIRECT constant operands sized at the ELEMENT width.  This function
+        // emitted NO initializer at all, so both carriers were empty; arm a1
+        // cells `p31::m_str` / `p31::m_key` and arm a2 cells `ps_dyn` /
+        // `pc_dyn` / `pd_que` / `pd_dyn` read golden's tree against our
+        // absence in BOTH package views.  Same producer as the other two
+        // carriers (`ElaborationStep::makeVar_` :2097 + :2289 over one
+        // object), same shape, transcribed from `emitDynArrayVar`'s arm.
+        // The width rewrite is gated on `bareDecimalDefault64_31`: a WRITTEN
+        // width (`64'd9`) and a real constant keep golden's 64.
+        if (auto* in31 = dt->getInitializer()) {
+            auto& ic31 = stripImplicitConv(*in31);
+            if (ic31.kind == ExpressionKind::Concatenation ||
+                ic31.kind == ExpressionKind::SimpleAssignmentPattern ||
+                ic31.kind == ExpressionKind::StructuredAssignmentPattern ||
+                ic31.kind == ExpressionKind::ReplicatedAssignmentPattern) {
+                NetMap none31;
+                bool savedSCP31 = suppressConstParent;
+                suppressConstParent = true;
+                if (auto* e31 = emitExpr(ic31, reg, full, none31)) {
+                    if (e31->UhdmType() == UHDM::uhdmoperation) {
+                        int32_t ew31 = (int32_t)elem->getBitWidth();
+                        if (ew31 > 0)
+                            if (auto* os31 =
+                                    ((UHDM::operation*)e31)->Operands())
+                                for (auto* o31 : *os31)
+                                    if (bareDecimalDefault64_31(o31))
+                                        ((UHDM::expr*)o31)->VpiSize(ew31);
+                        av->Expr((UHDM::expr*)e31);
+                        reg->Expr((UHDM::expr*)e31);
+                    }
+                }
+                suppressConstParent = savedSCP31;
+            }
+        }
     }
     // NOTE § assocIdxTypeParamNoIndexTs51 — SITE 3 of 3 (the PACKAGE-scope data
     // declaration).  Direction: SUPPRESS.  Gate: assocIdxIsTypeParam51(*idx).

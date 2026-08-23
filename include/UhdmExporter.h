@@ -5256,6 +5256,14 @@ private:
         UHDM::variables* var;
         const slang::ast::Symbol* cp;  // a ClassPropertySymbol
         std::string pfn;
+        // § assocPropPatternInitRidesElem31 — the UNSIZED-array carrier's
+        // `vpiReg` ELEMENT variable and that element's bit width, filled in
+        // ONLY by the dynamic / queue / associative arm of `emitClassDefn`
+        // (a fixed array's pattern initializer never reaches the deferred
+        // drain; § fixedClassPropIsArrayVar6 emits it inline).  Null on every
+        // other shape, and the law below is gated on exactly that.
+        UHDM::variables* elem = nullptr;
+        int32_t elemW = 0;
     };
     // One property initializer, in the shape Surelog gives it (see the use
     // site for the four laws).  Returns nothing; sets `var->Expr()` when the

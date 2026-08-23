@@ -1,0 +1,41 @@
+r10buvm31 — MOVER PREDICTION, WRITTEN FROM THE PRISTINE DATABASES BEFORE ANY SWEEP
+==================================================================================
+Instrument: tools/probe/r10buvm31repro/{r10buvm31cen.cpp, sweepcen31.sh,
+sweepceng31.sh, mover31.py}, run over EVERY control database at base 265eea9
+(the surelog control workdir, 956 of ours + 1523 golden cache entries; the
+uhdm2rtlil control workdir, 1358 of ours + 1458 golden cache entries).
+
+§ assocPropPatternInitRidesElem31 changes a database if and only if it holds a
+DYNAMIC / QUEUE / ASSOCIATIVE variable whose declaration initializer is an
+assignment pattern or a concatenation.  The census splits that population in
+two and BOTH halves are enumerated below.
+
+A — CLASS-SCOPE (our array_var already carries the operation; its vpiReg
+    ELEMENT gains the same object, and the operation's vpiParent moves from
+    the array_var to the element).  9 databases, 1 cell each, ALL of them the
+    SAME source line, `uvm_sequence_library.svh` `protected int
+    seqs_distrib[string] = '{default:0}`:
+
+      surelog/default/BuildUVMPkg     56269:18   uvm_pkg.sv (pp_output)
+      surelog/default/MiniAmiq          192:18
+      surelog/default/Scoreboard        192:18
+      surelog/default/SeqDriver         192:18
+      surelog/default/SimpleUVM         192:18
+      surelog/testflags/BuildUVMPkg   56269:18
+      surelog/testflags/MiniAmiq        192:18
+      surelog/testflags/SeqDriver       192:18
+      surelog/testflags/SimpleUVM       192:18
+
+    (surelog/testflags/Scoreboard has no database — rowheads.sh reports it
+    SKIP-NOFILE — so it cannot be a mover.)
+
+B — MODULE- AND PACKAGE-SCOPE (both carriers gain the operation).  ZERO
+    databases in EITHER corpus, in EITHER mode.  Golden holds 160 unsized
+    array_var initializers across 40 surelog test-modes, but every one of them
+    is a CONCATENATION we already emit (UnsizedArray) or sits in a test with no
+    database of ours (AmiqEth, IbexGoogle, Opentitan, CoresSweRV, … all
+    SLANG_REJECT / SURELOG_FAIL), and the uhdm2rtlil corpus holds none at all.
+
+PREDICTED MOVER SET = the nine names in A, and nothing else.
+  surelog corpus : 9 of 956 databases move.
+  uhdm2rtlil     : 0 of 1358 databases move, in both modes.

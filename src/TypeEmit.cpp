@@ -16079,24 +16079,53 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
             // A CONCATENATION initializer (`byte b[] = {1, 1, 1}`) rides BOTH
             // the array_var and its element reg as vpiExpr — the SAME
             // operation object, parented at the REG (Surelog; UnsizedArray).
+            //
+            // § assocPropPatternInitRidesElem31, THE MODULE/PACKAGE HALF — an
+            // ASSIGNMENT PATTERN rides them exactly the same way, and this arm
+            // used to accept a concatenation ONLY, so every module- and
+            // package-scope `int aa[string] = '{default:0}` / `int d[] =
+            // '{1,2,3}` / `int q[$] = '{default:0}` lost its initializer
+            // outright (BOTH carriers empty, not just the element).  Measured
+            // on arm a1 cells t_str / m_str / m_key and arm a2 cells
+            // ms_dyn / md_que / md_dyn / md_aa / ps_dyn / pd_que / pd_dyn:
+            // golden gives every one of them the op-75 tree on the array_var
+            // AND on the element, parented at the element — the SAME law the
+            // class-scope carrier obeys (§ classPropPatternInit29's clauses in
+            // UhdmExporter.cpp), and the SAME producer line
+            // (`ElaborationStep::makeVar_` :2097 + :2289 over one object).
+            // The FIXED-array twin already had it (`emitArrayVar`, grep
+            // `Array-pattern initializer`); only the leading-unsized shape did
+            // not.  The element-width resize below is unchanged and is what
+            // makes golden's `'{1,2,3}` -> three size-32 constants come out
+            // right for the pattern kinds too; a TAGGED operand is not a
+            // constant, so `'{default:0}` keeps its 64.
             if (auto* dtI9 = sym.getDeclaredType())
                 if (auto* inI9 = dtI9->getInitializer()) {
                     auto& icI9 = stripImplicitConv(*inI9);
-                    if (icI9.kind == ExpressionKind::Concatenation) {
+                    if (icI9.kind == ExpressionKind::Concatenation ||
+                        icI9.kind == ExpressionKind::SimpleAssignmentPattern ||
+                        icI9.kind ==
+                            ExpressionKind::StructuredAssignmentPattern ||
+                        icI9.kind ==
+                            ExpressionKind::ReplicatedAssignmentPattern) {
                         NetMap none9;
                         bool savedSCP9 = suppressConstParent;
                         suppressConstParent = true;
                         if (auto* e9 = emitExpr(icI9, reg, fullName, none9)) {
                             // Bare-decimal elements size to the ELEMENT type
-                            // (`byte` -> 8), not the default 64.
+                            // (`byte` -> 8), not the default 64.  The
+                            // BARE-DECIMAL half of that sentence is the gate
+                            // (`bareDecimalDefault64_31`, EmitHelpers.h) and
+                            // not decoration: this loop used to shrink ANY
+                            // size-64 operand, so `int c[] = {1, 64'd9}` lost
+                            // golden's written 64 on the second element
+                            // (verifier r10vbuvm31, arm gv31a1 cell mw_h).
                             int32_t ew9 = (int32_t)leaf->getBitWidth();
                             if (ew9 > 0 && e9->UhdmType() == UHDM::uhdmoperation)
                                 if (auto* os9 =
                                         ((UHDM::operation*)e9)->Operands())
                                     for (auto* o9 : *os9)
-                                        if (o9->UhdmType() ==
-                                                UHDM::uhdmconstant &&
-                                            ((UHDM::expr*)o9)->VpiSize() == 64)
+                                        if (bareDecimalDefault64_31(o9))
                                             ((UHDM::expr*)o9)->VpiSize(ew9);
                             av->Expr((UHDM::expr*)e9);
                             reg->Expr((UHDM::expr*)e9);
