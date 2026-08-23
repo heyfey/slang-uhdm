@@ -1,0 +1,86 @@
+r10vbuvm30 — GATE BATTERY, RUN BY THE VERIFIER FROM ITS OWN WORKTREES
+=====================================================================
+Base commit 0726167.  Worktrees /tmp/wt_vbuvm30 (patched) and
+/tmp/wt_vbuvm30pris (pristine).  Every sweep used its OWN --out/--workdir and
+an EXPLICITLY exported SLANG_UHDM naming a FROZEN (chmod 555) binary.
+
+BINARIES (all three built by the verifier, -j 2, md5 taken separately)
+  pristine  0726167                        70c97f0137784c3efeb1fdf8050130d0
+  shipped   0726167 + /tmp/r10buvm30.patch  a663c2234783ed907fb4d74f42f5566b
+  verified  shipped + the verifier's fix    d13f0abae6993c6249a9502c3458a943
+The first two md5s REPRODUCE the implementer's report exactly.
+
+CMDS.TXT AUDIT (by binary PATH, not by the string "slang-uhdm")
+  pristine surelog+u2r workdirs: 3035 cmds.txt, 2981 name /tmp/vbuvm30_bin/pris.bin,
+                                 0 name any main-tree binary.
+
+GOLDEN DUMP TESTS (tests/check_goldens.sh, SLANG_UHDM exported per binary)
+  pristine  PASS 23
+  shipped   PASS 23
+  verified  PASS 23   FAIL 0
+  SLANG_UHDM=/bin/false                     FAIL 23   (negative control)
+
+uhdm2rtlil (731 tests, both modes)
+  pristine  testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+            default   679 / 50 / 2
+  shipped   identical histograms
+  verified  identical histograms
+
+surelog (794 tests x 2 modes = 1588 comparable rows)
+  pristine  default   471 CMP_EQUAL / 283 SLANG_REJECT / 25 SURELOG_FAIL / 10 CMP_NOTEQUAL / 5 DEFERRED
+            testflags 466 / 284 / 23 / 9 / 5 (+3 NO_DATABASE, 2 UNTRANSLATABLE, 1 TIMEOUT, 1 NO_UHDM)
+            TOTALS    937 CMP_EQUAL / 19 CMP_NOTEQUAL
+  shipped   937 / 19   (identical, row for row)
+  verified  937 / 19   (identical, row for row)
+  NO ROW CONVERTED.  results/*.csv untouched by the verifier.
+
+ct8rows (whole-row judge: status AND dump column)
+  committed results/gate_uhdm2rtlil.csv  vs shipped  u2r testflags   PASS
+  committed results/gate_uhdm2rtlil.csv  vs verified u2r testflags   PASS
+  verifier's own pristine u2r testflags  vs shipped / verified       PASS / PASS
+  verifier's own pristine u2r default    vs shipped / verified       PASS / PASS
+  committed results/golden_surelog.csv   vs shipped / verified       PASS / PASS
+  verifier's own pristine sl.csv         vs shipped / verified       PASS / PASS
+  shipped sl.csv                         vs verified sl.csv          PASS
+
+byteverify SELFCHECK=1
+  surelog    shipped  vs pristine   MOVERS 9 / 956   PATH_SETS_IDENTICAL
+  surelog    verified vs pristine   MOVERS 9 / 956   PATH_SETS_IDENTICAL (same nine names)
+  uhdm2rtlil shipped  vs pristine   MOVERS 0 / 1358
+  uhdm2rtlil verified vs pristine   MOVERS 0 / 1358
+  The nine are exactly the nine the implementer PREDICTED BY NAME
+  (PREDICT.r10buvm30.txt) before any sweep ran.
+
+ROW HEADS (rowheads.sh; CMPLINES = head-object decompile DEPTH, not distance)
+  TEST          MODE       pristine  shipped  verified
+  SeqDriver     default          46       46        46
+  SeqDriver     testflags        46       46        46
+  SimpleUVM     both             17       17        17
+  Scoreboard    default          42      565       565
+  MiniAmiq      both            348      348       348
+  BuildUVMPkg   default          42       46        46
+  BuildUVMPkg   testflags        42       46        46
+  Earlgrey_0_1  both             36       36        36
+  Rggen         default     CMP_EQUAL (0 heads) in all three
+  The four head .cmp logs committed in r10buvm30repro reproduce BYTE-IDENTICAL
+  from the verifier's own sweeps, and every head log of the verified binary is
+  byte-identical to the shipped binary's.
+
+CANARIES
+  canaries.sh  surelog     ok=52 changed=0 absent=0   (shipped and verified)
+  canaries.sh  uhdm2rtlil  ok=8  changed=0 absent=0   (shipped and verified)
+  ctcan2.sh    EXPECT_UNKNOWN=1 surelog     PASS x2
+  ctcan2.sh    EXPECT_UNKNOWN=6 uhdm2rtlil  PASS x2
+  canaudit.sh  (from r10buvm30repro AND from r10vbuvm30repro)   PASS
+  PROTECTED DATABASES, pristine vs verified, md5 (first 12):
+    InterfaceModPort   59a365f3ce2c = 59a365f3ce2c  (both modes)
+    BlackParrotComplex e3e354129d5a = e3e354129d5a  (default)
+                       73a10e8217e5 = 73a10e8217e5  (testflags)
+    YosysOldOr         d68e0796d62c = d68e0796d62c  (both modes)
+    SVSwitch           4842211c4030   PINNED, both modes
+    YosysVerx          6ccda350c24a   PINNED, both modes
+
+WIDE BOUNDARY (vbound30.sh, verified vs pristine)
+  LISTED=3433 FENCED_SKIPPED=0 PROCESSED=3433 MOVED=34 NO_OUTPUT_PAIRS=276
+  PROCESSED-ASSERT-OK, rc compared per cell (0 RC_MISMATCH, 0 ASYMMETRIC_OUTPUT).
+  See BOUNDARY.r10vbuvm30.txt.

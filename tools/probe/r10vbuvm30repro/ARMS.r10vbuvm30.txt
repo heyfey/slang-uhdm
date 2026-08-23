@@ -1,0 +1,403 @@
+=== SHIPPED PATCH (a663c2234783ed907fb4d74f42f5566b) vs PRISTINE (70c97f0137784c3efeb1fdf8050130d0)
+vg30_a_positions/def heads=1/1 AGREE_pris=127 AGREE_pat=134 GOLDEN=162 PRIS=167 PAT=152 LOST=4 GAIN=11 NEWMINT=4
+  REGRESS[1] uhdmtopPackages	24:49-24:51	operation	ts=0 vpiOpType=1	par=part_select	slot=vpiLeftRange
+  REGRESS[1] uhdmtopPackages	24:50-24:51	constant	VAL=UINT:1 ts=0 vpiConstType=9 vpiDecompile=1 vpiSize=64	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	24:54-24:56	operation	ts=0 vpiOpType=1	par=part_select	slot=vpiRightRange
+  REGRESS[1] uhdmtopPackages	24:55-24:56	constant	VAL=UINT:2 ts=0 vpiConstType=9 vpiDecompile=2 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	23:49-23:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=indexed_part_select	slot=vpiBaseExpr
+  IMPROVE[1] uhdmtopPackages	25:51-25:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	26:49-26:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:60-27:61	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	28:68-28:69	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	31:60-31:61	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	32:57-32:58	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	32:73-32:74	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	33:49-33:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=bit_select	slot=vpiIndex
+  IMPROVE[1] uhdmtopPackages	34:58-34:59	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	35:56-35:57	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	24:49-24:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=part_select	slot=vpiLeftRange
+  NEWMINT[1] uhdmtopPackages	24:54-24:55	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=part_select	slot=vpiRightRange
+  NEWMINT[1] uhdmtopPackages	29:48-29:49	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	30:58-30:59	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_a_positions/elab heads=1/1 AGREE_pris=129 AGREE_pat=135 GOLDEN=300 PRIS=312 PAT=294 LOST=5 GAIN=11 NEWMINT=17
+  REGRESS[1] uhdmtopPackages	24:49-24:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=part_select	slot=vpiLeftRange
+  REGRESS[1] uhdmtopPackages	24:54-24:56	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=part_select	slot=vpiRightRange
+  REGRESS[1] uhdmtopPackages	27:60-27:62	operation	ts=0 vpiOpType=1	par=method_func_call	slot=vpiArgument
+  REGRESS[1] uhdmtopPackages	32:57-32:59	operation	ts=0 vpiOpType=1	par=method_func_call	slot=vpiArgument
+  REGRESS[1] uhdmtopPackages	32:73-32:75	operation	ts=0 vpiOpType=1	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	23:49-23:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=indexed_part_select	slot=vpiBaseExpr
+  IMPROVE[1] uhdmtopPackages	25:51-25:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	26:49-26:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:60-27:61	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	28:68-28:69	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	31:60-31:61	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	32:57-32:58	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	32:73-32:74	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	33:49-33:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=bit_select	slot=vpiIndex
+  IMPROVE[1] uhdmtopPackages	34:58-34:59	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	35:56-35:57	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	23:49-23:50	constant	ts=0	par=indexed_part_select	slot=vpiBaseExpr
+  NEWMINT[1] uhdmallClasses	24:49-24:50	constant	ts=0	par=part_select	slot=vpiLeftRange
+  NEWMINT[1] uhdmallClasses	24:54-24:55	constant	ts=0	par=part_select	slot=vpiRightRange
+  NEWMINT[1] uhdmallClasses	25:51-25:52	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	26:49-26:50	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	27:60-27:61	constant	ts=0	par=method_func_call	slot=vpiArgument
+  NEWMINT[1] uhdmallClasses	28:68-28:69	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	29:48-29:49	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	30:58-30:59	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	31:60-31:61	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	32:57-32:58	constant	ts=0	par=method_func_call	slot=vpiArgument
+  NEWMINT[1] uhdmallClasses	32:73-32:74	constant	ts=0	par=method_func_call	slot=vpiArgument
+  NEWMINT[1] uhdmallClasses	33:49-33:50	constant	ts=0	par=bit_select	slot=vpiIndex
+  NEWMINT[1] uhdmallClasses	34:58-34:59	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	35:56-35:57	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	24:49-24:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=part_select	slot=vpiLeftRange
+  NEWMINT[1] uhdmtopPackages	24:54-24:55	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=part_select	slot=vpiRightRange
+vg30_b_homes/def heads=1/1 AGREE_pris=65 AGREE_pat=66 GOLDEN=69 PRIS=84 PAT=80 LOST=0 GAIN=1 NEWMINT=3
+  IMPROVE[1] uhdmtopPackages	7:44-7:45	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	10:47-10:48	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	8:39-8:40	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	9:50-9:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_b_homes/elab heads=1/1 AGREE_pris=117 AGREE_pat=119 GOLDEN=125 PRIS=143 PAT=139 LOST=0 GAIN=2 NEWMINT=3
+  IMPROVE[1] uhdmtopModules	7:44-7:45	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	7:44-7:45	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopModules	10:47-10:48	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopModules	8:39-8:40	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopModules	9:50-9:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_c_values/def heads=1/1 AGREE_pris=97 AGREE_pat=104 GOLDEN=111 PRIS=127 PAT=116 LOST=2 GAIN=9 NEWMINT=2
+  REGRESS[1] uhdmtopPackages	20:52-20:76	operation	ts=0 vpiOpType=1	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	20:53-20:76	constant	VAL=DEC:9223372036854775808 ts=0 vpiConstType=1 vpiDecompile=64'd9223372036854775808 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	18:52-18:53	constant	VAL=INT:0 ts=0 vpiConstType=7 vpiDecompile=0 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:52-22:53	constant	VAL=INT:-128 ts=0 vpiConstType=7 vpiDecompile=-128 vpiSize=8	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	23:52-23:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	24:52-24:53	constant	VAL=INT:-7 ts=0 vpiConstType=7 vpiDecompile=-7 vpiSize=-1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	25:52-25:53	constant	VAL=INT:-2147483648 ts=0 vpiConstType=7 vpiDecompile=-2147483648 vpiSize=32	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	26:52-26:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:52-27:53	constant	VAL=INT:-2048 ts=0 vpiConstType=7 vpiDecompile=-2048 vpiSize=12	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	28:52-28:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=-1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	29:52-29:53	constant	VAL=INT:-1000 ts=0 vpiConstType=7 vpiDecompile=-1000 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	19:52-19:53	constant	VAL=INT:0 ts=0 vpiConstType=7 vpiDecompile=-18446744073709551615 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	20:52-20:53	constant	VAL=INT:-9223372036854775808 ts=0 vpiConstType=7 vpiDecompile=-9223372036854775808 vpiSize=64	par=operation	slot=vpiOperand
+vg30_c_values/elab heads=1/1 AGREE_pris=97 AGREE_pat=104 GOLDEN=220 PRIS=239 PAT=227 LOST=2 GAIN=9 NEWMINT=13
+  REGRESS[1] uhdmtopPackages	20:52-20:76	operation	ts=0 vpiOpType=1	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	20:53-20:76	constant	VAL=DEC:9223372036854775808 ts=0 vpiConstType=1 vpiDecompile=64'd9223372036854775808 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	18:52-18:53	constant	VAL=INT:0 ts=0 vpiConstType=7 vpiDecompile=0 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:52-22:53	constant	VAL=INT:-128 ts=0 vpiConstType=7 vpiDecompile=-128 vpiSize=8	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	23:52-23:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	24:52-24:53	constant	VAL=INT:-7 ts=0 vpiConstType=7 vpiDecompile=-7 vpiSize=-1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	25:52-25:53	constant	VAL=INT:-2147483648 ts=0 vpiConstType=7 vpiDecompile=-2147483648 vpiSize=32	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	26:52-26:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:52-27:53	constant	VAL=INT:-2048 ts=0 vpiConstType=7 vpiDecompile=-2048 vpiSize=12	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	28:52-28:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=-1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	29:52-29:53	constant	VAL=INT:-1000 ts=0 vpiConstType=7 vpiDecompile=-1000 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	18:52-18:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	19:52-19:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	20:52-20:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	22:52-22:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	23:52-23:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	24:52-24:53	constant	VAL=INT:-7 ts=0 vpiConstType=7 vpiDecompile=-7 vpiSize=-1	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	25:52-25:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	26:52-26:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	27:52-27:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	28:52-28:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=-1	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	29:52-29:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	19:52-19:53	constant	VAL=INT:0 ts=0 vpiConstType=7 vpiDecompile=-18446744073709551615 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	20:52-20:53	constant	VAL=INT:-9223372036854775808 ts=0 vpiConstType=7 vpiDecompile=-9223372036854775808 vpiSize=64	par=operation	slot=vpiOperand
+vg30_d_import/def heads=1/1 AGREE_pris=20 AGREE_pat=22 GOLDEN=22 PRIS=29 PAT=27 LOST=0 GAIN=2 NEWMINT=0
+  IMPROVE[1] uhdmtopPackages	7:48-7:49	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	8:43-8:44	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_d_import/elab heads=1/1 AGREE_pris=66 AGREE_pat=76 GOLDEN=76 PRIS=86 PAT=84 LOST=0 GAIN=10 NEWMINT=0
+  IMPROVE[1] uhdmallModules	7:48-7:49	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmallModules	8:43-8:44	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[3] uhdmtopModules	7:48-7:49	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[3] uhdmtopModules	8:43-8:44	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	7:48-7:49	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	8:43-8:44	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_e_targets/def heads=1/1 AGREE_pris=72 AGREE_pat=81 GOLDEN=104 PRIS=120 PAT=110 LOST=0 GAIN=9 NEWMINT=1
+  IMPROVE[1] uhdmtopPackages	20:51-20:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	21:51-21:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:51-22:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:57-22:58	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:62-22:63	constant	VAL=INT:-3 ts=0 vpiConstType=7 vpiDecompile=-3 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	24:50-24:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	25:50-25:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	26:51-26:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:51-27:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	19:51-19:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_e_targets/elab heads=1/1 AGREE_pris=73 AGREE_pat=82 GOLDEN=182 PRIS=201 PAT=191 LOST=0 GAIN=9 NEWMINT=10
+  IMPROVE[1] uhdmtopPackages	20:51-20:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	21:51-21:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:51-22:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:57-22:58	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:62-22:63	constant	VAL=INT:-3 ts=0 vpiConstType=7 vpiDecompile=-3 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	24:50-24:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	25:50-25:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	26:51-26:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:51-27:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	19:51-19:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	20:51-20:52	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	21:51-21:52	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	22:51-22:52	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	22:57-22:58	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	22:62-22:63	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	24:50-24:51	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	25:50-25:51	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	26:51-26:52	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	27:51-27:52	constant	ts=0	par=operation	slot=vpiOperand
+vg30_f_fence/def heads=1/1 AGREE_pris=68 AGREE_pat=69 GOLDEN=77 PRIS=103 PAT=102 LOST=0 GAIN=1 NEWMINT=0
+  IMPROVE[1] uhdmtopPackages	16:62-16:63	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+vg30_f_fence/elab heads=1/1 AGREE_pris=75 AGREE_pat=76 GOLDEN=164 PRIS=186 PAT=185 LOST=0 GAIN=1 NEWMINT=1
+  IMPROVE[1] uhdmtopPackages	16:62-16:63	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	16:62-16:63	constant	ts=0	par=operation	slot=vpiOperand
+vg30_g_ctrl/def heads=1/1 AGREE_pris=98 AGREE_pat=100 GOLDEN=100 PRIS=107 PAT=105 LOST=0 GAIN=2 NEWMINT=0
+  IMPROVE[1] uhdmtopPackages	23:18-23:19	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	33:18-33:19	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+vg30_g_ctrl/elab heads=1/1 AGREE_pris=92 AGREE_pat=94 GOLDEN=194 PRIS=204 PAT=202 LOST=0 GAIN=2 NEWMINT=2
+  IMPROVE[1] uhdmtopPackages	23:18-23:19	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	33:18-33:19	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	23:18-23:19	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	33:18-33:19	constant	ts=0	par=operation	slot=vpiOperand
+vg30_h_macro/def heads=1/1 AGREE_pris=70 AGREE_pat=72 GOLDEN=86 PRIS=95 PAT=93 LOST=0 GAIN=2 NEWMINT=0
+  IMPROVE[1] uhdmtopPackages	14:50-14:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	15:50-15:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_h_macro/elab heads=1/1 AGREE_pris=130 AGREE_pat=138 GOLDEN=156 PRIS=168 PAT=166 LOST=0 GAIN=8 NEWMINT=0
+  IMPROVE[1] uhdmallModules	14:50-14:51	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmallModules	15:50-15:51	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[2] uhdmtopModules	14:50-14:51	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[2] uhdmtopModules	15:50-15:51	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	14:50-14:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	15:50-15:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_i_digits/def heads=1/1 AGREE_pris=97 AGREE_pat=90 GOLDEN=107 PRIS=119 PAT=107 LOST=10 GAIN=3 NEWMINT=9
+  REGRESS[1] uhdmtopPackages	22:48-22:74	operation	ts=0 vpiOpType=1	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	22:49-22:74	constant	VAL=HEX:FFFFFFFFFFFFFFFFFFFF ts=0 vpiConstType=5 vpiDecompile=128'hFFFFFFFFFFFFFFFFFFFF vpiSize=128	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	23:48-23:54	operation	ts=0 vpiOpType=1	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	23:49-23:54	constant	VAL=BIN:1 ts=0 vpiConstType=3 vpiDecompile=70'b1 vpiSize=70	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	25:48-25:54	operation	ts=0 vpiOpType=1	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	25:49-25:54	constant	VAL=HEX:1 ts=0 vpiConstType=5 vpiDecompile=68'h1 vpiSize=68	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	26:45-26:47	operation	ts=0 vpiOpType=1	par=part_select	slot=vpiLeftRange
+  REGRESS[1] uhdmtopPackages	26:46-26:47	constant	VAL=UINT:1 ts=0 vpiConstType=9 vpiDecompile=1 vpiSize=64	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	26:50-26:52	operation	ts=0 vpiOpType=1	par=part_select	slot=vpiRightRange
+  REGRESS[1] uhdmtopPackages	26:51-26:52	constant	VAL=UINT:2 ts=0 vpiConstType=9 vpiDecompile=2 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	21:48-21:49	constant	VAL=INT:-1000 ts=0 vpiConstType=7 vpiDecompile=-1000 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	24:48-24:49	constant	VAL=INT:-5 ts=0 vpiConstType=7 vpiDecompile=-5 vpiSize=128	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:45-27:46	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=indexed_part_select	slot=vpiBaseExpr
+  NEWMINT[1] uhdmtopPackages	17:48-17:49	constant	VAL=INT:-4 ts=0 vpiConstType=7 vpiDecompile=-4 vpiSize=4	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	18:48-18:49	constant	VAL=INT:-15 ts=0 vpiConstType=7 vpiDecompile=-15 vpiSize=4	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	19:48-19:49	constant	VAL=INT:-3 ts=0 vpiConstType=7 vpiDecompile=-3 vpiSize=2	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	20:48-20:49	constant	VAL=INT:-7 ts=0 vpiConstType=7 vpiDecompile=-7 vpiSize=3	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	22:48-22:49	constant	VAL=INT:0 ts=0 vpiConstType=7 vpiDecompile=-1208925819614629174706175 vpiSize=128	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	23:48-23:49	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=70	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	25:48-25:49	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=68	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	26:45-26:46	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=part_select	slot=vpiLeftRange
+  NEWMINT[1] uhdmtopPackages	26:50-26:51	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=part_select	slot=vpiRightRange
+vg30_i_digits/elab heads=1/1 AGREE_pris=95 AGREE_pat=90 GOLDEN=210 PRIS=225 PAT=210 LOST=8 GAIN=3 NEWMINT=21
+  REGRESS[1] uhdmtopPackages	22:48-22:74	operation	ts=0 vpiOpType=1	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	22:49-22:74	constant	VAL=HEX:FFFFFFFFFFFFFFFFFFFF ts=0 vpiConstType=5 vpiDecompile=128'hFFFFFFFFFFFFFFFFFFFF vpiSize=128	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	23:48-23:54	operation	ts=0 vpiOpType=1	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	23:49-23:54	constant	VAL=BIN:1 ts=0 vpiConstType=3 vpiDecompile=70'b1 vpiSize=70	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	25:48-25:54	operation	ts=0 vpiOpType=1	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	25:49-25:54	constant	VAL=HEX:1 ts=0 vpiConstType=5 vpiDecompile=68'h1 vpiSize=68	par=operation	slot=vpiOperand
+  REGRESS[1] uhdmtopPackages	26:45-26:47	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=part_select	slot=vpiLeftRange
+  REGRESS[1] uhdmtopPackages	26:50-26:52	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=part_select	slot=vpiRightRange
+  IMPROVE[1] uhdmtopPackages	21:48-21:49	constant	VAL=INT:-1000 ts=0 vpiConstType=7 vpiDecompile=-1000 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	24:48-24:49	constant	VAL=INT:-5 ts=0 vpiConstType=7 vpiDecompile=-5 vpiSize=128	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:45-27:46	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=indexed_part_select	slot=vpiBaseExpr
+  NEWMINT[1] uhdmallClasses	17:48-17:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	18:48-18:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	19:48-19:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	20:48-20:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	21:48-21:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	22:48-22:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	23:48-23:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	24:48-24:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	25:48-25:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	26:45-26:46	constant	ts=0	par=part_select	slot=vpiLeftRange
+  NEWMINT[1] uhdmallClasses	26:50-26:51	constant	ts=0	par=part_select	slot=vpiRightRange
+  NEWMINT[1] uhdmallClasses	27:45-27:46	constant	ts=0	par=indexed_part_select	slot=vpiBaseExpr
+  NEWMINT[1] uhdmtopPackages	17:48-17:49	constant	VAL=INT:-4 ts=0 vpiConstType=7 vpiDecompile=-4 vpiSize=4	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	18:48-18:49	constant	VAL=INT:-15 ts=0 vpiConstType=7 vpiDecompile=-15 vpiSize=4	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	19:48-19:49	constant	VAL=INT:-3 ts=0 vpiConstType=7 vpiDecompile=-3 vpiSize=2	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	20:48-20:49	constant	VAL=INT:-7 ts=0 vpiConstType=7 vpiDecompile=-7 vpiSize=3	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	22:48-22:49	constant	VAL=INT:0 ts=0 vpiConstType=7 vpiDecompile=-1208925819614629174706175 vpiSize=128	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	23:48-23:49	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=70	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	25:48-25:49	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=68	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	26:45-26:46	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=part_select	slot=vpiLeftRange
+  NEWMINT[1] uhdmtopPackages	26:50-26:51	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=part_select	slot=vpiRightRange
+LISTED=9 PROCESSED=9
+PROCESSED-ASSERT-OK
+
+=== VERIFIED PATCH (d13f0abae6993c6249a9502c3458a943) vs PRISTINE
+vg30_a_positions/def heads=1/1 AGREE_pris=127 AGREE_pat=138 GOLDEN=162 PRIS=167 PAT=154 LOST=0 GAIN=11 NEWMINT=2
+  IMPROVE[1] uhdmtopPackages	23:49-23:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=indexed_part_select	slot=vpiBaseExpr
+  IMPROVE[1] uhdmtopPackages	25:51-25:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	26:49-26:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:60-27:61	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	28:68-28:69	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	31:60-31:61	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	32:57-32:58	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	32:73-32:74	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	33:49-33:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=bit_select	slot=vpiIndex
+  IMPROVE[1] uhdmtopPackages	34:58-34:59	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	35:56-35:57	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	29:48-29:49	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	30:58-30:59	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_a_positions/elab heads=1/1 AGREE_pris=129 AGREE_pat=137 GOLDEN=300 PRIS=312 PAT=296 LOST=3 GAIN=11 NEWMINT=13
+  REGRESS[1] uhdmtopPackages	27:60-27:62	operation	ts=0 vpiOpType=1	par=method_func_call	slot=vpiArgument
+  REGRESS[1] uhdmtopPackages	32:57-32:59	operation	ts=0 vpiOpType=1	par=method_func_call	slot=vpiArgument
+  REGRESS[1] uhdmtopPackages	32:73-32:75	operation	ts=0 vpiOpType=1	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	23:49-23:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=indexed_part_select	slot=vpiBaseExpr
+  IMPROVE[1] uhdmtopPackages	25:51-25:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	26:49-26:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:60-27:61	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	28:68-28:69	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	31:60-31:61	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	32:57-32:58	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	32:73-32:74	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=method_func_call	slot=vpiArgument
+  IMPROVE[1] uhdmtopPackages	33:49-33:50	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=bit_select	slot=vpiIndex
+  IMPROVE[1] uhdmtopPackages	34:58-34:59	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	35:56-35:57	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	23:49-23:50	constant	ts=0	par=indexed_part_select	slot=vpiBaseExpr
+  NEWMINT[1] uhdmallClasses	25:51-25:52	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	26:49-26:50	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	27:60-27:61	constant	ts=0	par=method_func_call	slot=vpiArgument
+  NEWMINT[1] uhdmallClasses	28:68-28:69	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	29:48-29:49	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	30:58-30:59	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	31:60-31:61	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	32:57-32:58	constant	ts=0	par=method_func_call	slot=vpiArgument
+  NEWMINT[1] uhdmallClasses	32:73-32:74	constant	ts=0	par=method_func_call	slot=vpiArgument
+  NEWMINT[1] uhdmallClasses	33:49-33:50	constant	ts=0	par=bit_select	slot=vpiIndex
+  NEWMINT[1] uhdmallClasses	34:58-34:59	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	35:56-35:57	constant	ts=0	par=operation	slot=vpiOperand
+vg30_b_homes/def heads=1/1 AGREE_pris=65 AGREE_pat=66 GOLDEN=69 PRIS=84 PAT=80 LOST=0 GAIN=1 NEWMINT=3
+  IMPROVE[1] uhdmtopPackages	7:44-7:45	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	10:47-10:48	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	8:39-8:40	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	9:50-9:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_b_homes/elab heads=1/1 AGREE_pris=117 AGREE_pat=119 GOLDEN=125 PRIS=143 PAT=139 LOST=0 GAIN=2 NEWMINT=3
+  IMPROVE[1] uhdmtopModules	7:44-7:45	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	7:44-7:45	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopModules	10:47-10:48	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopModules	8:39-8:40	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopModules	9:50-9:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_c_values/def heads=1/1 AGREE_pris=97 AGREE_pat=107 GOLDEN=111 PRIS=127 PAT=117 LOST=0 GAIN=10 NEWMINT=0
+  IMPROVE[1] uhdmtopPackages	18:52-18:53	constant	VAL=INT:0 ts=0 vpiConstType=7 vpiDecompile=0 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	19:52-19:53	constant	VAL=INT:1 ts=0 vpiConstType=7 vpiDecompile=1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:52-22:53	constant	VAL=INT:-128 ts=0 vpiConstType=7 vpiDecompile=-128 vpiSize=8	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	23:52-23:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	24:52-24:53	constant	VAL=INT:-7 ts=0 vpiConstType=7 vpiDecompile=-7 vpiSize=-1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	25:52-25:53	constant	VAL=INT:-2147483648 ts=0 vpiConstType=7 vpiDecompile=-2147483648 vpiSize=32	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	26:52-26:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:52-27:53	constant	VAL=INT:-2048 ts=0 vpiConstType=7 vpiDecompile=-2048 vpiSize=12	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	28:52-28:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=-1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	29:52-29:53	constant	VAL=INT:-1000 ts=0 vpiConstType=7 vpiDecompile=-1000 vpiSize=64	par=operation	slot=vpiOperand
+vg30_c_values/elab heads=1/1 AGREE_pris=97 AGREE_pat=107 GOLDEN=220 PRIS=239 PAT=229 LOST=0 GAIN=10 NEWMINT=10
+  IMPROVE[1] uhdmtopPackages	18:52-18:53	constant	VAL=INT:0 ts=0 vpiConstType=7 vpiDecompile=0 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	19:52-19:53	constant	VAL=INT:1 ts=0 vpiConstType=7 vpiDecompile=1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:52-22:53	constant	VAL=INT:-128 ts=0 vpiConstType=7 vpiDecompile=-128 vpiSize=8	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	23:52-23:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	24:52-24:53	constant	VAL=INT:-7 ts=0 vpiConstType=7 vpiDecompile=-7 vpiSize=-1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	25:52-25:53	constant	VAL=INT:-2147483648 ts=0 vpiConstType=7 vpiDecompile=-2147483648 vpiSize=32	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	26:52-26:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:52-27:53	constant	VAL=INT:-2048 ts=0 vpiConstType=7 vpiDecompile=-2048 vpiSize=12	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	28:52-28:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=-1	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	29:52-29:53	constant	VAL=INT:-1000 ts=0 vpiConstType=7 vpiDecompile=-1000 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	18:52-18:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	19:52-19:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	22:52-22:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	23:52-23:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	24:52-24:53	constant	VAL=INT:-7 ts=0 vpiConstType=7 vpiDecompile=-7 vpiSize=-1	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	25:52-25:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	26:52-26:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	27:52-27:53	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	28:52-28:53	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=-1	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	29:52-29:53	constant	ts=0	par=operation	slot=vpiOperand
+vg30_d_import/def heads=1/1 AGREE_pris=20 AGREE_pat=22 GOLDEN=22 PRIS=29 PAT=27 LOST=0 GAIN=2 NEWMINT=0
+  IMPROVE[1] uhdmtopPackages	7:48-7:49	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	8:43-8:44	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_d_import/elab heads=1/1 AGREE_pris=66 AGREE_pat=76 GOLDEN=76 PRIS=86 PAT=84 LOST=0 GAIN=10 NEWMINT=0
+  IMPROVE[1] uhdmallModules	7:48-7:49	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmallModules	8:43-8:44	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[3] uhdmtopModules	7:48-7:49	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[3] uhdmtopModules	8:43-8:44	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	7:48-7:49	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	8:43-8:44	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_e_targets/def heads=1/1 AGREE_pris=72 AGREE_pat=81 GOLDEN=104 PRIS=120 PAT=110 LOST=0 GAIN=9 NEWMINT=1
+  IMPROVE[1] uhdmtopPackages	20:51-20:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	21:51-21:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:51-22:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:57-22:58	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:62-22:63	constant	VAL=INT:-3 ts=0 vpiConstType=7 vpiDecompile=-3 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	24:50-24:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	25:50-25:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	26:51-26:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:51-27:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmtopPackages	19:51-19:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_e_targets/elab heads=1/1 AGREE_pris=73 AGREE_pat=82 GOLDEN=182 PRIS=201 PAT=191 LOST=0 GAIN=9 NEWMINT=10
+  IMPROVE[1] uhdmtopPackages	20:51-20:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	21:51-21:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:51-22:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:57-22:58	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	22:62-22:63	constant	VAL=INT:-3 ts=0 vpiConstType=7 vpiDecompile=-3 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	24:50-24:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	25:50-25:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	26:51-26:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:51-27:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	19:51-19:52	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	20:51-20:52	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	21:51-21:52	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	22:51-22:52	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	22:57-22:58	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	22:62-22:63	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	24:50-24:51	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	25:50-25:51	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	26:51-26:52	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	27:51-27:52	constant	ts=0	par=operation	slot=vpiOperand
+vg30_f_fence/def heads=1/1 AGREE_pris=68 AGREE_pat=69 GOLDEN=77 PRIS=103 PAT=102 LOST=0 GAIN=1 NEWMINT=0
+  IMPROVE[1] uhdmtopPackages	16:62-16:63	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+vg30_f_fence/elab heads=1/1 AGREE_pris=75 AGREE_pat=76 GOLDEN=164 PRIS=186 PAT=185 LOST=0 GAIN=1 NEWMINT=1
+  IMPROVE[1] uhdmtopPackages	16:62-16:63	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	16:62-16:63	constant	ts=0	par=operation	slot=vpiOperand
+vg30_g_ctrl/def heads=1/1 AGREE_pris=98 AGREE_pat=100 GOLDEN=100 PRIS=107 PAT=105 LOST=0 GAIN=2 NEWMINT=0
+  IMPROVE[1] uhdmtopPackages	23:18-23:19	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	33:18-33:19	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+vg30_g_ctrl/elab heads=1/1 AGREE_pris=92 AGREE_pat=94 GOLDEN=194 PRIS=204 PAT=202 LOST=0 GAIN=2 NEWMINT=2
+  IMPROVE[1] uhdmtopPackages	23:18-23:19	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	33:18-33:19	constant	VAL=INT:-2 ts=0 vpiConstType=7 vpiDecompile=-2 vpiSize=64	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	23:18-23:19	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	33:18-33:19	constant	ts=0	par=operation	slot=vpiOperand
+vg30_h_macro/def heads=1/1 AGREE_pris=70 AGREE_pat=72 GOLDEN=86 PRIS=95 PAT=93 LOST=0 GAIN=2 NEWMINT=0
+  IMPROVE[1] uhdmtopPackages	14:50-14:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	15:50-15:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_h_macro/elab heads=1/1 AGREE_pris=130 AGREE_pat=138 GOLDEN=156 PRIS=168 PAT=166 LOST=0 GAIN=8 NEWMINT=0
+  IMPROVE[1] uhdmallModules	14:50-14:51	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmallModules	15:50-15:51	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[2] uhdmtopModules	14:50-14:51	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[2] uhdmtopModules	15:50-15:51	constant	ts=0	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	14:50-14:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	15:50-15:51	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=operation	slot=vpiOperand
+vg30_i_digits/def heads=1/1 AGREE_pris=97 AGREE_pat=104 GOLDEN=107 PRIS=119 PAT=112 LOST=0 GAIN=7 NEWMINT=0
+  IMPROVE[1] uhdmtopPackages	17:48-17:49	constant	VAL=INT:-20 ts=0 vpiConstType=7 vpiDecompile=-20 vpiSize=4	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	18:48-18:49	constant	VAL=INT:-255 ts=0 vpiConstType=7 vpiDecompile=-255 vpiSize=4	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	19:48-19:49	constant	VAL=INT:-15 ts=0 vpiConstType=7 vpiDecompile=-15 vpiSize=2	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	20:48-20:49	constant	VAL=INT:-63 ts=0 vpiConstType=7 vpiDecompile=-63 vpiSize=3	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	21:48-21:49	constant	VAL=INT:-1000 ts=0 vpiConstType=7 vpiDecompile=-1000 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	24:48-24:49	constant	VAL=INT:-5 ts=0 vpiConstType=7 vpiDecompile=-5 vpiSize=128	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:45-27:46	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=indexed_part_select	slot=vpiBaseExpr
+vg30_i_digits/elab heads=1/1 AGREE_pris=95 AGREE_pat=102 GOLDEN=210 PRIS=225 PAT=218 LOST=0 GAIN=7 NEWMINT=7
+  IMPROVE[1] uhdmtopPackages	17:48-17:49	constant	VAL=INT:-20 ts=0 vpiConstType=7 vpiDecompile=-20 vpiSize=4	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	18:48-18:49	constant	VAL=INT:-255 ts=0 vpiConstType=7 vpiDecompile=-255 vpiSize=4	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	19:48-19:49	constant	VAL=INT:-15 ts=0 vpiConstType=7 vpiDecompile=-15 vpiSize=2	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	20:48-20:49	constant	VAL=INT:-63 ts=0 vpiConstType=7 vpiDecompile=-63 vpiSize=3	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	21:48-21:49	constant	VAL=INT:-1000 ts=0 vpiConstType=7 vpiDecompile=-1000 vpiSize=64	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	24:48-24:49	constant	VAL=INT:-5 ts=0 vpiConstType=7 vpiDecompile=-5 vpiSize=128	par=operation	slot=vpiOperand
+  IMPROVE[1] uhdmtopPackages	27:45-27:46	constant	VAL=INT:-1 ts=0 vpiConstType=7 vpiDecompile=-1 vpiSize=64	par=indexed_part_select	slot=vpiBaseExpr
+  NEWMINT[1] uhdmallClasses	17:48-17:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	18:48-18:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	19:48-19:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	20:48-20:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	21:48-21:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	24:48-24:49	constant	ts=0	par=operation	slot=vpiOperand
+  NEWMINT[1] uhdmallClasses	27:45-27:46	constant	ts=0	par=indexed_part_select	slot=vpiBaseExpr
+LISTED=9 PROCESSED=9
+PROCESSED-ASSERT-OK

@@ -8,6 +8,9 @@
 
 #include <uhdm/uhdm.h>
 
+#include <algorithm>
+#include <cctype>
+#include <charconv>
 #include <functional>
 
 #include "slang/ast/ASTVisitor.h"
@@ -2653,6 +2656,121 @@ inline bool isLiteralExpr(const Expression& e) {
            c.kind == ExpressionKind::StringLiteral ||
            c.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral ||
            c.kind == ExpressionKind::UnboundedLiteral;
+}
+
+// § negLitPkgRetFoldNested30 / VERIFIER FIX (r10vbuvm30) — Surelog does not
+// negate the literal's VALUE: `ExprEval::reduceExpr`'s `vpiMinusOp` arm
+// negates `get_value()` OF THE CONSTANT Surelog built, and REFUSES the fold
+// entirely when that call sets `invalidValue`.  `get_value` (UHDM
+// templates/ExprEval.cpp:1946) parses the constant's `VpiValue` DIGIT STRING
+// — never the width-truncated value — and carries two refusals that decide
+// whether golden folds AT ALL:
+//   * `vpiDecConst` (a based `'d`, and a bare decimal too long for uint64):
+//     the digits go through the STRICT int64 `NumUtils::parseInt64`, so
+//     `-64'd9223372036854775808` does NOT fold; there is NO size check, so
+//     `-128'd5` DOES (to -5, at size 128).
+//   * `vpiBinaryConst` / `vpiOctConst` / `vpiHexConst`: `VpiSize() > 64`
+//     refuses outright — `-70'b1`, `-68'h1`, `-128'hFFFFFFFFFFFFFFFFFFFF` all
+//     stay unary-minus OPERATIONS in golden — and otherwise the digits are
+//     parsed LENIENTLY (int64 first, then uint64 cast down), so
+//     `-64'hFFFFFFFFFFFFFFFF` reads as -1 and golden's fold is `INT:1`.
+// Because the digits are read UNTRUNCATED, `-4'd20` folds to -20 (not -4),
+// `-4'hFF` to -255, `-2'b1111` to -15 and `-3'o77` to -63.  All measured on
+// golden: tools/probe/r10vbuvm30repro/vg30_i_digits.sv and vg30_c_values.sv.
+//
+// `raw` is the literal's source text (`rawTextLit`), `bitWidth` its slang
+// type width (what the constant's `VpiSize` is built from) and `dec` the
+// literal's own value rendered as an UNSIGNED decimal — the bare-decimal
+// arm's digits, where Surelog's own constant is a `vpiUIntConst` read with
+// the lenient parser.  Returns false ⇒ `get_value` would be invalid ⇒ NO FOLD.
+inline bool srlgNegLitGetValue30(std::string raw, int32_t bitWidth,
+                                 const std::string& dec, int64_t& out) {
+    // NumUtils::internal::strToInt — signed first, then unsigned, cast down.
+    auto lenient = [](std::string_view s, int32_t base, int64_t& r) {
+        while (!s.empty() && (s.front() == ' ' || s.front() == '\t'))
+            s.remove_prefix(1);
+        if (!s.empty() && s.front() == '+')
+            s.remove_prefix(1);
+        if (s.empty())
+            return false;
+        int64_t sn = 0;
+        auto pr = std::from_chars(s.data(), s.data() + s.size(), sn, base);
+        if (pr.ec == std::errc()) {
+            r = sn;
+            return true;
+        }
+        if (s.front() != '-' && pr.ec == std::errc::result_out_of_range) {
+            uint64_t un = 0;
+            auto pu = std::from_chars(s.data(), s.data() + s.size(), un, base);
+            if (pu.ec == std::errc()) {
+                r = (int64_t)un;
+                return true;
+            }
+        }
+        return false;
+    };
+    // NumUtils::parseInt64 — strToNum, strictly int64.
+    auto strict = [](std::string_view s, int64_t& r) {
+        while (!s.empty() && (s.front() == ' ' || s.front() == '\t'))
+            s.remove_prefix(1);
+        if (!s.empty() && s.front() == '+')
+            s.remove_prefix(1);
+        if (s.empty())
+            return false;
+        auto pr = std::from_chars(s.data(), s.data() + s.size(), r, 10);
+        return pr.ec == std::errc();
+    };
+    raw.erase(std::remove_if(raw.begin(), raw.end(),
+                             [](unsigned char c) { return std::isspace(c); }),
+              raw.end());
+    size_t tick = raw.find('\'');
+    if (tick == std::string::npos) {
+        // Bare decimal.  The IntegerLiteral arm encodes it `UINT:<digits>`
+        // unless the digits do not fit uint64 (`largeInt`), where it becomes
+        // a `vpiDecConst` whose 21+ digits the strict parser always rejects.
+        // The lenient uint64 read of the value is exactly what `dec` carries.
+        return lenient(dec, 10, out);
+    }
+    if (tick == 0)
+        bitWidth = -1;  // unsized based: VpiSize is -1 (or 0 for 'b0/'b1)
+    raw.erase(std::remove(raw.begin(), raw.end(), '_'), raw.end());
+    tick = raw.find('\'');
+    size_t basePos = tick + 1;
+    if (basePos < raw.size() && (raw[basePos] == 's' || raw[basePos] == 'S'))
+        basePos++;
+    char base = basePos < raw.size() ? (char)tolower(raw[basePos]) : 'd';
+    std::string_view digits =
+        basePos + 1 <= raw.size() ? std::string_view(raw).substr(basePos + 1)
+                                  : std::string_view{};
+    switch (base) {
+        case 'b':
+            return bitWidth <= 64 && lenient(digits, 2, out);
+        case 'o':
+            return bitWidth <= 64 && lenient(digits, 8, out);
+        case 'h':
+            return bitWidth <= 64 && lenient(digits, 16, out);
+        default:
+            return strict(digits, out);
+    }
+}
+
+// § negLitPkgRetFoldNested30 (r10buvm30) — the WRITTEN SHAPE that the fold
+// replaces with ONE constant: a unary MINUS whose operand is an integer
+// literal with no unknown bits.  Callers that treat a DIRECT LITERAL operand
+// specially (the concatenation arm unparents one) must treat the folded
+// constant the same way, because golden's folded constant sits in exactly the
+// slot a plain literal would.  The predicate says nothing about the WINDOW —
+// the caller still gates on `pkgRetFoldExpr30`.
+inline bool isNegLitFoldShape30(const Expression& e) {
+    auto& u = stripImplicitConv(e);
+    if (u.kind != ExpressionKind::UnaryOp)
+        return false;
+    auto& ue = u.as<UnaryExpression>();
+    if (ue.op != UnaryOperator::Minus)
+        return false;
+    auto& ib = stripImplicitConv(ue.operand());
+    return ib.kind == ExpressionKind::IntegerLiteral &&
+           !ib.as<IntegerLiteral>().getValue().hasUnknown();
 }
 
 // § srlgTimeLitVal — Surelog's TIME-literal reduction, transcribed field for

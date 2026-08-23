@@ -1,0 +1,39 @@
+MOVED 0096_r10buvm30repro_g30_b_context.sv/def 13 lines
+MOVED 0096_r10buvm30repro_g30_b_context.sv/elab 15 lines
+MOVED 0097_r10buvm30repro_g30_c_nested.sv/def 160 lines
+MOVED 0097_r10buvm30repro_g30_c_nested.sv/elab 176 lines
+MOVED 0098_r10buvm30repro_g30_d_parent.sv/def 116 lines
+MOVED 0098_r10buvm30repro_g30_d_parent.sv/elab 122 lines
+MOVED 0099_r10buvm30repro_g30_e_calls.sv/def 112 lines
+MOVED 0099_r10buvm30repro_g30_e_calls.sv/elab 130 lines
+MOVED 0100_r10buvm30repro_g30_f_callshapes.sv/def 101 lines
+MOVED 0100_r10buvm30repro_g30_f_callshapes.sv/elab 129 lines
+MOVED 0102_r10buvm30repro_g30_h_argdepth.sv/def 13 lines
+MOVED 0102_r10buvm30repro_g30_h_argdepth.sv/elab 15 lines
+MOVED 2408_r10uvm86repro_g86_a2_ctx.sv/def 26 lines
+MOVED 2408_r10uvm86repro_g86_a2_ctx.sv/elab 28 lines
+LISTED=3424 FENCED_SKIPPED=0 PROCESSED=3424 MOVED=14 NO_OUTPUT_PAIRS=276
+PROCESSED-ASSERT-OK
+
+WIDE BOUNDARY GATE (bound30.sh): every .sv/.v under a COPY of tools/probe —
+3424 arms, both binaries, DEF and ELAB, recursive, PROCESSED asserted.
+FENCED_SKIPPED=0 is correct: no arm file under tools/probe is named after any
+of the four slang-fenced tests.  NO_OUTPUT_PAIRS=276 are arms where BOTH
+binaries produce nothing (symmetric slang rejections and symmetric segfaults);
+ASYMMETRIC_OUTPUT never fired.
+
+MOVED = 14 arm/mode cells, ALL of them this law:
+  * six of this pass's own arms (g30_b_context, g30_c_nested, g30_d_parent,
+    g30_e_calls, g30_f_callshapes, g30_h_argdepth) in both modes — the law's
+    POSITIVE CONTROLS.  g30_a_shapes (26 minus-over-literal sites written
+    OUTSIDE a return) and g30_g_callfence (the func_call fence) do NOT move.
+  * r10uvm86repro/g86_a2_ctx.sv, the SIBLING law's own context arm, in both
+    modes: TWO sites, both TO GOLDEN —
+      line 12  `function int pf_tern(); return (PW > 2) ? -1 : 2;`
+               ours operation@12:45-12:47 -> constant@12:45-12:46 INT:-1 ct 7
+               golden (uhdmtopPackages)   constant@12:45-12:46
+      line 20  `function int pf_argl(int a); return a + -1;`
+               ours operation@20:43-20:45 -> constant@20:43-20:44 INT:-1 ct 7
+               golden (uhdmtopPackages)   constant@20:43-20:44
+    A ternary ARM and a binary-operation OPERAND: the two positions § 86
+    could not reach, in the arm § 86 itself wrote.

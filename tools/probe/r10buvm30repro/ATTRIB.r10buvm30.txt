@@ -1,0 +1,29 @@
+r10buvm30 — ORDER-BLIND ATTRIBUTION on the two head databases.
+Both dumps sorted (uhdm-dump | sed 1d | workdir-normalised | sort), pristine
+against patched.  Scoreboard/default is a per-invocation COIN, so only the
+order-blind read is admissible there; Earlgrey and BuildUVMPkg are
+byte-deterministic per binary.
+
+BuildUVMPkg (1800.2 pp_output/uvm_pkg.sv, --single-unit)
+  13 differing sorted-dump lines, ALL of them the ONE site:
+    -   \_constant: , line:32186:24, endln:32186:25      (the literal `1`)
+    -   \_operation: , line:32186:23, endln:32186:25     (the unary minus)
+    -   |vpiOpType:1  |vpiOperand:  |UINT:1  |vpiConstType:9  |vpiDecompile:1
+    +   \_constant: , line:32186:23, endln:32186:24      (the folded constant)
+    +   |INT:-1  |vpiConstType:7  |vpiDecompile:-1
+    (|vpiSize:64 moves indentation only)
+  NOTHING ELSE in the database changed.
+
+Scoreboard/default (uvm-1.2 src + svunit_base + design.sv + testbench.sv)
+  13 differing sorted-dump lines, ALL of them the ONE site at 529:23-529:25
+  (uvm_transaction.svh `return (end_time == -1);`), field for field the same
+  set as above.  NOTHING ELSE changed.
+  `return -1;` at 1685:10 in the same database was ALREADY folded by
+  § negLitPkgRetFold86 and is untouched by this pass.
+
+Head sizes are DEPTH, not distance: 42 -> 46 (BuildUVMPkg) and 42 -> 565
+(Scoreboard/default) are MASK REMOVALS — Compare, no longer stopped at the
+constant, descends to objects this law never touched (BuildUVMPkg's new head
+is the `gp.m_byte_enable = new [nbytes];` receiver collapse that is already
+SeqDriver's head; Scoreboard's new head is a package `vpiTaskFunc` vector
+element with `RHS: <null>`).

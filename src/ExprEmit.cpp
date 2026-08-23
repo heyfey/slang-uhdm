@@ -13324,6 +13324,128 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 noteUnsupported("unary op: " + std::string(toString(ue.op)));
                 return nullptr;
             }
+            // § negLitPkgRetFoldNested30 (r10buvm30) — THE FOLD § negLit-
+            // PkgRetFold86 DESCRIBES, AT ANY DEPTH OF THE RETURNED EXPRESSION.
+            // Surelog runs `ExprEval::reduceExpr` at the tail of EVERY
+            // `compileExpression` call (CompileExpression.cpp:3648), and an
+            // operation's operands, a call's arguments and a select's index
+            // are each built by a RECURSIVE `compileExpression` carrying the
+            // same `reduce`.  So in the one window that carries `Reduce::Yes`
+            // — the ELABORATED package copy of a package-homed subroutine, a
+            // `return` that is a DIRECT statement of the body (UhdmExporter.h
+            // `pkgRetFoldHome86` / `pkgRetFoldExpr30`) — every `-<integer
+            // literal>` inside the returned expression becomes ONE constant,
+            // not just one that IS the whole expression.  Measured on golden
+            // (arms g30_c_nested / g30_d_parent / g30_e_calls):
+            // `(m == -1)`, `{-1, 1}`, `m ? -1 : 1`,
+            // `arr[-1]`, `helper(-1)`, `$sformatf("%0d", -1)`, `((m + (-1)) ==
+            // (m * -2))` all fold, in every literal spelling, with the SAME
+            // fields § 86 measured — span = the MINUS TOKEN ALONE, size = the
+            // literal's own size (64 unsized decimal, N sized, -1 unsized
+            // based), value/decompile = `-<raw bits read as UNSIGNED decimal>`
+            // (`-4'sd8` -> -8, `-32'hFFFFFFFF` -> -4294967295), vpiConstType 7
+            // and NO typespec.  What is NEW is the POSITION: the constant
+            // takes the slot the operation held, so its PARENT is that slot's
+            // ordinary one — golden parents it to the `==`/ternary operation,
+            // the `bit_select`, the `method_func_call`, and leaves it
+            // UNPARENTED under a concatenation, exactly as a plain literal
+            // written there would be.  Emitting the operand with the
+            // operation's own `parent` reproduces that for free.
+            //
+            // TWO FENCES, each with a golden arm cell that fails without it:
+            //   * the MINUS OF A MINUS (`-(-1)`) is NOT this law:
+            //     reduceExpr folds the inner constant and then the OUTER minus
+            //     over it, so golden holds ONE POSITIVE constant at the outer
+            //     minus token (g30_d_parent t_negofneg, `(m == -(-1))` -> INT:1).
+            //     Folding only the inner one would move the cell without
+            //     reaching golden, so a minus DIRECTLY under a minus is left
+            //     whole (residue R1, § 86's own R3 general-fold family).
+            //   * an argument of a `func_call` — an UNQUALIFIED user
+            //     subroutine call — is NOT folded by golden.  Where the call
+            //     SURVIVES in golden it keeps the whole minus OPERATION
+            //     (g30_e_calls u_call `helper(-1)` and u_mix; g30_g_callfence
+            //     n_meth `meth(-1)` and n_smeth `smeth(-1)`, four cells),
+            //     while a `method_func_call` (`this.meth(-1)`,
+            //     g30_e_calls u_meth / g30_f_callshapes k_thiscall) and a surviving
+            //     `sys_func_call` (`$sformatf("%0d",-1)`, `$countones(-1)`)
+            //     both DO fold their argument.  Whatever Surelog's plain-call
+            //     arm does with the inherited reduce, it is not this fold, so
+            //     the fence covers the WHOLE ARGUMENT SUBTREE of a
+            //     `func_call`, not just its direct argument: golden keeps
+            //     `meth(1 + -1)`'s inner minus unfolded too (g30_h_argdepth
+            //     d_nested), so the gate walks the vpiParent chain up to the
+            //     enclosing return_stmt/subroutine and refuses if it passes
+            //     through a `func_call`.
+            //
+            // NOT a fence, and deliberately so (residue R2): the enclosing
+            // expression golden EVALUATES WHOLE — `$signed(-1)`, `$unsigned(-1)`,
+            // `$clog2(-1)`, `$bits(-1)`, `int'(-1)`, `{2{-1}}`, a package
+            // function call `pkgf(-1)` — where golden holds ONE constant in
+            // place of the whole call/cast/replication.  Surelog DID fold the
+            // operand there too; it then folded the enclosing expression on
+            // top, which this pass does not model.  Our object at those sites
+            // differs from golden in VpiType at the ENCLOSING object, so the
+            // operand below it is never reached by `Compare` either way.
+            //   * a RANGED part_select's Left/Right RANGE (VERIFIER FIX,
+            //     r10vbuvm30).  `return v[-1 : -2];` in the very same window
+            //     keeps BOTH bounds as unary-minus OPERATIONS in golden's
+            //     default run, and in the elaborated run golden's folded bound
+            //     spans the WHOLE `-1` (a different mechanism, which the
+            //     pristine binary already reproduces) — so folding here was
+            //     pristine-RIGHT -> patched-WRONG in both views
+            //     (vg30_a_positions / vg30_i_digits).  This is the SAME
+            //     carve-out `inPsRangeBound` already carries for the
+            //     genvar-conn leaf fold and for § connIpsPkgParamBoundNoTs65's
+            //     enum-const fold: an INDEXED-part-select base and a
+            //     bit_select index DO fold (measured, and both reach golden).
+            bool inFuncCallArg30 = false;
+            if (pkgRetFoldExpr30)
+                for (const UHDM::BaseClass* p30 = parent; p30;
+                     p30 = p30->VpiParent()) {
+                    auto k30 = p30->UhdmType();
+                    if (k30 == UHDM::uhdmfunc_call) {
+                        inFuncCallArg30 = true;
+                        break;
+                    }
+                    if (k30 == UHDM::uhdmreturn_stmt ||
+                        k30 == UHDM::uhdmfunction || k30 == UHDM::uhdmtask ||
+                        k30 == UHDM::uhdmbegin || k30 == UHDM::uhdmpackage)
+                        break;
+                }
+            // The VALUE and the THIRD fence come from `get_value` itself: see
+            // `srlgNegLitGetValue30` in EmitHelpers.h.  It is evaluated BEFORE
+            // the operand is emitted, so a refusal leaves no stray constant in
+            // the arena for the ordinary unary-op path to shadow.
+            int64_t gv30 = 0;
+            if (pkgRetFoldExpr30 && isNegLitFoldShape30(expr) &&
+                !inFuncCallArg30 && !inPsRangeBound &&
+                !(parent && parent->UhdmType() == UHDM::uhdmoperation &&
+                  ((UHDM::operation*)parent)->VpiOpType() == vpiMinusOp) &&
+                [&] {
+                    auto& lb30 = stripImplicitConv(ue.operand());
+                    slang::SVInt u30 = lb30.as<IntegerLiteral>().getValue();
+                    u30.setSigned(false);
+                    return srlgNegLitGetValue30(
+                        rawTextLit(lb30), (int32_t)lb30.type->getBitWidth(),
+                        u30.toString(LiteralBase::Decimal, false), gv30);
+                }()) {
+                auto& ib30 = stripImplicitConv(ue.operand());
+                if (auto* e30 = emitExpr(ib30, parent, prefix, netMap);
+                    e30 && e30->UhdmType() == UHDM::uhdmconstant) {
+                    // `int64_t val = -val0;` (ExprEval.cpp:3313), through
+                    // unsigned so INT64_MIN wraps instead of trapping.
+                    std::string t30 =
+                        std::to_string((int64_t)(0ULL - (uint64_t)gv30));
+                    auto* c30 = (UHDM::constant*)e30;
+                    c30->VpiDecompile(t30);
+                    c30->VpiValue("INT:" + t30);
+                    c30->VpiConstType(vpiIntConst);
+                    c30->Typespec(nullptr);
+                    setLoc(c30, SourceRange(expr.sourceRange.start(),
+                                            expr.sourceRange.start() + 1));
+                    return c30;
+                }
+            }
             // Surelog cannot compile an ATTRIBUTE on an inc/dec operator
             // (asgn_expr_sv): a POSTFIX attributed op (y (* foo *) ++)
             // collapses the WHOLE expression to an unsupported_expr anchored
@@ -19364,8 +19486,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 const Expression* olit = o;
                 while (olit->kind == ExpressionKind::Conversion)
                     olit = &olit->as<ConversionExpression>().operand();
+                // § negLitPkgRetFoldNested30 — a `-<literal>` that THIS
+                // return's fold turns into one constant occupies the DIRECT
+                // LITERAL slot and golden unparents it there exactly as it
+                // unparents a written literal (g30_d_parent t_concat
+                // `return {-1, 1};` against its t_plainlit_concat control).
                 if (!reemitting && !importedParamClone &&
-                    isLiteralExpr(*olit)) {
+                    (isLiteralExpr(*olit) ||
+                     (pkgRetFoldExpr30 && isNegLitFoldShape30(*olit)))) {
                     suppressConstParent = true;
                     // PARAM concat inits unparent literal operands (the force
                     // flag would re-parent them) — package and module alike.

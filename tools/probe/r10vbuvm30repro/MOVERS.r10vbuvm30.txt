@@ -1,0 +1,38 @@
+r10vbuvm30 — MOVER ATTRIBUTION, ORDER-BLIND (sorted whole-dump diff, banner
+line dropped), VERIFIED binary d13f0abae6993c6249a9502c3458a943 against the
+verifier's own pristine 70c97f0137784c3efeb1fdf8050130d0.
+
+  TEST          MODE       sorted-dump lines   every line at
+  BuildUVMPkg   default            13          line:32186:23 / :24
+  BuildUVMPkg   testflags          13          line:32186:23 / :24
+  MiniAmiq      default            39          line:529:23 / :24
+  MiniAmiq      testflags          39          line:529:23 / :24
+  Scoreboard    default            13          line:529:23 / :24
+  SeqDriver     default            39          line:529:23 / :24
+  SeqDriver     testflags          39          line:529:23 / :24
+  SimpleUVM     default            13          line:529:23 / :24
+  SimpleUVM     testflags          13          line:529:23 / :24
+  uhdm2rtlil    both modes          0 movers over 1358 databases
+
+39 = 3 x 13: the site has three import-clone copies in those two designs.
+NOT ONE dump line moves anywhere else.  The 13 lines of one site are exactly
+the fold (BuildUVMPkg/default shown verbatim):
+
+  <               \_constant: , line:32186:24, endln:32186:25
+  >             \_constant: , line:32186:23, endln:32186:24
+  >               |INT:-1
+  <             \_operation: , line:32186:23, endln:32186:25
+  <                 |UINT:1
+  >               |vpiConstType:7
+  <                 |vpiConstType:9
+  <                 |vpiDecompile:1
+  >               |vpiDecompile:-1
+  <               |vpiOperand:
+  <               |vpiOpType:1
+  <                 |vpiSize:64
+  >               |vpiSize:64
+
+SHIPPED vs VERIFIED, database by database: eight of the nine are BYTE-IDENTICAL.
+The ninth, Scoreboard/default, differs in bytes but its ORDER-BLIND sorted-dump
+diff against the shipped binary is 0 lines — i.e. the documented ~50/50
+Scoreboard/default COIN (RESUME §9), not a semantic difference.

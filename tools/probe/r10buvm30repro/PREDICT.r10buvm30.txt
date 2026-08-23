@@ -1,0 +1,48 @@
+r10buvm30 — THE MOVER PREDICTION, MADE FROM THE PRISTINE DATABASES BEFORE
+byteverify RAN.
+
+INSTRUMENT.  negcen30.awk over (a) the GOLDEN database and (b) OUR PRISTINE
+database of every entry of this pass's own pristine surelog workdir, and over
+the whole uhdm2rtlil workdir.  A row is emitted for every negative-decompile
+`constant` (NEG, a fold golden performed) and every `vpiOpType:1` `operation`
+(MOP, a minus golden or we left standing), tagged with the design section.
+
+STEP 1 — WHERE GOLDEN FOLDS A NEGATION IN A PACKAGE SECTION.
+21 surelog tests hold at least one, all of them UVM/OVM trees:
+  AmiqEth 17, UVMNestedSeq 18, AmiqSimpleTestSuite 10, UnitAmiqEth 7,
+  MiniAmiq 6, SeqDriver 6, Monitor 3, Driver 2, Ibex 2, IbexGoogle 2,
+  Scoreboard 2, SimpleClass1 2, SimpleInterface 2, SimpleUVM 2, UVMSwitch 2,
+  BuildOVMPkg 1, BuildUVMPkg 1, Opentitan 1, OVMSwitch 1, SimpleOVM 1
+(counts are objects, not sites: an import clone lands the same site in BOTH
+package views).  The whole uhdm2rtlil corpus holds ZERO — not one row of ANY
+kind in a package section, on either side, over 1458 databases.
+
+STEP 2 — WHERE WE PRODUCE A DATABASE AT ALL.  Sixteen of those 21 tests are
+SLANG_REJECT in BOTH modes (AmiqEth, AmiqSimpleTestSuite, BuildOVMPkg, Driver,
+Ibex, IbexGoogle, Monitor, Opentitan, OVMSwitch, SimpleClass1, SimpleInterface,
+SimpleOVM, UnitAmiqEth, UVMNestedSeq, UVMSwitch — verified row by row against
+the pristine sl.csv), so no database of theirs exists to move.  FIVE remain,
+and they are exactly the five tests whose PRISTINE databases hold any
+package-section minus operation at all: BuildUVMPkg, MiniAmiq, Scoreboard,
+SeqDriver, SimpleUVM.
+
+STEP 3 — WHICH SITE.  In each of the five, golden's package-section folds are
+at two source sites of the UVM library, and § negLitPkgRetFold86 ALREADY folds
+one of them:
+  `return -1;`                 uvm_sequencer_base.svh:1685:10  -- ALREADY ours
+  `return (end_time == -1);`   uvm_transaction.svh:529:23      -- THIS LAW
+BuildUVMPkg compiles the 1800.2-2017-1.0 pp_output single file, where the same
+statement is `uvm_pkg.sv:32186:23`.
+
+PREDICTED MOVERS — NINE DATABASES, ONE SITE EACH:
+  default/BuildUVMPkg    32186:23   (uhdmtopPackages only; home package)
+  testflags/BuildUVMPkg  32186:23   (idem)
+  default/MiniAmiq         529:23   (uhdmallPackages AND uhdmtopPackages -- import clone)
+  testflags/MiniAmiq       529:23   (idem)
+  default/SeqDriver        529:23   (both views -- import clone)
+  testflags/SeqDriver      529:23   (idem)
+  default/SimpleUVM        529:23   (uhdmtopPackages)
+  testflags/SimpleUVM      529:23   (idem)
+  default/Scoreboard       529:23   (uhdmtopPackages)
+PREDICTED uhdm2rtlil MOVERS: NONE, in either mode.
+(Scoreboard/testflags has no golden database and is not compared.)

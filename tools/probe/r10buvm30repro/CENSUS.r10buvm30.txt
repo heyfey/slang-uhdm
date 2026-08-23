@@ -1,0 +1,65 @@
+r10buvm30 — CORPUS CENSUS (runcen30.sh + negcen30.awk + predict30.py)
+
+WHAT IS COUNTED, per database and per design SECTION:
+  NEG  a `constant` whose vpiDecompile starts with '-'  (a FOLDED negation)
+  MOP  an `operation` with vpiOpType 1                  (an UNFOLDED minus)
+Golden and OURS (the PRISTINE binary) are censused from the same workdir, so
+every row is joinable by (test, mode, section, line:col).
+
+--------------------------------------------------------------------- uhdm2rtlil
+1458 databases (731 tests x 2 modes).
+
+  golden   MOP uhdmallModules 284 | MOP uhdmtopModules 176 | NEG uhdmtopModules 28
+  ours     MOP uhdmallModules 262 | MOP uhdmtopModules 168 | NEG uhdmtopModules 20
+
+  ZERO rows of ANY kind in uhdmallPackages or uhdmtopPackages, on either side:
+  the u2r corpus has no package-homed subroutine returning a negated literal,
+  so this law has NO REACH there.  Measured, not assumed — and it matches the
+  gate: byteverify MOVERS 0/1358 over both u2r modes.
+
+  (The 28 golden uhdmtopModules NEG constants are OTHER laws' — folded
+  parameter/enum values in module elaboration, e.g. port_int_types, realexpr,
+  svtypes_struct_array — and every one of those tests is CMP_EQUAL today.)
+
+--------------------------------------------------------------------- surelog
+SEE the tables below (filled from cen_sl.*.tsv by predict30.py).
+
+--------------------------------------------------------- surelog, GOLDEN side
+Every database of the pristine surelog workdir's DEFAULT half (789 of them)
+was censused.  Golden folds a negation inside a PACKAGE SECTION in 21 tests,
+all UVM/OVM trees:
+
+  AmiqEth 17, UVMNestedSeq 18, AmiqSimpleTestSuite 10, UnitAmiqEth 7,
+  MiniAmiq 6, SeqDriver 6, Monitor 3, Driver 2, Ibex 2, IbexGoogle 2,
+  Scoreboard 2, SimpleClass1 2, SimpleInterface 2, SimpleUVM 2, UVMSwitch 2,
+  BuildOVMPkg 1, BuildUVMPkg 1, Opentitan 1, OVMSwitch 1, SimpleOVM 1
+  (objects, not sites: an import clone lands the same site in both views)
+
+SIXTEEN of the 21 are SLANG_REJECT in BOTH modes, so no database of ours
+exists to move.  The five that remain are exactly the five whose PRISTINE
+databases hold any package-section minus operation at all: BuildUVMPkg,
+MiniAmiq, Scoreboard, SeqDriver, SimpleUVM.
+
+------------------------------------------- the NINE UVM databases, three ways
+uvm9cen30.sh censused the five UVM tests x both modes (ten databases; nine are
+comparable — Scoreboard/testflags is SLANG_REJECT on our side) as GOLDEN, our
+PRISTINE and our PATCHED.  Package-section folded negations, as MULTISETS:
+
+  golden   34
+  pristine 15      (all of them § negLitPkgRetFold86's `return -1;` site)
+  patched  32      = golden MINUS the two in Scoreboard/testflags, where we
+                     produce no database at all
+  ours-only (phantom folds)            0
+  golden cells the pristine missed    19
+  of those, reached by this pass      17   (the other 2 are Scoreboard/testflags)
+
+Golden's package-section folds in those ten databases sit at exactly TWO
+source sites, and every one is `-1`, vpiSize 64, vpiConstType 7:
+  uvm_sequencer_base.svh:1685:10  `return -1;`               -- § 86 already
+  uvm_transaction.svh:529:23      `return (end_time == -1);` -- THIS LAW
+  (BuildUVMPkg compiles the 1800.2-2017-1.0 pp_output single file, where the
+   same statement is uvm_pkg.sv:32186:23)
+
+That is the law's whole corpus reach, and after this pass every reachable one
+of golden's cells is ours, span included, with nothing minted that golden does
+not have.

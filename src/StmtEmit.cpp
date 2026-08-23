@@ -3945,7 +3945,24 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     if (top8)
                         pkgRetTopExpr8 = true;
                 }
+                // § negLitPkgRetFoldNested30 (r10buvm30) — the SAME window,
+                // carried down the WHOLE returned expression instead of
+                // stopping at its root.  See UhdmExporter.h.
+                bool savedPRF30 = pkgRetFoldExpr30;
+                if (pkgRetFoldHome86 && tfBodyStmt9) {
+                    auto* b30 = (const Statement*)tfBodyStmt9;
+                    bool direct30 = b30 == &stmt;
+                    if (!direct30 && b30->kind == StatementKind::List)
+                        for (auto st30 : b30->as<StatementList>().list)
+                            if (st30 == &stmt) {
+                                direct30 = true;
+                                break;
+                            }
+                    if (direct30)
+                        pkgRetFoldExpr30 = true;
+                }
                 auto* e = emitExpr(*rs.expr, r, prefix, netMap);
+                pkgRetFoldExpr30 = savedPRF30;
                 pkgRetTopExpr8 = savedPRT8;
                 if (e) {
                     r->VpiCondition((UHDM::expr*)e);

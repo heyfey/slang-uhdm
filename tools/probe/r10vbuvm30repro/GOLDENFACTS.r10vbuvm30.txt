@@ -1,0 +1,51 @@
+r10vbuvm30 — WHAT GOLDEN ACTUALLY DOES TO `-<integer literal>` INSIDE THE
+WINDOW, measured on purpose-built goldens (vg30_c_values.sv, vg30_i_digits.sv),
+Surelog -parse -d uhdm -nobuiltin, uhdmtopPackages view.
+
+Every row is `return (m == -<written>);` in an out-of-body package-class method.
+
+  written                     golden                              our PRISTINE   shipped patch   verified patch
+  -0                          INT:0     sz 64  ct 7               operation      INT:0       OK  INT:0       OK
+  -1                          INT:-1    sz 64  ct 7               operation      OK              OK
+  -1_000                      INT:-1000 sz 64  ct 7               operation      OK              OK
+  -'b1                        INT:-1    sz  0  ct 7               operation      OK              OK
+  -'o7                        INT:-7    sz -1  ct 7               operation      OK              OK
+  -'d1                        INT:-1    sz -1  ct 7               operation      OK              OK
+  -1'b1                       INT:-1    sz  1  ct 7               operation      OK              OK
+  -8'sd128                    INT:-128  sz  8  ct 7               operation      OK              OK
+  -12'h800                    INT:-2048 sz 12  ct 7               operation      OK              OK
+  -32'sh80000000              INT:-2147483648 sz 32 ct 7           operation      OK              OK
+  -4'b1x01                    INT:-1    sz  4  ct 7               operation      operation (R3)  operation (R3)
+  -4'd20                      INT:-20   sz  4  ct 7               operation      INT:-4    WRONG  INT:-20     OK
+  -4'hFF                      INT:-255  sz  4  ct 7               operation      INT:-15   WRONG  INT:-255    OK
+  -2'b1111                    INT:-15   sz  2  ct 7               operation      INT:-3    WRONG  INT:-15     OK
+  -3'o77                      INT:-63   sz  3  ct 7               operation      INT:-7    WRONG  INT:-63     OK
+  -64'hFFFFFFFFFFFFFFFF       INT:1     sz 64  ct 7               operation      INT:-18446744073709551615 WRONG   INT:1  OK
+  -128'd5                     INT:-5    sz128  ct 7               operation      OK              OK
+  -64'd9223372036854775808    OPERATION kept (DEC digits overflow int64)         SAME AS GOLDEN  FOLDED = REGRESSION   SAME AS GOLDEN
+  -70'b1                      OPERATION kept (VpiSize 70 > 64)                   SAME AS GOLDEN  FOLDED = REGRESSION   SAME AS GOLDEN
+  -68'h1                      OPERATION kept (VpiSize 68 > 64)                   SAME AS GOLDEN  FOLDED = REGRESSION   SAME AS GOLDEN
+  -128'hFFFFFFFFFFFFFFFFFFFF  OPERATION kept (VpiSize 128 > 64)                  SAME AS GOLDEN  FOLDED = REGRESSION   SAME AS GOLDEN
+  -1.5 (REAL)                 REAL:-1.500000 sz 64 ct 2           operation      operation (R4)  operation (R4)
+
+POSITIONS (vg30_a_positions.sv), same window, `return <...>`:
+  FOLDS in golden, and the verified binary reaches it:
+    v[-1 +: 2]           indexed_part_select vpiBaseExpr
+    {>>{-1}}             streaming concatenation
+    '{-1, 2}             assignment pattern
+    this.meth(.a(-1))    NAMED method-call argument
+    q.sum() with (item + -1)   the WITH clause of an array method
+    q[-1]                queue bit_select index
+    (m inside {-1, 2})   inside-set member
+    ((((m == -1))))      arbitrary parenthesis depth
+  DOES NOT FOLD in golden — the verified binary's `inPsRangeBound` fence:
+    v[-1 : -2]           a RANGED part_select's Left/Right range.  In the
+                         DEFAULT run golden keeps BOTH bounds as unary-minus
+                         OPERATIONS; in the -elabuhdm run golden's folded bound
+                         spans the WHOLE `-1` (24:49-24:51), which the PRISTINE
+                         binary already reproduces by another mechanism.  The
+                         shipped patch folded it with the minus-token span and
+                         so was pristine-RIGHT -> patched-WRONG in both views.
+  golden EVALUATES THE ENCLOSING OBJECT WHOLE (residue R2, unchanged):
+    (-1) ? 1 : 2      int'(-1)      eq_t'(-1)     (1 == -1)     $clog2(-1)
+    a package-function call pkgf(-1)

@@ -1,0 +1,50 @@
+r10buvm30 — INPUTS AND INSTRUMENTS
+
+BINARIES (frozen chmod 555 before any sweep)
+  pristine  /tmp/r10buvm30_pris.bin   70c97f0137784c3efeb1fdf8050130d0
+  patched   /tmp/r10buvm30_pat.bin    a663c2234783ed907fb4d74f42f5566b
+
+WORKDIRS (this pass's OWN; no shared control directory was read)
+  /tmp/r10buvm30_wd_pris/{sl,u2r}   pristine sweeps
+  /tmp/r10buvm30_wd_pat/{sl,u2r}    patched sweeps
+  /tmp/r10buvm30_bound              wide boundary gate
+  /tmp/r10buvm30_arms               arm battery
+
+ARMS (all seven are compiled by arms30.sh under Surelog + both binaries)
+  g30_a_shapes.sv      26 written minus-over-literal shapes in NON-return
+                       statements — the law's CONTROL (must not move)
+  g30_b_context.sv     return at body top level / inside if / inside begin /
+                       in-body class method / package function / module fn
+  g30_c_nested.sv      the minus at every depth of a returned expression, in
+                       every literal spelling, + the ~1 / +1 / 1+2 controls
+  g30_d_parent.sv      the folded constant's PARENT and TYPESPEC, each with a
+                       written-literal control in the SAME slot
+  g30_e_calls.sv       user call / this.-qualified method / $sformatf /
+                       $signed / $unsigned arguments
+  g30_f_callshapes.sv  $clog2 / $bits / $countones / cast / inside /
+                       replication / package-function call
+  g30_g_callfence.sv   the func_call fence: package fn, automatic fn,
+                       unqualified method, static method
+  g30_h_argdepth.sv    the fence's DEPTH — a minus NESTED inside a call
+                       argument (`meth(1 + -1)`), against the this.-qualified
+                       twin
+
+INSTRUMENTS (measurement only; the official uhdm-cmp is the judge)
+  cen30.py       indent-tree parser for a uhdm-dump; prints negative-decompile
+                 constants and vpiMinusOp operations with their operands
+  chain30.py     ancestor chain of an object, to separate the AllPackages
+                 (Reduce::No) copy from the TopPackages (Reduce::Yes) one
+  split30.py     the same census split by design section
+  retcmp30.py    renders every uhdmtopPackages return-expression subtree with
+                 the fields Compare reads + vpiParent/vpiTypespec presence
+  negcen30.awk   streaming census (no dump ever stored) of negative constants
+                 and minus operations, tagged with the design section
+  runcen30.sh    the corpus census driver: golden AND ours, every database of
+                 a workdir, xargs -P 2
+  arms30.sh      the arm battery (fd-3 list, children </dev/null,
+                 PROCESSED asserted)
+  bound30.sh     the WIDE boundary gate — every .sv/.v under a COPY of
+                 tools/probe, both binaries, DEF and ELAB, recursive,
+                 PROCESSED asserted (reused from bound29.sh)
+  ct8rows.sh byteverify.sh canaries.sh ctcan2.sh canaudit.sh rowheads.sh
+                 the standard gate battery, copied unchanged

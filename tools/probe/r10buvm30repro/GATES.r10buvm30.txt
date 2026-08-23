@@ -1,0 +1,75 @@
+r10buvm30 — THE LANDING GATE BATTERY.
+Judge: ~/git-repos/UHDM/build/bin/uhdm-cmp via scripts/verify_golden.py.
+Base commit 0726167.  Worktree /tmp/wt_r10buvm30.  Sweeps ran with the pass's
+OWN pinned workdirs; no shared control directory was read.
+
+(1) BUILD BOTH, md5s (cmake --build build -j 2, md5 taken separately, both
+    frozen chmod 555 BEFORE any sweep)
+    pristine /tmp/r10buvm30_pris.bin  70c97f0137784c3efeb1fdf8050130d0
+    patched  /tmp/r10buvm30_pat.bin   a663c2234783ed907fb4d74f42f5566b
+
+(2) GOLDENS (SLANG_UHDM exported explicitly to EACH binary)
+    patched   PASS 23   FAIL 0
+    pristine  PASS 23
+    negative control SLANG_UHDM=/bin/false -> FAIL 23
+
+(3) uhdm2rtlil, testflags AND default
+    679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL in BOTH modes,
+    histogram identical to this pass's own pristine sweep.
+    ct8rows vs the committed results/gate_uhdm2rtlil.csv       PASS (0 rows)
+    ct8rows vs THIS PASS'S OWN pristine u2r_tf.csv             PASS (0 rows)
+    ct8rows vs THIS PASS'S OWN pristine u2r_def.csv            PASS (0 rows)
+    SELFCHECK=1 byteverify:  MOVERS 0 / 1358  (SELFCHECK 1357/1358 flagged)
+    cmds.txt audit by PATH: 1458/1458 name /tmp/r10buvm30_pat.bin,
+    0 name the main-tree binary.
+
+(4) surelog, --mode both
+    937 CMP_EQUAL / 19 CMP_NOTEQUAL, histogram identical to pristine.
+    ct8rows vs the committed results/golden_surelog.csv         PASS (0 rows)
+    ct8rows vs THIS PASS'S OWN pristine sl.csv                  PASS (0 rows)
+    NO ROW CONVERTED, NOTHING PROMOTED, results/*.csv UNTOUCHED.
+    cmds.txt audit by PATH: 1523/1523 name /tmp/r10buvm30_pat.bin.
+
+(5) BYTEVERIFY SELFCHECK=1, surelog
+    MOVERS 9 / 956 — default+testflags BuildUVMPkg, MiniAmiq, SeqDriver,
+    SimpleUVM and default/Scoreboard, ALL NINE PREDICTED BY NAME from the
+    pristine databases before the sweep ran (PREDICT.r10buvm30.txt).
+    SELFCHECK 955/956 flagged.  Order-blind attribution: 13 sorted-dump lines
+    per database (39 where the site has three import-clone copies), every one
+    of them the ONE folded site — MOVERS.r10buvm30.txt.
+
+WIDE BOUNDARY GATE (bound30.sh)
+    LISTED=3424 FENCED_SKIPPED=0 PROCESSED=3424 MOVED=14 NO_OUTPUT_PAIRS=276
+    PROCESSED-ASSERT-OK.  Twelve of the fourteen are this pass's own arms;
+    the other two are r10uvm86repro/g86_a2_ctx.sv (def and elab), whose two
+    sites both move TO GOLDEN — BOUNDARY.r10buvm30.txt.
+
+PROTECTED DATABASES (md5 pristine vs patched, both modes)
+    InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical;
+    SVSwitch 4842211c4030; YosysVerx 6ccda350c24a.
+
+CANARIES
+    canaries.sh  surelog   ok=52 changed=0 absent=0
+    canaries.sh  u2r_tf    ok=8  changed=0 absent=0
+    ctcan2.sh    surelog   ok=58 changed=0   PASS
+    ctcan2.sh    u2r_tf    ok=1  changed=0   PASS
+    canaudit.sh  audited=33 UNCOVERED=0 FENCE-BREACH=0   PASS
+
+HEADS (rowheads.sh over this pass's own pristine and patched workdirs;
+counts are the head object's DECOMPILE DEPTH, not a distance)
+    TEST          MODE       PRIS  PAT
+    SeqDriver     default      46   46
+    SeqDriver     testflags    46   46
+    SimpleUVM     default      17   17
+    SimpleUVM     testflags    17   17
+    Scoreboard    default      42  565   <- TARGET CLEARED
+    MiniAmiq      default     348  348
+    MiniAmiq      testflags   348  348
+    BuildUVMPkg   default      42   46   <- TARGET CLEARED
+    BuildUVMPkg   testflags    42   46   <- TARGET CLEARED
+    Earlgrey_0_1  default      36   36
+    Earlgrey_0_1  testflags    36   36
+    Rggen         default       0    0   (CMP_EQUAL, unchanged)
+    (SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags as always.)
+    BuildUVMPkg's default and testflags cmp logs are BYTE-IDENTICAL to each
+    other before (18ba45db76f0…) and after (291c28f54149…) the change.

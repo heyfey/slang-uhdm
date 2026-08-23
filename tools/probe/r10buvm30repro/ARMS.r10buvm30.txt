@@ -1,0 +1,10 @@
+g30_a_shapes MOVED=0 GOLDEN_DIFF pris=0 pat=0
+g30_b_context MOVED=3 GOLDEN_DIFF pris=3 pat=0
+g30_c_nested MOVED=36 GOLDEN_DIFF pris=51 pat=17
+g30_d_parent MOVED=24 GOLDEN_DIFF pris=32 pat=10
+g30_e_calls MOVED=24 GOLDEN_DIFF pris=26 pat=10
+g30_f_callshapes MOVED=21 GOLDEN_DIFF pris=39 pat=32
+g30_g_callfence MOVED=0 GOLDEN_DIFF pris=12 pat=12
+g30_h_argdepth MOVED=3 GOLDEN_DIFF pris=5 pat=4
+LISTED=8 PROCESSED=8
+PROCESSED-ASSERT-OK

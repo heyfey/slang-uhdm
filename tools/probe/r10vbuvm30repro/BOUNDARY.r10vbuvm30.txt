@@ -1,0 +1,84 @@
+r10vbuvm30 — WIDE BOUNDARY GATE (vbound30.sh)
+  ROOT = a COPY of tools/probe at 0726167 + r10buvm30repro + r10vbuvm30repro
+  binaries: PRIS 70c97f0137784c3efeb1fdf8050130d0  vs  VERIFIED d13f0abae6993c6249a9502c3458a943
+  no path filter, .sv AND .v, recursive, fd-3 list, children </dev/null, rc compared per cell
+
+MOVED 0068_r10buvm22repro_g22.sv/def 12 lines
+  SCORE 0068_r10buvm22repro_g22.sv/def AGREE_pris=184 AGREE_pat=184 GOLDEN=248 PRIS=229 PAT=229 LOST=0 GAIN=0 NEWMINT=3
+MOVED 0068_r10buvm22repro_g22.sv/elab 12 lines
+  SCORE 0068_r10buvm22repro_g22.sv/elab AGREE_pris=356 AGREE_pat=356 GOLDEN=430 PRIS=408 PAT=408 LOST=0 GAIN=0 NEWMINT=3
+MOVED 0096_r10buvm30repro_g30_b_context.sv/def 13 lines
+  SCORE 0096_r10buvm30repro_g30_b_context.sv/def AGREE_pris=57 AGREE_pat=58 GOLDEN=58 PRIS=64 PAT=63 LOST=0 GAIN=1 NEWMINT=0
+MOVED 0096_r10buvm30repro_g30_b_context.sv/elab 15 lines
+  SCORE 0096_r10buvm30repro_g30_b_context.sv/elab AGREE_pris=103 AGREE_pat=105 GOLDEN=105 PRIS=114 PAT=113 LOST=0 GAIN=2 NEWMINT=0
+MOVED 0097_r10buvm30repro_g30_c_nested.sv/def 160 lines
+  SCORE 0097_r10buvm30repro_g30_c_nested.sv/def AGREE_pris=131 AGREE_pat=142 GOLDEN=150 PRIS=172 PAT=160 LOST=0 GAIN=11 NEWMINT=1
+MOVED 0097_r10buvm30repro_g30_c_nested.sv/elab 176 lines
+  SCORE 0097_r10buvm30repro_g30_c_nested.sv/elab AGREE_pris=132 AGREE_pat=143 GOLDEN=298 PRIS=324 PAT=312 LOST=0 GAIN=11 NEWMINT=12
+MOVED 0098_r10buvm30repro_g30_d_parent.sv/def 116 lines
+  SCORE 0098_r10buvm30repro_g30_d_parent.sv/def AGREE_pris=105 AGREE_pat=112 GOLDEN=118 PRIS=133 PAT=125 LOST=0 GAIN=7 NEWMINT=1
+MOVED 0098_r10buvm30repro_g30_d_parent.sv/elab 122 lines
+  SCORE 0098_r10buvm30repro_g30_d_parent.sv/elab AGREE_pris=106 AGREE_pat=113 GOLDEN=234 PRIS=252 PAT=244 LOST=0 GAIN=7 NEWMINT=8
+MOVED 0099_r10buvm30repro_g30_e_calls.sv/def 112 lines
+  SCORE 0099_r10buvm30repro_g30_e_calls.sv/def AGREE_pris=65 AGREE_pat=71 GOLDEN=78 PRIS=91 PAT=83 LOST=0 GAIN=6 NEWMINT=2
+MOVED 0099_r10buvm30repro_g30_e_calls.sv/elab 130 lines
+  SCORE 0099_r10buvm30repro_g30_e_calls.sv/elab AGREE_pris=67 AGREE_pat=72 GOLDEN=154 PRIS=172 PAT=162 LOST=1 GAIN=6 NEWMINT=8
+MOVED 0100_r10buvm30repro_g30_f_callshapes.sv/def 101 lines
+  SCORE 0100_r10buvm30repro_g30_f_callshapes.sv/def AGREE_pris=66 AGREE_pat=69 GOLDEN=84 PRIS=103 PAT=96 LOST=0 GAIN=3 NEWMINT=4
+MOVED 0100_r10buvm30repro_g30_f_callshapes.sv/elab 129 lines
+  SCORE 0100_r10buvm30repro_g30_f_callshapes.sv/elab AGREE_pris=73 AGREE_pat=75 GOLDEN=168 PRIS=198 PAT=187 LOST=1 GAIN=3 NEWMINT=10
+MOVED 0102_r10buvm30repro_g30_h_argdepth.sv/def 13 lines
+  SCORE 0102_r10buvm30repro_g30_h_argdepth.sv/def AGREE_pris=38 AGREE_pat=38 GOLDEN=39 PRIS=47 PAT=46 LOST=0 GAIN=0 NEWMINT=1
+MOVED 0102_r10buvm30repro_g30_h_argdepth.sv/elab 15 lines
+  SCORE 0102_r10buvm30repro_g30_h_argdepth.sv/elab AGREE_pris=38 AGREE_pat=38 GOLDEN=77 PRIS=90 PAT=89 LOST=0 GAIN=0 NEWMINT=2
+MOVED 2408_r10uvm86repro_g86_a2_ctx.sv/def 26 lines
+  SCORE 2408_r10uvm86repro_g86_a2_ctx.sv/def AGREE_pris=99 AGREE_pat=100 GOLDEN=111 PRIS=133 PAT=131 LOST=0 GAIN=1 NEWMINT=1
+MOVED 2408_r10uvm86repro_g86_a2_ctx.sv/elab 28 lines
+  SCORE 2408_r10uvm86repro_g86_a2_ctx.sv/elab AGREE_pris=182 AGREE_pat=184 GOLDEN=207 PRIS=231 PAT=229 LOST=0 GAIN=2 NEWMINT=1
+MOVED 2796_r10vbuvm30repro_vg30_a_positions.sv/def 181 lines
+  SCORE 2796_r10vbuvm30repro_vg30_a_positions.sv/def AGREE_pris=127 AGREE_pat=138 GOLDEN=162 PRIS=167 PAT=154 LOST=0 GAIN=11 NEWMINT=2
+MOVED 2796_r10vbuvm30repro_vg30_a_positions.sv/elab 206 lines
+  SCORE 2796_r10vbuvm30repro_vg30_a_positions.sv/elab AGREE_pris=129 AGREE_pat=137 GOLDEN=300 PRIS=312 PAT=296 LOST=3 GAIN=11 NEWMINT=13
+MOVED 2797_r10vbuvm30repro_vg30_b_homes.sv/def 52 lines
+  SCORE 2797_r10vbuvm30repro_vg30_b_homes.sv/def AGREE_pris=65 AGREE_pat=66 GOLDEN=69 PRIS=84 PAT=80 LOST=0 GAIN=1 NEWMINT=3
+MOVED 2797_r10vbuvm30repro_vg30_b_homes.sv/elab 54 lines
+  SCORE 2797_r10vbuvm30repro_vg30_b_homes.sv/elab AGREE_pris=117 AGREE_pat=119 GOLDEN=125 PRIS=143 PAT=139 LOST=0 GAIN=2 NEWMINT=3
+MOVED 2798_r10vbuvm30repro_vg30_c_values.sv/def 144 lines
+  SCORE 2798_r10vbuvm30repro_vg30_c_values.sv/def AGREE_pris=97 AGREE_pat=107 GOLDEN=111 PRIS=127 PAT=117 LOST=0 GAIN=10 NEWMINT=0
+MOVED 2798_r10vbuvm30repro_vg30_c_values.sv/elab 173 lines
+  SCORE 2798_r10vbuvm30repro_vg30_c_values.sv/elab AGREE_pris=97 AGREE_pat=107 GOLDEN=220 PRIS=239 PAT=229 LOST=0 GAIN=10 NEWMINT=10
+MOVED 2799_r10vbuvm30repro_vg30_d_import.sv/def 28 lines
+  SCORE 2799_r10vbuvm30repro_vg30_d_import.sv/def AGREE_pris=20 AGREE_pat=22 GOLDEN=22 PRIS=29 PAT=27 LOST=0 GAIN=2 NEWMINT=0
+MOVED 2799_r10vbuvm30repro_vg30_d_import.sv/elab 64 lines
+  SCORE 2799_r10vbuvm30repro_vg30_d_import.sv/elab AGREE_pris=66 AGREE_pat=76 GOLDEN=76 PRIS=86 PAT=84 LOST=0 GAIN=10 NEWMINT=0
+MOVED 2800_r10vbuvm30repro_vg30_e_targets.sv/def 130 lines
+  SCORE 2800_r10vbuvm30repro_vg30_e_targets.sv/def AGREE_pris=72 AGREE_pat=81 GOLDEN=104 PRIS=120 PAT=110 LOST=0 GAIN=9 NEWMINT=1
+MOVED 2800_r10vbuvm30repro_vg30_e_targets.sv/elab 148 lines
+  SCORE 2800_r10vbuvm30repro_vg30_e_targets.sv/elab AGREE_pris=73 AGREE_pat=82 GOLDEN=182 PRIS=201 PAT=191 LOST=0 GAIN=9 NEWMINT=10
+MOVED 2801_r10vbuvm30repro_vg30_f_fence.sv/def 15 lines
+  SCORE 2801_r10vbuvm30repro_vg30_f_fence.sv/def AGREE_pris=68 AGREE_pat=69 GOLDEN=77 PRIS=103 PAT=102 LOST=0 GAIN=1 NEWMINT=0
+MOVED 2801_r10vbuvm30repro_vg30_f_fence.sv/elab 13 lines
+  SCORE 2801_r10vbuvm30repro_vg30_f_fence.sv/elab AGREE_pris=75 AGREE_pat=76 GOLDEN=164 PRIS=186 PAT=185 LOST=0 GAIN=1 NEWMINT=1
+MOVED 2802_r10vbuvm30repro_vg30_g_ctrl.sv/def 26 lines
+  SCORE 2802_r10vbuvm30repro_vg30_g_ctrl.sv/def AGREE_pris=98 AGREE_pat=100 GOLDEN=100 PRIS=107 PAT=105 LOST=0 GAIN=2 NEWMINT=0
+MOVED 2802_r10vbuvm30repro_vg30_g_ctrl.sv/elab 30 lines
+  SCORE 2802_r10vbuvm30repro_vg30_g_ctrl.sv/elab AGREE_pris=92 AGREE_pat=94 GOLDEN=194 PRIS=204 PAT=202 LOST=0 GAIN=2 NEWMINT=2
+MOVED 2803_r10vbuvm30repro_vg30_h_macro.sv/def 26 lines
+  SCORE 2803_r10vbuvm30repro_vg30_h_macro.sv/def AGREE_pris=70 AGREE_pat=72 GOLDEN=86 PRIS=95 PAT=93 LOST=0 GAIN=2 NEWMINT=0
+MOVED 2803_r10vbuvm30repro_vg30_h_macro.sv/elab 54 lines
+  SCORE 2803_r10vbuvm30repro_vg30_h_macro.sv/elab AGREE_pris=130 AGREE_pat=138 GOLDEN=156 PRIS=168 PAT=166 LOST=0 GAIN=8 NEWMINT=0
+MOVED 2804_r10vbuvm30repro_vg30_i_digits.sv/def 93 lines
+  SCORE 2804_r10vbuvm30repro_vg30_i_digits.sv/def AGREE_pris=97 AGREE_pat=104 GOLDEN=107 PRIS=119 PAT=112 LOST=0 GAIN=7 NEWMINT=0
+MOVED 2804_r10vbuvm30repro_vg30_i_digits.sv/elab 107 lines
+  SCORE 2804_r10vbuvm30repro_vg30_i_digits.sv/elab AGREE_pris=95 AGREE_pat=102 GOLDEN=210 PRIS=225 PAT=218 LOST=0 GAIN=7 NEWMINT=7
+LISTED=3433 FENCED_SKIPPED=0 PROCESSED=3433 MOVED=34 NO_OUTPUT_PAIRS=276
+PROCESSED-ASSERT-OK
+
+REGRESS lines (all three are the class_defn SECTION-ATTRIBUTION artifact:
+golden files the unfolded class_defn copy under uhdmtopPackages, our dump files
+it under uhdmallClasses; AGREE_pat > AGREE_pris on every one of these arms):
+  REGRESS[1] uhdmtopPackages	14:54-14:56	operation	ts=0 vpiOpType=1	par=method_func_call	slot=vpiArgument
+  REGRESS[1] uhdmtopPackages	19:53-19:55	operation	ts=0 vpiOpType=1	par=method_func_call	slot=vpiArgument
+  REGRESS[1] uhdmtopPackages	27:60-27:62	operation	ts=0 vpiOpType=1	par=method_func_call	slot=vpiArgument
+  REGRESS[1] uhdmtopPackages	32:57-32:59	operation	ts=0 vpiOpType=1	par=method_func_call	slot=vpiArgument
+  REGRESS[1] uhdmtopPackages	32:73-32:75	operation	ts=0 vpiOpType=1	par=method_func_call	slot=vpiArgument

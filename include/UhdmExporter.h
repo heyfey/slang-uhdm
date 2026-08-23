@@ -3216,6 +3216,23 @@ private:
     /// is the same window § `pkgRetTopExpr8` describes, and the same
     /// direct-statement-of-the-body test applies.
     bool pkgRetFoldHome86 = false;
+    /// § `negLitPkgRetFoldNested30` (r10buvm30) — TRUE while the RETURN
+    /// EXPRESSION of a direct top-level `return` statement of a
+    /// `pkgRetFoldHome86` subroutine body is being emitted.  § `negLitPkg-
+    /// RetFold86` folds a unary MINUS over an integer literal only when that
+    /// minus IS the whole returned expression; Surelog's fold is not placed
+    /// there.  `compileExpression` runs `ExprEval::reduceExpr` on its result
+    /// at the END OF EVERY CALL (CompileExpression.cpp:3648) and every operand
+    /// of an operation, every call argument, every select index inside the
+    /// returned expression is compiled by a RECURSIVE `compileExpression` call
+    /// carrying the SAME `reduce`.  So the fold reaches a `-<literal>` at ANY
+    /// DEPTH of the returned expression, and this flag carries the window down
+    /// the whole subtree.  Every field of the folded constant is § 86's (span
+    /// = the minus token alone, size = the literal's own size, value/decompile
+    /// = `-<raw bits as unsigned decimal>`, `vpiConstType` 7, typespec
+    /// dropped); only the POSITION is new — the constant lands in the slot the
+    /// operation held, and takes that slot's ordinary parenting.
+    bool pkgRetFoldExpr30 = false;
     /// § `foreachArraySelfSelectAssignDropsTs19` (r10buvm19) — the stack of
     /// enclosing STATEMENT LISTS of the subroutine body currently being
     /// emitted, innermost last.  Every entry is one of Surelog's
