@@ -1,0 +1,59 @@
+r10v75 (VERIFIER) -- the SEVEN independent arms, scored field-split with
+vcen75 (a flat Serializer::AllObjects reader, deliberately not the listener
+route r10earl75repro/cscen75.cpp takes) and vscore75.py (an ORDER-FREE
+multiset-distance scorer, deliberately not a sorted-list index pairing).
+Golden = Surelog -parse -nobuiltin -nocache -d uhdm on the same file.
+Every cell scored in BOTH views (default and --elabuhdm).
+
+                       ref_typespec fields          value fields (ct/sz/v/decompile)
+arm              TO-GOLD AWAY WRONG NOGOLD-MOVED    any movement
+a1_iface75          4      0     0        0           none
+a2_loops75          2      0     0        2 (*)       none
+a3_procs75          4      0     0        0           none
+a4_nest75           0      0     0        0           none
+a5_origin75        11      0     0        0           none
+a6_prog75           1      0     0        0           none
+a7_import75         4      0     0        0           none
+-- plus the two arms the pass's own boundary flags, re-scored here:
+g1_gsproc75.sv     13      0     0        0           none   (13 keys = 54 cells)
+r10earl_repro/pf19  1      0     0        0           none
+                   ---    ---   ---      ---
+                    40      0     0        2
+Identical numbers in the default and the --elabuhdm view on every arm.
+
+(*) THE ONE REFUTED CLAIM.  a2 lines 21 and 31 -- `while (w < NB)` and
+`end while (d < NB)` inside an always_comb written in a GENERATE BLOCK.
+Golden keeps a `ref_obj` there (it does not fold at all); we over-fold
+already at 94e673b, and the patch now stamps that over-fold.  The judge
+cannot see it (golden ref_obj vs our constant fails basetype_t::Compare on
+VpiType before Typespec is read), no pristine-RIGHT cell became wrong, and
+the corpus has ZERO cells of the shape -- but it is not 0 as the pass README
+states, and it says the fence region is under-approximated.  Details and the
+golden fold table in README.md.
+
+WHAT EACH ARM ADDS OVER r10earl75repro/g1_gsproc75.sv
+  a1  INTERFACE gen-if and gen-for homes (golden stamps; the patch reaches
+      them through emitGenScopes' interface caller) + a `bit [7:0]` origin.
+  a2  LOOP KINDS the grid has none of: foreach / while / do-while / repeat,
+      in a gen scope AND in the module body.  This is the arm that refutes.
+  a3  PROCEDURE KINDS: always @(posedge), always_ff, always_latch, always @*,
+      initial, final; plus a gen-scope FUNCTION and TASK and a call to a
+      module-level function from a gen-scope always (the tfOpFold9 /
+      gsProcOpFold75 precedence question -- the dump shows the tf stamps are
+      untouched and the four new stamps name `work@a3top.u_a`, the OWNING
+      INSTANCE, character-identical to golden).
+  a4  gen-for inside gen-if inside gen-for, with an OVERRIDDEN instance
+      parameter whose actual is a multiplication / subtraction / $clog2, and
+      the positions swept (ips width, part-select bound, ternary, case item,
+      concat member, $clog2 argument).  Golden folds NOTHING in a nested gen
+      scope -- the negative control holds in both databases.
+  a5  ORIGINS: int / int unsigned / implicitly typed / negative / longint /
+      byte / shortint / bit[7:0] / 1-2-3-hop derived chains / a second
+      package / QUALIFIED reads / module parameter / module localparam /
+      gen-scope localparam / the genvar, three instances.
+  a6  a PROGRAM's gen scope, and a module with a gen-scope process
+      instantiated INSIDE another module's for-generate (two instance levels,
+      per-instance parameter override).
+  a7  WHERE THE IMPORT SITS: module header, module body, INSIDE the generate
+      block, qualified-only (no import), and an uninstantiated gen branch
+      with a taken else arm.

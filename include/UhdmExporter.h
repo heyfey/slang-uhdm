@@ -5570,6 +5570,15 @@ private:
     // module-param ref folds to its value (the gen block is a concrete
     // instance), like the gen-block-function case.
     bool inGenScopeProc = false;
+    // § genScopeProcOpFoldTs75 — the ENCLOSING INSTANCE's full name, set beside
+    // `inGenScopeProc`.  A gen-scope process is emitted with `prefix` = the GEN
+    // BLOCK's path, but golden names the stamped ref_typespec after the
+    // INSTANCE that owns the generate block (`work@p0m`, not
+    // `work@p0m.gen_b`; in the corpus
+    // `work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core`, not
+    // `...i_core.gen_prog_data`).  Compare-invisible — no generated Compare
+    // reads VpiFullName — but measured and matched exactly.
+    std::string gsProcInstPrefix75;
     // True when the gen scope whose processes are being emitted sits under a
     // LOOP generate (its refs stay unbound; if/named scopes bind locals).
     bool genScopeProcInLoop = false;

@@ -1,0 +1,15 @@
+r10earl75 — GRID SCORE, g1_gsproc75.sv, FIELD-SPLIT (tbl75.py).
+MEASUREMENT ONLY.  The official uhdm-cmp remains the sole judge.
+
+TS    = the ref_typespec fields only (kind / name / defname / sign) — the
+        fields this law writes.
+VALUE = vpiConstType / VpiSize / VpiValue / VpiDecompile — the fields this
+        law must NOT write.  Any movement here would be a bug.
+
+-- default view (golden / pristine / patched):
+TS    {'STILL-RIGHT': 182, 'TO-GOLDEN': 54, 'NO-GOLDEN-CELL': 6, 'STILL-WRONG': 8, 'NO-OUR-CELL': 1}
+VALUE {'STILL-RIGHT': 238, 'NO-GOLDEN-CELL': 6, 'STILL-WRONG': 6, 'NO-OUR-CELL': 1}
+
+-- elabuhdm view (golden / pristine / patched):
+TS    {'STILL-RIGHT': 182, 'NO-GOLDEN-CELL': 96, 'TO-GOLDEN': 54, 'NO-OUR-CELL': 1, 'STILL-WRONG': 8}
+VALUE {'STILL-RIGHT': 238, 'NO-GOLDEN-CELL': 96, 'NO-OUR-CELL': 1, 'STILL-WRONG': 6}

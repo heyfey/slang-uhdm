@@ -1,0 +1,17 @@
+LHS:
+decompile:
+ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core), id:313358
+|vpiParent:
+\_constant: , id:313357, line:190:27, endln:190:36
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core
+|vpiActual:
+\_int_typespec: , id:313359, line:17:13, endln:17:16
+
+decompile:
+ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core), id:313358
+|vpiParent:
+\_constant: , id:313357, line:190:27, endln:190:36
+|vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core
+|vpiActual:
+\_int_typespec: , id:313359, line:17:13, endln:17:16
+RHS: <null>

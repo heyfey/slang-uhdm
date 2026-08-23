@@ -1,0 +1,4 @@
+elab r10earl75repro/g1_gsproc75.sv
+elab r10earl_repro/pf19.sv
+plain r10earl75repro/g1_gsproc75.sv
+plain r10earl_repro/pf19.sv

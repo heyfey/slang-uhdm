@@ -1,0 +1,90 @@
+r10earl75 — EARLGREY CONSTANT CENSUS (cscen75, read STRAIGHT out of the
+.uhdm; Earlgrey's uhdm-dump is >1 GB and was never produced).
+MEASUREMENT ONLY.  The official uhdm-cmp remains the sole judge.
+
+== CALIBRATION, golden vs golden (do this FIRST — RESUME §9) ==
+TS    {'STILL-RIGHT': 66312}
+VALUE {'STILL-RIGHT': 66312}
+
+== 3-WAY, golden / pristine / patched ==
+-- Earlgrey_0_1 / default
+TS    {'STILL-RIGHT': 64080, 'NO-OUR-CELL': 2136, 'NO-GOLDEN-CELL': 867, 'STILL-WRONG': 94, 'TO-GOLDEN': 2}
+VALUE {'STILL-RIGHT': 64039, 'NO-OUR-CELL': 2136, 'NO-GOLDEN-CELL': 867, 'STILL-WRONG': 137}
+-- Earlgrey_0_1 / testflags
+TS    {'STILL-RIGHT': 86568, 'NO-GOLDEN-CELL': 848, 'NO-OUR-CELL': 2431, 'STILL-WRONG': 94, 'TO-GOLDEN': 2}
+VALUE {'STILL-RIGHT': 86513, 'NO-GOLDEN-CELL': 848, 'NO-OUR-CELL': 2431, 'STILL-WRONG': 151}
+
+== WHICH FOLDED CONSTANTS CARRY A ref_typespec IN GOLDEN (question 1) ==
+Every constant of the Earlgrey databases, keyed on (site chain, site,
+positional route, span) and joined golden-vs-ours.  ts=- means no
+ref_typespec at all.  UNDEDUPED counts, so a route reached by several
+listener paths appears once per path:
+
+-- golden's ts presence by OWNER x generate depth (default, ELAB) --
+   1523 always gd=0 ELAB TS
+  28400 always gd=0 ELAB NOTS
+    234 always gd=1 ELAB TS
+   2570 always gd=1 ELAB NOTS
+    358 always gd=2 ELAB TS
+   3954 always gd=2 ELAB NOTS
+    140 always gd=3 ELAB TS
+    604 always gd=3 ELAB NOTS
+      4 always gd=4 ELAB TS
+      8 always gd=4 ELAB NOTS
+    191 cont_assign gd=0 ELAB TS
+  27145 cont_assign gd=0 ELAB NOTS
+   1360 cont_assign gd=1 ELAB TS
+   9578 cont_assign gd=1 ELAB NOTS
+   4104 cont_assign gd=2 ELAB NOTS
+    885 cont_assign gd=2 ELAB TS
+   2700 cont_assign gd=3 ELAB NOTS
+    426 cont_assign gd=3 ELAB TS
+   2994 cont_assign gd=4 ELAB NOTS
+   5721 cont_assign gd=4 ELAB TS
+    270 cont_assign gd=5 ELAB TS
+    684 cont_assign gd=5 ELAB NOTS
+     24 cont_assign gd=6 ELAB NOTS
+  13411 function gd=0 ELAB NOTS
+     24 initial gd=0 ELAB NOTS
+  13029 param_assign gd=0 ELAB NOTS
+  22559 param_assign gd=0 ELAB TS
+   5070 param_assign gd=1 ELAB TS
+    568 param_assign gd=1 ELAB NOTS
+   1132 param_assign gd=2 ELAB TS
+   4096 param_assign gd=2 ELAB NOTS
+  16384 param_assign gd=3 ELAB NOTS
+   1680 param_assign gd=3 ELAB TS
+     84 param_assign gd=4 ELAB TS
+    128 port_highconn gd=0 ELAB TS
+  13144 port_highconn gd=0 ELAB NOTS
+     37 port_highconn gd=0 DEF TS
+   4320 port_highconn gd=0 DEF NOTS
+    340 port_highconn gd=1 ELAB TS
+   4340 port_highconn gd=1 ELAB NOTS
+   1380 port_highconn gd=2 ELAB NOTS
+      8 port_highconn gd=2 ELAB TS
+
+-- EVERY cell where golden HAS a ref_typespec and we have NONE, pristine --
+   (default 289 cells / testflags 404 cells, undeduped; EVERY ONE of them
+    is inside a GENERATE SCOPE, gd>=1, and TS-EXTRA-OURS is 0)
+   owner            gd    ga   route                                   default testflags
+   cont_assign      1     1    RHS[/opN]*/hp[i]/w                          261      348
+   port_highconn    1     1    HC/w                                         24       48
+   always           2     2    ST/s[i]/R/op34[0]   <- THIS PASS'S HEAD       4        8
+
+== REMAINING ref_typespec RESIDUES AFTER THE LAW (deduped) ==
+-- default
+29 ('cont_assign', 'gd=1', 'RHS/op28[i]/op28[i]/op14[i]/hp[i]/w', 'int_typespec/sgn0', 'bare')
+29 ('cont_assign', 'gd=1', 'RHS/hp[i]/w', 'int_typespec/sgn0', 'bare')
+29 ('cont_assign', 'gd=1', 'RHS/op28[i]/op14[i]/hp[i]/w', 'int_typespec/sgn0', 'bare')
+6 ('port_highconn', 'gd=1', 'HC/w', 'int_typespec/sgn1', 'bare')
+1 ('param_assign', 'gd=0', 'PA', 'int_typespec/sgn0', 'logic_typespec/sgn-1')
+-- testflags
+29 ('cont_assign', 'gd=1', 'RHS/op28[i]/op14[i]/hp[i]/w', 'int_typespec/sgn0', 'bare')
+29 ('cont_assign', 'gd=1', 'RHS/op28[i]/op28[i]/op14[i]/hp[i]/w', 'int_typespec/sgn0', 'bare')
+29 ('cont_assign', 'gd=1', 'RHS/hp[i]/w', 'int_typespec/sgn0', 'bare')
+10 ('cont_assign', 'gd=0', 'RHS', 'bare', 'NO-CELL')
+6 ('port_highconn', 'gd=1', 'HC/w', 'int_typespec/sgn1', 'bare')
+2 ('cont_assign', 'gd=0', 'RHS/op28[i]/op14[i]', 'bare', 'NO-CELL')
+1 ('param_assign', 'gd=0', 'PA', 'int_typespec/sgn0', 'logic_typespec/sgn-1')
+1 ('cont_assign', 'gd=0', 'RHS/op32[i]', 'bare', 'NO-CELL')

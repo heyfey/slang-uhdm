@@ -1,0 +1,83 @@
+r10earl75 — every arm the WIDE boundary reported as differing, adjudicated.
+MEASUREMENT ONLY.  A moved arm is acceptable only if it moves TOWARD
+golden: AWAY-GOLDEN must be 0 and MOVED-WRONG must be 0.
+
+WIDE, per file: PROCESSED=3435 identical=6590 DIFFERING=4 no_output=276
+  the file list was built with the four slang-fenced names FILTERED OUT
+  (0 files matched the filter, and canaudit asserts that no driver in this
+   directory names any of the four).
+
+rc histogram (every cell records its rc; A and B run the same file):
+rc=0 12694
+rc=139 24
+rc=3 528
+rc=4 494
+EVERY rc=139 PAIRS A WITH B — the pre-existing elab segfaults, on BOTH
+binaries.  No new crash, no new timeout:
+  (nothing printed above = all 24 pair)
+
+DIFFERING SOURCES (2 files x 2 views = 4 cells):
+
+1. r10earl75repro/g1_gsproc75.sv — THIS PASS'S OWN GRID, the positive
+   control.  Scored in GRID_SCORE.txt / GOLDEN_TABLE.txt:
+     ref_typespec fields  TO-GOLDEN 54  AWAY-GOLDEN 0  MOVED-WRONG 0
+     value fields         no movement of any kind
+   identical in BOTH views.
+
+2. r10earl_repro/pf19.sv — an EARLIER PASS'S ARM carrying this law's
+   exact shape.  § defGenPkgParamFoldQual19's matrix puts a WILDCARD-
+   IMPORTED and a QUALIFIED package-parameter read side by side in a
+   gen-block always_comb:
+     line 50  always_comb pq = {p19::QA{1'b1}};   (qualified)
+     line 51  always_comb pw = {QB{1'b1}};        (wildcard-imported)
+   Scored against Surelog golden, BOTH views:
+
+   -- default view
+     TS    {'STILL-RIGHT': 26, 'NO-GOLDEN-CELL': 4, 'NO-OUR-CELL': 3, 'TO-GOLDEN': 1}
+     VALUE {'STILL-RIGHT': 27, 'NO-GOLDEN-CELL': 4, 'NO-OUR-CELL': 3}
+   -- elabuhdm view
+     TS    {'STILL-RIGHT': 26, 'NO-GOLDEN-CELL': 11, 'NO-OUR-CELL': 3, 'TO-GOLDEN': 1}
+     VALUE {'STILL-RIGHT': 27, 'NO-GOLDEN-CELL': 11, 'NO-OUR-CELL': 3}
+
+   The ONE moved row, and only that row:
+      line owner         site             path                         n  GOLDEN                 pristine               patched                verdict
+        51 always        AL2_L51:5        ST/R/op34[0]                 1  int_typespec/sgn1      bare                   int_typespec/sgn1      TO-GOLDEN
+
+   The QUALIFIED spelling on line 50 did NOT move — the negative control
+   the § caOpFoldTs origin gate carries, holding in a real earlier arm.
+
+==========================================================================
+DIR, per directory: PROCESSED=1500 identical=2744 DIFFERING=10 no_output=246
+  1500 directories listed; 0 of them match any of the four slang-fenced
+  names.  rc histogram:
+    rc=0 5310
+    rc=139 12
+    rc=3 480
+    rc=4 198
+  unpaired rc=139 (A without B or B without A):
+    (nothing printed = every rc=139 pairs A with B)
+
+DIFFERING DIRECTORIES:
+
+  r10earl75repro — this pass's own grid again, the positive control.
+
+  r10uvm75repro / r10uvm76repro / r10uvm88repro / r10v109repro —
+  THE KNOWN PER-INVOCATION ORDERING COIN, not movers.  Whole-directory
+  compiles only; the per-file WIDE walk sees nothing in any of them.
+  Patched vs pristine, RAW and ORDER-BLIND (both dumps sorted):
+    r10uvm75repro    plain raw=16   SORTED=0   (of 10392 dump lines)
+    r10uvm75repro    elab  raw=14   SORTED=0   (of 23569 dump lines)
+    r10uvm76repro    plain raw=18   SORTED=0   (of 9163 dump lines)
+    r10uvm76repro    elab  raw=14   SORTED=0   (of 18257 dump lines)
+    r10uvm88repro    plain raw=4    SORTED=0   (of 16733 dump lines)
+    r10uvm88repro    elab  raw=4    SORTED=0   (of 26927 dump lines)
+    r10v109repro     plain raw=18   SORTED=0   (of 9599 dump lines)
+    r10v109repro     elab  raw=18   SORTED=0   (of 20341 dump lines)
+
+  NEUTRAL CONTROL — the PRISTINE binary ALONE, three runs of the same
+  directory (r10v109repro), reproduces the identical signature:
+    r1 vs r2  raw=20  SORTED=0
+    r1 vs r3  raw=22  SORTED=0
+    r2 vs r3  raw=20  SORTED=0
+  Same raw magnitude, same 0 sorted — the coin, decided WITHOUT reference
+  to the patched binary.

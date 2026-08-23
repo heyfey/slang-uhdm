@@ -10450,6 +10450,71 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     bool procOpFold9 = inProcessEmit && !inParamInit && parent &&
                                        parent->UhdmType() ==
                                            UHDM::uhdmoperation;
+                    // § genScopeProcOpFoldTs75 (r10earl75) — AND THE SAME LAW
+                    // INSIDE A GENERATE SCOPE'S PROCESS.  `inProcessEmit` is
+                    // set by emitModuleDef's process loop ONLY; the ELABORATED
+                    // gen scope runs its own loop (ModuleEmit.cpp ~16200,
+                    // `inGenScopeProc = true` around `emitProcess`) and never
+                    // sets it, so every operand fold inside an `always` /
+                    // `initial` written in a generate block came out BARE
+                    // while the byte-identical statement in the module body
+                    // was stamped.  That hole is r10earl74's R0 head:
+                    //   flash_phy_core.sv:190  prog_data_packed = {DataWidth{1'b1}};
+                    // in the `always_comb` of `gen_prog_data`, instance
+                    // top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core —
+                    // golden puts a ref_typespec on the folded `DataWidth`
+                    // naming flash_phy_pkg.sv:17's `int` and we put <null>.
+                    // Surelog does not distinguish the two homes at all:
+                    // `UhdmWriter::writeModule`'s gen-scope arm and its
+                    // module-body arm both hand the SAME `compileExpression`
+                    // the SAME instance, and `getValue`'s instance arm stamps
+                    // the parameter's declaration typespec on the fold
+                    // wherever it is reached from.  The generate block is a
+                    // scope, not a compilation mode.
+                    // DELIBERATELY NOT joined to the `VpiSize` arm below:
+                    // § defParamInitImportOpFold's untyped-materialized-import
+                    // width rule was measured on a MODULE-BODY process witness
+                    // only, and this law adds a ref_typespec EDGE and nothing
+                    // else — not the size, not the value, not the sign.
+                    // TWO FENCES, BOTH ALREADY-MEASURED CAMPAIGN LAW, and
+                    // both convicted on the grid before they were written:
+                    //  (a) an `initial` / `final`.  Surelog's
+                    //      `compileInitialBlock` passes NO instance, so there
+                    //      is no netlist to substitute from and golden keeps
+                    //      the `ref_obj` at every distance — the same fence
+                    //      § genLpOneHopProcBoundOp58 carries as
+                    //      `alwaysProc58`.  g1 row F (`initial f2 = {NB{req_i}}
+                    //      & alloc;`) has NO golden constant at all; we
+                    //      over-fold it already, and stamping that over-fold
+                    //      would be inventing a typespec for an object golden
+                    //      does not have.
+                    //  (b) a for-stmt, HEADER AND BODY.  Golden keeps the
+                    //      `ref_obj` in every one of the five positions
+                    //      (§ genProcParamFold, and V-FIX v58 (a) re-measured
+                    //      it on the verifier's v5/v6 arms); `procForAllDepth9`
+                    //      is exactly that region.  g1 row B_P11
+                    //      (`for (int k = 0; k < NB; k++)`) has NO golden
+                    //      constant, and so does the CORPUS cell one line below
+                    //      the head — flash_phy_core.sv:191
+                    //      `for (int i = 0; i < WidthMultiple; i++)`, where
+                    //      golden keeps a ref_obj bound to an enum_const.
+                    // Neither fence can suppress a stamp golden makes: in both
+                    // regions golden has no constant to stamp.
+                    bool gsProcAlways75 =
+                        genProcSym58 &&
+                        (genProcSym58->procedureKind ==
+                             slang::ast::ProceduralBlockKind::Always ||
+                         genProcSym58->procedureKind ==
+                             slang::ast::ProceduralBlockKind::AlwaysComb ||
+                         genProcSym58->procedureKind ==
+                             slang::ast::ProceduralBlockKind::AlwaysFF ||
+                         genProcSym58->procedureKind ==
+                             slang::ast::ProceduralBlockKind::AlwaysLatch);
+                    bool gsProcOpFold75 = inGenScopeProc && !inProcessEmit &&
+                                          !inParamInit && gsProcAlways75 &&
+                                          procForAllDepth9 == 0 && parent &&
+                                          parent->UhdmType() ==
+                                              UHDM::uhdmoperation;
                     // A TASK/FUNCTION-BODY operand fold reading an IMPORTED
                     // param carries the same ts ref, scoped at the SUBROUTINE
                     // (`prefix` is already the tf fullname here — Surelog;
@@ -10702,7 +10767,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         (inParamInit && paramInitDef && !paramInitPkg &&
                          parent &&
                          parent->UhdmType() == UHDM::uhdmoperation) ||
-                        procOpFold9 || tfOpFold9 || sysFuncArgFold ||
+                        procOpFold9 || gsProcOpFold75 || tfOpFold9 ||
+                        sysFuncArgFold ||
                         procSelFold9 || procPsFold9 || selFoldTs21 ||
                         ndaOpFold9 ||
                         ipsWidFold9 || caPsOpFold9 || caOpFold9 ||
@@ -10744,6 +10810,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                           std::string(ps9->VpiName());
                                 rt->VpiFullName(fn9);
                             }
+                            else if (gsProcOpFold75 &&
+                                     !gsProcInstPrefix75.empty())
+                                // § genScopeProcOpFoldTs75 — the OWNING
+                                // INSTANCE, not the gen block: golden writes
+                                // `work@p0m` where `prefix` here is
+                                // `work@p0m.gen_b`.  ref_typespec::Compare
+                                // reads VpiName / VpiDefName / Actual_typespec
+                                // and never VpiFullName, so this is exactness,
+                                // not a judge field.
+                                rt->VpiFullName(gsProcInstPrefix75);
                             else
                                 rt->VpiFullName(prefix);
                             rt->VpiParent(c);

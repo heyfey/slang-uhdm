@@ -1,0 +1,70 @@
+r10earl75 — PREDICTED MOVERS, derived from the PRISTINE databases ALONE.
+
+§ genScopeProcOpFoldTs75 lives inside emitExpr's NamedValueExpression arm and
+its only effect is `c->Typespec(rt)` — one `ref_typespec` edge onto a constant
+THAT ALREADY EXISTS in the pristine database.  It writes no value, no size, no
+vpiConstType, no new constant and no new object of any other kind.  A database
+can therefore move ONLY IF it already contains a constant that
+
+  1. sits in an `always` / `always_comb` / `always_ff` / `always_latch` written
+     in a GENERATE SCOPE (owner=always, gd>=1) — not an `initial`/`final`
+     (fence a) and not inside a for-stmt header or body (fence b);
+  2. has an `operation` as its DIRECT parent;
+  3. carries NO typespec today; and
+  4. was folded out of an UNQUALIFIED read of a parameter of a WILDCARD-
+     IMPORTED PACKAGE (the `importedParamDefTs` + no-`::` gate this arm
+     inherits from § caOpFoldTs).
+
+Conditions 1-3 are visible in the database; condition 4 is not, so STAGE 1 is a
+deliberate OVER-approximation on 1-3 alone and STAGE 2 refutes the rest from the
+source.
+
+STAGE 1 — predict75.sh, run on each PRISTINE database ALONE.
+
+  uhdm2rtlil: 1358 scanned, 34 flagged.
+  surelog:     956 scanned, 11 flagged (6 names x the two modes, minus the two
+               modes Rggen has only one of):
+                 Earlgrey_0_1, Rggen, BasicOh, Scr1SvTests,
+                 GenForStructParamBound, GenIfIfaceParamStructField
+  (The four slang-fenced tests are never dispatched here: this only READS
+   databases a sweep already produced, and none of the four is named.)
+
+STAGE 2 — read the source of every stage-1 hit.
+
+  uhdm2rtlil: ALL 34 REFUTED.  Not one of the 34 flagged tests contains an
+      `import <pkg>::*` anywhere in its sources, so condition 4 cannot hold for
+      any constant in any of them.
+      -> "no uhdm2rtlil database can move"; any u2r byte mover would be a
+         regression this law cannot explain.
+
+  BasicOh, Scr1SvTests: REFUTED — no wildcard package import in either tree.
+
+  GenForStructParamBound: REFUTED.  `import p::*` is in `top`, and the only
+      gen-scope process is `always_ff @(posedge dly[0]) tmp <= dly[i-1];` inside
+      the INTERFACE `bus_if` — it reads a signal and a genvar, no package
+      parameter.
+
+  GenIfIfaceParamStructField: REFUTED.  Its gen-scope `always_ff` reads only
+      interface signals (`sub.clk`, `sub.rst`, `sub.trn`, `sub.sel`).
+
+  Rggen: REFUTED.  `rggen_rtl_pkg::*` IS wildcard-imported, but every stage-1
+      candidate in the Rggen database is either in a position whose parent is
+      not an operation (`/idx`, a whole `/R`) or a WRITTEN UNSIZED LITERAL:
+      `rggen_bit_field.sv:241 trigger[1] <= bit_field_if.valid &&
+      (bit_field_if.read_mask != '0);` in `g_read_trigger`.  A literal never
+      enters the NamedValue arm at all, so no `nv.symbol` exists to look up.
+
+  Earlgrey_0_1: CONFIRMED, and the object is named by the head itself —
+      `flash_phy_core.sv:190 prog_data_packed = {DataWidth{1'b1}};` in the
+      `always_comb` of `gen_prog_data`, under `gen_flash_banks[0]` and `[1]` of
+      `top_earlgrey.u_flash_eflash`.  `DataWidth` is `flash_phy_pkg.sv:17
+      parameter int DataWidth`, read through `module flash_phy_core import
+      flash_phy_pkg::*;` — condition 4 exactly.
+
+PREDICTED MOVER SET:  default/Earlgrey_0_1 and testflags/Earlgrey_0_1, and
+                      NOTHING ELSE, in either corpus.
+
+OBSERVED (SELFCHECK=1 byteverify.sh):
+  uhdm2rtlil  MOVERS 0 / 1358
+  surelog     MOVERS 2 / 956 -- ./default/Earlgrey_0_1 and ./testflags/Earlgrey_0_1
+  (the Scoreboard/default per-invocation coin did not flip this run)

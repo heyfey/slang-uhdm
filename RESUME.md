@@ -171,7 +171,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-23 13:15, HEAD = the uvm110 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-23 14:00, HEAD = the earl75 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -185,13 +185,13 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | SimpleUVM×2 (uvm-1.2 tree) | 42 (depth) | the SAME head as Scoreboard/default (ids aside): golden folds the written `-1` of `return (end_time == -1);` (uvm_transaction.svh:529:23) into one signed INT constant where we keep a unary MINUS over UINT:1 — ONE law (buvm30 in flight) now heads FIVE row-modes (SimpleUVM×2, Scoreboard/default, BuildUVMPkg×2); (uvm109 landed: 17→42, a class property that is the BASE of a `= new` lvalue in an out-of-body body never joins Surelog's late-binding pool, so no implicit top wire; the verifier made the fence per element — a select index inside the same lvalue still joins) |
 | Scoreboard/default (uvm-1.2 tree) | 42 (depth) | golden folds a written `-1` into one signed INT constant where we keep a unary MINUS over 1 (uvm_transaction.svh:529:23, `return (end_time == -1);` in uvm_transaction::is_active — the same statement as BuildUVMPkg's head; buvm30 in flight clears both) — a mask removal (uvm107's R-C); open UVM target |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 42 (depth) | golden folds a written `-1` into one signed INT constant (sz 64, ct 7) where we keep a unary MINUS operation over UINT:1 — uvm_pkg.sv:32186:23 `return (end_time == -1);` in uvm_transaction::is_active; the SAME law as Scoreboard/default's 42-line head (uvm_transaction.svh:529:23): one pass clears both — buvm30 next (buvm29 landed: 17→42, a WRITTEN cast over a streaming concatenation keeps its cast op; buvm29's own R0 `REQ param_t;` ref_var over unsupported_typespec at uvm_pkg.sv:53993 is no longer the first head at this base — re-measure after the fold lands) |
-| Earlgrey_0_1×2 (both modes, byte-identical cmp logs) | 17 (depth) | golden puts a ref_typespec on the folded REPLICATION-COUNT constant of `prog_data_packed = {DataWidth{1'b1}};` (flash_phy_core.sv:190:27-190:36, inside generate block gen_prog_data of top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core): fullname = the owning INSTANCE, actual = the int_typespec of `parameter int DataWidth` at flash_phy_pkg.sv:17:13-17:16; ours emits none — the same family as earl72's R1 (gen-scope cont_assign fold typespec, 174 cells), hypothesis ONE law; pass earl75 next (earl74 landed: 36→17, a size-form dimension bound inherits the vpiConstType/tag of the sizing parameter's param_assign; the verifier bounded the outward walk at the first instance) |
+| Earlgrey_0_1×2 (both modes, byte-identical cmp logs) | 36 (depth) | an OVER-FOLD: `for (int i = 0; i < WidthMultiple; i++)` (flash_phy_core.sv:191:27-191:40, the for-loop condition inside the gen-scope always_comb of gen_prog_data) — golden keeps a ref_obj named WidthMultiple with the GEN-SCOPE-prefixed fullname (…i_core.gen_prog_data.WidthMultiple) bound to an enum_const (WidthMultiple = flash_phy_pkg.sv:34, wildcard-imported); ours folds to UINT:2; golden refuses the substitution inside a generate-scope process's for-statement AND every loop control expression (earl75 + its verifier's a2_loops75.sv) while the module body folds; pass earl76 queued (earl75 landed: 17→36, a gen-scope process fold stamps the folded parameter's declared typespec — the missing inProcessEmit flag, not a missing rule) |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 66 verifier fix-before-landing re-cuts (144 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 66 verifier fix-before-landing re-cuts (145 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

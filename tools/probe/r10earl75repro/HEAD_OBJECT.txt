@@ -1,0 +1,12 @@
+r10earl75 — the head object, EVERY field ref_typespec::Compare reads,
+plus the compare-invisible VpiFullName, golden vs the patched binary.
+MEASUREMENT ONLY (rtfn75.cpp).
+
+-- golden (Earlgrey_0_1 / default) --
+const 190:27 rt.VpiName='' rt.VpiDefName='' rt.VpiFullName='work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core' actual=int_typespec@17:13
+const 190:27 rt.VpiName='' rt.VpiDefName='' rt.VpiFullName='work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core' actual=int_typespec@17:13
+-- ours, patched --
+const 190:27 rt.VpiName='' rt.VpiDefName='' rt.VpiFullName='work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core' actual=int_typespec@17:13
+const 190:27 rt.VpiName='' rt.VpiDefName='' rt.VpiFullName='work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core' actual=int_typespec@17:13
+-- ours, pristine --
+(pristine prints nothing: the constant carries no Typespec at all.)

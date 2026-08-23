@@ -1,0 +1,106 @@
+r10v75 (VERIFIER) -- EVERY GATE RE-RUN FROM SCRATCH, in my own worktrees at
+BASE 94e673b, with binaries I built myself.  MEASUREMENT ONLY; the official
+uhdm-cmp is the judge.  results/*.csv was READ ONLY and is untouched; no row
+was converted.
+
+=== (1) BUILD -- both binaries, -j 2, frozen chmod 555 BEFORE any sweep ===
+pristine (94e673b clean)   e52f39cc3ed19857684896fe4602ee2c
+patched  (94e673b + patch) 0dfff398b6cc969b40f5bc78e31e5522
+  BOTH md5s are BIT-FOR-BIT the ones r10earl75repro/GATES.txt claims.
+  The patch applies to a fresh 94e673b with rc 0 and 0 conflict markers;
+  surface = include/UhdmExporter.h, src/ExprEmit.cpp, src/ModuleEmit.cpp,
+  tools/probe/r10earl75repro/ and nothing else; all four fenced names score 0.
+
+=== (2) GOLDENS -- SLANG_UHDM exported explicitly to EACH binary ===
+patched    PASS=23 FAIL=0
+pristine   PASS=23 FAIL=0
+/bin/false PASS=0  FAIL=23   (negative control)
+
+=== BINARY-PATH AUDIT of EVERY cmds.txt in all FOUR sweeps ===
+surelog patched   cmds.txt=1573  naming patched.bin =1523  MAIN-TREE=0
+surelog pristine  cmds.txt=1573  naming pristine.bin=1523  MAIN-TREE=0
+u2r     patched   cmds.txt=1462  naming patched.bin =1458  MAIN-TREE=0
+u2r     pristine  cmds.txt=1462  naming pristine.bin=1458  MAIN-TREE=0
+  (3035 per sweep; the remainder are golden-cache-hit rows with no slang line)
+
+=== (3) uhdm2rtlil, BOTH modes, BOTH binaries ===
+patched  tf {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+patched def {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+ct8rows patched vs the COMMITTED results/gate_uhdm2rtlil.csv   PASS (0 rows)
+ct8rows patched vs MY OWN pristine sweep, tf and def           PASS (0 rows)
+byteverify SELFCHECK=1  MOVERS 0 / 1358   (selfcheck flags 1357/1358)
+
+=== (4) surelog --mode both, BOTH binaries, 794 x 2 = 1588 rows ===
+patched  default   CMP_EQUAL 471 SLANG_REJECT 283 SURELOG_FAIL 25 CMP_NOTEQUAL 10 DEFERRED 5
+patched  testflags CMP_EQUAL 466 SLANG_REJECT 284 SURELOG_FAIL 23 NO_DATABASE 3
+                   CMP_NOTEQUAL 9 UNTRANSLATABLE 2 DEFERRED 5 TIMEOUT 1 NO_UHDM 1
+pristine default/testflags: the SAME two histograms, cell for cell.
+ct8rows patched vs the COMMITTED results/golden_surelog.csv    PASS (0 rows)
+ct8rows patched vs MY OWN pristine sweep                       PASS (0 rows)
+  -- NO ROW CONVERTED, status AND dump column, on either corpus.
+
+=== (5) BYTE MOVERS, surelog, SELFCHECK=1 ===
+MOVERS: 3 / 956  (selfcheck flags 955/956)
+  ./default/Earlgrey_0_1-71da2fd7/slang.uhdm     REAL, predicted
+  ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm   REAL, predicted
+  ./default/Scoreboard-59431470/slang.uhdm       THE COIN -- convicted:
+     * order-blind: 78 raw dump lines differ, 0 once both dumps are SORTED
+       (the moved lines are weaklyReferenced-tail typespecs);
+     * neutral control: the PATCHED binary alone, run three times on that
+       test, gives f5f0e99fc624 / 7afb03d6db3f / 7afb03d6db3f -- it lands on
+       the PRISTINE hash 2 runs out of 3.  The difference is not the patch.
+  r10earl75repro/GATES.txt reports 2/956; the third is this per-invocation
+  coin landing the other way, exactly as RESUME 9 describes it.
+
+=== HEADS, all seven named rows, both sweeps (rowheads.sh) ===
+row            mode       pristine   patched
+SeqDriver      def/tf      46/1       46/1     unchanged
+SimpleUVM      def/tf      17/1       17/1     unchanged
+Scoreboard     default     42/1       42/1     unchanged
+MiniAmiq       def/tf     348/1      348/1     unchanged
+BuildUVMPkg    def/tf      42/1       42/1     unchanged
+Earlgrey_0_1   default     17/1       36/1     THE HEAD CLEARED
+Earlgrey_0_1   testflags   17/1       36/1     THE HEAD CLEARED
+Rggen          default      0/0        0/0     equal, unchanged
+(Scoreboard/tf and Rggen/tf SKIP-NOFILE, as expected.)
+My pristine HEAD reproduces r10earl74's committed HEAD_AFTER byte for byte and
+my patched HEAD reproduces r10earl75repro/HEAD_AFTER_{default,testflags}.cmp
+line for line (the two files differ from my capture only in stdout/stderr
+interleaving; sorted, they are identical).
+
+=== CANARIES / PROTECTED DATABASES ===
+canaries.sh surelog     ok=52 changed=0 absent=0
+canaries.sh u2r         ok=8  changed=0 absent=0
+ctcan2.sh both suites   PASS
+canaudit.sh (run in r10earl75repro)  audited=29 UNCOVERED=0 FENCE-BREACH=0
+InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical both modes;
+SVSwitch 4842211c4030 and YosysVerx 6ccda350c24a on their pins, both binaries.
+
+=== (6) BOUNDARY -- my own walk, a COPY of tools/probe, NO path filter, .sv
+        and .v at ANY depth, both views, both frozen binaries, file list on
+        fd 3, children </dev/null, PROCESSED asserted, rc per cell ===
+WIDE (per file) LISTED=3421 PROCESSED=3421 identical=6568 DIFFERING=4 no_output=270
+  the 4: r10earl75repro/g1_gsproc75.sv (def+elab) -- this pass's own grid;
+         r10earl_repro/pf19.sv        (def+elab) -- TO-GOLDEN 1, AWAY 0,
+             MOVED-WRONG 0 in BOTH views, and its line-50 QUALIFIED control
+             does not move.
+DIR (per directory) LISTED=1498 PROCESSED=1498 identical=2750 DIFFERING=6 no_output=240
+  the 6: r10earl75repro (def+elab) -- the grid again;
+         r10uvm75repro, r10uvm76repro (def+elab) -- THE COIN: sorted diff 0
+             on all four cells, and the PRISTINE binary alone, run three
+             times on r10uvm75repro, differs from itself by 12-14 raw lines
+             and 0 sorted -- the identical signature.
+rc histograms: wide 12650x0, 516x3, 494x4, 24x139; dir 5314x0, 468x3, 198x4,
+12x139.  EVERY rc=139 pairs A with B (0 unpaired in either walk) -- the
+pre-existing elab segfaults, on both binaries.  No new crash, no new timeout.
+
+=== (7) THE CORPUS CENSUS, re-measured with MY OWN reader ===
+Earlgrey_0_1, both modes, whole-database constant census, pristine vs patched:
+the delta is EXACTLY 2 constants per mode, at 190:27-190:36, each gaining
+  ts=int_typespec span 17:13-17:16 SIGNED
+and golden has exactly that at exactly that key, twice, in both modes.
+Nothing else in the Earlgrey constant population changes in either mode, and
+the value fields (VpiConstType / VpiSize / VpiValue / VpiDecompile) do not
+move at all.  TO-GOLDEN 2 / AWAY 0 / MOVED-WRONG 0 / NOGOLD-MOVED 0 per mode.
+Because byteverify reports no other real mover in either corpus, the
+corpus-wide NOGOLD-MOVED count is 0 -- the pass's claim holds for the corpus.

@@ -16200,6 +16200,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         auto* procs = s.MakeProcess_stmtVec();
         suppressRefActual = true;
         inGenScopeProc = true;
+        // § genScopeProcOpFoldTs75 — the OWNING INSTANCE's path, which is what
+        // golden names the stamped ref_typespec after (not `fullName`, the gen
+        // block's own path).
+        gsProcInstPrefix75 = prefix;
         currentGenBlkScope = &blk;
         genBlkFullName58 = fullName;
         // § genNestedScopePkgParamNoFold24 — the same nesting test the
@@ -16240,6 +16244,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
         }
         inGenScopeProc = false;
+        gsProcInstPrefix75.clear();
         currentGenBlkScope = nullptr;
         genBlkFullName58.clear();
         genNestedScopeEmit24 = false;
