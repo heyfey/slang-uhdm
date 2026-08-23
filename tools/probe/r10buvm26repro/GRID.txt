@@ -1,0 +1,66 @@
+r10buvm26 grids — golden vs pristine vs patched, BOTH VIEWS
+
+MEASUREMENT ONLY.  LHS is ALWAYS golden.  Scoring is gridscore26.py over
+gridcen26.py rows: one row per object per source LINE, as a MULTISET, so a
+change in MULTIPLICITY cannot hide.  The serializer's `weaklyReferenced`
+leftover listing is EXCLUDED -- no Compare walk reaches it.
+
+g26.sv  -- the VALID family (a method call on an indexed receiver whose method
+           RESOLVES): 89 cells, the control this pass must not touch.
+    default  CELLS 89  FIXED 0  BROKEN 0  STILL-WRONG 14  STILL-RIGHT 75
+    elab     CELLS 89  FIXED 0  BROKEN 0  STILL-WRONG 15  STILL-RIGHT 74
+  and stronger: the whole DATABASE is byte-identical between the two binaries,
+    default md5 1a107ba6e019b5213ddd88273548bc4b   pristine == patched
+    elab    md5 91816fc9a171e9f2f0db3aa56e531c69   pristine == patched
+
+g26b.sv -- the DROPPED family (§ droppedIdxRecvCall26): 82 cells over every
+           expression position, every container kind, every index spelling, an
+           in-body method, an out-of-body method and a task, both views.
+    default            CELLS 82  FIXED 21  BROKEN 0  STILL-WRONG 27  STILL-RIGHT 34
+    default  --full    CELLS 82  FIXED 20  BROKEN 0  STILL-WRONG 28  STILL-RIGHT 34
+    elab               CELLS 82  FIXED 24  BROKEN 0  STILL-WRONG 27  STILL-RIGHT 31
+    elab     --full    CELLS 82  FIXED  9  BROKEN 0  STILL-WRONG 42  STILL-RIGHT 31
+
+  BROKEN 0 under every payload and both views is the load-bearing number.
+  `--full` adds VpiFullName, which NO generated Compare reads: it is
+  byte-identity evidence, never a verdict.
+
+  FIXED (compare-visible, default view), by cell:
+    39   lst[nm] = as29[nm].get_comp();          THE HEAD SHAPE
+    42   ... .get_comp1(x)                       one written argument
+    45   ... .get_comp2(a, h29.v)                two, one a dotted pair
+    48   qu29[0]                                 INTEGER-literal index
+    51   as29["k"]                               STRING-literal index
+    54   qu29[i + 1]                             OPERATION index
+    57   as29[sk29]                              class-property index
+    60   dy29[i]                                 dynamic-array receiver
+    63   fx29[i]                                 fixed-unpacked receiver
+    72   return as29[nm].get_comp();             RETURN position
+    75   if (as29[nm].get_comp())                CONDITION position
+    78   $display(..., as29[nm].get_comp())      SYSTEM-CALL argument
+    81   ... .get_comp() + 1                     OPERATION operand
+    87   ix29 = as29[nm].get_comp();             plain scalar LHS
+    90   lst[nm] += as29[nm].get_comp();         COMPOUND assignment
+    95   as29[nm].get_comp();                    STATEMENT position
+    97/98 as29[nm].get_comp1(x);                 STATEMENT with an argument
+    104  in a TASK
+    110  inside a foreach, exactly as uvm writes it
+    119  OUT-OF-BODY method
+
+  STILL-WRONG cells that belong to this family and were deliberately left:
+    66   aa29[nm][nm].get_comp()   TWO subscripts -- golden's path carries a
+         second, UNNAMED bit_select; we emit a var_select.  The VALID path is
+         wrong in the SAME way (g26.sv C18), so this is one residue, not two.
+    84   as29[nm].self29().v       a trailing member on the call: the path and
+         the method_func_call are now RIGHT; golden adds a further UNNAMED
+         method_func_call for the `.v` that we do not.  (On the VALID path the
+         same spelling gives us a NULL Rhs -- g26.sv C7.)
+    54 (--full only)  golden scopes an OPERATION index's operand ref through
+         the PATH NAME (`...::e6::qu29[i + 1].get_comp::i`); we use the plain
+         subroutine prefix.  Not read by any Compare.  Residue R-IDXPFX; the
+         elab listing does the same to a plain identifier index, which is why
+         `elab --full` scores 9 and not 24.
+
+  Everything else STILL-WRONG is pre-existing and untouched by this pass: the
+  `ref lst29` typedef-of-assoc typespec (array_typespec vs int_typespec), the
+  out-of-body io_decl line attribution, and the loc-less foreach `begin`.

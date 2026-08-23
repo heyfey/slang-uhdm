@@ -4261,6 +4261,32 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
 // `a.b` in EXPRESSION position parses as a ScopedName with a DOT separator
 // (slang keeps `::` and `.` in one node), so the receiver is the scoped name's
 // LEFT and the method its RIGHT -- not a MemberAccessExpression.
+// The ARGUMENT-shape half of § droppedCall14's narrowness, moved VERBATIM out
+// of `droppedCallShape14` so § droppedIdxRecvCall26's predicate applies the
+// SAME test rather than a second copy of it.  Behaviour-neutral by
+// construction: same tests, same order, same early returns.
+static bool droppedCallArgsOk14(
+    const slang::syntax::InvocationExpressionSyntax& inv) {
+    if (inv.arguments)
+        for (auto* a : inv.arguments->parameters) {
+            if (a->kind != syntax::SyntaxKind::OrderedArgument)
+                return false;
+            auto* ae = connActualSyntax(a->as<syntax::OrderedArgumentSyntax>().expr);
+            if (!ae)
+                return false;
+            if (ae->kind == syntax::SyntaxKind::IdentifierName)
+                continue;
+            if (ae->kind != syntax::SyntaxKind::ScopedName)
+                return false;
+            auto& asn = ae->as<syntax::ScopedNameSyntax>();
+            if (asn.separator.kind != slang::parsing::TokenKind::Dot ||
+                asn.left->kind != syntax::SyntaxKind::IdentifierName ||
+                asn.right->kind != syntax::SyntaxKind::IdentifierName)
+                return false;
+        }
+    return true;
+}
+
 static const slang::syntax::ScopedNameSyntax* droppedCallShape14(
     const slang::syntax::ExpressionSyntax& e) {
     if (e.kind != syntax::SyntaxKind::InvocationExpression)
@@ -4280,23 +4306,8 @@ static const slang::syntax::ScopedNameSyntax* droppedCallShape14(
     // Every actual must be a plain identifier or a plain DOTTED pair (see
     // above); anything with a literal, a select or an operator in it is left
     // to the caller's note.
-    if (inv.arguments)
-        for (auto* a : inv.arguments->parameters) {
-            if (a->kind != syntax::SyntaxKind::OrderedArgument)
-                return nullptr;
-            auto* ae = connActualSyntax(a->as<syntax::OrderedArgumentSyntax>().expr);
-            if (!ae)
-                return nullptr;
-            if (ae->kind == syntax::SyntaxKind::IdentifierName)
-                continue;
-            if (ae->kind != syntax::SyntaxKind::ScopedName)
-                return nullptr;
-            auto& asn = ae->as<syntax::ScopedNameSyntax>();
-            if (asn.separator.kind != slang::parsing::TokenKind::Dot ||
-                asn.left->kind != syntax::SyntaxKind::IdentifierName ||
-                asn.right->kind != syntax::SyntaxKind::IdentifierName)
-                return nullptr;
-        }
+    if (!droppedCallArgsOk14(inv))
+        return nullptr;
     return &sn;
 }
 
@@ -4441,6 +4452,249 @@ const syntax::ExpressionSyntax* UhdmExporter::findDroppedCallAt14(
             if (auto* r = findDroppedCallAt14(*c, loc))
                 return r;
     return nullptr;
+}
+
+// § droppedIdxRecvCall26 — THE SUBSCRIPTED RECEIVER, and the whole of this
+// pass.
+//
+// THE STATE.  § droppedCall14 above decodes what slang does with a method call
+// whose receiver's type is an UNSPECIALIZED type PARAMETER: the member does not
+// resolve, the expression is bad, and slang hands back an `InvalidExpression`
+// whose `child` is the RECEIVER it did manage to bind.  Diagnostics are
+// suppressed there because a generic class's DEFAULT specialization is
+// uninstantiated, so the state is reached silently and only in that listing.
+// `uvm_port_component #(type PORT=uvm_object)` is exactly it, and
+//
+//     virtual function void get_connected_to(ref uvm_port_list list);
+//       PORT list1[string];
+//       ...
+//       foreach(list1[name]) begin
+//         list[name] = list1[name].get_comp();      // uvm_pkg.sv:45158
+//       end
+//
+// is the BuildUVMPkg cmp HEAD at ecdded75 in BOTH modes: `uvm_object` has no
+// `get_comp`, so slang drops the call and the surviving child is the ELEMENT
+// SELECT `list1[name]`.  § droppedCall14's finder anchors on the receiver
+// IDENTIFIER's location and its shape test demands `sn.left` be an
+// `IdentifierName`, so a SUBSCRIPTED receiver reached neither: the Invalid arm
+// fell through to the plain `emitExpr(*child)` unwrap and emitted the bare
+// `bit_select`, LOSING THE CALL ENTIRELY.  Golden holds a `hier_path`; the two
+// disagree on `VpiType`, which is the first thing `BaseClass::Compare` reads.
+//
+// THE REFERENCE TOOL, DECODED (`~/git-repos/Surelog`), NOT INFERRED.  Surelog
+// does no member lookup at this level, so both spellings compile exactly like a
+// resolvable call:
+//
+//  * EXPRESSION position — `CompileExpression.cpp:5455` mints the `hier_path`
+//    and its `while (dotedName)` loop walks the written path.  A
+//    `paSelect`/`paBit_select` step (:5514-5546) pushes what
+//    `compileSelectExpression` builds for the base name — a `bit_select` named
+//    for the BASE — and appends `decompileHelper(select)` to the running
+//    `the_name`; a `slStringConst` step (:5504-5512) appends `"." + name`; and
+//    the `paMethod_call_body` / `paList_of_arguments` step (:5611-5691) pushes
+//    a `method_func_call` named after the METHOD, carrying `compileTfCallArguments`,
+//    parented AT THE PATH.  :5706-5710 then stamps `the_name` as the path's
+//    VpiName/VpiFullName and collapses a ONE-element path to that element.
+//    Hence golden's `list1[name].get_comp` over
+//    [`bit_select(list1)`, `method_func_call(get_comp)`].
+//  * STATEMENT position — `CompileHelper::compileTfCall`'s user-call arm
+//    (`CompileHelper.cpp:4216-4241`) reads `name = SymName(tfNameNode)`, sees a
+//    `paConstant_bit_select` SIBLING, and skips straight over it:
+//    `tfNameNode = fC->Sibling(Constant_bit_select)` is the METHOD, the call is
+//    a `method_func_call` named after it with a `vpiPrefix` ref_obj named after
+//    the BASE, and `argListNode = fC->Sibling(tfNameNode)` (:4318) is the
+//    WRITTEN argument list.  THE SUBSCRIPT IS NEVER READ — it is neither in the
+//    name nor an argument.  So the statement shape is § droppedCall14's own,
+//    with the base identifier as the prefix, and that is what this emits.
+//
+// MEASURED ON GOLDEN, both views, `tools/probe/r10buvm26repro/g26b.sv`: every
+// expression position (assignment RHS, `+=` RHS, return value, `if` condition,
+// system-call argument, operation operand), every container kind (associative
+// string-keyed, queue, dynamic, fixed unpacked), every index spelling
+// (identifier, integer literal, string literal, operation, class property), an
+// in-body method, an out-of-body method and a task, and 1..2 copies, take the
+// SAME shape.  The index TEXT the path NAME carries is `decompileHelper`'s,
+// which is why `hpCompIdxDecompile23` (§ dottedIdxRecvFromSyntax23's
+// transcription of that closed dispatch) renders it here too and the two sites
+// cannot drift.
+//
+// DELIBERATELY OUT (residues, measured and left visible rather than guessed):
+// a receiver with TWO subscripts (`aa29[nm][nm].get_comp()` — golden's path
+// carries a second, UNNAMED `bit_select`; ours emits a `var_select`, and the
+// VALID path gets it wrong in the same way), a trailing member on the call
+// (`as29[nm].self29().v`), and a `StatementKind::Invalid` route (this arm is
+// reached from the InvalidEXPRESSION site only).
+static const slang::syntax::IdentifierSelectNameSyntax* droppedIdxRecv26(
+    const slang::syntax::ScopedNameSyntax& sn) {
+    if (sn.left->kind != syntax::SyntaxKind::IdentifierSelectName)
+        return nullptr;
+    auto& isn = sn.left->as<syntax::IdentifierSelectNameSyntax>();
+    if (isn.identifier.valueText().empty())
+        return nullptr;
+    // ONE bit-select subscript, and nothing else: a second subscript and a
+    // part-select are the residues named above.
+    if (isn.selectors.size() != 1)
+        return nullptr;
+    auto* es = isn.selectors[0];
+    if (!es->selector || es->selector->kind != syntax::SyntaxKind::BitSelect)
+        return nullptr;
+    if (!es->selector->as<syntax::BitSelectSyntax>().expr)
+        return nullptr;
+    return &isn;
+}
+
+// The § droppedCall14 shape with a SUBSCRIPTED receiver.  Same separator, same
+// method-name requirement, same argument narrowness.
+static const slang::syntax::ScopedNameSyntax* droppedIdxCallShape26(
+    const slang::syntax::ExpressionSyntax& e) {
+    if (e.kind != syntax::SyntaxKind::InvocationExpression)
+        return nullptr;
+    auto& inv = e.as<syntax::InvocationExpressionSyntax>();
+    if (inv.left->kind != syntax::SyntaxKind::ScopedName)
+        return nullptr;
+    auto& sn = inv.left->as<syntax::ScopedNameSyntax>();
+    if (sn.separator.kind != slang::parsing::TokenKind::Dot)
+        return nullptr;
+    if (!droppedIdxRecv26(sn))
+        return nullptr;
+    if (sn.right->kind != syntax::SyntaxKind::IdentifierName ||
+        sn.right->as<syntax::IdentifierNameSyntax>().identifier.valueText().empty())
+        return nullptr;
+    if (!droppedCallArgsOk14(inv))
+        return nullptr;
+    return &sn;
+}
+
+// § droppedIdxRecvCall26 — the finder.  § droppedCall14's anchor (the
+// invocation whose callee's FIRST TOKEN sits where the surviving receiver
+// starts) does not work here: the bound `ElementSelect` slang hands back
+// carries the SELECTOR's range, not the base identifier's, so the anchor is
+// CONTAINMENT — the unique invocation of this shape whose receiver SPAN covers
+// that location.  Requiring uniqueness is what keeps a nested spelling
+// (`a[b[i].m()].m2()`) from being resolved by guesswork: two candidates abstain
+// and the pre-existing unwrap stands.
+static void collectDroppedIdxCalls26(
+    const syntax::SyntaxNode& root, slang::SourceLocation loc,
+    std::vector<const syntax::ExpressionSyntax*>& out) {
+    if (root.kind == syntax::SyntaxKind::InvocationExpression) {
+        auto& inv = root.as<syntax::InvocationExpressionSyntax>();
+        if (droppedIdxCallShape26(root.as<syntax::ExpressionSyntax>())) {
+            auto r = inv.left->as<syntax::ScopedNameSyntax>().left->sourceRange();
+            if (r.start() <= loc && loc < r.end())
+                out.push_back(&root.as<syntax::ExpressionSyntax>());
+        }
+    }
+    for (size_t i = 0; i < root.getChildCount(); i++)
+        if (auto* c = root.childNode(i))
+            collectDroppedIdxCalls26(*c, loc, out);
+}
+
+const syntax::ExpressionSyntax* UhdmExporter::findDroppedIdxCallAt26(
+    const syntax::SyntaxNode& root, slang::SourceLocation loc) {
+    std::vector<const syntax::ExpressionSyntax*> hits;
+    collectDroppedIdxCalls26(root, loc, hits);
+    return hits.size() == 1 ? hits[0] : nullptr;
+}
+
+UHDM::any* UhdmExporter::emitDroppedIdxCall26(const syntax::ExpressionSyntax& e,
+                                              const Expression& recv,
+                                              UHDM::BaseClass* parent,
+                                              const std::string& prefix,
+                                              NetMap& netMap, bool stmtCtx) {
+    const auto* sn = droppedIdxCallShape26(e);
+    if (!sn)
+        return nullptr;
+    const auto* isn = droppedIdxRecv26(*sn);
+    auto& inv = e.as<syntax::InvocationExpressionSyntax>();
+    auto methTok = sn->right->as<syntax::IdentifierNameSyntax>().identifier;
+    std::string base(isn->identifier.valueText());
+    std::string meth(methTok.valueText());
+    // The base identifier's own span (not the select's): golden locates the
+    // path element and the statement prefix at the NAME alone.
+    SourceRange baseRng = nameSpan(isn->identifier.location(), base);
+    SourceRange methRng = nameSpan(methTok.location(), meth);
+
+    // STATEMENT position — compileTfCall never reads the subscript, so this is
+    // § droppedCall14's statement object with the BASE as the prefix.
+    if (stmtCtx) {
+        auto* mfc = s.MakeMethod_func_call();
+        mfc->VpiName(meth);
+        mfc->VpiParent(parent);
+        setLoc(mfc, methRng);
+        auto* pr = s.MakeRef_obj();
+        pr->VpiName(base);
+        pr->VpiFullName(joinRef(prefix, base));
+        pr->VpiParent(mfc);
+        setLoc(pr, baseRng);
+        mfc->Prefix(pr);
+        auto* args = s.MakeAnyVec();
+        if (inv.arguments)
+            for (auto* a : inv.arguments->parameters)
+                args->push_back(emitDroppedArg14(
+                    *connActualSyntax(a->as<syntax::OrderedArgumentSyntax>().expr),
+                    mfc, prefix, netMap, /*bind=*/true));
+        if (!args->empty())
+            mfc->Tf_call_args(args);
+        return mfc;
+    }
+
+    // EXPRESSION position needs the INDEX, and slang bound it: the surviving
+    // child IS the element select.  Shape-check BEFORE minting anything --
+    // serializer GC is off, so an abandoned object would still reach the
+    // database.
+    const Expression& rv = stripImplicitConv(recv);
+    if (rv.kind != ExpressionKind::ElementSelect)
+        return nullptr;
+    const Expression& sel = rv.as<ElementSelectExpression>().selector();
+
+    // § dottedIdxRecvFromSyntax23 — the index TEXT is `decompileHelper`'s, the
+    // same closed dispatch the receiver-path builders use, so `q[f()]` renders
+    // `q[]` here exactly as it does there.
+    std::string comp = base + "[" + hpCompIdxDecompile23(sel) + "]";
+    std::string dotted = comp + "." + meth;
+    auto* hp = s.MakeHier_path();
+    hp->VpiName(dotted);
+    hp->VpiFullName(dotted);
+    hp->VpiParent(parent);
+    setLoc(hp, e.sourceRange());
+    auto* elems = s.MakeAnyVec();
+    auto* bs = s.MakeBit_select();
+    bs->VpiName(base);
+    bs->VpiFullName(comp);          // golden: `list1[name]`, not scope-joined
+    bs->VpiParent(hp);
+    setLoc(bs, baseRng);
+    {
+        // § dottedIdxRecvFromSyntax23 — a CONSTANT element index is UNPARENTED
+        // in golden and a non-constant one parents at the HIER_PATH, not at the
+        // bit_select.  Same convention, same two lines.
+        bool fs26 = forceConstParent;
+        bool ss26 = suppressConstParent;
+        forceConstParent = false;
+        suppressConstParent = true;
+        if (auto* ix = emitExpr(sel, bs, prefix, netMap)) {
+            if (ix->UhdmType() != UHDM::uhdmconstant)
+                ((UHDM::any*)ix)->VpiParent(hp);
+            bs->VpiIndex((UHDM::expr*)ix);
+        }
+        forceConstParent = fs26;
+        suppressConstParent = ss26;
+    }
+    elems->push_back(bs);
+    auto* mfc = s.MakeMethod_func_call();
+    mfc->VpiName(meth);
+    mfc->VpiParent(hp);
+    setLoc(mfc, methRng);
+    auto* args = s.MakeAnyVec();
+    if (inv.arguments)
+        for (auto* a : inv.arguments->parameters)
+            args->push_back(emitDroppedArg14(
+                *connActualSyntax(a->as<syntax::OrderedArgumentSyntax>().expr),
+                mfc, joinRef(prefix, dotted), netMap, /*bind=*/false));
+    if (!args->empty())
+        mfc->Tf_call_args(args);
+    elems->push_back(mfc);
+    hp->Path_elems(elems);
+    return hp;
 }
 
 UHDM::any* UhdmExporter::emitInvalidStmt14(const Statement& stmt,

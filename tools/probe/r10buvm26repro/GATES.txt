@@ -1,0 +1,73 @@
+r10buvm26 gate record — § droppedIdxRecvCall26
+
+BASE ecdded75.  Official uhdm-cmp and scripts/verify_golden.py are the
+authorities for every number here.  LHS is ALWAYS golden, RHS is ALWAYS ours.
+results/*.csv were READ ONLY and nothing was promoted.
+
+Frozen binaries (chmod 555 before any sweep):
+  pristine md5 9ae62f2d6a19f72cf5cb259847914b9a  -- reproduced the main tree's
+           pin /tmp/pris_9ae62f2d.bin byte for byte
+  patched  md5 905a87ec0b0218401130db11d5618f4b
+
+GATE 1  build -j 2, rc=0 for both.
+
+GATE 2  goldens
+  patched   PASS=23 FAIL=0
+  pristine  PASS=23 FAIL=0
+  SLANG_UHDM=/bin/false  PASS=0 FAIL=23   (negative control)
+
+GATE 3/4  full sweeps, jobs=2, every cmds.txt audited by ABSOLUTE binary path
+          (2981 slang: lines, all /tmp/r10buvm26_bin/pat.bin)
+  surelog both  937 CMP_EQUAL, 19 CMP_NOTEQUAL, 10 DEFERRED, 3 NO_DATABASE,
+                1 NO_UHDM, 567 SLANG_REJECT, 48 SURELOG_FAIL, 1 TIMEOUT,
+                2 UNTRANSLATABLE
+  u2r tf        679 CMP_EQUAL, 50 SLANG_REJECT, 2 SURELOG_FAIL
+  u2r def       679 CMP_EQUAL, 50 SLANG_REJECT, 2 SURELOG_FAIL
+  (the status histogram is read, not assumed: verify_golden.py records an
+   rc=139 SEGFAULT as SLANG_REJECT wearing the last stderr warning)
+
+  ct8rows, status AND dump column:
+    u2r testflags vs committed results/gate_uhdm2rtlil.csv : PASS, 0 rows
+    u2r testflags vs pristine control                      : PASS, 0 rows
+    u2r default   vs pristine control                      : PASS, 0 rows
+    surelog both  vs committed results/golden_surelog.csv  : PASS, 0 rows
+    surelog both  vs pristine control                      : PASS, 0 rows
+  NO ROW CONVERTED and no baseline was edited.  BuildUVMPkg stays
+  CMP_NOTEQUAL in both modes.
+
+GATE 5  byte movers, SELFCHECK=1
+  u2r      MOVERS 0 / 1358, PATH_SETS_IDENTICAL, SELFCHECK 1357/1358
+  surelog  MOVERS 3 / 956, PATH_SETS_IDENTICAL, SELFCHECK 955/956
+    default/BuildUVMPkg    PREDICTED (semantic)
+    testflags/BuildUVMPkg  PREDICTED (semantic)
+    default/Scoreboard     the documented svunit_pkg vpiTaskFunc list-order
+                           COIN: 92 ORDERED dump lines, ZERO ORDER-BLIND lines
+  BuildUVMPkg attribution, order-blind path-normalised dump diff: 26 lines,
+  EVERY ONE of them at uvm_pkg.sv:45158 and nowhere else.
+
+ROW HEADS (rowheads.sh, pristine -> patched; counts are DEPTH not distance)
+  SeqDriver     17/17   -> 17/17
+  SimpleUVM    108/108  -> 108/108
+  Scoreboard   108/-    -> 108/-        (testflags SKIP-NOFILE, expected)
+  MiniAmiq     348/348  -> 348/348
+  BuildUVMPkg   72/72   -> 76/76        THE HEAD MOVED (new object)
+  Earlgrey_0_1  46/46   -> 46/46
+  Rggen          0/-    -> 0/-          (passes; testflags SKIP-NOFILE)
+
+CANARIES
+  primary surelog ok=52 changed=0 absent=0
+  primary u2r     ok=8  changed=0 absent=0
+  ctcan2 surelog  ok=58 changed=0  PASS
+  ctcan2 u2r      ok=1  changed=0  PASS
+  canaudit        audited=29  UNCOVERED=0  FENCE-BREACH=0  PASS
+
+PROTECTED DATABASES (md5 patched vs pristine control, both modes)
+  InterfaceModPort   59a365f3ce2c / 59a365f3ce2c   SAME
+  BlackParrotComplex e3e354129d5a / 73a10e8217e5   SAME
+  YosysOldOr         d68e0796d62c                  SAME
+  SVSwitch           4842211c4030                  PIN HIT
+  YosysVerx          6ccda350c24a                  PIN HIT
+
+BuildUVMPkg official cmp (2>&1, both modes byte-identical to each other)
+  pristine  72 lines, 1 head, md5 c8a31e84977b61b9ecf368cda64a5521
+  patched   76 lines, 1 head, md5 9d162daeca3fa0bcbdba4dec5a005afb

@@ -1165,6 +1165,19 @@ private:
     const slang::syntax::SyntaxNode* stmtSyntax14 = nullptr;
     const slang::syntax::ExpressionSyntax* findDroppedCallAt14(
         const slang::syntax::SyntaxNode& root, slang::SourceLocation loc);
+    /// § droppedIdxRecvCall26 — the SUBSCRIPTED twin of § droppedCall14.  The
+    /// receiver of a dropped call may be an element select (`list1[name]
+    /// .get_comp()`); slang then hands back the bound ElementSelect as the
+    /// Invalid node's child and § droppedCall14's finder, which anchors on the
+    /// receiver IDENTIFIER, cannot see the invocation.  These two find and
+    /// emit that spelling; see the model at the definitions (StmtEmit.cpp).
+    const slang::syntax::ExpressionSyntax* findDroppedIdxCallAt26(
+        const slang::syntax::SyntaxNode& root, slang::SourceLocation loc);
+    UHDM::any* emitDroppedIdxCall26(const slang::syntax::ExpressionSyntax& e,
+                                    const slang::ast::Expression& recv,
+                                    UHDM::BaseClass* parent,
+                                    const std::string& prefix, NetMap& netMap,
+                                    bool stmtCtx);
     UHDM::any* emitDroppedArg14(const slang::syntax::ExpressionSyntax& ae,
                                 UHDM::BaseClass* parent,
                                 const std::string& argPfx, NetMap& netMap,

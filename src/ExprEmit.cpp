@@ -24134,6 +24134,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (auto* r14 = emitDroppedCall14(*cs14, parent, prefix,
                                                       netMap, stmtCtx14))
                         return r14;
+            // § droppedIdxRecvCall26 — THE HEAD.  The same dropped call with a
+            // SUBSCRIPTED receiver (`list1[name].get_comp()`,
+            // uvm_pkg.sv:45158): slang's surviving child is the bound
+            // ELEMENT SELECT, which § droppedCall14's identifier anchor cannot
+            // see, so the plain unwrap below emitted the bare `bit_select` and
+            // the call vanished.  Both halves — statement and expression —
+            // arrive HERE, because a rejected call in statement position is an
+            // ExpressionStatement over an INVALID EXPRESSION (`stmtCtx14`), not
+            // an invalid STATEMENT.  Placed AFTER the § 14 arm, which can never
+            // match an ElementSelect child, and BEFORE the unwrap it replaces:
+            // when this ABSTAINS (two subscripts, a part-select, an argument
+            // shape § droppedCall14 refuses) the unwrap still stands and the
+            // object is byte-for-byte what it is today.  Model, Surelog
+            // citations and the measured grid: see the definition in
+            // StmtEmit.cpp.
+            if (iv2.child && stmtSyntax14 &&
+                stripImplicitConv(*iv2.child).kind ==
+                    ExpressionKind::ElementSelect &&
+                iv2.child->sourceRange.start().valid())
+                if (auto* cs26 = findDroppedIdxCallAt26(
+                        *stmtSyntax14, iv2.child->sourceRange.start()))
+                    if (auto* r26 =
+                            emitDroppedIdxCall26(*cs26, *iv2.child, parent,
+                                                 prefix, netMap, stmtCtx14))
+                        return r26;
             // § invalidShellKeepsStmtPos103 — AN `Invalid` NODE IS A SHELL,
             // NOT A POSITION.  slang wraps the WHOLE expression of a statement
             // in a bad-expression shell when any part of it fails to bind — in

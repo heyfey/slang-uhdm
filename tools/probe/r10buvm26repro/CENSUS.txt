@@ -1,0 +1,41 @@
+r10buvm26 — corpus census and MOVER PREDICTION, from the PRISTINE databases
+only, BY NAME, before the patched sweep ran.
+
+MEASUREMENT ONLY.  LHS is ALWAYS golden, RHS is ALWAYS ours.
+Instruments: r10buvm26cen.cpp (build26.sh) + predict26.py + predsweep26.sh.
+
+A site of § droppedIdxRecvCall26 is one where GOLDEN holds a two-element
+hier_path [bit_select, method_func_call] and OURS holds, inside that path's
+span, a bare bit_select of the SAME vpiName whose parent is not a hier_path --
+the shape that says the call was dropped.  The join is by LOCATION ONLY: our
+expression nodes carry an EMPTY VpiFile (buvm16 §4).  Rows are TAB-separated,
+because a hier_path NAME can contain spaces (`qu29[i + 1].get_comp`) -- the
+first run used a space split and silently shifted exactly those seven rows.
+
+Scanned: 956 surelog row-modes + 1358 u2r row-modes = 2314 pristine databases,
+each against the golden its OWN cmds.txt names.
+
+  surelog, rows carrying the shape (9 row-modes):
+    default/BuildUVMPkg   1 site  45158:20-45158:42  list1[name].get_comp
+    testflags/BuildUVMPkg 1 site  45158:20-45158:42  list1[name].get_comp
+    default/MiniAmiq      2 sites 151  maps[j] / maps[read_from].get_full_name
+    testflags/MiniAmiq    2 sites 151
+    default/Scoreboard    2 sites 151
+    default/SeqDriver     2 sites 151
+    testflags/SeqDriver   2 sites 151
+    default/SimpleUVM     2 sites 151
+    testflags/SimpleUVM   2 sites 151
+  u2r: 0 sites / 1358.
+
+This is an UPPER BOUND on the movers, not an equality: it detects the SHAPE,
+not the slang state that produces it.  The realized mover set is the SUBSET
+this pass's arm actually reaches -- BuildUVMPkg in both modes, measured in
+GATES.txt.  The eight uvm-1.2 `maps[...]` row-modes did NOT move: their
+databases are byte-identical before and after, so whatever produces the bare
+bit_select there is NOT an InvalidExpression over an ElementSelect child.
+They are residue R-MAPS and are the natural next probe for this family.
+
+The overall corpus counts the census walks (BuildUVMPkg, either mode):
+  golden two-element [bit_select, method_func_call] hier_paths : 358
+  ours, pristine                                               : 357
+  ours, patched                                                : 358

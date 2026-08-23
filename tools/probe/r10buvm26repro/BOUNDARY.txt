@@ -1,0 +1,42 @@
+r10buvm26 full boundary over a COPY of the whole tools/probe tree.
+
+Every .sv and .v arm was compiled by BOTH frozen binaries, in file mode and in
+directory mode, in the def and the elab view.  The file list rode fd 3, the
+children read /dev/null, rc was recorded per cell, scratch keys were RELATIVE
+paths, and PROCESSED == LISTED was asserted (the gate exits 7 otherwise).
+
+  mode  view   processed/listed  identical  movers  uncompilable  asymmetries
+  file  def       3253/3253        3122       2         129           0
+  file  elab      3253/3253        3112       2         139           0
+  dir   def       1471/1471        1347       2         122           0
+  dir   elab      1471/1471        1342       2         127           0
+
+9448 cells.  No asymmetric reject anywhere (a segfault that happens happens on
+BOTH binaries).  TWO movers per run, the SAME two:
+
+1. r10buvm26repro/g26b.sv — THE POSITIVE CONTROL, this pass's own grid.  It
+   proves the gate can see: 613 dump lines move.
+
+2. r10buvm22repro/g22.sv — NOT this law.  Twelve lines move, and all twelve are
+   `vpiDecompile`/`UINT` of the RANGE-BOUND constants of the associative- and
+   dynamic-array typedefs at g22.sv:68-70 (`typedef C22 ka_cls_t[string];` and
+   friends): 22235321 -> 22243513, a shift of exactly 8192 on each.  No
+   hier_path, method_func_call, bit_select or ref_obj moves, and g22.sv has no
+   dropped call in it at all.
+
+   PROVED, not argued, with a NULL CONTROL BINARY (md5
+   0f0e67dc6338f942cffec327df3502f5): the whole pass compiled in, with
+   `findDroppedIdxCallAt26` returning null under an env switch.
+     * that binary, arm OFF, reproduces the PRISTINE database byte for byte on
+       g26b.sv (0 dump lines) — so the switch really is a null control;
+     * that binary, arm ON vs arm OFF, differs by 613 lines on g26b.sv — so the
+       switch really does turn the law on;
+     * on g22.sv, arm ON and arm OFF give a BYTE-IDENTICAL database (0 lines) —
+       the law never fires there;
+     * and BOTH of them print 22243513, the PATCHED value, not the pristine
+       22235321.
+   The constant therefore tracks the BINARY, not this law: it is a pre-existing
+   uninitialised/layout-dependent read in the array-typespec range emitter that
+   ANY code change shifts.  It is recorded as residue R-G22RANGE.  It is
+   corpus-invisible (u2r 0 movers / 1358; the surelog movers are the two
+   predicted BuildUVMPkg modes plus the documented Scoreboard coin).
