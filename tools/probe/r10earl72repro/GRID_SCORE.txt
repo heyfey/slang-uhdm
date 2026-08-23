@@ -1,0 +1,32 @@
+r10earl72 GRID SCORES — golden / pristine / patched, 3-way keyed multiset join
+(score72.py; key = tag + owner chain + site + positional path; the payload
+ carries NO span-only field that the judge cannot read)
+
+== g1_pos72.sv — POSITION grid, default view ==
+cells 38 {'STILL-RIGHT': 32, 'STILL-WRONG': 1, 'TO-GOLDEN': 5}
+== g1_pos72.sv — POSITION grid, --elabuhdm view ==
+cells 46 {'STILL-RIGHT': 30, 'STILL-WRONG': 11, 'TO-GOLDEN': 5}
+== g2_origin72.sv — ORIGIN x HOME grid, default view ==
+cells 62 {'STILL-RIGHT': 45, 'TO-GOLDEN': 6, 'STILL-WRONG': 8, 'MOVED-WRONG': 3}
+== g2_origin72.sv — ORIGIN x HOME grid, --elabuhdm view ==
+cells 62 {'STILL-RIGHT': 45, 'TO-GOLDEN': 6, 'STILL-WRONG': 8, 'MOVED-WRONG': 3}
+
+== MOVED BOUNDARY ARMS, each scored against ITS OWN Surelog golden ==
+-- r10earl_repro/gg.sv (default / elabuhdm)
+cells 42 {'TO-GOLDEN': 5, 'STILL-RIGHT': 37}
+cells 42 {'TO-GOLDEN': 5, 'STILL-RIGHT': 37}
+-- r10earl_repro/hh.sv (default / elabuhdm)
+cells 40 {'STILL-RIGHT': 32, 'TO-GOLDEN': 8}
+cells 40 {'TO-GOLDEN': 8, 'STILL-RIGHT': 32}
+-- r10earl_repro/wa24.sv (default / elabuhdm)
+cells 82 {'STILL-RIGHT': 73, 'STILL-WRONG': 8, 'TO-GOLDEN': 1}
+cells 83 {'STILL-RIGHT': 72, 'STILL-WRONG': 11}
+-- r10earl_repro/wf.sv (default / elabuhdm)
+cells 39 {'STILL-RIGHT': 32, 'STILL-WRONG': 6, 'TO-GOLDEN': 1}
+cells 39 {'STILL-WRONG': 6, 'STILL-RIGHT': 32, 'TO-GOLDEN': 1}
+-- r10earl_repro/wd.sv (default / elabuhdm)
+cells 26 {'STILL-RIGHT': 24, 'TO-GOLDEN': 2}
+cells 27 {'TO-GOLDEN': 2, 'STILL-WRONG': 3, 'STILL-RIGHT': 22}
+-- r10v65repro/a2_pos.sv (default / elabuhdm)
+cells 144 {'STILL-WRONG': 27, 'STILL-RIGHT': 116, 'MOVED-WRONG': 1}
+cells 160 {'STILL-WRONG': 45, 'STILL-RIGHT': 114, 'MOVED-WRONG': 1}

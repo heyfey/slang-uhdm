@@ -9924,11 +9924,61 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // Corpus, both `ref_typespec '' :0:0` vs <null> heads:
                     // flash_phy_rd.sv:130 `{NumBuf{req_i}} & buf_alloc` and
                     // rstmgr.sv:139 `.rst_parent_ni({PowerDomains{1'b1}})`.
-                    // ELAB-view datum, measured and deliberately NOT taken:
-                    // golden stamps there too (fullname = the instance), but
-                    // the direct-parent rule has excluded contAssignView == 2
-                    // since it was decoded, so this arm keeps the def-only
-                    // gate and the elab half stays an open note.
+                    // § caOpFoldElabTs72 (r10earl72) — AND THE ELAB HALF IS
+                    // THE SAME LAW.  r10earl14 measured golden stamping the
+                    // elaborated copy too and left it as a note because the
+                    // DIRECT-parent arm right below excludes
+                    // contAssignView == 2; that exclusion is about the arm
+                    // whose parent IS the cont_assign, and it does not
+                    // generalise.  Surelog's reason is structural, not a
+                    // policy: `UhdmWriter::writeCont_assign`
+                    // (Surelog/src/DesignCompile/UhdmWriter.cpp:2121-2131)
+                    // CLONES the def-compiled cont_assign
+                    // (`UHDM::clone_tree`) the moment the Lhs is a `ref_obj`
+                    // AND the Rhs is an `operation`, then `reduceExpr`s the
+                    // clone in the instance's context.  The clone carries the
+                    // def tree's typespecs with it, and the sub-constant that
+                    // the DEF compile already folded out of an imported
+                    // package parameter keeps the ref_typespec it was given
+                    // there — which is why the elaborated copy of
+                    // flash_phy_rd.sv:130 `{NumBuf{req_i}} & buf_alloc`
+                    // carries flash_phy_pkg's int_typespec @18:13-18:16 in
+                    // BOTH gen_flash_banks[0] and [1].  When the Rhs is NOT an
+                    // operation (a plain select, a bare read) Surelog does not
+                    // clone at all and the elaborated list holds the DEF
+                    // OBJECT ITSELF, so nothing needs stamping there: g1's
+                    // L32/L34/L36/L40 rows are absent from golden's elaborated
+                    // body entirely.  Hence the gate below is exactly
+                    // "contAssignView != 0 and an OPERATION stands between the
+                    // fold and the cont_assign" — the clone condition, read
+                    // off the writer.
+                    // GOLDEN GRID (g1_pos72.sv, one wildcard-imported package
+                    // `int` in 14 positions, DEF listing and elaborated body):
+                    // the elaborated body stamps a repeat count two ops deep
+                    // (L24, the Earlgrey head), a repeat count one op deep
+                    // (L26), a concat MEMBER (L28), a ternary arm (L42) and a
+                    // fold three ops deep (L44) — five cells, and ours had
+                    // <null> on every one.  It does NOT stamp what it never
+                    // clones: L30/L46 reduce to a whole-Rhs constant with no
+                    // typespec, and the select-Rhs rows never enter the
+                    // elaborated list.
+                    // TYPESPEC KIND FOLLOWS THE DECLARATION, not the position
+                    // (g2_origin72.sv, same shape, origin varied): a package
+                    // `int` -> int_typespec signed, a package `bit [7:0]` ->
+                    // bit_typespec, an IMPLICITLY typed package parameter ->
+                    // int_typespec UNSIGNED (see R2 — our def-view object is
+                    // signed there, and the elab copy inherits that error
+                    // rather than inventing a new one).  A QUALIFIED `pkg::P`
+                    // read stays bare in BOTH views, and a MODULE parameter, a
+                    // module localparam and a gen-scope localparam never fold
+                    // at all — so the `importedParamDefTs` + no-`::` gate the
+                    // def half already carries is the whole origin rule.
+                    // HOMES: every instance of a multiply-instantiated module
+                    // stamps (u0/u1/u2 identical), and so does every iteration
+                    // of a gen-for inside the instance body (gen_h1[0] and
+                    // gen_h1[1], 6 cells) — a NESTED gen block does not fold
+                    // the read at all (golden keeps a ref_obj to an
+                    // enum_const), so it is out of this law's reach.
                     // OPEN (measured, not implemented): the PORT-CONNECTION
                     // actual of a def-listing child instance takes the SAME
                     // stamp — wd.sv row R4
@@ -9945,7 +9995,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // Find the emission site first; do not re-run the gate.
                     bool caOpFold9 = false;
                     if (!inParamInit && !inProcessEmit && !currentTf &&
-                        !ndaRhsEmit && contAssignView == 1 && parent &&
+                        !ndaRhsEmit && contAssignView != 0 && parent &&
                         parent->UhdmType() == UHDM::uhdmoperation) {
                         const UHDM::any* up9 = parent;
                         for (int g9 = 0;

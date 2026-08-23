@@ -1,0 +1,36 @@
+r10earl72 EARLGREY CENSUS — every constant reachable from a cont_assign,
+port High_conn or param_assign, keyed (owner VpiParent chain, site,
+positional path), 3-way multiset join golden/pristine/patched.
+
+== CALIBRATION golden-vs-golden (must be all STILL-RIGHT) ==
+default   : cells 144381 {'STILL-RIGHT': 144381}
+testflags : cells 234229 {'STILL-RIGHT': 234229}
+
+== SCORED ==
+default   : cells 146740 {'STILL-RIGHT': 134841, 'STILL-WRONG': 11893, 'TO-GOLDEN': 6}
+testflags : cells 237698 {'STILL-RIGHT': 221110, 'STILL-WRONG': 16576, 'TO-GOLDEN': 12}
+
+== THE MOVED CELLS (default; testflags is the same two objects) ==
+cells 146740 {'STILL-RIGHT': 134841, 'STILL-WRONG': 11893, 'TO-GOLDEN': 6}
+  TO-GOLDEN TS design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[0])/gen_scope/module_inst(i_core)/module_inst(i_rd) CA_L130:10 RHS/op32[1]/op28[0]/op34[0] constant | G span=36 ct=9 sz=32 val=UINT:4 dec=4 ts=int_typespec tssgn=1 | P span=36 ct=9 sz=32 val=UINT:4 dec=4 ts=int_typespec tssgn=1
+  TO-GOLDEN TS design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_eflash)/gen_scope_array(gen_flash_banks[1])/gen_scope/module_inst(i_core)/module_inst(i_rd) CA_L130:10 RHS/op32[1]/op28[0]/op34[0] constant | G span=36 ct=9 sz=32 val=UINT:4 dec=4 ts=int_typespec tssgn=1 | P span=36 ct=9 sz=32 val=UINT:4 dec=4 ts=int_typespec tssgn=1
+
+== OBJECT-KIND HISTOGRAM DELTA (kh72), pristine -> patched ==
+-- def
+36c36
+< int_typespec 12252
+---
+> int_typespec 12254
+59c59
+< ref_typespec 109707
+---
+> ref_typespec 109709
+-- tf
+36c36
+< int_typespec 12199
+---
+> int_typespec 12201
+59c59
+< ref_typespec 130930
+---
+> ref_typespec 130932

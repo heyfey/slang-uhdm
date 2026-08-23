@@ -1,0 +1,15 @@
+plain r10earl72repro/g1_pos72.sv
+elab r10earl72repro/g1_pos72.sv
+plain r10earl72repro/g2_origin72.sv
+elab r10earl72repro/g2_origin72.sv
+plain r10earl_repro/gg.sv
+elab r10earl_repro/gg.sv
+plain r10earl_repro/hh.sv
+elab r10earl_repro/hh.sv
+plain r10earl_repro/wa24.sv
+plain r10earl_repro/wd.sv
+elab r10earl_repro/wd.sv
+plain r10earl_repro/wf.sv
+elab r10earl_repro/wf.sv
+plain r10v65repro/a2_pos.sv
+elab r10v65repro/a2_pos.sv

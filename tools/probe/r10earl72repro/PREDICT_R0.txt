@@ -1,0 +1,26 @@
+r10earl72 — PREDICTED MOVERS, read from the PRISTINE databases BEFORE the
+patched sweeps were scored (predict72.sh's candidate shape, taken straight off
+the law: a constant inside an ELABORATED cont_assign RHS — its VpiParent chain
+carries a named module_inst or a gen_scope — with at least one OPERATION
+between it and the cont_assign, carrying NO typespec, whose DEF-listing twin at
+the SAME span and SAME positional path DOES carry one).
+
+uhdm2rtlil, 1358 pristine databases scanned : 0 carry a candidate
+surelog,     956 pristine databases scanned :
+CAND  6 default/Earlgrey_0_1-71da2fd7/slang.uhdm
+CAND 12 testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+
+=> predicted mover set = exactly
+     default/Earlgrey_0_1-71da2fd7/slang.uhdm
+     testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+   and NOTHING in uhdm2rtlil.
+
+MEASURED (byteverify SELFCHECK=1): uhdm2rtlil 0/1358 movers; surelog 3/956 =
+those two plus default/Scoreboard-59431470, the known per-invocation COIN
+(order-blind path-normalised dump diff over 1,099,483 sorted lines = 0 lines).
+
+The predicted CELL COUNTS are the measured ones: the Earlgrey census scores
+exactly 6 TO-GOLDEN cells in default and 12 in testflags (2 distinct objects
+per mode x the listener's visit multiplicity), 0 AWAY-GOLDEN, 0 MOVED-WRONG.
+The object-kind histogram (kh72) confirms the whole delta: +2 ref_typespec and
++2 int_typespec per mode, no other kind's count moves by one.
