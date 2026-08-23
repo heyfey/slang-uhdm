@@ -1,0 +1,68 @@
+r10uvm110 MOVER PREDICTION -- made A PRIORI from the PRISTINE workdir's cmds.txt
+plus the transitive `include closure (pred110.py), BEFORE the shipped binary's
+databases existed.  A test can move only if its closure holds a source file with a
+DOTTED simple-assignment lvalue whose RHS is a dynamic-array `new [` (DOTNEW).
+A `this.`/`super.`-rooted spelling is counted SEPARATELY (THISNEW): those
+statements are DROPPED outright by § thisSuperNewAssignNoStmt3, so a closure with
+only those cannot move.  The four slang-fenced tests are skipped by the md5 of
+their names and are never spelled.
+
+uhdm2rtlil: DOTNEW=0 in EVERY file of the corpus -> PREDICTED 0 MOVERS.
+  MEASURED 0 / 1358 (byteverify, SELFCHECK 1357/1358).
+
+surelog candidate tests (UPPER BOUND -- the scan does not model whether the test
+even builds a database with our binary), from pred110.py:
+  default    AmiqEth                DOTNEW=2 THISNEW=0
+  default    AmiqSimpleTestSuite    DOTNEW=3 THISNEW=0
+  default    BuildUVMPkg            DOTNEW=2 THISNEW=0
+  default    Driver                 DOTNEW=2 THISNEW=0
+  default    Ibex                   DOTNEW=2 THISNEW=0
+  default    IbexGoogle             DOTNEW=2 THISNEW=0
+  default    MiniAmiq               DOTNEW=3 THISNEW=0
+  default    Monitor                DOTNEW=3 THISNEW=0
+  default    Opentitan              DOTNEW=2 THISNEW=0
+  default    Scoreboard             DOTNEW=2 THISNEW=0
+  default    SeqDriver              DOTNEW=2 THISNEW=0
+  default    SimpleClass1           DOTNEW=2 THISNEW=0
+  default    SimpleInterface        DOTNEW=2 THISNEW=0
+  default    SimpleUVM              DOTNEW=2 THISNEW=0
+  default    SimpleVMM              DOTNEW=11 THISNEW=7
+  default    UVMNestedSeq           DOTNEW=2 THISNEW=0
+  default    UVMSwitch              DOTNEW=2 THISNEW=0
+  default    UnitAmiqEth            DOTNEW=2 THISNEW=0
+  testflags  AmiqEth                DOTNEW=2 THISNEW=0
+  testflags  AmiqSimpleTestSuite    DOTNEW=3 THISNEW=0
+  testflags  BuildUVMPkg            DOTNEW=2 THISNEW=0
+  testflags  Driver                 DOTNEW=2 THISNEW=0
+  testflags  Ibex                   DOTNEW=2 THISNEW=0
+  testflags  IbexGoogle             DOTNEW=2 THISNEW=0
+  testflags  MiniAmiq               DOTNEW=3 THISNEW=0
+  testflags  Monitor                DOTNEW=3 THISNEW=0
+  testflags  Opentitan              DOTNEW=2 THISNEW=0
+  testflags  Scoreboard             DOTNEW=2 THISNEW=0
+  testflags  SeqDriver              DOTNEW=2 THISNEW=0
+  testflags  SimpleClass1           DOTNEW=2 THISNEW=0
+  testflags  SimpleInterface        DOTNEW=2 THISNEW=0
+  testflags  SimpleUVM              DOTNEW=2 THISNEW=0
+  testflags  SimpleVMM              DOTNEW=11 THISNEW=7
+  testflags  UVMNestedSeq           DOTNEW=2 THISNEW=0
+  testflags  UVMSwitch              DOTNEW=2 THISNEW=0
+  testflags  UnitAmiqEth            DOTNEW=2 THISNEW=0
+
+THISONLY tests (a closure with only this./super. spellings -- cannot move):
+  count=0
+
+Of the 36 candidate rows, only these NINE produce a slang.uhdm at all (the other
+27 are SLANG_REJECT / SURELOG_FAIL / NO_DATABASE in the pristine sweep), so the
+PREDICTED MOVER SET IS EXACTLY THESE NINE, NAMED BEFORE THE SHIPPED SWEEP RAN:
+  default/BuildUVMPkg  default/MiniAmiq  default/Scoreboard  default/SeqDriver  default/SimpleUVM
+  testflags/BuildUVMPkg  testflags/MiniAmiq  testflags/SeqDriver  testflags/SimpleUVM
+
+MEASURED MOVERS: 9 / 956 -- exactly that set (byteverify, SELFCHECK 955/956).
+
+KNOWN GAP (inherited from pred108): a test driven by `-f filelist` (SVSwitch) has
+no source token in cmds.txt, so pred110.py cannot open its closure.  SVSwitch was
+checked by its md5 pin instead -- 4842211c4030 held on BOTH modes -- and its two
+`new[` sites are the ones § thisSuperNewAssignNoStmt3 documents (Packet.sv:71
+`bytes = new[data.size + 4];` UNDOTTED, and Packet.sv:87 `this.data = new[...]`
+`this`-rooted); neither is in this law.

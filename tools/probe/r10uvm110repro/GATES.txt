@@ -1,0 +1,79 @@
+r10uvm110 GATES -- all measured in THIS pass's own worktree (/tmp/wt_r10uvm110 at
+28f373a) with BOTH binaries FROZEN at immutable paths BEFORE any sweep, and every
+cmds.txt audited by BINARY PATH.  results/*.csv were READ, never written.
+
+  pristine  md5 f65953e2d0761f323e27e40efe32bb51   (28f373a, my own build)
+  shipped   md5 2e26d5e5145f832ee6f3d0932a955ccf   (28f373a + this pass)
+  control   md5 332421db518544fee78ed024cc3f034c   (28f373a + a 4096-byte
+            exported never-read symbol and NO law -- the layout-shim control for
+            the boundary attribution; scratch only, NOT in the patch)
+
+(1) BUILD -- both binaries built -j 2, md5s taken separately, frozen chmod 555.
+
+(2) GOLDENS (SLANG_UHDM exported EXPLICITLY to each binary, never defaulted)
+      pristine   PASS=23  FAIL=0
+      shipped    PASS=23  FAIL=0
+      /bin/false FAIL=23  PASS=0        (negative control -- the harness can see)
+
+(3) uhdm2rtlil, 1358 rows
+      ct8rows vs the committed results/gate_uhdm2rtlil.csv   PASS, 0 differing rows
+      ct8rows vs MY OWN pristine control (testflags)         PASS, 0 differing rows
+      ct8rows vs MY OWN pristine control (default)           PASS, 0 differing rows
+      byteverify SELFCHECK=1   PATH_SETS_IDENTICAL (1358)
+                               MOVERS 0 / 1358
+                               SELFCHECK 1357 / 1358 flagged
+      binary path in cmds.txt: /tmp/r10uvm110_s/ship110.bin   (audited)
+
+(4) surelog, 1588 rows (794 tests x 2 modes)
+      ct8rows vs the committed results/golden_surelog.csv    PASS, 0 differing rows
+      ct8rows vs MY OWN pristine control                     PASS, 0 differing rows
+      my pristine control ITSELF vs the committed baseline   PASS, 0 differing rows
+      NO ROW CONVERTS.  SeqDriver was CMP_NOTEQUAL before and is CMP_NOTEQUAL
+      after, ONE HEAD DEEPER (46 cmp lines -> 17).  results/*.csv is UNTOUCHED.
+      byteverify SELFCHECK=1   PATH_SETS_IDENTICAL (956)
+                               MOVERS 9 / 956 -- the nine UVM databases, exactly
+                               the set PREDICT.txt named A PRIORI
+                               SELFCHECK 955 / 956 flagged
+
+(5) HEADS (rowheads.sh, one head per run, grep -c '^LHS:'; counts are DEPTH)
+      TEST          MODE       BEFORE   AFTER
+      SeqDriver     default      46      17     <- THE HEAD THIS PASS WAS GIVEN
+      SeqDriver     testflags    46      17     <-
+      SimpleUVM     default      17      17
+      SimpleUVM     testflags    17      17
+      Scoreboard    default      42      42
+      Scoreboard    testflags    SKIP-NOFILE (expected)
+      MiniAmiq      default     348     348
+      MiniAmiq      testflags   348     348
+      BuildUVMPkg   default      17      17
+      BuildUVMPkg   testflags    17      17
+      Earlgrey_0_1  default      36      36
+      Earlgrey_0_1  testflags    36      36
+      Rggen         default       0       0
+      Rggen         testflags    SKIP-NOFILE (expected)
+      measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+(6) CANARIES
+      canaries.sh  surelog     ok=52 changed=0 absent=0
+      canaries.sh  uhdm2rtlil  ok=8  changed=0 absent=0
+      ctcan2.sh    surelog     (EXPECT_UNKNOWN=1) PASS
+      ctcan2.sh    uhdm2rtlil  (EXPECT_UNKNOWN=6) PASS
+      canaudit.sh canaries.sh ctcan2.sh           PASS, FENCE-BREACH=0
+
+(7) PROTECTED DATABASES, by name, pristine vs shipped md5
+      InterfaceModPort    default+testflags  59a365f3ce2c  BYTE-IDENTICAL
+      BlackParrotComplex  default e3e354129d5a / testflags 73a10e8217e5  IDENTICAL
+      YosysOldOr          default+testflags  d68e0796d62c  BYTE-IDENTICAL
+      SVSwitch            default+testflags  4842211c4030  PIN HELD
+      YosysVerx           default+testflags  6ccda350c24a  PIN HELD
+
+(8) WIDE BOUNDARY (BOUNDARY.txt)
+      3418 files, 4 shards, both views, LISTED == PROCESSED in all four,
+      RC_DIFF=0, ASYM=0, PROCESSED-ASSERT-OK x4.  Movers: this pass's four arms
+      (+ their preprocessed copies), one OTHER pass's arm that goes TO_GOLDEN,
+      one pre-existing layout-derived cell proved not-ours with a control build,
+      and one run-to-run nondeterminism flake proved not-ours by re-running.
+
+(9) FENCE CHECK -- the four slang-fenced test names appear NOWHERE in this
+      pass's sources or artifacts; pred110.py skips them by the md5 of their
+      names and prints FENCED-SKIP.  canaudit.sh PASS.

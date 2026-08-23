@@ -1,0 +1,101 @@
+r10uvm110 GRID -- the four arms scored THREE WAYS (golden / pristine / shipped) in
+BOTH views by score110.sh.  TO_GOLDEN = pristine wrong, shipped right; AWAY = a
+REGRESSION; LATERAL = both wrong, differently; STILL = both wrong, identically.
+Keys are per named ancestor over a MULTISET of projected rows, so a single key
+carries every assignment in that subroutine -- the arms are NOT one-cell-per-key.
+
+The grid deliberately varies naming style, casing, identifier length, numbers and
+ORDER between arms (a1 lower/mixed, a2 UPPER+digits, a3 mixed, a4 different again)
+so that no cell can agree by an accident of a uniform scheme.
+
+---- a1_shapes.sv
+RC a1_shapes_sv.def surelog=0 pris=0 ship=0 golden=/tmp/wt_r10uvm110/tools/probe/r10uvm110repro/run/a1_shapes_sv.def/slpp_all/surelog.uhdm
+RC a1_shapes_sv.elab surelog=0 pris=0 ship=0 golden=/tmp/wt_r10uvm110/tools/probe/r10uvm110repro/run/a1_shapes_sv.elab/slpp_all/surelog.uhdm
+  TO_GOLDEN ASG body_formal
+  TO_GOLDEN ASG body_local
+  TO_GOLDEN ASG body_oob
+  LATERAL   ASG body_prop
+  TO_GOLDEN ASG body_task
+  TO_GOLDEN ASG work@top110A
+a1_shapes_sv.def SAME=1 TO_GOLDEN=5 AWAY=0 LATERAL=1 STILL=0
+  TO_GOLDEN ASG ?
+  TO_GOLDEN ASG body_formal
+  TO_GOLDEN ASG body_local
+  TO_GOLDEN ASG body_oob
+  LATERAL   ASG body_prop
+  TO_GOLDEN ASG body_task
+  TO_GOLDEN ASG work@top110A
+a1_shapes_sv.elab SAME=1 TO_GOLDEN=6 AWAY=0 LATERAL=1 STILL=0
+
+---- a2_recv.sv
+RC a2_recv_sv.def surelog=0 pris=0 ship=0 golden=/tmp/wt_r10uvm110/tools/probe/r10uvm110repro/run/a2_recv_sv.def/slpp_all/surelog.uhdm
+RC a2_recv_sv.elab surelog=0 pris=0 ship=0 golden=/tmp/wt_r10uvm110/tools/probe/r10uvm110repro/run/a2_recv_sv.elab/slpp_all/surelog.uhdm
+  TO_GOLDEN ASG deepz
+  TO_GOLDEN ASG homez
+  TO_GOLDEN ASG strz
+  LATERAL   ASG work@mod110b
+a2_recv_sv.def SAME=0 TO_GOLDEN=3 AWAY=0 LATERAL=1 STILL=0
+  TO_GOLDEN ASG deepz
+  TO_GOLDEN ASG homez
+  TO_GOLDEN ASG strz
+  LATERAL   ASG work@mod110b
+a2_recv_sv.elab SAME=0 TO_GOLDEN=3 AWAY=0 LATERAL=1 STILL=1
+
+---- a3_fence.sv
+RC a3_fence_sv.def surelog=0 pris=0 ship=0 golden=/tmp/wt_r10uvm110/tools/probe/r10uvm110repro/run/a3_fence_sv.def/slpp_all/surelog.uhdm
+RC a3_fence_sv.elab surelog=0 pris=0 ship=0 golden=/tmp/wt_r10uvm110/tools/probe/r10uvm110repro/run/a3_fence_sv.elab/slpp_all/surelog.uhdm
+  TO_GOLDEN ASG inder
+  LATERAL   ASG work@deep110
+a3_fence_sv.def SAME=1 TO_GOLDEN=1 AWAY=0 LATERAL=1 STILL=1
+  TO_GOLDEN ASG inder
+  LATERAL   ASG work@deep110
+a3_fence_sv.elab SAME=1 TO_GOLDEN=1 AWAY=0 LATERAL=1 STILL=2
+
+---- a4_homes.sv
+RC a4_homes_sv.def surelog=0 pris=0 ship=0 golden=/tmp/wt_r10uvm110/tools/probe/r10uvm110repro/run/a4_homes_sv.def/slpp_all/surelog.uhdm
+RC a4_homes_sv.elab surelog=0 pris=0 ship=0 golden=/tmp/wt_r10uvm110/tools/probe/r10uvm110repro/run/a4_homes_sv.elab/slpp_all/surelog.uhdm
+  LATERAL   ASG GBLK[0]
+  LATERAL   ASG GBLK[1]
+  TO_GOLDEN ASG casez4
+  TO_GOLDEN ASG eachz
+  TO_GOLDEN ASG forkz
+  TO_GOLDEN ASG new
+  TO_GOLDEN ASG solez
+  TO_GOLDEN ASG work@ifc110
+  LATERAL   ASG work@prg110
+a4_homes_sv.def SAME=0 TO_GOLDEN=6 AWAY=0 LATERAL=3 STILL=0
+  LATERAL   ASG GBLK[0]
+  LATERAL   ASG GBLK[1]
+  TO_GOLDEN ASG casez4
+  TO_GOLDEN ASG eachz
+  TO_GOLDEN ASG forkz
+  TO_GOLDEN ASG new
+  TO_GOLDEN ASG solez
+  TO_GOLDEN ASG work@ifc110
+  LATERAL   ASG work@prg110
+a4_homes_sv.elab SAME=0 TO_GOLDEN=6 AWAY=0 LATERAL=3 STILL=0
+
+---- ANOTHER PASS'S ARM (independent corroboration): r10svs3repro/a1_newlhs.sv
+RC ___r10svs3repro_a1_newlhs_sv.def surelog=0 pris=0 ship=0 golden=/tmp/wt_r10uvm110/tools/probe/r10uvm110repro/run/___r10svs3repro_a1_newlhs_sv.def/slpp_all/surelog.uhdm
+RC ___r10svs3repro_a1_newlhs_sv.elab surelog=0 pris=0 ship=0 golden=/tmp/wt_r10uvm110/tools/probe/r10uvm110repro/run/___r10svs3repro_a1_newlhs_sv.elab/slpp_all/surelog.uhdm
+  TO_GOLDEN ASG m6
+___r10svs3repro_a1_newlhs_sv.def SAME=6 TO_GOLDEN=1 AWAY=0 LATERAL=0 STILL=0
+  TO_GOLDEN ASG m6
+___r10svs3repro_a1_newlhs_sv.elab SAME=6 TO_GOLDEN=1 AWAY=0 LATERAL=0 STILL=0
+
+---- SUMMARY: AWAY = 0 in EVERY arm and EVERY view (10 of 10 cells).  32 keys go
+     TO_GOLDEN; the LATERAL keys are the named residues, all of them cells whose
+     KIND now agrees with golden and whose vpiActual does not (R-hier110,
+     R-genbind110, R-prog110) or a golden-drop we neither create nor repair
+     (R-static110 / R-pkgscope110).
+
+---- WHY THE ARMS ARE A TEST AND NOT A CONFIRMATION.  Each arm carries CONTROLS
+     that must NOT move, and they do not:
+       a1  c04 `gp.nxt = new ();`  c05 literal  c06 expression  c07 $sformatf
+           c08 user call  c09 `+=`  c10 two-dot plain  c20 `this.x.y = 5`
+           c23 `this.<scalar>`  c26 `<=`  c27 `+=`  c28 `#1 x.y = 4`
+       a2  e02 two-dot class `new ()`  e08/e14/e19/e20 scalar and element writes
+       a3  f02/f03 undotted `new`  f04/f05 dotted class-new and dotted plain
+           f09/f10 IMPLICIT-this (bare property)  f11/f12/f13/f15 this./super.
+       a4  g02/g04/g06/g08/g09/g11/g13/g15/g17 -- one control per statement slot
+     and the SVSwitch arm's six unmoved cells above.

@@ -1,0 +1,223 @@
+r10uvm110 ATTRIBUTION -- ORDER-BLIND whole-dump diff of every moved database
+(dumps SORTED and the workdir prefix normalised out, so Scoreboard/default's
+~50/50 vpiTaskFunc-order coin cannot masquerade as a change).  attr110.sh.
+9 / 956 databases moved; the PREDICTED set (PREDICT.txt), named before the
+shipped sweep ran.
+
+== ./default/BuildUVMPkg-bf853d43/slang.uhdm  added=6 removed=24
+      4 < |vpiParent:
+      4 < |vpiActual:
+      3 < \_hier_path: (gp.m_data), line:61634:6, endln:61634:15
+      3 < \_hier_path: (gp.m_byte_enable), line:61629:6, endln:61629:22
+      2 > |vpiName:gp
+      2 < |vpiName:gp
+      2 > |vpiFullName:uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp
+      1 < |vpiName:m_data
+      1 < |vpiName:m_byte_enable
+      1 < |vpiName:gp.m_data
+      1 < |vpiName:gp.m_byte_enable
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:61634:6, endln:61634:15
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:61629:6, endln:61629:22
+      1 < \_ref_obj: (m_data), line:61634:9, endln:61634:15
+      1 < \_ref_obj: (m_byte_enable), line:61629:9, endln:61629:22
+      1 < \_ref_obj: (gp), line:61634:9, endln:61634:15
+      1 < \_ref_obj: (gp), line:61629:9, endln:61629:22
+== ./default/MiniAmiq-544c7f61/slang.uhdm  added=9 removed=36
+      6 < |vpiParent:
+      6 < |vpiActual:
+      3 < \_hier_path: (gp.m_data), line:200:6, endln:200:15
+      3 < \_hier_path: (gp.m_byte_enable), line:195:6, endln:195:22
+      3 < \_hier_path: (copy.checks_details), line:273:10, endln:273:29
+      2 > |vpiName:gp
+      2 < |vpiName:gp
+      2 > |vpiFullName:uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp
+      1 < |vpiName:m_data
+      1 < |vpiName:m_byte_enable
+      1 < |vpiName:gp.m_data
+      1 < |vpiName:gp.m_byte_enable
+      1 < |vpiName:copy.checks_details
+      1 > |vpiName:copy
+      1 < |vpiName:copy
+      1 < |vpiName:checks_details
+      1 > |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_info::copy::copy
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:200:6, endln:200:15
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:195:6, endln:195:22
+      1 > \_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_info::copy::copy), line:273:10, endln:273:29
+      1 < \_ref_obj: (m_data), line:200:9, endln:200:15
+      1 < \_ref_obj: (m_byte_enable), line:195:9, endln:195:22
+      1 < \_ref_obj: (gp), line:200:9, endln:200:15
+      1 < \_ref_obj: (gp), line:195:9, endln:195:22
+      1 < \_ref_obj: (copy), line:273:15, endln:273:29
+      1 < \_ref_obj: (checks_details), line:273:15, endln:273:29
+== ./default/Scoreboard-59431470/slang.uhdm  added=6 removed=24
+      4 < |vpiParent:
+      4 < |vpiActual:
+      3 < \_hier_path: (gp.m_data), line:200:6, endln:200:15
+      3 < \_hier_path: (gp.m_byte_enable), line:195:6, endln:195:22
+      2 > |vpiName:gp
+      2 < |vpiName:gp
+      2 > |vpiFullName:uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp
+      1 < |vpiName:m_data
+      1 < |vpiName:m_byte_enable
+      1 < |vpiName:gp.m_data
+      1 < |vpiName:gp.m_byte_enable
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:200:6, endln:200:15
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:195:6, endln:195:22
+      1 < \_ref_obj: (m_data), line:200:9, endln:200:15
+      1 < \_ref_obj: (m_byte_enable), line:195:9, endln:195:22
+      1 < \_ref_obj: (gp), line:200:9, endln:200:15
+      1 < \_ref_obj: (gp), line:195:9, endln:195:22
+== ./default/SeqDriver-32af76aa/slang.uhdm  added=6 removed=24
+      4 < |vpiParent:
+      4 < |vpiActual:
+      3 < \_hier_path: (gp.m_data), line:200:6, endln:200:15
+      3 < \_hier_path: (gp.m_byte_enable), line:195:6, endln:195:22
+      2 > |vpiName:gp
+      2 < |vpiName:gp
+      2 > |vpiFullName:uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp
+      1 < |vpiName:m_data
+      1 < |vpiName:m_byte_enable
+      1 < |vpiName:gp.m_data
+      1 < |vpiName:gp.m_byte_enable
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:200:6, endln:200:15
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:195:6, endln:195:22
+      1 < \_ref_obj: (m_data), line:200:9, endln:200:15
+      1 < \_ref_obj: (m_byte_enable), line:195:9, endln:195:22
+      1 < \_ref_obj: (gp), line:200:9, endln:200:15
+      1 < \_ref_obj: (gp), line:195:9, endln:195:22
+== ./default/SimpleUVM-1dc93a62/slang.uhdm  added=6 removed=24
+      4 < |vpiParent:
+      4 < |vpiActual:
+      3 < \_hier_path: (gp.m_data), line:200:6, endln:200:15
+      3 < \_hier_path: (gp.m_byte_enable), line:195:6, endln:195:22
+      2 > |vpiName:gp
+      2 < |vpiName:gp
+      2 > |vpiFullName:uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp
+      1 < |vpiName:m_data
+      1 < |vpiName:m_byte_enable
+      1 < |vpiName:gp.m_data
+      1 < |vpiName:gp.m_byte_enable
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:200:6, endln:200:15
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:195:6, endln:195:22
+      1 < \_ref_obj: (m_data), line:200:9, endln:200:15
+      1 < \_ref_obj: (m_byte_enable), line:195:9, endln:195:22
+      1 < \_ref_obj: (gp), line:200:9, endln:200:15
+      1 < \_ref_obj: (gp), line:195:9, endln:195:22
+== ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  added=6 removed=24
+      4 < |vpiParent:
+      4 < |vpiActual:
+      3 < \_hier_path: (gp.m_data), line:61634:6, endln:61634:15
+      3 < \_hier_path: (gp.m_byte_enable), line:61629:6, endln:61629:22
+      2 > |vpiName:gp
+      2 < |vpiName:gp
+      2 > |vpiFullName:uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp
+      1 < |vpiName:m_data
+      1 < |vpiName:m_byte_enable
+      1 < |vpiName:gp.m_data
+      1 < |vpiName:gp.m_byte_enable
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:61634:6, endln:61634:15
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:61629:6, endln:61629:22
+      1 < \_ref_obj: (m_data), line:61634:9, endln:61634:15
+      1 < \_ref_obj: (m_byte_enable), line:61629:9, endln:61629:22
+      1 < \_ref_obj: (gp), line:61634:9, endln:61634:15
+      1 < \_ref_obj: (gp), line:61629:9, endln:61629:22
+== ./testflags/MiniAmiq-544c7f61/slang.uhdm  added=9 removed=36
+      6 < |vpiParent:
+      6 < |vpiActual:
+      3 < \_hier_path: (gp.m_data), line:200:6, endln:200:15
+      3 < \_hier_path: (gp.m_byte_enable), line:195:6, endln:195:22
+      3 < \_hier_path: (copy.checks_details), line:273:10, endln:273:29
+      2 > |vpiName:gp
+      2 < |vpiName:gp
+      2 > |vpiFullName:uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp
+      1 < |vpiName:m_data
+      1 < |vpiName:m_byte_enable
+      1 < |vpiName:gp.m_data
+      1 < |vpiName:gp.m_byte_enable
+      1 < |vpiName:copy.checks_details
+      1 > |vpiName:copy
+      1 < |vpiName:copy
+      1 < |vpiName:checks_details
+      1 > |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_info::copy::copy
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:200:6, endln:200:15
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:195:6, endln:195:22
+      1 > \_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_info::copy::copy), line:273:10, endln:273:29
+      1 < \_ref_obj: (m_data), line:200:9, endln:200:15
+      1 < \_ref_obj: (m_byte_enable), line:195:9, endln:195:22
+      1 < \_ref_obj: (gp), line:200:9, endln:200:15
+      1 < \_ref_obj: (gp), line:195:9, endln:195:22
+      1 < \_ref_obj: (copy), line:273:15, endln:273:29
+      1 < \_ref_obj: (checks_details), line:273:15, endln:273:29
+== ./testflags/SeqDriver-32af76aa/slang.uhdm  added=6 removed=24
+      4 < |vpiParent:
+      4 < |vpiActual:
+      3 < \_hier_path: (gp.m_data), line:200:6, endln:200:15
+      3 < \_hier_path: (gp.m_byte_enable), line:195:6, endln:195:22
+      2 > |vpiName:gp
+      2 < |vpiName:gp
+      2 > |vpiFullName:uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp
+      1 < |vpiName:m_data
+      1 < |vpiName:m_byte_enable
+      1 < |vpiName:gp.m_data
+      1 < |vpiName:gp.m_byte_enable
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:200:6, endln:200:15
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:195:6, endln:195:22
+      1 < \_ref_obj: (m_data), line:200:9, endln:200:15
+      1 < \_ref_obj: (m_byte_enable), line:195:9, endln:195:22
+      1 < \_ref_obj: (gp), line:200:9, endln:200:15
+      1 < \_ref_obj: (gp), line:195:9, endln:195:22
+== ./testflags/SimpleUVM-1dc93a62/slang.uhdm  added=6 removed=24
+      4 < |vpiParent:
+      4 < |vpiActual:
+      3 < \_hier_path: (gp.m_data), line:200:6, endln:200:15
+      3 < \_hier_path: (gp.m_byte_enable), line:195:6, endln:195:22
+      2 > |vpiName:gp
+      2 < |vpiName:gp
+      2 > |vpiFullName:uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp
+      1 < |vpiName:m_data
+      1 < |vpiName:m_byte_enable
+      1 < |vpiName:gp.m_data
+      1 < |vpiName:gp.m_byte_enable
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:200:6, endln:200:15
+      1 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), line:195:6, endln:195:22
+      1 < \_ref_obj: (m_data), line:200:9, endln:200:15
+      1 < \_ref_obj: (m_byte_enable), line:195:9, endln:195:22
+      1 < \_ref_obj: (gp), line:200:9, endln:200:15
+      1 < \_ref_obj: (gp), line:195:9, endln:195:22
+ATTRIBUTED 9 databases
+ATTRDONE
+
+---- the WHOLE change vocabulary, pooled over all nine databases
+Every single added/removed line is one of the three law sites; there is no
+unattributed line anywhere in the nine dumps.
+     18 > \_ref_obj: (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp), 
+     18 < \_ref_obj: (gp), 
+      9 < |vpiParent:
+      9 < |vpiName:m_data
+      9 < |vpiName:m_byte_enable
+      9 < |vpiName:gp.m_data
+      9 < |vpiName:gp.m_byte_enable
+      9 > |vpiName:gp
+      9 < |vpiName:gp
+      9 > |vpiFullName:uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp
+      9 < |vpiActual:
+      9 < \_ref_obj: (m_data), 
+      9 < \_ref_obj: (m_byte_enable), 
+      9 < \_hier_path: (gp.m_data), 
+      9 < \_hier_path: (gp.m_byte_enable), 
+      2 < |vpiName:copy.checks_details
+      2 > |vpiName:copy
+      2 < |vpiName:copy
+      2 < |vpiName:checks_details
+      2 > |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_info::copy::copy
+      2 > \_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_info::copy::copy), 
+      2 < \_ref_obj: (copy), 
+      2 < \_ref_obj: (checks_details), 
+      2 < \_hier_path: (copy.checks_details), 
+
+Reading of the per-site shape: a 4-line hier_path (the object, its two
+element ref_objs' `|vpiParent:`/`|vpiActual:` labels and the elements'
+own names) is replaced by ONE ref_obj carrying `|vpiName:<base>` and the
+scope-qualified `|vpiFullName:`.  8 lines removed, 2 added, per site per copy;
+each database holds the def copy and the elaborated copy, hence 24/6 for the
+two-site databases and 36/9 for MiniAmiq's three.

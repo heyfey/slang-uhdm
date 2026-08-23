@@ -1,0 +1,216 @@
+r10uvm110 ADVERSARIAL VERIFICATION -- reproduction log
+======================================================
+Base commit 28f373a.  Worktrees /tmp/wt_v110 (patched) and /tmp/wt_v110pris
+(pristine), both built by the verifier from source, -j 2, md5 taken separately,
+both frozen `chmod 555` at immutable paths BEFORE any sweep.
+
+  pristine  f65953e2d0761f323e27e40efe32bb51   (= the implementer's f65953e2...)
+  shipped   2e26d5e5145f832ee6f3d0932a955ccf   (= the implementer's 2e26d5e5...)
+
+Every cmds.txt in all four sweep workdirs was audited BY BINARY PATH:
+  ship_sl   1573 cmds.txt, 1523 slang lines, ALL /tmp/v110_bin/ship.bin
+  pris_sl   1573 cmds.txt, 1523 slang lines, ALL /tmp/v110_bin/pris.bin
+  ship_u2r  1462 cmds.txt, 1458 slang lines, ALL /tmp/v110_bin/ship.bin
+  pris_u2r  1462 cmds.txt, 1458 slang lines, ALL /tmp/v110_bin/pris.bin
+  ZERO references to any main-tree binary.
+
+GATES (all re-measured by the verifier, not carried forward)
+-----------------------------------------------------------
+1. goldens          ship 23 PASS / 0 FAIL; pris 23 PASS / 0 FAIL
+   negative control SLANG_UHDM=/bin/false -> 0 PASS / 23 FAIL
+2. u2r  testflags   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+   u2r  default     679 / 50 / 2   (identical histograms on both binaries)
+   ct8rows vs the committed results/gate_uhdm2rtlil.csv : 0 differing ROWS
+   ct8rows vs the verifier's own pristine control       : 0 differing ROWS (both modes)
+3. surelog 1588 rows: 937 CMP_EQUAL / 567 SLANG_REJECT / 48 SURELOG_FAIL /
+   19 CMP_NOTEQUAL / 10 DEFERRED / 3 NO_DATABASE / 2 UNTRANSLATABLE /
+   1 TIMEOUT / 1 NO_UHDM -- IDENTICAL on both binaries.
+   ct8rows vs committed results/golden_surelog.csv : 0 differing ROWS
+   ct8rows pristine-vs-committed                   : 0 differing ROWS (control)
+   NO ROW CONVERTS.  All nine byte-movers are CMP_NOTEQUAL before AND after.
+4. byteverify u2r  MOVERS 0 / 1358, SELFCHECK 1357/1358
+   byteverify sl   MOVERS 9 /  956, SELFCHECK  955/956
+   The nine are EXACTLY the set pred110.py names a priori.  The verifier re-ran
+   pred110.py against its OWN pristine workdir (test-dir map rebuilt from
+   verify_golden.discover_surelog): 36 candidates, 0 THISONLY, and exactly nine
+   of the 36 own a slang.uhdm -- default/{BuildUVMPkg,MiniAmiq,Scoreboard,
+   SeqDriver,SimpleUVM} + testflags/{BuildUVMPkg,MiniAmiq,SeqDriver,SimpleUVM}.
+5. canaries 52 ok changed=0 (sl) and 8 ok changed=0 (u2r);
+   ctcan2 PASS x2 (EXPECT_UNKNOWN=1 / =6); canaudit PASS, FENCE-BREACH=0.
+   Protected databases, ship vs pris md5:
+     InterfaceModPort   59a365f3ce2c  identical both modes
+     BlackParrotComplex e3e354129d5a / 73a10e8217e5  identical both modes
+     YosysOldOr         d68e0796d62c  identical both modes
+     SVSwitch           4842211c4030  PIN HELD both modes
+     YosysVerx          6ccda350c24a  PIN HELD both modes
+6. heads (rowheads.sh, verifier's own sweeps)
+     SeqDriver     46 -> 17   BOTH modes
+     SimpleUVM     17 -> 17   Scoreboard 42 -> 42   MiniAmiq 348 -> 348
+     BuildUVMPkg   17 -> 17   Earlgrey_0_1 36 -> 36  Rggen 0 -> 0
+   The four committed head logs head_{before,after}_SeqDriver_{default,testflags}.cmp
+   are BYTE-IDENTICAL to the verifier's own captures.
+
+ATTRIBUTION (order-blind, verifier's own run)
+---------------------------------------------
+All nine moved databases, sorted whole-dump diff, workdir prefix normalised:
+  BuildUVMPkg/{default,testflags}  added=6 removed=24
+  MiniAmiq/{default,testflags}     added=9 removed=36
+  Scoreboard/default               added=6 removed=24   (the ~50/50 coin: clean)
+  SeqDriver/{default,testflags}    added=6 removed=24
+  SimpleUVM/{default,testflags}    added=6 removed=24
+The UNION of every changed dump line over all nine names THREE SITES and nothing
+else: uvm_reg_adapter.svh 195 and 200 (pp_output 61629 / 61634) and
+svaunit_immediate_assertion_info.svh 273.  Every removed line is a `hier_path`
+or one of its two element `ref_obj`s; every added line is the collapsed
+`ref_obj` and its vpiFullName.
+
+CENSUS (verifier's own, cen110.py PROJ=1, `new`-RHS slice, LHS always golden)
+-----------------------------------------------------------------------------
+CALIBRATION golden-vs-golden (default vs testflags), all five:
+  SeqDriver AGREE=444 D=0   SimpleUVM AGREE=341 D=0   MiniAmiq AGREE=459 D=0
+  BuildUVMPkg AGREE=389 D=0 Scoreboard AGREE=343 D=0
+GOLDEN vs PRISTINE -> GOLDEN vs SHIPPED, all nine databases:
+  SeqDriver/default     AGREE=424 D=5 -> AGREE=426 D=4
+  SimpleUVM/default     AGREE=321 D=5 -> AGREE=323 D=4
+  Scoreboard/default    AGREE=339 D=3 -> AGREE=341 D=2
+  MiniAmiq/default      AGREE=454 D=4 -> AGREE=457 D=2
+  BuildUVMPkg/default   AGREE=387 D=2 -> AGREE=389 D=1
+  SeqDriver/testflags   AGREE=424 D=5 -> AGREE=426 D=4
+  SimpleUVM/testflags   AGREE=321 D=5 -> AGREE=323 D=4
+  MiniAmiq/testflags    AGREE=454 D=4 -> AGREE=457 D=2
+  BuildUVMPkg/testflags AGREE=387 D=2 -> AGREE=389 D=1
+  LHSONLY = RHSONLY = 0 throughout, both binaries.  The AGREE deltas sum to
+  20 CELLS TO GOLDEN and DIFFERKEYS falls on every database -- nothing away.
+  Every one of these numbers is the committed CENSUS.txt figure.
+
+GRID (verifier re-ran score110.sh on the pass's four arms)
+----------------------------------------------------------
+  a1 def 5 / elab 6, a2 3 / 3, a3 1 / 1, a4 6 / 6 TO_GOLDEN, AWAY=0 in all ten
+  cells -- exactly the committed GRID.txt.
+
+WIDE BOUNDARY (verifier's own, from a COPY of tools/probe, NO path filter)
+--------------------------------------------------------------------------
+PER-FILE half, 3435 .sv/.v files, 4 shards, BOTH views, list on fd 3, children
+</dev/null, scratch keyed on the RELATIVE path, rc per cell:
+  shard 00 LISTED=930 PROCESSED=930 RC_DIFF=0 ASYM=0
+  shard 01 LISTED=765 PROCESSED=765 RC_DIFF=0 ASYM=0
+  shard 02 LISTED=917 PROCESSED=917 RC_DIFF=0 ASYM=0
+  shard 03 LISTED=823 PROCESSED=823 RC_DIFF=0 ASYM=0   PROCESSED-ASSERT-OK x4
+PER-DIRECTORY half (NOT run by the implementer), 1519 directories, 2 shards,
+BOTH views, same contract:
+  shard 00 LISTED=776 PROCESSED=776 RC_DIFF=0 ASYM=0
+  shard 01 LISTED=743 PROCESSED=743 RC_DIFF=0 ASYM=0   PROCESSED-ASSERT-OK x2
+Every cell whose SORTED dumps differ is an arm of this pass, an arm of THIS
+verifier, r10svs3repro/a1_newlhs.sv (the independent corroboration) or
+r10buvm22repro/g22.sv (the pre-existing pointer-valued UINT, R-fuaCast110:
+22388089 -> 22392185, a difference of exactly 0x1000).  The per-directory half
+found five further cells (r10uvm75repro, r10uvm76repro, r10uvm88repro) whose
+UNSORTED dumps differ and whose SORTED dumps are IDENTICAL -- pure emission
+ORDER, the documented parallel-parse nondeterminism, not a mover.
+r10vrgg3repro/xi_iface_param_type/dut.sv, the implementer's one noise cell, did
+NOT move in the verifier's run -- confirming the nondeterminism diagnosis.
+
+ADVERSARIAL ARMS (this verifier's own, 11 files, ~130 assignment cells)
+-----------------------------------------------------------------------
+Scored three ways in BOTH views by vscore110.sh over vcen110.py, a VIEW-GENERAL
+census keyed on (nearest named ancestor, assignment start LINE) whose value
+carries EVERY judge-visible axis of the Lhs subtree -- object KIND, VpiName
+LEAF, VpiDefName, VpiDecompile, VpiSize, VpiValue/VpiConstType and the ref's
+vpiActual (kind + leaf) -- i.e. VpiDecompile / VpiSize / typespec, which
+cen110.py's projection DROPS.  No span, no VpiFullName, no file.
+
+  v1_prod.sv    always@ / always_comb / final / named block / nested begin /
+                repeat / forever / fork-join / fork-join_any / static task /
+                automatic task / automatic function / case / casex / while /
+                package task / package function / OUT-OF-BODY TASK
+                def  SAME=16 TO_GOLDEN=19 AWAY=0 LATERAL=1 STILL=2
+                elab SAME=16 TO_GOLDEN=19 AWAY=0 LATERAL=1 STILL=2
+  v2a_scope.sv  instance-qualified static prop, CLASS-SCOPED static prop,
+                package-scoped handle, imported handle, undotted controls
+                def/elab SAME=4 TO_GOLDEN=2 AWAY=0 LATERAL=1 STILL=4
+  v2b_sel.sv    middle fixed / variable / queue / assoc index, TRAILING index on
+                the member, two dots, element-write controls
+                def/elab SAME=5 TO_GOLDEN=7 AWAY=0 LATERAL=0 STILL=0
+  v2c_formal.sv module variable, input/ref/inout formals, function formal, the
+                module instantiated THREE times
+                def  SAME=3 TO_GOLDEN=6 AWAY=0 -- and uhdm-cmp says the whole
+                arm is EQUAL to golden under the shipped binary in BOTH views
+                (pristine: 48 def / 52 elab cmp lines)
+  v2d_this.sv   this.<sel>.<m>, super.<sel>.<m>, this.<prop>, super.<prop>,
+                this.+two dots, implicit-this select, controls
+                def SAME=6 TO_GOLDEN=2 AWAY=0; elab SAME=7 TO_GOLDEN=2 AWAY=0
+                EVERY this./super. cell stays exactly where it was.
+  v3_rhs.sv     size = module parameter / localparam / package parameter /
+                METHOD CALL / expression / $size / $bits / ternary / cast /
+                enum; copy form from a local, from itself, byte; and 13
+                non-`new[]` controls in the SAME dotted shape (literal, expr,
+                call, <=, +=, -=, #1, @(posedge), whole-array copy, assignment
+                pattern, concat lvalue, class new with and without parens)
+                def/elab SAME=14 TO_GOLDEN=11 AWAY=0 LATERAL=2
+                (both LATERALs are RHS-side typespec residues present in the
+                 PRISTINE database too; the Lhs of both went to golden)
+  v4_bind.sv    the bind-window replay: formal DEFAULT home, RETURN-NAME
+                receiver, collection-arg + NAMED BLOCK local, control body,
+                loop body, package handle through an instance
+                def/elab SAME=10 TO_GOLDEN=3 AWAY=0 LATERAL=4
+                (all four LATERALs: the Lhs is EXACTLY golden's; what still
+                 differs is the `new [n]` SIZE ARGUMENT's binding, byte-identical
+                 between pristine and shipped -- the pre-existing bind window)
+  v5_vif.sv     interface-port member, cross-instance array, cross-instance
+                dotted, named-instance interface member
+                def SAME=2 TO_GOLDEN=1 AWAY=0 STILL=4   (the hierarchical
+                receivers stay fenced: STILL, exactly as R-hier110 says)
+  v6_odd.sv     DELAYED `#1 h.a = new [4]`, EVENT-CONTROLLED
+                `@(posedge c) h.b = new [5]`, static class method, STATIC local
+                in an automatic task, size reading another member, two cells on
+                one line, two-dot both sides
+                def/elab SAME=7 TO_GOLDEN=7 AWAY=0 LATERAL=0 STILL=1
+  v7_fence2.sv  this./super. under #1 and @(posedge), in a CONSTRUCTOR and an
+                OUT-OF-BODY task, a SHADOWED base name, nested-struct receivers
+                def SAME=4 TO_GOLDEN=8 AWAY=0; elab SAME=3 TO_GOLDEN=7 AWAY=0
+  v8_unbound.sv a dotted `new [n]` onto a FIXED array: slang refuses the whole
+                file (rc=3, SLANG_REJECT) on BOTH binaries -- the predicate's
+                syntax fallback is unreachable for that shape.
+
+  AGGREGATE over the fifteen arm files scored here (this verifier's ten, the
+  pass's four, and r10svs3repro/a1_newlhs.sv), BOTH views:
+      574 assignment cells   SAME=261  TO_GOLDEN=201  AWAY=0  LATERAL=31  STILL=81
+  AWAY = 0 in EVERY arm and EVERY view, including the pass's own four arms
+  re-scored with this stricter comparator (a1 def 24/14/0, elab 23/16/0;
+  a2 10/14/0 and 6/12/0; a3 10/2/0 and 5/1/0; a4 18/6/0 and 14/6/0).
+  Every LATERAL was read: in each one the Lhs is EXACTLY golden's and what still
+  differs is an RHS-side or object-COUNT residue byte-identical between the
+  pristine and shipped databases.
+
+  ASSIGNMENT-OBJECT COUNTS per arm are unchanged between pristine and shipped in
+  every arm and view except a1/elab, where the shipped binary emits 137 against
+  the pristine 143 and golden's 136 -- i.e. TOWARD golden.  The patch never adds
+  or drops a statement.
+
+INDEPENDENT CORROBORATION
+-------------------------
+tools/probe/r10svs3repro/a1_newlhs.sv, written for § thisSuperNewAssignNoStmt3
+and never for this law, is judged EQUAL to golden by the OFFICIAL uhdm-cmp under
+the shipped binary in BOTH views (0 cmp lines), and NOT equal under the pristine
+one (44 def / 56 elab).  Cell-level: SAME=6 TO_GOLDEN=1 AWAY=0 -- the one moving
+cell is m6 `h.d = new[3]`, the only dotted `new[]` lvalue in the file.
+
+FINDING (documentation, not code) -- R-static110 as written is FALSE
+--------------------------------------------------------------------
+README.md's R-static110 says of `holderK::SHARED.m_byte_enable = new [1];`
+(a1 c18) that it is "PRE-EXISTING on both binaries (the predicate never fires --
+our lvalue is already a `ref_obj`, not a `hier_path`)".  The predicate DOES
+fire there.  Measured, both views:
+  golden    NO STATEMENT AT ALL
+  pristine  ref_obj(@@BAD_SYMBOL@@)
+  shipped   ref_obj(SHARED)
+and the verifier's own v2a_scope.sv c02 `Boxz::STAT2.dyn2 = new [3];` reproduces
+it on a different spelling.  It is NOT a regression -- golden has no object, so
+neither name matches and the enclosing statement-vector mismatch is identical in
+kind on both binaries (a1's shipped cmp head is exactly that `begin` block, and
+the pristine database carries the same extra statement).  But the residue text
+is wrong and the change is real, so it is corrected in README.md by this
+verification.
+A package-scoped receiver (`Wk2::PKG_H2.dyn = new [4]`, v2a c03) does NOT change
+(STILL on both binaries) -- only the CLASS-scoped static, where slang binds the
+`::`-qualified base as a plain NamedValue, reaches the predicate.

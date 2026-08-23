@@ -1176,6 +1176,167 @@ static bool sourceIsNewClassExpr55(const slang::ast::Expression& e) {
            ncs.scopedNew->kind == syntax::SyntaxKind::ConstructorName;
 }
 
+// § dynArrayNewLvalueBaseOnly110 — THE DYNAMIC-ARRAY-`new` LVALUE COLLAPSES TO
+// ITS RECEIVER.  An assignment written
+//
+//     <base>[.<name> | [idx]]... = new [n];        (or `new [n] (src)`)
+//
+// with a DOTTED lvalue takes, in golden, a plain `ref_obj` NAMED AFTER THE
+// FIRST IDENTIFIER of the lvalue and SPANNING THE WHOLE LVALUE TEXT — not the
+// `hier_path` every other dotted lvalue takes.  The trailing components are
+// never compiled at all.
+//
+// THE CORPUS HEAD (SeqDriver, both modes, 46 cmp lines at 28f373a) is uvm-1.2
+// `src/reg/uvm_reg_adapter.svh:195`, `gp.m_byte_enable = new [nbytes];` inside
+// `uvm_reg_tlm_adapter::reg2bus`:
+//     golden  ref_obj (uvm_pkg::uvm_reg_tlm_adapter::reg2bus::gp) 195:6-195:22
+//     ours    hier_path (gp.m_byte_enable) 195:6-195:22, two unbound elements
+//
+// PRODUCER DECODE (Surelog, exact).  The SV grammar gives the dynamic-array
+// form its OWN alternative — `SV3_1aParser.g4:2312`
+//     blocking_assignment : ... | nonrange_variable_lvalue ASSIGN_OP dynamic_array_new | ...
+// so the lvalue is wrapped in a `paNonrange_variable_lvalue` VObject rather
+// than the `paVariable_lvalue` / bare `paHierarchical_identifier` the other
+// three alternatives produce.  `CompileHelper::compileBlockingAssignment`
+// (src/DesignCompile/CompileHelper.cpp:4470-4483) reaches its FIRST arm for it
+// — the arm's test looks at `fC->Child(Operator_assignment)`, which here is the
+// `paHierarchical_identifier` — and that arm then SHADOWS its own local with
+//     NodeId Variable_lvalue = Operator_assignment;   // the paNonrange_… node
+//     lhs_rf = compileExpression(component, fC, Variable_lvalue, …);
+// i.e. it hands `compileExpression` the WRAPPER node, not the identifier.
+// Inside `compileExpression` (src/DesignCompile/CompileExpression.cpp:2696 case,
+// the name/select tail at 2782-2852) the switch is on `childType`, and the
+// branch that walks the dotted chain reads
+//     if (parentType == paHierarchical_identifier ||
+//         parentType == paPs_or_hierarchical_identifier) rhs = parent;
+//     else                                               rhs = child;
+// `parentType` is `paNonrange_variable_lvalue`, so `rhs = child` — and the
+// `while ((rhs = fC->Sibling(rhs)))` loop that APPENDS `.<seg>` to the name and
+// calls `compileSelectExpression` (which is where the `hier_path` at
+// CompileExpression.cpp:1374 is built) therefore starts one level too deep and
+// finds NOTHING.  What survives is the plain `ref_obj` the tail mints from
+// `name` — the FIRST segment — `populateCoreMembers`'d over the whole
+// `paNonrange_variable_lvalue` span.  The `= new (…)` class form takes the
+// THIRD arm instead (CompileHelper.cpp:4533-4557), which passes the
+// `paHierarchical_identifier` itself, so `rhs = parent`, the chain IS walked,
+// and golden keeps its `hier_path` — which is exactly what
+// § oobRefVarLocalHoistNet107 already decoded for that form and why the two
+// `new` spellings must NOT share a shape.
+//
+// MEASURED, arms a1_shapes.sv (35 cells) and a2_recv.sv (20 cells), golden vs
+// ours, both views, LHS golden.  EVERY dotted `new [n]` lvalue collapses and
+// NOTHING ELSE moves:
+//   COLLAPSED (golden ref_obj at the base name, whole-lvalue span)
+//     receiver declaration — local handle (a1 c01/c02/c03), `input` formal
+//       (c13), `ref` formal (c14), class property (c16), property-of-property
+//       (c17), STRUCT variable (a2 e13) and struct class-property (e15),
+//       INTERFACE PORT member (a2 e17), module-scope handle (a1 c33, a2 e18)
+//     dot depth — 2 (c01), 3 (c11, a2 e03), with a middle ElementSelect on a
+//       fixed array (c12/c19, a2 e04), a VARIABLE index (e05), a QUEUE (e06)
+//       and an ASSOCIATIVE key (e07)
+//     home — in-body function (c01), in-body task (c25), OUT-OF-BODY method
+//       (c29/c32), module `initial` (c33), `for` body (a2 e09), `if`/`else`
+//       arms (e10/e11), `while` body (e12)
+//     RHS spelling — `new [ref]` (c01), `new [literal]` (c02), the COPY form
+//       `new [n] (src)` (c03)
+//   UNMOVED (golden keeps the `hier_path`, so this law must not reach them)
+//     `gp.nxt = new ();` class `new` through a dotted lvalue (c04, a2 e02) ·
+//     plain literal (c05) · expression (c06) · `$sformatf` (c07) · user
+//     function call (c08) · compound `+=` (c09/c27) · NONBLOCKING `<=` (c26) ·
+//     delayed `#1 x.y = 4` (c28) · two-dot plain RHS (c10) · `this.x.y = 5`
+//     (c20) · scalar and element writes (c23, a2 e08/e14/e19/e20)
+//
+// The BINDING is NOT part of this law: golden's collapsed `ref_obj` carries
+// exactly the `vpiActual` an UNDOTTED lvalue of the same base would carry —
+// none inside a class method's def view (c01, and the head itself), the
+// declaration `class_var` out of body (c29), the module `logic_net` at module
+// scope (c33, a2 e16/e17/e18) — which is why the collapse is implemented by
+// emitting the BASE SUBEXPRESSION through the ordinary lvalue path rather than
+// by rewriting a finished `hier_path`.
+//
+// FENCED OUT (both measured, both left exactly as they are today):
+//   * a `this.`/`super.` root — golden emits NO STATEMENT AT ALL for
+//     `this.gp.m_byte_enable = new [n];` (a1 c21) or `this.gp.nxt.BEQ = new [3];`
+//     (c24); § thisSuperNewAssignNoStmt3 already drops those, and this
+//     predicate declines them too so the drop can never be undercut.
+//   * a `::`-scoped receiver (`holderK::SHARED.m_byte_enable = new [1];`,
+//     a1 c18) — golden emits no statement, we already emit a ref_obj named
+//     `@@BAD_SYMBOL@@`; a PRE-EXISTING divergence on both binaries that this
+//     law neither creates nor repairs (residue R-static110).
+//
+// Returns the BASE subexpression to emit in the lvalue's place, or null when
+// the law does not apply.
+static const slang::ast::Expression* dynArrayNewLvalueBase110(
+    const slang::ast::AssignmentExpression& ae,
+    const slang::ast::Expression& rhsExpr) {
+    using namespace slang::ast;
+    // The grammar alternative is the SIMPLE `=` only; `+=`/`<=` are separate
+    // alternatives and neither can carry a `dynamic_array_new`.
+    if (ae.isCompound() || ae.isNonBlocking())
+        return nullptr;
+    // RHS HALF — a WRITTEN `new [...]`.  Read the SYNTAX as well as the bound
+    // kind: Surelog's rule is a grammar alternative, so a `new [n]` slang
+    // refused to bind must take the same shape as one it bound (the same
+    // reasoning § invalidNewCallFromSyntax55 applies to the class form).
+    const Expression& r110 = stripImplicitConv(rhsExpr);
+    bool newArr110 = r110.kind == ExpressionKind::NewArray;
+    if (!newArr110 && r110.syntax &&
+        r110.syntax->kind == syntax::SyntaxKind::NewArrayExpression)
+        newArr110 = true;
+    if (!newArr110)
+        return nullptr;
+    // LHS HALF — the `this`/`super` fence, read off the SYNTAX exactly as
+    // § thisSuperNewAssignNoStmt3 reads it (an IMPLICIT class-property
+    // reference is a MemberAccess on an implicit `this` in the bound AST, so
+    // the AST cannot tell `d` from `this.d`).
+    if (ae.syntax && ae.syntax->kind == syntax::SyntaxKind::AssignmentExpression) {
+        const auto& be110 = ae.syntax->as<syntax::BinaryExpressionSyntax>();
+        const syntax::SyntaxNode* ln110 = &*be110.left;
+        if (ln110->kind == syntax::SyntaxKind::ScopedName) {
+            const syntax::NameSyntax* rt110 =
+                &*ln110->as<syntax::ScopedNameSyntax>().left;
+            while (rt110->kind == syntax::SyntaxKind::ScopedName)
+                rt110 = &*rt110->as<syntax::ScopedNameSyntax>().left;
+            if (rt110->kind == syntax::SyntaxKind::ThisHandle ||
+                rt110->kind == syntax::SyntaxKind::SuperHandle)
+                return nullptr;
+        }
+    }
+    // LHS HALF — walk to the base, requiring at least one DOT.  An undotted
+    // lvalue is already the base and nothing changes there.
+    const Expression* root110 = &ae.left();
+    bool dotted110 = false;
+    while (true) {
+        const Expression& c110 = stripImplicitConv(*root110);
+        if (c110.kind == ExpressionKind::MemberAccess) {
+            dotted110 = true;
+            root110 = &c110.as<MemberAccessExpression>().value();
+        }
+        else if (c110.kind == ExpressionKind::ElementSelect)
+            root110 = &c110.as<ElementSelectExpression>().value();
+        else if (c110.kind == ExpressionKind::RangeSelect)
+            root110 = &c110.as<RangeSelectExpression>().value();
+        else {
+            root110 = &c110;
+            break;
+        }
+    }
+    if (!dotted110)
+        return nullptr;
+    // Only a LOCAL plain NAME can be the receiver.  Every measured golden
+    // collapse cell has a `NamedValue` base; a HIERARCHICAL base is the
+    // fenced-out half (R-hier110) — golden collapses `P.IB = new [3];`
+    // (a2 e17, an interface-port member) and `D.dh.v = new [5];` (a3 f07, a
+    // cross-instance path) to `ref_obj(P)` / `ref_obj(D)` WITH the instance's
+    // `logic_net` as vpiActual, but slang binds each of those as ONE
+    // `HierarchicalValueExpression` with no base subexpression to emit, so
+    // reaching them would mean SYNTHESISING a net-bound ref rather than
+    // reusing the ordinary lvalue path.  Both are left exactly as they are.
+    if (root110->kind != ExpressionKind::NamedValue)
+        return nullptr;
+    return root110;
+}
+
 // § typeParamScopedCallRef59 (predicate half) — the `::`-scoped NAME behind an
 // expression slang REFUSED TO BIND, or null.
 //
@@ -8492,8 +8653,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             asn->VpiBlocking(!ae.isNonBlocking());
             asn->VpiParent(parent);
             setLoc(asn, expr.sourceRange);
+            // § dynArrayNewLvalueBaseOnly110 — a DOTTED lvalue whose RHS is a
+            // dynamic-array `new [n]` is compiled by Surelog from the WRAPPER
+            // `paNonrange_variable_lvalue` node, which collapses it to the
+            // BASE identifier alone.  Emitting the base SUBEXPRESSION (rather
+            // than rewriting a finished hier_path) is what makes the ref take
+            // the ordinary lvalue binding golden gives it; only the SPAN is
+            // restamped, to the whole lvalue text `populateCoreMembers` used.
+            const Expression* lhsE110 = &ae.left();
+            if (const Expression* base110 =
+                    dynArrayNewLvalueBase110(ae, *rhsExpr))
+                lhsE110 = base110;
             inLhs = true;
-            if (auto* lhs = emitExpr(ae.left(), asn, prefix, netMap)) {
+            if (auto* lhs = emitExpr(*lhsE110, asn, prefix, netMap)) {
+                if (lhsE110 != &ae.left())
+                    setLoc(lhs, ae.left().sourceRange);
                 asn->Lhs((UHDM::expr*)lhs);
                 // A class-handle assignment (bar = new()) re-parents its Lhs
                 // ref through an artifact hier_path (weakly-tail only).

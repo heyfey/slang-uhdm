@@ -1,0 +1,111 @@
+r10uvm110 WIDE BOUNDARY -- pristine f65953e2 vs shipped (this pass), from a COPY
+of tools/probe with NO path filter, .sv AND .v, recursive, SUBDIRECTORIES
+INCLUDED, BOTH views, rc per cell, list on fd 3, children </dev/null, PROCESSED
+asserted, scratch keyed on the RELATIVE path.  4 shards (bshard110.sh).
+
+---- shard 00
+MOVED 00068_r10buvm22repro_g22.sv/def unsorted=12 sorted=12
+MOVED 00068_r10buvm22repro_g22.sv/elab unsorted=12 sorted=12
+LISTED=916 PROCESSED=916 MOVED=2 NO_OUTPUT_PAIRS=62 RC_PAIRS=1832 RC_DIFF=0 ASYM=0
+PROCESSED-ASSERT-OK
+---- shard 01
+LISTED=771 PROCESSED=771 MOVED=0 NO_OUTPUT_PAIRS=56 RC_PAIRS=1542 RC_DIFF=0 ASYM=0
+PROCESSED-ASSERT-OK
+---- shard 02
+MOVED 00110_r10svs3repro_a1_newlhs.sv/def unsorted=15 sorted=15
+MOVED 00110_r10svs3repro_a1_newlhs.sv/elab unsorted=61 sorted=33
+MOVED 00216_r10uvm110repro_a1_shapes.sv/def unsorted=291 sorted=287
+MOVED 00216_r10uvm110repro_a1_shapes.sv/elab unsorted=1274 sorted=1150
+MOVED 00217_r10uvm110repro_a2_recv.sv/def unsorted=299 sorted=297
+MOVED 00217_r10uvm110repro_a2_recv.sv/elab unsorted=652 sorted=642
+MOVED 00218_r10uvm110repro_a3_fence.sv/def unsorted=30 sorted=30
+MOVED 00218_r10uvm110repro_a3_fence.sv/elab unsorted=113 sorted=81
+MOVED 00219_r10uvm110repro_a4_homes.sv/def unsorted=135 sorted=135
+MOVED 00219_r10uvm110repro_a4_homes.sv/elab unsorted=232 sorted=232
+MOVED 00220_r10uvm110repro_run_a1def_slpp_all_lib_work_a1_shapes.sv/def unsorted=291 sorted=287
+MOVED 00220_r10uvm110repro_run_a1def_slpp_all_lib_work_a1_shapes.sv/elab unsorted=1274 sorted=1150
+MOVED 00221_r10uvm110repro_run_a1_shapesdef_slpp_all_lib_work_a1_shapes.sv/def unsorted=291 sorted=287
+MOVED 00221_r10uvm110repro_run_a1_shapesdef_slpp_all_lib_work_a1_shapes.sv/elab unsorted=1274 sorted=1150
+MOVED 00222_r10uvm110repro_run_a1_shapes_sv.def_slpp_all_lib_work_a1_shapes.sv/def unsorted=291 sorted=287
+MOVED 00222_r10uvm110repro_run_a1_shapes_sv.def_slpp_all_lib_work_a1_shapes.sv/elab unsorted=1274 sorted=1150
+MOVED 00223_r10uvm110repro_run_a1_shapes_sv.elab_slpp_all_lib_work_a1_shapes.sv/def unsorted=291 sorted=287
+MOVED 00223_r10uvm110repro_run_a1_shapes_sv.elab_slpp_all_lib_work_a1_shapes.sv/elab unsorted=1274 sorted=1150
+MOVED 00224_r10uvm110repro_run_a2def_slpp_all_lib_work_a2_recv.sv/def unsorted=299 sorted=297
+MOVED 00224_r10uvm110repro_run_a2def_slpp_all_lib_work_a2_recv.sv/elab unsorted=652 sorted=642
+MOVED 00225_r10uvm110repro_run_a2_recvdef_slpp_all_lib_work_a2_recv.sv/def unsorted=299 sorted=297
+MOVED 00225_r10uvm110repro_run_a2_recvdef_slpp_all_lib_work_a2_recv.sv/elab unsorted=652 sorted=642
+MOVED 00226_r10uvm110repro_run_a2_recv_sv.def_slpp_all_lib_work_a2_recv.sv/def unsorted=299 sorted=297
+MOVED 00226_r10uvm110repro_run_a2_recv_sv.def_slpp_all_lib_work_a2_recv.sv/elab unsorted=652 sorted=642
+MOVED 00227_r10uvm110repro_run_a2_recv_sv.elab_slpp_all_lib_work_a2_recv.sv/def unsorted=299 sorted=297
+MOVED 00227_r10uvm110repro_run_a2_recv_sv.elab_slpp_all_lib_work_a2_recv.sv/elab unsorted=652 sorted=642
+MOVED 00228_r10uvm110repro_run_a3def_slpp_all_lib_work_a3_fence.sv/def unsorted=30 sorted=30
+MOVED 00228_r10uvm110repro_run_a3def_slpp_all_lib_work_a3_fence.sv/elab unsorted=113 sorted=81
+MOVED 00229_r10uvm110repro_run_a3_fencedef_slpp_all_lib_work_a3_fence.sv/def unsorted=30 sorted=30
+MOVED 00229_r10uvm110repro_run_a3_fencedef_slpp_all_lib_work_a3_fence.sv/elab unsorted=113 sorted=81
+MOVED 00230_r10uvm110repro_run_a3_fence_sv.def_slpp_all_lib_work_a3_fence.sv/def unsorted=30 sorted=30
+MOVED 00230_r10uvm110repro_run_a3_fence_sv.def_slpp_all_lib_work_a3_fence.sv/elab unsorted=113 sorted=81
+MOVED 00231_r10uvm110repro_run_a3_fence_sv.elab_slpp_all_lib_work_a3_fence.sv/def unsorted=30 sorted=30
+MOVED 00231_r10uvm110repro_run_a3_fence_sv.elab_slpp_all_lib_work_a3_fence.sv/elab unsorted=113 sorted=81
+MOVED 00232_r10uvm110repro_run_a4def_slpp_all_lib_work_a4_homes.sv/def unsorted=135 sorted=135
+MOVED 00232_r10uvm110repro_run_a4def_slpp_all_lib_work_a4_homes.sv/elab unsorted=232 sorted=232
+MOVED 00233_r10uvm110repro_run_a4_homes_sv.def_slpp_all_lib_work_a4_homes.sv/def unsorted=135 sorted=135
+MOVED 00233_r10uvm110repro_run_a4_homes_sv.def_slpp_all_lib_work_a4_homes.sv/elab unsorted=232 sorted=232
+MOVED 00234_r10uvm110repro_run_a4_homes_sv.elab_slpp_all_lib_work_a4_homes.sv/def unsorted=135 sorted=135
+MOVED 00234_r10uvm110repro_run_a4_homes_sv.elab_slpp_all_lib_work_a4_homes.sv/elab unsorted=232 sorted=232
+LISTED=910 PROCESSED=910 MOVED=40 NO_OUTPUT_PAIRS=39 RC_PAIRS=1820 RC_DIFF=0 ASYM=0
+PROCESSED-ASSERT-OK
+---- shard 03
+MOVED 00401_r10vrgg3repro_xi_iface_param_type_dut.sv/elab unsorted=1 sorted=1
+LISTED=821 PROCESSED=821 MOVED=1 NO_OUTPUT_PAIRS=119 RC_PAIRS=1642 RC_DIFF=0 ASYM=0
+PROCESSED-ASSERT-OK
+
+TOTAL LISTED=3418 PROCESSED=3418 RC_DIFF=0 ASYM=0, PROCESSED-ASSERT-OK in all four
+shards.  (The Segmentation-fault lines shard 03 prints are SYMMETRIC -- the same
+file crashes BOTH binaries with the SAME rc, which is why RC_DIFF is 0; they are
+pre-existing and outside this pass.)
+
+---- the movers, one by one
+
+1-4.  r10uvm110repro/a1_shapes.sv, a2_recv.sv, a3_fence.sv, a4_homes.sv -- THIS
+      pass's own arms (and, duplicated, the Surelog preprocessed copies of them
+      that live under r10uvm110repro/run/).  score110.sh scores every one of them
+      three ways in BOTH views: TO_GOLDEN 5/6/3/3/1/1/6/6, AWAY = 0 EVERYWHERE.
+
+5.    r10svs3repro/a1_newlhs.sv -- ANOTHER PASS's arm (§ thisSuperNewAssignNoStmt3,
+      SVSwitch), written for a different law, and the strongest independent
+      corroboration in this pass:
+        ___r10svs3repro_a1_newlhs_sv.def   SAME=6 TO_GOLDEN=1 AWAY=0 LATERAL=0 STILL=0
+        ___r10svs3repro_a1_newlhs_sv.elab  SAME=6 TO_GOLDEN=1 AWAY=0 LATERAL=0 STILL=0
+      The ONE cell that moves is m6, `h.d = new[3];` -- 'ANOTHER OBJECT's
+      property', the only DOTTED `new[` lvalue in that arm -- and it moves TO
+      GOLDEN.  Its seven siblings (undotted, this.-rooted, super.-rooted) are SAME.
+
+6.    r10buvm22repro/g22.sv -- NOT this pass.  A PRE-EXISTING TYPE-CONFUSION READ
+      whose emitted value is a POINTER, so it shifts for ANY change to the
+      binary's data layout.  12 dump lines, all of the form
+        |vpiDecompile:22388089 / |UINT:22388089   (pristine)
+        |vpiDecompile:22392185 / |UINT:22392185   (shipped)
+      on the RIGHT RANGE of the array_typespec for `typedef C22 ka_cls_t[string];`
+      (g22.sv:70-72) and its siblings.  PROVED not-ours with a LAYOUT-SHIM CONTROL:
+      a third binary built from the PRISTINE 28f373a source plus ONE exported,
+      never-read 4096-byte symbol and NO law at all gives
+        pristine                 22388089 = 0x1559d79
+        pristine + 4096-B shim   22392185 = 0x155ad79   (+0x1000, EXACTLY the shim)
+        shipped (this pass)      22392185 = 0x155ad79   (same as the shim build)
+      Golden has NO such object at all (0 occurrences).  The site is
+      src/TypeEmit.cpp:10359, `auto& fua = ct.as<FixedSizeUnpackedArrayType>();`
+      -- an UNCHECKED slang `as<>` (a no-op under NDEBUG).  Two of the three call
+      sites gate on `ct.kind == SymbolKind::FixedSizeUnpackedArrayType\'
+      (UhdmExporter.cpp:3765, TypeEmit.cpp:10862); the THIRD,
+      TaskFuncEmit.cpp:3511, gates only on the RETURN typespec's UHDM kind, so a
+      function returning a typedef'd ASSOCIATIVE array reaches it with an
+      AssociativeArrayType and `fua.range.width()` reads the object's indexType
+      POINTER.  Recorded as R-fuaCast110; NOT repaired here (out of scope).
+
+7.    r10vrgg3repro/xi_iface_param_type/dut.sv -- NOT a mover.  ONE `|vpiSigned:1`
+      line, elab view only, on an interface-parameter cell.  It is the documented
+      RUN-TO-RUN emitter nondeterminism (SourceLocation ordering under slang's
+      parallel parse), caught because four shards ran side by side.  Re-run in
+      place: the two binaries' elab dumps are BYTE-IDENTICAL 10 times out of 10,
+      and 24 parallel re-runs of the PRISTINE binary alone all give 14 while the
+      RECORDED pristine dump has 13 -- i.e. the flake was on the PRISTINE side.

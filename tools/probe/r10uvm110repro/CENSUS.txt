@@ -1,0 +1,49 @@
+r10uvm110 CENSUS -- every ASSIGNMENT in the NINE UVM databases, both modes, LHS
+always golden.  cen110.py reads the uhdm-dump TREE (so no row can name an object
+the judge cannot reach); PROJ=1 projects each row onto the JUDGE-VISIBLE axes only
+(object KIND, the LEAF of any name -- uhdm-dump SYNTHESISES vpiFullName from the
+parent chain and no generated Compare reads it -- and the PRESENCE + KIND + LEAF of
+a vpiActual) and DROPS THE SPAN from the key as well as from the value: golden and
+ours differ in assignment spans on shapes this pass does not touch, and a
+span-keyed join reports those as LHS-ONLY / RHS-ONLY phantoms.  The join is a
+MULTISET join keyed on the nearest named ancestor.
+
+The rows below are the LAW'S SLICE: every assignment whose Rhs is a
+method_func_call named `new` (both `new [n]` and `new (…)`, which is what makes
+the slice a TEST rather than a confirmation -- the class form must NOT move).
+
+---- CALIBRATION golden-vs-golden (default vs testflags), projected
+  SeqDriver AGREE=444 DIFFERKEYS=0 LHSONLY=0 RHSONLY=0
+  SimpleUVM AGREE=341 DIFFERKEYS=0 LHSONLY=0 RHSONLY=0
+  MiniAmiq AGREE=459 DIFFERKEYS=0 LHSONLY=0 RHSONLY=0
+  BuildUVMPkg AGREE=389 DIFFERKEYS=0 LHSONLY=0 RHSONLY=0
+  Scoreboard AGREE=343 DIFFERKEYS=0 LHSONLY=0 RHSONLY=0
+
+---- GOLDEN vs PRISTINE           ----  GOLDEN vs SHIPPED
+  SeqDriver/default    AGREE=424 D=5   ->  AGREE=426 D=4
+  SimpleUVM/default    AGREE=321 D=5   ->  AGREE=323 D=4
+  Scoreboard/default   AGREE=339 D=3   ->  AGREE=341 D=2
+  MiniAmiq/default     AGREE=454 D=4   ->  AGREE=457 D=2
+  BuildUVMPkg/default  AGREE=387 D=2   ->  AGREE=389 D=1
+  SeqDriver/testflags  AGREE=424 D=5   ->  AGREE=426 D=4
+  SimpleUVM/testflags  AGREE=321 D=5   ->  AGREE=323 D=4
+  MiniAmiq/testflags   AGREE=454 D=4   ->  AGREE=457 D=2
+  BuildUVMPkg/testflags AGREE=387 D=2  ->  AGREE=389 D=1
+  (D = DIFFERKEYS; LHSONLY=RHSONLY=0 throughout, both binaries)
+  20 CELLS TO GOLDEN over the nine databases; NOTHING moves away.
+
+---- the corpus sites the law reaches (2 in uvm-1.2, 1 in svaunit)
+  uvm-1.2 reg/uvm_reg_adapter.svh:195  gp.m_byte_enable = new [nbytes];
+  uvm-1.2 reg/uvm_reg_adapter.svh:200  gp.m_data        = new [gp.get_streaming_width()];
+  svaunit sv/svaunit_immediate_assertion_info.svh:273
+           copy.checks_details = new[copy.checks_details.size() + 1](copy.checks_details);
+           (its UNDOTTED twin at :87 is already correct on both binaries -- the control)
+  (a whole-tree scan of uvm-1.2 finds NO other dotted `new [` lvalue)
+
+---- the keys STILL differing after the pass, all of them PRE-EXISTING and all
+---- outside this law (they are UNDOTTED lvalues or a this.-rooted statement)
+  ASG clear_hdl_path / configure / new  -- an UNDOTTED `x = new(…)` lvalue where
+     golden binds NOTHING and we bind a hoisted logic_net (R-newbind110)
+  ASG get_physical_addresses -- golden's actual is a bit_select, ours an array_var
+  ASG new -- `this.default_alloc = new(…)`: golden emits NO row, we emit a
+     hier_path (the § thisSuperNewAssignNoStmt3 slot list, unchanged here)
