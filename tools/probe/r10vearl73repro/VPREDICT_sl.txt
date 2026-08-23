@@ -1,0 +1,4 @@
+PREDICT-MOVER default/BuildUVMPkg-bf853d43 cells=2
+PREDICT-MOVER default/Earlgrey_0_1-71da2fd7 cells=12
+PREDICT-MOVER testflags/BuildUVMPkg-bf853d43 cells=2
+PREDICT-MOVER testflags/Earlgrey_0_1-71da2fd7 cells=20

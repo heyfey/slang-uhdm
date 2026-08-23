@@ -1,0 +1,85 @@
+r10earl73 — EARLGREY CENSUS.  Every param_assign the UhdmListener reaches
+(pacen73), MULTISET join on (VpiParent chain, parameter name); payload =
+VpiOverriden + the Lhs parameter's declaration typespec + the Rhs's
+Compare-visible fields.  LHS is ALWAYS golden.
+
+=== CALIBRATION FIRST: golden vs golden (identity by construction)
+def  keys G=11863 O=11863 shared_cells=31897 DIFFERING=0 gold_only=0 ours_only=0
+tf   keys G=11865 O=11865 shared_cells=39977 DIFFERING=0 gold_only=0 ours_only=0
+
+=== 3-way: base = PRISTINE, ours = PATCHED, golden
+-- def
+keys G=11863 O=11852 shared_cells=28655 DIFFERING=182 gold_only=3242 ours_only=2153
+  STILL-RIGHT: 28461
+  TO-GOLDEN: 12
+  AWAY-GOLDEN: 0
+  MOVED-WRONG: 0
+  STILL-WRONG: 182
+Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+BrokenPipeError: [Errno 32] Broken pipe
+-- tf
+keys G=11865 O=11854 shared_cells=36735 DIFFERING=182 gold_only=3242 ours_only=2150
+  STILL-RIGHT: 36533
+  TO-GOLDEN: 20
+  AWAY-GOLDEN: 0
+  MOVED-WRONG: 0
+  STILL-WRONG: 182
+Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+BrokenPipeError: [Errno 32] Broken pipe
+
+=== the cells that MOVED, by (vpiConstType/tag), pristine vs golden
+-- default
+CT/TAG-differing shared cells: 35
+  ovr=0 golden 9/UINT     ours -/-        x15
+  ovr=1 golden 7/INT      ours 9/UINT     x10
+  ovr=0 golden -/-        ours 9/UINT     x4
+  ovr=0 golden 7/INT      ours -/-        x2
+  ovr=1 golden -/-        ours 9/UINT     x2
+  ovr=0 golden 7/INT      ours 9/UINT     x2
+-- testflags
+CT/TAG-differing shared cells: 43
+  ovr=1 golden 7/INT      ours 9/UINT     x18
+  ovr=0 golden 9/UINT     ours -/-        x15
+  ovr=0 golden -/-        ours 9/UINT     x4
+  ovr=0 golden 7/INT      ours -/-        x2
+  ovr=0 golden 7/INT      ours 9/UINT     x2
+  ovr=1 golden -/-        ours 9/UINT     x2
+
+=== the SAME table with the PATCHED binary
+-- default
+CT/TAG-differing shared cells: 23
+  ovr=0 golden 9/UINT     ours -/-        x15
+  ovr=0 golden -/-        ours 9/UINT     x4
+  ovr=0 golden 7/INT      ours -/-        x2
+  ovr=1 golden -/-        ours 9/UINT     x2
+-- testflags
+CT/TAG-differing shared cells: 23
+  ovr=0 golden 9/UINT     ours -/-        x15
+  ovr=0 golden -/-        ours 9/UINT     x4
+  ovr=0 golden 7/INT      ours -/-        x2
+  ovr=1 golden -/-        ours 9/UINT     x2
+
+=== THE THREE FAMILIES THAT MOVED (default view; testflags is the same
+    three with a higher listener multiplicity)
+  WordsPerPage   prim_flash.sv:16   .WordsPerPage(WordsPerPage / WidthMultiple)
+                 4 objects x 2 visits = 8 cells, INT:128  sz 32
+  Width          usbdev.sv:259      .Width(3*NEndpoints)
+                 1 object  x 2 visits = 2 cells, INT:36   sz 32
+  AlignedMuxSize pinmux.sv:207      localparam int = (..) ? 2**$clog2(..) : ..
+                 1 object  x 2 visits = 2 cells, INT:64   sz 32  (NOT overridden)
+
+=== R0's OWN family — the RANGE-BOUND census (rngcen73), Earlgrey/default:
+    UNCHANGED by this pass, byte for byte (pristine and patched give the
+    identical join), which is what makes it the next head and not a residue
+    of this one.
+-- golden vs PRISTINE
+shared range cells 90076 DIFFERING 23018 {'OTHER': 23009, 'CT/TAG-ONLY': 9}
+-- golden vs PATCHED
+shared range cells 90076 DIFFERING 23018 {'OTHER': 23009, 'CT/TAG-ONLY': 9}
+shared range cells 90076 DIFFERING 23018 {'OTHER': 23009, 'CT/TAG-ONLY': 9}
+x6
+  G:sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+  O:sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:32768 dec=32768} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+x3
+  G:sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}
+  O:sz=0 L{ct=9 sz=64 val=UINT:0 dec=0} R/op11[0]{ct=7 sz=32 val=INT:9 dec=9} R/op11[1]{ct=7 sz=64 val=INT:1 dec=-}

@@ -1,0 +1,215 @@
+r10earl73 — GOLDEN GRID: what Surelog actually writes for a param_assign Rhs
+MEASUREMENT ONLY.  golden = Surelog -parse -nobuiltin -nocache -sv <file>
+ours = the PRISTINE frozen binary, DEFAULT view (the --elabuhdm view agrees
+cell for cell; see GRID_SCORE.txt).
+
+=== g1_shapes73.sv — 6 DECLARED TYPES x 24 ACTUAL SHAPES, module-body home
+    A = 256, B = 2, both 'parameter int' of the parent.
+
+== declared: int
+  none  G: ct9  sz32  UINT:256       dec=256             O: ct9  sz32  UINT:256       dec=256
+  lit   G: ct9  sz32  UINT:128       dec=128             O: ct9  sz32  UINT:128       dec=128
+  blit  G: ct7  sz32  INT:128        dec=128             O: ct7  sz32  INT:128        dec=128
+  hlit  G: ct5  sz32  HEX:80         dec='h80            O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  refa  G: ct9  sz32  UINT:256       dec=256             O: ct9  sz32  UINT:256       dec=256
+  div   G: ct7  sz32  INT:128        dec=128             O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  mul   G: ct7  sz32  INT:512        dec=512             O: ct9  sz32  UINT:512       dec=512               <<< DIFF
+  sub   G: ct7  sz32  INT:254        dec=254             O: ct9  sz32  UINT:254       dec=254               <<< DIFF
+  add   G: ct9  sz32  UINT:258       dec=258             O: ct9  sz32  UINT:258       dec=258
+  shl   G: ct9  sz32  UINT:4         dec=4               O: ct9  sz32  UINT:4         dec=4
+  shr   G: ct9  sz32  UINT:128       dec=128             O: ct9  sz32  UINT:128       dec=128
+  clog  G: ct9  sz32  UINT:8         dec=8               O: ct9  sz32  UINT:8         dec=8
+  tern  G: ct9  sz32  UINT:1         dec=1               O: ct9  sz32  UINT:1         dec=1
+  cast  G: ct9  sz32  UINT:256       dec=256             O: ct9  sz32  UINT:256       dec=256
+  conc  G: ct3  sz32  BIN:0000000000000000000000000000001000000000000000000000000000000010 dec=64'b0000000000000000000000000000001000000000000000000000000000000010 O: ct3  sz32  BIN:0000000000000000000000000000001000000000000000000000000000000010 dec=64'b0000000000000000000000000000001000000000000000000000000000000010
+  neg   G: ct7  sz32  INT:-2         dec=-2              O: ct9  sz32  UINT:-2        dec=-2                <<< DIFF
+  mod   G: ct7  sz32  INT:0          dec=0               O: ct9  sz32  UINT:0         dec=0                 <<< DIFF
+  band  G: ct9  sz32  UINT:0         dec=0               O: ct9  sz32  UINT:0         dec=0
+  bxor  G: operation op=30                               O: ct9  sz32  UINT:258       dec=258               <<< DIFF
+  eq    G: ct3  sz1   BIN:0          dec=1'b0            O: ct9  sz32  UINT:0         dec=0                 <<< DIFF
+  pow   G: ct7  sz32  INT:4          dec=4               O: ct9  sz32  UINT:4         dec=4                 <<< DIFF
+  tpow  G: ct7  sz32  INT:4          dec=4               O: ct9  sz32  UINT:4         dec=4                 <<< DIFF
+  divl  G: ct7  sz32  INT:128        dec=128             O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  mulm  G: ct7  sz32  INT:256        dec=256             O: ct9  sz32  UINT:256       dec=256               <<< DIFF
+== declared: unt
+  none  G: ct9  sz32  UINT:256       dec=256             O: ct9  sz32  UINT:256       dec=256
+  lit   G: ct9  sz32  UINT:128       dec=128             O: ct9  sz32  UINT:128       dec=128
+  blit  G: ct7  sz32  INT:128        dec=128             O: ct7  sz32  INT:128        dec=128
+  hlit  G: ct5  sz32  HEX:80         dec='h80            O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  refa  G: ct9  sz32  UINT:256       dec=256             O: ct9  sz32  UINT:256       dec=256
+  div   G: ct7  sz32  INT:128        dec=128             O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  mul   G: ct7  sz32  INT:512        dec=512             O: ct9  sz32  UINT:512       dec=512               <<< DIFF
+  sub   G: ct7  sz32  INT:254        dec=254             O: ct9  sz32  UINT:254       dec=254               <<< DIFF
+  add   G: ct9  sz32  UINT:258       dec=258             O: ct9  sz32  UINT:258       dec=258
+  shl   G: ct9  sz32  UINT:4         dec=4               O: ct9  sz32  UINT:4         dec=4
+  shr   G: ct9  sz32  UINT:128       dec=128             O: ct9  sz32  UINT:128       dec=128
+  clog  G: ct9  sz32  UINT:8         dec=8               O: ct9  sz32  UINT:8         dec=8
+  tern  G: ct9  sz32  UINT:1         dec=1               O: ct9  sz32  UINT:1         dec=1
+  cast  G: ct9  sz32  UINT:256       dec=256             O: ct9  sz32  UINT:256       dec=256
+  conc  G: ct3  sz32  BIN:0000000000000000000000000000001000000000000000000000000000000010 dec=64'b0000000000000000000000000000001000000000000000000000000000000010 O: ct3  sz32  BIN:0000000000000000000000000000001000000000000000000000000000000010 dec=64'b0000000000000000000000000000001000000000000000000000000000000010
+  neg   G: ct7  sz32  INT:-2         dec=-2              O: ct9  sz32  UINT:-2        dec=-2                <<< DIFF
+  mod   G: ct7  sz32  INT:0          dec=0               O: ct9  sz32  UINT:0         dec=0                 <<< DIFF
+  band  G: ct9  sz32  UINT:0         dec=0               O: ct9  sz32  UINT:0         dec=0
+  bxor  G: operation op=30                               O: ct9  sz32  UINT:258       dec=258               <<< DIFF
+  eq    G: ct3  sz1   BIN:0          dec=1'b0            O: ct9  sz1   UINT:0         dec=0                 <<< DIFF
+  pow   G: ct7  sz32  INT:4          dec=4               O: ct9  sz32  UINT:4         dec=4                 <<< DIFF
+  tpow  G: ct7  sz32  INT:4          dec=4               O: ct9  sz32  UINT:4         dec=4                 <<< DIFF
+  divl  G: ct7  sz32  INT:128        dec=128             O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  mulm  G: ct7  sz32  INT:256        dec=256             O: ct9  sz32  UINT:256       dec=256               <<< DIFF
+== declared: bitr
+  none  G: ct9  sz10  UINT:256       dec=256             O: ct9  sz10  UINT:256       dec=256
+  lit   G: ct9  sz10  UINT:128       dec=128             O: ct9  sz10  UINT:128       dec=128
+  blit  G: ct7  sz10  INT:128        dec=128             O: ct7  sz10  INT:128        dec=128
+  hlit  G: ct5  sz10  HEX:80         dec='h80            O: ct9  sz10  UINT:128       dec=128               <<< DIFF
+  refa  G: ct9  sz10  UINT:256       dec=256             O: ct9  sz10  UINT:256       dec=256
+  div   G: ct7  sz10  INT:128        dec=128             O: ct9  sz10  UINT:128       dec=128               <<< DIFF
+  mul   G: ct7  sz10  INT:512        dec=512             O: ct9  sz10  UINT:512       dec=512               <<< DIFF
+  sub   G: ct7  sz10  INT:254        dec=254             O: ct9  sz10  UINT:254       dec=254               <<< DIFF
+  add   G: ct9  sz10  UINT:258       dec=258             O: ct9  sz10  UINT:258       dec=258
+  shl   G: ct9  sz10  UINT:4         dec=4               O: ct9  sz10  UINT:4         dec=4
+  shr   G: ct9  sz10  UINT:128       dec=128             O: ct9  sz10  UINT:128       dec=128
+  clog  G: ct9  sz10  UINT:8         dec=8               O: ct9  sz10  UINT:8         dec=8
+  tern  G: ct9  sz10  UINT:1         dec=1               O: ct9  sz10  UINT:1         dec=1
+  cast  G: ct9  sz10  UINT:256       dec=256             O: ct9  sz10  UINT:256       dec=256
+  conc  G: ct3  sz64  BIN:0000000000000000000000000000001000000000000000000000000000000010 dec=64'b0000000000000000000000000000001000000000000000000000000000000010 O: ct3  sz64  BIN:0000000000000000000000000000001000000000000000000000000000000010 dec=64'b0000000000000000000000000000001000000000000000000000000000000010
+  neg   G: ct7  sz10  INT:-2         dec=-2              O: ct9  sz10  UINT:1022      dec=1022              <<< DIFF
+  mod   G: ct7  sz10  INT:0          dec=0               O: ct9  sz10  UINT:0         dec=0                 <<< DIFF
+  band  G: ct9  sz10  UINT:0         dec=0               O: ct9  sz10  UINT:0         dec=0
+  bxor  G: operation op=30                               O: ct9  sz10  UINT:258       dec=258               <<< DIFF
+  eq    G: ct3  sz1   BIN:0          dec=1'b0            O: ct9  sz10  UINT:0         dec=0                 <<< DIFF
+  pow   G: ct7  sz10  INT:4          dec=4               O: ct9  sz10  UINT:4         dec=4                 <<< DIFF
+  tpow  G: ct7  sz10  INT:4          dec=4               O: ct9  sz10  UINT:4         dec=4                 <<< DIFF
+  divl  G: ct7  sz10  INT:128        dec=128             O: ct9  sz10  UINT:128       dec=128               <<< DIFF
+  mulm  G: ct7  sz10  INT:256        dec=256             O: ct9  sz10  UINT:256       dec=256               <<< DIFF
+== declared: logr
+  none  G: ct9  sz32  UINT:256       dec=256             O: ct9  sz32  UINT:256       dec=256
+  lit   G: ct9  sz32  UINT:128       dec=128             O: ct9  sz32  UINT:128       dec=128
+  blit  G: ct7  sz32  INT:128        dec=128             O: ct7  sz32  INT:128        dec=128
+  hlit  G: ct5  sz32  HEX:80         dec='h80            O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  refa  G: ct9  sz32  UINT:256       dec=256             O: ct9  sz32  UINT:256       dec=256
+  div   G: ct7  sz32  INT:128        dec=128             O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  mul   G: ct7  sz32  INT:512        dec=512             O: ct9  sz32  UINT:512       dec=512               <<< DIFF
+  sub   G: ct7  sz32  INT:254        dec=254             O: ct9  sz32  UINT:254       dec=254               <<< DIFF
+  add   G: ct9  sz32  UINT:258       dec=258             O: ct9  sz32  UINT:258       dec=258
+  shl   G: ct9  sz32  UINT:4         dec=4               O: ct9  sz32  UINT:4         dec=4
+  shr   G: ct9  sz32  UINT:128       dec=128             O: ct9  sz32  UINT:128       dec=128
+  clog  G: ct9  sz32  UINT:8         dec=8               O: ct9  sz32  UINT:8         dec=8
+  tern  G: ct9  sz32  UINT:1         dec=1               O: ct9  sz32  UINT:1         dec=1
+  cast  G: ct9  sz32  UINT:256       dec=256             O: ct9  sz32  UINT:256       dec=256
+  conc  G: ct3  sz32  BIN:00000000000000000000000000000010 dec=00000000000000000000000000000010 O: ct3  sz32  BIN:00000000000000000000000000000010 dec=00000000000000000000000000000010
+  neg   G: ct7  sz32  INT:-2         dec=-2              O: ct9  sz32  UINT:4294967294 dec=4294967294       <<< DIFF
+  mod   G: ct7  sz32  INT:0          dec=0               O: ct9  sz32  UINT:0         dec=0                 <<< DIFF
+  band  G: ct9  sz32  UINT:0         dec=0               O: ct9  sz32  UINT:0         dec=0
+  bxor  G: operation op=30                               O: ct9  sz32  UINT:258       dec=258               <<< DIFF
+  eq    G: ct3  sz1   BIN:0          dec=1'b0            O: ct9  sz32  UINT:0         dec=0                 <<< DIFF
+  pow   G: ct7  sz32  INT:4          dec=4               O: ct9  sz32  UINT:4         dec=4                 <<< DIFF
+  tpow  G: ct7  sz32  INT:4          dec=4               O: ct9  sz32  UINT:4         dec=4                 <<< DIFF
+  divl  G: ct7  sz32  INT:128        dec=128             O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  mulm  G: ct7  sz32  INT:256        dec=256             O: ct9  sz32  UINT:256       dec=256               <<< DIFF
+== declared: itg
+  none  G: ct9  sz32  UINT:256       dec=256             O: ct9  sz32  UINT:256       dec=256
+  lit   G: ct9  sz32  UINT:128       dec=128             O: ct9  sz32  UINT:128       dec=128
+  blit  G: ct7  sz32  INT:128        dec=128             O: ct7  sz32  INT:128        dec=128
+  hlit  G: ct5  sz32  HEX:80         dec='h80            O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  refa  G: ct9  sz32  UINT:256       dec=256             O: ct9  sz32  UINT:256       dec=256
+  div   G: ct7  sz32  INT:128        dec=128             O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  mul   G: ct7  sz32  INT:512        dec=512             O: ct9  sz32  UINT:512       dec=512               <<< DIFF
+  sub   G: ct7  sz32  INT:254        dec=254             O: ct9  sz32  UINT:254       dec=254               <<< DIFF
+  add   G: ct9  sz32  UINT:258       dec=258             O: ct9  sz32  UINT:258       dec=258
+  shl   G: ct9  sz32  UINT:4         dec=4               O: ct9  sz32  UINT:4         dec=4
+  shr   G: ct9  sz32  UINT:128       dec=128             O: ct9  sz32  UINT:128       dec=128
+  clog  G: ct9  sz32  UINT:8         dec=8               O: ct9  sz32  UINT:8         dec=8
+  tern  G: ct9  sz32  UINT:1         dec=1               O: ct9  sz32  UINT:1         dec=1
+  cast  G: ct9  sz32  UINT:256       dec=256             O: ct9  sz32  UINT:256       dec=256
+  conc  G: ct3  sz64  BIN:0000000000000000000000000000001000000000000000000000000000000010 dec=64'b0000000000000000000000000000001000000000000000000000000000000010 O: ct3  sz64  BIN:0000000000000000000000000000001000000000000000000000000000000010 dec=64'b0000000000000000000000000000001000000000000000000000000000000010
+  neg   G: ct7  sz32  INT:-2         dec=-2              O: ct9  sz32  UINT:-2        dec=-2                <<< DIFF
+  mod   G: ct7  sz32  INT:0          dec=0               O: ct9  sz32  UINT:0         dec=0                 <<< DIFF
+  band  G: ct9  sz32  UINT:0         dec=0               O: ct9  sz32  UINT:0         dec=0
+  bxor  G: operation op=30                               O: ct9  sz32  UINT:258       dec=258               <<< DIFF
+  eq    G: ct3  sz1   BIN:0          dec=1'b0            O: ct9  sz32  UINT:0         dec=0                 <<< DIFF
+  pow   G: ct7  sz32  INT:4          dec=4               O: ct9  sz32  UINT:4         dec=4                 <<< DIFF
+  tpow  G: ct7  sz32  INT:4          dec=4               O: ct9  sz32  UINT:4         dec=4                 <<< DIFF
+  divl  G: ct7  sz32  INT:128        dec=128             O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  mulm  G: ct7  sz32  INT:256        dec=256             O: ct9  sz32  UINT:256       dec=256               <<< DIFF
+== declared: sgn
+  none  G: ct9  sz16  UINT:256       dec=256             O: ct9  sz16  UINT:256       dec=256
+  lit   G: ct9  sz16  UINT:128       dec=128             O: ct9  sz16  UINT:128       dec=128
+  blit  G: ct7  sz16  INT:128        dec=128             O: ct7  sz16  INT:128        dec=128
+  hlit  G: ct5  sz16  HEX:80         dec='h80            O: ct9  sz16  UINT:128       dec=128               <<< DIFF
+  refa  G: ct9  sz16  UINT:256       dec=256             O: ct9  sz16  UINT:256       dec=256
+  div   G: ct7  sz16  INT:128        dec=128             O: ct9  sz16  UINT:128       dec=128               <<< DIFF
+  mul   G: ct7  sz16  INT:512        dec=512             O: ct9  sz16  UINT:512       dec=512               <<< DIFF
+  sub   G: ct7  sz16  INT:254        dec=254             O: ct9  sz16  UINT:254       dec=254               <<< DIFF
+  add   G: ct9  sz16  UINT:258       dec=258             O: ct9  sz16  UINT:258       dec=258
+  shl   G: ct9  sz16  UINT:4         dec=4               O: ct9  sz16  UINT:4         dec=4
+  shr   G: ct9  sz16  UINT:128       dec=128             O: ct9  sz16  UINT:128       dec=128
+  clog  G: ct9  sz16  UINT:8         dec=8               O: ct9  sz16  UINT:8         dec=8
+  tern  G: ct9  sz16  UINT:1         dec=1               O: ct9  sz16  UINT:1         dec=1
+  cast  G: ct9  sz16  UINT:256       dec=256             O: ct9  sz16  UINT:256       dec=256
+  conc  G: ct3  sz16  BIN:0000000000000000000000000000001000000000000000000000000000000010 dec=64'b0000000000000000000000000000001000000000000000000000000000000010 O: ct3  sz16  BIN:0000000000000010 dec=0000000000000010   <<< DIFF
+  neg   G: ct7  sz16  INT:-2         dec=-2              O: ct9  sz16  UINT:-2        dec=-2                <<< DIFF
+  mod   G: ct7  sz16  INT:0          dec=0               O: ct9  sz16  UINT:0         dec=0                 <<< DIFF
+  band  G: ct9  sz16  UINT:0         dec=0               O: ct9  sz16  UINT:0         dec=0
+  bxor  G: operation op=30                               O: ct9  sz16  UINT:258       dec=258               <<< DIFF
+  eq    G: ct3  sz1   BIN:0          dec=1'b0            O: ct9  sz16  UINT:0         dec=0                 <<< DIFF
+  pow   G: ct7  sz16  INT:4          dec=4               O: ct9  sz16  UINT:4         dec=4                 <<< DIFF
+  tpow  G: ct7  sz16  INT:4          dec=4               O: ct9  sz16  UINT:4         dec=4                 <<< DIFF
+  divl  G: ct7  sz16  INT:128        dec=128             O: ct9  sz16  UINT:128       dec=128               <<< DIFF
+  mulm  G: ct7  sz16  INT:256        dec=256             O: ct9  sz16  UINT:256       dec=256               <<< DIFF
+
+=== the SAME 24 shapes in a GEN-FOR home (top73g/gb[0]) — the home is NOT an axis
+add    module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_add)                G: ct9  sz32  UINT:258       O: ct9  sz32  UINT:258
+band   module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_band)               G: ct9  sz32  UINT:0         O: ct9  sz32  UINT:0
+blit   module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_blit)               G: ct7  sz32  INT:128        O: ct7  sz32  INT:128
+bxor   module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_bxor)               G: operation op=30          O: ct9  sz32  UINT:258       <<<
+cast   module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_cast)               G: ct9  sz32  UINT:256       O: ct9  sz32  UINT:256
+clog   module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_clog)               G: ct9  sz32  UINT:8         O: ct9  sz32  UINT:8
+conc   module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_conc)               G: ct3  sz32  BIN:0000000000000000000000000000001000000000000000000000000000000010 O: ct3  sz32  BIN:0000000000000000000000000000001000000000000000000000000000000010
+div    module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_div)                G: ct7  sz32  INT:128        O: ct9  sz32  UINT:128       <<<
+divl   module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_divl)               G: ct7  sz32  INT:128        O: ct9  sz32  UINT:128       <<<
+eq     module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_eq)                 G: ct3  sz1   BIN:0          O: ct9  sz32  UINT:0         <<<
+hlit   module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_hlit)               G: ct5  sz32  HEX:80         O: ct9  sz32  UINT:128       <<<
+lit    module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_lit)                G: ct9  sz32  UINT:128       O: ct9  sz32  UINT:128
+mod    module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_mod)                G: ct7  sz32  INT:0          O: ct9  sz32  UINT:0         <<<
+mul    module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_mul)                G: ct7  sz32  INT:512        O: ct9  sz32  UINT:512       <<<
+mulm   module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_mulm)               G: ct7  sz32  INT:256        O: ct9  sz32  UINT:256       <<<
+neg    module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_neg)                G: ct7  sz32  INT:-2         O: ct9  sz32  UINT:-2        <<<
+none   module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_none)               G: ct9  sz32  UINT:256       O: ct9  sz32  UINT:256
+pow    module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_pow)                G: ct7  sz32  INT:4          O: ct9  sz32  UINT:4         <<<
+refa   module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_refa)               G: ct9  sz32  UINT:256       O: ct9  sz32  UINT:256
+shl    module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_shl)                G: ct9  sz32  UINT:4         O: ct9  sz32  UINT:4
+shr    module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_shr)                G: ct9  sz32  UINT:128       O: ct9  sz32  UINT:128
+sub    module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_sub)                G: ct7  sz32  INT:254        O: ct9  sz32  UINT:254       <<<
+tern   module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_tern)               G: ct9  sz32  UINT:1         O: ct9  sz32  UINT:1
+tpow   module_inst(work@top73g)/gen_scope_array(gb[0])/gen_scope/module_inst(u_int_tpow)               G: ct7  sz32  INT:4          O: ct9  sz32  UINT:4         <<<
+
+=== g2_hops73.sv — parameter HOPS, ADD-with-an-INT-operand, OVERFLOW, wrappers
+u_b40_negs   G: ct7  sz40  INT:-2                 dec=-2       O: ct9  sz40  UINT:1099511627774     dec=1099511627774 <<<
+u_b40_ovf    G: ct7  sz40  INT:10000000000        dec=10000000000 O: ct9  sz40  UINT:10000000000       dec=10000000000 <<<
+u_b4_hop     G: ct7  sz4   INT:128                dec=128      O: ct7  sz4   INT:0                  dec=0        <<<
+u_b4_negs    G: ct7  sz4   INT:-2                 dec=-2       O: ct9  sz4   UINT:14                dec=14       <<<
+u_b4_ovf     G: ct7  sz4   INT:512                dec=512      O: ct9  sz4   UINT:0                 dec=0        <<<
+u_int_adda   G: ct7  sz32  INT:129                dec=129      O: ct9  sz32  UINT:129               dec=129      <<<
+u_int_addb   G: ct7  sz32  INT:5                  dec=5        O: ct9  sz32  UINT:5                 dec=5        <<<
+u_int_addh   G: ct7  sz32  INT:384                dec=384      O: ct9  sz32  UINT:384               dec=384      <<<
+u_int_addi   G: ct7  sz32  INT:257                dec=257      O: ct9  sz32  UINT:257               dec=257      <<<
+u_int_addl   G: ct7  sz32  INT:384                dec=384      O: ct7  sz32  INT:384                dec=384
+u_int_and    G: ct9  sz32  UINT:128               dec=128      O: ct9  sz32  UINT:128               dec=128
+u_int_cast   G: ct9  sz32  UINT:128               dec=128      O: ct9  sz32  UINT:128               dec=128
+u_int_clg    G: ct9  sz32  UINT:7                 dec=7        O: ct9  sz32  UINT:7                 dec=7
+u_int_hop    G: ct7  sz32  INT:128                dec=128      O: ct7  sz32  INT:128                dec=128
+u_int_hop2   G: ct7  sz32  INT:128                dec=128      O: ct7  sz32  INT:128                dec=128
+u_int_mda    G: ct7  sz32  INT:1                  dec=1        O: ct9  sz32  UINT:1                 dec=1        <<<
+u_int_mul    G: ct7  sz32  INT:512                dec=512      O: ct9  sz32  UINT:512               dec=512      <<<
+u_int_nd     G: ct7  sz32  INT:-128               dec=-128     O: ct9  sz32  UINT:-128              dec=-128     <<<
+u_int_negh   G: ct7  sz32  INT:-2                 dec=-2       O: ct7  sz32  INT:-2                 dec=-2
+u_int_negs   G: ct7  sz32  INT:-256               dec=-256     O: ct9  sz32  UINT:-256              dec=-256     <<<
+u_int_ovf    G: ct7  sz32  INT:10000000000        dec=10000000000 O: ct9  sz32  UINT:1410065408        dec=1410065408 <<<
+u_int_par    G: ct7  sz32  INT:254                dec=254      O: ct9  sz32  UINT:254               dec=254      <<<
+u_int_shf    G: ct9  sz32  UINT:256               dec=256      O: ct9  sz32  UINT:256               dec=256
+u_int_td     G: ct7  sz32  INT:128                dec=128      O: ct9  sz32  UINT:128               dec=128      <<<
+u_int_te     G: ct9  sz32  UINT:3                 dec=3        O: ct9  sz32  UINT:3                 dec=3
+u_int_uns    G: ct7  sz32  INT:254                dec=254      O: ct9  sz32  UINT:254               dec=254      <<<
+u_opd_hop    G: ct7  sz32  INT:128                dec=128      O: ct7  sz32  INT:128                dec=128
+u_unt_hop    G: ct7  sz32  INT:128                dec=128      O: ct7  sz32  INT:128                dec=128
+u_unt_negs   G: ct7  sz32  INT:-2                 dec=-2       O: ct9  sz32  UINT:-2                dec=-2       <<<

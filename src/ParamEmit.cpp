@@ -5,6 +5,7 @@
 // SPDX-License-Identifier: MIT
 //------------------------------------------------------------------------------
 #include <charconv>
+#include <cstdint>
 #include <functional>
 
 #include "UhdmExporter.h"
@@ -5651,6 +5652,247 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             else
                 w8 = 0;  // struct/union/typedef vector: other arms own it
         };
+        // -------------------------------------------------------------------
+        // § ovActReduceIntOp73 — THE VALUE ENCODING OF AN INSTANTIATION
+        // PARAMETER ACTUAL IS DECIDED BY THE ACTUAL'S OPERATOR, NOT BY THE
+        // FORMAL'S DECLARED TYPE.
+        //
+        // Surelog's override path is:
+        //   DesignElaboration.cpp:2147  compileExpression(..., Reduce::Yes)
+        //     -> CompileExpression.cpp:4288  ExprEval::reduceExpr(operation)
+        //   DesignElaboration.cpp:2170  value = fromVpiValue(c->VpiValue(),
+        //                                                    c->VpiSize())
+        //   NetlistElaboration.cpp:429-432  c->VpiValue(value->uhdmValue());
+        //                                   c->VpiDecompile(...);
+        //                                   c->VpiSize(value->getSize());
+        //                                   c->VpiConstType(value->vpiValType());
+        //   NetlistElaboration.cpp:448      adjustSize(<formal typespec>, ...)
+        // so ALL FOUR judge-visible fields come from ONE `Value`, and that
+        // Value's TYPE is the one `ExprEval::reduceExpr` stamped on the folded
+        // ACTUAL.  `reduceExpr` types its result PER OPERATOR
+        // (UHDM/templates/ExprEval.cpp):
+        //   :3343 vpiSubOp, :3379 vpiMultOp, :3609 vpiModOp, :3703 vpiDivOp,
+        //   :3684 vpiPowerOp, :3307 unary vpiMinusOp  -> "INT:" + vpiIntConst
+        //   :3160 vpiAddOp -> "UINT:" ONLY when NEITHER reduced operand is
+        //         vpiIntConst/vpiStringConst/vpiRealConst/vpiDecConst; with a
+        //         signed operand the :3198 arm gives "INT:" instead
+        //   shifts, vpiBitAndOp/vpiBitOrOp, $clog2, a plain decimal literal, a
+        //         parameter reference and a cast -> "UINT:" + vpiUIntConst
+        // and `CompileHelper::adjustSize` (CompileHelper.cpp:3949) has NO arm
+        // for a vpiIntConst: only the vpiUIntConst arm masks the digits, the
+        // vpiBinaryConst arm re-renders them, and everything else falls to
+        // :4127 `c->VpiSize(size)` — the digits survive UNTRUNCATED at the
+        // FORMAL's declared width.  `srlgAdjustSize` already models exactly
+        // that, so this arm only has to produce the PRODUCER stage.
+        //
+        // MEASURED ON GOLDEN, 6 declared types x 24 actual shapes x three
+        // homes (module body / gen-for / nested gen), g1_shapes73.sv, plus
+        // g2_hops73.sv's parameter hops, adds, overflows and wrappers:
+        //   int / untyped / bit[9:0] / logic[31:0] / integer / signed[15:0]
+        //   all answer IDENTICALLY, and the home is not an axis either.
+        //     A / B, A * B, A - B, A % B, 2 ** B, -B, 256 / 2, A * B / B,
+        //     (A > B) ? 2 ** B : 4, A + (B - 1), (A / B) + 1, 1 + 8'd4,
+        //     A + WORDS, A % B + 1, -(A / B), ((A - B))   -> INT: / ct 7
+        //     128, A, A + B, B << 1, A >> 1, $clog2(A), (A>B)?1:2, int'(A),
+        //     A & B, (A/B) << 1, (A/B) & 8'hff, B ? 3 : (A/B)  -> UINT: / ct 9
+        //   and the DIGITS are the MATHEMATICAL fold, unmasked and signed:
+        //     `parameter bit [3:0] P` with `.P(A * B)` (=512) is golden
+        //     INT:512 size 4, `.P(0 - B)` is INT:-2 size 4, and
+        //     `parameter int P` with `.P(C * C)` (C = 100000) is
+        //     INT:10000000000 size 32 — a 64-bit word, not slang's 32-bit
+        //     wrap (1410065408) and not the formal's mask.
+        // NOT CLAIMED (measured, abstained, left exactly as the pristine
+        // binary emits them): an EXPLICIT cast around arithmetic, where
+        // `int'(A / B)` is golden UINT: and `unsigned'(A - B)` is golden INT:
+        // — one Conversion node, two answers, so neither is claimed; an
+        // UNSIZED based literal ('h80); a COMPARISON actual (golden BIN:0
+        // size 1); and a bitwise-XOR actual (golden does not fold it at all).
+        //
+        // `ovMath73` mirrors reduceExpr's arithmetic: the operands are reduced
+        // FIRST and combined as 64-bit words (accumulated in __int128 so an
+        // intermediate cannot wrap), and a LEAF contributes the value slang
+        // has already STORED for it — which is what `reduceExpr` reads when it
+        // substitutes a parameter's own emitted constant, and which keeps
+        // r10vrgg18's § genLpFoldRefValueNotInitializer18v trap shut (a
+        // truncated `bit [7:0] T8 = 16'h1234` contributes 52, not 4660).
+        std::function<bool(const Expression&, int, __int128&)> ovMath73 =
+            [&](const Expression& e7, int d7, __int128& out7) -> bool {
+            if (d7 > 16)
+                return false;
+            auto leaf7 = [&](const Expression& x7) -> bool {
+                ASTContext lc7(comp.getRoot(), LookupLocation::max);
+                ConstantValue lv7 = lc7.tryEval(x7);
+                if (!lv7 || !lv7.isInteger() || lv7.integer().hasUnknown())
+                    return false;
+                auto li7 = lv7.integer();
+                if (li7.isSigned() && li7.isNegative()) {
+                    auto sv7 = li7.as<int64_t>();
+                    if (!sv7)
+                        return false;
+                    out7 = (__int128)*sv7;
+                    return true;
+                }
+                auto uv7 = li7.as<uint64_t>();
+                if (!uv7)
+                    return false;
+                out7 = (__int128)*uv7;
+                return true;
+            };
+            const Expression& x7 = stripImplicitConv(e7);
+            switch (x7.kind) {
+                case ExpressionKind::UnaryOp: {
+                    auto& u7 = x7.as<UnaryExpression>();
+                    if (u7.op == UnaryOperator::Minus) {
+                        if (!ovMath73(u7.operand(), d7 + 1, out7))
+                            return false;
+                        out7 = -out7;
+                        return true;
+                    }
+                    if (u7.op == UnaryOperator::Plus)
+                        return ovMath73(u7.operand(), d7 + 1, out7);
+                    return leaf7(x7);
+                }
+                case ExpressionKind::BinaryOp: {
+                    auto& b7 = x7.as<BinaryExpression>();
+                    __int128 l7 = 0, r7 = 0;
+                    switch (b7.op) {
+                        case BinaryOperator::Add:
+                        case BinaryOperator::Subtract:
+                        case BinaryOperator::Multiply:
+                        case BinaryOperator::Divide:
+                        case BinaryOperator::Mod:
+                        case BinaryOperator::Power:
+                            break;
+                        default:
+                            return leaf7(x7);
+                    }
+                    if (!ovMath73(b7.left(), d7 + 1, l7) ||
+                        !ovMath73(b7.right(), d7 + 1, r7))
+                        return false;
+                    // A leaf contributes at most a 64-bit word, so a
+                    // MULTIPLY or a POWER can still run an __int128 off its
+                    // own end (2^64 * 2^64, or a nested product); every
+                    // combining step is therefore overflow-CHECKED, and an
+                    // overflow is a REFUSAL (the pristine encoding stands),
+                    // never a wrapped answer.
+                    const __int128 CAP7 = ((__int128)1) << 100;
+                    if (l7 > CAP7 || l7 < -CAP7 || r7 > CAP7 || r7 < -CAP7)
+                        return false;
+                    switch (b7.op) {
+                        case BinaryOperator::Add:
+                            if (__builtin_add_overflow(l7, r7, &out7))
+                                return false;
+                            break;
+                        case BinaryOperator::Subtract:
+                            if (__builtin_sub_overflow(l7, r7, &out7))
+                                return false;
+                            break;
+                        case BinaryOperator::Multiply:
+                            if (__builtin_mul_overflow(l7, r7, &out7))
+                                return false;
+                            break;
+                        case BinaryOperator::Divide:
+                            if (r7 == 0)
+                                return false;
+                            out7 = l7 / r7;
+                            break;
+                        case BinaryOperator::Mod:
+                            if (r7 == 0)
+                                return false;
+                            out7 = l7 % r7;
+                            break;
+                        default: {  // Power
+                            if (r7 < 0 || r7 > 128)
+                                return false;
+                            __int128 acc7 = 1;
+                            for (__int128 i7 = 0; i7 < r7; i7++) {
+                                if (acc7 > CAP7 || acc7 < -CAP7)
+                                    return false;
+                                if (__builtin_mul_overflow(acc7, l7, &acc7))
+                                    return false;
+                            }
+                            out7 = acc7;
+                            break;
+                        }
+                    }
+                    return true;
+                }
+                case ExpressionKind::ConditionalOp: {
+                    auto& c7 = x7.as<ConditionalExpression>();
+                    if (c7.conditions.size() != 1 || c7.conditions[0].pattern)
+                        return leaf7(x7);
+                    ASTContext k7(comp.getRoot(), LookupLocation::max);
+                    ConstantValue v7 = k7.tryEval(*c7.conditions[0].expr);
+                    if (!v7 || !v7.isInteger() || v7.integer().hasUnknown())
+                        return false;
+                    return ovMath73(v7.isTrue() ? c7.left() : c7.right(),
+                                    d7 + 1, out7);
+                }
+                default:
+                    return leaf7(x7);
+            }
+        };
+        // Does `ExprEval::reduceExpr` stamp this expression's fold `INT:`?
+        // Only the shapes the grid measured answer true; everything else --
+        // including an explicit cast -- answers false and keeps the pristine
+        // encoding.
+        std::function<bool(const Expression&, int)> ovRedIsInt73 =
+            [&](const Expression& e7, int d7) -> bool {
+            if (d7 > 8)
+                return false;
+            const Expression& x7 = stripImplicitConv(e7);
+            switch (x7.kind) {
+                case ExpressionKind::IntegerLiteral: {
+                    SrlgOvEnc l7;
+                    return srlgLitEnc(rawTextLit(x7), l7) &&
+                           l7.ct == vpiIntConst;
+                }
+                case ExpressionKind::UnaryOp: {
+                    auto& u7 = x7.as<UnaryExpression>();
+                    if (u7.op == UnaryOperator::Minus)
+                        return true;
+                    if (u7.op == UnaryOperator::Plus)
+                        return ovRedIsInt73(u7.operand(), d7 + 1);
+                    return false;
+                }
+                case ExpressionKind::BinaryOp: {
+                    auto& b7 = x7.as<BinaryExpression>();
+                    switch (b7.op) {
+                        case BinaryOperator::Subtract:
+                        case BinaryOperator::Multiply:
+                        case BinaryOperator::Divide:
+                        case BinaryOperator::Mod:
+                        case BinaryOperator::Power:
+                            return true;
+                        case BinaryOperator::Add:
+                            return ovRedIsInt73(b7.left(), d7 + 1) ||
+                                   ovRedIsInt73(b7.right(), d7 + 1);
+                        default:
+                            return false;
+                    }
+                }
+                case ExpressionKind::ConditionalOp: {
+                    auto& c7 = x7.as<ConditionalExpression>();
+                    if (c7.conditions.size() != 1 || c7.conditions[0].pattern)
+                        return false;
+                    ASTContext k7(comp.getRoot(), LookupLocation::max);
+                    ConstantValue v7 = k7.tryEval(*c7.conditions[0].expr);
+                    if (!v7 || !v7.isInteger() || v7.integer().hasUnknown())
+                        return false;
+                    return ovRedIsInt73(v7.isTrue() ? c7.left() : c7.right(),
+                                        d7 + 1);
+                }
+                case ExpressionKind::NamedValue: {
+                    auto& sy7 = x7.as<NamedValueExpression>().symbol;
+                    if (sy7.kind != SymbolKind::Parameter)
+                        return false;
+                    auto* in7 = sy7.as<ParameterSymbol>().getInitializer();
+                    return in7 && ovRedIsInt73(*in7, d7 + 1);
+                }
+                default:
+                    return false;
+            }
+        };
         std::function<bool(const Expression&, int, SrlgOvEnc&)> ovEnc8 =
             [&](const Expression& e8, int d8,
                 SrlgOvEnc& o8) -> bool {
@@ -5736,6 +5978,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                               << "\n";
                 return ovEnc8(pv8.isTrue() ? co8.left() : co8.right(),
                               d8 + 1, o8);
+            }
+            // § ovActReduceIntOp73 (the arm; the model is on `ovMath73`
+            // above).  An ARITHMETIC actual whose reduce Surelog types `INT:`
+            // enters the pipeline as a 64-bit vpiIntConst carrying the
+            // MATHEMATICAL fold; `srlgAdjustSize` then does what
+            // CompileHelper::adjustSize:4127 does to a vpiIntConst — set the
+            // size to the target's width and leave the digits alone.
+            if (x8.kind == ExpressionKind::BinaryOp ||
+                x8.kind == ExpressionKind::UnaryOp) {
+                if (!ovRedIsInt73(x8, d8))
+                    return false;
+                __int128 mv7 = 0;
+                if (!ovMath73(x8, 0, mv7))
+                    return false;
+                if (mv7 > (__int128)INT64_MAX || mv7 < (__int128)INT64_MIN)
+                    return false;
+                o8.ct = vpiIntConst;
+                o8.dg = std::to_string((int64_t)mv7);
+                o8.size = 64;   // ExprEval stamps VpiSize(64) on these folds
+                o8.dec = o8.dg;
+                return true;
             }
             if (x8.kind == ExpressionKind::NamedValue) {
                 auto& sy8 = x8.as<NamedValueExpression>().symbol;

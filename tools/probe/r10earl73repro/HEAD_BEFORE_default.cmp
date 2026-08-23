@@ -1,0 +1,64 @@
+LHS:
+decompile:
+constant: , id:313447, line:16:32, endln:16:35
+|vpiParent:
+\_param_assign: , id:313446, line:16:17, endln:16:35
+|vpiDecompile:128
+|vpiSize:32
+|INT:128
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash), id:313448
+  |vpiParent:
+  \_constant: , id:313447, line:16:32, endln:16:35
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash
+  |vpiActual:
+  \_int_typespec: , id:144500, line:16:13, endln:16:16
+|vpiConstType:7
+
+decompile:
+constant: , id:313447, line:16:32, endln:16:35
+|vpiParent:
+\_param_assign: , id:313446, line:16:17, endln:16:35
+|vpiDecompile:128
+|vpiSize:32
+|INT:128
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash), id:313448
+  |vpiParent:
+  \_constant: , id:313447, line:16:32, endln:16:35
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash
+  |vpiActual:
+  \_int_typespec: , id:144500, line:16:13, endln:16:16
+|vpiConstType:7
+RHS:
+decompile:
+constant: , id:254644, line:16:32, endln:16:35
+|vpiParent:
+\_param_assign: , id:254643, line:16:17, endln:16:35
+|vpiDecompile:128
+|vpiSize:32
+|UINT:128
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash), id:254645
+  |vpiParent:
+  \_constant: , id:254644, line:16:32, endln:16:35
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash
+  |vpiActual:
+  \_int_typespec: , id:50900, line:16:13, endln:16:16
+|vpiConstType:9
+
+decompile:
+constant: , id:254644, line:16:32, endln:16:35
+|vpiParent:
+\_param_assign: , id:254643, line:16:17, endln:16:35
+|vpiDecompile:128
+|vpiSize:32
+|UINT:128
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash), id:254645
+  |vpiParent:
+  \_constant: , id:254644, line:16:32, endln:16:35
+  |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash
+  |vpiActual:
+  \_int_typespec: , id:50900, line:16:13, endln:16:16
+|vpiConstType:9

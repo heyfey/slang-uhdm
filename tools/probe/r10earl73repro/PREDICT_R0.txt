@@ -1,0 +1,34 @@
+r10earl73 — PREDICTED MOVERS, read from the PRISTINE databases BEFORE the
+patched sweeps existed.  The law can only move a param_assign Rhs
+constant's vpiConstType / value tag (and, for a vpiIntConst, its digits),
+so a database can move TO golden only if golden and our pristine database
+already DISAGREE there.
+
+STAGE 1 — predict73.sh (a deliberate OVER-approximation: its line diff also
+fires on parent-chain and VpiOverriden differences).  Reach stated:
+  uhdm2rtlil: 1358 databases scanned, 12 tests x 2 modes = 24 flagged
+  surelog:     956 databases scanned, 61 flagged; the four slang-fenced
+               tests are FENCED-SKIPped and are not named here
+
+STAGE 2 — ctdiff73.py, the KEYED multiset join, over every stage-1 hit:
+  uhdm2rtlil: ZERO databases carry a (ct, tag) disagreement -> the
+              PREDICTION IS 'no uhdm2rtlil database can move', and any
+              u2r byte mover would be an AWAY-golden regression.
+  surelog:    exactly four names carry one --
+                Earlgrey_0_1  default 35 cells / testflags 43 cells
+                BuildUVMPkg   1 name  x 2 cells, both modes
+                BlackParrotComplex  1 cell, both modes
+                <one of the four slang-fenced tests>  3 cells, testflags
+              Of those, only the Earlgrey cells are of a SHAPE the law
+              claims (an arithmetic actual / initializer); the other three
+              names' disagreements are the unsized-based-literal, the
+              comparison-actual and the XOR-actual residues the law
+              explicitly abstains on (GOLDEN_TABLE.txt rows hlit/eq/bxor).
+
+PREDICTED MOVER SET:  default/Earlgrey_0_1 and testflags/Earlgrey_0_1, and
+                      NOTHING ELSE, in either corpus.
+
+OBSERVED (SELFCHECK=1 byteverify.sh):
+  uhdm2rtlil  MOVERS 0 / 1358
+  surelog     MOVERS 2 / 956  -- default/Earlgrey_0_1 and testflags/Earlgrey_0_1
+  (the Scoreboard/default per-invocation coin did not flip this run)

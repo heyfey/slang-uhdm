@@ -1,0 +1,94 @@
+r10earl73 — GRID SCORE, 3-way (base = the PRISTINE frozen binary, ours =
+the PATCHED one, golden = Surelog), MULTISET join on (parent chain, param
+name), payload = the Compare-visible fields of the param_assign Rhs plus
+VpiValue.  NO span in the payload.
+
+=== g1_shapes73.sv
+-- default view
+keys G=1021 O=1021 shared_cells=2060 DIFFERING=130 gold_only=0 ours_only=0
+  STILL-RIGHT: 1568
+  TO-GOLDEN: 362
+  AWAY-GOLDEN: 0
+  MOVED-WRONG: 0
+  STILL-WRONG: 130
+-- --elabuhdm view
+keys G=1021 O=1021 shared_cells=2060 DIFFERING=130 gold_only=0 ours_only=1344
+  STILL-RIGHT: 1568
+  TO-GOLDEN: 362
+  AWAY-GOLDEN: 0
+  MOVED-WRONG: 0
+  STILL-WRONG: 130
+
+=== g2_hops73.sv
+-- default view
+keys G=74 O=74 shared_cells=164 DIFFERING=2 gold_only=0 ours_only=0
+  STILL-RIGHT: 128
+  TO-GOLDEN: 34
+  AWAY-GOLDEN: 0
+  MOVED-WRONG: 0
+  STILL-WRONG: 2
+-- --elabuhdm view
+keys G=74 O=74 shared_cells=164 DIFFERING=2 gold_only=0 ours_only=0
+  STILL-RIGHT: 128
+  TO-GOLDEN: 34
+  AWAY-GOLDEN: 0
+  MOVED-WRONG: 0
+  STILL-WRONG: 2
+
+=== g1 PATCHED vs golden — every remaining cell (the pre-existing residues)
+== declared: int
+  hlit  G: ct5  sz32  HEX:80         dec='h80            O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  bxor  G: operation op=30                               O: ct9  sz32  UINT:258       dec=258               <<< DIFF
+  eq    G: ct3  sz1   BIN:0          dec=1'b0            O: ct9  sz32  UINT:0         dec=0                 <<< DIFF
+== declared: unt
+  hlit  G: ct5  sz32  HEX:80         dec='h80            O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  bxor  G: operation op=30                               O: ct9  sz32  UINT:258       dec=258               <<< DIFF
+  eq    G: ct3  sz1   BIN:0          dec=1'b0            O: ct9  sz1   UINT:0         dec=0                 <<< DIFF
+== declared: bitr
+  hlit  G: ct5  sz10  HEX:80         dec='h80            O: ct9  sz10  UINT:128       dec=128               <<< DIFF
+  bxor  G: operation op=30                               O: ct9  sz10  UINT:258       dec=258               <<< DIFF
+  eq    G: ct3  sz1   BIN:0          dec=1'b0            O: ct9  sz10  UINT:0         dec=0                 <<< DIFF
+== declared: logr
+  hlit  G: ct5  sz32  HEX:80         dec='h80            O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  bxor  G: operation op=30                               O: ct9  sz32  UINT:258       dec=258               <<< DIFF
+  eq    G: ct3  sz1   BIN:0          dec=1'b0            O: ct9  sz32  UINT:0         dec=0                 <<< DIFF
+== declared: itg
+  hlit  G: ct5  sz32  HEX:80         dec='h80            O: ct9  sz32  UINT:128       dec=128               <<< DIFF
+  bxor  G: operation op=30                               O: ct9  sz32  UINT:258       dec=258               <<< DIFF
+  eq    G: ct3  sz1   BIN:0          dec=1'b0            O: ct9  sz32  UINT:0         dec=0                 <<< DIFF
+== declared: sgn
+  hlit  G: ct5  sz16  HEX:80         dec='h80            O: ct9  sz16  UINT:128       dec=128               <<< DIFF
+  conc  G: ct3  sz16  BIN:0000000000000000000000000000001000000000000000000000000000000010 dec=64'b0000000000000000000000000000001000000000000000000000000000000010 O: ct3  sz16  BIN:0000000000000010 dec=0000000000000010   <<< DIFF
+  bxor  G: operation op=30                               O: ct9  sz16  UINT:258       dec=258               <<< DIFF
+  eq    G: ct3  sz1   BIN:0          dec=1'b0            O: ct9  sz16  UINT:0         dec=0                 <<< DIFF
+
+=== g2 PATCHED vs golden
+u_b40_negs   G: ct7  sz40  INT:-2                 dec=-2       O: ct7  sz40  INT:-2                 dec=-2
+u_b40_ovf    G: ct7  sz40  INT:10000000000        dec=10000000000 O: ct7  sz40  INT:10000000000        dec=10000000000
+u_b4_hop     G: ct7  sz4   INT:128                dec=128      O: ct7  sz4   INT:128                dec=128
+u_b4_negs    G: ct7  sz4   INT:-2                 dec=-2       O: ct7  sz4   INT:-2                 dec=-2
+u_b4_ovf     G: ct7  sz4   INT:512                dec=512      O: ct7  sz4   INT:512                dec=512
+u_int_adda   G: ct7  sz32  INT:129                dec=129      O: ct7  sz32  INT:129                dec=129
+u_int_addb   G: ct7  sz32  INT:5                  dec=5        O: ct7  sz32  INT:5                  dec=5
+u_int_addh   G: ct7  sz32  INT:384                dec=384      O: ct7  sz32  INT:384                dec=384
+u_int_addi   G: ct7  sz32  INT:257                dec=257      O: ct7  sz32  INT:257                dec=257
+u_int_addl   G: ct7  sz32  INT:384                dec=384      O: ct7  sz32  INT:384                dec=384
+u_int_and    G: ct9  sz32  UINT:128               dec=128      O: ct9  sz32  UINT:128               dec=128
+u_int_cast   G: ct9  sz32  UINT:128               dec=128      O: ct9  sz32  UINT:128               dec=128
+u_int_clg    G: ct9  sz32  UINT:7                 dec=7        O: ct9  sz32  UINT:7                 dec=7
+u_int_hop    G: ct7  sz32  INT:128                dec=128      O: ct7  sz32  INT:128                dec=128
+u_int_hop2   G: ct7  sz32  INT:128                dec=128      O: ct7  sz32  INT:128                dec=128
+u_int_mda    G: ct7  sz32  INT:1                  dec=1        O: ct7  sz32  INT:1                  dec=1
+u_int_mul    G: ct7  sz32  INT:512                dec=512      O: ct7  sz32  INT:512                dec=512
+u_int_nd     G: ct7  sz32  INT:-128               dec=-128     O: ct7  sz32  INT:-128               dec=-128
+u_int_negh   G: ct7  sz32  INT:-2                 dec=-2       O: ct7  sz32  INT:-2                 dec=-2
+u_int_negs   G: ct7  sz32  INT:-256               dec=-256     O: ct7  sz32  INT:-256               dec=-256
+u_int_ovf    G: ct7  sz32  INT:10000000000        dec=10000000000 O: ct7  sz32  INT:10000000000        dec=10000000000
+u_int_par    G: ct7  sz32  INT:254                dec=254      O: ct7  sz32  INT:254                dec=254
+u_int_shf    G: ct9  sz32  UINT:256               dec=256      O: ct9  sz32  UINT:256               dec=256
+u_int_td     G: ct7  sz32  INT:128                dec=128      O: ct7  sz32  INT:128                dec=128
+u_int_te     G: ct9  sz32  UINT:3                 dec=3        O: ct9  sz32  UINT:3                 dec=3
+u_int_uns    G: ct7  sz32  INT:254                dec=254      O: ct9  sz32  UINT:254               dec=254      <<<
+u_opd_hop    G: ct7  sz32  INT:128                dec=128      O: ct7  sz32  INT:128                dec=128
+u_unt_hop    G: ct7  sz32  INT:128                dec=128      O: ct7  sz32  INT:128                dec=128
+u_unt_negs   G: ct7  sz32  INT:-2                 dec=-2       O: ct7  sz32  INT:-2                 dec=-2
