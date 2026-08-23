@@ -1,0 +1,100 @@
+r10vbuvm28 — THE GATE BATTERY, re-run from the VERIFIER'S OWN binaries and
+workdirs.  BASE 6c74d2a.  MEASUREMENT ONLY: uhdm-cmp and verify_golden.py are
+the judges.  LHS is ALWAYS golden.  results/*.csv READ ONLY, nothing promoted,
+no corpus row converted.  slang was NOT patched.  GOLDEN_DEFER UNSET.
+
+BINARIES — all four built here (cmake Release, gcc-toolset-14, -j 2), frozen
+chmod 555 at /tmp/vbuvm28_bin BEFORE any sweep:
+  pris 26fbd8c01ce0de4b3e257726f388de86   6c74d2a, no edit
+                                          == the implementer's pristine md5,
+                                          == the main tree's build at 6c74d2a
+  pat  3d2fec8e71e6490ef8bc4c2acd8bde03   the patch AS SUBMITTED
+                                          == the implementer's patched md5
+  walk b40638519705c4aec078516a7c13ee30   walk-only control
+                                          == the implementer's walk-only md5
+  null a210af6b114a0517b769645172594929   null-edit control (200 unreachable
+                                          extern "C" functions)
+  fix  84c855c12bc9ba13a9589b2d0e394039   THE SHIPPED BINARY (pat + the
+                                          verifier's 2-line gate)
+
+(1) BUILD          all rc=0, md5s above.
+(2) GOLDENS        pris 23 PASS / 0 FAIL;  pat 23/0;  fix 23/0;
+                   SLANG_UHDM=/bin/false 0 PASS / 23 FAIL  (negative control).
+                   SLANG_UHDM exported EXPLICITLY per binary.
+(3) u2r BOTH MODES fix: testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2
+                   SURELOG_FAIL; default identical.
+                   ct8rows (WHOLE ROW, status AND dump column):
+                     committed results/gate_uhdm2rtlil.csv vs fix/tf   0 rows
+                     verifier pristine tf                  vs fix/tf   0 rows
+                     verifier pristine def                 vs fix/def  0 rows
+                   byteverify SELFCHECK=1  MOVERS 0 / 1358
+                   (selfcheck flags 1357/1358 — the comparator can see).
+(4) surelog --mode both
+                   fix: 937 CMP_EQUAL / 567 SLANG_REJECT / 48 SURELOG_FAIL /
+                        19 CMP_NOTEQUAL / 10 DEFERRED / 3 NO_DATABASE /
+                        2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM  = 1588 rows,
+                        IDENTICAL to pristine.
+                   ct8rows: committed results/golden_surelog.csv vs fix  0 rows
+                            verifier pristine                   vs fix  0 rows
+                            committed                       vs pristine 0 rows
+                   NO ROW CONVERTED.  BuildUVMPkg stays CMP_NOTEQUAL in both
+                   modes, before and after.
+(5) byteverify surelog SELFCHECK=1   MOVERS 3 / 956, all attributed:
+                     default/BuildUVMPkg-bf853d43    REAL (the law)
+                     testflags/BuildUVMPkg-bf853d43  REAL (the law)
+                     default/Scoreboard-59431470     THE COIN — sorted,
+                       path-normalised whole-dump diff = 0 lines over
+                       1 099 496 dump lines.
+                   Both REAL movers were inside the 40-cell superset predicted
+                   BY NAME from PRISTINE artifacts only (vpredict28.py, run
+                   before the patched sweep).
+                   The two BuildUVMPkg databases are BYTE-IDENTICAL between the
+                   submitted patch and the shipped fix (md5 d13ac5957f19), and
+                   their whole-dump path-normalised diff against pristine is
+                   EXACTLY 8 LINES: two constants at uvm_pkg.sv:58248:20-36 and
+                   :58283:20-44, vpiDecompile/UINT 32 -> 0.  Golden is 0 at
+                   both spans.  4 corpus cells (2 spans x 2 modes), all
+                   TO-GOLDEN, 0 AWAY, and NOTHING ELSE in the corpus changed.
+(6) HEADS (rowheads.sh)  pristine -> shipped:
+                   SeqDriver 60/60, SimpleUVM 17/17, Scoreboard 29/-,
+                   MiniAmiq 348/348, Earlgrey_0_1 64/64, Rggen 0(PASS)/-
+                     ALL UNCHANGED, 1 head each;
+                   BuildUVMPkg 32 -> 17, BOTH modes, 1 head, both modes
+                   byte-identical: 9b31531212f75a5a -> 4b761630ccd5bbee.
+                   (SKIP-NOFILE on Scoreboard/tf and Rggen/tf is expected.)
+(7) CANARIES       canaries.sh sl ok=56 changed=0 absent=0
+                   canaries.sh u2r ok=9 changed=0 absent=0
+                   ctcan2 sl ok=58 changed=0 PASS; u2r ok=1 changed=0 PASS
+                   canaudit audited=33 UNCOVERED=0 FENCE-BREACH=0 PASS
+                   pins SAME=10 MOVED=0 UNKNOWN-NAME=0
+                     InterfaceModPort / BlackParrotComplex / YosysOldOr SAME,
+                     SVSwitch 4842211c4030, YosysVerx 6ccda350c24a.
+(8) cmds.txt AUDIT BY BINARY PATH, all five sweep workdirs (6070 files):
+                   every cmds.txt that names a slang binary names ONLY the
+                   frozen path for its own sweep; the set of distinct binaries
+                   per workdir has exactly ONE member; ZERO files anywhere name
+                   a main-tree binary.  (The 4 u2r / 50 sl files with no
+                   `slang:` line are SURELOG_FAIL rows that never ran ours.)
+(9) WIDE BOUNDARY  ROOT = a COPY of tools/probe, NO path filter, .sv AND .v,
+                   per FILE and per DIRECTORY, DEF and ELAB, fd-3 list,
+                   children </dev/null, rc per cell, PROCESSED asserted.
+                     LISTED=3352 PROCESSED=3352 PROCESSED-ASSERT-OK
+                     DIRS=1612 DIRS_WITH_SRC=1486  CELLS=9676  MOVED=26
+                   rc histograms IDENTICAL on both binaries
+                     (8815 rc=0, 17 rc=139, 504 rc=3, 340 rc=4) and ZERO
+                   asymmetric segfaults in either direction.
+                   The 26 moved cells: 18 are this pass's OWN arms and the
+                   verifier's own arms (positive controls — the gate can see);
+                   r10uvm61repro/v4_type.sv (4 cells) is a FIX;
+                   r10buvm22repro/g22.sv (4 cells) is pre-existing UB, see
+                   ATTRIBUTION.r10vbuvm28.txt; DIR_r10uvm88repro (2 cells) is
+                   THE COIN — its sorted path-normalised dump diff is 0 lines,
+                   and four runs of the PRISTINE binary alone give two
+                   different hashes.
+                   NOT ONE arm of ANY landed pass moved.
+(10) ARMS          8 verifier arms x 2 views, plus the implementer's 4 arms x
+                   2 views, plus v4_type and g22: BROKE 0 EVERYWHERE, scored
+                   with a VIEW-GENERAL, span-keyed MULTISET comparator whose
+                   payload is (kind, VpiName, vpiDecompile, vpiValue,
+                   vpiOpType, #Path_elems, path-elem kinds+names).
+                   See ARMS.r10vbuvm28.txt.

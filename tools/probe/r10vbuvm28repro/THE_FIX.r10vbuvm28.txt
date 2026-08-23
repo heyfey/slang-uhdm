@@ -1,0 +1,65 @@
+r10vbuvm28 — THE FIX: § enumNoBaseTypespecZeroBits28 OVERRIDES A VALUE, IT
+NEVER CREATES ONE.
+
+WHAT BROKE (found by an arm this pass wrote, gv28_h_hier.sv; corpus population
+0, which is why only a wide arm could see it).
+
+`bitsEnumNoBaseValue28` picks the typespec like this:
+
+    if (a.kind == ExpressionKind::DataType)      t = a.type;
+    else if (const Symbol* rs = selChainRoot95(a)) { ... t = &dt->getType(); }
+    else                                          t = a.type;      // <- HERE
+
+The final fall-through gives the law an answer for argument shapes that NO
+existing fold road owns.  The substitution then lands on `staticBits9`, whose
+`if (staticBits9)` branch MINTS A CONSTANT — so a site where every earlier road
+declined, and where the emitter therefore fell through to `MakeSys_func_call`
+(which is ALSO golden's answer), starts folding.  That is a KIND change, not a
+value change, and it is a REGRESSION wherever golden keeps the call.
+
+MEASURED (arm gv28_h_hier.sv, golden vs pristine vs the submitted patch, both
+views; `hif` is an interface with `typedef enum { H0, H1 } he_t;`):
+
+  line              golden          pristine        submitted patch
+  $bits(u_if.es)    sys_func_call   sys_func_call   constant 0     BROKE
+  $bits(u_if.ss)    sys_func_call   sys_func_call   constant 8     BROKE
+  $bits(u_if.ea)    sys_func_call   sys_func_call   constant 0     BROKE
+  $bits(u_sub.sv)   sys_func_call   sys_func_call   constant 0     BROKE
+  $bits(u_if.vv)    sys_func_call   sys_func_call   sys_func_call  ok
+  $bits(u_if.ii)    sys_func_call   sys_func_call   sys_func_call  ok
+  $bits(u_sub.sw)   sys_func_call   sys_func_call   sys_func_call  ok
+
+  scored view-general, multiset, span-keyed:
+     submitted patch   def BROKE 20   elab BROKE 22
+     with the fix      def BROKE  0   elab BROKE  0
+
+Golden KEEPS `$bits(<instance>.<member>)` for EVERY member shape tried, enum or
+not, interface instance or module instance.  gv28_g_last.sv's
+`$bits(u_vif.s)` is the same law and there the ungated rule also destroys
+golden's `hier_path u_vif.s` (3 Path_elems) and its two `ref_obj`s.
+
+THE FIX (src/ExprEmit.cpp, the substitution site only, 2 lines of gate):
+
+    if (name == "$bits" && !call.arguments().empty() &&
+        (staticBits9 || (cv && cv.isInteger()))) {          // <- the gate
+        std::optional<uint64_t> z28;
+        if (bitsEnumNoBaseValue28(*bitsArg27, z28))
+            staticBits9 = z28;
+    }
+
+`staticBits9 || (cv && cv.isInteger())` is exactly "this site was already going
+to mint a constant" — the two conditions are the two mint branches immediately
+below it.  So the rule can change the DIGITS of a constant and nothing else.
+This is what the implementer's own comment already claimed ("every other cell
+in both corpora mints exactly the digits it minted before"); the gate makes the
+code say it.
+
+WHAT THE GATE COSTS, measured, all arm-only (corpus population 0): the
+keep -> fold cells where golden FOLDS and pristine kept revert to pristine's
+`sys_func_call`.  They are dynamic arrays, queues and associative arrays of a
+base-less enum or of a struct containing one:
+     gv28_e_aggr  FIXED 29 -> 13      gv28_f_grid  FIXED 14 -> 5
+Every other arm is unchanged, and the implementer's own four arms
+(g28_a0_head / g28_a_enum / g28_b_shapes / g28_c_castr0) keep their FIXED
+counts exactly (1/1, 11/12, 24/24, 0/0 def/elab).  The corpus head still
+clears.

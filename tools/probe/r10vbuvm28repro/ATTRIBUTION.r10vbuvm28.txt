@@ -1,0 +1,56 @@
+r10vbuvm28 — FOUR-BINARY ATTRIBUTION OF THE TWO PRE-EXISTING BOUNDARY ARMS.
+
+Four binaries, all built here at BASE 6c74d2a, all frozen chmod 555:
+
+  pris  26fbd8c01ce0de4b3e257726f388de86   6c74d2a, no edit
+  pat   3d2fec8e71e6490ef8bc4c2acd8bde03   the implementer's patch as submitted
+  walk  b40638519705c4aec078516a7c13ee30   pat with `bitsEnumNoBaseValue28`
+                                           doing the WHOLE type walk and then
+                                           `return false` (walk, no value)
+  null  a210af6b114a0517b769645172594929   pris + 200 emitted `extern "C"`
+                                           functions that NOTHING calls
+                                           (a pure BINARY-IMAGE edit)
+
+Databases (default view, `<bin> <file> --single-unit -o out.uhdm`):
+
+  r10uvm61repro/v4_type.sv   pris 48fcb2b42323  walk 48fcb2b42323
+                             null 48fcb2b42323  pat  e3d41fa7a095
+  r10buvm22repro/g22.sv      pris a98446e2fdd8  walk f8c89f839aa0
+                             null a720bc1ff893  pat  f8c89f839aa0
+
+READ THEM:
+
+* v4_type.sv moves ONLY under `pat`.  walk == null == pris, so the type walk
+  has NO side effect here; the move is the VALUE substitution alone, and it is
+  a FIX: `$bits(m_nb)` over `typedef enum { EA, EB, EC } noBase_t;` was 32,
+  golden is 0.  (The arm's own comment at v4_type.sv:21 predicts "(32)" — the
+  arm disagreed with golden, not the patch.)
+
+* g22.sv moves under `pat`, under `walk` AND under `null` — and `null` lands on
+  a THIRD hash.  A null edit cannot change any emission decision, so g22's
+  movement is NOT the type walk.  The whole-dump diff says what it is: three
+  constants whose decompiled values shift by a constant offset
+  (pris 22371705 -> pat 22375801, delta +4096; pris 22371705 -> null 22388089,
+  delta +16384) at g22.sv:70:28-34, :71:28-34 and :72:28-31 — the associative
+  arrays of `typedef C22 ka_cls_t[string];`, `typedef int ka_int_t[string];`
+  and `typedef int ka_str_t[int];`.  Golden emits a `string_typespec` /
+  `int_typespec` there and NO constant at all.
+
+  The source is `buildUnpackedArrayTypedefTs` (src/TypeEmit.cpp:10359):
+
+      auto& ct  = ta.targetType.getType().getCanonicalType();
+      auto& fua = ct.as<FixedSizeUnpackedArrayType>();     // UNCHECKED
+
+  applied to an AssociativeArrayType.  slang's `as<>` is a raw cast in a
+  Release build, so `fua.range` reads whatever bytes sit at that offset: an
+  ADDRESS-DERIVED value that moves whenever the binary image moves.  This is
+  pre-existing UB (r10buvm27's R-G22RANGE), it reaches NO corpus database
+  (byte movers 2/956 + 0/1358, and both surelog movers are the BuildUVMPkg
+  value cells), and EVERY pass that changes a single byte of the binary
+  "moves" g22 the same way.
+
+  CORRECTION TO THE IMPLEMENTER'S REPORT: it concluded from its own null-edit
+  control (60 functions) that a null edit moves g22 "0 lines" and therefore
+  attributed g22 to the type walk's slang-arena side effect.  A null edit with
+  200 functions moves it 12 lines.  The correct attribution is the image, not
+  the walk.

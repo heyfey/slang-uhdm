@@ -2377,6 +2377,195 @@ static bool srlgBitsRootWidth95(const slang::ast::Type& t0, uint64_t& out) {
     return false;
 }
 
+// § enumNoBaseTypespecZeroBits28 — SURELOG SIZES AN ENUM DECLARED WITHOUT AN
+// EXPLICIT BASE TYPE AS **ZERO** BITS, AND THAT ZERO PROPAGATES.
+//
+// THE ROAD, read end to end.  `CompileHelper::compileBits`
+// (Surelog `src/DesignCompile/CompileExpression.cpp:4663`) resolves the
+// argument to a typespec and then asks `Bits()` for its width; `Bits()` bottoms
+// out in UHDM's `ExprEval::size` (`UHDM/templates/ExprEval.cpp`), whose
+// enum case is
+//
+//     case uhdmenum_typespec:
+//       if (const ref_typespec *rt = ((const enum_typespec *)ts)->Base_typespec())
+//         bits = size(rt->Actual_typespec(), invalidValue, inst, pexpr, full);
+//       break;                     // <- no Base_typespec: bits stays 0
+//
+// (`ExprEval.cpp:1461-1467`).  `bits` is left at **0** and `invalidValue` is
+// NEVER set, so `compileBits`' mint branch
+// `(reduce == Reduce::Yes) && tps && (!invalidValue)` fires and Surelog emits a
+// `constant` `UINT:0` / `vpiDecompile "0"` / `vpiSize 64` / `vpiConstType 9`
+// where the true width is 32.
+//
+// And a base-less enum HAS no `Base_typespec`: Surelog builds one only when the
+// source wrote an enum base (`CompileHelper.cpp:796-804`, guarded by
+// `the_enum->getBaseTypespec()`; the inline-anonymous road,
+// `CompileType.cpp:1327-1332`, makes the ref but leaves `Actual_typespec` null,
+// which `size(nullptr)` answers 0 for just the same).  Our own emitter already
+// takes the SAME decision from the SAME fact — `buildEnumTs`
+// (TypeEmit.cpp:5350-5352) hangs a `Base_typespec` only when
+// `EnumTypeSyntax::baseType` is non-null — so the predicate below is the one
+// already in the database, not a new guess.
+//
+// MEASURED GOLDEN-SIDE (grids g28_a_enum.sv / g28_b_shapes.sv, Surelog
+// `-parse -d coveruhdm`, both views):
+//     typedef enum { A0, A1 }            -> $bits == 0   (any home)
+//     typedef enum { H0=1, H1=0, H2=-1 } -> 0            (values do not matter)
+//     enum { K0, K1 } p;   (inline)      -> 0
+//     typedef T u;  where T is base-less -> 0            (through the alias)
+//     typedef enum int      { .. }       -> 32
+//     typedef enum integer  { .. }       -> 32
+//     typedef enum shortint { .. }       -> 16
+//     typedef enum byte     { .. }       -> 8
+//     typedef enum bit [3:0]{ .. }       -> 4
+//     typedef enum logic[7:0]{ .. }      -> 8
+// and the zero PROPAGATES through every aggregate `ExprEval::size` composes:
+//     struct packed { e_bare c; bit [7:0] d; }  -> 8   (SUM, 0 + 8)
+//     struct        { e_bare c; bit [7:0] d; }  -> 8
+//     e_bare arr [4] / e_bare d [] / e_bare q [$] / e_bare aa [string] -> 0
+//     e_bare m [2][3]                           -> 0
+//     $bits(<any of those>[i])                  -> 0   (the ROOT rule,
+//                                                  § bitsSelectIgnoredRootBits95)
+// A UNION takes the MAX, not the sum (`ExprEval.cpp` uhdmunion_typespec).
+//
+// The corpus witness is the head itself: `uvm_pkg.sv:58248` and `:58283`
+// (`__array = new [$bits(m_command)] (__array);` in
+// `uvm_tlm_generic_payload::do_unpack`), where `m_command` is
+// `rand uvm_tlm_command_e` and `uvm_tlm_command_e` is `typedef enum
+// { UVM_TLM_READ_COMMAND, ... }` — no base type.  The seven SIBLING
+// `new [$bits(...)]` sites in the same function (`m_address` 64, `m_length` 32,
+// `m_dmi` 1, `m_data[i]` 8, `m_byte_enable_length` 32, `m_byte_enable[i]` 8,
+// `m_streaming_width` 32) all agreed before this rule and still do: the `new[]`
+// CONTEXT is NOT what makes the head — the base-less enum is.
+//
+// `reached` is the FENCE: it is set only when the walk actually met a base-less
+// enum leaf, and the caller applies this answer only then, so every type
+// without one keeps the value the emitter computed before, byte for byte.
+static bool srlgEnumNoBase28(const slang::ast::Type& ct) {
+    using namespace slang::ast;
+    if (ct.kind != SymbolKind::EnumType)
+        return false;
+    const slang::syntax::SyntaxNode* syn = ct.getSyntax();
+    if (!syn || syn->kind != slang::syntax::SyntaxKind::EnumType)
+        return false;
+    return syn->as<slang::syntax::EnumTypeSyntax>().baseType == nullptr;
+}
+
+static bool srlgEnumZeroBits28(const slang::ast::Type& t0, uint64_t& out,
+                               bool& reached, int depth) {
+    using namespace slang::ast;
+    if (depth > 12)
+        return false;
+    const Type* ct = &t0.getCanonicalType();
+    uint64_t mult = 1;
+    // UNPACKED dimensions, exactly as § bitsSelectIgnoredRootBits95 reads
+    // them: a FIXED one multiplies, an unsized one (`[]`, `[$]`, `[string]`)
+    // counts as ONE.
+    for (int g = 0; g < 16 && ct->isUnpackedArray(); g++) {
+        if (ct->kind == SymbolKind::FixedSizeUnpackedArrayType) {
+            uint64_t n = ct->as<FixedSizeUnpackedArrayType>().range.width();
+            if (n == 0)
+                return false;
+            mult *= n;
+        }
+        const Type* el = ct->getArrayElementType();
+        if (!el)
+            return false;
+        ct = &el->getCanonicalType();
+    }
+    // PACKED dimensions multiply their element (ExprEval's
+    // packed_array_typespec case), so `e_bare [3:0]` is 4 x 0.
+    for (int g = 0; g < 16 && ct->kind == SymbolKind::PackedArrayType; g++) {
+        auto& pa = ct->as<PackedArrayType>();
+        uint64_t n = pa.range.width();
+        if (n == 0)
+            return false;
+        mult *= n;
+        ct = &pa.elementType.getCanonicalType();
+    }
+    if (srlgEnumNoBase28(*ct)) {
+        reached = true;
+        out = 0;
+        return true;
+    }
+    // A packed struct/union IS integral to slang, so the aggregate arms must
+    // come FIRST — the whole point is that their member sum/max is not the
+    // packed width when an enum member counts as zero.
+    if (ct->kind == SymbolKind::PackedStructType || ct->isUnpackedStruct() ||
+        ct->isPackedUnion() || ct->isUnpackedUnion()) {
+        bool isUnion = ct->isPackedUnion() || ct->isUnpackedUnion();
+        uint64_t acc = 0;
+        for (auto& fm : ct->as<Scope>().members()) {
+            if (fm.kind != SymbolKind::Field)
+                continue;
+            const DeclaredType* fdt = fm.getDeclaredType();
+            if (!fdt)
+                return false;
+            uint64_t fb = 0;
+            if (!srlgEnumZeroBits28(fdt->getType(), fb, reached, depth + 1))
+                return false;
+            if (isUnion)
+                acc = (fb > acc) ? fb : acc;
+            else
+                acc += fb;
+        }
+        out = mult * acc;
+        return true;
+    }
+    if (ct->isFloating()) {
+        if (ct->as<FloatingType>().floatKind == FloatingType::RealTime)
+            return false;
+        out = mult * 32;
+        return true;
+    }
+    if (ct->isIntegral()) {
+        if (auto* pit = ct->as_if<PredefinedIntegerType>();
+            pit && pit->integerKind == PredefinedIntegerType::Time)
+            return false;
+        uint64_t w = ct->getBitWidth();
+        if (w == 0)
+            return false;
+        out = mult * w;
+        return true;
+    }
+    return false;
+}
+
+// § enumNoBaseTypespecZeroBits28 — the VALUE this pass substitutes, and the
+// only thing it substitutes.  Answers nothing (and the emitter keeps whatever
+// it was going to mint) unless the typespec `compileBits` would have taken
+// reaches a base-less enum.
+//
+// WHICH typespec that is, is not re-derived here: it is the one
+// § bitsSelectIgnoredRootBits95 already transcribed — the ROOT DECLARATION for
+// a bare name under any number of selects (`compileBits` never sees a bracket
+// suffix), the named type for a TYPE argument, and the argument's own resolved
+// type for the dotted road (`paComplex_func_call` -> `decodeHierPath`, which
+// DOES resolve members: golden's `$bits(ps.c)` is 0 and `$bits(ps.d)` is 8 over
+// the same packed struct).
+static bool bitsEnumNoBaseValue28(const slang::ast::Expression& arg0,
+                                  std::optional<uint64_t>& out) {
+    using namespace slang::ast;
+    auto& a = stripImplicitConv(arg0);
+    const Type* t = nullptr;
+    if (a.kind == ExpressionKind::DataType)
+        t = a.type;
+    else if (const Symbol* rs = selChainRoot95(a)) {
+        if (const DeclaredType* dt = rs->getDeclaredType())
+            t = &dt->getType();
+    } else {
+        t = a.type;
+    }
+    if (!t)
+        return false;
+    uint64_t w = 0;
+    bool reached = false;
+    if (!srlgEnumZeroBits28(*t, w, reached, 0) || !reached)
+        return false;
+    out = w;
+    return true;
+}
+
 // § bitsSelectIgnoredRootBits95 — WHICH CELLS THIS PASS OWNS.
 //
 // Deliberately NARROW, so that not one of the thousands of `$bits(<name>)`
@@ -18447,6 +18636,35 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         a9.type && a9.type->isIntegral() &&
                         a9.type->getBitWidth() > 0)
                         staticBits9 = a9.type->getBitWidth();
+                }
+                // § enumNoBaseTypespecZeroBits28 — THE VALUE OVERRIDE.
+                // Placed AFTER every road that computes a width and BEFORE the
+                // mint, so it covers all three of them at once (the § 95 root
+                // width, the § 61 own-property fallback and the root-context
+                // `tryEval` below) with one rule.
+                //
+                // IT OVERRIDES A VALUE; IT NEVER CREATES ONE (r10vbuvm28).  The
+                // gate below is the whole difference between substituting the
+                // digits of a constant this site was ALREADY going to mint and
+                // turning one of golden's own `sys_func_call`s into a constant.
+                // Without it, `$bits(<instance>.<member>)` — where every earlier
+                // road declines and the emitter falls through to
+                // `MakeSys_func_call`, which is also GOLDEN's answer — starts
+                // folding as soon as the member's type reaches a base-less enum:
+                // measured on `$bits(u_if.es)` / `$bits(u_if.ss)` / `$bits(u_if.ea)`
+                // over an interface instance and `$bits(u_sub.sv)` over a module
+                // instance, golden keeps the call for ALL of them (enum or not),
+                // pristine kept it, and the ungated rule minted `0` / `8` / `0` /
+                // `0` instead (arm gv28_h_hier.sv, 20 def + 22 elab BROKE cells;
+                // gv28_g_last.sv's `$bits(u_vif.s)` is the same law, and there it
+                // also destroys golden's `hier_path`).  Corpus population of the
+                // regression is 0 — which is exactly why only a wide arm can see
+                // it, and why the gate is stated as a law and not as a filter.
+                if (name == "$bits" && !call.arguments().empty() &&
+                    (staticBits9 || (cv && cv.isInteger()))) {
+                    std::optional<uint64_t> z28;
+                    if (bitsEnumNoBaseValue28(*bitsArg27, z28))
+                        staticBits9 = z28;
                 }
                 if (staticBits9) {
                     auto* c = s.MakeConstant();

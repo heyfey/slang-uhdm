@@ -1,0 +1,40 @@
+r10buvm28 — THE INPUTS, so every number in README.md can be re-derived.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog).  The official uhdm-cmp
+(~/git-repos/UHDM/build/bin/uhdm-cmp) and scripts/verify_golden.py are the
+only authorities.  slang was NOT patched.  results/*.csv were READ ONLY (the
+copies inside this pass's worktree) and NOTHING was promoted.
+
+BASE COMMIT            6c74d2a
+worktree               /tmp/wt_r10buvm28  (git worktree add, detached)
+production surface     src/ExprEmit.cpp ONLY (+201 lines, no deletions)
+probe surface          tools/probe/r10buvm28repro/ ONLY
+
+BINARIES (cmake Release, gcc-toolset-14, CMAKE_PREFIX_PATH=~/.local, -j 2;
+every one frozen chmod 555 BEFORE any sweep, every sweep exported SLANG_UHDM
+explicitly to the frozen path and every cmds.txt was audited by binary PATH)
+  pristine   (6c74d2a, no edit)          md5 26fbd8c01ce0de4b3e257726f388de86
+  patched                                md5 3d2fec8e71e6490ef8bc4c2acd8bde03
+                                         (rebuilt from scratch sources twice,
+                                          same md5 both times)
+  NULL-EDIT control  (pristine + 60 emitted `extern "C"` functions that
+                      nothing calls; comment-only edits produce a BYTE-
+                      IDENTICAL binary and were discarded)
+                                         md5 c71d7db9ba6855c82f58b5f6acc4b66b
+  WALK-ONLY control  (the patch with `bitsEnumNoBaseValue28` doing the whole
+                      type walk and then `return false` — same walk, no value
+                      substitution)      md5 b40638519705c4aec078516a7c13ee30
+
+GOLDEN SIDE            ~/git-repos/Surelog/build/bin/surelog (the binary
+                       scripts/verify_golden.py uses; NOTE the shell alias
+                       `surelog` points at the sv-tests copy, whose
+                       CompileExpression.cpp is a DIFFERENT file — every
+                       decode below is read from ~/git-repos/Surelog/src)
+
+SWEEP WORKDIRS         pristine /tmp/r10buvm28_wdpris/{sl,u2r}
+                       patched  /tmp/r10buvm28_wdpat/{sl,u2r}
+                       (this pass built its OWN baselines; no shared control
+                        directory was read as a baseline)
+
+CENSUS                 /tmp/r10buvm28_cen/{pris,pat}_{sl,u2r}
+BOUNDARY               ROOT=/tmp/r10buvm28_probecopy (a COPY of tools/probe),
+                       no path filter, .sv AND .v, DEF and ELAB

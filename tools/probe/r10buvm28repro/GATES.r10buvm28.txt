@@ -1,0 +1,117 @@
+r10buvm28 — THE GATE BATTERY, run in the pass worktree /tmp/wt_r10buvm28 at
+BASE 6c74d2a.  MEASUREMENT ONLY; the official uhdm-cmp and
+scripts/verify_golden.py are the authorities.  LHS is ALWAYS golden.
+
+(1) BUILD.  cmake Release, -j 2, gcc-toolset-14, CMAKE_PREFIX_PATH=~/.local.
+    pristine (6c74d2a, no edit)  md5 26fbd8c01ce0de4b3e257726f388de86
+                                 frozen chmod 555 at /tmp/r10buvm28_pris.bin
+    patched                      md5 3d2fec8e71e6490ef8bc4c2acd8bde03
+                                 frozen chmod 555 at /tmp/r10buvm28_pat.bin
+    Both frozen BEFORE any sweep; every sweep exported SLANG_UHDM explicitly.
+
+(2) GOLDENS.   SLANG_UHDM=<patched>  PASS 23 / FAIL 0
+               SLANG_UHDM=<pristine> PASS 23 / FAIL 0
+               SLANG_UHDM=/bin/false PASS  0 / FAIL 23   (negative control)
+
+(3) uhdm2rtlil, BOTH MODES, 731 tests each.
+      testflags  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+      default    CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    ct8rows (WHOLE ROW, dump column included):
+      results/gate_uhdm2rtlil.csv (worktree copy) vs patched testflags
+                                             PASS, 0 differing rows
+      pristine testflags vs patched testflags PASS, 0 differing rows
+      pristine default   vs patched default   PASS, 0 differing rows
+    byteverify SELFCHECK=1:  MOVERS 0 / 1358.  PATH_SETS_IDENTICAL.
+      SELFCHECK negative control: 1357 / 1358 flagged.
+    cmds.txt audit: every u2r cmds.txt names /tmp/r10buvm28_pat.bin (patched)
+      or /tmp/r10buvm28_pris.bin (pristine); ZERO name a main-tree binary.
+
+(4) surelog corpus, --mode both, 794 tests per mode, 956 comparable databases.
+      default    CMP_EQUAL 471  CMP_NOTEQUAL 10  SLANG_REJECT 283
+                 SURELOG_FAIL 25  DEFERRED 5
+      testflags  CMP_EQUAL 466  CMP_NOTEQUAL  9  SLANG_REJECT 284
+                 SURELOG_FAIL 23  DEFERRED 5  NO_DATABASE 3
+                 UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+      totals 937 CMP_EQUAL / 19 CMP_NOTEQUAL, IDENTICAL to pristine.
+    ct8rows:
+      results/golden_surelog.csv (worktree copy) vs patched
+                                             PASS, 0 differing rows over 1588
+      pristine vs patched                    PASS, 0 differing rows
+    NO CORPUS ROW CONVERTED.  results/*.csv were READ ONLY and NOTHING was
+    promoted.  (This pass's arms g28_a0_head.sv / g28_a_enum.sv /
+    g28_b_shapes.sv do NOT pass uhdm-cmp either — they are VALUE arms; the
+    value cells they own all reach golden, see README §3.)
+    cmds.txt audit: 1573 cmds.txt, all naming the frozen binary; ZERO name a
+    main-tree binary.
+
+(5) byteverify SELFCHECK=1, surelog:  MOVERS 2 / 956
+      default/BuildUVMPkg-bf853d43     PREDICTED BY NAME (PREDICT.r10buvm28)
+      testflags/BuildUVMPkg-bf853d43   PREDICTED BY NAME
+      No Scoreboard coin flip this run (Scoreboard/default byte-identical).
+      SELFCHECK negative control: 955 / 956 flagged.
+
+(6) HEADS (rowheads.sh; DEPTH not distance):
+      TEST          MODE       PRISTINE   PATCHED
+      SeqDriver     def/tf       60/60      60/60   (1 head)
+      SimpleUVM     def/tf       17/17      17/17   (1 head)
+      Scoreboard    def          29         29      (1 head)
+      MiniAmiq      def/tf     348/348    348/348   (1 head)
+      BuildUVMPkg   def/tf       32/32      17/17   (1 head)   <-- CLEARED
+      Earlgrey_0_1  def/tf       64/64      64/64   (1 head)
+      Rggen         def           0          0      (0 heads, PASS_CMP)
+      (Scoreboard/testflags and Rggen/testflags print SKIP-NOFILE, expected.)
+    BuildUVMPkg's two modes are byte-identical to each other before
+    (cmp md5 9b31531212f75a5a4bb1ebd47168e148) and after
+    (cmp md5 4b761630ccd5bbeeecaea4a866941655).
+
+(7) CANARIES.
+      canaries.sh patched-surelog vs committed baseline   ok=56 changed=0 absent=0
+      canaries.sh patched-u2r     vs committed baseline   ok=9  changed=0 absent=0
+      EXPECT_UNKNOWN=1 ctcan2.sh (surelog)                PASS
+      EXPECT_UNKNOWN=6 ctcan2.sh (u2r)                    PASS
+      canaudit.sh canaries.sh ctcan2.sh   audited=33 UNCOVERED=0 FENCE-BREACH=0
+      pins28.sh (patched vs pristine DB md5, per mode):
+        InterfaceModPort   59a365f3ce2c / 59a365f3ce2c   SAME (both modes)
+        BlackParrotComplex e3e354129d5a (def) 73a10e8217e5 (tf)  SAME
+        YosysOldOr         d68e0796d62c   SAME (both modes)
+        SVSwitch           4842211c4030   SAME (both modes)  <- the brief's pin
+        YosysVerx          6ccda350c24a   SAME (both modes)  <- the brief's pin
+        ---- pins SAME=10 MOVED=0 UNKNOWN-NAME=0
+
+(8) BOUNDARY (bound28.sh, a COPY of tools/probe, NO path filter, .sv AND .v,
+    DEF and ELAB, fd-3 list, children </dev/null, PROCESSED asserted):
+      LISTED=3348 FENCED_SKIPPED=0 PROCESSED=3348 MOVED=10 NO_OUTPUT_PAIRS=274
+      PROCESSED-ASSERT-OK
+    The 10 moved cells are 5 files x 2 views:
+      r10buvm28repro/g28_a0_head.sv     4 lines    THIS PASS'S OWN ARM
+      r10buvm28repro/g28_a_enum.sv     52/60 lines THIS PASS'S OWN ARM
+      r10buvm28repro/g28_b_shapes.sv  112 lines    THIS PASS'S OWN ARM
+      r10uvm61repro/v4_type.sv          4 lines    EARLIER-PASS ARM, re-measured
+                                        against golden: FIXED 1 BROKE 0
+                                        ($bits(noBase_t m_nb) 32 -> 0; golden 0)
+      r10buvm22repro/g22.sv            12 lines    EARLIER-PASS ARM, re-measured
+                                        against golden: FIXED 0 BROKE 0
+                                        STILL-CHANGED 3 — see README §7
+                                        (R-G22RANGE, a pre-existing UB read;
+                                        golden has NO constant at those spans)
+    ATTRIBUTION CONTROLS (two extra binaries, README §7):
+      NULL-EDIT control (emitted code added, behaviour unchanged):
+          g22.sv 0 lines vs pristine   -> a bare binary/layout change does NOT
+                                          move g22
+      WALK-ONLY control (the same type walk, the value substitution disabled):
+          g22.sv      12 lines vs pristine, 0 vs patched
+                      -> the g22 mover is the TYPE WALK's arena side effect
+          v4_type.sv   0 lines vs pristine, 4 vs patched
+                      -> the v4_type mover is THE LAW, and it is TO-GOLDEN
+
+(9) CENSUS (ct28cen + join28.py, golden vs ours, all 956 + 1358 databases):
+                        surelog                 uhdm2rtlil
+                        pristine   patched      pristine   patched
+      SAME                 919        923          214        214
+      VALUE                  4          0            0          0
+      KEEP_G_FOLD_O         15         15            0          0
+      FOLD_G_KEEP_O          0          0            0          0
+      OTHER                246        246            2          2
+      OUT_OF_SCOPE_DIFF  17687      17687         1070       1070
+    4 cells TO-GOLDEN, 0 AWAY, 0 STILL-WRONG changed.  Every other column is
+    byte-unchanged in both corpora.

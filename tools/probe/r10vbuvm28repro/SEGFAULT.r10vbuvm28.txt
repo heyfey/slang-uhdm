@@ -1,0 +1,35 @@
+r10vbuvm28 — PRE-EXISTING ELAB SEGFAULT, minimised (NOT caused by r10buvm28).
+
+The wide boundary records rc PER CELL.  Over 9676 cells (3352 .sv/.v files x 2
+views + 1486 directory arms x 2 views) the rc histogram is IDENTICAL for the
+pristine and the shipped binary:
+
+    rc=0  8815    rc=139  17    rc=3  504    rc=4  340
+
+and the asymmetry counts are ZERO in both directions (no cell segfaults on one
+binary and not the other).  All 17 rc=139 cells are ELAB cells and all 17
+segfault on the PRISTINE binary of BASE 6c74d2a too, so none of them is this
+pass's doing.  One of them is r10vbuvm19repro/seg19.sv, i.e. a previous
+verifier already recorded this class.
+
+MINIMISED HERE (both binaries, rc=139, `--elabuhdm` only; the DEF view is
+clean):
+
+    package pk;
+      typedef bit [3:0] eb_t;
+      typedef eb_t ea_fixed_t [4];      // an UNPACKED-ARRAY typedef in a PACKAGE
+    endpackage
+    module s7;
+      import pk::*;
+      ea_fixed_t v;
+      int r [2];
+      initial r[0] = $bits(v);          // remove this line and rc is 0
+    endmodule
+
+Not enum-specific: the same file with `typedef enum int { E0, E1 } eb_t;`
+(s6) and with `typedef enum { E0, E1 } eb_t;` (s4) crash identically, and with
+a base-less enum but NO `$bits` (s5) it does not crash.  So the trigger is
+`--elabuhdm` + `$bits(<variable of a PACKAGE unpacked-array typedef>)`.
+
+verify_golden.py records rc=139 as SLANG_REJECT wearing the last stderr
+warning, which is why this only shows up in a driver that records rc.

@@ -1,0 +1,55 @@
+r10buvm28 — THE WIDE BOUNDARY GATE and the two ATTRIBUTION CONTROLS.
+MEASUREMENT ONLY.  LHS is always golden.
+
+/tmp/wt_r10buvm28/tools/probe/r10buvm28repro/bound28.sh: line 35: 1461688 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+LISTED=3348 FENCED_SKIPPED=0 PROCESSED=3348 MOVED=10 NO_OUTPUT_PAIRS=274
+PROCESSED-ASSERT-OK
+
+=== the 10 moved cells (5 files x 2 views) ===
+(re-run after g28_c_castr0.sv was added: LISTED=3348 PROCESSED=3348 MOVED=10;
+ the R0 probe carries no type query and does not move)
+MOVED 0068_r10buvm22repro_g22.sv/def 12 lines
+MOVED 0068_r10buvm22repro_g22.sv/elab 12 lines
+MOVED 0078_r10buvm28repro_g28_a0_head.sv/def 4 lines
+MOVED 0078_r10buvm28repro_g28_a0_head.sv/elab 4 lines
+MOVED 0079_r10buvm28repro_g28_a_enum.sv/def 52 lines
+MOVED 0079_r10buvm28repro_g28_a_enum.sv/elab 60 lines
+MOVED 0080_r10buvm28repro_g28_b_shapes.sv/def 112 lines
+MOVED 0080_r10buvm28repro_g28_b_shapes.sv/elab 112 lines
+MOVED 2147_r10uvm61repro_v4_type.sv/def 4 lines
+MOVED 2147_r10uvm61repro_v4_type.sv/elab 4 lines
+
+=== r10uvm61repro/v4_type.sv re-measured against golden (four28.py) ===
+FIXED         41:11-22  G=[('constant', '', '0')] P=[('constant', '', '32')]
+== ALREADY-OK 39  FIXED 1  BROKE 0  STILL 0  STILL-CHANGED 0
+  line 41 is  o = $bits(m_nb);  over  typedef enum { EA, EB, EC } noBase_t;
+  — the arm's own comment says "(32)"; golden says 0.
+
+=== r10buvm22repro/g22.sv re-measured against golden (four28.py) ===
+STILL-CHANGED 70:28-34  G=- P=[('constant', '', '22371705'), ('operation', '', '')] Q=[('constant', '', '22375801'), ('operation', '', '')]
+STILL-CHANGED 71:28-34  G=- P=[('constant', '', '22371705'), ('operation', '', '')] Q=[('constant', '', '22375801'), ('operation', '', '')]
+STILL-CHANGED 72:28-31  G=- P=[('constant', '', '22370849'), ('operation', '', '')] Q=[('constant', '', '22374945'), ('operation', '', '')]
+== ALREADY-OK 80  FIXED 0  BROKE 0  STILL 11  STILL-CHANGED 3
+  golden emits a string_typespec at 70:28 / 71:28 / 72:28 and NO constant at
+  all; both the pristine 22371705 and the patched 22375801 are garbage from
+  the unchecked FixedSizeUnpackedArrayType cast at src/TypeEmit.cpp:10359
+  applied to the ASSOCIATIVE arrays of  typedef int ka_str_t[int];  — that is
+  buvm27's R-G22RANGE.  g22.sv contains no base-less enum, so the VALUE law
+  cannot reach it; the two controls below prove which half of the patch moved
+  it.
+
+=== CONTROL 1: NULL-EDIT (emitted code added, behaviour unchanged) ===
+  g22.sv        NULL-CTL vs PRISTINE   0 diff lines
+  v4_type.sv    NULL-CTL vs PRISTINE   0 diff lines
+  => a bare binary/layout change does NOT move either arm.
+     (comment-only edits produced a BYTE-IDENTICAL binary and were discarded;
+      the control that shipped adds 60 emitted extern "C" functions.)
+
+=== CONTROL 2: WALK-ONLY (the same type walk, no value substitution) ===
+  g22.sv        WALK-ONLY vs PRISTINE  12 diff lines / vs PATCHED   0
+     => the g22 mover is the TYPE WALK's arena side effect, NOT the law.
+  v4_type.sv    WALK-ONLY vs PRISTINE   0 diff lines / vs PATCHED   4
+     => the v4_type mover is THE LAW, and four28.py scores it FIXED.
+
+The arena side effect reaches NO corpus database: byteverify over 956 + 1358
+pristine/patched pairs found exactly the 2 predicted BuildUVMPkg movers.

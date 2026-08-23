@@ -1,0 +1,76 @@
+r10buvm28 — THE CENSUS, golden vs ours, all 956 surelog + 1358 uhdm2rtlil
+databases, PRISTINE then PATCHED.  MEASUREMENT ONLY.  LHS is always golden.
+
+############ PRISTINE / surelog
+--- totals ---
+OUT_OF_SCOPE     153123
+OUT_OF_SCOPE_DIFF 17687
+SAME             919
+OTHER            246
+KEEP_G_FOLD_O    15
+VALUE            4
+--- per test ---
+
+VALUE          default_BuildUVMPkg-bf853d43             58248:20-58248:36                              G=CONST:0                            O=CONST:32
+VALUE          default_BuildUVMPkg-bf853d43             58283:20-58283:44                              G=CONST:0                            O=CONST:32
+KEEP_G_FOLD_O  default_BuildUVMPkg-bf853d43             78222:17-78222:38                              G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+KEEP_G_FOLD_O  default_BuildUVMPkg-bf853d43             82730:10-82731:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  default_BuildUVMPkg-bf853d43             82735:61-82736:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  default_BuildUVMPkg-bf853d43             82742:61-82743:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  default_MiniAmiq-544c7f61                944:17-944:38                                  G=CALL:$bits;CONST:64;CONST:64;CONST:64 O=CONST:64;CONST:64;CONST:64;CONST:64
+KEEP_G_FOLD_O  default_Scoreboard-59431470              944:17-944:38                                  G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+KEEP_G_FOLD_O  default_SeqDriver-32af76aa               944:17-944:38                                  G=CALL:$bits;CONST:64;CONST:64;CONST:64 O=CONST:64;CONST:64;CONST:64;CONST:64
+KEEP_G_FOLD_O  default_SimpleUVM-1dc93a62               944:17-944:38                                  G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+VALUE          testflags_BuildUVMPkg-bf853d43           58248:20-58248:36                              G=CONST:0                            O=CONST:32
+VALUE          testflags_BuildUVMPkg-bf853d43           58283:20-58283:44                              G=CONST:0                            O=CONST:32
+KEEP_G_FOLD_O  testflags_BuildUVMPkg-bf853d43           78222:17-78222:38                              G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+KEEP_G_FOLD_O  testflags_BuildUVMPkg-bf853d43           82730:10-82731:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  testflags_BuildUVMPkg-bf853d43           82735:61-82736:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  testflags_BuildUVMPkg-bf853d43           82742:61-82743:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  testflags_MiniAmiq-544c7f61              944:17-944:38                                  G=CALL:$bits;CONST:64;CONST:64;CONST:64 O=CONST:64;CONST:64;CONST:64;CONST:64
+KEEP_G_FOLD_O  testflags_SeqDriver-32af76aa             944:17-944:38                                  G=CALL:$bits;CONST:64;CONST:64;CONST:64 O=CONST:64;CONST:64;CONST:64;CONST:64
+KEEP_G_FOLD_O  testflags_SimpleUVM-1dc93a62             944:17-944:38                                  G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+KEEP_G_FOLD_O    15
+VALUE            4
+
+############ PATCHED / surelog
+--- totals ---
+OUT_OF_SCOPE     153123
+OUT_OF_SCOPE_DIFF 17687
+SAME             923
+OTHER            246
+KEEP_G_FOLD_O    15
+--- per test ---
+    46  OTHER	default_BuildUVMPkg-bf853d43
+
+KEEP_G_FOLD_O  default_BuildUVMPkg-bf853d43             78222:17-78222:38                              G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+KEEP_G_FOLD_O  default_BuildUVMPkg-bf853d43             82730:10-82731:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  default_BuildUVMPkg-bf853d43             82735:61-82736:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  default_BuildUVMPkg-bf853d43             82742:61-82743:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  default_MiniAmiq-544c7f61                944:17-944:38                                  G=CALL:$bits;CONST:64;CONST:64;CONST:64 O=CONST:64;CONST:64;CONST:64;CONST:64
+KEEP_G_FOLD_O  default_Scoreboard-59431470              944:17-944:38                                  G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+KEEP_G_FOLD_O  default_SeqDriver-32af76aa               944:17-944:38                                  G=CALL:$bits;CONST:64;CONST:64;CONST:64 O=CONST:64;CONST:64;CONST:64;CONST:64
+KEEP_G_FOLD_O  default_SimpleUVM-1dc93a62               944:17-944:38                                  G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+KEEP_G_FOLD_O  testflags_BuildUVMPkg-bf853d43           78222:17-78222:38                              G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+KEEP_G_FOLD_O  testflags_BuildUVMPkg-bf853d43           82730:10-82731:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  testflags_BuildUVMPkg-bf853d43           82735:61-82736:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  testflags_BuildUVMPkg-bf853d43           82742:61-82743:48                              G=CALL:$bits                         O=CONST:32
+KEEP_G_FOLD_O  testflags_MiniAmiq-544c7f61              944:17-944:38                                  G=CALL:$bits;CONST:64;CONST:64;CONST:64 O=CONST:64;CONST:64;CONST:64;CONST:64
+KEEP_G_FOLD_O  testflags_SeqDriver-32af76aa             944:17-944:38                                  G=CALL:$bits;CONST:64;CONST:64;CONST:64 O=CONST:64;CONST:64;CONST:64;CONST:64
+KEEP_G_FOLD_O  testflags_SimpleUVM-1dc93a62             944:17-944:38                                  G=CALL:$bits;CONST:64                O=CONST:64;CONST:64
+KEEP_G_FOLD_O    15
+
+############ PRISTINE / uhdm2rtlil
+--- totals ---
+OUT_OF_SCOPE     24335
+OUT_OF_SCOPE_DIFF 1070
+SAME             214
+OTHER            2
+--- per test ---
+############ PATCHED / uhdm2rtlil
+--- totals ---
+OUT_OF_SCOPE     24335
+OUT_OF_SCOPE_DIFF 1070
+SAME             214
+OTHER            2
+--- per test ---

@@ -1,0 +1,168 @@
+r10buvm28 — THE ARM SCOREBOARD.  Golden (Surelog) vs PRISTINE vs PATCHED on
+every $bits/$size/$clog2 cell of the two grids, DEF view, plus the four-way
+totals for both views.  MEASUREMENT ONLY.  LHS is always golden.
+  ok   = pristine already agreed with golden and patched still does
+  FIX  = pristine disagreed, patched agrees          (TO-GOLDEN)
+  BRK  = pristine agreed, patched does not           (must be 0)
+  STIL = both disagree                               (named in README §8)
+Rows whose G/PRI/PAT column is a plain small integer (C:0..C:22) are the
+ARRAY INDEX constant of `r[n] =` on the same line, not the query.
+
+==== g28_a_enum.sv (DEF view)
+ok   L35  r[0]  = $bits(p_bare);                         G=C:0            PRI=C:0            PAT=C:0
+FIX  L35  r[0]  = $bits(p_bare);                         G=C:0            PRI=C:32           PAT=C:0
+ok   L36  r[1]  = $bits(p_int);                          G=C:1            PRI=C:1            PAT=C:1
+ok   L36  r[1]  = $bits(p_int);                          G=C:32           PRI=C:32           PAT=C:32
+ok   L37  r[2]  = $bits(p_bit4);                         G=C:2            PRI=C:2            PAT=C:2
+ok   L37  r[2]  = $bits(p_bit4);                         G=C:4            PRI=C:4            PAT=C:4
+ok   L38  r[3]  = $bits(p_log8);                         G=C:3            PRI=C:3            PAT=C:3
+ok   L38  r[3]  = $bits(p_log8);                         G=C:8            PRI=C:8            PAT=C:8
+ok   L39  r[4]  = $bits(p_byte);                         G=C:4            PRI=C:4            PAT=C:4
+ok   L39  r[4]  = $bits(p_byte);                         G=C:8            PRI=C:8            PAT=C:8
+ok   L40  r[5]  = $bits(p_neg);                          G=C:5            PRI=C:5            PAT=C:5
+FIX  L40  r[5]  = $bits(p_neg);                          G=C:0            PRI=C:32           PAT=C:0
+ok   L41  r[6]  = $bits(p_integer);                      G=C:6            PRI=C:6            PAT=C:6
+ok   L41  r[6]  = $bits(p_integer);                      G=C:32           PRI=C:32           PAT=C:32
+ok   L42  r[7]  = $bits(p_alias);                        G=C:7            PRI=C:7            PAT=C:7
+FIX  L42  r[7]  = $bits(p_alias);                        G=C:0            PRI=C:32           PAT=C:0
+ok   L43  r[8]  = $bits(p_short);                        G=C:8            PRI=C:8            PAT=C:8
+ok   L43  r[8]  = $bits(p_short);                        G=C:16           PRI=C:16           PAT=C:16
+ok   L44  r[9]  = $bits(p_anon);                         G=C:9            PRI=C:9            PAT=C:9
+FIX  L44  r[9]  = $bits(p_anon);                         G=C:0            PRI=C:32           PAT=C:0
+ok   L45  r[10] = $bits(lv);                             G=C:10           PRI=C:10           PAT=C:10
+ok   L45  r[10] = $bits(lv);                             G=CALL           PRI=CALL           PAT=CALL
+ok   L45  r[10] = $bits(lv);                             G=ref_obj        PRI=ref_obj        PAT=ref_obj
+ok   L46  r[11] = $bits(fa);                             G=C:11           PRI=C:11           PAT=C:11
+ok   L46  r[11] = $bits(fa);                             G=CALL           PRI=CALL           PAT=CALL
+ok   L46  r[11] = $bits(fa);                             G=ref_obj        PRI=ref_obj        PAT=ref_obj
+ok   L47  r[12] = $bits(pv_bare);                        G=C:12           PRI=C:12           PAT=C:12
+STIL L47  r[12] = $bits(pv_bare);                        G=CALL           PRI=C:32           PAT=C:0
+STIL L47  r[12] = $bits(pv_bare);                        G=ref_obj        PRI=-              PAT=-
+ok   L48  r[13] = $bits(e_bare);                         G=C:13           PRI=C:13           PAT=C:13
+FIX  L48  r[13] = $bits(e_bare);                         G=C:0            PRI=C:32           PAT=C:0
+ok   L49  r[14] = $bits(e_int);                          G=C:14           PRI=C:14           PAT=C:14
+ok   L49  r[14] = $bits(e_int);                          G=C:32           PRI=C:32           PAT=C:32
+ok   L50  r[15] = $bits(e_bit4);                         G=C:15           PRI=C:15           PAT=C:15
+ok   L50  r[15] = $bits(e_bit4);                         G=C:4            PRI=C:4            PAT=C:4
+ok   L51  r[16] = $bits(e_neg);                          G=C:16           PRI=C:16           PAT=C:16
+FIX  L51  r[16] = $bits(e_neg);                          G=C:0            PRI=C:32           PAT=C:0
+ok   L52  r[17] = $bits(p2::e_bare);                     G=C:17           PRI=C:17           PAT=C:17
+FIX  L52  r[17] = $bits(p2::e_bare);                     G=C:0            PRI=C:32           PAT=C:0
+ok   L53  r[18] = $bits(A0);                             G=C:18           PRI=C:18           PAT=C:18
+ok   L53  r[18] = $bits(A0);                             G=CALL           PRI=CALL           PAT=CALL
+ok   L53  r[18] = $bits(A0);                             G=ref_obj        PRI=ref_obj        PAT=ref_obj
+ok   L54  r[19] = $size(p_bare);                         G=C:19           PRI=C:19           PAT=C:19
+ok   L54  r[19] = $size(p_bare);                         G=CALL           PRI=CALL           PAT=CALL
+ok   L54  r[19] = $size(p_bare);                         G=ref_obj        PRI=ref_obj        PAT=ref_obj
+ok   L55  r[20] = $bits(p_bare) + 1;                     G=C:20           PRI=C:20           PAT=C:20
+FIX  L55  r[20] = $bits(p_bare) + 1;                     G=C:0            PRI=C:32           PAT=C:0
+ok   L55  r[20] = $bits(p_bare) + 1;                     G=operation      PRI=operation      PAT=operation
+ok   L55  r[20] = $bits(p_bare) + 1;                     G=C:1            PRI=C:1            PAT=C:1
+ok   L61  return $bits(lf) + $bits(e_bare) + $bits(e_bit G=CALL           PRI=CALL           PAT=CALL
+ok   L61  return $bits(lf) + $bits(e_bare) + $bits(e_bit G=operation      PRI=operation      PAT=operation
+ok   L61  return $bits(lf) + $bits(e_bare) + $bits(e_bit G=operation      PRI=operation      PAT=operation
+ok   L61  return $bits(lf) + $bits(e_bare) + $bits(e_bit G=ref_obj        PRI=ref_obj        PAT=ref_obj
+FIX  L61  return $bits(lf) + $bits(e_bare) + $bits(e_bit G=C:0,CALL       PRI=C:32,CALL      PAT=C:0,CALL
+ok   L61  return $bits(lf) + $bits(e_bare) + $bits(e_bit G=ref_obj        PRI=ref_obj        PAT=ref_obj
+ok   L61  return $bits(lf) + $bits(e_bare) + $bits(e_bit G=C:4,CALL       PRI=C:4,CALL       PAT=C:4,CALL
+ok   L61  return $bits(lf) + $bits(e_bare) + $bits(e_bit G=ref_obj        PRI=ref_obj        PAT=ref_obj
+ok   L71  q0 = $bits(mv);                                G=ref_obj        PRI=ref_obj        PAT=ref_obj
+STIL L71  q0 = $bits(mv);                                G=C:0            PRI=CALL           PAT=CALL
+STIL L71  q0 = $bits(mv);                                G=-              PRI=ref_obj        PAT=ref_obj
+ok   L72  q1 = $bits(mv4);                               G=ref_obj        PRI=ref_obj        PAT=ref_obj
+ok   L72  q1 = $bits(mv4);                               G=C:4            PRI=C:4            PAT=C:4
+ok   L73  q2 = $bits(p2::e_bare);                        G=ref_obj        PRI=ref_obj        PAT=ref_obj
+FIX  L73  q2 = $bits(p2::e_bare);                        G=C:0            PRI=C:32           PAT=C:0
+ok   L74  q3 = $bits(e_bare);                            G=ref_obj        PRI=ref_obj        PAT=ref_obj
+FIX  L74  q3 = $bits(e_bare);                            G=C:0            PRI=C:32           PAT=C:0
+STIL L76  localparam int LP0 = $bits(p2::e_bare);        G=C,C:0          PRI=C,C:32         PAT=C,C:0,C:32
+ok   L77  localparam int LP1 = $bits(p2::e_bit4);        G=C,C:4          PRI=C,C:4          PAT=C,C:4
+==== g28_b_shapes.sv (DEF view)
+STIL L28  logic [$bits(e_bare)-1:0] p_dep;   // a DECLAR G=C:-1           PRI=C:31           PAT=C:31
+ok   L28  logic [$bits(e_bare)-1:0] p_dep;   // a DECLAR G=C:0            PRI=C:0            PAT=C:0
+ok   L32  r[0]  = $bits(p_ea);        // array of base-l G=C:0            PRI=C:0            PAT=C:0
+FIX  L32  r[0]  = $bits(p_ea);        // array of base-l G=C:0            PRI=C:128          PAT=C:0
+ok   L33  r[1]  = $bits(p_ea[0]);     // select -> root  G=C:1            PRI=C:1            PAT=C:1
+FIX  L33  r[1]  = $bits(p_ea[0]);     // select -> root  G=C:0            PRI=C:128          PAT=C:0
+ok   L34  r[2]  = $bits(p_ed);                           G=C:2            PRI=C:2            PAT=C:2
+FIX  L34  r[2]  = $bits(p_ed);                           G=C:0            PRI=C:32           PAT=C:0
+ok   L35  r[3]  = $bits(p_ed[0]);                        G=C:3            PRI=C:3            PAT=C:3
+FIX  L35  r[3]  = $bits(p_ed[0]);                        G=C:0            PRI=C:32           PAT=C:0
+ok   L36  r[4]  = $bits(p_eq);                           G=C:4            PRI=C:4            PAT=C:4
+FIX  L36  r[4]  = $bits(p_eq);                           G=C:0            PRI=C:32           PAT=C:0
+ok   L37  r[5]  = $bits(p_eaa["k"]);                     G=C:5            PRI=C:5            PAT=C:5
+FIX  L37  r[5]  = $bits(p_eaa["k"]);                     G=C:0            PRI=C:32           PAT=C:0
+ok   L38  r[6]  = $bits(p_ps);        // packed struct W G=C:6            PRI=C:6            PAT=C:6
+FIX  L38  r[6]  = $bits(p_ps);        // packed struct W G=C:8            PRI=C:40           PAT=C:8
+ok   L39  r[7]  = $bits(p_ps.c);                         G=C:7            PRI=C:7            PAT=C:7
+STIL L39  r[7]  = $bits(p_ps.c);                         G=C:0            PRI=CALL           PAT=CALL
+STIL L39  r[7]  = $bits(p_ps.c);                         G=-              PRI=ref_obj        PAT=ref_obj
+STIL L39  r[7]  = $bits(p_ps.c);                         G=-              PRI=ref_obj        PAT=ref_obj
+ok   L40  r[8]  = $bits(p_ps.d);                         G=C:8            PRI=C:8            PAT=C:8
+STIL L40  r[8]  = $bits(p_ps.d);                         G=C:8            PRI=CALL           PAT=CALL
+STIL L40  r[8]  = $bits(p_ps.d);                         G=-              PRI=ref_obj        PAT=ref_obj
+STIL L40  r[8]  = $bits(p_ps.d);                         G=-              PRI=ref_obj        PAT=ref_obj
+ok   L41  r[9]  = $bits(p_us);        // unpacked struct G=C:9            PRI=C:9            PAT=C:9
+FIX  L41  r[9]  = $bits(p_us);        // unpacked struct G=C:8            PRI=C:40           PAT=C:8
+ok   L42  r[10] = $bits(p_us.c);                         G=C:10           PRI=C:10           PAT=C:10
+STIL L42  r[10] = $bits(p_us.c);                         G=C:0            PRI=CALL           PAT=CALL
+STIL L42  r[10] = $bits(p_us.c);                         G=-              PRI=ref_obj        PAT=ref_obj
+STIL L42  r[10] = $bits(p_us.c);                         G=-              PRI=ref_obj        PAT=ref_obj
+ok   L43  r[11] = $bits(p_pu);                           G=C:11           PRI=C:11           PAT=C:11
+ok   L43  r[11] = $bits(p_pu);                           G=C:4            PRI=C:4            PAT=C:4
+ok   L44  r[12] = $bits(p_arr);                          G=C:12           PRI=C:12           PAT=C:12
+FIX  L44  r[12] = $bits(p_arr);                          G=C:0            PRI=C:128          PAT=C:0
+ok   L45  r[13] = $bits(p_e2d);                          G=C:13           PRI=C:13           PAT=C:13
+FIX  L45  r[13] = $bits(p_e2d);                          G=C:0            PRI=C:192          PAT=C:0
+ok   L46  r[14] = $bits(ps_t);                           G=C:14           PRI=C:14           PAT=C:14
+FIX  L46  r[14] = $bits(ps_t);                           G=C:8            PRI=C:40           PAT=C:8
+ok   L47  r[15] = $bits(us_t);                           G=C:15           PRI=C:15           PAT=C:15
+FIX  L47  r[15] = $bits(us_t);                           G=C:8            PRI=C:40           PAT=C:8
+ok   L48  r[16] = $bits(arr_t);                          G=C:16           PRI=C:16           PAT=C:16
+STIL L48  r[16] = $bits(arr_t);                          G=CALL           PRI=C:128          PAT=C:0
+STIL L48  r[16] = $bits(arr_t);                          G=ref_obj        PRI=-              PAT=-
+ok   L49  r[17] = $bits(pu_t);                           G=C:17           PRI=C:17           PAT=C:17
+ok   L49  r[17] = $bits(pu_t);                           G=C:4            PRI=C:4            PAT=C:4
+ok   L50  r[18] = $bits(N1);          // an enum MEMBER  G=C:18           PRI=C:18           PAT=C:18
+ok   L50  r[18] = $bits(N1);          // an enum MEMBER  G=CALL           PRI=CALL           PAT=CALL
+ok   L50  r[18] = $bits(N1);          // an enum MEMBER  G=ref_obj        PRI=ref_obj        PAT=ref_obj
+ok   L51  r[19] = $bits(p_e);                            G=C:19           PRI=C:19           PAT=C:19
+FIX  L51  r[19] = $bits(p_e);                            G=C:0            PRI=C:32           PAT=C:0
+ok   L52  r[20] = $bits(e_b4);                           G=C:20           PRI=C:20           PAT=C:20
+ok   L52  r[20] = $bits(e_b4);                           G=C:4            PRI=C:4            PAT=C:4
+ok   L53  r[21] = $clog2($bits(e_bare));                 G=C:21           PRI=C:21           PAT=C:21
+ok   L53  r[21] = $clog2($bits(e_bare));                 G=CALL           PRI=CALL           PAT=CALL
+FIX  L53  r[21] = $clog2($bits(e_bare));                 G=C:0            PRI=C:32           PAT=C:0
+ok   L54  r[22] = $bits(p_dep);                          G=C:22           PRI=C:22           PAT=C:22
+STIL L54  r[22] = $bits(p_dep);                          G=C:2            PRI=C:32           PAT=C:32
+ok   L67  z[0] = $bits(mv);                              G=C:0            PRI=C:0            PAT=C:0
+FIX  L67  z[0] = $bits(mv);                              G=C:0            PRI=C:32           PAT=C:0
+ok   L68  z[1] = $bits(mps);                             G=C:1            PRI=C:1            PAT=C:1
+FIX  L68  z[1] = $bits(mps);                             G=C:8            PRI=C:40           PAT=C:8
+ok   L69  z[2] = $bits(mps.c);                           G=C:2            PRI=C:2            PAT=C:2
+FIX  L69  z[2] = $bits(mps.c);                           G=C:0            PRI=C:32           PAT=C:0
+ok   L70  z[3] = $bits(mus);                             G=C:3            PRI=C:3            PAT=C:3
+FIX  L70  z[3] = $bits(mus);                             G=C:8            PRI=C:40           PAT=C:8
+ok   L71  z[4] = $bits(marr);                            G=C:4            PRI=C:4            PAT=C:4
+FIX  L71  z[4] = $bits(marr);                            G=C:0            PRI=C:128          PAT=C:0
+ok   L72  z[5] = $bits(marr[1]);                         G=C:5            PRI=C:5            PAT=C:5
+FIX  L72  z[5] = $bits(marr[1]);                         G=C:0            PRI=C:128          PAT=C:0
+ok   L73  z[6] = $bits(q28::e_bare);                     G=C:6            PRI=C:6            PAT=C:6
+FIX  L73  z[6] = $bits(q28::e_bare);                     G=C:0            PRI=C:32           PAT=C:0
+ok   L74  z[7] = $bits(q28::ps_t);                       G=C:7            PRI=C:7            PAT=C:7
+FIX  L74  z[7] = $bits(q28::ps_t);                       G=C:8            PRI=C:40           PAT=C:8
+STIL L76  localparam int LPA = $bits(q28::e_bare);       G=C,C:0          PRI=C,C:32         PAT=C,C:0,C:32
+STIL L77  localparam int LPB = $bits(q28::ps_t);         G=C,C:8          PRI=C,C:40         PAT=C,C:40,C:8
+STIL L78  localparam int LPC = $bits(q28::us_t);         G=C,C:8          PRI=C,C:40         PAT=C,C:40,C:8
+ok   L79  assign oo = $bits(mv) + $bits(mps);            G=ref_obj        PRI=ref_obj        PAT=ref_obj
+FIX  L79  assign oo = $bits(mv) + $bits(mps);            G=C:0            PRI=C:32           PAT=C:0
+ok   L79  assign oo = $bits(mv) + $bits(mps);            G=operation      PRI=operation      PAT=operation
+FIX  L79  assign oo = $bits(mv) + $bits(mps);            G=C:8            PRI=C:40           PAT=C:8
+
+=== four28.py totals over ALL spans of each arm, BOTH views ===
+g28_a_enum.sv/def        == ALREADY-OK 55  FIXED 11  BROKE 0  STILL 12  STILL-CHANGED 2
+g28_a_enum.sv/elab       == ALREADY-OK 54  FIXED 12  BROKE 0  STILL 12  STILL-CHANGED 2
+g28_b_shapes.sv/def      == ALREADY-OK 54  FIXED 24  BROKE 0  STILL 22  STILL-CHANGED 4
+g28_b_shapes.sv/elab     == ALREADY-OK 54  FIXED 24  BROKE 0  STILL 22  STILL-CHANGED 4
+g28_a0_head.sv/def       == ALREADY-OK 22  FIXED 1  BROKE 0  STILL 12  STILL-CHANGED 0
+g28_a0_head.sv/elab      == ALREADY-OK 22  FIXED 1  BROKE 0  STILL 12  STILL-CHANGED 0

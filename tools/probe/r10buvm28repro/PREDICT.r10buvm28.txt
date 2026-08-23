@@ -1,0 +1,50 @@
+r10buvm28 — THE MOVER PREDICTION, made from the PRISTINE databases BEFORE the
+patched sweep.  predict28.py scans EVERY span of the census (including the
+ones join28.py files as OUT_OF_SCOPE, where a macro-body fold would hide) for
+the signature this law can produce: golden folded to 0 and we folded to
+something else.  LHS is ALWAYS golden.
+
+PREDICTED MOVERS: default/BuildUVMPkg-bf853d43 and testflags/BuildUVMPkg-bf853d43,
+and NO OTHER DATABASE in either corpus.  byteverify measured exactly those two.
+
+=== surelog corpus, TO-GOLDEN-ZERO rows with a real span ===
+TO-GOLDEN-ZERO      default_BuildUVMPkg-bf853d43       58248:20-58248:36        G=CONST:0                O=CONST:32
+TO-GOLDEN-ZERO      default_BuildUVMPkg-bf853d43       58283:20-58283:44        G=CONST:0                O=CONST:32
+TO-GOLDEN-ZERO      default_Earlgrey_0_1-71da2fd7      39:47-39:57              G=CONST:0                O=CONST:1
+TO-GOLDEN-ZERO      default_Earlgrey_0_1-71da2fd7      73:25-73:26              G=CONST:0                O=CONST:0;CONST:2;CONST:2
+TO-GOLDEN-ZERO      default_Earlgrey_0_1-71da2fd7      83:25-83:26              G=CONST:0                O=CONST:0;CONST:4;CONST:4
+TO-GOLDEN-ZERO      default_MiniAmiq-544c7f61          87:37-87:38              G=CONST:0                O=CONST:0;CONST:1
+TO-GOLDEN-ZERO      default_Scoreboard-59431470        87:37-87:38              G=CONST:0                O=CONST:0;CONST:1
+TO-GOLDEN-ZERO      default_SeqDriver-32af76aa         87:37-87:38              G=CONST:0                O=CONST:0;CONST:1
+TO-GOLDEN-ZERO      default_SimpleUVM-1dc93a62         87:37-87:38              G=CONST:0                O=CONST:0;CONST:1
+TO-GOLDEN-ZERO      default_YosysOldOr-02449e06        125:54-125:55            G=CONST:0;CONST:0        O=CONST:0;CONST:0;CONST:1
+TO-GOLDEN-ZERO      default_YosysOldOr-02449e06        70:29-70:30              G=CONST:0;CONST:0;CONST:0 O=CONST:0;CONST:0;CONST:0;CONST:2
+TO-GOLDEN-ZERO      testflags_BuildUVMPkg-bf853d43     58248:20-58248:36        G=CONST:0                O=CONST:32
+TO-GOLDEN-ZERO      testflags_BuildUVMPkg-bf853d43     58283:20-58283:44        G=CONST:0                O=CONST:32
+TO-GOLDEN-ZERO      testflags_Earlgrey_0_1-71da2fd7    39:47-39:57              G=CONST:0                O=CONST:1
+TO-GOLDEN-ZERO      testflags_Earlgrey_0_1-71da2fd7    73:25-73:26              G=CONST:0                O=CONST:0;CONST:2;CONST:2
+TO-GOLDEN-ZERO      testflags_Earlgrey_0_1-71da2fd7    83:25-83:26              G=CONST:0                O=CONST:0;CONST:4;CONST:4
+TO-GOLDEN-ZERO      testflags_MiniAmiq-544c7f61        87:37-87:38              G=CONST:0                O=CONST:0;CONST:1
+TO-GOLDEN-ZERO      testflags_SeqDriver-32af76aa       87:37-87:38              G=CONST:0                O=CONST:0;CONST:1
+TO-GOLDEN-ZERO      testflags_SimpleUVM-1dc93a62       87:37-87:38              G=CONST:0                O=CONST:0;CONST:1
+TO-GOLDEN-ZERO      testflags_YosysOldOr-02449e06      125:54-125:55            G=CONST:0;CONST:0        O=CONST:0;CONST:0;CONST:1
+TO-GOLDEN-ZERO      testflags_YosysOldOr-02449e06      70:29-70:30              G=CONST:0;CONST:0;CONST:0 O=CONST:0;CONST:0;CONST:0;CONST:2
+TO-GOLDEN-ZERO      21
+
+Of those, only the four BuildUVMPkg rows are type-query cells (an 8-column
+SRC$ span in join28.py's scope).  The others are single-character spans
+(literal constants, range bounds) in rows that are CMP_EQUAL in both modes —
+census multiplicity artifacts, not $bits sites, and none of them is a fold
+this law can reach (their types hold no base-less enum).
+
+=== uhdm2rtlil corpus ===
+TO-GOLDEN-ZERO      default_ModuleInstantiationAndIndirectParams-2906b22a 0:0-0:0                  G=CONST:0;CONST:0;CONST:0;CONST:0 O=CONST:0;CONST:0
+TO-GOLDEN-ZERO      testflags_ModuleInstantiationAndIndirectParams-2906b22a 0:0-0:0                  G=CONST:0;CONST:0;CONST:0;CONST:0 O=CONST:0;CONST
+TO-GOLDEN-ZERO      2
+(both rows are the unlocated 0:0-0:0 aggregate span of a CMP_EQUAL row.)
+
+=== the KEEP_G_FOLD_O cells this law must NOT change (checked by source) ===
+uvm_pkg.sv:78222 $bits(uvm_reg_data_t)  -> a typedef of bit [63:0], no enum
+uvm_pkg.sv:82730/82735/82742 $bits(abstractions.size()) -> int, no enum
+uvm-1.2 uvm_pkg.sv:944 $bits(uvm_reg_data_t)  -> same
+All 15 stayed KEEP_G_FOLD_O with byte-identical values after the patch.

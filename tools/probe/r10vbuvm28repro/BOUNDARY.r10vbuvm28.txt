@@ -1,0 +1,34 @@
+LISTED=3352 PROCESSED=3352 FENCED=0 DIRS=1612 DIRS_WITH_SRC=1486
+CELLS=9676 MOVED=26
+rc histogram (pristine):    8815 rc_pri=0      17 rc_pri=139     504 rc_pri=3     340 rc_pri=4
+rc histogram (patched):     8815 rc_pat=0      17 rc_pat=139     504 rc_pat=3     340 rc_pat=4
+PROCESSED-ASSERT-OK
+BOUND_DONE
+
+---- MOVED CELLS (26 of 9676), each attributed:
+FILE def r10buvm22repro_g22.sv rc_pri=4 rc_pat=4 MOVED
+FILE def r10buvm28repro_g28_a_enum.sv rc_pri=0 rc_pat=0 MOVED
+FILE def r10vbuvm28repro_gv28_a_compose.sv rc_pri=0 rc_pat=0 MOVED
+FILE def r10vbuvm28repro_gv28_d_reach.sv rc_pri=0 rc_pat=0 MOVED
+DIR def DIR_r10vbuvm28repro rc_pri=0 rc_pat=0 MOVED
+FILE elab r10buvm22repro_g22.sv rc_pri=4 rc_pat=4 MOVED
+FILE elab r10buvm28repro_g28_a_enum.sv rc_pri=0 rc_pat=0 MOVED
+FILE elab r10vbuvm28repro_gv28_d_reach.sv rc_pri=0 rc_pat=0 MOVED
+FILE def r10buvm28repro_g28_b_shapes.sv rc_pri=4 rc_pat=4 MOVED
+FILE def r10uvm61repro_v4_type.sv rc_pri=0 rc_pat=0 MOVED
+FILE def r10vbuvm28repro_gv28_b_homes.sv rc_pri=0 rc_pat=0 MOVED
+FILE elab r10buvm28repro_g28_b_shapes.sv rc_pri=4 rc_pat=4 MOVED
+FILE elab r10uvm61repro_v4_type.sv rc_pri=0 rc_pat=0 MOVED
+FILE elab r10vbuvm28repro_gv28_b_homes.sv rc_pri=0 rc_pat=0 MOVED
+FILE def r10buvm28repro_g28_a0_head.sv rc_pri=0 rc_pat=0 MOVED
+FILE def r10vbuvm28repro_gv28_c_edges.sv rc_pri=0 rc_pat=0 MOVED
+DIR def DIR_r10buvm22repro rc_pri=4 rc_pat=4 MOVED
+DIR def DIR_r10buvm28repro rc_pri=4 rc_pat=4 MOVED
+DIR def DIR_r10uvm61repro rc_pri=0 rc_pat=0 MOVED
+DIR def DIR_r10uvm88repro rc_pri=0 rc_pat=0 MOVED
+FILE elab r10buvm28repro_g28_a0_head.sv rc_pri=0 rc_pat=0 MOVED
+FILE elab r10vbuvm28repro_gv28_c_edges.sv rc_pri=0 rc_pat=0 MOVED
+DIR elab DIR_r10buvm22repro rc_pri=4 rc_pat=4 MOVED
+DIR elab DIR_r10buvm28repro rc_pri=4 rc_pat=4 MOVED
+DIR elab DIR_r10uvm61repro rc_pri=0 rc_pat=0 MOVED
+DIR elab DIR_r10uvm88repro rc_pri=0 rc_pat=0 MOVED
