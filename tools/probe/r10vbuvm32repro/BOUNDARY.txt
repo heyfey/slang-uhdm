@@ -1,0 +1,72 @@
+r10vbuvm32 — THE BOUNDARY GATE (verifier run, PRISTINE vs FIXED)
+
+bound32.sh compiled a COPY of the ENTIRE tools/probe tree — every .sv AND .v,
+no path filter, the arm list on fd 3, every child </dev/null, PROCESSED
+asserted against LISTED, rc recorded per cell — with both frozen binaries
+(pristine b4900a013105152c57a347bda1e33990, fixed
+91812f134f50401f6007b8e62046d08b) and asserted the uhdm-dump TEXT
+byte-identical, in FOUR configurations:
+
+  MODE=file VIEW=def    PROCESSED=3592 LISTED=3592  DIFFER=10  REJECT 138/138
+  MODE=file VIEW=elab   PROCESSED=3592 LISTED=3592  DIFFER=10  REJECT 152/152
+  MODE=dir  VIEW=def    PROCESSED=1524 LISTED=1524  DIFFER=6   REJECT 121/121
+  MODE=dir  VIEW=elab   PROCESSED=1524 LISTED=1524  DIFFER=6   REJECT 127/127
+
+PROCESSED == LISTED and PRIS_REJECT == PATCHED_REJECT in all four: no arm is
+rejected asymmetrically, and the pre-existing segfaults happen on both
+binaries.
+
+DIFFERING ARMS, all of them:
+
+1. ./r10buvm32repro/{g32a1,g32a2,g32a3}.sv        the PASS's own goldens.
+   Re-measured against golden, both views, cell by cell:
+     g32a1  26 keys TO golden / 0 away
+     g32a2  16 / 0
+     g32a3  14 / 0,  elaborated view 46 cmp lines / 1 head -> 0 / 0 byte-EQUAL
+   NOTE: the pass's own BOUNDARY.txt reports PROCESSED=3584 and does not list
+   g32a3.sv — the tree it copied predates that file, so the pass's third arm
+   was outside its own boundary gate.  It is inside this one, and it moves
+   only toward golden.
+
+2. ./r10vbuvm32repro/{vb32e1,vb32m1,vb32r1,vb32r3,vb32s1}.sv   the VERIFIER's
+   arms.  vb32r2.sv and vb32h1.sv do NOT differ from pristine — the fix
+   restores pristine's kind on r2's cell, and h1 writes only defining-class
+   qualifiers.  Measured against golden per file and as one directory:
+     def   58 keys TO golden / 0 away        elab  45 / 2
+   The two elab keys are a method-body EMISSION COUNT (vb32r3 D2's body, 2x
+   per file and 1x per directory against golden's 2x) — the pass's R5 family,
+   a count and not a kind; vb32r1's own `mcoll32` body is 3x against golden's
+   2x on BOTH binaries.
+
+3. ./r10v111repro/arms/{v111_b2,v111_b7}.sv     uvm111's R-bind111 arms, the
+   BINDING face of this family.  Each alone, both views, against golden:
+     v111_b2  pristine 30 cmp lines / 1 head -> fixed 0 / 0  byte-EQUAL
+     v111_b7  pristine 30 / 1                -> fixed 0 / 0  byte-EQUAL
+   As a DIRECTORY (all seven arms together) the pristine head is exactly this
+   law's cell and the cell census reads 4 keys TO golden / 0 away in BOTH
+   views.
+
+4. ./r10uvm75repro  ./r10uvm76repro  ./r10v109repro  (and ./r10uvm88repro in
+   one earlier dir/def run)  —  NOT MOVERS, COINS.  coin32.sh, the SAME
+   PRISTINE binary run twice on each arm:
+       r10uvm75repro  raw=18  order-blind=0
+       r10uvm76repro  raw=14  order-blind=0
+       r10v109repro   raw=18  order-blind=0
+       r10uvm88repro  raw=0   order-blind=0
+   and pristine-vs-fixed on each of them is order-blind=0 in both views.
+   r10uvm88repro appeared in one dir/def run and not in the next with the same
+   binaries — the definition of a coin.
+
+BIND WINDOWS.  This clause changes only WHICH of two objects a `::`-scoped
+class call becomes; it opens and closes no bind window and does not touch
+classArgBindDepth12.  Every committed arm of § classArgBind12,
+§ retNameRecvCollapseArgsBindLikeBody15, § collArgNamedBlkLocalNoBind15,
+§ controlBodyNoBind28, § blkLocalSameCtrlDepthArgBinds57/64,
+§ pkgVarBindsOnlyThroughInstance88, § formalDefaultBindsLikeBody13,
+§ classInBodyRecvCallArgNoBind52, § superNewFormalBinds28,
+§ newArrayArgNoBind16, § emptyArgSlotIntZero24, § writtenCallArgs16,
+§ namedTfArgsFormalSlots4, § genLpPortConnCopyableOnly11v, uvm81's formal
+contest, sd10/sd12 scopedReach, the uvm89/92/94/95 name-text laws and the
+foreach/loop-var precedents (§ foreachElabLoopVarAnyKindBinds17,
+§ foreachArraySelfSelectAssignDropsTs19, § foreachPkgClassArrayVar25) lives in
+this tree and is BYTE-IDENTICAL in all four configurations above.

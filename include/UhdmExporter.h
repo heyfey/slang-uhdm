@@ -2402,6 +2402,24 @@ private:
     static bool argIntFormal13(const slang::ast::Expression* arg);
 
     slang::ast::Compilation& comp;
+    /// § scopedCallKeyIsAnyRegistration32v (r10vbuvm32) — TRUE when Surelog's
+    /// `getTaskFunc` would HIT on the literal string
+    /// `<@a f12>::<@a l12>`, i.e. when the design registers a task_func under
+    /// exactly that name AND the search that finds it can reach it.  Two
+    /// registrations qualify (Surelog CompileExpression.cpp:349-436):
+    ///   * a PACKAGE named @a f12 owning a FREE subroutine named @a l12 (the
+    ///     tokenizing first branch — a global `design->getPackage` lookup), and
+    ///   * an OUT-OF-BODY definition whose header WRITES a class identifier
+    ///     equal to @a f12 (CompileStmt.cpp:2600/:2692), in a class VISIBLE
+    ///     from @a qualScope32 — the scope enclosing the callee's own class,
+    ///     which is where Surelog's component / file-content / access-package
+    ///     chain looks.  An UNREACHED package's registration is not a hit
+    ///     (arm vb32r3 D1, read off golden).
+    /// Asked only when the written qualifier is NOT the defining class's own
+    /// name, which in the whole 956-database corpus is one name.
+    bool scopedCallKeyIsAnyRegistration32v(const slang::ast::Scope* qualScope32,
+                                           std::string_view f12,
+                                           std::string_view l12);
     // Lazily built by elabInvoked(); empty optional = not yet scanned.
     std::optional<std::set<const slang::ast::SubroutineSymbol*>> elabCalledSubs;
     // § bareFormalTsReached — the subroutines whose BARE formals (a formal

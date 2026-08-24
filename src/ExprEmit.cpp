@@ -984,6 +984,89 @@ static bool splitScopedName12(const slang::syntax::NameSyntax& n,
     return true;
 }
 
+// § scopedCallKeyIsAnyRegistration32v (r10vbuvm32) — THE VERIFIER'S CLAUSE ON
+// § classScopeCallWrittenQualifierIsLookupKey32.
+//
+// That law is right about WHAT Surelog keys on — the literal string
+// `<first written segment>::<final identifier>` — but "the written qualifier
+// IS the defining class's name" is only the commonest way that string gets
+// REGISTERED, not the only one.  `getTaskFunc`
+// (CompileExpression.cpp:349-436) hits on two more, and BOTH were
+// pristine-right / patched-wrong without this clause:
+//
+//   (1) the tokenizing FIRST branch (:353-370): the first segment names a
+//       PACKAGE — `design->getPackage(name)`, a GLOBAL lookup that needs no
+//       import — and that package owns a task_func called by the FINAL
+//       IDENTIFIER ALONE, i.e. a package FREE subroutine.  So
+//       `q32::coll32::qfree32(33)` keys on `q32::qfree32`, and when package
+//       `q32` declares `function int qfree32(int)` golden KEEPS the call and
+//       binds it to the PACKAGE function, not to the class method slang
+//       resolved.  (arm vb32r1 R1/R2, vb32m1 W33 — the only away-from-golden
+//       key in that arm's 44 moved keys.)
+//   (2) the literal-name fallbacks (:371-436): the component chain, the
+//       component's file contents, the ACCESS PACKAGES and finally every file
+//       content in the design, each comparing `tf->VpiName() == name` against
+//       names only an OUT-OF-BODY header ever registers — built by
+//       CompileStmt.cpp:2600 / :2692 as
+//       `SymName(Child(Class_type)) + "::" + SymName(suffixname)`, the class
+//       identifier AS WRITTEN in that header.  So a qualifier whose TEXT
+//       equals ANOTHER class's name hits that other class's registration.
+//       (arm vb32r2 S1: a `typedef realq32 aliasq32` inside `realq32` shadows
+//       a $unit class `aliasq32` that has an out-of-body `dv32`; golden keeps
+//       the call.  arm vb32r3 D2: the same through a WILDCARD-IMPORTED
+//       package.)
+//
+// REACHABILITY IS PART OF THE RULE, and a global registry gets it WRONG: arm
+// vb32r3 D1 puts the decoy class in a package `pcall32` does NOT import, and
+// golden DEGRADES there — Surelog never reaches an unaccessed package's
+// task_funcs.  (Measured: a first cut of this clause that scanned every
+// syntax tree for out-of-body headers kept D1's call and was the ONE
+// away-from-golden key it introduced.)  Looking `f12` up as a NAME from the
+// scope that ENCLOSES the defining class reproduces the frontier exactly:
+// `lookupName` walks that scope and its parents and honours its imports, so
+// D2 is found, D1 is not, and a class-internal `this_type` / `alias32`
+// typedef is invisible from there (g32a1 A2/A3, vb32s1 X5).
+//
+// The found member must be DECLARED BY that class: slang's `Scope::find`
+// answers with INHERITED members too, and an inherited out-of-body method was
+// registered under the BASE's written name, never the derived one — which is
+// what golden says (g32a1 A5 `der32::bv32`, vb32m1 W5/W11, vb32s1 X1/X4,
+// g32a3 `tder32::tbt32`).  Measured: without the owner test those cells were
+// the only away-from-golden keys this clause introduced.
+bool UhdmExporter::scopedCallKeyIsAnyRegistration32v(
+    const slang::ast::Scope* qualScope32, std::string_view f12,
+    std::string_view l12) {
+    using namespace slang::ast;
+    if (f12.empty() || l12.empty())
+        return false;
+    // (1) a PACKAGE named by the first segment owning a FREE subroutine named
+    //     by the final identifier.  `find` is direct-member, exactly the
+    //     package's OWN `getTask_funcs()` that Surelog scans.
+    if (auto* pk32 = comp.getPackage(f12))
+        if (auto* fs32 = pk32->find(l12);
+            fs32 && fs32->kind == SymbolKind::Subroutine)
+            return true;
+    // (2) another CLASS of that NAME, visible from the defining class's own
+    //     scope, carrying an OUT-OF-BODY member of the final name.
+    if (!qualScope32)
+        return false;
+    auto* qs32 = qualScope32->lookupName(f12);
+    if (!qs32 || qs32->kind != SymbolKind::ClassType)
+        return false;
+    auto& qc32 = qs32->as<ClassType>();
+    auto* ms32 = qc32.find(l12);
+    // INHERITED members answer `find` on a derived class too, and an inherited
+    // out-of-body method was NOT registered under the derived name — golden's
+    // A5 cell (`der32::bv32` for a body written `base32::bv32`) degrades.
+    if (!ms32 || ms32->getParentScope() != static_cast<const Scope*>(&qc32))
+        return false;
+    if (ms32->kind == SymbolKind::MethodPrototype)
+        return ms32->as<MethodPrototypeSymbol>().getSubroutine() != nullptr;
+    if (ms32->kind == SymbolKind::Subroutine)
+        return uint32_t(ms32->as<SubroutineSymbol>().outOfBlockIndex) != 0u;
+    return false;
+}
+
 // § staticScopedRef12 — the `::`-scoped NAME behind an expression's syntax
 // node, or null when there is none.  A cast operand carries the PARENTHESES
 // (`int'(base::E1)` -> ParenthesizedExpression), so unwrap those first.
@@ -15743,7 +15826,75 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // is defined IN BODY.  uvm_top's initializer
                             // (`const uvm_root uvm_top = uvm_root::get();`) is
                             // the UVM-4's second distinguisher on that object.
-                            if (uint32_t(sub.outOfBlockIndex) != 0u) {
+                            // § classScopeCallWrittenQualifierIsLookupKey32 —
+                            // the SECOND half of the same lookup, and the one
+                            // § classScopeCallOfOutOfBodyMethodIsFuncCall26
+                            // left implicit: `getTaskFunc` is keyed on the
+                            // LITERAL STRING `<first written segment>::<final
+                            // identifier>` (Surelog CompileExpression.cpp:5268
+                            // builds `basename` from `SymName(Class_type_name)`
+                            // and `SymName(Class_scope_name)`, and
+                            // CompileExpression.cpp:349's `getTaskFunc` then
+                            // matches `tf->VpiName() == name` outright).  The
+                            // only declaration that ever registers a task_func
+                            // under a `::` name is an OUT-OF-BODY definition,
+                            // and CompileStmt.cpp:2600 / :2692 build THAT name
+                            // from the class identifier WRITTEN IN THE OUT-OF-
+                            // BODY HEADER.  So the call keeps its func_call
+                            // only when the qualifier the CALL SITE wrote is
+                            // character-for-character the DEFINING class's
+                            // name — being out-of-body is necessary, not
+                            // sufficient.
+                            //
+                            // Four spellings resolve to the same subroutine and
+                            // only the first keeps the call (g32a1/g32a2, both
+                            // views, golden read cell by cell):
+                            //   `der32::dv32(1)`       -> func_call  (A1)
+                            //   `this_type::dv32(2)`   -> ref_obj    (A2)
+                            //   `alias32::dv32(3)`     -> ref_obj    (A3)
+                            //   `der32::bv32(5)`       -> ref_obj    (A5)
+                            // A3 is a typedef of the own class and A5 writes
+                            // the DERIVED class for a method whose out-of-body
+                            // body sits in the BASE (`base32::bv32(4)`, the
+                            // same callee written with the defining class,
+                            // keeps its func_call) — neither string was ever
+                            // registered.  The corpus head is A2's shape:
+                            // `this_type::add_typewide_sequence(seq_type);` in
+                            // `uvm_sequence_library::m_add_typewide_sequence`,
+                            // where `this_type` is the class's own
+                            // `typedef uvm_sequence_library #(REQ,RSP)`.
+                            //
+                            // The PARAMETER LIST is not part of the key:
+                            // `gen32#(int,1)::gv32(seed)` keeps its func_call
+                            // (g32a2 G11/Q1/Q5) because Surelog reads only the
+                            // class-type IDENTIFIER and `splitScopedName12`
+                            // already drops the `#(...)` from `f12`.  And a
+                            // package-qualified spelling degrades for the same
+                            // reason: `q32::host32::hv32(s)` keys on
+                            // `q32::hv32`, which names no package function
+                            // (g32a2 N1), while `q32::qrun32(s)` — a real
+                            // package free function — never reaches this arm
+                            // at all (N3).
+                            //
+                            // VERIFIER CLAUSE § scopedCallKeyIsAnyRegistration32v
+                            // — `f12 == dc32` is the commonest registration of
+                            // that literal key, not the only one.  A PACKAGE
+                            // first segment owning a free subroutine of the
+                            // final identifier's name, and a qualifier whose
+                            // TEXT equals some other class with an out-of-body
+                            // method of that name, are both HITS in golden and
+                            // were both pristine-right / patched-wrong without
+                            // this OR (arms vb32r1 R1/R2, vb32m1 W33, vb32r2
+                            // S1), and vb32r3 D1 is the golden cell that
+                            // fixes its REACH.  It is only asked when this
+                            // fast path fails, which in the corpus is one
+                            // name.
+                            std::string_view dc32 = pscS->asSymbol().name;
+                            if (uint32_t(sub.outOfBlockIndex) != 0u &&
+                                (f12 == dc32 ||
+                                 scopedCallKeyIsAnyRegistration32v(
+                                     pscS->asSymbol().getParentScope(), f12,
+                                     l12))) {
                                 bool isFn26 = sub.subroutineKind ==
                                               SubroutineKind::Function;
                                 UHDM::task_func* tf26 = nullptr;

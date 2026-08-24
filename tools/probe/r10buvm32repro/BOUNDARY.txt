@@ -1,0 +1,69 @@
+r10buvm32 — THE BOUNDARY GATE
+
+bound32.sh compiled a COPY of the ENTIRE tools/probe tree with BOTH frozen
+binaries (pristine b4900a013105152c57a347bda1e33990, patched
+1e399328f1007101d1fc61edc65a0544) and asserted the uhdm-dump TEXT byte-identical,
+in FOUR configurations:
+
+  MODE=file VIEW=def    PROCESSED=3584 LISTED=3584  DIFFER=4  REJECT 138/138
+  MODE=file VIEW=elab   PROCESSED=3584 LISTED=3584  DIFFER=4  REJECT 152/152
+  MODE=dir  VIEW=def    PROCESSED=1523 LISTED=1523  DIFFER=5  REJECT 121/121
+  MODE=dir  VIEW=elab   PROCESSED=1523 LISTED=1523  DIFFER=5  REJECT 127/127
+
+PROCESSED == LISTED in all four; PRIS_REJECT == PATCHED_REJECT in all four, so
+no arm is rejected asymmetrically (the handful of segfaults are pre-existing and
+happen on BOTH binaries — the arm list rides fd 3 and every child gets
+</dev/null, so a child cannot eat the list).  MODE=dir compiles each directory's
+arms TOGETHER, which is how the subdirectory arms (sd8-12, r10v111repro/arms)
+are meant to be read; MODE=file compiles each arm alone.
+
+DIFFERING ARMS, all of them:
+
+1. ./r10buvm32repro (g32a1.sv, g32a2.sv)      — THIS PASS'S OWN GOLDENS.
+   Expected.  Measured against golden in §2 of README.md: every cell of the law
+   moves TO golden, none away.
+
+2. ./r10v111repro/arms/v111_b2.sv
+   ./r10v111repro/arms/v111_b7.sv             — uvm111's verifier arms, the
+   BINDING face of this same family (R-bind111).  They move because they write
+   exactly the two spellings this law covers:
+       v111_b7  `int c7 = AliasA7::shared7();`      a TYPEDEF ALIAS as the
+                                                    scope head (README cell A3)
+       v111_b2  `int q_v2 = v111b2home::Zed2::mk2();`  the pkg::Class::method
+                                                    spelling (README cell N1)
+   RE-MEASURED AGAINST GOLDEN with the OFFICIAL uhdm-cmp, each arm alone, both
+   views:
+       v111_b2   pristine 30 cmp lines / 1 head  ->  patched 0 / 0   EQUAL
+       v111_b7   pristine 30 cmp lines / 1 head  ->  patched 0 / 0   EQUAL
+   Both arms become BYTE-EQUAL to golden.  Compiled as a DIRECTORY (all seven
+   v111 arms together) the head CLEARS as well — pristine's head is
+   `ref_obj (v111b2qual::q_v2::v111b2home::mk2)`, exactly this law's cell, and
+   after the patch the head is a different, PRE-EXISTING object (`package
+   v111b3a`); the order-blind whole-dump residue comparison against golden reads
+   NEW=0 FIXED=10, so nothing moved away.
+
+3. ./r10uvm75repro  ./r10uvm76repro  ./r10v109repro   — NOT MOVERS: COINS.
+   These three differ in DIR mode only, and only in the ORDER of a package's
+   vpiTaskFunc list.  Proof, coin32.sh, the SAME PRISTINE BINARY run twice on
+   each arm:
+       r10uvm75repro  raw=16  order-blind=0
+       r10uvm76repro  raw=16  order-blind=0
+       r10v109repro   raw=16  order-blind=0
+   and pristine-vs-patched on the same arms is likewise order-blind=0.  A
+   non-zero raw diff with a zero sorted diff, reproduced with one binary against
+   itself, is the nondeterminism RESUME §9 documents (r10uvm75/76repro are named
+   as coin arms in the pass brief); it is not attributable to any patch.
+
+BIND WINDOWS.  This law changes the KIND of ONE object — a `::`-scoped call to a
+class method whose written qualifier is not the defining class's name — and, as
+golden does, drops that call's argument list.  It opens and closes no bind
+window: `classArgBindDepth12` is not touched on the degraded path, and every
+committed arm of every bind-window law (§ classArgBind12,
+§ retNameRecvCollapseArgsBindLikeBody15, § collArgNamedBlkLocalNoBind15,
+§ controlBodyNoBind28, § blkLocalSameCtrlDepthArgBinds57/64,
+§ pkgVarBindsOnlyThroughInstance88, § formalDefaultBindsLikeBody13,
+§ classInBodyRecvCallArgNoBind52, § superNewFormalBinds28, § newArrayArgNoBind16,
+uvm81's formal contest, sd10/sd12 scopedReach) lives in this tree and is
+byte-identical in all four configurations above.  The one family whose arms DO
+move — uvm111's R-bind111 — is the binding face of THIS law, and both of its
+moved arms end byte-EQUAL to golden.

@@ -1,0 +1,59 @@
+r10buvm32 — MOVER PREDICTION, written from the PRISTINE databases BEFORE the
+patched sweep ran.  (Pristine binary md5 b4900a013105152c57a347bda1e33990,
+patched 1e399328f1007101d1fc61edc65a0544; the pristine surelog sweep is the
+control byteverify.sh is diffed against.)
+
+METHOD.  r10buvm32cen ran over all 956 surelog-corpus databases in both modes
+(1573 workdir cells; 617 cells have a missing side and were COUNTED, not
+skipped).  The `SCALL` family enumerates every func_call / task_call /
+method_func_call / ref_obj whose VpiName carries a `::` — the whole population
+the two producers can disagree over.  cen32.py joined the two sides as a
+MULTISET keyed on (test, mode, span, name, home) and, for the kind question,
+re-keyed WITHOUT the span so a span shift cannot masquerade as a kind flip.
+
+RESULT (reachable cells only; unreachable objects are invisible to the judge).
+
+    IDENTICAL             7305
+    MISSING-OURS            50   (§ typeParamScopedCallRef59 / uvm_root::get
+                                  residues — NOT this law)
+    EXTRA-OURS              37   (same families, mirrored)
+    KIND (other)            10
+    CALL -> REF, this law   13   ALL ONE NAME:
+                                 `this_type::add_typewide_sequence`
+                                 golden ref_obj @413:3-413:14 (56491:… in
+                                 BuildUVMPkg), ours func_call @413:3-413:12
+                                 with the `seq_type` argument.
+
+Cross-check on OUR side alone: of every `::`-named func_call/task_call in the
+corpus, exactly three names have a first written segment that differs from the
+segment naming their bound callee's owner —
+
+    this_type::add_typewide_sequence -> uvm_sequence_library   26 objects
+    uvm_pkg::m_uvm_string_queue_join -> adpcm_pkg              12 objects
+    uvm_pkg::m_uvm_string_queue_join -> svaunit_pkg            12 objects
+
+and the last two are PACKAGE FREE FUNCTIONS, whose emitter arm requires
+`SymbolKind::ClassType` and is therefore unreachable for them.  There is not one
+UNBOUND `::`-named tf_call in the corpus, so nothing moves through the
+`pendingScopedCallBind26` path either.
+
+PREDICTED BYTE MOVERS — 9 databases, named, and NOTHING ELSE.
+(`grep -rl add_typewide_sequence` over every `slang.uhdm` in the pristine
+surelog workdir returns exactly these nine.)
+
+    default/BuildUVMPkg      testflags/BuildUVMPkg
+    default/MiniAmiq         testflags/MiniAmiq
+    default/SeqDriver        testflags/SeqDriver
+    default/SimpleUVM        testflags/SimpleUVM
+    default/Scoreboard       (testflags has no database — SKIP-NOFILE)
+
+uhdm2rtlil corpus: ZERO movers, both modes (no test in it compiles UVM, and no
+`::`-named class-method call in it has a mismatched written qualifier).
+
+PREDICTED HEAD MOVEMENT (official uhdm-cmp, pristine measured on this build):
+    SeqDriver     default/testflags   46 -> fewer, head object CHANGES
+    BuildUVMPkg   default/testflags   46 -> fewer, head object CHANGES
+    SimpleUVM 17, Scoreboard 60, MiniAmiq 60, Earlgrey_0_1 90 — the head is a
+    different object in each; those rows keep their heads and gain 2 cells of
+    agreement apiece.
+No row status conversion is predicted: all five rows stay CMP_NOTEQUAL.
