@@ -1,0 +1,444 @@
+======== g116_a / def  (golden vs PATCHED)
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+======== g116_a / elab  (golden vs PATCHED)
+1c1
+< g_elab/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_elab.uhdm: Restored design Pre-Elab: 
+320c320
+<           \_ref_obj: (work@packer_a::run_alpha::k_alpha), line:9:20, endln:9:27
+---
+>           \_ref_obj: (k_alpha), line:9:20, endln:9:27
+324d323
+<             |vpiFullName:work@packer_a::run_alpha::k_alpha
+368c367
+<           \_ref_obj: (work@packer_a::run_beta::k_beta), line:14:20, endln:14:26
+---
+>           \_ref_obj: (k_beta), line:14:20, endln:14:26
+372d370
+<             |vpiFullName:work@packer_a::run_beta::k_beta
+993a992,1023
+> \_int_var: (work@packer_a::k_alpha), line:4:21, endln:4:28
+>   |vpiParent:
+>   \_class_defn: (work@packer_a), file:g116_a.sv, line:3:1, endln:17:9
+>   |vpiTypespec:
+>   \_ref_typespec: (work@packer_a::k_alpha)
+>     |vpiParent:
+>     \_int_var: (work@packer_a::k_alpha), line:4:21, endln:4:28
+>     |vpiFullName:work@packer_a::k_alpha
+>     |vpiActual:
+>     \_int_typespec: , line:4:8, endln:4:20
+>   |vpiName:k_alpha
+>   |vpiFullName:work@packer_a::k_alpha
+>   |vpiAutomatic:1
+>   |vpiIsRandomized:1
+>   |vpiRandType:2
+>   |vpiVisibility:1
+> \_int_var: (work@packer_a::k_beta), line:5:21, endln:5:27
+>   |vpiParent:
+>   \_class_defn: (work@packer_a), file:g116_a.sv, line:3:1, endln:17:9
+>   |vpiTypespec:
+>   \_ref_typespec: (work@packer_a::k_beta)
+>     |vpiParent:
+>     \_int_var: (work@packer_a::k_beta), line:5:21, endln:5:27
+======== g116_b / def  (golden vs PATCHED)
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+======== g116_b / elab  (golden vs PATCHED)
+1c1
+< g_elab/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_elab.uhdm: Restored design Pre-Elab: 
+======== g116_c / def  (golden vs PATCHED)
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+599,612d598
+<   |vpiNet:
+<   \_logic_net: (work@top_c.depth_c), line:19:26, endln:19:33
+<     |vpiParent:
+<     \_module_inst: work@top_c (work@top_c), file:g116_c.sv, line:7:1, endln:25:10
+<     |vpiName:depth_c
+<     |vpiFullName:work@top_c.depth_c
+<     |vpiNetType:1
+<   |vpiNet:
+<   \_logic_net: (work@top_c.std), line:22:10, endln:22:53
+<     |vpiParent:
+<     \_module_inst: work@top_c (work@top_c), file:g116_c.sv, line:7:1, endln:25:10
+<     |vpiName:std
+<     |vpiFullName:work@top_c.std
+<     |vpiNetType:1
+649c635
+<           \_hier_path: (h_one.randomize), line:15:10, endln:15:27
+---
+>           \_hier_path: (h_one.randomize), line:15:10, endln:15:25
+655c641
+<               \_hier_path: (h_one.randomize), line:15:10, endln:15:27
+---
+>               \_hier_path: (h_one.randomize), line:15:10, endln:15:25
+660c646
+<               \_hier_path: (h_one.randomize), line:15:10, endln:15:27
+---
+>               \_hier_path: (h_one.randomize), line:15:10, endln:15:25
+686c672
+<           \_hier_path: (h_one), line:17:10, endln:17:53
+---
+>           \_hier_path: (h_one.randomize), line:17:10, endln:17:25
+690c676
+<             \_ref_obj: (work@top_c.h_one), line:17:10, endln:17:15
+---
+>             \_ref_obj: (h_one), line:17:10, endln:17:15
+692c678
+======== g116_c / elab  (golden vs PATCHED)
+1c1
+< g_elab/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_elab.uhdm: Restored design Pre-Elab: 
+600,613d599
+<   |vpiNet:
+<   \_logic_net: (work@top_c.depth_c), line:19:26, endln:19:33
+<     |vpiParent:
+<     \_module_inst: work@top_c (work@top_c), file:g116_c.sv, line:7:1, endln:25:10
+<     |vpiName:depth_c
+<     |vpiFullName:work@top_c.depth_c
+<     |vpiNetType:1
+<   |vpiNet:
+<   \_logic_net: (work@top_c.std), line:22:10, endln:22:53
+<     |vpiParent:
+<     \_module_inst: work@top_c (work@top_c), file:g116_c.sv, line:7:1, endln:25:10
+<     |vpiName:std
+<     |vpiFullName:work@top_c.std
+<     |vpiNetType:1
+650c636
+<           \_hier_path: (h_one.randomize), line:15:10, endln:15:27
+---
+>           \_hier_path: (h_one.randomize), line:15:10, endln:15:25
+656c642
+<               \_hier_path: (h_one.randomize), line:15:10, endln:15:27
+---
+>               \_hier_path: (h_one.randomize), line:15:10, endln:15:25
+661c647
+<               \_hier_path: (h_one.randomize), line:15:10, endln:15:27
+---
+>               \_hier_path: (h_one.randomize), line:15:10, endln:15:25
+687c673
+<           \_hier_path: (h_one), line:17:10, endln:17:53
+---
+>           \_hier_path: (h_one.randomize), line:17:10, endln:17:25
+691c677
+<             \_ref_obj: (work@top_c.h_one), line:17:10, endln:17:15
+---
+>             \_ref_obj: (h_one), line:17:10, endln:17:15
+693c679
+======== g116_d / def  (golden vs PATCHED)
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+687,689c687,698
+<       \_func_call: , line:14:11, endln:14:56
+<         |vpiParent:
+<         \_begin: (work@walker_d::march), line:10:5, endln:10:19
+---
+>       \_method_func_call: (randomize), line:14:11, endln:14:56
+>         |vpiArgument:
+>         \_ref_obj: (step_d), line:14:21, endln:14:27
+>           |vpiParent:
+>           \_method_func_call: (randomize), line:14:11, endln:14:56
+>           |vpiName:step_d
+>         |vpiName:randomize
+>         |vpiWith:
+>         \_constraint: (work@walker_d::march)
+>           |vpiParent:
+>           \_begin: (work@walker_d::march), line:10:5, endln:10:19
+>           |vpiFullName:work@walker_d::march
+======== g116_d / elab  (golden vs PATCHED)
+1c1
+< g_elab/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_elab.uhdm: Restored design Pre-Elab: 
+618c618
+<             \_ref_obj: (work@walker_d::march::step_d), line:11:23, endln:11:29
+---
+>             \_ref_obj: (step_d), line:11:23, endln:11:29
+622d621
+<               |vpiFullName:work@walker_d::march::step_d
+715c714
+<       \_func_call: , line:14:11, endln:14:56
+---
+>       \_method_func_call: (randomize), line:14:11, endln:14:56
+717a717,729
+>         |vpiArgument:
+>         \_ref_obj: (step_d), line:14:21, endln:14:27
+>           |vpiParent:
+>           \_method_func_call: (randomize), line:14:11, endln:14:56
+>           |vpiName:step_d
+>           |vpiActual:
+>           \_int_var: (work@walker_d::step_d), line:5:12, endln:5:18
+>         |vpiName:randomize
+>         |vpiWith:
+>         \_constraint: (work@walker_d::march)
+>           |vpiParent:
+>           \_method_func_call: (randomize), line:14:11, endln:14:56
+>           |vpiFullName:work@walker_d::march
+1058a1071,1087
+> \_int_var: (work@walker_d::step_d), line:5:12, endln:5:18
+>   |vpiParent:
+>   \_class_defn: (work@walker_d), file:g116_d.sv, line:4:1, endln:16:9
+>   |vpiTypespec:
+>   \_ref_typespec: (work@walker_d::step_d)
+>     |vpiParent:
+>     \_int_var: (work@walker_d::step_d), line:5:12, endln:5:18
+>     |vpiFullName:work@walker_d::step_d
+>     |vpiActual:
+>     \_int_typespec: , line:5:8, endln:5:11
+>   |vpiName:step_d
+======== g116_e / def  (golden vs PATCHED)
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+======== g116_e / elab  (golden vs PATCHED)
+1c1
+< g_elab/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_elab.uhdm: Restored design Pre-Elab: 
+992c992
+<       \_ref_typespec: (work@top_e.randomize.seed_e)
+---
+>       \_ref_typespec: (pkg_e::randomize::seed_e)
+995c995
+<         |vpiFullName:work@top_e.randomize.seed_e
+---
+>         |vpiFullName:pkg_e::randomize::seed_e
+1010c1010
+<         \_ref_obj: (work@top_e.randomize.seed_e), line:7:17, endln:7:23
+---
+>         \_ref_obj: (pkg_e::randomize::seed_e), line:7:17, endln:7:23
+1014c1014
+<           |vpiFullName:work@top_e.randomize.seed_e
+---
+>           |vpiFullName:pkg_e::randomize::seed_e
+1020c1020
+<       \_ref_obj: (work@top_e.randomize.randomize), line:7:5, endln:7:14
+---
+>       \_ref_obj: (pkg_e::randomize::randomize), line:7:5, endln:7:14
+1024c1024
+<         |vpiFullName:work@top_e.randomize.randomize
+---
+>         |vpiFullName:pkg_e::randomize::randomize
+1123,1130d1122
+< \_int_typespec: , line:6:22, endln:6:25
+<   |vpiInstance:
+<   \_package: pkg_e (pkg_e::), file:g116_e.sv, line:5:1, endln:9:11
+<   |vpiSigned:1
+< \_int_typespec: , line:6:36, endln:6:39
+<   |vpiInstance:
+<   \_package: pkg_e (pkg_e::), file:g116_e.sv, line:5:1, endln:9:11
+<   |vpiSigned:1
+1183a1176,1183
+> \_int_typespec: , line:6:22, endln:6:25
+>   |vpiInstance:
+======== g116_f / def  (golden vs PATCHED)
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+345,346d344
+<         |vpiParent:
+<         \_if_stmt: , line:15:5, endln:16:17
+348c346
+<         \_ref_obj: (work@picker_f::two::slot_f), line:15:19, endln:15:25
+---
+>         \_ref_obj: (slot_f), line:15:19, endln:15:25
+352d349
+<           |vpiFullName:work@picker_f::two::slot_f
+492,493d488
+<           |vpiParent:
+<           \_operation: , line:26:13, endln:26:59
+495c490
+<           \_ref_obj: (work@picker_f::five::slot_f), line:26:23, endln:26:29
+---
+>           \_ref_obj: (slot_f), line:26:23, endln:26:29
+499d493
+<             |vpiFullName:work@picker_f::five::slot_f
+504c498
+<             \_assignment: , line:26:5, endln:26:59
+---
+>             \_operation: , line:26:13, endln:26:59
+======== g116_f / elab  (golden vs PATCHED)
+1c1
+< g_elab/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_elab.uhdm: Restored design Pre-Elab: 
+306c306
+<           \_ref_obj: (work@picker_f::one::slot_f), line:11:20, endln:11:26
+---
+>           \_ref_obj: (slot_f), line:11:20, endln:11:26
+310d309
+<             |vpiFullName:work@picker_f::one::slot_f
+356c355
+<         \_ref_obj: (work@picker_f::two::slot_f), line:15:19, endln:15:25
+---
+>         \_ref_obj: (slot_f), line:15:19, endln:15:25
+360d358
+<           |vpiFullName:work@picker_f::two::slot_f
+408c406
+<         \_ref_obj: (work@picker_f::three::slot_f), line:19:23, endln:19:29
+---
+>         \_ref_obj: (slot_f), line:19:23, endln:19:29
+412d409
+<           |vpiFullName:work@picker_f::three::slot_f
+451c448
+<           \_ref_obj: (work@picker_f::four::slot_f), line:22:23, endln:22:29
+---
+>           \_ref_obj: (slot_f), line:22:23, endln:22:29
+455d451
+<             |vpiFullName:work@picker_f::four::slot_f
+523c519
+<           \_ref_obj: (work@picker_f::five::slot_f), line:26:23, endln:26:29
+---
+>           \_ref_obj: (slot_f), line:26:23, endln:26:29
+527d522
+<             |vpiFullName:work@picker_f::five::slot_f
+1159a1155,1171
+> \_int_var: (work@picker_f::slot_f), line:7:12, endln:7:18
+>   |vpiParent:
+>   \_class_defn: (work@picker_f), file:g116_f.sv, line:6:1, endln:28:9
+>   |vpiTypespec:
+>   \_ref_typespec: (work@picker_f::slot_f)
+======== g116_g / def  (golden vs PATCHED)
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+======== g116_g / elab  (golden vs PATCHED)
+1c1
+< g_elab/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_elab.uhdm: Restored design Pre-Elab: 
+483c483
+<             \_ref_obj: (work@reader_g::span::lo_g), line:13:20, endln:13:24
+---
+>             \_ref_obj: (lo_g), line:13:20, endln:13:24
+487d486
+<               |vpiFullName:work@reader_g::span::lo_g
+550c549
+<             \_ref_obj: (work@reader_g::span::hi_g), line:15:26, endln:15:30
+---
+>             \_ref_obj: (hi_g), line:15:26, endln:15:30
+554d552
+<               |vpiFullName:work@reader_g::span::hi_g
+597c595
+<             \_ref_obj: (work@reader_g::span::hi_g), line:17:20, endln:17:24
+---
+>             \_ref_obj: (hi_g), line:17:20, endln:17:24
+601d598
+<               |vpiFullName:work@reader_g::span::hi_g
+1108,1117d1104
+< \_int_typespec: , line:11:5, endln:11:8
+<   |vpiSigned:1
+< \_class_typespec: (reader_g), line:22:3, endln:22:11
+<   |vpiName:reader_g
+<   |vpiClassDefn:
+<   \_class_defn: (work@reader_g), file:g116_g.sv, line:6:1, endln:20:9
+< \_int_typespec: , line:7:8, endln:7:11
+<   |vpiParent:
+<   \_int_var: (work@reader_g::lo_g), line:7:12, endln:7:16
+<   |vpiSigned:1
+1135,1138d1121
+< \_int_typespec: , line:8:8, endln:8:11
+<   |vpiParent:
+<   \_int_var: (work@reader_g::hi_g), line:8:12, endln:8:16
+<   |vpiSigned:1
+1155a1139,1152
+> \_int_typespec: , line:11:5, endln:11:8
+======== g116_h / def  (golden vs PATCHED)
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+======== g116_h / elab  (golden vs PATCHED)
+1c1
+< g_elab/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_elab.uhdm: Restored design Pre-Elab: 
+190c190
+<             \_ref_obj: (work@lister_h::go::n_two), line:13:27, endln:13:32
+---
+>             \_ref_obj: (n_two), line:13:27, endln:13:32
+194d193
+<               |vpiFullName:work@lister_h::go::n_two
+284c283
+<             \_ref_obj: (work@lister_h::go::n_three), line:15:34, endln:15:41
+---
+>             \_ref_obj: (n_three), line:15:34, endln:15:41
+288d286
+<               |vpiFullName:work@lister_h::go::n_three
+412c410
+<             \_ref_obj: (work@lister_h::go::n_four), line:17:43, endln:17:49
+---
+>             \_ref_obj: (n_four), line:17:43, endln:17:49
+416d413
+<               |vpiFullName:work@lister_h::go::n_four
+1323a1321,1388
+> \_int_var: (work@lister_h::n_one), line:7:12, endln:7:17
+>   |vpiParent:
+>   \_class_defn: (work@lister_h), file:g116_h.sv, line:6:1, endln:24:9
+>   |vpiTypespec:
+>   \_ref_typespec: (work@lister_h::n_one)
+>     |vpiParent:
+>     \_int_var: (work@lister_h::n_one), line:7:12, endln:7:17
+>     |vpiFullName:work@lister_h::n_one
+>     |vpiActual:
+>     \_int_typespec: , line:7:8, endln:7:11
+>   |vpiName:n_one
+>   |vpiFullName:work@lister_h::n_one
+>   |vpiSigned:1
+>   |vpiAutomatic:1
+>   |vpiIsRandomized:1
+>   |vpiRandType:2
+>   |vpiVisibility:1
+======== g116_i / def  (golden vs PATCHED)
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+315,320d314
+<         |vpiRhs:
+<         \_ref_obj: (work@prober_i::probe::randomize), line:12:11, endln:12:20
+<           |vpiParent:
+<           \_assignment: , line:12:5, endln:12:20
+<           |vpiName:randomize
+<           |vpiFullName:work@prober_i::probe::randomize
+374,375d367
+<             |vpiParent:
+<             \_operation: , line:14:11, endln:14:51
+======== g116_i / elab  (golden vs PATCHED)
+1c1
+< g_elab/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_elab.uhdm: Restored design Pre-Elab: 
+328,333d327
+<         |vpiRhs:
+<         \_ref_obj: (work@prober_i::probe::randomize), line:12:11, endln:12:20
+<           |vpiParent:
+<           \_assignment: , line:12:5, endln:12:20
+<           |vpiName:randomize
+<           |vpiFullName:work@prober_i::probe::randomize
+1227,1232d1220
+<       |vpiRhs:
+<       \_ref_obj: (work@prober_i::probe::randomize), line:12:11, endln:12:20
+<         |vpiParent:
+<         \_assignment: , line:12:5, endln:12:20
+<         |vpiName:randomize
+<         |vpiFullName:work@prober_i::probe::randomize
+1286,1287d1273
+<           |vpiParent:
+<           \_operation: , line:14:11, endln:14:51

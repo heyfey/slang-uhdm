@@ -1,0 +1,57 @@
+r10uvm116 — THE MOVER PREDICTION, written from PRISTINE databases BEFORE the
+patched sweep (RESUME §7: every byte mover must be predicted BY NAME).
+
+METHOD (two independent readings, both from pristine artefacts only):
+
+ 1. WHICH DATABASES CAN MOVE AT ALL.  A scope-form randomize always mints an
+    object named `randomize`, so the symbol table of any database that has one
+    contains that string.  Scanning every pristine `slang.uhdm` for it:
+
+        surelog corpus     11 of 1573 databases
+        uhdm2rtlil corpus   0 of 1462 databases
+
+    Surelog corpus hits (test/mode):
+        BuildUVMPkg     default, testflags
+        MiniAmiq        default, testflags
+        Scoreboard      default            (testflags has no golden -> no cell)
+        SeqDriver       default, testflags
+        SimpleConstraint default, testflags
+        SimpleUVM       default, testflags
+
+ 2. WHICH OF THOSE ACTUALLY CARRY THE LAW'S POPULATION.  cen116.py over both
+    sides of each cell (see CENSUS.pristine.txt) separates the scope form from
+    the member form.  The member form is `arguments()[0] IS the receiver`,
+    which is visible in the pristine database itself: the first path element's
+    span STARTS where the hier_path starts.  The scope form's does not.
+
+PREDICTION — surelog corpus, both modes:
+
+  MOVES (5 tests, 9 cells):
+    SeqDriver    default+testflags   3 scope-with sites + 4 scope-no-with sites
+    SimpleUVM    default+testflags   3 scope-with          + 2 scope-no-with
+    Scoreboard   default             3 scope-with          + 2 scope-no-with
+    MiniAmiq     default+testflags   3 scope-with          + 4 scope-no-with
+    BuildUVMPkg  default+testflags   0 scope-with          + 2 scope-no-with
+
+  DOES NOT MOVE (named, because it DOES contain `randomize`):
+    SimpleConstraint default+testflags — its two randomize calls
+      (`frame.randomize()` at SimpleConstraint 57:12 and 73:10) are MEMBER
+      form.  The fence must leave them byte-identical; if this row moves the
+      fence is wrong.
+
+  DOES NOT MOVE: the other 788 surelog tests (no `randomize` symbol at all).
+
+PREDICTION — uhdm2rtlil corpus, both modes: NO DATABASE MOVES.  Not one of the
+1462 pristine databases contains the symbol `randomize`.
+
+  scope-with sites, by source:
+    uvm-1.2 src/seq/uvm_sequence_builtin.svh:87   randomize(l_count) with {…}
+    uvm-1.2 src/seq/uvm_sequence_builtin.svh:97   randomize(l_kind)  with {…}
+    uvm-1.2 src/seq/uvm_sequence_builtin.svh:196  randomize(l_kind)  with {…}  <- THE HEAD
+  scope-no-with sites, by source:
+    uvm-1.2 src/seq/uvm_sequence_library.svh:673  randomize(select_rand)
+    uvm-1.2 src/seq/uvm_sequence_library.svh:691  randomize(select_randc)
+    (each appears once per PACKAGE that compiles the UVM sources: uvm_pkg
+     alone in SimpleUVM/Scoreboard/BuildUVMPkg, uvm_pkg + svaunit_pkg in
+     MiniAmiq, uvm_pkg + adpcm_pkg in SeqDriver — which is why the site counts
+     above differ between rows.)

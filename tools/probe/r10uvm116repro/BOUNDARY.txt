@@ -1,0 +1,70 @@
+r10uvm116 — THE WIDE BOUNDARY GATE (bound116.sh)
+
+Every `.sv` and `.v` arm under a COPY of the WHOLE probe tree — no path filter,
+so every earlier pass's arms are in: the uvm89 § hpTrailSelIdxDecompiled89 arms
+(rendersAsItself89 / selGroup89 / the ElementSelect chain, and the boundary
+mover v81h_lvbase), uvm77-79's hier_path joint/mockup arms, buvm14's
+§ builtinRecvMultiDimStepIsBitSelectChain14, uvm84/85's this./super. arms,
+uvm82-91, buvm3-15 and the sd8-12 SUBDIRECTORY arms.
+
+Guards (each one an ops trap this campaign has paid for): the arm list rides
+fd 3 so a child that reads stdin cannot eat it; every child gets `</dev/null`;
+PROCESSED is asserted against the list length; scratch is keyed on the
+RELATIVE path (three different `dut.sv` exist in the tree); uhdm-dump's
+`Restored design` banner is normalised away.
+
+  RUN                       PROCESSED  LISTED  DIFFER  PRIS_REJECT  PATCHED_REJECT
+  MODE=file VIEW=def             3591    3591      10          138             138
+  MODE=file VIEW=elab            3591    3591      10          152             152
+  MODE=dir  VIEW=def             1523    1523       7          121             121
+
+No ASYMMETRIC reject in any run (`asym.txt` empty in all three): not one arm
+changed which side compiles it.
+
+MODE=file, both views — the SAME ten arms:
+
+  THIS PASS'S OWN (7)
+    ./r10uvm116repro/g116_a.sv  g116_b.sv  g116_d.sv  g116_f.sv  g116_g.sv
+    ./r10uvm116repro/g116_h.sv  g116_i.sv
+    g116_c.sv (the member form + std::randomize) and g116_e.sv (a user function
+    NAMED randomize) do NOT move — the fence's positive control, and the reason
+    the gate can be seen to hold rather than merely asserted.
+
+  AN EARLIER PASS'S ARM, RE-MEASURED AGAINST GOLDEN (2 — the same file twice)
+    ./r10svs2repro/w4_classbuiltin.sv
+    ./r10uvm77repro/v77w4_classbuiltin.sv
+    Both move at EXACTLY ONE object, line 16 `r = r + randomize();`:
+        + func_call: (randomize), line:16:14, endln:16:25
+        +   vpiParent operation @16:10-16:25
+        +   vpiName randomize
+    Surelog's golden for that arm holds
+        func_call: (randomize), line:16:14, endln:16:25   vpiParent operation
+    — the addition is BYTE-IDENTICAL to golden, and pristine emitted nothing
+    there at all.  Line 15's parens-less `r = randomize;` is UNCHANGED (the
+    § parensLessScopeRandomizeIsRefObj116 disjunct; residue R6), and lines
+    17/18's `this.randomize` pair is UNCHANGED (§ classMethodParensLessStepIsRefObj77's
+    own residues).  MOVED TOWARD GOLDEN, one object, nothing else.
+
+  NOT THIS PASS (1)
+    ./r10buvm22repro/g22.sv — README residue R5: `typedef C22 ka_cls_t[string];`
+    at :70 emits its range as `[0 : N-1]` where N is an ADDRESS (22408601 =
+    0x155ed99 pristine, 22412697 = 0x155fd99 patched, one page apart).
+    Deterministic per binary over repeated runs, present at 09dec24, perturbed
+    by ANY change that shifts the image.  It reaches no corpus database.
+
+MODE=dir adds four directories that MODE=file does not, and all four are the
+documented per-run ORDER COIN (RESUME §9: the `vpiTaskFunc` list order flip
+under slang's parallel parse), not movers:
+
+    ./r10uvm75repro  ./r10uvm76repro  ./r10uvm88repro  ./r10v109repro
+      order-blind diff (both dumps SORTED): 0 lines, all four.
+      Positive proof it is the coin and not the patch: the PRISTINE binary
+      alone, run three times on r10uvm75repro's directory, produced three
+      DIFFERENT dumps (md5 483fd677…, 6014e35a…, 1c1219eb…).
+
+    ./r10uvm77repro   the w4 arm above, one object, order-blind diff 10 lines
+                      = exactly that object.
+    ./r10buvm22repro  R5, as above.
+    ./r10uvm116repro  this pass's own arms.
+    ./r10svs2repro    BOTH-REJECT in dir mode (its arms conflict when compiled
+                      together) — symmetric, and its file-mode result is above.

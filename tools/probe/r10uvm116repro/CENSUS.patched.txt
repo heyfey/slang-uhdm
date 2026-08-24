@@ -1,0 +1,321 @@
+r10uvm116 - the PATCHED randomize census, same instruments, same cells.
+
+======== BuildUVMPkg.default.txt
+GOLD-ONLY	CONS|uvm_pkg::uvm_sequence_library::execute@-	G={'constraint(uvm_pkg::uvm_sequence_library::execute)@-': 4}
+DIFFER	HP|uvm_pkg::uvm_mem_mam::request_region@70718:9
+    G= {'hier_path(alloc.randomize)@70718:9-70718:26{vpiActual=ref_obj(alloc)@70718:9-70718:14,vpiActual=method_func_call(randomize)@70718:15-70718:24}': 2}
+    O= {'hier_path(alloc.randomize)@70718:9-70718:24{vpiActual=ref_obj(alloc)@70718:9-70718:14,vpiActual=method_func_call(randomize)@70718:15-70718:24}': 2}
+OURS-ONLY	HP|uvm_pkg::uvm_sequence_library::execute@56967:12	O={'hier_path(seq_or_item.randomize)@56967:12-56967:33{vpiActual=ref_obj(seq_or_item)@56967:12-56967:23,vpiActual=method_func_call(randomize)@56967:24-56967:33}': 2}
+OURS-ONLY	HP|uvm_pkg::uvm_sequence_library::execute@56980:14	O={'hier_path(seq_or_item.randomize)@56980:14-56980:35{vpiActual=ref_obj(seq_or_item)@56980:14-56980:25,vpiActual=method_func_call(randomize)@56980:26-56980:35}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_phase_sequence@53608:39
+    G= {'hier_path(seq.randomize)@53608:39-53608:54{vpiActual=ref_obj(seq)@53608:39-53608:42,vpiActual=method_func_call(randomize)@53608:43-53608:52}': 2}
+    O= {'hier_path(seq.randomize)@53608:39-53608:52{vpiActual=ref_obj(seq)@53608:39-53608:42,vpiActual=method_func_call(randomize)@53608:43-53608:52}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_param_base::send_request@54006:12
+    G= {'hier_path(param_t.randomize)@54006:12-54006:31{vpiActual=ref_obj(param_t)@54006:12-54006:19,vpiActual=method_func_call(randomize)@54006:20-54006:29}': 2}
+    O= {'hier_path(param_t.randomize)@54006:12-54006:29{vpiActual=ref_obj(param_t)@54006:12-54006:19,vpiActual=method_func_call(randomize)@54006:20-54006:29}': 2}
+OURS-ONLY	MFC|seq_or_item.randomize@56967:24	O={'method_func_call(randomize)@56967:24-56967:33': 2}
+OURS-ONLY	MFC|seq_or_item.randomize@56980:26	O={'method_func_call(randomize)@56980:26-56980:35': 2}
+GOLD-ONLY	MFC|seq_or_item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_sequence_library::execute)@-}': 4}
+-- AGREE=26 DIFFER=3 GOLD-ONLY=8 OURS-ONLY=8
+
+======== BuildUVMPkg.testflags.txt
+GOLD-ONLY	CONS|uvm_pkg::uvm_sequence_library::execute@-	G={'constraint(uvm_pkg::uvm_sequence_library::execute)@-': 4}
+DIFFER	HP|uvm_pkg::uvm_mem_mam::request_region@70718:9
+    G= {'hier_path(alloc.randomize)@70718:9-70718:26{vpiActual=ref_obj(alloc)@70718:9-70718:14,vpiActual=method_func_call(randomize)@70718:15-70718:24}': 2}
+    O= {'hier_path(alloc.randomize)@70718:9-70718:24{vpiActual=ref_obj(alloc)@70718:9-70718:14,vpiActual=method_func_call(randomize)@70718:15-70718:24}': 2}
+OURS-ONLY	HP|uvm_pkg::uvm_sequence_library::execute@56967:12	O={'hier_path(seq_or_item.randomize)@56967:12-56967:33{vpiActual=ref_obj(seq_or_item)@56967:12-56967:23,vpiActual=method_func_call(randomize)@56967:24-56967:33}': 2}
+OURS-ONLY	HP|uvm_pkg::uvm_sequence_library::execute@56980:14	O={'hier_path(seq_or_item.randomize)@56980:14-56980:35{vpiActual=ref_obj(seq_or_item)@56980:14-56980:25,vpiActual=method_func_call(randomize)@56980:26-56980:35}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_phase_sequence@53608:39
+    G= {'hier_path(seq.randomize)@53608:39-53608:54{vpiActual=ref_obj(seq)@53608:39-53608:42,vpiActual=method_func_call(randomize)@53608:43-53608:52}': 2}
+    O= {'hier_path(seq.randomize)@53608:39-53608:52{vpiActual=ref_obj(seq)@53608:39-53608:42,vpiActual=method_func_call(randomize)@53608:43-53608:52}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_param_base::send_request@54006:12
+    G= {'hier_path(param_t.randomize)@54006:12-54006:31{vpiActual=ref_obj(param_t)@54006:12-54006:19,vpiActual=method_func_call(randomize)@54006:20-54006:29}': 2}
+    O= {'hier_path(param_t.randomize)@54006:12-54006:29{vpiActual=ref_obj(param_t)@54006:12-54006:19,vpiActual=method_func_call(randomize)@54006:20-54006:29}': 2}
+OURS-ONLY	MFC|seq_or_item.randomize@56967:24	O={'method_func_call(randomize)@56967:24-56967:33': 2}
+OURS-ONLY	MFC|seq_or_item.randomize@56980:26	O={'method_func_call(randomize)@56980:26-56980:35': 2}
+GOLD-ONLY	MFC|seq_or_item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_sequence_library::execute)@-}': 4}
+-- AGREE=26 DIFFER=3 GOLD-ONLY=8 OURS-ONLY=8
+
+======== MiniAmiq.default.txt
+GOLD-ONLY	CONS|svaunit_pkg::uvm_sequence_library::execute::seq_or_item@-	G={'constraint(svaunit_pkg::uvm_sequence_library::execute::seq_or_item)@-': 2}
+GOLD-ONLY	CONS|uvm_pkg::uvm_sequence_library::execute@-	G={'constraint(uvm_pkg::uvm_sequence_library::execute)@-': 2}
+GOLD-ONLY	CONS|uvm_pkg::uvm_simple_sequence::body@-	G={'constraint(uvm_pkg::uvm_simple_sequence::body)@-': 1}
+DIFFER	HP|svaunit_pkg::svaunit_sequence_test::test@62:11
+    G= {'hier_path(seq.randomize)@62:11-62:26{vpiActual=ref_obj(seq)@62:11-62:14,vpiActual=method_func_call(randomize)@62:15-62:24}': 1}
+    O= {'hier_path(seq.randomize)@62:11-62:24{vpiActual=ref_obj(seq)@62:11-62:14,vpiActual=method_func_call(randomize)@62:15-62:24}': 1}
+DIFFER	HP|svaunit_pkg::uvm_mem_mam::request_region@768:9
+    G= {'hier_path(alloc.randomize)@768:9-768:26{vpiActual=ref_obj(alloc)@768:9-768:14{vpiActual=io_decl(alloc)@756:71-756:76},vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+    O= {'hier_path(alloc.randomize)@768:9-768:24{vpiActual=ref_obj(alloc)@768:9-768:14{vpiActual=io_decl(alloc)@756:71-756:76},vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+OURS-ONLY	HP|svaunit_pkg::uvm_sequence_library::execute@299:54	O={'hier_path(seq_or_item.randomize)@299:54-299:75{vpiActual=ref_obj(seq_or_item)@299:54-299:65{vpiActual=class_var(uvm_pkg::uvm_sequence_library::execute::seq_or_item)@752:21-752:32},vpiActual=method_func_call(randomize)@299:66-778:9}': 2}
+DIFFER	HP|svaunit_pkg::uvm_sequencer_base::start_default_sequence@1662:10
+    G= {'hier_path(m_seq.randomize)@1662:10-1662:27{vpiActual=ref_obj(m_seq)@1662:10-1662:15{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_default_sequence::m_seq)@1603:21-1603:26},vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+    O= {'hier_path(m_seq.randomize)@1662:10-1662:25{vpiActual=ref_obj(m_seq)@1662:10-1662:15{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_default_sequence::m_seq)@1603:21-1603:26},vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+DIFFER	HP|svaunit_pkg::uvm_sequencer_base::start_phase_sequence@1499:33
+    G= {'hier_path(seq.randomize)@1499:33-1499:48{vpiActual=ref_obj(seq)@1499:33-1499:36{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_phase_sequence::seq)@1435:32-1435:35},vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+    O= {'hier_path(seq.randomize)@1499:33-1499:46{vpiActual=ref_obj(seq)@1499:33-1499:36{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_phase_sequence::seq)@1435:32-1435:35},vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+DIFFER	HP|svaunit_pkg::uvm_sequencer_param_base::send_request@283:12
+    G= {'hier_path(param_t.randomize)@283:12-283:31{vpiActual=ref_obj(param_t)@283:12-283:19{vpiActual=ref_var(uvm_pkg::uvm_sequencer_param_base::send_request::param_t)@270:7-270:14},vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+    O= {'hier_path(param_t.randomize)@283:12-283:29{vpiActual=ref_obj(param_t)@283:12-283:19{vpiActual=ref_var(uvm_pkg::uvm_sequencer_param_base::send_request::param_t)@270:7-270:14},vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+DIFFER	HP|uvm_pkg::uvm_mem_mam::request_region@768:9
+    G= {'hier_path(alloc.randomize)@768:9-768:26{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+    O= {'hier_path(alloc.randomize)@768:9-768:24{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+DIFFER	HP|uvm_pkg::uvm_random_stimulus::generate_stimulus@105:14
+    G= {'hier_path(t.randomize)@105:14-105:27{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+    O= {'hier_path(t.randomize)@105:14-105:25{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+DIFFER	HP|uvm_pkg::uvm_sequence_base::do_sequence_kind@1333:9
+    G= {'hier_path(m_seq.randomize)@1333:9-1333:26{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+    O= {'hier_path(m_seq.randomize)@1333:9-1333:24{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+OURS-ONLY	HP|uvm_pkg::uvm_sequence_library::execute@299:54	O={'hier_path(seq_or_item.randomize)@299:54-299:75{vpiActual=ref_obj(seq_or_item)@299:54-299:65,vpiActual=method_func_call(randomize)@299:66-778:9}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_default_sequence@1662:10
+    G= {'hier_path(m_seq.randomize)@1662:10-1662:27{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+    O= {'hier_path(m_seq.randomize)@1662:10-1662:25{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_phase_sequence@1499:33
+    G= {'hier_path(seq.randomize)@1499:33-1499:48{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+    O= {'hier_path(seq.randomize)@1499:33-1499:46{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_param_base::send_request@283:12
+    G= {'hier_path(param_t.randomize)@283:12-283:31{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+    O= {'hier_path(param_t.randomize)@283:12-283:29{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+OURS-ONLY	HP|uvm_pkg::uvm_simple_sequence::body@204:54	O={'hier_path(item.randomize)@204:54-204:68{vpiActual=ref_obj(item)@204:54-204:58,vpiActual=method_func_call(randomize)@204:59-281:9}': 1}
+OURS-ONLY	MFC|item.randomize@204:59	O={'method_func_call(randomize)@204:59-281:9': 1}
+GOLD-ONLY	MFC|item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_simple_sequence::body)@-}': 1}
+OURS-ONLY	MFC|seq_or_item.randomize@299:66	O={'method_func_call(randomize)@299:66-778:9': 4}
+GOLD-ONLY	MFC|seq_or_item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(svaunit_pkg::uvm_sequence_library::execute::seq_or_item)@-}': 2, 'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_sequence_library::execute)@-}': 2}
+-- AGREE=61 DIFFER=11 GOLD-ONLY=10 OURS-ONLY=10
+
+======== MiniAmiq.testflags.txt
+GOLD-ONLY	CONS|svaunit_pkg::uvm_sequence_library::execute::seq_or_item@-	G={'constraint(svaunit_pkg::uvm_sequence_library::execute::seq_or_item)@-': 2}
+GOLD-ONLY	CONS|uvm_pkg::uvm_sequence_library::execute@-	G={'constraint(uvm_pkg::uvm_sequence_library::execute)@-': 2}
+GOLD-ONLY	CONS|uvm_pkg::uvm_simple_sequence::body@-	G={'constraint(uvm_pkg::uvm_simple_sequence::body)@-': 1}
+DIFFER	HP|svaunit_pkg::svaunit_sequence_test::test@62:11
+    G= {'hier_path(seq.randomize)@62:11-62:26{vpiActual=ref_obj(seq)@62:11-62:14,vpiActual=method_func_call(randomize)@62:15-62:24}': 1}
+    O= {'hier_path(seq.randomize)@62:11-62:24{vpiActual=ref_obj(seq)@62:11-62:14,vpiActual=method_func_call(randomize)@62:15-62:24}': 1}
+DIFFER	HP|svaunit_pkg::uvm_mem_mam::request_region@768:9
+    G= {'hier_path(alloc.randomize)@768:9-768:26{vpiActual=ref_obj(alloc)@768:9-768:14{vpiActual=io_decl(alloc)@756:71-756:76},vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+    O= {'hier_path(alloc.randomize)@768:9-768:24{vpiActual=ref_obj(alloc)@768:9-768:14{vpiActual=io_decl(alloc)@756:71-756:76},vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+OURS-ONLY	HP|svaunit_pkg::uvm_sequence_library::execute@299:54	O={'hier_path(seq_or_item.randomize)@299:54-299:75{vpiActual=ref_obj(seq_or_item)@299:54-299:65{vpiActual=class_var(uvm_pkg::uvm_sequence_library::execute::seq_or_item)@752:21-752:32},vpiActual=method_func_call(randomize)@299:66-778:9}': 2}
+DIFFER	HP|svaunit_pkg::uvm_sequencer_base::start_default_sequence@1662:10
+    G= {'hier_path(m_seq.randomize)@1662:10-1662:27{vpiActual=ref_obj(m_seq)@1662:10-1662:15{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_default_sequence::m_seq)@1603:21-1603:26},vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+    O= {'hier_path(m_seq.randomize)@1662:10-1662:25{vpiActual=ref_obj(m_seq)@1662:10-1662:15{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_default_sequence::m_seq)@1603:21-1603:26},vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+DIFFER	HP|svaunit_pkg::uvm_sequencer_base::start_phase_sequence@1499:33
+    G= {'hier_path(seq.randomize)@1499:33-1499:48{vpiActual=ref_obj(seq)@1499:33-1499:36{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_phase_sequence::seq)@1435:32-1435:35},vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+    O= {'hier_path(seq.randomize)@1499:33-1499:46{vpiActual=ref_obj(seq)@1499:33-1499:36{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_phase_sequence::seq)@1435:32-1435:35},vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+DIFFER	HP|svaunit_pkg::uvm_sequencer_param_base::send_request@283:12
+    G= {'hier_path(param_t.randomize)@283:12-283:31{vpiActual=ref_obj(param_t)@283:12-283:19{vpiActual=ref_var(uvm_pkg::uvm_sequencer_param_base::send_request::param_t)@270:7-270:14},vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+    O= {'hier_path(param_t.randomize)@283:12-283:29{vpiActual=ref_obj(param_t)@283:12-283:19{vpiActual=ref_var(uvm_pkg::uvm_sequencer_param_base::send_request::param_t)@270:7-270:14},vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+DIFFER	HP|uvm_pkg::uvm_mem_mam::request_region@768:9
+    G= {'hier_path(alloc.randomize)@768:9-768:26{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+    O= {'hier_path(alloc.randomize)@768:9-768:24{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+DIFFER	HP|uvm_pkg::uvm_random_stimulus::generate_stimulus@105:14
+    G= {'hier_path(t.randomize)@105:14-105:27{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+    O= {'hier_path(t.randomize)@105:14-105:25{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+DIFFER	HP|uvm_pkg::uvm_sequence_base::do_sequence_kind@1333:9
+    G= {'hier_path(m_seq.randomize)@1333:9-1333:26{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+    O= {'hier_path(m_seq.randomize)@1333:9-1333:24{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+OURS-ONLY	HP|uvm_pkg::uvm_sequence_library::execute@299:54	O={'hier_path(seq_or_item.randomize)@299:54-299:75{vpiActual=ref_obj(seq_or_item)@299:54-299:65,vpiActual=method_func_call(randomize)@299:66-778:9}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_default_sequence@1662:10
+    G= {'hier_path(m_seq.randomize)@1662:10-1662:27{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+    O= {'hier_path(m_seq.randomize)@1662:10-1662:25{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_phase_sequence@1499:33
+    G= {'hier_path(seq.randomize)@1499:33-1499:48{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+    O= {'hier_path(seq.randomize)@1499:33-1499:46{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_param_base::send_request@283:12
+    G= {'hier_path(param_t.randomize)@283:12-283:31{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+    O= {'hier_path(param_t.randomize)@283:12-283:29{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+OURS-ONLY	HP|uvm_pkg::uvm_simple_sequence::body@204:54	O={'hier_path(item.randomize)@204:54-204:68{vpiActual=ref_obj(item)@204:54-204:58,vpiActual=method_func_call(randomize)@204:59-281:9}': 1}
+OURS-ONLY	MFC|item.randomize@204:59	O={'method_func_call(randomize)@204:59-281:9': 1}
+GOLD-ONLY	MFC|item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_simple_sequence::body)@-}': 1}
+OURS-ONLY	MFC|seq_or_item.randomize@299:66	O={'method_func_call(randomize)@299:66-778:9': 4}
+GOLD-ONLY	MFC|seq_or_item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(svaunit_pkg::uvm_sequence_library::execute::seq_or_item)@-}': 2, 'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_sequence_library::execute)@-}': 2}
+-- AGREE=61 DIFFER=11 GOLD-ONLY=10 OURS-ONLY=10
+
+======== Scoreboard.default.txt
+GOLD-ONLY	CONS|uvm_pkg::uvm_sequence_library::execute@-	G={'constraint(uvm_pkg::uvm_sequence_library::execute)@-': 2}
+GOLD-ONLY	CONS|uvm_pkg::uvm_simple_sequence::body@-	G={'constraint(uvm_pkg::uvm_simple_sequence::body)@-': 1}
+DIFFER	HP|uvm_pkg::uvm_mem_mam::request_region@768:9
+    G= {'hier_path(alloc.randomize)@768:9-768:26{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+    O= {'hier_path(alloc.randomize)@768:9-768:24{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+DIFFER	HP|uvm_pkg::uvm_random_stimulus::generate_stimulus@105:14
+    G= {'hier_path(t.randomize)@105:14-105:27{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+    O= {'hier_path(t.randomize)@105:14-105:25{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+DIFFER	HP|uvm_pkg::uvm_sequence_base::do_sequence_kind@1333:9
+    G= {'hier_path(m_seq.randomize)@1333:9-1333:26{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+    O= {'hier_path(m_seq.randomize)@1333:9-1333:24{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+OURS-ONLY	HP|uvm_pkg::uvm_sequence_library::execute@299:54	O={'hier_path(seq_or_item.randomize)@299:54-299:75{vpiActual=ref_obj(seq_or_item)@299:54-299:65,vpiActual=method_func_call(randomize)@299:66-778:9}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_default_sequence@1662:10
+    G= {'hier_path(m_seq.randomize)@1662:10-1662:27{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+    O= {'hier_path(m_seq.randomize)@1662:10-1662:25{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_phase_sequence@1499:33
+    G= {'hier_path(seq.randomize)@1499:33-1499:48{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+    O= {'hier_path(seq.randomize)@1499:33-1499:46{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_param_base::send_request@283:12
+    G= {'hier_path(param_t.randomize)@283:12-283:31{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+    O= {'hier_path(param_t.randomize)@283:12-283:29{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+OURS-ONLY	HP|uvm_pkg::uvm_simple_sequence::body@204:54	O={'hier_path(item.randomize)@204:54-204:68{vpiActual=ref_obj(item)@204:54-204:58,vpiActual=method_func_call(randomize)@204:59-281:9}': 1}
+OURS-ONLY	MFC|item.randomize@204:59	O={'method_func_call(randomize)@204:59-281:9': 1}
+GOLD-ONLY	MFC|item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_simple_sequence::body)@-}': 1}
+OURS-ONLY	MFC|seq_or_item.randomize@299:66	O={'method_func_call(randomize)@299:66-778:9': 2}
+GOLD-ONLY	MFC|seq_or_item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_sequence_library::execute)@-}': 2}
+-- AGREE=36 DIFFER=6 GOLD-ONLY=6 OURS-ONLY=6
+
+======== SeqDriver.default.txt
+GOLD-ONLY	CONS|adpcm_pkg::uvm_sequence_library::execute::seq_or_item@-	G={'constraint(adpcm_pkg::uvm_sequence_library::execute::seq_or_item)@-': 2}
+GOLD-ONLY	CONS|uvm_pkg::uvm_sequence_library::execute@-	G={'constraint(uvm_pkg::uvm_sequence_library::execute)@-': 2}
+GOLD-ONLY	CONS|uvm_pkg::uvm_simple_sequence::body@-	G={'constraint(uvm_pkg::uvm_simple_sequence::body)@-': 1}
+DIFFER	HP|adpcm_pkg::uvm_mem_mam::request_region@768:9
+    G= {'hier_path(alloc.randomize)@768:9-768:26{vpiActual=ref_obj(alloc)@768:9-768:14{vpiActual=io_decl(alloc)@756:71-756:76},vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+    O= {'hier_path(alloc.randomize)@768:9-768:24{vpiActual=ref_obj(alloc)@768:9-768:14{vpiActual=io_decl(alloc)@756:71-756:76},vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+OURS-ONLY	HP|adpcm_pkg::uvm_sequence_library::execute@299:54	O={'hier_path(seq_or_item.randomize)@299:54-299:75{vpiActual=ref_obj(seq_or_item)@299:54-299:65{vpiActual=class_var(uvm_pkg::uvm_sequence_library::execute::seq_or_item)@752:21-752:32},vpiActual=method_func_call(randomize)@299:66-778:9}': 2}
+DIFFER	HP|adpcm_pkg::uvm_sequencer_base::start_default_sequence@1662:10
+    G= {'hier_path(m_seq.randomize)@1662:10-1662:27{vpiActual=ref_obj(m_seq)@1662:10-1662:15{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_default_sequence::m_seq)@1603:21-1603:26},vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+    O= {'hier_path(m_seq.randomize)@1662:10-1662:25{vpiActual=ref_obj(m_seq)@1662:10-1662:15{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_default_sequence::m_seq)@1603:21-1603:26},vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+DIFFER	HP|adpcm_pkg::uvm_sequencer_base::start_phase_sequence@1499:33
+    G= {'hier_path(seq.randomize)@1499:33-1499:48{vpiActual=ref_obj(seq)@1499:33-1499:36{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_phase_sequence::seq)@1435:32-1435:35},vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+    O= {'hier_path(seq.randomize)@1499:33-1499:46{vpiActual=ref_obj(seq)@1499:33-1499:36{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_phase_sequence::seq)@1435:32-1435:35},vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+DIFFER	HP|adpcm_pkg::uvm_sequencer_param_base::send_request@283:12
+    G= {'hier_path(param_t.randomize)@283:12-283:31{vpiActual=ref_obj(param_t)@283:12-283:19{vpiActual=ref_var(uvm_pkg::uvm_sequencer_param_base::send_request::param_t)@270:7-270:14},vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+    O= {'hier_path(param_t.randomize)@283:12-283:29{vpiActual=ref_obj(param_t)@283:12-283:19{vpiActual=ref_var(uvm_pkg::uvm_sequencer_param_base::send_request::param_t)@270:7-270:14},vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+DIFFER	HP|uvm_pkg::uvm_mem_mam::request_region@768:9
+    G= {'hier_path(alloc.randomize)@768:9-768:26{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+    O= {'hier_path(alloc.randomize)@768:9-768:24{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+DIFFER	HP|uvm_pkg::uvm_random_stimulus::generate_stimulus@105:14
+    G= {'hier_path(t.randomize)@105:14-105:27{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+    O= {'hier_path(t.randomize)@105:14-105:25{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+DIFFER	HP|uvm_pkg::uvm_sequence_base::do_sequence_kind@1333:9
+    G= {'hier_path(m_seq.randomize)@1333:9-1333:26{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+    O= {'hier_path(m_seq.randomize)@1333:9-1333:24{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+OURS-ONLY	HP|uvm_pkg::uvm_sequence_library::execute@299:54	O={'hier_path(seq_or_item.randomize)@299:54-299:75{vpiActual=ref_obj(seq_or_item)@299:54-299:65,vpiActual=method_func_call(randomize)@299:66-778:9}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_default_sequence@1662:10
+    G= {'hier_path(m_seq.randomize)@1662:10-1662:27{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+    O= {'hier_path(m_seq.randomize)@1662:10-1662:25{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_phase_sequence@1499:33
+    G= {'hier_path(seq.randomize)@1499:33-1499:48{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+    O= {'hier_path(seq.randomize)@1499:33-1499:46{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_param_base::send_request@283:12
+    G= {'hier_path(param_t.randomize)@283:12-283:31{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+    O= {'hier_path(param_t.randomize)@283:12-283:29{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+OURS-ONLY	HP|uvm_pkg::uvm_simple_sequence::body@204:54	O={'hier_path(item.randomize)@204:54-204:68{vpiActual=ref_obj(item)@204:54-204:58,vpiActual=method_func_call(randomize)@204:59-281:9}': 1}
+OURS-ONLY	MFC|item.randomize@204:59	O={'method_func_call(randomize)@204:59-281:9': 1}
+GOLD-ONLY	MFC|item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_simple_sequence::body)@-}': 1}
+OURS-ONLY	MFC|seq_or_item.randomize@299:66	O={'method_func_call(randomize)@299:66-778:9': 4}
+GOLD-ONLY	MFC|seq_or_item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(adpcm_pkg::uvm_sequence_library::execute::seq_or_item)@-}': 2, 'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_sequence_library::execute)@-}': 2}
+-- AGREE=60 DIFFER=10 GOLD-ONLY=10 OURS-ONLY=10
+
+======== SeqDriver.testflags.txt
+GOLD-ONLY	CONS|adpcm_pkg::uvm_sequence_library::execute::seq_or_item@-	G={'constraint(adpcm_pkg::uvm_sequence_library::execute::seq_or_item)@-': 2}
+GOLD-ONLY	CONS|uvm_pkg::uvm_sequence_library::execute@-	G={'constraint(uvm_pkg::uvm_sequence_library::execute)@-': 2}
+GOLD-ONLY	CONS|uvm_pkg::uvm_simple_sequence::body@-	G={'constraint(uvm_pkg::uvm_simple_sequence::body)@-': 1}
+DIFFER	HP|adpcm_pkg::uvm_mem_mam::request_region@768:9
+    G= {'hier_path(alloc.randomize)@768:9-768:26{vpiActual=ref_obj(alloc)@768:9-768:14{vpiActual=io_decl(alloc)@756:71-756:76},vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+    O= {'hier_path(alloc.randomize)@768:9-768:24{vpiActual=ref_obj(alloc)@768:9-768:14{vpiActual=io_decl(alloc)@756:71-756:76},vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+OURS-ONLY	HP|adpcm_pkg::uvm_sequence_library::execute@299:54	O={'hier_path(seq_or_item.randomize)@299:54-299:75{vpiActual=ref_obj(seq_or_item)@299:54-299:65{vpiActual=class_var(uvm_pkg::uvm_sequence_library::execute::seq_or_item)@752:21-752:32},vpiActual=method_func_call(randomize)@299:66-778:9}': 2}
+DIFFER	HP|adpcm_pkg::uvm_sequencer_base::start_default_sequence@1662:10
+    G= {'hier_path(m_seq.randomize)@1662:10-1662:27{vpiActual=ref_obj(m_seq)@1662:10-1662:15{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_default_sequence::m_seq)@1603:21-1603:26},vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+    O= {'hier_path(m_seq.randomize)@1662:10-1662:25{vpiActual=ref_obj(m_seq)@1662:10-1662:15{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_default_sequence::m_seq)@1603:21-1603:26},vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+DIFFER	HP|adpcm_pkg::uvm_sequencer_base::start_phase_sequence@1499:33
+    G= {'hier_path(seq.randomize)@1499:33-1499:48{vpiActual=ref_obj(seq)@1499:33-1499:36{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_phase_sequence::seq)@1435:32-1435:35},vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+    O= {'hier_path(seq.randomize)@1499:33-1499:46{vpiActual=ref_obj(seq)@1499:33-1499:36{vpiActual=class_var(uvm_pkg::uvm_sequencer_base::start_phase_sequence::seq)@1435:32-1435:35},vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+DIFFER	HP|adpcm_pkg::uvm_sequencer_param_base::send_request@283:12
+    G= {'hier_path(param_t.randomize)@283:12-283:31{vpiActual=ref_obj(param_t)@283:12-283:19{vpiActual=ref_var(uvm_pkg::uvm_sequencer_param_base::send_request::param_t)@270:7-270:14},vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+    O= {'hier_path(param_t.randomize)@283:12-283:29{vpiActual=ref_obj(param_t)@283:12-283:19{vpiActual=ref_var(uvm_pkg::uvm_sequencer_param_base::send_request::param_t)@270:7-270:14},vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+DIFFER	HP|uvm_pkg::uvm_mem_mam::request_region@768:9
+    G= {'hier_path(alloc.randomize)@768:9-768:26{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+    O= {'hier_path(alloc.randomize)@768:9-768:24{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+DIFFER	HP|uvm_pkg::uvm_random_stimulus::generate_stimulus@105:14
+    G= {'hier_path(t.randomize)@105:14-105:27{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+    O= {'hier_path(t.randomize)@105:14-105:25{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+DIFFER	HP|uvm_pkg::uvm_sequence_base::do_sequence_kind@1333:9
+    G= {'hier_path(m_seq.randomize)@1333:9-1333:26{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+    O= {'hier_path(m_seq.randomize)@1333:9-1333:24{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+OURS-ONLY	HP|uvm_pkg::uvm_sequence_library::execute@299:54	O={'hier_path(seq_or_item.randomize)@299:54-299:75{vpiActual=ref_obj(seq_or_item)@299:54-299:65,vpiActual=method_func_call(randomize)@299:66-778:9}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_default_sequence@1662:10
+    G= {'hier_path(m_seq.randomize)@1662:10-1662:27{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+    O= {'hier_path(m_seq.randomize)@1662:10-1662:25{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_phase_sequence@1499:33
+    G= {'hier_path(seq.randomize)@1499:33-1499:48{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+    O= {'hier_path(seq.randomize)@1499:33-1499:46{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_param_base::send_request@283:12
+    G= {'hier_path(param_t.randomize)@283:12-283:31{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+    O= {'hier_path(param_t.randomize)@283:12-283:29{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+OURS-ONLY	HP|uvm_pkg::uvm_simple_sequence::body@204:54	O={'hier_path(item.randomize)@204:54-204:68{vpiActual=ref_obj(item)@204:54-204:58,vpiActual=method_func_call(randomize)@204:59-281:9}': 1}
+OURS-ONLY	MFC|item.randomize@204:59	O={'method_func_call(randomize)@204:59-281:9': 1}
+GOLD-ONLY	MFC|item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_simple_sequence::body)@-}': 1}
+OURS-ONLY	MFC|seq_or_item.randomize@299:66	O={'method_func_call(randomize)@299:66-778:9': 4}
+GOLD-ONLY	MFC|seq_or_item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(adpcm_pkg::uvm_sequence_library::execute::seq_or_item)@-}': 2, 'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_sequence_library::execute)@-}': 2}
+-- AGREE=60 DIFFER=10 GOLD-ONLY=10 OURS-ONLY=10
+
+======== SimpleConstraint.default.txt
+DIFFER	HP|work@constaint_mode_ex@57:12
+    G= {'hier_path(frame.randomize)@57:12-57:29{vpiActual=ref_obj(frame)@57:12-57:17,vpiActual=method_func_call(randomize)@57:18-57:27}': 1}
+    O= {'hier_path(frame.randomize)@57:12-57:27{vpiActual=ref_obj(frame)@57:12-57:17,vpiActual=method_func_call(randomize)@57:18-57:27}': 1}
+DIFFER	HP|work@constaint_mode_ex@73:10
+    G= {'hier_path(frame.randomize)@73:10-73:27{vpiActual=ref_obj(frame)@73:10-73:15,vpiActual=method_func_call(randomize)@73:16-73:25}': 1}
+    O= {'hier_path(frame.randomize)@73:10-73:25{vpiActual=ref_obj(frame)@73:10-73:15,vpiActual=method_func_call(randomize)@73:16-73:25}': 1}
+-- AGREE=2 DIFFER=2 GOLD-ONLY=0 OURS-ONLY=0
+
+======== SimpleConstraint.testflags.txt
+DIFFER	HP|work@constaint_mode_ex@57:12
+    G= {'hier_path(frame.randomize)@57:12-57:29{vpiActual=ref_obj(frame)@57:12-57:17,vpiActual=method_func_call(randomize)@57:18-57:27}': 1}
+    O= {'hier_path(frame.randomize)@57:12-57:27{vpiActual=ref_obj(frame)@57:12-57:17,vpiActual=method_func_call(randomize)@57:18-57:27}': 1}
+DIFFER	HP|work@constaint_mode_ex@73:10
+    G= {'hier_path(frame.randomize)@73:10-73:27{vpiActual=ref_obj(frame)@73:10-73:15,vpiActual=method_func_call(randomize)@73:16-73:25}': 1}
+    O= {'hier_path(frame.randomize)@73:10-73:25{vpiActual=ref_obj(frame)@73:10-73:15,vpiActual=method_func_call(randomize)@73:16-73:25}': 1}
+-- AGREE=2 DIFFER=2 GOLD-ONLY=0 OURS-ONLY=0
+
+======== SimpleUVM.default.txt
+GOLD-ONLY	CONS|uvm_pkg::uvm_sequence_library::execute@-	G={'constraint(uvm_pkg::uvm_sequence_library::execute)@-': 2}
+GOLD-ONLY	CONS|uvm_pkg::uvm_simple_sequence::body@-	G={'constraint(uvm_pkg::uvm_simple_sequence::body)@-': 1}
+DIFFER	HP|uvm_pkg::uvm_mem_mam::request_region@768:9
+    G= {'hier_path(alloc.randomize)@768:9-768:26{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+    O= {'hier_path(alloc.randomize)@768:9-768:24{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+DIFFER	HP|uvm_pkg::uvm_random_stimulus::generate_stimulus@105:14
+    G= {'hier_path(t.randomize)@105:14-105:27{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+    O= {'hier_path(t.randomize)@105:14-105:25{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+DIFFER	HP|uvm_pkg::uvm_sequence_base::do_sequence_kind@1333:9
+    G= {'hier_path(m_seq.randomize)@1333:9-1333:26{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+    O= {'hier_path(m_seq.randomize)@1333:9-1333:24{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+OURS-ONLY	HP|uvm_pkg::uvm_sequence_library::execute@299:54	O={'hier_path(seq_or_item.randomize)@299:54-299:75{vpiActual=ref_obj(seq_or_item)@299:54-299:65,vpiActual=method_func_call(randomize)@299:66-778:9}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_default_sequence@1662:10
+    G= {'hier_path(m_seq.randomize)@1662:10-1662:27{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+    O= {'hier_path(m_seq.randomize)@1662:10-1662:25{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_phase_sequence@1499:33
+    G= {'hier_path(seq.randomize)@1499:33-1499:48{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+    O= {'hier_path(seq.randomize)@1499:33-1499:46{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_param_base::send_request@283:12
+    G= {'hier_path(param_t.randomize)@283:12-283:31{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+    O= {'hier_path(param_t.randomize)@283:12-283:29{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+OURS-ONLY	HP|uvm_pkg::uvm_simple_sequence::body@204:54	O={'hier_path(item.randomize)@204:54-204:68{vpiActual=ref_obj(item)@204:54-204:58,vpiActual=method_func_call(randomize)@204:59-281:9}': 1}
+OURS-ONLY	MFC|item.randomize@204:59	O={'method_func_call(randomize)@204:59-281:9': 1}
+GOLD-ONLY	MFC|item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_simple_sequence::body)@-}': 1}
+OURS-ONLY	MFC|seq_or_item.randomize@299:66	O={'method_func_call(randomize)@299:66-778:9': 2}
+GOLD-ONLY	MFC|seq_or_item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_sequence_library::execute)@-}': 2}
+-- AGREE=36 DIFFER=6 GOLD-ONLY=6 OURS-ONLY=6
+
+======== SimpleUVM.testflags.txt
+GOLD-ONLY	CONS|uvm_pkg::uvm_sequence_library::execute@-	G={'constraint(uvm_pkg::uvm_sequence_library::execute)@-': 2}
+GOLD-ONLY	CONS|uvm_pkg::uvm_simple_sequence::body@-	G={'constraint(uvm_pkg::uvm_simple_sequence::body)@-': 1}
+DIFFER	HP|uvm_pkg::uvm_mem_mam::request_region@768:9
+    G= {'hier_path(alloc.randomize)@768:9-768:26{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+    O= {'hier_path(alloc.randomize)@768:9-768:24{vpiActual=ref_obj(alloc)@768:9-768:14,vpiActual=method_func_call(randomize)@768:15-768:24}': 2}
+DIFFER	HP|uvm_pkg::uvm_random_stimulus::generate_stimulus@105:14
+    G= {'hier_path(t.randomize)@105:14-105:27{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+    O= {'hier_path(t.randomize)@105:14-105:25{vpiActual=ref_obj(t)@105:14-105:15,vpiActual=method_func_call(randomize)@105:16-105:25}': 1}
+DIFFER	HP|uvm_pkg::uvm_sequence_base::do_sequence_kind@1333:9
+    G= {'hier_path(m_seq.randomize)@1333:9-1333:26{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+    O= {'hier_path(m_seq.randomize)@1333:9-1333:24{vpiActual=ref_obj(m_seq)@1333:9-1333:14,vpiActual=method_func_call(randomize)@1333:15-1333:24}': 1}
+OURS-ONLY	HP|uvm_pkg::uvm_sequence_library::execute@299:54	O={'hier_path(seq_or_item.randomize)@299:54-299:75{vpiActual=ref_obj(seq_or_item)@299:54-299:65,vpiActual=method_func_call(randomize)@299:66-778:9}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_default_sequence@1662:10
+    G= {'hier_path(m_seq.randomize)@1662:10-1662:27{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+    O= {'hier_path(m_seq.randomize)@1662:10-1662:25{vpiActual=ref_obj(m_seq)@1662:10-1662:15,vpiActual=method_func_call(randomize)@1662:16-1662:25}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_base::start_phase_sequence@1499:33
+    G= {'hier_path(seq.randomize)@1499:33-1499:48{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+    O= {'hier_path(seq.randomize)@1499:33-1499:46{vpiActual=ref_obj(seq)@1499:33-1499:36,vpiActual=method_func_call(randomize)@1499:37-1499:46}': 2}
+DIFFER	HP|uvm_pkg::uvm_sequencer_param_base::send_request@283:12
+    G= {'hier_path(param_t.randomize)@283:12-283:31{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+    O= {'hier_path(param_t.randomize)@283:12-283:29{vpiActual=ref_obj(param_t)@283:12-283:19,vpiActual=method_func_call(randomize)@283:20-283:29}': 2}
+OURS-ONLY	HP|uvm_pkg::uvm_simple_sequence::body@204:54	O={'hier_path(item.randomize)@204:54-204:68{vpiActual=ref_obj(item)@204:54-204:58,vpiActual=method_func_call(randomize)@204:59-281:9}': 1}
+OURS-ONLY	MFC|item.randomize@204:59	O={'method_func_call(randomize)@204:59-281:9': 1}
+GOLD-ONLY	MFC|item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_simple_sequence::body)@-}': 1}
+OURS-ONLY	MFC|seq_or_item.randomize@299:66	O={'method_func_call(randomize)@299:66-778:9': 2}
+GOLD-ONLY	MFC|seq_or_item@-	G={'method_func_call(randomize)@-{vpiWith=constraint(uvm_pkg::uvm_sequence_library::execute)@-}': 2}
+-- AGREE=36 DIFFER=6 GOLD-ONLY=6 OURS-ONLY=6
+

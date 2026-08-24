@@ -1,0 +1,60 @@
+LHS:
+decompile:
+method_func_call: (randomize), id:275074, line:196:10, endln:197:27
+|vpiArgument:
+\_ref_obj: (l_kind), id:275075, line:196:20, endln:196:26
+  |vpiParent:
+  \_method_func_call: (randomize), id:275074, line:196:10, endln:197:27
+  |vpiName:l_kind
+|vpiName:randomize
+|vpiWith:
+\_constraint: (uvm_pkg::uvm_exhaustive_sequence::body), id:275076
+  |vpiParent:
+  \_operation: , id:275073, line:196:9, endln:197:27
+  |vpiFullName:uvm_pkg::uvm_exhaustive_sequence::body
+
+decompile:
+method_func_call: (randomize), id:275074, line:196:10, endln:197:27
+|vpiArgument:
+\_ref_obj: (l_kind), id:275075, line:196:20, endln:196:26
+  |vpiParent:
+  \_method_func_call: (randomize), id:275074, line:196:10, endln:197:27
+  |vpiName:l_kind
+|vpiName:randomize
+|vpiWith:
+\_constraint: (uvm_pkg::uvm_exhaustive_sequence::body), id:275076
+  |vpiParent:
+  \_operation: , id:275073, line:196:9, endln:197:27
+  |vpiFullName:uvm_pkg::uvm_exhaustive_sequence::body
+RHS:
+decompile:
+hier_path: (l_kind.randomize), id:26761, line:196:10, endln:196:27
+|vpiParent:
+\_operation: , id:26760, line:196:9, endln:197:27
+|vpiActual:
+\_ref_obj: (l_kind), id:26762, line:196:20, endln:196:26
+  |vpiParent:
+  \_hier_path: (l_kind.randomize), id:26761, line:196:10, endln:196:27
+  |vpiName:l_kind
+|vpiActual:
+\_method_func_call: (randomize), id:26763, line:196:27, endln:196:36
+  |vpiParent:
+  \_hier_path: (l_kind.randomize), id:26761, line:196:10, endln:196:27
+  |vpiName:randomize
+|vpiName:l_kind.randomize
+
+decompile:
+hier_path: (l_kind.randomize), id:26761, line:196:10, endln:196:27
+|vpiParent:
+\_operation: , id:26760, line:196:9, endln:197:27
+|vpiActual:
+\_ref_obj: (l_kind), id:26762, line:196:20, endln:196:26
+  |vpiParent:
+  \_hier_path: (l_kind.randomize), id:26761, line:196:10, endln:196:27
+  |vpiName:l_kind
+|vpiActual:
+\_method_func_call: (randomize), id:26763, line:196:27, endln:196:36
+  |vpiParent:
+  \_hier_path: (l_kind.randomize), id:26761, line:196:10, endln:196:27
+  |vpiName:randomize
+|vpiName:l_kind.randomize

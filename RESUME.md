@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-23 21:50, HEAD = the buvm32 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-23 22:05, HEAD = the uvm116 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -183,9 +183,9 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
 | SeqDriver×2 (uvm-1.2 tree) | 56 (depth) | `foreach (this_type::m_typewide_sequences[i])` (uvm_sequence_library.svh:480-481, head span @496:12-496:23): a class_var whose ref_typespec → unsupported_typespec (this_type::m_typewide_sequences), parent the foreach_stmt — the DATA face of the this_type:: qualifier on a STATIC class property: golden resolves a REAL typespec, we emit unsupported; the SAME head in BuildUVMPkg (@56591): buvm33 heads FOUR row-modes (buvm32 landed: 46→56, a C::m() call keeps its func_call only when the WRITTEN qualifier is a registered lookup key — the defining class's out-of-body name, a package free function, a $unit or imported class — else golden degrades to one bare ref_obj, arguments gone) |
-| MiniAmiq×2 (uvm-1.2 tree) | 60 (depth) | `method_func_call (randomize)` carrying vpiWith → constraint uvm_pkg::uvm_exhaustive_sequence::body (uvm_sequence_lib.svh:196) — a randomize-with inline-constraint shape; unassigned (uvm114 landed: 62→60) |
+| MiniAmiq×2 (uvm-1.2 tree) | 56 (depth) | now on buvm33's head (the this_type:: foreach) — see the SeqDriver row; (uvm116 landed: 60→56) |
 | SimpleUVM×2 (uvm-1.2 tree) | 17 (depth) | `logic_net (work@top.p)` @uvm_globals.svh:263:3, RHS `<null>` — the FREE PACKAGE FUNCTION's `process p` local, where our implicit-net machinery does not fire (§ fnLocalParamRangeNet / uvm105-R0 family; most of the family moved with uvm115 — 15 of 16 SimpleUVM family REF cells now agree); pass uvm117 later (uvm115 landed: 56→17, a builtin-class body local compiled before Surelog's class phase degrades to ref_var + unsupported_typespec named for the token) |
-| Scoreboard/default (uvm-1.2 tree) | 60 (depth) | `if (!randomize(l_kind) with {…})` (uvm_sequence_builtin.svh:196): golden a bare method_func_call (randomize) with vpiWith → constraint, ours a hier_path (l_kind.randomize) — producer CompileHelper::compileRandomizeCall (CompileStmt.cpp:3151); the SAME family as MiniAmiq's 60-line head: uvm116 heads THREE row-modes |
+| Scoreboard/default (uvm-1.2 tree) | 56 (depth) | now on buvm33's head (the this_type:: static-property foreach typespec) — SEVEN row-modes share it (uvm116 landed: 60→56, the scope-form `randomize(x) with {…}` is a bare method_func_call with vpiWith → a bare constraint, not a member call on the argument) |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 56 (depth) | identical to SeqDriver's head (the this_type:: static-property foreach typespec, @uvm_pkg.sv:56591); buvm33 clears both |
 | Earlgrey_0_1×2 (both modes, byte-identical after-logs) | 36 (depth) | `tlul_pkg::tl_h2d_t tl_u_o [N+1];` (tlul_socket_1n.sv:126) — the unpacked-array EXPRESSION dimension bound: expr::Compare passes VpiDecompile ('3'=='3') and fails on VpiSize 64 vs 32; golden claims only the N token's span where we claim all of N+1; present in every tlul_socket_1n instantiation — a FAMILY (earl74's R-C / § dimBoundInheritsParamEnc74 one step further: an expression dimension's size and span); pass earl79 next (earl78 landed: 90→36, a gen-scope cont_assign replication Rhs folds whole — digits natural-width, size clamped by caLhsAdjustSize68 only when the Lhs binds, >64 unclamped) |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
@@ -193,7 +193,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 72 verifier fix-before-landing re-cuts (156 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 72 verifier fix-before-landing re-cuts (157 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

@@ -1,0 +1,23 @@
+r10uvm116 - per-cell join totals, PRISTINE then PATCHED.
+SeqDriver.default          PRIS -- AGREE=46 DIFFER=10 GOLD-ONLY=24 OURS-ONLY=32
+                           PAT  -- AGREE=60 DIFFER=10 GOLD-ONLY=10 OURS-ONLY=10
+SeqDriver.testflags        PRIS -- AGREE=46 DIFFER=10 GOLD-ONLY=24 OURS-ONLY=32
+                           PAT  -- AGREE=60 DIFFER=10 GOLD-ONLY=10 OURS-ONLY=10
+SimpleUVM.default          PRIS -- AGREE=26 DIFFER=6 GOLD-ONLY=16 OURS-ONLY=20
+                           PAT  -- AGREE=36 DIFFER=6 GOLD-ONLY=6 OURS-ONLY=6
+SimpleUVM.testflags        PRIS -- AGREE=26 DIFFER=6 GOLD-ONLY=16 OURS-ONLY=20
+                           PAT  -- AGREE=36 DIFFER=6 GOLD-ONLY=6 OURS-ONLY=6
+Scoreboard.default         PRIS -- AGREE=26 DIFFER=6 GOLD-ONLY=16 OURS-ONLY=20
+                           PAT  -- AGREE=36 DIFFER=6 GOLD-ONLY=6 OURS-ONLY=6
+MiniAmiq.default           PRIS -- AGREE=47 DIFFER=11 GOLD-ONLY=24 OURS-ONLY=32
+                           PAT  -- AGREE=61 DIFFER=11 GOLD-ONLY=10 OURS-ONLY=10
+MiniAmiq.testflags         PRIS -- AGREE=47 DIFFER=11 GOLD-ONLY=24 OURS-ONLY=32
+                           PAT  -- AGREE=61 DIFFER=11 GOLD-ONLY=10 OURS-ONLY=10
+BuildUVMPkg.default        PRIS -- AGREE=22 DIFFER=3 GOLD-ONLY=12 OURS-ONLY=16
+                           PAT  -- AGREE=26 DIFFER=3 GOLD-ONLY=8 OURS-ONLY=8
+BuildUVMPkg.testflags      PRIS -- AGREE=22 DIFFER=3 GOLD-ONLY=12 OURS-ONLY=16
+                           PAT  -- AGREE=26 DIFFER=3 GOLD-ONLY=8 OURS-ONLY=8
+SimpleConstraint.default   PRIS -- AGREE=2 DIFFER=2 GOLD-ONLY=0 OURS-ONLY=0
+                           PAT  -- AGREE=2 DIFFER=2 GOLD-ONLY=0 OURS-ONLY=0
+SimpleConstraint.testflags PRIS -- AGREE=2 DIFFER=2 GOLD-ONLY=0 OURS-ONLY=0
+                           PAT  -- AGREE=2 DIFFER=2 GOLD-ONLY=0 OURS-ONLY=0

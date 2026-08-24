@@ -14,6 +14,8 @@
 
 #include "EmitHelpers.h"
 
+#include "slang/ast/Constraints.h"
+#include "slang/syntax/SyntaxNode.h"
 #include "slang/ast/expressions/Operator.h"
 #include "slang/ast/symbols/CoverSymbols.h"
 
@@ -823,6 +825,80 @@ bool UhdmExporter::methodParensWritten77(SourceRange nameRng,
         return false;  // a real token that is neither `(` nor `with`
     }
     return true;  // window exhausted before any token — refuse
+}
+
+// § scopeRandomizeIsBareCall116 — THE FENCE.  The law, the Surelog decode and
+// the golden grid are at the ONLY call site (the built-in METHOD arm in
+// `emitExpr`); this is just the predicate.  Every early `false` keeps the
+// pristine path, so no cell that converges today can regress through here.
+// § randWithArgNameIsBare116 — the with-form's arguments are compiled by
+// Surelog with a NULL instance (`compileTfCallArguments(…, Reduce::No,
+// func_call, nullptr, false)` inside `compileRandomizeCall`), so golden's
+// argument `ref_obj` carries the BARE written name where the with-LESS
+// `func_call`'s carries the fully scoped one.  Measured on the corpus head
+// itself: golden's `ref_obj: (l_kind)` at uvm_sequence_builtin.svh:196:20
+// against our first cut's
+// `ref_obj: (uvm_pkg::uvm_exhaustive_sequence::body::l_kind)`.  Writing the
+// name into the fullname is this emitter's standing no-fullname idiom; an
+// EMPTY prefix is not the same thing (`joinRef("", n)` spells `.n`).
+static UHDM::any* bareArgName116(UHDM::any* a) {
+    if (a && a->UhdmType() == UHDM::uhdmref_obj) {
+        auto* r116 = (UHDM::ref_obj*)a;
+        r116->VpiFullName(r116->VpiName());
+    }
+    return a;
+}
+
+bool UhdmExporter::scopeRandomizeCall116(const CallExpression& call,
+                                         const Expression& expr) {
+    if (!call.isSystemCall())
+        return false;
+    if (call.getSubroutineName() != "randomize")
+        return false;
+    // THE MEMBER FORM IS OUT.  `createSystemCall` (slang
+    // CallExpression.cpp:491) pushes the receiver into the argument buffer
+    // ahead of the written arguments, so for `o.randomize(…)` argument 0 IS
+    // the receiver and its range STARTS where the whole call starts.  For the
+    // scope form the call starts at the `randomize` token and argument 0
+    // starts after the `(`.  This is positional, not textual, so a
+    // macro-remapped receiver cannot fool it.
+    if (!call.arguments().empty() &&
+        call.arguments()[0]->sourceRange.start() == expr.sourceRange.start())
+        return false;
+    // `std::randomize` IS OUT.  `ScopeRandomizeFunction::bindArgument`
+    // (slang MiscSystemFuncs.cpp:191) binds each argument with
+    // `Expression::bindLValue`, so every one of them is an
+    // `AssignmentExpression`; `ClassRandomizeFunction` requires plain
+    // `NamedValue`s naming class properties.  Golden's `std::randomize` shape
+    // is a different (and much stranger) head — README residue R1.
+    for (auto* a116 : call.arguments())
+        if (a116 && a116->kind == ExpressionKind::Assignment)
+            return false;
+    // ANCHOR.  The call must really SPELL `randomize` at its own start; a
+    // zero-argument `std::randomize()` and any surface this emitter cannot
+    // read back answer FALSE here rather than being modelled wrongly.
+    auto st116 = expr.sourceRange.start();
+    if (st116 == SourceLocation::NoLocation)
+        return false;
+    SourceRange nr116(st116, st116 + 9);
+    if (rawText(nr116) != "randomize")
+        return false;
+    // § parensLessScopeRandomizeIsRefObj116 — THE PARENS-LESS FORM IS OUT, and
+    // it is a WRITTEN-SURFACE question, not a bound-tree one: slang gives
+    // `r = randomize;` and `r = randomize();` the same CallExpression.  Golden
+    // does not: measured on r10svs2repro/w4_classbuiltin.sv (also carried as
+    // r10uvm77repro/v77w4_classbuiltin.sv), the SAME golden that
+    // § classMethodParensLessStepIsRefObj77 was decoded from —
+    //   line 15  `r  = randomize;`    -> ref_obj (work@w4::f::randomize)
+    //   line 16  `r  = r + randomize();` -> func_call (randomize) @16:14-16:25
+    // Without this gate the first cut minted a `func_call` for line 15 too, a
+    // MOVED-WRONG cell on an EARLIER PASS'S ARM that only the wide boundary
+    // gate caught.  `methodParensWritten77` is the standing probe and already
+    // accepts a following `with` (§ parensProbeSkipsTriviaAndWith77), which is
+    // exactly right here: `randomize with { … }` IS a randomize_call in
+    // Surelog's grammar and must keep firing.  Its anchor cannot misfire —
+    // the rawText test above has already proved the span spells the name.
+    return methodParensWritten77(nr116, "randomize");
 }
 
 bool UhdmExporter::retNameRecvCollapse69(const Expression& recv,
@@ -18801,6 +18877,216 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Built-in METHOD calls (e.first(), arr.size(): no leading $)
             // become hier_path shapes - not yet supported.
             if (name.empty() || name[0] != '$') {
+                // § scopeRandomizeIsBareCall116 — THE SCOPE-FORM RANDOMIZE.
+                // `randomize(<class property>) with { … }` written INSIDE a
+                // class method has NO RECEIVER, but slang models the class
+                // randomize as a SystemSubroutine (`ClassRandomizeFunction`,
+                // MiscSystemFuncs.cpp:117) whose every argument lands in
+                // `arguments()`, and this arm reads `arguments()[0]` as the
+                // receiver (§ scopedBuiltinRecvIsChain1's decode).  The first
+                // RESTRICTED PROPERTY therefore became a receiver and the whole
+                // call became `hier_path (l_kind.randomize)` — an object golden
+                // never mints.
+                //
+                // DECODED FROM SURELOG.  `CompileHelper::compileRandomizeCall`
+                // (CompileStmt.cpp:3153) mints a `method_func_call` with
+                // `VpiName("randomize")`, NO Prefix, the identifier list as
+                // ordinary `Tf_call_args`, and — only when a constraint block
+                // follows — `With(compileConstraintBlock(...))`.
+                // `compileConstraintBlock` (CompileStmt.cpp:3181) is four
+                // lines: it makes a BARE `constraint`, sets `VpiParent(pexpr)`
+                // and returns.  It never names it, never spans it
+                // (`populateCoreMembers` is not called) and never fills
+                // `Constraint_items`.  The dump's
+                // `constraint: (uvm_pkg::uvm_exhaustive_sequence::body)` is the
+                // SYNTHESISED fullname of an object with an EMPTY name — the
+                // parent chain's, not the enclosing method's own (RESUME §9's
+                // fullname-synthesis rule); `constraint::Compare` reads VpiName
+                // (empty), VpiVirtual/VpiAutomatic/VpiAllocScheme/
+                // VpiAccessType/VpiIsConstraintEnabled (all default),
+                // Attributes and Constraint_items (both null), so a bare
+                // `MakeConstraint()` parented at `pexpr` is byte-equal to
+                // golden's.
+                //
+                // THE `with` IS THE WHOLE SHAPE DISCRIMINATOR, measured on
+                // golden in ONE database (MiniAmiq, uvm-1.2):
+                //   * `randomize(l_kind) with { … }`
+                //     uvm_sequence_builtin.svh:87/97/196
+                //     -> method_func_call(randomize){ vpiArgument ref_obj,
+                //        vpiWith constraint }, spanned from the `randomize`
+                //        token THROUGH the constraint block's closing `}`;
+                //   * `randomize(select_rand)` — no constraint block —
+                //     uvm_sequence_library.svh:673/691
+                //     -> plain func_call(randomize){ vpiArgument ref_obj },
+                //        spanned over the written invocation.
+                // Surelog's ANTLR parse only produces a `paRandomize_call`
+                // node in front of a constraint block; without one the call
+                // falls through to the ordinary `compileTfCall` and becomes a
+                // `func_call`.  Both shapes are minted here.
+                //
+                // FENCED to the scope form, three ways (each measured):
+                //   * the MEMBER form `o.randomize()` keeps this arm untouched:
+                //     slang puts the receiver in `arguments()[0]`, so the first
+                //     argument STARTS where the whole call starts.  Golden's
+                //     answer there is a hier_path and stays one (arm C).
+                //   * `std::randomize(a, b)` is a different Surelog head
+                //     entirely (golden emits a bare `ref_obj` named
+                //     `std::randomize`, and for the with-form a `ref_obj` named
+                //     `std` bound to a PHANTOM net — arm C cells c4/c5,
+                //     README residue R1).  slang binds ITS arguments as
+                //     LVALUES (`ScopeRandomizeFunction::bindArgument` ->
+                //     `Expression::bindLValue`), so every argument is an
+                //     `AssignmentExpression`; the class form's are plain
+                //     `NamedValue`s.  That, plus the written text, keeps it out.
+                //   * the call must really SPELL `randomize` at its own start,
+                //     so a user function named `randomize` reached through a
+                //     package (arm E) — which is not a system call at all —
+                //     and any surface this emitter cannot read back stay on
+                //     the pristine path.
+                if (scopeRandomizeCall116(call, expr)) {
+                    const slang::ast::Constraint* ic116 = nullptr;
+                    {
+                        auto& sci116 =
+                            std::get<CallExpression::SystemCallInfo>(
+                                call.subroutine);
+                        if (auto* ri116 =
+                                std::get_if<CallExpression::RandomizeCallInfo>(
+                                    &sci116.extraInfo))
+                            ic116 = ri116->inlineConstraints;
+                    }
+                    UHDM::tf_call* rc116 = nullptr;
+                    auto* ra116 = s.MakeAnyVec();
+                    if (ic116) {
+                        auto* mfc116 = s.MakeMethod_func_call();
+                        // The span runs to the constraint block's own `}`;
+                        // slang's call range stops at the invocation's `)`.
+                        // A constraint bound without syntax (none in this
+                        // corpus) falls back to the call range rather than
+                        // inventing an end.
+                        auto e116 = ic116->syntax
+                                        ? ic116->syntax->sourceRange().end()
+                                        : expr.sourceRange.end();
+                        setLoc(mfc116,
+                               SourceRange(expr.sourceRange.start(), e116));
+                        // NO VpiParent, deliberately: `compileRandomizeCall`
+                        // sets VpiName, the arguments and the With and nothing
+                        // else, so golden's method_func_call is PARENTLESS
+                        // (the corpus head, uvm_sequence_builtin.svh:196, and
+                        // arm A both show the field absent on golden and
+                        // present on our first cut).  The ordinary
+                        // `compileTfCall` that mints the with-LESS `func_call`
+                        // DOES set it — arm B is byte-identical to golden with
+                        // it and would not be without.
+                        auto* cons116 = s.MakeConstraint();
+                        cons116->VpiParent(parent);
+                        mfc116->With(cons116);
+                        rc116 = mfc116;
+                        // § randWithIdentListIsSuffixPaths116 — SURELOG'S
+                        // IDENTIFIER-LIST QUIRK, decoded on arm H at two,
+                        // three and four names.  `compileRandomizeCall` hands
+                        // the whole `paIdentifier_list` to
+                        // `compileTfCallArguments`, whose per-SIBLING walk
+                        // compiles each name as if the names that FOLLOW it
+                        // were its dotted trail.  Argument k of n is therefore
+                        //   k <  n-1 : hier_path named `name[k].….name[n-1]`,
+                        //              spanned over name[k] ALONE, holding one
+                        //              ref_obj per name from k to n-1 — only
+                        //              the LAST of which carries the path's
+                        //              own dotted name as its VpiFullName;
+                        //   k == n-1 : a plain ref_obj.
+                        // At n == 1 the rule degenerates to "one ref_obj",
+                        // which is the whole corpus population (all three
+                        // uvm_sequence_builtin.svh sites take one name), so
+                        // this loop is measured by the arms, not by the rows.
+                        // It is fenced to an all-NamedValue argument list:
+                        // `randomize(null) with …` has no identifier list and
+                        // must not be woven into paths.
+                        size_t n116 = call.arguments().size();
+                        bool ids116 = n116 > 1;
+                        for (auto* a0 : call.arguments())
+                            if (!a0 || a0->kind != ExpressionKind::NamedValue)
+                                ids116 = false;
+                        if (ids116) {
+                            std::vector<std::string> nms116;
+                            for (auto* a0 : call.arguments())
+                                nms116.push_back(std::string(
+                                    a0->as<NamedValueExpression>().symbol.name));
+                            for (size_t k116 = 0; k116 + 1 < n116; k116++) {
+                                std::string dot116;
+                                for (size_t j116 = k116; j116 < n116; j116++) {
+                                    if (j116 > k116)
+                                        dot116 += ".";
+                                    dot116 += nms116[j116];
+                                }
+                                auto* hp116 = s.MakeHier_path();
+                                hp116->VpiName(dot116);
+                                hp116->VpiFullName(dot116);
+                                hp116->VpiParent(mfc116);
+                                setLoc(hp116,
+                                       call.arguments()[k116]->sourceRange);
+                                auto* pe116 = s.MakeAnyVec();
+                                for (size_t j116 = k116; j116 < n116; j116++) {
+                                    auto* re116 = s.MakeRef_obj();
+                                    re116->VpiName(nms116[j116]);
+                                    // Only the TRAILING element is named with
+                                    // the whole path (Surelog's
+                                    // `if (!tmpName.empty())` tail at
+                                    // CompileExpression.cpp:5697); the earlier
+                                    // ones stay bare.
+                                    if (j116 + 1 == n116)
+                                        re116->VpiFullName(dot116);
+                                    else
+                                        re116->VpiFullName(nms116[j116]);
+                                    re116->VpiParent(hp116);
+                                    setLoc(re116,
+                                           call.arguments()[j116]->sourceRange);
+                                    pe116->push_back(re116);
+                                }
+                                hp116->Path_elems(pe116);
+                                ra116->push_back(hp116);
+                            }
+                            if (auto* a116 =
+                                    emitExpr(*call.arguments()[n116 - 1],
+                                             mfc116, prefix, netMap))
+                                ra116->push_back(bareArgName116(a116));
+                        }
+                        else {
+                            for (auto* a0 : call.arguments())
+                                if (auto* a116 = emitExpr(*a0, mfc116,
+                                                          prefix, netMap))
+                                    ra116->push_back(bareArgName116(a116));
+                        }
+                    }
+                    else {
+                        auto* fcl116 = s.MakeFunc_call();
+                        setLoc(fcl116, expr.sourceRange);
+                        fcl116->VpiParent(parent);
+                        rc116 = fcl116;
+                        for (auto* a0 : call.arguments()) {
+                            // § randNullArgIsParentedConst116 — golden's
+                            // `randomize(null)` (arm H, line 21) parents its
+                            // `null` CONSTANT at the call, which is this
+                            // emitter's standing literal-argument idiom.
+                            bool fs116 = forceConstParent;
+                            // `isLiteralExpr` is the SHARED predicate and
+                            // deliberately excludes `null`; the extra disjunct
+                            // is local to this arm and measured on exactly one
+                            // golden cell (arm H line 21).
+                            if (isLiteralExpr(*a0) ||
+                                stripImplicitConv(*a0).kind ==
+                                    ExpressionKind::NullLiteral)
+                                forceConstParent = true;
+                            if (auto* a116 =
+                                    emitExpr(*a0, fcl116, prefix, netMap))
+                                ra116->push_back(a116);
+                            forceConstParent = fs116;
+                        }
+                    }
+                    rc116->VpiName(name);
+                    if (!ra116->empty())
+                        rc116->Tf_call_args(ra116);
+                    return rc116;
+                }
                 // Built-in METHOD call (e.first(), s.putc(...)): hier_path
                 // [receiver ref (name-only), method_func_call named by the
                 // method] — Surelog's folded shape.

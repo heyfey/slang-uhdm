@@ -1,0 +1,100 @@
+r10uvm116 — THE GATE BATTERY (all run in the pass worktree /tmp/wt_r10uvm116
+against two FROZEN, chmod-555 binaries; every sweep used its OWN --out and
+--workdir with SLANG_UHDM exported explicitly, and every cmds.txt was audited
+BY BINARY PATH).
+
+BINARIES
+  pristine (09dec24)  b4900a013105152c57a347bda1e33990
+  patched             ba96b7757310bfe3577e6e0512cd9617
+
+(1) BUILD — both binaries built -j 2, md5 taken separately, above.
+
+(2) GOLDENS
+  patched   : PASS=23 FAIL=0
+  pristine  : PASS=23 FAIL=0
+  SLANG_UHDM=/bin/false : FAIL=23      (negative control)
+
+(3) uhdm2rtlil, both modes
+  pristine  default 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+  pristine  testflags 679 / 50 / 2
+  patched   default 679 / 50 / 2
+  patched   testflags 679 / 50 / 2
+  ct8rows  committed results/gate_uhdm2rtlil.csv vs patched/testflags : PASS (0 differing rows)
+  ct8rows  my pristine testflags vs patched/testflags                 : PASS
+  ct8rows  my pristine default   vs patched/default                   : PASS
+  byteverify SELFCHECK=1 : PATH_SETS_IDENTICAL (1358) MOVERS 0 / 1358
+  canaries    ok=8 changed=0 absent=0
+  ctcan2 EXPECT_UNKNOWN=6 : PASS
+
+(4) surelog, --mode both  (1588 comparable rows)
+  pristine  default   471 CMP_EQUAL / 10 CMP_NOTEQUAL / 5 DEFERRED / 283 SLANG_REJECT / 25 SURELOG_FAIL
+  pristine  testflags 466 / 9 / 5 / 3 NO_DATABASE / 1 NO_UHDM / 284 / 23 / 1 TIMEOUT / 2 UNTRANSLATABLE
+  patched   default   471 / 10 / 5 / 283 / 25          (identical)
+  patched   testflags 466 / 9 / 5 / 3 / 1 / 284 / 23 / 1 / 2   (identical)
+  ct8rows  committed results/golden_surelog.csv vs patched : 0 differing ROWS over 1588  PASS
+  ct8rows  my pristine sweep            vs patched          : 0 differing ROWS  PASS
+  NO ROW WAS CONVERTED and results/*.csv WAS NOT EDITED.
+  cmds.txt audit: 1573 cells, 1523 name /tmp/r10uvm116_bin/pat.bin, 0 name any
+                  main-tree or worktree build/ binary or the pristine binary.
+  canaries    ok=52 changed=0 absent=0
+  ctcan2 EXPECT_UNKNOWN=1 : PASS
+
+(5) BYTEVERIFY SELFCHECK=1 (surelog): PATH_SETS_IDENTICAL (956) MOVERS 9 / 956
+  ./default/BuildUVMPkg-bf853d43     ./testflags/BuildUVMPkg-bf853d43
+  ./default/MiniAmiq-544c7f61        ./testflags/MiniAmiq-544c7f61
+  ./default/Scoreboard-59431470
+  ./default/SeqDriver-32af76aa       ./testflags/SeqDriver-32af76aa
+  ./default/SimpleUVM-1dc93a62       ./testflags/SimpleUVM-1dc93a62
+  Every one of the nine is named in PREDICTION.txt, written from the PRISTINE
+  databases before the patched sweep ran.  SimpleConstraint default+testflags
+  was predicted NOT to move (member-form randomize only) and did not.
+
+  PROTECTED DATABASES (md5 head, patched sweep)
+    InterfaceModPort  default 59a365f3ce2c  testflags 59a365f3ce2c   (SAME as pristine)
+    BlackParrotComplex default e3e354129d5a testflags 73a10e8217e5   (SAME as pristine)
+    YosysOldOr        default d68e0796d62c  testflags d68e0796d62c   (SAME as pristine)
+    SVSwitch          4842211c4030  (brief pin, both modes)
+    YosysVerx         6ccda350c24a  (brief pin, both modes)
+
+(6) HEADS (rowheads.sh, cmp lines / ^LHS: count)
+
+  TEST           MODE       PRIS  PAT   heads
+  SeqDriver      default      46   46     1
+  SeqDriver      testflags    46   46     1
+  SimpleUVM      default      17   17     1
+  SimpleUVM      testflags    17   17     1
+  Scoreboard     default      60   46     1     <- TARGET, head CLEARED
+  Scoreboard     testflags     -    -     -     SKIP-NOFILE (no golden)
+  MiniAmiq       default      60   46     1     <- TARGET, head CLEARED
+  MiniAmiq       testflags    60   46     1     <- TARGET, head CLEARED
+  BuildUVMPkg    default      46   46     1
+  BuildUVMPkg    testflags    46   46     1
+  Earlgrey_0_1   default      90   90     1
+  Earlgrey_0_1   testflags    90   90     1
+  Rggen          default       0    0     0
+  Rggen          testflags     -    -     -     SKIP-NOFILE (no golden)
+
+  The three target cells' head is gone; their NEW head is
+    ref_obj (uvm_pkg::uvm_sequence_library::m_add_typewide_sequence::this_type::add_typewide_sequence) @413:3
+  which is the SAME object SeqDriver/SimpleUVM/BuildUVMPkg already stood on —
+  the five big UVM rows now share one head (sister pass buvm32's target).
+
+(7) CANAUDIT
+  bash canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+(8) BOUNDARY (bound116.sh, a COPY of the whole probe tree, no path filter)
+  MODE=file VIEW=def   PROCESSED=3591 LISTED=3591 DIFFER=10 rejects 138/138
+  MODE=file VIEW=elab  PROCESSED=3591 LISTED=3591 DIFFER=10 rejects 152/152
+  MODE=dir  VIEW=def   PROCESSED=1523 LISTED=1523 DIFFER=7  rejects 121/121
+  No asymmetric reject in any run.  Seven of the ten are this pass's own arms
+  (g116_c and g116_e, the fence's positive controls, do NOT move); two are the
+  w4 built-in-class arm carried twice, each moving at ONE object that is
+  byte-identical to golden's; one is r10buvm22repro/g22.sv, README residue R5
+  (a pre-existing address-derived constant, present at 09dec24).  MODE=dir's
+  four extra directories are the documented per-run order coin: order-blind
+  diff 0, and the PRISTINE binary alone produced three different dumps in three
+  runs of one of them.  See BOUNDARY.txt.
+
+(9) CENSUS SCORE (score116.py, eleven cells)
+  TO-GOLDEN 21/21/17/17/17/21/21/6/6/0/0, AWAY-GOLDEN 0, STILL-WRONG 0.
+  See SCORE.movers.txt and CENSUS.totals.txt.

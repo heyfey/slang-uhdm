@@ -23,6 +23,7 @@ class DefinitionSymbol;
 class Symbol;
 class Statement;
 class StatementList;
+class CallExpression;
 class Expression;
 class MemberAccessExpression;
 class Type;
@@ -2029,6 +2030,20 @@ private:
     /// Every one of these cases makes the probe read PARENS-FUL, which
     /// strictly shrinks the firing set — the safe direction.
     bool methodParensWritten77(slang::SourceRange nameRng, std::string_view nm);
+
+    /// § scopeRandomizeIsBareCall116 — TRUE for the SCOPE-FORM randomize:
+    /// `randomize(<class property>…)` written with NO receiver inside a class
+    /// method, the form Surelog compiles through
+    /// `CompileHelper::compileRandomizeCall` (CompileStmt.cpp:3153) into a
+    /// bare `method_func_call`/`func_call` named `randomize`.  slang models
+    /// the class randomize as a SystemSubroutine whose arguments include the
+    /// receiver when there IS one, so this is the predicate the built-in
+    /// METHOD arm needs to stop reading `arguments()[0]` as a receiver.  The
+    /// full law, its three fences and the golden grid live at the call site
+    /// in `ExprEmit.cpp`.  Every disjunct here is CONSERVATIVE: a surface it
+    /// cannot read answers FALSE and keeps the pristine path.
+    bool scopeRandomizeCall116(const slang::ast::CallExpression& call,
+                               const slang::ast::Expression& expr);
     /// § concatIdxDecompile29 — a hier_path select whose index is a
     /// CONCATENATION renders that index by DECOMPILING the expression TREE, not
     /// by copying the source text the way every other index does.

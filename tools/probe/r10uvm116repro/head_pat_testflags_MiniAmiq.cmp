@@ -1,0 +1,46 @@
+LHS:
+decompile:
+ref_obj: (uvm_pkg::uvm_sequence_library::m_add_typewide_sequence::this_type::add_typewide_sequence), id:26879, line:413:3, endln:413:14
+|vpiParent:
+\_begin: (uvm_pkg::uvm_sequence_library::m_add_typewide_sequence), id:26878, line:414:3, endln:414:12
+|vpiName:this_type::add_typewide_sequence
+|vpiFullName:uvm_pkg::uvm_sequence_library::m_add_typewide_sequence::this_type::add_typewide_sequence
+
+decompile:
+ref_obj: (uvm_pkg::uvm_sequence_library::m_add_typewide_sequence::this_type::add_typewide_sequence), id:26879, line:413:3, endln:413:14
+|vpiParent:
+\_begin: (uvm_pkg::uvm_sequence_library::m_add_typewide_sequence), id:26878, line:414:3, endln:414:12
+|vpiName:this_type::add_typewide_sequence
+|vpiFullName:uvm_pkg::uvm_sequence_library::m_add_typewide_sequence::this_type::add_typewide_sequence
+RHS:
+decompile:
+func_call: (this_type::add_typewide_sequence), id:102231, line:413:3, endln:413:12
+|vpiParent:
+\_begin: (uvm_pkg::uvm_sequence_library::m_add_typewide_sequence), id:102230, line:414:3, endln:414:12
+|vpiArgument:
+\_ref_obj: (uvm_pkg::uvm_sequence_library::m_add_typewide_sequence::seq_type), id:102232, line:413:36, endln:413:44
+  |vpiParent:
+  \_func_call: (this_type::add_typewide_sequence), id:102231, line:413:3, endln:413:12
+  |vpiName:seq_type
+  |vpiFullName:uvm_pkg::uvm_sequence_library::m_add_typewide_sequence::seq_type
+  |vpiActual:
+  \_io_decl: (seq_type), id:102227, line:412:79, endln:412:87
+|vpiName:this_type::add_typewide_sequence
+|vpiFunction:
+\_function: (uvm_pkg::uvm_sequence_library::add_typewide_sequence), id:102235, line:421:1, endln:424:12
+
+decompile:
+func_call: (this_type::add_typewide_sequence), id:102231, line:413:3, endln:413:12
+|vpiParent:
+\_begin: (uvm_pkg::uvm_sequence_library::m_add_typewide_sequence), id:102230, line:414:3, endln:414:12
+|vpiArgument:
+\_ref_obj: (uvm_pkg::uvm_sequence_library::m_add_typewide_sequence::seq_type), id:102232, line:413:36, endln:413:44
+  |vpiParent:
+  \_func_call: (this_type::add_typewide_sequence), id:102231, line:413:3, endln:413:12
+  |vpiName:seq_type
+  |vpiFullName:uvm_pkg::uvm_sequence_library::m_add_typewide_sequence::seq_type
+  |vpiActual:
+  \_io_decl: (seq_type), id:102227, line:412:79, endln:412:87
+|vpiName:this_type::add_typewide_sequence
+|vpiFunction:
+\_function: (uvm_pkg::uvm_sequence_library::add_typewide_sequence), id:102235, line:421:1, endln:424:12
