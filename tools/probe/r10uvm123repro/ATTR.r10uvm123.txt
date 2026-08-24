@@ -1,0 +1,141 @@
+r10uvm123 — ATTRIBUTION of every byte mover, ORDER-BLIND (dumps sorted;
+Scoreboard/default is a per-invocation COIN and only an order-blind read is
+attributable).  Every changed line below is this law: six cast-target
+bindings per row move from the package LISTING object to the bare per-use
+clone, and three new clone objects appear (one per distinct listing object).
+
+== default/SimpleUVM-1dc93a62
+removed=6 added=45
+   shapes:
+           6 < \_bit_typespec
+          15 > \_bit_typespec
+           3 > \_package
+           3 > \_range
+           3 > \_ref_typespec
+           3 > |vpiActual
+           3 > |vpiFullName
+           3 > |vpiInstance
+           3 > |vpiName
+           3 > |vpiParent
+           3 > |vpiRange
+           3 > |vpiTypedefAlias
+== default/Scoreboard-59431470
+removed=6 added=45
+   shapes:
+           6 < \_bit_typespec
+          15 > \_bit_typespec
+           3 > \_package
+           3 > \_range
+           3 > \_ref_typespec
+           3 > |vpiActual
+           3 > |vpiFullName
+           3 > |vpiInstance
+           3 > |vpiName
+           3 > |vpiParent
+           3 > |vpiRange
+           3 > |vpiTypedefAlias
+== default/BuildUVMPkg-bf853d43
+removed=6 added=45
+   shapes:
+           6 < \_bit_typespec
+          15 > \_bit_typespec
+           3 > \_package
+           3 > \_range
+           3 > \_ref_typespec
+           3 > |vpiActual
+           3 > |vpiFullName
+           3 > |vpiInstance
+           3 > |vpiName
+           3 > |vpiParent
+           3 > |vpiRange
+           3 > |vpiTypedefAlias
+== default/SeqDriver-32af76aa
+removed=10 added=49
+   shapes:
+          10 < \_bit_typespec
+          19 > \_bit_typespec
+           3 > \_package
+           3 > \_range
+           3 > \_ref_typespec
+           3 > |vpiActual
+           3 > |vpiFullName
+           3 > |vpiInstance
+           3 > |vpiName
+           3 > |vpiParent
+           3 > |vpiRange
+           3 > |vpiTypedefAlias
+== default/MiniAmiq-544c7f61
+removed=10 added=49
+   shapes:
+          10 < \_bit_typespec
+          19 > \_bit_typespec
+           3 > \_package
+           3 > \_range
+           3 > \_ref_typespec
+           3 > |vpiActual
+           3 > |vpiFullName
+           3 > |vpiInstance
+           3 > |vpiName
+           3 > |vpiParent
+           3 > |vpiRange
+           3 > |vpiTypedefAlias
+== testflags/SimpleUVM-1dc93a62
+removed=6 added=45
+   shapes:
+           6 < \_bit_typespec
+          15 > \_bit_typespec
+           3 > \_package
+           3 > \_range
+           3 > \_ref_typespec
+           3 > |vpiActual
+           3 > |vpiFullName
+           3 > |vpiInstance
+           3 > |vpiName
+           3 > |vpiParent
+           3 > |vpiRange
+           3 > |vpiTypedefAlias
+== testflags/BuildUVMPkg-bf853d43
+removed=6 added=45
+   shapes:
+           6 < \_bit_typespec
+          15 > \_bit_typespec
+           3 > \_package
+           3 > \_range
+           3 > \_ref_typespec
+           3 > |vpiActual
+           3 > |vpiFullName
+           3 > |vpiInstance
+           3 > |vpiName
+           3 > |vpiParent
+           3 > |vpiRange
+           3 > |vpiTypedefAlias
+== testflags/SeqDriver-32af76aa
+removed=10 added=49
+   shapes:
+          10 < \_bit_typespec
+          19 > \_bit_typespec
+           3 > \_package
+           3 > \_range
+           3 > \_ref_typespec
+           3 > |vpiActual
+           3 > |vpiFullName
+           3 > |vpiInstance
+           3 > |vpiName
+           3 > |vpiParent
+           3 > |vpiRange
+           3 > |vpiTypedefAlias
+== testflags/MiniAmiq-544c7f61
+removed=10 added=49
+   shapes:
+          10 < \_bit_typespec
+          19 > \_bit_typespec
+           3 > \_package
+           3 > \_range
+           3 > \_ref_typespec
+           3 > |vpiActual
+           3 > |vpiFullName
+           3 > |vpiInstance
+           3 > |vpiName
+           3 > |vpiParent
+           3 > |vpiRange
+           3 > |vpiTypedefAlias

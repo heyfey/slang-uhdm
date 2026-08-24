@@ -8954,6 +8954,99 @@ void UhdmExporter::bareScalarTypedefVarTs() {
     }
 }
 
+// § castPkgVecTdBareViewClone123 (r10uvm123) — see UhdmExporter.h for the law.
+// Re-points every RECORDED cast-target ref that still names a package
+// bit/logic typedef LISTING object at the bare, aliased per-use copy of the
+// listing object OF THE VIEW THE CAST SITE LIVES IN.  Runs immediately after
+// LAW S -- late enough that no earlier typespec rebind can undo it, early
+// enough that the two alias passes below see the copies.  It keeps its OWN
+// memo rather than LAW S's, because a cast clone's vpiInstance is the
+// TYPEDEF'S HOME package while LAW S's copy inherits the LISTING object's,
+// which an importer's listing pass has already moved (grid arms C and E).
+// One copy per listing object stands in for Surelog's one per USE: uhdm-cmp
+// compares fields, never object identity.
+void UhdmExporter::castPkgTdCloneViewTs123() {
+    if (castPkgTdSites123.empty())
+        return;
+    auto rangeLen123 = [](const UHDM::typespec* t) -> size_t {
+        if (!t)
+            return 0;
+        if (t->UhdmType() == UHDM::uhdmbit_typespec) {
+            auto* r = ((const UHDM::bit_typespec*)t)->Ranges();
+            return r ? r->size() : 0;
+        }
+        if (t->UhdmType() == UHDM::uhdmlogic_typespec) {
+            auto* r = ((const UHDM::logic_typespec*)t)->Ranges();
+            return r ? r->size() : 0;
+        }
+        return 0;
+    };
+    int moved123 = 0;
+    for (auto& st123 : castPkgTdSites123) {
+        auto* rt123 = st123.rt;
+        if (!rt123)
+            continue;
+        auto* at123 = rt123->Actual_typespec();
+        if (!at123)
+            continue;
+        UHDM::typespec* dts123 = nullptr;
+        UHDM::typespec* tts123 = nullptr;
+        if (auto d123 = typedefTs.find(st123.td); d123 != typedefTs.end())
+            dts123 = d123->second;
+        if (auto t123 = pkgTopTypedefTs.find((const void*)st123.td);
+            t123 != pkgTopTypedefTs.end())
+            tts123 = t123->second;
+        // FENCE 4: a ref another law already re-pointed at a clone is that
+        // law's answer.
+        if (at123 != dts123 && at123 != tts123)
+            continue;
+        UHDM::typespec* want123 =
+            st123.defView ? dts123 : (tts123 ? tts123 : dts123);
+        // FENCE 5: same kind, same number of packed dimensions.
+        if (!want123 || want123->UhdmType() != at123->UhdmType())
+            continue;
+        size_t rl123 = rangeLen123(want123);
+        if (rl123 == 0 || rl123 != rangeLen123(at123))
+            continue;
+        UHDM::typespec* cp123 = nullptr;
+        if (auto m123 = castPkgTdCopy123.find(want123);
+            m123 != castPkgTdCopy123.end())
+            cp123 = m123->second;
+        else {
+            cp123 = bareScalarTdCopyOfFresh16(want123);
+            if (cp123) {
+                auto* al123 = s.MakeRef_typespec();
+                al123->VpiFullName(std::string(cp123->VpiName()));
+                al123->VpiParent(cp123);
+                al123->Actual_typespec(want123);
+                cp123->Typedef_alias(al123);
+                // The clone belongs to the TYPEDEF'S HOME package, in the view
+                // it was cloned from — not to whichever package LISTED the
+                // object last (grid arms C and E).
+                auto& hm123 = st123.defView ? pkgDefMap : pkgTopMap;
+                if (auto hp123 = hm123.find(st123.homePkg);
+                    hp123 != hm123.end() && hp123->second)
+                    cp123->Instance(hp123->second);
+            }
+            castPkgTdCopy123[want123] = cp123;
+        }
+        if (!cp123)
+            continue;
+        rt123->Actual_typespec(cp123);
+        moved123++;
+        if (getenv("R10U123_CASTTDDBG"))
+            fprintf(stderr,
+                    "[u123] cast td re-point: %s -> bare copy of %s "
+                    "(defView=%d)\n",
+                    std::string(at123->VpiName()).c_str(),
+                    std::string(want123->VpiName()).c_str(),
+                    (int)st123.defView);
+    }
+    if (getenv("R10U123_CASTTDDBG"))
+        fprintf(stderr, "[u123] recorded=%zu re-pointed=%d\n",
+                castPkgTdSites123.size(), moved123);
+}
+
 // § cloneAliasTopTarget19 (r10earl19) — § modScalarTdTopInstance's ALIAS half,
 // at a position the parent walk provably cannot classify.
 //

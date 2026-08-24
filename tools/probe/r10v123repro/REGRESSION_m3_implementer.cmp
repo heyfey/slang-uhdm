@@ -1,0 +1,136 @@
+LHS:
+decompile:
+bit_typespec: (quince123_pkg::quince_mid_t), id:17, line:4:11, endln:4:20
+|vpiParent:
+\_package: quince123_pkg (quince123_pkg::), id:1, file:/tmp/v123_arms/n_m3_chain_novar/v123_m3_chain_novar.sv, line:3:1, endln:9:11
+|vpiName:quince123_pkg::quince_mid_t
+|vpiTypedefAlias:
+\_ref_typespec: (quince123_pkg::quince123_pkg::quince_mid_t), id:18
+  |vpiParent:
+  \_bit_typespec: (quince123_pkg::quince_mid_t), id:17, line:4:11, endln:4:20
+  |vpiFullName:quince123_pkg::quince123_pkg::quince_mid_t
+  |vpiActual:
+  \_bit_typespec: (quince_base_t), id:12, line:4:11, endln:4:20
+|vpiInstance:
+\_package: quince123_pkg (quince123_pkg::), id:1, file:/tmp/v123_arms/n_m3_chain_novar/v123_m3_chain_novar.sv, line:3:1, endln:9:11
+|vpiRange:
+\_range: , id:23, line:4:15, endln:4:20
+  |vpiParent:
+  \_bit_typespec: (quince123_pkg::quince_mid_t), id:17, line:4:11, endln:4:20
+  |vpiLeftRange:
+  \_constant: , id:24, line:4:16, endln:4:17
+    |vpiParent:
+    \_range: , id:23, line:4:15, endln:4:20
+    |vpiDecompile:7
+    |vpiSize:64
+    |UINT:7
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:25, line:4:18, endln:4:19
+    |vpiParent:
+    \_range: , id:23, line:4:15, endln:4:20
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+bit_typespec: (quince123_pkg::quince_mid_t), id:17, line:4:11, endln:4:20
+|vpiParent:
+\_package: quince123_pkg (quince123_pkg::), id:1, file:/tmp/v123_arms/n_m3_chain_novar/v123_m3_chain_novar.sv, line:3:1, endln:9:11
+|vpiName:quince123_pkg::quince_mid_t
+|vpiTypedefAlias:
+\_ref_typespec: (quince123_pkg::quince123_pkg::quince_mid_t), id:18
+  |vpiParent:
+  \_bit_typespec: (quince123_pkg::quince_mid_t), id:17, line:4:11, endln:4:20
+  |vpiFullName:quince123_pkg::quince123_pkg::quince_mid_t
+  |vpiActual:
+  \_bit_typespec: (quince_base_t), id:12, line:4:11, endln:4:20
+|vpiInstance:
+\_package: quince123_pkg (quince123_pkg::), id:1, file:/tmp/v123_arms/n_m3_chain_novar/v123_m3_chain_novar.sv, line:3:1, endln:9:11
+|vpiRange:
+\_range: , id:23, line:4:15, endln:4:20
+  |vpiParent:
+  \_bit_typespec: (quince123_pkg::quince_mid_t), id:17, line:4:11, endln:4:20
+  |vpiLeftRange:
+  \_constant: , id:24, line:4:16, endln:4:17
+    |vpiParent:
+    \_range: , id:23, line:4:15, endln:4:20
+    |vpiDecompile:7
+    |vpiSize:64
+    |UINT:7
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:25, line:4:18, endln:4:19
+    |vpiParent:
+    \_range: , id:23, line:4:15, endln:4:20
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS:
+decompile:
+bit_typespec: (quince_mid_t), id:62, line:4:11, endln:4:20
+|vpiName:quince_mid_t
+|vpiTypedefAlias:
+\_ref_typespec: (quince_mid_t), id:63
+  |vpiParent:
+  \_bit_typespec: (quince_mid_t), id:62, line:4:11, endln:4:20
+  |vpiFullName:quince_mid_t
+  |vpiActual:
+  \_bit_typespec: (quince123_pkg::quince_mid_t), id:7, line:4:11, endln:4:20
+|vpiInstance:
+\_package: quince123_pkg (quince123_pkg::), id:2, file:/tmp/v123_arms/n_m3_chain_novar/v123_m3_chain_novar.sv, line:3:1, endln:9:11
+|vpiRange:
+\_range: , id:8, line:4:15, endln:4:20
+  |vpiParent:
+  \_bit_typespec: (quince123_pkg::quince_mid_t), id:7, line:4:11, endln:4:20
+  |vpiLeftRange:
+  \_constant: , id:9, line:4:16, endln:4:17
+    |vpiParent:
+    \_range: , id:8, line:4:15, endln:4:20
+    |vpiDecompile:7
+    |vpiSize:64
+    |UINT:7
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:10, line:4:18, endln:4:19
+    |vpiParent:
+    \_range: , id:8, line:4:15, endln:4:20
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+bit_typespec: (quince_mid_t), id:62, line:4:11, endln:4:20
+|vpiName:quince_mid_t
+|vpiTypedefAlias:
+\_ref_typespec: (quince_mid_t), id:63
+  |vpiParent:
+  \_bit_typespec: (quince_mid_t), id:62, line:4:11, endln:4:20
+  |vpiFullName:quince_mid_t
+  |vpiActual:
+  \_bit_typespec: (quince123_pkg::quince_mid_t), id:7, line:4:11, endln:4:20
+|vpiInstance:
+\_package: quince123_pkg (quince123_pkg::), id:2, file:/tmp/v123_arms/n_m3_chain_novar/v123_m3_chain_novar.sv, line:3:1, endln:9:11
+|vpiRange:
+\_range: , id:8, line:4:15, endln:4:20
+  |vpiParent:
+  \_bit_typespec: (quince123_pkg::quince_mid_t), id:7, line:4:11, endln:4:20
+  |vpiLeftRange:
+  \_constant: , id:9, line:4:16, endln:4:17
+    |vpiParent:
+    \_range: , id:8, line:4:15, endln:4:20
+    |vpiDecompile:7
+    |vpiSize:64
+    |UINT:7
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:10, line:4:18, endln:4:19
+    |vpiParent:
+    \_range: , id:8, line:4:15, endln:4:20
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9

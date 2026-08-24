@@ -1,0 +1,77 @@
+r10uvm123 — THE GATE BATTERY, VERBATIM.  BASE 7bfb970.
+results/*.csv were READ ONLY; NO ROW WAS CONVERTED and nothing was promoted.
+The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole judge.
+
+== binaries (both frozen chmod 555 before any sweep) ==
+pristine  94786b24b692c0fbd46e1fefacfb715a  (BYTE-IDENTICAL to the main tree's build at 7bfb970)
+1c0f7d3c9a5a42edbee112912da29d98  patched
+
+== (1) goldens ==
+pristine PASS=23 FAIL=0
+patched  PASS=23 FAIL=0
+SLANG_UHDM=/bin/false negative control: FAIL=23 PASS=0
+
+== (2) uhdm2rtlil, both modes ==
+[testflags] 731 tests
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+U2RDONE
+ct8rows vs results/gate_uhdm2rtlil.csv : PASS (0 differing rows)
+ct8rows vs this pass's own pristine CSVs: PASS in both modes
+byteverify MOVERS 0 / 1358, PATH_SETS_IDENTICAL, SELFCHECK 1357/1358 flagged
+
+== (3) surelog --mode both ==
+[default] 794 tests
+  CMP_EQUAL: 471
+  SLANG_REJECT: 283
+  SURELOG_FAIL: 25
+  CMP_NOTEQUAL: 10
+  DEFERRED: 5
+  CMP_EQUAL: 466
+  SLANG_REJECT: 284
+  SURELOG_FAIL: 23
+  CMP_NOTEQUAL: 9
+  DEFERRED: 5
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+SLDONE
+ct8rows vs results/golden_surelog.csv  : PASS (0 differing rows over 1588)
+ct8rows vs this pass's own pristine CSV: PASS
+byteverify MOVERS 9 / 956 — every one PREDICTED BY NAME (PREDICT.r10uvm123.txt)
+
+== (4) canaries ==
+surelog    ok=52 changed=0 absent=0
+uhdm2rtlil ok=8  changed=0 absent=0
+ctcan2 PASS on both corpora; canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+protected DBs byte-identical: InterfaceModPort BlackParrotComplex YosysOldOr;
+  SVSwitch 4842211c4030, YosysVerx 6ccda350c24a (pins held)
+
+== (5) wide boundary ==
+PROCESSED=3746 identical=7176 DIFFERING=22 no_output=294
+rc histogram:
+rc=0 13810
+rc=139 28
+rc=3 560
+rc=4 586
+all 28 rc=139 cells occur on BOTH binaries (14 arms x 2)
+DIFFERING = 14 of this pass's own arms (the POSITIVE CONTROL) + 8 cells over
+four earlier-pass arms, each re-measured against golden and NON-INCREASING
+(see ARMS.r10uvm123.txt).
+
+== (6) heads (rowheads.sh, official uhdm-cmp) ==
+TEST         MODE       PRIS  PAT
+SimpleUVM    default     148   98   NEW HEAD (different object)
+SimpleUVM    testflags   148   98   NEW HEAD
+Scoreboard   default     148   98   NEW HEAD
+BuildUVMPkg  default     148   98   NEW HEAD
+BuildUVMPkg  testflags   148   98   NEW HEAD
+SeqDriver    both         58   58   head log BYTE-IDENTICAL
+MiniAmiq     both         58   58   head log BYTE-IDENTICAL
+Earlgrey_0_1 both         58   58   head log BYTE-IDENTICAL
+Rggen        default        0    0   still CMP_EQUAL

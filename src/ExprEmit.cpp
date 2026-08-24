@@ -16406,6 +16406,62 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             rt->VpiParent(op);
             rt->Actual_typespec(cts);
+            // § castPkgVecTdBareViewClone123 — RECORD, re-point design-final.
+            // The target of a cast to a package RANGED bit/logic typedef is a
+            // per-use clone (bare name + vpiTypedefAlias -> the listing
+            // object), and the VIEW decides which listing object: the def one
+            // ONLY inside the typedef's OWN home package's un-elaborated view
+            // (never in an import clone), the ELABORATED one everywhere else.
+            // Recorded here because only the emission site knows the view;
+            // applied at design-final so no later typespec rebind can undo it.
+            // FENCE — the WRITTEN spelling decides.  A BARE identifier
+            // (`v_td'(x)`) reaches `compileDatastructureTypespec`'s cloning
+            // `SimpleType` arm; a SCOPED one (`b29::v_td'(x)`) resolves
+            // through the package's type table and golden binds the LISTING
+            // OBJECT itself, qualified and unaliased.  Measured on two
+            // independent goldens: r10buvm29repro/g29_b_targets.sv holds both
+            // spellings of ONE typedef and golden splits them, and this pass's
+            // own g123_g_scoped.sv reproduces the split from scratch.
+            bool bareCastName123 = false;
+            if (effCastSyn &&
+                effCastSyn->kind == syntax::SyntaxKind::CastExpression)
+                bareCastName123 =
+                    effCastSyn->as<syntax::CastExpressionSyntax>().left->kind ==
+                    syntax::SyntaxKind::IdentifierName;
+            // FENCE 6 (r10v123, the verifier's) — an ALIAS OF AN ALIAS takes
+            // NO clone.  `typedef bit [7:0] base_t; typedef base_t mid_t;` and
+            // then `mid_t'(x)`: golden binds the package's LISTING object
+            // itself, QUALIFIED, with its own `Typedef_alias` pointing at the
+            // BASE typedef's bare copy -- exactly what we already emitted.
+            // Without this fence the pass renamed that binding to the bare
+            // `mid_t` and re-aimed its alias at the listing object, turning a
+            // byte-exact cell INTO a differing one in both views
+            // (r10v123repro/v123_m1_chain_min.sv 2/2 census rows exact ->
+            // 0/2; v123_m3_chain_novar.sv, where no variable of the type masks
+            // the cell, moves the OFFICIAL uhdm-cmp head 17 -> 136 lines).
+            // It is LAW S's own refusal, at TypeEmit.cpp's `note()`
+            // (`targetType.getType().kind == SymbolKind::TypeAlias -> return`),
+            // and § pkgTdCloneRefNoBind18 established it for the same reason.
+            bool aliasOfAlias123 =
+                expr.type && expr.type->kind == SymbolKind::TypeAlias &&
+                expr.type->as<TypeAliasType>().targetType.getType().kind ==
+                    SymbolKind::TypeAlias;
+            if (bareCastName123 && !aliasOfAlias123 && cts && expr.type &&
+                expr.type->kind == SymbolKind::TypeAlias &&
+                (cts->UhdmType() == UHDM::uhdmbit_typespec ||
+                 cts->UhdmType() == UHDM::uhdmlogic_typespec)) {
+                auto* hs123 = expr.type->as<TypeAliasType>().getParentScope();
+                if (hs123 &&
+                    hs123->asSymbol().kind == SymbolKind::Package) {
+                    bool defView123 =
+                        (const Symbol*)&hs123->asSymbol() == curPkgEmitSym &&
+                        !pkgImportCloneEmit &&
+                        (currentSubSym ? pkgDefViewBody9 : !pkgEmitTopView);
+                    castPkgTdSites123.push_back(
+                        {rt, (const Symbol*)expr.type,
+                         (const void*)&hs123->asSymbol(), defView123});
+                }
+            }
             // Re-elaborated contexts parent the cast typespec at its ref — as
             // does an imported param's module-view init copy. A shared cast
             // UNION clone re-parents at every cast ref (last-writer, Surelog).

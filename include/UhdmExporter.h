@@ -612,6 +612,57 @@ private:
     // BINDING ref sits in a module / interface / program listing.  Ownership
     // therefore has to be read off the binding ref, not off the clone.
     void cloneAliasTopTarget19();
+    /// § `castPkgVecTdBareViewClone123` (r10uvm123) — THE TARGET OF A CAST TO
+    /// A PACKAGE **RANGED bit/logic** TYPEDEF IS A PER-USE CLONE, NOT THE
+    /// LISTING OBJECT, AND THE VIEW DECIDES WHICH LISTING OBJECT IT IS MADE OF.
+    ///
+    /// Surelog compiles a cast's target with `compileTypespec` on the written
+    /// `Simple_type` (`CompileExpression.cpp:2676`), which reaches
+    /// `compileDatastructureTypespec`'s `SimpleType` arm
+    /// (`CompileType.cpp:882-896`): it `clone_tree`s the typedef's typespec
+    /// and hangs a `Typedef_alias` `ref_typespec` on the CLONE.  The clone
+    /// keeps the BARE typedef name because `UhdmWriter::writeDataTypes`
+    /// (`UhdmWriter.cpp:789-796`) qualifies a package's LISTING object IN
+    /// PLACE — `pkg::T` — long after every clone was taken.  And because the
+    /// cast is re-compiled per view, the object cloned is whatever the
+    /// typedef's `getTypespec()` holds in THAT compile: the un-elaborated
+    /// (symbolic-bound) twin only while the typedef's OWN home package is
+    /// being compiled with `Reduce::No`; the elaborated (folded) one in the
+    /// home package's elaborated view, in every other package, in every
+    /// module/interface/class body, and in a wildcard-import CLONE of a home
+    /// subroutine (the same "an import clone copies the ELABORATED object"
+    /// rule § `negLitPkgRetFold86` arm a4 and § `enumBaseTdCloneElabRanges114`
+    /// measured).
+    ///
+    /// FOUR FENCES, each a refusal to move a cell this pass did not measure:
+    ///   * only a `vpiCastOp`'s own target typespec is recorded;
+    ///   * only `bit_typespec` / `logic_typespec` WITH a non-empty range
+    ///     vector — an ENUM, STRUCT or PACKED-ARRAY cast target is left on the
+    ///     listing object, which is what golden binds there (grid arm F);
+    ///   * only a ref that STILL names a listing object of that typedef, so a
+    ///     clone another law already minted is that law's answer;
+    ///   * the replacement listing object must have the SAME `UhdmType` and
+    ///     the SAME range-vector LENGTH as the object being replaced.
+    ///
+    /// The clone's `vpiInstance` is the TYPEDEF'S HOME PACKAGE in the view the
+    /// clone was made of — never the last package to LIST the object.  Golden
+    /// grid arm C (`cedar123_b` imports `cedar123_a`): every folded clone
+    /// carries `TopPackages[cedar123_a]` and the one symbolic clone carries
+    /// `AllPackages[cedar123_a]`, in both packages' bodies alike; arm E reads
+    /// the same on a class in the IMPORTING package.  That is why this pass
+    /// keeps its OWN memo instead of LAW S's: LAW S's copy inherits the
+    /// listing object's instance, which an importer's listing pass has already
+    /// moved (§ pkgImportAggCloneLastWriter32's rule for the LISTING object).
+    struct CastPkgTdSite123 {
+        UHDM::ref_typespec* rt;
+        const slang::ast::Symbol* td;
+        const void* homePkg;
+        bool defView;
+    };
+    std::vector<CastPkgTdSite123> castPkgTdSites123;
+    /// One private per-listing-object copy, keyed by the listing object.
+    std::map<const UHDM::typespec*, UHDM::typespec*> castPkgTdCopy123;
+    void castPkgTdCloneViewTs123();
     // The clone-flavoured copy of one qualified listing object: bare name,
     // aliased to the UNALIASED bare copy.  Memoized like the others.
     std::map<const UHDM::typespec*, UHDM::typespec*> cloneBareScalarTdCopy16;

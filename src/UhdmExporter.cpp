@@ -6615,6 +6615,12 @@ UHDM::design* UhdmExporter::exportDesign() {
     // object it also moved is not moved twice.
     pkgParamTsTopInstance16(d);
     bareScalarTypedefVarTs();
+    // § castPkgVecTdBareViewClone123 — the CAST flavour of LAW S's
+    // per-use clone, at the one binding LAW S's own walk cannot classify (an
+    // operation's target typespec carries no view of its own).  Immediately
+    // after LAW S, so the two alias passes below see its copies; the copies
+    // themselves come from this pass's OWN memo (see TypeEmit.cpp).
+    castPkgTdCloneViewTs123();
     // § importCloneBareTdAlias16: inside a wildcard-import CLONE body the
     // alias target of that bare copy is bare too.  Right after LAW S, whose
     // memo it re-points.

@@ -1,0 +1,17 @@
+LHS:
+decompile:
+ref_typespec: (quince_base_t), id:16
+|vpiParent:
+\_bit_typespec: (quince_base_t), id:12, line:4:11, endln:4:20
+|vpiFullName:quince_base_t
+|vpiActual:
+\_bit_typespec: (quince123_pkg::quince_base_t), id:11, line:4:11, endln:4:20
+
+decompile:
+ref_typespec: (quince_base_t), id:16
+|vpiParent:
+\_bit_typespec: (quince_base_t), id:12, line:4:11, endln:4:20
+|vpiFullName:quince_base_t
+|vpiActual:
+\_bit_typespec: (quince123_pkg::quince_base_t), id:11, line:4:11, endln:4:20
+RHS: <null>

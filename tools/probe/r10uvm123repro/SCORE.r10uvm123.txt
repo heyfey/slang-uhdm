@@ -1,0 +1,12 @@
+r10uvm123 — DIRECTION of every byte mover, over the cast-target census.
+LHS IS ALWAYS GOLDEN.  cells keyed (view, op span), payload multisets.
+
+default/SimpleUVM-1dc93a62             cells=47 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=15 ALREADY-GOLDEN=26
+default/Scoreboard-59431470            cells=47 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=16 ALREADY-GOLDEN=25
+default/BuildUVMPkg-bf853d43           cells=36 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=16 ALREADY-GOLDEN=14
+default/SeqDriver-32af76aa             cells=47 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=38 ALREADY-GOLDEN=3
+default/MiniAmiq-544c7f61              cells=50 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=39 ALREADY-GOLDEN=5
+testflags/SimpleUVM-1dc93a62           cells=47 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=15 ALREADY-GOLDEN=26
+testflags/BuildUVMPkg-bf853d43         cells=36 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=16 ALREADY-GOLDEN=14
+testflags/SeqDriver-32af76aa           cells=47 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=38 ALREADY-GOLDEN=3
+testflags/MiniAmiq-544c7f61            cells=50 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=39 ALREADY-GOLDEN=5

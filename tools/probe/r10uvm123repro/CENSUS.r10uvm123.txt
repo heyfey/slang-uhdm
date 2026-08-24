@@ -1,0 +1,75 @@
+r10uvm123 — THE USE-SITE CENSUS (question 1), SimpleUVM/default.
+cen123 keys every ref_typespec that names a package vector/array typedef by
+its PARENT CHAIN (kinds+names+spans, NO object ids) and its VpiFullName;
+join123.py joins the two producers as MULTISETS (keys collide by design: two
+views name the same chain, and a last-writer dict would drop rows).
+LHS IS ALWAYS GOLDEN.
+
+PRISTINE  SAME=712 DIFFCELLS=27 GOLD-ONLY=563 OURS-ONLY=198
+PATCHED   SAME=742 DIFFCELLS=20 GOLD-ONLY=563 OURS-ONLY=198
+
+GOLD-ONLY / OURS-ONLY are UNCHANGED (563 / 198): golden mints one clone per
+USE and we share one per listing object — uvm114's residue R3, invisible to
+the judge (no generated Compare reads VpiParent and every shared object
+carries the same Compare-visible fields).
+
+THE CAST CELLS (vpiCastOp), the family this pass closes:
+  golden 41 / pristine 41 / patched 41 cast cells; of those, the ones whose
+  target is a package RANGED bit/logic typedef:
+
+-- pristine, every one DIFFERING:
+DIFF	uvm_pkg::uvm_mem::set_coverage	design(work@top)/package(uvm_pkg)@28:1/class_defn(uvm_mem)@40:1/function(set_coverage)@1405:1/begin@1411:4/operation{op14}@1406:8/operation{op67}@1406:17
+   G x1 bit_typespec|uvm_reg_cvr_t|C{INT:31,ct=7}|C{UINT:0,ct=9}|uvm_pkg::uvm_reg_cvr_t|uvm_pkg|nr=1
+   O x1 bit_typespec|uvm_pkg::uvm_reg_cvr_t|OP11|C{UINT:0,ct=9}|-|uvm_pkg|nr=1
+OURS-ONLY	uvm_pkg::uvm_mem::set_coverage	design(work@top)/package(uvm_pkg)@28:1/class_defn(uvm_mem)@40:1/function(set_coverage)@869:4/bit_var@1405:10
+--
+DIFF	uvm_pkg::uvm_mem_single_access_seq::body	design(work@top)/package(uvm_pkg)@28:1/class_defn(uvm_mem_single_access_seq)@50:1/task(body)@64:4/begin@66:7/foreach_stmt@96:7/begin@96:25/for_stmt@111:10/begin@111:51/assignment@112:13/operation{op28}@112:19/operation{op67}@112:29
+   G x1 bit_typespec|uvm_reg_data_t|C{INT:63,ct=7}|C{UINT:0,ct=9}|uvm_pkg::uvm_reg_data_t|uvm_pkg|nr=1
+   O x1 bit_typespec|uvm_pkg::uvm_reg_data_t|OP11|C{UINT:0,ct=9}|-|uvm_pkg|nr=1
+DIFF	uvm_pkg::uvm_mem_single_access_seq::body	design(work@top)/package(uvm_pkg)@28:1/class_defn(uvm_mem_single_access_seq)@50:1/task(body)@64:4/begin@66:7/foreach_stmt@96:7/begin@96:25/for_stmt@111:10/begin@111:51/if_stmt@113:13/assignment@114:15/operation{op29}@114:21/operation{op67}@114:21
+   G x1 bit_typespec|uvm_reg_data_t|C{INT:63,ct=7}|C{UINT:0,ct=9}|uvm_pkg::uvm_reg_data_t|uvm_pkg|nr=1
+   O x1 bit_typespec|uvm_pkg::uvm_reg_data_t|OP11|C{UINT:0,ct=9}|-|uvm_pkg|nr=1
+GOLD-ONLY	uvm_pkg::uvm_object::set_int_local::value	design(work@top)/package(uvm_pkg)@28:1/class_defn(uvm_object)@46:9/function(set_int_local)@681:3/io_decl(value)@682:67
+--
+DIFF	uvm_pkg::uvm_reg::set_coverage	design(work@top)/package(uvm_pkg)@28:1/class_defn(uvm_reg)@37:9/function(set_coverage)@1896:1/begin@1902:4/operation{op14}@1897:8/operation{op67}@1897:17
+   G x1 bit_typespec|uvm_reg_cvr_t|C{INT:31,ct=7}|C{UINT:0,ct=9}|uvm_pkg::uvm_reg_cvr_t|uvm_pkg|nr=1
+   O x1 bit_typespec|uvm_pkg::uvm_reg_cvr_t|OP11|C{UINT:0,ct=9}|-|uvm_pkg|nr=1
+GOLD-ONLY	uvm_pkg::uvm_reg::set_offset::offset	design(work@top)/package(uvm_pkg)@28:1/class_defn(uvm_reg)@37:9/function(set_offset)@119:4/io_decl(offset)@120:60
+--
+DIFF	uvm_pkg::uvm_mem::set_coverage	design(work@top)/package(uvm_pkg)@28:1/function(uvm_mem::set_coverage)@1405:1/begin@1411:4/operation{op14}@1406:8/operation{op67}@1406:17
+   G x1 bit_typespec|uvm_reg_cvr_t|OP11|C{UINT:0,ct=9}|uvm_pkg::uvm_reg_cvr_t|uvm_pkg|nr=1
+   O x1 bit_typespec|uvm_pkg::uvm_reg_cvr_t|OP11|C{UINT:0,ct=9}|-|uvm_pkg|nr=1
+OURS-ONLY	uvm_pkg::uvm_packer::unpack_field::unpack_field	design(work@top)/package(uvm_pkg)@28:1/function(uvm_packer::unpack_field)@892:1/begin@894:3/assignment@893:3/ref_obj(unpack_field)@893:3/logic_var(unpack_field)@892:10
+--
+DIFF	uvm_pkg::uvm_reg::set_coverage	design(work@top)/package(uvm_pkg)@28:1/function(uvm_reg::set_coverage)@1896:1/begin@1902:4/operation{op14}@1897:8/operation{op67}@1897:17
+   G x1 bit_typespec|uvm_reg_cvr_t|OP11|C{UINT:0,ct=9}|uvm_pkg::uvm_reg_cvr_t|uvm_pkg|nr=1
+   O x1 bit_typespec|uvm_pkg::uvm_reg_cvr_t|OP11|C{UINT:0,ct=9}|-|uvm_pkg|nr=1
+OURS-ONLY	uvm_pkg::uvm_reg_block::build_coverage::build_coverage	design(work@top)/package(uvm_pkg)@28:1/function(uvm_reg_block::build_coverage)@1559:1/begin@1561:4/assignment@1560:4/ref_obj(build_coverage)@1560:4/bit_var(build_coverage)@1559:10
+
+-- patched: 0 differing op67 cells.
+
+THE CAST-SITE TABLE (cast123), golden vs patched, SimpleUVM/default:
+2,4c2
+< CAST ALLPKG op@147:56-147:80 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+< CAST ALLPKG op@148:56-148:80 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+< CAST ALLPKG op@168:15-168:38 tgt=unsupported_typespec name=uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+---
+> CAST ALLPKG op@168:15-168:38 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+8a7,14
+> CAST OTHER op@132:66-132:90 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+> CAST OTHER op@133:66-133:90 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+> CAST OTHER op@147:56-147:80 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+> CAST OTHER op@147:56-147:80 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+> CAST OTHER op@148:56-148:80 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+> CAST OTHER op@148:56-148:80 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+> CAST OTHER op@355:66-355:90 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+> CAST OTHER op@356:66-356:90 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+11,12d16
+< CAST TOPPKG op@132:66-132:90 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+< CAST TOPPKG op@133:66-133:90 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+14,15d17
+< CAST TOPPKG op@147:56-147:80 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+< CAST TOPPKG op@148:56-148:80 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+23,24d24
+< CAST TOPPKG op@355:66-355:90 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1
+< CAST TOPPKG op@356:66-356:90 tgt=enum_typespec name=uvm_pkg::uvm_severity L=- R=- alias=- inst=package(uvm_pkg)@28:1

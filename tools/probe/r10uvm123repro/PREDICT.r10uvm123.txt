@@ -1,0 +1,13 @@
+PREDICT 6 surelog/default/BuildUVMPkg-bf853d43/slang.uhdm
+PREDICT 10 surelog/default/MiniAmiq-544c7f61/slang.uhdm
+PREDICT 6 surelog/default/Scoreboard-59431470/slang.uhdm
+PREDICT 10 surelog/default/SeqDriver-32af76aa/slang.uhdm
+PREDICT 6 surelog/default/SimpleUVM-1dc93a62/slang.uhdm
+PREDICT 6 surelog/testflags/BuildUVMPkg-bf853d43/slang.uhdm
+PREDICT 10 surelog/testflags/MiniAmiq-544c7f61/slang.uhdm
+PREDICT 10 surelog/testflags/SeqDriver-32af76aa/slang.uhdm
+PREDICT 6 surelog/testflags/SimpleUVM-1dc93a62/slang.uhdm
+-- scanned=956 predicted-movers=9
+
+# uhdm2rtlil (1358 databases, both modes):
+-- scanned=1358 predicted-movers=0

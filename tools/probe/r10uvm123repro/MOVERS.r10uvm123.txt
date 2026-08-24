@@ -1,0 +1,24 @@
+r10uvm123 — byte movers, patched vs this pass's OWN pristine sweep.
+LHS IS ALWAYS GOLDEN.  Predicted BY NAME in PREDICT.r10uvm123.txt from the
+PRISTINE databases alone, BEFORE the patched sweep ran; the sets are equal.
+
+surelog:
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=017fa035d047 pristine=a48f07c5cac5
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=44102d3feca1 pristine=566675eb884c
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=9b2fefcf05d3 pristine=b2629b00e859
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=183e9c471aa6 pristine=09b495c39d8b
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=03b686ee80a5 pristine=2458300b7a8d
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=017fa035d047 pristine=a48f07c5cac5
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=44102d3feca1 pristine=566675eb884c
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=719a692ebf79 pristine=4c81dd439881
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=4582b9cdc7cf pristine=38306c272bc1
+MOVERS: 9 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+uhdm2rtlil:
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged

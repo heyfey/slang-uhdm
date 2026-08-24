@@ -1,0 +1,71 @@
+r10uvm123 — ARM SCORES.  LHS IS ALWAYS GOLDEN (surelog -parse -nobuiltin -nocache -sv).
+score = differing lines of the cast-target census (cast123) golden vs ours.
+cmp = OFFICIAL uhdm-cmp line count, golden vs ours (these arms are NOT
+cmp-equal designs; the number is a NON-INCREASING check, not a target).
+
+ARM                                        PRIS    PAT   cmp p->q
+g123_a_clsmethod.sv                          18      0 5442->5442
+g123_b_modsub.sv                              9      3 2932->2932
+g123_c_otherpkg.sv                           20      8 5658->5658
+g123_d_modclass.sv                            8      0 3090->3090
+g123_e_twopkg.sv                             14      4 4318->4318
+g123_f_kinds.sv                               6      2 3632->3632
+g123_g_scoped.sv                              4      0 2718->2718
+
+EARLIER-PASS ARMS THAT THE WIDE BOUNDARY FLAGGED (re-measured against golden):
+r10buvm29repro_g29_b_targets                  2      0 5162->5162
+r10v118repro_v118_a3_written_fences           8      4 6154->6154
+r10vbuvm29repro_gv29_e_targets                6      2 3978->3978
+r10vbuvm29repro_gv29_g_tdname                 4      0 2846->2846
+
+RESIDUES STILL VISIBLE IN THE ARMS (each a family this pass FENCES OUT):
+-- g123_b_modsub.sv
+   2,3c2
+   < CAST MODULE op@15:16-15:27 tgt=logic_typespec name=twig_lt L=C{INT:8,ct=7} R=C{UINT:0,ct=9} alias=Birch123Pkg::twig_lt inst=package(Birch123Pkg)@4:1
+   < CAST MODULE op@15:16-15:27 tgt=logic_typespec name=twig_lt L=C{INT:8,ct=7} R=C{UINT:0,ct=9} alias=Birch123Pkg::twig_lt inst=package(Birch123Pkg)@4:1
+   ---
+   > CAST MODULE op@15:16-15:27 tgt=logic_typespec name=twig_lt L=OP11 R=C{UINT:0,ct=9} alias=Birch123Pkg::twig_lt inst=package(Birch123Pkg)@4:1
+-- g123_c_otherpkg.sv
+   1c1
+   < CAST ALLPKG op@10:10-10:21 tgt=bit_typespec name=cone_BT L=C{INT:5,ct=7} R=C{UINT:0,ct=9} alias=cone_BT inst=package(cedar123_a)@5:1
+   ---
+   > CAST ALLPKG op@10:10-10:21 tgt=bit_typespec name=cone_BT L=C{INT:5,ct=7} R=C{UINT:0,ct=9} alias=cedar123_a::cone_BT inst=package(cedar123_a)@5:1
+   3c3
+   < CAST ALLPKG op@11:10-11:21 tgt=logic_typespec name=Cone_lt L=C{INT:5,ct=7} R=C{UINT:0,ct=9} alias=Cone_lt inst=package(cedar123_a)@5:1
+   ---
+   > CAST ALLPKG op@11:10-11:21 tgt=logic_typespec name=Cone_lt L=OP11 R=C{UINT:0,ct=9} alias=cedar123_a::Cone_lt inst=package(cedar123_a)@5:1
+   8c8,9
+   < CAST TOPPKG op@10:10-10:21 tgt=bit_typespec name=cone_BT L=C{INT:5,ct=7} R=C{UINT:0,ct=9} alias=cone_BT inst=package(cedar123_a)@5:1
+   ---
+   > CAST TOPPKG op@10:10-10:21 tgt=bit_typespec name=cone_BT L=C{INT:5,ct=7} R=C{UINT:0,ct=9} alias=cedar123_a::cone_BT inst=package(cedar123_a)@5:1
+   > CAST TOPPKG op@11:10-11:21 tgt=logic_typespec name=Cone_lt L=C{INT:5,ct=7} R=C{UINT:0,ct=9} alias=cedar123_a::Cone_lt inst=package(cedar123_a)@5:1
+   10d10
+   < CAST TOPPKG op@11:10-11:21 tgt=logic_typespec name=Cone_lt L=C{INT:5,ct=7} R=C{UINT:0,ct=9} alias=Cone_lt inst=package(cedar123_a)@5:1
+-- g123_e_twopkg.sv
+   3c3
+   < CAST ALLPKG op@29:11-29:22 tgt=enum_typespec name=elm123_root::leaf_et L=- R=- alias=- inst=package(elm123_leafpkg)@18:1
+   ---
+   > CAST ALLPKG op@29:11-29:22 tgt=enum_typespec name=elm123_root::leaf_et L=- R=- alias=- inst=package(elm123_root)@5:1
+   7c7
+   < CAST TOPPKG op@29:11-29:22 tgt=enum_typespec name=elm123_root::leaf_et L=- R=- alias=- inst=package(elm123_leafpkg)@18:1
+   ---
+   > CAST TOPPKG op@29:11-29:22 tgt=enum_typespec name=elm123_root::leaf_et L=- R=- alias=- inst=package(elm123_root)@5:1
+-- g123_f_kinds.sv
+   2c2
+   < CAST TOPPKG op@19:13-19:27 tgt=packed_array_typespec name=fir123_pkg::FIR_WORD_T L=C{UINT:3,ct=9} R=C{UINT:0,ct=9} alias= inst=package(fir123_pkg)@4:1
+   ---
+   > CAST TOPPKG op@19:13-19:27 tgt=bit_typespec name=fir123_pkg::FIR_WORD_T L=- R=- alias=- inst=package(fir123_pkg)@4:1
+-- r10v118repro/v118_a3_written_fences.sv
+   2c2
+   < CAST ALLPKG op@9:21-9:34 tgt=string_typespec name=Moniker L=- R=- alias=Vault9::Moniker inst=package(Vault9)@3:1
+   ---
+   > CAST ALLPKG op@9:21-9:34 tgt=string_typespec name=Vault9::Moniker L=- R=- alias=- inst=package(Vault9)@3:1
+   4c4
+   < CAST TOPPKG op@9:21-9:34 tgt=string_typespec name=Moniker L=- R=- alias=Vault9::Moniker inst=package(Vault9)@3:1
+   ---
+   > CAST TOPPKG op@9:21-9:34 tgt=string_typespec name=Vault9::Moniker L=- R=- alias=- inst=package(Vault9)@3:1
+-- r10vbuvm29repro/gv29_e_targets.sv
+   4c4
+   < CAST TOPPKG op@20:12-20:47 tgt=enum_typespec name=ve29base::far_e L=- R=- alias=- inst=package(ve29)@8:1
+   ---
+   > CAST TOPPKG op@20:12-20:47 tgt=enum_typespec name=ve29base::far_e L=- R=- alias=- inst=package(ve29base)@5:1

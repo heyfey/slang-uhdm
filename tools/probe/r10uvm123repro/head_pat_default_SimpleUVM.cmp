@@ -1,0 +1,98 @@
+LHS:
+decompile:
+bit_select: (uvm_pkg::uvm_mem::do_write::value_s), id:47255, line:1664:8, endln:1664:32
+|vpiParent:
+\_assignment: , id:47249, line:1664:8, endln:1664:36
+|vpiName:value_s
+|vpiFullName:uvm_pkg::uvm_mem::do_write::value_s
+|vpiIndex:
+\_operation: , id:47253, line:1664:16, endln:1664:31
+  |vpiParent:
+  \_bit_select: (uvm_pkg::uvm_mem::do_write::value_s), id:47255, line:1664:8, endln:1664:32
+  |vpiOpType:11
+  |vpiOperand:
+  \_hier_path: (value_s.len), id:47250, line:1664:16, endln:1664:29
+    |vpiParent:
+    \_operation: , id:47253, line:1664:16, endln:1664:31
+    |vpiActual:
+    \_ref_obj: (value_s), id:47251, line:1664:16, endln:1664:23
+      |vpiParent:
+      \_hier_path: (value_s.len), id:47250, line:1664:16, endln:1664:29
+      |vpiName:value_s
+    |vpiActual:
+    \_method_func_call: (len), id:47252, line:1664:24, endln:1664:27
+      |vpiParent:
+      \_hier_path: (value_s.len), id:47250, line:1664:16, endln:1664:29
+      |vpiName:len
+    |vpiName:value_s.len
+  |vpiOperand:
+  \_constant: , id:47254, line:1664:30, endln:1664:31
+    |vpiParent:
+    \_operation: , id:47253, line:1664:16, endln:1664:31
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+
+decompile:
+bit_select: (uvm_pkg::uvm_mem::do_write::value_s), id:47255, line:1664:8, endln:1664:32
+|vpiParent:
+\_assignment: , id:47249, line:1664:8, endln:1664:36
+|vpiName:value_s
+|vpiFullName:uvm_pkg::uvm_mem::do_write::value_s
+|vpiIndex:
+\_operation: , id:47253, line:1664:16, endln:1664:31
+  |vpiParent:
+  \_bit_select: (uvm_pkg::uvm_mem::do_write::value_s), id:47255, line:1664:8, endln:1664:32
+  |vpiOpType:11
+  |vpiOperand:
+  \_hier_path: (value_s.len), id:47250, line:1664:16, endln:1664:29
+    |vpiParent:
+    \_operation: , id:47253, line:1664:16, endln:1664:31
+    |vpiActual:
+    \_ref_obj: (value_s), id:47251, line:1664:16, endln:1664:23
+      |vpiParent:
+      \_hier_path: (value_s.len), id:47250, line:1664:16, endln:1664:29
+      |vpiName:value_s
+    |vpiActual:
+    \_method_func_call: (len), id:47252, line:1664:24, endln:1664:27
+      |vpiParent:
+      \_hier_path: (value_s.len), id:47250, line:1664:16, endln:1664:29
+      |vpiName:len
+    |vpiName:value_s.len
+  |vpiOperand:
+  \_constant: , id:47254, line:1664:30, endln:1664:31
+    |vpiParent:
+    \_operation: , id:47253, line:1664:16, endln:1664:31
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+RHS:
+decompile:
+string_var: (uvm_pkg::uvm_mem::do_write::value_s), id:29705, line:1652:20, endln:1652:27
+|vpiParent:
+\_begin: (uvm_pkg::uvm_mem::do_write), id:29700, line:1651:60, endln:1674:7
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_mem::do_write::value_s), id:29706
+  |vpiParent:
+  \_string_var: (uvm_pkg::uvm_mem::do_write::value_s), id:29705, line:1652:20, endln:1652:27
+  |vpiFullName:uvm_pkg::uvm_mem::do_write::value_s
+  |vpiActual:
+  \_string_typespec: , id:29704, line:1652:6, endln:1652:12
+|vpiName:value_s
+|vpiFullName:uvm_pkg::uvm_mem::do_write::value_s
+
+decompile:
+string_var: (uvm_pkg::uvm_mem::do_write::value_s), id:29705, line:1652:20, endln:1652:27
+|vpiParent:
+\_begin: (uvm_pkg::uvm_mem::do_write), id:29700, line:1651:60, endln:1674:7
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_mem::do_write::value_s), id:29706
+  |vpiParent:
+  \_string_var: (uvm_pkg::uvm_mem::do_write::value_s), id:29705, line:1652:20, endln:1652:27
+  |vpiFullName:uvm_pkg::uvm_mem::do_write::value_s
+  |vpiActual:
+  \_string_typespec: , id:29704, line:1652:6, endln:1652:12
+|vpiName:value_s
+|vpiFullName:uvm_pkg::uvm_mem::do_write::value_s

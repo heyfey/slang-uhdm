@@ -1,0 +1,340 @@
+r10v123 — ADVERSARIAL VERIFICATION BATTERY (verbatim).  BASE 7bfb970.
+LHS IS ALWAYS GOLDEN.  Judge = ~/git-repos/UHDM/build/bin/uhdm-cmp.
+results/*.csv READ ONLY.  NO ROW CONVERTED.  slang NOT patched.
+
+== (1) BINARIES (all frozen chmod 555 before any sweep) ==
+94786b24b692c0fbd46e1fefacfb715a  /tmp/v123_bin/pris_v123.bin
+1c0f7d3c9a5a42edbee112912da29d98  /tmp/v123_bin/pat_v123.bin
+4a0a39021ad91e31fb0187c33ed49ccd  /tmp/v123_bin/fix_v123.bin
+  pris_v123 = the main tree's build/slang-uhdm at 7bfb970, reproduced
+  pat_v123  = the implementer's /tmp/r10uvm123.patch, rebuilt here
+  fix_v123  = pat_v123 + FENCE 6 (this verification's fix)
+
+== (2) GOLDENS ==
+pristine PASS=23 FAIL=0
+patched  PASS=23  FAIL=0
+fixed    PASS=23  FAIL=0
+/bin/false PASS=0 FAIL=23
+
+== (3) SWEEP STATUS HISTOGRAMS ==
+u2r pristine tf    {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+u2r pristine def   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+u2r patched  tf    {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+u2r patched  def   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+u2r fixed    tf    {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+u2r fixed    def   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+surelog pristine   default    {'CMP_EQUAL': 471, 'SLANG_REJECT': 283, 'SURELOG_FAIL': 25, 'CMP_NOTEQUAL': 10, 'DEFERRED': 5}
+surelog pristine   testflags  {'CMP_EQUAL': 466, 'SLANG_REJECT': 284, 'SURELOG_FAIL': 23, 'NO_DATABASE': 3, 'CMP_NOTEQUAL': 9, 'UNTRANSLATABLE': 2, 'DEFERRED': 5, 'TIMEOUT': 1, 'NO_UHDM': 1}
+surelog patched    default    {'CMP_EQUAL': 471, 'SLANG_REJECT': 283, 'SURELOG_FAIL': 25, 'CMP_NOTEQUAL': 10, 'DEFERRED': 5}
+surelog patched    testflags  {'CMP_EQUAL': 466, 'SLANG_REJECT': 284, 'SURELOG_FAIL': 23, 'NO_DATABASE': 3, 'CMP_NOTEQUAL': 9, 'UNTRANSLATABLE': 2, 'DEFERRED': 5, 'TIMEOUT': 1, 'NO_UHDM': 1}
+surelog fixed      default    {'CMP_EQUAL': 471, 'SLANG_REJECT': 283, 'SURELOG_FAIL': 25, 'CMP_NOTEQUAL': 10, 'DEFERRED': 5}
+surelog fixed      testflags  {'CMP_EQUAL': 466, 'SLANG_REJECT': 284, 'SURELOG_FAIL': 23, 'NO_DATABASE': 3, 'CMP_NOTEQUAL': 9, 'UNTRANSLATABLE': 2, 'DEFERRED': 5, 'TIMEOUT': 1, 'NO_UHDM': 1}
+
+== (4) cmds.txt BINARY AUDIT (by PATH, not by name) ==
+u2rp cmds=1462 frozen-binary-lines=1458 MAIN-TREE-BINARY=0 (the rest never invoked slang: SURELOG_FAIL / cache-only rows)
+u2rq cmds=1462 frozen-binary-lines=1458 MAIN-TREE-BINARY=0 (the rest never invoked slang: SURELOG_FAIL / cache-only rows)
+u2rf cmds=1462 frozen-binary-lines=1458 MAIN-TREE-BINARY=0 (the rest never invoked slang: SURELOG_FAIL / cache-only rows)
+slp cmds=1573 frozen-binary-lines=1523 MAIN-TREE-BINARY=0 (the rest never invoked slang: SURELOG_FAIL / cache-only rows)
+slq cmds=1573 frozen-binary-lines=1523 MAIN-TREE-BINARY=0 (the rest never invoked slang: SURELOG_FAIL / cache-only rows)
+slf cmds=1573 frozen-binary-lines=1523 MAIN-TREE-BINARY=0 (the rest never invoked slang: SURELOG_FAIL / cache-only rows)
+
+== (5) ct8rows — 0 differing rows, status AND dump ==
+-- u2r-patched-vs-COMMITTED-baseline
+PASS: every row byte-identical to the committed baseline
+-- u2r-fixed-vs-COMMITTED-baseline
+PASS: every row byte-identical to the committed baseline
+-- u2r-tf-pris-vs-patched
+PASS: every row byte-identical to the committed baseline
+-- u2r-def-pris-vs-patched
+PASS: every row byte-identical to the committed baseline
+-- u2r-def-pris-vs-fixed
+PASS: every row byte-identical to the committed baseline
+-- surelog-patched-vs-COMMITTED-baseline
+PASS: every row byte-identical to the committed baseline
+-- surelog-fixed-vs-COMMITTED-baseline
+PASS: every row byte-identical to the committed baseline
+-- surelog-pris-vs-patched
+PASS: every row byte-identical to the committed baseline
+-- surelog-pris-vs-fixed
+PASS: every row byte-identical to the committed baseline
+
+== (6) byteverify (SELFCHECK=1) ==
+-- uhdm2rtlil patched vs pristine
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+-- uhdm2rtlil FIXED vs pristine
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+-- surelog patched vs pristine
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=017fa035d047 pristine=a48f07c5cac5
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=565191483d8a pristine=23a55cf5f0dc
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=9b2fefcf05d3 pristine=b2629b00e859
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=4cfc59a0db50 pristine=fc650778a794
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=03b686ee80a5 pristine=2458300b7a8d
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=017fa035d047 pristine=a48f07c5cac5
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=565191483d8a pristine=23a55cf5f0dc
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=6dffa4664f0b pristine=5828afba2d27
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=4582b9cdc7cf pristine=38306c272bc1
+MOVERS: 9 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+-- surelog FIXED vs pristine
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=017fa035d047 pristine=a48f07c5cac5
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=565191483d8a pristine=23a55cf5f0dc
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=9b2fefcf05d3 pristine=b2629b00e859
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=4cfc59a0db50 pristine=fc650778a794
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=03b686ee80a5 pristine=2458300b7a8d
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=017fa035d047 pristine=a48f07c5cac5
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=565191483d8a pristine=23a55cf5f0dc
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=6dffa4664f0b pristine=5828afba2d27
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=4582b9cdc7cf pristine=38306c272bc1
+MOVERS: 9 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+-- THE FIX IS CORPUS-NEUTRAL: FIXED vs the implementer's PATCHED
+PATH_SETS_IDENTICAL (956 paths)
+MOVERS: 0 / 956
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+
+== (7) HEADS (rowheads.sh) ==
+-- PRISTINE
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         58      1 cmp rc=255
+SeqDriver      testflags       58      1 cmp rc=255
+SimpleUVM      default        148      1 cmp rc=255
+SimpleUVM      testflags      148      1 cmp rc=255
+Scoreboard     default        148      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         58      1 cmp rc=255
+MiniAmiq       testflags       58      1 cmp rc=255
+BuildUVMPkg    default        148      1 cmp rc=255
+BuildUVMPkg    testflags      148      1 cmp rc=255
+Earlgrey_0_1   default         58      1 cmp rc=255
+Earlgrey_0_1   testflags       58      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+-- FIXED
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         58      1 cmp rc=255
+SeqDriver      testflags       58      1 cmp rc=255
+SimpleUVM      default         98      1 cmp rc=255
+SimpleUVM      testflags       98      1 cmp rc=255
+Scoreboard     default         98      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         58      1 cmp rc=255
+MiniAmiq       testflags       58      1 cmp rc=255
+BuildUVMPkg    default         98      1 cmp rc=255
+BuildUVMPkg    testflags       98      1 cmp rc=255
+Earlgrey_0_1   default         58      1 cmp rc=255
+Earlgrey_0_1   testflags       58      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+-- head logs that must be BYTE-IDENTICAL pristine->fixed:
+   SeqDriver.default BYTE-IDENTICAL
+   SeqDriver.testflags BYTE-IDENTICAL
+   MiniAmiq.default BYTE-IDENTICAL
+   MiniAmiq.testflags BYTE-IDENTICAL
+   Earlgrey_0_1.default BYTE-IDENTICAL
+   Earlgrey_0_1.testflags BYTE-IDENTICAL
+   Rggen.default BYTE-IDENTICAL
+-- the committed head logs vs my own runs:
+   head_pris_default_SimpleUVM.cmp BYTE-IDENTICAL
+   head_pat_default_SimpleUVM.cmp  BYTE-IDENTICAL
+
+== (8) CANARIES / ctcan2 / canaudit / protected DBs (FIXED binary) ==
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+  InterfaceModPort/default pris=59a365f3ce2c fixed=59a365f3ce2c
+  InterfaceModPort/testflags pris=59a365f3ce2c fixed=59a365f3ce2c
+  BlackParrotComplex/default pris=e3e354129d5a fixed=e3e354129d5a
+  BlackParrotComplex/testflags pris=73a10e8217e5 fixed=73a10e8217e5
+  YosysOldOr/default pris=d68e0796d62c fixed=d68e0796d62c
+  YosysOldOr/testflags pris=d68e0796d62c fixed=d68e0796d62c
+  SVSwitch/default pris=4842211c4030 fixed=4842211c4030
+  SVSwitch/testflags pris=4842211c4030 fixed=4842211c4030
+  YosysVerx/default pris=6ccda350c24a fixed=6ccda350c24a
+  YosysVerx/testflags pris=6ccda350c24a fixed=6ccda350c24a
+
+== (9) ARMS — official uhdm-cmp, BOTH VIEWS, corpus flags (--single-unit --nobuiltin) ==
+ARM                          cmp-def p->q     cmp-elab p->q    note
+v123_m2_plain_min.sv         122 -> 0         122 -> 0        
+v123_m4_plain_novar.sv       122 -> 0         122 -> 0        
+v123_m1_chain_min.sv         56 -> 56         60 -> 60        
+v123_m3_chain_novar.sv       17 -> 17         17 -> 17        
+v123_a_chain.sv              56 -> 56         60 -> 60        
+v123_b_bounds.sv             174 -> 33        174 -> 112      
+v123_c_kinds.sv              5804 -> 5804     6462 -> 6462    
+v123_d_scopes.sv             122 -> 17        122 -> 17       
+v123_e_spelling.sv           1130 -> 1130     1218 -> 1218    
+v123_f_multi.sv              170 -> 26        174 -> 26       
+
+-- the SAME arms measured on the IMPLEMENTER'S binary (before FENCE 6):
+v123_m1_chain_min.sv         56 -> 56         60 -> 60         <== THE REGRESSION
+v123_m3_chain_novar.sv       17 -> 136        17 -> 136        <== THE REGRESSION
+
+== (10) DIRECTION SCORE over the cast-target census (multiset; LHS golden) ==
+   MATCH p->q = golden-matching cells;  LOST_GOLDMATCH = cells we HAD and LOST
+m1_chain_min             def  GOLD=2 OURS_p=2 OURS_q=2  MATCH 2->2  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+m1_chain_min             elab GOLD=4 OURS_p=4 OURS_q=4  MATCH 4->4  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+m3_chain_novar           def  GOLD=2 OURS_p=2 OURS_q=2  MATCH 2->2  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+m3_chain_novar           elab GOLD=4 OURS_p=4 OURS_q=4  MATCH 4->4  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+a_chain                  def  GOLD=22 OURS_p=21 OURS_q=21  MATCH 0->0  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+a_chain                  elab GOLD=45 OURS_p=43 OURS_q=43  MATCH 0->0  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+b_bounds                 def  GOLD=41 OURS_p=40 OURS_q=40  MATCH 4->29  NEW_NONGOLD=6 LOST_GOLDMATCH=0
+b_bounds                 elab GOLD=82 OURS_p=80 OURS_q=80  MATCH 10->59  NEW_NONGOLD=12 LOST_GOLDMATCH=0
+c_kinds                  def  GOLD=68 OURS_p=68 OURS_q=68  MATCH 13->21  NEW_NONGOLD=4 LOST_GOLDMATCH=0
+c_kinds                  elab GOLD=150 OURS_p=150 OURS_q=150  MATCH 28->46  NEW_NONGOLD=8 LOST_GOLDMATCH=0
+d_scopes                 def  GOLD=15 OURS_p=15 OURS_q=15  MATCH 2->8  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+d_scopes                 elab GOLD=27 OURS_p=27 OURS_q=27  MATCH 5->16  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+e_spelling               def  GOLD=12 OURS_p=12 OURS_q=12  MATCH 3->10  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+e_spelling               elab GOLD=22 OURS_p=22 OURS_q=22  MATCH 5->18  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+f_multi                  def  GOLD=16 OURS_p=10 OURS_q=10  MATCH 3->10  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+f_multi                  elab GOLD=28 OURS_p=28 OURS_q=28  MATCH 9->22  NEW_NONGOLD=6 LOST_GOLDMATCH=0
+
+-- the four EARLIER-PASS arms the boundary flags, re-measured against THEIR goldens:
+r10buvm29repro_g29_b_targets.sv            def  GOLD=5 OURS_p=5 OURS_q=5  MATCH 4->5  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+r10buvm29repro_g29_b_targets.sv            elab GOLD=5 OURS_p=10 OURS_q=10  MATCH 4->5  NEW_NONGOLD=1 LOST_GOLDMATCH=0
+r10v118repro_v118_a3_written_fences.sv     def  GOLD=4 OURS_p=4 OURS_q=4  MATCH 0->2  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+r10v118repro_v118_a3_written_fences.sv     elab GOLD=8 OURS_p=8 OURS_q=8  MATCH 0->4  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+r10vbuvm29repro_gv29_e_targets.sv          def  GOLD=4 OURS_p=4 OURS_q=4  MATCH 1->3  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+r10vbuvm29repro_gv29_e_targets.sv          elab GOLD=4 OURS_p=8 OURS_q=8  MATCH 1->3  NEW_NONGOLD=2 LOST_GOLDMATCH=0
+r10vbuvm29repro_gv29_g_tdname.sv           def  GOLD=4 OURS_p=4 OURS_q=4  MATCH 2->4  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+r10vbuvm29repro_gv29_g_tdname.sv           elab GOLD=8 OURS_p=8 OURS_q=8  MATCH 4->8  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+
+-- the NINE corpus movers, same score against their cached goldens:
+default/BuildUVMPkg-bf853d43           GOLD=30 OURS_p=30 OURS_q=30  MATCH 14->20  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+default/MiniAmiq-544c7f61              GOLD=60 OURS_p=60 OURS_q=60  MATCH 11->17  NEW_NONGOLD=4 LOST_GOLDMATCH=0
+default/Scoreboard-59431470            GOLD=41 OURS_p=41 OURS_q=41  MATCH 25->31  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+default/SeqDriver-32af76aa             GOLD=57 OURS_p=57 OURS_q=57  MATCH 9->15  NEW_NONGOLD=4 LOST_GOLDMATCH=0
+default/SimpleUVM-1dc93a62             GOLD=41 OURS_p=41 OURS_q=41  MATCH 26->32  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+testflags/BuildUVMPkg-bf853d43         GOLD=30 OURS_p=30 OURS_q=30  MATCH 14->20  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+testflags/MiniAmiq-544c7f61            GOLD=60 OURS_p=60 OURS_q=60  MATCH 11->17  NEW_NONGOLD=4 LOST_GOLDMATCH=0
+testflags/SeqDriver-32af76aa           GOLD=57 OURS_p=57 OURS_q=57  MATCH 9->15  NEW_NONGOLD=4 LOST_GOLDMATCH=0
+testflags/SimpleUVM-1dc93a62           GOLD=41 OURS_p=41 OURS_q=41  MATCH 26->32  NEW_NONGOLD=0 LOST_GOLDMATCH=0
+
+== (11) THE NAME-MANGLE HAZARD, SCANNED (R9) ==
+bareScalarTdCopyOfFresh16 does cp->VpiName(qn.substr(qn.rfind("::") + 2)); on an
+UNQUALIFIED name rfind returns npos and npos+2 == 1, so the copy would lose its
+FIRST CHARACTER.  LAW S guards with ts->VpiName().find("::") != npos; pass 123 does not.
+R10U123_CASTTDDBG=1 over ALL 3756 probe arms x BOTH views:
+  re-point lines = 216
+  distinct listing objects re-pointed = 35
+  of them WITHOUT '::' = 0
+  SimpleUVM: recorded=6 re-pointed=6, all qualified
+ZERO WITNESSES -> no code added (a fence with no witness is dead code); RANKED AS R9.
+
+== (12) WIDE BOUNDARIES (fixed vs pristine) ==
+-- PER FILE
+PROCESSED=3756 identical=7182 DIFFERING=36 no_output=294
+rc=0 13850
+rc=139 28
+rc=3 560
+rc=4 586
+   DIFFERING cells:
+     plain r10buvm29repro/g29_b_targets.sv
+     elab r10buvm29repro/g29_b_targets.sv
+     plain r10uvm123repro/g123_a_clsmethod.sv
+     elab r10uvm123repro/g123_a_clsmethod.sv
+     plain r10uvm123repro/g123_b_modsub.sv
+     elab r10uvm123repro/g123_b_modsub.sv
+     plain r10uvm123repro/g123_c_otherpkg.sv
+     elab r10uvm123repro/g123_c_otherpkg.sv
+     plain r10uvm123repro/g123_d_modclass.sv
+     elab r10uvm123repro/g123_d_modclass.sv
+     plain r10uvm123repro/g123_e_twopkg.sv
+     elab r10uvm123repro/g123_e_twopkg.sv
+     plain r10uvm123repro/g123_f_kinds.sv
+     elab r10uvm123repro/g123_f_kinds.sv
+     plain r10uvm123repro/g123_g_scoped.sv
+     elab r10uvm123repro/g123_g_scoped.sv
+     plain r10v118repro/v118_a3_written_fences.sv
+     elab r10v118repro/v118_a3_written_fences.sv
+     plain r10v123repro/v123_b_bounds.sv
+     elab r10v123repro/v123_b_bounds.sv
+     plain r10v123repro/v123_c_kinds.sv
+     elab r10v123repro/v123_c_kinds.sv
+     plain r10v123repro/v123_d_scopes.sv
+     elab r10v123repro/v123_d_scopes.sv
+     plain r10v123repro/v123_e_spelling.sv
+     elab r10v123repro/v123_e_spelling.sv
+     plain r10v123repro/v123_f_multi.sv
+     elab r10v123repro/v123_f_multi.sv
+     plain r10v123repro/v123_m2_plain_min.sv
+     elab r10v123repro/v123_m2_plain_min.sv
+     plain r10v123repro/v123_m4_plain_novar.sv
+     elab r10v123repro/v123_m4_plain_novar.sv
+     plain r10vbuvm29repro/gv29_e_targets.sv
+     elab r10vbuvm29repro/gv29_e_targets.sv
+     plain r10vbuvm29repro/gv29_g_tdname.sv
+     elab r10vbuvm29repro/gv29_g_tdname.sv
+-- PER DIRECTORY
+PROCESSED=1552 identical=2821 DIFFERING=19 no_output=264
+rc=0 5430
+rc=139 12
+rc=3 516
+rc=4 250
+   DIFFERING cells and their ORDER-BLIND diff (0 == a list-order coin, not a mover):
+     r10uvm117repro plain ORDER-BLIND-DIFF=0
+     r10uvm117repro elab ORDER-BLIND-DIFF=0
+     r10uvm75repro plain ORDER-BLIND-DIFF=0
+     r10uvm75repro elab ORDER-BLIND-DIFF=0
+     r10uvm76repro plain ORDER-BLIND-DIFF=0
+     r10uvm76repro elab ORDER-BLIND-DIFF=0
+     r10uvm88repro plain ORDER-BLIND-DIFF=0
+     r10v109repro plain ORDER-BLIND-DIFF=0
+     r10v109repro elab ORDER-BLIND-DIFF=0
+     r10v117repro plain ORDER-BLIND-DIFF=0
+     r10v117repro elab ORDER-BLIND-DIFF=0
+     r10buvm29repro plain ORDER-BLIND-DIFF=15
+     r10buvm29repro elab ORDER-BLIND-DIFF=15
+     r10uvm123repro plain ORDER-BLIND-DIFF=313
+     r10uvm123repro elab ORDER-BLIND-DIFF=389
+     r10v118repro plain ORDER-BLIND-DIFF=30
+     r10v118repro elab ORDER-BLIND-DIFF=34
+     r10v123repro plain ORDER-BLIND-DIFF=443
+     r10v123repro elab ORDER-BLIND-DIFF=577
+   the 11 zero-diff cells are PROVEN nondeterministic on the PRISTINE binary alone,
+   four runs each:
+     r10uvm117repro  93a7d7bb 93a7d7bb 19cc3a07 19cc3a07
+     r10uvm75repro   0471ff24 72392237 1ae877a6 f31d0752
+     r10uvm76repro   d91addf6 89c9c630 2bb7c1ea 00df8c32
+     r10v109repro    33cf6ef3 3bd9b8c5 141199cb 7402e5df
+
+== (13) DETERMINISM of the FIXED binary (3 sweeps of the five UVM rows) ==
+  SimpleUVM   03b686ee80a5 03b686ee80a5 03b686ee80a5
+  SeqDriver   4cfc59a0db50 4cfc59a0db50 4cfc59a0db50
+  MiniAmiq    565191483d8a 565191483d8a 565191483d8a
+  BuildUVMPkg 017fa035d047 017fa035d047 017fa035d047
+  Scoreboard  2df1e9cde358 9b2fefcf05d3 9b2fefcf05d3  <- the standing ~50/50 COIN
+  the two Scoreboard faces are ORDER-BLIND IDENTICAL (removed=0 added=0)
+
+== (14) ORDER-BLIND ATTRIBUTION of every mover (sorted, id-stripped, path-normalised) ==
+  default/SimpleUVM    removed=6  added=45  non-typespec lines=0
+  testflags/SimpleUVM  removed=6  added=45  non-typespec lines=0
+  default/Scoreboard   removed=6  added=45  non-typespec lines=0
+  default/BuildUVMPkg  removed=6  added=45  non-typespec lines=0
+  default/SeqDriver    removed=10 added=49  non-typespec lines=0
+  default/MiniAmiq     removed=10 added=49  non-typespec lines=0
+  the removed lines are the six/ten cast bindings on uvm_pkg::uvm_reg_cvr_t and
+  uvm_pkg::uvm_reg_data_t; the added ones are three new clone objects and their
+  vpiName / vpiFullName / vpiTypedefAlias / vpiActual / vpiInstance / vpiRange /
+  vpiParent lines.  NOTHING ELSE MOVED -- no vpiDecompile, no hier_path, no net.
+
+== (15) THE VERIFIED PATCH ==
+/tmp/r10uvm123.verified.patch applies CLEAN on a FRESH worktree at 7bfb970
+(git worktree add /tmp/wt_v123fresh 7bfb970; git apply -3 -> rc 0, 70 files)
+and rebuilds BIT-FOR-BIT to md5 4a0a39021ad91e31fb0187c33ed49ccd.
+Surface = production (include/UhdmExporter.h, src/ExprEmit.cpp, src/TypeEmit.cpp,
+src/UhdmExporter.cpp) + tools/probe/r10uvm123repro/ + tools/probe/r10v123repro/ ONLY.
+Fence check on the patch: 0 hits on each of the four FENCED slang-fenced
+test names (canaudit excluded; the names live only in its FENCED= list).
+results/*.csv diffs: 0.
