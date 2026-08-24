@@ -1298,6 +1298,59 @@ private:
     // stays reliable for uniquified/cloned bodies where isOverriddenParam
     // misses the override. Gates the non-top def PORT-dim symbolic rule.
     std::set<const slang::ast::DefinitionSymbol*> overriddenTextDefs;
+    /// § rangeBoundStoredWidth82 (r10earl82) — THE WIDTH A RANGE BOUND FOLDS
+    /// AT IS THE WIDTH OF THE PARAMETER'S *STORED VALUE*, and for an
+    /// OVERRIDDEN parameter that value is the OVERRIDE ACTUAL's, hop by hop.
+    ///
+    /// Surelog stores a parameter's value once per instance:
+    /// `DesignElaboration::collectParams_` compiles the override ACTUAL in the
+    /// PARENT instance and stores `fromVpiValue(c->VpiValue(), c->VpiSize())`
+    /// with **no `adjustSize` anywhere on that path**, while the
+    /// NON-overridden default is `adjustSize`d against the declared typespec
+    /// BEFORE the capture.  Every later read — `CompileHelper::getValue`'s
+    /// instance arm — answers from that stored `Value` and takes
+    /// `sval->getSize()`, so a range bound naming the parameter renders at the
+    /// stored width.  This walks that chain:
+    ///
+    ///   overridden with a bare NAME  -> recurse into the named parameter
+    ///   overridden with anything else (a bare decimal, a parenthesised one,
+    ///                                  an expression, a based literal)
+    ///                                -> ABSTAIN (the caller keeps its own
+    ///                                   unsized-64 answer, which is what
+    ///                                   golden carries for those actuals)
+    ///   NOT overridden               -> the DECLARED type's width, with NO
+    ///                                   upper bound (a 100-bit parameter
+    ///                                   lends 100; the verifier's
+    ///                                   `v6_hole82.sv` / `v7_edge82.sv`
+    ///                                   measured golden at 100 on both the
+    ///                                   override side and the declaration
+    ///                                   side)
+    ///
+    /// Measured on `g5_enc82.sv` and decisive on two cells the FORMAL's width
+    /// gets wrong: a `byte` formal fed an `int` actual is golden 32, and an
+    /// `int` formal fed a `byte` actual is golden 8 — so what is lent is the
+    /// ACTUAL parameter's own width, never the formal's.  The hop chain
+    /// `#(.HW(40))` -> `.HW(HW)` -> a leaf bound is golden 64 because the
+    /// chain's ROOT actual is a bare decimal, which is exactly the abstain.
+    ///
+    /// Returns nullopt to abstain, which always means "leave the existing
+    /// answer alone".
+    std::optional<int32_t> ovActualStoredWidth82(
+        const slang::ast::ParameterSymbol& p, int depth);
+
+    /// § rangeBoundStoredWidth82 — THE DECLARATION-SIDE COPY.  A packed
+    /// dimension is emitted TWICE: once on the typespec (where
+    /// § patDefBoundPkgParamSubst already substitutes a package parameter at
+    /// its own width) and once on the `packed_array_var` the declaration
+    /// makes, where the bound was minted at the unsized 64.  Golden carries
+    /// the SAME value/size/encoding on both, with the typespec ref on the
+    /// typespec copy only.  Returns a constant built by `pkgBoundValueConst9` — the
+    /// very encoder the typespec side uses, typespec stripped — for a bound that
+    /// is a plain identifier naming an EXPLICITLY TYPED package parameter, and
+    /// nullptr otherwise.
+    UHDM::constant* pkgVarDimBoundEnc82(const slang::ast::Symbol& declSym,
+                                        const std::string& rawBound);
+
     void computeParamMultiplicity();
     bool isMultiParamDef(const slang::ast::Scope& body) const;
     // COMPILE-order comparator for cross-file sorts. Raw SourceLocation

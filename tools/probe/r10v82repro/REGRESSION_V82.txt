@@ -1,0 +1,63 @@
+r10v82 — THE ONE PRISTINE-RIGHT -> PATCHED-WRONG CELL, AND THE FIX.
+
+THE HOLE.  `ovActualStoredWidth82` refused any stored width above 64:
+
+    auto w = (int32_t)p.getType().getBitWidth();
+    if (w <= 0 || w > 64)          <-- the cap
+        return std::nullopt;
+
+Abstaining leaves the caller's unsized 64.  But the arm this law REPLACED —
+`litBoundOwnPar9`'s override half, which the pass makes `return false` — used
+to lend the FORMAL parameter's declared width, and for a formal declared wider
+than 64 bits that answer was EXACTLY GOLDEN'S.
+
+THE ARM.  `v6_hole82.sv:14`, module `w100_v6 #(parameter logic [99:0] LW = 1)`
+with `logic [LW:0] n_a;`, instantiated
+`w100_v6 #(.LW(WIDE100))` over `localparam logic [99:0] WIDE100 = 8;`.
+
+    span 14:10-14:12, uhdm-dump census, parent = range
+      GOLDEN    dec=8 sz=100 UINT:8 ct9   |  dec=8 sz=8  UINT:8 ct9
+      PRISTINE  dec=8 sz=100 UINT:8 ct9   |  dec=8 sz=4  UINT:8 ct9
+      PATCHED   dec=8 sz=64  UINT:8 ct9   |  dec=8 sz=8  UINT:8 ct9
+
+    The sz=100 slot is a slot PRISTINE MATCHED EXACTLY and the patch LOST.
+    Slot-level scorer (`score4.py`, multiset intersection with golden):
+      pre-fix   LOST=1 GAINED=2
+      post-fix  LOST=0 GAINED=3
+
+    The same cap also cost a SECOND cell that golden agrees with: `v6:18`,
+    a `byte` formal fed the SAME 100-bit actual (`wbyte_v6 #(.LW(WIDE100))`),
+    golden sz=100 — so what golden lends is the ACTUAL's width even when it
+    overflows the formal, which is this pass's own law with the cap removed.
+
+THE CAP WAS NOT EVEN SELF-CONSISTENT.  The DECLARATION-side half of the same §
+(`pkgVarDimBoundEnc82` -> `pkgBoundValueConst9`) has NO cap, and it lands on
+golden at 100: `v7_edge82.sv:17` `mv7_t [PWIDE:0] v_wide;` over
+`localparam logic [99:0] PWIDE = 8` is golden 2x sz=100 and patched 2x sz=100
+(pristine 1x100 + 1x64).  One half of the law lent 100 while the other refused
+to.
+
+THE FIX (minimal, in `src/TypeEmit.cpp`, inside `ovActualStoredWidth82`):
+    if (w <= 0)          // no upper bound
+        return std::nullopt;
+plus the matching sentence in the law comment in include/UhdmExporter.h.
+Nothing else in the patch is touched.
+
+WHAT THE FIX COSTS: NOTHING ON EITHER CORPUS.  A byteverify of the patched+fix
+sweep against the pre-fix patched sweep over both corpora reports ONE mover,
+`./default/Scoreboard`, which is the documented coin (both faces observed from a
+single binary).  All 956 + 1358 other databases are byte-identical, the Earlgrey
+hashes included, so the head, the census and every gate number are unchanged.
+
+WHAT IT WINS: on the eight adversarial arms, LOST=0 / GAINED=47 slots
+post-fix, against LOST=1 / GAINED=44 pre-fix.
+
+ALSO CHANGED-BUT-STILL-WRONG (reported, NOT fixed — no cell was ever EQUAL):
+a BASED-literal initialiser on the actual parameter.  Golden carries the
+literal's own width AND its own base/constType (`8'd8` -> INT:8 sz8 ct7,
+`4'h7` -> HEX:7 sz4 ct5); pristine wrote the FORMAL's width with UINT/ct9 and
+the patch writes 64 with UINT/ct9.  Neither state can be EQUAL because the
+value and constType are wrong in both, so this is not a regression by the
+brief's standard — but the SIZE field does move away on
+`v6_hole82.sv:18/22/26`, `v2_chain82.sv:15` and `v8_more82.sv:15`.  Closing it
+needs r10earl80's SrlgLitEnc value+ct law, exactly as the pass's own R1 says.

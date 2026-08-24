@@ -1,0 +1,32 @@
+r10v82 — THE CORPUS-WIDE RANGE-BOUND CENSUS, RE-RUN INDEPENDENTLY.
+
+Instrument: the pass's own `rngcen82.cpp`, rebuilt here from source, driven by
+`rngscan82.sh` over MY OWN sweep workdirs (golden read from each test's OWN
+cmds.txt cache path).  Scored by `cenagg.py` (this directory), which is written
+from scratch and does two things the pass's `score82.py --score` does not do
+together: the whole-payload 3-way AND a SLOT-LEVEL multiset-intersection
+LOST/GAINED, which catches a span that trades a golden-matching slot for a
+different one (exactly what `v6_hole82.sv:14` did before the fix, and what a
+span-level verdict files as MOVED-WRONG).
+
+SCANNED  surelog 948 databases (SKIP-NOFILE 617, FENCED 8 = four tests x two
+         modes, skipped BY NAME, never dispatched)
+         uhdm2rtlil 1358 databases (SKIP-NOFILE 104, FENCED 0)
+         = 2306 comparable databases, the pass's own number.
+
+SURELOG, all 45,264 range-bound keys, pristine vs patched+fix vs golden:
+    TO-GOLDEN      8
+    AWAY-GOLDEN    0
+    MOVED-WRONG    0
+    UNMOVED-RIGHT  38,796
+    UNMOVED-WRONG  6,460
+    SIZE-ONLY keys remaining:  pristine 8  ->  patched 0
+    SLOTS lost 0, gained 42
+
+UHDM2RTLIL, all 11,656 range-bound keys:
+    UNMOVED-RIGHT 10,882   UNMOVED-WRONG 774   everything else 0
+    SIZE-ONLY keys remaining: pristine 0 -> patched 0
+    SLOTS lost 0, gained 0
+
+Every headline number in the pass's CENSUS.txt and README §5/§6 reproduces
+exactly.  The SIZE-ONLY range-bound family IS closed corpus-wide.

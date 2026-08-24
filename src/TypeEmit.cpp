@@ -235,6 +235,158 @@ UHDM::constant* UhdmExporter::crossPkgBoundFoldConst9(const ParameterSymbol& psy
     return c;
 }
 
+// § rangeBoundStoredWidth82 (r10earl82) — the KILL SWITCH.  Default is the
+// LAW BEING ON; `R10E82_OFF=1` restores the pre-pass-82 path exactly, which is
+// the NEUTRAL binary every boundary walk and every grid arm scores against.
+static const bool r10e82Off = [] {
+    const char* v = getenv("R10E82_OFF");
+    return v && *v && *v != '0';
+}();
+
+// § rangeBoundStoredWidth82 — see the law at the declaration in
+// UhdmExporter.h.  ABSTAIN (nullopt) always means "leave the caller's own
+// answer alone".
+std::optional<int32_t> UhdmExporter::ovActualStoredWidth82(
+    const ParameterSymbol& p, int depth) {
+    // A hop chain is finite in practice; the guard is against a cycle slang
+    // would already have rejected, not against a real design.
+    if (depth > 8)
+        return std::nullopt;
+    if (isOverriddenParam(p)) {
+        // `getInitializer()` on an overridden parameter IS the override
+        // actual, compiled in the parent instance.
+        auto* act = p.getInitializer();
+        if (!act)
+            return std::nullopt;
+        auto& a = stripImplicitConv(*act);
+        if (a.kind != ExpressionKind::NamedValue)
+            return std::nullopt;
+        auto& sy = a.as<NamedValueExpression>().symbol;
+        if (sy.kind != SymbolKind::Parameter)
+            return std::nullopt;
+        return ovActualStoredWidth82(sy.as<ParameterSymbol>(), depth + 1);
+    }
+    // NOT overridden: `adjustSize` ran against the declared typespec before
+    // the capture, so the stored width is the DECLARED one.  An UNTYPED
+    // parameter has no declared typespec for adjustSize to read and its stored
+    // width is a separate, unmeasured rule — taken here only in the one shape
+    // § boundOverriddenParamWidth24 already measured (a plain integer-literal
+    // initialiser), so this function never widens that case.
+    bool typed = false;
+    if (auto dt = p.getDeclaredType())
+        if (auto* ts = dt->getTypeSyntax())
+            typed = ts->kind != syntax::SyntaxKind::ImplicitType;
+    auto* init = p.getInitializer();
+    if (!typed) {
+        if (!init || stripImplicitConv(*init).kind !=
+                         ExpressionKind::IntegerLiteral)
+            return std::nullopt;
+    }
+    // A BASED-literal initialiser (`8'd6`, `4'h7`) carries its own base AND
+    // its own width through adjustSize, and the digits change with it; the
+    // caller only re-sizes, so lending a width there would leave the value and
+    // the constType behind.  Measured refusals: g5's PKD (`int = 8'd8`, golden
+    // INT:8 ct7) and PKV (`bit [3:0] = 4'h7`, golden HEX:7 ct5).
+    if (init) {
+        auto& si = stripImplicitConv(*init);
+        if (si.kind == ExpressionKind::IntegerLiteral &&
+            rawText(si.sourceRange).find('\'') != std::string::npos)
+            return std::nullopt;
+    }
+    if (!p.getType().isIntegral())
+        return std::nullopt;
+    auto w = (int32_t)p.getType().getBitWidth();
+    // VERIFIER FIX (r10earl82 verify) — NO UPPER BOUND.  The original law
+    // refused any width above 64, and that refusal was a REGRESSION on legal
+    // SV: `module w100 #(parameter logic [99:0] LW = 1)` instantiated
+    // `#(.LW(WIDE100))` over `localparam logic [99:0] WIDE100 = 8` folds its
+    // `logic [LW:0]` bound at golden **vpiSize 100**, which the PRISTINE
+    // binary already wrote (via the old lambda's FORMAL width) and the capped
+    // law turned into 64 — the one pristine-right -> patched-wrong cell the
+    // adversarial grid found (`v6_hole82.sv:14`, and the same cap also cost a
+    // second cell, a `byte` formal fed that 100-bit actual, whose golden is
+    // likewise 100).  The declaration-side half of this very § already lends
+    // 100 without a cap and lands on golden there (`v7_edge82.sv:17/20`), so
+    // the cap was not even self-consistent.  Only a non-positive width — which
+    // no integral type has — is refused.
+    if (w <= 0)
+        return std::nullopt;
+    return w;
+}
+
+// § rangeBoundStoredWidth82 — THE DECLARATION-SIDE COPY of a packed dimension.
+// See the law at the declaration in UhdmExporter.h.  Returns a fully encoded
+// constant (value / size / constType / decompile) built by the SAME
+// `pkgBoundValueConst9` the typespec side uses, or nullptr to abstain.
+UHDM::constant* UhdmExporter::pkgVarDimBoundEnc82(const Symbol& declSym,
+                                                  const std::string& rawBound) {
+    if (r10e82Off)
+        return nullptr;
+    // A PLAIN identifier only — an arithmetic or qualified bound has its own
+    // measured rules (the `<ident>-<digits>` op form, § selFold9's qualified
+    // split) and is not this law's.
+    std::string id;
+    for (char ch : rawBound) {
+        if (isspace((unsigned char)ch))
+            continue;
+        id += ch;
+    }
+    if (id.empty() || !(isalpha((unsigned char)id[0]) || id[0] == '_'))
+        return nullptr;
+    for (char ch : id)
+        if (!(isalnum((unsigned char)ch) || ch == '_'))
+            return nullptr;
+    auto* sc = declSym.getParentScope();
+    if (!sc)
+        return nullptr;
+    auto* sym = Lookup::unqualified(*sc, id);
+    // R10E82_DBG=1 — one line per candidate at the branch point.  RESUME §9's
+    // pass-23 lesson: an env-gated trace at the branch beats a hypothesis.
+    static const bool dbg82 = getenv("R10E82_DBG");
+    if (dbg82)
+        fprintf(stderr, "R10E82VAR id=%s sc=%d sym=%s kind=%d\n", id.c_str(),
+                (int)sc->asSymbol().kind,
+                sym ? std::string(sym->name).c_str() : "-",
+                sym ? (int)sym->kind : -1);
+    if (!sym || sym->kind != SymbolKind::Parameter)
+        return nullptr;
+    // PACKAGE-homed only.  A MODULE parameter's declaration-side bound is a
+    // DIFFERENT golden shape — golden keeps a `ref_obj` in the DEF listing
+    // there (measured on every `NO*`/`OV*`/`LP*` cell of g5's
+    // packed-structarr-var column) — so re-sizing it would move a cell that
+    // cannot land on golden.
+    auto* psc = sym->getParentScope();
+    if (!psc || psc->asSymbol().kind != SymbolKind::Package)
+        return nullptr;
+    auto& dp = sym->as<ParameterSymbol>();
+    // EXPLICITLY TYPED only: g5's PKU (an untyped package localparam) already
+    // agrees at 64 on this copy and must not move.
+    if (auto dt = dp.getDeclaredType()) {
+        auto* ts = dt->getTypeSyntax();
+        if (!ts || ts->kind == syntax::SyntaxKind::ImplicitType)
+            return nullptr;
+    }
+    else
+        return nullptr;
+    // The same based-literal refusal ovActualStoredWidth82 makes, for the same
+    // reason: g5's PKD and PKV are golden INT:8 ct7 / HEX:7 ct5, encodings
+    // `pkgBoundValueConst9` does not produce.
+    if (auto* init = dp.getInitializer()) {
+        auto& si = stripImplicitConv(*init);
+        if (si.kind == ExpressionKind::IntegerLiteral &&
+            rawText(si.sourceRange).find('\'') != std::string::npos)
+            return nullptr;
+    }
+    auto* c = pkgBoundValueConst9(dp, nullptr);
+    if (!c)
+        return nullptr;
+    // Golden's DECLARATION-side copy is BARE: the ref_typespec rides on the
+    // TYPESPEC copy only (measured on flash_ctrl.sv:310 in both Earlgrey modes
+    // and on every g5 `PK*` cell).
+    c->Typespec(nullptr);
+    return c;
+}
+
 // § patDefBoundPkgParamSubst.  A module DEF listing's packed_array_typespec
 // over a NAMED element (a struct/enum TYPEDEF, `alert_rx_t [NumAlerts-1:0]`)
 // keeps its bound SYMBOLIC — but only the MODULE-parameter half of it.  A leaf
@@ -4625,6 +4777,22 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 // SYNCPIPE = 2` -> `reg [SYNCPIPE:0]` bound
                                 // UINT:2 size 32).
                                 if (isOverriddenParam(*parHere24)) {
+                                    // § rangeBoundStoredWidth82 (r10earl82) —
+                                    // THE OVERRIDDEN CASE IS NO LONGER THIS
+                                    // LAMBDA'S.  `ovW82` below owns it and
+                                    // decides from the ACTUAL's own stored
+                                    // width instead of the FORMAL's; when it
+                                    // abstains the bound must keep the unsized
+                                    // 64, which is what returning false here
+                                    // gives.  Two cells convict the old test:
+                                    // g5's `OVJ` (a `byte` formal fed an `int`
+                                    // actual — golden 32, this lambda lent the
+                                    // formal's 8) and the g5 hop chain
+                                    // `#(.HW(40))` -> `.HW(HW)` (golden 64,
+                                    // this lambda saw the LITERAL 40 one hop
+                                    // up and lent 32).
+                                    if (!r10e82Off)
+                                        return false;
                                     auto* ov9 = parHere24->getInitializer();
                                     if (!ov9)
                                         return false;
@@ -4692,6 +4860,27 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 };
                                 return body9(*parHere24) == body9(declSymbol);
                             };
+                            // § rangeBoundStoredWidth82 (r10earl82) — the
+                            // STORED width of an OVERRIDDEN parameter, walked
+                            // through bare-reference actuals.  Computed here so
+                            // the arms below can key on it; nullopt whenever
+                            // the parameter is not overridden or the chain ends
+                            // at something other than a parameter name, which
+                            // leaves every pre-existing arm exactly as it was.
+                            std::optional<int32_t> ovW82;
+                            if (!r10e82Off && parHere24 && ovrHere24())
+                                ovW82 = ovActualStoredWidth82(*parHere24, 0);
+                            // R10E82_DBG=1 — one line per OVERRIDDEN bound at
+                            // the branch point (RESUME §9: an env-gated trace
+                            // at the branch beats a hypothesis).  Inert unset.
+                            static const bool dbg82a = getenv("R10E82_DBG");
+                            if (dbg82a && parHere24 && ovrHere24())
+                                fprintf(stderr,
+                                        "R10E82OV par=%s dig=%s w=%s\n",
+                                        std::string(parHere24->name).c_str(),
+                                        digits.c_str(),
+                                        ovW82 ? std::to_string(*ovW82).c_str()
+                                              : "-");
                             if (unitBoundParam) {
                                 c->VpiSize((int32_t)unitBoundParam->getType()
                                                .getBitWidth());
@@ -4737,6 +4926,35 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             // first uhdm-cmp failure after the size half of
                             // this law was exactly that stamp (golden has the
                             // ref_typespec on m_t's 42:13 bound; we had null).
+                            // § rangeBoundStoredWidth82 — the OVERRIDDEN
+                            // parameter's bound renders at the width of the
+                            // value the instantiation STORED for it, and only
+                            // the SIZE moves: the INT/UINT pick stays with
+                            // `intEnc` (g5's `OVA`, whose actual `ARITH_LP =
+                            // 9 - 1` is golden `INT:8 ct7` at size 32, is the
+                            // witness that the encoding is not this law's).
+                            // NO ts ref — § overriddenBoundParamNoFoldTs19
+                            // already measured that an overridden parameter's
+                            // folded bound carries none, and golden agrees on
+                            // every g5 `OV*` cell.
+                            // Corpus: `rstmgr_info.sv:18/19`
+                            // (`input [Reasons:0]`, `.Reasons(ResetReasons)`
+                            // over rstmgr_pkg's `localparam int ResetReasons =
+                            // 1 + ExtResetReasons + 1`) and
+                            // `flash_{rd,prog}_ctrl.sv:44` (`logic
+                            // [AddrW:0]`, `.AddrW(AddrW)` over
+                            // flash_ctrl_pkg's `localparam int AddrW = BankW +
+                            // PageW + WordW`) — 18 cells per Earlgrey mode
+                            // whose actuals are EXPRESSION-initialised
+                            // parameters, which the old literal-only test
+                            // refused.
+                            else if (ovW82) {
+                                c->VpiSize(*ovW82);
+                                c->VpiConstType(intEnc ? vpiIntConst
+                                                       : vpiUIntConst);
+                                c->VpiValue((intEnc ? "INT:" : "UINT:") +
+                                            digits);
+                            }
                             else if (boundParam && !boundOwnerFullName.empty() &&
                                 !intEnc && !ovrHere24()) {
                                 c->VpiSize(
@@ -17346,6 +17564,36 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
                                            .getBitWidth());
                         }
             }
+            // § rangeBoundStoredWidth82 (r10earl82) — THE DECLARATION-SIDE
+            // COPY OF THE PACKED DIMENSION.  The very same written dimension
+            // is emitted twice: once on the `packed_array_typespec`, where
+            // § patDefBoundPkgParamSubst already substitutes a PACKAGE
+            // parameter at its DECLARED width, and once here, where the bound
+            // was minted at the unsized 64.  Golden carries the SAME
+            // value/size/encoding on both copies and puts the `ref_typespec`
+            // on the typespec copy only, so this asks the SAME encoder
+            // (`pkgBoundValueConst9`) and then drops the ts.
+            //
+            // THE HEAD: `flash_ctrl.sv:310`
+            // `flash_ctrl_reg2hw_mp_region_cfg_mreg_t [MpRegions:0]
+            // region_cfgs;`, with flash_ctrl_pkg's `localparam int MpRegions =
+            // 8` wildcard-imported — golden `vpiSize:32`, ours `64`, and
+            // NOTHING ELSE about the object differed in either Earlgrey mode.
+            //
+            // The fences live in `pkgVarDimBoundEnc82`, each a measured
+            // refusal on `g5_enc82.sv`: a MODULE parameter (golden keeps a
+            // `ref_obj` in the DEF listing on this copy, so a re-size could
+            // not land), an UNTYPED package parameter (already agrees at 64)
+            // and a BASED-literal-initialised one (golden's encoding is
+            // HEX/INT, not this encoder's).
+            if (loc)
+                if (auto* pc82 =
+                        pkgVarDimBoundEnc82(sym, std::string(rawText(*loc)))) {
+                    c->VpiValue(pc82->VpiValue());
+                    c->VpiConstType(pc82->VpiConstType());
+                    c->VpiSize(pc82->VpiSize());
+                    c->VpiDecompile(pc82->VpiDecompile());
+                }
             c->VpiParent(r);
             if (loc)
                 setLoc(c, *loc);
@@ -17593,6 +17841,36 @@ UHDM::packed_array_net* UhdmExporter::emitPackedStructArrayNet(const Symbol& sym
                                            .getBitWidth());
                         }
             }
+            // § rangeBoundStoredWidth82 (r10earl82) — THE DECLARATION-SIDE
+            // COPY OF THE PACKED DIMENSION.  The very same written dimension
+            // is emitted twice: once on the `packed_array_typespec`, where
+            // § patDefBoundPkgParamSubst already substitutes a PACKAGE
+            // parameter at its DECLARED width, and once here, where the bound
+            // was minted at the unsized 64.  Golden carries the SAME
+            // value/size/encoding on both copies and puts the `ref_typespec`
+            // on the typespec copy only, so this asks the SAME encoder
+            // (`pkgBoundValueConst9`) and then drops the ts.
+            //
+            // THE HEAD: `flash_ctrl.sv:310`
+            // `flash_ctrl_reg2hw_mp_region_cfg_mreg_t [MpRegions:0]
+            // region_cfgs;`, with flash_ctrl_pkg's `localparam int MpRegions =
+            // 8` wildcard-imported — golden `vpiSize:32`, ours `64`, and
+            // NOTHING ELSE about the object differed in either Earlgrey mode.
+            //
+            // The fences live in `pkgVarDimBoundEnc82`, each a measured
+            // refusal on `g5_enc82.sv`: a MODULE parameter (golden keeps a
+            // `ref_obj` in the DEF listing on this copy, so a re-size could
+            // not land), an UNTYPED package parameter (already agrees at 64)
+            // and a BASED-literal-initialised one (golden's encoding is
+            // HEX/INT, not this encoder's).
+            if (loc)
+                if (auto* pc82 =
+                        pkgVarDimBoundEnc82(sym, std::string(rawText(*loc)))) {
+                    c->VpiValue(pc82->VpiValue());
+                    c->VpiConstType(pc82->VpiConstType());
+                    c->VpiSize(pc82->VpiSize());
+                    c->VpiDecompile(pc82->VpiDecompile());
+                }
             c->VpiParent(r);
             if (loc)
                 setLoc(c, *loc);

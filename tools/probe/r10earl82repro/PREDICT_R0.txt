@@ -1,0 +1,131 @@
+r10earl82 — THE MOVER PREDICTION (made from PRISTINE databases, before any
+            patched sweep was read) and THE NEXT HEAD (R0).
+
+========================================================================
+PART 1 — THE MOVER PREDICTION
+========================================================================
+`rngcen82` + `score82.py --diff` were run over the PRISTINE sweep workdirs
+(golden from the immutable cache path named in each test's OWN `cmds.txt`, ours
+from the pristine sweep).  They READ databases and DISPATCH NOTHING, so no test
+— fenced or otherwise — is run by them; the FENCED list is supplied by the
+operator at run time and appears in a count, never as names.
+
+  THE SHAPE THE GATE COULD FIRE ON, golden-agreeing cells included (earl66's
+  lesson: a census keyed on the shape you intend to CHANGE is blind to the rows
+  you would change by ACCIDENT), is a RANGE BOUND our emitter folds from a
+  parameter read.  Over 2,306 comparable pristine databases:
+
+    range-bound slots joined   surelog     45,264 keys   uhdm2rtlil  11,656 keys
+    keys where the ONLY divergence is `vpiSize`
+                               surelog          8         uhdm2rtlil       0
+
+  and all 8 are the SAME FOUR SPANS in `Earlgrey_0_1`, once per mode
+  (flash_ctrl.sv:310, rstmgr_info.sv:18 and :19, flash_{rd,prog}_ctrl.sv:44).
+  Outside Earlgrey there is not one range bound in either corpus whose size
+  disagrees with golden.
+
+  PREDICTION: EXACTLY `Earlgrey_0_1` default and `Earlgrey_0_1` testflags move,
+  and NOTHING ELSE, in either corpus.
+
+MEASURED AFTER THE PATCHED SWEEPS, `byteverify.sh SELFCHECK=1`:
+  surelog     MOVERS 2 / 956   ./default/Earlgrey_0_1-71da2fd7/slang.uhdm
+                               ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+              SELFCHECK 955/956 flagged (the comparator is live)
+  uhdm2rtlil  MOVERS 0 / 1358  SELFCHECK 1357/1358 flagged
+
+The two predicted movers are exactly the two measured, and there is no third —
+not even the documented Scoreboard/default coin, which came up the same face on
+both sweeps this time.
+
+========================================================================
+PART 2 — R0: THE NEW HEAD, IDENTICAL IN BOTH MODES, AND ITS DECODE
+========================================================================
+BEFORE (29c1576, my own pristine build, `rowheads.sh`; `HEAD_BEFORE_*.cmp`
+reproduce the master's /tmp/earlgrey_head_29c1576.cmp BYTE FOR BYTE):
+  Earlgrey_0_1 default    36 cmp lines, 1 head   the `[MpRegions:0]` vpiSize
+  Earlgrey_0_1 testflags  36 cmp lines, 1 head   (the two logs byte-identical)
+AFTER:
+  Earlgrey_0_1 default    58 cmp lines, 1 head   \  and the two AFTER logs are
+  Earlgrey_0_1 testflags  58 cmp lines, 1 head   /  byte-identical again.
+  The old head object is GONE and its family is CLOSED (0 SIZE-ONLY range-bound
+  cells left in either mode, corpus-wide); a DIFFERENT, larger-printing head is
+  now exposed.  Read HEAD_BEFORE_*.cmp against HEAD_AFTER_*.cmp.
+
+THE NEW HEAD — `flash_ctrl.sv:137`, and it is A CAST THAT DID NOT FOLD:
+
+    flash_ctrl.sv:137:18-137:30, inside the port `rdata_i` of an instance in
+    `top_earlgrey.u_flash_ctrl` — the High_conn actual is an `integer'(0)`
+    CAST.
+
+  LHS (golden)                          RHS (ours)
+    constant 137:18-137:30                operation 137:18-137:30  vpiOpType:67
+    |vpiParent -> port (rdata_i)          |vpiParent -> port (rdata_i)
+    |vpiSize:32                           |vpiTypespec -> ref_typespec
+    |UINT:0                               |   -> integer_typespec 137:18-137:26
+    |vpiConstType:9                       |vpiOperand -> constant 137:28-137:29
+                                          |     UINT:0 size 64
+
+  WHICH ARM.  Read the MK line, not the shape: both sides are non-null and of
+  DIFFERENT `UhdmType` (`constant` vs `operation`), so `BaseClass.h`'s
+  two-non-null arm names both sides and the head is a KIND mismatch inside
+  `BaseClass::Compare`'s `VpiType` line, before any per-kind field is read.  The
+  58 lines are the operation's sub-tree printing, not 58 cells.
+
+  THE DECODE TO START FROM.  Golden REDUCES the cast: `integer'(0)` becomes a
+  plain `constant UINT:0` at the CAST's own width (32 — `integer` is 32 bits),
+  spanning the WHOLE cast text `integer'(0)`, with no typespec at all.  We keep
+  the `vpiCastOp` operation with its `integer_typespec` and a size-64 operand.
+  This is a CAST-FOLD law at the elaborated port High_conn, adjacent to
+  § elabConnEmit21 and the earl64/65/66 High_conn family, and it is a SIZE law
+  again underneath: the folded constant's width is the CAST TYPE's, exactly as
+  this pass's stored-Value width is the DECLARED type's.  earl60's R-cast
+  residue names the same family from the other end.
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R1  THE BASED-LITERAL PARAMETER AT A RANGE BOUND.  `localparam bit [3:0] P =
+    4'h7` is golden `HEX:7 sz4 ct5` and `localparam int P = 8'd8` is golden
+    `INT:8 sz8 ct7` at EVERY range consumer; we write `UINT:7 sz4 ct9` and
+    `UINT:8 sz32 ct9`.  The value AND the constType move with the width, so a
+    size-only law cannot take it — it is r10earl80's `SrlgLitEnc`/
+    `srlgAdjustSize` producer/consumer pair applied at a THIRD consumer.  Both
+    fences are written by name in `ovActualStoredWidth82` and
+    `pkgVarDimBoundEnc82`.  g5 cells PKD, PKV, NOD, NOV, OVV, OVH, LPV, LPB.
+    Cheapest of the residues because the encoder already exists.
+
+R2  THE UNTYPED PARAMETER'S STORED WIDTH IS TWO-FACED.  g5's PKU (`localparam
+    PKU = 8` in a package) is golden sz32 on the TYPESPEC copy of a bound and
+    sz64 on every other copy of the same written dimension; the module-scope
+    twin LPU is golden sz32 everywhere.  There is no single width for an untyped
+    parameter, so this pass refuses them all and leaves them byte-identical.
+
+R3  THE DECLARATION-SIDE COPY OF A **MODULE**-PARAMETER BOUND IS A DIFFERENT
+    OBJECT, NOT A DIFFERENT WIDTH.  On g5's whole `packed-structarr-var` column
+    golden emits `3 x ref_obj` (the DEF listing) + `6 x constant`, and we emit
+    `9 x constant`: the DEF listing should keep the symbolic ref the way
+    § patDefBoundPkgParamSubst's module half already does on the TYPESPEC copy.
+    That is a KIND law, and until it lands a size fix on that column could only
+    move cells that cannot reach golden — which is why `pkgVarDimBoundEnc82`
+    refuses every non-package referent.
+
+R4  THE `ct` FIELD AT A DECLARATION-SIDE BOUND OVER AN ARITHMETIC PACKAGE
+    PARAMETER.  `r10vearl74repro/va2_v74.sv:34` (`logic [D:D+3] s_updn`, `D`
+    overridden 20 ways) has golden `INT:8 ct7` on 12 of its cells where we write
+    `UINT:8 ct9` in every state.  This pass moves that row's SIZE strictly
+    CLOSER to golden (multiset distance 30 -> 18, measured) and leaves the
+    encoding exactly as it found it; `paramIntEnc` is the model that would
+    finish it.
+
+R5  AN ADDRESS LEAKS INTO A CONSTANT'S VALUE (earl81's R5, RE-MEASURED HERE AND
+    STILL LIVE).  `tools/probe/r10buvm22repro/g22.sv` emits a constant whose
+    `vpiDecompile`/`UINT` differs by EXACTLY 4128 between two binaries of
+    different size.  Convicted as NOT this law by the kill switch: with
+    `R10E82_OFF=1` the patched binary STILL differs from pristine on that file
+    (`attr82.sh`: `neutral != pristineA`), while each binary is stable against
+    itself.  It is the tax every per-directory boundary walk pays.
+
+R6  FOURTEEN PROBE ARMS SEGFAULT IN THE ELAB VIEW, under BOTH binaries
+    symmetrically (28 rc=139 signals, 14 per side, the same 14 files).
+    Pre-existing and unrelated; recorded because a boundary walk that does not
+    say so reads as if it compared them.

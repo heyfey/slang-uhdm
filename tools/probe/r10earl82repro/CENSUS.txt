@@ -1,0 +1,95 @@
+r10earl82 — THE CENSUS.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+
+QUESTION 1 OF THE BRIEF: every constant whose ONLY divergence from golden is
+`vpiSize`, keyed by owner + span, over BOTH corpora at BASE 29c1576.
+
+INSTRUMENT
+  rngcen82.cpp   reads a `.uhdm` DIRECTLY (Earlgrey's uhdm-dump is >1 GB and was
+                 never produced — the earl61/67/81 direct-reader rule) and emits
+                 one row per RANGE SLOT: the vpiParent chain (kinds+names, no
+                 span), the slot, the span, and a payload of judge-visible
+                 fields only.
+  score82.py     MULTISET join.  KEY = (line:col span, slot).  The CHAIN is
+                 deliberately NOT in the key: vpiParent is read by no generated
+                 Compare, so our parent chains legitimately differ from golden's
+                 on cells the judge calls equal — keying on them manufactured
+                 40+ phantom rows on the CMP_EQUAL u2r test `genscope_cells`.
+                 The FILE is not in the key either: OUR ranges carry an EMPTY
+                 VpiFile (the emitter fact RESUME §9 records for hier_paths), so
+                 keeping it put every golden cell in one bucket and every one of
+                 ours in another.
+  rngscan82.sh   drives both over a sweep workdir, golden from each test's OWN
+                 cmds.txt.  READS databases, DISPATCHES NOTHING.
+
+CALIBRATION (RESUME §9: calibrate first).  On `genscope_cells`, a CMP_EQUAL u2r
+row, the instrument reports AGREE=252 / diffs 0.  Across the WHOLE u2r corpus it
+reports 774 OTHER rows and ZERO SIZE-ONLY rows — all 774 are MULTIPLICITY
+differences on CMP_EQUAL tests (pointer dedup: golden visits a shared object
+once where we mint three), never a field flip.
+
+THE POPULATION — 2,306 comparable pristine databases
+  surelog corpus   948 test-modes scanned, 617 SKIP-NOFILE, 8 FENCED (skipped by
+                   name, never dispatched)
+  uhdm2rtlil       1358 test-modes scanned, 104 SKIP-NOFILE
+
+  SIZE-ONLY rows   surelog     8   — Earlgrey_0_1 default 4 + testflags 4
+                   uhdm2rtlil  0   of 1358
+
+THE FOUR SPANS (identical in both Earlgrey modes), and they split by CONSUMER
+and by the referenced parameter's HOME:
+
+ 1. flash_ctrl.sv:310:42-310:55   `flash_ctrl_reg2hw_mp_region_cfg_mreg_t
+                                   [MpRegions:0] region_cfgs;`     <-- THE HEAD
+    consumer  packed_array_typespec + packed_array_var, the SAME written dim
+    referent  flash_ctrl_pkg.sv:28 `localparam int MpRegions = 8` — a PACKAGE
+              localparam, DECLARED `int`, BARE-DECIMAL initialiser, wildcard-
+              imported by `module flash_ctrl import flash_ctrl_pkg::*;`
+    golden    3 x `UINT:8 sz32 +ref_typespec(int_typespec)`  (the TYPESPEC copy)
+            + 3 x `UINT:8 sz32` BARE                          (the DECL copy)
+    ours      3 x `UINT:8 sz32 +ref_typespec(int_typespec)`   <-- ALREADY RIGHT
+            + 3 x `UINT:8 sz64` BARE                          <-- THE 3 CELLS
+    => the typespec copy of this very dimension ALREADY carries golden's answer;
+       only the DECLARATION-side copy was minted at the unsized 64.
+
+ 2. rstmgr_info.sv:18:9-18:20     `input [Reasons:0] data_i`
+ 3. rstmgr_info.sv:19:16-19:27    `output logic [Reasons:0] rst_reasons_o`
+    consumer  logic_typespec (a PORT packed range)
+    referent  `parameter int Reasons = 4`, OVERRIDDEN at rstmgr.sv:230 with
+              `.Reasons(ResetReasons)` — a BARE NAME whose parameter is
+              rstmgr_pkg's `localparam int ResetReasons = 1 + ExtResetReasons+1`
+    golden    6 x `UINT:4 sz32` + 3 x ref_obj(Reasons)   per span
+    ours      6 x `UINT:4 sz64` + 3 x ref_obj(Reasons)   per span
+
+ 4. flash_rd_ctrl.sv:44:9-44:18 and flash_prog_ctrl.sv:44:9-44:18
+                                   `logic [AddrW:0] int_addr;`
+    consumer  logic_typespec (a module-BODY packed range)
+    referent  `parameter int AddrW = 10`, OVERRIDDEN at flash_ctrl.sv:161/240
+              with `.AddrW(AddrW)` — a BARE NAME whose parameter is
+              flash_ctrl_pkg's `localparam int AddrW = BankW + PageW + WordW`
+    golden    3 x `UINT:17 sz32` + 3 x ref_obj(AddrW)    per file
+    ours      3 x `UINT:17 sz64` + 3 x ref_obj(AddrW)    per file
+
+  CELL COUNT PER MODE: 3 + 6 + 6 + 6 = 21;  42 over the two modes.
+
+THE THREE POPULATIONS THE BRIEF ASKED FOR, read off `g5_enc82.sv` (the grid) and
+confirmed by the corpus:
+
+ (a) GOLDEN IS THE DECLARED WIDTH, OURS 64 — a range bound naming a parameter
+     that is NOT overridden and IS explicitly typed (`int`->32, `byte`->8,
+     `shortint`->16, `longint`->64, `logic [7:0]`->8, `bit [3:0]`->4), or one
+     that IS overridden through a bare-NAME actual.  This is the population the
+     law moves.
+
+ (b) BOTH ARE 64 — the MUST-NOT-MOVE set, and it is exactly earl81's shape: a
+     parameter OVERRIDDEN with a BARE DECIMAL (`.DBARE(2)`), a PARENTHESISED
+     bare decimal (`(8)`), or an ARITHMETIC actual (`4+4`).  `collectParams_`
+     stores those with no adjustSize, so Surelog's Value is the unsized 64 and
+     so is ours.  g5's OVI / OVU / OVB / OVX / OVW, and the HOP chain whose ROOT
+     actual is the bare decimal 40.
+
+ (c) THE THIRD RULE, and it is neither: an UNTYPED parameter, and a BASED-literal
+     initialiser.  An untyped one answers 32 at some consumers and 64 at others
+     in golden (g5's PKU: 3 x sz32 on the typespec copy, 6 x sz64 elsewhere), and
+     a based literal keeps its OWN base and width (`4'h7` -> HEX:7 sz4 ct5,
+     `8'd8` -> INT:8 sz8 ct7).  Neither is modelled; both are REFUSED by name in
+     the law's fences and left byte-identical.

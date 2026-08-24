@@ -1,0 +1,69 @@
+r10earl82 — THE TWO BOUNDARY WALKS, and every mover named and ATTRIBUTED.
+MEASUREMENT ONLY.  Both walks read the file/directory list on fd 3, run children
+with </dev/null, assert PROCESSED, and normalise the workdir out of the dump
+before comparing.  Binaries frozen at /tmp/r10earl82_bin_{pristine,patched}
+(md5 6cc73445b9f8e75c6b9d368b8ca70447 / 69612991aa7ee0f6274ffe4d24cdd32f).
+
+WIDE (every .sv at ANY depth under a COPY of tools/probe, both views)
+  PROCESSED=3621  identical=6938  DIFFERING=12  no_output=292
+PER-DIRECTORY (every directory holding .sv compiled as ONE unit, both views)
+  PROCESSED=1536  identical=2799  DIFFERING=17  no_output=256
+
+THE MOVERS, one line each, with the instrument that convicted them.
+
+1. r10earl82repro/g5_enc82.sv (both views, both walks) — THIS PASS'S OWN GRID.
+   Scored against GOLDEN by `grid82.py`: TO-GOLDEN 18, AWAY-GOLDEN 0,
+   MOVED-WRONG 0.  `GRID_G5.txt`.
+
+2. r10earl34repro/a1_idxkind.sv and v1_view.sv (both views).
+   `attr82.sh`: each binary is stable against itself, and `R10E82_OFF=1` is
+   byte-identical to pristine — so the delta IS this law.
+   Scored against GOLDEN (`score82.py --score`, whole payload):
+     a1_idxkind  TO-GOLDEN 4, AWAY 0, MOVED-WRONG 0
+     v1_view     TO-GOLDEN 4, AWAY 0, MOVED-WRONG 0
+   Four 64 -> 32 bound sizes each, all landing on golden exactly.
+
+3. r10earl_repro/vq.sv (wide walk, both views).
+   Scored against GOLDEN on the SIZE field: TO-GOLDEN 1, AWAY 0, FURTHER 0 —
+   the three cells the law touched now carry golden's size exactly.  The
+   whole-payload score still reads MOVED-WRONG on that one key because of a
+   PRE-EXISTING `ref_typespec`-placement inversion (golden 6 bare + 3 with a ts,
+   we have 3 bare + 6 with a ts, in BOTH states); the law changed no `ts` and no
+   `ct` there.  Recorded, not excused — R3 in PREDICT_R0.txt owns the shape.
+
+4. r10vearl74repro/va2_v74.sv (both views) — earl74's VERIFIER arm.
+   ONE key moved of 198: `34:9-34:16`, the LEFT bound of the PACKED range
+   `logic [D:D+3] s_updn`, where `D` is a module parameter overridden twenty
+   different ways.  § dimBoundInheritsParamEnc74's own population — the
+   SIZE-FORM UNPACKED dimensions of the same file — did NOT move (197 keys
+   UNMOVED).  On the SIZE field the moved key is MOVED-CLOSER, measured:
+   multiset distance to golden 30 -> 18, AWAY 0, FURTHER 0.  It cannot reach
+   golden because 12 of its cells want `INT ct7` where we write `UINT ct9` in
+   both states — R4 in PREDICT_R0.txt.
+   `r10earl74repro` ITSELF (the landed pass's own directory) is byte-identical
+   in both views in both walks.
+
+5. r10buvm22repro (dir walk) / g22.sv (wide walk) — NOT THIS LAW, and the kill
+   switch proves it: `attr82.sh` reports `neutral != pristineA`, i.e. the
+   patched binary with `R10E82_OFF=1` — functionally the pristine emitter —
+   STILL differs, while each binary is stable against itself.  The differing
+   field is a constant whose `vpiDecompile`/`UINT` moves by EXACTLY 4128
+   (earl81's residue R5: an address leaking into an associative array's
+   synthesized range bound, layout-derived, not run-derived).
+
+6. r10uvm75repro, r10uvm76repro, r10uvm117repro, r10v109repro, r10v117repro
+   (dir walk) — NOT BYTE-COMPARABLE AT ALL, re-proved this pass with
+   `dirattr82.sh`: the SAME binary run twice over the same directory produces
+   two different dumps in 9 of those 10 (directory x view) cells.  earl81's
+   residue R6; the documented cause is SourceLocation compares across macro
+   buffers flipping under slang's parallel parse.
+
+SIGNALS.  28 rc=139 in the wide walk and 12 in the per-directory walk, and every
+one is SYMMETRIC — 14 A / 14 B and 6 A / 6 B, the same files under both
+binaries.  Pre-existing segfaults on those probe arms, unrelated to this law and
+recorded so the walk is not read as having compared them.
+
+EVERY PRECEDENT DIRECTORY THIS PASS'S BRIEF PROTECTS IS BYTE-IDENTICAL in both
+views in BOTH walks: r10earl59/60/61/62/63/64/65/66/67/68/69/71/72/73/74/79/80/81
+repro and their verifier twins r10v63/64/65/67/68/69/79/80/81repro, r10v62repro,
+r10rgg14/16/18repro, r10buvm30repro.  Checked by name against both diff lists.

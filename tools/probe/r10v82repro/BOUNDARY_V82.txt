@@ -1,0 +1,57 @@
+r10v82 — THE TWO BOUNDARY WALKS, RUN FROM A COPY OF tools/probe WITH NO PATH
+FILTER, .sv AND .v, list on fd 3, children </dev/null, PROCESSED asserted, rc
+recorded for EVERY cell, both views, patched+fix vs pristine.
+
+WIDE (per file)      PROCESSED=3694  identical=7076  DIFFERING=20  no_output=292
+PER-DIRECTORY        PROCESSED=1536  identical=2799  DIFFERING=17  no_output=256
+
+*** THE PASS'S OWN WIDE WALK IS STALE. ***  It reports PROCESSED=3621 and
+DIFFERING=12 over 6 files.  My list has 3694 files: 68 `.v` files its walk never
+looked at, and FIVE `.sv` files that are the pass's OWN ARMS —
+`g0_min82.sv`, `g1_ty82.sv`, `g2_cons82.sv`, `g3_shape82.sv`, `g6_earl82.sv`.
+3626 - 3621 = 5.  Its committed BOUNDARY_WIDE.diff lists `g5_enc82.sv` and none
+of those five, and its own ARMS.txt says g0/g1/g2/g6 CHANGE.  The walk was
+therefore taken against a probe copy made before those arms existed; it never
+tested them.  Mine does: 10 files differ, in both views.
+
+EVERY DIFFERING FILE, SCORED AGAINST GOLDEN with the official Surelog build and
+`score4.py` (slot-level multiset intersection; LOST is the regression counter):
+
+  r10earl82repro/g0_min82.sv     LOST=0 GAINED=1     the pass's own head arm
+  r10earl82repro/g1_ty82.sv      LOST=0 GAINED=8
+  r10earl82repro/g2_cons82.sv    LOST=0 GAINED=1
+  r10earl82repro/g5_enc82.sv     LOST=0 GAINED=45
+  r10earl82repro/g6_earl82.sv    LOST=0 GAINED=1
+  r10earl82repro/g3_shape82.sv   byte-identical (SAME in both views) — correct,
+                                 arithmetic bounds are not this law's
+  r10earl34repro/a1_idxkind.sv   LOST=0 GAINED=4
+  r10earl34repro/v1_view.sv      LOST=0 GAINED=4
+  r10earl_repro/vq.sv            LOST=0 GAINED=1
+  r10vearl74repro/va2_v74.sv     LOST=0 GAINED=1  (earl74's own size-form keys
+                                 unmoved; the key that moves is the PACKED
+                                 `[D:D+3]`, and it moves ONTO golden)
+  r10buvm22repro/g22.sv          LOST=0 GAINED=0 — CONVICTED NOT THIS LAW:
+                                 with R10E82_OFF=1 the patched binary STILL
+                                 differs from pristine.  The delta is one
+                                 constant's value, 22433209 vs 22437337 —
+                                 EXACTLY 4128 — an address leaking into a
+                                 vpiDecompile/UINT.  earl81's R5, re-measured.
+
+PER-DIRECTORY: my 17 differing rows are the pass's 17, name for name.  FIVE of
+those directories are SELF-UNSTABLE and their diffs are not comparable — proved
+here by compiling each THREE TIMES with the PRISTINE binary alone:
+  r10uvm75repro  plain 3 distinct hashes   elab 3 distinct
+  r10uvm76repro  plain 3                   elab 3
+  r10v109repro   plain 3                   elab 3
+  r10v117repro   plain 3                   elab 3
+  r10uvm117repro plain 2                   elab 2
+while r10buvm22repro, r10earl34repro and r10vearl74repro are self-STABLE (1
+hash each, both views) and are attributed above.
+
+SIGNALS: 28 in the wide walk, 12 in the per-directory walk, every one rc=139,
+every one in the ELAB view, and every one SYMMETRIC (both binaries, same 14
+files).  Pre-existing; the pass's R6.
+
+PROTECTED PRECEDENT DIRECTORIES — 0 differing cells in EITHER walk, in EITHER
+view:  r10earl45/59/60/61/62/63/64/65/66/67/68/69/71/72/73/74/79/80/81repro,
+r10v64/68/69/79/80/81repro, r10rgg14/16/18repro, r10buvm30repro.
