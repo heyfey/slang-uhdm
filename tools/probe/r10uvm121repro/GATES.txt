@@ -1,0 +1,91 @@
+r10uvm121 — THE LANDING GATE BATTERY (measurement only; the official uhdm-cmp
+and scripts/verify_golden.py are the authorities).  BASE 9e04993.
+LHS is always golden (Surelog); RHS is always ours.
+
+(1) BUILD BOTH, md5s
+    pristine  0939d5a31f760a196a231823eb75ad7f   (frozen chmod 555 before any sweep)
+    patched   ca06e73aebcf65fc3b26f5d623a377b2   (frozen chmod 555 before any sweep)
+    cmake --build build -j 2 ; md5sum taken separately.
+
+(2) GOLDENS  (SLANG_UHDM exported explicitly to EACH binary)
+    pristine  : 23 PASS / 0 FAIL
+    patched   : 23 PASS / 0 FAIL
+    negative  : SLANG_UHDM=/bin/false -> 0 PASS / 23 FAIL
+
+(3) uhdm2rtlil, BOTH MODES  (scripts/verify_golden.py --jobs 2, own --out/--workdir)
+    baseline FIRST: pristine sweep vs committed results/gate_uhdm2rtlil.csv
+        ct8rows.sh -> PASS: every row byte-identical to the committed baseline
+    patched vs committed baseline            -> PASS (0 differing rows)
+    patched vs OWN pristine sweep, testflags -> PASS (0 differing rows)
+    patched vs OWN pristine sweep, default   -> PASS (0 differing rows)
+    679 CMP_EQUAL / 50 CMP_NOTEQUAL / 2 other, unchanged.
+    cmds.txt AUDIT BY BINARY PATH: all 1458 lines of the patched workdir name
+    /tmp/r10uvm121_pat.bin and all 1458 of the pristine workdir name
+    /tmp/r10uvm121_pris.bin — no line names any other binary.
+
+(4) surelog, --mode both
+    baseline FIRST: pristine sweep vs committed results/golden_surelog.csv
+        ct8rows.sh -> PASS: every row byte-identical to the committed baseline
+    patched vs committed baseline  -> PASS (0 differing rows over 1588)
+    patched vs OWN pristine sweep  -> PASS (0 differing rows)
+    NO ROW CONVERTED; results/*.csv were READ ONLY and nothing was promoted.
+    status histogram, patched, identical to pristine:
+      default   CMP_EQUAL 471  SLANG_REJECT 283  SURELOG_FAIL 25  CMP_NOTEQUAL 10  DEFERRED 5
+      testflags CMP_EQUAL 466  SLANG_REJECT 284  SURELOG_FAIL 23  CMP_NOTEQUAL  9  DEFERRED 5
+                NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+      (937 CMP_EQUAL / 19 CMP_NOTEQUAL over the 956 comparable rows, unchanged)
+    cmds.txt AUDIT BY BINARY PATH: all 1523 lines name /tmp/r10uvm121_pat.bin.
+
+(5) byteverify SELFCHECK=1 — EVERY MOVER PREDICTED BY NAME BEFOREHAND
+    surelog    : PATH_SETS_IDENTICAL (956) ; MOVERS 9 / 956
+                 ./default/{BuildUVMPkg,MiniAmiq,Scoreboard,SeqDriver,SimpleUVM}
+                 ./testflags/{BuildUVMPkg,MiniAmiq,SeqDriver,SimpleUVM}
+                 SELFCHECK 955 / 956 flagged (the instrument can see)
+    uhdm2rtlil : PATH_SETS_IDENTICAL (1358) ; MOVERS 0 / 1358
+                 SELFCHECK 1357 / 1358 flagged
+    PREDICTION.txt named exactly this set, a priori, from the 2314 PRISTINE
+    databases, before the patched sweep was started.
+
+(6) HEADS (rowheads.sh, official uhdm-cmp, raw/rowheads.{pristine,patched}.txt)
+    SimpleUVM   default  13/1 -> 148/1      SeqDriver  default   50/1 -> 50/1
+    SimpleUVM   testflags 13/1 -> 148/1     SeqDriver  testflags 50/1 -> 50/1
+    Scoreboard  default  13/1 -> 148/1      MiniAmiq   default   50/1 -> 50/1
+    BuildUVMPkg default  13/1 -> 148/1      MiniAmiq   testflags 50/1 -> 50/1
+    BuildUVMPkg testflags 13/1 -> 148/1     Earlgrey_0_1 both    36/1 -> 36/1
+    Rggen default 0/0 (CMP_EQUAL) -> 0/0
+    (SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is expected.)
+
+(7) CANARIES
+    canaries.sh surelog     : ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil  : ok=8  changed=0 absent=0
+    EXPECT_UNKNOWN=1 ctcan2.sh surelog    : PASS
+    EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil : PASS
+    canaudit.sh canaries.sh ctcan2.sh     : audited=29 UNCOVERED=0 FENCE-BREACH=0
+    protected DBs by md5, pristine vs patched:
+      InterfaceModPort   both modes  59a365f3ce2c  SAME
+      BlackParrotComplex default     e3e354129d5a  SAME
+      BlackParrotComplex testflags   73a10e8217e5  SAME
+      YosysOldOr         both modes  d68e0796d62c  SAME
+      SVSwitch           both modes  4842211c4030  (the brief's pin, hit exactly)
+      YosysVerx          both modes  6ccda350c24a  (the brief's pin, hit exactly)
+
+(8) BOUNDARY — bound121.sh over a COPY of the WHOLE probe tree, 4 combinations
+    (see BOUNDARY.txt and BOUNDARY.acquittal.txt).
+
+(9) ATTRIBUTION — attrib121.sh, ORDER-BLIND (Scoreboard/default is a ~50/50
+    coin): all 9 movers added=0; removed = the law's cells and nothing else.
+
+(10) CENSUS — ct121cen + cen121.py over the 12 measured UVM row-modes:
+     OURS-FULL 26 -> 0, EMPTY-BOTH 0 -> 26, and SAME / GOLD-FULL / DIFF /
+     ONLY-GOLDEN / ONLY-OURS byte-identical row-mode by row-mode.
+
+(8b) BOUNDARY RESULT
+     MODE=file VIEW=def   PROCESSED=3712 LISTED=3712 FENCED=0 DIFFER=10 rejects 139/139
+     MODE=dir  VIEW=def   PROCESSED=1546 LISTED=1546 FENCED=0 DIFFER=10 rejects 123/123
+     MODE=file VIEW=elab  PROCESSED=3712 LISTED=3712 FENCED=0 DIFFER=10 rejects 153/153
+     MODE=dir  VIEW=elab  PROCESSED=1546 LISTED=1546 FENCED=0 DIFFER= 9 rejects 129/129
+     asym.txt EMPTY in all four (no asymmetric reject).
+     Every differing arm ACQUITTED in BOUNDARY.acquittal.txt: five are the
+     ORDER nondeterminism (0 lines order-blind, proved on ONE binary), five are
+     this law's own family and score SAME unchanged / OURS-FULL -> 0 /
+     ONLY-GOLDEN unchanged / ONLY-OURS unchanged or smaller, in BOTH views.

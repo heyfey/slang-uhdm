@@ -1,0 +1,79 @@
+r10uvm121 — THE OWNER, read off both uhdm-dumps (measurement only).
+Golden = ~/.cache/slang-uhdm-goldens/02575d101ccaaa38d155/golden.uhdm
+Ours   = the pass's own pristine build (md5 0939d5a3...), SimpleUVM/default.
+Owner  = assignment @658:4-658:28, vpiParent = begin(uvm_pkg::uvm_mem_mam::new),
+         home = function(uvm_pkg::uvm_mem_mam::new)@653:1-659:17,
+         source = uvm-1.2 src/reg/uvm_mem_mam.svh:658  `this.default_alloc = new;`
+Field  = assignment::Rhs  (assignment::Compare, ~/git-repos/UHDM/build/generated/
+         src/assignment.cpp: VpiOpType, VpiBlocking, Rhs, then Lhs) — and Lhs is
+         the very next field, null on golden too, which is why the law must empty BOTH.
+
+### GOLDEN
+  --- occurrence at dump line 322899
+        \_assignment: , line:658:4, endln:658:28
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_mem_mam::new)
+          |vpiOpType:82
+          |vpiBlocking:1
+  --- occurrence at dump line 713658
+              \_assignment: , line:658:4, endln:658:28
+                |vpiParent:
+                \_begin: (uvm_pkg::uvm_mem_mam::new)
+                |vpiOpType:82
+                |vpiBlocking:1
+
+### OURS (pristine)
+  --- occurrence at dump line 322853
+        \_assignment: , line:658:4, endln:658:28
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_mem_mam::new)
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_method_func_call: (new)
+            |vpiParent:
+            \_assignment: , line:658:4, endln:658:28
+            |vpiName:new
+          |vpiLhs:
+          \_hier_path: (this.default_alloc), line:658:4, endln:658:8
+            |vpiParent:
+            \_assignment: , line:658:4, endln:658:28
+            |vpiActual:
+            \_ref_obj: (this), line:658:9, endln:658:22
+              |vpiParent:
+              \_hier_path: (this.default_alloc), line:658:4, endln:658:8
+              |vpiName:this
+            |vpiActual:
+            \_ref_obj: (uvm_pkg::uvm_mem_mam::new::default_alloc)
+              |vpiParent:
+              \_hier_path: (this.default_alloc), line:658:4, endln:658:8
+              |vpiName:default_alloc
+              |vpiFullName:uvm_pkg::uvm_mem_mam::new::default_alloc
+            |vpiName:this.default_alloc
+  --- occurrence at dump line 711135
+              \_assignment: , line:658:4, endln:658:28
+                |vpiParent:
+                \_begin: (uvm_pkg::uvm_mem_mam::new)
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiRhs:
+                \_method_func_call: (new)
+                  |vpiParent:
+                  \_assignment: , line:658:4, endln:658:28
+                  |vpiName:new
+                |vpiLhs:
+                \_hier_path: (this.default_alloc), line:658:4, endln:658:8
+                  |vpiParent:
+                  \_assignment: , line:658:4, endln:658:28
+                  |vpiActual:
+                  \_ref_obj: (this), line:658:9, endln:658:22
+                    |vpiParent:
+                    \_hier_path: (this.default_alloc), line:658:4, endln:658:8
+                    |vpiName:this
+                  |vpiActual:
+                  \_ref_obj: (uvm_pkg::uvm_mem_mam::new::default_alloc)
+                    |vpiParent:
+                    \_hier_path: (this.default_alloc), line:658:4, endln:658:8
+                    |vpiName:default_alloc
+                    |vpiFullName:uvm_pkg::uvm_mem_mam::new::default_alloc
+                  |vpiName:this.default_alloc

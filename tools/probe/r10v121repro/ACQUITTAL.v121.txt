@@ -1,0 +1,50 @@
+r10v121 — the 8 boundary-differing arms OUTSIDE this pass's own probe dir,
+re-compiled ALONE with the real Surelog and scored cell-by-cell against
+that golden (score121.py; golden is truth) in BOTH views.
+
+arm / view                          ALREADY-RIGHT TO-GOLDEN AWAY-GOLDEN STILL-WRONG CHANGED-STILL-WRONG
+r10svs3repro/a2_thisnew.sv/def         -- ALREADY-RIGHT=10  TO-GOLDEN=3  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+r10svs3repro/a2_thisnew.sv/elab        -- ALREADY-RIGHT=10  TO-GOLDEN=6  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+r10svs3repro/a3_position.sv/def        -- ALREADY-RIGHT=9  TO-GOLDEN=4  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+r10svs3repro/a3_position.sv/elab       -- ALREADY-RIGHT=10  TO-GOLDEN=7  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+r10svs3repro/a4_ctorspan.sv/def        -- ALREADY-RIGHT=16  TO-GOLDEN=1  AWAY-GOLDEN=0  STILL-WRONG=2  CHANGED-STILL-WRONG=0
+r10svs3repro/a4_ctorspan.sv/elab       -- ALREADY-RIGHT=16  TO-GOLDEN=4  AWAY-GOLDEN=0  STILL-WRONG=2  CHANGED-STILL-WRONG=0
+r10svs3repro/a5_ctornest.sv/def        -- ALREADY-RIGHT=14  TO-GOLDEN=1  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+r10svs3repro/a5_ctornest.sv/elab       -- ALREADY-RIGHT=16  TO-GOLDEN=3  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+r10svs4repro/v2_copy.sv/def            -- ALREADY-RIGHT=7  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=4  CHANGED-STILL-WRONG=2
+r10svs4repro/v2_copy.sv/elab           -- ALREADY-RIGHT=7  TO-GOLDEN=3  AWAY-GOLDEN=0  STILL-WRONG=1  CHANGED-STILL-WRONG=7
+r10svs7repro/a3_context.sv/def         -- ALREADY-RIGHT=3  TO-GOLDEN=1  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+r10svs7repro/a3_context.sv/elab        -- ALREADY-RIGHT=4  TO-GOLDEN=2  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+r10uvm85repro/v85x9_misc.sv/def        -- ALREADY-RIGHT=1  TO-GOLDEN=1  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+r10uvm85repro/v85x9_misc.sv/elab       -- ALREADY-RIGHT=2  TO-GOLDEN=2  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+r10v110repro/v7_fence2.sv/def          -- ALREADY-RIGHT=16  TO-GOLDEN=3  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+r10v110repro/v7_fence2.sv/elab         -- ALREADY-RIGHT=20  TO-GOLDEN=5  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+
+---- THE FIVE dir-MODE "ORDER" ARMS, MEASURED (not asserted)
+
+r10uvm75repro compiled FOUR TIMES with the ONE PRISTINE binary:
+  raw path-normalised dump md5   4be4500b  2901092c  2bbfb55d  c65f8529   (four different)
+  SORTED dump md5                caf8079e  caf8079e  caf8079e  caf8079e   (all identical)
+  the PATCHED binary's SORTED dump on the same directory: caf8079e        (the same)
+
+The other four, pristine vs patched, sorted:
+  r10uvm117repro  b9024e2b / b9024e2b   ORDER-ONLY (this run's raw dumps happened to agree)
+  r10uvm76repro   bfafbade / bfafbade   ORDER-ONLY
+  r10v109repro    6d40658e / 6d40658e   ORDER-ONLY
+  r10v117repro    2b709d9c / 2b709d9c   ORDER-ONLY
+
+So all ten dir-mode differing arms are accounted for: five are the emitter's
+known order nondeterminism (RESUME §9), five are this law's own family and are
+scored against their Surelog golden above.
+
+---- ELAB VIEW, the same six order arms (pristine vs patched, SORTED dump md5)
+
+  r10uvm117repro/elab  8b34025d / 8b34025d   ORDER-ONLY
+  r10uvm75repro/elab   8381c7f6 / 8381c7f6   ORDER-ONLY
+  r10uvm76repro/elab   393cf9fb / 393cf9fb   ORDER-ONLY
+  r10uvm88repro/elab   7c2eb0bf / 7c2eb0bf   ORDER-ONLY  (dir/elab only; the
+        PRISTINE binary alone gives raw 840b1aee, 840b1aee, 524168c9 in three
+        runs and sorted 7c2eb0bf every time -- § pkgVarBindsOnlyThroughInstance88
+        and the whole bind-window family are untouched)
+  r10v109repro/elab    df704964 / df704964   ORDER-ONLY
+  r10v117repro/elab    1a0b622b / 1a0b622b   ORDER-ONLY

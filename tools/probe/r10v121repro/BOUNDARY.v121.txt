@@ -1,0 +1,85 @@
+r10v121 — THE BOUNDARY GATE, RE-RUN BY THE VERIFIER
+
+bound121.sh (the implementer's script, unmodified) over a COPY of the WHOLE
+probe tree at /tmp/v121_probecopy — which is the PATCHED worktree's tools/probe
+PLUS this verifier's own six arms, so 3718 .sv/.v files rather than 3712.
+No path filter.  Four combinations:
+
+  file.def  PROCESSED=3718 LISTED=3718 FENCED=0 DIFFER=15 PRIS_REJECT=139 PATCHED_REJECT=139
+  file.elab PROCESSED=3718 LISTED=3718 FENCED=0 DIFFER=15 PRIS_REJECT=153 PATCHED_REJECT=153
+  dir.def   PROCESSED=1547 LISTED=1547 FENCED=0 DIFFER=10 PRIS_REJECT=124 PATCHED_REJECT=124
+  dir.elab  PROCESSED=1547 LISTED=1547 FENCED=0 DIFFER=11 PRIS_REJECT=130 PATCHED_REJECT=130
+
+PROCESSED == LISTED in all four.  asym.txt does not exist in any of the four
+output roots (no arm accepted by one binary and refused by the other), and no
+FATAL line was printed.  No slang-fenced test was ever dispatched.
+
+---- file MODE, BOTH VIEWS: the implementer's TEN arms reproduce NAME FOR NAME
+     (the extra five are this verifier's own arms, which are in the tree copy)
+
+  def   ./r10svs3repro/a2_thisnew.sv
+  def   ./r10svs3repro/a3_position.sv
+  def   ./r10svs3repro/a4_ctorspan.sv
+  def   ./r10svs3repro/a5_ctornest.sv
+  def   ./r10svs4repro/v2_copy.sv
+  def   ./r10svs7repro/a3_context.sv
+  def   ./r10uvm121repro/g121_a.sv
+  def   ./r10uvm121repro/g121_b.sv
+  def   ./r10uvm85repro/v85x9_misc.sv
+  def   ./r10v110repro/v7_fence2.sv
+  def   ./r10v121repro/v121_a.sv
+  def   ./r10v121repro/v121_c.sv
+  def   ./r10v121repro/v121_d.sv
+  def   ./r10v121repro/v121_e.sv
+  def   ./r10v121repro/v121_e2.sv
+
+  elab  ./r10svs3repro/a2_thisnew.sv
+  elab  ./r10svs3repro/a3_position.sv
+  elab  ./r10svs3repro/a4_ctorspan.sv
+  elab  ./r10svs3repro/a5_ctornest.sv
+  elab  ./r10svs4repro/v2_copy.sv
+  elab  ./r10svs7repro/a3_context.sv
+  elab  ./r10uvm121repro/g121_a.sv
+  elab  ./r10uvm121repro/g121_b.sv
+  elab  ./r10uvm85repro/v85x9_misc.sv
+  elab  ./r10v110repro/v7_fence2.sv
+  elab  ./r10v121repro/v121_a.sv
+  elab  ./r10v121repro/v121_c.sv
+  elab  ./r10v121repro/v121_d.sv
+  elab  ./r10v121repro/v121_e.sv
+  elab  ./r10v121repro/v121_e2.sv
+
+---- dir MODE
+  def   ./r10svs3repro
+  def   ./r10svs4repro
+  def   ./r10svs7repro
+  def   ./r10uvm117repro
+  def   ./r10uvm121repro
+  def   ./r10uvm75repro
+  def   ./r10uvm76repro
+  def   ./r10uvm85repro
+  def   ./r10v109repro
+  def   ./r10v117repro
+
+  elab  ./r10svs3repro
+  elab  ./r10svs4repro
+  elab  ./r10svs7repro
+  elab  ./r10uvm117repro
+  elab  ./r10uvm121repro
+  elab  ./r10uvm75repro
+  elab  ./r10uvm76repro
+  elab  ./r10uvm85repro
+  elab  ./r10uvm88repro
+  elab  ./r10v109repro
+  elab  ./r10v117repro
+
+  r10v121repro itself is a BOTH-REJECT in dir mode (v121_e.sv and v121_e2.sv
+  define the same package), symmetric on both binaries; that is why the
+  dir-mode reject counts are 124/124 and 130/130 rather than 123/123 and 129/129.
+
+---- ACQUITTAL: see ACQUITTAL.v121.txt.  Every differing arm is either
+     (a) scored against its own Surelog golden with AWAY-GOLDEN = 0, or
+     (b) proved ORDER-ONLY by an identical SORTED dump on both binaries
+         (r10uvm88repro appears only in dir/elab and is order-only: the
+          PRISTINE binary alone gives two different raw dumps in three runs,
+          sorted md5 7c2eb0bf on every run of both binaries).

@@ -1,0 +1,13 @@
+LHS: <null>
+RHS:
+decompile:
+method_func_call: (new), id:33728
+|vpiParent:
+\_assignment: , id:33724, line:70583:4, endln:70583:28
+|vpiName:new
+
+decompile:
+method_func_call: (new), id:33728
+|vpiParent:
+\_assignment: , id:33724, line:70583:4, endln:70583:28
+|vpiName:new

@@ -1595,6 +1595,109 @@ static const slang::ast::Expression* dynArrayNewLvalueBase110(
     return root110;
 }
 
+// § thisSuperNewAssignEmpty121 — THE OBJECT HALF of the law
+// § thisSuperNewAssignNoStmt3 already decoded.  An assignment written
+//
+//     <this|super>[.<name>]... = new                (bare, no parentheses)
+//     <this|super>[.<name>]... = new(...)           (class construction)
+//     <this|super>[.<name>]... = new <expr>         (the copy form)
+//     <this|super>[.<name>]... = new[...]           (dynamic-array construction)
+//
+// is emitted by Surelog as an assignment carrying VpiOpType 82 and
+// VpiBlocking 1 and **NOTHING ELSE** — NO `vpiLhs` and NO `vpiRhs`.  § 3
+// models only what happens to that object in a statement LIST (it is not
+// appended); THIS predicate models the object itself, for every slot where
+// § 3 does NOT fire and golden therefore KEEPS it — a class CONSTRUCTOR'S OWN
+// statement list (the corpus site), the sole branch of an `if`, the sole body
+// of a `while` or a `foreach`, and a `case_item`'s statement.
+//
+// SURELOG, LINE BY LINE.  `SV3_1aParser.g4:2310`:
+//
+//     blocking_assignment
+//       : variable_lvalue ASSIGN_OP delay_or_event_control expression
+//       | nonrange_variable_lvalue ASSIGN_OP dynamic_array_new
+//       | (implicit_class_handle DOT | class_scope | package_scope)? (
+//           identifier | hierarchical_identifier ) select ASSIGN_OP class_new
+//       | operator_assignment
+//       ;
+//
+// `CompileStmt.cpp:241` hands `fC->Child(paBlocking_assignment)` to
+// `CompileHelper::compileBlockingAssignment` (`CompileHelper.cpp:4456`), whose
+// whole body is a three-way `if` on that node:
+//
+//     Variable_lvalue = fC->Child(Operator_assignment);
+//     if      (Type(Variable_lvalue)    == paHierarchical_identifier
+//           || Type(Variable_lvalue)    == slStringConst)   { ...lhs, rhs... }
+//     else if (Type(Variable_lvalue)    == paVariable_lvalue) { ...lhs, rhs... }
+//     else if (Type(Operator_assignment)== paHierarchical_identifier) { //  = new
+//                                                             ...lhs, fcall... }
+//     ...
+//     if (AssignOp_Assign) assign->VpiOpType(getVpiOpType(...));
+//     else                 assign->VpiOpType(vpiAssignmentOp);   // 82
+//     if (blocking) assign->VpiBlocking(true);
+//     assign->Lhs(lhs_rf);          // BOTH still nullptr
+//     assign->Rhs(rhs_rf);
+//
+// When the WRITTEN prefix `implicit_class_handle DOT` is present, the child of
+// `paBlocking_assignment` is that prefix node, not a `paHierarchical_identifier`
+// and not a `paVariable_lvalue` — so ALL THREE arms miss and the routine falls
+// out of its own bottom with `lhs_rf == rhs_rf == nullptr`.  The empty
+// assignment is not a decision anywhere in Surelog; it is the tail of a
+// function that matched nothing.
+//
+// MEASURED, golden-vs-golden and golden-vs-ours, on `g121_a.sv` (LHS is always
+// golden), one cell per slot, in BOTH views:
+//     EMPTY in golden, FULL in ours  a02 `this.margin = new;` · a03 `= new(3)` ·
+//       a04 `= new()` · a05 `= new this.margin` (copy) — all four in a
+//       CONSTRUCTOR'S OWN LIST — a08 sole `if` branch · a09 sole `while` body ·
+//       a10 sole `foreach` body · a11 a `case_item` statement · a15
+//       `super.gutter = new;` · a16 `this.scrape = new(2)` (derived ctor)
+//     FULL in BOTH (this predicate must NOT fire)  a01 `leaf = width;` ·
+//       a06 `verso = new;` (BARE property — the implicit-`this` spelling, which
+//       is a MemberAccess on an implicit `this` in the bound AST and is why
+//       this predicate reads the SYNTAX) · a07 `this.leaf = width + 1;` ·
+//       a12 `quire = new;` in the same `if` slot · a13 `this.leaf = k;`
+//     ABSENT from BOTH  a14 `this.margin = new;` as an element of a plain
+//       `begin` list — § thisSuperNewAssignNoStmt3's own family, unchanged.
+//
+// The RHS half lists CopyClassExpression where § 3's does not: § 3 was written
+// from the SVSwitch `new[...]`/`new()` cells and never measured the copy form,
+// and a05 says golden empties it exactly like the other three.  The two laws
+// are deliberately NOT merged into one predicate while the corpus still has
+// open DIFF rows (RESUME §9's no-premature-extraction rule); they read the same
+// two syntax facts and each names the other.
+static bool thisSuperNewAssignEmpty121(
+    const slang::ast::AssignmentExpression& ae) {
+    using namespace slang::ast;
+    // Only the SIMPLE `=`: `+=`/`<=` are different grammar alternatives and
+    // none of them can carry a `class_new`/`dynamic_array_new`.
+    if (ae.isCompound() || ae.isNonBlocking())
+        return false;
+    if (!ae.syntax || ae.syntax->kind != syntax::SyntaxKind::AssignmentExpression)
+        return false;
+    const auto& be121 = ae.syntax->as<syntax::BinaryExpressionSyntax>();
+    // RHS HALF — a WRITTEN `new` construction.  The SYNTAX, never the bound
+    // kind: Surelog's rule is a grammar alternative, so a `new` slang REFUSED
+    // to bind must take the same shape as one it bound (§ invalidNewCallFromSyntax55).
+    auto rk121 = be121.right->kind;
+    if (rk121 != syntax::SyntaxKind::NewClassExpression &&
+        rk121 != syntax::SyntaxKind::NewArrayExpression &&
+        rk121 != syntax::SyntaxKind::CopyClassExpression)
+        return false;
+    // LHS HALF — the path ROOT is the `this` or `super` KEYWORD.  A bare name
+    // is an IdentifierName and never a ScopedName, which is what keeps the
+    // implicit-this spelling (`verso = new;`, golden FULL) out.
+    const syntax::SyntaxNode* ln121 = &*be121.left;
+    if (ln121->kind != syntax::SyntaxKind::ScopedName)
+        return false;
+    const syntax::NameSyntax* rt121 =
+        &*ln121->as<syntax::ScopedNameSyntax>().left;
+    while (rt121->kind == syntax::SyntaxKind::ScopedName)
+        rt121 = &*rt121->as<syntax::ScopedNameSyntax>().left;
+    return rt121->kind == syntax::SyntaxKind::ThisHandle ||
+           rt121->kind == syntax::SyntaxKind::SuperHandle;
+}
+
 // § typeParamScopedCallRef59 (predicate half) — the `::`-scoped NAME behind an
 // expression slang REFUSED TO BIND, or null.
 //
@@ -9111,6 +9214,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             asn->VpiBlocking(!ae.isNonBlocking());
             asn->VpiParent(parent);
             setLoc(asn, expr.sourceRange);
+            // § thisSuperNewAssignEmpty121 — golden's object here carries
+            // VpiOpType 82 and VpiBlocking 1 and nothing else.  Neither side
+            // is emitted at all (rather than emitted and dropped), because
+            // Surelog never compiles them: `compileBlockingAssignment` matched
+            // none of its three arms and returned with both slots null, so no
+            // reference reaches its late-binding pool from this statement
+            // either.  § thisSuperNewAssignNoStmt3 decides, separately and
+            // unchanged, whether this object is APPENDED to its statement list.
+            if (thisSuperNewAssignEmpty121(ae))
+                return asn;
             // § dynArrayNewLvalueBaseOnly110 — a DOTTED lvalue whose RHS is a
             // dynamic-array `new [n]` is compiled by Surelog from the WRAPPER
             // `paNonrange_variable_lvalue` node, which collapses it to the

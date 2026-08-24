@@ -1,0 +1,54 @@
+===== v121_a / def   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=0 
+      cmp lines pris=25 pat=0  heads pris=1 pat=0
+-- ALREADY-RIGHT=9  TO-GOLDEN=22  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+===== v121_a / elab   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=0 
+      cmp lines pris=33 pat=0  heads pris=1 pat=0
+-- ALREADY-RIGHT=10  TO-GOLDEN=42  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+===== v121_b / def   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=255 
+      cmp lines pris=2132 pat=2132  heads pris=1 pat=1
+-- ALREADY-RIGHT=6  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=7  CHANGED-STILL-WRONG=0
+===== v121_b / elab   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=255 
+      cmp lines pris=2156 pat=2156  heads pris=1 pat=1
+-- ALREADY-RIGHT=8  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=14  CHANGED-STILL-WRONG=0
+===== v121_c / def   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=0 
+      cmp lines pris=29 pat=0  heads pris=1 pat=0
+-- ALREADY-RIGHT=19  TO-GOLDEN=4  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+===== v121_c / elab   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=0 
+      cmp lines pris=33 pat=0  heads pris=1 pat=0
+-- ALREADY-RIGHT=20  TO-GOLDEN=18  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+===== v121_d / def   PRIS_RC=4 PAT_RC=4 pris cmp rc=255 pat  cmp rc=0 
+      cmp lines pris=25 pat=0  heads pris=1 pat=0
+-- ALREADY-RIGHT=6  TO-GOLDEN=3  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+===== v121_d / elab   PRIS_RC=4 PAT_RC=4 pris cmp rc=255 pat  cmp rc=0 
+      cmp lines pris=33 pat=0  heads pris=1 pat=0
+-- ALREADY-RIGHT=7  TO-GOLDEN=7  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+===== v121_e2 / def   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=0 
+      cmp lines pris=25 pat=0  heads pris=1 pat=0
+-- ALREADY-RIGHT=9  TO-GOLDEN=11  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+===== v121_e2 / elab   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=0 
+      cmp lines pris=33 pat=0  heads pris=1 pat=0
+-- ALREADY-RIGHT=11  TO-GOLDEN=21  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+===== v121_e / def   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=255 
+      cmp lines pris=25 pat=6088  heads pris=1 pat=1
+-- ALREADY-RIGHT=11  TO-GOLDEN=11  AWAY-GOLDEN=0  STILL-WRONG=1  CHANGED-STILL-WRONG=0
+===== v121_e / elab   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=255 
+      cmp lines pris=33 pat=6436  heads pris=1 pat=1
+-- ALREADY-RIGHT=13  TO-GOLDEN=21  AWAY-GOLDEN=0  STILL-WRONG=2  CHANGED-STILL-WRONG=0
+===== v121_f / def   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=255 
+      cmp lines pris=25 pat=29  heads pris=1 pat=1
+-- ALREADY-RIGHT=8  TO-GOLDEN=9  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+===== v121_f / elab   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=0 
+      cmp lines pris=33 pat=0  heads pris=1 pat=0
+-- ALREADY-RIGHT=9  TO-GOLDEN=17  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+===== v121_g / def   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=255 
+      cmp lines pris=25 pat=214  heads pris=1 pat=1
+-- ALREADY-RIGHT=4  TO-GOLDEN=4  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+===== v121_g / elab   PRIS_RC=0 PAT_RC=0 pris cmp rc=255 pat  cmp rc=255 
+      cmp lines pris=33 pat=214  heads pris=1 pat=1
+-- ALREADY-RIGHT=5  TO-GOLDEN=9  AWAY-GOLDEN=0  STILL-WRONG=0  CHANGED-STILL-WRONG=0
+===== v121_h / def   PRIS_RC=3 PAT_RC=3 pris cmp rc=0 pat  cmp rc=0 
+      cmp lines pris=10 pat=10  heads pris=0 pat=0
+-- ALREADY-RIGHT=0  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=7  CHANGED-STILL-WRONG=0
+===== v121_h / elab   PRIS_RC=3 PAT_RC=3 pris cmp rc=0 pat  cmp rc=0 
+      cmp lines pris=10 pat=10  heads pris=0 pat=0
+-- ALREADY-RIGHT=0  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=12  CHANGED-STILL-WRONG=0

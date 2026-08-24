@@ -1,0 +1,148 @@
+LHS:
+decompile:
+bit_typespec: (uvm_reg_cvr_t), id:46381, line:105:10, endln:105:22
+|vpiName:uvm_reg_cvr_t
+|vpiTypedefAlias:
+\_ref_typespec: (uvm_reg_cvr_t), id:46385
+  |vpiParent:
+  \_bit_typespec: (uvm_reg_cvr_t), id:46381, line:105:10, endln:105:22
+  |vpiFullName:uvm_reg_cvr_t
+  |vpiActual:
+  \_bit_typespec: (uvm_pkg::uvm_reg_cvr_t), id:28165, line:105:10, endln:105:22
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:46382, line:105:14, endln:105:22
+  |vpiParent:
+  \_bit_typespec: (uvm_reg_cvr_t), id:46381, line:105:10, endln:105:22
+  |vpiLeftRange:
+  \_constant: , id:46383, line:105:15, endln:105:17
+    |vpiParent:
+    \_range: , id:46382, line:105:14, endln:105:22
+    |vpiDecompile:31
+    |vpiSize:64
+    |INT:31
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:46384, line:105:20, endln:105:21
+    |vpiParent:
+    \_range: , id:46382, line:105:14, endln:105:22
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+bit_typespec: (uvm_reg_cvr_t), id:46381, line:105:10, endln:105:22
+|vpiName:uvm_reg_cvr_t
+|vpiTypedefAlias:
+\_ref_typespec: (uvm_reg_cvr_t), id:46385
+  |vpiParent:
+  \_bit_typespec: (uvm_reg_cvr_t), id:46381, line:105:10, endln:105:22
+  |vpiFullName:uvm_reg_cvr_t
+  |vpiActual:
+  \_bit_typespec: (uvm_pkg::uvm_reg_cvr_t), id:28165, line:105:10, endln:105:22
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:46382, line:105:14, endln:105:22
+  |vpiParent:
+  \_bit_typespec: (uvm_reg_cvr_t), id:46381, line:105:10, endln:105:22
+  |vpiLeftRange:
+  \_constant: , id:46383, line:105:15, endln:105:17
+    |vpiParent:
+    \_range: , id:46382, line:105:14, endln:105:22
+    |vpiDecompile:31
+    |vpiSize:64
+    |INT:31
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:46384, line:105:20, endln:105:21
+    |vpiParent:
+    \_range: , id:46382, line:105:14, endln:105:22
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS:
+decompile:
+bit_typespec: (uvm_pkg::uvm_reg_cvr_t), id:652, line:105:10, endln:105:22
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:146, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiName:uvm_pkg::uvm_reg_cvr_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:146, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:653, line:105:14, endln:105:22
+  |vpiParent:
+  \_bit_typespec: (uvm_pkg::uvm_reg_cvr_t), id:652, line:105:10, endln:105:22
+  |vpiLeftRange:
+  \_operation: , id:654, line:105:15, endln:105:19
+    |vpiParent:
+    \_range: , id:653, line:105:14, endln:105:22
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:655, line:105:15, endln:105:17
+      |vpiParent:
+      \_operation: , id:654, line:105:15, endln:105:19
+      |vpiDecompile:32
+      |vpiSize:64
+      |UINT:32
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , id:656, line:105:18, endln:105:19
+      |vpiParent:
+      \_operation: , id:654, line:105:15, endln:105:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:657, line:105:20, endln:105:21
+    |vpiParent:
+    \_range: , id:653, line:105:14, endln:105:22
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+bit_typespec: (uvm_pkg::uvm_reg_cvr_t), id:652, line:105:10, endln:105:22
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:146, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiName:uvm_pkg::uvm_reg_cvr_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:146, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:653, line:105:14, endln:105:22
+  |vpiParent:
+  \_bit_typespec: (uvm_pkg::uvm_reg_cvr_t), id:652, line:105:10, endln:105:22
+  |vpiLeftRange:
+  \_operation: , id:654, line:105:15, endln:105:19
+    |vpiParent:
+    \_range: , id:653, line:105:14, endln:105:22
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:655, line:105:15, endln:105:17
+      |vpiParent:
+      \_operation: , id:654, line:105:15, endln:105:19
+      |vpiDecompile:32
+      |vpiSize:64
+      |UINT:32
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , id:656, line:105:18, endln:105:19
+      |vpiParent:
+      \_operation: , id:654, line:105:15, endln:105:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:657, line:105:20, endln:105:21
+    |vpiParent:
+    \_range: , id:653, line:105:14, endln:105:22
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9

@@ -1,0 +1,98 @@
+== BuildUVMPkg/default  (rc g=0 o=0  rows 7423 / 7431)
+SAME        7414
+EMPTY-BOTH  2
+OURS-FULL   0
+GOLD-FULL   0
+DIFF        3
+ONLY-G      4
+ONLY-O      12
+== Earlgrey_0_1/default  (rc g=0 o=0  rows 9013 / 9013)
+SAME        8971
+EMPTY-BOTH  0
+OURS-FULL   0
+GOLD-FULL   0
+DIFF        1
+ONLY-G      41
+ONLY-O      40
+== MiniAmiq/default  (rc g=0 o=0  rows 13362 / 13371)
+SAME        13246
+EMPTY-BOTH  4
+OURS-FULL   0
+GOLD-FULL   0
+DIFF        1
+ONLY-G      111
+ONLY-O      120
+== Rggen/default  (rc g=0 o=0  rows 748 / 748)
+SAME        748
+EMPTY-BOTH  0
+OURS-FULL   0
+GOLD-FULL   0
+DIFF        0
+ONLY-G      0
+ONLY-O      0
+== Scoreboard/default  (rc g=0 o=0  rows 7514 / 7520)
+SAME        7420
+EMPTY-BOTH  2
+OURS-FULL   0
+GOLD-FULL   0
+DIFF        1
+ONLY-G      91
+ONLY-O      97
+== SeqDriver/default  (rc g=0 o=0  rows 12962 / 12974)
+SAME        12862
+EMPTY-BOTH  4
+OURS-FULL   0
+GOLD-FULL   0
+DIFF        1
+ONLY-G      95
+ONLY-O      107
+== SimpleUVM/default  (rc g=0 o=0  rows 7471 / 7477)
+SAME        7379
+EMPTY-BOTH  2
+OURS-FULL   0
+GOLD-FULL   0
+DIFF        1
+ONLY-G      89
+ONLY-O      95
+== BuildUVMPkg/testflags  (rc g=0 o=0  rows 7423 / 7431)
+SAME        7414
+EMPTY-BOTH  2
+OURS-FULL   0
+GOLD-FULL   0
+DIFF        3
+ONLY-G      4
+ONLY-O      12
+== Earlgrey_0_1/testflags  (rc g=0 o=0  rows 24836 / 35736)
+SAME        24756
+EMPTY-BOTH  0
+OURS-FULL   0
+GOLD-FULL   0
+DIFF        2
+ONLY-G      78
+ONLY-O      87
+== MiniAmiq/testflags  (rc g=0 o=0  rows 13362 / 13371)
+SAME        13246
+EMPTY-BOTH  4
+OURS-FULL   0
+GOLD-FULL   0
+DIFF        1
+ONLY-G      111
+ONLY-O      120
+== Rggen/testflags SKIP-NOFILE
+== Scoreboard/testflags SKIP-NOFILE
+== SeqDriver/testflags  (rc g=0 o=0  rows 12962 / 12974)
+SAME        12862
+EMPTY-BOTH  4
+OURS-FULL   0
+GOLD-FULL   0
+DIFF        1
+ONLY-G      95
+ONLY-O      107
+== SimpleUVM/testflags  (rc g=0 o=0  rows 7471 / 7477)
+SAME        7379
+EMPTY-BOTH  2
+OURS-FULL   0
+GOLD-FULL   0
+DIFF        1
+ONLY-G      89
+ONLY-O      95

@@ -1,0 +1,148 @@
+LHS:
+decompile:
+bit_typespec: (uvm_reg_cvr_t), id:46462, line:60757:10, endln:60757:22
+|vpiName:uvm_reg_cvr_t
+|vpiTypedefAlias:
+\_ref_typespec: (uvm_reg_cvr_t), id:46466
+  |vpiParent:
+  \_bit_typespec: (uvm_reg_cvr_t), id:46462, line:60757:10, endln:60757:22
+  |vpiFullName:uvm_reg_cvr_t
+  |vpiActual:
+  \_bit_typespec: (uvm_pkg::uvm_reg_cvr_t), id:28166, line:60757:10, endln:60757:22
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiRange:
+\_range: , id:46463, line:60757:14, endln:60757:22
+  |vpiParent:
+  \_bit_typespec: (uvm_reg_cvr_t), id:46462, line:60757:10, endln:60757:22
+  |vpiLeftRange:
+  \_constant: , id:46464, line:60757:15, endln:60757:17
+    |vpiParent:
+    \_range: , id:46463, line:60757:14, endln:60757:22
+    |vpiDecompile:31
+    |vpiSize:64
+    |INT:31
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:46465, line:60757:20, endln:60757:21
+    |vpiParent:
+    \_range: , id:46463, line:60757:14, endln:60757:22
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+bit_typespec: (uvm_reg_cvr_t), id:46462, line:60757:10, endln:60757:22
+|vpiName:uvm_reg_cvr_t
+|vpiTypedefAlias:
+\_ref_typespec: (uvm_reg_cvr_t), id:46466
+  |vpiParent:
+  \_bit_typespec: (uvm_reg_cvr_t), id:46462, line:60757:10, endln:60757:22
+  |vpiFullName:uvm_reg_cvr_t
+  |vpiActual:
+  \_bit_typespec: (uvm_pkg::uvm_reg_cvr_t), id:28166, line:60757:10, endln:60757:22
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiRange:
+\_range: , id:46463, line:60757:14, endln:60757:22
+  |vpiParent:
+  \_bit_typespec: (uvm_reg_cvr_t), id:46462, line:60757:10, endln:60757:22
+  |vpiLeftRange:
+  \_constant: , id:46464, line:60757:15, endln:60757:17
+    |vpiParent:
+    \_range: , id:46463, line:60757:14, endln:60757:22
+    |vpiDecompile:31
+    |vpiSize:64
+    |INT:31
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:46465, line:60757:20, endln:60757:21
+    |vpiParent:
+    \_range: , id:46463, line:60757:14, endln:60757:22
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS:
+decompile:
+bit_typespec: (uvm_pkg::uvm_reg_cvr_t), id:499, line:60757:10, endln:60757:22
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:2, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiName:uvm_pkg::uvm_reg_cvr_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:2, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiRange:
+\_range: , id:500, line:60757:14, endln:60757:22
+  |vpiParent:
+  \_bit_typespec: (uvm_pkg::uvm_reg_cvr_t), id:499, line:60757:10, endln:60757:22
+  |vpiLeftRange:
+  \_operation: , id:501, line:60757:15, endln:60757:19
+    |vpiParent:
+    \_range: , id:500, line:60757:14, endln:60757:22
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:502, line:60757:15, endln:60757:17
+      |vpiParent:
+      \_operation: , id:501, line:60757:15, endln:60757:19
+      |vpiDecompile:32
+      |vpiSize:64
+      |UINT:32
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , id:503, line:60757:18, endln:60757:19
+      |vpiParent:
+      \_operation: , id:501, line:60757:15, endln:60757:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:504, line:60757:20, endln:60757:21
+    |vpiParent:
+    \_range: , id:500, line:60757:14, endln:60757:22
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+bit_typespec: (uvm_pkg::uvm_reg_cvr_t), id:499, line:60757:10, endln:60757:22
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:2, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiName:uvm_pkg::uvm_reg_cvr_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:2, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiRange:
+\_range: , id:500, line:60757:14, endln:60757:22
+  |vpiParent:
+  \_bit_typespec: (uvm_pkg::uvm_reg_cvr_t), id:499, line:60757:10, endln:60757:22
+  |vpiLeftRange:
+  \_operation: , id:501, line:60757:15, endln:60757:19
+    |vpiParent:
+    \_range: , id:500, line:60757:14, endln:60757:22
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:502, line:60757:15, endln:60757:17
+      |vpiParent:
+      \_operation: , id:501, line:60757:15, endln:60757:19
+      |vpiDecompile:32
+      |vpiSize:64
+      |UINT:32
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , id:503, line:60757:18, endln:60757:19
+      |vpiParent:
+      \_operation: , id:501, line:60757:15, endln:60757:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:504, line:60757:20, endln:60757:21
+    |vpiParent:
+    \_range: , id:500, line:60757:14, endln:60757:22
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9

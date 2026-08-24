@@ -1,0 +1,101 @@
+r10uvm121 — BOUNDARY ACQUITTAL (measurement only; the official uhdm-cmp is the judge)
+
+bound121.sh compiles EVERY .sv/.v arm under a COPY of the WHOLE probe tree with
+both binaries, in four combinations, and asserts the uhdm-dump text is
+byte-identical.  BOUNDARY.txt:
+
+  MODE=file VIEW=def    PROCESSED=3712 LISTED=3712 FENCED=0 DIFFER=10  rejects 139/139
+  MODE=dir  VIEW=def    PROCESSED=1546 LISTED=1546 FENCED=0 DIFFER=10  rejects 123/123
+  MODE=file VIEW=elab   PROCESSED=3712 LISTED=3712 FENCED=0 DIFFER=10  rejects 153/153
+  MODE=dir  VIEW=elab   PROCESSED=1546 LISTED=1546 FENCED=0 DIFFER= 9  rejects 129/129
+
+PROCESSED == LISTED everywhere; every reject is SYMMETRIC (no arm is accepted by
+one binary and refused by the other, asym.txt empty in all four); no
+slang-fenced test was ever dispatched (fenced121.sh reads the list out of
+canaudit.sh, and only a COUNT is printed).
+
+---- 1. THE FIVE ORDER ARMS (dir mode only) ARE NOT MOVERS, AND THAT IS MEASURED
+
+  r10uvm117repro  r10uvm75repro  r10uvm76repro  r10v109repro  r10v117repro
+
+Their ORDER-BLIND (sorted) pristine-vs-patched diff is **0 LINES** in both
+views: the whole difference is the order of a `vpiTaskFunc` list.  That is the
+emitter's known ORDER nondeterminism (RESUME §9: macro-buffer SourceLocation
+ordering under slang's parallel parse), proved on ONE binary — the
+r10uvm75repro dir arm compiled FOUR TIMES with the PRISTINE binary alone:
+
+  path-normalised dump md5    38985be3  35c4d00f  27b49b54  7120ec1d   (four different)
+  path-normalised SORTED md5  8c574bc6  8c574bc6  8c574bc6  8c574bc6   (all identical)
+
+---- 2. THE FIVE LAW ARMS, SCORED AGAINST THEIR OWN SURELOG GOLDEN
+
+Every arm bound121.sh reports as differing was re-compiled ALONE with Surelog
+(`-parse -sverilog` for the def view, `-elabuhdm` added for the elab view) and
+scored on DISTINCT REACHABLE OBJECTS with ct121cen + cen121.py — the same
+instrument as the corpus census, with the vpiParent chain required to terminate
+at the design.  ONE-SIDED SETS ARE PRIMARY.
+
+  SAME       = cells identical on both sides
+  OURS-FULL  = golden's slot is EMPTY and ours holds something   (the law's cells)
+  ONLY-G     = a cell golden has and we do not emit at all
+  ONLY-O     = a SURPLUS assignment of ours
+
+  arm                            view   pristine SAME/OURS-FULL/ONLY-G/ONLY-O  ->  patched
+  r10svs3repro/a2_thisnew.sv     def     9 / 3 / 0 / 4    ->   9 / 0 / 0 / 4
+  r10svs3repro/a2_thisnew.sv     elab   15 /10 / 0 / 4    ->  15 / 0 / 0 / 4
+  r10svs3repro/a3_position.sv    def     8 / 4 / 0 / 2    ->   8 / 0 / 0 / 2
+  r10svs3repro/a3_position.sv    elab   10 / 7 / 0 / 2    ->  10 / 0 / 0 / 2
+  r10svs3repro/a4_ctorspan.sv    def    15 / 1 / 1 / 1    ->  15 / 0 / 1 / 1
+  r10svs3repro/a4_ctorspan.sv    elab   20 / 3 / 1 / 4    ->  20 / 0 / 1 / 3
+  r10svs3repro/a5_ctornest.sv    def    12 / 1 / 0 / 0    ->  12 / 0 / 0 / 0
+  r10svs3repro/a5_ctornest.sv    elab   17 / 2 / 0 / 0    ->  17 / 0 / 0 / 0
+  r10svs4repro/v2_copy.sv        def     7 / 0 / 0 / 2    ->   7 / 0 / 0 / 2
+  r10svs4repro/v2_copy.sv        elab   14 / 0 / 0 / 8    ->  14 / 0 / 0 / 4
+  r10svs7repro/a3_context.sv     def     2 / 1 / 0 / 0    ->   2 / 0 / 0 / 0
+  r10svs7repro/a3_context.sv     elab    6 / 3 / 0 / 0    ->   6 / 0 / 0 / 0
+  r10uvm121repro/g121_a.sv       def    16 /20 / 0 / 0    ->  16 / 0 / 0 / 0
+  r10uvm121repro/g121_a.sv       elab   39 /50 / 0 / 0    ->  39 / 0 / 0 / 0
+  r10uvm121repro/g121_b.sv       def     8 / 1 / 0 / 4    ->   8 / 0 / 0 / 4
+  r10uvm121repro/g121_b.sv       elab   13 / 2 / 0 /16    ->  13 / 0 / 0 / 7
+  r10uvm85repro/v85x9_misc.sv    def     1 / 1 / 0 / 0    ->   1 / 0 / 0 / 0
+  r10uvm85repro/v85x9_misc.sv    elab    3 / 3 / 0 / 0    ->   3 / 0 / 0 / 0
+  r10v110repro/v7_fence2.sv      def    13 / 3 / 0 / 0    ->  13 / 0 / 0 / 0
+  r10v110repro/v7_fence2.sv      elab   24 / 3 / 0 / 0    ->  24 / 0 / 0 / 0
+
+  SAME is UNCHANGED in every arm and every view — no golden cell was lost.
+  OURS-FULL goes to 0 in every arm — the law's cells and only those.
+  ONLY-GOLDEN is UNCHANGED in every arm — nothing stopped being emitted that
+    golden still has.
+  ONLY-OURS is unchanged or SMALLER (a4_ctorspan elab 4->3, v2_copy elab 8->4,
+    g121_b elab 16->7) — surplus objects are removed, never created.
+
+These are exactly the arms of the sibling law § thisSuperNewAssignNoStmt3
+(r10svs3repro is that pass's own probe directory), plus the covergroup-`new`
+arm of § covergroupNewCall7 (r10svs7repro/a3_context.sv `this.cg4 = new;` —
+golden empties it like every other prefix form), plus
+§ dynArrayNewLvalueBase110's verifier fence arm (r10v110repro/v7_fence2.sv —
+that law's own comment already fences `this.`/`super.` out and says golden emits
+nothing there), plus r10uvm85repro/v85x9_misc.sv (`this.h = new;` in a
+constructor).
+
+Per-arm line accounting agrees: in the DEF view every one of the ten diffs is a
+PURE REMOVAL (added = 0 after sorting), and every removed line belongs to a
+`this.<...> = new...` assignment's Lhs (`hier_path (this.<name>)` and its
+`ref_obj` elements) or Rhs (`method_func_call (new)` and its arguments), or is a
+container reached only through those objects' vpiParent back-pointers.
+
+---- 3. TWO INSTRUMENT NOTES, both paid for here
+
+* The ARM scorer (armcen121.py/score121.py) counts DUMP-TEXT prints, and
+  uhdm-dump prints an object once per PATH it is reached through.  In the ELAB
+  view, removing one subtree changes how many times UNTOUCHED objects are
+  re-printed, which the arm scorer reads as a changed cell (v2_copy elab shows
+  three such cells over PLAIN `lp = new gp;` targets that no predicate of this
+  pass can even see).  The table above therefore uses ct121cen — DISTINCT
+  reachable objects — and the arm scorer is kept for the DEF view and the grid,
+  where one object is reached once.
+* `uhdm-dump --stats` is NOT a stable instrument here: it counts every
+  serializer object, reachable or not, and three runs of the ONE pristine binary
+  on r10svs3repro/a4_ctorspan.sv gave three different stat blocks while the
+  DUMP TREE was byte-identical across all three.  Only the dump tree (what the
+  judge walks) is deterministic per binary.

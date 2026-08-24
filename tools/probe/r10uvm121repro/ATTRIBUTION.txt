@@ -1,0 +1,144 @@
+== ./default/BuildUVMPkg-bf853d43/slang.uhdm  removed=42 added=0
+   REMOVED       4 \_assignment: , line:70583:4, endln:70583:28
+   REMOVED       6 \_hier_path: (this.default_alloc), line:70583:4, endln:70583:8
+   REMOVED       2 \_method_func_call: (new)
+   REMOVED       2 \_ref_obj: (this), line:70583:9, endln:70583:22
+   REMOVED       2 \_ref_obj: (uvm_pkg::uvm_mem_mam::new::default_alloc)
+   REMOVED       4 |vpiActual:
+   REMOVED       2 |vpiFullName:uvm_pkg::uvm_mem_mam::new::default_alloc
+   REMOVED       2 |vpiLhs:
+   REMOVED       2 |vpiName:default_alloc
+   REMOVED       2 |vpiName:new
+   REMOVED       2 |vpiName:this
+   REMOVED       2 |vpiName:this.default_alloc
+   REMOVED       8 |vpiParent:
+   REMOVED       2 |vpiRhs:
+== ./default/MiniAmiq-544c7f61/slang.uhdm  removed=84 added=0
+   REMOVED       8 \_assignment: , line:658:4, endln:658:28
+   REMOVED      12 \_hier_path: (this.default_alloc), line:658:4, endln:658:8
+   REMOVED       4 \_method_func_call: (new)
+   REMOVED       2 \_ref_obj: (svaunit_pkg::uvm_mem_mam::new::default_alloc)
+   REMOVED       4 \_ref_obj: (this), line:658:9, endln:658:22
+   REMOVED       2 \_ref_obj: (uvm_pkg::uvm_mem_mam::new::default_alloc)
+   REMOVED       8 |vpiActual:
+   REMOVED       2 |vpiFullName:svaunit_pkg::uvm_mem_mam::new::default_alloc
+   REMOVED       2 |vpiFullName:uvm_pkg::uvm_mem_mam::new::default_alloc
+   REMOVED       4 |vpiLhs:
+   REMOVED       4 |vpiName:default_alloc
+   REMOVED       4 |vpiName:new
+   REMOVED       4 |vpiName:this
+   REMOVED       4 |vpiName:this.default_alloc
+   REMOVED      16 |vpiParent:
+   REMOVED       4 |vpiRhs:
+== ./default/Scoreboard-59431470/slang.uhdm  removed=42 added=0
+   REMOVED       4 \_assignment: , line:658:4, endln:658:28
+   REMOVED       6 \_hier_path: (this.default_alloc), line:658:4, endln:658:8
+   REMOVED       2 \_method_func_call: (new)
+   REMOVED       2 \_ref_obj: (this), line:658:9, endln:658:22
+   REMOVED       2 \_ref_obj: (uvm_pkg::uvm_mem_mam::new::default_alloc)
+   REMOVED       4 |vpiActual:
+   REMOVED       2 |vpiFullName:uvm_pkg::uvm_mem_mam::new::default_alloc
+   REMOVED       2 |vpiLhs:
+   REMOVED       2 |vpiName:default_alloc
+   REMOVED       2 |vpiName:new
+   REMOVED       2 |vpiName:this
+   REMOVED       2 |vpiName:this.default_alloc
+   REMOVED       8 |vpiParent:
+   REMOVED       2 |vpiRhs:
+== ./default/SeqDriver-32af76aa/slang.uhdm  removed=84 added=0
+   REMOVED       8 \_assignment: , line:658:4, endln:658:28
+   REMOVED      12 \_hier_path: (this.default_alloc), line:658:4, endln:658:8
+   REMOVED       4 \_method_func_call: (new)
+   REMOVED       2 \_ref_obj: (adpcm_pkg::uvm_mem_mam::new::default_alloc)
+   REMOVED       4 \_ref_obj: (this), line:658:9, endln:658:22
+   REMOVED       2 \_ref_obj: (uvm_pkg::uvm_mem_mam::new::default_alloc)
+   REMOVED       8 |vpiActual:
+   REMOVED       2 |vpiFullName:adpcm_pkg::uvm_mem_mam::new::default_alloc
+   REMOVED       2 |vpiFullName:uvm_pkg::uvm_mem_mam::new::default_alloc
+   REMOVED       4 |vpiLhs:
+   REMOVED       4 |vpiName:default_alloc
+   REMOVED       4 |vpiName:new
+   REMOVED       4 |vpiName:this
+   REMOVED       4 |vpiName:this.default_alloc
+   REMOVED      16 |vpiParent:
+   REMOVED       4 |vpiRhs:
+== ./default/SimpleUVM-1dc93a62/slang.uhdm  removed=42 added=0
+   REMOVED       4 \_assignment: , line:658:4, endln:658:28
+   REMOVED       6 \_hier_path: (this.default_alloc), line:658:4, endln:658:8
+   REMOVED       2 \_method_func_call: (new)
+   REMOVED       2 \_ref_obj: (this), line:658:9, endln:658:22
+   REMOVED       2 \_ref_obj: (uvm_pkg::uvm_mem_mam::new::default_alloc)
+   REMOVED       4 |vpiActual:
+   REMOVED       2 |vpiFullName:uvm_pkg::uvm_mem_mam::new::default_alloc
+   REMOVED       2 |vpiLhs:
+   REMOVED       2 |vpiName:default_alloc
+   REMOVED       2 |vpiName:new
+   REMOVED       2 |vpiName:this
+   REMOVED       2 |vpiName:this.default_alloc
+   REMOVED       8 |vpiParent:
+   REMOVED       2 |vpiRhs:
+== ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  removed=42 added=0
+   REMOVED       4 \_assignment: , line:70583:4, endln:70583:28
+   REMOVED       6 \_hier_path: (this.default_alloc), line:70583:4, endln:70583:8
+   REMOVED       2 \_method_func_call: (new)
+   REMOVED       2 \_ref_obj: (this), line:70583:9, endln:70583:22
+   REMOVED       2 \_ref_obj: (uvm_pkg::uvm_mem_mam::new::default_alloc)
+   REMOVED       4 |vpiActual:
+   REMOVED       2 |vpiFullName:uvm_pkg::uvm_mem_mam::new::default_alloc
+   REMOVED       2 |vpiLhs:
+   REMOVED       2 |vpiName:default_alloc
+   REMOVED       2 |vpiName:new
+   REMOVED       2 |vpiName:this
+   REMOVED       2 |vpiName:this.default_alloc
+   REMOVED       8 |vpiParent:
+   REMOVED       2 |vpiRhs:
+== ./testflags/MiniAmiq-544c7f61/slang.uhdm  removed=84 added=0
+   REMOVED       8 \_assignment: , line:658:4, endln:658:28
+   REMOVED      12 \_hier_path: (this.default_alloc), line:658:4, endln:658:8
+   REMOVED       4 \_method_func_call: (new)
+   REMOVED       2 \_ref_obj: (svaunit_pkg::uvm_mem_mam::new::default_alloc)
+   REMOVED       4 \_ref_obj: (this), line:658:9, endln:658:22
+   REMOVED       2 \_ref_obj: (uvm_pkg::uvm_mem_mam::new::default_alloc)
+   REMOVED       8 |vpiActual:
+   REMOVED       2 |vpiFullName:svaunit_pkg::uvm_mem_mam::new::default_alloc
+   REMOVED       2 |vpiFullName:uvm_pkg::uvm_mem_mam::new::default_alloc
+   REMOVED       4 |vpiLhs:
+   REMOVED       4 |vpiName:default_alloc
+   REMOVED       4 |vpiName:new
+   REMOVED       4 |vpiName:this
+   REMOVED       4 |vpiName:this.default_alloc
+   REMOVED      16 |vpiParent:
+   REMOVED       4 |vpiRhs:
+== ./testflags/SeqDriver-32af76aa/slang.uhdm  removed=84 added=0
+   REMOVED       8 \_assignment: , line:658:4, endln:658:28
+   REMOVED      12 \_hier_path: (this.default_alloc), line:658:4, endln:658:8
+   REMOVED       4 \_method_func_call: (new)
+   REMOVED       2 \_ref_obj: (adpcm_pkg::uvm_mem_mam::new::default_alloc)
+   REMOVED       4 \_ref_obj: (this), line:658:9, endln:658:22
+   REMOVED       2 \_ref_obj: (uvm_pkg::uvm_mem_mam::new::default_alloc)
+   REMOVED       8 |vpiActual:
+   REMOVED       2 |vpiFullName:adpcm_pkg::uvm_mem_mam::new::default_alloc
+   REMOVED       2 |vpiFullName:uvm_pkg::uvm_mem_mam::new::default_alloc
+   REMOVED       4 |vpiLhs:
+   REMOVED       4 |vpiName:default_alloc
+   REMOVED       4 |vpiName:new
+   REMOVED       4 |vpiName:this
+   REMOVED       4 |vpiName:this.default_alloc
+   REMOVED      16 |vpiParent:
+   REMOVED       4 |vpiRhs:
+== ./testflags/SimpleUVM-1dc93a62/slang.uhdm  removed=42 added=0
+   REMOVED       4 \_assignment: , line:658:4, endln:658:28
+   REMOVED       6 \_hier_path: (this.default_alloc), line:658:4, endln:658:8
+   REMOVED       2 \_method_func_call: (new)
+   REMOVED       2 \_ref_obj: (this), line:658:9, endln:658:22
+   REMOVED       2 \_ref_obj: (uvm_pkg::uvm_mem_mam::new::default_alloc)
+   REMOVED       4 |vpiActual:
+   REMOVED       2 |vpiFullName:uvm_pkg::uvm_mem_mam::new::default_alloc
+   REMOVED       2 |vpiLhs:
+   REMOVED       2 |vpiName:default_alloc
+   REMOVED       2 |vpiName:new
+   REMOVED       2 |vpiName:this
+   REMOVED       2 |vpiName:this.default_alloc
+   REMOVED       8 |vpiParent:
+   REMOVED       2 |vpiRhs:
+-- movers attributed: 9

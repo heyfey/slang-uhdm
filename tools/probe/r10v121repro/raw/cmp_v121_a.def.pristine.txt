@@ -1,0 +1,25 @@
+LHS: <null>
+RHS:
+decompile:
+method_func_call: (new), id:131, line:35:23, endln:35:29
+|vpiArgument:
+\_constant: , id:132, line:35:27, endln:35:28
+  |vpiParent:
+  \_method_func_call: (new), id:131, line:35:23, endln:35:29
+  |vpiDecompile:4
+  |vpiSize:64
+  |UINT:4
+  |vpiConstType:9
+|vpiName:new
+
+decompile:
+method_func_call: (new), id:131, line:35:23, endln:35:29
+|vpiArgument:
+\_constant: , id:132, line:35:27, endln:35:28
+  |vpiParent:
+  \_method_func_call: (new), id:131, line:35:23, endln:35:29
+  |vpiDecompile:4
+  |vpiSize:64
+  |UINT:4
+  |vpiConstType:9
+|vpiName:new

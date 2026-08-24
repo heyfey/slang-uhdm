@@ -1,0 +1,93 @@
+== boundary gate: MODE=file VIEW=def  3712 arms under /tmp/r10uvm121_probecopy
+PROCESSED=3712 LISTED=3712 FENCED=0 DIFFER=10 PRIS_REJECT=139 PATCHED_REJECT=139
+-- differing arms:
+./r10svs3repro/a2_thisnew.sv
+./r10svs3repro/a3_position.sv
+./r10svs3repro/a4_ctorspan.sv
+./r10svs3repro/a5_ctornest.sv
+./r10svs4repro/v2_copy.sv
+./r10svs7repro/a3_context.sv
+./r10uvm121repro/g121_a.sv
+./r10uvm121repro/g121_b.sv
+./r10uvm85repro/v85x9_misc.sv
+./r10v110repro/v7_fence2.sv
+== boundary gate: MODE=dir VIEW=def  1546 arms under /tmp/r10uvm121_probecopy
+rm: refusing to remove '.' or '..' directory: skipping '/tmp/r10uvm121_bound_def_dir/.'
+PROCESSED=1546 LISTED=1546 FENCED=0 DIFFER=10 PRIS_REJECT=123 PATCHED_REJECT=123
+-- differing arms:
+./r10svs3repro
+./r10svs4repro
+./r10svs7repro
+./r10uvm117repro
+./r10uvm121repro
+./r10uvm75repro
+./r10uvm76repro
+./r10uvm85repro
+./r10v109repro
+./r10v117repro
+== boundary gate: MODE=file VIEW=elab  3712 arms under /tmp/r10uvm121_probecopy
+bound121.sh: line 74: 370732 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 370750 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 371991 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 372009 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 508603 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 508621 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 510983 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 511001 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 512807 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 512843 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 537294 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 537312 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 537563 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 537581 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 540474 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 540492 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 540743 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 540761 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 542222 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 542240 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 542497 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 542515 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 568547 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 568565 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 568596 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 568614 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 568645 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 568663 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+PROCESSED=3712 LISTED=3712 FENCED=0 DIFFER=10 PRIS_REJECT=153 PATCHED_REJECT=153
+-- differing arms:
+./r10svs3repro/a2_thisnew.sv
+./r10svs3repro/a3_position.sv
+./r10svs3repro/a4_ctorspan.sv
+./r10svs3repro/a5_ctornest.sv
+./r10svs4repro/v2_copy.sv
+./r10svs7repro/a3_context.sv
+./r10uvm121repro/g121_a.sv
+./r10uvm121repro/g121_b.sv
+./r10uvm85repro/v85x9_misc.sv
+./r10v110repro/v7_fence2.sv
+== boundary gate: MODE=dir VIEW=elab  1546 arms under /tmp/r10uvm121_probecopy
+rm: refusing to remove '.' or '..' directory: skipping '/tmp/r10uvm121_bound_elab_dir/.'
+bound121.sh: line 74: 667114 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 667134 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 667725 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 667743 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 675989 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 676025 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 709385 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 709404 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 709437 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 709455 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+bound121.sh: line 74: 709488 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+bound121.sh: line 74: 709506 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+PROCESSED=1546 LISTED=1546 FENCED=0 DIFFER=9 PRIS_REJECT=129 PATCHED_REJECT=129
+-- differing arms:
+./r10svs3repro
+./r10svs4repro
+./r10svs7repro
+./r10uvm121repro
+./r10uvm75repro
+./r10uvm76repro
+./r10uvm85repro
+./r10v109repro
+./r10v117repro
