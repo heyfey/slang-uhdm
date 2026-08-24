@@ -1,0 +1,126 @@
+r10v79 — ARMS AND BOUNDARY ADJUDICATION.  MEASUREMENT ONLY; the official
+uhdm-cmp is the judge.  LHS is always golden.  Scoring is JUDGE-FIELDS-ONLY
+(everything before " || SPANS:" in an rngcen79 line: VpiConstType, VpiSize,
+VpiValue, VpiDecompile, TYPESPEC PRESENCE); span presence is tallied
+SEPARATELY because golden's fold here is re-spanned at the first child.
+
+Two scorers, because the pass's own score79.py credits a wrong key's
+disappearance and charges a new wrong key separately, which reads as movement
+where the distance did not change:
+  strict79.py  per-key |G-O| vs |G-Q|  -> improved / WORSENED / total distance
+  broke79.py   THE VERDICT QUESTION: is there a key PRISTINE GOT RIGHT
+               (O == G, G > 0) that the patched binary does not?
+
+==================== ARM SCORES ====================
+                       IMPLEMENTER'S PATCH            VERIFIED BINARY
+arm / grid          dist(g,q)  broke  new-exact | dist(g,q)  broke  new-exact
+g1_first79.sv            0       0       12     |     0        0       12
+g2_dimexpr79.sv        130       0       84     |   130        0       84
+g3_ops79.sv             60       0       20     |    60        0       20
+g4_names79.sv           12       0       14     |    12        0       14
+r10earl74 g1_dims74    324       0        5     |   324        0        5
+r10vearl74 va1_v74      72       0        0     |    72        0        0
+r10vearl74 va2_v74     431       0       31     |   431        0       31
+r10vearl74 va3_v74      36       0        0     |    36        0        0
+va1_v79.sv (homes)      99       0       80     |    63        0       86
+va2_v79.sv (shapes)     90       0       54     |    90        0       54
+va3_v79.sv (control)     0       0        0     |     0        0        0
+va4_v79.sv (inst arr)  132       0        9     |   132        0        9
+va5_v79.sv (x-scope)    24       0        4     |     0        0        8
+va6_v79.sv (shadow)     12       0        0     |     0        0        2
+va7_v79.sv (64-bit)      0       0        8     |     0        0        8
+va8_v79.sv (REGRESS)    12       2        0     |     0        0        0
+va9_v79.sv (compound)   24       2        0     |     0        0        2
+                             ----                      ----
+                    pristine-right->wrong: 4        pristine-right->wrong: 0
+(dist(g,o), the pristine distance, is unchanged between the two columns by
+construction.  TO-GOLDEN totals reproduce the implementer's headline grid
+numbers exactly under BOTH binaries: g2 504, g3 120, g4 84, g1_dims74 30,
+va2_v74 186.)
+
+va3_v79.sv is the SIZE-FORM-ONLY control (bare names, package parameters,
+localparams, literals, in module / gen / port / net / packed homes, three
+instances, two overrides): distance 0 -> 0 under both binaries.
+§ dimBoundInheritsParamEnc74's population is untouched, as claimed.
+
+The shapes swept in va2_v79.sv, each beside [N] and [4] controls, on var /
+non-ANSI io_decl / net / packed twin / typedef / instance-array / gen-for /
+gen-if / nested-gen / interface / program homes, N a module parameter,
+localparam, package parameter or genvar, three instances and two overrides,
+DEF and ELAB, default and --elabuhdm:
+  [N+1] [N-1] [N*2] [N/2] [N<<1] [$clog2(N)] [A+B] [A*B-1] [(N)] [((N+1))]
+  [int'(N)+1] [N-4] [N] [4] [pv2::PP] [N+1:2] [2:N+1] [N+1:N-4] [7:0]
+  [N+1][N*2] [LM+1] [LA+1] [LL+1] [pv2::PM+1] [pv2::PP+1]
+
+==================== THE REGRESSION THE VERIFIER FOUND AND FIXED ==========
+§ dimExprLeafBoundInit79v.  `dimRedCt79`'s NAME leaf re-walked
+`getInitializer()->syntax` and re-resolved its identifiers in the PARAMETER'S
+OWN scope.  For an OVERRIDDEN parameter that syntax is the OVERRIDE ACTUAL,
+WRITTEN IN THE INSTANTIATING SCOPE — so an instantiated body that declares the
+same name captures the re-lookup and the leaf answers off the WRONG symbol.
+
+va8_v79.sv, the minimal witness (legal SV, both instances, both views):
+    module child8 #(parameter longint Z = 4)(input logic clk);
+      localparam int UU = 3 * 2;          // INT-flavoured SHADOW
+      logic [7:0] z_arr [Z+1];
+    endmodule
+    module mid8 #(parameter int unsigned N = 4)(input logic clk);
+      localparam int unsigned UU = N + 1; // UINT-flavoured -- the REAL override
+      child8 #(.Z(UU)) u_c (.clk(clk));
+    endmodule
+  golden        ct=9 (UINT:) sz=64
+  pristine      ct=9 (UINT:) sz=64   <- EXACTLY RIGHT
+  implementer   ct=7 (INT:)  sz=64   <- BROKEN
+  VERIFIED      ct=9 (UINT:) sz=64   <- restored
+A `longint` dimension parameter is what makes pristine already right: for an
+EXPRESSION bound `dimPar26` is null, so wide26 / ovrNarrow26 / tsStamp26 are
+all false and pristine's size is `w0`, the bound expression's own bound-type
+width — 32 for an ordinary int-flavoured expression, 64 here.  That is the ONLY
+shape in which pristine can already equal golden, which is why va7_v79.sv
+sweeps it deliberately ([N+64'd1] [N+64'sd1] [N+64'h1] [LB+1] [LC+1] [LD+1]
+[N|64'd8] [LB*2] with `localparam longint LB/LC/LD`) — distance 0 there,
+spans included, on both binaries.
+va9_v79.sv shows the same break through a COMPOUND override (`.Z(UU+1)`).
+
+THE FIX walks the BOUND initializer EXPRESSION (`dimRedCtExpr79`) instead of
+its syntax: the binder already recorded the resolved `Symbol&`, so no scope is
+guessed and the class cannot recur.  Same operator table, same abstentions,
+same `vpiUIntConst` fallbacks; `'0`/`'1` stay refused exactly as the syntax
+table refuses `UnbasedUnsizedLiteralExpression`.
+A FIRST CUT OF THE FIX kept the syntax walk's depth-8 budget and abstained on
+r10vearl74's three-hop derivation chain (`l_dbl [D*2]` <- `.D(M2)` <-
+`M2 = MD*2` <- `.MD(CA)` <- `CA = A+B` <- `A = 16`), scoring va2_v74 162
+instead of 186 — caught by re-running EARL74'S OWN COMMITTED GRID, not by the
+corpus, which does not contain the shape.  The budget is now 32 (a derivation
+chain length, not a syntax depth) and the based-literal decode is hoisted into
+`vecBaseCt79` so a literal leaf costs no level.
+
+==================== BOUNDARY ====================
+WIDE (every .sv AND .v under a COPY of tools/probe at ANY depth, no path
+filter, both views, fd-3 list, children </dev/null, rc recorded per cell):
+  LISTED=3598 PROCESSED=3598 identical=6892 DIFFERING=14 no_output=290
+  (3530 .sv + 68 .v; the implementer's sv-only run was PROCESSED=3530
+   identical=6756 DIFFERING=14 no_output=290 — the 68 .v files add 136
+   identical cells and ZERO differences.)
+PER-DIRECTORY (every probe directory holding .sv or .v compiled as ONE unit):
+  LISTED=1525 PROCESSED=1525 identical=2780 DIFFERING=12 no_output=258
+PROCESSED == LISTED asserted on both.  NO rc MISMATCH between the A and B
+sides anywhere in either run; every rc=139 pairs A with B (pre-existing
+segfaults: r10buvm8 v21shadow8 + vshadowcells8/v21_s9, r10uvm84 v84x8_break,
+r10uvm87 v87_a4_scope, r10uvm92 g92_a2_ppkinds, r10vbuvm19 seg19 + vg19e,
+r10vbuvm28 gv28_a_compose + gv28_f_grid, r10vbuvm31 gv31a5 + gv31seg2,
+r10vrgg8 cells/v8_recurse{,_mutual,_uncond}).  NO NEW CRASH.
+
+MOVERS, ADJUDICATED (R10E79_CELLDBG counts cells the law CLAIMS in each):
+  r10earl79repro g1/g2/g3/g4       POSITIVE CONTROL, this pass's own arms
+  r10earl74repro       5 cells     TO-GOLDEN 30, 0 AWAY, 0 pristine-right broken
+  r10vearl74repro     31 cells     TO-GOLDEN 186, 0 AWAY, 0 pristine-right broken
+  r10buvm22repro/g22   0 cells     NOT THIS LAW.  The NEUTRAL R10E79_OFF=1
+        binary's dump is BYTE-IDENTICAL to the VERIFIED binary's, and the 12
+        differing sides are raw ALLOCATION NUMBERS leaking into a decompile
+        (`UINT:22416825` vs `UINT:22408601`, a delta of 8224 = the binary size
+        change).  earl74's R5, re-confirmed independently.
+  r10uvm75repro        0 cells  |  raw sides 14/18, ORDER-BLIND (both dumps
+  r10uvm76repro        0 cells  |  sorted) 0/0 — the documented
+  r10v109repro         0 cells  |  design::Task_funcs order coin, not content.
+Only cells this law's own statement names move.

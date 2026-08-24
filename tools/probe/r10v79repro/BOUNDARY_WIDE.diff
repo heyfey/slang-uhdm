@@ -1,0 +1,14 @@
+elab r10buvm22repro/g22.sv
+elab r10earl74repro/g1_dims74.sv
+elab r10earl79repro/g1_first79.sv
+elab r10earl79repro/g2_dimexpr79.sv
+elab r10earl79repro/g3_ops79.sv
+elab r10earl79repro/g4_names79.sv
+elab r10vearl74repro/va2_v74.sv
+plain r10buvm22repro/g22.sv
+plain r10earl74repro/g1_dims74.sv
+plain r10earl79repro/g1_first79.sv
+plain r10earl79repro/g2_dimexpr79.sv
+plain r10earl79repro/g3_ops79.sv
+plain r10earl79repro/g4_names79.sv
+plain r10vearl74repro/va2_v74.sv

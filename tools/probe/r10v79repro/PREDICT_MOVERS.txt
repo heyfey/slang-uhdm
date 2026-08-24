@@ -1,0 +1,17 @@
+r10v79 MOVER PREDICTION — made from PRISTINE databases + the pristine census
+ONLY, before reading the fixed2 surelog sweep.
+
+The law rewrites exactly one population: a SIZE-FORM unpacked array dimension
+whose size is WRITTEN AS AN EXPRESSION, on an array_var / array_net owner.
+My own dimscan79 + dimjoin79 census of the PRISTINE databases finds that
+population in:
+  uhdm2rtlil (1358 DBs) : EXPR cells = 0        -> PREDICT 0 movers
+  surelog    (956 DBs)  : EXPR cells = 96, in exactly 2 DBs
+                          (Earlgrey_0_1 default 48 + testflags 48)
+My fix (§ dimExprLeafBoundInit79v) only changes WHICH ENCODING a leaf inside
+that same population contributes; it cannot reach a cell outside it.
+
+PREDICTED MOVERS, BY NAME:
+  ./default/Earlgrey_0_1-71da2fd7/slang.uhdm
+  ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+PREDICTED MOVERS elsewhere: NONE (u2r 0/1358, surelog 2/956).

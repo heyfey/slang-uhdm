@@ -1,0 +1,63 @@
+r10earl79 — ARMS: every arm that MOVED in the two boundary walks, adjudicated.
+MEASUREMENT ONLY.  "moves TOWARD golden" is scored with score79.py on the
+JUDGE HALF only (VpiType/VpiName/VpiDefName, VpiDecompile, VpiSize, Typespec,
+VpiConstType); spans are reported, never scored.
+
+WIDE, per file:  PROCESSED=3530 identical=6756 DIFFERING=14 no_output=290
+DIR,  per dir:   PROCESSED=1517 identical=2770 DIFFERING=12 no_output=252
+(both lists read on fd 3, children </dev/null, PROCESSED asserted == the list)
+
+----------------------------------------------------------------------------
+WIDE — 7 files x 2 views = 14
+----------------------------------------------------------------------------
+r10earl79repro/g1_first79.sv        THIS PASS'S OWN ARM — the POSITIVE CONTROL
+r10earl79repro/g2_dimexpr79.sv      (the wide walk can see this law fire)
+r10earl79repro/g3_ops79.sv          504 / 120 / 84 cells TO-GOLDEN, 0 AWAY,
+r10earl79repro/g4_names79.sv        0 MOVED-WRONG — see GRID_SCORE.txt
+
+r10earl74repro/g1_dims74.sv         AN EARLIER PASS'S COMMITTED GRID.
+                                    30 TO-GOLDEN, 0 AWAY, 0 MOVED-WRONG.
+                                    It is the arm whose `w_add [A + B]` row
+                                    (golden size 32, not 64) forced the
+                                    `dimRedSz79` size model — a first cut of
+                                    this law moved 3 of its cells AWAY and the
+                                    wide boundary is what convicted it.
+
+r10vearl74repro/va2_v74.sv          r10earl74's VERIFIER's committed arm.
+                                    186 TO-GOLDEN, 0 AWAY, 0 MOVED-WRONG.
+
+r10buvm22repro/g22.sv               NOT THIS LAW.  Adjudicated with the
+                                    NEUTRAL binary (the same patched binary
+                                    with R10E79_OFF=1): the neutral output is
+                                    IDENTICAL to the patched one and both
+                                    differ from pristine in exactly two dump
+                                    lines — the associative-array dimension
+                                    bound's allocation-layout garbage number
+                                    (22408601 pristine vs 22412729 on BOTH the
+                                    patched and the neutral binary).  This is
+                                    r10earl74's R5, re-confirmed: it tracks the
+                                    binary's allocation layout and moves on any
+                                    code change.
+
+----------------------------------------------------------------------------
+DIR — 6 directories x 2 views = 12
+----------------------------------------------------------------------------
+r10earl74repro    ) the same two grids as the wide walk, same verdict;
+r10vearl74repro   ) they are ALSO this walk's POSITIVE CONTROL — the DIR gate
+                    demonstrably sees this law fire.
+r10buvm22repro      the same allocation-layout number; NOT this law.
+r10uvm75repro     ) ZERO differing lines once BOTH dumps are SORTED — the
+r10uvm76repro     ) documented `design::Task_funcs` list-ORDER coin, which is
+r10v109repro      ) not a content change at all.
+
+NOTE on r10earl79repro in the DIR walk: this pass's own directory is
+`no_output` there, because its four arms deliberately reuse the same module
+names (`sink79`, `top79`) to keep each grid readable, so the directory does not
+compile as ONE unit (`duplicate definition of 'sink79'`, rc=3 on BOTH
+binaries).  The WIDE walk compiles them one file at a time and carries the
+positive control for them; r10earl74repro / r10vearl74repro carry it for the
+DIR walk.
+
+SIGNALS: every rc=139 in BOUNDARY_WIDE.signal / BOUNDARY_DIR.signal pairs side
+A with side B (14 files, patched and pristine alike).  No new crash, no new
+timeout, no signal on any arm this law touches.

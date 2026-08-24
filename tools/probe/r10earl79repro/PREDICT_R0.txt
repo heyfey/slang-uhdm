@@ -1,0 +1,145 @@
+r10earl79 -- THE MOVER PREDICTION (made FIRST, from pristine databases) and
+             THE NEXT HEAD (R0), named for the pass that follows this one.
+
+========================================================================
+PART 1 -- THE MOVER PREDICTION, MADE BEFORE THE PATCHED SWEEP RAN
+========================================================================
+
+`fencescan79.sh` + `dimjoin79.py` were run over the PRISTINE sweep workdirs
+(golden from the immutable cache path named in each test's own `cmds.txt`,
+ours from the sweep).  They read databases and dispatch NOTHING, so no test --
+fenced or otherwise -- is run by them; FENCED= lists only.
+
+The classifier needs no source: golden re-spans an EXPRESSION fold at the
+expression's FIRST CHILD, so golden's span is a STRICT PREFIX of the pristine
+one exactly when the size was written as an expression.  The join is EXACT on
+both corpora (GOLDEN_ONLY_KEYS=0, OURS_ONLY_KEYS=0, UNMATCHED=0), so nothing
+is hidden below a slot.
+
+  uhdm2rtlil, 1358 databases:  0 EXPR cells  ->  PREDICTION: 0 databases move
+  surelog,     956 databases: 96 EXPR cells, ALL of them in TWO databases
+
+      /tmp/.../sl/default/Earlgrey_0_1-71da2fd7      48 cells
+      /tmp/.../sl/testflags/Earlgrey_0_1-71da2fd7    48 cells
+
+  PREDICTION: EXACTLY `Earlgrey_0_1` default and `Earlgrey_0_1` testflags move,
+  and nothing else, in either corpus.
+
+MEASURED AFTER THE PATCHED SWEEP: `byteverify.sh SELFCHECK=1` reports
+MOVERS 0 / 1358 on uhdm2rtlil and MOVERS 2 / 956 on surelog, the two being
+exactly those two databases.  Prediction and measurement agree by name.
+
+The census also PROVES THE TWO POPULATIONS DISJOINT, which is what the brief
+asked for: pristine, the 2,354 NAME cells (§ dimBoundInheritsParamEnc74's,
+`[N]` / `[7]` / `[(N)]`) ALL AGREE with golden and the 96 EXPR cells ALL
+DIFFER, in `VpiSize` and in nothing else.  Patched, all 2,450 agree.
+
+========================================================================
+PART 2 -- R0-default == R0-testflags (the two logs are byte-identical)
+========================================================================
+
+  prim_fifo_sync.sv:12    parameter int unsigned Depth       = 4,
+                                                             ^ col 40
+
+  in top_earlgrey.u_spi_device.u_reg.u_socket.fifo_h.reqfifo
+
+  LHS (golden)  constant 12:40-12:41       RHS (ours)  constant 12:40-12:41
+    |vpiParent -> param_assign 12:26-12:41   |vpiParent -> param_assign
+    |vpiDecompile:4'h0    <-- THE HEAD       |vpiDecompile:32'h0
+    |vpiSize:32                              |vpiSize:32
+    |HEX:0                                   |HEX:0
+    |vpiTypespec -> ref_typespec (…reqfifo)  |vpiTypespec -> ref_typespec (…)
+                    -> int_typespec 12:13    |               -> int_typespec
+    |vpiConstType:5                          |vpiConstType:5
+
+WHICH ARM.  `expr::Compare` (UHDM/build/generated/src/expr.cpp:83-102) reads
+`VpiDecompile` FIRST and it is THE FAILING FIELD: `"4'h0"` vs `"32'h0"`.
+`VpiSize` (32 == 32), the typespec and `constant::Compare`'s `VpiConstType`
+(5 == 5) are all below it and all agree.  Read the MK line, not the shape.
+
+THE CHAIN, and why the width is 4.  `tlul_socket_1n.sv:45`
+`parameter bit [3:0] HReqDepth = 4'h2` is overridden per instantiation, passed
+down as `tlul_fifo_sync #(.ReqDepth(HReqDepth))` (whose own formal is
+`parameter int unsigned ReqDepth = 2`, tlul_fifo_sync.sv:12) and again as
+`prim_fifo_sync #(.Depth(ReqDepth))`.  GOLDEN'S SUBSTITUTED CONSTANT KEEPS THE
+SOURCE LITERAL'S 4-BIT WIDTH IN ITS `VpiDecompile` ALL THE WAY DOWN; we
+re-render it at the FORMAL's declared 32.  This is the same producer/consumer
+pipeline r10earl27/28 decoded -- `srlgLitEnc` mints the based literal and
+`srlgAdjustSize` models `CompileHelper::adjustSize`'s `vpiHexConst` arm, which
+RE-RENDERS the digits at the target width -- reached through TWO instance hops
+where § ovEncScalarSourceSkipsHops28 already says a narrow based literal
+SKIPS the intermediate hops.  The open question the next pass must measure
+FIRST is whether the skip is a WIDTH skip as well as a value skip, and over
+how many hops: `4'h2` is 4 bits, not 1, so the pass-28 `o8.size == 1` clause
+does not cover it.
+
+WHAT THE NEXT PASS MUST MEASURE FIRST.  Census every `param_assign` Rhs
+constant whose `VpiConstType` is a BASED type (hex/bin/oct) across both
+Earlgrey databases and both corpora, keyed by owner instance + span, golden's
+decompile vs ours, split by (the width written at the SOURCE literal / the
+width of each formal on the override chain / the number of hops).  r10earl74's
+`pacen74` + `msjoin74.py` are the ready-made instruments (30,808 shared
+param_assign cells on Earlgrey, 182 differing golden-vs-ours before and after
+that pass -- start from those 182).
+
+FIRST-MEASURE INSTRUCTIONS.  Reproduce with
+  bash tools/probe/r10uvm67repro/rowheads.sh <sweep-workdir>/sl <outdir> Earlgrey_0_1
+on your own build of the landing commit; the head is 64 lines and readable in
+full (HEAD_AFTER_{default,testflags}.cmp here are the verbatim logs, and they
+are byte-identical to each other).
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+
+R1  AN ADD THE SIZE MODEL CANNOT PROVE.  `vpiAddOp` is the only claimed arm
+    whose `VpiSize` is `max(operand sizes)` rather than a hardcoded 64
+    (ExprEval.cpp:3191), and a reduced NAME's size is the parameter's own
+    stored one -- § dimBoundInheritsParamEnc74's territory, not modelled here.
+    So `[N + M]` (two names, golden 64) and `[N + 8'd2]` (a name and an 8-bit
+    literal, golden 64) are REFUSED and stay at 32.  ZERO corpus cells (the
+    corpus census is 0 differing after this pass); 48 grid cells in
+    `g2_dimexpr79.sv` / `g3_ops79.sv`.  Clearing it means reaching
+    § dimBoundInheritsParamEnc74's design-final `param_assign` walk from
+    `dimRedSz79`, which is a real coupling and wants its own pass.
+
+R2  THE OVER-FOLDED `^`.  `[N^1]`: golden keeps the `operation` (op 30)
+    unfolded because `ExprEval::reduceExpr` has NO `vpiBitXorOp` row; we fold
+    it to a constant.  A PRE-EXISTING over-fold this pass did not touch and
+    did not deepen.  2 grid cells, ZERO corpus cells.
+
+R3  THE TWO CASTS, and they disagree with each other.  `[int'(N*2)]` is golden
+    `UINT:` ct 9 with an EMPTY `VpiDecompile`; `[unsigned'(N*2)]` is golden
+    `INT:` ct 7 with decompile `6` and the span of the INNER `N`.  One
+    Conversion node, two answers -- r10earl73's R2 abstention, reproduced one
+    level in.  4 grid cells, ZERO corpus cells.
+
+R4  THE TERNARY DIMENSION `[(N>2)?4:2]`: golden `UINT:` ct 9 at 64 but spanned
+    at the TAKEN BRANCH's own token, which is a different producer from the
+    first-child re-span this law models.  2 grid cells, ZERO corpus.
+
+R5  A USER FUNCTION CALL `[f4(N)]`: golden `UINT:` ct 9 at 64, span the whole
+    call.  One measured cell; a user function's return type is arbitrary and
+    one cell is not a table.  2 grid cells, ZERO corpus.
+
+R6  THE RANGED BOTH-BOUNDS UNPACKED DIM `[N+1:2]`: golden's LEFT bound is
+    `UINT:4` ct 9 and ours is `INT:4` ct 7 -- our ranged-unpacked builder
+    applies a per-operator encoder that answers `+` the WRONG way round, while
+    the PACKED builder (`[N+1:0]`, `[N*2:0]`, `[N-1:0]`) and the ranged
+    `[N-1:0]` are already byte-identical to golden.  A DIFFERENT BUILDER from
+    the one this law rides; 3 grid cells, ZERO corpus cells.
+
+R7  GOLDEN DOES NOT FOLD AN INSTANCE-ARRAY OR A TYPEDEF DIM AT ALL.
+    `leaf79 u_arr [N+1] (...)` (a `module_array`) and
+    `typedef logic [7:0] ta79_t [N+1]` (an `array_typespec`) keep a
+    `ref_obj N` + `vpiAddOp` tree in golden; we fold both to a constant.  The
+    arm this law rides is gated on `array_var`/`array_net`, so neither is
+    reachable from here -- it is an OVER-FOLD in a different builder.  6 grid
+    cells, ZERO corpus cells.
+
+R8  r10earl74's R5, re-confirmed by this pass's NEUTRAL binary: our
+    associative-array dimension bound is a garbage number that tracks the
+    binary's ALLOCATION LAYOUT (`r10buvm22repro/g22.sv`, `22408601` pristine
+    vs `22412729` on BOTH the patched and the neutral binary).  It makes every
+    boundary walk report a spurious mover on that one file and should be fixed
+    for the campaign's sake, not for a corpus cell.

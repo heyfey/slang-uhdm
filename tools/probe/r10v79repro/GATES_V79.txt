@@ -1,0 +1,93 @@
+r10v79 — ADVERSARIAL VERIFICATION GATES.  Every number measured in the
+verifier's OWN worktrees (/tmp/wt_v79 patched+fixed, /tmp/wt_v79pris pristine),
+both binaries frozen chmod 555 at immutable paths BEFORE any sweep, every
+cmds.txt audited by the `slang:` line's binary PATH.  results/*.csv NEVER
+edited; GOLDEN_DEFER never set; no row converted.
+
+== BINARIES (built by the verifier from source, not copied)
+pristine  0f3eb2b                    md5 9e72c49cd132e57555a67957c407cc80
+   ... BIT-IDENTICAL to the main tree's build/slang-uhdm at 0f3eb2b
+   ... and to the implementer's claimed pristine md5
+implementer's patch                  md5 30e9ec1d6d3dbd9cb16a3d4f904ce7bb
+   ... BIT-IDENTICAL to the implementer's claimed patched md5
+VERIFIED (patch + § dimExprLeafBoundInit79v)  md5 59f846af751a15c47b3f58902e808948
+
+== (1) GOLDEN DUMP TESTS (SLANG_UHDM exported explicitly to EACH binary)
+pristine     PASS=23 FAIL=0
+implementer  PASS=23 FAIL=0
+VERIFIED     PASS=23 FAIL=0
+/bin/false (negative control)  PASS=0 FAIL=23
+
+== (2) cmds.txt BINARY AUDIT — the `slang:` line's PATH, per sweep
+pris/u2r     1458 /tmp/v79_bin/pris.bin
+pris/sl      1523 /tmp/v79_bin/pris.bin
+patched/u2r  1458 /tmp/v79_bin/patched.bin
+patched/sl   1523 /tmp/v79_bin/patched.bin
+f2/u2r       1458 /tmp/v79_bin/fixed2.bin
+f2/sl        1523 /tmp/v79_bin/fixed2.bin
+No cmds.txt anywhere names any other binary.
+
+== (3)+(4) ROW GATES — ct8rows.sh, WHOLE ROW (status AND dump column)
+                                                differing ROWS
+  committed results/gate_uhdm2rtlil.csv vs implementer u2r/tf        0
+  committed results/gate_uhdm2rtlil.csv vs VERIFIED    u2r/tf        0
+  my pristine u2r/tf   vs implementer / VERIFIED                     0 / 0
+  my pristine u2r/def  vs implementer / VERIFIED                     0 / 0
+  committed results/golden_surelog.csv vs my pristine                0
+  committed results/golden_surelog.csv vs implementer                0
+  committed results/golden_surelog.csv vs VERIFIED                   0
+  my pristine surelog  vs implementer / VERIFIED                     0 / 0
+  implementer surelog  vs VERIFIED                                   0
+u2r counts reproduce 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL in BOTH
+modes.  surelog: 1588 comparable rows, 0 differing.  NO ROW CONVERTED.
+
+== (5) BYTE MOVERS (SELFCHECK=1), PREDICTED BY NAME FIRST (PREDICT_MOVERS.txt,
+   written from the PRISTINE census before the VERIFIED surelog sweep was read)
+uhdm2rtlil  implementer 0/1358      VERIFIED 0/1358    PATH_SETS_IDENTICAL
+surelog     implementer 2/956       VERIFIED 2/956     PATH_SETS_IDENTICAL
+  ./default/Earlgrey_0_1-71da2fd7/slang.uhdm     e264aa4ab197 (pristine 963f492a0fec)
+  ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm   00c349a26c48 (pristine a14a712ec18a)
+BOTH movers are exactly the two PREDICTED databases, and the VERIFIED binary's
+mover hashes are BYTE-IDENTICAL to the implementer's: the verifier's fix
+changes NO corpus byte — it only closes a class the corpus does not contain.
+SELFCHECK 1357/1358 and 955/956 flagged (the control file itself is not).
+
+== HEADS (official uhdm-cmp; DEPTH, not distance; exactly one ^LHS: per row)
+                pristine        implementer / VERIFIED
+SeqDriver       46/46           46/46
+SimpleUVM       17/17           17/17
+Scoreboard      60/SKIP-NOFILE  60/SKIP-NOFILE
+MiniAmiq        60/60           60/60
+BuildUVMPkg     46/46           46/46
+Earlgrey_0_1    36/36           64/64      <- the head CLEARED, a DIFFERENT OBJECT
+Rggen            0/SKIP-NOFILE   0/SKIP-NOFILE
+measured=12 SKIP-NOFILE=2 UNKNOWN-NAME=0 on all three binaries.
+My own head logs are BYTE-IDENTICAL to the committed HEAD_BEFORE_{default,
+testflags}.cmp and HEAD_AFTER_{default,testflags}.cmp, for BOTH the
+implementer's binary and the VERIFIED one.
+Head object BEFORE: constant @126:32 under an `operation` (the dimension bound),
+golden vpiSize 64 vs ours 32.  AFTER: constant @12:40 under a `param_assign`,
+golden vpiDecompile `4'h0` vs ours `32'h0`, vpiSize 32 — a DIFFERENT OBJECT, so
+the 36 -> 64 line count is the new head's larger decompile, not a partial fix.
+
+== CENSUS (my own dimscan79 + dimjoin79 on the Earlgrey databases)
+                        EXPR  EXPR_DIFFER  NAME  NAME_AGREE  UNMATCHED
+pristine  / default       48       48(SZ)   663      663         0
+pristine  / testflags     48       48(SZ)   705      705         0
+implementer / default      -        -       711      711         0
+implementer / testflags    -        -       753      753         0
+VERIFIED  / default        -        -       711      711         0
+VERIFIED  / testflags      -        -       753      753         0
+GOLDEN_ONLY_KEYS=0 OURS_ONLY_KEYS=0 on every join.  96 differing cells -> 0.
+
+== CANARIES / PROTECTED DATABASES  (implementer AND VERIFIED, identical)
+canary rows ok=52 changed=0 (surelog) / ok=8 changed=0 (u2r)
+both supplementary ctcan2 suites PASS
+canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0 (run from this directory)
+InterfaceModPort 59a365f3ce2c / BlackParrotComplex e3e354129d5a,73a10e8217e5 /
+YosysOldOr d68e0796d62c / SVSwitch 4842211c4030 / YosysVerx 6ccda350c24a
+— all SAME as pristine, both modes.
+
+== FENCE
+The four slang-fenced tests were never dispatched and are spelled nowhere in
+this directory outside canaudit.sh/canaries.sh/ctcan2.sh's own fence lists.

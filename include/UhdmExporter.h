@@ -2223,6 +2223,65 @@ private:
     /// gives `14+4*i+j` the span of `14+4*i`, `i*2+1` the span of `i*2`, and
     /// `3+i` the span of `3`).
     slang::SourceRange srlgFoldSpan14(const slang::syntax::ExpressionSyntax& e);
+    /// § dimExprBoundFold79 — the CONSTANT ENCODING of the fold that sizes an
+    /// EXPRESSION-form unpacked array dimension (`[N+1]`, `[N*2]`,
+    /// `[$clog2(N)]`), and the SPAN that fold takes.
+    ///
+    /// This is a DELIBERATE SECOND COPY of `srlgRedCt14`'s operator table, not
+    /// a call into it: the two differ in exactly one row, and both rows are
+    /// measured.  `srlgRedCt14`'s leaf arm answers `vpiUIntConst` for EVERY
+    /// `IdentifierName`, which is right for the genvar/parameter reads inside
+    /// a folded INDEX (r10rgg14's grid) and WRONG for a dimension bound: golden
+    /// gives `[LM+1]` with `localparam int LM = N * 2` an `INT:`/ct 7 bound and
+    /// `[LA+1]` with `localparam int LA = N + 1` a `UINT:`/ct 9 one, i.e. a
+    /// name LEAF here contributes the encoding of ITS OWN INITIALIZER
+    /// (`ExprEval::reduceExpr` substitutes the parameter's already-reduced
+    /// constant, which is the same object § dimBoundInheritsParamEnc74 reads
+    /// out of the `param_assign`).  Merging the two tables would move every
+    /// r10rgg14 index fold in both corpora; they stay separate until the
+    /// corpus is converged.
+    ///
+    /// Returns the `vpiConstType` the reduction stamps, or **0 to ABSTAIN**
+    /// (an unmodelled node — a cast, a ternary, a `^`, a user function call —
+    /// in which case the caller must keep its pre-existing encoding).
+    int32_t dimRedCt79(const slang::syntax::ExpressionSyntax& e,
+                       const slang::ast::Scope* scope, int depth);
+    /// § dimExprLeafBoundInit79v (r10v79, the verifier's fix) — the same
+    /// operator table read off a BOUND initializer EXPRESSION instead of its
+    /// syntax.  `dimRedCt79`'s name leaf used to re-walk
+    /// `getInitializer()->syntax` and re-resolve its identifiers in the
+    /// PARAMETER'S OWN scope.  For an OVERRIDDEN parameter that syntax is the
+    /// override actual, which was WRITTEN IN THE INSTANTIATING SCOPE: when the
+    /// instantiated body happens to declare the same name, the re-lookup finds
+    /// the WRONG symbol and the leaf contributes the wrong encoding.  Measured
+    /// on `va8_v79.sv` / `va9_v79.sv`: `child8 #(.Z(UU))` with
+    /// `localparam int unsigned UU` in the parent and `localparam int UU` in
+    /// the child scored golden `UINT:` and pristine `UINT:` and patched
+    /// `INT:` — a cell PRISTINE ALREADY HAD RIGHT.  The bound expression
+    /// carries the resolved `Symbol&`, so no scope has to be guessed.
+    /// Returns the `vpiConstType`, or 0 to ABSTAIN, on `dimRedCt79`'s terms.
+    int32_t dimRedCtExpr79(const slang::ast::Expression& e, int depth);
+    /// § dimExprBoundFold79 — is this size syntax one of the CLAIMED
+    /// expression shapes (an arithmetic/shift/bitwise-and-or binary, a unary
+    /// +/-, or a `$`-system call)?  A bare identifier, a qualified name, a
+    /// literal, a member access, a cast, a ternary and a user function call
+    /// are all OUTSIDE the claim: the first three are
+    /// § dimBoundInheritsParamEnc74's population and the rest are measured
+    /// residues.
+    bool dimExprShape79(const slang::syntax::ExpressionSyntax& e);
+    /// § dimExprBoundFold79 — the `VpiSize` `ExprEval::reduceExpr` stamps on
+    /// the fold, or **-1 when the model cannot prove it**.  Every arithmetic,
+    /// shift, bitwise and system-call arm of `reduceExpr` hardcodes
+    /// `VpiSize(64)`; `vpiAddOp`/`vpiPlusOp` (UHDM/templates/ExprEval.cpp:3191)
+    /// and unary `vpiMinusOp` (:3318) are the ONLY arms that carry an
+    /// OPERAND's size through, so an ADD whose operands the model cannot size
+    /// — a NAME, whose reduced size is the parameter's own stored one — is
+    /// REFUSED unless the other operand is provably 64.
+    int32_t dimRedSz79(const slang::syntax::ExpressionSyntax& e, int depth);
+    /// § dimExprBoundFold79 — the span the folded bound takes: the LEFT
+    /// operand of a binary (parens stripped at the top only), the OPERATOR
+    /// TOKEN of a unary, the whole expression otherwise.
+    slang::SourceRange dimFoldSpan79(const slang::syntax::ExpressionSyntax& e);
     /// § genvarIdxFoldRerender14 — does this index expression READ a genvar?
     /// In an unrolled generate block slang models the loop index as a
     /// `ParameterSymbol` with `isFromGenvar()`; the un-unrolled body keeps a

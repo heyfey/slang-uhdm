@@ -1,0 +1,117 @@
+r10earl79 — CENSUS: every size-form unpacked array dimension bound (dimscan79 + dimjoin79.py)
+MEASUREMENT ONLY.  Read out of databases the sweeps already produced; nothing is dispatched.
+
+EXPR = the written size is an EXPRESSION (golden's fold is re-spanned at the expression's
+       FIRST CHILD, so golden's span is a STRICT PREFIX of the pristine one).
+NAME = a bare name or a literal — § dimBoundInheritsParamEnc74's population.
+The join is EXACT on both corpora: GOLDEN_ONLY_KEYS=0 OURS_ONLY_KEYS=0 UNMATCHED=0.
+
+===================== PRISTINE (0f3eb2b) =====================
+--- Earlgrey_0_1 / default
+EXPR               48
+EXPR_CT            0
+EXPR_DEC           0
+EXPR_DIFFER        48
+EXPR_SZ            48
+EXPR_VAL           0
+GOLDEN_ONLY_KEYS   0
+NAME               663
+NAME_AGREE         663
+OURS_ONLY_KEYS     0
+UNMATCHED          0
+--- Earlgrey_0_1 / testflags
+EXPR               48
+EXPR_CT            0
+EXPR_DEC           0
+EXPR_DIFFER        48
+EXPR_SZ            48
+EXPR_VAL           0
+GOLDEN_ONLY_KEYS   0
+NAME               705
+NAME_AGREE         705
+OURS_ONLY_KEYS     0
+UNMATCHED          0
+--- surelog corpus (956 databases)
+DATABASES_SCANNED=956
+PAIRS_WITH_GOLDEN=956
+EXPR         cells=96
+EXPR_AGREE   cells=0
+EXPR_DIFFER  cells=96
+EXPR_SZ      cells=96
+EXPR_CT      cells=0
+EXPR_VAL     cells=0
+EXPR_DEC     cells=0
+NAME         cells=1964
+NAME_AGREE   cells=1964
+NAME_DIFFER  cells=0
+DBS_WITH_EXPR_CELLS=2
+DBS_WITH_EXPR_DIFFER=2
+DBS_WITH_NAME_DIFFER=0
+--- uhdm2rtlil corpus (1358 databases)
+DATABASES_SCANNED=1358
+PAIRS_WITH_GOLDEN=1358
+EXPR         cells=0
+EXPR_AGREE   cells=0
+EXPR_DIFFER  cells=0
+EXPR_SZ      cells=0
+EXPR_CT      cells=0
+EXPR_VAL     cells=0
+EXPR_DEC     cells=0
+NAME         cells=390
+NAME_AGREE   cells=390
+NAME_DIFFER  cells=0
+DBS_WITH_EXPR_CELLS=0
+DBS_WITH_EXPR_DIFFER=0
+DBS_WITH_NAME_DIFFER=0
+
+===================== PATCHED =====================
+--- Earlgrey_0_1 / default
+GOLDEN_ONLY_KEYS   0
+NAME               711
+NAME_AGREE         711
+OURS_ONLY_KEYS     0
+UNMATCHED          0
+--- Earlgrey_0_1 / testflags
+GOLDEN_ONLY_KEYS   0
+NAME               753
+NAME_AGREE         753
+OURS_ONLY_KEYS     0
+UNMATCHED          0
+  (0 EXPR cells after the patch is not a blind spot: the classifier keys EXPR on golden's
+   span being a STRICT PREFIX of ours, and the patched spans now EQUAL golden's, so every
+   cell classifies NAME.  The count is what matters: 711 / 753 cells, ALL AGREE.)
+--- surelog corpus (956 databases)
+DATABASES_SCANNED=956
+PAIRS_WITH_GOLDEN=956
+EXPR         cells=0
+EXPR_AGREE   cells=0
+EXPR_DIFFER  cells=0
+EXPR_SZ      cells=0
+EXPR_CT      cells=0
+EXPR_VAL     cells=0
+EXPR_DEC     cells=0
+NAME         cells=2060
+NAME_AGREE   cells=2060
+NAME_DIFFER  cells=0
+DBS_WITH_EXPR_CELLS=0
+DBS_WITH_EXPR_DIFFER=0
+DBS_WITH_NAME_DIFFER=0
+--- uhdm2rtlil corpus (1358 databases)
+DATABASES_SCANNED=1358
+PAIRS_WITH_GOLDEN=1358
+EXPR         cells=0
+EXPR_AGREE   cells=0
+EXPR_DIFFER  cells=0
+EXPR_SZ      cells=0
+EXPR_CT      cells=0
+EXPR_VAL     cells=0
+EXPR_DEC     cells=0
+NAME         cells=390
+NAME_AGREE   cells=390
+NAME_DIFFER  cells=0
+DBS_WITH_EXPR_CELLS=0
+DBS_WITH_EXPR_DIFFER=0
+DBS_WITH_NAME_DIFFER=0
+
+PRISTINE differing dimension-bound cells corpus-wide: 96 (all Earlgrey_0_1, all VpiSize)
+PATCHED  differing dimension-bound cells corpus-wide: 0

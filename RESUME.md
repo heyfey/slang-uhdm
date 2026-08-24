@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-23 22:05, HEAD = the uvm116 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-23 22:30, HEAD = the earl79 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -187,13 +187,13 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | SimpleUVM×2 (uvm-1.2 tree) | 17 (depth) | `logic_net (work@top.p)` @uvm_globals.svh:263:3, RHS `<null>` — the FREE PACKAGE FUNCTION's `process p` local, where our implicit-net machinery does not fire (§ fnLocalParamRangeNet / uvm105-R0 family; most of the family moved with uvm115 — 15 of 16 SimpleUVM family REF cells now agree); pass uvm117 later (uvm115 landed: 56→17, a builtin-class body local compiled before Surelog's class phase degrades to ref_var + unsupported_typespec named for the token) |
 | Scoreboard/default (uvm-1.2 tree) | 56 (depth) | now on buvm33's head (the this_type:: static-property foreach typespec) — SEVEN row-modes share it (uvm116 landed: 60→56, the scope-form `randomize(x) with {…}` is a bare method_func_call with vpiWith → a bare constraint, not a member call on the argument) |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 56 (depth) | identical to SeqDriver's head (the this_type:: static-property foreach typespec, @uvm_pkg.sv:56591); buvm33 clears both |
-| Earlgrey_0_1×2 (both modes, byte-identical after-logs) | 36 (depth) | `tlul_pkg::tl_h2d_t tl_u_o [N+1];` (tlul_socket_1n.sv:126) — the unpacked-array EXPRESSION dimension bound: expr::Compare passes VpiDecompile ('3'=='3') and fails on VpiSize 64 vs 32; golden claims only the N token's span where we claim all of N+1; present in every tlul_socket_1n instantiation — a FAMILY (earl74's R-C / § dimBoundInheritsParamEnc74 one step further: an expression dimension's size and span); pass earl79 next (earl78 landed: 90→36, a gen-scope cont_assign replication Rhs folds whole — digits natural-width, size clamped by caLhsAdjustSize68 only when the Lhs binds, >64 unclamped) |
+| Earlgrey_0_1×2 (both modes) | 64 (depth) | the based-literal override actual's VpiDecompile WIDTH: `bit [3:0] HReqDepth = 4'h2` (prim_fifo_sync.sv:12) carried through two instance hops — golden `4'h0`, ours `32'h0` (constant@12:40 under a param_assign); start from earl74's pacen74 182 differing param_assign cells; pass earl80 next (earl79 landed: 36→64, an expression-written size-form dimension bound folds by reduceExpr — per-operator encoding table, ADD takes max of operand sizes, NAME leaves contribute their own initializer's encoding via the bound expression, not re-resolved syntax) |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 72 verifier fix-before-landing re-cuts (157 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 73 verifier fix-before-landing re-cuts (158 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

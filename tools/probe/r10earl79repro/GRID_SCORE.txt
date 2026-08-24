@@ -1,0 +1,38 @@
+r10earl79 — GRID SCORE (score79.py, JUDGE FIELDS ONLY; the span tally is printed separately
+and never scored).  golden = Surelog; pris = 0f3eb2b; patched = the pass.
+
+=== g2_dimexpr79.sv  (this pass's grid: 17 operator rows x 6 homes x 3 instances)
+cells golden=939 pris=919 patched=919
+TO-GOLDEN=504 AWAY-GOLDEN=0 MOVED-WRONG=0
+multiset distance golden<->pristine=634  golden<->patched=130
+WITH SPANS: distance golden<->pristine=634  golden<->patched=130
+NEUTRAL (R10E79_OFF=1) byte-identical to pristine
+
+=== g3_ops79.sv      (compound operators, leaf kinds, the refused shapes)
+cells golden=240 pris=240 patched=240
+TO-GOLDEN=120 AWAY-GOLDEN=0 MOVED-WRONG=0
+multiset distance golden<->pristine=180  golden<->patched=60
+WITH SPANS: distance golden<->pristine=192  golden<->patched=72
+NEUTRAL (R10E79_OFF=1) byte-identical to pristine
+
+=== g4_names79.sv    (package / imported / qualified names, system calls)
+cells golden=120 pris=120 patched=120
+TO-GOLDEN=84 AWAY-GOLDEN=0 MOVED-WRONG=0
+multiset distance golden<->pristine=96  golden<->patched=12
+WITH SPANS: distance golden<->pristine=96  golden<->patched=12
+NEUTRAL (R10E79_OFF=1) byte-identical to pristine
+
+=== r10earl74repro/g1_dims74.sv   (an EARLIER PASS's committed grid)
+cells golden=2231 pris=2155 patched=2155
+TO-GOLDEN=30 AWAY-GOLDEN=0 MOVED-WRONG=0
+multiset distance golden<->pristine=354  golden<->patched=324
+WITH SPANS: distance golden<->pristine=378  golden<->patched=348
+NEUTRAL (R10E79_OFF=1) byte-identical to pristine
+
+=== r10vearl74repro/va2_v74.sv    (r10earl74's VERIFIER's committed arm)
+cells golden=2598 pris=2451 patched=2451
+TO-GOLDEN=186 AWAY-GOLDEN=0 MOVED-WRONG=0
+multiset distance golden<->pristine=617  golden<->patched=431
+WITH SPANS: distance golden<->pristine=623  golden<->patched=437
+NEUTRAL (R10E79_OFF=1) byte-identical to pristine
+

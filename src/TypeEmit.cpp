@@ -14341,6 +14341,466 @@ bool UhdmExporter::misevalRangeDim(const syntax::RangeSelectSyntax* rss) {
     return rss && (misevalDimBound(rss->left) || misevalDimBound(rss->right));
 }
 
+// ---------------------------------------------------------------------------
+// § dimExprBoundFold79 (r10earl79) — AN UNPACKED DIMENSION WHOSE SIZE IS
+// WRITTEN AS AN EXPRESSION FOLDS AT THE RAW 64-BIT WORD, WITH THE ENCODING
+// `ExprEval::reduceExpr` GIVES THE TOP OPERATOR, AND TAKES THE SPAN OF THE
+// EXPRESSION'S FIRST CHILD.
+//
+// DECODED FROM SURELOG.  `CompileHelper::compileRanges`
+// (src/DesignCompile/CompileExpression.cpp:4038-4155) rewrites `[E]` into
+// `[0 : E-1]`: a bare `UINT:0`/64 left bound and a `vpiSubOp` over
+// `compileExpression(<the size syntax>, ..., reduce)` and a loc-less
+// `INT:1`/64.  When `E` NAMES A PARAMETER that call lands in
+// `CompileHelper::getValue` (:966-981) and the bound inherits the parameter's
+// own stored `Value` — that is § dimBoundInheritsParamEnc74, and this law does
+// not touch it.  When `E` IS AN EXPRESSION the call goes down the ORDINARY
+// `compileExpression` path instead, whose operation arm ends in
+// `ExprEval::reduceExpr` (CompileExpression.cpp:4288).  `reduceExpr` mints its
+// result straight off the arithmetic — `VpiSize(64)` on every arm, the
+// per-operator `VpiValue`/`VpiConstType` r10rgg14 and r10earl73 already
+// tabulate — and then re-spans it with `populateCoreMembers(child, child,
+// result)` on the expression node's FIRST CHILD (buvm30's decode of the same
+// tail).  NOTHING runs `CompileHelper::adjustSize` over that constant, which
+// is why the 64 survives where § dimBoundInheritsParamEnc74's sibling arms
+// carry a declared width.
+//
+// MEASURED ON GOLDEN (`g2_dimexpr79.sv` / `g3_ops79.sv` / `g4_names79.sv`,
+// three instantiations, two parameter overrides, DEF and ELAB views; LHS is
+// always golden):
+//   [N+1] [N|8] [N&7] [N<<1] [N>>1] [$clog2(N)] [$bits(int)+N] [gi+2]
+//     [pk::PP+1] (PP=8) [LL+1] (LL=6) [LA+1] (LA=N+1) [1+2]  -> UINT: ct 9, 64
+//   [N-1] [N*2] [N/2] [N%7] [2**N] [N*M] [(N*2)+1] [N*2+1] [(N+1)*2]
+//     [LM+1] (LM=N*2) [pk::PM+1] (PM=4*2) [N+8'd2] [-(0-N)] -> INT: ct 7, 64
+// in EVERY home a dimension has: a module-body `array_var`, a `wire`
+// `array_net`, an output PORT's elaborated `array_net`, a GEN-SCOPE local, a
+// second and third instance of the same module, and both dims of `[N+1][N*2]`.
+// The SPAN is the left operand's in every binary row (`(N*2)+1` claims
+// `(N*2)`, parens included; `N*2+1` claims `N*2`; `pk::PM+1` claims
+// `pk::PM`), the OPERATOR TOKEN's in the unary row, and the whole expression's
+// for a `$` call.
+//
+// REFUSED, each with the golden measurement that says why:
+//   [N^1]            golden does NOT fold it at all (it keeps `operation`
+//                    op 30 over two constants); `reduceExpr` has no
+//                    `vpiBitXorOp` row.  We over-fold it today and this law
+//                    leaves that alone rather than deepening it.
+//   [int'(N*2)]      golden UINT: ct 9 with an EMPTY VpiDecompile;
+//   [unsigned'(N*2)] golden INT: ct 7 with decompile `6` and the span of the
+//                    INNER `N` — one Conversion node, two answers, exactly
+//                    r10earl73's abstention.
+//   [(N>2)?4:2]      golden UINT: ct 9 but spanned at the TAKEN BRANCH's own
+//                    token, a different producer.
+//   [f4(N)]          a USER function call: one measured cell (UINT: ct 9),
+//                    too narrow to claim for a construct whose return type is
+//                    arbitrary.
+//   [(N)] and [N]    parenthesised or bare NAMES are
+//                    § dimBoundInheritsParamEnc74's population, not this one;
+//                    `dimExprShape79` strips the parens and then refuses an
+//                    `IdentifierName`/`ScopedName`, so the two populations are
+//                    DISJOINT BY CONSTRUCTION (the `R10E23_DIMDBG` trace shows
+//                    `par=-` on every row of this law and `par=<name>` on
+//                    every row of that one).
+// ---------------------------------------------------------------------------
+// R10E79_CELLDBG=1 — one line per cell this law CLAIMS (owner, size-expression
+// span, the reduced constant type, the digits).  Its own positive control is
+// the committed grid: `g2_dimexpr79.sv` must print 60 CELL lines and
+// `g4_names79.sv` 14.  Inert when unset.
+static const bool dimDbg79 = [] {
+    const char* v = getenv("R10E79_CELLDBG");
+    return v && *v && *v != '0';
+}();
+
+// § dimExprBoundFold79 — the BASE LETTER of a sized literal decides its
+// reduced constant type.  Hoisted out of `dimRedCt79`'s switch so the bound
+// walk (`dimRedCtExpr79`) can reuse it WITHOUT spending a recursion level:
+// paying a level here exhausted the budget on r10vearl74's three-hop
+// derivation chain (`vlf74 #(.D(M2))` <- `M2 = MD*2` <- `MD = CA` <-
+// `CA = A+B`) and abstained on a row the syntax walk claimed.
+static int32_t vecBaseCt79(const std::string& t) {
+    auto q = t.find('\'');
+    if (q == std::string::npos)
+        return 0;
+    size_t b = q + 1;
+    if (b < t.size() && (t[b] == 's' || t[b] == 'S'))
+        b++;
+    if (b >= t.size())
+        return 0;
+    switch (tolower((unsigned char)t[b])) {
+        case 'd': return vpiIntConst;
+        case 'h': return vpiHexConst;
+        case 'o': return vpiOctConst;
+        case 'b': return vpiBinaryConst;
+        default:  return 0;
+    }
+}
+
+int32_t UhdmExporter::dimRedCt79(const slang::syntax::ExpressionSyntax& e0,
+                                 const slang::ast::Scope* scope, int depth) {
+    namespace sx = slang::syntax;
+    using SK = sx::SyntaxKind;
+    if (depth > 8)
+        return 0;
+    const sx::ExpressionSyntax* e = &e0;
+    while (e->kind == SK::ParenthesizedExpression)
+        e = e->as<sx::ParenthesizedExpressionSyntax>().expression;
+    // ExprEval.cpp:3167-3178 — the four reduced constant types that make an
+    // enclosing `vpiAddOp` take the SIGNED arm.
+    auto signedish79 = [](int32_t ct) {
+        return ct == vpiIntConst || ct == vpiStringConst ||
+               ct == vpiRealConst || ct == vpiDecConst;
+    };
+    switch (e->kind) {
+        case SK::IntegerLiteralExpression:
+            return vpiUIntConst;
+        case SK::IntegerVectorExpression:
+            return vecBaseCt79(rawText(e->sourceRange()));
+        // A NAME LEAF contributes the encoding of the constant Surelog has
+        // already reduced FOR IT — its own initializer's.  `[LM+1]` with
+        // `localparam int LM = N * 2` is golden INT: and `[LA+1]` with
+        // `localparam int LA = N + 1` is golden UINT:, in the module body and
+        // in a package alike (`pk4::PM = 4 * 2` -> INT:, `pk4::PP = 8` ->
+        // UINT:), qualified or wildcard-imported.  A genvar, or any name this
+        // walk cannot resolve to a parameter, keeps r10rgg14's measured
+        // `vpiUIntConst` (golden `[gi+2]` is UINT:).
+        case SK::IdentifierName:
+        case SK::ScopedName: {
+            if (!scope)
+                return vpiUIntConst;
+            std::string nm79;
+            for (char ch : rawText(e->sourceRange()))
+                if (!isspace((unsigned char)ch))
+                    nm79 += ch;
+            if (nm79.empty())
+                return vpiUIntConst;
+            const Symbol* sy79 = scope->lookupName(nm79);
+            if (!sy79 && nm79.find(':') == std::string::npos)
+                sy79 = Lookup::unqualified(*scope, nm79);
+            if (!sy79 || sy79->kind != SymbolKind::Parameter)
+                return vpiUIntConst;
+            auto& pp79 = sy79->as<ParameterSymbol>();
+            auto* in79 = pp79.getInitializer();
+            if (!in79)
+                return vpiUIntConst;
+            // § dimExprLeafBoundInit79v (r10v79) — WALK THE BOUND INITIALIZER,
+            // NEVER ITS SYNTAX.  This arm used to re-walk
+            // `getInitializer()->syntax` and re-resolve its identifiers in
+            // `pp79.getParentScope()`.  For an OVERRIDDEN parameter that
+            // syntax is the OVERRIDE ACTUAL, written in the INSTANTIATING
+            // scope — so a body that declares the same name captured the
+            // re-lookup and the leaf answered off the WRONG symbol.
+            // `va8_v79.sv`: `child8 #(.Z(UU))` with `localparam int unsigned
+            // UU` in the parent and `localparam int UU = 3 * 2` in the child
+            // is golden `UINT:`/ct 9, pristine `UINT:`/ct 9 (a `longint`
+            // dimension parameter makes pristine's `w0` 64, so pristine was
+            // EXACTLY RIGHT) and the syntax walk answered `INT:`/ct 7.
+            // `va9_v79.sv` shows the same break through a COMPOUND override
+            // (`.Z(UU+1)`).  A bound expression carries the resolved
+            // `Symbol&`, so no scope is guessed and the class cannot recur.
+            // The implicit-conversion strip that this arm needed for a TYPED
+            // localparam (`localparam int LM = N * 2` is a Conversion wrapping
+            // the multiply) lives in `dimRedCtExpr79`'s first line.
+            return dimRedCtExpr79(*in79, depth + 1);
+        }
+        case SK::AddExpression: {
+            auto& b = e->as<sx::BinaryExpressionSyntax>();
+            int32_t l = dimRedCt79(*b.left, scope, depth + 1);
+            int32_t r = dimRedCt79(*b.right, scope, depth + 1);
+            if (!l || !r)
+                return 0;
+            return (signedish79(l) || signedish79(r)) ? vpiIntConst
+                                                      : vpiUIntConst;
+        }
+        case SK::SubtractExpression:
+        case SK::MultiplyExpression:
+        case SK::DivideExpression:
+        case SK::ModExpression:
+        case SK::PowerExpression: {
+            auto& b = e->as<sx::BinaryExpressionSyntax>();
+            if (!dimRedCt79(*b.left, scope, depth + 1) ||
+                !dimRedCt79(*b.right, scope, depth + 1))
+                return 0;
+            return vpiIntConst;
+        }
+        case SK::BinaryAndExpression:
+        case SK::BinaryOrExpression:
+        case SK::LogicalShiftLeftExpression:
+        case SK::LogicalShiftRightExpression:
+        case SK::ArithmeticShiftLeftExpression:
+        case SK::ArithmeticShiftRightExpression: {
+            auto& b = e->as<sx::BinaryExpressionSyntax>();
+            if (!dimRedCt79(*b.left, scope, depth + 1) ||
+                !dimRedCt79(*b.right, scope, depth + 1))
+                return 0;
+            return vpiUIntConst;
+        }
+        case SK::UnaryMinusExpression: {
+            auto& u = e->as<sx::PrefixUnaryExpressionSyntax>();
+            if (!dimRedCt79(*u.operand, scope, depth + 1))
+                return 0;
+            return vpiIntConst;
+        }
+        // A UNARY `+` is NOT claimed: `reduceExpr`'s `vpiPlusOp` shares the
+        // `vpiAddOp` arm, whose body is guarded by `operands.size() == 2`, so
+        // a one-operand plus produces NO constant at all and golden keeps the
+        // operation unfolded.
+        // A `$` SYSTEM call reduces UINT: on every measured row ($clog2 of a
+        // parameter, $clog2 of an expression, $bits of a type).  A USER
+        // function call is NOT claimed.
+        case SK::SystemName:
+            return vpiUIntConst;
+        case SK::InvocationExpression: {
+            auto& iv = e->as<sx::InvocationExpressionSyntax>();
+            if (iv.left && iv.left->kind == SK::SystemName)
+                return vpiUIntConst;
+            return 0;
+        }
+        default:
+            return 0;
+    }
+}
+
+// § dimExprLeafBoundInit79v (r10v79) — `dimRedCt79`'s operator table, read
+// off a BOUND EXPRESSION.  Same answers, same abstentions (0), same
+// `vpiUIntConst` fallbacks — the only difference is that a name is followed
+// through the resolved `Symbol&` the binder already recorded instead of being
+// looked up again by TEXT in a scope this code had to guess.  See the header
+// for the two grids that convicted the syntax walk.
+int32_t UhdmExporter::dimRedCtExpr79(const slang::ast::Expression& e0,
+                                     int depth) {
+    namespace sx = slang::syntax;
+    using SK = sx::SyntaxKind;
+    // A BUDGET, NOT A MODEL.  `dimRedCt79`'s 8 is a syntax-tree depth; this
+    // walk instead follows a DERIVATION CHAIN — one level per parameter hop —
+    // and r10vearl74's `va2_v74.sv` already needs nine of them
+    // (`l_dbl [D*2]` <- `.D(M2)` <- `M2 = MD*2` <- `.MD(CA)` <- `CA = A+B`
+    // <- `A = 16`).  Running out of budget must never be mistaken for an
+    // unmodelled node: 8 abstained on four cells the syntax walk claimed, so
+    // the cap is set where no legal chain reaches it.  Parameter initializers
+    // cannot be circular in legal SV; this only bounds pathological nesting.
+    if (depth > 32)
+        return 0;
+    const Expression& e = stripImplicitConv(e0);
+    auto signedish79 = [](int32_t ct) {
+        return ct == vpiIntConst || ct == vpiStringConst ||
+               ct == vpiRealConst || ct == vpiDecConst;
+    };
+    switch (e.kind) {
+        // A LITERAL carries no names, so its own syntax is safe to read and
+        // `dimRedCt79`'s base-letter decode is reused verbatim.
+        // (`'0`/`'1` stay OUT: the syntax table refuses
+        // `UnbasedUnsizedLiteralExpression`, so this walk must refuse it too.)
+        case ExpressionKind::IntegerLiteral:
+            if (e.syntax && e.syntax->kind == SK::IntegerVectorExpression)
+                return vecBaseCt79(rawText(e.syntax->sourceRange()));
+            return vpiUIntConst;
+        // A NAME contributes the encoding of ITS OWN initializer — and the
+        // symbol comes from the binder, not from a re-lookup.
+        case ExpressionKind::NamedValue:
+        case ExpressionKind::HierarchicalValue: {
+            auto& sy = e.as<ValueExpressionBase>().symbol;
+            if (sy.kind != SymbolKind::Parameter)
+                return vpiUIntConst;
+            auto* in = sy.as<ParameterSymbol>().getInitializer();
+            if (!in)
+                return vpiUIntConst;
+            return dimRedCtExpr79(*in, depth + 1);
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& b = e.as<BinaryExpression>();
+            int32_t l = dimRedCtExpr79(b.left(), depth + 1);
+            int32_t r = dimRedCtExpr79(b.right(), depth + 1);
+            if (!l || !r)
+                return 0;
+            switch (b.op) {
+                case BinaryOperator::Add:
+                    return (signedish79(l) || signedish79(r)) ? vpiIntConst
+                                                              : vpiUIntConst;
+                case BinaryOperator::Subtract:
+                case BinaryOperator::Multiply:
+                case BinaryOperator::Divide:
+                case BinaryOperator::Mod:
+                case BinaryOperator::Power:
+                    return vpiIntConst;
+                case BinaryOperator::BinaryAnd:
+                case BinaryOperator::BinaryOr:
+                case BinaryOperator::LogicalShiftLeft:
+                case BinaryOperator::LogicalShiftRight:
+                case BinaryOperator::ArithmeticShiftLeft:
+                case BinaryOperator::ArithmeticShiftRight:
+                    return vpiUIntConst;
+                default:
+                    // `^` and the comparisons are REFUSED, exactly as the
+                    // syntax table refuses them.
+                    return 0;
+            }
+        }
+        case ExpressionKind::UnaryOp: {
+            auto& u = e.as<UnaryExpression>();
+            if (u.op != UnaryOperator::Minus)
+                return 0;
+            return dimRedCtExpr79(u.operand(), depth + 1) ? vpiIntConst : 0;
+        }
+        case ExpressionKind::Call:
+            return e.as<CallExpression>().isSystemCall() ? vpiUIntConst : 0;
+        default:
+            return 0;
+    }
+}
+
+// § dimExprBoundFold79 — THE SIZE HALF, and it is NOT a constant 64.
+//
+// `ExprEval::reduceExpr` hardcodes `VpiSize(64)` on every arm this law claims
+// EXCEPT two: `vpiAddOp`/`vpiPlusOp` takes `max(expr0->VpiSize(),
+// expr1->VpiSize())` (UHDM/templates/ExprEval.cpp:3191, :3205, :3219 — the
+// unsigned, signed and real arms alike) and unary `vpiMinusOp` takes the
+// operand's own size (:3318).  A REDUCED NAME's size is the parameter's stored
+// `Value` size, which is § dimBoundInheritsParamEnc74's business and is
+// deliberately NOT modelled here — so this function ABSTAINS (-1) on a name and
+// the ADD arm can only answer when the OTHER operand is provably 64.
+//
+// THE MEASUREMENT THAT FORCED THIS, and the regression it caught: r10earl74's
+// committed grid `g1_dims74.sv` has `ovr74` with `localparam int A = 256;
+// localparam int B = 2;` and, side by side,
+//   `logic [3:0] w_mul [A * B]`  golden INT:512 size **64**
+//   `logic [3:0] w_sub [A - B]`  golden INT:254 size **64**
+//   `logic [3:0] w_div [A / B]`  golden INT:128 size **64**
+//   `logic [3:0] w_shl [B << 2]` golden UINT:8  size **64**
+//   `logic [3:0] w_clog [$clog2(A)]` golden UINT:8 size **64**
+//   `logic [3:0] w_add [A + B]`  golden UINT:258 size **32**   <-- the odd one
+// and 32 is exactly `max(32, 32)`: both `A` and `B` reduce to their own
+// declared `int` width.  A "the fold is always 64" law moved those three cells
+// AWAY from golden on an earlier pass's arm, which is what the WIDE BOUNDARY
+// is for.  With the size model the same grid scores 30 TO-GOLDEN / 0 AWAY.
+//
+// So the corpus head `[N+1]` is claimed (the bare decimal `1` reduces at 64,
+// so the max is 64 whatever `N` is) and `[A + B]` is REFUSED — and so are
+// `[N + M]` (two names) and `[N + 8'd2]` (a name and an 8-bit literal), both
+// of which golden sizes 64 and we still size 32.  They are ranked residues,
+// not claims: proving them needs the parameter's stored size, i.e.
+// § dimBoundInheritsParamEnc74's design-final walk, reached from here.
+int32_t UhdmExporter::dimRedSz79(const slang::syntax::ExpressionSyntax& e0,
+                                 int depth) {
+    namespace sx = slang::syntax;
+    using SK = sx::SyntaxKind;
+    if (depth > 8)
+        return -1;
+    const sx::ExpressionSyntax* e = &e0;
+    while (e->kind == SK::ParenthesizedExpression)
+        e = e->as<sx::ParenthesizedExpressionSyntax>().expression;
+    switch (e->kind) {
+        // An UNSIZED decimal literal is Surelog's `UINT:<n>` at 64.
+        case SK::IntegerLiteralExpression:
+            return 64;
+        // A SIZED literal carries its written width.
+        case SK::IntegerVectorExpression: {
+            std::string t = rawText(e->sourceRange());
+            auto q = t.find('\'');
+            if (q == std::string::npos || q == 0)
+                return -1;
+            std::string szs = t.substr(0, q);
+            std::string dg;
+            for (char ch : szs)
+                if (ch != '_')
+                    dg += ch;
+            if (dg.empty() || dg.find_first_not_of("0123456789") !=
+                                  std::string::npos)
+                return -1;
+            int32_t n = 0;
+            for (char ch : dg) {
+                n = n * 10 + (ch - '0');
+                if (n > 64)
+                    return -1;
+            }
+            return n > 0 ? n : -1;
+        }
+        case SK::AddExpression: {
+            auto& b = e->as<sx::BinaryExpressionSyntax>();
+            int32_t l = dimRedSz79(*b.left, depth + 1);
+            int32_t r = dimRedSz79(*b.right, depth + 1);
+            // 64 is `reduceExpr`'s own ceiling on every other arm, so one
+            // 64-wide operand settles the max whatever the other one is.
+            if (l == 64 || r == 64)
+                return 64;
+            if (l < 0 || r < 0)
+                return -1;
+            return l > r ? l : r;
+        }
+        case SK::SubtractExpression:
+        case SK::MultiplyExpression:
+        case SK::DivideExpression:
+        case SK::ModExpression:
+        case SK::PowerExpression:
+        case SK::BinaryAndExpression:
+        case SK::BinaryOrExpression:
+        case SK::LogicalShiftLeftExpression:
+        case SK::LogicalShiftRightExpression:
+        case SK::ArithmeticShiftLeftExpression:
+        case SK::ArithmeticShiftRightExpression:
+            return 64;
+        case SK::UnaryMinusExpression:
+            return dimRedSz79(
+                *e->as<sx::PrefixUnaryExpressionSyntax>().operand, depth + 1);
+        // `$clog2` (ExprEval.cpp:4567) and `$bits`/`$size`/`$high`/`$low`/
+        // `$left`/`$right` (:4542) all stamp 64.
+        case SK::SystemName:
+            return 64;
+        case SK::InvocationExpression:
+            return (e->as<sx::InvocationExpressionSyntax>().left &&
+                    e->as<sx::InvocationExpressionSyntax>().left->kind ==
+                        SK::SystemName)
+                       ? 64
+                       : -1;
+        default:
+            return -1;
+    }
+}
+
+bool UhdmExporter::dimExprShape79(const slang::syntax::ExpressionSyntax& e0) {
+    namespace sx = slang::syntax;
+    using SK = sx::SyntaxKind;
+    const sx::ExpressionSyntax* e = &e0;
+    for (int i = 0; i < 8 && e->kind == SK::ParenthesizedExpression; i++)
+        e = e->as<sx::ParenthesizedExpressionSyntax>().expression;
+    switch (e->kind) {
+        case SK::AddExpression:
+        case SK::SubtractExpression:
+        case SK::MultiplyExpression:
+        case SK::DivideExpression:
+        case SK::ModExpression:
+        case SK::PowerExpression:
+        case SK::BinaryAndExpression:
+        case SK::BinaryOrExpression:
+        case SK::LogicalShiftLeftExpression:
+        case SK::LogicalShiftRightExpression:
+        case SK::ArithmeticShiftLeftExpression:
+        case SK::ArithmeticShiftRightExpression:
+        case SK::UnaryMinusExpression:
+        case SK::SystemName:
+            return true;
+        case SK::InvocationExpression:
+            return e->as<sx::InvocationExpressionSyntax>().left &&
+                   e->as<sx::InvocationExpressionSyntax>().left->kind ==
+                       SK::SystemName;
+        default:
+            return false;
+    }
+}
+
+slang::SourceRange UhdmExporter::dimFoldSpan79(
+    const slang::syntax::ExpressionSyntax& e0) {
+    namespace sx = slang::syntax;
+    using SK = sx::SyntaxKind;
+    const sx::ExpressionSyntax* e = &e0;
+    for (int i = 0; i < 8 && e->kind == SK::ParenthesizedExpression; i++)
+        e = e->as<sx::ParenthesizedExpressionSyntax>().expression;
+    if (sx::BinaryExpressionSyntax::isKind(e->kind))
+        return e->as<sx::BinaryExpressionSyntax>().left->sourceRange();
+    if (e->kind == SK::UnaryMinusExpression)
+        return e->as<sx::PrefixUnaryExpressionSyntax>().operatorToken.range();
+    return e0.sourceRange();
+}
+
 UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
     const Symbol& sym, UHDM::BaseClass* parent,
     const std::string& defDimRefPrefix) {
@@ -14573,6 +15033,11 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 // outside the arm that resolves the sizing parameter.
                 int32_t inhCt74 = 0;
                 std::string inhTag74;
+                // § dimExprBoundFold79 — nonzero once the size-expression arm
+                // below has claimed this dimension: the `vpiConstType`
+                // `ExprEval::reduceExpr` stamps on the fold.  0 = not claimed,
+                // and every field keeps exactly what it had.
+                int32_t exprCt79 = 0;
                 auto boundTag74 = [&](const char* dflt) -> std::string {
                     return inhCt74 ? inhTag74 + ":" : std::string(dflt);
                 };
@@ -14588,6 +15053,42 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                      parent->UhdmType() == UHDM::uhdmarray_net)) {
                     std::string digits = std::to_string(ua.range.width());
                     sc->VpiDecompile(digits);
+                    // § dimExprBoundFold79 — resolved from the SYNTAX and from
+                    // the DECLARING symbol's own scope, never from `be0`: the
+                    // bind below FAILS on a gen-scope local and on every
+                    // instance after the first (`R10E23_DIMDBG` reports
+                    // `bad=1` for 2 of 3 instances of the same module), so a
+                    // law keyed on the bound expression would fire on one
+                    // instance and not its twins.
+                    // R10E79_OFF=1 restores the pristine encoding for this
+                    // one law while STILL computing and tracing it — the
+                    // NEUTRAL binary that (a) proves a moved boundary arm is
+                    // this law's and not the build's, and (b) NAMES the cells
+                    // the law would move without ever running the patched
+                    // emitter (the mover prediction).
+                    static const bool off79 = [] {
+                        const char* v = getenv("R10E79_OFF");
+                        return v && *v && *v != '0';
+                    }();
+                    if (dimExprShape79(*sizeSyn)) {
+                        exprCt79 = dimRedCt79(*sizeSyn, sym.getParentScope(), 0);
+                        // THE SIZE MUST BE PROVED, NOT ASSUMED — see
+                        // `dimRedSz79` for the `w_add [A + B]` regression this
+                        // clause exists to stop.
+                        if (exprCt79 && dimRedSz79(*sizeSyn, 0) != 64)
+                            exprCt79 = 0;
+                        if (dimDbg79 && exprCt79)
+                            fprintf(stderr,
+                                    "R10E79 CELL %s @%u:%u ct=%d dig=%s\n",
+                                    std::string(sym.name).c_str(),
+                                    (unsigned)sm->getLineNumber(
+                                        sizeSyn->sourceRange().start()),
+                                    (unsigned)sm->getColumnNumber(
+                                        sizeSyn->sourceRange().start()),
+                                    (int)exprCt79, digits.c_str());
+                        if (off79)
+                            exprCt79 = 0;
+                    }
                     ASTContext bctx0(*currentScope, LookupLocation::max);
                     auto& be0 = Expression::bind(
                         *const_cast<syntax::ExpressionSyntax*>(sizeSyn), bctx0);
@@ -15049,7 +15550,8 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                         fprintf(stderr,
                                 "DIMDBG %s:%u:%u name=%s ovr=%d red=%d w0=%d "
                                 "dig=%s bad=%d par=%s qual=%d pkg=%d imp=%d "
-                                "sgnD=%d ts=%d wide=%d chainW=%d inh=%d%s\n",
+                                "sgnD=%d ts=%d wide=%d chainW=%d inh=%d%s "
+                                "expr=%d\n",
                                 std::string(sym.name).c_str(),
                                 (unsigned)sm->getLineNumber(
                                     sizeSyn->sourceRange().start()),
@@ -15061,7 +15563,8 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                                          : "-",
                                 (int)qual26, (int)pkgPar26, (int)implicit26,
                                 (int)sgnDecl26, (int)tsStamp26, (int)wide26,
-                                (int)chainW26, (int)inhCt74, inhTag74.c_str());
+                                (int)chainW26, (int)inhCt74, inhTag74.c_str(),
+                                (int)exprCt79);
                     }
                     // § dimFoldOverrideChainWidth26: a NARROW chain leaves both
                     // the overridden and the reduced arm and folds through the
@@ -15113,8 +15616,18 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                     // width to lend, so the fold lands at 64 (qe26 a_pn / a_qn
                     // / e_pn and qc25 g_u; the QUALIFIED spelling b_qpn keeps
                     // 32, as does an untyped MODULE parameter).
-                    sc->VpiSize(ovrNarrow26 ? chainW26 : (wide26 ? 64 : w0));
-                    sc->VpiValue(boundTag74("UINT:") + digits);
+                    // § dimExprBoundFold79 — `reduceExpr` mints the fold
+                    // at the raw 64-bit word and nothing runs `adjustSize`
+                    // over it, so the declared-width arms above do not apply.
+                    sc->VpiSize(exprCt79
+                                    ? 64
+                                    : (ovrNarrow26 ? chainW26
+                                                   : (wide26 ? 64 : w0)));
+                    sc->VpiValue(
+                        exprCt79 ? (std::string(exprCt79 == vpiIntConst ? "INT:"
+                                                                       : "UINT:") +
+                                    digits)
+                                 : (boundTag74("UINT:") + digits));
                     // Mint the ts ref ONLY when something will attach it.  This
                     // arm used to build one unconditionally and leave it
                     // UNREFERENCED whenever the ts was not wanted — an object
@@ -15306,8 +15819,12 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                     sc->VpiSize(64);
                     sc->VpiValue("UINT:" + std::to_string(ua.range.width()));
                 }
-                sc->VpiConstType(boundCt74(vpiUIntConst));
-                setLoc(sc, sizeSyn->sourceRange());
+                sc->VpiConstType(exprCt79 ? exprCt79
+                                          : boundCt74(vpiUIntConst));
+                // § dimExprBoundFold79 — `populateCoreMembers(child, child,
+                // result)` re-spans the fold at the expression's FIRST CHILD.
+                setLoc(sc, exprCt79 ? dimFoldSpan79(*sizeSyn)
+                                    : sizeSyn->sourceRange());
                 // The elaborated (topPackages / import-clone) counterpart of
                 // the def-listing tree above: Surelog's reduceExpr hands back
                 // the SURVIVING literal, so a `?:` size collapses onto the

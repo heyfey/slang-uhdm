@@ -1,0 +1,64 @@
+LHS:
+decompile:
+constant: , id:358604, line:12:40, endln:12:41
+|vpiParent:
+\_param_assign: , id:358603, line:12:26, endln:12:41
+|vpiDecompile:4'h0
+|vpiSize:32
+|HEX:0
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_spi_device.u_reg.u_socket.fifo_h.reqfifo), id:358605
+  |vpiParent:
+  \_constant: , id:358604, line:12:40, endln:12:41
+  |vpiFullName:work@top_earlgrey.u_spi_device.u_reg.u_socket.fifo_h.reqfifo
+  |vpiActual:
+  \_int_typespec: , id:143770, line:12:13, endln:12:25
+|vpiConstType:5
+
+decompile:
+constant: , id:358604, line:12:40, endln:12:41
+|vpiParent:
+\_param_assign: , id:358603, line:12:26, endln:12:41
+|vpiDecompile:4'h0
+|vpiSize:32
+|HEX:0
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_spi_device.u_reg.u_socket.fifo_h.reqfifo), id:358605
+  |vpiParent:
+  \_constant: , id:358604, line:12:40, endln:12:41
+  |vpiFullName:work@top_earlgrey.u_spi_device.u_reg.u_socket.fifo_h.reqfifo
+  |vpiActual:
+  \_int_typespec: , id:143770, line:12:13, endln:12:25
+|vpiConstType:5
+RHS:
+decompile:
+constant: , id:294586, line:12:40, endln:12:41
+|vpiParent:
+\_param_assign: , id:294585, line:12:26, endln:12:41
+|vpiDecompile:32'h0
+|vpiSize:32
+|HEX:0
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_spi_device.u_reg.u_socket.fifo_h.reqfifo), id:294587
+  |vpiParent:
+  \_constant: , id:294586, line:12:40, endln:12:41
+  |vpiFullName:work@top_earlgrey.u_spi_device.u_reg.u_socket.fifo_h.reqfifo
+  |vpiActual:
+  \_int_typespec: , id:50831, line:12:13, endln:12:25
+|vpiConstType:5
+
+decompile:
+constant: , id:294586, line:12:40, endln:12:41
+|vpiParent:
+\_param_assign: , id:294585, line:12:26, endln:12:41
+|vpiDecompile:32'h0
+|vpiSize:32
+|HEX:0
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_spi_device.u_reg.u_socket.fifo_h.reqfifo), id:294587
+  |vpiParent:
+  \_constant: , id:294586, line:12:40, endln:12:41
+  |vpiFullName:work@top_earlgrey.u_spi_device.u_reg.u_socket.fifo_h.reqfifo
+  |vpiActual:
+  \_int_typespec: , id:50831, line:12:13, endln:12:25
+|vpiConstType:5
