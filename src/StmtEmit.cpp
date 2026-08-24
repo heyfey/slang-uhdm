@@ -1249,6 +1249,124 @@ UHDM::any* UhdmExporter::emitCtorBody27(const Statement& slStmt,
     return ub;
 }
 
+// § foreachScopedArrayWrittenClassVar33 (r10buvm33) — THE DATA FACE OF THE
+// `::` QUALIFIER, decoded from Surelog and measured cell by cell on `g33a1.sv`
+// / `g33a2.sv` against golden, both views.
+//
+// THE LAW.
+//
+//   A `foreach` whose ARRAY REFERENCE is written with a `::` scope is a
+//   `class_var` NAMED `<first written segment>::<final identifier>`, spanning
+//   the scoped name's start up to the column the FINAL identifier starts at,
+//   over an `unsupported_typespec` of the SAME name and the SAME span.  The
+//   written text is the whole rule: NO lookup, NO registration key, NO
+//   resolution.
+//
+// SURELOG, LINE BY LINE.
+//
+//   `CompileStmt.cpp:527` (`VObjectType::paFOREACH`) hands the loop list's
+//   `Ps_or_hierarchical_array_identifier` CHILD to `compileVariable` — the
+//   DECLARATION producer.  That is the whole difference from every other
+//   position a `::`-scoped data reference can take: an indexed read, an
+//   assignment Lhs or Rhs, a call argument and a method receiver all go to
+//   `compileExpression`, which is § staticScopedRef12's `ref_obj` and which we
+//   already match (g33a1 A8-A13, g33a2 R1-R8, all `both` before this pass).
+//
+//   `CompileType.cpp:554` — `compileVariable`'s `paClass_scope` arm reads
+//   `packageName = SymName(Child(Child(variable)))` (the FIRST written
+//   segment) and `typeName = SymName(Sibling(variable))` (the FINAL
+//   identifier), so `p33::der33::dq33` becomes `p33::dq33`: every INTERMEDIATE
+//   segment is dropped (cell M1, read off golden).  It then tries
+//   `design->getPackage(packageName)->getDataType(typeName)` and
+//   `design->getClassDefinition({"", component, parent} + packageName)
+//   ->getDataType(typeName)`, and ONLY a hit replaces the object kind.
+//   `insertDataType` (CompileHelper.cpp:160/168/636) registers TYPEDEFS and
+//   CLASS DEFINITIONS — never a variable — so for an ARRAY reference both
+//   lookups miss BY CONSTRUCTION, and `:614` runs:
+//
+//       const std::string completeName = StrCat(packageName, "::", typeName);
+//       if (var == nullptr) var = s.MakeClass_var();
+//       var->VpiName(completeName);
+//
+//   `class_var` is the DEFAULT, not a decision.  The tail at `:658` then
+//   stamps `populateCoreMembers(declarationId, declarationId, result)` — the
+//   `paClass_scope` node's OWN extent, which ends where the final identifier
+//   begins.  The typespec is `compileTypespec(component, fC, declarationId)`,
+//   whose own `paClass_scope` arm (`CompileType.cpp:1518`) builds the same
+//   two-segment `typeName` and falls through at `:1618` to an
+//   `unsupported_typespec` named it, at the same node's extent.
+//
+//   THIS IS NOT § classScopeCallWrittenQualifierIsLookupKey32.  On the CALL
+//   face the written qualifier is a LOOKUP KEY and a registered spelling keeps
+//   its `func_call`.  Here there is no lookup to key: golden gives `class_var`
+//   for `this_type::`, for an alias, for the class's OWN written name, for its
+//   BASE's name, for another class's name, for a real PACKAGE qualifier over a
+//   package variable and for a three-segment `pkg::Class::` alike (g33a1
+//   A1-A5, B1-B5, P1/P2, M1/M2 — eleven spellings, one answer).  The
+//   qualifier-registration predicate § scopedCallKeyIsAnyRegistration32v is
+//   therefore deliberately NOT asked on this face.
+//
+// OUR BUG.  The foreach arm read `arrSym->name` — the LEAF, resolved through
+// slang, which sees through the `this_type` typedef — and spanned
+// `nameSpan(start, leaf)`, so the head object came out
+// `ref_var 'm_typewide_sequences' @496:12-496:32` against golden's
+// `class_var 'this_type::m_typewide_sequences' @496:12-496:23`.
+//
+// The UNQUALIFIED spelling is untouched: it has no `paClass_scope` node, takes
+// `compileVariable`'s `slStringConst` arm, and is the `ref_var` we already
+// emit (controls A6/A7, B6, P3, M3 — `both` before and after).
+bool UhdmExporter::foreachScopedArrayName33(
+    const slang::syntax::ExpressionSyntax* arrBase, std::string& outName33,
+    slang::SourceRange& outSpan33) {
+    namespace sx = slang::syntax;
+    if (!arrBase || arrBase->kind != sx::SyntaxKind::ScopedName)
+        return false;
+    auto& sn33 = arrBase->as<sx::ScopedNameSyntax>();
+    // `::` ONLY.  A `.` separator is `this.q[i]` / `other.q[i]`, which Surelog
+    // reaches through a different arm entirely (§ classPropIterThisRefVar21 and
+    // the hier_path arm above), and both are already right.
+    if (sn33.separator.kind != slang::parsing::TokenKind::DoubleColon)
+        return false;
+    auto segId33 = [](const sx::NameSyntax& n33) -> slang::parsing::Token {
+        switch (n33.kind) {
+            case sx::SyntaxKind::IdentifierName:
+                return n33.as<sx::IdentifierNameSyntax>().identifier;
+            case sx::SyntaxKind::ClassName:
+                return n33.as<sx::ClassNameSyntax>().identifier;
+            case sx::SyntaxKind::IdentifierSelectName:
+                return n33.as<sx::IdentifierSelectNameSyntax>().identifier;
+            default:
+                return {};
+        }
+    };
+    auto last33 = segId33(*sn33.right);
+    if (!last33)
+        return false;
+    // Left-associative: `a::b::c` is ScopedName(ScopedName(a,b),c).  Walk to
+    // the LEFT-most segment; Surelog drops every intermediate one.
+    const sx::NameSyntax* cur33 = sn33.left;
+    for (int g33 = 0; g33 < 16; g33++) {
+        if (cur33->kind != sx::SyntaxKind::ScopedName)
+            break;
+        auto& s233 = cur33->as<sx::ScopedNameSyntax>();
+        if (s233.separator.kind != slang::parsing::TokenKind::DoubleColon)
+            return false;
+        cur33 = s233.left;
+    }
+    auto first33 = segId33(*cur33);
+    if (!first33)
+        return false;
+    if (first33.valueText().empty() || last33.valueText().empty())
+        return false;
+    outName33 = std::string(first33.valueText()) + "::" +
+                std::string(last33.valueText());
+    // Surelog's span is the `paClass_scope` node's own extent: from the scoped
+    // name's start UP TO the final identifier's start column.
+    outSpan33 = slang::SourceRange(arrBase->sourceRange().start(),
+                                   last33.location());
+    return true;
+}
+
 // § foreachArraySelfSelectAssignDropsTs19 (r10buvm19) — decoded from
 // `UhdmWriter::lateTypedefBinding` (UhdmWriter.cpp:2573) and measured on
 // `grid19.sv` against Surelog.
@@ -2623,14 +2741,42 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 !pkgDefViewBody9 && !pkgImportCloneEmit && !importCloneEmit &&
                 importCopyTsInst == nullptr && !pkgLevelVar19 &&
                 foreachSelfSelAssign19(arrSym);
+            // § foreachScopedArrayWrittenClassVar33 — the array reference as
+            // WRITTEN with a `::` scope (see the law above the helper).  Read
+            // from the SYNTAX, never from `arrSym`: slang resolves
+            // `this_type::m_typewide_sequences` straight to the property and
+            // the qualifier survives only in the written text.
+            std::string scopedArrName33;
+            SourceRange scopedArrSpan33;
+            const bool scopedArr33 =
+                !arrMember9 &&
+                foreachScopedArrayName33(arrBase, scopedArrName33,
+                                         scopedArrSpan33);
             if (arrSym && !arrMember9) {
-                auto* rv = s.MakeRef_var();
-                rv->VpiName(arrSym->name);
-                std::string afn = joinRef(prefix, std::string(arrSym->name));
+                UHDM::variables* rv = nullptr;
+                if (scopedArr33) {
+                    // Surelog's `paClass_scope` arm mints a `class_var` as its
+                    // DEFAULT (CompileType.cpp:614) — no lookup succeeds for a
+                    // data member, so this is unconditional.
+                    auto* cv33 = s.MakeClass_var();
+                    cv33->VpiName(scopedArrName33);
+                    rv = cv33;
+                }
+                else {
+                    auto* rv0 = s.MakeRef_var();
+                    rv0->VpiName(arrSym->name);
+                    rv = rv0;
+                }
+                std::string afn =
+                    joinRef(prefix, scopedArr33 ? scopedArrName33
+                                                : std::string(arrSym->name));
                 rv->VpiFullName(afn);
                 rv->VpiParent(fs);
-                setLoc(rv, arrBase ? nameSpan(arrBase->sourceRange().start(), arrSym->name)
-                                   : fe.arrayRef.sourceRange);
+                setLoc(rv, scopedArr33
+                               ? scopedArrSpan33
+                               : (arrBase ? nameSpan(arrBase->sourceRange().start(),
+                                                     arrSym->name)
+                                          : fe.arrayRef.sourceRange));
                 auto* art = s.MakeRef_typespec();
                 art->VpiFullName(afn);
                 art->VpiParent(rv);
@@ -2641,7 +2787,51 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // dynamic AND fixed-size arrays alike — a module function's
                 // foreach still binds the real array_typespec (ClassVar,
                 // LocalScopeHierPath).
-                if (arrThis21 || dropArrTs19) {
+                if (scopedArr33) {
+                    // § foreachScopedArrayWrittenClassVar33 — `compileTypespec`
+                    // reaches its own `paClass_scope` arm
+                    // (CompileType.cpp:1518) and falls through at `:1618` to an
+                    // `unsupported_typespec` named the SAME two-segment text at
+                    // the SAME node extent.  This arm comes FIRST because the
+                    // written scope decides the shape whatever else the array's
+                    // resolved symbol would have said: golden keeps this
+                    // typespec in the ELABORATED package view too
+                    // (arm `g33a2` S1/S2, both views, with a select assignment
+                    // of the same array armed in an ancestor block).
+                    // THE ONE ESCAPE, read off golden (arm g33a2 S8).  Before
+                    // falling through, `compileTypespec`'s `paClass_scope` arm
+                    // asks `design->getPackage(<first segment>)`, and if that
+                    // package owns a PARAMETER of the final name its
+                    // `getParam_assigns()` scan (CompileType.cpp:1573-1590)
+                    // answers a BARE `int_typespec` — no name, no span, and no
+                    // value, because an unpacked-array parameter's param_assign
+                    // Rhs carries none.  `foreach (q33::QP33[i])` over
+                    // `parameter int QP33[3]` is golden's
+                    // `class_var 'q33::QP33'` over exactly that.
+                    UHDM::typespec* sts33 = nullptr;
+                    if (auto qp33 = scopedArrName33.find("::");
+                        qp33 != std::string::npos)
+                        if (auto* pk33 = comp.getPackage(
+                                std::string_view(scopedArrName33).substr(0, qp33)))
+                            if (auto* pm33 = pk33->find(
+                                    std::string_view(scopedArrName33)
+                                        .substr(qp33 + 2));
+                                pm33 && pm33->kind == SymbolKind::Parameter)
+                                sts33 = s.MakeInt_typespec();
+                    if (!sts33) {
+                        auto* uts33 = s.MakeUnsupported_typespec();
+                        uts33->VpiName(scopedArrName33);
+                        uts33->VpiLineNo(rv->VpiLineNo());
+                        uts33->VpiColumnNo(rv->VpiColumnNo());
+                        uts33->VpiEndLineNo(rv->VpiEndLineNo());
+                        uts33->VpiEndColumnNo(rv->VpiEndColumnNo());
+                        if (pkgScopeInst)
+                            uts33->Instance(pkgScopeInst);
+                        sts33 = uts33;
+                    }
+                    art->Actual_typespec(sts33);
+                }
+                else if (arrThis21 || dropArrTs19) {
                     // § classPropIterThisRefVar21: typespec-LESS (see the note
                     // at rv->Typespec below) — nothing to bind, nothing to
                     // defer, and in particular no pendingForeachArrayTs entry.
@@ -2696,7 +2886,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // unsupported_typespec: Surelog compiles the `this` handle
                 // select, finds no typespec for the selected member and binds
                 // nothing rather than minting the catch-all.
-                if (!arrThis21 && !dropArrTs19)
+                if (scopedArr33 || (!arrThis21 && !dropArrTs19))
                     rv->Typespec(art);
                 fs->Variable(rv);
             }

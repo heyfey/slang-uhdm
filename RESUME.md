@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-23 22:30, HEAD = the earl79 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-23 23:30, HEAD = the buvm33 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,18 +182,18 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2 (uvm-1.2 tree) | 56 (depth) | `foreach (this_type::m_typewide_sequences[i])` (uvm_sequence_library.svh:480-481, head span @496:12-496:23): a class_var whose ref_typespec → unsupported_typespec (this_type::m_typewide_sequences), parent the foreach_stmt — the DATA face of the this_type:: qualifier on a STATIC class property: golden resolves a REAL typespec, we emit unsupported; the SAME head in BuildUVMPkg (@56591): buvm33 heads FOUR row-modes (buvm32 landed: 46→56, a C::m() call keeps its func_call only when the WRITTEN qualifier is a registered lookup key — the defining class's out-of-body name, a package free function, a $unit or imported class — else golden degrades to one bare ref_obj, arguments gone) |
-| MiniAmiq×2 (uvm-1.2 tree) | 56 (depth) | now on buvm33's head (the this_type:: foreach) — see the SeqDriver row; (uvm116 landed: 60→56) |
+| SeqDriver×2 (uvm-1.2 tree) | 56 (depth) | the LOOP VARIABLE of the fixed scoped foreach (uvm_sequence_library.svh:496:44-496:45): golden int_var (…::init_sequence_library::i) with ref_typespec → int_typespec; ours an array_var → array_typespec — UhdmWriter::swapForSpecifiedVar (~:2490) cannot resolve a <first>::<last> name and takes the int_var fallback (:2550); the SAME head in BuildUVMPkg×2 and MiniAmiq×2: buvm34 heads SIX row-modes (buvm33 landed: the foreach ARRAY reference — a ::-written foreach array is a class_var named first::last over a token-named unsupported_typespec, the producer split at compileVariable) |
+| MiniAmiq×2 (uvm-1.2 tree) | 56 (depth) | identical to SeqDriver's head (the scoped-foreach loop var); buvm34 |
 | SimpleUVM×2 (uvm-1.2 tree) | 17 (depth) | `logic_net (work@top.p)` @uvm_globals.svh:263:3, RHS `<null>` — the FREE PACKAGE FUNCTION's `process p` local, where our implicit-net machinery does not fire (§ fnLocalParamRangeNet / uvm105-R0 family; most of the family moved with uvm115 — 15 of 16 SimpleUVM family REF cells now agree); pass uvm117 later (uvm115 landed: 56→17, a builtin-class body local compiled before Surelog's class phase degrades to ref_var + unsupported_typespec named for the token) |
-| Scoreboard/default (uvm-1.2 tree) | 56 (depth) | now on buvm33's head (the this_type:: static-property foreach typespec) — SEVEN row-modes share it (uvm116 landed: 60→56, the scope-form `randomize(x) with {…}` is a bare method_func_call with vpiWith → a bare constraint, not a member call on the argument) |
-| BuildUVMPkg×2 (1800.2 pp_output tree) | 56 (depth) | identical to SeqDriver's head (the this_type:: static-property foreach typespec, @uvm_pkg.sv:56591); buvm33 clears both |
+| Scoreboard/default (uvm-1.2 tree) | 17 (depth) | now on uvm117's head (the `work@top.p` free-package-function implicit net) — joining SimpleUVM×2: uvm117 heads THREE row-modes |
+| BuildUVMPkg×2 (1800.2 pp_output tree) | 56 (depth) | identical to SeqDriver's head (the scoped-foreach loop var, @uvm_pkg.sv:56591); buvm34 clears both |
 | Earlgrey_0_1×2 (both modes) | 64 (depth) | the based-literal override actual's VpiDecompile WIDTH: `bit [3:0] HReqDepth = 4'h2` (prim_fifo_sync.sv:12) carried through two instance hops — golden `4'h0`, ours `32'h0` (constant@12:40 under a param_assign); start from earl74's pacen74 182 differing param_assign cells; pass earl80 next (earl79 landed: 36→64, an expression-written size-form dimension bound folds by reduceExpr — per-operator encoding table, ADD takes max of operand sizes, NAME leaves contribute their own initializer's encoding via the bound expression, not re-resolved syntax) |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 73 verifier fix-before-landing re-cuts (158 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 73 verifier fix-before-landing re-cuts (159 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

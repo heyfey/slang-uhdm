@@ -1,0 +1,90 @@
+r10buvm33 — THE BOUNDARY GATE, pristine vs patched, over a COPY of the WHOLE
+tools/probe tree (no path filter, .sv AND .v, arm list on fd 3, children
+</dev/null, PROCESSED asserted against LISTED, rc recorded per cell).
+
+  bound33.sh, four configurations:
+
+  MODE=file VIEW=def    PROCESSED=3607 LISTED=3607  DIFFER=9  REJECT 138/138
+  MODE=file VIEW=elab   PROCESSED=3607 LISTED=3607  DIFFER=8  REJECT 152/152
+  MODE=dir  VIEW=def    PROCESSED=1527 LISTED=1527  DIFFER=6  REJECT 121/121
+  MODE=dir  VIEW=elab   PROCESSED=1527 LISTED=1527  DIFFER=6  REJECT 127/127
+
+PRIS_REJECT == PATCHED_REJECT in all four — NO ASYMMETRIC REJECT.
+
+EVERY DIFFERING ARM ACCOUNTED FOR.
+
+1. r10buvm33repro/g33a1.sv, g33a2.sv, g33a3.sv (and the directory) — this
+   pass's own grids, each re-measured against GOLDEN cell by cell in both
+   views (README §2): every scoped cell moves TO golden, none away.
+
+2. r10vbuvm19repro/vg19e.sv and vg19e2.sv — r10vbuvm19's committed arms for
+   § foreachArraySelfSelectAssignDropsTs19.  Both write
+   `foreach (ve19::sa19[i])` and BOTH HAD THIS LAW'S CELL AS THEIR uhdm-cmp
+   HEAD.  Measured against golden with the official uhdm-cmp:
+
+     vg19e/def    56 cmp lines / 1 head -> 15 / 1   head CLEARED
+                  (was class_var (vep19::ve19::clsq19::ve19::sa19) @23:14;
+                   now a pre-existing ref_var pf19 cell at 41:10)
+     vg19e2/def   56 / 1 -> 50 / 1                  head CLEARED
+     vg19e2/elab  56 / 1 -> 50 / 1                  head CLEARED
+                  (was the same class_var @22:14; now the pre-existing
+                   logic_var (vep19::vf19::suphdr19) @41:14 — the
+                   `foreach (super.pa19[i])` cell, untouched by this pass)
+
+   Order-blind residue keys against golden: vg19e/def 37 -> 30,
+   vg19e2/def 30 -> 23, vg19e2/elab 34 -> 34.  The handful of keys that read
+   as NEW there are AGGREGATE dump-traversal print counts (`|vpiInstance:`,
+   `|vpiActual:`, `\_package: vep19`) whose totals shifted because a
+   PRE-EXISTING extra `unsupported_typespec (pa19)` on our side — 3 against
+   golden's 2 in the PRISTINE database as well — stopped being offset by the
+   cell this pass fixed.  Measured directly: pristine ours (pa19)=3 /
+   golden=2, patched ours (pa19)=3 / golden=2 — unchanged.
+
+   vg19e/elab is a PRE-EXISTING SEGFAULT (rc=139) on BOTH binaries, alone and
+   in the directory, so that cell is a symmetric BOTH-REJECT.
+
+3. r10vbuvm19repro/vg19c.sv, vg19d.sv — the same family, scoped foreach cells
+   that are not the head.  Order-blind residue keys against golden:
+   vg19c/def 142 -> 127, vg19c/elab 158 -> 142, vg19d/def 52 -> 30,
+   vg19d/elab 55 -> 32, **NEW KEYS = 0** in all four; the head object is
+   unchanged (an earlier array_var).
+
+4. r10vbuvm25repro/vg25.sv — writes `foreach (va25::q_direct[ix])` twice.
+   Order-blind residue keys against golden: def 335 -> 317, elab 618 -> 603,
+   **NEW = 0**; head unchanged (package va25).
+
+5. r10buvm22repro/g22.sv (file and dir) — THE g22 ADDRESS FAMILY, the residue
+   buvm31/buvm32 already carry.  The whole delta is 12 lines, all of them
+   `|UINT:<n>` / `|vpiDecompile:<n>` pairs of THREE constants, and every value
+   shifts by EXACTLY 4096 — one page, a binary-layout artefact.  ZERO
+   non-address lines.  g22 alone under the SAME binary twice is raw=0, so it
+   is not a coin either; it is address text.  g22 contains no `::`-scoped
+   foreach.
+
+6. r10uvm75repro, r10uvm76repro, r10v109repro (MODE=dir only) — COINS, not
+   movers, proved with `coin33.sh`, the SAME PRISTINE binary run twice on the
+   same directory arm:
+
+     r10uvm75repro  def raw=8  order-blind=0    elab raw=12 order-blind=0
+     r10uvm76repro  def raw=4  order-blind=0    elab raw=16 order-blind=0
+     r10v109repro   def raw=22 order-blind=0    elab raw=12 order-blind=0
+
+   and pristine-vs-patched on the same arms is likewise order-blind 0
+   (dir/def 14/12/8, dir/elab 12/10/12 raw lines, 0 sorted).
+
+BIND WINDOWS.  Every committed arm of § classArgBind12,
+§ retNameRecvCollapseArgsBindLikeBody15, § collArgNamedBlkLocalNoBind15,
+§ controlBodyNoBind28, § blkLocalSameCtrlDepthArgBinds57/64,
+§ pkgVarBindsOnlyThroughInstance88, § formalDefaultBindsLikeBody13,
+§ classInBodyRecvCallArgNoBind52, § superNewFormalBinds28,
+§ newArrayArgNoBind16, § emptyArgSlotIntZero24, § writtenCallArgs16,
+§ namedTfArgsFormalSlots4, uvm81's formal contest and sd10/sd12 `scopedReach`
+lives in that tree and is BYTE-IDENTICAL in all four configurations — none of
+those directories appears in any differ list.  This pass opens and closes no
+bind window: it changes only the KIND, NAME, SPAN and TYPESPEC of the object a
+`foreach` header's `::`-scoped ARRAY REFERENCE becomes, and touches no
+argument, no formal and no call.
+
+FENCED= the four slang-fenced tests are never dispatched and never spelled in
+this pass or in any artifact of it; `canaudit.sh canaries.sh ctcan2.sh`, run
+from this directory, reports audited=29 UNCOVERED=0 FENCE-BREACH=0.

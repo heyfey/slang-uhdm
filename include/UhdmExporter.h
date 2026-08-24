@@ -2494,6 +2494,21 @@ private:
     bool scopedCallKeyIsAnyRegistration32v(const slang::ast::Scope* qualScope32,
                                            std::string_view f12,
                                            std::string_view l12);
+
+    /// § foreachScopedArrayWrittenClassVar33 (r10buvm33) — the DATA face of the
+    /// `::`-scoped qualifier.  A `foreach` whose ARRAY REFERENCE is written
+    /// with a `::` scope reaches Surelog through `compileVariable`
+    /// (CompileType.cpp:554-621), NOT through `compileExpression`, and that
+    /// arm keeps only the FIRST written segment and the FINAL identifier:
+    /// `completeName = <first>::<last>`.  Returns false when @a arrBase is not
+    /// a `::`-scoped name.  On success @a outName33 is that two-segment text
+    /// (every INTERMEDIATE segment dropped) and @a outSpan33 runs from the
+    /// scoped name's start to the column the FINAL identifier starts at — the
+    /// `paClass_scope` node's OWN extent, which is what
+    /// `populateCoreMembers(declarationId, declarationId, ...)` stamps.
+    static bool foreachScopedArrayName33(
+        const slang::syntax::ExpressionSyntax* arrBase, std::string& outName33,
+        slang::SourceRange& outSpan33);
     // Lazily built by elabInvoked(); empty optional = not yet scanned.
     std::optional<std::set<const slang::ast::SubroutineSymbol*>> elabCalledSubs;
     // § bareFormalTsReached — the subroutines whose BARE formals (a formal

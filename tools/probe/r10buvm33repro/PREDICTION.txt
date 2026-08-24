@@ -1,0 +1,57 @@
+r10buvm33 — MOVER PREDICTION, WRITTEN FROM THE PRISTINE DATABASES BEFORE THE
+PATCHED BINARY WAS BUILT.
+
+METHOD.  `r10buvm33cen` (family FEHDR) enumerates EVERY `foreach_stmt` in a
+database with the object under `vpiVariables` — its kind, VpiName, span and
+ACTUAL typespec — and marks `scoped=Y` when that name carries a `::`.
+`sweepcen33.sh` ran it over BOTH sides of every cell of the pristine surelog
+workdir (956 databases x 2 modes; 617 cells have a missing side and are
+COUNTED, not skipped) and of the pristine uhdm2rtlil workdir (1358 cells).
+`cen33.py` joins as a MULTISET keyed on (test, mode, foreach_stmt span, home) —
+the array reference's NAME is deliberately OUT of the key, because the name is
+exactly what the two producers disagree about and a name in the key would hide
+every disagreement as a MISSING/EXTRA pair.
+
+MEASURED ON THE PRISTINE SWEEP.
+
+  surelog corpus, FEHDR family:      GOLDEN scoped=Y  26 cells
+                                     OURS   scoped=Y   0 cells
+  uhdm2rtlil corpus, FEHDR family:   GOLDEN scoped=Y   0 cells
+                                     OURS   scoped=Y   0 cells
+
+The 26 golden cells are ONE written name — `this_type::m_typewide_sequences` —
+in ONE home shape (the out-of-body class method `uvm_sequence_library::
+init_sequence_library`, written at package scope) and ONE position (the foreach
+HEADER).  Each (test, mode, home-package) contributes TWO cells: the package's
+DEF and ELAB copies.  Every other `::`-scoped data reference in the corpus is
+in an EXPRESSION position and already agrees (SDREF family, `pos=foreach_stmt`
+rows: golden `cbs_type::add` / `cbs_type::delete` in BuildUVMPkg both modes are
+present and IDENTICAL on our side).
+
+THE NINE DATABASES THAT MUST MOVE, BY NAME (and nothing else):
+
+  default/BuildUVMPkg      2 cells   (uvm_pkg)
+  default/MiniAmiq         4 cells   (uvm_pkg + svaunit_pkg)
+  default/Scoreboard       2 cells   (uvm_pkg)
+  default/SeqDriver        4 cells   (uvm_pkg + adpcm_pkg)
+  default/SimpleUVM        2 cells   (uvm_pkg)
+  testflags/BuildUVMPkg    2 cells
+  testflags/MiniAmiq       4 cells
+  testflags/SeqDriver      4 cells
+  testflags/SimpleUVM      2 cells
+                          ---------
+                          26 cells over 9 databases
+
+  (Scoreboard/testflags has NO database — SKIP-NOFILE, as `rowheads.sh`
+  reports it.)
+
+uhdm2rtlil: ZERO movers in BOTH modes — no database in that corpus contains a
+`::`-scoped foreach array reference on either side.
+
+EXPECTED DIRECTION: 26 cells TO-GOLDEN, 0 AWAY, 0 STILL-WRONG; the FEHDR
+`scoped=Y` count must read 26 on OUR side after the patch, with the kind, the
+name, the span and the typespec matching golden's cell for cell.
+
+NOTE ON ATTRIBUTION: `Scoreboard/default` and `SeqDriver` (both modes) are
+COINS (RESUME §9, and r10vbuvm32's finding F3) — attribution on those rows must
+be ORDER-BLIND (sorted, id- and path-normalised dumps), never a raw byte diff.
