@@ -1,0 +1,167 @@
+== SeqDriver/default
+   BOTH-SAME   55
+   MOVED-WRONG 13
+   OURS-ONLY   13
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   13
+     SPAN=1071:28-1071:44 PAR=operation:33
+     SPAN=115:55-115:100 PAR=operation:33
+     SPAN=398:24-398:44 PAR=operation:33
+     SPAN=642:9-642:38 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::m_aa2string MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       2 REGION=CLASSMETHOD_OOB_FUNC HOME=adpcm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_FUNC HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       2 REGION=CLASSMETHOD_OOB_TASK HOME=adpcm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_TASK HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       2 REGION=PKGFUNC HOME=adpcm_pkg::uvm_hdl_concat2string MACRO=0 PAR=operation:33
+     FAM       2 REGION=PKGFUNC HOME=uvm_pkg::uvm_hdl_concat2string MACRO=0 PAR=operation:33
+== SeqDriver/testflags
+   BOTH-SAME   55
+   MOVED-WRONG 13
+   OURS-ONLY   13
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   13
+     SPAN=1071:28-1071:44 PAR=operation:33
+     SPAN=115:55-115:100 PAR=operation:33
+     SPAN=398:24-398:44 PAR=operation:33
+     SPAN=642:9-642:38 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::m_aa2string MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       2 REGION=CLASSMETHOD_OOB_FUNC HOME=adpcm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_FUNC HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       2 REGION=CLASSMETHOD_OOB_TASK HOME=adpcm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_TASK HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       2 REGION=PKGFUNC HOME=adpcm_pkg::uvm_hdl_concat2string MACRO=0 PAR=operation:33
+     FAM       2 REGION=PKGFUNC HOME=uvm_pkg::uvm_hdl_concat2string MACRO=0 PAR=operation:33
+== SimpleUVM/default
+   BOTH-SAME   41
+   MOVED-WRONG 7
+   OURS-ONLY   7
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   7
+     SPAN=1071:28-1071:44 PAR=operation:33
+     SPAN=115:55-115:100 PAR=operation:33
+     SPAN=398:24-398:44 PAR=operation:33
+     SPAN=642:9-642:38 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::m_aa2string MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_FUNC HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_TASK HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       2 REGION=PKGFUNC HOME=uvm_pkg::uvm_hdl_concat2string MACRO=0 PAR=operation:33
+== SimpleUVM/testflags
+   BOTH-SAME   41
+   MOVED-WRONG 7
+   OURS-ONLY   7
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   7
+     SPAN=1071:28-1071:44 PAR=operation:33
+     SPAN=115:55-115:100 PAR=operation:33
+     SPAN=398:24-398:44 PAR=operation:33
+     SPAN=642:9-642:38 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::m_aa2string MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_FUNC HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_TASK HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       2 REGION=PKGFUNC HOME=uvm_pkg::uvm_hdl_concat2string MACRO=0 PAR=operation:33
+== Scoreboard/default
+   BOTH-SAME   40
+   MOVED-WRONG 8
+   OURS-ONLY   7
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   7
+     SPAN=1071:28-1071:44 PAR=operation:33
+     SPAN=115:55-115:100 PAR=operation:33
+     SPAN=398:24-398:44 PAR=operation:33
+     SPAN=642:9-642:38 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::m_aa2string MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_FUNC HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_TASK HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       2 REGION=PKGFUNC HOME=uvm_pkg::uvm_hdl_concat2string MACRO=0 PAR=operation:33
+== Scoreboard/testflags  SKIP-NOFILE
+== MiniAmiq/default
+   BOTH-SAME   57
+   MOVED-WRONG 14
+   OURS-ONLY   13
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   13
+     SPAN=1071:28-1071:44 PAR=operation:33
+     SPAN=115:55-115:100 PAR=operation:33
+     SPAN=398:24-398:44 PAR=operation:33
+     SPAN=642:9-642:38 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::m_aa2string MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       2 REGION=CLASSMETHOD_OOB_FUNC HOME=svaunit_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_FUNC HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       2 REGION=CLASSMETHOD_OOB_TASK HOME=svaunit_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_TASK HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       2 REGION=PKGFUNC HOME=svaunit_pkg::uvm_hdl_concat2string MACRO=0 PAR=operation:33
+     FAM       2 REGION=PKGFUNC HOME=uvm_pkg::uvm_hdl_concat2string MACRO=0 PAR=operation:33
+== MiniAmiq/testflags
+   BOTH-SAME   57
+   MOVED-WRONG 14
+   OURS-ONLY   13
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   13
+     SPAN=1071:28-1071:44 PAR=operation:33
+     SPAN=115:55-115:100 PAR=operation:33
+     SPAN=398:24-398:44 PAR=operation:33
+     SPAN=642:9-642:38 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::m_aa2string MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       2 REGION=CLASSMETHOD_OOB_FUNC HOME=svaunit_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_FUNC HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       2 REGION=CLASSMETHOD_OOB_TASK HOME=svaunit_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_TASK HOME=uvm_pkg::uvm_sequence_library::execute MACRO=1 PAR=operation:33
+     FAM       2 REGION=PKGFUNC HOME=svaunit_pkg::uvm_hdl_concat2string MACRO=0 PAR=operation:33
+     FAM       2 REGION=PKGFUNC HOME=uvm_pkg::uvm_hdl_concat2string MACRO=0 PAR=operation:33
+== BuildUVMPkg/default
+   BOTH-SAME   29
+   MOVED-WRONG 8
+   OURS-ONLY   7
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   7
+     SPAN=32996:9-32996:38 PAR=operation:33
+     SPAN=33619:28-33619:44 PAR=operation:33
+     SPAN=56957:55-56957:100 PAR=operation:33
+     SPAN=61055:24-61055:44 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::m_aa2string MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_sequence_library::execute MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_FUNC HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_TASK HOME=uvm_pkg::uvm_sequence_library::execute MACRO=0 PAR=operation:33
+     FAM       2 REGION=PKGFUNC HOME=uvm_pkg::uvm_hdl_concat2string MACRO=0 PAR=operation:33
+== BuildUVMPkg/testflags
+   BOTH-SAME   29
+   MOVED-WRONG 8
+   OURS-ONLY   7
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   7
+     SPAN=32996:9-32996:38 PAR=operation:33
+     SPAN=33619:28-33619:44 PAR=operation:33
+     SPAN=56957:55-56957:100 PAR=operation:33
+     SPAN=61055:24-61055:44 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_phase::m_aa2string MACRO=1 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_INBODY HOME=uvm_pkg::uvm_sequence_library::execute MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_FUNC HOME=uvm_pkg::uvm_phase::get_schedule_name MACRO=0 PAR=operation:33
+     FAM       1 REGION=CLASSMETHOD_OOB_TASK HOME=uvm_pkg::uvm_sequence_library::execute MACRO=0 PAR=operation:33
+     FAM       2 REGION=PKGFUNC HOME=uvm_pkg::uvm_hdl_concat2string MACRO=0 PAR=operation:33
+-- SKIP-NOFILE=1

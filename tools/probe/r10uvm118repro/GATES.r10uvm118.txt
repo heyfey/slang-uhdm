@@ -1,0 +1,133 @@
+r10uvm118 — GATES.  BASE 9ac2763.  results/*.csv READ ONLY, NOT EDITED, NO ROW CONVERTED.
+The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole acceptance judge.
+
+(0) BINARIES — built -j 2, md5'd separately, frozen `chmod 555` BEFORE any sweep
+    pristine (9ac2763, this pass's own worktree)  b815e9f51e1d2009ab5307f874dde17a
+      == the main tree's build/slang-uhdm at 9ac2763 (same md5) — the pass starts
+         on exactly the object the master's head log names, and
+         HEAD_BEFORE_SimpleUVM_default.cmp is BYTE-IDENTICAL to the master's
+         /tmp/simpleuvm_head_9ac2763.cmp
+    patched                                       de4c7d9344b65013d2cb8b68aa913ba8
+    No source was edited while its TU was compiling; no sweep ran during a build.
+    DELIVERABLE CHECK: /tmp/r10uvm118.patch applies with `git apply -3` on a
+    FRESH 9ac2763 worktree (rc=0, "Applied patch to 'src/ExprEmit.cpp' cleanly.",
+    0 conflict markers, 39 changed paths and nothing else), and a -j 2 build of
+    that fresh application finishes with 0 errors and REBUILDS THE PATCHED md5
+    de4c7d9344b65013d2cb8b68aa913ba8 exactly.
+    PATCH SURFACE: src/ExprEmit.cpp (+44 / -1, one predicate and its decode) and
+    tools/probe/r10uvm118repro/ — nothing else.  No results/*.csv edit, no stray
+    file, no driver hard-codes another pass's paths (every one takes its workdir
+    and binaries from argv or env), and no `rm -rf` on shared scratch.
+
+(1) GOLDEN TESTS
+    patched  PASS=23 FAIL=0     (SLANG_UHDM exported explicitly to the patched binary)
+    pristine PASS=23 FAIL=0     (SLANG_UHDM exported explicitly to the pristine binary)
+    /bin/false PASS=0 FAIL=23   (negative control: the harness can fail)
+
+(2) uhdm2rtlil, BOTH modes, patched binary, own --out/--workdir
+    status histogram, both modes: CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+    ct8rows vs results/gate_uhdm2rtlil.csv (testflags) ....... PASS, 0 differing rows
+    ct8rows vs /tmp/ctl_u2r_9ac2763.csv     (testflags) ...... PASS, 0 differing rows
+    ct8rows vs /tmp/ctl_u2r_def_9ac2763.csv (default) ........ PASS, 0 differing rows
+    byteverify SELFCHECK=1: PATH_SETS_IDENTICAL (1358) MOVERS 0 / 1358
+      SELFCHECK 1357/1358 flagged (the scorer can see)
+    cmds.txt audit BY BINARY PATH: 1462 files, 1458 carry a `slang:` line, ALL of
+      them /tmp/r10uvm118_pat.bin — 0 name the main-tree binary.
+
+(3) surelog corpus, --mode both, patched binary, own --out/--workdir
+    ct8rows vs results/golden_surelog.csv ......... PASS, 0 differing rows / 1588
+    ct8rows vs /tmp/ctl_sl_9ac2763.csv ........... PASS, 0 differing rows / 1588
+    status histograms IDENTICAL to the control, both modes:
+      default   CMP_EQUAL 471 SLANG_REJECT 283 SURELOG_FAIL 25 CMP_NOTEQUAL 10 DEFERRED 5
+      testflags CMP_EQUAL 466 SLANG_REJECT 284 SURELOG_FAIL 23 NO_DATABASE 3
+                CMP_NOTEQUAL 9 UNTRANSLATABLE 2 DEFERRED 5 TIMEOUT 1 NO_UHDM 1
+    NO ROW CONVERTED (10 + 9 CMP_NOTEQUAL before and after).
+    cmds.txt audit BY BINARY PATH: 1573 files, 1523 carry a `slang:` line, ALL of
+      them /tmp/r10uvm118_pat.bin — 0 name the main-tree binary.
+    GOLDEN_DEFER unset throughout.
+
+(4) BYTE MOVERS — PREDICTED BY NAME from the PRISTINE databases FIRST (pred118.sh):
+    prediction: the NINE UVM databases and nothing else
+      (surelog: BuildUVMPkg x2, MiniAmiq x2, Scoreboard/default, SeqDriver x2,
+       SimpleUVM x2 — Scoreboard/testflags is SKIP-NOFILE;  uhdm2rtlil: none)
+    measured : MOVERS 9 / 956, PATH_SETS_IDENTICAL (956), and they are EXACTLY
+               those nine, by name.  SELFCHECK 955/956 flagged.
+    ATTRIBUTION, order-blind (whole-dump, indentation-blind, SORTED diff, so the
+    Scoreboard/default COIN cannot be mistaken for the law):
+      BuildUVMPkg/default   ADDED=0 REMOVED=103    (7 family cells)
+      BuildUVMPkg/testflags ADDED=0 REMOVED=103
+      MiniAmiq/default      ADDED=0 REMOVED=193    (13 family cells)
+      MiniAmiq/testflags    ADDED=0 REMOVED=193
+      Scoreboard/default    ADDED=0 REMOVED=103    (7 family cells; the coin did
+                                                    not flip on this run, and the
+                                                    attribution is order-blind)
+      SeqDriver/default     ADDED=0 REMOVED=193
+      SeqDriver/testflags   ADDED=0 REMOVED=193
+      SimpleUVM/default     ADDED=0 REMOVED=103
+      SimpleUVM/testflags   ADDED=0 REMOVED=103
+    NOT ONE DUMP LINE IS ADDED IN ANY MOVER.  Every removed line is the surplus
+    cast operation, its ref_typespec / logic_typespec, and the vpiInstance stamp
+    the catch-all put on that typespec.
+
+(5) CANARIES
+    canaries.sh surelog    ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil ok=8  changed=0 absent=0
+    ctcan2.sh EXPECT_UNKNOWN=1 (surelog)    ok=58 changed=0  PASS
+    ctcan2.sh EXPECT_UNKNOWN=6 (uhdm2rtlil) ok=1  changed=0  PASS
+    canaudit.sh canaries.sh ctcan2.sh: audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+    PROTECTED DATABASES (md5 of slang.uhdm vs the control), both modes:
+      InterfaceModPort   SAME 59a365f3ce2c / 59a365f3ce2c
+      BlackParrotComplex SAME e3e354129d5a / 73a10e8217e5
+      YosysOldOr         SAME d68e0796d62c / d68e0796d62c
+      SVSwitch           SAME 4842211c4030  (the PIN)
+      YosysVerx          SAME 6ccda350c24a  (the PIN)
+    The four slang-fenced tests were NEVER dispatched and are not named anywhere
+    in this directory: canaudit reports them as "not dispatched by any driver (OK)".
+
+(6) BOUNDARY — WIDE, every .sv/.v under a COPY of tools/probe at ANY DEPTH,
+    both views, both frozen binaries, workdir-normalised dump byte-compare;
+    the file list is read on fd 3, every child gets </dev/null, PROCESSED is
+    asserted and every cell records its rc.
+      PROCESSED=3659 identical=7026 DIFFERING=0 no_output=292
+      rc histogram: rc=0 13490  rc=3 556  rc=4 562  rc=139 28
+      the 28 rc=139 are 14 pre-existing ELAB-view segfaults, and the A-side and
+      B-side file sets are IDENTICAL — none is introduced by this pass.
+    POSITIVE CONTROL (the gate can see): the same driver over this pass's three
+    arms plus earl75's g1_gsproc75.sv placed TWO DIRECTORIES DEEP —
+      PROCESSED=4 identical=2 DIFFERING=6
+      the 6 are this pass's three arms x both views; the SUBDIRECTORY arm
+      (earl75's) is IDENTICAL, so the gate reaches subdirectories AND earl75's
+      law is untouched.
+
+(7) HEADS (rowheads.sh; counts are head-object DEPTH, never distance)
+    row / mode              before   after
+    SeqDriver / default        56      56   same head OBJECT, ids only
+    SeqDriver / testflags      56      56   same head OBJECT, ids only
+    SimpleUVM / default        17      76   CLEARED, new head object
+    SimpleUVM / testflags      17      76   CLEARED, new head object
+    Scoreboard / default       17      76   CLEARED, new head object
+    Scoreboard / testflags      -       -   SKIP-NOFILE (expected)
+    MiniAmiq / default         56      56   same head OBJECT, ids only
+    MiniAmiq / testflags       56      56   same head OBJECT, ids only
+    BuildUVMPkg / default      56      56   same head OBJECT, ids only
+    BuildUVMPkg / testflags    56      56   same head OBJECT, ids only
+    Earlgrey_0_1 / default     32      32   head BYTE-IDENTICAL
+    Earlgrey_0_1 / testflags   36      36   head BYTE-IDENTICAL
+    Rggen / default             0       0   CMP_EQUAL, cmp log BYTE-IDENTICAL
+    Rggen / testflags           -       -   SKIP-NOFILE (expected)
+    All three cleared rows land on the SAME new head object (ids apart).
+    The SeqDriver / MiniAmiq / BuildUVMPkg heads are the SAME OBJECT as before
+    (buvm34's scoped-foreach loop variable, uvm_sequence_library.svh:496:44 /
+    uvm_pkg.sv:56591:44): the cmp logs differ ONLY in the arena `id:` numbers,
+    which shift by exactly the count of objects this law removes — 15 in
+    SeqDriver and MiniAmiq (13 family cells), 12 in BuildUVMPkg (7 cells).
+    Earlgrey_0_1 (both modes) and Rggen/default cmp logs are BYTE-IDENTICAL.
+
+(8) THE FAMILY, CORPUS-WIDE, before and after (pred118.sh over every database in
+    both corpora, ours vs the golden each workdir's own cmds.txt names)
+                            golden family cells   ours family cells
+      surelog   pristine            0                87 in 9 DBs
+      surelog   patched             0                 0 in 0 DBs
+      uhdm2rtlil pristine           0                 0 in 0 DBs
+      uhdm2rtlil patched            0                 0 in 0 DBs
+    THE FAMILY IS CLOSED CORPUS-WIDE, and it never had a golden half to lose.

@@ -1,0 +1,124 @@
+r10v118 — GATE BATTERY, re-run from scratch by the VERIFIER in its own
+worktrees (/tmp/wt_v118 patched+fix, /tmp/wt_v118pris) at BASE 9ac2763.
+results/*.csv READ ONLY and UNTOUCHED; no row converted; GOLDEN_DEFER UNSET.
+
+(1) BUILD -- both worktrees configured Release and built `-j 2`, md5 separately,
+    then frozen `chmod 555` at immutable paths BEFORE any sweep.
+      pristine  b815e9f51e1d2009ab5307f874dde17a   (rebuilds the implementer's
+                                                    claimed pristine md5)
+      patched   de4c7d9344b65013d2cb8b68aa913ba8   (rebuilds the implementer's
+                                                    claimed patched md5 EXACTLY)
+      fixed     f510979e40e57101df859cb86c8cc097   (this verifier's fix)
+    0 compiler errors in all three.
+    Patch `git apply -3` on a FRESH 9ac2763: rc 0, no conflict markers, and the
+    regenerated `git diff` is identical to the delivered patch modulo `index`
+    lines.  Surface = src/ExprEmit.cpp + tools/probe/r10uvm118repro/ (39 paths);
+    0 results/*.csv edits; 0 hits for any of the four slang-fenced names outside
+    canaudit.sh.
+
+(2) GOLDENS -- SLANG_UHDM exported EXPLICITLY to each binary:
+      pristine 23 PASS / 0 FAIL      patched 23 PASS / 0 FAIL
+      fixed    23 PASS / 0 FAIL      SLANG_UHDM=/bin/false  0 PASS / 23 FAIL
+
+(3) uhdm2rtlil -- both modes, --jobs 2, own --out/--workdir per binary:
+      patched 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL  (both modes)
+      fixed   679 / 50 / 2                                      (both modes)
+      pristine control identical.
+      ct8rows vs the COMMITTED results/gate_uhdm2rtlil.csv: PASS (status AND
+      dump) for patched and for fixed; vs the verifier's own pristine control:
+      PASS in both modes.
+      byteverify SELFCHECK=1: PATH_SETS_IDENTICAL (1358), MOVERS 0/1358 for
+      patched-vs-pristine, 0/1358 for fixed-vs-pristine, 0/1358 fixed-vs-patched.
+      cmds.txt audited BY BINARY PATH: 1462 files, 1458 carry a `slang:` line,
+      1458/1458 name the frozen binary under test, 0 name the main-tree binary.
+
+(4) surelog -- --mode both, --jobs 2:
+      patched  default  471 CMP_EQUAL / 10 CMP_NOTEQUAL / 5 DEFERRED /
+                        283 SLANG_REJECT / 25 SURELOG_FAIL          (5-way)
+               testflags 466 / 9 / 5 / 3 NO_DATABASE / 1 NO_UHDM /
+                        284 / 23 / 1 TIMEOUT / 2 UNTRANSLATABLE     (9-way)
+      fixed and pristine histograms IDENTICAL, cell for cell, in both modes.
+      ct8rows over all 1588 rows: 0 differing rows vs the COMMITTED
+      results/golden_surelog.csv, vs the verifier's pristine control, and
+      fixed-vs-patched -- for patched AND for fixed.  NO ROW CONVERTED.
+      cmds.txt audited BY BINARY PATH: 1573 files, 1523 carry a `slang:` line,
+      1523/1523 name the frozen binary under test, 0 name the main-tree binary.
+
+(5) BYTE MOVERS, PREDICTED BY NAME FROM PRISTINE DATABASES FIRST.
+    The verifier's own predictor (vpred.sh) is DELIBERATELY BROADER than the
+    implementer's -- fingerprint = a vpiCastOp whose Actual_typespec is a
+    LOC-LESS NAMELESS logic_typespec, with NO parent constraint, so a mover with
+    a different parent cannot hide.  Run on the 956 PRISTINE databases only:
+
+      7  default/BuildUVMPkg     7  testflags/BuildUVMPkg
+     13  default/MiniAmiq       13  testflags/MiniAmiq
+      7  default/Scoreboard
+     13  default/SeqDriver      13  testflags/SeqDriver
+      7  default/SimpleUVM       7  testflags/SimpleUVM
+                                       = 9 databases, 87 cells
+      golden side: 0 in all nine.   patched/fixed side: 0 in all nine.
+
+    MEASURED: byteverify SELFCHECK=1 -> PATH_SETS_IDENTICAL (956),
+    MOVERS 9/956, and the nine are EXACTLY the nine predicted, by name, for
+    patched-vs-pristine AND fixed-vs-pristine.  fixed-vs-patched: 0/956.
+    Attribution is ORDER-BLIND (uhdm-dump, workdir path normalised, `, id:N`
+    stripped, indentation stripped, sorted): ADDED = 0 in ALL NINE, REMOVED =
+    103 per 7-cell database and 193 per 13-cell database.  Scoreboard/default --
+    the documented ~50/50 coin -- reads ADDED=0 REMOVED=103 order-blind, so the
+    coin cannot be mistaken for the law.  The removed lines are only the
+    `\_operation |vpiOpType:67`, its `|vpiTypespec / \_ref_typespec / |vpiActual
+    / \_logic_typespec` and the `|vpiInstance \_package` stamp.
+
+(6) HEADS (rowheads.sh, official uhdm-cmp, ONE head each):
+      SimpleUVM default   17 -> 76      SimpleUVM testflags 17 -> 76
+      Scoreboard default  17 -> 76
+      SeqDriver x2 / MiniAmiq x2 / BuildUVMPkg x2   56 -> 56 (same head object)
+      Earlgrey_0_1 default 32 / testflags 36        unchanged
+      Rggen default 0 (CMP_EQUAL)                   unchanged
+    Identical for patched and for fixed.  The six committed HEAD_{BEFORE,AFTER}
+    .cmp logs reproduce byte-for-byte modulo arena `id:` numbers.
+
+(7) CANARIES / PROTECTED DATABASES (patched and fixed alike):
+      canaries surelog  ok=52 changed=0 absent=0
+      canaries u2r      ok=8  changed=0 absent=0
+      ctcan2 surelog EXPECT_UNKNOWN=1  PASS (ok=58 changed=0)
+      ctcan2 u2r     EXPECT_UNKNOWN=6  PASS (ok=1  changed=0)
+      canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+      InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical;
+      SVSwitch 4842211c4030 and YosysVerx 6ccda350c24a on their pins, both modes.
+
+(8) BOUNDARY -- a COPY of tools/probe, NO path filter, .sv AND .v at ANY depth,
+    file list on fd 3, children </dev/null, rc per cell, PROCESSED asserted,
+    scratch keyed on the RELATIVE path, dumps workdir-normalised.
+      PER-FILE   patched vs pristine: PROCESSED=3662 = LISTED, DIFFERING=6 --
+                 exactly the pass's OWN three arms x 2 views; 0 over the other
+                 3659 sources.  rc histogram identical between binaries
+                 (rc=0 13498, rc=3 556, rc=4 566, rc=139 28), and every one of
+                 the 28 rc=139 is a PRE-EXISTING elab segfault hit by BOTH
+                 binaries on the same file (14 files x 2 sides, no asymmetry).
+      PER-DIR    patched vs pristine (a boundary arm the implementer did not
+                 run): PROCESSED=1538 = LISTED, 10 directories differ BYTE-WISE
+                 -- r10uvm118repro (own) plus r10uvm117repro, r10uvm75repro,
+                 r10uvm76repro, r10v109repro, r10v117repro.  ALL NINE non-own
+                 cells are ORDER-BLIND IDENTICAL (added=0 removed=0): they are
+                 pure `vpiTaskFunc` list order flips.  PROVED to be per-
+                 invocation nondeterminism, not the patch: the SAME pristine
+                 binary run 4x on r10uvm75repro gives 4 DISTINCT dumps, all
+                 order-blind identical.  Read order-blind, DIFFERING=0 for every
+                 directory but the pass's own.
+      FIXED vs PATCHED, per-file: PROCESSED=3662 = LISTED, DIFFERING=0, rc
+                 histogram identical.  The fix moves NOTHING in any committed arm.
+      POSITIVE CONTROL: a known mover placed THREE directories deep
+                 (alpha/beta/gamma/) is FOUND (2 of 2 cells), while earl75's
+                 g1_gsproc75.sv in the same deep directory and earl72's two arms
+                 in a sibling directory stay IDENTICAL.  The gate can see.
+
+(9) EVERY named precedent arm directory was compiled and is in NO diff:
+    r10uvm107/r10v107 (15 files), r10uvm105/r10v105 (9), r10uvm97 (5),
+    r10uvm98/r10v98 (33), r10buvm18 (1), r10buvm20 (1), r10uvm92 (8),
+    r10uvm94 (4), r10uvm95 (6), r10uvm89 (2), r10buvm23 (1), r10buvm24 (1),
+    r10uvm99 (10), r10uvm103 (3), r10buvm13 (10), r10buvm15 (9), r10buvm28 (4),
+    r10earl72 (2), r10earl75 (1), r10v75 (7), r10uvm76 (12), r10uvm77 (9),
+    r10uvm79 (8), r10buvm14 (1), r10uvm84 (23), r10uvm85 (23), r10sd8 (37),
+    r10sd12 (108), r10uvm117/r10v117 (9), r10uvm109/r10v109 (14) -- 301 sources
+    under the named directories, 0 movers.

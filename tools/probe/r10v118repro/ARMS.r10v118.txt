@@ -1,0 +1,66 @@
+r10v118 — the VERIFIER's OWN arms.  Surelog golden (-parse -nobuiltin -nocache
+-d uhdm) + the three FROZEN binaries in BOTH views; every child </dev/null and
+its rc RECORDED; scored with ct118cen on the key OPT/NOPS/SPAN/PAR (span-free
+payload, no VpiFullName).  Names/numbers/case deliberately UNPATTERNED so an
+arm cannot agree with golden for the wrong reason.
+
+pristine b815e9f51e1d2009ab5307f874dde17a
+patched  de4c7d9344b65013d2cb8b68aa913ba8   (implementer's /tmp/r10uvm118.patch)
+fixed    f510979e40e57101df859cb86c8cc097   (this verifier's .verified.patch)
+
+== v118_a1_homes.sv — 13 STAMP HOMES x 9 OPERAND KINDS, plain and macro spans
+homes:  PKGFUNC, PKGTASK, CLASSMETHOD_INBODY, OOB_FUNC, OOB_TASK, STATIC method,
+        CONSTRUCTOR, FREEFUNC ($unit), INTERFACE (always_comb + function),
+        PROGRAM, MODPROC (always_comb / always / always_ff), INITIAL, FINAL,
+        GENSCOPE for (process + initial + function), GENSCOPE if, PARAMINIT
+operands: ternary w/ empty arm, NESTED ternary, inner concat, replication,
+        implicit-string parameter, concat-inside-ternary, UNARY op (!("q")),
+        BINARY op ("w"=="w"), MACRO-EXPANDED ternary
+                        operations  BOTH-SAME  MOVED-WRONG  OURS-ONLY  GOLDEN-ONLY
+  golden                      166          -            -          -            -
+  pristine  default           179        149            0         30           17
+  PATCHED   default           163        163            0          0            3
+  FIXED     default           163        163            0          0            3
+  vpiCastOp count: golden 0, pristine 16, patched 0, FIXED 0   (elab: 32 / 0 / 0)
+  The 3 residual GOLDEN-ONLY cells are line 57 (interface `always_comb`) and are
+  golden-only in PRISTINE too -- pre-existing, not this law.
+  GOLDEN EMITS ZERO vpiCastOp IN EVERY ONE OF THE THIRTEEN HOMES.
+
+== v118_a2_contexts.sv — POSITIONS/CONTEXTS, and never-stamp controls
+  case EXPRESSION, case ITEM, foreach body, call ARG, DEFAULT ARG, return,
+  output-port driver, timing-controlled stmt (@(ev)), delayed stmt (#1),
+  assertion action block, param-init (never-stamp), plain integral concat
+  (never-stamp), written `Sobriquet'(x)` via a PACKAGE TYPEDEF.
+                        operations  BOTH-SAME  MOVED-WRONG  OURS-ONLY  GOLDEN-ONLY
+  pristine  default              47        44            1          2            1
+  PATCHED   default              46        44            1          1            1
+  FIXED     default              46        44            1          1            1
+  cast spans: golden 47:23 | pristine 44:23 + 47:23 | patched 47:23 | FIXED 47:23
+  The written package-typedef cast is KEPT on golden's exact span; the
+  implicit-string-parameter wrap at 44:23 is dropped.  MOVED-WRONG=1 is R3
+  (`Tuffet::Sobriquet` vs golden `Sobriquet`), GOLDEN-ONLY=1 is a pre-existing
+  default-arg parenting residue; both identical before and after.
+
+== v118_a3_written_fences.sv — every WRITTEN `'` spelling
+  string'(v) in a string concat / via a package typedef / nested string'(int'(v))
+  / over a ternary / nested sized 12'(v) / outside any concat / in a module
+  initial / a written cast in a NON-string concat / and const'(<string>) x2.
+  vpiCastOp count:  golden 22 | pristine 19 | patched 19 | FIXED 19
+  uhdm-cmp lines:   pristine 6152/6454 | patched 6122/6414 | FIXED 6152/6454
+  >>> THE PATCHED BINARY LOST TWO CAST OPERATIONS GOLDEN HAS (spans 11:21-11:34
+  >>> and 26:23-26:37, both `const'(<string expr>)`).  THE FIXED BINARY DOES NOT.
+
+== v118_a4_constcast.sv — the MINIMAL isolation of that hole
+  ct118cen --all, one statement `Placard = {Placard, const'(Placard), "!"};`
+    golden    OPT=33 NOPS=3 SPAN=8:15-8:46   +   OPT=67 NOPS=1 SPAN=8:25-8:40
+    pristine  OPT=33 NOPS=3 SPAN=8:15-8:46   +   OPT=67 NOPS=0 SPAN=8:25-8:40
+    PATCHED   OPT=33 NOPS=3 SPAN=8:15-8:46   +   (NOTHING)        <-- removed
+    FIXED     OPT=33 NOPS=3 SPAN=8:15-8:46   +   OPT=67 NOPS=0 SPAN=8:25-8:40
+  Surelog additionally reports ERR:UH0705 "Unsupported data type Const_type" for
+  the cast's TYPESPEC, but it still MINTS the vpiCastOp operation (paCast).
+
+== v118_a5_checker.sv — the OTHER Explicit-conversion site refuted
+  MiscExpressions.cpp:1349 (a checker formal whose actual does not match its
+  declared type) also builds ConversionKind::Explicit.  Measured: zero vpiCastOp
+  on every side, and patched == pristine cmp lines (1628 / 2622) exactly.
+  NOT a hole.

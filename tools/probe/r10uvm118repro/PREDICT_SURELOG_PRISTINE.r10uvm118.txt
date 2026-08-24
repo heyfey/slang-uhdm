@@ -1,0 +1,17 @@
+# r10uvm118 — pred118.sh output, DISTILLED: every row whose FAM_OURS, FAM_GOLD or
+# cast-bare-logic-ts is NONZERO, plus the SKIP-NOFILE / measured tally.  The full
+# per-database listing is regenerable with
+#   pred118.sh <workdir> <ct118cen>
+# and every suppressed row reads FAM_OURS=0 FAM_GOLD=0 cast-bare-logic-ts=0 on BOTH sides.
+default   BuildUVMPkg                  FAM_OURS=7 FAM_GOLD=0 OURS[operations=9552 with-typespec=44 cast=44 cast-bare-logic-ts=7 rows=44] GOLD[operations=9751 with-typespec=37 cast=37 cast-bare-logic-ts=0 rows=37]
+default   MiniAmiq                     FAM_OURS=13 FAM_GOLD=0 OURS[operations=17487 with-typespec=84 cast=84 cast-bare-logic-ts=13 rows=84] GOLD[operations=17652 with-typespec=71 cast=71 cast-bare-logic-ts=0 rows=71]
+default   Scoreboard                   FAM_OURS=7 FAM_GOLD=0 OURS[operations=10057 with-typespec=55 cast=55 cast-bare-logic-ts=7 rows=55] GOLD[operations=10243 with-typespec=48 cast=48 cast-bare-logic-ts=0 rows=48]
+default   SeqDriver                    FAM_OURS=13 FAM_GOLD=0 OURS[operations=17117 with-typespec=81 cast=81 cast-bare-logic-ts=13 rows=81] GOLD[operations=17284 with-typespec=68 cast=68 cast-bare-logic-ts=0 rows=68]
+default   SimpleUVM                    FAM_OURS=7 FAM_GOLD=0 OURS[operations=10036 with-typespec=55 cast=55 cast-bare-logic-ts=7 rows=55] GOLD[operations=10222 with-typespec=48 cast=48 cast-bare-logic-ts=0 rows=48]
+testflags BuildUVMPkg                  FAM_OURS=7 FAM_GOLD=0 OURS[operations=9552 with-typespec=44 cast=44 cast-bare-logic-ts=7 rows=44] GOLD[operations=9751 with-typespec=37 cast=37 cast-bare-logic-ts=0 rows=37]
+testflags MiniAmiq                     FAM_OURS=13 FAM_GOLD=0 OURS[operations=17487 with-typespec=84 cast=84 cast-bare-logic-ts=13 rows=84] GOLD[operations=17652 with-typespec=71 cast=71 cast-bare-logic-ts=0 rows=71]
+testflags SeqDriver                    FAM_OURS=13 FAM_GOLD=0 OURS[operations=17117 with-typespec=81 cast=81 cast-bare-logic-ts=13 rows=81] GOLD[operations=17284 with-typespec=68 cast=68 cast-bare-logic-ts=0 rows=68]
+testflags SimpleUVM                    FAM_OURS=7 FAM_GOLD=0 OURS[operations=10036 with-typespec=55 cast=55 cast-bare-logic-ts=7 rows=55] GOLD[operations=10222 with-typespec=48 cast=48 cast-bare-logic-ts=0 rows=48]
+
+# SKIP-NOFILE rows: 618
+-- measured=956 SKIP-NOFILE=617

@@ -14551,8 +14551,75 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // A COMPILER-INSERTED string conversion of a string literal (the
             // implicit string context of {NAME, "efgh"}) carries no cast
             // syntax — Surelog emits the bare string constant, no cast op.
+            //
+            // § implicitStrConcatNoCast118 (r10uvm118) — AND NEITHER DOES ANY
+            // OTHER OPERAND.  The operand kind was never the discriminator; the
+            // MECHANISM is.  slang's `ConcatenationExpression::fromSyntax`
+            // (OperatorExpressions.cpp:1982) walks a concatenation that has at
+            // least one STRING-typed operand and wraps EVERY non-string operand
+            // in `ConversionExpression::makeImplicit(..., getStringType(),
+            // ConversionKind::Explicit, *expr, nullptr, {})` — a
+            // COMPILER-INSERTED conversion that is nevertheless TAGGED
+            // `Explicit`, so `isImplicit()` (`conversionKind <
+            // ConversionKind::StreamingConcat`) is FALSE and the drop at the
+            // top of this case never fired.  `makeImplicit` never sets
+            // `result->syntax`, so the conversion carries NO cast syntax at
+            // all, and the arm fell through to the cast mint below, whose
+            // catch-all gave it a LOC-LESS, NAMELESS `logic_typespec` (the
+            // `string` target is a `StringType`, which no arm above the
+            // catch-all claims without written `string'` syntax).
+            //
+            // GOLDEN CANNOT PRODUCE THAT OBJECT.  Surelog's expression
+            // compiler is SYNTAX-DIRECTED: `vpiCastOp` is minted in exactly one
+            // place, `CompileHelper::compileExpression`'s
+            // `paCast` / `paConstant_cast` arm
+            // (CompileExpression.cpp:2637-2690), which reads a WRITTEN `'` out
+            // of the parse tree.  Surelog has no type-propagation pass that
+            // inserts conversion nodes, so a concatenation's operands are
+            // compiled from their own parse nodes and a `?:` operand stays a
+            // bare vpiConditionOp operation.  A cast operation exists in golden
+            // if and only if a `'` was written — which is why the ONE fence
+            // this law needs is the WRITTEN `'` (`effCastSyn` being a
+            // `CastExpression`), the same fence
+            // § stringCastKeepsStringTypespec26 already relies on to keep
+            // `string'(x)`'s string_typespec.
+            //
+            // Corpus: the head of SimpleUVM (both modes) and Scoreboard
+            // (default) — uvm_sequence_library.svh:775
+            // `` `uvm_info("SEQLIB/EXEC",{"Executing ",
+            //     (seq_or_item.is_item() ? "item " : "sequence "), …}) ``
+            // (the `?:` lands at the macro's own span, uvm_message_defines.svh
+            // 115:55-115:100).  ref_typespec::Compare is reached from
+            // expr::Compare BEFORE operation::Compare ever looks at VpiOpType,
+            // so the surplus WRAPPER reported as a bare typespec mismatch.
+            //
+            // VERIFIER FIX (r10v118).  The fence above is spelled as the ONE
+            // syntax kind `CastExpression`, but a written `'` has TWO spellings
+            // in slang and only one of them is `CastExpression`:
+            // `ConversionExpression::fromSyntax(SignedCastExpressionSyntax&)`
+            // (ConversionExpression.cpp:409-440) also produces
+            // `ConversionKind::Explicit`, and for the CONST cast
+            // (`syntax.signing.kind == TokenKind::ConstKeyword`) it sets
+            // `result->type = operand.type` — so `const'(<string expr>)` is an
+            // Explicit conversion whose type `isString()` and whose
+            // `expr.syntax` is a `SignedCastExpression`, NOT a
+            // `CastExpression`.  The `'` IS written, Surelog's `paCast` arm DOES
+            // mint the `vpiCastOp` for it (it additionally reports UH0705 for
+            // the `Const_type` typespec and emits the operation with no
+            // typespec), so dropping it REMOVES an operation golden has —
+            // measured on a purpose-built golden: golden `vpiCastOp NOPS=1`,
+            // pristine `NOPS=0`, and the unfenced law emitted NOTHING.  The
+            // exclusion is attached to THIS law's disjunct only, so the
+            // pre-existing string-literal rule above (`const'("abc")`) keeps
+            // the answer it has always given.
+            const bool writtenSignCast118 =
+                effCastSyn &&
+                effCastSyn->kind == syntax::SyntaxKind::SignedCastExpression;
             if (expr.type && expr.type->isString() &&
-                stripImplicitConv(conv.operand()).kind == ExpressionKind::StringLiteral &&
+                (stripImplicitConv(conv.operand()).kind ==
+                     ExpressionKind::StringLiteral ||
+                 (conv.conversionKind == ConversionKind::Explicit &&
+                  !writtenSignCast118)) &&
                 (!effCastSyn ||
                  effCastSyn->kind != syntax::SyntaxKind::CastExpression))
                 return emitExpr(stripImplicitConv(conv.operand()), parent, prefix,

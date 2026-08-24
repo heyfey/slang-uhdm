@@ -1,0 +1,23 @@
+r10v118 — operation-typespec census, VERIFIER's own rebuild, FIXED binary
+(md5 f510979e40e57101df859cb86c8cc097) vs the golden each row's own cmds.txt
+names.  Key OPT/NOPS/SPAN/PAR; payload = Actual_typespec kind / located-ness /
+name.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+
+ROW                                    golden ours BOTH-SAME MOVED-WRONG OURS-ONLY GOLDEN-ONLY
+default/BuildUVMPkg-bf853d43              37   37        29           8         0           0
+default/MiniAmiq-544c7f61                 71   71        57          14         0           0
+default/Scoreboard-59431470               48   48        40           8         0           0
+default/SeqDriver-32af76aa                68   68        55          13         0           0
+default/SimpleUVM-1dc93a62                48   48        41           7         0           0
+testflags/BuildUVMPkg-bf853d43            37   37        29           8         0           0
+testflags/MiniAmiq-544c7f61               71   71        57          14         0           0
+testflags/SeqDriver-32af76aa              68   68        55          13         0           0
+testflags/SimpleUVM-1dc93a62              48   48        41           7         0           0
+
+MOVED-WRONG is the pass's R3 (cast-typespec NAME: golden `uvm_reg_data_t` vs our
+`uvm_pkg::uvm_reg_data_t`), identical before and after — this law does not touch it.
+
+Cast-operation totals, per mover, golden / pristine / fixed:
+  BuildUVMPkg  37 / 44 / 37     MiniAmiq   71 / 84 / 71
+  Scoreboard   48 / 55 / 48     SeqDriver  68 / 81 / 68
+  SimpleUVM    48 / 55 / 48

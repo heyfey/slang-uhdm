@@ -1,0 +1,42 @@
+r10uvm118 — INPUTS, so every number above is reproducible.
+
+BASE                 9ac2763 (branch auto5h)
+pristine binary      built in this pass's own worktree at 9ac2763
+                     md5 b815e9f51e1d2009ab5307f874dde17a  (== the main tree's
+                     build/slang-uhdm at 9ac2763)
+patched binary       md5 de4c7d9344b65013d2cb8b68aa913ba8
+both frozen `chmod 555` before any sweep; md5 taken separately from the build.
+
+judge                ~/git-repos/UHDM/build/bin/uhdm-cmp   (head on STDERR)
+dumper               ~/git-repos/UHDM/build/bin/uhdm-dump
+golden producer      ~/git-repos/Surelog/build/bin/surelog -parse -nobuiltin
+                     -nocache -d uhdm     (for the purpose-built arms)
+corpus goldens       read from each workdir's OWN cmds.txt (`golden cache hit
+                     <dir>` -> <dir>/golden.uhdm); never guessed.
+corpora              surelog 956 comparable databases (1588 row-modes),
+                     uhdm2rtlil 1358 databases
+controls             /tmp/ctl_sl_9ac2763.csv, /tmp/ctl_u2r_9ac2763.csv,
+                     /tmp/ctl_u2r_def_9ac2763.csv,
+                     /tmp/ctl_wd_sl_9ac2763, /tmp/ctl_wd_u2r_9ac2763
+committed baselines  results/golden_surelog.csv, results/gate_uhdm2rtlil.csv
+                     — READ ONLY, NOT EDITED, NO ROW CONVERTED
+GOLDEN_DEFER         unset throughout
+
+census instrument    ct118cen.cpp
+  build: g++ -O2 -std=c++17 ct118cen.cpp -I ~/.local/include \
+             -L ~/.local/lib64 -L ~/.local/lib -luhdm -lcapnp -lkj -o ct118cen
+  run:   LD_LIBRARY_PATH=~/.local/lib64:~/.local/lib ./ct118cen <db.uhdm> [--all|--ts|--cast]
+
+slang source read (NOT patched — patching slang is out of scope):
+  ~/git-repos/slang/source/ast/expressions/OperatorExpressions.cpp:1982
+  ~/git-repos/slang/source/ast/expressions/ConversionExpression.cpp:442
+  ~/.local/include/slang/ast/Expression.h:70-80  (ConversionKind)
+  ~/.local/include/slang/ast/expressions/ConversionExpression.h:28 (isImplicit)
+Surelog source read:
+  ~/git-repos/Surelog/src/DesignCompile/CompileExpression.cpp:2637-2690
+UHDM source read:
+  ~/git-repos/UHDM/build/generated/src/expr.cpp       (Compare field order)
+  ~/git-repos/UHDM/build/generated/src/operation.cpp  (Compare field order)
+  ~/.local/include/uhdm/BaseClass.h:187-199           (SafeCompare, singular)
+  ~/.local/include/uhdm/sv_vpi_user.h:375             (vpiCastOp == 67)
+  ~/.local/include/uhdm/vpi_user.h:471-472            (vpiConditionOp 32, vpiConcatOp 33)

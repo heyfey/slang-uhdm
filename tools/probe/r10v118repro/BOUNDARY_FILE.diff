@@ -1,0 +1,6 @@
+plain r10uvm118repro/g118_a1_homes.sv
+elab r10uvm118repro/g118_a1_homes.sv
+plain r10uvm118repro/g118_a2_operands.sv
+elab r10uvm118repro/g118_a2_operands.sv
+plain r10uvm118repro/g118_a3_mixed.sv
+elab r10uvm118repro/g118_a3_mixed.sv

@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-24 01:05, HEAD = the buvm34 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-24 02:10, HEAD = the uvm118 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,14 +182,14 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2, MiniAmiq×2, BuildUVMPkg×2, SimpleUVM×2, Scoreboard/default — NINE UVM row-modes, ONE object | 17 (depth) | the SURPLUS operation typespec (the mirror singular arm, LHS `<null>`): OURS binds ref_typespec (uvm_pkg::uvm_sequence_library::execute) → logic_typespec onto the conditional operation (vpiOpType 67) @macro line 115:55-115:100 of the out-of-body `task uvm_sequence_library::execute` (uvm_sequence_library.svh:749); golden's operation carries none — the REVERSE face of the earl72/75 fold-typespec family; uvm118 (in flight) clears all nine (buvm34 landed: the scoped-foreach loop var — a ::-written foreach's loop variables take Surelog's int_var + bare int_typespec fallback) |
+| SeqDriver×2, MiniAmiq×2, BuildUVMPkg×2, SimpleUVM×2, Scoreboard/default — NINE UVM row-modes, ONE object | 76 (depth) | `seq_or_item.randomize() with {…}` (uvm_sequence_library.svh:778, span @299:53) — THREE laws in one object: (a) the inline-constraint call is NOT a hier_path name component (golden VpiName `seq_or_item`, ours `seq_or_item.randomize` — the uvm89/uvm92 closed-dispatch family, oracle ct92cen); (b) golden's method_func_call (randomize) carries vpiWith → constraint and is SPAN-LESS, we emit neither (uvm116's R0, the MEMBER form); (c) our span runs to 778:9; hier_path::Compare reads VpiName before Path_elems so (a) first; uvm119 (next) clears all nine (uvm118 landed: 17→76, a string-bearing concat's compiler-inserted Explicit conversions emit NO cast — a cast exists iff a tick was written; the verifier added the const-cast syntax kind to the fence) |
 | Earlgrey_0_1 (default 32 / testflags 36 — no longer identical: the testflags ref_obj carries a vpiActual) | 32/36 (depth) | a port High_conn BIT-SELECT index naming an overridden module parameter: `.tl_h_i (tl_u_o[N])` (tlul_socket_1n.sv:215) — golden folds the index to constant UINT:2 size 64 ct 9 (the getValue/reduceExpr encoding, NOT the parameter's own param_assign 32: measure which producer stamps it), ours a ref_obj N; § genLpBitSelIdxOneHopFold67 the nearest gate, pacen80.cpp the census reader; pass earl81 next (earl80 landed: 64→32/36, an OVERRIDDEN parameter on an override chain passes the actual's Value through untouched — the decompile is decided once, where the Value is born) |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 75 verifier fix-before-landing re-cuts (162 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 76 verifier fix-before-landing re-cuts (163 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

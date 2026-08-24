@@ -1,0 +1,65 @@
+== SeqDriver/default
+   BOTH-SAME   55
+   MOVED-WRONG 13
+   OURS-ONLY   0
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   0
+== SeqDriver/testflags
+   BOTH-SAME   55
+   MOVED-WRONG 13
+   OURS-ONLY   0
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   0
+== SimpleUVM/default
+   BOTH-SAME   41
+   MOVED-WRONG 7
+   OURS-ONLY   0
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   0
+== SimpleUVM/testflags
+   BOTH-SAME   41
+   MOVED-WRONG 7
+   OURS-ONLY   0
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   0
+== Scoreboard/default
+   BOTH-SAME   40
+   MOVED-WRONG 8
+   OURS-ONLY   0
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   0
+== Scoreboard/testflags  SKIP-NOFILE
+== MiniAmiq/default
+   BOTH-SAME   57
+   MOVED-WRONG 14
+   OURS-ONLY   0
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   0
+== MiniAmiq/testflags
+   BOTH-SAME   57
+   MOVED-WRONG 14
+   OURS-ONLY   0
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   0
+== BuildUVMPkg/default
+   BOTH-SAME   29
+   MOVED-WRONG 8
+   OURS-ONLY   0
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   0
+== BuildUVMPkg/testflags
+   BOTH-SAME   29
+   MOVED-WRONG 8
+   OURS-ONLY   0
+   GOLDEN-ONLY 0
+   OURS-ONLY by REGION/MACRO:
+     OURS-ONLY   0
+-- SKIP-NOFILE=1

@@ -1,0 +1,61 @@
+r10uvm118 — ARM SCORES, verbatim from arm118.sh.  LHS is ALWAYS golden(Surelog).
+Golden is built with `surelog -parse -nobuiltin -nocache -d uhdm`; both frozen
+binaries are run in BOTH views; every child gets </dev/null and its rc is printed.
+Scores are over EVERY `operation` object, joined on OPT/NOPS/SPAN/PAR.
+
+=== g118_a1_homes.sv — 19 rows, THIRTEEN HOMES, three MACRO-EXPANDED spans
+SL    rc=0   pris rc=0   prisE rc=0   patc rc=0   patcE rc=0
+g   operations=81  with-typespec=0  cast=0  cast-bare-logic-ts=0
+o   operations=107 with-typespec=26 cast=26 cast-bare-logic-ts=26
+oe  operations=228 with-typespec=56 cast=56 cast-bare-logic-ts=56
+q   operations=81  with-typespec=0  cast=0  cast-bare-logic-ts=0
+qe  operations=172 with-typespec=0  cast=0  cast-bare-logic-ts=0
+-- default  PRISTINE vs GOLDEN : BOTH-SAME 55  MOVED-WRONG 0  OURS-ONLY 52  GOLDEN-ONLY 26
+-- default  PATCHED  vs GOLDEN : BOTH-SAME 81  MOVED-WRONG 0  OURS-ONLY  0  GOLDEN-ONLY  0
+-- elab     PRISTINE vs GOLDEN : BOTH-SAME 55  MOVED-WRONG 0  OURS-ONLY 173 GOLDEN-ONLY 26
+-- elab     PATCHED  vs GOLDEN : BOTH-SAME 81  MOVED-WRONG 0  OURS-ONLY 91  GOLDEN-ONLY  0
+   (the elab OURS-ONLY 91 is the elaborated-instance copy of the module body,
+    which a `surelog -parse` golden does not contain at all; it is present in
+    IDENTICAL form before and after and is not this law's.)
+GOLDEN EMITS ZERO vpiCastOp IN THIS FILE — in all thirteen homes.
+
+=== g118_a2_operands.sv — operand kinds + the WRITTEN-cast negative controls
+SL    rc=0   pris rc=4   prisE rc=4   patc rc=4   patcE rc=4
+   (rc=4 is `unsupported constructs encountered: expression kind: Invalid`, the
+    SAME on both binaries; no row is missing — the concat spans of all 20
+    concatenations are identical in golden and in the patched database.)
+g   operations=45  with-typespec=5  cast=5  cast-bare-logic-ts=0
+o   operations=54  with-typespec=14 cast=14 cast-bare-logic-ts=9
+q   operations=45  with-typespec=5  cast=5  cast-bare-logic-ts=0
+-- default  PRISTINE vs GOLDEN : BOTH-SAME 34  MOVED-WRONG 3  OURS-ONLY 17  GOLDEN-ONLY 8
+-- default  PATCHED  vs GOLDEN : BOTH-SAME 42  MOVED-WRONG 3  OURS-ONLY  0  GOLDEN-ONLY 0
+-- elab     PRISTINE vs GOLDEN : BOTH-SAME 34  MOVED-WRONG 3  OURS-ONLY 71  GOLDEN-ONLY 8
+-- elab     PATCHED  vs GOLDEN : BOTH-SAME 42  MOVED-WRONG 3  OURS-ONLY 45  GOLDEN-ONLY 0
+Cast count golden 5 / pristine 14 / patched 5, and the five patched casts sit on
+golden's five spans exactly: 41:23-41:33, 43:23-43:53, 45:19-45:29,
+47:19-47:36(int'), 49:19-49:28(8').  MOVED-WRONG 3 = R1 (string' target kind),
+identical before and after.
+
+=== g118_a3_mixed.sv — earl72/earl75 POSITIVE CONTROLS beside this law
+SL    rc=0   pris rc=0   prisE rc=0   patc rc=0   patcE rc=0
+g   operations=52  with-typespec=0  cast=0  cast-bare-logic-ts=0
+o   operations=57  with-typespec=5  cast=5  cast-bare-logic-ts=5
+q   operations=52  with-typespec=0  cast=0  cast-bare-logic-ts=0
+-- default  PRISTINE vs GOLDEN : BOTH-SAME 47  MOVED-WRONG 0  OURS-ONLY 10  GOLDEN-ONLY 5
+-- default  PATCHED  vs GOLDEN : BOTH-SAME 52  MOVED-WRONG 0  OURS-ONLY  0  GOLDEN-ONLY 0
+-- elab     PRISTINE vs GOLDEN : BOTH-SAME 47  MOVED-WRONG 0  OURS-ONLY 57  GOLDEN-ONLY 5
+-- elab     PATCHED  vs GOLDEN : BOTH-SAME 52  MOVED-WRONG 0  OURS-ONLY 42  GOLDEN-ONLY 0
+
+=== earl72 / earl75 COMMITTED ARMS, pristine vs patched, normalised dumps
+  r10earl75repro/g1_gsproc75.sv   IDENTICAL  (rc=0 / rc=0)
+  r10earl72repro/g1_pos72.sv      IDENTICAL  (rc=0 / rc=0)
+  r10earl72repro/g2_origin72.sv   IDENTICAL  (rc=0 / rc=0)
+and g1_gsproc75.sv placed TWO DIRECTORIES DEEP in the boundary positive control
+is IDENTICAL there too, in both views.
+
+=== THE PATCH IS PROVABLY ONE-SIDED
+Indentation-blind, SORTED whole-dump diff, pristine -> patched, all three arms,
+both views: ADDED = 0 in all six.  Removed lines per family cell:
+  \_operation (vpiOpType:67) | vpiTypespec | \_ref_typespec | vpiFullName |
+  vpiActual | \_logic_typespec | vpiParent | vpiOperand   (+ the vpiInstance /
+  \_package stamp the catch-all put on that typespec)

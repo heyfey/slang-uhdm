@@ -1,0 +1,10 @@
+# r10uvm118 — pred118.sh output, DISTILLED: every row whose FAM_OURS, FAM_GOLD or
+# cast-bare-logic-ts is NONZERO, plus the SKIP-NOFILE / measured tally.  The full
+# per-database listing is regenerable with
+#   pred118.sh <workdir> <ct118cen>
+# and every suppressed row reads FAM_OURS=0 FAM_GOLD=0 cast-bare-logic-ts=0 on BOTH sides.
+default   static_cast_simple           FAM_OURS=0 FAM_GOLD=0 OURS[operations=87 with-typespec=48 cast=48 cast-bare-logic-ts=8 rows=48] GOLD[operations=79 with-typespec=40 cast=40 cast-bare-logic-ts=0 rows=40]
+testflags static_cast_simple           FAM_OURS=0 FAM_GOLD=0 OURS[operations=87 with-typespec=48 cast=48 cast-bare-logic-ts=8 rows=48] GOLD[operations=79 with-typespec=40 cast=40 cast-bare-logic-ts=0 rows=40]
+
+# SKIP-NOFILE rows: 105
+-- measured=1358 SKIP-NOFILE=104
