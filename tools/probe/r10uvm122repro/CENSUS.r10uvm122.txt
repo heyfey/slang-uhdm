@@ -1,0 +1,38 @@
+SeqDriver.default          ONESIDED_PRIS=7269 SAME_AGREE=33280 SAME_DIFF=1699 TOGOLD=8
+SeqDriver.testflags        ONESIDED_PRIS=7269 SAME_AGREE=33280 SAME_DIFF=1699 TOGOLD=8
+SimpleUVM.default          ONESIDED_PRIS=4864 SAME_AGREE=24321 SAME_DIFF=597 TOGOLD=8
+SimpleUVM.testflags        ONESIDED_PRIS=4864 SAME_AGREE=24321 SAME_DIFF=597 TOGOLD=8
+Scoreboard.default         ONESIDED_PRIS=4883 SAME_AGREE=24786 SAME_DIFF=200 TOGOLD=8
+Scoreboard.testflags SKIP-NOFILE
+MiniAmiq.default           ONESIDED_PRIS=7607 SAME_AGREE=35444 SAME_DIFF=1377 TOGOLD=8
+MiniAmiq.testflags         ONESIDED_PRIS=7607 SAME_AGREE=35444 SAME_DIFF=1377 TOGOLD=8
+BuildUVMPkg.default        ONESIDED_PRIS=2685 SAME_AGREE=25799 SAME_DIFF=189 TOGOLD=7
+BuildUVMPkg.testflags      ONESIDED_PRIS=2685 SAME_AGREE=25799 SAME_DIFF=189 TOGOLD=7
+Earlgrey_0_1.default       ONESIDED_PRIS=14311 SAME_AGREE=121092 SAME_DIFF=936
+Earlgrey_0_1.testflags     — the patched database is BYTE-IDENTICAL to the
+Rggen.default                pristine one (byteverify's 11/956 mover set names
+                             neither), so the census over them is zero-delta by
+                             construction; Earlgrey/default above is the
+                             measured confirmation of that for the family.
+Rggen.testflags SKIP-NOFILE
+
+-- TOTALS over the NINE UVM DATABASES
+   TOGOLD  8+8+8+8+8+8+8+7+7 = 70
+   MOVEDWRONG 0   AWAY 0   ONESIDED_PAT 0
+   No cell KEY was added or removed: ONESIDED_PRIS is identical pristine ->
+   patched in every row, and ONESIDED_PAT is 0 everywhere.
+
+-- CALIBRATION
+   The join key is (ref kind, printed name, ref span) with the multiplicity in
+   the VALUE, so a colliding key cannot drop a row.  No fullname, no file path,
+   no VpiParent — the dump SYNTHESIZES vpiFullName from the parent chain and
+   our hier_paths carry an EMPTY VpiFile.
+   ONESIDED_PRIS counts cells whose key exists on only ONE of golden/ours: the
+   two tools' pre-existing naming and span divergence, untouched by this pass.
+   ONESIDED_PAT is the assertion that matters here and it is 0: the pass
+   changed VALUES only.
+
+-- THE PRE-FENCE CONTROL is CENSUS.prefence.r10uvm122.txt: the SAME census run
+   against the build WITHOUT § localBlockStmtSelBinds122's import-clone fence.
+   SeqDriver and MiniAmiq each show MOVEDWRONG=8 there and 0 here, and their
+   SAME_AGREE rises by exactly 8 (33272 -> 33280, 35436 -> 35444).

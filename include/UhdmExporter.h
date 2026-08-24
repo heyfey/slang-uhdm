@@ -5950,6 +5950,29 @@ private:
     // Vars ALSO written whole (dout = ...) never repoint their whole refs
     // (multiple_blocking_gate).
     std::set<const slang::ast::Symbol*> selWholeWrittenVars;
+    // § localBlockStmtSelBinds122 — the LOCAL-VARIABLE half of the same
+    // `UhdmWriter::lateBinding` block arm, kept in its OWN registry so the
+    // net / io_decl model above stays byte-identical.
+    //
+    // Surelog (src/DesignCompile/UhdmWriter.cpp:3551-3593, and the identical
+    // `named_begin` / `fork_stmt` / `named_fork` copies at :3598-3735) walks a
+    // pooled reference's own `VpiParent` chain and, at EACH block ancestor,
+    // asks three questions IN ORDER:
+    //   1. does `b->Variables()` declare the name?          -> bind the DECL
+    //   2. does `b->Parameters()`?                          -> bind it
+    //   3. does one of `b->Stmts()` — DIRECTLY, not nested — hold an
+    //      `assignment` / `assign_stmt` whose `Lhs()->VpiName()` is the name
+    //      and whose Lhs is NEITHER `ref_obj` NOR `ref_var`?  -> bind THAT
+    //      LVALUE OBJECT, i.e. the block's first bit_select / part_select /
+    //      indexed_part_select / var_select of the name.
+    // The walk stops at the FIRST block that answers, so the declaring block
+    // ALWAYS wins over any select it also holds, and only then does the search
+    // move outward.  `selBlockDecls122` is question 1, `selLocalSel122` is
+    // question 3, and `endSelTrack` walks them innermost-first together.
+    std::map<std::pair<int, const slang::ast::Symbol*>, UHDM::expr*>
+        selLocalSel122;
+    std::set<const slang::ast::Symbol*> selLocalSelVars122;
+    std::set<std::pair<int, const slang::ast::Symbol*>> selBlockDecls122;
     // The function-RETURN-name refs endSelTrack already re-pointed at a select
     // object.  drainFuncRet mints a per-ref return variable for everything in
     // `pendingFuncRet`, which would clobber that binding, so it skips these.
@@ -5957,6 +5980,16 @@ private:
     bool beginSelTrack();  // returns true if it newly activated tracking
     void endSelTrack();    // back-patches whole-refs and clears state
     void noteSelectObj(const slang::ast::Symbol* base, UHDM::any* selObj);
+    // § localBlockStmtSelBinds122 — question 1 (a block's `Variables()`) and
+    // question 3 (its DIRECT `Stmts()` lvalues); see the registries above.
+    void noteBlockDecls122(const slang::ast::Statement& stmt);
+    void noteLocalStmtSel122(const slang::ast::Expression& e, UHDM::any* obj,
+                             NetMap& netMap);
+    // The reference's CURRENT actual is a local variable DECLARATION object —
+    // the only starting point this law re-points from.  A net, an `io_decl`,
+    // a `ref_var` local and an UNBOUND reference are all excluded, which is
+    // what keeps every other binding model's cells byte-identical.
+    static bool localVarDecl122(const UHDM::any* o);
     // The enclosing block scope ids, innermost first (empty outside a body).
     std::vector<int> selScopeChain() const {
         std::vector<int> c;

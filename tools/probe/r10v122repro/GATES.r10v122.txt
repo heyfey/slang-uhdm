@@ -1,0 +1,85 @@
+r10v122 — ADVERSARIAL VERIFIER GATE TRANSCRIPT (independent re-measurement)
+BASE 7bfb970.  Worktrees /tmp/wt_v122 (patched) + /tmp/wt_v122pris (pristine).
+Binaries FROZEN chmod 555 BEFORE any sweep at /tmp/v122_bin/{pris,pat}.bin.
+
+1 BUILD
+  pristine md5 94786b24b692c0fbd46e1fefacfb715a  (== the campaign control /tmp/pris_9478.bin)
+  patched  md5 6dc8c2e8e013e630f6d262dada665b9b  (== the implementer's claim)
+  compiler warnings: 20 on BOTH, identical set (path prefix only) — no new warning.
+
+2 GOLDENS   patched 23 PASS / 0 FAIL;  pristine 23 PASS / 0 FAIL
+            SLANG_UHDM=/bin/false -> 0 PASS / 23 FAIL  (negative control)
+
+3 uhdm2rtlil (own sweeps, both binaries, --jobs 2)
+  testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+  default   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+  ct8rows patched-vs-committed baseline .............. PASS
+  ct8rows patched-vs-OWN-pristine (tf and default) ... PASS
+  byteverify SELFCHECK=1 ............................. MOVERS 0 / 1358
+
+4 surelog (own sweeps, --mode both)
+  default   471 CMP_EQUAL 10 CMP_NOTEQUAL 5 DEFERRED 283 SLANG_REJECT 25 SURELOG_FAIL
+  testflags 466 CMP_EQUAL  9 CMP_NOTEQUAL 5 DEFERRED 3 NO_DATABASE 1 NO_UHDM
+            284 SLANG_REJECT 23 SURELOG_FAIL 1 TIMEOUT 2 UNTRANSLATABLE
+  ct8rows patched-vs-committed baseline: 0 differing ROWS over 1588 (status AND dump)
+  ct8rows patched-vs-OWN-pristine:       0 differing ROWS over 1588
+  NO ROW CONVERTED.  results/*.csv untouched (read-only copies in the worktree).
+  byteverify SELFCHECK=1 ............................. MOVERS 11 / 956
+
+5 cmds.txt AUDIT BY BINARY PATH (not by the string "slang-uhdm")
+  sl_pat  1573 cmds, 1523 name /tmp/v122_bin/pat.bin, 0 main-tree
+  sl_pris 1573 cmds, 1523 name /tmp/v122_bin/pris.bin, 0 main-tree
+  u2r_pat 1462 cmds, 1458 name /tmp/v122_bin/pat.bin, 0 main-tree
+  u2r_pris1462 cmds, 1458 name /tmp/v122_bin/pris.bin, 0 main-tree
+  the non-naming cmds.txt files invoke NO slang binary at all (SURELOG_FAIL rows).
+
+6 CANARIES
+  canaries.sh surelog     ok=52 changed=0 absent=0
+  canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+  ctcan2 surelog PASS, ctcan2 uhdm2rtlil PASS
+  canaudit.sh canaries.sh ctcan2.sh  ->  audited=29 UNCOVERED=0 FENCE-BREACH=0
+  InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical both modes
+  SVSwitch 4842211c4030 both modes;  YosysVerx 6ccda350c24a both modes
+
+7 HEADS (rowheads.sh, own workdirs, one head per run asserted by grep -c '^LHS:')
+  row            mode        pristine   patched
+  SeqDriver      default        58/1      28/1
+  SeqDriver      testflags      58/1      28/1
+  MiniAmiq       default        58/1      28/1
+  MiniAmiq       testflags      58/1      28/1
+  SimpleUVM      def/tf        148/1     148/1   cmp log BYTE-IDENTICAL
+  Scoreboard     default       148/1     148/1   cmp log BYTE-IDENTICAL
+  BuildUVMPkg    def/tf        148/1     148/1   cmp log BYTE-IDENTICAL
+  Earlgrey_0_1   def/tf         58/1      58/1   cmp log BYTE-IDENTICAL
+  Rggen          default         0/0       0/0
+  The four committed head_{pris,pat}_default_{SeqDriver,MiniAmiq}.cmp logs are
+  BYTE-IDENTICAL to my own runs.
+
+8 A-PRIORI MOVER PREDICTION (pred122.py over MY pristine databases, before byteverify)
+  surelog     35 candidates / 956, PROCESSED-ASSERT-OK
+  uhdm2rtlil  16 candidates / 1358, PROCESSED-ASSERT-OK
+  11 actual surelog movers, ALL 11 PREDICTED BY NAME, 0 unpredicted; 0 u2r movers.
+
+9 MOVER ATTRIBUTION (path-normalised, order-blind)
+  BuildUVMPkg def/tf 28 lines; SeqDriver/SimpleUVM/MiniAmiq def/tf and
+  Scoreboard/default 32 lines; YosysOldSystem def/tf 2 lines.
+  EVERY changed line is a vpiActual on one of four names, declaration <-> select:
+    uvm_pkg::uvm_oneway_hash::crc1                    bit_var    -> bit_select
+    uvm_pkg::uvm_mem::do_{read,write}::value_s        string_var -> bit_select
+    uvm_pkg::uvm_reg_map::get_physical_addresses::local_addr  array_var -> bit_select
+    work@byte_mixcolum.xtime.xtime_t                  logic_var  -> bit_select
+  (Scoreboard/default's coin did not flip in my run: raw == order-blind == 32.)
+
+10 WIDE BOUNDARY  (my own COPY of tools/probe, no path filter, .sv and .v,
+   fd-3 list, children </dev/null, rc per cell)
+   LISTED=3745 FENCED_SKIPPED=0 PROCESSED=3745 MOVED=9 NO_OUTPUT_PAIRS=294
+   PROCESSED-ASSERT-OK
+   7 = the pass's own g122_* arms (positive controls, all TO GOLDEN, see
+       ARMS.g122rescored.r10v122.txt)
+   2 = r10buvm22repro/g22.sv def+elab, 12 lines each — REPRODUCED AND
+       ATTRIBUTED: the only changed values are vpiDecompile/UINT on the
+       synthesized range of `typedef C22 ka_cls_t[string];` (g22.sv:70),
+       22441433 -> 22445529 and 22440577 -> 22444673, EXACTLY +4096, an
+       image-relative address (uvm120 residue R7, proved there with an
+       8192-byte padding control).  Not a semantic move.
+   EVERY named boundary the brief protects is inside the 3745 and UNMOVED.

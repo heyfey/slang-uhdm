@@ -1,0 +1,258 @@
+g122_a_owner.def           SAME_AGREE=25 SAME_DIFF=1 TOGOLD=6
+   TOGOLD       ref_obj p122a::a1_fnlocal::v 13:7-13:8
+        golden=bit_select p122a::a1_fnlocal::v line:14:7, endln:14:11
+        pris  =bit_var p122a::a1_fnlocal::v line:10:16, endln:10:17
+        pat   =bit_select p122a::a1_fnlocal::v line:14:7, endln:14:11
+   TOGOLD       ref_obj p122a::a2_tasklocal::v 24:7-24:8
+        golden=bit_select p122a::a2_tasklocal::v line:25:7, endln:25:11
+        pris  =bit_var p122a::a2_tasklocal::v line:21:16, endln:21:17
+        pat   =bit_select p122a::a2_tasklocal::v line:25:7, endln:25:11
+   TOGOLD       ref_obj p122a::a4_auto::v 43:7-43:8
+        golden=bit_select p122a::a4_auto::v line:44:7, endln:44:11
+        pris  =bit_var p122a::a4_auto::v line:40:16, endln:40:17
+        pat   =bit_select p122a::a4_auto::v line:44:7, endln:44:11
+   SAME_DIFF    ref_obj p122a::a5_pkgvar::pkgvar 52:7-52:13
+        golden=bit_select p122a::a5_pkgvar::pkgvar line:53:7, endln:53:16
+        pris  =int_var p122a::pkgvar line:6:7, endln:6:13
+        pat   =int_var p122a::pkgvar line:6:7, endln:6:13
+   TOGOLD       ref_obj p122a::a6_intlocal::v 63:7-63:8
+        golden=bit_select p122a::a6_intlocal::v line:64:7, endln:64:11
+        pris  =int_var p122a::a6_intlocal::v line:60:9, endln:60:10
+        pat   =bit_select p122a::a6_intlocal::v line:64:7, endln:64:11
+   TOGOLD       ref_obj p122a::a7_logiclocal::v 74:7-74:8
+        golden=bit_select p122a::a7_logiclocal::v line:75:7, endln:75:11
+        pris  =logic_var p122a::a7_logiclocal::v line:71:18, endln:71:19
+        pat   =bit_select p122a::a7_logiclocal::v line:75:7, endln:75:11
+   TOGOLD       ref_obj p122a::a8_arrlocal::v 84:7-84:8
+        golden=bit_select p122a::a8_arrlocal::v line:85:7, endln:85:11
+        pris  =array_var p122a::a8_arrlocal::v line:82:9, endln:82:10
+        pat   =bit_select p122a::a8_arrlocal::v line:85:7, endln:85:11
+g122_a_owner.elab          SAME_AGREE=32
+g122_b_shape.def           SAME_AGREE=39 TOGOLD=11
+   TOGOLD       ref_obj p122b::b10_nb::v 74:18-74:19
+        golden=bit_select p122b::b10_nb::v line:74:26, endln:74:30
+        pris  =bit_var p122b::b10_nb::v line:73:16, endln:73:17
+        pat   =bit_select p122b::b10_nb::v line:74:26, endln:74:30
+   TOGOLD       ref_obj p122b::b11_two::v 80:18-80:19
+        golden=part_select p122b::b11_two::v line:80:26, endln:80:32
+        pris  =bit_var p122b::b11_two::v line:79:16, endln:79:17
+        pat   =part_select p122b::b11_two::v line:80:26, endln:80:32
+   TOGOLD       ref_obj p122b::b12_whole1st::v 87:18-87:19
+        golden=bit_select p122b::b12_whole1st::v line:87:25, endln:87:29
+        pris  =bit_var p122b::b12_whole1st::v line:86:16, endln:86:17
+        pat   =bit_select p122b::b12_whole1st::v line:87:25, endln:87:29
+   TOGOLD       ref_obj p122b::b12_whole1st::v 87:35-87:36
+        golden=bit_select p122b::b12_whole1st::v line:87:25, endln:87:29
+        pris  =bit_var p122b::b12_whole1st::v line:86:16, endln:86:17
+        pat   =bit_select p122b::b12_whole1st::v line:87:25, endln:87:29
+   TOGOLD       ref_obj p122b::b1_lit::v 11:18-11:19
+        golden=bit_select p122b::b1_lit::v line:11:26, endln:11:30
+        pris  =bit_var p122b::b1_lit::v line:10:16, endln:10:17
+        pat   =bit_select p122b::b1_lit::v line:11:26, endln:11:30
+   TOGOLD       ref_obj p122b::b2_var::v 18:18-18:19
+        golden=bit_select p122b::b2_var::v line:18:26, endln:18:30
+        pris  =bit_var p122b::b2_var::v line:17:16, endln:17:17
+        pat   =bit_select p122b::b2_var::v line:18:26, endln:18:30
+   TOGOLD       ref_obj p122b::b3_part::v 25:18-25:19
+        golden=part_select p122b::b3_part::v line:25:26, endln:25:32
+        pris  =bit_var p122b::b3_part::v line:24:16, endln:24:17
+        pat   =part_select p122b::b3_part::v line:25:26, endln:25:32
+   TOGOLD       ref_obj p122b::b4_ipsup::v 32:18-32:19
+        golden=indexed_part_select p122b::b4_ipsup::v line:32:26, endln:32:33
+        pris  =bit_var p122b::b4_ipsup::v line:31:16, endln:31:17
+        pat   =indexed_part_select p122b::b4_ipsup::v line:32:26, endln:32:33
+   TOGOLD       ref_obj p122b::b5_ipsdn::v 39:18-39:19
+        golden=indexed_part_select p122b::b5_ipsdn::v line:39:26, endln:39:33
+        pris  =bit_var p122b::b5_ipsdn::v line:38:16, endln:38:17
+        pat   =indexed_part_select p122b::b5_ipsdn::v line:39:26, endln:39:33
+   TOGOLD       ref_obj p122b::b6_twodim::v 46:18-46:19
+        golden=var_select p122b::b6_twodim::v line:46:26, endln:46:33
+        pris  =bit_var p122b::b6_twodim::v line:45:20, endln:45:21
+        pat   =var_select p122b::b6_twodim::v line:46:26, endln:46:33
+   TOGOLD       ref_obj p122b::b8_unpk::v 60:18-60:19
+        golden=bit_select p122b::b8_unpk::v line:60:36, endln:60:40
+        pris  =array_var p122b::b8_unpk::v line:59:9, endln:59:10
+        pat   =bit_select p122b::b8_unpk::v line:60:36, endln:60:40
+g122_b_shape.elab          SAME_AGREE=50
+g122_c_scope.def           SAME_AGREE=45 TOGOLD=6
+   TOGOLD       ref_obj p122c::c10_fork::v 102:7-102:8
+        golden=bit_select p122c::c10_fork::v line:103:7, endln:103:11
+        pris  =bit_var p122c::c10_fork::v line:100:16, endln:100:17
+        pat   =bit_select p122c::c10_fork::v line:103:7, endln:103:11
+   TOGOLD       ref_obj p122c::c2_deeper::v 16:14-16:15
+        golden=bit_select p122c::c2_deeper::v line:17:7, endln:17:11
+        pris  =bit_var p122c::c2_deeper::v line:14:16, endln:14:17
+        pat   =bit_select p122c::c2_deeper::v line:17:7, endln:17:11
+   TOGOLD       ref_obj p122c::c6_named::nb122::v 59:7-59:8
+        golden=bit_select p122c::c6_named::nb122::v line:60:7, endln:60:11
+        pris  =bit_var p122c::c6_named::v line:57:16, endln:57:17
+        pat   =bit_select p122c::c6_named::nb122::v line:60:7, endln:60:11
+   TOGOLD       ref_obj p122c::c7_for::v 69:7-69:8
+        golden=bit_select p122c::c7_for::v line:70:7, endln:70:11
+        pris  =bit_var p122c::c7_for::v line:67:16, endln:67:17
+        pat   =bit_select p122c::c7_for::v line:70:7, endln:70:11
+   TOGOLD       ref_obj p122c::c8_while::v 79:7-79:8
+        golden=bit_select p122c::c8_while::v line:80:7, endln:80:11
+        pris  =bit_var p122c::c8_while::v line:77:16, endln:77:17
+        pat   =bit_select p122c::c8_while::v line:80:7, endln:80:11
+   TOGOLD       ref_obj p122c::c9_case::v 90:9-90:10
+        golden=bit_select p122c::c9_case::v line:91:9, endln:91:13
+        pris  =bit_var p122c::c9_case::v line:87:16, endln:87:17
+        pat   =bit_select p122c::c9_case::v line:91:9, endln:91:13
+g122_c_scope.elab          SAME_AGREE=51
+g122_d_pos.def             SAME_AGREE=35 TOGOLD=10
+   TOGOLD       ref_obj p122d::d10_callstmt::v 96:21-96:22
+        golden=bit_select p122d::d10_callstmt::v line:97:7, endln:97:11
+        pris  =bit_var p122d::d10_callstmt::v line:94:16, endln:94:17
+        pat   =bit_select p122d::d10_callstmt::v line:97:7, endln:97:11
+   TOGOLD       ref_obj p122d::d1_both::v 8:18-8:19
+        golden=bit_select p122d::d1_both::v line:8:29, endln:8:33
+        pris  =bit_var p122d::d1_both::v line:7:16, endln:7:17
+        pat   =bit_select p122d::d1_both::v line:8:29, endln:8:33
+   TOGOLD       ref_obj p122d::d1_both::v 8:22-8:23
+        golden=bit_select p122d::d1_both::v line:8:29, endln:8:33
+        pris  =bit_var p122d::d1_both::v line:7:16, endln:7:17
+        pat   =bit_select p122d::d1_both::v line:8:29, endln:8:33
+   TOGOLD       ref_obj p122d::d2_cond::v 16:11-16:12
+        golden=bit_select p122d::d2_cond::v line:17:7, endln:17:11
+        pris  =bit_var p122d::d2_cond::v line:14:16, endln:14:17
+        pat   =bit_select p122d::d2_cond::v line:17:7, endln:17:11
+   TOGOLD       ref_obj p122d::d2_cond::v 16:19-16:20
+        golden=bit_select p122d::d2_cond::v line:17:7, endln:17:11
+        pris  =bit_var p122d::d2_cond::v line:14:16, endln:14:17
+        pat   =bit_select p122d::d2_cond::v line:17:7, endln:17:11
+   TOGOLD       ref_obj p122d::d3_arg::v 26:21-26:22
+        golden=bit_select p122d::d3_arg::v line:27:7, endln:27:11
+        pris  =bit_var p122d::d3_arg::v line:24:16, endln:24:17
+        pat   =bit_select p122d::d3_arg::v line:27:7, endln:27:11
+   TOGOLD       ref_obj p122d::d3_arg::v 26:7-26:8
+        golden=bit_select p122d::d3_arg::v line:27:7, endln:27:11
+        pris  =bit_var p122d::d3_arg::v line:24:16, endln:24:17
+        pat   =bit_select p122d::d3_arg::v line:27:7, endln:27:11
+   TOGOLD       ref_obj p122d::d4_idx::v 36:9-36:10
+        golden=bit_select p122d::d4_idx::v line:37:7, endln:37:11
+        pris  =bit_var p122d::d4_idx::v line:34:16, endln:34:17
+        pat   =bit_select p122d::d4_idx::v line:37:7, endln:37:11
+   TOGOLD       ref_obj p122d::d5_ret::v 47:14-47:15
+        golden=bit_select p122d::d5_ret::v line:46:7, endln:46:11
+        pris  =bit_var p122d::d5_ret::v line:44:16, endln:44:17
+        pat   =bit_select p122d::d5_ret::v line:46:7, endln:46:11
+   TOGOLD       ref_obj p122d::d7_rvalfirst::v 67:7-67:8
+        golden=bit_select p122d::d7_rvalfirst::v line:68:7, endln:68:11
+        pris  =bit_var p122d::d7_rvalfirst::v line:64:16, endln:64:17
+        pat   =bit_select p122d::d7_rvalfirst::v line:68:7, endln:68:11
+g122_d_pos.elab            SAME_AGREE=45
+g122_e_home.def            SAME_AGREE=33 SAME_DIFF=3 TOGOLD=2
+   SAME_DIFF    ref_obj e11_unit.s 109:7-109:8
+        golden=io_decl s line:106:47, endln:106:48
+        pris  =<none>
+        pat   =<none>
+   TOGOLD       ref_obj p122e::c122e2::e4_oob::ov 44:7-44:9
+        golden=bit_select p122e::c122e2::e4_oob::ov line:45:7, endln:45:12
+        pris  =bit_var p122e::c122e2::e4_oob::ov line:41:16, endln:41:18
+        pat   =bit_select p122e::c122e2::e4_oob::ov line:45:7, endln:45:12
+   SAME_DIFF    ref_obj work@i122e.e12_iftask.s 122:9-122:10
+        golden=io_decl s line:119:33, endln:119:34
+        pris  =<none>
+        pat   =<none>
+   TOGOLD       ref_obj work@m122e.e8_fnlocal.fv 83:7-83:9
+        golden=bit_select work@m122e.e8_fnlocal.fv line:84:7, endln:84:12
+        pris  =bit_var work@m122e.e8_fnlocal.fv line:80:16, endln:80:18
+        pat   =bit_select work@m122e.e8_fnlocal.fv line:84:7, endln:84:12
+   SAME_DIFF    ref_obj work@m122e.mnet 74:7-74:11
+        golden=bit_select work@m122e.mnet line:75:7, endln:75:14
+        pris  =logic_net work@m122e.mnet line:52:15, endln:52:19
+        pat   =logic_net work@m122e.mnet line:52:15, endln:52:19
+g122_e_home.elab           SAME_AGREE=36 SAME_DIFF=1 TOGOLD=1
+   TOGOLD       ref_obj p122e::c122e2::e4_oob::ov 44:7-44:9
+        golden=bit_var p122e::c122e2::e4_oob::ov line:41:16, endln:41:18
+        pris  =bit_var p122e::c122e2::e4_oob::ov line:41:16, endln:41:18
+        pat   =bit_var p122e::c122e2::e4_oob::ov line:41:16, endln:41:18
+   SAME_DIFF    ref_obj work@m122e.mnet 74:7-74:11
+        golden=bit_var work@m122e.mnet line:52:15, endln:52:19
+        pris  =logic_net work@m122e.mnet line:52:15, endln:52:19
+        pat   =logic_net work@m122e.mnet line:52:15, endln:52:19
+g122_f_clone.def           SAME_AGREE=12 SAME_DIFF=6 TOGOLD=2
+   SAME_DIFF    ref_obj p122f_expl::f122f::hv 12:12-12:14
+        golden=bit_var p122f_home::f122f::hv line:6:16, endln:6:18
+        pris  =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+        pat   =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+   SAME_DIFF    ref_obj p122f_expl::f122f::hv 7:5-7:7
+        golden=bit_var p122f_home::f122f::hv line:6:16, endln:6:18
+        pris  =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+        pat   =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+   SAME_DIFF    ref_obj p122f_expl::f122f::hv 9:7-9:9
+        golden=bit_var p122f_home::f122f::hv line:6:16, endln:6:18
+        pris  =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+        pat   =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+   TOGOLD       ref_obj p122f_home::f122f::hv 9:7-9:9
+        golden=bit_select p122f_home::f122f::hv line:10:7, endln:10:12
+        pris  =bit_var p122f_home::f122f::hv line:6:16, endln:6:18
+        pat   =bit_select p122f_home::f122f::hv line:10:7, endln:10:12
+   TOGOLD       ref_obj p122f_home::g122f::gv 17:7-17:9
+        golden=bit_select p122f_home::g122f::gv line:18:7, endln:18:12
+        pris  =array_var p122f_home::g122f::gv line:15:9, endln:15:11
+        pat   =bit_select p122f_home::g122f::gv line:18:7, endln:18:12
+   SAME_DIFF    ref_obj p122f_wild::f122f::hv 12:12-12:14
+        golden=bit_var p122f_home::f122f::hv line:6:16, endln:6:18
+        pris  =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+        pat   =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+   SAME_DIFF    ref_obj p122f_wild::f122f::hv 7:5-7:7
+        golden=bit_var p122f_home::f122f::hv line:6:16, endln:6:18
+        pris  =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+        pat   =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+   SAME_DIFF    ref_obj p122f_wild::f122f::hv 9:7-9:9
+        golden=bit_var p122f_home::f122f::hv line:6:16, endln:6:18
+        pris  =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+        pat   =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+g122_f_clone.elab          ONESIDED_PRIS=6 SAME_AGREE=14 SAME_DIFF=6
+   SAME_DIFF    ref_obj p122f_expl::f122f::hv 12:12-12:14
+        golden=bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+        pris  =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+        pat   =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+   SAME_DIFF    ref_obj p122f_expl::f122f::hv 7:5-7:7
+        golden=bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+        pris  =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+        pat   =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+   SAME_DIFF    ref_obj p122f_expl::f122f::hv 9:7-9:9
+        golden=bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+        pris  =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+        pat   =bit_var p122f_expl::f122f::hv line:6:16, endln:6:18
+   SAME_DIFF    ref_obj p122f_expl::f122f::s 8:9-8:10
+        golden=io_decl s line:5:36, endln:5:37
+        pris  =io_decl s line:5:36, endln:5:37
+        pat   =io_decl s line:5:36, endln:5:37
+   SAME_DIFF    ref_obj p122f_home::g122f::gv 17:7-17:9
+        golden=array_var p122f_home::g122f::gv line:15:9, endln:15:11
+        pris  =array_var p122f_home::g122f::gv line:15:9, endln:15:11
+        pat   =array_var p122f_home::g122f::gv line:15:9, endln:15:11
+   SAME_DIFF    ref_obj p122f_home::g122f::s 16:9-16:10
+        golden=io_decl s line:14:36, endln:14:37
+        pris  =io_decl s line:14:36, endln:14:37
+        pat   =io_decl s line:14:36, endln:14:37
+   ONESIDED_PRIS ref_obj work@m122f.f122f.hv 12:12-12:14
+        golden=bit_var work@m122f.f122f.hv line:6:16, endln:6:18
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@m122f.f122f.hv 7:5-7:7
+        golden=bit_var work@m122f.f122f.hv line:6:16, endln:6:18
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@m122f.f122f.hv 9:7-9:9
+        golden=bit_var work@m122f.f122f.hv line:6:16, endln:6:18
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@m122f.f122f.s 8:9-8:10
+        golden=io_decl s line:5:36, endln:5:37
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@m122f.g122f.gv 17:7-17:9
+        golden=array_var work@m122f.g122f.gv line:15:9, endln:15:11
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@m122f.g122f.s 16:9-16:10
+        golden=io_decl s line:14:36, endln:14:37
+        pris  =<absent>
+        pat   =<absent>
+LISTED=6 PROCESSED=6
+PROCESSED-ASSERT-OK

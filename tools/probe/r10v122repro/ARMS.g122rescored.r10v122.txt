@@ -1,0 +1,242 @@
+--- rcs: rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+g122_a_owner.def               SAME_AGREE=25 SAME_DIFF=1 TOGOLD=6
+   TOGOLD        ref_obj p122a::a1_fnlocal::v 13:7-13:8
+        golden=bit_select p122a::a1_fnlocal::v
+        pris  =bit_var p122a::a1_fnlocal::v
+        pat   =bit_select p122a::a1_fnlocal::v
+   TOGOLD        ref_obj p122a::a2_tasklocal::v 24:7-24:8
+        golden=bit_select p122a::a2_tasklocal::v
+        pris  =bit_var p122a::a2_tasklocal::v
+        pat   =bit_select p122a::a2_tasklocal::v
+   TOGOLD        ref_obj p122a::a4_auto::v 43:7-43:8
+        golden=bit_select p122a::a4_auto::v
+        pris  =bit_var p122a::a4_auto::v
+        pat   =bit_select p122a::a4_auto::v
+   SAME_DIFF     ref_obj p122a::a5_pkgvar::pkgvar 52:7-52:13
+        golden=bit_select p122a::a5_pkgvar::pkgvar
+        pris  =int_var p122a::pkgvar
+        pat   =int_var p122a::pkgvar
+   TOGOLD        ref_obj p122a::a6_intlocal::v 63:7-63:8
+        golden=bit_select p122a::a6_intlocal::v
+        pris  =int_var p122a::a6_intlocal::v
+        pat   =bit_select p122a::a6_intlocal::v
+   TOGOLD        ref_obj p122a::a7_logiclocal::v 74:7-74:8
+        golden=bit_select p122a::a7_logiclocal::v
+        pris  =logic_var p122a::a7_logiclocal::v
+        pat   =bit_select p122a::a7_logiclocal::v
+   TOGOLD        ref_obj p122a::a8_arrlocal::v 84:7-84:8
+        golden=bit_select p122a::a8_arrlocal::v
+        pris  =array_var p122a::a8_arrlocal::v
+        pat   =bit_select p122a::a8_arrlocal::v
+--- rcs: rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+g122_a_owner.elab              SAME_AGREE=32
+--- rcs: rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+g122_b_shape.def               SAME_AGREE=39 TOGOLD=11
+   TOGOLD        ref_obj p122b::b10_nb::v 74:18-74:19
+        golden=bit_select p122b::b10_nb::v
+        pris  =bit_var p122b::b10_nb::v
+        pat   =bit_select p122b::b10_nb::v
+   TOGOLD        ref_obj p122b::b11_two::v 80:18-80:19
+        golden=part_select p122b::b11_two::v
+        pris  =bit_var p122b::b11_two::v
+        pat   =part_select p122b::b11_two::v
+   TOGOLD        ref_obj p122b::b12_whole1st::v 87:18-87:19
+        golden=bit_select p122b::b12_whole1st::v
+        pris  =bit_var p122b::b12_whole1st::v
+        pat   =bit_select p122b::b12_whole1st::v
+   TOGOLD        ref_obj p122b::b12_whole1st::v 87:35-87:36
+        golden=bit_select p122b::b12_whole1st::v
+        pris  =bit_var p122b::b12_whole1st::v
+        pat   =bit_select p122b::b12_whole1st::v
+   TOGOLD        ref_obj p122b::b1_lit::v 11:18-11:19
+        golden=bit_select p122b::b1_lit::v
+        pris  =bit_var p122b::b1_lit::v
+        pat   =bit_select p122b::b1_lit::v
+   TOGOLD        ref_obj p122b::b2_var::v 18:18-18:19
+        golden=bit_select p122b::b2_var::v
+        pris  =bit_var p122b::b2_var::v
+        pat   =bit_select p122b::b2_var::v
+   TOGOLD        ref_obj p122b::b3_part::v 25:18-25:19
+        golden=part_select p122b::b3_part::v
+        pris  =bit_var p122b::b3_part::v
+        pat   =part_select p122b::b3_part::v
+   TOGOLD        ref_obj p122b::b4_ipsup::v 32:18-32:19
+        golden=indexed_part_select p122b::b4_ipsup::v
+        pris  =bit_var p122b::b4_ipsup::v
+        pat   =indexed_part_select p122b::b4_ipsup::v
+   TOGOLD        ref_obj p122b::b5_ipsdn::v 39:18-39:19
+        golden=indexed_part_select p122b::b5_ipsdn::v
+        pris  =bit_var p122b::b5_ipsdn::v
+        pat   =indexed_part_select p122b::b5_ipsdn::v
+   TOGOLD        ref_obj p122b::b6_twodim::v 46:18-46:19
+        golden=var_select p122b::b6_twodim::v
+        pris  =bit_var p122b::b6_twodim::v
+        pat   =var_select p122b::b6_twodim::v
+   TOGOLD        ref_obj p122b::b8_unpk::v 60:18-60:19
+        golden=bit_select p122b::b8_unpk::v
+        pris  =array_var p122b::b8_unpk::v
+        pat   =bit_select p122b::b8_unpk::v
+--- rcs: rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+g122_b_shape.elab              SAME_AGREE=50
+--- rcs: rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+g122_c_scope.def               SAME_AGREE=45 TOGOLD=6
+   TOGOLD        ref_obj p122c::c10_fork::v 102:7-102:8
+        golden=bit_select p122c::c10_fork::v
+        pris  =bit_var p122c::c10_fork::v
+        pat   =bit_select p122c::c10_fork::v
+   TOGOLD        ref_obj p122c::c2_deeper::v 16:14-16:15
+        golden=bit_select p122c::c2_deeper::v
+        pris  =bit_var p122c::c2_deeper::v
+        pat   =bit_select p122c::c2_deeper::v
+   TOGOLD        ref_obj p122c::c6_named::nb122::v 59:7-59:8
+        golden=bit_select p122c::c6_named::nb122::v
+        pris  =bit_var p122c::c6_named::v
+        pat   =bit_select p122c::c6_named::nb122::v
+   TOGOLD        ref_obj p122c::c7_for::v 69:7-69:8
+        golden=bit_select p122c::c7_for::v
+        pris  =bit_var p122c::c7_for::v
+        pat   =bit_select p122c::c7_for::v
+   TOGOLD        ref_obj p122c::c8_while::v 79:7-79:8
+        golden=bit_select p122c::c8_while::v
+        pris  =bit_var p122c::c8_while::v
+        pat   =bit_select p122c::c8_while::v
+   TOGOLD        ref_obj p122c::c9_case::v 90:9-90:10
+        golden=bit_select p122c::c9_case::v
+        pris  =bit_var p122c::c9_case::v
+        pat   =bit_select p122c::c9_case::v
+--- rcs: rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+g122_c_scope.elab              SAME_AGREE=51
+--- rcs: rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+g122_d_pos.def                 SAME_AGREE=35 TOGOLD=10
+   TOGOLD        ref_obj p122d::d10_callstmt::v 96:21-96:22
+        golden=bit_select p122d::d10_callstmt::v
+        pris  =bit_var p122d::d10_callstmt::v
+        pat   =bit_select p122d::d10_callstmt::v
+   TOGOLD        ref_obj p122d::d1_both::v 8:18-8:19
+        golden=bit_select p122d::d1_both::v
+        pris  =bit_var p122d::d1_both::v
+        pat   =bit_select p122d::d1_both::v
+   TOGOLD        ref_obj p122d::d1_both::v 8:22-8:23
+        golden=bit_select p122d::d1_both::v
+        pris  =bit_var p122d::d1_both::v
+        pat   =bit_select p122d::d1_both::v
+   TOGOLD        ref_obj p122d::d2_cond::v 16:11-16:12
+        golden=bit_select p122d::d2_cond::v
+        pris  =bit_var p122d::d2_cond::v
+        pat   =bit_select p122d::d2_cond::v
+   TOGOLD        ref_obj p122d::d2_cond::v 16:19-16:20
+        golden=bit_select p122d::d2_cond::v
+        pris  =bit_var p122d::d2_cond::v
+        pat   =bit_select p122d::d2_cond::v
+   TOGOLD        ref_obj p122d::d3_arg::v 26:21-26:22
+        golden=bit_select p122d::d3_arg::v
+        pris  =bit_var p122d::d3_arg::v
+        pat   =bit_select p122d::d3_arg::v
+   TOGOLD        ref_obj p122d::d3_arg::v 26:7-26:8
+        golden=bit_select p122d::d3_arg::v
+        pris  =bit_var p122d::d3_arg::v
+        pat   =bit_select p122d::d3_arg::v
+   TOGOLD        ref_obj p122d::d4_idx::v 36:9-36:10
+        golden=bit_select p122d::d4_idx::v
+        pris  =bit_var p122d::d4_idx::v
+        pat   =bit_select p122d::d4_idx::v
+   TOGOLD        ref_obj p122d::d5_ret::v 47:14-47:15
+        golden=bit_select p122d::d5_ret::v
+        pris  =bit_var p122d::d5_ret::v
+        pat   =bit_select p122d::d5_ret::v
+   TOGOLD        ref_obj p122d::d7_rvalfirst::v 67:7-67:8
+        golden=bit_select p122d::d7_rvalfirst::v
+        pris  =bit_var p122d::d7_rvalfirst::v
+        pat   =bit_select p122d::d7_rvalfirst::v
+--- rcs: rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+g122_d_pos.elab                SAME_AGREE=45
+--- rcs: rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+g122_e_home.def                SAME_AGREE=33 SAME_DIFF=3 TOGOLD=2
+   SAME_DIFF     ref_obj e11_unit.s 109:7-109:8
+        golden=io_decl s
+        pris  =<none>
+        pat   =<none>
+   TOGOLD        ref_obj p122e::c122e2::e4_oob::ov 44:7-44:9
+        golden=bit_select p122e::c122e2::e4_oob::ov
+        pris  =bit_var p122e::c122e2::e4_oob::ov
+        pat   =bit_select p122e::c122e2::e4_oob::ov
+   SAME_DIFF     ref_obj work@i122e.e12_iftask.s 122:9-122:10
+        golden=io_decl s
+        pris  =<none>
+        pat   =<none>
+   TOGOLD        ref_obj work@m122e.e8_fnlocal.fv 83:7-83:9
+        golden=bit_select work@m122e.e8_fnlocal.fv
+        pris  =bit_var work@m122e.e8_fnlocal.fv
+        pat   =bit_select work@m122e.e8_fnlocal.fv
+   SAME_DIFF     ref_obj work@m122e.mnet 74:7-74:11
+        golden=bit_select work@m122e.mnet
+        pris  =logic_net work@m122e.mnet
+        pat   =logic_net work@m122e.mnet
+--- rcs: rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+g122_e_home.elab               SAME_AGREE=37 SAME_DIFF=1
+   SAME_DIFF     ref_obj work@m122e.mnet 74:7-74:11
+        golden=bit_var work@m122e.mnet
+        pris  =logic_net work@m122e.mnet
+        pat   =logic_net work@m122e.mnet
+--- rcs: rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+g122_f_clone.def               SAME_AGREE=12 SAME_DIFF=6 TOGOLD=2
+   SAME_DIFF     ref_obj p122f_expl::f122f::hv 12:12-12:14
+        golden=bit_var p122f_home::f122f::hv
+        pris  =bit_var p122f_expl::f122f::hv
+        pat   =bit_var p122f_expl::f122f::hv
+   SAME_DIFF     ref_obj p122f_expl::f122f::hv 7:5-7:7
+        golden=bit_var p122f_home::f122f::hv
+        pris  =bit_var p122f_expl::f122f::hv
+        pat   =bit_var p122f_expl::f122f::hv
+   SAME_DIFF     ref_obj p122f_expl::f122f::hv 9:7-9:9
+        golden=bit_var p122f_home::f122f::hv
+        pris  =bit_var p122f_expl::f122f::hv
+        pat   =bit_var p122f_expl::f122f::hv
+   TOGOLD        ref_obj p122f_home::f122f::hv 9:7-9:9
+        golden=bit_select p122f_home::f122f::hv
+        pris  =bit_var p122f_home::f122f::hv
+        pat   =bit_select p122f_home::f122f::hv
+   TOGOLD        ref_obj p122f_home::g122f::gv 17:7-17:9
+        golden=bit_select p122f_home::g122f::gv
+        pris  =array_var p122f_home::g122f::gv
+        pat   =bit_select p122f_home::g122f::gv
+   SAME_DIFF     ref_obj p122f_wild::f122f::hv 12:12-12:14
+        golden=bit_var p122f_home::f122f::hv
+        pris  =bit_var p122f_expl::f122f::hv
+        pat   =bit_var p122f_expl::f122f::hv
+   SAME_DIFF     ref_obj p122f_wild::f122f::hv 7:5-7:7
+        golden=bit_var p122f_home::f122f::hv
+        pris  =bit_var p122f_expl::f122f::hv
+        pat   =bit_var p122f_expl::f122f::hv
+   SAME_DIFF     ref_obj p122f_wild::f122f::hv 9:7-9:9
+        golden=bit_var p122f_home::f122f::hv
+        pris  =bit_var p122f_expl::f122f::hv
+        pat   =bit_var p122f_expl::f122f::hv
+--- rcs: rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+g122_f_clone.elab              ONESIDED_PRIS=6 SAME_AGREE=20
+   ONESIDED_PRIS ref_obj work@m122f.f122f.hv 12:12-12:14
+        golden=bit_var work@m122f.f122f.hv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@m122f.f122f.hv 7:5-7:7
+        golden=bit_var work@m122f.f122f.hv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@m122f.f122f.hv 9:7-9:9
+        golden=bit_var work@m122f.f122f.hv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@m122f.f122f.s 8:9-8:10
+        golden=io_decl s
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@m122f.g122f.gv 17:7-17:9
+        golden=array_var work@m122f.g122f.gv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@m122f.g122f.s 16:9-16:10
+        golden=io_decl s
+        pris  =<absent>
+        pat   =<absent>
+LISTED=6 PROCESSED=6
+PROCESSED-ASSERT-OK

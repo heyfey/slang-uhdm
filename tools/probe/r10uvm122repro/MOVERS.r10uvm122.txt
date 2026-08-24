@@ -1,0 +1,74 @@
+r10uvm122 — MOVERS and their attribution.  MEASUREMENT ONLY.
+
+surelog corpus: 11 byte movers / 956 (SELFCHECK 955/956 flagged)
+
+-- per-mover diff of the two uhdm-dumps, workdir paths normalised away
+   raw = as dumped; orderblind = both dumps sorted first (Scoreboard/default is a ~50/50 coin)
+default/BuildUVMPkg-bf853d43  raw=28  orderblind=28
+default/MiniAmiq-544c7f61     raw=32  orderblind=32
+default/Scoreboard-59431470   raw=124 orderblind=32   (92 = the svunit_pkg vpiTaskFunc coin)
+default/SeqDriver-32af76aa    raw=32  orderblind=32
+default/SimpleUVM-1dc93a62    raw=32  orderblind=32
+default/YosysOldSystem-65ded41e raw=2 orderblind=2
+testflags/BuildUVMPkg-bf853d43 raw=28 orderblind=28
+testflags/MiniAmiq-544c7f61   raw=32  orderblind=32
+testflags/SeqDriver-32af76aa  raw=32  orderblind=32
+testflags/SimpleUVM-1dc93a62  raw=32  orderblind=32
+testflags/YosysOldSystem-65ded41e raw=2 orderblind=2
+
+-- KIND HISTOGRAM of every changed dump line (order-blind), per mover
+=== default_BuildUVMPkg-bf853d43
+     14 > bit_select
+      2 < bit_var
+     12 < string_var
+=== default_MiniAmiq-544c7f61
+      2 < array_var
+     16 > bit_select
+      2 < bit_var
+     12 < string_var
+=== default_Scoreboard-59431470
+      2 < array_var
+     16 > bit_select
+      2 < bit_var
+     12 < string_var
+=== default_SeqDriver-32af76aa
+      2 < array_var
+     16 > bit_select
+      2 < bit_var
+     12 < string_var
+=== default_SimpleUVM-1dc93a62
+      2 < array_var
+     16 > bit_select
+      2 < bit_var
+     12 < string_var
+=== default_YosysOldSystem-65ded41e
+      1 > bit_select
+      1 < logic_var
+=== testflags_BuildUVMPkg-bf853d43
+     14 > bit_select
+      2 < bit_var
+     12 < string_var
+=== testflags_MiniAmiq-544c7f61
+      2 < array_var
+     16 > bit_select
+      2 < bit_var
+     12 < string_var
+=== testflags_SeqDriver-32af76aa
+      2 < array_var
+     16 > bit_select
+      2 < bit_var
+     12 < string_var
+=== testflags_SimpleUVM-1dc93a62
+      2 < array_var
+     16 > bit_select
+      2 < bit_var
+     12 < string_var
+=== testflags_YosysOldSystem-65ded41e
+      1 > bit_select
+      1 < logic_var
+
+-- YosysOldSystem, the ONE non-UVM mover, cell by cell (cells122.py)
+golden : ref_obj work@byte_mixcolum.xtime.xtime_t 69:13-69:20 -> bit_select @65:1-65:11
+pristine: ... -> logic_var @61:1-61:10   (WRONG)
+patched : ... -> bit_select @65:1-65:11  (TO GOLDEN)
+row status CMP_EQUAL before and after.

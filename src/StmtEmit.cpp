@@ -289,6 +289,9 @@ bool UhdmExporter::beginSelTrack() {
     selWholeRefs.clear();
     selWholeWrittenVars.clear();
     selScopeStack.clear();
+    selLocalSel122.clear();
+    selLocalSelVars122.clear();
+    selBlockDecls122.clear();
     return true;
 }
 
@@ -347,12 +350,68 @@ void UhdmExporter::endSelTrack() {
         if (funcRetSym && wr.sym == funcRetSym)
             funcRetSelBound.insert(wr.ref);
     }
+    // § localBlockStmtSelBinds122 — the LOCAL-VARIABLE half, a SECOND pass
+    // over the same whole-ref list.  It cannot collide with the loop above:
+    // that one re-points references whose actual is a NET or an `io_decl`,
+    // this one only references whose actual is still a local variable
+    // DECLARATION (`localVarDecl122`), and a reference the first loop already
+    // moved now carries a select object, which is neither.
+    //
+    // Surelog's walk stops at the FIRST answering block, so the declaring
+    // block's `Variables()` beats any select IT ALSO HOLDS and ends the search
+    // outward (arm c cells `c1_decl_same`, `c11_twoout`, `c12_declsel` are the
+    // three goldens that pin it).
+    //
+    // FENCED OUT OF EVERY IMPORT CLONE.  A wildcard/explicit import copy of a
+    // package subroutine has its references ALREADY BOUND — to the HOME
+    // package's own declaration objects — by the time
+    // `UhdmWriter::lateBinding` runs, and that walk's first line is
+    // `if (ref->Actual_group()) continue;` (UhdmWriter.cpp:3296), so the block
+    // arm never gets to answer for them.  (`CompileHelper::importPackage`,
+    // CompileHelper.cpp:127-196, is where the importer inherits the home's
+    // symbols and its whole `getLateBinding()` list; which of its copies does
+    // the binding is not decoded here — the CELLS are.)
+    // Golden proves it cell for cell: SeqDriver's `adpcm_pkg` copies of
+    // `uvm_oneway_hash::crc1`, `uvm_mem::do_{read,write}::value_s` and
+    // `uvm_reg_map::get_physical_addresses::local_addr` all name
+    // `uvm_pkg::…`'s VARIABLE while the `uvm_pkg` originals name the SELECT.
+    // `importCopyTsInst` is the test that names all three clone paths (the
+    // precedent is TaskFuncEmit's `noBindDv13`).
+    const bool cloneView122 = pkgImportCloneEmit || importCloneEmit ||
+                              importCopyTsInst != nullptr;
+    for (auto& wr : selWholeRefs) {
+        if (cloneView122 || !selLocalSelVars122.count(wr.sym))
+            continue;
+        const UHDM::any* cur = wr.ref->Actual_group();
+        if (!localVarDecl122(cur))
+            continue;
+        UHDM::expr* sel = nullptr;
+        for (int sc : wr.chain) {
+            if (selBlockDecls122.count({sc, wr.sym}))
+                break;
+            auto it = selLocalSel122.find({sc, wr.sym});
+            if (it != selLocalSel122.end()) {
+                sel = it->second;
+                break;
+            }
+        }
+        if (!sel || sel == (const UHDM::any*)cur)
+            continue;
+        wr.ref->Actual_group(sel);
+        // Same clobber guard the net half needs: drainFuncRet would mint a
+        // fresh return variable over this binding.
+        if (funcRetSym && wr.sym == funcRetSym)
+            funcRetSelBound.insert(wr.ref);
+    }
     selTrackActive = false;
     selFirstSelect.clear();
     selLhsSelVars.clear();
     selWholeRefs.clear();
     selWholeWrittenVars.clear();
     selScopeStack.clear();
+    selLocalSel122.clear();
+    selLocalSelVars122.clear();
+    selBlockDecls122.clear();
 }
 
 void UhdmExporter::noteSelectObj(const slang::ast::Symbol* base, UHDM::any* selObj) {
@@ -367,6 +426,106 @@ void UhdmExporter::noteSelectObj(const slang::ast::Symbol* base, UHDM::any* selO
                            (UHDM::expr*)selObj);
     if (inLhs)
         selLhsSelVars.insert(base);
+}
+
+// § localBlockStmtSelBinds122 — QUESTION 1: the block's own `Variables()`.
+// Registered against the SAME scope id `noteLocalStmtSel122` and
+// `noteSelectObj` use, so "declared here" and "selected here" are always
+// compared at the same level of the block chain.
+void UhdmExporter::noteBlockDecls122(const Statement& stmt) {
+    if (!selTrackActive || selScopeStack.empty() ||
+        !selScopeStack.back().isBlock)
+        return;
+    const int id = selScopeStack.back().id;
+    auto one = [&](const Statement& st) {
+        if (st.kind == StatementKind::VariableDeclaration)
+            selBlockDecls122.insert(
+                {id, &st.as<VariableDeclStatement>().symbol});
+    };
+    // A `begin`'s declarations live in the StatementList slang wraps its body
+    // in, and BOTH the Block and that List push a block scope.  The decls are
+    // registered against BOTH ids, because which of the two is the innermost
+    // scope at the moment a statement inside is emitted depends on the arm
+    // that emitted it — a `begin` carrying declarations is built by the List
+    // arm's own wrapper loop, which never re-enters emitStmt on the List.
+    // Registering the declaration at only one of the two would leave the
+    // OTHER id answering "no declaration here" and re-point a reference the
+    // block's own `Variables()` must claim (arm c cell `c12_declsel`).
+    const Statement* lst = nullptr;
+    if (stmt.kind == StatementKind::List)
+        lst = &stmt;
+    else if (stmt.kind == StatementKind::Block) {
+        const Statement& body = stmt.as<BlockStatement>().body;
+        if (body.kind == StatementKind::List)
+            lst = &body;
+        else
+            one(body);
+    }
+    if (lst)
+        for (auto st : lst->as<StatementList>().list)
+            one(*st);
+}
+
+bool UhdmExporter::localVarDecl122(const UHDM::any* o) {
+    if (!o)
+        return false;                     // an UNBOUND reference stays unbound
+    // `any_cast` is IS-A, so this is "a variables object" — a bit_var,
+    // logic_var, int_var, array_var, … — and never a net, an io_decl or an
+    // expression a previous rule already bound.
+    if (!any_cast<const UHDM::variables*>(o))
+        return false;
+    // A `ref_var` declaration is invisible to Surelog's late binder entirely
+    // (§ oobRefVarLocalHoistNet107); its references are governed by that law,
+    // not this one.
+    return o->UhdmType() != UHDM::uhdmref_var;
+}
+
+// § localBlockStmtSelBinds122 — QUESTION 3: an `assignment` that is a DIRECT
+// statement of the enclosing block and whose Lhs is a SELECT of a local
+// variable's BARE name.  Surelog reads the written lvalue OBJECT, so the
+// blocking/nonblocking flag, the select kind and the index shape are all
+// irrelevant — the two `ref_obj` / `ref_var` skips are the whole filter, and
+// they are exactly the shapes a WHOLE write produces.
+void UhdmExporter::noteLocalStmtSel122(const Expression& e, UHDM::any* obj,
+                                       NetMap& netMap) {
+    if (!selTrackActive || !obj || selScopeStack.empty() ||
+        !selScopeStack.back().isBlock)
+        return;
+    if (obj->UhdmType() != UHDM::uhdmassignment)
+        return;
+    UHDM::expr* lhs = (UHDM::expr*)((UHDM::assignment*)obj)->Lhs();
+    if (!lhs || lhs->UhdmType() == UHDM::uhdmref_obj ||
+        lhs->UhdmType() == UHDM::uhdmref_var)
+        return;
+    const Expression* le = &stripImplicitConv(e);
+    if (le->kind != ExpressionKind::Assignment)
+        return;
+    le = &stripImplicitConv(le->as<AssignmentExpression>().left());
+    bool sel = false;
+    while (le->kind == ExpressionKind::ElementSelect ||
+           le->kind == ExpressionKind::RangeSelect) {
+        sel = true;
+        le = &stripImplicitConv(
+            le->kind == ExpressionKind::ElementSelect
+                ? le->as<ElementSelectExpression>().value()
+                : le->as<RangeSelectExpression>().value());
+    }
+    if (!sel || le->kind != ExpressionKind::NamedValue)
+        return;
+    const Symbol* sym = &le->as<NamedValueExpression>().symbol;
+    auto nit = netMap.find(sym);
+    if (nit == netMap.end() || !localVarDecl122(nit->second))
+        return;
+    // Surelog matches `lhs->VpiName() == name`: a `this.v[0]` / `o.v[0]`
+    // write is a `hier_path` whose VpiName is the DOTTED text and a
+    // concatenation lvalue is an unnamed `operation`, so neither can answer
+    // (arm b cells `b7_concat` and `b9_member`).
+    if (lhs->VpiName() != sym->name)
+        return;
+    // FIRST in statement order wins (arm b cell `b11_two`: golden takes the
+    // part_select written before the bit_select).
+    selLocalSel122.emplace(std::make_pair(selScopeStack.back().id, sym), lhs);
+    selLocalSelVars122.insert(sym);
 }
 
 UHDM::delay_control* UhdmExporter::emitDelayControl(const TimingControl& tc,
@@ -1510,6 +1669,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
         if (compound) {
             selScopeStack.push_back({selScopeNextId++, isBlock});
             selGuard.self = this;
+            // § localBlockStmtSelBinds122 — this block's `Variables()`.
+            if (isBlock)
+                noteBlockDecls122(stmt);
         }
     }
     switch (stmt.kind) {
@@ -1646,6 +1808,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto* r = emitExpr(es.expr, parent, prefix, netMap);
             incDecStmtPos21 = false;
             callStmtContext = false;
+            // § localBlockStmtSelBinds122 — this statement is a DIRECT member
+            // of the enclosing block's `Stmts()`, which is the only list
+            // Surelog's block arm scans.
+            noteLocalStmtSel122(es.expr, r, netMap);
             return r;
         }
         case StatementKind::Block: {

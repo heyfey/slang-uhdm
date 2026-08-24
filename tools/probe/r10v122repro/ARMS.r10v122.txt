@@ -1,0 +1,878 @@
+q1shapes.def                   SAME_AGREE=77 TOGOLD=9
+   TOGOLD        ref_obj Zeta9_pkg::Fn_bitLit::regQ 12:7-12:11
+        golden=2x bit_select Zeta9_pkg::Fn_bitLit::regQ
+        pris  =2x bit_var Zeta9_pkg::Fn_bitLit::regQ
+        pat   =2x bit_select Zeta9_pkg::Fn_bitLit::regQ
+   TOGOLD        ref_obj Zeta9_pkg::Fn_idxDn::regR 45:7-45:11
+        golden=2x indexed_part_select Zeta9_pkg::Fn_idxDn::regR
+        pris  =2x bit_var Zeta9_pkg::Fn_idxDn::regR
+        pat   =2x indexed_part_select Zeta9_pkg::Fn_idxDn::regR
+   TOGOLD        ref_obj Zeta9_pkg::Fn_idxUp::regE 34:7-34:11
+        golden=2x indexed_part_select Zeta9_pkg::Fn_idxUp::regE
+        pris  =2x bit_var Zeta9_pkg::Fn_idxUp::regE
+        pat   =2x indexed_part_select Zeta9_pkg::Fn_idxUp::regE
+   TOGOLD        ref_obj Zeta9_pkg::Fn_parmIdx::regY 67:7-67:11
+        golden=2x bit_select Zeta9_pkg::Fn_parmIdx::regY
+        pris  =2x bit_var Zeta9_pkg::Fn_parmIdx::regY
+        pat   =2x bit_select Zeta9_pkg::Fn_parmIdx::regY
+   TOGOLD        ref_obj Zeta9_pkg::Fn_partSel::regW 23:7-23:11
+        golden=2x part_select Zeta9_pkg::Fn_partSel::regW
+        pris  =2x bit_var Zeta9_pkg::Fn_partSel::regW
+        pat   =2x part_select Zeta9_pkg::Fn_partSel::regW
+   TOGOLD        ref_obj Zeta9_pkg::Fn_selThenWhole::regG 151:7-151:11
+        golden=2x bit_select Zeta9_pkg::Fn_selThenWhole::regG
+        pris  =2x bit_var Zeta9_pkg::Fn_selThenWhole::regG
+        pat   =2x bit_select Zeta9_pkg::Fn_selThenWhole::regG
+   TOGOLD        ref_obj Zeta9_pkg::Fn_twoSel::regD 127:7-127:11
+        golden=2x part_select Zeta9_pkg::Fn_twoSel::regD
+        pris  =2x bit_var Zeta9_pkg::Fn_twoSel::regD
+        pat   =2x part_select Zeta9_pkg::Fn_twoSel::regD
+   TOGOLD        ref_obj Zeta9_pkg::Fn_varIdx::regT 56:7-56:11
+        golden=2x bit_select Zeta9_pkg::Fn_varIdx::regT
+        pris  =2x bit_var Zeta9_pkg::Fn_varIdx::regT
+        pat   =2x bit_select Zeta9_pkg::Fn_varIdx::regT
+   TOGOLD        ref_obj Zeta9_pkg::Fn_wholeThenSel::regF 139:7-139:11
+        golden=2x bit_select Zeta9_pkg::Fn_wholeThenSel::regF
+        pris  =2x bit_var Zeta9_pkg::Fn_wholeThenSel::regF
+        pat   =2x bit_select Zeta9_pkg::Fn_wholeThenSel::regF
+q1shapes.elab                  SAME_AGREE=86
+q2homes.def                    SAME_AGREE=43 SAME_DIFF=5 TOGOLD=4
+   TOGOLD        ref_obj Kappa4_pkg::Widget7::oobM::localV 27:7-27:13
+        golden=2x bit_select Kappa4_pkg::Widget7::oobM::localV
+        pris  =2x bit_var Kappa4_pkg::Widget7::oobM::localV
+        pat   =2x bit_select Kappa4_pkg::Widget7::oobM::localV
+   SAME_DIFF     ref_obj Kappa4_pkg::Widget7::oobM::propVecB 31:7-31:15
+        golden=2x bit_select Kappa4_pkg::Widget7::oobM::propVecB
+        pris  =2x <none>
+        pat   =2x <none>
+   SAME_DIFF     ref_obj Kappa4_pkg::freeFn::pkgLevelVec 40:7-40:18
+        golden=2x bit_select Kappa4_pkg::freeFn::pkgLevelVec
+        pris  =2x bit_var Kappa4_pkg::pkgLevelVec
+        pat   =2x bit_var Kappa4_pkg::pkgLevelVec
+   TOGOLD        ref_obj Kappa4_pkg::tskOne::localW 51:7-51:13
+        golden=2x bit_select Kappa4_pkg::tskOne::localW
+        pris  =2x bit_var Kappa4_pkg::tskOne::localW
+        pat   =2x bit_select Kappa4_pkg::tskOne::localW
+   TOGOLD        ref_obj work@Omega2_mod.blkLocal 85:7-85:15
+        golden=1x bit_select work@Omega2_mod.blkLocal
+        pris  =1x bit_var work@Omega2_mod.blkLocal
+        pat   =1x bit_select work@Omega2_mod.blkLocal
+   TOGOLD        ref_obj work@Omega2_mod.modFn.fnLocal 96:7-96:14
+        golden=1x bit_select work@Omega2_mod.modFn.fnLocal
+        pris  =1x logic_var work@Omega2_mod.modFn.fnLocal
+        pat   =1x bit_select work@Omega2_mod.modFn.fnLocal
+   SAME_DIFF     ref_obj work@Omega2_mod.modVecA 102:23-102:30
+        golden=2x logic_net work@Omega2_mod.modVecA
+        pris  =4x logic_typespec 
+        pat   =4x logic_typespec 
+   SAME_DIFF     ref_obj work@Omega2_mod.modVecB 75:18-75:25
+        golden=1x bit_select work@Omega2_mod.modVecB
+        pris  =1x logic_net work@Omega2_mod.modVecB
+        pat   =1x logic_net work@Omega2_mod.modVecB
+   SAME_DIFF     ref_obj work@Omega2_mod.modVecB 75:7-75:14
+        golden=1x bit_select work@Omega2_mod.modVecB
+        pris  =1x logic_net work@Omega2_mod.modVecB
+        pat   =1x logic_net work@Omega2_mod.modVecB
+q2homes.elab                   SAME_AGREE=47 SAME_DIFF=4 TOGOLD=1
+   TOGOLD        ref_obj Kappa4_pkg::Widget7::oobM::localV 27:7-27:13
+        golden=1x bit_select Kappa4_pkg::Widget7::oobM::localV + 3x bit_var Kappa4_pkg::Widget7::oobM::localV
+        pris  =4x bit_var Kappa4_pkg::Widget7::oobM::localV
+        pat   =1x bit_select Kappa4_pkg::Widget7::oobM::localV + 3x bit_var Kappa4_pkg::Widget7::oobM::localV
+   SAME_DIFF     ref_obj Kappa4_pkg::Widget7::oobM::propVecB 31:7-31:15
+        golden=3x bit_select Kappa4_pkg::Widget7::oobM::propVecB + 1x bit_var Kappa4_pkg::Widget7::propVecB
+        pris  =3x <none> + 1x bit_var Kappa4_pkg::Widget7::propVecB
+        pat   =3x <none> + 1x bit_var Kappa4_pkg::Widget7::propVecB
+   SAME_DIFF     ref_obj work@Omega2_mod.modVecA 102:23-102:30
+        golden=1x logic_net work@Omega2_mod.modVecA + 1x logic_var work@Omega2_mod.modVecA
+        pris  =4x logic_typespec 
+        pat   =4x logic_typespec 
+   SAME_DIFF     ref_obj work@Omega2_mod.modVecB 75:18-75:25
+        golden=1x bit_select work@Omega2_mod.modVecB + 1x logic_var work@Omega2_mod.modVecB
+        pris  =1x logic_net work@Omega2_mod.modVecB + 1x logic_var work@Omega2_mod.modVecB
+        pat   =1x logic_net work@Omega2_mod.modVecB + 1x logic_var work@Omega2_mod.modVecB
+   SAME_DIFF     ref_obj work@Omega2_mod.modVecB 75:7-75:14
+        golden=1x bit_select work@Omega2_mod.modVecB + 1x logic_var work@Omega2_mod.modVecB
+        pris  =1x logic_net work@Omega2_mod.modVecB + 1x logic_var work@Omega2_mod.modVecB
+        pat   =1x logic_net work@Omega2_mod.modVecB + 1x logic_var work@Omega2_mod.modVecB
+q3scope.def                    SAME_AGREE=53 TOGOLD=7
+   TOGOLD        ref_obj Sigma6_pkg::Fn_caseItem::vecNg 88:18-88:23
+        golden=2x bit_select Sigma6_pkg::Fn_caseItem::vecNg
+        pris  =2x bit_var Sigma6_pkg::Fn_caseItem::vecNg
+        pat   =2x bit_select Sigma6_pkg::Fn_caseItem::vecNg
+   TOGOLD        ref_obj Sigma6_pkg::Fn_caseItem::vecNg 89:24-89:29
+        golden=2x bit_select Sigma6_pkg::Fn_caseItem::vecNg
+        pris  =2x bit_var Sigma6_pkg::Fn_caseItem::vecNg
+        pat   =2x bit_select Sigma6_pkg::Fn_caseItem::vecNg
+   TOGOLD        ref_obj Sigma6_pkg::Fn_forBody::vecNe 59:9-59:14
+        golden=2x bit_select Sigma6_pkg::Fn_forBody::vecNe
+        pris  =2x bit_var Sigma6_pkg::Fn_forBody::vecNe
+        pat   =2x bit_select Sigma6_pkg::Fn_forBody::vecNe
+   TOGOLD        ref_obj Sigma6_pkg::Fn_named::lblOne::vecNa 8:7-8:12
+        golden=2x bit_select Sigma6_pkg::Fn_named::lblOne::vecNa
+        pris  =2x bit_var Sigma6_pkg::Fn_named::vecNa
+        pat   =2x bit_select Sigma6_pkg::Fn_named::lblOne::vecNa
+   TOGOLD        ref_obj Sigma6_pkg::Fn_twoOut::vecNb 21:9-21:14
+        golden=2x bit_select Sigma6_pkg::Fn_twoOut::vecNb
+        pris  =2x bit_var Sigma6_pkg::Fn_twoOut::vecNb
+        pat   =2x bit_select Sigma6_pkg::Fn_twoOut::vecNb
+   TOGOLD        ref_obj Sigma6_pkg::Fn_whileBody::vecNf 74:9-74:14
+        golden=2x bit_select Sigma6_pkg::Fn_whileBody::vecNf
+        pris  =2x bit_var Sigma6_pkg::Fn_whileBody::vecNf
+        pat   =2x bit_select Sigma6_pkg::Fn_whileBody::vecNf
+   TOGOLD        ref_obj work@Tau8_top.fLoc 119:9-119:13
+        golden=1x bit_select work@Tau8_top.fLoc
+        pris  =1x bit_var work@Tau8_top.fLoc
+        pat   =1x bit_select work@Tau8_top.fLoc
+q3scope.elab                   SAME_AGREE=60
+q4inst.def                     ONESIDED_PRIS=4 SAME_AGREE=68 TOGOLD=1
+   TOGOLD        ref_obj Rho3_pkg::hashRho::crcR 12:9-12:13
+        golden=2x bit_select Rho3_pkg::hashRho::crcR
+        pris  =2x bit_var Rho3_pkg::hashRho::crcR
+        pat   =2x bit_select Rho3_pkg::hashRho::crcR
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.a3 36:26-36:28
+        golden=<absent>
+        pris  =1x logic_net work@TopRho.i_three.a3
+        pat   =1x logic_net work@TopRho.i_three.a3
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.a3 37:26-37:28
+        golden=<absent>
+        pris  =1x logic_net work@TopRho.i_three.a3
+        pat   =1x logic_net work@TopRho.i_three.a3
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.inW.a3 36:26-36:28
+        golden=1x logic_net work@TopRho.i_three.a3
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.inW.a3 37:26-37:28
+        golden=1x logic_net work@TopRho.i_three.a3
+        pris  =<absent>
+        pat   =<absent>
+q4inst.elab                    ONESIDED_PRIS=60 SAME_AGREE=55 SAME_DIFF=14
+   SAME_DIFF     ref_obj Rho3_pkg::hashRho::bx 11:24-11:26
+        golden=4x int_var Rho3_pkg::hashRho::bx
+        pris  =8x int_var Rho3_pkg::hashRho::bx
+        pat   =8x int_var Rho3_pkg::hashRho::bx
+   SAME_DIFF     ref_obj Rho3_pkg::hashRho::bx 8:22-8:24
+        golden=4x int_var Rho3_pkg::hashRho::bx
+        pris  =8x int_var Rho3_pkg::hashRho::bx
+        pat   =8x int_var Rho3_pkg::hashRho::bx
+   SAME_DIFF     ref_obj Rho3_pkg::hashRho::bx 8:30-8:32
+        golden=4x int_var Rho3_pkg::hashRho::bx
+        pris  =8x int_var Rho3_pkg::hashRho::bx
+        pat   =8x int_var Rho3_pkg::hashRho::bx
+   SAME_DIFF     ref_obj Rho3_pkg::hashRho::crcR 10:7-10:11
+        golden=4x bit_var Rho3_pkg::hashRho::crcR
+        pris  =8x bit_var Rho3_pkg::hashRho::crcR
+        pat   =8x bit_var Rho3_pkg::hashRho::crcR
+   SAME_DIFF     ref_obj Rho3_pkg::hashRho::crcR 12:9-12:13
+        golden=4x bit_var Rho3_pkg::hashRho::crcR
+        pris  =8x bit_var Rho3_pkg::hashRho::crcR
+        pat   =8x bit_var Rho3_pkg::hashRho::crcR
+   SAME_DIFF     ref_obj Rho3_pkg::hashRho::crcR 16:15-16:19
+        golden=4x bit_var Rho3_pkg::hashRho::crcR
+        pris  =8x bit_var Rho3_pkg::hashRho::crcR
+        pat   =8x bit_var Rho3_pkg::hashRho::crcR
+   SAME_DIFF     ref_obj Rho3_pkg::hashRho::crcR 7:5-7:9
+        golden=4x bit_var Rho3_pkg::hashRho::crcR
+        pris  =8x bit_var Rho3_pkg::hashRho::crcR
+        pat   =8x bit_var Rho3_pkg::hashRho::crcR
+   SAME_DIFF     ref_obj Rho3_pkg::hashRho::hashRho 16:5-16:12
+        golden=4x int_var Rho3_pkg::hashRho
+        pris  =8x int_var Rho3_pkg::hashRho
+        pat   =8x int_var Rho3_pkg::hashRho
+   SAME_DIFF     ref_obj Rho3_pkg::hashRho::msbR 11:11-11:15
+        golden=4x bit_var Rho3_pkg::hashRho::msbR
+        pris  =8x bit_var Rho3_pkg::hashRho::msbR
+        pat   =8x bit_var Rho3_pkg::hashRho::msbR
+   SAME_DIFF     ref_obj Rho3_pkg::hashRho::msbR 9:7-9:11
+        golden=4x bit_var Rho3_pkg::hashRho::msbR
+        pris  =8x bit_var Rho3_pkg::hashRho::msbR
+        pat   =8x bit_var Rho3_pkg::hashRho::msbR
+   SAME_DIFF     ref_obj work@LeafRho.hv 24:5-24:7
+        golden=1x logic_net work@LeafRho.hv
+        pris  =1x logic_net work@LeafRho.hv + 1x logic_var work@TopRho.i_one.u_only.hv + 1x logic_var work@TopRho.i_three.u_first.hv + 1x logic_var work@TopRho.i_three.u_second.hv + 1x logic_var work@TopRho.i_three.u_third.hv
+        pat   =1x logic_net work@LeafRho.hv + 1x logic_var work@TopRho.i_one.u_only.hv + 1x logic_var work@TopRho.i_three.u_first.hv + 1x logic_var work@TopRho.i_three.u_second.hv + 1x logic_var work@TopRho.i_three.u_third.hv
+   SAME_DIFF     ref_obj work@LeafRho.hv 26:17-26:19
+        golden=1x logic_net work@LeafRho.hv
+        pris  =1x logic_net work@LeafRho.hv + 1x logic_var work@TopRho.i_one.u_only.hv + 1x logic_var work@TopRho.i_three.u_first.hv + 1x logic_var work@TopRho.i_three.u_second.hv + 1x logic_var work@TopRho.i_three.u_third.hv
+        pat   =1x logic_net work@LeafRho.hv + 1x logic_var work@TopRho.i_one.u_only.hv + 1x logic_var work@TopRho.i_three.u_first.hv + 1x logic_var work@TopRho.i_three.u_second.hv + 1x logic_var work@TopRho.i_three.u_third.hv
+   SAME_DIFF     ref_obj work@LeafRho.inW 24:22-24:25
+        golden=1x logic_net work@LeafRho.inW
+        pris  =1x logic_net work@LeafRho.inW + 1x logic_net work@TopRho.i_one.u_only.inW + 1x logic_net work@TopRho.i_three.u_first.inW + 1x logic_net work@TopRho.i_three.u_second.inW + 1x logic_net work@TopRho.i_three.u_third.inW
+        pat   =1x logic_net work@LeafRho.inW + 1x logic_net work@TopRho.i_one.u_only.inW + 1x logic_net work@TopRho.i_three.u_first.inW + 1x logic_net work@TopRho.i_three.u_second.inW + 1x logic_net work@TopRho.i_three.u_third.inW
+   SAME_DIFF     ref_obj work@LeafRho.outW 26:10-26:14
+        golden=1x logic_net work@LeafRho.outW
+        pris  =1x logic_net work@LeafRho.outW + 1x logic_net work@TopRho.i_one.u_only.outW + 1x logic_net work@TopRho.i_three.u_first.outW + 1x logic_net work@TopRho.i_three.u_second.outW + 1x logic_net work@TopRho.i_three.u_third.outW
+        pat   =1x logic_net work@LeafRho.outW + 1x logic_net work@TopRho.i_one.u_only.outW + 1x logic_net work@TopRho.i_three.u_first.outW + 1x logic_net work@TopRho.i_three.u_second.outW + 1x logic_net work@TopRho.i_three.u_third.outW
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.hashRho.bx 11:24-11:26
+        golden=1x int_var work@TopRho.i_one.u_only.hashRho.bx
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.hashRho.bx 8:22-8:24
+        golden=1x int_var work@TopRho.i_one.u_only.hashRho.bx
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.hashRho.bx 8:30-8:32
+        golden=1x int_var work@TopRho.i_one.u_only.hashRho.bx
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.hashRho.crcR 10:7-10:11
+        golden=1x bit_var work@TopRho.i_one.u_only.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.hashRho.crcR 12:9-12:13
+        golden=1x bit_var work@TopRho.i_one.u_only.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.hashRho.crcR 16:15-16:19
+        golden=1x bit_var work@TopRho.i_one.u_only.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.hashRho.crcR 7:5-7:9
+        golden=1x bit_var work@TopRho.i_one.u_only.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.hashRho.hashRho 16:5-16:12
+        golden=1x int_var Rho3_pkg::hashRho
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.hashRho.msbR 11:11-11:15
+        golden=1x bit_var work@TopRho.i_one.u_only.hashRho.msbR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.hashRho.msbR 9:7-9:11
+        golden=1x bit_var work@TopRho.i_one.u_only.hashRho.msbR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.hv 24:5-24:7
+        golden=1x logic_var work@TopRho.i_one.u_only.hv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.hv 26:17-26:19
+        golden=1x logic_var work@TopRho.i_one.u_only.hv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.inW 24:22-24:25
+        golden=1x logic_net work@TopRho.i_one.u_only.inW
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_one.u_only.outW 26:10-26:14
+        golden=1x logic_net work@TopRho.i_one.u_only.outW
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.a3 36:26-36:28
+        golden=<absent>
+        pris  =2x logic_net work@TopRho.i_three.a3
+        pat   =2x logic_net work@TopRho.i_three.a3
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.a3 37:26-37:28
+        golden=<absent>
+        pris  =2x logic_net work@TopRho.i_three.a3
+        pat   =2x logic_net work@TopRho.i_three.a3
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.hashRho.bx 11:24-11:26
+        golden=1x int_var work@TopRho.i_three.u_first.hashRho.bx
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.hashRho.bx 8:22-8:24
+        golden=1x int_var work@TopRho.i_three.u_first.hashRho.bx
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.hashRho.bx 8:30-8:32
+        golden=1x int_var work@TopRho.i_three.u_first.hashRho.bx
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.hashRho.crcR 10:7-10:11
+        golden=1x bit_var work@TopRho.i_three.u_first.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.hashRho.crcR 12:9-12:13
+        golden=1x bit_var work@TopRho.i_three.u_first.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.hashRho.crcR 16:15-16:19
+        golden=1x bit_var work@TopRho.i_three.u_first.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.hashRho.crcR 7:5-7:9
+        golden=1x bit_var work@TopRho.i_three.u_first.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.hashRho.hashRho 16:5-16:12
+        golden=1x int_var Rho3_pkg::hashRho
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.hashRho.msbR 11:11-11:15
+        golden=1x bit_var work@TopRho.i_three.u_first.hashRho.msbR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.hashRho.msbR 9:7-9:11
+        golden=1x bit_var work@TopRho.i_three.u_first.hashRho.msbR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.hv 24:5-24:7
+        golden=1x logic_var work@TopRho.i_three.u_first.hv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.hv 26:17-26:19
+        golden=1x logic_var work@TopRho.i_three.u_first.hv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.inW 24:22-24:25
+        golden=1x logic_net work@TopRho.i_three.u_first.inW
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_first.outW 26:10-26:14
+        golden=1x logic_net work@TopRho.i_three.u_first.outW
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.hashRho.bx 11:24-11:26
+        golden=1x int_var work@TopRho.i_three.u_second.hashRho.bx
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.hashRho.bx 8:22-8:24
+        golden=1x int_var work@TopRho.i_three.u_second.hashRho.bx
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.hashRho.bx 8:30-8:32
+        golden=1x int_var work@TopRho.i_three.u_second.hashRho.bx
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.hashRho.crcR 10:7-10:11
+        golden=1x bit_var work@TopRho.i_three.u_second.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.hashRho.crcR 12:9-12:13
+        golden=1x bit_var work@TopRho.i_three.u_second.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.hashRho.crcR 16:15-16:19
+        golden=1x bit_var work@TopRho.i_three.u_second.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.hashRho.crcR 7:5-7:9
+        golden=1x bit_var work@TopRho.i_three.u_second.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.hashRho.hashRho 16:5-16:12
+        golden=1x int_var Rho3_pkg::hashRho
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.hashRho.msbR 11:11-11:15
+        golden=1x bit_var work@TopRho.i_three.u_second.hashRho.msbR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.hashRho.msbR 9:7-9:11
+        golden=1x bit_var work@TopRho.i_three.u_second.hashRho.msbR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.hv 24:5-24:7
+        golden=1x logic_var work@TopRho.i_three.u_second.hv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.hv 26:17-26:19
+        golden=1x logic_var work@TopRho.i_three.u_second.hv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.inW 24:22-24:25
+        golden=1x logic_net work@TopRho.i_three.u_second.inW
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.inW.a3 36:26-36:28
+        golden=2x logic_net work@TopRho.i_three.a3
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_second.outW 26:10-26:14
+        golden=1x logic_net work@TopRho.i_three.u_second.outW
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.hashRho.bx 11:24-11:26
+        golden=1x int_var work@TopRho.i_three.u_third.hashRho.bx
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.hashRho.bx 8:22-8:24
+        golden=1x int_var work@TopRho.i_three.u_third.hashRho.bx
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.hashRho.bx 8:30-8:32
+        golden=1x int_var work@TopRho.i_three.u_third.hashRho.bx
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.hashRho.crcR 10:7-10:11
+        golden=1x bit_var work@TopRho.i_three.u_third.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.hashRho.crcR 12:9-12:13
+        golden=1x bit_var work@TopRho.i_three.u_third.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.hashRho.crcR 16:15-16:19
+        golden=1x bit_var work@TopRho.i_three.u_third.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.hashRho.crcR 7:5-7:9
+        golden=1x bit_var work@TopRho.i_three.u_third.hashRho.crcR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.hashRho.hashRho 16:5-16:12
+        golden=1x int_var Rho3_pkg::hashRho
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.hashRho.msbR 11:11-11:15
+        golden=1x bit_var work@TopRho.i_three.u_third.hashRho.msbR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.hashRho.msbR 9:7-9:11
+        golden=1x bit_var work@TopRho.i_three.u_third.hashRho.msbR
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.hv 24:5-24:7
+        golden=1x logic_var work@TopRho.i_three.u_third.hv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.hv 26:17-26:19
+        golden=1x logic_var work@TopRho.i_three.u_third.hv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.inW 24:22-24:25
+        golden=1x logic_net work@TopRho.i_three.u_third.inW
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.inW.a3 37:26-37:28
+        golden=2x logic_net work@TopRho.i_three.a3
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@TopRho.i_three.u_third.outW 26:10-26:14
+        golden=1x logic_net work@TopRho.i_three.u_third.outW
+        pris  =<absent>
+        pat   =<absent>
+q5prec.def                     SAME_AGREE=43 SAME_DIFF=1 TOGOLD=3
+   TOGOLD        ref_obj Nu5_pkg::enumBeside::ew 49:7-49:9
+        golden=2x bit_select Nu5_pkg::enumBeside::ew
+        pris  =2x bit_var Nu5_pkg::enumBeside::ew
+        pat   =2x bit_select Nu5_pkg::enumBeside::ew
+   TOGOLD        ref_obj Nu5_pkg::lpRange::lpv 61:7-61:10
+        golden=2x bit_select Nu5_pkg::lpRange::lpv
+        pris  =2x bit_var Nu5_pkg::lpRange::lpv
+        pat   =2x bit_select Nu5_pkg::lpRange::lpv
+   TOGOLD        ref_obj Nu5_pkg::tdLocal::tdw 25:7-25:10
+        golden=2x bit_select Nu5_pkg::tdLocal::tdw
+        pris  =2x bit_var Nu5_pkg::tdLocal::tdw
+        pat   =2x bit_select Nu5_pkg::tdLocal::tdw
+   SAME_DIFF     ref_obj WLP 58:10-58:13
+        golden=1x <none> + 1x logic_net work@Xi1_imp.WLP
+        pris  =2x <none>
+        pat   =2x <none>
+q5prec.elab                    ONESIDED_PRIS=29 SAME_AGREE=22 SAME_DIFF=25
+   SAME_DIFF     ref_obj Nu5_pkg::clsLocal::clsLocal 39:5-39:13
+        golden=4x int_var Nu5_pkg::clsLocal
+        pris  =5x int_var Nu5_pkg::clsLocal
+        pat   =5x int_var Nu5_pkg::clsLocal
+   SAME_DIFF     ref_obj Nu5_pkg::clsLocal::hh 34:5-34:7
+        golden=2x <none> + 4x class_var Nu5_pkg::clsLocal::hh
+        pris  =2x <none> + 5x class_var Nu5_pkg::clsLocal::hh
+        pat   =2x <none> + 5x class_var Nu5_pkg::clsLocal::hh
+   SAME_DIFF     ref_obj Nu5_pkg::clsLocal::hv 39:24-39:26
+        golden=2x <none> + 2x bit_var Nu5_pkg::Holder1::hv
+        pris  =2x <none> + 3x bit_var Nu5_pkg::Holder1::hv
+        pat   =2x <none> + 3x bit_var Nu5_pkg::Holder1::hv
+   SAME_DIFF     ref_obj Nu5_pkg::clsLocal::p3 35:9-35:11
+        golden=4x io_decl p3
+        pris  =5x io_decl p3
+        pat   =5x io_decl p3
+   SAME_DIFF     ref_obj Nu5_pkg::enumBeside::E_ONE 47:10-47:15
+        golden=4x enum_const E_ONE
+        pris  =5x enum_const E_ONE
+        pat   =5x enum_const E_ONE
+   SAME_DIFF     ref_obj Nu5_pkg::enumBeside::ec 47:5-47:7
+        golden=4x enum_var Nu5_pkg::enumBeside::ec
+        pris  =5x enum_var Nu5_pkg::enumBeside::ec
+        pat   =5x enum_var Nu5_pkg::enumBeside::ec
+   SAME_DIFF     ref_obj Nu5_pkg::enumBeside::ec 49:17-49:19
+        golden=4x enum_var Nu5_pkg::enumBeside::ec
+        pris  =5x enum_var Nu5_pkg::enumBeside::ec
+        pat   =5x enum_var Nu5_pkg::enumBeside::ec
+   SAME_DIFF     ref_obj Nu5_pkg::enumBeside::enumBeside 52:5-52:15
+        golden=4x int_var Nu5_pkg::enumBeside
+        pris  =5x int_var Nu5_pkg::enumBeside
+        pat   =5x int_var Nu5_pkg::enumBeside
+   SAME_DIFF     ref_obj Nu5_pkg::enumBeside::ew 46:5-46:7
+        golden=4x bit_var Nu5_pkg::enumBeside::ew
+        pris  =5x bit_var Nu5_pkg::enumBeside::ew
+        pat   =5x bit_var Nu5_pkg::enumBeside::ew
+   SAME_DIFF     ref_obj Nu5_pkg::enumBeside::ew 49:7-49:9
+        golden=4x bit_var Nu5_pkg::enumBeside::ew
+        pris  =5x bit_var Nu5_pkg::enumBeside::ew
+        pat   =5x bit_var Nu5_pkg::enumBeside::ew
+   SAME_DIFF     ref_obj Nu5_pkg::enumBeside::ew 52:23-52:25
+        golden=4x bit_var Nu5_pkg::enumBeside::ew
+        pris  =5x bit_var Nu5_pkg::enumBeside::ew
+        pat   =5x bit_var Nu5_pkg::enumBeside::ew
+   SAME_DIFF     ref_obj Nu5_pkg::enumBeside::p4 48:9-48:11
+        golden=4x io_decl p4
+        pris  =5x io_decl p4
+        pat   =5x io_decl p4
+   SAME_DIFF     ref_obj Nu5_pkg::lpRange::lpRange 64:5-64:12
+        golden=4x int_var Nu5_pkg::lpRange
+        pris  =6x int_var Nu5_pkg::lpRange
+        pat   =6x int_var Nu5_pkg::lpRange
+   SAME_DIFF     ref_obj Nu5_pkg::lpRange::lpv 59:5-59:8
+        golden=4x bit_var Nu5_pkg::lpRange::lpv
+        pris  =6x bit_var Nu5_pkg::lpRange::lpv
+        pat   =6x bit_var Nu5_pkg::lpRange::lpv
+   SAME_DIFF     ref_obj Nu5_pkg::lpRange::lpv 61:7-61:10
+        golden=4x bit_var Nu5_pkg::lpRange::lpv
+        pris  =6x bit_var Nu5_pkg::lpRange::lpv
+        pat   =6x bit_var Nu5_pkg::lpRange::lpv
+   SAME_DIFF     ref_obj Nu5_pkg::lpRange::lpv 64:20-64:23
+        golden=4x bit_var Nu5_pkg::lpRange::lpv
+        pris  =6x bit_var Nu5_pkg::lpRange::lpv
+        pat   =6x bit_var Nu5_pkg::lpRange::lpv
+   SAME_DIFF     ref_obj Nu5_pkg::lpRange::p5 60:9-60:11
+        golden=4x io_decl p5
+        pris  =6x io_decl p5
+        pat   =6x io_decl p5
+   SAME_DIFF     ref_obj Nu5_pkg::refFormal::p1 14:9-14:11
+        golden=4x io_decl p1
+        pris  =5x io_decl p1
+        pat   =5x io_decl p1
+   SAME_DIFF     ref_obj Nu5_pkg::refFormal::rw 15:7-15:9
+        golden=4x io_decl rw
+        pris  =5x io_decl rw
+        pat   =5x io_decl rw
+   SAME_DIFF     ref_obj Nu5_pkg::tdLocal::p2 24:9-24:11
+        golden=4x io_decl p2
+        pris  =5x io_decl p2
+        pat   =5x io_decl p2
+   SAME_DIFF     ref_obj Nu5_pkg::tdLocal::tdLocal 28:5-28:12
+        golden=4x int_var Nu5_pkg::tdLocal
+        pris  =5x int_var Nu5_pkg::tdLocal
+        pat   =5x int_var Nu5_pkg::tdLocal
+   SAME_DIFF     ref_obj Nu5_pkg::tdLocal::tdw 23:5-23:8
+        golden=4x bit_var Nu5_pkg::tdLocal::tdw
+        pris  =5x bit_var Nu5_pkg::tdLocal::tdw
+        pat   =5x bit_var Nu5_pkg::tdLocal::tdw
+   SAME_DIFF     ref_obj Nu5_pkg::tdLocal::tdw 25:7-25:10
+        golden=4x bit_var Nu5_pkg::tdLocal::tdw
+        pris  =5x bit_var Nu5_pkg::tdLocal::tdw
+        pat   =5x bit_var Nu5_pkg::tdLocal::tdw
+   SAME_DIFF     ref_obj Nu5_pkg::tdLocal::tdw 28:20-28:23
+        golden=4x bit_var Nu5_pkg::tdLocal::tdw
+        pris  =5x bit_var Nu5_pkg::tdLocal::tdw
+        pat   =5x bit_var Nu5_pkg::tdLocal::tdw
+   SAME_DIFF     ref_obj WLP 58:10-58:13
+        golden=1x <none> + 1x logic_net work@Xi1_imp.WLP
+        pris  =2x <none>
+        pat   =2x <none>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.clsLocal.clsLocal 39:5-39:13
+        golden=1x int_var Nu5_pkg::clsLocal
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.clsLocal.hh 34:5-34:7
+        golden=1x class_var work@Xi1_imp.clsLocal.hh
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.clsLocal.hv 39:24-39:26
+        golden=1x bit_var Nu5_pkg::Holder1::hv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.clsLocal.p3 35:9-35:11
+        golden=1x io_decl p3
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.enumBeside.E_ONE 47:10-47:15
+        golden=1x enum_const E_ONE
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.enumBeside.ec 47:5-47:7
+        golden=1x enum_var work@Xi1_imp.enumBeside.ec
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.enumBeside.ec 49:17-49:19
+        golden=1x enum_var work@Xi1_imp.enumBeside.ec
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.enumBeside.enumBeside 52:5-52:15
+        golden=1x int_var Nu5_pkg::enumBeside
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.enumBeside.ew 46:5-46:7
+        golden=1x bit_var work@Xi1_imp.enumBeside.ew
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.enumBeside.ew 49:7-49:9
+        golden=1x bit_var work@Xi1_imp.enumBeside.ew
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.enumBeside.ew 52:23-52:25
+        golden=1x bit_var work@Xi1_imp.enumBeside.ew
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.enumBeside.p4 48:9-48:11
+        golden=1x io_decl p4
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.lpRange.lpRange 64:5-64:12
+        golden=1x int_var Nu5_pkg::lpRange
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.lpRange.lpv 59:5-59:8
+        golden=1x bit_var work@Xi1_imp.lpRange.lpv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.lpRange.lpv 61:7-61:10
+        golden=1x bit_var work@Xi1_imp.lpRange.lpv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.lpRange.lpv 64:20-64:23
+        golden=1x bit_var work@Xi1_imp.lpRange.lpv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.lpRange.p5 60:9-60:11
+        golden=1x io_decl p5
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.refFormal.p1 14:9-14:11
+        golden=1x io_decl p1
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.refFormal.rw 15:7-15:9
+        golden=1x io_decl rw
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.tdLocal.p2 24:9-24:11
+        golden=1x io_decl p2
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.tdLocal.tdLocal 28:5-28:12
+        golden=1x int_var Nu5_pkg::tdLocal
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.tdLocal.tdw 23:5-23:8
+        golden=1x bit_var work@Xi1_imp.tdLocal.tdw
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.tdLocal.tdw 25:7-25:10
+        golden=1x bit_var work@Xi1_imp.tdLocal.tdw
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi1_imp.tdLocal.tdw 28:20-28:23
+        golden=1x bit_var work@Xi1_imp.tdLocal.tdw
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi2_expl.lpRange.lpRange 64:5-64:12
+        golden=1x int_var Nu5_pkg::lpRange
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi2_expl.lpRange.lpv 59:5-59:8
+        golden=1x bit_var work@Xi2_expl.lpRange.lpv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi2_expl.lpRange.lpv 61:7-61:10
+        golden=1x bit_var work@Xi2_expl.lpRange.lpv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi2_expl.lpRange.lpv 64:20-64:23
+        golden=1x bit_var work@Xi2_expl.lpRange.lpv
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@Xi2_expl.lpRange.p5 60:9-60:11
+        golden=1x io_decl p5
+        pris  =<absent>
+        pat   =<absent>
+q6clone.def                    SAME_AGREE=33 SAME_DIFF=7 TOGOLD=2
+   SAME_DIFF     ref_obj ExplXi_pkg::mixMu::accMu 11:13-11:18
+        golden=2x bit_var HomeMu_pkg::mixMu::accMu
+        pris  =2x bit_var ExplXi_pkg::mixMu::accMu
+        pat   =2x bit_var ExplXi_pkg::mixMu::accMu
+   SAME_DIFF     ref_obj ExplXi_pkg::mixMu::accMu 6:5-6:10
+        golden=2x bit_var HomeMu_pkg::mixMu::accMu
+        pris  =2x bit_var ExplXi_pkg::mixMu::accMu
+        pat   =2x bit_var ExplXi_pkg::mixMu::accMu
+   SAME_DIFF     ref_obj ExplXi_pkg::mixMu::accMu 8:7-8:12
+        golden=2x bit_var HomeMu_pkg::mixMu::accMu
+        pris  =2x bit_var ExplXi_pkg::mixMu::accMu
+        pat   =2x bit_var ExplXi_pkg::mixMu::accMu
+   SAME_DIFF     ref_obj ExplXi_pkg::mixMu::mixMu 11:5-11:10
+        golden=2x int_var HomeMu_pkg::mixMu
+        pris  =2x <none> + 2x int_var ExplXi_pkg::mixMu::mixMu
+        pat   =2x <none> + 2x int_var ExplXi_pkg::mixMu::mixMu
+   TOGOLD        ref_obj HomeMu_pkg::mixMu::accMu 8:7-8:12
+        golden=2x bit_select HomeMu_pkg::mixMu::accMu
+        pris  =2x bit_var HomeMu_pkg::mixMu::accMu
+        pat   =2x bit_select HomeMu_pkg::mixMu::accMu
+   TOGOLD        ref_obj HomeMu_pkg::stirMu::tmpMu 17:7-17:12
+        golden=2x part_select HomeMu_pkg::stirMu::tmpMu
+        pris  =2x bit_var HomeMu_pkg::stirMu::tmpMu
+        pat   =2x part_select HomeMu_pkg::stirMu::tmpMu
+   SAME_DIFF     ref_obj WildNu_pkg::mixMu::accMu 11:13-11:18
+        golden=2x bit_var HomeMu_pkg::mixMu::accMu
+        pris  =2x bit_var ExplXi_pkg::mixMu::accMu
+        pat   =2x bit_var ExplXi_pkg::mixMu::accMu
+   SAME_DIFF     ref_obj WildNu_pkg::mixMu::accMu 6:5-6:10
+        golden=2x bit_var HomeMu_pkg::mixMu::accMu
+        pris  =2x bit_var ExplXi_pkg::mixMu::accMu
+        pat   =2x bit_var ExplXi_pkg::mixMu::accMu
+   SAME_DIFF     ref_obj WildNu_pkg::mixMu::accMu 8:7-8:12
+        golden=2x bit_var HomeMu_pkg::mixMu::accMu
+        pris  =2x bit_var ExplXi_pkg::mixMu::accMu
+        pat   =2x bit_var ExplXi_pkg::mixMu::accMu
+q6clone.elab                   ONESIDED_PRIS=12 SAME_AGREE=30 SAME_DIFF=12
+   SAME_DIFF     ref_obj ExplXi_pkg::mixMu::accMu 11:13-11:18
+        golden=4x bit_var ExplXi_pkg::mixMu::accMu
+        pris  =5x bit_var ExplXi_pkg::mixMu::accMu
+        pat   =5x bit_var ExplXi_pkg::mixMu::accMu
+   SAME_DIFF     ref_obj ExplXi_pkg::mixMu::accMu 6:5-6:10
+        golden=4x bit_var ExplXi_pkg::mixMu::accMu
+        pris  =5x bit_var ExplXi_pkg::mixMu::accMu
+        pat   =5x bit_var ExplXi_pkg::mixMu::accMu
+   SAME_DIFF     ref_obj ExplXi_pkg::mixMu::accMu 8:7-8:12
+        golden=4x bit_var ExplXi_pkg::mixMu::accMu
+        pris  =5x bit_var ExplXi_pkg::mixMu::accMu
+        pat   =5x bit_var ExplXi_pkg::mixMu::accMu
+   SAME_DIFF     ref_obj ExplXi_pkg::mixMu::inMu 6:13-6:17
+        golden=4x io_decl inMu
+        pris  =5x io_decl inMu
+        pat   =5x io_decl inMu
+   SAME_DIFF     ref_obj ExplXi_pkg::mixMu::inMu 7:9-7:13
+        golden=4x io_decl inMu
+        pris  =5x io_decl inMu
+        pat   =5x io_decl inMu
+   SAME_DIFF     ref_obj ExplXi_pkg::mixMu::mixMu 11:5-11:10
+        golden=4x int_var HomeMu_pkg::mixMu
+        pris  =5x int_var HomeMu_pkg::mixMu
+        pat   =5x int_var HomeMu_pkg::mixMu
+   SAME_DIFF     ref_obj HomeMu_pkg::stirMu::tIn 15:17-15:20
+        golden=4x io_decl tIn
+        pris  =5x io_decl tIn
+        pat   =5x io_decl tIn
+   SAME_DIFF     ref_obj HomeMu_pkg::stirMu::tIn 16:9-16:12
+        golden=4x io_decl tIn
+        pris  =5x io_decl tIn
+        pat   =5x io_decl tIn
+   SAME_DIFF     ref_obj HomeMu_pkg::stirMu::tOut 20:5-20:9
+        golden=4x io_decl tOut
+        pris  =5x io_decl tOut
+        pat   =5x io_decl tOut
+   SAME_DIFF     ref_obj HomeMu_pkg::stirMu::tmpMu 15:5-15:10
+        golden=4x bit_var HomeMu_pkg::stirMu::tmpMu
+        pris  =5x bit_var HomeMu_pkg::stirMu::tmpMu
+        pat   =5x bit_var HomeMu_pkg::stirMu::tmpMu
+   SAME_DIFF     ref_obj HomeMu_pkg::stirMu::tmpMu 17:7-17:12
+        golden=4x bit_var HomeMu_pkg::stirMu::tmpMu
+        pris  =5x bit_var HomeMu_pkg::stirMu::tmpMu
+        pat   =5x bit_var HomeMu_pkg::stirMu::tmpMu
+   SAME_DIFF     ref_obj HomeMu_pkg::stirMu::tmpMu 20:16-20:21
+        golden=4x bit_var HomeMu_pkg::stirMu::tmpMu
+        pris  =5x bit_var HomeMu_pkg::stirMu::tmpMu
+        pat   =5x bit_var HomeMu_pkg::stirMu::tmpMu
+   ONESIDED_PRIS ref_obj work@ImpOmicron.mixMu.accMu 11:13-11:18
+        golden=1x bit_var work@ImpOmicron.mixMu.accMu
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@ImpOmicron.mixMu.accMu 6:5-6:10
+        golden=1x bit_var work@ImpOmicron.mixMu.accMu
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@ImpOmicron.mixMu.accMu 8:7-8:12
+        golden=1x bit_var work@ImpOmicron.mixMu.accMu
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@ImpOmicron.mixMu.inMu 6:13-6:17
+        golden=1x io_decl inMu
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@ImpOmicron.mixMu.inMu 7:9-7:13
+        golden=1x io_decl inMu
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@ImpOmicron.mixMu.mixMu 11:5-11:10
+        golden=1x int_var HomeMu_pkg::mixMu
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@ImpOmicron.stirMu.tIn 15:17-15:20
+        golden=1x io_decl tIn
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@ImpOmicron.stirMu.tIn 16:9-16:12
+        golden=1x io_decl tIn
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@ImpOmicron.stirMu.tOut 20:5-20:9
+        golden=1x io_decl tOut
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@ImpOmicron.stirMu.tmpMu 15:5-15:10
+        golden=1x bit_var work@ImpOmicron.stirMu.tmpMu
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@ImpOmicron.stirMu.tmpMu 17:7-17:12
+        golden=1x bit_var work@ImpOmicron.stirMu.tmpMu
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS ref_obj work@ImpOmicron.stirMu.tmpMu 20:16-20:21
+        golden=1x bit_var work@ImpOmicron.stirMu.tmpMu
+        pris  =<absent>
+        pat   =<absent>
+q7extra.def                    SAME_AGREE=57 TOGOLD=12
+   TOGOLD        ref_obj Psi7_pkg::Fn_assignStmt::vX2 19:7-19:10
+        golden=2x bit_select Psi7_pkg::Fn_assignStmt::vX2
+        pris  =2x bit_var Psi7_pkg::Fn_assignStmt::vX2
+        pat   =2x bit_select Psi7_pkg::Fn_assignStmt::vX2
+   TOGOLD        ref_obj Psi7_pkg::Fn_doWhile::vX7 91:9-91:12
+        golden=2x bit_select Psi7_pkg::Fn_doWhile::vX7
+        pris  =2x bit_var Psi7_pkg::Fn_doWhile::vX7
+        pat   =2x bit_select Psi7_pkg::Fn_doWhile::vX7
+   TOGOLD        ref_obj Psi7_pkg::Fn_foreach::vX8 106:9-106:12
+        golden=2x bit_select Psi7_pkg::Fn_foreach::vX8
+        pris  =2x bit_var Psi7_pkg::Fn_foreach::vX8
+        pat   =2x bit_select Psi7_pkg::Fn_foreach::vX8
+   TOGOLD        ref_obj Psi7_pkg::Fn_idxIsRef::iX9 118:7-118:10
+        golden=2x bit_select Psi7_pkg::Fn_idxIsRef::iX9
+        pris  =2x bit_var Psi7_pkg::Fn_idxIsRef::iX9
+        pat   =2x bit_select Psi7_pkg::Fn_idxIsRef::iX9
+   TOGOLD        ref_obj Psi7_pkg::Fn_idxIsRef::iX9 119:11-119:14
+        golden=2x bit_select Psi7_pkg::Fn_idxIsRef::iX9
+        pris  =2x bit_var Psi7_pkg::Fn_idxIsRef::iX9
+        pat   =2x bit_select Psi7_pkg::Fn_idxIsRef::iX9
+   TOGOLD        ref_obj Psi7_pkg::Fn_multiDecl::vX5a 62:7-62:11
+        golden=2x bit_select Psi7_pkg::Fn_multiDecl::vX5a
+        pris  =2x bit_var Psi7_pkg::Fn_multiDecl::vX5a
+        pat   =2x bit_select Psi7_pkg::Fn_multiDecl::vX5a
+   TOGOLD        ref_obj Psi7_pkg::Fn_multiDecl::vX5b 65:7-65:11
+        golden=2x part_select Psi7_pkg::Fn_multiDecl::vX5b
+        pris  =2x bit_var Psi7_pkg::Fn_multiDecl::vX5b
+        pat   =2x part_select Psi7_pkg::Fn_multiDecl::vX5b
+   TOGOLD        ref_obj Psi7_pkg::Fn_queueBeside::vX6 77:7-77:10
+        golden=2x bit_select Psi7_pkg::Fn_queueBeside::vX6
+        pris  =2x bit_var Psi7_pkg::Fn_queueBeside::vX6
+        pat   =2x bit_select Psi7_pkg::Fn_queueBeside::vX6
+   TOGOLD        ref_obj Psi7_pkg::Fn_selCompound::vX1 8:7-8:10
+        golden=2x bit_select Psi7_pkg::Fn_selCompound::vX1
+        pris  =2x bit_var Psi7_pkg::Fn_selCompound::vX1
+        pat   =2x bit_select Psi7_pkg::Fn_selCompound::vX1
+   TOGOLD        ref_obj Psi7_pkg::Fn_threeDeep::vX3 35:11-35:14
+        golden=2x part_select Psi7_pkg::Fn_threeDeep::vX3
+        pris  =2x bit_var Psi7_pkg::Fn_threeDeep::vX3
+        pat   =2x part_select Psi7_pkg::Fn_threeDeep::vX3
+   TOGOLD        ref_obj Psi7_pkg::Fn_twoSiblings::vX4 48:7-48:10
+        golden=2x bit_select Psi7_pkg::Fn_twoSiblings::vX4
+        pris  =2x bit_var Psi7_pkg::Fn_twoSiblings::vX4
+        pat   =2x bit_select Psi7_pkg::Fn_twoSiblings::vX4
+   TOGOLD        ref_obj Psi7_pkg::Fn_twoSiblings::vX4 52:7-52:10
+        golden=2x part_select Psi7_pkg::Fn_twoSiblings::vX4
+        pris  =2x bit_var Psi7_pkg::Fn_twoSiblings::vX4
+        pat   =2x part_select Psi7_pkg::Fn_twoSiblings::vX4
+q7extra.elab                   SAME_AGREE=69
+Traceback (most recent call last):
+  File "/tmp/v122_scratch/v122score.py", line 29, in <module>
+    g, pr, pa = load(sys.argv[1]), load(sys.argv[2]), load(sys.argv[3])
+                                   ^^^^^^^^^^^^^^^^^
+  File "/tmp/v122_scratch/v122score.py", line 17, in load
+    for l in open(p, errors='replace'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/v122_arms/q8scopes2.def//pris.cells'
+Traceback (most recent call last):
+  File "/tmp/v122_scratch/v122score.py", line 29, in <module>
+    g, pr, pa = load(sys.argv[1]), load(sys.argv[2]), load(sys.argv[3])
+                                   ^^^^^^^^^^^^^^^^^
+  File "/tmp/v122_scratch/v122score.py", line 17, in load
+    for l in open(p, errors='replace'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/v122_arms/q8scopes2.elab//pris.cells'

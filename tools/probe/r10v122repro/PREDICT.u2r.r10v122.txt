@@ -1,0 +1,18 @@
+CAND default/FunctionCallsFunctionWithIndexedPartSelectAsArgument-c500c3a8 state_out 
+CAND default/function_loop-ebf75d4a func_loop 
+CAND default/function_mixed-cb17e932 result 
+CAND default/func_upto-0d040ee5 F F_WIRE 
+CAND default/many_functions-7995889d func_loop result 
+CAND default/multidim_hier_path9-9447b08e out 
+CAND default/ReturnEnumArray-87deb11a out 
+CAND default/rotate-01bb0f1a out 
+CAND testflags/FunctionCallsFunctionWithIndexedPartSelectAsArgument-c500c3a8 state_out 
+CAND testflags/function_loop-ebf75d4a func_loop 
+CAND testflags/function_mixed-cb17e932 result 
+CAND testflags/func_upto-0d040ee5 F F_WIRE 
+CAND testflags/many_functions-7995889d func_loop result 
+CAND testflags/multidim_hier_path9-9447b08e out 
+CAND testflags/ReturnEnumArray-87deb11a out 
+CAND testflags/rotate-01bb0f1a out 
+LISTED=1358 PROCESSED=1358 CANDIDATES=16
+PROCESSED-ASSERT-OK

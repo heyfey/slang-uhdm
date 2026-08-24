@@ -1,0 +1,52 @@
+MOVED 0068_r10buvm22repro_g22.sv/def 12 lines
+MOVED 0068_r10buvm22repro_g22.sv/elab 12 lines
+bound122.sh: line 35: 406723 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 406783 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 409147 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 409165 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 2024_r10uvm122repro_g122_a_owner.sv/def 24 lines
+MOVED 2025_r10uvm122repro_g122_b_shape.sv/def 44 lines
+MOVED 2026_r10uvm122repro_g122_c_scope.sv/def 24 lines
+MOVED 2027_r10uvm122repro_g122_d_pos.sv/def 40 lines
+MOVED 2028_r10uvm122repro_g122_e_home.sv/def 6 lines
+MOVED 2028_r10uvm122repro_g122_e_home.sv/elab 2 lines
+MOVED 2029_r10uvm122repro_g122_f_clone.sv/def 8 lines
+bound122.sh: line 35: 655553 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 655591 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 663202 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 663243 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 670269 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 670325 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 747158 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 747197 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 748243 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 748282 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 757990 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 758026 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 758904 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 758929 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 764295 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 764319 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 764959 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 764985 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 852351 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 852463 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 852679 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 852806 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 853052 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound122.sh: line 35: 853157 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+LISTED=3745 FENCED_SKIPPED=0 PROCESSED=3745 MOVED=9 NO_OUTPUT_PAIRS=294
+PROCESSED-ASSERT-OK
+
+-- ATTRIBUTION of every moved cell
+g122_a_owner / g122_b_shape / g122_c_scope / g122_d_pos / g122_e_home / g122_f_clone
+   = THIS PASS'S OWN ARMS, its positive controls.  arms122.sh scores them
+   38 TOGOLD / 0 MOVEDWRONG / 0 AWAY (ARMS.r10uvm122.txt); g122_e_home also
+   moves 2 lines in the ELAB view and that cell too is TO GOLDEN.
+r10buvm22repro/g22.sv (def and elab, 12 lines each)
+   = uvm120's documented R7.  Its class-scope associative-array typedef
+   synthesizes a [0 : N-1] range whose N is an IMAGE-RELATIVE ADDRESS, so the
+   arm is not build-reproducible and ANY code change moves it.  Measured here:
+     vpiDecompile/UINT 22441433 -> 22445529   (+4096, a binary-size shift)
+     vpiDecompile/UINT 22440577 -> 22444673   (+4096)
+   No object of this law appears in that arm.
