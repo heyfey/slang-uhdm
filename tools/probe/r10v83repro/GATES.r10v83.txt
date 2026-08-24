@@ -1,0 +1,112 @@
+r10v83 — THE VERIFIER'S OWN GATE BATTERY.  BASE 0df1393, branch auto5h.
+The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole acceptance judge.
+results/*.csv was READ ONLY and is untouched — NO ROW WAS CONVERTED.
+Every number below was measured from THIS agent's own builds and sweeps; none
+was carried over from the implementer's report.
+
+(1) BUILD — three binaries, each frozen chmod-555 before any sweep
+    PRISTINE  0df1393                        62a546a2e309c01971d212d7cf31605d
+    IMPLEMENTER 0df1393 + r10earl83.patch    41cf48fb2313b0b59f4a752457bb7efa
+    VERIFIED  + the r10v83 fix               d0ec27bdfa7134f0179e270cdd712f72
+    The first two md5s reproduce the implementer's report BIT FOR BIT.
+    Every cmds.txt audited by binary PATH: u2r 1458/1458 and surelog 956/956
+    name only /tmp/v83_bin/*.bin — never the main-tree binary.
+
+(2) GOLDENS (SLANG_UHDM exported explicitly to each binary)
+    pristine    PASS=23 FAIL=0
+    implementer PASS=23 FAIL=0
+    verified    PASS=23 FAIL=0
+    SLANG_UHDM=/bin/false   PASS=0 FAIL=23   (negative control)
+
+(3) uhdm2rtlil, both modes, all three binaries
+    CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   in every sweep
+    ct8rows verified vs results/gate_uhdm2rtlil.csv         PASS
+    ct8rows verified vs this agent's own PRISTINE sweep tf  PASS
+    ct8rows verified vs this agent's own PRISTINE sweep def PASS
+    byteverify SELFCHECK=1  MOVERS 0 / 1358   SELFCHECK 1357/1358 flagged
+
+(4) surelog, --mode both (956 databases), pristine / implementer / verified
+    default    CMP_EQUAL 471  CMP_NOTEQUAL 10  SLANG_REJECT 283  SURELOG_FAIL 25  DEFERRED 5
+    testflags  CMP_EQUAL 466  CMP_NOTEQUAL  9  SLANG_REJECT 284  SURELOG_FAIL 23  DEFERRED 5
+               NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+    — the three histograms are IDENTICAL.
+    ct8rows verified vs results/golden_surelog.csv   PASS (0 differing rows over 1588)
+    ct8rows verified vs this agent's PRISTINE sweep  PASS
+    NO ROW CONVERTED.
+
+(5) byteverify SELFCHECK=1, surelog: MOVERS 3 / 956, SELFCHECK 955/956 flagged
+    ./default/Earlgrey_0_1-71da2fd7/slang.uhdm     2a0b5eda6b19 (pristine fa4d17608810)
+    ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm   469400b3a877 (pristine 86bc331627a4)
+    ./default/Scoreboard-59431470/slang.uhdm       THE DOCUMENTED ORDER COIN —
+        path-normalised ORDER-BLIND uhdm-dump diff vs pristine = 0 lines
+        (ordered diff = 92 lines, the svunit_pkg vpiTaskFunc list flip).
+    The VERIFIED binary's three mover md5s are IDENTICAL to the IMPLEMENTER
+    binary's: the r10v83 fix moves no corpus database at all.
+    Earlgrey is never whole-dump diffed (>1 GB) — attributed by a direct
+    .uhdm reader (v83all.cpp) over Serializer::AllObjects, below.
+
+(6) EARLGREY, THE WHOLE-DATABASE 3-WAY IDENTITY CENSUS (v83all + score83v.py)
+    one row per object, KEY = KIND+SPAN+VpiName+VpiDefName, PAYLOAD = the
+    COMPARE-VISIBLE fields only (size/value/consttype/decompile/optype/nops/
+    typespec kind+name), no span in the payload, no vpiParent, no id, no depth,
+    joined as a MULTISET against the cached GOLDEN named in each cmds.txt.
+      default    objects golden 783,183  pristine 772,215  verified 772,206
+                 TO-GOLDEN 12   AWAY 0   changed-but-still-wrong 1
+      testflags  objects golden 1,061,095  pristine 1,482,133  verified 1,482,115
+                 TO-GOLDEN 14   AWAY 1    changed-but-still-wrong 1
+    The single AWAY row is `constant 157:14-157:16 '0` (pwrmgr_pkg.sv:157,
+    the `rstreqs: '0` member beside the folded cast), VpiSize 64 -> 16.  It is
+    an ORPHAN: its parent walk ends at a `constant`, never at `design`, so it
+    is UNREACHABLE to uhdm-cmp, and GOLDEN HOLDS NEITHER FORM (g=0 for both
+    64 and 16).  EVERY design-reachable row at that span (PARAMINIT, PORTHC,
+    PROCESS) is byte-identical pristine vs verified.
+    The "still wrong" row in each mode is the `ref_typespec 0:0-0:0` bucket,
+    whose count drops by the 3 (default) / 6 (testflags) typespec refs the
+    folds no longer mint; golden's count differs from both.
+
+(7) HEADS (rowheads.sh, this agent's own sweeps)
+    pristine   SeqDriver 50/50  SimpleUVM 13/13  Scoreboard 13/SKIP  MiniAmiq 50/50
+               BuildUVMPkg 13/13  Rggen 0(PASS)/SKIP   Earlgrey 58 / 58
+    verified   identical on every row except  Earlgrey  240 / 268   (1 head each)
+    All ten non-Earlgrey head LOGS are BYTE-IDENTICAL pristine vs verified.
+    The four committed HEAD_{BEFORE,AFTER}_Earlgrey_{default,testflags}.cmp files
+    are BYTE-IDENTICAL to this agent's independent reproduction.
+    The new head in BOTH modes is flash_ctrl.sv:171 `reg2hw.addr.q[2+:17]` —
+    the R0 the implementer predicted, NOT a side effect of this pass.
+
+(8) CANARIES
+    canaries.sh surelog     ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2.sh surelog / uhdm2rtlil   PASS / PASS
+    canaudit.sh canaries.sh ctcan2.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0
+    protected databases, verified vs pristine, BOTH MODES:
+      InterfaceModPort 59a365f3ce2c SAME    BlackParrotComplex SAME
+      YosysOldOr d68e0796d62c SAME          SVSwitch 4842211c4030 (pin held)
+      YosysVerx 6ccda350c24a (pin held)
+
+(9) WIDE BOUNDARY (vwide83.sh over a COPY of tools/probe, .sv and .v at ANY
+    depth, list on fd 3, children </dev/null, PROCESSED asserted, rc per cell)
+    IMPLEMENTER binary, 4 shards:
+      LISTED = PROCESSED = 3732   identical 7156  DIFFERING 16  no_output 292
+      the 16 are THIS PASS'S EIGHT ARMS (r10earl83's g1-g4 and r10v83's v1-v4)
+      in both views, and nothing else.
+    VERIFIED binary, 2 shards + a 2-file top-up for v5/v6:
+      LISTED = PROCESSED = 3732   identical 7154  DIFFERING 18  no_output 292
+      plus v5_span83.sv and v6_signwidth83.sv, 4 more cells (this pass's arms).
+      The 18th and 19th cells are r10buvm22repro/g22.sv in both views — NOT
+      this law: see README section 5 (g22.sv contains ZERO written casts and
+      ZERO module instantiations, so neither the law nor the fix can execute
+      while compiling it; the differing field is an address-shaped garbage
+      range bound the associative-array typespec emitter already produced).
+    Every r10uvm118repro / r10v118repro / r10buvm29repro / r10vbuvm29repro arm,
+    every earl45-82 arm and every UVM/BUVM arm is BYTE-IDENTICAL in both views
+    under both binaries.
+    rc histograms (verified vs pristine): rc=0 6875/6871, rc=3 278/278,
+    rc=4 297/301, rc=139 14/14.  The only asymmetry is four cells where
+    PRISTINE exits 4 and the patched side exits 0 (g4_head83.sv and
+    v3_homes83.sv, both views): the fold returns before pristine's
+    stale-currentScope cast-target bind reports `expression kind: Invalid`.
+    One-directional, and both corpora's status histograms are identical.
+
+    FENCED: the four slang-fenced tests appear 0 times in the 3732-file list
+    and were never dispatched; they are not named in any artifact here.

@@ -1,0 +1,8 @@
+plain r10earl83repro/g1_ctx83.sv
+elab r10earl83repro/g1_ctx83.sv
+plain r10earl83repro/g2_types83.sv
+elab r10earl83repro/g2_types83.sv
+plain r10earl83repro/g3_law83.sv
+elab r10earl83repro/g3_law83.sv
+plain r10earl83repro/g4_head83.sv
+elab r10earl83repro/g4_head83.sv

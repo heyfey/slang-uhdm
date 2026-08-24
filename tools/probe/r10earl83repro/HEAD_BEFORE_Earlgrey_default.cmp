@@ -1,0 +1,58 @@
+LHS:
+decompile:
+constant: , id:395590, line:137:18, endln:137:30
+|vpiParent:
+\_port: (rdata_i), id:395338, line:37:29, endln:37:36
+|vpiSize:32
+|UINT:0
+|vpiConstType:9
+
+decompile:
+constant: , id:395590, line:137:18, endln:137:30
+|vpiParent:
+\_port: (rdata_i), id:395338, line:37:29, endln:37:36
+|vpiSize:32
+|UINT:0
+|vpiConstType:9
+RHS:
+decompile:
+operation: , id:327214, line:137:18, endln:137:30
+|vpiParent:
+\_port: (rdata_i), id:327212, line:37:29, endln:37:36
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_ctrl), id:327216
+  |vpiParent:
+  \_operation: , id:327214, line:137:18, endln:137:30
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl
+  |vpiActual:
+  \_integer_typespec: , id:327215, line:137:18, endln:137:26
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:327217, line:137:28, endln:137:29
+  |vpiParent:
+  \_operation: , id:327214, line:137:18, endln:137:30
+  |vpiDecompile:0
+  |vpiSize:64
+  |UINT:0
+  |vpiConstType:9
+
+decompile:
+operation: , id:327214, line:137:18, endln:137:30
+|vpiParent:
+\_port: (rdata_i), id:327212, line:37:29, endln:37:36
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_ctrl), id:327216
+  |vpiParent:
+  \_operation: , id:327214, line:137:18, endln:137:30
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl
+  |vpiActual:
+  \_integer_typespec: , id:327215, line:137:18, endln:137:26
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:327217, line:137:28, endln:137:29
+  |vpiParent:
+  \_operation: , id:327214, line:137:18, endln:137:30
+  |vpiDecompile:0
+  |vpiSize:64
+  |UINT:0
+  |vpiConstType:9

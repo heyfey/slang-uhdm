@@ -1,0 +1,50 @@
+r10v83 — THE EARLGREY WHOLE-DATABASE 3-WAY IDENTITY CENSUS.  MEASUREMENT ONLY.
+v83all.cpp reads the .uhdm DIRECTLY (Earlgrey's uhdm-dump is >1 GB) and prints one
+row per object over Serializer::AllObjects; score83v.py multiset-joins golden /
+pristine / verified and reports EVERY row whose multiplicity changed.
+(the "verified" side is the sl_fix sweep by byte identity: byteverify reports the
+same two Earlgrey md5s 2a0b5eda6b19 / 469400b3a877 for the implementer binary and
+the verified binary, so the two databases are byte-identical and one census serves.)
+
+======== Earlgrey_0_1 / default ========
+STILL                1
+TO-GOLDEN            12
+UNCHANGED-agrees     191373
+UNCHANGED-differs    8136
+STILL      g=114230 o=110173 q=110170  ref_typespec | 0:0-0:0 | - | - | || | - | - | - | - | - | - | - | - | -
+TO-GOLDEN  g=0 o=1 q=0  constant | 156:27-156:31 | - | - | || | 1 | BIN:1 | 3 | 1'b1 | - | - | - | - | -
+TO-GOLDEN  g=0 o=1 q=0  int_typespec | 18:14-18:14 | - | - | || | - | - | - | - | - | - | - | - | -
+TO-GOLDEN  g=0 o=1 q=0  integer_typespec | 137:18-137:26 | - | - | || | - | - | - | - | - | - | - | - | -
+TO-GOLDEN  g=0 o=1 q=0  operation | 137:18-137:30 | - | - | || | - | - | - | - | 67 | 1 | integer_typespec | - | -
+TO-GOLDEN  g=0 o=1 q=0  operation | 156:14-156:32 | - | - | || | - | - | - | - | 67 | 1 | int_typespec | WakeUpPeris | -
+TO-GOLDEN  g=1 o=0 q=1  constant | 137:18-137:30 | - | - | || | 32 | UINT:0 | 9 | - | - | - | - | - | -
+TO-GOLDEN  g=1 o=0 q=1  constant | 87:27-87:51 | - | - | || | 24 | UINT:16777215 | 9 | - | - | - | - | - | -
+TO-GOLDEN  g=1 o=2 q=1  constant | 137:28-137:29 | - | - | || | 64 | UINT:0 | 9 | 0 | - | - | - | - | -
+TO-GOLDEN  g=1 o=2 q=1  constant | 87:40-87:50 | - | - | || | 24 | HEX:FFFFFF | 5 | 24'hFFFFFF | - | - | - | - | -
+TO-GOLDEN  g=1 o=2 q=1  operation | 87:27-87:51 | - | - | || | - | - | - | - | 67 | 1 | int_typespec | PING_CNT_DW | -
+TO-GOLDEN  g=3 o=4 q=3  int_typespec | 23:27-23:27 | - | - | || | - | - | - | - | - | - | - | - | -
+TO-GOLDEN  g=13 o=12 q=13  constant | 156:14-156:32 | - | - | || | 16 | UINT:1 | 9 | - | - | - | - | - | -
+
+======== Earlgrey_0_1 / testflags ========
+AWAY                 1
+STILL                1
+TO-GOLDEN            14
+UNCHANGED-agrees     170916
+UNCHANGED-differs    53718
+AWAY       g=0 o=0 q=1  constant | 157:14-157:16 | - | - | || | 16 | BIN:0 | 3 | '0 | - | - | - | - | -
+STILL      g=135027 o=188767 q=188761  ref_typespec | 0:0-0:0 | - | - | || | - | - | - | - | - | - | - | - | -
+TO-GOLDEN  g=0 o=1 q=0  constant | 156:14-156:32 | - | - | || | 64 | UINT:1 | 9 | - | - | - | - | - | -
+TO-GOLDEN  g=0 o=1 q=0  constant | 156:27-156:31 | - | - | || | 1 | BIN:1 | 3 | 1'b1 | - | - | - | - | -
+TO-GOLDEN  g=0 o=1 q=0  constant | 157:14-157:16 | - | - | || | 64 | BIN:0 | 3 | '0 | - | - | - | - | -
+TO-GOLDEN  g=0 o=1 q=0  constant | 87:27-87:51 | - | - | || | 64 | UINT:16777215 | 9 | - | - | - | - | - | -
+TO-GOLDEN  g=0 o=1 q=0  int_typespec | 18:14-18:14 | - | - | || | - | - | - | - | - | - | - | - | -
+TO-GOLDEN  g=0 o=1 q=0  integer_typespec | 137:18-137:26 | - | - | || | - | - | - | - | - | - | - | - | -
+TO-GOLDEN  g=0 o=2 q=0  operation | 137:18-137:30 | - | - | || | - | - | - | - | 67 | 1 | integer_typespec | - | -
+TO-GOLDEN  g=0 o=2 q=0  operation | 156:14-156:32 | - | - | || | - | - | - | - | 67 | 1 | int_typespec | WakeUpPeris | -
+TO-GOLDEN  g=1 o=0 q=1  constant | 87:27-87:51 | - | - | || | 24 | UINT:16777215 | 9 | - | - | - | - | - | -
+TO-GOLDEN  g=1 o=2 q=1  constant | 137:28-137:29 | - | - | || | 64 | UINT:0 | 9 | 0 | - | - | - | - | -
+TO-GOLDEN  g=1 o=2 q=1  constant | 87:40-87:50 | - | - | || | 24 | HEX:FFFFFF | 5 | 24'hFFFFFF | - | - | - | - | -
+TO-GOLDEN  g=1 o=3 q=1  operation | 87:27-87:51 | - | - | || | - | - | - | - | 67 | 1 | int_typespec | PING_CNT_DW | -
+TO-GOLDEN  g=3 o=4 q=3  int_typespec | 23:27-23:27 | - | - | || | - | - | - | - | - | - | - | - | -
+TO-GOLDEN  g=13 o=12 q=13  constant | 156:14-156:32 | - | - | || | 16 | UINT:1 | 9 | - | - | - | - | - | -
+

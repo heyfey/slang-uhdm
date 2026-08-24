@@ -1,0 +1,240 @@
+LHS:
+decompile:
+hier_path: (reg2hw.addr.q[2+:17]), id:398564, line:171:22, endln:171:58
+|vpiParent:
+\_port: (op_addr_i), id:398346, line:20:28, endln:20:37
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[2+:17]), id:398565
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[2+:17]), id:398564, line:171:22, endln:171:58
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[2+:17]
+  |vpiActual:
+  \_struct_typespec: (flash_ctrl_reg_pkg::flash_ctrl_reg2hw_t), id:29406, line:231:11, endln:242:4
+|vpiActual:
+\_ref_obj: (reg2hw), id:398566, line:171:22, endln:171:28
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[2+:17]), id:398564, line:171:22, endln:171:58
+  |vpiName:reg2hw
+|vpiActual:
+\_ref_obj: (addr), id:398567, line:171:29, endln:171:33
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[2+:17]), id:398564, line:171:22, endln:171:58
+  |vpiName:addr
+|vpiActual:
+\_indexed_part_select: (reg2hw.addr.q[2+:17]), id:398568, line:171:34, endln:171:57
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[2+:17]), id:398564, line:171:22, endln:171:58
+  |vpiName:q
+  |vpiFullName:reg2hw.addr.q[2+:17]
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_constant: , id:398569, line:171:36, endln:171:48
+    |vpiDecompile:2
+    |vpiSize:32
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: , id:398571
+      |vpiParent:
+      \_constant: , id:398569, line:171:36, endln:171:48
+      |vpiActual:
+      \_int_typespec: , id:398570
+    |vpiConstType:9
+  |vpiWidthExpr:
+  \_constant: , id:398572, line:171:52, endln:171:57
+    |vpiDecompile:17
+    |vpiSize:32
+    |UINT:17
+    |vpiConstType:9
+|vpiExpr:
+\_struct_var: (work@top_earlgrey.u_flash_ctrl.reg2hw), id:370599, line:37:23, endln:37:29
+  |vpiParent:
+  \_module_inst: work@flash_ctrl (work@top_earlgrey.u_flash_ctrl), id:1001814, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey.sv, line:554:3, endln:572:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.reg2hw), id:370600
+    |vpiParent:
+    \_struct_var: (work@top_earlgrey.u_flash_ctrl.reg2hw), id:370599, line:37:23, endln:37:29
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.reg2hw
+    |vpiActual:
+    \_struct_typespec: (flash_ctrl_reg_pkg::flash_ctrl_reg2hw_t), id:29406, line:231:11, endln:242:4
+  |vpiName:reg2hw
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.reg2hw
+  |vpiVisibility:1
+|vpiName:reg2hw.addr.q[2+:17]
+
+decompile:
+hier_path: (reg2hw.addr.q[2+:17]), id:398564, line:171:22, endln:171:58
+|vpiParent:
+\_port: (op_addr_i), id:398346, line:20:28, endln:20:37
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[2+:17]), id:398565
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[2+:17]), id:398564, line:171:22, endln:171:58
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[2+:17]
+  |vpiActual:
+  \_struct_typespec: (flash_ctrl_reg_pkg::flash_ctrl_reg2hw_t), id:29406, line:231:11, endln:242:4
+|vpiActual:
+\_ref_obj: (reg2hw), id:398566, line:171:22, endln:171:28
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[2+:17]), id:398564, line:171:22, endln:171:58
+  |vpiName:reg2hw
+|vpiActual:
+\_ref_obj: (addr), id:398567, line:171:29, endln:171:33
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[2+:17]), id:398564, line:171:22, endln:171:58
+  |vpiName:addr
+|vpiActual:
+\_indexed_part_select: (reg2hw.addr.q[2+:17]), id:398568, line:171:34, endln:171:57
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[2+:17]), id:398564, line:171:22, endln:171:58
+  |vpiName:q
+  |vpiFullName:reg2hw.addr.q[2+:17]
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_constant: , id:398569, line:171:36, endln:171:48
+    |vpiDecompile:2
+    |vpiSize:32
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: , id:398571
+      |vpiParent:
+      \_constant: , id:398569, line:171:36, endln:171:48
+      |vpiActual:
+      \_int_typespec: , id:398570
+    |vpiConstType:9
+  |vpiWidthExpr:
+  \_constant: , id:398572, line:171:52, endln:171:57
+    |vpiDecompile:17
+    |vpiSize:32
+    |UINT:17
+    |vpiConstType:9
+|vpiExpr:
+\_struct_var: (work@top_earlgrey.u_flash_ctrl.reg2hw), id:370599, line:37:23, endln:37:29
+  |vpiParent:
+  \_module_inst: work@flash_ctrl (work@top_earlgrey.u_flash_ctrl), id:1001814, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey.sv, line:554:3, endln:572:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.reg2hw), id:370600
+    |vpiParent:
+    \_struct_var: (work@top_earlgrey.u_flash_ctrl.reg2hw), id:370599, line:37:23, endln:37:29
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.reg2hw
+    |vpiActual:
+    \_struct_typespec: (flash_ctrl_reg_pkg::flash_ctrl_reg2hw_t), id:29406, line:231:11, endln:242:4
+  |vpiName:reg2hw
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.reg2hw
+  |vpiVisibility:1
+|vpiName:reg2hw.addr.q[2+:17]
+RHS:
+decompile:
+hier_path: (reg2hw.addr.q[DataBitWidth+:17]), id:328176, line:171:22, endln:171:58
+|vpiParent:
+\_port: (op_addr_i), id:328174, line:20:28, endln:20:37
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17]), id:328182
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[DataBitWidth+:17]), id:328176, line:171:22, endln:171:58
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17]
+  |vpiActual:
+  \_struct_typespec: (flash_ctrl_reg_pkg::flash_ctrl_reg2hw_t), id:27155, line:231:11, endln:242:4
+|vpiActual:
+\_ref_obj: (reg2hw), id:328177, line:171:22, endln:171:28
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[DataBitWidth+:17]), id:328176, line:171:22, endln:171:58
+  |vpiName:reg2hw
+|vpiActual:
+\_ref_obj: (addr), id:328178, line:171:29, endln:171:33
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[DataBitWidth+:17]), id:328176, line:171:22, endln:171:58
+  |vpiName:addr
+|vpiActual:
+\_indexed_part_select: (reg2hw.addr.q[DataBitWidth+:17]), id:328179, line:171:34, endln:171:57
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[DataBitWidth+:17]), id:328176, line:171:22, endln:171:58
+  |vpiName:q
+  |vpiFullName:reg2hw.addr.q[DataBitWidth+:17]
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_ref_obj: (work@top_earlgrey.u_flash_ctrl.DataBitWidth), id:328180, line:171:36, endln:171:48
+    |vpiParent:
+    \_indexed_part_select: (reg2hw.addr.q[DataBitWidth+:17]), id:328179, line:171:34, endln:171:57
+    |vpiName:DataBitWidth
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.DataBitWidth
+  |vpiWidthExpr:
+  \_constant: , id:328181, line:171:52, endln:171:57
+    |vpiDecompile:17
+    |vpiSize:32
+    |UINT:17
+    |vpiConstType:9
+|vpiExpr:
+\_struct_var: (work@top_earlgrey.u_flash_ctrl.reg2hw), id:304602, line:37:23, endln:37:29
+  |vpiParent:
+  \_module_inst: work@flash_ctrl (work@top_earlgrey.u_flash_ctrl), id:304227, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey.sv, line:554:3, endln:572:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.reg2hw), id:304601
+    |vpiParent:
+    \_struct_var: (work@top_earlgrey.u_flash_ctrl.reg2hw), id:304602, line:37:23, endln:37:29
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.reg2hw
+    |vpiActual:
+    \_struct_typespec: (flash_ctrl_reg_pkg::flash_ctrl_reg2hw_t), id:27155, line:231:11, endln:242:4
+  |vpiName:reg2hw
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.reg2hw
+  |vpiVisibility:1
+|vpiName:reg2hw.addr.q[DataBitWidth+:17]
+
+decompile:
+hier_path: (reg2hw.addr.q[DataBitWidth+:17]), id:328176, line:171:22, endln:171:58
+|vpiParent:
+\_port: (op_addr_i), id:328174, line:20:28, endln:20:37
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17]), id:328182
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[DataBitWidth+:17]), id:328176, line:171:22, endln:171:58
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17]
+  |vpiActual:
+  \_struct_typespec: (flash_ctrl_reg_pkg::flash_ctrl_reg2hw_t), id:27155, line:231:11, endln:242:4
+|vpiActual:
+\_ref_obj: (reg2hw), id:328177, line:171:22, endln:171:28
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[DataBitWidth+:17]), id:328176, line:171:22, endln:171:58
+  |vpiName:reg2hw
+|vpiActual:
+\_ref_obj: (addr), id:328178, line:171:29, endln:171:33
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[DataBitWidth+:17]), id:328176, line:171:22, endln:171:58
+  |vpiName:addr
+|vpiActual:
+\_indexed_part_select: (reg2hw.addr.q[DataBitWidth+:17]), id:328179, line:171:34, endln:171:57
+  |vpiParent:
+  \_hier_path: (reg2hw.addr.q[DataBitWidth+:17]), id:328176, line:171:22, endln:171:58
+  |vpiName:q
+  |vpiFullName:reg2hw.addr.q[DataBitWidth+:17]
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_ref_obj: (work@top_earlgrey.u_flash_ctrl.DataBitWidth), id:328180, line:171:36, endln:171:48
+    |vpiParent:
+    \_indexed_part_select: (reg2hw.addr.q[DataBitWidth+:17]), id:328179, line:171:34, endln:171:57
+    |vpiName:DataBitWidth
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.DataBitWidth
+  |vpiWidthExpr:
+  \_constant: , id:328181, line:171:52, endln:171:57
+    |vpiDecompile:17
+    |vpiSize:32
+    |UINT:17
+    |vpiConstType:9
+|vpiExpr:
+\_struct_var: (work@top_earlgrey.u_flash_ctrl.reg2hw), id:304602, line:37:23, endln:37:29
+  |vpiParent:
+  \_module_inst: work@flash_ctrl (work@top_earlgrey.u_flash_ctrl), id:304227, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey.sv, line:554:3, endln:572:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.reg2hw), id:304601
+    |vpiParent:
+    \_struct_var: (work@top_earlgrey.u_flash_ctrl.reg2hw), id:304602, line:37:23, endln:37:29
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.reg2hw
+    |vpiActual:
+    \_struct_typespec: (flash_ctrl_reg_pkg::flash_ctrl_reg2hw_t), id:27155, line:231:11, endln:242:4
+  |vpiName:reg2hw
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.reg2hw
+  |vpiVisibility:1
+|vpiName:reg2hw.addr.q[DataBitWidth+:17]

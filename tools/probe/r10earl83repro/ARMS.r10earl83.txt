@@ -1,0 +1,299 @@
+r10earl83 — THE ARM SCORES (score3_83.py: GOLDEN vs PRISTINE vs PATCHED, per cell).
+MEASUREMENT ONLY.  0 RIGHT->WRONG on every arm.
+
+== g1_ctx83  (/tmp/r10earl83_arms/A1)
+   MISSING(g=0 o=1 q=1)   5
+   MISSING(g=1 o=0 q=0)   2
+   MISSING(g=1 o=2 q=2)   1
+   SAME->SAME             24
+   WRONG->OTHER           1
+   WRONG->RIGHT           5
+   WRONG->WRONG           3
+== g2_types83  (/tmp/r10earl83_arms/A2)
+   MISSING(g=0 o=1 q=1)   1
+   MISSING(g=0 o=2 q=2)   4
+   MISSING(g=1 o=0 q=0)   1
+   MISSING(g=1 o=2 q=2)   2
+   SAME->SAME             40
+   WRONG->RIGHT           6
+   WRONG->WRONG           21
+== g3_law83  (/tmp/r10earl83_arms/A3)
+   MISSING(g=0 o=1 q=1)   2
+   MISSING(g=1 o=0 q=0)   2
+   MISSING(g=2 o=1 q=1)   1
+   SAME->SAME             37
+   WRONG->RIGHT           17
+   WRONG->WRONG           8
+== g4_head83  (/tmp/r10earl83_arms/A4)
+   SAME->SAME             1
+   WRONG->RIGHT           1
+
+== THE LAW ARM g3_law83.sv, cell by cell
+WRONG->RIGHT   SPAN=31:14-31:26	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:0 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+      Q KIND=constant SZ=32 VAL=UINT:0 CT=9
+SAME->SAME     SPAN=31:14-31:26	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+      O KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+      Q KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+MISSING(g=1 o=0 q=0) SPAN=32:22-32:51	CTX=OTHER	PORTPAR=-	CALLARG=0	PSBOUND=0	ROOT=constant
+      G KIND=constant SZ=64 VAL=UINT:16777215 CT=9
+      O <none>
+      Q <none>
+MISSING(g=0 o=1 q=1) SPAN=32:22-32:51	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G <none>
+      O KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:24 OP0=constant/24/HEX:FFFFFF/5
+      Q KIND=constant SZ=24 VAL=UINT:16777215 CT=9
+SAME->SAME     SPAN=32:22-32:51	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:24 OP0=constant/24/HEX:FFFFFF/5
+      O KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:24 OP0=constant/24/HEX:FFFFFF/5
+      Q KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:24 OP0=constant/24/HEX:FFFFFF/5
+MISSING(g=1 o=0 q=0) SPAN=33:22-33:45	CTX=OTHER	PORTPAR=-	CALLARG=0	PSBOUND=0	ROOT=constant
+      G KIND=constant SZ=64 VAL=UINT:1 CT=9
+      O <none>
+      Q <none>
+MISSING(g=0 o=1 q=1) SPAN=33:22-33:45	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G <none>
+      O KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:16 OP0=constant/1/BIN:1/3
+      Q KIND=constant SZ=16 VAL=UINT:1 CT=9
+SAME->SAME     SPAN=33:22-33:45	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:16 OP0=constant/1/BIN:1/3
+      O KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:16 OP0=constant/1/BIN:1/3
+      Q KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:16 OP0=constant/1/BIN:1/3
+WRONG->RIGHT   SPAN=36:14-36:26	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:0 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+      Q KIND=constant SZ=32 VAL=UINT:0 CT=9
+SAME->SAME     SPAN=36:14-36:26	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+      O KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+      Q KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+WRONG->RIGHT   SPAN=37:14-37:26	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:0 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+      Q KIND=constant SZ=32 VAL=UINT:0 CT=9
+SAME->SAME     SPAN=37:14-37:26	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+      O KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+      Q KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+WRONG->RIGHT   SPAN=38:31-38:43	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:0 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+      Q KIND=constant SZ=32 VAL=UINT:0 CT=9
+SAME->SAME     SPAN=38:31-38:43	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+      O KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+      Q KIND=operation OPT=67 NOPS=1 TS=int_typespec TSV=UINT:32 TSN=BusWidth OP0=constant/64/UINT:0/9
+WRONG->RIGHT   SPAN=41:15-41:20	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=1 VAL=UINT:1 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:1 OP0=constant/64/UINT:1/9
+      Q KIND=constant SZ=1 VAL=UINT:1 CT=9
+SAME->SAME     SPAN=41:15-41:20	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:1 OP0=constant/64/UINT:1/9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:1 OP0=constant/64/UINT:1/9
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:1 OP0=constant/64/UINT:1/9
+WRONG->RIGHT   SPAN=42:15-42:20	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=4 VAL=UINT:9 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:4 OP0=constant/64/UINT:9/9
+      Q KIND=constant SZ=4 VAL=UINT:9 CT=9
+SAME->SAME     SPAN=42:15-42:20	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:4 OP0=constant/64/UINT:9/9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:4 OP0=constant/64/UINT:9/9
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:4 OP0=constant/64/UINT:9/9
+WRONG->RIGHT   SPAN=43:15-43:22	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=8 VAL=UINT:44 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:8 OP0=constant/64/UINT:300/9
+      Q KIND=constant SZ=8 VAL=UINT:44 CT=9
+SAME->SAME     SPAN=43:15-43:22	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:8 OP0=constant/64/UINT:300/9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:8 OP0=constant/64/UINT:300/9
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:8 OP0=constant/64/UINT:300/9
+WRONG->RIGHT   SPAN=44:15-44:32	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:3735928559 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/HEX:DEADBEEF/5
+      Q KIND=constant SZ=32 VAL=UINT:3735928559 CT=9
+SAME->SAME     SPAN=44:15-44:32	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/HEX:DEADBEEF/5
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/HEX:DEADBEEF/5
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/HEX:DEADBEEF/5
+WRONG->RIGHT   SPAN=45:15-45:40	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=63 VAL=UINT:9223372036854775807 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:63 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+      Q KIND=constant SZ=63 VAL=UINT:9223372036854775807 CT=9
+SAME->SAME     SPAN=45:15-45:40	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:63 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:63 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:63 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+WRONG->WRONG   SPAN=46:15-46:40	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=64 VAL=UINT:0 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:64 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:64 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+SAME->SAME     SPAN=46:15-46:40	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:64 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:64 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:64 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+WRONG->WRONG   SPAN=47:15-47:40	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=96 VAL=UINT:4294967295 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:96 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:96 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+SAME->SAME     SPAN=47:15-47:40	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:96 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:96 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:96 OP0=constant/64/HEX:FFFFFFFFFFFFFFFF/5
+WRONG->RIGHT   SPAN=48:15-48:26	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:0 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec OP0=constant/64/UINT:0/9
+      Q KIND=constant SZ=32 VAL=UINT:0 CT=9
+SAME->SAME     SPAN=48:15-48:26	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec OP0=constant/64/UINT:0/9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec OP0=constant/64/UINT:0/9
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec OP0=constant/64/UINT:0/9
+WRONG->RIGHT   SPAN=51:15-51:21	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:9 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      Q KIND=constant SZ=32 VAL=UINT:9 CT=9
+SAME->SAME     SPAN=51:15-51:21	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+WRONG->RIGHT   SPAN=52:15-52:24	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:9 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/8/DEC:9/1
+      Q KIND=constant SZ=32 VAL=UINT:9 CT=9
+SAME->SAME     SPAN=52:15-52:24	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/8/DEC:9/1
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/8/DEC:9/1
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/8/DEC:9/1
+WRONG->WRONG   SPAN=53:15-53:25	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=INT:9 CT=7 TS=logic_typespec
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/8/DEC:9/1
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/8/DEC:9/1
+SAME->SAME     SPAN=53:15-53:25	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/8/DEC:9/1
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/8/DEC:9/1
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/8/DEC:9/1
+WRONG->RIGHT   SPAN=54:15-54:24	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:11 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/HEX:b/5
+      Q KIND=constant SZ=32 VAL=UINT:11 CT=9
+SAME->SAME     SPAN=54:15-54:24	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/HEX:b/5
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/HEX:b/5
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/HEX:b/5
+WRONG->RIGHT   SPAN=55:15-55:24	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:7 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/OCT:7/4
+      Q KIND=constant SZ=32 VAL=UINT:7 CT=9
+SAME->SAME     SPAN=55:15-55:24	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/OCT:7/4
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/OCT:7/4
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/OCT:7/4
+WRONG->RIGHT   SPAN=56:15-56:27	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:10 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/BIN:1010/3
+      Q KIND=constant SZ=32 VAL=UINT:10 CT=9
+SAME->SAME     SPAN=56:15-56:27	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/BIN:1010/3
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/BIN:1010/3
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/BIN:1010/3
+WRONG->WRONG   SPAN=57:15-57:25	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=INT:3 CT=7 TS=logic_typespec
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/HEX:3/5
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/HEX:3/5
+SAME->SAME     SPAN=57:15-57:25	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/HEX:3/5
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/HEX:3/5
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/4/HEX:3/5
+SAME->SAME     SPAN=58:15-58:24	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/1/BIN:X/3
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/1/BIN:X/3
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/1/BIN:X/3
+SAME->SAME     SPAN=58:15-58:24	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/1/BIN:X/3
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/1/BIN:X/3
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/1/BIN:X/3
+WRONG->WRONG   SPAN=59:15-59:28	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=INT:32 CT=7 TS=logic_typespec
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=ref_obj/0/-/-
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=ref_obj/0/-/-
+SAME->SAME     SPAN=59:15-59:28	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=ref_obj/0/-/-
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=ref_obj/0/-/-
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=ref_obj/0/-/-
+WRONG->WRONG   SPAN=60:15-60:25	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:3 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=operation/0/-/-
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=operation/0/-/-
+SAME->SAME     SPAN=60:15-60:25	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=operation/0/-/-
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=operation/0/-/-
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=operation/0/-/-
+SAME->SAME     SPAN=61:15-61:23	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=ref_obj/0/-/-
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=ref_obj/0/-/-
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=ref_obj/0/-/-
+SAME->SAME     SPAN=61:15-61:23	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=ref_obj/0/-/-
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=ref_obj/0/-/-
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=ref_obj/0/-/-
+WRONG->WRONG   SPAN=64:20-64:26	CTX=PORTHC	PORTPAR=module_inst	CALLARG=1	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      O KIND=operation OPT=67 NOPS=1 TS=logic_typespec OP0=constant/64/UINT:9/9
+      Q KIND=operation OPT=67 NOPS=1 TS=logic_typespec OP0=constant/64/UINT:9/9
+WRONG->WRONG   SPAN=64:20-64:26	CTX=PORTHC	PORTPAR=ref_module	CALLARG=1	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      O KIND=operation OPT=67 NOPS=1 TS=logic_typespec OP0=constant/64/UINT:9/9
+      Q KIND=operation OPT=67 NOPS=1 TS=logic_typespec OP0=constant/64/UINT:9/9
+SAME->SAME     SPAN=65:27-65:34	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=1	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:19/9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:19/9
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:19/9
+SAME->SAME     SPAN=65:27-65:34	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=1	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:19/9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:19/9
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:19/9
+SAME->SAME     SPAN=65:35-65:41	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=1	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:4/9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:4/9
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:4/9
+SAME->SAME     SPAN=65:35-65:41	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=1	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:4/9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:4/9
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:4/9
+SAME->SAME     SPAN=66:18-66:24	CTX=CONTASSIGN	PORTPAR=-	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+MISSING(g=2 o=1 q=1) SPAN=66:18-66:24	CTX=CONTASSIGN	PORTPAR=-	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      O <none>
+      Q <none>
+SAME->SAME     SPAN=67:23-67:29	CTX=PROCESS	PORTPAR=-	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+SAME->SAME     SPAN=69:24-69:30	CTX=PARAMINIT	PORTPAR=-	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:9 CT=9 DEC=9 TS=int_typespec
+      O KIND=constant SZ=32 VAL=UINT:9 CT=9 DEC=9 TS=int_typespec
+      Q KIND=constant SZ=32 VAL=UINT:9 CT=9 DEC=9 TS=int_typespec
+SAME->SAME     SPAN=69:24-69:30	CTX=PARAMINIT	PORTPAR=-	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+WRONG->RIGHT   SPAN=71:17-71:23	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:9 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      Q KIND=constant SZ=32 VAL=UINT:9 CT=9
+WRONG->RIGHT   SPAN=71:17-71:23	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=constant SZ=32 VAL=UINT:9 CT=9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      Q KIND=constant SZ=32 VAL=UINT:9 CT=9
+SAME->SAME     SPAN=71:17-71:23	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:32 OP0=constant/64/UINT:9/9
+SAME->SAME     SPAN=75:11-75:19	CTX=PROCESS	PORTPAR=-	CALLARG=0	PSBOUND=0	ROOT=design
+      G KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:64 OP0=ref_obj/0/-/-
+      O KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:64 OP0=ref_obj/0/-/-
+      Q KIND=operation OPT=67 NOPS=1 TS=integer_typespec TSV=INT:64 OP0=ref_obj/0/-/-

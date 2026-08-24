@@ -15053,6 +15053,224 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                  effCastSyn->kind != syntax::SyntaxKind::CastExpression))
                 return emitExpr(stripImplicitConv(conv.operand()), parent, prefix,
                                 netMap);
+            // § elabConnWrittenCastFold83 (r10earl83) — INSIDE AN ELABORATED
+            // PORT `High_conn`, A WRITTEN SIZE CAST OVER AN UNSIGNED WRITTEN
+            // INTEGER LITERAL IS A PLAIN `constant` IN GOLDEN, NOT A
+            // `vpiCastOp` OPERATION.  We kept the operation, its typespec and
+            // a 64-bit operand.
+            //
+            // WHY GOLDEN HAS NO OPERATION.  `NetlistElaboration::high_conn_`
+            // (Surelog src/DesignCompile/NetlistElaboration.cpp:1332-1337, the
+            // ordered form at :1088-1096) does not clone the DEF-view actual —
+            // it RE-COMPILES the named actual in the PARENT instance with
+            // `Reduce::Yes`.  `CompileHelper::compileExpression` ends every
+            // call with `ExprEval::reduceExpr`
+            // (src/DesignCompile/CompileExpression.cpp:3648), whose `vpiCastOp`
+            // arm (UHDM templates/ExprEval.cpp:4074) REPLACES the operation
+            // with a bare constant whenever the operand has a value and the
+            // target typespec is one it knows.  The `uhdminteger_typespec`
+            // branch — the one a SIZE cast `N'(x)` / `PARAM'(x)` and the
+            // `integer` keyword both take — reads the cast width `cast_to` out
+            // of the typespec's own `VpiValue`, does
+            //     `resize(oper, cast_to); res = get_value(oper) & mask;`
+            // and mints `UINT:<res>`, `VpiSize = cast_to`,
+            // `VpiConstType = vpiUIntConst`, with NO typespec and NO
+            // `VpiDecompile`.  It gives the constant NO LOCATION, so
+            // `compileExpression`'s tail (`:3658`) stamps it with the CAST
+            // NODE's own span — the WHOLE cast text, byte for byte the span
+            // our `vpiCastOp` operation already carries.  (buvm30's
+            // populateCoreMembers fact; the FIRST-CHILD span it names there
+            // belongs to the unary-minus arm.  Both claims were measured here
+            // and this arm takes the WHOLE-NODE span: golden's constant is
+            // 137:18-137:30, our operation's own range, not the operand's
+            // 137:28-137:29.)
+            //
+            // THE HEAD (Earlgrey_0_1, BOTH modes, 58 cmp lines, 1 head, at
+            // 0df1393) — `flash_ctrl.sv:137:18-137:30`, the actual of port
+            // `rdata_i` in `top_earlgrey.u_flash_ctrl`:
+            //     `.rdata_i    (BusWidth'(0))`
+            //   LHS(golden)  constant  |vpiSize:32 |UINT:0 |vpiConstType:9
+            //                          (no decompile, no typespec)
+            //   RHS(ours)    operation |vpiOpType:67 -> integer_typespec
+            //                          |vpiOperand constant UINT:0 size 64
+            // Both sides are non-null and of DIFFERENT `UhdmType`, so
+            // `BaseClass.h:188`'s two-non-null arm names both sides and the
+            // head is a KIND mismatch inside `BaseClass::Compare`'s `VpiType`
+            // line, before any per-kind field is read (read the MK line,
+            // RESUME §9).  The 58 lines are the operation's sub-tree printing,
+            // not 58 cells.
+            //
+            // THE WHOLE MEASURED POPULATION, corpus-wide and a priori
+            // (`cen83.sh` + `score83.py`, span-keyed over every written cast in
+            // the 76 surelog and 132 uhdm2rtlil databases that contain one):
+            // SIX cells — THREE SITES, once per mode, ALL in `Earlgrey_0_1`,
+            // and every one a SIZE cast whose width is a parameter NAME:
+            //   flash_ctrl.sv:137   `BusWidth'(0)`             -> sz32 UINT:0
+            //   alert_handler.sv:87 `PING_CNT_DW'(24'hFFFFFF)` -> sz24 UINT:16777215
+            //   pwrmgr_pkg.sv:156   `WakeUpPeris'(1'b1)`       -> sz16 UINT:1
+            // and `res = value & ((1 << W) - 1)` reproduces all three.
+            //
+            // THE FENCES, each a NEGATIVE CONTROL MEASURED ON GOLDEN
+            // (`g1_ctx83.sv` — 17 contexts; `g3_law83.sv` — the law arm):
+            //  (a) `elabConnEmit21` — the DEF `ref_module` listing KEEPS the
+            //      cast operation at the very same span in golden (all three
+            //      corpus sites, and every arm cell).  This law is the ELAB
+            //      half only, exactly like § elabConnSelFoldNoTs21 and
+            //      § elabConnEnumConstFold66 beside it.  A `cont_assign` Rhs, a
+            //      procedural statement, an instance PARAMETER actual and a
+            //      `param_assign` init all keep the operation in golden's ELAB
+            //      view too — a module body is compiled `Reduce::No`.
+            //  (b) `callArgDepth == 0` — inside a call ARGUMENT golden keeps
+            //      the cast (`compileTfCallArguments` compiles with a non-null
+            //      `pexpr`), the same carve-out
+            //      § connCallArgKeepsEnumRef66v measured for the enum half.
+            //  (c) `!inPsRangeBound` — `compilePartSelectRange` hardcodes
+            //      `Reduce::No`, so a RANGED part-select bound keeps its cast
+            //      (§ genScopeConnPsDirectBoundKeepsRef71's fact at a new
+            //      consumer); measured on `acc[32'(19):32'(4)]`, both bounds.
+            //  (d) THE WRITTEN `'` — § implicitStrConcatNoCast118's fence
+            //      stands untouched above: a compiler-inserted conversion is
+            //      not a cast at all and never reaches here as a
+            //      `CastExpression`; § castOverStreamKeepsCast29's written
+            //      `T'({ << bit {x} })` keeps its operation because its operand
+            //      is a stream, not a literal.
+            //
+            // AND FIVE PRODUCER ABSTENTIONS, every one measured on golden and
+            // left BYTE-IDENTICAL rather than modelled:
+            //  * a SIGNED written literal (`8'sd9`, `4'sh3`) — golden takes
+            //    ExprEval's `oper_signed` branch and mints `INT:<v>`
+            //    `vpiIntConst` PLUS a signed `logic_typespec`; so does a
+            //    `localparam int` operand.  Refused: the operand must be a
+            //    written literal that is either UNBASED decimal (Surelog's
+            //    unsigned `UINT:<v>` size-64 form) or based-and-unsigned.
+            //  * an X/Z-bearing literal (`32'(1'bx)`) — golden KEEPS the cast
+            //    (`get_value` invalidates and the arm breaks out).
+            //  * a non-literal operand — a net, a select, a parameter read, an
+            //    expression, a nested cast, a call, a stream, a string.  Golden
+            //    KEEPS the cast for a net / select / stream, and folds the
+            //    others through paths whose encoding this law does not name.
+            //  * a cast target that is NOT the integer arm — `byte'`, `logic'`,
+            //    `time'`, a typedef and an enum are all KEPT by golden (there
+            //    is no ExprEval arm for them at all); `int'` / `longint'` /
+            //    `shortint'` / `bit'` have arms with their OWN widths and tags
+            //    (64 / 64 / 16 / 1-and-`BIN:`) and not one corpus cell.
+            //  * a cast WIDTH of 64 or more.  Measured golden: `64'(64'h…FFFF)`
+            //    is `sz64 UINT:0` and `96'(64'h…FFFF)` is `sz96 UINT:4294967295`
+            //    — ExprEval's `mask = (1ULL << cast_to) - 1` is C++ UB there and
+            //    x86 shifts modulo 64.  No corpus cell needs it and this law
+            //    will not encode UB, so W >= 64 abstains.
+            if (elabConnEmit21 && callArgDepth == 0 && !inPsRangeBound &&
+                effCastSyn &&
+                effCastSyn->kind == syntax::SyntaxKind::CastExpression) {
+                auto& ce83 = effCastSyn->as<syntax::CastExpressionSyntax>();
+                const bool intKw83 =
+                    ce83.left->kind == syntax::SyntaxKind::IntegerType;
+                const bool sizeCast83 = !isTypeSyntaxKind(ce83.left->kind);
+                const Type* tt83 = expr.type;
+                if ((sizeCast83 || intKw83) && tt83 && tt83->isIntegral() &&
+                    !tt83->isAlias() && !tt83->isEnum()) {
+                    // A size cast's target type IS the written width (slang
+                    // ConversionExpression.cpp:329, `comp.getType(width,
+                    // operand->type->getIntegralFlags())`); `integer'` is 32.
+                    const uint64_t w83 =
+                        intKw83 ? 32u : (uint64_t)tt83->getBitWidth();
+                    const Expression* od83 = &stripImplicitConv(conv.operand());
+                    while (od83->kind == ExpressionKind::Conversion &&
+                           !od83->syntax)
+                        od83 = &od83->as<ConversionExpression>().operand();
+                    if (w83 >= 1 && w83 <= 63 &&
+                        od83->kind == ExpressionKind::IntegerLiteral &&
+                        od83->syntax) {
+                        const auto& lv83 =
+                            od83->as<IntegerLiteral>().getValue();
+                        // The cast's operand syntax is the PARENTHESIZED node
+                        // (`CastExpressionSyntax::right`), so the written form
+                        // is one level down — without this walk every UNBASED
+                        // decimal operand, the head's own `BusWidth'(0)`
+                        // included, was refused as "signed" (slang types a
+                        // bare `0` as `int`, which IS signed; the base marker
+                        // is the only thing Surelog's `oper_signed` reads).
+                        const syntax::SyntaxNode* ls83 = od83->syntax;
+                        while (ls83 &&
+                               ls83->kind ==
+                                   syntax::SyntaxKind::ParenthesizedExpression)
+                            ls83 = ls83->as<
+                                        syntax::ParenthesizedExpressionSyntax>()
+                                       .expression;
+                        const bool unbasedDec83 =
+                            ls83 && ls83->kind ==
+                                        syntax::SyntaxKind::IntegerLiteralExpression;
+                        if (!lv83.hasUnknown() &&
+                            (unbasedDec83 || !lv83.isSigned())) {
+                            if (auto uv83 = lv83.as<uint64_t>()) {
+                                // VERIFIER FIX (r10v83) — THE UNBASED-DECIMAL
+                                // ESCAPE MUST NOT FOLD A VALUE SLANG HAS
+                                // ALREADY LOST.  slang types an UNBASED
+                                // decimal literal as a 32-bit SIGNED `int`
+                                // (that is exactly why the escape exists: a
+                                // bare `0` reads back `isSigned()`), so a
+                                // written value of 2**31 or more never
+                                // survives the bind: `2147483648` arrives as
+                                // the 32-bit pattern 0x80000000 and
+                                // sign-extends, `4294967296` arrives as 0.
+                                // Surelog's constant keeps the WRITTEN value,
+                                // so folding those wrote a FABRICATED number
+                                // into the database where the un-folded
+                                // operand had carried the right one — measured
+                                // on legal SV (`v6_signwidth83.sv` Q01/Q02,
+                                // both an ELAB port High_conn actual):
+                                //   `40'(4294967296)`  golden UINT:4294967296,
+                                //                      this law UINT:0
+                                //   `40'(2147483648)`  golden UINT:2147483648,
+                                //                      this law
+                                //                      UINT:1097364144128
+                                //                      (0xFF80000000, the
+                                //                      40-bit sign extension)
+                                // The based forms are unaffected: a based
+                                // literal carries its own width, and one wider
+                                // than 64 bits already fails `as<uint64_t>()`
+                                // (`32'(65'h1_0000_0000_0000_0001)` is left
+                                // alone).  So the round-trip test is asked of
+                                // the UNBASED escape only: fold when and only
+                                // when the written digits are exactly the
+                                // decimal rendering of the value we are about
+                                // to emit.  It can only ever REFUSE — every
+                                // corpus cell (`BusWidth'(0)`) and every arm
+                                // cell that folded before still folds.
+                                bool faithful83 = true;
+                                if (unbasedDec83) {
+                                    std::string dg83;
+                                    for (char ch83 :
+                                         rawText(ls83->sourceRange()))
+                                        if (ch83 != '_') dg83 += ch83;
+                                    faithful83 =
+                                        (dg83 == std::to_string(*uv83));
+                                }
+                                if (faithful83) {
+                                    auto* c83 = s.MakeConstant();
+                                    c83->VpiParent(parent);
+                                    c83->VpiSize(static_cast<int32_t>(w83));
+                                    c83->VpiValue(
+                                        "UINT:" +
+                                        std::to_string(*uv83 &
+                                                       ((1ULL << w83) - 1ULL)));
+                                    c83->VpiConstType(vpiUIntConst);
+                                    // The folded constant wears the WHOLE cast
+                                    // text's span — the same range, space-strip
+                                    // included, that the operation below wears.
+                                    SourceRange cr83 = expr.sourceRange;
+                                    if (size_t sp83 = basedLiteralSpaceCount(
+                                            rawText(cr83)))
+                                        cr83 = SourceRange(cr83.start(),
+                                                           cr83.end() - sp83);
+                                    setLoc(c83, cr83);
+                                    return c83;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             // Explicit cast: operation(vpiCastOp) with a typespec ref.
             auto* op = s.MakeOperation();
             op->VpiOpType(vpiCastOp);

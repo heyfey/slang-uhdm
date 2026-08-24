@@ -1,0 +1,174 @@
+r10earl83 — THE MOVER PREDICTION (made from PRISTINE databases, before any
+            patched sweep was read) and THE NEXT HEAD (R0).
+
+========================================================================
+PART 1 — THE MOVER PREDICTION
+========================================================================
+`cen83.sh` + `score83.py` were run over the PRISTINE sweep workdirs (golden
+from the immutable cache path named in each test's OWN `cmds.txt`, ours from
+the pristine sweep).  They READ databases and DISPATCH NOTHING, so no test —
+fenced or otherwise — is run by them; the FENCED list is supplied by the
+operator at run time and appears in a count, never as names.
+
+  THE SHAPE THE GATE COULD FIRE ON, golden-agreeing cells included (earl66's
+  lesson: a census keyed on the shape you intend to CHANGE is blind to the rows
+  you would change by ACCIDENT), is EVERY WRITTEN CAST, keyed by its SPAN and
+  its CONTEXT CLASS, in both databases at once — so a golden cast that was
+  REDUCED (and is therefore no longer an operation at all) is found as the
+  CONSTANT it became.  Over the 76 surelog and 132 uhdm2rtlil databases that
+  contain any written cast:
+
+    cast-site cells joined      surelog  8935 cells / 76 DBs
+                                uhdm2rtlil 2002 cells / 132 DBs
+    FAMILY — golden a `constant`, ours a `vpiCastOp`, in an ELABORATED port
+    High_conn (PORTPAR=module_inst)
+                                surelog     6      uhdm2rtlil  0
+    the same in ANY OTHER context (REDUCED-ELSEWHERE)
+                                surelog     0      uhdm2rtlil  0
+
+  and all 6 are THREE SITES in `Earlgrey_0_1`, once per mode:
+    flash_ctrl.sv:137    `BusWidth'(0)`              -> constant sz32 UINT:0
+    alert_handler.sv:87  `PING_CNT_DW'(24'hFFFFFF)`  -> constant sz24 UINT:16777215
+    pwrmgr_pkg.sv:156    `WakeUpPeris'(1'b1)`        -> constant sz16 UINT:1
+
+  Restricting the census to THIS LAW'S FIRE-SET (an ELAB port High_conn,
+  CALLARG=0, PSBOUND=0, ours a vpiCastOp whose operand is a constant with a
+  UINT:/HEX:/BIN:/OCT: value) names the SAME three sites and no fourth, in
+  either corpus.
+
+  PREDICTION: EXACTLY `Earlgrey_0_1` default and `Earlgrey_0_1` testflags move,
+  and NOTHING ELSE, in either corpus.
+
+MEASURED AFTER THE PATCHED SWEEPS, `byteverify.sh SELFCHECK=1`:
+  surelog     MOVERS 3 / 956   ./default/Earlgrey_0_1-71da2fd7/slang.uhdm
+                               ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+                               ./default/Scoreboard-59431470/slang.uhdm
+              SELFCHECK 955/956 flagged (the comparator is live)
+  uhdm2rtlil  MOVERS 0 / 1358  SELFCHECK 1357/1358 flagged
+
+The two predicted movers are exactly the two Earlgrey databases.  The third is
+the DOCUMENTED Scoreboard/default ORDER COIN (RESUME 9): its path-normalised
+ORDER-BLIND `uhdm-dump` diff against pristine is **0 lines**, i.e. the same
+objects in a different order, and its `uhdm-cmp` head log is BYTE-IDENTICAL to
+pristine.  Earlgrey is never whole-dump diffed (its dump is >1 GB); it was
+attributed with the span-keyed direct-reader census, whose `.ours` delta is
+EXACTLY the six predicted cells, each `operation OPT=67` -> the `constant`
+golden holds, field for field.
+
+========================================================================
+PART 2 — R0: THE NEW HEAD, THE SAME OBJECT IN BOTH MODES, AND ITS DECODE
+========================================================================
+BEFORE (0df1393, this pass's own pristine build; `HEAD_BEFORE_*.cmp` reproduce
+the master's earlgrey head log for 0df1393 BYTE FOR BYTE):
+  Earlgrey_0_1 default    58 cmp lines, 1 head  \  the `BusWidth'(0)` cast
+  Earlgrey_0_1 testflags  58 cmp lines, 1 head  /  (identical modulo ids)
+AFTER:
+  Earlgrey_0_1 default   240 cmp lines, 1 head  \  a DEEPER, larger-printing
+  Earlgrey_0_1 testflags 268 cmp lines, 1 head  /  object; the same source site
+  The old head object is GONE and its family is CLOSED (0 FAMILY cells left in
+  either corpus).  Read HEAD_BEFORE_*.cmp against HEAD_AFTER_*.cmp.
+
+THE NEW HEAD — `flash_ctrl.sv:171`, AN INDEXED-PART-SELECT BASE INSIDE A
+HIER_PATH THAT DID NOT FOLD:
+
+    .op_addr_i      (reg2hw.addr.q[DataBitWidth +: AddrW]),
+
+  in the `flash_prog_ctrl` instantiation inside `top_earlgrey.u_flash_ctrl`,
+  where `localparam int DataBitWidth = $clog2(BytesPerWord);` (flash_ctrl.sv:34)
+  evaluates to 2 and `AddrW` to 17.
+
+  LHS (golden)                                RHS (ours)
+    hier_path (reg2hw.addr.q[2+:17])            hier_path (reg2hw.addr.q[DataBitWidth+:17])
+    |vpiParent -> port (op_addr_i)              |vpiParent -> port (op_addr_i)
+    |Path_elems: ref_obj reg2hw, ref_obj addr,  |Path_elems: ref_obj reg2hw, ref_obj addr,
+    |            indexed_part_select            |            indexed_part_select
+    |  |vpiBaseExpr -> constant 171:36-171:48   |  |vpiBaseExpr -> ref_obj
+    |  |   |vpiDecompile:2                      |  |   (work@top_earlgrey.u_flash_ctrl.DataBitWidth)
+    |  |   |vpiSize:32  |UINT:2  |ct:9          |  |
+    |  |   |vpiTypespec -> ref_typespec         |  |
+    |  |       -> int_typespec                  |  |
+    |  |vpiWidthExpr -> constant UINT:17 sz32   |  |vpiWidthExpr -> constant UINT:17 sz32 (SAME)
+
+  WHICH ARM.  Read the MK line: both sides are non-null `hier_path`s, so
+  `hier_path::Compare` runs and reaches `Path_elems`; the elems are equal in
+  COUNT, so the walk descends to the `indexed_part_select` and its
+  `Base_expr` — a `constant` on the left and a `ref_obj` on the right, two
+  non-null objects of DIFFERENT `UhdmType`, i.e. `BaseClass.h:188`'s
+  two-non-null arm again.  The 240/268 lines are the hier_path sub-tree
+  printing (VpiName differs too: our hier_path is NAMED after its unfolded
+  elems, § hpNameBareIdxFold69's law, so the name follows whatever the base
+  becomes — it is not a separate defect).
+
+  THE DECODE TO START FROM.  This is § connBitSelIdxModParamFold81's family at
+  a NEW CONSUMER: `NetlistElaboration::high_conn_` recompiles the actual with
+  `Reduce::Yes`, and `CompileHelper::compileSelectExpression` compiles an
+  indexed-part-select's BASE with the caller's `reduce` (only
+  `compilePartSelectRange` hardcodes `Reduce::No` — which is why the RANGED
+  bound beside it keeps its ref and this one does not).  Under `Reduce::Yes`
+  the identifier arm answers from the instance's stored `Value`
+  (CompileExpression.cpp:962-982).  `DataBitWidth` is NOT overridden, so
+  `DesignElaboration.cpp:2519-2534` ran `adjustSize` before capturing it and
+  the Value carries the DECLARED type's width — 32 for `int` — which is
+  exactly the `sz32 UINT:2 ct9 dec"2"` measured.
+
+  TWO THINGS THAT MAKE IT MORE THAN A COPY OF earl81:
+   (a) the fold sits INSIDE A `hier_path`'s Path_elems, not on a bare
+       `bit_select`, so the consumer is the hier_path builder, not
+       ExprEmit's bit_select arm (earl81's `connBitSelIdxModParamFold81` call
+       site cannot see it);
+   (b) golden's folded constant here CARRIES a `ref_typespec -> int_typespec`,
+       where the port-High_conn folds this pass just landed carry NONE.  The
+       typespec-presence split (§ elabConnSelFoldNoTs21 /
+       § connIpsPkgParamBoundNoTs65 own the other half) has to be measured on
+       a purpose-built grid before any code is written.
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R1  THE ELABORATED `param_assign` COPY OF A WRITTEN CAST IS FOLDED BY GOLDEN
+    AND NOT BY US.  `g1_ctx83.sv:58` (`localparam int Q = integer'(7)`):
+    golden's ELAB copy is `constant sz32 UINT:7 ct9` with `vpiDecompile:7` AND
+    a `ref_typespec -> int_typespec` (the parameter's own type), while its DEF
+    copy stays the cast operation; we emit the operation in both views.  Note
+    the DECOMPILE and the TYPESPEC — the param_assign form is NOT the same
+    constant the High_conn form mints, which is why this law refused it.
+    Corpus cells today: 0 (the corpus's own param-init casts, pwrmgr_pkg's
+    twelve `WakeUpPeris'(1'b1)` copies included, already fold on our side and
+    agree).  Arm-visible only, but it is the cheapest next cast-fold consumer.
+
+R2  A CAST WIDTH OF 64 OR MORE IS SURELOG UB, AND IT IS OBSERVABLE.  Measured
+    golden: `64'(64'hFFFF_FFFF_FFFF_FFFF)` is `sz64 UINT:0` and
+    `96'(64'hFFFF_FFFF_FFFF_FFFF)` is `sz96 UINT:4294967295` — ExprEval's
+    `mask = (1ULL << cast_to) - 1` shifts by >= 64, which x86 does modulo 64.
+    `mask = (1ULL << (W % 64)) - 1` reproduces BOTH cells exactly.  This pass
+    refuses W >= 64 rather than encode UB into the emitter; a future pass that
+    wants those cells must decide whether to model the host's shift.
+
+R3  GOLDEN REDUCES THE WHOLE ACTUAL, NOT JUST THE CAST.  In an ELAB High_conn
+    golden folds an ENTIRE constant-valued expression to ONE constant: an
+    arithmetic operation (`integer'(0) + 64'd2` -> `INT:2 sz64 dec"2"`, stamped
+    at the CAST's span), a concatenation, an indexed-part-select over a
+    constant base, a ternary with a constant condition (the false arm vanishes)
+    and a `$clog2` call.  We fold only the cast inside them.  Measured on
+    `g1_ctx83.sv` C2/C3/C5/C7/C8; ZERO corpus cells today (all six FAMILY cells
+    are bare actuals), which is why this pass scores 1 WRONG->OTHER on C2 and
+    nothing on the corpus.  A whole-actual reduce law would subsume it.
+
+R4  THE REMAINING WRITTEN-CAST DISAGREEMENTS, corpus-wide and unmoved by this
+    pass: surelog MOVED-WRONG 107, GOLDEN-ONLY 689, OURS-ONLY 1978 cells over
+    76 databases (uhdm2rtlil: 0 / 0 / 16).  These are cast TYPESPEC kind and
+    NAME differences and view-count differences, not reduce-context defects;
+    `CENSUS.r10earl83.txt` has the totals and the tool to re-split them.
+
+R5  A WILDCARD-IMPORTED PACKAGE PARAMETER AS A SIZE-CAST WIDTH DOES NOT BIND.
+    `import q83::*;` (module body OR module header) followed by
+    `PKGPARAM'(24'hFFFFFF)` makes our tool report `expression kind: Invalid`
+    and exit 4; the SCOPED form `q83::PKGPARAM'(...)` binds fine, and so does
+    Earlgrey's own `PING_CNT_DW'` (which is why the corpus never saw this).
+    Pre-existing at 0df1393, unrelated to this law, and the reason
+    `g2_types83.sv` / `g3_law83.sv` write the scoped form.
+
+R6  FOURTEEN PROBE ARMS SEGFAULT IN THE ELAB VIEW, under BOTH binaries
+    symmetrically (28 rc=139 signals, 14 per side, the same files).
+    Pre-existing (earl82's R6), recorded because a boundary walk that does not
+    say so reads as if it compared them.
