@@ -14985,6 +14985,105 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     }
                 }
             }
+            // § genCaReplWholeFold78 (r10earl78) — THE WHOLE Rhs OF AN
+            // ELABORATED GEN-SCOPE cont_assign THAT IS A REPLICATION
+            // `{N{elem}}` WITH A CONSTANT COUNT AND A CONSTANT ELEMENT
+            // REDUCES TO ONE LOCATION-LESS BINARY CONSTANT, exactly as the
+            // MODULE-BODY twin already does — the two homes run the SAME
+            // Surelog code.
+            //
+            // DECODED, not guessed.  `UhdmWriter::writeCont_assign`
+            // (Surelog/src/DesignCompile/UhdmWriter.cpp:2120-2165) walks
+            // `netlist->cont_assigns()` for EVERY instance, and a gen scope is
+            // an instance like any other.  With a `ref_obj` Lhs and an
+            // `operation` Rhs it clones the assign and runs
+            // `CompileHelper::reduceExpr` over the WHOLE Rhs; the
+            // `vpiMultiConcatOp` arm of `UHDM/templates/ExprEval.cpp:3797`
+            // then mints ONE constant:
+            //   * `n`     = reduceExpr(operands[0]) run through `get_value`
+            //               (clamped to [0,1000]);
+            //   * `width` = the ELEMENT's `VpiSize`;
+            //   * a `vpiBinaryConst` element is ZERO-PADDED to `width` and the
+            //     digit string REPEATED n times -> `BIN:<n*width digits>`,
+            //     `VpiDecompile` = the same bare digits (no `<w>'b` prefix);
+            //   * `c->VpiSize(n * width)` — the NATURAL width;
+            //   * and, whenever `width != 0`, a FRESH bare `int_typespec`
+            //     (`s.MakeInt_typespec()`) under a `ref_typespec` parented at
+            //     the constant.  That is the `word size` typespec, and it is
+            //     the reason the size is later CLAMPED but the digits are not.
+            // Then `CompileHelper::adjustSize` (CompileHelper.cpp:3949) runs
+            // against the Lhs typespec `CompileHelper::bindVariable` finds.
+            // Because the constant carries an `int_typespec` of its own,
+            // adjustSize REPLACES `ts` with it and takes the INT branch, whose
+            // only effect on a plain positive value is
+            // `c->VpiSize((orig_size < size) ? orig_size : size)` — the size
+            // is clamped to the Lhs width and THE VALUE STRING IS NEVER
+            // TOUCHED.  This is § srlgFoldNaturalWidth (r10oth4), already
+            // modelled for the module body in `tryFoldConst`.
+            //
+            // THE ONE THING THAT DIFFERS BETWEEN THE TWO HOMES is the CLAMP,
+            // and it differs because of `bindVariable`, not because of the
+            // fold: the scope-walking overload (CompileStmt.cpp:3089) switches
+            // on function / task / begin / module_inst ONLY, so from a
+            // `gen_scope` it falls through to the parent chain and lands on the
+            // enclosing `module_inst` — finding MODULE-BODY nets/variables and
+            // ports, and NEVER a gen-LOCAL declaration.  `caLhsAdjustSize68`
+            // (r10earl68, verifier-amended in r10v68) already decodes exactly
+            // that predicate and returns 64 for "no bind, no adjust", so it is
+            // REUSED here rather than re-derived.  Measured on golden
+            // (a2_bind78.sv, one gen scope, natural 6/7/12 against targets
+            // 4/6/10, two child instances and a two-deep gen nest):
+            //     Lhs                       natural  target  golden vpiSize
+            //     module-body `logic [3:0]`    6        4        4
+            //     module-body `logic [9:0]`    6       10        6
+            //     module-body `logic [5:0]`    6        6        6
+            //     module-body `logic [3:0]`   12        4        4   ({6{2'b10}})
+            //     module PORT  `logic [3:0]`   6        4        4
+            //     module PORT  `logic [9:0]`   6       10        6
+            //     a part-select Lhs            6        -        6   (no bind)
+            //     GEN-LOCAL   `logic [3:0]`    6        4        6   (no bind)
+            //     GEN-LOCAL   `logic [9:0]`    6       10        6   (no bind)
+            //     module-body, TWO gen scopes  7        4        4
+            // i.e. size = min(natural, adjust) and the DIGITS are always the
+            // natural-width string — never truncated.  Above 64 bits
+            // `ExprEval::get_value` sets `invalidValue` on the binary constant
+            // (ExprEval.cpp:1967) and adjustSize's whole body is skipped, so
+            // the natural width survives whatever the Lhs is (a3_wide78 §W).
+            //
+            // WHAT GOLDEN REFUSES, and is therefore left alone here: an
+            // element that is not a constant (`{16{signed_mult &
+            // imd_val_q_i[33]}}`, ibex_multdiv_fast.sv:174 — a GEN-SCOPE
+            // replication INSIDE Earlgrey that golden keeps as an operation,
+            // this law's live corpus fence).  `tryFoldConst` refuses it for
+            // free because `tryEval` cannot fold a signal.  An X/Z element
+            // (`{N{1'bx}}`) IS folded by golden but with SURELOG'S OWN casing
+            // (`BIN:XXXXX` for `1'bx`, `BIN:zzzzz` for `1'bz` — the producer
+            // repeats the element constant's value STRING), which this
+            // emitter's unknown path does not reproduce; `tryFoldConst`
+            // refuses every unknown outside a concat, so those cells stay
+            // un-folded rather than folding WRONG.  Recorded as a measured
+            // residue in tools/probe/r10earl78repro/README.md, not implemented.
+            //
+            // The Rhs is handed to `tryFoldConst` STRIPPED of its implicit
+            // conversion so that `expr.type->getBitWidth()` is the NATURAL
+            // width: `srlgNaturalFoldWidth` then returns `valid == false`
+            // (`&nat == &expr`) and the digits and size both land on the
+            // producer's own width, which the clamp below re-decides.
+            if (!rhs) {
+                auto& rr78 = stripImplicitConv(ae.right());
+                if (rr78.kind == ExpressionKind::Replication)
+                    if (auto* fc78 = tryFoldConst(rr78)) {
+                        if (fc78->UhdmType() == UHDM::uhdmconstant) {
+                            auto* c78 = (UHDM::constant*)fc78;
+                            int32_t nat78 = c78->VpiSize();
+                            int32_t adj78 = caLhsAdjustSize68(ae.left());
+                            if (nat78 > 0 && nat78 <= 64 && adj78 < nat78)
+                                c78->VpiSize(adj78);
+                            c78->VpiParent(ca);
+                        }
+                        rhs = fc78;
+                    }
+            }
             // Constant gen-scope calls fold to the source literal, sized at
             // the LHS width.
             if (!rhs)

@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-23 19:40, HEAD = the buvm31 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-23 20:15, HEAD = the earl78 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -187,13 +187,13 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | SimpleUVM×2 (uvm-1.2 tree) | 17 (depth) | `logic_net (work@top.p)` @uvm_globals.svh:263:3, RHS `<null>` — the FREE PACKAGE FUNCTION's `process p` local, where our implicit-net machinery does not fire (§ fnLocalParamRangeNet / uvm105-R0 family; most of the family moved with uvm115 — 15 of 16 SimpleUVM family REF cells now agree); pass uvm117 later (uvm115 landed: 56→17, a builtin-class body local compiled before Surelog's class phase degrades to ref_var + unsupported_typespec named for the token) |
 | Scoreboard/default (uvm-1.2 tree) | 60 (depth) | `if (!randomize(l_kind) with {…})` (uvm_sequence_builtin.svh:196): golden a bare method_func_call (randomize) with vpiWith → constraint, ours a hier_path (l_kind.randomize) — producer CompileHelper::compileRandomizeCall (CompileStmt.cpp:3151); the SAME family as MiniAmiq's 60-line head: uvm116 heads THREE row-modes |
 | BuildUVMPkg×2 (1800.2 pp_output tree) | 46 (depth) | identical to SeqDriver's head (the this_type:: scoped-call ref_obj, @uvm_pkg.sv:56491); buvm32 clears both |
-| Earlgrey_0_1×2 (both modes, id-normalised identical heads) | 90 (depth) | an UNDER-fold: `assign a_wmask_d = {TotalWidth{1'b1}};` (prim_ram_2p_async_adv.sv:171, gen-if gen_secded of …u_memory_2p.i_prim_ram_2p_async_adv) — golden folds the replication to a loc-less constant BIN:39-ones sz 39 ct 3 with ref_typespec → int_typespec; we keep the multi-concat operation (vpiOpType 34) whose left operand UINT:39 is already folded — the § genvarWholeCaRhsFold68 / earl72-R1 / ReplicationPassedToInstance family; pass earl78 next (earl77 landed: 11,664/11,404→90, a port whose written type is a SCOPED package typedef (pkg::T) backs a VARIABLE in every direction — the bare-spelling and body fences convicted on golden) |
+| Earlgrey_0_1×2 (both modes, byte-identical after-logs) | 36 (depth) | `tlul_pkg::tl_h2d_t tl_u_o [N+1];` (tlul_socket_1n.sv:126) — the unpacked-array EXPRESSION dimension bound: expr::Compare passes VpiDecompile ('3'=='3') and fails on VpiSize 64 vs 32; golden claims only the N token's span where we claim all of N+1; present in every tlul_socket_1n instantiation — a FAMILY (earl74's R-C / § dimBoundInheritsParamEnc74 one step further: an expression dimension's size and span); pass earl79 next (earl78 landed: 90→36, a gen-scope cont_assign replication Rhs folds whole — digits natural-width, size clamped by caLhsAdjustSize68 only when the Lhs binds, >64 unclamped) |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 71 verifier fix-before-landing re-cuts (154 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 71 verifier fix-before-landing re-cuts (155 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

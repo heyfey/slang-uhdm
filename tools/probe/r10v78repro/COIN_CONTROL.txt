@@ -1,0 +1,17 @@
+r10v78 -- THE ORDER-COIN NULL CONTROL (RESUME 9: Scoreboard/vpiTaskFunc list ORDER)
+
+THREE consecutive invocations of the PRISTINE binary ALONE over
+tools/probe/r10uvm76repro (whole directory, plain view), dumps
+workdir-normalised:
+  run 1  93a9eb092df7
+  run 2  50eba785ae92
+  run 3  d1e20f6c365b
+
+raw vs sorted diffs BETWEEN PRISTINE RUNS:
+  c1 vs c2: raw=10 sorted=0
+  c1 vs c3: raw=12 sorted=0
+  c2 vs c3: raw=12 sorted=0
+
+The binary differs FROM ITSELF; the sorted diff is 0 every time.  The four
+per-directory boundary units r10uvm75/76/88repro and r10v109repro are this
+coin, not movers -- their A-vs-B sorted diffs are 0 as well (BOUNDARY_DIR_ATTRIB.txt).

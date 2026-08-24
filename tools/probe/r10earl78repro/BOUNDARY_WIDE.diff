@@ -1,0 +1,12 @@
+plain r10earl78repro/a1_repl78.sv
+elab r10earl78repro/a1_repl78.sv
+plain r10earl78repro/a2_bind78.sv
+elab r10earl78repro/a2_bind78.sv
+plain r10earl78repro/a3_wide78.sv
+elab r10earl78repro/a3_wide78.sv
+plain r10earl_repro/pf19.sv
+elab r10earl_repro/pf19.sv
+plain r10earl_repro/x.sv
+elab r10earl_repro/x.sv
+plain r10v68repro/v1_pos68.sv
+elab r10v68repro/v1_pos68.sv

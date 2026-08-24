@@ -1,0 +1,70 @@
+r10v78 -- ARM CELL LEDGER (the cells the law MOVES and the cells it REFUSES)
+
+Each block: the cell, GOLDEN, PRISTINE, PATCHED.  Payloads carry judge fields
+only (int_typespec VpiValue dropped -- int_typespec::Compare never reads it;
+verified at UHDM/build/generated/src/int_typespec.cpp:97).
+
+=== v1_elem78
+  v1_elem78 elab cells=42 MOVED-WRONG=1 STILL-RIGHT=29 STILL-WRONG=2 TO-GOLDEN=10
+  !! MOVED-WRONG ('ELAB', 'GEN', 'work@v1.g1', '52:12-52:34')
+     G   lhs=ref_obj/b_big rhs=c3:BIN:111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+     was lhs=ref_obj/b_big rhs=op34(c9:UINT:2000:64,op33(c3:BIN:1:1)) ct=- sz=- dec=- ts=- tssgn=-
+     now lhs=ref_obj/b_big rhs=c3:BIN:111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1.g1', '55:12-55:39')
+     G   lhs=ref_obj/b_op rhs=c9:UINT:15:32 ct=9 sz=32 dec=15 ts=- tssgn=-1
+     ours lhs=ref_obj/b_op rhs=op29(op34(c9:UINT:4:64,op33),c5:HEX:0:32) ct=- sz=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'MOD', 'work@v1', '36:10-36:32')
+     G   lhs=ref_obj/m_big rhs=c3:BIN:111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+     ours lhs=ref_obj/m_big rhs=c3:BIN:11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+=== v2_lhs78
+  v2_lhs78 elab cells=55 MOVED-WRONG=3 STILL-WRONG=3 TO-GOLDEN=49
+  !! MOVED-WRONG ('ELAB', 'GEN', 'work@v2.u0.g2', '44:12-44:34')
+     G   lhs=ref_obj/mb_dup rhs=c3:BIN:111111:4 ct=3 sz=4 dec=111111 ts=int_typespec tssgn=0
+     was lhs=ref_obj/mb_dup rhs=op34(c9:UINT:6:32,op33(c3:BIN:1:1)) ct=- sz=- dec=- ts=- tssgn=-
+     now lhs=ref_obj/mb_dup rhs=c3:BIN:111111:6 ct=3 sz=6 dec=111111 ts=int_typespec tssgn=0
+  !! MOVED-WRONG ('ELAB', 'GEN', 'work@v2.u1.g2', '44:12-44:34')
+     G   lhs=ref_obj/mb_dup rhs=c3:BIN:111111:4 ct=3 sz=4 dec=111111 ts=int_typespec tssgn=0
+     was lhs=ref_obj/mb_dup rhs=op34(c9:UINT:6:32,op33(c3:BIN:1:1)) ct=- sz=- dec=- ts=- tssgn=-
+     now lhs=ref_obj/mb_dup rhs=c3:BIN:111111:6 ct=3 sz=6 dec=111111 ts=int_typespec tssgn=0
+  !! MOVED-WRONG ('ELAB', 'GEN', 'work@v2.u2.g2', '44:12-44:34')
+     G   lhs=ref_obj/mb_dup rhs=c3:BIN:111111:4 ct=3 sz=4 dec=111111 ts=int_typespec tssgn=0
+     was lhs=ref_obj/mb_dup rhs=op34(c9:UINT:6:32,op33(c3:BIN:1:1)) ct=- sz=- dec=- ts=- tssgn=-
+     now lhs=ref_obj/mb_dup rhs=c3:BIN:111111:6 ct=3 sz=6 dec=111111 ts=int_typespec tssgn=0
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2.u0.g2', '34:12-34:40')
+     G   lhs=ref_obj/mb_enum rhs=c9:UINT:7:3 ct=9 sz=3 dec=7 ts=- tssgn=-1
+     ours lhs=ref_obj/mb_enum rhs=op67(op34(c9:UINT:6:32,op33)) ct=- sz=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2.u1.g2', '34:12-34:40')
+     G   lhs=ref_obj/mb_enum rhs=c9:UINT:7:3 ct=9 sz=3 dec=7 ts=- tssgn=-1
+     ours lhs=ref_obj/mb_enum rhs=op67(op34(c9:UINT:6:32,op33)) ct=- sz=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2.u2.g2', '34:12-34:40')
+     G   lhs=ref_obj/mb_enum rhs=c9:UINT:7:3 ct=9 sz=3 dec=7 ts=- tssgn=-1
+     ours lhs=ref_obj/mb_enum rhs=op67(op34(c9:UINT:6:32,op33)) ct=- sz=- dec=- ts=- tssgn=-
+=== v3_refuse78
+  v3_refuse78 elab cells=13 MOVED-WRONG=1 TO-GOLDEN=12
+  !! MOVED-WRONG ('ELAB', 'GEN', 'work@v3.g4', '30:12-30:37')
+     G   lhs=ref_obj/r_cast2 rhs=c3:BIN:0000000000000000000000000000000000000000000000000000000000000101000000000000000000000000000000000000000000000000000000000000010100000000000000000000000000000000
+     was lhs=ref_obj/r_cast2 rhs=op34(c9:UINT:3:32,op33(c9:UINT:5:64)) ct=- sz=- dec=- ts=- tssgn=-
+     now lhs=ref_obj/r_cast2 rhs=c3:BIN:010101010101:12 ct=3 sz=12 dec=010101010101 ts=int_typespec tssgn=0
+=== v5_act78
+  v5_act78 elab cells=12 STILL-RIGHT=6 STILL-WRONG=5 TO-GOLDEN=1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v5.g5', '21:12-21:30')
+     G   lhs=ref_obj/r_x rhs=c3:BIN:XXXXXX:6 ct=3 sz=6 dec=XXXXXX ts=int_typespec tssgn=0
+     ours lhs=ref_obj/r_x rhs=op34(c9:UINT:6:32,op33(c3:BIN:X:1)) ct=- sz=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v5.g5', '22:12-22:30')
+     G   lhs=ref_obj/r_z rhs=c3:BIN:zzzzzz:6 ct=3 sz=6 dec=zzzzzz ts=int_typespec tssgn=0
+     ours lhs=ref_obj/r_z rhs=op34(c9:UINT:6:32,op33(c3:BIN:z:1)) ct=- sz=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v5.g5', '23:12-23:37')
+     G   lhs=ref_obj/r_cat rhs=c3:BIN:011111:6 ct=3 sz=6 dec=- ts=- tssgn=-1
+     ours lhs=ref_obj/r_cat rhs=op33(c3:BIN:0:1,op34(c9:UINT:5:64,op33)) ct=- sz=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v5.g5', '24:12-24:38')
+     G   lhs=ref_obj/r_zc rhs=c3:BIN:11:2 ct=3 sz=2 dec=- ts=- tssgn=-1
+     ours lhs=ref_obj/r_zc rhs=op33(c3:BIN:11:2,op34(c9:UINT:0:32,op33)) ct=- sz=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v5.g5', '26:12-26:42')
+     G   lhs=ref_obj/r_cat2 rhs=c3:BIN:111000:6 ct=3 sz=6 dec=- ts=- tssgn=-1
+     ours lhs=ref_obj/r_cat2 rhs=op33(op34(c9:UINT:3:64,op33),op34(c9:UINT:3:64,op33)) ct=- sz=- dec=- ts=- tssgn=-
+=== v6_ndecl78
+  v6_ndecl78 elab cells=5 STILL-RIGHT=2 TO-GOLDEN=3
+=== v7_pre78
+  v7_pre78 elab cells=5 STILL-RIGHT=3 TO-GOLDEN=2
+=== v8_spec78
+  v8_spec78 elab cells=10 TO-GOLDEN=10

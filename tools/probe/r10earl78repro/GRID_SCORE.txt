@@ -1,0 +1,311 @@
+ARM a1 view=plain cells=58 STILL-RIGHT=33 STILL-WRONG=7 TO-GOLDEN=18
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@a1.gen_i', '45:12-45:39')
+     G   lhs=ref_obj/gi_cat rhs=c3:BIN:01111:5 ct=3 sz=5 val=BIN:01111 dec=- ts=- tssgn=-1
+     ours lhs=ref_obj/gi_cat rhs=op33(c3:BIN:0:1,op34(c9:UINT:4:64,op33)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@a1.gen_i', '48:12-48:32')
+     G   lhs=ref_obj/gi_x rhs=c3:BIN:XXXXX:5 ct=3 sz=5 val=BIN:XXXXX dec=XXXXX ts=int_typespec tssgn=0
+     ours lhs=ref_obj/gi_x rhs=op34(c9:UINT:5:32,op33(c3:BIN:X:1)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@a1.gen_i', '49:12-49:39')
+     G   lhs=ref_obj/gi_lp rhs=c3:BIN:0:1 ct=3 sz=1 val=BIN:0 dec=- ts=- tssgn=-1
+     ours lhs=ref_obj/gi_lp rhs=op33(c3:BIN:0:1,op34(c9:UINT:0:32,op33)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@a1.gen_i', '54:12-54:32')
+     G   lhs=ref_obj/gi_z1 rhs=c3:BIN:zzzzz:5 ct=3 sz=5 val=BIN:zzzzz dec=zzzzz ts=int_typespec tssgn=0
+     ours lhs=ref_obj/gi_z1 rhs=op34(c9:UINT:5:32,op33(c3:BIN:z:1)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'MOD', 'work@a1', '25:10-25:30')
+     G   lhs=ref_obj/mi_x rhs=c3:BIN:XXXXX:5 ct=3 sz=5 val=BIN:XXXXX dec=XXXXX ts=int_typespec tssgn=0
+     ours lhs=ref_obj/mi_x rhs=op34(ref:TW,op33(c3:BIN:X:1)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'MOD', 'work@a1', '26:10-26:37')
+     G   lhs=ref_obj/mi_lp rhs=c3:BIN:0:1 ct=3 sz=1 val=BIN:0 dec=- ts=- tssgn=-1
+     ours lhs=ref_obj/mi_lp rhs=op33(c3:BIN:0:1,op34(ref:Z,op33)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'MOD', 'work@a1', '32:10-32:30')
+     G   lhs=ref_obj/mi_z1 rhs=c3:BIN:zzzzz:5 ct=3 sz=5 val=BIN:zzzzz dec=zzzzz ts=int_typespec tssgn=0
+     ours lhs=ref_obj/mi_z1 rhs=op34(ref:TW,op33(c3:BIN:z:1)) ct=- sz=- val=- dec=- ts=- tssgn=-
+ARM a1 view=elab cells=58 STILL-RIGHT=33 STILL-WRONG=7 TO-GOLDEN=18
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@a1.gen_i', '45:12-45:39')
+     G   lhs=ref_obj/gi_cat rhs=c3:BIN:01111:5 ct=3 sz=5 val=BIN:01111 dec=- ts=- tssgn=-1
+     ours lhs=ref_obj/gi_cat rhs=op33(c3:BIN:0:1,op34(c9:UINT:4:64,op33)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@a1.gen_i', '48:12-48:32')
+     G   lhs=ref_obj/gi_x rhs=c3:BIN:XXXXX:5 ct=3 sz=5 val=BIN:XXXXX dec=XXXXX ts=int_typespec tssgn=0
+     ours lhs=ref_obj/gi_x rhs=op34(c9:UINT:5:32,op33(c3:BIN:X:1)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@a1.gen_i', '49:12-49:39')
+     G   lhs=ref_obj/gi_lp rhs=c3:BIN:0:1 ct=3 sz=1 val=BIN:0 dec=- ts=- tssgn=-1
+     ours lhs=ref_obj/gi_lp rhs=op33(c3:BIN:0:1,op34(c9:UINT:0:32,op33)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@a1.gen_i', '54:12-54:32')
+     G   lhs=ref_obj/gi_z1 rhs=c3:BIN:zzzzz:5 ct=3 sz=5 val=BIN:zzzzz dec=zzzzz ts=int_typespec tssgn=0
+     ours lhs=ref_obj/gi_z1 rhs=op34(c9:UINT:5:32,op33(c3:BIN:z:1)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'MOD', 'work@a1', '25:10-25:30')
+     G   lhs=ref_obj/mi_x rhs=c3:BIN:XXXXX:5 ct=3 sz=5 val=BIN:XXXXX dec=XXXXX ts=int_typespec tssgn=0
+     ours lhs=ref_obj/mi_x rhs=op34(ref:TW,op33(c3:BIN:X:1)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'MOD', 'work@a1', '26:10-26:37')
+     G   lhs=ref_obj/mi_lp rhs=c3:BIN:0:1 ct=3 sz=1 val=BIN:0 dec=- ts=- tssgn=-1
+     ours lhs=ref_obj/mi_lp rhs=op33(c3:BIN:0:1,op34(ref:Z,op33)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'MOD', 'work@a1', '32:10-32:30')
+     G   lhs=ref_obj/mi_z1 rhs=c3:BIN:zzzzz:5 ct=3 sz=5 val=BIN:zzzzz dec=zzzzz ts=int_typespec tssgn=0
+     ours lhs=ref_obj/mi_z1 rhs=op34(ref:TW,op33(c3:BIN:z:1)) ct=- sz=- val=- dec=- ts=- tssgn=-
+ARM a2 view=plain cells=22 STILL-RIGHT=2 TO-GOLDEN=20
+ARM a2 view=elab cells=22 STILL-RIGHT=2 TO-GOLDEN=20
+ARM a3 view=plain cells=11 TO-GOLDEN=11
+ARM a3 view=elab cells=11 TO-GOLDEN=11
+
+=== EARLIER-PASS ARMS the WIDE/DIR boundary flagged, re-measured vs golden
+EARLIER-ARM pf19 view=plain cells=17 STILL-RIGHT=15 TO-GOLDEN=2
+EARLIER-ARM pf19 view=elab cells=17 STILL-RIGHT=8 STILL-WRONG=7 TO-GOLDEN=2
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@m19.gen_forq[0]', '28:12-28:22')
+     G   lhs=ref_obj/fq rhs=op67(ref:i) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/fq rhs=c9:UINT:0:8 ct=9 sz=8 val=UINT:0 dec=- ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@m19.gen_forq[1]', '28:12-28:22')
+     G   lhs=ref_obj/fq rhs=op67(ref:i) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/fq rhs=c9:UINT:1:8 ct=9 sz=8 val=UINT:1 dec=- ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@m19.gen_forq[2]', '28:12-28:22')
+     G   lhs=ref_obj/fq rhs=op67(ref:i) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/fq rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=- ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@m19.gen_forw[0]', '32:12-32:22')
+     G   lhs=ref_obj/fw rhs=op67(ref:j) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/fw rhs=c9:UINT:0:8 ct=9 sz=8 val=UINT:0 dec=- ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@m19.gen_forw[1]', '32:12-32:22')
+     G   lhs=ref_obj/fw rhs=op67(ref:j) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/fw rhs=c9:UINT:1:8 ct=9 sz=8 val=UINT:1 dec=- ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@m19.gen_forw[2]', '32:12-32:22')
+     G   lhs=ref_obj/fw rhs=op67(ref:j) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/fw rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=- ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@m19.gen_forw[3]', '32:12-32:22')
+     G   lhs=ref_obj/fw rhs=op67(ref:j) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/fw rhs=c9:UINT:3:8 ct=9 sz=8 val=UINT:3 dec=- ts=- tssgn=-1
+EARLIER-ARM x view=plain cells=3 STILL-RIGHT=2 TO-GOLDEN=1
+EARLIER-ARM x view=elab cells=3 STILL-RIGHT=2 TO-GOLDEN=1
+EARLIER-DIR r10v68repro view=plain cells=248 STILL-RIGHT=207 STILL-WRONG=39 TO-GOLDEN=2
+  .. STILL-WRONG ('DEF', 'MOD', 'work@v7_a68', '6:10-6:31')
+     G   lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.0:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.000000:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('DEF', 'MOD', 'work@v7_b68', '11:10-11:31')
+     G   lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.0:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.000000:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('DEF', 'MOD', 'work@v7_c68', '16:10-16:31')
+     G   lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.0:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.000000:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '28:12-28:27')
+     G   lhs=ref_obj/r_mul rhs=c7:INT:2:8 ct=7 sz=8 val=INT:2 dec=2 ts=- tssgn=-1
+     ours lhs=ref_obj/r_mul rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '29:12-29:24')
+     G   lhs=ref_obj/r_neg rhs=c7:INT:-1:8 ct=7 sz=8 val=INT:-1 dec=-1 ts=- tssgn=-1
+     ours lhs=ref_obj/r_neg rhs=c9:UINT:255:8 ct=9 sz=8 val=UINT:255 dec=255 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '32:12-32:30')
+     G   lhs=ref_obj/r_eq rhs=c3:BIN:0:1 ct=3 sz=1 val=BIN:0 dec=0 ts=- tssgn=-1
+     ours lhs=ref_obj/r_eq rhs=c9:UINT:0:8 ct=9 sz=8 val=UINT:0 dec=0 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '34:12-34:34')
+     G   lhs=ref_obj/r_cat rhs=c3:BIN:10:2 ct=3 sz=2 val=BIN:10 dec=- ts=- tssgn=-1
+     ours lhs=ref_obj/r_cat rhs=op33(bit_select,c3:BIN:0:1) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '40:12-40:27')
+     G   lhs=ref_obj/r_cast rhs=c9:UINT:1:8 ct=9 sz=8 val=UINT:1 dec=1 ts=- tssgn=-1
+     ours lhs=ref_obj/r_cast rhs=op67(ref:i) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '41:12-41:28')
+     G   lhs=ref_obj/r_ucall rhs=func_call ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/r_ucall rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '42:12-42:33')
+     G   lhs=ref_obj/r_scall rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=- tssgn=-1
+     ours lhs=ref_obj/r_scall rhs=sys_func_call ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '43:12-43:38')
+     G   lhs=ref_obj/r_ncall rhs=func_call ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/r_ncall rhs=c9:UINT:3:8 ct=9 sz=8 val=UINT:3 dec=3 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '47:12-47:25')
+     G   lhs=ref_obj/r_lp rhs=c9:UINT:1:8 ct=9 sz=8 val=UINT:1 dec=1 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/r_lp rhs=c9:UINT:1:32 ct=9 sz=32 val=UINT:1 dec=1 ts=int_typespec tssgn=0
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '52:12-52:26')
+     G   lhs=ref_obj/r_nda rhs=ref:nda0 ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/r_nda rhs=c3:BIN:00000001:8 ct=3 sz=8 val=BIN:00000001 dec=1 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '28:12-28:27')
+     G   lhs=ref_obj/r_mul rhs=c7:INT:4:8 ct=7 sz=8 val=INT:4 dec=4 ts=- tssgn=-1
+     ours lhs=ref_obj/r_mul rhs=c9:UINT:4:8 ct=9 sz=8 val=UINT:4 dec=4 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '29:12-29:24')
+     G   lhs=ref_obj/r_neg rhs=c7:INT:-2:8 ct=7 sz=8 val=INT:-2 dec=-2 ts=- tssgn=-1
+     ours lhs=ref_obj/r_neg rhs=c9:UINT:254:8 ct=9 sz=8 val=UINT:254 dec=254 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '32:12-32:30')
+     G   lhs=ref_obj/r_eq rhs=c3:BIN:0:1 ct=3 sz=1 val=BIN:0 dec=0 ts=- tssgn=-1
+     ours lhs=ref_obj/r_eq rhs=c9:UINT:0:8 ct=9 sz=8 val=UINT:0 dec=0 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '34:12-34:34')
+     G   lhs=ref_obj/r_cat rhs=c3:BIN:00:2 ct=3 sz=2 val=BIN:00 dec=- ts=- tssgn=-1
+     ours lhs=ref_obj/r_cat rhs=op33(bit_select,c3:BIN:0:1) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '40:12-40:27')
+     G   lhs=ref_obj/r_cast rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=- tssgn=-1
+     ours lhs=ref_obj/r_cast rhs=op67(ref:i) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '41:12-41:28')
+     G   lhs=ref_obj/r_ucall rhs=func_call ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/r_ucall rhs=c9:UINT:3:8 ct=9 sz=8 val=UINT:3 dec=3 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '42:12-42:33')
+     G   lhs=ref_obj/r_scall rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=- tssgn=-1
+     ours lhs=ref_obj/r_scall rhs=sys_func_call ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '43:12-43:38')
+     G   lhs=ref_obj/r_ncall rhs=func_call ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/r_ncall rhs=c9:UINT:3:8 ct=9 sz=8 val=UINT:3 dec=3 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '47:12-47:25')
+     G   lhs=ref_obj/r_lp rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/r_lp rhs=c9:UINT:2:32 ct=9 sz=32 val=UINT:2 dec=2 ts=int_typespec tssgn=0
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '52:12-52:26')
+     G   lhs=ref_obj/r_nda rhs=ref:nda0 ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/r_nda rhs=c3:BIN:00000010:8 ct=3 sz=8 val=BIN:00000010 dec=2 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2_lhs68.g_neg[-1].b1', '61:14-61:22')
+     G   <ABSENT>
+     ours lhs=ref_obj/neg8 rhs=c9:UINT:255:8 ct=9 sz=8 val=UINT:255 dec=255 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2_lhs68.g_neg[-2].b1', '61:14-61:22')
+     G   <ABSENT>
+     ours lhs=ref_obj/neg8 rhs=c9:UINT:254:8 ct=9 sz=8 val=UINT:254 dec=254 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2_lhs68.g_neg[-3].b1', '61:14-61:22')
+     G   <ABSENT>
+     ours lhs=ref_obj/neg8 rhs=c9:UINT:253:8 ct=9 sz=8 val=UINT:253 dec=253 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2_lhs68.g_neg[18446744073709551613].b1', '61:14-61:22')
+     G   lhs=ref_obj/neg8 rhs=c9:UINT:253:8 ct=9 sz=8 val=UINT:253 dec=253 ts=- tssgn=-1
+     ours <ABSENT>
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2_lhs68.g_neg[18446744073709551614].b1', '61:14-61:22')
+     G   lhs=ref_obj/neg8 rhs=c9:UINT:254:8 ct=9 sz=8 val=UINT:254 dec=254 ts=- tssgn=-1
+     ours <ABSENT>
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2_lhs68.g_neg[18446744073709551615].b1', '61:14-61:22')
+     G   lhs=ref_obj/neg8 rhs=c9:UINT:255:8 ct=9 sz=8 val=UINT:255 dec=255 ts=- tssgn=-1
+     ours <ABSENT>
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v3_nest68.g_ng[0].b1', '80:14-80:23')
+     G   lhs=ref_obj/t_mp rhs=c9:UINT:5:8 ct=9 sz=8 val=UINT:5 dec=5 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/t_mp rhs=ref:MP ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v3_nest68.g_ng[0].b1', '81:14-81:25')
+     G   lhs=ref_obj/t_pp rhs=c9:UINT:6:8 ct=9 sz=8 val=UINT:6 dec=6 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/t_pp rhs=ref:PkgP ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v3_nest68.g_ng[0].b1', '82:14-82:24')
+     G   lhs=ref_obj/t_lp rhs=c9:UINT:1:8 ct=9 sz=8 val=UINT:1 dec=1 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/t_lp rhs=ref:GLp ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v3_nest68.g_ng[1].b1', '80:14-80:23')
+     G   lhs=ref_obj/t_mp rhs=c9:UINT:5:8 ct=9 sz=8 val=UINT:5 dec=5 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/t_mp rhs=ref:MP ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v3_nest68.g_ng[1].b1', '81:14-81:25')
+     G   lhs=ref_obj/t_pp rhs=c9:UINT:6:8 ct=9 sz=8 val=UINT:6 dec=6 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/t_pp rhs=ref:PkgP ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v3_nest68.g_ng[1].b1', '82:14-82:24')
+     G   lhs=ref_obj/t_lp rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/t_lp rhs=ref:GLp ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v5_enum68.g_e[4].b1.c0', '9:37-9:52')
+     G   lhs=ref_obj/ev rhs=c9:UINT:4:3 ct=9 sz=3 val=UINT:4 dec=4 ts=- tssgn=-1
+     ours lhs=ref_obj/ev rhs=op67(ref:i) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'MOD', 'work@v7_flt68.ua', '6:10-6:31')
+     G   lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.0:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.000000:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'MOD', 'work@v7_flt68.ub', '11:10-11:31')
+     G   lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.0:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.000000:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'MOD', 'work@v7_flt68.uc', '16:10-16:31')
+     G   lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.0:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.000000:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+EARLIER-DIR r10v68repro view=elab cells=248 STILL-RIGHT=207 STILL-WRONG=39 TO-GOLDEN=2
+  .. STILL-WRONG ('DEF', 'MOD', 'work@v7_a68', '6:10-6:31')
+     G   lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.0:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.000000:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('DEF', 'MOD', 'work@v7_b68', '11:10-11:31')
+     G   lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.0:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.000000:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('DEF', 'MOD', 'work@v7_c68', '16:10-16:31')
+     G   lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.0:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.000000:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '28:12-28:27')
+     G   lhs=ref_obj/r_mul rhs=c7:INT:2:8 ct=7 sz=8 val=INT:2 dec=2 ts=- tssgn=-1
+     ours lhs=ref_obj/r_mul rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '29:12-29:24')
+     G   lhs=ref_obj/r_neg rhs=c7:INT:-1:8 ct=7 sz=8 val=INT:-1 dec=-1 ts=- tssgn=-1
+     ours lhs=ref_obj/r_neg rhs=c9:UINT:255:8 ct=9 sz=8 val=UINT:255 dec=255 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '32:12-32:30')
+     G   lhs=ref_obj/r_eq rhs=c3:BIN:0:1 ct=3 sz=1 val=BIN:0 dec=0 ts=- tssgn=-1
+     ours lhs=ref_obj/r_eq rhs=c9:UINT:0:8 ct=9 sz=8 val=UINT:0 dec=0 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '34:12-34:34')
+     G   lhs=ref_obj/r_cat rhs=c3:BIN:10:2 ct=3 sz=2 val=BIN:10 dec=- ts=- tssgn=-1
+     ours lhs=ref_obj/r_cat rhs=op33(bit_select,c3:BIN:0:1) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '40:12-40:27')
+     G   lhs=ref_obj/r_cast rhs=c9:UINT:1:8 ct=9 sz=8 val=UINT:1 dec=1 ts=- tssgn=-1
+     ours lhs=ref_obj/r_cast rhs=c9:UINT:1:64 ct=9 sz=64 val=UINT:1 dec=- ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '41:12-41:28')
+     G   lhs=ref_obj/r_ucall rhs=func_call ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/r_ucall rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '42:12-42:33')
+     G   lhs=ref_obj/r_scall rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=- tssgn=-1
+     ours lhs=ref_obj/r_scall rhs=sys_func_call ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '43:12-43:38')
+     G   lhs=ref_obj/r_ncall rhs=func_call ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/r_ncall rhs=c9:UINT:3:8 ct=9 sz=8 val=UINT:3 dec=3 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '47:12-47:25')
+     G   lhs=ref_obj/r_lp rhs=c9:UINT:1:8 ct=9 sz=8 val=UINT:1 dec=1 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/r_lp rhs=c9:UINT:1:32 ct=9 sz=32 val=UINT:1 dec=1 ts=int_typespec tssgn=0
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[1]', '52:12-52:26')
+     G   lhs=ref_obj/r_nda rhs=ref:nda0 ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/r_nda rhs=c3:BIN:00000001:8 ct=3 sz=8 val=BIN:00000001 dec=1 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '28:12-28:27')
+     G   lhs=ref_obj/r_mul rhs=c7:INT:4:8 ct=7 sz=8 val=INT:4 dec=4 ts=- tssgn=-1
+     ours lhs=ref_obj/r_mul rhs=c9:UINT:4:8 ct=9 sz=8 val=UINT:4 dec=4 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '29:12-29:24')
+     G   lhs=ref_obj/r_neg rhs=c7:INT:-2:8 ct=7 sz=8 val=INT:-2 dec=-2 ts=- tssgn=-1
+     ours lhs=ref_obj/r_neg rhs=c9:UINT:254:8 ct=9 sz=8 val=UINT:254 dec=254 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '32:12-32:30')
+     G   lhs=ref_obj/r_eq rhs=c3:BIN:0:1 ct=3 sz=1 val=BIN:0 dec=0 ts=- tssgn=-1
+     ours lhs=ref_obj/r_eq rhs=c9:UINT:0:8 ct=9 sz=8 val=UINT:0 dec=0 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '34:12-34:34')
+     G   lhs=ref_obj/r_cat rhs=c3:BIN:00:2 ct=3 sz=2 val=BIN:00 dec=- ts=- tssgn=-1
+     ours lhs=ref_obj/r_cat rhs=op33(bit_select,c3:BIN:0:1) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '40:12-40:27')
+     G   lhs=ref_obj/r_cast rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=- tssgn=-1
+     ours lhs=ref_obj/r_cast rhs=c9:UINT:2:64 ct=9 sz=64 val=UINT:2 dec=- ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '41:12-41:28')
+     G   lhs=ref_obj/r_ucall rhs=func_call ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/r_ucall rhs=c9:UINT:3:8 ct=9 sz=8 val=UINT:3 dec=3 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '42:12-42:33')
+     G   lhs=ref_obj/r_scall rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=- tssgn=-1
+     ours lhs=ref_obj/r_scall rhs=sys_func_call ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '43:12-43:38')
+     G   lhs=ref_obj/r_ncall rhs=func_call ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/r_ncall rhs=c9:UINT:3:8 ct=9 sz=8 val=UINT:3 dec=3 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '47:12-47:25')
+     G   lhs=ref_obj/r_lp rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/r_lp rhs=c9:UINT:2:32 ct=9 sz=32 val=UINT:2 dec=2 ts=int_typespec tssgn=0
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v1_pos68.g_p0[2]', '52:12-52:26')
+     G   lhs=ref_obj/r_nda rhs=ref:nda0 ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/r_nda rhs=c3:BIN:00000010:8 ct=3 sz=8 val=BIN:00000010 dec=2 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2_lhs68.g_neg[-1].b1', '61:14-61:22')
+     G   <ABSENT>
+     ours lhs=ref_obj/neg8 rhs=c9:UINT:255:8 ct=9 sz=8 val=UINT:255 dec=255 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2_lhs68.g_neg[-2].b1', '61:14-61:22')
+     G   <ABSENT>
+     ours lhs=ref_obj/neg8 rhs=c9:UINT:254:8 ct=9 sz=8 val=UINT:254 dec=254 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2_lhs68.g_neg[-3].b1', '61:14-61:22')
+     G   <ABSENT>
+     ours lhs=ref_obj/neg8 rhs=c9:UINT:253:8 ct=9 sz=8 val=UINT:253 dec=253 ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2_lhs68.g_neg[18446744073709551613].b1', '61:14-61:22')
+     G   lhs=ref_obj/neg8 rhs=c9:UINT:253:8 ct=9 sz=8 val=UINT:253 dec=253 ts=- tssgn=-1
+     ours <ABSENT>
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2_lhs68.g_neg[18446744073709551614].b1', '61:14-61:22')
+     G   lhs=ref_obj/neg8 rhs=c9:UINT:254:8 ct=9 sz=8 val=UINT:254 dec=254 ts=- tssgn=-1
+     ours <ABSENT>
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v2_lhs68.g_neg[18446744073709551615].b1', '61:14-61:22')
+     G   lhs=ref_obj/neg8 rhs=c9:UINT:255:8 ct=9 sz=8 val=UINT:255 dec=255 ts=- tssgn=-1
+     ours <ABSENT>
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v3_nest68.g_ng[0].b1', '80:14-80:23')
+     G   lhs=ref_obj/t_mp rhs=c9:UINT:5:8 ct=9 sz=8 val=UINT:5 dec=5 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/t_mp rhs=ref:MP ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v3_nest68.g_ng[0].b1', '81:14-81:25')
+     G   lhs=ref_obj/t_pp rhs=c9:UINT:6:8 ct=9 sz=8 val=UINT:6 dec=6 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/t_pp rhs=ref:PkgP ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v3_nest68.g_ng[0].b1', '82:14-82:24')
+     G   lhs=ref_obj/t_lp rhs=c9:UINT:1:8 ct=9 sz=8 val=UINT:1 dec=1 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/t_lp rhs=ref:GLp ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v3_nest68.g_ng[1].b1', '80:14-80:23')
+     G   lhs=ref_obj/t_mp rhs=c9:UINT:5:8 ct=9 sz=8 val=UINT:5 dec=5 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/t_mp rhs=ref:MP ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v3_nest68.g_ng[1].b1', '81:14-81:25')
+     G   lhs=ref_obj/t_pp rhs=c9:UINT:6:8 ct=9 sz=8 val=UINT:6 dec=6 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/t_pp rhs=ref:PkgP ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v3_nest68.g_ng[1].b1', '82:14-82:24')
+     G   lhs=ref_obj/t_lp rhs=c9:UINT:2:8 ct=9 sz=8 val=UINT:2 dec=2 ts=int_typespec tssgn=0
+     ours lhs=ref_obj/t_lp rhs=ref:GLp ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'GEN', 'work@v5_enum68.g_e[4].b1.c0', '9:37-9:52')
+     G   lhs=ref_obj/ev rhs=c9:UINT:4:3 ct=9 sz=3 val=UINT:4 dec=4 ts=- tssgn=-1
+     ours lhs=ref_obj/ev rhs=c9:UINT:4:64 ct=9 sz=64 val=UINT:4 dec=- ts=- tssgn=-1
+  .. STILL-WRONG ('ELAB', 'MOD', 'work@v7_flt68.ua', '6:10-6:31')
+     G   lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.0:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.000000:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'MOD', 'work@v7_flt68.ub', '11:10-11:31')
+     G   lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.0:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.000000:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+  .. STILL-WRONG ('ELAB', 'MOD', 'work@v7_flt68.uc', '16:10-16:31')
+     G   lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.0:64)) ct=- sz=- val=- dec=- ts=- tssgn=-
+     ours lhs=ref_obj/o rhs=op33(c3:BIN:0:7,op18(ref:x,c2:REAL:0.000000:64)) ct=- sz=- val=- dec=- ts=- tssgn=-

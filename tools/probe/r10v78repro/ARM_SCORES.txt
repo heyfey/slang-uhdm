@@ -1,0 +1,41 @@
+ARM v1_elem78 plain cells=42 MOVED-WRONG=1 STILL-RIGHT=29 STILL-WRONG=2 TO-GOLDEN=10
+ARM v1_elem78 elab cells=42 MOVED-WRONG=1 STILL-RIGHT=29 STILL-WRONG=2 TO-GOLDEN=10
+ARM v2_lhs78 plain cells=55 MOVED-WRONG=3 STILL-WRONG=3 TO-GOLDEN=49
+ARM v2_lhs78 elab cells=55 MOVED-WRONG=3 STILL-WRONG=3 TO-GOLDEN=49
+ARM v3_refuse78 plain cells=13 MOVED-WRONG=1 TO-GOLDEN=12
+ARM v3_refuse78 elab cells=13 MOVED-WRONG=1 TO-GOLDEN=12
+ARM v4_delay78 plain cells=31 MOVED-WRONG=3 STILL-WRONG=3 TO-GOLDEN=25
+ARM v4_delay78 elab cells=31 MOVED-WRONG=3 STILL-WRONG=3 TO-GOLDEN=25
+ARM v5_act78 plain cells=12 STILL-RIGHT=6 STILL-WRONG=5 TO-GOLDEN=1
+ARM v5_act78 elab cells=12 STILL-RIGHT=6 STILL-WRONG=5 TO-GOLDEN=1
+ARM v6_ndecl78 plain cells=5 STILL-RIGHT=2 TO-GOLDEN=3
+ARM v6_ndecl78 elab cells=5 STILL-RIGHT=2 TO-GOLDEN=3
+ARM v7_pre78 plain cells=5 STILL-RIGHT=3 TO-GOLDEN=2
+ARM v7_pre78 elab cells=5 STILL-RIGHT=3 TO-GOLDEN=2
+ARM v8_spec78 plain cells=10 TO-GOLDEN=10
+ARM v8_spec78 elab cells=10 TO-GOLDEN=10
+ARM pf19 plain cells=17 STILL-RIGHT=15 TO-GOLDEN=2
+ARM pf19 elab cells=17 STILL-RIGHT=8 STILL-WRONG=7 TO-GOLDEN=2
+ARM x plain cells=3 STILL-RIGHT=2 TO-GOLDEN=1
+ARM x elab cells=3 STILL-RIGHT=2 TO-GOLDEN=1
+ARM v1_pos68 plain cells=69 STILL-RIGHT=47 STILL-WRONG=20 TO-GOLDEN=2
+ARM v1_pos68 elab cells=69 STILL-RIGHT=47 STILL-WRONG=20 TO-GOLDEN=2
+
+== THE PASS'S OWN THREE ARMS, re-run with MY binaries and MY golden ==
+ARM a1_repl78 plain cells=58 STILL-RIGHT=33 STILL-WRONG=7 TO-GOLDEN=18
+ARM a1_repl78 elab cells=58 STILL-RIGHT=33 STILL-WRONG=7 TO-GOLDEN=18
+ARM a2_bind78 plain cells=22 STILL-RIGHT=2 TO-GOLDEN=20
+ARM a2_bind78 elab cells=22 STILL-RIGHT=2 TO-GOLDEN=20
+ARM a3_wide78 plain cells=11 TO-GOLDEN=11
+ARM a3_wide78 elab cells=11 TO-GOLDEN=11
+(reproduces the pass README's 18 / 20-of-22 / 11-of-11 exactly)
+
+== SPAN-DROPPED DISTANCE TO GOLDEN (lower is closer; never rises) ==
+v1_elem78      pristine=26    patched=6
+v2_lhs78       pristine=110   patched=12
+v3_refuse78    pristine=26    patched=2
+v4_delay78     pristine=56    patched=0
+v5_act78       pristine=12    patched=10
+v6_ndecl78     pristine=6     patched=0
+v7_pre78       pristine=4     patched=0
+v8_spec78      pristine=20    patched=0

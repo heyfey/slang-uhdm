@@ -1,0 +1,126 @@
+r10v78 -- THE VERIFIER'S OWN GATE RUN.  Every number below was measured in
+fresh worktrees at b8bf669 (/tmp/wt_v78pris pristine, /tmp/wt_v78 patched),
+with binaries the verifier BUILT and FROZE (chmod 555) itself before any
+sweep.  results/*.csv READ ONLY and untouched; NO ROW CONVERTED.
+GOLDEN_DEFER UNSET throughout.
+
+== PATCH ==
+/tmp/r10earl78.patch  md5 f6c45ac69886b179bd2d80763c05d6a2, 43 files,
+applies clean on a fresh b8bf669 worktree (git apply -3, rc 0, no conflicts).
+Production surface: src/ModuleEmit.cpp ONLY, +99 / -0 (git numstat; the pass
+README says "+99/-1" -- the deletion count is 0, a one-line correction).
+Fence check, the four slang-fenced test names (spelled in canaudit.sh, not
+here): 0 / 0 / 0 / 0 diff headers.
+results/*.csv appear in 0 diff headers.
+
+== (1) BUILD (both -j 2, md5 taken separately, frozen at /tmp/v78_bin) ==
+pristine  b8bf669                       33c79971f7e506652e55c89859aa8e25
+patched   b8bf669 + r10earl78.patch     ed52e2ea05421062350b24865c65d821
+  BOTH md5s reproduce the pass's GATES.txt EXACTLY.
+
+== (2) GOLDENS (SLANG_UHDM exported explicitly per binary) ==
+patched     PASS=23 FAIL=0
+pristine    PASS=23 FAIL=0
+/bin/false  PASS=0  FAIL=23     (negative control)
+
+== (3) uhdm2rtlil, BOTH modes, BOTH binaries ==
+CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 in all four sweeps.
+ct8rows committed baseline vs patched (tf)     : 0 differing ROWS
+ct8rows committed baseline vs MY pristine (tf) : 0 differing ROWS
+ct8rows MY pristine vs patched, testflags      : 0 differing ROWS
+ct8rows MY pristine vs patched, default        : 0 differing ROWS
+
+== (4) surelog corpus, --mode both, BOTH binaries (1588 rows / 956 DBs) ==
+ct8rows committed baseline vs patched      : 0 differing ROWS
+ct8rows committed baseline vs MY pristine  : 0 differing ROWS
+ct8rows MY pristine vs patched             : 0 differing ROWS
+status histograms IDENTICAL: default 471 CMP_EQUAL / 10 CMP_NOTEQUAL / 5
+DEFERRED / 283 SLANG_REJECT / 25 SURELOG_FAIL; testflags 466 / 9 / 5 /
+3 NO_DATABASE / 1 NO_UHDM / 284 SLANG_REJECT / 23 SURELOG_FAIL / 1 TIMEOUT /
+2 UNTRANSLATABLE.  NO ROW CONVERTED.
+The 2 rc=-11 rows (Tnoc default + testflags, recorded SLANG_REJECT) are
+present on BOTH binaries -- pre-existing.
+
+== BINARY-PATH AUDIT, every cmds.txt file-by-file ==
+surelog patched  1573 files, 1523 name /tmp/v78_bin/patched,  50 with no
+                 slang: line (SURELOG_FAIL / NO_DATABASE / TIMEOUT rows)
+surelog pristine 1573 files, 1523 name /tmp/v78_bin/pristine, 50 without
+u2r     patched  1462 files, 1458 name /tmp/v78_bin/patched,   4 without
+u2r     pristine 1462 files, 1458 name /tmp/v78_bin/pristine,  4 without
+NO other slang-uhdm binary path (main tree, either worktree build/) appears
+in ANY of the 6070 files.
+
+== (5) BYTE MOVERS, SELFCHECK=1 ==
+u2r      MOVERS 0 / 1358   selfcheck 1357/1358 flagged  PATH_SETS_IDENTICAL
+surelog  MOVERS 2 /  956   selfcheck  955/956  flagged  PATH_SETS_IDENTICAL
+  Earlgrey_0_1/default    adc797a71bdc -> 963f492a0fec   (PREDICTED)
+  Earlgrey_0_1/testflags  83c7465d3ddc -> a14a712ec18a   (PREDICTED)
+  NO order coin surfaced in this run.  The predicted mover set was
+  "Earlgrey_0_1 default + testflags and nothing else" -- both corpora
+  returned exactly that.
+
+== HEADS (rowheads.sh on MY OWN workdirs) ==
+                       pristine      patched
+SeqDriver    def/tf     47 / 47      47 / 47
+SimpleUVM    def/tf     56 / 56      56 / 56
+Scoreboard   def        56           56          (tf SKIP-NOFILE, expected)
+MiniAmiq     def/tf     60 / 60      60 / 60
+BuildUVMPkg  def/tf     47 / 47      47 / 47
+Earlgrey_0_1 def/tf     90 / 90      36 / 36     <== THE HEAD, both modes
+Rggen        def         0            0          (tf SKIP-NOFILE, expected)
+ONE head per run in every measured cell.  The two AFTER logs are BYTE-
+IDENTICAL to each other (ids included) and byte-identical to the pass's
+committed HEAD_AFTER_default.cmp / HEAD_AFTER_testflags.cmp.  The BEFORE log
+matches HEAD_BEFORE_default.cmp modulo object ids.
+
+== CANARIES / PROTECTED ==
+canaries.sh surelog  ok=52 changed=0 absent=0
+canaries.sh u2r      ok=8  changed=0 absent=0
+ctcan2.sh surelog / u2r   PASS / PASS
+canaudit.sh (from the pass's own repro dir)  audited=29 UNCOVERED=0
+                                             FENCE-BREACH=0
+protected DBs, patched vs pristine md5, BOTH modes:
+  InterfaceModPort   59a365f3ce2c  SAME
+  BlackParrotComplex e3e354129d5a (def) / 73a10e8217e5 (tf)  SAME
+  YosysOldOr         d68e0796d62c  SAME
+  SVSwitch           4842211c4030  SAME   (the brief's pin)
+  YosysVerx          6ccda350c24a  SAME   (the brief's pin)
+
+== CENSUSES ON THE REAL TARGET (Earlgrey, both modes) ==
+cacen78 whole-design cont_assign census, 20,582 cells/mode:
+  golden re-read BYTE-IDENTICAL (calibration); golden-vs-golden 0 differing
+  EARLGREY default   cells=20592 TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0
+                                 STILL-RIGHT=20477 STILL-WRONG=113
+  EARLGREY testflags cells=20592 TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0
+                                 STILL-RIGHT=20506 STILL-WRONG=84
+tscen78 whole-design EXPRESSION census (every operand depth),
+  162,259 (def) / 160,030 (tf) golden cells:
+  pristine -> patched multiset delta = 6 entries per mode, ALL at the two
+  head cont_assigns (prim_ram_2p_async_adv CA_L171:12 and CA_L172:12);
+  golden-matching cells +2 in each mode.  NOTHING else moved.
+DEF-section cont_assign rows (4,158 cells/mode): 0 differing.  The fold is
+ELAB-ONLY on the real target as well as on the arms.
+
+== CORPUS FENCE SCAN (replfence78 over ALL 2,314 PRISTINE databases) ==
+  surelog 956 DBs : GEN_REPL_DATABASES=2 GEN_REPL_CELLS=6 MOD_REPL_CELLS=66
+                    GEN_CAST_CELLS=275
+  u2r    1358 DBs : GEN_REPL_DATABASES=0 GEN_REPL_CELLS=0 MOD_REPL_CELLS=2
+                    GEN_CAST_CELLS=2
+  TOTAL: 2314 scanned, 2 databases movable, 6 GEN cells, 68 MOD controls,
+  277 GEN cast siblings -- every figure in the pass README reproduces.
+  After the patch GEN_REPL_CELLS falls 6 -> 2 (only the ibex fence cell per
+  mode survives) and the 68 MOD control cells are BYTE-IDENTICAL.
+
+== BOUNDARIES (my own, .sv AND .v, no path filter, list on fd 3, children
+   </dev/null, PROCESSED asserted, rc RECORDED per cell) ==
+WIDE  3,561 files (3,493 .sv + 68 .v) x 2 views x 2 binaries
+      PROCESSED=3561 (== LISTED 3561) identical=6822 DIFFERING=12
+      no_output=288
+      rc PER CELL IDENTICAL BETWEEN THE TWO BINARIES: 0 asymmetric cells of
+      14,244 (rc=0 13158, rc=3 552, rc=4 510, rc=139 24 -- 12 A + 12 B).
+DIR   1,519 directories x 2 views x 2 binaries
+      PROCESSED=1519 (== LISTED 1519) identical=2773 DIFFERING=11
+      no_output=254; signals 12 rc=139, 6 A + 6 B on the SAME six units.
+FENCED= (empty): the four slang-fenced names match 0 of the 3,561 paths and
+0 of the 1,519 directories, so no exclusion was needed and none was
+dispatched.

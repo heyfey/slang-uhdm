@@ -1,0 +1,84 @@
+r10earl78 — GATES.  Every one run in this worktree with BOTH binaries frozen
+at 555 at immutable paths.
+
+  PRISTINE  /tmp/r10earl78_pristine.bin  md5 33c79971f7e506652e55c89859aa8e25
+            (byte-identical to the master's control /tmp/pris_33c7.bin at
+             BASE b8bf669 — the build reproduces)
+  PATCHED   /tmp/r10earl78_patched.bin   md5 ed52e2ea05421062350b24865c65d821
+
+  GOLDEN_DEFER: UNSET throughout.  results/*.csv: NEVER written.
+
+GOLDEN TESTS
+  pristine  PASS=23 FAIL=0
+  patched   PASS=23 FAIL=0
+  /bin/false PASS=0 FAIL=23   (negative control: the harness CAN fail)
+
+SWEEP HISTOGRAMS (identical pristine vs patched, diffed)
+  surelog default   CMP_EQUAL 471  SLANG_REJECT 283  SURELOG_FAIL 25  CMP_NOTEQUAL 10  DEFERRED 5
+  surelog testflags CMP_EQUAL 466  SLANG_REJECT 284  SURELOG_FAIL 23  CMP_NOTEQUAL  9  DEFERRED 5  NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+  u2r testflags     CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  u2r default       CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  the two rc=-11 rows (Tnoc default+testflags, recorded SLANG_REJECT rc=-11)
+  are present on BOTH binaries: pre-existing, not introduced.
+
+ct8rows (whole-row CSV judge: status AND dump column)
+  u2r_tf vs committed results/gate_uhdm2rtlil.csv   PASS 0 differing rows
+  u2r_tf vs own pristine sweep                      PASS 0 differing rows
+  u2r_def vs own pristine sweep                     PASS 0 differing rows
+  surelog vs committed results/golden_surelog.csv   PASS 0 differing rows
+  surelog vs own pristine sweep                     PASS 0 differing rows
+  NO CONVERSION IS CLAIMED.  results/*.csv NEVER written.
+
+byteverify SELFCHECK=1
+  u2r     PATH_SETS_IDENTICAL (1358)  MOVERS 0/1358   selfcheck 1357/1358
+  surelog PATH_SETS_IDENTICAL (956)   MOVERS 2/956    selfcheck  955/956
+    MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm   patched=963f492a0fec pristine=adc797a71bdc
+    MOVER ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm patched=a14a712ec18a pristine=83c7465d3ddc
+    -- EXACTLY the predicted set.  No order coin appeared in either sweep.
+
+CANARIES
+  canaries.sh surelog  ok=52 changed=0 absent=0
+  canaries.sh u2r      ok=8  changed=0 absent=0
+  ctcan2.sh surelog    PASS   ctcan2.sh u2r  PASS
+  canaudit.sh          audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+PROTECTED DATABASES (md5 patched vs pristine, BOTH modes)
+  InterfaceModPort   59a365f3ce2c  SAME
+  BlackParrotComplex e3e354129d5a (def) / 73a10e8217e5 (tf)  SAME
+  YosysOldOr         d68e0796d62c  SAME
+  SVSwitch           4842211c4030  (the pinned value)
+  YosysVerx          6ccda350c24a  (the pinned value)
+
+rowheads.sh  (cmp lines / heads; LHS always golden)
+  TEST          MODE       PRISTINE       PATCHED
+  SeqDriver     default    47 / 1         47 / 1
+  SeqDriver     testflags  47 / 1         47 / 1
+  SimpleUVM     default    56 / 1         56 / 1
+  SimpleUVM     testflags  56 / 1         56 / 1
+  Scoreboard    default    56 / 1         56 / 1
+  Scoreboard    testflags  SKIP-NOFILE    SKIP-NOFILE   (expected)
+  MiniAmiq      default    60 / 1         60 / 1
+  MiniAmiq      testflags  60 / 1         60 / 1
+  BuildUVMPkg   default    47 / 1         47 / 1
+  BuildUVMPkg   testflags  47 / 1         47 / 1
+  Earlgrey_0_1  default    90 / 1     ->  36 / 1      <- CLEARED
+  Earlgrey_0_1  testflags  90 / 1     ->  36 / 1      <- CLEARED
+  Rggen         default     0 / 0          0 / 0
+  Rggen         testflags  SKIP-NOFILE    SKIP-NOFILE   (expected)
+  ONLY Earlgrey moved.
+
+cmds.txt AUDIT BY BINARY PATH (not by the string 'slang-uhdm', which also
+matches the golden cache directory)
+  patched  sl  1523/1573 name /tmp/r10earl78_patched.bin
+  patched  u2r 1458/1462 name /tmp/r10earl78_patched.bin
+  pristine sl  1523/1573 name /tmp/r10earl78_pristine.bin
+  pristine u2r 1458/1462 name /tmp/r10earl78_pristine.bin
+  the remainder are golden-cache-hit entries with no slang line.
+  NO OTHER slang binary appears in any cmds.txt in either sweep; in
+  particular the MAIN-TREE build/slang-uhdm appears NOWHERE.
+
+BOUNDARIES  (see README §8b)
+  WIDE  PROCESSED=3493 == LISTED  identical=6686 DIFFERING=12 no_output=288
+  DIR   PROCESSED=1511 == LISTED  identical=2762 DIFFERING=12 no_output=248
+  FENCED= (empty; 0 of the 3493 paths match any of the four fenced names)
+  segfaults perfectly symmetric: 12 A / 12 B (wide), 6 A / 6 B (dir)

@@ -1,0 +1,113 @@
+r10earl78 -- THE NEXT HEAD (R0), named for the pass that follows this one.
+
+Both Earlgrey_0_1 modes end this pass at 36 cmp lines with ONE head each, and
+the two logs are BYTE-IDENTICAL (`diff HEAD_AFTER_default.cmp
+HEAD_AFTER_testflags.cmp` = 0 lines, ids included).  So there is ONE R0, not
+two.
+
+R0-default == R0-testflags
+------------------------------------------------------------------------
+  tlul_socket_1n.sv:126     tlul_pkg::tl_h2d_t   tl_u_o [N+1];
+                                                          ^ col 32 = `N`
+
+  LHS (golden)  constant   126:32-126:33   (the `N` READ alone)
+                |vpiParent -> operation 126:32-126:35   (the `+`)
+                |vpiDecompile:3
+                |vpiSize:64
+                |UINT:3
+                |vpiConstType:9            (vpiUIntConst)
+
+  RHS (ours)    constant   126:32-126:35   (the WHOLE `N+1` span)
+                |vpiParent -> operation 126:32-126:35
+                |vpiDecompile:3
+                |vpiSize:32
+                |UINT:3
+                |vpiConstType:9
+
+WHICH ARM.  `expr::Compare` (UHDM/build/generated/src/expr.cpp:83-102) reads
+`VpiDecompile` first -- "3" == "3" -- then `VpiSize`.  64 != 32, so THE FAILING
+FIELD IS `vpiSize` and no typespec is ever reached.  Both sides are non-null
+constants of the same kind, so BaseClass.h's `(lhs != nullptr) && (rhs !=
+nullptr)` arm names both.  Read the MK line, not the shape (RESUME §9).
+
+WHERE IT LIVES.  The object is the LEFT operand of the `+` in an UNPACKED-ARRAY
+DIMENSION of an `array_var` declaration:
+
+    array_var tl_u_o (126:24)
+      -> range (126:32)
+        -> operation `+` (126:32-126:35)
+          -> constant  <-- THE HEAD (the folded read of `N`)
+          -> constant 1
+
+`N` is `tlul_socket_1n`'s `parameter int N = 1` overridden per instantiation.
+The head is reached through `u_spi_device.u_reg.u_socket` first, but the SAME
+defect is present in every instantiation of `tlul_socket_1n` in the design
+(`findspan78 <db> 126 32` lists spi_device N=3, flash_ctrl N=4, hmac N=3,
+usbdev N=3, ... -- golden sizes every one of them 64, we size every one 32).
+It is therefore a FAMILY, not a single cell, and the family is wholly inside
+one declaration site.
+
+WHAT THE NEXT PASS MUST MEASURE FIRST.  The size 64 is Surelog's UNSIZED
+parameter-read fold (`CompileHelper::getValue` mints straight off the `Value`
+with no `adjustSize` consumer above it -- the same 64 earl68 decoded for the
+whole-Rhs genvar fold), while ours re-encodes at the parameter's declared `int`
+width.  The SPAN differs too (golden claims only the `N` token, we claim the
+whole `N+1`), which says the two producers fold at different NODES: golden
+reduces the OPERAND, we reduce and re-span at the operation.  Census every
+range bound of every packed and unpacked dimension, split by (parameter read /
+expression over a parameter / literal) and by declaration kind (array_var,
+packed logic_net, port, struct member), before touching the encoder -- the same
+encoder serves all of them, and § srlgFoldNaturalWidth / § adjustSize already
+own the neighbouring cells.
+
+FIRST-MEASURE INSTRUCTIONS.  Reproduce with
+  bash tools/probe/r10uvm67repro/rowheads.sh <sweep-workdir>/sl <outdir> Earlgrey_0_1
+on your own pristine build; the head is 36 lines and readable in full
+(HEAD_AFTER_{default,testflags}.cmp here are the verbatim logs).
+
+------------------------------------------------------------------------
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+------------------------------------------------------------------------
+
+R1  THE GEN-SCOPE SIZE CAST -- the sibling of this pass's law, SAME Surelog
+    site (`writeCont_assign`'s whole-Rhs `reduceExpr`), different ExprEval arm.
+    padctrl.sv:39 `assign warl_mask = AttrDw'(6'h3F);` inside `gen_generic`:
+    golden folds it to `UINT:63 vpiSize 8 ct 9` with NO typespec, we keep
+    `operation opType 67` over `HEX:3F`.  ONE Earlgrey cell (default view
+    only; in testflags this cell already agrees), and the corpus reach is
+    measured: `fencescan78.sh` counts **277 gen-scope cast cells** over 2,314
+    pristine databases (`fence_sl.raw`, lines tagged `CASTCAND GEN`), so this
+    one is NOT a two-cell fix and needs its own census before any code.
+
+R2  {N{1'bx}} / {N{1'bz}} IN EITHER HOME.  Golden folds them; the multiconcat
+    producer REPEATS THE ELEMENT CONSTANT'S VALUE STRING, so Surelog's own
+    casing survives -- `1'bx` gives `BIN:XXXXX` (UPPERCASE) and `1'bz` gives
+    `BIN:zzzzz` (lowercase), both at ct 3 with the `int_typespec`.  Our
+    unknown-fold path writes lowercase `x`, so folding here would land WRONG
+    digits; `tryFoldConst` refuses every unknown outside a concat and the cells
+    stay un-folded instead.  Arm cells a1 `mi_x`/`mi_z1` (module body, a
+    PRE-EXISTING miss this pass did not touch) and `gi_x`/`gi_z1` (gen scope).
+    ZERO Earlgrey cells.
+
+R3  A CONCAT CONTAINING A REPLICATION, and a ZERO-COUNT replication inside a
+    concat.  Golden folds `{1'b0, {4{1'b1}}}` to `BIN:01111 sz 5` with NO
+    decompile and NO typespec (the `vpiConcatOp` producer, not the multiconcat
+    one) and `{1'b0, {0{1'b1}}}` to `BIN:0 sz 1`; we keep the operation in the
+    GEN home and -- for the zero-count form -- in the MODULE home too.  Arm
+    cells a1 `gi_cat`/`gi_lp`/`mi_lp`.  ZERO Earlgrey cells.  Taking R3 means
+    opening the gate to `ExpressionKind::Concatenation`, whose corpus reach is
+    far larger than the replication's and must be censused first.
+
+R4  THE `int_typespec` `VpiValue` (the producer's `word size`).  Golden writes
+    `UINT:<element width>` on the multiconcat fold's typespec; we leave it
+    unset.  `int_typespec::Compare`
+    (UHDM/build/generated/src/int_typespec.cpp:97) reads `Cast_to_expr`,
+    `VpiSigned` and `Ranges`, and through `typespec::Compare` the `VpiName`,
+    `Typedef_alias` and `Instance` -- it NEVER reads `VpiValue`, so THE JUDGE
+    CANNOT SEE THIS and no uhdm-cmp verdict anywhere depends on it.  It is a
+    pre-existing property of the already-landed MODULE-BODY fold (Earlgrey's
+    own `u_dm_top` :235 and `u_flash_ctrl` :316 carry exactly this gap on the
+    PRISTINE binary and are cmp-clean), and this pass deliberately did NOT
+    change it: setting it would move every module-body replication fold in
+    both corpora for a field the judge does not read.  Recorded so the next
+    reader does not mistake it for a defect this pass introduced.

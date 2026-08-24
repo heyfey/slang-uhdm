@@ -1,0 +1,14 @@
+r10v78 -- PER-DIRECTORY BOUNDARY ATTRIBUTION (order-blind)
+
+unit               view        raw   sorted  verdict
+r10uvm75repro      plain        16        0  COIN
+r10uvm75repro      elab         12        0  COIN
+r10uvm76repro      plain        20        0  COIN
+r10uvm76repro      elab         18        0  COIN
+r10uvm88repro      elab          4        0  COIN
+r10v109repro       plain        20        0  COIN
+r10v109repro       elab         18        0  COIN
+r10v68repro        plain        80       80  REAL MOVER
+r10v68repro        elab        124      124  REAL MOVER
+r10earl78repro     plain      1949     1853  REAL MOVER
+r10earl78repro     elab       2871     2667  REAL MOVER

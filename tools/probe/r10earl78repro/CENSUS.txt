@@ -1,0 +1,45 @@
+r10earl78 — WHOLE-DESIGN CENSUS SUMMARY (cacen78 + tscen78, direct .uhdm
+readers; Earlgrey's uhdm-dump is >1 GB and is never used here).
+
+CALIBRATION FIRST (RESUME §9)
+  golden re-read byte-identical      md5 2d3ae034d9fff9405bd6b2d265e2cfc7 (x2)
+  golden-vs-golden multiset join     0 differing cells / 20,582
+
+CONT_ASSIGN WHOLE-Rhs CENSUS (cacen78, one line per cont_assign, DEF + ELAB,
+MOD/GEN home tag), Earlgrey_0_1, PRISTINE binary:
+  cells                          20,582 per mode (golden and ours agree on the
+                                 cell COUNT exactly)
+  identical to golden            20,475 (default) / 20,504 (testflags)
+  differing                         107 (default) /     78 (testflags)
+  of which the op34 (replication) slice:   2 / 2   <- THIS PASS'S WHOLE FAMILY
+
+PATCHED, 3-way scored with score78.py (JUDGE FIELDS ONLY — the census column
+`tsval=` is dropped because int_typespec::Compare never reads VpiValue):
+  default    cells=20592  TO-GOLDEN=2  AWAY-GOLDEN=0  MOVED-WRONG=0
+                          STILL-RIGHT=20477  STILL-WRONG=113
+  testflags  cells=20592  TO-GOLDEN=2  AWAY-GOLDEN=0  MOVED-WRONG=0
+                          STILL-RIGHT=20506  STILL-WRONG=84
+
+WIDE EXPRESSION CENSUS (tscen78 — cont_assign Lhs/Rhs, port High_conn,
+param_assign Rhs and variable declaration exprs at EVERY operand depth):
+  cells                    162,259 (default) / 160,030 (testflags)
+  pristine -> patched      6 multiset entries change IN EACH MODE, and all six
+                           are at the two head cont_assigns (CA_L171:12 and
+                           CA_L172:12 of gen_secded): the two whole-Rhs
+                           constants appear, the four op34 operands disappear
+  cells matching golden    147,346 -> 147,348 (default)
+                           145,852 -> 145,854 (testflags)
+  NOTHING ELSE IN THE DESIGN CHANGED, ANYWHERE.
+
+THE TWO CELLS, in full:
+  ELAB GEN work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded 171:12-171:42
+    G lhs=ref_obj/a_wmask_d rhs=CONSTANT ct=3 sz=39 val=BIN:<39 ones> dec=<39 ones> ts=int_typespec
+    O lhs=ref_obj/a_wmask_d rhs=op34(c9:UINT:39:32, op33(c3:BIN:1:1))
+  ELAB GEN ...gen_secded 172:12-172:42
+    G lhs=ref_obj/b_wmask_d rhs=CONSTANT ct=3 sz=39 val=BIN:<39 ones> dec=<39 ones> ts=int_typespec
+    O lhs=ref_obj/b_wmask_d rhs=op34(c9:UINT:39:32, op33(c3:BIN:1:1))
+
+THE MODULE-BODY TWINS ARE ALREADY CORRECT on every judge field and are NOT
+touched: u_dm_top:235 (BIN:1111 sz 4), u_flash_ctrl:316 (BIN:111111111 sz 9),
+sram2tlul:54.  They differ from golden only in the int_typespec's VpiValue,
+which no generated Compare reads — see PREDICT_R0.txt R4.

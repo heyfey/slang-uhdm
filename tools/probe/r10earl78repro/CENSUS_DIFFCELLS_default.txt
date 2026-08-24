@@ -1,0 +1,351 @@
+KEY ('DEF', 'MOD', 'work@gpio', '56:10-56:48')
+  G lhs=hier_path/hw2reg.masked_out_upper.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+  O <ABSENT>
+KEY ('DEF', 'MOD', 'work@gpio', '56:10-56:49')
+  G <ABSENT>
+  O lhs=hier_path/hw2reg.masked_out_upper.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+KEY ('DEF', 'MOD', 'work@gpio', '58:10-58:48')
+  G lhs=hier_path/hw2reg.masked_out_lower.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+  O <ABSENT>
+KEY ('DEF', 'MOD', 'work@gpio', '58:10-58:49')
+  G <ABSENT>
+  O lhs=hier_path/hw2reg.masked_out_lower.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+KEY ('DEF', 'MOD', 'work@gpio', '79:10-79:47')
+  G lhs=hier_path/hw2reg.masked_oe_upper.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+  O <ABSENT>
+KEY ('DEF', 'MOD', 'work@gpio', '79:10-79:48')
+  G <ABSENT>
+  O lhs=hier_path/hw2reg.masked_oe_upper.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+KEY ('DEF', 'MOD', 'work@gpio', '81:10-81:47')
+  G lhs=hier_path/hw2reg.masked_oe_lower.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+  O <ABSENT>
+KEY ('DEF', 'MOD', 'work@gpio', '81:10-81:48')
+  G <ABSENT>
+  O lhs=hier_path/hw2reg.masked_oe_lower.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+KEY ('DEF', 'MOD', 'work@prim_packer', '183:10-183:76')
+  G lhs=ref_obj/valid_next rhs=op32(op19(ref:pos_next,ref:OutW),c3:BIN:1:1,op28(ref:flush_ready,op15)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O <ABSENT>
+KEY ('DEF', 'MOD', 'work@prim_packer', '183:10-183:77')
+  G <ABSENT>
+  O lhs=ref_obj/valid_next rhs=op32(op19(ref:pos_next,ref:OutW),c3:BIN:1:1,op28(ref:flush_ready,op15)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_padctrl.gen_generic', '39:12-39:38')
+  G lhs=ref_obj/warl_mask rhs=c9:UINT:63:8 ct=9 sz=8 val=UINT:63 dec=63 ts=- tsval=- tssgn=-1
+  O lhs=ref_obj/warl_mask rhs=op67(c5:HEX:3F:6) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[0]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[10]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[11]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[12]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[13]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[14]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[15]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[16]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[17]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[18]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[19]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[1]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[20]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[21]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[22]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[23]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[24]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[25]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[26]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[27]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[28]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[29]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[2]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[30]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[31]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[3]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[4]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[5]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[6]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[7]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[8]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_pinmux.gen_mio_out[9]', '176:12-176:85')
+  G lhs=ref_obj/sleep_mux rhs=op67(op33(c3:BIN:11111111111111111111111111111111:32,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/sleep_mux rhs=op67(op33(ref:MioPeriphHasSleepMode,c3:BIN:1:1,c3:BIN:1:1,c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded', '171:12-171:42')
+  G lhs=ref_obj/a_wmask_d rhs=c3:BIN:111111111111111111111111111111111111111:39 ct=3 sz=39 val=BIN:111111111111111111111111111111111111111 dec=111111111111111111111111111111111111111 ts=int_typespec tsval=UINT:1 tssgn=0
+  O lhs=ref_obj/a_wmask_d rhs=op34(c9:UINT:39:32,op33(c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_spi_device.u_memory_2p.i_prim_ram_2p_async_adv.gen_secded', '172:12-172:42')
+  G lhs=ref_obj/b_wmask_d rhs=c3:BIN:111111111111111111111111111111111111111:39 ct=3 sz=39 val=BIN:111111111111111111111111111111111111111 dec=111111111111111111111111111111111111111 ts=int_typespec tsval=UINT:1 tssgn=0
+  O lhs=ref_obj/b_wmask_d rhs=op34(c9:UINT:39:32,op33(c3:BIN:1:1)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[1]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[2]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[1]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[2]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_18.gen_host_fifo[0]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_18.gen_host_fifo[1]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_18.gen_idrouting[0]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_18.gen_idrouting[1]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_19.gen_host_fifo[0]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_19.gen_host_fifo[1]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_19.gen_host_fifo[2]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_19.gen_idrouting[0]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_19.gen_idrouting[1]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_19.gen_idrouting[2]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_20.gen_host_fifo[0]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_20.gen_host_fifo[1]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_20.gen_host_fifo[2]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_20.gen_idrouting[0]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_20.gen_idrouting[1]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_20.gen_idrouting[2]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_23.gen_host_fifo[0]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_23.gen_host_fifo[1]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_23.gen_idrouting[0]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_23.gen_idrouting[1]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_24.gen_host_fifo[0]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_24.gen_host_fifo[1]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_24.gen_idrouting[0]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_24.gen_idrouting[1]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_25.gen_host_fifo[0]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_25.gen_host_fifo[1]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_25.gen_idrouting[0]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_25.gen_idrouting[1]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_26.gen_host_fifo[0]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_26.gen_host_fifo[1]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_26.gen_idrouting[0]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_26.gen_idrouting[1]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_27.gen_host_fifo[0]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_27.gen_host_fifo[1]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_27.gen_idrouting[0]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_27.gen_idrouting[1]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_28.gen_host_fifo[0]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_28.gen_host_fifo[1]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_28.gen_idrouting[0]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_28.gen_idrouting[1]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_29.gen_host_fifo[0]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_29.gen_host_fifo[1]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_29.gen_idrouting[0]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_29.gen_idrouting[1]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_30.gen_host_fifo[0]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_30.gen_host_fifo[1]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_30.gen_idrouting[0]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_30.gen_idrouting[1]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_31.gen_host_fifo[0]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_31.gen_host_fifo[1]', '108:12-119:6')
+  G lhs=ref_obj/hreq_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/hreq_fifo_i rhs=op75(hier_path,hier_path,hier_path,hier_path,ref:shifted_id,hier_path,hier_path,hier_path,hier_path,hier_path) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_31.gen_idrouting[0]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'GEN', 'work@top_earlgrey.u_xbar_main.u_sm1_31.gen_idrouting[1]', '240:12-251:6')
+  G lhs=bit_select/hrsp_fifo_i rhs=op75(tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern,tagged_pattern) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=bit_select/hrsp_fifo_i rhs=op75(bit_select,hier_path,hier_path,hier_path,ref:hfifo_rspid,hier_path,hier_path,hier_path,hier_path,bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand', '109:10-109:74')
+  G lhs=ref_obj/spec_in_192 rhs=op30(op30(bit_select,bit_select),bit_select) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/spec_in_192 rhs=op32(ref:AES192Enable,op30(op30,bit_select),c3:BIN:0:-1) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_dm_top', '235:10-235:33')
+  G lhs=ref_obj/be rhs=c3:BIN:1111:4 ct=3 sz=4 val=BIN:1111 dec=1111 ts=int_typespec tsval=UINT:1 tssgn=0
+  O lhs=ref_obj/be rhs=c3:BIN:1111:4 ct=3 sz=4 val=BIN:1111 dec=1111 ts=int_typespec tsval=- tssgn=0
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_flash_ctrl', '316:10-316:59')
+  G lhs=hier_path/region_cfgs[8].size.q rhs=c3:BIN:111111111:9 ct=3 sz=9 val=BIN:111111111 dec=111111111 ts=int_typespec tsval=UINT:1 tssgn=0
+  O lhs=hier_path/region_cfgs[8].size.q rhs=c3:BIN:111111111:9 ct=3 sz=9 val=BIN:111111111 dec=111111111 ts=int_typespec tsval=- tssgn=0
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_gpio', '56:10-56:48')
+  G lhs=hier_path/hw2reg.masked_out_upper.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+  O <ABSENT>
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_gpio', '56:10-56:49')
+  G <ABSENT>
+  O lhs=hier_path/hw2reg.masked_out_upper.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_gpio', '58:10-58:48')
+  G lhs=hier_path/hw2reg.masked_out_lower.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+  O <ABSENT>
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_gpio', '58:10-58:49')
+  G <ABSENT>
+  O lhs=hier_path/hw2reg.masked_out_lower.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_gpio', '79:10-79:47')
+  G lhs=hier_path/hw2reg.masked_oe_upper.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+  O <ABSENT>
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_gpio', '79:10-79:48')
+  G <ABSENT>
+  O lhs=hier_path/hw2reg.masked_oe_upper.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_gpio', '81:10-81:47')
+  G lhs=hier_path/hw2reg.masked_oe_lower.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+  O <ABSENT>
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_gpio', '81:10-81:48')
+  G <ABSENT>
+  O lhs=hier_path/hw2reg.masked_oe_lower.mask.d rhs=c5:HEX:0:16 ct=5 sz=16 val=HEX:0 dec=16'h0 ts=- tsval=- tssgn=-1
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_hmac', '257:10-258:57')
+  G lhs=ref_obj/fifo_wdata rhs=op32(ref:hmac_fifo_wsel,op75(bit_select,c9:UINT:15:4),ref:reg_fifo_wentry) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O lhs=ref_obj/fifo_wdata rhs=op32(ref:hmac_fifo_wsel,op75(bit_select,c3:BIN:1:-1),ref:reg_fifo_wentry) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_hmac.u_packer', '183:10-183:76')
+  G lhs=ref_obj/valid_next rhs=op32(op19(ref:pos_next,ref:OutW),c3:BIN:1:1,op28(ref:flush_ready,op15)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
+  O <ABSENT>
+KEY ('ELAB', 'MOD', 'work@top_earlgrey.u_hmac.u_packer', '183:10-183:77')
+  G <ABSENT>
+  O lhs=ref_obj/valid_next rhs=op32(op19(ref:pos_next,ref:OutW),c3:BIN:1:1,op28(ref:flush_ready,op15)) ct=- sz=- val=- dec=- ts=- tsval=- tssgn=-
