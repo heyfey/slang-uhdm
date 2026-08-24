@@ -1,0 +1,61 @@
+r10uvm117 — THE BOUNDARY-ARM ATTRIBUTION.  Every arm the boundary gate reported
+as differing, attributed against a FRESH golden built for the same source.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+=== FILE MODE, def view — the three EARLIER passes' arms
+== ./r10buvm9repro/w1v_pkgclsts.sv
+   TO-GOLDEN ELABPKG PKG w1p::g8 39:49-39:50 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG PKG w1p::g9 40:31-40:32 v : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   -> TO-GOLDEN=2 AWAY=0 OTHER=0
+== ./r10uvm115repro/g115_a.sv
+   TO-GOLDEN ELABPKG PKG p115::fn115 13:5-13:6 p : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG PKG p115::fn115b 21:5-21:7 p1 : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG PKG p115::fn115b 22:10-22:12 p1 : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG PKG p115::fn115b 22:5-22:7 p2 : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG PKG p115::fn115c 31:5-31:7 pr : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN ELABPKG PKG p115::tk115 37:5-37:7 tp : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   TO-GOLDEN NET DEFMOD work@top115 13:5-13:6 p : pris={} pat={'p': 1} golden={'p': 1}
+   TO-GOLDEN NET DEFMOD work@top115 21:5-21:7 p1 : pris={} pat={'p1': 1} golden={'p1': 1}
+   TO-GOLDEN NET DEFMOD work@top115 22:5-22:7 p2 : pris={} pat={'p2': 1} golden={'p2': 1}
+   TO-GOLDEN NET DEFMOD work@top115 31:5-31:7 pr : pris={} pat={'pr': 1} golden={'pr': 1}
+   TO-GOLDEN NET DEFMOD work@top115 37:5-37:7 tp : pris={} pat={'tp': 1} golden={'tp': 1}
+   -> TO-GOLDEN=11 AWAY=0 OTHER=0
+== ./r10uvm77repro/v77x4_scope.sv
+   TO-GOLDEN ELABPKG PKG x4pkg::pkgfn 35:5-35:6 p : pris={'NONE': 1} pat={'logic_net': 1} golden={'logic_net': 1}
+   -> TO-GOLDEN=1 AWAY=0 OTHER=0
+
+=== r10buvm22repro/g22.sv — the ONE arm whose difference is NOT a cell of any
+family: an ADDRESS-DERIVED garbage constant our associative-array dimension
+bound renders (golden emits a plain constant there; we emit an operation over
+this value, on BOTH binaries).  NULL CONTROL, run three ways:
+  r10uvm117_pris.bin  size=22193056  values: UINT:22411841 UINT:22412697 
+  r10uvm117_pat.bin  size=22193056  values: UINT:22411841 UINT:22412697 
+  r10uvm117_pat2.bin  size=22197336  values: UINT:22415937 UINT:22416793 
+  r10uvm117_pat.bin IS the law, fully active, and is BYTE-SIZE-IDENTICAL to the
+  pristine binary: it reproduces the pristine values exactly.  The second build
+  (the mint-order staging fix, +4280 bytes) shifts both values by EXACTLY 4096 —
+  one page — with their low 12 bits unchanged (0x155fd99 -> 0x1560d99,
+  0x155fa41 -> 0x1560a41).  With those two values masked, all THREE dumps are
+  byte-identical:
+    r10uvm117_pris.bin  masked-dump md5 3e596e6ed8b3
+    r10uvm117_pat.bin  masked-dump md5 3e596e6ed8b3
+    r10uvm117_pat2.bin  masked-dump md5 3e596e6ed8b3
+
+=== DIR MODE — the three directories whose diff is PURE LIST ORDER
+NULL CONTROL: the PRISTINE binary ALONE, four runs each, whole-dump md5:
+  r10uvm75repro : 71ba4051f8 201918c79a 36ba83fb4c 4334f3b1bd 
+  r10uvm76repro : 88e4d08286 a41942c2fe 9245013955 32baa63184 
+  r10v109repro : 77ce9b3b00 19707bda8b 804ab7f7cf 71da549e75 
+  four runs, four different dumps — the vpiTaskFunc list ORDER flip RESUME §9
+  names (macro-buffer SourceLocation ordering under slang's parallel parse).
+  ORDER-BLIND (sorted) diff between pristine and patched for each: 0, 0, 0.
+
+=== ORDER-BLIND diff line counts, dir mode / def view
+  r10uvm75repro 0
+  r10uvm76repro 0
+  r10v109repro 0
+  r10buvm9repro 4
+  r10uvm77repro 2
+  r10uvm115repro 47
+  r10buvm22repro 12
+  r10uvm117repro 131

@@ -5746,6 +5746,30 @@ void UhdmExporter::bindHoistedClassPropRefs(const InstanceBodySymbol& body,
                 break;
             }
         if (!bind9) {
+            // V-FIX r10v117 (verifier) — § hoistedNetNeverOverAModuleParam117.
+            // Surelog consults the module's OWN PARAMETER VALUE MAP before it
+            // mints an implicit wire: `UhdmWriter::lateBinding`
+            // (Surelog src/DesignCompile/UhdmWriter.cpp:3949-3959) runs
+            // `Value* value = mod->getValue(name);` and, when the module knows
+            // the name, takes that arm instead of the `MakeLogic_net()` mint at
+            // :3982-4004.  So a hoisted name the importing module already
+            // declares as a PARAMETER or a LOCALPARAM never becomes a wire in
+            // golden, and its reference is left UNBOUND.
+            //   MEASURED, arm `v117_b5.sv` (the same collision written twice,
+            //   once in an out-of-body class method and once in a free package
+            //   function), and arm `v117_b3.sv` cell `paramShadowC4`:
+            //     golden  work@TopShadowTwice — NO net, ref vpiActual ABSENT
+            //     without this test we mint `logic_net(...oobParamName)@19:5`
+            //     and `…oobLocalParamName@20:5` and bind both — a
+            //     `module_inst::Nets` size mismatch AND a `ref_obj`
+            //     `Actual_group` the judge reads.
+            // A name the module declares as a NET is a different cell and is
+            // already handled above (`bind9` found it, and golden binds it too
+            // — arm b5 cells `oobVarName` / `freeVarName`).
+            if (auto* pshadow9 = body.find(cpr.name))
+                if (pshadow9->kind == SymbolKind::Parameter ||
+                    pshadow9->kind == SymbolKind::Specparam)
+                    continue;
             auto* inet9 = s.MakeLogic_net();
             inet9->VpiName(cpr.name);
             inet9->VpiFullName(prefix + "." + cpr.name);

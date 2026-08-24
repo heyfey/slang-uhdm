@@ -1,0 +1,37 @@
+== boundary gate: MODE=file VIEW=elab  3626 arms under /tmp/r10uvm117_probecopy
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 2849897 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 2849982 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 2852641 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 2852727 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3094732 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3094770 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3098241 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3098293 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3101191 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3101223 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3167573 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3167614 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3168274 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3168315 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3175262 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3175333 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3175964 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3176024 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3180081 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3180173 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3181070 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3181159 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3228832 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3228946 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3229084 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3229219 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3229364 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3229496 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+PROCESSED=3626 LISTED=3626 DIFFER=6 PRIS_REJECT=152 PATCHED_REJECT=152
+-- differing arms:
+./r10buvm22repro/g22.sv
+./r10uvm115repro/g115_a.sv
+./r10uvm117repro/g117_a1.sv
+./r10uvm117repro/g117_a2.sv
+./r10uvm117repro/g117_a3.sv
+./r10uvm117repro/g117_a4.sv

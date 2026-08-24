@@ -2908,6 +2908,24 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             if (auto* cps75 = body.asSymbol().getParentScope();
                 cps75 && cps75->asSymbol().kind == SymbolKind::Package)
                 classBodyHomePkg75 = &cps75->asSymbol();
+        // § pkgFreeSubRefVarHoistNet117 — the SAME pointer for the other body
+        // kind Surelog's late binder treats identically (see UhdmExporter.h):
+        // a package's OWN free function or task.  `homePkgSym` is already
+        // `(pkgScope && !classScope) ? &body.asSymbol() : nullptr`, i.e. the
+        // package itself, so the two states can never drift apart.
+        //   * `pkgTopEmit` — the ELABORATED (top) package view ONLY.  Golden
+        //     binds the wire on the `uhdmtopPackages` copy and leaves the
+        //     `uhdmallPackages` copy unbound, and `design::Compare` walks
+        //     AllPackages FIRST, so the def copy must stay as it is.
+        //   * `!pkgImportCloneEmit` — a WILDCARD-IMPORT clone re-emitted into
+        //     an IMPORTING package is not the home body; its home package is
+        //     the importer, which is not where golden's pool lives.  Zero
+        //     corpus HIT cells sit in a clone (the fence's four are all
+        //     `uvm_pkg::uvm_process_report_message`, the home body).
+        pkgFreeSubHomePkg117 = nullptr;
+        if (pkgScope && !classScope && !cloneMode && pkgTopEmit &&
+            !pkgImportCloneEmit)
+            pkgFreeSubHomePkg117 = homePkgSym;
         // The instance every typespec minted for THIS subroutine takes.
         UHDM::instance* tsInst = (pkgScope && !classScope)
                                      ? (UHDM::instance*)m
@@ -6122,6 +6140,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
     inClassBodyEmit = false;
     inBodyClassMethod88 = false;
     classBodyHomePkg75 = nullptr;
+    pkgFreeSubHomePkg117 = nullptr;
     if (!tfs->empty()) {
         if (cloneMode) {
             if (auto* ex0 = pkgClassTfClone->Task_funcs())

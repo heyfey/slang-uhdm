@@ -1,0 +1,129 @@
+# r10v117 — arm scores, golden vs pristine vs (shipped patch | patch+fix).
+# MEASUREMENT ONLY.  Produced by grid_v117.sh + score_v117.py.
+
+================ v117_b1  (pristine vs SHIPPED PATCH)
+== NET (view, module, name, IMPL/OTH) multiset ==
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeOne', 'castDstW1', 'IMPL')
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeOne', 'dispArgU4', 'IMPL')
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeOne', 'eqRhsK8', 'IMPL')
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeOne', 'fjLhsD9', 'IMPL')
+  STILL        g=2 pris=0 pat=0  ('DEFMOD', 'work@TopBeeOne', 'freeCallArgB6', 'IMPL')
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeOne', 'recvArgExprZ2', 'IMPL')
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeOne', 'repeatBodyL7', 'IMPL')
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeOne', 'ternCondN2', 'IMPL')
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeOne', 'ternValY5', 'IMPL')
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeOne', 'waitCondW3', 'IMPL')
+  NET: TO-GOLDEN=9 AWAY-GOLDEN=0 STILL=1
+== REF (view, owner, span, name) -> (actual kind, ACTIMPL) ==
+  REF: TO-GOLDEN=0 AWAY-GOLDEN=0 STILL/CHANGED=0 KEY-ONLY-SOME=0
+== RV declarations (view, owner, name) ==
+  g=36 pris=36 pat=36  pris-vs-pat sym-diff=0  g-vs-pat sym-diff=0
+
+================ v117_b2  (pristine vs SHIPPED PATCH)
+== NET (view, module, name, IMPL/OTH) multiset ==
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeTwo', 'blkNestedJ3', 'IMPL')
+  STILL        g=2 pris=0 pat=0  ('DEFMOD', 'work@TopBeeTwo', 'modOobT7', 'IMPL')
+  STILL        g=2 pris=0 pat=0  ('DEFMOD', 'work@TopBeeTwo', 'modTaskS5', 'IMPL')
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeTwo', 'scopeOnlyX9', 'IMPL')
+  NET: TO-GOLDEN=2 AWAY-GOLDEN=0 STILL=2
+== REF (view, owner, span, name) -> (actual kind, ACTIMPL) ==
+  STILL        g=('NONE', '-') pris=('class_var', '-') pat=('class_var', '-')  ('DEFMOD', '-', '82:5-82:8', 'mh2')
+  KEY-ONLY-SOME g=('NONE', '-') pris=None pat=None  ('DEFMOD', 'work@TopBeeTwo.ModClsV2::modOobFnV2', '66:16-66:25', 'process::self')
+  KEY-ONLY-SOME g=('ref_var', '-') pris=None pat=None  ('DEFMOD', 'work@TopBeeTwo.ModClsV2::modOobFnV2', '66:5-66:13', 'modOobT7')
+  KEY-ONLY-SOME g=None pris=('NONE', '-') pat=('NONE', '-')  ('DEFMOD', 'work@TopBeeTwo::ModClsV2::modOobFnV2', '66:16-66:25', 'process::self')
+  KEY-ONLY-SOME g=None pris=('NONE', '-') pat=('NONE', '-')  ('DEFMOD', 'work@TopBeeTwo::ModClsV2::modOobFnV2', '66:5-66:13', 'modOobT7')
+  KEY-ONLY-SOME g=('NONE', '-') pris=None pat=None  ('DEFPROG', 'Qkv2::Kv2cls::statOobFnV2', '25:17-25:26', 'process::self')
+  KEY-ONLY-SOME g=('ref_var', '-') pris=None pat=None  ('DEFPROG', 'Qkv2::Kv2cls::statOobFnV2', '25:5-25:14', 'statOobR4')
+  KEY-ONLY-SOME g=('NONE', '-') pris=None pat=None  ('DEFPROG', 'Qkv2::freeTaskBlockV2', '31:21-31:30', 'process::self')
+  KEY-ONLY-SOME g=('ref_var', '-') pris=None pat=None  ('DEFPROG', 'Qkv2::freeTaskBlockV2', '31:7-31:18', 'blkNestedJ3')
+  KEY-ONLY-SOME g=('NONE', '-') pris=None pat=None  ('DEFPROG', 'Qkv2::scopeOnlyFnV2', '37:19-37:28', 'process::self')
+  KEY-ONLY-SOME g=('ref_var', '-') pris=None pat=None  ('DEFPROG', 'Qkv2::scopeOnlyFnV2', '37:5-37:16', 'scopeOnlyX9')
+  KEY-ONLY-SOME g=('NONE', '-') pris=None pat=None  ('TOPMOD', 'work@TopBeeTwo.ModClsV2::modOobFnV2', '66:16-66:25', 'process::self')
+  KEY-ONLY-SOME g=('ref_var', '-') pris=None pat=None  ('TOPMOD', 'work@TopBeeTwo.ModClsV2::modOobFnV2', '66:5-66:13', 'modOobT7')
+  REF: TO-GOLDEN=0 AWAY-GOLDEN=0 STILL/CHANGED=1 KEY-ONLY-SOME=12
+== RV declarations (view, owner, name) ==
+  g=21 pris=17 pat=17  pris-vs-pat sym-diff=0  g-vs-pat sym-diff=6
+    RVDIFF g=True pat=False ('DEFMOD', 'work@TopBeeTwo.ModClsV2::modOobFnV2', 'modOobT7')
+    RVDIFF g=False pat=True ('DEFMOD', 'work@TopBeeTwo::ModClsV2::modOobFnV2', 'modOobT7')
+    RVDIFF g=True pat=False ('DEFPROG', 'Qkv2::Kv2cls::statOobFnV2', 'statOobR4')
+    RVDIFF g=True pat=False ('DEFPROG', 'Qkv2::freeTaskBlockV2', 'blkNestedJ3')
+    RVDIFF g=True pat=False ('DEFPROG', 'Qkv2::scopeOnlyFnV2', 'scopeOnlyX9')
+    RVDIFF g=True pat=False ('TOPMOD', 'work@TopBeeTwo.ModClsV2::modOobFnV2', 'modOobT7')
+
+================ v117_b3  (pristine vs SHIPPED PATCH)
+== NET (view, module, name, IMPL/OTH) multiset ==
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeThree', 'clsPropShadowC2', 'IMPL')
+  AWAY-GOLDEN  g=0 pris=0 pat=2  ('DEFMOD', 'work@TopBeeThree', 'paramShadowC4', 'IMPL')
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeThree', 'twinNameT8', 'IMPL')
+  NET: TO-GOLDEN=2 AWAY-GOLDEN=1 STILL=0
+== REF (view, owner, span, name) -> (actual kind, ACTIMPL) ==
+  STILL        g=('NONE', '-') pris=('class_var', '-') pat=('class_var', '-')  ('DEFMOD', '-', '86:18-86:21', 'h3a')
+  STILL        g=('NONE', '-') pris=('class_var', '-') pat=('class_var', '-')  ('DEFMOD', '-', '87:18-87:21', 'h3b')
+  REF: TO-GOLDEN=0 AWAY-GOLDEN=0 STILL/CHANGED=2 KEY-ONLY-SOME=0
+== RV declarations (view, owner, name) ==
+  g=27 pris=27 pat=27  pris-vs-pat sym-diff=0  g-vs-pat sym-diff=0
+
+================ v117_b4  (pristine vs SHIPPED PATCH)
+== NET (view, module, name, IMPL/OTH) multiset ==
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopFenceImports', 'ordinaryLhsF3', 'IMPL')
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopFenceImports', 'taskOrdinaryG2', 'IMPL')
+  AWAY-GOLDEN  g=0 pris=0 pat=2  ('DEFMOD', 'work@TopFenceNoImport', 'ordinaryLhsF3', 'IMPL')
+  AWAY-GOLDEN  g=0 pris=0 pat=2  ('DEFMOD', 'work@TopFenceNoImport', 'taskOrdinaryG2', 'IMPL')
+  NET: TO-GOLDEN=2 AWAY-GOLDEN=2 STILL=0
+== REF (view, owner, span, name) -> (actual kind, ACTIMPL) ==
+  REF: TO-GOLDEN=0 AWAY-GOLDEN=0 STILL/CHANGED=0 KEY-ONLY-SOME=0
+== RV declarations (view, owner, name) ==
+  g=18 pris=15 pat=15  pris-vs-pat sym-diff=0  g-vs-pat sym-diff=3
+    RVDIFF g=True pat=False ('DEFPKG', 'PkgNewFence::newFenceFnV4', '-')
+    RVDIFF g=True pat=False ('ELABPKG', 'PkgNewFence::newFenceFnV4', '-')
+    RVDIFF g=True pat=False ('TOPMOD', 'PkgNewFence::newFenceFnV4', '-')
+
+================ v117_b5  (pristine vs SHIPPED PATCH)
+== NET (view, module, name, IMPL/OTH) multiset ==
+  AWAY-GOLDEN  g=0 pris=0 pat=2  ('DEFMOD', 'work@TopShadowTwice', 'freeLocalParamName', 'IMPL')
+  AWAY-GOLDEN  g=0 pris=0 pat=2  ('DEFMOD', 'work@TopShadowTwice', 'freeParamName', 'IMPL')
+  STILL        g=0 pris=2 pat=2  ('DEFMOD', 'work@TopShadowTwice', 'oobLocalParamName', 'IMPL')
+  STILL        g=0 pris=2 pat=2  ('DEFMOD', 'work@TopShadowTwice', 'oobParamName', 'IMPL')
+  NET: TO-GOLDEN=0 AWAY-GOLDEN=2 STILL=2
+== REF (view, owner, span, name) -> (actual kind, ACTIMPL) ==
+  STILL        g=('NONE', '-') pris=('class_var', '-') pat=('class_var', '-')  ('DEFMOD', '-', '46:5-46:8', 'hs5')
+  REF: TO-GOLDEN=0 AWAY-GOLDEN=0 STILL/CHANGED=1 KEY-ONLY-SOME=0
+== RV declarations (view, owner, name) ==
+  g=18 pris=18 pat=18  pris-vs-pat sym-diff=0  g-vs-pat sym-diff=0
+
+================ v117_b3  (pristine vs PATCH + VERIFIER FIX)
+== NET (view, module, name, IMPL/OTH) multiset ==
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeThree', 'clsPropShadowC2', 'IMPL')
+  TO-GOLDEN    g=2 pris=0 pat=2  ('DEFMOD', 'work@TopBeeThree', 'twinNameT8', 'IMPL')
+  NET: TO-GOLDEN=2 AWAY-GOLDEN=0 STILL=0
+== REF (view, owner, span, name) -> (actual kind, ACTIMPL) ==
+  STILL        g=('NONE', '-') pris=('class_var', '-') pat=('class_var', '-')  ('DEFMOD', '-', '86:18-86:21', 'h3a')
+  STILL        g=('NONE', '-') pris=('class_var', '-') pat=('class_var', '-')  ('DEFMOD', '-', '87:18-87:21', 'h3b')
+  REF: TO-GOLDEN=0 AWAY-GOLDEN=0 STILL/CHANGED=2 KEY-ONLY-SOME=0
+== RV declarations (view, owner, name) ==
+  g=27 pris=27 pat=27  pris-vs-pat sym-diff=0  g-vs-pat sym-diff=0
+
+================ v117_b5  (pristine vs PATCH + VERIFIER FIX)
+== NET (view, module, name, IMPL/OTH) multiset ==
+  TO-GOLDEN    g=0 pris=2 pat=0  ('DEFMOD', 'work@TopShadowTwice', 'oobLocalParamName', 'IMPL')
+  TO-GOLDEN    g=0 pris=2 pat=0  ('DEFMOD', 'work@TopShadowTwice', 'oobParamName', 'IMPL')
+  NET: TO-GOLDEN=2 AWAY-GOLDEN=0 STILL=0
+== REF (view, owner, span, name) -> (actual kind, ACTIMPL) ==
+  STILL        g=('NONE', '-') pris=('class_var', '-') pat=('class_var', '-')  ('DEFMOD', '-', '46:5-46:8', 'hs5')
+  REF: TO-GOLDEN=0 AWAY-GOLDEN=0 STILL/CHANGED=1 KEY-ONLY-SOME=0
+== RV declarations (view, owner, name) ==
+  g=18 pris=18 pat=18  pris-vs-pat sym-diff=0  g-vs-pat sym-diff=0
+
+================ r10v107repro/v107_b10.sv (pristine vs PATCH + VERIFIER FIX)
+== NET (view, module, name, IMPL/OTH) multiset ==
+  STILL        g=0 pris=2 pat=2  ('DEFMOD', 'work@topb10', 'd10', 'IMPL')
+  TO-GOLDEN    g=0 pris=2 pat=0  ('DEFMOD', 'work@topb10', 'pm_mod10', 'IMPL')
+  STILL        g=0 pris=2 pat=2  ('DEFMOD', 'work@topb10', 'pm_pkg10', 'IMPL')
+  STILL        g=0 pris=2 pat=2  ('DEFMOD', 'work@topb10', 'pm_unit10', 'IMPL')
+  STILL        g=0 pris=2 pat=2  ('DEFMOD', 'work@topb10', 'td_mod10', 'IMPL')
+  STILL        g=0 pris=2 pat=2  ('DEFMOD', 'work@topb10', 'td_pkg10', 'IMPL')
+  NET: TO-GOLDEN=1 AWAY-GOLDEN=0 STILL=5
+== REF (view, owner, span, name) -> (actual kind, ACTIMPL) ==
+  REF: TO-GOLDEN=0 AWAY-GOLDEN=0 STILL/CHANGED=0 KEY-ONLY-SOME=0
+== RV declarations (view, owner, name) ==
+  g=30 pris=30 pat=30  pris-vs-pat sym-diff=0  g-vs-pat sym-diff=0

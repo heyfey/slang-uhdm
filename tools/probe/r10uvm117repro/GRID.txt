@@ -1,0 +1,131 @@
+r10uvm117 — THE GOLDEN GRID, cell by cell, BOTH VIEWS.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+golden  = surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm
+pristine = md5 cc1dcd48920298639c02a3371750f62a
+patched  = md5 b778b33088c6d70540626300cb53aa19
+
+================ a1
+   FREE PACKAGE SUBROUTINE.  MEASUREMENT ONLY.
+//
+   Every cell carries its OWN name (a grid that calls everything a_t/b_t/c_t is
+
+a1 NET  agree_before=0 agree_after=6  TO-GOLDEN=6 AWAY-GOLDEN=0 STILL=0
+  TO-GOLDEN    NET DEFMOD|work@top117a|asgLhsAlpha|35:5-35:16  g=1 pris=0 pat=1
+  TO-GOLDEN    NET DEFMOD|work@top117a|blkLocalLambda|60:7-60:21  g=1 pris=0 pat=1
+  TO-GOLDEN    NET DEFMOD|work@top117a|retIota|53:12-53:19  g=1 pris=0 pat=1
+  TO-GOLDEN    NET DEFMOD|work@top117a|rhsReadBeta|36:19-36:30  g=1 pris=0 pat=1
+  TO-GOLDEN    NET DEFMOD|work@top117a|sysArgEpsilon|39:17-39:30  g=1 pris=0 pat=1
+  TO-GOLDEN    NET DEFMOD|work@top117a|taskLocalNu|67:5-67:16  g=1 pris=0 pat=1
+a1 REF  cells=53 agree_before=45 agree_after=53  TO-GOLDEN=8 AWAY-GOLDEN=0 STILL=0
+  TO-GOLDEN    REF ELABPKG|pk117a::blkFn117a|60:7-60:21|blkLocalLambda|1  g=logic_net pris=NONE pat=logic_net
+  TO-GOLDEN    REF ELABPKG|pk117a::freeFn117a|35:5-35:16|asgLhsAlpha|1  g=logic_net pris=NONE pat=logic_net
+  TO-GOLDEN    REF ELABPKG|pk117a::freeFn117a|36:19-36:30|rhsReadBeta|1  g=logic_net pris=NONE pat=logic_net
+  TO-GOLDEN    REF ELABPKG|pk117a::freeFn117a|36:5-36:16|asgLhsAlpha|1  g=logic_net pris=NONE pat=logic_net
+  TO-GOLDEN    REF ELABPKG|pk117a::freeFn117a|39:17-39:30|sysArgEpsilon|1  g=logic_net pris=NONE pat=logic_net
+  TO-GOLDEN    REF ELABPKG|pk117a::freeFn117a|39:32-39:43|rhsReadBeta|1  g=logic_net pris=NONE pat=logic_net
+  TO-GOLDEN    REF ELABPKG|pk117a::freeTask117a|67:5-67:16|taskLocalNu|1  g=logic_net pris=NONE pat=logic_net
+  TO-GOLDEN    REF ELABPKG|pk117a::retFn117a|53:12-53:19|retIota|1  g=logic_net pris=NONE pat=logic_net
+
+-- every ELABPKG / DEFMOD reference cell, golden | pristine | patched ('*' = still differing):
+   ELABPKG  pk117a::blkFn117a                          58:9-58:13     gate               g=io_decl     pris=io_decl     pat=io_decl
+   ELABPKG  pk117a::blkFn117a                          60:24-60:33    process::self      g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117a::blkFn117a                          60:7-60:21     blkLocalLambda     g=logic_net   pris=NONE        pat=logic_net
+   ELABPKG  pk117a::freeFn117a                         35:19-35:28    process::self      g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117a::freeFn117a                         35:5-35:16     asgLhsAlpha        g=logic_net   pris=NONE        pat=logic_net
+   ELABPKG  pk117a::freeFn117a                         36:19-36:30    rhsReadBeta        g=logic_net   pris=NONE        pat=logic_net
+   ELABPKG  pk117a::freeFn117a                         36:5-36:16     asgLhsAlpha        g=logic_net   pris=NONE        pat=logic_net
+   ELABPKG  pk117a::freeFn117a                         37:28-37:41    intCtlOmicron      g=int_var     pris=int_var     pat=int_var
+   ELABPKG  pk117a::freeFn117a                         37:9-37:18     condGamma          g=ref_var     pris=ref_var     pat=ref_var
+   ELABPKG  pk117a::freeFn117a                         38:14-38:26    userArgDelta       g=ref_var     pris=ref_var     pat=ref_var
+   ELABPKG  pk117a::freeFn117a                         39:17-39:30    sysArgEpsilon      g=logic_net   pris=NONE        pat=logic_net
+   ELABPKG  pk117a::freeFn117a                         39:32-39:43    rhsReadBeta        g=logic_net   pris=NONE        pat=logic_net
+   ELABPKG  pk117a::freeFn117a                         40:5-40:15     newLhsZeta         g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117a::freeFn117a                         41:5-41:16     stmtCallEta        g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117a::freeFn117a                         42:35-42:44    process::RUNNING   g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117a::freeFn117a                         42:53-42:66    intCtlOmicron      g=int_var     pris=int_var     pat=int_var
+   ELABPKG  pk117a::freeFn117a                         42:9-42:22     exprCallTheta      g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117a::freeFn117a                         44:5-44:18     resolvedCtlXi      g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117a::freeFn117a                         45:24-45:37    intCtlOmicron      g=int_var     pris=int_var     pat=int_var
+   ELABPKG  pk117a::freeFn117a                         45:5-45:18     resolvedCtlXi      g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117a::freeFn117a                         46:21-46:25    gate               g=io_decl     pris=io_decl     pat=io_decl
+   ELABPKG  pk117a::freeFn117a                         46:5-46:18     intCtlOmicron      g=int_var     pris=int_var     pat=int_var
+   ELABPKG  pk117a::freeFn117a                         47:12-47:25    intCtlOmicron      g=int_var     pris=int_var     pat=int_var
+   ELABPKG  pk117a::freeTask117a                       67:19-67:28    process::self      g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117a::freeTask117a                       67:5-67:16     taskLocalNu        g=logic_net   pris=NONE        pat=logic_net
+   ELABPKG  pk117a::helper117a::ask                    15:37-15:38    a                  g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117a::retFn117a                          53:12-53:19    retIota            g=logic_net   pris=NONE        pat=logic_net
+
+================ a2
+   body local, which both producers degrade to `ref_var`) and ONE reference
+   position (an ordinary assignment LVALUE — the head's own), written in SIX
+   different HOMES.  MEASUREMENT ONLY.  Every cell has its own name.
+
+a2 NET  agree_before=1 agree_after=3  TO-GOLDEN=2 AWAY-GOLDEN=0 STILL=1
+  TO-GOLDEN    NET DEFMOD|work@top117b|homeFreeFnAlpha|30:5-30:20  g=1 pris=0 pat=1
+  TO-GOLDEN    NET DEFMOD|work@top117b|homeFreeTaskBeta|36:5-36:21  g=1 pris=0 pat=1
+  STILL        NET DEFMOD|work@top117b|homeModFnEpsilon|52:5-52:21  g=1 pris=0 pat=0
+a2 REF  cells=21 agree_before=18 agree_after=20  TO-GOLDEN=2 AWAY-GOLDEN=0 STILL=1
+  TO-GOLDEN    REF ELABPKG|pk117b::homeFreeFn117b|30:5-30:20|homeFreeFnAlpha|1  g=logic_net pris=NONE pat=logic_net
+  TO-GOLDEN    REF ELABPKG|pk117b::homeFreeTask117b|36:5-36:21|homeFreeTaskBeta|1  g=logic_net pris=NONE pat=logic_net
+  STILL        REF DEFMOD|work@top117b.homeModFn117b|52:5-52:21|homeModFnEpsilon|1  g=logic_net pris=NONE pat=NONE
+
+-- every ELABPKG / DEFMOD reference cell, golden | pristine | patched ('*' = still differing):
+   DEFMOD   -                                          58:5-58:10     h117b              g=NONE        pris=NONE        pat=NONE
+   DEFMOD   -                                          59:5-59:10     h117b              g=NONE        pris=NONE        pat=NONE
+   DEFMOD   -                                          60:5-60:10     h117b              g=NONE        pris=NONE        pat=NONE
+   DEFMOD   work@top117b.homeModFn117b                 52:24-52:33    process::self      g=NONE        pris=NONE        pat=NONE
+ * DEFMOD   work@top117b.homeModFn117b                 52:5-52:21     homeModFnEpsilon   g=logic_net   pris=NONE        pat=NONE
+   ELABPKG  pk117b::cls117b::inBodyFn117b              17:25-17:34    process::self      g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117b::cls117b::inBodyFn117b              17:7-17:22     homeInBodyDelta    g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117b::cls117b::oobFn117b                 24:20-24:29    process::self      g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117b::cls117b::oobFn117b                 24:5-24:17     homeOobGamma       g=logic_net   pris=logic_net   pat=logic_net
+   ELABPKG  pk117b::homeFreeFn117b                     30:23-30:32    process::self      g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117b::homeFreeFn117b                     30:5-30:20     homeFreeFnAlpha    g=logic_net   pris=NONE        pat=logic_net
+   ELABPKG  pk117b::homeFreeTask117b                   36:24-36:33    process::self      g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117b::homeFreeTask117b                   36:5-36:21     homeFreeTaskBeta   g=logic_net   pris=NONE        pat=logic_net
+
+================ a3
+   local, and FIVE candidate hoisting modules: two TOPS, a CHILD instantiated
+   THREE times, a module that imports the package at BODY scope, and a module
+   that imports nothing at all.  MEASUREMENT ONLY.
+
+a3 NET  agree_before=5 agree_after=3  TO-GOLDEN=2 AWAY-GOLDEN=4 STILL=2
+  TO-GOLDEN    NET DEFMOD|work@kid117c|ownerAlpha|14:5-14:15  g=1 pris=0 pat=1
+  TO-GOLDEN    NET DEFMOD|work@kid117c|ownerBeta|18:5-18:14  g=1 pris=0 pat=1
+  AWAY-GOLDEN  NET DEFMOD|work@topA117c|ownerAlpha|14:5-14:15  g=0 pris=0 pat=1
+  AWAY-GOLDEN  NET DEFMOD|work@topA117c|ownerBeta|18:5-18:14  g=0 pris=0 pat=1
+  AWAY-GOLDEN  NET DEFMOD|work@topB117c|ownerAlpha|14:5-14:15  g=0 pris=0 pat=1
+  AWAY-GOLDEN  NET DEFMOD|work@topB117c|ownerBeta|18:5-18:14  g=0 pris=0 pat=1
+  STILL        NET DEFMOD|work@topA117c|ctlProp117c|31:5-31:16  g=0 pris=1 pat=1
+  STILL        NET DEFMOD|work@topB117c|ctlProp117c|31:5-31:16  g=0 pris=1 pat=1
+a3 REF  cells=16 agree_before=14 agree_after=16  TO-GOLDEN=2 AWAY-GOLDEN=0 STILL=0
+  TO-GOLDEN    REF ELABPKG|pk117c::ownerFn117c|14:5-14:15|ownerAlpha|1  g=logic_net pris=NONE pat=logic_net
+  TO-GOLDEN    REF ELABPKG|pk117c::ownerFn2117c|18:5-18:14|ownerBeta|1  g=logic_net pris=NONE pat=logic_net
+
+-- every ELABPKG / DEFMOD reference cell, golden | pristine | patched ('*' = still differing):
+   DEFMOD   -                                          43:5-43:11     ck117c             g=NONE        pris=NONE        pat=NONE
+   DEFMOD   -                                          44:5-44:11     ck117c             g=NONE        pris=NONE        pat=NONE
+   DEFMOD   -                                          55:5-55:11     ca117c             g=NONE        pris=NONE        pat=NONE
+   DEFMOD   -                                          56:5-56:11     ca117c             g=NONE        pris=NONE        pat=NONE
+   DEFMOD   -                                          64:5-64:11     cb117c             g=NONE        pris=NONE        pat=NONE
+   DEFMOD   -                                          65:5-65:11     cb117c             g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117c::ctl117c::ctlFn117c                 31:5-31:16     ctlProp117c        g=logic_net   pris=logic_net   pat=logic_net
+   ELABPKG  pk117c::ownerFn117c                        14:18-14:27    process::self      g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117c::ownerFn117c                        14:5-14:15     ownerAlpha         g=logic_net   pris=NONE        pat=logic_net
+   ELABPKG  pk117c::ownerFn2117c                       18:17-18:26    process::self      g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117c::ownerFn2117c                       18:5-18:14     ownerBeta          g=logic_net   pris=NONE        pat=logic_net
+
+================ a4
+   free package function, in a file where NO module imports the package at file
+   scope: one module imports it INSIDE its body, one names the function through
+   its package scope and imports nothing.  MEASUREMENT ONLY.
+
+a4 NET  agree_before=0 agree_after=1  TO-GOLDEN=1 AWAY-GOLDEN=0 STILL=0
+  TO-GOLDEN    NET DEFMOD|work@bodyImp117d|noHoistAlpha|8:5-8:17  g=1 pris=0 pat=1
+a4 REF  cells=4 agree_before=3 agree_after=4  TO-GOLDEN=1 AWAY-GOLDEN=0 STILL=0
+  TO-GOLDEN    REF ELABPKG|pk117d::noHoistFn117d|8:5-8:17|noHoistAlpha|1  g=logic_net pris=NONE pat=logic_net
+
+-- every ELABPKG / DEFMOD reference cell, golden | pristine | patched ('*' = still differing):
+   ELABPKG  pk117d::noHoistFn117d                      8:20-8:29      process::self      g=NONE        pris=NONE        pat=NONE
+   ELABPKG  pk117d::noHoistFn117d                      8:5-8:17       noHoistAlpha       g=logic_net   pris=NONE        pat=logic_net
+

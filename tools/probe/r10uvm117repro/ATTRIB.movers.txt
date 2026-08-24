@@ -1,0 +1,81 @@
+r10uvm117 — THE ORDER-BLIND BYTE-MOVER ATTRIBUTION (movattrib117.sh).
+MEASUREMENT ONLY.  Two OUR-OWN databases: pristine vs patched.
+Scoreboard/default is a ~50/50 emitter COIN (RESUME §9), so every attribution
+below is read from SORTED, id-stripped, path-normalised dumps.
+
+== default/SeqDriver-32af76aa  raw-diff-lines=9  ORDER-BLIND-diff-lines=9
+414239a414240,414241
+>                 \_logic_net: (work@top_tb.p), line:263:3, endln:263:4
+>   \_logic_net: (work@top_tb.p), line:263:3, endln:263:4
+444118a444121
+>     \_module_inst: work@top_tb (work@top_tb), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+754444a754448
+>                 |vpiActual:
+1104284a1104289
+>     |vpiFullName:work@top_tb.p
+1241171a1241177
+>     |vpiName:p
+1314867a1314874,1314875
+>   |vpiNet:
+>     |vpiNetType:1
+1634792a1634801
+>     |vpiParent:
+== default/SimpleUVM-1dc93a62  raw-diff-lines=9  ORDER-BLIND-diff-lines=9
+253893a253894,253895
+>                 \_logic_net: (work@top.p), line:263:3, endln:263:4
+>   \_logic_net: (work@top.p), line:263:3, endln:263:4
+273042a273045
+>     \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+457001a457005
+>                 |vpiActual:
+668233a668238
+>     |vpiFullName:work@top.p
+751293a751299
+>     |vpiName:p
+795915a795922,795923
+>   |vpiNet:
+>     |vpiNetType:1
+989453a989462
+>     |vpiParent:
+== testflags/SeqDriver-32af76aa  raw-diff-lines=9  ORDER-BLIND-diff-lines=9
+414263a414264,414265
+>                 \_logic_net: (work@top_tb.p), line:263:3, endln:263:4
+>   \_logic_net: (work@top_tb.p), line:263:3, endln:263:4
+444142a444145
+>     \_module_inst: work@top_tb (work@top_tb), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+754468a754472
+>                 |vpiActual:
+1104308a1104313
+>     |vpiFullName:work@top_tb.p
+1241219a1241225
+>     |vpiName:p
+1314915a1314922,1314923
+>   |vpiNet:
+>     |vpiNetType:1
+1634840a1634849
+>     |vpiParent:
+== testflags/SimpleUVM-1dc93a62  raw-diff-lines=9  ORDER-BLIND-diff-lines=9
+253917a253918,253919
+>                 \_logic_net: (work@top.p), line:263:3, endln:263:4
+>   \_logic_net: (work@top.p), line:263:3, endln:263:4
+273066a273069
+>     \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+457025a457029
+>                 |vpiActual:
+668257a668262
+>     |vpiFullName:work@top.p
+751341a751347
+>     |vpiName:p
+795963a795970,795971
+>   |vpiNet:
+>     |vpiNetType:1
+989501a989510
+>     |vpiParent:
+== default/Scoreboard-59431470  raw-diff-lines=0  ORDER-BLIND-diff-lines=0
+
+Every mover adds NINE lines and removes none: the ONE new
+logic_net (work@<top>.p) @263:3-263:4, its module_inst parent, its vpiName /
+vpiFullName / vpiNetType:1, the module's vpiNet entry, and the reference's
+|vpiActual.  Scoreboard/default: raw-diff 0 on this run (the coin landed the
+same face); on an earlier patched sweep it was a MOVER with raw-diff 92 and
+ORDER-BLIND-diff 0 — the coin and nothing else.

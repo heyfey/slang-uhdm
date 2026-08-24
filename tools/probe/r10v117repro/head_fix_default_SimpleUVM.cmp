@@ -1,0 +1,56 @@
+LHS:
+decompile:
+class_var: (uvm_pkg::uvm_sequence_library::init_sequence_library::this_type::m_typewide_sequences), id:26982, line:496:12, endln:496:23
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_sequence_library::init_sequence_library), id:26980, line:496:3, endln:496:10
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_sequence_library::init_sequence_library::this_type::m_typewide_sequences), id:26983
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_sequence_library::init_sequence_library::this_type::m_typewide_sequences), id:26982, line:496:12, endln:496:23
+  |vpiFullName:uvm_pkg::uvm_sequence_library::init_sequence_library::this_type::m_typewide_sequences
+  |vpiActual:
+  \_unsupported_typespec: (this_type::m_typewide_sequences), id:26981, line:496:12, endln:496:23
+|vpiName:this_type::m_typewide_sequences
+|vpiFullName:uvm_pkg::uvm_sequence_library::init_sequence_library::this_type::m_typewide_sequences
+
+decompile:
+class_var: (uvm_pkg::uvm_sequence_library::init_sequence_library::this_type::m_typewide_sequences), id:26982, line:496:12, endln:496:23
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_sequence_library::init_sequence_library), id:26980, line:496:3, endln:496:10
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_sequence_library::init_sequence_library::this_type::m_typewide_sequences), id:26983
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_sequence_library::init_sequence_library::this_type::m_typewide_sequences), id:26982, line:496:12, endln:496:23
+  |vpiFullName:uvm_pkg::uvm_sequence_library::init_sequence_library::this_type::m_typewide_sequences
+  |vpiActual:
+  \_unsupported_typespec: (this_type::m_typewide_sequences), id:26981, line:496:12, endln:496:23
+|vpiName:this_type::m_typewide_sequences
+|vpiFullName:uvm_pkg::uvm_sequence_library::init_sequence_library::this_type::m_typewide_sequences
+RHS:
+decompile:
+ref_var: (uvm_pkg::uvm_sequence_library::init_sequence_library::m_typewide_sequences), id:99669, line:496:12, endln:496:32
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_sequence_library::init_sequence_library), id:99668, line:496:3, endln:496:10
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_sequence_library::init_sequence_library::m_typewide_sequences), id:99670
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_sequence_library::init_sequence_library::m_typewide_sequences), id:99669, line:496:12, endln:496:32
+  |vpiFullName:uvm_pkg::uvm_sequence_library::init_sequence_library::m_typewide_sequences
+  |vpiActual:
+  \_unsupported_typespec: (m_typewide_sequences), id:99671, line:496:12, endln:496:32
+|vpiName:m_typewide_sequences
+|vpiFullName:uvm_pkg::uvm_sequence_library::init_sequence_library::m_typewide_sequences
+
+decompile:
+ref_var: (uvm_pkg::uvm_sequence_library::init_sequence_library::m_typewide_sequences), id:99669, line:496:12, endln:496:32
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_sequence_library::init_sequence_library), id:99668, line:496:3, endln:496:10
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_sequence_library::init_sequence_library::m_typewide_sequences), id:99670
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_sequence_library::init_sequence_library::m_typewide_sequences), id:99669, line:496:12, endln:496:32
+  |vpiFullName:uvm_pkg::uvm_sequence_library::init_sequence_library::m_typewide_sequences
+  |vpiActual:
+  \_unsupported_typespec: (m_typewide_sequences), id:99671, line:496:12, endln:496:32
+|vpiName:m_typewide_sequences
+|vpiFullName:uvm_pkg::uvm_sequence_library::init_sequence_library::m_typewide_sequences

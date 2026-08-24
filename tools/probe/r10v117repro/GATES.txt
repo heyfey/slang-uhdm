@@ -1,0 +1,172 @@
+r10v117 (VERIFIER) — THE FULL GATE BATTERY, RUN TWICE: once on the patch AS
+SHIPPED and once on the patch PLUS this verifier's fix.  MEASUREMENT ONLY except
+where the OFFICIAL judge is named (uhdm-cmp, scripts/verify_golden.py).
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE 7fb7d67.  Worktrees /tmp/wt_v117 (patched/fixed) + /tmp/wt_v117pris.
+Scratch /tmp/v117_* only.  results/*.csv READ ONLY.  NO ROW CONVERTED.
+
+(1) BUILD BOTH (THREE), md5s separately, frozen chmod 555 BEFORE any sweep
+    pristine  cc1dcd48920298639c02a3371750f62a  /tmp/v117_pris.bin
+       == the implementer's pristine md5 AND the main tree's 7fb7d67 binary
+    patched   b778b33088c6d70540626300cb53aa19  /tmp/v117_pat.bin
+       == the implementer's patched md5, EXACTLY
+    verified  18bd1d0adb05593f4d6b58beee6f9165  /tmp/v117_fix.bin  (patch + §2 fix)
+    patch /tmp/r10uvm117.patch md5 8614632aa9b387efab19c665439b8d27, 45 files,
+    git apply on a FRESH 7fb7d67 worktree rc=0, 0 conflict markers,
+    surface = include/UhdmExporter.h src/{ExprEmit,ParamEmit,TaskFuncEmit}.cpp
+              + tools/probe/r10uvm117repro/ ONLY.
+    FENCE CHECK on the patch: the four slang-fenced test names are searched for
+              in every hunk of the patch (excluding canaudit.sh, which carries
+              them by design) -- 0 / 0 / 0 / 0.  The names are deliberately NOT
+              written into any artefact of this directory.
+
+(2) GOLDENS, SLANG_UHDM exported explicitly PER BINARY
+    patched   PASS=23 FAIL=0
+    pristine  PASS=23 FAIL=0
+    verified  PASS=23 FAIL=0
+    /bin/false PASS=0 FAIL=23      (the negative control)
+
+(3) uhdm2rtlil, BOTH modes, all three binaries
+    rows=731  CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 CMP_NOTEQUAL=0
+    ct8rows gate_uhdm2rtlil.csv  vs u2r_pat_tf.csv   PASS
+    ct8rows u2r_pris_tf.csv      vs u2r_pat_tf.csv   PASS
+    ct8rows u2r_pris_def.csv     vs u2r_pat_def.csv  PASS
+    ct8rows gate_uhdm2rtlil.csv  vs u2r_fix_tf.csv   PASS
+    ct8rows u2r_pris_tf.csv      vs u2r_fix_tf.csv   PASS
+    ct8rows u2r_pris_def.csv     vs u2r_fix_def.csv  PASS
+
+(4) surelog corpus, --mode both, all three binaries
+    rows=1588  CMP_EQUAL=937 CMP_NOTEQUAL=19 DEFERRED=10 NO_DATABASE=3
+               NO_UHDM=1 SLANG_REJECT=567 SURELOG_FAIL=48 TIMEOUT=1
+               UNTRANSLATABLE=2      (identical on pristine, patched, verified)
+    ct8rows golden_surelog.csv vs sl_pat.csv  PASS
+    ct8rows sl_pris.csv        vs sl_pat.csv  PASS
+    ct8rows golden_surelog.csv vs sl_fix.csv  PASS
+    ct8rows sl_pris.csv        vs sl_fix.csv  PASS
+    ct8rows sl_pat.csv         vs sl_fix.csv  PASS
+    0 differing rows over 1588, status AND dump column.  CMP_NOTEQUAL stays 19.
+
+(5) cmds.txt BINARY AUDIT, BY PATH (not by the string 'slang-uhdm')
+    sl_pat  1523 /tmp/v117_pat.bin      sl_pris 1523 /tmp/v117_pris.bin
+    sl_fix + u2r_fix  2981 /tmp/v117_fix.bin
+    ZERO occurrences of the main-tree binary in any workdir.
+
+(6) byteverify SELFCHECK=1 — every mover PREDICTED BY NAME first
+    PREDICTION (pred117.sh, OUR SIDE ALONE, pristine databases):
+        MAY-MOVE 9 rows in 9 databases, OUTER 22; uhdm2rtlil 0 and 0.
+    FENCE (golden-informed, pristine): MEASURED=956 SKIP=617 HIT=4 OTHER=40
+        MIRROR=0; the 4 HIT rows are, verbatim and identical in each:
+        ELABPKG PKG IB uvm_pkg::uvm_process_report_message 263:3-263:4 p
+        in {default,testflags}/{SeqDriver,SimpleUVM}.
+    MEASURED, patched vs pristine, surelog:
+        MOVERS 4 + Scoreboard/default; PATH_SETS_IDENTICAL (956)
+        order-blind whole-dump attribution (paths normalised, ids stripped,
+        sorted):  SeqDriver/default +9 -0   SimpleUVM/default +9 -0
+                  SeqDriver/testflags +9 -0 SimpleUVM/testflags +9 -0
+                  Scoreboard/default  +0 -0   <- the ~50/50 emitter COIN
+        the 9 added lines per mover are ONE logic_net (work@<top>.p)@263:3-263:4,
+        its module_inst parent, |vpiName |vpiFullName |vpiNetType:1, the
+        module's |vpiNet entry, |vpiParent, and the reference's |vpiActual.
+        Nothing removed anywhere.
+    MEASURED, patched vs pristine, uhdm2rtlil: MOVERS 0 / 1358.
+    MEASURED, VERIFIED vs pristine, surelog: MOVERS 4 / 956 — THE SAME FOUR
+        DATABASES WITH BYTE-IDENTICAL HASHES to the shipped patch's.
+    MEASURED, VERIFIED vs SHIPPED PATCH, surelog: MOVERS 1 / 956 —
+        Scoreboard/default ONLY, and its hash equals the PRISTINE run's, i.e.
+        the coin.  THE FIX CHANGES ZERO CORPUS BYTES.
+    MEASURED, VERIFIED vs pristine, uhdm2rtlil: MOVERS 0 / 1358.
+    FENCE after (patched AND verified): HIT 0, OTHER 40, MIRROR 0 — the family
+        is CLOSED corpus-wide and there is NO widening.
+
+(7) HEADS (official uhdm-cmp, rowheads.sh, one head per run everywhere)
+    row-mode            pristine  patched  verified
+    SeqDriver def/tf        56/56    56/56    56/56
+    SimpleUVM def/tf        17/17    56/56    56/56   <- THE HEAD CLEARED
+    Scoreboard def             56       56       56
+    MiniAmiq def/tf         56/56    56/56    56/56
+    BuildUVMPkg def/tf      56/56    56/56    56/56
+    Earlgrey_0_1 def/tf     36/36    36/36    36/36
+    Rggen def                   0        0        0  (CMP_EQUAL)
+    pristine SimpleUVM head, verbatim:
+        LHS logic_net (work@top.p) line:263:3 endln:263:4 |vpiNetType:1
+        RHS: <null>
+    patched/verified SimpleUVM head: id-stripped md5 308d49ba30d4 — IDENTICAL
+    to SeqDriver/default's, Scoreboard/default's and MiniAmiq/default's.
+    (BuildUVMPkg's is the same OBJECT but its pp_output line is 56591, so its
+     text is not byte-identical — a small over-claim in the report.)
+
+(8) CENSUS, name-keyed, per top module, the four movers
+    golden-only implicit-net NAMES  pristine 6 -> patched/verified 5
+    ours-only NAMES                 SeqDriver 1 (clp), SimpleUVM 2 (clp, top)
+                                    — UNCHANGED by the patch and by the fix.
+    GOLDEN-VS-GOLDEN CALIBRATION FIRST (goldcen117.sh, the five UVM tests that
+    have both modes): pairs=5 SKIP=0 EXPM_N=0 over 6035 family rows.
+    (Adding Earlgrey_0_1 to the calibration set gives EXPM_N=1 — padring
+     gen_dio_pads `inout_io` DECLARED nets, `NET OTHER`, not this family's
+     rows.  The implementer's five-test set is the right one.)
+
+(9) CANARIES / PROTECTED
+    canaries.sh surelog  ok=52 changed=0 absent=0      (patched and verified)
+    canaries.sh u2r      ok=8  changed=0 absent=0      (patched and verified)
+    ctcan2 EXPECT_UNKNOWN=1 surelog  PASS   EXPECT_UNKNOWN=6 u2r  PASS
+    canaudit.sh canaries.sh ctcan2.sh: audited=29 UNCOVERED=0 FENCE-BREACH=0;
+        every fenced name reads "not dispatched by any driver (OK)".
+    protected DBs, both modes, patched AND verified vs pristine:
+        InterfaceModPort 59a365f3ce2c SAME   BlackParrotComplex SAME
+        YosysOldOr d68e0796d62c SAME
+        SVSwitch 4842211c4030 (the pin)      YosysVerx 6ccda350c24a (the pin)
+
+(10) THE BOUNDARY — a COPY of the WHOLE probe tree (/tmp/v117_probecopy),
+     NO path filter, .sv and .v, arm list on fd 3, children </dev/null,
+     PROCESSED asserted, rc per cell.  3631 arms (the 3626 committed ones plus
+     this verifier's 5).
+     run              PROCESSED/LISTED  DIFFER  PRIS_REJECT/PATCHED_REJECT
+     file/def  SHIPPED   3631/3631        13         138/138
+     file/elab SHIPPED   3631/3631        11         152/152
+     file/def  VERIFIED  3631/3631        14         138/138
+     file/elab VERIFIED  3631/3631        12         152/152
+     No ASYMMETRIC REJECT in any run.
+     SHIPPED's 13 = the implementer's own 8 (g117_a1..a4, r10uvm115repro/
+     g115_a.sv, r10buvm9repro/w1v_pkgclsts.sv, r10uvm77repro/v77x4_scope.sv,
+     r10buvm22repro/g22.sv) + this verifier's 5 new arms.  file/elab's 11 =
+     their 6 + 5.  EXACTLY the sets the implementer reported.
+     VERIFIED adds ONE arm in each view: r10v107repro/v107_b10.sv, scored
+     against a FRESH golden as 1 cell TO-GOLDEN / 0 AWAY (§2).
+     r10buvm22repro/g22.sv is R-ADDR, not a mover: its two values move
+     22412697 -> 22416793, EXACTLY 4096, low 12 bits unchanged, on a binary
+     exactly 4280 bytes larger.
+     R-LISTORDER NULL CONTROL re-measured: the PRISTINE binary ALONE gives
+     three DIFFERENT whole-dump md5s in three runs on r10uvm75repro,
+     r10uvm76repro and r10v109repro.
+
+(11) THE ARM GRIDS (both views; every command echoed with its own rc; 0
+     non-zero rc in any grid)
+     arm            shipped patch                 patch + fix
+     g117_a1        NET 6 TO-GOLDEN / 0 AWAY      6 / 0
+     g117_a2        NET 2 TO-GOLDEN / 0 AWAY / 1 STILL   same
+     g117_a3        NET 2 TO-GOLDEN / 4 AWAY / 2 STILL   same  (R-MULTI)
+     g117_a4        NET 1 TO-GOLDEN / 0 AWAY      1 / 0
+     v117_b1        NET 9 TO-GOLDEN / 0 AWAY / 1 STILL   same
+     v117_b2        NET 2 TO-GOLDEN / 0 AWAY / 2 STILL   same
+     v117_b3        NET 2 TO-GOLDEN / 1 AWAY      2 / 0        <- FIXED
+     v117_b4        NET 2 TO-GOLDEN / 2 AWAY      same  (R-MULTI)
+     v117_b5        NET 0 TO-GOLDEN / 2 AWAY / 2 STILL   2 / 0 <- FIXED
+     v107_b10       NET 0 / 0 / 6 STILL           1 TO-GOLDEN / 0 AWAY / 5 STILL
+
+(12) THE BOUNDARY, MODE=dir (the sd8-12 subdirectory arms are only readable
+     this way), VERIFIED binary vs pristine, 1530 directories:
+     dir/def   PROCESSED=1530 LISTED=1530 DIFFER=11 REJECT 121/121
+     dir/elab  PROCESSED=1530 LISTED=1530 DIFFER=9  REJECT 127/127
+     ORDER-BLIND (sorted whole dumps) per differing directory:
+       def : buvm22 12 (R-ADDR)  buvm9 4  uvm115 47  uvm117 131  uvm77 2
+             v107 9 (the fix's one net)  v117 163 (this verifier's arms)
+             uvm75 0  uvm76 0  uvm88 0  v109 0     <- PURE LIST ORDER
+       elab: buvm22 12  uvm115 35  uvm117 105  v107 9  v117 123
+             uvm75 0  uvm76 0  uvm88 0  v109 0     <- PURE LIST ORDER
+     R-LISTORDER has a FOURTH member the implementer did not name:
+     r10uvm88repro.  NULL CONTROL: the PRISTINE binary ALONE gives two
+     different whole-dump md5s in four runs of that directory
+     (2e4f6b9b86, then 4ce59a3cf8 x3), and its order-blind diff is 0.
+     Its raw diff is a single `vpiTaskFunc` permutation of
+     `p3::base3::oob_base`.

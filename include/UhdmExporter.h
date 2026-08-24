@@ -5546,6 +5546,85 @@ private:
     // carries no slang symbol at all, so it cannot derive its package the way
     // the class-property arm derives one from `nv.symbol`.
     const slang::ast::Symbol* classBodyHomePkg75 = nullptr;
+    // § pkgFreeSubRefVarHoistNet117 (r10uvm117) — THE LAW, and the member the
+    // whole pass adds.
+    //
+    //   Surelog's late-binding pool is NOT a class mechanism.
+    //   `UhdmWriter::lateBinding` (Surelog src/DesignCompile/UhdmWriter.cpp
+    //   :3374) walks the REFERENCE's own `VpiParent` chain, and its
+    //   `uhdmfunction` (:3371-3436) and `uhdmtask` (:3437-...) arms are
+    //   reached by every subroutine body alike — a class's OUT-OF-BODY method
+    //   (§ oobRefVarLocalHoistNet107) and a package's OWN FREE FUNCTION or
+    //   TASK.  Both arms skip a candidate whose object is a `ref_var`
+    //   (`if (decl->UhdmType() == uhdmref_var) continue;`), both fall through
+    //   to the module-level search, and both end at the SAME implicit-wire
+    //   mint (`UhdmWriter.cpp:3982-4004`).  Nothing in that function tests for
+    //   a class.  A module inherits the whole unbound-reference list of every
+    //   package it imports (`CompileHelper::importPackage`,
+    //   `CompileHelper.cpp:190-193`, fed by `CompileModule.cpp:571-581` for
+    //   every FILE-SCOPE `import pkg::*;`), and a free package subroutine's
+    //   references are in that same list.
+    //
+    //   So THIS pointer is § 107's `classBodyHomePkg75` for the other body
+    //   kind: the package a FREE PACKAGE SUBROUTINE (function or task) belongs
+    //   to, live only while that subroutine's body is emitted in the package's
+    //   ELABORATED (top) view.  The VIEW half is not decoration — golden binds
+    //   the wire on the `uhdmtopPackages` copy of the body and leaves the
+    //   `uhdmallPackages` copy UNBOUND (measured on both sides of all nine UVM
+    //   databases and on arm a1), and `design::Compare` walks AllPackages
+    //   BEFORE TopPackages, so binding the def copy would have been a NEW head.
+    //
+    // MEASURED, golden, arm `g117_a1.sv` (a free package function + a free
+    // package task, every reference position given its OWN name), ELABPKG:
+    //   asgLhsAlpha   35:5  `asgLhsAlpha = process::self()`  -> golden NET  <- THE HEAD's own position
+    //   asgLhsAlpha   36:5  assignment lvalue, second write  -> golden NET
+    //   rhsReadBeta   36:19 plain RHS read                   -> golden NET
+    //   sysArgEpsilon 39:17 `$cast(...)` argument            -> golden NET
+    //   rhsReadBeta   39:32 `$cast(...)` argument            -> golden NET
+    //   retIota       53:12 `return retIota;`                -> golden NET
+    //   blkLocalLambda 60:7 a BLOCK-ITEM local's lvalue      -> golden NET
+    //   taskLocalNu   67:5  a free package TASK's local      -> golden NET
+    //   condGamma     37:9  `if (condGamma == null)`         -> golden REF_VAR (binds the decl)
+    //   userArgDelta  38:14 a user call ARGUMENT             -> golden REF_VAR (binds the decl)
+    //   newLhsZeta    40:5  `newLhsZeta = new(1)` lvalue     -> golden NONE   (the `= new` fence)
+    //   stmtCallEta   41:5  receiver call, STATEMENT         -> golden NONE
+    //   exprCallTheta 42:9  receiver call, EXPRESSION        -> golden NONE
+    //   resolvedCtlXi/intCtlOmicron  the RESOLVED controls   -> golden binds their own decls
+    // The PRISTINE binary already agrees with golden on every non-NET cell,
+    // so the gate the pass adds is `!bind5` (§ refVarLocalWindowBinds5) and
+    // nothing else — exactly § 107's own reader, one body kind wider.
+    const slang::ast::Symbol* pkgFreeSubHomePkg117 = nullptr;
+    // § pkgFreeSubRefVarHoistNet117 — THE MINT-ORDER STAGING VECTOR, and the
+    // reason it exists.  `bindHoistedClassPropRefs` mints ONE wire per NAME
+    // per module, at the FIRST pool entry of that name — which is our EMISSION
+    // order.  Surelog's own order is the order references were REGISTERED
+    // during compilation, i.e. the package's SOURCE order, and our package
+    // emitter runs the package's OWN free subroutines BEFORE its classes
+    // (emitPackage: `emitTaskFuncs(pkg, ...)` then `emitPackageClasses`).  So
+    // a name a class body ALREADY claims would have had its wire re-spanned to
+    // the free subroutine's reference.  MEASURED, and caught by the BOUNDARY
+    // gate on two EARLIER passes' committed arms:
+    //   r10uvm77repro/v77x4_scope.sv  `p`  golden + pristine work@top77x4 @29:5
+    //       (the OUT-OF-BODY method, source line 29) -> a first cut moved it to
+    //       @35:5, the package function's, source line 35;
+    //   r10buvm9repro/w1v_pkgclsts.sv `v`  golden + pristine work@w1m @32:54
+    //       (w1k::f1, line 32) -> a first cut moved it to @39:49 (g8, line 39).
+    // Staging the free-subroutine refs here and APPENDING them to
+    // `classPropRefs` once the package's classes have been emitted restores the
+    // pristine order for every name a class body already owns, and adds only
+    // names no class body claims.  A net's span is judge-invisible (no
+    // generated Compare reads VpiLineNo — RESUME §9), so this is a DUMP-TEXT
+    // fidelity fix, not a cmp one; it is made because a boundary arm that moves
+    // must move TOWARD golden, and those two moved away.
+    std::vector<ClassPropRef> pkgFreeSubPropRefs117;
+    // The home package of the body whose unresolvable names go to the hoisted
+    // net pool: a class's home for an out-of-body method (§ 75 / § 107), the
+    // package ITSELF for a free package subroutine (§ 117).  Null when the
+    // body being emitted hoists nothing.
+    const slang::ast::Symbol* hoistHomePkg117() const {
+        return (inClassBodyEmit && classBodyHomePkg75) ? classBodyHomePkg75
+                                                       : pkgFreeSubHomePkg117;
+    }
     // Every ARRAY-METHOD `with`-clause ITERATOR symbol seen so far.  slang
     // gives a FOREACH loop variable the SAME SymbolKind::Iterator, and golden
     // does NOT net one (its refs bind the loop variable object), so membership

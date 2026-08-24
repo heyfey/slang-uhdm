@@ -22224,6 +22224,18 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             emitImportedPkgClassMethodClones(pkg, prefix, dit9->second);
         emitImportedPkgClassMethodClones(pkg, prefix, up);
     }
+    // § pkgFreeSubRefVarHoistNet117 — the staged free-subroutine pool entries
+    // join `classPropRefs` HERE, after this package's classes have contributed
+    // theirs, so the "one wire per NAME, at the FIRST entry" rule keeps giving
+    // a shared name the CLASS body's span (Surelog's own order is the package's
+    // SOURCE order; ours emits free subroutines first).  See UhdmExporter.h for
+    // the two boundary arms that measured it.
+    if (!pkgFreeSubPropRefs117.empty()) {
+        classPropRefs.insert(classPropRefs.end(),
+                             pkgFreeSubPropRefs117.begin(),
+                             pkgFreeSubPropRefs117.end());
+        pkgFreeSubPropRefs117.clear();
+    }
     // ------------------------------------------------- wildcard-import clones
     if (!pkgWildcardHomeSi9.empty()) {
         // The clones were emitted at the import loop, ahead of this package's

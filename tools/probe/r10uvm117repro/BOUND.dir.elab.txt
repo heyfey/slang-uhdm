@@ -1,0 +1,22 @@
+== boundary gate: MODE=dir VIEW=elab  1529 arms under /tmp/r10uvm117_probecopy
+rm: refusing to remove '.' or '..' directory: skipping '/tmp/r10uvm117_bnd_de/.'
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3365492 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3365597 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3368377 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3368476 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3384471 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3384686 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3533658 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3534022 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3534392 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3534825 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3535284 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm117/tools/probe/r10uvm117repro/bound117.sh: line 66: 3535725 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+PROCESSED=1529 LISTED=1529 DIFFER=6 PRIS_REJECT=127 PATCHED_REJECT=127
+-- differing arms:
+./r10buvm22repro
+./r10uvm115repro
+./r10uvm117repro
+./r10uvm75repro
+./r10uvm76repro
+./r10v109repro

@@ -620,7 +620,15 @@ bool UhdmExporter::oobRefVarLocalHoistNet107(const slang::ast::Symbol& sym,
                                              const UHDM::any* declObj,
                                              bool bind5,
                                              const slang::ast::Expression& e) const {
-    if (!inClassBodyEmit || !classBodyHomePkg75)
+    // § pkgFreeSubRefVarHoistNet117 — the HOME test, widened by exactly one
+    // body kind.  Surelog's `UhdmWriter::lateBinding` walks the REFERENCE's
+    // parent chain and has no class test at all: its `uhdmfunction` /
+    // `uhdmtask` arms skip a `ref_var` candidate and fall through to the
+    // module-level mint for an out-of-body class method (§ 107) and for a
+    // package's OWN free function or task alike.  `hoistHomePkg117()` is the
+    // one pointer that names whichever of the two bodies is being emitted;
+    // everything below this line is § 107's, unchanged.
+    if (!hoistHomePkg117())
         return false;
     if (lhsOfWrittenNewAsg107(e.syntax))
         return false;
@@ -13316,9 +13324,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // name shares it.
                     if (oobRefVarLocalHoistNet107(nv.symbol, it->second,
                                                   bind5, expr)) {
-                        classPropRefs.push_back({ref, std::string(nv.symbol.name),
-                                                 expr.sourceRange,
-                                                 classBodyHomePkg75});
+                        // § pkgFreeSubRefVarHoistNet117 — the home package is
+                        // the class's for an out-of-body method and the
+                        // PACKAGE ITSELF for a free package subroutine; the
+                        // pool binder matches it against the importing
+                        // module's materialised packages either way.
+                        // § pkgFreeSubRefVarHoistNet117 — a FREE PACKAGE
+                        // SUBROUTINE's ref is STAGED and appended once the
+                        // package's classes have been emitted, so it can never
+                        // re-span a wire a class body already owns (the two
+                        // boundary arms named in UhdmExporter.h).
+                        auto& pool117 = (inClassBodyEmit && classBodyHomePkg75)
+                                            ? classPropRefs
+                                            : pkgFreeSubPropRefs117;
+                        pool117.push_back({ref, std::string(nv.symbol.name),
+                                           expr.sourceRange,
+                                           hoistHomePkg117()});
                         bind5 = false;
                     }
                     if (bind5)
@@ -14112,10 +14133,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // arm has already overwritten it.  The recorded range is
                         // the NamedValue's own, so it is re-pointed here at the
                         // same text the reference now spans.
-                        if (!classPropRefs.empty() &&
-                            classPropRefs.back().ref == r7)
-                            classPropRefs.back().range =
-                                ue.operand().sourceRange;
+                        // § pkgFreeSubRefVarHoistNet117 — the pool now has
+                        // TWO vectors (the staged free-package-subroutine half
+                        // joins `classPropRefs` at the end of the package), so
+                        // the back-patch looks in both rather than assuming
+                        // which one took the last push.
+                        for (auto* pool7 : {&classPropRefs,
+                                            &pkgFreeSubPropRefs117})
+                            if (!pool7->empty() && pool7->back().ref == r7)
+                                pool7->back().range =
+                                    ue.operand().sourceRange;
                         operands->push_back(r7);
                         op->Operands(operands);
                         return op;

@@ -1,0 +1,68 @@
+r10uvm117 — TO-GOLDEN / AWAY-GOLDEN / STILL over the NINE UVM DATABASES.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+golden = the verify_golden cache entry each test's own cmds.txt names.
+
+NET  = the implicit wires, keyed (view, module fullname, name, span).
+REF  = every reference's ACTUAL KIND, keyed (view, owner, span, name).
+
+default.BuildUVMPkg NET  agree_before=0 agree_after=0  TO-GOLDEN=0 AWAY-GOLDEN=0 STILL=0
+default.BuildUVMPkg REF  cells=41432 agree_before=39672 agree_after=39672  TO-GOLDEN=0 AWAY-GOLDEN=0 STILL=1760
+default.MiniAmiq NET  agree_before=0 agree_after=0  TO-GOLDEN=0 AWAY-GOLDEN=0 STILL=0
+default.MiniAmiq REF  cells=76910 agree_before=67462 agree_after=67462  TO-GOLDEN=0 AWAY-GOLDEN=0 STILL=9448
+default.Scoreboard NET  agree_before=4 agree_after=4  TO-GOLDEN=0 AWAY-GOLDEN=0 STILL=0
+default.Scoreboard REF  cells=44440 agree_before=39209 agree_after=39209  TO-GOLDEN=0 AWAY-GOLDEN=0 STILL=5231
+default.SeqDriver NET  agree_before=131 agree_after=132  TO-GOLDEN=1 AWAY-GOLDEN=0 STILL=48
+  TO-GOLDEN    NET DEFMOD|work@top_tb|p|263:3-263:4  g=1 pris=0 pat=1
+default.SeqDriver REF  cells=74961 agree_before=65775 agree_after=65776  TO-GOLDEN=1 AWAY-GOLDEN=0 STILL=9185
+  TO-GOLDEN    REF ELABPKG|uvm_pkg::uvm_process_report_message|263:3-263:4|p|1  g=logic_net pris=NONE pat=logic_net
+default.SimpleUVM NET  agree_before=130 agree_after=131  TO-GOLDEN=1 AWAY-GOLDEN=0 STILL=49
+  TO-GOLDEN    NET DEFMOD|work@top|p|263:3-263:4  g=1 pris=0 pat=1
+default.SimpleUVM REF  cells=44238 agree_before=39063 agree_after=39064  TO-GOLDEN=1 AWAY-GOLDEN=0 STILL=5174
+  TO-GOLDEN    REF ELABPKG|uvm_pkg::uvm_process_report_message|263:3-263:4|p|1  g=logic_net pris=NONE pat=logic_net
+testflags.BuildUVMPkg NET  agree_before=0 agree_after=0  TO-GOLDEN=0 AWAY-GOLDEN=0 STILL=0
+testflags.BuildUVMPkg REF  cells=41432 agree_before=39672 agree_after=39672  TO-GOLDEN=0 AWAY-GOLDEN=0 STILL=1760
+testflags.MiniAmiq NET  agree_before=0 agree_after=0  TO-GOLDEN=0 AWAY-GOLDEN=0 STILL=0
+testflags.MiniAmiq REF  cells=76910 agree_before=67462 agree_after=67462  TO-GOLDEN=0 AWAY-GOLDEN=0 STILL=9448
+testflags.SeqDriver NET  agree_before=131 agree_after=132  TO-GOLDEN=1 AWAY-GOLDEN=0 STILL=48
+  TO-GOLDEN    NET DEFMOD|work@top_tb|p|263:3-263:4  g=1 pris=0 pat=1
+testflags.SeqDriver REF  cells=74961 agree_before=65775 agree_after=65776  TO-GOLDEN=1 AWAY-GOLDEN=0 STILL=9185
+  TO-GOLDEN    REF ELABPKG|uvm_pkg::uvm_process_report_message|263:3-263:4|p|1  g=logic_net pris=NONE pat=logic_net
+testflags.SimpleUVM NET  agree_before=130 agree_after=131  TO-GOLDEN=1 AWAY-GOLDEN=0 STILL=49
+  TO-GOLDEN    NET DEFMOD|work@top|p|263:3-263:4  g=1 pris=0 pat=1
+testflags.SimpleUVM REF  cells=44238 agree_before=39063 agree_after=39064  TO-GOLDEN=1 AWAY-GOLDEN=0 STILL=5174
+  TO-GOLDEN    REF ELABPKG|uvm_pkg::uvm_process_report_message|263:3-263:4|p|1  g=logic_net pris=NONE pat=logic_net
+
+TOTALS: 4 NET cells and 4 REF cells TO-GOLDEN, 0 AWAY-GOLDEN, over 526 net
+cells and 444,283 reference cells in nine databases.
+
+== THE IMPLICIT-NET POPULATION, name-keyed, per top module ==
+-- PRISTINE:
+ # NAMESUMMARY default.BuildUVMPkg  NAME-KEYED golden-only=0 ours-only=0
+ # NAMESUMMARY default.MiniAmiq  NAME-KEYED golden-only=0 ours-only=0
+ # NAMESUMMARY default.Scoreboard  NAME-KEYED golden-only=0 ours-only=0
+ # NAMESUMMARY default.SeqDriver  NAME-KEYED golden-only=6 ours-only=1
+ # NAMESUMMARY default.SimpleUVM  NAME-KEYED golden-only=6 ours-only=2
+ # NAMESUMMARY testflags.BuildUVMPkg  NAME-KEYED golden-only=0 ours-only=0
+ # NAMESUMMARY testflags.MiniAmiq  NAME-KEYED golden-only=0 ours-only=0
+ # NAMESUMMARY testflags.SeqDriver  NAME-KEYED golden-only=6 ours-only=1
+ # NAMESUMMARY testflags.SimpleUVM  NAME-KEYED golden-only=6 ours-only=2
+-- PATCHED:
+ # NAMESUMMARY default.BuildUVMPkg  NAME-KEYED golden-only=0 ours-only=0
+ # NAMESUMMARY default.MiniAmiq  NAME-KEYED golden-only=0 ours-only=0
+ # NAMESUMMARY default.Scoreboard  NAME-KEYED golden-only=0 ours-only=0
+ # NAMESUMMARY default.SeqDriver  NAME-KEYED golden-only=5 ours-only=1
+ # NAMESUMMARY default.SimpleUVM  NAME-KEYED golden-only=5 ours-only=2
+ # NAMESUMMARY testflags.BuildUVMPkg  NAME-KEYED golden-only=0 ours-only=0
+ # NAMESUMMARY testflags.MiniAmiq  NAME-KEYED golden-only=0 ours-only=0
+ # NAMESUMMARY testflags.SeqDriver  NAME-KEYED golden-only=5 ours-only=1
+ # NAMESUMMARY testflags.SimpleUVM  NAME-KEYED golden-only=5 ours-only=2
+
+-- the names, patched (the five golden-only left are uvm107's R-NONREFVAR;
+   the ours-only set is byte-equal to the pristine one — no widening):
+   NAME-GOLDEN-ONLY addr 1491:44-1491:48 - - -
+   NAME-GOLDEN-ONLY local_addr 1467:39-1467:49 - - -
+   NAME-GOLDEN-ONLY n 1427:25-1427:26 - - -
+   NAME-GOLDEN-ONLY sz 488:15-488:17 - - -
+   NAME-GOLDEN-ONLY uvm_phase 1664:21-1664:30 - - -
+   NAME-OURS-ONLY clp 339:3-339:6 CLS IB uvm_pkg::uvm_root::new
+   NAME-OURS-ONLY top 67:18-67:21 - - -

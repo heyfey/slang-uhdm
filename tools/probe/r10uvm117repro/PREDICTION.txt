@@ -1,0 +1,76 @@
+r10uvm117 — THE FENCE AND THE MOVER PREDICTOR, written from PRISTINE databases only.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+pristine binary md5 cc1dcd48920298639c02a3371750f62a (reproduces the main tree's build/slang-uhdm at 7fb7d67 BYTE FOR BYTE)
+
+== THE FENCE (fence117.sh, golden-informed) ==
+surelog:
+MEASURED=956 SKIP=617 HIT=4 OTHER=40 MIRROR=0
+databases that MUST move:
+default	SeqDriver-32af76aa
+default	SimpleUVM-1dc93a62
+testflags	SeqDriver-32af76aa
+testflags	SimpleUVM-1dc93a62
+
+uhdm2rtlil:
+MEASURED=679 SKIP=52 HIT=0 OTHER=0 MIRROR=0
+databases that MUST move:
+
+the HIT rows in full:
+HIT	default	SeqDriver-32af76aa	ELABPKG	PKG	IB	uvm_pkg::uvm_process_report_message	263:3-263:4	p
+HIT	default	SimpleUVM-1dc93a62	ELABPKG	PKG	IB	uvm_pkg::uvm_process_report_message	263:3-263:4	p
+HIT	testflags	SeqDriver-32af76aa	ELABPKG	PKG	IB	uvm_pkg::uvm_process_report_message	263:3-263:4	p
+HIT	testflags	SimpleUVM-1dc93a62	ELABPKG	PKG	IB	uvm_pkg::uvm_process_report_message	263:3-263:4	p
+
+the OTHER rows (golden nets a name we do not, in a shape this law must NOT touch):
+      8 -	-	-	uvm_phase
+      8 -	-	-	sz
+      8 -	-	-	n
+      4 -	-	-	m_packed_size
+      4 -	-	-	local_addr
+      4 CLS	IB	uvm_pkg::uvm_phase::get_predecessors_for_successors	uvm_phase
+      4 -	-	-	addr
+
+== THE MOVER PREDICTOR (pred117.sh, OUR SIDE ALONE — no golden opened) ==
+surelog:
+MEASURED=956 SKIP=617 MAY-MOVE=9 OUTER=22
+databases with the exact shape:
+default	BuildUVMPkg-bf853d43
+default	MiniAmiq-544c7f61
+default	Scoreboard-59431470
+default	SeqDriver-32af76aa
+default	SimpleUVM-1dc93a62
+testflags	BuildUVMPkg-bf853d43
+testflags	MiniAmiq-544c7f61
+testflags	SeqDriver-32af76aa
+testflags	SimpleUVM-1dc93a62
+databases with the outer shape only:
+
+uhdm2rtlil:
+MEASURED=679 SKIP=52 MAY-MOVE=0 OUTER=0
+databases with the exact shape:
+databases with the outer shape only:
+
+the MAY-MOVE rows in full:
+MAY-MOVE	default	BuildUVMPkg-bf853d43	uvm_pkg::uvm_process_report_message	9684:3-9684:4	p	assignment
+MAY-MOVE	default	MiniAmiq-544c7f61	uvm_pkg::uvm_process_report_message	263:3-263:4	p	assignment
+MAY-MOVE	default	Scoreboard-59431470	uvm_pkg::uvm_process_report_message	263:3-263:4	p	assignment
+MAY-MOVE	default	SeqDriver-32af76aa	uvm_pkg::uvm_process_report_message	263:3-263:4	p	assignment
+MAY-MOVE	default	SimpleUVM-1dc93a62	uvm_pkg::uvm_process_report_message	263:3-263:4	p	assignment
+MAY-MOVE	testflags	BuildUVMPkg-bf853d43	uvm_pkg::uvm_process_report_message	9684:3-9684:4	p	assignment
+MAY-MOVE	testflags	MiniAmiq-544c7f61	uvm_pkg::uvm_process_report_message	263:3-263:4	p	assignment
+MAY-MOVE	testflags	SeqDriver-32af76aa	uvm_pkg::uvm_process_report_message	263:3-263:4	p	assignment
+MAY-MOVE	testflags	SimpleUVM-1dc93a62	uvm_pkg::uvm_process_report_message	263:3-263:4	p	assignment
+
+the OUTER-only shapes (a hier_path element or a method-call receiver — the two
+builders that keep a name OUT of Surelog's pool; these must NOT move):
+     18 uvm_pkg::uvm_has_wildcard	arg	hier_path
+      4 uvm_pkg::uvm_init	uvm_deferred_init	method_func_call
+
+== GOLDEN-VS-GOLDEN CALIBRATION (goldcen117.sh), run FIRST ==
+SAME SeqDriver (2067 family rows)
+SAME SimpleUVM (783 family rows)
+SAME Scoreboard (632 family rows)
+SAME MiniAmiq (1909 family rows)
+SAME BuildUVMPkg (644 family rows)
+CALIBRATED pairs=5 SKIP=0 EXPM_N=0
