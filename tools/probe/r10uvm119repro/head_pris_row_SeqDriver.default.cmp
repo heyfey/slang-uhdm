@@ -1,0 +1,76 @@
+LHS:
+decompile:
+hier_path: (seq_or_item), id:27882, line:299:54, endln:299:85
+|vpiParent:
+\_operation: , id:27881, line:299:53, endln:299:85
+|vpiActual:
+\_ref_obj: (uvm_pkg::uvm_sequence_library::execute::seq_or_item), id:27883, line:299:54, endln:299:65
+  |vpiParent:
+  \_hier_path: (seq_or_item), id:27882, line:299:54, endln:299:85
+  |vpiName:seq_or_item
+  |vpiFullName:uvm_pkg::uvm_sequence_library::execute::seq_or_item
+|vpiActual:
+\_method_func_call: (randomize), id:27884
+  |vpiParent:
+  \_hier_path: (seq_or_item), id:27882, line:299:54, endln:299:85
+  |vpiName:randomize
+  |vpiWith:
+  \_constraint: (uvm_pkg::uvm_sequence_library::execute), id:27885
+    |vpiParent:
+    \_operation: , id:27881, line:299:53, endln:299:85
+    |vpiFullName:uvm_pkg::uvm_sequence_library::execute
+|vpiName:seq_or_item
+
+decompile:
+hier_path: (seq_or_item), id:27882, line:299:54, endln:299:85
+|vpiParent:
+\_operation: , id:27881, line:299:53, endln:299:85
+|vpiActual:
+\_ref_obj: (uvm_pkg::uvm_sequence_library::execute::seq_or_item), id:27883, line:299:54, endln:299:65
+  |vpiParent:
+  \_hier_path: (seq_or_item), id:27882, line:299:54, endln:299:85
+  |vpiName:seq_or_item
+  |vpiFullName:uvm_pkg::uvm_sequence_library::execute::seq_or_item
+|vpiActual:
+\_method_func_call: (randomize), id:27884
+  |vpiParent:
+  \_hier_path: (seq_or_item), id:27882, line:299:54, endln:299:85
+  |vpiName:randomize
+  |vpiWith:
+  \_constraint: (uvm_pkg::uvm_sequence_library::execute), id:27885
+    |vpiParent:
+    \_operation: , id:27881, line:299:53, endln:299:85
+    |vpiFullName:uvm_pkg::uvm_sequence_library::execute
+|vpiName:seq_or_item
+RHS:
+decompile:
+hier_path: (seq_or_item.randomize), id:103158, line:299:54, endln:299:75
+|vpiParent:
+\_operation: , id:103157, line:299:53, endln:299:85
+|vpiActual:
+\_ref_obj: (seq_or_item), id:103159, line:299:54, endln:299:65
+  |vpiParent:
+  \_hier_path: (seq_or_item.randomize), id:103158, line:299:54, endln:299:75
+  |vpiName:seq_or_item
+|vpiActual:
+\_method_func_call: (randomize), id:103160, line:299:66, endln:778:9
+  |vpiParent:
+  \_hier_path: (seq_or_item.randomize), id:103158, line:299:54, endln:299:75
+  |vpiName:randomize
+|vpiName:seq_or_item.randomize
+
+decompile:
+hier_path: (seq_or_item.randomize), id:103158, line:299:54, endln:299:75
+|vpiParent:
+\_operation: , id:103157, line:299:53, endln:299:85
+|vpiActual:
+\_ref_obj: (seq_or_item), id:103159, line:299:54, endln:299:65
+  |vpiParent:
+  \_hier_path: (seq_or_item.randomize), id:103158, line:299:54, endln:299:75
+  |vpiName:seq_or_item
+|vpiActual:
+\_method_func_call: (randomize), id:103160, line:299:66, endln:778:9
+  |vpiParent:
+  \_hier_path: (seq_or_item.randomize), id:103158, line:299:54, endln:299:75
+  |vpiName:randomize
+|vpiName:seq_or_item.randomize

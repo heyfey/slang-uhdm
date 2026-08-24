@@ -1,0 +1,377 @@
+======== g119_a — DEF-view residual diff against golden (patched) ========
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+855,863d854
+< \_class_typespec: (txn_a), line:9:3, endln:9:8
+<   |vpiParent:
+<   \_class_var: (work@drv_a::seq_or_item), line:9:9, endln:9:20
+<   |vpiName:txn_a
+<   |vpiClassDefn:
+<   \_class_defn: (work@txn_a), file:g119_a.sv, line:2:1, endln:6:9
+< \_int_typespec: , line:10:3, endln:10:15
+<   |vpiParent:
+<   \_int_var: (work@drv_a::bound_a), line:10:16, endln:10:23
+872a864,872
+> \_class_typespec: (txn_a), line:9:3, endln:9:8
+>   |vpiParent:
+>   \_class_var: (work@drv_a::seq_or_item), line:9:9, endln:9:20
+>   |vpiName:txn_a
+>   |vpiClassDefn:
+>   \_class_defn: (work@txn_a), file:g119_a.sv, line:2:1, endln:6:9
+> \_int_typespec: , line:10:3, endln:10:15
+>   |vpiParent:
+>   \_int_var: (work@drv_a::bound_a), line:10:16, endln:10:23
+
+======== g119_b — DEF-view residual diff against golden (patched) ========
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+104c104
+<         \_hier_path: (recv_b.randomize), line:11:12, endln:11:30
+---
+>         \_hier_path: (recv_b.randomize), line:11:12, endln:11:28
+110c110
+<             \_hier_path: (recv_b.randomize), line:11:12, endln:11:30
+---
+>             \_hier_path: (recv_b.randomize), line:11:12, endln:11:28
+115c115
+<             \_hier_path: (recv_b.randomize), line:11:12, endln:11:30
+---
+>             \_hier_path: (recv_b.randomize), line:11:12, endln:11:28
+131c131
+<         \_hier_path: (recv_b.randomize), line:12:12, endln:12:35
+---
+>         \_hier_path: (recv_b.randomize), line:12:12, endln:12:28
+137c137
+<             \_hier_path: (recv_b.randomize), line:12:12, endln:12:35
+---
+>             \_hier_path: (recv_b.randomize), line:12:12, endln:12:28
+142c142
+<             \_hier_path: (recv_b.randomize), line:12:12, endln:12:35
+---
+>             \_hier_path: (recv_b.randomize), line:12:12, endln:12:28
+144c144
+<             \_ref_obj: (work@drv_b::run_b::recv_b.randomize::q_one), line:12:29, endln:12:34
+---
+>             \_ref_obj: (work@drv_b::run_b::q_one), line:12:29, endln:12:34
+148c148
+<               |vpiFullName:work@drv_b::run_b::recv_b.randomize::q_one
+---
+>               |vpiFullName:work@drv_b::run_b::q_one
+164c164
+<         \_hier_path: (recv_b.randomize), line:13:12, endln:13:42
+---
+>         \_hier_path: (recv_b.randomize), line:13:12, endln:13:28
+170c170
+<             \_hier_path: (recv_b.randomize), line:13:12, endln:13:42
+---
+>             \_hier_path: (recv_b.randomize), line:13:12, endln:13:28
+175c175
+<             \_hier_path: (recv_b.randomize), line:13:12, endln:13:42
+---
+>             \_hier_path: (recv_b.randomize), line:13:12, endln:13:28
+177c177
+<             \_ref_obj: (work@drv_b::run_b::recv_b.randomize::q_one), line:13:29, endln:13:34
+---
+>             \_ref_obj: (work@drv_b::run_b::q_one), line:13:29, endln:13:34
+181c181
+<               |vpiFullName:work@drv_b::run_b::recv_b.randomize::q_one
+---
+>               |vpiFullName:work@drv_b::run_b::q_one
+183c183
+<             \_ref_obj: (work@drv_b::run_b::recv_b.randomize::q_two), line:13:36, endln:13:41
+---
+>             \_ref_obj: (work@drv_b::run_b::q_two), line:13:36, endln:13:41
+187c187
+<               |vpiFullName:work@drv_b::run_b::recv_b.randomize::q_two
+---
+>               |vpiFullName:work@drv_b::run_b::q_two
+203c203
+<         \_hier_path: (recv_b.randomize), line:14:12, endln:14:34
+---
+>         \_hier_path: (recv_b.randomize), line:14:12, endln:14:28
+209c209
+<             \_hier_path: (recv_b.randomize), line:14:12, endln:14:34
+---
+>             \_hier_path: (recv_b.randomize), line:14:12, endln:14:28
+214c214
+<             \_hier_path: (recv_b.randomize), line:14:12, endln:14:34
+---
+>             \_hier_path: (recv_b.randomize), line:14:12, endln:14:28
+217,218d216
+<               |vpiParent:
+<               \_method_func_call: (randomize), line:14:19, endln:14:28
+825a824,829
+> \_int_typespec: , line:3:8, endln:3:20
+>   |vpiParent:
+>   \_int_var: (work@txn_b::q_one), line:3:21, endln:3:26
+> \_int_typespec: , line:4:8, endln:4:20
+>   |vpiParent:
+>   \_int_var: (work@txn_b::q_two), line:4:21, endln:4:26
+835,840d838
+< \_int_typespec: , line:3:8, endln:3:20
+<   |vpiParent:
+<   \_int_var: (work@txn_b::q_one), line:3:21, endln:3:26
+< \_int_typespec: , line:4:8, endln:4:20
+<   |vpiParent:
+<   \_int_var: (work@txn_b::q_two), line:4:21, endln:4:26
+
+======== g119_c — DEF-view residual diff against golden (patched) ========
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+843c843
+<         \_ref_obj: (work@top_c.std::randomize), line:38:12, endln:38:17
+---
+>         \_hier_path: (a_c.randomize), line:38:12, endln:38:36
+846,847c846,864
+<           |vpiName:std::randomize
+<           |vpiFullName:work@top_c.std::randomize
+---
+>           |vpiActual:
+>           \_ref_obj: (a_c), line:38:27, endln:38:30
+>             |vpiParent:
+>             \_hier_path: (a_c.randomize), line:38:12, endln:38:36
+>             |vpiName:a_c
+>           |vpiActual:
+>           \_method_func_call: (randomize), line:38:31, endln:39:3
+>             |vpiParent:
+>             \_hier_path: (a_c.randomize), line:38:12, endln:38:36
+>             |vpiArgument:
+>             \_ref_obj: (work@top_c.b_c), line:38:32, endln:38:35
+>               |vpiParent:
+>               \_method_func_call: (randomize), line:38:31, endln:39:3
+>               |vpiName:b_c
+>               |vpiFullName:work@top_c.b_c
+>               |vpiActual:
+>               \_logic_net: (work@top_c.b_c), line:30:21, endln:30:24
+>             |vpiName:randomize
+>           |vpiName:a_c.randomize
+
+======== g119_d — DEF-view residual diff against golden (patched) ========
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+1037,1042d1036
+< \_class_typespec: (inner_d), line:8:3, endln:8:10
+<   |vpiParent:
+<   \_class_var: (work@holder_d::q_d), line:8:11, endln:8:14
+<   |vpiName:inner_d
+<   |vpiClassDefn:
+<   \_class_defn: (work@inner_d), file:g119_d.sv, line:2:1, endln:5:9
+1048a1043,1048
+> \_class_typespec: (inner_d), line:8:3, endln:8:10
+>   |vpiParent:
+>   \_class_var: (work@holder_d::q_d), line:8:11, endln:8:14
+>   |vpiName:inner_d
+>   |vpiClassDefn:
+>   \_class_defn: (work@inner_d), file:g119_d.sv, line:2:1, endln:5:9
+
+======== g119_e — DEF-view residual diff against golden (patched) ========
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+1051,1059d1050
+< \_class_typespec: (txn_e), line:10:3, endln:10:8
+<   |vpiParent:
+<   \_class_var: (work@drv_e::it_e), line:10:9, endln:10:13
+<   |vpiName:txn_e
+<   |vpiClassDefn:
+<   \_class_defn: (work@txn_e), file:g119_e.sv, line:3:1, endln:7:9
+< \_int_typespec: , line:11:3, endln:11:15
+<   |vpiParent:
+<   \_int_var: (work@drv_e::prop_e), line:11:16, endln:11:22
+1068a1060,1068
+> \_class_typespec: (txn_e), line:10:3, endln:10:8
+>   |vpiParent:
+>   \_class_var: (work@drv_e::it_e), line:10:9, endln:10:13
+>   |vpiName:txn_e
+>   |vpiClassDefn:
+>   \_class_defn: (work@txn_e), file:g119_e.sv, line:3:1, endln:7:9
+> \_int_typespec: , line:11:3, endln:11:15
+>   |vpiParent:
+>   \_int_var: (work@drv_e::prop_e), line:11:16, endln:11:22
+
+======== g119_f — DEF-view residual diff against golden (patched) ========
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+1063a1064,1066
+> \_int_typespec: , line:3:8, endln:3:20
+>   |vpiParent:
+>   \_int_var: (work@txn_f::f_one), line:3:21, endln:3:26
+1077,1079d1079
+< \_int_typespec: , line:3:8, endln:3:20
+<   |vpiParent:
+<   \_int_var: (work@txn_f::f_one), line:3:21, endln:3:26
+
+======== g119_g — DEF-view residual diff against golden (patched) ========
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+1228a1229,1231
+> \_int_typespec: , line:5:8, endln:5:20
+>   |vpiParent:
+>   \_int_var: (work@p_g::v_g), line:5:21, endln:5:24
+1238c1241
+< \_int_typespec: , line:5:8, endln:5:20
+---
+> \_class_typespec: (p_g), line:17:3, endln:17:6
+1240c1243,1255
+<   \_int_var: (work@p_g::v_g), line:5:21, endln:5:24
+---
+>   \_class_var: (work@two_g::Bee), line:17:7, endln:17:10
+>   |vpiName:p_g
+>   |vpiClassDefn:
+>   \_class_defn: (work@p_g), file:g119_g.sv, line:4:1, endln:6:9
+> \_class_typespec: (p_g), line:18:3, endln:18:6
+>   |vpiParent:
+>   \_class_var: (work@two_g::a), line:18:7, endln:18:8
+>   |vpiName:p_g
+>   |vpiClassDefn:
+>   \_class_defn: (work@p_g), file:g119_g.sv, line:4:1, endln:6:9
+> \_int_typespec: , line:19:3, endln:19:15
+>   |vpiParent:
+>   \_int_var: (work@two_g::n2), line:19:16, endln:19:18
+1262,1276d1276
+< \_class_typespec: (p_g), line:17:3, endln:17:6
+<   |vpiParent:
+<   \_class_var: (work@two_g::Bee), line:17:7, endln:17:10
+<   |vpiName:p_g
+<   |vpiClassDefn:
+<   \_class_defn: (work@p_g), file:g119_g.sv, line:4:1, endln:6:9
+< \_class_typespec: (p_g), line:18:3, endln:18:6
+<   |vpiParent:
+<   \_class_var: (work@two_g::a), line:18:7, endln:18:8
+<   |vpiName:p_g
+<   |vpiClassDefn:
+<   \_class_defn: (work@p_g), file:g119_g.sv, line:4:1, endln:6:9
+< \_int_typespec: , line:19:3, endln:19:15
+<   |vpiParent:
+<   \_int_var: (work@two_g::n2), line:19:16, endln:19:18
+
+======== g119_h — DEF-view residual diff against golden (patched) ========
+1c1
+< g_def/slpp_all/surelog.uhdm: Restored design Pre-Elab: 
+---
+> b_def.uhdm: Restored design Pre-Elab: 
+127c127
+<         \_class_typespec: (it_h), line:16:3, endln:16:7
+---
+>         \_class_typespec: (it_h)
+234c234
+<             \_bit_select: (work@drv_h::run_h::arr_h[1]::arr_h), line:24:16, endln:24:17
+---
+>             \_bit_select: (arr_h[1]), line:24:10, endln:24:15
+238c238
+<               |vpiFullName:work@drv_h::run_h::arr_h[1]::arr_h
+---
+>               |vpiFullName:arr_h[1]
+241,242d240
+<                 |vpiParent:
+<                 \_bit_select: (work@drv_h::run_h::arr_h[1]::arr_h), line:24:16, endln:24:17
+484c482
+<           \_hier_path: (r_h.randomize), line:32:10, endln:32:38
+---
+>           \_hier_path: (r_h.randomize), line:32:10, endln:32:23
+490c488
+<               \_hier_path: (r_h.randomize), line:32:10, endln:32:38
+---
+>               \_hier_path: (r_h.randomize), line:32:10, endln:32:23
+495c493
+<               \_hier_path: (r_h.randomize), line:32:10, endln:32:38
+---
+>               \_hier_path: (r_h.randomize), line:32:10, endln:32:23
+497c495
+<               \_ref_obj: (work@drv_h::run_h::r_h.randomize::h_a), line:32:24, endln:32:27
+---
+>               \_ref_obj: (work@drv_h::run_h::h_a), line:32:24, endln:32:27
+501c499
+<                 |vpiFullName:work@drv_h::run_h::r_h.randomize::h_a
+---
+>                 |vpiFullName:work@drv_h::run_h::h_a
+503c501
+<               \_ref_obj: (work@drv_h::run_h::r_h.randomize::h_b), line:32:29, endln:32:32
+---
+>               \_ref_obj: (work@drv_h::run_h::h_b), line:32:29, endln:32:32
+507c505
+<                 |vpiFullName:work@drv_h::run_h::r_h.randomize::h_b
+---
+>                 |vpiFullName:work@drv_h::run_h::h_b
+509c507
+<               \_ref_obj: (work@drv_h::run_h::r_h.randomize::h_c), line:32:34, endln:32:37
+---
+>               \_ref_obj: (work@drv_h::run_h::h_c), line:32:34, endln:32:37
+513c511
+<                 |vpiFullName:work@drv_h::run_h::r_h.randomize::h_c
+---
+>                 |vpiFullName:work@drv_h::run_h::h_c
+1093,1099d1090
+<   |vpiNet:
+<   \_logic_net: (work@top_h.h_b), line:44:26, endln:44:29
+<     |vpiParent:
+<     \_module_inst: work@top_h (work@top_h), file:g119_h.sv, line:36:1, endln:47:10
+<     |vpiName:h_b
+<     |vpiFullName:work@top_h.h_b
+<     |vpiNetType:1
+1222,1223d1212
+<                 |vpiActual:
+<                 \_logic_net: (work@top_h.h_b), line:44:26, endln:44:29
+1353a1343,1347
+> \_class_typespec: (it_h)
+>   |vpiName:it_h
+>   |vpiClassDefn:
+>   \_class_defn: (work@it_h), file:g119_h.sv, line:4:1, endln:8:9
+> \_array_typespec: 
+1365c1359
+< \_class_typespec: (it_h), line:15:3, endln:15:7
+---
+> \_int_typespec: , line:5:8, endln:5:20
+1367c1361,1370
+<   \_class_var: (work@drv_h::r_h), line:15:8, endln:15:11
+---
+>   \_int_var: (work@it_h::h_a), line:5:21, endln:5:24
+> \_int_typespec: , line:6:8, endln:6:20
+>   |vpiParent:
+>   \_int_var: (work@it_h::h_b), line:6:21, endln:6:24
+> \_int_typespec: , line:7:8, endln:7:20
+>   |vpiParent:
+>   \_int_var: (work@it_h::h_c), line:7:21, endln:7:24
+> \_class_typespec: (it_h), line:11:3, endln:11:7
+>   |vpiParent:
+>   \_class_var: (work@hold_h::deep_h), line:11:8, endln:11:14
+1371c1374
+< \_class_typespec: (it_h), line:16:3, endln:16:7
+---
+> \_class_typespec: (it_h), line:15:3, endln:15:7
+1373c1376
+<   \_class_var: (work@drv_h::arr_h), line:16:8, endln:16:13
+---
+>   \_class_var: (work@drv_h::r_h), line:15:8, endln:15:11
+1377d1379
+< \_array_typespec: 
+1387,1401d1388
+< \_class_typespec: (it_h), line:11:3, endln:11:7
+<   |vpiParent:
+<   \_class_var: (work@hold_h::deep_h), line:11:8, endln:11:14
+<   |vpiName:it_h
+<   |vpiClassDefn:
+<   \_class_defn: (work@it_h), file:g119_h.sv, line:4:1, endln:8:9
+< \_int_typespec: , line:5:8, endln:5:20
+<   |vpiParent:
+<   \_int_var: (work@it_h::h_a), line:5:21, endln:5:24
+< \_int_typespec: , line:6:8, endln:6:20
+<   |vpiParent:
+<   \_int_var: (work@it_h::h_b), line:6:21, endln:6:24
+< \_int_typespec: , line:7:8, endln:7:20
+<   |vpiParent:
+<   \_int_var: (work@it_h::h_c), line:7:21, endln:7:24
+

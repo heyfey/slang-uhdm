@@ -1,0 +1,95 @@
+r10uvm119repro/GATES.txt — the full gate battery, patched binary.
+Both binaries were frozen (chmod 555) at immutable paths BEFORE any sweep,
+and the PRISTINE one was verified byte-identical to the main tree's
+build/slang-uhdm at 7c9d641 before a single measurement was taken.
+
+(1) BUILD
+    pristine  md5 5bdf758461ccc17f3149f1d43cac9ad0   (== main tree at 7c9d641)
+    patched   md5 43ed567c2fe98891bf3cc2c321e990e5
+
+(2) GOLDENS (SLANG_UHDM exported explicitly to each binary)
+    patched:          PASS=23  FAIL=0
+    negative control: SLANG_UHDM=/bin/false -> FAIL=23
+
+(3) uhdm2rtlil, both modes
+    testflags:     679 CMP_EQUAL
+    testflags:      50 SLANG_REJECT
+    testflags:       2 SURELOG_FAIL
+    ct8rows vs results/gate_uhdm2rtlil.csv (committed baseline):
+      PASS: every row byte-identical to the committed baseline
+    ct8rows vs MY OWN pristine sweep, testflags:
+      PASS: every row byte-identical to the committed baseline
+    ct8rows vs MY OWN pristine sweep, default:
+      PASS: every row byte-identical to the committed baseline
+
+(4) surelog corpus, --mode both (956 databases, 1588 comparable rows)
+    status histogram, pristine vs patched: IDENTICAL
+          937 CMP_EQUAL
+           19 CMP_NOTEQUAL
+           10 DEFERRED
+            3 NO_DATABASE
+            1 NO_UHDM
+          567 SLANG_REJECT
+           48 SURELOG_FAIL
+            1 TIMEOUT
+            2 UNTRANSLATABLE
+    ct8rows vs results/golden_surelog.csv (committed baseline):
+      PASS: every row byte-identical to the committed baseline
+    ct8rows vs MY OWN pristine sweep:
+      PASS: every row byte-identical to the committed baseline
+    NO ROW IS CONVERTED by this pass and results/*.csv is UNTOUCHED.
+
+(5) byteverify SELFCHECK=1 — every mover named and attributed
+    uhdm2rtlil : MOVERS 0 / 1358        (SELFCHECK 1357/1358 flagged)
+    surelog    : MOVERS 9 / 956         (SELFCHECK  955/956  flagged)
+      the 9 are EXACTLY the nine UVM row-modes PREDICTION.txt named from
+      pristine databases alone, before the patched binary existed:
+        default/{SeqDriver,SimpleUVM,Scoreboard,MiniAmiq,BuildUVMPkg}
+        testflags/{SeqDriver,SimpleUVM,MiniAmiq,BuildUVMPkg}
+      and each one's ORDER-BLIND (sorted, path-normalised) diff touches
+      ONLY the predicted source sites — see ATTRIBUTION.txt.
+
+(6) CANARIES
+    surelog:    ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+    uhdm2rtlil: ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+    ctcan2 surelog:    PASS: every supplementary canary row is byte-identical to the baseline.
+    ctcan2 uhdm2rtlil: PASS: every supplementary canary row is byte-identical to the baseline.
+    protected databases by name (md5 patched vs pristine):
+      InterfaceModPort     default   59a365f3ce2c SAME
+      InterfaceModPort     testflags 59a365f3ce2c SAME
+      BlackParrotComplex   default   e3e354129d5a SAME
+      BlackParrotComplex   testflags 73a10e8217e5 SAME
+      YosysOldOr           default   d68e0796d62c SAME
+      YosysOldOr           testflags d68e0796d62c SAME
+      SVSwitch             default   4842211c4030 SAME
+      SVSwitch             testflags 4842211c4030 SAME
+      YosysVerx            default   6ccda350c24a SAME
+      YosysVerx            testflags 6ccda350c24a SAME
+      (SVSwitch pins 4842211c4030 and YosysVerx pins 6ccda350c24a as the brief requires)
+
+(7) canaudit (run from this repro dir over canaries.sh + ctcan2.sh)
+    ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+    PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+(8) ROW HEADS (counts are DEPTH, not distance)
+    TEST           MODE       PRISTINE  PATCHED
+    SeqDriver      default          76       50   <- MOVED OFF THE HEAD
+    SeqDriver      testflags        76       50   <- MOVED OFF THE HEAD
+    SimpleUVM      default          76       13   <- MOVED OFF THE HEAD
+    SimpleUVM      testflags        76       13   <- MOVED OFF THE HEAD
+    Scoreboard     default          76       13   <- MOVED OFF THE HEAD
+    Scoreboard     testflags  SKIP-NOFILE SKIP-NOFILE
+    MiniAmiq       default          76       50   <- MOVED OFF THE HEAD
+    MiniAmiq       testflags        76       50   <- MOVED OFF THE HEAD
+    BuildUVMPkg    default          76       13   <- MOVED OFF THE HEAD
+    BuildUVMPkg    testflags        76       13   <- MOVED OFF THE HEAD
+    Earlgrey_0_1   default          32       32
+    Earlgrey_0_1   testflags        36       36
+    Rggen          default           0        0
+    Rggen          testflags  SKIP-NOFILE SKIP-NOFILE
+    ALL NINE UVM row-modes left the 76-line head; Earlgrey and Rggen are
+    untouched (the sister pass earl81 owns Earlgrey's High_conn head).
+    Every patched head log is a DIFFERENT object: the string-constant fold
+    `UVM.1.2` at uvm_pkg's uvm_revision_string (SeqDriver, MiniAmiq) and a
+    surplus `method_func_call (new)` with `LHS: <null>` (SimpleUVM,
+    Scoreboard, BuildUVMPkg).  The word `seq_or_item` appears in ZERO of them.

@@ -1,0 +1,114 @@
+== boundary gate: MODE=file VIEW=def  3696 arms under /tmp/r10uvm119_probecopy
+PROCESSED=3696 LISTED=3696 FENCED=0 DIFFER=11 PRIS_REJECT=139 PATCHED_REJECT=139
+-- differing arms:
+./r10buvm22repro/g22.sv
+./r10uvm116repro/g116_c.sv
+./r10uvm119repro/g119_a.sv
+./r10uvm119repro/g119_d.sv
+./r10uvm119repro/g119_e.sv
+./r10uvm119repro/g119_f.sv
+./r10uvm119repro/g119_g.sv
+./r10uvm119repro/g119_h.sv
+./r10uvm77repro/v77x1_randwith.sv
+./r10v116repro/v116_p.sv
+./r10v116repro/v116_v.sv
+== boundary gate: MODE=file VIEW=elab  3696 arms under /tmp/r10uvm119_probecopy
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 406873 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 406891 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 408126 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 408144 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 542947 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 542965 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 544929 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 544947 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 546518 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 546536 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 572013 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 572031 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 572282 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 572300 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 575593 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 575611 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 575862 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 575880 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 578146 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 578164 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 578415 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 578433 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 605579 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 605597 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 605628 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 605649 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 605683 Segmentation fault      "$PRISTINE" "${srcs[@]}" $EF -o p.uhdm > p.log 2>&1
+/tmp/wt_r10uvm119/tools/probe/r10uvm119repro/bound119.sh: line 74: 605701 Segmentation fault      "$PATCHED" "${srcs[@]}" $EF -o q.uhdm > q.log 2>&1
+PROCESSED=3696 LISTED=3696 FENCED=0 DIFFER=11 PRIS_REJECT=153 PATCHED_REJECT=153
+-- differing arms:
+./r10buvm22repro/g22.sv
+./r10uvm116repro/g116_c.sv
+./r10uvm119repro/g119_a.sv
+./r10uvm119repro/g119_d.sv
+./r10uvm119repro/g119_e.sv
+./r10uvm119repro/g119_f.sv
+./r10uvm119repro/g119_g.sv
+./r10uvm119repro/g119_h.sv
+./r10uvm77repro/v77x1_randwith.sv
+./r10v116repro/v116_p.sv
+./r10v116repro/v116_v.sv
+== boundary gate: MODE=dir VIEW=def  1544 arms under /tmp/r10uvm119_probecopy
+rm: refusing to remove '.' or '..' directory: skipping '/tmp/r10uvm119_bound_dirdef/.'
+PROCESSED=1544 LISTED=1544 FENCED=0 DIFFER=10 PRIS_REJECT=123 PATCHED_REJECT=123
+-- differing arms:
+./r10buvm22repro
+./r10uvm116repro
+./r10uvm117repro
+./r10uvm119repro
+./r10uvm75repro
+./r10uvm76repro
+./r10uvm77repro
+./r10v109repro
+./r10v116repro
+./r10v117repro
+ALLBOUNDDONE
+
+======== PRISTINE-vs-PRISTINE CONTROL (MODE=dir VIEW=def) ========
+The SAME binary against ITSELF, no code change.  This is what convicts
+the five dir-mode directories of NONDETERMINISM rather than of this law:
+four of them flip with nothing changed at all, and all five have an
+ORDER-BLIND (sorted) diff of ZERO, i.e. no object changed, only the
+emission ORDER of the top-level task/func list (RESUME §9).
+PROCESSED=1544 LISTED=1544 FENCED=0 DIFFER=4 PRIS_REJECT=123 PATCHED_REJECT=123
+-- differing arms:
+./r10uvm75repro
+./r10uvm76repro
+./r10v109repro
+./r10v117repro
+
+======== ORDER-BLIND READ OF EVERY NON-MINE DIFFERING ARM ========
+DIRECTORY          UNSORTED   ORDER-BLIND
+r10uvm117repro     12         0
+r10uvm75repro      12         0
+r10uvm76repro      16         0
+r10v109repro       16         0
+r10v117repro       24         0
+r10buvm22repro     12         12
+
+r10buvm22repro is the ONLY one with a surviving order-blind diff, and it
+is § scopeRandomizeIsBareCall116's residue R5, quoted verbatim there:
+  g22.sv:70  typedef C22 ka_cls_t[string];  emits its range as an ADDRESS
+  |vpiDecompile:22429113  ->  |vpiDecompile:22433209   (one page apart)
+It is deterministic per binary, present at 09dec24, and perturbed by ANY
+code change that shifts the image.  It reaches NO corpus database.
+
+======== THE THREE OTHER PASSES' ARMS THIS LAW OWNS ========
+Whole-dump diff lines against GOLDEN, pristine -> patched:
+  r10uvm116repro/g116_c.sv           def 140 -> 122   elab 236 -> 200   (its line 17 is h_one.randomize() with {…})
+  r10uvm77repro/v77x1_randwith.sv    def  94 ->  58   elab 156 ->  84   (parens-less and parens-ful member with-forms)
+  r10v116repro/v116_p.sv             def 145 -> 121   elab 261 -> 213   (this.randomize(k_slot) with {…})
+  r10v116repro/v116_v.sv             NO GOLDEN EXISTS — see below
+
+v116_v.sv is a design SURELOG ITSELF REFUSES: its receiver is
+PARENTHESISED ((h_one).randomize() with {…}), which is not in Surelog's
+randomize_call grammar, and surelog exits rc=3 with 10 SYNTAX errors and
+NO database at all.  There is therefore no golden object for the cell to
+be right or wrong against; it was refused before this pass and is refused
+after it.  Zero corpus population.  README residue R5.

@@ -1,0 +1,73 @@
+r10v119repro/GATES.v119.txt — the VERIFIER's independent battery.
+Both binaries were built by the verifier from FRESH worktrees at 7c9d641
+(/tmp/wt_v119pris pristine, /tmp/wt_v119 = 7c9d641 + the pass patch),
+frozen chmod 555 at immutable paths BEFORE any sweep, and SLANG_UHDM was
+exported explicitly per binary; every cmds.txt was audited BY PATH.
+
+(1) BUILD (independent, cmake -j 2)
+    pristine  md5 5bdf758461ccc17f3149f1d43cac9ad0   (implementer claimed 5bdf7584… — MATCH)
+    patched   md5 43ed567c2fe98891bf3cc2c321e990e5   (implementer claimed 43ed567c… — MATCH)
+
+(2) GOLDENS
+    patched:          PASS=23  FAIL=0
+    negative control: SLANG_UHDM=/bin/false -> PASS=0 FAIL=23
+
+(3) cmds.txt AUDIT
+    patched  workdir: 3035 cmds.txt, 2981 name a binary, ALL /tmp/v119_bin/pat_43ed567c.bin
+    pristine workdir: 3035 cmds.txt, 2981 name a binary, ALL /tmp/v119_bin/pris_5bdf7584.bin
+    ZERO reference to the main-tree binary; the 54 without a binary are the
+    SURELOG_FAIL / NO_DATABASE rows.
+
+(4) STATUS HISTOGRAMS (verifier's own sweeps, both binaries)
+    uhdm2rtlil testflags : 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL   (identical both binaries)
+    uhdm2rtlil default   : 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL   (identical both binaries)
+    surelog (1588 rows)  : 937 CMP_EQUAL / 19 CMP_NOTEQUAL / 10 DEFERRED / 3 NO_DATABASE /
+                           1 NO_UHDM / 567 SLANG_REJECT / 48 SURELOG_FAIL / 1 TIMEOUT /
+                           2 UNTRANSLATABLE                                   (identical both binaries)
+
+(5) ct8rows — WHOLE ROW, status AND dump column
+    u2r_tf  vs results/gate_uhdm2rtlil.csv : 0 differing ROWS
+    u2r_tf  vs verifier pristine sweep     : 0 differing ROWS
+    u2r_def vs verifier pristine sweep     : 0 differing ROWS
+    surelog vs results/golden_surelog.csv  : 0 differing ROWS over 1588
+    surelog vs verifier pristine sweep     : 0 differing ROWS over 1588
+    NO ROW CONVERTED.  results/*.csv untouched by the patch (0 diff hunks).
+
+(6) byteverify SELFCHECK=1 (patched vs the verifier's OWN pristine workdirs)
+    uhdm2rtlil : MOVERS 0 / 1358   (SELFCHECK 1357/1358 flagged)
+    surelog    : MOVERS 9 / 956    (SELFCHECK  955/956  flagged)
+      exactly the nine UVM row-modes the pass predicted:
+      default/{SeqDriver,SimpleUVM,Scoreboard,MiniAmiq,BuildUVMPkg}
+      testflags/{SeqDriver,SimpleUVM,MiniAmiq,BuildUVMPkg}
+
+(7) CANARIES / protected databases
+    surelog     canary rows: ok=52 changed=0 absent=0
+    uhdm2rtlil  canary rows: ok=8  changed=0 absent=0
+    ctcan2 surelog PASS, ctcan2 uhdm2rtlil PASS
+    canaudit (from r10uvm119repro): audited=29 UNCOVERED=0 FENCE-BREACH=0
+    InterfaceModPort   def/tf 59a365f3ce2c SAME
+    BlackParrotComplex def e3e354129d5a / tf 73a10e8217e5 SAME
+    YosysOldOr         def/tf d68e0796d62c SAME
+    SVSwitch           def/tf 4842211c4030 SAME   (brief pin MET)
+    YosysVerx          def/tf 6ccda350c24a SAME   (brief pin MET)
+
+(8) ROW HEADS (official uhdm-cmp, verifier's own workdirs; DEPTH not distance)
+    TEST           MODE       PRISTINE  PATCHED
+    SeqDriver      default          76       50
+    SeqDriver      testflags        76       50
+    SimpleUVM      default          76       13
+    SimpleUVM      testflags        76       13
+    Scoreboard     default          76       13
+    Scoreboard     testflags  SKIP-NOFILE SKIP-NOFILE
+    MiniAmiq       default          76       50
+    MiniAmiq       testflags        76       50
+    BuildUVMPkg    default          76       13
+    BuildUVMPkg    testflags        76       13
+    Earlgrey_0_1   default          32       32
+    Earlgrey_0_1   testflags        36       36
+    Rggen          default           0        0
+    ONE head per run (grep -c '^LHS:' = 1) in every measured row.
+    'seq_or_item' appears in 234 PRISTINE head-log lines and ZERO patched ones.
+    The new heads are DIFFERENT OBJECTS: the STRING constant fold "UVM.1.2"
+    at uvm_pkg.sv:34:10 (SeqDriver, MiniAmiq) and 'LHS: <null>' against a
+    surplus method_func_call (new) (SimpleUVM, Scoreboard, BuildUVMPkg).

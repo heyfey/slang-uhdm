@@ -1,0 +1,50 @@
+LHS:
+decompile:
+constant: , id:1517, line:34:10, endln:34:22
+|vpiParent:
+\_param_assign: , id:1505, line:31:18, endln:31:42
+|vpiDecompile:"UVM.1.2"
+|vpiSize:56
+|STRING:UVM.1.2
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg), id:1518
+  |vpiParent:
+  \_constant: , id:1517, line:34:10, endln:34:22
+  |vpiFullName:uvm_pkg
+  |vpiActual:
+  \_string_typespec: , id:1519, line:31:11, endln:31:17
+|vpiConstType:6
+
+decompile:
+constant: , id:1517, line:34:10, endln:34:22
+|vpiParent:
+\_param_assign: , id:1505, line:31:18, endln:31:42
+|vpiDecompile:"UVM.1.2"
+|vpiSize:56
+|STRING:UVM.1.2
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg), id:1518
+  |vpiParent:
+  \_constant: , id:1517, line:34:10, endln:34:22
+  |vpiFullName:uvm_pkg
+  |vpiActual:
+  \_string_typespec: , id:1519, line:31:11, endln:31:17
+|vpiConstType:6
+RHS:
+decompile:
+ref_obj: (uvm_pkg::uvm_revision_string::uvm_revision), id:6615, line:34:10, endln:34:22
+|vpiParent:
+\_return_stmt: , id:6614, line:34:3, endln:34:9
+|vpiName:uvm_revision
+|vpiFullName:uvm_pkg::uvm_revision_string::uvm_revision
+|vpiActual:
+\_constant: , id:6078, line:31:33, endln:31:42
+
+decompile:
+ref_obj: (uvm_pkg::uvm_revision_string::uvm_revision), id:6615, line:34:10, endln:34:22
+|vpiParent:
+\_return_stmt: , id:6614, line:34:3, endln:34:9
+|vpiName:uvm_revision
+|vpiFullName:uvm_pkg::uvm_revision_string::uvm_revision
+|vpiActual:
+\_constant: , id:6078, line:31:33, endln:31:42

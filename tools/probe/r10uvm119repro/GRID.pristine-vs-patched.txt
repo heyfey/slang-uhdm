@@ -1,0 +1,22 @@
+r10uvm119repro/GRID.pristine-vs-patched.txt — the POSITIVE CONTROL for the
+fence.  Dump text normalised only for the database FILENAME in the header
+(the grid writes a_*.uhdm and b_*.uhdm).  An arm that reads 'untouched'
+here is one the law provably does not reach; the arms around it prove the
+gate can be seen to move.
+
+g119_a/def   MOVED
+g119_a/elab   MOVED
+g119_b/def   PRIS == PAT   (UNTOUCHED)
+g119_b/elab   PRIS == PAT   (UNTOUCHED)
+g119_c/def   PRIS == PAT   (UNTOUCHED)
+g119_c/elab   PRIS == PAT   (UNTOUCHED)
+g119_d/def   MOVED
+g119_d/elab   MOVED
+g119_e/def   MOVED
+g119_e/elab   MOVED
+g119_f/def   MOVED
+g119_f/elab   MOVED
+g119_g/def   MOVED
+g119_g/elab   MOVED
+g119_h/def   MOVED
+g119_h/elab   MOVED

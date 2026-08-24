@@ -1,0 +1,27 @@
+== default/BuildUVMPkg  order-blind-diff-lines=74 (added=49 removed=25)
+   distinct line: positions touched: 6
+line:56967:10 line:56967:12 line:56967:24 line:56980:12 line:56980:14 line:56980:26 
+== default/MiniAmiq  order-blind-diff-lines=92 (added=61 removed=31)
+   distinct line: positions touched: 6
+line:204:53 line:204:54 line:204:59 line:299:53 line:299:54 line:299:66 
+== default/Scoreboard  order-blind-diff-lines=56 (added=37 removed=19)
+   distinct line: positions touched: 6
+line:204:53 line:204:54 line:204:59 line:299:53 line:299:54 line:299:66 
+== default/SeqDriver  order-blind-diff-lines=92 (added=61 removed=31)
+   distinct line: positions touched: 6
+line:204:53 line:204:54 line:204:59 line:299:53 line:299:54 line:299:66 
+== default/SimpleUVM  order-blind-diff-lines=56 (added=37 removed=19)
+   distinct line: positions touched: 6
+line:204:53 line:204:54 line:204:59 line:299:53 line:299:54 line:299:66 
+== testflags/BuildUVMPkg  order-blind-diff-lines=74 (added=49 removed=25)
+   distinct line: positions touched: 6
+line:56967:10 line:56967:12 line:56967:24 line:56980:12 line:56980:14 line:56980:26 
+== testflags/MiniAmiq  order-blind-diff-lines=92 (added=61 removed=31)
+   distinct line: positions touched: 6
+line:204:53 line:204:54 line:204:59 line:299:53 line:299:54 line:299:66 
+== testflags/SeqDriver  order-blind-diff-lines=92 (added=61 removed=31)
+   distinct line: positions touched: 6
+line:204:53 line:204:54 line:204:59 line:299:53 line:299:54 line:299:66 
+== testflags/SimpleUVM  order-blind-diff-lines=56 (added=37 removed=19)
+   distinct line: positions touched: 6
+line:204:53 line:204:54 line:204:59 line:299:53 line:299:54 line:299:66 

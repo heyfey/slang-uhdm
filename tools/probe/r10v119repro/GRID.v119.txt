@@ -1,0 +1,29 @@
+ARM        VIEW     PRIS     PAT   NOTE
+v119_a     def    NOGOLD  NOGOLD   super.randomize() -- SURELOG REJECTS the file (rc=3), no golden; slang refuses the cell on BOTH binaries
+v119_a     elab   NOGOLD  NOGOLD   super.randomize() -- SURELOG REJECTS the file (rc=3), no golden; slang refuses the cell on BOTH binaries
+v119_a2    def        48      30   the same file without the super cells: this.randomize() with/without a block, under inheritance
+v119_a2    elab       50      32   the same file without the super cells: this.randomize() with/without a block, under inheritance
+v119_b     def        53      41   a FUNCTION-RETURN receiver get_b().randomize() with {...}
+v119_b     elab      117     105   a FUNCTION-RETURN receiver get_b().randomize() with {...}
+v119_c     def       164     104   queue / associative / dynamic / non-literal-index element receivers, this.-rooted chains
+v119_c     elab      781     681   queue / associative / dynamic / non-literal-index element receivers, this.-rooted chains
+v119_d     def       190      28   NINE constraint-block contents: empty, solve-before, dist, foreach, soft, ->, if/else, inside+pkg param, multi-stmt
+v119_d     elab      313     151   NINE constraint-block contents: empty, solve-before, dist, foreach, soft, ->, if/else, inside+pkg param, multi-stmt
+v119_e     def       499     477   HOMES and POSITIONS: package function, extern out-of-body task, in-body function return, module initial, for-body; assignment/if/!/while/ternary/binary/$display
+v119_e     elab     1012     966   HOMES and POSITIONS: package function, extern out-of-body task, in-body function return, module initial, for-body; assignment/if/!/while/ternary/binary/$display
+v119_f     def       152     152   THE FENCE: scope form x3, std::randomize x2, member-without-with x4, rand_mode, constraint_mode, dotted non-randomize calls, a package function named randomize
+v119_f     elab      553     553   THE FENCE: scope form x3, std::randomize x2, member-without-with x4, rand_mode, constraint_mode, dotted non-randomize calls, a package function named randomize
+v119_g     def       140      32   MACRO-EXPANDED member randomize, 1/2/3 sites per scope, name case/length/order stress
+v119_g     elab      662     494   MACRO-EXPANDED member randomize, 1/2/3 sites per scope, name case/length/order stress
+v119_h     def       184      22   what the WITH-BLOCK references: receiver members, task local, task argument, caller property, package param, class param, receiver non-rand member, literal; module home + module param
+v119_h     elab      292     112   what the WITH-BLOCK references: receiver members, task local, task argument, caller property, package param, class param, receiver non-rand member, literal; module home + module param
+v119_i     def       142      16   two randomize-withs in one expression, one as another call's argument, a MULTI-LINE block, a function call inside the block, case-expression, fork/join_none
+v119_i     elab      400     148   two randomize-withs in one expression, one as another call's argument, a MULTI-LINE block, a function call inside the block, case-expression, fork/join_none
+v119_j     def        88      34   parameterised-class, static-property, typedef'd and derived-handle receivers
+v119_j     elab      218     164   parameterised-class, static-property, typedef'd and derived-handle receivers
+v119_k     def        50       8   the receiver's class reached through a PACKAGE
+v119_k     elab       78      36   the receiver's class reached through a PACKAGE
+v119_l     def       110      14   one-character / case-differing / very long receiver names, a member named randomize_x inside the block and in the identifier list, a user method randomize_y beside
+v119_l     elab      212     116   one-character / case-differing / very long receiver names, a member named randomize_x inside the block and in the identifier list, a user method randomize_y beside
+v119_m     def        83      29   MACRO surfaces: scope form in a macro, scope form + identifier list in a macro, a macro-expanded RECEIVER, the whole statement in a macro, std::randomize in a macro, plus written twins
+v119_m     elab      401     293   MACRO surfaces: scope form in a macro, scope form + identifier list in a macro, a macro-expanded RECEIVER, the whole statement in a macro, std::randomize in a macro, plus written twins

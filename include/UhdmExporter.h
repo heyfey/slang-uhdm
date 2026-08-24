@@ -23,6 +23,7 @@ class DefinitionSymbol;
 class Symbol;
 class Statement;
 class StatementList;
+class Constraint;
 class CallExpression;
 class Expression;
 class MemberAccessExpression;
@@ -2044,6 +2045,28 @@ private:
     /// cannot read answers FALSE and keeps the pristine path.
     bool scopeRandomizeCall116(const slang::ast::CallExpression& call,
                                const slang::ast::Expression& expr);
+    /// § memberRandomizeWithIsRecvPath119 — the MEMBER form of the same
+    /// Surelog entry point: `o.randomize() with { … }`, reached from
+    /// `CompileExpression.cpp:5643` instead of `:2179`.  The WRITTEN `with`
+    /// block is the whole discriminator — Surelog's grammar only builds a
+    /// `paRandomize_call` node in front of a constraint block, and only that
+    /// node reaches `compileRandomizeCall`; without one the same source takes
+    /// the ordinary dotted-call road and keeps the DOTTED hier_path name
+    /// (measured, arm B).  Answers TRUE only for the member form, and hands
+    /// back the bound inline constraint so the caller can span through the
+    /// block.  Every disjunct is read off slang's BOUND AST, never off source
+    /// text: golden's answer is uniform across the parens-ful, parens-less,
+    /// spaced and MACRO-EXPANDED spellings of this shape (the whole corpus
+    /// population arrives through `uvm_rand_send`), and a text window built at
+    /// the method position reads garbage across a macro-buffer boundary.  The
+    /// one refusal kept is on the SPAN: a constraint bound without syntax
+    /// answers FALSE rather than inventing an end.  The full law, its fences
+    /// and the golden grid live at the call site in `ExprEmit.cpp`.
+    bool memberRandomizeWith119(const slang::ast::CallExpression& call,
+                                const slang::ast::Expression& expr,
+                                const slang::ast::Expression& recv,
+                                std::string_view name,
+                                const slang::ast::Constraint*& cons);
     /// § concatIdxDecompile29 — a hier_path select whose index is a
     /// CONCATENATION renders that index by DECOMPILING the expression TREE, not
     /// by copying the source text the way every other index does.

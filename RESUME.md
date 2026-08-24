@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-24 04:25, HEAD = the earl81 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-24 06:00, HEAD = the uvm119 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,14 +182,15 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2, MiniAmiq×2, BuildUVMPkg×2, SimpleUVM×2, Scoreboard/default — NINE UVM row-modes, ONE object | 76 (depth) | `seq_or_item.randomize() with {…}` (uvm_sequence_library.svh:778, span @299:53) — THREE laws in one object: (a) the inline-constraint call is NOT a hier_path name component (golden VpiName `seq_or_item`, ours `seq_or_item.randomize` — the uvm89/uvm92 closed-dispatch family, oracle ct92cen); (b) golden's method_func_call (randomize) carries vpiWith → constraint and is SPAN-LESS, we emit neither (uvm116's R0, the MEMBER form); (c) our span runs to 778:9; hier_path::Compare reads VpiName before Path_elems so (a) first; uvm119 (next) clears all nine (uvm118 landed: 17→76, a string-bearing concat's compiler-inserted Explicit conversions emit NO cast — a cast exists iff a tick was written; the verifier added the const-cast syntax kind to the fence) |
+| SeqDriver×2 + MiniAmiq×2 (uvm-1.2 tree) | 50 (depth) | golden folds `uvm_pkg::uvm_revision_string::uvm_revision` to a STRING constant "UVM.1.2" (uvm_pkg.sv:34:10) where we emit a bound ref_obj — uvm120's target |
+| SimpleUVM×2 + Scoreboard/default + BuildUVMPkg×2 | 13 (depth) | `LHS: <null>` against a SURPLUS method_func_call (new) of ours — a one-sided set: apply RESUME §9's SafeCompare rule before naming the field; uvm121's target (uvm119 landed: 76→50/13, the member-form `o.randomize() with {…}` — the receiver-only hier_path name, the through-block span, the bound receiver, the span-less call with vpiWith → a bare constraint parented at the hier_path's own parent; the no-with member form was already right) |
 | Earlgrey_0_1×2 (both modes, byte-identical after-logs again) | 36 (depth) | ONE FIELD on two constants (the cheapest head yet): `[MpRegions:0]` (flash_ctrl.sv:310) — golden vpiSize 32, ours 64, everything else identical; MpRegions = `localparam int MpRegions = 8;` (flash_ctrl_pkg.sv:28), a bare decimal keeping the literal encoder's unsized 64 where golden carries the declared int width (earl80's R3 promoted); CRITICAL: earl81's law deliberately writes 64 at ITS site — a size fix must key on the DECLARED-TYPE CONSUMER or it re-breaks the 16 closed cells (g2_enc81.sv is the discriminator: 6 cells stay 64, 19 want 32/8/4); pass earl82 next (earl81 landed: the High_conn bit-select index folds to the INSTANCE'S stored Value — the overridden pass-through, sz 64; completed across a ~2 h Opus outage via two resumes) |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 76 verifier fix-before-landing re-cuts (164 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 76 verifier fix-before-landing re-cuts (165 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

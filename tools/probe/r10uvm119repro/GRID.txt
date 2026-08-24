@@ -1,0 +1,24 @@
+r10uvm119repro/GRID.txt — the arm grid.  Whole-dump diff lines against
+GOLDEN, pristine binary vs patched binary, both views.  The constant 4
+is the 'Restored design' header plus the pre-existing top-level typespec
+ORDER residue; a cell at its arm's floor is BYTE-IDENTICAL on every
+randomize object.  Produced by grid119.sh; every command's rc is in the
+cell's own cmds.txt (0 non-zero over the whole grid).
+
+ARM      VIEW     PRIS    PAT   WHAT
+g119_a   def        56     20   the head's shape: member randomize + with, two receivers (property, local)
+g119_a   elab      148     76   
+g119_b   def        52     52   THE FENCE: member randomize with NO with-block (0/1/2 names, null)
+g119_b   elab      236    236   
+g119_c   def        25     25   THE FENCE: uvm116's landed scope form, std::, a user fn named randomize, a dotted non-randomize call
+g119_c   elab       85     85   
+g119_d   def       137     14   receivers: this. / chained h.q. / identifier list of 1 and 2 / randomize(null) with
+g119_d   elab      215     92   
+g119_e   def       128     20   what the with-block references: local, property, formal, receiver property, EMPTY block, nested constraint
+g119_e   elab      166     58   
+g119_f   def       152      8   eight EXPRESSION POSITIONS: return, !, direct if, while, rvalue, binary operand, ternary operand, $display arg
+g119_f   elab      354     66   
+g119_g   def       144     36   multiple instances and receiver-name variety: 1/2/3 sites per scope, case, length, order
+g119_g   elab      298    190   
+g119_h   def       259     75   boundary surfaces: parens-less+with, indexed receiver, SPACED spelling, chained+identifier list, 3 names, module scope
+g119_h   elab      773    543   

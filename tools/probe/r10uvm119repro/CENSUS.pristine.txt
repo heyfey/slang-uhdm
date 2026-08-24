@@ -1,0 +1,18 @@
+======== SeqDriver.default ========
+-- AGREE=62 DIFFER=25 GOLD-ONLY=7 OURS-ONLY=10
+======== SeqDriver.testflags ========
+-- AGREE=62 DIFFER=25 GOLD-ONLY=7 OURS-ONLY=10
+======== SimpleUVM.default ========
+-- AGREE=38 DIFFER=20 GOLD-ONLY=3 OURS-ONLY=6
+======== SimpleUVM.testflags ========
+-- AGREE=38 DIFFER=20 GOLD-ONLY=3 OURS-ONLY=6
+======== Scoreboard.default ========
+-- AGREE=38 DIFFER=20 GOLD-ONLY=3 OURS-ONLY=6
+======== MiniAmiq.default ========
+-- AGREE=62 DIFFER=28 GOLD-ONLY=7 OURS-ONLY=10
+======== MiniAmiq.testflags ========
+-- AGREE=62 DIFFER=28 GOLD-ONLY=7 OURS-ONLY=10
+======== BuildUVMPkg.default ========
+-- AGREE=28 DIFFER=11 GOLD-ONLY=4 OURS-ONLY=8
+======== BuildUVMPkg.testflags ========
+-- AGREE=28 DIFFER=11 GOLD-ONLY=4 OURS-ONLY=8

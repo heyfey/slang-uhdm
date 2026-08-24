@@ -909,6 +909,97 @@ bool UhdmExporter::scopeRandomizeCall116(const CallExpression& call,
     return methodParensWritten77(nr116, "randomize");
 }
 
+// § memberRandomizeWithIsRecvPath119 — THE FENCE.  The law, the Surelog
+// decode and the golden grid are at the call site (the built-in METHOD arm's
+// hier_path builder); this predicate is the gate alone.
+bool UhdmExporter::memberRandomizeWith119(const CallExpression& call,
+                                          const Expression& expr,
+                                          const Expression& recv,
+                                          std::string_view name,
+                                          const slang::ast::Constraint*& cons) {
+    cons = nullptr;
+    if (!call.isSystemCall())
+        return false;
+    if (call.getSubroutineName() != "randomize")
+        return false;
+    if (name != "randomize")
+        return false;
+    // THE MEMBER FORM ONLY, and the test is POSITIONAL so a macro-remapped
+    // receiver cannot fool it.  `createSystemCall` (slang
+    // CallExpression.cpp:491) pushes the receiver into the argument buffer
+    // ahead of the written arguments, so for `o.randomize(…)` argument 0 IS
+    // the receiver and its range STARTS where the whole call starts.  This is
+    // exactly § scopeRandomizeIsBareCall116's disjunct 2 INVERTED: that law
+    // owns the receiver-less form, this one owns the member form, and the two
+    // predicates cannot both fire on one call.
+    if (recv.sourceRange.start() != expr.sourceRange.start())
+        return false;
+    // `std::randomize(a) with { … }` IS OUT — it is a different Surelog head
+    // (§ scopeRandomizeIsBareCall116's residue R1: golden emits a bare
+    // `ref_obj` named `std`, bound to a PHANTOM net).  It is already excluded
+    // positionally (the call starts at `std`, argument 0 after the `(`), and
+    // the argument test below is the second, independent fence:
+    // `ScopeRandomizeFunction::bindArgument` (slang MiscSystemFuncs.cpp:191)
+    // binds each argument with `Expression::bindLValue`, so every one of them
+    // is an `AssignmentExpression`, while `ClassRandomizeFunction`'s are plain
+    // `NamedValue`s (or the `null` literal).
+    for (size_t a119 = 1; a119 < call.arguments().size(); a119++)
+        if (call.arguments()[a119] &&
+            call.arguments()[a119]->kind == ExpressionKind::Assignment)
+            return false;
+    // THE WRITTEN `with` BLOCK IS THE WHOLE DISCRIMINATOR.  Surelog's ANTLR
+    // grammar only produces a `paRandomize_call` node in front of a
+    // constraint block; without one `o.randomize(x)` takes the ordinary
+    // dotted-call road, whose hier_path keeps the DOTTED name
+    // `o.randomize` — which we already emit and which arm B measures
+    // byte-for-byte on both sides.  slang records the bound block on the
+    // call's `RandomizeCallInfo` (CallExpression.cpp:644), set for exactly
+    // the calls that wrote one.
+    auto* sci119 = std::get_if<CallExpression::SystemCallInfo>(&call.subroutine);
+    if (!sci119)
+        return false;
+    auto* ri119 =
+        std::get_if<CallExpression::RandomizeCallInfo>(&sci119->extraInfo);
+    if (!ri119 || !ri119->inlineConstraints)
+        return false;
+    // The SPAN runs to the constraint block's own `}` and is read off the
+    // block's syntax.  A constraint bound without syntax (none in this corpus)
+    // answers FALSE rather than inventing an end — RESUME §9's refusal rule.
+    if (!ri119->inlineConstraints->syntax)
+        return false;
+    // NO TEXT ANCHOR, AND THAT IS MEASURED RATHER THAN ASSUMED.  Every other
+    // disjunct above is read off slang's BOUND AST, so the predicate already
+    // characterises "Surelog built a `paRandomize_call` for a dotted receiver"
+    // without reading one character of source, and golden's answer is uniform
+    // across every spelling of that shape:
+    //   * parens-FUL   `o.randomize() with { … }`   — arms A, D, E, F, G;
+    //   * parens-LESS  `o.randomize with { … }`     — arm H cell 1, where
+    //     IEEE 1800 A.2.10's optional argument list makes the `with` alone the
+    //     grammar's trigger and golden emits the SAME shape (so this law needs
+    //     no parens probe at all, unlike § scopeRandomizeIsBareCall116's
+    //     disjunct 5, whose parens-less twin golden really does treat
+    //     differently);
+    //   * SPACED       `o . randomize() with { … }` — arm H cell 3, where
+    //     golden applies the law and an `anchorOk77`-style window at
+    //     `recv.end()+1` reads `. random` and would refuse a cell golden gets
+    //     right;
+    //   * MACRO-EXPANDED — the whole corpus population.  `uvm_rand_send`
+    //     (uvm-1.2 macros/uvm_sequence_defines.svh:299) writes
+    //     `!SEQ_OR_ITEM.randomize() with CONSTRAINTS`, and the receiver's
+    //     source range ENDS in the macro-ARGUMENT buffer while the method
+    //     token lives in the DEFINITION buffer.  Arithmetic on that boundary
+    //     is exactly what corrupted our pristine span here (`299:66-778:9`, an
+    //     end 479 lines past the start), so a window built the same way reads
+    //     garbage and refuses.  A first cut of this law carried the anchor and
+    //     measured the cost precisely: BuildUVMPkg (the pp_output, no macros)
+    //     moved and the other four UVM databases did not move AT ALL.
+    // The refusal that IS kept is on the SPAN, which is the only thing here
+    // still derived from source positions — see the `syntax` test above and
+    // the `setLoc` at the call site.
+    cons = ri119->inlineConstraints;
+    return true;
+}
+
 bool UhdmExporter::retNameRecvCollapse69(const Expression& recv,
                                          bool stmtCtx) const {
     if (!stmtCtx || !funcRetSym)
@@ -19665,6 +19756,79 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             withExpr9 = ii75.first;
                             withIterSym75 = ii75.second;
                         }
+                        // § memberRandomizeWithIsRecvPath119 — THE MEMBER FORM
+                        // OF THE RANDOMIZE-WITH CALL, and the whole of this
+                        // pass.  `seq_or_item.randomize() with { … }`
+                        // (uvm-1.2 uvm_sequence_library.svh:299, inside a UVM
+                        // macro expansion) is § scopeRandomizeIsBareCall116's
+                        // residue R0 and the ONE remaining head of nine UVM
+                        // row-modes.
+                        //
+                        // THE DECODE.  Surelog reaches
+                        // `CompileHelper::compileRandomizeCall`
+                        // (CompileStmt.cpp:3153) from TWO places.  uvm116
+                        // decoded the SCOPE arm (CompileExpression.cpp:2179);
+                        // this is the MEMBER arm (CompileExpression.cpp:5643),
+                        // taken from inside the dotted-path builder's
+                        // `while (dotedName)` loop.  Everything this law needs
+                        // falls out of WHICH BRANCH of that loop the written
+                        // surface lands in:
+                        //
+                        //   * `o.randomize(x)` — no constraint block, so the
+                        //     grammar makes NO `paRandomize_call` node.  The
+                        //     method name arrives as a plain `slStringConst`
+                        //     with a `paList_of_arguments` look-ahead, so the
+                        //     loop's FIRST branch runs and appends it to the
+                        //     accumulating name: `the_name.append(".").append(
+                        //     fC->SymName(dotedName))`.  Golden's hier_path is
+                        //     named `o.randomize` and its `method_func_call`
+                        //     carries the span `populateCoreMembers` gives it.
+                        //     WE ALREADY EMIT EXACTLY THAT — arm B measures
+                        //     four spellings (0/1/2 names and `null`) and the
+                        //     only residues are the path END span and a
+                        //     dump-synthesised fullname, neither of them read
+                        //     by any generated Compare.  This law must not
+                        //     touch it, which is what the `inlineConstraints`
+                        //     disjunct of the predicate is for.
+                        //
+                        //   * `o.randomize() with { … }` — the constraint
+                        //     block makes the grammar emit
+                        //     `paMethod_call_body > paBuilt_in_method_call >
+                        //     paRandomize_call`, whose type is NOT
+                        //     `slStringConst`, so the appending branch is
+                        //     SKIPPED ENTIRELY and `the_name` still holds the
+                        //     RECEIVER ALONE when `path->VpiName(the_name)`
+                        //     runs at the bottom of the loop.  That is the
+                        //     whole naming law, and hier_path `VpiName` IS
+                        //     read by Compare (a TEXT law, RESUME §9).
+                        //
+                        // The other three fields follow from
+                        // `compileRandomizeCall` itself, which is nine lines:
+                        // it sets `VpiName("randomize")`, the arguments and
+                        // the `With`, and calls NEITHER `populateCoreMembers`
+                        // NOR `VpiParent` — so golden's `method_func_call` is
+                        // SPAN-LESS (its VpiParent is set by the caller's
+                        // `fcall->VpiParent(path)` tail).  The `With` is
+                        // `compileConstraintBlock`'s four-line BARE
+                        // `constraint`: no name, no span, no
+                        // `Constraint_items`, `VpiParent(pexpr)`.  The
+                        // hier_path's own span comes from the path builder and
+                        // runs THROUGH the constraint block's `}`.
+                        //
+                        // MEASURED UNIFORM over EIGHT expression positions
+                        // (arm F: `return`, under `!`, a DIRECT if-condition,
+                        // `while`, an assignment rvalue, a binary operand, a
+                        // ternary operand, a `$display` argument) — so
+                        // § scopeRandomizeIsBareCall116's residue R2, the
+                        // parented+scoped regime flip that the SCOPE form
+                        // shows in those positions, HAS NO MEMBER-FORM TWIN.
+                        // And measured uniform over receiver spelling, case,
+                        // length, count and order (arm G: one, two and three
+                        // sites per scope).
+                        const slang::ast::Constraint* randWith119 = nullptr;
+                        const bool memberRand119 =
+                            memberRandomizeWith119(call, expr, *recv, name,
+                                                   randWith119);
                         // § thisDeepStepMockupConst84 — SITE 1 of 4, and THE
                         // CORPUS HEAD: a BUILT-IN method whose receiver is a
                         // `this`-rooted member.  `i < this.sequences.size()`
@@ -19825,8 +19989,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // Everything ambiguous reads PARENS-FUL: an empty read,
                         // a buffer end, an unanchored token.
                         auto mStart9 = recv->sourceRange.end() + 1;
+                        // § memberRandomizeWithIsRecvPath119 — the
+                        // parens-LESS test is OFF for the member with-form.
+                        // IEEE 1800 A.2.10 makes the argument list OPTIONAL in
+                        // a `randomize_call`, so `o.randomize with { … }` is
+                        // legal and Surelog's grammar builds the SAME
+                        // `paRandomize_call` for it (the `with` is what the
+                        // rule keys on, not the parens) — golden keeps the
+                        // method_func_call element there, never the
+                        // § parensLessCallIsPathRefObj ref_obj.  Arm H cell
+                        // `parensless_with` measures both spellings on one
+                        // golden.
                         bool parensLess9 =
-                            !withExpr9 &&
+                            !withExpr9 && !memberRand119 &&
                             (rawText(expr.sourceRange) == recvText ||
                              (dots[0] != "this" &&
                               call.arguments().size() == 1 &&
@@ -19857,15 +20032,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             recvTx23 = rb23;
                         }
                         auto* hp = s.MakeHier_path();
-                        std::string dotted =
-                            withExpr9 ? recvTx23 : recvTx23 + "." + name;
+                        // § memberRandomizeWithIsRecvPath119 — THE NAME.  The
+                        // method name is NOT appended, because the branch of
+                        // Surelog's `while (dotedName)` loop that appends it
+                        // (`the_name.append(".").append(fC->SymName(…))`) is
+                        // reached only for a `slStringConst` node and the
+                        // constraint block turns that node into a
+                        // `paMethod_call_body`.  The array-locator `with`
+                        // form reaches the same answer through the same door,
+                        // which is why the two share this expression.
+                        std::string dotted = (withExpr9 || memberRand119)
+                                                 ? recvTx23
+                                                 : recvTx23 + "." + name;
                         hp->VpiName(dotted);
                         hp->VpiFullName(dotted);
                         hp->VpiParent(parent);
                         // slang's call range stops at the `)` of the method;
                         // Surelog's runs through the with-clause's own `)`.
+                        // § memberRandomizeWithIsRecvPath119 — THE SPAN runs
+                        // through the CONSTRAINT BLOCK's own `}`, and it does
+                        // so even when the block itself is DROPPED (the
+                        // `randomize(null)` cell below): the span is the path
+                        // builder's, not `compileRandomizeCall`'s.
                         setLoc(hp,
-                               withExpr9
+                               memberRand119
+                                   ? SourceRange(
+                                         expr.sourceRange.start(),
+                                         randWith119->syntax->sourceRange().end())
+                               : withExpr9
                                    ? SourceRange(expr.sourceRange.start(),
                                                  withExpr9->sourceRange.end() + 1)
                                : parensLess9
@@ -20037,8 +20231,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             r0->VpiName(dn0);
                             // name-only (dump omits) unless the with-clause
                             // form, which scopes it.
-                            r0->VpiFullName(withExpr9 ? joinRef(prefix, dn0)
-                                                      : dn0);
+                            // § memberRandomizeWithIsRecvPath119 — ONLY THE
+                            // LAST receiver element is scoped, and that is
+                            // Surelog's loop structure showing through, not a
+                            // choice: every name but the last is pushed by the
+                            // `slStringConst` branch, which sets
+                            // `ref->VpiFullName(tmpName)` — the BARE name,
+                            // i.e. this emitter's no-fullname idiom — while
+                            // the last is pushed by the trailing `paSelect`
+                            // branch, which sets NO VpiFullName at all and so
+                            // has its scoped one SYNTHESISED by the dump from
+                            // the parent chain (RESUME §9).  Measured on arm D
+                            // cell `chain_recv`: golden prints `(h_d)` bare
+                            // and `(work@outer_d::run_d::q_d)` scoped, in one
+                            // path.  VpiFullName is NOT read by any generated
+                            // Compare, so this half is dump fidelity — which
+                            // is what keeps the census and the whole-dump
+                            // boundary diff honest.
+                            r0->VpiFullName(
+                                (withExpr9 ||
+                                 (memberRand119 && k74 + 1 == dots.size()))
+                                    ? joinRef(prefix, dn0)
+                                    : dn0);
                             r0->VpiParent(hp);
                             setLoc(r0, SourceRange(nmStart0, nmStart0 + dn0.size()));
                             elems->push_back(r0);
@@ -20074,7 +20288,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         mfc->VpiName(name);
                         mfc->VpiParent(hp);
                         auto mStart = recv->sourceRange.end() + 1;
-                        setLoc(mfc, SourceRange(mStart, mStart + name.size()));
+                        // § memberRandomizeWithIsRecvPath119 — THE CALL IS
+                        // SPAN-LESS.  `compileRandomizeCall` sets VpiName, the
+                        // arguments and the With and calls
+                        // `populateCoreMembers` for NONE of them, so golden's
+                        // `method_func_call` carries no file, no line and no
+                        // column at all.  The VpiParent it does carry comes
+                        // from the caller's `fcall->VpiParent(path)` tail,
+                        // which is the line above.  Our pristine span here was
+                        // not merely different but CORRUPT on the corpus head:
+                        // `299:66-778:9`, an end 479 lines past the start,
+                        // because the receiver arrives through a UVM macro
+                        // expansion.
+                        if (!memberRand119)
+                            setLoc(mfc, SourceRange(mStart, mStart + name.size()));
                         UHDM::ref_obj* iterArg9 = nullptr;
                         // § arrayMethodIterArg — the ITERATOR NAME written in
                         // the method's own parens (`q.unique( cb_ ) with (...)`)
@@ -20135,6 +20362,171 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (auto* w9 =
                                     emitExpr(*withExpr9, parent, prefix, netMap))
                                 mfc->With(w9);
+                        }
+                        // § memberRandomizeWithIsRecvPath119 — THE `vpiWith`
+                        // AND THE ARGUMENTS, both of them straight out of
+                        // `compileRandomizeCall`'s nine lines.
+                        //
+                        // § memberRandNullDropsArgsAndWith119 — AND THE ONE
+                        // SURFACE THAT GETS NEITHER.  `compileRandomizeCall`
+                        // reads its own first node twice:
+                        //
+                        //     NodeId With;
+                        //     if (fC->Type(Identifier_list) == paIdentifier_list)
+                        //       With = fC->Sibling(Identifier_list);
+                        //     else if (fC->Type(Identifier_list) == paWITH)
+                        //       With = Identifier_list;
+                        //     NodeId Constraint_block = fC->Sibling(With);
+                        //
+                        // so an argument list that is NEITHER an identifier
+                        // list NOR an immediate `with` leaves `With` INVALID,
+                        // `Constraint_block` invalid, and the constraint is
+                        // never built — and the `Tf_call_args` guard above it
+                        // drops the arguments for the same reason.  The only
+                        // such surface SystemVerilog allows here is
+                        // `o.randomize(null) with { … }`, and golden emits it
+                        // with NO vpiArgument and NO vpiWith while KEEPING the
+                        // receiver-only name and the through-block span —
+                        // because that span belongs to the path builder, not
+                        // to `compileRandomizeCall`.  Measured on arm D cell
+                        // `null_with`.
+                        if (memberRand119) {
+                            bool ids119 = call.arguments().size() > 1;
+                            for (size_t k119 = 1;
+                                 k119 < call.arguments().size(); k119++)
+                                if (!call.arguments()[k119] ||
+                                    call.arguments()[k119]->kind !=
+                                        ExpressionKind::NamedValue)
+                                    ids119 = false;
+                            const bool drop119 =
+                                call.arguments().size() > 1 && !ids119;
+                            if (!drop119) {
+                                // The BARE constraint: no name, no span, no
+                                // Constraint_items — `constraint::Compare`
+                                // reads VpiName, VpiVirtual, VpiAutomatic,
+                                // VpiAllocScheme, VpiAccessType, Attributes,
+                                // VpiIsConstraintEnabled and Constraint_items,
+                                // every one of them default on golden's
+                                // object.  Its VpiParent is `pexpr`, which at
+                                // this site is the hier_path's OWN parent —
+                                // measured identical in all eight positions of
+                                // arm F (operation / begin / return_stmt).
+                                auto* cons119 = s.MakeConstraint();
+                                cons119->VpiParent(parent);
+                                mfc->With(cons119);
+                            }
+                            auto* ra119 = s.MakeAnyVec();
+                            if (ids119) {
+                                // § randWithIdentListIsSuffixPaths116 — THE
+                                // MEMBER FORM'S HALF OF THE SAME QUIRK.
+                                // `compileRandomizeCall` hands the whole
+                                // `paIdentifier_list` to
+                                // `compileTfCallArguments`, whose per-SIBLING
+                                // walk compiles each name as if the names that
+                                // FOLLOW it were its dotted trail.  For n
+                                // written names, argument k is
+                                //   k <  n-1 : a hier_path named
+                                //              `name[k].….name[n-1]`, spanned
+                                //              over name[k] ALONE, holding one
+                                //              ref_obj per name from k to n-1,
+                                //              of which ONLY THE LAST carries
+                                //              the path's dotted name as its
+                                //              VpiFullName;
+                                //   k == n-1 : a plain ref_obj.
+                                // Decoded by uvm116 on the SCOPE form and
+                                // re-measured here on the MEMBER form, arm D
+                                // cell `two_names`, where golden's first
+                                // argument is `hier_path (d_alpha.d_beta)`
+                                // spanned 30:24-30:31 (over `d_alpha` alone).
+                                // The written names start at argument 1 — the
+                                // receiver is argument 0 — which is the ONLY
+                                // difference from the scope-form loop.
+                                const size_t n119 = call.arguments().size();
+                                std::vector<std::string> nm119;
+                                for (size_t k119 = 1; k119 < n119; k119++)
+                                    nm119.push_back(std::string(
+                                        call.arguments()[k119]
+                                            ->as<NamedValueExpression>()
+                                            .symbol.name));
+                                for (size_t k119 = 1; k119 + 1 < n119; k119++) {
+                                    std::string dot119;
+                                    for (size_t j119 = k119; j119 < n119;
+                                         j119++) {
+                                        if (j119 > k119)
+                                            dot119 += ".";
+                                        dot119 += nm119[j119 - 1];
+                                    }
+                                    auto* hp119 = s.MakeHier_path();
+                                    hp119->VpiName(dot119);
+                                    hp119->VpiFullName(dot119);
+                                    hp119->VpiParent(mfc);
+                                    setLoc(hp119,
+                                           call.arguments()[k119]->sourceRange);
+                                    auto* pe119 = s.MakeAnyVec();
+                                    for (size_t j119 = k119; j119 < n119;
+                                         j119++) {
+                                        auto* re119 = s.MakeRef_obj();
+                                        re119->VpiName(nm119[j119 - 1]);
+                                        // Only the TRAILING element is named
+                                        // with the whole path (Surelog's
+                                        // `if (!tmpName.empty())` tail at
+                                        // CompileExpression.cpp:5697); the
+                                        // earlier ones stay bare.
+                                        re119->VpiFullName(j119 + 1 == n119
+                                                               ? dot119
+                                                               : nm119[j119 - 1]);
+                                        re119->VpiParent(hp119);
+                                        setLoc(re119,
+                                               call.arguments()[j119]
+                                                   ->sourceRange);
+                                        pe119->push_back(re119);
+                                    }
+                                    hp119->Path_elems(pe119);
+                                    ra119->push_back(hp119);
+                                }
+                                // § randWithArgNameIsBare116 — the trailing
+                                // argument, and every argument of a
+                                // single-name list, is written BARE by
+                                // Surelog: `compileTfCallArguments` is called
+                                // with a NULL instance, so nothing scopes it.
+                                // WHERE THE MEMBER FORM PARTS FROM THE SCOPE
+                                // FORM, and it is the DUMP that parts, not the
+                                // judge: the scope form's `method_func_call`
+                                // has NO VpiParent (uvm116's decode), so the
+                                // dump has no chain to synthesise from and
+                                // prints the bare name — golden
+                                // `ref_obj: (l_kind)`.  The member form's call
+                                // IS parented (at the hier_path), so the same
+                                // unset field is SYNTHESISED through the
+                                // receiver-only path name — golden
+                                // `work@outer_d::run_d::p_d::d_alpha`, arm D
+                                // cell `one_name`.  We cannot leave the field
+                                // unset (emitExpr always writes one), so we
+                                // write the text that synthesis produces:
+                                // scope, then the PATH NAME, then the
+                                // argument.  VpiFullName is read by no
+                                // generated Compare (RESUME §9), so this is
+                                // dump fidelity — which is exactly what keeps
+                                // the census and the boundary diff honest.
+                                if (auto* la119 =
+                                        emitExpr(*call.arguments()[n119 - 1],
+                                                 mfc, prefix, netMap)) {
+                                    if (la119->UhdmType() == UHDM::uhdmref_obj)
+                                        ((UHDM::ref_obj*)la119)
+                                            ->VpiFullName(joinRef(
+                                                joinRef(prefix, dotted),
+                                                std::string(
+                                                    ((UHDM::ref_obj*)la119)
+                                                        ->VpiName())));
+                                    ra119->push_back(la119);
+                                }
+                            }
+                            if (!ra119->empty())
+                                mfc->Tf_call_args(ra119);
+                            elems->push_back(mfc);
+                            hp->Path_elems(elems);
+                            hpNameBareIdxFold69(hp);
+                            return hp;
                         }
                         // Extra method args (past the receiver); literal args
                         // parent at the method call.

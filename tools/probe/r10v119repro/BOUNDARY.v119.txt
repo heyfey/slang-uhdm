@@ -1,0 +1,65 @@
+r10v119repro/BOUNDARY.v119.txt — the VERIFIER's wide boundary.
+
+ROOT = a COPY of the WHOLE tools/probe tree (no path filter), taken from
+the patched worktree, so it carries every earlier pass's arms AND this
+verifier's own.  bound119.sh (the pass's driver) with the verifier's two
+frozen binaries; arms on fd 3, children </dev/null, PROCESSED asserted,
+scratch keyed on the RELATIVE path, rc recorded per cell.
+
+FENCE GUARD exercised BOTH ways by the verifier:
+  fenced119.sh '<a fenced name>.sv'      -> rc 0  (skipped)
+  fenced119.sh './r10uvm119repro/g119_a.sv' -> rc 1  (dispatched)
+
+FOUR RUNS (the pass ran three):
+  MODE=file VIEW=def   PROCESSED=3694 LISTED=3694 FENCED=0 DIFFER=19 REJECT 139/139
+  MODE=file VIEW=elab  PROCESSED=3694 LISTED=3694 FENCED=0 DIFFER=19 REJECT 153/153
+  MODE=dir  VIEW=def   PROCESSED=1543 LISTED=1543 FENCED=0 DIFFER=10 REJECT 124/124
+  MODE=dir  VIEW=elab  PROCESSED=1543 LISTED=1543 FENCED=0 DIFFER=10 REJECT 130/130
+Rejects are SYMMETRIC in all four runs (no arm newly accepted or newly
+rejected).  The ten elab-view segfaults are five PAIRS: the same arm
+crashes on BOTH binaries.  PROCESSED == LISTED everywhere.
+
+FILE MODE, 19 differing arms, all attributed:
+  8  ./r10v119repro/v119_{a,a2,b,c,d,e,g,h}.sv   the verifier's own arms
+  6  ./r10uvm119repro/g119_{a,d,e,f,g,h}.sv      the pass's own arms
+     g119_b.sv and g119_c.sv are BYTE-IDENTICAL between the two binaries in
+     BOTH views, and so is ./r10v119repro/v119_f.sv — THE FENCE SEEN, on the
+     pass's controls and on an independent one.
+  3  member randomize-WITH cells owned by this law in earlier passes' dirs,
+     each re-measured against a REBUILT golden and each moving TOWARD it:
+       r10uvm116repro/g116_c.sv     def 140 -> 122   elab 236 -> 200
+       r10uvm77repro/v77x1_randwith.sv def 94 -> 58  elab 156 -> 84
+       r10v116repro/v116_p.sv       def 145 -> 121   elab 261 -> 213
+     LOST-CORRECT = 0 on all three (no golden-matching line was lost).
+  1  r10v116repro/v116_v.sv — a PARENTHESISED receiver.  surelog rc=3, NO
+     database in either view, so there is no golden for the cell to be right
+     or wrong against; refused before the pass and refused after it.
+  1  r10buvm22repro/g22.sv — an ADDRESS-VALUED constant (22429113 ->
+     22433209, one page apart), deterministic per binary, perturbed by any
+     change that shifts the image.  Contains no randomize.  uvm116's R5.
+
+DIR MODE, 10 differing directories, split by the ORDER-BLIND test:
+  order-blind != 0 (a real object changed) — all randomize-bearing or the
+  address artifact, all already attributed in file mode:
+    r10uvm119repro (703/929)  r10uvm116repro (18/36)  r10uvm77repro (36/72)
+    r10v116repro   (42/66)    r10buvm22repro (12/12)
+  order-blind == 0 (NO object changed; only the top-level task/func
+  emission ORDER flipped):
+    r10uvm117repro  r10uvm75repro  r10uvm76repro  r10uvm88repro
+    r10v109repro    r10v117repro
+
+PRISTINE-vs-PRISTINE CONTROL (the SAME binary against itself, no code
+change at all), dir mode, both views:
+  DIFFER=5 in each: r10uvm117repro r10uvm75repro r10uvm76repro
+                    r10v109repro   r10v117repro
+So five of the six order-only directories flip with NO patch present at
+all, and the sixth (r10uvm88repro, 4 raw lines, order-blind 0, no
+'randomize' anywhere in it) is the same family — RESUME §9's documented
+emitter nondeterminism, not this patch.
+
+EVERY earlier-pass arm the brief names is in this tree and is BYTE-IDENTICAL
+between the two binaries in both file-mode views: r10uvm107repro (3),
+r10v107repro (12), r10uvm105repro (3), r10uvm97repro (5), r10uvm98repro (6),
+r10buvm23repro (1), r10uvm92repro (8), r10uvm94repro (4), r10uvm95repro (6),
+r10uvm89repro (2), r10buvm24repro (1), r10uvm99repro (10), r10uvm103repro (3),
+r10buvm18repro (1), r10buvm20repro (1), r10uvm76repro (12, file mode).

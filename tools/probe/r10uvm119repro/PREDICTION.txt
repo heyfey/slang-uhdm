@@ -1,0 +1,78 @@
+== BuildUVMPkg.default : PREDICTED MOVERS = 8  {'NAME/SPAN/WITH': 8}
+   uvm_pkg::uvm_sequence_library::execute@56967:12                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56967:12                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56967:12                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56967:12                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56980:14                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56980:14                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56980:14                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56980:14                 golden=seq_or_item            ours=seq_or_item.randomize
+== BuildUVMPkg.testflags : PREDICTED MOVERS = 8  {'NAME/SPAN/WITH': 8}
+   uvm_pkg::uvm_sequence_library::execute@56967:12                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56967:12                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56967:12                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56967:12                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56980:14                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56980:14                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56980:14                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@56980:14                 golden=seq_or_item            ours=seq_or_item.randomize
+== MiniAmiq.default : PREDICTED MOVERS = 9  {'NAME/SPAN/WITH': 9}
+   svaunit_pkg::uvm_sequence_library::execute@299:54               golden=seq_or_item            ours=seq_or_item.randomize
+   svaunit_pkg::uvm_sequence_library::execute@299:54               golden=seq_or_item            ours=seq_or_item.randomize
+   svaunit_pkg::uvm_sequence_library::execute@299:54               golden=seq_or_item            ours=seq_or_item.randomize
+   svaunit_pkg::uvm_sequence_library::execute@299:54               golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_simple_sequence::body@204:54                       golden=item                   ours=item.randomize
+== MiniAmiq.testflags : PREDICTED MOVERS = 9  {'NAME/SPAN/WITH': 9}
+   svaunit_pkg::uvm_sequence_library::execute@299:54               golden=seq_or_item            ours=seq_or_item.randomize
+   svaunit_pkg::uvm_sequence_library::execute@299:54               golden=seq_or_item            ours=seq_or_item.randomize
+   svaunit_pkg::uvm_sequence_library::execute@299:54               golden=seq_or_item            ours=seq_or_item.randomize
+   svaunit_pkg::uvm_sequence_library::execute@299:54               golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_simple_sequence::body@204:54                       golden=item                   ours=item.randomize
+== Scoreboard.default : PREDICTED MOVERS = 5  {'NAME/SPAN/WITH': 5}
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_simple_sequence::body@204:54                       golden=item                   ours=item.randomize
+== SeqDriver.default : PREDICTED MOVERS = 9  {'NAME/SPAN/WITH': 9}
+   adpcm_pkg::uvm_sequence_library::execute@299:54                 golden=seq_or_item            ours=seq_or_item.randomize
+   adpcm_pkg::uvm_sequence_library::execute@299:54                 golden=seq_or_item            ours=seq_or_item.randomize
+   adpcm_pkg::uvm_sequence_library::execute@299:54                 golden=seq_or_item            ours=seq_or_item.randomize
+   adpcm_pkg::uvm_sequence_library::execute@299:54                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_simple_sequence::body@204:54                       golden=item                   ours=item.randomize
+== SeqDriver.testflags : PREDICTED MOVERS = 9  {'NAME/SPAN/WITH': 9}
+   adpcm_pkg::uvm_sequence_library::execute@299:54                 golden=seq_or_item            ours=seq_or_item.randomize
+   adpcm_pkg::uvm_sequence_library::execute@299:54                 golden=seq_or_item            ours=seq_or_item.randomize
+   adpcm_pkg::uvm_sequence_library::execute@299:54                 golden=seq_or_item            ours=seq_or_item.randomize
+   adpcm_pkg::uvm_sequence_library::execute@299:54                 golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_simple_sequence::body@204:54                       golden=item                   ours=item.randomize
+== SimpleUVM.default : PREDICTED MOVERS = 5  {'NAME/SPAN/WITH': 5}
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_simple_sequence::body@204:54                       golden=item                   ours=item.randomize
+== SimpleUVM.testflags : PREDICTED MOVERS = 5  {'NAME/SPAN/WITH': 5}
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_sequence_library::execute@299:54                   golden=seq_or_item            ours=seq_or_item.randomize
+   uvm_pkg::uvm_simple_sequence::body@204:54                       golden=item                   ours=item.randomize
+
+TOTAL PREDICTED MOVING PATHS = 67 over 9 cells

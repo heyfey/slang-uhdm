@@ -1,0 +1,30 @@
+r10uvm119repro/CENSUS.totals.txt — the randomize census over the NINE UVM
+cells, both binaries.  AGREE/DIFFER/GOLD-ONLY/OURS-ONLY from join119.py.
+
+CELL                     RUN         AGREE  DIFFER  GOLD-ONLY  OURS-ONLY
+SeqDriver.default        pris           62      25          7         10
+SeqDriver.default        pat            68      23          4          2
+SeqDriver.testflags      pris           62      25          7         10
+SeqDriver.testflags      pat            68      23          4          2
+SimpleUVM.default        pris           38      20          3          6
+SimpleUVM.default        pat            44      18          0          0
+SimpleUVM.testflags      pris           38      20          3          6
+SimpleUVM.testflags      pat            44      18          0          0
+Scoreboard.default       pris           38      20          3          6
+Scoreboard.default       pat            44      18          0          0
+MiniAmiq.default         pris           62      28          7         10
+MiniAmiq.default         pat            68      26          4          2
+MiniAmiq.testflags       pris           62      28          7         10
+MiniAmiq.testflags       pat            68      26          4          2
+BuildUVMPkg.default      pris           28      11          4          8
+BuildUVMPkg.default      pat            36       9          0          0
+BuildUVMPkg.testflags    pris           28      11          4          8
+BuildUVMPkg.testflags    pat            36       9          0          0
+
+CONSTRAINT POPULATION (the objects this pass MINTS), golden vs ours:
+CELL                       GOLDEN   PRISTINE   PATCHED
+SeqDriver.default               8          3         8
+SimpleUVM.default               6          3         6
+Scoreboard.default              6          3         6
+MiniAmiq.default                8          3         8
+BuildUVMPkg.default             4          0         4
