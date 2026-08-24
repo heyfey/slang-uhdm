@@ -1,0 +1,68 @@
+r10earl81 — THE ENCODING GRID (g2_enc81.sv), golden vs pristine vs patched, at
+the SAME position (an ELAB port High_conn bit_select INDEX).  Only what the
+index NAMES changes.  MEASUREMENT ONLY.
+
+25 cells.  `+TS` = golden stamps a `ref_typespec` on the folded constant.
+
+cell  what the index names                GOLDEN            PRISTINE  PATCHED           verdict
+----  ----------------------------------  ----------------  --------  ----------------  -------
+uD    ovr with a BARE DECIMAL   .DBARE(2) UINT:2  sz64 ct9  ref       UINT:2  sz64 ct9  FOLDED ==GOLDEN
+uP    ovr PARENTHESISED bare   .DPAR((2)) UINT:2  sz64 ct9  ref       UINT:2  sz64 ct9  FOLDED ==GOLDEN
+uW    ovr bare 20 into `bit [3:0]` formal UINT:20 sz64 ct9  ref       UINT:20 sz64 ct9  FOLDED ==GOLDEN
+uX    ovr bare 5  into `bit [3:0]` formal UINT:5  sz64 ct9  ref       UINT:5  sz64 ct9  FOLDED ==GOLDEN
+uY    ovr bare 9  into an UNTYPED formal  UINT:9  sz64 ct9  ref       UINT:9  sz64 ct9  FOLDED ==GOLDEN
+uFb   the same read in a SYSTEM call arg  UINT:2  sz64 ct9  ref       UINT:2  sz64 ct9  FOLDED ==GOLDEN
+uFa   the same read in a USER call arg    ref DBARE         ref       ref DBARE         refused ==GOLDEN
+uE    ovr with an EXPRESSION    .DEXPR(1+1) UINT:2 sz64 ct9 ref       ref DEXPR         refused (still-wrong)
+uR    localparam DERIVED from an ovr param UINT:3 sz32 ct9  ref       ref LPE           refused (still-wrong)
+uH    ovr with 4'h5                       HEX:5   sz4  ct5  ref       ref BHEX          refused (still-wrong)
+uB    ovr with 4'b0110                    BIN:0110 sz4 ct3  ref       ref BBIN          refused (still-wrong)
+uO    ovr with 8'o7                       UINT:7  sz8  ct9  ref       ref BOCT          refused (still-wrong)
+uC    ovr with 8'd6                       INT:6   sz8  ct7  ref       ref BDEC          refused (still-wrong)
+uN    NOT ovr, `int unsigned`             UINT:7  sz32 ct9  ref       ref NOV32         refused (still-wrong)
+uG    NOT ovr, `bit [3:0]` = 4'h3         HEX:3   sz4  ct5  ref       ref NOVH          refused (still-wrong)
+uU    NOT ovr, UNTYPED default            UINT:5  sz32 ct9  ref       ref NOVU          refused (still-wrong)
+uS    NOT ovr, `int` (SIGNED)             UINT:4  sz32 ct9 +TS ref    ref NOVI          refused (still-wrong)
+uZa   NOT ovr, `integer` (SIGNED)         UINT:6  sz32 ct9  ref       ref NOVG          refused (still-wrong)
+uZb   NOT ovr, `byte`                     UINT:3  sz8  ct9  ref       ref NOVB          refused (still-wrong)
+uZc   NOT ovr, `signed [7:0]`             INT:3   sz8  ct7 +TS ref    ref NOVSB         refused (still-wrong)
+uZd   NOT ovr, `logic [7:0]`              INT:2   sz8  ct7  ref       ref NOVLG         refused (still-wrong)
+uL    module localparam `int unsigned`    UINT:6  sz32 ct9  ref       ref LPI           refused (still-wrong)
+uM    module localparam `bit [3:0]`       HEX:2   sz4  ct5  ref       ref LPB           refused (still-wrong)
+uT    module localparam UNTYPED           UINT:3  sz32 ct9  ref       ref LPU           refused (still-wrong)
+uZe   module localparam `int` (SIGNED)    UINT:7  sz32 ct9 +TS ref    ref LPS           refused (still-wrong)
+
+WHAT THE GRID PROVES
+  * SIX cells fold and ALL SIX land on golden EXACTLY, fields included.
+  * NINETEEN cells are refused and NOT ONE of them moved (MOVED-WRONG 0).
+  * uFa IS THE FENCE'S CONVICTION, not its excuse.  In a USER call's argument
+    GOLDEN ITSELF KEEPS THE `ref_obj` (`compileTfCallArguments` compiles each
+    argument with `pexpr = call`, and the identifier arm under a non-null
+    `pexpr` binds through `bindVariable` and never reaches the `getValue`
+    substitution).  Folding there would have been a MOVED-WRONG.  uFb is the
+    SYSTEM-call half of the same split (§ genCaSysCallArgBinds22), and it DOES
+    fold — which is why the gate tests `callArgDepth - sysCallArgDepth22`.
+  * THE WIDTH IS THE WHOLE ENCODING STORY.  Every folded cell is size 64 — the
+    raw unsized `Value` word — and every REFUSED cell golden renders at some
+    OTHER width (32 for a declared `int`, 4/8 for a based literal or a narrow
+    declared type).  A single "fold the parameter" rule without the
+    overridden-bare-decimal fence would write 64 where golden writes 32 on 19
+    of these 25 cells.
+  * uW is the UNMASKED control: a bare decimal `20` bound to a `bit [3:0]`
+    formal is golden `UINT:20` size 64, NOT the masked 4 the formal's type would
+    give.  `collectParams_` stores `fromVpiValue(VpiValue, VpiSize)` with no
+    `adjustSize` anywhere on that path.
+  * `+TS` lands on exactly the SIGNED-`int_typespec` sub-case (uS `parameter
+    int`, uZc `parameter signed [7:0]`, uZe `localparam int`) and on no other.
+    That is a typespec-PRESENCE rule this pass MEASURED and deliberately did not
+    take — R2 in PREDICT_R0.txt.
+
+DIGIT NORMALISATION — measured separately, on g3_norm81.sv, because the producer
+reads the actual's RAW TEXT:
+  .Z(007)  golden UINT:7  sz64 ct9  dec `7`    (leading zeros stripped)
+  .U(2_0)  golden UINT:20 sz64 ct9  dec `20`   (underscore dropped)
+  patched reproduces BOTH exactly; pristine kept a `ref_obj` for each.
+  The gate normalises the same way and then requires the re-evaluated value to
+  render back to those very digits — which also refuses an unsized decimal too
+  wide for slang's 32-bit literal type, whose Value Surelog would carry at a
+  width this model does not name.

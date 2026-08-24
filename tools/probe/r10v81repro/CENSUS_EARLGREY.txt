@@ -1,0 +1,37 @@
+r10v81 — THE INDEPENDENT EARLGREY CENSUS (my own binaries, my own sweeps).
+Instrument: vall81.cpp — a WHOLE-DATABASE identity census read straight from the
+.uhdm (Earlgrey's uhdm-dump is >1 GB), keyed on the VpiParent chain (kinds +
+names, NO SPAN) with a payload carrying only fields the generated Compare reads.
+Scored by vscore81.py as SETS per key (multiset multiplicity reported separately
+below, because our elaborated view carries a different number of COPIES of some
+objects than golden does and that is invisible to the judge — proved).
+
+WHOLE DATABASE, golden vs pristine vs patched
+  default    TO-GOLDEN 16   AWAY-GOLDEN 0   MOVED-WRONG 0   (STILL-WRONG 22028)
+  testflags  TO-GOLDEN 16   AWAY-GOLDEN 0   MOVED-WRONG 0   (STILL-WRONG 22495)
+SELECT-SLOT census (selcen81), same three databases
+  default    TO-GOLDEN 16   AWAY-GOLDEN 0   MOVED-WRONG 0
+  testflags  TO-GOLDEN 16   AWAY-GOLDEN 0   MOVED-WRONG 0
+
+THE 16 KEYS ARE 8 SOCKET INSTANCES x 2 PORTS, EIGHT DIFFERENT OVERRIDE VALUES:
+  u_flash_ctrl.u_reg.u_socket    N=3     u_hmac.u_reg.u_socket        N=2
+  u_spi_device.u_reg.u_socket    N=2     u_usbdev.u_reg.u_socket      N=2
+  u_xbar_main.u_s1n_16           N=4     u_xbar_main.u_s1n_21         N=13
+  u_xbar_main.u_s1n_32           N=12    u_xbar_peri.u_s1n_9          N=8
+each landing on golden's `constant ct=9 sz=64 UINT:<v>` with NO typespec.
+
+THE FAMILY IS CLOSED, MEASURED ON THE PATCHED DATABASES:
+  port-High_conn bit-select indices we still leave as a ref_obj: 300 -> 268
+  of the 268, in an ELABORATED (non-`ref_module`) chain:            4
+  of those 4, naming a PARAMETER:                                   0   <- closed
+  (the 264 DEF-listing rows are fence (a): golden keeps the ref there and so do
+   we, 4 rows for tlul_socket_1n/err_resp unchanged on both sides; the 4
+   elaborated ones name a logic_net / logic_var)
+
+MULTIPLICITY, the one structural side effect, measured and shown NOT judge-visible
+  Earlgrey default    golden 2 copies / pristine 2 / patched 2
+  Earlgrey testflags  golden 3 copies / pristine 2 / patched 3   <- toward golden
+  synthetic arms      golden 2        / pristine 2 / patched 3   <- away, but the
+    OFFICIAL uhdm-cmp on g3_norm81 is byte-identical before and after (same head,
+    2286 lines both), because no generated Compare reads VpiParent or counts the
+    number of parents an object has.

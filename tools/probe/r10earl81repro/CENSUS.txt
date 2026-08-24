@@ -1,0 +1,102 @@
+r10earl81 — THE CENSUS.  Every port-actual (High_conn) SELECT slot across both
+Earlgrey databases x both modes and both corpora, read STRAIGHT FROM THE .uhdm
+(selcen81.cpp; Earlgrey's uhdm-dump is >1 GB and was NEVER produced — the
+earl61-67 direct-reader rule).  MEASUREMENT ONLY; the official uhdm-cmp is the
+sole judge.  Every scanner READS databases and DISPATCHES NOTHING, so no test —
+fenced or otherwise — is run by any of them.  FENCED= lists only.
+
+KEY = VpiParent chain (kinds + names) + select kind + slot + base name, NO SPAN
+(our rvalue-select spans differ from golden's by a landed law; keying on them
+would manufacture phantom AWAY cells).  Rows join as MULTISETS, never a
+last-writer dict.  Payload carries only fields the generated Compare reads.
+
+========================================================================
+1. THE TARGET SHAPE, CORPUS-WIDE  (fencescan81.sh + hcfam81.py)
+========================================================================
+"port-High_conn bit_select INDEX, golden a constant, ours a ref_obj":
+
+  surelog,    956 databases:  present in EXACTLY TWO
+      default/Earlgrey_0_1-71da2fd7      64 diff row-SIDES (32 golden + 32 ours)
+      testflags/Earlgrey_0_1-71da2fd7    80 diff row-SIDES (32 golden + 48 ours)
+    the other 954 databases have ZERO.
+  uhdm2rtlil, 1358 databases:  ZERO.
+
+  The row-SIDES vs CELLS distinction matters and is the reason the two numbers
+  differ per mode: 16 KEYS carry the family in both modes; the DEFAULT view
+  holds 2 row-instances per key on both sides (32/32), the TESTFLAGS view holds
+  3 golden constants per key against 2 of our ref_objs (32 golden objects vs 48
+  after the fold), because the census listener dedups by POINTER and our
+  pristine emitter SHARED one ref_obj across two of the three sites while
+  golden — and a freshly-made constant — is three distinct objects.
+
+2. THE SHAPE THE GATE COULD FIRE ON, INCLUDING WHERE GOLDEN ALREADY AGREES
+   (oursshape81.sh — earl66's lesson: a census keyed on the shape you intend to
+   CHANGE is blind to the rows you would change by ACCIDENT)
+========================================================================
+  surelog     OUR_REF_IDX_CELLS 612 / 89,233 High_conn bitsel indices, 6 DBs
+  uhdm2rtlil  OUR_REF_IDX_CELLS  28 /  1,280                          , 6 DBs
+
+  Outside Earlgrey the index NEVER names a parameter — checked cell by cell:
+    surelog     StructArrayNet    4  `sel`  -> logic_net / int_var (a VARIABLE)
+                GenScopeFullName  2  `i`    -> a GENVAR
+    uhdm2rtlil  genscope_cells   10  `i`    -> a GENVAR
+                NestedSelectOnVarInGenscope       2  `j` -> a GENVAR
+                NestedSelectOnInputPortInGenscope 2  `j` -> a GENVAR
+  and every one of them sits under a `ref_module(...)` DEF LISTING chain, so
+  they are refused TWICE OVER: by the SymbolKind::Parameter test and by the
+  elaborated-view fence (a).
+
+3. THE REFERENT x SLOT x HOME GRID  (g1_conn81.sv, golden, ELAB High_conn)
+========================================================================
+  Folds (golden a constant, size 64, and we now match):
+    an OVERRIDDEN module parameter, in the MODULE BODY          (uA)
+    the same, inside a gen-FOR scope                            (uGb)
+    the same, inside a gen-IF scope                             (uIf)
+  Keeps the ref / does NOT take this arm:
+    a NON-overridden module parameter        golden size 32     (uB)
+    a module localparam                      golden size 32     (uC)
+    a package parameter / localparam         already folded by  (uD, uE)
+                                             § selFold9 — size 32
+    an EXPRESSION over the parameter                            (uF)
+    a based-hex OVERRIDE actual              golden HEX sz 4    (uG)
+  SLOT controls, 0 moved: part-select LEFT/RIGHT bounds, indexed-part-select
+    BASE and WIDTH (uI, uJ, uK, uL) — § genScopeConnPsDirectBoundKeepsRef71's
+    population is untouched.
+  HOME controls, 0 moved: module-body cont_assign, procedural always_comb,
+    param-init (the body-position twins) — § genLpBitSelIdxOneHopFold67 and the
+    earl72 cont_assign family are untouched.
+
+4. THE 64-vs-32 SPLIT IS THE LAW'S CORE, and golden states it
+========================================================================
+  OVERRIDDEN at the instantiation  -> the stored Value keeps the ACTUAL's own
+      encoding AND WIDTH; a bare decimal is Surelog's unsized 64.
+  NOT overridden                   -> `adjustSize` runs BEFORE the capture, so
+      the Value already carries the DECLARED type's width (32 for `int`).
+  Golden's own `param_assign` for the head's N in the head's instance is
+  `UINT:2 size 32`, so COPYING THE param_assign WOULD BE A NEW WRONG ANSWER AT
+  EXACTLY THE HEAD.  The fold reads the instantiation's actual, not the
+  parameter's own constant.
+
+5. PER-INSTANCE PROOF (the strongest single result)
+========================================================================
+  The 16 Earlgrey keys are 8 socket instances x 2 ports, and the 8 instances
+  carry EIGHT DIFFERENT override values, each landing on golden exactly:
+    u_flash_ctrl...u_socket.err_resp        N=3
+    u_hmac...u_socket.err_resp             N=2
+    u_spi_device...u_socket.err_resp       N=2   <- THE HEAD
+    u_sbdev...u_socket.err_resp            N=2
+    u_xbar_main.u_s1n_16.err_resp          N=4
+    u_xbar_main.u_s1n_21.err_resp          N=13
+    u_xbar_main.u_s1n_32.err_resp          N=12
+    u_xbar_peri.u_s1n_9.err_resp           N=8
+  A hardcode or a shared-Value bug could not produce 2,2,2,3,4,8,12,13.
+
+6. SCORES  (score81.py, multiset 3-way, golden / pristine / patched)
+========================================================================
+  Earlgrey default   port High_conn only : TO-GOLDEN 32 AWAY 0 MOVED-WRONG 0
+  Earlgrey testflags port High_conn only : TO-GOLDEN 48 AWAY 0 MOVED-WRONG 0
+  Earlgrey default   WHOLE DATABASE      : TO-GOLDEN 32 AWAY 0 MOVED-WRONG 0
+  Earlgrey testflags WHOLE DATABASE      : TO-GOLDEN 48 AWAY 0 MOVED-WRONG 0
+  and the family is CLOSED: remaining target-shape cells 0 in BOTH modes
+  (pristine 32 in both).  The 2 DEF-listing keys (`ref_module(err_resp)`, 4 row
+  instances) keep the ref_obj on BOTH sides, golden included — fence (a).

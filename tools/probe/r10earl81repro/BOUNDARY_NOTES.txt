@@ -1,0 +1,111 @@
+r10earl81 — THE TWO BOUNDARY WALKS, and EVERY mover PROVED (not asserted).
+
+Both walks compare the PATCHED binary against the PRISTINE one (never against
+golden), both views, over tools/probe; the list is read on fd 3, children run
+`</dev/null`, and PROCESSED is asserted against the list length.
+  pristine  /tmp/r10earl81_bin/pris      md5 b815e9f51e1d2009ab5307f874dde17a
+  patched   /tmp/r10earl81_bin/patched   md5 a2f44649f4e3c5ef29fde2cfc2566463
+
+========================================================================
+WIDE — every .sv at ANY depth, ONE FILE PER COMPILATION UNIT
+========================================================================
+  PROCESSED=3594  (LISTED=3594)  identical=6888  DIFFERING=8  no_output=292
+
+  The 8 are FOUR FILES x TWO VIEWS, all four accounted for:
+    r10earl81repro/g1_conn81.sv   THIS PASS'S POSITIVE CONTROLS — they MUST
+    r10earl81repro/g2_enc81.sv    move, and that they do is the proof the walk
+    r10earl81repro/g3_norm81.sv   can see a moved cell at all.
+    r10buvm22repro/g22.sv         BINARY LAYOUT, NOT THIS LAW — proved below.
+
+  BOUNDARY_WIDE.signal: 4 `rc=139` lines over 2 sites, and EVERY ONE appears on
+  BOTH sides (A=patched and B=pristine) — pre-existing segfaults.
+
+========================================================================
+PER-DIRECTORY — every directory holding .sv, all its .sv as ONE unit
+========================================================================
+  PROCESSED=1530  (LISTED=1530)  identical=2791  DIFFERING=13  no_output=256
+
+  SEVEN DIRECTORIES are involved; 13 rather than 14 cells because
+  `r10uvm117repro` elab DIFFERED IN ONE WALK AND AGREED IN THE NEXT, with both
+  binaries unchanged and frozen at 555 between the two runs.  THAT FLIP IS
+  ITSELF THE NONDETERMINISM PROOF, observed at walk level rather than inferred:
+  a cell that changes verdict while nothing about either binary changes cannot
+  be evidence about a patch.  BOUNDARY_DIR.signal: 12 `rc=139` lines over 6
+  sites, every one on BOTH sides — pre-existing.
+
+========================================================================
+THE ATTRIBUTION, PROVED WITH TWO CONTROLS PER MOVER
+========================================================================
+RESUME §9 forbids asserting attribution; each mover was convicted by running
+  * the SAME binary TWICE            (the nondeterminism test), and
+  * the patched binary with the law DISABLED at runtime, `R10E81_OFF=1`
+    (the layout test: if the diff survives with the law's code path not
+    executed, the law did not cause it).
+
+dir                    view   pris vs   patchedOFF   pris vs      patchedOFF
+                              itself    vs itself    patchedOFF   vs ON
+---------------------  -----  --------  -----------  -----------  ----------
+r10earl81repro         plain  SAME      SAME         SAME         DIFF
+r10earl81repro         elab   SAME      SAME         SAME         DIFF
+  (re-run after g3_norm81.sv joined the directory: unchanged.)
+  -> THE LAW, and ONLY the law: with the law OFF the patched binary reproduces
+     pristine BYTE-EXACTLY, and turning it ON is the whole delta.  The perfect
+     positive control.
+
+r10buvm22repro         plain  SAME      SAME         DIFF         SAME
+r10buvm22repro         elab   SAME      SAME         DIFF         SAME
+  -> BINARY LAYOUT, NOT THIS LAW.  Both binaries are DETERMINISTIC across runs,
+     the law being ON or OFF changes NOTHING, and only pristine-vs-patched
+     differs.  The whole diff is 12 lines: three constants whose values differ
+     by EXACTLY 4096 (one page) --
+        g22.sv:70  `typedef C22 ka_cls_t[string];`  (an ASSOCIATIVE array)
+        golden-side irrelevant; the synthesized right-range operation carries
+        |vpiDecompile:22429113 / |UINT:22429113  (pristine)
+        |vpiDecompile:22433209 / |UINT:22433209  (patched)  = +4096
+     i.e. AN ADDRESS IS LEAKING INTO A CONSTANT'S VALUE for an associative
+     array's synthesized range, and the patched binary is one page larger.  Any
+     patch that changes binary size by a page moves it.  PRE-EXISTING EMITTER
+     DEFECT, recorded as R5 in PREDICT_R0.txt.
+
+r10uvm117repro         plain  SAME      DIFF         SAME         DIFF
+r10uvm117repro         elab   DIFF      DIFF         DIFF         DIFF
+r10uvm75repro          both   DIFF      DIFF         DIFF         DIFF
+r10uvm76repro          both   DIFF      DIFF         DIFF         DIFF
+r10v109repro           both   DIFF      DIFF         DIFF         DIFF
+r10v117repro           both   DIFF      DIFF         DIFF         DIFF
+  -> EMITTER NONDETERMINISM, PROVED WITHOUT REFERENCE TO THE PATCH: the
+     PRISTINE binary alone disagrees with ITSELF on two consecutive runs of the
+     same directory (and where a pristine pair happened to coincide —
+     r10uvm117repro plain — the law-OFF pair disagrees with itself instead).  A
+     byte comparison is not a valid instrument on these directories, so the
+     walk's DIFF there carries no information about this pass.  This is the
+     documented residue: SourceLocation compares across macro buffers flip per
+     run under parallel parse, so map through getFullyOriginalLoc.
+     r10uvm75repro / r10uvm76repro / r10v109repro were ALREADY named as this
+     same set by r10earl80's per-directory walk; r10uvm117repro and r10v117repro
+     are new probe directories added since, not new behaviour.
+
+NOTHING IN EITHER WALK IS ATTRIBUTABLE TO THIS LAW'S LOGIC except this pass's
+own two grid files, which are the controls that must move.
+
+========================================================================
+THE 26 NAMED PRECEDENT DIRECTORIES ARE ALL BYTE-IDENTICAL
+========================================================================
+Every repro directory this campaign's ops rules name as a boundary — earl60,
+earl61, earl63, earl64, earl65, earl66, earl67, earl68, earl69, earl71, earl72,
+earl73, earl74, earl79, earl80, their verifier twins (v63, v64, v67, v68, v69,
+v79, v80), and rgg14, rgg16, rgg18, buvm30 — is BYTE-IDENTICAL between the two
+binaries in BOTH views in the per-directory walk.  The two nearest laws in
+particular:
+  r10earl67repro / r10v67repro  § genLpBitSelIdxOneHopFold67, the nearest fold
+                                gate — identical.  Its residue R3 (19 ELAB
+                                High_conn cells) is gen-scope LOCALPARAM reads,
+                                which are never `isOverriddenParam`, so fence
+                                (f) refuses them by construction.
+  r10earl71repro                § genScopeConnPsDirectBoundKeepsRef71, the
+                                KEEPS-REF face that must stay — identical, and
+                                `compilePartSelectRange`'s hardcoded
+                                `Reduce::No` is the reason it cannot move.
+  r10earl72repro                the cont_assign fold typespec law and its
+                                gen-scope twin, THE SAME FAMILY as this head —
+                                identical.

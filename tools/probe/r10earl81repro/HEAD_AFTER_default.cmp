@@ -1,0 +1,36 @@
+LHS:
+decompile:
+constant: , id:370945, line:310:43, endln:310:52
+|vpiParent:
+\_range: , id:370944, line:310:42, endln:310:55
+|vpiDecompile:8
+|vpiSize:32
+|UINT:8
+|vpiConstType:9
+
+decompile:
+constant: , id:370945, line:310:43, endln:310:52
+|vpiParent:
+\_range: , id:370944, line:310:42, endln:310:55
+|vpiDecompile:8
+|vpiSize:32
+|UINT:8
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:304804, line:310:43, endln:310:52
+|vpiParent:
+\_range: , id:304803, line:310:42, endln:310:55
+|vpiDecompile:8
+|vpiSize:64
+|UINT:8
+|vpiConstType:9
+
+decompile:
+constant: , id:304804, line:310:43, endln:310:52
+|vpiParent:
+\_range: , id:304803, line:310:42, endln:310:55
+|vpiDecompile:8
+|vpiSize:64
+|UINT:8
+|vpiConstType:9

@@ -1,0 +1,155 @@
+r10earl81 — THE MOVER PREDICTION (made FIRST, from PRISTINE databases) and
+            THE NEXT HEAD (R0), named for the pass that follows this one.
+
+========================================================================
+PART 1 — THE MOVER PREDICTION, MADE BEFORE THE PATCHED SWEEPS WERE READ
+========================================================================
+`fencescan81.sh` + `hcfam81.py` + `oursshape81.sh` were run over the PRISTINE
+sweep workdirs (golden from the immutable cache path named in each test's OWN
+`cmds.txt`, ours from the pristine sweep).  They READ databases and DISPATCH
+NOTHING, so no test — fenced or otherwise — is run by them; FENCED= lists only.
+
+The classifier needs no source: this law can only fire on a port-High_conn
+`bit_select` INDEX that our emitter leaves as a `ref_obj` AND that names a
+non-package module-scope parameter overridden with a bare decimal.
+
+  THE SHAPE THE GATE COULD FIRE ON (golden-agreeing cells included, because a
+  census keyed on the shape you intend to CHANGE is blind to the rows you would
+  change by ACCIDENT — earl66's lesson):
+    surelog     612 cells / 89,233 High_conn bitsel indices, in 6 databases
+    uhdm2rtlil   28 cells /  1,280                         , in 6 databases
+  and OUTSIDE Earlgrey every one of those indices names a GENVAR or a VARIABLE,
+  never a parameter, and every one sits under a `ref_module(...)` DEF-listing
+  chain — refused twice over (SymbolKind::Parameter, and fence (a)):
+    surelog     StructArrayNet 4 (`sel` -> logic_net / int_var)
+                GenScopeFullName 2 (`i` -> genvar)
+    uhdm2rtlil  genscope_cells 10, NestedSelectOnVarInGenscope 2,
+                NestedSelectOnInputPortInGenscope 2  (all `i`/`j` -> genvar)
+
+  PREDICTION: EXACTLY `Earlgrey_0_1` default and `Earlgrey_0_1` testflags move,
+  and NOTHING ELSE, in either corpus.
+
+MEASURED AFTER THE PATCHED SWEEPS, `byteverify.sh SELFCHECK=1`:
+  surelog     MOVERS 3 / 956   ./default/Earlgrey_0_1-71da2fd7/slang.uhdm
+                               ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+                               ./default/Scoreboard-59431470/slang.uhdm
+              SELFCHECK 955/956 flagged (the comparator is live)
+  uhdm2rtlil  MOVERS 0 / 1358  SELFCHECK 1357/1358 flagged
+
+The two PREDICTED movers are exactly the two predicted.  The third is NOT this
+law and was convicted as such, not excused: replaying Scoreboard/default three
+times per binary from its own source directory, EACH BINARY PRODUCES BOTH of
+the two md5s byteverify reported (patched: 4563d4, 661343, 4563d4; pristine:
+661343, 4563d4, 4563d4).  Both observed states are reachable by each binary
+independently — the documented Scoreboard/default ~50/50 coin.  Its CSV row is
+byte-identical to the committed baseline under both binaries.
+
+The census also proves the populations DISJOINT the way the brief asked: in
+both modes the 16 target KEYS all differ pristine and all agree patched, the 2
+DEF-listing keys (4 row-instances) are untouched on both sides, and the
+whole-database 3-way score is TO-GOLDEN 32/48, AWAY-GOLDEN 0, MOVED-WRONG 0.
+
+========================================================================
+PART 2 — R0: THE NEW HEAD, IDENTICAL IN BOTH MODES, AND ITS DECODE
+========================================================================
+BEFORE (9ac2763, my own pristine build, rowheads.sh):
+  Earlgrey_0_1 default    32 cmp lines, 1 head   <- the bit_select index
+  Earlgrey_0_1 testflags  36 cmp lines, 1 head      (+4 = the testflags-only
+                                                     `vpiActual` on the ref)
+AFTER:
+  Earlgrey_0_1 default    36 cmp lines, 1 head   \  and the two HEAD LOGS ARE
+  Earlgrey_0_1 testflags  36 cmp lines, 1 head   /  NOW BYTE-IDENTICAL — the
+                                                    def/tf asymmetry is GONE.
+  Note the line COUNT is not the win: the old head is CLEARED (the index family
+  is closed, 0 remaining cells in both modes) and a DIFFERENT, larger-printing
+  head is now exposed.  Read HEAD_BEFORE_*.cmp against HEAD_AFTER_*.cmp.
+
+THE NEW HEAD — `flash_ctrl.sv:310`, and it is A SIZE, NOT A VALUE:
+
+    flash_ctrl_reg2hw_mp_region_cfg_mreg_t [MpRegions:0] region_cfgs;
+    //                                      ^col 43..52 = `MpRegions`
+    //                                     ^col 42..55 = the `range`
+
+  LHS (golden)                          RHS (ours)
+    constant 310:43-310:52                constant 310:43-310:52
+    |vpiParent -> range 310:42-310:55     |vpiParent -> range 310:42-310:55
+    |vpiDecompile:8                       |vpiDecompile:8
+    |vpiSize:32                <--------- |vpiSize:64        THE WHOLE HEAD
+    |UINT:8                               |UINT:8
+    |vpiConstType:9                       |vpiConstType:9
+
+  `MpRegions` is `localparam int MpRegions = 8;` at flash_ctrl_pkg.sv:28 — a
+  PACKAGE localparam with a BARE DECIMAL initialiser.  Golden carries the
+  DECLARED `int` width (32); we carry `srlgLitEnc`'s bare-decimal unsized 64.
+  Everything else about the object agrees, so the head is ONE FIELD.
+
+  WHICH ARM.  Read the MK line, not the shape: `constant::Compare` reads
+  VpiSize among the per-kind fields, and both sides are `constant`s with equal
+  VpiType/VpiDecompile/VpiConstType/VpiValue, so the mismatch is the VpiSize
+  line itself — no kind dispatch, no null side, nothing to decode about
+  ownership.  This is the CHEAPEST head shape the campaign has seen.
+
+  THIS IS EXACTLY r10earl80's RESIDUE R3, now promoted to the head.  earl80
+  measured it as "the 18 SIZE CELLS: PagesPerBank / WordsPerPage / BusWidth /
+  MpRegions — golden UINT:256 size 32, ours size 64.  A plain decimal localparam
+  initialiser keeps 64 in our model and 32 in golden's; this is srlgLitEnc's
+  `out.size = 64` for a bare decimal meeting a consumer that never re-sizes it."
+  The next pass should start from THAT sentence and from earl80's ParamEmit.cpp
+  `SrlgLitEnc` / `srlgAdjustSize` pair, and must measure WHICH CONSUMER re-sizes
+  (golden's `adjustSize(ts, …)` runs on the non-overridden capture path —
+  DesignElaboration.cpp:2519-2534 — which is precisely the 32 this pass measured
+  on all 19 refused g2 cells).  BEWARE: this pass's own law deliberately writes
+  64 at its own site because THERE golden writes 64; a size fix must be keyed on
+  the DECLARED-TYPE consumer, not applied globally, or it will re-break the 16
+  cells closed here.  g2_enc81.sv is the ready-made discriminator: its 6 folded
+  cells must STAY 64 and its 19 refused cells want 32/8/4.
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R1  THE BASED-LITERAL OVERRIDE ACTUAL, 4 measured shapes and ZERO corpus cells.
+    A parameter overridden with `4'h6` / `4'b0110` / `8'o7` / `8'd6` folds in
+    golden to HEX:6 sz4 / BIN:0110 sz4 / UINT:7 sz8 / INT:6 sz8 — the LITERAL's
+    own width and base, never the unsized 64.  That encoder is r10earl80's
+    `SrlgLitEnc`/`srlgAdjustSize` pair, which lives in ParamEmit.cpp and was NOT
+    extracted here (RESUME §9's no-premature-extraction rule).  g2 cells uH, uB,
+    uO, uC.  Cheapest of the encoding residues because the encoder already
+    exists.
+
+R2  THE `ref_typespec` PRESENCE RULE ON THE NON-OVERRIDDEN FOLD.  Golden stamps
+    a `ref_typespec` on exactly the SIGNED-`int_typespec` sub-case — `parameter
+    int` (uS), `parameter signed [7:0]` (uZc), `localparam int` (uZe) — and on
+    NO other (`integer`, `byte`, `logic [7:0]`, `int unsigned`, untyped and
+    `bit [3:0]` are all bare).  A typespec-PRESENCE law, not a value one, and it
+    rides on top of R0's size law: both must land together for the 14
+    non-overridden g2 cells to converge.
+
+R3  THE EXPRESSION ACTUAL, and it is genuinely two-faced.  `.DEXPR(1+1)` folds
+    to UINT:2 size 64 but a localparam DERIVED from an overridden parameter
+    (`localparam LPE = DBARE + 1`) folds to UINT:3 size 32 — the width is the
+    REDUCER's, not the literal's, so an expression actual cannot be modelled by
+    the same rule as a literal one.  g2 cells uE, uR.
+
+R4  THE GEN-SCOPE LOCALPARAM AT A PORT High_conn.  g1's uGa (`localparam GL =
+    gi + 1` read as a High_conn bit-select index inside its own gen block) is
+    still a `ref_obj` where golden folds it.  Adjacent to
+    § genLpBitSelIdxOneHopFold67, which already folds the BODY-position face of
+    the same read; the port-position face is the gap.
+
+R5  AN ADDRESS LEAKS INTO A CONSTANT'S VALUE for an ASSOCIATIVE ARRAY's
+    synthesized range.  `tools/probe/r10buvm22repro/g22.sv:70`
+    (`typedef C22 ka_cls_t[string];`) emits a right-range operation over a
+    constant whose `vpiDecompile`/`UINT` is a ~22-million number that moves by
+    EXACTLY 4096 between two binaries of different size — proved layout-derived,
+    not run-derived (each binary is stable across runs; the law being ON or OFF
+    changes nothing).  Pre-existing, unrelated to any select law, and a latent
+    nondeterminism trap for every future boundary walk: worth fixing precisely
+    because it makes byte-comparison lie.
+
+R6  FIVE PROBE DIRECTORIES ARE NOT BYTE-COMPARABLE AT ALL.  r10uvm75repro,
+    r10uvm76repro, r10uvm117repro, r10v109repro and r10v117repro each produce
+    two different dumps from the SAME binary on two consecutive runs (whole
+    directory as one unit, both views).  The documented cause is SourceLocation
+    compares across macro buffers flipping per run under parallel parse, with
+    getFullyOriginalLoc as the mapping fix.  Until that lands, every
+    per-directory boundary walk pays this tax and every pass must re-prove it.

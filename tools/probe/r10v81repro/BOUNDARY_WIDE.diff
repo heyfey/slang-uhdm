@@ -1,0 +1,8 @@
+DIFF elab r10buvm22repro/g22.sv
+DIFF elab r10earl81repro/g1_conn81.sv
+DIFF elab r10earl81repro/g2_enc81.sv
+DIFF elab r10earl81repro/g3_norm81.sv
+DIFF plain r10buvm22repro/g22.sv
+DIFF plain r10earl81repro/g1_conn81.sv
+DIFF plain r10earl81repro/g2_enc81.sv
+DIFF plain r10earl81repro/g3_norm81.sv

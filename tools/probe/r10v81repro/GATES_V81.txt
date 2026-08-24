@@ -1,0 +1,91 @@
+r10v81 — THE FIVE GATES, RE-RUN FROM SCRATCH BY THE VERIFIER.
+Fresh worktrees /tmp/wt_v81 (patched) and /tmp/wt_v81pris (pristine) at 9ac2763.
+Both binaries built by me with `-j 2`, md5 taken separately, frozen `chmod 555`
+at /tmp/v81_bin/{pris,patched} BEFORE any sweep.  results/*.csv READ ONLY and
+untouched.  GOLDEN_DEFER never set.  NO ROW CONVERTED.
+
+(1) BINARIES — MY OWN BUILDS REPRODUCE THE IMPLEMENTER'S md5s EXACTLY
+      pristine  b815e9f51e1d2009ab5307f874dde17a
+      patched   a2f44649f4e3c5ef29fde2cfc2566463
+    The patch applies clean on TWO fresh 9ac2763 worktrees and the production
+    diff is md5-identical in all three (f114a5547f58e3bb38e195beb159ed4c).
+    Surface: include/UhdmExporter.h (+8), src/ExprEmit.cpp (+214) — 222 lines,
+    purely additive, no deletions, nothing else touched.
+
+    cmds.txt AUDIT BY BINARY PATH (not by the string "slang-uhdm", which also
+    matches slang-uhdm-goldens/):
+      surelog     pristine 1523/1523 = /tmp/v81_bin/pris     (1573 cmds.txt)
+      surelog     patched  1523/1523 = /tmp/v81_bin/patched  (1573 cmds.txt)
+      uhdm2rtlil  pristine 1458/1458 = /tmp/v81_bin/pris     (1462 cmds.txt)
+      uhdm2rtlil  patched  1458/1458 = /tmp/v81_bin/patched  (1462 cmds.txt)
+      ZERO cells name any other binary.
+
+(2) GOLDENS, SLANG_UHDM exported EXPLICITLY to each
+      pristine PASS=23 FAIL=0    patched PASS=23 FAIL=0    /bin/false PASS=0 FAIL=23
+
+(3) uhdm2rtlil, --jobs 2, my own --out/--workdir, BOTH modes
+      pristine  default 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+                testflags 679 / 50 / 2
+      patched   default 679 / 50 / 2      testflags 679 / 50 / 2
+      ct8rows vs the COMMITTED results/gate_uhdm2rtlil.csv (731 rows, whole row,
+      DUMP COLUMN INCLUDED):
+        pristine PASS 0 differing rows    patched PASS 0 differing rows
+        dump histogram 183 differ / 496 match on both
+      default has no committed baseline -> pristine vs patched whole-row: PASS,
+        dump 187 differ / 492 match
+
+(4) surelog, --mode both, --jobs 2, my own --out/--workdir
+      ct8rows vs the COMMITTED results/golden_surelog.csv (1588 rows):
+        pristine PASS 0 differing rows    patched PASS 0 differing rows
+        pristine vs patched PASS 0 differing rows
+        dump histograms default 245 differ / 226 match, testflags 300/166 — all
+        identical on both sides
+      status histograms, identical to the committed baseline on both binaries:
+        default    471 CMP_EQUAL / 10 CMP_NOTEQUAL / 5 DEFERRED / 283
+                   SLANG_REJECT / 25 SURELOG_FAIL
+        testflags  466 / 9 / 5 / 3 NO_DATABASE / 1 NO_UHDM / 284 / 23 /
+                   1 TIMEOUT / 2 UNTRANSLATABLE
+      NO ROW CONVERTED — Earlgrey_0_1 is CMP_NOTEQUAL in BOTH modes before and
+      after.
+      CANARIES  canaries.sh ok=52 changed=0 (surelog) / ok=8 changed=0 (u2r);
+        ctcan2.sh PASS both; canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0
+        and the four slang-fenced names are dispatched by no driver.
+      PROTECTED DBs by md5, pristine vs patched: InterfaceModPort SAME,
+        BlackParrotComplex SAME, YosysOldOr SAME, SVSwitch 4842211c4030 both,
+        YosysVerx 6ccda350c24a both (all in both modes).
+
+(5) BYTEVERIFY, SELFCHECK=1, patched sweep vs pristine sweep
+      surelog     PATH_SETS_IDENTICAL (956)   MOVERS 2 / 956
+                    ./default/Earlgrey_0_1-71da2fd7/slang.uhdm
+                       patched 1f8802d1cbcf  pristine 1d3888184d4f
+                    ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+                       patched ff31b124e699  pristine be811f1e85fa
+                    SELFCHECK 955/956 flagged
+      uhdm2rtlil  PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358
+                    SELFCHECK 1357/1358 flagged
+      EXACTLY the two PREDICTED databases and nothing else.  All four md5s are
+      byte-identical to the ones the implementer reported.  My run did not even
+      SEE the Scoreboard/default third mover the implementer had to convict — the
+      coin came up the same way on both of my binaries, which is itself the
+      cleanest possible confirmation that it was a coin.
+
+HEADS (rowheads.sh, my own sweeps)
+      pristine  SeqDriver 56/56, SimpleUVM 17/17, Scoreboard 17/-, MiniAmiq
+                56/56, BuildUVMPkg 56/56, Earlgrey 32 (default) / 36 (testflags),
+                Rggen 0/-
+      patched   IDENTICAL on every row except Earlgrey: 36 / 36, ONE head each.
+      All four committed head logs reproduce md5-IDENTICAL against mine:
+        HEAD_BEFORE_default   c1ffeb66f0b2698e98f8ee5bef55c24c
+        HEAD_BEFORE_testflags fd1c8d72c31a1ce01f19e34894fef2f9
+        HEAD_AFTER_default    9717ca8cd0e316647a18c3291c5fb504
+        HEAD_AFTER_testflags  9717ca8cd0e316647a18c3291c5fb504   <- the two AFTER
+                              logs are the same file: the def/tf asymmetry is gone.
+
+CORPUS SHAPE SCAN, re-run on my own PRISTINE sweeps (oursshape81.sh + selcen81)
+      surelog     OUR_REF_IDX_CELLS=612  ALL_HIGHCONN_BITSEL_IDX=89233  DBs=6
+      uhdm2rtlil  OUR_REF_IDX_CELLS=28   ALL_HIGHCONN_BITSEL_IDX=1280   DBs=6
+      and outside Earlgrey every one of them names a GENVAR or a VARIABLE:
+        StructArrayNet `sel` -> logic_net / int_var,  GenScopeFullName `i`,
+        genscope_cells `i`, NestedSelectOnVarInGenscope `j`,
+        NestedSelectOnInputPortInGenscope `j`
+      — the implementer's numbers, reproduced cell for cell.

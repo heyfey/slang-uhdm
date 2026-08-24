@@ -1,0 +1,102 @@
+r10earl81 — THE GATES, all five, verbatim.  BASE 9ac2763, branch auto5h,
+worktree /tmp/wt_r10earl81.  results/*.csv was READ ONLY and is untouched —
+NO ROW WAS CONVERTED (the master promotes rows, not this pass).
+GOLDEN_DEFER was never set.  Builds were `-j 2` only; md5 taken separately;
+both binaries frozen `chmod 555` at immutable paths BEFORE any sweep.
+
+BINARIES
+  pristine  /tmp/r10earl81_bin/pris      md5 b815e9f51e1d2009ab5307f874dde17a
+  patched   /tmp/r10earl81_bin/patched   md5 a2f44649f4e3c5ef29fde2cfc2566463
+  neutral   = patched with R10E81_OFF=1 — censuses BYTE-IDENTICAL to pristine on
+              g1_conn81.sv and g2_enc81.sv, BOTH views, and the per-directory
+              boundary confirms it whole-dump byte-identical on this repro dir.
+
+  cmds.txt AUDIT (grep each `slang:` line's argv[0], count BY PATH — never by
+  the string "slang-uhdm"; verify_golden.py and tests/check_goldens.sh SILENTLY
+  default to the main-tree binary, so this is the only proof the sweep used the
+  frozen one):
+    surelog     pristine 1523 / 1523 = /tmp/r10earl81_bin/pris
+    surelog     patched  1523 / 1523 = /tmp/r10earl81_bin/patched
+    uhdm2rtlil  pristine 1458 / 1458 = /tmp/r10earl81_bin/pris
+    uhdm2rtlil  patched  1458 / 1458 = /tmp/r10earl81_bin/patched
+    ZERO cells name any other binary.  (1573/1462 cmds.txt exist per corpus; the
+    remainder are SURELOG_FAIL / NO_DATABASE cells where slang never ran.)
+
+(1) BUILD BOTH — done, md5s above.
+
+(2) GOLDENS 23/0 AND /bin/false 0/23 (SLANG_UHDM exported EXPLICITLY to EACH)
+      SLANG_UHDM=/tmp/r10earl81_bin/pris     PASS=23  FAIL=0
+      SLANG_UHDM=/tmp/r10earl81_bin/patched  PASS=23  FAIL=0
+      SLANG_UHDM=/bin/false                  PASS=0   FAIL=23  <- the harness
+                                                       CAN fail; 23/0 is real
+
+(3) uhdm2rtlil, --jobs 2, my own --out/--workdir, BOTH modes
+      pristine  [default] 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+                [testflags] 679 / 50 / 2
+      patched   [default] 679 / 50 / 2      [testflags] 679 / 50 / 2
+      No rc=139 wearing a SLANG_REJECT: the status histogram is identical to
+      the committed baseline's in both modes.
+      ct8rows.sh results/gate_uhdm2rtlil.csv (the committed baseline is
+      TESTFLAGS-only, 731 rows):
+        pristine  0 differing ROWS / 731     patched  0 differing ROWS / 731
+        (whole row, DUMP COLUMN INCLUDED; dump histogram 183 differ / 496 match,
+         unchanged on both)
+      DEFAULT has no committed baseline, so pristine-vs-patched was compared
+      whole-row directly: 0 differing ROWS / 731 (dump 187 differ / 492 match).
+
+(4) surelog, --mode both, --jobs 2, my own --out/--workdir
+      ct8rows.sh results/golden_surelog.csv:
+        pristine  0 differing ROWS / 1588    patched  0 differing ROWS / 1588
+      per-mode STATUS histograms identical to the committed baseline:
+        default    471 CMP_EQUAL / 10 CMP_NOTEQUAL / 5 DEFERRED / 283
+                   SLANG_REJECT / 25 SURELOG_FAIL
+        testflags  466 CMP_EQUAL / 9 CMP_NOTEQUAL / 5 DEFERRED / 3 NO_DATABASE
+                   / 1 NO_UHDM / 284 SLANG_REJECT / 23 SURELOG_FAIL / 1 TIMEOUT
+                   / 2 UNTRANSLATABLE
+      DUMP-column histograms identical too (default 245 differ / 226 match;
+      testflags 300 differ / 166 match).
+      NO ROW WAS CONVERTED.  `Earlgrey_0_1` stays CMP_NOTEQUAL in BOTH modes —
+      its head is CLEARED and the design has more (PREDICT_R0.txt).
+
+      CANARIES: canaudit.sh canaries.sh ctcan2.sh -> audited=29 UNCOVERED=0
+      FENCE-BREACH=0, and the four slang-fenced names are confirmed
+      "not dispatched by any driver".  Every canary row is inside the 0-differing
+      whole-row diff above, InterfaceModPort / BlackParrotComplex / YosysOldOr /
+      SVSwitch / YosysVerx included.
+
+(5) BYTEVERIFY, SELFCHECK=1, patched sweep vs pristine sweep
+      surelog     PATH_SETS_IDENTICAL (956)   MOVERS 3 / 956
+                    ./default/Earlgrey_0_1-71da2fd7/slang.uhdm    <- PREDICTED
+                        patched 1f8802d1cbcf  pristine 1d3888184d4f
+                    ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  <- PREDICTED
+                        patched ff31b124e699  pristine be811f1e85fa
+                    ./default/Scoreboard-59431470/slang.uhdm      <- NOT the law,
+                        patched 661343101220  pristine 4563d43721a6   PROVED:
+                      replaying Scoreboard/default three times per binary from
+                      its own source dir, EACH BINARY PRODUCES BOTH md5s --
+                        patched  4563d43721a6, 661343101220, 4563d43721a6
+                        pristine 661343101220, 4563d43721a6, 4563d43721a6
+                      i.e. both observed states are reachable by EACH binary
+                      independently.  The documented Scoreboard/default ~50/50
+                      coin (emitter nondeterminism), not this pass.  Its CSV row
+                      is byte-identical to the committed baseline either way.
+                  SELFCHECK 955 / 956 flagged (the comparator is live)
+      uhdm2rtlil  PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358   <- PREDICTED
+                  SELFCHECK 1357 / 1358 flagged
+      The mover set was PREDICTED BY NAME from PRISTINE databases before any
+      patched sweep was read — see PREDICT_R0.txt Part 1.  Prediction and
+      measurement agree by name in both corpora; the one extra was convicted as
+      a coin, with the coin shown flipping under BOTH binaries.
+
+BOUNDARIES: see BOUNDARY_NOTES.txt.
+  WIDE            PROCESSED=3594/3594  identical=6888  DIFFERING=8   (4 files
+                  x 2 views: this pass's THREE arms + r10buvm22repro/g22.sv)
+  PER-DIRECTORY   PROCESSED=1530/1530  identical=2791  DIFFERING=13  (7 dirs;
+                  r10uvm117repro elab differed in one walk and agreed in the
+                  next with both binaries frozen — the nondeterminism showing
+                  itself at walk level)
+  Every mover proved by TWO controls (same-binary repeat + R10E81_OFF=1); only
+  this pass's own grid files move because of the law.  All 26 named precedent
+  repro directories — earl60/61/63/64/65/66/67/68/69/71/72/73/74/79/80, their
+  verifier twins, rgg14/16/18, buvm30 — are BYTE-IDENTICAL in both views.
+  rc=139 signal sites appear on BOTH sides in both walks: pre-existing.

@@ -3917,6 +3917,14 @@ private:
     // HERE, and folds the same index WITHOUT a typespec in an ELAB port
     // High_conn — see the call site in ExprEmit.cpp.
     bool inGenScopeCa67 = false;
+    /// § connBitSelIdxModParamFold81 — the fold Surelog SUBSTITUTES for a
+    /// MODULE-SCOPE parameter / localparam read that is the INDEX of a
+    /// `bit_select` inside an ELABORATED port `High_conn`, or null when the
+    /// encoding is one this pass does not model (then the pristine `ref_obj`
+    /// stands).  The law, the decode and the two encodings live at the
+    /// definition in ExprEmit.cpp.  Never called outside `elabConnEmit21`.
+    UHDM::constant* connBitSelIdxModParamFold81(
+        const slang::ast::Expression& idx, UHDM::any* bsParent);
     // § genCaSysCallArgBinds22 — nesting depth inside a SYSTEM function
     // call's argument list ($signed/$unsigned/...).  callArgDepth counts user
     // calls too and this law is measured only for system ones.

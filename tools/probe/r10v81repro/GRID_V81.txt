@@ -1,0 +1,93 @@
+r10v81 — THE EIGHT ADVERSARIAL ARMS, golden vs pristine vs patched, ELAB port
+High_conn unless noted.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+Every arm ran Surelog + both frozen binaries + the R10E81_OFF=1 neutral in BOTH
+views, rc recorded per cell; the neutral was byte-identical to pristine on every
+arm ("NEUTRAL_IDENTICAL" below).
+
+v1_sign81.sv — THE AXIS g2_enc81.sv NEVER BUILT: an OVERRIDDEN parameter at ten
+  DECLARED TYPES.  g2 folds only `int unsigned` / `bit [3:0]` / untyped
+  overridden cells, and its `+TS` finding (golden stamps a ref_typespec on the
+  SIGNED-int_typespec sub-case) is measured only on the NON-overridden fold.  If
+  that same rule fired on the OVERRIDDEN fold the shipped law would be wrong at
+  every one of these cells, because it attaches no typespec ever.
+    int (SIGNED) .OSI(2)   golden UINT:2  sz64 ct9  ts NONE   patched ==GOLDEN
+    integer      .OIG(3)   golden UINT:3  sz64 ct9  ts NONE   patched ==GOLDEN
+    byte         .OBY(4)   golden UINT:4  sz64 ct9  ts NONE   patched ==GOLDEN
+    signed [7:0] .OSB(5)   golden UINT:5  sz64 ct9  ts NONE   patched ==GOLDEN
+    logic [7:0]  .OLG(6)   golden UINT:6  sz64 ct9  ts NONE   patched ==GOLDEN
+    bit [3:0]    .OBT(7)   golden UINT:7  sz64 ct9  ts NONE   patched ==GOLDEN
+    int unsigned .OIU(8)   golden UINT:8  sz64 ct9  ts NONE   patched ==GOLDEN
+    untyped      .OUT(9)   golden UINT:9  sz64 ct9  ts NONE   patched ==GOLDEN
+    shortint     .OSH(10)  golden UINT:10 sz64 ct9  ts NONE   patched ==GOLDEN
+    longint      .OLN(11)  golden UINT:11 sz64 ct9  ts NONE   patched ==GOLDEN
+  VERDICT: the +TS rule does NOT reach the overridden fold.  The declared type is
+  irrelevant once the parameter is overridden — exactly what "no adjustSize on
+  the collectParams_ override path" predicts, now measured on ten types instead
+  of three.  TO-GOLDEN 10, AWAY 0, MOVED-WRONG 0 (whole database).
+
+v2_home81.sv — HOMES AND OVERRIDE FORMS g1 never built.
+    nested generate  for->if->for, 4 instances     patched ==GOLDEN
+    INSTANCE ARRAY   uArr[1:0], both elements      patched ==GOLDEN
+    PROGRAM instance port High_conn                patched ==GOLDEN
+    POSITIONAL override `#(4)`                     patched ==GOLDEN
+    INTERFACE instance port High_conn              golden FOLDS, we keep the ref
+                                                   -> STILL-WRONG (residue V1)
+    `defparam i0.D = 3`                            golden FOLDS, we keep the ref
+                                                   -> STILL-WRONG (residue V2)
+  Both still-wrongs are REFUSALS, identical in pristine and patched.
+
+v3_shape81.sv — ACTUAL-EXPRESSION SHAPES AROUND THE INDEX.
+    concatenation `^{w[N],1'b0}`                   patched ==GOLDEN
+    OUTPUT port actual `.o(y[N])`                  patched ==GOLDEN
+    cast `logic'(w[N])`                            patched ==GOLDEN
+    ternary `N>0 ? w[N] : 1'b0`                    index ==GOLDEN's value (the
+      enclosing operation is a PRE-EXISTING divergence: golden reduces the whole
+      ternary away, pristine and patched both keep it)
+    hierarchical `us.sw[N]`                        refused (hier_path path) V3
+    ips base `w[N +: 4]`                           refused, golden folds     V4
+    part-select bounds `w[N+3:N]`                  unchanged both sides (a
+      pre-existing sz64/no-ts vs golden sz32/int_typespec residue)
+
+v4_macro81.sv — THE isOverriddenParam SPAN TRAPS (the one that could have made
+  the law fire on a NON-overridden parameter and write 64 where golden writes 32).
+    DEFAULT through a macro, NOT overridden   golden UINT:2 sz32  patched REFUSED
+    overridden THROUGH a macro                golden UINT:2 sz64  patched ==GOLDEN
+    overridden with a macro spelling `007`    golden UINT:7 sz64  patched ==GOLDEN
+    overridden with a macro spelling `4'd5`   golden INT:5  sz4   patched REFUSED
+    NO DEFAULT, override-only `.RQ(6)`        golden UINT:6 sz64  patched REFUSED
+  VERDICT: the macro trap does not fire.  `rawText` maps a macro range back to
+  the definition site and `isOverriddenParam` compares ORIGINAL locations, so a
+  macro-written DEFAULT still reads NOT-overridden.  The override-only parameter
+  (no declaration default) is a NEW residue (V5): `paramDefaultSyn` returns null
+  so `isOverriddenParam` is false and the gate abstains.
+
+v5_cli81.sv — THE COMMAND-LINE OVERRIDE.  slang binds `-G N=2` exactly like an
+  instantiation override so `isOverriddenParam` says TRUE, and the shipped law
+  does NOT consult `cliOverridden` (which exists in ParamEmit.cpp precisely
+  because Surelog's cmdline path is a different one).  Measured with Surelog
+  `-PN=2` against `slang-uhdm -G N=2`:
+    golden constant UINT:2 sz64 ct9    patched ==GOLDEN    (pristine kept the ref)
+  VERDICT: not a break — Surelog's cmdline path stores the same unsized 64.
+
+v6_edge81.sv — VALUE EDGES.  `.Z0(0)` -> UINT:0, `.ZL(0000002)` -> UINT:2,
+  `.SP(  3 /*three*/ )` -> UINT:3, `.BG(65535)` -> UINT:65535, all size 64 and
+  all patched ==GOLDEN.  A decimal that OVERFLOWS slang's 32-bit unsized literal
+  (`4294967295` -> slang truncates to -1) cannot be a legal bit-select index in
+  slang at all (-Windex-oob is an ERROR), so the gate's negative/round-trip
+  refusal is unreachable at this position; it still refuses, correctly.
+
+v7_enum81.sv — THE NEIGHBOURING LAWS THAT MUST NOT MOVE.  A module-scope enum
+  constant, a PACKAGE enum constant (§ elabConnEnumConstFold66), a `$bits`
+  expression index and a `bind`-created instance's port connection: ZERO moved.
+  The arm's ONLY mover is the law's own cell, TO-GOLDEN.
+
+v8_shape2_81.sv — MORE SHAPES.  A replication `^{2{w[N]}}` folds ==GOLDEN; an
+  INOUT port actual `iow[N]` folds ==GOLDEN; a module parameter that SHADOWS a
+  package parameter of the same name folds to the MODULE parameter's value,
+  ==GOLDEN (the package fence walks the DECLARING scope, not the reference's).
+  The assignment-pattern actual `'{a: w[N +: 4], b: {3'b0, w[N]}}` scores
+  MOVED-WRONG only because GOLDEN HAS NO ELABORATED SUBTREE THERE AT ALL — its
+  tagged_patterns carry ref_typespec/string_typespec and no member value, while
+  ours carries the whole pattern in BOTH pristine and patched.  A pre-existing
+  divergence the law folds a leaf inside; the judge's verdict is unchanged
+  because the enclosing tagged_pattern already mismatches on a null.

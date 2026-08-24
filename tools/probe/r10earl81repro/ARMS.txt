@@ -1,0 +1,74 @@
+r10earl81 — THE ARMS.  Built by arm81.sh: Surelog (golden) + BOTH frozen
+binaries + the R10E81_OFF=1 NEUTRAL, in BOTH views, every result censused by
+selcen81 and scored by score81.py as MULTISETS with NO SPAN in the key.
+Children run `</dev/null`; every rc is recorded.
+
+g1_conn81.sv — the REFERENT x SLOT x HOME grid, 3 instances
+  rc: SL 0, pris 0, prisE 0, patc 0, patcE 0, neutr 0, neutrE 0
+  cells: g 564  o 592  oe 823  q 592  qe 817  n 592  ne 823
+  NEUTRAL CONTROL: n.cen == o.cen and ne.cen == oe.cen, BYTE-IDENTICAL.
+  3-way (golden / pristine / patched):
+    plain view  TO-GOLDEN 24  AWAY-GOLDEN 0  MOVED-WRONG 0
+    elab  view  TO-GOLDEN 36  AWAY-GOLDEN 0  MOVED-WRONG 0
+  WHAT MOVED — three HOMES, and each of the 3 instances gets its OWN value:
+    uA  module body,   overridden module param  -> UINT:2 / 3 / 4 sz64, ==golden
+    uGb gen-FOR scope, overridden module param  -> ditto
+    uIf gen-IF  scope, overridden module param  -> ditto
+  WHAT DID NOT, each verified against golden:
+    uB non-overridden param (golden sz32), uC module localparam (golden sz32),
+    uD/uE package param+localparam (already folded by § selFold9, sz32),
+    uF expression over N, uG based-hex override (golden HEX sz4),
+    uH plain literal (already a constant on both sides).
+  FENCE CHECKS, counted not eyeballed:
+    part_select LEFT/RIGHT bounds + indexed_part_select BASE/WIDTH: 0 MOVED
+      -> § genScopeConnPsDirectBoundKeepsRef71's population is intact.
+    body-position twins (module cont_assign, gen-scope cont_assign, procedural
+      always_comb, param-init): 0 MOVED
+      -> § genLpBitSelIdxOneHopFold67 and the earl72 cont_assign family intact.
+    the DEF listing (`ref_module(...)` chain): golden keeps `ref_obj` and so do
+      we, 0 MOVED -> fence (a).
+
+g2_enc81.sv — the 25-cell ENCODING grid and the call-arg fences
+  rc: SL 0, pris 0, prisE 0, patc 0, patcE 0, neutr 0, neutrE 0
+  cells: g 252  o 252  oe 296  q 252  qe 308  n 252  ne 296
+  NEUTRAL CONTROL: n.cen == o.cen and ne.cen == oe.cen, BYTE-IDENTICAL.
+  3-way: plain TO-GOLDEN 24 AWAY 0 MOVED-WRONG 0
+         elab  TO-GOLDEN 36 AWAY 0 MOVED-WRONG 0
+  6 cells fold and ALL SIX land on golden EXACTLY; 19 are refused and NOT ONE
+  moved.  The full table is GRID_G2.txt.  The decisive one:
+    uFa  the read inside a USER call's argument   -> GOLDEN ITSELF KEEPS THE
+         `ref_obj`, so fence (d) is CONVICTED, not excused: folding there would
+         have been a MOVED-WRONG.
+    uFb  the same read inside a SYSTEM call's arg -> DOES fold (§
+         genCaSysCallArgBinds22's split), which is why the gate tests
+         `callArgDepth - sysCallArgDepth22` and not `callArgDepth`.
+
+g3_norm81.sv — THE DIGIT-NORMALISATION EDGE of the bare-decimal fence
+  rc: SL 0, pris 0, prisE 0, patc 0, patcE 0, neutr 0, neutrE 0
+  cells: g 16  o 16  oe 18  q 16  qe 20  n 16  ne 18
+  NEUTRAL CONTROL: n.cen == o.cen and ne.cen == oe.cen, BYTE-IDENTICAL.
+  3-way: plain TO-GOLDEN 4 AWAY 0 MOVED-WRONG 0  (STILL-WRONG 0 — the plain
+                                                  view of this arm FULLY
+                                                  converges)
+         elab  TO-GOLDEN 6 AWAY 0 MOVED-WRONG 0
+  The producer reads the override actual's RAW TEXT, so the two spellings a bare
+  decimal can take had to be measured, not assumed.  GOLDEN:
+    .Z(007)  -> UINT:7  size 64 ct 9, vpiDecompile `7`   (leading zeros GONE)
+    .U(2_0)  -> UINT:20 size 64 ct 9, vpiDecompile `20`  (underscore GONE)
+  and the patched emitter reproduces BOTH EXACTLY where pristine kept a
+  `ref_obj` for each.  The gate's normalisation (drop `_`, strip leading zeros,
+  then require the re-evaluated value to render back to those very digits) is
+  therefore golden's own normalisation, verified rather than hoped for.
+
+r10buvm22repro/g22.sv — dispatched as an arm to CHASE A BOUNDARY MOVER
+  selcen81 reports 0 select cells (the file has none), so the census is blind
+  there and the whole-dump route was used instead; the neutral runs return rc=4
+  (the file is not a standalone unit).  Attribution is in BOUNDARY_NOTES.txt:
+  BINARY LAYOUT, proved with the law disabled.
+
+EARLGREY, censused DIRECTLY from the sweep databases (never uhdm-dump: the
+Earlgrey dump is >1 GB — the earl61-67 direct-reader rule)
+  default   golden 52,085 rows / ours 51,531  TO-GOLDEN 32 AWAY 0 MOVED-WRONG 0
+  testflags golden 84,779 rows / ours 83,671  TO-GOLDEN 48 AWAY 0 MOVED-WRONG 0
+  (whole database, every select slot, NOT just the port ones)
+  target-shape cells remaining: 0 in both modes (pristine 32 in both) — CLOSED.

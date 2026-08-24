@@ -1,0 +1,58 @@
+r10v81 — THE TWO BOUNDARY WALKS, run from a COPY of tools/probe with NO path
+filter, `.sv` AND `.v`, the file/directory list read on fd 3, every child
+`</dev/null`, rc RECORDED PER CELL, PROCESSED asserted against LISTED, and the
+four slang-fenced names skipped-and-listed (FENCED=0: none of them names a
+source file).  Both frozen binaries, both views, workdir-normalised WHOLE-DUMP
+byte compare.
+
+WIDE (per file, any depth) — vwide_v81.sh
+  LISTED=3662 PROCESSED=3662 FENCED=0 identical=7024 DIFFERING=8 no_output=292
+  SIGNAL_CELLS=28
+  (the implementer's walk was 3594 files — `.sv` only; adding the 68 `.v` files
+   found the SAME eight differing cells and no others)
+  DIFFERING, all eight:
+    plain+elab r10earl81repro/g1_conn81.sv  g2_enc81.sv  g3_norm81.sv   <- the law
+    plain+elab r10buvm22repro/g22.sv                                    <- NOT the law
+  SIGNAL: 14 sites at rc=139, EVERY ONE on BOTH sides (A patched and B pristine)
+    r10buvm8repro/v21shadow8.sv, r10buvm8repro/vshadowcells8/v21_s9.sv,
+    r10uvm84repro/v84x8_break.sv, r10uvm87repro/v87_a4_scope.sv,
+    r10uvm92repro/g92_a2_ppkinds.sv, r10vbuvm19repro/{seg19,vg19e}.sv,
+    r10vbuvm28repro/{gv28_a_compose,gv28_f_grid}.sv,
+    r10vbuvm31repro/{gv31a5,gv31seg2}.sv,
+    r10vrgg8repro/cells/{v8_recurse,v8_recurse_mutual,v8_recurse_uncond}/dut.sv
+    — pre-existing segfaults, unchanged.
+
+PER DIRECTORY (whole directory as ONE compilation unit) — vdir_v81.sh
+  LISTED=1538 PROCESSED=1538 FENCED=0 identical=2800 DIFFERING=14 no_output=262
+  SIGNAL_CELLS=12 (6 sites, all on BOTH sides)
+  Seven directories differ, EACH CONVICTED BY TWO CONTROLS (the same binary run
+  twice, and the patched binary with R10E81_OFF=1 against pristine):
+
+    dir                A1vsA2      B1vsB2      A1vsB1     N1vsB1(law off)
+    r10earl81repro     SAME        SAME        DIFF(895)  SAME         <- THE LAW
+    r10buvm22repro     SAME        SAME        DIFF(12)   DIFF(12)     <- layout
+    r10uvm75repro      DIFF(12)    DIFF(16)    DIFF(12)   DIFF(14)     <- nondet
+    r10uvm76repro      DIFF(16)    DIFF(16)    DIFF(12)   DIFF(12)     <- nondet
+    r10uvm117repro     DIFF(12)    DIFF(12)    DIFF(12)   DIFF(12)     <- nondet
+    r10v109repro       DIFF(16)    DIFF(22)    DIFF(12)   DIFF(20)     <- nondet
+    r10v117repro       DIFF(32)    SAME        DIFF(16)   DIFF(20)     <- nondet
+
+  r10earl81repro is the ONLY directory where the law-off control reproduces
+  pristine BYTE-EXACTLY: the whole delta there is this law and nothing else.
+  The same control on the three arms, per file and per view (6 cells):
+  LAW-OFF == PRISTINE byte-identical on all six.
+
+  r10buvm22repro/g22.sv is NOT this law and was convicted, not excused: each
+  binary is byte-stable across repeats, the law-off binary produces the PATCHED
+  bytes, and the whole 12-line delta is three constants whose value shifts by
+  EXACTLY 4096 (22429113->22433209, 22428257->22432353) — an ADDRESS leaking into
+  a constant's value for the associative-array synthesized range at g22.sv:70.
+  Layout-derived, pre-existing, and a latent trap for every future boundary walk.
+
+  ALL 26 NAMED PRECEDENT REPRO DIRECTORIES ARE BYTE-IDENTICAL IN BOTH VIEWS:
+  earl63/64/65/66/67/68/69/71/72/73/74, v64/v67/v68/v69/v79/v80, vearl74,
+  buvm30 are SAME at directory granularity; earl60/61/79/80 do not compile as a
+  single unit (NOOUT) and rgg14/16/18 + vrgg14/16/18 keep their sources in
+  subdirectories — all of them are covered FILE BY FILE by the WIDE walk, where
+  every one of their cells is SAME (earl60 24, earl61 24, earl79 8, earl80 4,
+  rgg14 14, rgg16 10, rgg18 4, vrgg14 26, vrgg16 28, vrgg18 8).

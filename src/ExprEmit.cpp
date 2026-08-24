@@ -7381,6 +7381,206 @@ bool UhdmExporter::genScopeDeclaredParam56(const Symbol& sym) {
     return k == SymbolKind::GenerateBlock || k == SymbolKind::GenerateBlockArray;
 }
 
+// § connBitSelIdxModParamFold81 — GOLDEN FOLDS THE INDEX OF A `bit_select`
+// THAT SITS IN AN ELABORATED PORT `High_conn` AND NAMES A MODULE-SCOPE
+// PARAMETER OR LOCALPARAM, TO THAT INSTANCE'S STORED `Value` — WHICH IS *NOT*
+// THE PARAMETER'S OWN `param_assign` CONSTANT WHEN THE PARAMETER WAS
+// OVERRIDDEN AT THE INSTANTIATION.  We kept the `ref_obj`.
+//
+// THE HEAD (Earlgrey_0_1, BOTH modes, 32 / 36 cmp lines, one head each, at
+// 9ac2763) — tlul_socket_1n.sv:215:25-215:26, the `N` of
+//
+//     tlul_err_resp err_resp (.clk_i, .rst_ni,
+//                             .tl_h_i (tl_u_o[N]),
+//                             .tl_h_o (tl_u_i[N]));
+//
+// in top_earlgrey.u_spi_device.u_reg.u_socket (`parameter int unsigned N = 4`
+// at tlul_socket_1n.sv:40, overridden `.N(2)` at spi_device_reg_top.sv:65):
+//   LHS(golden) constant 215:25-215:26 |vpiDecompile:2 |vpiSize:64 |UINT:2
+//               |vpiConstType:9   (NO typespec)
+//   RHS(ours)   ref_obj  215:25-215:26 |vpiName:N (+ a `vpiActual` on the
+//               TESTFLAGS copy only, which is the whole 32-vs-36-line
+//               asymmetry and disappears with the ref).
+// `bit_select::Compare` (UHDM/build/generated/src/bit_select.cpp:95-110) reads
+// `VpiConstantSelect` and then `SafeCompare(lhs->VpiIndex(), rhs->VpiIndex())`;
+// both operands are non-null with different `UhdmType`, so BaseClass.h:188's
+// two-non-null arm names both sides and the head is a KIND mismatch inside
+// `BaseClass::Compare`'s `VpiType` line — read the MK line, not the shape
+// (RESUME §9).
+//
+// DECODED FROM SURELOG, not guessed:
+//  1. `NetlistElaboration::high_conn_` recompiles the named actual in the
+//     PARENT instance with `Reduce::Yes`
+//     (NetlistElaboration.cpp:1332-1337; the ordered form at :1088-1096), and
+//     `CompileHelper::compileSelectExpression`
+//     (CompileExpression.cpp:1258-1340) compiles a bit-select INDEX with the
+//     CALLER's `reduce` — which is exactly why the index folds here while a
+//     plain part-select BOUND does not (`compilePartSelectRange` hardcodes
+//     `Reduce::No`, the fact § genScopeConnPsDirectBoundKeepsRef71 rests on).
+//  2. Under `Reduce::Yes` the identifier arm answers from the instance's
+//     stored `Value` (CompileExpression.cpp:962-982):
+//         sval = instance->getValue(name);
+//         c->VpiValue(sval->uhdmValue());  setRange(c, sval, …);
+//         c->VpiDecompile(sval->decompiledValue());
+//         c->VpiConstType(sval->vpiValType());
+//         c->VpiSize(sval->getSize());          // <- the raw Value's size
+//     and NO typespec is attached — the position x view split
+//     § connIpsPkgParamBoundNoTs65 / § elabConnSelFoldNoTs21 already carry.
+//  3. WHERE THAT `Value` COMES FROM IS THE WHOLE ENCODING LAW, and it splits
+//     on OVERRIDDEN vs NOT — § ovHopOverriddenKeepsValue80's law at a NEW
+//     CONSUMER:
+//       * OVERRIDDEN at this instantiation: `DesignElaboration::collectParams_`
+//         (DesignElaboration.cpp:2147-2172) compiles the ACTUAL in the parent
+//         instance and stores `fromVpiValue(c->VpiValue(), c->VpiSize())` —
+//         there is NO `adjustSize` anywhere on that path, so the Value keeps
+//         the ACTUAL's own encoding AND ITS OWN WIDTH.  A bare decimal actual
+//         is Surelog's unsized 64.
+//       * NOT overridden: the default is compiled and `adjustSize(ts, …)` runs
+//         BEFORE the capture (DesignElaboration.cpp:2519-2534), so the stored
+//         Value already carries the DECLARED type's width — which is why the
+//         two classes read DIFFERENTLY AT THE SAME DECLARED TYPE.
+//     MEASURED on g1_conn81.sv / g2_enc81.sv, golden, ELAB port High_conn,
+//     bit-select index (the full table is GRID_G2.txt):
+//       `.ib(w[N])`      `int unsigned`, OVERRIDDEN `.N(2)`   UINT:2  sz 64 ct 9
+//       `.ib(w[OVTRUNC])` `bit [3:0]`,   OVERRIDDEN `(20)`    UINT:20 sz 64 ct 9
+//                                                    <- UNMASKED by the formal
+//       `.ib(w[DEXPR])`  OVERRIDDEN `(1+1)`                   UINT:2  sz 64 ct 9
+//       `.ib(w[DEXPR])`  OVERRIDDEN with a top LOCALPARAM     UINT:2  sz 32 ct 9
+//       `.ib(w[H])`      `bit [3:0]`,   OVERRIDDEN `4'h6`     HEX:6   sz 4  ct 5
+//       `.ib(w[BDEC])`   `int unsigned`,OVERRIDDEN `8'd6`     INT:6   sz 8  ct 7
+//       `.ib(w[M])`      `int unsigned`, NOT overridden (=5)  UINT:5  sz 32 ct 9
+//       `.ib(w[L])`      a module `localparam int unsigned`   UINT:2  sz 32 ct 9
+//       `.ib(w[NOVI])`   `int` (SIGNED), NOT overridden       UINT:4  sz 32 ct 9
+//                                                    <- AND a `ref_typespec`
+//     — and golden's `param_assign` for that very N in that very instance is
+//     `UINT:2 size 32`, so a plain copy of the param_assign would be a NEW
+//     WRONG ANSWER at exactly the head.  ONLY THE FIRST ROW'S PRODUCER IS
+//     SHIPPED (fence (f)); every other row is a MEASURED NEGATIVE CONTROL that
+//     must stay on the pristine `ref_obj` arm, and zero of them exist in either
+//     corpus.
+//
+// THE FENCES, each one a measured negative control:
+//  (a) `elabConnEmit21` — THE DEF LISTING KEEPS THE REF.  Golden's own module
+//      DEF listing of tlul_socket_1n has `ref_obj N` in the same two ports
+//      (4 census rows), and so do we; the fold is elaborated-view only.
+//  (b) THE INDEX MUST HAVE SURVIVED AS A `ref_obj`.  The call site replaces
+//      only an index our own emitter already left unbound, so every cell that
+//      some earlier law folds — a genvar (`genvarConnFold`), a package
+//      parameter (§ selFold9 + § elabConnSelFoldNoTs21), a gen-scope
+//      localparam — reaches this code having already become a constant and is
+//      untouched by construction.
+//  (c) NOT A PACKAGE SYMBOL.  Those fold on their own path with their own
+//      measured width (32, the declared type's) and re-doing them here would
+//      duplicate a landed law.
+//  (d) THE USER-CALL ARGUMENT DEPTH, § genLpBitSelIdxOneHopFold67's second
+//      fence in its own dress: `compileTfCallArguments` compiles each argument
+//      with `pexpr = call`, and the identifier arm under a non-null `pexpr`
+//      binds through `bindVariable` and never reaches the `getValue`
+//      substitution.  A SYSTEM call's argument is NOT fenced (the same
+//      § genCaSysCallArgBinds22 split), so the test is
+//      `callArgDepth - sysCallArgDepth22`.
+//  (e) NONNEGATIVE, KNOWN, INTEGER.  A negative or `x`/`z`-bearing value has an
+//      encoding this model does not name.
+//  (f) EVERY PRODUCER BUT ONE ABSTAINS.  Shipped: a parameter OVERRIDDEN at
+//      this instantiation with a BARE DECIMAL integer literal actual, whose
+//      Value is `fromVpiValue("UINT:<v>", 64)`.  Refused, each one measured on
+//      golden and each one left exactly as pristine wrote it:
+//        * a BASED actual (`4'h6` -> HEX:6 sz 4; `4'b0110` -> BIN sz 4;
+//          `8'd6` -> INT:6 sz 8; `8'o7` -> UINT:7 sz 8) — that encoder is
+//          r10earl80's `SrlgLitEnc`/`srlgAdjustSize` pair, which lives in
+//          ParamEmit.cpp and is NOT extracted here (RESUME §9's
+//          no-premature-extraction rule);
+//        * an EXPRESSION actual, because its width is the REDUCER's, not the
+//          literal's — `.DEXPR(1+1)` is size 64 and `.DEXPR(SRC)` with `SRC` a
+//          top-level localparam is size 32, in the very same design;
+//        * a NON-OVERRIDDEN parameter or localparam, because golden stamps a
+//          `ref_typespec` on exactly the `int_typespec`-SIGNED sub-case
+//          (`parameter int`, `parameter signed [7:0]`, `localparam int`) and on
+//          no other (`integer`, `byte`, `logic [7:0]`, `int unsigned`, untyped
+//          and `bit [3:0]` are all bare) — a typespec-presence rule this pass
+//          measured and deliberately did not take.
+//      All of these are STILL-WRONG, ranked in PREDICT_R0.txt, and ZERO of them
+//      exist in either corpus.
+//
+// CORPUS-WIDE, over 2,314 pristine databases (956 surelog + 1,358
+// uhdm2rtlil): the shape this gate can fire on — a port-High_conn bit-select
+// index our emitter leaves as a `ref_obj` — exists in SIX surelog databases
+// (612 cells) and SIX uhdm2rtlil ones (28 cells), and in every one of them
+// except `Earlgrey_0_1` the index names a GENVAR or a VARIABLE, never a
+// parameter.  See `fencescan81.sh` / `oursshape81.sh` and PREDICT_R0.txt.
+UHDM::constant* UhdmExporter::connBitSelIdxModParamFold81(
+    const slang::ast::Expression& idx, UHDM::any* bsParent) {
+    static const bool off81 = getenv("R10E81_OFF") != nullptr;
+    if (off81)
+        return nullptr;
+    auto& core81 = stripImplicitConv(idx);
+    if (core81.kind != ExpressionKind::NamedValue)
+        return nullptr;
+    auto& sym81 = core81.as<NamedValueExpression>().symbol;
+    if (sym81.kind != SymbolKind::Parameter)
+        return nullptr;
+    // (c) a PACKAGE parameter / localparam already folds on § selFold9's path.
+    for (auto* sc81 = sym81.getParentScope(); sc81;
+         sc81 = sc81->asSymbol().getParentScope())
+        if (sc81->asSymbol().kind == SymbolKind::Package)
+            return nullptr;
+    auto& ps81 = sym81.as<ParameterSymbol>();
+    // (f) THE ENCODING FENCE.  Only ONE producer is modelled here: a parameter
+    // OVERRIDDEN at this instantiation with a BARE DECIMAL integer literal,
+    // whose stored `Value` Surelog builds as `fromVpiValue("UINT:<v>", 64)` —
+    // unsigned, decimal, at the unsized 64, and UNMASKED by the formal's own
+    // width.  Every other producer keeps the pristine `ref_obj`; the measured
+    // table is in the block comment above and in GRID_G2.txt.
+    if (!isOverriddenParam(sym81))
+        return nullptr;
+    // `getInitializer` on an overridden parameter IS the actual bound at the
+    // instantiation — that is what `isOverriddenParam` itself compares spans of.
+    auto* act81 = ps81.getInitializer();
+    if (!act81)
+        return nullptr;
+    auto& lit81 = stripImplicitConv(*act81);
+    if (lit81.kind != ExpressionKind::IntegerLiteral)
+        return nullptr;
+    std::string raw81(rawText(lit81.sourceRange));
+    if (raw81.empty() || raw81.find('\'') != std::string::npos)
+        return nullptr;
+    std::string dig81;
+    for (char ch81 : raw81) {
+        if (ch81 == '_')
+            continue;
+        if (!isdigit((unsigned char)ch81))
+            return nullptr;
+        dig81 += ch81;
+    }
+    while (dig81.size() > 1 && dig81[0] == '0')
+        dig81.erase(0, 1);
+    if (dig81.empty())
+        return nullptr;
+    // (e) and the UNMASKED rule, checked against the LITERAL and never against
+    // the parameter's own value: `.OVTRUNC(20)` into a `bit [3:0]` formal is
+    // golden `UINT:20` size 64, not the masked 4 the formal's type would give
+    // (arm cell uW; the same unmasked behaviour r10earl80's grid measured one
+    // hop on).  Reading the literal back and requiring it to render to the very
+    // digits written also refuses an unsized decimal too wide for slang's
+    // 32-bit literal type, whose Value Surelog would carry at a width this
+    // model does not name.
+    ASTContext lctx81(comp.getRoot(), LookupLocation::max);
+    ConstantValue lv81 = lctx81.tryEval(lit81);
+    if (!lv81.isInteger() || lv81.integer().hasUnknown() ||
+        lv81.integer().isNegative())
+        return nullptr;
+    if (lv81.integer().toString(LiteralBase::Decimal, false) != dig81)
+        return nullptr;
+    auto* c81 = s.MakeConstant();
+    c81->VpiDecompile(dig81);
+    c81->VpiSize(64);
+    c81->VpiValue("UINT:" + dig81);
+    c81->VpiConstType(vpiUIntConst);
+    c81->VpiParent(bsParent);
+    setLoc(c81, idx.sourceRange);
+    return c81;
+}
+
 // § genLpOneHopProcBoundOp58 — THE ONE HOP, DECODED FROM SURELOG AND ASKED OF
 // THE SCOPE TREE.
 //
@@ -21246,6 +21446,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             genCaSelBasePfx = savedSelB9;
             if (idxRescoped)
                 selIdxScopeDepth--;
+            // § connBitSelIdxModParamFold81 — the ELAB port High_conn's
+            // bit-select INDEX.  Placed AFTER the index emission and gated on
+            // the result still being a `ref_obj` (fence (b) at the law): every
+            // index some earlier law already folds — a genvar, a package
+            // parameter, a gen-scope localparam, an operation — arrives here
+            // as a constant and is untouched by construction, which is what
+            // makes this call site incapable of moving a cell that already
+            // agrees with golden.  Fences (a) and (d) are spelled here; the
+            // rest live in the helper.
+            if (elabConnEmit21 && ix &&
+                ix->UhdmType() == UHDM::uhdmref_obj &&
+                callArgDepth - sysCallArgDepth22 == 0)
+                if (auto* f81 = connBitSelIdxModParamFold81(es.selector(), bs))
+                    ix = f81;
             if (ix)
                 bs->VpiIndex((UHDM::expr*)ix);
             return bs;
