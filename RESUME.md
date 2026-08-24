@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-24 06:50, HEAD = the earl82 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-24 07:40, HEAD = the uvm120 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,7 +182,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2 + MiniAmiq×2 (uvm-1.2 tree) | 50 (depth) | golden folds `uvm_pkg::uvm_revision_string::uvm_revision` to a STRING constant "UVM.1.2" (uvm_pkg.sv:34:10) where we emit a bound ref_obj — uvm120's target |
+| SeqDriver×2 + MiniAmiq×2 (uvm-1.2 tree) | 58 (depth) | a KIND cell: bit_select vs bit_var on `uvm_pkg::uvm_oneway_hash::crc1` @386:12 — uvm122's target (uvm120 landed: 50→58, the package-return bare-parameter substitution is a VERBATIM clone_tree of the param_assign's Rhs, re-parented at the param_assign, re-spanned over the reference; nested returns keep the ref_obj) |
 | SimpleUVM×2 + Scoreboard/default + BuildUVMPkg×2 | 13 (depth) | `LHS: <null>` against a SURPLUS method_func_call (new) of ours — a one-sided set: apply RESUME §9's SafeCompare rule before naming the field; uvm121's target (uvm119 landed: 76→50/13, the member-form `o.randomize() with {…}` — the receiver-only hier_path name, the through-block span, the bound receiver, the span-less call with vpiWith → a bare constraint parented at the hier_path's own parent; the no-with member form was already right) |
 | Earlgrey_0_1×2 (both modes) | 58 (depth) | a port High_conn actual `integer'(0)` (flash_ctrl.sv:137:18-137:30): golden REDUCES THE CAST to constant UINT:0 vpiSize 32 spanning the whole cast text with no typespec; we keep the vpiCastOp with its integer_typespec and a size-64 operand — a KIND mismatch at VpiType, a size law underneath (the folded width = the CAST TYPE's); pass earl83 next (earl82 landed: 36→58, a range bound reading an overridden parameter takes the ACTUAL's stored width — recursively through name chains, no adjustSize on the override path; the verifier removed a >64-bit cap that broke 100-bit chains pristine had right) |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
@@ -190,7 +190,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 77 verifier fix-before-landing re-cuts (166 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 77 verifier fix-before-landing re-cuts (167 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

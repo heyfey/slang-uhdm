@@ -1,0 +1,50 @@
+r10uvm120 — THE WIDE BOUNDARY GATE.  bound120.sh (reused verbatim from
+r10buvm30's bound30.sh): EVERY .sv AND .v under a COPY of tools/probe, DEF and
+ELAB, both binaries, fd-3 list, children </dev/null, subdirectory arms
+included, PROCESSED asserted, fenced names skipped and COUNTED.
+
+  LISTED=3714 FENCED_SKIPPED=0 PROCESSED=3714 MOVED=10 NO_OUTPUT_PAIRS=292
+  PROCESSED-ASSERT-OK
+  (FENCED_SKIPPED=0 is the assertion that NO arm file under tools/probe is
+   named after any of the four slang-fenced tests.)
+
+THE 10 MOVED CELLS, all attributed:
+
+  8 = THIS PASS'S OWN ARMS, def and elab: g120_a_types, g120_b_positions,
+      g120_d_shapes (g120_c_homes did NOT move — MOVED=0, the home/view face
+      was already right).  Scored cell by cell in ARMS.r10uvm120.txt:
+      13 TOGOLD, 0 MOVED-WRONG.
+
+  2 = r10uvm86repro/g86_a2_ctx.sv, def and elab, 25 lines each.  ONE CELL:
+      `localparam int LW = -3; ... function int pf_lparam(); return LW;`
+      pristine ref_obj -> patched constant INT:-3, size 32, ct 7,
+      ref_typespec -> int_typespec 3:14-3:17, parent param_assign 3:18-3:25.
+      SCORED AGAINST A FRESH SURELOG GOLDEN OF THAT ARM: TOGOLD, byte for byte
+      on every field.  (Pristine missed it because `resolveConstExpr` demands
+      the initialiser be an IntegerLiteral and `-3` is a unary operation.)
+      Whole-dump proximity to golden: 735 -> 710 differing lines.
+
+  2 = r10buvm22repro/g22.sv, def and elab, 12 lines each — A FALSE POSITIVE,
+      PROVEN.  The three moving values are `vpiDecompile` / `UINT` on the
+      synthesized `[0 : N-1]` range of a CLASS-scope ASSOCIATIVE-array typedef
+      (`typedef C22 ka_cls_t[string];`, g22.sv:70): pristine 22432353 /
+      22433209, patched 22436449 / 22437305.  Those numbers are IMAGE-RELATIVE
+      ADDRESSES (0x1564DB9 lies just past the 22.2 MB binary), i.e. an
+      uninitialised / pointer-derived read, not a value this or any law
+      computes.  THE POSITIVE CONTROL: a third binary built from the PATCHED
+      source plus 8192 bytes of unrelated padding
+      (`extern "C" __attribute__((used)) const char kPad[8192]`) reads
+      22444641 / 22445497 — EXACTLY +8192.  The value tracks the binary's
+      LAYOUT, so ANY code change moves it; it is deterministic per binary
+      (3 runs each, identical) and not environment-dependent.  Recorded as
+      residue R7: g22.sv's dump is not build-reproducible, and an associative
+      array typedef in a CLASS emits a garbage range bound.
+      (The padded control binary was then removed and the deliverable's binary
+      rebuilt to the SAME md5 ecc87b0629dd75d4a441b0b1b02a5093.)
+
+NAMED BOUNDARIES the brief protects, all inside the 3714 and all UNMOVED:
+  r10uvm89 (hpTrailSelIdxDecompiled89: rendersAsItself89 / selGroup89 / the
+  ElementSelect chain arm and the boundary mover v81h_lvbase), r10uvm77-79
+  (hier_path joint/mockup), r10buvm14 (builtinRecvMultiDimStepIsBitSelect-
+  Chain14, prettyPrint spacing), r10uvm84/85 (this./super.), r10uvm82-91,
+  r10buvm3-15, r10sd8-12 — zero moved cells in any of them.

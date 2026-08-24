@@ -1,0 +1,61 @@
+r10uvm120 — CENSUS of Surelog's parameter-read SUBSTITUTION over the UVM rows.
+MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+
+INSTRUMENT.  cen120.py, an A-PRIORI census read off a GOLDEN dump alone: the
+substituted object is the ONLY object in the database that is parented to a
+`param_assign` while its own span lies OUTSIDE that param_assign's span (the
+param_assign's real Rhs is parented the same way but spans INSIDE it).  No
+scope walk, no name matching, so it finds EVERY substitution whatever position
+it sits in.  uvmcen120.sh runs it over the golden AND our database of every
+named row of a sweep workdir and joins the two as multisets.
+
+GOLDEN POPULATION at 9e04993 (10 golden databases; Scoreboard/testflags has no
+our-side database, so 9 rows are joinable):
+
+  row                     GOLDEN CELLS   of which RETURN-window   position
+  SeqDriver   d/tf              7               1                 vpiCondition
+  SimpleUVM   d/tf              1               1                 vpiCondition
+  Scoreboard  d/tf              1               1                 vpiCondition
+  MiniAmiq    d/tf             22               1                 vpiCondition
+  BuildUVMPkg d/tf              1               1                 vpiCondition
+
+THE RETURN-WINDOW CELL IS THE SAME CELL IN ALL FIVE TESTS: uvm-1.2
+base/uvm_version.svh:34 `return uvm_revision;` in `uvm_pkg::uvm_revision_string`
+(BuildUVMPkg reads the 1800.2-2017-1.0 pp_output, line 7788).  It is a
+`parameter string`, and it is the ONLY parameter TYPE the corpus exercises in
+this window — the type face was therefore measured on purpose-built goldens
+(arm a: string / int / untyped / byte / bit-vector / real / typedefed vector /
+localparam / empty string, nine functions, all nine substitute).
+
+  golden   constant, span = the REFERENCE text 34:10-34:22, parent =
+           param_assign 31:18-31:42, vpiDecompile `"UVM.1.2"` (WITH quotes),
+           vpiSize 56 (8 x 7 chars), STRING:UVM.1.2, vpiConstType 6,
+           ref_typespec -> the parameter's own string_typespec 31:11-31:17
+  ours     ref_obj (uvm_pkg::uvm_revision_string::uvm_revision) 34:10-34:22,
+           vpiActual -> the param_assign's Rhs constant 31:33-31:42
+  BuildUVMPkg's text is `"Accellera:1800.2-2017:UVM:1.0"`, vpiSize 232.
+
+THE OTHER 6 (SeqDriver) / 21 (MiniAmiq) GOLDEN CELLS ARE NOT THIS LAW.  They
+are the three reads of `UVM_SETINT` / `UVM_SETSTR` / `UVM_SETOBJ` in
+macros/uvm_object_defines.svh:162's `if (what__ inside {...})`, inside the
+WILDCARD-IMPORT copies of `__m_uvm_field_automation` (2 classes in SeqDriver,
+7 in MiniAmiq) — Surelog's OTHER substitution clause, `paramFromPackage`
+(`parameter->VpiImported()` non-empty and the Rhs a constant), which fires with
+Reduce::NO and in any statement position.  We ALREADY emit the right constant
+there (`131078` / `131079` / `131080`, size 32, ct 9, identical decompile and
+value); what golden has and we do not is the `ref_typespec ->
+int_typespec 217:1-217:38` on it.  That is residue R1, not this pass.
+
+AFTER THE PATCH (same instrument, patched databases):
+  SimpleUVM d/tf, Scoreboard d, BuildUVMPkg d/tf   ONLY_GOLDEN 1 -> 0, ONLY_OURS 0
+  SeqDriver d/tf                                   ONLY_GOLDEN 7 -> 6
+  MiniAmiq  d/tf                                   ONLY_GOLDEN 22 -> 21
+The single ONLY_OURS row on SeqDriver/MiniAmiq is a census artefact: our
+wildcard-import CLONE of `uvm_revision_string` carries its own constant with
+the same key, so the multiset join sees two identical rows against golden's
+one.  Per-view breakdown of the cell on SeqDriver/default confirms the shape:
+  uhdmtopPackages   golden 2 folded sites (uvm_pkg + adpcm_pkg clone)
+                    ours   2 folded sites   == MATCH
+  uhdmallPackages   golden ref_obj (uvm_pkg) + CONSTANT (adpcm_pkg clone)
+                    ours   ref_obj + ref_obj  -> residue R2 (unchanged; the
+                    pristine binary had the same ref_obj, so nothing moved away)

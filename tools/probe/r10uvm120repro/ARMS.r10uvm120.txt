@@ -1,0 +1,74 @@
+r10uvm120 — THE PURPOSE-BUILT GOLDEN ARMS.  MEASUREMENT ONLY.
+Driver: arms120.sh (PRI=<pristine> PAT=<patched> WD=<scratch>); scorer:
+score120.py (per (view, subroutine, return) cell: TOGOLD / MOVEDWRONG /
+STILLDIFF / MOVED-OTHER / SAME); renderer: rets120.py.
+
+RESULT at 9e04993 -> patched (pristine 0939d5a3, patched ecc87b06):
+
+  arm                 SAME  TOGOLD  MOVEDWRONG  MOVED-OTHER  STILLDIFF
+  g120_a_types          12     5         0           1           0
+  g120_b_positions      29     3         0           0          14
+  g120_c_homes           9     0         0           0           8
+  g120_d_shapes         11     5         0           0           6
+  TOTAL                 61    13         0           1          28
+
+MOVED-WRONG = 0 and AWAY = 0 on every arm.
+
+a — THE PARAMETER-TYPE FACE (nine functions, one per type).  Golden substitutes
+    ALL NINE and every field of every one of them is its param_assign Rhs's:
+      string "hello"  sz 40 ct 6 | int 42 sz 32 ct 9 | UNTYPED 7 sz 32 ct 9
+      byte 8'sd5 sz 8 DEC ct 1   | bit[3:0] 4'hA sz 4 HEX ct 5
+      real 1.5 sz 32 ct 2        | typedefed my_t 8'hFF sz 8 HEX ct 5
+      localparam 99 sz 32 ct 9   | EMPTY string "" (NO vpiSize) ct 6
+    PRISTINE folded only int / untyped / localparam (3 of 9, and those three
+    were already byte-identical to golden); it re-rendered the three BASED
+    literals as plain UINT decimals (`5`, `10`, `255`, ct 9) and emitted a
+    ref_obj for string, real and the empty string.  PATCHED: 5 TOGOLD.
+    f_real is MOVED-OTHER and it is NOT this law: OUR OWN param_assign Rhs for
+    a `real` parameter reads `1.500000` at size 64 where golden's reads `1.5`
+    at size 32, so the faithful clone inherits that difference (residue R4).
+
+b — THE POSITION FACE and THE WINDOW FENCE (20 functions).
+    TOGOLD x3: f_ifret / f_begret / f_forret — a `return K;` nested in an `if`,
+    an explicit `begin/end` or a `for` keeps golden's ref_obj, and PRISTINE WAS
+    FOLDING IT (pristine-WRONG -> golden).  f_two (`int t; t = 1; return K;`)
+    proves a multi-statement body's synthetic `begin` is NOT such a nesting: it
+    folds on both sides.
+    STILLDIFF x14: every position where golden REDUCES THE ENCLOSING
+    EXPRESSION WHOLE — `K + 1` -> 6, `1 + K`, `((K+1)*2)` -> INT 12,
+    `K ? 1 : 0` -> 1, `(K == 5)` -> BIN 1 sz 1, `{K, K}` -> one 64-bit BIN,
+    `ARR[K]` -> 6, `helper(K)` -> 5, `-K` -> INT -5, `{S,"x"}` -> STRING abcx —
+    § negLitPkgRetFoldNested30's R2 family, deliberately not modelled.
+    Two of those 14 are this law in a NON-ROOT position and are recorded as
+    residue R2: a surviving `sys_func_call`'s ARGUMENT takes exactly this
+    substitution (`$countones(K)` and `$sformatf("%0d", K)` hold a constant
+    5 / sz 32 / ct 9 parented at the param_assign with the parameter's ts).
+
+c — THE HOME/VIEW FACE (module fn, $unit fn, package free fn, package class
+    IN-BODY method, OUT-OF-BODY method at package scope, wildcard-import clone).
+    NOTHING MOVED (MOVED=0 on the whole arm) — the law's window is exactly
+    § pkgRetFoldHome86's and was already right.  What the arm MEASURED:
+      package free fn, TOP view      golden folds  ours folds      MATCH
+      package free fn, DEF view      golden ref    ours ref        MATCH
+      in-body class method           golden ref    ours ref        MATCH
+      out-of-body class method       golden FOLDS  ours ref        residue R3
+      wildcard-import CLONE, both views  golden FOLDS (parent = the
+        return_stmt, clone_tree having re-parented it)             residue R2
+      module fn / $unit fn           golden ref    ours ref        MATCH
+
+d — THE LOOKUP FACE.  TOGOLD x5:
+      f_b  `parameter int B = A + 1;`  an OPERATION-initialised parameter
+      f_c  `parameter int C = B;`      a CHAINED parameter
+      f_ep `parameter e_t EP = E_ONE;` an ENUM-TYPED parameter (ts enum_typespec)
+      f_localsh  a function LOCAL `int A` shadowing the package's `A` -> 3
+      f_argsh    a FORMAL argument named `A`                        -> 3
+    The last two are the NAME-KEYED half: Surelog matches
+    `param_ass->Lhs()->VpiName()` and never consults the enclosing scopes.
+    STILLDIFF x6 (all deliberately fenced OUT, all UNMOVED):
+      f_enum   a BARE enum-constant read folds in golden to UINT 1 at size 64
+               with NO typespec and NO parent (getValue's enum arm)   residue R6
+      f_qual / f_squal  a `pkg::NAME` read goes through the
+               `paPackage_scope` arm: golden's constant carries NO typespec,
+               NO parent and the RAW `decompiledValue()` — a string WITHOUT
+               its quotes (`sa`, not `"sa"`) — in BOTH views          residue R5
+      f_var    a package VARIABLE read stays a ref on both sides       MATCH

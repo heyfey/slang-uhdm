@@ -4058,14 +4058,123 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // Keyword-only span, expr as vpiCondition.
             setLoc(r, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 6));
             if (rs.expr) {
+                // § pkgRetParamSubstIsRhsClone120 (r10uvm120) — THE RETURN
+                // WINDOW'S BARE-PARAMETER SUBSTITUTION IS A CLONE OF THE
+                // param_assign's OWN Rhs, AND IT REACHES EVERY PARAMETER TYPE.
+                //
+                // THE HEAD (SeqDriver + MiniAmiq, both modes, 50 cmp lines):
+                // uvm-1.2 base/uvm_version.svh:34 `return uvm_revision;` in
+                // `uvm_pkg::uvm_revision_string`, whose `uvm_revision` is a
+                // `parameter string`.  Golden holds ONE STRING constant
+                // (decompile `"UVM.1.2"` WITH quotes, vpiSize 56 = 8*7,
+                // STRING:UVM.1.2, vpiConstType 6, ref_typespec -> the
+                // parameter's own `string_typespec`); ours held the bound
+                // `ref_obj`.  The same cell is the return-window population of
+                // ALL FIVE UVM rows (SimpleUVM / Scoreboard / BuildUVMPkg read
+                // the SAME function; BuildUVMPkg's 1800.2 text makes it
+                // `"Accellera:1800.2-2017:UVM:1.0"`, vpiSize 232).
+                //
+                // SURELOG.  `CompileHelper::compileExpression`'s primary-literal
+                // arm, on a name it could not answer from a value
+                // (CompileExpression.cpp:2918-2980), walks
+                // `component->getParam_assigns()` and, for the FIRST param_assign
+                // whose Lhs NAME matches, does exactly three things:
+                //     result = UHDM::clone_tree(param_ass->Rhs(), ...);
+                //     result->VpiParent(param_ass);
+                //     fC->populateCoreMembers(<the REFERENCE node>, ..., result);
+                // — so the emitted object is the param_assign's Rhs VERBATIM
+                // (every constant field, its typespec included), re-parented at
+                // the param_assign and re-spanned over the REFERENCE text.  It
+                // is not a value re-rendered from the parameter's type, which is
+                // what we were building: for a based-literal initialiser ours
+                // wrote `5` / UINT / ct 9 where golden clones `8'sd5` / DEC:5 /
+                // ct 1 (arm a f_byt, f_vec, f_typ), and for a `string`, `real`
+                // or unknown-valued parameter we emitted no constant at all.
+                // Measured on arm a (nine parameter types, one function each):
+                // string, int, UNTYPED, byte, `bit [3:0]`, real, a TYPEDEFED
+                // vector, a `localparam` and an EMPTY string all substitute, and
+                // every field of every one of them is its param_assign Rhs's.
+                //
+                // THE POPULATION IS NAME-KEYED, not scope-resolved: Surelog's
+                // loop matches `param_ass->Lhs()->VpiName()` and never consults
+                // the enclosing scopes, so a function LOCAL or a FORMAL
+                // ARGUMENT carrying a package parameter's name is substituted
+                // by the PARAMETER (arm d f_localsh — `int A; A = 9; return A;`
+                // in a package whose parameter `A` is 3 reads back 3 — and
+                // f_argsh, `function int f(int A); return A;`, likewise).
+                //
+                // THE WINDOW is § `pkgRetFoldHome86`'s, and the DIRECT-STATEMENT
+                // half of it was MISSING here: our fold fired for ANY top-view
+                // package return, while Surelog's `paRETURN` arm is the only arm
+                // that threads `Reduce::Yes` into `compileExpression`, so a
+                // return nested in an `if`, an explicit `begin/end` or a `for`
+                // keeps golden's `ref_obj` (arm b f_ifret / f_begret / f_forret,
+                // three cells that were pristine-WRONG).  A multi-statement body's
+                // synthetic `begin` is NOT such a nesting (arm b f_two).
+                //
+                // FENCED to what was measured: the read must BE the whole
+                // returned expression.  An operand, a call argument, a select
+                // index and a concatenation element are all positions where
+                // golden REDUCES THE ENCLOSING EXPRESSION WHOLE instead
+                // (`K + 1` -> 6, `{K, K}` -> one BIN constant, `helper(K)` ->
+                // 5, `ARR[K]` -> 6, arm b) — § negLitPkgRetFoldNested30's R2
+                // residue, not this law — and a surviving `sys_func_call`'s
+                // argument, which DOES take this exact substitution
+                // (arm b f_sysarg / f_sysfmt), is left with it as residue R2
+                // rather than guessed into the general fold.
+                const slang::ast::ParameterSymbol* sp120 = nullptr;
+                const slang::ast::Expression* site120 = nullptr;
+                // A read written `pkg::NAME` is NOT this law: Surelog's
+                // `paPackage_scope` arm answers it from `pack->getValue()`, so
+                // golden holds a constant with NO typespec, NO parent and the
+                // RAW `decompiledValue()` — a string WITHOUT its quotes
+                // (arm d f_squal `return p120d::SA;` -> decompile `sa`, size
+                // 16, ct 6, in BOTH views).  Left as measured residue R5.
+                if (auto& rx120 = stripImplicitConv(*rs.expr);
+                    rx120.kind == ExpressionKind::NamedValue && rx120.syntax &&
+                    rx120.syntax->kind != syntax::SyntaxKind::ScopedName) {
+                    site120 = &rx120;
+                    auto& sy120 = rx120.as<NamedValueExpression>().symbol;
+                    if (sy120.kind == SymbolKind::Parameter)
+                        if (auto sc120 = sy120.getParentScope();
+                            sc120 &&
+                            sc120->asSymbol().kind == SymbolKind::Package)
+                            sp120 = &sy120.as<ParameterSymbol>();
+                    // The name-keyed half: a local / formal shadowing a
+                    // parameter of the subroutine's OWN package.  Only that
+                    // package's own declarations are eligible — Surelog reads
+                    // `component->getParam_assigns()`, which is the package
+                    // being compiled, so a wildcard-imported name is NOT this
+                    // law (residue R3).
+                    if (!sp120 && currentSubSym)
+                        for (auto sc120 = currentSubSym->getParentScope();
+                             sc120; sc120 = sc120->asSymbol().getParentScope()) {
+                            auto k120 = sc120->asSymbol().kind;
+                            if (k120 == SymbolKind::Package) {
+                                for (auto& mem120 : sc120->members())
+                                    if (mem120.kind == SymbolKind::Parameter &&
+                                        mem120.name == sy120.name) {
+                                        sp120 =
+                                            &mem120.as<ParameterSymbol>();
+                                        break;
+                                    }
+                                break;
+                            }
+                            if (k120 == SymbolKind::InstanceBody ||
+                                k120 == SymbolKind::CompilationUnit)
+                                break;
+                        }
+                }
                 // Def-view package compile pre-creates the param-ts clone
                 // the top copy's fold will reference.
                 if (pkgScopeInst && !pkgTopEmit && currentSubSym &&
                     !foldCloneTs.count(currentSubSym)) {
                     auto cf0 = resolveConstExpr(*rs.expr);
-                    if (cf0.param) {
-                        auto* its0 = makeParamTs(*cf0.param, /*typedParam=*/true);
-                        if (auto sc0 = cf0.param->getParentScope())
+                    const slang::ast::ParameterSymbol* fp0 =
+                        cf0.param ? cf0.param : sp120;
+                    if (fp0) {
+                        auto* its0 = makeParamTs(*fp0, /*typedParam=*/true);
+                        if (auto sc0 = fp0->getParentScope())
                             if (auto pit0 = pkgDefMap.find(&sc0->asSymbol());
                                 pit0 != pkgDefMap.end())
                                 its0->Instance(pit0->second);
@@ -4080,26 +4189,80 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         r->VpiCondition(foldedRet[cf.directSub]);
                         return r;
                     }
-                    if (cf.param) {
+                    // § pkgRetParamSubstIsRhsClone120's window half — the
+                    // DIRECT-STATEMENT-OF-THE-BODY test § negLitPkgRetFold86
+                    // and § negLitPkgRetFoldNested30 already carry.
+                    const slang::ast::ParameterSymbol* fp120 =
+                        cf.param ? cf.param : sp120;
+                    bool direct120 = false;
+                    if (fp120 && tfBodyStmt9) {
+                        auto* b120 = (const Statement*)tfBodyStmt9;
+                        direct120 = b120 == &stmt;
+                        if (!direct120 && b120->kind == StatementKind::List)
+                            for (auto st120 : b120->as<StatementList>().list)
+                                if (st120 == &stmt) {
+                                    direct120 = true;
+                                    break;
+                                }
+                    }
+                    if (fp120 && direct120) {
                         // Constant at the ref site, parented at the DEF
                         // param_assign, ts ref naming the package with a
                         // fresh param-ts clone.
-                        auto& ps2 = *cf.param;
+                        auto& ps2 = *fp120;
                         auto& cv2 = ps2.getValue();
-                        if (cv2.isInteger() && !cv2.integer().hasUnknown()) {
-                            auto& iv2 = cv2.integer();
-                            bool neg2 = iv2.isSigned() && iv2.isNegative();
-                            std::string digits2 =
-                                iv2.toString(LiteralBase::Decimal, false);
+                        // The Rhs object THIS VIEW emitted for the parameter
+                        // (`pkgParamDefRhs` is re-registered by the top-view
+                        // parameter pass, so inside `pkgTopEmit` it is the
+                        // ELABORATED listing's own constant — the object
+                        // Surelog's `clone_tree` copies).  `pkgParamConst`
+                        // keeps the def-view twin as the fallback.
+                        const UHDM::constant* src120 = nullptr;
+                        if (auto rit120 = pkgParamDefRhs.find(&ps2);
+                            rit120 != pkgParamDefRhs.end() && rit120->second &&
+                            rit120->second->UhdmType() == UHDM::uhdmconstant)
+                            src120 = (const UHDM::constant*)rit120->second;
+                        if (!src120)
+                            if (auto cit120 = pkgParamConst.find(&ps2);
+                                cit120 != pkgParamConst.end())
+                                src120 = cit120->second;
+                        bool intOk120 =
+                            cv2.isInteger() && !cv2.integer().hasUnknown();
+                        if (src120 || intOk120) {
                             auto* c = s.MakeConstant();
-                            c->VpiDecompile(digits2);
-                            c->VpiSize((int32_t)ps2.getType().getBitWidth());
-                            c->VpiValue((neg2 ? "INT:" : "UINT:") + digits2);
-                            c->VpiConstType(neg2 ? vpiIntConst : vpiUIntConst);
-                            setLoc(c, cf.site->sourceRange);
+                            if (src120) {
+                                c->VpiDecompile(src120->VpiDecompile());
+                                c->VpiValue(src120->VpiValue());
+                                c->VpiConstType(src120->VpiConstType());
+                                c->VpiSize(src120->VpiSize());
+                            }
+                            else {
+                                auto& iv2 = cv2.integer();
+                                bool neg2 = iv2.isSigned() && iv2.isNegative();
+                                std::string digits2 =
+                                    iv2.toString(LiteralBase::Decimal, false);
+                                c->VpiDecompile(digits2);
+                                c->VpiSize((int32_t)ps2.getType().getBitWidth());
+                                c->VpiValue((neg2 ? "INT:" : "UINT:") + digits2);
+                                c->VpiConstType(neg2 ? vpiIntConst
+                                                     : vpiUIntConst);
+                            }
+                            setLoc(c, (cf.param ? cf.site : site120)
+                                          ->sourceRange);
                             if (auto pit = pkgParamConst.find(&ps2);
                                 pit != pkgParamConst.end())
                                 c->VpiParent(pit->second->VpiParent());
+                            else if (src120 && src120->VpiParent() &&
+                                     src120->VpiParent()->UhdmType() ==
+                                         UHDM::uhdmparam_assign)
+                                // A parameter whose DEF-view Rhs is not a
+                                // constant (an OPERATION init, `B = A + 1`, or
+                                // a chain of them) has no `pkgParamConst`
+                                // entry; the view's own Rhs still carries the
+                                // param_assign golden parents the clone at
+                                // (arm d f_b / f_c / f_ep).
+                                c->VpiParent(
+                                    (UHDM::BaseClass*)src120->VpiParent());
                             auto* rt2 = s.MakeRef_typespec();
                             std::string pkgName;
                             if (auto sc2 = ps2.getParentScope())
@@ -4127,7 +4290,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             return r;
                         }
                     }
-                    if (cf.lit) {
+                    // A parameter read whose window is CLOSED must NOT fall
+                    // into the literal arm: `cf.lit` is the PARAMETER'S
+                    // INITIALISER for a `cf.param` fold, and emitting it here
+                    // would put the initialiser's own span and fields where
+                    // golden holds the bound `ref_obj`
+                    // (§ pkgRetParamSubstIsRhsClone120's window half).
+                    if (cf.lit && (!fp120 || direct120)) {
                         if (auto* e = emitExpr(*cf.lit, r, prefix, netMap)) {
                             r->VpiCondition((UHDM::expr*)e);
                             return r;

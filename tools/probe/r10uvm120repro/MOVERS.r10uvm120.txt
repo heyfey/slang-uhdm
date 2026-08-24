@@ -1,0 +1,36 @@
+r10uvm120 — THE MOVERS, named and attributed.
+
+surelog corpus, byteverify SELFCHECK=1, 9 / 956 (u2r: 0 / 1358):
+  ./default/BuildUVMPkg-bf853d43/slang.uhdm    0abe8468ceae -> 6e7ad5d79b69
+  ./default/MiniAmiq-544c7f61/slang.uhdm       ee5b08dec56c -> 5991447b5aa8
+  ./default/Scoreboard-59431470/slang.uhdm     265404415e46 -> 78fec14b4e60
+  ./default/SeqDriver-32af76aa/slang.uhdm      e3b23addf83c -> 8de53e4fcb3a
+  ./default/SimpleUVM-1dc93a62/slang.uhdm      e6a9df69d718 -> c466419ccbb0
+  ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  0abe8468ceae -> 6e7ad5d79b69
+  ./testflags/MiniAmiq-544c7f61/slang.uhdm     ee5b08dec56c -> 5991447b5aa8
+  ./testflags/SeqDriver-32af76aa/slang.uhdm    9e311edb704d -> 6ad421ecb4e5
+  ./testflags/SimpleUVM-1dc93a62/slang.uhdm    f0b8bce9c348 -> b6330822cd28
+
+ATTRIBUTION (uhdm-dump, workdir path-normalised; ORDER-BLIND where the row is
+a documented coin or an arena-order row):
+
+  BuildUVMPkg d/tf, SimpleUVM d/tf   24 lines, and all 24 are the law:
+      -  ref_obj (uvm_pkg::uvm_revision_string::UVM_VERSION_STRING) 7788:10
+      +  constant 7788:10, parent param_assign 7782:18-7782:70,
+         vpiDecompile "Accellera:1800.2-2017:UVM:1.0", vpiSize 232,
+         STRING:..., ref_typespec (uvm_pkg) -> string_typespec 7782:11-7782:17,
+         vpiConstType 6
+      + the two new objects (the string_typespec clone and its ref) in the
+        loose top-level listing.
+      This is FIELD-FOR-FIELD the golden census row.
+
+  Scoreboard d   116 lines raw; ORDER-BLIND 24 lines, all the law's.  The other
+      92 are the DOCUMENTED Scoreboard/default coin (svunit_pkg vpiTaskFunc
+      list ORDER flip) and were attributed by sorting both dumps.
+
+  SeqDriver d 101 / tf 83, MiniAmiq d/tf 67 raw; ORDER-BLIND 43 lines each, and
+      those 43 are the law's cell at BOTH its sites: `uvm_pkg`'s own
+      `uvm_revision_string` and the WILDCARD-IMPORT CLONE of it
+      (adpcm_pkg / svaunit_pkg).  The remaining raw lines were arena ORDER in
+      the loose typespec listing (uvm_reg_data_t / uvm_reg_addr_t / uvm_action
+      entries reprinted at a different offset, no content change).

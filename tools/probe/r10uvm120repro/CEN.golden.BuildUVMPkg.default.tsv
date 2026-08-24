@@ -1,0 +1,1 @@
+uhdmtopPackages	constant	7788:10-7788:28	7782:18-7782:70	"Accellera:1800.2-2017:UVM:1.0"	232	6	vpiCondition	return_stmt<function(uvm_pkg::uvm_revision_string)<package(uvm_pkg::)

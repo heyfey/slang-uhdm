@@ -1,0 +1,83 @@
+r10uvm120 — THE GATES.  Binaries frozen (chmod 555) BEFORE any sweep:
+  pristine 0939d5a31f760a196a231823eb75ad7f   (worktree at BASE 9e04993)
+  patched  ecc87b0629dd75d4a441b0b1b02a5093
+Both built -j 2; the patched md5 was REPRODUCED byte-for-byte after the
+null-control detour (see BOUNDARY), so the deliverable's binary is determinate.
+Every cmds.txt of every sweep audited by BINARY PATH:
+  sl_pris / u2r_pris  -> /tmp/r10uvm120_pris.bin ONLY
+  sl_pat  / u2r_pat   -> /tmp/r10uvm120_pat.bin  ONLY
+
+(1) BUILD ................ both, md5s above.
+(2) GOLDENS .............. patched PASS=23 FAIL=0;
+                           SLANG_UHDM=/bin/false -> FAIL=23 (negative control).
+                           pristine PASS=23 FAIL=0.
+(3) u2r .................. testflags 679 CMP_EQUAL / 50 SLANG_REJECT /
+                           2 SURELOG_FAIL, default identical — patched AND
+                           pristine, per-status histograms equal.
+                           ct8rows vs results/gate_uhdm2rtlil.csv      PASS
+                           ct8rows vs own pristine testflags sweep     PASS
+                           ct8rows vs own pristine default   sweep     PASS
+                           (0 differing rows, status AND dump column)
+(4) surelog .............. --mode both, 1588 rows.  Status histogram of the
+                           patched sweep is IDENTICAL to the pristine sweep's
+                           (default 471/283/25/10/5, testflags
+                           466/284/23/9/5/3/2/1/1 — no rc=139 hiding as
+                           SLANG_REJECT: the two histograms match cell for cell).
+                           ct8rows vs results/golden_surelog.csv       PASS
+                           ct8rows vs own pristine sweep               PASS
+                           0 differing rows over 1588.  NO ROW CONVERTED —
+                           SeqDriver/MiniAmiq stay CMP_NOTEQUAL with the head
+                           CLEARED and a new head of a different family.
+(5) byteverify SELFCHECK=1
+      u2r      MOVERS 0 / 1358, PATH_SETS_IDENTICAL, selfcheck 1357/1358
+      surelog  MOVERS 9 / 956, PATH_SETS_IDENTICAL, selfcheck 955/956
+      THE MOVER SET WAS PREDICTED BY NAME BEFORE THE PATCHED SWEEP RAN, from
+      the GOLDEN census alone (CENSUS.r10uvm120.txt): the five tests that carry
+      the return-window cell — SeqDriver, SimpleUVM, Scoreboard, MiniAmiq,
+      BuildUVMPkg — in both modes, less Scoreboard/testflags which has no
+      our-side database.  MEASURED: exactly those 9, and NOTHING ELSE.
+
+      EVERY MOVER ATTRIBUTED (uhdm-dump, workdir path-normalised):
+        BuildUVMPkg d/tf  24 lines  = the one law cell + its 2 new objects
+        SimpleUVM   d/tf  24 lines  = the same
+        Scoreboard  d    116 lines  = the law's 24 + the DOCUMENTED
+                                      Scoreboard/default COIN (svunit_pkg
+                                      vpiTaskFunc ORDER flip, 92 lines).
+                                      ORDER-BLIND (both dumps sorted) the diff
+                                      is 24 lines and they are the law's.
+        SeqDriver   d    101 lines / tf 83  ORDER-BLIND 43 lines = the law's
+                                      cell at BOTH its sites (uvm_pkg's own
+                                      and the adpcm_pkg wildcard-import clone);
+                                      the rest was arena ORDER (loose
+                                      typespec listing) with no content change.
+        MiniAmiq    d/tf  67 lines   ORDER-BLIND 43 lines, same two sites
+                                      (uvm_pkg + svaunit_pkg clone).
+(6) canaries ............. canaries.sh sl  ok=52 changed=0 absent=0
+                           canaries.sh u2r ok=8  changed=0 absent=0
+                           ctcan2.sh sl  EXPECT_UNKNOWN=1  PASS
+                           ctcan2.sh u2r EXPECT_UNKNOWN=6  PASS
+                           canaudit.sh canaries.sh ctcan2.sh:
+                             audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+                           The four slang-fenced tests are NOT dispatched by any
+                           driver here (canaudit says so) and appear in NO probe
+                           artifact.
+(7) protected databases .. md5 (first 12) pristine vs patched, both modes:
+                             InterfaceModPort  59a365f3ce2c  SAME
+                             BlackParrotComplex e3e354129d5a / 73a10e8217e5 SAME
+                             YosysOldOr        d68e0796d62c  SAME
+                             SVSwitch          4842211c4030  (pin held)
+                             YosysVerx         6ccda350c24a  (pin held)
+(8) HEADS (rowheads.sh, DEPTH not distance)
+      TEST          MODE       pristine -> patched
+      SeqDriver     d/tf         50 -> 58   HEAD CLEARED, new head is
+                                            bit_select vs bit_var on
+                                            uvm_pkg::uvm_oneway_hash::crc1
+                                            386:12 — a different family
+      MiniAmiq      d/tf         50 -> 58   same new head
+      SimpleUVM     d/tf         13 -> 13   SAME head (method_func_call `new`),
+      Scoreboard    d            13 -> 13   byte-identical but for object ids
+      BuildUVMPkg   d/tf         13 -> 13   shifted +2 (the 2 new objects)
+      Earlgrey_0_1  d/tf         36 -> 36   cmp log BYTE-IDENTICAL
+      Rggen         d             0 ->  0   BYTE-IDENTICAL
+      `uvm_revision` / `UVM.1.2` / `Accellera:1800` appear in FOUR pristine head
+      logs and in ZERO patched head logs.

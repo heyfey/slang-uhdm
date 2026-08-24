@@ -1,0 +1,24 @@
+r10uvm120 — THE A-PRIORI PREDICTION, made from PRISTINE/GOLDEN data BEFORE the
+patched sweep ran.
+
+WHICH DATABASES CAN MOVE (predicted BY NAME):  the databases whose GOLDEN
+census (cen120.py, CENSUS.r10uvm120.txt) carries a RETURN-window substituted
+read.  That is exactly the five UVM tests — SeqDriver, SimpleUVM, Scoreboard,
+MiniAmiq, BuildUVMPkg — in both modes, all reading the SAME
+`uvm_pkg::uvm_revision_string`.  Scoreboard/testflags has no our-side database,
+so 9 movers were predicted.
+MEASURED: byteverify SELFCHECK=1 reports MOVERS 9 / 956, and they are those
+nine, name for name.  u2r: 0 predicted (its golden census carries no such
+cell), 0 / 1358 measured.
+
+WHICH CELLS CAN MOVE (pred120.py, read off a PRISTINE dump alone).  The law can
+only touch a `return_stmt` in a PACKAGE view whose condition is either
+  (a) a ref_obj whose name is a parameter of the enclosing package — the
+      substitution that was missing, and the name-keyed shadow half; or
+  (b) a constant ALREADY parented at a param_assign — the old value
+      re-render, whose fields the clone replaces, or the nested-return
+      over-fold the window fence now refuses.
+Everything else is out of reach.  The predictor is an upper bound by design
+(it does not know which package a name resolves in): on g120_c_homes it names
+15 candidate cells and the arm moved 0, which is the point — every MOVER is a
+candidate, not every candidate is a mover.

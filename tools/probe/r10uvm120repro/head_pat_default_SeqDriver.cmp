@@ -1,0 +1,58 @@
+LHS:
+decompile:
+bit_select: (uvm_pkg::uvm_oneway_hash::crc1), id:2601, line:386:12, endln:386:19
+|vpiParent:
+\_assignment: , id:2599, line:386:12, endln:386:23
+|vpiName:crc1
+|vpiFullName:uvm_pkg::uvm_oneway_hash::crc1
+|vpiIndex:
+\_constant: , id:2600, line:386:17, endln:386:18
+  |vpiParent:
+  \_bit_select: (uvm_pkg::uvm_oneway_hash::crc1), id:2601, line:386:12, endln:386:19
+  |vpiDecompile:0
+  |vpiSize:64
+  |UINT:0
+  |vpiConstType:9
+
+decompile:
+bit_select: (uvm_pkg::uvm_oneway_hash::crc1), id:2601, line:386:12, endln:386:19
+|vpiParent:
+\_assignment: , id:2599, line:386:12, endln:386:23
+|vpiName:crc1
+|vpiFullName:uvm_pkg::uvm_oneway_hash::crc1
+|vpiIndex:
+\_constant: , id:2600, line:386:17, endln:386:18
+  |vpiParent:
+  \_bit_select: (uvm_pkg::uvm_oneway_hash::crc1), id:2601, line:386:12, endln:386:19
+  |vpiDecompile:0
+  |vpiSize:64
+  |UINT:0
+  |vpiConstType:9
+RHS:
+decompile:
+bit_var: (uvm_pkg::uvm_oneway_hash::crc1), id:6767, line:372:16, endln:372:20
+|vpiParent:
+\_begin: (uvm_pkg::uvm_oneway_hash), id:6769, line:371:3, endln:371:29
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_oneway_hash::crc1), id:6768
+  |vpiParent:
+  \_bit_var: (uvm_pkg::uvm_oneway_hash::crc1), id:6767, line:372:16, endln:372:20
+  |vpiFullName:uvm_pkg::uvm_oneway_hash::crc1
+  |vpiActual:
+  \_bit_typespec: , id:6763, line:372:3, endln:372:13
+|vpiName:crc1
+|vpiFullName:uvm_pkg::uvm_oneway_hash::crc1
+
+decompile:
+bit_var: (uvm_pkg::uvm_oneway_hash::crc1), id:6767, line:372:16, endln:372:20
+|vpiParent:
+\_begin: (uvm_pkg::uvm_oneway_hash), id:6769, line:371:3, endln:371:29
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_oneway_hash::crc1), id:6768
+  |vpiParent:
+  \_bit_var: (uvm_pkg::uvm_oneway_hash::crc1), id:6767, line:372:16, endln:372:20
+  |vpiFullName:uvm_pkg::uvm_oneway_hash::crc1
+  |vpiActual:
+  \_bit_typespec: , id:6763, line:372:3, endln:372:13
+|vpiName:crc1
+|vpiFullName:uvm_pkg::uvm_oneway_hash::crc1
