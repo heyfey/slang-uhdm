@@ -1,0 +1,859 @@
+r10earl80 — GRID SCORES (score80.py, 3-way: golden / patched / pristine-as-base)
+MEASUREMENT ONLY.  Payloads carry NO span.
+
+== g1_hops80.sv (12 sources x 8 intermediate types x 3 homes x 3 hops) ==
+-- golden vs PRISTINE --
+CELLS=1728 DIFFERING=484  goldkeys=864 ourkeys=864
+-- golden vs PATCHED, 3-way --
+CELLS=1728 DIFFERING=254  goldkeys=864 ourkeys=864
+  STILL-RIGHT: 1244
+  TO-GOLDEN: 230
+  AWAY-GOLDEN: 0
+  MOVED-WRONG: 0
+  STILL-WRONG: 254
+  MISSING: 0
+-- NEUTRAL (R10E80_OFF=1) vs PRISTINE census --
+  BYTE-IDENTICAL
+
+== g2_mask80.sv (10 masking/sign sources x 8 types x 3 homes x 3 hops) ==
+-- golden vs PRISTINE --
+CELLS=1440 DIFFERING=428  goldkeys=720 ourkeys=720
+-- golden vs PATCHED, 3-way --
+CELLS=1440 DIFFERING=224  goldkeys=720 ourkeys=720
+  STILL-RIGHT: 1012
+  TO-GOLDEN: 204
+  AWAY-GOLDEN: 0
+  MOVED-WRONG: 0
+  STILL-WRONG: 224
+  MISSING: 0
+-- NEUTRAL vs PRISTINE census --
+  BYTE-IDENTICAL
+
+== THE GOLDEN DECOMPILE TABLE — g1, PRISTINE (hop0 A / hop1 B / hop2 D; G then O) ==
+== DECOMPILE by (source literal, mid type, home) x hop ==
+SRC     MID           HOME  | hop0 A  G / O          hop1 B  G / O          hop2 D  G / O
+--------------------------------------------------------------------------------------------------
+4'h2    bit [3:0]     DECL  |  4'h2       4'h2        4'h2       4'h2       *4'h2       32'h2
+4'h2    bit [3:0]     OVR   |  4'h2       4'h2        4'h2       4'h2       *4'h2       32'h2
+4'h2    bit [3:0]     LP    |  4'h2       4'h2        4'h2       4'h2       *4'h2       32'h2
+4'h2    bit [7:0]     DECL  | *8'h2       4'h2        8'h2       8'h2       *8'h2       32'h2
+4'h2    bit [7:0]     OVR   |  4'h2       4'h2       *4'h2       8'h2       *4'h2       32'h2
+4'h2    bit [7:0]     LP    |  8'h2       8'h2        8'h2       8'h2       *8'h2       32'h2
+4'h2    logic [7:0]   DECL  | *8'h2       4'h2        8'h2       8'h2       *8'h2       32'h2
+4'h2    logic [7:0]   OVR   |  4'h2       4'h2       *4'h2       8'h2       *4'h2       32'h2
+4'h2    logic [7:0]   LP    |  8'h2       8'h2        8'h2       8'h2       *8'h2       32'h2
+4'h2    int unsigned  DECL  |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+4'h2    int unsigned  OVR   |  4'h2       4'h2       *4'h2       32'h2      *4'h2       32'h2
+4'h2    int unsigned  LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+4'h2    int           DECL  |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+4'h2    int           OVR   |  4'h2       4'h2       *4'h2       32'h2      *4'h2       32'h2
+4'h2    int           LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+4'h2    bit [31:0]    DECL  | *32'h2      4'h2        32'h2      32'h2       32'h2      32'h2
+4'h2    bit [31:0]    OVR   |  4'h2       4'h2       *4'h2       32'h2      *4'h2       32'h2
+4'h2    bit [31:0]    LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+4'h2    (untyped)     DECL  |  4'h2       4'h2        4'h2       4'h2       *4'h2       32'h2
+4'h2    (untyped)     OVR   |  4'h2       4'h2        4'h2       4'h2       *4'h2       32'h2
+4'h2    (untyped)     LP    |  4'h2       4'h2        4'h2       4'h2       *4'h2       32'h2
+4'h2    bit           DECL  | *1'h2       4'h2        1'h2       1'h2        1'h2       1'h2
+4'h2    bit           OVR   |  4'h2       4'h2       *4'h2       1'h2       *4'h2       1'h2
+4'h2    bit           LP    |  1'h2       1'h2        1'h2       1'h2        1'h2       1'h2
+8'h2    bit [3:0]     DECL  | *4'h2       8'h2        4'h2       4'h2       *4'h2       32'h2
+8'h2    bit [3:0]     OVR   |  8'h2       8'h2       *8'h2       4'h2       *8'h2       32'h2
+8'h2    bit [3:0]     LP    |  4'h2       4'h2        4'h2       4'h2       *4'h2       32'h2
+8'h2    bit [7:0]     DECL  |  8'h2       8'h2        8'h2       8'h2       *8'h2       32'h2
+8'h2    bit [7:0]     OVR   |  8'h2       8'h2        8'h2       8'h2       *8'h2       32'h2
+8'h2    bit [7:0]     LP    |  8'h2       8'h2        8'h2       8'h2       *8'h2       32'h2
+8'h2    logic [7:0]   DECL  |  8'h2       8'h2        8'h2       8'h2       *8'h2       32'h2
+8'h2    logic [7:0]   OVR   |  8'h2       8'h2        8'h2       8'h2       *8'h2       32'h2
+8'h2    logic [7:0]   LP    |  8'h2       8'h2        8'h2       8'h2       *8'h2       32'h2
+8'h2    int unsigned  DECL  |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+8'h2    int unsigned  OVR   |  8'h2       8'h2       *8'h2       32'h2      *8'h2       32'h2
+8'h2    int unsigned  LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+8'h2    int           DECL  |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+8'h2    int           OVR   |  8'h2       8'h2       *8'h2       32'h2      *8'h2       32'h2
+8'h2    int           LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+8'h2    bit [31:0]    DECL  | *32'h2      8'h2        32'h2      32'h2       32'h2      32'h2
+8'h2    bit [31:0]    OVR   |  8'h2       8'h2       *8'h2       32'h2      *8'h2       32'h2
+8'h2    bit [31:0]    LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+8'h2    (untyped)     DECL  |  8'h2       8'h2        8'h2       8'h2       *8'h2       32'h2
+8'h2    (untyped)     OVR   |  8'h2       8'h2        8'h2       8'h2       *8'h2       32'h2
+8'h2    (untyped)     LP    |  8'h2       8'h2        8'h2       8'h2       *8'h2       32'h2
+8'h2    bit           DECL  | *1'h2       8'h2        1'h2       1'h2        1'h2       1'h2
+8'h2    bit           OVR   |  8'h2       8'h2       *8'h2       1'h2       *8'h2       1'h2
+8'h2    bit           LP    |  1'h2       1'h2        1'h2       1'h2        1'h2       1'h2
+4'd2    bit [3:0]     DECL  |  2          2           2          2           2          2
+4'd2    bit [3:0]     OVR   |  2          2           2          2           2          2
+4'd2    bit [3:0]     LP    |  2          2           2          2           2          2
+4'd2    bit [7:0]     DECL  |  2          2           2          2           2          2
+4'd2    bit [7:0]     OVR   |  2          2           2          2           2          2
+4'd2    bit [7:0]     LP    |  2          2           2          2           2          2
+4'd2    logic [7:0]   DECL  |  2          2           2          2           2          2
+4'd2    logic [7:0]   OVR   |  2          2           2          2           2          2
+4'd2    logic [7:0]   LP    |  2          2           2          2           2          2
+4'd2    int unsigned  DECL  |  2          2           2          2           2          2
+4'd2    int unsigned  OVR   |  2          2           2          2           2          2
+4'd2    int unsigned  LP    |  2          2           2          2           2          2
+4'd2    int           DECL  |  2          2           2          2           2          2
+4'd2    int           OVR   |  2          2           2          2           2          2
+4'd2    int           LP    |  2          2           2          2           2          2
+4'd2    bit [31:0]    DECL  |  2          2           2          2           2          2
+4'd2    bit [31:0]    OVR   |  2          2           2          2           2          2
+4'd2    bit [31:0]    LP    |  2          2           2          2           2          2
+4'd2    (untyped)     DECL  |  2          2           2          2           2          2
+4'd2    (untyped)     OVR   |  2          2           2          2           2          2
+4'd2    (untyped)     LP    |  2          2           2          2           2          2
+4'd2    bit           DECL  |  2          2           2          2           2          2
+4'd2    bit           OVR   |  2          2           2          2           2          2
+4'd2    bit           LP    |  2          2           2          2           2          2
+4'b10   bit [3:0]     DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [3:0]     OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [3:0]     LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [7:0]     DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [7:0]     OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [7:0]     LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   logic [7:0]   DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   logic [7:0]   OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   logic [7:0]   LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   int unsigned  DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   int unsigned  OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   int unsigned  LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   int           DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   int           OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   int           LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [31:0]    DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [31:0]    OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [31:0]    LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   (untyped)     DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   (untyped)     OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   (untyped)     LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit           DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit           OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit           LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'o2    bit [3:0]     DECL  |  2          2           2          2           2          2
+4'o2    bit [3:0]     OVR   |  2          2           2          2           2          2
+4'o2    bit [3:0]     LP    |  2          2           2          2           2          2
+4'o2    bit [7:0]     DECL  |  2          2           2          2           2          2
+4'o2    bit [7:0]     OVR   |  2          2           2          2           2          2
+4'o2    bit [7:0]     LP    |  2          2           2          2           2          2
+4'o2    logic [7:0]   DECL  |  2          2           2          2           2          2
+4'o2    logic [7:0]   OVR   |  2          2           2          2           2          2
+4'o2    logic [7:0]   LP    |  2          2           2          2           2          2
+4'o2    int unsigned  DECL  |  2          2           2          2           2          2
+4'o2    int unsigned  OVR   |  2          2           2          2           2          2
+4'o2    int unsigned  LP    |  2          2           2          2           2          2
+4'o2    int           DECL  |  2          2           2          2           2          2
+4'o2    int           OVR   |  2          2           2          2           2          2
+4'o2    int           LP    |  2          2           2          2           2          2
+4'o2    bit [31:0]    DECL  |  2          2           2          2           2          2
+4'o2    bit [31:0]    OVR   |  2          2           2          2           2          2
+4'o2    bit [31:0]    LP    |  2          2           2          2           2          2
+4'o2    (untyped)     DECL  |  2          2           2          2           2          2
+4'o2    (untyped)     OVR   |  2          2           2          2           2          2
+4'o2    (untyped)     LP    |  2          2           2          2           2          2
+4'o2    bit           DECL  | *0          2          *2          0          *2          0
+4'o2    bit           OVR   |  0          0          *2          0          *2          0
+4'o2    bit           LP    |  0          0          *2          0          *2          0
+'0      bit [3:0]     DECL  |  4'b0       4'b0        4'b0       4'b0        4'b0       4'b0
+'0      bit [3:0]     OVR   |  'b0        'b0        *'b0        4'b0       *'b0        4'b0
+'0      bit [3:0]     LP    |  4'b0       4'b0        4'b0       4'b0        4'b0       4'b0
+'0      bit [7:0]     DECL  |  8'b0       8'b0        8'b0       8'b0        8'b0       8'b0
+'0      bit [7:0]     OVR   |  'b0        'b0        *'b0        8'b0       *'b0        8'b0
+'0      bit [7:0]     LP    |  8'b0       8'b0        8'b0       8'b0        8'b0       8'b0
+'0      logic [7:0]   DECL  |  8'b0       8'b0        8'b0       8'b0        8'b0       8'b0
+'0      logic [7:0]   OVR   |  'b0        'b0        *'b0        8'b0       *'b0        8'b0
+'0      logic [7:0]   LP    |  8'b0       8'b0        8'b0       8'b0        8'b0       8'b0
+'0      int unsigned  DECL  |  32'b0      32'b0       32'b0      32'b0       32'b0      32'b0
+'0      int unsigned  OVR   |  'b0        'b0        *'b0        32'b0      *'b0        32'b0
+'0      int unsigned  LP    |  32'b0      32'b0       32'b0      32'b0       32'b0      32'b0
+'0      int           DECL  |  32'b0      32'b0       32'b0      32'b0       32'b0      32'b0
+'0      int           OVR   |  'b0        'b0        *'b0        32'b0      *'b0        32'b0
+'0      int           LP    |  32'b0      32'b0       32'b0      32'b0       32'b0      32'b0
+'0      bit [31:0]    DECL  |  32'b0      32'b0       32'b0      32'b0       32'b0      32'b0
+'0      bit [31:0]    OVR   |  'b0        'b0        *'b0        32'b0      *'b0        32'b0
+'0      bit [31:0]    LP    |  32'b0      32'b0       32'b0      32'b0       32'b0      32'b0
+'0      (untyped)     DECL  | *'b0        0          *'b0        32'b0      *'b0        32'b0
+'0      (untyped)     OVR   |  'b0        'b0        *'b0        32'b0      *'b0        32'b0
+'0      (untyped)     LP    | *'b0        0          *'b0        32'b0      *'b0        32'b0
+'0      bit           DECL  |  1'b0       1'b0       *1'b0       -          *1'b0       -
+'0      bit           OVR   |  'b0        'b0        *'b0        -          *'b0        -
+'0      bit           LP    | *1'b0       -          *1'b0       -          *1'b0       -
+'h2     bit [3:0]     DECL  |  4'h2       4'h2       *4'h2       2          *4'h2       2
+'h2     bit [3:0]     OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     bit [3:0]     LP    | *4'h2       2          *4'h2       2          *4'h2       2
+'h2     bit [7:0]     DECL  |  8'h2       8'h2       *8'h2       2          *8'h2       2
+'h2     bit [7:0]     OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     bit [7:0]     LP    | *8'h2       2          *8'h2       2          *8'h2       2
+'h2     logic [7:0]   DECL  |  8'h2       8'h2       *8'h2       2          *8'h2       2
+'h2     logic [7:0]   OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     logic [7:0]   LP    | *8'h2       2          *8'h2       2          *8'h2       2
+'h2     int unsigned  DECL  |  32'h2      32'h2      *32'h2      2          *32'h2      2
+'h2     int unsigned  OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     int unsigned  LP    | *32'h2      2          *32'h2      2          *32'h2      2
+'h2     int           DECL  |  32'h2      32'h2      *32'h2      2          *32'h2      2
+'h2     int           OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     int           LP    | *32'h2      2          *32'h2      2          *32'h2      2
+'h2     bit [31:0]    DECL  |  32'h2      32'h2      *32'h2      2          *32'h2      2
+'h2     bit [31:0]    OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     bit [31:0]    LP    | *32'h2      2          *32'h2      2          *32'h2      2
+'h2     (untyped)     DECL  |  'h2        'h2        *'h2        2          *'h2        2
+'h2     (untyped)     OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     (untyped)     LP    | *'h2        2          *'h2        2          *'h2        2
+'h2     bit           DECL  |  1'h2       1'h2       *1'h2       0          *1'h2       0
+'h2     bit           OVR   | *'h2        0          *'h2        0          *'h2        0
+'h2     bit           LP    | *1'h2       0          *1'h2       0          *1'h2       0
+2       bit [3:0]     DECL  |  2          2           2          2           2          2
+2       bit [3:0]     OVR   |  2          2           2          2           2          2
+2       bit [3:0]     LP    |  2          2           2          2           2          2
+2       bit [7:0]     DECL  |  2          2           2          2           2          2
+2       bit [7:0]     OVR   |  2          2           2          2           2          2
+2       bit [7:0]     LP    |  2          2           2          2           2          2
+2       logic [7:0]   DECL  |  2          2           2          2           2          2
+2       logic [7:0]   OVR   |  2          2           2          2           2          2
+2       logic [7:0]   LP    |  2          2           2          2           2          2
+2       int unsigned  DECL  |  2          2           2          2           2          2
+2       int unsigned  OVR   |  2          2           2          2           2          2
+2       int unsigned  LP    |  2          2           2          2           2          2
+2       int           DECL  |  2          2           2          2           2          2
+2       int           OVR   |  2          2           2          2           2          2
+2       int           LP    |  2          2           2          2           2          2
+2       bit [31:0]    DECL  |  2          2           2          2           2          2
+2       bit [31:0]    OVR   |  2          2           2          2           2          2
+2       bit [31:0]    LP    |  2          2           2          2           2          2
+2       (untyped)     DECL  |  2          2           2          2           2          2
+2       (untyped)     OVR   |  2          2           2          2           2          2
+2       (untyped)     LP    |  2          2           2          2           2          2
+2       bit           DECL  |  0          0           0          0           0          0
+2       bit           OVR   |  0          0          *2          0          *2          0
+2       bit           LP    |  0          0           0          0           0          0
+16'h2   bit [3:0]     DECL  | *4'h2       16'h2       4'h2       4'h2       *4'h2       32'h2
+16'h2   bit [3:0]     OVR   |  16'h2      16'h2      *16'h2      4'h2       *16'h2      32'h2
+16'h2   bit [3:0]     LP    |  4'h2       4'h2        4'h2       4'h2       *4'h2       32'h2
+16'h2   bit [7:0]     DECL  | *8'h2       16'h2       8'h2       8'h2       *8'h2       32'h2
+16'h2   bit [7:0]     OVR   |  16'h2      16'h2      *16'h2      8'h2       *16'h2      32'h2
+16'h2   bit [7:0]     LP    |  8'h2       8'h2        8'h2       8'h2       *8'h2       32'h2
+16'h2   logic [7:0]   DECL  | *8'h2       16'h2       8'h2       8'h2       *8'h2       32'h2
+16'h2   logic [7:0]   OVR   |  16'h2      16'h2      *16'h2      8'h2       *16'h2      32'h2
+16'h2   logic [7:0]   LP    |  8'h2       8'h2        8'h2       8'h2       *8'h2       32'h2
+16'h2   int unsigned  DECL  |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+16'h2   int unsigned  OVR   |  16'h2      16'h2      *16'h2      32'h2      *16'h2      32'h2
+16'h2   int unsigned  LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+16'h2   int           DECL  |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+16'h2   int           OVR   |  16'h2      16'h2      *16'h2      32'h2      *16'h2      32'h2
+16'h2   int           LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+16'h2   bit [31:0]    DECL  | *32'h2      16'h2       32'h2      32'h2       32'h2      32'h2
+16'h2   bit [31:0]    OVR   |  16'h2      16'h2      *16'h2      32'h2      *16'h2      32'h2
+16'h2   bit [31:0]    LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+16'h2   (untyped)     DECL  |  16'h2      16'h2       16'h2      16'h2      *16'h2      32'h2
+16'h2   (untyped)     OVR   |  16'h2      16'h2       16'h2      16'h2      *16'h2      32'h2
+16'h2   (untyped)     LP    |  16'h2      16'h2       16'h2      16'h2      *16'h2      32'h2
+16'h2   bit           DECL  | *1'h2       16'h2       1'h2       1'h2        1'h2       1'h2
+16'h2   bit           OVR   |  16'h2      16'h2      *16'h2      1'h2       *16'h2      1'h2
+16'h2   bit           LP    |  1'h2       1'h2        1'h2       1'h2        1'h2       1'h2
+1'b1    bit [3:0]     DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [3:0]     OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [3:0]     LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [7:0]     DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [7:0]     OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [7:0]     LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    logic [7:0]   DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    logic [7:0]   OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    logic [7:0]   LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    int unsigned  DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    int unsigned  OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    int unsigned  LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    int           DECL  |  -1         -1          1'b1       1'b1        1'b1       1'b1
+1'b1    int           OVR   |  -1         -1          1'b1       1'b1        1'b1       1'b1
+1'b1    int           LP    |  -1         -1          1'b1       1'b1        1'b1       1'b1
+1'b1    bit [31:0]    DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [31:0]    OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [31:0]    LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    (untyped)     DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    (untyped)     OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    (untyped)     LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit           DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit           OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit           LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+4'h0    bit [3:0]     DECL  |  4'h0       4'h0        4'h0       4'h0       *4'h0       32'h0
+4'h0    bit [3:0]     OVR   |  4'h0       4'h0        4'h0       4'h0       *4'h0       32'h0
+4'h0    bit [3:0]     LP    |  4'h0       4'h0        4'h0       4'h0       *4'h0       32'h0
+4'h0    bit [7:0]     DECL  | *8'h0       4'h0        8'h0       8'h0       *8'h0       32'h0
+4'h0    bit [7:0]     OVR   |  4'h0       4'h0       *4'h0       8'h0       *4'h0       32'h0
+4'h0    bit [7:0]     LP    |  8'h0       8'h0        8'h0       8'h0       *8'h0       32'h0
+4'h0    logic [7:0]   DECL  | *8'h0       4'h0        8'h0       8'h0       *8'h0       32'h0
+4'h0    logic [7:0]   OVR   |  4'h0       4'h0       *4'h0       8'h0       *4'h0       32'h0
+4'h0    logic [7:0]   LP    |  8'h0       8'h0        8'h0       8'h0       *8'h0       32'h0
+4'h0    int unsigned  DECL  |  32'h0      32'h0       32'h0      32'h0       32'h0      32'h0
+4'h0    int unsigned  OVR   |  4'h0       4'h0       *4'h0       32'h0      *4'h0       32'h0
+4'h0    int unsigned  LP    |  32'h0      32'h0       32'h0      32'h0       32'h0      32'h0
+4'h0    int           DECL  |  32'h0      32'h0       32'h0      32'h0       32'h0      32'h0
+4'h0    int           OVR   |  4'h0       4'h0       *4'h0       32'h0      *4'h0       32'h0
+4'h0    int           LP    |  32'h0      32'h0       32'h0      32'h0       32'h0      32'h0
+4'h0    bit [31:0]    DECL  | *32'h0      4'h0        32'h0      32'h0       32'h0      32'h0
+4'h0    bit [31:0]    OVR   |  4'h0       4'h0       *4'h0       32'h0      *4'h0       32'h0
+4'h0    bit [31:0]    LP    |  32'h0      32'h0       32'h0      32'h0       32'h0      32'h0
+4'h0    (untyped)     DECL  |  4'h0       4'h0        4'h0       4'h0       *4'h0       32'h0
+4'h0    (untyped)     OVR   |  4'h0       4'h0        4'h0       4'h0       *4'h0       32'h0
+4'h0    (untyped)     LP    |  4'h0       4'h0        4'h0       4'h0       *4'h0       32'h0
+4'h0    bit           DECL  | *1'h0       4'h0        1'h0       1'h0        1'h0       1'h0
+4'h0    bit           OVR   |  4'h0       4'h0       *4'h0       1'h0       *4'h0       1'h0
+4'h0    bit           LP    |  1'h0       1'h0        1'h0       1'h0        1'h0       1'h0
+33'h1   bit [3:0]     DECL  | *4'h1       33'h1       4'h1       4'h1       *4'h1       32'h1
+33'h1   bit [3:0]     OVR   |  33'h1      33'h1      *33'h1      4'h1       *33'h1      32'h1
+33'h1   bit [3:0]     LP    |  4'h1       4'h1        4'h1       4'h1       *4'h1       32'h1
+33'h1   bit [7:0]     DECL  | *8'h1       33'h1       8'h1       8'h1       *8'h1       32'h1
+33'h1   bit [7:0]     OVR   |  33'h1      33'h1      *33'h1      8'h1       *33'h1      32'h1
+33'h1   bit [7:0]     LP    |  8'h1       8'h1        8'h1       8'h1       *8'h1       32'h1
+33'h1   logic [7:0]   DECL  | *8'h1       33'h1       8'h1       8'h1       *8'h1       32'h1
+33'h1   logic [7:0]   OVR   |  33'h1      33'h1      *33'h1      8'h1       *33'h1      32'h1
+33'h1   logic [7:0]   LP    |  8'h1       8'h1        8'h1       8'h1       *8'h1       32'h1
+33'h1   int unsigned  DECL  |  32'h1      32'h1       32'h1      32'h1       32'h1      32'h1
+33'h1   int unsigned  OVR   |  33'h1      33'h1      *33'h1      32'h1      *33'h1      32'h1
+33'h1   int unsigned  LP    |  32'h1      32'h1       32'h1      32'h1       32'h1      32'h1
+33'h1   int           DECL  |  32'h1      32'h1       32'h1      32'h1       32'h1      32'h1
+33'h1   int           OVR   |  33'h1      33'h1      *33'h1      32'h1      *33'h1      32'h1
+33'h1   int           LP    |  32'h1      32'h1       32'h1      32'h1       32'h1      32'h1
+33'h1   bit [31:0]    DECL  | *32'h1      33'h1       32'h1      32'h1       32'h1      32'h1
+33'h1   bit [31:0]    OVR   |  33'h1      33'h1      *33'h1      32'h1      *33'h1      32'h1
+33'h1   bit [31:0]    LP    |  32'h1      32'h1       32'h1      32'h1       32'h1      32'h1
+33'h1   (untyped)     DECL  |  33'h1      33'h1       33'h1      33'h1      *33'h1      32'h1
+33'h1   (untyped)     OVR   |  33'h1      33'h1       33'h1      33'h1      *33'h1      32'h1
+33'h1   (untyped)     LP    |  33'h1      33'h1       33'h1      33'h1      *33'h1      32'h1
+33'h1   bit           DECL  | *1'h1       33'h1       1'h1       1'h1        1'h1       1'h1
+33'h1   bit           OVR   |  33'h1      33'h1      *33'h1      1'h1       *33'h1      1'h1
+33'h1   bit           LP    |  1'h1       1'h1        1'h1       1'h1        1'h1       1'h1
+
+== THE SAME TABLE, PATCHED ==
+== DECOMPILE by (source literal, mid type, home) x hop ==
+SRC     MID           HOME  | hop0 A  G / O          hop1 B  G / O          hop2 D  G / O
+--------------------------------------------------------------------------------------------------
+4'h2    bit [3:0]     DECL  |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+4'h2    bit [3:0]     OVR   |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+4'h2    bit [3:0]     LP    |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+4'h2    bit [7:0]     DECL  | *8'h2       4'h2        8'h2       8'h2        8'h2       8'h2
+4'h2    bit [7:0]     OVR   |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+4'h2    bit [7:0]     LP    |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+4'h2    logic [7:0]   DECL  | *8'h2       4'h2        8'h2       8'h2        8'h2       8'h2
+4'h2    logic [7:0]   OVR   |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+4'h2    logic [7:0]   LP    |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+4'h2    int unsigned  DECL  |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+4'h2    int unsigned  OVR   |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+4'h2    int unsigned  LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+4'h2    int           DECL  |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+4'h2    int           OVR   |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+4'h2    int           LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+4'h2    bit [31:0]    DECL  | *32'h2      4'h2        32'h2      32'h2       32'h2      32'h2
+4'h2    bit [31:0]    OVR   |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+4'h2    bit [31:0]    LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+4'h2    (untyped)     DECL  |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+4'h2    (untyped)     OVR   |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+4'h2    (untyped)     LP    |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+4'h2    bit           DECL  | *1'h2       4'h2        1'h2       1'h2        1'h2       1'h2
+4'h2    bit           OVR   |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+4'h2    bit           LP    |  1'h2       1'h2        1'h2       1'h2        1'h2       1'h2
+8'h2    bit [3:0]     DECL  | *4'h2       8'h2        4'h2       4'h2        4'h2       4'h2
+8'h2    bit [3:0]     OVR   |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    bit [3:0]     LP    |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+8'h2    bit [7:0]     DECL  |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    bit [7:0]     OVR   |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    bit [7:0]     LP    |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    logic [7:0]   DECL  |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    logic [7:0]   OVR   |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    logic [7:0]   LP    |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    int unsigned  DECL  |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+8'h2    int unsigned  OVR   |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    int unsigned  LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+8'h2    int           DECL  |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+8'h2    int           OVR   |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    int           LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+8'h2    bit [31:0]    DECL  | *32'h2      8'h2        32'h2      32'h2       32'h2      32'h2
+8'h2    bit [31:0]    OVR   |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    bit [31:0]    LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+8'h2    (untyped)     DECL  |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    (untyped)     OVR   |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    (untyped)     LP    |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    bit           DECL  | *1'h2       8'h2        1'h2       1'h2        1'h2       1'h2
+8'h2    bit           OVR   |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+8'h2    bit           LP    |  1'h2       1'h2        1'h2       1'h2        1'h2       1'h2
+4'd2    bit [3:0]     DECL  |  2          2           2          2           2          2
+4'd2    bit [3:0]     OVR   |  2          2           2          2           2          2
+4'd2    bit [3:0]     LP    |  2          2           2          2           2          2
+4'd2    bit [7:0]     DECL  |  2          2           2          2           2          2
+4'd2    bit [7:0]     OVR   |  2          2           2          2           2          2
+4'd2    bit [7:0]     LP    |  2          2           2          2           2          2
+4'd2    logic [7:0]   DECL  |  2          2           2          2           2          2
+4'd2    logic [7:0]   OVR   |  2          2           2          2           2          2
+4'd2    logic [7:0]   LP    |  2          2           2          2           2          2
+4'd2    int unsigned  DECL  |  2          2           2          2           2          2
+4'd2    int unsigned  OVR   |  2          2           2          2           2          2
+4'd2    int unsigned  LP    |  2          2           2          2           2          2
+4'd2    int           DECL  |  2          2           2          2           2          2
+4'd2    int           OVR   |  2          2           2          2           2          2
+4'd2    int           LP    |  2          2           2          2           2          2
+4'd2    bit [31:0]    DECL  |  2          2           2          2           2          2
+4'd2    bit [31:0]    OVR   |  2          2           2          2           2          2
+4'd2    bit [31:0]    LP    |  2          2           2          2           2          2
+4'd2    (untyped)     DECL  |  2          2           2          2           2          2
+4'd2    (untyped)     OVR   |  2          2           2          2           2          2
+4'd2    (untyped)     LP    |  2          2           2          2           2          2
+4'd2    bit           DECL  |  2          2           2          2           2          2
+4'd2    bit           OVR   |  2          2           2          2           2          2
+4'd2    bit           LP    |  2          2           2          2           2          2
+4'b10   bit [3:0]     DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [3:0]     OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [3:0]     LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [7:0]     DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [7:0]     OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [7:0]     LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   logic [7:0]   DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   logic [7:0]   OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   logic [7:0]   LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   int unsigned  DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   int unsigned  OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   int unsigned  LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   int           DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   int           OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   int           LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [31:0]    DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [31:0]    OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit [31:0]    LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   (untyped)     DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   (untyped)     OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   (untyped)     LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit           DECL  |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit           OVR   |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'b10   bit           LP    |  4'b10      4'b10       4'b10      4'b10       4'b10      4'b10
+4'o2    bit [3:0]     DECL  |  2          2           2          2           2          2
+4'o2    bit [3:0]     OVR   |  2          2           2          2           2          2
+4'o2    bit [3:0]     LP    |  2          2           2          2           2          2
+4'o2    bit [7:0]     DECL  |  2          2           2          2           2          2
+4'o2    bit [7:0]     OVR   |  2          2           2          2           2          2
+4'o2    bit [7:0]     LP    |  2          2           2          2           2          2
+4'o2    logic [7:0]   DECL  |  2          2           2          2           2          2
+4'o2    logic [7:0]   OVR   |  2          2           2          2           2          2
+4'o2    logic [7:0]   LP    |  2          2           2          2           2          2
+4'o2    int unsigned  DECL  |  2          2           2          2           2          2
+4'o2    int unsigned  OVR   |  2          2           2          2           2          2
+4'o2    int unsigned  LP    |  2          2           2          2           2          2
+4'o2    int           DECL  |  2          2           2          2           2          2
+4'o2    int           OVR   |  2          2           2          2           2          2
+4'o2    int           LP    |  2          2           2          2           2          2
+4'o2    bit [31:0]    DECL  |  2          2           2          2           2          2
+4'o2    bit [31:0]    OVR   |  2          2           2          2           2          2
+4'o2    bit [31:0]    LP    |  2          2           2          2           2          2
+4'o2    (untyped)     DECL  |  2          2           2          2           2          2
+4'o2    (untyped)     OVR   |  2          2           2          2           2          2
+4'o2    (untyped)     LP    |  2          2           2          2           2          2
+4'o2    bit           DECL  | *0          2          *2          0          *2          0
+4'o2    bit           OVR   |  0          0           2          2           2          2
+4'o2    bit           LP    |  0          0          *2          0          *2          0
+'0      bit [3:0]     DECL  |  4'b0       4'b0        4'b0       4'b0        4'b0       4'b0
+'0      bit [3:0]     OVR   |  'b0        'b0        *'b0        4'b0       *'b0        4'b0
+'0      bit [3:0]     LP    |  4'b0       4'b0        4'b0       4'b0        4'b0       4'b0
+'0      bit [7:0]     DECL  |  8'b0       8'b0        8'b0       8'b0        8'b0       8'b0
+'0      bit [7:0]     OVR   |  'b0        'b0        *'b0        8'b0       *'b0        8'b0
+'0      bit [7:0]     LP    |  8'b0       8'b0        8'b0       8'b0        8'b0       8'b0
+'0      logic [7:0]   DECL  |  8'b0       8'b0        8'b0       8'b0        8'b0       8'b0
+'0      logic [7:0]   OVR   |  'b0        'b0        *'b0        8'b0       *'b0        8'b0
+'0      logic [7:0]   LP    |  8'b0       8'b0        8'b0       8'b0        8'b0       8'b0
+'0      int unsigned  DECL  |  32'b0      32'b0       32'b0      32'b0       32'b0      32'b0
+'0      int unsigned  OVR   |  'b0        'b0        *'b0        32'b0      *'b0        32'b0
+'0      int unsigned  LP    |  32'b0      32'b0       32'b0      32'b0       32'b0      32'b0
+'0      int           DECL  |  32'b0      32'b0       32'b0      32'b0       32'b0      32'b0
+'0      int           OVR   |  'b0        'b0        *'b0        32'b0      *'b0        32'b0
+'0      int           LP    |  32'b0      32'b0       32'b0      32'b0       32'b0      32'b0
+'0      bit [31:0]    DECL  |  32'b0      32'b0       32'b0      32'b0       32'b0      32'b0
+'0      bit [31:0]    OVR   |  'b0        'b0        *'b0        32'b0      *'b0        32'b0
+'0      bit [31:0]    LP    |  32'b0      32'b0       32'b0      32'b0       32'b0      32'b0
+'0      (untyped)     DECL  | *'b0        0          *'b0        32'b0      *'b0        32'b0
+'0      (untyped)     OVR   |  'b0        'b0        *'b0        32'b0      *'b0        32'b0
+'0      (untyped)     LP    | *'b0        0          *'b0        32'b0      *'b0        32'b0
+'0      bit           DECL  |  1'b0       1'b0       *1'b0       -          *1'b0       -
+'0      bit           OVR   |  'b0        'b0        *'b0        -          *'b0        -
+'0      bit           LP    | *1'b0       -          *1'b0       -          *1'b0       -
+'h2     bit [3:0]     DECL  |  4'h2       4'h2       *4'h2       2          *4'h2       2
+'h2     bit [3:0]     OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     bit [3:0]     LP    | *4'h2       2          *4'h2       2          *4'h2       2
+'h2     bit [7:0]     DECL  |  8'h2       8'h2       *8'h2       2          *8'h2       2
+'h2     bit [7:0]     OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     bit [7:0]     LP    | *8'h2       2          *8'h2       2          *8'h2       2
+'h2     logic [7:0]   DECL  |  8'h2       8'h2       *8'h2       2          *8'h2       2
+'h2     logic [7:0]   OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     logic [7:0]   LP    | *8'h2       2          *8'h2       2          *8'h2       2
+'h2     int unsigned  DECL  |  32'h2      32'h2      *32'h2      2          *32'h2      2
+'h2     int unsigned  OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     int unsigned  LP    | *32'h2      2          *32'h2      2          *32'h2      2
+'h2     int           DECL  |  32'h2      32'h2      *32'h2      2          *32'h2      2
+'h2     int           OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     int           LP    | *32'h2      2          *32'h2      2          *32'h2      2
+'h2     bit [31:0]    DECL  |  32'h2      32'h2      *32'h2      2          *32'h2      2
+'h2     bit [31:0]    OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     bit [31:0]    LP    | *32'h2      2          *32'h2      2          *32'h2      2
+'h2     (untyped)     DECL  |  'h2        'h2        *'h2        2          *'h2        2
+'h2     (untyped)     OVR   | *'h2        2          *'h2        2          *'h2        2
+'h2     (untyped)     LP    | *'h2        2          *'h2        2          *'h2        2
+'h2     bit           DECL  |  1'h2       1'h2       *1'h2       0          *1'h2       0
+'h2     bit           OVR   | *'h2        0          *'h2        0          *'h2        0
+'h2     bit           LP    | *1'h2       0          *1'h2       0          *1'h2       0
+2       bit [3:0]     DECL  |  2          2           2          2           2          2
+2       bit [3:0]     OVR   |  2          2           2          2           2          2
+2       bit [3:0]     LP    |  2          2           2          2           2          2
+2       bit [7:0]     DECL  |  2          2           2          2           2          2
+2       bit [7:0]     OVR   |  2          2           2          2           2          2
+2       bit [7:0]     LP    |  2          2           2          2           2          2
+2       logic [7:0]   DECL  |  2          2           2          2           2          2
+2       logic [7:0]   OVR   |  2          2           2          2           2          2
+2       logic [7:0]   LP    |  2          2           2          2           2          2
+2       int unsigned  DECL  |  2          2           2          2           2          2
+2       int unsigned  OVR   |  2          2           2          2           2          2
+2       int unsigned  LP    |  2          2           2          2           2          2
+2       int           DECL  |  2          2           2          2           2          2
+2       int           OVR   |  2          2           2          2           2          2
+2       int           LP    |  2          2           2          2           2          2
+2       bit [31:0]    DECL  |  2          2           2          2           2          2
+2       bit [31:0]    OVR   |  2          2           2          2           2          2
+2       bit [31:0]    LP    |  2          2           2          2           2          2
+2       (untyped)     DECL  |  2          2           2          2           2          2
+2       (untyped)     OVR   |  2          2           2          2           2          2
+2       (untyped)     LP    |  2          2           2          2           2          2
+2       bit           DECL  |  0          0           0          0           0          0
+2       bit           OVR   |  0          0           2          2           2          2
+2       bit           LP    |  0          0           0          0           0          0
+16'h2   bit [3:0]     DECL  | *4'h2       16'h2       4'h2       4'h2        4'h2       4'h2
+16'h2   bit [3:0]     OVR   |  16'h2      16'h2       16'h2      16'h2       16'h2      16'h2
+16'h2   bit [3:0]     LP    |  4'h2       4'h2        4'h2       4'h2        4'h2       4'h2
+16'h2   bit [7:0]     DECL  | *8'h2       16'h2       8'h2       8'h2        8'h2       8'h2
+16'h2   bit [7:0]     OVR   |  16'h2      16'h2       16'h2      16'h2       16'h2      16'h2
+16'h2   bit [7:0]     LP    |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+16'h2   logic [7:0]   DECL  | *8'h2       16'h2       8'h2       8'h2        8'h2       8'h2
+16'h2   logic [7:0]   OVR   |  16'h2      16'h2       16'h2      16'h2       16'h2      16'h2
+16'h2   logic [7:0]   LP    |  8'h2       8'h2        8'h2       8'h2        8'h2       8'h2
+16'h2   int unsigned  DECL  |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+16'h2   int unsigned  OVR   |  16'h2      16'h2       16'h2      16'h2       16'h2      16'h2
+16'h2   int unsigned  LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+16'h2   int           DECL  |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+16'h2   int           OVR   |  16'h2      16'h2       16'h2      16'h2       16'h2      16'h2
+16'h2   int           LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+16'h2   bit [31:0]    DECL  | *32'h2      16'h2       32'h2      32'h2       32'h2      32'h2
+16'h2   bit [31:0]    OVR   |  16'h2      16'h2       16'h2      16'h2       16'h2      16'h2
+16'h2   bit [31:0]    LP    |  32'h2      32'h2       32'h2      32'h2       32'h2      32'h2
+16'h2   (untyped)     DECL  |  16'h2      16'h2       16'h2      16'h2       16'h2      16'h2
+16'h2   (untyped)     OVR   |  16'h2      16'h2       16'h2      16'h2       16'h2      16'h2
+16'h2   (untyped)     LP    |  16'h2      16'h2       16'h2      16'h2       16'h2      16'h2
+16'h2   bit           DECL  | *1'h2       16'h2       1'h2       1'h2        1'h2       1'h2
+16'h2   bit           OVR   |  16'h2      16'h2       16'h2      16'h2       16'h2      16'h2
+16'h2   bit           LP    |  1'h2       1'h2        1'h2       1'h2        1'h2       1'h2
+1'b1    bit [3:0]     DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [3:0]     OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [3:0]     LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [7:0]     DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [7:0]     OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [7:0]     LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    logic [7:0]   DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    logic [7:0]   OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    logic [7:0]   LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    int unsigned  DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    int unsigned  OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    int unsigned  LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    int           DECL  |  -1         -1          1'b1       1'b1        1'b1       1'b1
+1'b1    int           OVR   |  -1         -1          1'b1       1'b1        1'b1       1'b1
+1'b1    int           LP    |  -1         -1          1'b1       1'b1        1'b1       1'b1
+1'b1    bit [31:0]    DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [31:0]    OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit [31:0]    LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    (untyped)     DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    (untyped)     OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    (untyped)     LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit           DECL  |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit           OVR   |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+1'b1    bit           LP    |  1'b1       1'b1        1'b1       1'b1        1'b1       1'b1
+4'h0    bit [3:0]     DECL  |  4'h0       4'h0        4'h0       4'h0        4'h0       4'h0
+4'h0    bit [3:0]     OVR   |  4'h0       4'h0        4'h0       4'h0        4'h0       4'h0
+4'h0    bit [3:0]     LP    |  4'h0       4'h0        4'h0       4'h0        4'h0       4'h0
+4'h0    bit [7:0]     DECL  | *8'h0       4'h0        8'h0       8'h0        8'h0       8'h0
+4'h0    bit [7:0]     OVR   |  4'h0       4'h0        4'h0       4'h0        4'h0       4'h0
+4'h0    bit [7:0]     LP    |  8'h0       8'h0        8'h0       8'h0        8'h0       8'h0
+4'h0    logic [7:0]   DECL  | *8'h0       4'h0        8'h0       8'h0        8'h0       8'h0
+4'h0    logic [7:0]   OVR   |  4'h0       4'h0        4'h0       4'h0        4'h0       4'h0
+4'h0    logic [7:0]   LP    |  8'h0       8'h0        8'h0       8'h0        8'h0       8'h0
+4'h0    int unsigned  DECL  |  32'h0      32'h0       32'h0      32'h0       32'h0      32'h0
+4'h0    int unsigned  OVR   |  4'h0       4'h0        4'h0       4'h0        4'h0       4'h0
+4'h0    int unsigned  LP    |  32'h0      32'h0       32'h0      32'h0       32'h0      32'h0
+4'h0    int           DECL  |  32'h0      32'h0       32'h0      32'h0       32'h0      32'h0
+4'h0    int           OVR   |  4'h0       4'h0        4'h0       4'h0        4'h0       4'h0
+4'h0    int           LP    |  32'h0      32'h0       32'h0      32'h0       32'h0      32'h0
+4'h0    bit [31:0]    DECL  | *32'h0      4'h0        32'h0      32'h0       32'h0      32'h0
+4'h0    bit [31:0]    OVR   |  4'h0       4'h0        4'h0       4'h0        4'h0       4'h0
+4'h0    bit [31:0]    LP    |  32'h0      32'h0       32'h0      32'h0       32'h0      32'h0
+4'h0    (untyped)     DECL  |  4'h0       4'h0        4'h0       4'h0        4'h0       4'h0
+4'h0    (untyped)     OVR   |  4'h0       4'h0        4'h0       4'h0        4'h0       4'h0
+4'h0    (untyped)     LP    |  4'h0       4'h0        4'h0       4'h0        4'h0       4'h0
+4'h0    bit           DECL  | *1'h0       4'h0        1'h0       1'h0        1'h0       1'h0
+4'h0    bit           OVR   |  4'h0       4'h0        4'h0       4'h0        4'h0       4'h0
+4'h0    bit           LP    |  1'h0       1'h0        1'h0       1'h0        1'h0       1'h0
+33'h1   bit [3:0]     DECL  | *4'h1       33'h1       4'h1       4'h1        4'h1       4'h1
+33'h1   bit [3:0]     OVR   |  33'h1      33'h1       33'h1      33'h1       33'h1      33'h1
+33'h1   bit [3:0]     LP    |  4'h1       4'h1        4'h1       4'h1        4'h1       4'h1
+33'h1   bit [7:0]     DECL  | *8'h1       33'h1       8'h1       8'h1        8'h1       8'h1
+33'h1   bit [7:0]     OVR   |  33'h1      33'h1       33'h1      33'h1       33'h1      33'h1
+33'h1   bit [7:0]     LP    |  8'h1       8'h1        8'h1       8'h1        8'h1       8'h1
+33'h1   logic [7:0]   DECL  | *8'h1       33'h1       8'h1       8'h1        8'h1       8'h1
+33'h1   logic [7:0]   OVR   |  33'h1      33'h1       33'h1      33'h1       33'h1      33'h1
+33'h1   logic [7:0]   LP    |  8'h1       8'h1        8'h1       8'h1        8'h1       8'h1
+33'h1   int unsigned  DECL  |  32'h1      32'h1       32'h1      32'h1       32'h1      32'h1
+33'h1   int unsigned  OVR   |  33'h1      33'h1       33'h1      33'h1       33'h1      33'h1
+33'h1   int unsigned  LP    |  32'h1      32'h1       32'h1      32'h1       32'h1      32'h1
+33'h1   int           DECL  |  32'h1      32'h1       32'h1      32'h1       32'h1      32'h1
+33'h1   int           OVR   |  33'h1      33'h1       33'h1      33'h1       33'h1      33'h1
+33'h1   int           LP    |  32'h1      32'h1       32'h1      32'h1       32'h1      32'h1
+33'h1   bit [31:0]    DECL  | *32'h1      33'h1       32'h1      32'h1       32'h1      32'h1
+33'h1   bit [31:0]    OVR   |  33'h1      33'h1       33'h1      33'h1       33'h1      33'h1
+33'h1   bit [31:0]    LP    |  32'h1      32'h1       32'h1      32'h1       32'h1      32'h1
+33'h1   (untyped)     DECL  |  33'h1      33'h1       33'h1      33'h1       33'h1      33'h1
+33'h1   (untyped)     OVR   |  33'h1      33'h1       33'h1      33'h1       33'h1      33'h1
+33'h1   (untyped)     LP    |  33'h1      33'h1       33'h1      33'h1       33'h1      33'h1
+33'h1   bit           DECL  | *1'h1       33'h1       1'h1       1'h1        1'h1       1'h1
+33'h1   bit           OVR   |  33'h1      33'h1       33'h1      33'h1       33'h1      33'h1
+33'h1   bit           LP    |  1'h1       1'h1        1'h1       1'h1        1'h1       1'h1
+
+== g2 FULL PAYLOAD (ct/size/value/decompile), PATCHED ==
+8'b10110011  bit [3:0]          DECL  | *ct3/8/BIN:10110011/8'b10110011 ct3/4/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  bit [3:0]          OVR   |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  bit [3:0]          LP    |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  logic [3:0]        DECL  | *ct3/4/BIN:0011/4'b0011     ct3/4/BIN:10110011/8'b10110011 |  ct3/4/BIN:0011/4'b0011     ct3/4/BIN:0011/4'b0011     |  ct3/4/BIN:0011/4'b0011     ct3/4/BIN:0011/4'b0011     |
+8'b10110011  logic [3:0]        OVR   |  ct3/4/BIN:0011/0011        ct3/4/BIN:0011/0011        |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  logic [3:0]        LP    |  ct3/4/BIN:0011/4'b0011     ct3/4/BIN:0011/4'b0011     |  ct3/4/BIN:0011/4'b0011     ct3/4/BIN:0011/4'b0011     |  ct3/4/BIN:0011/4'b0011     ct3/4/BIN:0011/4'b0011     |
+8'b10110011  int                DECL  |  ct7/32/INT:-77/-77         ct7/32/INT:-77/-77         | *ct3/8/BIN:10110011/8'b10110011 ct7/32/INT:-77/-77         | *ct3/8/BIN:10110011/8'b10110011 ct7/32/INT:-77/-77         |
+8'b10110011  int                OVR   |  ct7/32/INT:-77/-77         ct7/32/INT:-77/-77         |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  int                LP    |  ct7/32/INT:-77/-77         ct7/32/INT:-77/-77         | *ct3/8/BIN:10110011/8'b10110011 ct7/32/INT:-77/-77         | *ct3/8/BIN:10110011/8'b10110011 ct7/32/INT:-77/-77         |
+8'b10110011  int unsigned       DECL  |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  int unsigned       OVR   |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  int unsigned       LP    |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  bit [7:0]          DECL  |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  bit [7:0]          OVR   |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  bit [7:0]          LP    |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  logic [7:0]        DECL  |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  logic [7:0]        OVR   |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  logic [7:0]        LP    |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  bit                DECL  | *ct3/8/BIN:10110011/8'b10110011 ct3/1/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  bit                OVR   |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  bit                LP    |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  logic signed [3:0] DECL  | *ct3/4/BIN:0011/4'b0011     ct3/4/BIN:10110011/8'b10110011 |  ct3/4/BIN:0011/4'b0011     ct3/4/BIN:0011/4'b0011     |  ct3/4/BIN:0011/4'b0011     ct3/4/BIN:0011/4'b0011     |
+8'b10110011  logic signed [3:0] OVR   |  ct3/4/BIN:0011/0011        ct3/4/BIN:0011/0011        |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |  ct3/8/BIN:10110011/8'b10110011 ct3/8/BIN:10110011/8'b10110011 |
+8'b10110011  logic signed [3:0] LP    |  ct3/4/BIN:0011/4'b0011     ct3/4/BIN:0011/4'b0011     |  ct3/4/BIN:0011/4'b0011     ct3/4/BIN:0011/4'b0011     |  ct3/4/BIN:0011/4'b0011     ct3/4/BIN:0011/4'b0011     |
+8'hff        bit [3:0]          DECL  | *ct5/4/HEX:ff/4'hff         ct5/4/HEX:ff/8'hff         |  ct5/32/HEX:ff/4'hff        ct5/32/HEX:ff/4'hff        |  ct5/32/HEX:ff/4'hff        ct5/32/HEX:ff/4'hff        |
+8'hff        bit [3:0]          OVR   |  ct5/4/HEX:ff/8'hff         ct5/4/HEX:ff/8'hff         |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |
+8'hff        bit [3:0]          LP    |  ct5/4/HEX:ff/4'hff         ct5/4/HEX:ff/4'hff         |  ct5/32/HEX:ff/4'hff        ct5/32/HEX:ff/4'hff        |  ct5/32/HEX:ff/4'hff        ct5/32/HEX:ff/4'hff        |
+8'hff        logic [3:0]        DECL  | *ct5/4/HEX:ff/4'hff         ct5/4/HEX:ff/8'hff         |  ct5/32/HEX:ff/4'hff        ct5/32/HEX:ff/4'hff        |  ct5/32/HEX:ff/4'hff        ct5/32/HEX:ff/4'hff        |
+8'hff        logic [3:0]        OVR   |  ct5/4/HEX:ff/8'hff         ct5/4/HEX:ff/8'hff         |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |
+8'hff        logic [3:0]        LP    |  ct5/4/HEX:ff/4'hff         ct5/4/HEX:ff/4'hff         |  ct5/32/HEX:ff/4'hff        ct5/32/HEX:ff/4'hff        |  ct5/32/HEX:ff/4'hff        ct5/32/HEX:ff/4'hff        |
+8'hff        int                DECL  |  ct5/32/HEX:ff/32'hff       ct5/32/HEX:ff/32'hff       |  ct5/32/HEX:ff/32'hff       ct5/32/HEX:ff/32'hff       |  ct5/32/HEX:ff/32'hff       ct5/32/HEX:ff/32'hff       |
+8'hff        int                OVR   |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |
+8'hff        int                LP    |  ct5/32/HEX:ff/32'hff       ct5/32/HEX:ff/32'hff       |  ct5/32/HEX:ff/32'hff       ct5/32/HEX:ff/32'hff       |  ct5/32/HEX:ff/32'hff       ct5/32/HEX:ff/32'hff       |
+8'hff        int unsigned       DECL  |  ct5/32/HEX:ff/32'hff       ct5/32/HEX:ff/32'hff       |  ct5/32/HEX:ff/32'hff       ct5/32/HEX:ff/32'hff       |  ct5/32/HEX:ff/32'hff       ct5/32/HEX:ff/32'hff       |
+8'hff        int unsigned       OVR   |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |
+8'hff        int unsigned       LP    |  ct5/32/HEX:ff/32'hff       ct5/32/HEX:ff/32'hff       |  ct5/32/HEX:ff/32'hff       ct5/32/HEX:ff/32'hff       |  ct5/32/HEX:ff/32'hff       ct5/32/HEX:ff/32'hff       |
+8'hff        bit [7:0]          DECL  |  ct5/8/HEX:ff/8'hff         ct5/8/HEX:ff/8'hff         |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |
+8'hff        bit [7:0]          OVR   |  ct5/8/HEX:ff/8'hff         ct5/8/HEX:ff/8'hff         |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |
+8'hff        bit [7:0]          LP    |  ct5/8/HEX:ff/8'hff         ct5/8/HEX:ff/8'hff         |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |
+8'hff        logic [7:0]        DECL  |  ct5/8/HEX:ff/8'hff         ct5/8/HEX:ff/8'hff         |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |
+8'hff        logic [7:0]        OVR   |  ct5/8/HEX:ff/8'hff         ct5/8/HEX:ff/8'hff         |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |
+8'hff        logic [7:0]        LP    |  ct5/8/HEX:ff/8'hff         ct5/8/HEX:ff/8'hff         |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |
+8'hff        bit                DECL  | *ct5/1/HEX:ff/1'hff         ct5/1/HEX:ff/8'hff         |  ct5/32/HEX:ff/1'hff        ct5/32/HEX:ff/1'hff        |  ct5/32/HEX:ff/1'hff        ct5/32/HEX:ff/1'hff        |
+8'hff        bit                OVR   |  ct5/1/HEX:ff/8'hff         ct5/1/HEX:ff/8'hff         |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |
+8'hff        bit                LP    |  ct5/1/HEX:ff/1'hff         ct5/1/HEX:ff/1'hff         |  ct5/32/HEX:ff/1'hff        ct5/32/HEX:ff/1'hff        |  ct5/32/HEX:ff/1'hff        ct5/32/HEX:ff/1'hff        |
+8'hff        logic signed [3:0] DECL  | *ct5/4/HEX:ff/4'hff         ct5/4/HEX:ff/8'hff         |  ct5/32/HEX:ff/4'hff        ct5/32/HEX:ff/4'hff        |  ct5/32/HEX:ff/4'hff        ct5/32/HEX:ff/4'hff        |
+8'hff        logic signed [3:0] OVR   |  ct5/4/HEX:ff/8'hff         ct5/4/HEX:ff/8'hff         |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |  ct5/32/HEX:ff/8'hff        ct5/32/HEX:ff/8'hff        |
+8'hff        logic signed [3:0] LP    |  ct5/4/HEX:ff/4'hff         ct5/4/HEX:ff/4'hff         |  ct5/32/HEX:ff/4'hff        ct5/32/HEX:ff/4'hff        |  ct5/32/HEX:ff/4'hff        ct5/32/HEX:ff/4'hff        |
+300          bit [3:0]          DECL  |  ct9/4/UINT:12/12           ct9/4/UINT:12/12           |  ct9/32/UINT:12/12          ct9/32/UINT:12/12          |  ct9/32/UINT:12/12          ct9/32/UINT:12/12          |
+300          bit [3:0]          OVR   |  ct9/4/UINT:12/12           ct9/4/UINT:12/12           |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |
+300          bit [3:0]          LP    |  ct9/4/UINT:12/12           ct9/4/UINT:12/12           |  ct9/32/UINT:12/12          ct9/32/UINT:12/12          |  ct9/32/UINT:12/12          ct9/32/UINT:12/12          |
+300          logic [3:0]        DECL  |  ct9/4/UINT:12/12           ct9/4/UINT:12/12           |  ct9/32/UINT:12/12          ct9/32/UINT:12/12          |  ct9/32/UINT:12/12          ct9/32/UINT:12/12          |
+300          logic [3:0]        OVR   |  ct9/4/UINT:12/12           ct9/4/UINT:12/12           |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |
+300          logic [3:0]        LP    |  ct9/4/UINT:12/12           ct9/4/UINT:12/12           |  ct9/32/UINT:12/12          ct9/32/UINT:12/12          |  ct9/32/UINT:12/12          ct9/32/UINT:12/12          |
+300          int                DECL  |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |
+300          int                OVR   |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |
+300          int                LP    |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |
+300          int unsigned       DECL  |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |
+300          int unsigned       OVR   |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |
+300          int unsigned       LP    |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |
+300          bit [7:0]          DECL  |  ct9/8/UINT:44/44           ct9/8/UINT:44/44           |  ct9/32/UINT:44/44          ct9/32/UINT:44/44          |  ct9/32/UINT:44/44          ct9/32/UINT:44/44          |
+300          bit [7:0]          OVR   |  ct9/8/UINT:44/44           ct9/8/UINT:44/44           |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |
+300          bit [7:0]          LP    |  ct9/8/UINT:44/44           ct9/8/UINT:44/44           |  ct9/32/UINT:44/44          ct9/32/UINT:44/44          |  ct9/32/UINT:44/44          ct9/32/UINT:44/44          |
+300          logic [7:0]        DECL  |  ct9/8/UINT:44/44           ct9/8/UINT:44/44           |  ct9/32/UINT:44/44          ct9/32/UINT:44/44          |  ct9/32/UINT:44/44          ct9/32/UINT:44/44          |
+300          logic [7:0]        OVR   |  ct9/8/UINT:44/44           ct9/8/UINT:44/44           |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |
+300          logic [7:0]        LP    |  ct9/8/UINT:44/44           ct9/8/UINT:44/44           |  ct9/32/UINT:44/44          ct9/32/UINT:44/44          |  ct9/32/UINT:44/44          ct9/32/UINT:44/44          |
+300          bit                DECL  |  ct9/1/UINT:0/0             ct9/1/UINT:0/0             |  ct9/32/UINT:0/0            ct9/32/UINT:0/0            |  ct9/32/UINT:0/0            ct9/32/UINT:0/0            |
+300          bit                OVR   |  ct9/1/UINT:0/0             ct9/1/UINT:0/0             |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |
+300          bit                LP    |  ct9/1/UINT:0/0             ct9/1/UINT:0/0             |  ct9/32/UINT:0/0            ct9/32/UINT:0/0            |  ct9/32/UINT:0/0            ct9/32/UINT:0/0            |
+300          logic signed [3:0] DECL  |  ct9/4/UINT:12/12           ct9/4/UINT:12/12           |  ct9/32/UINT:12/12          ct9/32/UINT:12/12          |  ct9/32/UINT:12/12          ct9/32/UINT:12/12          |
+300          logic signed [3:0] OVR   |  ct9/4/UINT:12/12           ct9/4/UINT:12/12           |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |  ct9/32/UINT:300/300        ct9/32/UINT:300/300        |
+300          logic signed [3:0] LP    |  ct9/4/UINT:12/12           ct9/4/UINT:12/12           |  ct9/32/UINT:12/12          ct9/32/UINT:12/12          |  ct9/32/UINT:12/12          ct9/32/UINT:12/12          |
+4'sb1000     bit [3:0]          DECL  |  ct7/4/INT:8/8              ct7/4/INT:8/8              | *ct7/32/INT:8/8             ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:8/8             ct3/4/BIN:1000/4'b1000     |
+4'sb1000     bit [3:0]          OVR   |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |
+4'sb1000     bit [3:0]          LP    | *ct7/4/INT:8/8              ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:8/8             ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:8/8             ct3/4/BIN:1000/4'b1000     |
+4'sb1000     logic [3:0]        DECL  |  ct7/4/INT:8/8              ct7/4/INT:8/8              | *ct7/32/INT:8/8             ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:8/8             ct3/4/BIN:1000/4'b1000     |
+4'sb1000     logic [3:0]        OVR   |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |
+4'sb1000     logic [3:0]        LP    | *ct7/4/INT:8/8              ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:8/8             ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:8/8             ct3/4/BIN:1000/4'b1000     |
+4'sb1000     int                DECL  |  ct7/32/INT:-8/-8           ct7/32/INT:-8/-8           |  ct7/32/INT:-8/-8           ct7/32/INT:-8/-8           |  ct7/32/INT:-8/-8           ct7/32/INT:-8/-8           |
+4'sb1000     int                OVR   |  ct7/32/INT:-8/-8           ct7/32/INT:-8/-8           |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |
+4'sb1000     int                LP    |  ct7/32/INT:-8/-8           ct7/32/INT:-8/-8           |  ct7/32/INT:-8/-8           ct7/32/INT:-8/-8           |  ct7/32/INT:-8/-8           ct7/32/INT:-8/-8           |
+4'sb1000     int unsigned       DECL  | *ct7/32/INT:2415919103/2415919103 ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:2415919103/2415919103 ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:2415919103/2415919103 ct3/4/BIN:1000/4'b1000     |
+4'sb1000     int unsigned       OVR   |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |
+4'sb1000     int unsigned       LP    | *ct7/32/INT:2415919103/2415919103 ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:2415919103/2415919103 ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:2415919103/2415919103 ct3/4/BIN:1000/4'b1000     |
+4'sb1000     bit [7:0]          DECL  |  ct7/8/INT:143/143          ct7/8/INT:143/143          | *ct7/32/INT:143/143         ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:143/143         ct3/4/BIN:1000/4'b1000     |
+4'sb1000     bit [7:0]          OVR   |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |
+4'sb1000     bit [7:0]          LP    | *ct7/8/INT:143/143          ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:143/143         ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:143/143         ct3/4/BIN:1000/4'b1000     |
+4'sb1000     logic [7:0]        DECL  |  ct7/8/INT:143/143          ct7/8/INT:143/143          | *ct7/32/INT:143/143         ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:143/143         ct3/4/BIN:1000/4'b1000     |
+4'sb1000     logic [7:0]        OVR   |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |
+4'sb1000     logic [7:0]        LP    | *ct7/8/INT:143/143          ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:143/143         ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:143/143         ct3/4/BIN:1000/4'b1000     |
+4'sb1000     bit                DECL  | *ct7/1/INT:8/8              ct7/1/INT:0/0              | *ct7/32/INT:8/8             ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:8/8             ct3/4/BIN:1000/4'b1000     |
+4'sb1000     bit                OVR   |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |
+4'sb1000     bit                LP    | *ct7/1/INT:8/8              ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:8/8             ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:8/8             ct3/4/BIN:1000/4'b1000     |
+4'sb1000     logic signed [3:0] DECL  |  ct7/4/INT:-8/-8            ct7/4/INT:-8/-8            | *ct7/32/INT:-8/-8           ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:-8/-8           ct3/4/BIN:1000/4'b1000     |
+4'sb1000     logic signed [3:0] OVR   |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |  ct3/4/BIN:1000/4'b1000     ct3/4/BIN:1000/4'b1000     |
+4'sb1000     logic signed [3:0] LP    | *ct7/4/INT:-8/-8            ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:-8/-8           ct3/4/BIN:1000/4'b1000     | *ct7/32/INT:-8/-8           ct3/4/BIN:1000/4'b1000     |
+8'sh80       bit [3:0]          DECL  | *ct5/4/HEX:80/4'h80         ct5/4/HEX:80/8'sh80        |  ct5/32/HEX:80/4'h80        ct5/32/HEX:80/4'h80        |  ct5/32/HEX:80/4'h80        ct5/32/HEX:80/4'h80        |
+8'sh80       bit [3:0]          OVR   |  ct5/4/HEX:80/8'h80         ct5/4/HEX:80/8'h80         |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |
+8'sh80       bit [3:0]          LP    |  ct5/4/HEX:80/4'h80         ct5/4/HEX:80/4'h80         |  ct5/32/HEX:80/4'h80        ct5/32/HEX:80/4'h80        |  ct5/32/HEX:80/4'h80        ct5/32/HEX:80/4'h80        |
+8'sh80       logic [3:0]        DECL  | *ct5/4/HEX:80/4'h80         ct5/4/HEX:80/8'sh80        |  ct5/32/HEX:80/4'h80        ct5/32/HEX:80/4'h80        |  ct5/32/HEX:80/4'h80        ct5/32/HEX:80/4'h80        |
+8'sh80       logic [3:0]        OVR   |  ct5/4/HEX:80/8'h80         ct5/4/HEX:80/8'h80         |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |
+8'sh80       logic [3:0]        LP    |  ct5/4/HEX:80/4'h80         ct5/4/HEX:80/4'h80         |  ct5/32/HEX:80/4'h80        ct5/32/HEX:80/4'h80        |  ct5/32/HEX:80/4'h80        ct5/32/HEX:80/4'h80        |
+8'sh80       int                DECL  |  ct5/32/HEX:80/32'h80       ct5/32/HEX:80/32'h80       |  ct5/32/HEX:80/32'h80       ct5/32/HEX:80/32'h80       |  ct5/32/HEX:80/32'h80       ct5/32/HEX:80/32'h80       |
+8'sh80       int                OVR   |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |
+8'sh80       int                LP    |  ct5/32/HEX:80/32'h80       ct5/32/HEX:80/32'h80       |  ct5/32/HEX:80/32'h80       ct5/32/HEX:80/32'h80       |  ct5/32/HEX:80/32'h80       ct5/32/HEX:80/32'h80       |
+8'sh80       int unsigned       DECL  |  ct5/32/HEX:80/32'h80       ct5/32/HEX:80/32'h80       |  ct5/32/HEX:80/32'h80       ct5/32/HEX:80/32'h80       |  ct5/32/HEX:80/32'h80       ct5/32/HEX:80/32'h80       |
+8'sh80       int unsigned       OVR   |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |
+8'sh80       int unsigned       LP    |  ct5/32/HEX:80/32'h80       ct5/32/HEX:80/32'h80       |  ct5/32/HEX:80/32'h80       ct5/32/HEX:80/32'h80       |  ct5/32/HEX:80/32'h80       ct5/32/HEX:80/32'h80       |
+8'sh80       bit [7:0]          DECL  | *ct5/8/HEX:80/8'h80         ct5/8/HEX:80/8'sh80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |
+8'sh80       bit [7:0]          OVR   |  ct5/8/HEX:80/8'h80         ct5/8/HEX:80/8'h80         |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |
+8'sh80       bit [7:0]          LP    |  ct5/8/HEX:80/8'h80         ct5/8/HEX:80/8'h80         |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |
+8'sh80       logic [7:0]        DECL  | *ct5/8/HEX:80/8'h80         ct5/8/HEX:80/8'sh80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |
+8'sh80       logic [7:0]        OVR   |  ct5/8/HEX:80/8'h80         ct5/8/HEX:80/8'h80         |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |
+8'sh80       logic [7:0]        LP    |  ct5/8/HEX:80/8'h80         ct5/8/HEX:80/8'h80         |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |
+8'sh80       bit                DECL  | *ct5/1/HEX:80/1'h80         ct5/1/HEX:80/8'sh80        |  ct5/32/HEX:80/1'h80        ct5/32/HEX:80/1'h80        |  ct5/32/HEX:80/1'h80        ct5/32/HEX:80/1'h80        |
+8'sh80       bit                OVR   |  ct5/1/HEX:80/8'h80         ct5/1/HEX:80/8'h80         |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |
+8'sh80       bit                LP    |  ct5/1/HEX:80/1'h80         ct5/1/HEX:80/1'h80         |  ct5/32/HEX:80/1'h80        ct5/32/HEX:80/1'h80        |  ct5/32/HEX:80/1'h80        ct5/32/HEX:80/1'h80        |
+8'sh80       logic signed [3:0] DECL  | *ct5/4/HEX:80/4'h80         ct5/4/HEX:80/8'sh80        |  ct5/32/HEX:80/4'h80        ct5/32/HEX:80/4'h80        |  ct5/32/HEX:80/4'h80        ct5/32/HEX:80/4'h80        |
+8'sh80       logic signed [3:0] OVR   |  ct5/4/HEX:80/8'h80         ct5/4/HEX:80/8'h80         |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |  ct5/32/HEX:80/8'h80        ct5/32/HEX:80/8'h80        |
+8'sh80       logic signed [3:0] LP    |  ct5/4/HEX:80/4'h80         ct5/4/HEX:80/4'h80         |  ct5/32/HEX:80/4'h80        ct5/32/HEX:80/4'h80        |  ct5/32/HEX:80/4'h80        ct5/32/HEX:80/4'h80        |
+16'habcd     bit [3:0]          DECL  | *ct5/4/HEX:abcd/4'habcd     ct5/4/HEX:abcd/16'habcd    |  ct5/32/HEX:abcd/4'habcd    ct5/32/HEX:abcd/4'habcd    |  ct5/32/HEX:abcd/4'habcd    ct5/32/HEX:abcd/4'habcd    |
+16'habcd     bit [3:0]          OVR   |  ct5/4/HEX:abcd/16'habcd    ct5/4/HEX:abcd/16'habcd    |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |
+16'habcd     bit [3:0]          LP    |  ct5/4/HEX:abcd/4'habcd     ct5/4/HEX:abcd/4'habcd     |  ct5/32/HEX:abcd/4'habcd    ct5/32/HEX:abcd/4'habcd    |  ct5/32/HEX:abcd/4'habcd    ct5/32/HEX:abcd/4'habcd    |
+16'habcd     logic [3:0]        DECL  | *ct5/4/HEX:abcd/4'habcd     ct5/4/HEX:abcd/16'habcd    |  ct5/32/HEX:abcd/4'habcd    ct5/32/HEX:abcd/4'habcd    |  ct5/32/HEX:abcd/4'habcd    ct5/32/HEX:abcd/4'habcd    |
+16'habcd     logic [3:0]        OVR   |  ct5/4/HEX:abcd/16'habcd    ct5/4/HEX:abcd/16'habcd    |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |
+16'habcd     logic [3:0]        LP    |  ct5/4/HEX:abcd/4'habcd     ct5/4/HEX:abcd/4'habcd     |  ct5/32/HEX:abcd/4'habcd    ct5/32/HEX:abcd/4'habcd    |  ct5/32/HEX:abcd/4'habcd    ct5/32/HEX:abcd/4'habcd    |
+16'habcd     int                DECL  |  ct5/32/HEX:abcd/32'habcd   ct5/32/HEX:abcd/32'habcd   |  ct5/32/HEX:abcd/32'habcd   ct5/32/HEX:abcd/32'habcd   |  ct5/32/HEX:abcd/32'habcd   ct5/32/HEX:abcd/32'habcd   |
+16'habcd     int                OVR   |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |
+16'habcd     int                LP    |  ct5/32/HEX:abcd/32'habcd   ct5/32/HEX:abcd/32'habcd   |  ct5/32/HEX:abcd/32'habcd   ct5/32/HEX:abcd/32'habcd   |  ct5/32/HEX:abcd/32'habcd   ct5/32/HEX:abcd/32'habcd   |
+16'habcd     int unsigned       DECL  |  ct5/32/HEX:abcd/32'habcd   ct5/32/HEX:abcd/32'habcd   |  ct5/32/HEX:abcd/32'habcd   ct5/32/HEX:abcd/32'habcd   |  ct5/32/HEX:abcd/32'habcd   ct5/32/HEX:abcd/32'habcd   |
+16'habcd     int unsigned       OVR   |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |
+16'habcd     int unsigned       LP    |  ct5/32/HEX:abcd/32'habcd   ct5/32/HEX:abcd/32'habcd   |  ct5/32/HEX:abcd/32'habcd   ct5/32/HEX:abcd/32'habcd   |  ct5/32/HEX:abcd/32'habcd   ct5/32/HEX:abcd/32'habcd   |
+16'habcd     bit [7:0]          DECL  | *ct5/8/HEX:abcd/8'habcd     ct5/8/HEX:abcd/16'habcd    |  ct5/32/HEX:abcd/8'habcd    ct5/32/HEX:abcd/8'habcd    |  ct5/32/HEX:abcd/8'habcd    ct5/32/HEX:abcd/8'habcd    |
+16'habcd     bit [7:0]          OVR   |  ct5/8/HEX:abcd/16'habcd    ct5/8/HEX:abcd/16'habcd    |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |
+16'habcd     bit [7:0]          LP    |  ct5/8/HEX:abcd/8'habcd     ct5/8/HEX:abcd/8'habcd     |  ct5/32/HEX:abcd/8'habcd    ct5/32/HEX:abcd/8'habcd    |  ct5/32/HEX:abcd/8'habcd    ct5/32/HEX:abcd/8'habcd    |
+16'habcd     logic [7:0]        DECL  | *ct5/8/HEX:abcd/8'habcd     ct5/8/HEX:abcd/16'habcd    |  ct5/32/HEX:abcd/8'habcd    ct5/32/HEX:abcd/8'habcd    |  ct5/32/HEX:abcd/8'habcd    ct5/32/HEX:abcd/8'habcd    |
+16'habcd     logic [7:0]        OVR   |  ct5/8/HEX:abcd/16'habcd    ct5/8/HEX:abcd/16'habcd    |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |
+16'habcd     logic [7:0]        LP    |  ct5/8/HEX:abcd/8'habcd     ct5/8/HEX:abcd/8'habcd     |  ct5/32/HEX:abcd/8'habcd    ct5/32/HEX:abcd/8'habcd    |  ct5/32/HEX:abcd/8'habcd    ct5/32/HEX:abcd/8'habcd    |
+16'habcd     bit                DECL  | *ct5/1/HEX:abcd/1'habcd     ct5/1/HEX:abcd/16'habcd    |  ct5/32/HEX:abcd/1'habcd    ct5/32/HEX:abcd/1'habcd    |  ct5/32/HEX:abcd/1'habcd    ct5/32/HEX:abcd/1'habcd    |
+16'habcd     bit                OVR   |  ct5/1/HEX:abcd/16'habcd    ct5/1/HEX:abcd/16'habcd    |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |
+16'habcd     bit                LP    |  ct5/1/HEX:abcd/1'habcd     ct5/1/HEX:abcd/1'habcd     |  ct5/32/HEX:abcd/1'habcd    ct5/32/HEX:abcd/1'habcd    |  ct5/32/HEX:abcd/1'habcd    ct5/32/HEX:abcd/1'habcd    |
+16'habcd     logic signed [3:0] DECL  | *ct5/4/HEX:abcd/4'habcd     ct5/4/HEX:abcd/16'habcd    |  ct5/32/HEX:abcd/4'habcd    ct5/32/HEX:abcd/4'habcd    |  ct5/32/HEX:abcd/4'habcd    ct5/32/HEX:abcd/4'habcd    |
+16'habcd     logic signed [3:0] OVR   |  ct5/4/HEX:abcd/16'habcd    ct5/4/HEX:abcd/16'habcd    |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |  ct5/32/HEX:abcd/16'habcd   ct5/32/HEX:abcd/16'habcd   |
+16'habcd     logic signed [3:0] LP    |  ct5/4/HEX:abcd/4'habcd     ct5/4/HEX:abcd/4'habcd     |  ct5/32/HEX:abcd/4'habcd    ct5/32/HEX:abcd/4'habcd    |  ct5/32/HEX:abcd/4'habcd    ct5/32/HEX:abcd/4'habcd    |
+2            bit [3:0]          DECL  |  ct9/4/UINT:2/2             ct9/4/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            bit [3:0]          OVR   |  ct9/4/UINT:2/2             ct9/4/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            bit [3:0]          LP    |  ct9/4/UINT:2/2             ct9/4/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            logic [3:0]        DECL  |  ct9/4/UINT:2/2             ct9/4/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            logic [3:0]        OVR   |  ct9/4/UINT:2/2             ct9/4/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            logic [3:0]        LP    |  ct9/4/UINT:2/2             ct9/4/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            int                DECL  |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            int                OVR   |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            int                LP    |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            int unsigned       DECL  |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            int unsigned       OVR   |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            int unsigned       LP    |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            bit [7:0]          DECL  |  ct9/8/UINT:2/2             ct9/8/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            bit [7:0]          OVR   |  ct9/8/UINT:2/2             ct9/8/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            bit [7:0]          LP    |  ct9/8/UINT:2/2             ct9/8/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            logic [7:0]        DECL  |  ct9/8/UINT:2/2             ct9/8/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            logic [7:0]        OVR   |  ct9/8/UINT:2/2             ct9/8/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            logic [7:0]        LP    |  ct9/8/UINT:2/2             ct9/8/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            bit                DECL  |  ct9/1/UINT:0/0             ct9/1/UINT:0/0             |  ct9/32/UINT:0/0            ct9/32/UINT:0/0            |  ct9/32/UINT:0/0            ct9/32/UINT:0/0            |
+2            bit                OVR   |  ct9/1/UINT:0/0             ct9/1/UINT:0/0             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            bit                LP    |  ct9/1/UINT:0/0             ct9/1/UINT:0/0             |  ct9/32/UINT:0/0            ct9/32/UINT:0/0            |  ct9/32/UINT:0/0            ct9/32/UINT:0/0            |
+2            logic signed [3:0] DECL  |  ct9/4/UINT:2/2             ct9/4/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            logic signed [3:0] OVR   |  ct9/4/UINT:2/2             ct9/4/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+2            logic signed [3:0] LP    |  ct9/4/UINT:2/2             ct9/4/UINT:2/2             |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |  ct9/32/UINT:2/2            ct9/32/UINT:2/2            |
+1'sb1        bit [3:0]          DECL  |  ct7/4/INT:15/15            ct7/4/INT:15/15            | *ct7/32/INT:15/15           ct3/1/BIN:1/1'b1           | *ct7/32/INT:15/15           ct3/1/BIN:1/1'b1           |
+1'sb1        bit [3:0]          OVR   |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |
+1'sb1        bit [3:0]          LP    | *ct7/4/INT:15/15            ct3/1/BIN:1/1'b1           | *ct7/32/INT:15/15           ct3/1/BIN:1/1'b1           | *ct7/32/INT:15/15           ct3/1/BIN:1/1'b1           |
+1'sb1        logic [3:0]        DECL  |  ct7/4/INT:15/15            ct7/4/INT:15/15            | *ct7/32/INT:15/15           ct3/1/BIN:1/1'b1           | *ct7/32/INT:15/15           ct3/1/BIN:1/1'b1           |
+1'sb1        logic [3:0]        OVR   |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |
+1'sb1        logic [3:0]        LP    | *ct7/4/INT:15/15            ct3/1/BIN:1/1'b1           | *ct7/32/INT:15/15           ct3/1/BIN:1/1'b1           | *ct7/32/INT:15/15           ct3/1/BIN:1/1'b1           |
+1'sb1        int                DECL  |  ct7/32/INT:-1/-1           ct7/32/INT:-1/-1           | *ct7/32/INT:-1/-1           ct3/1/BIN:1/1'b1           | *ct7/32/INT:-1/-1           ct3/1/BIN:1/1'b1           |
+1'sb1        int                OVR   |  ct7/32/INT:-1/-1           ct7/32/INT:-1/-1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |
+1'sb1        int                LP    |  ct7/32/INT:-1/-1           ct7/32/INT:-1/-1           | *ct7/32/INT:-1/-1           ct3/1/BIN:1/1'b1           | *ct7/32/INT:-1/-1           ct3/1/BIN:1/1'b1           |
+1'sb1        int unsigned       DECL  | *ct7/32/INT:4294967295/4294967295 ct3/1/BIN:1/1'b1           | *ct7/32/INT:4294967295/4294967295 ct3/1/BIN:1/1'b1           | *ct7/32/INT:4294967295/4294967295 ct3/1/BIN:1/1'b1           |
+1'sb1        int unsigned       OVR   |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |
+1'sb1        int unsigned       LP    | *ct7/32/INT:4294967295/4294967295 ct3/1/BIN:1/1'b1           | *ct7/32/INT:4294967295/4294967295 ct3/1/BIN:1/1'b1           | *ct7/32/INT:4294967295/4294967295 ct3/1/BIN:1/1'b1           |
+1'sb1        bit [7:0]          DECL  |  ct7/8/INT:255/255          ct7/8/INT:255/255          | *ct7/32/INT:255/255         ct3/1/BIN:1/1'b1           | *ct7/32/INT:255/255         ct3/1/BIN:1/1'b1           |
+1'sb1        bit [7:0]          OVR   |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |
+1'sb1        bit [7:0]          LP    | *ct7/8/INT:255/255          ct3/1/BIN:1/1'b1           | *ct7/32/INT:255/255         ct3/1/BIN:1/1'b1           | *ct7/32/INT:255/255         ct3/1/BIN:1/1'b1           |
+1'sb1        logic [7:0]        DECL  |  ct7/8/INT:255/255          ct7/8/INT:255/255          | *ct7/32/INT:255/255         ct3/1/BIN:1/1'b1           | *ct7/32/INT:255/255         ct3/1/BIN:1/1'b1           |
+1'sb1        logic [7:0]        OVR   |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |
+1'sb1        logic [7:0]        LP    | *ct7/8/INT:255/255          ct3/1/BIN:1/1'b1           | *ct7/32/INT:255/255         ct3/1/BIN:1/1'b1           | *ct7/32/INT:255/255         ct3/1/BIN:1/1'b1           |
+1'sb1        bit                DECL  |  ct7/1/INT:1/1              ct7/1/INT:1/1              | *ct7/32/INT:1/1             ct3/1/BIN:1/1'b1           | *ct7/32/INT:1/1             ct3/1/BIN:1/1'b1           |
+1'sb1        bit                OVR   |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |
+1'sb1        bit                LP    | *ct7/1/INT:1/1              ct3/1/BIN:1/1'b1           | *ct7/32/INT:1/1             ct3/1/BIN:1/1'b1           | *ct7/32/INT:1/1             ct3/1/BIN:1/1'b1           |
+1'sb1        logic signed [3:0] DECL  |  ct7/4/INT:-1/-1            ct7/4/INT:-1/-1            | *ct7/32/INT:-1/-1           ct3/1/BIN:1/1'b1           | *ct7/32/INT:-1/-1           ct3/1/BIN:1/1'b1           |
+1'sb1        logic signed [3:0] OVR   |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |  ct3/1/BIN:1/1'b1           ct3/1/BIN:1/1'b1           |
+1'sb1        logic signed [3:0] LP    | *ct7/4/INT:-1/-1            ct3/1/BIN:1/1'b1           | *ct7/32/INT:-1/-1           ct3/1/BIN:1/1'b1           | *ct7/32/INT:-1/-1           ct3/1/BIN:1/1'b1           |
+8'd200       bit [3:0]          DECL  |  ct7/4/INT:200/200          ct7/4/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       bit [3:0]          OVR   |  ct7/4/INT:200/200          ct7/4/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       bit [3:0]          LP    |  ct7/4/INT:200/200          ct7/4/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       logic [3:0]        DECL  |  ct7/4/INT:200/200          ct7/4/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       logic [3:0]        OVR   |  ct7/4/INT:200/200          ct7/4/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       logic [3:0]        LP    |  ct7/4/INT:200/200          ct7/4/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       int                DECL  |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       int                OVR   |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       int                LP    |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       int unsigned       DECL  |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       int unsigned       OVR   |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       int unsigned       LP    |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       bit [7:0]          DECL  |  ct7/8/INT:200/200          ct7/8/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       bit [7:0]          OVR   |  ct7/8/INT:200/200          ct7/8/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       bit [7:0]          LP    |  ct7/8/INT:200/200          ct7/8/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       logic [7:0]        DECL  |  ct7/8/INT:200/200          ct7/8/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       logic [7:0]        OVR   |  ct7/8/INT:200/200          ct7/8/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       logic [7:0]        LP    |  ct7/8/INT:200/200          ct7/8/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       bit                DECL  |  ct7/1/INT:200/200          ct7/1/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       bit                OVR   |  ct7/1/INT:200/200          ct7/1/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       bit                LP    |  ct7/1/INT:200/200          ct7/1/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       logic signed [3:0] DECL  |  ct7/4/INT:200/200          ct7/4/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       logic signed [3:0] OVR   |  ct7/4/INT:200/200          ct7/4/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+8'd200       logic signed [3:0] LP    |  ct7/4/INT:200/200          ct7/4/INT:200/200          |  ct7/32/INT:200/200         ct7/32/INT:200/200         |  ct7/32/INT:200/200         ct7/32/INT:200/200         |
+5'b11111     bit [3:0]          DECL  | *ct3/5/BIN:11111/5'b11111   ct3/4/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     bit [3:0]          OVR   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     bit [3:0]          LP    |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     logic [3:0]        DECL  | *ct3/4/BIN:1111/4'b1111     ct3/4/BIN:11111/5'b11111   |  ct3/4/BIN:1111/4'b1111     ct3/4/BIN:1111/4'b1111     |  ct3/4/BIN:1111/4'b1111     ct3/4/BIN:1111/4'b1111     |
+5'b11111     logic [3:0]        OVR   |  ct3/4/BIN:1111/1111        ct3/4/BIN:1111/1111        |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     logic [3:0]        LP    |  ct3/4/BIN:1111/4'b1111     ct3/4/BIN:1111/4'b1111     |  ct3/4/BIN:1111/4'b1111     ct3/4/BIN:1111/4'b1111     |  ct3/4/BIN:1111/4'b1111     ct3/4/BIN:1111/4'b1111     |
+5'b11111     int                DECL  |  ct7/32/INT:-1/-1           ct7/32/INT:-1/-1           | *ct3/5/BIN:11111/5'b11111   ct7/32/INT:-1/-1           | *ct3/5/BIN:11111/5'b11111   ct7/32/INT:-1/-1           |
+5'b11111     int                OVR   |  ct7/32/INT:-1/-1           ct7/32/INT:-1/-1           |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     int                LP    |  ct7/32/INT:-1/-1           ct7/32/INT:-1/-1           | *ct3/5/BIN:11111/5'b11111   ct7/32/INT:-1/-1           | *ct3/5/BIN:11111/5'b11111   ct7/32/INT:-1/-1           |
+5'b11111     int unsigned       DECL  |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     int unsigned       OVR   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     int unsigned       LP    |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     bit [7:0]          DECL  | *ct3/5/BIN:11111/5'b11111   ct3/8/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     bit [7:0]          OVR   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     bit [7:0]          LP    |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     logic [7:0]        DECL  | *ct3/5/BIN:11111/5'b11111   ct3/8/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     logic [7:0]        OVR   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     logic [7:0]        LP    |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     bit                DECL  | *ct3/5/BIN:11111/5'b11111   ct3/1/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     bit                OVR   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     bit                LP    |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     logic signed [3:0] DECL  | *ct3/4/BIN:1111/4'b1111     ct3/4/BIN:11111/5'b11111   |  ct3/4/BIN:1111/4'b1111     ct3/4/BIN:1111/4'b1111     |  ct3/4/BIN:1111/4'b1111     ct3/4/BIN:1111/4'b1111     |
+5'b11111     logic signed [3:0] OVR   |  ct3/4/BIN:1111/1111        ct3/4/BIN:1111/1111        |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |  ct3/5/BIN:11111/5'b11111   ct3/5/BIN:11111/5'b11111   |
+5'b11111     logic signed [3:0] LP    |  ct3/4/BIN:1111/4'b1111     ct3/4/BIN:1111/4'b1111     |  ct3/4/BIN:1111/4'b1111     ct3/4/BIN:1111/4'b1111     |  ct3/4/BIN:1111/4'b1111     ct3/4/BIN:1111/4'b1111     |
+CELLS=720 DIFFERING=111

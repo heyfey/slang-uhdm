@@ -3321,6 +3321,14 @@ const bool ovDbg28 = [] {
     const char* v = getenv("R10E28_OVDBG");
     return v && *v && *v != '0';
 }();
+// A/B GATE for § ovHopOverriddenKeepsValue80 (see the law at its firing site,
+// in `ovEnc8`'s NamedValue arm).  Default is the LAW BEING ON; R10E80_OFF=1
+// restores the pre-pass-80 path — the NEUTRAL binary every boundary walk and
+// every grid arm scores against.
+const bool ovHopOff80 = [] {
+    const char* v = getenv("R10E80_OFF");
+    return v && *v && *v != '0';
+}();
 
 // The CONSUMER stage: CompileHelper::adjustSize against a target of kind `k`,
 // signedness `sg` and width `w`.  `w == 0` means the target carries no
@@ -6044,6 +6052,90 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                   << " dec=" << o8.dec << "\n";
                     return true;
                 }
+                // § ovHopOverriddenKeepsValue80 — AN OVERRIDDEN
+                // PARAMETER ON AN INSTANTIATION-OVERRIDE CHAIN IS NOT A
+                // Value ROUND TRIP AT ALL: THE ACTUAL'S OWN Value PASSES
+                // THROUGH IT UNTOUCHED — no adjustSize, no re-render —
+                // AND ONLY THE FORMAL THE CHAIN ENDS AT ADJUSTS IT.
+                //
+                // Surelog, decoded:
+                //   DesignElaboration.cpp:2147  the override ACTUAL is
+                //     compiled (Reduce::Yes) in the PARENT instance;
+                //   DesignElaboration.cpp:2170  `value = fromVpiValue(
+                //     c->VpiValue(), c->VpiSize())` and `setValue(name,
+                //     value)` — NO adjustSize anywhere on this path, so
+                //     the instance's stored Value is the actual's raw one;
+                //   NetlistElaboration.cpp:429-432  the param_assign
+                //     constant is minted FROM THAT Value
+                //     (VpiValue/VpiDecompile/VpiSize/VpiConstType, and
+                //     `SValue::decompiledValue` renders a based Value as
+                //     `<m_size>'<base><digits>` — Value.cpp:298-322);
+                //   NetlistElaboration.cpp:448  adjustSize then runs over
+                //     THE CONSTANT ONLY (CompileHelper.cpp:3949) — its
+                //     `vpiHexConst`/`vpiOctConst` fall-through at :4127 sets
+                //     `VpiSize` and NOTHING ELSE, which is why golden's cell
+                //     can read size 32 while its decompile still says `4'h0`.
+                // The next hop reads the stored VALUE, not that constant, so
+                // an overridden intermediate contributes nothing at all.
+                // A NON-overridden intermediate is the opposite case and
+                // keeps the pre-existing round trip: its stored Value comes
+                // from its OWN declaration, where adjustSize ran before the
+                // capture, so its width/mask/sign-extension DO propagate.
+                //
+                // THE HEAD THIS CLEARS.  `tlul_socket_1n.sv:16
+                // parameter bit [3:0] HReqDepth = 4'h2`, overridden
+                // `.HReqDepth(4'h0)` at spi_device_reg_top.sv:70 and passed
+                // `.ReqDepth(HReqDepth)` (tlul_fifo_sync.sv:12
+                // `int unsigned ReqDepth = 2`) then `.Depth(ReqDepth)`
+                // (prim_fifo_sync.sv:12 `int unsigned Depth = 4`): golden's
+                // param_assign Rhs in
+                // top_earlgrey.u_spi_device.u_reg.u_socket.fifo_h.reqfifo is
+                // `vpiDecompile:4'h0` `vpiSize:32`; pristine wrote `32'h0`
+                // because BOTH hops re-rendered.
+                //
+                // MEASURED ON GOLDEN, g1_hops80.sv + g2_mask80.sv — the same
+                // three-module chain as the head (top -> `<M> A` -> `int
+                // unsigned B` -> `int unsigned D`), 12 + 10 source literal
+                // spellings x 8 intermediate declared types x three homes
+                // for the source value (A's own DECLARED default / the
+                // literal WRITTEN AT THE INSTANTIATION SITE / a top-level
+                // LOCALPARAM of the same type), read at all three hops:
+                //   * the decompile width is fixed ONCE, where the Value is
+                //     born, and is IDENTICAL at hop 1 and hop 2 in all 720
+                //     golden chains — the DECLARED type's width in the DECL
+                //     and LP homes, the WRITTEN literal's own width in the
+                //     OVR home (`4'h2` into `bit [7:0]` stays `4'h2`, and
+                //     `16'h2`/`33'h1` stay 16 and 33 bits wide into every
+                //     formal);
+                //   * and it is not only the width: `.A(300)` into
+                //     `bit [3:0] A` reads golden `UINT:300` size 32 one hop
+                //     on — UNMASKED — where the same 300 as A's DECLARED
+                //     default reads `UINT:12`; `8'b10110011` into
+                //     `logic [3:0]` is golden `BIN:10110011` size 8 through
+                //     an overridden hop and `BIN:0011` size 4 through a
+                //     declared one.  Skipping only the re-render would leave
+                //     both of those wrong, which is why the whole round trip
+                //     goes.
+                // The § ovEncScalarSourceSkipsHops28 clause above already
+                // skipped this round trip for a ONE-BIT source and stays
+                // exactly as it was: it fires on non-overridden hops too
+                // (`1'b1` as `int A`'s declared default reads `1'b1`, not
+                // `INT:-1`, one hop on), so it is a different, wider rule.
+                //
+                // THE ONE PRODUCER THIS SKIP MUST NOT REACH, and the grid
+                // named it: the UNBASED-UNSIZED `'0` arm above deliberately
+                // leaves `o8.dec` EMPTY and lets the hop's own
+                // `srlgOvRender` mint the decompile at the width it settles
+                // on.  Skipping the round trip for that producer would bind
+                // an EMPTY `vpiDecompile` (28 cells of `g1_hops80.sv` moved
+                // that way on the first patched run, all of them `'0`).
+                // Golden wants `'b0` size 32 there — an UNSIZED size the
+                // model does not carry — so the whole `'0` family stays on
+                // the pristine path, wrong exactly as it was (recorded as
+                // R1 in PREDICT_R0.txt), and `dec.empty()` is the exact test
+                // for "this producer has not finished the encoding yet".
+                if (!ovHopOff80 && !o8.dec.empty() && isOverriddenParam(pp8))
+                    return true;
                 SrlgTsK sk8;
                 bool ss8;
                 int32_t sw8;

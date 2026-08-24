@@ -1,0 +1,61 @@
+r10v80 — NONDETERMINISM ADJUDICATION of the four per-directory boundary movers
+that carry NO param_assign movement.  Three runs of EACH binary, both views.
+raw = workdir-normalised whole dump;  sorted = ORDER-BLIND same dump;
+pa   = the param_assign census (sorted).  MEASUREMENT ONLY.
+
+===== r10uvm75repro plain
+PRIS/1 raw=c0a39bf38d sorted=cf976e268f pa=d41d8cd98f
+PRIS/2 raw=f5190bdedb sorted=cf976e268f pa=d41d8cd98f
+PRIS/3 raw=71277790cc sorted=cf976e268f pa=d41d8cd98f
+PATC/1 raw=1281c7395a sorted=cf976e268f pa=d41d8cd98f
+PATC/2 raw=8291eb38ab sorted=cf976e268f pa=d41d8cd98f
+PATC/3 raw=274b2b8be3 sorted=cf976e268f pa=d41d8cd98f
+===== r10uvm75repro elab
+PRIS/1 raw=7aefed2a3f sorted=cdc7b198f6 pa=d41d8cd98f
+PRIS/2 raw=5298bc020c sorted=cdc7b198f6 pa=d41d8cd98f
+PRIS/3 raw=08d9c797e8 sorted=cdc7b198f6 pa=d41d8cd98f
+PATC/1 raw=a731164926 sorted=cdc7b198f6 pa=d41d8cd98f
+PATC/2 raw=9e2bf0e3b2 sorted=cdc7b198f6 pa=d41d8cd98f
+PATC/3 raw=a3d8dd8775 sorted=cdc7b198f6 pa=d41d8cd98f
+===== r10uvm76repro plain
+PRIS/1 raw=99eca9ade0 sorted=681b4bfcec pa=9d2e90c25e
+PRIS/2 raw=790a9e8684 sorted=681b4bfcec pa=9d2e90c25e
+PRIS/3 raw=f90d75016c sorted=681b4bfcec pa=9d2e90c25e
+PATC/1 raw=ac721137c8 sorted=681b4bfcec pa=9d2e90c25e
+PATC/2 raw=1223a2864a sorted=681b4bfcec pa=9d2e90c25e
+PATC/3 raw=74cc93146c sorted=681b4bfcec pa=9d2e90c25e
+===== r10uvm76repro elab
+PRIS/1 raw=8759c852ae sorted=601b556015 pa=c07cfcbce3
+PRIS/2 raw=c3266b625b sorted=601b556015 pa=c07cfcbce3
+PRIS/3 raw=da26cd4e01 sorted=601b556015 pa=c07cfcbce3
+PATC/1 raw=d0c2a0d06b sorted=601b556015 pa=c07cfcbce3
+PATC/2 raw=ddf1c9ea5f sorted=601b556015 pa=c07cfcbce3
+PATC/3 raw=629fb2b00e sorted=601b556015 pa=c07cfcbce3
+===== r10uvm88repro plain
+PRIS/1 raw=8fe5cf7c19 sorted=a12806dcb6 pa=d546bdb00e
+PRIS/2 raw=8fe5cf7c19 sorted=a12806dcb6 pa=d546bdb00e
+PRIS/3 raw=8fe5cf7c19 sorted=a12806dcb6 pa=d546bdb00e
+PATC/1 raw=8fe5cf7c19 sorted=a12806dcb6 pa=d546bdb00e
+PATC/2 raw=8fe5cf7c19 sorted=a12806dcb6 pa=d546bdb00e
+PATC/3 raw=8fe5cf7c19 sorted=a12806dcb6 pa=d546bdb00e
+===== r10uvm88repro elab
+PRIS/1 raw=13a6f965ce sorted=81c9e1d0b5 pa=113fed4164
+PRIS/2 raw=13a6f965ce sorted=81c9e1d0b5 pa=113fed4164
+PRIS/3 raw=13a6f965ce sorted=81c9e1d0b5 pa=113fed4164
+PATC/1 raw=13a6f965ce sorted=81c9e1d0b5 pa=113fed4164
+PATC/2 raw=13a6f965ce sorted=81c9e1d0b5 pa=113fed4164
+PATC/3 raw=13a6f965ce sorted=81c9e1d0b5 pa=113fed4164
+===== r10v109repro plain
+PRIS/1 raw=7f5ba0aed6 sorted=af41dfd680 pa=d41d8cd98f
+PRIS/2 raw=c828300ce8 sorted=af41dfd680 pa=d41d8cd98f
+PRIS/3 raw=67da5a9dd4 sorted=af41dfd680 pa=d41d8cd98f
+PATC/1 raw=b3f668c3c1 sorted=af41dfd680 pa=d41d8cd98f
+PATC/2 raw=6343ee0943 sorted=af41dfd680 pa=d41d8cd98f
+PATC/3 raw=8f3e301080 sorted=af41dfd680 pa=d41d8cd98f
+===== r10v109repro elab
+PRIS/1 raw=eb3f0c3f47 sorted=cd4e6f02d4 pa=d41d8cd98f
+PRIS/2 raw=78489df336 sorted=cd4e6f02d4 pa=d41d8cd98f
+PRIS/3 raw=b57e41a572 sorted=cd4e6f02d4 pa=d41d8cd98f
+PATC/1 raw=7ff5cb19be sorted=cd4e6f02d4 pa=d41d8cd98f
+PATC/2 raw=c5acb0cace sorted=cd4e6f02d4 pa=d41d8cd98f
+PATC/3 raw=c023d78e9a sorted=cd4e6f02d4 pa=d41d8cd98f

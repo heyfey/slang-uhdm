@@ -1,0 +1,101 @@
+r10earl80 — THE GATES, all five, verbatim.  BASE 08918a1, branch auto5h,
+worktree /tmp/wt_r10earl80.  results/*.csv was READ ONLY and is untouched —
+NO ROW WAS CONVERTED (the master promotes rows, not this pass).
+
+BINARIES (both frozen chmod 555 BEFORE any sweep; every cmds.txt audited BY
+BINARY PATH, not by the string "slang-uhdm"):
+  pristine  /tmp/r10earl80_bin/pris      md5 f00c80b5d81b496f56f6cb3ec1f270b3
+  patched   /tmp/r10earl80_bin/patched   md5 d25629a1bbfe4c85699721f097caced8
+  neutral   = patched with R10E80_OFF=1  (byte-identical censuses to pristine on
+             g1_hops80.sv, g2_mask80.sv, qb28.sv and qc28.sv, both views)
+
+  cmds.txt AUDIT (grep the `slang:` line's argv[0], count by path)
+    surelog    pristine 1523 / 1523 = /tmp/r10earl80_bin/pris
+    surelog    patched  1523 / 1523 = /tmp/r10earl80_bin/patched
+    uhdm2rtlil pristine 1458 / 1458 = /tmp/r10earl80_bin/pris
+    uhdm2rtlil patched  1458 / 1458 = /tmp/r10earl80_bin/patched
+
+(1) BUILD BOTH — done, md5s above, each `cmake --build build -j 2`, md5 taken
+    separately, and the binary frozen before any sweep read it.
+
+(2) GOLDENS 23/0 AND /bin/false 0/23 (SLANG_UHDM exported EXPLICITLY to EACH)
+      SLANG_UHDM=/tmp/r10earl80_bin/pris     PASS=23  FAIL=0
+      SLANG_UHDM=/tmp/r10earl80_bin/patched  PASS=23  FAIL=0
+      SLANG_UHDM=/bin/false                  PASS=0   FAIL=23   <- the harness
+                                                       CAN fail; 23/0 is real
+
+(3) uhdm2rtlil, --mode both, --jobs 2, my own --out/--workdir
+      pristine  [default] 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+                [testflags] 679 / 50 / 2
+      patched   [default] 679 / 50 / 2      [testflags] 679 / 50 / 2
+      ct8rows.sh results/gate_uhdm2rtlil.csv <testflags rows>:
+        pristine  0 differing ROWS over 731     patched  0 differing ROWS over 731
+        (status AND dump column; dump histogram 183 differ / 496 match, unchanged)
+      and the WHOLE 1462-row two-mode CSV is byte-identical pristine vs patched.
+
+(4) surelog, --mode both, --jobs 2, my own --out/--workdir
+      ct8rows.sh results/golden_surelog.csv:
+        pristine  0 differing ROWS over 1588    patched  0 differing ROWS over 1588
+      per-mode STATUS histograms identical to the committed baseline:
+        default    471 CMP_EQUAL / 10 CMP_NOTEQUAL / 5 DEFERRED / 283 SLANG_REJECT
+                   / 25 SURELOG_FAIL
+        testflags  466 CMP_EQUAL / 9 CMP_NOTEQUAL / 5 DEFERRED / 3 NO_DATABASE
+                   / 1 NO_UHDM / 284 SLANG_REJECT / 23 SURELOG_FAIL / 1 TIMEOUT
+                   / 2 UNTRANSLATABLE
+      DUMP-column histograms identical too (default 245 differ / 226 match;
+      testflags 300 differ / 166 match).
+      NO ROW WAS CONVERTED.  `Earlgrey_0_1` stays CMP_NOTEQUAL in both modes —
+      its head is cleared, the design has more (see PREDICT_R0.txt Part 2).
+
+(5) BYTEVERIFY, SELFCHECK=1, patched sweep vs pristine sweep
+      surelog     PATH_SETS_IDENTICAL (956)   MOVERS 2 / 956
+                    ./default/Earlgrey_0_1-71da2fd7/slang.uhdm
+                        patched 1d3888184d4f  pristine e264aa4ab197
+                    ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+                        patched be811f1e85fa  pristine 00c349a26c48
+                  SELFCHECK 955 / 956 flagged
+      uhdm2rtlil  PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358
+                  SELFCHECK 1357 / 1358 flagged
+      Both mover sets were PREDICTED BY NAME from pristine databases before the
+      patched sweeps were read — see PREDICT_R0.txt Part 1.
+
+HEADS (tools/probe/r10uvm67repro/rowheads.sh, on MY OWN sweeps)
+                     BEFORE            AFTER
+  SeqDriver          56/1  56/1        56/1  56/1     cmp logs BYTE-IDENTICAL
+  SimpleUVM          17/1  17/1        17/1  17/1     cmp logs BYTE-IDENTICAL
+  Scoreboard         56/1  (tf n/a)    56/1  (tf n/a) cmp log  BYTE-IDENTICAL
+  MiniAmiq           56/1  56/1        56/1  56/1     cmp logs BYTE-IDENTICAL
+  BuildUVMPkg        56/1  56/1        56/1  56/1     cmp logs BYTE-IDENTICAL
+  Rggen              0/0   (tf n/a)    0/0   (tf n/a) cmp log  BYTE-IDENTICAL
+  Earlgrey_0_1       64/1  64/1        32/1  36/1     <- THE HEAD, both modes
+  (BEFORE/default and BEFORE/testflags are byte-identical to each other AND to
+  the master's /tmp/earlgrey_head_08918a1.cmp, so this pass started on exactly
+  the object the brief named.)
+
+CANARIES
+  canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0
+    (and the four slang-fenced names are "not dispatched by any driver (OK)")
+  canaries.sh  <patched surelog csv> results/golden_surelog.csv
+    ok=52 changed=0 absent=0 unknown-names=7 (the 7 u2r-only canaries; expected)
+  ctcan2.sh    results/golden_surelog.csv <patched surelog csv>  EXPECT_UNKNOWN=1
+    ok=58 changed=0 absent=0 unknown-patterns=1  PASS
+
+FENCED= the four slang-fenced test names are NOT spelled here; canaudit.sh
+  carries the only copy of the list in this directory and re-checks it.
+  — never dispatched by any driver, grid, sitescan or boundary walk in this
+  directory; the wide boundary's file list was grepped for all four and matched
+  nothing, and `canaudit.sh` re-checks it independently.
+
+BOUNDARY WALKS (patched vs pristine, a copy of tools/probe, both views;
+list on fd 3, children </dev/null, PROCESSED asserted) — BOUNDARY_NOTES.txt
+  WIDE     PROCESSED=3569 (LISTED 3569) identical=6836 DIFFERING=12 no_output=290
+           12 = 6 files x 2 views: g1_hops80.sv + g2_mask80.sv (THIS PASS'S
+           POSITIVE CONTROLS — they must move) and qb28.sv / qc28.sv /
+           v3_pos64.sv / v7_inst64.sv, each SCORED AGAINST GOLDEN, both views:
+           TO-GOLDEN 2 / 4 / 2 / 3, AWAY-GOLDEN 0, MOVED-WRONG 0.
+  PER-DIR  PROCESSED=1523 (LISTED 1523) identical=2783 DIFFERING=9 no_output=254
+           r10v64repro (both views) TO-GOLDEN 5, AWAY 0, MOVED-WRONG 0;
+           r10uvm75repro / r10uvm76repro / r10uvm88repro / r10v109repro are
+           EMITTER NONDETERMINISM, proved by an order-blind sorted-dump compare
+           that is BYTE-IDENTICAL across both binaries, three runs each.
+  Every rc=139 in either .signal file appears on BOTH sides (pre-existing).

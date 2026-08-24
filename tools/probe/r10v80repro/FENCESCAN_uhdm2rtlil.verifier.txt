@@ -1,0 +1,5 @@
+SCANNED=1358
+  VALUE-TAG                      12
+  SIZE                           2
+  NONE                           0
+-- databases with DECOMPILE-WIDTH cells --

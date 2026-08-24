@@ -1,0 +1,65 @@
+r10earl80 — THE param_assign CENSUS (pacen80, a DIRECT .uhdm reader; Earlgrey's
+uhdm-dump is >1 GB and is NEVER produced).  MEASUREMENT ONLY; the official
+uhdm-cmp is the sole judge.  Multiset joins throughout (RESUME §9).
+
+BASE 08918a1.  Pristine binary md5 f00c80b5d81b496f56f6cb3ec1f270b3 (rebuilt in
+my own worktree; its Earlgrey head is BYTE-IDENTICAL to the master's
+/tmp/earlgrey_head_08918a1.cmp in BOTH modes).  Patched md5
+d25629a1bbfe4c85699721f097caced8.  The NEUTRAL binary (R10E80_OFF=1) reproduces
+the pristine census BYTE-FOR-BYTE on both grids.
+
+================================================================
+1. EARLGREY_0_1, both modes — the 182 differing cells SPLIT BY FAMILY
+================================================================
+r10earl74 reported "182 differing param_assign cells" and did not split them.
+`fam80.py` splits every differing cell by WHICH judge-read field disagrees.
+Identical in both modes:
+
+  FAMILY                                 cells   taken by this pass?
+  DECOMPILE-WIDTH                           84   YES — all 84 cleared
+  TYPESPEC        (ts/tssgn/lts/lsgn)       18   no  (R2)
+  SIZE            (sz alone)                18   no  (R3)
+  MIXED(ovr)      (VpiOverriden alone)      16   no  (R4) — the judge DOES
+                                                  read VpiOverriden
+                                                  (param_assign.cpp:107)
+  MIXED(dec,sz,val)                         13   no  (R5)
+  MIXED(ct,dec,op,sz,ts,tssgn,val)          10   no
+  MIXED(ct,dec,sz,ts,tssgn,val)              9   no
+  VALUE-TAG       (ct/val/dec together)      7   no
+  MIXED(ct,dec,op,ovr,sz,ts,tssgn,val)       4   no
+  MIXED(lsgn,sz,tssgn)                       2   no
+  MIXED(dec,lts,ts,val)                      1   no
+                                           ---
+                                           182
+
+THE DECOMPILE-WIDTH FAMILY IS ONE PARAMETER AND TWO VALUES — every one of the
+84 cells is `prim_fifo_sync.sv:12 parameter int unsigned Depth`:
+  x44  G: ct=5 sz=32 val=HEX:2 dec=4'h2   O: ... dec=32'h2
+  x40  G: ct=5 sz=32 val=HEX:0 dec=4'h0   O: ... dec=32'h0
+i.e. `tlul_socket_1n.sv:16 parameter bit [3:0] HReqDepth = 4'h2` (and its
+`HRspDepth` twin), overridden `4'h0` at the register-top instantiation sites and
+`4'h2` elsewhere, carried down two instance hops.  vpiSize, vpiValue and
+vpiConstType already AGREED on all 84: ONLY the decompile's width prefix moved.
+
+AFTER THE PATCH, both modes:
+  default   shared 28655  DIFFERING 182 -> 98   TO-GOLDEN 84  AWAY 0  MOVED-WRONG 0
+  testflags shared 36735  DIFFERING 182 -> 98   TO-GOLDEN 84  AWAY 0  MOVED-WRONG 0
+and DECOMPILE-WIDTH is GONE from the family table; the other ten families are
+unchanged cell for cell.
+
+================================================================
+2. THE WHOLE SURELOG CORPUS (fencescan80.sh, 956 databases)
+================================================================
+Every database joined against the golden its OWN cmds.txt names, classified by
+the same families.  It READS databases and DISPATCHES NOTHING, so no test —
+fenced or otherwise — is run by it (FENCED= lists only).
+
+  SCANNED=956
+    TYPESPEC 184 | SIZE 180 | DECOMPILE-WIDTH 168 | MIXED(ovr) 32 |
+    VALUE-TAG 28 | MIXED(dec,sz,val) 26 | ... (see FENCESCAN_surelog.txt)
+
+  ALL 168 DECOMPILE-WIDTH CELLS LIVE IN EXACTLY TWO DATABASES:
+    default/Earlgrey_0_1-71da2fd7     84
+    testflags/Earlgrey_0_1-71da2fd7   84
+  The other 954 databases have ZERO.  That is the surelog mover prediction, and
+  it is made from PRISTINE databases only.

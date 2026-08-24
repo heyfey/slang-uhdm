@@ -1,0 +1,32 @@
+LHS:
+decompile:
+constant: , id:361072, line:215:25, endln:215:26
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_spi_device.u_reg.u_socket.err_resp.tl_u_o), id:361073, line:215:25, endln:215:26
+|vpiDecompile:2
+|vpiSize:64
+|UINT:2
+|vpiConstType:9
+
+decompile:
+constant: , id:361072, line:215:25, endln:215:26
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_spi_device.u_reg.u_socket.err_resp.tl_u_o), id:361073, line:215:25, endln:215:26
+|vpiDecompile:2
+|vpiSize:64
+|UINT:2
+|vpiConstType:9
+RHS:
+decompile:
+ref_obj: (work@top_earlgrey.u_spi_device.u_reg.u_socket.N), id:295166, line:215:25, endln:215:26
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_spi_device.u_reg.u_socket.err_resp.tl_u_o), id:295165, line:215:25, endln:215:26
+|vpiName:N
+|vpiFullName:work@top_earlgrey.u_spi_device.u_reg.u_socket.N
+
+decompile:
+ref_obj: (work@top_earlgrey.u_spi_device.u_reg.u_socket.N), id:295166, line:215:25, endln:215:26
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_spi_device.u_reg.u_socket.err_resp.tl_u_o), id:295165, line:215:25, endln:215:26
+|vpiName:N
+|vpiFullName:work@top_earlgrey.u_spi_device.u_reg.u_socket.N

@@ -1,0 +1,151 @@
+r10earl80 — THE MOVER PREDICTION (made FIRST, from PRISTINE databases) and
+            THE NEXT HEAD (R0), named for the pass that follows this one.
+
+========================================================================
+PART 1 — THE MOVER PREDICTION, MADE BEFORE THE PATCHED SWEEPS WERE READ
+========================================================================
+`fencescan80.sh` + `fam80.py` were run over the PRISTINE sweep workdirs (golden
+from the immutable cache path named in each test's OWN `cmds.txt`, ours from the
+pristine sweep).  They READ databases and DISPATCH NOTHING, so no test — fenced
+or otherwise — is run by them; FENCED= lists only.
+
+The classifier needs no source: this law moves the WIDTH PREFIX of a based
+`vpiDecompile` and nothing else, so its family is exactly "the differing
+param_assign cells whose golden and ours agree on digits, base, value, size and
+const type and disagree ONLY on `<width>'`".
+
+  surelog,     956 databases: 168 DECOMPILE-WIDTH cells, ALL of them in TWO
+      default/Earlgrey_0_1-71da2fd7      84 cells
+      testflags/Earlgrey_0_1-71da2fd7    84 cells
+    the other 954 databases have ZERO.
+  uhdm2rtlil, 1358 databases:   0 DECOMPILE-WIDTH cells
+    -> PREDICTION: 0 databases move.
+
+  PREDICTION: EXACTLY `Earlgrey_0_1` default and `Earlgrey_0_1` testflags move,
+  and nothing else, in either corpus.
+
+MEASURED AFTER THE PATCHED SWEEPS, `byteverify.sh SELFCHECK=1`:
+  surelog     MOVERS 2 / 956    ./default/Earlgrey_0_1-71da2fd7/slang.uhdm
+                                ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+              SELFCHECK 955/956 flagged (the comparator is live)
+  uhdm2rtlil  MOVERS 0 / 1358   SELFCHECK 1357/1358 flagged
+Prediction and measurement agree BY NAME, in both corpora.
+
+The census also proves the two populations DISJOINT the way the brief asked:
+pristine, the 84 DECOMPILE-WIDTH cells ALL differ and the other 98 differing
+cells belong to ten other families; patched, the 84 agree and the 98 are
+unchanged CELL FOR CELL (TO-GOLDEN 84 / AWAY-GOLDEN 0 / MOVED-WRONG 0 in both
+modes).
+
+========================================================================
+PART 2 — R0-default and R0-testflags: THE SAME OBJECT, 32 / 36 lines
+========================================================================
+The two logs are no longer byte-identical (they were, before this pass): the
+testflags RHS `ref_obj` carries a `vpiActual` the default one does not, which is
+4 extra lines and the whole difference.
+
+  tlul_socket_1n.sv:215      tlul_err_resp err_resp (
+                               .clk_i, .rst_ni,
+                               .tl_h_i (tl_u_o[N]),   <-- col 25 is the `N`
+                               .tl_h_o (tl_u_i[N]));
+  — a PORT HIGH_CONN bit-select, not a cont_assign one (the eight
+  `assign tl_u_o[N].a_* = tl_t_o.a_*` cont_assigns two lines above are the
+  SAME index in the OTHER home, and the next pass should read both).
+
+  in top_earlgrey.u_spi_device.u_reg.u_socket   (`parameter int unsigned N = 4`
+  at tlul_socket_1n.sv:40, overridden `.N(2)` at spi_device_reg_top.sv:65)
+
+  LHS (golden)                            RHS (ours)
+    constant 215:25-215:26                  ref_obj  215:25-215:26
+    |vpiParent -> bit_select                |vpiParent -> bit_select
+       (…u_socket.err_resp.tl_u_o)             (…u_socket.err_resp.tl_u_o)
+    |vpiDecompile:2                         |vpiName:N
+    |vpiSize:64                             |vpiFullName:…u_socket.N
+    |UINT:2                                 |vpiActual:            (testflags
+    |vpiConstType:9                         \_parameter …u_socket.N  only)
+
+WHICH ARM.  Read the MK line, not the shape.  `bit_select::Compare`
+(UHDM/build/generated/src/bit_select.cpp:95-110) reads `VpiConstantSelect`
+FIRST and then `SafeCompare(lhs->VpiIndex(), rhs->VpiIndex())` — and it is that
+`VpiIndex` SafeCompare that dispatches into these two objects.  Both parents
+compare equal down to it (same name, same span, and `VpiConstantSelect` agrees),
+so the head is the INDEX and the failure is a KIND mismatch inside
+`BaseClass::Compare`'s `VpiType` line, before any per-kind field of either side
+is read.  GOLDEN FOLDS A `bit_select` INDEX THAT NAMES
+AN OVERRIDDEN MODULE PARAMETER TO ITS SUBSTITUTED CONSTANT; WE KEEP THE
+`ref_obj`.  Note the fold's `VpiSize` is 64 and its tag `UINT:` — the
+`getValue`/`reduceExpr` encoding r10earl73/74 decoded, not the parameter's own
+`param_assign` size of 32 — so the next pass must measure WHICH producer stamps
+the 64, not assume the param_assign's.
+
+WHAT THE NEXT PASS MUST MEASURE FIRST.  A census of every `bit_select` /
+`indexed_part_select` / `part_select` INDEX across both Earlgrey databases and
+both corpora, keyed by owner + span, golden's index KIND (constant vs ref_obj vs
+operation) against ours, split by (what the index names: module parameter /
+localparam / genvar / a `parameter` overridden at the instantiation site vs one
+left at its default) x (where the select sits: a cont_assign LHS / RHS, a port
+High_conn, a procedural statement) x (whether the base is an unpacked array of
+interfaces/structs).  Our own `§ genLpBitSelIdxOneHopFold67` (r10earl67) already
+folds SOME bit-select indices one hop — start from ITS gate and find why this
+site is outside it; `§ hpNameBareIdxFold69` and `§ genvarIdxFoldRerender14` are
+the two neighbouring index-fold laws and both carry corpus fences.
+`pacen80.cpp` is the ready-made direct-reader pattern for the census (Earlgrey's
+uhdm-dump is >1 GB and is NEVER produced).
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R1  THE UNSIZED-`'0` OVERRIDE, and it is FENCED IN THE CODE.  Golden renders an
+    unbased-unsized `'0` written AT an instantiation site as `'b0` with
+    `VpiSize` 32 — an UNSIZED width the `SrlgOvEnc` model does not carry (its
+    producer sets the size from the literal's CONTEXT type, so 4 / 8 / 32).
+    `g1_hops80.sv` has 28 such cells.  The `'0` producer deliberately leaves
+    `o8.dec` EMPTY for the hop's own `srlgOvRender` to fill, so the first
+    patched run bound an EMPTY `vpiDecompile` on all 28; the landed law carries
+    an explicit `!o8.dec.empty()` fence that keeps the whole `'0` family on the
+    pristine path, wrong exactly as it was (STILL-WRONG 28, MOVED-WRONG 0).
+    Clearing it means teaching the model Surelog's `orig_size == -1` tail
+    (CompileHelper.cpp:4103-4125), which is a size law, not a decompile one.
+
+R2  THE 18 TYPESPEC CELLS of Earlgrey's param_assign census: golden's `int`
+    parameter typespec is `VpiSigned` 0 where ours is 1 (`PowerDomains`,
+    `NAlerts`, `AccuCntDw`, …), plus two `MioPeriphHasSleepMode` cells where
+    golden's constant typespec is an `int_typespec` and ours a `logic_typespec`.
+    A DECLARED-TYPE law, not a value one.
+
+R3  THE 18 SIZE CELLS: `PagesPerBank` / `WordsPerPage` / `BusWidth` /
+    `MpRegions` — golden `UINT:256` size 32, ours size 64.  A plain decimal
+    localparam initialiser keeps 64 in our model and 32 in golden's; this is
+    `srlgLitEnc`'s `out.size = 64` for a bare decimal meeting a consumer that
+    never re-sizes it.  Adjacent to r10earl73's fold-size family.
+
+R4  THE 16 `VpiOverriden` CELLS, and THE JUDGE READS THIS FIELD
+    (param_assign.cpp:107, before the Rhs).  Golden marks `PowerDomains`,
+    `AddrW`, `PagesPerBank`, `WordsPerPage` overridden in instances where we
+    mark them not.  A param_assign FLAG law with no value component at all —
+    the cheapest remaining family by cells-per-mechanism.
+
+R5  THE 13 MIXED(dec,sz,val) CELLS: `AddrW` golden `UINT:17` size 32, ours
+    `UINT:10` size 64; `DataWidth` golden 64, ours 32.  A genuinely WRONG VALUE
+    (not an encoding), so it is a fold bug and outranks R2/R3 on severity while
+    ranking below them on cell count.
+
+R6  OUR ADJUSTSIZE MODELS THE WRONG SIGNEDNESS FOR THE `int`-BINARY ARM.
+    `CompileHelper::adjustSize`'s sign-extend arm is gated on
+    `constantIsSigned` — the CONSTANT's OWN typespec — and `srlgAdjustSize`
+    gates it on the TARGET's signedness (`sg`).  `g2_mask80.sv` convicts it:
+    `8'b10110011` (unsigned literal) through a NON-overridden `int` hop is
+    golden `BIN:10110011` size 8 and ours `INT:-77` size 32, while `4'sb1000`
+    (signed literal) is `INT:-8` on both sides.  24 grid cells, ZERO corpus
+    cells; a one-line gate change with a real regression surface, so it wants
+    its own pass and its own corpus gate.
+
+R7  THE UNSIZED BASED LITERAL (`'h2`).  `srlgLitEnc` declines it and we fall to
+    the decimal UINT fold, so we write `2` where golden writes the DECLARED
+    width's rendering (`4'h2` / `8'h2` / `32'h2` / `1'h2`, and `'h2` for an
+    untyped target or an override actual).  72 cells of `g1_hops80.sv`, ZERO
+    corpus cells.  Same `orig_size == -1` tail as R1.
+
+R8  `4'o2` INTO A ONE-BIT TARGET: golden 0, ours 2 at hop 0 and the reverse
+    downstream — our octal producer converts to UINT before the target's mask
+    and golden masks first.  3 grid cells, ZERO corpus cells.

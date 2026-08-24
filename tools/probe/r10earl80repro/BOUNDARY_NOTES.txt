@@ -1,0 +1,57 @@
+r10earl80 — THE TWO BOUNDARY WALKS, and every mover accounted for.
+
+Both walks compare the PATCHED binary against the PRISTINE one (never against
+golden), both views, on a COPY of `tools/probe` at /tmp/r10earl80_proberoot;
+the file/dir list is read on fd 3, children run `</dev/null`, and PROCESSED is
+asserted against the list length.
+
+WIDE (every .sv at ANY depth, one file per compilation unit)
+  PROCESSED=3569  (LISTED=3569)  identical=6836  DIFFERING=12  no_output=290
+  The 12 are SIX FILES x TWO VIEWS, and all six are accounted for:
+    r10earl80repro/g1_hops80.sv   this pass's grid — THE POSITIVE CONTROL.
+    r10earl80repro/g2_mask80.sv   this pass's grid — THE POSITIVE CONTROL.
+                                  (They MUST move; that they do is the proof
+                                  the walk can see a moved cell at all.)
+    r10earl_repro/qb28.sv         TO-GOLDEN 2, AWAY 0, MOVED-WRONG 0
+    r10earl_repro/qc28.sv         TO-GOLDEN 4, AWAY 0, MOVED-WRONG 0
+    r10v64repro/v3_pos64.sv       TO-GOLDEN 2, AWAY 0, MOVED-WRONG 0
+    r10v64repro/v7_inst64.sv      TO-GOLDEN 3, AWAY 0, MOVED-WRONG 0
+  (scored with mv80.py against the Surelog golden built by arm80.sh, BOTH
+  views; see ARMS.txt for the counts and README.md §3 for the rows.)
+  BOUNDARY_WIDE.signal: 14 `rc=139` lines, and EVERY ONE appears on BOTH sides
+  (A=patched and B=pristine) — pre-existing segfaults, not this pass's.
+
+PER-DIRECTORY (every directory holding .sv, all its .sv as ONE unit)
+  PROCESSED=1523  (LISTED=1523)  identical=2783  DIFFERING=9  no_output=254
+  (`r10earl80repro` itself is a no_output here: g1 and g2 declare the same
+  module names, so the two-file unit does not compile — which is why the WIDE
+  walk, one file per unit, is the one that carries this pass's positive
+  control.)
+  The 9:
+    r10v64repro      plain+elab  TO-GOLDEN 5, AWAY 0, MOVED-WRONG 0 (both
+                                 views) — the same law, the same two files.
+    r10uvm75repro    plain+elab  \
+    r10uvm76repro    plain+elab   |  EMITTER NONDETERMINISM, NOT THIS PASS.
+    r10uvm88repro    plain        |
+    r10v109repro     plain+elab  /
+      PROVED, not asserted (RESUME §9: attribute only order-blind or by
+      face-matched pairs):
+        * pacen80's param_assign census on each, both views, patched vs
+          pristine vs golden: TO-GOLDEN 0, AWAY-GOLDEN 0, MOVED-WRONG 0 — the
+          only object kind this law can touch does not move in any of them;
+        * the SAME binary does not repeat itself: four runs of the PRISTINE
+          binary on r10uvm75repro / r10uvm76repro / r10v109repro give FOUR
+          DISTINCT dump hashes each (and four more distinct ones for patched),
+          so a single-shot A/B read there is luck either way;
+        * r10uvm88repro is in fact IDENTICAL between the two binaries over
+          eight further runs (one hash, 4479be268b) — the walk's single shot
+          caught a flip;
+        * and the ORDER-BLIND test settles it: the SORTED whole dump is
+          BYTE-IDENTICAL between the two binaries, three runs each —
+            r10uvm75repro 33097b10b9   r10uvm76repro 60436c0faa
+            r10v109repro  13f209133f   (all six hashes equal, per directory)
+  BOUNDARY_DIR.signal: 12 `rc=139` lines, every one on BOTH sides.
+
+NEUTRAL CONTROL: every arm above was also built with the law's A/B gate off
+(`R10E80_OFF=1`) and its census is BYTE-IDENTICAL to the pristine binary's, so
+every difference reported anywhere in this directory is this law's alone.

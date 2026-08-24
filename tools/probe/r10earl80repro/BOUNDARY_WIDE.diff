@@ -1,0 +1,12 @@
+plain r10earl80repro/g1_hops80.sv
+elab r10earl80repro/g1_hops80.sv
+plain r10earl80repro/g2_mask80.sv
+elab r10earl80repro/g2_mask80.sv
+plain r10earl_repro/qb28.sv
+elab r10earl_repro/qb28.sv
+plain r10earl_repro/qc28.sv
+elab r10earl_repro/qc28.sv
+plain r10v64repro/v3_pos64.sv
+elab r10v64repro/v3_pos64.sv
+plain r10v64repro/v7_inst64.sv
+elab r10v64repro/v7_inst64.sv
