@@ -1,0 +1,49 @@
+r10buvm34 — MOVER PREDICTION, written from the PRISTINE databases BEFORE the
+patched binary was built or any patched sweep was run.
+
+Instruments: r10buvm34cen.cpp (the FELV census) over BOTH sides of every cell
+of the PRISTINE surelog workdir (956 databases x 2 modes; 617 cells have a
+missing side and are COUNTED, not skipped) and of the pristine uhdm2rtlil
+workdir, joined by cen34.py as a symmetric MULTISET.
+
+surelog corpus, the whole FELV population:
+  IDENTICAL         4554
+  PAIRED-DISAGREE    890
+  MISSING-OURS / EXTRA-OURS   0 / 0        (the key is symmetric)
+  split by the ARRAY reference's written form (read off GOLDEN):
+    ascoped=Y (a `::`-written array reference)   13 cells:  7 IDENTICAL,
+                                                            6 PAIRED-DISAGREE
+    ascoped=N                                 5431 cells: 4547 IDENTICAL,
+                                                          884 PAIRED-DISAGREE
+  the 890 disagreeing cells by array-reference kind:
+    797 ref_var (bare)   87 hier_path (dotted)   6 class_var (SCOPED)
+
+THE LAW MOVES EXACTLY THE 6 `class_var` CELLS.  Every one of them is the SAME
+written name (`this_type::m_typewide_sequences`), the SAME loop variable
+(`i`), the SAME home (`uvm_pkg::uvm_sequence_library::init_sequence_library`,
+the out-of-body class method written at package scope) and the SAME slot (0),
+with golden `int_var` + bare `int_typespec` against our `array_var` +
+`array_typespec`.
+
+PREDICTED MOVER DATABASES, BY NAME — 6 of 956:
+    default/SeqDriver      testflags/SeqDriver
+    default/BuildUVMPkg    testflags/BuildUVMPkg
+    default/MiniAmiq       testflags/MiniAmiq
+
+PREDICTED NON-MOVERS that DO carry a scoped foreach (the control that proves
+the law is not "every scoped cell"): 7 cells already IDENTICAL —
+  * `default/SimpleUVM`, `testflags/SimpleUVM`, `default/Scoreboard`: golden
+    is `int_var` and SO ARE WE ALREADY, because § classPropUnitImport21's
+    `$unit`-import gate already withholds resolution in those three designs.
+  * the four WILDCARD-IMPORT CLONE copies (`svaunit_pkg::…` in MiniAmiq both
+    modes, `adpcm_pkg::…` in SeqDriver both modes): golden lists TWO
+    unresolved `ref_var`s and so do we (§ cloneForeachLoopVarUnresolved37).
+
+PREDICTED uhdm2rtlil MOVERS: 0 of 1358, both modes — the corpus has NO
+`ascoped=Y` foreach cell on either side, in either mode, so `scopedArr33` is
+never true there.
+
+PREDICTED head movement: the six row-modes SeqDriver / BuildUVMPkg / MiniAmiq
+x {default, testflags} all stand at 56 cmp lines with ONE head, and that head
+is this object.  Clearing it moves the head elsewhere; the line count is the
+NEW head object's decompile size and carries no meaning of its own.

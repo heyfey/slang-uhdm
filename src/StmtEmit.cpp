@@ -3034,13 +3034,53 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // such an object in the body exactly as it binds an int_var
                 // (§ foreachLoopVarObjs9's registration test at the return).
                 bool res22 = shadowFormal22;
+                // § foreachScopedArrayLoopVarIntFallback34 — a `::`-WRITTEN
+                // array reference gives the loop variable Surelog's BARE
+                // int_var fallback, whatever the array's real type is.
+                //
+                // `UhdmWriter::swapForSpecifiedVar` (UhdmWriter.cpp:2490) is
+                // the only producer of a resolved loop variable, and it types
+                // it from the object the foreach lists under `vpiVariables`:
+                // a `hier_path` goes to `decodeHierPath` as written (:2511), a
+                // `ref_var` gets a synthetic one-element path built from its
+                // NAME (:2529) — and NOTHING ELSE IS READ AT ALL.  Since
+                // § foreachScopedArrayWrittenClassVar33 that listed object is a
+                // `class_var` for every `::`-written spelling
+                // (CompileType.cpp:614 is the unconditional default), so
+                // `indexTypespec` stays null, `getSimpleVarFromTypespec` is
+                // never called, and :2550's
+                // `int_var` + `ref_typespec` -> bare `int_typespec` wins.
+                //
+                // Measured on arm `g34a1`, thirteen array types under ONE
+                // written qualifier: queue / dynamic / fixed / queue-of-string
+                // / queue-of-class / assoc[string] / assoc[int] / assoc[class]
+                // / queue-of-enum / queue-of-packed-struct / PACKED VECTOR /
+                // 2-D fixed (both slots) / typedef'd fixed — golden answers
+                // `int_var` + `int_typespec''` for all thirteen, while the
+                // BARE twin of each still answers array_var / string_var /
+                // int_var / class_var / bit_var / array_var'ta34_t' by the
+                // RESOLVABLE table (§3 of the README).  Type-independent,
+                // arity-independent (arm `g34a2`: every named slot of `[i]`,
+                // `[i,j]`, `[,j]`, `[i,]`, `[i,j,k]`, `[,,k]`, `[i,,k]`) and
+                // home-independent wherever the loop variable resolves at all
+                // (arm `g34a3`: out-of-body, in-body, static method, package
+                // function, package task, module initial / task / always /
+                // fork).
+                //
+                // Setting `lv` HERE is what makes every resolved arm below
+                // skip: each is guarded on `!lv`, exactly as Surelog skips
+                // `getSimpleVarFromTypespec` when `indexTypespec` is null.
+                if (scopedArr33) {
+                    lv = s.MakeInt_var();
+                    lts = s.MakeInt_typespec();
+                }
                 // A SUBROUTINE-LOCAL fixed-size unpacked array hands its whole
                 // array_typespec to the loop variable — shared, not drilled —
                 // which makes the variable an array_var. Module-scope arrays,
                 // queues and dynamic arrays all keep the element form below
                 // (probes r10c4_p4/p5/p6: `task t; int tq[5]; foreach(tq[i])`
                 // yields array_var, `int lq[$]` yields int_var).
-                if (arrSym && !foreachUnres9)
+                if (!lv && arrSym && !foreachUnres9)
                     if (auto lat9 = tfLocalArrayTs9.find(arrSym);
                         lat9 != tfLocalArrayTs9.end()) {
                         lts = lat9->second;

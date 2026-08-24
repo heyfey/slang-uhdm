@@ -1,0 +1,87 @@
+r10buvm34 — THE BOUNDARY GATE, arm by arm.
+
+bound34.sh over a COPY of the WHOLE tools/probe tree (no path filter, .sv AND
+.v), the arm list on fd 3, every child `</dev/null`, PROCESSED asserted against
+LISTED, rc recorded per cell, uhdm-dump's leading `<db>:` banner normalised
+away, four configurations:
+
+  MODE=file VIEW=def   PROCESSED=3645 LISTED=3645 DIFFER=13 PRIS_REJECT=138 PATCHED_REJECT=138
+  MODE=file VIEW=elab  PROCESSED=3645 LISTED=3645 DIFFER=13 PRIS_REJECT=152 PATCHED_REJECT=152
+  MODE=dir  VIEW=def   PROCESSED=1533 LISTED=1533 DIFFER= 7 PRIS_REJECT=122 PATCHED_REJECT=122
+  MODE=dir  VIEW=elab  PROCESSED=1533 LISTED=1533 DIFFER= 7 PRIS_REJECT=128 PATCHED_REJECT=128
+
+PRIS_REJECT == PATCHED_REJECT in all four and `asym.txt` was NEVER WRITTEN — no
+asymmetric reject anywhere.  (Several arms segfault symmetrically on BOTH
+binaries and are recorded as BOTH-REJECT, pre-existing; r10vbuvm19repro is one
+of them in dir mode, which is why its arms appear only in the file lists.)
+
+EVERY DIFFERING ARM ACCOUNTED FOR.
+
+A. THE LAW'S OWN ARMS (file mode, def and elab — the same 13 both views):
+
+     ./r10buvm34repro/g34a1.sv   ./r10buvm34repro/g34a2.sv
+     ./r10buvm34repro/g34a3.sv
+
+   scored in README §2: BROKEN=0, and dist(golden,patched) < dist(golden,
+   pristine) in every view.
+
+B. EARLIER-PASS ARMS THAT CARRY A SCOPED FOREACH (file mode):
+
+     ./r10buvm33repro/g33a1.sv   ./r10buvm33repro/g33a2.sv
+     ./r10buvm33repro/g33a3.sv   ./r10vbuvm19repro/vg19c.sv
+     ./r10vbuvm19repro/vg19d.sv  ./r10vbuvm25repro/vg25.sv
+     ./r10vbuvm33repro/v33a.sv   ./r10vbuvm33repro/v33b.sv
+     ./r10vbuvm33repro/v33c.sv   ./r10vbuvm33repro/v33d.sv
+
+   All ten scored with gridcmp34.py and dist34.py, both views (20 arm-views):
+   BROKEN = 0 everywhere and EVERY arm-view strictly BETTER —
+
+     vg19c def 10->8    elab 24->20      v33a  def 27->3   elab 54->6
+     vg19d def  8->4    elab 16->8       v33b  def 20->6   elab 40->12
+     vg25  def 28->24   elab 69->59      v33c  def 18->4   elab 56->12
+     g33a1 def 20->2    elab 66->6       v33d  def  2->0   elab  4->0
+     g33a2 def 16->2    elab 43->15
+     g33a3 def 16->4    elab 38->16
+
+   `r10vbuvm33repro/v33c.sv` is a THIRD independent arm whose OWN official
+   uhdm-cmp head WAS this law's cell: pristine head
+   `int_var (ph33::pt33::i) @14:26-14:27` (the loop variable of a scoped
+   foreach in a PACKAGE TASK), CLEARED — the new head is an `interface_inst`,
+   and the cmp LINE COUNT rises 56 -> 682 (def) / 686 (elab) because a cmp
+   line count is the HEAD OBJECT's decompile size, not a distance (RESUME §7).
+   v33d reaches distance 0 in both views.
+
+C. COINS (dir mode only — proved here, not carried forward):
+
+     ./r10uvm75repro   ./r10uvm76repro   ./r10v109repro
+
+   `coin34.sh` ran the PRISTINE binary TWICE on each, no patch involved:
+   raw same-binary-twice diffs of 14/12, 12/14 and 16/22 lines (def/elab), and
+   ORDER-BLIND 0 every time.  The patched-vs-pristine diffs (18/8, 6/14, 20/24)
+   are in the same range and their ORDER-BLIND diff is likewise 0/0/0/0/0/0.
+
+D. DIR-MODE AGGREGATES of the arms in A and B:
+
+     ./r10buvm33repro  ./r10buvm34repro  ./r10vbuvm25repro  ./r10vbuvm33repro
+
+   Line-by-line attribution of the dir-mode diffs: 182/374, 339/659, 28/56 and
+   226/514 lines (def/elab).  Every ADDED (`>`) line names a loop variable's
+   var kind, typespec kind, vpiName or vpiFullName — **0 unattributed
+   additions in all eight**.  The remaining `<`-only lines are the CHILDREN of
+   the typespec the int fallback replaces (an array_typespec's `vpiRange`
+   subtree, a class_typespec's `vpiClassDefn` link, `vpiSigned`), i.e. the same
+   removal.
+
+NO BIND-WINDOW DIRECTORY APPEARS IN ANY DIFFER LIST.  `classArgBind12`,
+`retNameRecvCollapseArgsBindLikeBody15`, `collArgNamedBlkLocalNoBind15`,
+`controlBodyNoBind28`, `blkLocalSameCtrlDepthArgBinds57/64`,
+`pkgVarBindsOnlyThroughInstance88`, `formalDefaultBindsLikeBody13`,
+`classInBodyRecvCallArgNoBind52`, `superNewFormalBinds28`, `newArrayArgNoBind16`,
+`writtenCallArgs16`, `namedTfArgsFormalSlots4`, `genLpPortConnCopyableOnly11v`,
+the uvm81/89/92/94/95 arms, uvm90's `invalidCtorCallArgsUnwrap90`, uvm96's
+`castTargetKeywordTypespecKind96`, sd8-12's subdirectory arms and buvm3-15,
+buvm17-24, buvm26-28 and buvm32's arms are all BYTE-IDENTICAL in both views and
+both modes.
+
+buvm31/32/33's carried `r10buvm22repro/g22.sv` ADDRESS FAMILY did not appear in
+any of the four configurations this time.

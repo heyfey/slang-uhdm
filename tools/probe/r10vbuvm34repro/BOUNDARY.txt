@@ -1,0 +1,57 @@
+r10vbuvm34 — THE VERIFIER'S BOUNDARY GATE (vbound34.sh)
+
+ROOT = a COPY of the whole patched worktree's tools/probe tree
+       (/tmp/vbuvm34_proberoot), NO path filter, .sv AND .v.
+Arm list on fd 3, every child </dev/null, PROCESSED asserted against LISTED,
+scratch keyed on the RELATIVE path, uhdm-dump's first-line banner normalised,
+and an RC LEDGER row for EVERY cell (even the agreeing ones) so "0 differing"
+can never be a silent both-reject.
+
+  MODE VIEW   LISTED  PROCESSED  LEDGER  DIFFER  PRIS_REJECT  PATCHED_REJECT
+  file def      3650       3650    3650      18          138             138
+  file elab     3650       3650    3650      18          152             152
+  dir  def      1534       1534    1534       8          122             122
+  dir  elab     1534       1534    1534       8          128             128
+
+asym.txt was NEVER written in any of the four runs, and the rc ledger records
+ZERO cells whose pristine rc differs from its patched rc (the segfaulting arms
+segfault on BOTH binaries).
+
+file-mode differing arms (18 = the 13 the pass names + this verifier's 5 new
+foreach arms; the tree has no other .sv/.v that moves):
+  r10buvm33repro/g33a1.sv  g33a2.sv  g33a3.sv
+  r10buvm34repro/g34a1.sv  g34a2.sv  g34a3.sv
+  r10vbuvm19repro/vg19c.sv vg19d.sv
+  r10vbuvm25repro/vg25.sv
+  r10vbuvm33repro/v33a.sv  v33b.sv  v33c.sv  v33d.sv
+  r10vbuvm34repro/v34a.sv  v34b.sv  v34c.sv  v34d.sv  v34e.sv
+Every one is scored in ARMS.txt: BROKEN = 0, distance never rises.
+NO bind-window directory appears (no r10buvm13/15/16, r10uvm88/90/52,
+r10sd8-12, no classArgBind / controlBody / superNew / newArray arm).
+
+ADDED-LINE ATTRIBUTION over the aggregated file-mode diffs:
+  file/def   665 added lines, UNATTRIBUTED 0
+  file/elab 1472 added lines, UNATTRIBUTED 0
+Every added line is `\_int_var:` or `\_int_typespec:`.  Every removed line is
+a child of the replaced typespec subtree (array_var / array_typespec /
+string_var / string_typespec / class_var / class_typespec / bit_var /
+bit_typespec / vpiRange / vpiSigned / vpiClassDefn / class_defn).
+
+dir-mode differing directories (8):
+  the 5 foreach-law dirs r10buvm33repro, r10buvm34repro, r10vbuvm25repro,
+  r10vbuvm33repro, r10vbuvm34repro — 0 unattributed ADDED lines in BOTH views;
+  and r10uvm75repro, r10uvm76repro, r10v109repro, which vcoin34.sh proves are
+  COINS, not movers — the PRISTINE binary against ITSELF:
+
+    VIEW def   r10uvm75repro  same-binary raw 20  order-blind 0 | pris-vs-pat raw 18  order-blind 0
+               r10uvm76repro  same-binary raw 14  order-blind 0 | pris-vs-pat raw  8  order-blind 0
+               r10v109repro   same-binary raw 18  order-blind 0 | pris-vs-pat raw 14  order-blind 0
+    VIEW elab  r10uvm75repro  same-binary raw  6  order-blind 0 | pris-vs-pat raw 10  order-blind 0
+               r10uvm76repro  same-binary raw 16  order-blind 0 | pris-vs-pat raw 14  order-blind 0
+               r10v109repro   same-binary raw 28  order-blind 0 | pris-vs-pat raw 18  order-blind 0
+
+  Both the pristine run-1 and the pristine run-2 sorted dumps are order-blind
+  identical to the patched one, so the reading does not depend on which
+  pristine invocation the coin landed on.
+
+The four slang-fenced tests are never dispatched here and are never spelled.
