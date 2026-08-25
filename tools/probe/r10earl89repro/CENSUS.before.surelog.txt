@@ -1,0 +1,172 @@
+BOTH-SAME        292269
+FAM-TS-MISSING   6
+FAM-TS-EXTRA     0
+FAM-TS-KIND      35
+FAM-TS-MIXED     0
+OTHER-DIFF       115206
+ONLY-GOLDEN      63463
+ONLY-OURS        33427
+
+[FAM-TS-MISSING] default/Earlgrey_0_1-71da2fd7  design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_ctrl)/module_inst(u_flash_mp)/array_var(region_end)|array_var #0
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9 TS=int_typespec/sgn/bare} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9 TS=none} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+
+[FAM-TS-MISSING] default/Earlgrey_0_1-71da2fd7  design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_ctrl)/module_inst(u_flash_mp)/array_var(region_end)|array_var #1
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9 TS=int_typespec/sgn/bare} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9 TS=none} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+
+[FAM-TS-MISSING] default/Earlgrey_0_1-71da2fd7  design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_ctrl)/module_inst(u_flash_mp)/array_var(region_end)|array_var #2
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9 TS=int_typespec/sgn/bare} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9 TS=none} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+
+[FAM-TS-MISSING] testflags/Earlgrey_0_1-71da2fd7  design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_ctrl)/module_inst(u_flash_mp)/array_var(region_end)|array_var #0
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9 TS=int_typespec/sgn/bare} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9 TS=none} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+
+[FAM-TS-MISSING] testflags/Earlgrey_0_1-71da2fd7  design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_ctrl)/module_inst(u_flash_mp)/array_var(region_end)|array_var #1
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9 TS=int_typespec/sgn/bare} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9 TS=none} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+
+[FAM-TS-MISSING] testflags/Earlgrey_0_1-71da2fd7  design(work@prim_sync_reqack)/module_inst(work@top_earlgrey)/module_inst(u_flash_ctrl)/module_inst(u_flash_mp)/array_var(region_end)|array_var #2
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9 TS=int_typespec/sgn/bare} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:9 dec=9 TS=none} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+
+[FAM-TS-KIND] default/BuildUVMPkg-bf853d43  design(unnamed)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #0
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/BuildUVMPkg-bf853d43  design(unnamed)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #1
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/BuildUVMPkg-bf853d43  design(unnamed)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #2
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/Earlgrey_0_1-71da2fd7  logic_typespec|logic_typespec #4548
+  G: sz=0 L/op11[0]{ct=9 sz=32 val=UINT:32 dec=32 TS=int_typespec/sgn/loc} L/op11[1]{ct=9 sz=64 val=UINT:1 dec=1 TS=none} R{ct=9 sz=64 val=UINT:0 dec=0 TS=none}
+  O: sz=0 L/op11[0]{ct=9 sz=32 val=UINT:32 dec=32 TS=int_typespec/uns/loc} L/op11[1]{ct=9 sz=64 val=UINT:1 dec=1 TS=none} R{ct=9 sz=64 val=UINT:0 dec=0 TS=none}
+
+[FAM-TS-KIND] default/Earlgrey_0_1-71da2fd7  logic_typespec|logic_typespec #4549
+  G: sz=0 L/op11[0]{ct=9 sz=32 val=UINT:32 dec=32 TS=int_typespec/sgn/loc} L/op11[1]{ct=9 sz=64 val=UINT:1 dec=1 TS=none} R{ct=9 sz=64 val=UINT:0 dec=0 TS=none}
+  O: sz=0 L/op11[0]{ct=9 sz=32 val=UINT:32 dec=32 TS=int_typespec/uns/loc} L/op11[1]{ct=9 sz=64 val=UINT:1 dec=1 TS=none} R{ct=9 sz=64 val=UINT:0 dec=0 TS=none}
+
+[FAM-TS-KIND] default/MiniAmiq-544c7f61  array_typespec|array_typespec #186
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=class_typespec/uns/loc/n:uvm_phase}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+
+[FAM-TS-KIND] default/MiniAmiq-544c7f61  array_typespec|array_typespec #187
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=class_typespec/uns/loc/n:uvm_phase}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+
+[FAM-TS-KIND] default/MiniAmiq-544c7f61  array_typespec|array_typespec #188
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=class_typespec/uns/loc/n:uvm_phase}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+
+[FAM-TS-KIND] default/MiniAmiq-544c7f61  design(unnamed)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #0
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/MiniAmiq-544c7f61  design(unnamed)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #1
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/MiniAmiq-544c7f61  design(unnamed)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #2
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/Scoreboard-59431470  design(work@my_scoreboard_unit_test)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #0
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/Scoreboard-59431470  design(work@my_scoreboard_unit_test)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #1
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/Scoreboard-59431470  design(work@my_scoreboard_unit_test)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #2
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/SeqDriver-32af76aa  design(work@top_tb)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #0
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/SeqDriver-32af76aa  design(work@top_tb)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #1
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/SeqDriver-32af76aa  design(work@top_tb)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #2
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/SimpleUVM-1dc93a62  design(work@top)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #0
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/SimpleUVM-1dc93a62  design(work@top)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #1
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] default/SimpleUVM-1dc93a62  design(work@top)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #2
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] testflags/BuildUVMPkg-bf853d43  design(unnamed)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #0
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] testflags/BuildUVMPkg-bf853d43  design(unnamed)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #1
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] testflags/BuildUVMPkg-bf853d43  design(unnamed)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #2
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] testflags/MiniAmiq-544c7f61  array_typespec|array_typespec #186
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=class_typespec/uns/loc/n:uvm_phase}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+
+[FAM-TS-KIND] testflags/MiniAmiq-544c7f61  array_typespec|array_typespec #187
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=class_typespec/uns/loc/n:uvm_phase}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+
+[FAM-TS-KIND] testflags/MiniAmiq-544c7f61  array_typespec|array_typespec #188
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=class_typespec/uns/loc/n:uvm_phase}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+
+[FAM-TS-KIND] testflags/MiniAmiq-544c7f61  design(unnamed)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #0
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] testflags/MiniAmiq-544c7f61  design(unnamed)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #1
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] testflags/MiniAmiq-544c7f61  design(unnamed)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #2
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] testflags/SeqDriver-32af76aa  design(work@top_tb)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #0
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] testflags/SeqDriver-32af76aa  design(work@top_tb)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #1
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] testflags/SeqDriver-32af76aa  design(work@top_tb)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #2
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] testflags/SimpleUVM-1dc93a62  design(work@top)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #0
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] testflags/SimpleUVM-1dc93a62  design(work@top)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #1
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}
+
+[FAM-TS-KIND] testflags/SimpleUVM-1dc93a62  design(work@top)/package(uvm_pkg)/class_defn(uvm_spell_chkr)/array_typespec(tab_t)|array_typespec #2
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/loc}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R{ct=6 sz=0 val=STRING:associative dec=associative TS=string_typespec/uns/bare}

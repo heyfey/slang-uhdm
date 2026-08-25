@@ -1,0 +1,39 @@
+### g1  DEF view (whole-cell 3-way)
+SAME-RIGHT     507
+SAME-WRONG     3
+WRONG->RIGHT   42
+RIGHT->WRONG   0
+WRONG->OTHER   9
+ONLY-GOLDEN    0
+ONLY-OURS      0
+Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+BrokenPipeError: [Errno 32] Broken pipe
+
+### g1  DEF view (the TS field this law owns, leg by leg)
+TS-SAME-RIGHT        1218
+TS-SAME-WRONG        0
+TS-WRONG->RIGHT      51
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     0
+OTHER-FIELD-MOVED    0
+
+### g1  ELAB view (whole-cell 3-way)
+SAME-RIGHT     507
+SAME-WRONG     3
+WRONG->RIGHT   42
+RIGHT->WRONG   0
+WRONG->OTHER   9
+ONLY-GOLDEN    0
+ONLY-OURS      0
+Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+BrokenPipeError: [Errno 32] Broken pipe
+
+### g1  ELAB view (the TS field)
+TS-SAME-RIGHT        1218
+TS-SAME-WRONG        0
+TS-WRONG->RIGHT      51
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     0
+OTHER-FIELD-MOVED    0

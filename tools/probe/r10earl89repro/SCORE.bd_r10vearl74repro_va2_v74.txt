@@ -1,0 +1,69 @@
+== r10vearl74repro/va2_v74.sv  def  WHOLE CELL
+SAME-RIGHT     2159
+SAME-WRONG     244
+WRONG->RIGHT   33
+RIGHT->WRONG   0
+WRONG->OTHER   6
+ONLY-GOLDEN    156
+ONLY-OURS      9
+== r10vearl74repro/va2_v74.sv  def  THE TS FIELD
+TS-SAME-RIGHT        5432
+TS-SAME-WRONG        3
+TS-WRONG->RIGHT      33
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     6
+OTHER-FIELD-MOVED    0
+
+[TS-NO-GOLDEN-LEG] design(work@vtopb74)/interface_inst/array_net(f_a_sz)|array_net #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@vtopb74)/interface_inst/array_net(f_a_sz)|array_net #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@vtopb74)/interface_inst/array_net(f_a_sz)|array_net #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@vtopb74)/interface_inst/array_net(f_m_sz)|array_net #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@vtopb74)/interface_inst/array_net(f_m_sz)|array_net #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@vtopb74)/interface_inst/array_net(f_m_sz)|array_net #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+== r10vearl74repro/va2_v74.sv  elab  WHOLE CELL
+SAME-RIGHT     2255
+SAME-WRONG     208
+WRONG->RIGHT   33
+RIGHT->WRONG   0
+WRONG->OTHER   6
+ONLY-GOLDEN    156
+ONLY-OURS      9
+== r10vearl74repro/va2_v74.sv  elab  THE TS FIELD
+TS-SAME-RIGHT        5641
+TS-SAME-WRONG        3
+TS-WRONG->RIGHT      33
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     6
+OTHER-FIELD-MOVED    0
+
+[TS-NO-GOLDEN-LEG] design(work@vtopb74)/interface_inst/array_net(f_a_sz)|array_net #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@vtopb74)/interface_inst/array_net(f_a_sz)|array_net #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@vtopb74)/interface_inst/array_net(f_a_sz)|array_net #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@vtopb74)/interface_inst/array_net(f_m_sz)|array_net #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@vtopb74)/interface_inst/array_net(f_m_sz)|array_net #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@vtopb74)/interface_inst/array_net(f_m_sz)|array_net #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+== r10vearl74repro/va2_v74.sv  A/B: neutral==pristine def=YES elab=YES

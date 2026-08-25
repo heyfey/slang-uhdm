@@ -1,0 +1,33 @@
+== r10vearl74repro/va1_v74.sv  def  WHOLE CELL
+SAME-RIGHT     126
+SAME-WRONG     30
+WRONG->RIGHT   6
+RIGHT->WRONG   0
+WRONG->OTHER   0
+ONLY-GOLDEN    0
+ONLY-OURS      0
+== r10vearl74repro/va1_v74.sv  def  THE TS FIELD
+TS-SAME-RIGHT        357
+TS-SAME-WRONG        30
+TS-WRONG->RIGHT      6
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     0
+OTHER-FIELD-MOVED    0
+== r10vearl74repro/va1_v74.sv  elab  WHOLE CELL
+SAME-RIGHT     132
+SAME-WRONG     34
+WRONG->RIGHT   6
+RIGHT->WRONG   0
+WRONG->OTHER   0
+ONLY-GOLDEN    0
+ONLY-OURS      0
+== r10vearl74repro/va1_v74.sv  elab  THE TS FIELD
+TS-SAME-RIGHT        383
+TS-SAME-WRONG        34
+TS-WRONG->RIGHT      6
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     0
+OTHER-FIELD-MOVED    0
+== r10vearl74repro/va1_v74.sv  A/B: neutral==pristine def=YES elab=YES

@@ -1,0 +1,68 @@
+==== va3_v89 — TS field, leg by leg (GOLDEN / pristine / verifier-fixed)
+-- DEF
+TS-SAME-RIGHT        909
+TS-SAME-WRONG        0
+TS-WRONG->RIGHT      42
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     6
+OTHER-FIELD-MOVED    0
+
+[TS-NO-GOLDEN-LEG] design(work@va3_89)/interface_inst/array_net(if_ns)|array_net #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@va3_89)/interface_inst/array_net(if_ns)|array_net #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@va3_89)/interface_inst/array_net(if_ns)|array_net #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@va3_89)/interface_inst/array_net(if_s)|array_net #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@va3_89)/interface_inst/array_net(if_s)|array_net #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@va3_89)/interface_inst/array_net(if_s)|array_net #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+-- ELAB
+TS-SAME-RIGHT        975
+TS-SAME-WRONG        0
+TS-WRONG->RIGHT      42
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     6
+OTHER-FIELD-MOVED    0
+
+[TS-NO-GOLDEN-LEG] design(work@va3_89)/interface_inst/array_net(if_ns)|array_net #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@va3_89)/interface_inst/array_net(if_ns)|array_net #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@va3_89)/interface_inst/array_net(if_ns)|array_net #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@va3_89)/interface_inst/array_net(if_s)|array_net #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@va3_89)/interface_inst/array_net(if_s)|array_net #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@va3_89)/interface_inst/array_net(if_s)|array_net #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+==== whole cell
+-- DEF
+SAME-RIGHT     360
+SAME-WRONG     3
+WRONG->RIGHT   42
+RIGHT->WRONG   0
+WRONG->OTHER   6
+ONLY-GOLDEN    12
+ONLY-OURS      6
+
+[WRONG->OTHER] design(work@va3_89)/interface_inst/array_net(if_ns)|array_net #0
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ref_obj:I_S} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=7 sz=32 val=INT:4 dec=4 TS=none} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+  Q: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=7 sz=32 val=INT:4 dec=4 TS=int_typespec/sgn/bare} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}

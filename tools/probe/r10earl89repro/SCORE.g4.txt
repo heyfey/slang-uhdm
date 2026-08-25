@@ -1,0 +1,37 @@
+### g4  DEF view (whole-cell 3-way)
+SAME-RIGHT     207
+SAME-WRONG     6
+WRONG->RIGHT   9
+RIGHT->WRONG   0
+WRONG->OTHER   9
+ONLY-GOLDEN    12
+ONLY-OURS      6
+
+### g4  DEF view (the TS field this law owns, leg by leg)
+TS-SAME-RIGHT        507
+TS-SAME-WRONG        0
+TS-WRONG->RIGHT      18
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     0
+OTHER-FIELD-MOVED    0
+
+### g4  ELAB view (whole-cell 3-way)
+SAME-RIGHT     219
+SAME-WRONG     6
+WRONG->RIGHT   9
+RIGHT->WRONG   0
+WRONG->OTHER   9
+ONLY-GOLDEN    12
+ONLY-OURS      6
+Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+BrokenPipeError: [Errno 32] Broken pipe
+
+### g4  ELAB view (the TS field)
+TS-SAME-RIGHT        543
+TS-SAME-WRONG        0
+TS-WRONG->RIGHT      18
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     0
+OTHER-FIELD-MOVED    0

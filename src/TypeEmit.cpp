@@ -14722,6 +14722,243 @@ static const bool dimDbg79 = [] {
     return v && *v && *v != '0';
 }();
 
+// ===========================================================================
+// § dimBoundLeafValueSignedTs89  (r10earl89)
+//
+// THE FOLDED PARAMETER LEAF OF AN UNPACKED-DIMENSION BOUND CARRIES A BARE
+// SIGNED `int_typespec` EXACTLY WHEN THE PARAMETER'S STORED `Value` IS SIGNED
+// — and the Value's sign is `CompileHelper::valueRange`'s THREE-KIND SWITCH
+// read off the parameter's EFFECTIVE typespec, which a BARE-REFERENCE
+// initializer INHERITS from the parameter it names.
+//
+// THE HEAD.  `flash_mp.sv:54`, `top_earlgrey.u_flash_ctrl.u_flash_mp`:
+//
+//     localparam int TotalRegions = MpRegions + 1;      // :14
+//     logic [AllPagesW-1:0] region_end [TotalRegions];  // :54
+//
+//   LHS (golden)                              RHS (ours, at dcb54b3)
+//     constant 54:36-54:48 UINT:9 sz32          the SAME constant, field for
+//     |vpiTypespec                              field, and NO `vpiTypespec`
+//     \_ref_typespec (…u_flash_mp.region_end)
+//         |vpiActual
+//         \_int_typespec  VpiSigned
+//
+// ONE PRODUCER FOR BOTH FAMILIES.  `CompileHelper::compileRanges`
+// (`src/DesignCompile/CompileExpression.cpp:4038-4155`) rewrites `[E]` into
+// `[0 : E-1]` and compiles `E` with `compileExpression(..., Reduce::Yes)`.
+// When `E` is a bare identifier that lands in the SAME identifier arm
+// § elabParamOpLeafValueFold85 (r10earl85) decoded for an operation leaf
+// (`CompileExpression.cpp:2852` and `:3004-3018`):
+//
+//     if (reduce == Reduce::Yes && instance) sval = instance->getValue(name);
+//     ...
+//     constant *c = s.MakeConstant();
+//     c->VpiValue(sval->uhdmValue());   c->VpiDecompile(sval->decompiledValue());
+//     c->VpiConstType(sval->vpiValType());  c->VpiSize(sval->getSize());
+//     if (sval->isSigned()) {                       // <- THE WHOLE HEAD
+//         int_typespec *ts = s.MakeInt_typespec();  ts->VpiSigned(true);
+//         ref_typespec *rt = s.MakeRef_typespec();  rt->VpiParent(c);
+//         rt->Actual_typespec(ts);                  c->Typespec(rt);
+//     }
+//
+// so the dimension bound and the operation leaf ask ONE question:
+// **is the instance's stored `Value` SIGNED?**
+//
+// WHERE THAT SIGN IS SET — `DesignElaboration::collectParams_`
+// (`src/DesignCompile/DesignElaboration.cpp:2521-2545`), the only caller of
+// `valueRange` in Surelog:
+//
+//     ts = p->getTypespec();  ...                      // the DECLARED typespec
+//     adjustSize(ts, ..., c);
+//     if (c->Typespec() == nullptr) c->Typespec(<ts>); // else keep the
+//                                                      // INITIALIZER's own
+//     value = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
+//     cts = c->Typespec()->Actual_typespec();
+//     if (ts) valueRange(value, ts, cts ? cts : ts, ...);   // <- NOT CALLED
+//                                                           //    WHEN ts IS NULL
+//
+// and `valueRange` (`CompileHelper.cpp:5379-5398`) ends
+//
+//     bool isSigned = false;
+//     switch (rhstps->UhdmType()) {                 // rhstps == cts
+//       case uhdmlogic_typespec: {logic_typespec* tps=(logic_typespec*)rhstps;
+//                                 isSigned = tps->VpiSigned(); break;}
+//       case uhdmbit_typespec:   {bit_typespec*   tps=(bit_typespec*)rhstps;
+//                                 isSigned = tps->VpiSigned(); break;}
+//       case uhdmint_typespec:   {int_typespec*   tps=(int_typespec*)rhstps;
+//                                 isSigned = tps->VpiSigned(); break;}
+//       default: break;                             // EVERYTHING ELSE UNSIGNED
+//     }
+//     val->setSigned(isSigned);
+//
+// r10v89 VERIFIER CORRECTION — each `tps` above is a LOCAL CAST OF `rhstps`,
+// NOT of the declared `lhstps`.  The sign therefore comes from the EFFECTIVE
+// typespec ITSELF (the initializer constant's own if it has one, else the
+// declared one), never from the declared one when an initializer typespec is
+// present.  Consequence (3) below is that rule seen from the module side; the
+// place where the difference bites is a QUALIFIED PACKAGE hop, and
+// `paramValueSigned89` handles it explicitly (see the fix note there).
+//
+// THREE CONSEQUENCES, each of them a measured column of `g1_redtype89.sv`
+// (12 declared types x 4 initializer forms, GOLDEN = Surelog):
+//
+//  (1) AN UNTYPED `localparam X = ...` HAS NO TYPESPEC AT ALL, so `valueRange`
+//      never runs and the Value is UNSIGNED — for EVERY initializer form.
+//      `localparam [7:0] X` and `localparam signed X` DO have one (the g4
+//      rows below), so "implicit" is not the discriminator: the SIGNING TOKEN
+//      or a DIMENSION is.
+//  (2) THE SWITCH NAMES THREE TYPESPEC KINDS.  `int` stamps and `int unsigned`
+//      does not; `logic signed [7:0]` / `bit signed [7:0]` stamp and their
+//      unsigned twins do not; **`byte` / `integer` / `shortint` / `longint`
+//      NEVER stamp** — they are `byte_typespec` / `integer_typespec` / … and
+//      fall to `default:` — even though slang calls every one of them SIGNED.
+//      That is the half § dimFoldTsQualifiedOrSignedModPar26's raw
+//      `getType().isSigned()` test got wrong, and the four `_lit` cells it
+//      over-stamps in `g1` are AWAY-GOLDEN today.
+//  (3) `cts` — THE INITIALIZER CONSTANT'S OWN TYPESPEC — WINS OVER THE
+//      DECLARED ONE.  A BARE-REFERENCE initializer (`localparam T X = Y;`) is
+//      compiled by the identifier arm above, so its constant ALREADY CARRIES
+//      `Y`'s bare signed `int_typespec` whenever `Y`'s own Value is signed.
+//      Golden therefore stamps `localparam int unsigned A = B;` with
+//      `localparam int B = 4` — and `g2_chain89.sv` measures the same
+//      inheritance TWO and THREE hops deep, through parentheses, and NOT
+//      through `int'(B)` / `B + 0` (a `reduceExpr` fold mints no typespec:
+//      § elabParamOpSubtreeFold86's producer (B)).
+//
+// AND THE TWO REFUSALS, both measured on golden:
+//   * AN OVERRIDDEN PARAMETER never stamps and never lends its sign: its
+//     stored Value is the plain 64-bit UINT the override actual built and
+//     never reaches `valueRange` (§ rangeBoundStoredWidth82 / earl85's r11
+//     row; `g2_chain89.sv`'s `u_lit` / `u_ref` instances).
+//   * A PACKAGE member read BARE is not this instance's Value at all
+//     (`instance->getValue()` does not hold it) — golden leaves the bound
+//     bare, and the QUALIFIED spelling is a DIFFERENT producer that hands
+//     back the PACKAGE's OWN LOCATED typespec, signed or not (`g3`'s
+//     `d_pkg_qual` / `d_pkg_qu`).  Neither is widened here; `qual26` keeps
+//     the arm it had.
+//
+// R10E89_OFF=1 restores the pre-pass answer exactly (the A/B neutral binary),
+// and R10E89_CELLDBG=1 names every cell whose typespec answer CHANGES.
+static const bool r10e89Off = [] {
+    const char* v = getenv("R10E89_OFF");
+    return v && *v && *v != '0';
+}();
+static const bool dimDbg89 = [] {
+    const char* v = getenv("R10E89_CELLDBG");
+    return v && *v && *v != '0';
+}();
+
+// § dimBoundLeafValueSignedTs89 — consequence (1): does the parameter have a
+// COMPILED TYPESPEC for `valueRange` to read?  A bare `localparam X = 4` has
+// none; a SIGNING TOKEN or a DIMENSION gives it one.
+static bool paramHasTypespec89(const ParameterSymbol& p) {
+    auto dt = p.getDeclaredType();
+    if (!dt)
+        return false;
+    auto* ty = dt->getTypeSyntax();
+    if (!ty)
+        return false;
+    if (ty->kind == syntax::SyntaxKind::ImplicitType) {
+        auto& it = ty->as<syntax::ImplicitTypeSyntax>();
+        return it.signing.valid() || !it.dimensions.empty();
+    }
+    return true;
+}
+
+// § dimBoundLeafValueSignedTs89 — consequence (2): `valueRange`'s three-kind
+// switch, transcribed onto slang's canonical type.  `int` yes, `int unsigned`
+// no, a signed `logic`/`bit` vector yes, an unsigned one no, and
+// byte/integer/shortint/longint/time/enum/real/string NO — their typespecs are
+// not one of the three the switch names, whatever slang says about their sign.
+static bool paramDeclSigned89(const ParameterSymbol& p) {
+    if (!paramHasTypespec89(p))
+        return false;
+    auto& cty = p.getType().getCanonicalType();
+    if (!cty.isIntegral() || cty.isEnum() || !cty.isSigned())
+        return false;
+    if (cty.kind == SymbolKind::PredefinedIntegerType)
+        return cty.as<PredefinedIntegerType>().integerKind ==
+               PredefinedIntegerType::Int;
+    if (cty.kind == SymbolKind::ScalarType)
+        return true;
+    if (cty.kind == SymbolKind::PackedArrayType) {
+        const Type* el =
+            &cty.as<PackedArrayType>().elementType.getCanonicalType();
+        while (el->kind == SymbolKind::PackedArrayType)
+            el = &el->as<PackedArrayType>().elementType.getCanonicalType();
+        return el->kind == SymbolKind::ScalarType;
+    }
+    return false;
+}
+
+static bool inPackage89(const Symbol& sy) {
+    for (auto sc = sy.getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope())
+        if (sc->asSymbol().kind == SymbolKind::Package)
+            return true;
+    return false;
+}
+
+// § dimBoundLeafValueSignedTs89 — IS THE PARAMETER'S STORED `Value` SIGNED?
+// The declared answer, then consequence (3): a BARE-REFERENCE initializer
+// carries the referenced parameter's own `cts` and inherits its sign.  The
+// reference must be spelled the way the identifier arm can answer it — a
+// package member QUALIFIED, anything else BARE — which is the same
+// package/qualification split § dimFoldTsQualifiedOrSignedModPar26 measured
+// one level up.
+static bool paramValueSigned89(const ParameterSymbol& p, int depth) {
+    if (depth > 16)
+        return false;
+    if (!p.isLocalParam() && p.isOverridden())
+        return false;
+    if (!paramHasTypespec89(p))
+        return false;
+    if (paramDeclSigned89(p))
+        return true;
+    auto* in = p.getInitializer();
+    if (!in)
+        return false;
+    auto& si = stripImplicitConv(*in);
+    if (si.kind != ExpressionKind::NamedValue)
+        return false;
+    auto& rsym = si.as<NamedValueExpression>().symbol;
+    if (rsym.kind != SymbolKind::Parameter)
+        return false;
+    const bool qual =
+        si.syntax && si.syntax->kind == syntax::SyntaxKind::ScopedName;
+    if (inPackage89(rsym) != qual)
+        return false;
+    // r10v89 VERIFIER FIX — A QUALIFIED PACKAGE HOP ASKS THE **DECLARED**
+    // QUESTION, NOT THE RECURSIVE VALUE ONE.
+    //
+    // `CompileHelper::valueRange` (`CompileHelper.cpp:5379-5398`) reads
+    // `VpiSigned` off **`rhstps`** — the EFFECTIVE typespec — and the three
+    // `tps` pointers in its switch are local casts of `rhstps`, not of the
+    // declared `lhstps`.  So the whole question is *which typespec does the
+    // initializer constant carry*, and a QUALIFIED package reference carries
+    // the package's OWN DECLARED (located) typespec, minted once at the
+    // package's own declaration and never re-signed by whatever that
+    // parameter's own initializer inherited.  A BARE module-scope reference is
+    // the other producer — the identifier arm mints a fresh BARE
+    // `int_typespec` keyed on the referenced parameter's stored VALUE — and
+    // that one does recurse.
+    //
+    // MEASURED ON GOLDEN (`tools/probe/r10v89repro/va4_v89.sv`, four cells
+    // that separate the two answers):
+    //   px89::X_FROM_QUAL  `int unsigned` <- `pw89::W_INT`   golden BARE
+    //   px89::X_LOCAL      `int unsigned` <- `X_INT`         golden BARE
+    //   px89::X_INT        `int`                             golden TS
+    //   px89::X_I_FROM_QU  `int`          <- `pw89::W_IU`    golden TS
+    // i.e. the located typespec's own DECLARED sign decides, in both
+    // directions, whatever the referenced parameter's initializer says.
+    // Without this line `localparam int unsigned q_2q = px89::X_FROM_QUAL;`
+    // sizing `logic [3:0] v_q_2q [q_2q];` was pristine-RIGHT -> patched-WRONG
+    // (3 range legs in the definition view and 3 in the elaborated one).
+    if (qual)
+        return paramDeclSigned89(rsym.as<ParameterSymbol>());
+    return paramValueSigned89(rsym.as<ParameterSymbol>(), depth + 1);
+}
+
 // § dimExprBoundFold79 — the BASE LETTER of a sized literal decides its
 // reduced constant type.  Hoisted out of `dimRedCt79`'s switch so the bound
 // walk (`dimRedCtExpr79`) can reuse it WITHOUT spending a recursion level:
@@ -15707,9 +15944,27 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                     // halves: golden NO ts on either.
                     bool ovrHere26 = dimPar26 && !dimPar26->isLocalParam() &&
                                      dimPar26->isOverridden();
-                    bool tsStamp26 =
-                        qual26 || (dimPar26 && !pkgPar26 && !implicit26 &&
-                                   sgnDecl26 && !ovrHere26);
+                    // § dimBoundLeafValueSignedTs89 (r10earl89) — THE STAMP
+                    // IS THE STORED `Value`'s SIGN, NOT slang's declared-type
+                    // sign.  `sgnDecl26` (`dimPar26->getType().isSigned()`)
+                    // answers YES for `byte`/`integer`/`shortint`/`longint`,
+                    // whose Surelog typespecs are not one of the three
+                    // `CompileHelper::valueRange` names, and NO for the whole
+                    // `cts` family — a bare-reference initializer that carries
+                    // the referenced parameter's own signed `int_typespec`.
+                    // See the decode at `paramValueSigned89`.  `!implicit26`
+                    // goes with it: `localparam [7:0] X` and `localparam
+                    // signed X` DO have a compiled typespec, and only a bare
+                    // `localparam X = 4` has none.
+                    // BOTH answers are always computed so the NEUTRAL binary
+                    // (R10E89_OFF=1, output byte-identical to pristine) can
+                    // PREDICT the mover set by name without ever emitting it.
+                    const bool valOld89 = dimPar26 && !pkgPar26 && !implicit26 &&
+                                          sgnDecl26 && !ovrHere26;
+                    const bool valNew89 = dimPar26 && !pkgPar26 && !ovrHere26 &&
+                                          paramValueSigned89(*dimPar26, 0);
+                    const bool valSgn89 = r10e89Off ? valOld89 : valNew89;
+                    bool tsStamp26 = qual26 || valSgn89;
                     bool wide26 = pkgPar26 && implicit26 && !qual26;
                     // § dimFoldOverrideChainWidth26 (r10earl26) — AN OVERRIDDEN
                     // DIMENSION PARAMETER IS 64 ONLY WHEN ITS OVERRIDE CHAIN
@@ -15907,6 +16162,48 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                         sc->VpiSize(reducedW26);
                         sc->VpiValue(boundTag74("INT:") + digits);
                         sc->VpiConstType(boundCt74(vpiIntConst));
+                        // § dimBoundLeafValueSignedTs89 (r10earl89) — THE ARM
+                        // THAT NEVER ASKED.  A dimension whose sizing
+                        // parameter Surelog had to REDUCE (its initializer is
+                        // not a plain literal) leaves here with `continue`,
+                        // and until this pass it left with NO typespec at all
+                        // — which is the Earlgrey head: `localparam int
+                        // TotalRegions = MpRegions + 1` sizing `region_end
+                        // [TotalRegions]`.  The reduction changes the SIZE and
+                        // the ENCODING (§ dimFoldReducedTypedWidth26 /
+                        // § dimBoundInheritsParamEnc74 above); it does NOT
+                        // change the stored Value's SIGN, so the leaf takes
+                        // the same stamp the generic arm below gives it.
+                        // The QUALIFIED spelling is deliberately NOT carried
+                        // in: golden hands a qualified package reference the
+                        // PACKAGE's OWN LOCATED typespec (`g3`'s `d_pkg_qual`
+                        // / `d_pkg_qu`), which this arm cannot mint, so
+                        // `valSgn89` is used here and not `tsStamp26`.
+                        if (!r10e89Off && valSgn89) {
+                            auto* rtr89 = s.MakeRef_typespec();
+                            rtr89->VpiFullName(
+                                parent->UhdmType() == UHDM::uhdmarray_var
+                                    ? std::string(
+                                          ((UHDM::array_var*)parent)->VpiFullName())
+                                    : std::string(
+                                          ((UHDM::array_net*)parent)->VpiFullName()));
+                            rtr89->VpiParent(sc);
+                            auto* itr89 = s.MakeInt_typespec();
+                            itr89->VpiSigned(true);
+                            rtr89->Actual_typespec(itr89);
+                            sc->Typespec(rtr89);
+                        }
+                        if (dimDbg89)
+                            fprintf(stderr,
+                                    "R10E89 RED %s:%u:%u par=%s tsOld=0 tsNew=%d\n",
+                                    std::string(sym.name).c_str(),
+                                    (unsigned)sm->getLineNumber(
+                                        sizeSyn->sourceRange().start()),
+                                    (unsigned)sm->getColumnNumber(
+                                        sizeSyn->sourceRange().start()),
+                                    dimPar26 ? std::string(dimPar26->name).c_str()
+                                             : "-",
+                                    (int)valNew89);
                         ops->push_back(sc);
                         auto* one0 = s.MakeConstant();
                         one0->VpiSize(64);
@@ -16050,6 +16347,24 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                         rt0->Actual_typespec(its0);
                         sc->Typespec(rt0);
                     }
+                    // § dimBoundLeafValueSignedTs89 — the generic arm's trace,
+                    // printed for EVERY cell it reaches so a row the law would
+                    // change BY ACCIDENT is visible too (earl66's rule).
+                    if (dimDbg89)
+                        fprintf(stderr,
+                                "R10E89 GEN %s:%u:%u par=%s qual=%d pkg=%d "
+                                "imp=%d sgnDecl=%d valNew=%d tsOld=%d tsNew=%d\n",
+                                std::string(sym.name).c_str(),
+                                (unsigned)sm->getLineNumber(
+                                    sizeSyn->sourceRange().start()),
+                                (unsigned)sm->getColumnNumber(
+                                    sizeSyn->sourceRange().start()),
+                                dimPar26 ? std::string(dimPar26->name).c_str()
+                                         : "-",
+                                (int)qual26, (int)pkgPar26, (int)implicit26,
+                                (int)sgnDecl26, (int)valNew89,
+                                (int)(qual26 || valOld89),
+                                (int)(qual26 || valNew89));
                     if (!be0.bad() &&
                         stripImplicitConv(be0).kind ==
                             ExpressionKind::MemberAccess &&

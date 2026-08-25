@@ -1,0 +1,4 @@
+default/Tnoc-d856c17c r10earl89_patched.bin rc=139
+default/Tnoc-d856c17c r10earl89_pris.bin rc=139
+testflags/Tnoc-d856c17c r10earl89_patched.bin rc=139
+testflags/Tnoc-d856c17c r10earl89_pris.bin rc=139

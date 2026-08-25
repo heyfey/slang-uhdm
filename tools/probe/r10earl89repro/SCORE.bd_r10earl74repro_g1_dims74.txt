@@ -1,0 +1,33 @@
+== r10earl74repro/g1_dims74.sv  def  WHOLE CELL
+SAME-RIGHT     1866
+SAME-WRONG     199
+WRONG->RIGHT   81
+RIGHT->WRONG   0
+WRONG->OTHER   6
+ONLY-GOLDEN    79
+ONLY-OURS      3
+== r10earl74repro/g1_dims74.sv  def  THE TS FIELD
+TS-SAME-RIGHT        4528
+TS-SAME-WRONG        24
+TS-WRONG->RIGHT      87
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     0
+OTHER-FIELD-MOVED    0
+== r10earl74repro/g1_dims74.sv  elab  WHOLE CELL
+SAME-RIGHT     2065
+SAME-WRONG     46
+WRONG->RIGHT   81
+RIGHT->WRONG   0
+WRONG->OTHER   6
+ONLY-GOLDEN    79
+ONLY-OURS      3
+== r10earl74repro/g1_dims74.sv  elab  THE TS FIELD
+TS-SAME-RIGHT        4818
+TS-SAME-WRONG        24
+TS-WRONG->RIGHT      87
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     0
+OTHER-FIELD-MOVED    0
+== r10earl74repro/g1_dims74.sv  A/B: neutral==pristine def=YES elab=YES

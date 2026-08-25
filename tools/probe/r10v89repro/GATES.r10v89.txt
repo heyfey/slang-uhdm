@@ -1,0 +1,105 @@
+==== r10v89 GATE BATTERY (base dcb54b3, branch auto5h) ====
+Three binaries, each built -j 2 in its own fresh worktree and FROZEN chmod 555
+before any sweep.  SLANG_UHDM exported EXPLICITLY per binary; every cmds.txt
+audited BY BINARY PATH.
+
+-- 1. binaries
+4e11f0b821c3f8f59fe6da4fd43a2b65  pristine        (== the implementer's number)
+1729de0e79366912a0916945cb8a2e10  r10earl89       (== the implementer's number)
+f7d164831c9c3ea7c93c1ca3f93a960f  r10earl89 + verifier fix   <- SHIPPED
+
+-- 2. golden dump tests
+   pristine    PASS=23 FAIL=0
+   r10earl89   PASS=23 FAIL=0
+   fixed       PASS=23 FAIL=0
+   NEGATIVE CONTROL /bin/false  PASS=0 FAIL=23
+
+-- 3. cmds.txt audit BY BINARY PATH (never by the string 'slang-uhdm')
+   pristine/sl   cmds=1573 MAIN-TREE=0 pris=1523
+   pristine/u2r  cmds=1462 MAIN-TREE=0 pris=1458
+   earl89/sl     cmds=1573 MAIN-TREE=0 patched=1523
+   earl89/u2r    cmds=1462 MAIN-TREE=0 patched=1458
+   fixed/sl      cmds=1573 MAIN-TREE=0 fixed=1523
+   fixed/u2r     cmds=1462 MAIN-TREE=0 fixed=1458
+
+-- 4. uhdm2rtlil WHOLE-ROW gate (status AND dump column), FIXED binary
+   committed baseline vs fixed/testflags : 0 differing ROWS   679/50/2
+   own pristine     vs fixed/testflags   : 0 differing ROWS   679/50/2
+   own pristine     vs fixed/default     : 0 differing ROWS   679/50/2
+   (the same three gates on the implementer's binary also read 0)
+
+-- 5. surelog WHOLE-ROW gate, 1588 rows, both modes, FIXED binary
+   committed baseline vs fixed : 0 differing ROWS (0 diff row-sides)
+   own pristine     vs fixed   : 0 differing ROWS (0 diff row-sides)
+   default   471 CMP_EQUAL  10 CMP_NOTEQUAL  5 DEFERRED  283 SLANG_REJECT  25 SURELOG_FAIL
+   testflags 466 CMP_EQUAL   9 CMP_NOTEQUAL  5 DEFERRED  3 NO_DATABASE  1 NO_UHDM
+             284 SLANG_REJECT  23 SURELOG_FAIL  1 TIMEOUT  2 UNTRANSLATABLE
+   NO ROW CONVERTED; results/*.csv UNTOUCHED.
+
+-- 6. byte movers, SELFCHECK=1
+   fixed vs pristine  u2r : MOVERS 0 / 1358      SELFCHECK 1357/1358 flagged
+   fixed vs pristine  sl  : MOVERS 2 / 956       SELFCHECK  955/956  flagged
+        MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm   ded7aff7a3d0 <- 08141341859e
+        MOVER ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm 8cfc4af7915b <- ef74c30dc999
+        (the two the implementer PREDICTED BY NAME, with their exact hashes)
+   fixed vs r10earl89 sl  : MOVERS 0 / 956   <- the verifier fix is CORPUS-INVISIBLE
+   fixed vs r10earl89 u2r : (identical database set; u2r never moved on either)
+
+-- 7. run-time A/B, FIXED binary: R10E89_OFF=1 must reproduce PRISTINE
+08141341859e25ec501c2beb2573a53b  off_default.uhdm   == pristine sweep
+ef74c30dc999920a47193f7b510548b8  off_testflags.uhdm == pristine sweep
+
+-- 8. canaries
+   surelog canary rows ok=52 changed=0 absent=0
+   u2r     canary rows ok=8  changed=0 absent=0
+   ctcan2 surelog PASS   ctcan2 u2r PASS
+   canaudit (run from tools/probe/r10v89repro) audited=29 UNCOVERED=0 FENCE-BREACH=0
+   patch fence scan (the four slang-fenced names read out of canaudit.sh's own
+   FENCED= list, never spelled here): 0 hits in every non-canaudit file of the
+   shipped patch, and 0 of 4041 boundary files matched one.
+
+-- 9. protected databases (fixed vs pristine)
+   InterfaceModPort  default/testflags 59a365f3ce2c  SAME
+   BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+   YosysOldOr        default/testflags d68e0796d62c  SAME
+   SVSwitch          4842211c4030 ON PIN
+   YosysVerx         6ccda350c24a ON PIN
+
+-- 10. heads (rowheads.sh)
+   pristine : Earlgrey_0_1 default 17/1, testflags 17/1
+   fixed    : Earlgrey_0_1 default 15/1, testflags 15/1  (after-logs byte-identical
+              to each other AND to the implementer's committed HEAD_AFTER_*,
+              object ids included)
+   every other named row's head log BYTE-IDENTICAL to pristine, and every one of
+   the 12 measured head logs BYTE-IDENTICAL between fixed and r10earl89.
+
+-- 11. corpus census (dimts89 direct reader, 956 databases x golden from each
+       test's own cmds.txt)
+   before : BOTH-SAME 292269  FAM-TS-MISSING 6  FAM-TS-EXTRA 0  FAM-TS-KIND 35
+            OTHER-DIFF 115206  ONLY-GOLDEN 63463  ONLY-OURS 33427
+   after  : BOTH-SAME 292275  FAM-TS-MISSING 0  FAM-TS-EXTRA 0  (all else unchanged)
+   (the fixed binary reproduces the 'after' set byte for byte — 0/956 movers
+    against the implementer's binary — so its census is the same table)
+
+-- 12. WIDE BOUNDARY (every .sv/.v under a COPY of tools/probe at ANY depth,
+       both views, both binaries, workdir-normalised dump byte-compare, list on
+       fd 3, children </dev/null, PROCESSED asserted)
+   PROCESSED=4041 (== LISTED)  identical=7706  DIFFERING=26  no_output=350
+   rc: 0->14802  3->672  4->662  139->28   (the 28 = 14 files x 2 sides, and the
+       A/B rc=139 SETS ARE IDENTICAL)
+   0 of 4041 files matched a fenced name.
+   DIFFERING = 13 files x 2 views: the pass's 4 arms, this verifier's 4 arms,
+   r10earl74repro/g1_dims74.sv, r10vearl74repro/va1|va2|va3_v74.sv (all
+   TO-GOLDEN, R->W 0), and r10buvm22repro/g22.sv (earl84's R5, NOT this law:
+   R10E89_OFF=1 reproduces the PATCHED hash and the delta is an address-derived
+   UINT:22486617 -> UINT:22490713 on an associative-array key bound).
+   Every committed arm of earl85 / r10v85 / earl86 / earl79 / r10v79 / earl88 /
+   r10v88 / earl82 / earl81 / earl72 / earl73 / earl71 / earl61 / earl64 /
+   earl66-69 / uvm118 / buvm29 is BYTE-IDENTICAL.
+
+-- 13. the verifier fix's own footprint
+   Over 2314 corpus databases: ZERO (0/956 sl movers, 0/1358 u2r movers vs the
+   implementer's binary).
+   Over the whole probe boundary (13 differing files x 2 views, normalised dump
+   byte-compare against the implementer's binary): SAME on 12 of 13 files, DIFF
+   only on r10v89repro/va4_v89.sv — the file the fix was written for.

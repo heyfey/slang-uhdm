@@ -1,0 +1,105 @@
+==== r10v89 ARMS (GOLDEN=Surelog; PRIS=dcb54b3; PATCHED=verifier-fixed; NEUTRAL=R10E89_OFF=1) ====
+---- va1_v89
+SLdef  rc=0
+SLelab rc=0
+pris   rc=0
+prisE  rc=0
+patc   rc=0
+patcE  rc=0
+neutr  rc=0
+neutrE rc=0
+g cells=363
+ge cells=363
+o cells=356
+oe cells=356
+q cells=356
+qe cells=356
+n cells=356
+ne cells=356
+   md5 o = 431debf77fb984f7
+   md5 n = 431debf77fb984f7
+   md5 oe = e758466d4e5b15ff
+   md5 ne = e758466d4e5b15ff
+   md5 q = 7778fa579a877797
+   md5 qe = d3c297bc2a2a159c
+   md5 g = 8282bbc467ee219e
+   md5 ge = cb16a070bd231de4
+   NEUTRAL==PRISTINE plain:YES elab:YES
+---- va2_v89
+SLdef  rc=0
+SLelab rc=0
+pris   rc=0
+prisE  rc=0
+patc   rc=0
+patcE  rc=0
+neutr  rc=0
+neutrE rc=0
+g cells=495
+ge cells=507
+o cells=495
+oe cells=507
+q cells=495
+qe cells=507
+n cells=495
+ne cells=507
+   md5 o = 753a94cfa216202a
+   md5 n = 753a94cfa216202a
+   md5 oe = e27c0bc9ab4ce8ae
+   md5 ne = e27c0bc9ab4ce8ae
+   md5 q = 25f4b00e2ca25825
+   md5 qe = a0d50f72fe837d89
+   md5 g = 104abb8a1032b469
+   md5 ge = 1247d83817ce17ca
+   NEUTRAL==PRISTINE plain:YES elab:YES
+---- va3_v89
+SLdef  rc=0
+SLelab rc=0
+pris   rc=0
+prisE  rc=0
+patc   rc=0
+patcE  rc=0
+neutr  rc=0
+neutrE rc=0
+g cells=423
+ge cells=445
+o cells=417
+oe cells=439
+q cells=417
+qe cells=439
+n cells=417
+ne cells=439
+   md5 o = 4ccbd19ac5d9d08c
+   md5 n = 4ccbd19ac5d9d08c
+   md5 oe = 24a7a10bc21052f1
+   md5 ne = 24a7a10bc21052f1
+   md5 q = 893d84b285bd62b6
+   md5 qe = 7512350415f7fbcc
+   md5 g = 251b40c3a7528971
+   md5 ge = 4abb0448dc902f80
+   NEUTRAL==PRISTINE plain:YES elab:YES
+---- va4_v89
+SLdef  rc=0
+SLelab rc=0
+pris   rc=0
+prisE  rc=0
+patc   rc=0
+patcE  rc=0
+neutr  rc=0
+neutrE rc=0
+g cells=192
+ge cells=192
+o cells=192
+oe cells=192
+q cells=192
+qe cells=192
+n cells=192
+ne cells=192
+   md5 o = 2dc5e5ce831f7fa2
+   md5 n = 2dc5e5ce831f7fa2
+   md5 oe = 3cb4c39e98f6cb5c
+   md5 ne = 3cb4c39e98f6cb5c
+   md5 q = 738dfe0cc3b33a24
+   md5 qe = db184186e649d392
+   md5 g = f8116f60a3a3cb7b
+   md5 ge = 2cc4e2b859ac7839
+   NEUTRAL==PRISTINE plain:YES elab:YES

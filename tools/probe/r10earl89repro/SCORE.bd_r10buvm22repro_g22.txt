@@ -1,0 +1,82 @@
+== r10buvm22repro/g22.sv  def  WHOLE CELL
+SAME-RIGHT     93
+SAME-WRONG     33
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->OTHER   6
+ONLY-GOLDEN    96
+ONLY-OURS      60
+== r10buvm22repro/g22.sv  def  THE TS FIELD
+TS-SAME-RIGHT        261
+TS-SAME-WRONG        6
+TS-WRONG->RIGHT      0
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     6
+OTHER-FIELD-MOVED    6
+
+[TS-NO-GOLDEN-LEG] array_typespec(ka_int_t)|array_typespec #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=none'}
+
+[TS-NO-GOLDEN-LEG] array_typespec(ka_int_t)|array_typespec #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=none'}
+
+[TS-NO-GOLDEN-LEG] array_typespec(ka_int_t)|array_typespec #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=none'}
+
+[TS-NO-GOLDEN-LEG] array_typespec(ka_str_t)|array_typespec #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=none'}
+
+[TS-NO-GOLDEN-LEG] array_typespec(ka_str_t)|array_typespec #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=none'}
+
+[TS-NO-GOLDEN-LEG] array_typespec(ka_str_t)|array_typespec #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=none'}
+== r10buvm22repro/g22.sv  elab  WHOLE CELL
+SAME-RIGHT     96
+SAME-WRONG     37
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->OTHER   6
+ONLY-GOLDEN    91
+ONLY-OURS      62
+== r10buvm22repro/g22.sv  elab  THE TS FIELD
+TS-SAME-RIGHT        275
+TS-SAME-WRONG        8
+TS-WRONG->RIGHT      0
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     6
+OTHER-FIELD-MOVED    6
+
+[TS-NO-GOLDEN-LEG] array_typespec(ka_int_t)|array_typespec #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=none'}
+
+[TS-NO-GOLDEN-LEG] array_typespec(ka_int_t)|array_typespec #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=none'}
+
+[TS-NO-GOLDEN-LEG] array_typespec(ka_int_t)|array_typespec #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=none'}
+
+[TS-NO-GOLDEN-LEG] array_typespec(ka_str_t)|array_typespec #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=none'}
+
+[TS-NO-GOLDEN-LEG] array_typespec(ka_str_t)|array_typespec #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=none'}
+
+[TS-NO-GOLDEN-LEG] array_typespec(ka_str_t)|array_typespec #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=none'}
+== r10buvm22repro/g22.sv  A/B: neutral==pristine def=NO elab=NO
+== g22 A/B: R10E89_OFF=1 reproduces the PATCHED hash, not the pristine one
+a79f548c5a3c74a2fa64269bf5837d14  o.uhdm
+6b8239ea7517c13a164010684a1ca156  n.uhdm
+6b8239ea7517c13a164010684a1ca156  q.uhdm
+d60516da0e7f38a25b4bbd001e91e722  oe.uhdm
+78ba905a2f2bbdeace98eda47b8d782a  ne.uhdm
+78ba905a2f2bbdeace98eda47b8d782a  qe.uhdm
+
+== the g22 delta is an ADDRESS-DERIVED VALUE (earl84 R5 / earl85 R5), not a typespec:
+94,102c94,102
+< RG array_typespec(ka_cls_t)|array_typespec|#0 sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=64 val=UINT:22486617 dec=22486617 TS=none} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+< RG array_typespec(ka_cls_t)|array_typespec|#1 sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=64 val=UINT:22486617 dec=22486617 TS=none} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+< RG array_typespec(ka_cls_t)|array_typespec|#2 sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=64 val=UINT:22486617 dec=22486617 TS=none} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}

@@ -1,0 +1,28 @@
+==== fixed vs implementer-patched: A/B over EVERY differing boundary file
+(normalised uhdm-dump byte-compare, both views)
+SAME  plain r10buvm22repro/g22.sv
+SAME  elab r10buvm22repro/g22.sv
+SAME  plain r10earl74repro/g1_dims74.sv
+SAME  elab r10earl74repro/g1_dims74.sv
+SAME  plain r10earl89repro/g1_redtype89.sv
+SAME  elab r10earl89repro/g1_redtype89.sv
+SAME  plain r10earl89repro/g2_chain89.sv
+SAME  elab r10earl89repro/g2_chain89.sv
+SAME  plain r10earl89repro/g3_homes89.sv
+SAME  elab r10earl89repro/g3_homes89.sv
+SAME  plain r10earl89repro/g4_edge89.sv
+SAME  elab r10earl89repro/g4_edge89.sv
+SAME  plain r10v89repro/va1_v89.sv
+SAME  elab r10v89repro/va1_v89.sv
+SAME  plain r10v89repro/va2_v89.sv
+SAME  elab r10v89repro/va2_v89.sv
+SAME  plain r10v89repro/va3_v89.sv
+SAME  elab r10v89repro/va3_v89.sv
+DIFF  plain r10v89repro/va4_v89.sv
+DIFF  elab r10v89repro/va4_v89.sv
+SAME  plain r10vearl74repro/va1_v74.sv
+SAME  elab r10vearl74repro/va1_v74.sv
+SAME  plain r10vearl74repro/va2_v74.sv
+SAME  elab r10vearl74repro/va2_v74.sv
+SAME  plain r10vearl74repro/va3_v74.sv
+SAME  elab r10vearl74repro/va3_v74.sv

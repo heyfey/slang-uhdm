@@ -1,0 +1,32 @@
+==== va2_v89 — TS field, leg by leg (GOLDEN / pristine / verifier-fixed)
+-- DEF
+TS-SAME-RIGHT        1044
+TS-SAME-WRONG        15
+TS-WRONG->RIGHT      39
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     0
+OTHER-FIELD-MOVED    0
+-- ELAB
+TS-SAME-RIGHT        1080
+TS-SAME-WRONG        15
+TS-WRONG->RIGHT      39
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     0
+OTHER-FIELD-MOVED    0
+
+==== whole cell
+-- DEF
+SAME-RIGHT     414
+SAME-WRONG     24
+WRONG->RIGHT   36
+RIGHT->WRONG   0
+WRONG->OTHER   3
+ONLY-GOLDEN    18
+ONLY-OURS      18
+
+[WRONG->RIGHT] design(work@va2_89)/module_inst(work@va2_89)/array_var(v_c01)|array_var #0
+  G: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:4 dec=4 TS=int_typespec/sgn/bare} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+  O: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:4 dec=4 TS=none} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}
+  Q: sz=0 L{ct=9 sz=64 val=UINT:0 dec=0 TS=none} R/op11[0]{ct=9 sz=32 val=UINT:4 dec=4 TS=int_typespec/sgn/bare} R/op11[1]{ct=7 sz=64 val=INT:1 dec=- TS=none}

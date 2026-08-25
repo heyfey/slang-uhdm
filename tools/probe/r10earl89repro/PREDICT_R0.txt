@@ -1,0 +1,239 @@
+r10earl89 — THE MOVER PREDICTION (made with the NEUTRAL binary, before any
+            patched sweep was read) and THE NEXT HEAD (R0).
+
+========================================================================
+PART 1 — THE MOVER PREDICTION
+========================================================================
+`predict89.sh` re-ran each test's OWN slang command line — read out of THIS
+PASS'S OWN pristine sweep's `cmds.txt`, in the test's OWN source directory,
+which the harness recovers from the workdir's `sha1(dirpath)[:8]` suffix — with
+the patched binary under `R10E89_OFF=1` (whose database is BYTE-IDENTICAL to
+the pristine one; proved twice below) and `R10E89_CELLDBG=1`.  Output went to
+/dev/null.  THE FOUR SLANG-FENCED TESTS ARE NEVER DISPATCHED: only command
+lines that ALREADY RAN in the pristine sweep are re-run, and those four are not
+in it.
+
+The trace prints BOTH the OLD and the NEW typespec answer for EVERY unpacked
+size-form dimension bound the two arms reach — NOT only the shape the law
+intends to change (earl66's lesson: a trace keyed on the shape you intend to
+change is blind to the rows you would change by accident).
+
+    databases re-run                     uhdm2rtlil 1358 / 1358
+                                         surelog     956 /  956
+    trace lines (cells reached)          uhdm2rtlil      60
+                                         surelog        134
+    CELLS WHOSE ANSWER CHANGES           uhdm2rtlil       0
+                                         surelog          2
+
+  PREDICTION: EXACTLY TWO CELLS CHANGE, and both are the head:
+
+    default/Earlgrey_0_1    R10E89 RED region_end:54:36 par=TotalRegions
+                            tsOld=0 tsNew=1
+    testflags/Earlgrey_0_1  R10E89 RED region_end:54:36 par=TotalRegions
+                            tsOld=0 tsNew=1
+
+  Both are RED-arm ADDS (pristine stamped nothing there), so exactly TWO
+  databases move — `Earlgrey_0_1` default and testflags — and nothing else in
+  either corpus.  Both are byte-deterministic per binary, so neither is a coin.
+
+  NOT ONE cell changes through the PREDICATE half.  Every other size-form
+  dimension bound in either corpus answers tsOld == tsNew:
+    (i)  a non-overridden `int` sizing parameter, BOTH answers 1 —
+         MemoryInGenblock `N` (5 declarations), issue326_packed_mem `DEPTH`,
+         IfGenTypeBinding `PMPNumRegions` (pmp_cfg1/pmp_cfg2);
+    (ii) an `int unsigned` sizing parameter, BOTH answers 0 — hier_path
+         `PMPNumChan` / `PMPNumRegions` (7 declarations);
+    (iii) Scr1SvTests `q_data`/`q_err` [SCR1_IFU_Q_SIZE_HALF] — the ONLY other
+         corpus rows that reach the RED arm this pass changed, and they take
+         tsNew=0 because that localparam is UNTYPED (consequence (1): no
+         compiled typespec, `valueRange` never runs).  They are
+         § dimFoldReducedParam's own witness and they do not move;
+    (iv) a `qual26` row that never consults either answer — struct_param_dim
+         `mem:16:13`.
+  So the byte/integer/shortint/longint TIGHTENING and the `cts` WIDENING are
+  CORPUS-INVISIBLE, and the grids plus the wide boundary are the only things
+  that can convict them — which is why both were run.
+
+  TWO of the 2314 re-runs SEGFAULTED under the neutral binary and produced no
+  trace.  They are NAMED and they are PRE-EXISTING: a second scan re-ran every
+  surelog command line on BOTH FROZEN BINARIES and found exactly
+
+      default/Tnoc-d856c17c    patched rc=139   pristine rc=139
+      testflags/Tnoc-d856c17c  patched rc=139   pristine rc=139
+
+  — `Tnoc`, both modes, SYMMETRIC under the two binaries (RESUME §9's rc=139
+  family; `PREDICT_SIGNALS.txt`).  They are NOT movers: `byteverify.sh`
+  compared every one of the 956 + 1358 databases the two real sweeps produced
+  and found the two Earlgrey ones and nothing else, and `ct8rows.sh` shows
+  Tnoc's whole CSV row byte-identical in both modes.
+
+MEASURED AFTER THE PATCHED SWEEPS — see PART 1b.
+
+========================================================================
+PART 1b — WHAT THE PATCHED SWEEPS ACTUALLY MOVED
+========================================================================
+`byteverify.sh SELFCHECK=1`, patched sweep vs THIS PASS'S OWN pristine sweep
+(both binaries frozen `chmod 555` at immutable paths before any sweep; every
+`cmds.txt` audited BY BINARY PATH — 0 of 1462 + 1573 name the main-tree
+binary):
+
+  uhdm2rtlil  MOVERS 0 / 1358        SELFCHECK 1357/1358 flagged
+  surelog     MOVERS 2 /  956        SELFCHECK  955/ 956 flagged
+      ./default/Earlgrey_0_1-71da2fd7/slang.uhdm    <- PREDICTED
+      ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  <- PREDICTED
+
+  NOTHING UNPREDICTED MOVED.  No Scoreboard/default coin this run.
+
+  (a) THE RUN-TIME A/B GATE.  `R10E89_OFF=1` on the PATCHED binary, re-running
+      Earlgrey's own two command lines, reproduces the PRISTINE database BYTE
+      FOR BYTE in BOTH modes (default 08141341859e, testflags ef74c30dc999 —
+      the exact hashes `byteverify` read off the pristine sweep), so 100 % of
+      each mover's byte delta is this law.  Law ON: ded7aff7a3d0 / 8cfc4af7915b.
+      The same gate holds on all four arms in both views.
+  (b) THE CORPUS CENSUS re-scored on the patched sweep (`cen89.sh` +
+      `cencount89.py`), with the GOLDEN side ASSERTED UNCHANGED — the golden
+      census files are byte-identical md5s across the before and after runs
+      (surelog 55a39e76db5a, u2r likewise):
+
+        surelog     BOTH-SAME        292 269 -> 292 275
+                    FAM-TS-MISSING         6 -> 0      <- the family, cleared
+                    FAM-TS-EXTRA           0 -> 0      <- AWAY stays 0
+                    FAM-TS-KIND 35, OTHER-DIFF 115 206,
+                    ONLY-GOLDEN 63 463, ONLY-OURS 33 427 — ALL UNCHANGED
+        uhdm2rtlil  EVERY bucket unchanged; the two `ours` cell files are
+                    BYTE-IDENTICAL (0 differing lines).
+
+      A line-level diff of the two surelog `ours` cell files prints exactly
+      SIX lines — the head's three deduped ordinals in each mode:
+        - …u_flash_mp/array_var(region_end) R/op11[0]{… TS=none}
+        + …u_flash_mp/array_var(region_end) R/op11[0]{… TS=int_typespec/sgn/bare}
+      WRONG->RIGHT 6, RIGHT->WRONG 0, AWAY-GOLDEN 0, MOVED-WRONG 0.
+
+========================================================================
+PART 2 — R0: THE NEW HEAD, AND ITS DECODE
+========================================================================
+BEFORE (this pass's own pristine build, 4e11f0b821c3):
+  Earlgrey_0_1 default   17 cmp lines, 1 head
+  Earlgrey_0_1 testflags 17 cmp lines, 1 head   (the two logs byte-identical)
+AFTER:
+  Earlgrey_0_1 default   15 cmp lines, 1 head
+  Earlgrey_0_1 testflags 15 cmp lines, 1 head   (still byte-identical, so ONE R0)
+Every other named row's head log is BYTE-IDENTICAL before and after.
+
+R0 (BOTH MODES) — THE SAME FAMILY, A DIFFERENT CONSUMER SITE.  Again the
+SINGULAR `SafeCompare` overload naming the VALUE with `RHS: <null>`, and again
+the value is a whole `ref_typespec` -> `int_typespec`:
+
+    hw/ip/rv_timer/rtl/rv_timer.sv:20   localparam int N_TIMERS = 1;
+    hw/ip/rv_timer/rtl/rv_timer.sv:82
+      .reg2hw_intr_enable_q_i (intr_timer_en[h*N_TIMERS+:N_TIMERS]),
+
+    LHS (golden), id 404128                      RHS (ours)
+      ref_typespec (EMPTY vpiFullName)             <null>
+      |vpiParent: constant 82:58-82:66
+      |            UINT:1 vpiSize:32 ct 9
+      |vpiActual:  int_typespec  (bare)
+
+  THE OWNER, named with `own89` (a direct reader; Earlgrey is never
+  whole-dump diffed):
+
+    work@top_earlgrey.u_rv_timer.gen_harts[0].u_intr_hw
+      port(reg2hw_intr_enable_q_i)
+        indexed_part_select intr_timer_en  82:46-82:66
+          Base_expr  82:46-82:47   folded `0`     — no typespec EITHER SIDE
+          Width_expr 82:58-82:66   folded `1`     — golden TS, ours <null>
+
+  So it is the ELABORATED port high_conn's INDEXED PART-SELECT **WIDTH**
+  operand, and only that one: the DEF-view copies of the same select
+  (`module_inst/gen_for/named_begin(gen_harts)/ref_module(u_intr_hw)`) carry NO
+  typespec on EITHER side, and the BASE operand carries none on either side in
+  either view.
+
+  IT IS THE SAME PRODUCER § dimBoundLeafValueSignedTs89 decoded:
+  `CompileExpression.cpp:3004-3018`'s identifier arm mints the constant from
+  `instance->getValue("N_TIMERS")` and attaches a bare signed `int_typespec`
+  because that Value is SIGNED — `N_TIMERS` is a `localparam int`, and
+  `valueRange`'s `uhdmint_typespec` arm reads `VpiSigned` off it.  What
+  changes is the CONSUMER: `compileRanges` for a dimension bound this pass,
+  the `+:` / `-:` part-select compile inside a PORT CONNECTION next.
+
+  THE QUESTION FOR THE NEXT PASS: which of `CompileHelper`'s part-select
+  compile paths runs `compileExpression(..., Reduce::Yes)` on the width, and
+  why the elaborated copy takes the identifier arm where the definition copy
+  does not (earl57's R3 is the neighbouring trap: `currentScope` is STALE
+  throughout `emitInstance`, so any name bind during elaborated emission reads
+  garbage — resolve the parameter through the DECLARING symbol's own scope, the
+  way `dimPar26` does).  Then census EVERY `indexed_part_select` and
+  `part_select` in both corpora keyed by (view, owner kind, base/width leg)
+  with the typespec presence as the payload, BEFORE the law is written:
+  `own89.cpp` (this pass's owner-namer) and `dimts89.cpp` are the instruments
+  to widen, and `predict89.sh` + `R10E89_CELLDBG`-style dual-answer tracing is
+  the mover predictor to reuse.  The reachable population is much larger than
+  this pass's (every `+:` in a port connection), so the census must come first.
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R0  THE PART-SELECT WIDTH's MISSING `int_typespec` — the new head above, both
+    modes, 15 cmp lines each, ONE head, the two logs byte-identical.
+
+R1  THE REDUCED ARM'S WIDTH FOR AN IMPLICIT-TYPED SIZING PARAMETER.
+    § dimFoldReducedTypedWidth26 keys its declared-width arm on `!implicit26`
+    and folds every implicit spelling at 64.  Golden uses the DECLARED width
+    whenever the parameter HAS a compiled typespec, which `localparam [7:0] X`
+    and `localparam signed X` do (this pass's `paramHasTypespec89` is exactly
+    that test, and it is already computed at the site):
+      g1 `v_sg_exp` / `v_sg_ref` / `v_sg_sys`   golden sz 8,  ours 64
+      g4 `v_i_rng_exp` / `v_i_rng_ref`          golden sz 8,  ours 64
+      g4 `v_i_sgn_exp` / `v_i_uns_exp`          golden sz 32, ours 64
+      g2 `v_e_sg`, `v_r_un_int`, `v_r_un_ls`    golden 8/32,  ours 64
+    12 arm cells, **0 corpus cells** (the mover prediction traced every
+    size-form bound in both corpora and none is implicit-typed).  It is a
+    SIZE law, not a typespec one, and it wants its own pass and its own
+    boundary — this pass changed no width.
+
+R2  THE INTERFACE DEFINITION LISTING FOLDS A BOUND GOLDEN KEEPS UNFOLDED.
+    `g3_homes89.sv`: in the DEF view under `design/interface_inst`, golden's
+    `if_s`/`if_ns` right bound is `ref_obj(I_S)` and ours is a folded
+    `INT:4`/32 constant — pre-existing, on both binaries.  This law gives that
+    constant its typespec, which is neither closer nor further from a golden
+    leg that is not a constant at all: the cell disagrees on the leg KIND
+    before and after.  6 arm legs, 0 corpus cells.  The ELABORATED interface
+    (`u_if.if_s`) is folded on both sides and MOVED TO GOLDEN here.
+
+R3  THE QUALIFIED PACKAGE REFERENCE WANTS THE PACKAGE'S OWN LOCATED TYPESPEC.
+    `g3` `d_pkg_qual` golden `int_typespec/sgn/loc`, `d_pkg_qu` golden
+    `int_typespec/uns/loc` — a LOCATED typespec, and present even when the
+    package parameter is `int unsigned`; `g2` `v_pk_qual` golden loc, ours a
+    BARE signed one.  That is a different producer (the qualified-name arm,
+    not `instance->getValue`), so `qual26` was deliberately left alone and NOT
+    carried into the reduced arm — carrying it in would have replaced a
+    MISSING typespec with a WRONG one on `d_pkg_qu`.  3 arm cells, 0 corpus
+    cells (the corpus's only `qual26` row, struct_param_dim `mem`, is already
+    equal).
+
+R4  A UNARY-PLUS INITIALIZER LOSES ITS DIMENSION IN GOLDEN.
+    `g2` `localparam int unsigned p_uny = +B_INT; logic v_p_uny [p_uny]` —
+    golden emits NO `array_var` for it at all, we emit one.  1 arm cell,
+    0 corpus cells; a Surelog abstention to be modelled, not a typespec bug.
+
+R5  `int'(B)` RE-TYPES THE BOUND.  `g2` `v_p_cst`: golden `UINT:4`/ct 9, ours
+    `INT:4`/ct 7 — earl79's REFUSED `[int'(N*2)]` row, unchanged here.
+    1 arm cell.
+
+R7  A CLASS PROPERTY'S UNPACKED DIMENSION IS A RANGE GOLDEN DOES NOT EMIT.
+    `g3_homes89.sv` `class c89; logic [3:0] cp_s [M_S]; endclass`: golden's
+    `class_defn` carries the element's `logic_typespec` range and NO
+    `array_var` range for the dimension itself; we emit one.  Pre-existing and
+    ONLY-OURS on both binaries; this law gives that constant a typespec, which
+    is neither toward nor away from a golden cell that does not exist.  3 arm
+    cells in the definition view, 7 in the elaborated one, **0 corpus cells**
+    (the corpus census's ONLY-OURS bucket is unchanged at 33 427 / 2 700 and
+    the two `ours` cell files differ by exactly the six head lines).  A
+    FUNCTION LOCAL unpacked array produces no range cell on either side.
+
+R6  THE PRE-EXISTING PROBE SEGFAULTS.  The wide boundary's rc=139 cells are
+    symmetric under both binaries and pre-existing (earl82 R6 / earl83 R6 /
+    earl84 R6 / earl85 R5 / earl88's 28); the two prediction re-runs that
+    segfaulted are the corpus twin of the same family, and `byteverify`
+    proves neither is a mover.

@@ -1,0 +1,350 @@
+############ g1  DEF
+cell                       home       GOLDEN                             pristine                           patched
+v_bs_exp                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_bs_lit                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare
+v_bs_ref                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare
+v_bs_sys                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_bt_exp                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_bt_lit                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_bt_ref                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_bt_sys                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_by_exp                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_by_lit                   top        ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -
+v_by_ref                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare
+v_by_sys                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_ctl_lit                  top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_ig_exp                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_ig_lit                   top        ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -
+v_ig_ref                   top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_ig_sys                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_int_exp                  top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_int_lit                  top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_int_ref                  top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_int_sys                  top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_iu_exp                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_iu_lit                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_iu_ref                   top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_iu_sys                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_lg_exp                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_lg_lit                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_lg_ref                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_lg_sys                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_ln_exp                   top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_ln_lit                   top        ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare ct9/sz64  -
+v_ln_ref                   top        ct9/sz64  TS int_typespec/sgn/bare ct9/sz64  TS int_typespec/sgn/bare ct9/sz64  TS int_typespec/sgn/bare
+v_ln_sys                   top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_ls_exp                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_ls_lit                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare
+v_ls_ref                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare
+v_ls_sys                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_sg_exp                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_sg_lit                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_sg_ref                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_sg_sys                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_sh_exp                   top        ct9/sz16  -                        ct9/sz16  -                        ct9/sz16  -
+v_sh_lit                   top        ct9/sz16  -                        ct9/sz16  TS int_typespec/sgn/bare ct9/sz16  -
+v_sh_ref                   top        ct9/sz16  TS int_typespec/sgn/bare ct9/sz16  TS int_typespec/sgn/bare ct9/sz16  TS int_typespec/sgn/bare
+v_sh_sys                   top        ct9/sz16  -                        ct9/sz16  -                        ct9/sz16  -
+v_un_exp                   top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_un_lit                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_un_ref                   top        ct9/sz32  -                        ct9/sz64  -                        ct9/sz64  -   <== still differs
+v_un_sys                   top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+
+############ g1  ELAB
+cell                       home       GOLDEN                             pristine                           patched
+v_bs_exp                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_bs_lit                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare
+v_bs_ref                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare
+v_bs_sys                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_bt_exp                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_bt_lit                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_bt_ref                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_bt_sys                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_by_exp                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_by_lit                   top        ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -
+v_by_ref                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare
+v_by_sys                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_ctl_lit                  top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_ig_exp                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_ig_lit                   top        ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -
+v_ig_ref                   top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_ig_sys                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_int_exp                  top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_int_lit                  top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_int_ref                  top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_int_sys                  top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_iu_exp                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_iu_lit                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_iu_ref                   top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_iu_sys                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_lg_exp                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_lg_lit                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_lg_ref                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_lg_sys                   top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_ln_exp                   top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_ln_lit                   top        ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare ct9/sz64  -
+v_ln_ref                   top        ct9/sz64  TS int_typespec/sgn/bare ct9/sz64  TS int_typespec/sgn/bare ct9/sz64  TS int_typespec/sgn/bare
+v_ln_sys                   top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_ls_exp                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_ls_lit                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare
+v_ls_ref                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare
+v_ls_sys                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_sg_exp                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_sg_lit                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_sg_ref                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_sg_sys                   top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_sh_exp                   top        ct9/sz16  -                        ct9/sz16  -                        ct9/sz16  -
+v_sh_lit                   top        ct9/sz16  -                        ct9/sz16  TS int_typespec/sgn/bare ct9/sz16  -
+v_sh_ref                   top        ct9/sz16  TS int_typespec/sgn/bare ct9/sz16  TS int_typespec/sgn/bare ct9/sz16  TS int_typespec/sgn/bare
+v_sh_sys                   top        ct9/sz16  -                        ct9/sz16  -                        ct9/sz16  -
+v_un_exp                   top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_un_lit                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_un_ref                   top        ct9/sz32  -                        ct9/sz64  -                        ct9/sz64  -   <== still differs
+v_un_sys                   top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+
+############ g2  DEF
+cell                       home       GOLDEN                             pristine                           patched
+s_h_nov                    u_def      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_h_nov                    u_lit      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_h_nov                    u_ref      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_h_ovi                    u_def      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_h_ovi                    u_lit      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_h_ovi                    u_ref      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_h_ovi_u                  u_def      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+s_h_ovi_u                  u_lit      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+s_h_ovi_u                  u_ref      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+s_nov                      u_def      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+s_nov                      u_lit      ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+s_nov                      u_ref      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+s_ovi                      u_def      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_ovi                      u_lit      ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+s_ovi                      u_ref      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+s_ovu                      u_def      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+s_ovu                      u_lit      ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+s_ovu                      u_ref      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_e_bs                     top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_e_int                    top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_e_ls                     top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_e_sg                     top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_k_bare                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_k_qiu                    top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_k_qual                   top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_k_qun                    top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_p_cst                    top        ct9/sz32  -                        ct7/sz32  -                        ct7/sz32  -   <== still differs
+v_p_exp                    top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_p_par                    top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_p_uny                    top        (no folded leg)                    ct9/sz32  -                        ct9/sz32  -   <== still differs
+v_pk_bare                  top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_pk_qual                  top        ct9/sz32  TS int_typespec/sgn/loc  ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare   <== still differs
+v_pk_un                    top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_r2_a                     top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_r2_b                     top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_r2_c                     top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_r3_a                     top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_r_by_int                 top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare
+v_r_by_iu                  top        ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -
+v_r_ig_int                 top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_r_ig_iu                  top        ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -
+v_r_iu_by                  top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_r_iu_int                 top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_r_iu_iu                  top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_r_iu_lg                  top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_r_iu_ls                  top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_r_iu_un                  top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_r_un_int                 top        ct9/sz32  -                        ct9/sz64  -                        ct9/sz64  -   <== still differs
+v_r_un_ls                  top        ct9/sz8   -                        ct9/sz64  -                        ct9/sz64  -   <== still differs
+
+############ g2  ELAB
+cell                       home       GOLDEN                             pristine                           patched
+s_h_nov                    u_def      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_h_nov                    u_lit      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_h_nov                    u_ref      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_h_ovi                    u_def      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_h_ovi                    u_lit      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_h_ovi                    u_ref      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_h_ovi_u                  u_def      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+s_h_ovi_u                  u_lit      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+s_h_ovi_u                  u_ref      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+s_nov                      u_def      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+s_nov                      u_lit      ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+s_nov                      u_ref      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+s_ovi                      u_def      ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+s_ovi                      u_lit      ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+s_ovi                      u_ref      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+s_ovu                      u_def      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+s_ovu                      u_lit      ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+s_ovu                      u_ref      ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_e_bs                     top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_e_int                    top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_e_ls                     top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_e_sg                     top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_k_bare                   top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_k_qiu                    top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_k_qual                   top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_k_qun                    top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_p_cst                    top        ct9/sz32  -                        ct7/sz32  -                        ct7/sz32  -   <== still differs
+v_p_exp                    top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_p_par                    top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_p_uny                    top        (no folded leg)                    ct9/sz32  -                        ct9/sz32  -   <== still differs
+v_pk_bare                  top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_pk_qual                  top        ct9/sz32  TS int_typespec/sgn/loc  ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare   <== still differs
+v_pk_un                    top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_r2_a                     top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_r2_b                     top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_r2_c                     top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_r3_a                     top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_r_by_int                 top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   TS int_typespec/sgn/bare
+v_r_by_iu                  top        ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -
+v_r_ig_int                 top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_r_ig_iu                  top        ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -
+v_r_iu_by                  top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_r_iu_int                 top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_r_iu_iu                  top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_r_iu_lg                  top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_r_iu_ls                  top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_r_iu_un                  top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_r_un_int                 top        ct9/sz32  -                        ct9/sz64  -                        ct9/sz64  -   <== still differs
+v_r_un_ls                  top        ct9/sz8   -                        ct9/sz64  -                        ct9/sz64  -   <== still differs
+
+############ g3  DEF
+cell                       home       GOLDEN                             pristine                           patched
+(anon)                     top        (no folded leg)                    ct9/sz64  -                        ct9/sz64  -   <== still differs
+(anon)                     top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+(anon)                     top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+cp_s                       top        (no folded leg)                    ct7/sz32  -                        ct7/sz32  TS int_typespec/sgn/bare   <== still differs
+cp_u                       top        (no folded leg)                    ct7/sz32  -                        ct7/sz32  -   <== still differs
+d_2d_s                     top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+d_net_s                    top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+d_net_u                    top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+d_pkg_bare                 top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+d_pkg_qu                   top        ct9/sz32  TS int_typespec/uns/loc  ct9/sz32  -                        ct9/sz32  -   <== still differs
+d_pkg_qual                 top        ct9/sz32  TS int_typespec/sgn/loc  ct9/sz32  -                        ct9/sz32  -   <== still differs
+d_var_s                    top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+d_var_u                    top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+g_out_s                    gb[0].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+g_out_s                    gb[1].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+g_var_s                    gb[0].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+g_var_s                    gb[1].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+g_var_u                    gb[0].gen_scope ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+g_var_u                    gb[1].gen_scope ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+gi_var_s                   gi1.gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+if_ns                      top        (no folded leg)                    ct7/sz32  -                        ct7/sz32  TS int_typespec/sgn/bare   <== still differs
+if_ns                      u_if       ct9/sz32  TS int_typespec/sgn/bare (no folded leg)                    (no folded leg)   <== still differs
+if_s                       top        (no folded leg)                    ct7/sz32  -                        ct7/sz32  TS int_typespec/sgn/bare   <== still differs
+if_s                       u_if       ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+if_u                       top        (no folded leg)                    ct7/sz32  -                        ct7/sz32  -   <== still differs
+if_u                       u_if       ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+lf_s                       u_m1.u_a   ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+lf_s                       u_m1.u_b   ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+lf_s                       u_m2.u_a   ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+lf_s                       u_m2.u_b   ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+lf_u                       u_m1.u_a   ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+lf_u                       u_m1.u_b   ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+lf_u                       u_m2.u_a   ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+lf_u                       u_m2.u_b   ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+p_body_s                   u_p        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+p_body_u                   u_p        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+p_in_s                     u_p        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+p_out_s                    u_p        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+td_s_t                     top        (no folded leg)                    (no folded leg)                    (no folded leg)
+td_s_t                     top        (no folded leg)                    (no folded leg)                    (no folded leg)
+td_u_t                     top        (no folded leg)                    (no folded leg)                    (no folded leg)
+td_u_t                     top        (no folded leg)                    (no folded leg)                    (no folded leg)
+
+############ g3  ELAB
+cell                       home       GOLDEN                             pristine                           patched
+(anon)                     top        (no folded leg)                    ct9/sz64  -                        ct9/sz64  -   <== still differs
+(anon)                     top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+(anon)                     top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+cp_s                       top        (no folded leg)                    ct7/sz32  -                        ct7/sz32  TS int_typespec/sgn/bare   <== still differs
+cp_s                       top        (no folded leg)                    ct7/sz32  -                        ct7/sz32  TS int_typespec/sgn/bare   <== still differs
+cp_u                       top        (no folded leg)                    ct7/sz32  -                        ct7/sz32  -   <== still differs
+cp_u                       top        (no folded leg)                    ct7/sz32  -                        ct7/sz32  -   <== still differs
+d_2d_s                     top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+d_net_s                    top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+d_net_u                    top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+d_pkg_bare                 top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+d_pkg_qu                   top        ct9/sz32  TS int_typespec/uns/loc  ct9/sz32  -                        ct9/sz32  -   <== still differs
+d_pkg_qual                 top        ct9/sz32  TS int_typespec/sgn/loc  ct9/sz32  -                        ct9/sz32  -   <== still differs
+d_var_s                    top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+d_var_u                    top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+g_out_s                    gb[0].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+g_out_s                    gb[1].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+g_var_s                    gb[0].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+g_var_s                    gb[1].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+g_var_u                    gb[0].gen_scope ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+g_var_u                    gb[1].gen_scope ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+gi_var_s                   gi1.gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+if_ns                      top        (no folded leg)                    ct7/sz32  -                        ct7/sz32  TS int_typespec/sgn/bare   <== still differs
+if_ns                      u_if       ct9/sz32  TS int_typespec/sgn/bare (no folded leg)                    (no folded leg)   <== still differs
+if_s                       top        (no folded leg)                    ct7/sz32  -                        ct7/sz32  TS int_typespec/sgn/bare   <== still differs
+if_s                       u_if       ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+if_u                       top        (no folded leg)                    ct7/sz32  -                        ct7/sz32  -   <== still differs
+if_u                       u_if       ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+lf_s                       u_m1.u_a   ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+lf_s                       u_m1.u_b   ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+lf_s                       u_m2.u_a   ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+lf_s                       u_m2.u_b   ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+lf_u                       u_m1.u_a   ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+lf_u                       u_m1.u_b   ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+lf_u                       u_m2.u_a   ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+lf_u                       u_m2.u_b   ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+p_body_s                   u_p        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+p_body_u                   u_p        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+p_in_s                     u_p        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+p_out_s                    u_p        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+td_s_t                     top        (no folded leg)                    (no folded leg)                    (no folded leg)
+td_s_t                     top        (no folded leg)                    (no folded leg)                    (no folded leg)
+td_u_t                     top        (no folded leg)                    (no folded leg)                    (no folded leg)
+td_u_t                     top        (no folded leg)                    (no folded leg)                    (no folded leg)
+
+############ g4  DEF
+cell                       home       GOLDEN                             pristine                           patched
+(anon)                     top        (no folded leg)                    (no folded leg)                    (no folded leg)
+v_ctl_exp                  top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_ctl_lit                  top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_i_rng_exp                top        ct9/sz8   -                        ct9/sz64  -                        ct9/sz64  -   <== still differs
+v_i_rng_lit                top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_i_rng_ref                top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_i_sgn_exp                top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_i_sgn_lit                top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_i_sr_ref                 top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_i_uns_exp                top        ct9/sz32  -                        ct9/sz64  -                        ct9/sz64  -   <== still differs
+v_j_r                      gc[0].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_j_r                      gc[1].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_j_s                      gc[0].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_j_s                      gc[1].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_j_u                      gc[0].gen_scope ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_j_u                      gc[1].gen_scope ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_t_en_lit                 top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_t_si_exp                 top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_t_si_lit                 top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_t_sl_exp                 top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_t_su8_exp                top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_t_su_exp                 top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+
+############ g4  ELAB
+cell                       home       GOLDEN                             pristine                           patched
+(anon)                     top        (no folded leg)                    (no folded leg)                    (no folded leg)
+v_ctl_exp                  top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_ctl_lit                  top        ct9/sz64  -                        ct9/sz64  -                        ct9/sz64  -
+v_i_rng_exp                top        ct9/sz8   -                        ct9/sz64  -                        ct9/sz64  -   <== still differs
+v_i_rng_lit                top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_i_rng_ref                top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_i_sgn_exp                top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_i_sgn_lit                top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_i_sr_ref                 top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz64  -                        ct9/sz64  TS int_typespec/sgn/bare   <== still differs
+v_i_uns_exp                top        ct9/sz32  -                        ct9/sz64  -                        ct9/sz64  -   <== still differs
+v_j_r                      gc[0].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_j_r                      gc[1].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_j_s                      gc[0].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_j_s                      gc[1].gen_scope ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_j_u                      gc[0].gen_scope ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_j_u                      gc[1].gen_scope ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_t_en_lit                 top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+v_t_si_exp                 top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  -                        ct9/sz32  TS int_typespec/sgn/bare
+v_t_si_lit                 top        ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare ct9/sz32  TS int_typespec/sgn/bare
+v_t_sl_exp                 top        ct9/sz8   TS int_typespec/sgn/bare ct9/sz8   -                        ct9/sz8   TS int_typespec/sgn/bare
+v_t_su8_exp                top        ct9/sz8   -                        ct9/sz8   -                        ct9/sz8   -
+v_t_su_exp                 top        ct9/sz32  -                        ct9/sz32  -                        ct9/sz32  -
+

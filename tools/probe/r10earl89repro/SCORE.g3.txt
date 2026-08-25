@@ -1,0 +1,75 @@
+### g3  DEF view (whole-cell 3-way)
+SAME-RIGHT     300
+SAME-WRONG     17
+WRONG->RIGHT   30
+RIGHT->WRONG   0
+WRONG->OTHER   6
+ONLY-GOLDEN    8
+ONLY-OURS      9
+Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+BrokenPipeError: [Errno 32] Broken pipe
+
+### g3  DEF view (the TS field this law owns, leg by leg)
+TS-SAME-RIGHT        764
+TS-SAME-WRONG        6
+TS-WRONG->RIGHT      30
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     6
+OTHER-FIELD-MOVED    0
+
+[TS-NO-GOLDEN-LEG] design(work@g3_89)/interface_inst/array_net(if_ns)|array_net #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@g3_89)/interface_inst/array_net(if_ns)|array_net #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@g3_89)/interface_inst/array_net(if_ns)|array_net #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@g3_89)/interface_inst/array_net(if_s)|array_net #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@g3_89)/interface_inst/array_net(if_s)|array_net #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@g3_89)/interface_inst/array_net(if_s)|array_net #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+### g3  ELAB view (whole-cell 3-way)
+SAME-RIGHT     312
+SAME-WRONG     19
+WRONG->RIGHT   30
+RIGHT->WRONG   0
+WRONG->OTHER   6
+ONLY-GOLDEN    8
+ONLY-OURS      17
+Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+BrokenPipeError: [Errno 32] Broken pipe
+
+### g3  ELAB view (the TS field)
+TS-SAME-RIGHT        804
+TS-SAME-WRONG        6
+TS-WRONG->RIGHT      30
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     6
+OTHER-FIELD-MOVED    0
+
+[TS-NO-GOLDEN-LEG] design(work@g3_89)/interface_inst/array_net(if_ns)|array_net #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@g3_89)/interface_inst/array_net(if_ns)|array_net #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@g3_89)/interface_inst/array_net(if_ns)|array_net #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@g3_89)/interface_inst/array_net(if_s)|array_net #0 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@g3_89)/interface_inst/array_net(if_s)|array_net #1 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}
+
+[TS-NO-GOLDEN-LEG] design(work@g3_89)/interface_inst/array_net(if_s)|array_net #2 leg R/op11[0]
+  G:None  O:{'TS=none'}  Q:{'TS=int_typespec/sgn/bare'}

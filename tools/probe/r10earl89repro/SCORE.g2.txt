@@ -1,0 +1,35 @@
+### g2  DEF view (whole-cell 3-way)
+SAME-RIGHT     381
+SAME-WRONG     15
+WRONG->RIGHT   36
+RIGHT->WRONG   0
+WRONG->OTHER   3
+ONLY-GOLDEN    0
+ONLY-OURS      0
+
+### g2  DEF view (the TS field this law owns, leg by leg)
+TS-SAME-RIGHT        972
+TS-SAME-WRONG        3
+TS-WRONG->RIGHT      39
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     0
+OTHER-FIELD-MOVED    0
+
+### g2  ELAB view (whole-cell 3-way)
+SAME-RIGHT     381
+SAME-WRONG     15
+WRONG->RIGHT   36
+RIGHT->WRONG   0
+WRONG->OTHER   3
+ONLY-GOLDEN    0
+ONLY-OURS      0
+
+### g2  ELAB view (the TS field)
+TS-SAME-RIGHT        972
+TS-SAME-WRONG        3
+TS-WRONG->RIGHT      39
+TS-RIGHT->WRONG      0
+TS-WRONG->OTHER      0
+TS-NO-GOLDEN-LEG     0
+OTHER-FIELD-MOVED    0
