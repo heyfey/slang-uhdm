@@ -1,0 +1,55 @@
+r10uvm143 — BYTE MOVERS, MEASURED, and their ORDER-BLIND ATTRIBUTION.
+
+surelog corpus : 9 / 956 databases moved — EXACTLY the nine predicted BY NAME.
+uhdm2rtlil     : 0 / 1358 databases moved.
+SELFCHECK      : 955/956 and 1357/1358 flagged (the comparator can see).
+
+Every mover's whole-dump diff is taken PATH-NORMALISED and SORTED, so a
+listing-order flip (Scoreboard/default is a ~50/50 coin) cannot masquerade
+as a change.  Each one is TWO lines: one |vpiActual: and its io_decl value.
+
+===== default/BuildUVMPkg-bf853d43  order-blind dump delta: 2 lines
+237399d237398
+<                       \_io_decl: (obj), line:42370:60, endln:42370:63
+424703d424701
+<                       |vpiActual:
+===== default/MiniAmiq-544c7f61  order-blind dump delta: 2 lines
+415296d415295
+<                       \_io_decl: (obj), line:897:60, endln:897:63
+756391d756389
+<                       |vpiActual:
+===== default/Scoreboard-59431470  order-blind dump delta: 2 lines
+241223d241222
+<                       \_io_decl: (obj), line:897:60, endln:897:63
+435719d435717
+<                       |vpiActual:
+===== default/SeqDriver-32af76aa  order-blind dump delta: 2 lines
+395327d395326
+<                       \_io_decl: (obj), line:897:60, endln:897:63
+723013d723011
+<                       |vpiActual:
+===== default/SimpleUVM-1dc93a62  order-blind dump delta: 2 lines
+242216d242215
+<                       \_io_decl: (obj), line:897:60, endln:897:63
+437985d437983
+<                       |vpiActual:
+===== testflags/BuildUVMPkg-bf853d43  order-blind dump delta: 2 lines
+237399d237398
+<                       \_io_decl: (obj), line:42370:60, endln:42370:63
+424703d424701
+<                       |vpiActual:
+===== testflags/MiniAmiq-544c7f61  order-blind dump delta: 2 lines
+415296d415295
+<                       \_io_decl: (obj), line:897:60, endln:897:63
+756391d756389
+<                       |vpiActual:
+===== testflags/SeqDriver-32af76aa  order-blind dump delta: 2 lines
+395351d395350
+<                       \_io_decl: (obj), line:897:60, endln:897:63
+723037d723035
+<                       |vpiActual:
+===== testflags/SimpleUVM-1dc93a62  order-blind dump delta: 2 lines
+242240d242239
+<                       \_io_decl: (obj), line:897:60, endln:897:63
+438009d438007
+<                       |vpiActual:

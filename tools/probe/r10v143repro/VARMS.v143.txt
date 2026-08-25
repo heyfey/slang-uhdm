@@ -1,0 +1,35 @@
+ARM                          VIEW  SCORE
+a_formals_ch                 DEF     ALREADY-RIGHT=37
+a_formals_ch                 ELAB    ALREADY-RIGHT=34  ONLY-GOLDEN=47  ONLY-OURS=3
+f_matrix                     DEF     ALREADY-RIGHT=14  ONLY-GOLDEN=9  ONLY-OURS=9  TO-GOLDEN=28
+f_matrix                     ELAB    ALREADY-RIGHT=14  ONLY-GOLDEN=71  ONLY-OURS=9  TO-GOLDEN=28
+g_homes                      DEF     ALREADY-RIGHT=10  ONLY-GOLDEN=6  TO-GOLDEN=7
+g_homes                      ELAB    ALREADY-RIGHT=10  ONLY-GOLDEN=40  TO-GOLDEN=7
+h_idx                        DEF     ALREADY-RIGHT=15  ONLY-GOLDEN=23  ONLY-OURS=23  TO-GOLDEN=16
+h_idx                        ELAB    ALREADY-RIGHT=15  ONLY-GOLDEN=58  ONLY-OURS=24  STILL-WRONG=1  TO-GOLDEN=14
+impl_a                       DEF     ALREADY-RIGHT=3  TO-GOLDEN=6
+impl_a                       ELAB    ALREADY-RIGHT=2  ONLY-GOLDEN=9  ONLY-OURS=1  TO-GOLDEN=6
+impl_b                       DEF     ALREADY-RIGHT=7  STILL-WRONG=1  TO-GOLDEN=1
+impl_b                       ELAB    ALREADY-RIGHT=8  ONLY-GOLDEN=12  TO-GOLDEN=1
+i_special                    DEF     ALREADY-RIGHT=5  ONLY-GOLDEN=2  ONLY-OURS=2  TO-GOLDEN=5
+i_special                    ELAB    ALREADY-RIGHT=5  ONLY-GOLDEN=16  ONLY-OURS=2  TO-GOLDEN=5
+j_refvar                     DEF     ALREADY-RIGHT=1
+j_refvar                     ELAB    ALREADY-RIGHT=1  ONLY-GOLDEN=1
+k_leak                       DEF     ALREADY-RIGHT=8  TO-GOLDEN=4
+k_leak                       ELAB    ALREADY-RIGHT=8  ONLY-GOLDEN=18  TO-GOLDEN=4
+l_unit                       DEF     ALREADY-RIGHT=1  ONLY-GOLDEN=1  ONLY-OURS=3  TO-GOLDEN=2
+l_unit                       ELAB    ALREADY-RIGHT=1  ONLY-GOLDEN=21  ONLY-OURS=3  TO-GOLDEN=2
+m_recv                       DEF     ALREADY-RIGHT=3  ONLY-GOLDEN=23  ONLY-OURS=20  TO-GOLDEN=4
+m_recv                       ELAB    ALREADY-RIGHT=3  ONLY-GOLDEN=34  ONLY-OURS=20  TO-GOLDEN=4
+n_owner                      DEF     ALREADY-RIGHT=5  ONLY-OURS=1  TO-GOLDEN=7
+n_owner                      ELAB    ALREADY-RIGHT=5  ONLY-GOLDEN=20  ONLY-OURS=1  TO-GOLDEN=7
+z_probe                      DEF     ALREADY-RIGHT=5  TO-GOLDEN=3
+z_probe                      ELAB    ALREADY-RIGHT=3  ONLY-GOLDEN=8  ONLY-OURS=2  TO-GOLDEN=3
+fb_r10buvm22repro_g22        DEF     
+fb_r10buvm22repro_g22        ELAB    
+fb_r10buvm7repro_v1_lvincdecshape DEF     ALREADY-RIGHT=3  ONLY-GOLDEN=3  ONLY-OURS=5  TO-GOLDEN=1
+fb_r10buvm7repro_v1_lvincdecshape ELAB    ALREADY-RIGHT=3  ONLY-GOLDEN=7  ONLY-OURS=5  TO-GOLDEN=1
+fb_r10svs4repro_g1_thisidx   DEF     ALREADY-RIGHT=2  ONLY-GOLDEN=10  ONLY-OURS=10
+fb_r10svs4repro_g1_thisidx   ELAB    ALREADY-RIGHT=2  ONLY-GOLDEN=10  ONLY-OURS=10
+fb_r10uvm79repro_c1_nestedidx DEF     ALREADY-RIGHT=3  TO-GOLDEN=1
+fb_r10uvm79repro_c1_nestedidx ELAB    ALREADY-RIGHT=2  ONLY-GOLDEN=4  STILL-WRONG=1  TO-GOLDEN=1

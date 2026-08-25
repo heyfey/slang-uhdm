@@ -1,0 +1,51 @@
+r10uvm143 — THE GRID, scored with score143.py (LHS is ALWAYS golden).
+
+Four arms, each built with Surelog in BOTH views (-parse and -parse -elabuhdm)
+and with the frozen pristine and patched binaries, and judged by the official
+uhdm-cmp.  Every arm's rc is recorded; children get </dev/null.
+
+== arm A  g143_a_shapes.sv — POSITION AND KIND, all inside one class body
+   9 cells: defaulted formal, plain formal, body local, class property,
+   int-keyed array, bare (non-path) bit_select, event-control/$display arg,
+   assignment lvalue, two formals in one expression.
+   GOLDEN: 9 / 9 bare.   pristine: 6 wrong.   patched: TO-GOLDEN=6 AWAY=0
+   MOVED-WRONG=0 in BOTH views; cmp 4634 -> 4610 lines.
+
+== arm B  g143_b_owners.sv — THE OWNER AXIS (this is the law)
+   owner                                golden     pristine    patched
+   free package function                io_decl    io_decl     io_decl
+   free package task                    io_decl    io_decl     io_decl
+   out-of-body (extern) class function  io_decl    io_decl     io_decl
+   out-of-body (extern) class task      io_decl    io_decl     io_decl
+   module function                      io_decl    io_decl     io_decl
+   module task                          io_decl    io_decl     io_decl
+   IN-BODY class function               (bare)     (bare)      (bare)
+   IN-BODY class task                   (bare)     io_decl     (bare)  <-- fixed
+   program task, DEFINITION view        (bare)     io_decl     io_decl <-- R1
+   program task, -elabuhdm view         io_decl    io_decl     io_decl
+   pure-virtual prototype               no body — no cell on either side
+   TO-GOLDEN=1 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 (the program DEF cell, R1)
+
+== arm C  g143_c_index.sv — THE INDEX SHAPE AND DIRECTION AXES
+   in-body (Tray::c*) vs out-of-body twin (Cart::d*), 13 shapes:
+   literal, package parameter, class property, plain formal, defaulted
+   formal, output / inout / ref formal, an operation index (Bay + 1), a
+   function-call index, a nested bit_select index, a class-handle key, and
+   one formal used THREE times.
+   GOLDEN: every in-body cell bare (including the operation OPERAND, the
+   call ARGUMENT and the nested select's own index — which is why the
+   emitter walks the whole index subtree); every out-of-body cell bound
+   EXCEPT the class PROPERTY, which the package scope cannot see
+   (§ pkgVarBindsOnlyThroughInstance88's own split, reproduced here).
+   TO-GOLDEN=7 AWAY=0 MOVED-WRONG=0 in BOTH views; cmp 12802 -> 12754.
+
+== arm D  g143_d_foreach.sv — THE CELL THE LAW MUST NOT TOUCH
+   The LocalScopeHierPath shape: foreach (path.slices[j]) in a class body,
+   where golden binds j to the foreach loop variable's ref_var.  Both
+   databases are BYTE-IDENTICAL pristine vs patched, in both views:
+   the ref_var/ref_obj guard keeps that mechanism's cells out.
+   (Its three Reed::* cells are ONLY-GOLDEN before AND after — a
+   pre-existing hier_path SHAPE residue of another family.)
+
+TOTAL over the grid, both views: TO-GOLDEN 28 cells, AWAY-GOLDEN 0,
+MOVED-WRONG 0, STILL-WRONG 1 (R1), object counts unchanged everywhere.

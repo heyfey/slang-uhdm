@@ -5951,6 +5951,23 @@ private:
     // package's `Variables()` listing ONLY through `func->Instance()` when that
     // instance is a package -- so a reference from here can never bind one.
     bool inBodyClassMethod88 = false;
+    // § hpIdxClassBodyNeverLateBinds143 (r10uvm143) — clears the
+    // `vpiActual` of every reference minted under a `hier_path` ELEMENT's
+    // INDEX while the body of an IN-BODY class method is being emitted.
+    //
+    // Surelog compiles such an index with the STILL-PARENTLESS `hier_path` as
+    // its `pexpr` (`CompileExpression.cpp:5583` passes `path`;
+    // `path->VpiParent(pexpr)` runs only afterwards, :5708), so
+    // `CompileHelper::bindVariable` (CompileStmt.cpp:3089, which recurses on
+    // `scope->VpiParent()`) dies on the first hop and the reference is put on
+    // the component's LATE-BINDING pool instead.  `UhdmWriter::lateBinding`
+    // drains that pool for packages (:1304) and modules (:1575/:1623/:2072,
+    // and :4785 for an elaborated instance) — but the CLASS call is COMMENTED
+    // OUT (:1066-1067, "Activate when hier_path is better supported") and
+    // `writeProgram` (:1795-1900) never calls it at all.  So a body written
+    // INSIDE a class body can never bind such a reference, whatever the index
+    // is and whatever the reference names.
+    void hpIdxClassNoBind143(UHDM::any* ix);
     // § withIterRefBindsHoistNet75 — the home PACKAGE of the class whose OWN
     // body is currently being emitted; null whenever inClassBodyEmit is false.
     // The array-method iterator ARGUMENT ref is built from SYNTAX TEXT and

@@ -1,0 +1,70 @@
+r10v143 — GATE BATTERY as run by the VERIFIER (measurement only; uhdm-cmp is the judge)
+base 41e67d5; worktrees /tmp/wt_v143 (patched) /tmp/wt_v143pris (pristine)
+pristine binary md5 312fbd2b8687e0886a0ec1152f503fd1  (frozen chmod 555 before any sweep)
+patched  binary md5 532377c8fd0eb878c622bf805750554e  (frozen chmod 555 before any sweep)
+patch md5 cd7a120dd8582993665086fd15167c55; regenerated from my worktree: md5-identical
+
+(1) GOLDENS  (SLANG_UHDM exported explicitly to EACH binary)
+    patched  PASS=23 FAIL=0
+    pristine PASS=23 FAIL=0
+    /bin/false PASS=0 FAIL=23      (negative control)
+
+(2) cmds.txt AUDIT BY BINARY PATH
+    u2r     1462 cmds.txt, 1458 name /tmp/v143_bin/<binary>.bin, main-tree hits 0
+    surelog 1573 cmds.txt, 1523 name /tmp/v143_bin/<binary>.bin, main-tree hits 0
+
+(3) uhdm2rtlil, both modes, 731 rows each
+    pristine tf  679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    patched  tf  679 / 50 / 2
+    pristine def 679 / 50 / 2
+    patched  def 679 / 50 / 2
+    ct8rows results/gate_uhdm2rtlil.csv vs patched tf   PASS
+    ct8rows pristine tf  vs patched tf                  PASS
+    ct8rows pristine def vs patched def                 PASS
+
+(4) surelog --mode both, 1588 rows / 956 DBs
+    pristine 937 CMP_EQUAL / 567 SLANG_REJECT / 48 SURELOG_FAIL / 19 CMP_NOTEQUAL / 10 DEFERRED / 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+    patched  identical histogram
+    ct8rows results/golden_surelog.csv vs patched   PASS  (0 differing rows over 1588)
+    ct8rows results/golden_surelog.csv vs pristine  PASS
+    ct8rows pristine vs patched                     PASS
+    NO ROW CONVERTED; results/*.csv READ ONLY
+
+(5) byteverify SELFCHECK=1
+    surelog MOVERS 9 / 956   selfcheck 955/956
+    u2r     MOVERS 0 / 1358  selfcheck 1357/1358
+    the nine (all CMP_NOTEQUAL rows; no CMP_EQUAL row's bytes moved):
+      default/{BuildUVMPkg,MiniAmiq,Scoreboard,SeqDriver,SimpleUVM}
+      testflags/{BuildUVMPkg,MiniAmiq,SeqDriver,SimpleUVM}
+    order-blind (sorted, id-stripped, path-normalised) whole-dump delta: 2 lines on EVERY one
+      < \_io_decl: (obj), line:<n>:60, endln:<n>:63
+      < |vpiActual:
+    Scoreboard/default included -> the ~50/50 coin did not flip.
+
+(6) HEADS (rowheads.sh)
+    SeqDriver    def/tf  26/26 -> 26/26   head log BYTE-IDENTICAL
+    SimpleUVM    def/tf  29/29 -> 62/62   HEAD CLEARED
+    Scoreboard   def     29    -> 62      HEAD CLEARED   (tf SKIP-NOFILE, expected)
+    MiniAmiq     def/tf  26/26 -> 26/26   BYTE-IDENTICAL
+    BuildUVMPkg  def/tf  55/55 -> 55/55   BYTE-IDENTICAL
+    Earlgrey_0_1 def/tf 110/142-> 110/142 BYTE-IDENTICAL
+    Rggen        def       0   ->   0     BYTE-IDENTICAL (CMP_EQUAL)
+    pristine head: LHS:<null> / RHS: io_decl (obj) 897:60 on uvm_pkg::uvm_objection::wait_for
+    patched  head: parameter (UVM_STR_CRC_POLYNOMIAL) 368:11 under design (work@top), |vpiImported:uvm_pkg
+
+(7) CANARIES
+    canaries.sh surelog  ok=52 changed=0 absent=0
+    canaries.sh u2r      ok=8  changed=0 absent=0
+    ctcan2.sh surelog EXPECT_UNKNOWN=1  PASS
+    ctcan2.sh u2r     EXPECT_UNKNOWN=6  PASS
+    canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0
+    protected DBs: InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical
+                   SVSwitch 4842211c4030   YosysVerx 6ccda350c24a
+
+(8) WIDE BOUNDARY (own copy of the whole probe tree, subdirectories included)
+    LISTED=4122 PROCESSED=4122 PRODUCED_DBS=3976 MOVED_ARMS=12 RC_DIFFS=0
+    see VBOUNDARY.v143.txt
+
+(9) NO-GUARD CONTROL BINARY (verifier only, never shipped)
+    md5 4e01e3d0b3c92dfb99f24792c7738a2b -- the patch with the ref_var/ref_obj guard removed
+    surelog --mode both with the NO-GUARD binary: ct8rows vs the PATCHED sweep PASS (every row byte-identical); byteverify SELFCHECK=1 MOVERS **0 / 956**, selfcheck 955/956; cmds.txt audit 1523/1523 name the no-guard binary, main-tree hits 0.  => the ref_var/ref_obj guard changes NOTHING on the whole surelog corpus, and nothing on the LocalScopeHierPath source in either view (databases byte-identical).

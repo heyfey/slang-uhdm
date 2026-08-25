@@ -1,0 +1,38 @@
+r10uvm143 — A-PRIORI MOVER PREDICTION, made from the PRISTINE databases BEFORE the patched sweep ran.
+Instrument: pred143.cpp (the emitter's own hpIdxClassNoBind143 subtree walk, plus its ref_var/ref_obj guard).
+Scanned: 2314 pristine databases (956 surelog + 1358 uhdm2rtlil).
+
+GOLDEN CALIBRATION on the nine target rows (the law must read ZERO on golden):
+  db                                 in-class-body path selects   bound cells
+  SimpleUVM  default/testflags                     134                 0
+  Scoreboard default                               134                 0
+  SeqDriver  default/testflags                     134                 0
+  BuildUVMPkg default/testflags                    165                 0
+  MiniAmiq   default/testflags                     242                 0
+
+PREDICTED MOVERS (9 databases, ONE cell each):
+  sl/default/BuildUVMPkg-bf853d43/slang.uhdm
+    CELL owner=uvm_pkg::uvm_objection::wait_for ref=ref_obj(obj)@42388:19-42388:22 actual=io_decl
+  sl/default/MiniAmiq-544c7f61/slang.uhdm
+    CELL owner=uvm_pkg::uvm_objection::wait_for ref=ref_obj(obj)@915:19-915:22 actual=io_decl
+  sl/default/Scoreboard-59431470/slang.uhdm
+    CELL owner=uvm_pkg::uvm_objection::wait_for ref=ref_obj(obj)@915:19-915:22 actual=io_decl
+  sl/default/SeqDriver-32af76aa/slang.uhdm
+    CELL owner=uvm_pkg::uvm_objection::wait_for ref=ref_obj(obj)@915:19-915:22 actual=io_decl
+  sl/default/SimpleUVM-1dc93a62/slang.uhdm
+    CELL owner=uvm_pkg::uvm_objection::wait_for ref=ref_obj(obj)@915:19-915:22 actual=io_decl
+  sl/testflags/BuildUVMPkg-bf853d43/slang.uhdm
+    CELL owner=uvm_pkg::uvm_objection::wait_for ref=ref_obj(obj)@42388:19-42388:22 actual=io_decl
+  sl/testflags/MiniAmiq-544c7f61/slang.uhdm
+    CELL owner=uvm_pkg::uvm_objection::wait_for ref=ref_obj(obj)@915:19-915:22 actual=io_decl
+  sl/testflags/SeqDriver-32af76aa/slang.uhdm
+    CELL owner=uvm_pkg::uvm_objection::wait_for ref=ref_obj(obj)@915:19-915:22 actual=io_decl
+  sl/testflags/SimpleUVM-1dc93a62/slang.uhdm
+    CELL owner=uvm_pkg::uvm_objection::wait_for ref=ref_obj(obj)@915:19-915:22 actual=io_decl
+
+PREDICTED NON-MOVERS worth naming:
+  uhdm2rtlil: 0 / 1358 databases
+  LocalScopeHierPath/testflags — the ONE non-io_decl cell in either corpus
+    (pack::uvm_mem_mam::check_reg ref_obj(j)@19:31, actual=ref_var, from
+     'foreach (path.slices[j])').  GOLDEN BINDS IT TOO, so the law's
+     ref_var/ref_obj guard excludes it and it is predicted NOT to move.

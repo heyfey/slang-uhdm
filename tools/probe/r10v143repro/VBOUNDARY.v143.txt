@@ -1,0 +1,16 @@
+LISTED/PROCESSED/PRODUCED/MOVED/RC_DIFFS:
+LISTED=4122 PROCESSED=4122 PRODUCED_DBS=3976 MOVED_ARMS=12 RC_DIFFS=0
+
+MOVERS:
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10buvm7repro/v1_lvincdecshape.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10svs4repro/g1_thisidx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm143repro/g143_a_shapes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm143repro/g143_b_owners.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm143repro/g143_c_index.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm79repro/c1_nestedidx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v143repro/v143_f_matrix.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v143repro/v143_g_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v143repro/v143_h_idx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v143repro/v143_i_special.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v143repro/v143_z_probe.sv	def=MOVED	elab=MOVED	rc=0/0,0/0

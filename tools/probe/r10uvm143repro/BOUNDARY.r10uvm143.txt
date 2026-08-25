@@ -1,0 +1,88 @@
+r10uvm143 — THE WIDE BOUNDARY GATE.
+
+bound143.sh, run from a COPY of the WHOLE committed probe tree (no path
+filter, subdirectories included), both views, pristine vs patched:
+
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1243317 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1243463 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1247118 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1247193 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1512210 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1512250 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1515273 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1515291 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1517683 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1517701 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1586229 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1586247 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1586726 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1586744 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1591503 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1591521 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1591917 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1591935 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1594246 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1594264 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1594577 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1594595 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1637122 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1637140 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1637204 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1637222 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1637286 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+tools/probe/r10uvm143repro/bound143.sh: line 48: 1637304 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+LISTED=4106 PROCESSED=4106 PRODUCED_DBS=3962 MOVED_ARMS=7 RC_DIFFS=0
+
+MOVED ARMS (7):
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10buvm7repro/v1_lvincdecshape.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10svs4repro/g1_thisidx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm143repro/g143_a_shapes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm143repro/g143_b_owners.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm143repro/g143_c_index.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm79repro/c1_nestedidx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+  * g143_a_shapes.sv / g143_b_owners.sv / g143_c_index.sv are THIS PASS'S OWN
+    arms — the POSITIVE CONTROL.  A gate that reported zero movers over them
+    could not see.  (g143_d_foreach.sv is byte-identical, which is the point
+    of that arm.)
+
+  * EVERY earlier-pass mover re-measured against GOLDEN, cell by cell:
+
+    r10svs4repro/g1_thisidx.sv    2 cells TO-GOLDEN, 0 away
+        work@Grid::f::k @33:37 and @39:18 (bit_select vpiIndex under a
+        hier_path, in-body class method work@Grid::f)
+        pristine io_decl -> patched none;  GOLDEN has both refs with NO
+        vpiActual (golden also carries 6 more of the same shape, all bare).
+        uhdm-cmp: def 3713 -> 3705 lines, SAME head object (design work@m),
+        elab byte-identical.
+
+    r10buvm7repro/v1_lvincdecshape.sv   1 cell TO-GOLDEN, 0 away
+        p7::holder7::f1::index @51:12, parent hier_path
+        pristine int_var -> patched none;  GOLDEN's @50:12 and @51:12 are
+        both bare, and its two BOUND cells (@37:8 bit_select-parented and
+        @38:5 operation-parented) are UNTOUCHED on our side.
+        uhdm-cmp: def 7942 -> 7938, SAME head object, elab byte-identical.
+
+    r10uvm79repro/c1_nestedidx.sv      1 cell TO-GOLDEN, 0 away
+        work@seqr::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::i
+        @17:51  pristine int_var -> patched none; GOLDEN is bare there.
+        This is § hpMidSelIdxAtPath79's own head cell: its NAME, PARENT and
+        SPAN are untouched — only the vpiActual goes.
+        uhdm-cmp: def 2751 -> 2747, SAME head object, elab byte-identical.
+
+    r10buvm22repro/g22.sv        NO CELL OF THIS LAW MOVED.
+        The whole order-blind delta is three UINT/vpiDecompile values on the
+        right range of an int-KEYED ASSOCIATIVE-ARRAY typedef
+        (typedef int ka_str_t[int];, g22.sv:70-72): we emit an operation
+        over a garbage size (22498081 -> 22502177, +4096) where GOLDEN emits
+        one constant STRING:associative.  That number is BINARY-LAYOUT
+        dependent (deterministic per binary — two pristine runs give the
+        identical database — and arbitrary across binaries), it is equally
+        wrong before and after, and uhdm-cmp reads the SAME head with a
+        BYTE-IDENTICAL log (17506 lines, 1 head) in both views.  It is a
+        pre-existing defect of a different family with ZERO corpus reach:
+        the byte verifier moved 0 / 1358 uhdm2rtlil and exactly the nine
+        predicted surelog databases.
+
+  RC_DIFFS=0 over all 4106 arms; PRODUCED_DBS=3962; LISTED == PROCESSED.

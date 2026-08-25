@@ -1,0 +1,53 @@
+r10uvm143 — GATE BATTERY (all run in this pass's own worktree, with the two
+binaries FROZEN chmod 555 before any sweep, and every cmds.txt audited by
+BINARY PATH).
+
+(1) BUILD
+    pristine  /tmp/<pass>_pris.bin      md5 312fbd2b8687e0886a0ec1152f503fd1
+    patched   /tmp/<pass>_patched.bin   md5 532377c8fd0eb878c622bf805750554e
+
+(2) GOLDENS
+    patched  : PASS=23 FAIL=0
+    pristine : PASS=23 FAIL=0
+    SLANG_UHDM=/bin/false (negative control): PASS=0 FAIL=23
+
+(3) uhdm2rtlil, BOTH modes: 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    ct8rows vs results/gate_uhdm2rtlil.csv        : PASS (0 differing rows)
+    ct8rows vs this pass's OWN pristine testflags : PASS
+    ct8rows vs this pass's OWN pristine default   : PASS
+
+(4) surelog, --mode both, 956 databases
+    default   : 471 CMP_EQUAL / 283 SLANG_REJECT / 25 SURELOG_FAIL / 10 CMP_NOTEQUAL / 5 DEFERRED
+    testflags : 466 CMP_EQUAL / 284 SLANG_REJECT / 23 SURELOG_FAIL /  9 CMP_NOTEQUAL / 5 DEFERRED
+                + 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+    (the histogram is IDENTICAL pristine and patched — no hidden rc=139)
+    ct8rows vs results/golden_surelog.csv         : PASS (0 differing rows over 1588)
+    ct8rows vs this pass's OWN pristine sweep     : PASS
+    NO ROW CONVERTED; results/*.csv were READ ONLY.
+
+(5) BYTE VERIFIER, SELFCHECK=1
+    surelog    : MOVERS 9 / 956 — every one PREDICTED BY NAME (PREDICT.r10uvm143.txt)
+    uhdm2rtlil : MOVERS 0 / 1358
+
+(6) CANARIES
+    canaries.sh surelog     : ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil  : ok=8  changed=0 absent=0
+    ctcan2.sh  EXPECT_UNKNOWN=1 / =6 : PASS, PASS
+    canaudit.sh canaries.sh ctcan2.sh: audited=29 UNCOVERED=0 FENCE-BREACH=0
+    protected databases, pristine vs patched md5:
+      InterfaceModPort   59a365f3ce2c = 59a365f3ce2c   (both modes)
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5   (unchanged, both modes)
+      YosysOldOr         d68e0796d62c = d68e0796d62c   (both modes)
+      SVSwitch           4842211c4030 (the pinned value), both modes, unchanged
+      YosysVerx          6ccda350c24a (the pinned value), both modes, unchanged
+
+(7) HEADS (rowheads.sh, this pass's own workdirs; DEPTH not distance)
+    row-mode              pristine        patched
+    SeqDriver   def/tf     26 / 1 head     26 / 1 head   head log BYTE-IDENTICAL
+    SimpleUVM   def/tf     29 / 1 head     62 / 1 head   HEAD CLEARED
+    Scoreboard  default    29 / 1 head     62 / 1 head   HEAD CLEARED
+    MiniAmiq    def/tf     26 / 1 head     26 / 1 head   head log BYTE-IDENTICAL
+    BuildUVMPkg def/tf     55 / 1 head     55 / 1 head   head log BYTE-IDENTICAL
+    Earlgrey_0_1 def/tf   110 / 142        110 / 142     head logs BYTE-IDENTICAL
+    Rggen       default     0 (CMP_EQUAL)   0 (CMP_EQUAL)
+    (Scoreboard/testflags and Rggen/testflags are SKIP-NOFILE: no golden.)

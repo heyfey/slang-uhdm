@@ -1,0 +1,50 @@
+r10uvm143 — THE CENSUS THAT REFUTED THE BRIEF'S FRAMING (SimpleUVM/default).
+
+iocen143.awk: one row per task/function LISTING, its vpiIODecl entries in
+ORDER, each with name : vpiDirection : E-if-it-carries-a-vpiExpr.
+
+  golden rows : 4809
+  ours   rows : 4809
+  only-golden : 0
+  only-ours   : 0
+
+so NO subroutine anywhere in the design differs in the NUMBER, ORDER,
+NAME, DIRECTION or DEFAULT-VALUE PRESENCE of its io_decls, and the head's
+own task is:
+
+  GOLDEN  task	uvm_pkg::uvm_objection::wait_for	2	objt_event:1:-,obj:1:-
+  GOLDEN  task	uvm_pkg::uvm_objection::wait_for_total_count	2	obj:1:-,count:1:E
+  OURS    task	uvm_pkg::uvm_objection::wait_for	2	objt_event:1:-,obj:1:-
+  OURS    task	uvm_pkg::uvm_objection::wait_for_total_count	2	obj:1:-,count:1:E
+
+(Note both sides give the defaulted formal obj NO vpiExpr: the default
+ value is absent on BOTH sides, so it is not the axis either.)
+
+refcen143.awk on the same pair, restricted to hier_path element indices,
+joined per (reference fullname, own loc) and classified:
+  AGREE            125
+  OURS-OVERBOUND     1   <-- uvm_pkg::uvm_objection::wait_for::obj @915:19
+  OURS-UNDERBOUND    0
+  ONLY-GOLDEN CELL 244   (hier_path SHAPE residue, R3)
+  ONLY-OURS CELL    15   (hier_path SHAPE residue, R3)
+
+cen143.py on the SAME pair, PATCHED side (the whole-design cell census):
+  AGREE            125 -> 126
+  OURS-OVERBOUND     1 -> 0
+  OURS-UNDERBOUND    0 -> 0
+  ONLY-GOLDEN-CELL 244 -> 244   (unchanged: no object appeared or vanished)
+  ONLY-OURS-CELL    15 -> 15    (unchanged)
+
+pred143 on all NINE moved databases, pristine -> patched:
+  db                                in-class-body path selects   bound cells
+  default/BuildUVMPkg                        165                  1 -> 0
+  default/MiniAmiq                           241                  1 -> 0
+  default/Scoreboard                         134                  1 -> 0
+  default/SeqDriver                          134                  1 -> 0
+  default/SimpleUVM                          134                  1 -> 0
+  testflags/BuildUVMPkg                      165                  1 -> 0
+  testflags/MiniAmiq                         241                  1 -> 0
+  testflags/SeqDriver                        134                  1 -> 0
+  testflags/SimpleUVM                        134                  1 -> 0
+The select COUNT is unchanged everywhere: this pass removes a BINDING,
+never an object.

@@ -6413,6 +6413,127 @@ bool UhdmExporter::vifCollapsedComponents5(
     return true;
 }
 
+// § hpIdxClassBodyNeverLateBinds143 (r10uvm143) — THE INDEX OF A HIER_PATH
+// ELEMENT IS NEVER BOUND FROM INSIDE A CLASS BODY.
+//
+// DECODED FROM SURELOG, NOT GUESSED.  A `hier_path` element's index expression
+// is compiled by `CompileHelper::compileExpression`
+// (CompileExpression.cpp:5583) with the `path` object itself as `pexpr`, and
+// `path->VpiParent(pexpr)` is executed only AFTER the element loop finishes
+// (:5708).  So while the index compiles, the hier_path has NO parent, and the
+// eager binder `CompileHelper::bindVariable` (CompileStmt.cpp:3089) — which
+// only answers for a `function` / `task` / `begin` / `module_inst` scope and
+// otherwise recurses on `scope->VpiParent()` — reaches a null scope on the
+// first hop and returns null.  Every such reference therefore lands on the
+// component's LATE-BINDING pool (`needLateBinding`, CompileExpression.cpp:5778
+// / :5784 / :5786 / :5802 / :5807 / :5809).
+//
+// `UhdmWriter::lateBinding` (UhdmWriter.cpp:3294) is what drains that pool,
+// and it is CALLED FOR PACKAGES (UhdmWriter.cpp:1304) and MODULES
+// (:1575, :1623, :2072, and :4785 for an elaborated instance) but
+//   * for a CLASS DEFINITION the call is COMMENTED OUT — UhdmWriter.cpp:1066-
+//     1067, `// lateBinding(s, classDef, c);`, under the comment "Activate
+//     when hier_path is better supported";
+//   * `writeProgram` (UhdmWriter.cpp:1795-1900) never calls it at all.
+// So a method written INSIDE a class body can never bind a path-element index,
+// while the OUT-OF-BODY (`extern`) definition of the very same method — which
+// Surelog compiles at the home PACKAGE's scope — binds it every time.
+//
+// GOLDEN, arm B, one associative array indexed by one formal, six owners:
+//   free package function / task ....................... vpiActual = io_decl
+//   out-of-body (extern) class method (task + function) . vpiActual = io_decl
+//   module task / module function ...................... vpiActual = io_decl
+//   IN-BODY class method (task + function) ............. NO vpiActual
+//   program task (definition view) ..................... NO vpiActual
+//   pure-virtual prototype ............................. no body, no cell
+// and the corpus says the same thing without being asked: the ONLY four
+// io_decl-bound path-element indices in golden's SimpleUVM are
+// `uvm_default_factory::register`, `uvm_component::m_add_child`,
+// `uvm_component::get_tr_stream` and `uvm_sequencer_base::stop_phase_sequence`
+// — all four declared `extern` and defined out of body — while
+// `uvm_objection::wait_for` (`task wait_for(...)` written in the class body,
+// uvm_objection.svh:897) is bare.  That bare-vs-bound pair IS the head.
+//
+// The rule is about the LATE-BINDING POOL, not about the index: golden leaves
+// a formal, a body local, a class property, an `output`/`inout`/`ref` formal,
+// a `+` operation operand, a function-call argument and a nested bit_select's
+// own index equally bare inside a class body (arm C, 13 shapes), which is why
+// this walks the whole index subtree instead of testing the top object.
+//
+// PROGRAMS ARE NOT IN THIS GATE.  Golden's program cell is view-dependent
+// (bare in the definition view, bound in the `-elabuhdm` view, because
+// `writeInstance` drains the pool for the elaborated instance), and its
+// measured corpus population is recorded in the pass README as residue R1.
+void UhdmExporter::hpIdxClassNoBind143(UHDM::any* ix) {
+    if (!ix || !inBodyClassMethod88)
+        return;
+    switch (ix->UhdmType()) {
+        case UHDM::uhdmref_obj: {
+            auto* r143 = (UHDM::ref_obj*)ix;
+            const UHDM::any* a143 = r143->Actual_group();
+            if (!a143)
+                break;
+            // THE LATE BINDER CANNOT PRODUCE A `ref_var` / `ref_obj` ACTUAL.
+            // Every branch of `UhdmWriter::lateBinding` skips such a candidate
+            // outright (`if (decl->UhdmType() == uhdmref_var) continue;`
+            // / `... == uhdmref_obj`, UhdmWriter.cpp:3315, :3324, :3335,
+            // :3344, :3387, :3397, :3442, :3452 and the rest), so a
+            // reference already wearing one was bound by a DIFFERENT
+            // mechanism and this law does
+            // not speak about it.  The measured cell is
+            // `LocalScopeHierPath/testflags` (a CMP_EQUAL row):
+            // `foreach (path.slices[j])` inside an in-body class method, where
+            // GOLDEN binds the path-element index `j` to the foreach loop
+            // variable's `ref_var` — the only non-`io_decl` cell either corpus
+            // has, and the one this guard keeps.
+            if (a143->UhdmType() == UHDM::uhdmref_var ||
+                a143->UhdmType() == UHDM::uhdmref_obj)
+                break;
+            r143->Actual_group(nullptr);
+            break;
+        }
+        case UHDM::uhdmoperation:
+            if (auto* ops = ((UHDM::operation*)ix)->Operands())
+                for (auto* o : *ops) hpIdxClassNoBind143(o);
+            break;
+        case UHDM::uhdmbit_select:
+            hpIdxClassNoBind143((UHDM::any*)((UHDM::bit_select*)ix)->VpiIndex());
+            break;
+        case UHDM::uhdmvar_select:
+            if (auto* ex = ((UHDM::var_select*)ix)->Exprs())
+                for (auto* e : *ex) hpIdxClassNoBind143(e);
+            break;
+        case UHDM::uhdmpart_select: {
+            auto* ps = (UHDM::part_select*)ix;
+            hpIdxClassNoBind143((UHDM::any*)ps->Left_range());
+            hpIdxClassNoBind143((UHDM::any*)ps->Right_range());
+            break;
+        }
+        case UHDM::uhdmindexed_part_select: {
+            auto* ip = (UHDM::indexed_part_select*)ix;
+            hpIdxClassNoBind143((UHDM::any*)ip->Base_expr());
+            hpIdxClassNoBind143((UHDM::any*)ip->Width_expr());
+            break;
+        }
+        case UHDM::uhdmfunc_call:
+        case UHDM::uhdmsys_func_call:
+        case UHDM::uhdmmethod_func_call: {
+            if (ix->UhdmType() == UHDM::uhdmmethod_func_call)
+                hpIdxClassNoBind143(
+                    (UHDM::any*)((UHDM::method_func_call*)ix)->Prefix());
+            if (auto* args = ((UHDM::tf_call*)ix)->Tf_call_args())
+                for (auto* a : *args) hpIdxClassNoBind143(a);
+            break;
+        }
+        case UHDM::uhdmhier_path:
+            if (auto* el = ((UHDM::hier_path*)ix)->Path_elems())
+                for (auto* e : *el) hpIdxClassNoBind143(e);
+            break;
+        default:
+            break;
+    }
+}
+
 // A dotted interface-member reference (s.req.adr): hier_path whose ref_obj
 // elements anchor at their own token; the LAST element carries the
 // module-scoped fullname (work@mod.<last>) — Surelog quirk.
@@ -7051,6 +7172,11 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                     bs->VpiIndex((UHDM::expr*)ix);
                 }
                 suppressConstParent = savedSCP;
+                // § hpIdxClassBodyNeverLateBinds143 — a path-element index
+                // compiled inside a CLASS BODY is handed a parentless
+                // hier_path and can only reach the class's never-drained
+                // late-binding pool, so nothing under it binds.
+                hpIdxClassNoBind143((UHDM::any*)bs->VpiIndex());
                 elems->push_back(bs);
             }
         }
@@ -7190,6 +7316,11 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                     setLoc((UHDM::any*)ix, sel.sel->sourceRange);
                 }
             }
+            // § hpIdxClassBodyNeverLateBinds143 — a path-element index
+            // compiled inside a CLASS BODY is handed a parentless
+            // hier_path and can only reach the class's never-drained
+            // late-binding pool, so nothing under it binds.
+            hpIdxClassNoBind143((UHDM::any*)bs->VpiIndex());
             elems->push_back(bs);
         }
         else {
@@ -19171,6 +19302,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             }
                             forceConstParent = fsx11;
                             suppressConstParent = ssx11;
+                            // § hpIdxClassBodyNeverLateBinds143 — a path-element index
+                            // compiled inside a CLASS BODY is handed a parentless
+                            // hier_path and can only reach the class's never-drained
+                            // late-binding pool, so nothing under it binds.
+                            hpIdxClassNoBind143((UHDM::any*)bs11->VpiIndex());
                             elems11->push_back(bs11);
                         }
                         auto mNm11 = nameSpan(recvE11.sourceRange.end() + 1,
@@ -23812,6 +23948,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         (void)bs2->VpiFullName();
                         if (auto* ix = emitExpr(es.selector(), bs2, prefix, netMap))
                             bs2->VpiIndex((UHDM::expr*)ix);
+                        // § hpIdxClassBodyNeverLateBinds143 — a path-element index
+                        // compiled inside a CLASS BODY is handed a parentless
+                        // hier_path and can only reach the class's never-drained
+                        // late-binding pool, so nothing under it binds.
+                        hpIdxClassNoBind143((UHDM::any*)bs2->VpiIndex());
                         elems->push_back(bs2);
                     }
                 }
@@ -24092,6 +24233,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                             ((UHDM::ref_obj*)ix2)->VpiName()));
                             bs2->VpiIndex((UHDM::expr*)ix2);
                         }
+                        // § hpIdxClassBodyNeverLateBinds143 — a path-element index
+                        // compiled inside a CLASS BODY is handed a parentless
+                        // hier_path and can only reach the class's never-drained
+                        // late-binding pool, so nothing under it binds.
+                        hpIdxClassNoBind143((UHDM::any*)bs2->VpiIndex());
                         elems->push_back(bs2);
                         hp->Path_elems(elems);
                         // § hpIdxBaseHierPathEmpty94 — decompileHelper has NO hier_path row.
