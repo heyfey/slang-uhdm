@@ -1,0 +1,81 @@
+r10uvm149 -- THE CENSUS.  MEASUREMENT ONLY; the sole acceptance judge is
+the official ~/git-repos/UHDM/build/bin/uhdm-cmp.
+
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+ct149cen emits ONE ROW per typespec_member, keyed
+  <owner-kind>|<owner-name>|<member-name>|<line>:<col>
+with the DEF/ELAB VIEW deliberately OUT of the key (the two producers
+label it differently) and the FILE out of the key as well (our
+typespec_members carry an EMPTY VpiFile; a file in the key would make
+every cell one-sided and manufacture AWAY phantoms).  The payload is
+COMPARE-VISIBLE ONLY: every field typespec_member::Compare,
+array_typespec::Compare, range::Compare and constant::Compare (+
+expr::Compare's VpiDecompile/VpiSize) actually read, one level down into
+the ELEMENT typespec -- typespec::Compare recurses Elem_typespec, so an
+element carrying an Instance golden leaves null is a real cmp failure the
+top level alone cannot show.  cen149.py joins the two sides as MULTISETS
+(keys COLLIDE across views; a last-writer dict would drop rows and a
+NODEDUP census would manufacture phantoms).  away149.py scores the three
+files together.
+
+== 1. THE NINE UVM ROW-MODES (the brief's population), pristine vs patched
+
+ROW-MODE                 TO-GOLDEN / AWAY-GOLDEN / MOVED-WRONG / STILL-WRONG / SAME
+BuildUVMPkg.default      TO-GOLDEN=1  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=2  SAME=30
+BuildUVMPkg.testflags    TO-GOLDEN=1  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=2  SAME=30
+MiniAmiq.default         TO-GOLDEN=1  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=18  SAME=10
+MiniAmiq.testflags       TO-GOLDEN=1  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=18  SAME=10
+Scoreboard.default       TO-GOLDEN=1  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=1  SAME=27
+SeqDriver.default        TO-GOLDEN=1  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=18  SAME=10
+SeqDriver.testflags      TO-GOLDEN=1  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=18  SAME=10
+SimpleUVM.default        TO-GOLDEN=1  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=1  SAME=27
+SimpleUVM.testflags      TO-GOLDEN=1  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=1  SAME=27
+
+== 2. GOLDEN-vs-GOLDEN CALIBRATION (run FIRST; must be 0 residual)
+
+BuildUVMPkg.default      TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=33
+BuildUVMPkg.testflags    TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=33
+MiniAmiq.default         TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=29
+MiniAmiq.testflags       TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=29
+Scoreboard.default       TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=29
+SeqDriver.default        TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=29
+SeqDriver.testflags      TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=29
+SimpleUVM.default        TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=29
+SimpleUVM.testflags      TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=29
+
+== 3. THE ONE CELL THE LAW MOVES, in full (SimpleUVM/default)
+
+GOLDEN:
+M
+    GOLD.SimpleUVM.default
+    struct_typespec|uvm_cmdline_parsed_arg_t|args|1703:9
+    packed=0
+    array_typespec name= at=0 R=[sz0 c{0,sz64,ct9,idx=-}:c{$,sz1,ct10,idx=-}] index=<null> inst=- alias=- elem={string_typespec name= R=- inst=- alias=-}
+    dflt=-
+    file=uvm_pkg.sv
+OURS, PRISTINE:
+M
+    OURS.SimpleUVM.default
+    struct_typespec|uvm_cmdline_parsed_arg_t|args|1703:9
+    packed=0
+    string_typespec name= R=- inst=- alias=-
+    dflt=-
+    file=
+OURS, PATCHED:
+M
+    OURS.SimpleUVM.default
+    struct_typespec|uvm_cmdline_parsed_arg_t|args|1703:9
+    packed=0
+    array_typespec name= at=0 R=[sz0 c{0,sz64,ct9,idx=-}:c{$,sz1,ct10,idx=-}] index=<null> inst=- alias=- elem={string_typespec name= R=- inst=- alias=-}
+    dflt=-
+    file=
+
+== 4. THE RESIDUES the census still names (STILL-WRONG, unchanged by this pass)
+
+  * m_verbosity_setting.verbosity  golden enum_typespec(uvm_pkg::uvm_verbosity)
+    vs our bit_typespec -- all nine row-modes (a NAMED-enum member family).
+  * state_info_t.state             golden enum_typespec(recursion_state_e)
+    vs our bit_typespec -- BuildUVMPkg only.
+  * MiniAmiq/SeqDriver carry 17 ONLY-GOLDEN keys (450 cells): golden mints
+    per-instance typespec_member clones we do not.  Untouched here.

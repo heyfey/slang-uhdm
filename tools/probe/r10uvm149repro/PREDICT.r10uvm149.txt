@@ -1,0 +1,65 @@
+r10uvm149 -- PREDICTED BYTE MOVERS, taken from the PRISTINE + GOLDEN
+databases BEFORE the patched sweep ran.  MEASUREMENT ONLY; the judge is
+the official ~/git-repos/UHDM/build/bin/uhdm-cmp.
+
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+PREDICTOR: pred149 (committed here) over EVERY golden database each sweep
+workdir reached, counting golden's signature for the law --- a
+typespec_member whose Actual_typespec is a NAMELESS, INSTANCE-LESS
+array_typespec with ONE range carrying a vpiUnboundedConst bound.  A
+member written with a TYPEDEF of a queue binds the typedef's own NAMED,
+package-INSTANCED array_typespec and is therefore excluded, because the
+law does not fire there (arm dims, cell TypedefQ).
+
+surelog corpus: pred149.sh over /tmp scratch copy of the pristine workdir
+  rows scanned = 1573, SKIP-NOFILE = 50, rows WITH candidates = 36
+  every candidate in the whole corpus is the SAME source construct:
+     39     uvm_cmdline_parsed_arg_t|args (right=$)
+
+  PREDICTED MOVER ROWS (36 row-modes, by name):
+    default/AmiqEth-9cfa9f5c   cands=1
+    default/AmiqSimpleTestSuite-cb67712e   cands=1
+    default/BuildUVMPkg-bf853d43   cands=1
+    default/Driver-1fda2505   cands=1
+    default/Ibex-6c383ddb   cands=1
+    default/IbexGoogle-9c0b32fd   cands=1
+    default/MiniAmiq-544c7f61   cands=1
+    default/Monitor-dbd37157   cands=1
+    default/Opentitan-51e7cfbf   cands=1
+    default/Scoreboard-59431470   cands=1
+    default/SeqDriver-32af76aa   cands=1
+    default/SimpleClass1-27aa943b   cands=1
+    default/SimpleInterface-03c5d2e3   cands=1
+    default/SimpleUVM-1dc93a62   cands=1
+    default/UnitAmiqEth-b87d1e34   cands=1
+    default/UVMNestedSeq-2c1efd6d   cands=1
+    default/UVMSwitch-8ac7d2db   cands=1
+    testflags/AmiqEth-9cfa9f5c   cands=1
+    testflags/AmiqSimpleTestSuite-cb67712e   cands=1
+    testflags/BuildUVMPkg-bf853d43   cands=1
+    testflags/CoresSweRV-317350ca   cands=2
+    testflags/CoresSweRVMP-5fdd728a   cands=2
+    testflags/Driver-1fda2505   cands=1
+    testflags/Ibex-6c383ddb   cands=1
+    testflags/IbexGoogle-9c0b32fd   cands=1
+    testflags/MiniAmiq-544c7f61   cands=1
+    testflags/Monitor-dbd37157   cands=1
+    testflags/Opentitan-51e7cfbf   cands=2
+    testflags/Scoreboard-59431470   cands=1
+    testflags/SeqDriver-32af76aa   cands=1
+    testflags/SimpleClass1-27aa943b   cands=1
+    testflags/SimpleInterface-03c5d2e3   cands=1
+    testflags/SimpleUVM-1dc93a62   cands=1
+    testflags/UnitAmiqEth-b87d1e34   cands=1
+    testflags/UVMNestedSeq-2c1efd6d   cands=1
+    testflags/UVMSwitch-8ac7d2db   cands=1
+
+uhdm2rtlil corpus: 1462 rows scanned, SKIP-NOFILE = 4, rows WITH
+candidates = 0  ==>  PREDICTED MOVERS ON uhdm2rtlil = 0 / 1358.
+
+RESIDUAL UNCERTAINTY, stated up front: the predictor reads GOLDEN, so a
+row whose golden is missing (50 surelog / 4 uhdm2rtlil SKIP-NOFILE rows)
+cannot be predicted from it.  Any byte mover outside this list is
+adjudicated cell by cell with ct149cen + away149.py before the pass is
+claimed.

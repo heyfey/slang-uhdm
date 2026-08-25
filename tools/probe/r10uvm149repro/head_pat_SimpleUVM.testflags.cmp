@@ -1,0 +1,62 @@
+LHS:
+decompile:
+class_var: (uvm_pkg::cs), id:188587, line:1731:21, endln:1731:23
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::cs), id:188588
+  |vpiParent:
+  \_class_var: (uvm_pkg::cs), id:188587, line:1731:21, endln:1731:23
+  |vpiFullName:uvm_pkg::cs
+  |vpiActual:
+  \_class_typespec: (uvm_coreservice_t), id:188586, line:1731:3, endln:1731:20
+|vpiName:cs
+|vpiFullName:uvm_pkg::cs
+|vpiAutomatic:1
+|vpiVisibility:1
+
+decompile:
+class_var: (uvm_pkg::cs), id:188587, line:1731:21, endln:1731:23
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::cs), id:188588
+  |vpiParent:
+  \_class_var: (uvm_pkg::cs), id:188587, line:1731:21, endln:1731:23
+  |vpiFullName:uvm_pkg::cs
+  |vpiActual:
+  \_class_typespec: (uvm_coreservice_t), id:188586, line:1731:3, endln:1731:20
+|vpiName:cs
+|vpiFullName:uvm_pkg::cs
+|vpiAutomatic:1
+|vpiVisibility:1
+RHS:
+decompile:
+class_var: (uvm_pkg::uvm_component::m_set_cl_verb::cs), id:16163, line:3385:3, endln:3385:20
+|vpiParent:
+\_function: (uvm_pkg::uvm_component::m_set_cl_verb), id:16146, line:3375:1, endln:3457:12
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_component::m_set_cl_verb::cs), id:16164
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_component::m_set_cl_verb::cs), id:16163, line:3385:3, endln:3385:20
+  |vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb::cs
+  |vpiActual:
+  \_class_typespec: (uvm_coreservice_t), id:16162, line:3385:3, endln:3385:20
+|vpiName:cs
+|vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb::cs
+|vpiAutomatic:1
+
+decompile:
+class_var: (uvm_pkg::uvm_component::m_set_cl_verb::cs), id:16163, line:3385:3, endln:3385:20
+|vpiParent:
+\_function: (uvm_pkg::uvm_component::m_set_cl_verb), id:16146, line:3375:1, endln:3457:12
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_component::m_set_cl_verb::cs), id:16164
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_component::m_set_cl_verb::cs), id:16163, line:3385:3, endln:3385:20
+  |vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb::cs
+  |vpiActual:
+  \_class_typespec: (uvm_coreservice_t), id:16162, line:3385:3, endln:3385:20
+|vpiName:cs
+|vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb::cs
+|vpiAutomatic:1

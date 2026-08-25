@@ -1,0 +1,48 @@
+r10uvm149 -- THE BOUNDARY GATE.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+bound149.sh compiled EVERY .sv/.v in a COPY of the WHOLE committed probe
+tree (top level AND subdirectories), in BOTH views (default and
+--elabuhdm), with the pristine and the patched binary, and reported every
+arm whose rc or whose DATABASE BYTES moved.  Byte-identity is strictly
+stronger than a cmp-line count.  This pass's own g149 arms are the
+POSITIVE CONTROL: a gate reporting zero movers over them cannot see.
+
+LISTED=4250 PROCESSED=4250 PRODUCED_DBS=4105 MOVED_ARMS=7 RC_DIFFS=0
+
+MOVED ARMS (7):
+probe/r10uvm149repro/g149/dims/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm149repro/g149/elems/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm149repro/g149/homes/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm149repro/g149/shapes/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v128repro/arms/v128_f_hier.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v134repro/v134_3shapes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v134repro/v134_6mods.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+  * FOUR are this pass's OWN arms (g149/dims, g149/elems, g149/homes,
+    g149/shapes) -- the positive control fired.  g149/neg did NOT move.
+  * THREE are earlier-pass arms, and every one of them declares a struct
+    member WRITTEN with a queue dimension, i.e. exactly the law's
+    population:
+      r10v128repro/arms/v128_f_hier.sv:5   struct { string q[$]; string abstractions[$]; }
+      r10v134repro/v134_3shapes.sv:4       struct { int sfa[$]; int sfb[3]; }
+      r10v134repro/v134_6mods.sv:4,5       struct { int fq[$]; ... } / struct { ... int top[$]; }
+
+RE-MEASURED AGAINST SURELOG GOLDEN (arm149.sh + away149.py):
+ARM                  TO-GOLDEN / AWAY-GOLDEN / MOVED-WRONG / STILL-WRONG / SAME
+a_v128_f_hier        TO-GOLDEN=2  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=0
+b_v134_3shapes       TO-GOLDEN=1  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=1  SAME=0
+c_v134_6mods         TO-GOLDEN=2  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=2  SAME=0
+
+a/v128_f_hier.sv       slrc=0 prisrc=0 patrc=0 | members g=2 p=2 q=2 | ats g=2 p=0 q=2 | cmp pris=60(1) pat=94(1) | ours differ
+b/v134_3shapes.sv      slrc=4 prisrc=0 patrc=0 | members g=4 p=4 q=4 | ats g=4 p=2 q=4 | cmp pris=758(1) pat=758(1) | ours differ
+c/v134_6mods.sv        slrc=0 prisrc=0 patrc=0 | members g=8 p=8 q=8 | ats g=8 p=4 q=8 | cmp pris=181(1) pat=181(1) | ours differ
+
+  Every earlier-pass arm that moved moved TOWARD golden: 5 keys
+  TO-GOLDEN, 0 AWAY-GOLDEN, 0 MOVED-WRONG.  v128_f_hier's OWN arm head
+  CLEARED (its pristine head IS this law's array_typespec-vs-bare-typespec
+  slot) and the count rose 60 -> 94 on a DIFFERENT head object (an
+  r10v128 hier_path) -- the pattern RESUME.md section 7 permits.
+  The STILL-WRONG cells in b/c are pre-existing FIXED-dimension residues
+  (element int vs logic; a fixed wrapper's vpiInstance) that this law's
+  gate deliberately does not touch.

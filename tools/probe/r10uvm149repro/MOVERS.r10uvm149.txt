@@ -1,0 +1,119 @@
+r10uvm149 -- THE BYTE MOVERS, attributed.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+== uhdm2rtlil: byteverify.sh SELFCHECK=1, patched vs this pass's pristine
+   MOVERS: 0 / 1358.  PREDICTED: 0 (pred149 found ZERO candidates in the
+   1462 golden databases that corpus reaches).
+
+== surelog: byteverify.sh SELFCHECK=1, patched vs this pass's pristine
+   PATH_SETS_IDENTICAL (956 paths), MOVERS: 9 / 956, SELFCHECK 955/956
+   flagged (the instrument can see).
+
+   THE PREDICTION, made from the pristine+golden databases BEFORE the
+   patched sweep ran (PREDICT.r10uvm149.txt): 36 row-modes carry golden's
+   signature; intersected with the rows that actually produce one of OUR
+   databases that is EXACTLY these nine, and the measured mover set is
+   EXACTLY these nine -- no row over, no row under:
+     default/BuildUVMPkg-bf853d43     testflags/BuildUVMPkg-bf853d43
+     default/MiniAmiq-544c7f61        testflags/MiniAmiq-544c7f61
+     default/Scoreboard-59431470      testflags/SeqDriver-32af76aa
+     default/SeqDriver-32af76aa       testflags/SimpleUVM-1dc93a62
+     default/SimpleUVM-1dc93a62
+
+== ATTRIBUTION, ORDER-BLIND (uhdm-dump both databases, the workdir path
+   normalised away, both sides SORTED).  Scoreboard/default is a ~50/50
+   COIN, so it is attributed ONLY this way:
+
+  --- default/SimpleUVM-1dc93a62 : 27 differing lines
+      >           \_array_typespec: 
+      > \_array_typespec: 
+      >     \_constant: 
+      >     \_constant: , line:1703:14, endln:1703:15
+      >       \_range: , line:1703:14, endln:1703:15
+      >       \_range: , line:1703:14, endln:1703:15
+      >   \_range: , line:1703:14, endln:1703:15
+      >   \_ref_typespec: 
+      >       |STRING:$
+      <           \_string_typespec: , line:1703:2, endln:1703:8
+      >     \_string_typespec: , line:1703:2, endln:1703:8
+      >       |UINT:0
+      >     |vpiActual:
+      >       |vpiConstType:10
+      >       |vpiConstType:9
+      >       |vpiDecompile:$
+      >       |vpiDecompile:0
+      >   |vpiElemTypespec:
+      >     |vpiLeftRange:
+      >       |vpiParent:
+      >       |vpiParent:
+      >   |vpiRange:
+      >     |vpiRightRange:
+      >       |vpiSize:1
+      >       |vpiSize:64
+  --- default/Scoreboard-59431470 : 27 differing lines
+      >           \_array_typespec: 
+      > \_array_typespec: 
+      >     \_constant: 
+      >     \_constant: , line:1703:14, endln:1703:15
+      >       \_range: , line:1703:14, endln:1703:15
+      >       \_range: , line:1703:14, endln:1703:15
+      >   \_range: , line:1703:14, endln:1703:15
+      >   \_ref_typespec: 
+      >       |STRING:$
+      <           \_string_typespec: , line:1703:2, endln:1703:8
+      >     \_string_typespec: , line:1703:2, endln:1703:8
+      >       |UINT:0
+      >     |vpiActual:
+      >       |vpiConstType:10
+      >       |vpiConstType:9
+      >       |vpiDecompile:$
+      >       |vpiDecompile:0
+      >   |vpiElemTypespec:
+      >     |vpiLeftRange:
+      >       |vpiParent:
+      >       |vpiParent:
+      >   |vpiRange:
+      >     |vpiRightRange:
+      >       |vpiSize:1
+      >       |vpiSize:64
+  --- default/SeqDriver-32af76aa : 27 differing lines
+      >           \_array_typespec: 
+      > \_array_typespec: 
+      >     \_constant: 
+      >     \_constant: , line:1703:14, endln:1703:15
+      >       \_range: , line:1703:14, endln:1703:15
+      >       \_range: , line:1703:14, endln:1703:15
+      >   \_range: , line:1703:14, endln:1703:15
+      >   \_ref_typespec: 
+      >       |STRING:$
+      <           \_string_typespec: , line:1703:2, endln:1703:8
+      >     \_string_typespec: , line:1703:2, endln:1703:8
+      >       |UINT:0
+      >     |vpiActual:
+      >       |vpiConstType:10
+      >       |vpiConstType:9
+      >       |vpiDecompile:$
+      >       |vpiDecompile:0
+      >   |vpiElemTypespec:
+      >     |vpiLeftRange:
+      >       |vpiParent:
+      >       |vpiParent:
+      >   |vpiRange:
+      >     |vpiRightRange:
+      >       |vpiSize:1
+      >       |vpiSize:64
+
+  Every differing line is the law's own: ONE array_typespec, ONE range at
+  the [$] token, its two constants (UINT:0 size 64 constType 9 / STRING:$
+  size 1 constType 10), ONE elem ref_typespec, and the member's own
+  string_typespec RE-INDENTED because it now hangs under that elem ref.
+  Nothing else moved in any of the nine databases.
+
+== HEAD LOGS, pristine vs patched, byte level
+   Earlgrey_0_1 default + testflags : BYTE-IDENTICAL
+   Rggen default                    : BYTE-IDENTICAL (CMP_EQUAL, 0 lines)
+   SeqDriver / MiniAmiq / BuildUVMPkg, both modes : IDENTICAL MODULO the
+     serializer OBJECT IDS, which shift because four new objects are
+     minted per queue member; the head OBJECT and every field printed for
+     it are unchanged (verified with 'sed s/, id:[0-9]*//g').
+   SimpleUVM both modes + Scoreboard/default : the head CLEARED.

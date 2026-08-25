@@ -1,0 +1,48 @@
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|access_t|read_count|15214:18	packed=0	int_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|access_t|read_time|15212:10	packed=0	time_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|access_t|write_count|15215:18	packed=0	int_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|access_t|write_time|15213:10	packed=0	time_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|m_inst_typename_alias_t|alias_type_name|11966:12	packed=0	string_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|m_inst_typename_alias_t|full_inst_path|11967:12	packed=0	string_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|m_inst_typename_alias_t|orig|11965:31	packed=0	struct_typespec name=uvm_pkg::m_uvm_factory_type_pair_t R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|m_verbosity_setting|comp|38371:12	packed=0	string_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|m_verbosity_setting|id|38375:12	packed=0	string_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|m_verbosity_setting|offset|38373:12	packed=0	time_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|m_verbosity_setting|phase|38372:12	packed=0	string_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|m_verbosity_setting|verbosity|38374:19	packed=0	bit_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|rsrc_info_t|precedence|15757:19	packed=0	int_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|rsrc_info_t|scope|15756:13	packed=0	string_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|state_info_t|ret_val|21031:10	packed=0	bit_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|state_info_t|state|21030:24	packed=0	bit_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_cmdline_parsed_arg_t|args|38390:9	packed=0	string_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_cmdline_parsed_arg_t|arg|38389:9	packed=0	string_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_cmdline_parsed_arg_t|used|38391:15	packed=0	int_typespec name= R=- inst=- alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::m_uvm_factory_type_pair_t|m_type_name|11402:36	packed=0	string_typespec name= R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::m_uvm_factory_type_pair_t|m_type_name|11402:36	packed=0	string_typespec name= R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::m_uvm_factory_type_pair_t|m_type|11401:36	packed=0	class_typespec name=uvm_object_wrapper R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::m_uvm_factory_type_pair_t|m_type|11401:36	packed=0	class_typespec name=uvm_object_wrapper R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_hdl_path_slice|offset|60779:8	packed=0	int_typespec name= R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_hdl_path_slice|offset|60779:8	packed=0	int_typespec name= R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_hdl_path_slice|path|60778:11	packed=0	string_typespec name= R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_hdl_path_slice|path|60778:11	packed=0	string_typespec name= R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_hdl_path_slice|size|60780:8	packed=0	int_typespec name= R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_hdl_path_slice|size|60780:8	packed=0	int_typespec name= R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_bus_op|addr|61358:18	packed=0	bit_typespec name=uvm_reg_addr_t R=[sz0 c{63,sz64,ct7,idx=-}:c{0,sz64,ct9,idx=-}] inst=package alias=bit_typespec	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_bus_op|addr|61358:18	packed=0	bit_typespec name=uvm_reg_addr_t R=[sz0 op{11,c{64,sz64,ct9,idx=-},c{1,sz64,ct9,idx=-}}:c{0,sz64,ct9,idx=-}] inst=package alias=bit_typespec	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_bus_op|byte_en|61377:21	packed=0	bit_typespec name=uvm_reg_byte_en_t R=[sz0 c{7,sz64,ct7,idx=-}:c{0,sz64,ct9,idx=-}] inst=package alias=bit_typespec	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_bus_op|byte_en|61377:21	packed=0	bit_typespec name=uvm_reg_byte_en_t R=[sz0 op{11,op{24,op{12,op{11,c{64,sz64,ct9,idx=-},c{1,sz64,ct9,idx=-}},c{8,sz64,ct9,idx=-}},c{1,sz64,ct9,idx=-}},c{1,sz64,ct9,idx=-}}:c{0,sz64,ct9,idx=-}] inst=package alias=bit_typespec	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_bus_op|data|61362:18	packed=0	bit_typespec name=uvm_reg_data_t R=[sz0 c{63,sz64,ct7,idx=-}:c{0,sz64,ct9,idx=-}] inst=package alias=bit_typespec	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_bus_op|data|61362:18	packed=0	bit_typespec name=uvm_reg_data_t R=[sz0 op{11,c{64,sz64,ct9,idx=-},c{1,sz64,ct9,idx=-}}:c{0,sz64,ct9,idx=-}] inst=package alias=bit_typespec	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_bus_op|kind|61354:16	packed=0	enum_typespec name=uvm_pkg::uvm_access_e R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_bus_op|kind|61354:16	packed=0	enum_typespec name=uvm_pkg::uvm_access_e R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_bus_op|n_bits|61366:7	packed=0	int_typespec name= R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_bus_op|n_bits|61366:7	packed=0	int_typespec name= R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_bus_op|status|61381:16	packed=0	enum_typespec name=uvm_pkg::uvm_status_e R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_bus_op|status|61381:16	packed=0	enum_typespec name=uvm_pkg::uvm_status_e R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|max|61067:18	packed=1	bit_typespec name=uvm_reg_addr_t R=[sz0 c{63,sz64,ct7,idx=-}:c{0,sz64,ct9,idx=-}] inst=package alias=bit_typespec	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|max|61067:18	packed=1	bit_typespec name=uvm_reg_addr_t R=[sz0 op{11,c{64,sz64,ct9,idx=-},c{1,sz64,ct9,idx=-}}:c{0,sz64,ct9,idx=-}] inst=package alias=bit_typespec	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|min|61066:18	packed=1	bit_typespec name=uvm_reg_addr_t R=[sz0 c{63,sz64,ct7,idx=-}:c{0,sz64,ct9,idx=-}] inst=package alias=bit_typespec	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|min|61066:18	packed=1	bit_typespec name=uvm_reg_addr_t R=[sz0 op{11,c{64,sz64,ct9,idx=-},c{1,sz64,ct9,idx=-}}:c{0,sz64,ct9,idx=-}] inst=package alias=bit_typespec	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|stride|61068:16	packed=1	int_typespec name= R=- inst=package alias=-	dflt=-	file=
+M	p.default_BuildUVMPkg-bf853d43	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|stride|61068:16	packed=1	int_typespec name= R=- inst=package alias=-	dflt=-	file=
+TOTAL	p.default_BuildUVMPkg-bf853d43	members=47

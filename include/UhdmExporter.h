@@ -1185,6 +1185,14 @@ private:
     // written type is a STRUCT/UNION typedef WITH a listing typespec, i.e.
     // exactly the population `bypassTypedefShare` must NOT suppress.
     bool aggMemberIsSharedAggTd3(const slang::ast::Symbol& fm) const;
+    // § structMemberWrittenQueueArrayTs149 — an aggregate member WRITTEN with
+    // a QUEUE dimension (`string args[$];`, `int q[$:7];`) carries an
+    // `array_typespec` whose single marker range is `[0 : $]` (`[$ : N]` when
+    // the queue is bounded) and whose Elem ref points at the typespec the
+    // member's own data type produced.  Returns nullptr when the member's
+    // FIRST written dimension is not a queue dimension.
+    UHDM::array_typespec* memberWrittenQueueTs149(const slang::ast::Symbol& fm,
+                                                  UHDM::typespec* elemTs);
     // Primitives (gates/switches/udps) declared in `body` into `m`, which is
     // a module_inst (module body) or a gen_scope (generate block): Surelog
     // fills vpiPrimitive/vpiPrimitiveArray on BOTH (GenerateUnnamed).

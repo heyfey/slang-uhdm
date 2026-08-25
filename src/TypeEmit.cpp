@@ -9254,6 +9254,146 @@ bool UhdmExporter::aggMemberIsSharedAggTd3(const Symbol& fm) const {
            !it3->second->VpiName().empty();
 }
 
+// § structMemberWrittenQueueArrayTs149 — A STRUCT/UNION MEMBER WRITTEN WITH A
+// QUEUE DIMENSION CARRIES AN `array_typespec` WHOSE SINGLE MARKER RANGE IS THE
+// QUEUE'S OWN `[0 : $]`, AND WHOSE ELEMENT IS THE TYPESPEC THE MEMBER'S DATA
+// TYPE ALREADY PRODUCED.
+//
+// DECODED FROM SURELOG.  `CompileHelper::compileTypespec`'s `paStruct_union`
+// arm, CompileType.cpp:1723-1760, runs AFTER the member's own data type has
+// been compiled and stored on the member:
+//
+//   if (Expression && (fC->Type(Expression) == VObjectType::paVariable_dimension)) {
+//     NodeId Unpacked_dimension = fC->Child(Expression);
+//     if (fC->Type(Unpacked_dimension) == VObjectType::paUnpacked_dimension) {
+//       VectorOfrange* ranges = compileRanges(..., Unpacked_dimension, ...);
+//       array_typespec* pats = s.MakeArray_typespec();
+//       ref_typespec*   ref  = s.MakeRef_typespec();
+//       pats->Elem_typespec(ref);
+//       ref->Actual_typespec(m->Typespec()->Actual_typespec());  // the member ts
+//       m->Typespec()->Actual_typespec(pats);                    // re-pointed
+//       pats->Ranges(ranges);
+//     }
+//   }
+//
+// THE GATE IS SYNTACTIC AND IT IS THE FIRST WRITTEN DIMENSION ONLY — three
+// facts, each MEASURED on the committed grid (tools/probe/r10uvm149repro):
+//
+//  * `paUnpacked_dimension` is `[ constant_range ]` / `[ constant_expression ]`
+//    / `unsized_dimension` (grammar/SV3_1aParser.g4:1195).  `[$]` reaches it
+//    through `constant_expression` (`$` compiles to a `vpiUnboundedConst`,
+//    which is why `compileRanges`' "Specified by size" branch skips its
+//    decrement, CompileExpression.cpp:4204), and `[$:N]` through
+//    `constant_range`.  A DYNAMIC `[]` takes `variable_decl_assignment`'s own
+//    leading-`unsized_dimension` alternative (:1167-1175) and Surelog then
+//    hands it to `compileExpression`, which REJECTS it (`UH0700 Unsupported
+//    expression`) and leaves the member the BARE typespec plus an
+//    `unsupported_expr` Default_value; an ASSOCIATIVE `[int]`/`[string]`/`[*]`
+//    is a `paAssociative_dimension` and never enters the arm at all.  Arm
+//    `dims` measures all three NEGATIVES against golden.
+//  * only `fC->Child(Expression)` — the FIRST dimension — is compiled: golden
+//    gives `string x[$][5]` the SAME `[0 : $]` array_typespec over a plain
+//    `string_typespec`, and `string y[5][$]` a `[0 : 5-1]` one (arm `dims`,
+//    cells QueueThenFixed / FixedThenQueue).
+//  * a member written with a TYPEDEF of a queue (`preQueued_t m;`) has NO
+//    written dimension, and golden binds the TYPEDEF's own named
+//    array_typespec (Instance = the package, Typedef_alias set) instead — a
+//    different object and a different law, so the gate must read the
+//    DECLARATOR's syntax and never the member's canonical type (arm `dims`,
+//    cell TypedefQ; still a residue, R1).
+//
+// THE SHAPE, byte for byte from golden (arms `dims`/`elems`/`homes`/`shapes`
+// and the nine UVM row-modes):
+//   array_typespec  — no name, no vpiArrayType, NO vpiInstance, no
+//                     Typedef_alias, no Index_typespec, NO location
+//                     (`populateCoreMembers` is never called on it);
+//   one range       — spanning the `$` TOKEN for `[$]` and the WHOLE dimension
+//                     for `[$:N]`;
+//   Left_expr       — for `[$]` a LOCATION-LESS folded `UINT:0` (vpiUIntConst,
+//                     size 64); for `[$:N]` the `$` marker at its own token;
+//   Right_expr      — for `[$]` the `$` marker (vpiUnboundedConst, size 1,
+//                     `STRING:$`, decompile `$`) at the `$` token; for `[$:N]`
+//                     the folded bound (vpiUIntConst, size 64) at its token;
+//   Elem_typespec   — a BARE ref_typespec (no parent, no vpiFullName) at the
+//                     member's own typespec, which KEEPS its own parent (the
+//                     typespec_member) and its own vpiInstance.
+// Every one of those fields is read by `array_typespec::Compare` /
+// `range::Compare` / `constant::Compare` (+ `expr::Compare`'s VpiDecompile and
+// VpiSize); `vpiParent` and the spans are read by NEITHER, and the member's
+// own span is deliberately left alone (it is a separate residue, R2).
+UHDM::array_typespec* UhdmExporter::memberWrittenQueueTs149(
+    const Symbol& fm, UHDM::typespec* elemTs) {
+    if (!elemTs)
+        return nullptr;
+    auto syn149 = fm.getSyntax();
+    if (!syn149 || syn149->kind != syntax::SyntaxKind::Declarator)
+        return nullptr;
+    auto& decl149 = syn149->as<syntax::DeclaratorSyntax>();
+    if (decl149.dimensions.empty())
+        return nullptr;
+    auto* dim149 = decl149.dimensions[0];
+    if (!dim149->specifier ||
+        dim149->specifier->kind != syntax::SyntaxKind::QueueDimensionSpecifier)
+        return nullptr;
+    // Belt and braces: the written dimension and the elaborated type must
+    // agree that this member IS a queue (a `[$]` on anything else would be a
+    // slang error, and an arm that only ever agrees is not an arm that tests).
+    if (!fm.getDeclaredType() ||
+        fm.getDeclaredType()->getType().getCanonicalType().kind !=
+            SymbolKind::QueueType)
+        return nullptr;
+    auto& qd149 = dim149->specifier->as<syntax::QueueDimensionSpecifierSyntax>();
+    auto* ats149 = s.MakeArray_typespec();
+    auto* r149 = s.MakeRange();
+    auto* lc149 = s.MakeConstant();
+    auto* rc149 = s.MakeConstant();
+    lc149->VpiParent(r149);
+    rc149->VpiParent(r149);
+    auto mkDollar149 = [&](UHDM::constant* c) {
+        c->VpiConstType(vpiUnboundedConst);
+        c->VpiSize(1);
+        c->VpiValue("STRING:$");
+        c->VpiDecompile("$");
+    };
+    auto mkUint149 = [&](UHDM::constant* c, uint64_t v) {
+        std::string d = std::to_string(v);
+        c->VpiConstType(vpiUIntConst);
+        c->VpiSize(64);
+        c->VpiValue("UINT:" + d);
+        c->VpiDecompile(d);
+    };
+    if (!qd149.maxSizeClause) {
+        // `[$]` — `[0 : $]`, the range and the marker at the `$` token, the
+        // folded 0 LOCATION-LESS.
+        mkUint149(lc149, 0);
+        mkDollar149(rc149);
+        setLoc(r149, qd149.dollar.range());
+        setLoc(rc149, qd149.dollar.range());
+    }
+    else {
+        // `[$:N]` — `[$ : N]`, the range spanning the WHOLE dimension, each
+        // bound at its own token.
+        mkDollar149(lc149);
+        setLoc(lc149, qd149.dollar.range());
+        uint64_t max149 = 0;
+        auto& qt149 =
+            fm.getDeclaredType()->getType().getCanonicalType().as<QueueType>();
+        max149 = qt149.maxBound;
+        mkUint149(rc149, max149);
+        setLoc(r149, dim149->sourceRange());
+        setLoc(rc149, qd149.maxSizeClause->expr->sourceRange());
+    }
+    r149->Left_expr(lc149);
+    r149->Right_expr(rc149);
+    auto* rv149 = s.MakeRangeVec();
+    rv149->push_back(r149);
+    ats149->Ranges(rv149);
+    auto* ert149 = s.MakeRef_typespec();
+    ert149->Actual_typespec(elemTs);
+    ats149->Elem_typespec(ert149);
+    return ats149;
+}
+
 UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, bool packed,
                                                    const std::string& aliasName,
                                                    const std::string& memberSep) {
@@ -9996,6 +10136,13 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         // them at the member's REF instead (Surelog clone form).
         if (fts->VpiName().empty() && !ats9MainFree)
             fts->VpiParent(tm);
+        // § structMemberWrittenQueueArrayTs149 — a member WRITTEN with a queue
+        // dimension hands the member's ref an array_typespec whose element is
+        // the typespec just built; that element keeps its own parent and
+        // instance, so every clause around this one still reads `fts`.
+        UHDM::typespec* memTs149 = fts;
+        if (auto* q149 = memberWrittenQueueTs149(fm, fts))
+            memTs149 = q149;
         auto* rt = s.MakeRef_typespec();
         // ANONYMOUS structs (empty alias) name member refs bare, no
         // leading separator (struct_3d_packed_array).
@@ -10003,7 +10150,7 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                             ? std::string(fm.name)
                             : aliasName + memberSep + std::string(fm.name));
         rt->VpiParent(tm);
-        rt->Actual_typespec(fts);
+        rt->Actual_typespec(memTs149);
         tm->Typespec(rt);
         if (((structCloneMemberRefParent || ats9CloneRefParent) &&
              fts->VpiName().empty()) ||
@@ -10728,6 +10875,13 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
         }
         if (fts->VpiName().empty() && !ats9MainFree)
             fts->VpiParent(tm);
+        // § structMemberWrittenQueueArrayTs149, the UNION half (an untagged
+        // union may not carry a queue member, so this arm fires only for a
+        // TAGGED one; it is here because the two member loops are copies and
+        // § no-premature-extraction keeps them so until 0 NE).
+        UHDM::typespec* memTs149 = fts;
+        if (auto* q149 = memberWrittenQueueTs149(fm, fts))
+            memTs149 = q149;
         auto* rt = s.MakeRef_typespec();
         // ANONYMOUS structs (empty alias) name member refs bare, no
         // leading separator (struct_3d_packed_array).
@@ -10735,7 +10889,7 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                             ? std::string(fm.name)
                             : aliasName + memberSep + std::string(fm.name));
         rt->VpiParent(tm);
-        rt->Actual_typespec(fts);
+        rt->Actual_typespec(memTs149);
         tm->Typespec(rt);
         if (ats9CloneRefParent && fts->VpiName().empty())
             fts->VpiParent(rt);

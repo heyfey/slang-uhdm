@@ -4936,8 +4936,40 @@ UHDM::design* UhdmExporter::exportDesign() {
                     if (!er0 || !er0->Actual_typespec())
                         continue;
                     auto* ea0 = er0->Actual_typespec();
-                    if (ea0->VpiName().empty() && ea0->Instance())
+                    if (ea0->VpiName().empty() && ea0->Instance()) {
                         at0->Instance(nullptr);
+                        continue;
+                    }
+                    // § structMemberWrittenQueueArrayTs149 — the QUEUE marker
+                    // wrapper carries no vpiInstance EITHER, whatever its
+                    // element is.  Surelog instances the typespec it compiled
+                    // for the member's data type and then synthesizes the
+                    // marker wrapper around it (CompileType.cpp:1745-1760);
+                    // ours stamps the member's OUTERMOST typespec, so the
+                    // stamp lands on the wrapper and the element loses it.
+                    // Hand it down (only to an element that has none) and
+                    // clear the wrapper.  GATE: a NAMELESS array_typespec
+                    // whose SINGLE range carries the `$` marker — the queue
+                    // signature and nothing else, so the fixed-dimension
+                    // wrapper family above is untouched.  Measured on arm
+                    // `elems` cells clsQ / enumQ / nestQ / tdefQ, where
+                    // golden's wrapper is instance-less and its element
+                    // carries the package.
+                    auto* aq0 = (UHDM::array_typespec*)at0;
+                    if (!aq0->VpiName().empty() || !aq0->Ranges() ||
+                        aq0->Ranges()->size() != 1)
+                        continue;
+                    auto* rq0 = (*aq0->Ranges())[0];
+                    auto unb0 = [](const UHDM::any* e) {
+                        return e && e->UhdmType() == UHDM::uhdmconstant &&
+                               ((const UHDM::constant*)e)->VpiConstType() ==
+                                   vpiUnboundedConst;
+                    };
+                    if (!unb0(rq0->Left_expr()) && !unb0(rq0->Right_expr()))
+                        continue;
+                    if (!ea0->Instance())
+                        ea0->Instance(at0->Instance());
+                    at0->Instance(nullptr);
                 }
             };
             for (auto* pv0 : {allP, topP})

@@ -1,0 +1,4 @@
+NODB	/tmp/v149_wd/u2rp/default/rp32_r5p_degu_soc_top-4a27cef5
+NODB	/tmp/v149_wd/u2rp/default/rp32_soc_vfriendly-6a26280a
+NODB	/tmp/v149_wd/u2rp/testflags/rp32_r5p_degu_soc_top-4a27cef5
+NODB	/tmp/v149_wd/u2rp/testflags/rp32_soc_vfriendly-6a26280a

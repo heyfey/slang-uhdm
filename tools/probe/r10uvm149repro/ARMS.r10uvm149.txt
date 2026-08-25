@@ -1,0 +1,5 @@
+dims/dut.sv            slrc=4 prisrc=0 patrc=0 | members g=30 p=30 q=30 | ats g=18 p=10 q=16 | cmp pris=637(1) pat=637(1) | ours differ
+elems/dut.sv           slrc=0 prisrc=0 patrc=0 | members g=22 p=22 q=22 | ats g=16 p=0 q=16 | cmp pris=565(1) pat=565(1) | ours differ
+homes/dut.sv           slrc=0 prisrc=0 patrc=0 | members g=14 p=14 q=14 | ats g=7 p=0 q=7 | cmp pris=127(1) pat=127(1) | ours differ
+neg/dut.sv             slrc=0 prisrc=0 patrc=0 | members g=14 p=14 q=14 | ats g=0 p=0 q=0 | cmp pris=0(0) pat=0(0) | ours BYTE-IDENTICAL
+shapes/dut.sv          slrc=0 prisrc=0 patrc=0 | members g=18 p=18 q=18 | ats g=4 p=0 q=4 | cmp pris=64(1) pat=0(0) | ours differ

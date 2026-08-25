@@ -1,0 +1,76 @@
+r10uvm149 -- THE GRID.  MEASUREMENT ONLY; the judge is the official
+~/git-repos/UHDM/build/bin/uhdm-cmp.  LHS is ALWAYS golden (Surelog).
+
+Five arms, ALL NAMED dut.sv IN FIVE DIFFERENT SUBDIRECTORIES on purpose
+(scratch is keyed on the RELATIVE path); the file list is read on fd 3,
+every child gets </dev/null, PROCESSED is asserted against LISTED, every
+rc is recorded, and the binaries are printed so the run can be audited by
+PATH.  Arm 'neg' is the NEGATIVE control and arm 'dims' carries the three
+negatives the law must NOT fire on.
+
+== arm149.sh, patched run
+dims/dut.sv            slrc=4 prisrc=0 patrc=0 | members g=30 p=30 q=30 | ats g=18 p=10 q=16 | cmp pris=637(1) pat=637(1) | ours differ
+elems/dut.sv           slrc=0 prisrc=0 patrc=0 | members g=22 p=22 q=22 | ats g=16 p=0 q=16 | cmp pris=565(1) pat=565(1) | ours differ
+homes/dut.sv           slrc=0 prisrc=0 patrc=0 | members g=14 p=14 q=14 | ats g=7 p=0 q=7 | cmp pris=127(1) pat=127(1) | ours differ
+neg/dut.sv             slrc=0 prisrc=0 patrc=0 | members g=14 p=14 q=14 | ats g=0 p=0 q=0 | cmp pris=0(0) pat=0(0) | ours BYTE-IDENTICAL
+shapes/dut.sv          slrc=0 prisrc=0 patrc=0 | members g=18 p=18 q=18 | ats g=4 p=0 q=4 | cmp pris=64(1) pat=0(0) | ours differ
+
+== per-arm cell scores (away149.py: golden, pristine, patched)
+ARM            TO-GOLDEN / AWAY-GOLDEN / MOVED-WRONG / STILL-WRONG / SAME
+dims_dut       TO-GOLDEN=3  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=6  SAME=6
+elems_dut      TO-GOLDEN=8  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=3
+homes_dut      TO-GOLDEN=5  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=5
+neg_dut        TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=7
+shapes_dut     TO-GOLDEN=2  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=7
+
+== GOLDEN-vs-GOLDEN CALIBRATION (run FIRST)
+dims_dut       TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=15
+elems_dut      TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=11
+homes_dut      TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=10
+neg_dut        TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=7
+shapes_dut     TO-GOLDEN=0  AWAY-GOLDEN=0  MOVED-WRONG=0  STILL-WRONG=0  SAME=9
+
+TOTALS over the five arms: TO-GOLDEN 18  AWAY-GOLDEN 0  MOVED-WRONG 0
+                           STILL-WRONG 6 (all in arm 'dims', all named
+                           residues) SAME 28.
+
+== ARM 'dims' -- WHAT GOLDEN DOES PER WRITTEN DIMENSION (package struct
+   typedef, string element).  'ats' = golden gives the member an
+   array_typespec.
+
+  member          written        golden                                    ours PRISTINE      ours PATCHED
+  plainScalar     (none)         string/int typespec                       same               same
+  Queued          [$]            ats [0 : $] elem=string                    bare string        MATCHES GOLDEN
+  BoundedQ        [$:7]          ats [$ : 7] elem=string                    bare string        MATCHES GOLDEN
+  QueueThenFixed  [$][5]         ats [0 : $] elem=string (2nd dim DROPPED)  bare string        MATCHES GOLDEN
+  Dyn             []             NO ats; Surelog ERRORS (UH0700) and       bare string        UNCHANGED (R3)
+                                 leaves an unsupported_expr Default_value
+  AssocInt        [int]          NO ats                                    NO ats             UNCHANGED (correct)
+  AssocStr        [string]       NO ats                                    NO ats             UNCHANGED (correct)
+  AssocWild       [*]            NO ats                                    NO ats             UNCHANGED (correct)
+  NineFixed       [9]            ats [0 : 9-1] elem=string                  ats with NO ranges UNCHANGED (R4)
+                                                                           and NO elem
+  RangeFixed      [3:1]          ats [3 : 1] elem=string                    ats, ranges/elem   UNCHANGED (R4)
+                                                                           missing
+  TwoDim          [2][4]         ats [0 : 2-1] elem=string (2nd DROPPED)    ditto              UNCHANGED (R4)
+  FixedThenQueue  [5][$]         ats [0 : 5-1] elem=string                  ditto              UNCHANGED (R4)
+  PackedPlusUnp   logic[3:0] [2] ats [0 : 2-1] elem=logic[3:0]              MATCHES            unchanged
+  PackedOnly      logic[3:0]     logic_typespec [3:0]                       MATCHES            unchanged
+  TypedefQ        preQueued_t    the TYPEDEF's OWN NAMED array_typespec     bare string        UNCHANGED (R1)
+                                 (Instance=pkg, Typedef_alias set)
+
+== ARM 'elems' -- ELEMENT KINDS under [$] (all EIGHT get golden's ats)
+   string / int / bit[5:0] / enum(paint_e) / nested struct / logic typedef
+   (wide_t) / class handle / real -- 8 keys TO-GOLDEN, 0 AWAY.
+
+== ARM 'homes' -- FIVE HOMES, all five TO-GOLDEN:
+   $unit typedef, package typedef, CLASS-SCOPE typedef (the UVM head's own
+   home), module typedef, ANONYMOUS struct variable.
+
+== ARM 'shapes' -- packed struct / packed union control, a NESTED struct
+   that itself carries a queue, and 1..3 instances of a leaf carrying it:
+   2 keys TO-GOLDEN and the arm CONVERTS -- uhdm-cmp 64 lines -> 0
+   (CMP_EQUAL) on the patched binary.
+
+== ARM 'neg' -- aggregates with NO unpacked dimension anywhere: uhdm-cmp 0
+   lines on BOTH binaries and the two OUR databases are BYTE-IDENTICAL.
