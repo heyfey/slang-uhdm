@@ -1,0 +1,43 @@
+r10uvm146 — MOVERS, PREDICTED BY NAME FIRST and then ATTRIBUTED LINE BY LINE.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+PREDICTED (PREDICT.r10uvm146.txt, written before the patched sweep ran):
+  surelog     3 — default/SimpleUVM, testflags/SimpleUVM, default/Scoreboard
+  uhdm2rtlil  0 / 1358
+MEASURED: exactly those three, and no fourth.
+
+ATTRIBUTION — uhdm-dump both databases, sed the workdir path away, sort for
+ORDER-BLIND (RESUME 9: Scoreboard/default is a ~50/50 COIN, so it may only be
+attributed order-blind):
+
+  row-mode                     raw diff lines   ORDER-BLIND diff lines
+  default/SimpleUVM                    1172                     1172
+  testflags/SimpleUVM                  1172                     1172
+  default/Scoreboard                   1264                     1172
+
+  Scoreboard/default's extra 92 RAW lines are the known svunit_pkg
+  vpiTaskFunc listing-order COIN (RESUME 9 names it at ~92 dump lines);
+  order-blind it is the SAME 1172 as SimpleUVM, to the line.
+
+  THE 1172 LINES, BY LEADING KEY (default/SimpleUVM; the other two identical):
+    REMOVED  53 lines, and ONLY these:
+        43  \_constant     the folded package value 43 references left
+        10  \_operation    the unfolded package initialiser 10 left
+             = the 53 reference bindings the law moves.
+    ADDED  1119 lines, and ONLY the design listing plus the new binding
+    targets:
+       143  \_parameter    45 vpiParameter entries + 45 param_assign Lhs
+                          + 53 vpiActual targets
+        90  \_design       45 + 45 vpiParent lines
+        90  |vpiImported   45 + 45
+        90  |vpiName       45 + 45
+        90  \_param_assign 45 vpiParamAssign entries + 45 vpiParent lines
+        45  |vpiParameter  the design listing
+        45  |vpiParamAssign
+        45  |vpiLhs / 45 |vpiRhs / 45 \_constant   the param_assign halves
+        82  |vpiTypespec + 82 \_ref_typespec
+                          = 41 x 2 (four of the 45 — UVM_ALL_ON, UVM_DEFAULT,
+                            UVM_FLAGS_ON, UVM_RADIX — carry no typespec on
+                            EITHER side)
+       135  |vpiParent, 68 |UINT, 12 |STRING, 6 |BIN, 4 |HEX, 2 |vpiSigned
+  NOTHING ELSE MOVED in any of the three databases.

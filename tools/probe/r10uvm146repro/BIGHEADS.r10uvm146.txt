@@ -1,0 +1,133 @@
+r10uvm146 — the four LARGE head logs (SeqDriver and MiniAmiq, both modes), whose
+head object at BASE 59e2cdc is a whole 'begin' block and whose decompile runs
+to ~6,250 lines each.  They are stored here as md5 + excerpt instead of in
+full; reproduce them with
+    tools/probe/r10uvm146repro/rowheads.sh <workdir> <outdir> SeqDriver MiniAmiq
+
+BYTE-IDENTICAL pristine vs patched is the claim, and the md5 PAIRS are the proof:
+
+  SeqDriver.default      lines=6254  pristine=bec7f95e126db8cc0d7341c060379dce  patched=bec7f95e126db8cc0d7341c060379dce  IDENTICAL
+  SeqDriver.testflags    lines=6254  pristine=4aeb021be3f23195492c191231ac3222  patched=4aeb021be3f23195492c191231ac3222  IDENTICAL
+  MiniAmiq.default       lines=6222  pristine=0acc55a26252eb3657fcd893acccd118  patched=0acc55a26252eb3657fcd893acccd118  IDENTICAL
+  MiniAmiq.testflags     lines=6222  pristine=0acc55a26252eb3657fcd893acccd118  patched=0acc55a26252eb3657fcd893acccd118  IDENTICAL
+
+----- SeqDriver.default  (first 20 lines of LHS, then the RHS opener) -----
+LHS:
+decompile:
+begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:21289, line:3387:3, endln:3387:23
+|vpiParent:
+\_function: (uvm_pkg::uvm_component::m_set_cl_verb), id:766, line:3375:1, endln:3457:12
+|vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb
+|vpiStmt:
+\_assignment: , id:21290, line:3386:3, endln:3386:32
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:21289, line:3387:3, endln:3387:23
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiRhs:
+  \_ref_obj: (uvm_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get), id:21292, line:3386:8, endln:3386:27
+    |vpiParent:
+    \_assignment: , id:21290, line:3386:3, endln:3386:32
+    |vpiName:uvm_coreservice_t::get
+    |vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get
+  |vpiLhs:
+  \_ref_obj: (uvm_pkg::uvm_component::m_set_cl_verb::cs), id:21291, line:3386:3, endln:3386:5
+  ...
+RHS:
+decompile:
+begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:18789, line:3387:3, endln:3387:23
+|vpiParent:
+\_function: (uvm_pkg::uvm_component::m_set_cl_verb), id:18770, line:3375:1, endln:3457:12
+|vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb
+|vpiStmt:
+
+----- SeqDriver.testflags  (first 20 lines of LHS, then the RHS opener) -----
+LHS:
+decompile:
+begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:21289, line:3387:3, endln:3387:23
+|vpiParent:
+\_function: (uvm_pkg::uvm_component::m_set_cl_verb), id:766, line:3375:1, endln:3457:12
+|vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb
+|vpiStmt:
+\_assignment: , id:21290, line:3386:3, endln:3386:32
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:21289, line:3387:3, endln:3387:23
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiRhs:
+  \_ref_obj: (uvm_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get), id:21292, line:3386:8, endln:3386:27
+    |vpiParent:
+    \_assignment: , id:21290, line:3386:3, endln:3386:32
+    |vpiName:uvm_coreservice_t::get
+    |vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get
+  |vpiLhs:
+  \_ref_obj: (uvm_pkg::uvm_component::m_set_cl_verb::cs), id:21291, line:3386:3, endln:3386:5
+  ...
+RHS:
+decompile:
+begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:18801, line:3387:3, endln:3387:23
+|vpiParent:
+\_function: (uvm_pkg::uvm_component::m_set_cl_verb), id:18782, line:3375:1, endln:3457:12
+|vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb
+|vpiStmt:
+
+----- MiniAmiq.default  (first 20 lines of LHS, then the RHS opener) -----
+LHS:
+decompile:
+begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:21296, line:3387:3, endln:3387:23
+|vpiParent:
+\_function: (uvm_pkg::uvm_component::m_set_cl_verb), id:773, line:3375:1, endln:3457:12
+|vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb
+|vpiStmt:
+\_assignment: , id:21297, line:3386:3, endln:3386:32
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:21296, line:3387:3, endln:3387:23
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiRhs:
+  \_ref_obj: (uvm_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get), id:21299, line:3386:8, endln:3386:27
+    |vpiParent:
+    \_assignment: , id:21297, line:3386:3, endln:3386:32
+    |vpiName:uvm_coreservice_t::get
+    |vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get
+  |vpiLhs:
+  \_ref_obj: (uvm_pkg::uvm_component::m_set_cl_verb::cs), id:21298, line:3386:3, endln:3386:5
+  ...
+RHS:
+decompile:
+begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:18833, line:3387:3, endln:3387:23
+|vpiParent:
+\_function: (uvm_pkg::uvm_component::m_set_cl_verb), id:18814, line:3375:1, endln:3457:12
+|vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb
+|vpiStmt:
+
+----- MiniAmiq.testflags  (first 20 lines of LHS, then the RHS opener) -----
+LHS:
+decompile:
+begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:21296, line:3387:3, endln:3387:23
+|vpiParent:
+\_function: (uvm_pkg::uvm_component::m_set_cl_verb), id:773, line:3375:1, endln:3457:12
+|vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb
+|vpiStmt:
+\_assignment: , id:21297, line:3386:3, endln:3386:32
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:21296, line:3387:3, endln:3387:23
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiRhs:
+  \_ref_obj: (uvm_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get), id:21299, line:3386:8, endln:3386:27
+    |vpiParent:
+    \_assignment: , id:21297, line:3386:3, endln:3386:32
+    |vpiName:uvm_coreservice_t::get
+    |vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get
+  |vpiLhs:
+  \_ref_obj: (uvm_pkg::uvm_component::m_set_cl_verb::cs), id:21298, line:3386:3, endln:3386:5
+  ...
+RHS:
+decompile:
+begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:18833, line:3387:3, endln:3387:23
+|vpiParent:
+\_function: (uvm_pkg::uvm_component::m_set_cl_verb), id:18814, line:3375:1, endln:3457:12
+|vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb
+|vpiStmt:
+

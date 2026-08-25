@@ -1,0 +1,23 @@
+[g146_a_forms] GOLDCAL golden-vs-golden residual = 0  (must be 0)
+[g146_a_forms] LISTING golden=16 pristine=0 patched=16 patched==golden(IN ORDER): YES
+[g146_a_forms] BINDING TO-GOLDEN 0 / AWAY-GOLDEN 0 / STILL-WRONG 0 / MOVED-WRONG 0 / ONLY-GOLDEN-CELL 0 / ONLY-OURS-CELL 5
+[g146_b_kinds] GOLDCAL golden-vs-golden residual = 0  (must be 0)
+[g146_b_kinds] LISTING golden=17 pristine=4 patched=17 patched==golden(IN ORDER): YES
+    STILL ('K_str', '22:15', 'hier_path>operation>cont_assign>module_inst>design'): gold={'<null>': 2} pris={'<null>': 1} pat={'<null>': 1}
+[g146_b_kinds] BINDING TO-GOLDEN 2 / AWAY-GOLDEN 0 / STILL-WRONG 1 / MOVED-WRONG 0 / ONLY-GOLDEN-CELL 0 / ONLY-OURS-CELL 4
+[g146_c_owners] GOLDCAL golden-vs-golden residual = 0  (must be 0)
+[g146_c_owners] LISTING golden=0 pristine=0 patched=0 patched==golden(IN ORDER): YES
+[g146_c_owners] BINDING TO-GOLDEN 0 / AWAY-GOLDEN 0 / STILL-WRONG 0 / MOVED-WRONG 0 / ONLY-GOLDEN-CELL 0 / ONLY-OURS-CELL 0
+[g146_d_multi] GOLDCAL golden-vs-golden residual = 0  (must be 0)
+[g146_d_multi] LISTING golden=10 pristine=0 patched=10 patched==golden(IN ORDER): YES
+[g146_d_multi] BINDING TO-GOLDEN 0 / AWAY-GOLDEN 0 / STILL-WRONG 0 / MOVED-WRONG 0 / ONLY-GOLDEN-CELL 0 / ONLY-OURS-CELL 3
+[g146_e_ordering] GOLDCAL golden-vs-golden residual = 0  (must be 0)
+[g146_e_ordering] LISTING golden=13 pristine=0 patched=13 patched==golden(IN ORDER): YES
+[g146_e_ordering] BINDING TO-GOLDEN 0 / AWAY-GOLDEN 0 / STILL-WRONG 0 / MOVED-WRONG 0 / ONLY-GOLDEN-CELL 0 / ONLY-OURS-CELL 3
+[g146_f_binds] GOLDCAL golden-vs-golden residual = 0  (must be 0)
+[g146_f_binds] LISTING golden=6 pristine=0 patched=6 patched==golden(IN ORDER): YES
+    STILL ('B_S', '31:38', 'hier_path>operation>cont_assign>module_inst>design'): gold={'<null>': 2} pris={'<null>': 1} pat={'<null>': 1}
+[g146_f_binds] BINDING TO-GOLDEN 3 / AWAY-GOLDEN 0 / STILL-WRONG 1 / MOVED-WRONG 0 / ONLY-GOLDEN-CELL 0 / ONLY-OURS-CELL 1
+[g146_g_dup] GOLDCAL golden-vs-golden residual = 0  (must be 0)
+[g146_g_dup] LISTING golden=6 pristine=0 patched=6 patched==golden(IN ORDER): YES
+[g146_g_dup] BINDING TO-GOLDEN 0 / AWAY-GOLDEN 0 / STILL-WRONG 0 / MOVED-WRONG 0 / ONLY-GOLDEN-CELL 0 / ONLY-OURS-CELL 1

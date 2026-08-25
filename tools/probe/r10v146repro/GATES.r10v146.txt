@@ -1,0 +1,73 @@
+r10v146 — GATES on the SHIPPED (verifier-fixed) binary.  Every number came from
+THIS verification's own frozen binaries and its OWN workdirs.  results/*.csv
+were READ ONLY; nothing was promoted; NO CORPUS ROW CONVERTED.  slang was NOT
+patched.  GOLDEN_DEFER unset.
+
+BINARIES (frozen chmod 555 before any sweep; SLANG_UHDM exported EXPLICITLY per
+binary; every cmds.txt audited by binary PATH)
+  pristine    85151c56af1f033f2c355b21f2386447  (fresh worktree at 59e2cdc)
+                = the implementer's pristine md5, reproduced
+  as-shipped  901516adb7f7120ebba60f804a788b7d
+                = the implementer's patched md5, reproduced
+  SHIPPED     0e831fbc4314873e0eed95ad4aec399e  (as-shipped + the two verifier
+                hunks; a further comment-only header edit relinked to the same
+                md5)
+
+(1) BUILD          three builds, -j 2, rc=0, 0 errors, md5s above.
+(2) GOLDENS        shipped   PASS=23 FAIL=0
+                   as-shipped PASS=23 FAIL=0
+                   pristine  PASS=23 FAIL=0
+                   SLANG_UHDM=/bin/false  PASS=0 FAIL=23   (negative control)
+(3) uhdm2rtlil     testflags CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+                   default   CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+                   ct8rows vs results/gate_uhdm2rtlil.csv           PASS
+                   ct8rows vs this verification's own pristine (tf) PASS
+                   ct8rows vs this verification's own pristine (def)PASS
+                   byteverify SELFCHECK=1  MOVERS 0 / 1358, PATH_SETS_IDENTICAL
+                   cmds.txt audit: 1458 name /tmp/v146_bin/pat3.bin, 0 name the
+                   MAIN-TREE binary.
+(4) surelog        --mode both, 956 databases, 1588 rows.
+                   default   CMP_EQUAL 471 CMP_NOTEQUAL 10 DEFERRED 5
+                             SLANG_REJECT 283 SURELOG_FAIL 25
+                   testflags CMP_EQUAL 466 CMP_NOTEQUAL 9 DEFERRED 5
+                             NO_DATABASE 3 NO_UHDM 1 SLANG_REJECT 284
+                             SURELOG_FAIL 23 TIMEOUT 1 UNTRANSLATABLE 2
+                   (status histogram IDENTICAL to this verification's own
+                    pristine sweep — no rc=139 hiding as SLANG_REJECT.)
+                   ct8rows vs results/golden_surelog.csv   PASS (0 differing rows)
+                   ct8rows vs own pristine                 PASS (0 differing rows)
+                   NO ROW CONVERTED — Earlgrey_0_1/testflags stays CMP_NOTEQUAL.
+                   cmds.txt audit: 1523 name /tmp/v146_bin/pat3.bin, 0 the main tree.
+(5) byteverify     SELFCHECK=1, surelog: MOVERS 3 / 956, PATH_SETS_IDENTICAL,
+                   SELFCHECK 955/956 flagged.  The three were PREDICTED BY NAME
+                   by the implementer before its patched sweep ran, and no
+                   fourth appeared here either:
+                     default/Scoreboard-59431470   b8b43dc1f869 <- f19f23d970e8
+                     default/SimpleUVM-1dc93a62    09fe7675018f <- 715aab96f691
+                     testflags/SimpleUVM-1dc93a62  72125716c437 <- 3e9ffcf33218
+                   (Scoreboard/default's PRISTINE hash is the known ~50/50 COIN
+                    and differs from the implementer's run; its PATCHED hash and
+                    all three patched hashes are identical across the
+                    as-shipped, deduped and shipped binaries — the two verifier
+                    hunks are BYTE-INERT on the corpus.)
+HEADS              SimpleUVM default/testflags and Scoreboard/default 62 -> 60;
+                   SeqDriver x2 6254, MiniAmiq x2 6222, BuildUVMPkg x2 174,
+                   Earlgrey_0_1 x2 64, Rggen 0 — head logs BYTE-IDENTICAL
+                   pristine vs shipped, and identical to the as-shipped binary's.
+                   All six small head logs and all four BIGHEADS md5s committed
+                   in r10uvm146repro reproduce byte for byte.
+CANARIES           canaries.sh surelog     ok=52 changed=0 absent=0
+                   canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+                   ctcan2 EXPECT_UNKNOWN=1 (surelog)     PASS
+                   ctcan2 EXPECT_UNKNOWN=6 (uhdm2rtlil)  PASS
+                   canaudit.sh canaries.sh ctcan2.sh:
+                       audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+                   protected databases, shipped vs pristine md5:
+                       InterfaceModPort   both modes SAME (59a365f3ce2c)
+                       BlackParrotComplex both modes SAME
+                       YosysOldOr         both modes SAME (d68e0796d62c)
+                       SVSwitch           both modes 4842211c4030  (pinned)
+                       YosysVerx          both modes 6ccda350c24a  (pinned)
+BOUNDARY           see BOUNDARY.r10v146.txt.
+FENCE              the four slang-fenced tests are never dispatched and are
+                   spelled nowhere in this directory.

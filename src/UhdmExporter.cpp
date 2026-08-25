@@ -4233,6 +4233,143 @@ bool UhdmExporter::srcOrderLess(SourceLocation a, SourceLocation b) const {
     return a.offset() < b.offset();
 }
 
+
+// ===========================================================================
+// § unitImportHoistsPkgParams146 — A `$unit`-SCOPE PACKAGE IMPORT MATERIALIZES
+// THE IMPORTED PACKAGE'S PARAMETERS **ON THE DESIGN**, AND EVERY LATE-BOUND
+// REFERENCE THAT CAN SEE THE DESIGN READS THAT COPY INSTEAD OF THE PACKAGE'S
+// OWN FOLDED VALUE.
+//
+// SURELOG, cited:
+//   * `CompileHelper::importPackage` (CompileHelper.cpp:199-241) walks the
+//     imported package's `getParameterMap()` — a `std::map` KEYED BY NAME, so
+//     the listing comes out in ASCII NAME ORDER, not declaration order —
+//     clones each `parameter`, stamps `the_p->VpiImported(pack_name)` (:221 for
+//     a `type_parameter`, :229 for a plain `parameter`) and pushes the clone
+//     onto `scope->getParameters()`.
+//   * The SECOND block (:242-277, "Regular parameter") clones the package's
+//     `param_assign`s in the package's OWN listing order onto
+//     `scope->getParam_assigns()` and stamps that clone's `Lhs` the same way
+//     (:274).  Those are two DISJOINT object sets: the `vpiParameter` entries
+//     are never the `vpiParamAssign` Lhs entries (measured below).
+//   * `UhdmWriter` then hoists the FileContent's two vectors onto the design
+//     and REPARENTS every entry (`tf->VpiParent(d)`, UhdmWriter.cpp:4886-4910).
+//   * `UhdmWriter::lateBinding` walks `ref->VpiParent()` UPWARD and, on
+//     reaching the design, binds by name out of `design->Parameters()`
+//     (:3361-3370) — and that walk runs BEFORE the package rule that binds a
+//     reference to its `param_assign`'s **Rhs** (:3814-3822).  So inside a
+//     `$unit`-imported package every such reference names the DESIGN's stamped
+//     copy, and the package's folded constant is only reached when the walk
+//     never gets to the design.
+//
+// MEASURED (goldens; `tools/probe/r10uvm146repro/ct146cen`, `ct146fld`):
+//   * SimpleUVM/default+testflags and Scoreboard/default each list **45**
+//     `vpiParameter` + **45** `vpiParamAssign` on `design (work@top)`, all
+//     `vpiImported=uvm_pkg`; ours listed **0/0**.
+//   * The design copy agrees with BOTH package views on EVERY field
+//     `parameter::Compare` reads (VpiDecompile/VpiSize/VpiConstType/VpiSigned/
+//     Expr/Ranges/Left_range/Right_range/VpiLocalParam/VpiName/Typespec) and
+//     differs ONLY in `vpiImported` — the LAST field that Compare reads.  A
+//     copy that SHARES every child pointer therefore cannot move any earlier
+//     field.  The `vpiParamAssign` half is the ELABORATED package view's:
+//     `UVM_MACRO_EXTRAS`'s Rhs is an `operation` in the def listing and a
+//     folded `constant` in both the elab listing and the design listing.
+//   * 53 references per row-mode bind that copy in golden; ours bound the
+//     package's folded `constant` (43) or `operation` (10).
+//   * The 31 golden databases in the two corpora that carry such a listing at
+//     all are these three row-modes plus 28 SLANG_REJECT/NO_DATABASE rows.
+// ===========================================================================
+static UHDM::parameter* designImportParamCopy146(UHDM::Serializer& s,
+                                                 UHDM::any* src,
+                                                 UHDM::BaseClass* parent,
+                                                 const std::string& pkgName) {
+    if (!src || src->UhdmType() != UHDM::uhdmparameter || pkgName.empty())
+        return nullptr;
+    auto* sp = (UHDM::parameter*)src;
+    auto* cp = s.MakeParameter();
+    const std::string nm(sp->VpiName());
+    cp->VpiName(nm);
+    cp->VpiValue(std::string(sp->VpiValue()));
+    cp->VpiDecompile(std::string(sp->VpiDecompile()));
+    cp->VpiSize(sp->VpiSize());
+    cp->VpiConstType(sp->VpiConstType());
+    cp->VpiSigned(sp->VpiSigned());
+    cp->VpiLocalParam(sp->VpiLocalParam());
+    cp->Typespec(sp->Typespec());
+    cp->Expr(sp->Expr());
+    cp->Ranges(sp->Ranges());
+    cp->Left_range(sp->Left_range());
+    cp->Right_range(sp->Right_range());
+    cp->VpiUses(sp->VpiUses());
+    cp->VpiFile(std::string(sp->VpiFile()));
+    cp->VpiLineNo(sp->VpiLineNo());
+    cp->VpiColumnNo(sp->VpiColumnNo());
+    cp->VpiEndLineNo(sp->VpiEndLineNo());
+    cp->VpiEndColumnNo(sp->VpiEndColumnNo());
+    // Golden's design entry dumps its BARE name (`vpiFullName:UVM_STDOUT`),
+    // never the package-qualified one.  VpiFullName is dump-only (never
+    // compared) — matched so the whole-dump diff reads clean.
+    cp->VpiFullName(nm);
+    cp->VpiParent(parent);
+    cp->VpiImported(pkgName);
+    return cp;
+}
+
+// The TYPE-PARAMETER half.  `type_parameter::Compare` reads VpiType/VpiName/
+// VpiDefName, VpiLocalParam, Typespec, Expr and — last — VpiImported, so the
+// same share-every-child copy is enough.  Golden lists it in the SAME sorted
+// `vpiParameter` vector as the value parameters and gives it NO `vpiParamAssign`
+// (grid arm B: `parameter type K_type = logic [3:0]` in a `$unit`-imported
+// package lands between `K_str` and `K_typed` and the design's param_assign
+// listing stays at eight).
+static UHDM::type_parameter* designImportTypeParamCopy146(
+    UHDM::Serializer& s, UHDM::any* src, UHDM::BaseClass* parent,
+    const std::string& pkgName) {
+    if (!src || src->UhdmType() != UHDM::uhdmtype_parameter || pkgName.empty())
+        return nullptr;
+    auto* sp = (UHDM::type_parameter*)src;
+    auto* cp = s.MakeType_parameter();
+    const std::string nm(sp->VpiName());
+    cp->VpiName(nm);
+    cp->VpiLocalParam(sp->VpiLocalParam());
+    cp->Typespec(sp->Typespec());
+    cp->Expr(sp->Expr());
+    cp->VpiFile(std::string(sp->VpiFile()));
+    cp->VpiLineNo(sp->VpiLineNo());
+    cp->VpiColumnNo(sp->VpiColumnNo());
+    cp->VpiEndLineNo(sp->VpiEndLineNo());
+    cp->VpiEndColumnNo(sp->VpiEndColumnNo());
+    cp->VpiFullName(nm);
+    cp->VpiParent(parent);
+    cp->VpiImported(pkgName);
+    return cp;
+}
+
+static UHDM::param_assign* designImportPaCopy146(UHDM::Serializer& s,
+                                                 UHDM::param_assign* src,
+                                                 UHDM::design* dsn,
+                                                 const std::string& pkgName) {
+    if (!src || !src->Lhs() || src->Lhs()->UhdmType() != UHDM::uhdmparameter)
+        return nullptr;
+    auto* cp = s.MakeParam_assign();
+    cp->VpiConnByName(src->VpiConnByName());
+    cp->VpiOverriden(src->VpiOverriden());
+    // The Rhs (and any attributes) stay the package's objects: Surelog's
+    // `clone_tree` deep-copies them, but every field `param_assign::Compare`
+    // reaches through them is already equal to golden's — the package listing
+    // this pass copies from is byte-equal to golden's own.
+    cp->Rhs(src->Rhs());
+    cp->Attributes(src->Attributes());
+    cp->VpiFile(std::string(src->VpiFile()));
+    cp->VpiLineNo(src->VpiLineNo());
+    cp->VpiColumnNo(src->VpiColumnNo());
+    cp->VpiEndLineNo(src->VpiEndLineNo());
+    cp->VpiEndColumnNo(src->VpiEndColumnNo());
+    cp->VpiParent(dsn);
+    cp->Lhs(designImportParamCopy146(s, (UHDM::any*)src->Lhs(), cp, pkgName));
+    return cp;
+}
+
 UHDM::design* UhdmExporter::exportDesign() {
     // § compoundLitWriteBackSat2 — decide the constant-evaluated function
     // bodies' literal values BEFORE anything is emitted, so the def view and
@@ -5225,6 +5362,130 @@ UHDM::design* UhdmExporter::exportDesign() {
                     pendingUnitParamTs.push_back({up, prt, rhsRt, &ps});
                 uparams->push_back(up);
                 upassigns->push_back(pa);
+            }
+        }
+        // § unitImportHoistsPkgParams146 (see the header above this
+        // function): the `$unit` import's own materialization, appended AFTER
+        // the compilation unit's own parameters — Surelog compiles the file's
+        // parameter DECLARATIONS in the decl-only FileContent pass
+        // (`FunctorCompileFileContentDecl`, CompileFileContent.cpp:39) and the
+        // `paPackage_import_item`s only in the second, non-decl pass (:81-88),
+        // so the imported clones are always the later push.
+        // The import list is read off the compilation unit's SYNTAX, not off
+        // its elaborated members: slang COLLAPSES two identical
+        // `import p::*;` statements in one scope into a single
+        // `WildcardImportSymbol`, and Surelog does not — `importPackage` runs
+        // once per `paPackage_import_item`, so a package imported twice is
+        // listed twice (grid arm D, and the three-fold micro-arm: golden 3
+        // entries, the symbol-driven enumeration gave 1).
+        for (auto& tree146 : comp.getSyntaxTrees()) {
+            auto& root146 = tree146->root();
+            if (root146.kind != syntax::SyntaxKind::CompilationUnit)
+                continue;
+            for (auto* m146 :
+                 root146.as<syntax::CompilationUnitSyntax>().members) {
+                if (!m146 ||
+                    m146->kind != syntax::SyntaxKind::PackageImportDeclaration)
+                    continue;
+                for (auto* i146 :
+                     m146->as<syntax::PackageImportDeclarationSyntax>().items) {
+                    if (!i146)
+                        continue;
+                    const PackageSymbol* ipk =
+                        comp.getPackage(i146->package.valueText());
+                    if (!ipk)
+                        continue;
+                    // `importPackage`'s `object_name` filter (CompileHelper.cpp
+                    // :204/:245): an EXPLICIT import materializes ONLY the
+                    // named item; a wildcard's item token is `*`.
+                    std::string only146(i146->item.valueText());
+                    if (only146 == "*")
+                        only146.clear();
+                    auto tit146 = pkgTopMap.find(ipk);
+                    if (tit146 == pkgTopMap.end() || !tit146->second)
+                        continue;
+                    auto* tpk146 = tit146->second;
+                    const std::string pkgName146(ipk->name);
+                    // (a) `vpiParameter` — ASCII NAME ORDER
+                    // (`getParameterMap()` is a std::map), value parameters and
+                    // TYPE parameters in the SAME sorted vector.
+                    std::vector<UHDM::any*> srcs146;
+                    if (tpk146->Parameters())
+                        for (auto* p146 : *tpk146->Parameters())
+                            if (p146 &&
+                                (p146->UhdmType() == UHDM::uhdmparameter ||
+                                 p146->UhdmType() == UHDM::uhdmtype_parameter) &&
+                                (only146.empty() || p146->VpiName() == only146))
+                                srcs146.push_back(p146);
+                    // § unitImportHoistsPkgParams146v — THE MAP DEDUPES, THE
+                    // VECTOR DOES NOT.  `importPackage` reads
+                    // `def->getParameterMap()`, and that map is filled by
+                    // `DesignComponent::insertParameter`
+                    // (DesignComponent.cpp:209) with
+                    // `m_parameterMap.emplace(p->getName(), p)` — an EMPLACE,
+                    // so a name inserted twice keeps the FIRST entry, while
+                    // `m_orderedParameters` (our `Parameters()` vector's
+                    // counterpart) keeps BOTH.  A package that IMPORTS and then
+                    // RE-EXPORTS another package borrows the same parameter
+                    // twice: golden's package listing carries it twice and
+                    // golden's DESIGN listing carries it ONCE.  Measured on the
+                    // verifier arm `v08_export.sv` — `package pv8b` does
+                    // `import pv8a::*; export pv8a::*;`, golden lists
+                    // `vpiParameter` AA,BB (2) and `vpiParamAssign` AA,AA,BB
+                    // (3); without this dedupe we listed AA,AA,BB (3) against
+                    // golden's 2.  The param_assign half is NOT deduped —
+                    // golden's is the ordered `getParamAssignVec()` and it
+                    // really does carry the name twice.
+                    {
+                        std::set<std::string> seen146;
+                        std::vector<UHDM::any*> uniq146;
+                        uniq146.reserve(srcs146.size());
+                        for (auto* p146 : srcs146)
+                            if (seen146.insert(std::string(p146->VpiName()))
+                                    .second)
+                                uniq146.push_back(p146);
+                        srcs146.swap(uniq146);
+                    }
+                    std::sort(srcs146.begin(), srcs146.end(),
+                              [](const UHDM::any* a, const UHDM::any* b) {
+                                  return a->VpiName() < b->VpiName();
+                              });
+                    for (auto* p146 : srcs146) {
+                        UHDM::any* cp146 =
+                            p146->UhdmType() == UHDM::uhdmtype_parameter
+                                ? (UHDM::any*)designImportTypeParamCopy146(
+                                      s, p146, d, pkgName146)
+                                : (UHDM::any*)designImportParamCopy146(
+                                      s, p146, d, pkgName146);
+                        if (!cp146)
+                            continue;
+                        uparams->push_back(cp146);
+                        // lateBinding scans `design->Parameters()` in order and
+                        // takes the FIRST name match, so a name listed twice
+                        // (the same package imported twice) binds through its
+                        // first entry.  Only a VALUE parameter is a binding
+                        // target for a `ref_obj`.
+                        if (cp146->UhdmType() == UHDM::uhdmparameter)
+                            designImportParam146.emplace(
+                                std::string(p146->VpiName()),
+                                (UHDM::parameter*)cp146);
+                    }
+                    // (b) `vpiParamAssign` — the ELABORATED package listing, in
+                    // ITS OWN order (the package's declaration order), each Lhs
+                    // a second stamped copy.  A type parameter has no
+                    // param_assign on either side.
+                    if (tpk146->Param_assigns())
+                        for (auto* pa146 : *tpk146->Param_assigns()) {
+                            if (!pa146 || !pa146->Lhs())
+                                continue;
+                            if (!only146.empty() &&
+                                pa146->Lhs()->VpiName() != only146)
+                                continue;
+                            if (auto* cpa146 = designImportPaCopy146(
+                                    s, pa146, d, pkgName146))
+                                upassigns->push_back(cpa146);
+                        }
+                }
             }
         }
         if (!uparams->empty()) {
@@ -7209,6 +7470,92 @@ UHDM::design* UhdmExporter::exportDesign() {
     // typespec final: the many per-view paths that re-size a copied constant
     // have all run by now.
     drainUnsizedBasedRhs106();
+    // § unitImportHoistsPkgParams146, THE BINDING ARM — DEAD LAST, and it can
+    // only ever REPLACE a folded package-parameter value on a reference whose
+    // name the design listing carries.  It never fills a null Actual_group (so
+    // it cannot race § thisImplicitNetBoth38 or § pkgCloneHierBind9) and never
+    // touches a listing, a typespec or a span.
+    //
+    // Surelog's `UhdmWriter::lateBinding` walks `ref->VpiParent()` UPWARD and
+    // binds out of `design->Parameters()` the moment the walk reaches the
+    // design (UhdmWriter.cpp:3359-3370) — BEFORE the package rule that hands a
+    // reference its `param_assign`'s Rhs (:3814-3822).  Two things therefore
+    // gate the rewrite, and BOTH are measured, not argued:
+    //
+    //  (1) THE CHAIN MUST REACH THE DESIGN.  Four golden UVM_LARGE_STRING
+    //      references sit under a `range > logic_typespec` whose chain ends
+    //      before any scope; golden leaves all four on the package's folded
+    //      value, and so do we.
+    //  (2) THE CHAIN MUST NOT PASS THROUGH A `ref_typespec`.  That is the
+    //      difference between the two typespec-range shapes golden splits:
+    //      `range > logic_typespec > package > design` (the PACKAGE typedef
+    //      `uvm_bitstream_t`'s `[UVM_STREAMBITS-1:0]`) binds the design copy,
+    //      while `range > logic_typespec > ref_typespec > logic_var > ...`
+    //      (uvm_string_to_bits's own `logic [UVM_LARGE_STRING-1:0]` local)
+    //      does not — a DECLARATION's own typespec was resolved when the
+    //      declaration compiled and never went on the component's late-binding
+    //      pool at all.
+    //
+    // CENSUS (r10uvm146repro/ct146cen, three row-modes, identical in each):
+    // 59 references carry one of the 45 listed names; golden binds 53 of them
+    // to the design copy and 6 to the package's folded constant/operation;
+    // ours bound 55 to the folded value and 4 (chain-does-not-reach) the same
+    // way golden does.  The gate splits exactly 53 / 6.
+    // § unitImportHoistsPkgParams146v — THE FIRST LISTED ENTRY WINS, AND IT CAN
+    // BE THE COMPILATION UNIT'S OWN PARAMETER.  `lateBinding` does not look up
+    // a name in the import's materialized set: it scans `design->Parameters()`
+    // IN ORDER and takes the FIRST entry whose `VpiName` matches
+    // (UhdmWriter.cpp:3361-3369, `break` out of the for on the first hit).  The
+    // unit's OWN parameters are listed BEFORE the imported copies, so when a
+    // `$unit` parameter and an imported one share a name, golden binds the OWN
+    // one.  Measured on the verifier arm `v33_own_vs_imported.sv`: golden lists
+    // `CLASH`(own, 33), `CLASH`(imported pv33, 133), `OTHER`(imported, 134) and
+    // binds `pv33::fp`'s `CLASH` to the value **33**; binding straight out of
+    // the import map gave 133.  This map is rebuilt from the final listing with
+    // `emplace` (first wins) and is restricted to names the import
+    // materialized, so the gate — "a `$unit` import of a package that has
+    // parameters" — is unchanged.
+    std::map<std::string, UHDM::parameter*> bind146;
+    if (!designImportParam146.empty() && d->Parameters())
+        for (auto* q146 : *d->Parameters()) {
+            if (!q146 || q146->UhdmType() != UHDM::uhdmparameter)
+                continue;
+            std::string qn146(q146->VpiName());
+            if (designImportParam146.count(qn146))
+                bind146.emplace(qn146, (UHDM::parameter*)q146);
+        }
+    if (!bind146.empty())
+        for (auto& kv146 : s.AllObjects()) {
+            auto* o146 = (UHDM::BaseClass*)kv146.first;
+            if (!o146 || o146->UhdmType() != UHDM::uhdmref_obj)
+                continue;
+            auto* r146 = (UHDM::ref_obj*)o146;
+            const UHDM::any* act146 = r146->Actual_group();
+            if (!act146)
+                continue;
+            const auto at146 = act146->UhdmType();
+            if (at146 != UHDM::uhdmconstant && at146 != UHDM::uhdmoperation)
+                continue;
+            if (r146->VpiName().empty())
+                continue;
+            auto it146 = bind146.find(std::string(r146->VpiName()));
+            if (it146 == bind146.end())
+                continue;
+            bool reaches146 = false;
+            const UHDM::BaseClass* up146 = o146->VpiParent();
+            for (int g146 = 0; up146 && g146 < 400;
+                 g146++, up146 = up146->VpiParent()) {
+                if (up146->UhdmType() == UHDM::uhdmref_typespec)
+                    break;
+                if (up146->UhdmType() == UHDM::uhdmdesign) {
+                    reaches146 = true;
+                    break;
+                }
+            }
+            if (!reaches146)
+                continue;
+            r146->Actual_group(it146->second);
+        }
     return d;
 }
 

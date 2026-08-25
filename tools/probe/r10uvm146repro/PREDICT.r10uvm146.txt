@@ -1,0 +1,51 @@
+r10uvm146 — MOVER PREDICTION, made from PRISTINE + GOLDEN databases BEFORE the
+patched sweep ran.  MEASUREMENT ONLY; uhdm-cmp and verify_golden.py are the
+judges.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+THE PREDICATE
+  § unitImportHoistsPkgParams146 fires on a database iff a COMPILATION-UNIT
+  ($unit) scope `import p::*;` / `import p::item;` resolves to a package that
+  has at least one parameter.  Nothing else in the emitter is touched: the
+  listing is appended to `design->Parameters()` / `design->Param_assigns()`,
+  and the binding arm only ever REPLACES a `constant`/`operation` actual on a
+  `ref_obj` whose name that listing carries.
+
+THE GOLDEN-SIDE ENUMERATION (ct146sum over every golden database reachable from
+this pass's own pristine workdir: 2,974 distinct golden.uhdm files behind 2,981
+(corpus x mode x test) rows)
+  design->Parameters() non-empty AND at least one entry `vpiImported`: 31 files.
+  Of the rows they back, the ONLY ones that produce a comparable database are:
+
+      SimpleUVM  / default     45 params / 45 param_assigns / 45 imported
+      SimpleUVM  / testflags   45 / 45 / 45
+      Scoreboard / default     45 / 45 / 45
+
+  every other one is SLANG_REJECT or NO_DATABASE (Scoreboard/testflags,
+  SimpleClass1, SimpleInterface, UVMSwitch, OVMSwitch, SimpleOVM, Opentitan,
+  Earlgrey, Monitor, NyuziProcessor, Driver, AmiqEth, AmiqSimpleTestSuite,
+  AzadiRTL, Ariane2024 — 28 rows, no database to move).
+
+THE OVER-FIRE CHECK (the risk this prediction must survive)
+  A CMP_EQUAL row whose golden listing is EMPTY but where our rule fires would
+  be a regression.  Every test in either corpus with a column-0 `import x::*;`
+  line was enumerated (55 test directories, 579 files) and the CMP_EQUAL ones
+  were read: in ApbSlave, AssignmentPatternInAssignmentPattern, BitsLogic,
+  BlackBePipeInt, ClassExtends, DefaultPatternInt, FileList, HierPathStruct,
+  ImportBinding, InsideOp, IntegerConcat, LargeValue2Struct, LowMemPkg,
+  PackageNet, PackImport the import is written at column 0 but LEXICALLY INSIDE
+  a `package`/`module` body, so it is not a $unit import at all (grid arm C is
+  the purpose-built negative control for exactly that shape and its two
+  databases are BYTE-IDENTICAL pristine vs patched).
+
+PREDICTION
+  surelog corpus:      3 movers, BY NAME —
+                         default/SimpleUVM, testflags/SimpleUVM,
+                         default/Scoreboard
+                       (Scoreboard/default is also the known ~50/50 COIN, so its
+                        movement must be attributed ORDER-BLIND.)
+  uhdm2rtlil corpus:   0 movers / 1358.
+  corpus rows changed: 0 on both corpora, both modes (status AND dump).
+  heads:               SimpleUVM default+testflags and Scoreboard/default
+                       CLEAR (62 -> a new head object of a different family);
+                       SeqDriver, MiniAmiq, BuildUVMPkg, Earlgrey_0_1 head logs
+                       BYTE-IDENTICAL; Rggen stays CMP_EQUAL.

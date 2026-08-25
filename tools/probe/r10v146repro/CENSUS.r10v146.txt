@@ -1,0 +1,17 @@
+r10v146 — CENSUS (identity-aware) on the three target row-modes and on the arms.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+ct146vcen records, per ref_obj, the ACTUAL's KIND **and NAME and VALUE and
+OWNER** — the implementer's ct146cen records the KIND alone, which cannot see
+a binding to the WRONG parameter object (that is exactly defect (b)).
+
+SimpleUVM/default, names = the 45 the golden design listing carries:
+  LISTING golden=90 pristine=0 patched=90
+  LISTING patched == golden IN ORDER (compared fields the judge reads): True
+  BINDING keys=85  TO-GOLDEN=34  AWAY-GOLDEN=0  STILL-WRONG=0  MOVED-WRONG=1  ONLY-GOLDEN=0  ONLY-OURS=0
+    ('MOVED-WRONG', ('UVM_STREAMBITS', '49:23'), {('parameter', 'UVM_STREAMBITS', 'UINT:4096/', 'design:work@top'): 1, ('<null>', '-', '-', '-'): 12}, {('parameter', 'UVM_STREAMBITS', 'UINT:4096/', 'design:work@top'): 1, ('<null>', '-', '-', '-'): 11})
+
+  the single MOVED-WRONG key is the PRE-EXISTING multiplicity residue
+  (R-MULT): golden carries 12 dangling UVM_STREAMBITS references under an
+  unparented range>logic_typespec chain, we carry 11 — pristine 11 and
+  patched 11.  The BOUND cell at that key moved TO golden.

@@ -1,0 +1,12 @@
+[SimpleUVM_default] GOLDCAL golden-vs-golden residual = 0  (must be 0)
+[SimpleUVM_default] LISTING golden=90 pristine=0 patched=90 patched==golden(IN ORDER): YES
+    STILL ('UVM_STREAMBITS', '49:23', 'operation>range>logic_typespec'): gold={'<null>': 12} pris={'<null>': 11} pat={'<null>': 11}
+[SimpleUVM_default] BINDING TO-GOLDEN 51 / AWAY-GOLDEN 0 / STILL-WRONG 1 / MOVED-WRONG 0 / ONLY-GOLDEN-CELL 0 / ONLY-OURS-CELL 0
+[SimpleUVM_testflags] GOLDCAL golden-vs-golden residual = 0  (must be 0)
+[SimpleUVM_testflags] LISTING golden=90 pristine=0 patched=90 patched==golden(IN ORDER): YES
+    STILL ('UVM_STREAMBITS', '49:23', 'operation>range>logic_typespec'): gold={'<null>': 12} pris={'<null>': 11} pat={'<null>': 11}
+[SimpleUVM_testflags] BINDING TO-GOLDEN 51 / AWAY-GOLDEN 0 / STILL-WRONG 1 / MOVED-WRONG 0 / ONLY-GOLDEN-CELL 0 / ONLY-OURS-CELL 0
+[Scoreboard_default] GOLDCAL golden-vs-golden residual = 0  (must be 0)
+[Scoreboard_default] LISTING golden=90 pristine=0 patched=90 patched==golden(IN ORDER): YES
+    STILL ('UVM_STREAMBITS', '49:23', 'operation>range>logic_typespec'): gold={'<null>': 12} pris={'<null>': 11} pat={'<null>': 11}
+[Scoreboard_default] BINDING TO-GOLDEN 51 / AWAY-GOLDEN 0 / STILL-WRONG 1 / MOVED-WRONG 0 / ONLY-GOLDEN-CELL 0 / ONLY-OURS-CELL 0

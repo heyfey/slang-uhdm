@@ -6206,6 +6206,18 @@ private:
     // Module- and package-side cross-view links whose Surelog equivalents reach
     // the ELAB pkg (folded param constants) flip from pkgDefMap to this.
     std::map<const void*, UHDM::package*> pkgTopMap;
+    // § unitImportHoistsPkgParams146 — the design-level materialization of a
+    // `$unit`-scope package import: parameter NAME -> the `vpiImported`-stamped
+    // copy that `design->Parameters()` lists.  Non-empty ONLY when a
+    // compilation unit imports a package that has parameters, which is what
+    // gates the whole law (31 golden databases in the two corpora, of which
+    // three are comparable rows).  It is the GATE and the NAME SET for the
+    // post-emission re-point that transcribes Surelog's `lateBinding`
+    // parent-chain walk; the object that walk actually binds is re-read from
+    // `design->Parameters()` in listing order (first match wins), because the
+    // compilation unit's OWN parameter of the same name is listed first and is
+    // what golden binds (§ unitImportHoistsPkgParams146v).
+    std::map<std::string, UHDM::parameter*> designImportParam146;
     // Materialized-import param typespecs created during the DEF package pass:
     // their vpiInstance must reach the ELABORATED home package, which does not
     // exist yet at creation time. Re-pointed once topPackages are built.

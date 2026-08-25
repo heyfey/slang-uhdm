@@ -1,0 +1,63 @@
+r10v146 (adversarial verifier of r10uvm146) — ARM TABLE.
+MEASUREMENT ONLY; the official ~/git-repos/UHDM/build/bin/uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  Both views per arm:
+  DEF : surelog -parse -sv f.sv      vs  slang-uhdm f.sv --single-unit
+  ELAB: surelog -parse -elabuhdm -sv  vs  slang-uhdm f.sv --single-unit --elabuhdm
+Columns: cmp LINES(HEADS) pristine/patched.  BYTES-* = the database moved.
+
+BINARIES pris=/tmp/v146_bin/pris.bin pat=/tmp/v146_bin/pat3.bin surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog cmp=/home/heyfey/git-repos/UHDM/build/bin/uhdm-cmp
+ARM                                DEF pris/pat(heads)    ELAB pris/pat(heads)   VERDICT
+sub15/v15_twofile_a.sv             555(1)/555(1)          555(1)/555(1)          OK BYTES-DEF BYTES-ELAB
+sub15/v15_twofile_b.sv             311(1)/311(1)          311(1)/311(1)          OK BYTES-DEF BYTES-ELAB
+v01_shadow_localparam.sv           796(1)/796(1)          796(1)/796(1)          OK BYTES-DEF BYTES-ELAB
+v02_shadow_modparam.sv             578(1)/578(1)          578(1)/578(1)          OK BYTES-DEF BYTES-ELAB
+v03_shadow_genblk.sv               463(1)/463(1)          463(1)/463(1)          OK BYTES-DEF BYTES-ELAB
+v04_shadow_namedblk.sv             463(1)/463(1)          463(1)/463(1)          OK BYTES-DEF BYTES-ELAB
+v05_second_pkg.sv                  64(1)/335(1)           335(1)/335(1)          OK DEFMOVED BYTES-DEF BYTES-ELAB
+v06_class_shadow.sv                18(1)/18(1)            18(1)/18(1)            OK BYTES-DEF BYTES-ELAB
+v07_transitive.sv                  64(1)/58(1)            50(1)/50(1)            OK DEFMOVED BYTES-DEF BYTES-ELAB
+v08_export.sv                      655(1)/655(1)          655(1)/655(1)          OK BYTES-DEF BYTES-ELAB
+v09_homes.sv                       465(1)/465(1)          465(1)/465(1)          OK BYTES-DEF BYTES-ELAB
+v10_kinds.sv                       559(1)/559(1)          559(1)/559(1)          OK BYTES-DEF BYTES-ELAB
+v11_unref.sv                       545(1)/545(1)          545(1)/545(1)          OK BYTES-DEF BYTES-ELAB
+v12_explicit.sv                    387(1)/387(1)          387(1)/387(1)          OK BYTES-DEF BYTES-ELAB
+v13_contexts.sv                    724(1)/724(1)          724(1)/724(1)          OK BYTES-DEF BYTES-ELAB
+v14_both_scopes.sv                 50(1)/50(1)            50(1)/50(1)            OK BYTES-DEF BYTES-ELAB
+v16_enum_and_var.sv                503(1)/503(1)          503(1)/503(1)          OK BYTES-DEF BYTES-ELAB
+v17_pkgfunc_shadow.sv              64(1)/58(1)            335(1)/335(1)          OK DEFMOVED BYTES-DEF BYTES-ELAB
+v18_typeparam_only.sv              43(1)/43(1)            43(1)/43(1)            OK BYTES-DEF BYTES-ELAB
+LISTED=19 PROCESSED=19
+ARM-DRIVER OK
+
+BINARIES pris=/tmp/v146_bin/pris.bin pat=/tmp/v146_bin/pat3.bin surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog cmp=/home/heyfey/git-repos/UHDM/build/bin/uhdm-cmp
+ARM                                DEF pris/pat(heads)    ELAB pris/pat(heads)   VERDICT
+v19_modfunc_shadow.sv              1154(1)/1154(1)        1154(1)/1154(1)        OK BYTES-DEF BYTES-ELAB
+v20_class_in_module.sv             1380(1)/1380(1)        1062(1)/1062(1)        OK BYTES-DEF BYTES-ELAB
+v21_enum_collide.sv                50(1)/50(1)            50(1)/50(1)            OK BYTES-DEF BYTES-ELAB
+v22_paramclass.sv                  18(1)/18(1)            18(1)/18(1)            OK BYTES-DEF BYTES-ELAB
+v23_genvar_loop.sv                 357(1)/357(1)          357(1)/357(1)          OK BYTES-DEF BYTES-ELAB
+v24_struct_enum_param.sv           1507(1)/1507(1)        1507(1)/1507(1)        OK BYTES-DEF BYTES-ELAB
+v25_late_import.sv                 311(1)/311(1)          311(1)/311(1)          OK BYTES-DEF BYTES-ELAB
+v26_dup_and_shadow.sv              948(1)/948(1)          948(1)/948(1)          OK BYTES-DEF BYTES-ELAB
+LISTED=8 PROCESSED=8
+ARM-DRIVER OK
+
+BINARIES pris=/tmp/v146_bin/pris.bin pat=/tmp/v146_bin/pat3.bin surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog cmp=/home/heyfey/git-repos/UHDM/build/bin/uhdm-cmp
+ARM                                DEF pris/pat(heads)    ELAB pris/pat(heads)   VERDICT
+v27_iface_shadow.sv                626(1)/626(1)          630(1)/644(1)          OK ELABMOVED BYTES-DEF BYTES-ELAB
+v28_ifdef_import.sv                311(1)/311(1)          311(1)/311(1)          OK BYTES-DEF BYTES-ELAB
+v29_name_is_module.sv              245(1)/245(1)          245(1)/245(1)          OK BYTES-DEF BYTES-ELAB
+v30_specparam.sv                   395(1)/395(1)          395(1)/395(1)          OK BYTES-DEF BYTES-ELAB
+v31_class_prop.sv                  46(1)/46(1)            50(1)/311(1)           OK ELABMOVED BYTES-DEF BYTES-ELAB
+v32_nested_pkg_import.sv           531(1)/531(1)          531(1)/531(1)          OK BYTES-DEF BYTES-ELAB
+LISTED=6 PROCESSED=6
+ARM-DRIVER OK
+
+BINARIES pris=/tmp/v146_bin/pris.bin pat=/tmp/v146_bin/pat3.bin surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog cmp=/home/heyfey/git-repos/UHDM/build/bin/uhdm-cmp
+ARM                                DEF pris/pat(heads)    ELAB pris/pat(heads)   VERDICT
+v33_own_vs_imported.sv             62(1)/58(1)            605(1)/605(1)          OK DEFMOVED BYTES-DEF BYTES-ELAB
+v34_two_pkgs_same_name.sv          64(1)/691(1)           691(1)/691(1)          OK DEFMOVED BYTES-DEF BYTES-ELAB
+v35_localparam_unit.sv             64(1)/58(1)            679(1)/679(1)          OK DEFMOVED BYTES-DEF BYTES-ELAB
+LISTED=3 PROCESSED=3
+ARM-DRIVER OK
+

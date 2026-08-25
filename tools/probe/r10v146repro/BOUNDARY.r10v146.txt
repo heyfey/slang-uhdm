@@ -1,0 +1,61 @@
+r10v146 — THE BOUNDARY GATE, re-run INDEPENDENTLY over a COPY of the whole
+committed tools/probe tree (top level AND subdirectories, BOTH views, pristine
+vs the SHIPPED verifier-fixed binary).  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+  LISTED=4173 PROCESSED=4173 PRODUCED_DBS=4029 MOVED_ARMS=17 RC_DIFFS=0
+
+The committed tree at 59e2cdc holds 4166 .sv/.v files and r10uvm146repro adds
+7, so 4173 is the whole tree.  BOUNDARY.r10uvm146.txt reports LISTED=4186 /
+PRODUCED_DBS=4039 for the SAME tree (the implementer's own worktree also holds
+4173 today) — 13 arms and 10 databases high.  A documentation defect: the mover
+SET, RC_DIFFS=0 and every per-arm reading below reproduce exactly.
+
+The mover set is IDENTICAL between the as-shipped binary and the shipped
+(verifier-fixed) one — the two verifier hunks move no arm in the tree.
+
+MOVED ARMS (17) — six are the pass's own g146_*.sv (the POSITIVE CONTROL);
+g146_c_owners.sv (its NEGATIVE control) is byte-identical and correctly absent.
+
+EVERY moved arm RE-MEASURED against its OWN fresh golden IN THE MATCHING VIEW
+(surelog -parse -sv for def, surelog -parse -elabuhdm -sv for elab; the
+implementer's table compared the ELAB slang database against the PRE-ELAB
+golden, which is why its elab numbers are much larger than these):
+
+r10buvm22repro/g22.sv                    GOLDlist=0 PRISlist=0 PATlist=0 | defcmp 3438->3438 (SAME) | elabcmp 3438->3438 (SAME) | rc 4/4,4/4
+r10earl31repro/v2_edge.sv                GOLDlist=1 PRISlist=0 PATlist=1 | defcmp 64->36 (CHANGED) | elabcmp 36->36 (CHANGED) | rc 0/0,0/0
+r10earl57repro/v3_gengrid57.sv           GOLDlist=2 PRISlist=0 PATlist=2 | defcmp 7614->7614 (CHANGED) | elabcmp 7614->7614 (CHANGED) | rc 4/4,4/4
+r10sd2repro/grid/p4_unit_import.sv       GOLDlist=1 PRISlist=0 PATlist=1 | defcmp 353->353 (SAME) | elabcmp 353->353 (SAME) | rc 0/0,0/0
+r10uvm146repro/g146_a_forms.sv           GOLDlist=8 PRISlist=0 PATlist=8 | defcmp 2814->2814 (CHANGED) | elabcmp 2814->2814 (CHANGED) | rc 0/0,0/0
+r10uvm146repro/g146_b_kinds.sv           GOLDlist=9 PRISlist=2 PATlist=9 | defcmp 489->489 (SAME) | elabcmp 489->489 (SAME) | rc 0/0,0/0
+r10uvm146repro/g146_d_multi.sv           GOLDlist=5 PRISlist=0 PATlist=5 | defcmp 1526->1526 (CHANGED) | elabcmp 1526->1526 (CHANGED) | rc 0/0,0/0
+r10uvm146repro/g146_e_ordering.sv        GOLDlist=7 PRISlist=0 PATlist=7 | defcmp 43->43 (SAME) | elabcmp 43->43 (SAME) | rc 0/0,0/0
+r10uvm146repro/g146_f_binds.sv           GOLDlist=3 PRISlist=0 PATlist=3 | defcmp 62->28 (CHANGED) | elabcmp 32->32 (CHANGED) | rc 0/0,0/0
+r10uvm146repro/g146_g_dup.sv             GOLDlist=3 PRISlist=0 PATlist=3 | defcmp 711->711 (SAME) | elabcmp 711->711 (SAME) | rc 0/0,0/0
+r10uvm22repro/t33c/t.sv                  GOLDlist=1 PRISlist=0 PATlist=1 | defcmp 234->234 (CHANGED) | elabcmp 242->242 (CHANGED) | rc 0/0,0/0
+r10uvm23repro/t34b/t.sv                  GOLDlist=1 PRISlist=0 PATlist=1 | defcmp 1321->1321 (SAME) | elabcmp 1325->1325 (SAME) | rc 0/0,0/0
+r10uvm23repro/t34c/t.sv                  GOLDlist=1 PRISlist=0 PATlist=1 | defcmp 234->234 (SAME) | elabcmp 242->242 (CHANGED) | rc 0/0,0/0
+r10uvm47repro/t66b/dut.sv                GOLDlist=1 PRISlist=0 PATlist=1 | defcmp 17->17 (SAME) | elabcmp 17->17 (SAME) | rc 0/0,0/0
+r10uvm67repro/a2_rangeref.sv             GOLDlist=7 PRISlist=0 PATlist=7 | defcmp 36->36 (SAME) | elabcmp 36->36 (SAME) | rc 0/0,0/0
+r10uvm67repro/c5_clone.sv                GOLDlist=1 PRISlist=0 PATlist=1 | defcmp 411->411 (SAME) | elabcmp 411->411 (SAME) | rc 0/0,0/0
+r10v76repro/a3_imp76.sv                  GOLDlist=2 PRISlist=0 PATlist=2 | defcmp 2334->2334 (CHANGED) | elabcmp 2350->2350 (CHANGED) | rc 0/0,0/0
+
+READ:
+  * design listing: PATlist == GOLDlist on 17/17 (r10buvm22repro/g22.sv is 0=0
+    — it has no $unit import at all);
+  * uhdm-cmp: NO arm's line count rose.  r10earl31repro/v2_edge.sv 64 -> 36 and
+    g146_f_binds 62 -> 28 improved; every other arm is unchanged in count, with
+    the head OBJECT changed on eight of them;
+  * rc identical on every arm in every view (g22 and v3_gengrid57 are rc=4
+    SLANG rejects on BOTH binaries).
+
+MUST-STAY CONTROLS — the arms the brief names, all compiled by this gate, none
+moved:
+  r10uvm143(4) r10uvm114(8) r10uvm123(7) r10uvm112(12) r10uvm113(4)
+  r10uvm120(4) r10uvm82(7) r10uvm89(2) r10earl87(7) r10earl76(2)
+  r10uvm32(1) r10uvm36(3) r10buvm14(1) r10uvm77(9) r10uvm78(8) r10uvm79(8)
+  r10uvm84(23) r10uvm85(23) r10sd8(37) r10sd9(44) r10sd10(68) r10sd11(90)
+  r10sd12(108) r10buvm3(4) r10buvm15(9) r10v143(12) r10v123(10) r10v87(13)
+  — 0 movers in every one of them.  r10v76repro's a3_imp76.sv IS a mover: it is
+  a $unit-import arm whose own fresh golden lists 2 imported entries where we
+  listed 0 and now list 2.

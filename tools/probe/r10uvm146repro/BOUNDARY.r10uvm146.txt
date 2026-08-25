@@ -1,0 +1,87 @@
+r10uvm146 — THE BOUNDARY GATE (bound146.sh over a COPY of the whole committed
+tools/probe tree, top level AND subdirectories, BOTH views, pristine vs patched).
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+LISTED=4186 PROCESSED=4186 PRODUCED_DBS=4039 MOVED_ARMS=17 RC_DIFFS=0
+
+MOVED ARMS (17): six are this pass's OWN g146_*.sv — the POSITIVE CONTROL,
+a gate that reported zero over them could not see; g146_c_owners.sv, this
+pass's NEGATIVE control (the same package imported by a module, a program,
+a nested package and a class's container, and NOWHERE at $unit), is
+BYTE-IDENTICAL in both views and is correctly absent from this list.
+
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10earl31repro/v2_edge.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10earl57repro/v3_gengrid57.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10sd2repro/grid/p4_unit_import.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm146repro/g146_a_forms.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm146repro/g146_b_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm146repro/g146_d_multi.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm146repro/g146_e_ordering.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm146repro/g146_f_binds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm146repro/g146_g_dup.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm22repro/t33c/t.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm23repro/t34b/t.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm23repro/t34c/t.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm47repro/t66b/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm67repro/a2_rangeref.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm67repro/c5_clone.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v76repro/a3_imp76.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+EVERY earlier-pass arm that moved, RE-MEASURED AGAINST ITS OWN FRESH GOLDEN
+(surelog -parse -sv), design listing first and then the official uhdm-cmp:
+
+r10buvm22repro/g22.sv | GOLDEN[PARAM=0 PASSIGN=0 IMPORTED=0] | def cmp pris=3438 pat=3438 | elab cmp pris=22702 pat=22702
+r10earl31repro/v2_edge.sv | GOLDEN[PARAM=1 PASSIGN=1 IMPORTED=1] | def cmp pris=64 pat=36 | elab cmp pris=10996 pat=11000
+r10earl57repro/v3_gengrid57.sv | GOLDEN[PARAM=2 PASSIGN=2 IMPORTED=2] | def cmp pris=7614 pat=7614 | elab cmp pris=24958 pat=25058
+r10sd2repro/grid/p4_unit_import.sv | GOLDEN[PARAM=1 PASSIGN=1 IMPORTED=1] | def cmp pris=353 pat=353 | elab cmp pris=3360 pat=3412
+r10uvm22repro/t33c/t.sv | GOLDEN[PARAM=1 PASSIGN=1 IMPORTED=1] | def cmp pris=234 pat=234 | elab cmp pris=5778 pat=5830
+r10uvm23repro/t34b/t.sv | GOLDEN[PARAM=1 PASSIGN=1 IMPORTED=1] | def cmp pris=1321 pat=1321 | elab cmp pris=6702 pat=6754
+r10uvm23repro/t34c/t.sv | GOLDEN[PARAM=1 PASSIGN=1 IMPORTED=1] | def cmp pris=234 pat=234 | elab cmp pris=5842 pat=5894
+r10uvm47repro/t66b/dut.sv | GOLDEN[PARAM=1 PASSIGN=1 IMPORTED=1] | def cmp pris=17 pat=17 | elab cmp pris=10830 pat=10878
+r10uvm67repro/a2_rangeref.sv | GOLDEN[PARAM=7 PASSIGN=7 IMPORTED=7] | def cmp pris=36 pat=36 | elab cmp pris=17140 pat=17484
+r10uvm67repro/c5_clone.sv | GOLDEN[PARAM=1 PASSIGN=1 IMPORTED=1] | def cmp pris=411 pat=411 | elab cmp pris=3728 pat=3776
+r10v76repro/a3_imp76.sv | GOLDEN[PARAM=2 PASSIGN=2 IMPORTED=2] | def cmp pris=2334 pat=2334 | elab cmp pris=20746 pat=20850
+
+READ:
+  * ten of the eleven earlier-pass arms had design->Parameters EMPTY where
+    golden lists 1, 2 or 7 IMPORTED entries; the patched binary lists
+    EXACTLY golden's count in BOTH views.  Every one of them moves TOWARD
+    golden — r10earl31repro/v2_edge.sv's def-view cmp drops 64 -> 36 (its
+    head clears), and the arms whose elab cmp line COUNT rises are rising on
+    a head object that CHANGED (the count is the head's decompile size), not
+    on a partial fix: their def-view head logs are unchanged and their
+    listing now equals golden's.
+  * the eleventh, r10buvm22repro/g22.sv, has NO $unit import at all
+    (its only import is 'import p22::*;' INSIDE module top22) and its design
+    listing is 0 on golden, pristine and patched alike.  What moved is three
+    ALREADY-WRONG cells: the range bound of a class-scope ASSOCIATIVE array
+    typespec (typedef C22 ka_cls_t[string]).  Golden writes
+    'constant STRING:associative'; we write 'operation(vpiSubOp, <N>, 1)'
+    with an allocation-derived N, on BOTH binaries — the OBJECT KINDS the
+    judge reads are identical before and after, the arm's uhdm-cmp head log
+    is BYTE-IDENTICAL (3438 lines, LHS package p22) and no corpus database
+    carries the shape (byteverify: 3/956 and 0/1358, all three predicted).
+    The layout control below settles that N is not this law's doing.
+
+THE LAYOUT CONTROL (what N is, measured, not argued)
+  N is a RAW POINTER into the binary's own static data, written out as a
+  vpiUIntConst.  Both binaries are NON-PIE ("ELF 64-bit LSB executable", not
+  "pie executable"), so their static addresses are fixed at link time:
+
+    pristine  last RW LOAD segment  0x156be70 + 0x13b80   ->  0x156be70..0x157f9f0
+    patched   last RW LOAD segment  0x156de70 + 0x13b80   ->  0x156de70..0x15819f0
+    the cell  pristine 22511289 = 0x1577eb9   patched 22519481 = 0x1579eb9
+                                              delta = 0x2000, EXACTLY the
+                                              segment shift
+
+  The value lies inside that segment on each binary and moves with it.  It is
+  not an allocation count, not a source offset and not a semantic result: two
+  independent controls confirm it is layout — a 240-line pure-comment edit and
+  a never-called 300-statement function BOTH linked to a binary byte-identical
+  to the pristine one (md5 85151c56af1f033f2c355b21f2386447), i.e. they did not
+  change the layout and did not move the cell, while the real patch (which does
+  change the layout, +13,800 bytes) moved it by exactly the segment delta.
+
+  R2: an unmodelled associative-array range bound leaks a pointer.  Recorded,
+  not fixed here — it is a different family and no corpus row carries it.

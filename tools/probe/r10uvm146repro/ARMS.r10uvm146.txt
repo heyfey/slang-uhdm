@@ -1,0 +1,7 @@
+g146_a_forms.sv          slrc=0 prisrc=0 patrc=0 | GOLDlist=8/8 PRISlist=0 PATlist=8/8 | cmp pris=2814(1) pat=2814(1)
+g146_b_kinds.sv          slrc=0 prisrc=0 patrc=0 | GOLDlist=9/8 PRISlist=2 PATlist=9/8 | cmp pris=489(1) pat=489(1)
+g146_c_owners.sv         slrc=0 prisrc=0 patrc=0 | GOLDlist=0/0 PRISlist=0 PATlist=0/0 | cmp pris=50(1) pat=50(1)
+g146_d_multi.sv          slrc=0 prisrc=0 patrc=0 | GOLDlist=5/5 PRISlist=0 PATlist=5/5 | cmp pris=1526(1) pat=1526(1)
+g146_e_ordering.sv       slrc=0 prisrc=0 patrc=0 | GOLDlist=7/6 PRISlist=0 PATlist=7/6 | cmp pris=43(1) pat=43(1)
+g146_f_binds.sv          slrc=0 prisrc=0 patrc=0 | GOLDlist=3/3 PRISlist=0 PATlist=3/3 | cmp pris=62(1) pat=28(1)
+g146_g_dup.sv            slrc=0 prisrc=0 patrc=0 | GOLDlist=3/3 PRISlist=0 PATlist=3/3 | cmp pris=711(1) pat=711(1)

@@ -1,0 +1,117 @@
+r10uvm146 — the design-level imported-parameter FIELD TABLE (golden SimpleUVM/default).
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Fields are exactly the ones parameter::Compare reads (UHDM generated
+parameter.cpp:150-187 via expr.cpp:83-103 and BaseClass.cpp:163-187):
+VpiType/VpiName/VpiDefName, VpiDecompile, VpiSize, Typespec, VpiConstType,
+VpiSigned, Expr, Ranges, Left_range, Right_range, VpiLocalParam, VpiImported.
+VpiValue is NOT read; VpiFullName/VpiFile/line/col are NOT read.
+
+DESIGN (the hoisted clones) vs PKGDEF (uvm_pkg in vpiAllPackages) vs PKGTOP
+(uvm_pkg in vpiTopPackages), all 45 names, imp= dropped from the key:
+   DESIGN vs PKGDEF : NO DIFFERENCE
+   DESIGN vs PKGTOP : NO DIFFERENCE
+   golden PKGDEF vs ours PKGDEF : NO DIFFERENCE
+   golden PKGTOP vs ours PKGTOP : NO DIFFERENCE
+=> the design clone differs from the package object ONLY in vpiImported,
+   which is the LAST field parameter::Compare reads, so a copy that SHARES
+   every child pointer cannot move any earlier field.
+
+The param_assign half is NOT view-blind:
+   design->Param_assigns == golden PKGTOP Param_assigns (order and Rhs kind): NO DIFFERENCE
+   design->Param_assigns vs golden PKGDEF Param_assigns: 25 of 45 rows differ
+   (UVM_MACRO_EXTRAS = (1<<UVM_MACRO_NUMFLAGS) is an operation in the def
+    listing and a folded constant in the elab listing and in the design).
+
+----- golden design listing, per-name field table -----
+DESIGN|UVM_ABSTRACT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_ALL_ON|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=-|expr=0|rng=0
+DESIGN|UVM_CHECK_FIELDS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_COMPARE|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_COPY|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_DEFAULT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=-|expr=0|rng=0
+DESIGN|UVM_END_DATA_EXTRA|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_END_FUNCS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_FLAGS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_FLAGS_OFF|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_FLAGS_ON|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=-|expr=0|rng=0
+DESIGN|UVM_HDL_MAX_WIDTH|dec=''|size=0|ct=0|sgn=1|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_LARGE_STRING|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_LINE_WIDTH|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_MACRO_EXTRAS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_MACRO_NUMFLAGS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NOCOMPARE|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NOCOPY|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NODEFPRINT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NOPACK|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NOPRINT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NORECORD|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NUM_LINES|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_PACK|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_PHYSICAL|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_PRINT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_RADIX|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=-|expr=0|rng=0
+DESIGN|UVM_READONLY|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_RECORD|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_SET|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_SETINT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_SETOBJ|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_SETSTR|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_SMALL_STRING|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_START_FUNCS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_STDOUT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_STREAMBITS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_STR_CRC_POLYNOMIAL|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_UNPACK|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|uvm_cdn_copyright|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=string_typespec|expr=0|rng=0
+DESIGN|uvm_cy_copyright|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=string_typespec|expr=0|rng=0
+DESIGN|uvm_mgc_copyright|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=string_typespec|expr=0|rng=0
+DESIGN|uvm_nv_copyright|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=string_typespec|expr=0|rng=0
+DESIGN|uvm_revision|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=string_typespec|expr=0|rng=0
+DESIGN|uvm_snps_copyright|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=string_typespec|expr=0|rng=0
+
+----- ours (patched) design listing, per-name field table -----
+DESIGN|UVM_ABSTRACT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_ALL_ON|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=-|expr=0|rng=0
+DESIGN|UVM_CHECK_FIELDS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_COMPARE|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_COPY|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_DEFAULT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=-|expr=0|rng=0
+DESIGN|UVM_END_DATA_EXTRA|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_END_FUNCS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_FLAGS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_FLAGS_OFF|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_FLAGS_ON|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=-|expr=0|rng=0
+DESIGN|UVM_HDL_MAX_WIDTH|dec=''|size=0|ct=0|sgn=1|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_LARGE_STRING|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_LINE_WIDTH|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_MACRO_EXTRAS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_MACRO_NUMFLAGS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NOCOMPARE|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NOCOPY|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NODEFPRINT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NOPACK|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NOPRINT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NORECORD|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_NUM_LINES|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_PACK|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_PHYSICAL|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_PRINT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_RADIX|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=-|expr=0|rng=0
+DESIGN|UVM_READONLY|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_RECORD|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_SET|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_SETINT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_SETOBJ|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_SETSTR|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_SMALL_STRING|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_START_FUNCS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_STDOUT|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_STREAMBITS|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_STR_CRC_POLYNOMIAL|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|UVM_UNPACK|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=int_typespec|expr=0|rng=0
+DESIGN|uvm_cdn_copyright|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=string_typespec|expr=0|rng=0
+DESIGN|uvm_cy_copyright|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=string_typespec|expr=0|rng=0
+DESIGN|uvm_mgc_copyright|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=string_typespec|expr=0|rng=0
+DESIGN|uvm_nv_copyright|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=string_typespec|expr=0|rng=0
+DESIGN|uvm_revision|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=string_typespec|expr=0|rng=0
+DESIGN|uvm_snps_copyright|dec=''|size=0|ct=0|sgn=0|lp=0|imp='uvm_pkg'|ts=string_typespec|expr=0|rng=0
