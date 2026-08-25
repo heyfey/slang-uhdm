@@ -1,0 +1,48 @@
+== AS-SUBMITTED vs PRISTINE
+elab r10buvm22repro/g22.sv
+elab r10earl84repro/g1_hp84.sv
+elab r10earl84repro/g2_types84.sv
+elab r10earl84repro/g3_pos84.sv
+elab r10earl84repro/g4_prod84.sv
+elab r10v84repro/v1_homes84.sv
+elab r10v84repro/v2_types84.sv
+elab r10v84repro/v3_shapes84.sv
+elab r10v84repro/v4_ctx84.sv
+elab r10v84repro/v5_bind84.sv
+plain r10buvm22repro/g22.sv
+plain r10earl84repro/g1_hp84.sv
+plain r10earl84repro/g2_types84.sv
+plain r10earl84repro/g3_pos84.sv
+plain r10earl84repro/g4_prod84.sv
+plain r10v84repro/v1_homes84.sv
+plain r10v84repro/v2_types84.sv
+plain r10v84repro/v3_shapes84.sv
+plain r10v84repro/v4_ctx84.sv
+plain r10v84repro/v5_bind84.sv
+
+== FIXED vs PRISTINE
+elab r10buvm22repro/g22.sv
+elab r10earl84repro/g1_hp84.sv
+elab r10earl84repro/g2_types84.sv
+elab r10earl84repro/g3_pos84.sv
+elab r10earl84repro/g4_prod84.sv
+elab r10v84repro/v1_homes84.sv
+elab r10v84repro/v2_types84.sv
+elab r10v84repro/v3_shapes84.sv
+elab r10v84repro/v6_bind2_84.sv
+elab r10v84repro/v7_more84.sv
+elab r10v84repro/v8_defparam84.sv
+plain r10buvm22repro/g22.sv
+plain r10earl84repro/g1_hp84.sv
+plain r10earl84repro/g2_types84.sv
+plain r10earl84repro/g3_pos84.sv
+plain r10earl84repro/g4_prod84.sv
+plain r10v84repro/v1_homes84.sv
+plain r10v84repro/v2_types84.sv
+plain r10v84repro/v3_shapes84.sv
+plain r10v84repro/v6_bind2_84.sv
+plain r10v84repro/v7_more84.sv
+plain r10v84repro/v8_defparam84.sv
+
+NOTE: v4_ctx84.sv and v5_bind84.sv are DIFFERING as submitted and
+IDENTICAL with the fix — the boundary's own confirmation of the bind fence.

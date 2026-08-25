@@ -7775,6 +7775,254 @@ UHDM::constant* UhdmExporter::connBitSelIdxModParamFold81(
     return c81;
 }
 
+// § connHpIpsBaseNonOvParamFold84 — GOLDEN FOLDS THE **BASE** OF THE
+// `indexed_part_select` THAT CLOSES A `hier_path` INSIDE AN ELABORATED PORT
+// `High_conn` WHEN IT NAMES A MODULE-SCOPE PARAMETER / LOCALPARAM THAT WAS NOT
+// OVERRIDDEN AT THIS INSTANTIATION, TO THAT PARAMETER'S OWN `param_assign` Rhs
+// RE-SIZED AT THE DECLARED TYPE'S WIDTH — AND STAMPS A **BARE SIGNED
+// `int_typespec`** ON IT EXACTLY WHEN THE DECLARED TYPESPEC IS A SIGNED
+// `int` / `bit` / `logic` ONE.  We kept the `ref_obj`, and the hier_path NAME
+// kept the identifier with it.
+//
+// THE HEAD (Earlgrey_0_1, BOTH modes, 240 / 268 cmp lines, one head each, at
+// 0f32387) — flash_ctrl.sv:171, the `DataBitWidth` of
+//
+//     flash_prog_ctrl u_flash_prog_ctrl (
+//       .op_addr_i (reg2hw.addr.q[DataBitWidth +: AddrW]), ...);
+//
+// in top_earlgrey.u_flash_ctrl, where `localparam int DataBitWidth =
+// $clog2(BytesPerWord);` (flash_ctrl.sv:34) evaluates to 2 and the package
+// parameter `AddrW` to 17:
+//   LHS(golden) constant 171:36-171:48 |vpiDecompile:2 |vpiSize:32 |UINT:2
+//               |vpiConstType:9 |vpiTypespec -> ref_typespec -> int_typespec
+//                                               (VpiSigned, NOTHING ELSE)
+//   RHS(ours)   ref_obj  171:36-171:48 (work@…u_flash_ctrl.DataBitWidth)
+// Both operands of `indexed_part_select::Base_expr` are non-null and of
+// DIFFERENT `UhdmType`, so BaseClass.h:188's two-non-null arm names both sides
+// and the head is a KIND mismatch inside `BaseClass::Compare`'s `VpiType` line
+// — read the MK line, not the shape (RESUME §9).  The 240/268 lines are the
+// hier_path sub-tree printing; its `VpiName` differs too
+// (`reg2hw.addr.q[DataBitWidth+:17]` vs golden's `reg2hw.addr.q[2+:17]`), and
+// that is NOT a separate defect: § hpNameBareIdxFold69 re-derives the name
+// FROM THE OBJECTS, so the name follows the base for free — MEASURED, arm
+// `g1_hp84.sv`.
+//
+// DECODED FROM SURELOG, not guessed:
+//  1. `NetlistElaboration::high_conn_` recompiles the named actual in the
+//     PARENT instance with `Reduce::Yes` (NetlistElaboration.cpp:1332-1337;
+//     the ordered form at :1088-1096) — the fact § elabConnEnumConstFold66,
+//     § connBitSelIdxModParamFold81 and § elabConnWrittenCastFold83 all rest
+//     on.
+//  2. `CompileHelper::compileSelectExpression`'s INDEXED arm
+//     (CompileExpression.cpp:4258-4290) compiles the `Base_expr` AND the
+//     `Width_expr` with the CALLER's `reduce`, while the SIMPLE arm two lines
+//     above (:4241-4249) hardcodes `Reduce::No` for both bounds.  That single
+//     asymmetry is why the ips base folds and a plain part-select bound does
+//     not — the fact § genScopeConnPsDirectBoundKeepsRef71 rests on, and this
+//     pass leaves that population untouched (golden's own ELAB High_conn
+//     part_select RIGHT bounds still hold `ref_obj`s: 2352 `i` and 24
+//     `LsbAddrBit` cells in the pristine census).
+//  3. Under `Reduce::Yes` the identifier arm answers from the instance's
+//     stored `Value` (CompileExpression.cpp:2852 `sval =
+//     instance->getValue(name)`, minted at :3004-3018):
+//         c->VpiValue(sval->uhdmValue());  c->VpiDecompile(...);
+//         c->VpiConstType(sval->vpiValType());  c->VpiSize(sval->getSize());
+//         if (sval->isSigned()) { int_typespec *ts = s.MakeInt_typespec();
+//                                 ts->VpiSigned(true); ... c->Typespec(rt); }
+//     — a BARE `int_typespec`: no name, no location, no ranges, no value, no
+//     `Typedef_alias`, no `Instance`, no `Cast_to_expr`.  THAT `if` IS THE
+//     TYPESPEC-PRESENCE SPLIT, and it is why earl81's High_conn bit-select
+//     folds carry NONE (their producer is an OVERRIDDEN parameter, whose
+//     Value never goes through the signedness capture below).
+//  4. WHERE THAT `Value` COMES FROM.  Not overridden: the default is compiled
+//     and `DesignElaboration::collectParams_` (DesignElaboration.cpp:2519-2545)
+//     runs `adjustSize(ts, …)` on the constant BEFORE
+//     `fromVpiValue(c->VpiValue(), c->VpiSize())` captures it, so the stored
+//     Value carries the DECLARED type's width — 32 for `int`, 8 for `byte`,
+//     16 for `shortint`, 64 for `longint`, and the declared vector width for a
+//     `bit`/`logic` range.  That is EXACTLY r10earl64's
+//     `adjustCopiedParamConst64` (the param's own elaborated `param_assign`
+//     Rhs constant re-run through `srlgAdjustSize` at the declared type), so
+//     this law REUSES that consumer rather than minting a second encoder.
+//  5. `CompileHelper::valueRange` (CompileHelper.cpp:5378-5412) is the
+//     signedness capture, and it reads `VpiSigned()` off the declared typespec
+//     for `logic_typespec`, `bit_typespec` and `int_typespec` ONLY — every
+//     other typespec kind leaves `isSigned` FALSE.  `integer`, `byte`,
+//     `shortint` and `longint` therefore NEVER carry the typespec, however
+//     signed the language says they are.  A TYPEDEF IS NOT IN THAT LIST
+//     (r10v84 correction): a typedef RESOLVES to one of the three kinds and
+//     carries `Typedef_alias` on it, so `valueRange`'s switch still matches and
+//     a signed typedef DOES carry the bare `int_typespec` — which is why the
+//     code below asks `getCanonicalType()`.  Measured on golden: the shipped
+//     grid's `ls_t` (= `logic signed [7:0]`) row, and `r10v84repro/
+//     v2_types84.sv` cells `V01` (`typedef int`) and `V02` (`typedef bit
+//     signed [3:0]`), all of which land on golden exactly.
+//
+// MEASURED ON GOLDEN, ELAB port High_conn, hier_path ips BASE, one declared
+// type per row, all holding the value 2 (arm `g2_types84.sv`, the full table
+// is GRID.r10earl84.txt):
+//     localparam int              UINT:2 sz32 ct9   + int_typespec(signed)
+//     localparam int signed       UINT:2 sz32 ct9   + int_typespec(signed)
+//     localparam int unsigned     UINT:2 sz32 ct9     (bare)
+//     localparam integer          UINT:2 sz32 ct9     (bare)
+//     localparam byte             UINT:2 sz8  ct9     (bare)
+//     localparam shortint         UINT:2 sz16 ct9     (bare)
+//     localparam longint          UINT:2 sz64 ct9     (bare)
+//     localparam bit [3:0]        INT:2  sz4  ct7     (bare)
+//     localparam bit signed [3:0] INT:2  sz4  ct7   + int_typespec(signed)
+//     localparam logic [7:0]      INT:2  sz8  ct7     (bare)
+//     localparam logic signed[7:0]INT:2  sz8  ct7   + int_typespec(signed)
+//     localparam signed [7:0]     INT:2  sz8  ct7   + int_typespec(signed)
+//     parameter int, NOT overridden                 + int_typespec(signed)
+//     parameter int, OVERRIDDEN `.MQ(5)`  UINT:5 sz64 ct9  (bare)  <- REFUSED
+// The `bit [3:0]` and `logic [7:0]` rows are the proof that the encoding is
+// the parameter's OWN `param_assign` Rhs re-sized and not a flat decimal: a
+// `4'd2` initialiser is `INT:2` `vpiIntConst`, never `UINT:2`.
+//
+// THE FENCES, each one a measured negative control:
+//  (a) `elabConnEmit21` — THE DEF LISTING KEEPS THE REF.  Golden's own
+//      `ref_module` listing of flash_ctrl holds `ref_obj DataBitWidth` at the
+//      same three spans and so do we (3 census rows per mode, PORTPAR=
+//      ref_module); the fold is ELABORATED-VIEW ONLY.
+//  (b) THE BASE MUST HAVE SURVIVED AS A `ref_obj`.  The call site replaces
+//      only a base our own emitter already left unbound, so every base some
+//      earlier law folds — a genvar, a package parameter (§ selFold9), a
+//      gen-scope localparam (§ genLpUseFoldParentScope47), an operation —
+//      arrives here already a constant and is untouched BY CONSTRUCTION.
+//      That is what makes this call site incapable of moving a cell that
+//      already agrees with golden.
+//  (c) NOT A PACKAGE SYMBOL.  A package parameter folds on § selFold9's path
+//      at its own measured width and carries NO typespec (arm cell `u_pkg`).
+//  (d) THE USER-CALL ARGUMENT DEPTH (`callArgDepth - sysCallArgDepth22`) —
+//      § connCallArgKeepsEnumRef66v / § genLpBitSelIdxOneHopFold67's second
+//      fence at a new consumer: `compileTfCallArguments` compiles each
+//      argument with `pexpr = call`, and the identifier arm under a non-null
+//      `pexpr` binds through `bindVariable` and never reaches the `getValue`
+//      substitution.  A SYSTEM call's argument is NOT fenced.
+//  (e) NOT OVERRIDDEN AT THIS INSTANTIATION.  An overridden parameter's Value
+//      is captured by `collectParams_` (DesignElaboration.cpp:2147-2172) with
+//      NO `adjustSize` on the path, so it keeps the ACTUAL's own width — 64
+//      for a bare decimal — and never goes through `valueRange`, so it is
+//      also bare.  § ovHopOverriddenKeepsValue80 / § connBitSelIdxModParamFold81
+//      own that producer; measured here as arm cell `u_mq` and REFUSED.
+//  (g) NOT A `bind` INSTANTIATION (§ connBindInstKeepsRef84v, r10v84).
+//      `DesignElaboration::createBindInstance_` (DesignElaboration.cpp:652-654)
+//      creates the bind instance with `parent->getParent()` as its PARENT and
+//      records the bind TARGET only through `setInstanceBinding(parent)`, so
+//      `high_conn_`'s `Reduce::Yes` recompile evaluates the actual in the scope
+//      ENCLOSING the target: a parameter of the target module has no stored
+//      `Value` there, `getValue` returns null and golden KEEPS the `ref_obj`.
+//      Measured both ways in `r10v84repro/v6_bind2_84.sv`: the bind instance's
+//      own High_conn keeps the reference on all three sides (cell `b1`), while
+//      a module instantiated INSIDE the bind module — an ordinary child of an
+//      ordinary instance — folds in golden and folds here (cell `b2`), which is
+//      why the fence tests `InstanceFlags::FromBind` and NOT `ParentFromBind`.
+//  (f) AN EXPLICIT, INTEGRAL, NON-ENUM DECLARED TYPE OF AT MOST 64 BITS, with
+//      a known nonnegative integer value.  `adjustCopiedParamConst64`'s own
+//      fences (F-A1 untyped, F-A2 enum/struct/union/real/>64) refuse the rest,
+//      and an untyped or ranged-untyped localparam (`localparam L = 2`,
+//      `localparam [7:0] L = 8'd2`) therefore keeps its pristine `ref_obj` —
+//      a MEASURED residue, not a claim that golden keeps it (golden folds
+//      both; the encoder that would reproduce them is not this pass's).
+//
+// CORPUS-WIDE, over the 2,314 pristine databases: the shape this gate can fire
+// on — an ELAB port High_conn hier_path ips BASE where golden holds a folded
+// `constant` and we hold a `ref_obj` — exists in EXACTLY SIX CELLS, three
+// sites in `Earlgrey_0_1` once per mode (flash_ctrl.sv:171, :249, :277, all
+// the same `DataBitWidth`), and NOWHERE ELSE in either corpus; the BARE
+// (non-hier_path) spelling of the same shape has ZERO cells.  See
+// `CENSUS.r10earl84.txt`.
+UHDM::constant* UhdmExporter::connHpIpsBaseNonOvParamFold84(
+    const Expression& base, UHDM::any* ipsParent) {
+    static const bool off84 = getenv("R10E84_OFF") != nullptr;
+    if (off84)
+        return nullptr;
+    auto& core84 = stripImplicitConv(base);
+    if (core84.kind != ExpressionKind::NamedValue)
+        return nullptr;
+    auto& sym84 = core84.as<NamedValueExpression>().symbol;
+    if (sym84.kind != SymbolKind::Parameter)
+        return nullptr;
+    // (c) a PACKAGE parameter / localparam already folds on § selFold9's path,
+    // at its own measured width and WITHOUT a typespec.
+    for (auto* sc84 = sym84.getParentScope(); sc84;
+         sc84 = sc84->asSymbol().getParentScope())
+        if (sc84->asSymbol().kind == SymbolKind::Package)
+            return nullptr;
+    // (e) OVERRIDDEN is a DIFFERENT PRODUCER (no adjustSize, no valueRange).
+    if (isOverriddenParam(sym84))
+        return nullptr;
+    auto& ps84 = sym84.as<ParameterSymbol>();
+    auto& cv84 = ps84.getValue();
+    if (!cv84.isInteger() || cv84.integer().hasUnknown() ||
+        cv84.integer().isNegative())
+        return nullptr;
+    // (f) THE ENCODING.  The parameter's OWN elaborated `param_assign` Rhs
+    // constant, re-run through `srlgAdjustSize` against its DECLARED typespec
+    // — r10earl64's consumer, which is the very `adjustSize` call
+    // `collectParams_` makes before it captures the Value.
+    auto pit84 = elabParamPa.find(&sym84);
+    if (pit84 == elabParamPa.end() || !pit84->second)
+        return nullptr;
+    auto* rhs84 = pit84->second->Rhs();
+    if (!rhs84 || rhs84->UhdmType() != UHDM::uhdmconstant)
+        return nullptr;
+    std::string val84, dec84;
+    int32_t ct84 = 0, sz84 = 0;
+    if (!adjustCopiedParamConst64(ps84, (const UHDM::constant*)rhs84, val84,
+                                  ct84, sz84, dec84))
+        return nullptr;
+    if (val84.empty() || sz84 <= 0)
+        return nullptr;
+    auto* c84 = s.MakeConstant();
+    c84->VpiDecompile(dec84);
+    c84->VpiSize(sz84);
+    c84->VpiValue(val84);
+    c84->VpiConstType(ct84);
+    setLoc(c84, core84.sourceRange);
+    // Golden's folded base carries NO `vpiParent` (CompileExpression mints the
+    // constant free-standing and `compileSelectExpression` never re-parents
+    // it); the ips is passed only so a future consumer that DOES need it has
+    // it.  `VpiParent` is read by no generated `Compare`.
+    (void)ipsParent;
+    // THE TYPESPEC-PRESENCE SPLIT — `CompileHelper::valueRange`'s three-kind
+    // switch, transcribed: a SIGNED `int` / `bit` / `logic` declared type and
+    // nothing else.  A bare `int_typespec` with `VpiSigned` set is the whole
+    // object; `int_typespec::Compare` reads `Cast_to_expr`, `VpiSigned` and
+    // `Ranges`, and `typespec::Compare` above it reads `VpiName`,
+    // `Typedef_alias` and `Instance` — golden leaves every one of them unset.
+    bool signedTs84 = false;
+    if (auto dt84 = ps84.getDeclaredType())
+        if (auto ty84 = dt84->getTypeSyntax();
+            ty84 && ty84->kind != syntax::SyntaxKind::ImplicitType) {
+            auto& cty84 = ps84.getType().getCanonicalType();
+            if (cty84.isIntegral() && !cty84.isEnum() && cty84.isSigned()) {
+                if (cty84.kind == SymbolKind::PredefinedIntegerType)
+                    signedTs84 = cty84.as<PredefinedIntegerType>().integerKind ==
+                                 PredefinedIntegerType::Int;
+                else if (cty84.kind == SymbolKind::ScalarType)
+                    signedTs84 = true;
+                else if (cty84.kind == SymbolKind::PackedArrayType) {
+                    const Type* el84 = &cty84.as<PackedArrayType>()
+                                            .elementType.getCanonicalType();
+                    while (el84->kind == SymbolKind::PackedArrayType)
+                        el84 = &el84->as<PackedArrayType>()
+                                    .elementType.getCanonicalType();
+                    signedTs84 = el84->kind == SymbolKind::ScalarType;
+                }
+            }
+        }
+    if (signedTs84) {
+        auto* its84 = s.MakeInt_typespec();
+        its84->VpiSigned(true);
+        auto* rt84 = s.MakeRef_typespec();
+        rt84->VpiParent(c84);
+        rt84->Actual_typespec(its84);
+        c84->Typespec(rt84);
+    }
+    return c84;
+}
+
 // § genLpOneHopProcBoundOp58 — THE ONE HOP, DECODED FROM SURELOG AND ASKED OF
 // THE SCOPE TREE.
 //
@@ -22805,7 +23053,35 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             ips->VpiConstantSelect(true);  // § everyPartSelIsConstSel78
                             bool sup = suppressConstParent;
                             suppressConstParent = isLiteralExpr(rs.left());
-                            if (auto* b = emitExpr(rs.left(), ips, prefix, netMap))
+                            auto* b = emitExpr(rs.left(), ips, prefix, netMap);
+                            // § connHpIpsBaseNonOvParamFold84 — THE HEAD's own
+                            // site.  Placed AFTER the base emission and gated
+                            // on the result still being a `ref_obj` (fence (b)
+                            // at the law): every base some earlier law already
+                            // folds — a genvar, a package parameter, a
+                            // gen-scope localparam, an operation — arrives here
+                            // as a constant and is untouched by construction,
+                            // which is what makes this call site incapable of
+                            // moving a cell that already agrees with golden.
+                            // Fences (a) and (d) are spelled here; the rest
+                            // live in the helper.  The hier_path NAME follows
+                            // for free through § hpNameBareIdxFold69 below,
+                            // which re-derives it FROM THE OBJECTS.
+                            // § connBindInstKeepsRef84v (r10v84) — fence (g),
+                            // NOT A `bind` INSTANTIATION.  Surelog parents a
+                            // bind instance at `parent->getParent()`, so the
+                            // Reduce::Yes recompile has no Value for a
+                            // parameter of the bind TARGET and golden keeps the
+                            // `ref_obj`; the pristine emitter kept it too, so
+                            // folding here is a RIGHT->WRONG (measured,
+                            // `v5_bind84.sv`).  See the flag's declaration.
+                            if (elabConnEmit21 && !connFromBind84 && b &&
+                                b->UhdmType() == UHDM::uhdmref_obj &&
+                                callArgDepth - sysCallArgDepth22 == 0)
+                                if (auto* f84 = connHpIpsBaseNonOvParamFold84(
+                                        rs.left(), ips))
+                                    b = f84;
+                            if (b)
                                 ips->Base_expr((UHDM::expr*)b);
                             suppressConstParent = isLiteralExpr(rs.right());
                             // § elabHierSelWidthFold: the substituted width is

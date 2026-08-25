@@ -1,0 +1,192 @@
+r10earl84 — THE MOVER PREDICTION (made from PRISTINE databases, before any
+            patched sweep was read) and THE NEXT HEAD (R0).
+
+========================================================================
+PART 1 — THE MOVER PREDICTION
+========================================================================
+`cen84.sh` + `score84.py` were run over the PRISTINE sweep workdirs (golden
+from the immutable cache path named in each test's OWN `cmds.txt`, ours from
+the pristine sweep).  They READ databases and DISPATCH NOTHING, so no test —
+fenced or otherwise — is run by them; the FENCED list is supplied by the
+operator at run time and appears in a count, never as names.
+
+  THE SHAPE THE GATE COULD FIRE ON, golden-agreeing cells included (earl66's
+  lesson: a census keyed on the shape you intend to CHANGE is blind to the rows
+  you would change by ACCIDENT), is EVERY SELECT in a port connection, keyed by
+  its SPAN, its SLOT and its context class, in both databases at once — so a
+  bound that FOLDED on one side and stayed a reference on the other is still
+  found under the SAME key.  Over the 42 surelog and 36 uhdm2rtlil databases
+  that contain a port-connection select at all (of 956 / 1358):
+
+    cells joined                surelog  67520 BOTH-SAME + 30 MOVED-WRONG
+                                uhdm2rtlil 884 BOTH-SAME +  0 MOVED-WRONG
+    FAMILY-HP — golden a folded `constant`, ours a `ref_obj`, in an ELABORATED
+    port High_conn (PORTPAR=module_inst, CALLARG=0) INSIDE a hier_path
+                                surelog     6      uhdm2rtlil  0
+    FAMILY-BARE — the same OUTSIDE a hier_path
+                                surelog     0      uhdm2rtlil  0
+    FOLD-ELSEWHERE — the same in ANY other context
+                                surelog     0      uhdm2rtlil  0
+
+  and all 6 are SLOT=BASE at THREE SITES in `Earlgrey_0_1`, once per mode:
+    flash_ctrl.sv:171  \
+    flash_ctrl.sv:249   >  `reg2hw.addr.q[DataBitWidth +: AddrW]`
+    flash_ctrl.sv:277  /   -> constant sz32 UINT:2 ct9 dec"2"
+                                     + ref_typespec -> int_typespec(signed)
+  the same `localparam int DataBitWidth = $clog2(BytesPerWord)` (flash_ctrl.sv:34)
+  in all three.
+
+  PREDICTION: EXACTLY `Earlgrey_0_1` default and `Earlgrey_0_1` testflags move,
+  and NOTHING ELSE, in either corpus.
+
+MEASURED AFTER THE PATCHED SWEEPS, `byteverify.sh SELFCHECK=1`:
+  surelog     MOVERS 2 / 956   ./default/Earlgrey_0_1-71da2fd7/slang.uhdm
+                               ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+              SELFCHECK 955/956 flagged (the comparator is live)
+  uhdm2rtlil  MOVERS 0 / 1358  SELFCHECK 1357/1358 flagged
+
+The two predicted movers are exactly the two Earlgrey databases and there is no
+third — the documented Scoreboard/default ORDER COIN did not fire this run.
+Earlgrey is never whole-dump diffed (its dump is >1 GB); it is attributed TWO
+ways, and both are exact:
+
+  * THE RUN-TIME A/B GATE.  The PATCHED binary run with `R10E84_OFF=1` (the law
+    disabled, everything else identical) reproduces the PRISTINE database BYTE
+    FOR BYTE in BOTH modes, so 100 % of each mover's byte delta is this law:
+        pris_default = off_default = 2a0b5eda6b19   on_default = eca4492a7f16
+        pris_tf      = off_tf      = 469400b3a877   on_tf      = 3d2354c0922c
+    (the ON hashes are the patched sweep's own.)
+  * THE SPAN-KEYED DIRECT-READER CENSUS.  The `.ours` delta is exactly 6 cells
+    in default and 12 in testflags (the same three sites, elaborated twice):
+    3 BASE cells `ref_obj DataBitWidth` -> the constant golden holds, field for
+    field, and their 3 WIDTH twins, which change ONLY in the enclosing
+    hier_path's VpiName because § hpNameBareIdxFold69 re-derives that name FROM
+    THE OBJECTS.  Fixed-universe re-score: BOTH-SAME 8171 -> 8183,
+    MOVED-WRONG 30 -> 18, GOLDEN-ONLY 30 -> 30, OURS-ONLY 3422 -> 3422,
+    FAMILY-HP 6 -> 0.  Per-cell 3-way: WRONG->RIGHT 6 per mode,
+    RIGHT->WRONG 0, WRONG->OTHER 0.  MOVED-WRONG 0 / AWAY 0.
+
+========================================================================
+PART 2 — R0: THE NEW HEAD, THE SAME OBJECT IN BOTH MODES, AND ITS DECODE
+========================================================================
+BEFORE (0f32387, this pass's own pristine build; `HEAD_BEFORE_*.cmp` reproduce
+the master's Earlgrey head log for 0f32387 byte for byte modulo ids):
+  Earlgrey_0_1 default   240 cmp lines, 1 head  \  the `DataBitWidth` ips base
+  Earlgrey_0_1 testflags 268 cmp lines, 1 head  /  (flash_ctrl.sv:171)
+AFTER:
+  Earlgrey_0_1 default   214 cmp lines, 1 head  \  A DIFFERENT OBJECT, the SAME
+  Earlgrey_0_1 testflags 144 cmp lines, 1 head  /  one in both modes
+  The old head object is GONE and its family is CLOSED (FAMILY-HP 0 and
+  FAMILY-BARE 0 in both corpora).  Read HEAD_BEFORE_*.cmp against
+  HEAD_AFTER_*.cmp.
+
+THE NEW HEAD — `flash_erase_ctrl.sv:41`, AN ELABORATED `param_assign` WHOSE
+Rhs GOLDEN LEAVES AS AN OPERATION AND WE REDUCE WHOLE:
+
+    localparam logic[AddrW-1:0] PageAddrMask = ~(('h1 << WordsBitWidth) - 1'b1);
+
+  in `top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl`:
+
+    LHS (golden)                          RHS (ours)
+      param_assign 41:31-41:78              param_assign 41:31-41:78
+      |vpiRhs -> operation 41:46-41:78      |vpiOverriden:1
+      |  |vpiOpType:4                       |vpiRhs -> constant 41:46-41:78
+      |  |vpiTypespec -> ref_typespec       |  |vpiDecompile:4294967040
+      |  |    -> logic_typespec 41:14-41:30 |  |vpiSize:17
+      |  |vpiOperand -> constant            |  |UINT:4294967040
+      |       |vpiDecompile:255             |  |vpiTypespec -> ref_typespec
+      |       |vpiSize:64 |INT:255 |ct:7    |       -> logic_typespec 41:14-41:30
+      |vpiLhs -> parameter (…PageAddrMask)  |vpiLhs -> parameter (…PageAddrMask)
+
+  WHICH ARM.  Read the MK line: both sides are non-null `param_assign`s, so
+  `param_assign::Compare` runs; its `Rhs` slot holds an `operation` on the left
+  and a `constant` on the right — two non-null objects of DIFFERENT `UhdmType`,
+  i.e. `BaseClass.h:188`'s two-non-null arm, a KIND mismatch inside
+  `BaseClass::Compare`'s `VpiType` line.  `vpiOverriden` is a SECOND, separate
+  disagreement on the same object (golden does not set it on this localparam);
+  decide which one `param_assign::Compare` reads FIRST from the generated
+  source before naming the field.
+
+  THE DECODE TO START FROM.  Golden reduced the INNER sub-expression
+  (`('h1 << WordsBitWidth) - 1'b1` -> `INT:255 sz64 ct7`) and then STOPPED: the
+  outer `~` (unary bitwise negation) is still an `operation`, carrying the
+  parameter's own located `logic_typespec` as its typespec.  We reduce the
+  whole thing, mask it to the declared 17 bits and emit `UINT:4294967040`.  So
+  the question is WHY `UHDM::ExprEval::reduceExpr`'s unary-not arm bails here —
+  the operand is an unsized/`'h1`-derived value whose width ExprEval cannot
+  name, which is exactly the class of abstention § srlgNegLitGetValue30 and
+  earl83's R2 (the `1ULL << W` UB) already touched from other sides.  The DEF
+  copy and the DEFAULT-mode LHS differ in shape (default's LHS is a deeper
+  `opType 11` over `opType 22` nest, testflags' is the single `opType 4` over
+  `INT:255`), so measure BOTH modes before writing the rule.
+  `BankAddrMask` on the very next line (flash_erase_ctrl.sv:42) is the same
+  shape one operator deeper and is the obvious second cell.
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R1  THE TYPESPEC-PRESENCE HALF AT THE **WIDTH** SLOT.  Golden stamps the same
+    bare signed `int_typespec` on an ips WIDTH constant that names a signed-int
+    module localparam, and we mint that constant BARE.  Corpus cells today:
+    18 (Earlgrey_0_1, both modes, six BARE — non-hier_path — ips WIDTHs at
+    82:46, 83:50, 85:51, 87:51, 89:41, 108:34), and they are the WHOLE of the
+    remaining MOVED-WRONG 18 in the two movers' fixed-universe re-score.  Arm
+    cells g3 h03/b02 and g1 u_c4.  This is the CHEAPEST next cell: the producer
+    predicate is already written (`connHpIpsBaseNonOvParamFold84`'s
+    `signedTs84` block); only the WIDTH fold sites (`selWidthParamFold` /
+    § elabHierSelWidthFold, and `genLpUseFoldBound47`) have to consume it.
+
+R2  THE SAME LAW AT THE **bit_select INDEX** AND THE **part_select RIGHT BOUND**
+    INSIDE A HIER_PATH.  Measured on g3_pos84.sv: golden folds
+    `reg2hw.addr.q[Db]`'s index and `reg2hw.addr.q[Db+1 : Db]`'s RIGHT bound to
+    the same `UINT:2 sz32 ct9 + int_typespec(signed)` while leaving the LEFT
+    bound (an operation `Db + 1`) unreduced — a hier_path part_select does NOT
+    behave like the bare one, whose bounds `compilePartSelectRange` compiles at
+    `Reduce::No` (golden's own corpus evidence: 2352 `i` and 24 `LsbAddrBit`
+    ref_objs kept in BARE ELAB High_conn part_select RIGHT slots).  ZERO corpus
+    cells; arm-visible only.  Decode the hier_path builder's own bound compile
+    before taking it — the two spellings demonstrably differ.
+
+R3  THE BARE (NON-HIER_PATH) SPELLING OF THIS PASS'S OWN LAW.  `flat[Db +: 8]`
+    in an ELAB port High_conn: golden folds the base exactly as it does inside
+    a hier_path, and we keep the `ref_obj`.  ZERO corpus cells (FAMILY-BARE is
+    0 in BOTH corpora), which is why this pass ships ONE call site — the
+    hier_path builder at ExprEmit.cpp's member-access RangeSelect arm — rather
+    than every ips-BASE mint in the emitter.  Arm cells g3 b01/b05.
+
+R4  THE GEN-SCOPE LOCALPARAM'S OWN FOLD IS AT THE WRONG WIDTH.  A
+    `localparam int GL = gi + 1` read as an ips base in a gen-block instance's
+    High_conn is folded by our EXISTING § genLpPortConnValue11 path to
+    `UINT:n sz64` with no typespec, where golden gives `UINT:n sz32` WITH the
+    bare signed `int_typespec` — i.e. that producer never runs `adjustSize`.
+    Fence (b) keeps this pass away from it (the base is already a constant when
+    the call site sees it).  ZERO corpus cells; arm cells g4 gb[0].g02 /
+    gb[1].g02.
+
+R5  AN ADDRESS-DERIVED QUANTITY REACHES THE DATABASE.  For a CLASS-SCOPE
+    ASSOCIATIVE-ARRAY typedef (`typedef C22 ka_cls_t[string];`,
+    r10buvm22repro/g22.sv:70) our tool writes the array_typespec's range right
+    bound as `operation(constant UINT:22441433, …)` where golden holds
+    `constant STRING:associative`; the number is 0x1566dd9, 32 bytes from the
+    patched binary's 0x1566df9 and just past the 22 MB image, and it TRACKS THE
+    BINARY'S CODE LAYOUT — the pristine binary reproduces its own on repeat
+    runs and the patched binary with `R10E84_OFF=1` reproduces the PATCHED one.
+    PRE-EXISTING and unrelated to this law, on a path both binaries exit rc=4
+    on, with ZERO corpus databases affected (0 byte movers on uhdm2rtlil and
+    exactly the two attributed Earlgrey movers on surelog).  It is recorded
+    here because "a database value that depends on the binary" is the class of
+    defect RESUME §9 warns about, and this is a REPRODUCIBLE instance of it.
+
+R6  FOURTEEN PROBE ARMS SEGFAULT IN THE ELAB VIEW, under BOTH binaries
+    symmetrically (28 rc=139 signals, 14 per side, the same files).
+    Pre-existing (earl82's R6, earl83's R6), recorded because a boundary walk
+    that does not say so reads as if it compared them.
+
+R7  AN IMPLICIT-TYPE PARAMETER'S BASE IS NOT FOLDED.  `localparam L = 2`,
+    `localparam [7:0] L = 8'd2` and `localparam signed [7:0] L = 8'sd2` all
+    carry an `ImplicitType` type syntax, which `adjustCopiedParamConst64`'s
+    fence F-A1 refuses, so their bases keep the pristine `ref_obj` while golden
+    folds them (`UINT:2 sz32 ct9` for the untyped one, `INT:2 sz8 ct7` for the
+    ranged ones, WITH the typespec on the signed one).  ZERO corpus cells; arm
+    cells g2 u12 / u13 / u16.  Taking them means naming the width an implicit
+    parameter's Value carries, which is a producer this pass did not measure.

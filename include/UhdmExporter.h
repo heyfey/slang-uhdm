@@ -3688,6 +3688,21 @@ private:
     // same source expression is emitted as TWO objects, so a view-split fold
     // rule is expressible here and nowhere else.
     bool elabConnEmit21 = false;
+    // § connBindInstKeepsRef84v (r10v84, the verifier's fence on
+    // § connHpIpsBaseNonOvParamFold84) — set together with § elabConnEmit21
+    // when the instantiation being elaborated came from a `bind` DIRECTIVE.
+    // Surelog's `DesignElaboration::createBindInstance_`
+    // (DesignElaboration.cpp:652-654) parents the bind instance at
+    // `parent->getParent()` — the scope ENCLOSING the bind target, not the
+    // target — and records the target only as `setInstanceBinding(parent)`.
+    // `NetlistElaboration::high_conn_`'s `Reduce::Yes` recompile therefore
+    // evaluates the actual in that ENCLOSING instance, where a parameter of
+    // the TARGET module has no stored `Value`, `getValue` returns null and the
+    // `ref_obj` survives.  Golden keeps the reference, and so must we.  The
+    // fence is on the bind instance ITSELF and not on its children: a module
+    // instantiated INSIDE the bind module is an ordinary child of an ordinary
+    // instance and golden folds it (measured, arm `v6_bind2_84.sv` cell `b2`).
+    bool connFromBind84 = false;
     // § connMpRootIpsBoundKeepsTs65v (r10v65, the verifier's fix to
     // § connIpsPkgParamBoundNoTs65) — set ONLY while the Base_expr and the
     // Width_expr of an ELABORATED port High_conn indexed-part-select whose
@@ -4052,6 +4067,16 @@ private:
     /// definition in ExprEmit.cpp.  Never called outside `elabConnEmit21`.
     UHDM::constant* connBitSelIdxModParamFold81(
         const slang::ast::Expression& idx, UHDM::any* bsParent);
+    /// § connHpIpsBaseNonOvParamFold84 — the fold Surelog SUBSTITUTES for a
+    /// MODULE-SCOPE parameter / localparam read that is the BASE of the
+    /// `indexed_part_select` closing a `hier_path` inside an ELABORATED port
+    /// `High_conn`, or null when the declared type is one this pass does not
+    /// model (then the pristine `ref_obj` stands and the hier_path NAME keeps
+    /// the identifier).  The law, the Surelog decode and the measured
+    /// typespec-presence split live at the definition in ExprEmit.cpp.  Never
+    /// called outside `elabConnEmit21`.
+    UHDM::constant* connHpIpsBaseNonOvParamFold84(
+        const slang::ast::Expression& base, UHDM::any* ipsParent);
     // § genCaSysCallArgBinds22 — nesting depth inside a SYSTEM function
     // call's argument list ($signed/$unsigned/...).  callArgDepth counts user
     // calls too and this law is measured only for system ones.

@@ -1,0 +1,121 @@
+r10earl84 — THE SELECT-BOUND CENSUS.  MEASUREMENT ONLY; the official
+~/git-repos/UHDM/build/bin/uhdm-cmp remains the sole acceptance judge.
+
+TOOLS: ct84cen.cpp (direct .uhdm reader — Earlgrey's uhdm-dump is >1 GB and
+is NEVER whole-dump diffed here, earl61's pattern), cen84.sh (whole workdir,
+golden path read from each test's OWN cmds.txt), score84.py (multiset join).
+They READ databases and DISPATCH NOTHING: no test, fenced or otherwise, is
+run by them.  FENCED = 4 names, supplied by the operator, never spelled here.
+
+KEY = SPAN + SLOT + SEL + INHP + CTX + PORTPAR + CALLARG + PSBOUND (+ INST
+for the arms only).  PAYLOAD = KIND NAME SZ VAL CT DEC TS TSN TSSG TSVL TSRG
+TSAL TSIN TSCE HPNM CS IPT — every field typespec::Compare, int_typespec::
+Compare and hier_path::Compare actually read, and no span-derived field.
+
+==============================================================================
+1. PRISTINE, BOTH CORPORA, every select in a port connection (--only-porthc)
+==============================================================================
+-- surelog (956 databases swept; 42 hold a port-connection select at all)
+BOTH-SAME                          67520
+DB                                 42
+FAMILY-HP                          6
+FAMILY-HP:BASE                     6
+GOLDEN-ONLY                        1358
+MOVED-WRONG                        30
+OURS-ONLY                          4911
+-- uhdm2rtlil (1358 swept; 36 hold one)
+BOTH-SAME                          884
+DB                                 36
+GOLDEN-ONLY                        72
+MOVED-WRONG                        0
+OURS-ONLY                          72
+
+FAMILY-HP = THIS LAW'S FIRE-SET: golden a folded `constant`, ours a
+`ref_obj`, in an ELABORATED port High_conn (PORTPAR=module_inst, CALLARG=0),
+inside a hier_path.  FAMILY-BARE = the same outside a hier_path.  FOLD-
+ELSEWHERE = the same in ANY other context.
+    FAMILY-HP        6   (ALL SLOT=BASE)
+    FAMILY-BARE      0
+    FOLD-ELSEWHERE   0
+
+THE WHOLE POPULATION, listed by database BY NAME (score84.py --family):
+default__Earlgrey_0_1-71da2fd7 SPAN=277:34-277:57 SLOT=BASE SEL=indexed_part_select INHP=1 CTX=PORTHC PORTPAR=module_inst CALLARG=0 PSBOUND=0 ROOT=design ||G KIND=constant NAME=- SZ=32 VAL=UINT:2 CT=9 DEC=2 TS=int_typespec TSN=- TSSG=1 TSVL=- TSRG=0 TSAL=0 TSIN=0 TSCE=0 HPNM=reg2hw.addr.q[2+:17] CS=1 IPT=1 ||O KIND=ref_obj NAME=DataBitWidth SZ=- VAL=- CT=- DEC=- TS=- TSN=- TSSG=- TSVL=- TSRG=- TSAL=- TSIN=- TSCE=- HPNM=reg2hw.addr.q[DataBitWidth+:17] CS=1 IPT=1
+default__Earlgrey_0_1-71da2fd7 SPAN=249:34-249:57 SLOT=BASE SEL=indexed_part_select INHP=1 CTX=PORTHC PORTPAR=module_inst CALLARG=0 PSBOUND=0 ROOT=design ||G KIND=constant NAME=- SZ=32 VAL=UINT:2 CT=9 DEC=2 TS=int_typespec TSN=- TSSG=1 TSVL=- TSRG=0 TSAL=0 TSIN=0 TSCE=0 HPNM=reg2hw.addr.q[2+:17] CS=1 IPT=1 ||O KIND=ref_obj NAME=DataBitWidth SZ=- VAL=- CT=- DEC=- TS=- TSN=- TSSG=- TSVL=- TSRG=- TSAL=- TSIN=- TSCE=- HPNM=reg2hw.addr.q[DataBitWidth+:17] CS=1 IPT=1
+default__Earlgrey_0_1-71da2fd7 SPAN=171:34-171:57 SLOT=BASE SEL=indexed_part_select INHP=1 CTX=PORTHC PORTPAR=module_inst CALLARG=0 PSBOUND=0 ROOT=design ||G KIND=constant NAME=- SZ=32 VAL=UINT:2 CT=9 DEC=2 TS=int_typespec TSN=- TSSG=1 TSVL=- TSRG=0 TSAL=0 TSIN=0 TSCE=0 HPNM=reg2hw.addr.q[2+:17] CS=1 IPT=1 ||O KIND=ref_obj NAME=DataBitWidth SZ=- VAL=- CT=- DEC=- TS=- TSN=- TSSG=- TSVL=- TSRG=- TSAL=- TSIN=- TSCE=- HPNM=reg2hw.addr.q[DataBitWidth+:17] CS=1 IPT=1
+testflags__Earlgrey_0_1-71da2fd7 SPAN=277:34-277:57 SLOT=BASE SEL=indexed_part_select INHP=1 CTX=PORTHC PORTPAR=module_inst CALLARG=0 PSBOUND=0 ROOT=design ||G KIND=constant NAME=- SZ=32 VAL=UINT:2 CT=9 DEC=2 TS=int_typespec TSN=- TSSG=1 TSVL=- TSRG=0 TSAL=0 TSIN=0 TSCE=0 HPNM=reg2hw.addr.q[2+:17] CS=1 IPT=1 ||O KIND=ref_obj NAME=DataBitWidth SZ=- VAL=- CT=- DEC=- TS=- TSN=- TSSG=- TSVL=- TSRG=- TSAL=- TSIN=- TSCE=- HPNM=reg2hw.addr.q[DataBitWidth+:17] CS=1 IPT=1
+testflags__Earlgrey_0_1-71da2fd7 SPAN=249:34-249:57 SLOT=BASE SEL=indexed_part_select INHP=1 CTX=PORTHC PORTPAR=module_inst CALLARG=0 PSBOUND=0 ROOT=design ||G KIND=constant NAME=- SZ=32 VAL=UINT:2 CT=9 DEC=2 TS=int_typespec TSN=- TSSG=1 TSVL=- TSRG=0 TSAL=0 TSIN=0 TSCE=0 HPNM=reg2hw.addr.q[2+:17] CS=1 IPT=1 ||O KIND=ref_obj NAME=DataBitWidth SZ=- VAL=- CT=- DEC=- TS=- TSN=- TSSG=- TSVL=- TSRG=- TSAL=- TSIN=- TSCE=- HPNM=reg2hw.addr.q[DataBitWidth+:17] CS=1 IPT=1
+testflags__Earlgrey_0_1-71da2fd7 SPAN=171:34-171:57 SLOT=BASE SEL=indexed_part_select INHP=1 CTX=PORTHC PORTPAR=module_inst CALLARG=0 PSBOUND=0 ROOT=design ||G KIND=constant NAME=- SZ=32 VAL=UINT:2 CT=9 DEC=2 TS=int_typespec TSN=- TSSG=1 TSVL=- TSRG=0 TSAL=0 TSIN=0 TSCE=0 HPNM=reg2hw.addr.q[2+:17] CS=1 IPT=1 ||O KIND=ref_obj NAME=DataBitWidth SZ=- VAL=- CT=- DEC=- TS=- TSN=- TSSG=- TSVL=- TSRG=- TSAL=- TSIN=- TSCE=- HPNM=reg2hw.addr.q[DataBitWidth+:17] CS=1 IPT=1
+
+= THREE SITES in Earlgrey_0_1 (flash_ctrl.sv:171, :249, :277 — all the same
+  `localparam int DataBitWidth = $clog2(BytesPerWord)` of flash_ctrl.sv:34),
+  once per mode.  PREDICTION: EXACTLY Earlgrey_0_1 default and Earlgrey_0_1
+  testflags move, and NOTHING ELSE in either corpus.
+
+==============================================================================
+2. GOLDEN'S OWN ELAB port-High_conn bound REFERENCES (the fence evidence)
+==============================================================================
+Every ref_obj golden itself leaves in a bound slot of an ELABORATED port
+High_conn, over the whole surelog corpus:
+      2 SLOT=IDX SEL=bit_select INHP=0 || KIND=ref_obj NAME=sel SZ=- VAL=- CT=
+      4 SLOT=IDX SEL=bit_select INHP=0 || KIND=ref_obj NAME=usb_in_endpoint SZ
+   2352 SLOT=RIGHT SEL=part_select INHP=0 || KIND=ref_obj NAME=i SZ=- VAL=- CT
+     24 SLOT=RIGHT SEL=part_select INHP=0 || KIND=ref_obj NAME=LsbAddrBit SZ=-
+
+  -> golden folds EVERY ips BASE it can; the references it keeps are
+     part_select bounds (compilePartSelectRange hardcodes Reduce::No —
+     § genScopeConnPsDirectBoundKeepsRef71) and bit_select indices naming a
+     VARIABLE.  There is NOT ONE ips-BASE ref_obj in golden, which is why
+     this call site cannot contradict golden anywhere in the corpus.
+
+==============================================================================
+3. THE TWO MOVERS, FIXED-UNIVERSE RE-SCORE (Earlgrey_0_1, both modes)
+==============================================================================
+-- PRISTINE
+BOTH-SAME                          8171
+DB                                 2
+FAMILY-HP                          6
+FAMILY-HP:BASE                     6
+GOLDEN-ONLY                        30
+MOVED-WRONG                        30
+OURS-ONLY                          3422
+-- PATCHED
+BOTH-SAME                          8183
+DB                                 2
+GOLDEN-ONLY                        30
+MOVED-WRONG                        18
+OURS-ONLY                          3422
+
+  BOTH-SAME 8171 -> 8183 (+12)   MOVED-WRONG 30 -> 18 (-12)
+  FAMILY-HP 6 -> 0 (the family is CLOSED)
+  GOLDEN-ONLY 30 -> 30, OURS-ONLY 3422 -> 3422 (both unchanged)
+
+PER-CELL 3-WAY VERDICT (score3_84.py over golden / pristine / patched):
+  -- Earlgrey default
+     SAME->SAME     3520
+     WRONG->RIGHT   6
+     RIGHT->WRONG   0
+     WRONG->WRONG   6
+     WRONG->OTHER   0
+     G-ONLY         15
+     O-ONLY         15
+  -- Earlgrey testflags
+     SAME->SAME     3057
+     WRONG->RIGHT   6
+     RIGHT->WRONG   0
+     WRONG->WRONG   1606
+     WRONG->OTHER   0
+     G-ONLY         15
+     O-ONLY         3407
+
+  RIGHT->WRONG 0 and WRONG->OTHER 0 in BOTH modes.  MOVED-WRONG 0 / AWAY 0.
+  (the testflags WRONG->WRONG bulk is the pre-existing duplicate-elaboration
+   pairing, byte-identical between the two binaries.)
+
+THE .ours CELL DELTA, pristine -> patched, in full:
+  -- default: 12 diff lines
+  -- testflags: 24 diff lines
+  default  = 3 BASE cells (ref_obj DataBitWidth -> constant UINT:2 sz32 ct9
+             dec"2" + int_typespec(signed)) and their 3 WIDTH twins, which
+             change ONLY in HPNM because the hier_path NAME follows the base.
+  testflags= the same three sites, each elaborated TWICE (12 cells).
+  Nothing else in either Earlgrey database changed a cell.

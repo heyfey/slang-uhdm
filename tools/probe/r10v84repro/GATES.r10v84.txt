@@ -1,0 +1,172 @@
+r10v84 — ADVERSARIAL VERIFICATION GATE BATTERY for r10earl84.
+BASE 0f32387, branch auto5h.  results/*.csv READ ONLY and untouched — NO ROW
+CONVERTED.  slang NOT patched.  Production surface: src/ExprEmit.cpp +
+src/ModuleEmit.cpp + include/UhdmExporter.h only.
+Three binaries, all built by the VERIFIER from scratch and frozen r-xr-xr-x
+BEFORE any sweep:
+c5393d4b65932e92fb79410dacd93409  /tmp/v84_bin/pris.bin
+67a552d510013eef8aa4a3f78b682c9c  /tmp/v84_bin/pat.bin
+6b2fbf78f9b6dba34e12ee6a4b5a12cd  /tmp/v84_bin/fix.bin
+    pris.bin  = 0f32387                       (implementer's md5: MATCHES)
+    pat.bin   = 0f32387 + r10earl84.patch     (implementer's md5: MATCHES)
+    fix.bin   = 0f32387 + r10earl84.verified.patch  (this verification's ship)
+
+(1) GOLDENS, SLANG_UHDM exported explicitly to EACH binary
+    pristine     PASS=23 FAIL=0
+    as-submitted PASS=23 FAIL=0
+    FIXED        PASS=23 FAIL=0
+    /bin/false negative control  PASS=0 FAIL=23
+
+(2) uhdm2rtlil, BOTH modes, all three binaries: 679 CMP_EQUAL / 50
+    SLANG_REJECT / 2 SURELOG_FAIL in each mode.
+
+(3) surelog --mode both, 956 databases, all three binaries:
+    [default]   471 CMP_EQUAL / 283 SLANG_REJECT / 25 SURELOG_FAIL /
+                10 CMP_NOTEQUAL / 5 DEFERRED
+    [testflags] 466 CMP_EQUAL / 284 SLANG_REJECT / 23 SURELOG_FAIL /
+                9 CMP_NOTEQUAL / 5 DEFERRED / 3 NO_DATABASE /
+                2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+
+(4) ct8rows WHOLE-ROW gate (status AND dump column) — TEN comparisons, all PASS
+    as-submitted vs committed gate_uhdm2rtlil.csv          PASS
+    as-submitted vs pristine, u2r testflags and default    PASS  PASS
+    as-submitted vs committed golden_surelog.csv           PASS
+    as-submitted vs pristine, surelog                      PASS
+    FIXED        vs committed gate_uhdm2rtlil.csv          PASS
+    FIXED        vs pristine, u2r testflags and default    PASS  PASS
+    FIXED        vs committed golden_surelog.csv           PASS
+    FIXED        vs pristine, surelog                      PASS
+    0 differing rows over 731x2 + 1588.  NO ROW CONVERTED.
+
+(5) cmds.txt BINARY AUDIT, by PATH (not by the string 'slang-uhdm', which also
+    matches the golden cache directory)
+      /tmp/v84_wdP  cmds.txt=3035  without pris.bin=54
+      /tmp/v84_wdQ  cmds.txt=3035  without pat.bin =54
+      /tmp/v84_wdF  cmds.txt=3035  without fix.bin =54
+      the 54 in EACH workdir contain ZERO '^slang:' lines — they are the
+      SLANG_REJECT / cache-only rows where slang was never invoked.  No
+      cmds.txt anywhere names any other slang-uhdm binary.
+
+(6) BYTE VERIFIER, SELFCHECK=1
+    -- uhdm2rtlil, as-submitted and FIXED, both vs pristine
+       PATH_SETS_IDENTICAL (1358)   MOVERS 0 / 1358   SELFCHECK 1357/1358
+    -- surelog, as-submitted vs pristine
+       MOVER ./default/Earlgrey_0_1-71da2fd7    eca4492a7f16 <- 2a0b5eda6b19
+       MOVER ./testflags/Earlgrey_0_1-71da2fd7  3d2354c0922c <- 469400b3a877
+       MOVER ./default/Scoreboard-59431470      b2629b00e859 <- b4573a42d4a8
+       MOVERS 3 / 956   SELFCHECK 955/956
+       Scoreboard/default is the DOCUMENTED ~50/50 ORDER COIN and is
+       attributed ORDER-BLIND: sorted, workdir-normalised uhdm-dump diff =
+       0 lines over 1,099,210; unsorted = 92 lines (the svunit_pkg
+       vpiTaskFunc order flip).  Its row stays CMP_EQUAL (gate 4).
+    -- surelog, FIXED vs pristine
+       MOVERS 2 / 956 — the SAME two Earlgrey databases with the SAME hashes;
+       the bind fence changes NOTHING in either corpus.  SELFCHECK 955/956.
+
+(7) A/B ATTRIBUTION, re-run by the verifier on Earlgrey (never whole-dump
+    diffed; its dump is >1 GB).  The as-submitted binary with R10E84_OFF=1:
+       off_default 2a0b5eda6b199453753592dcdc95c5f5 = pristine sweep's hash
+       off_tf      469400b3a877e0ae42c90b723fd2db3e = pristine sweep's hash
+    100% of each mover's byte delta is this law.  CONFIRMED.
+
+(8) HEADS (rowheads.sh; LHS is ALWAYS golden; one head per run asserted)
+    pristine     Earlgrey_0_1 default 240 / testflags 268, 1 head each
+    as-submitted Earlgrey_0_1 default 214 / testflags 144, 1 head each
+    FIXED        Earlgrey_0_1 default 214 / testflags 144, 1 head each
+    Every other measured row (SeqDriver x2, SimpleUVM x2, Scoreboard/default,
+    MiniAmiq x2, BuildUVMPkg x2, Rggen/default) is BYTE-IDENTICAL across all
+    three binaries.  The FIXED cmp logs are byte-identical to the
+    as-submitted ones on every row including Earlgrey.
+    HEAD_AFTER_Earlgrey_{default,testflags}.cmp as committed reproduce with
+    0 differing lines modulo object ids.  The new head is the SAME object in
+    both modes (param_assign PageAddrMask, flash_erase_ctrl.sv:41).
+
+(9) CANARIES, all on the FIXED binary (as-submitted identical)
+    ---- canary rows: ok=52 changed=0 absent=0   (surelog)
+    ---- canary rows: ok=8  changed=0 absent=0   (uhdm2rtlil)
+    ctcan2 surelog PASS ; ctcan2 uhdm2rtlil PASS
+    canaudit  audited=29  UNCOVERED=0  FENCE-BREACH=0
+    PROTECTED DATABASES (md5 FIXED vs pristine), all SAME:
+      InterfaceModPort 59a365f3ce2c (both modes)
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5
+      YosysOldOr d68e0796d62c (both modes)
+      SVSwitch 4842211c4030 (PIN)   YosysVerx 6ccda350c24a (PIN)
+    No verifier artifact spells any of the four fenced test names (0/0/0/0).
+
+(10) THE WIDE BOUNDARY, run twice by the verifier from a COPY of tools/probe,
+     every .sv/.v at ANY depth, BOTH views (plain and --elabuhdm), list on
+     fd 3, children </dev/null, PROCESSED asserted, rc recorded per cell.
+     -- AS-SUBMITTED vs PRISTINE (6 shards)
+        LISTED = PROCESSED = 3758   identical 7202   DIFFERING 20   no_output 294
+        rc per side: 0 6923/6923  3 280/280  4 299/299  139 14/14
+        the rc=139 set is the SAME 14 files on both sides (pre-existing
+        elab-view signals; earl82 R6 / earl83 R6)
+        DIFFERING = 8 shipped arms (g1-g4 x 2 views)
+                  + 10 verifier arms (v1-v5 x 2 views)
+                  + 2  r10buvm22repro/g22.sv  -- NOT this law's, see (11)
+     -- FIXED vs PRISTINE (3 shards)
+        LISTED = PROCESSED = 3761   identical 7206   DIFFERING 22   no_output 294
+        rc per side: 0 6929/6929  3 280/280  4 299/299  139 14/14
+        v4_ctx84.sv and v5_bind84.sv DROP OUT of the DIFFERING list — the
+        boundary's own confirmation that the bind fence restored them.
+     Every r10earl45-83 arm, every uvm/buvm arm, every earlier hier_path /
+     High_conn / cast / binder arm (incl. § genCaNestedModuleLhsOpRhsBinds59)
+     is BYTE-IDENTICAL under both binaries.
+
+(11) R5 INDEPENDENTLY CONFIRMED.  r10buvm22repro/g22.sv, a class-scope
+     associative-array typedef on a pre-existing rc=4 path:
+        pristine run 1 / run 2   vpiDecompile:22440577  22441433
+        as-submitted             vpiDecompile:22440609  22441465
+        as-submitted R10E84_OFF=1 vpiDecompile:22440609 22441465
+     The law OFF still prints the patched number, so the cell is NOT this
+     law's.  The delta is +32 on both values while the patched image is 544
+     bytes larger: an address-derived quantity IS reaching the database.
+     Golden holds `constant STRING:associative`.  Pre-existing, both binaries
+     equally wrong, 0 corpus databases — worth its own pass.
+
+(12) THE CENSUS, re-run by the verifier over the PRISTINE workdirs
+     (ct84cen --only-porthc; the tool READS databases and DISPATCHES NOTHING)
+     -- surelog       FAMILY-HP 6   FAMILY-BARE 0   FOLD-ELSEWHERE 0
+                      MOVED-WRONG 30
+     -- uhdm2rtlil    FAMILY-HP 0   FAMILY-BARE 0   FOLD-ELSEWHERE 0
+                      MOVED-WRONG 0
+     The six cells are exactly flash_ctrl.sv 171 / 249 / 277 in Earlgrey_0_1,
+     once per mode, all SLOT=BASE, all the same localparam int DataBitWidth.
+     GOLDEN'S OWN kept references in an ELABORATED port High_conn bound slot,
+     both corpora:  2352 part_select RIGHT `i`, 24 part_select RIGHT
+     `LsbAddrBit`, 4 bit_select IDX `usb_in_endpoint`, 2 bit_select IDX
+     `sel` — and NOT ONE ips-BASE ref_obj.
+     NOTE (verifier discrepancy, immaterial): my run finds 46 surelog
+     databases holding a port-connection select, not 42, with BOTH-SAME
+     85384 / GOLDEN-ONLY 1884 / OURS-ONLY 5437 instead of 67520 / 1358 /
+     4911.  My set is a superset; every decision-relevant figure matches.
+
+     EARLGREY FIXED-UNIVERSE RE-SCORE (both modes)
+        pristine     BOTH-SAME 8171  MOVED-WRONG 30  GOLDEN-ONLY 30
+                     OURS-ONLY 3422  FAMILY-HP 6
+        as-submitted BOTH-SAME 8183  MOVED-WRONG 18  GOLDEN-ONLY 30
+                     OURS-ONLY 3422  FAMILY-HP 0
+        .ours delta 6 cells (default) / 12 (testflags).
+        The residual 18 MOVED-WRONG are ALL SLOT=WIDTH indexed_part_select at
+        82:46 / 83:50 / 85:51 / 87:51 / 89:41 / 108:34 — exactly PREDICT_R0's
+        R1.  MOVED-WRONG 0 / AWAY 0 confirmed.
+
+(13) THE ARMS.  Twelve arms, four databases each (golden / pristine /
+     as-submitted / FIXED), every child </dev/null and its rc recorded.
+     -- THE FOUR SHIPPED ARMS, re-scored by the verifier's own scorer:
+        g1_hp84    S->S 27  W->R 14  R->W 0  W->W 1
+        g2_types84 S->S 36  W->R 26  R->W 0  W->W 6
+        g3_pos84   S->S 29  W->R  2  R->W 0  W->W 13
+        g4_prod84  S->S 26  W->R 16  R->W 0  W->W 10
+        totals 118 / 58 / 0 / 30 — the implementer's numbers exactly, and
+        UNCHANGED by the bind fence.
+     -- THE EIGHT VERIFIER ARMS (as-submitted -> FIXED)
+        v1_homes84    S->S 16  W->R 12  R->W 0     W->W 2
+        v2_types84    S->S 22  W->R 18  R->W 0     W->W 4
+        v3_shapes84   S->S 20  W->R 16  R->W 0     W->W 6
+        v4_ctx84      S->S 14->16       R->W 2->0  W->W 2
+        v5_bind84     S->S  0->2        R->W 2->0
+        v6_bind2_84   S->S  4->6  W->R 4  R->W 2->0
+        v7_more84     S->S  8  W->R  6  R->W 0     W->O 2
+        v8_defparam84 S->S  2  W->R  3  R->W 0     W->O 1
+     WITH THE FIX: RIGHT->WRONG = 0 on all twelve arms.

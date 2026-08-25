@@ -1,0 +1,944 @@
+r10v84 — THE ARMS, full per-cell output.  MEASUREMENT ONLY.
+Four databases per arm: g=golden(Surelog) o=pristine q=as-submitted f=FIXED.
+
+==============================================================
+ARM v1_homes84
+--------------------------------------------------------------
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=29:44-29:54	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.h_mod
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=29:44-29:54	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.h_mod
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=32:45-32:55	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.gf[0].h_for
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=32:45-32:55	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.gf[1].h_for
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=32:45-32:55	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.gf[0].h_for
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=32:45-32:55	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.gf[1].h_for
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=36:44-36:54	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.gi1.h_if
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=36:44-36:54	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.gi1.h_if
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=38:48-38:58	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.gi1.gi2.h_nest
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=38:48-38:58	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.gi1.gi2.h_nest
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=44:48-44:58	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.gc.h_case
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=44:48-44:58	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.gc.h_case
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=53:51-53:61	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.h_ifpath
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=u_if.reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=u_if.reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=u_if.reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=u_if.reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=53:51-53:61	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@homes84.h_ifpath
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=u_if.reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=u_if.reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=u_if.reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=u_if.reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+-- as-submitted: SAME->SAME=16  WRONG->RIGHT=12  WRONG->WRONG=2
+-- FIXED       : SAME->SAME=16  WRONG->RIGHT=12  WRONG->WRONG=2
+
+==============================================================
+ARM v2_types84
+--------------------------------------------------------------
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=35:41-35:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v01
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=V01	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V01+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=35:41-35:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v01
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V01+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=36:41-36:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v02
+    G: KIND=constant	NAME=-	SZ=4	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=V02	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V02+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=4	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=4	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=36:41-36:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v02
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V02+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=37:41-37:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v03
+    G: KIND=constant	NAME=-	SZ=8	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=V03	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V03+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=8	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=8	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=37:41-37:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v03
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V03+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=38:41-38:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v04
+    G: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=V04	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V04+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=38:41-38:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v04
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V04+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=39:41-39:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v05
+    G: KIND=constant	NAME=-	SZ=1	VAL=BIN:0	CT=3	DEC=1'b0	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[1'b0+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=V05	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V05+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=1	VAL=BIN:0	CT=3	DEC=1'b0	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[1'b0+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=1	VAL=BIN:0	CT=3	DEC=1'b0	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[1'b0+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=39:41-39:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v05
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[1'b0+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V05+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[1'b0+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[1'b0+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=40:41-40:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v06
+    G: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=V06	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V06+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=40:41-40:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v06
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V06+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=41:41-41:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v07
+    G: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=V07	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V07+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=41:41-41:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v07
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V07+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=42:41-42:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v08
+    G: KIND=constant	NAME=-	SZ=1	VAL=BIN:1	CT=3	DEC=1'b1	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[1'b1+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=V08	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V08+:8]	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=V08	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V08+:8]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=V08	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V08+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=42:41-42:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v08
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[1'b1+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V08+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V08+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V08+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=43:41-43:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v09
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=V09	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V09+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=43:41-43:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v09
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V09+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=44:41-44:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v10
+    G: KIND=constant	NAME=-	SZ=71	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=V10	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V10+:8]	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=V10	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V10+:8]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=V10	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V10+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=44:41-44:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v10
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V10+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V10+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V10+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=45:41-45:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v11
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:0	CT=9	DEC=0	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[0+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=V11	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V11+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:0	CT=9	DEC=0	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[0+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:0	CT=9	DEC=0	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[0+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=45:41-45:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types2_84.v11
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[V11+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:8]	CS=1	IPT=1
+-- as-submitted: SAME->SAME=22  WRONG->RIGHT=18  WRONG->WRONG=4
+-- FIXED       : SAME->SAME=22  WRONG->RIGHT=18  WRONG->WRONG=4
+
+==============================================================
+ARM v3_shapes84
+--------------------------------------------------------------
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=26:36-26:46	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.d2
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=shallow.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=shallow.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=shallow.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=shallow.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=26:36-26:46	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.d2
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=shallow.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=shallow.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=shallow.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=shallow.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=27:37-27:47	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.d3
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=27:37-27:47	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.d3
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=29:46-29:56	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_array	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84
+    G: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:SW]	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:SW]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:SW]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=29:46-29:56	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.arr84[0]
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=29:46-29:56	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.arr84[1]
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=29:46-29:56	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_array	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=1	TSCE=0	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=SW	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:SW]	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=SW	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:SW]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=SW	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:SW]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=29:46-29:56	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.arr84[0]
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=29:46-29:56	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.arr84[1]
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=30:37-30:47	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.u_pos
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=30:37-30:47	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.u_pos
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=32:39-32:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.u_dn
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:10	CT=9	DEC=10	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[10-:8]	CS=1	IPT=2
+    O: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db_+_8-:8]	CS=1	IPT=2
+    Q: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db_+_8-:8]	CS=1	IPT=2
+    F: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db_+_8-:8]	CS=1	IPT=2
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=32:39-32:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.u_dn
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[10-:8]	CS=1	IPT=2
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db_+_8-:8]	CS=1	IPT=2
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db_+_8-:8]	CS=1	IPT=2
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db_+_8-:8]	CS=1	IPT=2
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=33:40-33:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.u_dn2
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2-:2]	CS=1	IPT=2
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db-:2]	CS=1	IPT=2
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2-:2]	CS=1	IPT=2
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2-:2]	CS=1	IPT=2
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=33:40-33:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.u_dn2
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2-:2]	CS=1	IPT=2
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db-:2]	CS=1	IPT=2
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2-:2]	CS=1	IPT=2
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2-:2]	CS=1	IPT=2
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=35:51-35:61	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.u_tern
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=35:51-35:61	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.u_tern
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=36:42-36:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.u_cat
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:4]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:4]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:4]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=deep.b.c.q[2+:4]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=36:42-36:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@shapes84.u_cat
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:4	CT=9	DEC=4	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:4]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:4	CT=9	DEC=4	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:4]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:4	CT=9	DEC=4	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:4]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:4	CT=9	DEC=4	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[2+:4]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=39:55-39:65	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=1	PSBOUND=0	ROOT=design	INST=work@shapes84.u_su
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=1	TSCE=0	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=40:55-40:65	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=1	PSBOUND=0	ROOT=design	INST=work@shapes84.u_us
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=1	TSCE=0	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=deep.b.c.q[Db+:8]	CS=1	IPT=1
+-- as-submitted: SAME->SAME=20  WRONG->RIGHT=16  WRONG->WRONG=6
+-- FIXED       : SAME->SAME=20  WRONG->RIGHT=16  WRONG->WRONG=6
+
+==============================================================
+ARM v4_ctx84
+--------------------------------------------------------------
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=48:41-48:52	SLOT=LEFT	SEL=part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx4_84.c_ps
+    G: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2_+_1:2]	CS=1	IPT=-
+    O: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_1:Db]	CS=1	IPT=-
+    Q: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_1:Db]	CS=1	IPT=-
+    F: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_1:Db]	CS=1	IPT=-
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=48:41-48:52	SLOT=RIGHT	SEL=part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx4_84.c_ps
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2_+_1:2]	CS=1	IPT=-
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_1:Db]	CS=1	IPT=-
+    Q: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_1:Db]	CS=1	IPT=-
+    F: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_1:Db]	CS=1	IPT=-
+[submitted=RIGHT->WRONG  FIXED=SAME->SAME] SPAN=52:44-52:53	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx4_84.u_bind
+    G: KIND=ref_obj	NAME=Bd	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Bd	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=Bd	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+[submitted=RIGHT->WRONG  FIXED=SAME->SAME] SPAN=52:44-52:53	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx4_84.u_bind
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+-- as-submitted: RIGHT->WRONG=2  SAME->SAME=14  WRONG->WRONG=2
+-- FIXED       : SAME->SAME=16  WRONG->WRONG=2
+
+==============================================================
+ARM v5_bind84
+--------------------------------------------------------------
+[submitted=RIGHT->WRONG  FIXED=SAME->SAME] SPAN=19:44-19:53	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@top5_84.u_bind
+    G: KIND=ref_obj	NAME=Bd	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Bd	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=Bd	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+[submitted=RIGHT->WRONG  FIXED=SAME->SAME] SPAN=19:44-19:53	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@top5_84.u_bind
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+-- as-submitted: RIGHT->WRONG=2
+-- FIXED       : SAME->SAME=2
+
+==============================================================
+ARM v6_bind2_84
+--------------------------------------------------------------
+[submitted=ONLY-OURS  FIXED=ONLY-OURS] SPAN=18:40-18:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@top6_84.u_be.u_bind.u_b2
+    G: <ABSENT>
+    O: KIND=ref_obj	NAME=Nd	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=inner.addr.q[Nd+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=inner.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=inner.addr.q[3+:8]	CS=1	IPT=1
+[submitted=ONLY-GOLDEN  FIXED=ONLY-GOLDEN] SPAN=18:40-18:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@top6_84.u_bind.u_b2
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=inner.addr.q[3+:8]	CS=1	IPT=1
+    O: <ABSENT>
+    Q: <ABSENT>
+    F: <ABSENT>
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=18:40-18:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@top6_84.u_plain.u_b2
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=inner.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Nd	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=inner.addr.q[Nd+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=inner.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=inner.addr.q[3+:8]	CS=1	IPT=1
+[submitted=ONLY-OURS  FIXED=ONLY-OURS] SPAN=18:40-18:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@top6_84.u_be.u_bind.u_b2
+    G: <ABSENT>
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=inner.addr.q[Nd+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=inner.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=inner.addr.q[3+:8]	CS=1	IPT=1
+[submitted=ONLY-GOLDEN  FIXED=ONLY-GOLDEN] SPAN=18:40-18:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@top6_84.u_bind.u_b2
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=inner.addr.q[3+:8]	CS=1	IPT=1
+    O: <ABSENT>
+    Q: <ABSENT>
+    F: <ABSENT>
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=18:40-18:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@top6_84.u_plain.u_b2
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=inner.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=inner.addr.q[Nd+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=inner.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=inner.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=34:38-34:47	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@top6_84.u_plain
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Td	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Td+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=34:38-34:47	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@top6_84.u_plain
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Td+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=RIGHT->WRONG  FIXED=SAME->SAME] SPAN=37:48-37:57	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@top6_84.u_bind
+    G: KIND=ref_obj	NAME=Bd	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Bd	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=Bd	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+[submitted=RIGHT->WRONG  FIXED=SAME->SAME] SPAN=37:48-37:57	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@top6_84.u_bind
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Bd+:8]	CS=1	IPT=1
+-- as-submitted: ONLY-GOLDEN=2  ONLY-OURS=2  RIGHT->WRONG=2  SAME->SAME=4  WRONG->RIGHT=4
+-- FIXED       : ONLY-GOLDEN=2  ONLY-OURS=2  SAME->SAME=6  WRONG->RIGHT=4
+
+==============================================================
+ARM v7_more84
+--------------------------------------------------------------
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=15:41-15:50	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@dpwrap84.u_more.u_dpi.u_dp
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=DP	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[DP+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=15:41-15:50	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@dpwrap84.u_more.u_dpi.u_dp
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[DP+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=23:41-23:50	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@dpwrap84.u_more.u_two.u_l2
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=L2	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[L2+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=23:41-23:50	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@dpwrap84.u_more.u_two.u_l2
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[L2+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->OTHER  FIXED=WRONG->OTHER] SPAN=38:42-38:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@dpwrap84.u_more.u_op
+    G: KIND=operation	NAME=op28	SZ=-	VAL=-	CT=-	DEC=-	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[~'h1_<<_3_-_1'b1_&_32'h7+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Op	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Op+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:0	CT=9	DEC=0	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[0+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:0	CT=9	DEC=0	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[0+:8]	CS=1	IPT=1
+[submitted=WRONG->OTHER  FIXED=WRONG->OTHER] SPAN=38:42-38:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@dpwrap84.u_more.u_op
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[~'h1_<<_3_-_1'b1_&_32'h7+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Op+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=39:42-39:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@dpwrap84.u_more.u_add
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Add	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Add+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=39:42-39:52	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@dpwrap84.u_more.u_add
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Add+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+-- as-submitted: SAME->SAME=8  WRONG->OTHER=2  WRONG->RIGHT=6
+-- FIXED       : SAME->SAME=8  WRONG->OTHER=2  WRONG->RIGHT=6
+
+==============================================================
+ARM v8_defparam84
+--------------------------------------------------------------
+[submitted=WRONG->OTHER  FIXED=WRONG->OTHER] SPAN=13:41-13:50	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@dpar84.u_ov.u_dp
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:5	CT=9	DEC=5	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[5+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=DP	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[DP+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:5	CT=9	DEC=5	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[5+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:5	CT=9	DEC=5	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[5+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=13:41-13:50	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@dpar84.u_pl.u_dp
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=DP	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[DP+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=13:41-13:50	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@dpar84.u_ov.u_dp
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[5+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[DP+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[5+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[5+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=13:41-13:50	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@dpar84.u_pl.u_dp
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[DP+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+-- as-submitted: SAME->SAME=2  WRONG->OTHER=1  WRONG->RIGHT=3
+-- FIXED       : SAME->SAME=2  WRONG->OTHER=1  WRONG->RIGHT=3
+
+==============================================================
+ARM g1_hp84
+--------------------------------------------------------------
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=24:43-24:56	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@head84.u_h
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=24:43-24:56	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@head84.u_h
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=37:45-37:58	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx84.u_c2a
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=37:45-37:58	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx84.u_c2a
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=38:45-38:58	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx84.u_c2b
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=38:45-38:58	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx84.u_c2b
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=42:49-42:62	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=1	PSBOUND=0	ROOT=design	INST=work@ctx84.u_c4
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=1	TSCE=0	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=44:54-44:67	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=1	PSBOUND=0	ROOT=design	INST=work@ctx84.u_c5
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=44:54-44:67	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=1	PSBOUND=0	ROOT=design	INST=work@ctx84.u_c5
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=46:44-46:57	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx84.u_c6
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=46:44-46:57	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx84.u_c6
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=60:47-60:60	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx84.gb[0].u_c10
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=60:47-60:60	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx84.gb[1].u_c10
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=60:47-60:60	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx84.gb[0].u_c10
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=60:47-60:60	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@ctx84.gb[1].u_c10
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:17]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:17	CT=9	DEC=17	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:17]	CS=1	IPT=1
+-- as-submitted: SAME->SAME=27  WRONG->RIGHT=14  WRONG->WRONG=1
+-- FIXED       : SAME->SAME=27  WRONG->RIGHT=14  WRONG->WRONG=1
+
+==============================================================
+ARM g2_types84
+--------------------------------------------------------------
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=43:40-43:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u01
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T01	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T01+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=43:40-43:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u01
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T01+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=44:40-44:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u02
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T02	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T02+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=44:40-44:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u02
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T02+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=45:40-45:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u03
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T03	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T03+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=45:40-45:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u03
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T03+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=46:40-46:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u04
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T04	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T04+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=46:40-46:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u04
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T04+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=47:40-47:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u05
+    G: KIND=constant	NAME=-	SZ=8	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T05	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T05+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=8	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=8	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=47:40-47:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u05
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T05+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=48:40-48:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u06
+    G: KIND=constant	NAME=-	SZ=16	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T06	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T06+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=16	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=16	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=48:40-48:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u06
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T06+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=49:40-49:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u07
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T07	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T07+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=49:40-49:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u07
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T07+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=50:40-50:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u08
+    G: KIND=constant	NAME=-	SZ=4	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T08	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T08+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=4	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=4	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=50:40-50:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u08
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T08+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=51:40-51:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u09
+    G: KIND=constant	NAME=-	SZ=4	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T09	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T09+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=4	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=4	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=51:40-51:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u09
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T09+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=52:40-52:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u10
+    G: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T10	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T10+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=52:40-52:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u10
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T10+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=53:40-53:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u11
+    G: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T11	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T11+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=53:40-53:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u11
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T11+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=54:40-54:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u12
+    G: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T12	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T12+:8]	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=T12	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T12+:8]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=T12	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T12+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=54:40-54:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u12
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T12+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T12+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T12+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=55:40-55:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u13
+    G: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T13	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T13+:8]	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=T13	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T13+:8]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=T13	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T13+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=55:40-55:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u13
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T13+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T13+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T13+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=56:40-56:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u14
+    G: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T14	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T14+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=56:40-56:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u14
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T14+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=57:40-57:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u15
+    G: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T15	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T15+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=8	VAL=INT:2	CT=7	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=57:40-57:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u15
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T15+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=58:40-58:51	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u16
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=T16	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T16+:8]	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=T16	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T16+:8]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=T16	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T16+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=58:40-58:51	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@types84.u16
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T16+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T16+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[T16+:8]	CS=1	IPT=1
+-- as-submitted: SAME->SAME=36  WRONG->RIGHT=26  WRONG->WRONG=6
+-- FIXED       : SAME->SAME=36  WRONG->RIGHT=26  WRONG->WRONG=6
+
+==============================================================
+ARM g3_pos84
+--------------------------------------------------------------
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=22:40-22:53	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84.h01
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=22:40-22:53	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84.h01
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=23:40-23:53	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84.h02
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:10	CT=9	DEC=10	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[10-:8]	CS=1	IPT=2
+    O: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_8-:8]	CS=1	IPT=2
+    Q: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_8-:8]	CS=1	IPT=2
+    F: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_8-:8]	CS=1	IPT=2
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=23:40-23:53	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84.h02
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[10-:8]	CS=1	IPT=2
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_8-:8]	CS=1	IPT=2
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_8-:8]	CS=1	IPT=2
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_8-:8]	CS=1	IPT=2
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=24:40-24:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:0	CT=9	DEC=0	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:Db]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:0	CT=9	DEC=0	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:2]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:0	CT=9	DEC=0	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:2]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:0	CT=9	DEC=0	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:2]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=24:40-24:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84.h03
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[0+:2]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:2]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:2]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:2]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=24:40-24:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=ref_module	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84
+    G: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:Db]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:2]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:2]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[0+:2]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=25:42-25:44	SLOT=IDX	SEL=bit_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84.h04
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2]	CS=0	IPT=-
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db]	CS=0	IPT=-
+    Q: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db]	CS=0	IPT=-
+    F: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db]	CS=0	IPT=-
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=26:40-26:52	SLOT=LEFT	SEL=part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84.h05
+    G: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2_+_1:2]	CS=1	IPT=-
+    O: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_1:Db]	CS=1	IPT=-
+    Q: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_1:Db]	CS=1	IPT=-
+    F: KIND=operation	NAME=op24	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_1:Db]	CS=1	IPT=-
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=26:40-26:52	SLOT=RIGHT	SEL=part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84.h05
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2_+_1:2]	CS=1	IPT=-
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_1:Db]	CS=1	IPT=-
+    Q: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_1:Db]	CS=1	IPT=-
+    F: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Db_+_1:Db]	CS=1	IPT=-
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=30:33-30:44	SLOT=BASE	SEL=indexed_part_select	INHP=0	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84.b01
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=-	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=31:33-31:40	SLOT=WIDTH	SEL=indexed_part_select	INHP=0	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84.b02
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=-	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=32:33-32:35	SLOT=IDX	SEL=bit_select	INHP=0	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84.b03
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=-	CS=0	IPT=-
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=0	IPT=-
+    Q: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=0	IPT=-
+    F: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=0	IPT=-
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=33:28-33:44	SLOT=RIGHT	SEL=part_select	INHP=0	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84.b04
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=-	CS=1	IPT=-
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=1	IPT=-
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=1	IPT=-
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=1	IPT=-
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=34:36-34:44	SLOT=BASE	SEL=indexed_part_select	INHP=0	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@pos84.b05
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=-	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=Db	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=-	CS=1	IPT=1
+-- as-submitted: SAME->SAME=29  WRONG->RIGHT=2  WRONG->WRONG=13
+-- FIXED       : SAME->SAME=29  WRONG->RIGHT=2  WRONG->WRONG=13
+
+==============================================================
+ARM g4_prod84
+--------------------------------------------------------------
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=20:40-20:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m1.u_mp
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=MP	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MP+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=20:40-20:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m2.u_mp
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=MP	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MP+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=20:40-20:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m3.u_mp
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=MP	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MP+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=20:40-20:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m1.u_mp
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MP+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=20:40-20:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m2.u_mp
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MP+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=20:40-20:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m3.u_mp
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MP+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=21:40-21:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m1.u_mq
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:5	CT=9	DEC=5	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[5+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=MQ	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=MQ	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=MQ	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=21:40-21:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m2.u_mq
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:7	CT=9	DEC=7	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[7+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=MQ	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=MQ	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=MQ	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=21:40-21:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m3.u_mq
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=MQ	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:3	CT=9	DEC=3	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=21:40-21:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m1.u_mq
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[5+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=21:40-21:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m2.u_mq
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[7+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=21:40-21:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m3.u_mq
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MQ+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=22:40-22:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m1.u_mb
+    G: KIND=constant	NAME=-	SZ=4	VAL=HEX:6	CT=5	DEC=4'h6	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[4'h6+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=MB	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=MB	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=MB	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=22:40-22:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m2.u_mb
+    G: KIND=constant	NAME=-	SZ=4	VAL=INT:2	CT=7	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=MB	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+    Q: KIND=ref_obj	NAME=MB	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+    F: KIND=ref_obj	NAME=MB	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=22:40-22:49	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m3.u_mb
+    G: KIND=constant	NAME=-	SZ=4	VAL=INT:3	CT=7	DEC=3	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=MB	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=4	VAL=INT:3	CT=7	DEC=3	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=4	VAL=INT:3	CT=7	DEC=3	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=22:40-22:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m1.u_mb
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[4'h6+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=22:40-22:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m2.u_mb
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=22:40-22:49	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.u_m3.u_mb
+    G: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[MB+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[3+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=35:40-35:50	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.p01
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Lp	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Lp+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=35:40-35:50	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.p01
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Lp+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=36:40-36:50	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.p02
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Lx	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Lx+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=36:40-36:50	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.p02
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Lx+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=37:40-37:50	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.p03
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=ref_obj	NAME=Lc	SZ=-	VAL=-	CT=-	DEC=-	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Lc+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->RIGHT  FIXED=WRONG->RIGHT] SPAN=37:40-37:50	SLOT=WIDTH	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.p03
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[Lc+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=32	VAL=UINT:8	CT=9	DEC=8	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=47:42-47:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.gb[0].g02
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:1	CT=9	DEC=1	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[1+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:1	CT=9	DEC=1	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[1+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:1	CT=9	DEC=1	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[1+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:1	CT=9	DEC=1	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[1+:8]	CS=1	IPT=1
+[submitted=WRONG->WRONG  FIXED=WRONG->WRONG] SPAN=47:42-47:52	SLOT=BASE	SEL=indexed_part_select	INHP=1	CTX=PORTHC	PORTPAR=module_inst	CALLARG=0	PSBOUND=0	ROOT=design	INST=work@prod84.gb[1].g02
+    G: KIND=constant	NAME=-	SZ=32	VAL=UINT:2	CT=9	DEC=2	TS=int_typespec	TSN=-	TSSG=1	TSVL=-	TSRG=0	TSAL=0	TSIN=0	TSCE=0	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    O: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    Q: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+    F: KIND=constant	NAME=-	SZ=64	VAL=UINT:2	CT=9	DEC=2	TS=-	TSN=-	TSSG=-	TSVL=-	TSRG=-	TSAL=-	TSIN=-	TSCE=-	HPNM=reg2hw.addr.q[2+:8]	CS=1	IPT=1
+-- as-submitted: SAME->SAME=26  WRONG->RIGHT=16  WRONG->WRONG=10
+-- FIXED       : SAME->SAME=26  WRONG->RIGHT=16  WRONG->WRONG=10

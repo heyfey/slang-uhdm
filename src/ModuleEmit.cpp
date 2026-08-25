@@ -10060,6 +10060,24 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         }
                         ~ElabConnGuard21() { f = saved; }
                     } elabConnGuard21(elabConnEmit21);
+                    // § connBindInstKeepsRef84v — the SAME guard's
+                    // bind half.  `InstanceFlags::FromBind` is set on the
+                    // instance created by a `bind` directive and on no other;
+                    // `ParentFromBind` (a child of a bind instance) is
+                    // deliberately NOT tested, because golden folds there —
+                    // see the law at the field declaration in UhdmExporter.h.
+                    struct ConnFromBindGuard84 {
+                        bool& f;
+                        bool saved;
+                        ConnFromBindGuard84(bool& fl, bool v)
+                            : f(fl), saved(fl) {
+                            f = v;
+                        }
+                        ~ConnFromBindGuard84() { f = saved; }
+                    } connFromBindGuard84(
+                        connFromBind84,
+                        inst.body.flags.has(
+                            slang::ast::InstanceFlags::FromBind));
                     // § connOperandOwnScopeBind61 — record the GENERATE BLOCK
                     // that immediately encloses THIS instantiation (skipping
                     // the instance-array wrapper of `k i_arr[2:0](...)`), or

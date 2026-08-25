@@ -1,0 +1,144 @@
+LHS:
+decompile:
+param_assign: , id:401986, line:41:31, endln:41:78
+|vpiParent:
+\_module_inst: work@flash_erase_ctrl (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl), id:1008385, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_ctrl.sv, line:266:3, endln:285:5
+|vpiRhs:
+\_operation: , id:401944, line:41:46, endln:41:78
+  |vpiParent:
+  \_param_assign: , id:401986, line:41:31, endln:41:78
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl), id:401952
+    |vpiParent:
+    \_operation: , id:401944, line:41:46, endln:41:78
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+    |vpiActual:
+    \_logic_typespec: , id:89611, line:41:14, endln:41:30
+  |vpiOpType:4
+  |vpiOperand:
+  \_constant: , id:1763304, line:41:48, endln:41:77
+    |vpiDecompile:255
+    |vpiSize:64
+    |INT:255
+    |vpiConstType:7
+|vpiLhs:
+\_parameter: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask), id:1008503, line:41:31, endln:41:43
+  |vpiParent:
+  \_module_inst: work@flash_erase_ctrl (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl), id:1008385, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_ctrl.sv, line:266:3, endln:285:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask), id:1008504
+    |vpiParent:
+    \_parameter: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask), id:1008503, line:41:31, endln:41:43
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask
+    |vpiActual:
+    \_logic_typespec: , id:1008505, line:41:14, endln:41:30
+  |vpiLocalParam:1
+  |vpiName:PageAddrMask
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask
+
+decompile:
+param_assign: , id:401986, line:41:31, endln:41:78
+|vpiParent:
+\_module_inst: work@flash_erase_ctrl (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl), id:1008385, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_ctrl.sv, line:266:3, endln:285:5
+|vpiRhs:
+\_operation: , id:401944, line:41:46, endln:41:78
+  |vpiParent:
+  \_param_assign: , id:401986, line:41:31, endln:41:78
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl), id:401952
+    |vpiParent:
+    \_operation: , id:401944, line:41:46, endln:41:78
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+    |vpiActual:
+    \_logic_typespec: , id:89611, line:41:14, endln:41:30
+  |vpiOpType:4
+  |vpiOperand:
+  \_constant: , id:1763304, line:41:48, endln:41:77
+    |vpiDecompile:255
+    |vpiSize:64
+    |INT:255
+    |vpiConstType:7
+|vpiLhs:
+\_parameter: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask), id:1008503, line:41:31, endln:41:43
+  |vpiParent:
+  \_module_inst: work@flash_erase_ctrl (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl), id:1008385, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_ctrl.sv, line:266:3, endln:285:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask), id:1008504
+    |vpiParent:
+    \_parameter: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask), id:1008503, line:41:31, endln:41:43
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask
+    |vpiActual:
+    \_logic_typespec: , id:1008505, line:41:14, endln:41:30
+  |vpiLocalParam:1
+  |vpiName:PageAddrMask
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask
+RHS:
+decompile:
+param_assign: , id:331378, line:41:31, endln:41:78
+|vpiParent:
+\_module_inst: work@flash_erase_ctrl (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl), id:331238, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_ctrl.sv, line:266:3, endln:285:5
+|vpiOverriden:1
+|vpiRhs:
+\_constant: , id:331379, line:41:46, endln:41:78
+  |vpiParent:
+  \_param_assign: , id:331378, line:41:31, endln:41:78
+  |vpiDecompile:4294967040
+  |vpiSize:17
+  |UINT:4294967040
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl), id:331380
+    |vpiParent:
+    \_constant: , id:331379, line:41:46, endln:41:78
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+    |vpiActual:
+    \_logic_typespec: , id:41713, line:41:14, endln:41:30
+  |vpiConstType:9
+|vpiLhs:
+\_parameter: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask), id:331376, line:41:31, endln:41:43
+  |vpiParent:
+  \_module_inst: work@flash_erase_ctrl (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl), id:331238, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_ctrl.sv, line:266:3, endln:285:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask), id:331377
+    |vpiParent:
+    \_parameter: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask), id:331376, line:41:31, endln:41:43
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask
+    |vpiActual:
+    \_logic_typespec: , id:759957, line:41:14, endln:41:30
+  |vpiLocalParam:1
+  |vpiName:PageAddrMask
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask
+
+decompile:
+param_assign: , id:331378, line:41:31, endln:41:78
+|vpiParent:
+\_module_inst: work@flash_erase_ctrl (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl), id:331238, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_ctrl.sv, line:266:3, endln:285:5
+|vpiOverriden:1
+|vpiRhs:
+\_constant: , id:331379, line:41:46, endln:41:78
+  |vpiParent:
+  \_param_assign: , id:331378, line:41:31, endln:41:78
+  |vpiDecompile:4294967040
+  |vpiSize:17
+  |UINT:4294967040
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl), id:331380
+    |vpiParent:
+    \_constant: , id:331379, line:41:46, endln:41:78
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+    |vpiActual:
+    \_logic_typespec: , id:41713, line:41:14, endln:41:30
+  |vpiConstType:9
+|vpiLhs:
+\_parameter: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask), id:331376, line:41:31, endln:41:43
+  |vpiParent:
+  \_module_inst: work@flash_erase_ctrl (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl), id:331238, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_ctrl.sv, line:266:3, endln:285:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask), id:331377
+    |vpiParent:
+    \_parameter: (work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask), id:331376, line:41:31, endln:41:43
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask
+    |vpiActual:
+    \_logic_typespec: , id:759957, line:41:14, endln:41:30
+  |vpiLocalParam:1
+  |vpiName:PageAddrMask
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl.PageAddrMask

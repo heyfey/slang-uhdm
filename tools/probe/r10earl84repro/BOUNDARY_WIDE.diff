@@ -1,0 +1,10 @@
+plain r10buvm22repro/g22.sv
+elab r10buvm22repro/g22.sv
+plain r10earl84repro/g1_hp84.sv
+elab r10earl84repro/g1_hp84.sv
+plain r10earl84repro/g2_types84.sv
+elab r10earl84repro/g2_types84.sv
+plain r10earl84repro/g3_pos84.sv
+elab r10earl84repro/g3_pos84.sv
+plain r10earl84repro/g4_prod84.sv
+elab r10earl84repro/g4_prod84.sv

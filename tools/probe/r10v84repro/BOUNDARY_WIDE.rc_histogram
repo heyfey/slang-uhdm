@@ -1,0 +1,19 @@
+== AS-SUBMITTED vs PRISTINE (A=patched B=pristine)
+rc=0 A 6923
+rc=0 B 6923
+rc=139 A 14
+rc=139 B 14
+rc=3 A 280
+rc=3 B 280
+rc=4 A 299
+rc=4 B 299
+
+== FIXED vs PRISTINE (A=fixed B=pristine)
+rc=0 A 6929
+rc=0 B 6929
+rc=139 A 14
+rc=139 B 14
+rc=3 A 280
+rc=3 B 280
+rc=4 A 299
+rc=4 B 299
