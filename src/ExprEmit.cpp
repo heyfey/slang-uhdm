@@ -5375,16 +5375,116 @@ static bool srlgHasUnbasedLit(const Expression& e) {
     return hit;
 }
 
+// § srlgUnsizedBasedShiftBail85 (r10earl85) — THE SECOND FAMILY OF size(-1)
+// CONSTANTS, taking the SAME ExprEval rule (1) as § srlgUnbasedReduceBail.
+//
+// An UNSIZED BASED literal (`'h1`, `'d13`, `'o7`, `'b1010` — a base with NO
+// width) becomes, in Surelog, a `constant` whose `VpiSize()` is **-1**, exactly
+// like `'0`/`'1`/`'x`/`'z`; the size half of that fact is already law here
+// (§ unsizedBasedParamRhsSize106, ParamEmit) and it is BASE-BLIND, decimal
+// included (`case vpiDecConst: break;`, CompileHelper.cpp:3801).  Our own DEF
+// listing already emits it as `vpiSize:-1 HEX:1 vpiConstType:5`, byte for byte
+// with golden (arm v4).
+//
+// So the shift arms of `UHDM::ExprEval::reduceExpr` —
+//   case vpiArithLShiftOp: case vpiLShiftOp:   (templates/ExprEval.cpp:3137)
+//   case vpiArithRShiftOp: case vpiRShiftOp:   (:3050)
+// which both open with
+//   expr* arg0 = reduceExpr(operands[0], ...);
+//   if (arg0 && arg0->UhdmType() == uhdmconstant)
+//       if (((constant*)arg0)->VpiSize() == -1) invalidValue = true;
+// reject `'h1 << W` for the same reason they reject `'0 << 8`, and
+// `CompileExpression.cpp:3648-3655` (`if (!invalidValue) result = tmp;`) then
+// keeps the WHOLE enclosing expression as an unreduced `operation`.
+//
+// MEASURED, one localparam per row, `logic[AddrW-1:0]` target, W = 8
+// (tools/probe/r10earl85repro/g1_neg85.sv, golden = Surelog):
+//   u08  `'h1 << W`                    operation(22)  <- rule (1) fires
+//   u07  `('h1 << W) - 1'b1`           operation(11)  <- propagates
+//   u01  `~(('h1 << W) - 1'b1)`        operation(4)   <- the Earlgrey head
+//   u09..u13  -,!,|,&,^ over the same  operation(1/3/7/5/9)
+//   u14  `~('h1 << W)`                 operation(4)
+//   u02  `~((32'h1 << W) - 1'b1)`      CONSTANT  <- a SIZED left operand folds
+//   u06  `~((1 << W) - 1)`             CONSTANT  <- an unbased DECIMAL is sized
+//   u04  `~('h ff)`                    CONSTANT  <- no shift, no bail: get_value
+//                                                    parses HEX fine, so rule
+//                                                    (2) does NOT extend here
+//   u05  `~W`                          CONSTANT
+// The `'b0 / 'b1 / 'B0 / 'B1` spellings are EXCLUDED: Surelog's grammar gives
+// them their own tokens carrying size 0, not -1 (§ unsizedBasedParamRhsSize106),
+// so they fold like sized literals.
+// THE KILL SWITCH.  Default is the LAW BEING ON; `R10E85_OFF=1` restores the
+// pre-pass-85 path exactly (both halves), which is the NEUTRAL binary every
+// boundary walk and the Earlgrey A/B attribution score against — Earlgrey is
+// never whole-dump diffed (its dump is >1 GB).
+static const bool r10e85Off = [] {
+    const char* v = getenv("R10E85_OFF");
+    return v && *v && *v != '0';
+}();
+
+static bool srlgUnsizedBasedLit85(const Expression& e0) {
+    if (r10e85Off)
+        return false;
+    const Expression& e = stripImplicitConv(e0);
+    if (e.kind != ExpressionKind::IntegerLiteral)
+        return false;
+    auto* sy = e.syntax;
+    if (!sy || sy->kind != syntax::SyntaxKind::IntegerVectorExpression)
+        return false;
+    auto& iv = sy->as<syntax::IntegerVectorExpressionSyntax>();
+    if (iv.size && !iv.size.rawText().empty())
+        return false;
+    if (!iv.base)
+        return false;
+    std::string b85(iv.base.rawText());
+    // "'h" / "'sh" / "'d" / "'b" / "'o" (and their upper-case spellings).
+    size_t bi85 = b85.empty() ? std::string::npos : b85.find('\'');
+    if (bi85 == std::string::npos)
+        return false;
+    size_t bc85 = bi85 + 1;
+    if (bc85 < b85.size() && (b85[bc85] == 's' || b85[bc85] == 'S'))
+        bc85++;
+    if (bc85 >= b85.size())
+        return false;
+    char base85 = (char)tolower((unsigned char)b85[bc85]);
+    if (base85 != 'b' && base85 != 'o' && base85 != 'h' && base85 != 'd')
+        return false;
+    if (base85 == 'b') {
+        std::string v85(iv.value ? iv.value.rawText() : std::string_view{});
+        if (v85 == "0" || v85 == "1")
+            return false;
+    }
+    return true;
+}
+
+// The law's PRECONDITION, widened to both size(-1) families.  Every bail that
+// is NOT rule (1) keeps asking the UNBASED question, so a tree that carries
+// only unsized BASED literals can gain a bail from the shift rule and from
+// nothing else — the change is a pure ADDITION of rule-(1) refusals.
+static bool srlgHasUnsizedBasedLit85(const Expression& e) {
+    bool hit = false;
+    e.visit(makeVisitor([&](auto& v, const IntegerLiteral& l) {
+        if (srlgUnsizedBasedLit85(l))
+            hit = true;
+        v.visitDefault(l);
+    }));
+    return hit;
+}
+
+static bool srlgHasUnsizedLit85(const Expression& e) {
+    return srlgHasUnbasedLit(e) || srlgHasUnsizedBasedLit85(e);
+}
+
 static SrlgUnbasedRed srlgUnbasedReduce(Compilation& comp, const Expression& e0,
                                         int depth) {
     SrlgUnbasedRed r;
     const Expression& e = stripImplicitConv(e0);
-    // No unbased literal in this subtree: nothing here can trip either rule,
+    // No size(-1) literal in this subtree: nothing here can trip either rule,
     // and the whole predicate is only ever consulted on a tree that has one.
-    if (!srlgHasUnbasedLit(e))
+    if (!srlgHasUnsizedLit85(e))
         return r;
     if (depth > 24) {
-        r.bails = true;
+        r.bails = srlgHasUnbasedLit(e);
         return r;
     }
     auto rec = [&](const Expression& sub) {
@@ -5398,12 +5498,20 @@ static SrlgUnbasedRed srlgUnbasedReduce(Compilation& comp, const Expression& e0,
                             .isUnknown();
             return r;
         }
+        // § srlgUnsizedBasedShiftBail85 — the other size(-1) family.  Only the
+        // SIZE fact is modelled: rule (2) is left alone, because golden FOLDS
+        // `~('h ff)` (arm cell u04), so `get_value`'s parse does not fail on a
+        // based constant the way it does on an X/Z BINARY one.
+        case ExpressionKind::IntegerLiteral: {
+            r.unsized = srlgUnsizedBasedLit85(e);
+            return r;
+        }
         case ExpressionKind::ConditionalOp: {
             auto& co = e.as<ConditionalExpression>();
             // Only the plain single-predicate form is modelled; a pattern
             // condition keeps the pre-r10oth2 answer.
             if (co.conditions.size() != 1 || co.conditions[0].pattern) {
-                r.bails = true;
+                r.bails = srlgHasUnbasedLit(e);
                 return r;
             }
             auto& pred = *co.conditions[0].expr;
@@ -5418,7 +5526,7 @@ static SrlgUnbasedRed srlgUnbasedReduce(Compilation& comp, const Expression& e0,
             ASTContext cx(comp.getRoot(), LookupLocation::max);
             ConstantValue pv = cx.tryEval(pred);
             if (!pv || !pv.isInteger() || pv.integer().hasUnknown()) {
-                r.bails = true;
+                r.bails = srlgHasUnbasedLit(e);
                 return r;
             }
             // ...and then ONLY the selected arm is reduced.  Its shape passes
@@ -5472,8 +5580,11 @@ static SrlgUnbasedRed srlgUnbasedReduce(Compilation& comp, const Expression& e0,
             return r;
         }
         default:
-            // Not modelled — keep the pre-r10oth2 refusal.
-            r.bails = true;
+            // Not modelled — keep the pre-r10oth2 refusal, which was scoped to
+            // the UNBASED family; a tree carrying only unsized BASED literals
+            // keeps today's answer here (§ srlgUnsizedBasedShiftBail85 adds
+            // rule-(1) bails and nothing else).
+            r.bails = srlgHasUnbasedLit(e);
             return r;
     }
 }
@@ -5639,7 +5750,7 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
         if ((k0 == ExpressionKind::BinaryOp || k0 == ExpressionKind::UnaryOp ||
              k0 == ExpressionKind::ConditionalOp ||
              k0 == ExpressionKind::Concatenation) &&
-            srlgHasUnbasedLit(expr) &&
+            srlgHasUnsizedLit85(expr) &&
             srlgUnbasedReduce(comp, expr, 0).bails)
             return nullptr;
     }
@@ -7932,6 +8043,165 @@ UHDM::constant* UhdmExporter::connBitSelIdxModParamFold81(
 // the same `DataBitWidth`), and NOWHERE ELSE in either corpus; the BARE
 // (non-hier_path) spelling of the same shape has ZERO cells.  See
 // `CENSUS.r10earl84.txt`.
+bool UhdmExporter::srlgUnsizedShiftBails85(const Expression& e) {
+    if (r10e85Off)
+        return false;
+    // THE BASED FAMILY ONLY.  The UNBASED one is § srlgUnbasedReduceBail's,
+    // and its `default:` refusal is a CONSERVATIVE fallback, not a decoded
+    // reduce -- an assignment-pattern init over `'1` "bails" there for want of
+    // a model, not because Surelog's reducer abstained.  Asking the wide
+    // question moved a cell this law does not name (`ParamArrayUnsizedPattern`,
+    // `'{default: '1}` / `'{'1, '1}`: the elab op-typespec stamp below fired
+    // and re-parented an orphan `int_typespec`).  Requiring a size(-1) BASED
+    // literal in the tree scopes the gate to the shift rule this pass decoded.
+    return srlgHasUnsizedBasedLit85(e) && srlgUnbasedReduce(comp, e, 0).bails;
+}
+
+// § elabParamOpLeafValueFold85 (r10earl85) — THE LEAF FOLD INSIDE AN
+// OPERATION § srlgUnsizedBasedShiftBail85 KEPT.
+//
+// The DEF listing of such a param_assign keeps every identifier as a `ref_obj`
+// (our copy is byte-identical to golden's there).  The ELABORATED copy is a
+// RE-COMPILE with an instance in hand, and `CompileExpression.cpp`'s identifier
+// arm then answers from `instance->getValue(name)` (:2852) and mints (:3004):
+//     c->VpiValue(sval->uhdmValue());     c->VpiDecompile(sval->decompiledValue());
+//     c->VpiConstType(sval->vpiValType()); c->VpiSize(sval->getSize());
+//     if (sval->isSigned()) { int_typespec *ts = MakeInt_typespec();
+//                             ts->VpiSigned(true); ... c->Typespec(rt); }
+// so the reference becomes a constant carrying the parameter's OWN stored
+// value and width, plus a BARE signed `int_typespec` when — and only when —
+// `CompileHelper::valueRange` (CompileHelper.cpp:5378-5412) captured
+// signedness, which its `switch` does for `logic_typespec`, `bit_typespec` and
+// `int_typespec` and for NOTHING else.
+//
+// MEASURED, one localparam per row, all read as the shift amount of
+// `~(('h1 << P) - 1'b1)` (tools/probe/r10earl85repro/g2_leaf85.sv, golden =
+// Surelog).  VALUE and SIZE are the parameter's OWN elaborated `param_assign`
+// Rhs constant, field for field, with ONE exception:
+//   r01 `int L_INT=6`          UINT:6  sz32  + bare signed int_typespec
+//   r12 `parameter int NOVI=5` UINT:5  sz32  + bare signed int_typespec
+//   r10 `int L_CALC=$clog2(256)` UINT:8 sz32 + bare signed int_typespec
+//   r06 `signed[7:0] L_SLOG=11`  UINT:11 sz8 + bare signed int_typespec
+//   r02 `byte L_BYTE=7`        UINT:7  sz8   NO typespec
+//   r03 `bit[7:0] L_BIT=8`     UINT:8  sz8   NO typespec
+//   r04 `logic[7:0] L_LOG=9`   UINT:9  sz8   NO typespec
+//   r05 untyped `L_UNT=10`     UINT:10 sz32  NO typespec
+//   r07 `integer L_INTG=12`    UINT:12 sz32  NO typespec  (no valueRange arm)
+//   r08 `shortint`             UINT:13 sz16  NO typespec
+//   r09 `longint`              UINT:14 sz64  NO typespec
+//   r11 `parameter int OVI` OVERRIDDEN `#(.OVI(4))`
+//                              UINT:4  sz**64**  NO typespec   <- THE EXCEPTION
+//   r13 package `PKGW` read BARE      UINT:3 sz32 NO typespec  <- not ours
+//   r14 package `q85::PKGW` QUALIFIED UINT:3 sz32, the PACKAGE's OWN located
+//                                     int_typespec             <- not ours
+// r11 is § rangeBoundStoredWidth82's fact from the other side: an OVERRIDDEN
+// parameter's stored Value is the plain 64-bit UINT the override actual built
+// and never goes through `adjustSize`/`valueRange`, so it is WIDE and BARE.
+// The two package rows are left to the producers that already own them
+// (§ selFold9 / § modStructMemberPkgFold): this walk only claims a name that
+// resolves to a parameter of the INSTANCE BODY.
+UHDM::any* UhdmExporter::elabParamOpLeafValueFold85(UHDM::any* node,
+                                                    const Scope* body) {
+    if (r10e85Off || !node || !body)
+        return node;
+    if (node->UhdmType() == UHDM::uhdmoperation) {
+        auto* ops = ((UHDM::operation*)node)->Operands();
+        if (ops)
+            for (size_t i = 0; i < ops->size(); i++)
+                if (auto* nw = elabParamOpLeafValueFold85((*ops)[i], body);
+                    nw && nw != (*ops)[i]) {
+                    nw->VpiParent(node);
+                    (*ops)[i] = nw;
+                }
+        return node;
+    }
+    if (node->UhdmType() == UHDM::uhdmsys_func_call) {
+        auto* args = ((UHDM::sys_func_call*)node)->Tf_call_args();
+        if (args)
+            for (size_t i = 0; i < args->size(); i++)
+                if (auto* nw = elabParamOpLeafValueFold85((*args)[i], body);
+                    nw && nw != (*args)[i]) {
+                    nw->VpiParent(node);
+                    (*args)[i] = nw;
+                }
+        return node;
+    }
+    if (node->UhdmType() != UHDM::uhdmref_obj)
+        return node;
+    auto* ro = (UHDM::ref_obj*)node;
+    std::string nm(ro->VpiName());
+    if (nm.empty() || nm.find("::") != std::string::npos)
+        return node;
+    auto* sy = Lookup::unqualified(*body, nm);
+    if (!sy || sy->kind != SymbolKind::Parameter || !sy->getParentScope())
+        return node;
+    // A PACKAGE member (including one a wildcard import made visible under a
+    // bare name) is a different producer's cell — see the r13/r14 rows above.
+    for (auto* sc = sy->getParentScope(); sc; sc = sc->asSymbol().getParentScope())
+        if (sc->asSymbol().kind == SymbolKind::Package)
+            return node;
+    if (wildcardPkgParamNamed9(body, nm))
+        return node;
+    auto& psL = sy->as<ParameterSymbol>();
+    auto pit = elabParamPa.find(sy);
+    if (pit == elabParamPa.end() || !pit->second)
+        return node;
+    auto* prhs = pit->second->Rhs();
+    if (!prhs || prhs->UhdmType() != UHDM::uhdmconstant)
+        return node;
+    auto* src = (const UHDM::constant*)prhs;
+    if (src->VpiValue().empty())
+        return node;
+    auto* c = s.MakeConstant();
+    c->VpiValue(std::string(src->VpiValue()));
+    c->VpiDecompile(std::string(src->VpiDecompile()));
+    c->VpiConstType(src->VpiConstType());
+    bool ovL = isOverriddenParam(psL);
+    c->VpiSize(ovL ? 64 : src->VpiSize());
+    c->VpiParent(ro->VpiParent());
+    c->VpiFile(std::string(ro->VpiFile()));
+    c->VpiLineNo(ro->VpiLineNo());
+    c->VpiColumnNo(ro->VpiColumnNo());
+    c->VpiEndLineNo(ro->VpiEndLineNo());
+    c->VpiEndColumnNo(ro->VpiEndColumnNo());
+    // THE TYPESPEC-PRESENCE SPLIT — `CompileHelper::valueRange`'s three-kind
+    // switch, the same one § connHpIpsBaseNonOvParamFold84 transcribes: a
+    // SIGNED `int` / `bit` / `logic` DECLARED type and nothing else, and never
+    // for an OVERRIDDEN parameter (whose Value never reaches the capture).
+    bool signedTs85 = false;
+    if (!ovL)
+        if (auto dt85 = psL.getDeclaredType())
+            if (auto ty85 = dt85->getTypeSyntax();
+                ty85 && ty85->kind != syntax::SyntaxKind::ImplicitType) {
+                auto& cty85 = psL.getType().getCanonicalType();
+                if (cty85.isIntegral() && !cty85.isEnum() && cty85.isSigned()) {
+                    if (cty85.kind == SymbolKind::PredefinedIntegerType)
+                        signedTs85 =
+                            cty85.as<PredefinedIntegerType>().integerKind ==
+                            PredefinedIntegerType::Int;
+                    else if (cty85.kind == SymbolKind::ScalarType)
+                        signedTs85 = true;
+                    else if (cty85.kind == SymbolKind::PackedArrayType) {
+                        const Type* el85 = &cty85.as<PackedArrayType>()
+                                                .elementType.getCanonicalType();
+                        while (el85->kind == SymbolKind::PackedArrayType)
+                            el85 = &el85->as<PackedArrayType>()
+                                        .elementType.getCanonicalType();
+                        signedTs85 = el85->kind == SymbolKind::ScalarType;
+                    }
+                }
+            }
+    if (signedTs85) {
+        auto* its85 = s.MakeInt_typespec();
+        its85->VpiSigned(true);
+        auto* rt85 = s.MakeRef_typespec();
+        rt85->VpiParent(c);
+        rt85->Actual_typespec(its85);
+        c->Typespec(rt85);
+    }
+    return c;
+}
+
 UHDM::constant* UhdmExporter::connHpIpsBaseNonOvParamFold84(
     const Expression& base, UHDM::any* ipsParent) {
     static const bool off84 = getenv("R10E84_OFF") != nullptr;

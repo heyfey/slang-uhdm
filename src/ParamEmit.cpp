@@ -16,6 +16,17 @@
 
 namespace slang_uhdm {
 
+// § paOvFoldedRangeNoStamp85 (r10earl85) — THE KILL SWITCH for this file's
+// half of the pass (the ExprEmit half has its own, same variable name/value).
+// Default is the LAW BEING ON; `R10E85_OFF=1` restores the pre-pass-85 path.
+static bool r10e85Off85() {
+    static const bool off = [] {
+        const char* v = getenv("R10E85_OFF");
+        return v && *v && *v != '0';
+    }();
+    return off;
+}
+
 // A parameter declared with packed dimensions WRITTEN ON A TYPEDEF NAME
 // (`parameter bp_proc_param_s [max_cfgs-1:0] all_cfgs_gp`).  Surelog compiles
 // that declaration into a packed_array_typespec over the element typedef's
@@ -5219,6 +5230,46 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             if (om8.kind != SymbolKind::Parameter ||
                                 !isOverriddenParam(om8))
                                 continue;
+                            // § paOvFoldedRangeNoStamp85 (r10earl85) — THE
+                            // STAMP FOLLOWS THE EMITTED RANGE, NOT ITS TEXT.
+                            // Surelog does not read the declaration source at
+                            // all: `NetlistElaboration::elab_parameters_`
+                            // (NetlistElaboration.cpp:558-570) stamps
+                            // `VpiOverriden` from
+                            // `CompileHelper::isOverloaded(tps, ...)`
+                            // (CompileType.cpp:2230-2330), which walks the
+                            // ALREADY-COMPILED typespec's RANGE OBJECTS and
+                            // returns true only when a surviving
+                            // `ref_obj`/`parameter` there names a parameter
+                            // this instance overrode.  Where the bound has
+                            // FOLDED, no name survives and no stamp is made.
+                            // § shadowedImportBoundFold is exactly such a
+                            // fold: a module-local parameter does NOT hide the
+                            // same-named member of a WILDCARD-IMPORTED package
+                            // from Surelog's name-keyed getValue, so the bound
+                            // becomes that package member's constant and the
+                            // reference is gone.  Earlgrey's
+                            // flash_erase_ctrl.sv:41/42
+                            // (`localparam logic[AddrW-1:0] PageAddrMask`,
+                            // `BankAddrMask`) are the corpus witnesses: the
+                            // module's own `parameter int AddrW` IS overridden
+                            // at `u_flash_erase_ctrl`, but the body's
+                            // `import flash_ctrl_pkg::*` also declares
+                            // `AddrW`, so BOTH tools emit the bound as
+                            // `constant UINT:17 sz32 - 1` and golden leaves
+                            // `vpiOverriden` unset while the text scan below
+                            // still finds the token.  Arm v4 (import present)
+                            // vs v5/v6 (no same-named import) separate the two.
+                            if (auto* wp85 =
+                                    r10e85Off85()
+                                        ? nullptr
+                                        : wildcardPkgParamNamed9(&body,
+                                                                 om8.name)) {
+                                auto& wv85 = wp85->getValue();
+                                if (wv85.isInteger() &&
+                                    !wv85.integer().hasUnknown())
+                                    continue;
+                            }
                             auto p8 = rng8.find(om8.name);
                             while (p8 != std::string::npos) {
                                 bool lb8 =
@@ -12094,6 +12145,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 nw9->VpiParent(pa);
                                 rhs = (UHDM::expr*)nw9;
                             }
+                    // § elabParamOpLeafValueFold85 (r10earl85) — the ELAB twin
+                    // of the walk above, on the tree
+                    // § srlgUnsizedBasedShiftBail85 refused to fold: the
+                    // elaborated re-compile answers every identifier from the
+                    // instance's stored Value, so each `ref_obj` leaf naming a
+                    // parameter of this body becomes that parameter's own
+                    // constant.  The DEF listing keeps the references (golden
+                    // does too, byte for byte).
+                    if (topView && !inPackage && rhs &&
+                        rhs->UhdmType() == UHDM::uhdmoperation && emitInit9 &&
+                        srlgUnsizedShiftBails85(*emitInit9))
+                        if (auto* bd85 = ps.getParentScope())
+                            {
+                                shiftBailPa85.insert(pa);
+                                if (auto* nw85 =
+                                        elabParamOpLeafValueFold85(rhs, bd85);
+                                    nw85 && nw85 != rhs) {
+                                    nw85->VpiParent(pa);
+                                    rhs = (UHDM::expr*)nw85;
+                                }
+                            }
                 }
                 importedInitPkgInst = savedImpInst0;
                 reemitting = savedReemit0;
@@ -13992,8 +14064,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             paRhs9->UhdmType() == UHDM::uhdmoperation &&
             !((UHDM::operation*)paRhs9)->Typespec() && [&] {
                 auto& ct9 = ps.getType().getCanonicalType();
+                // § srlgUnsizedBasedShiftBail85 (r10earl85) — a PACKED-ARRAY
+                // target takes this stamp too when the operation is one the
+                // shift bail KEPT.  `expr::Compare` (UHDM/build/generated/src/
+                // expr.cpp:100) reads `Typespec`, and `operation` derives from
+                // `expr`, so the missing ref is a HEAD, not cosmetics: with the
+                // Rhs and `vpiOverriden` both matched, arm g4's `uhdm-cmp` head
+                // became exactly this `ref_typespec` with `RHS: <null>`.
+                // Golden's object is the DEFINITION's `logic_typespec`
+                // (Earlgrey id 89611, span 41:14-41:30), which is what the
+                // default arm of the drain binds via `shareDefParamTs`.
+                bool bail85 = shiftBailPa85.count(pa) != 0;
                 return ct9.isIntegral() &&
-                       ct9.kind != SymbolKind::PackedArrayType &&
+                       (bail85 || ct9.kind != SymbolKind::PackedArrayType) &&
                        ct9.kind != SymbolKind::PackedStructType &&
                        ct9.kind != SymbolKind::PackedUnionType;
             }()) {

@@ -4075,6 +4075,25 @@ private:
     /// the identifier).  The law, the Surelog decode and the measured
     /// typespec-presence split live at the definition in ExprEmit.cpp.  Never
     /// called outside `elabConnEmit21`.
+    // § srlgUnsizedBasedShiftBail85 (r10earl85) — TRUE when Surelog's reducer
+    // gives up on `e` because a SHIFT there has an unsized (VpiSize -1) LEFT
+    // operand, so golden's elaborated copy keeps the whole thing as an
+    // `operation`.  The law lives in ExprEmit next to
+    // § srlgUnbasedReduceBail, whose model it extends; this accessor lets
+    // ParamEmit ask the same question about a param initializer.
+    bool srlgUnsizedShiftBails85(const slang::ast::Expression& e);
+    // § elabParamOpLeafValueFold85 (r10earl85) — inside an operation the bail
+    // above kept, the ELABORATED re-compile still answers every IDENTIFIER
+    // from the instance's stored Value (CompileExpression.cpp:2852 /
+    // :3004-3018).  Replaces each `ref_obj` leaf naming a parameter of `body`
+    // with that constant.  Returns the replacement for `node`.
+    UHDM::any* elabParamOpLeafValueFold85(UHDM::any* node,
+                                          const slang::ast::Scope* body);
+    // § srlgUnsizedBasedShiftBail85 (r10earl85) — the ELAB `param_assign`s
+    // whose Rhs the shift bail kept as an `operation`.  `expr::Compare` reads
+    // `Typespec`, so those operations still need the parameter's declared
+    // typespec ref that the packed-array exclusion below would otherwise deny.
+    std::set<const UHDM::param_assign*> shiftBailPa85;
     UHDM::constant* connHpIpsBaseNonOvParamFold84(
         const slang::ast::Expression& base, UHDM::any* ipsParent);
     // § genCaSysCallArgBinds22 — nesting depth inside a SYSTEM function

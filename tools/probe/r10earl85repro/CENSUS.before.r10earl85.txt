@@ -1,0 +1,32 @@
+databases joined: 461
+BOTH-SAME        45438
+FAMILY-OPKEPT    6
+FAMILY-OVSTAMP   16
+OTHER-DIFF       1824
+ONLY-GOLDEN      8898
+ONLY-OURS        9628
+
+-- FAMILY-OPKEPT cells (golden keeps the operation, we fold):
+   default/Earlgrey_0_1-71da2fd7                  SPAN=41:31-41:78 VIEW=ELAB HOME=MODULE PNAME=PageAddrMask INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   default/Earlgrey_0_1-71da2fd7                  SPAN=42:31-42:96 VIEW=ELAB HOME=MODULE PNAME=BankAddrMask INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   default/Earlgrey_0_1-71da2fd7                  SPAN=9:17-9:31 VIEW=ELAB HOME=MODULE PNAME=ResetValue INST=work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=41:31-41:78 VIEW=ELAB HOME=MODULE PNAME=PageAddrMask INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=42:31-42:96 VIEW=ELAB HOME=MODULE PNAME=BankAddrMask INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=9:17-9:31 VIEW=ELAB HOME=MODULE PNAME=ResetValue INST=work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync
+-- FAMILY-OVSTAMP cells (vpiOverriden the ONLY disagreement):
+   default/Earlgrey_0_1-71da2fd7                  SPAN=11:18-11:56 VIEW=ELAB HOME=MODULE PNAME=NumBanks INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   default/Earlgrey_0_1-71da2fd7                  SPAN=12:18-12:65 VIEW=ELAB HOME=MODULE PNAME=PagesPerBank INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   default/Earlgrey_0_1-71da2fd7                  SPAN=13:18-13:65 VIEW=ELAB HOME=MODULE PNAME=WordsPerPage INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   default/Earlgrey_0_1-71da2fd7                  SPAN=18:18-18:57 VIEW=ELAB HOME=MODULE PNAME=AddrW INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   default/Earlgrey_0_1-71da2fd7                  SPAN=22:18-22:49 VIEW=ELAB HOME=MODULE PNAME=AllPagesW INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   default/Earlgrey_0_1-71da2fd7                  SPAN=28:18-28:37 VIEW=ELAB HOME=MODULE PNAME=MpRegions INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   default/Earlgrey_0_1-71da2fd7                  SPAN=7:18-7:60 VIEW=ELAB HOME=MODULE PNAME=PowerDomains INST=work@top_earlgrey.u_rstmgr.i_lc_src
+   default/Earlgrey_0_1-71da2fd7                  SPAN=7:18-7:60 VIEW=ELAB HOME=MODULE PNAME=PowerDomains INST=work@top_earlgrey.u_rstmgr.i_sys_src
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=11:18-11:56 VIEW=ELAB HOME=MODULE PNAME=NumBanks INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=12:18-12:65 VIEW=ELAB HOME=MODULE PNAME=PagesPerBank INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=13:18-13:65 VIEW=ELAB HOME=MODULE PNAME=WordsPerPage INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=18:18-18:57 VIEW=ELAB HOME=MODULE PNAME=AddrW INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=22:18-22:49 VIEW=ELAB HOME=MODULE PNAME=AllPagesW INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=28:18-28:37 VIEW=ELAB HOME=MODULE PNAME=MpRegions INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=7:18-7:60 VIEW=ELAB HOME=MODULE PNAME=PowerDomains INST=work@top_earlgrey.u_rstmgr.i_lc_src
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=7:18-7:60 VIEW=ELAB HOME=MODULE PNAME=PowerDomains INST=work@top_earlgrey.u_rstmgr.i_sys_src

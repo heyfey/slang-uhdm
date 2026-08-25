@@ -1,0 +1,160 @@
+r10earl85 — THE MOVER PREDICTION (made from PRISTINE databases, before any
+            patched sweep was read) and THE NEXT HEAD (R0).
+
+========================================================================
+PART 1 — THE MOVER PREDICTION
+========================================================================
+`cen85.sh` + `cencount85.py` were run over the PRISTINE sweep workdirs (golden
+from the immutable cache path named in each test's OWN `cmds.txt`, ours from
+the pristine sweep).  They READ databases and DISPATCH NOTHING, so no test —
+fenced or otherwise — is run by them; the FENCED list is supplied by the
+operator at run time and appears in a count, never as names.
+
+  THE SHAPE THE GATE COULD FIRE ON, golden-agreeing cells included (earl66's
+  lesson: a census keyed on the shape you intend to CHANGE is blind to the rows
+  you would change by ACCIDENT), is EVERY `param_assign` in both databases at
+  once, keyed by SPAN + VIEW + HOME + PNAME + INST, so a Rhs that FOLDED on one
+  side and stayed an operation on the other is still found under the SAME key.
+
+    databases holding a param_assign     uhdm2rtlil 504 / 1358
+                                         surelog    461 /  956
+    cells joined BOTH-SAME               uhdm2rtlil 68 714
+                                         surelog    45 438
+    FAMILY-OPKEPT — golden's ELAB Rhs an OPERATION, ours a CONSTANT
+                                         uhdm2rtlil 0     surelog 6
+    FAMILY-OVSTAMP — vpiOverriden the ONLY disagreement
+                                         uhdm2rtlil 0     surelog 16
+
+  ALL 22 are `Earlgrey_0_1`, once per mode.  Of the 6 FAMILY-OPKEPT, FOUR are
+  this law (flash_erase_ctrl.sv:41 PageAddrMask and :42 BankAddrMask, both
+  modes) and TWO are not (prim_flop_2sync.sv:9 ResetValue, an
+  assignment-pattern override actual — R3).  All 16 FAMILY-OVSTAMP are the
+  OPPOSITE direction (golden stamps, we do not) and this law only ever REMOVES
+  a stamp — R1.
+
+  PREDICTION: EXACTLY `Earlgrey_0_1` default and `Earlgrey_0_1` testflags move,
+  and NOTHING ELSE, in either corpus.
+
+MEASURED AFTER THE PATCHED SWEEPS, `byteverify.sh SELFCHECK=1`:
+  surelog     MOVERS 3 / 956  ./default/Earlgrey_0_1-71da2fd7/slang.uhdm
+                              ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+                              ./testflags/MiniAmiq-544c7f61/slang.uhdm
+              SELFCHECK 955/956 flagged (the comparator is live)
+  uhdm2rtlil  MOVERS 0 / 1358  SELFCHECK 1357/1358 flagged
+
+  The two predicted movers are exactly the two Earlgrey databases.  The THIRD
+  is the documented emitter ORDER COIN, and it is attributed the way RESUME §9
+  prescribes rather than assumed:
+    * PATH-NORMALISED ORDER-BLIND diff of the two sweep databases (sort both
+      dumps): ORDERED 24 lines, ORDER-BLIND **0** — a uvm_pkg `int_typespec`
+      (`uvm_action`) block that moved position and nothing else.
+    * Re-run OUTSIDE the sweep, three runs per binary on the SAME command line:
+      pristine and patched both produce the IDENTICAL database (md5
+      ac6d0315c56d, 3/3 each) and their dumps differ by 0 lines.
+  Earlgrey is never whole-dump diffed (its dump is >1 GB); it is attributed TWO
+  ways, and both are exact:
+    * THE RUN-TIME A/B GATE.  The PATCHED binary run with `R10E85_OFF=1` (all
+      three laws disabled, everything else identical) reproduces the PRISTINE
+      database BYTE FOR BYTE, so 100 % of each mover's byte delta is this law.
+    * THE SPAN-KEYED DIRECT-READER CENSUS re-scored on the patched sweep:
+      FAMILY-OPKEPT 6 -> 2 (the two ResetValue cells, R3), FAMILY-OVSTAMP
+      16 -> 16 (R1), and per-cell 3-way WRONG->RIGHT 4, RIGHT->WRONG 0,
+      WRONG->OTHER 0.
+
+  A SIDE EFFECT WAS FOUND AND REMOVED RATHER THAN EXPLAINED AWAY.  The first
+  patched build also moved `ParamArrayUnsizedPattern` in both modes (2 dump
+  lines closer to golden, row unchanged): its `'{default: '1}` / `'{'1, '1}`
+  initializers answer TRUE to § srlgUnbasedReduceBail's CONSERVATIVE `default:`
+  refusal, which is a want-of-a-model fallback and not a decoded abstention, so
+  the elab op-typespec stamp fired on a cell this law does not name.  The gate
+  now requires a size(-1) BASED literal in the tree; with that narrowing the
+  patched binary reproduces `ParamArrayUnsizedPattern` byte for byte
+  (167059d1e109 on both sides).
+
+========================================================================
+PART 2 — R0: THE NEW HEAD, AND ITS DECODE
+========================================================================
+BEFORE (d6bb922, this pass's own pristine build; `HEAD_BEFORE_*.cmp` reproduce
+r10earl84's committed `HEAD_AFTER_*` logs line for line modulo ids):
+  Earlgrey_0_1 default   214 cmp lines, 1 head  \  flash_erase_ctrl.sv:41
+  Earlgrey_0_1 testflags 144 cmp lines, 1 head  /  PageAddrMask, same object
+AFTER:
+  Earlgrey_0_1 default    90 cmp lines, 1 head
+  Earlgrey_0_1 testflags 150 cmp lines, 1 head   (counts are DEPTH, not distance)
+  The old head object is GONE in both modes.  Read HEAD_BEFORE_*.cmp against
+  HEAD_AFTER_*.cmp.
+
+R0 (default) — `flash_erase_ctrl.sv:42`, BankAddrMask's SHIFT AMOUNT.  ONE
+OPERAND DEEPER IN THE SAME LAW:
+
+    localparam logic[AddrW-1:0] BankAddrMask =
+        ~(('h1 << (PagesBitWidth + WordsBitWidth)) - 1'b1);
+
+    LHS (golden)                          RHS (ours)
+      constant 42:57-42:70                  operation 42:57-42:86
+      |vpiDecompile:16 |vpiSize:32          |vpiOpType:24 (vpiAddOp)
+      |UINT:16 |vpiConstType:9              |vpiOperand -> constant UINT:8 sz32
+                                            |vpiOperand -> constant UINT:8 sz32
+
+  DECODE.  § elabParamOpLeafValueFold85 replaces IDENTIFIER leaves with the
+  instance's stored Value; it does NOT reduce a sub-EXPRESSION that Surelog's
+  own recursion folds.  `CompileExpression.cpp` compiles each operand with the
+  caller's `reduce`, and the operand's OWN tail `reduceExpr` (:3648) folds
+  `(PagesBitWidth + WordsBitWidth)` because nothing in THAT subtree is size(-1)
+  — the bail is at the shift ABOVE it, not inside it.  `vpiAddOp`
+  (ExprEval.cpp:3160) mints `UINT` at `max(sz0, sz1)` = 32, with NO typespec,
+  which is exactly golden's cell.  So the next step is: inside a bail-kept
+  tree, fold every MAXIMAL operand subtree that does NOT itself bail, using
+  earl73's per-operator encoder tables for the value/size/constType, and keep
+  the leaf rule for a bare identifier (the two producers give DIFFERENT
+  typespec presence — see §4's r01 vs the add above).  ZERO extra corpus
+  databases: the cells are BankAddrMask default and testflags.
+
+R0 (testflags) — `flash_erase_ctrl.sv` PagesPerBank at 12:18, a FAMILY-OVSTAMP
+cell: golden stamps `vpiOverriden:1` on the ELAB `param_assign` of a
+wildcard-IMPORTED package parameter materialized into the instance, and we
+leave it unset.  16 corpus cells (8 sites x 2 modes) — see R1.
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R1  THE OTHER DIRECTION OF THE OV STAMP.  Golden stamps `vpiOverriden:1` on the
+    ELAB `param_assign` of a WILDCARD-IMPORTED package parameter that a module
+    instance materializes (`flash_ctrl_pkg::{NumBanks, PagesPerBank,
+    WordsPerPage, AddrW, AllPagesW, MpRegions}` in u_flash_erase_ctrl /
+    u_flash_mp, `rstmgr_pkg::PowerDomains` in i_lc_src / i_sys_src); we leave it
+    unset.  16 corpus cells, the WHOLE of the census's FAMILY-OVSTAMP, and the
+    testflags R0.  Arm cells g4 1:29 / 1:56 and g5 1:57 (STILL-WRONG).  This
+    pass's law only ever REMOVES a stamp, so it cannot reach them; the producer
+    is the materialized-import copy, not the packed-range scan.
+
+R2  THE `~` FOLD IS NOT MASKED TO THE DECLARED WIDTH.  Where golden DOES fold a
+    bitwise negation into a ranged target it truncates:
+    `localparam logic[16:0] X = ~(32'd255)` -> `UINT:130816 sz17` (0x1FF00),
+    where we emit `UINT:4294967040 sz17` (0xFFFFFF00) — the size is right and
+    the VALUE is the unmasked 32-bit one.  `ExprEval`'s `vpiBitNegOp` arm
+    (:3415) masks to the OPERAND's size and `adjustSize` then truncates to the
+    declared one; our fold does neither.  PRE-EXISTING and untouched by this
+    pass (identical in both binaries).  ZERO corpus cells today; arm cells g1
+    u02 / u03 / u04 (the two STILL-WRONG rows plus the u04 span pair).
+
+R3  AN ASSIGNMENT-PATTERN OVERRIDE ACTUAL ON A SCALAR FORMAL.
+    `prim_flop_2sync.sv:9 parameter bit ResetValue = 0`, instance
+    `top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync`: golden's ELAB Rhs is an
+    `operation vpiOpType:75` (vpiAssignmentPatternOp) with 4 operands and a
+    `struct_typespec`, where we fold to `constant UINT:0 sz1` with the
+    `bit_typespec`.  2 corpus cells (one per mode), the remaining
+    FAMILY-OPKEPT.  A different producer entirely (the override ACTUAL is a
+    pattern; the formal is scalar) — not this law.
+
+R4  THE ELAB OPERATION'S TYPESPEC IS SHARED, NOT CLONED.  This pass binds the
+    bail-kept operation's `vpiTypespec` through the existing drain, which
+    SHARES the module definition's `logic_typespec` object — the same object
+    golden uses (Earlgrey id 89611, span 41:14-41:30), so the judge and the
+    dump agree.  Recorded because the neighbouring elab paths CLONE instead,
+    and a future pass widening that stamp must re-measure which of the two a
+    given target kind takes.
+
+R5  FOURTEEN PROBE ARMS SEGFAULT IN THE ELAB VIEW, under BOTH binaries
+    symmetrically.  Pre-existing (earl82 R6, earl83 R6, earl84 R6), recorded
+    because a boundary walk that does not say so reads as if it compared them.

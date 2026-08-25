@@ -1,0 +1,84 @@
+r10earl85 — THE LANDING GATE BATTERY, run in the pass's OWN worktree
+(/tmp/wt_r10earl85, BASE d6bb922) with BOTH binaries FROZEN at immutable paths
+BEFORE any sweep, and every cmds.txt audited BY BINARY PATH.
+
+  pristine  acb3029f2f7456c13be41ce88185d4cd   (build of d6bb922, unpatched)
+  patched   3e8c14f93ca128fe962fd1dedebabdde
+  Both md5'd separately after the build; the sweeps ran the FROZEN copies, and
+  `grep -o 'slang: *[^ ]*' <cmds.txt>` on the sweep workdirs names
+  /tmp/r10earl85_bin/{pris,patched}.bin -- never the main tree's binary.
+
+(1) BUILD           both, -j 2, md5s above.                            OK
+(2) GOLDEN DUMPS    SLANG_UHDM exported EXPLICITLY to each binary
+                      patched   PASS=23  FAIL=0
+                      /bin/false PASS=0  FAIL=23     (negative control)   OK
+(3) uhdm2rtlil      verify_golden.py --jobs 2, own --out/--workdir
+                      testflags vs results/gate_uhdm2rtlil.csv   0 differing ROWS
+                      testflags vs this pass's own pristine      0 differing ROWS
+                      default   vs this pass's own pristine      0 differing ROWS
+                      (ct8rows compares STATUS *and* DUMP column)          OK
+                    byteverify SELFCHECK=1  MOVERS 0 / 1358
+                                            SELFCHECK 1357/1358 flagged   OK
+(4) surelog         verify_golden.py --mode both --jobs 2
+                      vs results/golden_surelog.csv    0 differing ROWS / 1588
+                      vs this pass's own pristine      0 differing ROWS / 1588
+                      status histogram UNCHANGED in both modes
+                      dump histogram   UNCHANGED in both modes
+                      NO ROW CONVERTED -- results/*.csv untouched            OK
+                    byteverify SELFCHECK=1  MOVERS 3 / 956
+                                            SELFCHECK 955/956 flagged
+                      ./default/Earlgrey_0_1-71da2fd7/slang.uhdm    PREDICTED
+                      ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  PREDICTED
+                      ./testflags/MiniAmiq-544c7f61/slang.uhdm      ORDER COIN,
+                        attributed: ORDER-BLIND (sorted) dump diff 0 lines, and
+                        re-run outside the sweep BOTH binaries give the same
+                        database (ac6d0315c56d, 3 runs each, dumps differ by 0)
+(5) EARLGREY A/B    the patched binary with R10E85_OFF=1 reproduces the
+                    PRISTINE database BYTE FOR BYTE in both modes:
+                      default    pris = off = eca4492a7f16   on = e0571f86c482
+                      testflags  pris = off = 3d2354c0922c   on = 664f81104e1f
+                    100 % of each mover's byte delta is this law.             OK
+(6) HEADS           rowheads.sh, 7 named rows x 2 modes (12 measured,
+                    2 SKIP-NOFILE as documented)
+                      Earlgrey_0_1 default   214 -> 90  cmp lines, 1 head
+                      Earlgrey_0_1 testflags 144 -> 150 cmp lines, 1 head
+                        (counts are DEPTH, not distance; the HEAD OBJECT is
+                         gone in both modes -- HEAD_BEFORE/AFTER_*.cmp)
+                      SeqDriver 28/28, SimpleUVM 12/12, Scoreboard 12,
+                      MiniAmiq 28/28, BuildUVMPkg 12/12, Rggen 0
+                        -- BYTE-IDENTICAL to pristine                        OK
+(7) CANARIES        canaries.sh   surelog     ok=52 changed=0 absent=0
+                                  uhdm2rtlil  ok=8  changed=0 absent=0
+                    ctcan2.sh     EXPECT_UNKNOWN=1 surelog     PASS
+                                  EXPECT_UNKNOWN=6 uhdm2rtlil  PASS
+                    canaudit.sh   PASS (every brief-protected name is carried
+                                  by a script that RUNS here)
+                    protected DBs by md5, both modes, patched vs pristine:
+                      InterfaceModPort  59a365f3ce2c  SAME
+                      BlackParrotComplex def e3e354129d5a / tf 73a10e8217e5 SAME
+                      YosysOldOr        d68e0796d62c  SAME
+                      SVSwitch          4842211c4030  PIN MATCHED
+                      YosysVerx         6ccda350c24a  PIN MATCHED             OK
+(8) WIDE BOUNDARY   vwide85.sh over a COPY of tools/probe at ANY depth, list on
+                    fd 3, children </dev/null, PROCESSED asserted:
+                      PROCESSED=3813 (== LISTED)  identical=7314
+                      DIFFERING=18  no_output=294
+                      rc histogram: rc=0 14066, rc=3 560, rc=4 598, rc=139 28
+                    ALL 18 accounted for:
+                      14 = this pass's OWN seven arms x two views (the law's
+                           cells; scored WRONG->RIGHT 72, RIGHT->WRONG 0)
+                       2 = r10v84repro/v7_more84.sv x two views -- NOT ours,
+                           and scored against GOLDEN: WRONG->RIGHT 1,
+                           RIGHT->WRONG 0 (`localparam int Op =
+                           ~(('h1 << 3) - 1'b1) & 32'h7`, golden keeps
+                           operation 28, pristine folded it to UINT:0)
+                       2 = r10buvm22repro/g22.sv x two views -- NOT this law:
+                           R10E85_OFF=1 reproduces the PATCHED hash
+                           (6ea30a425791), i.e. earl84's R5 address-derived
+                           value that tracks the binary's code layout
+                    28 rc=139 = 14 files x 2 sides, SYMMETRIC and pre-existing
+                    (earl82 R6 / earl83 R6 / earl84 R6).                     OK
+(9) FENCE           the four slang-fenced tests are NEVER dispatched and are
+                    not spelled in any artifact here: the boundary list was
+                    grepped for each of the four names -> 0 hits, and
+                    canaudit.sh PASSes.                                      OK
