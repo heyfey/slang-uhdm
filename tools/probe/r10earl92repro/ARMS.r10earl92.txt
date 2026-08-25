@@ -1,0 +1,242 @@
+r10earl92 — THE GRID.  Six purpose-built arms, each built with REAL SURELOG
+(the golden), the FROZEN PRISTINE binary and the FROZEN PATCHED binary, and
+censused with ct92cen.  ONE LINE PER cont_assign CELL, the cells that AGREE
+included (an arm AGREEING with golden is not an arm TESTING the law, so the
+whole denominator is on the page — earl66's rule).  MEASUREMENT ONLY; the
+official uhdm-cmp stays the judge on the corpus.
+
+Fingerprint: <RhsKind>:<VpiOpType>@<Rhs span> <one-level operand kinds>.
+The span is a DIAG field, never scored — it is the only way to say WHICH arm
+was installed when both arms have the same compare-visible shape.
+
+  FIXED = golden == patched != pristine       BROKE = golden == pristine != patched
+  DIFF  = neither (a cell no law here owns)
+
+======== g1  g1_ctx92.sv
+SL    rc=0
+pris  rc=0
+patc  rc=0
+-- rows: golden=39 pris=36 patched=33
+VIEW   LSPAN     LNAME             GOLDEN                             PRISTINE                           PATCHED
+DEF    9:10-9:12 o0                ref_obj:-1@9:15-9:17 -             ref_obj:-1@9:15-9:17 -             ref_obj:-1@9:15-9:17 -
+DEF    23:10-23:20 c_ca_plain        operation:32@23:23-23:51 ref_obj/operation:30/constant:3 operation:32@23:23-23:51 ref_obj/operation:30/constant:3 operation:32@23:23-23:51 ref_obj/operation:30/constant:3
+DEF    26:10-26:26 c_ca_bitsel_v     operation:32@26:29-26:58 ref_obj/operation:30/constant:3 operation:32@26:29-26:58 ref_obj/operation:30/constant:3 operation:32@26:29-26:58 ref_obj/operation:30/constant:3
+DEF    28:10-28:29 c_ca_partsel_v    operation:32@28:32-28:65 ref_obj/operation:30/constant:3 operation:32@28:32-28:65 ref_obj/operation:30/constant:3 operation:32@28:32-28:65 ref_obj/operation:30/constant:3
+DEF    30:10-30:26 c_ca_member_s.m1  operation:32@30:29-30:50 ref_obj/operation:30/constant:3 operation:32@30:29-30:50 ref_obj/operation:30/constant:3 operation:32@30:29-30:50 ref_obj/operation:30/constant:3
+DEF    32:11-32:21 -                 operation:32@32:37-32:58 ref_obj/operation:30/constant:3 operation:32@32:37-32:58 ref_obj/operation:30/constant:3 operation:32@32:37-32:58 ref_obj/operation:30/constant:3
+DEF    39:10-39:19 c_operand         operation:30@39:22-39:52 operation:32/bit_select operation:30@39:22-39:52 operation:32/bit_select operation:30@39:22-39:52 operation:32/bit_select
+DEF    41:10-41:18 c_nested          operation:32@41:21-41:63 ref_obj/operation:32/constant:3 operation:32@41:21-41:63 ref_obj/operation:32/constant:3 operation:32@41:21-41:63 ref_obj/operation:32/constant:3
+DEF    43:10-43:23 c_notaken_sig     operation:32@43:26-43:48 ref_obj/operation:30/ref_obj operation:32@43:26-43:48 ref_obj/operation:30/ref_obj operation:32@43:26-43:48 ref_obj/operation:30/ref_obj
+DEF    45:10-45:20 c_cond_sig        operation:32@45:23-45:48 bit_select/operation:30/constant:3 operation:32@45:23-45:48 bit_select/operation:30/constant:3 operation:32@45:23-45:48 bit_select/operation:30/constant:3
+ELAB   23:10-23:20 c_ca_plain        operation:30@23:28-23:46 operation:30/bit_select operation:32@23:23-23:51 ref_obj/operation:30/constant:3 operation:30@23:28-23:46 operation:30/bit_select  <== FIXED
+ELAB   30:10-30:26 c_ca_member_s.m1  operation:32@30:29-30:50 ref_obj/operation:30/constant:3 -                                  -  <== DIFF
+ELAB   32:11-32:21 -                 operation:32@32:37-32:58 ref_obj/operation:30/constant:3 -                                  -  <== DIFF
+ELAB   34:15-34:24 c_netdecl         operation:32@34:27-34:48 constant:9/operation:30/constant:3 operation:32@34:27-34:48 constant:9/operation:30/constant:3 operation:32@34:27-34:48 constant:9/operation:30/constant:3
+ELAB   39:10-39:19 c_operand         operation:30@39:22-39:52 operation:32/bit_select operation:30@39:22-39:52 operation:32/bit_select operation:30@39:22-39:52 operation:32/bit_select
+ELAB   41:10-41:18 c_nested          operation:30@41:32-41:43 bit_select/bit_select operation:32@41:21-41:63 ref_obj/operation:32/constant:3 operation:30@41:32-41:43 bit_select/bit_select  <== FIXED
+ELAB   43:10-43:23 c_notaken_sig     operation:32@43:26-43:48 ref_obj/operation:30/ref_obj operation:32@43:26-43:48 ref_obj/operation:30/ref_obj operation:32@43:26-43:48 ref_obj/operation:30/ref_obj
+ELAB   45:10-45:20 c_cond_sig        operation:32@45:23-45:48 bit_select/operation:30/constant:3 operation:32@45:23-45:48 bit_select/operation:30/constant:3 operation:32@45:23-45:48 bit_select/operation:30/constant:3
+
+======== g2  g2_cond92.sv
+SL    rc=0
+pris  rc=0
+patc  rc=0
+-- rows: golden=73 pris=73 patched=55
+VIEW   LSPAN     LNAME           GOLDEN                             PRISTINE                           PATCHED
+DEF    19:38-19:51 d_bareparam_1   operation:32@19:54-19:85 ref_obj/operation:30/operation:30 operation:32@19:54-19:85 ref_obj/operation:30/operation:30 operation:32@19:54-19:85 ref_obj/operation:30/operation:30
+DEF    20:38-20:51 d_bareparam_0   operation:32@20:54-20:85 ref_obj/operation:30/operation:30 operation:32@20:54-20:85 ref_obj/operation:30/operation:30 operation:32@20:54-20:85 ref_obj/operation:30/operation:30
+DEF    22:39-22:53 d_localparam_1  operation:32@22:56-22:90 ref_obj/operation:30/operation:30 operation:32@22:56-22:90 ref_obj/operation:30/operation:30 operation:32@22:56-22:90 ref_obj/operation:30/operation:30
+DEF    23:39-23:53 d_localparam_0  operation:32@23:56-23:90 ref_obj/operation:30/operation:30 operation:32@23:56-23:90 ref_obj/operation:30/operation:30 operation:32@23:56-23:90 ref_obj/operation:30/operation:30
+DEF    25:36-25:47 d_paramexpr     operation:32@25:50-25:93 operation:18/operation:30/operation:30 operation:32@25:50-25:93 operation:18/operation:30/operation:30 operation:32@25:50-25:93 operation:18/operation:30/operation:30
+DEF    27:36-27:46 d_pkgparam      operation:32@27:50-27:84 constant:9/operation:30/operation:30 operation:32@27:50-27:84 constant:9/operation:30/operation:30 operation:32@27:50-27:84 constant:9/operation:30/operation:30
+DEF    28:36-28:45 d_pkgqual       operation:32@28:50-28:92 constant:9/operation:30/operation:30 operation:32@28:50-28:92 constant:9/operation:30/operation:30 operation:32@28:50-28:92 constant:9/operation:30/operation:30
+DEF    30:36-30:44 d_signal        operation:32@30:50-30:84 bit_select/operation:30/operation:30 operation:32@30:50-30:84 bit_select/operation:30/operation:30 operation:32@30:50-30:84 bit_select/operation:30/operation:30
+DEF    32:36-32:44 d_condop        operation:32@32:50-32:87 operation:14/operation:30/operation:30 operation:32@32:50-32:87 operation:14/operation:30/operation:30 operation:32@32:50-32:87 operation:14/operation:30/operation:30
+DEF    34:36-34:46 d_condcall      operation:32@34:50-34:98 operation:18/operation:30/operation:30 operation:32@34:50-34:98 operation:18/operation:30/operation:30 operation:32@34:50-34:98 operation:18/operation:30/operation:30
+DEF    35:10-35:11 o               operation:30@35:14-36:85 operation:30/ref_obj operation:30@35:14-36:85 operation:30/ref_obj operation:30@35:14-36:85 operation:30/ref_obj
+DEF    40:12-40:20 d_genvar        operation:32@40:23-40:60 operation:14/operation:30/operation:30 operation:32@40:23-40:60 operation:14/operation:30/operation:30 operation:32@40:23-40:60 operation:14/operation:30/operation:30
+ELAB   19:38-19:51 d_bareparam_1   operation:30@19:60-19:71 bit_select/bit_select operation:32@19:54-19:85 ref_obj/operation:30/operation:30 operation:30@19:60-19:71 bit_select/bit_select  <== FIXED
+ELAB   19:38-19:51 d_bareparam_1   operation:30@19:74-19:85 bit_select/bit_select operation:32@19:54-19:85 ref_obj/operation:30/operation:30 operation:30@19:74-19:85 bit_select/bit_select  <== FIXED
+ELAB   20:38-20:51 d_bareparam_0   operation:30@20:74-20:85 bit_select/bit_select operation:32@20:54-20:85 ref_obj/operation:30/operation:30 operation:30@20:74-20:85 bit_select/bit_select  <== FIXED
+ELAB   20:38-20:51 d_bareparam_0   operation:30@20:60-20:71 bit_select/bit_select operation:32@20:54-20:85 ref_obj/operation:30/operation:30 operation:30@20:60-20:71 bit_select/bit_select  <== FIXED
+ELAB   22:39-22:53 d_localparam_1  operation:30@22:65-22:76 bit_select/bit_select operation:32@22:56-22:90 ref_obj/operation:30/operation:30 operation:30@22:65-22:76 bit_select/bit_select  <== FIXED
+ELAB   22:39-22:53 d_localparam_1  operation:30@22:65-22:76 bit_select/bit_select operation:32@22:56-22:90 ref_obj/operation:30/operation:30 operation:30@22:65-22:76 bit_select/bit_select  <== FIXED
+ELAB   23:39-23:53 d_localparam_0  operation:30@23:79-23:90 bit_select/bit_select operation:32@23:56-23:90 ref_obj/operation:30/operation:30 operation:30@23:79-23:90 bit_select/bit_select  <== FIXED
+ELAB   23:39-23:53 d_localparam_0  operation:30@23:79-23:90 bit_select/bit_select operation:32@23:56-23:90 ref_obj/operation:30/operation:30 operation:30@23:79-23:90 bit_select/bit_select  <== FIXED
+ELAB   25:36-25:47 d_paramexpr     operation:30@25:68-25:79 bit_select/bit_select operation:32@25:50-25:93 operation:18/operation:30/operation:30 operation:30@25:68-25:79 bit_select/bit_select  <== FIXED
+ELAB   25:36-25:47 d_paramexpr     operation:30@25:82-25:93 bit_select/bit_select operation:32@25:50-25:93 operation:18/operation:30/operation:30 operation:30@25:82-25:93 bit_select/bit_select  <== FIXED
+ELAB   27:36-27:46 d_pkgparam      operation:30@27:59-27:70 bit_select/bit_select operation:32@27:50-27:84 constant:9/operation:30/operation:30 operation:30@27:59-27:70 bit_select/bit_select  <== FIXED
+ELAB   27:36-27:46 d_pkgparam      operation:30@27:59-27:70 bit_select/bit_select operation:32@27:50-27:84 constant:9/operation:30/operation:30 operation:30@27:59-27:70 bit_select/bit_select  <== FIXED
+ELAB   28:36-28:45 d_pkgqual       operation:30@28:81-28:92 bit_select/bit_select operation:32@28:50-28:92 constant:9/operation:30/operation:30 operation:30@28:81-28:92 bit_select/bit_select  <== FIXED
+ELAB   28:36-28:45 d_pkgqual       operation:30@28:81-28:92 bit_select/bit_select operation:32@28:50-28:92 constant:9/operation:30/operation:30 operation:30@28:81-28:92 bit_select/bit_select  <== FIXED
+ELAB   30:36-30:44 d_signal        operation:32@30:50-30:84 bit_select/operation:30/operation:30 operation:32@30:50-30:84 bit_select/operation:30/operation:30 operation:32@30:50-30:84 bit_select/operation:30/operation:30
+ELAB   30:36-30:44 d_signal        operation:32@30:50-30:84 bit_select/operation:30/operation:30 operation:32@30:50-30:84 bit_select/operation:30/operation:30 operation:32@30:50-30:84 bit_select/operation:30/operation:30
+ELAB   32:36-32:44 d_condop        operation:30@32:76-32:87 bit_select/bit_select operation:32@32:50-32:87 operation:14/operation:30/operation:30 operation:30@32:76-32:87 bit_select/bit_select  <== FIXED
+ELAB   32:36-32:44 d_condop        operation:30@32:62-32:73 bit_select/bit_select operation:32@32:50-32:87 operation:14/operation:30/operation:30 operation:30@32:62-32:73 bit_select/bit_select  <== FIXED
+ELAB   34:36-34:46 d_condcall      operation:30@34:73-34:84 bit_select/bit_select operation:32@34:50-34:98 operation:18/operation:30/operation:30 operation:30@34:73-34:84 bit_select/bit_select  <== FIXED
+ELAB   34:36-34:46 d_condcall      operation:30@34:73-34:84 bit_select/bit_select operation:32@34:50-34:98 operation:18/operation:30/operation:30 operation:30@34:73-34:84 bit_select/bit_select  <== FIXED
+ELAB   35:10-35:11 o               operation:30@35:14-36:85 operation:30/ref_obj operation:30@35:14-36:85 operation:30/ref_obj operation:30@35:14-36:85 operation:30/ref_obj
+ELAB   35:10-35:11 o               operation:30@35:14-36:85 operation:30/ref_obj operation:30@35:14-36:85 operation:30/ref_obj operation:30@35:14-36:85 operation:30/ref_obj
+ELAB   40:12-40:20 d_genvar        operation:32@40:23-40:60 operation:14/operation:30/operation:30;operation:32@40:23-40:60 operation:14/operation:30/operation:30 operation:32@40:23-40:60 operation:14/operation:30/operation:30;operation:32@40:23-40:60 operation:14/operation:30/operation:30 operation:32@40:23-40:60 operation:14/operation:30/operation:30;operation:32@40:23-40:60 operation:14/operation:30/operation:30
+ELAB   40:12-40:20 d_genvar        operation:32@40:23-40:60 operation:14/operation:30/operation:30;operation:32@40:23-40:60 operation:14/operation:30/operation:30 operation:32@40:23-40:60 operation:14/operation:30/operation:30;operation:32@40:23-40:60 operation:14/operation:30/operation:30 operation:32@40:23-40:60 operation:14/operation:30/operation:30;operation:32@40:23-40:60 operation:14/operation:30/operation:30
+
+======== g3  g3_arm92.sv
+SL    rc=0
+pris  rc=0
+patc  rc=0
+-- rows: golden=73 pris=73 patched=61
+VIEW   LSPAN     LNAME        GOLDEN                             PRISTINE                           PATCHED
+DEF    17:36-17:45 e_xor_sel    operation:32@17:50-17:78 ref_obj/operation:30/constant:3 operation:32@17:50-17:78 ref_obj/operation:30/constant:3 operation:32@17:50-17:78 ref_obj/operation:30/constant:3
+DEF    19:36-19:45 e_literal    operation:32@19:50-19:68 ref_obj/constant:5/constant:3 operation:32@19:50-19:68 ref_obj/constant:5/constant:3 operation:32@19:50-19:68 ref_obj/constant:5/constant:3
+DEF    21:36-21:45 e_unsized    operation:32@21:50-21:62 ref_obj/constant:3/constant:3 operation:32@21:50-21:62 ref_obj/constant:3/constant:3 operation:32@21:50-21:62 ref_obj/constant:3/constant:3
+DEF    23:36-23:46 e_foldable   operation:32@23:50-23:75 ref_obj/operation:29/constant:3 operation:32@23:50-23:75 ref_obj/operation:29/constant:3 operation:32@23:50-23:75 ref_obj/operation:29/constant:3
+DEF    25:36-25:43 e_param      operation:32@25:50-25:61 ref_obj/ref_obj/constant:9 operation:32@25:50-25:61 ref_obj/ref_obj/constant:9 operation:32@25:50-25:61 ref_obj/ref_obj/constant:9
+DEF    27:36-27:44 e_bitsel     operation:32@27:50-27:64 ref_obj/bit_select/constant:3 operation:32@27:50-27:64 ref_obj/bit_select/constant:3 operation:32@27:50-27:64 ref_obj/bit_select/constant:3
+DEF    29:36-29:45 e_baresig    operation:32@29:50-29:63 ref_obj/ref_obj/constant:3 operation:32@29:50-29:63 ref_obj/ref_obj/constant:3 operation:32@29:50-29:63 ref_obj/ref_obj/constant:3
+DEF    31:36-31:45 e_partsel    operation:32@31:50-31:79 ref_obj/operation:33/constant:3 operation:32@31:50-31:79 ref_obj/operation:33/constant:3 operation:32@31:50-31:79 ref_obj/operation:33/constant:3
+DEF    33:36-33:44 e_concat     operation:32@33:50-33:84 ref_obj/operation:33/constant:3 operation:32@33:50-33:84 ref_obj/operation:33/constant:3 operation:32@33:50-33:84 ref_obj/operation:33/constant:3
+DEF    35:36-35:42 e_hier       operation:32@35:50-35:65 ref_obj/hier_path/constant:3 operation:32@35:50-35:65 ref_obj/hier_path/constant:3 operation:32@35:50-35:65 ref_obj/hier_path/constant:3
+DEF    37:36-37:42 e_call       operation:32@37:50-37:70 ref_obj/func_call/constant:3 operation:32@37:50-37:70 ref_obj/func_call/constant:3 operation:32@37:50-37:70 ref_obj/func_call/constant:3
+DEF    39:36-39:45 e_syscall    operation:32@39:50-39:70 ref_obj/sys_func_call/constant:3 operation:32@39:50-39:70 ref_obj/sys_func_call/constant:3 operation:32@39:50-39:70 ref_obj/sys_func_call/constant:3
+DEF    41:36-41:47 e_syscall_x  operation:32@41:50-41:76 ref_obj/sys_func_call/constant:3 operation:32@41:50-41:76 ref_obj/sys_func_call/constant:3 operation:32@41:50-41:76 ref_obj/sys_func_call/constant:3
+DEF    43:36-43:43 e_unary      operation:32@43:50-43:65 ref_obj/operation:4/constant:3 operation:32@43:50-43:65 ref_obj/operation:4/constant:3 operation:32@43:50-43:65 ref_obj/operation:4/constant:3
+DEF    45:36-45:44 e_redxor     operation:32@45:50-45:74 ref_obj/operation:33/constant:3 operation:32@45:50-45:74 ref_obj/operation:33/constant:3 operation:32@45:50-45:74 ref_obj/operation:33/constant:3
+DEF    47:36-47:41 e_add        operation:32@47:50-47:71 ref_obj/operation:24/constant:3 operation:32@47:50-47:71 ref_obj/operation:24/constant:3 operation:32@47:50-47:71 ref_obj/operation:24/constant:3
+DEF    49:36-49:43 e_shift      operation:32@49:50-49:69 ref_obj/operation:22/constant:3 operation:32@49:50-49:69 ref_obj/operation:22/constant:3 operation:32@49:50-49:69 ref_obj/operation:22/constant:3
+DEF    51:36-51:42 e_cast       operation:32@51:50-51:74 ref_obj/operation:67/constant:3 operation:32@51:50-51:74 ref_obj/operation:67/constant:3 operation:32@51:50-51:74 ref_obj/operation:67/constant:3
+DEF    53:36-53:46 e_nestedop   operation:32@53:50-53:89 ref_obj/operation:30/constant:3 operation:32@53:50-53:89 ref_obj/operation:30/constant:3 operation:32@53:50-53:89 ref_obj/operation:30/constant:3
+DEF    54:10-54:11 o            operation:30@54:14-57:33 operation:30/ref_obj operation:30@54:14-57:33 operation:30/ref_obj operation:30@54:14-57:33 operation:30/ref_obj
+ELAB   17:36-17:45 e_xor_sel    operation:30@17:55-17:73 operation:30/bit_select operation:32@17:50-17:78 ref_obj/operation:30/constant:3 operation:30@17:55-17:73 operation:30/bit_select  <== FIXED
+ELAB   19:36-19:45 e_literal    constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -
+ELAB   21:36-21:45 e_unsized    constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -
+ELAB   23:36-23:46 e_foldable   constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -
+ELAB   25:36-25:43 e_param      constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -
+ELAB   27:36-27:44 e_bitsel     bit_select:-1@27:57-27:58 -        operation:32@27:50-27:64 ref_obj/bit_select/constant:3 bit_select:-1@27:57-27:58 -  <== FIXED
+ELAB   29:36-29:45 e_baresig    operation:32@29:50-29:63 ref_obj/ref_obj/constant:3 operation:32@29:50-29:63 ref_obj/ref_obj/constant:3 operation:32@29:50-29:63 ref_obj/ref_obj/constant:3
+ELAB   31:36-31:45 e_partsel    operation:33@31:55-31:74 constant:3/var_select operation:32@31:50-31:79 ref_obj/operation:33/constant:3 operation:33@31:55-31:74 constant:3/var_select  <== FIXED
+ELAB   33:36-33:44 e_concat     operation:33@33:55-33:79 var_select/var_select operation:32@33:50-33:84 ref_obj/operation:33/constant:3 operation:33@33:55-33:79 var_select/var_select  <== FIXED
+ELAB   35:36-35:42 e_hier       operation:32@35:50-35:65 ref_obj/hier_path/constant:3 operation:32@35:50-35:65 ref_obj/hier_path/constant:3 operation:32@35:50-35:65 ref_obj/hier_path/constant:3
+ELAB   37:36-37:42 e_call       func_call:-1@37:55-37:65 -         operation:32@37:50-37:70 ref_obj/func_call/constant:3 func_call:-1@37:55-37:65 -  <== FIXED
+ELAB   39:36-39:45 e_syscall    constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -
+ELAB   41:36-41:47 e_syscall_x  sys_func_call:-1@41:55-41:71 -     operation:32@41:50-41:76 ref_obj/sys_func_call/constant:3 sys_func_call:-1@41:55-41:71 -  <== FIXED
+ELAB   43:36-43:43 e_unary      operation:4@43:55-43:60 bit_select operation:32@43:50-43:65 ref_obj/operation:4/constant:3 operation:4@43:55-43:60 bit_select  <== FIXED
+ELAB   45:36-45:44 e_redxor     operation:33@45:55-45:69 constant:3/operation:9 operation:32@45:50-45:74 ref_obj/operation:33/constant:3 operation:33@45:55-45:69 constant:3/operation:9  <== FIXED
+ELAB   47:36-47:41 e_add        operation:24@47:55-47:66 bit_select/bit_select operation:32@47:50-47:71 ref_obj/operation:24/constant:3 operation:24@47:55-47:66 bit_select/bit_select  <== FIXED
+ELAB   49:36-49:43 e_shift      operation:22@49:55-49:64 bit_select/constant:9 operation:32@49:50-49:69 ref_obj/operation:22/constant:3 operation:22@49:55-49:64 bit_select/constant:9  <== FIXED
+ELAB   51:36-51:42 e_cast       operation:67@51:55-51:69 var_select operation:32@51:50-51:74 ref_obj/operation:67/constant:3 operation:67@51:55-51:69 var_select  <== FIXED
+ELAB   53:36-53:46 e_nestedop   operation:30@53:55-53:84 operation:30/operation:30 operation:32@53:50-53:89 ref_obj/operation:30/constant:3 operation:30@53:55-53:84 operation:30/operation:30  <== FIXED
+ELAB   54:10-54:11 o            operation:30@54:14-57:33 operation:30/ref_obj operation:30@54:14-57:33 operation:30/ref_obj operation:30@54:14-57:33 operation:30/ref_obj
+
+======== g4  g4_gate92.sv
+SL    rc=0
+pris  rc=0
+patc  rc=0
+-- rows: golden=54 pris=54 patched=44
+VIEW   LSPAN     LNAME            GOLDEN                             PRISTINE                           PATCHED
+DEF    16:39-16:51 f_untk_const     operation:32@16:56-16:80 ref_obj/operation:30/constant:5 operation:32@16:56-16:80 ref_obj/operation:30/constant:5 operation:32@16:56-16:80 ref_obj/operation:30/constant:5
+DEF    17:39-17:49 f_untk_sig       operation:32@17:56-17:78 ref_obj/operation:30/ref_obj operation:32@17:56-17:78 ref_obj/operation:30/ref_obj operation:32@17:56-17:78 ref_obj/operation:30/ref_obj
+DEF    18:39-18:52 f_untk_bitsel    operation:32@18:56-18:79 ref_obj/operation:30/bit_select operation:32@18:56-18:79 ref_obj/operation:30/bit_select operation:32@18:56-18:79 ref_obj/operation:30/bit_select
+DEF    19:39-19:53 f_untk_partsel   operation:32@19:56-19:94 ref_obj/operation:30/operation:33 operation:32@19:56-19:94 ref_obj/operation:30/operation:33 operation:32@19:56-19:94 ref_obj/operation:30/operation:33
+DEF    20:39-20:54 f_untk_barepsel  operation:32@20:56-20:91 ref_obj/operation:30/var_select operation:32@20:56-20:91 ref_obj/operation:30/var_select operation:32@20:56-20:91 ref_obj/operation:30/var_select
+DEF    21:39-21:50 f_untk_hier      operation:32@21:56-21:80 ref_obj/operation:30/hier_path operation:32@21:56-21:80 ref_obj/operation:30/hier_path operation:32@21:56-21:80 ref_obj/operation:30/hier_path
+DEF    22:39-22:48 f_untk_op        operation:32@22:56-22:86 ref_obj/operation:30/operation:30 operation:32@22:56-22:86 ref_obj/operation:30/operation:30 operation:32@22:56-22:86 ref_obj/operation:30/operation:30
+DEF    23:39-23:51 f_untk_param     operation:32@23:56-23:77 ref_obj/operation:30/ref_obj operation:32@23:56-23:77 ref_obj/operation:30/ref_obj operation:32@23:56-23:77 ref_obj/operation:30/ref_obj
+DEF    25:39-25:49 f_arm_hier       operation:32@25:56-25:71 ref_obj/hier_path/constant:3 operation:32@25:56-25:71 ref_obj/hier_path/constant:3 operation:32@25:56-25:71 ref_obj/hier_path/constant:3
+DEF    26:39-26:51 f_arm_hierop     operation:32@26:56-26:78 ref_obj/operation:30/constant:3 operation:32@26:56-26:78 ref_obj/operation:30/constant:3 operation:32@26:56-26:78 ref_obj/operation:30/constant:3
+DEF    27:39-27:53 f_arm_barepsel   operation:32@27:56-27:92 ref_obj/operation:30/constant:3 operation:32@27:56-27:92 ref_obj/operation:30/constant:3 operation:32@27:56-27:92 ref_obj/operation:30/constant:3
+DEF    28:39-28:50 f_arm_sigop      operation:32@28:56-28:76 ref_obj/operation:30/constant:3 operation:32@28:56-28:76 ref_obj/operation:30/constant:3 operation:32@28:56-28:76 ref_obj/operation:30/constant:3
+DEF    30:39-30:47 f_arm_xz         operation:32@30:56-30:80 ref_obj/constant:5/operation:30 operation:32@30:56-30:80 ref_obj/constant:5/operation:30 operation:32@30:56-30:80 ref_obj/constant:5/operation:30
+DEF    31:10-31:11 o                operation:30@31:14-33:81 operation:30/ref_obj operation:30@31:14-33:81 operation:30/ref_obj operation:30@31:14-33:81 operation:30/ref_obj
+ELAB   16:39-16:51 f_untk_const     operation:30@16:61-16:72 bit_select/bit_select operation:32@16:56-16:80 ref_obj/operation:30/constant:5 operation:30@16:61-16:72 bit_select/bit_select  <== FIXED
+ELAB   17:39-17:49 f_untk_sig       operation:32@17:56-17:78 ref_obj/operation:30/ref_obj operation:32@17:56-17:78 ref_obj/operation:30/ref_obj operation:32@17:56-17:78 ref_obj/operation:30/ref_obj
+ELAB   18:39-18:52 f_untk_bitsel    operation:30@18:61-18:72 bit_select/bit_select operation:32@18:56-18:79 ref_obj/operation:30/bit_select operation:30@18:61-18:72 bit_select/bit_select  <== FIXED
+ELAB   19:39-19:53 f_untk_partsel   operation:30@19:61-19:72 bit_select/bit_select operation:32@19:56-19:94 ref_obj/operation:30/operation:33 operation:30@19:61-19:72 bit_select/bit_select  <== FIXED
+ELAB   20:39-20:54 f_untk_barepsel  operation:30@20:61-20:78 var_select/bit_select operation:32@20:56-20:91 ref_obj/operation:30/var_select operation:30@20:61-20:78 var_select/bit_select  <== FIXED
+ELAB   21:39-21:50 f_untk_hier      operation:30@21:61-21:72 bit_select/bit_select operation:32@21:56-21:80 ref_obj/operation:30/hier_path operation:30@21:61-21:72 bit_select/bit_select  <== FIXED
+ELAB   22:39-22:48 f_untk_op        operation:30@22:61-22:72 bit_select/bit_select operation:32@22:56-22:86 ref_obj/operation:30/operation:30 operation:30@22:61-22:72 bit_select/bit_select  <== FIXED
+ELAB   23:39-23:51 f_untk_param     operation:30@23:61-23:72 bit_select/bit_select operation:32@23:56-23:77 ref_obj/operation:30/ref_obj operation:30@23:61-23:72 bit_select/bit_select  <== FIXED
+ELAB   25:39-25:49 f_arm_hier       operation:32@25:56-25:71 ref_obj/hier_path/constant:3 operation:32@25:56-25:71 ref_obj/hier_path/constant:3 operation:32@25:56-25:71 ref_obj/hier_path/constant:3
+ELAB   26:39-26:51 f_arm_hierop     operation:30@26:61-26:73 hier_path/bit_select operation:32@26:56-26:78 ref_obj/operation:30/constant:3 operation:30@26:61-26:73 hier_path/bit_select  <== FIXED
+ELAB   27:39-27:53 f_arm_barepsel   operation:30@27:61-27:87 operation:33/bit_select operation:32@27:56-27:92 ref_obj/operation:30/constant:3 operation:30@27:61-27:87 operation:33/bit_select  <== FIXED
+ELAB   28:39-28:50 f_arm_sigop      operation:30@28:61-28:71 ref_obj/bit_select operation:32@28:56-28:76 ref_obj/operation:30/constant:3 operation:30@28:61-28:71 ref_obj/bit_select  <== FIXED
+ELAB   30:39-30:47 f_arm_xz         constant:-1@30:61-30:66 -          operation:32@30:56-30:80 ref_obj/constant:5/operation:30 operation:32@30:56-30:80 ref_obj/constant:5/operation:30  <== DIFF
+ELAB   31:10-31:11 o                operation:30@31:14-33:81 operation:30/ref_obj operation:30@31:14-33:81 operation:30/ref_obj operation:30@31:14-33:81 operation:30/ref_obj
+
+======== g5  g5_home92.sv
+SL    rc=0
+pris  rc=0
+patc  rc=0
+-- rows: golden=89 pris=89 patched=74
+VIEW   LSPAN     LNAME           GOLDEN                             PRISTINE                           PATCHED
+DEF    6:10-6:11 o               operation:32@6:14-6:44 ref_obj/operation:30/operation:30 operation:32@6:14-6:44 ref_obj/operation:30/operation:30 operation:32@6:14-6:44 ref_obj/operation:30/operation:30
+DEF    10:10-10:12 w2              operation:32@10:15-10:45 ref_obj/operation:30/operation:30 operation:32@10:15-10:45 ref_obj/operation:30/operation:30 operation:32@10:15-10:45 ref_obj/operation:30/operation:30
+DEF    15:10-15:12 w1              operation:32@15:15-15:45 ref_obj/operation:30/operation:30 operation:32@15:15-15:45 ref_obj/operation:30/operation:30 operation:32@15:15-15:45 ref_obj/operation:30/operation:30
+DEF    22:33-22:41 h_module        operation:32@22:44-22:74 ref_obj/operation:30/operation:30 operation:32@22:44-22:74 ref_obj/operation:30/operation:30 operation:32@22:44-22:74 ref_obj/operation:30/operation:30
+DEF    25:35-25:43 h_genfor        operation:32@25:46-25:76 ref_obj/operation:30/operation:30 operation:32@25:46-25:76 ref_obj/operation:30/operation:30 operation:32@25:46-25:76 ref_obj/operation:30/operation:30
+DEF    29:34-29:41 h_genif         operation:32@29:44-29:74 ref_obj/operation:30/operation:30 operation:32@29:44-29:74 ref_obj/operation:30/operation:30 operation:32@29:44-29:74 ref_obj/operation:30/operation:30
+DEF    33:35-33:43 h_genblk        operation:32@33:46-33:76 ref_obj/operation:30/operation:30 operation:32@33:46-33:76 ref_obj/operation:30/operation:30 operation:32@33:46-33:76 ref_obj/operation:30/operation:30
+DEF    36:39-36:53 h_arm_rangesel  operation:32@36:56-36:85 ref_obj/operation:33/constant:3 operation:32@36:56-36:85 ref_obj/operation:33/constant:3 operation:32@36:56-36:85 ref_obj/operation:33/constant:3
+DEF    37:39-37:52 h_arm_bare_rs   operation:32@37:56-37:76 ref_obj/var_select/constant:3 operation:32@37:56-37:76 ref_obj/var_select/constant:3 operation:32@37:56-37:76 ref_obj/var_select/constant:3
+DEF    38:39-38:49 h_arm_repl      operation:32@38:56-38:81 ref_obj/operation:34/constant:3 operation:32@38:56-38:81 ref_obj/operation:34/constant:3 operation:32@38:56-38:81 ref_obj/operation:34/constant:3
+DEF    39:39-39:49 h_arm_tern      operation:32@39:56-39:88 ref_obj/operation:32/constant:3 operation:32@39:56-39:88 ref_obj/operation:32/constant:3 operation:32@39:56-39:88 ref_obj/operation:32/constant:3
+DEF    40:10-40:11 o               operation:30@40:14-40:81 operation:30/ref_obj operation:30@40:14-40:81 operation:30/ref_obj operation:30@40:14-40:81 operation:30/ref_obj
+DEF    44:10-44:11 o               operation:32@44:14-44:44 ref_obj/operation:30/operation:30 operation:32@44:14-44:44 ref_obj/operation:30/operation:30 operation:32@44:14-44:44 ref_obj/operation:30/operation:30
+ELAB   6:10-6:11 o               operation:30@6:19-6:30 bit_select/bit_select operation:32@6:14-6:44 ref_obj/operation:30/operation:30 operation:30@6:19-6:30 bit_select/bit_select  <== FIXED
+ELAB   10:10-10:12 w2              operation:30@10:20-10:31 bit_select/bit_select operation:32@10:15-10:45 ref_obj/operation:30/operation:30 operation:30@10:20-10:31 bit_select/bit_select  <== FIXED
+ELAB   15:10-15:12 w1              operation:30@15:20-15:31 bit_select/bit_select operation:32@15:15-15:45 ref_obj/operation:30/operation:30 operation:30@15:20-15:31 bit_select/bit_select  <== FIXED
+ELAB   22:33-22:41 h_module        operation:30@22:49-22:60 bit_select/bit_select operation:32@22:44-22:74 ref_obj/operation:30/operation:30 operation:30@22:49-22:60 bit_select/bit_select  <== FIXED
+ELAB   22:33-22:41 h_module        operation:30@22:63-22:74 bit_select/bit_select operation:32@22:44-22:74 ref_obj/operation:30/operation:30 operation:30@22:63-22:74 bit_select/bit_select  <== FIXED
+ELAB   22:33-22:41 h_module        operation:30@22:49-22:60 bit_select/bit_select operation:32@22:44-22:74 ref_obj/operation:30/operation:30 operation:30@22:49-22:60 bit_select/bit_select  <== FIXED
+ELAB   25:35-25:43 h_genfor        operation:32@25:46-25:76 constant:9/operation:30/operation:30;operation:32@25:46-25:76 constant:9/operation:30/operation:30 operation:32@25:46-25:76 ref_obj/operation:30/operation:30;operation:32@25:46-25:76 ref_obj/operation:30/operation:30 operation:32@25:46-25:76 ref_obj/operation:30/operation:30;operation:32@25:46-25:76 ref_obj/operation:30/operation:30  <== DIFF
+ELAB   25:35-25:43 h_genfor        operation:32@25:46-25:76 constant:9/operation:30/operation:30;operation:32@25:46-25:76 constant:9/operation:30/operation:30 operation:32@25:46-25:76 ref_obj/operation:30/operation:30;operation:32@25:46-25:76 ref_obj/operation:30/operation:30 operation:32@25:46-25:76 ref_obj/operation:30/operation:30;operation:32@25:46-25:76 ref_obj/operation:30/operation:30  <== DIFF
+ELAB   25:35-25:43 h_genfor        operation:32@25:46-25:76 constant:9/operation:30/operation:30;operation:32@25:46-25:76 constant:9/operation:30/operation:30 operation:32@25:46-25:76 ref_obj/operation:30/operation:30;operation:32@25:46-25:76 ref_obj/operation:30/operation:30 operation:32@25:46-25:76 ref_obj/operation:30/operation:30;operation:32@25:46-25:76 ref_obj/operation:30/operation:30  <== DIFF
+ELAB   29:34-29:41 h_genif         operation:32@29:44-29:74 constant:9/operation:30/operation:30 operation:32@29:44-29:74 constant:9/operation:30/operation:30 operation:32@29:44-29:74 constant:9/operation:30/operation:30
+ELAB   29:34-29:41 h_genif         operation:32@29:44-29:74 constant:9/operation:30/operation:30 operation:32@29:44-29:74 constant:9/operation:30/operation:30 operation:32@29:44-29:74 constant:9/operation:30/operation:30
+ELAB   29:34-29:41 h_genif         operation:32@29:44-29:74 constant:9/operation:30/operation:30 operation:32@29:44-29:74 constant:9/operation:30/operation:30 operation:32@29:44-29:74 constant:9/operation:30/operation:30
+ELAB   33:35-33:43 h_genblk        operation:32@33:46-33:76 constant:9/operation:30/operation:30 operation:32@33:46-33:76 constant:9/operation:30/operation:30 operation:32@33:46-33:76 constant:9/operation:30/operation:30
+ELAB   33:35-33:43 h_genblk        operation:32@33:46-33:76 constant:9/operation:30/operation:30 operation:32@33:46-33:76 constant:9/operation:30/operation:30 operation:32@33:46-33:76 constant:9/operation:30/operation:30
+ELAB   33:35-33:43 h_genblk        operation:32@33:46-33:76 constant:9/operation:30/operation:30 operation:32@33:46-33:76 constant:9/operation:30/operation:30 operation:32@33:46-33:76 constant:9/operation:30/operation:30
+ELAB   36:39-36:53 h_arm_rangesel  constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -
+ELAB   36:39-36:53 h_arm_rangesel  operation:33@36:61-36:80 constant:3/var_select operation:32@36:56-36:85 ref_obj/operation:33/constant:3 operation:33@36:61-36:80 constant:3/var_select  <== FIXED
+ELAB   36:39-36:53 h_arm_rangesel  operation:33@36:61-36:80 constant:3/var_select operation:32@36:56-36:85 ref_obj/operation:33/constant:3 operation:33@36:61-36:80 constant:3/var_select  <== FIXED
+ELAB   37:39-37:52 h_arm_bare_rs   var_select:-1@37:61-37:71 -        operation:32@37:56-37:76 ref_obj/var_select/constant:3 var_select:-1@37:61-37:71 -  <== FIXED
+ELAB   37:39-37:52 h_arm_bare_rs   var_select:-1@37:61-37:71 -        operation:32@37:56-37:76 ref_obj/var_select/constant:3 var_select:-1@37:61-37:71 -  <== FIXED
+ELAB   37:39-37:52 h_arm_bare_rs   constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -
+ELAB   38:39-38:49 h_arm_repl      operation:34@38:61-38:76 constant:9/operation:33 operation:32@38:56-38:81 ref_obj/operation:34/constant:3 operation:34@38:61-38:76 constant:9/operation:33  <== FIXED
+ELAB   38:39-38:49 h_arm_repl      operation:34@38:61-38:76 constant:9/operation:33 operation:32@38:56-38:81 ref_obj/operation:34/constant:3 operation:34@38:61-38:76 constant:9/operation:33  <== FIXED
+ELAB   38:39-38:49 h_arm_repl      constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -
+ELAB   39:39-39:49 h_arm_tern      operation:32@39:62-39:82 bit_select/bit_select/bit_select operation:32@39:56-39:88 ref_obj/operation:32/constant:3 operation:32@39:62-39:82 bit_select/bit_select/bit_select  <== FIXED
+ELAB   39:39-39:49 h_arm_tern      operation:32@39:62-39:82 bit_select/bit_select/bit_select operation:32@39:56-39:88 ref_obj/operation:32/constant:3 operation:32@39:62-39:82 bit_select/bit_select/bit_select  <== FIXED
+ELAB   39:39-39:49 h_arm_tern      constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -              constant:-1@0:0-0:0 -
+ELAB   40:10-40:11 o               operation:30@40:14-40:81 operation:30/ref_obj operation:30@40:14-40:81 operation:30/ref_obj operation:30@40:14-40:81 operation:30/ref_obj
+ELAB   40:10-40:11 o               operation:30@40:14-40:81 operation:30/ref_obj operation:30@40:14-40:81 operation:30/ref_obj operation:30@40:14-40:81 operation:30/ref_obj
+ELAB   40:10-40:11 o               operation:30@40:14-40:81 operation:30/ref_obj operation:30@40:14-40:81 operation:30/ref_obj operation:30@40:14-40:81 operation:30/ref_obj
+ELAB   44:10-44:11 o               operation:30@44:19-44:30 bit_select/bit_select operation:32@44:14-44:44 ref_obj/operation:30/operation:30 operation:30@44:19-44:30 bit_select/bit_select  <== FIXED
+
+======== g6  g6_shapes92.sv
+SL    rc=0
+pris  rc=0
+patc  rc=0
+-- rows: golden=38 pris=38 patched=36
+VIEW   LSPAN     LNAME           GOLDEN                             PRISTINE                           PATCHED
+DEF    16:39-16:52 p_arm_partsel   operation:32@16:56-16:84 ref_obj/operation:33/constant:3 operation:32@16:56-16:84 ref_obj/operation:33/constant:3 operation:32@16:56-16:84 ref_obj/operation:33/constant:3
+DEF    17:39-17:51 p_arm_bareps    operation:32@17:56-17:75 ref_obj/part_select/constant:3 operation:32@17:56-17:75 ref_obj/part_select/constant:3 operation:32@17:56-17:75 ref_obj/part_select/constant:3
+DEF    19:39-19:53 p_untk_partsel  operation:32@19:56-19:83 ref_obj/part_select/part_select operation:32@19:56-19:83 ref_obj/part_select/part_select operation:32@19:56-19:83 ref_obj/part_select/part_select
+DEF    21:39-21:53 p_cond_partsel  operation:32@21:56-21:93 operation:7/operation:30/operation:30 operation:32@21:56-21:93 operation:7/operation:30/operation:30 operation:32@21:56-21:93 operation:7/operation:30/operation:30
+DEF    23:39-23:49 p_arm_enum      operation:32@23:56-23:75 ref_obj/ref_obj/constant:9 operation:32@23:56-23:75 ref_obj/ref_obj/constant:9 operation:32@23:56-23:75 ref_obj/ref_obj/constant:9
+DEF    26:39-26:49 p_arm_real      operation:32@26:56-26:70 ref_obj/constant:2/constant:2 operation:32@26:56-26:70 ref_obj/constant:2/constant:2 operation:32@26:56-26:70 ref_obj/constant:2/constant:2
+DEF    28:39-28:48 p_arm_pat       operation:32@28:56-28:90 ref_obj/operation:75/constant:3 operation:32@28:56-28:90 ref_obj/operation:75/constant:3 operation:32@28:56-28:90 ref_obj/operation:75/constant:3
+DEF    30:39-30:50 p_arm_idxps     operation:32@30:56-30:77 ref_obj/indexed_part_select/constant:3 operation:32@30:56-30:77 ref_obj/indexed_part_select/constant:3 operation:32@30:56-30:77 ref_obj/indexed_part_select/constant:3
+DEF    32:39-32:51 p_untk_idxps    operation:32@32:56-32:84 ref_obj/part_select/indexed_part_select operation:32@32:56-32:84 ref_obj/part_select/indexed_part_select operation:32@32:56-32:84 ref_obj/part_select/indexed_part_select
+DEF    33:10-33:11 o               operation:30@33:14-35:58 operation:30/operation:33 operation:30@33:14-35:58 operation:30/operation:33 operation:30@33:14-35:58 operation:30/operation:33
+ELAB   16:39-16:52 p_arm_partsel   operation:33@16:61-16:79 constant:3/part_select operation:32@16:56-16:84 ref_obj/operation:33/constant:3 operation:33@16:61-16:79 constant:3/part_select  <== FIXED
+ELAB   17:39-17:51 p_arm_bareps    operation:32@17:56-17:75 ref_obj/part_select/constant:3 operation:32@17:56-17:75 ref_obj/part_select/constant:3 operation:32@17:56-17:75 ref_obj/part_select/constant:3
+ELAB   19:39-19:53 p_untk_partsel  operation:32@19:56-19:83 ref_obj/part_select/part_select operation:32@19:56-19:83 ref_obj/part_select/part_select operation:32@19:56-19:83 ref_obj/part_select/part_select
+ELAB   21:39-21:53 p_cond_partsel  operation:32@21:56-21:93 operation:7/operation:30/operation:30 operation:32@21:56-21:93 operation:7/operation:30/operation:30 operation:32@21:56-21:93 operation:7/operation:30/operation:30
+ELAB   23:39-23:49 p_arm_enum      operation:32@23:56-23:75 ref_obj/ref_obj/constant:9 operation:32@23:56-23:75 ref_obj/ref_obj/constant:9 operation:32@23:56-23:75 ref_obj/ref_obj/constant:9
+ELAB   26:39-26:49 p_arm_real      constant:-1@26:61-26:64 -          operation:32@26:56-26:70 ref_obj/constant:2/constant:2 operation:32@26:56-26:70 ref_obj/constant:2/constant:2  <== DIFF
+ELAB   28:39-28:48 p_arm_pat       operation:75@28:61-28:85 part_select/part_select operation:32@28:56-28:90 ref_obj/operation:75/constant:3 operation:75@28:61-28:85 part_select/part_select  <== FIXED
+ELAB   30:39-30:50 p_arm_idxps     operation:32@30:56-30:77 ref_obj/indexed_part_select/constant:3 operation:32@30:56-30:77 ref_obj/indexed_part_select/constant:3 operation:32@30:56-30:77 ref_obj/indexed_part_select/constant:3
+ELAB   32:39-32:51 p_untk_idxps    operation:32@32:56-32:84 ref_obj/part_select/indexed_part_select operation:32@32:56-32:84 ref_obj/part_select/indexed_part_select operation:32@32:56-32:84 ref_obj/part_select/indexed_part_select
+ELAB   33:10-33:11 o               operation:30@33:14-35:58 operation:30/operation:33 operation:30@33:14-35:58 operation:30/operation:33 operation:30@33:14-35:58 operation:30/operation:33
+

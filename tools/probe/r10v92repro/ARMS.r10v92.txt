@@ -1,0 +1,145 @@
+r10v92 — ADVERSARIAL GRID, four producers per cell.
+  golden = ~/git-repos/Surelog/build/bin/surelog (real Surelog, -nobuiltin -nocache)
+  pristine = c366a17          md5 ab9cbe4ad906
+  patched  = as shipped       md5 06a37a88d3f5
+  fixed    = verified patch   md5 a324a0ea8b30
+Every child got </dev/null and its rc was RECORDED: 24 arms x 4 producers, all rc=0.
+
+VERDICT KEY  SAME=all three agree with golden   FIXED=golden==ours only after
+             BROKE=golden==pristine, ours WRONG after   DIFF-UNMOVED=pre-existing, untouched
+             DIFF-MOVED=pre-existing residue whose rows moved (scored by hand below)
+
+f_v1_selbase_def         DEF   35:10-35:19 y_hiersel        patched=FIXED          fixed=FIXED
+f_v1_selbase_def         DEF   36:10-36:15 y_ctl            patched=FIXED          fixed=FIXED
+f_v2_esel_def            DEF   31:10-31:19 y_membsel        patched=BROKE          fixed=SAME
+f_v2_esel_def            DEF   33:10-33:19 y_hiersel        patched=BROKE          fixed=SAME
+f_v2_esel_def            DEF   37:10-37:22 y_bitsel_ctl     patched=FIXED          fixed=FIXED
+f_v2_esel_def            DEF   39:10-39:22 y_membsel_op     patched=FIXED          fixed=FIXED
+f_v3_cond_def            DEF   35:10-35:16 y_func           patched=FIXED          fixed=FIXED
+f_v3_cond_def            DEF   36:10-36:15 y_str            patched=FIXED          fixed=FIXED
+f_v3_cond_def            DEF   37:10-37:16 y_real           patched=FIXED          fixed=FIXED
+f_v3_cond_def            DEF   39:10-39:19 y_pkgfunc        patched=FIXED          fixed=FIXED
+f_v3_cond_def            DEF   44:10-44:15 y_two            patched=FIXED          fixed=FIXED
+f_v4_arm_def             DEF   21:10-21:17 y_mcsig          patched=FIXED          fixed=FIXED
+f_v4_arm_def             DEF   24:10-24:18 y_catsig         patched=FIXED          fixed=FIXED
+f_v4_arm_def             DEF   25:10-25:19 y_castsig        patched=FIXED          fixed=FIXED
+f_v4_arm_def             DEF   27:10-27:14 y_xz             patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v5_home_def            ELAB  10:10-10:11 y                patched=FIXED          fixed=FIXED
+f_v5_home_def            ELAB  10:10-10:11 y                patched=FIXED          fixed=FIXED
+f_v5_home_def            ELAB  10:10-10:11 y                patched=FIXED          fixed=FIXED
+f_v5_home_def            ELAB  23:10-23:12 yb               patched=FIXED          fixed=FIXED
+f_v6_lhs_def             DEF   24:10-24:17 y_plain          patched=FIXED          fixed=FIXED
+f_v6_lhs_def             DEF   39:10-39:16 arr              patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v7_gate_def            DEF   27:10-27:23 y_untk_stream    patched=FIXED          fixed=FIXED
+f_v7_gate_def            DEF   28:10-28:23 y_untk_inside    patched=FIXED          fixed=FIXED
+f_v7_gate_def            DEF   29:10-29:19 y_untk_ap        patched=FIXED          fixed=FIXED
+f_v7_gate_def            DEF   30:10-30:22 y_arm_stream     patched=FIXED          fixed=FIXED
+f_v7_gate_def            DEF   31:10-31:22 y_arm_inside     patched=FIXED          fixed=FIXED
+f_v7_gate_def            DEF   32:10-32:18 y_arm_ap         patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v7_gate_def            DEF   33:10-33:20 y_arm_enum       patched=FIXED          fixed=FIXED
+f_v7_gate_def            DEF   35:10-35:20 y_arm_repl       patched=FIXED          fixed=FIXED
+f_v7_gate_def            DEF   36:10-36:21 y_arm_shift      patched=FIXED          fixed=FIXED
+f_v8_gen_def             DEF   21:14-21:20 gy               patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v8_gen_def             DEF   26:14-26:16 gi               patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v8_gen_def             DEF   31:14-31:16 gb               patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v8_gen_def             ELAB  6:10-6:11   y                patched=FIXED          fixed=FIXED
+f_v8_gen_def             ELAB  6:10-6:11   y                patched=FIXED          fixed=FIXED
+f_v9_nest_def            DEF   13:10-13:14 y_nn             patched=FIXED          fixed=FIXED
+f_v9_nest_def            DEF   14:10-14:17 y_ncsig          patched=FIXED          fixed=FIXED
+f_v9_nest_def            DEF   15:10-15:18 y_untk_t         patched=FIXED          fixed=FIXED
+f_v9_nest_def            DEF   17:10-17:18 y_chain3         patched=FIXED          fixed=FIXED
+f_v10_extra_def          DEF   27:10-27:18 y_signed         patched=FIXED          fixed=FIXED
+f_v10_extra_def          DEF   28:10-28:21 y_bitsel_nc      patched=FIXED          fixed=FIXED
+f_v10_extra_def          ELAB  4:10-4:11   y                patched=FIXED          fixed=FIXED
+f_vs1_shapes_def         DEF   19:10-19:12 y1               patched=FIXED          fixed=FIXED
+f_vs1_shapes_def         DEF   20:10-20:12 y2               patched=FIXED          fixed=FIXED
+f_vs1_shapes_def         DEF   21:10-21:12 y3               patched=FIXED          fixed=FIXED
+f_vs1_shapes_def         DEF   22:10-22:12 y4               patched=BROKE          fixed=SAME
+f_vs1_shapes_def         DEF   23:10-23:12 y5               patched=BROKE          fixed=SAME
+f_vs1_shapes_def         DEF   24:10-24:12 y6               patched=BROKE          fixed=SAME
+f_vs1_shapes_def         DEF   26:10-26:12 y8               patched=FIXED          fixed=FIXED
+f_vm1_min_def            DEF   5:10-5:11   y                patched=BROKE          fixed=SAME
+f_v1_selbase_elab        DEF   31:10-31:12 pk               patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v1_selbase_elab        DEF   35:10-35:19 y_hiersel        patched=FIXED          fixed=FIXED
+f_v1_selbase_elab        DEF   36:10-36:15 y_ctl            patched=FIXED          fixed=FIXED
+f_v2_esel_elab           DEF   31:10-31:19 y_membsel        patched=BROKE          fixed=SAME
+f_v2_esel_elab           DEF   33:10-33:19 y_hiersel        patched=BROKE          fixed=SAME
+f_v2_esel_elab           DEF   37:10-37:22 y_bitsel_ctl     patched=FIXED          fixed=FIXED
+f_v2_esel_elab           DEF   39:10-39:22 y_membsel_op     patched=FIXED          fixed=FIXED
+f_v3_cond_elab           DEF   35:10-35:16 y_func           patched=FIXED          fixed=FIXED
+f_v3_cond_elab           DEF   36:10-36:15 y_str            patched=FIXED          fixed=FIXED
+f_v3_cond_elab           DEF   37:10-37:16 y_real           patched=FIXED          fixed=FIXED
+f_v3_cond_elab           DEF   39:10-39:19 y_pkgfunc        patched=FIXED          fixed=FIXED
+f_v3_cond_elab           DEF   44:10-44:15 y_two            patched=FIXED          fixed=FIXED
+f_v4_arm_elab            DEF   20:10-20:18 y_mcfold         patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v4_arm_elab            DEF   21:10-21:17 y_mcsig          patched=FIXED          fixed=FIXED
+f_v4_arm_elab            DEF   22:10-22:19 y_addfold        patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v4_arm_elab            DEF   23:10-23:19 y_catfold        patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v4_arm_elab            DEF   24:10-24:18 y_catsig         patched=FIXED          fixed=FIXED
+f_v4_arm_elab            DEF   25:10-25:19 y_castsig        patched=FIXED          fixed=FIXED
+f_v4_arm_elab            DEF   26:10-26:15 y_str            patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v4_arm_elab            DEF   27:10-27:14 y_xz             patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v4_arm_elab            DEF   28:10-28:16 y_ones           patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v4_arm_elab            DEF   29:10-29:17 y_zeros          patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v5_home_elab           ELAB  10:10-10:11 y                patched=FIXED          fixed=FIXED
+f_v5_home_elab           ELAB  10:10-10:11 y                patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v5_home_elab           ELAB  10:10-10:11 y                patched=FIXED          fixed=FIXED
+f_v5_home_elab           ELAB  10:10-10:11 y                patched=FIXED          fixed=FIXED
+f_v5_home_elab           ELAB  23:10-23:12 yb               patched=FIXED          fixed=FIXED
+f_v5_home_elab           DEF   39:10-39:11 o                patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v6_lhs_elab            DEF   24:10-24:17 y_plain          patched=FIXED          fixed=FIXED
+f_v6_lhs_elab            DEF   39:10-39:16 arr              patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v6_lhs_elab            ELAB  7:10-7:11   o                patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v7_gate_elab           DEF   27:10-27:23 y_untk_stream    patched=FIXED          fixed=FIXED
+f_v7_gate_elab           DEF   28:10-28:23 y_untk_inside    patched=FIXED          fixed=FIXED
+f_v7_gate_elab           DEF   29:10-29:19 y_untk_ap        patched=FIXED          fixed=FIXED
+f_v7_gate_elab           DEF   30:10-30:22 y_arm_stream     patched=FIXED          fixed=FIXED
+f_v7_gate_elab           DEF   31:10-31:22 y_arm_inside     patched=FIXED          fixed=FIXED
+f_v7_gate_elab           DEF   32:10-32:18 y_arm_ap         patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v7_gate_elab           DEF   33:10-33:20 y_arm_enum       patched=FIXED          fixed=FIXED
+f_v7_gate_elab           DEF   35:10-35:20 y_arm_repl       patched=FIXED          fixed=FIXED
+f_v7_gate_elab           DEF   36:10-36:21 y_arm_shift      patched=FIXED          fixed=FIXED
+f_v8_gen_elab            DEF   21:14-21:20 gy               patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v8_gen_elab            DEF   26:14-26:16 gi               patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v8_gen_elab            DEF   31:14-31:16 gb               patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v8_gen_elab            ELAB  6:10-6:11   y                patched=DIFF-MOVED     fixed=DIFF-MOVED
+f_v8_gen_elab            ELAB  6:10-6:11   y                patched=DIFF-MOVED     fixed=DIFF-MOVED
+f_v9_nest_elab           DEF   13:10-13:14 y_nn             patched=FIXED          fixed=FIXED
+f_v9_nest_elab           DEF   14:10-14:17 y_ncsig          patched=FIXED          fixed=FIXED
+f_v9_nest_elab           DEF   15:10-15:18 y_untk_t         patched=FIXED          fixed=FIXED
+f_v9_nest_elab           DEF   17:10-17:18 y_chain3         patched=FIXED          fixed=FIXED
+f_v9_nest_elab           DEF   18:10-18:18 y_selarm         patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v10_extra_elab         DEF   22:10-22:17 y_lpsel          patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v10_extra_elab         DEF   23:10-23:18 y_lpvsel         patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v10_extra_elab         DEF   24:10-24:20 y_terncond       patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v10_extra_elab         DEF   25:10-25:18 y_sysarm         patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+f_v10_extra_elab         DEF   27:10-27:18 y_signed         patched=FIXED          fixed=FIXED
+f_v10_extra_elab         DEF   28:10-28:21 y_bitsel_nc      patched=FIXED          fixed=FIXED
+f_v10_extra_elab         ELAB  4:10-4:11   y                patched=FIXED          fixed=FIXED
+f_vs1_shapes_elab        DEF   19:10-19:12 y1               patched=FIXED          fixed=FIXED
+f_vs1_shapes_elab        DEF   20:10-20:12 y2               patched=FIXED          fixed=FIXED
+f_vs1_shapes_elab        DEF   21:10-21:12 y3               patched=FIXED          fixed=FIXED
+f_vs1_shapes_elab        DEF   22:10-22:12 y4               patched=BROKE          fixed=SAME
+f_vs1_shapes_elab        DEF   23:10-23:12 y5               patched=BROKE          fixed=SAME
+f_vs1_shapes_elab        DEF   24:10-24:12 y6               patched=BROKE          fixed=SAME
+f_vs1_shapes_elab        DEF   26:10-26:12 y8               patched=FIXED          fixed=FIXED
+f_vm1_min_elab           DEF   5:10-5:11   y                patched=BROKE          fixed=SAME
+--- TOTALS ---
+patched BROKE=12 DIFF-MOVED=2 DIFF-UNMOVED=27 FIXED=74 SAME=90
+fixed DIFF-MOVED=2 DIFF-UNMOVED=27 FIXED=74 SAME=102
+
+=== EARLIER-PASS ARMS THAT THE WIDE BOUNDARY FLAGGED (re-measured vs golden) ===
+b_r10earl49repro_f1_earl49_def DEF   21:10-21:17 taken_d          patched=FIXED          fixed=FIXED
+b_r10earl50repro_f1_earl49_def DEF   21:10-21:17 taken_d          patched=FIXED          fixed=FIXED
+b_r10earl50repro_h2_earl50_def DEF   32:10-32:12 o2               patched=FIXED          fixed=FIXED
+b_r10earl50repro_h2_earl50_def DEF   42:10-42:12 oc               patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+b_r10earl50repro_h4_earl50_def DEF   30:10-30:12 o6               patched=FIXED          fixed=FIXED
+b_r10earl49repro_f1_earl49_elab DEF   21:10-21:17 taken_d          patched=DIFF-MOVED     fixed=DIFF-MOVED
+b_r10earl50repro_f1_earl49_elab DEF   21:10-21:17 taken_d          patched=DIFF-MOVED     fixed=DIFF-MOVED
+b_r10earl50repro_h2_earl50_elab DEF   32:10-32:12 o2               patched=FIXED          fixed=FIXED
+b_r10earl50repro_h2_earl50_elab DEF   38:16-38:18 t8               patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+b_r10earl50repro_h2_earl50_elab DEF   42:10-42:12 oc               patched=DIFF-UNMOVED   fixed=DIFF-UNMOVED
+b_r10earl50repro_h4_earl50_elab DEF   30:10-30:12 o6               patched=FIXED          fixed=FIXED
+--- TOTALS ---
+patched DIFF-MOVED=2 DIFF-UNMOVED=3 FIXED=6 SAME=47
+fixed DIFF-MOVED=2 DIFF-UNMOVED=3 FIXED=6 SAME=47

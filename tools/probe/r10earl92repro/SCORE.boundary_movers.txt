@@ -1,0 +1,82 @@
+r10earl92 — THE WIDE BOUNDARY'S MOVERS, SCORED AGAINST GOLDEN.
+
+PROCESSED=4127 identical=7882 DIFFERING=22 no_output=350
+
+22 DIFFERING arm/view cells, in three groups.
+
+GROUP 1 — THIS PASS'S OWN GRID (12 cells, 6 files x 2 views).  By
+construction: they are the arms the law is stated on.  ARMS.r10earl92.txt
+scores every one of their cells three ways: 60 FIXED, 0 BROKE, 7 DIFF and
+all 7 DIFFs pre-existing and unmoved.
+  r10earl92repro/g{1..6}_*.sv
+
+GROUP 2 — earl49 / earl50 ARMS (8 cells, 3 distinct files x 2 views, one
+of them carried in BOTH repro dirs).  These are OTHER vpiConditionOp fold
+faces, so this law reaching them is expected; the question the gate has to
+answer is WHICH DIRECTION.  Each was rebuilt with REAL SURELOG and scored
+with bdscore92.sh + cells92.py, and each was A/B-gated:
+
+  arm/view                          A/B: OFF-vs-pristine   OFF-vs-ON
+  r10earl49repro/f1_earl49 plain            0 lines          72 lines
+  r10earl49repro/f1_earl49 elab             0 lines          19 lines
+  r10earl50repro/f1_earl49 plain            0 lines          72 lines
+  r10earl50repro/f1_earl49 elab             0 lines          19 lines
+  r10earl50repro/h2_earl50 plain            0 lines          53 lines
+  r10earl50repro/h2_earl50 elab             0 lines          95 lines
+  r10earl50repro/h4_earl50 plain            0 lines          53 lines
+  r10earl50repro/h4_earl50 elab             0 lines          95 lines
+
+so 100 % of each cell's delta is this law, and the direction verdict is:
+
+---- r10earl49repro/f1_earl49.sv
+VIEW   LSPAN     LNAME       GOLDEN                             PRISTINE                           PATCHED
+DEF    15:10-15:20 diff_ctr_d  operation:32@16:14-18:45 operation:15/constant:3/operation:32;operation:32@16:14-18:45 operation:15/constant:3/operation:32 operation:32@16:14-18:45 operation:15/constant:3/operation:32;operation:32@16:14-18:45 operation:15/constant:3/operation:32 operation:32@16:14-18:45 operation:15/constant:3/operation:32;operation:32@16:14-18:45 operation:15/constant:3/operation:32
+DEF    21:10-21:17 taken_d     operation:32@22:14-23:51 operation:18/operation:32/constant:3;operation:32@22:50-22:84 operation:14/ref_obj/constant:3 operation:32@22:14-23:51 operation:18/operation:32/constant:3;operation:32@22:14-23:51 operation:18/operation:32/constant:3 operation:32@22:14-23:51 operation:18/operation:32/constant:3;operation:32@22:50-22:84 operation:14/ref_obj/constant:3  <== FIXED
+
+---- r10earl50repro/h2_earl50.sv
+VIEW   LSPAN     LNAME  GOLDEN                             PRISTINE                           PATCHED
+DEF    6:10-6:11 y     operation:30@6:14-6:32 operation:30/operation:33 operation:30@6:14-6:32 operation:30/operation:33 operation:30@6:14-6:32 operation:30/operation:33
+DEF    31:10-31:12 o1    operation:32@31:15-31:30 bit_select/ref_obj/ref_obj;operation:32@31:15-31:30 bit_select/ref_obj/ref_obj operation:32@31:15-31:30 bit_select/ref_obj/ref_obj;operation:32@31:15-31:30 bit_select/ref_obj/ref_obj operation:32@31:15-31:30 bit_select/ref_obj/ref_obj;operation:32@31:15-31:30 bit_select/ref_obj/ref_obj
+DEF    32:10-32:12 o2    bit_select:-1@32:34-32:35 -;operation:32@32:15-32:36 bit_select/bit_select/bit_select operation:32@32:15-32:36 bit_select/bit_select/bit_select;operation:32@32:15-32:36 bit_select/bit_select/bit_select bit_select:-1@32:34-32:35 -;operation:32@32:15-32:36 bit_select/bit_select/bit_select  <== FIXED
+DEF    38:16-38:18 t8    operation:29@38:21-38:33 part_select/ref_obj operation:29@38:21-38:33 part_select/ref_obj operation:29@38:21-38:33 part_select/ref_obj
+DEF    39:16-39:18 t9    operation:29@39:21-39:34 bit_select/bit_select operation:29@39:21-39:34 bit_select/bit_select operation:29@39:21-39:34 bit_select/bit_select
+DEF    40:10-40:12 oa    operation:33@40:15-40:35 constant:3/bit_select;operation:33@40:15-40:35 constant:3/bit_select operation:33@40:15-40:35 constant:3/bit_select;operation:33@40:15-40:35 constant:3/bit_select operation:33@40:15-40:35 constant:3/bit_select;operation:33@40:15-40:35 constant:3/bit_select
+DEF    41:10-41:12 ob    operation:28@41:15-41:35 sys_func_call/ref_obj;operation:28@41:15-41:35 sys_func_call/ref_obj operation:28@41:15-41:35 sys_func_call/ref_obj;operation:28@41:15-41:35 sys_func_call/ref_obj operation:28@41:15-41:35 sys_func_call/ref_obj;operation:28@41:15-41:35 sys_func_call/ref_obj
+DEF    42:10-42:12 oc    operation:28@42:15-42:40 operation:29/constant:5;operation:28@42:15-42:40 operation:29/constant:5 constant:-1@0:0-0:0 -;operation:28@42:15-42:40 operation:29/constant:5 constant:-1@0:0-0:0 -;operation:28@42:15-42:40 operation:29/constant:5  <== DIFF
+DEF    48:12-48:15 tie   operation:29@48:18-48:31 bit_select/bit_select operation:29@48:18-48:31 bit_select/bit_select operation:29@48:18-48:31 bit_select/bit_select
+ELAB   6:10-6:11 y     operation:30@6:14-6:32 operation:30/operation:33 operation:30@6:14-6:32 operation:30/operation:33 operation:30@6:14-6:32 operation:30/operation:33
+ELAB   6:10-6:11 y     operation:30@6:14-6:32 operation:30/operation:33 operation:30@6:14-6:32 operation:30/operation:33 operation:30@6:14-6:32 operation:30/operation:33
+ELAB   6:10-6:11 y     operation:30@6:14-6:32 operation:30/operation:33 operation:30@6:14-6:32 operation:30/operation:33 operation:30@6:14-6:32 operation:30/operation:33
+ELAB   6:10-6:11 y     operation:30@6:14-6:32 operation:30/operation:33 operation:30@6:14-6:32 operation:30/operation:33 operation:30@6:14-6:32 operation:30/operation:33
+ELAB   6:10-6:11 y     operation:30@6:14-6:32 operation:30/operation:33 operation:30@6:14-6:32 operation:30/operation:33 operation:30@6:14-6:32 operation:30/operation:33
+
+---- r10earl50repro/h4_earl50.sv
+VIEW   LSPAN     LNAME  GOLDEN                             PRISTINE                           PATCHED
+DEF    22:10-22:12 o1    operation:29@22:15-22:28 bit_select/bit_select;operation:29@22:15-22:28 bit_select/bit_select operation:29@22:15-22:28 bit_select/bit_select;operation:29@22:15-22:28 bit_select/bit_select operation:29@22:15-22:28 bit_select/bit_select;operation:29@22:15-22:28 bit_select/bit_select
+DEF    23:18-23:20 t2    operation:29@23:23-23:36 bit_select/bit_select operation:29@23:23-23:36 bit_select/bit_select operation:29@23:23-23:36 bit_select/bit_select
+DEF    26:12-26:14 t3    operation:29@26:17-26:30 bit_select/bit_select;operation:29@26:17-26:30 bit_select/bit_select operation:29@26:17-26:30 bit_select/bit_select;operation:29@26:17-26:30 bit_select/bit_select operation:29@26:17-26:30 bit_select/bit_select;operation:29@26:17-26:30 bit_select/bit_select
+DEF    28:10-28:12 o4    operation:33@28:15-28:37 constant:3/operation:29;operation:33@28:15-28:37 constant:3/operation:29 operation:33@28:15-28:37 constant:3/operation:29;operation:33@28:15-28:37 constant:3/operation:29 operation:33@28:15-28:37 constant:3/operation:29;operation:33@28:15-28:37 constant:3/operation:29
+DEF    29:18-29:20 t5    operation:32@29:23-29:44 bit_select/bit_select/bit_select operation:32@29:23-29:44 bit_select/bit_select/bit_select operation:32@29:23-29:44 bit_select/bit_select/bit_select
+DEF    30:10-30:12 o6    bit_select:-1@30:34-30:35 -;operation:32@30:15-30:36 bit_select/bit_select/bit_select operation:32@30:15-30:36 bit_select/bit_select/bit_select;operation:32@30:15-30:36 bit_select/bit_select/bit_select bit_select:-1@30:34-30:35 -;operation:32@30:15-30:36 bit_select/bit_select/bit_select  <== FIXED
+DEF    33:12-33:14 t7    operation:29@33:17-33:27 bit_select/ref_obj;operation:29@33:17-33:27 bit_select/ref_obj operation:29@33:17-33:27 bit_select/ref_obj;operation:29@33:17-33:27 bit_select/ref_obj operation:29@33:17-33:27 bit_select/ref_obj;operation:29@33:17-33:27 bit_select/ref_obj
+DEF    37:12-37:14 t8    operation:33@37:17-37:39 constant:3/operation:29;operation:33@37:17-37:39 constant:3/operation:29 operation:33@37:17-37:39 constant:3/operation:29;operation:33@37:17-37:39 constant:3/operation:29 operation:33@37:17-37:39 constant:3/operation:29;operation:33@37:17-37:39 constant:3/operation:29
+DEF    39:10-39:12 o9    operation:29@39:15-39:34 ref_obj/operation:33;operation:29@39:15-39:34 ref_obj/operation:33 operation:29@39:15-39:34 ref_obj/operation:33;operation:29@39:15-39:34 ref_obj/operation:33 operation:29@39:15-39:34 ref_obj/operation:33;operation:29@39:15-39:34 ref_obj/operation:33
+DEF    40:18-40:20 ta    constant:-1@40:23-40:25 -          constant:-1@40:23-40:25 -          constant:-1@40:23-40:25 -
+DEF    41:18-41:20 tb    operation:29@41:23-41:42 constant:5/operation:33 operation:29@41:23-41:42 constant:5/operation:33 operation:29@41:23-41:42 constant:5/operation:33
+
+EVERY MOVED CELL IS 'FIXED' (golden == patched != pristine).  ZERO 'BROKE'.
+The one 'DIFF' line (h2_earl50 oc, 42:10) is byte-identical between
+pristine and patched — it did not move; it is another law's cell.
+
+GROUP 3 — r10buvm22repro/g22.sv (2 cells).  THE KNOWN GARBAGE NUMERIC
+LITERAL THAT TRACKS THE BINARY'S CODE LAYOUT (earl84 R5; it moved the same
+way for earl84, earl89, earl90 and earl91).  Both binaries REJECT the file
+(rc=4) and the 12 differing dump lines are all UINT values offset by a
+constant 8224.  THE A/B GATE CONVICTS IT AS NOT THIS LAW'S:
+  OFF-vs-pristine = 12 lines   OFF-vs-ON = 0 lines
+i.e. with the law OFF the patched binary STILL differs from pristine by
+exactly those 12 lines, and turning the law ON changes nothing at all.
+
+SIGNALS: 28 rc=139 exits, symmetric side for side (see
+BOUNDARY_WIDE.rc_by_side) — the pre-existing probe-segfault family
+RESUME §9 records.  no_output=350 are arms neither binary can compile.

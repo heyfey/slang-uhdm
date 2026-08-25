@@ -19985,6 +19985,27 @@ void UhdmExporter::emitLetDecls(const Scope& body, UHDM::scope* m,
     m->Let_decls(decls);
 }
 
+// r10earl92 — the A/B gate and the cell trace for
+// § elabCaTernaryArmInstall92 (see the site inside emitContAssigns).
+// `R10E92_OFF=1` restores the pristine behaviour at run time IN THE SHIPPED
+// BINARY, so 100 % of a mover's byte delta can be attributed to this law and
+// nothing else.  `R10E92_CELLDBG=1` names EVERY cont_assign that REACHES the
+// site with BOTH answers — not only the shape the law intends to change
+// (earl66's lesson: a trace keyed on the shape you intend to change is blind
+// to the rows you would change by accident).  Both write to stderr and are
+// off unless the variable is set.
+static bool off92() {
+    static const bool v = getenv("R10E92_OFF") != nullptr;
+    return v;
+}
+static bool cellDbg92() {
+    static const bool v = [] {
+        const char* e = getenv("R10E92_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
+
 void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instance* m,
                                    const std::string& prefix, NetMap& netMap, bool topView,
                                    DefInfo* defInfo, bool shareWithDef,
@@ -23088,6 +23109,306 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
+        // ============ § elabCaTernaryArmInstall92 (r10earl92) =============
+        //
+        // THE LAW.  An ELABORATED cont_assign with a WHOLE-SIGNAL Lhs whose
+        // Rhs is a constant-conditioned ternary loses the ternary: golden's
+        // Rhs is THE SELECTED ARM ITSELF, not a fold of it.
+        //
+        // THE PRODUCER, transcribed.  `UhdmWriter::writeCont_assign`
+        // (Surelog src/DesignCompile/UhdmWriter.cpp:2090) reduces the Rhs in
+        // TWO places, and only ONE of them writes a NON-constant back:
+        //   1. `if (lhs->UhdmType() == uhdmref_obj)` (:2121) — a WHOLE-SIGNAL
+        //      Lhs that `bindVariable` resolves — clones the cont_assign,
+        //      runs `reduceExpr` over the WHOLE Rhs and then
+        //          if ((invalidValue == false) && rhstmp) assign->Rhs(rhstmp);
+        //      installing WHATEVER came back, operation or constant.
+        //   2. the trailing `if (simplified == false)` arm (:2264) installs
+        //      the result ONLY `if (res->UhdmType() == uhdmconstant)`.
+        // So a fold to an ARM EXPRESSION reaches the database through arm 1
+        // ALONE — i.e. only for a plain `ref_obj` Lhs.  Every other Lhs shape
+        // keeps the ternary, and grid g1 measures all of them on real Surelog:
+        //   c_ca_plain    ref_obj Lhs                 -> ARM (operation 30)
+        //   c_ca_bitsel   `v[0] =`      bit_select    -> no elab copy at all
+        //   c_ca_partsel  `v[3:0] =`    part_select   -> no elab copy at all
+        //   c_ca_member   `s.m1 =`      hier_path     -> TERNARY kept
+        //   c_ca_cat      `{a,b} =`     operation     -> TERNARY kept
+        //   c_netdecl     `wire w = ..` logic_net Lhs -> TERNARY kept
+        //   c_proc        procedural assignment       -> TERNARY kept
+        //   c_hc          port high_conn              -> TERNARY kept
+        // (the last three never reach this site: net-decl-assigns are built in
+        // this function's OWN earlier loop, processes and high_conns elsewhere;
+        // the law is stated with the Lhs test anyway so the fence is READ from
+        // the code and not from the call graph).
+        //
+        // WHICH OBJECT.  `ExprEval::reduceExpr`'s `vpiConditionOp` arm
+        // (UHDM templates/ExprEval.cpp:3763) is:
+        //     cond = reduceExpr(operands[0]); condVal = get_value(cond);
+        //     if (invalidValue) break;                       // NO FOLD
+        //     the_val = reduceExpr(condVal ? operands[1] : operands[2],
+        //                          localInvalidValue);
+        //     if (localInvalidValue == false) {
+        //        val = get_value(localInvalidValue, the_val);
+        //        if (localInvalidValue == false) result = <INT:val, size 64>;
+        //        else                            result = the_val;
+        //     } else                             result = the_val;
+        // The `INT:val` outcome is ALREADY MODELLED — by
+        // § elabCaTernaryFoldIntConst22 on this very path and by
+        // § srlgCondOpInstValueTernFold9 on the select-Lhs path — and runs
+        // ABOVE this block; this law owns the OTHER outcome, `result =
+        // the_val`, where `the_val` is the arm SURELOG COULD NOT VALUE.  For
+        // an operation whose VpiOpType has no `case` in that switch
+        // (vpiBitXorOp is the head's, and has none) `reduceExpr` returns THE
+        // ARM OBJECT UNTOUCHED, which is why golden's Rhs and our operand
+        // subtree are identical ID for ID below it.
+        //
+        // THE OPERAND GATE, transcribed from the same function's
+        // `constantOperands` loop (ExprEval.cpp:3021): it walks ALL THREE
+        // operands, THE UNTAKEN ARM INCLUDED, and abandons the ENTIRE reduce
+        // unless every one is a `constant`, an `operation`, a `sys_func_call`,
+        // a `func_call`, a `bit_select`, a `hier_path`, a `var_select`, an
+        // `enum_var`, or a `ref_obj` WHOSE NAME HAS A VALUE.  `part_select`
+        // and `indexed_part_select` are NOT on that list.  Grid g4/g6 measure
+        // the whole gate on real Surelog, one cell per operand kind:
+        //   untaken constant / bit_select / var_select / hier_path /
+        //   operation / valued ref_obj      -> FOLDS
+        //   untaken BARE SIGNAL ref_obj     -> KEEPS   (f_untk_sig)
+        //   untaken bare part_select        -> KEEPS   (p_untk_partsel)
+        //   untaken indexed_part_select     -> KEEPS   (p_untk_idxps)
+        //   taken   bare part_select        -> KEEPS   (p_arm_bareps)
+        //   taken   indexed_part_select     -> KEEPS   (p_arm_idxps)
+        //   enum-typed PORT read (no value) -> KEEPS   (p_arm_enum)
+        // and the gate is only ONE LEVEL DEEP: `sig ^ k[5]` is an OPERATION
+        // operand and FOLDS even though a bare signal sits inside it
+        // (f_arm_sigop), exactly as the loop says.
+        //
+        // TWO ARM SHAPES REFUSE EVEN THOUGH THE GATE PASSES THEM:
+        //   * a BARE hier_path arm — `reduceExpr`'s `uhdmhier_path` branch
+        //     (ExprEval.cpp:4721) returns `decodeHierPath(..., VALUE)`, which
+        //     is nullptr for a signal read, and writeCont's `&& rhstmp` then
+        //     refuses the write-back entirely (g3 e_hier, g4 f_arm_hier).
+        //     A hier_path INSIDE an operation arm folds (g4 f_arm_hierop).
+        //   * an arm that is a CONSTANT `get_value` cannot read — x/z, wider
+        //     than 64 bits, a real, a string.  Golden installs THE ARM'S OWN
+        //     CONSTANT OBJECT with its own encoding, width and location
+        //     (g4 f_arm_xz, g6 p_arm_real); that is a DIFFERENT mint from
+        //     ours and is left to its own pass (README § RESIDUES R1).
+        //
+        // THE CHAIN.  A ternary whose selected arm is ANOTHER ternary reduces
+        // again, so the walk is a loop, and it stops at the FIRST node whose
+        // condition Surelog cannot value — installing THAT NODE, ternary and
+        // all (g5 h_arm_tern: `EN ? (sig[0] ? k[5] : k[1]) : '0` installs the
+        // INNER ternary verbatim; g1 c_nested folds two levels to a bare xor).
+        // At the TOP level the same failure means NO fold, which is what we
+        // already emit — hence `sawTern92` must be reached at least once.
+        //
+        // THE DEF VIEW NEVER FOLDS: `writeCont_assign` runs over NETLISTS,
+        // and every DEF row on g1-g6 keeps its ternary.  `topView` is that
+        // fence.  A GENERATE-SCOPE home never folds either (g5 h_genfor /
+        // h_genif / h_genblk all keep it, with golden substituting the
+        // parameter's VALUE into the surviving condition) — those cont_assigns
+        // never reach `emitContAssigns`, whose only three callers pass an
+        // `InstanceBodySymbol`, so the fence is structural.
+        const Expression* ternArm92 = nullptr;
+        if (!rhs && topView && plainLhs && !structParamSetter) {
+            ASTContext tctx92(comp.getRoot(), LookupLocation::max);
+            // `ExprEval`'s CLOSED set of system functions (the vrgg9 list,
+            // measured against real Surelog by r10vrgg9): a reduce that needs
+            // one it does not implement hands back a `sys_func_call`, so the
+            // CONDITION never values and the whole operation survives.
+            auto srlgSysEvalable92 = [&](const Expression& e0) {
+                bool ok = true;
+                stripImplicitConv(e0).visit(makeVisitor(
+                    [&](auto& v92, const CallExpression& ce92) {
+                        if (ce92.isSystemCall()) {
+                            auto n92 = ce92.getSubroutineName();
+                            if (n92 != "$clog2" && n92 != "$bits" &&
+                                n92 != "$size" && n92 != "$high" &&
+                                n92 != "$low" && n92 != "$left" &&
+                                n92 != "$right")
+                                ok = false;
+                        }
+                        v92.visitDefault(ce92);
+                    }));
+                return ok;
+            };
+            // The UHDM OBJECT KIND our own emitter mints for an operand — the
+            // only thing `constantOperands` looks at.  A RangeSelect is a
+            // `part_select` ONLY when its base is a plain name; with element
+            // selects above it ExprEmit wraps the whole thing in a
+            // `var_select` (ExprEmit.cpp ~24380), which IS whitelisted, and
+            // grid g4 f_untk_barepsel vs g6 p_untk_partsel is that pair
+            // measured on golden.
+            enum class OK92 { Constant, RefObj, Operation, Call, Select,
+                              HierPath, Refused };
+            auto kindOf92 = [&](const Expression& e0) {
+                auto& e92 = stripImplicitConv(e0);
+                switch (e92.kind) {
+                    case ExpressionKind::IntegerLiteral:
+                    case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+                    case ExpressionKind::StringLiteral:
+                    case ExpressionKind::RealLiteral:
+                    case ExpressionKind::TimeLiteral:
+                    case ExpressionKind::NullLiteral:
+                        return OK92::Constant;
+                    case ExpressionKind::UnaryOp:
+                    case ExpressionKind::BinaryOp:
+                    case ExpressionKind::ConditionalOp:
+                    case ExpressionKind::Concatenation:
+                    case ExpressionKind::Replication:
+                    case ExpressionKind::Conversion:
+                    case ExpressionKind::SimpleAssignmentPattern:
+                    case ExpressionKind::StructuredAssignmentPattern:
+                    case ExpressionKind::ReplicatedAssignmentPattern:
+                    case ExpressionKind::Streaming:
+                    case ExpressionKind::Inside:
+                        return OK92::Operation;
+                    case ExpressionKind::Call:
+                        return OK92::Call;
+                    case ExpressionKind::ElementSelect: {
+                        // r10v92 — WALK TO THE BASE, exactly as the
+                        // RangeSelect arm below does.  An ElementSelect CHAIN
+                        // that bottoms out on a MEMBER or a HIERARCHICAL
+                        // reference is minted as a `hier_path` by ExprEmit,
+                        // NOT as a bit_select or a var_select, and a bare
+                        // hier_path arm REFUSES the write-back (reduceExpr's
+                        // uhdmhier_path branch hands back
+                        // decodeHierPath(...,VALUE) == nullptr and
+                        // writeCont_assign's `&& rhstmp` then keeps the whole
+                        // ternary).  Measured against real Surelog, one cell
+                        // per shape:
+                        //   mem[1] / w[3]        -> bit_select   INSTALLS
+                        //   mem[1][0]           -> var_select   INSTALLS
+                        //   mem2[0][1][0]       -> var_select   INSTALLS
+                        //   s.a.m1[0]           -> hier_path    KEEPS
+                        //   u.arr[0]            -> hier_path    KEEPS
+                        //   u.mem[1][0]         -> hier_path    KEEPS
+                        // Without the walk the last three installed the arm
+                        // where golden keeps the ternary (verifier grid
+                        // v2_esel / shp, both views).
+                        const Expression* eb92 = &stripImplicitConv(
+                            e92.as<ElementSelectExpression>().value());
+                        for (int g92 = 0;
+                             g92 < 32 &&
+                             eb92->kind == ExpressionKind::ElementSelect;
+                             ++g92)
+                            eb92 = &stripImplicitConv(
+                                eb92->as<ElementSelectExpression>().value());
+                        if (eb92->kind == ExpressionKind::MemberAccess ||
+                            eb92->kind == ExpressionKind::HierarchicalValue)
+                            return OK92::HierPath;
+                        return OK92::Select;      // bit_select / var_select
+                    }
+                    case ExpressionKind::RangeSelect: {
+                        // walk to the base: any ElementSelect on the way makes
+                        // ExprEmit mint a var_select wrapper.
+                        const Expression* b92 = &stripImplicitConv(
+                            e92.as<RangeSelectExpression>().value());
+                        bool wrapped92 = false;
+                        for (int g92 = 0; g92 < 32; ++g92) {
+                            if (b92->kind == ExpressionKind::ElementSelect) {
+                                wrapped92 = true;
+                                b92 = &stripImplicitConv(
+                                    b92->as<ElementSelectExpression>().value());
+                                continue;
+                            }
+                            break;
+                        }
+                        if (b92->kind == ExpressionKind::MemberAccess ||
+                            b92->kind == ExpressionKind::HierarchicalValue)
+                            return OK92::HierPath;
+                        return wrapped92 ? OK92::Select : OK92::Refused;
+                    }
+                    case ExpressionKind::MemberAccess:
+                    case ExpressionKind::HierarchicalValue:
+                        return OK92::HierPath;
+                    case ExpressionKind::NamedValue: {
+                        auto k92 = e92.as<NamedValueExpression>().symbol.kind;
+                        if (k92 != SymbolKind::Parameter &&
+                            k92 != SymbolKind::EnumValue &&
+                            k92 != SymbolKind::Specparam &&
+                            k92 != SymbolKind::Genvar)
+                            return OK92::Refused;   // a signal has no value
+                        return tctx92.tryEval(e92) ? OK92::RefObj
+                                                   : OK92::Refused;
+                    }
+                    default:
+                        return OK92::Refused;
+                }
+            };
+            auto operandOk92 = [&](const Expression& e92) {
+                return kindOf92(e92) != OK92::Refused;
+            };
+            // `get_value()` on the reduced CONDITION: an int64 read, poisoned
+            // above 64 bits and on any x/z bit.
+            auto condTrue92 =
+                [&](const Expression& e0) -> std::optional<bool> {
+                auto& e92 = stripImplicitConv(e0);
+                if (!srlgSysEvalable92(e92))
+                    return std::nullopt;
+                if (e92.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                    auto lv92 =
+                        e92.as<UnbasedUnsizedIntegerLiteral>().getLiteralValue();
+                    if (lv92 == slang::logic_t(0)) return false;
+                    if (lv92 == slang::logic_t(1)) return true;
+                    return std::nullopt;
+                }
+                ConstantValue cv92 = tctx92.tryEval(e92);
+                if (!cv92 || !cv92.isInteger())
+                    return std::nullopt;
+                auto iv92 = cv92.integer();
+                if (iv92.hasUnknown() || iv92.getBitWidth() > 64)
+                    return std::nullopt;
+                return iv92.as<uint64_t>().value_or(0) != 0;
+            };
+            const Expression* sel92 = &stripImplicitConv(ae.right());
+            bool sawTern92 = false;
+            for (int g92 = 0;
+                 g92 < 32 && sel92->kind == ExpressionKind::ConditionalOp;
+                 ++g92) {
+                auto& co92 = sel92->as<ConditionalExpression>();
+                if (co92.conditions.size() != 1 || co92.conditions[0].pattern)
+                    break;
+                if (!operandOk92(*co92.conditions[0].expr) ||
+                    !operandOk92(co92.left()) || !operandOk92(co92.right()))
+                    break;
+                auto pv92 = condTrue92(*co92.conditions[0].expr);
+                if (!pv92)
+                    break;
+                sawTern92 = true;
+                sel92 = &stripImplicitConv(*pv92 ? co92.left() : co92.right());
+            }
+            OK92 ak92 = kindOf92(*sel92);
+            if (sawTern92) {
+                // Constant / hier_path arms refuse (see above); a Refused arm
+                // cannot be reached (the gate rejected it one level up), and
+                // a value-able arm has already been folded by
+                // § elabCaTernaryFoldIntConst22, which runs first and leaves
+                // `rhs` set.
+                if (ak92 == OK92::Operation || ak92 == OK92::Call ||
+                    ak92 == OK92::Select)
+                    ternArm92 = sel92;
+            }
+            // THE CELL TRACE.  Every cont_assign whose RHS is a ternary and
+            // whose Lhs is a whole signal REACHES this site; the trace prints
+            // the answer for ALL of them, the ones the law leaves alone
+            // included, and the predicate above is deliberately computed
+            // OUTSIDE the OFF switch so the OFF binary still names both.
+            if (cellDbg92() &&
+                stripImplicitConv(ae.right()).kind ==
+                    ExpressionKind::ConditionalOp) {
+                auto sr92 = ae.sourceRange;
+                auto& sm92 = *comp.getSourceManager();
+                fprintf(stderr,
+                        "R10E92CELL file=%s line=%u tern=%d armKind=%d "
+                        "install=%d\n",
+                        std::string(sm92.getFileName(sr92.start())).c_str(),
+                        sm92.getLineNumber(sr92.start()), (int)sawTern92,
+                        (int)ak92, ternArm92 ? 1 : 0);
+            }
+            if (off92())
+                ternArm92 = nullptr;   // A/B gate: reproduce the base binary
+        }
         // A STRUCTURED (index/default-tagged) pattern RHS onto a PREDEFINED
         // INTEGER LHS keeps a FRESH tagged tree in the elab view
         // (assignment-pattern i/j/k, `output integer`); packed-vector LHS
@@ -23479,7 +23800,13 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     ExpressionKind::IntegerLiteral &&
                 ae.left().type)
                 implicitConvTargetSigned = ae.left().type->isSigned() ? 1 : 0;
-            rhs = emitExpr(ae.right(), ca, prefix, rhsMap);
+            // § elabCaTernaryArmInstall92 — the ELABORATED Rhs is the
+            // SELECTED ARM, emitted through the very same machinery (the
+            // reemit collector, the def-view net map, the parenting rules) so
+            // the installed object is byte-for-byte the one this cont_assign
+            // would have carried inside the ternary.
+            rhs = emitExpr(ternArm92 ? *ternArm92 : ae.right(), ca, prefix,
+                           rhsMap);
             patFlatTs = nullptr;
             patFlatAdjust = false;
             implicitConvTargetSigned = savedICT7;

@@ -1,0 +1,250 @@
+LHS:
+decompile:
+operation: , id:1014805, line:109:39, endln:109:69
+|vpiParent:
+\_operation: , id:1014803, line:109:24, endln:109:74
+|vpiOpType:30
+|vpiOperand:
+\_operation: , id:1014806, line:109:39, endln:109:58
+  |vpiParent:
+  \_operation: , id:1014805, line:109:39, endln:109:69
+  |vpiOpType:30
+  |vpiOperand:
+  \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:1014807, line:109:45, endln:109:46
+    |vpiParent:
+    \_operation: , id:1014806, line:109:39, endln:109:58
+    |vpiName:key_i
+    |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i
+    |vpiIndex:
+    \_constant: , id:1014808, line:109:45, endln:109:46
+      |vpiParent:
+      \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:1014807, line:109:45, endln:109:46
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+  |vpiOperand:
+  \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:1014809, line:109:56, endln:109:57
+    |vpiParent:
+    \_operation: , id:1014806, line:109:39, endln:109:58
+    |vpiName:key_i
+    |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i
+    |vpiIndex:
+    \_constant: , id:1014810, line:109:56, endln:109:57
+      |vpiParent:
+      \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:1014809, line:109:56, endln:109:57
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+|vpiOperand:
+\_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:1014811, line:109:67, endln:109:68
+  |vpiParent:
+  \_operation: , id:1014805, line:109:39, endln:109:69
+  |vpiName:key_i
+  |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i
+  |vpiIndex:
+  \_constant: , id:1014812, line:109:67, endln:109:68
+    |vpiParent:
+    \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:1014811, line:109:67, endln:109:68
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+operation: , id:1014805, line:109:39, endln:109:69
+|vpiParent:
+\_operation: , id:1014803, line:109:24, endln:109:74
+|vpiOpType:30
+|vpiOperand:
+\_operation: , id:1014806, line:109:39, endln:109:58
+  |vpiParent:
+  \_operation: , id:1014805, line:109:39, endln:109:69
+  |vpiOpType:30
+  |vpiOperand:
+  \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:1014807, line:109:45, endln:109:46
+    |vpiParent:
+    \_operation: , id:1014806, line:109:39, endln:109:58
+    |vpiName:key_i
+    |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i
+    |vpiIndex:
+    \_constant: , id:1014808, line:109:45, endln:109:46
+      |vpiParent:
+      \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:1014807, line:109:45, endln:109:46
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+  |vpiOperand:
+  \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:1014809, line:109:56, endln:109:57
+    |vpiParent:
+    \_operation: , id:1014806, line:109:39, endln:109:58
+    |vpiName:key_i
+    |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i
+    |vpiIndex:
+    \_constant: , id:1014810, line:109:56, endln:109:57
+      |vpiParent:
+      \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:1014809, line:109:56, endln:109:57
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+|vpiOperand:
+\_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:1014811, line:109:67, endln:109:68
+  |vpiParent:
+  \_operation: , id:1014805, line:109:39, endln:109:69
+  |vpiName:key_i
+  |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i
+  |vpiIndex:
+  \_constant: , id:1014812, line:109:67, endln:109:68
+    |vpiParent:
+    \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:1014811, line:109:67, endln:109:68
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS:
+decompile:
+operation: , id:356413, line:109:24, endln:109:74
+|vpiParent:
+\_cont_assign: , id:356412, line:109:10, endln:109:74
+|vpiOpType:32
+|vpiOperand:
+\_ref_obj: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.AES192Enable), id:356414, line:109:24, endln:109:36
+  |vpiParent:
+  \_operation: , id:356413, line:109:24, endln:109:74
+  |vpiName:AES192Enable
+  |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.AES192Enable
+|vpiOperand:
+\_operation: , id:356415, line:109:39, endln:109:69
+  |vpiParent:
+  \_operation: , id:356413, line:109:24, endln:109:74
+  |vpiOpType:30
+  |vpiOperand:
+  \_operation: , id:356416, line:109:39, endln:109:58
+    |vpiParent:
+    \_operation: , id:356415, line:109:39, endln:109:69
+    |vpiOpType:30
+    |vpiOperand:
+    \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:356417, line:109:45, endln:109:46
+      |vpiParent:
+      \_operation: , id:356416, line:109:39, endln:109:58
+      |vpiName:key_i
+      |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i
+      |vpiIndex:
+      \_constant: , id:356418, line:109:45, endln:109:46
+        |vpiParent:
+        \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:356417, line:109:45, endln:109:46
+        |vpiDecompile:5
+        |vpiSize:64
+        |UINT:5
+        |vpiConstType:9
+    |vpiOperand:
+    \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:356419, line:109:56, endln:109:57
+      |vpiParent:
+      \_operation: , id:356416, line:109:39, endln:109:58
+      |vpiName:key_i
+      |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i
+      |vpiIndex:
+      \_constant: , id:356420, line:109:56, endln:109:57
+        |vpiParent:
+        \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:356419, line:109:56, endln:109:57
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+  |vpiOperand:
+  \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:356421, line:109:67, endln:109:68
+    |vpiParent:
+    \_operation: , id:356415, line:109:39, endln:109:69
+    |vpiName:key_i
+    |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i
+    |vpiIndex:
+    \_constant: , id:356422, line:109:67, endln:109:68
+      |vpiParent:
+      \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:356421, line:109:67, endln:109:68
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiOperand:
+\_constant: , id:356423, line:109:72, endln:109:74
+  |vpiParent:
+  \_operation: , id:356413, line:109:24, endln:109:74
+  |vpiDecompile:'0
+  |vpiSize:-1
+  |BIN:0
+  |vpiConstType:3
+
+decompile:
+operation: , id:356413, line:109:24, endln:109:74
+|vpiParent:
+\_cont_assign: , id:356412, line:109:10, endln:109:74
+|vpiOpType:32
+|vpiOperand:
+\_ref_obj: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.AES192Enable), id:356414, line:109:24, endln:109:36
+  |vpiParent:
+  \_operation: , id:356413, line:109:24, endln:109:74
+  |vpiName:AES192Enable
+  |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.AES192Enable
+|vpiOperand:
+\_operation: , id:356415, line:109:39, endln:109:69
+  |vpiParent:
+  \_operation: , id:356413, line:109:24, endln:109:74
+  |vpiOpType:30
+  |vpiOperand:
+  \_operation: , id:356416, line:109:39, endln:109:58
+    |vpiParent:
+    \_operation: , id:356415, line:109:39, endln:109:69
+    |vpiOpType:30
+    |vpiOperand:
+    \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:356417, line:109:45, endln:109:46
+      |vpiParent:
+      \_operation: , id:356416, line:109:39, endln:109:58
+      |vpiName:key_i
+      |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i
+      |vpiIndex:
+      \_constant: , id:356418, line:109:45, endln:109:46
+        |vpiParent:
+        \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:356417, line:109:45, endln:109:46
+        |vpiDecompile:5
+        |vpiSize:64
+        |UINT:5
+        |vpiConstType:9
+    |vpiOperand:
+    \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:356419, line:109:56, endln:109:57
+      |vpiParent:
+      \_operation: , id:356416, line:109:39, endln:109:58
+      |vpiName:key_i
+      |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i
+      |vpiIndex:
+      \_constant: , id:356420, line:109:56, endln:109:57
+        |vpiParent:
+        \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:356419, line:109:56, endln:109:57
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+  |vpiOperand:
+  \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:356421, line:109:67, endln:109:68
+    |vpiParent:
+    \_operation: , id:356415, line:109:39, endln:109:69
+    |vpiName:key_i
+    |vpiFullName:work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i
+    |vpiIndex:
+    \_constant: , id:356422, line:109:67, endln:109:68
+      |vpiParent:
+      \_bit_select: (work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_expand.key_i), id:356421, line:109:67, endln:109:68
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiOperand:
+\_constant: , id:356423, line:109:72, endln:109:74
+  |vpiParent:
+  \_operation: , id:356413, line:109:24, endln:109:74
+  |vpiDecompile:'0
+  |vpiSize:-1
+  |BIN:0
+  |vpiConstType:3
