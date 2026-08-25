@@ -1,0 +1,64 @@
+LHS:
+decompile:
+hier_path: (abstractions.size), id:154817, line:1566:9, endln:1566:28
+|vpiParent:
+\_operation: , id:154820, line:1566:9, endln:1566:31
+|vpiActual:
+\_ref_obj: (abstractions), id:154818, line:1566:9, endln:1566:21
+  |vpiParent:
+  \_hier_path: (abstractions.size), id:154817, line:1566:9, endln:1566:28
+  |vpiName:abstractions
+|vpiActual:
+\_method_func_call: (size), id:154819, line:1566:22, endln:1566:26
+  |vpiParent:
+  \_hier_path: (abstractions.size), id:154817, line:1566:9, endln:1566:28
+  |vpiName:size
+|vpiName:abstractions.size
+
+decompile:
+hier_path: (abstractions.size), id:154817, line:1566:9, endln:1566:28
+|vpiParent:
+\_operation: , id:154820, line:1566:9, endln:1566:31
+|vpiActual:
+\_ref_obj: (abstractions), id:154818, line:1566:9, endln:1566:21
+  |vpiParent:
+  \_hier_path: (abstractions.size), id:154817, line:1566:9, endln:1566:28
+  |vpiName:abstractions
+|vpiActual:
+\_method_func_call: (size), id:154819, line:1566:22, endln:1566:26
+  |vpiParent:
+  \_hier_path: (abstractions.size), id:154817, line:1566:9, endln:1566:28
+  |vpiName:size
+|vpiName:abstractions.size
+RHS:
+decompile:
+hier_path: (ZE(ARG,"") \.size), id:80219, line:1566:9, endln:1566:28
+|vpiParent:
+\_operation: , id:80218, line:1566:9, endln:1566:31
+|vpiActual:
+\_ref_obj: (ZE(ARG,"") \), id:80220, line:1566:9, endln:1566:21
+  |vpiParent:
+  \_hier_path: (ZE(ARG,"") \.size), id:80219, line:1566:9, endln:1566:28
+  |vpiName:ZE(ARG,"") \
+|vpiActual:
+\_method_func_call: (size), id:80221, line:2010:1, endln:2010:5
+  |vpiParent:
+  \_hier_path: (ZE(ARG,"") \.size), id:80219, line:1566:9, endln:1566:28
+  |vpiName:size
+|vpiName:ZE(ARG,"") \.size
+
+decompile:
+hier_path: (ZE(ARG,"") \.size), id:80219, line:1566:9, endln:1566:28
+|vpiParent:
+\_operation: , id:80218, line:1566:9, endln:1566:31
+|vpiActual:
+\_ref_obj: (ZE(ARG,"") \), id:80220, line:1566:9, endln:1566:21
+  |vpiParent:
+  \_hier_path: (ZE(ARG,"") \.size), id:80219, line:1566:9, endln:1566:28
+  |vpiName:ZE(ARG,"") \
+|vpiActual:
+\_method_func_call: (size), id:80221, line:2010:1, endln:2010:5
+  |vpiParent:
+  \_hier_path: (ZE(ARG,"") \.size), id:80219, line:1566:9, endln:1566:28
+  |vpiName:size
+|vpiName:ZE(ARG,"") \.size

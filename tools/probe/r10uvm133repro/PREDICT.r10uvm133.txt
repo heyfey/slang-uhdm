@@ -1,0 +1,50 @@
+r10uvm133 - THE A-PRIORI MOVER PREDICTION, MADE FROM THE PRISTINE DATABASES
+ONLY, BEFORE byteverify WAS RUN.  MEASUREMENT ONLY; the judge is uhdm-cmp.
+LHS is ALWAYS golden (Surelog).
+
+THE PREDICTION
+  surelog corpus (956 databases, both modes) : EXACTLY TWO databases move
+        BuildUVMPkg / default
+        BuildUVMPkg / testflags
+     and 3 cells in each, at pp_output 82730:10, 82735:61 and 82742:61.
+  uhdm2rtlil corpus (1358 databases)         : ZERO databases move.
+  Every other database byte-identical.
+
+HOW IT WAS DERIVED - two steps, both read only PRISTINE data.
+
+STEP 1, the candidate pre-filter (cheap, and a PROVEN superset).
+  Surelog NEVER folds `$bits` over a call (see the decode in README.md §2), so
+  any database this law can move has a `$bits` `sys_func_call` in its GOLDEN
+  database, hence the literal string `$bits` in the golden .uhdm.  Scanning
+  every row's own golden (path taken from that row's cmds.txt, never guessed):
+
+      surelog     43 of 1523 row-databases carry `$bits` on either side
+      uhdm2rtlil  30 of 1358 row-databases carry `$bits` on either side
+
+  All 1480 + 1328 others cannot move under this law.
+
+STEP 2, the query-call census over the candidates (qcen133.py + qjoin133.py,
+keyed on the cell START line:col, which BOTH producers anchor at the `$`).
+  Calibrated golden-vs-golden FIRST on BuildUVMPkg's golden: 64 sites, ALL
+  BOTHKEEP, 0 disagreements.
+  Over the 43 surelog candidates the sites where GOLDEN KEEPS and WE FOLD are:
+
+     kind          sites (row-databases)
+     typekeyword   45 x BuildUVMPkg x2, 16 x {SeqDriver,SimpleUVM,Scoreboard,
+                   MiniAmiq}/default    -> `$bits(int)` / `$bits(byte)`,
+                                           uvm89/buvm16 R3, NOT this law
+     name           1 x each of BuildUVMPkg x2 + the four uvm-1.2 rows x2
+                   -> `$bits(uvm_reg_data_t)`, a TYPEDEF NAME, NOT this law
+     methodcall     3 x BuildUVMPkg/default + 3 x BuildUVMPkg/testflags
+                   -> `$bits(abstractions.size())`, THIS LAW
+
+  Over the 30 uhdm2rtlil candidates there is NOT ONE GOLDKEEP-OURSFOLD site of
+  any kind: every `$bits` and `$clog2` cell is BOTHKEEP.
+
+  uvm-1.2's macro set has no `$bits(<arg>.size())` at all (0 hits in
+  uvm-1.2/src/macros/uvm_object_defines.svh), which is why the four uvm-1.2
+  row-databases cannot carry the shape; only the 1800.2 pp_output does.
+
+WHAT WOULD FALSIFY IT
+  any mover outside BuildUVMPkg; any BuildUVMPkg delta other than the three
+  named cells; any uhdm2rtlil mover at all.

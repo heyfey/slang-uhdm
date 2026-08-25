@@ -1,0 +1,35 @@
+r10v133 VERIFIER — INDEPENDENT A-PRIORI MOVER PREDICTION.
+Made from PRISTINE data + the corpus SOURCES only, BEFORE byteverify ran.
+
+PREDICTION
+  surelog corpus (956 databases)      : EXACTLY TWO movers
+        default/BuildUVMPkg-bf853d43
+        testflags/BuildUVMPkg-bf853d43
+     3 cells each, at pp_output uvm_pkg.sv lines 82730, 82735, 82742.
+  uhdm2rtlil corpus (1358 databases)  : ZERO movers.
+
+DERIVATION 1 — golden pre-filter (pristine sweep workdirs, golden path read out
+of each row's own cmds.txt, never guessed): 43 of 956 surelog databases and 30
+of 1358 uhdm2rtlil databases carry the string `$bits` in their golden.  All the
+others cannot move under a $bits law.  (Reproduces the implementer's 43/30.)
+
+DERIVATION 2 — u2r query-call census over ALL 30 uhdm2rtlil candidates
+(qcen133-based, keyed on the cell start): NOT ONE site where golden keeps a
+$bits over a call and we fold.  Confirmed by reading the sources: every
+uhdm2rtlil `$bits` argument is a type name, a typedef, a variable, a member, a
+select or `~dr_q` — no call anywhere.
+
+DERIVATION 3 — BALANCED-PAREN SOURCE SCAN, the decisive one.  Across the whole
+comparable corpus (Surelog tests + third_party tests + uhdm2rtlil tests + every
+UVM/OVM/VMM tree the rows use) the only sources whose `$bits` argument contains
+a call are:
+    UVM 1800.2-2017-1.0/pp_output/uvm_pkg.sv  lines 82730, 82735, 82742
+        all three `$bits(abstractions.size())` in uvm_compare_qda_string
+    Verilator/t_var_types.v line 183 `$bits(fname())`
+The Verilator row is SLANG_REJECT in BOTH modes on BOTH binaries (default: "no
+input files"; testflags: batch.txt parse error), so it is not comparable and
+cannot move.  uvm-1.2's macro set has no `$bits(<arg>.size())` at all, which is
+why the four uvm-1.2 rows cannot carry the shape.
+
+FALSIFIERS: any mover outside BuildUVMPkg; any BuildUVMPkg delta other than the
+three named cells; any uhdm2rtlil mover at all.

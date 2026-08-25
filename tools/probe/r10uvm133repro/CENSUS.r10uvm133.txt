@@ -1,0 +1,50 @@
+r10uvm133 - THE QUERY-CALL CENSUS.  MEASUREMENT ONLY; the judge is uhdm-cmp.
+LHS is ALWAYS golden (Surelog).  Keyed on the cell START line:col.
+
+CALIBRATION, golden-vs-golden FIRST (BuildUVMPkg's own golden, both sides):
+  64 sites, ALL BOTHKEEP, 0 disagreements -> the key and the classifier agree
+  with themselves before either is used to score a producer.
+
+== SURELOG corpus, all 43 candidate row-databases (pre-filter: a golden that
+   carries the string $bits; 1480 of 1523 row-databases carry none) ==
+   name|argument-kind|verdict                sites  row-databases
+   $bits|expr|BOTHKEEP                      2      2
+   $bits|literal|BOTHKEEP                   4      2
+   $bits|member|BOTHKEEP                    19     8
+   $bits|methodcall|GOLDKEEP-OURSFOLD       6      2
+   $bits|name|BOTHKEEP                      199    44
+   $bits|name|GOLDKEEP-OURSFOLD             12     12
+   $bits|name|ONLYGOLD                      2      2
+   $bits|select|BOTHKEEP                    2      2
+   $bits|typekeyword|GOLDKEEP-OURSFOLD      250    12
+   $clog2|expr|BOTHKEEP                     83     10
+   $clog2|literal|BOTHKEEP                  32     2
+   $clog2|name|BOTHKEEP                     145    7
+   $clog2|syscall|BOTHKEEP                  3      3
+   $high|name|BOTHKEEP                      10     4
+   $left|name|BOTHKEEP                      3      3
+   $right|name|BOTHKEEP                     2      2
+
+== UHDM2RTLIL corpus, all 30 candidate row-databases ==
+   $bits|expr|BOTHKEEP                      2      2
+   $bits|member|BOTHKEEP                    10     4
+   $bits|name|BOTHKEEP                      108    26
+   $clog2|name|BOTHKEEP                     2      2
+
+READ IT LIKE THIS
+  GOLDKEEP-OURSFOLD methodcall  = THIS LAW's population: 6 sites, 2 row-dbs
+                                  (BuildUVMPkg x2, pp_output 82730/82735/82742).
+  GOLDKEEP-OURSFOLD typekeyword = $bits(int)/$bits(byte), uvm89/buvm16 R3.
+  GOLDKEEP-OURSFOLD name        = $bits(uvm_reg_data_t), a TYPEDEF name.
+  GOLDFOLD-OURSKEEP (AWAY)      = ZERO cells in EITHER corpus, before or after.
+  ONLYOURS                      = ZERO cells in EITHER corpus, before AND
+                                  after the patch: this pass ADDS objects
+                                  (one constant -> sys_func_call + hier_path +
+                                  ref_obj + method_func_call) and every added
+                                  object lands on a start golden already
+                                  occupies, so no one-sided set is created.
+  ONLYGOLD                      = a golden cell with no object of ours at that
+                                  start at all ($bits(__tmp_int_t__...), a
+                                  different family); unchanged by this pass.
+  No $bits over a FREE FUNCTION call and none over a SYSTEM call exists in
+  either corpus - both shapes are covered by arms A/B/D/E instead.

@@ -1,0 +1,42 @@
+r10uvm133 - THE MOVERS, NAMED AND ATTRIBUTED.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+PREDICTED (PREDICT.r10uvm133.txt, from PRISTINE databases only):
+  surelog     BuildUVMPkg/default and BuildUVMPkg/testflags, 3 cells each
+  uhdm2rtlil  none
+MEASURED (byteverify SELFCHECK=1):
+  surelog     2 / 956   BuildUVMPkg/default, BuildUVMPkg/testflags
+  uhdm2rtlil  0 / 1358
+  PREDICTION AND MEASUREMENT AGREE EXACTLY, name for name.
+
+THE DELTA INSIDE EACH MOVER - id-normalised whole-dump diff, pristine vs patched
+  default   70 changed lines
+  testflags 70 changed lines
+  THREE cells each, and nothing else:
+    82730:10  the HEAD, inside the `if ($bits(abstractions.size()) <= 64)`
+    82735:61  the 4th argument of compare_field_int(...)
+    82742:61  the 4th argument of compare_field(...)
+  each one: a folded  constant vpiDecompile:32 / vpiSize:64 / UINT:32 /
+  vpiConstType:9  replaced by  sys_func_call($bits) + hier_path
+  (abstractions.size) + ref_obj(abstractions) + method_func_call(size).
+
+  Verified against GOLDEN, not merely against pristine: each of the three
+  subtrees is IDENTICAL to golden's, ids and indentation normalised -
+  same kinds, same names, same spans, same field order.
+
+HEADS (rowheads.sh; the counts are DEPTH - the head object's decompile size -
+not a distance)
+  ROW            MODE       PRISTINE  PATCHED   HEAD
+  BuildUVMPkg    default    60        64        NEW head, new object and new family
+  BuildUVMPkg    testflags  60        64        the same new head
+  SeqDriver      default    17        17        cmp log BYTE-IDENTICAL
+  SeqDriver      testflags  17        17        cmp log BYTE-IDENTICAL
+  SimpleUVM      default    64        64        cmp log BYTE-IDENTICAL
+  SimpleUVM      testflags  64        64        cmp log BYTE-IDENTICAL
+  Scoreboard     default    64        64        cmp log BYTE-IDENTICAL
+  MiniAmiq       default    80        80        cmp log BYTE-IDENTICAL
+  MiniAmiq       testflags  80        80        cmp log BYTE-IDENTICAL
+  Earlgrey_0_1   default    150       150       cmp log BYTE-IDENTICAL
+  Earlgrey_0_1   testflags  150       150       cmp log BYTE-IDENTICAL
+  Rggen          default    0         0         cmp log BYTE-IDENTICAL
+  (Scoreboard/testflags and Rggen/testflags are SKIP-NOFILE, as always.)

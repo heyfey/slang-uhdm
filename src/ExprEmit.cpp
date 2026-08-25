@@ -22700,6 +22700,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             !(reemitting && a0.as<NamedValueExpression>()
                                                 .symbol.as<ParameterSymbol>()
                                                 .isLocalParam()));
+                // § bitsCallArgNeverFolds133 — AND SO DOES A CALL.
+                // `CompileHelper::compileBits`
+                // (Surelog CompileExpression.cpp:4663) only ever folds when it
+                // has a TYPESPEC for the written argument: the `bits == 0`
+                // block asks `getTypespec`, and the `reduce = Reduce::Yes`
+                // promotion right under it is gated on that typespec being
+                // non-null and `isFullySpecified`.  For a CALL there is none.
+                // `getTypespec`'s `paComplex_func_call` arm (:4437) compiles
+                // the argument and then either hands a `hier_path` to
+                // `decodeHierPath(..., returnTypespec=true)` — whose
+                // `hierarchicalSelector` walks struct/class MEMBERS and select
+                // suffixes ONLY, so a trailing `method_func_call` element can
+                // never be selected and it returns null — or falls to
+                // `basename = exp->VpiName()`, which for a `func_call` is the
+                // SUBROUTINE's name and matches no data type.  With `tps`
+                // null the second road (`compileExpression` + `Bits(exp,…)`)
+                // runs only under `reduce == Reduce::Yes`, and in the
+                // definition compile it is not: so control reaches the final
+                // `else` and Surelog MINTS the `$bits` `sys_func_call`,
+                // arguments and all.  Even where a caller does arrive with
+                // `Reduce::Yes`, `ExprEval::size` has no case for a call — the
+                // `uhdmhier_path` case re-runs the same failing
+                // `decodeHierPath` and sets `invalidValue`, a `func_call`
+                // falls to `default:` and sets it too — and `invalidValue`
+                // vetoes both constant arms.  Measured on golden over every
+                // call shape SystemVerilog offers here (arm A cells K12-K15
+                // and K18; arm B's thirteen homes; arm E's near misses; and
+                // arm D's eight sibling query functions, which golden and we
+                // BOTH already kept): golden keeps the call for ALL of them
+                // and folds NONE.  The corpus head is
+                // `$bits(abstractions.size())` in `uvm_compare_qda_string`.
+                if (a0.kind == ExpressionKind::Call)
+                    bitsKeep = true;
                 // ...and so does an argument whose typespec Surelog's def
                 // compile either cannot find or cannot fully specify. Only the
                 // shapes `getTypespec` handles are judged here; anything else

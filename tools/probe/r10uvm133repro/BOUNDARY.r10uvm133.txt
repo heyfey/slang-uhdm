@@ -1,0 +1,43 @@
+r10uvm133 - THE WIDE BOUNDARY GATE.  MEASUREMENT ONLY; the judge is uhdm-cmp.
+bound133.sh, reused verbatim from r10buvm30/r10uvm120/r10uvm129: EVERY .sv and
+.v under a COPY of tools/probe (recursive, no path filter), BOTH binaries,
+BOTH views, fd-3 list, children </dev/null, PROCESSED asserted.
+
+MOVED 2111_probe_r10uvm133repro_g133_a_kinds.sv/def 108 lines
+MOVED 2111_probe_r10uvm133repro_g133_a_kinds.sv/elab 284 lines
+MOVED 2112_probe_r10uvm133repro_g133_b_homes.sv/def 261 lines
+MOVED 2112_probe_r10uvm133repro_g133_b_homes.sv/elab 476 lines
+MOVED 2113_probe_r10uvm133repro_g133_c_inst.sv/def 36 lines
+MOVED 2113_probe_r10uvm133repro_g133_c_inst.sv/elab 206 lines
+MOVED 2114_probe_r10uvm133repro_g133_d_siblings.sv/def 16 lines
+MOVED 2114_probe_r10uvm133repro_g133_d_siblings.sv/elab 28 lines
+MOVED 2115_probe_r10uvm133repro_g133_e_edge.sv/def 107 lines
+MOVED 2115_probe_r10uvm133repro_g133_e_edge.sv/elab 260 lines
+MOVED 3133_probe_r10v95repro_v95_b6_exprargs.sv/def 46 lines
+MOVED 3133_probe_r10v95repro_v95_b6_exprargs.sv/elab 78 lines
+MOVED 3251_probe_r10vbuvm28repro_gv28_d_reach.sv/def 80 lines
+MOVED 3251_probe_r10vbuvm28repro_gv28_d_reach.sv/elab 140 lines
+MOVED 3254_probe_r10vbuvm28repro_gv28_g_last.sv/def 38 lines
+MOVED 3254_probe_r10vbuvm28repro_gv28_g_last.sv/elab 70 lines
+LISTED=3935 FENCED_SKIPPED=0 PROCESSED=3935 MOVED=16 NO_OUTPUT_PAIRS=316
+PROCESSED-ASSERT-OK
+BOUNDDONE
+
+ATTRIBUTION - all 16 moved arm-views, every one of them:
+  10 are THIS PASS'S OWN arms (g133_a..g133_e x def/elab).  They ARE the
+     gate's POSITIVE CONTROL: a gate that reported 0 here could not see.
+   6 are FOREIGN: r10v95repro/v95_b6_exprargs.sv and r10vbuvm28repro/
+     {gv28_d_reach,gv28_g_last}.sv, each in both views.  Scored against
+     THEIR OWN golden in ARMS.r10uvm133.txt: 18 cells moved in total
+     (2+2 v95_b6, 5+5 gv28_d_reach, 2+2 gv28_g_last), EVERY ONE of them a
+     $bits over a CALL - a free function call, or $bits($signed(x)) -
+     and EVERY ONE of them TOGOLD.  MOVED-WRONG 0, AWAY 0.
+  Not one arm outside the $bits-over-a-call family moved in either view.
+
+NO_OUTPUT_PAIRS=316 are arm-views where NEITHER binary produced a database
+(pre-existing rejects/segfaults, symmetric); ASYMMETRIC_OUTPUT was reported
+ZERO times, so no arm gained or lost a database under the patch.
+FENCED_SKIPPED=0: no arm file under tools/probe is named after any of the
+four slang-fenced tests, which is what the counter asserts.  This pass
+NEVER dispatched them and no artifact here spells them (canaudit.sh, the
+committed audit tool, carries the list by design and reports FENCE-BREACH=0).

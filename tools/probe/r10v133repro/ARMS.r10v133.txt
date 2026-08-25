@@ -1,0 +1,338 @@
+r10v133 - THE VERIFIER'S ARM TABLE.  golden(Surelog) is ALWAYS LHS; the
+official ~/git-repos/UHDM/build/bin/uhdm-cmp is the only judge.  MEASUREMENT ONLY.
+
+  PRI md5 583b10a735e405dcfaeb2f49695d6632   PAT md5 7f81e89326a6057b6aa31d34a5efcb38
+  Both binaries were rebuilt BY THE VERIFIER from source at BASE f08eee0 and
+  frozen chmod 555 before any sweep.  Runner: the pass's own arm133.sh, unmodified.
+
+WHY A SECOND SCORER.  The pass's qjoin133.py calls a site BOTHKEEP as soon as
+EITHER side has one kept call, so a site golden emits TWICE - once kept (the
+`uhdmallModules` definition listing) and once folded (the `uhdmtopModules`
+elaborated copy) - reads as a match when only one of the two copies agrees.
+v133cen.py scores the EXACT PAIR (kept copies, folded copies) per side instead,
+so a half-match is reported as MOVED-OTHER, not as TOGOLD.  v133reg.py is
+cell-free: it diffs the three dumps as MULTISETS of indent-stripped lines and
+reports LOST (a golden line pristine had and patched lost) and GAINED (a
+non-golden line only patched produces) - the only two shapes a regression can
+take that no cell key can hide.
+
+== RUN LINES: rc / uhdm-cmp verdict / head count / whole-dump distance to golden
+v133_a_ctx_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff587 pat=rc0/CMP_NE/heads1/gdiff269 MOVED=402
+v133_a_ctx_elab: slErr=0 pris=rc0/CMP_NE/heads1/gdiff1059 pat=rc0/CMP_NE/heads1/gdiff559 MOVED=632
+v133_b_faces_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff455 pat=rc0/CMP_NE/heads1/gdiff178 MOVED=277
+v133_b_faces_elab: slErr=0 pris=rc0/CMP_NE/heads1/gdiff1511 pat=rc0/CMP_NE/heads1/gdiff1006 MOVED=701
+v133_c_sibs_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff143 pat=rc0/CMP_EQUAL/heads0/gdiff0 MOVED=143
+v133_c_sibs_elab: slErr=0 pris=rc0/CMP_NE/heads1/gdiff260 pat=rc0/CMP_EQUAL/heads0/gdiff0 MOVED=260
+v133_d_iface_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff413 pat=rc0/CMP_NE/heads1/gdiff341 MOVED=72
+v133_d_iface_elab: slErr=1 pris=rc0/CMP_NE/heads1/gdiff728 pat=rc0/CMP_NE/heads1/gdiff401 MOVED=333
+v133_e_const_def: slErr=1 pris=rc0/CMP_NE/heads1/gdiff393 pat=rc0/CMP_NE/heads1/gdiff293 MOVED=212
+v133_e_const_elab: slErr=1 pris=rc0/CMP_NE/heads1/gdiff511 pat=rc0/CMP_NE/heads1/gdiff341 MOVED=282
+v133_f_macro_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff238 pat=rc0/CMP_EQUAL/heads0/gdiff78 MOVED=176
+v133_f_macro_elab: slErr=0 pris=rc0/CMP_NE/heads1/gdiff792 pat=rc0/CMP_EQUAL/heads0/gdiff580 MOVED=534
+v133_g_pkg_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff313 pat=rc0/CMP_NE/heads1/gdiff171 MOVED=142
+v133_g_pkg_elab: slErr=0 pris=rc0/CMP_NE/heads1/gdiff622 pat=rc0/CMP_NE/heads1/gdiff348 MOVED=304
+v133_h_more_def: slErr=0 pris=rc4/CMP_NE/heads1/gdiff287 pat=rc4/CMP_NE/heads1/gdiff70 MOVED=219
+v133_h_more_elab: slErr=0 pris=rc4/CMP_NE/heads1/gdiff1082 pat=rc4/CMP_EQUAL/heads0/gdiff469 MOVED=653
+
+  gdiff (whole-dump distance to golden) FALLS in all sixteen views.
+  v133_c_sibs and v133_f_macro reach CMP_EQUAL in BOTH views under the official
+  judge; v133_h_more reaches it in elab.  Nothing rises anywhere.
+  slErr=1 on v133_d_iface/elab is Surelog's own UH0725 on `vi.ifn133()` through
+  an interface port; on v133_e_const it is UH0700 on `$bits(cfz133() + 1)`.
+  Both are golden-side notes, present identically for both binaries.
+  rc4 on v133_h_more is our binary on the covergroup, both binaries alike.
+
+== EXACT-MULTISET CENSUS, the verifier's own eight arms (v133cen.py)
+v133_a_ctx_def	25:26	MOVED-OTHER	$bits	funcall	pfa133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_a_ctx_def	27:26	MOVED-OTHER	$bits	funcall	mfa133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_a_ctx_def	29:26	MOVED-OTHER	$bits	funcall	pfb133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_a_ctx_def	35:27	TOGOLD	$bits	methodcall	dq133.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_def	37:18	MOVED-OTHER	$bits	funcall	mfa133	G(keep,fold)=(2, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_def	44:7	TOGOLD	$bits	funcall	mfa133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_def	45:7	TOGOLD	$bits	methodcall	dq133.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_def	49:25	TOGOLD	$bits	funcall	mfa133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_def	51:11	TOGOLD	$bits	funcall	mfa133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_def	53:10	TOGOLD	$bits	methodcall	aq133.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_def	55:10	TOGOLD	$bits	methodcall	aq133.num	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_def	57:10	TOGOLD	$bits	methodcall	da133.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_def	59:10	TOGOLD	$bits	methodcall	sv133.len	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_def	61:10	TOGOLD	$bits	funcall	pfb133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_def	63:10	TOGOLD	$bits	funcall	pv133a::pfa133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_def	71:20	TOGOLD	$bits	funcall	mfa133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_a_ctx_def	77:10	TOGOLD	$bits	funcall	mfa133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_def	TOTALS	MOVED-OTHER=4 SAME-RIGHT=1 TOGOLD=13
+v133_a_ctx_elab	25:26	MOVED-OTHER	$bits	funcall	pfa133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	27:26	MOVED-OTHER	$bits	funcall	mfa133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	29:26	MOVED-OTHER	$bits	funcall	pfb133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	35:27	MOVED-OTHER	$bits	methodcall	dq133.size	G(keep,fold)=(2, 0) P=(0, 0) Q=(1, 0)
+v133_a_ctx_elab	37:18	MOVED-OTHER	$bits	funcall	mfa133	G(keep,fold)=(3, 0) P=(0, 1) Q=(1, 0)
+v133_a_ctx_elab	44:7	TOGOLD	$bits	funcall	mfa133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	45:7	TOGOLD	$bits	methodcall	dq133.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	49:25	TOGOLD	$bits	funcall	mfa133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	51:11	TOGOLD	$bits	funcall	mfa133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	53:10	TOGOLD	$bits	methodcall	aq133.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	55:10	TOGOLD	$bits	methodcall	aq133.num	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	57:10	TOGOLD	$bits	methodcall	da133.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	59:10	TOGOLD	$bits	methodcall	sv133.len	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	61:10	TOGOLD	$bits	funcall	pfb133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	63:10	TOGOLD	$bits	funcall	pv133a::pfa133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	71:20	TOGOLD	$bits	funcall	mfa133	G(keep,fold)=(4, 0) P=(0, 4) Q=(4, 0)
+v133_a_ctx_elab	77:10	TOGOLD	$bits	funcall	mfa133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_a_ctx_elab	TOTALS	MOVED-OTHER=5 SAME-RIGHT=1 TOGOLD=12
+v133_b_faces_def	55:11	TOGOLD	$bits	funcall	mf133b	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_b_faces_def	56:11	TOGOLD	$bits	funcall	sf133b	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_b_faces_def	58:11	TOGOLD	$bits	methodcall	qa.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_b_faces_def	59:11	TOGOLD	$bits	methodcall	qb.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_b_faces_def	60:11	TOGOLD	$bits	methodcall	qb.num	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_b_faces_def	61:11	TOGOLD	$bits	methodcall	qc.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_b_faces_def	62:11	TOGOLD	$bits	methodcall	st1.len	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_b_faces_def	64:11	TOGOLD	$bits	methodcall	e1.num	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_b_faces_def	65:11	TOGOLD	$bits	methodcall	ih.gi133b	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_b_faces_def	66:11	TOGOLD	$bits	methodcall	ih.iq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_b_faces_def	67:11	TOGOLD	$bits	methodcall	qa.sum	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_b_faces_def	68:11	TOGOLD	$bits	methodcall	ba.sum	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_b_faces_def	TOTALS	SAME-RIGHT=7 STILL-WRONG=2 TOGOLD=12
+v133_b_faces_elab	55:11	TOGOLD	$bits	funcall	mf133b	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_b_faces_elab	56:11	TOGOLD	$bits	funcall	sf133b	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_b_faces_elab	58:11	TOGOLD	$bits	methodcall	qa.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_b_faces_elab	59:11	TOGOLD	$bits	methodcall	qb.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_b_faces_elab	60:11	TOGOLD	$bits	methodcall	qb.num	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_b_faces_elab	61:11	TOGOLD	$bits	methodcall	qc.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_b_faces_elab	62:11	TOGOLD	$bits	methodcall	st1.len	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_b_faces_elab	64:11	TOGOLD	$bits	methodcall	e1.num	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_b_faces_elab	65:11	TOGOLD	$bits	methodcall	ih.gi133b	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_b_faces_elab	66:11	TOGOLD	$bits	methodcall	ih.iq.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_b_faces_elab	67:11	TOGOLD	$bits	methodcall	qa.sum	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_b_faces_elab	68:11	TOGOLD	$bits	methodcall	ba.sum	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_b_faces_elab	TOTALS	SAME-RIGHT=7 STILL-WRONG=2 TOGOLD=12
+v133_c_sibs_def	11:9	TOGOLD	$bits	funcall	cf133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_c_sibs_def	12:9	TOGOLD	$bits	methodcall	cq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_c_sibs_def	25:16	TOGOLD	$bits	funcall	cf133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_c_sibs_def	26:9	TOGOLD	$bits	syscall	$clog2	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_c_sibs_def	26:15	TOGOLD	$clog2	funcall	cf133	G(keep,fold)=(1, 0) P=(0, 0) Q=(1, 0)
+v133_c_sibs_def	27:9	TOGOLD	$bits	syscall	$size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_c_sibs_def	27:15	TOGOLD	$size	name	work@vm133c.ca	G(keep,fold)=(1, 0) P=(0, 0) Q=(1, 0)
+v133_c_sibs_def	28:9	TOGOLD	$bits	syscall	$signed	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_c_sibs_def	29:9	TOGOLD	$bits	syscall	$unsigned	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_c_sibs_def	TOTALS	SAME-RIGHT=15 TOGOLD=9
+v133_c_sibs_elab	11:9	TOGOLD	$bits	funcall	cf133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_c_sibs_elab	12:9	TOGOLD	$bits	methodcall	cq.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_c_sibs_elab	25:16	TOGOLD	$bits	funcall	cf133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_c_sibs_elab	26:9	TOGOLD	$bits	syscall	$clog2	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_c_sibs_elab	26:15	TOGOLD	$clog2	funcall	cf133	G(keep,fold)=(2, 0) P=(0, 0) Q=(2, 0)
+v133_c_sibs_elab	27:9	TOGOLD	$bits	syscall	$size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_c_sibs_elab	27:15	TOGOLD	$size	name	work@vm133c.ca	G(keep,fold)=(2, 0) P=(0, 0) Q=(2, 0)
+v133_c_sibs_elab	28:9	TOGOLD	$bits	syscall	$signed	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_c_sibs_elab	29:9	TOGOLD	$bits	syscall	$unsigned	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_c_sibs_elab	TOTALS	SAME-RIGHT=15 TOGOLD=9
+v133_d_iface_def	19:10	TOGOLD	$bits	funcall	lfn133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_d_iface_def	19:28	TOGOLD	$bits	methodcall	lq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_d_iface_def	19:47	TOGOLD	$bits	funcall	dfn133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_d_iface_def	19:65	TOGOLD	$bits	methodcall	vi.ifn133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_d_iface_def	TOTALS	SAME-RIGHT=1 TOGOLD=4
+v133_d_iface_elab	19:10	TOGOLD	$bits	funcall	lfn133	G(keep,fold)=(4, 0) P=(0, 4) Q=(4, 0)
+v133_d_iface_elab	19:28	TOGOLD	$bits	methodcall	lq.size	G(keep,fold)=(4, 0) P=(0, 1) Q=(4, 0)
+v133_d_iface_elab	19:47	TOGOLD	$bits	funcall	dfn133	G(keep,fold)=(4, 0) P=(0, 1) Q=(4, 0)
+v133_d_iface_elab	19:65	TOGOLD	$bits	methodcall	vi.ifn133	G(keep,fold)=(4, 0) P=(0, 1) Q=(4, 0)
+v133_d_iface_elab	TOTALS	SAME-RIGHT=1 TOGOLD=4
+v133_e_const_def	16:23	MOVED-OTHER	$bits	funcall	cfz133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_e_const_def	17:23	MOVED-OTHER	$bits	funcall	cfw133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_e_const_def	19:23	MOVED-OTHER	$bits	funcall	cfz133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_e_const_def	21:23	MOVED-OTHER	$bits	funcall	cfz133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_e_const_def	30:10	TOGOLD	$bits	funcall	cfz133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_e_const_def	31:13	TOGOLD	$bits	funcall	cfz133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_e_const_def	32:13	TOGOLD	$bits	funcall	cfz133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_e_const_def	33:14	TOGOLD	$bits	funcall	cfz133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_e_const_def	34:9	TOGOLD	$bits	funcall	cfz133	G(keep,fold)=(1, 0) P=(0, 0) Q=(1, 0)
+v133_e_const_def	TOTALS	MOVED-OTHER=4 SAME-RIGHT=3 STILL-WRONG=2 TOGOLD=5
+v133_e_const_elab	16:23	MOVED-OTHER	$bits	funcall	cfz133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_e_const_elab	17:23	MOVED-OTHER	$bits	funcall	cfw133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_e_const_elab	19:23	MOVED-OTHER	$bits	funcall	cfz133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_e_const_elab	21:23	MOVED-OTHER	$bits	funcall	cfz133	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+v133_e_const_elab	30:10	TOGOLD	$bits	funcall	cfz133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_e_const_elab	31:13	TOGOLD	$bits	funcall	cfz133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_e_const_elab	32:13	TOGOLD	$bits	funcall	cfz133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_e_const_elab	33:14	TOGOLD	$bits	funcall	cfz133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_e_const_elab	34:9	TOGOLD	$bits	funcall	cfz133	G(keep,fold)=(1, 0) P=(0, 0) Q=(1, 0)
+v133_e_const_elab	TOTALS	MOVED-OTHER=4 SAME-RIGHT=3 STILL-WRONG=2 TOGOLD=5
+v133_f_macro_def	4:7	TOGOLD	$bits	methodcall	fa.size	G(keep,fold)=(8, 0) P=(0, 8) Q=(8, 0)
+v133_f_macro_def	TOTALS	TOGOLD=1
+v133_f_macro_elab	4:7	TOGOLD	$bits	methodcall	fa.size	G(keep,fold)=(16, 0) P=(0, 16) Q=(16, 0)
+v133_f_macro_elab	TOTALS	TOGOLD=1
+v133_g_pkg_def	6:16	TOGOLD	$bits	funcall	gf133	G(keep,fold)=(3, 0) P=(1, 2) Q=(3, 0)
+v133_g_pkg_def	17:9	TOGOLD	$bits	funcall	of133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_g_pkg_def	18:9	TOGOLD	$bits	methodcall	oq.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_g_pkg_def	19:9	TOGOLD	$bits	literal		G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_g_pkg_def	27:15	TOGOLD	$bits	funcall	gf133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_g_pkg_def	TOTALS	SAME-RIGHT=1 TOGOLD=5
+v133_g_pkg_elab	6:16	TOGOLD	$bits	funcall	gf133	G(keep,fold)=(3, 0) P=(1, 2) Q=(3, 0)
+v133_g_pkg_elab	17:9	TOGOLD	$bits	funcall	of133	G(keep,fold)=(5, 0) P=(0, 5) Q=(5, 0)
+v133_g_pkg_elab	18:9	TOGOLD	$bits	methodcall	oq.size	G(keep,fold)=(5, 0) P=(0, 5) Q=(5, 0)
+v133_g_pkg_elab	19:9	TOGOLD	$bits	literal		G(keep,fold)=(5, 0) P=(0, 5) Q=(5, 0)
+v133_g_pkg_elab	27:15	TOGOLD	$bits	funcall	gf133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_g_pkg_elab	TOTALS	SAME-RIGHT=1 TOGOLD=5
+v133_h_more_def	30:11	TOGOLD	$bits	methodcall	bf133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_h_more_def	31:11	TOGOLD	$bits	funcall	vf133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_h_more_def	32:11	TOGOLD	$bits	funcall	sf133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_h_more_def	33:18	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_h_more_def	34:11	TOGOLD	$bits	name	pv133h::der133h::probe133::der133h::sf133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_h_more_def	35:21	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_h_more_def	36:19	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_h_more_def	37:13	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_h_more_def	41:18	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_h_more_def	42:14	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_h_more_def	54:13	TOGOLD	$bits	funcall	hf133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v133_h_more_def	TOTALS	TOGOLD=11
+v133_h_more_elab	30:11	TOGOLD	$bits	methodcall	bf133	G(keep,fold)=(3, 0) P=(0, 3) Q=(3, 0)
+v133_h_more_elab	31:11	TOGOLD	$bits	funcall	vf133	G(keep,fold)=(3, 0) P=(0, 3) Q=(3, 0)
+v133_h_more_elab	32:11	TOGOLD	$bits	funcall	sf133	G(keep,fold)=(3, 0) P=(0, 3) Q=(3, 0)
+v133_h_more_elab	33:18	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(3, 0) P=(0, 3) Q=(3, 0)
+v133_h_more_elab	34:11	TOGOLD	$bits	name	pv133h::der133h::probe133::der133h::sf133	G(keep,fold)=(3, 0) P=(0, 3) Q=(3, 0)
+v133_h_more_elab	35:21	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(3, 0) P=(0, 3) Q=(3, 0)
+v133_h_more_elab	36:19	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(3, 0) P=(0, 3) Q=(3, 0)
+v133_h_more_elab	37:13	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(3, 0) P=(0, 3) Q=(3, 0)
+v133_h_more_elab	41:18	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(3, 0) P=(0, 3) Q=(3, 0)
+v133_h_more_elab	42:14	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(3, 0) P=(0, 3) Q=(3, 0)
+v133_h_more_elab	54:13	TOGOLD	$bits	funcall	hf133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v133_h_more_elab	TOTALS	TOGOLD=11
+
+== THE SAME SCORER OVER THE PASS'S OWN FIVE ARMS
+g133_a_kinds_def	36:11	TOGOLD	$bits	methodcall	q_str.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_a_kinds_def	37:11	TOGOLD	$bits	methodcall	q_int.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_a_kinds_def	38:11	TOGOLD	$bits	funcall	f_free133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_a_kinds_def	39:11	TOGOLD	$bits	methodcall	f_free133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_a_kinds_def	42:11	TOGOLD	$bits	methodcall	q_int.sum	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_a_kinds_def	TOTALS	SAME-RIGHT=4 STILL-WRONG=2 TOGOLD=5
+g133_a_kinds_elab	36:11	TOGOLD	$bits	methodcall	q_str.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_a_kinds_elab	37:11	TOGOLD	$bits	methodcall	q_int.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_a_kinds_elab	38:11	TOGOLD	$bits	funcall	f_free133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_a_kinds_elab	39:11	TOGOLD	$bits	methodcall	f_free133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_a_kinds_elab	42:11	TOGOLD	$bits	methodcall	q_int.sum	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_a_kinds_elab	TOTALS	SAME-RIGHT=3 STILL-WRONG=3 TOGOLD=5
+g133_b_homes_def	18:11	TOGOLD	$bits	methodcall	qq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_b_homes_def	19:11	TOGOLD	$bits	methodcall	qq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_b_homes_def	20:11	TOGOLD	$bits	funcall	m133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_b_homes_def	26:9	TOGOLD	$bits	funcall	fb133_free	G(keep,fold)=(2, 0) P=(1, 1) Q=(2, 0)
+g133_b_homes_def	27:9	TOGOLD	$bits	funcall	fb133_free	G(keep,fold)=(2, 0) P=(1, 1) Q=(2, 0)
+g133_b_homes_def	42:26	MOVED-OTHER	$bits	funcall	fb133_const	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+g133_b_homes_def	49:10	TOGOLD	$bits	funcall	fm133_mod	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_b_homes_def	50:10	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_b_homes_def	51:10	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_b_homes_def	55:10	TOGOLD	$bits	funcall	fm133_mod	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_b_homes_def	58:17	MOVED-OTHER	$bits	methodcall	dq.size	G(keep,fold)=(2, 0) P=(0, 1) Q=(1, 0)
+g133_b_homes_def	65:20	TOGOLD	$bits	funcall	fm133_mod	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_b_homes_def	TOTALS	MOVED-OTHER=2 TOGOLD=10
+g133_b_homes_elab	18:11	TOGOLD	$bits	methodcall	qq.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_b_homes_elab	19:11	TOGOLD	$bits	methodcall	qq.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_b_homes_elab	20:11	TOGOLD	$bits	funcall	m133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_b_homes_elab	26:9	TOGOLD	$bits	funcall	fb133_free	G(keep,fold)=(5, 0) P=(2, 3) Q=(5, 0)
+g133_b_homes_elab	27:9	TOGOLD	$bits	funcall	fb133_free	G(keep,fold)=(5, 0) P=(2, 3) Q=(5, 0)
+g133_b_homes_elab	42:26	MOVED-OTHER	$bits	funcall	fb133_const	G(keep,fold)=(1, 1) P=(0, 2) Q=(2, 0)
+g133_b_homes_elab	49:10	TOGOLD	$bits	funcall	fm133_mod	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_b_homes_elab	50:10	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_b_homes_elab	51:10	TOGOLD	$bits	methodcall	dq.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_b_homes_elab	55:10	TOGOLD	$bits	funcall	fm133_mod	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_b_homes_elab	58:17	MOVED-OTHER	$bits	methodcall	dq.size	G(keep,fold)=(3, 0) P=(0, 1) Q=(1, 0)
+g133_b_homes_elab	65:20	TOGOLD	$bits	funcall	fm133_mod	G(keep,fold)=(3, 0) P=(0, 3) Q=(3, 0)
+g133_b_homes_elab	TOTALS	MOVED-OTHER=2 TOGOLD=10
+g133_c_inst_def	10:10	TOGOLD	$bits	funcall	cf133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_c_inst_def	10:27	TOGOLD	$bits	methodcall	cq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_c_inst_def	TOTALS	TOGOLD=2
+g133_c_inst_elab	10:10	TOGOLD	$bits	funcall	cf133	G(keep,fold)=(6, 0) P=(0, 6) Q=(6, 0)
+g133_c_inst_elab	10:27	TOGOLD	$bits	methodcall	cq.size	G(keep,fold)=(6, 0) P=(0, 6) Q=(6, 0)
+g133_c_inst_elab	TOTALS	TOGOLD=2
+g133_d_siblings_def	16:11	TOGOLD	$bits	funcall	df133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_d_siblings_def	TOTALS	SAME-RIGHT=16 TOGOLD=1
+g133_d_siblings_elab	16:11	TOGOLD	$bits	funcall	df133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_d_siblings_elab	TOTALS	SAME-RIGHT=16 TOGOLD=1
+g133_e_edge_def	24:11	TOGOLD	$bits	member	eq.size	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_e_edge_def	25:11	TOGOLD	$bits	literal		G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_e_edge_def	26:11	TOGOLD	$bits	methodcall	ec.gi133	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_e_edge_def	35:11	TOGOLD	$bits	syscall	$clog2	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_e_edge_def	35:17	TOGOLD	$clog2	literal		G(keep,fold)=(1, 0) P=(0, 0) Q=(1, 0)
+g133_e_edge_def	36:11	TOGOLD	$bits	methodcall	es.len	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+g133_e_edge_def	TOTALS	SAME-RIGHT=4 STILL-WRONG=3 TOGOLD=6
+g133_e_edge_elab	24:11	TOGOLD	$bits	member	eq.size	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_e_edge_elab	25:11	MOVED-OTHER	$bits	none		G(keep,fold)=(3, 0) P=(0, 2) Q=(2, 0)
+g133_e_edge_elab	26:11	TOGOLD	$bits	methodcall	ec.gi133	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_e_edge_elab	35:11	TOGOLD	$bits	syscall	$clog2	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_e_edge_elab	35:17	TOGOLD	$clog2	literal		G(keep,fold)=(2, 0) P=(0, 0) Q=(2, 0)
+g133_e_edge_elab	36:11	TOGOLD	$bits	methodcall	es.len	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+g133_e_edge_elab	TOTALS	MOVED-OTHER=1 SAME-RIGHT=3 STILL-WRONG=4 TOGOLD=5
+
+== AND OVER THE SIX FOREIGN ARM-VIEWS THE WIDE BOUNDARY MOVED
+gv28_d_reach_def	23:13	TOGOLD	$bits	funcall	retbare	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+gv28_d_reach_def	24:13	TOGOLD	$bits	funcall	retbased	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+gv28_d_reach_def	25:13	TOGOLD	$bits	funcall	retstruct	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+gv28_d_reach_def	26:13	TOGOLD	$bits	funcall	lf	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+gv28_d_reach_def	27:13	TOGOLD	$bits	funcall	li	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+gv28_d_reach_def	TOTALS	SAME-RIGHT=4 STILL-WRONG=8 TOGOLD=5
+gv28_d_reach_elab	23:13	TOGOLD	$bits	funcall	retbare	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+gv28_d_reach_elab	24:13	TOGOLD	$bits	funcall	retbased	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+gv28_d_reach_elab	25:13	TOGOLD	$bits	funcall	retstruct	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+gv28_d_reach_elab	26:13	TOGOLD	$bits	funcall	lf	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+gv28_d_reach_elab	27:13	TOGOLD	$bits	funcall	li	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+gv28_d_reach_elab	TOTALS	SAME-RIGHT=4 STILL-WRONG=8 TOGOLD=5
+gv28_g_last_def	36:12	TOGOLD	$bits	funcall	retenum	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+gv28_g_last_def	37:12	TOGOLD	$bits	funcall	retstruct	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+gv28_g_last_def	TOTALS	SAME-RIGHT=1 STILL-WRONG=2 TOGOLD=2
+gv28_g_last_elab	36:12	TOGOLD	$bits	funcall	retenum	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+gv28_g_last_elab	37:12	TOGOLD	$bits	funcall	retstruct	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+gv28_g_last_elab	TOTALS	SAME-RIGHT=1 STILL-WRONG=2 TOGOLD=2
+v95_b6_exprargs_def	20:13	TOGOLD	$bits	funcall	f6	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v95_b6_exprargs_def	35:13	TOGOLD	$bits	syscall	$signed	G(keep,fold)=(1, 0) P=(0, 1) Q=(1, 0)
+v95_b6_exprargs_def	TOTALS	SAME-RIGHT=4 STILL-WRONG=6 TOGOLD=2
+v95_b6_exprargs_elab	20:13	TOGOLD	$bits	funcall	f6	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v95_b6_exprargs_elab	35:13	TOGOLD	$bits	syscall	$signed	G(keep,fold)=(2, 0) P=(0, 2) Q=(2, 0)
+v95_b6_exprargs_elab	TOTALS	SAME-RIGHT=4 STILL-WRONG=6 TOGOLD=2
+
+== ORDER-BLIND, CELL-FREE REGRESSION DETECTOR (v133reg.py), all 30 views
+v133_a_ctx_def	LOST=19 GAINED=27 FIXED=243 REMOVED=99 | goldcov P=2617/2913 Q=2841/2913 surplus P=117 Q=45
+v133_a_ctx_elab	LOST=19 GAINED=22 FIXED=461 REMOVED=106 | goldcov P=3379/4004 Q=3821/4004 surplus P=128 Q=44
+v133_b_faces_def	LOST=8 GAINED=2 FIXED=215 REMOVED=52 | goldcov P=2206/2451 Q=2413/2451 surplus P=72 Q=22
+v133_b_faces_elab	LOST=13 GAINED=5 FIXED=453 REMOVED=64 | goldcov P=3428/3924 Q=3868/3924 surplus P=109 Q=50
+v133_c_sibs_def	LOST=0 GAINED=0 FIXED=108 REMOVED=35 | goldcov P=1506/1614 Q=1614/1614 surplus P=35 Q=0
+v133_c_sibs_elab	LOST=0 GAINED=0 FIXED=218 REMOVED=42 | goldcov P=2244/2462 Q=2462/2462 surplus P=42 Q=0
+v133_d_iface_def	LOST=1 GAINED=0 FIXED=52 REMOVED=19 | goldcov P=2900/3159 Q=2951/3159 surplus P=68 Q=49
+v133_d_iface_elab	LOST=1 GAINED=4 FIXED=294 REMOVED=34 | goldcov P=3274/3804 Q=3567/3804 surplus P=106 Q=76
+v133_e_const_def	LOST=30 GAINED=28 FIXED=101 REMOVED=45 | goldcov P=2149/2323 Q=2220/2323 surplus P=91 Q=74
+v133_e_const_elab	LOST=30 GAINED=28 FIXED=159 REMOVED=57 | goldcov P=2683/2919 Q=2812/2919 surplus P=107 Q=78
+v133_f_macro_def	LOST=0 GAINED=8 FIXED=128 REMOVED=40 | goldcov P=1592/1728 Q=1720/1728 surplus P=40 Q=8
+v133_f_macro_elab	LOST=4 GAINED=16 FIXED=288 REMOVED=48 | goldcov P=2612/2916 Q=2896/2916 surplus P=48 Q=16
+v133_g_pkg_def	LOST=3 GAINED=0 FIXED=97 REMOVED=42 | goldcov P=1380/1565 Q=1474/1565 surplus P=60 Q=18
+v133_g_pkg_elab	LOST=4 GAINED=0 FIXED=218 REMOVED=52 | goldcov P=2017/2355 Q=2231/2355 surplus P=102 Q=50
+v133_h_more_def	LOST=0 GAINED=2 FIXED=161 REMOVED=56 | goldcov P=1339/1506 Q=1500/1506 surplus P=60 Q=6
+v133_h_more_elab	LOST=1 GAINED=7 FIXED=539 REMOVED=76 | goldcov P=2386/2937 Q=2924/2937 surplus P=81 Q=12
+g133_a_kinds_def	LOST=2 GAINED=3 FIXED=80 REMOVED=23 | goldcov P=1599/1696 Q=1677/1696 surplus P=43 Q=23
+g133_a_kinds_elab	LOST=4 GAINED=12 FIXED=158 REMOVED=28 | goldcov P=2412/2597 Q=2566/2597 surplus P=79 Q=63
+g133_b_homes_def	LOST=6 GAINED=7 FIXED=177 REMOVED=69 | goldcov P=2123/2344 Q=2294/2344 surplus P=79 Q=17
+g133_b_homes_elab	LOST=7 GAINED=7 FIXED=349 REMOVED=81 | goldcov P=2992/3459 Q=3334/3459 surplus P=119 Q=45
+g133_c_inst_def	LOST=0 GAINED=0 FIXED=26 REMOVED=10 | goldcov P=2744/2770 Q=2770/2770 surplus P=10 Q=0
+g133_c_inst_elab	LOST=0 GAINED=6 FIXED=180 REMOVED=20 | goldcov P=3149/3374 Q=3329/3374 surplus P=59 Q=45
+g133_d_siblings_def	LOST=0 GAINED=0 FIXED=11 REMOVED=5 | goldcov P=1274/1285 Q=1285/1285 surplus P=5 Q=0
+g133_d_siblings_elab	LOST=0 GAINED=0 FIXED=22 REMOVED=6 | goldcov P=2126/2149 Q=2148/2149 surplus P=6 Q=0
+g133_e_edge_def	LOST=0 GAINED=1 FIXED=79 REMOVED=23 | goldcov P=1433/1562 Q=1512/1562 surplus P=47 Q=25
+g133_e_edge_elab	LOST=1 GAINED=4 FIXED=165 REMOVED=28 | goldcov P=2204/2461 Q=2368/2461 surplus P=82 Q=58
+gv28_d_reach_def	LOST=17 GAINED=6 FIXED=49 REMOVED=8 | goldcov P=2203/2316 Q=2235/2316 surplus P=71 Q=69
+gv28_d_reach_elab	LOST=7 GAINED=2 FIXED=108 REMOVED=23 | goldcov P=3238/3468 Q=3339/3468 surplus P=141 Q=120
+gv28_g_last_def	LOST=2 GAINED=5 FIXED=23 REMOVED=8 | goldcov P=1714/1771 Q=1735/1771 surplus P=137 Q=134
+gv28_g_last_elab	LOST=2 GAINED=11 FIXED=47 REMOVED=10 | goldcov P=2456/2554 Q=2501/2554 surplus P=161 Q=162
+v95_b6_exprargs_def	LOST=0 GAINED=0 FIXED=34 REMOVED=8 | goldcov P=1873/2039 Q=1907/2039 surplus P=41 Q=33
+v95_b6_exprargs_elab	LOST=0 GAINED=0 FIXED=64 REMOVED=10 | goldcov P=2522/2829 Q=2586/2829 surplus P=51 Q=41
+
+== TOTALS OVER ALL 30 ARM-VIEWS (16 verifier + 10 pass + 6 foreign)
+   TOGOLD=184  MOVED-WRONG=0  AWAY=0  MOVED-OTHER=22  STILL-WRONG=52  SAME-RIGHT=120
+   Golden coverage rises in EVERY ONE of the 30 views.
+
+   THE 22 MOVED-OTHER CELLS ARE WRONG-TO-WRONG, NOT REGRESSIONS.  17 of them are
+   one shape: `$bits(<call>)` written in a param_assign Rhs, which golden emits
+   TWICE - the `uhdmallModules` copy KEEPS the sys_func_call, the
+   `uhdmtopModules` copy FOLDS it to a constant.  Pristine folded BOTH copies,
+   patched keeps BOTH.  Checked object by object, pristine's top-copy constant
+   was ALREADY unequal to golden's: golden carries `vpiSize:32` plus a
+   `vpiTypespec` -> `ref_typespec` -> `int_typespec`, ours carried `vpiSize:64`
+   and no typespec at all, and `constant::Compare` reads both fields.  So no
+   copy of any of these cells was ever right, and none became wrong.  The other
+   5 are listing-COPY-COUNT differences (we emit fewer copies of a statement
+   than golden does), improved in kind by the patch and unchanged in count.
+   Corpus population of the param_assign shape: ZERO (see PREDICT.r10v133.txt).

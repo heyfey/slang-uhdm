@@ -1,0 +1,17 @@
+LHS:
+decompile:
+logic_net: (work@top_tb.uvm_phase), id:328487, line:1664:21, endln:1664:30
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:328244, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:uvm_phase
+|vpiFullName:work@top_tb.uvm_phase
+|vpiNetType:1
+
+decompile:
+logic_net: (work@top_tb.uvm_phase), id:328487, line:1664:21, endln:1664:30
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:328244, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:uvm_phase
+|vpiFullName:work@top_tb.uvm_phase
+|vpiNetType:1
+RHS: <null>

@@ -1,0 +1,155 @@
+r10uvm133 ARMS - golden(Surelog) LHS always; the judge is the official uhdm-cmp.
+PRI=pristine(583b10a7...)  PAT=patched(7f81e893...)  both frozen chmod 555.
+
+g133_a_kinds_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff196 pat=rc0/CMP_NE/heads1/gdiff88 MOVED=108
+g133_a_kinds_elab: slErr=0 pris=rc0/CMP_NE/heads1/gdiff700 pat=rc0/CMP_NE/heads1/gdiff556 MOVED=284
+g133_b_homes_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff400 pat=rc0/CMP_NE/heads1/gdiff161 MOVED=261
+g133_b_homes_elab: slErr=0 pris=rc0/CMP_NE/heads1/gdiff1034 pat=rc0/CMP_NE/heads1/gdiff634 MOVED=476
+g133_c_inst_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff46 pat=rc0/CMP_EQUAL/heads0/gdiff10 MOVED=36
+g133_c_inst_elab: slErr=0 pris=rc0/CMP_NE/heads1/gdiff296 pat=rc0/CMP_EQUAL/heads0/gdiff100 MOVED=206
+g133_d_siblings_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff36 pat=rc0/CMP_EQUAL/heads0/gdiff20 MOVED=16
+g133_d_siblings_elab: slErr=0 pris=rc0/CMP_NE/heads1/gdiff353 pat=rc0/CMP_EQUAL/heads0/gdiff325 MOVED=28
+g133_e_edge_def: slErr=0 pris=rc0/CMP_NE/heads1/gdiff228 pat=rc0/CMP_NE/heads1/gdiff121 MOVED=107
+g133_e_edge_elab: slErr=0 pris=rc0/CMP_NE/heads1/gdiff821 pat=rc0/CMP_NE/heads1/gdiff653 MOVED=260
+== g133_a_kinds_def
+ROW-OURS	28:11	$bits	literal	GOLDKEEP-OURSFOLD		gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	34:11	$bits	member	GOLDFOLD-OURSKEEP	s_mem.hi	gkeep=0 gfold=1 okeep=1 ofold=0
+ROW-OURS	36:11	$bits	methodcall	GOLDKEEP-OURSFOLD	q_str.size	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	37:11	$bits	methodcall	GOLDKEEP-OURSFOLD	q_int.size	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	38:11	$bits	funcall	GOLDKEEP-OURSFOLD	f_free133	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	39:11	$bits	methodcall	GOLDKEEP-OURSFOLD	f_free133	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	42:11	$bits	methodcall	GOLDKEEP-OURSFOLD	q_int.sum	gkeep=1 gfold=0 okeep=0 ofold=1
+SCORE	STILLWRONG=2 TOGOLD=5
+== g133_a_kinds_elab
+ROW-OURS	28:11	$bits	literal	GOLDKEEP-OURSFOLD		gkeep=3 gfold=0 okeep=0 ofold=2
+ROW-OURS	34:11	$bits	member	GOLDFOLD-OURSKEEP	s_mem.hi	gkeep=0 gfold=2 okeep=2 ofold=0
+ROW-OURS	36:11	$bits	methodcall	GOLDKEEP-OURSFOLD	q_str.size	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	37:11	$bits	methodcall	GOLDKEEP-OURSFOLD	q_int.size	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	38:11	$bits	funcall	GOLDKEEP-OURSFOLD	f_free133	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	39:11	$bits	methodcall	GOLDKEEP-OURSFOLD	f_free133	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	42:11	$bits	methodcall	GOLDKEEP-OURSFOLD	q_int.sum	gkeep=2 gfold=0 okeep=0 ofold=2
+SCORE	STILLWRONG=2 TOGOLD=5
+== g133_b_homes_def
+ROW-OURS	18:11	$bits	methodcall	GOLDKEEP-OURSFOLD	qq.size	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	19:11	$bits	methodcall	GOLDKEEP-OURSFOLD	qq.size	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	20:11	$bits	funcall	GOLDKEEP-OURSFOLD	m133	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	42:26	$bits	funcall	GOLDKEEP-OURSFOLD	fb133_const	gkeep=1 gfold=1 okeep=0 ofold=2
+ROW-OURS	49:10	$bits	funcall	GOLDKEEP-OURSFOLD	fm133_mod	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	50:10	$bits	methodcall	GOLDKEEP-OURSFOLD	dq.size	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	51:10	$bits	methodcall	GOLDKEEP-OURSFOLD	dq.size	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	55:10	$bits	funcall	GOLDKEEP-OURSFOLD	fm133_mod	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	58:17	$bits	methodcall	GOLDKEEP-OURSFOLD	dq.size	gkeep=2 gfold=0 okeep=0 ofold=1
+ROW-OURS	65:20	$bits	funcall	GOLDKEEP-OURSFOLD	fm133_mod	gkeep=2 gfold=0 okeep=0 ofold=2
+SCORE	TOGOLD=10
+== g133_b_homes_elab
+ROW-OURS	18:11	$bits	methodcall	GOLDKEEP-OURSFOLD	qq.size	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	19:11	$bits	methodcall	GOLDKEEP-OURSFOLD	qq.size	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	20:11	$bits	funcall	GOLDKEEP-OURSFOLD	m133	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	42:26	$bits	funcall	GOLDKEEP-OURSFOLD	fb133_const	gkeep=1 gfold=1 okeep=0 ofold=2
+ROW-OURS	49:10	$bits	funcall	GOLDKEEP-OURSFOLD	fm133_mod	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	50:10	$bits	methodcall	GOLDKEEP-OURSFOLD	dq.size	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	51:10	$bits	methodcall	GOLDKEEP-OURSFOLD	dq.size	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	55:10	$bits	funcall	GOLDKEEP-OURSFOLD	fm133_mod	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	58:17	$bits	methodcall	GOLDKEEP-OURSFOLD	dq.size	gkeep=3 gfold=0 okeep=0 ofold=1
+ROW-OURS	65:20	$bits	funcall	GOLDKEEP-OURSFOLD	fm133_mod	gkeep=3 gfold=0 okeep=0 ofold=3
+SCORE	TOGOLD=10
+== g133_c_inst_def
+ROW-OURS	10:10	$bits	funcall	GOLDKEEP-OURSFOLD	cf133	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	10:27	$bits	methodcall	GOLDKEEP-OURSFOLD	cq.size	gkeep=1 gfold=0 okeep=0 ofold=1
+SCORE	TOGOLD=2
+== g133_c_inst_elab
+ROW-OURS	10:10	$bits	funcall	GOLDKEEP-OURSFOLD	cf133	gkeep=6 gfold=0 okeep=0 ofold=6
+ROW-OURS	10:27	$bits	methodcall	GOLDKEEP-OURSFOLD	cq.size	gkeep=6 gfold=0 okeep=0 ofold=6
+SCORE	TOGOLD=2
+== g133_d_siblings_def
+ROW-OURS	16:11	$bits	funcall	GOLDKEEP-OURSFOLD	df133	gkeep=1 gfold=0 okeep=0 ofold=1
+SCORE	TOGOLD=1
+== g133_d_siblings_elab
+ROW-OURS	16:11	$bits	funcall	GOLDKEEP-OURSFOLD	df133	gkeep=2 gfold=0 okeep=0 ofold=2
+SCORE	TOGOLD=1
+== g133_e_edge_def
+ROW-OURS	24:11	$bits	member	GOLDKEEP-OURSFOLD	eq.size	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	25:11	$bits	literal	GOLDKEEP-OURSFOLD		gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	26:11	$bits	methodcall	GOLDKEEP-OURSFOLD	ec.gi133	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	31:11	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	32:11	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	35:11	$bits	syscall	GOLDKEEP-OURSFOLD	$clog2	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	35:17	$clog2	literal	ONLYGOLD		gkeep=1 gfold=0 okeep=0 ofold=0
+ROW-OURS	36:11	$bits	methodcall	GOLDKEEP-OURSFOLD	es.len	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	37:11	$bits	member	GOLDFOLD-OURSKEEP	esm.hi	gkeep=0 gfold=1 okeep=1 ofold=0
+SCORE	STILLWRONG=3 TOGOLD=6
+== g133_e_edge_elab
+ROW-OURS	24:11	$bits	member	GOLDKEEP-OURSFOLD	eq.size	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	25:11	$bits	literal	GOLDKEEP-OURSFOLD		gkeep=3 gfold=0 okeep=0 ofold=2
+ROW-OURS	26:11	$bits	methodcall	GOLDKEEP-OURSFOLD	ec.gi133	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	31:11	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	32:11	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	35:11	$bits	syscall	GOLDKEEP-OURSFOLD	$clog2	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	35:17	$clog2	literal	ONLYGOLD		gkeep=2 gfold=0 okeep=0 ofold=0
+ROW-OURS	36:11	$bits	methodcall	GOLDKEEP-OURSFOLD	es.len	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	37:11	$bits	member	GOLDFOLD-OURSKEEP	esm.hi	gkeep=0 gfold=2 okeep=2 ofold=0
+SCORE	STILLWRONG=3 TOGOLD=6
+
+== THE THREE FOREIGN ARM-VIEWS THE WIDE BOUNDARY MOVED, SCORED THE SAME WAY ==
+== v95_b6_exprargs_def
+ROW-OURS	16:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	17:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	18:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	19:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	20:13	$bits	funcall	GOLDKEEP-OURSFOLD	f6	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	26:13	$bits	literal	GOLDKEEP-OURSFOLD		gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	27:13	$bits	literal	GOLDKEEP-OURSFOLD		gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	35:13	$bits	syscall	GOLDKEEP-OURSFOLD	$signed	gkeep=1 gfold=0 okeep=0 ofold=1
+SCORE	STILLWRONG=6 TOGOLD=2
+== v95_b6_exprargs_elab
+ROW-OURS	16:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	17:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	18:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	19:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	20:13	$bits	funcall	GOLDKEEP-OURSFOLD	f6	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	26:13	$bits	literal	GOLDKEEP-OURSFOLD		gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	27:13	$bits	literal	GOLDKEEP-OURSFOLD		gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	35:13	$bits	syscall	GOLDKEEP-OURSFOLD	$signed	gkeep=2 gfold=0 okeep=0 ofold=2
+SCORE	STILLWRONG=6 TOGOLD=2
+== gv28_d_reach_def
+ROW-OURS	23:13	$bits	funcall	GOLDKEEP-OURSFOLD	retbare	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	24:13	$bits	funcall	GOLDKEEP-OURSFOLD	retbased	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	25:13	$bits	funcall	GOLDKEEP-OURSFOLD	retstruct	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	26:13	$bits	funcall	GOLDKEEP-OURSFOLD	lf	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	27:13	$bits	funcall	GOLDKEEP-OURSFOLD	li	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	30:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	31:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	32:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	36:13	$bits	member	GOLDFOLD-OURSKEEP	s1.c	gkeep=0 gfold=1 okeep=1 ofold=0
+ROW-OURS	37:13	$bits	member	GOLDFOLD-OURSKEEP	s1.d	gkeep=0 gfold=1 okeep=1 ofold=0
+ROW-OURS	38:20	$bits	name	GOLDFOLD-OURSKEEP	work@gv28_d_reach.e1	gkeep=0 gfold=1 okeep=1 ofold=0
+ROW-OURS	49:13	$bits	name	GOLDFOLD-OURSKEEP	work@gv28_d_reach.e1	gkeep=0 gfold=1 okeep=1 ofold=0
+ROW-OURS	49:25	$bits	name	GOLDFOLD-OURSKEEP	work@gv28_d_reach.x1	gkeep=0 gfold=1 okeep=1 ofold=0
+SCORE	STILLWRONG=8 TOGOLD=5
+== gv28_d_reach_elab
+ROW-OURS	23:13	$bits	funcall	GOLDKEEP-OURSFOLD	retbare	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	24:13	$bits	funcall	GOLDKEEP-OURSFOLD	retbased	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	25:13	$bits	funcall	GOLDKEEP-OURSFOLD	retstruct	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	26:13	$bits	funcall	GOLDKEEP-OURSFOLD	lf	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	27:13	$bits	funcall	GOLDKEEP-OURSFOLD	li	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	30:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	31:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	32:13	$bits	expr	GOLDKEEP-OURSFOLD		gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	36:13	$bits	member	GOLDFOLD-OURSKEEP	s1.c	gkeep=0 gfold=2 okeep=2 ofold=0
+ROW-OURS	37:13	$bits	member	GOLDFOLD-OURSKEEP	s1.d	gkeep=0 gfold=2 okeep=2 ofold=0
+ROW-OURS	38:20	$bits	name	GOLDFOLD-OURSKEEP	work@gv28_d_reach.e1	gkeep=0 gfold=2 okeep=1 ofold=1
+ROW-OURS	49:13	$bits	name	GOLDFOLD-OURSKEEP	work@gv28_d_reach.e1	gkeep=0 gfold=2 okeep=1 ofold=1
+ROW-OURS	49:25	$bits	name	GOLDFOLD-OURSKEEP	work@gv28_d_reach.x1	gkeep=0 gfold=2 okeep=1 ofold=1
+SCORE	STILLWRONG=8 TOGOLD=5
+== gv28_g_last_def
+ROW-OURS	15:28	$bits	name	GOLDKEEP-OURSFOLD	work@box::f::T	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	36:12	$bits	funcall	GOLDKEEP-OURSFOLD	retenum	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	37:12	$bits	funcall	GOLDKEEP-OURSFOLD	retstruct	gkeep=1 gfold=0 okeep=0 ofold=1
+ROW-OURS	53:12	$bits	name	GOLDFOLD-OURSKEEP	work@gv28_g_last.mv	gkeep=0 gfold=1 okeep=1 ofold=0
+SCORE	STILLWRONG=2 TOGOLD=2
+== gv28_g_last_elab
+ROW-OURS	15:28	$bits	name	GOLDKEEP-OURSFOLD	work@box::f::T	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	36:12	$bits	funcall	GOLDKEEP-OURSFOLD	retenum	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	37:12	$bits	funcall	GOLDKEEP-OURSFOLD	retstruct	gkeep=2 gfold=0 okeep=0 ofold=2
+ROW-OURS	53:12	$bits	name	GOLDFOLD-OURSKEEP	work@gv28_g_last.mv	gkeep=0 gfold=2 okeep=2 ofold=0
+SCORE	STILLWRONG=2 TOGOLD=2

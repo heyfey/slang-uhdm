@@ -1,0 +1,57 @@
+r10v133 - THE VERIFIER'S OWN WIDE BOUNDARY GATE.  MEASUREMENT ONLY.
+
+Driver: the pass's bound133.sh, unmodified, over a COPY of the whole
+tools/probe tree PLUS the verifier's own eight arms in r10v133own/ (so the
+gate carries its own positive control).  Recursive, both suffixes, fd-3 list,
+children </dev/null, PROCESSED asserted, per-file scratch keyed on the
+RELATIVE path.
+
+  LISTED=3942 FENCED_SKIPPED=0 PROCESSED=3942 MOVED=31 NO_OUTPUT_PAIRS=316
+  PROCESSED-ASSERT-OK       ASYMMETRIC_OUTPUT reported ZERO times
+
+ATTRIBUTION OF ALL 31 MOVED ARM-VIEWS
+  10  the pass's own g133_a..g133_e x def/elab.  Line counts reproduce the
+      implementer's BOUNDARY.r10uvm133.txt EXACTLY: 108/284, 261/476, 36/206,
+      16/28, 107/260.
+  14  the verifier's own eight arms x def/elab (v133_h_more was written after
+      the boundary root was copied, so it contributes 14 of 16 views here).
+      These are this gate's POSITIVE CONTROL.
+   6  FOREIGN: r10v95repro/v95_b6_exprargs.sv and r10vbuvm28repro/
+      {gv28_d_reach,gv28_g_last}.sv, each in both views.  Scored against THEIR
+      OWN golden with the verifier's exact-multiset scorer: TOGOLD=18,
+      MOVED-WRONG=0, AWAY=0, and golden coverage up in all six.  Every moved
+      cell is a $bits over a call - a free function, or $bits($signed(x)).
+   1  r10vbuvm19repro/vg19g.sv/elab, 2678 lines - A PHANTOM.  DISPROVED:
+        * vg19g.sv contains no `$bits` at all, so this law cannot reach it;
+        * the two DATABASES the gate produced are BYTE-IDENTICAL
+          (md5 a96879322b1ce2c052b15c5652ded99b for both pris_elab.uhdm and
+          pat_elab.uhdm);
+        * re-dumping those same two databases gives 3409 lines each and a
+          diff of 0 lines (identical md5 fa8c192fd27525d8d8be1fb2c5e6fc52);
+        * running each binary three more times on the arm gives one single
+          dump hash, fd75567cb983c688f27650195922011a, six times over.
+      The gate's stored pat_elab.dump was TRUNCATED at 732 of 3409 lines: a
+      uhdm-dump short write under load.  This is RESUME section 9's "a
+      partially written dump reads like a result - re-read to byte-stable",
+      and it is an INSTRUMENT WEAKNESS in bound133.sh worth carrying forward:
+      the gate compares dumps it never re-reads for stability, so under load it
+      can manufacture a MOVED that no database supports.  A one-line hardening
+      (compare the .uhdm md5s first, and only diff dumps when those differ)
+      would remove the whole failure mode.
+
+  No arm outside the $bits-over-a-call family moved, in either view.
+
+MUST-STAY CONTROL ARMS, run individually as well (arm133.sh, both views):
+  r10uvm93repro  13 arm files, 22 buildable views : MOVED=0 in every one,
+                 identical uhdm-cmp verdict, identical head count, identical
+                 gdiff.  (7 elab views are SURELOG_FAIL on both binaries.)
+  r10earl63repro  6 arm files, 12 views          : MOVED=0 in every one.
+  r10buvm26repro  2 arm files, 4 views           : MOVED=0 in every one.
+  r10uvm128repro  5 arm files                    : NO_OUTPUT on BOTH binaries
+                 (they need their own include flags); symmetric, so a wash,
+                 and they are covered by the wide boundary the same way.
+
+FENCES: FENCED_SKIPPED=0 asserts that no arm file under tools/probe is named
+after any of the four slang-fenced tests.  They were NEVER dispatched, and no
+artifact in this directory spells them; canaudit.sh, the committed audit tool,
+carries the list by design and reports FENCE-BREACH=0.
