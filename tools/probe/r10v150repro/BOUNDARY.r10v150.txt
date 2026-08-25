@@ -1,0 +1,62 @@
+r10v150 — THE WIDE BOUNDARY GATE (bound150v.sh, the implementer's gate re-run
+by the verifier over a COPY of the whole probe tree that also contains this
+verifier's own arms).  Subdirectories included; file list read on fd 3; every
+child </dev/null; scratch keyed on the RELATIVE path; PROCESSED asserted.
+
+LISTED=4279 PROCESSED=4279 PRODUCED_DBS=4134 MOVED_ARMS=12 RC_DIFFS=0
+
+MOVED ARMS (all twelve accounted for, none a regression):
+r10uvm150repro/g150_a.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm150repro/g150_b.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm150repro/g150_c.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm150repro/g150_d.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm59repro/v3_negctl.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v150repro/v150_a.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v150repro/v150_b.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v150repro/v150_c.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v150repro/v150_d.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10v150repro/v150_f1.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vbuvm24repro/gv24j.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vbuvm32repro/vb32h1.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+  * the four r10uvm150repro/g150_[abcd].sv are the pass's OWN positive
+    controls; g150_e.sv (the grammar fence) correctly did NOT move.
+  * the five r10v150repro/v150_[abcd].sv + v150_f1.sv are THIS VERIFIER's
+    positive controls; v150_f2/f3/f4.sv correctly did NOT move.  f3 is the
+    builtin-method receiver `f().size()`, § builtinRecvMultiDimStepIsBit
+    SelectChain14's territory: the pristine-vs-patched diff of its dump is the
+    DUMP BANNER and nothing else, in both views.
+  * the three earlier-pass arms were each RE-MEASURED against golden by this
+    verifier, in JUDGE language, in BOTH views:
+
+      r10uvm59repro/v3_negctl.sv   c11  base59::get().inst(2)
+        golden   = ref_obj (base59::get) @96:15-23  (the § staticScopedCall12
+                   degrade — a scoped root whose lookup MISSES)
+        pristine = method_func_call (inst) @96:29-33          -> WRONG
+        patched  = ref_obj (base59::get) @96:15-23            -> IDENTICAL
+        Its NAME-rooted siblings in the same file did not move.
+
+      r10vbuvm24repro/gv24j.sv     mk(1,,3).val(1,,3)   (a BARE root)
+        golden   = func_call @31:11-29 spanning the WHOLE WRITTEN CHAIN, with
+                   § 24's INT:0 empty-argument placeholder preserved
+        patched == golden in both views                       -> IDENTICAL
+        This arm independently pins the rc150==2 re-span sub-rule.
+
+      r10vbuvm32repro/vb32h1.sv    H6  chain32::mk32(6).nx32(7)
+        golden   = func_call (chain32::mk32) @33:10-17, argument 6, vpiFunction
+        pristine = method_func_call (nx32) @33:27-31, argument 7 -> WRONG
+        patched == golden in both views                       -> IDENTICAL
+
+  * NO OTHER ARM out of 4279 moved, in either view.  RC_DIFFS=0 — no arm
+    changed its return code, so the patch introduces no new reject and no new
+    segfault anywhere in the probe tree.
+
+MUST-STAY BOUNDARIES, each carried by the gate and each UNMOVED:
+  uvm147's r10uvm147repro, uvm144's r10uvm144repro + r10v144repro,
+  uvm26's r10uvm26repro, uvm84's/uvm85's r10uvm84repro/r10uvm85repro (the
+  this./super. hier_path laws), uvm77-79's hier_path joint/mockup arms,
+  buvm14's r10buvm14repro (§ builtinRecvMultiDimStepIsBitSelectChain14),
+  uvm89's r10uvm89repro (§ hpTrailSelIdxDecompiled89 — rendersAsItself89 /
+  selGroup89 / the ElementSelect chain arm and the mover v81h_lvbase),
+  uvm113's and uvm146's owner-finder arms, and every sd8-12 / buvm3-15 /
+  uvm82-91 arm.

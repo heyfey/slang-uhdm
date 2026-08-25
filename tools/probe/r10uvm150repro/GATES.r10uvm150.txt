@@ -1,0 +1,82 @@
+r10uvm150 — THE GATES.  Base commit 074c38c, worktree /tmp/wt_r10uvm150.
+Both binaries FROZEN (chmod 555) at immutable paths before any sweep; every
+cmds.txt audited by binary PATH; every arm records rc.
+
+(1) BUILD — cmake -j 2 only, md5 taken separately.
+    pristine  84ed00899ed5a2726a1ea002040c79cb
+    patched   2b2afc39a45bbab21defe3ea6b4cce50
+
+(2) GOLDENS — SLANG_UHDM exported EXPLICITLY to each binary.
+    pristine   PASS=23  FAIL=0
+    patched    PASS=23  FAIL=0
+    SLANG_UHDM=/bin/false                       FAIL=23   (negative control)
+
+(3) uhdm2rtlil — 731 rows per mode, 1358 databases.
+    patched testflags  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    patched default    CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    ct8rows results/gate_uhdm2rtlil.csv  vs patched testflags  -> PASS, 0 differing rows
+    ct8rows my pristine testflags        vs patched testflags  -> PASS, 0 differing rows
+    ct8rows my pristine default          vs patched default    -> PASS, 0 differing rows
+    cmds.txt audit: 1462 files, 1458 name /tmp/r10uvm150_pat.bin, the other 4 name
+      NO slang binary at all — they are the 2 SURELOG_FAIL tests x 2 modes, where
+      Surelog produced nothing and slang was never run.
+    SELFCHECK=1 byteverify.sh  ->  PATH_SETS_IDENTICAL (1358)  MOVERS: 0 / 1358
+                                    SELFCHECK 1357 / 1358 flagged (the gate can see)
+
+(4) Surelog — 794 tests x 2 modes = 1588 rows, 956 databases.
+    patched default    CMP_EQUAL 471  CMP_NOTEQUAL 10  DEFERRED 5  SLANG_REJECT 283  SURELOG_FAIL 25
+    patched testflags  CMP_EQUAL 466  CMP_NOTEQUAL  9  DEFERRED 5  SLANG_REJECT 284  SURELOG_FAIL 23
+                       NO_DATABASE 3  NO_UHDM 1  TIMEOUT 1  UNTRANSLATABLE 2
+    ct8rows results/golden_surelog.csv vs patched -> PASS
+       "WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)"
+       per-mode status AND dump histograms identical baseline -> fresh.
+    ct8rows my own pristine sweep      vs patched -> PASS, 0 differing rows.
+    NO ROW CONVERTED.  BuildUVMPkg is CMP_NOTEQUAL before and after.
+    Earlgrey_0_1/testflags is a CMP_NOTEQUAL row before and after, as it must be.
+    SELFCHECK=1 byteverify.sh  ->  PATH_SETS_IDENTICAL (956)   MOVERS: 2 / 956
+        MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm   pat=5be6d90cecfa pris=6fff88fac268
+        MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm pat=5be6d90cecfa pris=6fff88fac268
+        SELFCHECK 955 / 956 flagged (the gate can see)
+      -> EXACTLY the two databases PREDICT.r10uvm150.txt named BY NAME from
+         pristine data before the patched sweep ran.
+
+(5) HEADS (rowheads.sh, official uhdm-cmp, LHS always golden, one head per run)
+    TEST          MODE       pristine -> patched
+    SeqDriver     default          62 -> 62   head log BYTE-IDENTICAL
+    SeqDriver     testflags        62 -> 62   head log BYTE-IDENTICAL
+    SimpleUVM     default          62 -> 62   head log BYTE-IDENTICAL
+    SimpleUVM     testflags        62 -> 62   head log BYTE-IDENTICAL
+    Scoreboard    default          62 -> 62   head log BYTE-IDENTICAL
+    Scoreboard    testflags      SKIP-NOFILE (SLANG_REJECT; expected)
+    MiniAmiq      default          62 -> 62   head log BYTE-IDENTICAL
+    MiniAmiq      testflags        62 -> 62   head log BYTE-IDENTICAL
+    BuildUVMPkg   default          68 -> 30   HEAD OBJECT CHANGED
+    BuildUVMPkg   testflags        68 -> 30   HEAD OBJECT CHANGED
+    Earlgrey_0_1  default          29 -> 29   head log BYTE-IDENTICAL
+    Earlgrey_0_1  testflags        50 -> 50   head log BYTE-IDENTICAL
+    Rggen         default           0 ->  0   (no head)
+    Rggen         testflags      SKIP-NOFILE (expected)
+    The BuildUVMPkg line count went DOWN and the head OBJECT changed: the briefed
+    object (uvm_root::get / uvm_report_enabled at 29217) is gone from the log and
+    the new head is a class_typespec naming residue at uvm_pkg.sv:38763.
+
+(6) CANARIES
+    canaries.sh  surelog     ok=52 changed=0 absent=0
+    canaries.sh  uhdm2rtlil  ok=8  changed=0 absent=0
+    EXPECT_UNKNOWN=1 ctcan2.sh surelog     -> PASS
+    EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil  -> PASS
+    canaudit.sh canaries.sh ctcan2.sh -> audited=29 UNCOVERED=0 FENCE-BREACH=0, PASS
+    protected databases, md5 pristine vs patched (both modes each):
+      InterfaceModPort   59a365f3ce2c  SAME
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME
+      YosysOldOr         d68e0796d62c  SAME
+      SVSwitch           4842211c4030  SAME  (pin matches the brief)
+      YosysVerx          6ccda350c24a  SAME  (pin matches the brief)
+
+(7) FENCE — the four slang-fenced tests were NEVER dispatched and are not spelled
+    in any probe artifact of this pass.  FENCED= (names withheld); canaudit.sh
+    reports FENCE-BREACH=0 over this directory's drivers, and
+      find tools/probe -name '*.sv' -o -name '*.v' | grep -icE '<the four>'  -> 0
+    so the boundary gate's 4271-file list contains none of them.
+
+(8) BOUNDARY — see BOUNDARY.r10uvm150.txt.

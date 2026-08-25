@@ -1,0 +1,77 @@
+r10uvm150 — THE CALL-CHAIN CENSUS over the NINE UVM DATABASES.
+ct150cen.cpp walks Serializer::AllObjects and emits two row kinds:
+  HP    a hier_path whose Path_elems carry a CALL element — the NAME-rooted
+        chain road this law must NOT touch (§ hierCallArgTakesBase39,
+        § builtinRecvMultiDimStepIsBitSelectChain14)
+  CALL  a func_call / task_call / method_func_call NOT inside a hier_path —
+        the population the law mints into and deletes from
+Key: line:col-endln:endcol | VpiName (+ kind).  VpiFile is OUT of the key
+(our emitter leaves it empty on these objects and a first cut that keyed on
+it manufactured four AWAY-GOLDEN phantoms).  join150.py is a MULTISET join.
+
+==== CALIBRATION: golden vs golden (must read 0)
+calib                    no row changed
+TOTAL {}
+calib                    no row changed
+TOTAL {}
+
+==== POPULATION SIZES (golden / pristine / patched)
+DB                       GOLDEN                                         PRISTINE                                       PATCHED
+SeqDriver.default        hier_path=13601 with-call-elem=7101 standalone-calls=16610 rows=23711 hier_path=13660 with-call-elem=7098 standalone-calls=16590 rows=23688 hier_path=13660 with-call-elem=7098 standalone-calls=16590 rows=23688
+SeqDriver.testflags      hier_path=13601 with-call-elem=7101 standalone-calls=16610 rows=23711 hier_path=13660 with-call-elem=7098 standalone-calls=16590 rows=23688 hier_path=13660 with-call-elem=7098 standalone-calls=16590 rows=23688
+SimpleUVM.default        hier_path=7882 with-call-elem=4261 standalone-calls=9991 rows=14252 hier_path=7879 with-call-elem=4258 standalone-calls=9976 rows=14234 hier_path=7879 with-call-elem=4258 standalone-calls=9976 rows=14234
+SimpleUVM.testflags      hier_path=7882 with-call-elem=4261 standalone-calls=9991 rows=14252 hier_path=7879 with-call-elem=4258 standalone-calls=9976 rows=14234 hier_path=7879 with-call-elem=4258 standalone-calls=9976 rows=14234
+Scoreboard.default       hier_path=7915 with-call-elem=4294 standalone-calls=10087 rows=14381 hier_path=7912 with-call-elem=4291 standalone-calls=10072 rows=14363 hier_path=7912 with-call-elem=4291 standalone-calls=10072 rows=14363
+MiniAmiq.default         hier_path=13874 with-call-elem=7351 standalone-calls=17446 rows=24797 hier_path=13932 with-call-elem=7347 standalone-calls=17426 rows=24773 hier_path=13932 with-call-elem=7347 standalone-calls=17426 rows=24773
+MiniAmiq.testflags       hier_path=13874 with-call-elem=7351 standalone-calls=17446 rows=24797 hier_path=13932 with-call-elem=7347 standalone-calls=17426 rows=24773 hier_path=13932 with-call-elem=7347 standalone-calls=17426 rows=24773
+BuildUVMPkg.default      hier_path=7742 with-call-elem=4293 standalone-calls=10056 rows=14349 hier_path=7739 with-call-elem=4290 standalone-calls=10011 rows=14301 hier_path=7739 with-call-elem=4290 standalone-calls=10009 rows=14299
+BuildUVMPkg.testflags    hier_path=7742 with-call-elem=4293 standalone-calls=10056 rows=14349 hier_path=7739 with-call-elem=4290 standalone-calls=10011 rows=14301 hier_path=7739 with-call-elem=4290 standalone-calls=10009 rows=14299
+
+==== THE JOIN (pristine vs patched, both against golden)
+SeqDriver.default        no row changed
+SeqDriver.testflags      no row changed
+SimpleUVM.default        no row changed
+SimpleUVM.testflags      no row changed
+Scoreboard.default       no row changed
+MiniAmiq.default         no row changed
+MiniAmiq.testflags       no row changed
+BuildUVMPkg.default      {'FIXED': 10}
+    FIXED   g=0 o=1 q=0  CALL	29217:26-29217:44|uvm_report_enabled	KIND=method_func_call	NARG=3	BOUND=0	PFX=0
+    FIXED   g=0 o=1 q=0  CALL	29218:24-29218:39|uvm_report_info	KIND=method_func_call	NARG=7	BOUND=0	PFX=0
+    FIXED   g=0 o=1 q=0  CALL	29218:63-29218:70|uvm_pkg::m_uvm_string_queue_join	KIND=func_call	NARG=1	BOUND=1	PFX=0
+    FIXED   g=0 o=1 q=0  CALL	29526:26-29526:44|uvm_report_enabled	KIND=method_func_call	NARG=3	BOUND=0	PFX=0
+    FIXED   g=0 o=1 q=0  CALL	29527:24-29527:39|uvm_report_info	KIND=method_func_call	NARG=7	BOUND=0	PFX=0
+    FIXED   g=0 o=1 q=0  CALL	29527:63-29527:70|uvm_pkg::m_uvm_string_queue_join	KIND=func_call	NARG=1	BOUND=1	PFX=0
+    FIXED   g=1 o=0 q=1  CALL	29217:10-29217:18|uvm_root::get	KIND=func_call	NARG=0	BOUND=1	PFX=0
+    FIXED   g=1 o=0 q=1  CALL	29218:8-29218:16|uvm_root::get	KIND=func_call	NARG=0	BOUND=1	PFX=0
+    FIXED   g=1 o=0 q=1  CALL	29526:10-29526:18|uvm_root::get	KIND=func_call	NARG=0	BOUND=1	PFX=0
+    FIXED   g=1 o=0 q=1  CALL	29527:8-29527:16|uvm_root::get	KIND=func_call	NARG=0	BOUND=1	PFX=0
+BuildUVMPkg.testflags    {'FIXED': 10}
+    FIXED   g=0 o=1 q=0  CALL	29217:26-29217:44|uvm_report_enabled	KIND=method_func_call	NARG=3	BOUND=0	PFX=0
+    FIXED   g=0 o=1 q=0  CALL	29218:24-29218:39|uvm_report_info	KIND=method_func_call	NARG=7	BOUND=0	PFX=0
+    FIXED   g=0 o=1 q=0  CALL	29218:63-29218:70|uvm_pkg::m_uvm_string_queue_join	KIND=func_call	NARG=1	BOUND=1	PFX=0
+    FIXED   g=0 o=1 q=0  CALL	29526:26-29526:44|uvm_report_enabled	KIND=method_func_call	NARG=3	BOUND=0	PFX=0
+    FIXED   g=0 o=1 q=0  CALL	29527:24-29527:39|uvm_report_info	KIND=method_func_call	NARG=7	BOUND=0	PFX=0
+    FIXED   g=0 o=1 q=0  CALL	29527:63-29527:70|uvm_pkg::m_uvm_string_queue_join	KIND=func_call	NARG=1	BOUND=1	PFX=0
+    FIXED   g=1 o=0 q=1  CALL	29217:10-29217:18|uvm_root::get	KIND=func_call	NARG=0	BOUND=1	PFX=0
+    FIXED   g=1 o=0 q=1  CALL	29218:8-29218:16|uvm_root::get	KIND=func_call	NARG=0	BOUND=1	PFX=0
+    FIXED   g=1 o=0 q=1  CALL	29526:10-29526:18|uvm_root::get	KIND=func_call	NARG=0	BOUND=1	PFX=0
+    FIXED   g=1 o=0 q=1  CALL	29527:8-29527:16|uvm_root::get	KIND=func_call	NARG=0	BOUND=1	PFX=0
+TOTAL {'FIXED': 20}
+
+==== BuildUVMPkg WHOLE-DUMP, path- and id-normalised, ORDERED diff
+hunks = 3   (hunk 1 is the dump BANNER, i.e. the workdir path)
+3:@@ -1,4 +1,4 @@
+9:@@ -353159,93 +353159,19 @@
+111:@@ -356789,93 +356715,19 @@
+every changed dump line names one of these source lines:
+      8 line:29217:
+     18 line:29218:
+      8 line:29526:
+     18 line:29527:
+      4 line:38754:
+      2 line:9008:
+
+==== THE FOUR WRITTEN SITES, subtree-vs-golden (both dump views per DB)
+\_if_stmt: , line:29217:6   blocks g=2 o=2 q=2   pristine==golden:False   patched==golden:True
+\_if_stmt: , line:29526:6   blocks g=2 o=2 q=2   pristine==golden:False   patched==golden:True

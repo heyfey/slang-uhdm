@@ -1483,6 +1483,89 @@ static const slang::syntax::NameSyntax* scopedNameSyntax12(
     return nullptr;
 }
 
+// § rootCallEatsTheChain150 — THE DECODER.  When the ROOT of a written postfix
+// chain is a CALL, Surelog compiles THAT CALL and DISCARDS everything written
+// after its closing paren.
+//
+// DECODED PRODUCER (Surelog, read not guessed).  Every dotted expression enters
+// `CompileHelper::compileComplexFuncCall` (CompileExpression.cpp:5039), which
+// dispatches ONCE on the type of `name` — the FIRST node of the chain — and
+// never revisits that decision:
+//
+//   * `paClass_scope` (:5253) — `A::f(...)`, `pkg::f(...)`, `G#(...)::f(...)`.
+//     It reads `Class_type_name` / `Class_scope_name`, asks
+//     `getTaskFunc("<first segment>::<final id>")` (:5271), and on a hit mints a
+//     `func_call`/`task_call` (:5277/:5280) spanned by
+//     `populateCoreMembers(Class_type_name, Class_type_name, call)` (:5286) —
+//     THE CLASS-NAME TOKEN ALONE — then compiles the FIRST argument list
+//     (:5369, `List_of_arguments = fC->Sibling(Class_scope_name)`) and
+//     `result = call` (:5373).  On a miss it falls to
+//     `compileExpression(component, fC, name, ...)` (:5375) — the bare
+//     `ref_obj` of § staticScopedCall12.  NOTHING on either road ever looks at
+//     the sibling that carries `.method(args)`.
+//   * `paImplicit_class_handle` (:5154) — `this.m(...)` / `super.m(...)`.  It
+//     takes `Method = fC->Sibling(name)`, mints ONE `method_func_call` (:5171)
+//     with the "this"/"super" prefix constant, compiles that method's argument
+//     list, sets `result = fcall` (:5185) and returns.  The chain after it is
+//     never read either.
+//   * a BARE subroutine name — `CompileHelper::compileTfCall`
+//     (CompileHelper.cpp:4213 `else` arm) — mints the `func_call`/`task_call`,
+//     binds `getTaskFunc(name)`, and spans it over the WHOLE `Subroutine_call`
+//     node, which is why golden's bare-root object grows to cover the text of
+//     the discarded chain.
+//   * a NAME root (`v`, `v[i]`) — the hier_path arm (:5455) with its
+//     `while (dotedName)` loop, the ONLY road that keeps the chain: it pushes a
+//     `ref_obj`/`bit_select` for the base and a `method_func_call` per
+//     `paMethod_call_body` (:5610-5686).  That road is § hierCallArgTakesBase39 /
+//     § builtinRecvMultiDimStepIsBitSelectChain14 territory and MUST NOT MOVE.
+//
+// The written form is the whole discriminator, and slang hands it over
+// unambiguously: a dot after a NAME is parsed as a `ScopedName` (the hier_path
+// road), a dot after a CALL as a `MemberAccessExpression` (this road).
+//
+// Returns 0 = not this road; 1 = fire, the receiver keeps ITS OWN span
+// (scoped root: the class-name token; this./super. root: the method token);
+// 2 = fire and RE-SPAN the receiver over the WHOLE written chain (bare root).
+static int rootCallEatsChain150(const slang::syntax::SyntaxNode* n) {
+    using slang::syntax::SyntaxKind;
+    if (!n)
+        return 0;
+    const slang::syntax::SyntaxNode* l = n;
+    if (l->kind == SyntaxKind::InvocationExpression)
+        l = static_cast<const slang::syntax::SyntaxNode*>(
+            l->as<slang::syntax::InvocationExpressionSyntax>().left);
+    if (!l || l->kind != SyntaxKind::MemberAccessExpression)
+        return 0;
+    const slang::syntax::SyntaxNode* base =
+        static_cast<const slang::syntax::SyntaxNode*>(
+            l->as<slang::syntax::MemberAccessExpressionSyntax>().left);
+    // The receiver must itself be a CALL — `f(...)`, not `f` and not `f[i]`.
+    if (!base || base->kind != SyntaxKind::InvocationExpression)
+        return 0;
+    const slang::syntax::SyntaxNode* rl =
+        static_cast<const slang::syntax::SyntaxNode*>(
+            base->as<slang::syntax::InvocationExpressionSyntax>().left);
+    if (!rl)
+        return 0;
+    if (rl->kind == SyntaxKind::IdentifierName ||
+        rl->kind == SyntaxKind::ClassName)
+        return 2;
+    if (rl->kind == SyntaxKind::ScopedName) {
+        auto& sn = rl->as<slang::syntax::ScopedNameSyntax>();
+        if (sn.separator.kind == slang::parsing::TokenKind::DoubleColon)
+            return 1;
+        if (sn.left && (sn.left->kind == SyntaxKind::ThisHandle ||
+                        sn.left->kind == SyntaxKind::SuperHandle))
+            return 1;
+        // A NAME root (`v.m()`): the hier_path road keeps its elements.
+        return 0;
+    }
+    // A receiver that is itself a chain (`A::f().g().h()`) is REFUSED by
+    // Surelog's own parser ("mismatched input '.' expecting ';'", arm
+    // g150_e.sv E2/E3), so there is no golden to model and this arm stays out.
+    return 0;
+}
+
 // § superMethodCall17 — the `super.<method>` callee syntax, or null.  slang
 // binds `super.m(a)` with a NULL thisClass — the lookup resolves straight to
 // the base-class SubroutineSymbol — so the receiver survives only in the
@@ -18870,6 +18953,76 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 bool callStmtCtx0 = callStmtContext;
                 callStmtContext = false;
                 auto& sub = *std::get<const SubroutineSymbol*>(call.subroutine);
+                // § rootCallEatsTheChain150 — a call whose RECEIVER IS ITSELF A
+                // CALL renders as THE RECEIVER CALL ALONE.  Surelog's
+                // `compileComplexFuncCall` dispatches once on the FIRST node of
+                // the written chain and returns that node's object; the
+                // `.method(args)` written after the receiver's closing paren is
+                // never compiled, so golden's database has no trace of it —
+                // not the method_func_call, not its arguments.  We had the
+                // mirror-image defect: we emitted the METHOD and dropped the
+                // RECEIVER.  See the decoder above `superMethodCall17` for the
+                // Surelog line numbers of all four roads.
+                //
+                // GOLDEN GRID (g150_a/b/c/d, read cell by cell in BOTH views;
+                // LHS is always golden):
+                //   scoped root that binds     `Maker3::mk().rd(7)`
+                //       -> func_call `Maker3::mk` @36:14-20, no arguments
+                //   ... with 1 / 3 arguments   `src_9::mk1(21).twice(22)`
+                //       -> func_call `src_9::mk1` @34:29-34 KEEPING the 21
+                //   scoped root that misses    `Maker3::inb().rd(8)`
+                //       -> ref_obj `Maker3::inb` @39:14-22 (§ staticScopedCall12,
+                //          arguments dropped by THAT law, not this one)
+                //   package-qualified root     `Pc3::pcMake().mul(6)`
+                //       -> func_call `Pc3::pcMake` @41:30-33
+                //   parameterized-class root   `Gen0#(int,2)::gGet().mul(7)`
+                //       -> func_call `Gen0::gGet` @45:30-34
+                //   this. root                 `this.own1(13).twice(14)`
+                //       -> method_func_call `own1` @18:42-46, prefix constant
+                //          "this" @18:37-41, KEEPING the 13
+                //   super. root                `super.instGet().mul(2)`
+                //       -> method_func_call `instGet` @21:38-45, prefix "super"
+                //   bare root                  `dmk(51).twice(52)`
+                //       -> func_call `dmk` @42:29-46 — the span COVERS THE
+                //          DISCARDED CHAIN (standalone `dmk(51)` is @44:41-48)
+                //   NAME root (the control)    `hd.nxt().GO(6,7)`
+                //       -> hier_path `hd.nxt`, THREE elements — a different
+                //          road, and this arm refuses it (rootCallEatsChain150
+                //          returns 0 on a `ScopedName` receiver whose head is a
+                //          plain identifier).
+                // Contexts measured on the SAME cells: return expression, `if`
+                // condition, assignment Rhs, call argument, `$display`
+                // argument, bare statement, while/for body; homes: in-body
+                // method, out-of-body method, package free function, module
+                // function, initial block; call kinds: function, task, void
+                // function; argument counts 0/1/2/3; one, two and three
+                // instances per expression.
+                //
+                // THE CORPUS CELL this clears: `uvm_pkg.sv:29217`
+                // `if (uvm_root::get().uvm_report_enabled(UVM_LOW,UVM_INFO,
+                // "UVM/REPORT/CATCHER"))` — golden `func_call uvm_root::get`
+                // @29217:10-18 with its vpiFunction, ours a bare
+                // `method_func_call uvm_report_enabled` @29217:26-44 with three
+                // arguments.  Its statement twin is 29218 and the pair repeats
+                // at 29526/29527; those four written sites are the ENTIRE
+                // reachable population of both corpora (every other
+                // call-rooted chain lives in a SLANG_REJECT or SURELOG_FAIL
+                // row).
+                if (call.thisClass()) {
+                    if (int rc150 = rootCallEatsChain150(expr.syntax)) {
+                        auto& recv150 = stripImplicitConv(*call.thisClass());
+                        callStmtContext = callStmtCtx0;
+                        if (auto* r150 = emitExpr(recv150, parent, prefix,
+                                                  netMap)) {
+                            // A BARE root is spanned by Surelog over the WHOLE
+                            // `Subroutine_call` node, chain included.
+                            if (rc150 == 2 && expr.syntax)
+                                setLoc(r150, expr.syntax->sourceRange());
+                            return r150;
+                        }
+                        return nullptr;
+                    }
+                }
                 // § superMethodCall17 — `super.<m>(args)` is a
                 // METHOD_FUNC_CALL named after the method, located at the
                 // METHOD TOKEN, whose vpiPrefix is an UNPARENTED string

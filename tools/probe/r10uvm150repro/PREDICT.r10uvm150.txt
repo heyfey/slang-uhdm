@@ -1,0 +1,51 @@
+r10uvm150 — MOVER PREDICTION, made from PRISTINE data only, BEFORE the patched
+sweep finished.  (Written 2026-08-25; the patched sweep was still running.)
+
+METHOD.  § rootCallEatsTheChain150 fires on exactly one WRITTEN shape: a call
+whose receiver is itself a call, i.e. `<root>(...) . <name> (...)` where the
+root is a bare subroutine name, a `::`-qualified name, or `this.`/`super.`.
+A balanced-paren scan of EVERY .sv/.svh/.v/.vh source under
+  ~/git-repos/Surelog/tests, ~/git-repos/Surelog/third_party/tests,
+  ~/git-repos/Surelog/third_party/UVM, ~/git-repos/uhdm2rtlil/test
+with comments and string literals stripped (scan150.py / scan150b.py) finds the
+COMPLETE population of `) . name` receivers:
+
+  SCOPED root (5 written sites)
+    Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:29217  (BuildUVMPkg)
+    Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:29218  (BuildUVMPkg)
+    Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:29526  (BuildUVMPkg)
+    Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:29527  (BuildUVMPkg)
+    Surelog/third_party/tests/Ibex/dv/uvm/core_ibex/tests/core_ibex_base_test.sv:89
+  BARE root (the only real method chains, all in one family)
+    Surelog/third_party/tests/Ibex/.../dv_report_server.sv:63
+    Surelog/third_party/tests/Opentitan/.../dv_report_server.sv:63
+    Surelog/third_party/tests/Opentitan/.../rv_timer_base_vseq.sv:63,64
+    Surelog/third_party/tests/{Ibex,IbexGoogle,Opentitan}/.../riscv_privileged_common_seq.sv
+  (the remaining `) .` hits are `virtual iface#(N).modport`, a module
+   instantiation, and `(* attr *) .port(...)` — not chains at all)
+
+ROW STATUS (results/golden_surelog.csv, READ-ONLY, in this worktree):
+  Ibex           default/testflags  SLANG_REJECT
+  IbexGoogle     default/testflags  SLANG_REJECT
+  Opentitan      default/testflags  SLANG_REJECT
+  BlackParrot    default/testflags  SURELOG_FAIL
+so every non-BuildUVMPkg site sits in a row that produces NO database to compare.
+
+PREDICTION — the ONLY databases whose bytes may move:
+    BuildUVMPkg / default
+    BuildUVMPkg / testflags
+and NOTHING else: 0 movers among the other 1586 surelog cells and 0 among the
+1358 uhdm2rtlil cells (679 testflags + 679 default).  No status flips; no row
+converts.  BuildUVMPkg stays CMP_NOTEQUAL (four sites cannot close a 68-line
+head plus everything below it).
+
+PREDICTED CELL-LEVEL CHANGE inside those two databases (from the pristine dump,
+uhdm-dump of the pristine slang.uhdm, lines 353158-353240 and the 29526/29527
+twin): four `method_func_call` objects DELETED with their arguments
+  uvm_report_enabled @29217:26-44  (3 args)   -> func_call uvm_root::get @29217:10-18
+  uvm_report_info    @29218:24-39  (7 args)   -> func_call uvm_root::get @29218:8-16
+  uvm_report_enabled @29526:26-44  (3 args)   -> func_call uvm_root::get @29526:10-18
+  uvm_report_info    @29527:24-39  (7 args)   -> func_call uvm_root::get @29527:8-16
+Every deleted argument subtree (ref_obj UVM_LOW / UVM_INFO, the string
+constants, and the nested func_call uvm_pkg::m_uvm_string_queue_join with its
+ref_obj q) goes with them, because golden has none of them.

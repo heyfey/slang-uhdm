@@ -1,0 +1,29 @@
+LHS:
+decompile:
+logic_net: (work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.entropy_i), id:456009, line:55:33, endln:55:42
+|vpiParent:
+\_module_inst: work@prim_lfsr (work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr), id:1017160, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_aes_0.6/rtl/aes_prng.sv, line:46:3, endln:58:5
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.entropy_i), id:456010
+  |vpiParent:
+  \_logic_net: (work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.entropy_i), id:456009, line:55:33, endln:55:42
+  |vpiFullName:work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.entropy_i
+  |vpiActual:
+  \_logic_typespec: , id:456002, line:55:16, endln:55:31
+|vpiName:entropy_i
+|vpiFullName:work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.entropy_i
+
+decompile:
+logic_net: (work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.entropy_i), id:456009, line:55:33, endln:55:42
+|vpiParent:
+\_module_inst: work@prim_lfsr (work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr), id:1017160, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_aes_0.6/rtl/aes_prng.sv, line:46:3, endln:58:5
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.entropy_i), id:456010
+  |vpiParent:
+  \_logic_net: (work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.entropy_i), id:456009, line:55:33, endln:55:42
+  |vpiFullName:work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.entropy_i
+  |vpiActual:
+  \_logic_typespec: , id:456002, line:55:16, endln:55:31
+|vpiName:entropy_i
+|vpiFullName:work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.entropy_i
+RHS: <null>

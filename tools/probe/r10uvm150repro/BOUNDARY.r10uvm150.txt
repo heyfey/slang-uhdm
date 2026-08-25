@@ -1,0 +1,58 @@
+r10uvm150 — THE BOUNDARY GATE (bound150.sh over a COPY of the WHOLE probe tree).
+
+  LISTED=4271  PROCESSED=4271  PRODUCED_DBS=4126  MOVED_ARMS=7  RC_DIFFS=0
+
+PROCESSED == LISTED, so no path filter hid an arm; subdirectories are walked;
+the file list is read on fd 3 and every child gets </dev/null; scratch is keyed
+on the RELATIVE path (three arms in this tree are all named dut.sv); every rc is
+recorded on both binaries in both views (the segfault lines in the log are
+PRE-EXISTING arms that crash IDENTICALLY on both binaries — RC_DIFFS=0 proves it).
+PRODUCED_DBS 4126 < 4271 because 145 arms are include fragments or deliberately
+rejected sources; that count is identical pristine and patched.
+
+THE POSITIVE CONTROL.  This pass's own g150_a/b/c/d.sv are MOVED — a gate that
+reported zero over them could not see.  g150_e.sv, the GRAMMAR-FENCE arm whose
+four shapes Surelog's parser refuses, is NOT moved: the law deliberately does not
+fire on a receiver that is itself a chain.
+
+THE THREE EARLIER-PASS ARMS THAT MOVED, each re-measured against GOLDEN with
+arm150.sh (Surelog both views) and scored with VpiParent / VpiFullName removed
+(the judge reads neither):
+
+  r10uvm59repro/v3_negctl.sv — the § staticScopedChainDrops48 / § staticScoped
+    Call12 negative control.  ELEVEN cells; ONE moved.
+      c11  `int i = base59::get().inst(2);`   FIXED — patched subtree BYTE-
+           IDENTICAL to golden in BOTH views (pristine was not)
+      c10  `int i = base59::stat.inst(2);`    RIGHT and UNTOUCHED — a static
+           PROPERTY receiver is a NAME root, and the fence holds exactly there
+      c1 c2 c3 c4 c7 c8 c9  RIGHT and untouched;  c5 c6  UNMOVED
+    cmp lines 5844 -> 5830 (DEF), 6840 -> 6826 (ELAB); head object `design
+    (unnamed)`, unchanged before and after.
+
+  r10vbuvm24repro/gv24j.sv — § emptyArgSlotIntZero24's arm.
+      line 31  `rr = mk(1,,3).val(1,,3);`     FIXED — a BARE root with WRITTEN-
+           BUT-EMPTY argument slots.  Patched gives golden's `func_call (mk)`
+           @31:11-29 — the whole-chain span of the bare-root sub-rule — carrying
+           all three constants including § 24's own `INT:0` placeholder.
+           Subtree BYTE-IDENTICAL to golden in BOTH views.
+    cmp lines 5798 -> 5802 (DEF), 8646 -> 8654 (ELAB).  The head OBJECT there is
+    the whole `design (work@topz24)` and is UNCHANGED before and after, so the
+    line count is that head's decompile size and tracks any change inside it —
+    the campaign's "a line count that moves with the SAME head" case, not a
+    partial fix of a smaller object.
+
+  r10vbuvm32repro/vb32h1.sv — § classScopeCallWrittenQualifierIsLookupKey32's arm.
+      line 33  `r += chain32::mk32(6).nx32(7);`  H6, "chained C::m().n()".
+           Pristine: `method_func_call (nx32)` @33:27-31 with the 7.
+           Patched:  `func_call (chain32::mk32)` @33:10-17 with the 6 and its
+           vpiFunction — golden's object, golden's name, golden's span.
+           The ONE residual byte is the dump-SYNTHESIZED fullname of the
+           REFERENCED function object (`work@vb32h1.chain32::mk32` vs
+           `work@chain32::mk32`) — a PARENTING residue on that function, which
+           appears 36 times in the PRISTINE dump of this same arm and is
+           therefore pre-existing, and which no generated Compare reads.
+    cmp lines 3211 -> 3211 (DEF), 3875 -> 3879 (ELAB); the head object is
+    unchanged (`LHS: <null> / RHS: design (work@vb32h1)`) and the diff of the two
+    head logs is EXACTLY this cell.
+
+NO OTHER ARM IN THE TREE MOVED, in either view, on either binary.

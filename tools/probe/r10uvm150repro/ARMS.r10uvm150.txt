@@ -1,0 +1,99 @@
+r10uvm150 — GRID SCORES.  arm150.sh builds each arm with Surelog (golden,
+both views) and with the FROZEN pristine / patched binaries; score150.py
+extracts each named cell's DUMP SUBTREE from golden / pristine / patched
+(object ids and the arm workdir normalised away) and classifies it.
+STRICT = raw dump identity.  JUDGE = with VpiParent and VpiFullName
+removed, i.e. what uhdm-cmp actually reads (no generated Compare reads
+VpiParent; VpiFullName is dump-only).
+
+  FIXED      pristine != golden, patched == golden      (TO-GOLDEN)
+  BROKEN     pristine == golden, patched != golden      (AWAY-GOLDEN)
+  MOVEDWRONG both wrong and the cell CHANGED
+  UNMOVED    both wrong, cell untouched by this pass
+  RIGHT      pristine == patched == golden (an agreeing cell is not a
+             testing cell — it is counted, never claimed as evidence)
+
+==== view=def  scoring=STRICT
+-- arm_a FIXED=10 RIGHT=2 UNMOVED=1
+-- arm_b FIXED=4 RIGHT=2 UNMOVED=4
+-- arm_c FIXED=8 MOVEDWRONG=1 RIGHT=1 UNMOVED=4
+-- arm_d FIXED=4 MOVEDWRONG=6 RIGHT=1 UNMOVED=2
+==== view=def  scoring=JUDGE
+-- arm_a FIXED=10 RIGHT=2 UNMOVED=1
+-- arm_b FIXED=4 RIGHT=2 UNMOVED=4
+-- arm_c FIXED=8 MOVEDWRONG=1 RIGHT=1 UNMOVED=4
+-- arm_d FIXED=10 RIGHT=1 UNMOVED=2
+==== view=elab  scoring=STRICT
+-- arm_a FIXED=10 RIGHT=2 UNMOVED=1
+-- arm_b FIXED=4 RIGHT=2 UNMOVED=4
+-- arm_c FIXED=8 MOVEDWRONG=1 RIGHT=1 UNMOVED=4
+-- arm_d FIXED=4 MOVEDWRONG=6 RIGHT=1 UNMOVED=2
+==== view=elab  scoring=JUDGE
+-- arm_a FIXED=10 RIGHT=2 UNMOVED=1
+-- arm_b FIXED=4 RIGHT=2 UNMOVED=4
+-- arm_c FIXED=8 MOVEDWRONG=1 RIGHT=1 UNMOVED=4
+-- arm_d FIXED=10 RIGHT=1 UNMOVED=2
+
+==== per-cell verdicts (DEF view, JUDGE scoring)
+-- arm_a
+FIXED        c01
+FIXED        c02
+FIXED        c03
+RIGHT        c04
+RIGHT        c05
+FIXED        c06
+FIXED        c07
+UNMOVED      c08
+FIXED        c09
+FIXED        c10
+FIXED        c11
+FIXED        c12
+FIXED        c13
+-- arm_b
+UNMOVED      b01
+UNMOVED      b02
+UNMOVED      b03
+FIXED        b04
+UNMOVED      b05
+RIGHT        b06
+FIXED        b08
+RIGHT        b11
+FIXED        b13
+FIXED        b14
+-- arm_c
+UNMOVED      c10f
+UNMOVED      c11f
+FIXED        c1f
+UNMOVED      c2f
+MOVEDWRONG   c3f
+FIXED        c4f
+FIXED        c5f
+UNMOVED      c6f
+RIGHT        c7f
+FIXED        c8f
+FIXED        c9f
+FIXED        k01
+FIXED        k02
+FIXED        k03
+-- arm_d
+FIXED        d1
+UNMOVED      d2
+FIXED        d3
+FIXED        d4
+FIXED        d5
+UNMOVED      d6
+FIXED        d7
+FIXED        d8
+FIXED        in_home
+FIXED        oob_home
+RIGHT        plain_this
+FIXED        this_arg
+FIXED        this_noarg
+
+==== THE THREE EARLIER-PASS ARMS THE BOUNDARY GATE FLAGGED (see BOUNDARY.r10uvm150.txt)
+r10uvm59repro/v3_negctl.sv   DEF  FIXED=1 RIGHT=8 UNMOVED=2   (c11 fixed; c10, the
+r10uvm59repro/v3_negctl.sv   ELAB FIXED=1 RIGHT=8 UNMOVED=2    NAME-rooted sibling, untouched)
+r10vbuvm24repro/gv24j.sv     DEF/ELAB  line-31 subtree BYTE-IDENTICAL to golden
+r10vbuvm32repro/vb32h1.sv    DEF/ELAB  line-33 cell -> golden's object; residual byte
+                                        is a PRE-EXISTING dump-only fullname on the
+                                        REFERENCED function (36 hits in the PRISTINE dump)

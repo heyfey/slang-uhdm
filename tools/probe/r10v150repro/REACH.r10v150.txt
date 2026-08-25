@@ -1,0 +1,34 @@
+r10v150 — INDEPENDENT CORPUS REACH SCAN (reach.py, written from scratch, not a
+copy of the implementer's scan150.py).  Comments and string literals are
+stripped first; then every `) . <identifier>` is walked BACK to the matching
+`(` and the token before it is classified as a scoped root (`::`), a bare root,
+or neither (control keywords are excluded by name).  All four corpus roots:
+Surelog/tests, Surelog/third_party/tests, Surelog/third_party/UVM,
+uhdm2rtlil/test.
+
+=== bare : 7
+  /home/heyfey/git-repos/Surelog/third_party/tests/IbexGoogle/src/riscv_privileged_common_seq.sv:168  get_field_by_name(...).bit_width
+  /home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/dv/sv/dv_utils/dv_report_server.sv:63  get_report_object(...).get_full_name
+  /home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/riscv_privileged_common_seq.sv:178  get_field_by_name(...).bit_width
+  /home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/ip/rv_timer/dv/env/seq_lib/rv_timer_base_vseq.sv:63  get_field_by_name(...).set
+  /home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/ip/rv_timer/dv/env/seq_lib/rv_timer_base_vseq.sv:64  get_field_by_name(...).set
+  /home/heyfey/git-repos/Surelog/third_party/tests/Ibex/vendor/lowrisc_ip/dv_utils/dv_report_server.sv:63  get_report_object(...).get_full_name
+  /home/heyfey/git-repos/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/riscv_privileged_common_seq.sv:186  get_field_by_name(...).bit_width
+=== scoped : 5
+  /home/heyfey/git-repos/Surelog/third_party/tests/Ibex/dv/uvm/core_ibex/tests/core_ibex_base_test.sv:89  uvm_report_server::get_server(...).set_max_quit_count
+  /home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:29140  uvm_root::get(...).uvm_report_enabled
+  /home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:29141  uvm_root::get(...).uvm_report_info
+  /home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:29449  uvm_root::get(...).uvm_report_enabled
+  /home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv:29450  uvm_root::get(...).uvm_report_info
+
+AGREEMENT WITH THE IMPLEMENTER: the SCOPED population is 5 written sites — the
+FOUR in uvm_pkg.sv (BuildUVMPkg) and ONE in Ibex's core_ibex_base_test.sv.  The
+BARE population lives entirely in Ibex / IbexGoogle / Opentitan (the same three
+idioms, vendored into several trees).  (The line numbers printed here are
+counted in the COMMENT-STRIPPED text and are therefore not the source lines.)
+
+WHY ONLY BuildUVMPkg IS REACHABLE — and this does NOT rest on the scan.
+`byteverify.sh` compared all 956 surelog databases and all 1358 uhdm2rtlil
+databases produced by the two binaries: MOVERS 2/956 and 0/1358.  That is a
+direct measurement of reach over both corpora, independent of any text scan,
+and it names the same two databases the prediction named.

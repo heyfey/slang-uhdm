@@ -1,0 +1,186 @@
+r10v150 — THE VERIFIER'S OWN ARMS.  LHS is always golden.  JUDGE language:
+VpiParent, VpiFullName (the |vpiFullName: line AND the parenthesised fullname
+the dump synthesises onto every header line), VpiFile and object ids are
+dropped, because no generated Compare reads any of them.  do/dq = number of
+diff lines against GOLDEN before / after the patch (0 = byte-identical).
+
+SEVEN NEW ARMS, none of them a copy of the implementer's grid, all with
+different naming style, numbering, ordering and homes.
+
+  arm_a  v150_a.sv  HOMES: $unit class, INTERFACE, PROGRAM, class-inside-a-module, ternary, case
+  arm_b  v150_b.sv  MACRO-expanded chain vs the same chain INLINE, macro root-only control
+  arm_c  v150_c.sv  CONTEXTS/ARG SHAPES: nested chain in an argument, while cond, fork arm, for cond, bare+scoped task/void statements, out-of-body home
+  arm_d  v150_d.sv  INHERITANCE / TYPEDEF ALIAS / PARAMETERISED roots + the NAME-root and BUILTIN controls
+  arm_e  v150_e.sv  EXOTIC: constructor, named root arguments, no-paren trailing call, concat, foreach, assignment pattern, immediate assert, generate block
+  arm_g  v150_g.sv  DECLARATION INITIALISERS: class member, package var, module var, always_comb, instance-port driver
+  arm_f1  v150_f1.sv  NESTED SCOPE root pkg::Cls::f().m() (Surelog PARSES it)
+  arm_f3  v150_f3.sv  BUILTIN method on a call receiver f().size() (must NOT move, § 14)
+
+TWO GRAMMAR FENCES (Surelog's own parser REFUSES them; no golden exists):
+  v150_f2.sv  bare root + index      f().arr[1]        [SNT:PA0207]
+  v150_f4.sv  parenthesised receiver (Cls::f()).m()    [SNT:PA0207]
+  Our binary parses both; the boundary gate proves NEITHER database moved.
+
+PER-CELL SCORES (score3.py, JUDGE language, BOTH VIEWS — identical in DEF and ELAB)
+-- arm_a [def]
+FIXED      i1           do=12 dq=0
+FIXED      i2           do=12 dq=0
+FIXED      i3           do=10 dq=0
+FIXED      m1           do=12 dq=0
+FIXED      m2           do=12 dq=0
+FIXED      m3           do=12 dq=0
+TOWARD     p1           do=14 dq=2
+TOWARD     p2           do=14 dq=2
+TOWARD     p3           do=14 dq=2
+FIXED      t1           do=36 dq=0
+FIXED      t2           do=12 dq=0
+-- arm_a def FIXED=8 TOWARD=3
+-- arm_a [elab]
+FIXED      i1           do=12 dq=0
+FIXED      i2           do=16 dq=0
+FIXED      i3           do=10 dq=0
+FIXED      m1           do=12 dq=0
+FIXED      m2           do=16 dq=0
+FIXED      m3           do=12 dq=0
+TOWARD     p1           do=14 dq=2
+TOWARD     p2           do=14 dq=2
+TOWARD     p3           do=18 dq=2
+FIXED      t1           do=36 dq=0
+FIXED      t2           do=12 dq=0
+-- arm_a elab FIXED=8 TOWARD=3
+-- arm_b [def]
+FIXED      m1           do=12 dq=0
+FIXED      m2           do=12 dq=0
+FIXED      m3           do=12 dq=0
+FIXED      m4           do=12 dq=0
+UNMOVED    m5           do=2 dq=2
+FIXED      m6           do=12 dq=0
+FIXED      m7           do=12 dq=0
+-- arm_b def FIXED=6 UNMOVED=1
+-- arm_b [elab]
+FIXED      m1           do=12 dq=0
+FIXED      m2           do=12 dq=0
+FIXED      m3           do=12 dq=0
+FIXED      m4           do=12 dq=0
+UNMOVED    m5           do=2 dq=2
+FIXED      m6           do=16 dq=0
+FIXED      m7           do=16 dq=0
+-- arm_b elab FIXED=6 UNMOVED=1
+-- arm_c [def]
+FIXED      barec        do=12 dq=0
+FIXED      inb          do=12 dq=0
+FIXED      k1           do=15 dq=0
+FIXED      k2           do=11 dq=0
+FIXED      k3           do=12 dq=0
+FIXED      k4           do=12 dq=0
+FIXED      k5           do=12 dq=0
+FIXED      k6           do=24 dq=0
+FIXED      k7           do=42 dq=0
+FIXED      k8           do=12 dq=0
+FIXED      thisc        do=28 dq=0
+-- arm_c def FIXED=11
+-- arm_c [elab]
+FIXED      barec        do=12 dq=0
+FIXED      inb          do=12 dq=0
+FIXED      k1           do=15 dq=0
+FIXED      k2           do=11 dq=0
+FIXED      k3           do=12 dq=0
+FIXED      k4           do=12 dq=0
+FIXED      k5           do=12 dq=0
+FIXED      k6           do=24 dq=0
+FIXED      k7           do=46 dq=0
+FIXED      k8           do=12 dq=0
+FIXED      thisc        do=30 dq=0
+-- arm_c elab FIXED=11
+-- arm_d [def]
+FIXED      d1           do=16 dq=0
+FIXED      d2           do=16 dq=0
+FIXED      d3           do=12 dq=0
+FIXED      d4           do=12 dq=0
+FIXED      d5           do=10 dq=0
+FIXED      e1           do=10 dq=0
+TOWARD     e2           do=12 dq=2
+FIXED      e3           do=12 dq=0
+UNMOVED    n1           do=18 dq=18
+UNMOVED    n2           do=18 dq=18
+UNMOVED    n3           do=20 dq=20
+UNMOVED    n4           do=11 dq=11
+RIGHT      n5           do=0 dq=0
+RIGHT      n6           do=0 dq=0
+UNMOVED    s1           do=2 dq=2
+UNMOVED    s2           do=4 dq=4
+UNMOVED    s3           do=2 dq=2
+-- arm_d def FIXED=7 RIGHT=2 TOWARD=1 UNMOVED=7
+-- arm_d [elab]
+FIXED      d1           do=18 dq=0
+FIXED      d2           do=18 dq=0
+FIXED      d3           do=12 dq=0
+FIXED      d4           do=12 dq=0
+FIXED      d5           do=10 dq=0
+FIXED      e1           do=10 dq=0
+TOWARD     e2           do=12 dq=2
+FIXED      e3           do=12 dq=0
+UNMOVED    n1           do=18 dq=18
+UNMOVED    n2           do=18 dq=18
+UNMOVED    n3           do=20 dq=20
+UNMOVED    n4           do=11 dq=11
+RIGHT      n5           do=0 dq=0
+RIGHT      n6           do=0 dq=0
+UNMOVED    s1           do=2 dq=2
+UNMOVED    s2           do=4 dq=4
+UNMOVED    s3           do=2 dq=2
+-- arm_d elab FIXED=7 RIGHT=2 TOWARD=1 UNMOVED=7
+-- arm_e [def]
+FIXED      new          do=12 dq=0
+FIXED      x1           do=18 dq=0
+FIXED      x2           do=6 dq=0
+FIXED      x3           do=24 dq=0
+FIXED      x4           do=11 dq=0
+FIXED      x5           do=24 dq=0
+FIXED      x6           do=12 dq=0
+FIXED      x7           do=18 dq=0
+FIXED      x8           do=12 dq=0
+-- arm_e def FIXED=9
+-- arm_e [elab]
+FIXED      new          do=12 dq=0
+FIXED      x1           do=18 dq=0
+FIXED      x2           do=6 dq=0
+FIXED      x3           do=24 dq=0
+FIXED      x4           do=11 dq=0
+FIXED      x5           do=24 dq=0
+FIXED      x6           do=12 dq=0
+FIXED      x7           do=18 dq=0
+FIXED      x8           do=12 dq=0
+-- arm_e elab FIXED=9
+-- arm_f1 [def]
+FIXED      h1           do=10 dq=0
+UNMOVED    h2           do=2 dq=2
+-- arm_f1 def FIXED=1 UNMOVED=1
+-- arm_f1 [elab]
+FIXED      h1           do=10 dq=0
+UNMOVED    h2           do=2 dq=2
+-- arm_f1 elab FIXED=1 UNMOVED=1
+-- arm_f3 [def]
+UNMOVED    h1           do=12 dq=12
+-- arm_f3 def UNMOVED=1
+-- arm_f3 [elab]
+UNMOVED    h1           do=12 dq=12
+-- arm_f3 elab UNMOVED=1
+
+WHOLE-DUMP JUDGE-LANGUAGE DISTANCE TO GOLDEN (wdist.py)
+arm_a      def   golden-vs-pris=698    golden-vs-patched=516    pris-vs-patched=186
+arm_a      elab  golden-vs-pris=1208   golden-vs-patched=926    pris-vs-patched=288
+arm_b      def   golden-vs-pris=502    golden-vs-patched=428    pris-vs-patched=74
+arm_b      elab  golden-vs-pris=794    golden-vs-patched=662    pris-vs-patched=132
+arm_c      def   golden-vs-pris=817    golden-vs-patched=541    pris-vs-patched=278
+arm_c      elab  golden-vs-pris=2102   golden-vs-patched=1565   pris-vs-patched=475
+arm_d      def   golden-vs-pris=668    golden-vs-patched=568    pris-vs-patched=100
+arm_d      elab  golden-vs-pris=1121   golden-vs-patched=931    pris-vs-patched=190
+arm_e      def   golden-vs-pris=588    golden-vs-patched=435    pris-vs-patched=155
+arm_e      elab  golden-vs-pris=1292   golden-vs-patched=1062   pris-vs-patched=248
+arm_g      def   golden-vs-pris=523    golden-vs-patched=417    pris-vs-patched=108
+arm_g      elab  golden-vs-pris=845    golden-vs-patched=725    pris-vs-patched=142
+arm_f1     def   golden-vs-pris=372    golden-vs-patched=362    pris-vs-patched=12
+arm_f1     elab  golden-vs-pris=600    golden-vs-patched=584    pris-vs-patched=18
+arm_f3     def   golden-vs-pris=541    golden-vs-patched=541    pris-vs-patched=2
+arm_f3     elab  golden-vs-pris=771    golden-vs-patched=771    pris-vs-patched=2
