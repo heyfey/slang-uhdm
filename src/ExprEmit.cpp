@@ -804,6 +804,41 @@ static bool classNewAsgLhs109(const slang::syntax::SyntaxNode* sn) {
     return false;
 }
 
+// § tfItemLocalLosesToPkgVar148 — THE PREDICATE.  Law + Surelog citations in
+// include/UhdmExporter.h.
+//
+// True for exactly one thing: a body local of the CURRENT subroutine, declared
+// under the TF-ITEM production, which is therefore listed on the task_func and
+// NOT on the body `begin` — the one shape Surelog's late binder reaches through
+// its `uhdmfunction` / `uhdmtask` arm, where the package listing overwrites.
+//
+//   * `tfBodyTfItems9` IS § `blockItems9`'s production selector, set for the
+//     body currently being emitted (TaskFuncEmit ~6202) — a FUNCTION is
+//     TF-ITEM iff its header carries no port-list paren, a TASK iff its body
+//     declares io.
+//   * the parent-scope test is what separates a BODY local from a NESTED
+//     BLOCK's local: slang puts a subroutine's top-level body declarations in
+//     the SubroutineSymbol's own scope (which is why TaskFuncEmit collects
+//     them with `sub.members()`), while a nested `begin`'s locals live in a
+//     StatementBlockSymbol.  A nested local is listed on ITS `begin` under
+//     BOTH productions, so the `begin` arm's `break` fires and it is immune.
+//   * `SymbolKind::Variable` excludes a FORMAL (`SymbolKind::FormalArgument`,
+//     already § 81's io_decl half) and every parameter.
+//   * the RETURN value variable is excluded by name-of-the-function: Surelog's
+//     `uhdmfunction` arm tests `parent->VpiName() == name` FIRST and `break`s,
+//     so a reference to the function's own name never reaches the package
+//     block at all.
+bool UhdmExporter::tfItemBodyLocal148(const slang::ast::Symbol& sym) const {
+    if (!tfBodyTfItems9 || !currentSubSym)
+        return false;
+    if (sym.kind != slang::ast::SymbolKind::Variable)
+        return false;
+    if (&sym == (const slang::ast::Symbol*)currentSubSym->returnValVar)
+        return false;
+    const slang::ast::Scope* sc = sym.getParentScope();
+    return sc && sc == static_cast<const slang::ast::Scope*>(currentSubSym);
+}
+
 bool UhdmExporter::oobRefVarLocalHoistNet107(const slang::ast::Symbol& sym,
                                              const UHDM::any* declObj,
                                              bool bind5,
@@ -10986,12 +11021,18 @@ static bool builtinRecvStepSelectors74(
 // `bound` is the reference's FINAL binding, so the io_decl test IS the
 // "reached late binding" test for every position BUT ONE — see
 // `condPredEarlyBound81` below, which is that one.
+//
+// § tfItemLocalLosesToPkgVar148 WIDENS `bound` BY EXACTLY ONE KIND — see the
+// header above `tfItemBodyLocal148` below.  The `!bound` guard stays: this law
+// only ever REPLACES a binding, it never mints one, so an unbound reference
+// (a hier_path element, a call receiver) is untouched by construction.
 static UHDM::variables* pkgVarOverFormal81(const UHDM::instance* pkgInst,
                                            const UHDM::any* bound,
-                                           std::string_view name) {
+                                           std::string_view name,
+                                           bool tfItemLocal148) {
     if (!pkgInst || !bound || name.empty())
         return nullptr;
-    if (bound->UhdmType() != UHDM::uhdmio_decl)
+    if (bound->UhdmType() != UHDM::uhdmio_decl && !tfItemLocal148)
         return nullptr;
     // The listing must be a PACKAGE's: Surelog's guard, verbatim.
     if (pkgInst->UhdmType() != UHDM::uhdmpackage)
@@ -11122,9 +11163,27 @@ static bool condPredEarlyBound81(const slang::syntax::SyntaxNode* n) {
                 case SyntaxKind::ForLoopStatement:
                 case SyntaxKind::ForeachLoopStatement:
                 case SyntaxKind::ForeverStatement:
-                case SyntaxKind::ParallelBlockStatement:
                 case SyntaxKind::ElseClause:
                     return false;
+                // A `fork` IS NOT A BREAKER — measured on golden, in both
+                // halves, and decoded afterwards.  § tfItemLocalLosesToPkgVar148's
+                // arm E reads `if (gimbal == 4)` inside `fork begin … end join`
+                // as keeping the FORMAL (§ 81's own population) and
+                // `if (dogleg == 8)` as keeping the TF-ITEM LOCAL, exactly like
+                // a plain `begin` at the same depth.  Surelog's reason:
+                // `compileStmt`'s `paSeq_block` and `paPar_block` arms BOTH run
+                // `scope->VpiParent(pstmt);` (CompileStmt.cpp:335 and :430)
+                // BEFORE the loop that compiles their children, so the parent
+                // chain is live when a nested predicate is compiled and
+                // `CompileHelper::bindVariable`'s walk reaches the subroutine.
+                // A CONDITIONAL / LOOP / CASE is the opposite:
+                // `compileConditionalStmt` (CompileStmt.cpp:1326-1350) builds
+                // the `if_stmt` / `if_else` and compiles its branches with that
+                // object as `pstmt` while its OWN `VpiParent` is still null, so
+                // the walk dies there.  `ParallelBlockStatement` was in this
+                // list before this pass and was pristine-WRONG on the formal
+                // cell (arm E `formal_e148` @83:13, golden `task`, pristine
+                // `package`); removing it takes that cell WRONG->RIGHT too.
                 default:
                     break;
             }
@@ -16340,11 +16399,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // package for a package subroutine AND for an out-of-body class
             // method (TaskFuncEmit ~1559 / ~2782), which is both halves of the
             // corpus population.
+            // § tfItemLocalLosesToPkgVar148 rides the SAME call, widening the
+            // displaced binding from "a formal" to "a formal OR a TF-ITEM body
+            // local"; every other gate (the home-package test, the early-bound
+            // predicate exception, the package's own listing) is § 81's,
+            // unchanged, because Surelog reaches both through one walk.
             if (subHomeIsPkg81(currentSubSym, pkgScopeInst) &&
                 !condPredEarlyBound81(expr.syntax))
-                if (auto* pv81 = pkgVarOverFormal81(pkgScopeInst,
-                                                    ref->Actual_group(),
-                                                    ref->VpiName()))
+                if (auto* pv81 = pkgVarOverFormal81(
+                        pkgScopeInst, ref->Actual_group(), ref->VpiName(),
+                        tfItemBodyLocal148(nv.symbol)))
                     ref->Actual_group(pv81);
             ref->VpiParent(parent);
             if (rawText(SourceRange(expr.sourceRange.start(), expr.sourceRange.start() + 1)) ==

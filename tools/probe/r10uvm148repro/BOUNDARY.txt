@@ -1,0 +1,67 @@
+# r10uvm148 — WIDE BOUNDARY GATE.  MEASUREMENT ONLY.
+# Every .sv/.svh under tools/probe/ (4181 files x 2 views = 8362 file-views),
+# pristine vs patched, run as two halves of the sorted file list.
+# Segmentation-fault lines are bash job messages for files BOTH binaries crash
+# on identically (rc_pris == rc_pat): counted in NORUN, never read as green.
+
+===== POSITIVE CONTROL (this pass's own five arms, CTRL=1) =====
+MOVED tmp/wt_r10uvm148/tools/probe/r10uvm148repro/g148_a_prod.sv def dumplines=88 cenlines=88 predcells=48 predfork=0
+MOVED tmp/wt_r10uvm148/tools/probe/r10uvm148repro/g148_b_scope.sv def dumplines=32 cenlines=32 predcells=16 predfork=0
+MOVED tmp/wt_r10uvm148/tools/probe/r10uvm148repro/g148_c_home.sv def dumplines=56 cenlines=56 predcells=52 predfork=0
+MOVED tmp/wt_r10uvm148/tools/probe/r10uvm148repro/g148_d_kind.sv def dumplines=92 cenlines=92 predcells=46 predfork=0
+MOVED tmp/wt_r10uvm148/tools/probe/r10uvm148repro/g148_e_early.sv def dumplines=92 cenlines=92 predcells=58 predfork=4
+LISTED=5 PROCESSED=5 MOVED=5 BREACH=0 RC-MISMATCH=0 NORUN=0
+PROCESSED-ASSERT-OK
+POSITIVE-CONTROL-OK (gate can see: 5 moved)
+
+===== half 0 (files 1-2091) =====
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 2590017 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 2590206 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 2597525 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 2597721 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+LISTED=2091 PROCESSED=2091 MOVED=0 BREACH=0 RC-MISMATCH=0 NORUN=124
+PROCESSED-ASSERT-OK
+BOUNDARY PASS
+BOUNDDONE0
+
+===== half 1 (files 2092-4181) =====
+MOVED tmp/wt_r10uvm148/tools/probe/r10uvm148repro/g148_a_prod.sv def dumplines=88 cenlines=88 predcells=48 predfork=0
+MOVED tmp/wt_r10uvm148/tools/probe/r10uvm148repro/g148_b_scope.sv def dumplines=32 cenlines=32 predcells=16 predfork=0
+MOVED tmp/wt_r10uvm148/tools/probe/r10uvm148repro/g148_c_home.sv def dumplines=56 cenlines=56 predcells=52 predfork=0
+MOVED tmp/wt_r10uvm148/tools/probe/r10uvm148repro/g148_d_kind.sv def dumplines=92 cenlines=92 predcells=46 predfork=0
+MOVED tmp/wt_r10uvm148/tools/probe/r10uvm148repro/g148_e_early.sv def dumplines=92 cenlines=92 predcells=58 predfork=4
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 2732025 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 2732125 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 2743849 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 2743901 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 2754105 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 2754215 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3020252 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3020317 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3022172 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3022213 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3039441 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3039504 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3041176 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3041239 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3051232 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3051294 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3052449 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3052512 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3207672 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3207904 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3208286 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3208535 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3208943 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm148/tools/probe/r10uvm148repro/bound148.sh: line 66: 3209177 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+LISTED=2090 PROCESSED=2090 MOVED=5 BREACH=0 RC-MISMATCH=0 NORUN=184
+PROCESSED-ASSERT-OK
+BOUNDARY PASS
+BOUNDDONE1
+
+===== TOTAL =====
+LISTED=4181 PROCESSED=4181 MOVED=5 BREACH=0 RC-MISMATCH=0 NORUN=308
+BOUNDARY PASS (both halves).  The FIVE moved file-views are this pass's OWN
+five arms in the DEF view; NOT ONE arm of ANY earlier pass moved a byte, and
+every arm's ELAB view is byte-identical (golden binds the local there too —
+see README §4).

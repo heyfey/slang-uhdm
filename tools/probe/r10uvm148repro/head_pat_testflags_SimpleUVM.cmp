@@ -1,0 +1,60 @@
+LHS:
+decompile:
+array_typespec: , id:127541
+|vpiRange:
+\_range: , id:127538, line:1703:14, endln:1703:15
+  |vpiLeftRange:
+  \_constant: , id:127539
+    |vpiParent:
+    \_range: , id:127538, line:1703:14, endln:1703:15
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:127540, line:1703:14, endln:1703:15
+    |vpiParent:
+    \_range: , id:127538, line:1703:14, endln:1703:15
+    |vpiDecompile:$
+    |vpiSize:1
+    |STRING:$
+    |vpiConstType:10
+|vpiElemTypespec:
+\_ref_typespec: , id:127542
+  |vpiActual:
+  \_string_typespec: , id:127535, line:1703:2, endln:1703:8
+
+decompile:
+array_typespec: , id:127541
+|vpiRange:
+\_range: , id:127538, line:1703:14, endln:1703:15
+  |vpiLeftRange:
+  \_constant: , id:127539
+    |vpiParent:
+    \_range: , id:127538, line:1703:14, endln:1703:15
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:127540, line:1703:14, endln:1703:15
+    |vpiParent:
+    \_range: , id:127538, line:1703:14, endln:1703:15
+    |vpiDecompile:$
+    |vpiSize:1
+    |STRING:$
+    |vpiConstType:10
+|vpiElemTypespec:
+\_ref_typespec: , id:127542
+  |vpiActual:
+  \_string_typespec: , id:127535, line:1703:2, endln:1703:8
+RHS:
+decompile:
+string_typespec: , id:12179, line:1703:2, endln:1703:8
+|vpiParent:
+\_typespec_member: (args), id:12178, line:1703:9, endln:1703:13
+
+decompile:
+string_typespec: , id:12179, line:1703:2, endln:1703:8
+|vpiParent:
+\_typespec_member: (args), id:12178, line:1703:9, endln:1703:13

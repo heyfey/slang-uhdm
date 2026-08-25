@@ -1,0 +1,33 @@
+r10v148 (VERIFIER) BOUNDARY.  MEASUREMENT ONLY.  pristine vs patched, both
+views, dump-normalised (workdir path AND database filename), rc recorded per
+arm, PROCESSED asserted, scratch keyed on the RELATIVE path.
+
+== CONTROL ARMS (vbound148.sh) — the passes the brief names as must-stay:
+   r10uvm145 r10v145 r10uvm143 r10v143 r10uvm107 r10v107 r10uvm88 r10uvm98
+   r10v98 r10uvm81 r10v81 r10uvm139 r10uvm109 r10uvm113 r10uvm67 r10uvm9e
+   r10buvm14 r10uvm89
+LISTED=130 PROCESSED=130 MOVED=0 RC-MISMATCH=0  PROCESSED-ASSERT-OK
+positive control CTRL=1: MOVED=258  -> the gate can see.
+
+== WIDE (vwide148.sh) — EVERY committed probe-arm source in the tree, 2 views,
+   two halves:
+half 00: LISTED=2049 PROCESSED=2049 MOVED=0  BYTE-ONLY=0 RC-MISMATCH=0
+half 01: LISTED=2194 PROCESSED=2194 MOVED=11 BYTE-ONLY=4 RC-MISMATCH=0
+MOVED r10uvm148repro/g148_a_prod.sv  def lines=88
+MOVED r10uvm148repro/g148_b_scope.sv def lines=32
+MOVED r10uvm148repro/g148_c_home.sv  def lines=56
+MOVED r10uvm148repro/g148_d_kind.sv  def lines=92
+MOVED r10uvm148repro/g148_e_early.sv def lines=92
+MOVED r10v148repro/v148_a_role.sv    def lines=64
+MOVED r10v148repro/v148_b_shadow.sv  def lines=12
+MOVED r10v148repro/v148_c_home.sv    def lines=40
+MOVED r10v148repro/v148_d_kind.sv    def lines=56
+MOVED r10v148repro/v148_e_early.sv   def lines=92
+MOVED r10v148repro/v148_f_edge.sv    def lines=38
+BYTE-ONLY r10v148repro/{v148_b_shadow,v148_c_home,v148_d_kind,v148_f_edge}.sv elab
+  -> the ELAB .uhdm FILES differ in bytes while uhdm-dump output is IDENTICAL
+     line for line.  Invisible to the judge; recorded, never counted as MOVED.
+positive control CTRL=1 on a 60-file slice: MOVED=120 (120/120) -> the gate can see.
+
+ALL ELEVEN MOVERS ARE THIS PASS'S OWN ARMS, DEF VIEW.  No earlier pass's arm
+moved a byte.

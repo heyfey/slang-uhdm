@@ -1,0 +1,19 @@
+r10v148 arm G — THE CORPUS SHAPE MINIMISED (v148_g_corpus.sv, 50 lines).
+MEASUREMENT ONLY.  rc_sl=0 rc_pris=0 rc_pat=0.  DEF view.
+Columns: HNAME | RSPAN | RNAME | ROLE | PROD | LOC | BKIND | BSK | BVIS
+
+GOLDEN                                                    PRISTINE      PATCHED
+set_verb_v7 34:5  serv_v7 LVALUE TFITEM FUNC class_var    package/1     function/0   package/1
+set_verb_v7 35:5  apex_v7 LVALUE TFITEM FUNC class_var    package/1     function/0   package/1
+set_verb_v7 35:15 serv_v7 READ   TFITEM FUNC class_var    package/1     function/0   package/1
+set_verb_v7 36:15 apex_v7 HPATH  TFITEM FUNC none         -/0           -/0          -/0
+set_verb_v7 37:9  apex_v7 READ   TFITEM FUNC class_var    function/0    function/0   function/0
+set_verb_v7 39:11 apex_v7 READ   TFITEM FUNC class_var    package/1     function/0   package/1
+(and the same six again under the comp_v7::set_verb_v7 listing = 12 cells)
+
+  37:9  is an `if` predicate at BODY TOP LEVEL           -> golden keeps the LOCAL
+  39:11 is the SAME name's `if` predicate inside a foreach -> golden takes the PACKAGE
+
+That is `uvm_component.svh`'s own split (`top` @3432:14 vs @3410:48) isolated in
+one 50-line file.  PRISTINE is wrong on 10 of the 12 cells; PATCHED is golden on
+all 12.  RIGHT->WRONG 0, AWAY 0.

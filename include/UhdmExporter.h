@@ -5055,6 +5055,81 @@ private:
     bool oobRefVarLocalHoistNet107(const slang::ast::Symbol& sym,
                                    const UHDM::any* declObj, bool bind5,
                                    const slang::ast::Expression& e) const;
+    // § tfItemLocalLosesToPkgVar148 (r10uvm148) — THE LAW.
+    //
+    // *IN A PACKAGE-SCOPE SUBROUTINE, A PACKAGE VARIABLE DISPLACES NOT ONLY A
+    // FORMAL BUT A **TF-ITEM BODY LOCAL** OF THE SAME NAME.  A **BLOCK-ITEM**
+    // BODY LOCAL KEEPS ITS BINDING.*
+    //
+    // Surelog, `UhdmWriter::lateBinding` (src/DesignCompile/UhdmWriter.cpp:3294),
+    // walks the reference's `VpiParent` chain OUTWARD and treats two of the
+    // scopes it meets in OPPOSITE ways:
+    //
+    //   * `uhdmbegin` (UhdmWriter.cpp:3550-3562) searches the `begin`'s own
+    //     `Variables()` and, THE MOMENT it binds, runs
+    //         if (ref->Actual_group()) break;
+    //     — the walk STOPS and no outer listing is ever consulted;
+    //   * `uhdmfunction` (:3369-3428) / `uhdmtask` (:3434-3470) search
+    //         Io_decls() -> Variables() -> Parameters()
+    //           -> Instance()'s Variables()  ** guarded by uhdmpackage **
+    //     with NO early exit between the blocks, so the package's listing is
+    //     the LAST WRITER and beats whatever the subroutine's own two
+    //     listings just bound (that last-writer walk is
+    //     § `pkgSubRefBindsPkgVarOverFormal81`, which modelled the FORMAL half
+    //     of it; this law is the LOCAL half of the SAME overwrite).
+    //
+    // WHICH LISTING A BODY LOCAL LANDS ON IS THE PRODUCTION, and Surelog's two
+    // productions differ exactly there (§ `blockItems9`, § `tfItemLocalInitHoistsNoStatement145`):
+    //   * TF-ITEM (`compileTfPortDecl`, CompileStmt.cpp:1661) hands its
+    //     variables straight to `func->Variables(results.second)`
+    //     (CompileStmt.cpp:2429) and NEVER to the body `begin` — so the walk
+    //     falls THROUGH the `begin` arm and the package overwrites;
+    //   * BLOCK-ITEM keeps its declaration as a body statement, so the local is
+    //     listed on the body `begin` as well as on the task_func (uvm145's
+    //     `LOWN=both` signature) and the `begin` arm's `break` fires first.
+    //
+    // GOLDEN SAYS IT IN ONE FILE, TWICE, ON THE SAME NAME (`uvm-1.2
+    // base/uvm_component.svh`, SeqDriver/MiniAmiq/SimpleUVM/Scoreboard):
+    //   * `uvm_component::new` @1728 has a PORT-LIST PAREN -> BLOCK-ITEM; its
+    //     `uvm_coreservice_t cs;` @1731 is listed on the body `begin`, and
+    //     `cs = uvm_coreservice_t::get();` @1741:3 binds THE LOCAL;
+    //   * `uvm_component::m_set_cl_verb` @3375 is PAREN-LESS -> TF-ITEM; its
+    //     `uvm_coreservice_t cs;` @3385 is listed on the FUNCTION only, and
+    //     `cs = uvm_coreservice_t::get();` @3386:3 binds the PACKAGE's
+    //     `class_var uvm_pkg::cs` @1731:21 with `vpiVisibility:1` — THE HEAD.
+    //   (The package's `cs` exists because `CompilePackage::collectObjects_`
+    //    stops at `paFunction_body_declaration` but NOT at
+    //    `paClass_constructor_declaration`, so an OUT-OF-BODY constructor's
+    //    block items are collected as PACKAGE data declarations and made by
+    //    `ElaborationStep::makeVar_`, which is what writes `vpiVisibility`
+    //    (ElaborationStep.cpp:2356-2361) — a field `variables::Compare` reads.
+    //    We already emit that package variable, span for span; only the
+    //    BINDING was wrong.)
+    //
+    // THE GATES, all § 81's and all reused verbatim:
+    //   * `subHomeIsPkg81` — the subroutine must be the package's OWN, not a
+    //     wildcard-import COPY (in SeqDriver the `adpcm_pkg` copy of
+    //     `m_set_cl_verb` keeps every local, and does under this law too);
+    //   * `condPredEarlyBound81` — a reference compiled with the ENCLOSING
+    //     statement as `pexpr` binds EARLY, through
+    //     `CompileHelper::bindVariable` (CompileStmt.cpp:3089), and never
+    //     enters the pool this overwrite iterates.  The corpus proves the split
+    //     on ONE name in ONE body: `top` @3432:14 is an `if` predicate at BODY
+    //     TOP LEVEL and keeps the LOCAL, while `top` @3410:48 is an `if`
+    //     predicate nested inside a `foreach` body and takes the PACKAGE.
+    //   * a bound reference only — the law REPLACES a binding and never mints
+    //     one, so the deliberately BARE positions (a `hier_path` element such
+    //     as `cs.get_root` @3387:9, a call receiver such as `clp` @3406:13)
+    //     are outside it by construction.
+    //
+    // NOT THIS LAW: a CLASS property (a class method's `Instance()` is the
+    // package or nothing — § `pkgVarBindsOnlyThroughInstance88`), a MODULE
+    // variable (Surelog's `inst->UhdmType() == uhdmpackage` guard), the
+    // subroutine's own RETURN value (lateBinding's `parent->VpiName() == name`
+    // arm `break`s FIRST), a FORMAL (already § 81's) and a nested `begin`'s own
+    // local (listed on that `begin`, whatever the body's production —
+    // uvm145's inner-block fence).
+    bool tfItemBodyLocal148(const slang::ast::Symbol& sym) const;
     // § newArrayArgHoistNet130 (r10uvm130) — THE LAW.
     //
     // *A NAME WRITTEN IN A DYNAMIC-ARRAY `new[...]` ARGUMENT LIST DOES NOT

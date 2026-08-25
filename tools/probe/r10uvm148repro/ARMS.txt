@@ -1,0 +1,95 @@
+== g148_a_prod.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=52  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=104 RIGHT->RIGHT=104
+  PROD     TOTAL=104 RIGHT->RIGHT=104
+  LOC      TOTAL=104 RIGHT->RIGHT=104
+  BKIND    TOTAL=104 RIGHT->RIGHT=96 WRONG->RIGHT=8
+      ... 4 more
+  BSK      TOTAL=104 RIGHT->RIGHT=60 WRONG->RIGHT=44
+      ... 22 more
+  BVIS     TOTAL=104 RIGHT->RIGHT=60 WRONG->RIGHT=44
+      ... 22 more
+== g148_a_prod.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=52  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=260 RIGHT->RIGHT=260
+  PROD     TOTAL=260 RIGHT->RIGHT=260
+  LOC      TOTAL=260 RIGHT->RIGHT=260
+  BKIND    TOTAL=260 RIGHT->RIGHT=260
+  BSK      TOTAL=260 RIGHT->RIGHT=260
+  BVIS     TOTAL=260 RIGHT->RIGHT=260
+== g148_b_scope.def  rc_sl=4 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=16  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=24 RIGHT->RIGHT=24
+  PROD     TOTAL=24 RIGHT->RIGHT=24
+  LOC      TOTAL=24 RIGHT->RIGHT=24
+  BKIND    TOTAL=24 RIGHT->RIGHT=24
+  BSK      TOTAL=24 RIGHT->RIGHT=8 WRONG->RIGHT=16
+      ... 8 more
+  BVIS     TOTAL=24 RIGHT->RIGHT=8 WRONG->RIGHT=16
+      ... 8 more
+== g148_b_scope.elab  rc_sl=4 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=20  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=60 RIGHT->RIGHT=60
+  PROD     TOTAL=60 RIGHT->RIGHT=60
+  LOC      TOTAL=60 RIGHT->RIGHT=60
+  BKIND    TOTAL=60 RIGHT->RIGHT=60
+  BSK      TOTAL=60 RIGHT->RIGHT=60
+  BVIS     TOTAL=60 RIGHT->RIGHT=60
+== g148_c_home.def  rc_sl=4 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=26  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=64 RIGHT->RIGHT=64
+  PROD     TOTAL=64 RIGHT->RIGHT=64
+  LOC      TOTAL=64 RIGHT->RIGHT=64
+  BKIND    TOTAL=64 RIGHT->RIGHT=62 WRONG->WRONG=2
+      ... 2 more
+  BSK      TOTAL=64 RIGHT->RIGHT=34 WRONG->RIGHT=28 WRONG->WRONG=2
+      ... 16 more
+  BVIS     TOTAL=64 RIGHT->RIGHT=36 WRONG->RIGHT=28
+      ... 14 more
+== g148_c_home.elab  rc_sl=4 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=26  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=142 RIGHT->RIGHT=142
+  PROD     TOTAL=142 RIGHT->RIGHT=142
+  LOC      TOTAL=142 RIGHT->RIGHT=142
+  BKIND    TOTAL=142 RIGHT->RIGHT=142
+  BSK      TOTAL=142 RIGHT->RIGHT=142
+  BVIS     TOTAL=142 RIGHT->RIGHT=142
+== g148_d_kind.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=48  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=96 RIGHT->RIGHT=96
+  PROD     TOTAL=96 RIGHT->RIGHT=96
+  LOC      TOTAL=96 RIGHT->RIGHT=96
+  BKIND    TOTAL=96 RIGHT->RIGHT=96
+  BSK      TOTAL=96 RIGHT->RIGHT=50 WRONG->RIGHT=46
+      ... 23 more
+  BVIS     TOTAL=96 RIGHT->RIGHT=50 WRONG->RIGHT=46
+      ... 23 more
+== g148_d_kind.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=48  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=240 RIGHT->RIGHT=240
+  PROD     TOTAL=240 RIGHT->RIGHT=240
+  LOC      TOTAL=240 RIGHT->RIGHT=240
+  BKIND    TOTAL=240 RIGHT->RIGHT=240
+  BSK      TOTAL=240 RIGHT->RIGHT=240
+  BVIS     TOTAL=240 RIGHT->RIGHT=240
+== g148_e_early.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=44  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=88 RIGHT->RIGHT=88
+  PROD     TOTAL=88 RIGHT->RIGHT=88
+  LOC      TOTAL=88 RIGHT->RIGHT=88
+  BKIND    TOTAL=88 RIGHT->RIGHT=86 WRONG->RIGHT=2
+      ... 1 more
+  BSK      TOTAL=88 RIGHT->RIGHT=42 WRONG->RIGHT=46
+      ... 23 more
+  BVIS     TOTAL=88 RIGHT->RIGHT=42 WRONG->RIGHT=46
+      ... 23 more
+== g148_e_early.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=44  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=220 RIGHT->RIGHT=220
+  PROD     TOTAL=220 RIGHT->RIGHT=220
+  LOC      TOTAL=220 RIGHT->RIGHT=220
+  BKIND    TOTAL=220 RIGHT->RIGHT=220
+  BSK      TOTAL=220 RIGHT->RIGHT=220
+  BVIS     TOTAL=220 RIGHT->RIGHT=220
+LISTED=5 PROCESSED=5
+PROCESSED-ASSERT-OK

@@ -1,0 +1,35 @@
+r10v148 (VERIFIER) — A-PRIORI PREDICTION, written from the PRISTINE databases
+ALONE (vpred148.py over ct148cen of every database of this verifier's own
+PRISTINE sweeps).  MEASUREMENT ONLY.
+
+Predicate (LOCAL half): PROD=TFITEM & LOC=FUNC & PKGV=1 & BSK in (function,task)
+Predicate (FORK half):  LOC=FORMAL & PKGV=1 & FORK=1 & BSK=package & ROLE=COND
+
+== surelog corpus: PROCESSED=956  NONZERO_RC=0
+PRED default/BuildUVMPkg-bf853d43 local=8  forkformal=0
+PRED default/MiniAmiq-544c7f61    local=24 forkformal=0
+PRED default/Scoreboard-59431470  local=8  forkformal=0
+PRED default/SeqDriver-32af76aa   local=24 forkformal=0
+PRED default/SimpleUVM-1dc93a62   local=8  forkformal=0
+PRED testflags/BuildUVMPkg-bf853d43 local=8  forkformal=0
+PRED testflags/MiniAmiq-544c7f61    local=24 forkformal=0
+PRED testflags/SeqDriver-32af76aa   local=24 forkformal=0
+PRED testflags/SimpleUVM-1dc93a62   local=8  forkformal=0
+PRED_DBS=9
+
+== uhdm2rtlil corpus: PROCESSED=1358  NONZERO_RC=0
+PRED_DBS=0
+
+The `local=` counts are UPPER BOUNDS (the census cannot see whether the
+enclosing chain is a plain begin or a loop, which is what decides early
+binding); the DATABASE SET is the prediction.  SeqDriver/default's 24 split
+18 (early-bound, must STAY on the function) + 6 (must move).
+
+== MEASURED afterwards
+byteverify SELFCHECK=1: surelog MOVERS 9/956 — exactly these nine, by name.
+byteverify SELFCHECK=1: uhdm2rtlil MOVERS 0/1358.
+Each mover: exactly 12 order-blind dump lines, all vpiActual rebinds in
+m_set_cl_verb (2x cs -> uvm_pkg::cs, 4x top -> uvm_pkg::top).
+Census on the nine: BSK/BVIS WRONG->RIGHT 6, RIGHT->WRONG 0, AWAY 0 each.
+SeqDriver/default TF-ITEM face: golden 18 function / 6 package / 8 unbound;
+pristine 24 / 0 / 8; patched 18 / 6 / 8.

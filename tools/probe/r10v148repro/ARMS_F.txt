@@ -1,0 +1,386 @@
+== v148_a_role.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=38  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=76 RIGHT->RIGHT=76
+  PROD     TOTAL=76 RIGHT->RIGHT=76
+  LOC      TOTAL=76 RIGHT->RIGHT=76
+  BKIND    TOTAL=76 RIGHT->RIGHT=76
+  BSK      TOTAL=76 RIGHT->RIGHT=44 WRONG->RIGHT=32
+      22:3-37:14|28:5-28:8|rho     G={'package': 2} P={'function': 2} Q={'package': 2}
+      22:3-37:14|29:11-29:14|rho   G={'package': 2} P={'function': 2} Q={'package': 2}
+      22:3-37:14|29:5-29:8|kap     G={'package': 2} P={'function': 2} Q={'package': 2}
+      22:3-37:14|30:21-30:24|rho   G={'package': 2} P={'function': 2} Q={'package': 2}
+      22:3-37:14|31:9-31:12|rho    G={'package': 2} P={'function': 2} Q={'package': 2}
+      22:3-37:14|33:5-33:8|kap     G={'package': 2} P={'function': 2} Q={'package': 2}
+      22:3-37:14|34:22-34:25|kap   G={'package': 2} P={'function': 2} Q={'package': 2}
+      22:3-37:14|35:19-35:22|kap   G={'package': 2} P={'function': 2} Q={'package': 2}
+      22:3-37:14|36:17-36:20|dhn   G={'package': 2} P={'function': 2} Q={'package': 2}
+      22:3-37:14|36:22-36:25|han   G={'package': 2} P={'function': 2} Q={'package': 2}
+      58:3-65:10|62:5-62:8|rho     G={'package': 2} P={'task': 2} Q={'package': 2}
+      58:3-65:10|63:11-63:14|rho   G={'package': 2} P={'task': 2} Q={'package': 2}
+      58:3-65:10|63:5-63:8|kap     G={'package': 2} P={'task': 2} Q={'package': 2}
+      58:3-65:10|64:19-64:22|kap   G={'package': 2} P={'task': 2} Q={'package': 2}
+      77:3-81:14|79:5-79:8|kap     G={'package': 2} P={'function': 2} Q={'package': 2}
+      77:3-81:14|80:18-80:21|kap   G={'package': 2} P={'function': 2} Q={'package': 2}
+  BVIS     TOTAL=76 RIGHT->RIGHT=44 WRONG->RIGHT=32
+      22:3-37:14|28:5-28:8|rho     G={'1': 2} P={'0': 2} Q={'1': 2}
+      22:3-37:14|29:11-29:14|rho   G={'1': 2} P={'0': 2} Q={'1': 2}
+      22:3-37:14|29:5-29:8|kap     G={'1': 2} P={'0': 2} Q={'1': 2}
+      22:3-37:14|30:21-30:24|rho   G={'1': 2} P={'0': 2} Q={'1': 2}
+      22:3-37:14|31:9-31:12|rho    G={'1': 2} P={'0': 2} Q={'1': 2}
+      22:3-37:14|33:5-33:8|kap     G={'1': 2} P={'0': 2} Q={'1': 2}
+      22:3-37:14|34:22-34:25|kap   G={'1': 2} P={'0': 2} Q={'1': 2}
+      22:3-37:14|35:19-35:22|kap   G={'1': 2} P={'0': 2} Q={'1': 2}
+      22:3-37:14|36:17-36:20|dhn   G={'1': 2} P={'0': 2} Q={'1': 2}
+      22:3-37:14|36:22-36:25|han   G={'1': 2} P={'0': 2} Q={'1': 2}
+      58:3-65:10|62:5-62:8|rho     G={'1': 2} P={'0': 2} Q={'1': 2}
+      58:3-65:10|63:11-63:14|rho   G={'1': 2} P={'0': 2} Q={'1': 2}
+      58:3-65:10|63:5-63:8|kap     G={'1': 2} P={'0': 2} Q={'1': 2}
+      58:3-65:10|64:19-64:22|kap   G={'1': 2} P={'0': 2} Q={'1': 2}
+      77:3-81:14|79:5-79:8|kap     G={'1': 2} P={'0': 2} Q={'1': 2}
+      77:3-81:14|80:18-80:21|kap   G={'1': 2} P={'0': 2} Q={'1': 2}
+== v148_a_role.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=38  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=152 RIGHT->RIGHT=152
+  PROD     TOTAL=152 RIGHT->RIGHT=152
+  LOC      TOTAL=152 RIGHT->RIGHT=152
+  BKIND    TOTAL=152 RIGHT->RIGHT=152
+  BSK      TOTAL=152 RIGHT->RIGHT=152
+  BVIS     TOTAL=152 RIGHT->RIGHT=152
+== v148_b_shadow.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=16  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=22 RIGHT->RIGHT=22
+  PROD     TOTAL=22 RIGHT->RIGHT=22
+  LOC      TOTAL=22 RIGHT->RIGHT=22
+  BKIND    TOTAL=22 RIGHT->RIGHT=22
+  BSK      TOTAL=22 RIGHT->RIGHT=16 WRONG->RIGHT=6
+      39:3-44:14|42:5-42:12|pvar_v2 G={'package': 2} P={'function': 2} Q={'package': 2}
+      39:3-44:14|43:15-43:22|pvar_v2 G={'package': 2} P={'function': 2} Q={'package': 2}
+      53:1-58:12|57:3-57:10|pvar_v2 G={'package': 2} P={'function': 2} Q={'package': 2}
+  BVIS     TOTAL=22 RIGHT->RIGHT=16 WRONG->RIGHT=6
+      39:3-44:14|42:5-42:12|pvar_v2 G={'1': 2} P={'0': 2} Q={'1': 2}
+      39:3-44:14|43:15-43:22|pvar_v2 G={'1': 2} P={'0': 2} Q={'1': 2}
+      53:1-58:12|57:3-57:10|pvar_v2 G={'1': 2} P={'0': 2} Q={'1': 2}
+== v148_b_shadow.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=23  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=34 RIGHT->RIGHT=34
+  PROD     TOTAL=34 RIGHT->RIGHT=34
+  LOC      TOTAL=34 RIGHT->RIGHT=34
+  BKIND    TOTAL=34 RIGHT->RIGHT=34
+  BSK      TOTAL=34 RIGHT->RIGHT=34
+  BVIS     TOTAL=34 RIGHT->RIGHT=34
+== v148_c_home.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=20  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=46 RIGHT->RIGHT=46
+  PROD     TOTAL=46 RIGHT->RIGHT=46
+  LOC      TOTAL=46 RIGHT->RIGHT=46
+  BKIND    TOTAL=46 RIGHT->RIGHT=45 WRONG->WRONG=1
+      95:3-98:14|97:5-97:11|shr_v3 G={'none': 1} P={'int_var': 1} Q={'int_var': 1}
+  BSK      TOTAL=46 RIGHT->RIGHT=25 WRONG->RIGHT=20 WRONG->WRONG=1
+      31:3-35:14|33:5-33:11|shr_v3 G={'package': 2, 'function': 2} P={'function': 4} Q={'package': 2, 'function': 2}
+      31:3-35:14|34:14-34:20|shr_v3 G={'package': 2, 'function': 2} P={'function': 4} Q={'package': 2, 'function': 2}
+      37:3-42:10|40:5-40:11|shr_v3 G={'package': 2, 'task': 2} P={'task': 4} Q={'package': 2, 'task': 2}
+      37:3-42:10|41:14-41:20|shr_v3 G={'package': 2, 'task': 2} P={'task': 4} Q={'package': 2, 'task': 2}
+      44:3-48:14|46:5-46:11|shr_v3 G={'package': 2, 'function': 2} P={'function': 4} Q={'package': 2, 'function': 2}
+      44:3-48:14|47:14-47:20|shr_v3 G={'package': 2, 'function': 2} P={'function': 4} Q={'package': 2, 'function': 2}
+      50:3-55:10|53:5-53:11|shr_v3 G={'package': 2, 'task': 2} P={'task': 4} Q={'package': 2, 'task': 2}
+      50:3-55:10|54:14-54:20|shr_v3 G={'package': 2, 'task': 2} P={'task': 4} Q={'package': 2, 'task': 2}
+      61:3-65:14|63:5-63:11|shr_v3 G={'package': 2} P={'function': 2} Q={'package': 2}
+      61:3-65:14|64:14-64:20|shr_v3 G={'package': 2} P={'function': 2} Q={'package': 2}
+      95:3-98:14|97:5-97:11|shr_v3 G={'-': 1} P={'function': 1} Q={'function': 1}
+  BVIS     TOTAL=46 RIGHT->RIGHT=26 WRONG->RIGHT=20
+      31:3-35:14|33:5-33:11|shr_v3 G={'1': 2, '0': 2} P={'0': 4} Q={'1': 2, '0': 2}
+      31:3-35:14|34:14-34:20|shr_v3 G={'1': 2, '0': 2} P={'0': 4} Q={'1': 2, '0': 2}
+      37:3-42:10|40:5-40:11|shr_v3 G={'1': 2, '0': 2} P={'0': 4} Q={'1': 2, '0': 2}
+      37:3-42:10|41:14-41:20|shr_v3 G={'1': 2, '0': 2} P={'0': 4} Q={'1': 2, '0': 2}
+      44:3-48:14|46:5-46:11|shr_v3 G={'1': 2, '0': 2} P={'0': 4} Q={'1': 2, '0': 2}
+      44:3-48:14|47:14-47:20|shr_v3 G={'1': 2, '0': 2} P={'0': 4} Q={'1': 2, '0': 2}
+      50:3-55:10|53:5-53:11|shr_v3 G={'1': 2, '0': 2} P={'0': 4} Q={'1': 2, '0': 2}
+      50:3-55:10|54:14-54:20|shr_v3 G={'1': 2, '0': 2} P={'0': 4} Q={'1': 2, '0': 2}
+      61:3-65:14|63:5-63:11|shr_v3 G={'1': 2} P={'0': 2} Q={'1': 2}
+      61:3-65:14|64:14-64:20|shr_v3 G={'1': 2} P={'0': 2} Q={'1': 2}
+== v148_c_home.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=20  ROWSETS pristine[ONLY-GOLDEN=16 ONLY-OURS=0]  patched[ONLY-GOLDEN=16 ONLY-OURS=0]
+    ROWSET 31:3-35:14|33:5-33:11|shr_v3 G=7 P=5 Q=5
+    ROWSET 31:3-35:14|34:14-34:20|shr_v3 G=7 P=5 Q=5
+    ROWSET 37:3-42:10|40:5-40:11|shr_v3 G=6 P=4 Q=4
+    ROWSET 37:3-42:10|41:14-41:20|shr_v3 G=6 P=4 Q=4
+    ROWSET 44:3-48:14|46:5-46:11|shr_v3 G=6 P=4 Q=4
+    ROWSET 44:3-48:14|47:14-47:20|shr_v3 G=6 P=4 Q=4
+    ROWSET 50:3-55:10|53:5-53:11|shr_v3 G=6 P=4 Q=4
+    ROWSET 50:3-55:10|54:14-54:20|shr_v3 G=6 P=4 Q=4
+  ROLE     TOTAL=75 RIGHT->RIGHT=59 ONLY-GOLDEN=16
+      31:3-35:14|33:5-33:11|shr_v3 G={'LVALUE': 7} P={'LVALUE': 5} Q={'LVALUE': 5}
+      31:3-35:14|34:14-34:20|shr_v3 G={'READ': 7} P={'READ': 5} Q={'READ': 5}
+      37:3-42:10|40:5-40:11|shr_v3 G={'LVALUE': 6} P={'LVALUE': 4} Q={'LVALUE': 4}
+      37:3-42:10|41:14-41:20|shr_v3 G={'READ': 6} P={'READ': 4} Q={'READ': 4}
+      44:3-48:14|46:5-46:11|shr_v3 G={'LVALUE': 6} P={'LVALUE': 4} Q={'LVALUE': 4}
+      44:3-48:14|47:14-47:20|shr_v3 G={'READ': 6} P={'READ': 4} Q={'READ': 4}
+      50:3-55:10|53:5-53:11|shr_v3 G={'LVALUE': 6} P={'LVALUE': 4} Q={'LVALUE': 4}
+      50:3-55:10|54:14-54:20|shr_v3 G={'READ': 6} P={'READ': 4} Q={'READ': 4}
+  PROD     TOTAL=75 RIGHT->RIGHT=59 ONLY-GOLDEN=16
+      31:3-35:14|33:5-33:11|shr_v3 G={'TFITEM': 7} P={'TFITEM': 5} Q={'TFITEM': 5}
+      31:3-35:14|34:14-34:20|shr_v3 G={'TFITEM': 7} P={'TFITEM': 5} Q={'TFITEM': 5}
+      37:3-42:10|40:5-40:11|shr_v3 G={'TFITEM': 6} P={'TFITEM': 4} Q={'TFITEM': 4}
+      37:3-42:10|41:14-41:20|shr_v3 G={'TFITEM': 6} P={'TFITEM': 4} Q={'TFITEM': 4}
+      44:3-48:14|46:5-46:11|shr_v3 G={'TFITEM': 6} P={'TFITEM': 4} Q={'TFITEM': 4}
+      44:3-48:14|47:14-47:20|shr_v3 G={'TFITEM': 6} P={'TFITEM': 4} Q={'TFITEM': 4}
+      50:3-55:10|53:5-53:11|shr_v3 G={'TFITEM': 6} P={'TFITEM': 4} Q={'TFITEM': 4}
+      50:3-55:10|54:14-54:20|shr_v3 G={'TFITEM': 6} P={'TFITEM': 4} Q={'TFITEM': 4}
+  LOC      TOTAL=75 RIGHT->RIGHT=59 ONLY-GOLDEN=16
+      31:3-35:14|33:5-33:11|shr_v3 G={'FUNC': 7} P={'FUNC': 5} Q={'FUNC': 5}
+      31:3-35:14|34:14-34:20|shr_v3 G={'FUNC': 7} P={'FUNC': 5} Q={'FUNC': 5}
+      37:3-42:10|40:5-40:11|shr_v3 G={'FUNC': 6} P={'FUNC': 4} Q={'FUNC': 4}
+      37:3-42:10|41:14-41:20|shr_v3 G={'FUNC': 6} P={'FUNC': 4} Q={'FUNC': 4}
+      44:3-48:14|46:5-46:11|shr_v3 G={'FUNC': 6} P={'FUNC': 4} Q={'FUNC': 4}
+      44:3-48:14|47:14-47:20|shr_v3 G={'FUNC': 6} P={'FUNC': 4} Q={'FUNC': 4}
+      50:3-55:10|53:5-53:11|shr_v3 G={'FUNC': 6} P={'FUNC': 4} Q={'FUNC': 4}
+      50:3-55:10|54:14-54:20|shr_v3 G={'FUNC': 6} P={'FUNC': 4} Q={'FUNC': 4}
+  BKIND    TOTAL=75 RIGHT->RIGHT=59 ONLY-GOLDEN=16
+      31:3-35:14|33:5-33:11|shr_v3 G={'int_var': 7} P={'int_var': 5} Q={'int_var': 5}
+      31:3-35:14|34:14-34:20|shr_v3 G={'int_var': 7} P={'int_var': 5} Q={'int_var': 5}
+      37:3-42:10|40:5-40:11|shr_v3 G={'int_var': 6} P={'int_var': 4} Q={'int_var': 4}
+      37:3-42:10|41:14-41:20|shr_v3 G={'int_var': 6} P={'int_var': 4} Q={'int_var': 4}
+      44:3-48:14|46:5-46:11|shr_v3 G={'int_var': 6} P={'int_var': 4} Q={'int_var': 4}
+      44:3-48:14|47:14-47:20|shr_v3 G={'int_var': 6} P={'int_var': 4} Q={'int_var': 4}
+      50:3-55:10|53:5-53:11|shr_v3 G={'int_var': 6} P={'int_var': 4} Q={'int_var': 4}
+      50:3-55:10|54:14-54:20|shr_v3 G={'int_var': 6} P={'int_var': 4} Q={'int_var': 4}
+  BSK      TOTAL=75 RIGHT->RIGHT=59 ONLY-GOLDEN=16
+      31:3-35:14|33:5-33:11|shr_v3 G={'function': 7} P={'function': 5} Q={'function': 5}
+      31:3-35:14|34:14-34:20|shr_v3 G={'function': 7} P={'function': 5} Q={'function': 5}
+      37:3-42:10|40:5-40:11|shr_v3 G={'task': 6} P={'task': 4} Q={'task': 4}
+      37:3-42:10|41:14-41:20|shr_v3 G={'task': 6} P={'task': 4} Q={'task': 4}
+      44:3-48:14|46:5-46:11|shr_v3 G={'function': 6} P={'function': 4} Q={'function': 4}
+      44:3-48:14|47:14-47:20|shr_v3 G={'function': 6} P={'function': 4} Q={'function': 4}
+      50:3-55:10|53:5-53:11|shr_v3 G={'task': 6} P={'task': 4} Q={'task': 4}
+      50:3-55:10|54:14-54:20|shr_v3 G={'task': 6} P={'task': 4} Q={'task': 4}
+  BVIS     TOTAL=75 RIGHT->RIGHT=59 ONLY-GOLDEN=16
+      31:3-35:14|33:5-33:11|shr_v3 G={'0': 7} P={'0': 5} Q={'0': 5}
+      31:3-35:14|34:14-34:20|shr_v3 G={'0': 7} P={'0': 5} Q={'0': 5}
+      37:3-42:10|40:5-40:11|shr_v3 G={'0': 6} P={'0': 4} Q={'0': 4}
+      37:3-42:10|41:14-41:20|shr_v3 G={'0': 6} P={'0': 4} Q={'0': 4}
+      44:3-48:14|46:5-46:11|shr_v3 G={'0': 6} P={'0': 4} Q={'0': 4}
+      44:3-48:14|47:14-47:20|shr_v3 G={'0': 6} P={'0': 4} Q={'0': 4}
+      50:3-55:10|53:5-53:11|shr_v3 G={'0': 6} P={'0': 4} Q={'0': 4}
+      50:3-55:10|54:14-54:20|shr_v3 G={'0': 6} P={'0': 4} Q={'0': 4}
+== v148_d_kind.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=26  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=51 RIGHT->RIGHT=51
+  PROD     TOTAL=51 RIGHT->RIGHT=51
+  LOC      TOTAL=51 RIGHT->RIGHT=51
+  BKIND    TOTAL=51 RIGHT->RIGHT=51
+  BSK      TOTAL=51 RIGHT->RIGHT=23 WRONG->RIGHT=28
+      105:3-109:14|107:5-107:11|wid_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+      105:3-109:14|108:14-108:20|wid_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+      10:3-15:14|13:5-13:11|wid_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+      10:3-15:14|14:14-14:20|wid_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+      10:3-15:14|14:5-14:11|nar_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+      25:3-30:14|28:5-28:11|wid_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+      25:3-30:14|29:14-29:20|wid_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+      25:3-30:14|29:5-29:11|nar_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+      40:3-44:14|43:14-43:20|wid_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+      40:3-44:14|43:5-43:11|nar_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+      54:3-62:14|56:5-56:11|nar_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+      54:3-62:14|60:7-60:13|nar_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+      75:3-80:14|78:7-78:13|wid_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+      83:3-86:14|85:5-85:11|wid_v4 G={'package': 2} P={'function': 2} Q={'package': 2}
+  BVIS     TOTAL=51 RIGHT->RIGHT=23 WRONG->RIGHT=28
+      105:3-109:14|107:5-107:11|wid_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+      105:3-109:14|108:14-108:20|wid_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+      10:3-15:14|13:5-13:11|wid_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+      10:3-15:14|14:14-14:20|wid_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+      10:3-15:14|14:5-14:11|nar_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+      25:3-30:14|28:5-28:11|wid_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+      25:3-30:14|29:14-29:20|wid_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+      25:3-30:14|29:5-29:11|nar_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+      40:3-44:14|43:14-43:20|wid_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+      40:3-44:14|43:5-43:11|nar_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+      54:3-62:14|56:5-56:11|nar_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+      54:3-62:14|60:7-60:13|nar_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+      75:3-80:14|78:7-78:13|wid_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+      83:3-86:14|85:5-85:11|wid_v4 G={'1': 2} P={'0': 2} Q={'1': 2}
+== v148_d_kind.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=26  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=78 RIGHT->RIGHT=78
+  PROD     TOTAL=78 RIGHT->RIGHT=78
+  LOC      TOTAL=78 RIGHT->RIGHT=78
+  BKIND    TOTAL=78 RIGHT->RIGHT=78
+  BSK      TOTAL=78 RIGHT->RIGHT=78
+  BVIS     TOTAL=78 RIGHT->RIGHT=78
+== v148_e_early.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=48  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=96 RIGHT->RIGHT=96
+  PROD     TOTAL=96 RIGHT->RIGHT=96
+  LOC      TOTAL=96 RIGHT->RIGHT=96
+  BKIND    TOTAL=96 RIGHT->RIGHT=88 WRONG->RIGHT=8
+      86:3-127:10|103:13-103:18|quoin G={'io_decl': 2} P={'int_var': 2} Q={'io_decl': 2}
+      86:3-127:10|108:13-108:18|quoin G={'io_decl': 2} P={'int_var': 2} Q={'io_decl': 2}
+      86:3-127:10|95:13-95:18|quoin G={'io_decl': 2} P={'int_var': 2} Q={'io_decl': 2}
+      86:3-127:10|99:11-99:16|quoin G={'io_decl': 2} P={'int_var': 2} Q={'io_decl': 2}
+  BSK      TOTAL=96 RIGHT->RIGHT=50 WRONG->RIGHT=46
+      13:3-83:10|17:5-17:10|quoin  G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|18:21-18:29|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|20:23-20:31|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|24:25-24:33|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|28:23-28:31|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|32:25-32:33|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|37:25-37:33|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|42:25-42:33|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|48:15-48:20|quoin G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|48:27-48:35|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|55:15-55:20|quoin G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|55:27-55:35|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|61:9-61:14|quoin  G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|62:20-62:25|quoin G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|62:9-62:17|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|66:10-66:18|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|67:16-67:24|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|72:14-72:22|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      13:3-83:10|73:20-73:28|voussoir G={'package': 2} P={'task': 2} Q={'package': 2}
+      86:3-127:10|103:13-103:18|quoin G={'task': 2} P={'package': 2} Q={'task': 2}
+      86:3-127:10|108:13-108:18|quoin G={'task': 2} P={'package': 2} Q={'task': 2}
+      86:3-127:10|95:13-95:18|quoin G={'task': 2} P={'package': 2} Q={'task': 2}
+      86:3-127:10|99:11-99:16|quoin G={'task': 2} P={'package': 2} Q={'task': 2}
+  BVIS     TOTAL=96 RIGHT->RIGHT=50 WRONG->RIGHT=46
+      13:3-83:10|17:5-17:10|quoin  G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|18:21-18:29|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|20:23-20:31|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|24:25-24:33|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|28:23-28:31|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|32:25-32:33|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|37:25-37:33|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|42:25-42:33|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|48:15-48:20|quoin G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|48:27-48:35|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|55:15-55:20|quoin G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|55:27-55:35|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|61:9-61:14|quoin  G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|62:20-62:25|quoin G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|62:9-62:17|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|66:10-66:18|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|67:16-67:24|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|72:14-72:22|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      13:3-83:10|73:20-73:28|voussoir G={'1': 2} P={'0': 2} Q={'1': 2}
+      86:3-127:10|103:13-103:18|quoin G={'0': 2} P={'1': 2} Q={'0': 2}
+      86:3-127:10|108:13-108:18|quoin G={'0': 2} P={'1': 2} Q={'0': 2}
+      86:3-127:10|95:13-95:18|quoin G={'0': 2} P={'1': 2} Q={'0': 2}
+      86:3-127:10|99:11-99:16|quoin G={'0': 2} P={'1': 2} Q={'0': 2}
+== v148_e_early.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=48  ROWSETS pristine[ONLY-GOLDEN=0 ONLY-OURS=0]  patched[ONLY-GOLDEN=0 ONLY-OURS=0]
+  ROLE     TOTAL=192 RIGHT->RIGHT=192
+  PROD     TOTAL=192 RIGHT->RIGHT=192
+  LOC      TOTAL=192 RIGHT->RIGHT=192
+  BKIND    TOTAL=192 RIGHT->RIGHT=192
+  BSK      TOTAL=192 RIGHT->RIGHT=192
+  BVIS     TOTAL=192 RIGHT->RIGHT=192
+== v148_f_edge.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=22  ROWSETS pristine[ONLY-GOLDEN=6 ONLY-OURS=1]  patched[ONLY-GOLDEN=6 ONLY-OURS=1]
+    ROWSET 100:5-100:12|102:7-102:15|seedv_v6 G=1 P=0 Q=0
+    ROWSET 100:5-103:16|102:7-102:15|seedv_v6 G=0 P=1 Q=1
+    ROWSET 107:3-110:14|109:5-109:13|seedv_v6 G=2 P=1 Q=1
+    ROWSET 58:3-65:14|64:12-64:13|stv_v6 G=2 P=0 Q=0
+    ROWSET 67:3-74:14|73:12-73:13|stv_v6 G=2 P=0 Q=0
+  ROLE     TOTAL=42 RIGHT->RIGHT=33 WRONG->WRONG=2 ONLY-GOLDEN=6 ONLY-OURS=1
+      100:5-100:12|102:7-102:15|seedv_v6 G={'LVALUE': 1} P={} Q={}
+      100:5-103:16|102:7-102:15|seedv_v6 G={} P={'LVALUE': 1} Q={'LVALUE': 1}
+      107:3-110:14|109:5-109:13|seedv_v6 G={'LVALUE': 2} P={'LVALUE': 1} Q={'LVALUE': 1}
+      58:3-65:14|64:12-64:13|stv_v6 G={'HPATH': 2} P={} Q={}
+      67:3-74:14|73:12-73:13|stv_v6 G={'HPATH': 2} P={} Q={}
+      87:3-90:14|87:36-87:43|dflt_v6 G={'READ': 2} P={'NOPARENT': 2} Q={'NOPARENT': 2}
+  PROD     TOTAL=42 RIGHT->RIGHT=35 ONLY-GOLDEN=6 ONLY-OURS=1
+      100:5-100:12|102:7-102:15|seedv_v6 G={'TFITEM': 1} P={} Q={}
+      100:5-103:16|102:7-102:15|seedv_v6 G={} P={'TFITEM': 1} Q={'TFITEM': 1}
+      107:3-110:14|109:5-109:13|seedv_v6 G={'TFITEM': 2} P={'TFITEM': 1} Q={'TFITEM': 1}
+      58:3-65:14|64:12-64:13|stv_v6 G={'TFITEM': 2} P={} Q={}
+      67:3-74:14|73:12-73:13|stv_v6 G={'BLOCK': 2} P={} Q={}
+  LOC      TOTAL=42 RIGHT->RIGHT=35 ONLY-GOLDEN=6 ONLY-OURS=1
+      100:5-100:12|102:7-102:15|seedv_v6 G={'FUNC': 1} P={} Q={}
+      100:5-103:16|102:7-102:15|seedv_v6 G={} P={'FUNC': 1} Q={'FUNC': 1}
+      107:3-110:14|109:5-109:13|seedv_v6 G={'FUNC': 2} P={'FUNC': 1} Q={'FUNC': 1}
+      58:3-65:14|64:12-64:13|stv_v6 G={'FUNC': 2} P={} Q={}
+      67:3-74:14|73:12-73:13|stv_v6 G={'BEGIN': 2} P={} Q={}
+  BKIND    TOTAL=42 RIGHT->RIGHT=35 ONLY-GOLDEN=6 ONLY-OURS=1
+      100:5-100:12|102:7-102:15|seedv_v6 G={'none': 1} P={} Q={}
+      100:5-103:16|102:7-102:15|seedv_v6 G={} P={'none': 1} Q={'none': 1}
+      107:3-110:14|109:5-109:13|seedv_v6 G={'int_var': 2} P={'int_var': 1} Q={'int_var': 1}
+      58:3-65:14|64:12-64:13|stv_v6 G={'none': 2} P={} Q={}
+      67:3-74:14|73:12-73:13|stv_v6 G={'none': 2} P={} Q={}
+  BSK      TOTAL=42 RIGHT->RIGHT=14 WRONG->RIGHT=19 WRONG->WRONG=2 ONLY-GOLDEN=6 ONLY-OURS=1
+      100:5-100:12|102:7-102:15|seedv_v6 G={'-': 1} P={} Q={}
+      100:5-103:16|102:7-102:15|seedv_v6 G={} P={'-': 1} Q={'-': 1}
+      107:3-110:14|109:5-109:13|seedv_v6 G={'package': 2} P={'function': 1} Q={'package': 1}
+      113:3-116:14|115:5-115:13|after_v6 G={'package': 2} P={'function': 2} Q={'package': 2}
+      39:3-43:14|42:16-42:22|cst_v6 G={'package': 2} P={'function': 2} Q={'package': 2}
+      39:3-43:14|42:5-42:13|seedv_v6 G={'package': 2} P={'function': 2} Q={'package': 2}
+      52:3-55:14|54:5-54:16|imported_v6 G={'package': 2} P={'function': 2} Q={'function': 2}
+      58:3-65:14|63:5-63:11|str_v6 G={'package': 2} P={'function': 2} Q={'package': 2}
+      58:3-65:14|64:12-64:13|stv_v6 G={'-': 2} P={} Q={}
+      67:3-74:14|73:12-73:13|stv_v6 G={'-': 2} P={} Q={}
+      77:3-84:10|81:5-81:12|iter_v6 G={'package': 2} P={'task': 2} Q={'package': 2}
+      77:3-84:10|82:16-82:23|iter_v6 G={'package': 2} P={'task': 2} Q={'package': 2}
+      77:3-84:10|83:16-83:23|iter_v6 G={'package': 2} P={'task': 2} Q={'package': 2}
+      93:3-97:14|95:5-95:13|seedv_v6 G={'package': 2} P={'function': 2} Q={'package': 2}
+      93:3-97:14|96:18-96:26|seedv_v6 G={'package': 2} P={'function': 2} Q={'package': 2}
+  BVIS     TOTAL=42 RIGHT->RIGHT=14 WRONG->RIGHT=19 WRONG->WRONG=2 ONLY-GOLDEN=6 ONLY-OURS=1
+      100:5-100:12|102:7-102:15|seedv_v6 G={'0': 1} P={} Q={}
+      100:5-103:16|102:7-102:15|seedv_v6 G={} P={'0': 1} Q={'0': 1}
+      107:3-110:14|109:5-109:13|seedv_v6 G={'1': 2} P={'0': 1} Q={'1': 1}
+      113:3-116:14|115:5-115:13|after_v6 G={'1': 2} P={'0': 2} Q={'1': 2}
+      39:3-43:14|42:16-42:22|cst_v6 G={'1': 2} P={'0': 2} Q={'1': 2}
+      39:3-43:14|42:5-42:13|seedv_v6 G={'1': 2} P={'0': 2} Q={'1': 2}
+      52:3-55:14|54:5-54:16|imported_v6 G={'1': 2} P={'0': 2} Q={'0': 2}
+      58:3-65:14|63:5-63:11|str_v6 G={'1': 2} P={'0': 2} Q={'1': 2}
+      58:3-65:14|64:12-64:13|stv_v6 G={'0': 2} P={} Q={}
+      67:3-74:14|73:12-73:13|stv_v6 G={'0': 2} P={} Q={}
+      77:3-84:10|81:5-81:12|iter_v6 G={'1': 2} P={'0': 2} Q={'1': 2}
+      77:3-84:10|82:16-82:23|iter_v6 G={'1': 2} P={'0': 2} Q={'1': 2}
+      77:3-84:10|83:16-83:23|iter_v6 G={'1': 2} P={'0': 2} Q={'1': 2}
+      93:3-97:14|95:5-95:13|seedv_v6 G={'1': 2} P={'0': 2} Q={'1': 2}
+      93:3-97:14|96:18-96:26|seedv_v6 G={'1': 2} P={'0': 2} Q={'1': 2}
+== v148_f_edge.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+ROW=REF   keys=22  ROWSETS pristine[ONLY-GOLDEN=10 ONLY-OURS=1]  patched[ONLY-GOLDEN=10 ONLY-OURS=1]
+    ROWSET 100:5-100:12|102:7-102:15|seedv_v6 G=1 P=0 Q=0
+    ROWSET 100:5-103:16|102:7-102:15|seedv_v6 G=0 P=1 Q=1
+    ROWSET 107:3-110:14|109:5-109:13|seedv_v6 G=2 P=1 Q=1
+    ROWSET 58:3-65:14|64:12-64:13|stv_v6 G=4 P=0 Q=0
+    ROWSET 67:3-74:14|73:12-73:13|stv_v6 G=4 P=0 Q=0
+  ROLE     TOTAL=65 RIGHT->RIGHT=52 WRONG->WRONG=2 ONLY-GOLDEN=10 ONLY-OURS=1
+      100:5-100:12|102:7-102:15|seedv_v6 G={'LVALUE': 1} P={} Q={}
+      100:5-103:16|102:7-102:15|seedv_v6 G={} P={'LVALUE': 1} Q={'LVALUE': 1}
+      107:3-110:14|109:5-109:13|seedv_v6 G={'LVALUE': 2} P={'LVALUE': 1} Q={'LVALUE': 1}
+      58:3-65:14|64:12-64:13|stv_v6 G={'HPATH': 4} P={} Q={}
+      67:3-74:14|73:12-73:13|stv_v6 G={'HPATH': 4} P={} Q={}
+      87:3-90:14|87:36-87:43|dflt_v6 G={'READ': 4} P={'READ': 2, 'NOPARENT': 2} Q={'READ': 2, 'NOPARENT': 2}
+  PROD     TOTAL=65 RIGHT->RIGHT=54 ONLY-GOLDEN=10 ONLY-OURS=1
+      100:5-100:12|102:7-102:15|seedv_v6 G={'TFITEM': 1} P={} Q={}
+      100:5-103:16|102:7-102:15|seedv_v6 G={} P={'TFITEM': 1} Q={'TFITEM': 1}
+      107:3-110:14|109:5-109:13|seedv_v6 G={'TFITEM': 2} P={'TFITEM': 1} Q={'TFITEM': 1}
+      58:3-65:14|64:12-64:13|stv_v6 G={'TFITEM': 4} P={} Q={}
+      67:3-74:14|73:12-73:13|stv_v6 G={'BLOCK': 4} P={} Q={}
+  LOC      TOTAL=65 RIGHT->RIGHT=54 ONLY-GOLDEN=10 ONLY-OURS=1
+      100:5-100:12|102:7-102:15|seedv_v6 G={'FUNC': 1} P={} Q={}
+      100:5-103:16|102:7-102:15|seedv_v6 G={} P={'FUNC': 1} Q={'FUNC': 1}
+      107:3-110:14|109:5-109:13|seedv_v6 G={'FUNC': 2} P={'FUNC': 1} Q={'FUNC': 1}
+      58:3-65:14|64:12-64:13|stv_v6 G={'FUNC': 4} P={} Q={}
+      67:3-74:14|73:12-73:13|stv_v6 G={'BEGIN': 4} P={} Q={}
+  BKIND    TOTAL=65 RIGHT->RIGHT=54 ONLY-GOLDEN=10 ONLY-OURS=1
+      100:5-100:12|102:7-102:15|seedv_v6 G={'int_var': 1} P={} Q={}
+      100:5-103:16|102:7-102:15|seedv_v6 G={} P={'int_var': 1} Q={'int_var': 1}
+      107:3-110:14|109:5-109:13|seedv_v6 G={'int_var': 2} P={'int_var': 1} Q={'int_var': 1}
+      58:3-65:14|64:12-64:13|stv_v6 G={'struct_var': 4} P={} Q={}
+      67:3-74:14|73:12-73:13|stv_v6 G={'struct_var': 4} P={} Q={}
+  BSK      TOTAL=65 RIGHT->RIGHT=52 WRONG->WRONG=2 ONLY-GOLDEN=10 ONLY-OURS=1
+      100:5-100:12|102:7-102:15|seedv_v6 G={'function': 1} P={} Q={}
+      100:5-103:16|102:7-102:15|seedv_v6 G={} P={'function': 1} Q={'function': 1}
+      107:3-110:14|109:5-109:13|seedv_v6 G={'function': 2} P={'function': 1} Q={'function': 1}
+      58:3-65:14|64:12-64:13|stv_v6 G={'function': 4} P={} Q={}
+      67:3-74:14|73:12-73:13|stv_v6 G={'function': 4} P={} Q={}
+      87:3-90:14|87:36-87:43|dflt_v6 G={'function': 4} P={'function': 2, 'package': 2} Q={'function': 2, 'package': 2}
+  BVIS     TOTAL=65 RIGHT->RIGHT=52 WRONG->WRONG=2 ONLY-GOLDEN=10 ONLY-OURS=1
+      100:5-100:12|102:7-102:15|seedv_v6 G={'0': 1} P={} Q={}
+      100:5-103:16|102:7-102:15|seedv_v6 G={} P={'0': 1} Q={'0': 1}
+      107:3-110:14|109:5-109:13|seedv_v6 G={'0': 2} P={'0': 1} Q={'0': 1}
+      58:3-65:14|64:12-64:13|stv_v6 G={'0': 4} P={} Q={}
+      67:3-74:14|73:12-73:13|stv_v6 G={'0': 4} P={} Q={}
+      87:3-90:14|87:36-87:43|dflt_v6 G={'0': 4} P={'0': 2, '1': 2} Q={'0': 2, '1': 2}
+LISTED=6 PROCESSED=6
+PROCESSED-ASSERT-OK

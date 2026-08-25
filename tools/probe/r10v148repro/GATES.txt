@@ -1,0 +1,58 @@
+r10v148 (VERIFIER) GATES — every one re-run by the verifier on binaries it
+built itself.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+
+(1) BUILD, -j 2, md5 separately, frozen chmod 555 before any sweep
+    pristine /tmp/v148_bin/pris.bin  f9cc51e81b15783ef0dec1ccc7bb4e4c
+    patched  /tmp/v148_bin/pat.bin   32c95d791e27b7ad28c1cfa43e8d0c9b
+    (both identical to the implementer's reported md5s)
+
+(2) GOLDENS, SLANG_UHDM exported explicitly to EACH binary
+    pristine 23 PASS / 0 FAIL
+    patched  23 PASS / 0 FAIL
+    negative control SLANG_UHDM=/bin/false: 0 PASS / 23 FAIL
+
+(3) uhdm2rtlil, BOTH MODES, --jobs 2, own --out/--workdir
+    pristine testflags 679/50/2   default 679/50/2
+    patched  testflags 679/50/2   default 679/50/2
+    ct8rows results/gate_uhdm2rtlil.csv vs patched tf : PASS
+    ct8rows own pristine tf        vs patched tf      : PASS
+    ct8rows own pristine def       vs patched def     : PASS
+
+(4) surelog --mode both, --jobs 2, own --out/--workdir
+    pristine default 471/283/25/10/5   testflags 466/284/23/9/5/3/2/1/1
+    patched  default 471/283/25/10/5   testflags 466/284/23/9/5/3/2/1/1
+    ct8rows results/golden_surelog.csv vs patched : PASS
+    ct8rows own pristine              vs patched : PASS
+    0 DIFFERING ROWS over 1588 row-modes.  NO ROW CONVERTED.
+    results/*.csv were READ ONLY and never written.
+
+(5) byteverify SELFCHECK=1
+    uhdm2rtlil MOVERS 0 / 1358   PATH_SETS_IDENTICAL   SELFCHECK 1357/1358
+    surelog    MOVERS 9 / 956    PATH_SETS_IDENTICAL   SELFCHECK  955/956
+    every mover PREDICTED BY NAME from the pristine databases first
+    (PREDICTION.txt), attributed line-by-line order-blind (12 lines each).
+
+BINARY-PATH AUDIT (per cmds.txt, by PATH not by the string "slang-uhdm")
+    u2r     1458 / 1458 cmds.txt name the intended frozen binary
+    surelog 1523 / 1523 cmds.txt name the intended frozen binary
+    ZERO name the main-tree binary.
+
+CANARIES
+    surelog canaries.sh ok=52 changed=0 absent=0
+    u2r     canaries.sh ok=8  changed=0 absent=0
+    ctcan2 surelog PASS ; ctcan2 u2r PASS
+    canaudit.sh canaries.sh ctcan2.sh : PASS audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+PROTECTED DATABASES (md5, pristine vs patched, both modes)
+    InterfaceModPort   SAME    BlackParrotComplex SAME    YosysOldOr SAME
+    SVSwitch  4842211c4030 (pin held)
+    YosysVerx 6ccda350c24a (pin held)
+
+HEADS (rowheads.sh, official uhdm-cmp; counts are DEPTH)
+    SeqDriver    df/tf 62 -> 36 (1 head, a NEW object)
+    MiniAmiq     df/tf 62 -> 36 (the same new object)
+    SimpleUVM    df/tf 60 -> 60   head log BYTE-IDENTICAL
+    Scoreboard   df    60 -> 60   head log BYTE-IDENTICAL
+    BuildUVMPkg  df/tf 174 -> 174 head log BYTE-IDENTICAL
+    Earlgrey_0_1 df/tf 29 / 50    head logs BYTE-IDENTICAL
+    Rggen        df    0 (CMP_EQUAL)
