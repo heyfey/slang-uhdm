@@ -1,0 +1,16 @@
+r10uvm127 — CALIBRATION: golden vs golden, the census key over the 12 arm-views.
+Run 1 lives in the arms scratch, run 2 in a DIFFERENT directory, so a key that
+carried a path would show up here.  0 DIFF / 0 ONESIDED is the requirement.
+
+g127_a_kinds.def       TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      15 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 
+g127_a_kinds.elab      TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      29 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 
+g127_b_oob.def         TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      18 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 
+g127_b_oob.elab        TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      25 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 
+g127_c_import.def      TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      14 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 
+g127_c_import.elab     TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      20 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 
+g127_d_homes.def       TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      14 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 
+g127_d_homes.elab      TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      22 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 
+g127_e_ts.def          TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      27 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 
+g127_e_ts.elab         TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      41 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 
+g127_f_mult.def        TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      25 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 
+g127_f_mult.elab       TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      38 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 

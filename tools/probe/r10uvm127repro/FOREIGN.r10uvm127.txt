@@ -1,0 +1,102 @@
+r10uvm127 — THE FOREIGN ARM FILES THE WIDE BOUNDARY REPORTS AS MOVED,
+each re-measured against a Surelog golden built for the SAME VIEW
+(ARGKINDS=all).  LHS is ALWAYS golden.
+
+r10buvm30repro__g30_f_callshapes.def     TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      6 ONESIDED_GOLD   7 ONESIDED_PAT    6 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 1 
+r10buvm30repro__g30_f_callshapes.elab    TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      6 ONESIDED_GOLD   7 ONESIDED_PAT    6 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 1 
+r10buvm30repro__g30_g_callfence.def      TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      6 ONESIDED_GOLD   0 ONESIDED_PAT    2 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 2 
+r10buvm30repro__g30_g_callfence.elab     TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      6 ONESIDED_GOLD   0 ONESIDED_PAT    2 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 2 
+r10buvm8repro__v6ctx8.def                TOGOLD          1 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      31 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+r10buvm8repro__v6ctx8.elab               TOGOLD          1 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      46 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+r10buvm8repro__voob8.def                 TOGOLD          2 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      8 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+r10buvm8repro__voob8.elab                TOGOLD          2 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      8 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+r10buvm8repro__vxpkg8.def                TOGOLD          1 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      5 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+r10buvm8repro__vxpkg8.elab               TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      1 SAME_DIFF       2 SAME_AGREE      3 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+r10uvm113repro__g113_a.def               TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       12 SAME_AGREE      11 ONESIDED_GOLD   0 ONESIDED_PAT    6 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 6 
+r10uvm113repro__g113_a.elab              TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       12 SAME_AGREE      11 ONESIDED_GOLD   0 ONESIDED_PAT    6 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 4 
+r10uvm113repro__g113_b.def               TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      9 ONESIDED_GOLD   0 ONESIDED_PAT    1 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 1 
+r10uvm113repro__g113_b.elab              TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      9 ONESIDED_GOLD   0 ONESIDED_PAT    1 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+r10v113repro__v113_ctx.def               TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      19 ONESIDED_GOLD   0 ONESIDED_PAT    1 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 1 
+r10v113repro__v113_ctx.elab              TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      20 ONESIDED_GOLD   0 ONESIDED_PAT    1 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+r10vbuvm30repro__vg30_f_fence.def        TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      8 ONESIDED_GOLD   1 ONESIDED_PAT    8 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 4 
+r10vbuvm30repro__vg30_f_fence.elab       TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      8 ONESIDED_GOLD   1 ONESIDED_PAT    8 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 4 
+
+######## the non-agreeing cells
+== r10buvm30repro__g30_f_callshapes.def
+ONESIDED_PAT_CHANGED | package(p30g)/class_defn(c30g)/function(k_pkgcall)/return_stmt pkgf 0 operation - 17:48-17:50 | G=None P={('none', '-'): 1} Q={('int_typespec', '2:21-2:24'): 1}
+== r10buvm30repro__g30_f_callshapes.elab
+ONESIDED_PAT_CHANGED | package(p30g)/class_defn(c30g)/function(k_pkgcall)/return_stmt pkgf 0 operation - 17:48-17:50 | G=None P={('none', '-'): 1} Q={('int_typespec', '2:21-2:24'): 1}
+== r10buvm30repro__g30_g_callfence.def
+ONESIDED_PAT_CHANGED | package(p30h)/class_defn(c30h)/function(n_auto)/return_stmt autof 0 operation - 17:47-17:49 | G=None P={('none', '-'): 1} Q={('int_typespec', '4:32-4:35'): 1}
+ONESIDED_PAT_CHANGED | package(p30h)/class_defn(c30h)/function(n_hard)/return_stmt hardf 0 operation - 16:47-16:49 | G=None P={('none', '-'): 1} Q={('int_typespec', '3:22-3:25'): 1}
+== r10buvm30repro__g30_g_callfence.elab
+ONESIDED_PAT_CHANGED | package(p30h)/class_defn(c30h)/function(n_auto)/return_stmt autof 0 operation - 17:47-17:49 | G=None P={('none', '-'): 1} Q={('int_typespec', '4:32-4:35'): 1}
+ONESIDED_PAT_CHANGED | package(p30h)/class_defn(c30h)/function(n_hard)/return_stmt hardf 0 operation - 16:47-16:49 | G=None P={('none', '-'): 1} Q={('int_typespec', '3:22-3:25'): 1}
+== r10buvm8repro__v6ctx8.def
+TOGOLD | package(cp6)/class_defn(C6)/function(m_oob)/return_stmt f1 0 ref_obj a 25:45-25:46 | G={('int_typespec', '5:20-5:23'): 1} P={('none', '-'): 1} Q={('int_typespec', '5:20-5:23'): 1}
+== r10buvm8repro__v6ctx8.elab
+TOGOLD | package(cp6)/class_defn(C6)/function(m_oob)/return_stmt f1 0 ref_obj a 25:45-25:46 | G={('int_typespec', '5:20-5:23'): 2} P={('none', '-'): 1, ('int_typespec', '5:20-5:23'): 1} Q={('int_typespec', '5:20-5:23'): 2}
+== r10buvm8repro__voob8.def
+TOGOLD | package(op)/class_defn(C)/function(oobm)/return_stmt/operation dpi_o 0 ref_obj s 16:19-16:20 | G={('string_typespec', '5:45-5:51'): 1} P={('none', '-'): 1} Q={('string_typespec', '5:45-5:51'): 1}
+TOGOLD | package(op)/class_defn(C)/function(oobm)/return_stmt/operation dpi_o 1 ref_obj t 16:22-16:23 | G={('string_typespec', '5:56-5:62'): 1} P={('none', '-'): 1} Q={('string_typespec', '5:56-5:62'): 1}
+== r10buvm8repro__voob8.elab
+TOGOLD | package(op)/class_defn(C)/function(oobm)/return_stmt/operation dpi_o 0 ref_obj s 16:19-16:20 | G={('string_typespec', '5:45-5:51'): 2} P={('none', '-'): 1, ('string_typespec', '5:45-5:51'): 1} Q={('string_typespec', '5:45-5:51'): 2}
+TOGOLD | package(op)/class_defn(C)/function(oobm)/return_stmt/operation dpi_o 1 ref_obj t 16:22-16:23 | G={('string_typespec', '5:56-5:62'): 2} P={('none', '-'): 1, ('string_typespec', '5:56-5:62'): 1} Q={('string_typespec', '5:56-5:62'): 2}
+== r10buvm8repro__vxpkg8.def
+TOGOLD | package(ap)/function(zf)/return_stmt/operation/operation dpi_z 0 operation - 10:24-10:31 | G={('int_typespec', '8:51-8:54'): 2} P={('int_typespec', '10:24-10:27'): 1, ('int_typespec', '8:51-8:54'): 1} Q={('int_typespec', '8:51-8:54'): 2}
+== r10buvm8repro__vxpkg8.elab
+MOVEDOTHER | package(ap)/function(zf)/return_stmt/operation/operation dpi_z 0 operation - 10:24-10:31 | G={('int_typespec', '8:51-8:54'): 4} P={('int_typespec', '10:24-10:27'): 1, ('int_typespec', '8:51-8:54'): 2} Q={('int_typespec', '8:51-8:54'): 3}
+SAME_DIFF | package(ap)/function(af)/return_stmt zf 0 ref_obj a 16:15-16:16 | G={('none', '-'): 2, ('logic_typespec', '9:21-9:25'): 2} P={('none', '-'): 2, ('logic_typespec', '9:21-9:25'): 1, ('logic_typespec', '7:11-7:22'): 1} Q={('none', '-'): 2, ('logic_typespec', '9:21-9:25'): 1, ('logic_typespec', '7:11-7:22'): 1}
+SAME_DIFF | package(ap)/function(af)/return_stmt zf 1 ref_obj b 16:18-16:19 | G={('none', '-'): 2, ('logic_typespec', '9:29-9:33'): 2} P={('none', '-'): 2, ('logic_typespec', '9:29-9:33'): 1, ('logic_typespec', '7:11-7:22'): 1} Q={('none', '-'): 2, ('logic_typespec', '9:29-9:33'): 1, ('logic_typespec', '7:11-7:22'): 1}
+== r10uvm113repro__g113_a.def
+SAME_DIFF | class_defn(work@Cunit)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('int_typespec', '10:20-10:23'): 2} Q={('int_typespec', '10:20-10:23'): 2}
+SAME_DIFF | module_inst(work@tb_a)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 3} P={('int_typespec', '10:20-10:23'): 3} Q={('int_typespec', '10:20-10:23'): 3}
+SAME_DIFF | module_inst/class_defn(Cmod)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 5} P={('int_typespec', '10:20-10:23'): 5} Q={('int_typespec', '10:20-10:23'): 5}
+SAME_DIFF | package(home)/class_defn(Ccon)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('int_typespec', '10:20-10:23'): 2} Q={('int_typespec', '10:20-10:23'): 2}
+SAME_DIFF | package(home)/class_defn(Cin)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('int_typespec', '10:20-10:23'): 2} Q={('int_typespec', '10:20-10:23'): 2}
+SAME_DIFF | package(home)/class_defn(Coob)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('int_typespec', '10:20-10:23'): 2} Q={('int_typespec', '10:20-10:23'): 2}
+SAME_DIFF | package(home)/function(pkgBody)/return_stmt/operation rho 0 constant - 18:38-18:39 | G={('none', '-'): 1} P={('int_typespec', '10:20-10:23'): 1, ('none', '-'): 1} Q={('int_typespec', '10:20-10:23'): 1, ('none', '-'): 1}
+SAME_DIFF | package(home)/function(pkgBody)/return_stmt/operation sigma 0 constant - 18:49-18:50 | G={('none', '-'): 1} P={('int_typespec', '11:22-11:25'): 1, ('none', '-'): 1} Q={('int_typespec', '11:22-11:25'): 1, ('none', '-'): 1}
+SAME_DIFF | package(home)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('none', '-'): 1, ('int_typespec', '10:20-10:23'): 1} Q={('none', '-'): 1, ('int_typespec', '10:20-10:23'): 1}
+SAME_DIFF | package(imp1)/class_defn(Cimp)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 3} P={('int_typespec', '10:20-10:23'): 3} Q={('int_typespec', '10:20-10:23'): 3}
+SAME_DIFF | package(imp1)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('int_typespec', '10:20-10:23'): 2} Q={('int_typespec', '10:20-10:23'): 2}
+SAME_DIFF | package(imp2)/class_defn(Cimp2)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('int_typespec', '10:20-10:23'): 2} Q={('int_typespec', '10:20-10:23'): 2}
+ONESIDED_PAT_CHANGED | package(home)/class_defn(Coob)/function(oob)/return_stmt rho 0 constant - 42:45-42:46 | G=None P={('none', '-'): 1} Q={('int_typespec', '10:20-10:23'): 1}
+ONESIDED_PAT_CHANGED | package(home)/class_defn(Coob)/function(oobStat)/return_stmt sigma 0 constant - 43:47-43:48 | G=None P={('none', '-'): 1} Q={('int_typespec', '11:22-11:25'): 1}
+ONESIDED_PAT_CHANGED | package(imp1)/function(Coob::oob)/return_stmt rho 0 constant - 42:45-42:46 | G=None P={('none', '-'): 2} Q={('int_typespec', '10:20-10:23'): 2}
+ONESIDED_PAT_CHANGED | package(imp1)/function(Coob::oobStat)/return_stmt sigma 0 constant - 43:47-43:48 | G=None P={('none', '-'): 2} Q={('int_typespec', '11:22-11:25'): 2}
+ONESIDED_PAT_CHANGED | package(imp1)/function(pkgBody)/return_stmt/operation rho 0 constant - 18:38-18:39 | G=None P={('int_typespec', '10:20-10:23'): 1, ('none', '-'): 1} Q={('int_typespec', '10:20-10:23'): 2}
+ONESIDED_PAT_CHANGED | package(imp1)/function(pkgBody)/return_stmt/operation sigma 0 constant - 18:49-18:50 | G=None P={('int_typespec', '11:22-11:25'): 1, ('none', '-'): 1} Q={('int_typespec', '11:22-11:25'): 2}
+== r10uvm113repro__g113_a.elab
+SAME_DIFF | class_defn(work@Cunit)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('int_typespec', '10:20-10:23'): 2} Q={('int_typespec', '10:20-10:23'): 2}
+SAME_DIFF | module_inst(work@tb_a)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 3} P={('int_typespec', '10:20-10:23'): 3} Q={('int_typespec', '10:20-10:23'): 3}
+SAME_DIFF | module_inst/class_defn(Cmod)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 5} P={('int_typespec', '10:20-10:23'): 5} Q={('int_typespec', '10:20-10:23'): 5}
+SAME_DIFF | package(home)/class_defn(Ccon)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('int_typespec', '10:20-10:23'): 2} Q={('int_typespec', '10:20-10:23'): 2}
+SAME_DIFF | package(home)/class_defn(Cin)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('int_typespec', '10:20-10:23'): 2} Q={('int_typespec', '10:20-10:23'): 2}
+SAME_DIFF | package(home)/class_defn(Coob)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('int_typespec', '10:20-10:23'): 2} Q={('int_typespec', '10:20-10:23'): 2}
+SAME_DIFF | package(home)/function(pkgBody)/return_stmt/operation rho 0 constant - 18:38-18:39 | G={('none', '-'): 1} P={('int_typespec', '10:20-10:23'): 1, ('none', '-'): 1} Q={('int_typespec', '10:20-10:23'): 1, ('none', '-'): 1}
+SAME_DIFF | package(home)/function(pkgBody)/return_stmt/operation sigma 0 constant - 18:49-18:50 | G={('none', '-'): 1} P={('int_typespec', '11:22-11:25'): 1, ('none', '-'): 1} Q={('int_typespec', '11:22-11:25'): 1, ('none', '-'): 1}
+SAME_DIFF | package(home)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('none', '-'): 1, ('int_typespec', '10:20-10:23'): 1} Q={('none', '-'): 1, ('int_typespec', '10:20-10:23'): 1}
+SAME_DIFF | package(imp1)/class_defn(Cimp)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 3} P={('int_typespec', '10:20-10:23'): 3} Q={('int_typespec', '10:20-10:23'): 3}
+SAME_DIFF | package(imp1)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('int_typespec', '10:20-10:23'): 2} Q={('int_typespec', '10:20-10:23'): 2}
+SAME_DIFF | package(imp2)/class_defn(Cimp2)/int_var(pkgVarInit) rho 0 constant - 15:24-15:25 | G={('none', '-'): 2} P={('int_typespec', '10:20-10:23'): 2} Q={('int_typespec', '10:20-10:23'): 2}
+ONESIDED_PAT_CHANGED | package(imp1)/function(Coob::oob)/return_stmt rho 0 constant - 42:45-42:46 | G=None P={('int_typespec', '10:20-10:23'): 1, ('none', '-'): 1} Q={('int_typespec', '10:20-10:23'): 2}
+ONESIDED_PAT_CHANGED | package(imp1)/function(Coob::oobStat)/return_stmt sigma 0 constant - 43:47-43:48 | G=None P={('int_typespec', '11:22-11:25'): 1, ('none', '-'): 1} Q={('int_typespec', '11:22-11:25'): 2}
+ONESIDED_PAT_CHANGED | package(imp1)/function(pkgBody)/return_stmt/operation rho 0 constant - 18:38-18:39 | G=None P={('none', '-'): 1} Q={('int_typespec', '10:20-10:23'): 1}
+ONESIDED_PAT_CHANGED | package(imp1)/function(pkgBody)/return_stmt/operation sigma 0 constant - 18:49-18:50 | G=None P={('none', '-'): 1} Q={('int_typespec', '11:22-11:25'): 1}
+== r10uvm113repro__g113_b.def
+ONESIDED_PAT_CHANGED | package(pb)/class_defn(Ky)/function(oob)/return_stmt delta 0 constant - 42:40-42:41 | G=None P={('none', '-'): 1} Q={('int_typespec', '17:22-17:25'): 1}
+== r10uvm113repro__g113_b.elab
+== r10v113repro__v113_ctx.def
+ONESIDED_PAT_CHANGED | package(qctx)/class_defn(Mesh)/function(oobm)/return_stmt spool 0 constant - 91:43-91:45 | G=None P={('none', '-'): 1} Q={('int_typespec', '13:32-13:35'): 1}
+== r10v113repro__v113_ctx.elab
+== r10vbuvm30repro__vg30_f_fence.def
+ONESIDED_PAT_CHANGED | package(pv30f)/class_defn(cv30f)/function(f_call_deep2)/return_stmt/func_call(helper) helper 0 operation - 19:64-19:70 | G=None P={('none', '-'): 1} Q={('int_typespec', '3:23-3:26'): 1}
+ONESIDED_PAT_CHANGED | package(pv30f)/class_defn(cv30f)/function(f_call_in_concat)/return_stmt/operation helper 0 constant - 16:58-16:59 | G=None P={('none', '-'): 1} Q={('int_typespec', '3:23-3:26'): 1}
+ONESIDED_PAT_CHANGED | package(pv30f)/class_defn(cv30f)/function(f_concat_in_call)/return_stmt helper 0 operation - 15:57-15:64 | G=None P={('none', '-'): 1} Q={('int_typespec', '3:23-3:26'): 1}
+ONESIDED_PAT_CHANGED | package(pv30f)/class_defn(cv30f)/function(f_meth_of_call)/return_stmt/method_func_call(meth) helper 0 operation - 20:67-20:69 | G=None P={('none', '-'): 1} Q={('int_typespec', '3:23-3:26'): 1}
+== r10vbuvm30repro__vg30_f_fence.elab
+ONESIDED_PAT_CHANGED | package(pv30f)/class_defn(cv30f)/function(f_call_deep2)/return_stmt/func_call(helper) helper 0 operation - 19:64-19:70 | G=None P={('none', '-'): 1} Q={('int_typespec', '3:23-3:26'): 1}
+ONESIDED_PAT_CHANGED | package(pv30f)/class_defn(cv30f)/function(f_call_in_concat)/return_stmt/operation helper 0 constant - 16:58-16:59 | G=None P={('none', '-'): 1} Q={('int_typespec', '3:23-3:26'): 1}
+ONESIDED_PAT_CHANGED | package(pv30f)/class_defn(cv30f)/function(f_concat_in_call)/return_stmt helper 0 operation - 15:57-15:64 | G=None P={('none', '-'): 1} Q={('int_typespec', '3:23-3:26'): 1}
+ONESIDED_PAT_CHANGED | package(pv30f)/class_defn(cv30f)/function(f_meth_of_call)/return_stmt/method_func_call(meth) helper 0 operation - 20:67-20:69 | G=None P={('none', '-'): 2} Q={('int_typespec', '3:23-3:26'): 2}

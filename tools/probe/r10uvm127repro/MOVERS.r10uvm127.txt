@@ -1,0 +1,217 @@
+r10uvm127 — MOVERS: the order-blind, path-normalised whole-dump diff of every
+byte mover (both dumps SORTED, so Scoreboard/default's ~50/50 vpiTaskFunc ORDER
+COIN cannot be mistaken for a move).  0 removed lines anywhere; every ADDED line
+is one of the law's own: |vpiTypespec: / |vpiParent: / |vpiActual: /
+\_ref_typespec: / \_ref_obj: / \_<kind>_typespec: / |vpiFullName:.
+
+== default_MiniAmiq-544c7f61
+   removed=0 added=91 out-of-family=0
+         3 \_byte_typespec: 
+         1 \_enum_typespec: (uvm_pkg::uvm_radix_enum)
+         2 \_int_typespec: 
+         1 \_logic_typespec: (uvm_bitstream_t)
+         1 \_ref_obj: (svaunit_pkg::uvm_dpi_get_next_arg::init)
+         1 \_ref_obj: (svaunit_pkg::uvm_is_match::s)
+         1 \_ref_obj: (svaunit_pkg::uvm_is_match::str)
+         2 \_ref_obj: (svaunit_pkg::uvm_printer::adjust_name::id)
+         2 \_ref_obj: (svaunit_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_obj: (svaunit_pkg::uvm_vector_to_string::radix)
+         1 \_ref_obj: (svaunit_pkg::uvm_vector_to_string::radix_str)
+         1 \_ref_obj: (svaunit_pkg::uvm_vector_to_string::size)
+         1 \_ref_obj: (svaunit_pkg::uvm_vector_to_string::value)
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_typespec: (svaunit_pkg::uvm_dpi_get_next_arg::init)
+         1 \_ref_typespec: (svaunit_pkg::uvm_is_match::s)
+         1 \_ref_typespec: (svaunit_pkg::uvm_is_match::str)
+         2 \_ref_typespec: (svaunit_pkg::uvm_printer::adjust_name::id)
+         2 \_ref_typespec: (svaunit_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_typespec: (svaunit_pkg::uvm_vector_to_string::radix)
+         1 \_ref_typespec: (svaunit_pkg::uvm_vector_to_string::radix_str)
+         1 \_ref_typespec: (svaunit_pkg::uvm_vector_to_string::size)
+         1 \_ref_typespec: (svaunit_pkg::uvm_vector_to_string::value)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         6 \_string_typespec: 
+        13 |vpiActual:
+         1 |vpiFullName:svaunit_pkg::uvm_dpi_get_next_arg::init
+         1 |vpiFullName:svaunit_pkg::uvm_is_match::s
+         1 |vpiFullName:svaunit_pkg::uvm_is_match::str
+         2 |vpiFullName:svaunit_pkg::uvm_printer::adjust_name::id
+         2 |vpiFullName:svaunit_pkg::uvm_printer::adjust_name::scope_separator
+         1 |vpiFullName:svaunit_pkg::uvm_vector_to_string::radix
+         1 |vpiFullName:svaunit_pkg::uvm_vector_to_string::radix_str
+         1 |vpiFullName:svaunit_pkg::uvm_vector_to_string::size
+         1 |vpiFullName:svaunit_pkg::uvm_vector_to_string::value
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::id
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::scope_separator
+        13 |vpiParent:
+        13 |vpiTypespec:
+== default_Scoreboard-59431470
+   removed=0 added=14 out-of-family=0
+         1 \_byte_typespec: 
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_string_typespec: 
+         2 |vpiActual:
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::id
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::scope_separator
+         2 |vpiParent:
+         2 |vpiTypespec:
+== default_SeqDriver-32af76aa
+   removed=0 added=91 out-of-family=0
+         3 \_byte_typespec: 
+         1 \_enum_typespec: (uvm_pkg::uvm_radix_enum)
+         2 \_int_typespec: 
+         1 \_logic_typespec: (uvm_bitstream_t)
+         1 \_ref_obj: (adpcm_pkg::uvm_dpi_get_next_arg::init)
+         1 \_ref_obj: (adpcm_pkg::uvm_is_match::s)
+         1 \_ref_obj: (adpcm_pkg::uvm_is_match::str)
+         2 \_ref_obj: (adpcm_pkg::uvm_printer::adjust_name::id)
+         2 \_ref_obj: (adpcm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_obj: (adpcm_pkg::uvm_vector_to_string::radix)
+         1 \_ref_obj: (adpcm_pkg::uvm_vector_to_string::radix_str)
+         1 \_ref_obj: (adpcm_pkg::uvm_vector_to_string::size)
+         1 \_ref_obj: (adpcm_pkg::uvm_vector_to_string::value)
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_typespec: (adpcm_pkg::uvm_dpi_get_next_arg::init)
+         1 \_ref_typespec: (adpcm_pkg::uvm_is_match::s)
+         1 \_ref_typespec: (adpcm_pkg::uvm_is_match::str)
+         2 \_ref_typespec: (adpcm_pkg::uvm_printer::adjust_name::id)
+         2 \_ref_typespec: (adpcm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_typespec: (adpcm_pkg::uvm_vector_to_string::radix)
+         1 \_ref_typespec: (adpcm_pkg::uvm_vector_to_string::radix_str)
+         1 \_ref_typespec: (adpcm_pkg::uvm_vector_to_string::size)
+         1 \_ref_typespec: (adpcm_pkg::uvm_vector_to_string::value)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         6 \_string_typespec: 
+        13 |vpiActual:
+         1 |vpiFullName:adpcm_pkg::uvm_dpi_get_next_arg::init
+         1 |vpiFullName:adpcm_pkg::uvm_is_match::s
+         1 |vpiFullName:adpcm_pkg::uvm_is_match::str
+         2 |vpiFullName:adpcm_pkg::uvm_printer::adjust_name::id
+         2 |vpiFullName:adpcm_pkg::uvm_printer::adjust_name::scope_separator
+         1 |vpiFullName:adpcm_pkg::uvm_vector_to_string::radix
+         1 |vpiFullName:adpcm_pkg::uvm_vector_to_string::radix_str
+         1 |vpiFullName:adpcm_pkg::uvm_vector_to_string::size
+         1 |vpiFullName:adpcm_pkg::uvm_vector_to_string::value
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::id
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::scope_separator
+        13 |vpiParent:
+        13 |vpiTypespec:
+== default_SimpleUVM-1dc93a62
+   removed=0 added=14 out-of-family=0
+         1 \_byte_typespec: 
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_string_typespec: 
+         2 |vpiActual:
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::id
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::scope_separator
+         2 |vpiParent:
+         2 |vpiTypespec:
+== testflags_MiniAmiq-544c7f61
+   removed=0 added=91 out-of-family=0
+         3 \_byte_typespec: 
+         1 \_enum_typespec: (uvm_pkg::uvm_radix_enum)
+         2 \_int_typespec: 
+         1 \_logic_typespec: (uvm_bitstream_t)
+         1 \_ref_obj: (svaunit_pkg::uvm_dpi_get_next_arg::init)
+         1 \_ref_obj: (svaunit_pkg::uvm_is_match::s)
+         1 \_ref_obj: (svaunit_pkg::uvm_is_match::str)
+         2 \_ref_obj: (svaunit_pkg::uvm_printer::adjust_name::id)
+         2 \_ref_obj: (svaunit_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_obj: (svaunit_pkg::uvm_vector_to_string::radix)
+         1 \_ref_obj: (svaunit_pkg::uvm_vector_to_string::radix_str)
+         1 \_ref_obj: (svaunit_pkg::uvm_vector_to_string::size)
+         1 \_ref_obj: (svaunit_pkg::uvm_vector_to_string::value)
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_typespec: (svaunit_pkg::uvm_dpi_get_next_arg::init)
+         1 \_ref_typespec: (svaunit_pkg::uvm_is_match::s)
+         1 \_ref_typespec: (svaunit_pkg::uvm_is_match::str)
+         2 \_ref_typespec: (svaunit_pkg::uvm_printer::adjust_name::id)
+         2 \_ref_typespec: (svaunit_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_typespec: (svaunit_pkg::uvm_vector_to_string::radix)
+         1 \_ref_typespec: (svaunit_pkg::uvm_vector_to_string::radix_str)
+         1 \_ref_typespec: (svaunit_pkg::uvm_vector_to_string::size)
+         1 \_ref_typespec: (svaunit_pkg::uvm_vector_to_string::value)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         6 \_string_typespec: 
+        13 |vpiActual:
+         1 |vpiFullName:svaunit_pkg::uvm_dpi_get_next_arg::init
+         1 |vpiFullName:svaunit_pkg::uvm_is_match::s
+         1 |vpiFullName:svaunit_pkg::uvm_is_match::str
+         2 |vpiFullName:svaunit_pkg::uvm_printer::adjust_name::id
+         2 |vpiFullName:svaunit_pkg::uvm_printer::adjust_name::scope_separator
+         1 |vpiFullName:svaunit_pkg::uvm_vector_to_string::radix
+         1 |vpiFullName:svaunit_pkg::uvm_vector_to_string::radix_str
+         1 |vpiFullName:svaunit_pkg::uvm_vector_to_string::size
+         1 |vpiFullName:svaunit_pkg::uvm_vector_to_string::value
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::id
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::scope_separator
+        13 |vpiParent:
+        13 |vpiTypespec:
+== testflags_SeqDriver-32af76aa
+   removed=0 added=91 out-of-family=0
+         3 \_byte_typespec: 
+         1 \_enum_typespec: (uvm_pkg::uvm_radix_enum)
+         2 \_int_typespec: 
+         1 \_logic_typespec: (uvm_bitstream_t)
+         1 \_ref_obj: (adpcm_pkg::uvm_dpi_get_next_arg::init)
+         1 \_ref_obj: (adpcm_pkg::uvm_is_match::s)
+         1 \_ref_obj: (adpcm_pkg::uvm_is_match::str)
+         2 \_ref_obj: (adpcm_pkg::uvm_printer::adjust_name::id)
+         2 \_ref_obj: (adpcm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_obj: (adpcm_pkg::uvm_vector_to_string::radix)
+         1 \_ref_obj: (adpcm_pkg::uvm_vector_to_string::radix_str)
+         1 \_ref_obj: (adpcm_pkg::uvm_vector_to_string::size)
+         1 \_ref_obj: (adpcm_pkg::uvm_vector_to_string::value)
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_typespec: (adpcm_pkg::uvm_dpi_get_next_arg::init)
+         1 \_ref_typespec: (adpcm_pkg::uvm_is_match::s)
+         1 \_ref_typespec: (adpcm_pkg::uvm_is_match::str)
+         2 \_ref_typespec: (adpcm_pkg::uvm_printer::adjust_name::id)
+         2 \_ref_typespec: (adpcm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_typespec: (adpcm_pkg::uvm_vector_to_string::radix)
+         1 \_ref_typespec: (adpcm_pkg::uvm_vector_to_string::radix_str)
+         1 \_ref_typespec: (adpcm_pkg::uvm_vector_to_string::size)
+         1 \_ref_typespec: (adpcm_pkg::uvm_vector_to_string::value)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         6 \_string_typespec: 
+        13 |vpiActual:
+         1 |vpiFullName:adpcm_pkg::uvm_dpi_get_next_arg::init
+         1 |vpiFullName:adpcm_pkg::uvm_is_match::s
+         1 |vpiFullName:adpcm_pkg::uvm_is_match::str
+         2 |vpiFullName:adpcm_pkg::uvm_printer::adjust_name::id
+         2 |vpiFullName:adpcm_pkg::uvm_printer::adjust_name::scope_separator
+         1 |vpiFullName:adpcm_pkg::uvm_vector_to_string::radix
+         1 |vpiFullName:adpcm_pkg::uvm_vector_to_string::radix_str
+         1 |vpiFullName:adpcm_pkg::uvm_vector_to_string::size
+         1 |vpiFullName:adpcm_pkg::uvm_vector_to_string::value
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::id
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::scope_separator
+        13 |vpiParent:
+        13 |vpiTypespec:
+== testflags_SimpleUVM-1dc93a62
+   removed=0 added=14 out-of-family=0
+         1 \_byte_typespec: 
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_obj: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::id)
+         1 \_ref_typespec: (uvm_pkg::uvm_printer::adjust_name::scope_separator)
+         1 \_string_typespec: 
+         2 |vpiActual:
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::id
+         1 |vpiFullName:uvm_pkg::uvm_printer::adjust_name::scope_separator
+         2 |vpiParent:
+         2 |vpiTypespec:

@@ -1,0 +1,164 @@
+r10uvm127 — THE SIX GRIDS, both views, scored with score127.py.
+Two passes per arm-view: ARGKINDS=ref_obj then ARGKINDS=all.
+
+######## ARGKINDS=ref_obj
+g127_a_kinds.def       TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       4 SAME_AGREE      11 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_a_kinds.elab      TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       5 SAME_AGREE      24 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_b_oob.def         TOGOLD          4 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      14 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_b_oob.elab        TOGOLD          4 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      21 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_c_import.def      TOGOLD          8 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      6 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_c_import.elab     TOGOLD          4 MOVEDWRONG      0 MOVEDOTHER      4 SAME_DIFF       4 SAME_AGREE      8 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_d_homes.def       TOGOLD          2 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      8 ONESIDED_GOLD   4 ONESIDED_PAT    4 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_d_homes.elab      TOGOLD          2 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      14 ONESIDED_GOLD   6 ONESIDED_PAT    6 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_e_ts.def          TOGOLD          11 MOVEDWRONG      0 MOVEDOTHER      2 SAME_DIFF       0 SAME_AGREE      14 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_e_ts.elab         TOGOLD          11 MOVEDWRONG      0 MOVEDOTHER      2 SAME_DIFF       2 SAME_AGREE      26 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_f_mult.def        TOGOLD          11 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      14 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_f_mult.elab       TOGOLD          11 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      27 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+
+######## ARGKINDS=all
+g127_a_kinds.def       TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       4 SAME_AGREE      13 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_a_kinds.elab      TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       5 SAME_AGREE      26 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_b_oob.def         TOGOLD          4 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      16 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_b_oob.elab        TOGOLD          4 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      23 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_c_import.def      TOGOLD          8 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      10 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_c_import.elab     TOGOLD          4 MOVEDWRONG      0 MOVEDOTHER      4 SAME_DIFF       4 SAME_AGREE      12 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_d_homes.def       TOGOLD          2 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      12 ONESIDED_GOLD   4 ONESIDED_PAT    4 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_d_homes.elab      TOGOLD          2 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      18 ONESIDED_GOLD   6 ONESIDED_PAT    6 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_e_ts.def          TOGOLD          14 MOVEDWRONG      0 MOVEDOTHER      2 SAME_DIFF       2 SAME_AGREE      23 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_e_ts.elab         TOGOLD          13 MOVEDWRONG      0 MOVEDOTHER      2 SAME_DIFF       2 SAME_AGREE      42 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_f_mult.def        TOGOLD          12 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       2 SAME_AGREE      21 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+g127_f_mult.elab       TOGOLD          12 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       2 SAME_AGREE      38 ONESIDED_GOLD   0 ONESIDED_PAT    0 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+
+######## the non-agreeing cells, ARGKINDS=all, per arm-view
+== g127_a_kinds.def
+SAME_DIFF | package(Larkspur)/function(cinderTop)/return_stmt emberFold 0 ref_obj drift 48:22-48:27 | G={('none', '-'): 1} P={('int_typespec', '26:36-26:39'): 1, ('none', '-'): 1} Q={('int_typespec', '26:36-26:39'): 1, ('none', '-'): 1}
+SAME_DIFF | package(Larkspur)/function(oxbowEarly)/return_stmt laterJoin 0 ref_obj leftPart 53:22-53:30 | G={('string_typespec', '56:41-56:47'): 1, ('none', '-'): 1} P={('none', '-'): 2} Q={('none', '-'): 2}
+SAME_DIFF | package(Larkspur)/function(oxbowEarly)/return_stmt laterJoin 1 ref_obj hinge 53:32-53:37 | G={('byte_typespec', '56:58-56:62'): 1, ('none', '-'): 1} P={('none', '-'): 2} Q={('none', '-'): 2}
+SAME_DIFF | package(Larkspur)/function(vellumTop)/return_stmt tallowRender 0 ref_obj mode 40:25-40:29 | G={('enum_typespec', '39:36-39:43'): 1, ('none', '-'): 1} P={('enum_typespec', '12:3-12:64'): 1, ('none', '-'): 1} Q={('enum_typespec', '12:3-12:64'): 1, ('none', '-'): 1}
+== g127_a_kinds.elab
+SAME_DIFF | module_inst(work@Larkspur_top)/function(vellumTop)/return_stmt tallowRender 0 ref_obj mode 40:25-40:29 | G={('enum_typespec', '39:36-39:43'): 1} P={('enum_typespec', '12:3-12:64'): 1} Q={('enum_typespec', '12:3-12:64'): 1}
+SAME_DIFF | package(Larkspur)/function(cinderTop)/return_stmt emberFold 0 ref_obj drift 48:22-48:27 | G={('none', '-'): 2} P={('int_typespec', '26:36-26:39'): 1, ('none', '-'): 2} Q={('int_typespec', '26:36-26:39'): 1, ('none', '-'): 2}
+SAME_DIFF | package(Larkspur)/function(oxbowEarly)/return_stmt laterJoin 0 ref_obj leftPart 53:22-53:30 | G={('string_typespec', '56:41-56:47'): 2, ('none', '-'): 2} P={('none', '-'): 3, ('string_typespec', '56:41-56:47'): 1} Q={('none', '-'): 3, ('string_typespec', '56:41-56:47'): 1}
+SAME_DIFF | package(Larkspur)/function(oxbowEarly)/return_stmt laterJoin 1 ref_obj hinge 53:32-53:37 | G={('byte_typespec', '56:58-56:62'): 2, ('none', '-'): 2} P={('none', '-'): 3, ('byte_typespec', '56:58-56:62'): 1} Q={('none', '-'): 3, ('byte_typespec', '56:58-56:62'): 1}
+SAME_DIFF | package(Larkspur)/function(vellumTop)/return_stmt tallowRender 0 ref_obj mode 40:25-40:29 | G={('enum_typespec', '39:36-39:43'): 2, ('none', '-'): 2} P={('enum_typespec', '12:3-12:64'): 2, ('none', '-'): 2} Q={('enum_typespec', '12:3-12:64'): 2, ('none', '-'): 2}
+== g127_b_oob.def
+TOGOLD | package(Chandler)/class_defn(Meridian)/function(oobBeginEnd)/begin/return_stmt trellisPad 0 ref_obj bough 36:23-36:28 | G={('string_typespec', '6:43-6:49'): 1} P={('none', '-'): 1} Q={('string_typespec', '6:43-6:49'): 1}
+TOGOLD | package(Chandler)/class_defn(Meridian)/function(oobBeginEnd)/begin/return_stmt trellisPad 1 ref_obj girth 36:30-36:35 | G={('int_typespec', '6:57-6:60'): 1} P={('none', '-'): 1} Q={('int_typespec', '6:57-6:60'): 1}
+TOGOLD | package(Chandler)/class_defn(Meridian)/function(oobSingle)/return_stmt trellisPad 0 ref_obj bough 30:23-30:28 | G={('string_typespec', '6:43-6:49'): 1} P={('none', '-'): 1} Q={('string_typespec', '6:43-6:49'): 1}
+TOGOLD | package(Chandler)/class_defn(Meridian)/function(oobSingle)/return_stmt trellisPad 1 ref_obj girth 30:30-30:35 | G={('int_typespec', '6:57-6:60'): 1} P={('none', '-'): 1} Q={('int_typespec', '6:57-6:60'): 1}
+== g127_b_oob.elab
+TOGOLD | package(Chandler)/class_defn(Meridian)/function(oobBeginEnd)/begin/return_stmt trellisPad 0 ref_obj bough 36:23-36:28 | G={('string_typespec', '6:43-6:49'): 2} P={('none', '-'): 1, ('string_typespec', '6:43-6:49'): 1} Q={('string_typespec', '6:43-6:49'): 2}
+TOGOLD | package(Chandler)/class_defn(Meridian)/function(oobBeginEnd)/begin/return_stmt trellisPad 1 ref_obj girth 36:30-36:35 | G={('int_typespec', '6:57-6:60'): 2} P={('none', '-'): 1, ('int_typespec', '6:57-6:60'): 1} Q={('int_typespec', '6:57-6:60'): 2}
+TOGOLD | package(Chandler)/class_defn(Meridian)/function(oobSingle)/return_stmt trellisPad 0 ref_obj bough 30:23-30:28 | G={('string_typespec', '6:43-6:49'): 2} P={('none', '-'): 1, ('string_typespec', '6:43-6:49'): 1} Q={('string_typespec', '6:43-6:49'): 2}
+TOGOLD | package(Chandler)/class_defn(Meridian)/function(oobSingle)/return_stmt trellisPad 1 ref_obj girth 30:30-30:35 | G={('int_typespec', '6:57-6:60'): 2} P={('none', '-'): 1, ('int_typespec', '6:57-6:60'): 1} Q={('int_typespec', '6:57-6:60'): 2}
+== g127_c_import.def
+TOGOLD | package(Ravelin)/class_defn(Palisade)/function(oobWrap)/return_stmt glazeCat 0 ref_obj frontish 24:21-24:29 | G={('string_typespec', '8:41-8:47'): 1} P={('none', '-'): 1} Q={('string_typespec', '8:41-8:47'): 1}
+TOGOLD | package(Ravelin)/class_defn(Palisade)/function(oobWrap)/return_stmt glazeCat 1 ref_obj backish 24:31-24:38 | G={('string_typespec', '8:58-8:64'): 1} P={('none', '-'): 1} Q={('string_typespec', '8:58-8:64'): 1}
+TOGOLD | package(Sundial)/function(Palisade::oobWrap)/return_stmt glazeCat 0 ref_obj frontish 24:21-24:29 | G={('string_typespec', '8:41-8:47'): 2} P={('none', '-'): 2} Q={('string_typespec', '8:41-8:47'): 2}
+TOGOLD | package(Sundial)/function(Palisade::oobWrap)/return_stmt glazeCat 1 ref_obj backish 24:31-24:38 | G={('string_typespec', '8:58-8:64'): 2} P={('none', '-'): 2} Q={('string_typespec', '8:58-8:64'): 2}
+TOGOLD | package(Sundial)/function(lattermathTop)/return_stmt tundraAdd 0 ref_obj alpha7 16:22-16:28 | G={('int_typespec', '9:41-9:44'): 2} P={('none', '-'): 1, ('int_typespec', '9:41-9:44'): 1} Q={('int_typespec', '9:41-9:44'): 2}
+TOGOLD | package(Sundial)/function(lattermathTop)/return_stmt tundraAdd 1 ref_obj beta3 16:30-16:35 | G={('byte_typespec', '9:53-9:57'): 2} P={('none', '-'): 1, ('byte_typespec', '9:53-9:57'): 1} Q={('byte_typespec', '9:53-9:57'): 2}
+TOGOLD | package(Sundial)/function(quarryTop)/return_stmt glazeCat 0 ref_obj frontish 12:21-12:29 | G={('string_typespec', '8:41-8:47'): 2} P={('none', '-'): 1, ('string_typespec', '8:41-8:47'): 1} Q={('string_typespec', '8:41-8:47'): 2}
+TOGOLD | package(Sundial)/function(quarryTop)/return_stmt glazeCat 1 ref_obj backish 12:31-12:38 | G={('string_typespec', '8:58-8:64'): 2} P={('none', '-'): 1, ('string_typespec', '8:58-8:64'): 1} Q={('string_typespec', '8:58-8:64'): 2}
+== g127_c_import.elab
+TOGOLD | package(Ravelin)/class_defn(Palisade)/function(oobWrap)/return_stmt glazeCat 0 ref_obj frontish 24:21-24:29 | G={('string_typespec', '8:41-8:47'): 2} P={('none', '-'): 1, ('string_typespec', '8:41-8:47'): 1} Q={('string_typespec', '8:41-8:47'): 2}
+TOGOLD | package(Ravelin)/class_defn(Palisade)/function(oobWrap)/return_stmt glazeCat 1 ref_obj backish 24:31-24:38 | G={('string_typespec', '8:58-8:64'): 2} P={('none', '-'): 1, ('string_typespec', '8:58-8:64'): 1} Q={('string_typespec', '8:58-8:64'): 2}
+TOGOLD | package(Sundial)/function(Palisade::oobWrap)/return_stmt glazeCat 0 ref_obj frontish 24:21-24:29 | G={('string_typespec', '8:41-8:47'): 4} P={('none', '-'): 3, ('string_typespec', '8:41-8:47'): 1} Q={('string_typespec', '8:41-8:47'): 4}
+TOGOLD | package(Sundial)/function(Palisade::oobWrap)/return_stmt glazeCat 1 ref_obj backish 24:31-24:38 | G={('string_typespec', '8:58-8:64'): 4} P={('none', '-'): 3, ('string_typespec', '8:58-8:64'): 1} Q={('string_typespec', '8:58-8:64'): 4}
+MOVEDOTHER | package(Sundial)/function(lattermathTop)/return_stmt tundraAdd 0 ref_obj alpha7 16:22-16:28 | G={('int_typespec', '9:41-9:44'): 4} P={('none', '-'): 1, ('int_typespec', '9:41-9:44'): 2} Q={('int_typespec', '9:41-9:44'): 3}
+MOVEDOTHER | package(Sundial)/function(lattermathTop)/return_stmt tundraAdd 1 ref_obj beta3 16:30-16:35 | G={('byte_typespec', '9:53-9:57'): 4} P={('none', '-'): 1, ('byte_typespec', '9:53-9:57'): 2} Q={('byte_typespec', '9:53-9:57'): 3}
+MOVEDOTHER | package(Sundial)/function(quarryTop)/return_stmt glazeCat 0 ref_obj frontish 12:21-12:29 | G={('string_typespec', '8:41-8:47'): 4} P={('none', '-'): 1, ('string_typespec', '8:41-8:47'): 2} Q={('string_typespec', '8:41-8:47'): 3}
+MOVEDOTHER | package(Sundial)/function(quarryTop)/return_stmt glazeCat 1 ref_obj backish 12:31-12:38 | G={('string_typespec', '8:58-8:64'): 4} P={('none', '-'): 1, ('string_typespec', '8:58-8:64'): 2} Q={('string_typespec', '8:58-8:64'): 3}
+SAME_DIFF | module_inst(work@Sundial_top)/function(lattermathTop)/return_stmt tundraAdd 0 ref_obj alpha7 16:22-16:28 | G={('int_typespec', '9:41-9:44'): 1} P={('int_typespec', '9:41-9:44'): 2} Q={('int_typespec', '9:41-9:44'): 2}
+SAME_DIFF | module_inst(work@Sundial_top)/function(lattermathTop)/return_stmt tundraAdd 1 ref_obj beta3 16:30-16:35 | G={('byte_typespec', '9:53-9:57'): 1} P={('byte_typespec', '9:53-9:57'): 2} Q={('byte_typespec', '9:53-9:57'): 2}
+SAME_DIFF | module_inst(work@Sundial_top)/function(quarryTop)/return_stmt glazeCat 0 ref_obj frontish 12:21-12:29 | G={('string_typespec', '8:41-8:47'): 1} P={('string_typespec', '8:41-8:47'): 2} Q={('string_typespec', '8:41-8:47'): 2}
+SAME_DIFF | module_inst(work@Sundial_top)/function(quarryTop)/return_stmt glazeCat 1 ref_obj backish 12:31-12:38 | G={('string_typespec', '8:58-8:64'): 1} P={('string_typespec', '8:58-8:64'): 2} Q={('string_typespec', '8:58-8:64'): 2}
+== g127_d_homes.def
+TOGOLD | package(Obsidian)/class_defn(Trammel)/function(pkgOob)/return_stmt pkgBlend 0 ref_obj cusp 52:21-52:25 | G={('string_typespec', '41:40-41:46'): 1} P={('none', '-'): 1} Q={('string_typespec', '41:40-41:46'): 1}
+TOGOLD | package(Obsidian)/class_defn(Trammel)/function(pkgOob)/return_stmt pkgBlend 1 ref_obj lode 52:27-52:31 | G={('int_typespec', '41:53-41:56'): 1} P={('none', '-'): 1} Q={('int_typespec', '41:53-41:56'): 1}
+== g127_d_homes.elab
+TOGOLD | package(Obsidian)/class_defn(Trammel)/function(pkgOob)/return_stmt pkgBlend 0 ref_obj cusp 52:21-52:25 | G={('string_typespec', '41:40-41:46'): 2} P={('none', '-'): 1, ('string_typespec', '41:40-41:46'): 1} Q={('string_typespec', '41:40-41:46'): 2}
+TOGOLD | package(Obsidian)/class_defn(Trammel)/function(pkgOob)/return_stmt pkgBlend 1 ref_obj lode 52:27-52:31 | G={('int_typespec', '41:53-41:56'): 2} P={('none', '-'): 1, ('int_typespec', '41:53-41:56'): 1} Q={('int_typespec', '41:53-41:56'): 2}
+== g127_e_ts.def
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kByte)/return_stmt tsByte 0 ref_obj b1 63:67-63:69 | G={('byte_typespec', '18:41-18:45'): 1} P={('none', '-'): 1} Q={('byte_typespec', '18:41-18:45'): 1}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kClass)/return_stmt tsClass 0 ref_obj c1 68:68-68:70 | G={('class_typespec', '30:35-30:42'): 1} P={('none', '-'): 1} Q={('class_typespec', '30:35-30:42'): 1}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kInout)/begin/return_stmt tsInoutDpi 0 ref_obj spare 76:23-76:28 | G={('int_typespec', '26:48-26:51'): 1} P={('none', '-'): 1} Q={('int_typespec', '26:48-26:51'): 1}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kInt)/return_stmt tsInt 0 ref_obj i1 62:66-62:68 | G={('int_typespec', '17:41-17:44'): 1} P={('none', '-'): 1} Q={('int_typespec', '17:41-17:44'): 1}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kLit)/return_stmt tsTwo 0 constant - 92:18-92:20 | G={('int_typespec', '24:41-24:44'): 1} P={('none', '-'): 1} Q={('int_typespec', '24:41-24:44'): 1}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kLogic)/return_stmt tsLogic 0 ref_obj l1 64:68-64:70 | G={('logic_typespec', '19:41-19:46'): 1} P={('none', '-'): 1} Q={('logic_typespec', '19:41-19:46'): 1}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kOper)/return_stmt tsTwo 0 operation - 95:18-95:24 | G={('int_typespec', '24:41-24:44'): 1} P={('none', '-'): 1} Q={('int_typespec', '24:41-24:44'): 1}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kOut)/begin/return_stmt tsOutDpi 0 ref_obj spare 72:21-72:26 | G={('int_typespec', '25:48-25:51'): 1} P={('none', '-'): 1} Q={('int_typespec', '25:48-25:51'): 1}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kProp)/return_stmt tsInt 0 ref_obj ownProp 83:18-83:25 | G={('int_typespec', '17:41-17:44'): 1} P={('none', '-'): 1} Q={('int_typespec', '17:41-17:44'): 1}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kReal)/return_stmt tsReal 0 ref_obj r1 69:67-69:69 | G={('real_typespec', '23:41-23:45'): 1} P={('none', '-'): 1} Q={('real_typespec', '23:41-23:45'): 1}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kRef)/begin/return_stmt dirRef 0 ref_obj spare 80:19-80:24 | G={('int_typespec', '33:38-33:41'): 1} P={('none', '-'): 1} Q={('int_typespec', '33:38-33:41'): 1}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kSelect)/return_stmt tsByte 0 part_select ownVec 86:19-86:30 | G={('byte_typespec', '18:41-18:45'): 1} P={('none', '-'): 1} Q={('byte_typespec', '18:41-18:45'): 1}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kString)/return_stmt tsString 0 ref_obj s1 61:69-61:71 | G={('string_typespec', '16:41-16:47'): 1} P={('none', '-'): 1} Q={('string_typespec', '16:41-16:47'): 1}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kTypedef)/return_stmt tsTypedef 0 ref_obj d1 67:70-67:72 | G={('logic_typespec', '8:11-8:23'): 1} P={('none', '-'): 1} Q={('logic_typespec', '8:11-8:23'): 1}
+MOVEDOTHER | package(Windlass)/class_defn(Bulwark)/function(kEnum)/return_stmt tsEnum 0 ref_obj e1 65:67-65:69 | G={('enum_typespec', '46:34-46:40'): 1} P={('none', '-'): 1} Q={('enum_typespec', '6:3-6:55'): 1}
+MOVEDOTHER | package(Windlass)/class_defn(Bulwark)/function(kStruct)/return_stmt tsStruct 0 ref_obj n1 66:69-66:71 | G={('struct_typespec', '47:34-47:39'): 1} P={('none', '-'): 1} Q={('struct_typespec', '21:41-21:46'): 1}
+SAME_DIFF | package(Windlass)/class_defn(Bulwark)/function(kLit)/return_stmt tsTwo 1 constant - 92:22-92:33 | G={('string_typespec', '24:49-24:55'): 1} P={('none', '-'): 1} Q={('none', '-'): 1}
+SAME_DIFF | package(Windlass)/class_defn(Bulwark)/function(kOper)/return_stmt tsTwo 1 constant - 95:26-95:34 | G={('string_typespec', '24:49-24:55'): 1} P={('none', '-'): 1} Q={('none', '-'): 1}
+== g127_e_ts.elab
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kByte)/return_stmt tsByte 0 ref_obj b1 63:67-63:69 | G={('byte_typespec', '18:41-18:45'): 2} P={('none', '-'): 1, ('byte_typespec', '18:41-18:45'): 1} Q={('byte_typespec', '18:41-18:45'): 2}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kClass)/return_stmt tsClass 0 ref_obj c1 68:68-68:70 | G={('class_typespec', '30:35-30:42'): 2} P={('none', '-'): 1, ('class_typespec', '30:35-30:42'): 1} Q={('class_typespec', '30:35-30:42'): 2}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kInout)/begin/return_stmt tsInoutDpi 0 ref_obj spare 76:23-76:28 | G={('int_typespec', '26:48-26:51'): 2} P={('none', '-'): 1, ('int_typespec', '26:48-26:51'): 1} Q={('int_typespec', '26:48-26:51'): 2}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kInt)/return_stmt tsInt 0 ref_obj i1 62:66-62:68 | G={('int_typespec', '17:41-17:44'): 2} P={('none', '-'): 1, ('int_typespec', '17:41-17:44'): 1} Q={('int_typespec', '17:41-17:44'): 2}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kLogic)/return_stmt tsLogic 0 ref_obj l1 64:68-64:70 | G={('logic_typespec', '19:41-19:46'): 2} P={('none', '-'): 1, ('logic_typespec', '19:41-19:46'): 1} Q={('logic_typespec', '19:41-19:46'): 2}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kOper)/return_stmt tsTwo 0 operation - 95:18-95:24 | G={('int_typespec', '24:41-24:44'): 2} P={('none', '-'): 1, ('int_typespec', '24:41-24:44'): 1} Q={('int_typespec', '24:41-24:44'): 2}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kOut)/begin/return_stmt tsOutDpi 0 ref_obj spare 72:21-72:26 | G={('int_typespec', '25:48-25:51'): 2} P={('none', '-'): 1, ('int_typespec', '25:48-25:51'): 1} Q={('int_typespec', '25:48-25:51'): 2}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kProp)/return_stmt tsInt 0 ref_obj ownProp 83:18-83:25 | G={('int_typespec', '17:41-17:44'): 2} P={('none', '-'): 1, ('int_typespec', '17:41-17:44'): 1} Q={('int_typespec', '17:41-17:44'): 2}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kReal)/return_stmt tsReal 0 ref_obj r1 69:67-69:69 | G={('real_typespec', '23:41-23:45'): 2} P={('none', '-'): 1, ('real_typespec', '23:41-23:45'): 1} Q={('real_typespec', '23:41-23:45'): 2}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kRef)/begin/return_stmt dirRef 0 ref_obj spare 80:19-80:24 | G={('int_typespec', '33:38-33:41'): 2} P={('none', '-'): 1, ('int_typespec', '33:38-33:41'): 1} Q={('int_typespec', '33:38-33:41'): 2}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kSelect)/return_stmt tsByte 0 part_select ownVec 86:19-86:30 | G={('byte_typespec', '18:41-18:45'): 2} P={('none', '-'): 1, ('byte_typespec', '18:41-18:45'): 1} Q={('byte_typespec', '18:41-18:45'): 2}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kString)/return_stmt tsString 0 ref_obj s1 61:69-61:71 | G={('string_typespec', '16:41-16:47'): 2} P={('none', '-'): 1, ('string_typespec', '16:41-16:47'): 1} Q={('string_typespec', '16:41-16:47'): 2}
+TOGOLD | package(Windlass)/class_defn(Bulwark)/function(kTypedef)/return_stmt tsTypedef 0 ref_obj d1 67:70-67:72 | G={('logic_typespec', '8:11-8:23'): 2} P={('none', '-'): 1, ('logic_typespec', '8:11-8:23'): 1} Q={('logic_typespec', '8:11-8:23'): 2}
+MOVEDOTHER | package(Windlass)/class_defn(Bulwark)/function(kEnum)/return_stmt tsEnum 0 ref_obj e1 65:67-65:69 | G={('enum_typespec', '46:34-46:40'): 2} P={('none', '-'): 1, ('enum_typespec', '6:3-6:55'): 1} Q={('enum_typespec', '6:3-6:55'): 2}
+MOVEDOTHER | package(Windlass)/class_defn(Bulwark)/function(kStruct)/return_stmt tsStruct 0 ref_obj n1 66:69-66:71 | G={('struct_typespec', '47:34-47:39'): 2} P={('none', '-'): 1, ('struct_typespec', '21:41-21:46'): 1} Q={('struct_typespec', '21:41-21:46'): 2}
+SAME_DIFF | module_inst(work@Windlass_top)/function(kEnum)/return_stmt tsEnum 0 ref_obj e1 65:67-65:69 | G={('enum_typespec', '46:34-46:40'): 1} P={('enum_typespec', '6:3-6:55'): 1} Q={('enum_typespec', '6:3-6:55'): 1}
+SAME_DIFF | module_inst(work@Windlass_top)/function(kStruct)/return_stmt tsStruct 0 ref_obj n1 66:69-66:71 | G={('struct_typespec', '47:34-47:39'): 1} P={('struct_typespec', '21:41-21:46'): 1} Q={('struct_typespec', '21:41-21:46'): 1}
+== g127_f_mult.def
+TOGOLD | package(Cantle)/class_defn(Spandrel)/function(arrIndex)/return_stmt foldOne 0 bit_select ownArr 29:27-29:32 | G={('int_typespec', '5:39-5:42'): 1} P={('none', '-'): 1} Q={('int_typespec', '5:39-5:42'): 1}
+TOGOLD | package(Cantle)/class_defn(Spandrel)/function(once1)/return_stmt foldOne 0 ref_obj seedA 23:62-23:67 | G={('int_typespec', '5:39-5:42'): 1} P={('none', '-'): 1} Q={('int_typespec', '5:39-5:42'): 1}
+TOGOLD | package(Cantle)/class_defn(Spandrel)/function(recurTop)/return_stmt recurseOne 0 ref_obj seedA 32:23-32:28 | G={('int_typespec', '8:37-8:40'): 1} P={('none', '-'): 1} Q={('int_typespec', '8:37-8:40'): 1}
+TOGOLD | package(Cantle)/class_defn(Spandrel)/function(thrice3)/return_stmt/func_call(foldTwo) foldOne 0 ref_obj ownA 26:44-26:48 | G={('int_typespec', '5:39-5:42'): 1} P={('none', '-'): 1} Q={('int_typespec', '5:39-5:42'): 1}
+TOGOLD | package(Cantle)/class_defn(Spandrel)/function(thrice3)/return_stmt/func_call(foldTwo) foldOne 0 ref_obj seedA 26:28-26:33 | G={('int_typespec', '5:39-5:42'): 1} P={('none', '-'): 1} Q={('int_typespec', '5:39-5:42'): 1}
+TOGOLD | package(Cantle)/class_defn(Spandrel)/function(twice2)/return_stmt foldTwo 0 ref_obj seedA 24:62-24:67 | G={('int_typespec', '6:50-6:53'): 1} P={('none', '-'): 1} Q={('int_typespec', '6:50-6:53'): 1}
+TOGOLD | package(Cantle2)/class_defn(Tiercel)/function(oneA)/return_stmt weldA 0 ref_obj p1 45:64-45:66 | G={('string_typespec', '39:37-39:43'): 1} P={('none', '-'): 1} Q={('string_typespec', '39:37-39:43'): 1}
+TOGOLD | package(Cantle2)/class_defn(Tiercel)/function(oneA)/return_stmt weldA 1 ref_obj p2 45:68-45:70 | G={('byte_typespec', '39:48-39:52'): 1} P={('none', '-'): 1} Q={('byte_typespec', '39:48-39:52'): 1}
+TOGOLD | package(Cantle2)/class_defn(Tiercel)/function(oneB)/return_stmt weldA 0 ref_obj p1 46:64-46:66 | G={('string_typespec', '39:37-39:43'): 1} P={('none', '-'): 1} Q={('string_typespec', '39:37-39:43'): 1}
+TOGOLD | package(Cantle2)/class_defn(Tiercel)/function(oneB)/return_stmt weldA 1 ref_obj p2 46:68-46:70 | G={('byte_typespec', '39:48-39:52'): 1} P={('none', '-'): 1} Q={('byte_typespec', '39:48-39:52'): 1}
+TOGOLD | package(Cantle2)/class_defn(Tiercel)/function(oneC)/return_stmt weldA 0 ref_obj p1 47:64-47:66 | G={('string_typespec', '39:37-39:43'): 1} P={('none', '-'): 1} Q={('string_typespec', '39:37-39:43'): 1}
+TOGOLD | package(Cantle2)/class_defn(Tiercel)/function(oneC)/return_stmt weldA 1 ref_obj p2 47:68-47:70 | G={('byte_typespec', '39:48-39:52'): 1} P={('none', '-'): 1} Q={('byte_typespec', '39:48-39:52'): 1}
+SAME_DIFF | package(Cantle)/class_defn(Spandrel)/function(thrice3)/return_stmt foldTwo 0 func_call foldOne 26:20-26:34 | G={('int_typespec', '6:39-6:42'): 1} P={('none', '-'): 1} Q={('none', '-'): 1}
+SAME_DIFF | package(Cantle)/class_defn(Spandrel)/function(thrice3)/return_stmt foldTwo 1 func_call foldOne 26:36-26:49 | G={('int_typespec', '6:50-6:53'): 1} P={('none', '-'): 1} Q={('none', '-'): 1}
+== g127_f_mult.elab
+TOGOLD | package(Cantle)/class_defn(Spandrel)/function(arrIndex)/return_stmt foldOne 0 bit_select ownArr 29:27-29:32 | G={('int_typespec', '5:39-5:42'): 2} P={('none', '-'): 1, ('int_typespec', '5:39-5:42'): 1} Q={('int_typespec', '5:39-5:42'): 2}
+TOGOLD | package(Cantle)/class_defn(Spandrel)/function(once1)/return_stmt foldOne 0 ref_obj seedA 23:62-23:67 | G={('int_typespec', '5:39-5:42'): 2} P={('none', '-'): 1, ('int_typespec', '5:39-5:42'): 1} Q={('int_typespec', '5:39-5:42'): 2}
+TOGOLD | package(Cantle)/class_defn(Spandrel)/function(recurTop)/return_stmt recurseOne 0 ref_obj seedA 32:23-32:28 | G={('int_typespec', '8:37-8:40'): 2} P={('none', '-'): 1, ('int_typespec', '8:37-8:40'): 1} Q={('int_typespec', '8:37-8:40'): 2}
+TOGOLD | package(Cantle)/class_defn(Spandrel)/function(thrice3)/return_stmt/func_call(foldTwo) foldOne 0 ref_obj ownA 26:44-26:48 | G={('int_typespec', '5:39-5:42'): 2} P={('none', '-'): 1, ('int_typespec', '5:39-5:42'): 1} Q={('int_typespec', '5:39-5:42'): 2}
+TOGOLD | package(Cantle)/class_defn(Spandrel)/function(thrice3)/return_stmt/func_call(foldTwo) foldOne 0 ref_obj seedA 26:28-26:33 | G={('int_typespec', '5:39-5:42'): 2} P={('none', '-'): 1, ('int_typespec', '5:39-5:42'): 1} Q={('int_typespec', '5:39-5:42'): 2}
+TOGOLD | package(Cantle)/class_defn(Spandrel)/function(twice2)/return_stmt foldTwo 0 ref_obj seedA 24:62-24:67 | G={('int_typespec', '6:50-6:53'): 2} P={('none', '-'): 1, ('int_typespec', '6:50-6:53'): 1} Q={('int_typespec', '6:50-6:53'): 2}
+TOGOLD | package(Cantle2)/class_defn(Tiercel)/function(oneA)/return_stmt weldA 0 ref_obj p1 45:64-45:66 | G={('string_typespec', '39:37-39:43'): 2} P={('none', '-'): 1, ('string_typespec', '39:37-39:43'): 1} Q={('string_typespec', '39:37-39:43'): 2}
+TOGOLD | package(Cantle2)/class_defn(Tiercel)/function(oneA)/return_stmt weldA 1 ref_obj p2 45:68-45:70 | G={('byte_typespec', '39:48-39:52'): 2} P={('none', '-'): 1, ('byte_typespec', '39:48-39:52'): 1} Q={('byte_typespec', '39:48-39:52'): 2}
+TOGOLD | package(Cantle2)/class_defn(Tiercel)/function(oneB)/return_stmt weldA 0 ref_obj p1 46:64-46:66 | G={('string_typespec', '39:37-39:43'): 2} P={('none', '-'): 1, ('string_typespec', '39:37-39:43'): 1} Q={('string_typespec', '39:37-39:43'): 2}
+TOGOLD | package(Cantle2)/class_defn(Tiercel)/function(oneB)/return_stmt weldA 1 ref_obj p2 46:68-46:70 | G={('byte_typespec', '39:48-39:52'): 2} P={('none', '-'): 1, ('byte_typespec', '39:48-39:52'): 1} Q={('byte_typespec', '39:48-39:52'): 2}
+TOGOLD | package(Cantle2)/class_defn(Tiercel)/function(oneC)/return_stmt weldA 0 ref_obj p1 47:64-47:66 | G={('string_typespec', '39:37-39:43'): 2} P={('none', '-'): 1, ('string_typespec', '39:37-39:43'): 1} Q={('string_typespec', '39:37-39:43'): 2}
+TOGOLD | package(Cantle2)/class_defn(Tiercel)/function(oneC)/return_stmt weldA 1 ref_obj p2 47:68-47:70 | G={('byte_typespec', '39:48-39:52'): 2} P={('none', '-'): 1, ('byte_typespec', '39:48-39:52'): 1} Q={('byte_typespec', '39:48-39:52'): 2}
+SAME_DIFF | package(Cantle)/class_defn(Spandrel)/function(thrice3)/return_stmt foldTwo 0 func_call foldOne 26:20-26:34 | G={('int_typespec', '6:39-6:42'): 2} P={('none', '-'): 1, ('int_typespec', '6:39-6:42'): 1} Q={('none', '-'): 1, ('int_typespec', '6:39-6:42'): 1}
+SAME_DIFF | package(Cantle)/class_defn(Spandrel)/function(thrice3)/return_stmt foldTwo 1 func_call foldOne 26:36-26:49 | G={('int_typespec', '6:50-6:53'): 2} P={('none', '-'): 1, ('int_typespec', '6:50-6:53'): 1} Q={('none', '-'): 1, ('int_typespec', '6:50-6:53'): 1}
+
+######## rcs per arm-view (a segfault must never read as 'no cells')
+g127_a_kinds.def       rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+g127_a_kinds.elab      rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+g127_b_oob.def         rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+g127_b_oob.elab        rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+g127_c_import.def      rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+g127_c_import.elab     rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+g127_d_homes.def       rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+g127_d_homes.elab      rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+g127_e_ts.def          rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+g127_e_ts.elab         rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+g127_f_mult.def        rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+g127_f_mult.elab       rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+LISTED=6 PROCESSED=6
+PROCESSED-ASSERT-OK

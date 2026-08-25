@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-24 23:00, HEAD = the earl85 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-24 23:45, HEAD = the uvm127 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,7 +182,8 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2 + MiniAmiq×2 (uvm-1.2 tree) | 17 (depth) | a MISSING ref_typespec on a call-argument ref_obj: `return uvm_leaf_scope(id, scope_separator);` (uvm_printer.svh:808, inside uvm_printer::adjust_name) — golden's ref_obj `id` @808:25 carries a ref_typespec whose actual is the CALLEE's first formal's string_typespec (uvm_misc.svh:445:33); ours carries none (the singular SafeCompare mirror: ref_obj::Typespec) — a call ARGUMENT typed from the callee's FORMAL, the typespec-linkage family — uvm127's target (uvm124 landed: 28→17, § selRecvStmtCallBareNames124 — a built-in statement call's subscripted receiver chain gives its prefix ref_obj and method_func_call the BASE NAME with the name-only span; the fence is the TREE (builtinRecvStepSelectors74 confirms the split), buvm23's R-Q closed; the whole corpus population is five uvm_factory.svh sites) |
+| SeqDriver×2 (uvm-1.2 tree) | 17 (depth) | a MISSING NET: golden hoists an implicit wire `sz` (logic_net work@top_tb.sz @uvm_packer.svh:488:15-488:17, vpiNetType 1) for `bytes = new[sz];` inside the out-of-body uvm_packer::get_bytes into the TOP MODULE work@top_tb; we mint none — the hoisted-net family of §§ withIterIterBindsHoistNet75 / oobRefVarLocalHoistNet107 / pkgFreeSubRefVarHoistNet117, landing in the top module's pool — uvm130's target (uvm127 landed: 17→17 new object, § pkgRetOobClassAndImportCloneTs127 — an OUT-OF-BODY method body takes Reduce::Yes like a free package function, so ExprEval::evalFunc stamps every call actual with the callee's formal's SHARED typespec by position; in-body methods never; module/$unit classes never; importer clones both views) |
+| MiniAmiq×2 (uvm-1.2 tree) | 294 (depth) | a MISSING vpiJoinType: golden's `named_fork (uvm_pkg::uvm_phase::execute_phase::master_phase_process) @uvm_phase.svh:1400:9-1413:18` carries `vpiJoinType:1` for `fork : master_phase_process ... join_none`; our named_fork exists (same name, same Stmt children; spanned at the label text 1400:16-36, dump-only) but carries NO vpiJoinType — the compared field (named_fork::Compare reads it) — uvm131's target |
 | SimpleUVM×2 + Scoreboard/default | 124 (depth) | an operation vpiOpType 15 at uvm_object_defines.svh:1978:21-1978:76 in uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation, over `abstractions.size` and `local_data__.abstractions.size` — a hier_path/method-call family — uvm128's target (uvm126 landed: 12→124/54, § declArrayElemTsIsWrittenKeyword126 — a fixed-size unpacked-array BLOCK-ITEM subroutine local's element typespec is the class of the WRITTEN base-type keyword (Surelog's closed compileBuiltinTypespec switch); the verifier removed the VpiSigned our patch put on `time signed` elements — Surelog's time arm never sets it) |
 | BuildUVMPkg×2 | 54 (depth) | `enum_var uvm_reg_hw_reset_seq::do_block::field_check_restore` (pp_output :79885:25-79885:44), the element variable of an array_var bound to `enum_typespec uvm_pkg::uvm_check_e` — the NAMED-typedef half of uvm126's family (a named element type binds golden's SHARED named typespec object; uvm126's cen126/score126/pred126 instruments and its grid A's six STILL-WRONG cells are pointed at it) — queued as uvm129 |
 | Earlgrey_0_1/default | 90 (depth) | flash_erase_ctrl.sv:42 `BankAddrMask`'s shift AMOUNT (:42:57): golden folds the SUB-EXPRESSION `(PagesBitWidth + WordsBitWidth)` to constant UINT:16 sz32 with no typespec where we keep an operation (opType 24) over two folded leaves — fold every maximal non-bailing operand subtree with earl73's per-operator encoder tables, keeping earl85's leaf rule for a bare identifier — earl86's target (earl85 landed: 214/144→90/150, § srlgUnsizedBasedShiftBail85 — an UNSIZED BASED literal as a shift's arg0 (VpiSize -1) makes Surelog's reduceExpr bail and the whole tree is kept; § paOvFoldedRangeNoStamp85 — vpiOverriden follows the EMITTED range objects, a folded bound leaves no name and no stamp; § elabParamOpLeafValueFold85 — identifier leaves inside a kept tree take the instance's stored Value at the declared width with the bare signed int_typespec) |
@@ -192,7 +193,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 81 verifier fix-before-landing re-cuts (176 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 81 verifier fix-before-landing re-cuts (177 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

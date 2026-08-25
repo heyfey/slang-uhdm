@@ -1,0 +1,58 @@
+r10uvm127 — CALL-ARGUMENT TYPESPEC CENSUS over the NINE UVM DATABASES.
+LHS is ALWAYS golden.  Each row is scored against ITS OWN golden (the path
+comes out of that row's cmds.txt).  Two passes: ARGKINDS=ref_obj (the head's
+kind) and ARGKINDS=all (adds the constant / operation actuals the same law
+stamps).  ONESIDED_PAT_CHANGED counts cells where GOLDEN HOLDS NO OBJECT and
+the patch nonetheless rewrote our payload.
+
+######## ARGKINDS=ref_obj
+BuildUVMPkg.default    TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      11118 ONESIDED_GOLD   2 ONESIDED_PAT    8 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+BuildUVMPkg.testflags  TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       0 SAME_AGREE      11118 ONESIDED_GOLD   2 ONESIDED_PAT    8 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+MiniAmiq.default       TOGOLD          10 MOVEDWRONG      0 MOVEDOTHER      1 SAME_DIFF       7 SAME_AGREE      12876 ONESIDED_GOLD   2115 ONESIDED_PAT    2115 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+MiniAmiq.testflags     TOGOLD          10 MOVEDWRONG      0 MOVEDOTHER      1 SAME_DIFF       7 SAME_AGREE      12876 ONESIDED_GOLD   2115 ONESIDED_PAT    2115 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+Scoreboard.default     TOGOLD          2 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       1 SAME_AGREE      10205 ONESIDED_GOLD   825 ONESIDED_PAT    837 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+SeqDriver.default      TOGOLD          10 MOVEDWRONG      0 MOVEDOTHER      1 SAME_DIFF       7 SAME_AGREE      12299 ONESIDED_GOLD   2050 ONESIDED_PAT    2056 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+SeqDriver.testflags    TOGOLD          10 MOVEDWRONG      0 MOVEDOTHER      1 SAME_DIFF       7 SAME_AGREE      12299 ONESIDED_GOLD   2050 ONESIDED_PAT    2056 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+SimpleUVM.default      TOGOLD          2 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       1 SAME_AGREE      10161 ONESIDED_GOLD   808 ONESIDED_PAT    820 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+SimpleUVM.testflags    TOGOLD          2 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       1 SAME_AGREE      10161 ONESIDED_GOLD   808 ONESIDED_PAT    820 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+
+######## ARGKINDS=all
+BuildUVMPkg.default    TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       2 SAME_AGREE      24169 ONESIDED_GOLD   100 ONESIDED_PAT    72 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+BuildUVMPkg.testflags  TOGOLD          0 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       2 SAME_AGREE      24169 ONESIDED_GOLD   100 ONESIDED_PAT    72 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+MiniAmiq.default       TOGOLD          10 MOVEDWRONG      0 MOVEDOTHER      1 SAME_DIFF       16 SAME_AGREE      22884 ONESIDED_GOLD   10197 ONESIDED_PAT    9762 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+MiniAmiq.testflags     TOGOLD          10 MOVEDWRONG      0 MOVEDOTHER      1 SAME_DIFF       16 SAME_AGREE      22884 ONESIDED_GOLD   10197 ONESIDED_PAT    9762 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+Scoreboard.default     TOGOLD          2 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       3 SAME_AGREE      17682 ONESIDED_GOLD   6147 ONESIDED_PAT    5883 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+SeqDriver.default      TOGOLD          10 MOVEDWRONG      0 MOVEDOTHER      1 SAME_DIFF       16 SAME_AGREE      21831 ONESIDED_GOLD   9872 ONESIDED_PAT    9474 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+SeqDriver.testflags    TOGOLD          10 MOVEDWRONG      0 MOVEDOTHER      1 SAME_DIFF       16 SAME_AGREE      21831 ONESIDED_GOLD   9872 ONESIDED_PAT    9474 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+SimpleUVM.default      TOGOLD          2 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       3 SAME_AGREE      17550 ONESIDED_GOLD   6130 ONESIDED_PAT    5862 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+SimpleUVM.testflags    TOGOLD          2 MOVEDWRONG      0 MOVEDOTHER      0 SAME_DIFF       3 SAME_AGREE      17550 ONESIDED_GOLD   6130 ONESIDED_PAT    5862 ONESIDED_MIXED  0 ONESIDED_PAT_CHANGED 0 
+
+######## the moved cells, ARGKINDS=all, SeqDriver/default (identical on the
+######## other movers but for object ids and the package name)
+TOGOLD | package(adpcm_pkg)/function(uvm_dpi_get_next_arg)/return_stmt uvm_dpi_get_next_arg_c 0 ref_obj init 32:33-32:37 | G={('int_typespec', '27:56-27:59'): 2} P={('int_typespec', '27:56-27:59'): 1, ('none', '-'): 1} Q={('int_typespec', '27:56-27:59'): 2}
+TOGOLD | package(adpcm_pkg)/function(uvm_is_match)/begin/return_stmt/operation uvm_re_match 0 ref_obj s 403:24-403:25 | G={('string_typespec', '23:50-23:56'): 2} P={('string_typespec', '23:50-23:56'): 1, ('none', '-'): 1} Q={('string_typespec', '23:50-23:56'): 2}
+TOGOLD | package(adpcm_pkg)/function(uvm_is_match)/begin/return_stmt/operation uvm_re_match 1 ref_obj str 403:27-403:30 | G={('string_typespec', '23:61-23:67'): 2} P={('string_typespec', '23:61-23:67'): 1, ('none', '-'): 1} Q={('string_typespec', '23:61-23:67'): 2}
+TOGOLD | package(adpcm_pkg)/function(uvm_printer::adjust_name)/begin/return_stmt uvm_leaf_scope 0 ref_obj id 808:25-808:27 | G={('string_typespec', '445:33-445:39'): 2} P={('none', '-'): 2} Q={('string_typespec', '445:33-445:39'): 2}
+TOGOLD | package(adpcm_pkg)/function(uvm_printer::adjust_name)/begin/return_stmt uvm_leaf_scope 1 ref_obj scope_separator 808:29-808:44 | G={('byte_typespec', '445:51-445:55'): 2} P={('none', '-'): 2} Q={('byte_typespec', '445:51-445:55'): 2}
+TOGOLD | package(adpcm_pkg)/function(uvm_vector_to_string)/return_stmt uvm_bitstream_to_string 0 ref_obj value 548:35-548:40 | G={('logic_typespec', '483:42-483:57'): 2} P={('logic_typespec', '483:42-483:57'): 1, ('none', '-'): 1} Q={('logic_typespec', '483:42-483:57'): 2}
+TOGOLD | package(adpcm_pkg)/function(uvm_vector_to_string)/return_stmt uvm_bitstream_to_string 1 ref_obj size 548:41-548:45 | G={('int_typespec', '483:65-483:68'): 2} P={('int_typespec', '483:65-483:68'): 1, ('none', '-'): 1} Q={('int_typespec', '483:65-483:68'): 2}
+TOGOLD | package(adpcm_pkg)/function(uvm_vector_to_string)/return_stmt uvm_bitstream_to_string 3 ref_obj radix_str 548:52-548:61 | G={('string_typespec', '485:42-485:48'): 2} P={('string_typespec', '485:42-485:48'): 1, ('none', '-'): 1} Q={('string_typespec', '485:42-485:48'): 2}
+TOGOLD | package(uvm_pkg)/class_defn(uvm_printer)/function(adjust_name)/begin/return_stmt uvm_leaf_scope 0 ref_obj id 808:25-808:27 | G={('string_typespec', '445:33-445:39'): 1} P={('none', '-'): 1} Q={('string_typespec', '445:33-445:39'): 1}
+TOGOLD | package(uvm_pkg)/class_defn(uvm_printer)/function(adjust_name)/begin/return_stmt uvm_leaf_scope 1 ref_obj scope_separator 808:29-808:44 | G={('byte_typespec', '445:51-445:55'): 1} P={('none', '-'): 1} Q={('byte_typespec', '445:51-445:55'): 1}
+MOVEDOTHER | package(adpcm_pkg)/function(uvm_vector_to_string)/return_stmt uvm_bitstream_to_string 2 ref_obj radix 548:46-548:51 | G={('enum_typespec', '890:45-890:59'): 2} P={('enum_typespec', '82:1-97:18'): 1, ('none', '-'): 1} Q={('enum_typespec', '82:1-97:18'): 2}
+SAME_DIFF | - new 0 constant - 1411:16-1411:17 | G={('none', '-'): 2} P={('none', '-'): 4} Q={('none', '-'): 4}
+SAME_DIFF | - new 0 constant - 1421:25-1421:26 | G={('none', '-'): 2} P={('none', '-'): 4} Q={('none', '-'): 4}
+SAME_DIFF | - new 0 hier_path local_addr.size 1467:19-1467:36 | G={('none', '-'): 2} P={('none', '-'): 4} Q={('none', '-'): 4}
+SAME_DIFF | - new 0 hier_path predecessors.size 1685:16-1685:35 | G={('none', '-'): 2} P={('none', '-'): 4} Q={('none', '-'): 4}
+SAME_DIFF | - new 0 hier_path successors.size 1714:16-1714:33 | G={('none', '-'): 2} P={('none', '-'): 4} Q={('none', '-'): 4}
+SAME_DIFF | - new 0 operation - 1491:22-1491:41 | G={('none', '-'): 2} P={('none', '-'): 4} Q={('none', '-'): 4}
+SAME_DIFF | - new 0 ref_obj m_packed_size 475:14-475:27 | G={('none', '-'): 2} P={('none', '-'): 4} Q={('none', '-'): 4}
+SAME_DIFF | - new 0 ref_obj n 1427:25-1427:26 | G={('none', '-'): 2} P={('none', '-'): 4} Q={('none', '-'): 4}
+SAME_DIFF | - new 0 ref_obj sz 488:15-488:17 | G={('none', '-'): 2} P={('none', '-'): 4} Q={('none', '-'): 4}
+SAME_DIFF | - new 0 ref_obj sz 509:14-509:16 | G={('none', '-'): 2} P={('none', '-'): 4} Q={('none', '-'): 4}
+SAME_DIFF | - new 1 ref_obj addr 1491:44-1491:48 | G={('none', '-'): 2} P={('none', '-'): 4} Q={('none', '-'): 4}
+SAME_DIFF | - new 1 ref_obj local_addr 1467:39-1467:49 | G={('none', '-'): 2} P={('none', '-'): 4} Q={('none', '-'): 4}
+SAME_DIFF | package(adpcm_pkg)/function(m__uvm_report_dpi) uvm_report 0 operation - 168:15-168:38 | G={('unsupported_typespec', '168:15-168:27'): 2} P={('enum_typespec', '242:1-248:16'): 2} Q={('enum_typespec', '242:1-248:16'): 2}
+SAME_DIFF | package(uvm_pkg)/class_defn(uvm_report_handler)/function(process_report_message)/begin/if_else/begin/hier_path(sev_id_overrides[id].exists) exists 0 operation - 319:38-319:61 | G={('enum_typespec', '352:37-352:49'): 1} P={('enum_typespec', '242:1-248:16'): 1} Q={('enum_typespec', '242:1-248:16'): 1}
+SAME_DIFF | package(uvm_pkg)/function(m__uvm_report_dpi) uvm_report 0 operation - 168:15-168:38 | G={('enum_typespec', '352:37-352:49'): 1, ('unsupported_typespec', '168:15-168:27'): 1} P={('enum_typespec', '242:1-248:16'): 2} Q={('enum_typespec', '242:1-248:16'): 2}
+SAME_DIFF | package(uvm_pkg)/function(uvm_vector_to_string)/return_stmt uvm_bitstream_to_string 2 ref_obj radix 548:46-548:51 | G={('enum_typespec', '1050:32-1050:46'): 1, ('none', '-'): 1} P={('enum_typespec', '82:1-97:18'): 1, ('none', '-'): 1} Q={('enum_typespec', '82:1-97:18'): 1, ('none', '-'): 1}

@@ -19962,8 +19962,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 calleeDeclFirst8v =
                                     !(currentSubSym->getIndex() < sub.getIndex());
                         }
+                        // § pkgRetOobClassAndImportCloneTs127 (r10uvm127) —
+                        // `pkgRetTsListing127()` in place of `pkgTopEmit`, the
+                        // same widening the window's opener took in StmtEmit.
                         bool pkgRetArgTs8 =
-                            pkgTopEmit && pkgRetTopExpr8 && currentTf &&
+                            pkgRetTsListing127() && pkgRetTopExpr8 && currentTf &&
                             pkgScopeInst && linked4 && calleeDeclFirst8v &&
                             (refArg || a->UhdmType() == UHDM::uhdmconstant ||
                              a->UhdmType() == UHDM::uhdmoperation);

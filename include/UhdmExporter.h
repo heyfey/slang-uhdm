@@ -4636,9 +4636,50 @@ private:
     // evaluated.  When the body folds, the whole call is replaced by the
     // constant and the stamped actuals leave the tree with it; when it cannot
     // (a DPI import has no body at all), the call survives carrying them.
-    // A class method and a module function are compiled once, with
-    // `Reduce::No`, and are bare — hence the `pkgScopeInst` half of the gate.
+    // An IN-BODY class method and a module function are compiled once, with
+    // `Reduce::No`, and are bare — hence the `pkgScopeInst` half of the gate
+    // (`pkgScopeInst` is null exactly for `classScope && !oob`).
     bool pkgRetTopExpr8 = false;
+    // § pkgRetOobClassAndImportCloneTs127 (r10uvm127) — THE OTHER THREE
+    // LISTINGS THE SAME STAMP REACHES.  `pkgTopEmit` alone names only the home
+    // package's ELABORATED listing; Surelog's Reduce::Yes compile reaches three
+    // more copies of the very same bodies, and every one of them is stamped in
+    // golden:
+    //
+    //   (a) THE CLASS_DEFN'S OWN COPY OF AN OUT-OF-BODY METHOD BODY.  A
+    //       `function T C::m(...); ... endfunction` written at PACKAGE level is
+    //       a package-level `paFunction_declaration`
+    //       (Surelog CompilePackage.cpp:213-218), so `compileFunction` is
+    //       handed the PACKAGE's `reduce` and `CompileStmt.cpp:2344-2351`
+    //       resolves the `paClass_scope` name into the package's task_func
+    //       listing.  Reduce::Yes therefore threads into the body of an
+    //       out-of-body method exactly as it does into a free package
+    //       function's.  An IN-BODY method is compiled by `CompileClass` and
+    //       never sees Reduce::Yes — the `oob` half of `pkgScopeInst` already
+    //       separates the two.
+    //   (b),(c) BOTH VIEWS OF A WILDCARD-IMPORT CLONE.
+    //       `CompileHelper::importPackage` (CompileHelper.cpp:319-325)
+    //       `clone_tree`s `def->getTask_funcs()` of the imported package —
+    //       and `def` is the ELABORATED `Package*` found by name in the Design,
+    //       whatever view of the IMPORTER is being compiled.  So the importer's
+    //       DEF listing is a clone of ALREADY-STAMPED objects, and both of its
+    //       views carry the stamp.  Only the HOME package's own
+    //       `getUnElabPackage()` listing (CompilePackage.cpp:66-68, Reduce::No)
+    //       is bare.
+    //
+    // A MODULE- or $unit-scoped class is NOT in this set: `CompileModule.cpp`
+    // :776-784 and `CompileFileContent.cpp:95-98` compile their tasks and
+    // functions with a hardcoded `Reduce::No`, so the `classBodyHomePkg75`
+    // (the class's home must be a PACKAGE) half of (a) is load-bearing.
+    //
+    // The home package's DEF-view `C::m` clone listing
+    // (§ emitPackageClassMethodClones) is NOT in this set either and stays
+    // bare: it is `cloneMode` with neither `pkgTopEmit` nor
+    // `pkgImportCloneEmit`, which is what golden's unelaborated twin holds.
+    bool pkgRetTsListing127() const {
+        return pkgTopEmit || pkgImportCloneEmit ||
+               (inClassBodyEmit && classBodyHomePkg75 != nullptr);
+    }
     // True only while emitting a package's typedef listing (both views). Lets
     // buildEnumTs keep a DEF-view PACKAGE enum base bound symbolic while
     // leaving module-context pkg-enum clones folded (distinguishes def-package

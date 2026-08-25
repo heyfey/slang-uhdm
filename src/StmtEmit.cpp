@@ -4578,8 +4578,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // compileFunction reaches with the inherited reduce: the
                 // function's own Stmt, or a member of the synthetic `begin` a
                 // multi-statement body gets.
+                // § pkgRetOobClassAndImportCloneTs127 widened `pkgTopEmit`
+                // to `pkgRetTsListing127()`: the same Reduce::Yes compile
+                // reaches the class_defn's copy of an out-of-body method body
+                // and BOTH views of a wildcard-import clone.  See
+                // UhdmExporter.h.
                 bool savedPRT8 = pkgRetTopExpr8;
-                if (pkgTopEmit && pkgScopeInst && tfBodyStmt9) {
+                if (pkgRetTsListing127() && pkgScopeInst && tfBodyStmt9) {
                     auto* b8 = (const Statement*)tfBodyStmt9;
                     bool top8 = b8 == &stmt;
                     if (!top8 && b8->kind == StatementKind::List)

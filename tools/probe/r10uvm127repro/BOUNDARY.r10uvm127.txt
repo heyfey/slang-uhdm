@@ -1,0 +1,673 @@
+r10uvm127 — THE WIDE BOUNDARY (bound127.sh, from r10buvm30/bound30.sh via
+r10uvm124): every .sv/.v under a COPY of tools/probe, BOTH binaries, DEF and
+ELAB, no path filter.  MEASUREMENT ONLY.
+
+LISTED=3830 FENCED_SKIPPED=0 PROCESSED=3830 MOVED=26 NO_OUTPUT_PAIRS=294
+PROCESSED-ASSERT-OK
+
+The 26 moved arm-views (10 are this pass's OWN g127_* arms):
+MOVED 0100_r10buvm30repro_g30_f_callshapes.sv/def 7 lines
+MOVED 0100_r10buvm30repro_g30_f_callshapes.sv/elab 7 lines
+MOVED 0101_r10buvm30repro_g30_g_callfence.sv/def 14 lines
+MOVED 0101_r10buvm30repro_g30_g_callfence.sv/elab 14 lines
+MOVED 0164_r10buvm8repro_v6ctx8.sv/def 7 lines
+MOVED 0164_r10buvm8repro_v6ctx8.sv/elab 11 lines
+MOVED 0170_r10buvm8repro_voob8.sv/def 14 lines
+MOVED 0170_r10buvm8repro_voob8.sv/elab 14 lines
+MOVED 0180_r10buvm8repro_vxpkg8.sv/def 6 lines
+MOVED 0180_r10buvm8repro_vxpkg8.sv/elab 6 lines
+MOVED 1982_r10uvm113repro_g113_a.sv/def 56 lines
+MOVED 1982_r10uvm113repro_g113_a.sv/elab 28 lines
+MOVED 1983_r10uvm113repro_g113_b.sv/def 7 lines
+MOVED 2056_r10uvm127repro_g127_b_oob.sv/def 28 lines
+MOVED 2056_r10uvm127repro_g127_b_oob.sv/elab 44 lines
+MOVED 2057_r10uvm127repro_g127_c_import.sv/def 70 lines
+MOVED 2057_r10uvm127repro_g127_c_import.sv/elab 92 lines
+MOVED 2058_r10uvm127repro_g127_d_homes.sv/def 14 lines
+MOVED 2058_r10uvm127repro_g127_d_homes.sv/elab 22 lines
+MOVED 2059_r10uvm127repro_g127_e_ts.sv/def 112 lines
+MOVED 2059_r10uvm127repro_g127_e_ts.sv/elab 165 lines
+MOVED 2060_r10uvm127repro_g127_f_mult.sv/def 84 lines
+MOVED 2060_r10uvm127repro_g127_f_mult.sv/elab 132 lines
+MOVED 2773_r10v113repro_v113_ctx.sv/def 7 lines
+MOVED 3167_r10vbuvm30repro_vg30_f_fence.sv/def 28 lines
+MOVED 3167_r10vbuvm30repro_vg30_f_fence.sv/elab 35 lines
+
+The 16 FOREIGN arm-views are re-measured against golden in FOREIGN.r10uvm127.txt:
+  MOVEDWRONG 0 and ONESIDED_MIXED 0 on every one of them;
+  TOGOLD 7 (r10buvm8's voob8 x2, v6ctx8 x2, vxpkg8 def).  voob8 is r10buvm8's
+  own residue R6 ('class-method top-level return ... fenced out'), which that
+  pass verified only as 'stays BARE on both binaries' and never measured
+  against golden: golden STAMPS its class_defn copy, and this law makes it.
+
+Per-view moved-line attribution (order-blind dump diff of the boundary's own
+dumps; the boundary invokes both binaries WITHOUT --single-unit, so these
+counts are the differential between OUR two binaries, not a golden score):
+== 0100_r10buvm30repro_g30_f_callshapes.sv/def
+         1 >               \_int_typespec: 
+         1 >               \_operation: 
+         1 >             \_ref_typespec: (p30g::c30g::k_pkgcall)
+         1 >               |vpiActual:
+         1 >               |vpiFullName:p30g::c30g::k_pkgcall
+         1 >               |vpiParent:
+         1 >             |vpiTypespec:
+== 0100_r10buvm30repro_g30_f_callshapes.sv/elab
+         1 >           \_int_typespec: 
+         1 >           \_operation: 
+         1 >         \_ref_typespec: (p30g::c30g::k_pkgcall)
+         1 >           |vpiActual:
+         1 >           |vpiFullName:p30g::c30g::k_pkgcall
+         1 >           |vpiParent:
+         1 >         |vpiTypespec:
+== 0101_r10buvm30repro_g30_g_callfence.sv/def
+         2 >               \_int_typespec: 
+         2 >               \_operation: 
+         1 >             \_ref_typespec: (p30h::c30h::n_auto)
+         1 >             \_ref_typespec: (p30h::c30h::n_hard)
+         2 >               |vpiActual:
+         1 >               |vpiFullName:p30h::c30h::n_auto
+         1 >               |vpiFullName:p30h::c30h::n_hard
+         2 >               |vpiParent:
+         2 >             |vpiTypespec:
+== 0101_r10buvm30repro_g30_g_callfence.sv/elab
+         2 >           \_int_typespec: 
+         2 >           \_operation: 
+         1 >         \_ref_typespec: (p30h::c30h::n_auto)
+         1 >         \_ref_typespec: (p30h::c30h::n_hard)
+         2 >           |vpiActual:
+         1 >           |vpiFullName:p30h::c30h::n_auto
+         1 >           |vpiFullName:p30h::c30h::n_hard
+         2 >           |vpiParent:
+         2 >         |vpiTypespec:
+== 0164_r10buvm8repro_v6ctx8.sv/def
+         1 >               \_int_typespec: 
+         1 >               \_ref_obj: (cp6::C6::m_oob::a)
+         1 >             \_ref_typespec: (cp6::C6::m_oob::a)
+         1 >               |vpiActual:
+         1 >               |vpiFullName:cp6::C6::m_oob::a
+         1 >               |vpiParent:
+         1 >             |vpiTypespec:
+== 0164_r10buvm8repro_v6ctx8.sv/elab
+         1 >             \_int_typespec: 
+         1 >             \_ref_obj: (cp6::C6::m_oob::a)
+         2 >           \_ref_typespec: (cp6::C6::m_oob::a)
+         1 <           \_ref_typespec: (work@m6.m_oob.a)
+         1 >             |vpiActual:
+         2 >             |vpiFullName:cp6::C6::m_oob::a
+         1 <             |vpiFullName:work@m6.m_oob.a
+         1 >             |vpiParent:
+         1 >           |vpiTypespec:
+== 0170_r10buvm8repro_voob8.sv/def
+         1 >                 \_ref_obj: (op::C::oobm::s)
+         1 >                 \_ref_obj: (op::C::oobm::t)
+         1 >               \_ref_typespec: (op::C::oobm::s)
+         1 >               \_ref_typespec: (op::C::oobm::t)
+         2 >                 \_string_typespec: 
+         2 >                 |vpiActual:
+         1 >                 |vpiFullName:op::C::oobm::s
+         1 >                 |vpiFullName:op::C::oobm::t
+         2 >                 |vpiParent:
+         2 >               |vpiTypespec:
+== 0170_r10buvm8repro_voob8.sv/elab
+         1 >             \_ref_obj: (op::C::oobm::s)
+         1 >             \_ref_obj: (op::C::oobm::t)
+         1 >           \_ref_typespec: (op::C::oobm::s)
+         1 >           \_ref_typespec: (op::C::oobm::t)
+         2 >             \_string_typespec: 
+         2 >             |vpiActual:
+         1 >             |vpiFullName:op::C::oobm::s
+         1 >             |vpiFullName:op::C::oobm::t
+         2 >             |vpiParent:
+         2 >           |vpiTypespec:
+== 0180_r10buvm8repro_vxpkg8.sv/def
+         1 <                 \_int_typespec: 
+         1 < \_int_typespec: 
+         1 >                 \_int_typespec: 
+         1 <   \_package: ap (ap::), file:/tmp/r10uvm127_bound/0180_r10buvm8repro_vxpkg8.sv/vxpkg8.sv
+         1 <   |vpiInstance:
+         1 <   |vpiSigned:1
+== 0180_r10buvm8repro_vxpkg8.sv/elab
+         1 <                 \_int_typespec: 
+         1 < \_int_typespec: 
+         1 >                 \_int_typespec: 
+         1 <   \_package: ap (ap::), file:/tmp/r10uvm127_bound/0180_r10buvm8repro_vxpkg8.sv/vxpkg8.sv
+         1 <   |vpiInstance:
+         1 <   |vpiSigned:1
+== 1982_r10uvm113repro_g113_a.sv/def
+         4 >               \_constant: 
+         4 >             \_constant: 
+         4 >               \_int_typespec: 
+         4 >             \_int_typespec: 
+         1 >             \_ref_typespec: (home::Coob::oob)
+         1 >             \_ref_typespec: (home::Coob::oobStat)
+         2 >           \_ref_typespec: (imp1::Coob::oob)
+         2 >           \_ref_typespec: (imp1::Coob::oobStat)
+         2 >             \_ref_typespec: (imp1::pkgBody)
+         4 >               |vpiActual:
+         4 >             |vpiActual:
+         1 >               |vpiFullName:home::Coob::oob
+         1 >               |vpiFullName:home::Coob::oobStat
+         2 >             |vpiFullName:imp1::Coob::oob
+         2 >             |vpiFullName:imp1::Coob::oobStat
+         2 >               |vpiFullName:imp1::pkgBody
+         4 >               |vpiParent:
+         4 >             |vpiParent:
+         4 >             |vpiTypespec:
+         4 >           |vpiTypespec:
+== 1982_r10uvm113repro_g113_a.sv/elab
+         2 >               \_constant: 
+         2 >             \_constant: 
+         2 >               \_int_typespec: 
+         2 >             \_int_typespec: 
+         1 >           \_ref_typespec: (imp1::Coob::oob)
+         1 >           \_ref_typespec: (imp1::Coob::oobStat)
+         2 >             \_ref_typespec: (imp1::pkgBody)
+         2 >               |vpiActual:
+         2 >             |vpiActual:
+         1 >             |vpiFullName:imp1::Coob::oob
+         1 >             |vpiFullName:imp1::Coob::oobStat
+         2 >               |vpiFullName:imp1::pkgBody
+         2 >               |vpiParent:
+         2 >             |vpiParent:
+         2 >             |vpiTypespec:
+         2 >           |vpiTypespec:
+== 1983_r10uvm113repro_g113_b.sv/def
+         1 >               \_constant: 
+         1 >               \_int_typespec: 
+         1 >             \_ref_typespec: (pb::Ky::oob)
+         1 >               |vpiActual:
+         1 >               |vpiFullName:pb::Ky::oob
+         1 >               |vpiParent:
+         1 >             |vpiTypespec:
+== 2056_r10uvm127repro_g127_b_oob.sv/def
+         1 >                 \_int_typespec: 
+         1 >               \_int_typespec: 
+         1 >                 \_ref_obj: (Chandler::Meridian::oobBeginEnd::bough)
+         1 >                 \_ref_obj: (Chandler::Meridian::oobBeginEnd::girth)
+         1 >               \_ref_obj: (Chandler::Meridian::oobSingle::bough)
+         1 >               \_ref_obj: (Chandler::Meridian::oobSingle::girth)
+         1 >               \_ref_typespec: (Chandler::Meridian::oobBeginEnd::bough)
+         1 >               \_ref_typespec: (Chandler::Meridian::oobBeginEnd::girth)
+         1 >             \_ref_typespec: (Chandler::Meridian::oobSingle::bough)
+         1 >             \_ref_typespec: (Chandler::Meridian::oobSingle::girth)
+         1 >                 \_string_typespec: 
+         1 >               \_string_typespec: 
+         2 >                 |vpiActual:
+         2 >               |vpiActual:
+         1 >                 |vpiFullName:Chandler::Meridian::oobBeginEnd::bough
+         1 >                 |vpiFullName:Chandler::Meridian::oobBeginEnd::girth
+         1 >               |vpiFullName:Chandler::Meridian::oobSingle::bough
+         1 >               |vpiFullName:Chandler::Meridian::oobSingle::girth
+         2 >                 |vpiParent:
+         2 >               |vpiParent:
+         2 >               |vpiTypespec:
+         2 >             |vpiTypespec:
+== 2056_r10uvm127repro_g127_b_oob.sv/elab
+         1 >               \_int_typespec: 
+         1 >             \_int_typespec: 
+         1 >               \_ref_obj: (Chandler::Meridian::oobBeginEnd::bough)
+         1 >               \_ref_obj: (Chandler::Meridian::oobBeginEnd::girth)
+         1 >             \_ref_obj: (Chandler::Meridian::oobSingle::bough)
+         1 >             \_ref_obj: (Chandler::Meridian::oobSingle::girth)
+         2 >             \_ref_typespec: (Chandler::Meridian::oobBeginEnd::bough)
+         2 >             \_ref_typespec: (Chandler::Meridian::oobBeginEnd::girth)
+         2 >           \_ref_typespec: (Chandler::Meridian::oobSingle::bough)
+         2 >           \_ref_typespec: (Chandler::Meridian::oobSingle::girth)
+         1 <             \_ref_typespec: (work@Chandler_top.oobBeginEnd.bough)
+         1 <             \_ref_typespec: (work@Chandler_top.oobBeginEnd.girth)
+         1 <           \_ref_typespec: (work@Chandler_top.oobSingle.bough)
+         1 <           \_ref_typespec: (work@Chandler_top.oobSingle.girth)
+         1 >               \_string_typespec: 
+         1 >             \_string_typespec: 
+         2 >               |vpiActual:
+         2 >             |vpiActual:
+         2 >               |vpiFullName:Chandler::Meridian::oobBeginEnd::bough
+         2 >               |vpiFullName:Chandler::Meridian::oobBeginEnd::girth
+         2 >             |vpiFullName:Chandler::Meridian::oobSingle::bough
+         2 >             |vpiFullName:Chandler::Meridian::oobSingle::girth
+         1 <               |vpiFullName:work@Chandler_top.oobBeginEnd.bough
+         1 <               |vpiFullName:work@Chandler_top.oobBeginEnd.girth
+         1 <             |vpiFullName:work@Chandler_top.oobSingle.bough
+         1 <             |vpiFullName:work@Chandler_top.oobSingle.girth
+         2 >               |vpiParent:
+         2 >             |vpiParent:
+         2 >             |vpiTypespec:
+         2 >           |vpiTypespec:
+== 2057_r10uvm127repro_g127_c_import.sv/def
+         1 >             \_byte_typespec: 
+         1 >             \_int_typespec: 
+         1 >               \_ref_obj: (Ravelin::Palisade::oobWrap::backish)
+         1 >               \_ref_obj: (Ravelin::Palisade::oobWrap::frontish)
+         1 >             \_ref_obj: (Sundial::lattermathTop::alpha7)
+         1 >             \_ref_obj: (Sundial::lattermathTop::beta3)
+         2 >             \_ref_obj: (Sundial::Palisade::oobWrap::backish)
+         2 >             \_ref_obj: (Sundial::Palisade::oobWrap::frontish)
+         1 >             \_ref_obj: (Sundial::quarryTop::backish)
+         1 >             \_ref_obj: (Sundial::quarryTop::frontish)
+         1 >             \_ref_typespec: (Ravelin::Palisade::oobWrap::backish)
+         1 >             \_ref_typespec: (Ravelin::Palisade::oobWrap::frontish)
+         1 >           \_ref_typespec: (Sundial::lattermathTop::alpha7)
+         1 >           \_ref_typespec: (Sundial::lattermathTop::beta3)
+         2 >           \_ref_typespec: (Sundial::Palisade::oobWrap::backish)
+         2 >           \_ref_typespec: (Sundial::Palisade::oobWrap::frontish)
+         1 >           \_ref_typespec: (Sundial::quarryTop::backish)
+         1 >           \_ref_typespec: (Sundial::quarryTop::frontish)
+         2 >               \_string_typespec: 
+         6 >             \_string_typespec: 
+         2 >               |vpiActual:
+         8 >             |vpiActual:
+         1 >               |vpiFullName:Ravelin::Palisade::oobWrap::backish
+         1 >               |vpiFullName:Ravelin::Palisade::oobWrap::frontish
+         1 >             |vpiFullName:Sundial::lattermathTop::alpha7
+         1 >             |vpiFullName:Sundial::lattermathTop::beta3
+         2 >             |vpiFullName:Sundial::Palisade::oobWrap::backish
+         2 >             |vpiFullName:Sundial::Palisade::oobWrap::frontish
+         1 >             |vpiFullName:Sundial::quarryTop::backish
+         1 >             |vpiFullName:Sundial::quarryTop::frontish
+         2 >               |vpiParent:
+         8 >             |vpiParent:
+         2 >             |vpiTypespec:
+         8 >           |vpiTypespec:
+== 2057_r10uvm127repro_g127_c_import.sv/elab
+         1 >             \_byte_typespec: 
+         1 >             \_int_typespec: 
+         1 >           \_ref_obj: (Ravelin::Palisade::oobWrap::backish)
+         1 >           \_ref_obj: (Ravelin::Palisade::oobWrap::frontish)
+         1 >             \_ref_obj: (Sundial::lattermathTop::alpha7)
+         1 >             \_ref_obj: (Sundial::lattermathTop::beta3)
+         2 >             \_ref_obj: (Sundial::Palisade::oobWrap::backish)
+         1 >           \_ref_obj: (Sundial::Palisade::oobWrap::backish)
+         2 >             \_ref_obj: (Sundial::Palisade::oobWrap::frontish)
+         1 >           \_ref_obj: (Sundial::Palisade::oobWrap::frontish)
+         1 >             \_ref_obj: (Sundial::quarryTop::backish)
+         1 >             \_ref_obj: (Sundial::quarryTop::frontish)
+         1 >         \_ref_typespec: (Ravelin::Palisade::oobWrap::backish)
+         1 >         \_ref_typespec: (Ravelin::Palisade::oobWrap::frontish)
+         1 >           \_ref_typespec: (Sundial::lattermathTop::alpha7)
+         1 >           \_ref_typespec: (Sundial::lattermathTop::beta3)
+         3 >           \_ref_typespec: (Sundial::Palisade::oobWrap::backish)
+         1 >         \_ref_typespec: (Sundial::Palisade::oobWrap::backish)
+         3 >           \_ref_typespec: (Sundial::Palisade::oobWrap::frontish)
+         1 >         \_ref_typespec: (Sundial::Palisade::oobWrap::frontish)
+         1 >           \_ref_typespec: (Sundial::quarryTop::backish)
+         1 >           \_ref_typespec: (Sundial::quarryTop::frontish)
+         1 <           \_ref_typespec: (work@Sundial_top.Palisade::oobWrap.backish)
+         1 <           \_ref_typespec: (work@Sundial_top.Palisade::oobWrap.frontish)
+         6 >             \_string_typespec: 
+         4 >           \_string_typespec: 
+         8 >             |vpiActual:
+         4 >           |vpiActual:
+         1 >           |vpiFullName:Ravelin::Palisade::oobWrap::backish
+         1 >           |vpiFullName:Ravelin::Palisade::oobWrap::frontish
+         1 >             |vpiFullName:Sundial::lattermathTop::alpha7
+         1 >             |vpiFullName:Sundial::lattermathTop::beta3
+         3 >             |vpiFullName:Sundial::Palisade::oobWrap::backish
+         1 >           |vpiFullName:Sundial::Palisade::oobWrap::backish
+         3 >             |vpiFullName:Sundial::Palisade::oobWrap::frontish
+         1 >           |vpiFullName:Sundial::Palisade::oobWrap::frontish
+         1 >             |vpiFullName:Sundial::quarryTop::backish
+         1 >             |vpiFullName:Sundial::quarryTop::frontish
+         1 <             |vpiFullName:work@Sundial_top.Palisade::oobWrap.backish
+         1 <             |vpiFullName:work@Sundial_top.Palisade::oobWrap.frontish
+         8 >             |vpiParent:
+         4 >           |vpiParent:
+         8 >           |vpiTypespec:
+         4 >         |vpiTypespec:
+== 2058_r10uvm127repro_g127_d_homes.sv/def
+         1 >               \_int_typespec: 
+         1 >               \_ref_obj: (Obsidian::Trammel::pkgOob::cusp)
+         1 >               \_ref_obj: (Obsidian::Trammel::pkgOob::lode)
+         1 >             \_ref_typespec: (Obsidian::Trammel::pkgOob::cusp)
+         1 >             \_ref_typespec: (Obsidian::Trammel::pkgOob::lode)
+         1 >               \_string_typespec: 
+         2 >               |vpiActual:
+         1 >               |vpiFullName:Obsidian::Trammel::pkgOob::cusp
+         1 >               |vpiFullName:Obsidian::Trammel::pkgOob::lode
+         2 >               |vpiParent:
+         2 >             |vpiTypespec:
+== 2058_r10uvm127repro_g127_d_homes.sv/elab
+         1 >             \_int_typespec: 
+         1 >             \_ref_obj: (Obsidian::Trammel::pkgOob::cusp)
+         1 >             \_ref_obj: (Obsidian::Trammel::pkgOob::lode)
+         2 >           \_ref_typespec: (Obsidian::Trammel::pkgOob::cusp)
+         2 >           \_ref_typespec: (Obsidian::Trammel::pkgOob::lode)
+         1 <           \_ref_typespec: (work@Obsidian_top.pkgOob.cusp)
+         1 <           \_ref_typespec: (work@Obsidian_top.pkgOob.lode)
+         1 >             \_string_typespec: 
+         2 >             |vpiActual:
+         2 >             |vpiFullName:Obsidian::Trammel::pkgOob::cusp
+         2 >             |vpiFullName:Obsidian::Trammel::pkgOob::lode
+         1 <             |vpiFullName:work@Obsidian_top.pkgOob.cusp
+         1 <             |vpiFullName:work@Obsidian_top.pkgOob.lode
+         2 >             |vpiParent:
+         2 >           |vpiTypespec:
+== 2059_r10uvm127repro_g127_e_ts.sv/def
+         2 >               \_byte_typespec: 
+         1 >               \_class_typespec: (Cornice)
+         1 >               \_constant: 
+         1 >               \_enum_typespec: (Windlass::mote_e)
+         3 >                 \_int_typespec: 
+         4 >               \_int_typespec: 
+         1 >               \_logic_typespec: 
+         1 >               \_logic_typespec: (Windlass::dozen_t)
+         1 >               \_operation: 
+         1 >               \_part_select: ownVec (Windlass::Bulwark::kSelect::ownVec)
+         1 >               \_real_typespec: 
+         1 >               \_ref_obj: (Windlass::Bulwark::kByte::b1)
+         1 >               \_ref_obj: (Windlass::Bulwark::kClass::c1)
+         1 >               \_ref_obj: (Windlass::Bulwark::kEnum::e1)
+         1 >                 \_ref_obj: (Windlass::Bulwark::kInout::spare)
+         1 >               \_ref_obj: (Windlass::Bulwark::kInt::i1)
+         1 >               \_ref_obj: (Windlass::Bulwark::kLogic::l1)
+         1 >                 \_ref_obj: (Windlass::Bulwark::kOut::spare)
+         1 >               \_ref_obj: (Windlass::Bulwark::kProp::ownProp)
+         1 >               \_ref_obj: (Windlass::Bulwark::kReal::r1)
+         1 >                 \_ref_obj: (Windlass::Bulwark::kRef::spare)
+         1 >               \_ref_obj: (Windlass::Bulwark::kString::s1)
+         1 >               \_ref_obj: (Windlass::Bulwark::kStruct::n1)
+         1 >               \_ref_obj: (Windlass::Bulwark::kTypedef::d1)
+         1 >             \_ref_typespec: (Windlass::Bulwark::kByte::b1)
+         1 >             \_ref_typespec: (Windlass::Bulwark::kClass::c1)
+         1 >             \_ref_typespec: (Windlass::Bulwark::kEnum::e1)
+         1 >               \_ref_typespec: (Windlass::Bulwark::kInout::spare)
+         1 >             \_ref_typespec: (Windlass::Bulwark::kInt::i1)
+         1 >             \_ref_typespec: (Windlass::Bulwark::kLit)
+         1 >             \_ref_typespec: (Windlass::Bulwark::kLogic::l1)
+         1 >             \_ref_typespec: (Windlass::Bulwark::kOper)
+         1 >               \_ref_typespec: (Windlass::Bulwark::kOut::spare)
+         1 >             \_ref_typespec: (Windlass::Bulwark::kProp::ownProp)
+         1 >             \_ref_typespec: (Windlass::Bulwark::kReal::r1)
+         1 >               \_ref_typespec: (Windlass::Bulwark::kRef::spare)
+         1 >             \_ref_typespec: (Windlass::Bulwark::kSelect::ownVec)
+         1 >             \_ref_typespec: (Windlass::Bulwark::kString::s1)
+         1 >             \_ref_typespec: (Windlass::Bulwark::kStruct::n1)
+         1 >             \_ref_typespec: (Windlass::Bulwark::kTypedef::d1)
+         1 >               \_string_typespec: 
+         1 >               \_struct_typespec: (Windlass::nib_t)
+         3 >                 |vpiActual:
+        13 >               |vpiActual:
+         1 >               |vpiFullName:Windlass::Bulwark::kByte::b1
+         1 >               |vpiFullName:Windlass::Bulwark::kClass::c1
+         1 >               |vpiFullName:Windlass::Bulwark::kEnum::e1
+         1 >                 |vpiFullName:Windlass::Bulwark::kInout::spare
+         1 >               |vpiFullName:Windlass::Bulwark::kInt::i1
+         1 >               |vpiFullName:Windlass::Bulwark::kLit
+         1 >               |vpiFullName:Windlass::Bulwark::kLogic::l1
+         1 >               |vpiFullName:Windlass::Bulwark::kOper
+         1 >                 |vpiFullName:Windlass::Bulwark::kOut::spare
+         1 >               |vpiFullName:Windlass::Bulwark::kProp::ownProp
+         1 >               |vpiFullName:Windlass::Bulwark::kReal::r1
+         1 >                 |vpiFullName:Windlass::Bulwark::kRef::spare
+         1 >               |vpiFullName:Windlass::Bulwark::kSelect::ownVec
+         1 >               |vpiFullName:Windlass::Bulwark::kString::s1
+         1 >               |vpiFullName:Windlass::Bulwark::kStruct::n1
+         1 >               |vpiFullName:Windlass::Bulwark::kTypedef::d1
+         3 >                 |vpiParent:
+        13 >               |vpiParent:
+         3 >               |vpiTypespec:
+        13 >             |vpiTypespec:
+== 2059_r10uvm127repro_g127_e_ts.sv/elab
+         2 >             \_byte_typespec: 
+         1 >             \_class_typespec: (Cornice)
+         1 >             \_enum_typespec: (Windlass::mote_e)
+         3 >               \_int_typespec: 
+         3 >             \_int_typespec: 
+         1 >             \_logic_typespec: 
+         1 >             \_logic_typespec: (Windlass::dozen_t)
+         1 >             \_operation: 
+         1 >             \_part_select: ownVec (Windlass::Bulwark::kSelect::ownVec)
+         1 >             \_real_typespec: 
+         1 >             \_ref_obj: (Windlass::Bulwark::kByte::b1)
+         1 >             \_ref_obj: (Windlass::Bulwark::kClass::c1)
+         1 >             \_ref_obj: (Windlass::Bulwark::kEnum::e1)
+         1 >               \_ref_obj: (Windlass::Bulwark::kInout::spare)
+         1 >             \_ref_obj: (Windlass::Bulwark::kInt::i1)
+         1 >             \_ref_obj: (Windlass::Bulwark::kLogic::l1)
+         1 >               \_ref_obj: (Windlass::Bulwark::kOut::spare)
+         1 >             \_ref_obj: (Windlass::Bulwark::kProp::ownProp)
+         1 >             \_ref_obj: (Windlass::Bulwark::kReal::r1)
+         1 >               \_ref_obj: (Windlass::Bulwark::kRef::spare)
+         1 >             \_ref_obj: (Windlass::Bulwark::kString::s1)
+         1 >             \_ref_obj: (Windlass::Bulwark::kStruct::n1)
+         1 >             \_ref_obj: (Windlass::Bulwark::kTypedef::d1)
+         2 >           \_ref_typespec: (Windlass::Bulwark::kByte::b1)
+         2 >           \_ref_typespec: (Windlass::Bulwark::kClass::c1)
+         2 >           \_ref_typespec: (Windlass::Bulwark::kEnum::e1)
+         2 >             \_ref_typespec: (Windlass::Bulwark::kInout::spare)
+         2 >           \_ref_typespec: (Windlass::Bulwark::kInt::i1)
+         2 >           \_ref_typespec: (Windlass::Bulwark::kLogic::l1)
+         2 >           \_ref_typespec: (Windlass::Bulwark::kOper)
+         2 >             \_ref_typespec: (Windlass::Bulwark::kOut::spare)
+         2 >           \_ref_typespec: (Windlass::Bulwark::kProp::ownProp)
+         2 >           \_ref_typespec: (Windlass::Bulwark::kReal::r1)
+         2 >             \_ref_typespec: (Windlass::Bulwark::kRef::spare)
+         2 >           \_ref_typespec: (Windlass::Bulwark::kSelect::ownVec)
+         2 >           \_ref_typespec: (Windlass::Bulwark::kString::s1)
+         2 >           \_ref_typespec: (Windlass::Bulwark::kStruct::n1)
+         2 >           \_ref_typespec: (Windlass::Bulwark::kTypedef::d1)
+         1 <           \_ref_typespec: (work@Windlass_top.kByte.b1)
+         1 <           \_ref_typespec: (work@Windlass_top.kClass.c1)
+         1 <           \_ref_typespec: (work@Windlass_top.kEnum.e1)
+         1 <             \_ref_typespec: (work@Windlass_top.kInout.spare)
+         1 <           \_ref_typespec: (work@Windlass_top.kInt.i1)
+         1 <           \_ref_typespec: (work@Windlass_top.kLogic.l1)
+         1 <           \_ref_typespec: (work@Windlass_top.kOper)
+         1 <             \_ref_typespec: (work@Windlass_top.kOut.spare)
+         1 <           \_ref_typespec: (work@Windlass_top.kProp.ownProp)
+         1 <           \_ref_typespec: (work@Windlass_top.kReal.r1)
+         1 <             \_ref_typespec: (work@Windlass_top.kRef.spare)
+         1 <           \_ref_typespec: (work@Windlass_top.kSelect.ownVec)
+         1 <           \_ref_typespec: (work@Windlass_top.kString.s1)
+         1 <           \_ref_typespec: (work@Windlass_top.kStruct.n1)
+         1 <           \_ref_typespec: (work@Windlass_top.kTypedef.d1)
+         1 >             \_string_typespec: 
+         1 >             \_struct_typespec: (Windlass::nib_t)
+         3 >               |vpiActual:
+        12 >             |vpiActual:
+         2 >             |vpiFullName:Windlass::Bulwark::kByte::b1
+         2 >             |vpiFullName:Windlass::Bulwark::kClass::c1
+         2 >             |vpiFullName:Windlass::Bulwark::kEnum::e1
+         2 >               |vpiFullName:Windlass::Bulwark::kInout::spare
+         2 >             |vpiFullName:Windlass::Bulwark::kInt::i1
+         2 >             |vpiFullName:Windlass::Bulwark::kLogic::l1
+         2 >             |vpiFullName:Windlass::Bulwark::kOper
+         2 >               |vpiFullName:Windlass::Bulwark::kOut::spare
+         2 >             |vpiFullName:Windlass::Bulwark::kProp::ownProp
+         2 >             |vpiFullName:Windlass::Bulwark::kReal::r1
+         2 >               |vpiFullName:Windlass::Bulwark::kRef::spare
+         2 >             |vpiFullName:Windlass::Bulwark::kSelect::ownVec
+         2 >             |vpiFullName:Windlass::Bulwark::kString::s1
+         2 >             |vpiFullName:Windlass::Bulwark::kStruct::n1
+         2 >             |vpiFullName:Windlass::Bulwark::kTypedef::d1
+         1 <             |vpiFullName:work@Windlass_top.kByte.b1
+         1 <             |vpiFullName:work@Windlass_top.kClass.c1
+         1 <             |vpiFullName:work@Windlass_top.kEnum.e1
+         1 <               |vpiFullName:work@Windlass_top.kInout.spare
+         1 <             |vpiFullName:work@Windlass_top.kInt.i1
+         1 <             |vpiFullName:work@Windlass_top.kLogic.l1
+         1 <             |vpiFullName:work@Windlass_top.kOper
+         1 <               |vpiFullName:work@Windlass_top.kOut.spare
+         1 <             |vpiFullName:work@Windlass_top.kProp.ownProp
+         1 <             |vpiFullName:work@Windlass_top.kReal.r1
+         1 <               |vpiFullName:work@Windlass_top.kRef.spare
+         1 <             |vpiFullName:work@Windlass_top.kSelect.ownVec
+         1 <             |vpiFullName:work@Windlass_top.kString.s1
+         1 <             |vpiFullName:work@Windlass_top.kStruct.n1
+         1 <             |vpiFullName:work@Windlass_top.kTypedef.d1
+         3 >               |vpiParent:
+        12 >             |vpiParent:
+         3 >             |vpiTypespec:
+        12 >           |vpiTypespec:
+== 2060_r10uvm127repro_g127_f_mult.sv/def
+         1 >               \_bit_select: (Cantle::Spandrel::arrIndex::ownArr)
+         3 >               \_byte_typespec: 
+         2 >                 \_int_typespec: 
+         4 >               \_int_typespec: 
+         1 >               \_ref_obj: (Cantle2::Tiercel::oneA::p1)
+         1 >               \_ref_obj: (Cantle2::Tiercel::oneA::p2)
+         1 >               \_ref_obj: (Cantle2::Tiercel::oneB::p1)
+         1 >               \_ref_obj: (Cantle2::Tiercel::oneB::p2)
+         1 >               \_ref_obj: (Cantle2::Tiercel::oneC::p1)
+         1 >               \_ref_obj: (Cantle2::Tiercel::oneC::p2)
+         1 >               \_ref_obj: (Cantle::Spandrel::once1::seedA)
+         1 >               \_ref_obj: (Cantle::Spandrel::recurTop::seedA)
+         1 >                 \_ref_obj: (Cantle::Spandrel::thrice3::ownA)
+         1 >                 \_ref_obj: (Cantle::Spandrel::thrice3::seedA)
+         1 >               \_ref_obj: (Cantle::Spandrel::twice2::seedA)
+         1 >             \_ref_typespec: (Cantle2::Tiercel::oneA::p1)
+         1 >             \_ref_typespec: (Cantle2::Tiercel::oneA::p2)
+         1 >             \_ref_typespec: (Cantle2::Tiercel::oneB::p1)
+         1 >             \_ref_typespec: (Cantle2::Tiercel::oneB::p2)
+         1 >             \_ref_typespec: (Cantle2::Tiercel::oneC::p1)
+         1 >             \_ref_typespec: (Cantle2::Tiercel::oneC::p2)
+         1 >             \_ref_typespec: (Cantle::Spandrel::arrIndex::ownArr)
+         1 >             \_ref_typespec: (Cantle::Spandrel::once1::seedA)
+         1 >             \_ref_typespec: (Cantle::Spandrel::recurTop::seedA)
+         1 >               \_ref_typespec: (Cantle::Spandrel::thrice3::ownA)
+         1 >               \_ref_typespec: (Cantle::Spandrel::thrice3::seedA)
+         1 >             \_ref_typespec: (Cantle::Spandrel::twice2::seedA)
+         3 >               \_string_typespec: 
+         2 >                 |vpiActual:
+        10 >               |vpiActual:
+         1 >               |vpiFullName:Cantle2::Tiercel::oneA::p1
+         1 >               |vpiFullName:Cantle2::Tiercel::oneA::p2
+         1 >               |vpiFullName:Cantle2::Tiercel::oneB::p1
+         1 >               |vpiFullName:Cantle2::Tiercel::oneB::p2
+         1 >               |vpiFullName:Cantle2::Tiercel::oneC::p1
+         1 >               |vpiFullName:Cantle2::Tiercel::oneC::p2
+         1 >               |vpiFullName:Cantle::Spandrel::arrIndex::ownArr
+         1 >               |vpiFullName:Cantle::Spandrel::once1::seedA
+         1 >               |vpiFullName:Cantle::Spandrel::recurTop::seedA
+         1 >                 |vpiFullName:Cantle::Spandrel::thrice3::ownA
+         1 >                 |vpiFullName:Cantle::Spandrel::thrice3::seedA
+         1 >               |vpiFullName:Cantle::Spandrel::twice2::seedA
+         2 >                 |vpiParent:
+        10 >               |vpiParent:
+         2 >               |vpiTypespec:
+        10 >             |vpiTypespec:
+== 2060_r10uvm127repro_g127_f_mult.sv/elab
+         1 >             \_bit_select: (Cantle::Spandrel::arrIndex::ownArr)
+         3 >             \_byte_typespec: 
+         2 >               \_int_typespec: 
+         4 >             \_int_typespec: 
+         1 >             \_ref_obj: (Cantle2::Tiercel::oneA::p1)
+         1 >             \_ref_obj: (Cantle2::Tiercel::oneA::p2)
+         1 >             \_ref_obj: (Cantle2::Tiercel::oneB::p1)
+         1 >             \_ref_obj: (Cantle2::Tiercel::oneB::p2)
+         1 >             \_ref_obj: (Cantle2::Tiercel::oneC::p1)
+         1 >             \_ref_obj: (Cantle2::Tiercel::oneC::p2)
+         1 >             \_ref_obj: (Cantle::Spandrel::once1::seedA)
+         1 >             \_ref_obj: (Cantle::Spandrel::recurTop::seedA)
+         1 >               \_ref_obj: (Cantle::Spandrel::thrice3::ownA)
+         1 >               \_ref_obj: (Cantle::Spandrel::thrice3::seedA)
+         1 >             \_ref_obj: (Cantle::Spandrel::twice2::seedA)
+         2 >           \_ref_typespec: (Cantle2::Tiercel::oneA::p1)
+         2 >           \_ref_typespec: (Cantle2::Tiercel::oneA::p2)
+         2 >           \_ref_typespec: (Cantle2::Tiercel::oneB::p1)
+         2 >           \_ref_typespec: (Cantle2::Tiercel::oneB::p2)
+         2 >           \_ref_typespec: (Cantle2::Tiercel::oneC::p1)
+         2 >           \_ref_typespec: (Cantle2::Tiercel::oneC::p2)
+         2 >           \_ref_typespec: (Cantle::Spandrel::arrIndex::ownArr)
+         2 >           \_ref_typespec: (Cantle::Spandrel::once1::seedA)
+         2 >           \_ref_typespec: (Cantle::Spandrel::recurTop::seedA)
+         2 >             \_ref_typespec: (Cantle::Spandrel::thrice3::ownA)
+         2 >             \_ref_typespec: (Cantle::Spandrel::thrice3::seedA)
+         2 >           \_ref_typespec: (Cantle::Spandrel::twice2::seedA)
+         1 <           \_ref_typespec: (work@Cantle_top.arrIndex.ownArr)
+         1 <           \_ref_typespec: (work@Cantle_top.once1.seedA)
+         1 <           \_ref_typespec: (work@Cantle_top.oneA.p1)
+         1 <           \_ref_typespec: (work@Cantle_top.oneA.p2)
+         1 <           \_ref_typespec: (work@Cantle_top.oneB.p1)
+         1 <           \_ref_typespec: (work@Cantle_top.oneB.p2)
+         1 <           \_ref_typespec: (work@Cantle_top.oneC.p1)
+         1 <           \_ref_typespec: (work@Cantle_top.oneC.p2)
+         1 <           \_ref_typespec: (work@Cantle_top.recurTop.seedA)
+         1 <             \_ref_typespec: (work@Cantle_top.thrice3.ownA)
+         1 <             \_ref_typespec: (work@Cantle_top.thrice3.seedA)
+         1 <           \_ref_typespec: (work@Cantle_top.twice2.seedA)
+         3 >             \_string_typespec: 
+         2 >               |vpiActual:
+        10 >             |vpiActual:
+         2 >             |vpiFullName:Cantle2::Tiercel::oneA::p1
+         2 >             |vpiFullName:Cantle2::Tiercel::oneA::p2
+         2 >             |vpiFullName:Cantle2::Tiercel::oneB::p1
+         2 >             |vpiFullName:Cantle2::Tiercel::oneB::p2
+         2 >             |vpiFullName:Cantle2::Tiercel::oneC::p1
+         2 >             |vpiFullName:Cantle2::Tiercel::oneC::p2
+         2 >             |vpiFullName:Cantle::Spandrel::arrIndex::ownArr
+         2 >             |vpiFullName:Cantle::Spandrel::once1::seedA
+         2 >             |vpiFullName:Cantle::Spandrel::recurTop::seedA
+         2 >               |vpiFullName:Cantle::Spandrel::thrice3::ownA
+         2 >               |vpiFullName:Cantle::Spandrel::thrice3::seedA
+         2 >             |vpiFullName:Cantle::Spandrel::twice2::seedA
+         1 <             |vpiFullName:work@Cantle_top.arrIndex.ownArr
+         1 <             |vpiFullName:work@Cantle_top.once1.seedA
+         1 <             |vpiFullName:work@Cantle_top.oneA.p1
+         1 <             |vpiFullName:work@Cantle_top.oneA.p2
+         1 <             |vpiFullName:work@Cantle_top.oneB.p1
+         1 <             |vpiFullName:work@Cantle_top.oneB.p2
+         1 <             |vpiFullName:work@Cantle_top.oneC.p1
+         1 <             |vpiFullName:work@Cantle_top.oneC.p2
+         1 <             |vpiFullName:work@Cantle_top.recurTop.seedA
+         1 <               |vpiFullName:work@Cantle_top.thrice3.ownA
+         1 <               |vpiFullName:work@Cantle_top.thrice3.seedA
+         1 <             |vpiFullName:work@Cantle_top.twice2.seedA
+         2 >               |vpiParent:
+        10 >             |vpiParent:
+         2 >             |vpiTypespec:
+        10 >           |vpiTypespec:
+== 2773_r10v113repro_v113_ctx.sv/def
+         1 >               \_constant: 
+         1 >               \_int_typespec: 
+         1 >             \_ref_typespec: (qctx::Mesh::oobm)
+         1 >               |vpiActual:
+         1 >               |vpiFullName:qctx::Mesh::oobm
+         1 >               |vpiParent:
+         1 >             |vpiTypespec:
+== 3167_r10vbuvm30repro_vg30_f_fence.sv/def
+         1 >                 \_constant: 
+         3 >                 \_int_typespec: 
+         1 >               \_int_typespec: 
+         2 >                 \_operation: 
+         1 >               \_operation: 
+         1 >               \_ref_typespec: (pv30f::cv30f::f_call_deep2)
+         1 >               \_ref_typespec: (pv30f::cv30f::f_call_in_concat)
+         1 >             \_ref_typespec: (pv30f::cv30f::f_concat_in_call)
+         1 >               \_ref_typespec: (pv30f::cv30f::f_meth_of_call)
+         3 >                 |vpiActual:
+         1 >               |vpiActual:
+         1 >                 |vpiFullName:pv30f::cv30f::f_call_deep2
+         1 >                 |vpiFullName:pv30f::cv30f::f_call_in_concat
+         1 >               |vpiFullName:pv30f::cv30f::f_concat_in_call
+         1 >                 |vpiFullName:pv30f::cv30f::f_meth_of_call
+         3 >                 |vpiParent:
+         1 >               |vpiParent:
+         3 >               |vpiTypespec:
+         1 >             |vpiTypespec:
+== 3167_r10vbuvm30repro_vg30_f_fence.sv/elab
+         1 >                 \_constant: 
+         2 >                 \_int_typespec: 
+         2 >             \_int_typespec: 
+         1 >           \_int_typespec: 
+         1 >                 \_operation: 
+         2 >             \_operation: 
+         1 >           \_operation: 
+         1 >           \_ref_typespec: (pv30f::cv30f::f_call_deep2)
+         1 >               \_ref_typespec: (pv30f::cv30f::f_call_in_concat)
+         1 >         \_ref_typespec: (pv30f::cv30f::f_concat_in_call)
+         1 >               \_ref_typespec: (pv30f::cv30f::f_meth_of_call)
+         1 >           \_ref_typespec: (pv30f::cv30f::f_meth_of_call)
+         2 >                 |vpiActual:
+         2 >             |vpiActual:
+         1 >           |vpiActual:
+         1 >             |vpiFullName:pv30f::cv30f::f_call_deep2
+         1 >                 |vpiFullName:pv30f::cv30f::f_call_in_concat
+         1 >           |vpiFullName:pv30f::cv30f::f_concat_in_call
+         1 >                 |vpiFullName:pv30f::cv30f::f_meth_of_call
+         1 >             |vpiFullName:pv30f::cv30f::f_meth_of_call
+         2 >                 |vpiParent:
+         2 >             |vpiParent:
+         1 >           |vpiParent:
+         2 >               |vpiTypespec:
+         2 >           |vpiTypespec:
+         1 >         |vpiTypespec:

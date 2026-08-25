@@ -1,0 +1,9 @@
+default/MiniAmiq-544c7f61 cells=22
+default/Scoreboard-59431470 cells=2
+default/SeqDriver-32af76aa cells=22
+default/SimpleUVM-1dc93a62 cells=2
+testflags/MiniAmiq-544c7f61 cells=22
+testflags/SeqDriver-32af76aa cells=22
+testflags/SimpleUVM-1dc93a62 cells=2
+LISTED=956 PROCESSED=956 CANDIDATE_DATABASES=7 ZERO_CANDIDATE_DATABASES=949 CANDIDATE_CELLS=94 NONZERO_RC=0
+PROCESSED-ASSERT-OK

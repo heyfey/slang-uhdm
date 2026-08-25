@@ -1,0 +1,153 @@
+r10uvm127 — GATES.  BASE f561b4d.  MEASUREMENT ONLY except the official
+uhdm-cmp inside verify_golden.py, which is the judge.  slang was NOT patched;
+results/*.csv were READ ONLY; NO CORPUS ROW WAS CONVERTED.
+
+== (1) BOTH BINARIES, frozen at immutable paths before any sweep
+15f3eefdea95f356b4593dcd6e8ec55a  /tmp/r10uvm127_pris.bin
+832e499e648ce48eb7530edd4dbc2a98  /tmp/r10uvm127_pat.bin
+   the PRISTINE build from f561b4d in this pass's own worktree is
+   BYTE-IDENTICAL to the main tree's build at the same commit.
+
+== (2) GOLDEN TESTS (SLANG_UHDM exported explicitly to EACH binary)
+   patched  PASS=23
+   patched  FAIL=0
+   /bin/false FAIL= (negative control, must be 23) 23
+
+== (3) uhdm2rtlil, BOTH modes — status histograms and ct8rows
+  725/731
+
+[testflags] 731 tests
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+
+[default] 731 tests
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+DONE
+   cmds.txt binary audit (must name the FROZEN patched binary, never the main tree):
+slang:   /tmp/r10uvm127_pat.bin
+   testflags vs the committed baseline:
+PASS: every row byte-identical to the committed baseline
+   testflags vs THIS PASS'S OWN pristine sweep:
+PASS: every row byte-identical to the committed baseline
+   default   vs THIS PASS'S OWN pristine sweep:
+PASS: every row byte-identical to the committed baseline
+
+== (4) surelog corpus, --mode both, 1588 rows
+[default] 794 tests
+  CMP_EQUAL: 471
+  SLANG_REJECT: 283
+  SURELOG_FAIL: 25
+  CMP_NOTEQUAL: 10
+  DEFERRED: 5
+
+[testflags] 794 tests
+  CMP_EQUAL: 466
+  SLANG_REJECT: 284
+  SURELOG_FAIL: 23
+  CMP_NOTEQUAL: 9
+  DEFERRED: 5
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+DONE
+   cmds.txt binary audit:
+slang:   /tmp/r10uvm127_pat.bin
+   vs the committed baseline:
+PASS: every row byte-identical to the committed baseline
+   vs THIS PASS'S OWN pristine sweep (status AND dump column):
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+   NO ROW WAS CONVERTED: 0 differing rows over 1588.
+
+== (5) BYTEVERIFY, SELFCHECK=1
+   uhdm2rtlil:
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+   surelog:
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=a5a583add733 pristine=bb9ac8ca3838
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=d9fc87b22155 pristine=5c880239915d
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=78a8c2acdf89 pristine=f606ecfde815
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=83d174305366 pristine=a64be355b209
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=a5a583add733 pristine=bb9ac8ca3838
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=6dc2dacd32b8 pristine=c335763b1a40
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=907f1ea6124c pristine=2730cc61637d
+MOVERS: 7 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+== (6) THE A-PRIORI MOVER PREDICTION, made from PRISTINE DATABASES ALONE
+LISTED=956 PROCESSED=956 CANDIDATE_DATABASES=7 ZERO_CANDIDATE_DATABASES=949 CANDIDATE_CELLS=94 NONZERO_RC=0
+PROCESSED-ASSERT-OK
+LISTED=1358 PROCESSED=1358 CANDIDATE_DATABASES=0 ZERO_CANDIDATE_DATABASES=1358 CANDIDATE_CELLS=0 NONZERO_RC=0
+PROCESSED-ASSERT-OK
+   7 candidate databases on surelog, 7 movers; 0 candidates on uhdm2rtlil,
+   0 movers.  0 unpredicted movers, 0 predicted databases that did not move.
+
+== (7) HEADS (rowheads.sh, official uhdm-cmp, counts are DEPTH not distance)
+   PRISTINE:
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         17      1 cmp rc=255
+SeqDriver      testflags       17      1 cmp rc=255
+SimpleUVM      default         12      1 cmp rc=255
+SimpleUVM      testflags       12      1 cmp rc=255
+Scoreboard     default         12      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         17      1 cmp rc=255
+MiniAmiq       testflags       17      1 cmp rc=255
+BuildUVMPkg    default         12      1 cmp rc=255
+BuildUVMPkg    testflags       12      1 cmp rc=255
+Earlgrey_0_1   default        214      1 cmp rc=255
+Earlgrey_0_1   testflags      144      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+   PATCHED:
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         17      1 cmp rc=255
+SeqDriver      testflags       17      1 cmp rc=255
+SimpleUVM      default         12      1 cmp rc=255
+SimpleUVM      testflags       12      1 cmp rc=255
+Scoreboard     default         12      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default        294      1 cmp rc=255
+MiniAmiq       testflags      294      1 cmp rc=255
+BuildUVMPkg    default         12      1 cmp rc=255
+BuildUVMPkg    testflags       12      1 cmp rc=255
+Earlgrey_0_1   default        214      1 cmp rc=255
+Earlgrey_0_1   testflags      144      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+== (8) CANARIES
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=1 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+== (9) PROTECTED DATABASES BY NAME (md5, pristine vs patched)
+   InterfaceModPort     default   pris=59a365f3ce2c pat=59a365f3ce2c SAME
+   InterfaceModPort     testflags pris=59a365f3ce2c pat=59a365f3ce2c SAME
+   BlackParrotComplex   default   pris=e3e354129d5a pat=e3e354129d5a SAME
+   BlackParrotComplex   testflags pris=73a10e8217e5 pat=73a10e8217e5 SAME
+   YosysOldOr           default   pris=d68e0796d62c pat=d68e0796d62c SAME
+   YosysOldOr           testflags pris=d68e0796d62c pat=d68e0796d62c SAME
+   SVSwitch             default   pris=4842211c4030 pat=4842211c4030 SAME
+   SVSwitch             testflags pris=4842211c4030 pat=4842211c4030 SAME
+   YosysVerx            default   pris=6ccda350c24a pat=6ccda350c24a SAME
+   YosysVerx            testflags pris=6ccda350c24a pat=6ccda350c24a SAME
+
+== (10) THE WIDE BOUNDARY
+LISTED=3830 FENCED_SKIPPED=0 PROCESSED=3830 MOVED=26 NO_OUTPUT_PAIRS=294
+PROCESSED-ASSERT-OK
